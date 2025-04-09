@@ -15,6 +15,11 @@ export default ({ lang, includeFields }) => {
   return new Transform({
     objectMode: true,
     transform(location, encoding, cb) {
+      if (location.extIds) {
+        location.extIds = location.extIds
+          .map((extId) => extId.value)
+          .join(', ');
+      }
       cb(
         null,
         includeFields.reduce((mapped, field) => {

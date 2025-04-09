@@ -8,10 +8,9 @@ import IconComponent from './Icon';
 const Wrapper = ({
   children,
   card,
-  maxWidth = 'sm',
-  width = 'sm',
+  width,
   bg,
-  alignHeight,
+  verticalAlign,
   borderRadius,
   useCarousel,
 }) => {
@@ -19,9 +18,9 @@ const Wrapper = ({
     return (
       <Box
         w={width}
-        maxW={maxWidth}
+        flex={1}
         bg={useCarousel ? 'transparent' : bg}
-        height={alignHeight && 'full'}
+        height={verticalAlign ? 'full' : 'auto'}
       >
         {children}
       </Box>
@@ -31,9 +30,9 @@ const Wrapper = ({
   return (
     <Card
       w={width}
-      maxW={maxWidth}
+      flex={1}
       bg={useCarousel ? 'transparent' : bg}
-      height={alignHeight && 'full'}
+      height={verticalAlign ? 'full' : 'auto'}
       borderRadius={borderRadius}
     >
       <CardBody p={8}>{children}</CardBody>
@@ -49,30 +48,30 @@ export default function Modular({
   Icon = null,
   Tag = null,
   card = false,
-  maxWidth = { name: 'sm' },
+  grow = 0,
   width = { name: 'sm' },
   backgroundColor = null,
   tagColor = null,
   fontColor = null,
+  titleColor = null,
+  descriptionColor = null,
   fontSize = null,
   contentAlign = null,
-  alignHeight = false,
+  verticalAlign = false,
   borderRadius = '2xl',
-  variant = 'solid',
   useCarousel = false,
 }) {
   return (
     <Wrapper
       card={useCarousel ? false : card}
-      maxWidth={maxWidth?.name}
-      width={width?.name}
+      width={grow ? 'auto' : width?.name || '400px'}
       bg={color(backgroundColor)}
-      alignHeight={alignHeight}
+      verticalAlign={verticalAlign}
       borderRadius={borderRadius}
       useCarousel={useCarousel}
     >
       <VStack
-        spacing="3"
+        spacing="0"
         align={
           contentAlign === 'left'
             ? 'start'
@@ -80,26 +79,26 @@ export default function Modular({
               ? 'end'
               : 'center'
         }
-        textAlign={contentAlign}
+        textAlign={contentAlign || 'center'}
         color={color(fontColor)}
-        fontSize={fontSize?.name}
-        height="full"
+        height={verticalAlign ? 'full' : 'auto'}
       >
         {Tag ? (
           <Box
             display="flex"
             alignItems="center"
-            gap={2}
-            bg={tagColor ? `${tagColor.name}.200` : null}
-            color={tagColor ? `${tagColor.name}.800` : null}
-            px={4}
+            bg={tagColor ? `${tagColor.name}.50` : null}
+            color={tagColor ? `${tagColor.name}.500` : null}
+            px={6}
             py={2}
             borderRadius="full"
+            fontSize="lg"
+            gap="2"
           >
             {Icon && (
               <IconComponent
                 {...Icon}
-                color={tagColor ? `${tagColor.name}.800` : null}
+                color={tagColor ? `${tagColor.name}.500` : null}
               />
             )}
             {Tag}
@@ -118,27 +117,41 @@ export default function Modular({
                 ? 'flex-end'
                 : 'center'
           }
-          justifyContent="space-around"
+          {...(verticalAlign && { justifyContent: 'space-around' })}
           flexDirection="column"
-          gap={4}
         >
           {title ? (
-            <Heading textAlign={contentAlign} fontSize="160%">
+            <Heading
+              textAlign={contentAlign || 'center'}
+              color={color(titleColor)}
+              fontSize={fontSize?.name || '160%'}
+              mt={Tag || Icon || Illustration ? 7 : 0}
+              fontWeight={600}
+            >
               {title}
             </Heading>
           ) : null}
           {description ? (
             <Box
+              color={color(descriptionColor)}
               width="full"
-              alignItems="center"
               display="flex"
               flexDirection="column"
               style={{ listStylePosition: 'inside' }}
+              fontSize="lg"
+              mt={7}
+              sx={{
+                a: {
+                  '&:hover': {
+                    textDecoration: 'underline',
+                  },
+                },
+              }}
             >
               <ReactMarkdown>{description}</ReactMarkdown>
             </Box>
           ) : null}
-          {CTA ? <CTAButton {...CTA} variant={variant} /> : null}
+          {CTA ? <CTAButton {...CTA} /> : null}
         </Box>
       </VStack>
     </Wrapper>

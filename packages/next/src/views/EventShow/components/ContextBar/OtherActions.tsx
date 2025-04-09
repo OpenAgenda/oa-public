@@ -27,6 +27,7 @@ import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import DuplicateModal from '../DuplicateModal';
 import TransferOwnershipModal from '../TransferOwnershipModal';
+import { useInvalidEventModal } from './InvalidEventModal';
 import ContextBarButton from './ContextBarButton';
 import { fullWidth } from './popperModifiers';
 
@@ -61,7 +62,7 @@ function LinkMenuItem({ action, description, href, rel = null }) {
   );
 }
 
-export default function OtherActions({ agenda }) {
+export default function OtherActions({ agenda, editLink }) {
   const intl = useIntl();
 
   const router = useRouter();
@@ -75,6 +76,8 @@ export default function OtherActions({ agenda }) {
   const isEventContributor = member && member.userUid === me?.member?.userUid;
   const isOriginAgenda = event.originAgenda?.uid === agenda.uid;
   const { canEditEvent = false } = me?.authorizations ?? {};
+
+  const invalidEventModal = useInvalidEventModal(editLink);
 
   const {
     isOpen: removeIsOpen,
@@ -118,6 +121,10 @@ export default function OtherActions({ agenda }) {
           );
 
           if (response.ok) return optimisticResponse;
+          if (response.status === 400) {
+            invalidEventModal.onOpen();
+            return;
+          }
           throw new Error('Error');
         },
         {
@@ -324,6 +331,7 @@ export default function OtherActions({ agenda }) {
       {transferOwnershipIsOpen ? (
         <TransferOwnershipModal isOpen onClose={transferOwnershipOnClose} />
       ) : null}
+      {invalidEventModal.modal}
     </>
   );
 }

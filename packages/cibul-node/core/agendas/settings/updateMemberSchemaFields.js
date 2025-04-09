@@ -51,5 +51,7 @@ export default async function updateSchemaFields(
     await formSchemas.update(agendaMemberSchema.id, fs.getData());
   }
 
+  await agendas.resetCache(agenda);
+
   return fs.getData();
 }

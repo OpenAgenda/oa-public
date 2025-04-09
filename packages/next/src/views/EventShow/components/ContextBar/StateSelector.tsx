@@ -10,7 +10,6 @@ import {
   Flex,
   Tooltip,
   Portal,
-  useDisclosure,
   useBreakpointValue,
   Link,
   Text,
@@ -18,12 +17,12 @@ import {
 import stateMessages from '@openagenda/common-labels/event/states';
 import { nl2br } from '@openagenda/react-shared';
 import StateTag from 'components/StateTag';
-import NotificationModal from 'components/NotificationModal';
 import { FaIcon } from 'icons';
 import { faChevronDown } from 'icons/solid';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import { contextBar as messages } from '../../messages';
+import { useInvalidEventModal } from './InvalidEventModal';
 import ContextBarButton from './ContextBarButton';
 import RejectModal from './RejectModal';
 import { fullWidth } from './popperModifiers';
@@ -60,9 +59,10 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const { canChangeState = false, canPublish = false } = me?.authorizations ?? {};
+  const { canChangeState = false, canPublish = false } =
+    me?.authorizations ?? {};
 
-  const invalidEventModal = useDisclosure();
+  const invalidEventModal = useInvalidEventModal(editLink);
 
   const [refuseModal, setRefuseModal] = useState(false);
 
@@ -220,17 +220,7 @@ export default function StateSelector({ agenda, editLink = '#edit' }) {
           </MenuItem>
         </MenuList>
       </Portal>
-      {invalidEventModal.isOpen ? (
-        <NotificationModal
-          title={intl.formatMessage(messages.invalidEventTitle)}
-          message={intl.formatMessage(messages.invalidEventMessage)}
-          onClose={invalidEventModal.onClose}
-          action={intl.formatMessage(messages.edit)}
-          onAction={() => {
-            window.location.href = editLink;
-          }}
-        />
-      ) : null}
+      {invalidEventModal.modal}
       {refuseModal ? (
         <RejectModal
           setRefuseModal={setRefuseModal}

@@ -25,10 +25,12 @@ import {
   Wrap,
 } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { FaIcon } from 'icons';
 import { faGlobe } from 'icons/regular';
 import { faPhone, faChevronDown } from 'icons/solid';
+import { FALLBACK_LOCALE } from 'config/constants';
 import Image from 'components/Image';
 import ConsentBanner from 'components/ConsentBanner';
 import CopyIdentifier from 'components/CopyIdentifier';
@@ -37,6 +39,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
 import useSession from 'hooks/useSession';
+import Featured from 'components/Featured';
 import isAdminMod from '../../utils/isAdminMod';
 import { useAgenda } from './contexts/agenda';
 import Metas from './components/Metas';
@@ -218,20 +221,25 @@ function EventShow({ preload }: EventShowProps) {
           order="2"
           templateAreas={{
             base: `"event"
-                 "footer"`,
-            lg: `"event sidebar"
-                 "event footer"`,
+                   "footer"`,
+            lg: `"left event sidebar"
+                 "left event footer"`,
           }}
           templateColumns={{
             base: '1fr',
-            lg: '2fr minmax(300px, 1fr)',
+            lg: 'minmax(80px, 1fr) 8fr minmax(300px, 4fr)',
           }}
           templateRows="auto minmax(0, 1fr)"
           rowGap="8"
           columnGap="10"
           mt="8"
-          maxW="container.lg"
+          maxW="container.xl"
         >
+          <GridItem area="left" display={{ base: 'none', lg: 'block' }}>
+            <Flex direction="row" gap="8" mt="16">
+              <Featured featured={event.featured} size="lg" />
+            </Flex>
+          </GridItem>
           <GridItem area="sidebar" display={{ base: 'none', lg: 'block' }}>
             <Flex direction="row" gap="8" mt="16">
               <Sidebar shareOnOpen={shareOnOpen} />
@@ -457,7 +465,12 @@ function EventShow({ preload }: EventShowProps) {
                         {intl.formatMessage(messages.tags)}
                       </chakra.div>
                       {intl.formatList(
-                        event.location.tags.map((tag) => tag.label),
+                        event.location.tags.map((tag) =>
+                          getLocaleValue(tag.label, contentLocale, [
+                            intl.locale,
+                            FALLBACK_LOCALE,
+                          ]),
+                        ),
                         { style: 'narrow' },
                       )}
                     </div>

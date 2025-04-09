@@ -44,7 +44,10 @@ export default function NavigateButton({
       ...getPrefilteredQuery({ query: eventNc || {}, prefilter, filters }),
     }),
     setNc,
-    query,
+    query: {
+      ...query,
+      host: referrer,
+    },
     urlPrefix: `/embed/agendas/${agenda.uid}`,
     sort: sort || 'lastTimingWithFeatured.asc',
   });

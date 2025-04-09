@@ -549,7 +549,7 @@ function EmbedEventShow({
         />
       ) : null}
 
-      {logo !== 'hide' ? <OAAttribution source="embed" /> : null}
+      {logo !== 'hide' ? <OAAttribution source="event" /> : null}
     </>
   );
 }

@@ -4,14 +4,13 @@
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon --ignore build --ignore node_modules app.js",
     "extract-messages": "yarn oa-intl '**/js/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json'",
     "prepack": "node --max_old_space_size=4096 prodify/prodify"
   },
   "dependencies": {
     "@babel/core": "^7.23.3",
     "@babel/runtime-corejs3": "^7.23.2",
-    "@iframe-resizer/child": "^5.3.3",
+    "@iframe-resizer/child": "^5.4.0-beta.14",
     "@loadable/component": "^5.14.1",
     "@loadable/webpack-plugin": "^5.14.2",
     "@openagenda/activity-apps": "^1.2.1",
@@ -89,7 +88,6 @@
     "webpack": "^5.53.0",
     "webpack-assets-manifest": "^5.0.6",
     "webpackbar": "^5.0.0-3",
-    "when": "~3.7.8",
     "xhr": "^2.2.0"
   },
   "devDependencies": {

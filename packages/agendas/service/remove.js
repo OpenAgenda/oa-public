@@ -1,6 +1,5 @@
 'use strict';
 
-const w = require('when');
 const sUtils = require('./lib/utils');
 
 let knex;
@@ -9,21 +8,17 @@ let service;
 let schemas;
 
 function _get(v) {
-  const d = w.defer();
-
-  service.get(
-    v.identifiers,
-    { internal: true, private: null },
-    (err, agenda) => {
-      if (err) return d.reject(err);
-
-      v.agenda = agenda;
-
-      d.resolve(v);
-    },
-  );
-
-  return d.promise;
+  return new Promise((rs, rj) => {
+    service.get(
+      v.identifiers,
+      { internal: true, private: null },
+      (err, agenda) => {
+        if (err) return rj(err);
+        v.agenda = agenda;
+        rs(v);
+      },
+    );
+  });
 }
 
 function _doRemove(v) {
@@ -48,15 +43,12 @@ function _before(v) {
     return v;
   }
 
-  const d = w.defer();
-
-  interfaces.beforeRemove(v.agenda, (err) => {
-    if (err) return d.reject(err);
-
-    d.resolve(v);
+  return new Promise((rs, rj) => {
+    interfaces.beforeRemove(v.agenda, (err) => {
+      if (err) return rj(err);
+      rs(v);
+    });
   });
-
-  return d.promise;
 }
 
 function init(s, k) {
@@ -73,11 +65,12 @@ function init(s, k) {
 
 module.exports = Object.assign(
   (identifiers, cb) => {
-    w({
-      identifiers: sUtils.identifiers.clean(identifiers),
-      agenda: null,
-      success: null,
-    })
+    new Promise((rs) =>
+      rs({
+        identifiers: sUtils.identifiers.clean(identifiers),
+        agenda: null,
+        success: null,
+      }))
       .then(sUtils.identifiers.check)
 
       .then(_get)
@@ -86,7 +79,7 @@ module.exports = Object.assign(
 
       .then(_doRemove)
 
-      .done((v) => {
+      .then((v) => {
         if (v.success && interfaces && interfaces.onRemove) {
           interfaces.onRemove(v.agenda);
         }

@@ -300,7 +300,9 @@ function errorResponse(req, res, err, jsr) {
 
     const data = {
       code: error.code,
-      message: error.message,
+      message: errorLabels[error.message]
+        ? getErrorLabel(error.message, req.lang)
+        : error.message,
       back: _.get(error, 'back', {
         label: getErrorLabel('defaultBack', req.lang),
         link: '/',

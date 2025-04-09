@@ -52,6 +52,8 @@ export default async function updateSchemaFields(
     await formSchemas.update(agendaSchema.id, fs.getData());
   }
 
+  await agendas.resetCache(agenda);
+
   tasks.enqueue('agendaRebuild', agenda.uid, true);
 
   return fs.getData();

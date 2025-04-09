@@ -15,7 +15,9 @@ export default function streamPDF(config, req, res) {
         includeEventImages: total < withImageLimit,
         mode: locationInHeader === 'true' ? 'locationName' : undefined,
         sections: sort.length
-          ? sort.map((s) => s.replace(/\.asc|\.desc/, ''))
+          ? sort
+            .map((s) => s.replace(/\.asc|\.desc/, ''))
+            .filter((s) => !['lastTimingWithFeatured'].includes(s))
           : null,
       });
 

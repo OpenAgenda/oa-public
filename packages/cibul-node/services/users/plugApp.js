@@ -2,8 +2,7 @@ import { Forbidden } from '@openagenda/verror';
 import feathers from '@feathersjs/feathers';
 import express from '@feathersjs/express';
 import cmn from '../../lib/commons-app.js';
-import sendChangeEmail from './middleware/sendChangeEmail.js';
-import setFlashChangeEmail from './middleware/setFlashChangeEmail.js';
+import changeEmailMw from './middleware/changeEmail.js';
 import setFlashAccountRemoved from './middleware/setFlashAccountRemoved.js';
 import getHandler from './lib/getHandler.js';
 
@@ -98,13 +97,9 @@ export default function plugApp(app) {
   );
 
   // send confirmation email after requestChangeEmail
-  app.patch(
-    '/users/:__feathersId/requestChangeEmail',
-    sendChangeEmail(service),
-  );
+  app.patch('/users/:__feathersId/requestChangeEmail', changeEmailMw.send);
 
-  // set flash message after confirm change of email
-  app.get('/users/:__feathersId/confirmChangeEmail', setFlashChangeEmail());
+  app.get('/users/:__feathersId/confirmChangeEmail', changeEmailMw.onSuccess);
 
   // set flash & redirect message after account deletion
   app.delete('/users/:__feathersId', setFlashAccountRemoved());
@@ -112,7 +107,13 @@ export default function plugApp(app) {
   app.use(
     '/users',
     express.errorHandler({
-      html: (err, req, res) => cmn.catchError(req, res)(err),
+      html: (err, req, res) => {
+        if (req.originalUrl.includes('confirmChangeEmail')) {
+          changeEmailMw.onError(err, req, res);
+          return;
+        }
+        cmn.catchError(req, res)(err);
+      },
       logger: null,
     }),
   );

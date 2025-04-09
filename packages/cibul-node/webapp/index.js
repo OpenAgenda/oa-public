@@ -431,7 +431,7 @@ const initialState = async (req) => {
           edit: config.passCulture.offerEditLink,
         },
       },
-      memberFreshness: new Date(60 * 60 * 24 * 30 * 120 * 1000),
+      memberFreshness: 4 * 30 * 24 * 60 * 60 * 1000, // 4 months
       files: {
         maxSize: config.maxFileSize,
         store: {

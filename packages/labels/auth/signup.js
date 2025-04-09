@@ -59,7 +59,8 @@ module.exports = {
   "fullNameTooLong": {
     "fr": "Le nom d'utilisateur ne doit pas excéder 50 caractères",
     "en": "The user name must not exceed 50 characters",
-    "io": "crwdns34002:0crwdne34002:0"
+    "io": "crwdns34002:0crwdne34002:0",
+    "oc": "Lo nom d'utilizaire deu pas passar los 50 caractèrs"
   },
   "passwordNotEqual": {
     "en": "The passwords are not identical",
@@ -75,7 +76,9 @@ module.exports = {
   "passwordRequired": {
     "fr": "Un mot de passe doit être défini",
     "en": "A password must be defined",
-    "io": "crwdns34076:0crwdne34076:0"
+    "io": "crwdns34076:0crwdne34076:0",
+    "it": "È necessario definire una password",
+    "oc": "Se deu definir un senhal"
   },
   "createAccount": {
     "fr": "Création d'un nouveau compte",

@@ -1,5 +1,6 @@
 import { Grid, GridItem } from '@openagenda/uikit';
 import Modular from 'components/strapi/Modular';
+import ModularSet from 'components/strapi/ModularSet';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 
 import fx from './fixtures/modular.json';
@@ -25,9 +26,7 @@ export function Overview() {
               url: '/squarePhteven.jpg',
             },
             borderRadius: 'full',
-            width: { name: '2xl' },
           }}
-          maxWidth={{ name: 'md' }}
           title="Phteven"
           description="Également connu sous le nom de **Tuna**, Phteven est un chien devenu célèbre sur Internet en raison de son apparence distinctive et de son sourire particulier. Sa popularité a inspiré la création de mèmes humoristiques, souvent utilisés pour exprimer des situations comiques ou des jeux de mots. Par exemple, des générateurs de mèmes en ligne permettent aux utilisateurs de créer leurs propres versions en utilisant l'image de Ptheven."
           CTA={{
@@ -65,8 +64,6 @@ export function Overview() {
         <Modular
           {...fx.default}
           card
-          maxWidth={{ name: 'xs' }}
-          variant="outline"
           Illustration={{
             image: {
               url: '/rectanglePhteven.jpg',
@@ -83,6 +80,7 @@ export function Overview() {
             fontColor: {
               name: 'white',
             },
+            variant: 'outline',
           }}
         />
       </GridItem>
@@ -90,7 +88,6 @@ export function Overview() {
         <Modular
           title="Un icône et une image"
           description="Description centrée"
-          maxWidth={{ name: 'lg' }}
           Illustration={{
             image: {
               url: '/rectanglePhteven.jpg',
@@ -125,7 +122,6 @@ export function Overview() {
       <GridItem w="full" justifyItems="center" flex="1 1 33.333%">
         <Modular
           card
-          maxWidth={{ name: 'md' }}
           title="Phteven"
           Icon={{
             name: 'chart-network',
@@ -145,6 +141,144 @@ export function Overview() {
           }}
         />
       </GridItem>
+      <GridItem w="full" justifyItems="center" flex="1 1 33.333%">
+        <Modular
+          card
+          title="Une description avec un lien"
+          description="[Ceci est un lien ](https://openagenda.com)"
+        />
+      </GridItem>
     </Grid>
+  );
+}
+
+export function Widths() {
+  return (
+    <>
+      <ModularSet
+        title="Bigger to the left"
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            grow: 2,
+            description:
+              "Au bord d'un lac scintillant, entouré de roseaux et de nénuphars, vivait un flamant rose nommé Félix. Félix était un flamant un peu spécial : il adorait admirer son reflet dans l'eau. Tous les matins, dès l'aube, il s'approchait du lac, ajustait ses plumes soigneusement et se contemplait, fier de son plumage éclatant.",
+            card: true,
+          },
+          {
+            id: 2,
+            ...fx.default,
+          },
+        ]}
+      />
+      <ModularSet
+        title="Width adapted to content"
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            description:
+              "Au bord d'un lac scintillant, entouré de roseaux et de nénuphars, vivait un flamant rose nommé Félix. Félix était un flamant un peu spécial : il adorait admirer son reflet dans l'eau. Tous les matins, dès l'aube, il s'approchait du lac, ajustait ses plumes soigneusement et se contemplait, fier de son plumage éclatant.",
+            card: true,
+          },
+          {
+            id: 2,
+            ...fx.default,
+          },
+        ]}
+      />
+      <ModularSet
+        title="Same widths"
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            description:
+              "Au bord d'un lac scintillant, entouré de roseaux et de nénuphars, vivait un flamant rose nommé Félix. Félix était un flamant un peu spécial : il adorait admirer son reflet dans l'eau. Tous les matins, dès l'aube, il s'approchait du lac, ajustait ses plumes soigneusement et se contemplait, fier de son plumage éclatant.",
+            card: true,
+          },
+          {
+            id: 2,
+            ...fx.default,
+          },
+        ]}
+      />
+    </>
+  );
+}
+
+export function Heights() {
+  return (
+    <>
+      <ModularSet
+        title="Aligned"
+        verticalAlign="stretch"
+        Components={[
+          {
+            id: 1,
+            ...fx.default,
+            description: 'Short description to show height difference.',
+            card: true,
+          },
+          {
+            id: 2,
+            ...fx.default,
+            description:
+              'A longer description that would normally make this card taller. This demonstrates how alignHeight makes all cards the same height regardless of content length. The description text should adapt to fill the available space.',
+            card: true,
+          },
+        ]}
+      />
+      <ModularSet
+        title="Default"
+        Components={[
+          {
+            id: 3,
+            ...fx.default,
+            description: 'Short description to show height difference.',
+            card: true,
+          },
+          {
+            id: 4,
+            ...fx.default,
+            description: `A longer description that would normally make this card taller.
+
+This demonstrates how alignHeight makes all cards the same height regardless of content length.
+The description text should adapt to fill the available space.`,
+            card: true,
+          },
+        ]}
+      />
+    </>
+  );
+}
+
+export function Colors() {
+  return (
+    <ModularSet
+      title="Colors"
+      verticalAlign="stretch"
+      Components={[
+        {
+          id: 1,
+          ...fx.default,
+          title: 'The modular title is black',
+          description: 'The modular description is grey',
+          titleColor: { name: 'black' },
+          descriptionColor: { name: 'grey' },
+          card: true,
+        },
+        {
+          id: 2,
+          ...fx.default,
+          title: 'The modular title is black',
+          description: 'The modular description is also black',
+          titleColor: { name: 'black' },
+          descriptionColor: { name: 'black' },
+          card: true,
+        },
+      ]}
+    />
   );
 }

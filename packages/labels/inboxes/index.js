@@ -106,7 +106,8 @@ module.exports = {
     "de": "Aktionen",
     "es": "valores",
     "it": "Azioni",
-    "io": "crwdns15022:0crwdne15022:0"
+    "io": "crwdns15022:0crwdne15022:0",
+    "oc": "Accions"
   },
   "resolvedConversation": {
     "fr": "Conversation résolue",
@@ -179,7 +180,7 @@ module.exports = {
     "en": "Required",
     "de": "Erforderlich",
     "es": "Necesario",
-    "it": "Richiesto",
+    "it": "Obbligatorio",
     "br": "Rekis",
     "io": "crwdns15040:0crwdne15040:0",
     "oc": "Requesit"
@@ -467,7 +468,8 @@ module.exports = {
   "memberSchemaTitle": {
     "fr": "Demande de champs membre personnalisés",
     "en": "Request custom member fields",
-    "io": "crwdns32919:0crwdne32919:0"
+    "io": "crwdns32919:0crwdne32919:0",
+    "it": "Richiesta di campi membri personalizzati"
   },
   "memberSchemaDesc": {
     "fr": "Vous voulez modifier le formulaire d'identification des membres?",

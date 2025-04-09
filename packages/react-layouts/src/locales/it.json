@@ -1,4 +1,5 @@
 {
+  "react-layouts.AdminHeader.administration": "Gestione",
   "react-layouts.AdminHeader.return": "Vedere la pagina pubblica",
   "react-layouts.AdminSections.newTab": "Nuovo!",
   "react-layouts.Announcement.close": "Chiudere",

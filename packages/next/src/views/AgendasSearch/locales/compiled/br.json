@@ -33,16 +33,22 @@
         "=0": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "Aucun événement passé"
+              "value": " Darvoud tremenet"
             }
           ]
         },
         "one": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "1 événement passé"
+              "value": " darvoud tremenet"
             }
           ]
         },
@@ -53,7 +59,7 @@
             },
             {
               "type": 0,
-              "value": " événements passés"
+              "value": " darvoud tremenet"
             }
           ]
         }
@@ -133,16 +139,22 @@
         "=0": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "Aucun événement"
+              "value": " Darvoud ebet o tont"
             }
           ]
         },
         "one": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "1 événement"
+              "value": " darvoud o tont"
             }
           ]
         },
@@ -153,7 +165,7 @@
             },
             {
               "type": 0,
-              "value": " événements"
+              "value": " darvoud o tont"
             }
           ]
         }
@@ -161,10 +173,6 @@
       "pluralType": "cardinal",
       "type": 6,
       "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " à venir"
     }
   ]
 }

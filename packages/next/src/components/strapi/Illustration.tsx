@@ -29,6 +29,7 @@ export default function Illustration({
       maxWidth="full"
       width={width?.name}
       height="auto"
+      mt={7}
     />
   );
 }

@@ -35,11 +35,45 @@ describe('02 - event search - functional: location', () => {
         {},
         { size: 1 },
         {
-          includeFields: ['location.city', 'location.uid', 'location.name'],
+          includeFields: ['location.uid', 'location.city', 'location.name'],
         },
       );
 
       expect(Object.keys(event.location)).toEqual(['uid', 'city', 'name']);
+    });
+
+    it('includeFields on adminLevel names maps result keys to requested names', async () => {
+      const {
+        events: [event],
+      } = await service('location').search(
+        {},
+        { size: 1 },
+        {
+          includeFields: [
+            'location.uid',
+            'location.adminLevel4',
+            'location.adminLevel6',
+          ],
+        },
+      );
+
+      expect(event.location).toEqual({
+        uid: 1,
+        adminLevel4: 'Paris',
+        adminLevel6: 'Paris 02',
+      });
+    });
+
+    it('includeFields on location', async () => {
+      const {
+        events: [event],
+      } = await service('location').search(
+        {},
+        { size: 1 },
+        { includeFields: ['location'] },
+      );
+
+      expect(Object.keys(event.location).length).toEqual(16);
     });
   });
 
@@ -136,6 +170,26 @@ describe('02 - event search - functional: location', () => {
       expect(_.uniq(events.map((e) => e.location.adminLevel5))).toEqual([
         '2eme',
       ]);
+    });
+
+    it('if nothing is explicitely requested, district key is provided rather than adminLevel6', async () => {
+      const {
+        events: [event],
+      } = await service('location').search({}, { size: 1 }, { detailed: true });
+
+      expect(event.location.district).toBeDefined();
+    });
+
+    it('if useAdminLevels option is true, adminLevel6 key is provided rather than district', async () => {
+      const {
+        events: [event],
+      } = await service('location').search(
+        {},
+        { size: 1 },
+        { detailed: true, useAdminLevels: true },
+      );
+
+      expect(event.location.adminLevel6).toBeDefined();
     });
 
     it('filter on empty location data', async () => {

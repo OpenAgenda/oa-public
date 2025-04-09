@@ -4,5 +4,11 @@
       "type": 0,
       "value": "Cerca"
     }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
   ]
 }

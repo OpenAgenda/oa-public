@@ -168,7 +168,7 @@ export const Administrator = {
   },
 };
 
-export const InvalidEventOnStateChange = {
+export const InvalidEventOnStateOrFeaturedChange = {
   render: () => (
     <Fixtures event={eventFixtures}>
       <ContextBar />

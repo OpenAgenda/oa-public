@@ -137,16 +137,22 @@
       "value": "Un événement en une apparaît en haut de la liste"
     }
   ],
+  "next.views.EventShow.ContextBar.fixEvent": [
+    {
+      "type": 0,
+      "value": "Corriger l'événement"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEvent": [
+    {
+      "type": 0,
+      "value": "Cet évènement n'est pas valide"
+    }
+  ],
   "next.views.EventShow.ContextBar.invalidEventMessage": [
     {
       "type": 0,
-      "value": "Modifiez l'événement pour résoudre le problème avant de tenter à nouveau de modifier son état. Vous pouvez également le supprimer complètement de l’agenda."
-    }
-  ],
-  "next.views.EventShow.ContextBar.invalidEventTitle": [
-    {
-      "type": 0,
-      "value": "Le nom de cet évènement n'est pas valide"
+      "value": "Vous devrez effectuer une correction sur l'événement avant de pouvoir compléter cette action."
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelled": [
@@ -528,7 +534,7 @@
   "next.views.EventShow.ShareModal.mustSignIn": [
     {
       "type": 0,
-      "value": "Vous devez vous connecter pour partager cet événement"
+      "value": "Vous devez vous connecter pour partager cet événement dans un autre agenda"
     }
   ],
   "next.views.EventShow.ShareModal.onOA": [
@@ -732,7 +738,7 @@
   "next.views.EventShow.backToList": [
     {
       "type": 0,
-      "value": "Retourner à la liste"
+      "value": "Retour à la liste"
     }
   ],
   "next.views.EventShow.contactAdministrators": [
@@ -780,7 +786,7 @@
   "next.views.EventShow.rejectModal.motivePlaceholder": [
     {
       "type": 0,
-      "value": "Motif de rejet"
+      "value": "Motif de refus"
     }
   ],
   "next.views.EventShow.sendAnEmail": [

@@ -1,3 +1,4 @@
 {
-  "next.components.SearchInput.ariaLabel": "Cerca"
+  "next.components.SearchInput.ariaLabel": "Cerca",
+  "next.views.AgendaShow.EventItem.featured": ""
 }

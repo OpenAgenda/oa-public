@@ -17,7 +17,6 @@ export default function Accordion({
   Icon,
   CTA,
   contentAlign = null,
-  variant = 'link',
   contentColor,
 }) {
   return (
@@ -59,7 +58,7 @@ export default function Accordion({
         ) : null}
         {CTA ? (
           <Box textAlign={contentAlign} pt={2}>
-            <CTAButton {...CTA} variant={variant} />
+            <CTAButton {...CTA} />
           </Box>
         ) : null}
       </AccordionPanel>

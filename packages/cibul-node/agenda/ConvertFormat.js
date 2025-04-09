@@ -105,7 +105,9 @@ export default function ConvertFormat({
 
     const convertedEvents = eventsList.events.map((event) => {
       try {
-        return convertEventToLegacyFormat(agendaSettings, event);
+        return convertEventToLegacyFormat(agendaSettings, event, {
+          locationTagLang: req.query.locationTagLang ?? 'fr',
+        });
       } catch (e) {
         log.error('exception while converting to legacy event format', {
           error: e,

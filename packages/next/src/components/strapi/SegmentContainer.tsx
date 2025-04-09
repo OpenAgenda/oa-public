@@ -19,8 +19,8 @@ export default function SegmentContainer({
       <Container
         maxW="8xl"
         color={fontColor ? color(fontColor) : undefined}
-        pt="60px"
-        pb="60px"
+        pt="110px"
+        pb="110px"
       >
         {children}
       </Container>

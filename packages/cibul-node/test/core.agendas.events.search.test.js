@@ -47,180 +47,206 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
   afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core', () => {
-    it('response object contains total, events and sort keys', async () => {
-      const response = await core.agendas(2).events.search({});
-      expect(Object.keys(response)).toEqual(['total', 'events', 'sort']);
-    });
+    describe('basic cases', () => {
+      it('response object contains total, events and sort keys', async () => {
+        const response = await core.agendas(2).events.search({});
+        expect(Object.keys(response)).toEqual(['total', 'events', 'sort']);
+      });
 
-    it('event item contains description field by default', async () => {
-      const { events } = await core.agendas(2).events.search({});
-      expect(Object.keys(events[0]).includes('description')).toBeTruthy();
-    });
+      it('event item contains description field by default', async () => {
+        const { events } = await core.agendas(2).events.search({});
+        expect(Object.keys(events[0]).includes('description')).toBeTruthy();
+      });
 
-    it('first, next and lastTiming are provided by default', async () => {
-      const {
-        events: [event],
-      } = await core.agendas(2).events.search({});
+      it('first, next and lastTiming are provided by default', async () => {
+        const {
+          events: [event],
+        } = await core.agendas(2).events.search({});
 
-      expect(event.firstTiming).not.toBeUndefined();
-      expect(event.lastTiming).not.toBeUndefined();
-      expect(event.nextTiming).not.toBeUndefined();
-    });
-
-    it('if neither userUid or access are provided, only published events are returned', async () => {
-      const { events } = await core
-        .agendas(2)
-        .events.search({ state: null }, {}, { detailed: true });
-
-      expect(events.filter((e) => e.state === 2).length).toBeGreaterThan(0);
-      expect(events.filter((e) => e.state !== 2).length).toBe(0);
-    });
-
-    it('if access is adminmod, unpublished events are returned when requested', async () => {
-      const { events } = await core.agendas(2).events.search(
-        { state: null },
-        {},
-        {
-          detailed: true,
-          access: 'administrator',
-        },
-      );
-
-      expect(events.filter((e) => e.state !== 2).length).toBeGreaterThan(0);
-    });
-
-    it('if search part of query contains an integer, a uid filter is applied', async () => {
-      const { events, total } = await core.agendas(2).events.search(
-        {
-          state: null,
-          search: '1',
-        },
-        {},
-        { access: 'administrator' },
-      );
-
-      expect(total).toBe(1);
-      expect(events[0].uid).toBe(1);
-    });
-
-    it('if includeLabels option is set, additional field values are provided with labels', async () => {
-      const { events } = await core.agendas(2).events.search(
-        { state: null },
-        {},
-        {
-          detailed: true,
-          access: 'administrator',
-          includeLabels: true,
-        },
-      );
-
-      expect(events[0].thematique).toEqual({
-        id: 2,
-        label: { fr: 'Exposition' },
+        expect(event.firstTiming).not.toBeUndefined();
+        expect(event.lastTiming).not.toBeUndefined();
+        expect(event.nextTiming).not.toBeUndefined();
       });
     });
 
-    it('if monolingal option is specified, additional field values are provided with monolingual labels', async () => {
-      const { events } = await core.agendas(2).events.search(
-        { state: null },
-        {},
-        {
-          detailed: true,
-          access: 'administrator',
-          includeLabels: true,
-          monolingual: 'fr',
-        },
-      );
+    describe('options', () => {
+      describe('access', () => {
+        it('if neither userUid or access are provided, only published events are returned', async () => {
+          const { events } = await core
+            .agendas(2)
+            .events.search({ state: null }, {}, { detailed: true });
 
-      expect(events[0].thematique).toEqual({
-        id: 2,
-        label: 'Exposition',
+          expect(events.filter((e) => e.state === 2).length).toBeGreaterThan(0);
+          expect(events.filter((e) => e.state !== 2).length).toBe(0);
+        });
+
+        it('if access is adminmod, unpublished events are returned when requested', async () => {
+          const { events } = await core.agendas(2).events.search(
+            { state: null },
+            {},
+            {
+              detailed: true,
+              access: 'administrator',
+            },
+          );
+
+          expect(events.filter((e) => e.state !== 2).length).toBeGreaterThan(0);
+        });
+
+        it('if search part of query contains an integer, a uid filter is applied', async () => {
+          const { events, total } = await core.agendas(2).events.search(
+            {
+              state: null,
+              search: '1',
+            },
+            {},
+            { access: 'administrator' },
+          );
+
+          expect(total).toBe(1);
+          expect(events[0].uid).toBe(1);
+        });
+
+        it('if userUid is provided, it can be authorized with adminmod access, non published content is accessible', async () => {
+          const { events } = await core.agendas(2).events.search(
+            { state: null },
+            {},
+            {
+              detailed: true,
+              userUid: 63170200,
+            },
+          );
+
+          expect(events.filter((e) => e.state !== 2).length).toBeGreaterThan(0);
+        });
       });
-    });
 
-    it('location image provides full path with includeLocationImagePath option', async () => {
-      const {
-        events: [event],
-      } = await core.agendas(2).events.search(
-        {
-          state: null,
-          locationUid: 1,
-        },
-        { size: 1 },
-        {
-          detailed: true,
-          includeLocationImagePath: true,
-          access: 'internal',
-        },
-      );
+      describe('monolingual', () => {
+        let event;
 
-      expect(event.location.image).toBe(
-        `${testConfig.s3.mainBucketPath}52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg`,
-      );
-    });
+        beforeAll(async () => {
+          const { events } = await core.agendas(2).events.search(
+            { state: null },
+            {},
+            {
+              detailed: true,
+              access: 'administrator',
+              includeLabels: true,
+              monolingual: 'fr',
+            },
+          );
 
-    it('if userUid is provided, it can be authorized with adminmod access, non published content is accessible', async () => {
-      const { events } = await core.agendas(2).events.search(
-        { state: null },
-        {},
-        {
-          detailed: true,
-          userUid: 63170200,
-        },
-      );
+          [event] = events;
+        });
 
-      expect(events.filter((e) => e.state !== 2).length).toBeGreaterThan(0);
-    });
+        it('if monolingal option is specified, additional field values are provided with monolingual labels', () => {
+          expect(event.thematique).toEqual({
+            id: 2,
+            label: 'Exposition',
+          });
+        });
 
-    it('fix: image credits are provided', async () => {
-      const { events } = await core.agendas(2).events.search();
-      expect(events.filter((e) => e.uid === 2)[0].imageCredits).toEqual(
-        'Gaetan Latouche',
-      );
-    });
+        it('event standard multilingual field values are provided in requested language', () => {
+          expect(event.title).toBe('Evénement 1');
+        });
 
-    it('if useAfterKey is set in options, after is to be given to navigation instead of searchAfter and result provides after instead of sort and sort as the effective sort value', async () => {
-      const { sort, after, events } = await core.agendas(2).events.search(
-        { state: null },
-        { size: 1 },
-        {
-          userUid: 63170200,
-          useAfterKey: true,
-        },
-      );
+        it('location multilingual field values are provided in requested language', () => {
+          expect(event.location.description).toBe(
+            "Les locaux d'OpenAgenda jusqu'en 2020",
+          );
+        });
+      });
 
-      expect(events[0].uid).toBe(1);
-      expect(sort).toBe('timingsWithFeatured.asc');
-      expect(after).toEqual(['0', 'null', '1569578400000', '1']);
+      describe('other', () => {
+        it('if includeLabels option is set, additional field values are provided with labels', async () => {
+          const { events } = await core.agendas(2).events.search(
+            { state: null },
+            {},
+            {
+              detailed: true,
+              access: 'administrator',
+              includeLabels: true,
+            },
+          );
 
-      const result = await core.agendas(2).events.search(
-        { state: null },
-        { size: 1, after },
-        {
-          userUid: 63170200,
-          useAfterKey: true,
-        },
-      );
+          expect(events[0].thematique).toEqual({
+            id: 2,
+            label: { fr: 'Exposition' },
+          });
+        });
 
-      expect(result.events[0].uid).toBe(2);
-    });
+        it('location image provides full path with includeLocationImagePath option', async () => {
+          const {
+            events: [event],
+          } = await core.agendas(2).events.search(
+            {
+              state: null,
+              locationUid: 1,
+            },
+            { size: 1 },
+            {
+              detailed: true,
+              includeLocationImagePath: true,
+              access: 'internal',
+            },
+          );
 
-    it('fix: updatedAt is latest between ae, event and location timestamps', async () => {
-      const { events } = await core.agendas(2).events.search(
-        {
-          state: null,
-          uid: 1,
-        },
-        {},
-        {
-          access: 'administrator',
-          detailed: true,
-        },
-      );
+          expect(event.location.image).toBe(
+            `${testConfig.s3.mainBucketPath}52b2e21bcb584c20b4abb00f4589f9de.base.image.jpg`,
+          );
+        });
 
-      expect(new Date(events.pop().updatedAt).getTime()).toBeGreaterThanOrEqual(
-        1719330399000,
-      );
+        it('fix: image credits are provided', async () => {
+          const { events } = await core.agendas(2).events.search();
+          expect(events.filter((e) => e.uid === 2)[0].imageCredits).toEqual(
+            'Gaetan Latouche',
+          );
+        });
+
+        it('if useAfterKey is set in options, after is to be given to navigation instead of searchAfter and result provides after instead of sort and sort as the effective sort value', async () => {
+          const { sort, after, events } = await core.agendas(2).events.search(
+            { state: null },
+            { size: 1 },
+            {
+              userUid: 63170200,
+              useAfterKey: true,
+            },
+          );
+
+          expect(events[0].uid).toBe(1);
+          expect(sort).toBe('timingsWithFeatured.asc');
+          expect(after).toEqual(['0', 'null', '1569578400000', '1']);
+
+          const result = await core.agendas(2).events.search(
+            { state: null },
+            { size: 1, after },
+            {
+              userUid: 63170200,
+              useAfterKey: true,
+            },
+          );
+
+          expect(result.events[0].uid).toBe(2);
+        });
+
+        it('fix: updatedAt is latest between ae, event and location timestamps', async () => {
+          const { events } = await core.agendas(2).events.search(
+            {
+              state: null,
+              uid: 1,
+            },
+            {},
+            {
+              access: 'administrator',
+              detailed: true,
+            },
+          );
+
+          expect(
+            new Date(events.pop().updatedAt).getTime(),
+          ).toBeGreaterThanOrEqual(1719330399000);
+        });
+      });
     });
 
     it('longDescriptionFormat option set to HTML', async () => {

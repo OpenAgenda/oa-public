@@ -114,7 +114,7 @@ module.exports = {
   "stateFieldInfo": {
     "fr": "L'accès à ce champ est restreint aux administrateurs et modérateurs de l'agenda",
     "en": "Access to this field is limited to administrators and moderators of the agenda",
-    "it": "I contributori non possono vedere né modificare questo campo",
+    "it": "L'accesso a questo campo è limitato agli amministratori e ai moderatori dell'agenda",
     "io": "crwdns16460:0crwdne16460:0",
     "de": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl",
     "oc": "Lo camp es pas accessible als contributors"

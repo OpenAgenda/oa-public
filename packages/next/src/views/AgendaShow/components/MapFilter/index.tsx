@@ -15,11 +15,12 @@ const MapField = React.forwardRef<any, any>(function MapField(
     loadGeoData,
     initialViewport,
     defaultViewport,
+    className,
   },
   ref,
 ) {
   return (
-    <Box h="250px" pos="relative">
+    <Box __css={{ h: '250px', pos: 'relative' }} className={className}>
       <DynamicMap
         innerRef={ref}
         input={input}

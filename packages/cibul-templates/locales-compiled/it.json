@@ -1,170 +1,134 @@
 {
-  "aggregate-button": [
+  "ReactShared.ImageInput.fileTooLarge": [
     {
       "type": 0,
-      "value": "Aggregate"
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the upper limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "maxSize"
     }
   ],
-  "cibulTemplates.displayContextBar.completeAction": [
+  "ReactShared.ImageInput.fileTooSmall": [
     {
       "type": 0,
-      "value": "Complete"
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the lower limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "minSize"
     }
   ],
-  "cibulTemplates.displayContextBar.displayAction": [
+  "ReactShared.ImageInput.notSupported": [
     {
       "type": 0,
-      "value": "Display"
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is not supported"
     }
   ],
-  "cibulTemplates.displayContextBar.modifyAction": [
+  "ReactShared.ImageInput.remove": [
     {
       "type": 0,
-      "value": "Modificare"
+      "value": "Remove"
+    }
+  ],
+  "ReactShared.ImageInput.tooManyFiles": [
+    {
+      "type": 0,
+      "value": "Too many files, only accepts a single file"
+    }
+  ],
+  "ReactShared.ImageInput.update": [
+    {
+      "type": 0,
+      "value": "Update the image"
     }
   ],
   "cibulTemplates.passwordField.good": [
     {
       "type": 0,
-      "value": "Ok 🙂"
+      "value": "Va bene 🙂"
     }
   ],
   "cibulTemplates.passwordField.great": [
     {
       "type": 0,
-      "value": "Great 🥳"
+      "value": "Ottimo 🥳"
     }
   ],
   "cibulTemplates.passwordField.isSameAs": [
     {
       "type": 0,
-      "value": "Must be different from name or email 🙄"
+      "value": "Deve essere diverso dal nome o dall'email 🙄"
     }
   ],
   "cibulTemplates.passwordField.required": [
     {
       "type": 0,
-      "value": "A password must be defined"
+      "value": "È necessario definire una password"
     }
   ],
   "cibulTemplates.passwordField.tooWeak": [
     {
       "type": 0,
-      "value": "This password is too weak 😑"
+      "value": "Questa password è troppo debole 😑"
     }
   ],
   "cibulTemplates.passwordField.usual": [
     {
       "type": 0,
-      "value": "Too usual 😑"
+      "value": "Troppo solito 😑"
     }
   ],
   "cibulTemplates.passwordField.weak": [
     {
       "type": 0,
-      "value": "This password is not very secure 😐"
+      "value": "Questa password non è molto sicura 😐"
     }
   ],
   "cibulTemplates.passwordField.weakish": [
     {
       "type": 0,
-      "value": "A bit better 😬"
-    }
-  ],
-  "common.event.fields.accessibility": [
-    {
-      "type": 0,
-      "value": "Accessibilità speciale"
-    }
-  ],
-  "common.event.fields.age": [
-    {
-      "type": 0,
-      "value": "Targeted public age"
-    }
-  ],
-  "common.event.fields.attendanceMode": [
-    {
-      "type": 0,
-      "value": "Modalità di partecipazione"
-    }
-  ],
-  "common.event.fields.conditions": [
-    {
-      "type": 0,
-      "value": "Condizioni"
-    }
-  ],
-  "common.event.fields.description": [
-    {
-      "type": 0,
-      "value": "Short description"
-    }
-  ],
-  "common.event.fields.image": [
-    {
-      "type": 0,
-      "value": "Image"
-    }
-  ],
-  "common.event.fields.imageCredits": [
-    {
-      "type": 0,
-      "value": "Image credits"
-    }
-  ],
-  "common.event.fields.keywords": [
-    {
-      "type": 0,
-      "value": "Parole Chiave"
-    }
-  ],
-  "common.event.fields.location": [
-    {
-      "type": 0,
-      "value": "Luogo"
-    }
-  ],
-  "common.event.fields.longDescription": [
-    {
-      "type": 0,
-      "value": "Descrizione lunga"
-    }
-  ],
-  "common.event.fields.onlineAccessLink": [
-    {
-      "type": 0,
-      "value": "Collegamento di accesso"
-    }
-  ],
-  "common.event.fields.registration": [
-    {
-      "type": 0,
-      "value": "Registrazione"
-    }
-  ],
-  "common.event.fields.slug": [
-    {
-      "type": 0,
-      "value": "Slug"
-    }
-  ],
-  "common.event.fields.status": [
-    {
-      "type": 0,
-      "value": "Status"
-    }
-  ],
-  "common.event.fields.timings": [
-    {
-      "type": 0,
-      "value": "Orari"
-    }
-  ],
-  "common.event.fields.title": [
-    {
-      "type": 0,
-      "value": "Titolo"
+      "value": "Un po' meglio 😬"
     }
   ],
   "common.event.states.published": [
@@ -176,7 +140,7 @@
   "common.event.states.readyToPublish": [
     {
       "type": 0,
-      "value": "Ready to publish"
+      "value": "Da completare"
     }
   ],
   "common.event.states.refused": [
@@ -188,151 +152,7 @@
   "common.event.states.toModerate": [
     {
       "type": 0,
-      "value": "To moderate"
-    }
-  ],
-  "common.roles.administrator": [
-    {
-      "type": 0,
-      "value": "Administrator"
-    }
-  ],
-  "common.roles.contributor": [
-    {
-      "type": 0,
-      "value": "Collaboratore"
-    }
-  ],
-  "common.roles.moderator": [
-    {
-      "type": 0,
-      "value": "Moderatore"
-    }
-  ],
-  "common.roles.reader": [
-    {
-      "type": 0,
-      "value": "Reader"
-    }
-  ],
-  "displayAdditionalFields.emptyValue": [
-    {
-      "type": 0,
-      "value": "No input"
-    }
-  ],
-  "displayAdditionalFields.goToAdditionalFields": [
-    {
-      "type": 0,
-      "value": "vedere"
-    }
-  ],
-  "displayAdditionalFields.noFile": [
-    {
-      "type": 0,
-      "value": "No file is loaded"
-    }
-  ],
-  "displayAdditionalFields.noImage": [
-    {
-      "type": 0,
-      "value": "No image is loaded"
-    }
-  ],
-  "displayAdditionalFields.noSelectionValue": [
-    {
-      "type": 0,
-      "value": "No selection"
-    }
-  ],
-  "displayAdditionalFields.privateField": [
-    {
-      "type": 0,
-      "value": "Restricted information"
-    }
-  ],
-  "event/contributor-section": [
-    {
-      "type": 0,
-      "value": "Collaboratore"
-    }
-  ],
-  "event/contributor/edit": [
-    {
-      "type": 0,
-      "value": "Modificare"
-    }
-  ],
-  "event/contributor/email": [
-    {
-      "type": 0,
-      "value": "Email"
-    }
-  ],
-  "event/contributor/emptyContactInfo": [
-    {
-      "type": 0,
-      "value": "No contact information available"
-    }
-  ],
-  "event/contributor/name": [
-    {
-      "type": 0,
-      "value": "Nome"
-    }
-  ],
-  "event/contributor/organization": [
-    {
-      "type": 0,
-      "value": "Ragione sociale"
-    }
-  ],
-  "event/contributor/phone": [
-    {
-      "type": 0,
-      "value": "Phone"
-    }
-  ],
-  "event/contributor/position": [
-    {
-      "type": 0,
-      "value": "Ruolo"
-    }
-  ],
-  "event/contributor/role": [
-    {
-      "type": 0,
-      "value": "Role"
-    }
-  ],
-  "event/private-section": [
-    {
-      "type": 0,
-      "value": "Private information"
-    }
-  ],
-  "export-all-button": [
-    {
-      "type": 0,
-      "value": "Esportare"
-    }
-  ],
-  "export-select-button": [
-    {
-      "type": 0,
-      "value": "Export the selection"
-    }
-  ],
-  "more-button": [
-    {
-      "type": 0,
-      "value": "more"
-    }
-  ],
-  "share-button": [
-    {
-      "type": 0,
-      "value": "Condividere su un altro OpenAgenda"
+      "value": "Da moderare"
     }
   ]
 }

@@ -7,11 +7,10 @@ const log = logs('postDSL');
 const hasFailure = (body, type) =>
   !!(body._shards.failures ?? []).find(({ reason }) => reason.type === type);
 
-export default async function postDSL({ client }, index, DSL, options = {}) {
+export default async function postDSL({ client }, index, DSL) {
   const res = await client.search({
     index,
     body: DSL,
-    scroll: options.scroll,
   });
 
   if (hasFailure(res.body, 'too_many_buckets_exception')) {
@@ -31,7 +30,6 @@ export default async function postDSL({ client }, index, DSL, options = {}) {
   return {
     events: res.body.hits.hits.map((h) => h._source),
     total: res.body.hits.total.value,
-    scrollId: res.body._scroll_id,
     sort:
       DSL.sort && res.body.hits.hits.length
         ? res.body.hits.hits[res.body.hits.hits.length - 1].sort

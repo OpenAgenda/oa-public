@@ -23,6 +23,7 @@ import cleanNavResult from './utils/cleanNavResult.js';
 import formatError from './utils/formatError.js';
 import cleanRequestedAggregation from './utils/cleanRequestedAggregation.js';
 import { inflateAndClean as inflateAndCleanQuery } from './utils/validateQuery.js';
+import adminLevelSwap from './utils/adminLevelSwap.js';
 
 const log = logs('search');
 
@@ -38,6 +39,7 @@ function buildEventParsers({
   assetsPath,
   useDefaultImage,
   defaultImage,
+  useAdminLevels,
 }) {
   const parsers = [convertToLocalTimezone];
 
@@ -105,6 +107,13 @@ function buildEventParsers({
     parsers.push(includePathInLocationImage.bind(null, { assetsPath }));
   }
 
+  parsers.push(
+    adminLevelSwap.transformToRequested.bind(null, {
+      requestedIncludes,
+      useAdminLevels,
+    }),
+  );
+
   return parsers;
 }
 
@@ -138,6 +147,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     useDefaultImage,
     aggsSizeLimit,
     removed,
+    useAdminLevels,
   } = validateOptions(options);
 
   try {
@@ -218,7 +228,6 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     _.pick(config, ['client']),
     index,
     cleanDSL,
-    cleanNav.scroll ? cleanNav : {},
   ).then(
     (r) => ({ result: r }),
     (e) => ({ error: e }),
@@ -228,7 +237,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     throw formatError(error);
   }
 
-  const { events, total, sort, scrollId } = result;
+  const { events, total, sort } = result;
 
   let { aggregations: aggregationResults } = result;
 
@@ -243,6 +252,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
       requestedIncludes,
       assetsPath,
       useDefaultImage,
+      useAdminLevels,
       defaultImage,
       parser,
     },
@@ -276,38 +286,16 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   return {
     total,
     events: parsedEvents,
-    ...cleanNavResult(
-      cleanQuery,
-      { scrollId, sort },
-      { useAfterKey, total, events },
-    ),
+    ...cleanNavResult(cleanQuery, { sort }, { useAfterKey, total, events }),
     ...aggregationResults ? { aggregations: aggregationResults } : {},
   };
 }
 
-function runScroll(config, set, scrollId, scroll) {
-  return config.client.scroll({ scrollId, scroll }).then((res) => ({
-    events: res.body.hits.hits.map((h) => h._source),
-    total: res.body.hits.total.value,
-    scrollId: res.body._scroll_id,
-  }));
-}
-
-function clearScroll(config, set, scrollId) {
-  return config.client.clearScroll({ scrollId });
-}
-
 export default (config, set) => {
-  const methods = {
-    search: search.bind(null, config, set),
-    scroll: runScroll.bind(null, config, set),
-    clearScroll: clearScroll.bind(null, config, set),
-  };
-
-  return Object.assign(methods.search, {
-    scroll: methods.scroll,
+  const configuredSearch = search.bind(null, config, set);
+  return Object.assign(configuredSearch, {
     dsl: (DSL, options) =>
       postDSL(_.pick(config, ['client', 'type']), set, DSL, options),
-    stream: instanciateSearchStream.bind(null, methods, set),
+    stream: instanciateSearchStream.bind(null, configuredSearch, set),
   });
 };

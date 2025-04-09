@@ -54,6 +54,7 @@ async function get(core, agendaUid, options = {}) {
       .get(options, { json: true });
 
     if (cached) {
+      log('returning cached version');
       return cached;
     }
   }

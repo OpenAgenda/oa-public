@@ -58,6 +58,10 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.region',
     defaultMessage: 'Region',
   },
+  district: {
+    id: 'aggregator-sources.DefineRules.district',
+    defaultMessage: 'District',
+  },
   name: {
     id: 'aggregator-sources.DefineRules.name',
     defaultMessage: 'Location name',

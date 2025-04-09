@@ -70,7 +70,8 @@ module.exports = {
     "en": "SIRET Code",
     "fr": "Code SIRET",
     "io": "crwdns33876:0crwdne33876:0",
-    "it": "Codice fiscale"
+    "it": "Codice fiscale",
+    "oc": "N° SIRET"
   },
   "countryCode": {
     "en": "Country code",
@@ -116,11 +117,11 @@ module.exports = {
     "it": "Verificato",
     "oc": "Verificat"
   },
-  "extId": {
-    "en": "External id",
-    "fr": "Identifiant externe",
+  "extIds": {
+    "en": "External ids",
+    "fr": "Identifiants externes",
     "io": "crwdns12132:0crwdne12132:0",
-    "it": "Id esternale",
+    "it": "Id esternales",
     "oc": "Identificant extèrne"
   },
   "slug": {
@@ -156,5 +157,13 @@ module.exports = {
     "it": "Descrizione",
     "oc": "Descripcion",
     "io": "crwdns32875:0crwdne32875:0"
+  },
+  "adminLevel5": {
+    "en": "Borough",
+    "fr": "Arrondissement"
+  },
+  "adminLevel6": {
+    "en": "City district",
+    "fr": "Quartier"
   }
 };

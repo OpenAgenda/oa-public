@@ -4,127 +4,53 @@ import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import fx from './fixtures/modular.json';
 
 export default {
-  title: 'strapi/Modular',
+  title: 'strapi/ModularSet',
   decorators: [ProvidersDecorator],
 };
 
-export function Widths() {
-  return (
-    <>
-      <ModularSet
-        title="Bigger to the left"
-        Components={[
-          {
-            id: 1,
-            ...fx.default,
-            grow: 2,
-            description:
-              "Au bord d'un lac scintillant, entouré de roseaux et de nénuphars, vivait un flamant rose nommé Félix. Félix était un flamant un peu spécial : il adorait admirer son reflet dans l'eau. Tous les matins, dès l'aube, il s'approchait du lac, ajustait ses plumes soigneusement et se contemplait, fier de son plumage éclatant.",
-            card: true,
-            maxWidth: { name: 'full' },
-          },
-          {
-            id: 2,
-            ...fx.default,
-          },
-        ]}
-      />
-      <ModularSet
-        title="Width adapted to content"
-        Components={[
-          {
-            id: 1,
-            ...fx.default,
-            description:
-              "Au bord d'un lac scintillant, entouré de roseaux et de nénuphars, vivait un flamant rose nommé Félix. Félix était un flamant un peu spécial : il adorait admirer son reflet dans l'eau. Tous les matins, dès l'aube, il s'approchait du lac, ajustait ses plumes soigneusement et se contemplait, fier de son plumage éclatant.",
-            card: true,
-            maxWidth: { name: 'full' },
-          },
-          {
-            id: 2,
-            ...fx.default,
-          },
-        ]}
-      />
-      <ModularSet
-        title="Same widths"
-        Components={[
-          {
-            id: 1,
-            ...fx.default,
-            description:
-              "Au bord d'un lac scintillant, entouré de roseaux et de nénuphars, vivait un flamant rose nommé Félix. Félix était un flamant un peu spécial : il adorait admirer son reflet dans l'eau. Tous les matins, dès l'aube, il s'approchait du lac, ajustait ses plumes soigneusement et se contemplait, fier de son plumage éclatant.",
-            card: true,
-          },
-          {
-            id: 2,
-            ...fx.default,
-          },
-        ]}
-      />
-    </>
-  );
-}
-
-export function Heights() {
-  return (
-    <>
-      <ModularSet
-        title="Aligned"
-        alignHeight
-        Components={[
-          {
-            id: 1,
-            ...fx.default,
-            description: 'Short description to show height difference.',
-            card: true,
-          },
-          {
-            id: 2,
-            ...fx.default,
-            description:
-              'A longer description that would normally make this card taller. This demonstrates how alignHeight makes all cards the same height regardless of content length. The description text should adapt to fill the available space.',
-            card: true,
-          },
-        ]}
-      />
-      <ModularSet
-        title="Default"
-        Components={[
-          {
-            id: 3,
-            ...fx.default,
-            description: 'Short description to show height difference.',
-            card: true,
-          },
-          {
-            id: 4,
-            ...fx.default,
-            description: `A longer description that would normally make this card taller.
-
-This demonstrates how alignHeight makes all cards the same height regardless of content length.
-The description text should adapt to fill the available space.`,
-            card: true,
-          },
-        ]}
-      />
-    </>
-  );
-}
-export function Carousel() {
+export function Colors() {
   return (
     <ModularSet
-      title="Carousel"
-      useCarousel={true}
+      title="The modularSet title is blue"
+      description="The modularSet description is black"
+      titleColor={{
+        name: 'blue',
+        swatch: '500',
+      }}
+      descriptionColor={{ name: 'black' }}
+      verticalAlign="stretch"
       Components={[
         {
           id: 1,
           ...fx.default,
-          description: 'First item in the carousel.',
+          title: 'The modular title is black',
+          description: 'The modular description is grey',
+          titleColor: { name: 'black' },
+          descriptionColor: { name: 'grey' },
           card: true,
-          maxWidth: { name: 'full' },
-          width: { name: 'full' },
-          variant: 'link',
+        },
+        {
+          id: 2,
+          ...fx.default,
+          title: 'The modular title is black',
+          description: 'The modular description is also black',
+          titleColor: { name: 'black' },
+          descriptionColor: { name: 'black' },
+          card: true,
+        },
+      ]}
+    />
+  );
+}
+
+export function Multiple() {
+  return (
+    <ModularSet
+      title="The modularSet has more than four components"
+      width={{ name: '3xs' }}
+      Components={[
+        {
+          id: 1,
           Illustration: {
             image: {
               url: '/tinyPhteven.jpg',
@@ -133,12 +59,6 @@ export function Carousel() {
         },
         {
           id: 2,
-          ...fx.default,
-          description: 'Second item in the carousel.',
-          card: true,
-          maxWidth: { name: 'full' },
-          width: { name: 'full' },
-          variant: 'link',
           Illustration: {
             image: {
               url: '/tinyPhteven.jpg',
@@ -147,12 +67,6 @@ export function Carousel() {
         },
         {
           id: 3,
-          ...fx.default,
-          description: 'Third item in the carousel.',
-          card: true,
-          maxWidth: { name: 'full' },
-          width: { name: 'full' },
-          variant: 'link',
           Illustration: {
             image: {
               url: '/tinyPhteven.jpg',
@@ -161,12 +75,14 @@ export function Carousel() {
         },
         {
           id: 4,
-          ...fx.default,
-          description: 'Fourth item in the carousel.',
-          card: true,
-          maxWidth: { name: 'full' },
-          width: { name: 'full' },
-          variant: 'link',
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 5,
           Illustration: {
             image: {
               url: '/tinyPhteven.jpg',

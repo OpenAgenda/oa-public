@@ -122,7 +122,7 @@ const FormSchemaBuilder = ({
     [extendedFrom],
   );
 
-  const getMergedExtentionSchema = useCallback(
+  const parentsMergedSchema = useMemo(
     () => merge(...extendedFrom.map((e) => e.schema)),
     [extendedFrom],
   );
@@ -132,6 +132,7 @@ const FormSchemaBuilder = ({
     () => (initialSchema?.fields ? initialSchema : { fields: [] }),
     [initialSchema],
   );
+
   const mergedInitialSchema = getMergedSchema(initSchema);
 
   const [schema, setSchema] = useState(initSchema);
@@ -269,10 +270,15 @@ const FormSchemaBuilder = ({
         getMergedSchema(schema),
       );
 
-      const updatedSchema = updateSchemaField(currentSchema, field, update);
+      const updatedSchema = updateSchemaField(
+        currentSchema,
+        field,
+        update,
+        parentsMergedSchema,
+      );
       updateSaveState(saveStates.CHANGED, updatedSchema);
     },
-    [schema, getMergedSchema, getSchema, updateSaveState],
+    [schema, getMergedSchema, getSchema, updateSaveState, parentsMergedSchema],
   );
 
   const handleLabelLanguagesChange = useCallback(
@@ -313,7 +319,7 @@ const FormSchemaBuilder = ({
     () => getMergedSchema(schema),
     [schema, getMergedSchema],
   );
-  const parentsMergedSchema = getMergedExtentionSchema();
+
   const disabled = saveState === saveStates.LOADING;
 
   return (
