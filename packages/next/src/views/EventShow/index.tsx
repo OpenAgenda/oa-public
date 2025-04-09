@@ -23,6 +23,7 @@ import {
   Tab,
   WrapItem,
   Wrap,
+  useBreakpointValue,
 } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
 import { getLocaleValue } from '@openagenda/intl';
@@ -152,6 +153,8 @@ function EventShow({ preload }: EventShowProps) {
   } = useShareModal();
 
   useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
+
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const isEventContributor = member && member.userUid === me?.member?.userUid;
 
@@ -398,7 +401,7 @@ function EventShow({ preload }: EventShowProps) {
                   //   borderColor: 'primary.500',
                   // }}
                 >
-                  {canEditEvent ? (
+                  {canEditEvent && !isMobile ? (
                     <Menu>
                       <MenuButton
                         as={Button}
@@ -431,7 +434,8 @@ function EventShow({ preload }: EventShowProps) {
                         </MenuItem>
                       </MenuList>
                     </Menu>
-                  ) : (
+                  ) : null}
+                  {!canEditEvent && !isMobile ? (
                     <>
                       {canModifyLocation(me?.member, event, agenda) ? (
                         <EditLocationButton canEditEvent={false} />
@@ -439,7 +443,7 @@ function EventShow({ preload }: EventShowProps) {
                         <SuggestLocationChangeButton canEditEvent={false} />
                       )}
                     </>
-                  )}
+                  ) : null}
 
                   <div>
                     <chakra.div fontWeight="bold">
