@@ -151,9 +151,11 @@ export default function EventItem({
     : undefined;
 
   const passUnpublished = !passId
-    && getCurrentValue(
-      event.registration.find((r) => r.service === 'passCulture')?.data,
-    );
+    && Object.keys(
+      getCurrentValue(
+        event.registration.find((r) => r.service === 'passCulture')?.data,
+      ),
+    ).length;
 
   const isPassed = useMemo(() => {
     if (!event.timings?.length) {
