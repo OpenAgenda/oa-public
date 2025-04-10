@@ -45,58 +45,61 @@ function _searchUsers(req, res) {
 export default async function getUsers(req, res, next) {
   const { knex, members: membersSvc, agendas: agendasSvc } = req.app.services;
 
-  if (req.xhr) {
-    if (req.query.uid) {
-      return loadUserFromQuery(req, res, () => {
-        if (!req.loadedUser.id) return next(new Error('User not found'));
+  if (!req.xhr) {
+    return next();
+  }
 
-        membersSvc
-          .list(
-            { userUid: req.loadedUser.uid },
-            { limit: 1000, order: 'id.desc' },
-            { userOptions: { detailed: true } },
-          )
-          .then((members) => {
-            agendasSvc.list(
-              {
-                uid: members.map(({ agendaUid }) => agendaUid),
-              },
-              0,
-              1000,
-              { private: null },
-              (err, agendas) => {
-                knex('agenda_event')
-                  .select(
-                    knex.raw('count(*) as nbrEvents'),
-                    'agenda_uid as agendaUid',
-                  )
-                  .where('user_uid', req.loadedUser.uid)
-                  .groupBy('agenda_uid')
-                  .then((counters) => {
-                    // eslint-disable-next-line no-param-reassign
-                    members = members.map((member) => {
-                      [member.agenda] = agendas.filter(
-                        ({ uid }) => uid === member.agendaUid,
-                      );
-
-                      const counter = counters.filter(
-                        ({ agendaUid }) => agendaUid === member.agendaUid,
-                      )[0];
-                      member.nbrEvents = counter && counter.nbrEvents;
-
-                      return member;
-                    });
-
-                    cmn.renderJson(req, res, {
-                      user: req.loadedUser,
-                      members,
-                    });
-                  });
-              },
-            );
-          });
-      });
-    }
+  if (!req.query.uid) {
     return _searchUsers(req, res);
   }
+
+  loadUserFromQuery(req, res, () => {
+    if (!req.loadedUser.id) return next(new Error('User not found'));
+
+    membersSvc
+      .list(
+        { userUid: req.loadedUser.uid },
+        { limit: 1000, order: 'id.desc' },
+        { userOptions: { detailed: true } },
+      )
+      .then((members) => {
+        agendasSvc.list(
+          {
+            uid: members.map(({ agendaUid }) => agendaUid),
+          },
+          0,
+          1000,
+          { private: null },
+          (err, agendas) => {
+            knex('agenda_event')
+              .select(
+                knex.raw('count(*) as nbrEvents'),
+                'agenda_uid as agendaUid',
+              )
+              .where('user_uid', req.loadedUser.uid)
+              .groupBy('agenda_uid')
+              .then((counters) => {
+                // eslint-disable-next-line no-param-reassign
+                members = members.map((member) => {
+                  [member.agenda] = agendas.filter(
+                    ({ uid }) => uid === member.agendaUid,
+                  );
+
+                  const counter = counters.filter(
+                    ({ agendaUid }) => agendaUid === member.agendaUid,
+                  )[0];
+                  member.nbrEvents = counter && counter.nbrEvents;
+
+                  return member;
+                });
+
+                cmn.renderJson(req, res, {
+                  user: req.loadedUser,
+                  members,
+                });
+              });
+          },
+        );
+      });
+  });
 }
