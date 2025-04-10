@@ -77,6 +77,7 @@ export default async function getUsers(req, res, next) {
                 'agenda_uid as agendaUid',
               )
               .where('user_uid', req.loadedUser.uid)
+              .where('removed', 0)
               .groupBy('agenda_uid')
               .then((counters) => {
                 // eslint-disable-next-line no-param-reassign
