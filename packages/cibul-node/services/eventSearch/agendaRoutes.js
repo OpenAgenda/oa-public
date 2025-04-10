@@ -45,7 +45,10 @@ export default (config, services) => {
         ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
         ifFormat(
           ['pdf'],
-          loadSearchStream({ includeLocationLegacyAdminLevels: true }),
+          loadSearchStream({
+            includeLocationLegacyAdminLevels: true,
+            omitOptions: ['includeFields', 'includeFields'],
+          }),
         ),
         trackFormat,
         ifFormat('csv', streamCSV),
@@ -73,6 +76,7 @@ export default (config, services) => {
           ['pdf'],
           loadSearchStream({
             includeLocationLegacyAdminLevels: true,
+            omitOptions: ['includeFields', 'aggregations'],
           }),
         ),
         trackFormat,

@@ -1,9 +1,13 @@
+import _ from 'lodash';
+
 export default (options = {}) =>
   async (req, res, next) => {
-    const { includeLocationLegacyAdminLevels = false } = options;
+    const { includeLocationLegacyAdminLevels = false, omitOptions } = options;
     try {
       req.stream = await req.search(req.searchQuery, null, {
-        ...req.searchOptions,
+        ...omitOptions
+          ? _.omit(req.searchOptions, omitOptions)
+          : req.searchOptions,
         includeLocationLegacyAdminLevels,
         stream: true,
       });
