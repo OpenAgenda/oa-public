@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
-import { Button, Checkbox, Flex, Link, Text } from '@openagenda/uikit';
+import { Button, Flex, Link, Text } from '@openagenda/uikit';
+import { Checkbox } from '@openagenda/uikit/snippets';
 import useUser from 'hooks/useUser';
 import AccordionItem from './AccordionItem';
 import messages from './messages';
@@ -12,31 +13,30 @@ export default function JsonAccordionItem({ handleSubmit, res }) {
   const [detailed, setDetailed] = useState(false);
 
   return (
-    <AccordionItem title="JSON / API">
+    <AccordionItem value="json" title="JSON / API">
       <Flex gap="4" direction="column">
         {!user ? <Text>{intl.formatMessage(messages.logIn)}</Text> : null}
         <Flex gap="4">
           <Button
             type="submit"
-            colorScheme="primary"
             alignSelf="center"
             onClick={handleSubmit('jsonV2', { detailed })}
-            isDisabled={!user}
+            disabled={!user}
           >
             {intl.formatMessage(messages.modalTitle)}
           </Button>
-          <Flex direction="column">
+          <Flex direction="column" gap="1">
             <Checkbox
-              isChecked={detailed}
-              onChange={(e) => setDetailed(e.target.checked)}
-              isDisabled={!user}
+              checked={detailed}
+              onCheckedChange={(e) => setDetailed(!!e.checked)}
+              disabled={!user}
             >
               {intl.formatMessage(messages.detailedFormat)}
             </Checkbox>
             <Link
               href="https://developers.openagenda.com/10-lecture/"
-              isExternal
-              colorScheme="primary"
+              target="_blank"
+              rel="noopener noreferrer"
               w="fit-content"
             >
               {intl.formatMessage(messages.documentation)}
@@ -45,16 +45,20 @@ export default function JsonAccordionItem({ handleSubmit, res }) {
         </Flex>
         <div>
           {intl.formatMessage(messages.exportJson, {
-            link1: (chunks: React.ReactNode) => (
-              <Link href={res.export.jsonV1} isExternal colorScheme="primary">
+            link1: (chunks) => (
+              <Link
+                href={res.export.jsonV1}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {chunks}
               </Link>
             ),
-            link2: (chunks: React.ReactNode) => (
+            link2: (chunks) => (
               <Link
                 href="https://developers.openagenda.com/export-json-dun-agenda/"
-                isExternal
-                colorScheme="primary"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 {chunks}
               </Link>

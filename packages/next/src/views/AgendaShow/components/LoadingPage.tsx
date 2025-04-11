@@ -37,7 +37,7 @@ function FilterSkeleton() {
   return (
     <chakra.div>
       <Skeleton h="5" maxW="200px" mb="3" />
-      <Stack spacing="2" mb="2">
+      <Stack gap="2" mb="2">
         <CheckboxSkeleton />
         <CheckboxSkeleton />
         <CheckboxSkeleton />

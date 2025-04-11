@@ -194,6 +194,7 @@ const config = async () => {
         return webpackConfig;
       },
       transpilePackages: [
+        '@chakra-ui/react',
         '@openagenda/activity-apps',
         '@openagenda/intl',
         '@openagenda/react-filters',

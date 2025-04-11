@@ -19,7 +19,8 @@ export function createSwatches(paletteConfig: PartialPaletteConfig) {
 
   // Tweaks may be passed in, otherwise use defaults
   const valueStop = paletteConfig.valueStop ?? DEFAULT_PALETTE_CONFIG.valueStop;
-  const useLightness = paletteConfig.useLightness ?? DEFAULT_PALETTE_CONFIG.useLightness;
+  const useLightness =
+    paletteConfig.useLightness ?? DEFAULT_PALETTE_CONFIG.useLightness;
   const h = paletteConfig.h ?? DEFAULT_PALETTE_CONFIG.h;
   const s = paletteConfig.s ?? DEFAULT_PALETTE_CONFIG.s;
   const lMin = paletteConfig.lMin ?? DEFAULT_PALETTE_CONFIG.lMin;
@@ -71,7 +72,7 @@ export default function createColorPalette(
   return createSwatches(paletteConfig).reduce(
     (accu, swatch) => ({
       ...accu,
-      [swatch.stop]: swatch.hex,
+      [swatch.stop]: { value: swatch.hex },
     }),
     {},
   );

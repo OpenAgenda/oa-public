@@ -1,6 +1,7 @@
 import { SWRConfig } from 'swr';
 import ky from 'ky';
 import { CookiesProvider, Cookies } from 'react-cookie';
+import { IntlProvider } from 'react-intl';
 import {
   UIKitProvider,
   theme as defaultTheme,
@@ -8,7 +9,6 @@ import {
   EmotionCache,
 } from '@openagenda/uikit';
 import swrStatusMiddleware from 'utils/swrStatusMiddleware';
-import { LanguageProvider } from 'components/LanguageProvider';
 
 type ProvidersProps = {
   cookies?: Cookies;
@@ -43,7 +43,7 @@ const Providers = ({
 }: ProvidersProps) => (
   <CookiesProvider cookies={cookies}>
     <ThemeProvider theme={theme} cache={cache}>
-      <LanguageProvider locale={locale} messages={intlMessages}>
+      <IntlProvider key={locale} locale={locale} messages={intlMessages}>
         <SWRConfig
           value={{
             fetcher,
@@ -52,7 +52,7 @@ const Providers = ({
         >
           {children}
         </SWRConfig>
-      </LanguageProvider>
+      </IntlProvider>
     </ThemeProvider>
   </CookiesProvider>
 );

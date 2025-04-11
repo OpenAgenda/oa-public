@@ -1,4 +1,4 @@
-import { HStack, Link, Text } from '@openagenda/uikit';
+import { Box, HStack, Link, Text } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
 import Image from 'components/Image';
@@ -9,19 +9,17 @@ import messages from './messages';
 
 function EventImage({ src, fallbackSrc = null, loader = null }) {
   return (
-    <Image
-      rounded="full"
-      width="56"
-      height="56"
-      src={src}
-      fallbackSrc={fallbackSrc}
-      alt=""
-      draggable={false}
-      loader={loader}
-      h="56px"
-      minW="56px"
-      objectFit="cover"
-    />
+    <Box asChild borderRadius="full" h="56px" minW="56px" objectFit="cover">
+      <Image
+        width="56"
+        height="56"
+        src={src}
+        fallbackSrc={fallbackSrc}
+        alt=""
+        draggable={false}
+        loader={loader}
+      />
+    </Box>
   );
 }
 

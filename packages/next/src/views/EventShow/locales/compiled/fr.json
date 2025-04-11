@@ -305,7 +305,7 @@
       "value": "Statut:"
     }
   ],
-  "next.views.EventShow.ContextBar.suggestLocaitonChange": [
+  "next.views.EventShow.ContextBar.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggérer une modification sur le lieu"
@@ -687,7 +687,7 @@
       "value": " ans"
     }
   ],
-  "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
+  "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggérer une modification sur le lieu"

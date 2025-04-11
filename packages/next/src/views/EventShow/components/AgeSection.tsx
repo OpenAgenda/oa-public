@@ -20,13 +20,9 @@ export default function AgeSection({ event, ageIcon = faChild, ...props }) {
       alignItems="center"
       {...props}
     >
-      <Icon
-        as={FaIcon}
-        icon={ageIcon}
-        size="2xl"
-        color="oaGray.300"
-        justifySelf="end"
-      />
+      <Icon color="oaGray.300" justifySelf="center">
+        <FaIcon icon={ageIcon} size="2xl" />
+      </Icon>
 
       <div>
         {!event.age.max

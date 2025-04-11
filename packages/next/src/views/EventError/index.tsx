@@ -40,26 +40,25 @@ export default function EventError({
         <Text>
           {intl.formatMessage(messages.unauthorizedMsg, { br: <br /> })}
         </Text>
-        <Button
-          as={Link}
-          href={`/signin?redirect=${base64.encode(router.asPath)}`}
-          colorScheme="primary"
-          mt="8"
-        >
-          {intl.formatMessage(messages.signIn)}
+        <Button asChild mt="8">
+          <Link
+            unstyled
+            href={`/signin?redirect=${base64.encode(router.asPath)}`}
+          >
+            {intl.formatMessage(messages.signIn)}
+          </Link>
         </Button>
 
         <Text mt="2">
           {intl.formatMessage(messages.orSignUp, {
-            // TODO remove useless type after upgrade of react-intl
-            link: (chunks: React.ReactNode) => (
-              <Button
-                as={Link}
-                href={`/signup?redirect=${base64.encode(router.asPath)}`}
-                variant="link"
-                colorScheme="primary"
-              >
-                {chunks}
+            link: (chunks) => (
+              <Button asChild variant="link">
+                <Link
+                  unstyled
+                  href={`/signup?redirect=${base64.encode(router.asPath)}`}
+                >
+                  {chunks}
+                </Link>
               </Button>
             ),
           })}
@@ -75,13 +74,10 @@ export default function EventError({
           {intl.formatMessage(messages.restrictedAccess)}
         </Text>
         <Text>{intl.formatMessage(messages.forbiddenMsg, { br: <br /> })}</Text>
-        <Button
-          as={Link}
-          href={`/${agendaSlug}/contact`}
-          colorScheme="primary"
-          mt="8"
-        >
-          {intl.formatMessage(messages.contactAdministrators)}
+        <Button asChild mt="8">
+          <Link unstyled href={`/${agendaSlug}/contact`}>
+            {intl.formatMessage(messages.contactAdministrators)}
+          </Link>
         </Button>
       </ErrorContainer>
     );
@@ -98,8 +94,10 @@ export default function EventError({
             {intl.formatMessage(messages.notFoundMsg, { br: <br /> })}
           </Text>
 
-          <Button as={Link} href="/agendas" colorScheme="primary" mt="8">
-            {intl.formatMessage(messages.searchAgenda)}
+          <Button asChild mt="8">
+            <Link unstyled href="/agendas">
+              {intl.formatMessage(messages.searchAgenda)}
+            </Link>
           </Button>
         </ErrorContainer>
       );
@@ -125,13 +123,10 @@ export default function EventError({
             {intl.formatMessage(messages.notFoundMsg, { br: <br /> })}
           </Text>
 
-          <Button
-            as={Link}
-            href={`/${agendaSlug}`}
-            colorScheme="primary"
-            mt="8"
-          >
-            {intl.formatMessage(messages.seeAgenda)}
+          <Button asChild mt="8">
+            <Link unstyled href={`/${agendaSlug}`}>
+              {intl.formatMessage(messages.seeAgenda)}
+            </Link>
           </Button>
         </ErrorContainer>
       </>

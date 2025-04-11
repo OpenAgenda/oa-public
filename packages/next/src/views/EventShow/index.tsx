@@ -11,19 +11,17 @@ import {
   Heading,
   Link,
   Button,
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
   List,
-  ListItem,
-  ListIcon,
   Tabs,
-  TabList,
-  Tab,
   WrapItem,
   Wrap,
 } from '@openagenda/uikit';
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+} from '@openagenda/uikit/snippets';
 import { nl2br } from '@openagenda/react-shared';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { FaIcon } from 'icons';
@@ -57,8 +55,6 @@ import Footer from './components/Footer';
 import StatusTag from './components/StatusTag';
 import ContributorSection from './components/ContributorSection';
 import NavigateButton from './components/NavigateButton';
-import SuggestLocationChangeButton from './components/SuggestLocationChangeButton';
-import EditLocationButton from './components/EditLocationButton';
 import LocationHistory from './components/LocationHistory';
 import ShareModal from './components/ShareModal';
 import EmailConfirmationAlert from './components/EmailConfirmationAlert';
@@ -66,6 +62,7 @@ import Map from './components/Map';
 import LdJson from './components/LdJson';
 import EventImage from './components/EventImage';
 import LongDescription from './components/LongDescription';
+import FloatingButton from './components/FloatingButton';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
 import canModifyLocation from './utils/canModifyLocation';
@@ -107,14 +104,12 @@ function EventShow({ preload }: EventShowProps) {
     intl.locale,
   );
 
-  const [tabIndex, setTabIndex] = useState(() =>
-    languages.indexOf(contentLocale),
-  );
-  const handleTabsChange = (index) => {
-    setTabIndex(index);
+  const [tabValue, setTabValue] = useState(() => contentLocale);
+  const handleTabsChange = (value) => {
+    setTabValue(value);
 
     const url = new URL(router.asPath, 'https://n');
-    url.searchParams.set('cl', languages[index]);
+    url.searchParams.set('cl', value);
     router.replace(url.pathname + url.search, null, {
       shallow: true,
       scroll: false,
@@ -148,6 +143,7 @@ function EventShow({ preload }: EventShowProps) {
     onEmailSent,
   } = useShareModal();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
 
   const isEventContributor = member && member.userUid === me?.member?.userUid;
@@ -168,7 +164,7 @@ function EventShow({ preload }: EventShowProps) {
 
       <Box as="header" w="full" bg="#413a42" px="4" py="8">
         <Container
-          maxW="container.lg"
+          maxW="7xl"
           color="white"
           textAlign={{ base: 'center', md: 'start' }}
         >
@@ -230,7 +226,7 @@ function EventShow({ preload }: EventShowProps) {
           rowGap="8"
           columnGap="10"
           mt="8"
-          maxW="container.lg"
+          maxW="7xl"
         >
           <GridItem area="sidebar" display={{ base: 'none', lg: 'block' }}>
             <Flex direction="row" gap="8" mt="16">
@@ -240,17 +236,18 @@ function EventShow({ preload }: EventShowProps) {
 
           <GridItem area="event" display="flex" flexDirection="column" gap="12">
             <div>
-              <Tabs
-                index={tabIndex}
-                onChange={handleTabsChange}
-                colorScheme="primary"
+              <Tabs.Root
+                value={tabValue}
+                onValueChange={(e) => handleTabsChange(e.value)}
               >
-                <TabList>
+                <Tabs.List>
                   {languages.map((language) => (
-                    <Tab key={language}>{language.toUpperCase()}</Tab>
+                    <Tabs.Trigger key={language} value={language}>
+                      {language.toUpperCase()}
+                    </Tabs.Trigger>
                   ))}
-                </TabList>
-              </Tabs>
+                </Tabs.List>
+              </Tabs.Root>
 
               <Flex
                 as="main"
@@ -391,44 +388,58 @@ function EventShow({ preload }: EventShowProps) {
                   // }}
                 >
                   {canEditEvent ? (
-                    <Menu>
-                      <MenuButton
-                        as={Button}
-                        variant="outline"
-                        alignSelf="flex-start"
-                        borderColor="oaGray.300"
-                        color="blackAlpha.800"
-                        _hover={{
-                          bg: 'oaGray.100',
-                          color: 'blackAlpha.900',
-                          textDecoration: 'none',
-                        }}
-                        position="absolute"
-                        top="6"
-                        right="6"
-                        rightIcon={<FaIcon icon={faChevronDown} />}
-                      >
-                        {intl.formatMessage(messages.edit)}
-                      </MenuButton>
-                      <MenuList>
-                        <MenuItem as="a" href="#">
+                    <MenuRoot>
+                      <MenuTrigger asChild>
+                        <FloatingButton>
+                          {intl.formatMessage(messages.edit)}
+                          <FaIcon icon={faChevronDown} />
+                        </FloatingButton>
+                      </MenuTrigger>
+                      <MenuContent minW="3xs">
+                        <MenuItem asChild value="edit-location">
                           {canModifyLocation(me?.member, event, agenda) ? (
-                            <EditLocationButton canEditEvent />
+                            <Link
+                              unstyled
+                              href={`/${agenda.slug}/admin/locations/${event.location.uid}/edit`}
+                            >
+                              {intl.formatMessage(messages.editLocation)}
+                            </Link>
                           ) : (
-                            <SuggestLocationChangeButton canEditEvent />
+                            <Link
+                              unstyled
+                              href={`/${agenda.slug}/locations/${event.location.agendaUid}.${event.location.uid}/suggest-change`}
+                            >
+                              {intl.formatMessage(
+                                messages.suggestLocationChange,
+                              )}
+                            </Link>
                           )}
                         </MenuItem>
-                        <MenuItem as="a" href="#">
+                        <MenuItem asChild value="location-history">
                           <LocationHistory />
                         </MenuItem>
-                      </MenuList>
-                    </Menu>
+                      </MenuContent>
+                    </MenuRoot>
                   ) : (
                     <>
                       {canModifyLocation(me?.member, event, agenda) ? (
-                        <EditLocationButton canEditEvent={false} />
+                        <FloatingButton asChild>
+                          <Link
+                            unstyled
+                            href={`/${agenda.slug}/admin/locations/${event.location.uid}/edit`}
+                          >
+                            {intl.formatMessage(messages.editLocation)}
+                          </Link>
+                        </FloatingButton>
                       ) : (
-                        <SuggestLocationChangeButton canEditEvent={false} />
+                        <FloatingButton asChild>
+                          <Link
+                            unstyled
+                            href={`/${agenda.slug}/locations/${event.location.agendaUid}.${event.location.uid}/suggest-change`}
+                          >
+                            {intl.formatMessage(messages.suggestLocationChange)}
+                          </Link>
+                        </FloatingButton>
                       )}
                     </>
                   )}
@@ -475,31 +486,34 @@ function EventShow({ preload }: EventShowProps) {
                   {event.location.image || event.location.imageCredits ? (
                     <div>
                       {event.location.image ? (
-                        <Image
-                          src={
-                            process.env.NODE_ENV === 'development'
-                              ? `${DEV_S3_BUCKET}/${event.location.image}`
-                              : `${S3_BUCKET}/${event.location.image}`
-                          }
-                          fallbackSrc={
-                            process.env.NODE_ENV === 'development'
-                              ? `${S3_BUCKET}/${event.location.image}`
-                              : undefined
-                          }
-                          fill
-                          // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+                        <Box
+                          asChild
                           pos="unset !important"
                           w="full !important"
                           h="auto !important"
-                          // >= 1095 : 659px
-                          // >= 992 : 66.67vw
-                          // < 992 : 100vw
-                          sizes="(max-width: 992px) 100vw, (max-width: 1095px) 66.67vw, 659px"
-                          loader={thumborLoader}
-                          alt=""
                           m="auto"
-                          priority
-                        />
+                        >
+                          <Image
+                            src={
+                              process.env.NODE_ENV === 'development'
+                                ? `${DEV_S3_BUCKET}/${event.location.image}`
+                                : `${S3_BUCKET}/${event.location.image}`
+                            }
+                            fallbackSrc={
+                              process.env.NODE_ENV === 'development'
+                                ? `${S3_BUCKET}/${event.location.image}`
+                                : undefined
+                            }
+                            fill
+                            // >= 1095 : 659px
+                            // >= 992 : 66.67vw
+                            // < 992 : 100vw
+                            sizes="(max-width: 992px) 100vw, (max-width: 1095px) 66.67vw, 659px"
+                            loader={thumborLoader}
+                            alt=""
+                            priority
+                          />
+                        </Box>
                       ) : null}
 
                       {event.location.imageCredits ? (
@@ -511,64 +525,57 @@ function EventShow({ preload }: EventShowProps) {
                   ) : null}
 
                   {event.location.website || event.location.phone ? (
-                    <List spacing="2">
+                    <List.Root variant="plain" gap="2" align="center">
                       {event.location.website ? (
-                        <ListItem>
-                          <ListIcon
-                            as={FaIcon}
-                            icon={faGlobe}
-                            verticalAlign="middle"
-                          />
+                        <List.Item>
+                          <List.Indicator asChild>
+                            <FaIcon size="sm" icon={faGlobe} />
+                          </List.Indicator>
                           <Link
                             href={event.location.website}
                             target="_blank"
                             rel="noopener nofollow"
-                            colorScheme="primary"
                             wordBreak="break-all"
                           >
                             {event.location.website}
                           </Link>
-                        </ListItem>
+                        </List.Item>
                       ) : null}
 
                       {event.location.phone ? (
-                        <ListItem>
-                          <ListIcon
-                            as={FaIcon}
-                            icon={faPhone}
-                            verticalAlign="middle"
-                          />
+                        <List.Item>
+                          <List.Indicator asChild>
+                            <FaIcon size="sm" icon={faPhone} />
+                          </List.Indicator>
                           <Link
                             href={`tel:${event.location.phone}`}
                             target="_blank"
                             rel="noopener nofollow"
-                            colorScheme="primary"
                           >
                             {event.location.phone}
                           </Link>
-                        </ListItem>
+                        </List.Item>
                       ) : null}
-                    </List>
+                    </List.Root>
                   ) : null}
 
                   {event.location.links?.length ? (
                     <chakra.div>
                       {intl.formatMessage(messages.moreLinks)}
-                      <List>
+                      <List.Root>
                         {event.location.links?.map((link) => (
-                          <ListItem key={link}>
+                          <List.Item asChild key={link}>
                             <Link
                               href={link}
                               target="_blank"
                               rel="noopener nofollow"
-                              colorScheme="primary"
                               wordBreak="break-all"
                             >
                               {link}
                             </Link>
-                          </ListItem>
+                          </List.Item>
                         ))}
-                      </List>
+                      </List.Root>
                     </chakra.div>
                   ) : null}
 
@@ -606,14 +613,12 @@ function EventShow({ preload }: EventShowProps) {
                   {intl.formatMessage(messages.contactAdministrators)}
                 </Heading>
                 <Flex bg="white" justify="space-around">
-                  <Button
-                    as={Link}
-                    href={`mailto:${mailtoSettings.email}?subject=${encodeURIComponent(mailtoSettings.subject)}`}
-                    variant="solid"
-                    colorScheme="primary"
-                    my="8"
-                  >
-                    {intl.formatMessage(messages.sendAnEmail)}
+                  <Button asChild my="8">
+                    <Link
+                      href={`mailto:${mailtoSettings.email}?subject=${encodeURIComponent(mailtoSettings.subject)}`}
+                    >
+                      {intl.formatMessage(messages.sendAnEmail)}
+                    </Link>
                   </Button>
                 </Flex>
               </div>
@@ -624,7 +629,7 @@ function EventShow({ preload }: EventShowProps) {
 
           <GridItem area="footer">
             <Box pb="2">
-              <CopyIdentifier identifier={event.uid} size="sm" />
+              <CopyIdentifier identifier={event.uid} size="sm" maxW="220px" />
             </Box>
             <Footer />
           </GridItem>

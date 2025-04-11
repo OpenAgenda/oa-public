@@ -1,16 +1,11 @@
+import { VStack, H3, HStack, Separator, Text } from '@openagenda/uikit';
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalCloseButton,
-  ModalHeader,
-  ModalBody,
-  VStack,
-  H3,
-  Flex,
-  Divider,
-  Text,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+  DialogBody,
+} from '@openagenda/uikit/snippets';
 import { useIntl } from 'react-intl';
 import React, { useCallback, useEffect, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
@@ -23,15 +18,13 @@ import AgendaItem from './AgendaItem';
 
 const PAGE_SIZE = 20;
 
-function CustomDivider({ children, ...flexProps }) {
+function CustomSeparator({ children, ...props }) {
   return (
-    <Flex {...flexProps}>
-      <Divider margin="auto" borderColor="oaGray.500" />
-      <Text as="span" flexShrink="0" px={2}>
-        {children}
-      </Text>
-      <Divider margin="auto" borderColor="oaGray.500" />
-    </Flex>
+    <HStack {...props}>
+      <Separator flex="1" />
+      <Text flexShrink="0">{children}</Text>
+      <Separator flex="1" />
+    </HStack>
   );
 }
 
@@ -65,7 +58,8 @@ function DuplicateModalBody({ agenda, event }) {
       }
 
       // first page, we don't have `previousPageData`
-      if (pageIndex === 0) return ['duplicateModal', 'agendas', searchValue, 1, 0];
+      if (pageIndex === 0)
+        return ['duplicateModal', 'agendas', searchValue, 1, 0];
 
       if (previousPageData.secondRoutePage) {
         return [
@@ -120,13 +114,15 @@ function DuplicateModalBody({ agenda, event }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.agendas?.length === 0;
-  const isReachingEnd = isEmpty
-    || (pages
-      && pages[pages.length - 1]?.secondRoutePage
-      && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
+  const isReachingEnd =
+    isEmpty ||
+    (pages &&
+      pages[pages.length - 1]?.secondRoutePage &&
+      pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
 
   const { ref } = useInView({
     onChange: (inView) => {
@@ -143,7 +139,7 @@ function DuplicateModalBody({ agenda, event }) {
   const uniqueAgendaUids = new Set([agenda.uid]);
 
   return (
-    <ModalBody>
+    <DialogBody>
       <H3>{intl.formatMessage(messages.bigSentence)}</H3>
 
       <Text mt="4" color="oaGray.500">
@@ -156,13 +152,15 @@ function DuplicateModalBody({ agenda, event }) {
 
       <AgendaItem agenda={agenda} targetAgenda={agenda} event={event} />
 
-      <CustomDivider my="8">{intl.formatMessage(messages.or)}</CustomDivider>
+      <CustomSeparator my="8">
+        {intl.formatMessage(messages.or)}
+      </CustomSeparator>
 
       <form onSubmit={onSubmit}>
         <SearchInput onChange={setSearchValue} />
       </form>
 
-      <VStack spacing="4" pt="4" align="start">
+      <VStack gap="4" pt="4" align="start">
         {pages.map((page) =>
           page.agendas
             .filter((targetAgenda) => {
@@ -179,11 +177,12 @@ function DuplicateModalBody({ agenda, event }) {
                 targetAgenda={targetAgenda}
                 event={event}
               />
-            )))}
+            )),
+        )}
       </VStack>
 
       <div ref={ref} />
-    </ModalBody>
+    </DialogBody>
   );
 }
 
@@ -191,27 +190,14 @@ export default function DuplicateModal({ isOpen, onClose, agenda, event }) {
   const intl = useIntl();
 
   return (
-    <Modal
-      size="xl"
-      isCentered
-      // scrollBehavior="inside"
-      isOpen={isOpen}
-      onClose={onClose}
-    >
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader
-          sx={{
-            ':has(> .chakra-modal__close-btn)': {
-              pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-            },
-          }}
-        >
+    <DialogRoot open={isOpen} onOpenChange={onClose} placement="center">
+      <DialogContent>
+        <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.selectAnAgenda)}
-          <ModalCloseButton />
-        </ModalHeader>
+        </DialogHeader>
+        <DialogCloseTrigger />
         <DuplicateModalBody agenda={agenda} event={event} />
-      </ModalContent>
-    </Modal>
+      </DialogContent>
+    </DialogRoot>
   );
 }

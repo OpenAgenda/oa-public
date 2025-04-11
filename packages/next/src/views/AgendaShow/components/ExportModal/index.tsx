@@ -1,11 +1,11 @@
+import { useRef } from 'react';
 import { useIntl } from 'react-intl';
 import {
-  Modal,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+} from '@openagenda/uikit/snippets';
 import { Agenda } from 'types';
 import Body from './Body';
 import messages from './messages';
@@ -14,44 +14,33 @@ interface ExportModalProps {
   agenda: Agenda;
   isOpen: boolean;
   onClose: () => void;
-  defaultIndex?: number | number[];
+  defaultValue?: string | string[];
 }
-
-export const exportIndexMap = {
-  sheet: 0,
-  pdf: 1,
-  json: 2,
-  gcal: 3,
-  outlook: 4,
-  ics: 5,
-  rss: 6,
-  embed: 7,
-};
 
 export default function ExportModal({
   isOpen,
   onClose,
   agenda,
-  defaultIndex = null,
+  defaultValue = null,
 }: ExportModalProps) {
   const intl = useIntl();
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+
   return (
-    <Modal size="xl" isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader
-          sx={{
-            ':has(> .chakra-modal__close-btn)': {
-              pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-            },
-          }}
-        >
+    <DialogRoot size="md" open={isOpen} onOpenChange={onClose}>
+      <DialogContent ref={dialogRef}>
+        <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.modalTitle)}
-          <ModalCloseButton />
-        </ModalHeader>
-        <Body agenda={agenda} onClose={onClose} defaultIndex={defaultIndex} />
-      </ModalContent>
-    </Modal>
+        </DialogHeader>
+        <DialogCloseTrigger />
+        <Body
+          dialogRef={dialogRef}
+          agenda={agenda}
+          onClose={onClose}
+          defaultValue={defaultValue}
+        />
+      </DialogContent>
+    </DialogRoot>
   );
 }

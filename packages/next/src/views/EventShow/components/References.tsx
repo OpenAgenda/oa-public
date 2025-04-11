@@ -1,4 +1,4 @@
-import { chakra, SimpleGrid } from '@openagenda/uikit';
+import { chakra, Box, SimpleGrid } from '@openagenda/uikit';
 import useSWRImmutable from 'swr/immutable';
 import { FetchStatus } from 'config/types';
 import { thumborLoader } from 'utils/imageLoader';
@@ -39,31 +39,37 @@ export default function References({ agenda, event }) {
   if (!references?.length) return null;
 
   return (
-    <SimpleGrid columns={3} spacing="2">
+    <SimpleGrid columns={3} gap="2">
       {references.map((agendaReference) => (
         <NextChakraLink
           key={agendaReference.uid}
           href={`/${agendaReference.slug}/events/${event.slug}`}
           title={agendaReference.title}
+          display="block"
           textAlign="center"
+          color="fg"
           _hover={{ color: 'primary.500', textDecoration: 'underline' }}
         >
-          <Image
+          <Box
+            asChild
             rounded="full"
-            width="70"
-            height="70"
-            {...getImageSrcProps(agendaReference.image)}
-            alt=""
-            draggable={false}
-            loader={agendaReference.image ? thumborLoader : null}
             border="3px solid white"
             h="70px"
             minW="70px"
             objectFit="cover"
             m="auto"
-          />
+          >
+            <Image
+              width="70"
+              height="70"
+              {...getImageSrcProps(agendaReference.image)}
+              alt=""
+              draggable={false}
+              loader={agendaReference.image ? thumborLoader : null}
+            />
+          </Box>
 
-          <chakra.span noOfLines={2}>{agendaReference.title}</chakra.span>
+          <chakra.span lineClamp={2}>{agendaReference.title}</chakra.span>
         </NextChakraLink>
       ))}
     </SimpleGrid>

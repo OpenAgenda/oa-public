@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { Box, Heading, Flex, Text, Button, Link } from '@openagenda/uikit';
+import { Box, Heading, Flex, Text, Link } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
 import { faLock } from 'icons/regular';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
@@ -9,6 +9,7 @@ import { useAgenda } from '../contexts/agenda';
 import * as additionalFieldsUtils from '../utils/additionalFields';
 import { contributorSection as messages } from '../messages';
 import AdditionalFields from './AdditionalFields';
+import FloatingButton from './FloatingButton';
 
 export default function ContributorSection({ contentLocale }) {
   const intl = useIntl();
@@ -67,29 +68,18 @@ export default function ContributorSection({ contentLocale }) {
         //   borderColor: 'primary.500',
         // }}
       >
-        <Button
-          as={Link}
-          href={
-            isEventContributor
-              ? `/home?agendaUid=${agenda.uid}`
-              : `/${agenda.slug}/admin/members?userUid=${member.userUid}`
-          }
-          // leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
-          variant="outline"
-          // colorScheme="white"
-          borderColor="oaGray.300"
-          color="blackAlpha.800"
-          _hover={{
-            bg: 'oaGray.100',
-            color: 'blackAlpha.900',
-            textDecoration: 'none',
-          }}
-          position="absolute"
-          top="6"
-          right="6"
-        >
-          {intl.formatMessage(messages.edit)}
-        </Button>
+        <FloatingButton asChild>
+          <Link
+            unstyled
+            href={
+              isEventContributor
+                ? `/home?agendaUid=${agenda.uid}`
+                : `/${agenda.slug}/admin/members?userUid=${member.userUid}`
+            }
+          >
+            {intl.formatMessage(messages.edit)}
+          </Link>
+        </FloatingButton>
 
         <AdditionalFields additionalFields={additionalFields} agenda={agenda} />
       </Flex>

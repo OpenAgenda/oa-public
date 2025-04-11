@@ -3,15 +3,13 @@ import { useIntl } from 'react-intl';
 import useSWR from 'swr';
 import ky from 'ky';
 import qs from 'qs';
+import { Box, Link, VStack } from '@openagenda/uikit';
 import {
-  Accordion,
-  Box,
-  Link,
-  ModalBody,
-  Radio,
+  AccordionRoot,
+  DialogBody,
   RadioGroup,
-  VStack,
-} from '@openagenda/uikit';
+  Radio,
+} from '@openagenda/uikit/snippets';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
 import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
@@ -78,7 +76,7 @@ function completeUrls(agendaUid, query) {
   };
 }
 
-export default function Body({ agenda, onClose, defaultIndex }) {
+export default function Body({ dialogRef, agenda, onClose, defaultValue }) {
   const intl = useIntl();
   const query = useLocationQuery();
 
@@ -167,22 +165,22 @@ export default function Body({ agenda, onClose, defaultIndex }) {
   }
 
   return (
-    <ModalBody p="0">
-      <Box alignItems="start" mb="4" px="6">
+    <DialogBody>
+      <Box alignItems="start" mb="4">
         {intl.formatMessage(messages.openDataInfo, {
           link: (chunks: React.ReactNode) => (
             <Link
               href="https://doc.openagenda.com/des-agendas-en-donnees-ouvertes-opendata"
-              isExternal
-              colorScheme="primary"
+              target="_blank"
+              rel="noopener noreferrer"
             >
               {chunks}
             </Link>
           ),
         })}
       </Box>
-      <RadioGroup value={mode} onChange={setMode}>
-        <VStack spacing="2" ml="6" alignItems="start">
+      <RadioGroup value={mode} onValueChange={(e) => setMode(e.value)}>
+        <VStack gap="2" alignItems="start">
           <Radio value="all">{intl.formatMessage(messages.exportAll)}</Radio>
           <Radio value="selection">
             {intl.formatMessage(messages.exportSelection)}
@@ -190,7 +188,7 @@ export default function Body({ agenda, onClose, defaultIndex }) {
         </VStack>
       </RadioGroup>
 
-      <Accordion as="form" allowToggle defaultIndex={defaultIndex} mt="4">
+      <AccordionRoot as="form" collapsible defaultValue={[defaultValue]} mt="4">
         <SpreadsheetAccordionItem
           handleSubmit={handleSubmit}
           languages={languages}
@@ -205,8 +203,8 @@ export default function Body({ agenda, onClose, defaultIndex }) {
         <OutlookAccordionItem res={res} />
         <IcsAccordionItem handleSubmit={handleSubmit} />
         <RssAccordionItem handleSubmit={handleSubmit} />
-        <EmbedAccordionItem res={res} agenda={agenda} />
-      </Accordion>
-    </ModalBody>
+        <EmbedAccordionItem dialogRef={dialogRef} res={res} agenda={agenda} />
+      </AccordionRoot>
+    </DialogBody>
   );
 }

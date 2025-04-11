@@ -142,8 +142,8 @@ export default function FiltersPart({
     <SimpleGrid
       as="form"
       templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))"
-      spacingX="10"
-      spacingY="6"
+      columnGap="10"
+      rowGap="6"
     >
       <Filters
         filters={orderedFilters}

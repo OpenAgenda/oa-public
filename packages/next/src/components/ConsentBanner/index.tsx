@@ -10,11 +10,12 @@ import {
   Spacer,
   ButtonGroup,
   Button,
-  AlertDialog,
-  AlertDialogOverlay,
-  AlertDialogContent,
-  AlertDialogBody,
 } from '@openagenda/uikit';
+import {
+  DialogRoot,
+  DialogContent,
+  DialogBody,
+} from '@openagenda/uikit/snippets';
 import useIsMounted from 'hooks/useIsMounted';
 
 const messages = defineMessages({
@@ -75,10 +76,10 @@ function ConsentFixed({ consentFor, setConsent }) {
       </Box>
       <Spacer />
       <ButtonGroup gap="2">
-        <Button colorScheme="primary" onClick={() => setConsent(true)}>
+        <Button onClick={() => setConsent(true)}>
           {intl.formatMessage(messages.accept)}
         </Button>
-        <Button colorScheme="red" onClick={() => setConsent(false)}>
+        <Button colorPalette="red" onClick={() => setConsent(false)}>
           {intl.formatMessage(messages.decline)}
         </Button>
       </ButtonGroup>
@@ -94,66 +95,56 @@ function ConsentOverlay({ consentFor, setConsent }) {
   const link = `https://support.google.com/analytics/answer/6004245?hl=${intl.locale || 'fr'}`;
 
   return (
-    <AlertDialog
-      isOpen
-      onClose={() => {}}
-      leastDestructiveRef={declineRef}
-      closeOnEsc={false}
-      closeOnOverlayClick={false}
+    <DialogRoot
+      role="alertdialog"
+      open
+      initialFocusEl={() => declineRef.current}
+      closeOnEscape={false}
+      closeOnInteractOutside={false}
     >
-      <AlertDialogOverlay>
-        <AlertDialogContent maxW="inherit" m="16" w="unset">
-          {/* <AlertDialogHeader fontSize="lg" fontWeight="bold">
-            Delete Customer
-          </AlertDialogHeader> */}
-
-          <AlertDialogBody display="flex" flexDir="column" gap="4">
-            <Box mt="2">
-              <Text>
-                {intl.formatMessage(messages.informationText, {
-                  service: consentFor === 'ga' ? 'Google Analytics' : 'Matomo',
-                })}
-              </Text>
-              {consentFor === 'ga' ? (
-                <Link
-                  mt="3"
-                  href={link}
-                  target="_blank"
-                  rel="noopener nofollow"
-                  color="primary.500"
-                >
-                  {intl.formatMessage(messages.moreInfoLink)}
-                </Link>
-              ) : null}
-            </Box>
-            <Spacer />
-            <ButtonGroup gap="2">
-              <Button
-                onClick={() => setConsent(true)}
-                colorScheme="primary"
-                borderRadius="none"
+      <DialogContent maxW="inherit" m="16" w="unset">
+        <DialogBody display="flex" flexDir="column" gap="4">
+          <Box mt="2">
+            <Text>
+              {intl.formatMessage(messages.informationText, {
+                service: consentFor === 'ga' ? 'Google Analytics' : 'Matomo',
+              })}
+            </Text>
+            {consentFor === 'ga' ? (
+              <Link
+                mt="3"
+                href={link}
+                target="_blank"
+                rel="noopener nofollow"
+                color="primary.500"
               >
-                {intl.formatMessage(messages.accept)}
-              </Button>
-              <Button
-                ref={declineRef}
-                onClick={() => setConsent(false)}
-                bg="white"
-                borderColor="oaGray.300"
-                color="blackAlpha.800"
-                _hover={{
-                  bg: 'oaGray.100',
-                  color: 'blackAlpha.900',
-                }}
-                borderRadius="none"
-              >
-                {intl.formatMessage(messages.decline)}
-              </Button>
-            </ButtonGroup>
-          </AlertDialogBody>
-        </AlertDialogContent>
-      </AlertDialogOverlay>
-    </AlertDialog>
+                {intl.formatMessage(messages.moreInfoLink)}
+              </Link>
+            ) : null}
+          </Box>
+          <Spacer />
+          <ButtonGroup gap="2">
+            <Button onClick={() => setConsent(true)} borderRadius="none">
+              {intl.formatMessage(messages.accept)}
+            </Button>
+            <Button
+              ref={declineRef}
+              onClick={() => setConsent(false)}
+              bg="white"
+              borderColor="oaGray.300"
+              color="blackAlpha.800"
+              _hover={{
+                bg: 'oaGray.100',
+                color: 'blackAlpha.900',
+              }}
+              borderRadius="none"
+            >
+              {intl.formatMessage(messages.decline)}
+            </Button>
+          </ButtonGroup>
+        </DialogBody>
+      </DialogContent>
+    </DialogRoot>
   );
 }
 

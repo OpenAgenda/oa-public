@@ -305,7 +305,7 @@
       "value": "crwdns33664:0crwdne33664:0"
     }
   ],
-  "next.views.EventShow.ContextBar.suggestLocaitonChange": [
+  "next.views.EventShow.ContextBar.suggestLocationChange": [
     {
       "type": 0,
       "value": "crwdns34008:0crwdne34008:0"
@@ -661,7 +661,7 @@
       "value": "crwdne33844:0"
     }
   ],
-  "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
+  "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
     {
       "type": 0,
       "value": "crwdns33756:0crwdne33756:0"

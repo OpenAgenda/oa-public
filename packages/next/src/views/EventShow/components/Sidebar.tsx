@@ -11,8 +11,8 @@ import {
   Tag,
   HStack,
   Link,
-  Tooltip,
 } from '@openagenda/uikit';
+import { Tooltip } from '@openagenda/uikit/snippets';
 import { getLocaleValue } from '@openagenda/intl';
 import { getCurrentValue as getCurrentPassValue } from '@openagenda/registrations/passCulture/iso/utils';
 import { FaIcon } from 'icons';
@@ -31,8 +31,9 @@ import Timings from './Timings';
 import References from './References';
 import AccessibilitySection from './AccessibilitySection';
 import AgeSection from './AgeSection';
-export { default as AccessibilitySection } from './AccessibilitySection';
 import Map from './Map';
+
+export { default as AccessibilitySection } from './AccessibilitySection';
 
 function getPassImgSource(passData) {
   const currValue = getCurrentPassValue(passData);
@@ -108,13 +109,13 @@ export function ShareSection({
       alignItems="center"
       {...props}
     >
-      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
+      <Icon color="oaGray.300" justifySelf="center">
+        <FaIcon size="2xl" icon={icon} />
+      </Icon>
       <Button
         onClick={shareOnOpen}
         // leftIcon={<OAIcon />}
-        variant="solid"
-        colorScheme="primary"
-        isDisabled={isDisabled}
+        disabled={isDisabled}
       >
         {intl.formatMessage(messages.share)}
       </Button>
@@ -138,12 +139,11 @@ export function OnlineAccessSection({ event, icon = faLink, ...props }) {
       justifyItems="flex-start"
       {...props}
     >
-      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
+      <Icon color="oaGray.300" justifySelf="center">
+        <FaIcon icon={icon} size="2xl" />
+      </Icon>
       <Button
-        as={Link}
-        target="_blank"
-        rel="noopener nofollow"
-        href={event.onlineAccessLink}
+        asChild
         variant="outline"
         bg="white"
         borderColor="oaGray.300"
@@ -154,7 +154,14 @@ export function OnlineAccessSection({ event, icon = faLink, ...props }) {
           textDecoration: 'none',
         }}
       >
-        {intl.formatMessage(messages.accessEventOnline)}
+        <Link
+          unstyled
+          href={event.onlineAccessLink}
+          target="_blank"
+          rel="noopener nofollow"
+        >
+          {intl.formatMessage(messages.accessEventOnline)}
+        </Link>
       </Button>
     </Grid>
   );
@@ -181,23 +188,22 @@ export function DateRangeSection({
       alignItems="center"
       {...props}
     >
-      <Icon
-        as={FaIcon}
-        icon={isUpcoming ? upcomingIcon : pastIcon}
-        size="2xl"
-        color="oaGray.300"
-      />
+      <Icon color="oaGray.300" justifySelf="center">
+        <FaIcon icon={isUpcoming ? upcomingIcon : pastIcon} size="2xl" />
+      </Icon>
       <HStack>
         <span>{getLocaleValue(event.dateRange, intl.locale)}</span>
         {!event.nextTiming ? (
-          <Tag
+          <Tag.Root
             borderRadius="full"
             variant="outline"
-            colorScheme="oaGray"
+            colorPalette="oaGray"
             flexShrink="0"
           >
-            <b>{intl.formatMessage(messages.passed)}</b>
-          </Tag>
+            <Tag.Label>
+              <b>{intl.formatMessage(messages.passed)}</b>
+            </Tag.Label>
+          </Tag.Root>
         ) : null}
       </HStack>
     </Grid>
@@ -219,7 +225,9 @@ export function ConditionsSection({ event, icon = faTicket, ...props }) {
       alignItems="center"
       {...props}
     >
-      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
+      <Icon color="oaGray.300" justifySelf="center">
+        <FaIcon icon={icon} size="2xl" />
+      </Icon>
       <Box fontSize="lg" color="oaGray.500">
         <b>{intl.formatMessage(messages.conditions)}</b>
       </Box>
@@ -254,36 +262,32 @@ export function RegistrationSection({
       justifyItems="flex-start"
       {...props}
     >
-      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
+      <Icon color="oaGray.300" justifySelf="center">
+        <FaIcon icon={icon} size="2xl" />
+      </Icon>
       <Box fontSize="lg" color="oaGray.500">
         <b>{intl.formatMessage(messages.registration)}</b>
       </Box>
       {registration.map((registrationItem) => (
         <Fragment key={registrationItem.value}>
-          <Icon
-            as={FaIcon}
-            icon={getRegistrationIcon(registrationItem.type)}
-            color="oaGray.300"
-            justifySelf="end"
-          />
+          <Icon color="oaGray.300" justifySelf="end">
+            <FaIcon icon={getRegistrationIcon(registrationItem.type)} />
+          </Icon>
           <Tooltip
-            label={registrationItem.value}
+            content={registrationItem.value}
             aria-label={intl.formatMessage(messages.completeLink)}
-            hasArrow
-            arrowSize={8}
-            arrowPadding={6}
+            showArrow
           >
             <Link
               href={getRegistrationLink(registrationItem)}
               target="_blank"
               rel="noopener nofollow"
-              colorScheme="primary"
               // whiteSpace="normal"
               // overflow="hidden"
               // textOverflow="ellipsis"
               wordBreak="break-all"
               maxW="full"
-              noOfLines={2}
+              lineClamp={2}
             >
               {registrationItem.type === 'link'
                 ? intl.formatMessage(messages.registerBook)
@@ -296,10 +300,7 @@ export function RegistrationSection({
       ))}
       {passCulture ? (
         <Button
-          as={Link}
-          href={passCulture.value}
-          target="_blank"
-          rel="noopener nofollow"
+          asChild
           gridColumn="2"
           variant="outline"
           bg="white"
@@ -310,10 +311,17 @@ export function RegistrationSection({
             color: 'blackAlpha.900',
             textDecoration: 'none',
           }}
-          leftIcon={<img src={getPassImgSource(passCulture)} alt="" />}
           justifySelf="start"
         >
-          {intl.formatMessage(messages.accessPassOffer)}
+          <Link
+            unstyled
+            href={passCulture.value}
+            target="_blank"
+            rel="noopener nofollow"
+          >
+            <img src={getPassImgSource(passCulture)} alt="" />
+            {intl.formatMessage(messages.accessPassOffer)}
+          </Link>
         </Button>
       ) : null}
     </Grid>
@@ -342,14 +350,15 @@ export function LocationSection({ event, icon = faLocationDot }) {
       rowGap="1"
       alignItems="center"
     >
-      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
+      <Icon color="oaGray.300" justifySelf="center">
+        <FaIcon icon={icon} size="2xl" />
+      </Icon>
       <Box>
         <p>{event.location.name}</p>
         <Link
           href={`https://www.openstreetmap.org/directions?to=${event.location.latitude}%2C${event.location.longitude}`}
           target="_blank"
           rel="noopener nofollow"
-          colorScheme="primary"
         >
           {event.location.address}
         </Link>

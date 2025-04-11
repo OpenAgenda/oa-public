@@ -20,7 +20,7 @@ const errorContainerStyles: SystemStyleObject = {
 
 export default function ErrorContainer({ children, ...rest }) {
   return (
-    <chakra.div {...rest} __css={errorContainerStyles}>
+    <chakra.div {...rest} css={errorContainerStyles}>
       {children}
     </chakra.div>
   );

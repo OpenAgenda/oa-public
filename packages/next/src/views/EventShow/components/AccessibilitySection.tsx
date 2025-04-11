@@ -48,12 +48,9 @@ export default function AccessibilitySection({
       {...props}
     >
       {' '}
-      <Icon
-        as={FaIcon}
-        icon={getAccessibilityIcon('mi')}
-        size="2xl"
-        color="oaGray.300"
-      />
+      <Icon color="oaGray.300" justifySelf="center">
+        <FaIcon icon={getAccessibilityIcon('mi')} size="2xl" />
+      </Icon>
       <Box
         fontSize="lg"
         color="oaGray.500"
@@ -68,13 +65,9 @@ export default function AccessibilitySection({
 
         return (
           <Fragment key={accessibilityKey}>
-            <Icon
-              as={FaIcon}
-              icon={getAccessibilityIcon(accessibilityKey)}
-              size="xl"
-              color="oaGray.300"
-              justifySelf="end"
-            />
+            <Icon color="oaGray.300" justifySelf="end">
+              <FaIcon icon={getAccessibilityIcon(accessibilityKey)} size="lg" />
+            </Icon>
             {intl.formatMessage(messages[accessibilityKey])}
           </Fragment>
         );

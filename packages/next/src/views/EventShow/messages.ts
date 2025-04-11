@@ -41,6 +41,17 @@ export default defineMessages({
     id: 'next.views.EventShow.backToList',
     defaultMessage: 'Back to list',
   },
+
+  // TODO change id
+  editLocation: {
+    id: 'next.views.EventShow.EditLocationButton.editLocation',
+    defaultMessage: 'Edit location',
+  },
+  // TODO change id
+  suggestLocationChange: {
+    id: 'next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange',
+    defaultMessage: 'Suggest a change on the location',
+  },
 });
 
 export const contextBar = defineMessages({
@@ -60,8 +71,8 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.editLocation',
     defaultMessage: 'Edit location',
   },
-  suggestLocaitonChange: {
-    id: 'next.views.EventShow.ContextBar.suggestLocaitonChange',
+  suggestLocationChange: {
+    id: 'next.views.EventShow.ContextBar.suggestLocationChange',
     defaultMessage: 'Suggest a change on the location',
   },
   otherActions: {
@@ -401,13 +412,6 @@ export const contributorSection = defineMessages({
   },
 });
 
-export const editLocationButton = defineMessages({
-  editLocation: {
-    id: 'next.views.EventShow.EditLocationButton.editLocation',
-    defaultMessage: 'Edit location',
-  },
-});
-
 export const emailConfirmationAlert = defineMessages({
   shareEvent: {
     id: 'next.views.EventShow.EmailConfirmationAlert.shareEvent',
@@ -508,13 +512,6 @@ export const sidebar = defineMessages({
   minToMaxYearsOld: {
     id: 'next.views.EventShow.Sidebar.minToMaxYearsOld',
     defaultMessage: '{min} to {max} years old',
-  },
-});
-
-export const suggestLocationChangeButton = defineMessages({
-  suggestLocaitonChange: {
-    id: 'next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange',
-    defaultMessage: 'Suggest a change on the location',
   },
 });
 

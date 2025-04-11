@@ -1,25 +1,18 @@
+import { Box, VStack, HStack, Text, Wrap, Link } from '@openagenda/uikit';
 import {
-  Box,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalBody,
-  ModalCloseButton,
-  Center,
-  Spinner,
-  VStack,
-  HStack,
-  Text,
-  Wrap,
-  Link,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogCloseTrigger,
+} from '@openagenda/uikit/snippets';
 import useSWRInfinite from 'swr/infinite';
 import { useInView } from 'react-intersection-observer';
 import { useIntl } from 'react-intl';
 import { getLocaleValue } from '@openagenda/intl';
 import qs from 'qs';
 import Image from 'components/Image';
+import ModalLoadingBody from 'components/ModalLoadingBody';
 // import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import { thumborLoader } from 'utils/imageLoader';
 import graylogo140 from '../../../../../public/images/graylogo140.png';
@@ -29,41 +22,35 @@ const PAGE_SIZE = 20;
 
 const isDev = process.env.NODE_ENV === 'development';
 
-function LoadingBody() {
-  return (
-    <ModalBody pb="4">
-      <Center h="100px">
-        <Spinner size="xl" />
-      </Center>
-    </ModalBody>
-  );
-}
-
 function EventImage({ src, loader = null }) {
   return (
-    <Image
+    <Box
+      asChild
       rounded="full"
-      width="56"
-      height="56"
-      src={src}
-      fallbackSrc={
-        isDev && typeof src === 'string'
-          ? src
-              .replace('dev', 'main')
-              .replace(
-                process.env.NEXT_PUBLIC_IMAGE_PREFIX,
-                process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX,
-              )
-          : undefined
-      }
-      alt=""
-      draggable={false}
-      loader={loader}
       // border="3px solid white"
       h="56px"
       minW="56px"
       objectFit="cover"
-    />
+    >
+      <Image
+        width="56"
+        height="56"
+        src={src}
+        fallbackSrc={
+          isDev && typeof src === 'string'
+            ? src
+                .replace('dev', 'main')
+                .replace(
+                  process.env.NEXT_PUBLIC_IMAGE_PREFIX,
+                  process.env.NEXT_PUBLIC_DEV_IMAGE_PREFIX,
+                )
+            : undefined
+        }
+        alt=""
+        draggable={false}
+        loader={loader}
+      />
+    </Box>
   );
 }
 
@@ -99,10 +86,7 @@ function EventItem({ agenda, event }) {
               {getLocaleValue(event.description, intl.locale) ||
                 intl.formatMessage(messages.undefinedDescription)}
             </div>
-            <Link
-              href={`/${agenda.slug}/contribute/event/${event.uid}`}
-              color="primary.500"
-            >
+            <Link href={`/${agenda.slug}/contribute/event/${event.uid}`}>
               {intl.formatMessage(messages.complete)}
             </Link>
           </>
@@ -112,17 +96,11 @@ function EventItem({ agenda, event }) {
               {getLocaleValue(event.title, intl.locale)}
             </Text>
             <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
-            <Wrap shouldWrapChildren spacing="3">
-              <Link
-                href={`/${agenda.slug}/events/${event.slug}`}
-                color="primary.500"
-              >
+            <Wrap gap="3">
+              <Link href={`/${agenda.slug}/events/${event.slug}`}>
                 {intl.formatMessage(messages.show)}
               </Link>
-              <Link
-                href={`/${agenda.slug}/contribute/event/${event.uid}`}
-                color="primary.500"
-              >
+              <Link href={`/${agenda.slug}/contribute/event/${event.uid}`}>
                 {intl.formatMessage(messages.edit)}
               </Link>
             </Wrap>
@@ -214,11 +192,11 @@ function EventsModalBody({ agenda, bundleState }) {
   });
 
   if (isLoadingInitialData) {
-    return <LoadingBody />;
+    return <ModalLoadingBody />;
   }
 
   return (
-    <ModalBody pb="4">
+    <DialogBody>
       <Box
         px="3"
         py="2"
@@ -233,7 +211,7 @@ function EventsModalBody({ agenda, bundleState }) {
         {intl.formatMessage(messages[`${bundleState.slug}ModalInfo`])}
       </Box>
 
-      <VStack spacing="4" align="start">
+      <VStack gap="4" align="start">
         {pages.map((page) =>
           page.events.map((event) => (
             <EventItem key={event.uid} agenda={agenda} event={event} />
@@ -242,7 +220,7 @@ function EventsModalBody({ agenda, bundleState }) {
       </VStack>
 
       <div ref={ref} />
-    </ModalBody>
+    </DialogBody>
   );
 }
 
@@ -250,22 +228,20 @@ export default function EventsModal({ isOpen, onClose, agenda, bundleState }) {
   const intl = useIntl();
 
   return (
-    <Modal size="xl" isCentered isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader
-          sx={{
-            ':has(> .chakra-modal__close-btn)': {
-              pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-            },
-          }}
-        >
+    <DialogRoot
+      size="md"
+      placement="center"
+      open={isOpen}
+      onOpenChange={onClose}
+    >
+      <DialogContent>
+        <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages[`${bundleState.slug}ModalTitle`])}
-          <ModalCloseButton />
-        </ModalHeader>
+        </DialogHeader>
+        <DialogCloseTrigger />
 
         <EventsModalBody agenda={agenda} bundleState={bundleState} />
-      </ModalContent>
-    </Modal>
+      </DialogContent>
+    </DialogRoot>
   );
 }

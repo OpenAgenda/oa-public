@@ -19,7 +19,7 @@ const rehypePlugins = [
 const reactMdComponents = {
   a(props) {
     const { node, ...rest } = props;
-    return <Link colorScheme="primary" {...rest} />;
+    return <Link {...rest} />;
   },
 };
 
@@ -93,15 +93,16 @@ export default function Announcement() {
       borderColor={colors.border}
     >
       <Container
-        maxW="container.xl"
+        maxW="7xl"
         py="2"
-        sx={{
-          'p:not(:last-child)': {
+        css={{
+          '& p:not(:last-child)': {
             pb: '2',
           },
-          a: {
+          '& a': {
             color: colors.link,
             textDecoration: 'underline',
+            textUnderlineOffset: '3px',
             _hover: {
               color: colors.linkHover,
             },

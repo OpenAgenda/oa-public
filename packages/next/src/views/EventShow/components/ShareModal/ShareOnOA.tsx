@@ -117,7 +117,7 @@ export default function ShareOnOA({ agenda, event }) {
         <SearchInput onChange={setSearchValue} />
       </form>
 
-      <VStack spacing="4" pt="4" align="start">
+      <VStack gap="4" pt="4" align="start">
         {pages.map((page) =>
           page.agendas
             .filter((targetAgenda) => {

@@ -18,7 +18,7 @@ export default function ContentGrid({ total, events, filters }) {
       columnGap={{ xl: '24' }}
       pt="8"
       m="auto"
-      maxW="container.xl"
+      maxW="7xl"
     >
       <GridItem area="total">
         <Flex direction="row" gap="8">

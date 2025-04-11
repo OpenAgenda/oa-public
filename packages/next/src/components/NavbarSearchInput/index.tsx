@@ -1,9 +1,5 @@
-import {
-  InputGroup,
-  Input,
-  InputRightElement,
-  Button,
-} from '@openagenda/uikit';
+import { Input, Button, InputGroup } from '@openagenda/uikit';
+// import { InputGroup } from '@openagenda/uikit/snippets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
 import { defineMessages, useIntl } from 'react-intl';
@@ -42,10 +38,37 @@ export default function NavbarSearchInput({
   return (
     <InputGroup
       bg="oaGray.10"
+      display="flex"
       flex="1"
       w="initial"
       h="full"
       className={className}
+      endElement={
+        <Button
+          type="submit"
+          onClick={onButtonClick}
+          aria-label={intl.formatMessage(messages.ariaLabel)}
+          variant="ghost"
+          borderRadius="0"
+          h="full"
+          w="50px"
+          px="0"
+          color="fg.subtle"
+          _hover={{
+            bg: 'none',
+            color: 'colorPalette.solid',
+          }}
+          _active={{
+            bg: 'bg.muted',
+            color: 'colorPalette.fg',
+          }}
+        >
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </Button>
+      }
+      endElementProps={{
+        p: 0,
+      }}
     >
       <Input
         h="inherit"
@@ -53,11 +76,12 @@ export default function NavbarSearchInput({
         borderRadius="0"
         borderY="none"
         boxShadow="none"
-        pr="50px"
+        pe="50px"
         _focus={{
           border: '1px solid',
           borderColor: 'primary.500',
           boxShadow: 'none',
+          outlineWidth: '0',
         }}
         _active={{
           border: '1px solid',
@@ -67,27 +91,6 @@ export default function NavbarSearchInput({
         name={name}
         {...input}
       />
-      <InputRightElement h="full" w="50px">
-        <Button
-          type="submit"
-          onClick={onButtonClick}
-          aria-label={intl.formatMessage(messages.ariaLabel)}
-          variant="ghost"
-          borderRadius="0"
-          h="full"
-          w="full"
-          _hover={{
-            bg: 'none',
-            color: 'primary.500',
-          }}
-          _active={{
-            bg: 'oaGray.100',
-            color: 'primary.600',
-          }}
-        >
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </Button>
-      </InputRightElement>
     </InputGroup>
   );
 }

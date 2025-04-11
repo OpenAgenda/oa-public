@@ -23,13 +23,20 @@ function ErrorActions({ resetError }: ErrorActionsProps) {
   return (
     <HStack mt="8">
       {resetError ? (
-        <Button onClick={resetError} colorScheme="primary" variant="outline">
+        <Button onClick={resetError} variant="outline">
           {intl.formatMessage(errorDisplayMessages.retry)}
         </Button>
       ) : null}
 
-      <Button as={Link} isExternal href="/support" colorScheme="primary">
-        {intl.formatMessage(errorDisplayMessages.contactSupport)}
+      <Button asChild>
+        <Link
+          unstyled
+          href="/support"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {intl.formatMessage(errorDisplayMessages.contactSupport)}
+        </Link>
       </Button>
     </HStack>
   );

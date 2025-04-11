@@ -94,7 +94,8 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
       };
 
       // first page, we don't have `previousPageData`
-      if (pageIndex === 0) return ['AgendasSearch', 'agendas', reqQuery, pageIndex, query.after];
+      if (pageIndex === 0)
+        return ['AgendasSearch', 'agendas', reqQuery, pageIndex, query.after];
 
       // add the cursor to the API endpoint
       return [
@@ -133,10 +134,12 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.agendas?.length === 0;
-  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
+  const isReachingEnd =
+    isEmpty || (pages && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
 
   const { ref } = useInView({
     onChange: (inView) => {
@@ -177,32 +180,31 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
         locationSetTitle={locationSet?.title}
       />
 
-      <Container maxW="container.md" bg="white" my="20" p="12">
+      <Container maxW="3xl" bg="white" my="20" p="12">
         <Head
           total={pages[0].total}
           network={network}
           locationSet={locationSet}
         />
 
-        <VStack align="stretch" spacing="8">
+        <VStack align="stretch" gap="8">
           {pages.map((page) =>
             page.agendas.map((agenda) => (
               <AgendaItem key={agenda.uid} agenda={agenda} />
-            )))}
+            )),
+          )}
         </VStack>
 
         {!isLoadingInitialData && !isReachingEnd ? (
           <Flex justify="space-around" mt="8">
             <Button
               ref={ref}
-              as="a"
-              href={seeMoreUrl}
+              asChild
               onClick={nextPage}
               variant="link"
-              colorScheme="primary"
-              isLoading={isLoadingMore}
+              loading={isLoadingMore}
             >
-              {intl.formatMessage(messages.seeMore)}
+              <a href={seeMoreUrl}>{intl.formatMessage(messages.seeMore)}</a>
             </Button>
           </Flex>
         ) : null}
@@ -213,6 +215,7 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
 
 AgendasSearch.fetchLocale = (locale: string) =>
   Promise.all([fetchLocale(locale)]).then((results) =>
-    Object.assign({}, ...results));
+    Object.assign({}, ...results),
+  );
 
 export default AgendasSearch;

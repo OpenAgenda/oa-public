@@ -21,9 +21,7 @@ export const NotConnected = {
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>
-          Open modal
-        </Button>
+        <Button onClick={onOpen}>Open modal</Button>
 
         <AggregateModal
           isOpen={isOpen}
@@ -48,9 +46,7 @@ export const Connected = {
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>
-          Open modal
-        </Button>
+        <Button onClick={onOpen}>Open modal</Button>
 
         <AggregateModal
           isOpen={isOpen}
@@ -65,7 +61,8 @@ export const Connected = {
       handlers: [
         http.get('/users/me', () => HttpResponse.json(userFixtures)),
         http.get('/home/agendas', () =>
-          HttpResponse.json(aggregateModalAgendas)),
+          HttpResponse.json(aggregateModalAgendas),
+        ),
       ],
     },
   },

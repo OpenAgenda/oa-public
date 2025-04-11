@@ -5,7 +5,7 @@ import qs from 'qs';
 import { getContrast } from 'color2k';
 import {
   EmotionCache,
-  extendTheme,
+  createSystem,
   theme as defaultTheme,
   UIKitProvider,
   useConst,
@@ -52,31 +52,33 @@ function useEmbedTheme({ primaryColor, secondaryColor }) {
   return useConst(() => {
     const primaryColorPalette = primaryColor
       ? createColorPalette({ value: primaryColor })
-      : defaultTheme.colors.primary;
+      : defaultTheme._config.theme.tokens.colors.primary;
     const secondaryColorPalette = secondaryColor
       ? createColorPalette({ value: secondaryColor })
-      : null;
+      : undefined;
 
     const primaryContrast = primaryColor
       ? getContrastingColor(primaryColor)
       : 'white';
     const secondaryContrast = secondaryColor
       ? getContrastingColor(secondaryColor)
-      : null;
+      : undefined;
 
-    return extendTheme(defaultTheme, {
-      styles: {
-        global: {
-          body: {
-            bg: null,
-          },
+    return createSystem(defaultTheme._config, {
+      globalCss: {
+        html: {
+          bg: null,
         },
       },
-      colors: {
-        primary: primaryColorPalette,
-        secondary: secondaryColorPalette,
-        primaryContrast,
-        secondaryContrast,
+      theme: {
+        tokens: {
+          colors: {
+            primary: primaryColorPalette,
+            secondary: secondaryColorPalette,
+            primaryContrast: { value: primaryContrast },
+            secondaryContrast: { value: secondaryContrast },
+          },
+        },
       },
     });
   });

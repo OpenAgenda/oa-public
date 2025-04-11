@@ -1,43 +1,46 @@
+import { useId } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import {
-  Menu,
-  MenuButton,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   Text,
   Flex,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalBody,
-  ModalFooter,
   Button,
-  Tooltip,
   useDisclosure,
   useBreakpointValue,
 } from '@openagenda/uikit';
+import {
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+  MenuRoot,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+  Tooltip,
+} from '@openagenda/uikit/snippets';
 import { FaIcon } from 'icons';
 import { faChevronDown, faEllipsisVertical } from 'icons/solid';
 import base64 from 'utils/base64';
-import getIsAdminMod from '../../../../utils/isAdminMod';
+import getIsAdminMod from 'utils/isAdminMod';
 import { contextBar as messages } from '../../messages';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import DuplicateModal from '../DuplicateModal';
 import TransferOwnershipModal from '../TransferOwnershipModal';
 import ContextBarButton from './ContextBarButton';
-import { fullWidth } from './popperModifiers';
 
 function ButtonMenuItem({
+  value,
   action,
   description = null,
   onClick,
   disabled = false,
 }) {
   return (
-    <MenuItem onClick={onClick} isDisabled={disabled}>
+    <MenuItem value={value} onClick={onClick} disabled={disabled}>
       <Flex direction="column">
         <Text fontWeight="bold" display="block">
           {action}
@@ -48,21 +51,25 @@ function ButtonMenuItem({
   );
 }
 
-function LinkMenuItem({ action, description, href, rel = null }) {
+function LinkMenuItem({ value, action, description, href, rel = null }) {
   return (
-    <MenuItem as="a" href={href} rel={rel}>
-      <Flex direction="column">
-        <Text fontWeight="bold" display="block">
-          {action}
-        </Text>
-        <p>{description}</p>
-      </Flex>
+    <MenuItem value={value} asChild>
+      <a href={href} rel={rel}>
+        <Flex direction="column">
+          <Text fontWeight="bold" display="block">
+            {action}
+          </Text>
+          <p>{description}</p>
+        </Flex>
+      </a>
     </MenuItem>
   );
 }
 
-export default function OtherActions({ agenda }) {
+export default function OtherActions({ agenda, contextBarRef }) {
   const intl = useIntl();
+
+  const triggerId = useId();
 
   const router = useRouter();
 
@@ -77,19 +84,19 @@ export default function OtherActions({ agenda }) {
   const { canEditEvent = false } = me?.authorizations ?? {};
 
   const {
-    isOpen: removeIsOpen,
+    open: removeIsOpen,
     onOpen: removeOnOpen,
     onClose: removeOnClose,
   } = useDisclosure();
 
   const {
-    isOpen: duplicateIsOpen,
+    open: duplicateIsOpen,
     onOpen: duplicateOnOpen,
     onClose: duplicateOnClose,
   } = useDisclosure();
 
   const {
-    isOpen: transferOwnershipIsOpen,
+    open: transferOwnershipIsOpen,
     onOpen: transferOwnershipOnOpen,
     onClose: transferOwnershipOnClose,
   } = useDisclosure();
@@ -157,51 +164,67 @@ export default function OtherActions({ agenda }) {
 
   return (
     <>
-      <Menu
-        matchWidth
-        gutter={0}
-        modifiers={isMobile ? (fullWidth as any) : null}
+      <MenuRoot
+        ids={{ trigger: triggerId }}
+        positioning={{
+          sameWidth: isMobile,
+          gutter: 0,
+          overflowPadding: 0,
+          fitViewport: true,
+          getAnchorRect: isMobile
+            ? () => {
+                return contextBarRef.current!.getBoundingClientRect();
+              }
+            : null,
+        }}
       >
         <Tooltip
-          label={intl.formatMessage(messages.otherActions)}
-          isDisabled={!isMobile}
+          ids={{ trigger: triggerId }}
+          content={intl.formatMessage(messages.otherActions)}
+          disabled={!isMobile}
         >
-          <MenuButton
-            as={ContextBarButton}
-            textAlign={{ base: 'center', md: 'start' }}
-            lineHeight="normal"
-            display="inline-flex"
-            rightIcon={isMobile ? null : <FaIcon icon={faChevronDown} />}
-          >
-            {isMobile ? (
-              <FaIcon icon={faEllipsisVertical} size="lg" />
-            ) : (
-              <>
-                <p>{intl.formatMessage(messages.otherActions)}</p>
-                <Text fontSize="sm" mt="1">
-                  {intl.formatMessage(messages.otherActionsInfo)}
-                </Text>
-              </>
-            )}
-          </MenuButton>
+          <MenuTrigger asChild>
+            <ContextBarButton
+              textAlign={{ base: 'center', md: 'start' }}
+              lineHeight="normal"
+              display="inline-flex"
+              justifyContent="center"
+            >
+              {isMobile ? (
+                <FaIcon icon={faEllipsisVertical} size="lg" />
+              ) : (
+                <Flex direction="column">
+                  <p>{intl.formatMessage(messages.otherActions)}</p>
+                  <Text fontSize="xs" mt="1">
+                    {intl.formatMessage(messages.otherActionsInfo)}
+                  </Text>
+                </Flex>
+              )}
+              {isMobile ? null : <FaIcon icon={faChevronDown} />}
+            </ContextBarButton>
+          </MenuTrigger>
         </Tooltip>
-        <MenuList borderTopRadius="0">
+
+        <MenuContent borderTopRadius="0" maxW="var(--available-width)">
           {isAdminMod ? (
             <>
               {event.featured ? (
                 <ButtonMenuItem
+                  value="feature"
                   onClick={() => patchEvent({ featured: false })}
                   action={intl.formatMessage(messages.unfeature)}
                   description={intl.formatMessage(messages.featuredInfo)}
                 />
               ) : (
                 <ButtonMenuItem
+                  value="unfeature"
                   onClick={() => patchEvent({ featured: true })}
                   action={intl.formatMessage(messages.feature)}
                   description={intl.formatMessage(messages.featuredInfo)}
                 />
               )}
               <ButtonMenuItem
+                value="transfer-ownership"
                 disabled={!allowTransferOwnership}
                 onClick={transferOwnershipOnOpen}
                 action={intl.formatMessage(messages.transferOwnership)}
@@ -216,24 +239,28 @@ export default function OtherActions({ agenda }) {
             </>
           ) : null}
           <ButtonMenuItem
+            value="duplicate"
             onClick={duplicateOnOpen}
             action={intl.formatMessage(messages.duplicate)}
             description={intl.formatMessage(messages.duplicateInfo)}
           />
           {agenda.settings?.lab?.status && canEditEvent ? (
             <>
-              <MenuDivider />
+              <MenuSeparator />
               <ButtonMenuItem
+                value="clear-status"
                 onClick={() => patchEvent({ status: 1 })}
                 action={intl.formatMessage(messages.clearStatus)}
                 description={intl.formatMessage(messages.clearStatusInfo)}
               />
               <ButtonMenuItem
+                value="mark-as-rescheduled"
                 onClick={() => patchEvent({ status: 2 })}
                 action={intl.formatMessage(messages.markAsRescheduled)}
                 description={intl.formatMessage(messages.markAsRescheduledInfo)}
               />
               <ButtonMenuItem
+                value="mark-as-moved-online"
                 onClick={() => patchEvent({ status: 3 })}
                 action={intl.formatMessage(messages.markAsMovedOnline)}
                 description={intl.formatMessage(
@@ -241,16 +268,19 @@ export default function OtherActions({ agenda }) {
                 )}
               />
               <ButtonMenuItem
+                value="mark-as-postponed"
                 onClick={() => patchEvent({ status: 4 })}
                 action={intl.formatMessage(messages.markAsPostponed)}
                 description={intl.formatMessage(messages.markAsPostponedStatus)}
               />
               <ButtonMenuItem
+                value="mark-as-full"
                 onClick={() => patchEvent({ status: 5 })}
                 action={intl.formatMessage(messages.markAsFull)}
                 description={intl.formatMessage(messages.markAsFullStatus)}
               />
               <ButtonMenuItem
+                value="mark-as-cancelled"
                 onClick={() => patchEvent({ status: 6 })}
                 action={intl.formatMessage(messages.markAsCancelled)}
                 description={intl.formatMessage(messages.markAsCancelledStatus)}
@@ -258,10 +288,11 @@ export default function OtherActions({ agenda }) {
             </>
           ) : null}
           {displayRemove || displayRequestEditionRights ? (
-            <MenuDivider />
+            <MenuSeparator />
           ) : null}
           {displayRequestEditionRights ? (
             <LinkMenuItem
+              value="request-edition-rights"
               href={requestEditionRightsUrl}
               rel="nofollow"
               action={intl.formatMessage(messages.requestEditionRights)}
@@ -274,12 +305,14 @@ export default function OtherActions({ agenda }) {
             <>
               {isOriginAgenda ? (
                 <ButtonMenuItem
+                  value="delete-event"
                   onClick={removeOnOpen}
                   action={intl.formatMessage(messages.deleteEvent)}
                   description={intl.formatMessage(messages.deleteEventInfo)}
                 />
               ) : (
                 <ButtonMenuItem
+                  value="remove-event"
                   onClick={removeOnOpen}
                   action={intl.formatMessage(messages.removeEvent)}
                   description={intl.formatMessage(messages.removeEventInfo)}
@@ -287,20 +320,23 @@ export default function OtherActions({ agenda }) {
               )}
             </>
           ) : null}
-        </MenuList>
-      </Menu>
+        </MenuContent>
+      </MenuRoot>
 
-      <Modal isOpen={removeIsOpen} onClose={removeOnClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalBody m="auto">
+      <DialogRoot
+        open={removeIsOpen}
+        onOpenChange={removeOnClose}
+        placement="center"
+      >
+        <DialogContent>
+          <DialogHeader />
+          <DialogBody m="auto">
             {isOriginAgenda
               ? intl.formatMessage(messages.deleteConfirmation)
               : intl.formatMessage(messages.removeConfirmation)}
-          </ModalBody>
-
-          <ModalFooter justifyContent="center">
-            <Button colorScheme="danger" mr={3} onClick={onRemove}>
+          </DialogBody>
+          <DialogFooter justifyContent="center">
+            <Button colorPalette="danger" mr={3} onClick={onRemove}>
               {isOriginAgenda
                 ? intl.formatMessage(messages.delete)
                 : intl.formatMessage(messages.remove)}
@@ -308,9 +344,9 @@ export default function OtherActions({ agenda }) {
             <Button variant="ghost" onClick={removeOnClose}>
               {intl.formatMessage(messages.cancel)}
             </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
+          </DialogFooter>
+        </DialogContent>
+      </DialogRoot>
 
       {duplicateIsOpen ? (
         <DuplicateModal

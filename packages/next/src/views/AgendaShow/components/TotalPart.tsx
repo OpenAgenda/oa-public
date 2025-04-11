@@ -39,7 +39,7 @@ function Total({ total, upcomingOnly, passed, disabled }) {
 
   return (
     <Text
-      align="center"
+      textAlign="center"
       display={{ base: 'flex', sm: 'block' }}
       flexDirection="column"
     >
@@ -49,17 +49,12 @@ function Total({ total, upcomingOnly, passed, disabled }) {
           { count: total },
         )}
       </chakra.span>
-      <Button
-        as="a"
-        href={passedUrl}
-        variant="link"
-        colorScheme="primary"
-        onClick={togglePassed}
-        disabled={disabled}
-      >
-        {intl.formatMessage(
-          messages[passed ? 'showUpcomingEventsOnly' : 'includePassedEvents'],
-        )}
+      <Button asChild variant="link" onClick={togglePassed} disabled={disabled}>
+        <a href={passedUrl}>
+          {intl.formatMessage(
+            messages[passed ? 'showUpcomingEventsOnly' : 'includePassedEvents'],
+          )}
+        </a>
       </Button>
     </Text>
   );

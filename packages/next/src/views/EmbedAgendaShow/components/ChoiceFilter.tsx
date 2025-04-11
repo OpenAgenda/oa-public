@@ -6,16 +6,13 @@ import {
   Field,
 } from '@openagenda/react-filters';
 import { getLocaleValue } from '@openagenda/intl';
+import { Box, Text, Input, Button } from '@openagenda/uikit';
 import {
   Checkbox,
-  Box,
-  Text,
-  Input,
-  Button,
-  Popover,
+  PopoverRoot,
   PopoverTrigger,
   PopoverContent,
-} from '@openagenda/uikit';
+} from '@openagenda/uikit/snippets';
 import choiceFilterMessages from '@openagenda/react-filters/messages/choiceFilter';
 import { FaIcon } from 'icons';
 import { faTableCellsLarge } from 'icons/light';
@@ -47,13 +44,12 @@ function ChoiceField({ input, getTotal, filter, option, disabled }) {
 
   return (
     <Checkbox
-      isChecked={input.checked}
-      isDisabled={disabled}
+      checked={input.checked}
+      disabled={disabled}
       inputProps={input}
       w="full"
       px="3"
       py="1.5"
-      colorScheme="primary"
     >
       {getLocaleValue(option.label, intl.locale) || <>&nbsp;</>}
       {Number.isInteger(total) && total !== 0 ? (
@@ -97,8 +93,15 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
   });
 
   return (
-    <Popover matchWidth>
-      <PopoverTrigger>
+    <PopoverRoot
+      positioning={{
+        sameWidth: true,
+        gutter: 0,
+        overflowPadding: 0,
+        fitViewport: true,
+      }}
+    >
+      <PopoverTrigger asChild>
         <Button
           bg="white"
           borderColor="oaGray.300"
@@ -109,12 +112,17 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
           }}
           borderRadius="none"
           justifyContent="start"
-          leftIcon={<FaIcon size="xl" icon={faTableCellsLarge} />}
         >
+          <FaIcon size="xl" icon={faTableCellsLarge} />
           {title}
         </Button>
       </PopoverTrigger>
-      <PopoverContent display="flex" flexDirection="column" width="inherit">
+      <PopoverContent
+        borderTopRadius="0"
+        display="flex"
+        flexDirection="column"
+        width="inherit"
+      >
         {options.length > searchMinSize ? (
           <Input
             size="sm"
@@ -140,7 +148,7 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
         ) : null}
 
         {foundOptions.map((option, index) =>
-          (index < countOptions ? (
+          index < countOptions ? (
             <Field
               key={option.id || option.key || option.value}
               name={name}
@@ -155,33 +163,22 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
               getTotal={getTotal}
               disabled={disabled}
             />
-          ) : null))}
+          ) : null,
+        )}
 
         {hasMoreOptions ? (
-          <Button
-            variant="link"
-            colorScheme="primary"
-            p="2"
-            alignSelf="center"
-            onClick={moreOptions}
-          >
+          <Button variant="link" p="2" alignSelf="center" onClick={moreOptions}>
             {intl.formatMessage(choiceFilterMessages.moreOptions)}
           </Button>
         ) : null}
 
         {!hasMoreOptions && countOptions > pageSize ? (
-          <Button
-            variant="link"
-            colorScheme="primary"
-            p="2"
-            alignSelf="center"
-            onClick={lessOptions}
-          >
+          <Button variant="link" p="2" alignSelf="center" onClick={lessOptions}>
             {intl.formatMessage(choiceFilterMessages.lessOptions)}
           </Button>
         ) : null}
       </PopoverContent>
-    </Popover>
+    </PopoverRoot>
   );
 });
 

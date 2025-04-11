@@ -1,13 +1,12 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import {
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+} from '@openagenda/uikit/snippets';
 import useUser from 'hooks/useUser';
 import { FetchStatus } from 'config/types';
 import ModalLoadingBody from 'components/ModalLoadingBody';
@@ -37,6 +36,8 @@ export default function AggregateModal({
   const intl = useIntl();
   const router = useRouter();
 
+  const dialogRef = useRef<HTMLDivElement>(null);
+
   const { user, status } = useUser();
 
   // Remove displayAggregatorModal=1 from url
@@ -50,33 +51,24 @@ export default function AggregateModal({
   }, [originalOnClose, router]);
 
   return (
-    <Modal
-      size="xl"
-      isCentered
-      // scrollBehavior="inside"
-      isOpen={isOpen}
-      onClose={onClose}
+    <DialogRoot
+      size="md"
+      placement="center"
+      open={isOpen}
+      onOpenChange={onClose}
     >
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader
-          sx={{
-            ':has(> .chakra-modal__close-btn)': {
-              pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-            },
-          }}
-        >
+      <DialogContent ref={dialogRef}>
+        <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.title)}
-
-          <ModalCloseButton />
-        </ModalHeader>
+        </DialogHeader>
+        <DialogCloseTrigger />
 
         {status === FetchStatus.Fetching ? (
           <ModalLoadingBody />
         ) : (
           <AggregateModalBody agenda={agenda} user={user} />
         )}
-      </ModalContent>
-    </Modal>
+      </DialogContent>
+    </DialogRoot>
   );
 }

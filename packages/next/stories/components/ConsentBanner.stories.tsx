@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { Button } from '@openagenda/uikit';
-import Providers from 'Providers';
 import ConsentBanner from 'components/ConsentBanner';
 import fetchAllLocales from '../utils/fetchAllLocales';
+import ProvidersDecorator from '../decorators/ProvidersDecorator';
 
 export default {
   title: 'components/ConsentBanner',
@@ -13,24 +13,25 @@ export default {
       intlMessages: await fetchAllLocales('fr'),
     }),
   ],
+  decorators: [ProvidersDecorator],
 };
 
-export function ConsentBannerComponent(_args, { loaded: { intlMessages } }) {
-  const [cookies, _setCookie, removeCookie] = useCookies();
-  console.log('cookies', cookies);
+export function ConsentBannerFixed() {
+  const [cookies, , removeCookie] = useCookies();
+
   useEffect(() => {
     removeCookie('GaCookieConsent');
   }, [removeCookie]);
 
   return (
-    <Providers locale="fr" intlMessages={intlMessages}>
+    <>
       {cookies.GaCookieConsent !== undefined && (
         <Button
           mx="4"
-          colorScheme="red"
+          colorPalette="red"
           onClick={() => removeCookie('GaCookieConsent')}
         >
-          removeCookie
+          Remove cookie
         </Button>
       )}
       <p>
@@ -40,6 +41,37 @@ export function ConsentBannerComponent(_args, { loaded: { intlMessages } }) {
           : JSON.stringify(cookies.GaCookieConsent)}
       </p>
       {cookies.GaCookieConsent === undefined && <ConsentBanner />}
-    </Providers>
+    </>
+  );
+}
+
+export function ConsentBannerOverlay() {
+  const [cookies, , removeCookie] = useCookies();
+
+  useEffect(() => {
+    removeCookie('GaCookieConsent');
+  }, [removeCookie]);
+
+  return (
+    <>
+      {cookies.GaCookieConsent !== undefined && (
+        <Button
+          mx="4"
+          colorPalette="red"
+          onClick={() => removeCookie('GaCookieConsent')}
+        >
+          Remove cookie
+        </Button>
+      )}
+      <p>
+        CookieConsent :{' '}
+        {cookies.GaCookieConsent === undefined
+          ? 'undefined'
+          : JSON.stringify(cookies.GaCookieConsent)}
+      </p>
+      {cookies.GaCookieConsent === undefined && (
+        <ConsentBanner display="overlay" />
+      )}
+    </>
   );
 }

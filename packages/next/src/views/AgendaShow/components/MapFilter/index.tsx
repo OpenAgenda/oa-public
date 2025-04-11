@@ -20,7 +20,7 @@ const MapField = React.forwardRef<any, any>(function MapField(
   ref,
 ) {
   return (
-    <Box __css={{ h: '250px', pos: 'relative' }} className={className}>
+    <Box css={{ h: '250px', pos: 'relative' }} className={className}>
       <DynamicMap
         innerRef={ref}
         input={input}

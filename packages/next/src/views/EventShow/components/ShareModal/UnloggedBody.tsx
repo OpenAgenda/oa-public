@@ -11,14 +11,13 @@ export default function UnloggedBody() {
   return (
     <Flex direction="column">
       <p>{intl.formatMessage(messages.mustSignIn)}</p>
-      <Button
-        as={Link}
-        href={`/signin?redirect=${base64.encode(router.asPath)}`}
-        colorScheme="primary"
-        mt="4"
-        alignSelf="center"
-      >
-        {intl.formatMessage(messages.signIn)}
+      <Button asChild mt="4" alignSelf="center">
+        <Link
+          unstyled
+          href={`/signin?redirect=${base64.encode(router.asPath)}`}
+        >
+          {intl.formatMessage(messages.signIn)}
+        </Link>
       </Button>
     </Flex>
   );

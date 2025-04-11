@@ -1,6 +1,7 @@
-import { Button, ButtonProps, forwardRef } from '@openagenda/uikit';
+import { forwardRef } from 'react';
+import { Button, ButtonProps } from '@openagenda/uikit';
 
-const ContextBarButton = forwardRef<ButtonProps, 'button'>(
+const ContextBarButton = forwardRef<HTMLButtonElement, any>(
   function ContextBarButton({ children, ...buttonProps }: ButtonProps, ref) {
     return (
       <Button

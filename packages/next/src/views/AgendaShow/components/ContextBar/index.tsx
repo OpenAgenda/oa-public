@@ -1,5 +1,5 @@
 import useSWR from 'swr';
-import { Flex, Collapse } from '@openagenda/uikit';
+import { Flex, Collapsible } from '@openagenda/uikit';
 import { FetchStatus } from 'config/types';
 import isAdminMod from '../../../../utils/isAdminMod';
 import ContributorContextBar from './ContributorContextBar';
@@ -19,19 +19,24 @@ export default function ContextBar({ agenda }) {
   const { drafts } = me.events;
 
   return (
-    <Collapse in animateOpacity>
-      <Flex minH="50px" px="6" bg="primary.500" align="center" color="white">
-        <VisibilityContextBar agenda={agenda} />
-        {isAdminMod(me.member) ? (
-          <ModeratorContextBar agenda={agenda} states={events?.states ?? []} />
-        ) : (
-          <ContributorContextBar
-            agenda={agenda}
-            drafts={drafts}
-            states={me.events.states}
-          />
-        )}
-      </Flex>
-    </Collapse>
+    <Collapsible.Root open>
+      <Collapsible.Content>
+        <Flex minH="50px" px="6" bg="primary.500" align="center" color="white">
+          <VisibilityContextBar agenda={agenda} />
+          {isAdminMod(me.member) ? (
+            <ModeratorContextBar
+              agenda={agenda}
+              states={events?.states ?? []}
+            />
+          ) : (
+            <ContributorContextBar
+              agenda={agenda}
+              drafts={drafts}
+              states={me.events.states}
+            />
+          )}
+        </Flex>
+      </Collapsible.Content>
+    </Collapsible.Root>
   );
 }

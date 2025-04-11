@@ -3,18 +3,20 @@ import {
   chakra,
   Box,
   Button,
-  Collapse,
-  Divider,
+  Collapsible,
   IconButton,
   Link,
-  Menu,
-  MenuButton,
-  MenuDivider,
-  MenuItem,
-  MenuList,
+  Separator,
   Portal,
   useDisclosure,
 } from '@openagenda/uikit';
+import {
+  MenuRoot,
+  MenuTrigger,
+  MenuContent,
+  MenuItem,
+  MenuSeparator,
+} from '@openagenda/uikit/snippets';
 import Image from 'components/Image';
 import SearchInput from 'components/NavbarSearchInput';
 import { thumborLoader } from 'utils/imageLoader';
@@ -30,7 +32,7 @@ export default function ProfileMenu({ user, portalRef }) {
   const intl = useIntl();
 
   const collapseId = 'header-menu-collapse';
-  const { getButtonProps, isOpen } = useDisclosure({ id: collapseId });
+  const { open, onToggle } = useDisclosure();
 
   const { inputValue, setInputValue, onSearch } = useSearch();
 
@@ -38,79 +40,90 @@ export default function ProfileMenu({ user, portalRef }) {
     <>
       {/* Desktop content */}
       {user ? (
-        <Menu placement="bottom-end" colorScheme="primary">
-          {/* TODO `p={4} py={0}` -> `px={4}` after https://github.com/chakra-ui/chakra-ui/pull/6905 */}
-          <MenuButton
-            as={Button}
-            variant="link"
-            display={{ base: 'none', lg: 'flex' }}
-            p="4"
-            py="0"
-            alignSelf="stretch"
+        <MenuRoot positioning={{ placement: 'bottom-end' }}>
+          <MenuTrigger colorPalette="oaGray" asChild>
+            <Button
+              variant="link"
+              display={{ base: 'none', lg: 'flex' }}
+              px="4"
+              alignSelf="stretch"
+            >
+              {user.image ? (
+                <Image
+                  alt={intl.formatMessage(messages.profileMenu)}
+                  src={
+                    process.env.NODE_ENV === 'development'
+                      ? `${process.env.NEXT_PUBLIC_DEV_S3_BUCKET}/${user.image}`
+                      : `${process.env.NEXT_PUBLIC_S3_BUCKET}/${user.image}`
+                  }
+                  fallbackSrc={
+                    process.env.NODE_ENV === 'development'
+                      ? `${process.env.NEXT_PUBLIC_S3_BUCKET}/${user.image}`
+                      : undefined
+                  }
+                  loader={thumborLoader}
+                  width="30"
+                  height="30"
+                />
+              ) : 
+                user.fullName
+              }
+            </Button>
+          </MenuTrigger>
+          <MenuContent
+            color="black"
+            minW="3xs"
+            // Fix zIndex of menu + sticky navbar
+            css={{ '--menu-z-index': 'zIndex.popover' }}
           >
-            {user.image ? (
-              <Image
-                alt={intl.formatMessage(messages.profileMenu)}
-                src={
-                  process.env.NODE_ENV === 'development'
-                    ? `${process.env.NEXT_PUBLIC_DEV_S3_BUCKET}/${user.image}`
-                    : `${process.env.NEXT_PUBLIC_S3_BUCKET}/${user.image}`
-                }
-                fallbackSrc={
-                  process.env.NODE_ENV === 'development'
-                    ? `${process.env.NEXT_PUBLIC_S3_BUCKET}/${user.image}`
-                    : undefined
-                }
-                loader={thumborLoader}
-                width="30"
-                height="30"
-              />
-            ) : 
-              user.fullName
-            }
-          </MenuButton>
-          <MenuList
-            // https://github.com/chakra-ui/chakra-ui/issues/5742
-            zIndex="popover"
-          >
-            <MenuItem as={Link} href="/home" textAlign="right">
-              {intl.formatMessage(messages.myAgendas)}
+            <MenuItem asChild value="agendas">
+              <Link unstyled href="/home">
+                {intl.formatMessage(messages.myAgendas)}
+              </Link>
             </MenuItem>
-            <MenuItem as={Link} href="/home/events" textAlign="right">
-              {intl.formatMessage(messages.myEvents)}
+            <MenuItem asChild value="events">
+              <Link unstyled href="/home/events">
+                {intl.formatMessage(messages.myEvents)}
+              </Link>
             </MenuItem>
-            <MenuDivider />
-            <MenuItem as={Link} href="/settings" textAlign="right">
-              {intl.formatMessage(messages.settings)}
+            <MenuSeparator />
+            <MenuItem asChild value="settings">
+              <Link unstyled href="/settings">
+                {intl.formatMessage(messages.settings)}
+              </Link>
             </MenuItem>
-            <MenuItem as={Link} href="/signout" textAlign="right">
-              {intl.formatMessage(messages.signOut)}
+            <MenuItem asChild value="signout">
+              <Link unstyled href="/signout">
+                {intl.formatMessage(messages.signOut)}
+              </Link>
             </MenuItem>
-          </MenuList>
-        </Menu>
+          </MenuContent>
+        </MenuRoot>
       ) : (
         <>
           <Button
-            as={Link}
-            href={hrefWithLang('/signin', intl.locale)}
+            asChild
             variant="link"
-            colorScheme="primary"
             display={{ base: 'none', lg: 'flex' }}
             px="4"
             alignItems="center"
+            alignSelf="stretch"
           >
-            {intl.formatMessage(messages.signIn)}
+            <Link unstyled href={hrefWithLang('/signin', intl.locale)}>
+              {intl.formatMessage(messages.signIn)}
+            </Link>
           </Button>
           <Button
-            as={Link}
-            href={hrefWithLang('/signup', intl.locale)}
+            asChild
             variant="link"
-            colorScheme="primary"
             display={{ base: 'none', lg: 'flex' }}
             px="4"
             alignItems="center"
+            alignSelf="stretch"
           >
-            {intl.formatMessage(messages.signUp)}
+            <Link unstyled href={hrefWithLang('/signup', intl.locale)}>
+              {intl.formatMessage(messages.signUp)}
+            </Link>
           </Button>
         </>
       )}
@@ -118,92 +131,120 @@ export default function ProfileMenu({ user, portalRef }) {
       {/* Mobile content */}
       <IconButton
         aria-label="Open Menu" // TODO translate
-        size="md"
+        colorPalette="oaGray"
         variant="ghost"
+        size="md"
         mr="4"
-        icon={<FaIcon icon={faBars} />}
         display={{ base: 'flex', lg: 'none' }}
-        {...getButtonProps()}
-      />
-      <Portal containerRef={portalRef}>
-        <Collapse id={collapseId} in={isOpen}>
-          <Box display={{ base: 'block', lg: 'none' }}>
-            <form onSubmit={onSearch}>
-              <StyledSearchInput
-                h="50px"
-                input={{
-                  value: inputValue,
-                  onChange: (e) => setInputValue(e.target.value),
-                }}
-              />
-            </form>
+        aria-expanded={open}
+        aria-controls={collapseId}
+        onClick={onToggle}
+      >
+        <FaIcon icon={faBars} />
+      </IconButton>
+      <Portal container={portalRef}>
+        <Collapsible.Root id={collapseId} open={open}>
+          <Collapsible.Content>
+            <Box display={{ base: 'block', lg: 'none' }}>
+              <form onSubmit={onSearch}>
+                <StyledSearchInput
+                  h="50px"
+                  input={{
+                    value: inputValue,
+                    onChange: (e) => setInputValue(e.target.value),
+                  }}
+                />
+              </form>
 
-            <Box py="2">
-              {user ? (
-                <>
-                  <Link
-                    href="/home"
-                    display="block"
-                    px="6"
-                    py="3"
-                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-                  >
-                    {intl.formatMessage(messages.myAgendas)}
-                  </Link>
-                  <Link
-                    href="/home/events"
-                    display="block"
-                    px="6"
-                    py="3"
-                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-                  >
-                    {intl.formatMessage(messages.myEvents)}
-                  </Link>
-                  <Divider my="2" />
-                  <Link
-                    href="/settings"
-                    display="block"
-                    px="6"
-                    py="3"
-                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-                  >
-                    {intl.formatMessage(messages.settings)}
-                  </Link>
-                  <Link
-                    href="/signout"
-                    display="block"
-                    px="6"
-                    py="3"
-                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-                  >
-                    {intl.formatMessage(messages.signOut)}
-                  </Link>
-                </>
-              ) : (
-                <>
-                  <Link
-                    href={hrefWithLang('/signin', intl.locale)}
-                    display="block"
-                    px="6"
-                    py="3"
-                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-                  >
-                    {intl.formatMessage(messages.signIn)}
-                  </Link>
-                  <Link
-                    href={hrefWithLang('/signup', intl.locale)}
-                    display="block"
-                    px="6"
-                    py="3"
-                    _hover={{ bg: 'primary.50', textDecoration: 'underline' }}
-                  >
-                    {intl.formatMessage(messages.signUp)}
-                  </Link>
-                </>
-              )}
+              <Box py="2">
+                {user ? (
+                  <>
+                    <Link
+                      unstyled
+                      href="/home"
+                      display="block"
+                      px="6"
+                      py="3"
+                      _hover={{
+                        bg: 'primary.subtle/30',
+                        textDecoration: 'underline',
+                      }}
+                    >
+                      {intl.formatMessage(messages.myAgendas)}
+                    </Link>
+                    <Link
+                      unstyled
+                      href="/home/events"
+                      display="block"
+                      px="6"
+                      py="3"
+                      _hover={{
+                        bg: 'primary.subtle/30',
+                        textDecoration: 'underline',
+                      }}
+                    >
+                      {intl.formatMessage(messages.myEvents)}
+                    </Link>
+                    <Separator my="2" />
+                    <Link
+                      unstyled
+                      href="/settings"
+                      display="block"
+                      px="6"
+                      py="3"
+                      _hover={{
+                        bg: 'primary.subtle/30',
+                        textDecoration: 'underline',
+                      }}
+                    >
+                      {intl.formatMessage(messages.settings)}
+                    </Link>
+                    <Link
+                      unstyled
+                      href="/signout"
+                      display="block"
+                      px="6"
+                      py="3"
+                      _hover={{
+                        bg: 'primary.subtle/30',
+                        textDecoration: 'underline',
+                      }}
+                    >
+                      {intl.formatMessage(messages.signOut)}
+                    </Link>
+                  </>
+                ) : (
+                  <>
+                    <Link
+                      href={hrefWithLang('/signin', intl.locale)}
+                      display="block"
+                      px="6"
+                      py="3"
+                      _hover={{
+                        bg: 'primary.subtle/30',
+                        textDecoration: 'underline',
+                      }}
+                    >
+                      {intl.formatMessage(messages.signIn)}
+                    </Link>
+                    <Link
+                      href={hrefWithLang('/signup', intl.locale)}
+                      display="block"
+                      px="6"
+                      py="3"
+                      _hover={{
+                        bg: 'primary.subtle/30',
+                        textDecoration: 'underline',
+                      }}
+                    >
+                      {intl.formatMessage(messages.signUp)}
+                    </Link>
+                  </>
+                )}
+              </Box>
             </Box>
-          </Box>
-        </Collapse>
+          </Collapsible.Content>
+        </Collapsible.Root>
       </Portal>
     </>
   );

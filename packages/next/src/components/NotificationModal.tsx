@@ -1,14 +1,12 @@
+import { Button, Text } from '@openagenda/uikit';
 import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  ModalCloseButton,
-  ModalFooter,
-  Text,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+  DialogBody,
+  DialogFooter,
+} from '@openagenda/uikit/snippets';
 
 export default function NotificationModal({
   onClose,
@@ -18,32 +16,21 @@ export default function NotificationModal({
   onAction,
 }) {
   return (
-    <Modal isOpen onClose={onClose}>
-      <ModalOverlay />
-      <ModalContent>
+    <DialogRoot role="alertdialog" open onOpenChange={onClose}>
+      <DialogContent>
         {title ? (
-          <ModalHeader
-            sx={{
-              ':has(> .chakra-modal__close-btn)': {
-                pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-              },
-            }}
-          >
+          <DialogHeader fontSize="xl" fontWeight="semibold">
             {title}
-            <ModalCloseButton />
-          </ModalHeader>
+          </DialogHeader>
         ) : null}
-        <ModalBody>
+        <DialogCloseTrigger />
+        <DialogBody>
           <Text>{message}</Text>
-        </ModalBody>
-        <ModalFooter justifyContent="center">
-          {action ? (
-            <Button colorScheme="primary" onClick={onAction}>
-              {action}
-            </Button>
-          ) : null}
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+        </DialogBody>
+        <DialogFooter justifyContent="center">
+          {action ? <Button onClick={onAction}>{action}</Button> : null}
+        </DialogFooter>
+      </DialogContent>
+    </DialogRoot>
   );
 }

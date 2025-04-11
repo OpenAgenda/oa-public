@@ -305,7 +305,7 @@
       "value": "State:"
     }
   ],
-  "next.views.EventShow.ContextBar.suggestLocaitonChange": [
+  "next.views.EventShow.ContextBar.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggerisci una modifica della posizione"
@@ -683,7 +683,7 @@
       "value": " years old"
     }
   ],
-  "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
+  "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggerisci una modifica della posizione"

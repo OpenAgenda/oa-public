@@ -40,7 +40,6 @@ function Total({ total, upcomingOnly, passed: _passed, disabled: _disabled }) {
 
   return (
     <Text
-      align="center"
       display={{ base: 'flex', sm: 'block' }}
       flexDirection="column"
       alignSelf="start"

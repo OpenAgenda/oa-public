@@ -13,7 +13,7 @@ const LongDescription = memo(function LongDescription({
 }: LongDescriptionProps) {
   return (
     <>
-      <chakra.div sx={mdStyle} dangerouslySetInnerHTML={{ __html: html }} />
+      <chakra.div css={mdStyle} dangerouslySetInnerHTML={{ __html: html }} />
 
       {links
         ? links.map((link: any) => {

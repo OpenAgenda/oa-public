@@ -6,14 +6,14 @@ export default function useShareModal() {
   const searchParams = useSearchParams() as { sharemodal?: string };
 
   const {
-    isOpen: shareIsOpen,
+    open: shareIsOpen,
     onOpen: shareOnOpen,
     onClose: shareOnClose,
-  } = useDisclosure({ defaultIsOpen: searchParams.sharemodal === '1' });
+  } = useDisclosure({ defaultOpen: searchParams.sharemodal === '1' });
 
   const [emailSent, setEmailSent] = useState(0);
   const {
-    isOpen: emailSentIsOpen,
+    open: emailSentIsOpen,
     onOpen: emailSentOnOpen,
     onClose: emailSentOnClose,
   } = useDisclosure();

@@ -11,10 +11,8 @@ import {
   Heading,
   IconButton,
   List,
-  ListItem,
-  ListIcon,
-  Text,
   LinkBox,
+  Text,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { useForm } from '@openagenda/react-filters';
@@ -110,15 +108,16 @@ function FavoriteButton({ agenda, event }) {
         messages[isFavorite ? 'removeFromFavorites' : 'addToFavorites'],
       )}
       variant="link"
-      colorScheme={isFavorite ? 'primary' : 'oaGray'}
+      colorPalette={isFavorite ? 'primary' : 'oaGray'}
       onClick={toggleFavorite}
       size="lg"
       fontSize="xl"
-      icon={<FontAwesomeIcon icon={isFavorite ? fasStar : faStar} />}
       minW="0"
       ml="6"
       alignSelf="flex-start"
-    />
+    >
+      <FontAwesomeIcon icon={isFavorite ? fasStar : faStar} />
+    </IconButton>
   );
 }
 
@@ -250,55 +249,58 @@ function EventItem({
           {/* eslint-disable-next-line no-nested-ternary */}
           {event.image ? 
             event.image?.size?.width && event.image?.size?.height ? (
-              <Image
-                src={
-                  process.env.NODE_ENV === 'development'
-                    ? `${DEV_S3_BUCKET}/${event.image.filename}`
-                    : `${S3_BUCKET}/${event.image.filename}`
-                }
-                fallbackSrc={
-                  process.env.NODE_ENV === 'development'
-                    ? `${S3_BUCKET}/${event.image.filename}`
-                    : undefined
-                }
-                width={event.image.size.width}
-                height={event.image.size.height}
-                // >= 1280 : 577px
-                // >= 992 : 476px
-                // < 520 : 100vw
-                sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
-                loader={thumborLoader}
-                alt=""
-                m="auto"
-                w="full"
-                priority={imagePriority}
-              />
+              <Box asChild m="auto" w="full">
+                <Image
+                  src={
+                    process.env.NODE_ENV === 'development'
+                      ? `${DEV_S3_BUCKET}/${event.image.filename}`
+                      : `${S3_BUCKET}/${event.image.filename}`
+                  }
+                  fallbackSrc={
+                    process.env.NODE_ENV === 'development'
+                      ? `${S3_BUCKET}/${event.image.filename}`
+                      : undefined
+                  }
+                  width={event.image.size.width}
+                  height={event.image.size.height}
+                  // >= 1280 : 577px
+                  // >= 992 : 476px
+                  // < 520 : 100vw
+                  sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
+                  loader={thumborLoader}
+                  alt=""
+                  priority={imagePriority}
+                />
+              </Box>
             ) : (
-              <Image
-                src={
-                  process.env.NODE_ENV === 'development'
-                    ? `${DEV_S3_BUCKET}/${event.image.filename}`
-                    : `${S3_BUCKET}/${event.image.filename}`
-                }
-                fallbackSrc={
-                  process.env.NODE_ENV === 'development'
-                    ? `${S3_BUCKET}/${event.image.filename}`
-                    : undefined
-                }
-                fill
-                // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+              <Box
+                asChild
                 pos="unset !important"
                 w="full !important"
                 h="auto !important"
-                // >= 1280 : 577px
-                // >= 992 : 476px
-                // < 520 : 100vw
-                sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
-                loader={thumborLoader}
-                alt=""
                 m="auto"
-                priority={imagePriority}
-              />
+              >
+                <Image
+                  src={
+                    process.env.NODE_ENV === 'development'
+                      ? `${DEV_S3_BUCKET}/${event.image.filename}`
+                      : `${S3_BUCKET}/${event.image.filename}`
+                  }
+                  fallbackSrc={
+                    process.env.NODE_ENV === 'development'
+                      ? `${S3_BUCKET}/${event.image.filename}`
+                      : undefined
+                  }
+                  fill
+                  // >= 1280 : 577px
+                  // >= 992 : 476px
+                  // < 520 : 100vw
+                  sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
+                  loader={thumborLoader}
+                  alt=""
+                  priority={imagePriority}
+                />
+              </Box>
             )
            : null}
 
@@ -306,40 +308,38 @@ function EventItem({
           <Text px="6">{getLocaleValue(event.description, intl.locale)}</Text>
 
           <Flex justify="space-between">
-            <List spacing="2" px="6" color="oaGray.500" pb="4">
-              <ListItem ml="6">
-                <ListIcon
-                  as={FontAwesomeIcon}
-                  icon={faClock}
-                  verticalAlign=""
-                  ml="-6"
-                />
+            <List.Root
+              variant="plain"
+              gap="2"
+              align="center"
+              color="oaGray.500"
+              pb="4"
+              ml="6"
+            >
+              <List.Item>
+                <List.Indicator asChild w="4" h="4">
+                  <FontAwesomeIcon size="sm" icon={faClock} />
+                </List.Indicator>
                 {getLocaleValue(event.dateRange, intl.locale)}
-              </ListItem>
+              </List.Item>
               {event.onlineAccessLink ? (
-                <ListItem ml="6">
-                  <ListIcon
-                    as={FontAwesomeIcon}
-                    icon={faLink}
-                    verticalAlign=""
-                    ml="-6"
-                  />
+                <List.Item>
+                  <List.Indicator asChild w="4" h="4">
+                    <FontAwesomeIcon size="sm" icon={faLink} />
+                  </List.Indicator>
                   {intl.formatMessage(attendanceModesMessages.online)}
-                </ListItem>
+                </List.Item>
               ) : null}
               {event.location ? (
-                <ListItem ml="6">
-                  <ListIcon
-                    as={FontAwesomeIcon}
-                    icon={faLocationDot}
-                    verticalAlign=""
-                    ml="-6"
-                  />
+                <List.Item>
+                  <List.Indicator asChild w="4" h="4">
+                    <FontAwesomeIcon size="sm" icon={faLocationDot} />
+                  </List.Indicator>
                   {event.location.name}
                   {event.location.city ? `, ${event.location.city}` : ''}
-                </ListItem>
+                </List.Item>
               ) : null}
-            </List>
+            </List.Root>
 
             <Box
               float="right"
@@ -348,23 +348,29 @@ function EventItem({
               alignSelf="flex-end"
             >
               <Button
-                as={NextChakraLink}
-                href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
-                colorScheme="primary"
-                borderRadius="sm"
+                asChild
+                borderRadius="xs"
                 display={{ base: 'none', sm: 'inline-flex' }}
               >
-                {intl.formatMessage(messages.share)}
+                <NextChakraLink
+                  unstyled
+                  href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
+                >
+                  {intl.formatMessage(messages.share)}
+                </NextChakraLink>
               </Button>
 
               <Button
-                as={NextChakraLink}
-                href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
-                colorScheme="primary"
+                asChild
                 borderRadius="sm"
                 display={{ base: 'inline-flex', sm: 'none' }}
               >
-                <FontAwesomeIcon icon={faShare} />
+                <NextChakraLink
+                  unstyled
+                  href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
+                >
+                  <FontAwesomeIcon icon={faShare} />
+                </NextChakraLink>
               </Button>
             </Box>
           </Flex>

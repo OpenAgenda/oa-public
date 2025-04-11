@@ -83,7 +83,7 @@ export default function EventsPart({
     <>
       <SimpleGrid
         templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))"
-        spacing="10"
+        gap="10"
       >
         {pages?.map((page, pageIndex) =>
           page.events.map((event, eventIndex) => (
@@ -104,14 +104,12 @@ export default function EventsPart({
       {!isLoadingInitialData && !isReachingEnd ? (
         <Flex justify="space-around" mt="8">
           <Button
-            as="a"
-            href={seeMoreUrl}
+            asChild
             onClick={nextPage}
             variant="link"
-            colorScheme="primary"
-            isLoading={isLoadingMore}
+            loading={isLoadingMore}
           >
-            {intl.formatMessage(messages.seeMore)}
+            <a href={seeMoreUrl}>{intl.formatMessage(messages.seeMore)}</a>
           </Button>
         </Flex>
       ) : null}

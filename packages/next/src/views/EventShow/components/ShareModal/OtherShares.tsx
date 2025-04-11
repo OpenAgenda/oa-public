@@ -4,21 +4,28 @@ import { useRouter } from 'next/router';
 import useSWRMutation from 'swr/mutation';
 import { formatInTimeZone } from 'date-fns-tz';
 import ky from 'ky';
+import { useTimeoutFn } from 'react-use';
 import {
   chakra,
+  createListCollection,
   VStack,
   HStack,
   Text,
   Link,
   Textarea,
   Button,
-  Select,
+  Stack,
+} from '@openagenda/uikit';
+import {
+  SelectRoot,
+  SelectTrigger,
+  SelectValueText,
+  SelectContent,
+  SelectItem,
   RadioGroup,
   Radio,
-  Stack,
-  useTimeout,
   Tooltip,
-} from '@openagenda/uikit';
+} from '@openagenda/uikit/snippets';
 import extractEmails from '@openagenda/mails/extractEmails';
 import { FaIcon } from 'icons';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
@@ -123,7 +130,12 @@ async function sendEmails(
     .json();
 }
 
-export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
+export default function OtherShares({
+  dialogRef,
+  contentLocale,
+  onClose,
+  onEmailSent,
+}) {
   const intl = useIntl();
   const router = useRouter();
   const dateFnsLocale = useDateFnsLocale();
@@ -142,12 +154,28 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
     (timing) => new Date(timing.begin) > now,
   );
 
+  const currentAndUpcomingTimingsCollection = useMemo(
+    () =>
+      createListCollection({
+        items: currentAndUpcomingTimings.map((timing, index) => ({
+          label: `${formatInTimeZone(
+            timing.begin,
+            event.timezone,
+            'PPPP, HH:mm',
+            { locale: dateFnsLocale },
+          )} - ${formatInTimeZone(timing.end, event.timezone, 'HH:mm', {
+            locale: dateFnsLocale,
+          })}`,
+          value: index,
+        })),
+      }),
+    [currentAndUpcomingTimings, dateFnsLocale, event.timezone],
+  );
+
   const [selectedTimingIndex, setSelectedTimingIndex] = useState(() =>
     currentAndUpcomingTimings.length === 1 ? '0' : '',
   );
   const [service, setService] = useState('');
-
-  const onSelectTiming = (e) => setSelectedTimingIndex(e.target.value);
 
   const importUrl = getImportUrl({
     intl,
@@ -179,7 +207,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
 
   const [copied, setCopied] = useState(false);
 
-  useTimeout(
+  useTimeoutFn(
     () => {
       setCopied(false);
     },
@@ -187,44 +215,44 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
   );
 
   return (
-    <VStack align="stretch" spacing="6">
+    <VStack align="stretch" gap="6">
       <div>
         <Text fontSize="lg" fontWeight="bold" mb="2">
           {intl.formatMessage(messages.shareOnSocialNetworks)}
         </Text>
         <HStack>
-          <Button
-            as={Link}
-            variant="outline"
-            href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(eventUrl.toString())}`}
-            target="_blank"
-            rel="noopener nofollow"
-            colorScheme="primary"
-            leftIcon={<FaIcon icon={faFacebookF} />}
-          >
-            Facebook
+          <Button asChild variant="outline">
+            <Link
+              unstyled
+              href={`https://www.facebook.com/sharer.php?u=${encodeURIComponent(eventUrl.toString())}`}
+              target="_blank"
+              rel="noopener nofollow"
+            >
+              <FaIcon icon={faFacebookF} />
+              Facebook
+            </Link>
           </Button>
-          <Button
-            as={Link}
-            variant="outline"
-            href={`https://twitter.com/share?url=${encodeURIComponent(eventUrl.toString())}`}
-            target="_blank"
-            rel="noopener nofollow"
-            colorScheme="primary"
-            leftIcon={<FaIcon icon={faXTwitter} />}
-          >
-            Twitter
+          <Button asChild variant="outline">
+            <Link
+              unstyled
+              href={`https://twitter.com/share?url=${encodeURIComponent(eventUrl.toString())}`}
+              target="_blank"
+              rel="noopener nofollow"
+            >
+              <FaIcon icon={faXTwitter} />
+              Twitter
+            </Link>
           </Button>
-          <Button
-            as={Link}
-            variant="outline"
-            href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(eventUrl.toString())}&title=${encodeURIComponent(event.title[contentLocale])}&summary=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}&source=${eventUrl}`}
-            target="_blank"
-            rel="noopener nofollow"
-            colorScheme="primary"
-            leftIcon={<FaIcon icon={faLinkedinIn} />}
-          >
-            LinkedIn
+          <Button asChild variant="outline">
+            <Link
+              unstyled
+              href={`https://linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(eventUrl.toString())}&title=${encodeURIComponent(event.title[contentLocale])}&summary=${encodeURIComponent(`${event.description[contentLocale]} - ${eventUrl}`)}&source=${eventUrl}`}
+              target="_blank"
+              rel="noopener nofollow"
+            >
+              <FaIcon icon={faLinkedinIn} />
+              LinkedIn
+            </Link>
           </Button>
         </HStack>
       </div>
@@ -243,9 +271,8 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
         </Text>
         <Button
           type="submit"
-          colorScheme="primary"
-          isDisabled={!emails.length}
-          isLoading={isMutating}
+          disabled={!emails.length}
+          loading={isMutating}
           onClick={() => trigger(emails)}
         >
           {intl.formatMessage(messages.send)}
@@ -258,32 +285,31 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
             {intl.formatMessage(messages.shareCalendar)}
           </Text>
 
-          <Select
-            placeholder={intl.formatMessage(messages.selectTiming)}
+          <SelectRoot
+            collection={currentAndUpcomingTimingsCollection}
+            value={[selectedTimingIndex]}
+            onValueChange={(e) => setSelectedTimingIndex(e.value[0])}
             mb="2"
-            onChange={onSelectTiming}
-            value={selectedTimingIndex}
           >
-            {currentAndUpcomingTimings.map((timing, index) => {
-              if (new Date(timing.begin) < now) return null;
-              return (
-                <option key={timing.begin} value={index}>
-                  {formatInTimeZone(
-                    timing.begin,
-                    event.timezone,
-                    'PPPP, HH:mm',
-                    { locale: dateFnsLocale },
-                  )}
-                  &nbsp;-&nbsp;
-                  {formatInTimeZone(timing.end, event.timezone, 'HH:mm', {
-                    locale: dateFnsLocale,
-                  })}
-                </option>
-              );
-            })}
-          </Select>
+            <SelectTrigger>
+              <SelectValueText
+                placeholder={intl.formatMessage(messages.selectTiming)}
+              />
+            </SelectTrigger>
+            <SelectContent portalRef={dialogRef}>
+              {currentAndUpcomingTimingsCollection.items.map((timing) => (
+                <SelectItem key={timing.value} item={timing}>
+                  {timing.label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </SelectRoot>
 
-          <RadioGroup onChange={setService} value={service} mb="2">
+          <RadioGroup
+            onValueChange={(e) => setService(e.value)}
+            value={service}
+            mb="2"
+          >
             <Stack>
               <Radio value="google">Google Calendar</Radio>
               <Radio value="yahoo">Yahoo! Calendar</Radio>
@@ -293,15 +319,17 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
           </RadioGroup>
 
           <Button
-            type="submit"
-            as={Link}
-            href={importUrl}
-            target="_blank"
-            rel="noopener nofollow"
-            colorScheme="primary"
-            isDisabled={service === '' || selectedTimingIndex === ''}
+            asChild
+            disabled={service === '' || selectedTimingIndex === ''}
           >
-            {intl.formatMessage(messages.import)}
+            <Link
+              unstyled
+              href={importUrl}
+              target="_blank"
+              rel="noopener nofollow"
+            >
+              {intl.formatMessage(messages.import)}
+            </Link>
           </Button>
         </div>
       ) : null}
@@ -313,7 +341,7 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
         <chakra.div
           py="1"
           ps="4"
-          border="1px"
+          border="1px solid"
           borderColor="gray.300"
           borderRadius="md"
           display="flex"
@@ -322,15 +350,11 @@ export default function OtherShares({ contentLocale, onClose, onEmailSent }) {
         >
           {absUrl.toString()}
           <Tooltip
-            label={intl.formatMessage(messages.copied)}
-            hasArrow
-            placement="auto"
-            isOpen={copied}
-            arrowSize={8}
-            arrowPadding={6}
+            content={intl.formatMessage(messages.copied)}
+            showArrow
+            open={copied}
           >
             <Button
-              colorScheme="primary"
               variant="outline"
               size="sm"
               mx="1"

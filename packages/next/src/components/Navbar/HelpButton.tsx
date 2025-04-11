@@ -9,16 +9,11 @@ export default function HelpButton() {
 
   return (
     <Button
-      as={Link}
-      href="https://doc.openagenda.com"
-      target="_blank"
-      rel="noopener"
+      asChild
       variant="outline"
-      colorScheme="primary"
       borderRadius="full"
       mx="4"
       alignSelf="center"
-      leftIcon={<FaIcon icon={faCircleQuestion} size="lg" />}
       transitionDuration="fast"
       _hover={{
         color: 'white',
@@ -31,7 +26,15 @@ export default function HelpButton() {
         textDecoration: 'none',
       }}
     >
-      {intl.formatMessage(messages.help)}
+      <Link
+        unstyled
+        href="https://doc.openagenda.com"
+        target="_blank"
+        rel="noopener"
+      >
+        <FaIcon icon={faCircleQuestion} size="lg" />
+        {intl.formatMessage(messages.help)}
+      </Link>
     </Button>
   );
 }

@@ -2,23 +2,23 @@ import { useCallback, useState } from 'react';
 import {
   Input,
   InputGroup,
-  InputRightElement,
-  InputLeftAddon,
   Button,
-  Box,
+  type InputProps,
+  type InputGroupProps,
 } from '@openagenda/uikit';
 import copyText from 'utils/copyText';
 import { FaIcon } from 'icons';
 import { faClipboard, faCheck } from 'icons/solid';
 
-interface CopyIdentifierProps {
+interface CopyIdentifierProps extends Omit<InputGroupProps, 'children'> {
   identifier: number;
-  size?: 'xs' | 'sm' | 'md' | 'lg';
+  size?: InputProps['size'];
 }
 
 export default function CopyIdentifier({
   identifier,
   size = 'md',
+  ...rest
 }: CopyIdentifierProps) {
   const [copied, setCopied] = useState(false);
 
@@ -31,29 +31,35 @@ export default function CopyIdentifier({
   }, [identifier]);
 
   return (
-    <Box maxW="220px">
-      <InputGroup size={size}>
-        <InputLeftAddon bg="primary.500" color="white">
-          UID
-        </InputLeftAddon>
-        <Input
-          type="text"
-          bg="white"
-          value={identifier}
-          cursor="pointer"
+    <InputGroup
+      {...rest}
+      startAddon="UID"
+      startAddonProps={{
+        bg: 'primary.500',
+        color: 'white',
+      }}
+      endElement={
+        <Button
+          colorPalette="gray"
+          variant="ghost"
+          size={size}
+          type="submit"
+          color={copied ? 'green.400' : 'fg.muted'}
+          me="-3"
           onClick={copy}
-        />
-        <InputRightElement>
-          <Button
-            variant="ghost"
-            type="submit"
-            color={copied ? 'green.400' : undefined}
-            onClick={copy}
-          >
-            <FaIcon icon={copied ? faCheck : faClipboard} />
-          </Button>
-        </InputRightElement>
-      </InputGroup>
-    </Box>
+        >
+          <FaIcon icon={copied ? faCheck : faClipboard} />
+        </Button>
+      }
+    >
+      <Input
+        size={size}
+        type="text"
+        bg="white"
+        value={identifier}
+        cursor="pointer"
+        onClick={copy}
+      />
+    </InputGroup>
   );
 }

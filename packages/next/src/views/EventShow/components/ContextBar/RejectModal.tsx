@@ -1,17 +1,14 @@
 import { useIntl } from 'react-intl';
 import { useState } from 'react';
+import { Textarea, Text, Button } from '@openagenda/uikit';
 import {
-  Modal,
-  ModalOverlay,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  ModalCloseButton,
-  ModalFooter,
-  Textarea,
-  Text,
-  Button,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+  DialogBody,
+  DialogFooter,
+} from '@openagenda/uikit/snippets';
 import { rejectModal as messages } from '../../messages';
 
 export default function RejectModal({ setRefuseModal, changeState }) {
@@ -19,20 +16,13 @@ export default function RejectModal({ setRefuseModal, changeState }) {
   const [motive, setMotive] = useState('');
 
   return (
-    <Modal isOpen onClose={() => setRefuseModal(false)}>
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader
-          sx={{
-            ':has(> .chakra-modal__close-btn)': {
-              pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-            },
-          }}
-        >
+    <DialogRoot open onOpenChange={() => setRefuseModal(false)}>
+      <DialogContent>
+        <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.confirmRejection)}
-          <ModalCloseButton />
-        </ModalHeader>
-        <ModalBody>
+        </DialogHeader>
+        <DialogCloseTrigger />
+        <DialogBody>
           <b>{intl.formatMessage(messages.motive)}</b>
           <Text pb={2}>{intl.formatMessage(messages.motiveInfo)}</Text>
           <Textarea
@@ -40,9 +30,8 @@ export default function RejectModal({ setRefuseModal, changeState }) {
             onChange={(e) => setMotive(e.target.value)}
             placeholder={intl.formatMessage(messages.motivePlaceholder)}
           />
-          <ModalFooter justifyContent="center">
+          <DialogFooter justifyContent="center">
             <Button
-              colorScheme="primary"
               onClick={() => {
                 changeState(motive);
                 setRefuseModal(false);
@@ -50,9 +39,9 @@ export default function RejectModal({ setRefuseModal, changeState }) {
             >
               {intl.formatMessage(messages.confirm)}
             </Button>
-          </ModalFooter>
-        </ModalBody>
-      </ModalContent>
-    </Modal>
+          </DialogFooter>
+        </DialogBody>
+      </DialogContent>
+    </DialogRoot>
   );
 }

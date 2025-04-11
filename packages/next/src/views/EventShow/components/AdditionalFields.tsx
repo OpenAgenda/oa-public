@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import { chakra, Link, NoBreak, useTheme } from '@openagenda/uikit';
+import { chakra, Box, Link, NoBreak } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareCheck } from '@fortawesome/pro-solid-svg-icons';
 import { faSquare } from '@fortawesome/pro-regular-svg-icons';
@@ -14,8 +14,6 @@ const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 
 function Label({ field }) {
   const intl = useIntl();
-  const theme = useTheme();
-  const grayColor = theme.colors.oaGray[500];
 
   return (
     <div>
@@ -24,7 +22,9 @@ function Label({ field }) {
           {field.value ? (
             <FontAwesomeIcon icon={faSquareCheck} />
           ) : (
-            <FontAwesomeIcon icon={faSquare} color={grayColor} />
+            <Box asChild color="oaGray.500">
+              <FontAwesomeIcon icon={faSquare} />
+            </Box>
           )}
         </chakra.span>
       )}
@@ -35,8 +35,10 @@ function Label({ field }) {
             label={intl.formatMessage(messages.restrictedInformation)}
             ml="2"
             tooltipProps={{
-              bg: 'black',
-              color: 'white',
+              contentProps: {
+                css: { '--tooltip-bg': 'black' },
+                color: 'white',
+              },
             }}
           />
         </NoBreak>
@@ -76,28 +78,26 @@ function ImageField({ field }) {
   const { value } = field;
 
   return value ? (
-    <Image
-      src={
-        process.env.NODE_ENV === 'development'
-          ? `${DEV_S3_BUCKET}/${value.filename}`
-          : `${S3_BUCKET}/${value.filename}`
-      }
-      fallbackSrc={
-        process.env.NODE_ENV === 'development'
-          ? `${S3_BUCKET}/${value.filename}`
-          : undefined
-      }
-      fill
-      // Difficult to size because AdditionalFields
-      // is displayed on different parts
-      sizes="(max-width: 992px) 100vw, 66.67vw"
-      // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
-      pos="unset !important"
-      w="auto !important"
-      h="auto !important"
-      loader={thumborLoader}
-      alt=""
-    />
+    <Box asChild pos="unset !important" w="auto !important" h="auto !important">
+      <Image
+        src={
+          process.env.NODE_ENV === 'development'
+            ? `${DEV_S3_BUCKET}/${value.filename}`
+            : `${S3_BUCKET}/${value.filename}`
+        }
+        fallbackSrc={
+          process.env.NODE_ENV === 'development'
+            ? `${S3_BUCKET}/${value.filename}`
+            : undefined
+        }
+        fill
+        // Difficult to size because AdditionalFields
+        // is displayed on different parts
+        sizes="(max-width: 992px) 100vw, 66.67vw"
+        loader={thumborLoader}
+        alt=""
+      />
+    </Box>
   ) : (
     <chakra.em color="oaGray.500">
       {intl.formatMessage(messages.noImage)}

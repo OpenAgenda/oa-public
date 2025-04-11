@@ -1,4 +1,4 @@
-import { Tag } from '@openagenda/uikit';
+import { Tag } from '@openagenda/uikit/snippets';
 
 function getColor(state) {
   switch (state.toString()) {
@@ -29,6 +29,7 @@ export default function StateTag({ state, ...props }) {
       bg={getColor(state)}
       borderWidth="1px"
       borderColor="white"
+      w="5"
       {...props}
     />
   );
