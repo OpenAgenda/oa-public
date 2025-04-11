@@ -65,7 +65,7 @@ export default {
         ],
       },
       {
-        test: /\.(otf|ttf|eot|woff|woff2)$/,
+        test: /\.(otf|ttf|ttc|eot|woff|woff2)$/,
         loader: fileURLToPath(import.meta.resolve('file-loader')),
         options: {
           name: '[name].[contenthash:8].[ext]',
