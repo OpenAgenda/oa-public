@@ -24,13 +24,12 @@
     "@openagenda/abilities": "^1.3.1",
     "@openagenda/activities": "^2.3.0",
     "@openagenda/activity-apps": "^1.2.1",
-    "@openagenda/admin-agendas": "^1.1.17",
     "@openagenda/agenda-contribute": "^1.5.2",
     "@openagenda/agenda-docx": "^1.2.1",
     "@openagenda/agenda-events": "^1.11.14",
     "@openagenda/agenda-locations": "^2.1.2",
     "@openagenda/agenda-locations-app": "^0.0.0",
-    "@openagenda/agenda-portal": "^6.11.20",
+    "@openagenda/agenda-portal": "^6.11.21",
     "@openagenda/agenda-schemas-app": "^0.0.0",
     "@openagenda/agenda-search": "^1.4.0",
     "@openagenda/agenda-settings": "^1.4.0",
@@ -153,7 +152,6 @@
     "type-is": "^1.6.18",
     "uuid": "^3.4.0",
     "validator": "^7.0.0",
-    "when": "^3.7.8",
     "xlsx-writestream": "^0.5.1"
   },
   "devDependencies": {

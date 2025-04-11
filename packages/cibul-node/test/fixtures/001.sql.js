@@ -68,6 +68,7 @@ raw.push(
             label: 'Première participation',
           },
         ],
+        description: { fr: "Les locaux d'OpenAgenda jusqu'en 2020" },
         timezone: 'Europe/Paris',
       }),
       deleted: 1,

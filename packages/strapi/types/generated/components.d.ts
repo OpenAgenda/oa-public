@@ -114,7 +114,6 @@ export interface ComponentsModular extends Struct.ComponentSchema {
     displayName: 'Modular';
   };
   attributes: {
-    alignHeight: Schema.Attribute.Boolean;
     backgroundColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
@@ -127,6 +126,10 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'center'>;
     CTA: Schema.Attribute.Component<'components.cta-button', false>;
     description: Schema.Attribute.Text;
+    descriptionColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     fontColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
@@ -142,14 +145,20 @@ export interface ComponentsModular extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<1>;
     Icon: Schema.Attribute.Component<'components.icon', false>;
     Illustration: Schema.Attribute.Component<'components.illustration', false>;
-    maxWidth: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     Tag: Schema.Attribute.String;
     tagColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
     >;
     title: Schema.Attribute.String;
+    titleColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     useCarousel: Schema.Attribute.Boolean;
+    verticalAlign: Schema.Attribute.Enumeration<
+      ['center', 'stretch', 'flex-start']
+    >;
     width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
 }
@@ -188,6 +197,10 @@ export interface SegmentsCarouselSet extends Struct.ComponentSchema {
     displayName: 'CarouselSet';
   };
   attributes: {
+    backgroundColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     borderRadius: Schema.Attribute.Enumeration<
       ['none', 'sm', 'md', 'lg', 'xl', 'full']
     >;
@@ -225,27 +238,33 @@ export interface SegmentsModularSet extends Struct.ComponentSchema {
     displayName: 'ModularSet';
   };
   attributes: {
-    alignHeight: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     backgroundColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    borderRadius: Schema.Attribute.Enumeration<
-      ['none', 'sm', 'md', 'lg', 'xl', 'full']
-    >;
-    carouselBgColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
     >;
     Components: Schema.Attribute.Component<'components.modular', true>;
     CTA: Schema.Attribute.Component<'components.cta-button', false>;
     description: Schema.Attribute.String;
+    descriptionColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     fontColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
+    justifyContent: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
+    margin: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     title: Schema.Attribute.String;
-    useCarousel: Schema.Attribute.Boolean;
+    titleColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
+    verticalAlign: Schema.Attribute.Enumeration<
+      ['center', 'stretch', 'flex-start']
+    >;
+    width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
 }
 
@@ -266,6 +285,7 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     Illustration: Schema.Attribute.Component<'components.illustration', false>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
     titleColor: Schema.Attribute.Relation<

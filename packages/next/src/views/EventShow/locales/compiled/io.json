@@ -137,16 +137,22 @@
       "value": "crwdns33624:0crwdne33624:0"
     }
   ],
+  "next.views.EventShow.ContextBar.fixEvent": [
+    {
+      "type": 0,
+      "value": "Fix event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEvent": [
+    {
+      "type": 0,
+      "value": "The event is invalid"
+    }
+  ],
   "next.views.EventShow.ContextBar.invalidEventMessage": [
     {
       "type": 0,
       "value": "crwdns33904:0crwdne33904:0"
-    }
-  ],
-  "next.views.EventShow.ContextBar.invalidEventTitle": [
-    {
-      "type": 0,
-      "value": "crwdns33906:0crwdne33906:0"
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelled": [
@@ -621,6 +627,12 @@
     {
       "type": 0,
       "value": "crwdne33842:0"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passUnpublished": [
+    {
+      "type": 0,
+      "value": "The offer will be created upon publication of the event"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [

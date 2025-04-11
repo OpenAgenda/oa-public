@@ -43,6 +43,8 @@ function getPassImgSource(passData) {
     return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-pending-22.png';
   if (currValue?.error)
     return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-error-22.png';
+  if (!currValue?.value)
+    return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-unpublished-22.png';
   return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png';
 }
 
@@ -320,7 +322,9 @@ export function RegistrationSection({
             rel="noopener nofollow"
           >
             <img src={getPassImgSource(passCulture)} alt="" />
-            {intl.formatMessage(messages.accessPassOffer)}
+            {getCurrentPassValue(passCulture)?.value
+              ? intl.formatMessage(messages.accessPassOffer)
+              : intl.formatMessage(messages.passUnpublished)}
           </Link>
         </Button>
       ) : null}

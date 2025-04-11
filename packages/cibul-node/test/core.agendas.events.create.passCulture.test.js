@@ -9,6 +9,15 @@ import testConfig from './testConfig.js';
 import passAPIFixtures from './fixtures/passAPI.js';
 import freshEventWithPassData from './fixtures/freshEventWithPassData.js';
 
+const mockSuccessfullAddressPostResponse = async ({ request }) => {
+  const r = await request.json();
+  return HttpResponse.json({
+    ...r,
+    id: Math.ceil(Math.random() * 10000),
+    banId: null,
+  });
+};
+
 describe('core - functional: core.agendas().events.create() - Pass Culture', () => {
   let core;
 
@@ -88,6 +97,10 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
             `${testConfig.passCulture.api}/public/offers/v1/events/72585/dates`,
             () => HttpResponse.json(passAPIFixtures.datesPostResponse),
           ),
+          http.post(
+            `${testConfig.passCulture.api}/public/offers/v1/addresses`,
+            mockSuccessfullAddressPostResponse,
+          ),
         );
 
         server.listen();
@@ -137,6 +150,10 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
                 ...passAPIFixtures.eventGetResponse,
                 status: 'PENDING',
               }),
+          ),
+          http.post(
+            `${testConfig.passCulture.api}/public/offers/v1/addresses`,
+            mockSuccessfullAddressPostResponse,
           ),
         );
 
@@ -210,6 +227,10 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
           http.get(
             `${testConfig.passCulture.api}/public/offers/v1/events/:id`,
             () => HttpResponse.json(passAPIFixtures.eventGetResponse),
+          ),
+          http.post(
+            `${testConfig.passCulture.api}/public/offers/v1/addresses`,
+            mockSuccessfullAddressPostResponse,
           ),
         );
 

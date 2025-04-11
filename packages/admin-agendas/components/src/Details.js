@@ -1,6 +1,7 @@
 import React, { Fragment, useState } from 'react';
 import SwitchModule from 'rc-switch';
 import _ from 'lodash';
+import { Modal } from '@openagenda/react-shared';
 
 const Switch = SwitchModule.default || SwitchModule;
 
@@ -37,6 +38,28 @@ export default function Details(props) {
   // On lit la query initiale pour en déduire l'onglet par défaut
   const initialQuery = getQuery();
   const [tab, setTab] = useState(() => (initialQuery && initialQuery.tab) || 'members');
+  const [modalVisible, setModalVisible] = useState(false);
+  
+  /**
+   * Fonction pour gérer la resynchronisation
+   */
+  const handleResync = async (type) => {
+    if (!agenda || !agenda.uid) return;
+    setModalVisible(true);
+    
+    try {
+      await fetch(`/api/agendas/${agenda.uid}/settings/resync`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify([type]),
+      });
+    } catch (error) {
+      console.error(`Erreur lors de la resynchronisation de ${type}:`, error);
+      setModalVisible(false);
+    }
+  };
 
   /**
    * Sélecteurs d'onglet
@@ -187,19 +210,45 @@ export default function Details(props) {
   const renderAgendaHeader = () => {
     if (!agenda) return null;
 
-    const { network, image, slug, title, description, url, uid, official, private: isPrivate } = agenda;
-
+    const { network, image, slug, title, description, url, uid, official, private: isPrivate, updatedAt, createdAt } = agenda;
+    
     return (
       <header className="agenda-header">
         <div className="container-fluid profile notheme">
           <div className="row">
-            <button
-              type="button"
-              onClick={displayConfirmDelete}
-              className="btn btn-danger pull-right"
-            >
-              Supprimer
-            </button>
+            <div className="pull-right">
+              <button
+                type="button"
+                onClick={() => handleResync('rebuildSearch')}
+                className="btn btn-primary"
+                style={{ marginRight: '5px' }}
+              >
+                Réindexer
+              </button>
+              <button
+                type="button"
+                onClick={() => handleResync('resyncInbox')}
+                className="btn btn-info"
+                style={{ marginRight: '5px' }}
+              >
+                Réinitialiser la messagerie
+              </button>
+              <button
+                type="button"
+                onClick={() => handleResync('rebuildActivities')}
+                className="btn btn-success"
+                style={{ marginRight: '5px' }}
+              >
+                Resynchroniser l'historique
+              </button>
+              <button
+                type="button"
+                onClick={displayConfirmDelete}
+                className="btn btn-danger"
+              >
+                Supprimer
+              </button>
+            </div>
 
             {image ? (
               <div className="col-sm-2 avatar-container">
@@ -229,7 +278,7 @@ export default function Details(props) {
                 </p>
               )}
               {uid && (
-                <div>
+                <>
                   <div>
                     Agenda officiel{' '}
                     <Switch
@@ -250,7 +299,8 @@ export default function Details(props) {
                       checked={!!isPrivate}
                     />
                   </div>
-                </div>
+                  <div>Création: {createdAt} - Dernière mise à jour: {updatedAt}</div>
+                </>
               )}
             </div>
           </div>
@@ -286,6 +336,18 @@ export default function Details(props) {
     <div className="col-md-9">
       <div className="row">
         {renderAgendaHeader()}
+        
+        {/* Modal pour indiquer que l'opération est en cours - affiché uniquement après un clic sur un bouton */}
+        {modalVisible && (
+          <Modal
+            onClose={() => setModalVisible(false)}
+            contentLabel="Opération en cours"
+          >
+            <div className="text-center">
+              L'opération est en cours
+            </div>
+          </Modal>
+        )}
 
         <ul className="nav nav-tabs">
           <li

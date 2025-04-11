@@ -13,6 +13,7 @@ import {
   rejectedLogoPath,
   errorLogoPath,
   pendingLogoPath,
+  unpublishedLogoPath,
   isPatchMode,
 } from './utils.js';
 
@@ -20,10 +21,18 @@ function checkboxText({
   offerWasRejected,
   offerIsPending,
   offerHasError,
+  offerUnpublished,
   patchMode,
   settings,
   value,
 }) {
+  if (offerUnpublished) {
+    return (
+      <div className="text-muted">
+        L&apos;offre sera créée à la publication de l&apos;événement
+      </div>
+    );
+  }
   if (offerWasRejected) {
     return (
       <>
@@ -81,6 +90,7 @@ function checkboxText({
 }
 
 export default ({
+  access,
   value,
   onChange,
   timings = [],
@@ -113,13 +123,18 @@ export default ({
     [currentValue],
   );
   const offerHasError = useMemo(() => !!currentValue.error, [currentValue]);
+  const offerUnpublished = useMemo(
+    () => Object.keys(currentValue).length && !currentValue.passId,
+    [currentValue],
+  );
 
   const currLogoPath = useMemo(() => {
     if (offerWasRejected) return rejectedLogoPath;
     if (offerIsPending) return pendingLogoPath;
     if (offerHasError) return errorLogoPath;
+    if (offerUnpublished) return unpublishedLogoPath;
     return logoPath;
-  }, [offerWasRejected, offerHasError, offerIsPending]);
+  }, [offerWasRejected, offerHasError, offerIsPending, offerUnpublished]);
 
   const upcomingTimings = useMemo(() => {
     if (!Array.isArray(timings)) {
@@ -169,14 +184,12 @@ export default ({
     fetch(settings.res.context)
       .then((r) => r.json())
       .then((data) => {
-        setHasAccess(
-          ['administrator', 'moderator'].includes(data.me.member?.role),
-        );
+        setHasAccess(access.includes(data.me.member?.role));
       })
       .catch(() => {
         setHasAccess(false);
       });
-  }, [settings]);
+  }, [settings, access]);
 
   const onCheck = useCallback(() => {
     setModal(offerWasRejected ? 'unlink' : 'show');
@@ -225,6 +238,7 @@ export default ({
           onSubmit={onSubmit}
           onClear={onClear}
           patchMode={patchMode}
+          defaultVenueId={settings?.defaultVenueId}
         />
       ) : null}
       {modal === 'unlink' ? (
@@ -256,6 +270,7 @@ export default ({
             offerWasRejected,
             offerIsPending,
             offerHasError,
+            offerUnpublished,
             patchMode,
             settings,
             value,

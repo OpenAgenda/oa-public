@@ -75,7 +75,10 @@ export default function PdfAccordionItem({
         <Button
           type="submit"
           alignSelf="center"
-          onClick={handleSubmit('pdf', { locationInHeader, sort })}
+          onClick={handleSubmit('pdf', {
+            locationInHeader,
+            sort: sort.concat('lastTimingWithFeatured.asc'),
+          })}
         >
           {intl.formatMessage(messages.PDFDownload)}
         </Button>

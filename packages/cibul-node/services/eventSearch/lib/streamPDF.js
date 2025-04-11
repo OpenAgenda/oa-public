@@ -7,6 +7,11 @@ export default function streamPDF(config, req, res) {
 
   const { locationInHeader, sort = [] } = req.query;
 
+  const sections = []
+    .concat(sort)
+    .map((s) => s.replace(/\.asc|\.desc/, ''))
+    .filter((s) => !['lastTimingWithFeatured', 'timings'].includes(s));
+
   req
     .search(req.searchQuery, { size: 0 }, req.searchOptions)
     .then(({ total }) => {
@@ -14,9 +19,7 @@ export default function streamPDF(config, req, res) {
         agenda: req.agenda,
         includeEventImages: total < withImageLimit,
         mode: locationInHeader === 'true' ? 'locationName' : undefined,
-        sections: sort.length
-          ? sort.map((s) => s.replace(/\.asc|\.desc/, ''))
-          : null,
+        sections: sections.length ? sections : null,
       });
 
       res.writeHead(200, {

@@ -261,6 +261,16 @@
                 "default": null,
                 "optional": true,
                 "type": "email"
+              },
+              "access": {
+                "list": { "default": null },
+                "optional": true,
+                "type": "text"
+              },
+              "defaultVenueId": {
+                "default": null,
+                "optional": true,
+                "type": "integer"
               }
             },
             "optional": true
@@ -349,7 +359,7 @@
         "default": false
       },
       "invitationMessage": {
-        "description": "Members invitation message can be customized",
+        "description": "Customizable members invitation message, contribution instruction, completion and publication, members grouped messaging",
         "type": "boolean",
         "default": false
       },

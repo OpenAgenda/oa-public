@@ -13,7 +13,7 @@
     "title": "Journées européennes du patrimoine 2023 : Grand Est"
   },
   "state": 2,
-  "featured": false,
+  "featured": true,
   "dateRange": {
     "ar": "السبت ١٦ سبتمبر, 14:00",
     "de": "Samstag 16 September, 14:00",
@@ -116,7 +116,7 @@
     "tags": [
       {
         "id": 3,
-        "label": "Édifice religieux"
+        "label": { "fr": "Édifice religieux" }
       }
     ],
     "insee": "67404",

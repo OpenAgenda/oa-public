@@ -32,21 +32,38 @@
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
     },
-    "alignHeight": {
-      "type": "boolean",
-      "default": false
-    },
-    "useCarousel": {
-      "type": "boolean"
-    },
-    "carouselBgColor": {
+    "titleColor": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
     },
-    "borderRadius": {
+    "descriptionColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "width": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
+    },
+    "justifyContent": {
       "type": "enumeration",
-      "enum": ["none", "sm", "md", "lg", "xl", "full"]
+      "enum": ["left", "center", "right"]
+    },
+    "fontSize": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
+    },
+    "verticalAlign": {
+      "type": "enumeration",
+      "enum": ["center", "stretch", "flex-start"]
+    },
+    "margin": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
     }
   }
 }

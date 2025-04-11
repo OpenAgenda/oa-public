@@ -148,7 +148,7 @@
       },
       {
         "id": 17,
-        "label": "Museum of Arts"
+        "label": { "en": "Museum of Arts", "fr": "Musée d'arts" }
       }
     ],
     "insee": "50218",

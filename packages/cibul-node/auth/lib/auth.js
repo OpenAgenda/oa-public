@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import w from 'when';
 import qs from 'qs';
 import passport from 'passport';
 import labels from '@openagenda/labels/auth/messages.js';
@@ -132,71 +131,67 @@ function serviceAuthenticate(fieldName) {
 }
 
 export function signin(values) {
-  const { req } = values;
+  return new Promise((rs) => {
+    const { req, res, user } = values ?? {};
 
-  const { res } = values;
+    let agendaSlug;
 
-  const { user } = values;
+    if (values.resolved) {
+      return values;
+    }
 
-  let agendaSlug;
+    if (req.query.agenda) {
+      agendaSlug = req.query.agenda;
+    } else if (req.agenda) {
+      agendaSlug = req.agenda.slug;
+    }
 
-  const d = w.defer();
+    values.resolved = true;
 
-  if (values.resolved) {
-    return values;
-  }
+    values.req.log.info('signing in user %s', user.email);
 
-  if (req.query.agenda) {
-    agendaSlug = req.query.agenda;
-  } else if (req.agenda) {
-    agendaSlug = req.agenda.slug;
-  }
+    const { services } = req.app;
 
-  values.resolved = true;
+    services.sessions.open(req, res, user, async (err, _session) => {
+      if (err) req.log.error({ message: 'could not open session', error: err });
 
-  values.req.log.info('signing in user %s', user.email);
+      let redirectUrl;
 
-  const { services } = req.app;
+      services.users
+        .refresh(user.uid, {
+          lastSignin: true,
+        })
+        .catch((err2) => {
+          req.log.error({
+            message: 'could not refresh lastSignin',
+            error: err2,
+          });
+        });
 
-  services.sessions.open(req, res, user, async (err, _session) => {
-    if (err) req.log.error({ message: 'could not open session', error: err });
-
-    let redirectUrl;
-
-    services.users
-      .refresh(user.uid, {
-        lastSignin: true,
-      })
-      .catch((err2) => {
-        req.log.error({ message: 'could not refresh lastSignin', error: err2 });
-      });
-
-    if (req.query.redirect) {
-      try {
-        redirectUrl = Buffer.from(req.query.redirect, 'base64').toString();
-      } catch (e) {
-        req.log.error('could not decode redirect %s', req.query.redirect);
+      if (req.query.redirect) {
+        try {
+          redirectUrl = Buffer.from(req.query.redirect, 'base64').toString();
+        } catch (e) {
+          req.log.error('could not decode redirect %s', req.query.redirect);
+        }
+      } else if (req.query.iToken && agendaSlug) {
+        // this is a invitation signin / signup, redirect to form.
+        redirectUrl = `/${agendaSlug}/contribute`;
       }
-    } else if (req.query.iToken && agendaSlug) {
-      // this is a invitation signin / signup, redirect to form.
-      redirectUrl = `/${agendaSlug}/contribute`;
-    }
 
-    if (redirectUrl) {
-      req.log.info('signin in successful, redirecting to %s', redirectUrl);
+      if (redirectUrl) {
+        req.log.info('signin in successful, redirecting to %s', redirectUrl);
 
-      res.redirect(redirectUrl);
-      d.resolve(values);
+        res.redirect(redirectUrl);
 
-      return;
-    }
+        return rs(values);
+      }
 
-    res.redirect(302, agendaSlug ? `/${agendaSlug}/contribute` : '/home');
+      res.redirect(302, agendaSlug ? `/${agendaSlug}/contribute` : '/home');
 
-    d.resolve(values);
+      rs(values);
+    });
   });
-
-  return d.promise;
 }
 
 export function ifUnresolved(cb) {
@@ -204,7 +199,7 @@ export function ifUnresolved(cb) {
     if (!values.resolved) {
       return cb(values);
     }
-    return w(values);
+    return new Promise((rs) => rs(values));
   };
 }
 
@@ -213,7 +208,7 @@ export function ifUserActivated(expected, cb) {
     if (!!values.user.isActivated === expected) {
       return cb(values);
     }
-    return w(values);
+    return new Promise((rs) => rs(values));
   };
 }
 
@@ -222,7 +217,7 @@ export function ifUserLoaded(loaded, cb) {
     if (!!values.user === loaded) {
       return cb(values);
     }
-    return w(values);
+    return new Promise((rs) => rs(values));
   };
 }
 
@@ -376,7 +371,7 @@ function serviceCallback(cb) {
 }
 
 function _pLoadCaptcha(v) {
-  return w.promise((rs) => {
+  return new Promise((rs) => {
     loadCaptcha(v.req, v.res, () => {
       rs(v);
     });
@@ -424,11 +419,11 @@ function init(service) {
       return values;
     }
 
-    return w.promise((resolve) => {
+    return new Promise((rs) => {
       if (!values.profile) {
         values.req.log.debug('profile is not set');
 
-        return resolve(values);
+        return rs(values);
       }
 
       authenticate(values, (err, user, data) => {
@@ -443,7 +438,7 @@ function init(service) {
 
         if (data) _.merge(values.data, data);
 
-        resolve(values);
+        rs(values);
       });
     });
   }
@@ -497,7 +492,7 @@ function init(service) {
       JSON.stringify(values.profile),
     );
 
-    return w.promise((resolve) => {
+    return new Promise((rs) => {
       const options = loadOptionals(values.req);
 
       const fullName = values.profile.fullName.length
@@ -507,7 +502,7 @@ function init(service) {
       if (values.req.agenda) options.agenda = values.req.agenda;
 
       if (!values.profile) {
-        return resolve(values);
+        return rs(values);
       }
 
       create(
@@ -540,7 +535,7 @@ function init(service) {
             JSON.stringify(values.data),
           );
 
-          resolve(values);
+          rs(values);
         },
       );
     });
@@ -557,13 +552,14 @@ function init(service) {
         `${authService}-${name}`,
         {},
         (err, profile, data) => {
-          w({
-            req,
-            res,
-            err,
-            profile,
-            data,
-          })
+          new Promise((rs) =>
+            rs({
+              req,
+              res,
+              err,
+              profile,
+              data,
+            }))
             .then(attemptAuth)
 
             .then(ifUserLoaded(false, attemptCreate))
@@ -600,7 +596,7 @@ function init(service) {
               ),
             )
 
-            .done(done, cmn.catchError(req, res));
+            .then(done, cmn.catchError(req, res));
         },
       )(req, res, next);
     });

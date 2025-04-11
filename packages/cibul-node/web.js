@@ -1,4 +1,3 @@
-import agendaBack from './agenda/back.js';
 import networkApps from './services/networkApps.js';
 import abilities from './services/abilities/index.js';
 import homeBack from './home/back.js';
@@ -51,7 +50,6 @@ export default (app) => {
     app,
     '/:agendaSlug/admin/locations',
   );
-  agendaBack(app);
   app.use('/', app.services.inboxes.plugApp());
   app.services.agendaContribute.plugApp(app);
   app.services.agendaEvents.plugApp(app);

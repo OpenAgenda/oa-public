@@ -1,5 +1,5 @@
 import isEqual from 'lodash/isEqual';
-import React, { useCallback, useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { formatDistance } from 'date-fns';
 import qs from 'qs';
@@ -25,7 +25,6 @@ import {
 } from '@fortawesome/pro-regular-svg-icons';
 import {
   faLink,
-  faThumbtack,
   faShare,
   faStar as fasStar,
 } from '@fortawesome/pro-solid-svg-icons';
@@ -39,6 +38,7 @@ import Image from 'components/Image';
 import { EventStatusBadge, EventStatusTooltip } from 'components/EventStatus';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import NextChakraLink from 'components/NextChakraLink';
+import Featured from 'components/Featured';
 
 const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
@@ -139,7 +139,7 @@ function RelativeTime({ closestTiming }) {
   );
 }
 
-function EventItem({
+export default function EventItem({
   event,
   agenda,
   imagePriority = false,
@@ -169,13 +169,7 @@ function EventItem({
       <Box as="aside" w={{ base: 'full', xl: '25%' }} mt={{ xl: '4' }}>
         <Flex justify={{ base: 'flex-start', xl: 'flex-end' }}>
           <div>
-            {event.featured ? (
-              <Text mb="2">
-                <FontAwesomeIcon icon={faThumbtack} />
-                &nbsp;
-                {intl.formatMessage(messages.featured)}
-              </Text>
-            ) : null}
+            <Featured featured={event.featured} size="md" />
             <RelativeTime closestTiming={closestTiming} />
           </div>
         </Flex>
@@ -379,5 +373,3 @@ function EventItem({
     </Flex>
   );
 }
-
-export default React.memo(EventItem);

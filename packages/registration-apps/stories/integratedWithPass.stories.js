@@ -47,6 +47,7 @@ export function EmptyAtLoad() {
           settings: {
             passCulture: {
               siren: [809346158],
+              defaultVenueId: 548,
               res: {
                 settings: '/settings',
                 context: '/contextForAdminMod',

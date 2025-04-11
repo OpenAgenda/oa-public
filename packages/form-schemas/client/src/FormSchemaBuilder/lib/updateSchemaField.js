@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 import debug from 'debug';
+import { isFieldOptional } from '../FieldPreview/utils.js';
 import isSameFormItem from './isSameFormItem.js';
 import getFormItemType from './getFormItemType.js';
 
@@ -21,7 +22,12 @@ const standardFieldKeys = [
   'optionalWith',
 ];
 
-export default function updateSchemaField(schema, field, updatedFieldValues) {
+export default function updateSchemaField(
+  schema,
+  field,
+  updatedFieldValues,
+  parentsMergedSchema,
+) {
   const fieldIndex = _.findIndex(schema.fields, (sf) =>
     isSameFormItem(sf, field));
 
@@ -41,6 +47,17 @@ export default function updateSchemaField(schema, field, updatedFieldValues) {
     log(updatedField, updatedFieldValues);
     const update = Object.keys(updatedFieldValues).reduce((carry, fieldKey) => {
       if (standardFieldKeys.includes(fieldKey)) {
+        const parentsField = parentsMergedSchema.fields.find(
+          (f) => f.field === field.field,
+        );
+        if (fieldKey === 'optional' && isFieldOptional(parentsField)) {
+          return {
+            ...carry,
+            [fieldKey]: {
+              $set: updatedFieldValues[fieldKey],
+            },
+          };
+        }
         return carry;
       }
       return {

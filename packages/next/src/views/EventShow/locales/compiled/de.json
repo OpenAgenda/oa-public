@@ -137,16 +137,22 @@
       "value": "A featured event appears at the top of the list"
     }
   ],
+  "next.views.EventShow.ContextBar.fixEvent": [
+    {
+      "type": 0,
+      "value": "Fix event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEvent": [
+    {
+      "type": 0,
+      "value": "The event is invalid"
+    }
+  ],
   "next.views.EventShow.ContextBar.invalidEventMessage": [
     {
       "type": 0,
       "value": "Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda."
-    }
-  ],
-  "next.views.EventShow.ContextBar.invalidEventTitle": [
-    {
-      "type": 0,
-      "value": "The event is invalid"
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelled": [
@@ -643,6 +649,12 @@
     {
       "type": 0,
       "value": " years old"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passUnpublished": [
+    {
+      "type": 0,
+      "value": "The offer will be created upon publication of the event"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [

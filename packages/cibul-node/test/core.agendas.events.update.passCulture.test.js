@@ -10,6 +10,15 @@ import testConfig from './testConfig.js';
 import passAPIFixtures from './fixtures/passAPI.js';
 import freshEventWithPassData from './fixtures/freshEventWithPassData.js';
 
+const mockSuccessfullAddressPostResponse = async ({ request }) => {
+  const r = await request.json();
+  return HttpResponse.json({
+    ...r,
+    id: Math.ceil(Math.random() * 10000),
+    banId: null,
+  });
+};
+
 describe('core - functional: core.agendas().events.update() - Pass Culture', () => {
   let core;
 
@@ -77,6 +86,10 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
 
       beforeAll(() => {
         server = setupServer(
+          http.get(
+            `${testConfig.passCulture.api}/public/offers/v1/offerer_venues`,
+            () => HttpResponse.json(passAPIFixtures.offererVenuesGetResponse),
+          ),
           http.get(`${testConfig.passCulture.api}/openapi.json`, () =>
             HttpResponse.json(passAPIFixtures.openapi)),
           http.get(
@@ -100,6 +113,10 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
           http.post(
             `${testConfig.passCulture.api}/public/offers/v1/events/72585/dates`,
             () => HttpResponse.json(passAPIFixtures.datesPostResponse),
+          ),
+          http.post(
+            `${testConfig.passCulture.api}/public/offers/v1/addresses`,
+            mockSuccessfullAddressPostResponse,
           ),
         );
 
@@ -152,10 +169,11 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
         const updated = await core.agendas(2010).events.patch(
           event.uid,
           {
+            state: 2,
             registration: [
               {
                 type: 'link',
-                value: 'https://passlink.fr',
+                value: null, // 'https://passlink.fr',
                 service: 'passCulture',
                 data: passDataWithUpdates,
               },

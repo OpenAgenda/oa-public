@@ -141,7 +141,11 @@ export default function ContextBar() {
             <Edit agenda={agenda} contextBarRef={ref} />
           </Column>
           <Column>
-            <OtherActions agenda={agenda} contextBarRef={ref} />
+            <OtherActions
+              agenda={agenda}
+              editLink={editLink}
+              contextBarRef={ref}
+            />
           </Column>
         </SimpleGrid>
       </Collapsible.Content>

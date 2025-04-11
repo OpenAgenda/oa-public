@@ -71,7 +71,7 @@ export default (config, parentApp) => {
   const limit = 20;
 
   parentApp.get(
-    '/admin/sources/search',
+    '/:agendaSlug/admin/sources/search',
     bodyParser.json(),
     (req, res, next) => {
       const query = {};

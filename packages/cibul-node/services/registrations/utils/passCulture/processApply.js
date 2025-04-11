@@ -16,10 +16,17 @@ export default async function processPassCultureApply(
   ).passCulture;
 
   const { passCulture, event } = clean;
+  const location = await core
+    .agendas(agenda.uid)
+    .locations.get(event.location.uid);
 
-  const applied = await passCultureService.apply(event, passCulture, {
-    imageBasePath: core.getConfig().s3.mainBucketPath,
-  });
+  const applied = await passCultureService.apply(
+    { ...event, location },
+    passCulture,
+    {
+      imageBasePath: core.getConfig().s3.mainBucketPath,
+    },
+  );
 
   return event.registration.map((r) =>
     (r.service === 'passCulture'

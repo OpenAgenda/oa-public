@@ -42,9 +42,13 @@ export default (config, services) => {
           loadSearchEndpoint(services.core, { convertLegacy: true }),
         ),
         loadAgendaLanguagesAndFormSchemas(services),
+        ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
         ifFormat(
-          ['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'],
-          loadSearchStream(),
+          ['pdf'],
+          loadSearchStream({
+            includeLocationLegacyAdminLevels: true,
+            omitOptions: ['includeFields', 'includeFields'],
+          }),
         ),
         trackFormat,
         ifFormat('csv', streamCSV),
@@ -67,9 +71,13 @@ export default (config, services) => {
         }),
         loadSearchEndpoint(services.core, { admin: true }),
         loadAgendaLanguagesAndFormSchemas(services),
+        ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], loadSearchStream()),
         ifFormat(
-          ['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'],
-          loadSearchStream(),
+          ['pdf'],
+          loadSearchStream({
+            includeLocationLegacyAdminLevels: true,
+            omitOptions: ['includeFields', 'aggregations'],
+          }),
         ),
         trackFormat,
         ifJSONStreamRequested(loadSearchStream()),

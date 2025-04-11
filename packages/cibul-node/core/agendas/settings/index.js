@@ -55,15 +55,15 @@ export default (core) => {
     },
     resyncInbox: resyncFn.resyncInbox.bind(null, agendaUid),
     batchResync: async (resyncs = []) => {
-      log('processing resyncs for agenda %s', agendaUid, resyncs);
-      if (!Array.isArray(resyncs)) {
-        log('no resync explicitely requested');
-        return [];
-      }
+      log('received resync request for agenda %s', agendaUid, resyncs);
+      const cleanResyncs = Object.values(resyncs);
+      log('processing', cleanResyncs);
       const enqueued = [];
-      for (const resyncOperation of resyncs) {
+      for (const resyncOperation of cleanResyncs) {
         if (!Object.keys(resyncFn).includes(resyncOperation)) {
-          log('warn', 'unknown resync operation, ignoring');
+          log('warn', 'unknown resync operation, ignoring', {
+            resyncOperation,
+          });
         } else {
           await tasks.enqueue(resyncOperation, agendaUid);
           enqueued.push(resyncOperation);

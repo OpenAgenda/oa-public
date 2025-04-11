@@ -270,7 +270,8 @@ export default function AddSourceModal({
   const [rules, setRules] = useState();
 
   const sources = useSelector((state) => state.sources.data);
-  const agendaRes = useSelector((state) => state.res.agendaSearch);
+  const agendaRes = useSelector((state) =>
+    state.res.agendaSearch.replace(':slug', aggregatorAgenda.slug));
 
   const isActive = useCallback((step, index, steps, selectedKey) => {
     const selectedStepIndex = steps.findIndex((s) => s.key === selectedKey);

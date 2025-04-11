@@ -71,6 +71,15 @@ const mockErrorPiceCategoriesPostResponse = async () =>
     },
   );
 
+const mockSuccessfullAddressPostResponse = async ({ request }) => {
+  const r = await request.json();
+  return HttpResponse.json({
+    ...r,
+    id: Math.ceil(Math.random() * 10000),
+    banId: null,
+  });
+};
+
 describe('apply', () => {
   let pc;
 
@@ -87,6 +96,8 @@ describe('apply', () => {
       let server;
       beforeAll(() => {
         server = setupServer(
+          http.get(`${api}/public/offers/v1/offerer_venues`, () =>
+            HttpResponse.json(settings.offererVenues)),
           http.post(`${api}/public/offers/v1/events`, () =>
             HttpResponse.json({
               id: randomPassOfferID,
@@ -101,6 +112,10 @@ describe('apply', () => {
             mockSuccessfullDatesPostResponse,
           ),
           http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
+          http.post(
+            `${api}/public/offers/v1/addresses`,
+            mockSuccessfullAddressPostResponse,
+          ),
         );
 
         server.listen();
@@ -123,7 +138,7 @@ describe('apply', () => {
             pc,
             CArtEvent,
             {
-              venueId: 123,
+              venueId: 548,
               category: 'CINE_PLEIN_AIR',
               bookingContact: 'clem@oa.com',
               priceCategories: [
@@ -315,6 +330,12 @@ describe('apply', () => {
             mockSuccessfullDatesPostResponse,
           ),
           http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
+          http.get(`${api}/public/offers/v1/offerer_venues`, () =>
+            HttpResponse.json(settings.offererVenues)),
+          http.post(
+            `${api}/public/offers/v1/addresses`,
+            mockSuccessfullAddressPostResponse,
+          ),
         );
 
         server.listen();
@@ -335,7 +356,7 @@ describe('apply', () => {
             pc,
             CArtEvents[0],
             {
-              venueId: 123,
+              venueId: 548,
               category: 'CINE_PLEIN_AIR',
               bookingContact: 'clem@oa.com',
               priceCategories: [

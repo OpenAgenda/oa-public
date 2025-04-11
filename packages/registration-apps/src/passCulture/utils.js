@@ -11,6 +11,7 @@ export const logoPath = 'https://cdn.openagenda.com/assets/svc/registration-apps
 export const rejectedLogoPath = 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-rejected-240.png';
 export const errorLogoPath = 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-error-240.png';
 export const pendingLogoPath = 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-pending-240.png';
+export const unpublishedLogoPath = 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-unpublished-240.png';
 
 export function getNextId(data) {
   return Object.keys(data).reduce((acc, curr) => {

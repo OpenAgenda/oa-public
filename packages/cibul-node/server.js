@@ -18,7 +18,6 @@ import instanciateAPI from './api/index.js';
 import setAPIType from './api/middleware/setAPIType.js';
 import initServices from './services/init.js';
 import Core from './core/index.js';
-import admin from './admin.js';
 import web from './web.js';
 import task from './task.js';
 import { middleware as logRequestMw } from './services/logRequests.js';
@@ -86,7 +85,7 @@ try {
 
   // run 'admin' type modules
   if (ADMIN) {
-    admin(app);
+    app.services.superadmin.plugApp(app, '/admin');
   }
 
   // run 'web' type modules

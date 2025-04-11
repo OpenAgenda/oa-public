@@ -4,5 +4,11 @@
       "type": 0,
       "value": "crwdns33444:0crwdne33444:0"
     }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
   ]
 }

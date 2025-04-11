@@ -18,7 +18,7 @@ export function Colors() {
         swatch: '500',
       }}
       descriptionColor={{ name: 'black' }}
-      alignHeight
+      verticalAlign="stretch"
       Components={[
         {
           id: 1,
@@ -37,6 +37,57 @@ export function Colors() {
           titleColor: { name: 'black' },
           descriptionColor: { name: 'black' },
           card: true,
+        },
+      ]}
+    />
+  );
+}
+
+export function Multiple() {
+  return (
+    <ModularSet
+      title="The modularSet has more than four components"
+      width={{ name: '3xs' }}
+      Components={[
+        {
+          id: 1,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 2,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 3,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 4,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
+        },
+        {
+          id: 5,
+          Illustration: {
+            image: {
+              url: '/tinyPhteven.jpg',
+            },
+          },
         },
       ]}
     />

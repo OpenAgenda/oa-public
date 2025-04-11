@@ -44,12 +44,16 @@ export function ConfimationPending() {
             type: 'link',
             value: 'https://link.pass.com',
             service: 'passCulture',
-            data: {
-              eventOffer: {
-                id: 123,
+            data: [
+              {
+                eventOffer: {
+                  id: 123,
+                },
+                response: {
+                  isPending: true,
+                },
               },
-              warning: 'pending',
-            },
+            ],
           },
         ],
       }}
@@ -83,6 +87,29 @@ export function ConfirmationFailure() {
                 },
               ],
             },
+          },
+        ],
+      }}
+      res={{
+        edit: 'https://integration.passculture.pro/offre/individuelle/:id/recapitulatif',
+        show: 'https://integration.passculture.app/offre/:id',
+      }}
+    />
+  );
+}
+
+export function ConfirmationWaitingOnPublish() {
+  return (
+    <Confirmation
+      event={{
+        ...event,
+        state: 0,
+        registration: [
+          {
+            type: 'link',
+            value: 'https://link.pass.com',
+            service: 'passCulture',
+            data: [{}],
           },
         ],
       }}

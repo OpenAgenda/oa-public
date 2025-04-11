@@ -1,0 +1,66 @@
+{
+  "uid": 16749327,
+  "setUid": null,
+  "slug": "musee-de-la-contrefacon_8037_13330_18212",
+  "name": "Musée de la Contrefaçon",
+  "address": "16 rue de la faisanderie, 75116 Paris, Île-de-France, France",
+  "countryCode": "FR",
+  "adminLevel1": "Île-de-France",
+  "adminLevel2": "Paris",
+  "adminLevel3": "Métropole du Grand Paris",
+  "adminLevel4": "Paris",
+  "city": "Paris",
+  "adminLevel5": null,
+  "district": "Paris 16e Arrondissement",
+  "postalCode": "75116",
+  "insee": "75056",
+  "latitude": 48.870318,
+  "longitude": 2.276594,
+  "region": "Île-de-France",
+  "department": "Paris",
+  "timezone": "Europe/Paris",
+  "updatedAt": "2024-06-27T00:25:22.000Z",
+  "createdAt": "2019-01-22T10:11:13.000Z",
+  "image": "location52279399.jpg",
+  "description": {
+    "fr": "© musée de la Contrefaçon\n\nIncroyable mais vrai : la façade du musée de la contrefaçon est elle-même une copie !",
+    "en": "museum of counterfeiting\nIncredible but true: the facade of the museum of counterfeiting is itself a copy!",
+    "es": "Museo de la Falsificación\nIncreíble pero cierto: ¡la fachada del museo de la falsificación es en sí misma una copia!",
+    "de": "Museum für nachgeahmte Waren\nUnglaublich, aber wahr: Die Fassade des Museums der Fälschung selbst ist eine Kopie!",
+    "it": "museo della contraffazione\nIncredibile ma vero: la facciata del museo della contraffazione è essa stessa una copia!"
+  },
+  "tags": [
+    {
+      "id": 21,
+      "label": "Unusual"
+    },
+    {
+      "id": 22,
+      "label": "Society and civilisation"
+    }
+  ],
+  "website": "http://www.musee-contrefacon.com",
+  "email": null,
+  "phone": "01 56 26 14 03",
+  "links": [
+    "http://www.unifab.com",
+    "https://www.facebook.com/musee.de.la.contrefacon/",
+    "https://twitter.com/unifab?lang=fr",
+    "https://www.instagram.com/unifab_museecontrefacon/"
+  ],
+  "access": {
+    "fr": "Métro Porte Dauphine (ligne 2) | RER C Avenue Foch | taxi, vélib, autolib",
+    "en": "Metro Porte Dauphine (line 2) | RER C Avenue Foch | taxi, vélib, autolib",
+    "es": "Metro Porte Dauphine (línea 2) | RER C Avenue Foch | taxi, Vélib, Autolib",
+    "de": "Metro Porte Dauphine (Linie 2) | RER C Avenue Foch | taxi, vélib, autolib",
+    "it": "Metropolitana Porte Dauphine (linea 2) | RER C Avenue Foch | taxi, Vélib, Autolib"
+  },
+  "state": 1,
+  "imageCredits": "yo",
+  "extIds": null,
+  "duplicateCandidates": null,
+  "disqualifiedDuplicates": null,
+  "mergedIn": null,
+  "agendaUid": 6956618,
+  "extId": null
+}

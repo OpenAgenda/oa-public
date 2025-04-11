@@ -15,6 +15,7 @@ import convertKeywords from './lib/convertKeywords.js';
 import convertAge from './lib/convertAge.js';
 import convertMember from './lib/convertMember.js';
 import convertState from './lib/convertState.js';
+import assignLocationTags from './lib/assignLocationTags.js';
 
 const pick = (obj, fields) =>
   fields.reduce(
@@ -22,8 +23,10 @@ const pick = (obj, fields) =>
     {},
   );
 
-export default (agendaSettings, event) => {
+export default (agendaSettings, event, options = {}) => {
   const { interfaces, admin, root } = agendaSettings;
+
+  const { locationTagLang } = options;
 
   const legacyFormat = {
     uid: event.uid,
@@ -117,6 +120,7 @@ export default (agendaSettings, event) => {
             'updatedAt',
             'extId',
           ]),
+          assignLocationTags(event.location, locationTagLang),
           {
             country: event.country,
           },

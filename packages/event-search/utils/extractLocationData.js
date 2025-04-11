@@ -31,13 +31,23 @@ const clearEmptyLabels = (labels) =>
       {},
     );
 
-function formatLocation(data) {
+function formatLocation(data, options = {}) {
   const location = {
     ...data,
     _agg: aggObjects.flatten(data, ['uid', 'name']),
   };
+  const { tagSet } = options;
 
-  delete location.tagSet;
+  if (!(location.tags ?? []).length || !tagSet) {
+    return location;
+  }
+
+  const tagSetTags = tagSet.groups.reduce((t, g) => t.concat(g.tags), []);
+
+  location.tags = location.tags.map(({ id, label }) => ({
+    id,
+    label: tagSetTags.find((t) => t.id === id)?.label ?? label,
+  }));
 
   return location;
 }
@@ -50,19 +60,24 @@ const extractSearchData = (location, country) => ({
   },
 });
 
-export default function extractLocationData(location) {
+export default function extractLocationData(location, options = {}) {
   if (!location) {
     return {
       emptyFields: locationFields,
     };
   }
 
+  const { formSchema } = options;
+
   const country = clearEmptyLabels(
     countries[(location.countryCode ?? '').toUpperCase()] ?? {},
   );
   delete country.io;
 
-  const formattedLocation = formatLocation(location);
+  const formattedLocation = formatLocation(location, {
+    tagSet: (formSchema?.fields ?? []).find((f) => f.field === 'location')
+      ?.legacy?.tagSet,
+  });
 
   return {
     country: Object.keys(country).length ? country : undefined,

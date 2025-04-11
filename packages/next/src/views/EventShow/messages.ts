@@ -67,6 +67,10 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.editEvent',
     defaultMessage: 'Edit event',
   },
+  fixEvent: {
+    id: 'next.views.EventShow.ContextBar.fixEvent',
+    defaultMessage: 'Fix event',
+  },
   editLocation: {
     id: 'next.views.EventShow.ContextBar.editLocation',
     defaultMessage: 'Edit location',
@@ -257,14 +261,14 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.contactAdministrators',
     defaultMessage: 'Contact administrators',
   },
-  invalidEventTitle: {
-    id: 'next.views.EventShow.ContextBar.invalidEventTitle',
+  invalidEvent: {
+    id: 'next.views.EventShow.ContextBar.invalidEvent',
     defaultMessage: 'The event is invalid',
   },
   invalidEventMessage: {
     id: 'next.views.EventShow.ContextBar.invalidEventMessage',
     defaultMessage:
-      'Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda.',
+      'This event has an issue that needs to be corrected before this action can be performed.',
   },
   motive: {
     id: 'next.views.EventShow.ContextBar.motive',
@@ -512,6 +516,10 @@ export const sidebar = defineMessages({
   minToMaxYearsOld: {
     id: 'next.views.EventShow.Sidebar.minToMaxYearsOld',
     defaultMessage: '{min} to {max} years old',
+  },
+  passUnpublished: {
+    id: 'next.views.EventShow.Sidebar.passUnpublished',
+    defaultMessage: 'The offer will be created upon publication of the event',
   },
 });
 

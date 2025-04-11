@@ -35,11 +35,6 @@
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
     },
-    "maxWidth": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::size.size"
-    },
     "Icon": {
       "type": "component",
       "repeatable": false,
@@ -73,15 +68,26 @@
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
     },
-    "alignHeight": {
-      "type": "boolean"
-    },
     "borderRadius": {
       "type": "enumeration",
       "enum": ["none", "sm", "md", "lg", "xl", "full"]
     },
     "useCarousel": {
       "type": "boolean"
+    },
+    "descriptionColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "titleColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "verticalAlign": {
+      "type": "enumeration",
+      "enum": ["center", "stretch", "flex-start"]
     }
   }
 }

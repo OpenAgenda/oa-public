@@ -79,6 +79,7 @@ export default function onUpdate(queue, services) {
           after,
         });
       } catch (e) {
+        log('Failed to register update activity');
         log.error(
           new VError(
             {
@@ -95,5 +96,6 @@ export default function onUpdate(queue, services) {
     } else {
       log.debug('no userUid in context, not registering activity');
     }
+    log('onupdateEnd');
   };
 }
