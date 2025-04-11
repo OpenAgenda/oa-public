@@ -15,8 +15,17 @@ if [ ! -f $1/certs/ca.crt ]; then
     && openssl rsa -passin pass:xxxx -in $1/certs/private/ca.pass.key -out $1/certs/private/ca.key \
     && rm $1/certs/private/ca.pass.key
 
-  openssl req -new -x509 -days 1095 \
-    -key $1/certs/private/ca.key \
-    -out $1/certs/ca.crt \
-    -subj /C=FR/L=Courbevoie/O=OADEV/CN=auth.openagenda.com/emailAddress=support@openagenda.com
+  cat > "$1/certs/ca.ext" << EOF
+basicConstraints=CA:TRUE
+keyUsage = keyCertSign, cRLSign, digitalSignature
+subjectKeyIdentifier=hash
+authorityKeyIdentifier=keyid:always,issuer:always
+EOF
+
+  openssl req -x509 -days 1095 \
+    -key "$1/certs/private/ca.key" \
+    -out "$1/certs/ca.crt" \
+    -subj "/C=FR/L=Courbevoie/O=OADEV/CN=auth.openagenda.com/emailAddress=support@openagenda.com" \
+    -extensions v3_ca \
+    -config <(cat /etc/ssl/openssl.cnf "$1/certs/ca.ext")
 fi
