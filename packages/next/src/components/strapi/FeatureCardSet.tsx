@@ -3,7 +3,7 @@ import FeatureCard from './FeatureCard';
 
 export default function FeatureCardSet({ Features }) {
   return (
-    <HStack spacing={8}>
+    <HStack gap={8}>
       {Features.map((Feature) => (
         <FeatureCard key={Feature.id} {...Feature} />
       ))}

@@ -23,7 +23,7 @@ const PageHeadContent = ({
   | 'fontSize'
 >) => (
   <Stack
-    spacing={0}
+    gap={0}
     align={Illustration ? undefined : 'center'}
     textAlign={Illustration ? undefined : 'center'}
   >
@@ -33,6 +33,7 @@ const PageHeadContent = ({
       size="2xl"
       color={color(titleColor)}
       fontWeight={600}
+      lineHeight="normal"
     >
       {title}
     </Heading>

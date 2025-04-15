@@ -1,4 +1,4 @@
-import { Card, Box, Flex, IconButton } from '@openagenda/uikit';
+import { Card, Box, IconButton } from '@openagenda/uikit';
 import { useState } from 'react';
 import { color } from 'utils/strapi';
 import { FaIcon } from 'icons';
@@ -12,7 +12,7 @@ interface Color {
 
 interface CarouselProps {
   Components: Array<any>;
-  colorScheme?: Color;
+  colorPalette?: Color;
   backgroundColor?: Color;
   borderRadius?: string;
   gradient?: boolean;
@@ -22,7 +22,7 @@ interface CarouselProps {
 
 export default function Carousel({
   Components,
-  colorScheme,
+  colorPalette,
   backgroundColor,
   borderRadius,
   gradient,
@@ -45,24 +45,27 @@ export default function Carousel({
 
   const gradientBackground =
     gradient && backgroundColor
-      ? `radial-gradient(circle at top, #fff 50%, ${backgroundColor.name}.50 80%, ${backgroundColor.name}.100 93%,${backgroundColor.name}.200 100%)`
+      ? `radial-gradient(circle at top, #fff 50%, {colors.${backgroundColor.name}.50} 80%, {colors.${backgroundColor.name}.100} 93%, {colors.${backgroundColor.name}.200} 100%)`
       : undefined;
 
   return (
-    <Card
+    <Card.Root
       position="relative"
       width={width?.name}
       overflow="hidden"
       bg={!gradient ? color(backgroundColor) : undefined}
-      backgroundImage={gradientBackground ? gradientBackground : undefined}
+      bgGradient={gradientBackground ? gradientBackground : undefined}
       borderRadius={borderRadius}
       my={8}
       mx="auto"
     >
-      <Flex
+      <Card.Body
+        display="flex"
+        flexDirection="row"
         transition="transform 0.5s ease-in-out"
         transform={`translateX(-${currentIndex * 100}%)`}
         width="100%"
+        p={0}
       >
         {Components.map((Component, index) => (
           <Box
@@ -78,29 +81,31 @@ export default function Carousel({
             <Modular {...Component} useCarousel={true} />
           </Box>
         ))}
-      </Flex>
-      <Box display="flex" justifyContent="center" m={8}>
+      </Card.Body>
+      <Card.Footer display="flex" justifyContent="center" m={8}>
         <IconButton
           aria-label="Previous"
-          icon={<FaIcon icon={faArrowLeft} size="sm" />}
           onClick={handlePrev}
           borderRadius="50%"
-          colorScheme={colorScheme ? colorScheme.name : 'primary'}
-          variant={variant}
+          colorPalette={colorPalette ? colorPalette.name : 'primary'}
+          variant={variant as any}
           size="lg"
           mr={1}
-        />
+        >
+          <FaIcon icon={faArrowLeft} size="sm" />
+        </IconButton>
         <IconButton
           aria-label="Next"
-          icon={<FaIcon icon={faArrowRight} size="sm" />}
           onClick={handleNext}
           borderRadius="50%"
-          colorScheme={colorScheme ? colorScheme.name : 'primary'}
-          variant={variant}
+          colorPalette={colorPalette ? colorPalette.name : 'primary'}
+          variant={variant as any}
           size="lg"
           ml={1}
-        />
-      </Box>
-    </Card>
+        >
+          <FaIcon icon={faArrowRight} size="sm" />
+        </IconButton>
+      </Card.Footer>
+    </Card.Root>
   );
 }

@@ -1,4 +1,4 @@
-import { Card, CardBody, VStack, Heading, Box } from '@openagenda/uikit';
+import { Card, VStack, Heading, Box } from '@openagenda/uikit';
 import ReactMarkdown from 'react-markdown';
 import { color } from 'utils/strapi';
 import CTAButton from './CTAButton';
@@ -28,15 +28,15 @@ const Wrapper = ({
   }
 
   return (
-    <Card
+    <Card.Root
       w={width}
       flex={1}
       bg={useCarousel ? 'transparent' : bg}
       height={verticalAlign ? 'full' : 'auto'}
       borderRadius={borderRadius}
     >
-      <CardBody p={8}>{children}</CardBody>
-    </Card>
+      <Card.Body p={8}>{children}</Card.Body>
+    </Card.Root>
   );
 };
 
@@ -71,7 +71,7 @@ export default function Modular({
       useCarousel={useCarousel}
     >
       <VStack
-        spacing="0"
+        gap="0"
         align={
           contentAlign === 'left'
             ? 'start'
@@ -127,6 +127,7 @@ export default function Modular({
               fontSize={fontSize?.name || '160%'}
               mt={Tag || Icon || Illustration ? 7 : 0}
               fontWeight={600}
+              lineHeight="normal"
             >
               {title}
             </Heading>
@@ -140,8 +141,8 @@ export default function Modular({
               style={{ listStylePosition: 'inside' }}
               fontSize="lg"
               mt={7}
-              sx={{
-                a: {
+              css={{
+                '& a': {
                   '&:hover': {
                     textDecoration: 'underline',
                   },

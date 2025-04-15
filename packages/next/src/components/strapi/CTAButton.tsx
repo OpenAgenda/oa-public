@@ -1,5 +1,5 @@
-import { Button } from '@openagenda/uikit';
-import NextChakraLink from 'components/NextChakraLink';
+import Link from 'next/link';
+import { Button, ButtonProps } from '@openagenda/uikit';
 interface Color {
   name: string;
   swatch?: string;
@@ -10,27 +10,26 @@ interface CTAButtonProps {
   label: string;
   fontColor?: Color;
   backgroundColor?: Color;
-  colorScheme?: Color;
-  variant?: string;
+  colorPalette?: Color;
+  variant?: ButtonProps['variant'];
 }
 
 export default function CTAButton({
   link,
   label,
-  colorScheme,
+  colorPalette,
   variant,
 }: CTAButtonProps) {
   return (
     <Button
-      as={NextChakraLink}
-      href={link}
-      colorScheme={colorScheme ? colorScheme.name : 'primary'}
+      asChild
+      colorPalette={colorPalette ? colorPalette.name : 'primary'}
       size="lg"
       variant={variant}
       fontSize="md"
       mt={9}
     >
-      {label}
+      <Link href={link}>{label}</Link>
     </Button>
   );
 }

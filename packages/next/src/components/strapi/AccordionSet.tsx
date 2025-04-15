@@ -1,4 +1,5 @@
-import { Accordion, Box, Heading } from '@openagenda/uikit';
+import { Box, Heading } from '@openagenda/uikit';
+import { AccordionRoot } from '@openagenda/uikit/snippets';
 import { color } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
 import AccordionItem from './Accordion';
@@ -46,8 +47,8 @@ export default function AccordionSet({
         {title}
       </Heading>
       <Box display="flex" justifyContent={boxAlign} p={8}>
-        <Accordion
-          allowMultiple
+        <AccordionRoot
+          collapsible
           maxWidth={maxWidth?.name}
           width={width?.name}
           bg={!gradient && backgroundColor ? color(backgroundColor) : 'white'}
@@ -57,11 +58,12 @@ export default function AccordionSet({
           {Components.map((Component) => (
             <AccordionItem
               key={Component.id}
+              value={String(Component.id)}
               {...Component}
               contentColor={color(contentColor) || 'black'}
             />
           ))}
-        </Accordion>
+        </AccordionRoot>
       </Box>
     </SegmentContainer>
   );

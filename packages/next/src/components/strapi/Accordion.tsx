@@ -1,17 +1,15 @@
+import { Accordion, Box, HStack, Text } from '@openagenda/uikit';
 import {
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
-  Box,
-  Heading,
-} from '@openagenda/uikit';
+  AccordionItem as ChakraAccordionItem,
+  AccordionItemContent,
+} from '@openagenda/uikit/snippets';
 import ReactMarkdown from 'react-markdown';
 import { color } from 'utils/strapi';
 import CTAButton from './CTAButton';
 import IconComponent from './Icon';
 
-export default function Accordion({
+export default function AccordionItem({
+  value,
   title,
   description,
   Icon,
@@ -19,31 +17,19 @@ export default function Accordion({
   contentAlign = null,
   contentColor,
 }) {
+  console.log(value);
   return (
-    <AccordionItem sx={{ border: 'none' }}>
-      <h2>
-        <AccordionButton>
-          <Box
-            flex={1}
-            display="flex"
-            flexDirection="row"
-            alignItems="center"
-            p={4}
-          >
-            {Icon ? <IconComponent {...Icon} color={contentColor} /> : null}
-            <Heading
-              textAlign={contentAlign}
-              fontSize="140%"
-              ml={Icon ? 4 : 0}
-              color={contentColor}
-            >
-              {title}
-            </Heading>
-          </Box>
-          <AccordionIcon color={contentColor} />
-        </AccordionButton>
-      </h2>
-      <AccordionPanel padding={8}>
+    <ChakraAccordionItem value={String(value)} border="none">
+      <Accordion.ItemTrigger p="4">
+        <HStack as="h2" gap="4" flex="1" textAlign="start" width="full">
+          {Icon ? <IconComponent {...Icon} color={contentColor} /> : null}
+          <Text textAlign={contentAlign} fontSize="140%" color={contentColor}>
+            {title}
+          </Text>
+        </HStack>
+        <Accordion.ItemIndicator />
+      </Accordion.ItemTrigger>
+      <AccordionItemContent padding={8}>
         {description ? (
           <Box
             width="full"
@@ -61,7 +47,7 @@ export default function Accordion({
             <CTAButton {...CTA} />
           </Box>
         ) : null}
-      </AccordionPanel>
-    </AccordionItem>
+      </AccordionItemContent>
+    </ChakraAccordionItem>
   );
 }

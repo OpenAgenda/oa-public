@@ -17,7 +17,7 @@ export default function SegmentContainer({
       backgroundColor={backgroundColor ? color(backgroundColor) : undefined}
     >
       <Container
-        maxW="8xl"
+        maxW="7xl"
         color={fontColor ? color(fontColor) : undefined}
         pt="110px"
         pb="110px"
