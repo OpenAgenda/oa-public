@@ -8,7 +8,7 @@ export default function BookingEmail({
 }) {
   const { Input, Checkbox } = useContext(ComponentsContext);
 
-  const [check, setCheck] = useState(!!value.bookingEmail);
+  const [check, setCheck] = useState(true);
   const [bookingEmail, setbookingEmail] = useState(
     value.bookingEmail || settingsBookingEmail || null,
   );
