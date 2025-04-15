@@ -139,51 +139,17 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       currentState: agendaEvent?.state,
     });
 
-    const hasNewPassOffer = !draft
-      && clean.passCulture
-      && registrations.utils.passCulture.isNew(clean.passCulture);
-    const hasNonPendingPassOfferWithNewItems = !draft
-      && clean.passCulture
-      && !registrations.utils.passCulture.isMarkedAsPending(clean.passCulture)
-      && registrations.utils.passCulture.hasNonApplied(clean.passCulture);
+    const updatedRegistration = await registrations.utils.passCulture.process(
+      agenda,
+      clean,
+      { draft },
+    );
 
-    if (!draft && (hasNewPassOffer || hasNonPendingPassOfferWithNewItems)) {
-      log.info('  There is a pass culture payload with event', {
-        eventUid: event.uid,
-      });
-      if (clean.agendaEvent.state === 2) {
-        try {
-          clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
-        } catch (e) {
-          log('error', e);
-          throw e;
-        }
-      } else {
-        const passCultureService = registrations(
-          agenda.settings.registration,
-        ).passCulture;
-        try {
-          await passCultureService.validate(clean.event, clean.passCulture);
-        } catch (error) {
-          log('error', error);
-          throw error;
-        }
-      }
-    } else if (!draft && clean.passCulture) {
-      log.info('  There is no new non-pending pass culture payload', {
-        eventUid: event.uid,
-      });
-    }
+    if (updatedRegistration) clean.event.registration = updatedRegistration;
 
     const payload = createPayload(core, agenda);
-    const newPublishedPassData = clean.event.registration?.find(
-      (e) => e.service === 'passCulture',
-    )?.value;
-    const oldUnpublishedPassData = event.registration?.find((e) => e.service === 'passCulture')
-      && !event.registration?.find((e) => e.service === 'passCulture')?.value;
-    const newlyPublishedPassData = newPublishedPassData && oldUnpublishedPassData;
 
-    if (containsEventData(data) || newlyPublishedPassData) {
+    if (containsEventData(data) || updatedRegistration) {
       await updateEvent(core.services, {
         clean,
         payload,
@@ -352,7 +318,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
     if (
       !draft
-      && hasNewPassOffer
+      && updatedRegistration
       && registrations.utils.passCulture.isMarkedAsPending(
         response.event.registration.find((r) => r.service === 'passCulture')
           ?.data,
