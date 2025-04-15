@@ -42,6 +42,8 @@ export default function ModeratorContextBar({ agenda, states }) {
                     count: eventCount,
                   })}
                   showArrow
+                  openDelay={0}
+                  closeDelay={0}
                 >
                   <chakra.span
                     display={{ base: 'inline-flex', md: 'none' }}

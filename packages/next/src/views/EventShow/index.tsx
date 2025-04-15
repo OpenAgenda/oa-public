@@ -170,7 +170,7 @@ function EventShow({ preload }: EventShowProps) {
 
       <Box as="header" w="full" bg="#413a42" px="4" py="8">
         <Container
-          maxW="7xl"
+          maxW="5xl"
           color="white"
           textAlign={{ base: 'center', md: 'start' }}
         >

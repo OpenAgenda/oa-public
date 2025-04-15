@@ -260,6 +260,8 @@ export default function EmbedAccordionItem({ dialogRef, res, agenda }) {
           showArrow
           positioning={{ placement: 'top' }}
           open={copied}
+          openDelay={0}
+          closeDelay={0}
         >
           <Button
             type="submit"

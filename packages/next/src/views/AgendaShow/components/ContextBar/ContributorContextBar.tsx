@@ -76,6 +76,8 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
               <Tooltip
                 content={intl.formatMessage(messages.drafts, { count: drafts })}
                 showArrow
+                openDelay={0}
+                closeDelay={0}
               >
                 <chakra.span
                   display={{ base: 'inline-flex', md: 'none' }}
@@ -111,6 +113,8 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
                     count: bundleState.eventCount,
                   })}
                   showArrow
+                  openDelay={0}
+                  closeDelay={0}
                 >
                   <chakra.span
                     display={{ base: 'inline-flex', md: 'none' }}

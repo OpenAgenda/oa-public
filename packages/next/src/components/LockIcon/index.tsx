@@ -46,6 +46,8 @@ export default function LockIcon({
         css: { '--tooltip-bg': 'white' },
         color: 'black',
       }}
+      openDelay={0}
+      closeDelay={0}
       {...tooltipProps}
       // arrowSize={8}
       // arrowPadding={6}

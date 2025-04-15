@@ -189,6 +189,8 @@ export default function OtherActions({ agenda, editLink, contextBarRef }) {
           ids={{ trigger: triggerId }}
           content={intl.formatMessage(messages.otherActions)}
           disabled={!isMobile}
+          openDelay={0}
+          closeDelay={0}
         >
           <MenuTrigger asChild>
             <ContextBarButton

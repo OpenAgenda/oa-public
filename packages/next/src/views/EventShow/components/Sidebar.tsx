@@ -279,6 +279,8 @@ export function RegistrationSection({
             content={registrationItem.value}
             aria-label={intl.formatMessage(messages.completeLink)}
             showArrow
+            openDelay={0}
+            closeDelay={0}
           >
             <Link
               href={getRegistrationLink(registrationItem)}

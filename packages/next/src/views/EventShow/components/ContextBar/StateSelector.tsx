@@ -139,6 +139,8 @@ export default function StateSelector({
           ids={{ trigger: triggerId }}
           content={stateLabel}
           disabled={!isMobile}
+          openDelay={0}
+          closeDelay={0}
         >
           <MenuTrigger asChild>
             <ContextBarButton textAlign="start">
@@ -197,6 +199,8 @@ export default function StateSelector({
         ids={{ trigger: triggerId }}
         content={stateLabel}
         disabled={!isMobile}
+        openDelay={0}
+        closeDelay={0}
       >
         <MenuTrigger asChild>
           <ContextBarButton textAlign="start">

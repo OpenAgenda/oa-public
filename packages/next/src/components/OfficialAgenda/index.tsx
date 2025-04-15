@@ -30,6 +30,8 @@ export default function OfficialAgenda({
         css: { '--tooltip-bg': 'white' },
         color: 'black',
       }}
+      openDelay={0}
+      closeDelay={0}
       // arrowSize={8}
       // arrowPadding={6}
       {...tooltipProps}

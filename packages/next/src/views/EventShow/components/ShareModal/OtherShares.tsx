@@ -353,6 +353,8 @@ export default function OtherShares({
             content={intl.formatMessage(messages.copied)}
             showArrow
             open={copied}
+            openDelay={0}
+            closeDelay={0}
           >
             <Button
               variant="outline"

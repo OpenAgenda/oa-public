@@ -112,6 +112,8 @@ export default function ContextBar() {
               <Tooltip
                 content={intl.formatMessage(messages.backToDashboard)}
                 disabled={!isMobile}
+                openDelay={0}
+                closeDelay={0}
               >
                 <ContextBarButton
                   asChild

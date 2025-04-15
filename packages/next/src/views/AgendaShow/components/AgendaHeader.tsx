@@ -1,5 +1,6 @@
 import qs from 'qs';
 import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 import { defineMessages, useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
 import {
@@ -19,7 +20,6 @@ import { faEnvelope, faPlus } from 'icons/solid';
 import { faShareNodes } from 'icons/regular';
 import { FaIcon } from 'icons';
 import Image from 'components/Image';
-import NextChakraLink from 'components/NextChakraLink';
 import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
@@ -137,10 +137,12 @@ export default function AgendaHeader({ agenda }) {
 
       <VStack gap="3" align={{ base: 'center', md: 'start' }}>
         {agenda.network ? (
-          <NextChakraLink href={`/agendas?network=${agenda.network.uid}`}>
-            {agenda.network.title}
-            &nbsp;›
-          </NextChakraLink>
+          <Link asChild color="white">
+            <NextLink href={`/agendas?network=${agenda.network.uid}`}>
+              {agenda.network.title}
+              &nbsp;›
+            </NextLink>
+          </Link>
         ) : null}
         <Heading
           as="h1"
@@ -164,7 +166,12 @@ export default function AgendaHeader({ agenda }) {
         <Text>{nl2br(agenda.description)}</Text>
 
         {agenda.url ? (
-          <Link href={agenda.url} target="_blank" rel="noopener nofollow">
+          <Link
+            href={agenda.url}
+            target="_blank"
+            rel="noopener nofollow"
+            color="white"
+          >
             {agenda.url}
           </Link>
         ) : null}
@@ -215,7 +222,7 @@ export default function AgendaHeader({ agenda }) {
             <OAIcon size="sm" />
             {intl.formatMessage(messages.aggregate)}
           </Button>
-          <Button asChild colorPalette="primary">
+          <Button asChild>
             <Link unstyled href={contributeHref}>
               <FaIcon icon={faPlus} />
               {intl.formatMessage(messages.addEvent)}

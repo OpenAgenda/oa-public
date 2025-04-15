@@ -56,6 +56,8 @@ export function EventStatusTooltip({ intl, status, children }) {
     <Tooltip
       disabled={status === 1}
       content={intl.formatMessage(messages[`${slug}Info`])}
+      openDelay={0}
+      closeDelay={0}
     >
       {children}
     </Tooltip>
