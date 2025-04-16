@@ -76,6 +76,7 @@ export default function Form({
   conditions = null,
   patchMode = false,
   defaultVenueId = null,
+  userRole,
 }) {
   const [patch, setPatch] = useState(
     initialValue[initialValue.length - 1]?.editing
@@ -238,6 +239,7 @@ export default function Form({
       </Section>
       <Section>
         <PriceCategories
+          userRole={userRole}
           disabled={openSubForm && openSubForm !== 'priceCategories'}
           value={currentValue}
           onAdd={(pc) => {

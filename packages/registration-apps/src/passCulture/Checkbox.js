@@ -245,6 +245,7 @@ export default ({
           onClear={onClear}
           patchMode={patchMode}
           defaultVenueId={settings?.defaultVenueId}
+          userRole={userRole}
         />
       ) : null}
       {modal === 'unlink' ? (

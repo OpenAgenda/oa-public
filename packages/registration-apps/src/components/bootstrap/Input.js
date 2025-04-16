@@ -16,6 +16,7 @@ export default function Input({
   min = null,
   error = false,
   optional = true,
+  disabled = false,
 }) {
   return (
     <div
@@ -46,6 +47,7 @@ export default function Input({
         max={max}
         min={min}
         step={step}
+        disabled={disabled}
       />
       {maxLength && type === 'string' ? (
         <FieldCounter value={value} max={maxLength} />
