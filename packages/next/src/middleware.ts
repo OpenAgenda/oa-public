@@ -4,8 +4,10 @@ import { isOutdatedBrowser } from '@openagenda/outdated-browser/middleware';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
 import parseAcceptLanguage from 'utils/parseAcceptLanguage';
+import { strapiUrlRegex } from '@/src/utils/isNextUrl';
 
-const MATCHER_REGEX = /^\/(api|_next\/static|_next\/image|favicon\.ico)($|\/).*$/;
+const MATCHER_REGEX =
+  /^\/(api|_next\/static|_next\/image|favicon\.ico)($|\/).*$/;
 
 export async function middleware(req: NextRequest) {
   if (MATCHER_REGEX.test(req.nextUrl.pathname)) {
@@ -13,6 +15,16 @@ export async function middleware(req: NextRequest) {
   }
 
   /* locale redirection */
+  // strapi is only french
+  if (
+    req.nextUrl.locale !== 'fr' &&
+    strapiUrlRegex.test(req.nextUrl.pathname)
+  ) {
+    return NextResponse.redirect(
+      new URL(`/fr/${req.nextUrl.pathname}${req.nextUrl.search}`, req.url),
+    );
+  }
+
   // req.cookies.get('NEXT_LOCALE');
   const acceptLanguage = parseAcceptLanguage(
     req.headers.get('Accept-Language'),
@@ -54,7 +66,8 @@ export async function middleware(req: NextRequest) {
     browsers: browserslistConfig,
     path: '/',
   });
-  const outdatedBrowserCookie = req.cookies.get('outdatedBrowser')?.value === 'true';
+  const outdatedBrowserCookie =
+    req.cookies.get('outdatedBrowser')?.value === 'true';
 
   // see https://github.com/vercel/next.js/issues/36049#issuecomment-1122077832
   if (outdatedBrowserCookie !== isOutdated) {
@@ -71,5 +84,6 @@ export const config = {
     '/embed/agendas/([^/]+)',
     '/embed/agendas/([^/]+)/events/([^/]+)',
     '/agendas',
+    '/strapi/([^/]+)',
   ],
 };

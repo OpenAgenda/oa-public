@@ -3,13 +3,13 @@ import PageHead from 'components/strapi/PageHead';
 import ModularSet from 'components/strapi/ModularSet';
 import FeatureCardSet from 'components/strapi/FeatureCardSet';
 import CarouselSet from 'components/strapi/CarouselSet';
+import fetchLocale from './locales';
 
 export default function StrapiPage({ page }) {
-  const { title, Segments } = page;
+  const { Segments } = page;
 
   return (
     <>
-      {title ? <h1>{title}</h1> : null}
       {Segments.map((Segment) => {
         const { id } = Segment;
         const Component = {
@@ -28,3 +28,5 @@ export default function StrapiPage({ page }) {
     </>
   );
 }
+
+StrapiPage.fetchLocale = fetchLocale;
