@@ -104,6 +104,8 @@ export default ({
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
   const [passSettingsData, setPassSettingsData] = useState({});
   const [hasAccess, setHasAccess] = useState(false);
+  const [userRole, setUserRole] = useState(null);
+  const [memberEmail, setMemberEmail] = useState(null);
 
   const patchMode = useMemo(() => isPatchMode(value || []), [value]);
 
@@ -184,6 +186,8 @@ export default ({
     fetch(settings.res.context)
       .then((r) => r.json())
       .then((data) => {
+        setUserRole(data.me.member.role);
+        setMemberEmail(data.me.member.email);
         setHasAccess(access.includes(data.me.member?.role));
       })
       .catch(() => {
@@ -232,13 +236,16 @@ export default ({
           categories={passSettingsData.categories}
           related={passSettingsData.related}
           offererVenues={passSettingsData.offererVenues}
-          bookingEmail={settings?.bookingEmail}
+          bookingEmail={
+            userRole === 'contributor' ? memberEmail : settings?.bookingEmail
+          }
           value={value || []}
           onClose={() => setModal(null)}
           onSubmit={onSubmit}
           onClear={onClear}
           patchMode={patchMode}
           defaultVenueId={settings?.defaultVenueId}
+          userRole={userRole}
         />
       ) : null}
       {modal === 'unlink' ? (

@@ -1,12 +1,20 @@
 import { useContext, useState } from 'react';
 import ComponentsContext from '../components/Context.js';
 
+const getInitialItemCollectionDetails = (conditions, value) => {
+  if (typeof conditions?.fr === 'string') return conditions.fr;
+  if (typeof conditions === 'string') return conditions;
+  if (typeof value?.itemCollectionDetails === 'string') return value.itemCollectionDetails;
+  return null;
+};
+
 export default function Conditions({ value, onChange, conditions }) {
   const { Textarea, Checkbox } = useContext(ComponentsContext);
   const [check, setCheck] = useState(!!value.itemCollectionDetails);
   const [itemCollectionDetails, setItemCollectionDetails] = useState(
-    conditions?.fr || conditions || value.itemCollectionDetails || null,
+    getInitialItemCollectionDetails(conditions, value),
   );
+
   return (
     <Checkbox
       info={

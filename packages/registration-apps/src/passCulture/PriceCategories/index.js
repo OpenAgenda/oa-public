@@ -7,6 +7,7 @@ import PriceCategoryForm from './Form.js';
 import PriceCategoryItems from './Items.js';
 
 export default function PriceCategories({
+  userRole,
   initWithOpenForm = false,
   value = [],
   onSubFormToggle,
@@ -27,6 +28,7 @@ export default function PriceCategories({
         <b>Tarifs</b> (Champ obligatoire)
       </span>
       <PriceCategoryItems
+        userRole={userRole}
         value={value.priceCategories}
         onRemove={onRemove}
         disabled={newItem || disabled}
@@ -45,6 +47,7 @@ export default function PriceCategories({
         ))}
       {newItem ? (
         <PriceCategoryForm
+          userRole={userRole}
           value={newItem}
           onChange={(v) => {
             setNewItem(v);

@@ -3,6 +3,7 @@ import { useContext } from 'react';
 import ComponentsContext from '../../components/Context.js';
 
 export default function PriceCategoryForm({
+  userRole,
   value,
   onChange,
   isValid,
@@ -27,7 +28,7 @@ export default function PriceCategoryForm({
       />
       <Input
         id="price-category-price"
-        value={value.price ?? ''}
+        value={value.price ?? '0'}
         type="number"
         label="Prix"
         placeholder="Ex: 12.5"
@@ -35,6 +36,7 @@ export default function PriceCategoryForm({
         max="30"
         min="0"
         onChange={(e) => onChange({ ...value, price: e.target.value })}
+        disabled={userRole === 'contributor'}
       />
       <Button
         type="submit"
