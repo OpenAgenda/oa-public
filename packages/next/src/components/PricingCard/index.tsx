@@ -4,7 +4,6 @@ import {
   Flex,
   Heading,
   List,
-  ListItem,
   Image,
   Button,
   Text,
@@ -43,7 +42,7 @@ export default function PricingCard({
 }) {
   return (
     <Box position="relative" pb="6" maxW="md" width="100%" {...props}>
-      <VStack spacing={6} bg="white" color="white" borderTopRadius="lg" pt="8">
+      <VStack gap={6} bg="white" color="white" borderTopRadius="lg" pt="8">
         <Image
           alt=""
           src={visuals[visual].svg.src}
@@ -82,14 +81,14 @@ export default function PricingCard({
           <Text fontWeight="bold">avec en plus:</Text>
         </Flex>
       ) : null}
-      <List spacing="4" bg="white" pt="4" pb="4" pl="8" pr="8">
+      <List.Root gap="4" bg="white" pt="4" pb="4" pl="8" pr="8">
         {features.map(({ label, key }) => (
-          <ListItem fontSize="xl" key={key}>
+          <List.Item fontSize="xl" key={key}>
             <UnicodeCheck />
             {label}
-          </ListItem>
+          </List.Item>
         ))}
-      </List>
+      </List.Root>
       <Flex
         align="stretch"
         fontSize="xl"
