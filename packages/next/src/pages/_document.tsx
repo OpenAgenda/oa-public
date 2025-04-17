@@ -30,17 +30,13 @@ function wrapApp({ cookies, cache }) {
   };
 }
 
-function OutdatedStyle({ nonce, assetPrefix }) {
+function OutdatedStyle({ nonce }) {
   return (
-    <link
-      rel="stylesheet"
-      href={`${assetPrefix}/_next/static/css/outdated-browser.css`}
-      nonce={nonce}
-    />
+    <link rel="stylesheet" href="/css/outdated-browser.css" nonce={nonce} />
   );
 }
 
-function OutdatedScript({ nonce, assetPrefix, locale }) {
+function OutdatedScript({ nonce, locale }) {
   return (
     <>
       <script
@@ -50,21 +46,12 @@ function OutdatedScript({ nonce, assetPrefix, locale }) {
         }}
         nonce={nonce}
       />
-      <script
-        src={`${assetPrefix}/_next/static/chunks/outdated-browser.js`}
-        defer
-        nonce={nonce}
-      />
+      <script src="/js/outdated-browser.js" defer nonce={nonce} />
     </>
   );
 }
 
-function MyDocument({
-  locale,
-  assetPrefix,
-  outdatedBrowser,
-  nonce,
-}: MyDocumentProps) {
+function MyDocument({ locale, outdatedBrowser, nonce }: MyDocumentProps) {
   return (
     <Html lang={locale} style={{ colorScheme: 'light' }} data-theme="light">
       <Head nonce={nonce}>
@@ -94,20 +81,14 @@ function MyDocument({
             />
           </>
         ) : null}
-        {outdatedBrowser ? (
-          <OutdatedStyle assetPrefix={assetPrefix} nonce={nonce} />
-        ) : null}
+        {outdatedBrowser ? <OutdatedStyle nonce={nonce} /> : null}
       </Head>
       <body className="chakra-ui-light">
         <div id="outdated" />
         <Main />
         <NextScript nonce={nonce} />
         {outdatedBrowser ? (
-          <OutdatedScript
-            assetPrefix={assetPrefix}
-            locale={locale}
-            nonce={nonce}
-          />
+          <OutdatedScript locale={locale} nonce={nonce} />
         ) : null}
       </body>
     </Html>
