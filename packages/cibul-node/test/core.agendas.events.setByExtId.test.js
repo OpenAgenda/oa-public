@@ -27,6 +27,7 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
         'agendaEvents',
         'aggregators',
         'agendaLocations',
+        'registrations',
         'formSchemas',
         'custom',
         'eventSearch',
