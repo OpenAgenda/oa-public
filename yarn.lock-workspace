@@ -5197,6 +5197,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/leaflet-gesture-handling@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "@openagenda/leaflet-gesture-handling@npm:1.5.0"
+  peerDependencies:
+    leaflet: ^1.9.4
+  checksum: 10c0/7dcb97b171ec1600a835677fb253a940484e0c4693b41978b6ecfcd99bbbbb27d3761d6c8890d9849b49dc77483e3fd5f16d2b032789b5aa08da4803db2f15ee
+  languageName: node
+  linkType: hard
+
 "@openagenda/logs@npm:^1.1.9, @openagenda/logs@workspace:logs":
   version: 0.0.0-use.local
   resolution: "@openagenda/logs@workspace:logs"
@@ -5384,10 +5393,10 @@ __metadata:
     "@openagenda/axios-mock-adapter": "npm:^1.21.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
+    "@openagenda/leaflet-gesture-handling": "npm:^1.5.0"
     "@openagenda/react-date-range": "npm:^2.0.2"
     "@openagenda/react-portal-ssr": "npm:^1.0.3"
     "@openagenda/react-shared": "npm:^2.4.3"
-    "@raruto/leaflet-gesture-handling": "npm:^1.4.4"
     "@storybook/addon-essentials": "npm:^8.5.8"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.5"
     "@storybook/react-webpack5": "npm:^8.5.8"
@@ -5848,15 +5857,6 @@ __metadata:
   version: 0.11.0
   resolution: "@pkgjs/parseargs@npm:0.11.0"
   checksum: 10c0/5bd7576bb1b38a47a7fc7b51ac9f38748e772beebc56200450c4a817d712232b8f1d3ef70532c80840243c657d491cf6a6be1e3a214cff907645819fdc34aadd
-  languageName: node
-  linkType: hard
-
-"@raruto/leaflet-gesture-handling@npm:^1.4.4":
-  version: 1.4.4
-  resolution: "@raruto/leaflet-gesture-handling@npm:1.4.4"
-  peerDependencies:
-    leaflet: ^1.3.4
-  checksum: 10c0/5f7a60df5617f6203154abce799ed8a5f48d85a1b411f1b95276444799a9d7eebbcc31dc0f2fcac43ebe935c58dd4fc4e3dc34e50bacbbc5b2e511e8b9f7abbd
   languageName: node
   linkType: hard
 
