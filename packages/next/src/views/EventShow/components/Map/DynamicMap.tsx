@@ -6,10 +6,10 @@ import L from 'leaflet';
 import shouldForwardProp from '@emotion/is-prop-valid';
 import { chakra, theme } from '@openagenda/uikit';
 import markerIconImg from '../../../../../public/images/markerIcon.png';
-import '@raruto/leaflet-gesture-handling';
+import '@openagenda/leaflet-gesture-handling';
 
 import 'leaflet/dist/leaflet.css';
-import '@raruto/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
+import '@openagenda/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
 
 const { isValidProperty } = theme;
 
@@ -58,8 +58,6 @@ export default function Map(props: MapProps) {
 
   const onMapReady = useCallback(({ target: map }) => {
     mapRef.current = map;
-
-    console.log(map);
 
     // Remove flag
     map.attributionControl.setPrefix(
