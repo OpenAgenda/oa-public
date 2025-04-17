@@ -5,6 +5,14 @@ location /_next {
   include conf.d/nextjs_params;
 }
 
+location = /js/outdated-browser.js {
+  include conf.d/nextjs_params;
+}
+
+location = /css/outdated-browser.css {
+  include conf.d/nextjs_params;
+}
+
 # dynamic scripts
 location ~ ^/js/(matomo|crisp)\.js$ {
   include conf.d/nodejs_params;
