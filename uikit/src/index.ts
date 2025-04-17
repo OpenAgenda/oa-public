@@ -1,6 +1,8 @@
 export {
   default as createEmotionCache,
   defaultCache,
+  CacheProvider,
+  createCache,
   type EmotionCache,
 } from './cache';
 export { default as theme } from './theme';
