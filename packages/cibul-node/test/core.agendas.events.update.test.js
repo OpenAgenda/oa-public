@@ -24,6 +24,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         'agendaEvents',
         'aggregators',
         'agendaLocations',
+        'registrations',
         'formSchemas',
         'custom',
         'eventSearch',
