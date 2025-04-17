@@ -102,6 +102,8 @@ const config = async () => {
       // },
       experimental: {
         scrollRestoration: true,
+        // forceSwcTransforms forces storybook to use SWC instead of babel
+        forceSwcTransforms: true,
       },
       onDemandEntries: {
         maxInactiveAge: 24 * 3600 * 1000, // 24h

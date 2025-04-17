@@ -7,7 +7,9 @@ function getAbsolutePath(value) {
 const main = {
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
-    options: {},
+    options: {
+      nextConfigPath: join(__dirname, '../next.config.mjs'),
+    },
   },
 
   stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -17,11 +19,6 @@ const main = {
   },
 
   staticDirs: ['../public', './public', '../stories/static'],
-
-  babel: async (config) => {
-    config.generatorOpts = { importAttributesKeyword: 'with' };
-    return config;
-  },
 };
 
 export default main;
