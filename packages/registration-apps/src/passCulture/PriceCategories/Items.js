@@ -6,6 +6,7 @@ import ComponentsContext from '../../components/Context.js';
 import PriceCategoryForm from './Form.js';
 
 export default function PriceCategoryItems({
+  userRole,
   value = [],
   onRemove,
   onChange,
@@ -28,6 +29,7 @@ export default function PriceCategoryItems({
         >
           {editedItemId === id ? (
             <PriceCategoryForm
+              userRole={userRole}
               mode="edit"
               value={editValue}
               onChange={(v) => setEditValue({ passId, ...v })}
