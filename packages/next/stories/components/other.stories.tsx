@@ -17,9 +17,9 @@ export const CopyIdentifier = () => {
 export const PDFMenuWithMultipleLocationTrueProp = () => {
   return (
     <Box bg="white" width="md" m="4">
-      <Accordion as="form" allowToggle defaultIndex={0} mt="4">
+      <Accordion.Root as="form" collapsible defaultValue={['pdf']} mt="4">
         <PdfAccordionItem handleSubmit={() => {}} hasMultipleLocations />
-      </Accordion>
+      </Accordion.Root>
     </Box>
   );
 };
@@ -27,9 +27,9 @@ export const PDFMenuWithMultipleLocationTrueProp = () => {
 export const PDFMenuWithMultipleLocationFalseProp = () => {
   return (
     <Box bg="white" width="md" m="4">
-      <Accordion as="form" allowToggle defaultIndex={0} mt="4">
+      <Accordion.Root as="form" collapsible defaultValue={['pdf']} mt="4">
         <PdfAccordionItem handleSubmit={() => {}} />
-      </Accordion>
+      </Accordion.Root>
     </Box>
   );
 };
