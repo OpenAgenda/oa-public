@@ -1,7 +1,7 @@
 {
   "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails",
   "connect": "Se connecter à OpenAgenda",
-  "content": "Votre compte OpenAgenda est inactif depuis plus de 3 ans. En accord avec le réglement général de protection des données, il sera supprimé dans un mois si aucune action n'est prise d'ici là de votre part. Pour éviter cette suppression, connectez-vous à votre compte en cliquant sur le bouton ci-dessous.",
+  "content": "Votre compte OpenAgenda est inactif depuis plus de 3 ans. En accord avec le réglement général de protection des données, il sera supprimé dans un mois si aucune action n'est prise d'ici là de votre part. Pour éviter cette suppression, une simple connexion à votre compte vaudra comme une ré-activation.",
   "subject": "Suppression de votre compte OpenAgenda",
   "title": "Votre compte OpenAgenda est inactif et va être supprimé dans un mois"
 }
