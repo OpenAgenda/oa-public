@@ -29,7 +29,7 @@ export default (services) =>
               limit: 100,
             },
             {
-              includeFields: ['uid', 'agendaUid', 'locationUid'],
+              includeFields: ['uid', 'agendaUid', 'locationUid', 'draft'],
               private: null,
               draft: null,
             },
@@ -57,6 +57,7 @@ export default (services) =>
           },
           {
             access: 'internal',
+            draft: event.draft,
           },
         );
       } catch (e) {
