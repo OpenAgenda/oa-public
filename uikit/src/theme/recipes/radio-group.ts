@@ -1,13 +1,13 @@
 import { defineSlotRecipe } from '@chakra-ui/react';
-import { checkboxAnatomy } from '@chakra-ui/react/anatomy';
+import { radioGroupAnatomy } from '@chakra-ui/react/anatomy';
 
-export const checkboxRecipe = defineSlotRecipe({
-  slots: checkboxAnatomy.keys(),
+export const radioGroupRecipe = defineSlotRecipe({
+  slots: radioGroupAnatomy.keys(),
   base: {
-    root: {
-      cursor: 'checkbox',
+    item: {
+      cursor: 'radio',
     },
-    control: {
+    itemControl: {
       bg: 'bg',
     },
   },
@@ -15,22 +15,22 @@ export const checkboxRecipe = defineSlotRecipe({
   variants: {
     size: {
       xs: {
-        control: {
+        itemControl: {
           boxSize: '2',
         },
       },
       sm: {
-        control: {
+        itemControl: {
           boxSize: '3',
         },
       },
       md: {
-        control: {
+        itemControl: {
           boxSize: '4',
         },
       },
       lg: {
-        control: {
+        itemControl: {
           boxSize: '5',
         },
       },
