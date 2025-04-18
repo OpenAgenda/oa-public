@@ -232,7 +232,7 @@ function EventShow({ preload }: EventShowProps) {
           rowGap="8"
           columnGap="10"
           mt="8"
-          maxW="9xl"
+          maxW="7xl"
         >
           <GridItem area="left" display={{ base: 'none', lg: 'block' }}>
             <Flex direction="row" gap="8" mt="16">

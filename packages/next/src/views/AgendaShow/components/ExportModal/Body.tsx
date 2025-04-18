@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import useSWR from 'swr';
 import ky from 'ky';
 import qs from 'qs';
-import { Box, Link, VStack } from '@openagenda/uikit';
+import { Box, Bleed, Link, VStack } from '@openagenda/uikit';
 import {
   AccordionRoot,
   DialogBody,
@@ -188,23 +188,30 @@ export default function Body({ dialogRef, agenda, onClose, defaultValue }) {
         </VStack>
       </RadioGroup>
 
-      <AccordionRoot as="form" collapsible defaultValue={[defaultValue]} mt="4">
-        <SpreadsheetAccordionItem
-          handleSubmit={handleSubmit}
-          languages={languages}
-          fields={fields}
-        />
-        <PdfAccordionItem
-          handleSubmit={handleSubmit}
-          hasMultipleLocations={hasMultipleLocations}
-        />
-        <JsonAccordionItem handleSubmit={handleSubmit} res={res} />
-        <GcalAccordionItem res={res} />
-        <OutlookAccordionItem res={res} />
-        <IcsAccordionItem handleSubmit={handleSubmit} />
-        <RssAccordionItem handleSubmit={handleSubmit} />
-        <EmbedAccordionItem dialogRef={dialogRef} res={res} agenda={agenda} />
-      </AccordionRoot>
+      <Bleed inline="6">
+        <AccordionRoot
+          as="form"
+          collapsible
+          defaultValue={[defaultValue]}
+          mt="4"
+        >
+          <SpreadsheetAccordionItem
+            handleSubmit={handleSubmit}
+            languages={languages}
+            fields={fields}
+          />
+          <PdfAccordionItem
+            handleSubmit={handleSubmit}
+            hasMultipleLocations={hasMultipleLocations}
+          />
+          <JsonAccordionItem handleSubmit={handleSubmit} res={res} />
+          <GcalAccordionItem res={res} />
+          <OutlookAccordionItem res={res} />
+          <IcsAccordionItem handleSubmit={handleSubmit} />
+          <RssAccordionItem handleSubmit={handleSubmit} />
+          <EmbedAccordionItem dialogRef={dialogRef} res={res} agenda={agenda} />
+        </AccordionRoot>
+      </Bleed>
     </DialogBody>
   );
 }

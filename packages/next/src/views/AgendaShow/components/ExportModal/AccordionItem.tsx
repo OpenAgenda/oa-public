@@ -7,8 +7,8 @@ import {
 export default function AccordionItem({ value, title, children }) {
   return (
     <ChakraAccordionItem value={value}>
-      <AccordionItemTrigger>{title}</AccordionItemTrigger>
-      <AccordionItemContent>{children}</AccordionItemContent>
+      <AccordionItemTrigger px="6">{title}</AccordionItemTrigger>
+      <AccordionItemContent px="6">{children}</AccordionItemContent>
     </ChakraAccordionItem>
   );
 }

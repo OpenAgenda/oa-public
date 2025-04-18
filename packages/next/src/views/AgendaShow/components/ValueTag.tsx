@@ -27,7 +27,6 @@ export default function ValueTag({ label, title = null, onRemove, disabled }) {
     <Button
       size="sm"
       borderRadius="full"
-      variant="solid"
       colorPalette="primary"
       title={titleLabel}
       onClick={onRemove}
