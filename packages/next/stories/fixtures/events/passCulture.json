@@ -86,15 +86,15 @@
     {
       "type": "phone",
       "value": "01 23 45 67 89"
+    },
+    {
+      "service": "passCulture",
+      "type": "link",
+      "value": "https://integration.passculture.app/offre/49415",
+      "img": "https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png",
+      "label": "Accéder à l'offre pass Culture"
     }
   ],
-  "passCulture": {
-    "service": "passCulture",
-    "type": "link",
-    "value": "https://integration.passculture.app/offre/49415",
-    "img": "https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png",
-    "label": "Accéder à l'offre pass Culture"
-  },
   "accessibility": {
     "ii": true,
     "hi": false,

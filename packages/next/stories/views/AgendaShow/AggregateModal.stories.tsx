@@ -17,14 +17,14 @@ export default {
 
 export const NotConnected = {
   render: function Render() {
-    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
 
     return (
       <>
         <Button onClick={onOpen}>Open modal</Button>
 
         <AggregateModal
-          isOpen={isOpen}
+          isOpen={open}
           onClose={onClose}
           agenda={agendaFixtures}
         />
@@ -42,14 +42,14 @@ export const NotConnected = {
 
 export const Connected = {
   render: function Render() {
-    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
 
     return (
       <>
         <Button onClick={onOpen}>Open modal</Button>
 
         <AggregateModal
-          isOpen={isOpen}
+          isOpen={open}
           onClose={onClose}
           agenda={agendaFixtures}
         />
