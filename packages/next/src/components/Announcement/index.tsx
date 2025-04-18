@@ -89,7 +89,7 @@ export default function Announcement() {
     <chakra.div
       color={colors.text}
       bg={colors.bg}
-      borderY="1px"
+      borderY="1px solid"
       borderColor={colors.border}
     >
       <Container
