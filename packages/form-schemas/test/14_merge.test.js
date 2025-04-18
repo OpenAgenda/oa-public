@@ -538,12 +538,79 @@ describe('unit - assigning schema properties to another schema', () => {
             label: 'Evénements liés',
             fieldType: 'references',
             suggest: true,
-            related: ['title', 'description', 'location'],
+            related: { other: ['title', 'description', 'location'] },
             res: '/references',
             schemaId: 1,
             schemaType: null,
           },
         ],
+      });
+    });
+
+    it('parent related are not overwritten by children', () => {
+      const parent = {
+        id: 1,
+        fields: [
+          {
+            field: 'registration',
+            label: 'Inscription',
+            fieldType: 'registration',
+            related: {
+              other: [
+                'timings',
+                'location',
+                'longDescription',
+                'title',
+                'conditions',
+              ],
+            },
+          },
+        ],
+      };
+
+      const child = {
+        id: 2,
+        fields: [
+          {
+            field: 'conditions-de-participation',
+            label: 'Conditions de participation',
+            options: [
+              {
+                id: 10,
+                value: 'gratuit',
+                label: 'Gratuit',
+              },
+              {
+                id: 13,
+                value: 'sur-reservation',
+                label: 'Sur réservation',
+              },
+            ],
+            fieldType: 'checkbox',
+          },
+          {
+            field: 'registration',
+            label: "Outils d'inscription",
+            enableWith: { field: 'conditions-de-participation', value: 13 },
+            related: { enable: ['conditions-de-participation'] },
+            fieldType: 'abstract',
+          },
+        ],
+      };
+
+      const merged = merge(parent, child);
+
+      expect(
+        merged.fields.find((f) => f.field === 'registration').related,
+      ).toEqual({
+        other: [
+          'timings',
+          'location',
+          'longDescription',
+          'title',
+          'conditions',
+        ],
+        enable: ['conditions-de-participation'],
       });
     });
 
