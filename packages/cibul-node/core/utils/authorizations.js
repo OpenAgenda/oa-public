@@ -13,18 +13,22 @@ const canPublish = (agenda, access) =>
     .includes(access);
 
 function canRead(compareRoles, agendaEvent, event, member) {
+  const evals = [];
   // event is published on a public agenda
   if (agendaEvent.state === 2 && !event.private) {
     return true;
   }
+  evals.push('event is not published on a public agenda');
   // user is moderator
   if (compareRoles.isSuperiorToOrEqual(member?.role, 'moderator')) {
     return true;
   }
+  evals.push('user is not an adminmod');
   // user is the contributing member
   if (agendaEvent.userUid === member?.userUid) {
     return true;
   }
+  evals.push('user is not the contributing member');
   // event is private and published and user is contributor of the agenda
   if (
     agendaEvent.state === 2
@@ -33,6 +37,11 @@ function canRead(compareRoles, agendaEvent, event, member) {
   ) {
     return true;
   }
+  log.info('user does not have read access', {
+    userUid: member?.userUid,
+    eventUid: event.uid,
+    evals,
+  });
   return false;
 }
 
