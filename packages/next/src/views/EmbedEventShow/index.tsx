@@ -19,6 +19,7 @@ import {
 } from '@openagenda/react-filters';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import { nl2br } from '@openagenda/react-shared';
+import { getLocaleValue } from '@openagenda/intl';
 // import { getReactMarkdownProps } from '@openagenda/md';
 import qs from 'qs';
 import useSessionStorageState from 'use-session-storage-state';
@@ -61,7 +62,8 @@ import Timings from 'views/EventShow/components/Timings';
 import useNcEffect from 'views/EventShow/hooks/useNcEffect';
 import { thumborLoader } from 'utils/imageLoader';
 import { embedAgendaUrlRegex } from 'utils/isNextUrl';
-import OAAttribution from '../../components/OAAttribution';
+import { FALLBACK_LOCALE } from 'config/constants';
+import OAAttribution from 'components/OAAttribution';
 import useEvent from './hooks/useEvent';
 import Sidebar, {
   ShareSection,
@@ -407,7 +409,12 @@ function EmbedEventShow({
                       {intl.formatMessage(messages.tags)}
                     </chakra.div>
                     {intl.formatList(
-                      event.location.tags.map((tag) => tag.label),
+                      event.location.tags.map((tag) =>
+                        getLocaleValue(tag.label, contentLocale, [
+                          intl.locale,
+                          FALLBACK_LOCALE,
+                        ]),
+                      ),
                       { style: 'narrow' },
                     )}
                   </div>
