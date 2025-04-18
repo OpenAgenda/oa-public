@@ -75,13 +75,13 @@ function getRegistrationLink({ value, type }: { value: string; type: string }) {
 }
 
 function extractPassFromRegistration(intl, registration) {
-  const passItem = registration.find(
+  const passItem = registration?.find(
     ({ service }) => service === 'passCulture',
   );
   const currentPassData = passItem ? getCurrentPassValue(passItem.data) : null;
 
   return {
-    registration: registration.filter(
+    registration: registration?.filter(
       ({ service }) => service !== 'passCulture',
     ),
     passCulture:
