@@ -543,12 +543,6 @@
       "value": "Sur OpenAgenda"
     }
   ],
-  "next.views.EventShow.ShareModal.others": [
-    {
-      "type": 0,
-      "value": "Autres"
-    }
-  ],
   "next.views.EventShow.ShareModal.selectTiming": [
     {
       "type": 0,

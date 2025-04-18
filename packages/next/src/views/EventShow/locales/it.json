@@ -84,7 +84,6 @@
   "next.views.EventShow.ShareModal.import": "Importare",
   "next.views.EventShow.ShareModal.mustSignIn": "È necessario effettuare l'accesso per condividere questo evento",
   "next.views.EventShow.ShareModal.onOA": "Su OpenAgenda",
-  "next.views.EventShow.ShareModal.others": "Altri",
   "next.views.EventShow.ShareModal.selectTiming": "Selezionare un orario",
   "next.views.EventShow.ShareModal.send": "Inviare",
   "next.views.EventShow.ShareModal.share": "Condividere",

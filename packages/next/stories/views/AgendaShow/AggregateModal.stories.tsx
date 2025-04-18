@@ -5,8 +5,8 @@ import AgendaShow from 'views/AgendaShow';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 import agendaFixtures from '../../fixtures/mel.agenda.json';
-import userFixtures from './fixtures/user.json';
-import aggregateModalAgendas from './fixtures/aggregateModalAgendas.json';
+import userFixtures from '../../fixtures/user.json';
+import aggregateModalAgendas from '../../fixtures/aggregateModalAgendas.json';
 
 export default {
   title: 'views/AgendaShow/AggregateModal',

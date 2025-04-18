@@ -543,12 +543,6 @@
       "value": "On OpenAgenda"
     }
   ],
-  "next.views.EventShow.ShareModal.others": [
-    {
-      "type": 0,
-      "value": "Others"
-    }
-  ],
   "next.views.EventShow.ShareModal.selectTiming": [
     {
       "type": 0,
@@ -570,7 +564,7 @@
   "next.views.EventShow.ShareModal.shareByEmail": [
     {
       "type": 0,
-      "value": "Share by email"
+      "value": "By email"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmailPlaceholder": [
@@ -594,7 +588,7 @@
   "next.views.EventShow.ShareModal.shareOnSocialNetworks": [
     {
       "type": 0,
-      "value": "Share on social networks"
+      "value": "On social networks"
     }
   ],
   "next.views.EventShow.ShareModal.signIn": [

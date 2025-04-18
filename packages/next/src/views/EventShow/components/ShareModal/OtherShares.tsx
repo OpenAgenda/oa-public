@@ -40,7 +40,6 @@ function padTo2Digits(num: number) {
 }
 
 function formatDateToGoogleCalendar(date: Date) {
-  // eslint-disable-next-line prefer-template
   return `${
     date.getUTCFullYear() +
     padTo2Digits(date.getUTCMonth() + 1) +

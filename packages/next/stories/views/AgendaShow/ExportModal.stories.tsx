@@ -6,8 +6,8 @@ import { Agenda } from 'types';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 import agendaFixtures from '../../fixtures/mel.agenda.json';
+import userFixtures from '../../fixtures/user.json';
 import me from './fixtures/me.json';
-import userFixtures from './fixtures/user.json';
 import columns from './fixtures/columns.json';
 
 export default {

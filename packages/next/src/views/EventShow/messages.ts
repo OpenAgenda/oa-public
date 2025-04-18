@@ -305,21 +305,17 @@ export const shareModal = defineMessages({
     id: 'next.views.EventShow.ShareModal.onOA',
     defaultMessage: 'On OpenAgenda',
   },
-  others: {
-    id: 'next.views.EventShow.ShareModal.others',
-    defaultMessage: 'Others',
-  },
   share: {
     id: 'next.views.EventShow.ShareModal.share',
     defaultMessage: 'Share',
   },
   shareOnSocialNetworks: {
     id: 'next.views.EventShow.ShareModal.shareOnSocialNetworks',
-    defaultMessage: 'Share on social networks',
+    defaultMessage: 'On social networks',
   },
   shareByEmail: {
     id: 'next.views.EventShow.ShareModal.shareByEmail',
-    defaultMessage: 'Share by email',
+    defaultMessage: 'By email',
   },
   shareByEmailPlaceholder: {
     id: 'next.views.EventShow.ShareModal.shareByEmailPlaceholder',
