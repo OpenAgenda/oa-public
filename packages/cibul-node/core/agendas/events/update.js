@@ -139,11 +139,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       currentState: agendaEvent?.state,
     });
 
-    const updatedRegistration = await registrations.utils.passCulture.process(
-      agenda,
-      clean,
-      { draft },
-    );
+    const updatedRegistration = registrations
+      && await registrations.utils.passCulture.process(agenda, clean, { draft });
 
     if (updatedRegistration) clean.event.registration = updatedRegistration;
 
