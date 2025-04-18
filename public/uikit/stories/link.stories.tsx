@@ -19,7 +19,7 @@ export function All() {
         rel="noopener noreferrer"
         colorPalette="primary"
       >
-        Link with colorScheme `primary`
+        Link with colorPalette `primary`
       </Link>
 
       <Link
@@ -28,7 +28,7 @@ export function All() {
         rel="noopener noreferrer"
         colorPalette="danger"
       >
-        Link with colorScheme `danger`
+        Link with colorPalette `danger`
       </Link>
 
       <Link

@@ -41,10 +41,14 @@ export const buttonRecipe = defineRecipe({
         _hover: {
           color: 'colorPalette.fg',
           textDecoration: 'underline',
+          textUnderlineOffset: '3px',
+          textDecorationColor: 'currentColor/20',
         },
         _expanded: {
           color: 'colorPalette.fg',
           textDecoration: 'underline',
+          textUnderlineOffset: '3px',
+          textDecorationColor: 'currentColor/20',
         },
       },
     },
