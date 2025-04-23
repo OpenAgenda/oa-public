@@ -529,12 +529,6 @@
       "value": "crwdns33724:0crwdne33724:0"
     }
   ],
-  "next.views.EventShow.ShareModal.share": [
-    {
-      "type": 0,
-      "value": "crwdns33726:0crwdne33726:0"
-    }
-  ],
   "next.views.EventShow.ShareModal.shareByEmail": [
     {
       "type": 0,
@@ -551,6 +545,12 @@
     {
       "type": 0,
       "value": "crwdns33732:0crwdne33732:0"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share the event"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [

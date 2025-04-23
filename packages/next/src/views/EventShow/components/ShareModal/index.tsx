@@ -21,6 +21,7 @@ export default function ShareModal({
   contentLocale,
   onEmailSent,
   defaultValue = 'on-oa',
+  children = null,
 }) {
   const intl = useIntl();
   const router = useRouter();
@@ -42,7 +43,7 @@ export default function ShareModal({
     <DialogRoot size="md" open={isOpen} onOpenChange={onClose}>
       <DialogContent ref={dialogRef}>
         <DialogHeader fontSize="xl" fontWeight="semibold">
-          {intl.formatMessage(messages.share)}
+          {intl.formatMessage(messages.shareEvent)}
         </DialogHeader>
         <DialogCloseTrigger />
 
@@ -57,7 +58,9 @@ export default function ShareModal({
             onClose={onClose}
             onEmailSent={onEmailSent}
             defaultValue={defaultValue}
-          />
+          >
+            {children}
+          </Body>
         )}
       </DialogContent>
     </DialogRoot>

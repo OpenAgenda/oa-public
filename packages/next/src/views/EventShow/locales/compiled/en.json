@@ -555,12 +555,6 @@
       "value": "Send"
     }
   ],
-  "next.views.EventShow.ShareModal.share": [
-    {
-      "type": 0,
-      "value": "Share"
-    }
-  ],
   "next.views.EventShow.ShareModal.shareByEmail": [
     {
       "type": 0,
@@ -577,6 +571,12 @@
     {
       "type": 0,
       "value": "Import in a personal calendar"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share the event"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [

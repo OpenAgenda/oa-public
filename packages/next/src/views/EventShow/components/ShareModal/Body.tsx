@@ -1,6 +1,8 @@
+import { useMemo } from 'react';
 import { Bleed } from '@openagenda/uikit';
 import { AccordionRoot, DialogBody } from '@openagenda/uikit/snippets';
 import useUser from 'hooks/useUser';
+import useSearchParams from 'hooks/useSearchParams';
 import UnloggedBody from './UnloggedBody';
 import ShareOnOA from './ShareOnOA';
 import ShareOnSocialNetworks from './ShareOnSocialNetworks';
@@ -16,25 +18,36 @@ export default function Body({
   onClose,
   onEmailSent,
   defaultValue,
+  children = null,
 }) {
   const { user } = useUser();
 
+  const searchParams = useSearchParams() as { cl?: string };
+
+  const eventUrl = useMemo(() => {
+    const url = new URL(
+      `/${agenda.slug}/events/${event.slug}`,
+      window.location.href,
+    );
+    if (searchParams.cl) {
+      url.searchParams.set('cl', searchParams.cl);
+    }
+    return url;
+  }, [agenda.slug, event.slug, searchParams.cl]);
+
   return (
     <DialogBody>
+      {children}
+
       <Bleed inline="6">
-        <AccordionRoot
-          as="form"
-          collapsible
-          defaultValue={[defaultValue]}
-          mt="4"
-        >
+        <AccordionRoot as="form" collapsible defaultValue={[defaultValue]}>
           {user ? (
             <ShareOnOA agenda={agenda} event={event} />
           ) : (
             <UnloggedBody />
           )}
           <ShareOnSocialNetworks
-            eventUrl={new URL(window.location.href)}
+            eventUrl={eventUrl}
             event={event}
             contentLocale={contentLocale}
           />
@@ -48,10 +61,10 @@ export default function Body({
             dialogRef={dialogRef}
             agenda={agenda}
             event={event}
-            eventUrl={new URL(window.location.href)}
+            eventUrl={eventUrl}
             contentLocale={contentLocale}
           />
-          <ShareLink absUrl={new URL(window.location.href)} />
+          <ShareLink absUrl={eventUrl} />
         </AccordionRoot>
       </Bleed>
     </DialogBody>

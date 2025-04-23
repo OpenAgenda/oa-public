@@ -305,9 +305,9 @@ export const shareModal = defineMessages({
     id: 'next.views.EventShow.ShareModal.onOA',
     defaultMessage: 'On OpenAgenda',
   },
-  share: {
-    id: 'next.views.EventShow.ShareModal.share',
-    defaultMessage: 'Share',
+  shareEvent: {
+    id: 'next.views.EventShow.ShareModal.shareEvent',
+    defaultMessage: 'Share the event',
   },
   shareOnSocialNetworks: {
     id: 'next.views.EventShow.ShareModal.shareOnSocialNetworks',

@@ -555,12 +555,6 @@
       "value": "Envoyer"
     }
   ],
-  "next.views.EventShow.ShareModal.share": [
-    {
-      "type": 0,
-      "value": "Partatjar"
-    }
-  ],
   "next.views.EventShow.ShareModal.shareByEmail": [
     {
       "type": 0,
@@ -577,6 +571,12 @@
     {
       "type": 0,
       "value": "Importar dins un calendièr personal"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareEvent": [
+    {
+      "type": 0,
+      "value": "Partager l'événement"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [

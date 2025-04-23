@@ -13,6 +13,7 @@ import {
   List,
   LinkBox,
   Text,
+  HStack,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { useForm } from '@openagenda/react-filters';
@@ -28,6 +29,9 @@ import {
   faShare,
   faStar as fasStar,
 } from '@fortawesome/pro-solid-svg-icons';
+import useShareModal from 'views/EventShow/hooks/useShareModal';
+import ShareModal from 'views/EventShow/components/ShareModal';
+import EmailConfirmationAlert from 'views/EventShow/components/EmailConfirmationAlert';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useLocationQuery from 'hooks/useLocationQuery';
@@ -37,8 +41,8 @@ import { thumborLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import { EventStatusBadge, EventStatusTooltip } from 'components/EventStatus';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
-import NextChakraLink from 'components/NextChakraLink';
 import Featured from 'components/Featured';
+import graylogo140 from '../../../../public/images/graylogo140.png';
 
 const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
@@ -139,6 +143,64 @@ function RelativeTime({ closestTiming }) {
   );
 }
 
+function EventImage({ src, fallbackSrc = null, loader = null }) {
+  return (
+    <Box asChild borderRadius="full" h="56px" minW="56px" objectFit="cover">
+      <Image
+        width="56"
+        height="56"
+        src={src}
+        fallbackSrc={fallbackSrc}
+        alt=""
+        draggable={false}
+        loader={loader}
+      />
+    </Box>
+  );
+}
+
+function ShareEventItem({ event }) {
+  const isDev = process.env.NODE_ENV === 'development';
+
+  const intl = useIntl();
+
+  return (
+    <HStack
+      px="3"
+      py="2"
+      mb="6"
+      bg="oaGray.10"
+      border="1px solid"
+      borderColor="oaGray.100"
+      borderRadius="base"
+    >
+      {event.image ? (
+        <EventImage
+          src={
+            isDev
+              ? `${process.env.NEXT_PUBLIC_DEV_S3_BUCKET}/${event.image.filename}`
+              : `${process.env.NEXT_PUBLIC_S3_BUCKET}/${event.image.filename}`
+          }
+          fallbackSrc={
+            isDev
+              ? `${process.env.NEXT_PUBLIC_S3_BUCKET}/${event.image.filename}`
+              : undefined
+          }
+          loader={thumborLoader}
+        />
+      ) : (
+        <EventImage src={graylogo140} />
+      )}
+      <div>
+        <Text fontWeight="bold">
+          {getLocaleValue(event.title, intl.locale)}
+        </Text>
+        <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
+      </div>
+    </HStack>
+  );
+}
+
 export default function EventItem({
   event,
   agenda,
@@ -155,6 +217,16 @@ export default function EventItem({
   const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
 
   const upcomingOnly = isUpcomingOnlyQuery(query);
+
+  const {
+    shareIsOpen,
+    shareOnOpen,
+    shareOnClose,
+    emailSent,
+    emailSentIsOpen,
+    emailSentOnClose,
+    onEmailSent,
+  } = useShareModal();
 
   return (
     <Flex
@@ -342,34 +414,47 @@ export default function EventItem({
               alignSelf="flex-end"
             >
               <Button
-                asChild
                 borderRadius="xs"
                 display={{ base: 'none', sm: 'inline-flex' }}
+                onClick={shareOnOpen}
+                disabled={!!event.private}
               >
-                <NextChakraLink
-                  unstyled
-                  href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
-                >
-                  {intl.formatMessage(messages.share)}
-                </NextChakraLink>
+                {intl.formatMessage(messages.share)}
               </Button>
 
               <Button
-                asChild
                 borderRadius="sm"
                 display={{ base: 'inline-flex', sm: 'none' }}
+                onClick={shareOnOpen}
+                disabled={!!event.private}
               >
-                <NextChakraLink
-                  unstyled
-                  href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
-                >
-                  <FontAwesomeIcon icon={faShare} />
-                </NextChakraLink>
+                <FontAwesomeIcon icon={faShare} />
               </Button>
             </Box>
           </Flex>
         </LinkBox>
       </EventStatusTooltip>
+
+      {shareIsOpen ? (
+        <ShareModal
+          isOpen
+          onClose={shareOnClose}
+          agenda={agenda}
+          event={event}
+          contentLocale={intl.locale}
+          onEmailSent={onEmailSent}
+        >
+          <ShareEventItem event={event} />
+        </ShareModal>
+      ) : null}
+
+      {emailSentIsOpen ? (
+        <EmailConfirmationAlert
+          isOpen
+          onClose={emailSentOnClose}
+          count={emailSent}
+        />
+      ) : null}
     </Flex>
   );
 }

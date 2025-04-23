@@ -101,7 +101,10 @@ function EventShow({ preload }: EventShowProps) {
 
   const languages = Object.keys(event.title);
 
-  const searchParams = useSearchParams() as { cl?: string };
+  const searchParams = useSearchParams() as {
+    cl?: string;
+    sharemodal?: string;
+  };
   const contentLocale = getContentLocale(
     languages,
     searchParams.cl,
@@ -145,7 +148,7 @@ function EventShow({ preload }: EventShowProps) {
     emailSentIsOpen,
     emailSentOnClose,
     onEmailSent,
-  } = useShareModal();
+  } = useShareModal({ defaultOpen: searchParams.sharemodal === '1' });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
