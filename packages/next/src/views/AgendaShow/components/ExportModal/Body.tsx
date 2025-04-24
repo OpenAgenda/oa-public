@@ -148,6 +148,8 @@ export default function Body({ agenda, onClose, defaultIndex }) {
 
     if (type === 'pdf') {
       exportUrl = new URL(res.export.pdf);
+      exportUrl.searchParams.append('lang', intl.locale);
+
       if (options.locationInHeader) {
         exportUrl.searchParams.append('locationInHeader', 'true');
       }
