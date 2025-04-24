@@ -99,42 +99,51 @@ export default (services) =>
         );
       }
 
-      let member;
+      if (activities) {
+        let member;
 
-      try {
-        member = await members.get({ agendaUid, userUid }, { detailed: true });
-      } catch (e) {
-        return log(
-          'error',
-          new VError(e, 'Error to get member', { agendaUid, userUid }),
-        );
-      }
+        try {
+          member = await members.get(
+            { agendaUid, userUid },
+            { detailed: true },
+          );
+        } catch (e) {
+          return log(
+            'error',
+            new VError(e, 'Error to get member', { agendaUid, userUid }),
+          );
+        }
 
-      try {
-        await activities.addActivity(
-          { entityType: 'location', entityUid: location.uid },
-          {
-            actor: `user:${userUid}`,
-            verb: 'location.remove',
-            object: `location:${location.uid}`,
-            target: `agenda:${agenda.uid}`,
-            store: {
-              labels: {
-                actor:
-                  member.name
-                  ?? member.custom?.contactName
-                  ?? member.user.fullName,
-                object: location.name,
-                target: agenda.title,
+        try {
+          await activities.addActivity(
+            { entityType: 'location', entityUid: location.uid },
+            {
+              actor: `user:${userUid}`,
+              verb: 'location.remove',
+              object: `location:${location.uid}`,
+              target: `agenda:${agenda.uid}`,
+              store: {
+                labels: {
+                  actor:
+                    member.name
+                    ?? member.custom?.contactName
+                    ?? member.user.fullName,
+                  object: location.name,
+                  target: agenda.title,
+                },
               },
             },
-          },
-          {
-            removeFeed: true,
-          },
+            {
+              removeFeed: true,
+            },
+          );
+        } catch (e) {
+          log('error', 'failed to create location remove activity', e);
+        }
+      } else {
+        log(
+          'activities service not initialized: not creating location remove activity',
         );
-      } catch (e) {
-        log('error', 'failed to create location remove activity', e);
       }
     }
   };
