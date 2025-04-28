@@ -8,6 +8,21 @@ import getWriteAccess from './getWriteAccess.js';
 
 const log = logs('core/agendas/utils/cleanEvent/validateEvent');
 
+const evaluateDraft = (currentDraft, dataDraft, eventUid = null) => ({
+  draftErrors:
+    currentDraft === false && dataDraft === true
+      ? [
+        {
+          field: 'draft',
+          code: 'invalid',
+          message: 'can no draft un undraft event',
+          origin: eventUid,
+          step: 'validation',
+        },
+      ]
+      : [],
+});
+
 function distributeCleanData(consolidatedClean, schemaExtensions) {
   const fieldsPerSchema = {
     agenda: schemaExtensions.agenda
@@ -80,7 +95,8 @@ export default function validateEvent(
   options = {},
 ) {
   const {
-    draft = false,
+    /* draft = false, */
+    validateAsDraft = false,
     partial = false,
     evaluateEvent = true,
     event = null,
@@ -96,6 +112,11 @@ export default function validateEvent(
     network: networkFormSchema,
     agenda: formSchema,
   };
+
+  const errors = [];
+  const { draftErrors } = evaluateDraft(event?.draft, data.draft, event?.uid);
+
+  draftErrors.forEach((e) => errors.push(e));
 
   // Define which languages should be included. Should depend on
   //  * agenda setting (if set) (not yet coded)
@@ -131,14 +152,12 @@ export default function validateEvent(
     agendaEvent: null,
   };
 
-  const errors = [];
-
   // clean consolidated schemas data
   try {
     const validate = new FormSchema(consolidatedSchema, {
       requireLabels: false,
     }).getValidate({
-      draft,
+      draft: validateAsDraft,
     });
 
     // update:
@@ -148,7 +167,9 @@ export default function validateEvent(
     // add:
     //   event data is partial.
 
-    const consolidatedClean = (partial || draft ? validate.part : validate)(
+    const consolidatedClean = (
+      partial || validateAsDraft ? validate.part : validate
+    )(
       validateWithStoredData
         ? mergeEventWithPatch(event, data, {
           schema: consolidatedSchema,
@@ -194,7 +215,7 @@ export default function validateEvent(
   // location uid needs to be evaluated in location object
   // as default location values set to prepare location creation could be set
   if (
-    !draft
+    !validateAsDraft
     && clean.event
     && (clean.event.location?.uid || clean.event.locationUid)
     && !location
