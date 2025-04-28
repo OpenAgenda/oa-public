@@ -80,7 +80,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       returnPayload: true,
     });
 
-    const isDraft = data.draft || event.draft || false;
+    const wasDraft = event.draft;
+    const isDraft = wasDraft ? data?.draft : false;
 
     log('  loaded event %s', event.slug);
 
@@ -136,7 +137,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
     const { type: stateChangeType } = assignState(agenda, event, clean, data, {
       authorizations,
-      /* draft, */
       currentState: agendaEvent?.state,
     });
 
