@@ -511,13 +511,13 @@ describe('core - functional (server): core.agendas().events.create()', () => {
               fr: 'Un événement brouillon',
             },
             custom_description: ":')",
+            draft: true,
           },
           {
             context: {
               userUid: memberUserUid,
             },
             access: 'moderator',
-            draft: true,
           },
         );
       });
@@ -541,12 +541,12 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             location: {
               countryCode: 'CH',
             },
+            draft: true,
           },
           {
             context: {
               userUid: memberUserUid,
             },
-            draft: true,
           },
         );
 
@@ -569,12 +569,12 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             description: {
               fr: 'Un brouillon sans titre',
             },
+            draft: true,
           },
           {
             context: {
               userUid: memberUserUid,
             },
-            draft: true,
           },
         );
 
