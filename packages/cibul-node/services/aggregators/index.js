@@ -118,6 +118,7 @@ export function init(config, services) {
               batched,
               protectFromOriginRemove: true,
               access: 'internal',
+              degregation: true,
             });
           return {
             success: true,

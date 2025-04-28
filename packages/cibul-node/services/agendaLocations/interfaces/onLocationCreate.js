@@ -59,29 +59,33 @@ export default (services) =>
         );
       }
 
-      await activities.addActivity(
-        {
-          entityType: 'location',
-          entityUid: location.uid,
-        },
-        {
-          actor: `user:${context.userUid}`,
-          verb: 'location.create',
-          object: `location:${location.uid}`,
-          target: `agenda:${agendaUid}`,
-          store: {
-            labels: {
-              actor:
-                member.name
-                ?? member.custom?.contactName
-                ?? member.user.fullName,
-              object: location.name,
-              target: agenda.title,
-            },
-            setUid,
+      if (activities) {
+        await activities.addActivity(
+          {
+            entityType: 'location',
+            entityUid: location.uid,
           },
-        },
-      );
+          {
+            actor: `user:${context.userUid}`,
+            verb: 'location.create',
+            object: `location:${location.uid}`,
+            target: `agenda:${agendaUid}`,
+            store: {
+              labels: {
+                actor:
+                  member.name
+                  ?? member.custom?.contactName
+                  ?? member.user.fullName,
+                object: location.name,
+                target: agenda.title,
+              },
+              setUid,
+            },
+          },
+        );
+      } else {
+        log('activities service is not initialized');
+      }
     } catch (e) {
       log('error', 'failed to create location create activity', e);
     }

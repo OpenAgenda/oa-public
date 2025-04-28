@@ -230,6 +230,8 @@ export default (core, { useRouter = true } = {}) => {
         context: {
           agendaUid: req.agenda.uid,
           userUid: req.user.uid,
+          user: req.user,
+          member: req.member,
         },
         private: null,
       })

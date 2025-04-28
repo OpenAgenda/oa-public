@@ -17,7 +17,12 @@ export default async (services, agendaOrUid, options = {}) => {
     );
 
   if (!agenda) {
-    throw new NotFound({ info: { uid: agendaOrUid } }, 'agenda not found');
+    throw new NotFound(
+      {
+        info: { uid: agendaOrUid },
+      },
+      'agenda not found',
+    );
   }
 
   if (!detailed) {

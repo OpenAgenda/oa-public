@@ -23,7 +23,7 @@ export default [
       .agendas(req.agenda.uid)
       .events.remove(req.event.uid, {
         returnPayload: true,
-        context: { user: req.user },
+        context: { user: req.user, member: req.member },
         private: !!req.agenda.private,
       })
       .then((result) => {

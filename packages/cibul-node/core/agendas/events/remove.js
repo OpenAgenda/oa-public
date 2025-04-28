@@ -5,29 +5,20 @@ import getAgenda from '../utils/getAgenda.js';
 import loadAuthorizations from '../../utils/authorizations.js';
 import * as merge from '../utils/merge.js';
 import refreshAgenda from '../utils/refreshAgenda.js';
+import extractActingFromContext from './lib/extractActingFromContext.js';
+import createRemoveActivity from './lib/createRemoveActivity.js';
 
 const log = logs('core/agendas/events/remove');
 
 export default async (core, agendaUid, eventUid, options = {}) => {
   log('removing event %s from agenda %s', eventUid, agendaUid);
 
-  const { agendaEvents, aggregators, custom, events, eventSearch, members } = core.services;
+  const { agendaEvents, aggregators, custom, events, eventSearch } = core.services;
 
   const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
   log('  loaded agenda %s', agenda.slug);
 
-  const actingUser = options?.context?.user;
-  const actingUserUid = options.userUid ?? options?.context?.userUid ?? actingUser?.uid;
-
-  const actingMember = actingUserUid
-    ? await members.get(
-      {
-        agendaUid: agenda.uid,
-        userUid: actingUserUid,
-      },
-      { roleAsSlug: false },
-    )
-    : null;
+  const { user: actingUser, member: actingMember } = await extractActingFromContext(core.services, agendaUid, options.context);
 
   const {
     access,
@@ -36,6 +27,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     protectFromOriginRemove,
     private: privateOption,
   } = {
+    degregation: false,
     batched: false,
     access: 'public',
     returnPayload: false,
@@ -70,42 +62,50 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     throw new Forbidden('Cannot remove event from origin in protected mode');
   }
 
+  const isDelete = !!isOriginAgenda;
+
   log('  loaded event to remove');
 
   payload.setItem('event', event);
+
+  const agendaEvent = event.draft
+    ? null
+    : await agendaEvents(agenda.uid).get(event.uid, {
+      throwOnNotFound: true,
+    });
 
   const { canRemoveEvent, canDeleteEvent } = await loadAuthorizations(
     core,
     'remove',
     {
       agenda,
-      agendaEvent: event.draft
-        ? null
-        : await agendaEvents(agenda.uid).get(event.uid, {
-          throwOnNotFound: true,
-        }),
+      agendaEvent,
       member: actingMember,
       event,
       access,
     },
   );
 
-  if (isOriginAgenda) {
-    if (!canDeleteEvent) {
-      throw new Forbidden(
-        { info: { uid: event.uid } },
-        'not authorized to delete event',
-      );
-    }
-    log(
-      'remove request comes from agenda %s, origin is %s, proceeding with delete',
-      agendaUid,
-      event.agendaUid,
+  if (isDelete && !canDeleteEvent) {
+    throw new Forbidden(
+      { info: { uid: event.uid } },
+      'not authorized to delete event',
     );
-  } else if (!canRemoveEvent) {
+  }
+
+  if (!isDelete && !canRemoveEvent) {
     throw new Forbidden(
       { info: { uid: event.uid } },
       'not authorized to remove event',
+    );
+  }
+
+  if (isDelete) {
+    log(
+      'remove request comes from agenda %s, origin is %s, proceeding with %s',
+      agendaUid,
+      event.agendaUid,
+      isDelete ? 'deletion' : 'removal',
     );
   }
 
@@ -117,7 +117,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
         agenda,
         agendaUid,
         user: actingUser,
-        userUid: actingUserUid,
+        userUid: actingUser?.uid,
         deletion: isOriginAgenda,
         batched,
       },
@@ -134,7 +134,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       context: {
         agendaUid,
         user: actingUser,
-        userUid: actingUserUid,
+        userUid: actingUser?.uid,
       },
     });
 
@@ -156,7 +156,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       context: {
         agendaUid,
         user: actingUser,
-        userUid: actingUserUid,
+        userUid: actingUser?.uid,
       },
       private: privateOption,
     });
@@ -174,6 +174,21 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       log('  aggregators notified of removal');
     } catch (e) {
       log('error', 'failed to notify aggregators', e);
+    }
+  }
+
+  if (!event.draft) {
+    try {
+      await createRemoveActivity(core.services, {
+        agenda,
+        event,
+        agendaEvent,
+        actingUser,
+        actingMember,
+        isDelete,
+      });
+    } catch (e) {
+      log.error('failed to create delete/remove activity and remove feed', e);
     }
   }
 
