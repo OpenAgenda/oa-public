@@ -53,11 +53,11 @@ export function formatResult(result, options = {}) {
 
   const { format, timezone } = validateOptions(options);
 
-  const gte = _.get(query, 'date.gte')
-    ? moment(query.date.gte).tz(timezone).format(format.toUpperCase())
+  const gte = _.get(query, 'timings.gte')
+    ? moment(query.timings.gte).tz(timezone).format(format.toUpperCase())
     : null;
-  const lte = _.get(query, 'date.lte')
-    ? moment(query.date.lte).tz(timezone).format(format.toUpperCase())
+  const lte = _.get(query, 'timings.lte')
+    ? moment(query.timings.lte).tz(timezone).format(format.toUpperCase())
     : null;
 
   const buckets = result.timings.buckets.map((b) => ({

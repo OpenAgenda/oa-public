@@ -640,7 +640,7 @@ describe('02 - event search - functional: Applied search', () => {
           beforeAll(async () => {
             const result = await service('bdx').search(
               {
-                date: {
+                timings: {
                   gte: '2020-04-01',
                   lte: '2020-04-02',
                 },
