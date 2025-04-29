@@ -82,6 +82,7 @@ const IntlProvided = React.forwardRef(
       subscription,
       searchMethod,
       manualSubmit,
+      res,
       children,
     },
     ref,
@@ -94,8 +95,10 @@ const IntlProvided = React.forwardRef(
         mapTiles,
         dateFnsLocale,
         manualSubmit,
+        searchMethod,
+        res,
       }),
-      [missingValue, mapTiles, dateFnsLocale, manualSubmit],
+      [missingValue, mapTiles, dateFnsLocale, manualSubmit, searchMethod, res],
     );
     const [filters, setFilters] = useState(() =>
       (rawFilters ?? []).map((rawFilter) =>
@@ -158,6 +161,8 @@ function FiltersProvider(
     subscription = defaultSubscription,
     searchMethod = 'get',
     manualSubmit = false,
+    // to load on-demand aggregations (geo, timings)
+    res = null,
   },
   ref,
 ) {
@@ -175,6 +180,7 @@ function FiltersProvider(
       subscription={subscription}
       searchMethod={searchMethod}
       manualSubmit={manualSubmit}
+      res={res}
     >
       {children}
     </IntlProvided>

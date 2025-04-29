@@ -1,17 +1,26 @@
 import isEqual from 'lodash/isEqual.js';
 import isDate from 'lodash/isDate.js';
-import React, { useCallback, useMemo, useState, useContext } from 'react';
+import React, {
+  useCallback,
+  useMemo,
+  useState,
+  useContext,
+  useEffect,
+  useRef,
+  useImperativeHandle,
+} from 'react';
 import { useIntl } from 'react-intl';
 import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEffect.js';
 import useLatestModule from 'react-use/lib/useLatest.js';
 import usePreviousModule from 'react-use/lib/usePrevious.js';
 import cn from 'classnames';
+import { startOfMonth, endOfMonth, isSameDay, format } from 'date-fns';
 import dateFnsLocaleEN from 'date-fns/locale/en-US/index.js';
 import { DateRange, DefinedRange } from '@openagenda/react-date-range';
 import { getFallbackChain } from '@openagenda/intl';
-import useConstant from '@openagenda/react-shared/dist/hooks/useConstant.js';
 import FiltersAndWidgetsContext from '../../contexts/FiltersAndWidgetsContext.js';
 import convertPhpDateFormatToDateFns from '../../utils/convertPhpDateFormatToDateFns.js';
+import useLoadTimingsData from '../../hooks/useLoadTimingsData.js';
 
 const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
 const useLatest = useLatestModule.default || useLatestModule;
@@ -63,6 +72,14 @@ function getDateDisplayFormat(dateFormatStyle, dateFormat, locale) {
   return dateDisplayFormats[Object.keys(dateDisplayFormats).shift()];
 }
 
+function focusedDateToTimingsQuery(focusedDate) {
+  return {
+    gte: startOfMonth(focusedDate),
+    lte: endOfMonth(focusedDate),
+    timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+  };
+}
+
 function DateRangePicker(
   {
     input,
@@ -77,16 +94,19 @@ function DateRangePicker(
     minDate,
     maxDate,
     shownDate,
+    getQuery,
     ...otherProps
   },
   ref,
 ) {
   const intl = useIntl();
 
-  const dateRangeRef = useConstant(() => ref || React.createRef());
+  const dateRangeRef = useRef(null);
+
+  const [data, setData] = useState(() => []);
 
   const {
-    filtersOptions: { dateFnsLocale },
+    filtersOptions: { dateFnsLocale, searchMethod, res },
   } = useContext(FiltersAndWidgetsContext);
 
   const [ranges, setRanges] = useState(
@@ -168,6 +188,10 @@ function DateRangePicker(
     return !hasRange && !dragStatus;
   }, [ranges, dragStatus]);
 
+  const [focusedDate, setFocusedDate] = useState(null);
+
+  const loadTimingsData = useLoadTimingsData(res, getQuery, { searchMethod });
+
   // If value change then update internal ranges
   useIsomorphicLayoutEffect(() => {
     if (
@@ -181,6 +205,85 @@ function DateRangePicker(
       setRanges(input.value);
     }
   }, [input.value, previousValue, latestRanges, dateRangeRef, shownDate]);
+
+  const onShownDateChange = async (newFocusedDate) => {
+    if (input.name !== 'timings') {
+      return;
+    }
+
+    setFocusedDate(newFocusedDate);
+
+    // const isFocusedToDifferent = !isSameMonth(newFocusedDate, focusedDate);
+    // if (isFocusedToDifferent) {
+    //   const result = await loadTimingsData({
+    //     timings: focusedDateToTimingsQuery(newFocusedDate),
+    //   }, {
+    //     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+    //   });
+    // }
+  };
+
+  // set first focusedDate from calendar state
+  useEffect(() => {
+    (async () => {
+      if (input.name !== 'timings' || focusedDate || !dateRangeRef.current) {
+        return;
+      }
+      setFocusedDate(dateRangeRef.current.calendar?.state?.focusedDate);
+    })();
+  }, [dateRangeRef, focusedDate, input.name, loadTimingsData]);
+
+  // TODO reload when filters change
+
+  useEffect(() => {
+    if (!focusedDate) {
+      return;
+    }
+
+    loadTimingsData(
+      {
+        timings: focusedDateToTimingsQuery(focusedDate),
+      },
+      {
+        timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      },
+    )
+      .then((newData) => setData(newData ?? []))
+      .catch((err) => {
+        console.log('Failed to load timings data', err);
+      });
+  }, [focusedDate]);
+
+  useImperativeHandle(ref, () => ({
+    onQueryChange: () => {
+      loadTimingsData(
+        {
+          timings: focusedDateToTimingsQuery(focusedDate),
+        },
+        {
+          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        },
+      )
+        .then((newData) => setData(newData ?? []))
+        .catch((err) => {
+          console.log('Failed to load timings data', err);
+        });
+    },
+  }));
+
+  const dayContentRenderer = useCallback(
+    (day) => {
+      const isActive = data.find((d) => isSameDay(new Date(d.key), day));
+      return (
+        <span
+          className={isActive ? 'rdrDayWithTimings' : 'rdrDayWithoutTimings'}
+        >
+          {format(day, 'd')}
+        </span>
+      );
+    },
+    [data],
+  );
 
   const dateRangePickerProps = {
     showSelectionPreview: true,
@@ -198,6 +301,8 @@ function DateRangePicker(
     minDate: minDate ? new Date(minDate) : undefined,
     maxDate: maxDate ? new Date(maxDate) : undefined,
     shownDate: shownDate ? new Date(shownDate) : undefined,
+    onShownDateChange,
+    dayContentRenderer,
     ...otherProps,
   };
 

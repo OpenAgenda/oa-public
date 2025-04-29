@@ -78,13 +78,13 @@ export default function renderFiltersAndWidgets({
         onSubmit={wrapCallback(onFilterChange)}
         initialValues={omit(initialValues, 'sort')}
         apiClient={apiClient}
+        res={res}
         dateFnsLocale={dateFnsLocales[locale]}
         missingValue={missingValue}
         manualSubmit={manualSubmit}
       >
         <FiltersManager
           ref={ref}
-          res={res}
           aggregations={aggregations}
           total={total}
           query={initialValues}

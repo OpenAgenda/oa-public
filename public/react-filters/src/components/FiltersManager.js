@@ -3,6 +3,7 @@ import isEqual from 'lodash/isEqual.js';
 import qs from 'qs';
 import React, {
   forwardRef,
+  useCallback,
   useContext,
   useEffect,
   useImperativeHandle,
@@ -48,7 +49,6 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     query: initialQuery = {},
     total: initialTotal = 0,
     defaultViewport,
-    res,
     filtersBase: initialFiltersBase,
     agendaUid,
     onLoad,
@@ -97,7 +97,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
       return (
         await getEvents(
           null, // apiClient
-          res,
+          filtersOptions.res,
           { uid: agendaUid },
           filters.filter(
             (filter) => filter.type === 'choice' && !filter.options,
@@ -123,9 +123,11 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     aggregations,
   );
   const getTotal = useGetTotal(aggregations);
+
+  const getQuery = useCallback(() => form.getSubmittedValues(), [form]);
   const loadGeoData = useLoadGeoData(
     null,
-    res,
+    filtersOptions.res,
     () => form.getSubmittedValues(),
     { searchMethod },
   );
@@ -188,6 +190,13 @@ const FiltersManager = React.forwardRef(function FiltersManager(
 
       if (mapElem && viewport) {
         mapElem.onQueryChange(viewport);
+      }
+
+      const timingsFilter = filters.find((v) => v.name === 'timings');
+      const timingsElem = timingsFilter?.elemRef?.current;
+
+      if (timingsElem) {
+        timingsElem.onQueryChange();
       }
     },
     updateLocation: (values) => {
@@ -260,6 +269,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         getTotal={getTotal}
         initialViewport={initialAggregations.viewport}
         defaultViewport={defaultViewport}
+        getQuery={getQuery}
         loadGeoData={loadGeoData}
         agendaUid={agendaUid}
         missingValue={filtersOptions.missingValue}
