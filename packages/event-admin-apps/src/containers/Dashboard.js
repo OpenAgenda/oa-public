@@ -313,6 +313,11 @@ function Dashboard() {
     [filters],
   );
 
+  const timingsFilter = useMemo(
+    () => filters.find((v) => v.name === 'timings'),
+    [filters],
+  );
+
   const removeModal = useModal();
 
   const onRemove = useCallback(() => {
@@ -433,6 +438,12 @@ function Dashboard() {
 
         if (mapElem) {
           mapElem.onQueryChange(newData.aggregations.viewport);
+        }
+
+        const timingsElem = timingsFilter?.elemRef?.current;
+
+        if (timingsElem) {
+          timingsElem.onQueryChange();
         }
       },
     },
