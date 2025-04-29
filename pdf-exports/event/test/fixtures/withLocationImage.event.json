@@ -1,0 +1,198 @@
+{
+  "firstTiming": {
+    "end": "2025-05-17T22:00:00.000+02:00",
+    "begin": "2025-05-17T17:00:00.000+02:00"
+  },
+  "nextTiming": {
+    "begin": "2025-05-17T17:00:00+02:00",
+    "end": "2025-05-17T22:00:00+02:00"
+  },
+  "lastTiming": {
+    "end": "2025-05-17T22:00:00.000+02:00",
+    "begin": "2025-05-17T17:00:00.000+02:00"
+  },
+  "member": {
+    "uid": 8515596,
+    "role": 1,
+    "phone": "0240809013",
+    "organization": "Musée du Vignoble Nantais",
+    "name": "Bacchus",
+    "position": "chargée de valorisation du patrimoine",
+    "email": "valorisation-patrimoine@musee-vignoble-nantais.fr",
+    "_agg": "eyJ1aWQiOjg1MTU1OTYsIm5hbWUiOiJBbm5lLUxpc2UgQVVGRlJFVCJ9",
+    "deletedUser": false,
+    "updatedAt": "2025-03-21T09:57:45.000Z"
+  },
+  "dateRange": {
+    "ar": "السبت ١٧ مايو, 17:00",
+    "de": "Samstag 17 Mai, 17:00",
+    "en": "Saturday 17 May, 17:00",
+    "it": "Sabato 17 maggio, 17:00",
+    "fr": "Samedi 17 mai, 17h00",
+    "es": "Sábado 17 mayo, 17:00"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 9491431,
+    "image": "https://cdn.openagenda.com/main/agenda9491431.58730f00310c4aad8fc030182973d16c.jpg?__ts=1738685707828",
+    "description": "La Nuit européenne des musées se déroulera le samedi 17 mai 2025. Retrouvez les informations et conditions pour participer à l'événement sur notre site Internet",
+    "official": false,
+    "title": "Nuit européenne des musées 2025 : Pays de la Loire",
+    "slug": "ndm-2025-pays-de-la-loire",
+    "url": "https://www.nuitdesmusees.fr",
+    "_agg": "eyJ1aWQiOjk0OTE0MzEsInRpdGxlIjoiTnVpdCBldXJvcMOpZW5uZSBkZXMgbXVzw6llcyAyMDI1IDogUGF5cyBkZSBsYSBMb2lyZSIsImltYWdlIjoiaHR0cHM6Ly9jZG4ub3BlbmFnZW5kYS5jb20vbWFpbi9hZ2VuZGE5NDkxNDMxLjU4NzMwZjAwMzEwYzRhYWQ4ZmMwMzAxODI5NzNkMTZjLmpwZz9fX3RzPTE3Mzg2ODU3MDc4MjgiLCJ1cmwiOiJodHRwczovL3d3dy5udWl0ZGVzbXVzZWVzLmZyIiwic2x1ZyI6Im5kbS0yMDI1LXBheXMtZGUtbGEtbG9pcmUifQ=="
+  },
+  "sourceAgendas": [],
+  "title": {
+    "de": "Jazzkonzert mit Chloé Cailleton",
+    "en": "Jazz concert with Chloé Cailleton",
+    "it": "Concerto di jazz con Chloé Cailleton",
+    "fr": "Concert de jazz avec Chloé Cailleton",
+    "es": "Concierto de jazz con Chloé Cailleton"
+  },
+  "types-devenement": 7,
+  "image": {
+    "filename": "b4d21aab3c1d402bab7d18ffc1b12f11.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 394
+    },
+    "variants": [
+      {
+        "filename": "b4d21aab3c1d402bab7d18ffc1b12f11.full.image.jpg",
+        "size": {
+          "width": 1920,
+          "height": 1080
+        },
+        "type": "full"
+      },
+      {
+        "filename": "b4d21aab3c1d402bab7d18ffc1b12f11.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": "©RBKRECORDS, Jean-Baptiste Millot,",
+  "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Le Pallet",
+    "timezone": "Europe/Paris",
+    "postalCode": "44330",
+    "latitude": 47.134709,
+    "imageCredits": "©Musée du Vignoble nantais",
+    "description": {
+      "de": "Das Museum möchte den Besuchern auf didaktische und spielerische Weise die Schlüssel zum Verständnis des Weinbaus in Nantes vermitteln. Von der Etablierung des Weinbergs im Mittelalter bis heute erzählen die Objekte die Geschichte dieses Weinbaugebiets, die Entwicklung der Techniken, aber auch die Töpferei, die Folklore und den Handel mit Wein. Ein Weinberg wird das ganze Jahr über bearbeitet, und wenn der Wein in einem Bottich steht, muss auf seine Vinifikation besonders geachtet werden. Der Besuch enthüllt die gängigen und spezifischen Techniken des Weinbaugebiets von Nantes. Multimedia-Kioske und Objekte zeigen den heutigen Weinbau. Diese Informationen können durch eine Kellereibesichtigung ergänzt werden, da der Dialog mit den Winzern für ein umfassendes Verständnis ihrer Arbeit und ihres Erzeugnisses unerlässlich ist. Ein Raum ist für Pierre Abélard reserviert.",
+      "en": "The museum aims to give visitors the keys to understanding Nantes viticulture, in a didactic and playful way. From the establishment of the vine in the Middle Ages until today, the objects tell the story of this wine terroir, the evolution of techniques, but also the cooperage, folklore, and the trade of wine. A vineyard is worked all year round and when the wine is in vats, special attention must be paid to its vinification. The visit reveals current and specific techniques to the vineyard of Nantes. Multimedia terminals and objects present the current viticulture. This information can be supplemented by a visit to the winery, as dialogue with the winegrowers is essential to fully understand their work and product. A room is reserved for Pierre Abélard.",
+      "it": "Il museo ha l'ambizione di dare ai visitatori le chiavi per comprendere la viticoltura di Nantes, in modo didattico e divertente. Dall'insediamento della vite nel Medioevo fino ad oggi, gli oggetti raccontano la storia di questo terroir viticolo, l'evoluzione delle tecniche, ma anche la bottaia, il folklore e il commercio del vino. Una vite si lavora tutto l'anno e quando il vino è in vasca, bisogna prestare particolare attenzione alla sua vinificazione. La visita svela le tecniche comuni e specifiche del vigneto di Nantes. Supporti multimediali e oggetti permettono di presentare la viticoltura attuale. Queste informazioni possono essere completate da una visita alla cantina, perché il dialogo con i viticoltori è essenziale per capire bene il loro lavoro e il loro prodotto. Una sala è riservata a Pierre Abélard.",
+      "fr": "Le musée a pour ambition de donner aux visiteurs les clés de compréhension de la viticulture nantaise, de manière didactique et ludique. Depuis l'implantation de la vigne au moyen âge jusqu'à aujourd'hui, les objets racontent l'histoire de ce terroir viticole, l'évolution des techniques, mais également la tonnellerie, le folklore, et le commerce du vin.\n\nUne vigne se travaille toute l'année et lorsque le vin est en cuve, il faut porter une attention particulière à sa vinification. La visite dévoile les techniques courantes et spécifiques au vignoble de Nantes. Des bornes multimédias et des objets permettent de présenter la viticulture actuelle. Ces informations peuvent être complétées par une visite de cave, car le dialogue avec les viticulteurs est essentiel pour bien comprendre leur travail et leur produit. Une salle est réservée à Pierre Abélard.",
+      "es": "El museo tiene como objetivo dar a los visitantes las claves de comprensión de la viticultura de Nantes, de manera didáctica y lúdica. Desde la implantación de la viña en la Edad Media hasta hoy, los objetos cuentan la historia de esta tierra vitícola, la evolución de las técnicas, pero también la tonelería, el folclore y el comercio del vino. Una viña se trabaja todo el año y cuando el vino está en cubas, hay que prestar especial atención a su vinificación. La visita revela las técnicas comunes y específicas de los viñedos de Nantes. Los soportes multimedia y objetos permiten presentar la viticultura actual. Esta información puede completarse con una visita a la bodega, ya que el diálogo con los viticultores es esencial para comprender bien su trabajo y su producto. Una sala está reservada a Pierre Abélard."
+    },
+    "setUid": null,
+    "uid": 63198354,
+    "createdAt": "2025-03-12T19:04:50.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 1,
+    "extId": "9f106c18-48e8-521d-ac7c-a00157f1c90d?eeddcdc8-9cf9-401f-8e0b-822a9b19fd02",
+    "department": "Loire-Atlantique",
+    "slug": "musee-du-vignoble-nantais_5971411",
+    "email": "accueil@musee-vignoble-nantais.fr",
+    "longitude": -1.330265,
+    "updatedAt": "2025-04-16T00:29:01.000Z",
+    "image": "location63198354.dd53438570024fe7b2cfdba524a1d3b1.jpg?_ts=1744760461402",
+    "website": "https://www.musee-vignoble-nantais.eu/accueil/",
+    "address": "82 Rue  pierre abélard, 44330 Le Pallet, France",
+    "adminLevel3": "Communauté de communes Sèvre et Loire",
+    "agendaUid": 9491431,
+    "adminLevel4": "Le Pallet",
+    "adminLevel1": "Pays de la Loire",
+    "adminLevel2": "Loire-Atlantique",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjYzMTk4MzU0LCJuYW1lIjoiTXVzw6llIGR1IFZpZ25vYmxlIE5hbnRhaXMifQ==",
+    "tags": [
+      {
+        "id": 40,
+        "label": "Musée de France"
+      },
+      {
+        "id": 20,
+        "label": {
+          "en": "Sciences and technology",
+          "fr": "Sciences et techniques"
+        }
+      }
+    ],
+    "insee": "44032",
+    "phone": "0240809013",
+    "district": null,
+    "name": "Musée du Vignoble Nantais",
+    "region": "Pays de la Loire",
+    "extIds": [
+      {
+        "value": "9f106c18-48e8-521d-ac7c-a00157f1c90d?eeddcdc8-9cf9-401f-8e0b-822a9b19fd02",
+        "key": "default"
+      }
+    ]
+  },
+  "timings": [
+    {
+      "begin": "2025-05-17T17:00:00+02:00",
+      "end": "2025-05-17T22:00:00+02:00"
+    }
+  ],
+  "description": {
+    "de": "Türöffnung: 17 Uhr",
+    "en": "Doors open: 5 PM",
+    "it": "Apertura porte: 17h",
+    "fr": "Ouverture des portes : 17h",
+    "es": "Apertura de puertas: 17h"
+  },
+  "longDescription": {
+    "de": "Türöffnung: 17 Uhr  \nKonzert: 20 Uhr  \nFür diesen besonderen Anlass im Weinmuseum lädt Chloé Cailleton, Sängerin, Simon Mary am Kontrabass und Geoffroy Tamisier an der Trompete zu einer musikalischen Improvisation ein. Gewohnt an großzügigen und abenteuerlichen musikalischen Kreationen, kommen diese drei Musiker voller Freude zusammen, um ihre Lieblingslieder zu spielen. Poesie, Stücke aus dem amerikanischen Songbook oder populäre Musik aus aller Welt dienen als Anlass, miteinander zu kommunizieren, sich zu vergnügen und zusammen zu improvisieren, Beziehungen zu knüpfen. Ein Konzert, das sie so akustisch wie möglich gestalten möchten, um sich völlige Freiheit in der Interpretation und Bewegung zu geben.  \nWeitere Aktivitäten während des Abends: Ausstellung der Schüler von Briacé, Weinverkostungen, Foodtruck...",
+    "en": "Doors open: 5 PM  \nConcert: 8 PM  \nFor this special occasion at the vineyard museum, Chloé Cailleton on vocals invites Simon Mary on double bass and Geoffroy Tamisier on trumpet to join her for an exclusive musical impromptu. Used to creating generous and adventurous music, these three musicians come together with joy around their favorite songs. Poetry, American songbook tunes, or popular music from elsewhere will serve as a pretext to converse, have fun, and improvise together, weaving connections. A concert they want to be as acoustic as possible to give themselves full freedom of interpretation and movement.  \nOther activities during the evening: exhibition by Briacé students, wine tastings, food truck...",
+    "it": "Apertura porte: 17h  \nConcerto: 20h  \nPer questa occasione speciale al museo del vigneto, Chloé Cailleton alla voce invita Simon Mary al contrabbasso e Geoffroy Tamisier alla tromba a unirsi a lei per un'improvvisazione musicale esclusiva. Abituati a creare musica generosa e avventurosa, questi tre musicisti si ritrovano con gioia intorno alle loro canzoni preferite. Poesia, brani dallo songbook americano o musica popolare proveniente da altre parti del mondo saranno un pretesto per conversare, divertirsi e improvvisare insieme, tessendo legami. Un concerto che vogliono il più possibile acustico per darsi tutta la libertà di interpretazione e movimento.  \nAltre attività durante la serata: esposizione degli studenti di Briacé, degustazioni di vino, foodtruck...",
+    "fr": "Ouverture des portes : 17h  \nConcert : 20h  \nPour cette occasion spéciale au musée du vignoble, Chloé Cailleton au chant invite Simon Mary à la contrebasse et Geoffroy Tamisier à la trompette à la rejoindre pour un impromptu musical inédit. Habitués aux créations musicales généreuses et aventureuses ces 3 musiciens.nes se retrouvent avec bonheur autour de leurs chansons préférées. De la poésie, des airs du songbook américain ou des airs de musiques populaires venus d'ailleurs seront un prétexte à converser, s'amuser, improviser ensemble, tisser des liens. Un concert qu'ils veulent le plus acoustique possible afin de se donner toute liberté d'interprétation et de mouvement.  \nAutres animations durant la soirée : exposition des élèves de Briacé, dégustations de vins, foodtruck...",
+    "es": "Apertura de puertas: 17h  \nConcierto: 20h  \nPara esta ocasión especial en el museo del viñedo, Chloé Cailleton, voz, invita a Simon Mary al contrabajo y Geoffroy Tamisier a la trompeta para un improvisado musical exclusivo. Acostumbrados a crear música generosa y aventurera, estos tres músicos se reúnen con alegría para interpretar sus canciones favoritas. Poesía, piezas del songbook estadounidense o música popular de otras partes del mundo serán un pretexto para conversar, divertirse e improvisar juntos, tejiendo conexiones. Un concierto que quieren que sea lo más acústico posible para tener toda la libertad de interpretación y movimiento.  \nOtras actividades durante la velada: exposición de los estudiantes de Briacé, catas de vino, foodtruck..."
+  },
+  "conditions-de-participation": [10],
+  "registration": [],
+  "conditions": {},
+  "type-de-public": 80,
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": true
+  },
+  "keywords": {},
+  "status": 1,
+  "extIds": null,
+  "uid": 30085706,
+  "slug": "concert-de-jazz-avec-chloe-cailleton",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2025-03-21T09:57:44.000Z",
+  "creatorUid": 8515596,
+  "ownerUid": 8515596,
+  "updatedAt": "2025-04-16T00:29:01.000Z",
+  "links": []
+}

@@ -1,0 +1,580 @@
+{
+  "firstTiming": {
+    "end": "2025-01-25T13:30:00.000+01:00",
+    "begin": "2025-01-25T11:30:00.000+01:00"
+  },
+  "nextTiming": {
+    "begin": "2025-04-13T14:00:00+02:00",
+    "end": "2025-04-13T18:00:00+02:00"
+  },
+  "lastTiming": {
+    "end": "2025-04-27T18:00:00.000+02:00",
+    "begin": "2025-04-27T14:00:00.000+02:00"
+  },
+  "dateRange": {
+    "ar": "٢٥ يناير - ٢٧ أبريل",
+    "de": "25 Januar - 27 April",
+    "en": "25 January - 27 April",
+    "it": "25 gennaio - 27 aprile",
+    "fr": "25 janvier - 27 avril",
+    "es": "25 enero - 27 abril"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 50261563,
+    "image": "agenda50261563.jpg?__ts=1646131445930",
+    "description": "Agenda des événements organisés par le Musée de Carouge à Genève",
+    "official": false,
+    "title": "Musée de Carouge - Genève",
+    "slug": "musee-de-carouge-geneve",
+    "url": "https://www.carouge.ch/musee",
+    "_agg": "eyJ1aWQiOjUwMjYxNTYzLCJ0aXRsZSI6Ik11c8OpZSBkZSBDYXJvdWdlIC0gR2Vuw6h2ZSIsImltYWdlIjoiYWdlbmRhNTAyNjE1NjMuanBnP19fdHM9MTY0NjEzMTQ0NTkzMCIsInVybCI6Imh0dHBzOi8vd3d3LmNhcm91Z2UuY2gvbXVzZWUiLCJzbHVnIjoibXVzZWUtZGUtY2Fyb3VnZS1nZW5ldmUifQ=="
+  },
+  "sourceAgendas": [
+    {
+      "image": "agenda96959970.jpg?__ts=1622446751360",
+      "private": 0,
+      "indexed": 1,
+      "locationSetUid": 66200,
+      "official": 1,
+      "description": "Agenda des événements organisés par les musées publics et privés à Genève",
+      "title": "Musées de Genève",
+      "url": "https://museesdegeneve.ch/",
+      "_agg": "eyJ1aWQiOjk2OTU5OTcwLCJ0aXRsZSI6Ik11c8OpZXMgZGUgR2Vuw6h2ZSIsImltYWdlIjoiYWdlbmRhOTY5NTk5NzAuanBnP19fdHM9MTYyMjQ0Njc1MTM2MCJ9",
+      "uid": 96959970,
+      "createdAt": "2021-05-03T14:28:34.000Z",
+      "officializedAt": null,
+      "slug": "musees-de-geneve",
+      "updatedAt": "2025-04-07T10:26:34.000Z"
+    }
+  ],
+  "status": 1,
+  "title": {
+    "fr": "Exposition \"Photos de classe. Pose ou grimace?\""
+  },
+  "sous-titre": {
+    "fr": null
+  },
+  "description": {
+    "fr": "Cette exposition est une invitation à parcourir le passé scolaire de Carouge et ses souvenirs, et à se plonger dans ces photographies riches en détails et en histoire."
+  },
+  "image": {
+    "filename": "37ffd7b2bc004eb5b4a5dd6fee5ff670.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 1000
+    },
+    "variants": [
+      {
+        "filename": "37ffd7b2bc004eb5b4a5dd6fee5ff670.full.image.jpg",
+        "size": {
+          "width": 2894,
+          "height": 4134
+        },
+        "type": "full"
+      },
+      {
+        "filename": "37ffd7b2bc004eb5b4a5dd6fee5ff670.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": "atelierxl.com",
+  "image_alt_text": "Dessin représentant le bâtiment d'une école à 3 étages. Aux fenêtres des étages, on aperçoit des portraits d'enfants qui saluent, font des grimaces, jouent etc. A l'entrée, le portrait de la maitresse aux lunettes jaunes.",
+  "longDescription": {},
+  "timings": [
+    {
+      "begin": "2025-01-25T11:30:00+01:00",
+      "end": "2025-01-25T13:30:00+01:00"
+    },
+    {
+      "begin": "2025-01-26T14:00:00+01:00",
+      "end": "2025-01-26T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-01-28T14:00:00+01:00",
+      "end": "2025-01-28T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-01-29T14:00:00+01:00",
+      "end": "2025-01-29T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-01-30T14:00:00+01:00",
+      "end": "2025-01-30T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-01-31T14:00:00+01:00",
+      "end": "2025-01-31T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-01T14:00:00+01:00",
+      "end": "2025-02-01T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-02T14:00:00+01:00",
+      "end": "2025-02-02T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-04T14:00:00+01:00",
+      "end": "2025-02-04T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-05T14:00:00+01:00",
+      "end": "2025-02-05T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-06T14:00:00+01:00",
+      "end": "2025-02-06T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-07T14:00:00+01:00",
+      "end": "2025-02-07T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-08T14:00:00+01:00",
+      "end": "2025-02-08T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-09T14:00:00+01:00",
+      "end": "2025-02-09T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-11T14:00:00+01:00",
+      "end": "2025-02-11T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-12T14:00:00+01:00",
+      "end": "2025-02-12T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-13T14:00:00+01:00",
+      "end": "2025-02-13T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-14T14:00:00+01:00",
+      "end": "2025-02-14T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-15T14:00:00+01:00",
+      "end": "2025-02-15T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-16T14:00:00+01:00",
+      "end": "2025-02-16T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-18T14:00:00+01:00",
+      "end": "2025-02-18T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-19T14:00:00+01:00",
+      "end": "2025-02-19T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-20T14:00:00+01:00",
+      "end": "2025-02-20T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-21T14:00:00+01:00",
+      "end": "2025-02-21T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-22T14:00:00+01:00",
+      "end": "2025-02-22T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-23T14:00:00+01:00",
+      "end": "2025-02-23T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-25T14:00:00+01:00",
+      "end": "2025-02-25T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-26T14:00:00+01:00",
+      "end": "2025-02-26T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-27T14:00:00+01:00",
+      "end": "2025-02-27T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-02-28T14:00:00+01:00",
+      "end": "2025-02-28T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-06T10:00:00+01:00",
+      "end": "2025-03-06T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-06T14:00:00+01:00",
+      "end": "2025-03-06T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-07T10:00:00+01:00",
+      "end": "2025-03-07T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-07T14:00:00+01:00",
+      "end": "2025-03-07T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-08T10:00:00+01:00",
+      "end": "2025-03-08T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-08T14:00:00+01:00",
+      "end": "2025-03-08T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-10T10:00:00+01:00",
+      "end": "2025-03-10T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-10T14:00:00+01:00",
+      "end": "2025-03-10T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-11T10:00:00+01:00",
+      "end": "2025-03-11T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-11T14:00:00+01:00",
+      "end": "2025-03-11T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-12T10:00:00+01:00",
+      "end": "2025-03-12T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-12T14:00:00+01:00",
+      "end": "2025-03-12T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-13T10:00:00+01:00",
+      "end": "2025-03-13T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-13T14:00:00+01:00",
+      "end": "2025-03-13T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-14T10:00:00+01:00",
+      "end": "2025-03-14T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-14T14:00:00+01:00",
+      "end": "2025-03-14T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-15T10:00:00+01:00",
+      "end": "2025-03-15T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-15T14:00:00+01:00",
+      "end": "2025-03-15T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-17T10:00:00+01:00",
+      "end": "2025-03-17T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-17T14:00:00+01:00",
+      "end": "2025-03-17T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-18T10:00:00+01:00",
+      "end": "2025-03-18T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-18T14:00:00+01:00",
+      "end": "2025-03-18T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-19T10:00:00+01:00",
+      "end": "2025-03-19T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-19T14:00:00+01:00",
+      "end": "2025-03-19T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-20T10:00:00+01:00",
+      "end": "2025-03-20T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-20T14:00:00+01:00",
+      "end": "2025-03-20T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-21T10:00:00+01:00",
+      "end": "2025-03-21T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-21T14:00:00+01:00",
+      "end": "2025-03-21T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-22T10:00:00+01:00",
+      "end": "2025-03-22T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-22T14:00:00+01:00",
+      "end": "2025-03-22T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-24T10:00:00+01:00",
+      "end": "2025-03-24T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-24T14:00:00+01:00",
+      "end": "2025-03-24T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-25T10:00:00+01:00",
+      "end": "2025-03-25T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-25T14:00:00+01:00",
+      "end": "2025-03-25T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-26T10:00:00+01:00",
+      "end": "2025-03-26T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-26T14:00:00+01:00",
+      "end": "2025-03-26T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-27T10:00:00+01:00",
+      "end": "2025-03-27T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-27T14:00:00+01:00",
+      "end": "2025-03-27T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-28T10:00:00+01:00",
+      "end": "2025-03-28T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-28T14:00:00+01:00",
+      "end": "2025-03-28T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-29T10:00:00+01:00",
+      "end": "2025-03-29T12:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-29T14:00:00+01:00",
+      "end": "2025-03-29T17:30:00+01:00"
+    },
+    {
+      "begin": "2025-03-31T10:00:00+02:00",
+      "end": "2025-03-31T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-03-31T14:00:00+02:00",
+      "end": "2025-03-31T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-01T10:00:00+02:00",
+      "end": "2025-04-01T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-01T14:00:00+02:00",
+      "end": "2025-04-01T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-02T10:00:00+02:00",
+      "end": "2025-04-02T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-02T14:00:00+02:00",
+      "end": "2025-04-02T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-03T10:00:00+02:00",
+      "end": "2025-04-03T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-03T14:00:00+02:00",
+      "end": "2025-04-03T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-04T10:00:00+02:00",
+      "end": "2025-04-04T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-04T14:00:00+02:00",
+      "end": "2025-04-04T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-05T10:00:00+02:00",
+      "end": "2025-04-05T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-05T14:00:00+02:00",
+      "end": "2025-04-05T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-07T10:00:00+02:00",
+      "end": "2025-04-07T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-07T14:00:00+02:00",
+      "end": "2025-04-07T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-08T10:00:00+02:00",
+      "end": "2025-04-08T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-08T14:00:00+02:00",
+      "end": "2025-04-08T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-09T10:00:00+02:00",
+      "end": "2025-04-09T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-09T14:00:00+02:00",
+      "end": "2025-04-09T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-10T10:00:00+02:00",
+      "end": "2025-04-10T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-10T14:00:00+02:00",
+      "end": "2025-04-10T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-11T10:00:00+02:00",
+      "end": "2025-04-11T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-11T14:00:00+02:00",
+      "end": "2025-04-11T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-12T10:00:00+02:00",
+      "end": "2025-04-12T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-12T14:00:00+02:00",
+      "end": "2025-04-12T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-14T10:00:00+02:00",
+      "end": "2025-04-14T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-14T14:00:00+02:00",
+      "end": "2025-04-14T17:30:00+02:00"
+    },
+    {
+      "begin": "2025-04-15T10:00:00+02:00",
+      "end": "2025-04-15T12:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-15T14:00:00+02:00",
+      "end": "2025-04-15T17:30:00+02:00"
+    }
+  ],
+  "attendanceMode": 1,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Carouge GE",
+    "timezone": "Europe/Paris",
+    "postalCode": "1227",
+    "latitude": 46.184258,
+    "imageCredits": null,
+    "description": {
+      "fr": "http://www.ville-geneve.ch/plan-ville/musees/musee-carouge/"
+    },
+    "setUid": 66200,
+    "uid": 32012052,
+    "createdAt": "2019-04-12T14:22:44.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "CH",
+    "adminLevel5": null,
+    "links": [],
+    "state": 1,
+    "extId": "77854",
+    "department": null,
+    "slug": "mus-e-de-carouge*569_19754",
+    "email": null,
+    "longitude": 6.139027,
+    "updatedAt": "2019-04-12T14:22:44.000Z",
+    "image": null,
+    "website": "https://www.carouge.ch/musee",
+    "address": "Place de Sardaigne 2, 1227 Carouge GE",
+    "adminLevel3": null,
+    "agendaUid": 17821345,
+    "adminLevel4": "Carouge GE",
+    "adminLevel1": null,
+    "adminLevel2": null,
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjMyMDEyMDUyLCJuYW1lIjoiTXVzw6llIGRlIENhcm91Z2UifQ==",
+    "tags": null,
+    "insee": null,
+    "phone": "+41 22 307 93 80",
+    "district": null,
+    "name": "Musée de Carouge",
+    "region": null,
+    "extIds": [
+      {
+        "value": "77854",
+        "key": "default"
+      }
+    ]
+  },
+  "onlineAccessLink": null,
+  "type-devenement": 41,
+  "publics-cibles": [30],
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "conditions": {
+    "fr": "Gratuit"
+  },
+  "registration": [],
+  "organisation-de-levenement": 33,
+  "organisator": "Musée de Carouge",
+  "organisator_url": "https://www.carouge.ch/musee",
+  "thematiques-internes": [],
+  "labels": [],
+  "service-contributeur": 55,
+  "keywords": {},
+  "thematiques-musees": [],
+  "extIds": null,
+  "uid": 68268652,
+  "slug": "exposition-photos-de-classe-pose-ou-grimace",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2024-11-21T12:57:21.000Z",
+  "creatorUid": 48374645,
+  "ownerUid": 48374645,
+  "updatedAt": "2024-12-03T16:00:23.000Z",
+  "links": []
+}
