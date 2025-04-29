@@ -1,30 +1,69 @@
-import addPageColumn from './addPageColumn/index.js';
+import logs from '@openagenda/logs';
+import addPageColumn from './addPageColumn.js';
+import Cursor from './Cursor.js';
+import rtd from './roundToDecimal.js';
 
-export default async function addPageColumns({ doc, cursor }, columnConfig, options = {}) {
-  const { pageWidth = doc.page.width, iconHeightAndWidth, margin, footerHeight, intl, lang } = options;
-  const { columns } = columnConfig;
+const log = logs('addPageColumns');
 
-  const widthPerUnit = pageWidth / columns.reduce((t, c) => t + c.width, 0);
+export default async function addPageColumns(
+  doc,
+  parentCursor,
+  columns,
+  options = {},
+) {
+  const {
+    availableHeight,
+    availableWidth,
+    iconHeightAndWidth,
+    margin,
+    intl,
+    lang,
+  } = options;
 
-  const results = [];
+  const cursor = Cursor(parentCursor);
+  const widthPerUnit = availableWidth / columns.reduce((t, c) => t + c.width, 0);
+
+  const remaining = [];
+  const size = { height: 0, width: 0 };
 
   for (let i = 0; i < columns.length; i++) {
     const column = columns[i];
-    const widthUnits = column.width;
-    let columnWidth = widthUnits * widthPerUnit;
 
-    let marginLeft = i === 0 ? margin : margin / 2;
-    let marginRight = i === 0 ? margin / 2 : margin;
+    const columnWidth = column.width * widthPerUnit;
+    const paddedColumnWidth = columnWidth - (column.padding ?? 0) * 2;
 
-    cursor.x += marginLeft;
+    log(
+      'adding column of width %s, (%s padded)',
+      rtd(columnWidth),
+      rtd(paddedColumnWidth),
+    );
 
-    columnWidth -= (marginLeft + marginRight);
+    const result = await addPageColumn(doc, cursor, column, {
+      ...options,
+      availableWidth: paddedColumnWidth,
+      availableHeight,
+      iconHeightAndWidth,
+      margin,
+      intl,
+      lang,
+    });
 
-    const content = await addPageColumn(doc, cursor, column, { columnWidth, iconHeightAndWidth, margin, footerHeight, intl, lang });
-    results.push({ ...column, content });
+    const {
+      remaining: remainingContent,
+      height: colHeight,
+      width: colWidth,
+    } = result;
 
-    cursor.x += columnWidth + marginRight;
+    size.width += colWidth;
+    size.height = Math.max(size.height, colHeight);
+
+    remaining.push({
+      ...column,
+      content: remainingContent,
+    });
+
+    cursor.moveX(columnWidth);
   }
 
-  return results;
+  return { ...size, remaining };
 }
