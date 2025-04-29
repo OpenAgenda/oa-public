@@ -7,5 +7,6 @@ export { default as useFilterTitle } from './useFilterTitle.js';
 export { default as useGetFilterOptions } from './useGetFilterOptions.js';
 export { default as useGetTotal } from './useGetTotal.js';
 export { default as useLoadGeoData } from './useLoadGeoData.js';
+export { default as useLoadTimingsData } from './useLoadTimingsData.js';
 
 export { useField, useForm } from 'react-final-form';
