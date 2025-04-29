@@ -3,7 +3,6 @@ import { fileURLToPath } from 'node:url';
 import addIcon from '../../utils/addIcon.js';
 import addText from './addText.js';
 import getTruncatedLabel from './getTruncatedLabel.js';
-import messages from './messages.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,19 +12,6 @@ const typesWithIcons = [
   { type: 'phone', iconPath: `${__dirname}/../../images/phone.png` },
   { type: 'link', iconPath: `${__dirname}/../../images/link.png` },
 ];
-
-function addRegistrationLabel(doc, cursor, params = {}, options = {}) {
-  const { intl, simulate = false } = options;
-
-  const { fontSize } = params;
-
-  return addText(doc, cursor, `${intl.formatMessage(messages.registration)}:`, {
-    underline: true,
-    fontSize,
-    medium: true,
-    simulate,
-  });
-}
 
 function getTypeAndIconPath(type) {
   const typeWithIcon = typesWithIcons.find((item) => item.type === type);
@@ -110,18 +96,6 @@ export default function addRegistration(
     return { width: 0, height: 0 };
   }
 
-  const { width: widthOfRegistrationLabel } = addRegistrationLabel(
-    doc,
-    localCursor,
-    params,
-    options,
-    {
-      fontSize,
-    },
-  );
-
-  localCursor.x += widthOfRegistrationLabel + margin;
-
   const { height: lineHeight } = addText(doc, cursor, '.', {
     fontSize,
     simulate: true,
@@ -129,7 +103,7 @@ export default function addRegistration(
 
   let height = lineHeight;
 
-  let remainingWidth = columnWidth - widthOfRegistrationLabel - margin;
+  let remainingWidth = columnWidth;
 
   let isMultiline = false;
 
