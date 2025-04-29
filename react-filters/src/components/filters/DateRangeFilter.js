@@ -202,6 +202,7 @@ const DateRangeFilter = React.forwardRef(function DateRangeFilter(
     minDate,
     maxDate,
     shownDate,
+    getQuery,
   },
   ref,
 ) {
@@ -226,6 +227,7 @@ const DateRangeFilter = React.forwardRef(function DateRangeFilter(
       minDate={minDate}
       maxDate={maxDate}
       shownDate={shownDate}
+      getQuery={getQuery}
     />
   );
 });
