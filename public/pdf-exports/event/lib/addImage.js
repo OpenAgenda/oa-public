@@ -36,17 +36,21 @@ async function getAdjustedSize(
   return adjusted;
 }
 
-const extractImageInfoFromValue = (value, imagePath) => {
+const extractImageInfoFromValue = (value, defaultImagePath) => {
   if (!value) return { filename: undefined };
 
-  if (typeof value === 'string') {
-    return {
-      filename: value,
-      base: imagePath,
-    };
+  if (typeof value !== 'string') {
+    return value;
   }
 
-  return value;
+  const parts = value.split('/');
+  const filename = parts.pop();
+  const path = parts.join('/');
+
+  return {
+    filename,
+    base: path.length ? `${path}/` : defaultImagePath,
+  };
 };
 
 export default async function addImage(doc, parentCursor, params) {
