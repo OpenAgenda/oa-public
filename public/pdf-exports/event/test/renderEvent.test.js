@@ -1,0 +1,50 @@
+import * as url from 'node:url';
+import fs from 'node:fs';
+import PDFExports from '../index.js';
+
+const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
+
+const readFx = (filename) =>
+  fs.promises
+    .readFile(`${__dirname}/fixtures/${filename}.json`, 'utf-8')
+    .then((content) => JSON.parse(content));
+
+const { TEST_LANG: testLang = 'fr' } = process.env;
+
+// Create PDF exports instance
+const pdfExports = PDFExports({});
+
+// Define fixture pairs to test
+const fixturePairs = [
+  /* {
+    name: 'loiret',
+    agenda: await readFx('loiret.agenda'),
+    event: await readFx('withRegistrationLink.event'),
+  },
+  {
+    name: 'begles',
+    agenda: await readFx('begles.agenda'),
+    event: await readFx('begles.event'),
+  },
+  {
+    name: 'withLocationImage',
+    agenda: await readFx('withLocationImage.agenda'),
+    event: await readFx('withLocationImage.event'),
+  }, */
+  {
+    name: 'online',
+    agenda: await readFx('pciCorse.agenda'),
+    event: await readFx('onlineAttendance.event'),
+  },
+];
+
+// Generate PDFs for each fixture pair
+for (const { name, agenda, event } of fixturePairs) {
+  const writeStream = fs.createWriteStream(
+    `${__dirname}/renders/${name}EventPage.pdf`,
+  );
+  await pdfExports.render(writeStream, agenda, event, {
+    lang: testLang,
+    imagePath: 'https://cdn.openagenda.com/main/',
+  });
+}

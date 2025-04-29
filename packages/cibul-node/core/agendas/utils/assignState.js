@@ -108,9 +108,10 @@ export default (
   event,
   clean,
   data,
-  { draft, authorizations, currentState },
+  { authorizations, currentState },
 ) => {
-  const { state, type } = draft
+  const toUndraft = event?.draft && !data.draft;
+  const { state, type } = data.draft
     ? {
       state: undefined,
       type: null,
@@ -120,7 +121,7 @@ export default (
         agenda,
         hasEvent: !!event,
         authorizations,
-        isUndrafted: event?.draft && !draft,
+        isUndrafted: toUndraft,
         currentState,
       },
       data.state,
@@ -130,7 +131,7 @@ export default (
 
   if (state !== undefined) {
     clean.agendaEvent.state = state;
-  } else if (!draft) {
+  } else if (!data.draft) {
     clean.agendaEvent = _.omit(clean.agendaEvent, ['state']);
   }
 

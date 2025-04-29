@@ -45,7 +45,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   );
 
   const {
-    draft = false,
     partial = false,
     defaultLang = 'en',
     batched = false,
@@ -81,6 +80,9 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       returnPayload: true,
     });
 
+    const wasDraft = event.draft;
+    const isDraft = wasDraft ? data?.draft : false;
+
     log('  loaded event %s', event.slug);
 
     const agendaEvent = shouldHaveAgendaEvent('update', event)
@@ -101,7 +103,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       validateWithStoredData: !!partial,
       // required to validate related fields in case of partial update
       event: eventWithAdditionalValues,
-      draft,
+      validateAsDraft: isDraft,
       optionalSecondaryFields: true,
       partial,
       access,
@@ -135,15 +137,12 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
     const { type: stateChangeType } = assignState(agenda, event, clean, data, {
       authorizations,
-      draft,
       currentState: agendaEvent?.state,
     });
 
-    const updatedRegistration = await registrations.utils.passCulture.process(
-      agenda,
-      clean,
-      { draft },
-    );
+    const updatedRegistration = !clean.draft
+      && registrations
+      && await registrations.utils.passCulture.process(agenda, clean);
 
     if (updatedRegistration) clean.event.registration = updatedRegistration;
 
@@ -153,7 +152,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       await updateEvent(core.services, {
         clean,
         payload,
-        draft,
+        draft: isDraft,
         agendaUid,
         userUid: actingUserUid,
         eventUid,
@@ -174,7 +173,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         eventUid,
         clean.custom,
         {
-          draft,
+          draft: isDraft,
           agendaId: agenda.id,
           access,
         },
@@ -207,7 +206,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       }
     }
 
-    if (draft) {
+    if (isDraft) {
       response = await payload.getResponse('updated', access);
       log('sending response for draft update');
       return returnPayload ? response : response.updated;
@@ -317,7 +316,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     if (
-      !draft
+      !isDraft
       && updatedRegistration
       && registrations.utils.passCulture.isMarkedAsPending(
         response.event.registration.find((r) => r.service === 'passCulture')

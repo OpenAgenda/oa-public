@@ -332,9 +332,9 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           custom_description: 'Meh',
           'categories-agenda-metropolitain': 42,
           'thematiques-bordeaux-metropole': [4],
+          draft: true,
         },
         {
-          draft: true,
           access: 'contributor',
         },
       );
@@ -371,9 +371,9 @@ describe('core - functional (server): core.agendas().events.update()', () => {
               end: new Date('2019-12-18T15:30:00'),
             },
           ],
+          draft: false,
         },
         {
-          draft: false,
           access: 'administrator',
         },
       );

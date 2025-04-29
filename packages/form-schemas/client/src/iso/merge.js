@@ -20,6 +20,23 @@ const assignSchemaValuesToNonAbstractFields = (schema) => ({
   }),
 });
 
+function mergeRelated(relateds) {
+  return relateds
+    .map((related) => (Array.isArray(related) ? { other: related } : related))
+    .reduce((merged, related) => {
+      if (!related) {
+        return merged;
+      }
+      Object.keys(related).forEach((relatedKey) => {
+        merged[relatedKey] = _.uniq(merged[relatedKey] ?? []).concat(
+          related[relatedKey],
+        );
+      });
+
+      return merged;
+    }, {});
+}
+
 function mergeField(field, mergeWithField) {
   if (!mergeWithField) return field;
 
@@ -49,6 +66,12 @@ function mergeField(field, mergeWithField) {
 
   if (field.schemaType) {
     update.schemaType = { $set: field.schemaType };
+  }
+
+  if (field.related || mergeWithField.related) {
+    update.related = {
+      $set: mergeRelated([field.related, mergeWithField.related]),
+    };
   }
 
   if (!_.keys(update).length) return field;

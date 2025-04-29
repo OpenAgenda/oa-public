@@ -24,7 +24,6 @@ export default async (core, agendaUid, data, options = {}) => {
 
   const {
     access = 'public',
-    draft = false,
     defaultLang = 'en',
     filterUnauthorizedData = false,
     returnPayload = false,
@@ -34,6 +33,7 @@ export default async (core, agendaUid, data, options = {}) => {
     userLang = 'en',
   } = options;
 
+  const isDraft = data.draft || false;
   const userUid = extractUserUid(data, options);
 
   log.info('attempting create', {
@@ -54,7 +54,8 @@ export default async (core, agendaUid, data, options = {}) => {
     log('  loaded agenda %s', agenda.slug);
 
     const clean = await cleanEvent(services, agenda, data, {
-      draft,
+      /* draft, */
+      validateAsDraft: isDraft,
       defaultLang,
       filterUnauthorizedData,
       member,
@@ -75,11 +76,11 @@ export default async (core, agendaUid, data, options = {}) => {
 
     assignState(agenda, null, clean, data, {
       authorizations,
-      draft,
+      /* draft, */
     });
     log('  associated state');
 
-    if (!draft && clean.passCulture) {
+    if (!isDraft && clean.passCulture) {
       log('  There is a pass culture payload');
       if (clean.agendaEvent.state === 2) {
         try {
@@ -133,7 +134,7 @@ export default async (core, agendaUid, data, options = {}) => {
         detailed: true,
         access: 'internal',
         private: !!agenda.private,
-        draft,
+        draft: isDraft,
         fileKey,
       });
 
@@ -169,7 +170,7 @@ export default async (core, agendaUid, data, options = {}) => {
         agendaId: { $set: agenda.id },
       }),
       {
-        draft,
+        draft: isDraft,
         userUid,
         access,
         duplicateOrigin,
@@ -196,7 +197,7 @@ export default async (core, agendaUid, data, options = {}) => {
   }
 
   if (
-    !draft
+    !isDraft
     && registrations?.utils.passCulture.isMarkedAsPending(
       response.event.registration.find((r) => r.service === 'passCulture')
         ?.data,
