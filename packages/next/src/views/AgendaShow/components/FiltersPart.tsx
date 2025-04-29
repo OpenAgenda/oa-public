@@ -1,3 +1,4 @@
+import { useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/pro-solid-svg-icons';
@@ -59,6 +60,19 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
   );
 
   const getTotal = useGetTotal(aggregations);
+
+  const getQuery = useCallback(
+    () => ({
+      ...isUpcomingOnlyQuery(query)
+        ? {
+            relative: ['current', 'upcoming'],
+          }
+        : null,
+      ...query,
+      passed: undefined, // omit passed
+    }),
+    [query],
+  );
 
   const loadGeoData = useLoadGeoData(
     null, // apiClient
@@ -131,6 +145,7 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
                 getTotal={getTotal}
                 getOptions={getOptions}
                 initialViewport={aggregations.viewport}
+                getQuery={getQuery}
                 loadGeoData={loadGeoData}
                 withRef
               />

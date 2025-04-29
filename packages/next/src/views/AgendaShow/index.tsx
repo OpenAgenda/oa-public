@@ -148,6 +148,12 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
       if (mapElem) {
         mapElem.onQueryChange(pages[0].aggregations.viewport);
       }
+      const timingsFilter = filters.find((v) => v.name === 'timings');
+      const timingsElem = timingsFilter?.elemRef?.current;
+
+      if (timingsElem) {
+        timingsElem.onQueryChange();
+      }
 
       const url =
         new URL(latestRouter.current.asPath, 'https://n').pathname +
@@ -184,6 +190,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
           dateFnsLocale={dateFnsLocale}
           ref={filtersFormRef}
           filters={filters}
+          res={`/api/agendas/slug/${agenda.slug}/events`}
         >
           <ContentGrid
             total={
