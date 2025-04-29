@@ -49,9 +49,7 @@ export default function loadEventPDF(req, res, next) {
   const { agenda, event } = cleanImages(req);
 
   try {
-    pdfExports.event.GenerateExport(res, {
-      agenda,
-      event,
+    pdfExports.event.render(res, agenda, event, {
       lang: req.lang,
     });
     res.writeHead(200, {
