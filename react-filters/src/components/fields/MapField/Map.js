@@ -16,7 +16,7 @@ import {
 } from 'react-leaflet';
 import L from 'leaflet';
 import { useIntl } from 'react-intl';
-import '@raruto/leaflet-gesture-handling';
+import '@openagenda/leaflet-gesture-handling';
 import { useForm } from 'react-final-form';
 import FiltersAndWidgetsContext from '../../../contexts/FiltersAndWidgetsContext.js';
 import SearchHereControl from './SearchHereControl.js';
@@ -36,7 +36,7 @@ const worldViewport = {
 };
 
 function loadGestureHandlingLocale(gestureHandling, locale) {
-  import(`@raruto/leaflet-gesture-handling/dist/locales/${locale}.js`)
+  import(`@openagenda/leaflet-gesture-handling/dist/locales/${locale}.js`)
     .then((m) => {
       const content = m.default || m;
       const scrollWarning = gestureHandling._isMacUser()

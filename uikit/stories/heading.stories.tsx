@@ -8,7 +8,7 @@ export default {
 
 export function All() {
   return (
-    <VStack spacing="4">
+    <VStack gap="4">
       <H1>This is a h1</H1>
       <H2>This is a h2</H2>
       <H3>This is a h3</H3>
@@ -16,7 +16,9 @@ export function All() {
       <H5>This is a h5</H5>
       <H6>This is a h6</H6>
 
-      <H1 size="md">This is a h1 with an overridden size</H1>
+      <H1 size="xl">This is a h1 with an overridden size</H1>
     </VStack>
   );
 }
+
+All.storyName = 'Heading';
