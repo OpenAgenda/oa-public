@@ -1,7 +1,7 @@
 import { useState, useRef, useMemo, useEffect, useCallback } from 'react';
 import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet';
 import L from 'leaflet';
-import '@raruto/leaflet-gesture-handling';
+import '@openagenda/leaflet-gesture-handling';
 import { useIntl } from 'react-intl';
 import { Helmet } from 'react-helmet-async';
 import { css } from '@emotion/react';

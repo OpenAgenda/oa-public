@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import { useIntl } from 'react-intl';
 import geoMessages from '@openagenda/common-labels/geo';
-import { Button, Checkbox, Flex, Box } from '@openagenda/uikit';
+import { Button, Flex, Box } from '@openagenda/uikit';
+import { Checkbox } from '@openagenda/uikit/snippets';
 import { SortableSelect } from '@openagenda/react-shared';
 import AccordionItem from './AccordionItem';
 import messages from './messages';
@@ -17,13 +18,13 @@ export default function PdfAccordionItem({
   const [sort, setSort] = useState([]);
 
   return (
-    <AccordionItem title="PDF">
+    <AccordionItem value="pdf" title="PDF">
       <Flex gap="4" direction="column">
         {hasMultipleLocations ? (
           <>
             <Checkbox
-              isChecked={useSections}
-              onChange={() => setUseSections(!useSections)}
+              checked={useSections}
+              onCheckedChange={(e) => setUseSections(!!e.checked)}
             >
               {intl.formatMessage(messages.PDFGeoSections)}
             </Checkbox>
@@ -65,15 +66,14 @@ export default function PdfAccordionItem({
           </>
         ) : (
           <Checkbox
-            isChecked={locationInHeader}
-            onChange={() => setLocationInHeader(!locationInHeader)}
+            checked={locationInHeader}
+            onCheckedChange={(e) => setLocationInHeader(!!e.checked)}
           >
             {intl.formatMessage(messages.PDFHighlightLocationName)}
           </Checkbox>
         )}
         <Button
           type="submit"
-          colorScheme="primary"
           alignSelf="center"
           onClick={handleSubmit('pdf', {
             locationInHeader,

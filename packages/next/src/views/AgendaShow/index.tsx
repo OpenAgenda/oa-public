@@ -172,7 +172,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
         ) : null}
 
         <Box as="header" w="full" bg="#413a42" px="4" py="8">
-          <Container maxW="container.xl" color="white">
+          <Container maxW="7xl" color="white">
             <AgendaHeader agenda={agenda} />
           </Container>
         </Box>

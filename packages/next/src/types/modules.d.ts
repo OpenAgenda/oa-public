@@ -6,7 +6,7 @@ declare module '@openagenda/react-shared/*';
 declare module '@openagenda/sdk-js';
 declare module '@openagenda/sessions/*';
 declare module '@openagenda/verror';
-declare module '@raruto/leaflet-gesture-handling';
+declare module '@openagenda/leaflet-gesture-handling';
 
 // Fix for Collapse children (something like https://github.com/chakra-ui/chakra-ui/discussions/9038)
 import { ReactNode } from 'react';

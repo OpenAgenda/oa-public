@@ -29,10 +29,12 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
   });
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
-  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
+  const isReachingEnd =
+    isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
   // const isRefreshing = isValidating && pages && pages.length === size;
 
   const { ref } = useInView({
@@ -84,21 +86,20 @@ export default function EventsPart({ agenda, filters, query, includeFields }) {
               first={pageIndex === 0 && eventIndex === 0}
               last={pageIndex * PAGE_SIZE + eventIndex === page.total - 1}
             />
-          )))}
+          )),
+        )}
       </Flex>
 
       {!isLoadingInitialData && !isReachingEnd ? (
         <Flex ml={{ base: 'full', xl: '25%' }} justify="space-around">
           <Button
             ref={ref}
-            as="a"
-            href={seeMoreUrl}
+            asChild
             onClick={nextPage}
             variant="link"
-            colorScheme="primary"
-            isLoading={isLoadingMore}
+            loading={isLoadingMore}
           >
-            {intl.formatMessage(messages.seeMore)}
+            <a href={seeMoreUrl}>{intl.formatMessage(messages.seeMore)}</a>
           </Button>
         </Flex>
       ) : null}

@@ -6,7 +6,8 @@ import {
   Field,
 } from '@openagenda/react-filters';
 import { getLocaleValue } from '@openagenda/intl';
-import { Stack, Checkbox, Box, Text, Input, Button } from '@openagenda/uikit';
+import { Stack, Box, Text, Input, Button } from '@openagenda/uikit';
+import { Checkbox } from '@openagenda/uikit/snippets';
 import choiceFilterMessages from '@openagenda/react-filters/messages/choiceFilter';
 
 const subscription = { value: true };
@@ -36,8 +37,8 @@ function ChoiceField({ input, getTotal, filter, option, disabled }) {
 
   return (
     <Checkbox
-      isChecked={input.checked}
-      isDisabled={disabled}
+      checked={input.checked}
+      disabled={disabled}
       inputProps={input}
       w="fit-content"
     >
@@ -84,7 +85,7 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
 
   return (
     <div>
-      <Text mb="3" fontSize="md" fontWeight="bold">
+      <Text mb="2" fontWeight="bold">
         {title}
       </Text>
 
@@ -109,9 +110,9 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
         </Text>
       ) : null}
 
-      <Stack spacing="1" mb="2">
+      <Stack gap="1" mb="2">
         {foundOptions.map((option, index) =>
-          (index < countOptions ? (
+          index < countOptions ? (
             <Field
               // key={seed(option)}
               key={option.id || option.key || option.value}
@@ -127,27 +128,18 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
               getTotal={getTotal}
               disabled={disabled}
             />
-          ) : null))}
+          ) : null,
+        )}
       </Stack>
 
       {hasMoreOptions ? (
-        <Button
-          variant="link"
-          colorScheme="primary"
-          ml="6"
-          onClick={moreOptions}
-        >
+        <Button variant="link" ml="6" onClick={moreOptions}>
           {intl.formatMessage(choiceFilterMessages.moreOptions)}
         </Button>
       ) : null}
 
       {!hasMoreOptions && countOptions > pageSize ? (
-        <Button
-          variant="link"
-          colorScheme="primary"
-          ml="6"
-          onClick={lessOptions}
-        >
+        <Button variant="link" ml="6" onClick={lessOptions}>
           {intl.formatMessage(choiceFilterMessages.lessOptions)}
         </Button>
       ) : null}

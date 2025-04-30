@@ -30,16 +30,9 @@ function Featured({ featured, size = 'md' }: FeaturedProps) {
     xl: 'xl',
   };
 
-  const iconSizeMap = {
-    sm: 'sm',
-    md: undefined, // default size
-    lg: 'lg',
-    xl: '2x',
-  };
-
   return (
     <Text mb="2" fontSize={fontSizeMap[size]}>
-      <FontAwesomeIcon icon={faThumbtack} size={iconSizeMap[size]} />
+      <FontAwesomeIcon icon={faThumbtack} />
       &nbsp;
       {intl.formatMessage(messages.featured)}
     </Text>

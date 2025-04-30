@@ -1,44 +1,42 @@
 import { useRef } from 'react';
 import { useIntl } from 'react-intl';
+import { Button } from '@openagenda/uikit';
 import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogCloseButton,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogOverlay,
-  Button,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+  DialogBody,
+  DialogFooter,
+} from '@openagenda/uikit/snippets';
 import { emailConfirmationAlert as messages } from '../messages';
 
 export default function EmailConfirmationAlert({ isOpen, onClose, count }) {
   const intl = useIntl();
-  const cancelRef = useRef(undefined);
+  const cancelRef = useRef<HTMLButtonElement>(null);
 
   return (
-    <AlertDialog
-      isOpen={isOpen}
-      onClose={onClose}
-      leastDestructiveRef={cancelRef}
-      isCentered
+    <DialogRoot
+      role="alertdialog"
+      open={isOpen}
+      onOpenChange={onClose}
+      initialFocusEl={() => cancelRef.current}
+      placement="center"
     >
-      <AlertDialogOverlay />
-
-      <AlertDialogContent>
-        <AlertDialogHeader>
+      <DialogContent>
+        <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.shareEvent)}
-        </AlertDialogHeader>
-        <AlertDialogCloseButton />
-        <AlertDialogBody>
+        </DialogHeader>
+        <DialogCloseTrigger />
+        <DialogBody>
           {intl.formatMessage(messages.shareEventInfo, { count })}
-        </AlertDialogBody>
-        <AlertDialogFooter>
-          <Button ref={cancelRef} onClick={onClose} colorScheme="primary">
+        </DialogBody>
+        <DialogFooter>
+          <Button ref={cancelRef} onClick={onClose}>
             {intl.formatMessage(messages.close)}
           </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+        </DialogFooter>
+      </DialogContent>
+    </DialogRoot>
   );
 }

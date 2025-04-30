@@ -1,12 +1,7 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import debounce from 'lodash/debounce';
-import {
-  InputGroup,
-  Input,
-  InputRightElement,
-  Button,
-} from '@openagenda/uikit';
+import { InputGroup, Input, Button } from '@openagenda/uikit';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -55,23 +50,26 @@ export default function SearchInput({
   }, [initialValue]);
 
   return (
-    <InputGroup>
+    <InputGroup
+      endElement={
+        <Button
+          colorPalette="gray"
+          variant="ghost"
+          type="submit"
+          onClick={onButtonClick}
+          aria-label={intl.formatMessage(messages.ariaLabel)}
+          me="-3"
+        >
+          <FontAwesomeIcon icon={faMagnifyingGlass} />
+        </Button>
+      }
+    >
       <Input
         name={name}
         value={searchText}
         onChange={onChange}
         placeholder={placeholder || intl.formatMessage(messages.ariaLabel)}
       />
-      <InputRightElement>
-        <Button
-          variant="ghost"
-          type="submit"
-          onClick={onButtonClick}
-          aria-label={intl.formatMessage(messages.ariaLabel)}
-        >
-          <FontAwesomeIcon icon={faMagnifyingGlass} />
-        </Button>
-      </InputRightElement>
     </InputGroup>
   );
 }

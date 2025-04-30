@@ -1,73 +1,61 @@
 import { useIntl } from 'react-intl';
+import { Button, Center, useDisclosure } from '@openagenda/uikit';
 import {
-  Button,
-  Center,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  useDisclosure,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+  DialogBody,
+} from '@openagenda/uikit/snippets';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
 import { locationHistory as messages } from '../messages';
 import { Activities, ActivitiesList } from './Activities';
 
-export default function LocationHistory() {
+export default function LocationHistory({
+  className = '',
+  ref = null,
+  ...rest
+}) {
   const intl = useIntl();
   const agenda = useAgenda();
   const { event } = useEvent();
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { open, onOpen, onClose } = useDisclosure();
 
   return (
     <>
       <Button
+        unstyled
+        ref={ref}
+        className={className}
+        {...rest}
         onClick={onOpen}
-        alignSelf="start"
-        variant="outline"
-        borderColor="transparent"
-        color="blackAlpha.800"
-        _hover={{
-          bg: 'transparent',
-          color: undefined,
-          textDecoration: 'none',
-        }}
       >
         {intl.formatMessage(messages.showHistory)}
       </Button>
 
-      <Modal isOpen={isOpen} onClose={onClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader
-            sx={{
-              ':has(> .chakra-modal__close-btn)': {
-                pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-              },
-            }}
-          >
+      <DialogRoot open={open} onOpenChange={onClose}>
+        <DialogContent>
+          <DialogHeader fontSize="xl" fontWeight="semibold">
             {intl.formatMessage(messages.locationHistory)}
-            <ModalCloseButton />
-          </ModalHeader>
-
-          <ModalBody>
+          </DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             <Activities
               res={`/api/agendas/${agenda.uid}/locations/${event.location.uid}/activities`}
             >
               <ActivitiesList
-                emptyElem={(
+                emptyElem={
                   <Center py="12">
                     {intl.formatMessage(messages.noActivity)}
                   </Center>
-                )}
+                }
               />
             </Activities>
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+          </DialogBody>
+        </DialogContent>
+      </DialogRoot>
     </>
   );
 }

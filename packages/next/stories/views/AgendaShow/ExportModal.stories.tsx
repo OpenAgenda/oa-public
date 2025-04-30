@@ -6,8 +6,8 @@ import { Agenda } from 'types';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 import agendaFixtures from '../../fixtures/mel.agenda.json';
+import userFixtures from '../../fixtures/user.json';
 import me from './fixtures/me.json';
-import userFixtures from './fixtures/user.json';
 import columns from './fixtures/columns.json';
 
 export default {
@@ -19,16 +19,14 @@ export default {
 
 export const Basic = {
   render: function Render() {
-    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>
-          Open modal
-        </Button>
+        <Button onClick={onOpen}>Open modal</Button>
 
         <ExportModal
-          isOpen={isOpen}
+          isOpen={open}
           onClose={onClose}
           agenda={agendaFixtures as Agenda}
         />
@@ -40,8 +38,9 @@ export const Basic = {
       handlers: [
         http.get('/users/me', () => HttpResponse.json(userFixtures)),
         http.get('/api/me', () => HttpResponse.json(me)),
-        http.get('/agendas/1234/settings/exports', () =>
-          HttpResponse.json(columns)),
+        http.get('/agendas/89904399/settings/exports', () =>
+          HttpResponse.json(columns),
+        ),
       ],
     },
   },
@@ -49,19 +48,17 @@ export const Basic = {
 
 export const OpenAccordion = {
   render: function Render() {
-    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>
-          Open modal
-        </Button>
+        <Button onClick={onOpen}>Open modal</Button>
 
         <ExportModal
-          isOpen={isOpen}
+          isOpen={open}
           onClose={onClose}
           agenda={agendaFixtures as Agenda}
-          defaultIndex={7}
+          defaultValue="embed"
         />
       </>
     );
@@ -71,8 +68,9 @@ export const OpenAccordion = {
       handlers: [
         http.get('/users/me', () => HttpResponse.json(userFixtures)),
         http.get('/api/me', () => HttpResponse.json(me)),
-        http.get('/agendas/1234/settings/exports', () =>
-          HttpResponse.json(columns)),
+        http.get('/agendas/89904399/settings/exports', () =>
+          HttpResponse.json(columns),
+        ),
       ],
     },
   },

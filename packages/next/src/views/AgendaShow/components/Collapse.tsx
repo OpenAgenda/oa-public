@@ -1,10 +1,10 @@
 import { useRef } from 'react';
-import { Box, ThemeTypings, HTMLChakraProps } from '@openagenda/uikit';
+import { Box, Tokens, HTMLChakraProps } from '@openagenda/uikit';
 
 interface CollapseProps extends HTMLChakraProps<'div'> {
   children: React.ReactNode;
   in?: boolean;
-  breakpoint?: ThemeTypings['breakpoints'] | string;
+  breakpoint?: Tokens['breakpoints'] | string;
   transition?: string;
 }
 

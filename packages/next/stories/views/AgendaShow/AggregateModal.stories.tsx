@@ -5,8 +5,8 @@ import AgendaShow from 'views/AgendaShow';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 import agendaFixtures from '../../fixtures/mel.agenda.json';
-import userFixtures from './fixtures/user.json';
-import aggregateModalAgendas from './fixtures/aggregateModalAgendas.json';
+import userFixtures from '../../fixtures/user.json';
+import aggregateModalAgendas from '../../fixtures/aggregateModalAgendas.json';
 
 export default {
   title: 'views/AgendaShow/AggregateModal',
@@ -17,16 +17,14 @@ export default {
 
 export const NotConnected = {
   render: function Render() {
-    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>
-          Open modal
-        </Button>
+        <Button onClick={onOpen}>Open modal</Button>
 
         <AggregateModal
-          isOpen={isOpen}
+          isOpen={open}
           onClose={onClose}
           agenda={agendaFixtures}
         />
@@ -44,16 +42,14 @@ export const NotConnected = {
 
 export const Connected = {
   render: function Render() {
-    const { isOpen, onOpen, onClose } = useDisclosure({ defaultIsOpen: true });
+    const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
 
     return (
       <>
-        <Button variant="primary" onClick={onOpen}>
-          Open modal
-        </Button>
+        <Button onClick={onOpen}>Open modal</Button>
 
         <AggregateModal
-          isOpen={isOpen}
+          isOpen={open}
           onClose={onClose}
           agenda={agendaFixtures}
         />
@@ -65,7 +61,8 @@ export const Connected = {
       handlers: [
         http.get('/users/me', () => HttpResponse.json(userFixtures)),
         http.get('/home/agendas', () =>
-          HttpResponse.json(aggregateModalAgendas)),
+          HttpResponse.json(aggregateModalAgendas),
+        ),
       ],
     },
   },

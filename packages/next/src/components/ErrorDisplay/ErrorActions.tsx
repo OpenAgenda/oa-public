@@ -12,17 +12,21 @@ export default function ErrorActions({ resetError }: ErrorActionsProps) {
   return (
     <HStack mt="8">
       {resetError ? (
-        <Button onClick={resetError} colorScheme="primary" variant="outline">
+        <Button onClick={resetError} variant="outline">
           {intl.formatMessage(messages.retry)}
         </Button>
       ) : null}
 
-      <Button as={Link} href="/" colorScheme="primary" variant="outline">
-        {intl.formatMessage(messages.backToHome)}
+      <Button asChild variant="outline">
+        <Link unstyled href="/">
+          {intl.formatMessage(messages.backToHome)}
+        </Link>
       </Button>
 
-      <Button as={Link} href="/support" colorScheme="primary">
-        {intl.formatMessage(messages.contactSupport)}
+      <Button asChild>
+        <Link unstyled href="/support">
+          {intl.formatMessage(messages.contactSupport)}
+        </Link>
       </Button>
     </HStack>
   );

@@ -7,14 +7,9 @@ export default function RssAccordionItem({ handleSubmit }) {
   const intl = useIntl();
 
   return (
-    <AccordionItem title="RSS">
+    <AccordionItem value="rss" title="RSS">
       <chakra.div textAlign="center">
-        <Button
-          type="submit"
-          colorScheme="primary"
-          alignSelf="center"
-          onClick={handleSubmit('rss')}
-        >
+        <Button type="submit" alignSelf="center" onClick={handleSubmit('rss')}>
           {intl.formatMessage(messages.modalTitle)}
         </Button>
       </chakra.div>

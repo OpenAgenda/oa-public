@@ -311,7 +311,7 @@
       "value": "State:"
     }
   ],
-  "next.views.EventShow.ContextBar.suggestLocaitonChange": [
+  "next.views.EventShow.ContextBar.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggerisci una modifica della posizione"
@@ -543,12 +543,6 @@
       "value": "Su OpenAgenda"
     }
   ],
-  "next.views.EventShow.ShareModal.others": [
-    {
-      "type": 0,
-      "value": "Altri"
-    }
-  ],
   "next.views.EventShow.ShareModal.selectTiming": [
     {
       "type": 0,
@@ -559,12 +553,6 @@
     {
       "type": 0,
       "value": "Inviare"
-    }
-  ],
-  "next.views.EventShow.ShareModal.share": [
-    {
-      "type": 0,
-      "value": "Condividere"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmail": [
@@ -583,6 +571,12 @@
     {
       "type": 0,
       "value": "Importare in un calendario personale"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share the event"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [
@@ -695,7 +689,7 @@
       "value": " years old"
     }
   ],
-  "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
+  "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggerisci una modifica della posizione"

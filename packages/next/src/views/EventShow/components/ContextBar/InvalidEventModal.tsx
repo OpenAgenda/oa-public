@@ -36,7 +36,7 @@ export function useInvalidEventModal(editLink: string = '#edit') {
     ...disclosure,
     modal: (
       <InvalidEventModal
-        isOpen={disclosure.isOpen}
+        isOpen={disclosure.open}
         onClose={disclosure.onClose}
         editLink={editLink}
       />

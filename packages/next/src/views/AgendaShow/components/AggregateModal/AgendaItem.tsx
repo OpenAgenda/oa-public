@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router';
 import qs from 'qs';
-import { HStack, Text, Link, NoBreak } from '@openagenda/uikit';
+import { Box, HStack, Text, Link, NoBreak } from '@openagenda/uikit';
 import Image from 'components/Image';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
@@ -26,30 +26,37 @@ export default function AgendaItem({ agenda, targetAgenda }) {
 
   return (
     <Link
+      color="fg"
       href={`/${targetAgenda.slug}/admin/sources?${qs.stringify({
         source: agenda.slug,
         redirect: url.pathname,
       })}`}
     >
       <HStack>
-        <Image
+        <Box
+          asChild
           rounded="full"
-          width="40"
-          height="40"
-          src={imageSrc || graylogo140}
-          fallbackSrc={
-            isDev && typeof imageSrc === 'string'
-              ? imageSrc.replace('dev', 'main').replace('images-', 'imagesdev-')
-              : undefined
-          }
-          alt=""
-          draggable={false}
-          loader={imageSrc ? thumborLoader : null}
           border="3px solid white"
           h="40px"
           minW="40px"
           objectFit="cover"
-        />
+        >
+          <Image
+            width="40"
+            height="40"
+            src={imageSrc || graylogo140}
+            fallbackSrc={
+              isDev && typeof imageSrc === 'string'
+                ? imageSrc
+                    .replace('dev', 'main')
+                    .replace('images-', 'imagesdev-')
+                : undefined
+            }
+            alt=""
+            draggable={false}
+            loader={imageSrc ? thumborLoader : null}
+          />
+        </Box>
 
         <Text fontSize="xl">
           {targetAgenda.title}
@@ -58,8 +65,10 @@ export default function AgendaItem({ agenda, targetAgenda }) {
               <OfficialAgenda
                 ml="2"
                 tooltipProps={{
-                  bg: 'black',
-                  color: 'white',
+                  contentProps: {
+                    css: { '--tooltip-bg': 'black' },
+                    color: 'white',
+                  },
                 }}
               />
             </NoBreak>
@@ -70,8 +79,10 @@ export default function AgendaItem({ agenda, targetAgenda }) {
                 type="agenda"
                 ml="2"
                 tooltipProps={{
-                  bg: 'black',
-                  color: 'white',
+                  contentProps: {
+                    css: { '--tooltip-bg': 'black' },
+                    color: 'white',
+                  },
                 }}
               />
             </NoBreak>

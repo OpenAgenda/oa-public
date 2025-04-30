@@ -1,10 +1,6 @@
 // https://docs.sentry.io/platforms/javascript/guides/nextjs/manual-setup/
-import { fileURLToPath } from 'node:url';
 import { withSentryConfig } from '@sentry/nextjs';
-import nextPackageJson from 'next/package.json' with { type: 'json' };
 import bundleAnalyser from '@next/bundle-analyzer';
-
-const { version: nextVersion } = nextPackageJson;
 
 const withBundleAnalyzer = bundleAnalyser({
   enabled: process.env.ANALYZE === 'true',
@@ -17,26 +13,6 @@ const withSentry = (c) =>
     tunnelRoute: '/monit',
     silent: true,
   });
-
-function webpackCopyFiles(webpackConfig, files) {
-  const CopyFilePlugin = webpackConfig.plugins.find(
-    (plugin) => plugin.constructor.name === 'CopyFilePlugin',
-  ).constructor;
-
-  for (const file of files) {
-    webpackConfig.plugins.push(
-      new CopyFilePlugin({
-        filePath: file.from,
-        cacheKey: nextVersion,
-        name: file.to,
-        minimize: false,
-        info: {
-          minimized: true,
-        },
-      }),
-    );
-  }
-}
 
 // https://nextjs.org/docs/advanced-features/security-headers
 const securityHeaders = [
@@ -126,6 +102,8 @@ const config = async () => {
       // },
       experimental: {
         scrollRestoration: true,
+        // forceSwcTransforms forces storybook to use SWC instead of babel
+        forceSwcTransforms: true,
       },
       onDemandEntries: {
         maxInactiveAge: 24 * 3600 * 1000, // 24h
@@ -173,27 +151,8 @@ const config = async () => {
           ],
         };
       },
-      webpack: (webpackConfig, options) => {
-        if (options.isServer) return webpackConfig;
-
-        webpackCopyFiles(webpackConfig, [
-          {
-            from: fileURLToPath(
-              import.meta.resolve('@openagenda/outdated-browser'),
-            ),
-            to: 'static/chunks/outdated-browser.js',
-          },
-          {
-            from: fileURLToPath(
-              import.meta.resolve('@openagenda/outdated-browser/main.css'),
-            ),
-            to: 'static/css/outdated-browser.css',
-          },
-        ]);
-
-        return webpackConfig;
-      },
       transpilePackages: [
+        '@chakra-ui/react',
         '@openagenda/activity-apps',
         '@openagenda/intl',
         '@openagenda/react-filters',

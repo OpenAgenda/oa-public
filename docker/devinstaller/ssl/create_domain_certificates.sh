@@ -21,6 +21,7 @@ if [ ! -f $1/domains/$2.crt ]; then
   echo "authorityKeyIdentifier = keyid, issuer
   basicConstraints = CA:FALSE
   keyUsage = digitalSignature, nonRepudiation, keyEncipherment, dataEncipherment
+  extendedKeyUsage = serverAuth, clientAuth
   subjectAltName = @alt_names
 
   [alt_names]

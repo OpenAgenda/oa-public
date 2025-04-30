@@ -11,7 +11,8 @@ import {
   useField,
   useFavoritesOnChange,
 } from '@openagenda/react-filters';
-import { Checkbox, Text } from '@openagenda/uikit';
+import { Text } from '@openagenda/uikit';
+import { Checkbox } from '@openagenda/uikit/snippets';
 import useIsomorphicEffect from 'hooks/useIsomorphicEffect';
 import FilterPreviewer from './FilterPreviewer';
 
@@ -30,9 +31,10 @@ function parse(value) {
   return !value ? undefined : '1';
 }
 
-function FavoritesComp({ agenda, input: { checked: isChecked, ...input } }) {
+function FavoritesComp({ agenda, input: { checked, ...input } }) {
   const intl = useIntl();
-  const [favorites, setFavorites, { removeItem: removeFavorites }] = useLocalStorageState('favorites');
+  const [favorites, setFavorites, { removeItem: removeFavorites }] =
+    useLocalStorageState('favorites');
   const agendaFavorites = favorites?.[agenda.uid];
 
   const onChange = useFavoritesOnChange(agendaFavorites, { isExclusive: true });
@@ -51,10 +53,10 @@ function FavoritesComp({ agenda, input: { checked: isChecked, ...input } }) {
 
   return (
     <div>
-      <Text fontSize="md" fontWeight="bold" mb="3">
+      <Text fontWeight="bold" mb="2">
         {intl.formatMessage(messages.favorites)}
       </Text>
-      <Checkbox isChecked={isChecked} {...input} onChange={onChange}>
+      <Checkbox checked={checked} {...input} onChange={onChange}>
         {intl.formatMessage(messages.favorites)}
       </Checkbox>
     </div>

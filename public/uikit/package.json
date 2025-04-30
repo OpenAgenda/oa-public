@@ -14,7 +14,7 @@
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
   "scripts": {
-    "postinstall": "chakra-cli tokens src/theme/index.ts",
+    "postinstall": "chakra typegen src/theme/index.ts",
     "sb": "storybook dev -p 9001 --ci",
     "start": "yarn sb",
     "prepack": "tsup src --clean --format esm,cjs --dts"
@@ -35,22 +35,27 @@
       "types": "./dist/components/index.d.ts",
       "import": "./dist/components/index.mjs",
       "require": "./dist/components/index.js"
+    },
+    "./snippets": {
+      "types": "./dist/snippets/index.d.ts",
+      "import": "./dist/snippets/index.mjs",
+      "require": "./dist/snippets/index.js"
+    },
+    "./snippets/*": {
+      "types": "./dist/snippets/*.d.ts",
+      "import": "./dist/snippets/*.mjs",
+      "require": "./dist/snippets/*.js"
     }
   },
   "dependencies": {
-    "@chakra-ui/anatomy": "^2.3.4",
-    "@chakra-ui/icons": "^2.2.4",
-    "@chakra-ui/react": "^2.10.5",
-    "@chakra-ui/shared-utils": "2.0.4",
-    "@chakra-ui/theme-tools": "^2.2.6",
+    "@chakra-ui/react": "^3.15.1",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.0",
-    "framer-motion": "^7.5.1",
+    "react-icons": "^5.5.0",
     "react-remove-scroll": "^2.5.5"
   },
   "devDependencies": {
-    "@chakra-ui/cli": "^2.5.6",
+    "@chakra-ui/cli": "^3.15.1",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/tsconfig": "^0.0.0",
@@ -60,7 +65,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "storybook": "^8.5.8",
-    "tsup": "^6.2.3",
+    "tsup": "^8.4.0",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {

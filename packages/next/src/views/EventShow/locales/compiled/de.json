@@ -311,7 +311,7 @@
       "value": "State:"
     }
   ],
-  "next.views.EventShow.ContextBar.suggestLocaitonChange": [
+  "next.views.EventShow.ContextBar.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggest a change on the location"
@@ -543,12 +543,6 @@
       "value": "On OpenAgenda"
     }
   ],
-  "next.views.EventShow.ShareModal.others": [
-    {
-      "type": 0,
-      "value": "Others"
-    }
-  ],
   "next.views.EventShow.ShareModal.selectTiming": [
     {
       "type": 0,
@@ -561,16 +555,10 @@
       "value": "Send"
     }
   ],
-  "next.views.EventShow.ShareModal.share": [
-    {
-      "type": 0,
-      "value": "teilen"
-    }
-  ],
   "next.views.EventShow.ShareModal.shareByEmail": [
     {
       "type": 0,
-      "value": "Share by email"
+      "value": "By email"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmailPlaceholder": [
@@ -585,6 +573,12 @@
       "value": "Import in a personal calendar"
     }
   ],
+  "next.views.EventShow.ShareModal.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share the event"
+    }
+  ],
   "next.views.EventShow.ShareModal.shareLink": [
     {
       "type": 0,
@@ -594,7 +588,7 @@
   "next.views.EventShow.ShareModal.shareOnSocialNetworks": [
     {
       "type": 0,
-      "value": "Share on social networks"
+      "value": "On social networks"
     }
   ],
   "next.views.EventShow.ShareModal.signIn": [
@@ -695,7 +689,7 @@
       "value": " years old"
     }
   ],
-  "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
+  "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggest a change on the location"

@@ -1,18 +1,25 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useIntl } from 'react-intl';
+import { useTimeoutFn } from 'react-use';
 import {
+  createListCollection,
   Box,
   Button,
   Flex,
   Textarea,
-  Tooltip,
-  useTimeout,
-  Checkbox,
-  Tag,
   Input,
   Link,
-  Select,
 } from '@openagenda/uikit';
+import {
+  Tooltip,
+  Checkbox,
+  SelectRoot,
+  SelectTrigger,
+  SelectValueText,
+  SelectItem,
+  SelectContent,
+  Tag,
+} from '@openagenda/uikit/snippets';
 import { FilterSelect } from '@openagenda/react-shared';
 import { getFilterSelectOptions } from '@openagenda/react-filters';
 import copyText from 'utils/copyText';
@@ -74,7 +81,7 @@ function loadPublicFilters(settings) {
   return settings.public?.filters?.displayed ?? ['search', 'geo', 'timings'];
 }
 
-export default function EmbedAccordionItem({ res, agenda }) {
+export default function EmbedAccordionItem({ dialogRef, res, agenda }) {
   const intl = useIntl();
 
   const [copied, setCopied] = useState(false);
@@ -88,7 +95,7 @@ export default function EmbedAccordionItem({ res, agenda }) {
     loadPublicFilters(agenda.settings),
   );
 
-  useTimeout(
+  useTimeoutFn(
     () => {
       setCopied(false);
     },
@@ -106,8 +113,20 @@ export default function EmbedAccordionItem({ res, agenda }) {
     lang,
   });
 
+  const langsCollection = useMemo(
+    () =>
+      createListCollection({
+        items: Object.keys(agenda.summary.languages).map((language) => ({
+          label: language,
+          value: language,
+        })),
+      }),
+    [agenda.summary.languages],
+  );
+
   return (
     <AccordionItem
+      value="embed"
       title={
         <>
           {intl.formatMessage(messages.embed)}
@@ -117,8 +136,6 @@ export default function EmbedAccordionItem({ res, agenda }) {
             borderColor="primary.500"
             color="primary.500"
             variant="solid"
-            ml="2"
-            py="0.75"
             borderRadius="full"
             fontWeight="bold"
           >
@@ -129,8 +146,8 @@ export default function EmbedAccordionItem({ res, agenda }) {
     >
       <Flex gap="4" direction="column">
         <Checkbox
-          isChecked={withFilters}
-          onChange={(e) => setWithFilters(e.target.checked)}
+          checked={withFilters}
+          onCheckedChange={(e) => setWithFilters(!!e.checked)}
           w="fit-content"
         >
           {intl.formatMessage(messages.showFilters)}
@@ -154,8 +171,8 @@ export default function EmbedAccordionItem({ res, agenda }) {
         ) : null}
 
         <Checkbox
-          isChecked={!openEventsOnOA}
-          onChange={() => setOpenEventsOnOA(!openEventsOnOA)}
+          checked={!openEventsOnOA}
+          onCheckedChange={() => setOpenEventsOnOA(!openEventsOnOA)}
           w="fit-content"
         >
           {intl.formatMessage(messages.openInSamePage)}
@@ -176,13 +193,14 @@ export default function EmbedAccordionItem({ res, agenda }) {
             type="color"
             value={primaryColor}
             onChange={(e) => setPrimaryColor(e.target.value)}
-            w="4"
-            h="4"
+            w="5"
+            h="5"
             p="0"
+            minW="0"
             mr="2"
-            borderRadius="sm"
+            borderRadius="xs"
             cursor="pointer"
-            sx={{
+            css={{
               '&::-webkit-color-swatch-wrapper': {
                 p: '0',
               },
@@ -197,18 +215,25 @@ export default function EmbedAccordionItem({ res, agenda }) {
           {intl.formatMessage(messages.color)}
         </Flex>
 
-        <Select
-          placeholder={intl.formatMessage(messages.detectLang)}
-          value={lang}
-          onChange={(e) => setLang(e.target.value)}
+        <SelectRoot
+          collection={langsCollection}
+          value={[lang]}
+          onValueChange={(e) => setLang(e[0])}
           w="fit-content"
         >
-          {Object.keys(agenda.summary.languages).map((language) => (
-            <option key={language} value={language}>
-              {language.toUpperCase()}
-            </option>
-          ))}
-        </Select>
+          <SelectTrigger>
+            <SelectValueText
+              placeholder={intl.formatMessage(messages.detectLang)}
+            />
+          </SelectTrigger>
+          <SelectContent portalRef={dialogRef}>
+            {langsCollection.items.map((item) => (
+              <SelectItem key={item.value} item={item}>
+                {item.label}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </SelectRoot>
 
         <Textarea
           value={embedCode}
@@ -223,7 +248,6 @@ export default function EmbedAccordionItem({ res, agenda }) {
         />
 
         <Link
-          colorScheme="primary"
           target="_blank"
           rel="noopener"
           href="https://developers.openagenda.com/codes-embed/"
@@ -232,16 +256,15 @@ export default function EmbedAccordionItem({ res, agenda }) {
         </Link>
 
         <Tooltip
-          label={intl.formatMessage(messages.copied)}
-          hasArrow
-          placement="top"
-          isOpen={copied}
-          arrowSize={8}
-          arrowPadding={6}
+          content={intl.formatMessage(messages.copied)}
+          showArrow
+          positioning={{ placement: 'top' }}
+          open={copied}
+          openDelay={0}
+          closeDelay={0}
         >
           <Button
             type="submit"
-            colorScheme="primary"
             alignSelf="center"
             onClick={async (e) => {
               e.preventDefault();

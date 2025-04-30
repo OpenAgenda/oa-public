@@ -1,8 +1,10 @@
 import { useIntl } from 'react-intl';
-import { chakra, Link, NoBreak, useTheme } from '@openagenda/uikit';
+import { chakra, Box, Link, NoBreak } from '@openagenda/uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSquareCheck } from '@fortawesome/pro-solid-svg-icons';
 import { faSquare } from '@fortawesome/pro-regular-svg-icons';
+import defaultStyle from 'utils/defaultStyle';
+import defaultSize from 'utils/defaultSize';
 import { thumborLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import LockIcon from 'components/LockIcon';
@@ -14,8 +16,6 @@ const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 
 function Label({ field }) {
   const intl = useIntl();
-  const theme = useTheme();
-  const grayColor = theme.colors.oaGray[500];
 
   return (
     <div>
@@ -24,19 +24,25 @@ function Label({ field }) {
           {field.value ? (
             <FontAwesomeIcon icon={faSquareCheck} />
           ) : (
-            <FontAwesomeIcon icon={faSquare} color={grayColor} />
+            <Box asChild color="oaGray.500">
+              <FontAwesomeIcon icon={faSquare} />
+            </Box>
           )}
         </chakra.span>
       )}
-      <chakra.span fontWeight="bold">{field.label}</chakra.span>
+      <chakra.span fontSize={defaultSize} fontWeight="bold">
+        {field.label}
+      </chakra.span>
       {field.isRestricted ? (
         <NoBreak>
           <LockIcon
             label={intl.formatMessage(messages.restrictedInformation)}
             ml="2"
             tooltipProps={{
-              bg: 'black',
-              color: 'white',
+              contentProps: {
+                css: { '--tooltip-bg': 'black' },
+                color: 'white',
+              },
             }}
           />
         </NoBreak>
@@ -45,9 +51,15 @@ function Label({ field }) {
   );
 }
 
-function LinkField({ field }) {
-  const intl = useIntl();
+function NoInput({ message = 'noInput' }) {
+  return (
+    <chakra.em color="oaGray.500" fontSize={defaultSize}>
+      {useIntl().formatMessage(messages[message])}
+    </chakra.em>
+  );
+}
 
+function LinkField({ field }) {
   const prefix = {
     phone: 'tel:',
     link: '',
@@ -64,49 +76,40 @@ function LinkField({ field }) {
       {field.value}
     </Link>
   ) : (
-    <chakra.em color="oaGray.500">
-      {intl.formatMessage(messages.noInput)}
-    </chakra.em>
+    <NoInput />
   );
 }
 
 function ImageField({ field }) {
-  const intl = useIntl();
-
   const { value } = field;
 
   return value ? (
-    <Image
-      src={
-        process.env.NODE_ENV === 'development'
-          ? `${DEV_S3_BUCKET}/${value.filename}`
-          : `${S3_BUCKET}/${value.filename}`
-      }
-      fallbackSrc={
-        process.env.NODE_ENV === 'development'
-          ? `${S3_BUCKET}/${value.filename}`
-          : undefined
-      }
-      fill
-      // Difficult to size because AdditionalFields
-      // is displayed on different parts
-      sizes="(max-width: 992px) 100vw, 66.67vw"
-      // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
-      pos="unset !important"
-      w="auto !important"
-      h="auto !important"
-      loader={thumborLoader}
-      alt=""
-    />
+    <Box asChild pos="unset !important" w="auto !important" h="auto !important">
+      <Image
+        src={
+          process.env.NODE_ENV === 'development'
+            ? `${DEV_S3_BUCKET}/${value.filename}`
+            : `${S3_BUCKET}/${value.filename}`
+        }
+        fallbackSrc={
+          process.env.NODE_ENV === 'development'
+            ? `${S3_BUCKET}/${value.filename}`
+            : undefined
+        }
+        fill
+        // Difficult to size because AdditionalFields
+        // is displayed on different parts
+        sizes="(max-width: 992px) 100vw, 66.67vw"
+        loader={thumborLoader}
+        alt=""
+      />
+    </Box>
   ) : (
-    <chakra.em color="oaGray.500">
-      {intl.formatMessage(messages.noImage)}
-    </chakra.em>
+    <NoInput message="noImage" />
   );
 }
 
 function FileField({ field }) {
-  const intl = useIntl();
   const { value } = field;
 
   return value ? (
@@ -120,62 +123,47 @@ function FileField({ field }) {
       {value.originalName}
     </Link>
   ) : (
-    <chakra.em color="oaGray.500">
-      {intl.formatMessage(messages.noFile)}
-    </chakra.em>
+    <NoInput message="noFile" />
   );
 }
 
 function HtmlField({ field }) {
-  const intl = useIntl();
-
   return field.value ? (
-    <div dangerouslySetInnerHTML={{ __html: field.value }} />
+    <chakra.div
+      css={defaultStyle}
+      dangerouslySetInnerHTML={{ __html: field.value }}
+    />
   ) : (
-    <chakra.em color="oaGray.500">
-      {intl.formatMessage(messages.noInput)}
-    </chakra.em>
+    <NoInput />
   );
 }
 
 function BooleanField({ field }) {
-  const intl = useIntl();
   const { value } = field;
 
   if (value === true || value === false) {
     return null;
   }
 
-  return (
-    value || (
-      <chakra.em color="oaGray.500">
-        {intl.formatMessage(messages.noInput)}
-      </chakra.em>
-    )
-  );
+  return value || <NoInput />;
 }
 
 function OptionedField({ field }) {
   const intl = useIntl();
-
   return field.value?.length ? (
-    <>{intl.formatList(field.value, { style: 'narrow' })}</>
+    <chakra.div css={defaultStyle}>
+      {intl.formatList(field.value, { style: 'narrow' })}
+    </chakra.div>
   ) : (
-    <chakra.em color="oaGray.500">
-      {intl.formatMessage(messages.noSelection)}
-    </chakra.em>
+    <NoInput message="noSelection" />
   );
 }
 
 function DefaultField({ field }) {
-  const intl = useIntl();
-
-  return field.value ? 
-    field.value
-   : (
-    <chakra.em color="oaGray.500">
-      {intl.formatMessage(messages.noInput)}
-    </chakra.em>
+  return field.value ? (
+    <chakra.div css={defaultStyle}>{field.value}</chakra.div>
+  ) : (
+    <NoInput />
   );
 }
 

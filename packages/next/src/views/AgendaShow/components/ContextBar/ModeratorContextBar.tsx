@@ -1,14 +1,8 @@
 import { Fragment } from 'react';
 import qs from 'qs';
 import { useIntl } from 'react-intl';
-import {
-  chakra,
-  Button,
-  IconButton,
-  Spacer,
-  Link,
-  Tooltip,
-} from '@openagenda/uikit';
+import { chakra, Button, IconButton, Spacer, Link } from '@openagenda/uikit';
+import { Tooltip } from '@openagenda/uikit/snippets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGears } from '@fortawesome/pro-solid-svg-icons';
 import StateTag from 'components/StateTag';
@@ -28,60 +22,62 @@ export default function ModeratorContextBar({ agenda, states }) {
 
   return (
     <>
-      {!states.length
-        ? intl.formatMessage(messages.empty)
-        : (
-          <>
-            <chakra.span display={{ base: 'none', md: 'inline-flex' }}>
-              {intl.formatMessage(messages.events)}&nbsp;
-            </chakra.span>
-            {states.map(({ key, eventCount }, index, arr) => (
-              <Fragment key={key}>
-                <Link
-                  href={`/${agenda.slug}/admin/events?${qs.stringify({ 'q.state': [key] })}`}
-                  fontWeight="bold"
+      {!states.length ? 
+        intl.formatMessage(messages.empty)
+       : (
+        <>
+          <chakra.span display={{ base: 'none', md: 'inline-flex' }}>
+            {intl.formatMessage(messages.events)}&nbsp;
+          </chakra.span>
+          {states.map(({ key, eventCount }, index, arr) => (
+            <Fragment key={key}>
+              <Link
+                href={`/${agenda.slug}/admin/events?${qs.stringify({ 'q.state': [key] })}`}
+                color="white"
+                fontWeight="bold"
+                textDecorationColor="white"
+              >
+                <Tooltip
+                  content={intl.formatMessage(messages[stateToSlug[key]], {
+                    count: eventCount,
+                  })}
+                  showArrow
+                  openDelay={0}
+                  closeDelay={0}
                 >
-                  <Tooltip
-                    hasArrow
-                    label={intl.formatMessage(messages[stateToSlug[key]], {
-                      count: eventCount,
-                    })}
-                  >
-                    <chakra.span
-                      display={{ base: 'inline-flex', md: 'none' }}
-                      verticalAlign="middle"
-                      alignItems="center"
-                    >
-                      <StateTag state={key} />
-                    &nbsp;{intl.formatNumber(eventCount)}
-                    </chakra.span>
-                  </Tooltip>
                   <chakra.span
-                    display={{ base: 'none', md: 'inline-flex' }}
+                    display={{ base: 'inline-flex', md: 'none' }}
                     verticalAlign="middle"
                     alignItems="center"
                   >
                     <StateTag state={key} />
-                  &nbsp;
-                    {intl.formatMessage(messages[stateToSlug[key]], {
-                      count: eventCount,
-                    })}
+                    &nbsp;{intl.formatNumber(eventCount)}
                   </chakra.span>
-                </Link>
-                {index < arr.length - 1 ? wordSeparator : null}
-              </Fragment>
-            ))}
-          </>
-        )}
+                </Tooltip>
+                <chakra.span
+                  display={{ base: 'none', md: 'inline-flex' }}
+                  verticalAlign="middle"
+                  alignItems="center"
+                >
+                  <StateTag state={key} />
+                  &nbsp;
+                  {intl.formatMessage(messages[stateToSlug[key]], {
+                    count: eventCount,
+                  })}
+                </chakra.span>
+              </Link>
+              {index < arr.length - 1 ? wordSeparator : null}
+            </Fragment>
+          ))}
+        </>
+      )}
       <Spacer />
       <Button
-        as={Link}
-        href={`/${agenda.slug}/admin/events`}
-        leftIcon={<FontAwesomeIcon icon={faGears} />}
+        asChild
         display={{ base: 'none', md: 'flex' }}
         minW="auto"
         variant="outline"
-        colorScheme="white"
+        color="white"
         _hover={{
           bg: 'white',
           borderColor: 'white',
@@ -89,23 +85,28 @@ export default function ModeratorContextBar({ agenda, states }) {
           textDecoration: 'none',
         }}
       >
-        <chakra.span>{intl.formatMessage(messages.manage)}</chakra.span>
+        <Link unstyled href={`/${agenda.slug}/admin/events`}>
+          <FontAwesomeIcon icon={faGears} />
+          <chakra.span>{intl.formatMessage(messages.manage)}</chakra.span>
+        </Link>
       </Button>
       <IconButton
-        as={Link}
-        href={`/${agenda.slug}/admin/events`}
-        icon={<FontAwesomeIcon icon={faGears} />}
+        asChild
         aria-label={intl.formatMessage(messages.manage)}
         display={{ base: 'flex', md: 'none' }}
         variant="outline"
-        colorScheme="white"
+        color="white"
         _hover={{
           bg: 'white',
           borderColor: 'white',
           color: 'primary.500',
           textDecoration: 'none',
         }}
-      />
+      >
+        <Link unstyled href={`/${agenda.slug}/admin/events`}>
+          <FontAwesomeIcon icon={faGears} />
+        </Link>
+      </IconButton>
     </>
   );
 }

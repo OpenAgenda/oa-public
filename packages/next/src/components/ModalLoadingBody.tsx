@@ -1,11 +1,12 @@
-import { Center, ModalBody, Spinner } from '@openagenda/uikit';
+import { Center, Spinner } from '@openagenda/uikit';
+import { DialogBody } from '@openagenda/uikit/snippets';
 
 export default function ModalLoadingBody() {
   return (
-    <ModalBody pb="4">
+    <DialogBody>
       <Center h="100px">
         <Spinner size="xl" />
       </Center>
-    </ModalBody>
+    </DialogBody>
   );
 }

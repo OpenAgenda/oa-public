@@ -25,20 +25,18 @@ export default function ValueTag({ label, title = null, onRemove, disabled }) {
 
   return (
     <Button
-      rightIcon={<FontAwesomeIcon icon={faXmark} />}
       size="sm"
       borderRadius="full"
-      variant="solid"
-      colorScheme="primary"
+      colorPalette="primary"
       title={titleLabel}
       onClick={onRemove}
-      isDisabled={disabled}
+      disabled={disabled}
       lineHeight="none"
       h="6"
       px="2"
-      iconSpacing="2"
     >
       {getLocaleValue(label, intl.locale)}
+      <FontAwesomeIcon icon={faXmark} />
     </Button>
   );
 }

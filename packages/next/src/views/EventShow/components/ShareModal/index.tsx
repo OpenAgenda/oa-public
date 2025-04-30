@@ -1,66 +1,17 @@
-import { useCallback } from 'react';
+import { useCallback, useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import {
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  Tab,
-  TabList,
-  Tabs,
-  TabPanels,
-  TabPanel,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+} from '@openagenda/uikit/snippets';
 import { FetchStatus } from 'config/types';
 import useUser from 'hooks/useUser';
 import ModalLoadingBody from 'components/ModalLoadingBody';
 import { shareModal as messages } from '../../messages';
-import ShareOnOA from './ShareOnOA';
-import UnloggedBody from './UnloggedBody';
-import OtherShares from './OtherShares';
-
-function ShareModalBody({
-  agenda,
-  event,
-  contentLocale,
-  onClose,
-  onEmailSent,
-}) {
-  const intl = useIntl();
-  const { user } = useUser();
-
-  return (
-    <ModalBody p="0">
-      <Tabs isLazy colorScheme="primary" defaultIndex={0}>
-        {event.state === 2 ? (
-          <TabList>
-            <Tab flex="1">{intl.formatMessage(messages.onOA)}</Tab>
-            <Tab flex="1">{intl.formatMessage(messages.others)}</Tab>
-          </TabList>
-        ) : null}
-        <TabPanels>
-          <TabPanel>
-            {user ? (
-              <ShareOnOA agenda={agenda} event={event} />
-            ) : (
-              <UnloggedBody />
-            )}
-          </TabPanel>
-          <TabPanel>
-            <OtherShares
-              contentLocale={contentLocale}
-              onClose={onClose}
-              onEmailSent={onEmailSent}
-            />
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </ModalBody>
-  );
-}
+import Body from './Body';
 
 export default function ShareModal({
   isOpen,
@@ -69,10 +20,14 @@ export default function ShareModal({
   event,
   contentLocale,
   onEmailSent,
+  defaultValue = 'on-oa',
+  children = null,
 }) {
   const intl = useIntl();
   const router = useRouter();
   const { status } = useUser();
+
+  const dialogRef = useRef<HTMLDivElement>(null);
 
   // Remove sharemodal=1 from url
   const onClose = useCallback(() => {
@@ -85,38 +40,29 @@ export default function ShareModal({
   }, [originalOnClose, router]);
 
   return (
-    <Modal
-      size="xl"
-      // isCentered
-      // scrollBehavior="inside"
-      isOpen={isOpen}
-      onClose={onClose}
-    >
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader
-          sx={{
-            ':has(> .chakra-modal__close-btn)': {
-              pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-            },
-          }}
-        >
-          {intl.formatMessage(messages.share)}
-          <ModalCloseButton />
-        </ModalHeader>
+    <DialogRoot size="md" open={isOpen} onOpenChange={onClose}>
+      <DialogContent ref={dialogRef}>
+        <DialogHeader fontSize="xl" fontWeight="semibold">
+          {intl.formatMessage(messages.shareEvent)}
+        </DialogHeader>
+        <DialogCloseTrigger />
 
         {status === FetchStatus.Fetching ? (
           <ModalLoadingBody />
         ) : (
-          <ShareModalBody
+          <Body
+            dialogRef={dialogRef}
             agenda={agenda}
             event={event}
             contentLocale={contentLocale}
             onClose={onClose}
             onEmailSent={onEmailSent}
-          />
+            defaultValue={defaultValue}
+          >
+            {children}
+          </Body>
         )}
-      </ModalContent>
-    </Modal>
+      </DialogContent>
+    </DialogRoot>
   );
 }

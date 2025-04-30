@@ -1,4 +1,5 @@
-import { Badge, Tooltip } from '@openagenda/uikit';
+import { Badge } from '@openagenda/uikit';
+import { Tooltip } from '@openagenda/uikit/snippets';
 
 import messages from '@openagenda/common-labels/event/statuses';
 
@@ -6,39 +7,44 @@ const map = [
   {
     id: 1,
     slug: 'scheduled',
-    colorScheme: 'green',
+    colorPalette: 'green',
   },
   {
     id: 2,
     slug: 'rescheduled',
-    colorScheme: 'warning',
+    colorPalette: 'warning',
   },
   {
     id: 3,
     slug: 'movedOnline',
-    colorScheme: 'warning',
+    colorPalette: 'warning',
   },
   {
     id: 4,
     slug: 'postponed',
-    colorScheme: 'warning',
+    colorPalette: 'warning',
   },
   {
     id: 5,
     slug: 'full',
-    colorScheme: 'red',
+    colorPalette: 'red',
   },
   {
     id: 6,
     slug: 'cancelled',
-    colorScheme: 'red',
+    colorPalette: 'red',
   },
 ];
 
 export function EventStatusBadge({ intl, status }) {
-  const { slug, colorScheme } = map.find((i) => i.id === status);
+  const { slug, colorPalette } = map.find((i) => i.id === status);
   return (
-    <Badge colorScheme={colorScheme} variant="solid" mr="2" py="0.75">
+    <Badge
+      colorPalette={colorPalette}
+      variant="solid"
+      mr="2"
+      verticalAlign="middle"
+    >
       {intl.formatMessage(messages[slug])}
     </Badge>
   );
@@ -48,8 +54,10 @@ export function EventStatusTooltip({ intl, status, children }) {
   const { slug } = map.find((i) => i.id === status);
   return (
     <Tooltip
-      isDisabled={status === 1}
-      label={intl.formatMessage(messages[`${slug}Info`])}
+      disabled={status === 1}
+      content={intl.formatMessage(messages[`${slug}Info`])}
+      openDelay={0}
+      closeDelay={0}
     >
       {children}
     </Tooltip>

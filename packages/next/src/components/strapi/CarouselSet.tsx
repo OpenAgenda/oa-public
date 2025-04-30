@@ -12,7 +12,7 @@ interface CarouselSetProps {
   title?: string;
   description?: string;
   Components: Array<any>;
-  colorScheme?: Color;
+  colorPalette?: Color;
   backgroundColor?: string;
   gradient?: boolean;
   fontColor?: string;
@@ -29,7 +29,7 @@ export default function CarouselSet({
   title = null,
   description,
   Components,
-  colorScheme,
+  colorPalette,
   backgroundColor,
   gradient,
   fontColor,
@@ -69,7 +69,7 @@ export default function CarouselSet({
         Components={Components}
         backgroundColor={carouselBgColor}
         gradient={gradient}
-        colorScheme={colorScheme}
+        colorPalette={colorPalette}
         variant={variant}
         width={width || { name: 'full' }}
         borderRadius={borderRadius || '2xl'}

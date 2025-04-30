@@ -26,7 +26,7 @@ export interface ComponentsCtaButton extends Struct.ComponentSchema {
     displayName: 'CTAButton';
   };
   attributes: {
-    colorScheme: Schema.Attribute.Relation<
+    colorPalette: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
     >;
@@ -208,7 +208,7 @@ export interface SegmentsCarouselSet extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
-    colorScheme: Schema.Attribute.Relation<
+    colorPalette: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
     >;

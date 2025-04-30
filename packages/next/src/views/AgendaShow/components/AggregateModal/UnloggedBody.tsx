@@ -1,6 +1,7 @@
 import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
-import { Button, ModalBody, ModalFooter, Text, Link } from '@openagenda/uikit';
+import { Button, Text, Link } from '@openagenda/uikit';
+import { DialogBody, DialogFooter } from '@openagenda/uikit/snippets';
 import base64 from 'utils/base64';
 import Description from './Description';
 import messages from './messages';
@@ -15,19 +16,20 @@ export default function UnloggedBody({ agenda }) {
 
   return (
     <>
-      <ModalBody>
+      <DialogBody>
         <Description agenda={agenda} />
         <Text>{intl.formatMessage(messages.shouldConnect)}</Text>
-      </ModalBody>
-      <ModalFooter>
-        <Button
-          as={Link}
-          href={`/${agenda.slug}/signin?redirect=${redirectUrlPart}`}
-          colorScheme="primary"
-        >
-          {intl.formatMessage(messages.signin)}
+      </DialogBody>
+      <DialogFooter>
+        <Button asChild>
+          <Link
+            unstyled
+            href={`/${agenda.slug}/signin?redirect=${redirectUrlPart}`}
+          >
+            {intl.formatMessage(messages.signin)}
+          </Link>
         </Button>
-      </ModalFooter>
+      </DialogFooter>
     </>
   );
 }

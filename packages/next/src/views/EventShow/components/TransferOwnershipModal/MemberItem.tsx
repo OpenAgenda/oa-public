@@ -17,25 +17,27 @@ export default function MemberItem({ member, email = null, onTransfer }) {
       <div>
         <HStack>
           <Text fontWeight="bold">
-            {member.name
-              || member.user?.fullName
-              || intl.formatMessage(messages.nameless)}
+            {member.name ||
+              member.user?.fullName ||
+              intl.formatMessage(messages.nameless)}
           </Text>
           <Text color="oaGray.500">
             {intl.formatMessage(roleMessages[member.role])}
           </Text>
-          {!member.userUid ? (
-            <Tag
+          {true || !member.userUid ? (
+            <Tag.Root
               borderRadius="full"
               variant="outline"
-              colorScheme="primary"
               fontWeight="bold"
               size="sm"
               fontSize="sm"
               lineHeight="1"
             >
-              Invité
-            </Tag>
+              <Tag.Label>
+                {/* TODO translate */}
+                Invité
+              </Tag.Label>
+            </Tag.Root>
           ) : null}
         </HStack>
 
@@ -46,8 +48,9 @@ export default function MemberItem({ member, email = null, onTransfer }) {
 
       <Button
         onClick={() =>
-          onTransfer({ userUid: member.userUid, email: memberEmail })}
-        colorScheme="primary"
+          onTransfer({ userUid: member.userUid, email: memberEmail })
+        }
+        ml="4"
       >
         {intl.formatMessage(messages.transfer)}
       </Button>

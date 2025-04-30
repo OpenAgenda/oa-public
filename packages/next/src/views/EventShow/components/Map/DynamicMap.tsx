@@ -3,12 +3,15 @@ import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import type { MapContainerProps } from 'react-leaflet';
 import { useIntl } from 'react-intl';
 import L from 'leaflet';
-import { chakra } from '@openagenda/uikit';
+import shouldForwardProp from '@emotion/is-prop-valid';
+import { chakra, theme } from '@openagenda/uikit';
 import markerIconImg from '../../../../../public/images/markerIcon.png';
-import '@raruto/leaflet-gesture-handling';
+import '@openagenda/leaflet-gesture-handling';
 
 import 'leaflet/dist/leaflet.css';
-import '@raruto/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
+import '@openagenda/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
+
+const { isValidProperty } = theme;
 
 const MAP_TILES = process.env.NEXT_PUBLIC_MAP_TILES;
 
@@ -21,12 +24,25 @@ type MapProps = MapContainerProps & {
   };
 };
 
-const StyledMapContainer = chakra(MapContainer, {
-  baseStyle: {
-    w: 'full',
-    h: 'full',
+const StyledMapContainer = chakra(
+  MapContainer,
+  {
+    base: {
+      w: 'full',
+      h: 'full',
+    },
   },
-});
+  {
+    shouldForwardProp(prop: string, variantKeys: string[]) {
+      // zoom is a valid css prop and should be handled by react-leaflet
+      if (prop === 'zoom') {
+        return true;
+      }
+      const chakraSfp = !variantKeys?.includes(prop) && !isValidProperty(prop);
+      return shouldForwardProp(prop) || chakraSfp;
+    },
+  },
+);
 
 const markerIcon = new L.Icon({
   iconUrl: markerIconImg.src,

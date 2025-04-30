@@ -311,7 +311,7 @@
       "value": "Statut:"
     }
   ],
-  "next.views.EventShow.ContextBar.suggestLocaitonChange": [
+  "next.views.EventShow.ContextBar.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggérer une modification sur le lieu"
@@ -543,12 +543,6 @@
       "value": "Sur OpenAgenda"
     }
   ],
-  "next.views.EventShow.ShareModal.others": [
-    {
-      "type": 0,
-      "value": "Autres"
-    }
-  ],
   "next.views.EventShow.ShareModal.selectTiming": [
     {
       "type": 0,
@@ -559,12 +553,6 @@
     {
       "type": 0,
       "value": "Envoyer"
-    }
-  ],
-  "next.views.EventShow.ShareModal.share": [
-    {
-      "type": 0,
-      "value": "Partatjar"
     }
   ],
   "next.views.EventShow.ShareModal.shareByEmail": [
@@ -583,6 +571,12 @@
     {
       "type": 0,
       "value": "Importar dins un calendièr personal"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareEvent": [
+    {
+      "type": 0,
+      "value": "Partager l'événement"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [
@@ -699,7 +693,7 @@
       "value": " ans"
     }
   ],
-  "next.views.EventShow.SuggestLocationChangeButton.suggestLocaitonChange": [
+  "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
     {
       "type": 0,
       "value": "Suggérer une modification sur le lieu"

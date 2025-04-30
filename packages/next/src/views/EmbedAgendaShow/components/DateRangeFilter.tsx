@@ -3,13 +3,12 @@ import {
   DateRangeFilter as ReactFiltersDateRangeFilter,
   useFilterTitle,
 } from '@openagenda/react-filters';
+import { Button, useToken } from '@openagenda/uikit';
 import {
-  Button,
-  Popover,
-  PopoverContent,
+  PopoverRoot,
   PopoverTrigger,
-  useToken,
-} from '@openagenda/uikit';
+  PopoverContent,
+} from '@openagenda/uikit/snippets';
 import wrapFilter from 'views/AgendaShow/wrapFilter';
 import { FaIcon } from 'icons';
 import { faCalendar } from 'icons/light';
@@ -27,8 +26,15 @@ const DateRangeFilter = React.forwardRef<'div', any>(function DateRangeFilter(
   const primary500 = useToken('colors', 'primary.500');
 
   return (
-    <Popover matchWidth>
-      <PopoverTrigger>
+    <PopoverRoot
+      positioning={{
+        sameWidth: true,
+        gutter: 0,
+        overflowPadding: 0,
+        fitViewport: true,
+      }}
+    >
+      <PopoverTrigger asChild>
         <Button
           bg="white"
           borderColor="oaGray.300"
@@ -39,12 +45,12 @@ const DateRangeFilter = React.forwardRef<'div', any>(function DateRangeFilter(
           }}
           borderRadius="none"
           justifyContent="start"
-          leftIcon={<FaIcon size="xl" icon={faCalendar} />}
         >
+          <FaIcon size="xl" icon={faCalendar} />
           {title}
         </Button>
       </PopoverTrigger>
-      <PopoverContent width="inherit">
+      <PopoverContent borderTopRadius="0" width="inherit">
         <StyledDateRangeFilter
           ref={ref}
           forwardedFilter={filter}
@@ -59,7 +65,7 @@ const DateRangeFilter = React.forwardRef<'div', any>(function DateRangeFilter(
           }}
         />
       </PopoverContent>
-    </Popover>
+    </PopoverRoot>
   );
 });
 
