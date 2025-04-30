@@ -193,7 +193,7 @@ export default ({
       .catch(() => {
         setHasAccess(false);
       });
-  }, [settings, access]);
+  }, []);
 
   const onCheck = useCallback(() => {
     setModal(offerWasRejected ? 'unlink' : 'show');
