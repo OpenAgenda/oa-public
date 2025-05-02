@@ -2,7 +2,31 @@ import { defineRecipe } from '@chakra-ui/react';
 
 export const buttonRecipe = defineRecipe({
   variants: {
+    size: {
+      sm: {
+        h: '9',
+        minW: '9',
+        px: '3.5',
+        textStyle: 'sm',
+        gap: '2',
+        _icon: {
+          width: '4',
+          height: '4',
+        },
+      },
+    },
     variant: {
+      solid: {
+        bg: 'colorPalette.solid',
+        color: 'colorPalette.contrast',
+        borderColor: 'transparent',
+        _hover: {
+          bg: 'colorPalette.solid/90',
+        },
+        _expanded: {
+          bg: 'colorPalette.solid/90',
+        },
+      },
       link: {
         h: 'auto',
         fontSize: 'inherit',
