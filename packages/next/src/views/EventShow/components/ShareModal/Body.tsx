@@ -9,6 +9,7 @@ import ShareOnSocialNetworks from './ShareOnSocialNetworks';
 import ShareByEmail from './ShareByEmail';
 import ShareCalendar from './ShareCalendar';
 import ShareLink from './ShareLink';
+import DownloadPDF from './DownloadPDF';
 
 export default function Body({
   dialogRef,
@@ -64,6 +65,7 @@ export default function Body({
             eventUrl={eventUrl}
             contentLocale={contentLocale}
           />
+          <DownloadPDF agenda={agenda} event={event} />
           <ShareLink absUrl={eventUrl} />
         </AccordionRoot>
       </Bleed>

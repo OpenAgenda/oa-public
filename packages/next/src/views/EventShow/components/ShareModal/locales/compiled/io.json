@@ -1,0 +1,20 @@
+{
+  "next.views.EventShow.ShareModal.downloadButton": [
+    {
+      "type": 0,
+      "value": "Download"
+    }
+  ],
+  "next.views.EventShow.ShareModal.downloadPDF": [
+    {
+      "type": 0,
+      "value": "Download PDF"
+    }
+  ],
+  "next.views.EventShow.ShareModal.new": [
+    {
+      "type": 0,
+      "value": "NEW"
+    }
+  ]
+}

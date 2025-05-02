@@ -49,7 +49,7 @@ export default function AgendaItem({ agenda, targetAgenda, event }) {
           />
         </Box>
 
-        <Text fontSize="xl">
+        <Text fontSize="lg">
           {targetAgenda.title}
           {targetAgenda.official ? (
             <NoBreak>

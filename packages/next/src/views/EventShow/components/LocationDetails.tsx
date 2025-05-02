@@ -9,7 +9,6 @@ import {
   List,
   WrapItem,
   Wrap,
-  useBreakpointValue,
 } from '@openagenda/uikit';
 
 import {
@@ -30,7 +29,6 @@ import defaultStyle from 'utils/defaultStyle';
 import { faPhone, faChevronDown } from 'icons/solid';
 import { FALLBACK_LOCALE } from 'config/constants';
 import Image from 'components/Image';
-import canModifyLocation from '../utils/canModifyLocation';
 import messages from '../messages';
 
 import LocationHistory from './LocationHistory';
@@ -43,12 +41,12 @@ const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 export default function LocationDetails({
   location,
   agenda,
-  me,
+  canEdit,
+  displayAdminMenu,
+  displayEditAction,
   contentLocale,
 }) {
   const intl = useIntl();
-  const isMobile = useBreakpointValue({ base: true, md: false });
-  const { canEditEvent = false } = me?.authorizations ?? {};
 
   return (
     <div>
@@ -59,18 +57,11 @@ export default function LocationDetails({
         direction="column"
         gap="4"
         position="relative"
-        // mt="8"
-        // py="4"
         p="8"
         bg="white"
-        // border="1px solid"
-        // borderColor="oaGray.100"
         borderRadius="sm"
-        // _hover={{
-        //   borderColor: 'primary.500',
-        // }}
       >
-        {canEditEvent && !isMobile ? (
+        {displayAdminMenu ? (
           <MenuRoot>
             <MenuTrigger asChild>
               <FloatingButton>
@@ -80,7 +71,7 @@ export default function LocationDetails({
             </MenuTrigger>
             <MenuContent minW="3xs">
               <MenuItem asChild value="edit-location">
-                {canModifyLocation(me?.member, event, agenda) ? (
+                {canEdit ? (
                   <Link
                     unstyled
                     href={`/${agenda.slug}/admin/locations/${location.uid}/edit`}
@@ -102,28 +93,23 @@ export default function LocationDetails({
             </MenuContent>
           </MenuRoot>
         ) : null}
-        {!canEditEvent && !isMobile ? (
-          <>
-            {canModifyLocation(me?.member, event, agenda) ? (
-              <FloatingButton asChild>
-                <Link
-                  unstyled
-                  href={`/${agenda.slug}/admin/locations/${location.uid}/edit`}
-                >
-                  {intl.formatMessage(messages.editLocation)}
-                </Link>
-              </FloatingButton>
-            ) : (
-              <FloatingButton asChild>
-                <Link
-                  unstyled
-                  href={`/${agenda.slug}/locations/${location.agendaUid}.${location.uid}/suggest-change`}
-                >
-                  {intl.formatMessage(messages.suggestLocationChange)}
-                </Link>
-              </FloatingButton>
-            )}
-          </>
+        {displayEditAction ? (
+          <FloatingButton asChild>
+            <Link
+              unstyled
+              href={
+                canEdit
+                  ? `/${agenda.slug}/admin/locations/${location.uid}/edit`
+                  : `/${agenda.slug}/locations/${location.agendaUid}.${location.uid}/suggest-change`
+              }
+            >
+              {intl.formatMessage(
+                canEdit
+                  ? messages.editLocation
+                  : messages.suggestLocationChange,
+              )}
+            </Link>
+          </FloatingButton>
         ) : null}
 
         <div>

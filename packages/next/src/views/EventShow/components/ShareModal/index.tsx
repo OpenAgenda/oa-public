@@ -20,7 +20,7 @@ export default function ShareModal({
   event,
   contentLocale,
   onEmailSent,
-  defaultValue = 'on-oa',
+  defaultValue = null,
   children = null,
 }) {
   const intl = useIntl();

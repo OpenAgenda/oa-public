@@ -13,8 +13,9 @@ import fetchLocale7 from 'views/AgendaShow/components/AggregateModal/locales';
 import fetchLocale8 from 'views/AgendaShow/components/ContextBar/locales';
 import fetchLocale9 from 'views/AgendaShow/components/ExportModal/locales';
 import fetchLocale10 from 'views/AgendaShow/components/locales';
-import fetchLocale11 from 'views/EventShow/components/locales';
-import fetchLocale12 from 'views/EventShow/locales';
+import fetchLocale11 from 'views/EventShow/components/ShareModal/locales';
+import fetchLocale12 from 'views/EventShow/components/locales';
+import fetchLocale13 from 'views/EventShow/locales';
 
 export default async function fetchLocale(locale) {
   return Promise.all([
@@ -32,6 +33,7 @@ export default async function fetchLocale(locale) {
     fetchLocale10(locale),
     fetchLocale11(locale),
     fetchLocale12(locale),
+    fetchLocale13(locale),
   ])
     .then((results) => Object.assign({}, ...results))
     .catch((e) => {

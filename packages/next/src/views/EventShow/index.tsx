@@ -12,6 +12,7 @@ import {
   Link,
   Button,
   Tabs,
+  useBreakpointValue,
 } from '@openagenda/uikit';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
 import defaultStyle from 'utils/defaultStyle';
@@ -50,6 +51,7 @@ import EventImage from './components/EventImage';
 import LongDescription from './components/LongDescription';
 import * as additionalFieldsUtils from './utils/additionalFields';
 import getContentLocale from './utils/getContentLocale';
+import canModifyLocation from './utils/canModifyLocation';
 import useEvent from './hooks/useEvent';
 import useMember from './hooks/useMember';
 import useShareModal from './hooks/useShareModal';
@@ -133,6 +135,9 @@ function EventShow({ preload }: EventShowProps) {
   const isEventContributor = member && member.userUid === me?.member?.userUid;
 
   const displayContextBar = isEventContributor || isAdminMod(me?.member);
+
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const { canEditEvent = false } = me?.authorizations ?? {};
 
   return (
     <>
@@ -350,8 +355,10 @@ function EventShow({ preload }: EventShowProps) {
               <LocationDetails
                 location={event.location}
                 agenda={agenda}
-                me={me}
                 contentLocale={contentLocale}
+                displayAdminMenu={canEditEvent && !isMobile}
+                displayEditAction={!canEditEvent && !isMobile}
+                canEdit={canModifyLocation(me?.member, event, agenda)}
               />
             ) : null}
 
