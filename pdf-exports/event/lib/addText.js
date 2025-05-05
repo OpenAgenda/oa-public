@@ -83,13 +83,14 @@ function addTextSegment(doc, parentCursor, params = {}) {
   if (!simulate) {
     doc
       .fillColor(color ?? base.color)
-      .font(getSelectedFont(params)) // ???
-      .fontSize(getFontSize(fontSize, base)) // ???
+      .font(getSelectedFont(params))
+      .fontSize(getFontSize(fontSize, base))
       .text(value, cursor.x, cursor.y, {
         width: availableWidth,
         underline,
         link,
         align,
+        oblique: params.italic ? true : undefined,
       });
   }
 
