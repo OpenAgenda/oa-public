@@ -10,12 +10,12 @@ const __dirname = dirname(__filename);
 
 const getSelectedFont = ({ bold, medium }) => {
   if (bold) {
-    return `${__dirname}/../../fonts/Assistant-Bold.ttf`;
+    return `${__dirname}/../../fonts/Assistant-Bold-Emojied.ttf`;
   }
   if (medium) {
-    return `${__dirname}/../../fonts/Assistant-Medium.ttf`;
+    return `${__dirname}/../../fonts/Assistant-Medium-Emojied.ttf`;
   }
-  return `${__dirname}/../../fonts/Assistant-Regular.ttf`;
+  return `${__dirname}/../../fonts/Assistant-Regular-Emojied.ttf`;
 };
 
 const segmentableThreshold = 200;
