@@ -144,6 +144,7 @@ export default function addText(doc, parentCursor, params = {}) {
   }
 
   if (overflows && segmentable) {
+    log('Segmentable text overflows');
     const size = { width: 0, height: 0 };
 
     const segments = spreadTextIntoSegments(doc, {
@@ -160,6 +161,11 @@ export default function addText(doc, parentCursor, params = {}) {
       });
 
       if (size.height + segmentSize.height > availableHeight) {
+        log('segment size exceeds available height', {
+          cursorAt: size.height,
+          segmentSizeHeight: segmentSize.height,
+          availableHeight,
+        });
         return {
           ...size,
           remaining: segments.slice(index).join(' '),
@@ -174,6 +180,11 @@ export default function addText(doc, parentCursor, params = {}) {
       adjustSize(size, segmentSize);
       cursor.moveY(segmentSize.height);
     }
+
+    return {
+      ...size,
+      remaining: '',
+    };
   }
 
   return addTextSegment(doc, parentCursor, {

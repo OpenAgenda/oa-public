@@ -119,53 +119,49 @@ export default async function renderEvent(
     {
       field: 'location.description',
       fieldType: 'text',
-      omitLabel: false,
     },
   ]
     .map(loadItem)
     .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event));
 
-  const timingsColumn = [
-    {
-      field: 'timings',
-      fieldType: 'timings',
-      relatedValues: ['timezone'],
-    },
-  ]
-    .map(loadItem)
-    .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event));
-
-  return addMultipageSegments(
-    doc,
+  const segments = [
     [
-      [
-        {
-          width: 5,
-          padding: 0,
-          content: bodyColumn,
-          contentItemMargin: 5,
-        },
-        {
-          width: 3,
-          padding: 0,
-          content: sidebarColumn,
-          contentItemMargin: 5,
-        },
-      ],
-      [
-        {
-          width: 1,
-          padding: 0,
-          contentItemMargin: 5,
-          content: timingsColumn,
-        },
-      ],
+      {
+        width: 5,
+        padding: 0,
+        content: bodyColumn,
+        contentItemMargin: 5,
+      },
+      {
+        width: 3,
+        padding: 0,
+        content: sidebarColumn,
+        contentItemMargin: 5,
+      },
     ],
-    {
-      ...options,
-      addHeader: addHeader.bind(null, { agenda, event, padding: 10 }),
-    },
-  ).then(() => {
-    doc.end();
-  });
+  ];
+
+  if (event.timings.length > 1) {
+    segments.push([
+      {
+        width: 1,
+        padding: 0,
+        contentItemMargin: 5,
+        content: [
+          {
+            field: 'timings',
+            fieldType: 'timings',
+            relatedValues: ['timezone'],
+          },
+        ]
+          .map(loadItem)
+          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+      },
+    ]);
+  }
+
+  return addMultipageSegments(doc, segments, {
+    ...options,
+    addHeader: addHeader.bind(null, { agenda, event, padding: 10 }),
+  }).then(() => doc.end());
 }
