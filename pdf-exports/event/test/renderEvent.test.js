@@ -16,7 +16,7 @@ const pdfExports = PDFExports({});
 
 // Define fixture pairs to test
 const fixturePairs = [
-  /* {
+  {
     name: 'loiret',
     agenda: await readFx('loiret.agenda'),
     event: await readFx('withRegistrationLink.event'),
@@ -30,7 +30,7 @@ const fixturePairs = [
     name: 'withLocationImage',
     agenda: await readFx('withLocationImage.agenda'),
     event: await readFx('withLocationImage.event'),
-  }, */
+  },
   {
     name: 'online',
     agenda: await readFx('pciCorse.agenda'),
