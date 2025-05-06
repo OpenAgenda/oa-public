@@ -62,7 +62,11 @@ export default async function renderEvent(
       fieldType: 'text',
     },
     'description',
-    'image',
+    {
+      field: 'image',
+      fieldType: 'image',
+      relatedValues: [{ from: 'imageCredits', to: 'credits' }],
+    },
     {
       field: 'longDescription',
       fieldType: 'markdown',
@@ -107,18 +111,22 @@ export default async function renderEvent(
       field: 'location.name',
       fieldType: 'text',
       bold: true,
+      fontSize: '0.9em',
     },
     {
       field: 'location.address',
       fieldType: 'text',
+      fontSize: '0.9em',
     },
     {
       field: 'location.image',
       fieldType: 'image',
+      relatedValues: [{ from: 'location.imageCredits', to: 'credits' }],
     },
     {
       field: 'location.description',
       fieldType: 'text',
+      fontSize: '0.9em',
     },
   ]
     .map(loadItem)
@@ -130,13 +138,13 @@ export default async function renderEvent(
         width: 5,
         padding: 0,
         content: bodyColumn,
-        contentItemMargin: 5,
+        contentItemMargin: 3,
       },
       {
         width: 3,
-        padding: 0,
+        padding: 10,
         content: sidebarColumn,
-        contentItemMargin: 5,
+        contentItemMargin: 3,
       },
     ],
   ];
