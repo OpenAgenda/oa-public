@@ -1,7 +1,9 @@
 import sharp from 'sharp';
 import logs from '@openagenda/logs';
 import urlToBuffer from '../../utils/urlToBuffer.js';
+import addText from './addText.js';
 import Cursor from './Cursor.js';
+import adjustSize from './adjustSize.js';
 
 const log = logs('addImage');
 
@@ -53,6 +55,23 @@ const extractImageInfoFromValue = (value, defaultImagePath) => {
   };
 };
 
+function addCredits(doc, cursor, params) {
+  const { relatedValues } = params;
+
+  const credits = relatedValues?.credits;
+
+  if (!credits) {
+    return { height: 0, width: 0 };
+  }
+
+  return addText(doc, cursor, {
+    ...params,
+    value: relatedValues.credits,
+    fontSize: '0.8em',
+    align: 'right',
+  });
+}
+
 export default async function addImage(doc, parentCursor, params) {
   const {
     availableWidth,
@@ -77,12 +96,17 @@ export default async function addImage(doc, parentCursor, params) {
     throw new Error('base and paths are missing from value');
   }
 
+  const { height: creditsHeight } = addCredits(doc, cursor, {
+    ...params,
+    simulate: true,
+  });
+
   const buffer = await urlToBuffer(`${base}${filename}`);
 
   const adjustedSize = await getAdjustedSize(buffer, {
     size,
     firstOfColumn,
-    availableHeight,
+    availableHeight: availableHeight - creditsHeight,
     availableWidth,
   });
 
@@ -103,6 +127,8 @@ export default async function addImage(doc, parentCursor, params) {
         fit: [adjustedSize.width, adjustedSize.height],
       },
     );
+    cursor.moveY(adjustedSize.height);
+    adjustSize(adjustedSize, addCredits(doc, cursor, params));
   }
 
   return adjustedSize;

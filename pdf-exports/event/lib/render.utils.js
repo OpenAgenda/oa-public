@@ -39,9 +39,8 @@ export const mapToFieldValuePair = (
       ...label && { label },
     },
     value: params.value || _.get(event, fieldName),
-    relatedValues: (relatedValues ?? []).reduce(
-      (rv, f) => ({ ...rv, [f]: _.get(event, f) }),
-      {},
-    ),
+    relatedValues: (relatedValues ?? [])
+      .map((rv) => (typeof rv === 'string' ? { from: rv, to: rv } : rv))
+      .reduce((rv, f) => ({ ...rv, [f.to]: _.get(event, f.from) }), {}),
   };
 };
