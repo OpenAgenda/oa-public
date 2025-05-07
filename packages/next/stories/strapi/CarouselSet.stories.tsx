@@ -12,7 +12,7 @@ export function Carousel() {
   return (
     <CarouselSet
       title="Carousel"
-      colorScheme={{ name: 'teal', swatch: '500' }}
+      carouselBgColor={{ name: 'teal', swatch: '500' }}
       Components={[
         {
           id: 1,
@@ -101,7 +101,6 @@ export function Gradient() {
   return (
     <CarouselSet
       title="Gradient carousel"
-      colorScheme={{ name: 'primary', swatch: '500' }}
       variant="outline"
       carouselBgColor={{ name: 'primary', swatch: '500' }}
       gradient={true}
