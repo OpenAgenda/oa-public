@@ -13,7 +13,7 @@ export default async function addTimings(doc, parentCursor, params = {}) {
     availableWidth,
     availableHeight,
     margins = {
-      monthSegments: { bottom: 5, right: 10 },
+      monthSegments: { bottom: 15, right: 30 },
     },
   } = params;
 
