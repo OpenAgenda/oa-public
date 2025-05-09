@@ -16,7 +16,7 @@ export const additionalFieldValues = (schemaFields, values) =>
     .map((field) => ({
       field,
       value: values[field.field],
-      displayLabelIfUnset: false,
+      displayLabelIfUnset: true,
     }));
 
 export const mapToFieldValuePair = (
