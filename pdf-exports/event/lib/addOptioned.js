@@ -7,13 +7,16 @@ import messages from './messages.js';
 export default async function addOptioned(doc, cursor, params = {}) {
   const {
     field,
-    value,
     lang,
     simulate,
     availableWidth = doc.page.width,
     availableHeight,
     assessHeight = true,
   } = params;
+
+  const value = []
+    .concat(params.value)
+    .filter((v) => ![null, undefined].includes(v));
 
   const intl = getIntl(lang);
 
@@ -31,7 +34,7 @@ export default async function addOptioned(doc, cursor, params = {}) {
   const localCursor = Cursor(cursor);
   const blockSize = { height: 0, width: 0 };
 
-  if (!value?.length) {
+  if (!value.length) {
     const noSelectionBlock = await addText(doc, localCursor, {
       content: intl.formatMessage(messages.noSelection),
       width: availableWidth,
