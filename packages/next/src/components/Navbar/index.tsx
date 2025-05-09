@@ -3,6 +3,7 @@ import { useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
 import { chakra, Box, Container, Flex } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
+import defaultSize from 'utils/defaultSize';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/NavbarSearchInput';
 import Image from 'components/Image';
@@ -45,6 +46,7 @@ export default function Navbar() {
       flexDirection="column"
       bg="white"
       boxShadow="xs"
+      fontSize={defaultSize}
     >
       <Container maxW="7xl" px={0}>
         <Flex justify="space-between" h="50px" align="stretch">

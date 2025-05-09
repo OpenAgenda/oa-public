@@ -1,6 +1,7 @@
 import useSWR from 'swr';
 import { Flex, Collapsible } from '@openagenda/uikit';
 import { FetchStatus } from 'config/types';
+import defaultSize from 'utils/defaultSize';
 import isAdminMod from '../../../../utils/isAdminMod';
 import ContributorContextBar from './ContributorContextBar';
 import ModeratorContextBar from './ModeratorContextBar';
@@ -21,7 +22,14 @@ export default function ContextBar({ agenda }) {
   return (
     <Collapsible.Root open>
       <Collapsible.Content>
-        <Flex minH="50px" px="6" bg="primary.500" align="center" color="white">
+        <Flex
+          minH="50px"
+          px="6"
+          bg="primary.500"
+          align="center"
+          color="white"
+          fontSize={defaultSize}
+        >
           <VisibilityContextBar agenda={agenda} />
           {isAdminMod(me.member) ? (
             <ModeratorContextBar
