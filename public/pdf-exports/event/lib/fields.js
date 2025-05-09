@@ -79,10 +79,11 @@ export const locationGroup = (location) =>
       field: 'location.description',
       fieldType: 'text',
     },
-    Object.keys(location.access ?? {}).length && {
+    {
       field: 'location.access',
       fieldType: 'text',
       omitLabel: false,
+      displayLabelIfUnset: false,
     },
     ['website', 'phone', 'email'].filter((f) => !!location[f]).length && {
       fieldType: 'text',
