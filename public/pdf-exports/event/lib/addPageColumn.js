@@ -21,6 +21,8 @@ import rtd from './roundToDecimal.js';
 const addFunctions = {
   text: addText,
   link: addLink,
+  phone: addLink.phone,
+  email: addLink.email,
   image: addImage,
   markdown: addMarkdown,
   select: addOptioned,

@@ -10,6 +10,8 @@ import {
   mapToFieldValuePair,
 } from './lib/render.utils.js';
 
+import { locationGroup } from './lib/fields.js';
+
 const log = logs('eventRender');
 
 export default async function renderEvent(
@@ -101,34 +103,8 @@ export default async function renderEvent(
       field: 'registration',
       fieldType: 'registration',
     },
-    {
-      fieldType: 'text',
-      value: 'À propos du lieu',
-      bold: true,
-      fontSize: '1.2em',
-    },
-    {
-      field: 'location.name',
-      fieldType: 'text',
-      bold: true,
-      fontSize: '0.9em',
-    },
-    {
-      field: 'location.address',
-      fieldType: 'text',
-      fontSize: '0.9em',
-    },
-    {
-      field: 'location.image',
-      fieldType: 'image',
-      relatedValues: [{ from: 'location.imageCredits', to: 'credits' }],
-    },
-    {
-      field: 'location.description',
-      fieldType: 'text',
-      fontSize: '0.9em',
-    },
   ]
+    .concat(locationGroup)
     .map(loadItem)
     .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event));
 
