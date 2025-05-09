@@ -1,16 +1,21 @@
 import logs from '@openagenda/logs';
 import PDFDocument from 'pdfkit';
 import addMultipageSegments from './lib/addMultipageSegments.js';
-import roundToDecimal from './lib/roundToDecimal.js';
+import rtd from './lib/roundToDecimal.js';
 import addHeader from './lib/addHeader.js';
 
 import {
   loadItem,
   additionalFieldValues,
   mapToFieldValuePair,
+  extractAndFlattenSchemaFields,
 } from './lib/render.utils.js';
 
-import { locationGroup } from './lib/fields.js';
+import {
+  locationGroup,
+  mainGroup,
+  conditionsAndRegistrationGroup,
+} from './lib/fields.js';
 
 const log = logs('eventRender');
 
@@ -25,108 +30,36 @@ export default async function renderEvent(
     layout: 'portrait',
     margin: 7,
   });
-
-  log(
-    'created page w:%s,h:%s',
-    roundToDecimal(doc.page.width),
-    roundToDecimal(doc.page.height),
-  );
-
-  const agendaFlatSchemaFields = agenda.schema.fields.reduce(
-    (flatFields, field) =>
-      (field.schema
-        ? flatFields.concat(
-          field.schema.fields.map((f) => ({
-            ...f,
-            field: `${field.field}.${f.field}`,
-          })),
-        )
-        : flatFields.concat(field)),
-    [],
-  );
-
   doc.pipe(writeStream);
 
-  const bodyColumn = [
-    {
-      field: 'status',
-      fieldType: 'select',
-      hideIfIn: [1],
-    },
-    {
-      field: 'title',
-      fieldType: 'text',
-      fontSize: '1.4em',
-      bold: true,
-    },
-    {
-      field: 'dateRange',
-      fieldType: 'text',
-    },
-    'description',
-    {
-      field: 'image',
-      fieldType: 'image',
-      relatedValues: [{ from: 'imageCredits', to: 'credits' }],
-    },
-    {
-      field: 'longDescription',
-      fieldType: 'markdown',
-    },
-  ]
-    .map(loadItem)
-    .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event))
-    .concat(additionalFieldValues(agendaFlatSchemaFields, event));
+  log('created page w:%s,h:%s', rtd(doc.page.width), rtd(doc.page.height));
 
-  const sidebarColumn = [
-    {
-      field: 'uid',
-      fieldType: 'qr',
-      value: `https//openagenda.com/agendas/${agenda.uid}/events/${event.uid}`,
-      size: 80,
-    },
-    {
-      field: 'attendanceMode',
-      omitLabel: false,
-      hideIfIn: [1],
-    },
-    {
-      field: 'onlineAccessLink',
-      omitLabel: false,
-      displayLabelIfUnset: false,
-    },
-    {
-      field: 'conditions',
-      fieldType: 'text',
-    },
-    {
-      field: 'registration',
-      fieldType: 'registration',
-    },
-  ]
-    .concat(locationGroup)
-    .map(loadItem)
-    .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event));
+  const agendaFlatSchemaFields = extractAndFlattenSchemaFields(agenda.schema);
 
-  const segments = [
-    [
-      {
-        width: 5,
-        padding: 0,
-        content: bodyColumn,
-        contentItemMargin: 3,
-      },
-      {
-        width: 3,
-        padding: 10,
-        content: sidebarColumn,
-        contentItemMargin: 3,
-      },
-    ],
-  ];
+  const main = {
+    width: 5,
+    padding: 0,
+    contentItemMargin: 3,
+    content: mainGroup
+      .map(loadItem)
+      .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event))
+      .concat(additionalFieldValues(agendaFlatSchemaFields, event)),
+  };
+
+  const sidebar = {
+    width: 3,
+    padding: 10,
+    contentItemMargin: 3,
+    content: conditionsAndRegistrationGroup({ agenda, event })
+      .concat(locationGroup)
+      .map(loadItem)
+      .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+  };
+
+  const eventDocumentSegments = [[main, sidebar]];
 
   if (event.timings.length > 1) {
-    segments.push([
+    eventDocumentSegments.push([
       {
         width: 1,
         padding: 0,
@@ -144,7 +77,7 @@ export default async function renderEvent(
     ]);
   }
 
-  return addMultipageSegments(doc, segments, {
+  return addMultipageSegments(doc, eventDocumentSegments, {
     ...options,
     addHeader: addHeader.bind(null, { agenda, event, padding: 10 }),
   }).then(() => doc.end());
