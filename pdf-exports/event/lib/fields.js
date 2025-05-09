@@ -1,3 +1,58 @@
+export const mainGroup = [
+  {
+    field: 'status',
+    fieldType: 'select',
+    hideIfIn: [1],
+  },
+  {
+    field: 'title',
+    fieldType: 'text',
+    fontSize: '1.4em',
+    bold: true,
+  },
+  {
+    field: 'dateRange',
+    fieldType: 'text',
+  },
+  'description',
+  {
+    field: 'image',
+    fieldType: 'image',
+    relatedValues: [{ from: 'imageCredits', to: 'credits' }],
+  },
+  {
+    field: 'longDescription',
+    fieldType: 'markdown',
+  },
+];
+
+export const conditionsAndRegistrationGroup = ({ agenda, event }) => [
+  {
+    field: 'uid',
+    fieldType: 'qr',
+    value: `https//openagenda.com/agendas/${agenda.uid}/events/${event.uid}`,
+    size: 80,
+  },
+  {
+    field: 'attendanceMode',
+    omitLabel: false,
+    hideIfIn: [1],
+  },
+  {
+    field: 'onlineAccessLink',
+    omitLabel: false,
+    displayLabelIfUnset: false,
+  },
+  {
+    field: 'conditions',
+    fieldType: 'text',
+  },
+  {
+    field: 'registration',
+    fieldType: 'registration',
+  },
+];
+
 export const locationGroup = [
   {
     fieldType: 'text',
