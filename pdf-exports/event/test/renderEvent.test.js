@@ -36,6 +36,11 @@ const fixturePairs = [
     agenda: await readFx('pciCorse.agenda'),
     event: await readFx('onlineAttendance.event'),
   },
+  {
+    name: 'detailedLocation',
+    agenda: await readFx('ndm.agenda'),
+    event: await readFx('detailedLocation.event'),
+  },
 ];
 
 // Generate PDFs for each fixture pair
