@@ -44,3 +44,17 @@ export const mapToFieldValuePair = (
       .reduce((rv, f) => ({ ...rv, [f.to]: _.get(event, f.from) }), {}),
   };
 };
+
+export const extractAndFlattenSchemaFields = (schema) =>
+  schema.fields.reduce(
+    (flatFields, field) =>
+      (field.schema
+        ? flatFields.concat(
+          field.schema.fields.map((f) => ({
+            ...f,
+            field: `${field.field}.${f.field}`,
+          })),
+        )
+        : flatFields.concat(field)),
+    [],
+  );
