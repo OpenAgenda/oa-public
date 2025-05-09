@@ -51,7 +51,7 @@ export default async function renderEvent(
     padding: 10,
     contentItemMargin: 3,
     content: conditionsAndRegistrationGroup({ agenda, event })
-      .concat(locationGroup)
+      .concat(event.location ? locationGroup(event.location) : [])
       .map(loadItem)
       .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
   };
