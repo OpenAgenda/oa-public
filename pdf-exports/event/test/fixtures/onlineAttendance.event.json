@@ -11,18 +11,6 @@
     "end": "2026-03-31T23:59:00.000+02:00",
     "begin": "2026-03-31T00:00:00.000+02:00"
   },
-  "member": {
-    "uid": 90905063,
-    "role": 1,
-    "phone": "0672367282",
-    "organization": "Association loi 1901 Ecole de croisière Voile Performance",
-    "name": "Charles Viale",
-    "position": "Présidente",
-    "email": "viale.charlespaul@live.fr",
-    "_agg": "eyJ1aWQiOjkwOTA1MDYzLCJuYW1lIjoiQ2hhcmxlcyBWaWFsZSJ9",
-    "deletedUser": false,
-    "updatedAt": "2025-04-08T07:48:31.000Z"
-  },
   "dateRange": {
     "ar": "٧ أبريل ٢٠٢٥ - ٣١ مارس ٢٠٢٦",
     "de": "7 April 2025 - 31 März 2026",
