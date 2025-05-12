@@ -1,18 +1,16 @@
 import { useRef, useState, useCallback, useEffect } from 'react';
+import { Button, useDisclosure } from '@openagenda/uikit';
 import {
-  AlertDialog,
-  AlertDialogBody,
-  AlertDialogContent,
-  AlertDialogFooter,
-  AlertDialogOverlay,
-  Button,
-  useDisclosure,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogBody,
+  DialogFooter,
+} from '@openagenda/uikit/snippets';
 import session from '@openagenda/sessions/client';
 import { useRouter } from 'next/router';
 
 export default function FlashAlert() {
-  const cancelRef = useRef(undefined);
+  const cancelRef = useRef<HTMLButtonElement>(null);
   const [flashMessage, setFlashMessage] = useState(null);
   const router = useRouter();
 
@@ -27,27 +25,26 @@ export default function FlashAlert() {
     if (newMessage !== flashMessage) setFlashMessage(newMessage);
   }, [router.asPath]);
 
-  const { isOpen, onClose } = useDisclosure({ isOpen: !!flashMessage });
+  const { open, onClose } = useDisclosure({ open: !!flashMessage });
 
   return (
-    <AlertDialog
-      isOpen={isOpen}
-      onClose={onClose}
-      leastDestructiveRef={cancelRef}
-      isCentered
+    <DialogRoot
+      role="alertdialog"
+      open={open}
+      onOpenChange={onClose}
+      initialFocusEl={() => cancelRef.current}
+      placement="center"
     >
-      <AlertDialogOverlay />
-
-      <AlertDialogContent>
-        <AlertDialogBody pt="6" textAlign="center">
+      <DialogContent>
+        <DialogBody pt="6" textAlign="center">
           {flashMessage}
-        </AlertDialogBody>
-        <AlertDialogFooter justifyContent="center">
-          <Button ref={cancelRef} onClick={removeMessage} colorScheme="primary">
+        </DialogBody>
+        <DialogFooter justifyContent="center">
+          <Button ref={cancelRef} onClick={removeMessage}>
             Ok
           </Button>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+        </DialogFooter>
+      </DialogContent>
+    </DialogRoot>
   );
 }

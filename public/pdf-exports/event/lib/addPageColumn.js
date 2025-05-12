@@ -21,6 +21,8 @@ import rtd from './roundToDecimal.js';
 const addFunctions = {
   text: addText,
   link: addLink,
+  phone: addLink.phone,
+  email: addLink.email,
   image: addImage,
   markdown: addMarkdown,
   select: addOptioned,
@@ -43,8 +45,11 @@ const displayFieldLabel = (label, value, displayLabelIfUnset) => {
   if (!label) {
     return false;
   }
+  const isUnset = [null, undefined].includes(value)
+    || (typeof value === 'object' && Object.keys(value).length === 0);
+
   if (!displayLabelIfUnset) {
-    return ![null, undefined].includes(value);
+    return !isUnset;
   }
   return true;
 };

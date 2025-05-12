@@ -1,7 +1,8 @@
-import { Icon, Grid } from '@openagenda/uikit';
+import { chakra, Icon, Grid } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 import { FaIcon } from 'icons';
 import { faChild } from 'icons/solid';
+import defaultStyle from 'utils/defaultStyle';
 
 import { sidebar as messages } from '../messages';
 
@@ -20,22 +21,18 @@ export default function AgeSection({ event, ageIcon = faChild, ...props }) {
       alignItems="center"
       {...props}
     >
-      <Icon
-        as={FaIcon}
-        icon={ageIcon}
-        size="2xl"
-        color="oaGray.300"
-        justifySelf="end"
-      />
+      <Icon color="oaGray.300" justifySelf="center" fontSize="3xl">
+        <FaIcon icon={ageIcon} />
+      </Icon>
 
-      <div>
+      <chakra.div css={defaultStyle}>
         {!event.age.max
           ? intl.formatMessage(messages.startingAt, { min: event.age.min })
           : intl.formatMessage(messages.minToMaxYearsOld, {
               min: event.age.min,
               max: event.age.max,
             })}
-      </div>
+      </chakra.div>
     </Grid>
   );
 }

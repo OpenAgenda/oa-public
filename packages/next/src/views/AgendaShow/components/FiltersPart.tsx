@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSliders } from '@fortawesome/pro-solid-svg-icons';
@@ -6,11 +6,12 @@ import {
   Box,
   Button,
   CloseButton,
+  Drawer,
   Flex,
-  Text,
-  NoBreak,
   Link,
-  useDisclosure,
+  NoBreak,
+  Portal,
+  useBreakpointValue,
 } from '@openagenda/uikit';
 import {
   Filters,
@@ -29,7 +30,6 @@ import MapFilter from './MapFilter';
 import DateRangeFilter from './DateRangeFilter';
 import ChoiceFilter from './ChoiceFilter';
 import FavoritesFilter from './FavoritesFilter';
-import ResponsiveDrawer from './Drawer';
 import { FiltersSkeleton } from './LoadingPage';
 
 export default function FiltersPart({ agenda, filters, query, includeFields }) {
@@ -88,7 +88,17 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
     },
   );
 
-  const { isOpen: isOpenFilters, onToggle: onToggleFilters } = useDisclosure();
+  // TODO test fallback, disable ssr, default false...
+  const isSmall = useBreakpointValue({ base: true, lg: false });
+
+  const [open, setOpen] = useState(false);
+
+  useEffect(() => {
+    // Close drawer on larger screens
+    if (!isSmall) {
+      setOpen(false);
+    }
+  }, [isSmall]);
 
   const isLoadingInitialData = !pages && !error;
 
@@ -96,105 +106,103 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
     return <FiltersSkeleton />;
   }
 
-  return (
-    <Form gap="8" mb={{ base: '0', lg: '12' }}>
-      <Search disabled={false} isLoading={false} mx={{ base: '4', lg: '0' }} />
-
-      <div>
-        {/* Useful to remove gap for the drawer on mobile */}
-        <Flex>
-          <Button
-            colorScheme="primary"
-            onClick={onToggleFilters}
-            leftIcon={<FontAwesomeIcon icon={faSliders} />}
-            display={{ base: 'flex', lg: 'none' }}
-            mx="4"
-            w="full"
-          >
-            {intl.formatMessage(messages.filter)}
-          </Button>
-        </Flex>
-
-        <ResponsiveDrawer isOpen={isOpenFilters} onClose={onToggleFilters}>
-          <Flex direction="column" h="full">
-            <Flex
-              display={{ base: 'flex', lg: 'none' }}
-              justify="space-between"
-              align="center"
-              p="4"
-            >
-              <Text fontWeight="bold" fontSize="lg">
-                {intl.formatMessage(messages.filters)}
-              </Text>
-              <CloseButton onClick={onToggleFilters} />
-            </Flex>
-
-            <Flex
-              direction="column"
-              gap="8"
-              grow="1"
-              overflow="auto"
-              px={{ base: '4', lg: '0' }}
-            >
-              <Filters
-                filters={filters}
-                // disabled={isFetching || filtersQuery.isFetching}
-                mapComponent={MapFilter as any}
-                dateRangeComponent={DateRangeFilter as any}
-                choiceComponent={ChoiceFilter as any}
-                getTotal={getTotal}
-                getOptions={getOptions}
-                initialViewport={aggregations.viewport}
-                getQuery={getQuery}
+  const filtersElement = (
+    <>
+      <Flex
+        direction="column"
+        gap="8"
+        grow="1"
+        overflow="auto"
+        px={{ base: '4', lg: '0' }}
+      >
+        <Filters
+          filters={filters}
+          // disabled={isFetching || filtersQuery.isFetching}
+          mapComponent={MapFilter as any}
+          dateRangeComponent={DateRangeFilter as any}
+          choiceComponent={ChoiceFilter as any}
+          getTotal={getTotal}
+          getOptions={getOptions}
+          initialViewport={aggregations.viewport}
+          getQuery={getQuery}
                 loadGeoData={loadGeoData}
                 withRef
               />
               <FavoritesFilter agenda={agenda} />
             </Flex>
 
-            <Box display={{ base: 'block', lg: 'none' }} p="4">
-              <Button
-                variant="solid"
-                colorScheme="primary"
-                onClick={onToggleFilters}
-                w="full"
-              >
-                {intl.formatMessage(messages.seeEvents, { count: total })}
-              </Button>
-            </Box>
+      <CopyIdentifier
+        identifier={agenda.uid}
+        display={{ base: 'none', lg: 'inline-flex' }}
+        size="sm"
+        maxW="220px"
+      />
 
-            <Box pt="8">
-              <CopyIdentifier identifier={agenda.uid} size="sm" />
-            </Box>
+      <Box display={{ base: 'none', lg: 'block' }} wordBreak="normal">
+        <Link href="/" color="primary.500">
+          OpenAgenda
+        </Link>
+        <NoBreak>&nbsp;·</NoBreak>{' '}
+        <Link
+          href="https://doc.openagenda.com/"
+          target="_blank"
+          rel="noopener"
+          color="primary.500"
+        >
+          {intl.formatMessage(messages.help)}
+        </Link>
+        <NoBreak>&nbsp;·</NoBreak>{' '}
+        <Link
+          href="https://doc.openagenda.com/conditions/"
+          target="_blank"
+          rel="noopener noreferrer"
+          color="primary.500"
+        >
+          {intl.formatMessage(messages.termsOfUse)}
+        </Link>
+      </Box>
+    </>
+  );
 
-            <Box
-              display={{ base: 'none', lg: 'block' }}
-              pt="4"
-              wordBreak="normal"
-            >
-              <Link href="/" color="primary.500">
-                OpenAgenda
-              </Link>
-              <NoBreak>&nbsp;·</NoBreak>{' '}
-              <Link
-                href="https://doc.openagenda.com/"
-                isExternal
-                color="primary.500"
-              >
-                {intl.formatMessage(messages.help)}
-              </Link>
-              <NoBreak>&nbsp;·</NoBreak>{' '}
-              <Link
-                href="https://doc.openagenda.com/conditions/"
-                isExternal
-                color="primary.500"
-              >
-                {intl.formatMessage(messages.termsOfUse)}
-              </Link>
-            </Box>
-          </Flex>
-        </ResponsiveDrawer>
-      </div>
+  return (
+    <Form gap="8" mb={{ base: '0', lg: '12' }}>
+      <Search disabled={false} isLoading={false} mx={{ base: '4', lg: '0' }} />
+
+      <Drawer.Root open={open} onOpenChange={(e) => setOpen(e.open)} size="md">
+        <Drawer.Trigger asChild>
+          <Button
+            display={{ base: 'flex', lg: 'none' }}
+            mx="4"
+            justifySelf="stretch"
+          >
+            <FontAwesomeIcon icon={faSliders} />
+            {intl.formatMessage(messages.filter)}
+          </Button>
+        </Drawer.Trigger>
+        <Portal>
+          <Drawer.Backdrop />
+          <Drawer.Positioner>
+            <Drawer.Content>
+              <Drawer.Header>
+                <Drawer.Title>
+                  {intl.formatMessage(messages.filters)}
+                </Drawer.Title>
+              </Drawer.Header>
+              <Drawer.Body>{filtersElement}</Drawer.Body>
+              <Drawer.Footer>
+                <Button onClick={() => setOpen(false)} flex="1">
+                  {intl.formatMessage(messages.seeEvents, { count: total })}
+                </Button>
+              </Drawer.Footer>
+              <Drawer.CloseTrigger asChild>
+                <CloseButton size="sm" />
+              </Drawer.CloseTrigger>
+            </Drawer.Content>
+          </Drawer.Positioner>
+        </Portal>
+      </Drawer.Root>
+
+      {!isSmall ? filtersElement : null}
     </Form>
   );
 }

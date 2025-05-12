@@ -1,5 +1,6 @@
 import EmbedEventShow from 'pages/embed/agendas/[agendaUid]/events/[eventSlug]';
 import EmbedEventShowView from 'views/EmbedEventShow';
+import EmbedLayout from 'components/EmbedLayout';
 import { Agenda } from 'types';
 import intlMessagesLoader from '@/stories/loaders/intlMessagesLoader';
 import ProvidersDecorator from '@/stories/decorators/ProvidersDecorator';
@@ -15,17 +16,19 @@ export default {
 
 export const JEP2023 = {
   render: (_args, { loaded: { intlMessages } }) => (
-    <EmbedEventShow
-      intlMessages={intlMessages}
-      agenda={agendaJEPFixtures as Agenda}
-      fallback={{
-        [`/api/agendas/${agendaJEPFixtures.uid}/events/slug/${eventJEPFixtures.slug}?longDescriptionFormat=HTMLWithEmbeds`]:
-          {
-            success: true,
-            event: eventJEPFixtures,
-          },
-      }}
-    />
+    <EmbedLayout>
+      <EmbedEventShow
+        intlMessages={intlMessages}
+        agenda={agendaJEPFixtures as Agenda}
+        fallback={{
+          [`/api/agendas/${agendaJEPFixtures.uid}/events/slug/${eventJEPFixtures.slug}?longDescriptionFormat=HTMLWithEmbeds&cms=embed`]:
+            {
+              success: true,
+              event: eventJEPFixtures,
+            },
+        }}
+      />
+    </EmbedLayout>
   ),
   parameters: {
     nextjs: {

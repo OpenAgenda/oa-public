@@ -1,13 +1,7 @@
 import { Fragment, useCallback, useState, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import {
-  chakra,
-  Button,
-  IconButton,
-  Spacer,
-  Link,
-  Tooltip,
-} from '@openagenda/uikit';
+import { chakra, Button, IconButton, Spacer, Link } from '@openagenda/uikit';
+import { Tooltip } from '@openagenda/uikit/snippets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/pro-solid-svg-icons';
 import StateTag from 'components/StateTag';
@@ -63,32 +57,72 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
 
   return (
     <>
-      {isEmpty
-        ? intl.formatMessage(messages.notContributed)
-        : (
-          <>
-            <chakra.span display={{ base: 'none', md: 'inline-flex' }}>
-              {intl.formatMessage(messages.myEvents)}
+      {isEmpty ? 
+        intl.formatMessage(messages.notContributed)
+       : (
+        <>
+          <chakra.span display={{ base: 'none', md: 'inline-flex' }}>
+            {intl.formatMessage(messages.myEvents)}
             &nbsp;
-            </chakra.span>
-            {drafts ? (
+          </chakra.span>
+          {drafts ? (
+            <Button
+              variant="link"
+              color="white"
+              fontWeight="bold"
+              textUnderlineOffset="3px"
+              onClick={() => onOpen({ key: 'drafts', slug: 'drafts' })}
+            >
+              <Tooltip
+                content={intl.formatMessage(messages.drafts, { count: drafts })}
+                showArrow
+                openDelay={0}
+                closeDelay={0}
+              >
+                <chakra.span
+                  display={{ base: 'inline-flex', md: 'none' }}
+                  verticalAlign="middle"
+                  alignItems="center"
+                >
+                  <StateTag state="draft" />
+                  &nbsp;{intl.formatNumber(drafts)}
+                </chakra.span>
+              </Tooltip>
+              <chakra.span
+                display={{ base: 'none', md: 'inline-flex' }}
+                verticalAlign="middle"
+                alignItems="center"
+              >
+                <StateTag state="draft" />
+                &nbsp;{intl.formatMessage(messages.drafts, { count: drafts })}
+              </chakra.span>
+            </Button>
+          ) : null}
+          {drafts && states.length ? wordSeparator : null}
+          {bundleStates.map((bundleState, index, arr) => (
+            <Fragment key={bundleState.key}>
               <Button
                 variant="link"
-                colorScheme="white"
+                color="white"
                 fontWeight="bold"
-                onClick={() => onOpen({ key: 'drafts', slug: 'drafts' })}
+                textUnderlineOffset="3px"
+                onClick={() => onOpen(bundleState)}
               >
                 <Tooltip
-                  hasArrow
-                  label={intl.formatMessage(messages.drafts, { count: drafts })}
+                  content={intl.formatMessage(messages[bundleState.slug], {
+                    count: bundleState.eventCount,
+                  })}
+                  showArrow
+                  openDelay={0}
+                  closeDelay={0}
                 >
                   <chakra.span
                     display={{ base: 'inline-flex', md: 'none' }}
                     verticalAlign="middle"
                     alignItems="center"
                   >
-                    <StateTag state="draft" />
-                  &nbsp;{intl.formatNumber(drafts)}
+                    <StateTag state={bundleState.key} />
+                    &nbsp;{intl.formatNumber(bundleState.eventCount)}
                   </chakra.span>
                 </Tooltip>
                 <chakra.span
@@ -96,61 +130,25 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
                   verticalAlign="middle"
                   alignItems="center"
                 >
-                  <StateTag state="draft" />
-                &nbsp;{intl.formatMessage(messages.drafts, { count: drafts })}
+                  <StateTag state={bundleState.key} />
+                  &nbsp;
+                  {intl.formatMessage(messages[bundleState.slug], {
+                    count: bundleState.eventCount,
+                  })}
                 </chakra.span>
               </Button>
-            ) : null}
-            {drafts && states.length ? wordSeparator : null}
-            {bundleStates.map((bundleState, index, arr) => (
-              <Fragment key={bundleState.key}>
-                <Button
-                  variant="link"
-                  colorScheme="white"
-                  fontWeight="bold"
-                  onClick={() => onOpen(bundleState)}
-                >
-                  <Tooltip
-                    hasArrow
-                    label={intl.formatMessage(messages[bundleState.slug], {
-                      count: bundleState.eventCount,
-                    })}
-                  >
-                    <chakra.span
-                      display={{ base: 'inline-flex', md: 'none' }}
-                      verticalAlign="middle"
-                      alignItems="center"
-                    >
-                      <StateTag state={bundleState.key} />
-                    &nbsp;{intl.formatNumber(bundleState.eventCount)}
-                    </chakra.span>
-                  </Tooltip>
-                  <chakra.span
-                    display={{ base: 'none', md: 'inline-flex' }}
-                    verticalAlign="middle"
-                    alignItems="center"
-                  >
-                    <StateTag state={bundleState.key} />
-                  &nbsp;
-                    {intl.formatMessage(messages[bundleState.slug], {
-                      count: bundleState.eventCount,
-                    })}
-                  </chakra.span>
-                </Button>
-                {index < arr.length - 1 ? wordSeparator : null}
-              </Fragment>
-            ))}
-          </>
-        )}
+              {index < arr.length - 1 ? wordSeparator : null}
+            </Fragment>
+          ))}
+        </>
+      )}
       <Spacer />
       <Button
-        as={Link}
-        href={`/${agenda.slug}/contribute`}
-        leftIcon={<FontAwesomeIcon icon={faPlus} />}
+        asChild
         display={{ base: 'none', md: 'flex' }}
         minW="auto"
         variant="outline"
-        colorScheme="white"
+        color="white"
         _hover={{
           bg: 'white',
           borderColor: 'white',
@@ -158,23 +156,28 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
           textDecoration: 'none',
         }}
       >
-        {intl.formatMessage(messages.contribute)}
+        <Link unstyled href={`/${agenda.slug}/contribute`}>
+          <FontAwesomeIcon icon={faPlus} />
+          {intl.formatMessage(messages.contribute)}
+        </Link>
       </Button>
       <IconButton
-        as={Link}
-        href={`/${agenda.slug}/contribute`}
-        icon={<FontAwesomeIcon icon={faPlus} />}
+        asChild
         aria-label={intl.formatMessage(messages.contribute)}
         display={{ base: 'flex', md: 'none' }}
         variant="outline"
-        colorScheme="white"
+        color="white"
         _hover={{
           bg: 'white',
           borderColor: 'white',
           color: 'primary.500',
           textDecoration: 'none',
         }}
-      />
+      >
+        <Link unstyled href={`/${agenda.slug}/contribute`}>
+          <FontAwesomeIcon icon={faPlus} />
+        </Link>
+      </IconButton>
 
       {modalState !== null ? (
         <EventsModal

@@ -16,6 +16,11 @@ export default async function addTimingMonth(doc, parentCursor, params) {
     margins,
   } = params;
 
+  const {
+    weeks: weekMargins = { bottom: 10 },
+    monthTitle: monthTitleMargins = { bottom: 5 },
+  } = margins;
+
   const displayMonthName = month.displayMonthName ?? true;
 
   log('processing', {
@@ -70,6 +75,7 @@ export default async function addTimingMonth(doc, parentCursor, params) {
       bold: true,
     });
 
+    monthTitleSize.height += monthTitleMargins.bottom;
     adjustSize(size, monthTitleSize);
     cursor.moveY(monthTitleSize.height);
   }
@@ -111,6 +117,10 @@ export default async function addTimingMonth(doc, parentCursor, params) {
 
       cursor.moveY(dateSize.height);
     }
+
+    cursor.moveY(weekMargins.bottom);
+
+    adjustSize(size, { width: size.width, height: weekMargins.bottom });
   }
 
   // add margins

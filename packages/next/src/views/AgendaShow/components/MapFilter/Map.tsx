@@ -13,7 +13,7 @@ export default function Map({ innerRef, filter, ...props }) {
       ref={innerRef}
       forwardedFilter={filter} // filter is a valid CSS prop, it breaks chakra :'(
       {...props}
-      sx={{
+      css={{
         h: 'full',
         ...markerClusterStyle,
         ...gestureHandlingStyle,

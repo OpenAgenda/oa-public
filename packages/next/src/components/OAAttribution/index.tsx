@@ -13,13 +13,9 @@ export default function OAAttribution({ source }: { source: string }) {
         p="2"
         zIndex="sticky"
       >
-        <Image
-          src={logoPic}
-          alt="OpenAgenda"
-          h="18"
-          w="auto"
-          display="inline"
-        />
+        <Box asChild h="18" w="auto" display="inline">
+          <Image src={logoPic} alt="OpenAgenda" />
+        </Box>
       </Link>
     </Box>
   );

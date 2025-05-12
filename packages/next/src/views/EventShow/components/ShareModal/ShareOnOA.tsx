@@ -1,15 +1,19 @@
 import React, { useCallback, useState } from 'react';
+import { useIntl } from 'react-intl';
 import useSWRInfinite from 'swr/infinite';
 import qs from 'qs';
 import { useInView } from 'react-intersection-observer';
-import { VStack } from '@openagenda/uikit';
-import ModalLoadingBody from 'components/ModalLoadingBody';
+import { Center, Spinner, VStack } from '@openagenda/uikit';
 import SearchInput from 'components/SearchInput';
+import { shareModal as messages } from '../../messages';
 import AgendaItem from './AgendaItem';
+import AccordionItem from './AccordionItem';
 
 const PAGE_SIZE = 20;
 
 export default function ShareOnOA({ agenda, event }) {
+  const intl = useIntl();
+
   const [searchValue, setSearchValue] = useState('');
 
   const onSubmit = useCallback((e: React.SyntheticEvent) => {
@@ -106,18 +110,24 @@ export default function ShareOnOA({ agenda, event }) {
   });
 
   if (isLoadingInitialData) {
-    return <ModalLoadingBody />;
+    return (
+      <AccordionItem value="on-oa" title={intl.formatMessage(messages.onOA)}>
+        <Center h="100px">
+          <Spinner size="xl" />
+        </Center>
+      </AccordionItem>
+    );
   }
 
   const uniqueAgendaUids = new Set();
 
   return (
-    <>
+    <AccordionItem value="on-oa" title={intl.formatMessage(messages.onOA)}>
       <form onSubmit={onSubmit}>
         <SearchInput onChange={setSearchValue} />
       </form>
 
-      <VStack spacing="4" pt="4" align="start">
+      <VStack gap="4" pt="4" align="start">
         {pages.map((page) =>
           page.agendas
             .filter((targetAgenda) => {
@@ -139,6 +149,6 @@ export default function ShareOnOA({ agenda, event }) {
       </VStack>
 
       <div ref={ref} />
-    </>
+    </AccordionItem>
   );
 }

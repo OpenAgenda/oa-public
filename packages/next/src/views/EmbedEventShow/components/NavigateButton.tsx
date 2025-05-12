@@ -62,17 +62,13 @@ export default function NavigateButton({
 
   return (
     <IconButton
-      variant="unstyled"
+      variant="plain"
+      size="2xl"
+      w="1em"
+      minW="fit-content"
       aria-label={intl.formatMessage(
         direction === 'previous' ? messages.previousEvent : messages.nextEvent,
       )}
-      icon={
-        <FaIcon
-          icon={direction === 'previous' ? faChevronLeft : faChevronRight}
-          width="1em"
-          size="xl"
-        />
-      }
       h="auto"
       color="primary.500"
       _hover={{
@@ -84,6 +80,11 @@ export default function NavigateButton({
       p="2"
       onClick={goToSiblingEvent}
       visibility={isVisible ? 'visible' : 'hidden'}
-    />
+    >
+      <FaIcon
+        icon={direction === 'previous' ? faChevronLeft : faChevronRight}
+        width="1em"
+      />
+    </IconButton>
   );
 }

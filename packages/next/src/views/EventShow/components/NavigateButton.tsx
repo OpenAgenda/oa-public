@@ -133,28 +133,26 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
 
   return (
     <IconButton
-      isRound
-      variant="unstyled"
+      rounded="full"
       aria-label={intl.formatMessage(
         direction === 'previous' ? messages.previousEvent : messages.nextEvent,
       )}
-      icon={
-        <FaIcon
-          icon={direction === 'previous' ? faChevronLeft : faChevronRight}
-          width="1em"
-          size="2xl"
-        />
-      }
-      h="auto"
+      size="2xl"
+      fontSize="2xl"
+      border="2px solid"
+      color="fg"
+      borderColor="fg"
+      bg="transparent"
       _hover={{
         color: 'primary.500',
         borderColor: 'primary.500',
       }}
-      border="2px"
-      borderColor="blackAlpha.900"
-      p="4"
       onClick={goToSiblingEvent}
       visibility={isVisible ? 'visible' : 'hidden'}
-    />
+    >
+      <FaIcon
+        icon={direction === 'previous' ? faChevronLeft : faChevronRight}
+      />
+    </IconButton>
   );
 }

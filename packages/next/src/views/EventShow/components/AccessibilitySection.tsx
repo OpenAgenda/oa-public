@@ -1,9 +1,10 @@
 import { Fragment } from 'react';
 import { useIntl } from 'react-intl';
-import { Grid, Icon, Box } from '@openagenda/uikit';
+import { chakra, Grid, Icon, Box } from '@openagenda/uikit';
 import messages from '@openagenda/common-labels/event/accessibilities';
 import { FaIcon } from 'icons';
 import { faWheelchair } from 'icons/solid';
+import defaultStyle from 'utils/defaultStyle';
 import { faEarDeaf, faEyeLowVision } from 'icons/regular';
 import { faPI, faII } from 'icons/custom';
 
@@ -48,14 +49,10 @@ export default function AccessibilitySection({
       {...props}
     >
       {' '}
-      <Icon
-        as={FaIcon}
-        icon={getAccessibilityIcon('mi')}
-        size="2xl"
-        color="oaGray.300"
-      />
+      <Icon color="oaGray.300" justifySelf="center" fontSize="3xl">
+        <FaIcon icon={getAccessibilityIcon('mi')} />
+      </Icon>
       <Box
-        fontSize="lg"
         color="oaGray.500"
         title={intl.formatMessage(messages.accessibleDetail)}
       >
@@ -68,14 +65,12 @@ export default function AccessibilitySection({
 
         return (
           <Fragment key={accessibilityKey}>
-            <Icon
-              as={FaIcon}
-              icon={getAccessibilityIcon(accessibilityKey)}
-              size="xl"
-              color="oaGray.300"
-              justifySelf="end"
-            />
-            {intl.formatMessage(messages[accessibilityKey])}
+            <Icon color="oaGray.300" justifySelf="end">
+              <FaIcon icon={getAccessibilityIcon(accessibilityKey)} size="lg" />
+            </Icon>
+            <chakra.div css={defaultStyle}>
+              {intl.formatMessage(messages[accessibilityKey])}
+            </chakra.div>
           </Fragment>
         );
       })}

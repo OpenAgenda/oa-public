@@ -1,8 +1,9 @@
 import { useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
-import { Container, Flex } from '@openagenda/uikit';
+import { chakra, Box, Container, Flex } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
+import defaultSize from 'utils/defaultSize';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/NavbarSearchInput';
 import Image from 'components/Image';
@@ -39,39 +40,33 @@ export default function Navbar() {
   const homeHref = hrefWithLang('/', sessionUser ? null : intl.locale);
 
   return (
-    <Flex
+    <chakra.header
       ref={headerRef}
-      as="header"
-      direction="column"
+      display="flex"
+      flexDirection="column"
       bg="white"
-      boxShadow="sm"
+      boxShadow="xs"
+      fontSize={defaultSize}
     >
-      <Container maxW="container.xl" px={0}>
-        <Flex justify="space-between" h="50" align="stretch">
+      <Container maxW="7xl" px={0}>
+        <Flex justify="space-between" h="50px" align="stretch">
           <Flex gap="8">
-            <Flex
-              as="a"
+            <chakra.a
               href={homeHref}
               pr="4"
               pl={{ base: '0', md: '4' }}
-              align="center"
-              shrink="0"
+              display="flex"
+              alignItems="center"
+              flexShrink="0"
             >
-              <Image
-                src={logoPic}
-                width="125"
-                alt="logo"
-                display={{ base: 'none', md: 'block' }}
-              />
-              <Image
-                src={miniLogoPic}
-                height="40"
-                alt="logo"
-                display={{ base: 'block', md: 'none' }}
-              />
-            </Flex>
-            <Flex
-              as="form"
+              <Box display={{ base: 'none', md: 'block' }}>
+                <Image src={logoPic} width="125" alt="logo" />
+              </Box>
+              <Box display={{ base: 'block', md: 'none' }}>
+                <Image src={miniLogoPic} height="40" alt="logo" />
+              </Box>
+            </chakra.a>
+            <chakra.form
               onSubmit={onSearch}
               display={{ base: 'none', lg: 'flex' }}
             >
@@ -81,7 +76,7 @@ export default function Navbar() {
                   onChange: (e) => setInputValue(e.target.value),
                 }}
               />
-            </Flex>
+            </chakra.form>
           </Flex>
 
           <Flex direction="row" align="center">
@@ -92,6 +87,6 @@ export default function Navbar() {
       </Container>
 
       {/* Mobile menu here with headerRef + Portal */}
-    </Flex>
+    </chakra.header>
   );
 }

@@ -1,19 +1,16 @@
 import { useDisclosure } from '@openagenda/uikit';
 import { useState } from 'react';
-import useSearchParams from 'hooks/useSearchParams';
 
-export default function useShareModal() {
-  const searchParams = useSearchParams() as { sharemodal?: string };
-
+export default function useShareModal({ defaultOpen = false } = {}) {
   const {
-    isOpen: shareIsOpen,
+    open: shareIsOpen,
     onOpen: shareOnOpen,
     onClose: shareOnClose,
-  } = useDisclosure({ defaultIsOpen: searchParams.sharemodal === '1' });
+  } = useDisclosure({ defaultOpen });
 
   const [emailSent, setEmailSent] = useState(0);
   const {
-    isOpen: emailSentIsOpen,
+    open: emailSentIsOpen,
     onOpen: emailSentOnOpen,
     onClose: emailSentOnClose,
   } = useDisclosure();

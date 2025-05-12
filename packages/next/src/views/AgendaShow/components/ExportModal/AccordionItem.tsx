@@ -1,27 +1,14 @@
 import {
-  AccordionButton,
-  AccordionIcon,
   AccordionItem as ChakraAccordionItem,
-  AccordionPanel,
-  Box,
-} from '@openagenda/uikit';
+  AccordionItemTrigger,
+  AccordionItemContent,
+} from '@openagenda/uikit/snippets';
 
-export default function AccordionItem({ title, children }) {
+export default function AccordionItem({ value, title, children }) {
   return (
-    <ChakraAccordionItem>
-      <AccordionButton>
-        <Box
-          as="span"
-          flex="1"
-          textAlign="left"
-          display="flex"
-          alignItems="center"
-        >
-          {title}
-        </Box>
-        <AccordionIcon />
-      </AccordionButton>
-      <AccordionPanel ml="2">{children}</AccordionPanel>
+    <ChakraAccordionItem value={value}>
+      <AccordionItemTrigger px="6">{title}</AccordionItemTrigger>
+      <AccordionItemContent px="6">{children}</AccordionItemContent>
     </ChakraAccordionItem>
   );
 }

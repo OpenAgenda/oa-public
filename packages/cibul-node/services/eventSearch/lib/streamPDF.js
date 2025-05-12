@@ -16,6 +16,7 @@ export default function streamPDF(config, req, res) {
     .search(req.searchQuery, { size: 0 }, req.searchOptions)
     .then(({ total }) => {
       pdfExports.agenda.GenerateExportStream(req.stream, res, {
+        total,
         agenda: req.agenda,
         lang: req.query.lang ?? req.lang,
         includeEventImages: total < withImageLimit,

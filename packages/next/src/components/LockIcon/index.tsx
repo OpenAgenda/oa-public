@@ -1,5 +1,6 @@
 import { useIntl, defineMessages } from 'react-intl';
-import { Icon, Tooltip, IconProps, TooltipProps } from '@openagenda/uikit';
+import { Icon, IconProps } from '@openagenda/uikit';
+import { Tooltip, TooltipProps } from '@openagenda/uikit/snippets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faLock } from '@fortawesome/pro-regular-svg-icons';
 
@@ -13,7 +14,7 @@ const messages = defineMessages({
 export interface LockIconProps extends IconProps {
   type?: string;
   label?: string;
-  tooltipProps?: Omit<TooltipProps, 'children'>;
+  tooltipProps?: Omit<TooltipProps, 'children' | 'content'>;
 }
 
 export default function LockIcon({
@@ -26,7 +27,11 @@ export default function LockIcon({
 
   const message = messages[type] ? intl.formatMessage(messages[type]) : label;
 
-  const icon = <Icon as={FontAwesomeIcon} icon={faLock} {...props} />;
+  const icon = (
+    <Icon {...props}>
+      <FontAwesomeIcon icon={faLock} />
+    </Icon>
+  );
 
   if (!message) {
     return icon;
@@ -34,15 +39,18 @@ export default function LockIcon({
 
   return (
     <Tooltip
-      label={message}
-      placement="right"
-      hasArrow
-      bg="white"
-      color="black"
-      borderRadius="base" // TODO in theme
-      arrowSize={8}
-      arrowPadding={6}
+      content={message}
+      positioning={{ placement: 'right' }}
+      showArrow
+      contentProps={{
+        css: { '--tooltip-bg': 'white' },
+        color: 'black',
+      }}
+      openDelay={0}
+      closeDelay={0}
       {...tooltipProps}
+      // arrowSize={8}
+      // arrowPadding={6}
     >
       {icon}
     </Tooltip>

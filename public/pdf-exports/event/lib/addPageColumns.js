@@ -31,6 +31,7 @@ export default async function addPageColumns(
 
     const columnWidth = column.width * widthPerUnit;
     const paddedColumnWidth = columnWidth - (column.padding ?? 0) * 2;
+    cursor.moveX(column.padding ?? 0);
 
     log(
       'adding column of width %s, (%s padded)',

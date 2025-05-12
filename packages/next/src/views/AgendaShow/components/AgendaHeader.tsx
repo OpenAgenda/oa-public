@@ -1,8 +1,10 @@
 import qs from 'qs';
 import { useRouter } from 'next/router';
+import NextLink from 'next/link';
 import { defineMessages, useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
 import {
+  Box,
   Stack,
   VStack,
   Text,
@@ -14,11 +16,10 @@ import {
   Link,
 } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
-import { faEnvelope, faPlus } from '@fortawesome/pro-solid-svg-icons';
-import { faShareNodes } from '@fortawesome/pro-regular-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEnvelope, faPlus } from 'icons/solid';
+import { faShareNodes } from 'icons/regular';
+import { FaIcon } from 'icons';
 import Image from 'components/Image';
-import NextChakraLink from 'components/NextChakraLink';
 import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
@@ -27,7 +28,7 @@ import { thumborLoader } from 'utils/imageLoader';
 import hrefWithLang from 'utils/hrefWithLang';
 import getSession from 'utils/getSession';
 import AggregateModal from './AggregateModal';
-import ExportModal, { exportIndexMap } from './ExportModal';
+import ExportModal from './ExportModal';
 
 const messages = defineMessages({
   contact: {
@@ -75,23 +76,19 @@ export default function AgendaHeader({ agenda }) {
   const mailtoUrl = getMailtoUrl(agenda.settings.inbox?.mailto);
 
   const {
-    isOpen: aggregateIsOpen,
+    open: aggregateIsOpen,
     onOpen: aggregateOnOpen,
     onClose: aggregateOnClose,
-  } = useDisclosure({ defaultIsOpen: urlQuery.displayAggregatorModal === '1' });
+  } = useDisclosure({ defaultOpen: urlQuery.displayAggregatorModal === '1' });
 
   const displayExportModalValue = urlQuery.displayExportModal as string;
-  const displayExportModalIndex =
-    displayExportModalValue && displayExportModalValue in exportIndexMap
-      ? exportIndexMap[displayExportModalValue]
-      : -1;
 
   const {
-    isOpen: exportIsOpen,
+    open: exportIsOpen,
     onOpen: exportOnOpen,
     onClose: exportOnClose,
   } = useDisclosure({
-    defaultIsOpen: Boolean(displayExportModalValue),
+    defaultOpen: Boolean(displayExportModalValue),
     onClose() {
       const url = new URL(router.asPath, 'https://n');
       url.searchParams.delete('displayExportModal');
@@ -115,31 +112,37 @@ export default function AgendaHeader({ agenda }) {
     : null;
 
   return (
-    <Stack spacing="8" direction={{ base: 'column', md: 'row' }} align="center">
+    <Stack gap="8" direction={{ base: 'column', md: 'row' }} align="center">
       {agenda.image ? (
-        <Image
-          rounded="full"
-          width="140"
-          height="140"
-          src={imageSrc}
-          fallbackSrc={isDev ? imageSrc.replace('dev', 'main') : undefined}
-          loader={thumborLoader}
-          priority
-          draggable={false}
-          alt=""
+        <Box
+          asChild
           border="3px solid white"
           h="140px"
           minW="140px"
           objectFit="cover"
-        />
+          borderRadius="full"
+        >
+          <Image
+            width="140"
+            height="140"
+            src={imageSrc}
+            fallbackSrc={isDev ? imageSrc.replace('dev', 'main') : undefined}
+            loader={thumborLoader}
+            priority
+            draggable={false}
+            alt=""
+          />
+        </Box>
       ) : null}
 
-      <VStack spacing="3" align={{ base: 'center', md: 'start' }}>
+      <VStack gap="3" align={{ base: 'center', md: 'start' }}>
         {agenda.network ? (
-          <NextChakraLink href={`/agendas?network=${agenda.network.uid}`}>
-            {agenda.network.title}
-            &nbsp;›
-          </NextChakraLink>
+          <Link asChild color="white">
+            <NextLink href={`/agendas?network=${agenda.network.uid}`}>
+              {agenda.network.title}
+              &nbsp;›
+            </NextLink>
+          </Link>
         ) : null}
         <Heading
           as="h1"
@@ -163,19 +166,22 @@ export default function AgendaHeader({ agenda }) {
         <Text>{nl2br(agenda.description)}</Text>
 
         {agenda.url ? (
-          <Link href={agenda.url} target="_blank" rel="noopener nofollow">
+          <Link
+            href={agenda.url}
+            target="_blank"
+            rel="noopener nofollow"
+            color="white"
+          >
             {agenda.url}
           </Link>
         ) : null}
 
-        <Wrap shouldWrapChildren mt="4 !important" justify="center">
-          {/* !important to overwrite Stack spacing */}
+        <Wrap mt="3" justify="center">
           <Button
-            as={Link}
-            href={mailtoUrl || contactHref}
-            leftIcon={<FontAwesomeIcon icon={faEnvelope} />}
+            asChild
             variant="outline"
-            colorScheme="white"
+            color="white"
+            borderColor="white"
             _hover={{
               bg: 'white',
               borderColor: 'white',
@@ -183,41 +189,44 @@ export default function AgendaHeader({ agenda }) {
               textDecoration: 'none',
             }}
           >
-            {intl.formatMessage(messages.contact)}
+            <Link unstyled href={mailtoUrl || contactHref}>
+              <FaIcon icon={faEnvelope} />
+              {intl.formatMessage(messages.contact)}
+            </Link>
           </Button>
           <Button
             onClick={exportOnOpen}
-            leftIcon={<FontAwesomeIcon icon={faShareNodes} />}
             variant="outline"
-            colorScheme="white"
+            color="white"
+            borderColor="white"
             _hover={{
               bg: 'white',
               borderColor: 'white',
               color: 'primary.500',
             }}
           >
+            <FaIcon icon={faShareNodes} />
             {intl.formatMessage(messages.export)}
           </Button>
           <Button
             onClick={aggregateOnOpen}
-            leftIcon={<OAIcon />}
             variant="outline"
-            colorScheme="white"
+            color="white"
+            borderColor="white"
             _hover={{
               bg: 'white',
               borderColor: 'white',
               color: 'primary.500',
             }}
           >
+            <OAIcon size="sm" />
             {intl.formatMessage(messages.aggregate)}
           </Button>
-          <Button
-            as={Link}
-            href={contributeHref}
-            leftIcon={<FontAwesomeIcon icon={faPlus} />}
-            colorScheme="primary"
-          >
-            {intl.formatMessage(messages.addEvent)}
+          <Button asChild>
+            <Link unstyled href={contributeHref}>
+              <FaIcon icon={faPlus} />
+              {intl.formatMessage(messages.addEvent)}
+            </Link>
           </Button>
         </Wrap>
       </VStack>
@@ -227,7 +236,7 @@ export default function AgendaHeader({ agenda }) {
           isOpen
           onClose={exportOnClose}
           agenda={agenda}
-          defaultIndex={displayExportModalIndex}
+          defaultValue={displayExportModalValue}
         />
       ) : null}
       {aggregateIsOpen ? (

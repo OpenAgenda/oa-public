@@ -18,7 +18,7 @@ export function Illustrations() {
           }}
           width={{ name: 'lg' }}
         />
-        <Text align="center">
+        <Text textAlign="center">
           <code>{`width={{ name: 'lg' }}`}</code>
         </Text>
       </Box>
@@ -30,7 +30,7 @@ export function Illustrations() {
           width={{ name: 'sm' }}
           borderRadius="full"
         />
-        <Text align="center">
+        <Text textAlign="center">
           <code>{`width={{ name: 'sm' }}`}</code>
           <br />
           <code>{`borderRadius="full"`}</code>
@@ -44,7 +44,7 @@ export function Illustrations() {
           width={{ name: '3xs' }}
           borderRadius="full"
         />
-        <Text align="center">
+        <Text textAlign="center">
           <code>{`width={{ name: '2xs' }}`}</code>
           <br />
           <code>{`borderRadius="full"`}</code>

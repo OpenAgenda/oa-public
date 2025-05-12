@@ -6,15 +6,16 @@ import {
   Flex,
   FlexProps,
   Link,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalHeader,
-  ModalOverlay,
-  ModalCloseButton,
   Spinner,
   useDisclosure,
 } from '@openagenda/uikit';
+import {
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+  DialogBody,
+} from '@openagenda/uikit/snippets';
 import ActivityItem from '@openagenda/activity-apps/src/client/components/ActivityItem';
 import { fromMarkdownToHTML } from '@openagenda/md';
 import isNextUrl from 'utils/isNextUrl';
@@ -27,10 +28,10 @@ function ActivityDetail({ activity, config }) {
   const { detailLabelIds } = config[activity.verb];
   const { id: activityId } = activity;
   const {
-    isOpen: detailIsOpen,
+    open: detailIsOpen,
     onOpen: detailOnOpen,
     onClose: detailOnClose,
-  } = useDisclosure({ defaultIsOpen: false });
+  } = useDisclosure({ defaultOpen: false });
   const [isLoading, setIsLoading] = useState(false);
   const [activityDetail, setActivityDetail] = useState(null);
 
@@ -54,30 +55,19 @@ function ActivityDetail({ activity, config }) {
   }, [activityId, detailIsOpen]);
   return (
     <chakra.div color="oaGray.500">
-      <Button
-        onClick={detailOnOpen}
-        variant="link"
-        colorScheme="primary"
-        as="a"
-      >
+      <Button onClick={detailOnOpen} variant="link" as="a">
         {intl.formatMessage({ id: detailLabelIds.button })}
       </Button>
-      <Modal isOpen={detailIsOpen} onClose={detailOnClose}>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader
-            sx={{
-              ':has(> .chakra-modal__close-btn)': {
-                pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-              },
-            }}
-          >
+      <DialogRoot open={detailIsOpen} onOpenChange={detailOnClose}>
+        <DialogContent>
+          <DialogHeader fontSize="xl" fontWeight="semibold">
             {intl.formatMessage({ id: detailLabelIds.modalTitle })}
-            <ModalCloseButton />
-          </ModalHeader>
-          <ModalBody pb="4">
+          </DialogHeader>
+          <DialogCloseTrigger />
+          <DialogBody>
             {isLoading ? <Spinner /> : null}
             {activityDetail?.text && !isLoading ? (
+              // TODO markdown is not stylized here
               <div
                 dangerouslySetInnerHTML={{
                   __html: fromMarkdownToHTML(activityDetail?.text),
@@ -88,9 +78,9 @@ function ActivityDetail({ activity, config }) {
                 {intl.formatMessage({ id: detailLabelIds.noDetail })}
               </chakra.div>
             )}
-          </ModalBody>
-        </ModalContent>
-      </Modal>
+          </DialogBody>
+        </DialogContent>
+      </DialogRoot>
     </chakra.div>
   );
 }
@@ -101,18 +91,10 @@ function renderHighlight(content) {
 
 function renderLink(link, content) {
   if (isNextUrl(link)) {
-    return (
-      <NextChakraLink href={link} colorScheme="primary">
-        {content}
-      </NextChakraLink>
-    );
+    return <NextChakraLink href={link}>{content}</NextChakraLink>;
   }
 
-  return (
-    <Link href={link} colorScheme="primary">
-      {content}
-    </Link>
-  );
+  return <Link href={link}>{content}</Link>;
 }
 
 function Activity({ formattedActivity, activity, isBrowser, config }) {
@@ -189,7 +171,7 @@ export function ActivitiesList({
       )}
 
       {!isLoadingInitialData && !isReachingEnd ? (
-        <Button onClick={nextPage} isLoading={isLoadingMore} m="auto">
+        <Button onClick={nextPage} loading={isLoadingMore} m="auto">
           {intl.formatMessage(messages.seeMore)}
         </Button>
       ) : null}

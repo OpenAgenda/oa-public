@@ -1,16 +1,16 @@
+import { useRef } from 'react';
 import qs from 'qs';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import useSessionStorageState from 'use-session-storage-state';
 import {
   chakra,
-  Box,
   SimpleGrid,
-  Collapse,
+  Collapsible,
   Link,
-  Tooltip,
   useBreakpointValue,
 } from '@openagenda/uikit';
+import { Tooltip } from '@openagenda/uikit/snippets';
 import { FaIcon } from 'icons';
 import { faTurnLeft } from 'icons/solid';
 import base64 from 'utils/base64';
@@ -26,8 +26,8 @@ import ContextBarButton from './ContextBarButton';
 import OtherActions from './OtherActions';
 import Edit from './Edit';
 
-const Column = chakra(Box, {
-  baseStyle: {
+const Column = chakra('div', {
+  base: {
     display: 'flex',
     alignItems: 'center',
     bg: 'primary.500',
@@ -81,6 +81,8 @@ export default function ContextBar() {
   const { event } = useEvent();
   const { me, status } = useMember();
 
+  const ref = useRef<HTMLDivElement | null>(null);
+
   const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
   const url = new URL(localePrefix + router.asPath, 'https://n');
   const currentUrl = url.pathname + url.search;
@@ -97,42 +99,58 @@ export default function ContextBar() {
   const editLink = `/${agenda.slug}/contribute/event/${event.uid}?redirect=${base64.encode(currentUrl)}`;
 
   return (
-    <Collapse in animateOpacity>
-      <SimpleGrid
-        columns={isAdminMod(me?.member) ? 4 : 3}
-        bg="white"
-        spacing="1px"
-      >
-        {isAdminMod(me?.member) ? (
-          <Column>
-            <Tooltip
-              label={intl.formatMessage(messages.backToDashboard)}
-              isDisabled={!isMobile}
-            >
-              <ContextBarButton
-                as={Link}
-                href={`/${agenda.slug}/admin/events${qs.stringify(getAdminNav(eventNc), { addQueryPrefix: true })}`}
-                justifyContent={{ base: 'center', md: 'space-between' }}
+    <Collapsible.Root open>
+      <Collapsible.Content>
+        <SimpleGrid
+          ref={ref}
+          columns={isAdminMod(me?.member) ? 4 : 3}
+          bg="white"
+          gap="1px"
+        >
+          {isAdminMod(me?.member) ? (
+            <Column>
+              <Tooltip
+                content={intl.formatMessage(messages.backToDashboard)}
+                disabled={!isMobile}
+                openDelay={0}
+                closeDelay={0}
               >
-                {isMobile ? (
-                  <FaIcon icon={faTurnLeft} size="lg" />
-                ) : 
-                  intl.formatMessage(messages.backToDashboard)
-                }
-              </ContextBarButton>
-            </Tooltip>
+                <ContextBarButton
+                  asChild
+                  justifyContent={{ base: 'center', md: 'space-between' }}
+                >
+                  <Link
+                    href={`/${agenda.slug}/admin/events${qs.stringify(getAdminNav(eventNc), { addQueryPrefix: true })}`}
+                  >
+                    {isMobile ? (
+                      <FaIcon icon={faTurnLeft} size="lg" />
+                    ) : 
+                      intl.formatMessage(messages.backToDashboard)
+                    }
+                  </Link>
+                </ContextBarButton>
+              </Tooltip>
+            </Column>
+          ) : null}
+          <Column>
+            <StateSelector
+              agenda={agenda}
+              editLink={editLink}
+              contextBarRef={ref}
+            />
           </Column>
-        ) : null}
-        <Column>
-          <StateSelector agenda={agenda} editLink={editLink} />
-        </Column>
-        <Column>
-          <Edit agenda={agenda} />
-        </Column>
-        <Column>
-          <OtherActions agenda={agenda} editLink={editLink} />
-        </Column>
-      </SimpleGrid>
-    </Collapse>
+          <Column>
+            <Edit agenda={agenda} contextBarRef={ref} />
+          </Column>
+          <Column>
+            <OtherActions
+              agenda={agenda}
+              editLink={editLink}
+              contextBarRef={ref}
+            />
+          </Column>
+        </SimpleGrid>
+      </Collapsible.Content>
+    </Collapsible.Root>
   );
 }

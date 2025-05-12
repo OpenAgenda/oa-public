@@ -3,14 +3,8 @@ import React, { useCallback, useState } from 'react';
 import useSWRInfinite from 'swr/infinite';
 import qs from 'qs';
 import { useInView } from 'react-intersection-observer';
-import {
-  Button,
-  ModalBody,
-  ModalFooter,
-  Text,
-  VStack,
-  Link,
-} from '@openagenda/uikit';
+import { chakra, Button, Text, VStack, Link } from '@openagenda/uikit';
+import { DialogBody, DialogFooter } from '@openagenda/uikit/snippets';
 // import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import ModalLoadingBody from 'components/ModalLoadingBody';
 import SearchInput from 'components/SearchInput';
@@ -76,10 +70,12 @@ export default function LoggedBody({ agenda }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.agendas?.length === 0;
-  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
+  const isReachingEnd =
+    isEmpty || (pages && pages[pages.length - 1]?.agendas?.length < PAGE_SIZE);
 
   const noAgendas = isEmpty && searchValue === '';
 
@@ -99,16 +95,16 @@ export default function LoggedBody({ agenda }) {
 
   return (
     <>
-      <ModalBody pb={noAgendas ? null : 4}>
+      <DialogBody>
         <Description agenda={agenda} />
 
         {!noAgendas ? (
-          <form onSubmit={onSubmit}>
+          <chakra.form onSubmit={onSubmit} mb="4">
             <SearchInput onChange={setSearchValue} />
-          </form>
+          </chakra.form>
         ) : null}
 
-        <VStack spacing="4" pt="4" align="start">
+        <VStack gap="4" align="start">
           {pages.map((page) =>
             page.agendas.map((targetAgenda) => (
               <AgendaItem
@@ -116,7 +112,8 @@ export default function LoggedBody({ agenda }) {
                 agenda={agenda}
                 targetAgenda={targetAgenda}
               />
-            )))}
+            )),
+          )}
 
           {noAgendas ? (
             <Text>
@@ -126,14 +123,16 @@ export default function LoggedBody({ agenda }) {
         </VStack>
 
         <div ref={ref} />
-      </ModalBody>
+      </DialogBody>
 
       {noAgendas ? (
-        <ModalFooter>
-          <Button as={Link} href="/agendas/new" colorScheme="primary">
-            {intl.formatMessage(messages.createAgenda)}
+        <DialogFooter>
+          <Button asChild>
+            <Link unstyled href="/agendas/new">
+              {intl.formatMessage(messages.createAgenda)}
+            </Link>
           </Button>
-        </ModalFooter>
+        </DialogFooter>
       ) : null}
     </>
   );

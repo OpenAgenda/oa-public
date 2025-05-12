@@ -23,7 +23,7 @@ export default function EventItems({ agenda, field, py }) {
   const { events = [] } = data;
 
   return (
-    <VStack spacing="4" py={py} align="start">
+    <VStack gap="4" py={py} align="start">
       {!events.length ? (
         <div>{intl.formatMessage(messages.emptySelection)}</div>
       ) : null}

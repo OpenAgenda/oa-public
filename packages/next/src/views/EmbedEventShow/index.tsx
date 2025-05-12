@@ -9,8 +9,6 @@ import {
   Heading,
   Link,
   List,
-  ListIcon,
-  ListItem,
   Wrap,
   WrapItem,
 } from '@openagenda/uikit';
@@ -65,7 +63,7 @@ import useNcEffect from 'views/EventShow/hooks/useNcEffect';
 import { thumborLoader } from 'utils/imageLoader';
 import { embedAgendaUrlRegex } from 'utils/isNextUrl';
 import { FALLBACK_LOCALE } from 'config/constants';
-import OAAttribution from '../../components/OAAttribution';
+import OAAttribution from 'components/OAAttribution';
 import useEvent from './hooks/useEvent';
 import Sidebar, {
   ShareSection,
@@ -197,7 +195,7 @@ function EmbedEventShow({
           lg: '2fr minmax(300px, 1fr)',
         }}
         columnGap="10"
-        maxW="container.lg"
+        maxW="5xl"
         mx="auto"
       >
         <GridItem
@@ -232,12 +230,11 @@ function EmbedEventShow({
                     },
                     { addQueryPrefix: true },
                   )}`}
-                  colorScheme="primary"
                 >
                   {intl.formatMessage(messages.backToList)}
                 </NextChakraLink>
                 {!(eventNc?.first && eventNc?.last) ? (
-                  <Flex gap="4">
+                  <Flex gap="2">
                     <NavigateButton
                       direction="previous"
                       prefilter={prefilter}
@@ -435,31 +432,34 @@ function EmbedEventShow({
                 {event.location.image || event.location.imageCredits ? (
                   <div>
                     {event.location.image ? (
-                      <Image
-                        src={
-                          process.env.NODE_ENV === 'development'
-                            ? `${DEV_S3_BUCKET}/${event.location.image}`
-                            : `${S3_BUCKET}/${event.location.image}`
-                        }
-                        fallbackSrc={
-                          process.env.NODE_ENV === 'development'
-                            ? `${S3_BUCKET}/${event.location.image}`
-                            : undefined
-                        }
-                        // >= 1038 : 659px
-                        // >= 992 : 66.67vw
-                        // < 992 : 100vw
-                        sizes="(max-width: 992px) 100vw, (max-width: 1038px) 66.67vw, 659px"
-                        loader={thumborLoader}
-                        fill
-                        // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+                      <Box
+                        asChild
                         pos="unset !important"
                         w="full !important"
                         h="auto !important"
-                        alt=""
                         m="auto"
-                        priority
-                      />
+                      >
+                        <Image
+                          src={
+                            process.env.NODE_ENV === 'development'
+                              ? `${DEV_S3_BUCKET}/${event.location.image}`
+                              : `${S3_BUCKET}/${event.location.image}`
+                          }
+                          fallbackSrc={
+                            process.env.NODE_ENV === 'development'
+                              ? `${S3_BUCKET}/${event.location.image}`
+                              : undefined
+                          }
+                          // >= 1038 : 659px
+                          // >= 992 : 66.67vw
+                          // < 992 : 100vw
+                          sizes="(max-width: 992px) 100vw, (max-width: 1038px) 66.67vw, 659px"
+                          loader={thumborLoader}
+                          fill
+                          alt=""
+                          priority
+                        />
+                      </Box>
                     ) : null}
 
                     {event.location.imageCredits ? (
@@ -471,64 +471,57 @@ function EmbedEventShow({
                 ) : null}
 
                 {event.location.website || event.location.phone ? (
-                  <List spacing="2">
+                  <List.Root variant="plain" align="center" gap="2">
                     {event.location.website ? (
-                      <ListItem>
-                        <ListIcon
-                          as={FaIcon}
-                          icon={faGlobe}
-                          verticalAlign="middle"
-                        />
+                      <List.Item>
+                        <List.Indicator asChild verticalAlign="middle">
+                          <FaIcon icon={faGlobe} size="sm" />
+                        </List.Indicator>
                         <Link
                           href={event.location.website}
                           target="_blank"
                           rel="noopener nofollow"
-                          colorScheme="primary"
                           wordBreak="break-all"
                         >
                           {event.location.website}
                         </Link>
-                      </ListItem>
+                      </List.Item>
                     ) : null}
 
                     {event.location.phone ? (
-                      <ListItem>
-                        <ListIcon
-                          as={FaIcon}
-                          icon={faPhone}
-                          verticalAlign="middle"
-                        />
+                      <List.Item>
+                        <List.Indicator asChild verticalAlign="middle">
+                          <FaIcon icon={faPhone} size="sm" />
+                        </List.Indicator>
                         <Link
                           href={`tel:${event.location.phone}`}
                           target="_blank"
                           rel="noopener nofollow"
-                          colorScheme="primary"
                         >
                           {event.location.phone}
                         </Link>
-                      </ListItem>
+                      </List.Item>
                     ) : null}
-                  </List>
+                  </List.Root>
                 ) : null}
 
                 {event.location.links?.length ? (
                   <chakra.div>
                     {intl.formatMessage(messages.moreLinks)}
-                    <List>
+                    <List.Root variant="plain">
                       {event.location.links?.map((link) => (
-                        <ListItem key={link}>
+                        <List.Item key={link}>
                           <Link
                             href={link}
                             target="_blank"
                             rel="noopener nofollow"
-                            colorScheme="primary"
                             wordBreak="break-all"
                           >
                             {link}
                           </Link>
-                        </ListItem>
+                        </List.Item>
                       ))}
-                    </List>
+                    </List.Root>
                   </chakra.div>
                 ) : null}
 

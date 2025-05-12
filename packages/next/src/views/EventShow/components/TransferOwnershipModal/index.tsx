@@ -1,16 +1,14 @@
 import React, { useCallback, useState } from 'react';
 import { useIntl } from 'react-intl';
+import { Button, VStack } from '@openagenda/uikit';
 import {
-  Button,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
-  VStack,
-} from '@openagenda/uikit';
+  DialogRoot,
+  DialogContent,
+  DialogHeader,
+  DialogCloseTrigger,
+  DialogBody,
+  DialogFooter,
+} from '@openagenda/uikit/snippets';
 import useSWRInfinite from 'swr/infinite';
 import useSWR from 'swr';
 import useSWRMutation from 'swr/mutation';
@@ -66,7 +64,8 @@ function TransferOwnershipModalBody({ onSuccess }) {
       if (previousPageData && !previousPageData.items) return null;
 
       // first page, we don't have `previousPageData`
-      if (pageIndex === 0) return ['transferOwnershipModal', 'members', searchValue];
+      if (pageIndex === 0)
+        return ['transferOwnershipModal', 'members', searchValue];
 
       // add the cursor to the API endpoint
       return [
@@ -105,10 +104,12 @@ function TransferOwnershipModalBody({ onSuccess }) {
   );
 
   const isLoadingInitialData = !pages && !error;
-  const isLoadingMore = isLoadingInitialData
-    || (size > 0 && pages && pages[size - 1] === undefined);
+  const isLoadingMore =
+    isLoadingInitialData ||
+    (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.items?.length === 0;
-  const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.items?.length < PAGE_SIZE);
+  const isReachingEnd =
+    isEmpty || (pages && pages[pages.length - 1]?.items?.length < PAGE_SIZE);
 
   // search member + user by email if isEmpty
   const memberByEmail = useSWR(
@@ -141,12 +142,12 @@ function TransferOwnershipModalBody({ onSuccess }) {
   }
 
   return (
-    <ModalBody>
+    <DialogBody>
       <form onSubmit={onSubmit}>
         <SearchInput onChange={setSearchValue} />
       </form>
 
-      <VStack spacing="4" pt="4" align="start">
+      <VStack gap="4" pt="4" align="start">
         {pages.map((page) =>
           page.items.map((member) => (
             <MemberItem
@@ -154,7 +155,8 @@ function TransferOwnershipModalBody({ onSuccess }) {
               member={member}
               onTransfer={onTransfer}
             />
-          )))}
+          )),
+        )}
 
         {memberByEmail.data ? (
           <MemberItem
@@ -166,7 +168,7 @@ function TransferOwnershipModalBody({ onSuccess }) {
       </VStack>
 
       <div ref={ref} />
-    </ModalBody>
+    </DialogBody>
   );
 }
 
@@ -175,12 +177,12 @@ function ConfirmationModalBody({ onClose }) {
 
   return (
     <>
-      <ModalBody>{intl.formatMessage(messages.ownershipTransfered)}</ModalBody>
-      <ModalFooter>
-        <Button colorScheme="primary" onClick={onClose}>
-          {intl.formatMessage(messages.close)}
-        </Button>
-      </ModalFooter>
+      <DialogBody>
+        {intl.formatMessage(messages.ownershipTransfered)}
+      </DialogBody>
+      <DialogFooter>
+        <Button onClick={onClose}>{intl.formatMessage(messages.close)}</Button>
+      </DialogFooter>
     </>
   );
 }
@@ -191,31 +193,18 @@ export default function TransferOwnershipModal({ isOpen, onClose }) {
   const [step, setStep] = useState(0);
 
   return (
-    <Modal
-      size="xl"
-      // isCentered
-      // scrollBehavior="inside"
-      isOpen={isOpen}
-      onClose={onClose}
-    >
-      <ModalOverlay />
-      <ModalContent>
-        <ModalHeader
-          sx={{
-            ':has(> .chakra-modal__close-btn)': {
-              pr: 12, // https://github.com/chakra-ui/chakra-ui/issues/7256
-            },
-          }}
-        >
+    <DialogRoot open={isOpen} onOpenChange={onClose}>
+      <DialogContent>
+        <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.transferOwnership)}
-          <ModalCloseButton />
-        </ModalHeader>
+        </DialogHeader>
+        <DialogCloseTrigger />
 
         {step === 0 ? (
           <TransferOwnershipModalBody onSuccess={() => setStep(1)} />
         ) : null}
         {step === 1 ? <ConfirmationModalBody onClose={onClose} /> : null}
-      </ModalContent>
-    </Modal>
+      </DialogContent>
+    </DialogRoot>
   );
 }

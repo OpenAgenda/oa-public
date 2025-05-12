@@ -344,12 +344,12 @@ $dayInWeek: 7;
     padding: 5px;
     text-align: center;
     .rtp__stats {
-      font-size: 14px;
+      font-size: $font-size-base;
     }
     .rtp__reset {
       color: $oa-red;
       cursor: pointer;
-      font-size: 14px;
+      font-size: $font-size-base;
     }
   }
 }

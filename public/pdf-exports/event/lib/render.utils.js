@@ -16,7 +16,7 @@ export const additionalFieldValues = (schemaFields, values) =>
     .map((field) => ({
       field,
       value: values[field.field],
-      displayLabelIfUnset: false,
+      displayLabelIfUnset: true,
     }));
 
 export const mapToFieldValuePair = (
@@ -39,9 +39,22 @@ export const mapToFieldValuePair = (
       ...label && { label },
     },
     value: params.value || _.get(event, fieldName),
-    relatedValues: (relatedValues ?? []).reduce(
-      (rv, f) => ({ ...rv, [f]: _.get(event, f) }),
-      {},
-    ),
+    relatedValues: (relatedValues ?? [])
+      .map((rv) => (typeof rv === 'string' ? { from: rv, to: rv } : rv))
+      .reduce((rv, f) => ({ ...rv, [f.to]: _.get(event, f.from) }), {}),
   };
 };
+
+export const extractAndFlattenSchemaFields = (schema) =>
+  schema.fields.reduce(
+    (flatFields, field) =>
+      (field.schema
+        ? flatFields.concat(
+          field.schema.fields.map((f) => ({
+            ...f,
+            field: `${field.field}.${f.field}`,
+          })),
+        )
+        : flatFields.concat(field)),
+    [],
+  );

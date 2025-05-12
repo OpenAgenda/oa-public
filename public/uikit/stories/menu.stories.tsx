@@ -1,12 +1,11 @@
+import { Button, Flex } from '../src';
 import {
-  Button,
-  Flex,
-  Menu,
-  MenuButton,
-  MenuDivider,
+  MenuRoot,
+  MenuTrigger,
+  MenuContent,
   MenuItem,
-  MenuList,
-} from '../src';
+  MenuSeparator,
+} from '../src/snippets';
 import Provider from './decorators/Provider';
 
 export default {
@@ -17,19 +16,24 @@ export default {
 export function All() {
   return (
     <Flex justify="space-around">
-      <Menu placement="bottom-end" colorScheme="primary" defaultIsOpen>
-        {/* TODO `p={4} py={0}` -> `px={4}` after https://github.com/chakra-ui/chakra-ui/pull/6905 */}
-        <MenuButton as={Button} colorScheme="primary">
-          Bertho
-        </MenuButton>
-        <MenuList>
-          <MenuItem textAlign="right">Mes agendas</MenuItem>
-          <MenuItem textAlign="right">Mes événements</MenuItem>
-          <MenuDivider />
-          <MenuItem textAlign="right">Paramètres</MenuItem>
-          <MenuItem textAlign="right">Se déconnecter</MenuItem>
-        </MenuList>
-      </Menu>
+      <MenuRoot positioning={{ placement: 'bottom-end' }} defaultOpen>
+        <MenuTrigger asChild>
+          <Button colorPalette="primary">Bertho</Button>
+        </MenuTrigger>
+        <MenuContent minW="3xs">
+          <MenuItem value="agendas">Mes agendas</MenuItem>
+          <MenuItem value="events">Mes événements</MenuItem>
+          <MenuSeparator my="2" />
+          <MenuItem value="parameters" textAlign="right">
+            Paramètres
+          </MenuItem>
+          <MenuItem value="signout" textAlign="right">
+            Se déconnecter
+          </MenuItem>
+        </MenuContent>
+      </MenuRoot>
     </Flex>
   );
 }
+
+All.storyName = 'Menu';

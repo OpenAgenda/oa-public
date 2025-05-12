@@ -35,8 +35,8 @@ export default function Search({ disabled, isLoading, ...rest }) {
       isLoading={isLoading}
       disabled={disabled}
       inputComponent={StyledSearchInput}
-      __css={{
-        h: '50',
+      css={{
+        h: '50px',
       }}
       {...rest}
     />

@@ -10,7 +10,8 @@ import fetchLocale4 from 'components/Navbar/locales';
 import fetchLocale5 from 'components/NavbarSearchInput/locales';
 import fetchLocale6 from 'components/OfficialAgenda/locales';
 import fetchLocale7 from 'components/locales';
-import fetchLocale8 from 'views/EventShow/components/locales';
+import fetchLocale8 from 'views/EventShow/components/ShareModal/locales';
+import fetchLocale9 from 'views/EventShow/components/locales';
 
 export default async function fetchLocale(locale) {
   return Promise.all([
@@ -24,6 +25,7 @@ export default async function fetchLocale(locale) {
     fetchLocale6(locale),
     fetchLocale7(locale),
     fetchLocale8(locale),
+    fetchLocale9(locale),
   ])
     .then((results) => Object.assign({}, ...results))
     .catch((e) => {

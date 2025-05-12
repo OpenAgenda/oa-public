@@ -1,5 +1,6 @@
 import { useIntl, defineMessages } from 'react-intl';
-import { Icon, Tooltip, IconProps, TooltipProps } from '@openagenda/uikit';
+import { Icon, IconProps } from '@openagenda/uikit';
+import { Tooltip, TooltipProps } from '@openagenda/uikit/snippets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBadgeCheck } from '@fortawesome/pro-duotone-svg-icons';
 
@@ -11,7 +12,7 @@ const messages = defineMessages({
 });
 
 export interface OfficialAgendaProps extends IconProps {
-  tooltipProps?: Omit<TooltipProps, 'children'>;
+  tooltipProps?: Omit<TooltipProps, 'children' | 'content'>;
 }
 
 export default function OfficialAgenda({
@@ -22,27 +23,30 @@ export default function OfficialAgenda({
 
   return (
     <Tooltip
-      label={intl.formatMessage(messages.officialAgenda)}
-      placement="right"
-      hasArrow
-      bg="white"
-      color="black"
-      borderRadius="base" // TODO in theme
-      arrowSize={8}
-      arrowPadding={6}
+      content={intl.formatMessage(messages.officialAgenda)}
+      positioning={{ placement: 'right' }}
+      showArrow
+      contentProps={{
+        css: { '--tooltip-bg': 'white' },
+        color: 'black',
+      }}
+      openDelay={0}
+      closeDelay={0}
+      // arrowSize={8}
+      // arrowPadding={6}
       {...tooltipProps}
     >
       <Icon
-        as={FontAwesomeIcon}
-        icon={faBadgeCheck}
         {...props}
-        __css={{
+        css={{
           '--fa-primary-color': 'white',
           '--fa-secondary-color': 'colors.primary.500',
           '--fa-primary-opacity': '1',
           '--fa-secondary-opacity': '1',
         }}
-      />
+      >
+        <FontAwesomeIcon icon={faBadgeCheck} />
+      </Icon>
     </Tooltip>
   );
 }

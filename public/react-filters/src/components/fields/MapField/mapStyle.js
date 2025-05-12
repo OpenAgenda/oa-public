@@ -1,27 +1,27 @@
 export const markerClusterStyle = {
-  '.marker-cluster-small': {
+  '& .marker-cluster-small': {
     backgroundColor: 'rgba(181, 226, 140, 0.6)',
   },
-  '.marker-cluster-small div': {
+  '& .marker-cluster-small div': {
     backgroundColor: 'rgba(110, 204, 57, 0.6)',
   },
-  '.marker-cluster-medium': {
+  '& .marker-cluster-medium': {
     backgroundColor: 'rgba(241, 211, 87, 0.6)',
   },
-  '.marker-cluster-medium div': {
+  '& .marker-cluster-medium div': {
     backgroundColor: 'rgba(240, 194, 12, 0.6)',
   },
-  '.marker-cluster-large': {
+  '& .marker-cluster-large': {
     backgroundColor: 'rgba(253, 156, 115, 0.6)',
   },
-  '.marker-cluster-large div': {
+  '& .marker-cluster-large div': {
     backgroundColor: 'rgba(241, 128, 23, 0.6)',
   },
-  '.marker-cluster': {
+  '& .marker-cluster': {
     backgroundClip: 'padding-box',
     borderRadius: '20px',
   },
-  '.marker-cluster div': {
+  '& .marker-cluster div': {
     width: '30px',
     height: '30px',
     marginLeft: '5px',
@@ -30,7 +30,7 @@ export const markerClusterStyle = {
     borderRadius: '15px',
     font: "12px 'Helvetica Neue', Arial, Helvetica, sans-serif",
   },
-  '.marker-cluster span': {
+  '& .marker-cluster span': {
     lineHeight: '30px',
   },
 };

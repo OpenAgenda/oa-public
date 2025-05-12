@@ -7,7 +7,9 @@ function getAbsolutePath(value) {
 const main = {
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
-    options: {},
+    options: {
+      nextConfigPath: join(__dirname, '../next.config.mjs'),
+    },
   },
 
   stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -16,12 +18,7 @@ const main = {
     builder: getAbsolutePath('@storybook/builder-webpack5'),
   },
 
-  staticDirs: ['./public', '../stories/static'],
-
-  babel: async (config) => {
-    config.generatorOpts = { importAttributesKeyword: 'with' };
-    return config;
-  },
+  staticDirs: ['../public', './public', '../stories/static'],
 };
 
 export default main;

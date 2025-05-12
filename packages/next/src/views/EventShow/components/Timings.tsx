@@ -14,7 +14,8 @@ function findNextOrLastTiming(timingsPerMonth: SpreadTimings) {
   let lastTiming = null;
 
   const sortedMonths = Object.entries(timingsPerMonth).sort((a, b) =>
-    compareAsc(parseISO(a[0]), parseISO(b[0])));
+    compareAsc(parseISO(a[0]), parseISO(b[0])),
+  );
 
   for (const [month, weeks] of sortedMonths) {
     const sortedWeeks = Object.entries(weeks).sort(
@@ -22,7 +23,8 @@ function findNextOrLastTiming(timingsPerMonth: SpreadTimings) {
     );
     for (const [week, days] of sortedWeeks) {
       const sortedDays = Object.entries(days).sort((a, b) =>
-        compareAsc(parseISO(a[0]), parseISO(b[0])));
+        compareAsc(parseISO(a[0]), parseISO(b[0])),
+      );
       for (const [day, timings] of sortedDays) {
         for (const timing of timings) {
           lastTiming = { month, week, day, timing };
@@ -39,7 +41,8 @@ function findNextOrLastTiming(timingsPerMonth: SpreadTimings) {
 
 function findPreviousMonth(timingsPerMonth: SpreadTimings, month: string) {
   const sortedMonths = Object.keys(timingsPerMonth).sort((a, b) =>
-    compareAsc(parseISO(a), parseISO(b)));
+    compareAsc(parseISO(a), parseISO(b)),
+  );
   const currentIndex = sortedMonths.indexOf(month);
 
   if (currentIndex <= 0) {
@@ -51,7 +54,8 @@ function findPreviousMonth(timingsPerMonth: SpreadTimings, month: string) {
 
 function findNextMonth(timingsPerMonth: SpreadTimings, month: string) {
   const sortedMonths = Object.keys(timingsPerMonth).sort((a, b) =>
-    compareAsc(parseISO(a), parseISO(b)));
+    compareAsc(parseISO(a), parseISO(b)),
+  );
   const currentIndex = sortedMonths.indexOf(month);
 
   if (currentIndex === -1 || currentIndex >= sortedMonths.length - 1) {
@@ -90,7 +94,8 @@ function TimingsDisplay({ timingsPerWeek, timezone }) {
               ))}
             </div>
           </Flex>
-        )))}
+        )),
+      )}
     </Flex>
   );
 }
@@ -136,13 +141,14 @@ function TimingsWithNavigation({ timings, timezone }) {
             aria-label={intl.formatMessage(messages.previousMonth)}
             size="lg"
             variant="ghost"
-            icon={<FaIcon icon={faChevronLeft} />}
             _hover={{
               color: 'primary.500',
             }}
             justifySelf="start"
             onClick={() => setCurrentMonth(previousMonth)}
-          />
+          >
+            <FaIcon icon={faChevronLeft} />
+          </IconButton>
         ) : null}
         <Box gridColumn="2" fontWeight="bold">
           {capitalize(
@@ -156,13 +162,14 @@ function TimingsWithNavigation({ timings, timezone }) {
             aria-label={intl.formatMessage(messages.nextMonth)}
             size="lg"
             variant="ghost"
-            icon={<FaIcon icon={faChevronRight} />}
             _hover={{
               color: 'primary.500',
             }}
             justifySelf="end"
             onClick={() => setCurrentMonth(nextMonth)}
-          />
+          >
+            <FaIcon icon={faChevronRight} />
+          </IconButton>
         ) : null}
       </Grid>
 

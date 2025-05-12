@@ -13,7 +13,7 @@
       "type": "string",
       "required": true
     },
-    "colorScheme": {
+    "colorPalette": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"

@@ -1,15 +1,14 @@
+import { useId } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
+import { chakra, Link, useBreakpointValue } from '@openagenda/uikit';
 import {
-  Menu,
-  MenuButton,
-  MenuList,
+  MenuRoot,
+  MenuTrigger,
+  MenuContent,
   MenuItem,
-  Text,
-  Flex,
   Tooltip,
-  useBreakpointValue,
-} from '@openagenda/uikit';
+} from '@openagenda/uikit/snippets';
 import { FaIcon } from 'icons';
 import { faPencil, faChevronDown } from 'icons/solid';
 import base64 from 'utils/base64';
@@ -18,16 +17,13 @@ import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
 import canModifyLocation from '../../utils/canModifyLocation';
 import ContextBarButton from './ContextBarButton';
-import { fullWidth } from './popperModifiers';
 
-function LinkMenuItem({ action, href, rel = null }) {
+function LinkMenuItem({ value, href, children }) {
   return (
-    <MenuItem as="a" href={href} rel={rel}>
-      <Flex direction="column" justifyContent="center" height="50px">
-        <Text fontWeight="bold" display="block">
-          {action}
-        </Text>
-      </Flex>
+    <MenuItem value={value} asChild fontWeight="bold" height="50px">
+      <Link unstyled href={href}>
+        {children}
+      </Link>
     </MenuItem>
   );
 }
@@ -39,21 +35,27 @@ function LocationMenuItem({ agenda, event, member, intl }) {
   if (canModifyLocation(member, event, agenda)) {
     return (
       <LinkMenuItem
+        value="edit-location"
         href={`/${agenda.slug}/admin/locations/${event.location.uid}/edit`}
-        action={intl.formatMessage(messages.editLocation)}
-      />
+      >
+        {intl.formatMessage(messages.editLocation)}
+      </LinkMenuItem>
     );
   }
   return (
     <LinkMenuItem
+      value="edit-location"
       href={`/${agenda.slug}/locations/${event.location.agendaUid}.${event.location.uid}/suggest-change`}
-      action={intl.formatMessage(messages.suggestLocaitonChange)}
-    />
+    >
+      {intl.formatMessage(messages.suggestLocationChange)}
+    </LinkMenuItem>
   );
 }
 
-export default function Edit({ agenda }) {
+export default function Edit({ agenda, contextBarRef }) {
   const intl = useIntl();
+
+  const triggerId = useId();
 
   const router = useRouter();
 
@@ -68,38 +70,55 @@ export default function Edit({ agenda }) {
   const editLink = `/${agenda.slug}/contribute/event/${event.uid}?redirect=${base64.encode(currentUrl)}`;
 
   return (
-    <Menu
-      matchWidth
-      gutter={0}
-      modifiers={isMobile ? (fullWidth as any) : null}
+    <MenuRoot
+      ids={{ trigger: triggerId }}
+      positioning={{
+        sameWidth: true,
+        gutter: 0,
+        overflowPadding: 0,
+        fitViewport: true,
+        getAnchorRect: isMobile
+          ? () => {
+              return contextBarRef.current!.getBoundingClientRect();
+            }
+          : null,
+      }}
     >
-      <Tooltip label={intl.formatMessage(messages.edit)} isDisabled={!isMobile}>
-        <MenuButton
-          as={ContextBarButton}
-          textAlign={{ base: 'center', md: 'start' }}
-          lineHeight="normal"
-          display="inline-flex"
-          rightIcon={isMobile ? null : <FaIcon icon={faChevronDown} />}
-        >
-          {isMobile ? (
-            <FaIcon icon={faPencil} size="lg" />
-          ) : (
-            <p>{intl.formatMessage(messages.edit)}</p>
-          )}
-        </MenuButton>
+      <Tooltip
+        ids={{ trigger: triggerId }}
+        content={intl.formatMessage(messages.edit)}
+        disabled={!isMobile}
+        openDelay={0}
+        closeDelay={0}
+      >
+        <MenuTrigger asChild>
+          <ContextBarButton
+            textAlign={{ base: 'center', md: 'start' }}
+            lineHeight="normal"
+            display="inline-flex"
+            justifyContent="center"
+          >
+            {isMobile ? (
+              <FaIcon icon={faPencil} size="lg" />
+            ) : (
+              <chakra.p flex="1">{intl.formatMessage(messages.edit)}</chakra.p>
+            )}
+            {isMobile ? null : <FaIcon icon={faChevronDown} />}
+          </ContextBarButton>
+        </MenuTrigger>
       </Tooltip>
-      <MenuList borderTopRadius="0">
-        <LinkMenuItem
-          href={editLink}
-          action={intl.formatMessage(messages.editEvent)}
-        />
+
+      <MenuContent borderTopRadius="0" maxW="var(--available-width)">
+        <LinkMenuItem value="edit-event" href={editLink}>
+          {intl.formatMessage(messages.editEvent)}
+        </LinkMenuItem>
         <LocationMenuItem
           agenda={agenda}
           event={event}
           member={me.member}
           intl={intl}
         />
-      </MenuList>
-    </Menu>
+      </MenuContent>
+    </MenuRoot>
   );
 }

@@ -112,7 +112,9 @@ export default function EventItem({
           left="0px"
           w="52px"
           h="52px"
-          bgGradient="linear(to-br, white 36px, transparent 0)"
+          bgGradient="to-br"
+          gradientFrom="white 36px"
+          gradientTo="transparent 0"
           zIndex="docked"
           // filter="drop-shadow(1px 1px 2px rgba(0,0,0,0.3))"
         >
@@ -122,48 +124,48 @@ export default function EventItem({
             left="0px"
             w="52px"
             h="52px"
-            bgGradient="linear(to-br, primary.500 32px, transparent 0)"
+            bgGradient="to-br"
+            gradientFrom="{colors.primary.500} 32px"
+            gradientTo="transparent 0"
             zIndex="docked"
             // filter="drop-shadow(1px 1px 2px rgba(0,0,0,0.3))"
           >
-            <Icon
-              as={FaIcon}
-              icon={faThumbtack}
-              size="lg"
-              mt="6px"
-              ml="4px"
-              color="primaryContrast"
-            />
+            <Icon mt="6px" ml="6px" color="primaryContrast" fontSize="lg">
+              <FaIcon icon={faThumbtack} />
+            </Icon>
           </Box>
         </Box>
       ) : null}
       {event.image ? (
         <Box pos="relative" h={imageHeight} maxH={imageList?.maxHeight}>
-          <Image
-            alt=""
-            src={
-              process.env.NODE_ENV === 'development'
-                ? `${DEV_S3_BUCKET}/${event.image.filename}`
-                : `${S3_BUCKET}/${event.image.filename}`
-            }
-            fallbackSrc={
-              process.env.NODE_ENV === 'development'
-                ? `${S3_BUCKET}/${event.image.filename}`
-                : undefined
-            }
-            loader={thumborLoader}
-            fill
-            // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+          <Box
+            asChild
             pos="unset !important"
             objectFit={imageList?.objectFit || 'cover'}
             maxH={imageList?.maxHeight}
             aspectRatio={imageList?.aspectRatio}
-            sizes="(max-width: 629px) 100vw,
+          >
+            <Image
+              alt=""
+              src={
+                process.env.NODE_ENV === 'development'
+                  ? `${DEV_S3_BUCKET}/${event.image.filename}`
+                  : `${S3_BUCKET}/${event.image.filename}`
+              }
+              fallbackSrc={
+                process.env.NODE_ENV === 'development'
+                  ? `${S3_BUCKET}/${event.image.filename}`
+                  : undefined
+              }
+              loader={thumborLoader}
+              fill
+              sizes="(max-width: 629px) 100vw,
                  (max-width: 954px) 50vw,
                  (max-width: 1279px) 33.33vw,
                  (max-width: 1590px) 25vw,
                  20vw"
-          />
+            />
+          </Box>
         </Box>
       ) : (
         <Box h={imageHeight} />
@@ -172,14 +174,16 @@ export default function EventItem({
         <HStack color={primaryColor ? 'primary.500' : null} fontWeight="bold">
           <span>{getLocaleValue(event.dateRange, intl.locale)}</span>
           {!event.nextTiming ? (
-            <Tag
+            <Tag.Root
               borderRadius="full"
               variant="outline"
-              colorScheme="oaGray"
+              colorPalette="oaGray"
               flexShrink="0"
             >
-              <b>{intl.formatMessage(messages.passed)}</b>
-            </Tag>
+              <Tag.Label>
+                <b>{intl.formatMessage(messages.passed)}</b>
+              </Tag.Label>
+            </Tag.Root>
           ) : null}
         </HStack>
         <NextChakraLinkOverlay

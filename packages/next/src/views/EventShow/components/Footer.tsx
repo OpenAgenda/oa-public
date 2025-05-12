@@ -7,18 +7,16 @@ export default function Footer() {
 
   return (
     <footer>
-      <Link href="/" colorScheme="primary">
-        OpenAgenda
-      </Link>
+      <Link href="/">OpenAgenda</Link>
       {' · '}
-      <Link href="https://doc.openagenda.com" isExternal colorScheme="primary">
+      <Link href="https://doc.openagenda.com" target="_blank" rel="noopener">
         {intl.formatMessage(messages.help)}
       </Link>
       {' · '}
       <Link
         href="https://doc.openagenda.com/conditions/"
-        isExternal
-        colorScheme="primary"
+        target="_blank"
+        rel="noopener"
       >
         {intl.formatMessage(messages.termsOfUse)}
       </Link>

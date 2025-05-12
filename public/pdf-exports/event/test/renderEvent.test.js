@@ -4,6 +4,8 @@ import PDFExports from '../index.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
+const selectedPDF = process.argv.length > 2 && [].concat(process.argv).pop();
+
 const readFx = (filename) =>
   fs.promises
     .readFile(`${__dirname}/fixtures/${filename}.json`, 'utf-8')
@@ -16,7 +18,7 @@ const pdfExports = PDFExports({});
 
 // Define fixture pairs to test
 const fixturePairs = [
-  /* {
+  {
     name: 'loiret',
     agenda: await readFx('loiret.agenda'),
     event: await readFx('withRegistrationLink.event'),
@@ -30,13 +32,18 @@ const fixturePairs = [
     name: 'withLocationImage',
     agenda: await readFx('withLocationImage.agenda'),
     event: await readFx('withLocationImage.event'),
-  }, */
+  },
   {
     name: 'online',
     agenda: await readFx('pciCorse.agenda'),
     event: await readFx('onlineAttendance.event'),
   },
-];
+  {
+    name: 'detailedLocation',
+    agenda: await readFx('ndm.agenda'),
+    event: await readFx('detailedLocation.event'),
+  },
+].filter(({ name }) => selectedPDF && selectedPDF === name);
 
 // Generate PDFs for each fixture pair
 for (const { name, agenda, event } of fixturePairs) {

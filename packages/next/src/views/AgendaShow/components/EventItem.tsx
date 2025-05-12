@@ -11,10 +11,9 @@ import {
   Heading,
   IconButton,
   List,
-  ListItem,
-  ListIcon,
-  Text,
   LinkBox,
+  Text,
+  HStack,
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { useForm } from '@openagenda/react-filters';
@@ -30,6 +29,9 @@ import {
   faShare,
   faStar as fasStar,
 } from '@fortawesome/pro-solid-svg-icons';
+import useShareModal from 'views/EventShow/hooks/useShareModal';
+import ShareModal from 'views/EventShow/components/ShareModal';
+import EmailConfirmationAlert from 'views/EventShow/components/EmailConfirmationAlert';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useLocationQuery from 'hooks/useLocationQuery';
@@ -39,8 +41,8 @@ import { thumborLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import { EventStatusBadge, EventStatusTooltip } from 'components/EventStatus';
 import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
-import NextChakraLink from 'components/NextChakraLink';
 import Featured from 'components/Featured';
+import graylogo140 from '../../../../public/images/graylogo140.png';
 
 const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
@@ -110,15 +112,16 @@ function FavoriteButton({ agenda, event }) {
         messages[isFavorite ? 'removeFromFavorites' : 'addToFavorites'],
       )}
       variant="link"
-      colorScheme={isFavorite ? 'primary' : 'oaGray'}
+      colorPalette={isFavorite ? 'primary' : 'oaGray'}
       onClick={toggleFavorite}
       size="lg"
       fontSize="xl"
-      icon={<FontAwesomeIcon icon={isFavorite ? fasStar : faStar} />}
       minW="0"
       ml="6"
       alignSelf="flex-start"
-    />
+    >
+      <FontAwesomeIcon icon={isFavorite ? fasStar : faStar} />
+    </IconButton>
   );
 }
 
@@ -140,6 +143,64 @@ function RelativeTime({ closestTiming }) {
   );
 }
 
+function EventImage({ src, fallbackSrc = null, loader = null }) {
+  return (
+    <Box asChild borderRadius="full" h="56px" minW="56px" objectFit="cover">
+      <Image
+        width="56"
+        height="56"
+        src={src}
+        fallbackSrc={fallbackSrc}
+        alt=""
+        draggable={false}
+        loader={loader}
+      />
+    </Box>
+  );
+}
+
+function ShareEventItem({ event }) {
+  const isDev = process.env.NODE_ENV === 'development';
+
+  const intl = useIntl();
+
+  return (
+    <HStack
+      px="3"
+      py="2"
+      mb="6"
+      bg="oaGray.10"
+      border="1px solid"
+      borderColor="oaGray.100"
+      borderRadius="base"
+    >
+      {event.image ? (
+        <EventImage
+          src={
+            isDev
+              ? `${process.env.NEXT_PUBLIC_DEV_S3_BUCKET}/${event.image.filename}`
+              : `${process.env.NEXT_PUBLIC_S3_BUCKET}/${event.image.filename}`
+          }
+          fallbackSrc={
+            isDev
+              ? `${process.env.NEXT_PUBLIC_S3_BUCKET}/${event.image.filename}`
+              : undefined
+          }
+          loader={thumborLoader}
+        />
+      ) : (
+        <EventImage src={graylogo140} />
+      )}
+      <div>
+        <Text fontWeight="bold">
+          {getLocaleValue(event.title, intl.locale)}
+        </Text>
+        <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
+      </div>
+    </HStack>
+  );
+}
+
 export default function EventItem({
   event,
   agenda,
@@ -157,6 +218,16 @@ export default function EventItem({
 
   const upcomingOnly = isUpcomingOnlyQuery(query);
 
+  const {
+    shareIsOpen,
+    shareOnOpen,
+    shareOnClose,
+    emailSent,
+    emailSentIsOpen,
+    emailSentOnClose,
+    onEmailSent,
+  } = useShareModal();
+
   return (
     <Flex
       as="article"
@@ -170,7 +241,7 @@ export default function EventItem({
       <Box as="aside" w={{ base: 'full', xl: '25%' }} mt={{ xl: '4' }}>
         <Flex justify={{ base: 'flex-start', xl: 'flex-end' }}>
           <div>
-            <Featured featured={event.featured} size="md" />
+            <Featured featured={event.featured} size="sm" />
             <RelativeTime closestTiming={closestTiming} />
           </div>
         </Flex>
@@ -201,7 +272,7 @@ export default function EventItem({
             justify="space-between"
             alignItems="flex-start"
           >
-            <Heading as="h2" fontSize="xl">
+            <Heading as="h2" fontSize="lg">
               {event.status !== 1 ? (
                 <EventStatusBadge intl={intl} status={event.status} />
               ) : null}
@@ -244,55 +315,58 @@ export default function EventItem({
           {/* eslint-disable-next-line no-nested-ternary */}
           {event.image ? 
             event.image?.size?.width && event.image?.size?.height ? (
-              <Image
-                src={
-                  process.env.NODE_ENV === 'development'
-                    ? `${DEV_S3_BUCKET}/${event.image.filename}`
-                    : `${S3_BUCKET}/${event.image.filename}`
-                }
-                fallbackSrc={
-                  process.env.NODE_ENV === 'development'
-                    ? `${S3_BUCKET}/${event.image.filename}`
-                    : undefined
-                }
-                width={event.image.size.width}
-                height={event.image.size.height}
-                // >= 1280 : 577px
-                // >= 992 : 476px
-                // < 520 : 100vw
-                sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
-                loader={thumborLoader}
-                alt=""
-                m="auto"
-                w="full"
-                priority={imagePriority}
-              />
+              <Box asChild m="auto" w="full">
+                <Image
+                  src={
+                    process.env.NODE_ENV === 'development'
+                      ? `${DEV_S3_BUCKET}/${event.image.filename}`
+                      : `${S3_BUCKET}/${event.image.filename}`
+                  }
+                  fallbackSrc={
+                    process.env.NODE_ENV === 'development'
+                      ? `${S3_BUCKET}/${event.image.filename}`
+                      : undefined
+                  }
+                  width={event.image.size.width}
+                  height={event.image.size.height}
+                  // >= 1280 : 577px
+                  // >= 992 : 476px
+                  // < 520 : 100vw
+                  sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
+                  loader={thumborLoader}
+                  alt=""
+                  priority={imagePriority}
+                />
+              </Box>
             ) : (
-              <Image
-                src={
-                  process.env.NODE_ENV === 'development'
-                    ? `${DEV_S3_BUCKET}/${event.image.filename}`
-                    : `${S3_BUCKET}/${event.image.filename}`
-                }
-                fallbackSrc={
-                  process.env.NODE_ENV === 'development'
-                    ? `${S3_BUCKET}/${event.image.filename}`
-                    : undefined
-                }
-                fill
-                // @ts-ignore https://github.com/chakra-ui/chakra-ui/issues/7211
+              <Box
+                asChild
                 pos="unset !important"
                 w="full !important"
                 h="auto !important"
-                // >= 1280 : 577px
-                // >= 992 : 476px
-                // < 520 : 100vw
-                sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
-                loader={thumborLoader}
-                alt=""
                 m="auto"
-                priority={imagePriority}
-              />
+              >
+                <Image
+                  src={
+                    process.env.NODE_ENV === 'development'
+                      ? `${DEV_S3_BUCKET}/${event.image.filename}`
+                      : `${S3_BUCKET}/${event.image.filename}`
+                  }
+                  fallbackSrc={
+                    process.env.NODE_ENV === 'development'
+                      ? `${S3_BUCKET}/${event.image.filename}`
+                      : undefined
+                  }
+                  fill
+                  // >= 1280 : 577px
+                  // >= 992 : 476px
+                  // < 520 : 100vw
+                  sizes="(max-width: 520px) 100vw, (max-width: 1280px) 476px, 577px"
+                  loader={thumborLoader}
+                  alt=""
+                  priority={imagePriority}
+                />
+              </Box>
             )
            : null}
 
@@ -300,40 +374,38 @@ export default function EventItem({
           <Text px="6">{getLocaleValue(event.description, intl.locale)}</Text>
 
           <Flex justify="space-between">
-            <List spacing="2" px="6" color="oaGray.500" pb="4">
-              <ListItem ml="6">
-                <ListIcon
-                  as={FontAwesomeIcon}
-                  icon={faClock}
-                  verticalAlign=""
-                  ml="-6"
-                />
+            <List.Root
+              variant="plain"
+              gap="2"
+              align="center"
+              color="oaGray.500"
+              pb="4"
+              ml="6"
+            >
+              <List.Item>
+                <List.Indicator asChild w="4" h="4">
+                  <FontAwesomeIcon size="sm" icon={faClock} />
+                </List.Indicator>
                 {getLocaleValue(event.dateRange, intl.locale)}
-              </ListItem>
+              </List.Item>
               {event.onlineAccessLink ? (
-                <ListItem ml="6">
-                  <ListIcon
-                    as={FontAwesomeIcon}
-                    icon={faLink}
-                    verticalAlign=""
-                    ml="-6"
-                  />
+                <List.Item>
+                  <List.Indicator asChild w="4" h="4">
+                    <FontAwesomeIcon size="sm" icon={faLink} />
+                  </List.Indicator>
                   {intl.formatMessage(attendanceModesMessages.online)}
-                </ListItem>
+                </List.Item>
               ) : null}
               {event.location ? (
-                <ListItem ml="6">
-                  <ListIcon
-                    as={FontAwesomeIcon}
-                    icon={faLocationDot}
-                    verticalAlign=""
-                    ml="-6"
-                  />
+                <List.Item>
+                  <List.Indicator asChild w="4" h="4">
+                    <FontAwesomeIcon size="sm" icon={faLocationDot} />
+                  </List.Indicator>
                   {event.location.name}
                   {event.location.city ? `, ${event.location.city}` : ''}
-                </ListItem>
+                </List.Item>
               ) : null}
-            </List>
+            </List.Root>
 
             <Box
               float="right"
@@ -342,21 +414,19 @@ export default function EventItem({
               alignSelf="flex-end"
             >
               <Button
-                as={NextChakraLink}
-                href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
-                colorScheme="primary"
-                borderRadius="sm"
+                borderRadius="xs"
                 display={{ base: 'none', sm: 'inline-flex' }}
+                onClick={shareOnOpen}
+                disabled={!!event.private}
               >
                 {intl.formatMessage(messages.share)}
               </Button>
 
               <Button
-                as={NextChakraLink}
-                href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
-                colorScheme="primary"
                 borderRadius="sm"
                 display={{ base: 'inline-flex', sm: 'none' }}
+                onClick={shareOnOpen}
+                disabled={!!event.private}
               >
                 <FontAwesomeIcon icon={faShare} />
               </Button>
@@ -364,6 +434,27 @@ export default function EventItem({
           </Flex>
         </LinkBox>
       </EventStatusTooltip>
+
+      {shareIsOpen ? (
+        <ShareModal
+          isOpen
+          onClose={shareOnClose}
+          agenda={agenda}
+          event={event}
+          contentLocale={intl.locale}
+          onEmailSent={onEmailSent}
+        >
+          <ShareEventItem event={event} />
+        </ShareModal>
+      ) : null}
+
+      {emailSentIsOpen ? (
+        <EmailConfirmationAlert
+          isOpen
+          onClose={emailSentOnClose}
+          count={emailSent}
+        />
+      ) : null}
     </Flex>
   );
 }

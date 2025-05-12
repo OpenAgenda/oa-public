@@ -27,6 +27,7 @@ export default function SearchHereControl({
         overflow="hidden"
         transitionDuration="0.2s"
         cursor="pointer"
+        color="fg"
         background="white"
         height="24px"
         borderRadius="16px"

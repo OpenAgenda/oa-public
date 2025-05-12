@@ -1,5 +1,6 @@
 import { useIntl } from 'react-intl';
-import { HStack, NoBreak, Text, Flex, Tag, LinkBox } from '@openagenda/uikit';
+import { Box, HStack, NoBreak, Text, Flex, LinkBox } from '@openagenda/uikit';
+import { Tag } from '@openagenda/uikit/snippets';
 import Image from 'components/Image';
 import { thumborLoader } from 'utils/imageLoader';
 import OfficialAgenda from 'components/OfficialAgenda';
@@ -30,34 +31,41 @@ export default function AgendaItem({ agenda }) {
   const passedEvents = agenda.summary?.publishedEvents?.passed ?? 0;
 
   return (
-    <LinkBox as={HStack} spacing="2">
-      <Image
+    <LinkBox as={HStack} gap="2">
+      <Box
+        asChild
         rounded="full"
-        width="96"
-        height="96"
-        src={imageSrc || graylogo140}
-        fallbackSrc={
-          isDev && typeof imageSrc === 'string'
-            ? imageSrc.replace('dev', 'main').replace('images-', 'imagesdev-')
-            : undefined
-        }
-        alt=""
-        draggable={false}
-        loader={imageSrc ? thumborLoader : null}
         border="3px solid white"
         h="96px"
         objectFit="cover"
-      />
+      >
+        <Image
+          width="96"
+          height="96"
+          src={imageSrc || graylogo140}
+          fallbackSrc={
+            isDev && typeof imageSrc === 'string'
+              ? imageSrc.replace('dev', 'main').replace('images-', 'imagesdev-')
+              : undefined
+          }
+          alt=""
+          draggable={false}
+          loader={imageSrc ? thumborLoader : null}
+        />
+      </Box>
 
       <Flex direction="column">
         {agenda.network ? (
-          <NextChakraLink href={`?network=${agenda.network.uid}`}>
+          <NextChakraLink
+            href={`?network=${agenda.network.uid}`}
+            colorPalette="gray"
+          >
             {agenda.network.title}
             &nbsp;›
           </NextChakraLink>
         ) : null}
 
-        <Text fontWeight="bold" mb="2">
+        <Text fontWeight="bold">
           <NextChakraLinkOverlay href={`/${agenda.slug}`}>
             {agenda.title}
           </NextChakraLinkOverlay>
@@ -65,9 +73,14 @@ export default function AgendaItem({ agenda }) {
             <NoBreak>
               <OfficialAgenda
                 ml="2"
+                // zIndex + position because of LinkBox
+                zIndex="0"
+                pos="relative"
                 tooltipProps={{
-                  bg: 'black',
-                  color: 'white',
+                  contentProps: {
+                    css: { '--tooltip-bg': 'black' },
+                    color: 'white',
+                  },
                 }}
               />
             </NoBreak>
@@ -77,9 +90,14 @@ export default function AgendaItem({ agenda }) {
               <LockIcon
                 type="agenda"
                 ml="2"
+                // zIndex + position because of LinkBox
+                zIndex="0"
+                pos="relative"
                 tooltipProps={{
-                  bg: 'black',
-                  color: 'white',
+                  contentProps: {
+                    css: { '--tooltip-bg': 'black' },
+                    color: 'white',
+                  },
                 }}
               />
             </NoBreak>
@@ -90,7 +108,7 @@ export default function AgendaItem({ agenda }) {
 
         <div>
           {currentAndUpcomingEvents ? (
-            <Tag borderRadius="full" variant="outline" colorScheme="primary">
+            <Tag borderRadius="full" variant="outline" colorPalette="primary">
               <b>
                 {intl.formatMessage(messages.upcomingEvents, {
                   count: currentAndUpcomingEvents,
@@ -100,7 +118,7 @@ export default function AgendaItem({ agenda }) {
           ) : null}
 
           {passedEvents && !currentAndUpcomingEvents ? (
-            <Tag borderRadius="full" variant="outline" colorScheme="oaGray">
+            <Tag borderRadius="full" variant="outline" colorPalette="oaGray">
               <b>
                 {intl.formatMessage(messages.passedEvents, {
                   count: passedEvents,

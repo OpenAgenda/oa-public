@@ -5,7 +5,7 @@ import {
   AccessibilitySection,
   ConditionsSection,
   DateRangeSection,
-  LocationSection,
+  LocationPreview,
   OnlineAccessSection,
   RegistrationSection,
   TimingsSection,
@@ -51,17 +51,22 @@ export function ShareSection({ event, icon = faShareNodes, ...props }) {
       alignItems="center"
       {...props}
     >
-      <Icon as={FaIcon} icon={icon} size="2xl" color="oaGray.300" />
+      <Icon color="oaGray.300">
+        <FaIcon icon={icon} size="2xl" />
+      </Icon>
       <Button
-        as={Link}
-        href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
-        isExternal
+        asChild
         // leftIcon={<OAIcon />}
         variant="outline"
-        colorScheme="primary"
-        isDisabled={!!event.private}
+        disabled={!!event.private}
       >
-        {intl.formatMessage(messages.share)}
+        <Link
+          href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {intl.formatMessage(messages.share)}
+        </Link>
       </Button>
     </Grid>
   );
@@ -87,7 +92,7 @@ export default function Sidebar({ referrer }) {
       />
       <TimingsSection event={event} />
       <AccessibilitySection event={event} ageIcon={faChild} />
-      <LocationSection event={event} icon={faLocationDot} />
+      <LocationPreview event={event} icon={faLocationDot} />
     </>
   );
 }
