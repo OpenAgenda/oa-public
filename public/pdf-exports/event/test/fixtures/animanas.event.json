@@ -1,0 +1,167 @@
+{
+  "dateRange": {
+    "fr": "Samedi 17 mai, 14h00"
+  },
+  "state": 2,
+  "featured": false,
+  "title": {
+    "de": "Animanas | Spielbuch",
+    "en": "Animanas | game booklet",
+    "it": "Animanas | libretto gioco",
+    "fr": "Animanas | livret jeu",
+    "es": "Animanas | libreto juego"
+  },
+  "types-devenement": 1,
+  "image": {
+    "filename": "dfaa721dc7794441bfdce613920562cc.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 875
+    },
+    "variants": [
+      {
+        "filename": "dfaa721dc7794441bfdce613920562cc.full.image.jpg",
+        "size": {
+          "width": 1080,
+          "height": 1350
+        },
+        "type": "full"
+      },
+      {
+        "filename": "dfaa721dc7794441bfdce613920562cc.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": "©manas",
+  "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "de": "Mit dem Zug: 1h16 vom Bahnhof Paris Montparnasse oder Massy TGV 25 min vom Bahnhof Rennes 51 min vom Bahnhof Le Mans\nMit dem Auto: 2h40 von Paris über die A11 58 min von Rennes über die N157 1h von Le Mans über die A81\nMit dem Bus: 1h50 von Paris 1h17 von Rennes\nNetzwerk von TUL Laval: https://www.tul-laval.com[/index.php?](https://www.tul-laval.com/index.php)\nMit dem Fahrrad: Le MANAS | Musée d'Art Naïf et d'Arts Singuliers ist gekennzeichnet Accueil Vélo.",
+      "en": "By train: 1h16 from Paris Montparnasse or Massy TGV station 25 min from Rennes station 51 min from Le Mans station\nBy car: 2h40 from Paris via the A11 58 min from Rennes via the N157 1h from Le Mans via the A81\nBy bus: 1h50 from Paris 1h17 from Rennes\nTUL Laval network: [https://www.tul-laval.com/index.php](https://www.tul-laval.com/index.php)?\nBy bike: MANAS | Musée d'Art Naïf et d'Arts Singuliers is marked Home Bicycle.",
+      "it": "In treno: 1h16 dalla stazione di Paris Montparnasse o Massy TGV 25 min dalla stazione di Rennes 51 min dalla stazione di Le Mans\nIn auto: 2h40 da Parigi via A11 58 min da Rennes via N157 1h da Le Mans via A81\nIn autobus: 1h50 da Parigi 1h17 da Rennes\nRete di TUL lavallois: https://www.tul-laval.com[/index.php?](https://www.tul-laval.com/index.php)\nIn bicicletta: Il MANAS | Museo d'Arte Naïf e d'Arti Singolari è contrassegnato Casa Bicicletta.",
+      "fr": "En train :\n1h16 depuis la gare Paris Montparnasse ou Massy TGV\n25 min depuis la gare de Rennes\n51 min depuis la gare du Mans\n\nEn voiture :\n2h40 depuis Paris via l’A11\n58 min depuis Rennes via la N157\n1h depuis Le Mans via A81\n\nEn bus :\n1h50 depuis Paris\n1h17 depuis Rennes\n\nRéseau de TUL lavallois : https://www.tul-laval.com/index.php?\n\nEn vélo :\nLe MANAS | Musée d’Art Naïf et d’Arts Singuliers est marqué Accueil Vélo.",
+      "es": "En tren: 1h16 desde la estación de París Montparnasse o Massy TGV 25 min desde la estación de Rennes 51 min desde la estación de Le Mans\nEn coche: 2h40 desde París por la A11 58 min desde Rennes por la N157 1h desde Le Mans por la A81\nEn autobús: 1h50 desde París 1h17 desde Rennes\nRed de TUL Laval: [https://www.tul-laval.com/index.php](https://www.tul-laval.com/index.php)?\nEn bicicleta: El MANAS | Museo de Arte Naïf y Artes Singulares está marcado Inicio Bicicleta."
+    },
+    "types-de-lieu": [18],
+    "city": "Laval",
+    "timezone": "Europe/Paris",
+    "postalCode": "53000",
+    "latitude": 48.068997,
+    "imageCredits": "MANAS",
+    "description": {
+      "de": "Das MANAS ist ein einzigartiger Ort, der den Naïve und Singulären Künsten gewidmet ist und seine Sammlungen und temporären Ausstellungen auf 1100 m2 präsentiert. Er wacht über die Kreation außerhalb der Normen und wird auf nationaler Ebene als Entdecker und Unterstützer von Plastikern, die weit entfernt von den Verbreitungskanälen sind, identifiziert.\nDurch seine bereichsübergreifende Programmierung, die marginale künstlerische Ausdrucksformen, zeitgenössische Kunst und Kreation in all ihren Formen vereint, bekräftigt MANAS seinen Willen, Brücken zu bauen und den Austausch zu schaffen. Im Einklang mit seinen Hauptaufgaben, der Konservierung, dem Studium und der Verbreitung seiner Sammlungen, ist das Museum als Plattform für die bildende Kunst positioniert. Ort der Entdeckung, der Kreativität und der künstlerischen Praxis, er lädt alle Zuschauer zur Aneignung eines gemeinsamen Erbes ein, zur Begegnung mit dem konkreten, realen Werk und zum Verständnis der künstlerischen Geste.\nDie Plura",
+      "en": "The MANAS is a unique place dedicated to Naïve and Singular Arts, presenting its collections and temporary exhibitions on 1100 m 2\\. Ensuring a watch on the creation outside the norms, it is identified at the national level as discoverer and support to plastic artists away from distribution channels.\nThrough its transversal programming combining marginal artistic expressions, contemporary art and creation in all its forms, MANAS affirms its desire to establish bridges and create exchange. In keeping with its primary missions, which are the conservation, study and dissemination of its collections, the Museum is positioned as a resource platform for visual arts. Place of discovery, creativity and artistic practice, it invites all audiences to the appropriation of a common heritage, the encounter with the concrete work, real and the understanding of the artistic gesture.\nThe plurality of its offer, which is focused on young people and family audiences, desecrates the cultural institution",
+      "it": "Il MANAS è un luogo unico dedicato alle arti naïf e singolari che presenta le sue collezioni e mostre temporanee su 1100 m 2\\. Garantendo una vigilanza sulla creazione fuori dalle norme, è identificato a livello nazionale come scopritore e sostenitore dei plastici lontani dai circuiti di diffusione.\nCon la sua programmazione trasversale che unisce espressioni artistiche marginali, arte contemporanea e creazione in tutte le sue forme, il MANAS afferma la sua volontà di stabilire ponti e creare scambio. Nel rispetto delle sue missioni primarie di conservazione, studio e diffusione delle sue collezioni, il Museo è posizionato come piattaforma risorsa delle arti visive. Luogo di scoperta, di creatività e di pratica artistica, invita tutti i pubblici all'appropriazione di un patrimonio comune, all'incontro con l'opera concreta, reale e alla comprensione del gesto artistico.\nLa pluralità della sua offerta, orientata verso i giovani e il pubblico familiare, dissacra l'istituzione culturale e",
+      "fr": "Le MANAS est un lieu unique consacré aux Arts Naïfs et Singuliers qui présente ses collections et des expositions temporaires sur 1100 m². Assurant une veille sur la création hors les normes, il est identifié au niveau national comme découvreur et soutien aux plasticiens éloignés des circuits de diffusion.\n\nPar sa programmation transversale alliant expressions artistiques marginales, art contemporain et création sous toutes ses formes, le MANAS affirme sa volonté d’établir des passerelles et de créer l’échange.\nDans le respect de ses missions premières que sont la conservation, l’étude et la diffusion de ses collections, le Musée est positionné comme plate-forme ressource des arts visuels. Lieu de découverte, de créativité et de pratique artistique, il convie tous les publics à l’appropriation d’un patrimoine commun, à la rencontre avec l’œuvre concrète, réelle et à la compréhension du geste artistique.\n \n\nLa pluralité de son offre axée sur les jeunes et le public familial désacralise l’institution culturelle et élargit le champ des possibles. Sa politique originale d’ouverture et de hors les murs lève les obstacles à la venue au Musée qui, s’appuyant sur un réseau de partenaires du territoire, permet à tous ceux éloignés de la culture d’accéder aux œuvres.",
+      "es": "El MANAS es un lugar único dedicado a las Artes Naïves y Singulares que presenta sus colecciones y exposiciones temporales en 1100 m 2\\. Asegurando una vigilancia sobre la creación fuera de las normas, se identifica a nivel nacional como descubridor y apoyo a los plásticos alejados de los circuitos de difusión.\nCon su programación transversal que combina expresiones artísticas marginales, arte contemporáneo y creación en todas sus formas, el MANAS afirma su voluntad de establecer puentes y crear intercambio. En el respeto de sus misiones primarias que son la conservación, el estudio y la difusión de sus colecciones, el Museo está posicionado como plataforma recurso de las artes visuales. Lugar de descubrimiento, creatividad y práctica artística, invita a todos los públicos a la apropiación de un patrimonio común, al encuentro con la obra concreta, real y a la comprensión del gesto artístico.\nLa pluralidad de su oferta, centrada en los jóvenes y el público familiar, profanan la instituc"
+    },
+    "setUid": null,
+    "uid": 44443353,
+    "createdAt": "2025-04-25T08:13:37.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": "Centre Ville Rive Droite",
+    "links": [],
+    "state": 0,
+    "extId": null,
+    "department": "Mayenne",
+    "slug": "musee-dart-naif-et-darts-singuliers_972002",
+    "email": "accueil.musees@laval.fr",
+    "longitude": -0.77175,
+    "updatedAt": "2025-04-25T08:25:17.000Z",
+    "image": "location44443353.e5fa68330b104b1ebf1fdc2db1ebad00.jpg",
+    "website": "https://musees.laval.fr/manas/",
+    "address": "Place de la trémoille, 53000, LAVAL",
+    "adminLevel3": "Laval Agglomération",
+    "agendaUid": 9491431,
+    "adminLevel4": "Laval",
+    "adminLevel1": "Pays de la loire",
+    "adminLevel2": "Mayenne",
+    "mergedIn": null,
+    "label": [40],
+    "_agg": "eyJ1aWQiOjQ0NDQzMzUzLCJuYW1lIjoiTXVzw6llIGQnQXJ0IE5hw69mIGV0IGQnQXJ0cyBTaW5ndWxpZXJzIn0=",
+    "tags": [
+      {
+        "id": 40,
+        "label": "Musée de France"
+      },
+      {
+        "id": 18,
+        "label": {
+          "de": "Zeitgenössische und moderne Kunst",
+          "en": "Contemporary and modern Arts",
+          "it": "Arte contemporanea e moderna",
+          "fr": "Art moderne et contemporain",
+          "es": "Arte contemporáneo y moderno"
+        }
+      }
+    ],
+    "insee": "53130",
+    "phone": "0253741230",
+    "district": "Centre Ville Rive Droite",
+    "name": "Musée d'Art Naïf et d'Arts Singuliers",
+    "region": "Pays de la loire",
+    "extIds": null
+  },
+  "timings": [
+    {
+      "begin": "2025-05-17T14:00:00+02:00",
+      "end": "2025-05-17T23:45:00+02:00"
+    }
+  ],
+  "description": {
+    "de": "Seien Sie neugierig und abenteuerlustig! Erstaunliche Tiere laden Sie zu einer künstlerischen Safari ein: Erkunden Sie die MANAS, um die Werke wiederzufinden, aus denen sie entkommen sind!",
+    "en": "Be curious and adventurous! Amazing animals invite you to an artistic safari: explore the MANAS to find the works they escaped from!",
+    "it": "Sii curioso e avventuroso! Sorprendenti animali vi invitano a un safari artistico: esplorate il MANAS per ritrovare le opere dalle quali sono scappati!",
+    "fr": "Soyez curieux et aventureux ! D'étonnants animaux vous invitent à un safari artistique : explorez le MANAS pour retrouver les œuvres dont ils se sont échappés !",
+    "es": "Sé curioso y aventurero! Animales sorprendentes te invitan a un safari artístico: ¡explora el MANAS para encontrar las obras de las que se escaparon!"
+  },
+  "longDescription": {
+    "de": "Seien Sie neugierig und abenteuerlustig! Erstaunliche Tiere laden Sie zu einer künstlerischen Safari ein: Erkunden Sie die MANAS, um die Werke wiederzufinden, aus denen sie entkommen sind!",
+    "en": "Be curious and adventurous! Amazing animals invite you to an artistic safari: explore the MANAS to find the works they escaped from!",
+    "it": "Sii curioso e avventuroso! Sorprendenti animali vi invitano a un safari artistico: esplorate il MANAS per ritrovare le opere dalle quali sono scappati!",
+    "fr": "Soyez curieux et aventureux ! D'étonnants animaux vous invitent à un safari artistique : explorez le MANAS pour retrouver les œuvres dont ils se sont échappés !",
+    "es": "Sé curioso y aventurero! Animales sorprendentes te invitan a un safari artístico: ¡explora el MANAS para encontrar las obras de las que se escaparon!"
+  },
+  "conditions-de-participation": [10],
+  "registration": [],
+  "conditions": {
+    "de": "kostenlos",
+    "en": "free",
+    "it": "gratuito",
+    "fr": "gratuit",
+    "es": "gratis"
+  },
+  "type-de-public": 55,
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "keywords": {},
+  "status": 1,
+  "extIds": null,
+  "uid": 4895941,
+  "slug": "animanas-or-livret-jeu",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2025-04-25T08:34:39.000Z",
+  "updatedAt": "2025-04-27T18:51:23.000Z",
+  "links": []
+}
