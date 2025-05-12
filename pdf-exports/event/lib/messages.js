@@ -41,4 +41,8 @@ export default defineMessages({
     id: 'pdf-exports.page',
     defaultMessage: 'Page',
   },
+  noSelection: {
+    id: 'pdf-exports.noSelection',
+    defaultMessage: 'No selection',
+  },
 });

@@ -28,6 +28,7 @@ export default async function GenerateExportStream(
     mode,
     logBundle,
     sections,
+    total,
   } = options;
 
   const startTime = Date.now();
@@ -207,7 +208,7 @@ export default async function GenerateExportStream(
     const endTime = Date.now();
     const responseTime = endTime - startTime;
 
-    if (eventStreamHasBeenClosed) {
+    if (eventStreamHasBeenClosed || total === count) {
       doc.end();
       log.info('End processing', {
         ...logBundle,
