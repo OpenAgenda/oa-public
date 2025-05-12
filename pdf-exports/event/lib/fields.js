@@ -1,6 +1,6 @@
 import sectionTitle from './sectionTitle.js';
 
-export const mainGroup = [
+export const headGroup = [
   {
     field: 'status',
     fieldType: 'select',
@@ -17,6 +17,9 @@ export const mainGroup = [
     fieldType: 'text',
   },
   'description',
+];
+
+export const mainGroup = [
   {
     field: 'image',
     fieldType: 'image',
@@ -28,13 +31,7 @@ export const mainGroup = [
   },
 ];
 
-export const conditionsAndRegistrationGroup = ({ agenda, event }) => [
-  {
-    field: 'uid',
-    fieldType: 'qr',
-    value: `https//openagenda.com/agendas/${agenda.uid}/events/${event.uid}`,
-    size: 80,
-  },
+export const conditionsAndRegistrationGroup = [
   {
     field: 'attendanceMode',
     omitLabel: false,

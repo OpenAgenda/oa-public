@@ -12,6 +12,7 @@ import {
 } from './lib/render.utils.js';
 
 import {
+  headGroup,
   locationGroup,
   mainGroup,
   timingsGroup,
@@ -39,6 +40,30 @@ export default async function renderEvent(
 
   const agendaFlatSchemaFields = extractAndFlattenSchemaFields(agenda.schema);
 
+  const head = {
+    width: 6,
+    padding: 0,
+    contentItemMargin: 3,
+    content: headGroup
+      .map(loadItem)
+      .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+  };
+
+  const qr = {
+    width: 1,
+    padding: 0,
+    content: [
+      {
+        field: 'uid',
+        fieldType: 'qr',
+        value: `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`,
+        size: 80,
+      },
+    ]
+      .map(loadItem)
+      .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+  };
+
   const main = {
     width: 5,
     padding: 0,
@@ -53,13 +78,16 @@ export default async function renderEvent(
     width: 3,
     padding: 10,
     contentItemMargin: 3,
-    content: conditionsAndRegistrationGroup({ agenda, event })
+    content: conditionsAndRegistrationGroup
       .concat(event.location ? locationGroup(event.location, { lang }) : [])
       .map(loadItem)
       .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
   };
 
-  const eventDocumentSegments = [[main, sidebar]];
+  const eventDocumentSegments = [
+    [head, qr],
+    [main, sidebar],
+  ];
 
   if (event.timings.length > 1) {
     eventDocumentSegments.push([
