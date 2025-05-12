@@ -1,0 +1,215 @@
+{
+  "firstTiming": {
+    "end": "2025-05-17T23:59:00.000+02:00",
+    "begin": "2025-05-17T18:00:00.000+02:00"
+  },
+  "nextTiming": {
+    "begin": "2025-05-17T18:00:00+02:00",
+    "end": "2025-05-17T23:59:00+02:00"
+  },
+  "lastTiming": {
+    "end": "2025-05-17T23:59:00.000+02:00",
+    "begin": "2025-05-17T18:00:00.000+02:00"
+  },
+  "dateRange": {
+    "ar": "السبت ١٧ مايو, 18:00",
+    "de": "Samstag 17 Mai, 18:00",
+    "en": "Saturday 17 May, 18:00",
+    "it": "Sabato 17 maggio, 18:00",
+    "fr": "Samedi 17 mai, 18h00",
+    "es": "Sábado 17 mayo, 18:00"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 9491431,
+    "image": "https://cdn.openagenda.com/main/agenda9491431.58730f00310c4aad8fc030182973d16c.jpg?__ts=1738685707828",
+    "description": "La Nuit européenne des musées se déroulera le samedi 17 mai 2025. Retrouvez les informations et conditions pour participer à l'événement sur notre site Internet",
+    "official": false,
+    "title": "Nuit européenne des musées 2025 : Pays de la Loire",
+    "slug": "ndm-2025-pays-de-la-loire",
+    "url": "https://www.nuitdesmusees.fr",
+    "_agg": "eyJ1aWQiOjk0OTE0MzEsInRpdGxlIjoiTnVpdCBldXJvcMOpZW5uZSBkZXMgbXVzw6llcyAyMDI1IDogUGF5cyBkZSBsYSBMb2lyZSIsImltYWdlIjoiaHR0cHM6Ly9jZG4ub3BlbmFnZW5kYS5jb20vbWFpbi9hZ2VuZGE5NDkxNDMxLjU4NzMwZjAwMzEwYzRhYWQ4ZmMwMzAxODI5NzNkMTZjLmpwZz9fX3RzPTE3Mzg2ODU3MDc4MjgiLCJ1cmwiOiJodHRwczovL3d3dy5udWl0ZGVzbXVzZWVzLmZyIiwic2x1ZyI6Im5kbS0yMDI1LXBheXMtZGUtbGEtbG9pcmUifQ=="
+  },
+  "sourceAgendas": [],
+  "title": {
+    "de": "Kostenloser Eintritt ins Museum",
+    "en": "Free Admission to the Museum",
+    "it": "Ingresso gratuito al Museo",
+    "fr": "Gratuité du Muséum",
+    "es": "Entrada gratuita al Museo"
+  },
+  "types-devenement": 8,
+  "image": {
+    "filename": "9fcfbcc44c764a77a839ca340c1f237e.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 875
+    },
+    "variants": [
+      {
+        "filename": "9fcfbcc44c764a77a839ca340c1f237e.full.image.jpg",
+        "size": {
+          "width": 1536,
+          "height": 1920
+        },
+        "type": "full"
+      },
+      {
+        "filename": "9fcfbcc44c764a77a839ca340c1f237e.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": "©Muséum de Nantes",
+  "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "de": "Bus 23, C1, C3 - Haltestelle Copernic - Musées. Straßenbahn 1 - Haltestelle Médiathèque. Bicloo (Fahrrad): Station Jean V - rue Pierre Louis Athénas Marguerite (Auto): Station Ladmirault - place Paul Emile Ladmirault",
+      "en": "Bus 23, C1, C3 – stop Copernic - Musées. Tramway 1 – stop Médiathèque. Bicloo (bicycle): Jean V station - rue Pierre Louis Athénas Marguerite (car): Ladmirault station - place Paul Emile Ladmirault",
+      "it": "Bus 23, C1, C3 - fermata Copernic - Musei. Tram 1 - fermata Mediateca. Bicloo (bicicletta): Stazione Jean V - rue Pierre Louis Athénas Marguerite (automobile): Stazione Ladmirault - place Paul Emile Ladmirault",
+      "fr": "Bus 23, C1, C3 – arrêt Copernic - Musées. Tramway 1 – arrêt Médiathèque. Bicloo (vélo) : Station Jean V - rue Pierre Louis Athénas Marguerite (voiture) : Station Ladmirault - place Paul Emile Ladmirault",
+      "es": "Bus 23, C1, C3 - parada Copernic - Museos. Tranvía 1 - parada Mediateca. Bicloo (bicicleta): Estación Jean V - rue Pierre Louis Athénas Marguerite (coche): Estación Ladmirault - place Paul Emile Ladmirault"
+    },
+    "city": "Nantes",
+    "timezone": "Europe/Paris",
+    "postalCode": "44000",
+    "latitude": 47.212388,
+    "imageCredits": "©Muséum d'Histoire Naturelle",
+    "description": {
+      "de": "Vogelsammlungen, darunter der heute ausgestorbene Großpinguin. Meteorit von 5 kgr, der 1841 in der Nähe von La Roche-sur-Yon gefallen ist; Sammlung von europäischen und exotischen Hölzern mit mehr als 3.000 Exemplaren; ein Coelacanth, der 1968 vor den Komoren gefangen wurde; ein von den Walfängern im 19\\. Jahrhundert eingravierter Walschädel; Ein vollständiges Skelett eines Grindwalrochens, das 1991 von einem Metaller versehentlich gespritzt wurde.",
+      "en": "Collections of birds including the now extinct great penguin. Meteorite of 5 kgr fell in 1841 near the Roche-sur-Yon; collection of European and exotic woods with more than 3,000 specimens; a coelacanth caught in 1968 off the Comoros; a skull of walrus engraved by whalers in the 19th century; A complete skeleton of a fin whale from an animal accidentally spiked by a methane tanker in 1991.",
+      "it": "Collezioni di uccelli tra cui il grande pinguino, oggi una specie estinta. Meteorite di 5 kgr caduta nel 1841 vicino alla Roche-sur-Yon; collezione di legni europei ed esotici con più di 3.000 esemplari; un coelacanth pescato nel 1968 al largo delle Comore; un cranio di tricheco inciso dai balenieri nel XIX secolo; uno scheletro completo di balenottera comune proveniente da un animale accidentalmente speronato da una nave metaniera nel 1991.",
+      "fr": "Collections d'oiseaux dont le grand pingouin espèce aujourd'hui disparue. Météorite de 5 kgr tombée en 1841 près de la Roche-sur-Yon ; collection de bois européens et exotiques avec plus de 3.000 spécimens; un coelacanthe pêché en 1968 au large des Comores ; un crâne de morse gravé par les baleiniers au XIXe ; un squelette complet de Rorqual commun provenant d'un animal éperonné accidentellement par un méthanier en 1991.",
+      "es": "Colecciones de aves, entre las que se encuentra el gran pingüino, especie actualmente extinta. Meteorito de 5 kgr caído en 1841 cerca de la Roche-sur-Yon; colección de maderas europeas y exóticas con más de 3.000 especímenes; un celacanto pescado en 1968 frente a las Comoras; un cráneo de morsa grabado por los balleneros en el siglo XIX; Un esqueleto completo de ballena de aleta común procedente de un animal que fue arrojado accidentalmente por un metanero en 1991."
+    },
+    "setUid": null,
+    "uid": 7852476,
+    "createdAt": "2025-03-12T19:04:38.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": "Centre Ville",
+    "links": [],
+    "state": 1,
+    "extId": "b583dd82-7627-5a6b-8d89-aa28c7e8f47b?2336285b-00c1-4e74-a65f-5a11b10d8eb4",
+    "department": "Loire-Atlantique",
+    "slug": "museum-de-nantes_1680770",
+    "email": "museum-sciences@nantesmetropole.fr",
+    "longitude": -1.56465,
+    "updatedAt": "2025-05-01T04:19:28.000Z",
+    "image": "location7852476.05fdbd43d16a4fed8b5ff0ee7bb44625.jpg?_ts=1744760446088",
+    "website": "https://museum.nantesmetropole.fr",
+    "address": "12 Rue Voltaire, 44000 Nantes, France",
+    "adminLevel3": "Nantes Métropole",
+    "agendaUid": 9491431,
+    "adminLevel4": "Nantes",
+    "adminLevel1": "Pays de la Loire",
+    "adminLevel2": "Loire-Atlantique",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjc4NTI0NzYsIm5hbWUiOiJNdXPDqXVtIGRlIE5hbnRlcyJ9",
+    "tags": [
+      {
+        "id": 40,
+        "label": "Musée de France"
+      },
+      {
+        "id": 62,
+        "label": {
+          "de": "Geschichte",
+          "en": "History",
+          "it": "Storia",
+          "fr": "Histoire",
+          "es": "Historia"
+        }
+      },
+      {
+        "id": 20,
+        "label": {
+          "de": "Wissenschaft und Technologie",
+          "en": "Sciences and technology",
+          "it": "Scienze e tecnologia",
+          "fr": "Sciences et techniques",
+          "es": "Ciencias y tecnología"
+        }
+      },
+      {
+        "id": 22,
+        "label": {
+          "de": "Gesellschaft und Zivilisation",
+          "en": "Society and civilisation",
+          "it": "Società e civiltà",
+          "fr": "Société et civilisation",
+          "es": "Sociedad y civilización"
+        }
+      }
+    ],
+    "insee": "44109",
+    "phone": "+33240415500",
+    "district": "Centre Ville",
+    "name": "Muséum de Nantes",
+    "region": "Pays de la Loire",
+    "extIds": [
+      {
+        "value": "b583dd82-7627-5a6b-8d89-aa28c7e8f47b?2336285b-00c1-4e74-a65f-5a11b10d8eb4",
+        "key": "default"
+      }
+    ]
+  },
+  "timings": [
+    {
+      "begin": "2025-05-17T18:00:00+02:00",
+      "end": "2025-05-17T23:59:00+02:00"
+    }
+  ],
+  "description": {
+    "de": "Die 21. Ausgabe der Europäischen Nacht der Museen, organisiert vom Kulturministerium, findet am Samstag, den 17. Mai 2025, statt.",
+    "en": "The 21st edition of the European Night of Museums, organized by the Ministry of Culture, will take place on Saturday, May 17, 2025.",
+    "it": "La 21ª edizione della Notte Europea dei Musei, organizzata dal Ministero della Cultura, si terrà sabato 17 maggio 2025.",
+    "fr": "La 21ᵉ édition de la Nuit européenne des musées, organisée par le ministère de la Culture, se tiendra le samedi 17 mai 2025.",
+    "es": "La 21ª edición de la Noche Europea de los Museos, organizada por el Ministerio de Cultura, se celebrará el sábado 17 de mayo de 2025."
+  },
+  "longDescription": {
+    "de": "Die 21. Ausgabe der Europäischen Nacht der Museen, organisiert vom Kulturministerium, findet am Samstag, den 17. Mai 2025, statt.\n\nZu diesem Anlass wird Ihr Museum den ganzen Tag bis Mitternacht geöffnet sein. Eine festliche Gelegenheit, unsere Sammlungen und Ausstellungen „Schätze & Biodiversität“ und „Exemplare“ zu entdecken.\n\nPraktische Informationen\n\n\\- Öffnungszeiten: 10 Uhr – Mitternacht  \n\\- Letzter Einlass: 23:30 Uhr  \n\\- Kostenloser Eintritt von 18 Uhr bis Mitternacht.",
+    "en": "The 21st edition of the European Night of Museums, organized by the Ministry of Culture, will take place on Saturday, May 17, 2025.\n\nOn this occasion, your Museum will be open all day until midnight. A festive opportunity to discover our collections and exhibitions \"Treasures & Biodiversity\" and \"Specimens.\"\n\nPractical Information\n\n\\- Opening hours: 10 AM – midnight  \n\\- Last entry: 11:30 PM  \n\\- Free admission from 6 PM to midnight.",
+    "it": "La 21ª edizione della Notte Europea dei Musei, organizzata dal Ministero della Cultura, si terrà sabato 17 maggio 2025.\n\nPer l’occasione, il vostro Museo resterà aperto tutto il giorno fino a mezzanotte. Un’opportunità festosa per scoprire le nostre collezioni e le mostre «Tesori & Biodiversità» e «Specimen».\n\nInformazioni pratiche\n\n\\- Orari: 10:00 – mezzanotte  \n\\- Ultimo ingresso: 23:30  \n\\- Ingresso gratuito dalle 18:00 a mezzanotte.",
+    "fr": "La 21ᵉ édition de la Nuit européenne des musées, organisée par le ministère de la Culture, se tiendra le samedi 17 mai 2025.\n\nA cette occasion, votre Muséum sera ouvert toute la journée jusqu'à minuit. Une opportunité festive pour découvrir nos collections et nos expositions « Trésors & biodiversité » et « Spécimens ».\n\nInformations pratiques  \n\\- Horaires : 10h-minuit  \n\\- Accès possible de 10h à 23h30  \n\\- Gratuité de 18h à minuit.",
+    "es": "La 21ª edición de la Noche Europea de los Museos, organizada por el Ministerio de Cultura, se celebrará el sábado 17 de mayo de 2025.\n\nCon este motivo, su Museo estará abierto todo el día hasta la medianoche. Una oportunidad festiva para descubrir nuestras colecciones y exposiciones «Tesoros y biodiversidad» y «Especímenes».\n\nInformación práctica\n\n\\- Horario: 10h – medianoche  \n\\- Última entrada: 23:30h  \n\\- Entrada gratuita de 18h a medianoche."
+  },
+  "conditions-de-participation": [10],
+  "registration": [],
+  "conditions": {},
+  "type-de-public": 80,
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "keywords": {},
+  "status": 1,
+  "extIds": null,
+  "uid": 63825911,
+  "slug": "gratuite-du-museum",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2025-03-12T14:57:39.000Z",
+  "creatorUid": 81182846,
+  "ownerUid": 81182846,
+  "updatedAt": "2025-05-01T04:19:28.000Z",
+  "links": []
+}

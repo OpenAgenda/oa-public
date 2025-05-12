@@ -10,12 +10,12 @@ const __dirname = dirname(__filename);
 
 const getSelectedFont = ({ bold, medium }) => {
   if (bold) {
-    return `${__dirname}/../../fonts/Assistant-Bold.ttf`;
+    return `${__dirname}/../../fonts/Assistant-Bold-Emojied.ttf`;
   }
   if (medium) {
-    return `${__dirname}/../../fonts/Assistant-Medium.ttf`;
+    return `${__dirname}/../../fonts/Assistant-Medium-Emojied.ttf`;
   }
-  return `${__dirname}/../../fonts/Assistant-Regular.ttf`;
+  return `${__dirname}/../../fonts/Assistant-Regular-Emojied.ttf`;
 };
 
 const segmentableThreshold = 200;
@@ -83,13 +83,14 @@ function addTextSegment(doc, parentCursor, params = {}) {
   if (!simulate) {
     doc
       .fillColor(color ?? base.color)
-      .font(getSelectedFont(params)) // ???
-      .fontSize(getFontSize(fontSize, base)) // ???
+      .font(getSelectedFont(params))
+      .fontSize(getFontSize(fontSize, base))
       .text(value, cursor.x, cursor.y, {
         width: availableWidth,
         underline,
         link,
         align,
+        oblique: params.italic ? true : undefined,
       });
   }
 
@@ -143,6 +144,7 @@ export default function addText(doc, parentCursor, params = {}) {
   }
 
   if (overflows && segmentable) {
+    log('Segmentable text overflows');
     const size = { width: 0, height: 0 };
 
     const segments = spreadTextIntoSegments(doc, {
@@ -159,6 +161,11 @@ export default function addText(doc, parentCursor, params = {}) {
       });
 
       if (size.height + segmentSize.height > availableHeight) {
+        log('segment size exceeds available height', {
+          cursorAt: size.height,
+          segmentSizeHeight: segmentSize.height,
+          availableHeight,
+        });
         return {
           ...size,
           remaining: segments.slice(index).join(' '),
@@ -173,6 +180,11 @@ export default function addText(doc, parentCursor, params = {}) {
       adjustSize(size, segmentSize);
       cursor.moveY(segmentSize.height);
     }
+
+    return {
+      ...size,
+      remaining: '',
+    };
   }
 
   return addTextSegment(doc, parentCursor, {

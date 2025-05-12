@@ -11,22 +11,6 @@
     "end": "2025-02-26T18:00:00.000+01:00",
     "begin": "2025-02-26T17:00:00.000+01:00"
   },
-  "member": {
-    "uid": 74965384,
-    "role": 2,
-    "phone": "05 56 49 88 88",
-    "organization": "Mairie de Bègles",
-    "name": "Adeline FISCHER",
-    "invited": false,
-    "position": "Chargée de communication",
-    "user": {
-      "uid": 74965384,
-      "culture": "fr",
-      "fullName": "Adeline Fischer"
-    },
-    "email": "a.fischer@mairie-begles.fr",
-    "_agg": "eyJ1aWQiOjc0OTY1Mzg0LCJuYW1lIjoiQWRlbGluZSBGSVNDSEVSIn0="
-  },
   "dateRange": {
     "ar": "٨ يناير - ٢٦ فبرايرundefined",
     "de": "8 Januar - 26 Februar, einige Mittwochs",

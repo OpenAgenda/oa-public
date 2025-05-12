@@ -8,21 +8,36 @@ export default {
 
 export function All() {
   return (
-    <VStack spacing="4">
-      <Link isExternal href="https://google.com">
+    <VStack gap="4">
+      <Link href="https://google.com" target="_blank" rel="noopener noreferrer">
         This is a default link
       </Link>
 
-      <Link isExternal href="https://google.com" colorScheme="primary">
-        Link with colorScheme `primary`
+      <Link
+        href="https://google.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        colorPalette="primary"
+      >
+        Link with colorPalette `primary`
       </Link>
 
-      <Link isExternal href="https://google.com" colorScheme="danger">
-        Link with colorScheme `danger`
+      <Link
+        href="https://google.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        colorPalette="danger"
+      >
+        Link with colorPalette `danger`
       </Link>
 
-      <Link isExternal href="https://google.com" colorScheme="black">
-        Link with colorScheme `black`
+      <Link
+        href="https://google.com"
+        target="_blank"
+        rel="noopener noreferrer"
+        color="black"
+      >
+        Link with color `black`
       </Link>
 
       <LinkBox
@@ -44,3 +59,5 @@ export function All() {
     </VStack>
   );
 }
+
+All.storyName = 'Link';

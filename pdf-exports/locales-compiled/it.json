@@ -29,6 +29,12 @@
       "value": "Location"
     }
   ],
+  "pdf-exports.noSelection": [
+    {
+      "type": 0,
+      "value": "No selection"
+    }
+  ],
   "pdf-exports.online": [
     {
       "type": 0,

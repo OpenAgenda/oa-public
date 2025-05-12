@@ -23,6 +23,14 @@ await addMultipageSegments(
         content: [
           {
             field: {
+              field: 'textwithemojis',
+              fieldType: 'markdown',
+              label: { fr: 'Du text avec des emojs' },
+            },
+            value: await readFile(`${__dirname}/fixtures/emojis.md`, 'utf-8'),
+          },
+          {
+            field: {
               field: 'enfantmaitre',
               fieldType: 'markdown',
               label: { fr: "L'enfant et le maître d'école" },
