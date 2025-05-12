@@ -1,10 +1,6 @@
 import { defineMessages } from 'react-intl';
 
 export default defineMessages({
-  registrationTool: {
-    id: 'pdf-exports.registrationTool',
-    defaultMessage: 'Registration tool',
-  },
   location: {
     id: 'pdf-exports.location',
     defaultMessage: 'Location',
@@ -13,9 +9,13 @@ export default defineMessages({
     id: 'pdf-exports.online',
     defaultMessage: 'Online',
   },
-  aboutLocation: {
-    id: 'pdf-exports.aboutLocation',
+  locationDetails: {
+    id: 'pdf-exports.locationDetails',
     defaultMessage: 'About the location',
+  },
+  timingDetails: {
+    id: 'pdf-exports.timingDetails',
+    defaultMessage: 'Timing details',
   },
   tags: {
     id: 'pdf-exports.tags',
