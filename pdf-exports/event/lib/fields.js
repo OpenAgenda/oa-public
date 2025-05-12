@@ -1,3 +1,5 @@
+import sectionTitle from './sectionTitle.js';
+
 export const mainGroup = [
   {
     field: 'status',
@@ -53,14 +55,18 @@ export const conditionsAndRegistrationGroup = ({ agenda, event }) => [
   },
 ];
 
-export const locationGroup = (location) =>
+export const timingsGroup = ({ lang }) => [
+  sectionTitle('timingDetails', lang),
+  {
+    field: 'timings',
+    fieldType: 'timings',
+    relatedValues: ['timezone'],
+  },
+];
+
+export const locationGroup = (location, { lang }) =>
   [
-    {
-      fieldType: 'text',
-      value: 'À propos du lieu',
-      bold: true,
-      fontSize: '1.2em',
-    },
+    sectionTitle('locationDetails', lang),
     {
       field: 'location.name',
       fieldType: 'text',
