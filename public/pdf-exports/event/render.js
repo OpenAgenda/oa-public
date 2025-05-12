@@ -14,6 +14,7 @@ import {
 import {
   locationGroup,
   mainGroup,
+  timingsGroup,
   conditionsAndRegistrationGroup,
 } from './lib/fields.js';
 
@@ -25,6 +26,8 @@ export default async function renderEvent(
   event,
   options = {},
 ) {
+  const { lang } = options;
+
   const doc = new PDFDocument({
     size: 'A4',
     layout: 'portrait',
@@ -51,7 +54,7 @@ export default async function renderEvent(
     padding: 10,
     contentItemMargin: 3,
     content: conditionsAndRegistrationGroup({ agenda, event })
-      .concat(event.location ? locationGroup(event.location) : [])
+      .concat(event.location ? locationGroup(event.location, { lang }) : [])
       .map(loadItem)
       .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
   };
@@ -64,13 +67,7 @@ export default async function renderEvent(
         width: 1,
         padding: 0,
         contentItemMargin: 5,
-        content: [
-          {
-            field: 'timings',
-            fieldType: 'timings',
-            relatedValues: ['timezone'],
-          },
-        ]
+        content: timingsGroup({ lang })
           .map(loadItem)
           .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
       },

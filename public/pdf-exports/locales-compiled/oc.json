@@ -1,10 +1,4 @@
 {
-  "pdf-exports.aboutLocation": [
-    {
-      "type": 0,
-      "value": "À propos du lieu"
-    }
-  ],
   "pdf-exports.access": [
     {
       "type": 0,
@@ -29,6 +23,12 @@
       "value": "Lieu"
     }
   ],
+  "pdf-exports.locationDetails": [
+    {
+      "type": 0,
+      "value": "À propos du lieu"
+    }
+  ],
   "pdf-exports.noSelection": [
     {
       "type": 0,
@@ -47,18 +47,6 @@
       "value": "Page"
     }
   ],
-  "pdf-exports.registration": [
-    {
-      "type": 0,
-      "value": "Réservation"
-    }
-  ],
-  "pdf-exports.registrationTool": [
-    {
-      "type": 0,
-      "value": "Outils de réservation"
-    }
-  ],
   "pdf-exports.status": [
     {
       "type": 0,
@@ -71,10 +59,10 @@
       "value": "Tags"
     }
   ],
-  "pdf-exports.undefined": [
+  "pdf-exports.timingDetails": [
     {
       "type": 0,
-      "value": "Non défini"
+      "value": "Détail des horaires"
     }
   ]
 }
