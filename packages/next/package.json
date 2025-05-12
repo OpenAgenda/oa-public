@@ -4,7 +4,7 @@
   "private": true,
   "description": "OpenAgenda main NextJs app",
   "scripts": {
-    "dev": "next dev --turbopack -p ${OA_NEXT_PORT:-3000}",
+    "dev": "next dev -p ${OA_NEXT_PORT:-3000}",
     "build": "next build",
     "start": "next start -p ${OA_NEXT_PORT:-3000}",
     "push": "node scripts/pushNextToCDN.mjs",
