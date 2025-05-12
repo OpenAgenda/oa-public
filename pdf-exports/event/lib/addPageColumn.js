@@ -73,6 +73,7 @@ async function addContentItem(doc, parentCursor, params = {}) {
   }
   const size = { height: 0, width: 0 };
   const itemAvailableWidth = availableWidth - (contentItemMargin ?? 0) * 2;
+  const itemAvailableHeight = availableHeight - (contentItemMargin ?? 0) * 2;
 
   if (!addFunctions[fieldType]) {
     log.warn(`addFn for type '${fieldType}' missing`);
@@ -99,11 +100,28 @@ async function addContentItem(doc, parentCursor, params = {}) {
       simulate: true,
     });
 
-    if (labelSize.height > availableHeight) {
+    if (labelSize.height > itemAvailableHeight) {
+      log(
+        '  label height exceeds available height %s w:%s,h:%s x:%s,y:%s',
+        rtd(itemAvailableHeight),
+        rtd(labelSize.width),
+        rtd(labelSize.height),
+        rtd(cursor.x),
+        rtd(cursor.y),
+      );
       return { ...size, remaining: value, added: false };
     }
 
     await addText(doc, cursor, labelParams);
+
+    log(
+      '  field label written on available height %s w:%s,h:%s x:%s,y:%s',
+      rtd(itemAvailableHeight),
+      rtd(labelSize.width),
+      rtd(labelSize.height),
+      rtd(cursor.x),
+      rtd(cursor.y),
+    );
 
     wroteLabel = true;
     adjustSize(size, labelSize);
@@ -152,8 +170,8 @@ export default async function addPageColumn(
     'adding column items on available size w:%s,h:%s x:%s,y:%s',
     rtd(availableWidth),
     rtd(availableHeight),
-    cursor.x,
-    cursor.y,
+    rtd(cursor.x),
+    rtd(cursor.y),
   );
 
   const remaining = { content, index: -1 };
