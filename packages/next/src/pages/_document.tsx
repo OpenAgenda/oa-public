@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import Document, {
   Html,
   Head,
@@ -8,10 +7,10 @@ import Document, {
   DocumentInitialProps,
   DocumentProps,
 } from 'next/document';
-import { useServerInsertedHTML } from 'next/navigation';
 import { Cookies } from 'react-cookie';
 import { ResponseCookies } from '@edge-runtime/cookies';
-import { createCache, CacheProvider } from '@openagenda/uikit';
+import createEmotionServer from '@emotion/server/create-instance';
+import { createEmotionCache } from '@openagenda/uikit';
 import generateNonce from 'utils/generateNonce';
 import CSP from 'utils/contentSecurityPolicy';
 
@@ -22,32 +21,10 @@ type CustomDocumentProps = {
 type MyDocumentProps = DocumentProps & CustomDocumentProps;
 type MyDocumentInitialProps = DocumentInitialProps & CustomDocumentProps;
 
-function RootStyleRegistry({ children }: { children: JSX.Element }) {
-  const [cache] = useState(() => {
-    // Key `css` is needed because of a bug with turbopack and chakra
-    const emotionCache = createCache({ key: 'css' });
-    emotionCache.compat = true;
-    return emotionCache;
-  });
-
-  useServerInsertedHTML(() => (
-    <style
-      data-emotion={`${cache.key} ${Object.keys(cache.inserted).join(' ')}`}
-      dangerouslySetInnerHTML={{
-        __html: Object.values(cache.inserted).join(' '),
-      }}
-    />
-  ));
-
-  return <CacheProvider value={cache}>{children}</CacheProvider>;
-}
-
-function wrapApp({ cookies }) {
+function wrapApp({ cookies, cache }) {
   return (App) => {
     const Wrapped = (props) => (
-      <RootStyleRegistry>
-        <App universalCookies={cookies} {...props} />
-      </RootStyleRegistry>
+      <App universalCookies={cookies} cache={cache} {...props} />
     );
     return Wrapped;
   };
@@ -141,17 +118,34 @@ MyDocument.getInitialProps = async (
     );
   }
 
+  const cache = createEmotionCache();
+  const { extractCriticalToChunks } = createEmotionServer(cache);
+
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: wrapApp({ cookies }) as any,
+      enhanceApp: wrapApp({ cookies, cache }) as any,
     });
 
   const initialProps = await Document.getInitialProps(ctx);
+
+  const chunks = extractCriticalToChunks(initialProps.html);
 
   return {
     ...initialProps,
     outdatedBrowser,
     nonce,
+    styles: (
+      <>
+        {initialProps.styles}
+        {chunks.styles.map(({ key, ids, css }, i) => (
+          <style
+            key={i} // eslint-disable-line react/no-array-index-key
+            data-emotion={`${key} ${ids.join(' ')}`}
+            dangerouslySetInnerHTML={{ __html: css }} // eslint-disable-line react/no-danger
+          />
+        ))}
+      </>
+    ),
   };
 };
 
