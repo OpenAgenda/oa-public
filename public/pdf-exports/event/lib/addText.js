@@ -18,8 +18,6 @@ const getSelectedFont = ({ bold, medium }) => {
   return `${__dirname}/../../fonts/Assistant-Regular-Emojied.ttf`;
 };
 
-const segmentableThreshold = 200;
-
 const log = logs('addText');
 
 const getFontSize = (fontSize, base = {}) => {
@@ -104,15 +102,18 @@ function addTextSegment(doc, parentCursor, params = {}) {
   return size;
 }
 
+function getAvailableWidth(doc, cursor, params) {
+  const { width: legacyWidth, availableWidth } = params;
+
+  if (availableWidth || legacyWidth) {
+    return availableWidth || legacyWidth;
+  }
+
+  return doc.page.width - cursor.x - doc.page.margins.right;
+}
+
 export default function addText(doc, parentCursor, params = {}) {
-  const {
-    width: legacyWidth,
-    availableHeight,
-    value,
-    content,
-    lang,
-    segmentable = null,
-  } = params;
+  const { availableHeight, value, content, lang, segmentable = null } = params;
 
   const cursor = Cursor(parentCursor);
 
@@ -122,74 +123,62 @@ export default function addText(doc, parentCursor, params = {}) {
     return { width: 0, height: 0 };
   }
 
-  const availableWidth = params.availableWidth ?? legacyWidth;
-  const simulatedHeight = doc.heightOfString(text, { width: availableWidth });
+  const availableWidth = getAvailableWidth(doc, cursor, params);
 
-  const overflows = availableHeight && simulatedHeight > availableHeight;
+  if (!segmentable) {
+    const { remaining } = addText(doc, cursor, {
+      ...params,
+      simulate: true,
+      segmentable: true,
+    });
 
-  if (overflows && segmentable === false) {
-    return {
-      width: 0,
-      height: 0,
-      remaining: text,
-    };
+    if (remaining.length) {
+      return {
+        width: 0,
+        height: 0,
+        remaining: value ?? content,
+      };
+    }
   }
 
-  if (
-    overflows
-    && segmentable === null
-    && simulatedHeight > segmentableThreshold
-  ) {
-    return addText(doc, parentCursor, { ...params, segmentable: true });
-  }
+  const size = { width: 0, height: 0 };
 
-  if (overflows && segmentable) {
-    log('Segmentable text overflows');
-    const size = { width: 0, height: 0 };
-
-    const segments = spreadTextIntoSegments(doc, {
+  const segments = spreadTextIntoSegments(doc, {
+    ...params,
+    availableWidth,
+    value: text,
+  });
+  for (const [index, segment] of segments.entries()) {
+    const segmentSize = addTextSegment(doc, cursor, {
       ...params,
       availableWidth,
-      value: text,
+      value: segment,
+      simulate: true,
     });
-    for (const [index, segment] of segments.entries()) {
-      const segmentSize = addTextSegment(doc, cursor, {
-        ...params,
-        availableWidth,
-        value: segment,
-        simulate: true,
-      });
 
-      if (size.height + segmentSize.height > availableHeight) {
-        log('segment size exceeds available height', {
-          cursorAt: size.height,
-          segmentSizeHeight: segmentSize.height,
-          availableHeight,
-        });
-        return {
-          ...size,
-          remaining: segments.slice(index).join(' '),
-        };
-      }
-
-      addTextSegment(doc, cursor, {
-        ...params,
-        value: segment,
-        availableWidth,
+    if (size.height + segmentSize.height > availableHeight) {
+      log('segment size exceeds available height', {
+        cursorAt: size.height,
+        segmentSizeHeight: segmentSize.height,
+        availableHeight,
       });
-      adjustSize(size, segmentSize);
-      cursor.moveY(segmentSize.height);
+      return {
+        ...size,
+        remaining: segments.slice(index).join(' '),
+      };
     }
 
-    return {
-      ...size,
-      remaining: '',
-    };
+    addTextSegment(doc, cursor, {
+      ...params,
+      value: segment,
+      availableWidth,
+    });
+    adjustSize(size, segmentSize);
+    cursor.moveY(segmentSize.height);
   }
 
-  return addTextSegment(doc, parentCursor, {
-    ...params,
-    value: text,
-    availableWidth,
-  });
+  return {
+    ...size,
+    remaining: '',
+  };
 }
