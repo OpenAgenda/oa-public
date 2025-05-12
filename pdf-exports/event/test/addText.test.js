@@ -14,13 +14,19 @@ const cursor = Cursor({ x: 10, y: 10 });
 
 cursor.moveY(
   addText(doc, cursor, {
-    value: 'This is a dancing guy emoji: 🕺, here is a smiley: 😃',
+    value: 'Steampunk elephant',
   }).height,
 );
 
 cursor.moveY(
   addText(doc, cursor, {
     value: 'This is a dancing guy emoji: 🕺, here is a smiley: 😃',
+  }).height,
+);
+
+cursor.moveY(
+  addText(doc, cursor, {
+    value: 'This is a bold dancing guy emoji: 🕺, here is a bold smiley: 😃',
     bold: true,
   }).height,
 );
