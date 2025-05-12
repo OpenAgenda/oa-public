@@ -368,12 +368,12 @@ function EventShow({ preload }: EventShowProps) {
               res={`/api/agendas/${agenda.uid}/events/${event.uid}/activities`}
               hideEmpty
             >
-              <div>
+              <chakra.div css={defaultStyle}>
                 <Heading as="h2" fontSize="2xl" mb="4">
                   {intl.formatMessage(messages.history)}
                 </Heading>
                 <ActivitiesList p={8} />
-              </div>
+              </chakra.div>
             </Activities>
 
             {mailtoSettings?.enabled ? (

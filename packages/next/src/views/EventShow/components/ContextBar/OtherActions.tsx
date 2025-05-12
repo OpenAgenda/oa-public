@@ -202,7 +202,7 @@ export default function OtherActions({ agenda, editLink, contextBarRef }) {
               {isMobile ? (
                 <FaIcon icon={faEllipsisVertical} size="lg" />
               ) : (
-                <Flex direction="column">
+                <Flex direction="column" flex="1">
                   <p>{intl.formatMessage(messages.otherActions)}</p>
                   <Text fontSize="xs" mt="1">
                     {intl.formatMessage(messages.otherActionsInfo)}
