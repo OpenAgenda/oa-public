@@ -218,7 +218,7 @@ export default function EmbedAccordionItem({ dialogRef, res, agenda }) {
         <SelectRoot
           collection={langsCollection}
           value={[lang]}
-          onValueChange={(e) => setLang(e[0])}
+          onValueChange={({ value: [pick] }) => setLang(pick)}
           w="fit-content"
         >
           <SelectTrigger>
