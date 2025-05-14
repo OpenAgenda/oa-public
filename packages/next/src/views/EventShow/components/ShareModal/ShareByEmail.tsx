@@ -4,8 +4,8 @@ import { Text, Textarea, Button } from '@openagenda/uikit';
 import useSWRMutation from 'swr/mutation';
 import extractEmails from '@openagenda/mails/extractEmails';
 import ky from 'ky';
+import AccordionItem from 'components/AccordionItem';
 import { shareModal as messages } from '../../messages';
-import AccordionItem from './AccordionItem';
 
 async function sendEmails(
   url,

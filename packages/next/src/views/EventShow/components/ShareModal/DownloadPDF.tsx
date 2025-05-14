@@ -3,7 +3,7 @@ import { Button, Link, Flex } from '@openagenda/uikit';
 import { Tag } from '@openagenda/uikit/snippets';
 import { FaIcon } from 'icons';
 import { faFilePdf } from 'icons/regular';
-import AccordionItem from './AccordionItem';
+import AccordionItem from 'components/AccordionItem';
 
 const pdfMessages = defineMessages({
   downloadPDF: {

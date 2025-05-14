@@ -4,8 +4,8 @@ import { useTimeoutFn } from 'react-use';
 import { Box, Button } from '@openagenda/uikit';
 import { Tooltip } from '@openagenda/uikit/snippets';
 import copyText from 'utils/copyText';
+import AccordionItem from 'components/AccordionItem';
 import { shareModal as messages } from '../../messages';
-import AccordionItem from './AccordionItem';
 
 export default function ShareLink({ absUrl }) {
   const intl = useIntl();

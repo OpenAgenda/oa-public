@@ -6,7 +6,17 @@ import {
 import { chakra } from '@openagenda/uikit';
 import defaultSize from 'utils/defaultSize';
 
-export default function AccordionItem({ value, title, children }) {
+interface AccordionItemProps {
+  value: string;
+  title: React.ReactNode;
+  children: React.ReactNode;
+}
+
+export default function AccordionItem({
+  value,
+  title,
+  children,
+}: AccordionItemProps) {
   return (
     <ChakraAccordionItem value={value}>
       <AccordionItemTrigger px="6">

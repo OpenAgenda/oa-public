@@ -13,9 +13,9 @@ import {
 import { formatInTimeZone } from 'date-fns-tz';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import { Agenda } from 'types';
+import AccordionItem from 'components/AccordionItem';
 import { Event } from '../../hooks/useEvent';
 import { shareModal as messages } from '../../messages';
-import AccordionItem from './AccordionItem';
 
 function padTo2Digits(num: number) {
   return num.toString().padStart(2, '0');

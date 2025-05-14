@@ -2,8 +2,8 @@ import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import { Button, Flex, Link } from '@openagenda/uikit';
 import base64 from 'utils/base64';
+import AccordionItem from 'components/AccordionItem';
 import { shareModal as messages } from '../../messages';
-import AccordionItem from './AccordionItem';
 
 export default function UnloggedBody() {
   const intl = useIntl();

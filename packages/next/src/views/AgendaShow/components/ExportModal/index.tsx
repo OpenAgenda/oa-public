@@ -28,7 +28,7 @@ export default function ExportModal({
   const dialogRef = useRef<HTMLDivElement>(null);
 
   return (
-    <DialogRoot size="md" open={isOpen} onOpenChange={onClose}>
+    <DialogRoot open={isOpen} onOpenChange={onClose}>
       <DialogContent ref={dialogRef}>
         <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.modalTitle)}
