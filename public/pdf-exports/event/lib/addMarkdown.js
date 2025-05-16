@@ -12,7 +12,7 @@ export default async function addMarkdown(doc, parentCursor, params = {}) {
 
   const cursor = Cursor(parentCursor);
 
-  const segments = flattenedValue.split('\n');
+  const segments = (flattenedValue ?? '').split('\n');
   log('got %s segments', segments.length, { availableHeight });
 
   const size = { height: 0, width: 0 };

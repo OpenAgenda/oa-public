@@ -1,19 +1,24 @@
 import logs from '@openagenda/logs';
 import PDFDocument from 'pdfkit';
+import flattenLabel from '../lib/flattenLabel.js';
 import addMultipageSegments from './lib/addMultipageSegments.js';
 import rtd from './lib/roundToDecimal.js';
 import addHeader from './lib/addHeader.js';
+import sectionTitle from './lib/sectionTitle.js';
 
 import {
   loadItem,
   additionalFieldValues,
   mapToFieldValuePair,
   extractAndFlattenSchemaFields,
+  filterUnset,
 } from './lib/render.utils.js';
 
 import {
   headGroup,
-  locationGroup,
+  locationMain,
+  locationCoordinates,
+  locationDescriptions,
   mainGroup,
   timingsGroup,
   conditionsAndRegistrationGroup,
@@ -49,6 +54,17 @@ export default async function renderEvent(
       .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
   };
 
+  const imageField = event.image && {
+    field: 'image',
+    fieldType: 'image',
+    relatedValues: [{ from: 'imageCredits', to: 'credits' }],
+  };
+  const hasLandscapeMainImage = event.image?.size?.width && event?.image?.size?.height
+    ? event.image.size.width / event.image.size.height > 1
+    : true;
+  const hasLongLocationDescription = event.location?.description
+    && flattenLabel(event.location?.description, lang)?.length > 300;
+
   const qr = {
     width: 1,
     padding: 0,
@@ -68,26 +84,98 @@ export default async function renderEvent(
     width: 5,
     padding: 0,
     contentItemMargin: 3,
-    content: mainGroup
+    content: mainGroup({ imageField: hasLandscapeMainImage && imageField })
       .map(loadItem)
       .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event))
       .concat(additionalFieldValues(agendaFlatSchemaFields, event)),
   };
 
+  const locationSectionTitle = sectionTitle('locationDetails', lang);
+  const locationImage = {
+    field: 'location.image',
+    fieldType: 'image',
+    relatedValues: [{ from: 'location.imageCredits', to: 'credits' }],
+  };
+
+  const displayLocationInSidebar = event.location && !hasLongLocationDescription;
+
   const sidebar = {
     width: 3,
     padding: 10,
     contentItemMargin: 3,
-    content: conditionsAndRegistrationGroup
-      .concat(event.location ? locationGroup(event.location, { lang }) : [])
+    content: (hasLandscapeMainImage ? [] : [imageField])
+      .concat(conditionsAndRegistrationGroup)
+      .concat(
+        displayLocationInSidebar
+          ? locationMain({ locationImage, title: locationSectionTitle })
+          : [],
+      )
+      .concat(
+        displayLocationInSidebar ? locationCoordinates(event.location) : [],
+      )
+      .concat(displayLocationInSidebar ? locationDescriptions : [])
       .map(loadItem)
-      .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+      .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event))
+      .filter(filterUnset),
   };
 
   const eventDocumentSegments = [
-    [head, qr],
-    [main, sidebar],
+    { columns: [head, qr], separator: true },
+    { columns: [main, sidebar], separator: true },
   ];
+
+  if (hasLongLocationDescription) {
+    eventDocumentSegments.push([
+      {
+        width: 1,
+        contentItemMargin: 3,
+        content: [locationSectionTitle]
+          .map(loadItem)
+          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+      },
+    ]);
+
+    const locationSegment = [
+      {
+        width: 4,
+        padding: 10,
+        contentItemMargin: 3,
+        content: locationMain({})
+          .concat(locationCoordinates(event.location))
+          .map(loadItem)
+          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+      },
+    ];
+
+    if (event.location.image) {
+      locationSegment.splice(0, 0, {
+        width: 2,
+        padding: 0,
+        contentItemMargin: 0,
+        content: [
+          {
+            field: 'location.image',
+            fieldType: 'image',
+            relatedValues: [{ from: 'location.imageCredits', to: 'credits' }],
+          },
+        ]
+          .map(loadItem)
+          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+      });
+    }
+
+    eventDocumentSegments.push(locationSegment);
+
+    eventDocumentSegments.push([
+      {
+        width: 1,
+        contentItemMargin: 3,
+        content: locationDescriptions
+          .map(loadItem)
+          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+      },
+    ]);
+  }
 
   if (event.timings.length > 1) {
     eventDocumentSegments.push([
