@@ -19,17 +19,13 @@ export const headGroup = [
   'description',
 ];
 
-export const mainGroup = [
-  {
-    field: 'image',
-    fieldType: 'image',
-    relatedValues: [{ from: 'imageCredits', to: 'credits' }],
-  },
-  {
-    field: 'longDescription',
-    fieldType: 'markdown',
-  },
-];
+export const mainGroup = ({ imageField }) =>
+  (imageField ? [imageField] : []).concat([
+    {
+      field: 'longDescription',
+      fieldType: 'markdown',
+    },
+  ]);
 
 export const conditionsAndRegistrationGroup = [
   {
@@ -61,9 +57,34 @@ export const timingsGroup = ({ lang }) => [
   },
 ];
 
-export const locationGroup = (location, { lang }) =>
+export const locationCoordinates = (location) =>
+  (['website', 'phone', 'email'].filter((f) => !!location[f]).length
+    ? [
+      {
+        fieldType: 'text',
+        value: 'Coordonnées',
+        bold: true,
+      },
+      {
+        field: 'location.website',
+        fieldType: 'link',
+      },
+      {
+        field: 'location.phone',
+        fieldType: 'phone',
+      },
+      {
+        field: 'location.email',
+        fieldType: 'email',
+      },
+    ]
+    : []
+      .filter((f) => !!f)
+      .map((f) => ({ ...f, fontSize: f.fontSize ?? '0.9em' })));
+
+export const locationMain = ({ locationImage, title }) =>
   [
-    sectionTitle('locationDetails', lang),
+    title,
     {
       field: 'location.name',
       fieldType: 'text',
@@ -73,38 +94,21 @@ export const locationGroup = (location, { lang }) =>
       field: 'location.address',
       fieldType: 'text',
     },
-    {
-      field: 'location.image',
-      fieldType: 'image',
-      relatedValues: [{ from: 'location.imageCredits', to: 'credits' }],
-    },
-    {
-      field: 'location.description',
-      fieldType: 'text',
-    },
-    {
-      field: 'location.access',
-      fieldType: 'text',
-      omitLabel: false,
-      displayLabelIfUnset: false,
-    },
-    ['website', 'phone', 'email'].filter((f) => !!location[f]).length && {
-      fieldType: 'text',
-      value: 'Coordonnées',
-      bold: true,
-    },
-    {
-      field: 'location.website',
-      fieldType: 'link',
-    },
-    {
-      field: 'location.phone',
-      fieldType: 'phone',
-    },
-    {
-      field: 'location.email',
-      fieldType: 'email',
-    },
+    locationImage,
   ]
     .filter((f) => !!f)
     .map((f) => ({ ...f, fontSize: f.fontSize ?? '0.9em' }));
+
+export const locationDescriptions = [
+  {
+    field: 'location.description',
+    fieldType: 'text',
+    filterUnset: true,
+  },
+  {
+    field: 'location.access',
+    fieldType: 'text',
+    omitLabel: false,
+    filterUnset: true,
+  },
+].map((f) => ({ ...f, fontSize: f.fontSize ?? '0.9em' }));
