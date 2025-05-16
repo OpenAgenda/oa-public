@@ -71,6 +71,7 @@ export default function ConvertFormat({
       .events.search(req.query, nav, {
         detailed: true,
         access: 'administrator',
+        includeLocationImagePath: true,
       })
       .then(
         (result) => ({ result }),
