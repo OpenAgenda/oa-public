@@ -35,6 +35,12 @@
       "value": "Aucune sélection"
     }
   ],
+  "pdf-exports.noText": [
+    {
+      "type": 0,
+      "value": "Aucune saisie"
+    }
+  ],
   "pdf-exports.online": [
     {
       "type": 0,

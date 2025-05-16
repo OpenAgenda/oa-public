@@ -45,4 +45,8 @@ export default defineMessages({
     id: 'pdf-exports.noSelection',
     defaultMessage: 'No selection',
   },
+  noText: {
+    id: 'pdf-exports.noText',
+    defaultMessage: 'No text is defined',
+  },
 });

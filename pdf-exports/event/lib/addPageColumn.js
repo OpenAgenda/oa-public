@@ -93,6 +93,7 @@ async function addContentItem(doc, parentCursor, params = {}) {
       value: label,
       width: itemAvailableWidth,
       bold: true,
+      segmentable: false,
     };
 
     const labelSize = await addText(doc, cursor, {
@@ -100,7 +101,7 @@ async function addContentItem(doc, parentCursor, params = {}) {
       simulate: true,
     });
 
-    if (labelSize.height > itemAvailableHeight) {
+    if (labelSize.remaining) {
       log(
         '  label height exceeds available height %s w:%s,h:%s x:%s,y:%s',
         rtd(itemAvailableHeight),

@@ -35,6 +35,12 @@
       "value": "No selection"
     }
   ],
+  "pdf-exports.noText": [
+    {
+      "type": 0,
+      "value": "No text is defined"
+    }
+  ],
   "pdf-exports.online": [
     {
       "type": 0,
