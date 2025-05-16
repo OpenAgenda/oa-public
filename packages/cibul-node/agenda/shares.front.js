@@ -7,7 +7,17 @@ function share(req, res, next) {
   const shares = Shares(config.shares.agenda);
 
   if (!shares.has(req.params.service)) {
-    return next({ code: 404, message: 'This share type does not exist' });
+    return next({
+      code: 404,
+      message: 'This share type does not exist',
+    });
+  }
+
+  if (!req.agenda) {
+    return next({
+      code: 404,
+      message: 'Agenda not found',
+    });
   }
 
   req.log.info({
