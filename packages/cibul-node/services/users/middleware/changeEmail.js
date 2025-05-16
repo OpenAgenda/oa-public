@@ -65,7 +65,7 @@ function onError(err, req, res) {
       userUid: req.user.uid,
     });
 
-    res.send(
+    return res.send(
       layouts.main(
         renderChangeEmailError({
           title: getErrorLabel('changeEmailErrorTitle', req.lang),
