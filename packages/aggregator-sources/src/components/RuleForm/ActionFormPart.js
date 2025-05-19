@@ -11,6 +11,7 @@ import stringType from '../../utils/stringType.js';
 import isOptionedField from '../../utils/isOptionedField.js';
 import messages from './messages.js';
 import Radio from './Radio.js';
+import TextFieldActionForm from './TextFieldActionForm.js';
 
 const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
 const usePrevious = usePreviousModule.default || usePreviousModule;
@@ -41,10 +42,6 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
   const textFieldCopyOptions = (sourceSchema?.fields ?? [])
     .filter((v) => stringType.includes(v.fieldType))
     .map((f) => ({ value: f.field, label: f.label[intl.locale] || f.label }));
-
-  const [textFieldMode, setTextFieldMode] = useState(
-    initialAction?.values?.$copy ? 'copy' : 'set',
-  );
 
   function isStringType(fieldSchema) {
     return stringType.includes(fieldSchema?.fieldType);
@@ -213,97 +210,14 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
       ) : null}
 
       {isStringType(fieldSchema) ? (
-        <>
-          <div className="form-inline margin-bottom-xs">
-            <label
-              className="radio-inline"
-              htmlFor="text-radio-set"
-              title={intl.formatMessage(messages.setTextTitle)}
-            >
-              <input
-                type="radio"
-                id="text-radio-set"
-                onClick={() => setTextFieldMode('set')}
-                checked={textFieldMode === 'set'}
-              />
-              {intl.formatMessage(messages.setTextValue)}
-            </label>
-            <label
-              className="radio-inline"
-              htmlFor="text-radio-copy"
-              title={intl.formatMessage(messages.copyTextTitle)}
-            >
-              <input
-                type="radio"
-                id="text-radio-copy"
-                onClick={() => setTextFieldMode('copy')}
-                checked={textFieldMode === 'copy'}
-              />
-              {intl.formatMessage(messages.copyTextValue)}
-            </label>
-          </div>
-          {textFieldMode === 'set' ? (
-            <>
-              <div className="text-muted margin-bottom-sm">
-                {intl.formatMessage(messages.setTextTitle)}
-              </div>
-              <Field
-                key={`${name}-values-${action.field}`}
-                name={`${name}.values`}
-                render={({ input }) => (
-                  <div className="row">
-                    <div className="form-group form-group-v-aligned">
-                      <div className="col-sm-12">
-                        <input
-                          type="text"
-                          className="form-control"
-                          {...input}
-                          placeholder={intl.formatMessage(
-                            messages[`${fieldSchema.fieldType}Placeholder`],
-                          )}
-                          onChange={(e) => {
-                            form.batch(() => {
-                              form.change(`${name}.values`, e.target.value);
-                              form.change(`${name}.copyValues`, undefined);
-                            });
-                          }}
-                        />
-                      </div>
-                    </div>
-                  </div>
-                )}
-              />
-            </>
-          ) : null}
-          {textFieldMode === 'copy' ? (
-            <>
-              <div className="text-muted margin-bottom-sm">
-                {intl.formatMessage(messages.copyTextTitle)}
-              </div>
-              <div className="margin-bottom-md">
-                <ReactSelectField
-                  key={`${name}-copyValues-${action.field}`}
-                  Field={Field}
-                  name={`${name}.copyValues`}
-                  placeholder={intl.formatMessage(messages.copyTextPlaceholder)}
-                  noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-                  options={textFieldCopyOptions}
-                  menuPosition="fixed"
-                  isDisabled={action?.automatic}
-                  isSearchable
-                  onChange={(e) => {
-                    form.batch(() => {
-                      form.change(`${name}.values`, undefined);
-                      form.change(`${name}.copyValues`, e.value);
-                    });
-                  }}
-                />
-              </div>
-            </>
-          ) : null}
-
-          {advancedMode ? advanceModeSetField : null}
-        </>
+        <TextFieldActionForm
+          name={name}
+          action={action}
+          fieldSchema={fieldSchema}
+          textFieldCopyOptions={textFieldCopyOptions}
+          advancedMode={advancedMode}
+          advanceModeSetField={advanceModeSetField}
+        />
       ) : null}
 
       {fieldName && fieldName !== 'state' ? (
