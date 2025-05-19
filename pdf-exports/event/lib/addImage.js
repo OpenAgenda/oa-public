@@ -80,6 +80,7 @@ export default async function addImage(doc, parentCursor, params) {
     simulate,
     firstOfColumn,
     imagePath,
+    min,
   } = params;
 
   const { filename, base, size } = extractImageInfoFromValue(value, imagePath);
@@ -111,6 +112,14 @@ export default async function addImage(doc, parentCursor, params) {
   });
 
   if (adjustedSize.height > availableHeight) {
+    return {
+      height: 0,
+      width: 0,
+      remaining: params.value,
+    };
+  }
+
+  if (min?.height && adjustedSize.height < min.height) {
     return {
       height: 0,
       width: 0,
