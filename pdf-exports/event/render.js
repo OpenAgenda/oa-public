@@ -95,6 +95,7 @@ export default async function renderEvent(
     field: 'location.image',
     fieldType: 'image',
     relatedValues: [{ from: 'location.imageCredits', to: 'credits' }],
+    min: { height: 50 },
   };
 
   const displayLocationInSidebar = event.location && !hasLongLocationDescription;
@@ -152,13 +153,7 @@ export default async function renderEvent(
         width: 2,
         padding: 0,
         contentItemMargin: 0,
-        content: [
-          {
-            field: 'location.image',
-            fieldType: 'image',
-            relatedValues: [{ from: 'location.imageCredits', to: 'credits' }],
-          },
-        ]
+        content: [locationImage]
           .map(loadItem)
           .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
       });
