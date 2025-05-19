@@ -144,7 +144,8 @@ export default async function renderEvent(
         content: locationMain({})
           .concat(locationCoordinates(event.location))
           .map(loadItem)
-          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event))
+          .filter(filterUnset),
       },
     ];
 
@@ -155,7 +156,8 @@ export default async function renderEvent(
         contentItemMargin: 0,
         content: [locationImage]
           .map(loadItem)
-          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event))
+          .filter(filterUnset),
       });
     }
 
@@ -167,7 +169,8 @@ export default async function renderEvent(
         contentItemMargin: 3,
         content: locationDescriptions
           .map(loadItem)
-          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event)),
+          .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event))
+          .filter(filterUnset),
       },
     ]);
   }
