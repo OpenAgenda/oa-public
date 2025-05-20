@@ -68,6 +68,7 @@
     "react-uid": "^2.3.0",
     "react-use": "^17.6.0",
     "slate-dom": "^0.112.2",
+    "swiper": "^11.2.6",
     "use-debounce": "^10.0.4",
     "use-local-storage-state": "^13.0.0"
   },
