@@ -58,6 +58,11 @@ const fixturePairs = [
     agenda: await readFx('ndm.agenda'),
     event: await readFx('visite-gratuite.event'),
   },
+  {
+    name: 'quinzaine',
+    agenda: await readFx('quinzaine.agenda'),
+    event: await readFx('quinzaine.event'),
+  },
 ].filter(({ name }) => (selectedPDF ? selectedPDF === name : true));
 
 // Generate PDFs for each fixture pair
