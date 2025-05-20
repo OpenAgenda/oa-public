@@ -18,6 +18,7 @@ function Filters({
   searchComponent: SearchComponent = Noop,
   customComponent: CustomComponent = Noop,
   favoritesComponent: FavoritesComponent = Noop,
+  timelineComponent: TimelineComponent = Noop,
   choiceProps = null,
   dateRangeProps = null,
   numberRangeProps = null,
@@ -26,6 +27,7 @@ function Filters({
   searchProps = null,
   customProps = null,
   favoritesProps = null,
+  timelineProps = null,
   ...additionnalProps
 }) {
   const seed = useUIDSeed();
@@ -141,6 +143,18 @@ function Filters({
                 filter={filter}
                 {...filter}
                 {...favoritesProps}
+                {...additionnalProps}
+              />
+            );
+            break;
+          case 'timeline':
+            elem = (
+              <TimelineComponent
+                key={seed(filter)}
+                ref={withRef ? filter.elemRef : null}
+                filter={filter}
+                {...filter}
+                {...timelineProps}
                 {...additionnalProps}
               />
             );

@@ -43,9 +43,15 @@
         }) %>"
       ></div>
 
-      <div
+      <!--<div
         data-oa-filter="date-range"
-        data-oa-filter-params="<%= JSON.stringify({ type: 'simpleDateRange', name: 'timings' }) %>"
+        data-oa-filter-params="< %= JSON.stringify({ type: 'simpleDateRange', name: 'timings' }) % >"
+      ></div>-->
+
+      <div
+        class="oa-timeline"
+        data-oa-filter="date-range"
+        data-oa-filter-params="<%= JSON.stringify({ type: 'timeline', name: 'timings' }) %>"
       ></div>
 
       <div
