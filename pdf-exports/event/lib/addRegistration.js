@@ -45,7 +45,7 @@ async function addContent(doc, parentCursor, params) {
 
   const { height: lineHeight } = await addText(doc, cursor, {
     ...params,
-    value: value[0].value,
+    value: 'R',
     simulate: true,
   });
 
@@ -53,7 +53,7 @@ async function addContent(doc, parentCursor, params) {
     const imageSize = await addImage(doc, cursor, {
       ...params,
       value: icons[type],
-      iconSize: lineHeight * 0.6,
+      iconSize: lineHeight * 0.7,
     });
     adjustSize(size, imageSize);
 

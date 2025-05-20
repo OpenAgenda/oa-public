@@ -1,17 +1,17 @@
 {
-  "uid": 83339747,
-  "title": "Ville de Bègles",
-  "description": "Agenda officiel de la ville de Bègles.",
-  "slug": "ville-de-begles",
-  "url": "https://www.mairie-begles.fr",
+  "uid": 63222032,
+  "title": "Quinzaine du commerce équitable",
+  "description": "La Quinzaine du commerce équitable sera de retour du 10 au 25 mai 2025 !",
+  "slug": "quinzaine-commerce-equitable",
+  "url": "https://www.quinzaine-commerce-equitable.org/decouvrir-les-evenements",
   "official": 1,
-  "networkUid": 97678557,
+  "networkUid": null,
   "locationSetUid": null,
-  "updatedAt": "2025-01-25T20:11:16.000Z",
-  "createdAt": "2017-02-15T09:59:22.000Z",
+  "updatedAt": "2025-05-19T20:10:28.000Z",
+  "createdAt": "2023-02-13T17:14:32.000Z",
   "memberSchemaId": null,
-  "officializedAt": "2018-04-23T08:05:50.000Z",
-  "image": "https://cdn.openagenda.com/dev/agenda83339747.jpg",
+  "officializedAt": "2023-03-24T11:13:20.000Z",
+  "image": "https://cdn.openagenda.com/main/agenda63222032.jpg?__ts=1676308473213",
   "private": 0,
   "indexed": 1,
   "settings": {
@@ -24,271 +24,119 @@
     },
     "public": {
       "filters": {
-        "displayed": null
-      }
-    },
-    "admin": {
-      "filters": {
-        "displayed": null
+        "displayed": ["timings", "type-daction", "type-de-public", "region"]
       }
     },
     "lab": {
-      "status": false
+      "status": true
     },
     "inbox": {
       "mailto": {
-        "enabled": false,
-        "email": null,
-        "subject": null,
+        "enabled": true,
+        "email": "communication@commercequitable.org",
+        "subject": "Message envoyé depuis l'agenda de la Quinzaine du commerce équitable",
         "body": null
       }
     },
     "contribution": {
       "type": 1,
-      "defaultState": 0,
+      "defaultState": 2,
       "canPublish": ["administrators", "moderators"],
       "moderateOnChangeBy": [],
       "defaultLang": null,
       "allowLocationCreate": true,
       "messages": {
-        "instructions": "**Bienvenue dans l'agenda partagé de la Ville de Bègles !**\n\nVous êtes organisateur-trice d'un événement ?\n\nPubliez ici votre événement pour qu'il soit référencé sur l'agenda officiel de la Ville de Bègles.\n\nLes événements à caractère économique ou commercial (ventes privées, formation payante, etc.), politique, ou religieux ne seront pas acceptés.\n\nSans retour de notre part, vous pouvez considérer que votre événement sera publié sous quinze jours.\n\n_Un problème technique, un conseil ? Contactez communication(at)mairie-begles.fr ou le 05 56 49 88 88_",
+        "instructions": null,
         "complete": null,
         "publication": null,
         "GDPRInformation": null
       },
-      "useFields": true,
-      "authorizedIPAddresses": []
+      "useFields": true
     },
-    "translation": {
-      "enabled": false,
-      "source": "fr",
-      "service": "reverso",
-      "options": null
+    "registration": {
+      "passCulture": {
+        "siren": null,
+        "bookingEmail": null,
+        "defaultVenueId": null,
+        "access": null
+      }
     }
   },
   "summary": {
     "keywords": [
-      "Bègles",
-      "Bordeaux",
-      "Villenave-d'Ornon",
-      "Floirac",
-      "Talence",
-      "Gironde",
+      "Paris",
+      "Strasbourg",
+      "Marseille",
+      "Nice",
+      "Lyon",
+      "Angers",
+      "Grenoble",
+      "Metz",
+      "Nantes",
+      "Rennes",
+      "Bouches-du-Rhône",
+      "Paris",
+      "Alpes-Maritimes",
+      "Isère",
+      "Var",
+      "Hauts-de-Seine",
+      "Haute-Savoie",
+      "Bas-Rhin",
+      "Métropole de Lyon",
+      "Hérault",
+      "Île-de-France",
+      "Auvergne-Rhône-Alpes",
+      "Provence-Alpes-Côte d'Azur",
+      "Grand Est",
       "Nouvelle-Aquitaine",
-      "partage",
-      "bègles",
-      "cinéma",
-      "culture",
-      "musique",
-      "évènement",
-      "concert",
-      "lecture",
-      "rencontre",
-      "spectacle"
+      "Occitanie",
+      "Pays de la Loire",
+      "Bourgogne-Franche-Comté",
+      "Hauts-de-France",
+      "Bretagne",
+      "Biopartenaire",
+      "magasin bio",
+      "label commerce équitable",
+      "commerce équitable",
+      "quinzaine du commerce équitable",
+      "label",
+      "Commerce équitable",
+      "Artisans du Monde",
+      "engagement",
+      "dégustation"
     ],
     "publishedEvents": {
-      "current": 7,
-      "passed": 197,
-      "upcoming": 45
+      "current": 418,
+      "passed": 1783,
+      "upcoming": 33
     },
     "languages": {
-      "fr": 249,
-      "de": 5,
-      "en": 5,
-      "es": 5,
-      "it": 5
+      "fr": 2234
     },
     "recentlyAddedEvents": {
-      "contribution": 0,
+      "contribution": 285,
       "shared": 0,
       "aggregation": 0
     },
-    "eventCountsByState": [
-      {
-        "key": 2,
-        "eventCount": 249
-      },
-      {
-        "key": 1,
-        "eventCount": 3
-      },
-      {
-        "key": 0,
-        "eventCount": 12
-      }
-    ],
     "viewport": {
       "topLeft": {
-        "latitude": 44.837950989603996,
-        "longitude": -0.5749040096998215
+        "latitude": 51.032123998738825,
+        "longitude": -61.733337035402656
       },
       "bottomRight": {
-        "latitude": 44.78665198199451,
-        "longitude": -0.5291530676186085
+        "latitude": -22.274633003398776,
+        "longitude": 166.4812019560486
       }
     }
   },
-  "network": {
-    "uid": 97678557,
-    "formSchemaId": 3,
-    "title": "Bordeaux Métropole"
-  },
+  "network": null,
   "locationSet": null,
   "schema": {
     "custom": {},
     "fields": [
       {
-        "field": "custom_description",
-        "label": {
-          "fr": "Description personnalisée",
-          "en": "Custom description"
-        },
-        "help": null,
-        "helpLink": null,
-        "helpContent": null,
-        "info": null,
-        "sub": null,
-        "placeholder": null,
-        "write": null,
-        "read": null,
-        "optional": true,
-        "display": false,
-        "enable": true,
-        "origin": "custom",
-        "enableWith": null,
-        "optionalWith": null,
-        "related": {
-          "enable": [],
-          "optional": [],
-          "other": []
-        },
-        "selfHandled": [],
-        "min": null,
-        "max": null,
-        "fieldType": "textarea",
-        "schemaId": 3,
-        "schemaType": "network"
-      },
-      {
-        "field": "intermunicipal_interest",
-        "label": {
-          "fr": "Événement d'intérêt intercommunal",
-          "en": "Event of inter-municipal interest"
-        },
-        "help": null,
-        "helpLink": null,
-        "helpContent": null,
-        "info": null,
-        "sub": null,
-        "placeholder": null,
-        "write": null,
-        "read": null,
-        "optional": true,
-        "display": true,
-        "enable": true,
-        "origin": "custom",
-        "enableWith": null,
-        "optionalWith": null,
-        "related": {
-          "enable": [],
-          "optional": [],
-          "other": []
-        },
-        "selfHandled": [],
-        "min": null,
-        "max": null,
-        "options": [
-          {
-            "id": 1,
-            "value": "true",
-            "label": {
-              "fr": "Événement d'intérêt intercommunal",
-              "en": "Event of inter-municipal interest"
-            },
-            "info": null,
-            "display": true
-          }
-        ],
-        "fieldType": "checkbox",
-        "schemaId": 3,
-        "schemaType": "network"
-      },
-      {
-        "field": "je-suis-une-association",
-        "label": "Je suis une association",
-        "help": null,
-        "helpLink": null,
-        "helpContent": null,
-        "info": "Cochez cette case pour intégrer votre évènement sur l'annuaire des associations",
-        "sub": null,
-        "placeholder": null,
-        "write": null,
-        "read": null,
-        "display": true,
-        "enable": true,
-        "origin": "custom",
-        "enableWith": null,
-        "optionalWith": null,
-        "related": {
-          "enable": [],
-          "optional": [],
-          "other": []
-        },
-        "selfHandled": [],
-        "fieldType": "boolean",
-        "schemaId": 431,
-        "schemaType": "agenda"
-      },
-      {
-        "field": "recurring",
-        "label": {
-          "fr": "Événement récurrent",
-          "en": "Recurring Event"
-        },
-        "help": null,
-        "helpLink": null,
-        "helpContent": null,
-        "info": null,
-        "sub": null,
-        "placeholder": null,
-        "write": null,
-        "read": null,
-        "optional": true,
-        "display": true,
-        "enable": true,
-        "origin": "custom",
-        "enableWith": null,
-        "optionalWith": null,
-        "related": {
-          "enable": [],
-          "optional": [],
-          "other": []
-        },
-        "selfHandled": [],
-        "min": null,
-        "max": null,
-        "options": [
-          {
-            "id": 2,
-            "value": "true",
-            "label": {
-              "fr": "Événement récurrent",
-              "en": "Recurring Event"
-            },
-            "info": null,
-            "display": true
-          }
-        ],
-        "fieldType": "checkbox",
-        "schemaId": 3,
-        "schemaType": "network"
-      },
-      {
-        "field": "categories-agenda-metropolitain",
-        "label": {
-          "fr": "Catégories Agenda Métropolitain",
-          "en": "Catégories Agenda Métropolitain"
-        },
+        "field": "type-daction",
+        "label": "Type d'action",
         "help": null,
         "helpLink": null,
         "helpContent": null,
@@ -300,7 +148,7 @@
         "optional": false,
         "display": true,
         "enable": true,
-        "origin": "categories",
+        "origin": "tags",
         "enableWith": null,
         "optionalWith": null,
         "related": {
@@ -309,208 +157,45 @@
           "other": []
         },
         "selfHandled": [],
+        "min": null,
+        "max": null,
         "options": [
           {
-            "id": 42,
-            "value": "animation-loto",
-            "label": {
-              "fr": "Animation - Loto",
-              "en": "Animation - Loto"
-            },
+            "id": 6,
+            "value": "animation-degustation-stand-visite-jeux-",
+            "label": "Animation (dégustation, stand, visite, jeux, ...)",
             "info": null,
             "display": true
           },
           {
-            "id": 43,
-            "value": "atelier",
-            "label": {
-              "fr": "Atelier",
-              "en": "Atelier"
-            },
+            "id": 7,
+            "value": "conference-table-ronde",
+            "label": "Conférence / table-ronde",
             "info": null,
             "display": true
           },
           {
-            "id": 44,
-            "value": "ceremonie",
-            "label": {
-              "fr": "Cérémonie",
-              "en": "Cérémonie"
-            },
+            "id": 8,
+            "value": "affichage-exposition",
+            "label": "Affichage / exposition",
             "info": null,
             "display": true
           },
           {
-            "id": 45,
-            "value": "cinema-projection",
-            "label": {
-              "fr": "Cinéma - Projection",
-              "en": "Cinéma - Projection"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 46,
-            "value": "concert",
-            "label": {
-              "fr": "Concert",
-              "en": "Concert"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 47,
-            "value": "conference-rencontre",
-            "label": {
-              "fr": "Conférence - Rencontre",
-              "en": "Conférence - Rencontre"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 48,
-            "value": "congres-colloque",
-            "label": {
-              "fr": "Congrès - Colloque",
-              "en": "Congrès - Colloque"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 49,
-            "value": "conseil-de-metropole",
-            "label": {
-              "fr": "Conseil de métropole",
-              "en": "Conseil de métropole"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 50,
-            "value": "conseil-municipal",
-            "label": {
-              "fr": "Conseil municipal",
-              "en": "Conseil municipal"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 51,
-            "value": "evenement-sportif",
-            "label": {
-              "fr": "Événement sportif",
-              "en": "Événement sportif"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 52,
-            "value": "exposition",
-            "label": {
-              "fr": "Exposition",
-              "en": "Exposition"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 53,
-            "value": "fete-festival",
-            "label": {
-              "fr": "Fête - Festival",
-              "en": "Fête - Festival"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 54,
-            "value": "foire-salon",
-            "label": {
-              "fr": "Foire - Salon",
-              "en": "Foire - Salon"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 55,
-            "value": "inauguration",
-            "label": {
-              "fr": "Inauguration",
-              "en": "Inauguration"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 56,
-            "value": "lecture",
-            "label": {
-              "fr": "Lecture",
-              "en": "Lecture"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 57,
-            "value": "marche-brocante-vide-grenier",
-            "label": {
-              "fr": "Marché-Brocante - Vide grenier",
-              "en": "Marché-Brocante - Vide grenier"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 58,
-            "value": "reunion-publique",
-            "label": {
-              "fr": "Réunion publique",
-              "en": "Réunion publique"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 59,
-            "value": "spectacle",
-            "label": {
-              "fr": "Spectacle",
-              "en": "Spectacle"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 60,
-            "value": "visite-balade",
-            "label": {
-              "fr": "Visite - Balade",
-              "en": "Visite - Balade"
-            },
+            "id": 12,
+            "value": "commercant-partenaire",
+            "label": "Commerçant partenaire",
             "info": null,
             "display": true
           }
         ],
-        "fieldType": "radio",
-        "schemaId": 3,
-        "schemaType": "network"
+        "fieldType": "checkbox",
+        "schemaId": 34680,
+        "schemaType": "agenda"
       },
       {
-        "field": "categories-mediatheque",
-        "label": {
-          "fr": "Catégories Médiathèque",
-          "en": "Catégories Médiathèque"
-        },
+        "field": "type-de-public",
+        "label": "Quel public ?",
         "help": null,
         "helpLink": null,
         "helpContent": null,
@@ -519,9 +204,10 @@
         "placeholder": null,
         "write": null,
         "read": null,
-        "display": false,
+        "optional": false,
+        "display": true,
         "enable": true,
-        "origin": null,
+        "origin": "tags",
         "enableWith": null,
         "optionalWith": null,
         "related": {
@@ -530,181 +216,34 @@
           "other": []
         },
         "selfHandled": [],
+        "min": null,
+        "max": null,
         "options": [
           {
-            "id": 88,
-            "value": "braderie",
-            "label": {
-              "fr": "Braderie",
-              "en": "Braderie"
-            },
+            "id": 9,
+            "value": "accessible-au-grand-public",
+            "label": "Accessible au grand public",
             "info": null,
             "display": true
           },
           {
-            "id": 89,
-            "value": "cafe-bd",
-            "label": {
-              "fr": "Café BD",
-              "en": "Café BD"
-            },
+            "id": 10,
+            "value": "a-destination-des-eleves-etudiantes",
+            "label": "À destination des élèves / étudiant·es",
             "info": null,
             "display": true
           },
           {
-            "id": 62,
-            "value": "cafe-litteraire",
-            "label": {
-              "fr": "Café littéraire",
-              "en": "Café littéraire"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 90,
-            "value": "cafe-musique",
-            "label": {
-              "fr": "Café musique",
-              "en": "Café musique"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 91,
-            "value": "club-de-lecture",
-            "label": {
-              "fr": "Club de lecture",
-              "en": "Club de lecture"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 92,
-            "value": "concert-dessine",
-            "label": {
-              "fr": "Concert dessiné",
-              "en": "Concert dessiné"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 93,
-            "value": "conference-musicale",
-            "label": {
-              "fr": "Conférence musicale",
-              "en": "Conférence musicale"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 64,
-            "value": "conte",
-            "label": {
-              "fr": "Conte",
-              "en": "Conte"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 65,
-            "value": "dedicace",
-            "label": {
-              "fr": "Dédicace",
-              "en": "Dédicace"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 94,
-            "value": "dj-set",
-            "label": {
-              "fr": "DJ Set",
-              "en": "DJ Set"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 63,
-            "value": "jeu",
-            "label": {
-              "fr": "Jeu",
-              "en": "Jeu"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 98,
-            "value": "numerique",
-            "label": {
-              "fr": "Numérique",
-              "en": "Numérique"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 66,
-            "value": "partage-et-decouverte",
-            "label": {
-              "fr": "Partage et découverte",
-              "en": "Partage et découverte"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 95,
-            "value": "performance",
-            "label": {
-              "fr": "Performance",
-              "en": "Performance"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 96,
-            "value": "presentation-thematique-docs",
-            "label": {
-              "fr": "Présentation thématique de documents",
-              "en": "Présentation thématique de documents"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 97,
-            "value": "sieste-musicale",
-            "label": {
-              "fr": "Sieste musicale",
-              "en": "Sieste musicale"
-            },
-            "info": null,
-            "display": true
-          },
-          {
-            "id": 99,
-            "value": "vente",
-            "label": {
-              "fr": "Vente",
-              "en": "Vente"
-            },
+            "id": 11,
+            "value": "sur-invitation",
+            "label": "Sur invitation",
             "info": null,
             "display": true
           }
         ],
-        "fieldType": "radio",
-        "schemaId": 3,
-        "schemaType": "network"
+        "fieldType": "checkbox",
+        "schemaId": 34680,
+        "schemaType": "agenda"
       },
       {
         "field": "image",
@@ -755,38 +294,6 @@
         "max": 255,
         "schemaId": null,
         "schemaType": "event"
-      },
-      {
-        "field": "image-droits",
-        "label": {
-          "fr": "Important: je certifie détenir les droits nécessaires à la publication de l'image sous le régime de la licence ouverte",
-          "en": "Important: je certifie détenir les droits nécessaires à la publication de l'image sous le régime de la licence ouverte"
-        },
-        "help": {
-          "en": "Notice d'information sur les droits des images à lire impérativement avant toute publication"
-        },
-        "helpLink": "https://www.bordeaux-metropole.fr/mentions-legales#oa",
-        "helpContent": null,
-        "info": null,
-        "sub": null,
-        "placeholder": null,
-        "write": null,
-        "read": null,
-        "optional": true,
-        "display": true,
-        "enable": true,
-        "origin": "custom",
-        "enableWith": "image",
-        "optionalWith": null,
-        "related": {
-          "enable": ["image"],
-          "optional": [],
-          "other": []
-        },
-        "selfHandled": [],
-        "fieldType": "boolean",
-        "schemaId": 3,
-        "schemaType": "network"
       },
       {
         "languages": [],
@@ -1049,11 +556,13 @@
           "passCulture": {
             "siren": null,
             "bookingEmail": null,
+            "defaultVenueId": null,
+            "access": null,
             "res": {
-              "context": "/api/me/agendas/83339747",
-              "settings": "/api/agendas/83339747/settings/passCulture",
-              "offerLink": "https://integration.passculture.app/offre/:id",
-              "offerEditLink": "https://integration.passculture.pro/offre/individuelle/:id/recapitulatif"
+              "context": "/api/me/agendas/63222032",
+              "settings": "/api/agendas/63222032/settings/passCulture",
+              "offerLink": "https://passculture.app/offre/:id",
+              "offerEditLink": "https://passculture.pro/offre/individuelle/:id/recapitulatif"
             }
           }
         }
@@ -1076,7 +585,7 @@
         "schemaType": "event"
       },
       {
-        "display": false,
+        "display": true,
         "field": "attendanceMode",
         "fieldType": "radio",
         "label": {
@@ -1432,7 +941,11 @@
                 "moderator",
                 "contributor"
               ],
-              "max": 255
+              "max": 255,
+              "label": {
+                "en": "Borough",
+                "fr": "Arrondissement"
+              }
             },
             {
               "field": "adminLevel6",
@@ -1452,7 +965,11 @@
                 "moderator",
                 "contributor"
               ],
-              "max": 255
+              "max": 255,
+              "label": {
+                "en": "City district",
+                "fr": "Quartier"
+              }
             },
             {
               "field": "district",
@@ -1954,7 +1471,7 @@
         "settings": {}
       },
       {
-        "display": false,
+        "display": true,
         "field": "onlineAccessLink",
         "fieldType": "link",
         "label": {
@@ -2091,39 +1608,6 @@
         "schemaType": "event"
       },
       {
-        "field": "ean",
-        "label": {
-          "fr": "EAN",
-          "en": "EAN"
-        },
-        "fieldType": "text",
-        "schemaId": 3,
-        "schemaType": "network"
-      },
-      {
-        "field": "cycle",
-        "label": {
-          "fr": "Cycle",
-          "en": "Cycle"
-        },
-        "fieldType": "text",
-        "schemaId": 3,
-        "schemaType": "network"
-      },
-      {
-        "field": "extIds",
-        "fieldType": "extIds",
-        "optional": true,
-        "display": false,
-        "label": {
-          "fr": "Identifiants externe",
-          "en": "External identifiers",
-          "io": "crwdns34156:0crwdne34156:0"
-        },
-        "schemaId": null,
-        "schemaType": "event"
-      },
-      {
         "field": "uid",
         "fieldType": "integer",
         "optional": false,
@@ -2218,6 +1702,20 @@
         "fieldType": "enrichedLinks",
         "optional": true,
         "write": ["internal"],
+        "schemaId": null,
+        "schemaType": "event"
+      },
+      {
+        "field": "extIds",
+        "fieldType": "extIds",
+        "optional": true,
+        "display": false,
+        "label": {
+          "fr": "Identifiants externe",
+          "en": "External identifiers",
+          "io": "crwdns34156:0crwdne34156:0",
+          "oc": "Identificants extèrnes"
+        },
         "schemaId": null,
         "schemaType": "event"
       }

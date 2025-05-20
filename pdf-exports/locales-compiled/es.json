@@ -1,10 +1,4 @@
 {
-  "pdf-exports.aboutLocation": [
-    {
-      "type": 0,
-      "value": "About the location"
-    }
-  ],
   "pdf-exports.access": [
     {
       "type": 0,
@@ -29,10 +23,22 @@
       "value": "Location"
     }
   ],
+  "pdf-exports.locationDetails": [
+    {
+      "type": 0,
+      "value": "About the venue"
+    }
+  ],
   "pdf-exports.noSelection": [
     {
       "type": 0,
       "value": "No selection"
+    }
+  ],
+  "pdf-exports.noText": [
+    {
+      "type": 0,
+      "value": "No text is defined"
     }
   ],
   "pdf-exports.online": [
@@ -47,18 +53,6 @@
       "value": "Page"
     }
   ],
-  "pdf-exports.registration": [
-    {
-      "type": 0,
-      "value": "Registration"
-    }
-  ],
-  "pdf-exports.registrationTool": [
-    {
-      "type": 0,
-      "value": "Registration tool"
-    }
-  ],
   "pdf-exports.status": [
     {
       "type": 0,
@@ -71,10 +65,10 @@
       "value": "Tags"
     }
   ],
-  "pdf-exports.undefined": [
+  "pdf-exports.timingDetails": [
     {
       "type": 0,
-      "value": "Undefined"
+      "value": "Timing details"
     }
   ]
 }
