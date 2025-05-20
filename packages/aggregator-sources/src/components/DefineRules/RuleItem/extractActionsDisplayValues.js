@@ -19,10 +19,20 @@ function getKey(action) {
   return `action-${JSON.stringify(action)}`;
 }
 
-function getType(action) {
+function getType(action, aggregatorAgendaSchema) {
   if (action.field === 'state') {
     return 'state';
   }
+
+  // Check if the field is a boolean type
+  const field = (aggregatorAgendaSchema?.fields || [])
+    .filter((f) => f.field === action.field)
+    .pop();
+
+  if (field && field.fieldType === 'boolean') {
+    return 'boolean';
+  }
+
   return null;
 }
 
@@ -84,6 +94,23 @@ function stateAction({ intl, action }) {
   };
 }
 
+function booleanAction({ intl, action, field, aggregatorAgenda }) {
+  const value = getValues(action).pop();
+  const booleanValue = value === true || value === 'true';
+  const messageId = booleanValue ? 'selected' : 'notSelected';
+
+  return {
+    label: getLocaleValue(field.label, intl.locale),
+    value: intl.formatMessage(messages[messageId]),
+    detail: intl.formatMessage(
+      messages.aggregatorAgendaChoiceFieldValueDetail,
+      {
+        agendaTitle: aggregatorAgenda?.title || '',
+      },
+    ),
+  };
+}
+
 export default ({
   intl,
   aggregatorAgendaSchema,
@@ -91,7 +118,8 @@ export default ({
   action,
   sourceAgendaSchema,
 }) => {
-  const type = getType(action);
+  const type = getType(action, aggregatorAgendaSchema);
+
   const base = {
     type,
     key: getKey(action),
@@ -104,6 +132,19 @@ export default ({
       ...base,
       ...stateAction({ intl, action }),
     };
+  }
+
+  if (type === 'boolean') {
+    const field = (aggregatorAgendaSchema?.fields || [])
+      .filter((f) => f.field === action.field)
+      .pop();
+
+    if (field) {
+      return {
+        ...base,
+        ...booleanAction({ intl, action, field, aggregatorAgenda }),
+      };
+    }
   }
 
   const field = (aggregatorAgendaSchema?.fields || [])

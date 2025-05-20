@@ -12,6 +12,8 @@ import isOptionedField from '../../utils/isOptionedField.js';
 import messages from './messages.js';
 import Radio from './Radio.js';
 import TextFieldActionForm from './TextFieldActionForm.js';
+import OptionedActionFieldForm from './OptionedActionFieldForm.js';
+import getStateOptions from './getStateOptions.js';
 
 const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
 const usePrevious = usePreviousModule.default || usePreviousModule;
@@ -82,18 +84,18 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
   );
   const valuesOptions = useMemoOne(() => {
     if (fieldName === 'state') {
+      return getStateOptions(intl);
+    }
+
+    if (fieldSchema?.fieldType === 'boolean') {
       return [
         {
-          value: 0,
-          label: intl.formatMessage(stateMessages.stateToControl),
+          value: true,
+          label: intl.formatMessage(messages.selected),
         },
         {
-          value: 1,
-          label: intl.formatMessage(stateMessages.stateControlled),
-        },
-        {
-          value: 2,
-          label: intl.formatMessage(stateMessages.statePublished),
+          value: false,
+          label: intl.formatMessage(messages.notSelected),
         },
       ];
     }
@@ -170,43 +172,15 @@ export default ({ id, name, aggregatorAgendaSchema, sourceSchema }) => {
       />
 
       {valuesOptions ? (
-        <>
-          <ReactSelectField
-            key={`${name}-values-${action.field}`}
-            Field={Field}
-            name={`${name}.values`}
-            placeholder={intl.formatMessage(
-              messages[
-                action?.automatic ? 'selectValueAutomaticMode' : 'selectValue'
-              ],
-            )}
-            noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-            options={valuesOptions}
-            menuPosition="fixed"
-            isMulti={isOptionedField.multi(fieldSchema)}
-            isDisabled={action?.automatic}
-            isSearchable
-          />
-          {advancedMode ? (
-            <>
-              <Field
-                key="automatic"
-                component={Radio}
-                name={`${name}.automatic`}
-                initialValue={initialAction?.automatic}
-                type="checkbox"
-                label={intl.formatMessage(messages.automaticAssignment)}
-                classNameGroup="checkbox"
-                helpBlock={(
-                  <div className="radio-sub-block text-muted">
-                    {intl.formatMessage(messages.automaticDescription)}
-                  </div>
-                )}
-              />
-              {advanceModeSetField}
-            </>
-          ) : null}
-        </>
+        <OptionedActionFieldForm
+          name={name}
+          action={action}
+          fieldSchema={fieldSchema}
+          valuesOptions={valuesOptions}
+          advancedMode={advancedMode}
+          initialAction={initialAction}
+          advanceModeSetField={advanceModeSetField}
+        />
       ) : null}
 
       {isStringType(fieldSchema) ? (
