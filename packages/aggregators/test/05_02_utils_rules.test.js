@@ -577,6 +577,12 @@ describe('05_02 - utils - rules', () => {
       });
     });
 
+    test('action on boolean type field', () => {
+      expect(
+        rules([{ actions: [{ booleanField: true }] }], null, null, {}),
+      ).toEqual({ booleanField: true });
+    });
+
     test('action on text Field copy from source additional text field short version', () => {
       const input = {
         content: 'test',
