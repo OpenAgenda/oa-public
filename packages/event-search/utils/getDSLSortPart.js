@@ -1,5 +1,33 @@
 import toSortTimingFormat from './toSortTimingFormat.js';
 
+function getMinSortTimings(query) {
+  const timings = query?.timings;
+
+  if (!timings) {
+    return new Date();
+  }
+
+  if (timings.gte) {
+    return timings.gte;
+  }
+
+  if (Array.isArray(timings)) {
+    const dates = timings
+      .map((t) => t.gte)
+      .filter(Boolean)
+      .map((str) => new Date(str));
+
+    if (dates.length === 0) {
+      return new Date();
+    }
+
+    const minDate = new Date(Math.min(...dates.map((d) => d.getTime())));
+    return minDate;
+  }
+
+  return new Date();
+}
+
 const timings = (query, options = {}) => {
   const { mode = 'min' } = options;
 
@@ -13,7 +41,8 @@ const timings = (query, options = {}) => {
           filter: {
             range: {
               '_sort_timings.accessible_until': {
-                gte: toSortTimingFormat(query?.timings?.gte ?? new Date()),
+                gte: toSortTimingFormat(getMinSortTimings(query)),
+                // gte: toSortTimingFormat(query?.timings?.gte ?? new Date()),
               },
             },
           },

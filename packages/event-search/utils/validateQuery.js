@@ -244,6 +244,7 @@ const validate = schema({
         type: 'date',
       },
     },
+    list: { default: null },
   },
   sort: {
     type: 'choice',
