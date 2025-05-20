@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-filters",
-  "version": "2.12.6",
+  "version": "2.13.0",
   "type": "module",
   "main": "build/index.js",
   "sideEffects": false,
