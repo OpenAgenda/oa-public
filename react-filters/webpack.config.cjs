@@ -84,7 +84,10 @@ module.exports = (env = {}, argv = {}) => {
         {
           test: /\.(js|mjs|jsx)$/,
           loader: require.resolve('babel-loader'),
-          exclude: BABEL_EXCLUDE_REGEX,
+          exclude: [
+            BABEL_EXCLUDE_REGEX,
+            /\/node_modules\/@openagenda\/leaflet-gesture-handling\//,
+          ],
           options: {
             cacheDirectory: process.env.DISABLE_WEBPACK_CACHE
               ? false
