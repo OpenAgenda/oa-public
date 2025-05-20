@@ -49,8 +49,6 @@ $body-size: $size;
 $preview-bg: rgba(255, 255, 255, 0.09);
 
 // Today
-$today-weight: 500;
-
 $today-content: '';
 $today-content-bg: #41acdd;
 $today-content-selected: #fff;
@@ -507,10 +505,6 @@ $passive-color: #d5dce0;
   -webkit-box-pack: center;
   justify-content: center;
   height: 100%;
-}
-
-.rdrDayToday .rdrDayNumber span {
-  font-weight: $today-weight;
 }
 
 .rdrDayToday .rdrDayNumber span:after {
