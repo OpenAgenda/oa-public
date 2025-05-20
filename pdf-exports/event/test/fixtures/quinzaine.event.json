@@ -1,0 +1,205 @@
+{
+  "firstTiming": {
+    "end": "2025-05-10T19:00:00.000+02:00",
+    "begin": "2025-05-10T09:00:00.000+02:00"
+  },
+  "nextTiming": {
+    "begin": "2025-05-20T09:00:00+02:00",
+    "end": "2025-05-20T19:00:00+02:00"
+  },
+  "lastTiming": {
+    "end": "2025-05-24T19:00:00.000+02:00",
+    "begin": "2025-05-24T09:00:00.000+02:00"
+  },
+  "dateRange": {
+    "ar": "١٠ - ٢٤ مايو",
+    "de": "10 - 24 Mai",
+    "en": "10 - 24 May",
+    "it": "10 - 24 maggio",
+    "fr": "10 - 24 mai",
+    "es": "10 - 24 mayo"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 63222032,
+    "image": "https://cdn.openagenda.com/main/agenda63222032.jpg?__ts=1676308473213",
+    "description": "La Quinzaine du commerce équitable sera de retour du 10 au 25 mai 2025 !",
+    "official": false,
+    "title": "Quinzaine du commerce équitable",
+    "slug": "quinzaine-commerce-equitable",
+    "url": "https://www.quinzaine-commerce-equitable.org/decouvrir-les-evenements",
+    "_agg": "eyJ1aWQiOjYzMjIyMDMyLCJ0aXRsZSI6IlF1aW56YWluZSBkdSBjb21tZXJjZSDDqXF1aXRhYmxlIiwiaW1hZ2UiOiJodHRwczovL2Nkbi5vcGVuYWdlbmRhLmNvbS9tYWluL2FnZW5kYTYzMjIyMDMyLmpwZz9fX3RzPTE2NzYzMDg0NzMyMTMiLCJ1cmwiOiJodHRwczovL3d3dy5xdWluemFpbmUtY29tbWVyY2UtZXF1aXRhYmxlLm9yZy9kZWNvdXZyaXItbGVzLWV2ZW5lbWVudHMiLCJzbHVnIjoicXVpbnphaW5lLWNvbW1lcmNlLWVxdWl0YWJsZSJ9"
+  },
+  "sourceAgendas": [],
+  "type-daction": [12],
+  "type-de-public": [9],
+  "image": {
+    "filename": "ae7d85e4fb594eba845ca83618bf3e45.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 200
+    },
+    "variants": [
+      {
+        "filename": "ae7d85e4fb594eba845ca83618bf3e45.full.image.jpg",
+        "size": {
+          "width": 2333,
+          "height": 667
+        },
+        "type": "full"
+      },
+      {
+        "filename": "ae7d85e4fb594eba845ca83618bf3e45.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": null,
+  "title": {
+    "fr": "Le Commerce Equitable en magasin bio avec BIOPARTENAIRE®"
+  },
+  "description": {
+    "fr": "Du 10 au 25 mai, Célébrez le commerce équitable avec le label BIOPARTENAIRE® dans les magasins bio !"
+  },
+  "keywords": {
+    "fr": [
+      "Biopartenaire",
+      "magasin bio",
+      "label",
+      "commerce équitable",
+      "quinzaine du commerce équitable"
+    ]
+  },
+  "longDescription": {
+    "fr": "Du 10 au 25 mai, on se retrouve dans les magasins bio pour célébrer la Quinzaine du commerce équitable et découvrir les + de 1 000 produits labellisés BIOPARTENAIRE® qui donnent du sens à vos achats et qui soutiennent le commerce équitable !  \nPour mettre à l’honneur le commerce équitable, les magasins participants habilleront leurs rayons aux couleurs de BIOPARTENAIRE® et proposeront des mises en avant sur une partie des produits labellisés.  \nN'hésitez pas à vous rapprocher de votre magasin bio pour connaitre ses jours et horaires d’ouverture !  \n**Biopartenaire en quelques mots**  \nNé en 2002 à l’initiative d’une poignée d’entrepreneurs pionniers de la Bio, BIOPARTENAIRE® est le premier label en France à avoir associé agriculture biologique et commerce équitable dans le même cahier des charges. BIOPARTENAIRE® porte le seul référentiel exigeant et garantissant des partenariats équitables ET bio en France et à l'international.  \nBIOPARTENAIRE® c’est aussi le seul label du commerce équitable exclusivement réservé au réseau de distribution des magasins spécialisés bio en France.  \nAcheter des produits labellisés BIOPARTENAIRE®, c’est agir concrètement pour plus de justice sociale, économique et environnementale.  \n**Pour reconnaître un produit BIOPARTENAIRE®, un coup d'oeil suffit !**"
+  },
+  "conditions": {},
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "registration": [],
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "attendanceMode": 1,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Jayat",
+    "timezone": "Europe/Paris",
+    "postalCode": "01340",
+    "latitude": 46.370979,
+    "imageCredits": null,
+    "description": {},
+    "setUid": null,
+    "uid": 54723994,
+    "createdAt": "2025-04-28T11:05:15.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 0,
+    "department": "Ain",
+    "slug": "les-comptoirs-de-la-bio-jayat_5574576",
+    "email": null,
+    "longitude": 5.119565,
+    "updatedAt": "2025-04-28T11:05:15.000Z",
+    "image": null,
+    "website": null,
+    "address": "bourg en bresse",
+    "adminLevel3": "Communauté d'agglomération du Bassin de Bourg-en-Bresse",
+    "agendaUid": 63222032,
+    "adminLevel4": "Jayat",
+    "adminLevel1": "Auvergne-Rhône-Alpes",
+    "adminLevel2": "Ain",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjU0NzIzOTk0LCJuYW1lIjoiTEVTIENPTVBUT0lSUyBERSBMQSBCSU8gSmF5YXQifQ==",
+    "tags": null,
+    "insee": "01196",
+    "phone": null,
+    "district": null,
+    "name": "LES COMPTOIRS DE LA BIO Jayat",
+    "region": "Auvergne-Rhône-Alpes",
+    "extIds": null,
+    "extId": null
+  },
+  "onlineAccessLink": null,
+  "status": 1,
+  "timings": [
+    {
+      "begin": "2025-05-10T09:00:00+02:00",
+      "end": "2025-05-10T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-12T09:00:00+02:00",
+      "end": "2025-05-12T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-13T09:00:00+02:00",
+      "end": "2025-05-13T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-14T09:00:00+02:00",
+      "end": "2025-05-14T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-15T09:00:00+02:00",
+      "end": "2025-05-15T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-16T09:00:00+02:00",
+      "end": "2025-05-16T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-17T09:00:00+02:00",
+      "end": "2025-05-17T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-19T09:00:00+02:00",
+      "end": "2025-05-19T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-20T09:00:00+02:00",
+      "end": "2025-05-20T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-21T09:00:00+02:00",
+      "end": "2025-05-21T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-22T09:00:00+02:00",
+      "end": "2025-05-22T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-23T09:00:00+02:00",
+      "end": "2025-05-23T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-24T09:00:00+02:00",
+      "end": "2025-05-24T19:00:00+02:00"
+    }
+  ],
+  "uid": 59395095,
+  "slug": "le-commerce-equitable-en-magasin-bio-avec-biopartenairer-429951",
+  "private": false,
+  "timezone": "Europe/Paris",
+  "draft": false,
+  "createdAt": "2025-04-28T11:05:39.694Z",
+  "creatorUid": 66117684,
+  "ownerUid": 66117684,
+  "updatedAt": "2025-04-28T11:05:40.000Z",
+  "links": [],
+  "extIds": null
+}

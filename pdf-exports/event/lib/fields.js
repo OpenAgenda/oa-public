@@ -1,4 +1,6 @@
-export const mainGroup = [
+import sectionTitle from './sectionTitle.js';
+
+export const headGroup = [
   {
     field: 'status',
     fieldType: 'select',
@@ -15,24 +17,17 @@ export const mainGroup = [
     fieldType: 'text',
   },
   'description',
-  {
-    field: 'image',
-    fieldType: 'image',
-    relatedValues: [{ from: 'imageCredits', to: 'credits' }],
-  },
-  {
-    field: 'longDescription',
-    fieldType: 'markdown',
-  },
 ];
 
-export const conditionsAndRegistrationGroup = ({ agenda, event }) => [
-  {
-    field: 'uid',
-    fieldType: 'qr',
-    value: `https//openagenda.com/agendas/${agenda.uid}/events/${event.uid}`,
-    size: 80,
-  },
+export const mainGroup = ({ imageField }) =>
+  (imageField ? [imageField] : []).concat([
+    {
+      field: 'longDescription',
+      fieldType: 'markdown',
+    },
+  ]);
+
+export const conditionsAndRegistrationGroup = [
   {
     field: 'attendanceMode',
     omitLabel: false,
@@ -53,14 +48,43 @@ export const conditionsAndRegistrationGroup = ({ agenda, event }) => [
   },
 ];
 
-export const locationGroup = (location) =>
+export const timingsGroup = ({ lang }) => [
+  sectionTitle('timingDetails', lang),
+  {
+    field: 'timings',
+    fieldType: 'timings',
+    relatedValues: ['timezone'],
+  },
+];
+
+export const locationCoordinates = (location) =>
+  (['website', 'phone', 'email'].filter((f) => !!location[f]).length
+    ? [
+      {
+        fieldType: 'text',
+        value: 'Coordonnées',
+        bold: true,
+      },
+      {
+        field: 'location.website',
+        fieldType: 'link',
+      },
+      {
+        field: 'location.phone',
+        fieldType: 'phone',
+      },
+      {
+        field: 'location.email',
+        fieldType: 'email',
+      },
+    ]
+    : []
+      .filter((f) => !!f)
+      .map((f) => ({ ...f, fontSize: f.fontSize ?? '0.9em' })));
+
+export const locationMain = ({ locationImage, title }) =>
   [
-    {
-      fieldType: 'text',
-      value: 'À propos du lieu',
-      bold: true,
-      fontSize: '1.2em',
-    },
+    title,
     {
       field: 'location.name',
       fieldType: 'text',
@@ -70,38 +94,21 @@ export const locationGroup = (location) =>
       field: 'location.address',
       fieldType: 'text',
     },
-    {
-      field: 'location.image',
-      fieldType: 'image',
-      relatedValues: [{ from: 'location.imageCredits', to: 'credits' }],
-    },
-    {
-      field: 'location.description',
-      fieldType: 'text',
-    },
-    {
-      field: 'location.access',
-      fieldType: 'text',
-      omitLabel: false,
-      displayLabelIfUnset: false,
-    },
-    ['website', 'phone', 'email'].filter((f) => !!location[f]).length && {
-      fieldType: 'text',
-      value: 'Coordonnées',
-      bold: true,
-    },
-    {
-      field: 'location.website',
-      fieldType: 'link',
-    },
-    {
-      field: 'location.phone',
-      fieldType: 'phone',
-    },
-    {
-      field: 'location.email',
-      fieldType: 'email',
-    },
+    locationImage,
   ]
     .filter((f) => !!f)
     .map((f) => ({ ...f, fontSize: f.fontSize ?? '0.9em' }));
+
+export const locationDescriptions = [
+  {
+    field: 'location.description',
+    fieldType: 'text',
+    filterUnset: true,
+  },
+  {
+    field: 'location.access',
+    fieldType: 'text',
+    omitLabel: false,
+    filterUnset: true,
+  },
+].map((f) => ({ ...f, fontSize: f.fontSize ?? '0.9em' }));

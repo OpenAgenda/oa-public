@@ -17,6 +17,7 @@ export const additionalFieldValues = (schemaFields, values) =>
       field,
       value: values[field.field],
       displayLabelIfUnset: true,
+      displayUnsetMessage: true,
     }));
 
 export const mapToFieldValuePair = (
@@ -58,3 +59,12 @@ export const extractAndFlattenSchemaFields = (schema) =>
         : flatFields.concat(field)),
     [],
   );
+
+export const filterUnset = ({ value, filterUnset: filterUnsetOption }) => {
+  if (!filterUnsetOption) return true;
+
+  if (value instanceof Object && !Object.keys(value).length) {
+    return false;
+  }
+  return true;
+};

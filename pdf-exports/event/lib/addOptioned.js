@@ -1,8 +1,8 @@
 import { getLocaleValue } from '@openagenda/intl';
 import getIntl from '../../utils/intl.js';
+import messages from '../../lib/messages.js';
 import addText from './addText.js';
 import Cursor from './Cursor.js';
-import messages from './messages.js';
 
 export default async function addOptioned(doc, cursor, params = {}) {
   const {

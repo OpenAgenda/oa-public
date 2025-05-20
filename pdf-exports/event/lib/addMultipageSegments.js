@@ -1,4 +1,5 @@
 import logs from '@openagenda/logs';
+import addSeparatorLine from '../../utils/addSeparatorLine.js';
 import addPageColumns from './addPageColumns.js';
 import Cursor from './Cursor.js';
 import rtd from './roundToDecimal.js';
@@ -7,6 +8,9 @@ const log = logs('addMultipageSegments');
 
 const hasColumnsWithContent = (columns) =>
   !!columns.filter(({ content }) => !!content?.length).length;
+
+const extractSegmentInfo = (segment) =>
+  (Array.isArray(segment) ? { separator: false, columns: segment } : segment);
 
 export default async function addMultipageSegments(
   doc,
@@ -54,7 +58,9 @@ export default async function addMultipageSegments(
 
     const availableHeight = doc.page.height - cursor.y - footerHeight - doc.page.margins.bottom;
 
-    const segmentColumns = state.remainingSegments.shift();
+    const { separator, columns: segmentColumns } = extractSegmentInfo(
+      state.remainingSegments.shift(),
+    );
 
     log('  placing segment', { availableHeight: rtd(availableHeight) });
 
@@ -73,6 +79,15 @@ export default async function addMultipageSegments(
 
     if (!hasColumnsWithContent(remaining) && state.remainingSegments.length) {
       log('  segment does not have left over');
+      if (separator) {
+        cursor.moveY(
+          addSeparatorLine(doc, cursor, {
+            ...options,
+            padding: 30,
+            availableHeight: availableHeight - segmentSize.height,
+          }).height,
+        );
+      }
       state.newPage = false;
       continue;
     }
