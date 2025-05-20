@@ -39,17 +39,17 @@ export default async function addTimings(doc, parentCursor, params = {}) {
       availableWidthForSegment: rtd(availableWidthForSegment),
     });
 
-    const { width } = await addTimingsMonthSegment(doc, cursor, {
+    const simulated = await addTimingsMonthSegment(doc, cursor, {
       ...params,
       value: timingMonthSegments[index],
       availableHeight: availableHeightForSegment,
       simulate: true,
       margins: margins.monthSegments,
     });
-    if (width > availableWidthForSegment) {
-      log('  no available width left for segment', {
-        sizeWidth: size.width,
-        width,
+
+    if (simulated.width === 0 || simulated.width > availableWidthForSegment) {
+      log('  no available space left for segment', {
+        simulatedMonthSegmentSize: simulated,
         availableWidth,
       });
       timingMonthSegments[index].displayMonthName = true;
@@ -64,7 +64,7 @@ export default async function addTimings(doc, parentCursor, params = {}) {
       column,
       cursor: { x: rtd(cursor.x), y: rtd(cursor.y) },
       availableWidthForSegment: rtd(availableWidthForSegment),
-      width: rtd(width),
+      simulated: rtd(simulated),
     });
 
     const { remaining, ...monthSize } = await addTimingsMonthSegment(
