@@ -8,7 +8,6 @@ import logs from '@openagenda/logs';
 import { getLocaleValue } from '@openagenda/intl';
 import cmn from '../lib/commons-app.js';
 
-import addCalendarLinks from '../services/events/lib/addCalendarLinks.js';
 import track from '../lib/track.js';
 import ics from '../services/events/lib/ics.js';
 
@@ -49,49 +48,6 @@ function getDates(event, lang) {
   }, []);
 
   return result;
-}
-
-function actionDatesJson(req, res, next) {
-  const { core } = req.app.services;
-  const { root } = core.getConfig();
-
-  const service = ['google', 'yahoo', 'live', 'ics'].find((v) => v === req.query.service)
-    || 'google';
-
-  try {
-    addCalendarLinks(
-      { root },
-      req.event,
-      `${root}/${req.agenda.slug}/events/${req.event.slug}`,
-      req.agenda,
-      req.lang,
-    );
-  } catch (e) {
-    return next(
-      new VError({
-        cause: e,
-        info: {
-          url: req.originalUrl,
-          agenda: req.agenda,
-          event: req.event,
-        },
-      }),
-    );
-  }
-
-  return res.send({
-    event: {
-      url: `/${req.agenda.slug}/events/${req.event.slug}`,
-      timezone: req.event.timezone,
-      params: req.eventUriParams,
-      timings: req.event.timings.map((timing) => ({
-        date: timing.date,
-        begin: timing.begin,
-        end: timing.end,
-        link: timing.calendarLinks[service],
-      })),
-    },
-  });
 }
 
 async function eventMailSend(req, res, next) {
@@ -256,29 +212,6 @@ export default (app) => {
       },
     },
   });
-
-  app.get(
-    '/:slug/events/:eventUid/action/dates',
-    loadAgendaBySlug,
-    cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) =>
-      req.app.services.core
-        .agendas(req.agenda.uid)
-        .events.get(req.params.eventUid, { detailed: true })
-        .then(
-          (result) => {
-            if (!result) {
-              return next({ code: 404 });
-            }
-            req.event = result;
-            next();
-          },
-          (err) => {
-            next(err.name === 'BadRequestError' ? { code: 404 } : err);
-          },
-        ),
-    actionDatesJson,
-  );
 
   app.post(
     '/:slug/events/:eventUid/email',

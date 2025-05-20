@@ -8,5 +8,6 @@
   "subjectWithAgenda": "OpenAgenda | {agenda} | Nuovo messaggio",
   "title": "Avete ricevuto un nuovo messaggio.",
   "titleWithAgenda": "Avete ricevuto un nuovo messaggio sul sistema di messaggistica dell'agenda {agenda}.",
-  "unsubscribe": "Interrompere la ricezione dei messaggi {agenda, selezionare, null {dalla mia casella di posta elettronica} altri {dalle caselle di posta del calendario}}}."
+  "unsubscribe": "Interrompere la ricezione dei messaggi {agenda, selezionare, null {dalla mia casella di posta elettronica} altri {dalle caselle di posta del calendario}}}.",
+  "unsubscribeGuest": "Smetti di ricevere email da OpenAgenda"
 }

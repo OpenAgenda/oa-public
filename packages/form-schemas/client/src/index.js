@@ -76,9 +76,7 @@ export default class FormSchemaComponent extends Component {
       onSubmitSuccess,
     } = this.props;
 
-    const { draft = false } = options;
-
-    const query = null;
+    const { draft = undefined } = options;
 
     const values = this.get('values');
 
@@ -91,7 +89,7 @@ export default class FormSchemaComponent extends Component {
 
     if (onSubmit) {
       const p = onSubmit({
-        values: draft ? { ...values, draft: true } : values,
+        values: draft !== undefined ? { ...values, draft } : values,
         clean,
         files: this.get('files'),
       });
@@ -118,9 +116,8 @@ export default class FormSchemaComponent extends Component {
       method,
       res: _.get(res, method, ''),
       formSchema: this._getFormSchema(),
-      values: draft ? { ...values, draft: true } : values, // values can be clean anew once received by server
+      values: draft !== undefined ? { ...values, draft } : values, // values can be clean anew once received by server
       files: this.get('files'),
-      query,
     })
       .then((response) => {
         if (response.statusCode !== 200) {

@@ -21,6 +21,16 @@ const validate = schema({
     type: 'text',
     max: 255,
   },
+  extId: {
+    fields: {
+      key: {
+        type: 'text',
+      },
+      value: {
+        type: 'text',
+      },
+    },
+  },
   state: {
     type: 'integer',
     default: null,
@@ -102,6 +112,7 @@ module.exports = async (service, k, deleted, query) => {
     agendaUid,
     setUid,
     search,
+    extId,
     state,
     updatedAt,
     createdAt,
@@ -123,6 +134,13 @@ module.exports = async (service, k, deleted, query) => {
 
   if (setUid) {
     k.where('set_uid', setUid);
+  }
+
+  if (extId?.key && extId?.value) {
+    k.whereRaw(
+      "? MEMBER OF (ext_ids->'$.identifiers')",
+      `${extId.key}->${extId.value}`,
+    );
   }
 
   if (search) {

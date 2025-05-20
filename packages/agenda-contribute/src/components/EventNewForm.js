@@ -72,7 +72,7 @@ function EventNewForm({
                 type="button"
                 className="btn btn-primary btn-block"
                 disabled={loading}
-                onClick={onSubmit}
+                onClick={(e) => onSubmit(e, { draft: false })}
               >
                 {m(messages.create)}
               </button>

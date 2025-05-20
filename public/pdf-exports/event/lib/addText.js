@@ -2,6 +2,8 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import logs from '@openagenda/logs';
 import { getLocaleValue } from '@openagenda/intl';
+import messages from '../../lib/messages.js';
+import getIntl from '../../utils/intl.js';
 import Cursor from './Cursor.js';
 import adjustSize from './adjustSize.js';
 
@@ -113,14 +115,30 @@ function getAvailableWidth(doc, cursor, params) {
 }
 
 export default function addText(doc, parentCursor, params = {}) {
-  const { availableHeight, value, content, lang, segmentable = null } = params;
+  const {
+    availableHeight,
+    value,
+    content,
+    lang,
+    segmentable = null,
+    displayUnsetMessage,
+  } = params;
 
   const cursor = Cursor(parentCursor);
 
   const text = getLocaleValue(value ?? content, lang);
 
   if ([undefined, null].includes(text)) {
-    return { width: 0, height: 0 };
+    return displayUnsetMessage
+      ? addText(doc, parentCursor, {
+        ...params,
+        value: getIntl(lang).formatMessage(messages.noText),
+        italic: true,
+      })
+      : {
+        width: 0,
+        height: 0,
+      };
   }
 
   const availableWidth = getAvailableWidth(doc, cursor, params);

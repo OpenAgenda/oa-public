@@ -394,6 +394,14 @@ describe('agenda-locations - functional - list', () => {
         { key: 'default', value: '121,-22SSA' },
       ]);
     });
+
+    it('locations can be filtered by extId', async () => {
+      const locationByExtId = await svc(7196947).list({
+        extId: { key: 'default', value: '1234' },
+      });
+      expect(locationByExtId.length).toBe(1);
+      expect(locationByExtId[0].uid).toBe(7630653);
+    });
   });
 
   describe('stream', () => {

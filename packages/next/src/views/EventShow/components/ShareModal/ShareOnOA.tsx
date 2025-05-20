@@ -5,9 +5,9 @@ import qs from 'qs';
 import { useInView } from 'react-intersection-observer';
 import { Center, Spinner, VStack } from '@openagenda/uikit';
 import SearchInput from 'components/SearchInput';
+import AccordionItem from 'components/AccordionItem';
 import { shareModal as messages } from '../../messages';
 import AgendaItem from './AgendaItem';
-import AccordionItem from './AccordionItem';
 
 const PAGE_SIZE = 20;
 

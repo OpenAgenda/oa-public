@@ -23,7 +23,7 @@ import {
 import { FilterSelect } from '@openagenda/react-shared';
 import { getFilterSelectOptions } from '@openagenda/react-filters';
 import copyText from 'utils/copyText';
-import AccordionItem from './AccordionItem';
+import AccordionItem from 'components/AccordionItem';
 import messages from './messages';
 
 function escapeHTML(text: string) {
@@ -218,7 +218,7 @@ export default function EmbedAccordionItem({ dialogRef, res, agenda }) {
         <SelectRoot
           collection={langsCollection}
           value={[lang]}
-          onValueChange={(e) => setLang(e[0])}
+          onValueChange={({ value: [pick] }) => setLang(pick)}
           w="fit-content"
         >
           <SelectTrigger>

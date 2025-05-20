@@ -14,7 +14,7 @@ describe('unit - generate document', () => {
 
   test('generates a word document when given an agenda uid', async () => {
     const result = await generate({
-      agendaUid: 47800929,
+      agendaUid: 95343,
       language: 'fr',
       localTmpPath: config.localTmpPath,
       templatePath: `${import.meta.dirname}/../input.docx`,
@@ -22,8 +22,8 @@ describe('unit - generate document', () => {
 
     docPath = result.outputPath;
 
-    // /var/tmp/47800929.1525771511254.docx
-    expect(/47800929\.[0-9]+\.docx$/.test(docPath)).toBe(true);
+    // /var/tmp/95343.1525771511254.docx
+    expect(/95343\.[0-9]+\.docx$/.test(docPath)).toBe(true);
   });
 
   test('generates a word document based on a templateContent', async () => {

@@ -2,8 +2,8 @@ import { useIntl } from 'react-intl';
 import { Button, HStack, Link } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
 import { faFacebookF, faLinkedinIn, faXTwitter } from 'icons/brands';
+import AccordionItem from 'components/AccordionItem';
 import { shareModal as messages } from '../../messages';
-import AccordionItem from './AccordionItem';
 
 export default function ShareOnSocialNetworks({
   eventUrl,

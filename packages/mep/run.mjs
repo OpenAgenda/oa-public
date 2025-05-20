@@ -151,6 +151,7 @@ if (runUpdateTask || runAll) {
     await buildAndUploadEcosystemFile(taskNodes.all(), 'task', {
       SSHKeyPath,
       envVars,
+      nodeArgs: '--max-old-space-size=4096',
       dir,
       instances: 1,
     });

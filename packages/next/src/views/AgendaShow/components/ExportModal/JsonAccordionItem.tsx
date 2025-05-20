@@ -3,7 +3,7 @@ import { useIntl } from 'react-intl';
 import { Button, Flex, Link, Text } from '@openagenda/uikit';
 import { Checkbox } from '@openagenda/uikit/snippets';
 import useUser from 'hooks/useUser';
-import AccordionItem from './AccordionItem';
+import AccordionItem from 'components/AccordionItem';
 import messages from './messages';
 
 export default function JsonAccordionItem({ handleSubmit, res }) {
