@@ -9,6 +9,7 @@ import SearchFilter from './filters/SearchFilter.js';
 import MapFilter from './filters/MapFilter.js';
 import CustomFilter from './filters/CustomFilter.js';
 import FavoritesFilter from './filters/FavoritesFilter.js';
+import TimelineFilter from './filters/TimelineFilter.js';
 
 export default function ActiveFilters({ filters, ...rest }) {
   const activeFilters = useActiveFilters(filters);
@@ -25,6 +26,7 @@ export default function ActiveFilters({ filters, ...rest }) {
       mapComponent={MapFilter.Preview}
       customComponent={CustomFilter.Preview}
       favoritesComponent={FavoritesFilter.Preview}
+      timelineComponent={TimelineFilter.Preview}
       {...rest}
     />
   );
