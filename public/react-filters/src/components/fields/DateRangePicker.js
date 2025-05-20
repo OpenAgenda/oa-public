@@ -212,28 +212,20 @@ function DateRangePicker(
     }
 
     setFocusedDate(newFocusedDate);
-
-    // const isFocusedToDifferent = !isSameMonth(newFocusedDate, focusedDate);
-    // if (isFocusedToDifferent) {
-    //   const result = await loadTimingsData({
-    //     timings: focusedDateToTimingsQuery(newFocusedDate),
-    //   }, {
-    //     timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-    //   });
-    // }
   };
 
-  // set first focusedDate from calendar state
-  useEffect(() => {
-    (async () => {
-      if (input.name !== 'timings' || focusedDate || !dateRangeRef.current) {
-        return;
-      }
-      setFocusedDate(dateRangeRef.current.calendar?.state?.focusedDate);
-    })();
-  }, [dateRangeRef, focusedDate, input.name, loadTimingsData]);
+  // set focusedDate from calendar state
+  useIsomorphicLayoutEffect(() => {
+    if (input.name !== 'timings' || !dateRangeRef.current) {
+      return;
+    }
 
-  // TODO reload when filters change
+    const newFocused = dateRangeRef.current.calendar?.state?.focusedDate;
+
+    if (focusedDate !== newFocused) {
+      setFocusedDate(newFocused);
+    }
+  }, [dateRangeRef, focusedDate, input.name]);
 
   useEffect(() => {
     if (!focusedDate) {
@@ -256,24 +248,34 @@ function DateRangePicker(
 
   useImperativeHandle(ref, () => ({
     onQueryChange: () => {
-      loadTimingsData(
-        {
-          timings: focusedDateToTimingsQuery(focusedDate),
-        },
-        {
-          timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
-        },
-      )
-        .then((newData) => setData(newData ?? []))
-        .catch((err) => {
-          console.log('Failed to load timings data', err);
-        });
+      if (focusedDate !== dateRangeRef.current.calendar?.state?.focusedDate) {
+        // will trigger the effect with loadTimingsData
+        setFocusedDate(dateRangeRef.current.calendar?.state?.focusedDate);
+      } else {
+        // same date but query can be changed
+        loadTimingsData(
+          {
+            timings: focusedDateToTimingsQuery(
+              dateRangeRef.current.calendar?.state?.focusedDate,
+            ),
+          },
+          {
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+          },
+        )
+          .then((newData) => setData(newData ?? []))
+          .catch((err) => {
+            console.log('Failed to load timings data', err);
+          });
+      }
     },
   }));
 
   const dayContentRenderer = useCallback(
     (day) => {
-      const isActive = data.find((d) => isSameDay(new Date(d.key), day));
+      const isActive = data.find(
+        (d) => isSameDay(new Date(d.key), day) && d.timingCount > 0,
+      );
       return (
         <span
           className={isActive ? 'rdrDayWithTimings' : 'rdrDayWithoutTimings'}
