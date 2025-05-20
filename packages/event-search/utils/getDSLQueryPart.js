@@ -155,17 +155,24 @@ function _havingPassedTimings() {
 }
 
 function _timingsExcludingOngoing(d) {
-  const range = {};
-  if (d.gte) range.gte = d.gte;
-  if (d.lte) range.lte = d.lte;
+  const ranges = (Array.isArray(d) ? d : [d]).map((v) => {
+    const range = {};
+    if (v.gte) range.gte = v.gte;
+    if (v.lte) range.lte = v.lte;
+    return range;
+  });
 
   return {
     nested: {
       path: 'timings',
       score_mode: 'min',
       query: {
-        range: {
-          'timings.begin': range,
+        bool: {
+          should: ranges.map((range) => ({
+            range: {
+              'timings.begin': range,
+            },
+          })),
         },
       },
     },
@@ -414,7 +421,11 @@ function _getQueryFilterParts(
     parts.push(_localTime(cleanQuery.localTime));
   }
 
-  if (_.get(cleanQuery, 'timings.gte') || _.get(cleanQuery, 'timings.lte')) {
+  if (
+    Array.isArray(cleanQuery?.timings)
+    || _.get(cleanQuery, 'timings.gte')
+    || _.get(cleanQuery, 'timings.lte')
+  ) {
     parts.push(_timingsExcludingOngoing(cleanQuery.timings));
   }
 

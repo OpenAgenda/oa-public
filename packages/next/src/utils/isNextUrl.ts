@@ -3,7 +3,7 @@ export const eventShowUrlRegex = /^\/[^/]+\/events\/[^/]+\/?$/;
 export const embedAgendaUrlRegex = /^\/embed\/agendas\/[^/]+\/?$/;
 export const embedEventUrlRegex = /^\/embed\/agendas\/[^/]+\/events\/[^/]+\/?$/;
 export const agendasSearchUrlRegex = /^\/agendas\/?$/;
-export const strapiUrlRegex = /^\/[^/]+\/events\/[^/]+\/?$/;
+export const strapiUrlRegex = /^\/strapi\/[^/]+\/?$/;
 
 const internalUrlRegexes = [
   agendaShowUrlRegex,

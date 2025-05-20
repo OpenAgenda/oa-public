@@ -7,7 +7,7 @@ export default (req, res, next) => {
 
   const URLParts = req.url.substr(1).split('/');
 
-  if (interfaceLanguages.includes(URLParts[0])) {
+  if (URLParts.length > 1 && interfaceLanguages.includes(URLParts[0])) {
     URLParts.shift();
     res.redirect(302, `/${URLParts.join('/')}`);
     return;

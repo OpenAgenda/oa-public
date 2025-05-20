@@ -4954,7 +4954,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-filters": "npm:^2.12.6"
+    "@openagenda/react-filters": "npm:^2.13.0"
     "@openagenda/react-portal-ssr": "npm:^1.0.3"
     "@openagenda/react-shared": "npm:^2.4.3"
     axios: "npm:^0.21.1"
@@ -5385,7 +5385,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@npm:^2.12.6, @openagenda/react-filters@workspace:react-filters":
+"@openagenda/react-filters@npm:^2.13.0, @openagenda/react-filters@workspace:react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:react-filters"
   dependencies:
@@ -5439,6 +5439,7 @@ __metadata:
     slate-dom: "npm:^0.112.2"
     source-map-loader: "npm:^2.0.1"
     storybook: "npm:^8.5.8"
+    swiper: "npm:^11.2.6"
     terser-webpack-plugin: "npm:^5.3.9"
     tsup: "npm:^8.3.5"
     use-debounce: "npm:^10.0.4"
@@ -29009,6 +29010,13 @@ __metadata:
   bin:
     svgo: bin/svgo
   checksum: 10c0/d682d416dd68cdcbab5e1e77b93d621325480e97dfe87777e845ea9a0ce05d03fc837ce17080af67e787f6b24430b805ff79f4591dda30a0ab4060b6a3ac2adf
+  languageName: node
+  linkType: hard
+
+"swiper@npm:^11.2.6":
+  version: 11.2.6
+  resolution: "swiper@npm:11.2.6"
+  checksum: 10c0/36ba63e2d1c5045f647f0f07b3a25c164393fb89b17db63f57fa9f776eb61bc5cb2c34634f80cf69caaddc209a174d0cd7be23c580785534569ea4a098b3a42c
   languageName: node
   linkType: hard
 

@@ -102,6 +102,24 @@ describe('02 - event search - functional: timings sorting', () => {
     ]);
   });
 
+  it('filtered on multiple specific upcoming period focuses search on the filtered period', async () => {
+    const { events } = await service('timings').search({
+      state: null,
+      timings: [
+        {
+          gte: new Date('2030-01-01T19:00:00+0200'),
+          lte: new Date('2030-01-01T19:05:00+0200'),
+        },
+        {
+          gte: new Date('2030-01-01T08:00:00+0200'),
+          lte: new Date('2030-01-01T08:05:00+0200'),
+        },
+      ],
+    });
+
+    expect(events.map((e) => e.title.fr)).toEqual(['Tic', 'Rangers du risque']);
+  });
+
   it('include nextTiming without timings returns nextTiming without timings', async () => {
     const {
       events: [event],

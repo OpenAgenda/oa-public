@@ -42,6 +42,7 @@ import SearchFilter from './filters/SearchFilter.js';
 import MapFilter from './filters/MapFilter.js';
 import CustomFilter from './filters/CustomFilter.js';
 import FavoritesFilter from './filters/FavoritesFilter.js';
+import TimelineFilter from './filters/TimelineFilter.js';
 
 const FiltersManager = React.forwardRef(function FiltersManager(
   {
@@ -62,6 +63,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
     mapComponent = MapFilter,
     customComponent = CustomFilter,
     favoritesComponent = FavoritesFilter,
+    timelineComponent = TimelineFilter,
 
     ...rest
   },
@@ -283,6 +285,7 @@ const FiltersManager = React.forwardRef(function FiltersManager(
         mapComponent={mapComponent}
         customComponent={customComponent}
         favoritesComponent={favoritesComponent}
+        timelineComponent={timelineComponent}
         {...rest}
       />
       {widgetElems}
