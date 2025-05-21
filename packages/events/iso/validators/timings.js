@@ -5,6 +5,15 @@ const { is: isDateHoursMinutesTiming } = validateDateHoursMinutesTiming;
 
 const fZ = (n) => (`${n}`.length === 1 ? '0' : '') + n;
 const DHMToString = (t) => `${t.date}T${fZ(t.hours)}:${fZ(t.minutes)}`;
+const toDate = (d, isDHM) => new Date(isDHM ? DHMToString(d) : d);
+
+// Check if two timings overlap
+const checkOverlap = (timing1, timing2, isDHM) => {
+  if (toDate(timing1.begin, isDHM) >= toDate(timing2.end, isDHM)) {
+    return false;
+  }
+  return toDate(timing1.end, isDHM) > toDate(timing2.begin, isDHM);
+};
 
 export default (options = {}) =>
   (dirty) => {
@@ -74,14 +83,30 @@ export default (options = {}) =>
       }
     });
 
+    // Sort timings first
+    const sortedCleanTimings = isDHM
+      ? [...cleanTimings].sort((t1, t2) =>
+        (DHMToString(t1.begin) < DHMToString(t2.begin) ? -1 : 1))
+      : [...cleanTimings].sort((t1, t2) => (t1.begin < t2.begin ? -1 : 1));
+
+    // Check for overlapping timings - only need to check adjacent timings after sorting
+    for (let i = 0; i < sortedCleanTimings.length - 1; i++) {
+      if (
+        checkOverlap(sortedCleanTimings[i], sortedCleanTimings[i + 1], isDHM)
+      ) {
+        errors.push({
+          ...baseError,
+          code: 'overlap',
+          message: 'timings cannot overlap',
+          origin: [sortedCleanTimings[i], sortedCleanTimings[i + 1]],
+        });
+      }
+    }
+
     if (errors.length) {
+      // eslint-disable-next-line no-throw-literal
       throw errors;
     }
 
-    if (isDHM) {
-      return cleanTimings.sort((t1, t2) =>
-        (DHMToString(t1.begin) < DHMToString(t2.begin) ? -1 : 1));
-    }
-
-    return cleanTimings.sort((t1, t2) => (t1.begin < t2.begin ? -1 : 1));
+    return sortedCleanTimings;
   };
