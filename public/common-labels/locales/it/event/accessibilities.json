@@ -1,7 +1,9 @@
 {
-  "common.event.accessiblities.hi": "Disabilità uditiva",
-  "common.event.accessiblities.ii": "Disabilità cognitiva",
-  "common.event.accessiblities.mi": "Disabilità motoria",
-  "common.event.accessiblities.pi": "Disabilità psichica",
-  "common.event.accessiblities.vi": "Disabilità visiva"
+  "common.event.accessibilities.accessibleEvent": "Questo evento include sistemazioni accessibili",
+  "common.event.accessibilities.detail": "Questo evento prevede installazioni predisposte per affrontare specifici tipi di disabilità",
+  "common.event.accessibilities.hi": "Disabilità uditiva",
+  "common.event.accessibilities.ii": "Disabilità cognitiva",
+  "common.event.accessibilities.mi": "Disabilità motoria",
+  "common.event.accessibilities.pi": "Disabilità psichica",
+  "common.event.accessibilities.vi": "Disabilità visiva"
 }

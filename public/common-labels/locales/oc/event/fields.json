@@ -4,6 +4,7 @@
   "common.event.fields.attendanceMode": "Mòde de participacion",
   "common.event.fields.conditions": "Condicions",
   "common.event.fields.description": "Descripcion corta",
+  "common.event.fields.extIds": "Identificants extèrnes",
   "common.event.fields.image": "Imatge",
   "common.event.fields.imageCredits": "Crèdits de l'imatge",
   "common.event.fields.keywords": "Mots claus",
