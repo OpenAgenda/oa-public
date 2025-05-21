@@ -1,12 +1,20 @@
+import NextLink from 'next/link';
 import { useIntl } from 'react-intl';
-import { Box, HStack, NoBreak, Text, Flex, LinkBox } from '@openagenda/uikit';
+import {
+  Box,
+  HStack,
+  NoBreak,
+  Text,
+  Flex,
+  Link,
+  LinkBox,
+  LinkOverlay,
+} from '@openagenda/uikit';
 import { Tag } from '@openagenda/uikit/snippets';
 import Image from 'components/Image';
 import { thumborLoader } from 'utils/imageLoader';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
-import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
-import NextChakraLink from 'components/NextChakraLink';
 import graylogo140 from '../../../../public/images/graylogo140.png';
 import messages from '../messages';
 
@@ -56,19 +64,18 @@ export default function AgendaItem({ agenda }) {
 
       <Flex direction="column">
         {agenda.network ? (
-          <NextChakraLink
-            href={`?network=${agenda.network.uid}`}
-            colorPalette="gray"
-          >
-            {agenda.network.title}
-            &nbsp;›
-          </NextChakraLink>
+          <Link asChild colorPalette="gray">
+            <NextLink href={`?network=${agenda.network.uid}`}>
+              {agenda.network.title}
+              &nbsp;›
+            </NextLink>
+          </Link>
         ) : null}
 
         <Text fontWeight="bold">
-          <NextChakraLinkOverlay href={`/${agenda.slug}`}>
-            {agenda.title}
-          </NextChakraLinkOverlay>
+          <LinkOverlay asChild>
+            <NextLink href={`/${agenda.slug}`}>{agenda.title}</NextLink>
+          </LinkOverlay>
           {agenda.official ? (
             <NoBreak>
               <OfficialAgenda

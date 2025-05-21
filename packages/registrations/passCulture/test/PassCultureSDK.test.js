@@ -512,6 +512,15 @@ describe('PassCultureSDK', () => {
     });
   });
 
+  describe('offers.events.bookings.list', () => {
+    it('empty', async () => {
+      const pc = PassCultureSDK({ key, api });
+
+      const { bookings } = await pc.offers.events(testEventId).bookings.list();
+      expect(bookings).toStrictEqual([]);
+    });
+  });
+
   describe('offers.events.dates.create', () => {
     it('returns list of created dates', async () => {
       const pc = PassCultureSDK({ key, api });

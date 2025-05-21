@@ -1,4 +1,5 @@
 import { ReactElement, useState, useEffect } from 'react';
+import NextLink from 'next/link';
 import { useIntl, FormattedDate } from 'react-intl';
 import {
   Button,
@@ -19,7 +20,6 @@ import {
 import ActivityItem from '@openagenda/activity-apps/src/client/components/ActivityItem';
 import { fromMarkdownToHTML } from '@openagenda/md';
 import isNextUrl from 'utils/isNextUrl';
-import NextChakraLink from 'components/NextChakraLink';
 import messages from '../../messages';
 import { useActivitiesContext } from './context';
 
@@ -91,7 +91,11 @@ function renderHighlight(content) {
 
 function renderLink(link, content) {
   if (isNextUrl(link)) {
-    return <NextChakraLink href={link}>{content}</NextChakraLink>;
+    return (
+      <Link asChild>
+        <NextLink href={link}>{content}</NextLink>
+      </Link>
+    );
   }
 
   return <Link href={link}>{content}</Link>;

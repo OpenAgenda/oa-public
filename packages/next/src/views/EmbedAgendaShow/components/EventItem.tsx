@@ -1,11 +1,19 @@
 import { useMemo } from 'react';
+import NextLink from 'next/link';
 import { useIntl } from 'react-intl';
 import qs from 'qs';
-import { Box, Flex, LinkBox, Tag, HStack, Icon } from '@openagenda/uikit';
+import {
+  Box,
+  Flex,
+  LinkBox,
+  LinkOverlay,
+  Tag,
+  HStack,
+  Icon,
+} from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
 import Image from 'components/Image';
-import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
 import useLocationQuery from 'hooks/useLocationQuery';
 import { thumborLoader } from 'utils/imageLoader';
@@ -186,13 +194,15 @@ export default function EventItem({
             </Tag.Root>
           ) : null}
         </HStack>
-        <NextChakraLinkOverlay
-          target={eventLink.target}
-          rel={eventLink.rel}
-          href={eventLink.url}
-        >
-          <b>{getLocaleValue(event.title, intl.locale)}</b>
-        </NextChakraLinkOverlay>
+        <LinkOverlay asChild>
+          <NextLink
+            target={eventLink.target}
+            rel={eventLink.rel}
+            href={eventLink.url}
+          >
+            <b>{getLocaleValue(event.title, intl.locale)}</b>
+          </NextLink>
+        </LinkOverlay>
         <Box color="#545454">
           {getLocaleValue(event.description, intl.locale)}
         </Box>
