@@ -1,4 +1,6 @@
 {
+  "common.event.accessibilities.accessibleEvent": "Questo evento include sistemazioni accessibili",
+  "common.event.accessibilities.detail": "Questo evento prevede installazioni predisposte per affrontare specifici tipi di disabilità",
   "common.event.accessibilities.hi": "Disabilità uditiva",
   "common.event.accessibilities.ii": "Disabilità cognitiva",
   "common.event.accessibilities.mi": "Disabilità motoria",
