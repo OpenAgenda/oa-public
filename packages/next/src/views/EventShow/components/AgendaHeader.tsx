@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import { useIntl } from 'react-intl';
 import {
   Box,
@@ -5,13 +6,13 @@ import {
   NoBreak,
   Stack,
   VStack,
+  Link,
   LinkBox,
+  LinkOverlay,
 } from '@openagenda/uikit';
 import Image from 'components/Image';
-import NextChakraLink from 'components/NextChakraLink';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
-import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import { thumborLoader } from 'utils/imageLoader';
 import { useAgenda } from '../contexts/agenda';
 import { agendaHeader as messages } from '../messages';
@@ -59,13 +60,15 @@ export default function AgendaHeader() {
 
         <VStack gap="3" align={{ base: 'center', md: 'start' }}>
           {agenda.network ? (
-            <NextChakraLink
-              href={`/agendas?network=${agenda.network.uid}`}
-              color="white"
-            >
-              {agenda.network.title}
-              &nbsp;›
-            </NextChakraLink>
+            <Link asChild>
+              <NextLink
+                href={`/agendas?network=${agenda.network.uid}`}
+                color="white"
+              >
+                {agenda.network.title}
+                &nbsp;›
+              </NextLink>
+            </Link>
           ) : null}
           <Heading
             as="h1"
@@ -97,9 +100,11 @@ export default function AgendaHeader() {
             ) : null}
           </Heading>
 
-          <NextChakraLinkOverlay href={`/${encodeURIComponent(agenda.slug)}`}>
-            {intl.formatMessage(messages.showAllEvents)}
-          </NextChakraLinkOverlay>
+          <LinkOverlay asChild>
+            <NextLink href={`/${encodeURIComponent(agenda.slug)}`}>
+              {intl.formatMessage(messages.showAllEvents)}
+            </NextLink>
+          </LinkOverlay>
         </VStack>
       </Stack>
     </LinkBox>

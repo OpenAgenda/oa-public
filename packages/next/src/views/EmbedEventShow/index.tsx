@@ -1,4 +1,5 @@
 import { useLayoutEffect, useMemo } from 'react';
+import NextLink from 'next/link';
 import { useIntl } from 'react-intl';
 import {
   Box,
@@ -29,7 +30,6 @@ import useSearchParams from 'hooks/useSearchParams';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import Image from 'components/Image';
-import NextChakraLink from 'components/NextChakraLink';
 import ConsentBanner from 'components/ConsentBanner';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
 import { FaIcon } from 'icons';
@@ -212,27 +212,29 @@ function EmbedEventShow({
           <div>
             {eventNc || isViewedInAgendaContext ? (
               <Flex justify="space-between" align="center" mb="4">
-                <NextChakraLink
-                  href={`/embed/agendas/${agenda.uid}${qs.stringify(
-                    {
-                      ...eventNc,
-                      initPath: `/embed/agendas/${agenda.uid}${qs.stringify(
-                        {
-                          ...prefilter,
-                          baseUrl,
-                        },
-                        { addQueryPrefix: true },
-                      )}`,
-                      host: referrer || undefined,
-                      from: undefined,
-                      first: undefined,
-                      last: undefined,
-                    },
-                    { addQueryPrefix: true },
-                  )}`}
-                >
-                  {intl.formatMessage(messages.backToList)}
-                </NextChakraLink>
+                <Link asChild>
+                  <NextLink
+                    href={`/embed/agendas/${agenda.uid}${qs.stringify(
+                      {
+                        ...eventNc,
+                        initPath: `/embed/agendas/${agenda.uid}${qs.stringify(
+                          {
+                            ...prefilter,
+                            baseUrl,
+                          },
+                          { addQueryPrefix: true },
+                        )}`,
+                        host: referrer || undefined,
+                        from: undefined,
+                        first: undefined,
+                        last: undefined,
+                      },
+                      { addQueryPrefix: true },
+                    )}`}
+                  >
+                    {intl.formatMessage(messages.backToList)}
+                  </NextLink>
+                </Link>
                 {!(eventNc?.first && eventNc?.last) ? (
                   <Flex gap="2">
                     <NavigateButton

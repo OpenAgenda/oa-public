@@ -1,3 +1,4 @@
+import NextLink from 'next/link';
 import isEqual from 'lodash/isEqual';
 import { useCallback, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
@@ -12,6 +13,7 @@ import {
   IconButton,
   List,
   LinkBox,
+  LinkOverlay,
   Text,
   HStack,
 } from '@openagenda/uikit';
@@ -40,7 +42,6 @@ import upperFirst from 'utils/upperFirst';
 import { thumborLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
 import { EventStatusBadge, EventStatusTooltip } from 'components/EventStatus';
-import NextChakraLinkOverlay from 'components/NextChakraLinkOverlay';
 import Featured from 'components/Featured';
 import graylogo140 from '../../../../public/images/graylogo140.png';
 
@@ -276,28 +277,8 @@ export default function EventItem({
               {event.status !== 1 ? (
                 <EventStatusBadge intl={intl} status={event.status} />
               ) : null}
-              <NextChakraLinkOverlay
-                href={`/${agenda.slug}/events/${event.slug}${qs.stringify(
-                  {
-                    nc: {
-                      ...query,
-                      state: [2],
-                      sort: query.search?.length
-                        ? 'score'
-                        : 'lastTimingWithFeatured.asc',
-                      passed: undefined,
-                      ...upcomingOnly && !query.relative
-                        ? {
-                            relative: ['current', 'upcoming'],
-                          }
-                        : null,
-                      from,
-                      first: first || undefined,
-                      last: last || undefined,
-                    },
-                  },
-                  { addQueryPrefix: true },
-                )}`}
+              <LinkOverlay
+                asChild
                 _hover={{
                   _before: {
                     border: '1px solid',
@@ -305,8 +286,32 @@ export default function EventItem({
                   },
                 }}
               >
-                {getLocaleValue(event.title, intl.locale)}
-              </NextChakraLinkOverlay>
+                <NextLink
+                  href={`/${agenda.slug}/events/${event.slug}${qs.stringify(
+                    {
+                      nc: {
+                        ...query,
+                        state: [2],
+                        sort: query.search?.length
+                          ? 'score'
+                          : 'lastTimingWithFeatured.asc',
+                        passed: undefined,
+                        ...upcomingOnly && !query.relative
+                          ? {
+                              relative: ['current', 'upcoming'],
+                            }
+                          : null,
+                        from,
+                        first: first || undefined,
+                        last: last || undefined,
+                      },
+                    },
+                    { addQueryPrefix: true },
+                  )}`}
+                >
+                  {getLocaleValue(event.title, intl.locale)}
+                </NextLink>
+              </LinkOverlay>
             </Heading>
 
             <FavoriteButton agenda={agenda} event={event} />
