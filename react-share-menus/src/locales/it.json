@@ -1,5 +1,5 @@
 {
-  "ReactShareMenus.ExportModal.cancel": "Annulla",
+  "ReactShareMenus.ExportModal.cancel": "Annullare",
   "ReactShareMenus.ExportModal.detailedFormat": "Usa il formato dettagliato",
   "ReactShareMenus.ExportModal.documentation": "Vedere la documentazione",
   "ReactShareMenus.ExportModal.exportJson": "Usa la versione precedente dell'esportazione JSON",
@@ -15,6 +15,8 @@
   "connection-btn": "Accedi",
   "create-agenda": "Creare un'agenda",
   "distribute-fields": "Campi con opzioni: visualizza un valore per colonna",
+  "email-placeholder": "Digita l'email a cui vuoi inviare l'evento",
+  "email-success": "L'evento è stato inviato a {count, plural, =0 {nessun indirizzo} one {# indirizzo} other {# indirizzi}}.",
   "gcalStep2": "2. Nella sezione sinistra, apri \"Altri calendari > Aggiungi per URL\".",
   "gcalStep3": "3. Segui le istruzioni incollando il link che hai copiato al punto 1",
   "import": "Importare",
@@ -31,6 +33,7 @@
   "select-all": "Selezionare tutto",
   "send": "Inviare",
   "share-oa": "Condividere su un altro OpenAgenda",
+  "share-title": "Condividere l'evento",
   "sign-in": "Devi accedere al tuo account per aggiungere questo evento al tuo OpenAgendas",
   "sign-in-agg": "Devi accedere al tuo account per aggregare questo evento."
 }
