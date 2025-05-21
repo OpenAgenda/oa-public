@@ -9,16 +9,17 @@ export default async function processPassCultureApply(
 ) {
   log.info('called');
 
-  const { registrations, core } = services;
+  const { registrations, core, agendaLocations } = services;
 
   const passCultureService = registrations(
     agenda.settings.registration,
   ).passCulture;
 
   const { passCulture, event } = clean;
-  const location = await core
-    .agendas(agenda.uid)
-    .locations.get(event.location.uid);
+  const endpoints = agenda.locationSetUid
+    ? agendaLocations.sets(agenda.locationSetUid).locations
+    : agendaLocations(agenda.uid);
+  const location = await endpoints.get(event.location.uid);
 
   const applied = await passCultureService.apply(
     { ...event, location },
