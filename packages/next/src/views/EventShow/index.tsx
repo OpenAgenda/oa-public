@@ -222,7 +222,10 @@ function EventShow({ preload }: EventShowProps) {
           </GridItem>
           <GridItem area="sidebar" display={{ base: 'none', lg: 'block' }}>
             <Flex direction="row" gap="8" mt="16">
-              <Sidebar shareOnOpen={shareOnOpen} />
+              <Sidebar
+                shareOnOpen={shareOnOpen}
+                isEventContributor={isEventContributor}
+              />
             </Flex>
           </GridItem>
 
@@ -291,7 +294,9 @@ function EventShow({ preload }: EventShowProps) {
                   display={{ base: 'grid', lg: 'none' }}
                 />
                 <RegistrationSection
+                  isEventContributor={isEventContributor}
                   event={event}
+                  agenda={agenda}
                   display={{ base: 'grid', lg: 'none' }}
                 />
                 <AccessibilitySection

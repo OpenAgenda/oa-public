@@ -12,6 +12,7 @@ import {
   Tag,
   HStack,
   Link,
+  useDisclosure,
 } from '@openagenda/uikit';
 import { Tooltip } from '@openagenda/uikit/snippets';
 import { getLocaleValue } from '@openagenda/intl';
@@ -24,7 +25,13 @@ import {
   faSquareCheck,
   faLocationDot,
 } from 'icons/regular';
-import { faLink, faClockRotateLeft, faTicket, faPhone } from 'icons/solid';
+import {
+  faLink,
+  faClockRotateLeft,
+  faTicket,
+  faPhone,
+  faGear,
+} from 'icons/solid';
 import defaultSize from 'utils/defaultSize';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
@@ -34,8 +41,12 @@ import References from './References';
 import AccessibilitySection from './AccessibilitySection';
 import AgeSection from './AgeSection';
 import Map from './Map';
+import PassBookingModal from './PassBookingModal';
 
 export { default as AccessibilitySection } from './AccessibilitySection';
+
+const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
+console.log('S3bucket', S3_BUCKET);
 
 function getPassImgSource(passData) {
   const currValue = getCurrentPassValue(passData);
@@ -248,12 +259,12 @@ export function RegistrationSection({
 }) {
   const intl = useIntl();
 
-  const { registration, passCulture } = extractPassFromRegistration(
+  const { registration } = extractPassFromRegistration(
     intl,
     event.registration,
   );
 
-  if (!passCulture && !registration?.length) {
+  if (!registration?.length) {
     return null;
   }
 
@@ -304,34 +315,6 @@ export function RegistrationSection({
           </Tooltip>
         </Fragment>
       ))}
-      {passCulture ? (
-        <Button
-          asChild
-          gridColumn="2"
-          variant="outline"
-          bg="white"
-          borderColor="oaGray.300"
-          color="blackAlpha.800"
-          _hover={{
-            bg: 'oaGray.100',
-            color: 'blackAlpha.900',
-            textDecoration: 'none',
-          }}
-          justifySelf="start"
-        >
-          <Link
-            unstyled
-            href={passCulture.value}
-            target="_blank"
-            rel="noopener nofollow"
-          >
-            <img src={getPassImgSource(passCulture)} alt="" />
-            {getCurrentPassValue(passCulture)?.value
-              ? intl.formatMessage(messages.accessPassOffer)
-              : intl.formatMessage(messages.passUnpublished)}
-          </Link>
-        </Button>
-      ) : null}
     </Grid>
   );
 }
@@ -388,6 +371,95 @@ export function LocationPreview({ event, icon = faLocationDot }) {
   );
 }
 
+export function PassCultureSection({
+  isEventContributor,
+  event,
+  agenda,
+  ...props
+}) {
+  const intl = useIntl();
+
+  const {
+    open: bookingIsOpen,
+    onOpen: bookingOnOpen,
+    onClose: bookingOnClose,
+  } = useDisclosure();
+
+  const { passCulture } = extractPassFromRegistration(intl, event.registration);
+
+  if (!passCulture) {
+    return null;
+  }
+
+  return (
+    <Grid
+      templateColumns="2em 1fr"
+      columnGap="4"
+      rowGap="1"
+      alignItems="center"
+      justifyItems="flex-start"
+      {...props}
+    >
+      <Box
+        justifySelf="center"
+        fontSize="3xl"
+        display="flex"
+        alignItems="center"
+        justifyContent="center"
+      >
+        <img
+          src={getPassImgSource(passCulture)}
+          alt="Pass Culture"
+          style={{ width: '1em', height: '1em' }}
+        />
+      </Box>
+      <Box color="oaGray.500">
+        <b>pass Culture</b>
+      </Box>
+      <Fragment>
+        <Icon color="oaGray.300" justifySelf="end">
+          <FaIcon icon={faLink} />
+        </Icon>
+        <Link
+          href={passCulture.value}
+          target="_blank"
+          rel="noopener nofollow"
+          wordBreak="break-all"
+          maxW="full"
+        >
+          {getCurrentPassValue(passCulture)?.value
+            ? intl.formatMessage(messages.accessPassOffer)
+            : intl.formatMessage(messages.passUnpublished)}
+        </Link>
+      </Fragment>
+
+      {isEventContributor && (
+        <Fragment>
+          <Icon color="oaGray.300" justifySelf="end">
+            <FaIcon icon={faGear} />
+          </Icon>
+          <Link
+            as="button"
+            onClick={bookingOnOpen}
+            wordBreak="break-all"
+            maxW="full"
+          >
+            Réservations
+          </Link>
+        </Fragment>
+      )}
+      {bookingIsOpen && (
+        <PassBookingModal
+          isOpen={bookingIsOpen}
+          onClose={bookingOnClose}
+          agendaUid={agenda.uid}
+          eventUid={event.uid}
+        />
+      )}
+    </Grid>
+  );
+}
+
 export function ReferencesSection({ agenda, event }) {
   return (
     <Box ml="12">
@@ -396,7 +468,10 @@ export function ReferencesSection({ agenda, event }) {
   );
 }
 
-export default function Sidebar({ shareOnOpen = null }) {
+export default function Sidebar({
+  shareOnOpen = null,
+  isEventContributor = false,
+}) {
   const agenda = useAgenda();
   const { event } = useEvent();
 
@@ -413,6 +488,11 @@ export default function Sidebar({ shareOnOpen = null }) {
       <DateRangeSection event={event} />
       <ConditionsSection event={event} />
       <RegistrationSection event={event} />
+      <PassCultureSection
+        isEventContributor={isEventContributor}
+        event={event}
+        agenda={agenda}
+      />
       <TimingsSection event={event} />
       <AccessibilitySection event={event} />
       <AgeSection event={event} />
