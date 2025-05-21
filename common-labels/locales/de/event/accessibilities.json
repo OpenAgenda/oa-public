@@ -1,7 +1,7 @@
 {
-  "common.event.accessiblities.hi": "Schwerhörig",
-  "common.event.accessiblities.ii": "Geistige Behinderung",
-  "common.event.accessiblities.mi": "Motorische beeinträchtigung",
-  "common.event.accessiblities.pi": "Psychische behinderung",
-  "common.event.accessiblities.vi": "Sehbehinderung"
+  "common.event.accessibilities.hi": "Schwerhörig",
+  "common.event.accessibilities.ii": "Geistige Behinderung",
+  "common.event.accessibilities.mi": "Motorische beeinträchtigung",
+  "common.event.accessibilities.pi": "Psychische behinderung",
+  "common.event.accessibilities.vi": "Sehbehinderung"
 }
