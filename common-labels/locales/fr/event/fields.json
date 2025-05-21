@@ -12,6 +12,7 @@
   "common.event.fields.onlineAccessLink": "Lien d'accès",
   "common.event.fields.registration": "Inscription",
   "common.event.fields.slug": "Slug",
+  "common.event.fields.status": "État",
   "common.event.fields.timings": "Horaires",
   "common.event.fields.title": "Titre"
 }
