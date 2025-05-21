@@ -142,6 +142,13 @@ export default function PassCultureSDK(params) {
               ),
             },
           ),
+          bookings: {
+            list: (extraParams = {}) =>
+              call(params, 'get', '/public/bookings/v1/bookings', {
+                offerId: eventId,
+                ...extraParams,
+              }),
+          },
         }),
         {
           list: call.bind(null, params, 'get', '/public/offers/v1/events'),
