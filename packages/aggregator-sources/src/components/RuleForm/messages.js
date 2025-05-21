@@ -250,4 +250,12 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.selectLanguages',
     defaultMessage: 'Select languages',
   },
+  selected: {
+    id: 'aggregator-sources.RuleForm.selected',
+    defaultMessage: 'Selected',
+  },
+  notSelected: {
+    id: 'aggregator-sources.RuleForm.notSelected',
+    defaultMessage: 'Not selected',
+  },
 });

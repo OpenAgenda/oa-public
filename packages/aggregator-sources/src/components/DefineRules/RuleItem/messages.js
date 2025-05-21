@@ -184,4 +184,12 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.timingsFilter',
     defaultMessage: 'Timings filter',
   },
+  selected: {
+    id: 'aggregator-sources.DefineRules.selected',
+    defaultMessage: 'Selected',
+  },
+  notSelected: {
+    id: 'aggregator-sources.DefineRules.notSelected',
+    defaultMessage: 'Not selected',
+  },
 });

@@ -7,6 +7,7 @@ import ModalDecorator from './decorators/ModalDecorator.js';
 import IntlDecorator from './decorators/IntlDecorator.js';
 
 import aggregatorAgendaSchema from './fixtures/DefineRules/TAM.schema.json';
+import aggregatorAgendaSchemaWithBoolean from './fixtures/DefineRules/TAM.with.boolean.schema.json';
 import aggregatorAgendaSchemaWithEnableWith from './fixtures/DefineRules/eteculturel.schema.json';
 import sourceAgendaSchema from './fixtures/DefineRules/NDM.schema.json';
 import steps from './fixtures/DefineRules/steps.json';
@@ -230,5 +231,43 @@ SplitRequiredActions.storyName = 'SplitRequiredAction';
 SplitRequiredActions.decorators = [
   SourcesCanvasDecorator,
   ModalDecorator(`${sourceAgenda.title} | Règles d'agrégation`),
+  IntlDecorator,
+];
+
+export const BooleanFieldAction = () => (
+  <Provider store={createStore((v) => v, { res: {} })}>
+    <DefineRules
+      displayInfo={false}
+      aggregator={aggregator}
+      aggregatorAgenda={aggregatorAgenda}
+      aggregatorAgendaSchema={aggregatorAgendaSchemaWithBoolean}
+      sourceSchema={sourceAgendaSchema}
+      sourceAgenda={sourceAgenda}
+      initialRules={[
+        {
+          query: {
+            text: {
+              title: 'Boolean Field Example',
+            },
+          },
+          actions: [
+            {
+              field: 'isActive',
+              values: true,
+              automatic: false,
+            },
+          ],
+          required: false,
+        },
+      ]}
+      onSubmit={() => {}}
+      onCancel={() => {}}
+    />
+  </Provider>
+);
+BooleanFieldAction.storyName = 'Boolean Field Action';
+BooleanFieldAction.decorators = [
+  SourcesCanvasDecorator,
+  ModalDecorator('Action with Boolean Field Type'),
   IntlDecorator,
 ];
