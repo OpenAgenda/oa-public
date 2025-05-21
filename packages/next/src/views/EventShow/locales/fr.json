@@ -24,7 +24,7 @@
   "next.views.EventShow.ContextBar.featuredInfo": "Un événement en une apparaît en haut de la liste",
   "next.views.EventShow.ContextBar.fixEvent": "Corriger l'événement",
   "next.views.EventShow.ContextBar.invalidEvent": "Cet évènement n'est pas valide",
-  "next.views.EventShow.ContextBar.invalidEventMessage": "Vous devrez effectuer une correction sur l'événement avant de pouvoir compléter cette action.",
+  "next.views.EventShow.ContextBar.invalidEventMessage": "Modifiez l'événement pour résoudre le problème avant de tenter à nouveau de modifier son état. Vous pouvez également le supprimer complètement de l’agenda.",
   "next.views.EventShow.ContextBar.markAsCancelled": "L'événement est annulé",
   "next.views.EventShow.ContextBar.markAsCancelledStatus": "L'événement a été annulé de manière permanente",
   "next.views.EventShow.ContextBar.markAsFull": "L'événement est complet",

@@ -189,7 +189,7 @@ module.exports = {
   "selectDates": {
     "en": "Select dates",
     "fr": "Choisissez une date",
-    "it": "Scegli una data",
+    "it": "Scegliere una data",
     "de": "Wähle ein Datum aus.",
     "pl": "Wybierz datę",
     "br": "Choazit un deiz",
@@ -310,7 +310,7 @@ module.exports = {
   "featured": {
     "en": "Featured",
     "fr": "À la une",
-    "it": "Selezionato",
+    "it": "Fissato",
     "de": "ausgewählt",
     "pl": "Opisane",
     "br": "Keleier pennañ",

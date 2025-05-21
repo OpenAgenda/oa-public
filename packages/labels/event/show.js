@@ -521,7 +521,7 @@ module.exports = {
   "unpublished": {
     "en": "Unpublished",
     "fr": "Non publié",
-    "it": "Non pubblicato",
+    "it": "Inedito",
     "de": "nicht veröffentlicht",
     "pl": "Nie opublikowano",
     "es": "Inédito",
@@ -565,7 +565,7 @@ module.exports = {
   "removeFromFeatured": {
     "en": "Remove from featured",
     "fr": "Retirer de la une",
-    "it": "Cancella da selezionato",
+    "it": "Non fissare più",
     "de": "aus der Auswahl entfernen",
     "pl": "Usuń z opisanych",
     "es": "Eliminar de los eventos destacados",
@@ -576,7 +576,7 @@ module.exports = {
   "featured": {
     "en": "Featured",
     "fr": "Mis en une",
-    "it": "Selezionato",
+    "it": "Fissato",
     "de": "ausgewählt",
     "pl": "Opisane",
     "es": "Destacado",

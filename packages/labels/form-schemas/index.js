@@ -24,7 +24,7 @@ module.exports = {
     "en": "Submit",
     "de": "Rekord",
     "es": "Validar",
-    "it": "Invia",
+    "it": "Convalidare",
     "br": "Kemmañ",
     "io": "crwdns14886:0crwdne14886:0",
     "oc": "Sometre"

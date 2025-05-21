@@ -35,7 +35,7 @@
   "AgendaStats.OrderModal.oneColumn": "Una colonna",
   "AgendaStats.OrderModal.oneLine": "Una riga",
   "AgendaStats.OrderModal.separator": "Separatore",
-  "AgendaStats.OrderModal.submit": "Invia",
+  "AgendaStats.OrderModal.submit": "Convalidare",
   "AgendaStats.OrderModal.width": "Larghezza:",
   "AgendaStats.RangeFilter.range": "Da {startDate, date} a {endDate, date}",
   "AgendaStats.RangeFilter.sameDayRange": "Il {startDate, date}",

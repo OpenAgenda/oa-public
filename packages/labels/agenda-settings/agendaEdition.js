@@ -896,7 +896,7 @@ module.exports = {
     "en": "Statistics",
     "de": "Statistiken",
     "es": "Estadísticas",
-    "it": "Statistica",
+    "it": "Statistiche",
     "io": "crwdns12674:0crwdne12674:0",
     "oc": "Estatisticas"
   },

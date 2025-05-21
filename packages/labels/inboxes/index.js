@@ -170,7 +170,7 @@ module.exports = {
     "en": "Submit",
     "de": "einreichen",
     "es": "Validar",
-    "it": "Invia",
+    "it": "Convalidare",
     "br": "Kemmañ",
     "io": "crwdns15038:0crwdne15038:0",
     "oc": "Sometre"

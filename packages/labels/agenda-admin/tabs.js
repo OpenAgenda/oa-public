@@ -204,7 +204,7 @@ module.exports = {
     "fr": "Statistiques",
     "de": "Statistik",
     "es": "Estadísticas",
-    "it": "Statistica",
+    "it": "Statistiche",
     "io": "crwdns11442:0crwdne11442:0",
     "oc": "Estatisticas"
   }

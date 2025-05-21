@@ -201,7 +201,7 @@ module.exports = {
   "suggestChange": {
     "fr": "Suggérer une modification",
     "en": "Suggest a change",
-    "it": "Suggerisci un cambiamento",
+    "it": "Suggerare un cambiamento",
     "io": "crwdns16420:0crwdne16420:0",
     "oc": "Suggerir una modificacion",
     "es": "Sugerir un cambio"

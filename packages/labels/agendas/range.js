@@ -152,14 +152,16 @@ module.exports = {
     "en": ", some Fridays",
     "de": ", einige Freitage",
     "io": "crwdns33814:0crwdne33814:0",
-    "oc": ", d'unes divendres"
+    "oc": ", d'unes divendres",
+    "it": ", alcune venerdì"
   },
   "all-weekday-5": {
     "fr": ", les vendredis",
     "en": ", every Friday",
     "de": ", jeden Freitag",
     "io": "crwdns33816:0crwdne33816:0",
-    "oc": ", cada divendres"
+    "oc": ", cada divendres",
+    "it": ", ogni venerdì"
   },
   "some-weekday-6": {
     "fr": ", certains samedis",

@@ -122,11 +122,11 @@ module.exports = {
     "oc": "Un ligam de validacion es estat mandat a vòstra novèla adreça email."
   },
   "changeEmailSuccess": {
-    "en": "Your email was changed",
-    "fr": "Votre email a été modifié",
+    "en": "Your email was successfully updated",
+    "fr": "Votre email a été mis à jour avec succès",
     "de": "Ihre E-Mail wurde erfolgreich aktualisiert",
-    "es": "Su correo electrónico se ha actualizado",
-    "it": "La tua email è stata aggiornata",
+    "es": "Su correo electrónico se ha actualizado correctamente",
+    "it": "La tua email è stata aggiornata con successo",
     "io": "crwdns15846:0crwdne15846:0",
     "oc": "Vòstre email es plan estat mes a jorn"
   },
@@ -290,7 +290,7 @@ module.exports = {
     "fr": "Hmm c'est un peu court",
     "de": "String ist zu kurz",
     "es": "El texto es demasiado corto",
-    "it": "Hmm, è un po' corto.",
+    "it": "La stringa è troppo corta",
     "io": "crwdns15882:0crwdne15882:0",
     "oc": "La cadena de caractèrs es tròp corteta"
   },
@@ -299,7 +299,7 @@ module.exports = {
     "fr": "Hmm c'est un peu long",
     "de": "String ist zu lang",
     "es": "El texto es demasiado largo",
-    "it": "E' un po' lungo.",
+    "it": "La stringa è troppo lunga",
     "io": "crwdns15884:0crwdne15884:0",
     "oc": "La cadena de caractèrs es tròp longa"
   },
@@ -491,6 +491,7 @@ module.exports = {
     "en": "Generate",
     "de": "Generieren",
     "oc": "Generar",
-    "io": "crwdns34094:0crwdne34094:0"
+    "io": "crwdns34094:0crwdne34094:0",
+    "it": "Genera"
   }
 }

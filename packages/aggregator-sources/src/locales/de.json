@@ -1,3 +1,7 @@
 {
-  "aggregator-sources.DefineRules.toModerate": "Zu moderieren"
+  "aggregator-sources.DefineRules.notSelected": "Nicht ausgewählt",
+  "aggregator-sources.DefineRules.selected": "Auswählen",
+  "aggregator-sources.DefineRules.toModerate": "Zu moderieren",
+  "aggregator-sources.RuleForm.notSelected": "Nicht ausgewählt",
+  "aggregator-sources.RuleForm.selected": "Auswählen"
 }

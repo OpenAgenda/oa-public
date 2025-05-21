@@ -40,7 +40,7 @@
   "editLocation": "Modificare il luogo",
   "eventState": "Stato dell'evento",
   "export": "Esportare",
-  "featured": "Selezionato",
+  "featured": "Fissato",
   "fromTo": "da %from% a  %to%",
   "help": "Aiuto",
   "history": "Storia",
@@ -69,7 +69,7 @@
   "refusedContributorInfo": "Questo evento è stato rifiutato dagli amministratori dell'Agenda e non sarà pubblicato",
   "refusedInfo": "Questo evento non è compatibile con lAgenda e non sarà pubblicato",
   "remove": "Rimuovere dall'agenda",
-  "removeFromFeatured": "Cancella da selezionato",
+  "removeFromFeatured": "Non fissare più",
   "requestChangeLocation": "Fare una demanda di modifica del luogo",
   "requestEditionRights": "Chiedere il diritto di modificare",
   "requestEditionRightsInfo": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)",
@@ -97,5 +97,5 @@
   "toCompleteContributorInfo": "L'evento deve essere verificato da un amministratore prima di essere pubblicato",
   "toCompleteInfo": "Questo evento deve essere verificato  e non  è ancora stato pubblicato",
   "transferOwnership": "Trasferire la proprietà",
-  "unpublished": "Non pubblicato"
+  "unpublished": "Inedito"
 }

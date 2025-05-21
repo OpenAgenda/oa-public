@@ -18,5 +18,6 @@
   "siret": "Codice fiscale",
   "slug": "URL",
   "state": "Verificato",
-  "uid": "ID"
+  "uid": "ID",
+  "website": "Sito web"
 }

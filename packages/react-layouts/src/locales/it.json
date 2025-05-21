@@ -11,5 +11,5 @@
   "react-layouts.MainLayout.signin": "Accedi",
   "react-layouts.MainLayout.signout": "Uscire",
   "react-layouts.MainLayout.translate": "Gestire",
-  "react-layouts.components.Search.search": "Cerca un'agenda"
+  "react-layouts.components.Search.search": "Cercare un'agenda"
 }
