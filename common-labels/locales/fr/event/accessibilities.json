@@ -1,7 +1,7 @@
 {
-  "common.event.accessiblities.hi": "Handicap auditif",
-  "common.event.accessiblities.ii": "Handicap cognitif",
-  "common.event.accessiblities.mi": "Handicap moteur",
-  "common.event.accessiblities.pi": "Handicap psychique",
-  "common.event.accessiblities.vi": "Handicap visuel"
+  "common.event.accessibilities.hi": "Handicap auditif",
+  "common.event.accessibilities.ii": "Handicap intellectuel",
+  "common.event.accessibilities.mi": "Handicap moteur",
+  "common.event.accessibilities.pi": "Handicap psychique",
+  "common.event.accessibilities.vi": "Handicap visuel"
 }
