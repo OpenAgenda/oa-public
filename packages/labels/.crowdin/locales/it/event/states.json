@@ -1,8 +1,8 @@
 {
   "all": "vedi tutti",
   "controlled": "pronto a pubblicare",
-  "featured": "prima pagina",
-  "featuredChange": "L'evento è ora in uno",
+  "featured": "fissato",
+  "featuredChange": "L'evento è ora fissato in alto",
   "published": "pubblicato",
   "refused": "rifiutato",
   "state": "stato",
@@ -11,5 +11,5 @@
   "stateFieldSub": "Importante: l'evento sarà visibile e condivisibile solo quando sarà pubblicato",
   "tobecontrolled": "da moderare",
   "tocontrol": "da moderare",
-  "unfeaturedChange": "L'evento non è più in uno"
+  "unfeaturedChange": "L'evento non è più fissato"
 }

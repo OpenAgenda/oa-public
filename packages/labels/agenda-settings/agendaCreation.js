@@ -33,7 +33,7 @@ module.exports = {
     "en": "Your agenda",
     "de": "Ihre Agenda",
     "es": "Su agenda",
-    "it": "Il tuo programma",
+    "it": "La tua agenda",
     "io": "crwdns12446:0crwdne12446:0",
     "oc": "Vòstra agenda"
   },
@@ -234,7 +234,7 @@ module.exports = {
     "en": "Duplicate value found",
     "de": "Doppelter Wert gefunden",
     "es": "Este valor esta siendo utilizado por otro agenda",
-    "it": "Questo valore è già preso da un altro calendario",
+    "it": "Informazione duplicata trovata",
     "io": "crwdns12490:0crwdne12490:0",
     "oc": "Valor ja presa per una autra agenda"
   },

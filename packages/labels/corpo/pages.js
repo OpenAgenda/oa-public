@@ -529,7 +529,7 @@ module.exports = {
     "en": "Featured events",
     "de": "Ausgewählte Veranstaltungen",
     "es": "Eventos \"en un\"",
-    "it": "Eventi in primo piano",
+    "it": "Eventi fissati in alto",
     "io": "crwdns13562:0crwdne13562:0",
     "oc": "Eveniments a la una"
   },

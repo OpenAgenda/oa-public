@@ -10,7 +10,7 @@
   "createAgenda": "Creare l'agenda",
   "description": "Descrizione",
   "description.tooManyLines": "La descrizione non deve superare le 4 righe",
-  "duplicate": "Questo valore è già preso da un altro calendario",
+  "duplicate": "Informazione duplicata trovata",
   "image": "Immagine",
   "link.invalid": "Collegamento non valido",
   "next": "Prossimo",
@@ -27,5 +27,5 @@
   "toosmall": "La stringa è troppo corta",
   "website": "Sito web",
   "websitePlaceholder": "http://monsite.com",
-  "yourAgenda": "Il tuo programma"
+  "yourAgenda": "La tua agenda"
 }

@@ -57,7 +57,7 @@ module.exports = {
     "de": "funktions",
     "es": "en una",
     "br": "keleier pennañ",
-    "it": "prima pagina",
+    "it": "fissato",
     "io": "crwdns14612:0crwdne14612:0",
     "oc": "en una"
   },
@@ -97,7 +97,7 @@ module.exports = {
     "de": "Die Veranstaltung wird nun vorgestellt",
     "es": "El evento esta destacado",
     "br": "E-mesk ar c'heleier pennañ emañ an darvoud bremañ",
-    "it": "L'evento è ora in uno",
+    "it": "L'evento è ora fissato in alto",
     "io": "crwdns14620:0crwdne14620:0",
     "oc": "L'eveniment es ara en una"
   },
@@ -107,7 +107,7 @@ module.exports = {
     "de": "Die Veranstaltung ist nicht mehr funktions",
     "es": "El evento ya no es más destacada",
     "br": "N'emañ ket ken an darvoud e-mesk ar c'heleier pennañ",
-    "it": "L'evento non è più in uno",
+    "it": "L'evento non è più fissato",
     "io": "crwdns14622:0crwdne14622:0",
     "oc": "L'eveniment es pas pus en una"
   },

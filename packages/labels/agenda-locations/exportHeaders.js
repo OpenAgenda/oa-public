@@ -136,7 +136,8 @@ module.exports = {
     "fr": "Site internet",
     "es": "Sitio web",
     "oc": "Site web",
-    "io": "crwdns32871:0crwdne32871:0"
+    "io": "crwdns32871:0crwdne32871:0",
+    "it": "Sito web"
   },
   "access": {
     "en": "Access",

@@ -114,7 +114,7 @@
   "next.views.EventShow.backToList": "",
   "next.views.EventShow.contactAdministrators": "Contactar los administradores",
   "next.views.EventShow.history": "Historia",
-  "next.views.EventShow.moreLinks": "",
+  "next.views.EventShow.moreLinks": "Enlaces adicionales",
   "next.views.EventShow.rejectModal.confirm": "Confirmar",
   "next.views.EventShow.rejectModal.confirmRejection": "",
   "next.views.EventShow.rejectModal.motive": "",

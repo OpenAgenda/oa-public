@@ -66,6 +66,7 @@
   "EventAdminApp.PassImage.linkErrored": "crwdns33984:0crwdne33984:0",
   "EventAdminApp.PassImage.linkPending": "crwdns33788:0crwdne33788:0",
   "EventAdminApp.PassImage.linkRejected": "crwdns33986:0crwdne33986:0",
+  "EventAdminApp.PassImage.linkUnpublished": "crwdns34378:0crwdne34378:0",
   "EventAdminApp.PassImage.see": "crwdns33414:0crwdne33414:0",
   "EventAdminApp.RemoveModal.confirm": "crwdns818:0crwdne818:0",
   "EventAdminApp.RemoveModal.deleteDesc": "crwdns820:0crwdne820:0",

@@ -251,7 +251,7 @@ module.exports = {
     "en": "Submit",
     "de": "Einreichen",
     "es": "Validar",
-    "it": "Invia",
+    "it": "Convalidare",
     "br": "Kemmañ",
     "io": "crwdns14728:0crwdne14728:0",
     "oc": "Sometre"
@@ -510,7 +510,7 @@ module.exports = {
     "fr": "Langues de saisie",
     "en": "Input languages",
     "es": "Idiomas de entrada",
-    "it": "Scegliere una lingua",
+    "it": "Lingue di ingresso",
     "de": "Wählen Sie eine Sprache",
     "br": "Choazit ur yezh",
     "io": "crwdns14774:0crwdne14774:0",
