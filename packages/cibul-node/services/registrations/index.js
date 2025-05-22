@@ -3,6 +3,7 @@ import logs from '@openagenda/logs';
 import ProcessPassPendingOffers from './utils/ProcessPassPendingOffers.js';
 import processPassCultureApply from './utils/passCulture/processApply.js';
 import process from './utils/passCulture/process.js';
+import listBooking from './utils/passCulture/listBooking.js';
 
 const log = logs('services/registrations');
 
@@ -42,6 +43,7 @@ export function init(config, services) {
           services,
         }),
         process: process.bind(null, { services }),
+        bookings: listBooking.bind(null, { services }),
         isMarkedAsPending: (data) => data?.[0]?.response?.isPending,
         isNew: (data) => !data[0]?.appliedAt,
         hasNonApplied: (data) =>

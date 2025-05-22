@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import { SWRConfig } from 'swr';
 import { subHours, addHours, startOfHour } from 'date-fns';
+import { http, HttpResponse } from 'msw';
 import { Container } from '@openagenda/uikit';
 import EventShow from 'views/EventShow';
 import Sidebar from 'views/EventShow/components/Sidebar';
@@ -124,10 +125,22 @@ export function Online() {
 export function PassCulture() {
   return (
     <Fixtures event={passCultureEventFixtures}>
-      <Sidebar />
+      <Sidebar isEventContributor={true} />
     </Fixtures>
   );
 }
+
+PassCulture.parameters = {
+  msw: {
+    handlers: [
+      http.get('/api/agendas/*/events/*/passCulture/bookings', () => {
+        return HttpResponse.json(
+          require('../../components/fixtures/passBookings.json'),
+        );
+      }),
+    ],
+  },
+};
 
 export function Timezoned() {
   return (

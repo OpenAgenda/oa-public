@@ -25,6 +25,7 @@ import * as membersActions from '../../reducers/members.js';
 import * as modalsActions from '../../reducers/modals.js';
 import renderSearchInput from '../../utils/renderSearchInput.js';
 import monitorBottomHit from '../../utils/monitorBottomHit.js';
+import isMemberRoleEnabled from '../../utils/isMemberRoleEnabled.js';
 import I18nContext from '../../contexts/I18nContext.js';
 
 const messages = defineMessages({
@@ -62,7 +63,7 @@ function changeModalTitle(agenda, userRole) {
   if (agenda.private) return false;
   if (userRole === 2) return false;
   if (
-    agenda.credentials.moderators
+    isMemberRoleEnabled(agenda)
     && userRole === 3
     && agenda.settings.contribution.modoCanInviteModo
   ) return false;
@@ -375,7 +376,7 @@ class Dashboard extends Component {
               {getLabel('invite')}
             </button>
 
-            {agenda.credentials.invitationMessage ? null : (
+            {isMemberRoleEnabled(agenda) ? null : (
               <Dropdown
                 className="dropdown btn-group open"
                 Trigger={(props) => (

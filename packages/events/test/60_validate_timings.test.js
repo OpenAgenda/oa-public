@@ -212,6 +212,74 @@ describe('timings', () => {
   });
 
   describe('timings', () => {
+    it('throws error when timings overlap', () => {
+      let errors;
+
+      try {
+        validateTimings()([
+          {
+            begin: '2020-11-27T10:00:00+0200',
+            end: '2020-11-27T12:00:00+0200',
+          },
+          {
+            begin: '2020-11-27T11:00:00+0200',
+            end: '2020-11-27T13:00:00+0200',
+          },
+        ]);
+      } catch (e) {
+        errors = e;
+      }
+
+      expect(errors[0]).toEqual(
+        expect.objectContaining({
+          code: 'overlap',
+          message: 'timings cannot overlap',
+        }),
+      );
+    });
+
+    it('throws error when dhm timings overlap', () => {
+      let errors;
+
+      try {
+        validateTimings()([
+          {
+            begin: {
+              date: '2020-11-27',
+              hours: 10,
+              minutes: 0,
+            },
+            end: {
+              date: '2020-11-27',
+              hours: 12,
+              minutes: 0,
+            },
+          },
+          {
+            begin: {
+              date: '2020-11-27',
+              hours: 11,
+              minutes: 0,
+            },
+            end: {
+              date: '2020-11-27',
+              hours: 13,
+              minutes: 0,
+            },
+          },
+        ]);
+      } catch (e) {
+        errors = e;
+      }
+
+      expect(errors[0]).toEqual(
+        expect.objectContaining({
+          code: 'overlap',
+          message: 'timings cannot overlap',
+        }),
+      );
+    });
+
     it('validates a list of timings', () => {
       const timings = validateTimings()([
         {
@@ -253,15 +321,15 @@ describe('timings', () => {
       const timings = validateTimings()([
         {
           begin: '2020-11-27T10:00:00+0200',
-          end: '2020-11-27T20:00:00+0200',
+          end: '2020-11-27T12:00:00+0200',
         },
         {
-          begin: '2020-11-27T09:00:00+0200',
-          end: '2020-11-27T20:00:00+0200',
+          begin: '2020-11-27T13:00:00+0200',
+          end: '2020-11-27T15:00:00+0200',
         },
       ]);
 
-      expect(timings[0].begin.toISOString()).toBe('2020-11-27T07:00:00.000Z');
+      expect(timings[0].begin.toISOString()).toBe('2020-11-27T08:00:00.000Z');
     });
 
     it('dhm timings are sorted', () => {
@@ -281,18 +349,18 @@ describe('timings', () => {
         {
           begin: {
             date: '2020-11-27',
-            hours: 20,
+            hours: 21,
             minutes: 2,
           },
           end: {
             date: '2020-11-27',
-            hours: 20,
+            hours: 21,
             minutes: 40,
           },
         },
       ]);
 
-      expect(timings[0].begin.minutes).toBe(2);
+      expect(timings[0].begin.hours).toBe(20);
     });
 
     it('fix: dhm timings sort', () => {

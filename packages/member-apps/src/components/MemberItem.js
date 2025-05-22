@@ -6,6 +6,7 @@ import { Base64 } from 'js-base64';
 import { MoreInfo, Dropdown } from '@openagenda/react-shared';
 import getRoleSlug from '@openagenda/members/iso/getRoleSlug.js';
 import { isSuperiorToOrEqual } from '@openagenda/members/iso/compareRoles.js';
+import isMemberRoleEnabled from '../utils/isMemberRoleEnabled.js';
 
 const roleLabel = (i18n, role) => {
   const { getLabel } = i18n;
@@ -144,19 +145,20 @@ function MemberItemComponent({
                   )}
                 >
                   <ul className="list-unstyled margin-v-z">
-                    {['administrator', 'moderator', 'contributor'].map(
-                      (targetRole) => (
-                        <li key={targetRole}>
-                          <button
-                            type="button"
-                            className="btn btn-link btn-block"
-                            onClick={() => patchRole(targetRole)}
-                          >
-                            {getLabel(targetRole)}
-                          </button>
-                        </li>
-                      ),
-                    )}
+                    {(isMemberRoleEnabled(agenda)
+                      ? ['administrator', 'moderator', 'contributor']
+                      : ['administrator', 'contributor']
+                    ).map((targetRole) => (
+                      <li key={targetRole}>
+                        <button
+                          type="button"
+                          className="btn btn-link btn-block"
+                          onClick={() => patchRole(targetRole)}
+                        >
+                          {getLabel(targetRole)}
+                        </button>
+                      </li>
+                    ))}
                   </ul>
                 </Dropdown>
               ) : null}

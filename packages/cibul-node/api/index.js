@@ -451,6 +451,15 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
+  app.get('/agendas/:agendaUid/events/:eventUid/passCulture/bookings', [
+    mw.member.allow(['administrator', 'contributor', 'moderator']),
+    (req, res, next) => {
+      core.services.registrations.utils.passCulture
+        .bookings(req.agenda, req.event, req.user.uid)
+        .then((data) => res.json(data), next);
+    },
+  ]);
+
   app.get('/agendas/:agendaUid/settings/memberSchema/configure', [
     mw.member.load,
     mw.member.allow(['administrator']),

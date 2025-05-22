@@ -1,6 +1,7 @@
 import verifyAndLoadAccessTokenUser from './verifyAndLoadAccessTokenUser.js';
 
 export default async (req, res, next) => {
+  let loadUserError;
   const { keys: keysSvc } = req.app.services;
 
   if (req.user) {
@@ -21,7 +22,9 @@ export default async (req, res, next) => {
 
   req.user = await req.app.core.users.get.byPublicKey(publicKey).then(
     (u) => u,
-    () => null,
+    (e) => {
+      loadUserError = e;
+    },
   );
 
   if (!req.user && publicKey) {
@@ -33,7 +36,9 @@ export default async (req, res, next) => {
 
   try {
     if (!req.user && !req.agendaKey) {
-      throw new Error('could not find user or agenda matching key');
+      throw new Error(
+        loadUserError?.message ?? 'could not find user or agenda matching key',
+      );
     }
   } catch (e) {
     return res.status(403).json({

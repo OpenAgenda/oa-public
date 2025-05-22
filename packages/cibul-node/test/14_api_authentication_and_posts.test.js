@@ -148,9 +148,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
       );
 
       expect(error.response.status).toBe(403);
-      expect(error.response.data.message).toBe(
-        'could not find user or agenda matching key',
-      );
+      expect(error.response.data.message).toBe('key is required');
     });
 
     it('a public key provided in query can be used to access /me/agendas route', async () => {

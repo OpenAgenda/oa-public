@@ -1,4 +1,4 @@
-import { NotFound } from '@openagenda/verror';
+import { NotFound, Forbidden } from '@openagenda/verror';
 import getApiKeySetFromKey from './getApiKeySetFromKey.js';
 
 async function getUserFromKey(services, keyField, keyString = null) {
@@ -25,6 +25,10 @@ async function getUserFromKey(services, keyField, keyString = null) {
 
   if (!user) {
     throw new NotFound('user not found');
+  }
+
+  if (user.isBlacklisted) {
+    throw new Forbidden('user is blacklisted');
   }
 
   simpleCache('users', `${keyField}:${keyString}`).set(
