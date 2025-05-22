@@ -12,11 +12,11 @@
     "strapi": "strapi"
   },
   "dependencies": {
-    "@strapi/core": "^5.4.2",
-    "@strapi/plugin-cloud": "5.4.2",
-    "@strapi/plugin-users-permissions": "5.4.2",
-    "@strapi/provider-upload-aws-s3": "^5.5.2",
-    "@strapi/strapi": "5.4.2",
+    "@strapi/core": "^5.13.1",
+    "@strapi/plugin-cloud": "5.13.1",
+    "@strapi/plugin-users-permissions": "5.13.1",
+    "@strapi/provider-upload-aws-s3": "^5.13.1",
+    "@strapi/strapi": "5.13.1",
     "better-sqlite3": "11.3.0",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
@@ -27,7 +27,8 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vite": "5.4.17"
   },
   "engines": {
     "node": ">=18.0.0 <=22.x.x",
