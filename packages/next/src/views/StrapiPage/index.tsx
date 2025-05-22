@@ -1,9 +1,15 @@
+import { Noto_Sans } from 'next/font/google';
 import { Box } from '@openagenda/uikit';
 import PageHead from 'components/strapi/PageHead';
 import ModularSet from 'components/strapi/ModularSet';
 import FeatureCardSet from 'components/strapi/FeatureCardSet';
 import CarouselSet from 'components/strapi/CarouselSet';
 import fetchLocale from './locales';
+
+const notoSans = Noto_Sans({
+  variable: '--font-noto-sans',
+  subsets: ['latin'],
+});
 
 export default function StrapiPage({ page }) {
   const { Segments } = page;
@@ -20,7 +26,7 @@ export default function StrapiPage({ page }) {
         }[Segment['__component']];
 
         return (
-          <Box key={id}>
+          <Box key={id} className={notoSans.variable}>
             <Component key={id} {...Segment} />
           </Box>
         );
