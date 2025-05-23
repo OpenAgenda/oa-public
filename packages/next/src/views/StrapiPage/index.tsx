@@ -1,5 +1,5 @@
-import { Noto_Sans } from 'next/font/google';
-import { Box } from '@openagenda/uikit';
+import { Noto_Sans, Ubuntu_Sans } from 'next/font/google';
+import { Global, Box } from '@openagenda/uikit';
 import PageHead from 'components/strapi/PageHead';
 import ModularSet from 'components/strapi/ModularSet';
 import FeatureCardSet from 'components/strapi/FeatureCardSet';
@@ -8,6 +8,11 @@ import fetchLocale from './locales';
 
 const notoSans = Noto_Sans({
   variable: '--font-noto-sans',
+  subsets: ['latin'],
+});
+
+const ubuntuSans = Ubuntu_Sans({
+  variable: '--font-ubuntu',
   subsets: ['latin'],
 });
 
@@ -26,7 +31,16 @@ export default function StrapiPage({ page }) {
         }[Segment['__component']];
 
         return (
-          <Box key={id} className={notoSans.variable}>
+          <Box key={id}>
+            <Global
+              key={id}
+              styles={{
+                ':root': {
+                  '--font-noto-sans': notoSans.style.fontFamily,
+                  '--font-ubuntu-sans': ubuntuSans.style.fontFamily,
+                },
+              }}
+            />
             <Component key={id} {...Segment} />
           </Box>
         );
