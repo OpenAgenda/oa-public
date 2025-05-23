@@ -124,10 +124,9 @@ export default function Modular({
             <Heading
               textAlign={contentAlign || 'center'}
               color={color(titleColor)}
-              fontSize={fontSize?.name || '160%'}
+              size={fontSize?.name}
               mt={Tag || Icon || Illustration ? 7 : 0}
               fontWeight={600}
-              lineHeight="normal"
             >
               {title}
             </Heading>
@@ -139,7 +138,7 @@ export default function Modular({
               display="flex"
               flexDirection="column"
               style={{ listStylePosition: 'inside' }}
-              fontSize="lg"
+              fontSize="md"
               mt={7}
               css={{
                 '& a': {

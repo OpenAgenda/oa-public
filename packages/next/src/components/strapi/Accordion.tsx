@@ -23,7 +23,7 @@ export default function AccordionItem({
       <Accordion.ItemTrigger p="4">
         <HStack as="h2" gap="4" flex="1" textAlign="start" width="full">
           {Icon ? <IconComponent {...Icon} color={contentColor} /> : null}
-          <Text textAlign={contentAlign} fontSize="140%" color={contentColor}>
+          <Text textAlign={contentAlign} color={contentColor}>
             {title}
           </Text>
         </HStack>

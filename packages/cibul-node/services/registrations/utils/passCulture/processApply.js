@@ -16,10 +16,8 @@ export default async function processPassCultureApply(
   ).passCulture;
 
   const { passCulture, event } = clean;
-  const endpoints = agenda.locationSetUid
-    ? agendaLocations.sets(agenda.locationSetUid).locations
-    : agendaLocations(agenda.uid);
-  const location = await endpoints.get(event.location.uid);
+
+  const location = await agendaLocations.get(event.location.uid);
 
   const applied = await passCultureService.apply(
     { ...event, location },

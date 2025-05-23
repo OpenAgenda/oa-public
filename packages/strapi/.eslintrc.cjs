@@ -15,6 +15,15 @@ module.exports = {
     },
   },
 
+  rules: {
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: [`${__dirname}/src/admin/vite.config.ts`],
+      },
+    ],
+  },
+
   overrides: [
     {
       files: ['**/*.cjs'],

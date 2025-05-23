@@ -1,4 +1,12 @@
-import { Box, Grid, GridItem, Stack, Heading, Text } from '@openagenda/uikit';
+import {
+  Box,
+  Grid,
+  GridItem,
+  Stack,
+  Heading,
+  Text,
+  HeadingProps,
+} from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 import CTAButton from './CTAButton';
 import IllustrationComponent from './Illustration';
@@ -28,12 +36,10 @@ const PageHeadContent = ({
     textAlign={Illustration ? undefined : 'center'}
   >
     <Heading
-      fontSize={fontSize?.name || '6xl'}
       as="h1"
-      size="2xl"
+      size={(fontSize?.name || '5xl') as HeadingProps['size']}
       color={color(titleColor)}
       fontWeight={600}
-      lineHeight="normal"
     >
       {title}
     </Heading>
