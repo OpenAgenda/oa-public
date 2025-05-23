@@ -14,3 +14,4 @@ export * from './components';
 
 export * from '@chakra-ui/react';
 export * from 'react-remove-scroll';
+export { Global } from '@emotion/react';
