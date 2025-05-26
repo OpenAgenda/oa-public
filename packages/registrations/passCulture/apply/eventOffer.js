@@ -1,4 +1,5 @@
 import logs from '@openagenda/logs';
+import { BadRequest } from '@openagenda/verror';
 import formatEvent from '../lib/formatEvent.js';
 import handleError from './handleError.js';
 
@@ -61,6 +62,17 @@ async function create(pc, OAEvent, entry, options) {
   const [{ venues }] = await pc.offers.offererVenues();
 
   const usedVenue = venues.find((v) => v.id === entry.venueId);
+
+  if (!usedVenue) {
+    return {
+      error: new BadRequest({
+        info: {
+          entryVenueId: entry.venueId,
+          venues,
+        },
+      }),
+    };
+  }
 
   if (venueDiffThanLoc(usedVenue.location, OAEvent.location)) {
     try {
