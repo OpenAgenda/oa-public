@@ -5,7 +5,7 @@ import handleError from './handleError.js';
 
 const log = logs('passCulture/eventOffer');
 
-const venueDiffThanLoc = (venueLoc, location) => {
+const venueDiffThanLoc = ({ venueLoc, location }) => {
   if (!venueLoc || !location) return true; // If either is missing, consider them different
 
   return (
@@ -74,7 +74,12 @@ async function create(pc, OAEvent, entry, options) {
     };
   }
 
-  if (venueDiffThanLoc(usedVenue.location, OAEvent.location)) {
+  if (
+    venueDiffThanLoc({
+      venueLoc: usedVenue.location,
+      location: OAEvent.location,
+    })
+  ) {
     try {
       address = await pc.offers.addresses.create({
         city: OAEvent.location.city,
