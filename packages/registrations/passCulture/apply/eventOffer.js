@@ -59,8 +59,12 @@ async function create({ pc, siren }, OAEvent, entry, options) {
     : { categories: categoriesFromOptions, related: relatedFromOptions };
 
   // check if oa location is diffrent from venue
-  const [{ venues }] = await pc.offers.offererVenues({ siren });
-
+  log('fetching venues with', siren);
+  const offererVenues = await Promise.all(
+    siren.map((sirenValue) => pc.offers.offererVenues({ siren: sirenValue })),
+  );
+  const venues = offererVenues.flatMap((responseArray) =>
+    responseArray.flatMap((item) => item.venues));
   const usedVenue = venues.find((v) => v.id === entry.venueId);
 
   if (!usedVenue) {

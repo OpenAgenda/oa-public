@@ -48,6 +48,8 @@
     "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
     "@storybook/react-webpack5": "^8.5.8",
     "history": "^4.10.1",
+    "msw": "^2.8.4",
+    "msw-storybook-addon": "^2.0.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router": "^5.1.2",

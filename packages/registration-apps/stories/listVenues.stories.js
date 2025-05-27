@@ -26,3 +26,39 @@ export const Default = () => (
     }}
   />
 );
+
+export const WithDefaultVenue = () => (
+  <ListVenues
+    res={{
+      settings: '/settings',
+    }}
+    defaultVenueId={548}
+  />
+);
+
+export const SelectMode = () => (
+  <ListVenues
+    res={{
+      settings: '/settings',
+    }}
+    mode="select"
+    onSelect={(venueId) => {
+      console.log(`Selected venue ID: ${venueId}`);
+      alert(`Selected venue ID: ${venueId}`);
+    }}
+  />
+);
+
+export const SelectModeWithDefault = () => (
+  <ListVenues
+    res={{
+      settings: '/settings',
+    }}
+    mode="select"
+    defaultVenueId={548}
+    onSelect={(venueId) => {
+      console.log(`Selected venue ID: ${venueId}`);
+      alert(`Selected venue ID: ${venueId}`);
+    }}
+  />
+);
