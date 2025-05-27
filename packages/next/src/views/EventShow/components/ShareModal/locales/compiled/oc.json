@@ -2,7 +2,7 @@
   "next.views.EventShow.ShareModal.downloadButton": [
     {
       "type": 0,
-      "value": "Télécharger"
+      "value": "Descargar"
     }
   ],
   "next.views.EventShow.ShareModal.downloadPDF": [

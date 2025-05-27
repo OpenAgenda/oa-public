@@ -746,7 +746,7 @@
   "next.views.EventShow.moreLinks": [
     {
       "type": 0,
-      "value": "Altri link:"
+      "value": "Altri link"
     }
   ],
   "next.views.EventShow.rejectModal.confirm": [

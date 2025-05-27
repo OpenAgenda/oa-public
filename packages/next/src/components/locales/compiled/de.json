@@ -8,7 +8,7 @@
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "ausgewählt"
     }
   ]
 }

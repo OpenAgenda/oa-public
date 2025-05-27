@@ -2,7 +2,7 @@
   "next.views.AgendaShow.filter": [
     {
       "type": 0,
-      "value": "Filtre"
+      "value": "Filtrer"
     }
   ],
   "next.views.AgendaShow.filters": [
