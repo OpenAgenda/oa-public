@@ -11,6 +11,7 @@ import { color } from 'utils/strapi';
 import CTAButton from './CTAButton';
 import IllustrationComponent from './Illustration';
 import SegmentContainer from './SegmentContainer';
+import type { Color } from './types';
 
 const PageHeadContent = ({
   title,
@@ -54,18 +55,13 @@ const PageHeadContent = ({
   </Stack>
 );
 
-interface Color {
-  name: string;
-  swatch?: string;
-}
-
 interface PageHeadProps {
   backgroundColor?: any;
   titleColor?: Color;
   descriptionColor?: Color;
   title: string;
   description: string;
-  fontSize?: { name: string };
+  fontSize?: Color;
   CTA?: {
     label: string;
     link: string;

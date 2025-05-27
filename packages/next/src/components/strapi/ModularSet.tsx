@@ -3,19 +3,15 @@ import { color } from 'utils/strapi';
 import Modular from './Modular';
 import SegmentContainer from './SegmentContainer';
 import CTAButton from './CTAButton';
-
-interface Color {
-  name: string;
-  swatch?: string;
-}
+import type { Color } from './types';
 
 interface ModularSetProps {
   title: string;
   description?: string;
   Components: Array<any>;
   CTA?: any;
-  backgroundColor?: string;
-  fontColor?: string;
+  backgroundColor?: Color;
+  fontColor?: Color;
   verticalAlign?: 'center' | 'stretch' | 'flex-start';
   titleColor?: Color;
   descriptionColor?: Color;

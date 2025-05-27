@@ -1,10 +1,11 @@
 import { Container, chakra } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
+import type { Color } from './types';
 
 interface SegmentContainerProps {
   children: React.ReactNode;
-  backgroundColor?: string;
-  fontColor?: string;
+  backgroundColor?: Color;
+  fontColor?: Color;
 }
 
 export default function SegmentContainer({
@@ -19,8 +20,7 @@ export default function SegmentContainer({
       <Container
         maxW="7xl"
         color={fontColor ? color(fontColor) : undefined}
-        pt="110px"
-        pb="110px"
+        py="24"
       >
         {children}
       </Container>

@@ -1,6 +1,6 @@
 import { SystemStyleObject } from '@openagenda/uikit';
 
-const mdStyle: SystemStyleObject = {
+const smStyle: SystemStyleObject = {
   fontSize: 'sm',
   '& ul': {
     ps: '40px',
@@ -48,4 +48,4 @@ const mdStyle: SystemStyleObject = {
   },
 };
 
-export default mdStyle;
+export default smStyle;
