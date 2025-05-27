@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_segments_tab_set",
+  "info": {
+    "displayName": "TabSet",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Tabs": {
+      "displayName": "Tab",
+      "type": "component",
+      "repeatable": true,
+      "component": "components.tab"
+    }
+  }
+}

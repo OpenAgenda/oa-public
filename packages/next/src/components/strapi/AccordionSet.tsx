@@ -3,11 +3,7 @@ import { AccordionRoot } from '@openagenda/uikit/snippets';
 import { color } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
 import AccordionItem from './Accordion';
-
-interface Color {
-  name: string;
-  swatch?: string;
-}
+import type { Color } from './types';
 
 interface AccordionSetProps {
   title?: string;

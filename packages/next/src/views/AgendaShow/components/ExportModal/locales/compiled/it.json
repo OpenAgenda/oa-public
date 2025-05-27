@@ -98,13 +98,13 @@
   "next.views.AgendaShow.ExportModal.embed": [
     {
       "type": 0,
-      "value": "Embed"
+      "value": "Incorporare in un sito web"
     }
   ],
   "next.views.AgendaShow.ExportModal.embedSeeEvents": [
     {
       "type": 0,
-      "value": "See events of "
+      "value": "Vedere i eventi di "
     },
     {
       "type": 1,
@@ -162,7 +162,7 @@
   "next.views.AgendaShow.ExportModal.filterSelectSub": [
     {
       "type": 0,
-      "value": "Drag and drop filters to adjust order"
+      "value": "Trascinare e rilasciare i filtri per regolare l'ordine"
     }
   ],
   "next.views.AgendaShow.ExportModal.gcalStep2": [
@@ -214,7 +214,7 @@
   "next.views.AgendaShow.ExportModal.new": [
     {
       "type": 0,
-      "value": "New"
+      "value": "Nuovo"
     }
   ],
   "next.views.AgendaShow.ExportModal.openData": [
@@ -272,7 +272,7 @@
   "next.views.AgendaShow.ExportModal.showFilters": [
     {
       "type": 0,
-      "value": "Show filters"
+      "value": "Filtri dimostrati"
     }
   ],
   "next.views.AgendaShow.ExportModal.spreadsheetTitle": [
@@ -290,7 +290,7 @@
   "next.views.AgendaShow.ExportModal.viewEmbedDoc": [
     {
       "type": 0,
-      "value": "See all options on the documentation"
+      "value": "Vedere tutte le opzioni nella documentazione"
     }
   ]
 }

@@ -2,19 +2,19 @@
   "next.views.EventShow.ShareModal.downloadButton": [
     {
       "type": 0,
-      "value": "Download"
+      "value": "crwdns34387:0crwdne34387:0"
     }
   ],
   "next.views.EventShow.ShareModal.downloadPDF": [
     {
       "type": 0,
-      "value": "Download PDF"
+      "value": "crwdns34389:0crwdne34389:0"
     }
   ],
   "next.views.EventShow.ShareModal.new": [
     {
       "type": 0,
-      "value": "NEW"
+      "value": "crwdns34391:0crwdne34391:0"
     }
   ]
 }

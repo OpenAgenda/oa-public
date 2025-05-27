@@ -77,7 +77,7 @@
   "next.views.AgendaError.searchAgenda": [
     {
       "type": 0,
-      "value": "Cerca un'agenda"
+      "value": "Cercare un'agenda"
     }
   ],
   "next.views.AgendaError.signIn": [

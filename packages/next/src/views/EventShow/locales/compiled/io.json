@@ -140,13 +140,13 @@
   "next.views.EventShow.ContextBar.fixEvent": [
     {
       "type": 0,
-      "value": "Fix event"
+      "value": "crwdns34372:0crwdne34372:0"
     }
   ],
   "next.views.EventShow.ContextBar.invalidEvent": [
     {
       "type": 0,
-      "value": "The event is invalid"
+      "value": "crwdns34374:0crwdne34374:0"
     }
   ],
   "next.views.EventShow.ContextBar.invalidEventMessage": [
@@ -314,7 +314,7 @@
   "next.views.EventShow.ContextBar.suggestLocationChange": [
     {
       "type": 0,
-      "value": "crwdns34008:0crwdne34008:0"
+      "value": "crwdns34381:0crwdne34381:0"
     }
   ],
   "next.views.EventShow.ContextBar.toModerateContributorInfo": [
@@ -550,7 +550,7 @@
   "next.views.EventShow.ShareModal.shareEvent": [
     {
       "type": 0,
-      "value": "Share the event"
+      "value": "crwdns34383:0crwdne34383:0"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [
@@ -626,7 +626,7 @@
   "next.views.EventShow.Sidebar.passUnpublished": [
     {
       "type": 0,
-      "value": "The offer will be created upon publication of the event"
+      "value": "crwdns34380:0crwdne34380:0"
     }
   ],
   "next.views.EventShow.Sidebar.passed": [
@@ -670,7 +670,7 @@
   "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
     {
       "type": 0,
-      "value": "crwdns33756:0crwdne33756:0"
+      "value": "crwdns34385:0crwdne34385:0"
     }
   ],
   "next.views.EventShow.Timings.nextMonth": [

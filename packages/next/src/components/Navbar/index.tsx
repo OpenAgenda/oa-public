@@ -12,9 +12,12 @@ import getSession from 'utils/getSession';
 import logoPic from '../../../public/images/oa.svg';
 import miniLogoPic from '../../../public/images/oa_logo.svg';
 import HelpButton from './HelpButton';
+import LanguageSelector from './LanguageSelector';
 import ProfileLoader from './ProfileLoader';
 import ProfileMenu from './ProfileMenu';
 import useSearch from './useSearch';
+
+const StyledSearchInput = chakra(SearchInput);
 
 function ProfileBar({ portalRef }) {
   const { user, status } = useUser();
@@ -45,6 +48,7 @@ export default function Navbar() {
       display="flex"
       flexDirection="column"
       bg="white"
+      position="relative"
       boxShadow="xs"
       fontSize={defaultSize}
     >
@@ -70,10 +74,15 @@ export default function Navbar() {
               onSubmit={onSearch}
               display={{ base: 'none', lg: 'flex' }}
             >
-              <SearchInput
+              <StyledSearchInput
                 input={{
                   value: inputValue,
                   onChange: (e) => setInputValue(e.target.value),
+                }}
+                css={{
+                  '& input': {
+                    borderY: 'none',
+                  },
                 }}
               />
             </chakra.form>
@@ -81,6 +90,7 @@ export default function Navbar() {
 
           <Flex direction="row" align="center">
             <HelpButton />
+            <LanguageSelector />
             <ProfileBar portalRef={headerRef} />
           </Flex>
         </Flex>

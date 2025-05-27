@@ -1,10 +1,11 @@
 import logs from '@openagenda/logs';
+import { BadRequest } from '@openagenda/verror';
 import formatEvent from '../lib/formatEvent.js';
 import handleError from './handleError.js';
 
 const log = logs('passCulture/eventOffer');
 
-const venueDiffThanLoc = (venueLoc, location) => {
+const venueDiffThanLoc = ({ venueLoc, location }) => {
   if (!venueLoc || !location) return true; // If either is missing, consider them different
 
   return (
@@ -49,7 +50,7 @@ async function update(
   };
 }
 
-async function create(pc, OAEvent, entry, options) {
+async function create({ pc, siren }, OAEvent, entry, options) {
   let address = null;
   const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
 
@@ -58,11 +59,42 @@ async function create(pc, OAEvent, entry, options) {
     : { categories: categoriesFromOptions, related: relatedFromOptions };
 
   // check if oa location is diffrent from venue
-  const [{ venues }] = await pc.offers.offererVenues();
-
+  log('fetching venues with', siren);
+  const offererVenues = await Promise.all(
+    siren.map((sirenValue) => pc.offers.offererVenues({ siren: sirenValue })),
+  );
+  const venues = offererVenues.flatMap((responseArray) =>
+    responseArray.flatMap((item) => item.venues));
   const usedVenue = venues.find((v) => v.id === entry.venueId);
 
-  if (venueDiffThanLoc(usedVenue.location, OAEvent.location)) {
+  if (!usedVenue) {
+    return {
+      error: new BadRequest({
+        info: {
+          entryVenueId: entry.venueId,
+          venues,
+        },
+      }),
+    };
+  }
+
+  if (
+    venueDiffThanLoc({
+      venueLoc: usedVenue.location,
+      location: OAEvent.location,
+    })
+  ) {
+    // Validate that OAEvent location has a postal code
+    if (!OAEvent.location?.postalCode) {
+      return {
+        error: new BadRequest({
+          message: 'OAEvent location postal code is required',
+          info: {
+            location: OAEvent.location,
+          },
+        }),
+      };
+    }
     try {
       address = await pc.offers.addresses.create({
         city: OAEvent.location.city,

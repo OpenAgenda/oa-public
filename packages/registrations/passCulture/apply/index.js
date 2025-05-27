@@ -18,7 +18,12 @@ const getApplyFn = (type, operation) =>
 
 const log = logs('apply');
 
-export default async function apply(pc, OAEvent, PCData, options = {}) {
+export default async function apply(
+  { pc, siren },
+  OAEvent,
+  PCData,
+  options = {},
+) {
   const dataEntries = spreadPCData(PCData);
 
   const processed = [];
@@ -50,7 +55,7 @@ export default async function apply(pc, OAEvent, PCData, options = {}) {
   if (!wasApplied(firstItem)) {
     log.info('creating event offer', logBundle);
     const { response, succeeded, error } = await applyEventOffer.create(
-      pc,
+      { pc, siren },
       OAEvent,
       firstItem,
       options,

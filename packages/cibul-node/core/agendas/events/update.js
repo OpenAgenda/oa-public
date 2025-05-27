@@ -351,6 +351,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     });
   } catch (e) {
     log.info('update failed', {
+      eventUid,
       error: e,
       errors: e.info?.errors,
       agendaUid,

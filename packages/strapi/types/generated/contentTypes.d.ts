@@ -403,6 +403,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'segments.accordion-set',
         'segments.carousel-set',
         'segments.highlight-card-set',
+        'segments.tab-set',
+        'segments.reference-set',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
