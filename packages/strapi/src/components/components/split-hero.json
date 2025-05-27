@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_components_split_heroes",
+  "info": {
+    "displayName": "SplitHero",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "text": {
+      "type": "richtext",
+      "required": true
+    },
+    "direction": {
+      "type": "enumeration",
+      "enum": ["row", "row-reverted"],
+      "default": "row",
+      "required": true
+    }
+  }
+}

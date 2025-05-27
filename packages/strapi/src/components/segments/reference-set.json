@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_segments_reference_sets",
+  "info": {
+    "displayName": "ReferenceSet",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "References": {
+      "displayName": "References",
+      "type": "component",
+      "repeatable": true,
+      "component": "components.reference"
+    }
+  }
+}
