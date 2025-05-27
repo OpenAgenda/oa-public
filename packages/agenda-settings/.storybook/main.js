@@ -8,8 +8,10 @@ export default {
   stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   framework: {
     name: getAbsolutePath('@storybook/react-webpack5'),
+    options: {},
   },
   addons: [getAbsolutePath('@storybook/addon-webpack5-compiler-babel')],
+  staticDirs: ['./public'],
   babel: (config) => {
     return { ...config, rootMode: 'upward' };
   },
