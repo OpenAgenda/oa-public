@@ -12,6 +12,7 @@ import getSession from 'utils/getSession';
 import logoPic from '../../../public/images/oa.svg';
 import miniLogoPic from '../../../public/images/oa_logo.svg';
 import HelpButton from './HelpButton';
+import LanguageSelector from './LanguageSelector';
 import ProfileLoader from './ProfileLoader';
 import ProfileMenu from './ProfileMenu';
 import useSearch from './useSearch';
@@ -89,6 +90,7 @@ export default function Navbar() {
 
           <Flex direction="row" align="center">
             <HelpButton />
+            <LanguageSelector />
             <ProfileBar portalRef={headerRef} />
           </Flex>
         </Flex>
