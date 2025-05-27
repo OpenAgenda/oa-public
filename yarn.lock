@@ -10476,6 +10476,7 @@ __metadata:
     "@openagenda/uikit": "npm:^0.0.1"
     "@openagenda/verror": "npm:^3.1.0"
     "@sentry/nextjs": "npm:^9.5.0"
+    "@storybook/addon-viewport": "npm:^8.6.14"
     "@storybook/builder-webpack5": "npm:^8.5.8"
     "@storybook/nextjs": "npm:^8.5.8"
     "@types/eslint": "npm:^8"
@@ -16681,6 +16682,17 @@ __metadata:
   peerDependencies:
     storybook: ^8.5.8
   checksum: 10c0/9c9fa6332e81a6e83e75468d5365b8cd5fcd9e40abeca138f8c0e3abefc1a56addc92f97bd79e317b366db0d87d80c29c775a05fc810f7fa7b387044784b4737
+  languageName: node
+  linkType: hard
+
+"@storybook/addon-viewport@npm:^8.6.14":
+  version: 8.6.14
+  resolution: "@storybook/addon-viewport@npm:8.6.14"
+  dependencies:
+    memoizerific: "npm:^1.11.3"
+  peerDependencies:
+    storybook: ^8.6.14
+  checksum: 10c0/00a353ce87c79a7b08fd78cab87045c5d29996ea3fcd2a4072380e0f76a6e0bfc9385f743b98764aaff0740e8460b9d2a37864a1d0e91bf48f26e3d5a1984e51
   languageName: node
   linkType: hard
 
