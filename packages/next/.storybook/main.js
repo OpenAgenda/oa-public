@@ -19,6 +19,8 @@ const main = {
   },
 
   staticDirs: ['../public', './public', '../stories/static'],
+
+  addons: [getAbsolutePath('@storybook/addon-viewport')],
 };
 
 export default main;
