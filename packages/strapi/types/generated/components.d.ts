@@ -38,6 +38,21 @@ export interface ComponentsCtaButton extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsHighlightCard extends Struct.ComponentSchema {
+  collectionName: 'components_components_highlight_cards';
+  info: {
+    description: '';
+    displayName: 'HighlightCard';
+  };
+  attributes: {
+    description: Schema.Attribute.RichText;
+    Illustration: Schema.Attribute.Component<'components.illustration', false>;
+    smallIllustration: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<false>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface ComponentsIcon extends Struct.ComponentSchema {
   collectionName: 'components_components_icons';
   info: {
@@ -231,6 +246,18 @@ export interface SegmentsCarouselSet extends Struct.ComponentSchema {
   };
 }
 
+export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
+  collectionName: 'components_segments_highlight_card_sets';
+  info: {
+    displayName: 'HighlightCardSet';
+    icon: 'apps';
+  };
+  attributes: {
+    Cards: Schema.Attribute.Component<'components.highlight-card', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SegmentsModularSet extends Struct.ComponentSchema {
   collectionName: 'components_segments_modular_sets';
   info: {
@@ -300,11 +327,13 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'components.accordion': ComponentsAccordion;
       'components.cta-button': ComponentsCtaButton;
+      'components.highlight-card': ComponentsHighlightCard;
       'components.icon': ComponentsIcon;
       'components.illustration': ComponentsIllustration;
       'components.modular': ComponentsModular;
       'segments.accordion-set': SegmentsAccordionSet;
       'segments.carousel-set': SegmentsCarouselSet;
+      'segments.highlight-card-set': SegmentsHighlightCardSet;
       'segments.modular-set': SegmentsModularSet;
       'segments.page-head': SegmentsPageHead;
     }

@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_segments_highlight_card_sets",
+  "info": {
+    "displayName": "HighlightCardSet",
+    "icon": "apps"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Cards": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.highlight-card"
+    }
+  }
+}
