@@ -24,32 +24,16 @@ export default function TabSet({ title = null, Tabs: TabsData }) {
           ))}
         </Tabs.List>
 
-        {TabsData.map((tab) => (
-          <Tabs.Content key={tab.id} value={tab.id}>
-            <SplitHero {...tab.content} />
-            {/* {tab.content && (
-              <Box>
-                {tab.content.title && (
-                  <H2 size="md" mb={4}>{tab.content.title}</H2>
-                )}
-                {tab.content.text && (
-                  <Box className="markdown-content">
-                    <ReactMarkdown>{tab.content.text}</ReactMarkdown>
-                  </Box>
-                )}
-                {tab.content.image && (
-                  <Box mt={4}>
-                    <img
-                      src={tab.content.image.url}
-                      alt={tab.content.image.alternativeText || tab.content.title || ''}
-                      style={{ maxWidth: '100%' }}
-                    />
-                  </Box>
-                )}
-              </Box>
-            )} */}
-          </Tabs.Content>
-        ))}
+        {TabsData.map(
+          (tab) => (
+            console.log(tab.content),
+            (
+              <Tabs.Content key={tab.id} value={tab.id}>
+                <SplitHero {...tab.content} />
+              </Tabs.Content>
+            )
+          ),
+        )}
       </Tabs.Root>
     </SegmentContainer>
   );
