@@ -1,0 +1,135 @@
+{
+  "__component": "segments.highlight-card-set",
+  "id": 3,
+  "title": "L'expertise de la donnée événementielle",
+  "Cards": [
+    {
+      "id": 9,
+      "title": "Une société française",
+      "smallIllustration": true,
+      "description": "OpenAgenda est une société française qui propose une solution numérique conforme au RGPD",
+      "Illustration": {
+        "id": 5793,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 78,
+          "documentId": "xl5oyz15y5bn7zw2in2s2813",
+          "name": "croissant.svg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 120,
+          "height": 119,
+          "formats": null,
+          "hash": "croissant_287efe206b",
+          "ext": ".svg",
+          "mime": "image/svg+xml",
+          "size": 4.2,
+          "url": "https://cdn.openagenda.com/dev/corpo/croissant_287efe206b.svg",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-05-27T09:39:42.906Z",
+          "updatedAt": "2025-05-27T09:39:42.906Z",
+          "publishedAt": "2025-05-27T09:39:42.907Z"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "Des données hébergées en Europe",
+      "smallIllustration": true,
+      "description": "Nous utilisons une solution d'hébergement située en Europe afin de garantir la confidentialité et la sécurité de vos données et qui s'engage pour la réduction de son empreinte écologique",
+      "Illustration": {
+        "id": 5794,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 79,
+          "documentId": "e1a9moai6lf9fucadg9prodx",
+          "name": "leaf-oak.svg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 120,
+          "height": 119,
+          "formats": null,
+          "hash": "leaf_oak_854dd9856a",
+          "ext": ".svg",
+          "mime": "image/svg+xml",
+          "size": 4.59,
+          "url": "https://cdn.openagenda.com/dev/corpo/leaf_oak_854dd9856a.svg",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-05-27T09:39:43.044Z",
+          "updatedAt": "2025-05-27T09:39:43.044Z",
+          "publishedAt": "2025-05-27T09:39:43.045Z"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "10 ans d’expérience",
+      "smallIllustration": true,
+      "description": "Créée en 2015, OpenAgenda recense aujourd'hui\n• 1 480 886 événements sur\n• 40 897 agendas issus de\n• 553 554 contributeurs et contributrices",
+      "Illustration": {
+        "id": 5795,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 77,
+          "documentId": "lbw8mgpf0qtrx2dq3egw1ssz",
+          "name": "star-shooting.svg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 120,
+          "height": 119,
+          "formats": null,
+          "hash": "star_shooting_004208f7b5",
+          "ext": ".svg",
+          "mime": "image/svg+xml",
+          "size": 4.1,
+          "url": "https://cdn.openagenda.com/dev/corpo/star_shooting_004208f7b5.svg",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-05-27T09:39:42.678Z",
+          "updatedAt": "2025-05-27T09:39:42.678Z",
+          "publishedAt": "2025-05-27T09:39:42.681Z"
+        }
+      }
+    },
+    {
+      "id": 12,
+      "title": "Open Data",
+      "smallIllustration": true,
+      "description": "Les données de nos agendas respectent un modèle standardisé et sont sous licence ouverte.",
+      "Illustration": {
+        "id": 5796,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 80,
+          "documentId": "s7o93noqhb0m252csq96fu72",
+          "name": "open-data.svg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 120,
+          "height": 119,
+          "formats": null,
+          "hash": "open_data_8a66e8577a",
+          "ext": ".svg",
+          "mime": "image/svg+xml",
+          "size": 4.96,
+          "url": "https://cdn.openagenda.com/dev/corpo/open_data_8a66e8577a.svg",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-05-27T09:39:43.667Z",
+          "updatedAt": "2025-05-27T09:39:43.667Z",
+          "publishedAt": "2025-05-27T09:39:43.667Z"
+        }
+      }
+    }
+  ]
+}

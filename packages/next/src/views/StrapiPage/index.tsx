@@ -2,7 +2,7 @@ import { Noto_Sans, Ubuntu_Sans } from 'next/font/google';
 import { Global, Box } from '@openagenda/uikit';
 import PageHead from 'components/strapi/PageHead';
 import ModularSet from 'components/strapi/ModularSet';
-import FeatureCardSet from 'components/strapi/FeatureCardSet';
+import HighlightCardSet from 'components/strapi/HighlightCardSet';
 import CarouselSet from 'components/strapi/CarouselSet';
 import fetchLocale from './locales';
 
@@ -24,7 +24,7 @@ export default function StrapiPage({ page }) {
       {Segments.map((Segment) => {
         const { id } = Segment;
         const Component = {
-          'segments.feature-card-set': FeatureCardSet,
+          'segments.highlight-card-set': HighlightCardSet,
           'segments.page-head': PageHead,
           'segments.modular-set': ModularSet,
           'segments.carousel-set': CarouselSet,
