@@ -84,6 +84,10 @@ async function create({ pc, siren }, OAEvent, entry, options) {
       location: OAEvent.location,
     })
   ) {
+    log.info(
+      'the event location is different from the venue, creating address',
+      { usedVenue, oaLocation: OAEvent.location },
+    );
     // Validate that OAEvent location has a postal code
     if (!OAEvent.location?.postalCode) {
       return {
@@ -103,6 +107,7 @@ async function create({ pc, siren }, OAEvent, entry, options) {
         postalCode: OAEvent.location.postalCode,
         street: OAEvent.location.address,
       });
+      log.info('created address', address);
     } catch (error) {
       log('error', 'address error', error.response.data);
       throw error;
