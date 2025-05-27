@@ -1,5 +1,29 @@
 # Strapi
 
+## Récuperer la base de prod pour le développement
+
+Il faut:
+
+1. Télécharger la base
+2. Redémarrer le conteneur docker strapi
+3. Regénérer la clé: pour ne pas utiliser la clé de production en développement
+4. Redémarrer oa en intégrer pour vérifier que tout se charge bien
+
+Dans le détail, ça donne:
+
+1. Dans un terminal, aller chercher le fichier sqlite dans l'environnement jelastic pour le placer dans son dossier data, tel que défini dans le .env général oa sous `STRAPI_DATABASE_FILENAME`
+
+   scp -P 3022 168792-2943@gate.jpe.infomaniak.com:/root/database/strapi.sqlite /home/kaore/Dev/data/strapi.db
+
+2. Redémarrer le conteneur strapi se fait à la racine du projet oa:
+
+   docker-compose down strapi
+   docker-compose up strapi
+
+3. Regénérer la clé: elle permet à l'app next de requêter strapi. Celle de prod ne doit pas servir. Il faut se connecter au strapi local (https://strapi.local), aller dans Settings > API Tokens, éditer la clé, cliquer sur "Regénerer", récupérer la clé qui s'affiche, la placer dans le .env général devant la variable `STRAPI_API_AUTH_TOKEN`
+
+4. Redémarrer l'app intégrée pour vérifier que tout marche bien.
+
 ## Déploiement d'un environnement Strapi sur Virtuozzo/Jelastic
 
 Il faut créer un environnement en partant d'une image docker jelastic/node: un noeud avec un peu de mou en scalabilité verticale et un volume pour la base sqlite. On ne s'embête pas avec un mysql ou autre, ni une scalabilité trop poussée. Si quelqu'un veut faire planter les pages d'accueil, elles planteront. Ou on mettra une cache, un frontbidule. D'ailleurs peut-être qu'un plugin strapi existe pour ça aussi.
