@@ -38,7 +38,7 @@
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "Selezionato"
+      "value": "Fissato"
     }
   ],
   "next.views.AgendaShow.EventItem.removeFromFavorites": [

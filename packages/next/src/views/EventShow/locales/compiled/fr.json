@@ -152,7 +152,7 @@
   "next.views.EventShow.ContextBar.invalidEventMessage": [
     {
       "type": 0,
-      "value": "Vous devrez effectuer une correction sur l'événement avant de pouvoir compléter cette action."
+      "value": "Modifiez l'événement pour résoudre le problème avant de tenter à nouveau de modifier son état. Vous pouvez également le supprimer complètement de l’agenda."
     }
   ],
   "next.views.EventShow.ContextBar.markAsCancelled": [
@@ -612,7 +612,7 @@
   "next.views.EventShow.Sidebar.accessPassOffer": [
     {
       "type": 0,
-      "value": "Accéder à l'offre"
+      "value": "Accéder à l'offre pass Culture"
     }
   ],
   "next.views.EventShow.Sidebar.completeLink": [

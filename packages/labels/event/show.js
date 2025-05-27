@@ -543,7 +543,7 @@ module.exports = {
   "changeFeaturedState": {
     "en": "Click here to change the featured state",
     "fr": "Cliquez ici pour changer l'état 'En une'",
-    "it": "Clicca qui per cambiare in selezionato",
+    "it": "Clicca qui per cambiare il stato fissato",
     "de": "Klicken Sie hier, um den Zustand zu ändern.",
     "pl": "Kliknij tutaj aby zmienić opisany stan",
     "es": "Haga clic aquí para cambiar el estado 'en un'",
@@ -554,7 +554,7 @@ module.exports = {
   "addToFeatured": {
     "en": "Add to featured",
     "fr": "Mettre en une",
-    "it": "Seleziona",
+    "it": "Fissare in alto",
     "de": "zur Auswahl hinzufügen",
     "pl": "Dodaj do opisanych",
     "es": "Destacar",
