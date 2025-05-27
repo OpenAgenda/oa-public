@@ -15,7 +15,7 @@ export default function PassCulture({ key, api, offerLink }, params) {
     getParameters: getParameters.bind(null, { ...params, pc }),
     getEventOfferLink: (eventOffer) =>
       pc.offers.events(getCurrentValue(eventOffer).passId).getLink(),
-    apply: apply.bind(null, pc),
+    apply: apply.bind(null, { ...params, pc }),
     listBooking: listBooking.bind(null, pc),
   };
 }

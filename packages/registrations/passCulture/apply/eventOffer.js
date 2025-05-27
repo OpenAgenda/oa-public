@@ -50,7 +50,7 @@ async function update(
   };
 }
 
-async function create(pc, OAEvent, entry, options) {
+async function create({ pc, siren }, OAEvent, entry, options) {
   let address = null;
   const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
 
@@ -59,7 +59,7 @@ async function create(pc, OAEvent, entry, options) {
     : { categories: categoriesFromOptions, related: relatedFromOptions };
 
   // check if oa location is diffrent from venue
-  const [{ venues }] = await pc.offers.offererVenues();
+  const [{ venues }] = await pc.offers.offererVenues({ siren });
 
   const usedVenue = venues.find((v) => v.id === entry.venueId);
 
@@ -80,6 +80,17 @@ async function create(pc, OAEvent, entry, options) {
       location: OAEvent.location,
     })
   ) {
+    // Validate that OAEvent location has a postal code
+    if (!OAEvent.location?.postalCode) {
+      return {
+        error: new BadRequest({
+          message: 'OAEvent location postal code is required',
+          info: {
+            location: OAEvent.location,
+          },
+        }),
+      };
+    }
     try {
       address = await pc.offers.addresses.create({
         city: OAEvent.location.city,
