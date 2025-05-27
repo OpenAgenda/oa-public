@@ -1,9 +1,6 @@
 import Link from 'next/link';
 import { Button, ButtonProps } from '@openagenda/uikit';
-interface Color {
-  name: string;
-  swatch?: string;
-}
+import type { Color } from './types';
 
 interface CTAButtonProps {
   link: string;

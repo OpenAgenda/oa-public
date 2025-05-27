@@ -2,20 +2,16 @@ import { Heading, HeadingProps, Text } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
 import Carousel from './Carousel';
-
-interface Color {
-  name: string;
-  swatch?: string;
-}
+import type { Color } from './types';
 
 interface CarouselSetProps {
   title?: string;
   description?: string;
   Components: Array<any>;
   colorPalette?: Color;
-  backgroundColor?: string;
+  backgroundColor?: Color;
   gradient?: boolean;
-  fontColor?: string;
+  fontColor?: Color;
   carouselBgColor?: Color;
   titleColor?: Color;
   descriptionColor?: Color;

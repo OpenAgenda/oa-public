@@ -163,6 +163,48 @@ export interface ComponentsModular extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsReference extends Struct.ComponentSchema {
+  collectionName: 'components_components_reference';
+  info: {
+    description: '';
+    displayName: 'Reference';
+  };
+  attributes: {
+    image: Schema.Attribute.Media<'images' | 'files'> &
+      Schema.Attribute.Required;
+    link: Schema.Attribute.String;
+    tags: Schema.Attribute.String;
+  };
+}
+
+export interface ComponentsSplitHero extends Struct.ComponentSchema {
+  collectionName: 'components_components_split_heroes';
+  info: {
+    description: '';
+    displayName: 'SplitHero';
+  };
+  attributes: {
+    direction: Schema.Attribute.Enumeration<['row', 'row-reverted']> &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'row'>;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    text: Schema.Attribute.RichText & Schema.Attribute.Required;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface ComponentsTab extends Struct.ComponentSchema {
+  collectionName: 'components_components_tabs';
+  info: {
+    description: '';
+    displayName: 'Tab';
+  };
+  attributes: {
+    content: Schema.Attribute.Component<'components.split-hero', false>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SegmentsAccordionSet extends Struct.ComponentSchema {
   collectionName: 'components_segments_accordion_sets';
   info: {
@@ -295,6 +337,30 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
   };
 }
 
+export interface SegmentsReferenceSet extends Struct.ComponentSchema {
+  collectionName: 'components_segments_reference_sets';
+  info: {
+    description: '';
+    displayName: 'ReferenceSet';
+  };
+  attributes: {
+    References: Schema.Attribute.Component<'components.reference', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
+export interface SegmentsTabSet extends Struct.ComponentSchema {
+  collectionName: 'components_segments_tab_set';
+  info: {
+    description: '';
+    displayName: 'TabSet';
+  };
+  attributes: {
+    Tabs: Schema.Attribute.Component<'components.tab', true>;
+    title: Schema.Attribute.String;
+  };
+}
+
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
@@ -303,10 +369,15 @@ declare module '@strapi/strapi' {
       'components.icon': ComponentsIcon;
       'components.illustration': ComponentsIllustration;
       'components.modular': ComponentsModular;
+      'components.reference': ComponentsReference;
+      'components.split-hero': ComponentsSplitHero;
+      'components.tab': ComponentsTab;
       'segments.accordion-set': SegmentsAccordionSet;
       'segments.carousel-set': SegmentsCarouselSet;
       'segments.modular-set': SegmentsModularSet;
       'segments.page-head': SegmentsPageHead;
+      'segments.reference-set': SegmentsReferenceSet;
+      'segments.tab-set': SegmentsTabSet;
     }
   }
 }

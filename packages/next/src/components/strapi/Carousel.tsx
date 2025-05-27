@@ -4,11 +4,7 @@ import { color } from 'utils/strapi';
 import { FaIcon } from 'icons';
 import { faArrowLeft, faArrowRight } from 'icons/regular';
 import Modular from './Modular';
-
-interface Color {
-  name: string;
-  swatch?: string;
-}
+import type { Color } from './types';
 
 interface CarouselProps {
   Components: Array<any>;

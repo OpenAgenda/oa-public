@@ -74,7 +74,6 @@ export default function NavbarSearchInput({
         h="inherit"
         placeholder={placeholder || intl.formatMessage(messages.ariaLabel)}
         borderRadius="0"
-        borderY="none"
         boxShadow="none"
         pe="50px"
         _focus={{

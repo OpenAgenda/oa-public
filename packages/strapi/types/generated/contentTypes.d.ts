@@ -402,6 +402,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'segments.modular-set',
         'segments.accordion-set',
         'segments.carousel-set',
+        'segments.tab-set',
+        'segments.reference-set',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
