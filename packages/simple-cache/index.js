@@ -202,7 +202,24 @@ function del(svc, namespace, identifier, cb) {
   );
 }
 
-async function hashReset(svc, namespace, identifier, expire, cb) {
+async function expire(svc, namespace, identifier, expireInSeconds, cb) {
+  const { client, prefix } = svc;
+
+  const hash = getHashKey(prefix, namespace, identifier);
+
+  log('setting expire on hash %s', hash);
+
+  try {
+    await client.hSet(hash, '', '');
+    await client.expire(hash, expireInSeconds);
+  } catch (e) {
+    return reject(e, cb);
+  }
+
+  return resolve(null, cb);
+}
+
+async function hashReset(svc, namespace, identifier, expireInSeconds, cb) {
   const { client, prefix } = svc;
 
   const hash = getHashKey(prefix, namespace, identifier);
@@ -212,7 +229,7 @@ async function hashReset(svc, namespace, identifier, expire, cb) {
   try {
     await client.del(hash);
     await client.hSet(hash, '', '');
-    await client.expire(hash, expire);
+    await client.expire(hash, expireInSeconds);
   } catch (e) {
     return reject(e, cb);
   }
@@ -260,6 +277,7 @@ export default (c) => {
         get: hget.bind(null, { client, prefix }, namespace, identifier),
         set: hset.bind(null, { client, prefix }, namespace, identifier),
         del: del.bind(null, { client, prefix }, namespace, identifier),
+        expire: expire.bind(null, { client, prefix }, namespace, identifier),
         reset: hashReset.bind(null, { client, prefix }, namespace, identifier),
       }),
       clearAll: clearAll.bind(null, { client, prefix }),
