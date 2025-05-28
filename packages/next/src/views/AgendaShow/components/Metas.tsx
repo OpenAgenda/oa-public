@@ -46,7 +46,6 @@ export default function Metas({ agenda, query, preload }) {
       <meta property="og:type" content="website" />
       <meta property="og:title" content={pageTitle} />
       <meta property="og:description" content={description} />
-      {/* <meta property="og:type" content="website" /> */}
       <meta property="og:locale" content={intl.locale} />
       {SUPPORTED_LOCALES.map((key) =>
         key === intl.locale || key === 'io' ? null : (

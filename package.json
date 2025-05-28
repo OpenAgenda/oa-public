@@ -42,7 +42,7 @@
   },
   "dependencies": {
     "@openagenda/intl": "workspace:^",
-    "@strapi/strapi": "^5.4.2",
+    "@strapi/strapi": "^5.13.1",
     "browserslist": "^4.20.0",
     "mime": "^2.4.4"
   },

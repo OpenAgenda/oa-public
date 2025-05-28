@@ -103,17 +103,21 @@ async function create({ pc, siren }, OAEvent, entry, options) {
         postalCode: OAEvent.location.postalCode,
         street: OAEvent.location.address,
       });
+      log.info('created address', address);
     } catch (error) {
       log('error', 'address error', error.response.data);
       throw error;
     }
   }
-  const eventOffer = await formatEvent(OAEvent, entry, {
-    ...options,
-    addressId: address?.id,
-    categories,
-    related,
-  });
+  const eventOffer = await formatEvent(
+    OAEvent,
+    { ...entry, addressId: address?.id },
+    {
+      ...options,
+      categories,
+      related,
+    },
+  );
 
   const { id, status, error } = await pc.offers.events
     .create(eventOffer)
@@ -123,6 +127,7 @@ async function create({ pc, siren }, OAEvent, entry, options) {
     succeeded: error ? undefined : entry,
     error,
     response: {
+      addressId: address?.id,
       passId: id,
       isPending: status === 'PENDING',
     },

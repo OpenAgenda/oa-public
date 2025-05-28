@@ -15,6 +15,11 @@ export default {
   ],
   location: {
     uid: 1234,
+    city: 'Paris',
+    latitude: 48.86696,
+    longitude: 2.31014,
+    postalCode: '75001',
+    address: '182 Rue Saint-Honoré',
   },
   registration: [
     {

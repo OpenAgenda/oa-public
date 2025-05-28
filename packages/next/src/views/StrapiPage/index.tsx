@@ -6,6 +6,7 @@ import HighlightCardSet from 'components/strapi/HighlightCardSet';
 import CarouselSet from 'components/strapi/CarouselSet';
 import TabSet from 'components/strapi/TabSet';
 import ReferenceSet from 'components/strapi/ReferenceSet';
+import Metas from './components/Metas';
 import fetchLocale from './locales';
 
 const notoSans = Noto_Sans({
@@ -19,10 +20,11 @@ const ubuntuSans = Ubuntu_Sans({
 });
 
 export default function StrapiPage({ page }) {
-  const { Segments } = page;
+  const { title, Segments } = page;
 
   return (
     <>
+      <Metas title={title} />
       <Global
         styles={{
           ':root': {
