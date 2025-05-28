@@ -1,5 +1,5 @@
 import { Stack, Heading, Image, Link, Box } from '@openagenda/uikit';
-import ReactMarkdown from 'react-markdown';
+import StrapiMarkdown from './StrapiMarkdown';
 
 interface RichTextParagraph {
   type: string;
@@ -43,7 +43,7 @@ export default function HighlightCard({
       {title && <Heading size="md">{title}</Heading>}
       {description && (
         <Box color="gray.600">
-          <ReactMarkdown>{description}</ReactMarkdown>
+          <StrapiMarkdown flex="none">{String(description)}</StrapiMarkdown>
         </Box>
       )}
     </Stack>

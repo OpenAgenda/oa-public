@@ -1,4 +1,4 @@
-import { Heading, Grid, Box, Text, HeadingProps } from '@openagenda/uikit';
+import { Grid, Box, Text } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 import Modular from './Modular';
 import SegmentContainer from './SegmentContainer';
@@ -13,10 +13,10 @@ interface ModularSetProps {
   backgroundColor?: Color;
   fontColor?: Color;
   verticalAlign?: 'center' | 'stretch' | 'flex-start';
-  titleColor?: Color;
+  _titleColor?: Color;
   descriptionColor?: Color;
   justifyContent?: 'left' | 'center' | 'right';
-  fontSize?: { name: string };
+  _fontSize?: { name: string };
   width?: { name: string };
   margin?: { name: string };
 }
@@ -29,25 +29,19 @@ export default function ModularSet({
   backgroundColor,
   verticalAlign,
   fontColor,
-  titleColor,
+  _titleColor,
   descriptionColor,
   justifyContent,
-  fontSize,
+  _fontSize,
   width,
   margin,
 }: ModularSetProps) {
   return (
-    <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
-      <Heading
-        // fontSize={fontSize?.name || '4xl'}
-        as="h2"
-        size={(fontSize?.name || 'xl') as HeadingProps['size']}
-        textAlign="center"
-        color={color(titleColor)}
-        fontWeight={600}
-      >
-        {title}
-      </Heading>
+    <SegmentContainer
+      backgroundColor={backgroundColor}
+      fontColor={fontColor}
+      title={title}
+    >
       {description && (
         <Text
           fontSize="lg"

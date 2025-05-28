@@ -13,7 +13,7 @@ export function Colors() {
     <ModularSet
       title="The modularSet title is blue"
       description="The modularSet description is black"
-      titleColor={{
+      _titleColor={{
         name: 'blue',
         swatch: '500',
       }}
