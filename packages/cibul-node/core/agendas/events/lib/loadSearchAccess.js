@@ -21,9 +21,12 @@ export default async (core, agendaUid, options = {}) => {
     return null;
   }
 
-  const cached = await simpleCache
-    .hash('members', `${agendaUid}.${options.userUid}`)
-    .get('role');
+  const memberCache = simpleCache.hash(
+    'members',
+    `${agendaUid}.${options.userUid}`,
+  );
+
+  const cached = await memberCache.get('role');
 
   if (cached) {
     return cached;
@@ -43,9 +46,8 @@ export default async (core, agendaUid, options = {}) => {
     log('member is loaded, using role as access', role);
   }
 
-  simpleCache
-    .hash('members', `${agendaUid}.${options.userUid}`)
-    .set('role', role);
+  await memberCache.set('role', role);
+  await memberCache.expire(60 * 60);
 
   return role;
 };
