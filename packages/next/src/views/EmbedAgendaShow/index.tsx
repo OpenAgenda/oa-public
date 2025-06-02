@@ -271,6 +271,7 @@ EmbedAgendaShow.fetchLocale = (locale: string) =>
   Promise.all([
     fetchLocale(locale),
     fetchCommonLocale('event/attendanceModes', locale),
+    fetchCommonLocale('event/statuses', locale),
     fetchFiltersLocales(locale),
   ]).then((results) => Object.assign({}, ...results));
 
