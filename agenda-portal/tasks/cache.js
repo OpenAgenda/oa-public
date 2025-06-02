@@ -13,16 +13,18 @@ export default (app, config) => {
 
   log('cache will be refreshed every %s seconds', refreshInterval / 1000);
 
-  setInterval(() => {
-    app.get('proxy').clearCache();
-    app
-      .get('proxy')
-      .head(app.locals.agenda.uid)
-      .then((result) => {
-        app.locals.agenda = result;
-      })
-      .catch((err) => {
-        log('Error:', err);
-      });
-  }, refreshInterval);
+  const proxy = app.get('proxy');
+  const getAgendaUid = () => app.locals.agenda.uid;
+
+  async function flush() {
+    try {
+      proxy.clearCache();
+      const fresh = await proxy.head(getAgendaUid());
+      app.locals.agenda = fresh;
+    } catch (err) {
+      log('Error:', err);
+    }
+  }
+
+  setInterval(flush, refreshInterval);
 };
