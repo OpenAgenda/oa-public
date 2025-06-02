@@ -1,4 +1,4 @@
-import { Box, Heading } from '@openagenda/uikit';
+import { Box } from '@openagenda/uikit';
 import { AccordionRoot } from '@openagenda/uikit/snippets';
 import { color } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
@@ -38,10 +38,7 @@ export default function AccordionSet({
 
   if (!useAccordion) return null;
   return (
-    <SegmentContainer backgroundColor={color(backgroundColor)}>
-      <Heading as="h2" size="xl" textAlign="center">
-        {title}
-      </Heading>
+    <SegmentContainer backgroundColor={color(backgroundColor)} title={title}>
       <Box display="flex" justifyContent={boxAlign} p={8}>
         <AccordionRoot
           collapsible

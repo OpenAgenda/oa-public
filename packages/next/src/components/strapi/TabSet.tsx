@@ -1,4 +1,4 @@
-import { H2, Tabs } from '@openagenda/uikit';
+import { Tabs } from '@openagenda/uikit';
 import SplitHero from './SplitHero';
 import SegmentContainer from './SegmentContainer';
 
@@ -8,13 +8,7 @@ export default function TabSet({ title = null, Tabs: TabsData }) {
   }
 
   return (
-    <SegmentContainer backgroundColor={{ name: 'white' }}>
-      {title && (
-        <H2 mb={4} fontWeight="bold">
-          {title}
-        </H2>
-      )}
-
+    <SegmentContainer backgroundColor={{ name: 'white' }} title={title}>
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
           {TabsData.map((tab) => (

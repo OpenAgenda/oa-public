@@ -1,26 +1,5 @@
-import { chakra, Flex, H3, Image, Link } from '@openagenda/uikit';
-import breaks from 'remark-breaks';
-import rehypeExternalLinks from 'rehype-external-links';
-import ReactMarkdown from 'react-markdown';
-import mdStyle from 'utils/mdStyle';
-
-const remarkPlugins = [breaks];
-const rehypePlugins = [
-  [
-    rehypeExternalLinks,
-    {
-      target: '_blank',
-      rel: ['nofollow', 'noopener'],
-    },
-  ],
-] as any; // import("unified").PluggableList;
-
-const reactMdComponents = {
-  a(props) {
-    const { node, ...rest } = props;
-    return <Link {...rest} />;
-  },
-};
+import { Flex, H3, Image } from '@openagenda/uikit';
+import StrapiMarkdown from './StrapiMarkdown';
 
 export default function SplitHero({ title, image, text, direction = 'row' }) {
   return (
@@ -45,15 +24,7 @@ export default function SplitHero({ title, image, text, direction = 'row' }) {
         <H3 mb="4" hideFrom="md">
           {title}
         </H3>
-        <chakra.div flex="1" css={mdStyle}>
-          <ReactMarkdown
-            remarkPlugins={remarkPlugins}
-            rehypePlugins={rehypePlugins}
-            components={reactMdComponents}
-          >
-            {text}
-          </ReactMarkdown>
-        </chakra.div>
+        <StrapiMarkdown flex="1">{text}</StrapiMarkdown>
       </Flex>
     </>
   );

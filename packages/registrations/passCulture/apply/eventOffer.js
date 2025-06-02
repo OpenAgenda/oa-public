@@ -84,10 +84,6 @@ async function create({ pc, siren }, OAEvent, entry, options) {
       location: OAEvent.location,
     })
   ) {
-    log.info(
-      'the event location is different from the venue, creating address',
-      { usedVenue, oaLocation: OAEvent.location },
-    );
     // Validate that OAEvent location has a postal code
     if (!OAEvent.location?.postalCode) {
       return {
@@ -113,12 +109,15 @@ async function create({ pc, siren }, OAEvent, entry, options) {
       throw error;
     }
   }
-  const eventOffer = await formatEvent(OAEvent, entry, {
-    ...options,
-    addressId: address?.id,
-    categories,
-    related,
-  });
+  const eventOffer = await formatEvent(
+    OAEvent,
+    { ...entry, addressId: address?.id },
+    {
+      ...options,
+      categories,
+      related,
+    },
+  );
 
   const { id, status, error } = await pc.offers.events
     .create(eventOffer)
@@ -128,6 +127,7 @@ async function create({ pc, siren }, OAEvent, entry, options) {
     succeeded: error ? undefined : entry,
     error,
     response: {
+      addressId: address?.id,
       passId: id,
       isPending: status === 'PENDING',
     },

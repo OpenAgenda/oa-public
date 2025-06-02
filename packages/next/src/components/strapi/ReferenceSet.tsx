@@ -1,5 +1,4 @@
 import {
-  H2,
   Image,
   VStack,
   Wrap,
@@ -70,13 +69,7 @@ export default function ReferenceSet({
   }
 
   return (
-    <SegmentContainer backgroundColor={{ name: 'white' }}>
-      {title && (
-        <H2 mb={4} fontWeight="bold">
-          {title}
-        </H2>
-      )}
-
+    <SegmentContainer backgroundColor={{ name: 'white' }} title={title}>
       <Wrap gap="6">
         {ReferencesData.map((reference) => (
           <WrapItem key={reference.id}>

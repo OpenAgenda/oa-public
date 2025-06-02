@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_components_highlight_cards",
+  "info": {
+    "displayName": "HighlightCard",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "Illustration": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.illustration"
+    },
+    "smallIllustration": {
+      "type": "boolean",
+      "default": false
+    },
+    "description": {
+      "type": "richtext"
+    }
+  }
+}

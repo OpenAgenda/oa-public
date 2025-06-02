@@ -1,4 +1,4 @@
-import { Heading, HeadingProps, Text } from '@openagenda/uikit';
+import { Text } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
 import Carousel from './Carousel';
@@ -13,12 +13,12 @@ interface CarouselSetProps {
   gradient?: boolean;
   fontColor?: Color;
   carouselBgColor?: Color;
-  titleColor?: Color;
+  _titleColor?: Color;
   descriptionColor?: Color;
   variant?: string;
   width?: { name: string };
   borderRadius?: string;
-  fontSize?: { name: string };
+  _fontSize?: { name: string };
 }
 
 export default function CarouselSet({
@@ -30,25 +30,19 @@ export default function CarouselSet({
   gradient,
   fontColor,
   carouselBgColor,
-  titleColor,
+  _titleColor,
   descriptionColor,
   variant,
   width,
   borderRadius,
-  fontSize,
+  _fontSize,
 }: CarouselSetProps) {
   return (
-    <SegmentContainer backgroundColor={backgroundColor} fontColor={fontColor}>
-      {title ? (
-        <Heading
-          as="h2"
-          size={(fontSize?.name || 'xl') as HeadingProps['size']}
-          textAlign="center"
-          color={color(titleColor)}
-        >
-          {title}
-        </Heading>
-      ) : null}
+    <SegmentContainer
+      backgroundColor={backgroundColor}
+      fontColor={fontColor}
+      title={title}
+    >
       {description && (
         <Text
           fontSize="lg"
