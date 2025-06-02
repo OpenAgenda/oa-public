@@ -40,7 +40,8 @@
         "segments.accordion-set",
         "segments.carousel-set",
         "segments.tab-set",
-        "segments.reference-set"
+        "segments.reference-set",
+        "segments.footer"
       ],
       "pluginOptions": {
         "i18n": {

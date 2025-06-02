@@ -404,6 +404,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'segments.carousel-set',
         'segments.tab-set',
         'segments.reference-set',
+        'segments.footer',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

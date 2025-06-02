@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_segments_footers",
+  "info": {
+    "displayName": "Footer",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "contactUrl": {
+      "type": "string",
+      "required": true
+    },
+    "Columns": {
+      "displayName": "FooterColumn",
+      "type": "component",
+      "repeatable": true,
+      "component": "components.footer-column",
+      "required": true
+    }
+  }
+}
