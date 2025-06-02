@@ -40,6 +40,7 @@ export const conditionsAndRegistrationGroup = [
   },
   {
     field: 'conditions',
+    omitLabel: false,
     fieldType: 'text',
   },
   {

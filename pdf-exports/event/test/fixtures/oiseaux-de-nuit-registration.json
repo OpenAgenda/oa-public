@@ -1,0 +1,13 @@
+{
+  "event": {
+    "title": {
+      "fr": "Oiseaux de nuit"
+    },
+    "registration": [
+      {
+        "type": "link",
+        "value": "https://www.musee-lam.fr/fr/oiseaux-de-nuit"
+      }
+    ]
+  }
+}

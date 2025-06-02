@@ -2,116 +2,64 @@ import * as url from 'node:url';
 import { readFile } from 'node:fs/promises';
 import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
-import addMultipageSegments from '../lib/addMultipageSegments.js';
-import addText from '../lib/addText.js';
+import Cursor from '../lib/Cursor.js';
+import addMarkdown from '../lib/addMarkdown.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-const doc = new PDFDocument({ size: 'A4', margin: 0 });
-const writeStream = fs.createWriteStream(
-  `${__dirname}/renders/addMarkdown.pdf`,
-);
-doc.pipe(writeStream);
+// Get command line arguments
+let segments = process.argv.slice(2);
 
-await addMultipageSegments(
-  doc,
-  [
-    [
-      {
-        width: 4,
-        margin: 10,
-        content: [
-          {
-            field: {
-              field: 'textwithemojis',
-              fieldType: 'markdown',
-              label: { fr: 'Du text avec des emojs' },
-            },
-            value: await readFile(`${__dirname}/fixtures/emojis.md`, 'utf-8'),
-          },
-          {
-            field: {
-              field: 'enfantmaitre',
-              fieldType: 'markdown',
-              label: { fr: "L'enfant et le maître d'école" },
-            },
-            value: await readFile(
-              `${__dirname}/fixtures/l-enfant-et-le-maitre-decole.md`,
-              'utf-8',
-            ),
-          },
-          {
-            field: {
-              field: 'cocheetmouche',
-              fieldType: 'markdown',
-              label: { fr: 'Le coche et la mouche' },
-            },
-            value: await readFile(
-              `${__dirname}/fixtures/le-coche-et-la-mouche.md`,
-              'utf-8',
-            ),
-          },
-        ],
-      },
-      {
-        width: 2,
-        margin: 10,
-        content: [
-          {
-            field: {
-              field: 'cauderie',
-              fieldType: 'markdown',
-              label: { fr: 'Causerie' },
-            },
-            value: await readFile(`${__dirname}/fixtures/causerie.md`, 'utf-8'),
-          },
-        ],
-      },
-      {
-        width: 4,
-        margin: 10,
-        content: [
-          {
-            field: {
-              field: 'loiret',
-              fieldType: 'markdown',
-              label: { fr: 'Des entêtes, des listes et des liens' },
-            },
-            value: await readFile(
-              `${__dirname}/fixtures/ateliers-urbbraye.md`,
-              'utf-8',
-            ),
-          },
-          {
-            field: {
-              field: 'tiradedunez',
-              fieldType: 'markdown',
-              label: { fr: 'Tirade du nez' },
-            },
-            value: await readFile(
-              `${__dirname}/fixtures/tirade-du-nez.md`,
-              'utf-8',
-            ),
-          },
-        ],
-      },
-    ],
-  ],
-  {
-    lang: 'fr',
-    addHeader: (d, cursor, options = {}) =>
-      addText(d, cursor, {
-        ...options,
-        content: `Entête - page ${options.pageNumber}`,
-        bold: true,
-      }),
-    addFooter: (d, cursor, options = {}) =>
-      addText(d, cursor, {
-        ...options,
-        content: `Pied de page - page ${options.pageNumber}`,
-        bold: true,
-      }),
-  },
-);
+// If no arguments provided, render all segments
+if (segments.length === 0) {
+  segments = ['tiny', 'emojis', 'girls'];
+}
+
+// Validate all segments
+const validSegments = ['tiny', 'emojis', 'girls'];
+for (const segment of segments) {
+  if (!validSegments.includes(segment)) {
+    console.error(`Invalid segment: ${segment}`);
+    console.error('Available segments: tiny, emojis, girls');
+    process.exit(1);
+  }
+}
+
+const doc = new PDFDocument({ size: 'A5', margin: 0, layout: 'landscape' });
+doc.pipe(fs.createWriteStream(`${__dirname}/renders/addMarkdown.pdf`));
+
+const cursor = Cursor({ x: 0, y: 0 });
+let isFirstSegment = true;
+
+for (const segment of segments) {
+  // Add new page for subsequent segments
+  if (!isFirstSegment) {
+    doc.addPage();
+    cursor.setX(0);
+    cursor.setY(0);
+  }
+
+  if (segment === 'tiny') {
+    // First segment - tiny.md
+    await addMarkdown(doc, cursor, {
+      value: await readFile(`${__dirname}/fixtures/tiny.md`, 'utf-8'),
+    });
+  } else if (segment === 'emojis') {
+    // Second segment - emojis.md
+    await addMarkdown(doc, cursor, {
+      value: await readFile(`${__dirname}/fixtures/emojis.md`, 'utf-8'),
+    });
+  } else if (segment === 'girls') {
+    await addMarkdown(doc, cursor, {
+      value: await readFile(
+        `${__dirname}/fixtures/girls-dont-cry-party-21.md`,
+        'utf-8',
+      ),
+      availableWidth: 120,
+    });
+  }
+
+  isFirstSegment = false;
+}
 
 doc.end();
