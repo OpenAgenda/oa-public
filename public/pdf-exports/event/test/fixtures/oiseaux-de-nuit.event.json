@@ -1,0 +1,426 @@
+{
+  "success": true,
+  "event": {
+    "firstTiming": {
+      "end": "2025-04-23T19:00:00.000+02:00",
+      "begin": "2025-04-23T14:00:00.000+02:00"
+    },
+    "nextTiming": {
+      "begin": "2025-06-04T14:00:00+02:00",
+      "end": "2025-06-04T19:00:00+02:00"
+    },
+    "lastTiming": {
+      "end": "2025-07-12T19:00:00.000+02:00",
+      "begin": "2025-07-12T14:00:00.000+02:00"
+    },
+    "dateRange": {
+      "ar": "٢٣ أبريل - ١٢ يوليو",
+      "de": "23 April - 12 Juli",
+      "en": "23 April - 12 July",
+      "it": "23 aprile - 12 luglio",
+      "fr": "23 avril - 12 juillet",
+      "es": "23 abril - 12 julio"
+    },
+    "state": 2,
+    "featured": false,
+    "motive": null,
+    "originAgenda": {
+      "uid": 51302149,
+      "image": "agenda51302149.jpg",
+      "description": "Lille métropole musée d'art moderne et d'art contemporain et d'art brut",
+      "official": false,
+      "title": "LaM",
+      "slug": "musee-lam",
+      "url": "http://www.musee-lam.fr/",
+      "_agg": "eyJ1aWQiOjUxMzAyMTQ5LCJ0aXRsZSI6IkxhTSIsImltYWdlIjoiYWdlbmRhNTEzMDIxNDkuanBnIiwidXJsIjoiaHR0cDovL3d3dy5tdXNlZS1sYW0uZnIvIiwic2x1ZyI6Im11c2VlLWxhbSJ9"
+    },
+    "sourceAgendas": [
+      {
+        "image": "agenda93307371.6227048da35d4d0495e280f3aa6c89f5.jpg?__ts=1739550301139",
+        "private": 0,
+        "indexed": 1,
+        "locationSetUid": 59170,
+        "official": 1,
+        "description": "Fiesta, 7ème édition thématique de lille3000",
+        "title": "Fiesta - lille3000",
+        "url": "https://fiestalille3000.com/",
+        "_agg": "eyJ1aWQiOjkzMzA3MzcxLCJ0aXRsZSI6IkZpZXN0YSAtIGxpbGxlMzAwMCIsImltYWdlIjoiYWdlbmRhOTMzMDczNzEuNjIyNzA0OGRhMzVkNGQwNDk1ZTI4MGYzYWE2Yzg5ZjUuanBnP19fdHM9MTczOTU1MDMwMTEzOSJ9",
+        "uid": 93307371,
+        "createdAt": "2025-02-14T14:32:21.000Z",
+        "officializedAt": null,
+        "slug": "fiesta-lille3000",
+        "updatedAt": "2025-05-09T10:17:21.000Z"
+      },
+      {
+        "image": "agenda33774266.jpg?__ts=1678372850303",
+        "private": 0,
+        "indexed": 1,
+        "locationSetUid": 59170,
+        "official": 1,
+        "description": "Découvrez toutes les activités des musées et centres d'art du réseau C'ART, le pass musée métropolitain. Expositions, ateliers, concerts, conférences, visites guidées, programmation jeune public, profitez d'une offre culturelle riche !",
+        "title": "La C'ART",
+        "url": "https://www.lacart.fr/",
+        "_agg": "eyJ1aWQiOjMzNzc0MjY2LCJ0aXRsZSI6IkxhIEMnQVJUIiwiaW1hZ2UiOiJhZ2VuZGEzMzc3NDI2Ni5qcGc/X190cz0xNjc4MzcyODUwMzAzIn0=",
+        "uid": 33774266,
+        "createdAt": "2018-02-13T10:59:16.000Z",
+        "officializedAt": "2018-02-13T11:36:30.000Z",
+        "slug": "la-cart",
+        "updatedAt": "2025-05-09T10:17:21.000Z"
+      },
+      {
+        "image": "agenda51302149.jpg",
+        "private": 0,
+        "indexed": 1,
+        "locationSetUid": 59170,
+        "official": 1,
+        "description": "Lille métropole musée d'art moderne et d'art contemporain et d'art brut",
+        "title": "LaM",
+        "url": "http://www.musee-lam.fr/",
+        "_agg": "eyJ1aWQiOjUxMzAyMTQ5LCJ0aXRsZSI6IkxhTSIsImltYWdlIjoiYWdlbmRhNTEzMDIxNDkuanBnIn0=",
+        "uid": 51302149,
+        "createdAt": "2018-12-05T15:57:01.000Z",
+        "officializedAt": "2018-12-13T07:44:36.000Z",
+        "slug": "musee-lam",
+        "updatedAt": "2025-05-05T09:03:54.000Z"
+      }
+    ],
+    "interetintercommunal": [1],
+    "recurringevent": [],
+    "categories-metropolitaines": [12, 12],
+    "label": [36],
+    "image": {
+      "filename": "9f739c0067c942f487797ee764e03032.base.image.jpg",
+      "size": {
+        "width": 700,
+        "height": 1050
+      },
+      "variants": [
+        {
+          "filename": "9f739c0067c942f487797ee764e03032.full.image.jpg",
+          "size": {
+            "width": 1050,
+            "height": 1575
+          },
+          "type": "full"
+        },
+        {
+          "filename": "9f739c0067c942f487797ee764e03032.thumb.image.jpg",
+          "size": {
+            "width": 200,
+            "height": 200
+          },
+          "type": "thumbnail"
+        }
+      ],
+      "base": "https://cdn.openagenda.com/main/"
+    },
+    "imageCredits": "Ugo Woatzi, « Nocturnal Animal », 2019. © Adagp, Paris, 2025.",
+    "title": {
+      "fr": "Oiseaux de nuit"
+    },
+    "description": {
+      "fr": "En partenariat avec La Condition Publique, Roubaix"
+    },
+    "keywords": {
+      "fr": ["expositions", "artcontemporain", "roubaix"]
+    },
+    "longDescription": {
+      "fr": "**L'exposition Oiseaux de nuit explore la fête comme espace-temps où les corps se transforment et où s'émancipent les imaginaires. À l'image des carnavals, fêtes populaires et soirées en tout genre, elle entraîne le renversement des rôles sociaux et l'éclosion de contre-cultures.**\n\nLa nuit déverse un flux d'images, dont ne resteront que quelques fragments et souvenirs recomposés. Entre rites et métamorphoses, les corps s'hybrident et s'agglomèrent, entrainant l'émergence d'identités mouvantes et la formation de nouvelles chimères.\n\nL'exposition rassemble les œuvres de dix artistes d'une même génération, vivant entre Lille, Bruxelles, Marseille et la région parisienne, et explorant des médiums variés – dessin, peinture, sculpture, installation, son... En réaction directe à la thématique de l'exposition, ces artistes proposeront des oeuvres inédites ou adapteront une sélection de pièces existantes. Aïda Bruyère présentera quant à elle un premier résultat de sa résidence de création à La Condition Publique (2024-2025).\n\nConçue avec La Condition Publique, l'exposition rappelle à la fois la dimension plurielle de la collection du LaM et son intérêt pour la création la plus actuelle. À la lumière de sa collection, la fête y est abordée comme phénomène social où se brouillent et s'inversent les rapports entre centres et marges, bousculant nos cadres normatifs et ouvrant de nouvelles perspectives, individuelles et collectives.\n\nAvec la participation de Aïda Bruyère, Beatrice Celli, Clément Courgeon, Kenny Dunkan, Lou le Forban, Barbara Léon Leclercq, Yosra Mojtahedi, Lenny Rébéré, Hugo Servanin et Ugo Woatzi.\n\nExposition conçues à l'occasion de la programmation \"LaM Vagabonde\" en partenariat avec La Condition Publique et dans le cadre de la nouvelle édition de Lille 3000, _Fiesta !_  \n  \n**Infos pratiques**  \nDates : 23.04.25 - 12.07.25  \nHoraires : Mercredi - Samedi, 1ers dimanches du mois et jours fériés (sauf 1er, 8, 9, 10 et 11 mai) : 14 h - 19 h. Horaires étendus lors d'événements particuliers.  \nTarifs : 5€ - 3€\n\n**Commissariat**  \nNinon Duhamel  \nChargée des arts visuels et administratrice de production à La Condition Publique  \nGrégoire Prangé  \nCommissaire d'exposition, en charge de la coordination de la conservation au LaM"
+    },
+    "conditions": {},
+    "age": {
+      "min": null,
+      "max": null
+    },
+    "registration": [
+      {
+        "type": "link",
+        "value": "https://www.musee-lam.fr/fr/oiseaux-de-nuit"
+      }
+    ],
+    "accessibility": {
+      "ii": false,
+      "hi": false,
+      "vi": false,
+      "pi": false,
+      "mi": false
+    },
+    "attendanceMode": 1,
+    "location": {
+      "disqualifiedDuplicates": null,
+      "access": {
+        "en": "Free admission Wednesday + Saturday: 13:30 > 19:00 & Thursday + Friday + Sunday: 13:30 > 18:00// Closed on Monday and Tuesday",
+        "fr": "Entrée libre mercredi + samedi : 13:30 > 19:00 & jeudi + vendredi + dimanche : 13:30 > 18:00 // Fermé le lundi et mardi",
+        "nl": "Gratis toegang Woensdag + zaterdag: 13:30 > 19:00 & Donderdag + vrijdag + zondag: 13:30 > 18:00// gesloten op maandag en dinsdag"
+      },
+      "city": "Roubaix",
+      "timezone": "Europe/Paris",
+      "postalCode": "59100",
+      "latitude": 50.691099,
+      "imageCredits": "Droits réservés",
+      "description": {
+        "en": "The Condition Publique is a creative laboratory allowing the meeting between artistic, cultural or creative actors and urban, social or environmental issues. A boundless playground, a third place anchored in its neighbourhood, the Condition Publique sees creativity as a lever for innovation and the transition of a territory.",
+        "fr": "La Condition Publique est un laboratoire créatif permettant la rencontre entre les acteurs artistiques, culturels ou créatifs et les enjeux urbains, sociaux ou environnementaux. Terrain de jeu sans limite, tiers-lieu ancré dans son quartier, la Condition Publique envisage la créativité comme un levier pour l'innovation et la transition d'un territoire.",
+        "nl": "De Condition Publique is een creatief laboratorium dat de ontmoeting tussen artistieke, culturele of creatieve actoren en stedelijke, sociale of milieukwesties mogelijk maakt. Een grenzeloze speeltuin, een derde plaats verankerd in de buurt, de voorwaarde Publique ziet creativiteit als een hefboom voor innovatie en de overgang van een gebied."
+      },
+      "setUid": 59170,
+      "uid": 90512786,
+      "createdAt": "2019-03-02T16:05:45.000Z",
+      "duplicateCandidates": null,
+      "countryCode": "FR",
+      "adminLevel5": null,
+      "links": [
+        "https://www.pictoaccess.fr/widgets/poi?uid=a3d85fca-39a7-49c8-adef-e767cc9167a5",
+        "https://pictoaccess.fr/widgets/poi?uid=5c2aea74-f2ed-4797-bd95-72312991c9cb"
+      ],
+      "state": 1,
+      "extId": "5c2aea74-f2ed-4797-bd95-72312991c9cb",
+      "department": "Nord",
+      "slug": "la-condition-publique-roubaix",
+      "email": null,
+      "longitude": 3.18927,
+      "updatedAt": "2024-07-17T13:07:58.000Z",
+      "image": "location90512786.jpg?_ts=1678724666416",
+      "website": "http://www.laconditionpublique.com",
+      "address": "14 place du Général Faidherbe, 59100, Roubaix",
+      "adminLevel3": "Métropole Européenne de Lille",
+      "agendaUid": 23355730,
+      "adminLevel4": "Roubaix",
+      "adminLevel1": "Hauts-de-France",
+      "adminLevel2": "Nord",
+      "mergedIn": null,
+      "_agg": "eyJ1aWQiOjkwNTEyNzg2LCJuYW1lIjoiTGEgQ29uZGl0aW9uIFB1YmxpcXVlIC0gUm91YmFpeCJ9",
+      "tags": null,
+      "insee": "59512",
+      "phone": "03 28 33 48 33",
+      "district": "Est",
+      "name": "La Condition Publique - Roubaix",
+      "region": "Hauts-de-France",
+      "extIds": [
+        {
+          "value": "5c2aea74-f2ed-4797-bd95-72312991c9cb",
+          "key": "default"
+        }
+      ]
+    },
+    "onlineAccessLink": null,
+    "timings": [
+      {
+        "begin": "2025-04-23T14:00:00+02:00",
+        "end": "2025-04-23T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-04-24T14:00:00+02:00",
+        "end": "2025-04-24T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-04-25T14:00:00+02:00",
+        "end": "2025-04-25T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-04-26T14:00:00+02:00",
+        "end": "2025-04-26T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-04-30T14:00:00+02:00",
+        "end": "2025-04-30T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-01T14:00:00+02:00",
+        "end": "2025-05-01T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-02T14:00:00+02:00",
+        "end": "2025-05-02T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-03T14:00:00+02:00",
+        "end": "2025-05-03T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-04T14:00:00+02:00",
+        "end": "2025-05-04T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-07T14:00:00+02:00",
+        "end": "2025-05-07T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-08T14:00:00+02:00",
+        "end": "2025-05-08T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-09T14:00:00+02:00",
+        "end": "2025-05-09T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-10T14:00:00+02:00",
+        "end": "2025-05-10T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-14T14:00:00+02:00",
+        "end": "2025-05-14T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-15T14:00:00+02:00",
+        "end": "2025-05-15T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-16T14:00:00+02:00",
+        "end": "2025-05-16T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-17T14:00:00+02:00",
+        "end": "2025-05-17T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-21T14:00:00+02:00",
+        "end": "2025-05-21T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-22T14:00:00+02:00",
+        "end": "2025-05-22T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-23T14:00:00+02:00",
+        "end": "2025-05-23T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-24T14:00:00+02:00",
+        "end": "2025-05-24T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-28T14:00:00+02:00",
+        "end": "2025-05-28T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-29T14:00:00+02:00",
+        "end": "2025-05-29T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-30T14:00:00+02:00",
+        "end": "2025-05-30T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-05-31T14:00:00+02:00",
+        "end": "2025-05-31T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-01T14:00:00+02:00",
+        "end": "2025-06-01T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-04T14:00:00+02:00",
+        "end": "2025-06-04T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-05T14:00:00+02:00",
+        "end": "2025-06-05T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-06T14:00:00+02:00",
+        "end": "2025-06-06T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-07T14:00:00+02:00",
+        "end": "2025-06-07T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-11T14:00:00+02:00",
+        "end": "2025-06-11T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-12T14:00:00+02:00",
+        "end": "2025-06-12T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-13T14:00:00+02:00",
+        "end": "2025-06-13T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-14T14:00:00+02:00",
+        "end": "2025-06-14T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-18T14:00:00+02:00",
+        "end": "2025-06-18T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-19T14:00:00+02:00",
+        "end": "2025-06-19T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-20T14:00:00+02:00",
+        "end": "2025-06-20T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-21T14:00:00+02:00",
+        "end": "2025-06-21T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-25T14:00:00+02:00",
+        "end": "2025-06-25T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-26T14:00:00+02:00",
+        "end": "2025-06-26T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-27T14:00:00+02:00",
+        "end": "2025-06-27T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-06-28T14:00:00+02:00",
+        "end": "2025-06-28T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-07-02T14:00:00+02:00",
+        "end": "2025-07-02T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-07-03T14:00:00+02:00",
+        "end": "2025-07-03T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-07-04T14:00:00+02:00",
+        "end": "2025-07-04T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-07-05T14:00:00+02:00",
+        "end": "2025-07-05T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-07-06T14:00:00+02:00",
+        "end": "2025-07-06T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-07-09T14:00:00+02:00",
+        "end": "2025-07-09T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-07-10T14:00:00+02:00",
+        "end": "2025-07-10T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-07-11T14:00:00+02:00",
+        "end": "2025-07-11T19:00:00+02:00"
+      },
+      {
+        "begin": "2025-07-12T14:00:00+02:00",
+        "end": "2025-07-12T19:00:00+02:00"
+      }
+    ],
+    "status": 1,
+    "extIds": null,
+    "uid": 93334423,
+    "slug": "oiseaux-de-nuit",
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "draft": 0,
+    "createdAt": "2025-02-27T13:04:39.000Z",
+    "creatorUid": 93606181,
+    "ownerUid": 93606181,
+    "updatedAt": "2025-05-09T10:17:21.000Z",
+    "links": []
+  }
+}
