@@ -6,6 +6,7 @@ import FeatureCardSet from 'components/strapi/FeatureCardSet';
 import CarouselSet from 'components/strapi/CarouselSet';
 import TabSet from 'components/strapi/TabSet';
 import ReferenceSet from 'components/strapi/ReferenceSet';
+import Footer from 'components/strapi/Footer';
 import Metas from './components/Metas';
 import fetchLocale from './locales';
 
@@ -43,6 +44,7 @@ export default function StrapiPage({ page }) {
           'segments.carousel-set': CarouselSet,
           'segments.tab-set': TabSet,
           'segments.reference-set': ReferenceSet,
+          'segments.footer': Footer,
         }[Segment['__component']];
 
         return <Component key={id} {...Segment} />;
