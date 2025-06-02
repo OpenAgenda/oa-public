@@ -33,6 +33,13 @@ export default ({
   longDescriptionFormat,
   app,
 }) => {
+  // Extract specific values from app.locals to prevent memory leaks
+  // Storing the entire 'app' object in closures can prevent garbage collection
+  // of Express app instances and their associated middleware/routes
+  const appRoot = app.locals.root;
+  const getUpcomingEvents = () =>
+    app.locals.agenda.summary.publishedEvents.upcoming;
+
   async function _fetch(agendaUid, res, userQuery) {
     log('fetch on %s (%s) with userQuery %j', agendaUid, res, userQuery);
     const clientPreFilter = userQuery.pre ? qs.parse(userQuery.pre) : {};
@@ -51,11 +58,9 @@ export default ({
     ) {
       Object.assign(query, defaultFilter);
     }
-    const upcomingEvents = app.locals.agenda.summary.publishedEvents.upcoming;
-
     const hasVisibilityPastEvents = visibilityPastEvents === '1' || visibilityPastEvents === 1;
 
-    if (upcomingEvents > 0) {
+    if (getUpcomingEvents() > 0) {
       if (!userQuery.relative && userQuery.timings && hasVisibilityPastEvents) {
         const relativeFilter = { relative: ['passed', 'current', 'upcoming'] };
         Object.assign(query, relativeFilter);
@@ -93,7 +98,7 @@ export default ({
       size: limit,
       from: offset,
       cms: 'agenda-portal',
-      host: app.locals.root,
+      host: appRoot,
     };
 
     if (query && query.detailed) {
