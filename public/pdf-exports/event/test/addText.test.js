@@ -11,16 +11,12 @@ const doc = new PDFDocument({ size: 'A4', margin: 0 });
 doc.pipe(fs.createWriteStream(`${__dirname}/renders/addText.pdf`));
 
 const cursor = Cursor({ x: 10, y: 10 });
+const availableWidth = 120;
 
 cursor.moveY(
   addText(doc, cursor, {
     value: 'Steampunk elephant',
-  }).height,
-);
-
-cursor.moveY(
-  addText(doc, cursor, {
-    value: 'This is a dancing guy emoji: 🕺, here is a smiley: 😃',
+    availableWidth,
   }).height,
 );
 
@@ -28,7 +24,36 @@ cursor.moveY(
   addText(doc, cursor, {
     value: 'This is a bold dancing guy emoji: 🕺, here is a bold smiley: 😃',
     bold: true,
+    availableWidth,
   }).height,
 );
+
+cursor.moveY(
+  addText(doc, cursor, {
+    value: 'aVeryLongWordThatMustBe',
+    availableWidth,
+  }).height,
+);
+
+cursor.moveY(
+  addText(doc, cursor, {
+    value: 'This is a dancing guy emoji: 🕺, here is a smiley: 😃',
+    availableWidth,
+  }).height,
+);
+
+cursor.moveX(
+  addText(doc, cursor, {
+    value: 'This is a bit of text',
+  }).width,
+);
+
+cursor.moveY(
+  addText(doc, cursor, {
+    value: ' followed by a bit more.',
+  }).height,
+);
+
+cursor.setX(0);
 
 doc.end();

@@ -1,0 +1,507 @@
+{
+  "firstTiming": {
+    "end": "2025-03-01T18:00:00.000+01:00",
+    "begin": "2025-03-01T13:00:00.000+01:00"
+  },
+  "nextTiming": {
+    "begin": "2025-05-29T11:00:00+02:00",
+    "end": "2025-05-29T18:00:00+02:00"
+  },
+  "lastTiming": {
+    "end": "2025-06-01T18:00:00.000+02:00",
+    "begin": "2025-06-01T13:00:00.000+02:00"
+  },
+  "dateRange": {
+    "ar": "١ مارس - ١ يونيو",
+    "de": "1 März - 1 Juni",
+    "en": "1 March - 1 June",
+    "it": "1 marzo - 1 giugno",
+    "fr": "1 mars - 1 juin",
+    "es": "1 marzo - 1 junio"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 79017343,
+    "image": "https://cdn.openagenda.com/main/agenda79017343.jpg",
+    "description": "Agenda de tous les événements du musée La Piscine de la ville de Roubaix",
+    "official": false,
+    "title": "La Piscine - Roubaix",
+    "slug": "la-piscine-roubaix",
+    "url": "http://www.roubaix-lapiscine.com/",
+    "_agg": "eyJ1aWQiOjc5MDE3MzQzLCJ0aXRsZSI6IkxhIFBpc2NpbmUgLSBSb3ViYWl4IiwiaW1hZ2UiOiJodHRwczovL2Nkbi5vcGVuYWdlbmRhLmNvbS9tYWluL2FnZW5kYTc5MDE3MzQzLmpwZyIsInVybCI6Imh0dHA6Ly93d3cucm91YmFpeC1sYXBpc2NpbmUuY29tLyIsInNsdWciOiJsYS1waXNjaW5lLXJvdWJhaXgifQ=="
+  },
+  "sourceAgendas": [],
+  "reseau-metropole-de-lille": [],
+  "categories-metropolitaines": [110, 121],
+  "participation": [],
+  "quartiers": [131],
+  "public": [135],
+  "description": {
+    "fr": "Du 1er mars au 1er juin 2025, La Piscine présente sa saison d'expositions de printemps autour de l'exposition évènement \"Rodin /Bourdelle. Corps à corps\""
+  },
+  "longDescription": {
+    "fr": "**Du 1er mars au 1er juin 2025, La Piscine présente sa saison d'expositions de printemps autour de l'exposition évènement \"Rodin /Bourdelle. Corps à corps\"**  \n\n### [Rodin /Bourdelle. Corps à corps](https://www.roubaix-lapiscine.com/expositions/a-venir-musee-la-piscine/rodin-bourdelle-corps-a-corps/)\n\nRassemblant plus de 170 œuvres (sculptures, dessins, mais aussi photographies et archives), ce face à face entre deux grands maîtres de la sculpture est l’occasion unique de traverser presque cinquante années de création commune ou croisée, mais aussi d’en découvrir la postérité chez des artistes qui, de Chana Orloff à Ossip Zadkine, en passant par Germaine Richier, initieront après eux un autre chapitre dans l’histoire de la sculpture moderne.\n\n### [Elsa Sahal : Pool Dance](https://www.roubaix-lapiscine.com/expositions/a-venir-musee-la-piscine/elsa-sahal-pool-dance/)\n\nL’histoire de la sculpture du XXe siècle a toujours nourri le travail d’Elsa Sahal. Initiée en 2015, la série des Pole Dance s’inspire des poses lascives et tournoyantes des adeptes de cette discipline aérienne autour d’une barre, mais aussi de l’observation des esquisses du sculpteur Auguste Rodin (1840-1917). Entre 1903 et 1912, ce dernier réalise une série de quatorze dessins et modelages en terre cuite de la danseuse et acrobate espagnole Alda Moreno.\n\nPrésentée dans l’écrin des cabines du musée, la sculpture décomplexée d’Elsa Sahal ne pouvait qu’entrer en parfaite résonance avec l’exposition Rodin / Bourdelle. Corps à corps.\n\n### [Sens dessus dessous](https://www.roubaix-lapiscine.com/expositions/a-venir-musee-la-piscine/sans-dessus-dessous/)\n\nÀ l’occasion de l’exposition des formes intimes et organiques réalisées par la céramiste Elsa Sahal, les cabines Mode de La Piscine se peuplent d’objets de la collection du musée illustrant les dires de l’écrivain français du XVIIIe siècle Louis Antoine Caraccioli : « il y a souvent plus d’art dans le déshabillé que dans la grande parure ».\n\n**Des expositions à découvrir du 1er mars au 1er juin 2025 à La Piscine.**"
+  },
+  "image": {
+    "filename": "d5862ab9fc2845829301ff3a93924e2f.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 1074
+    },
+    "variants": [
+      {
+        "filename": "d5862ab9fc2845829301ff3a93924e2f.full.image.jpg",
+        "size": {
+          "width": 5906,
+          "height": 9059
+        },
+        "type": "full"
+      },
+      {
+        "filename": "d5862ab9fc2845829301ff3a93924e2f.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": "Auguste Rodin (1840-1917), Adam, 1880. Paris, musée Rodin © musée Rodin – photo Christian Baraja et Antoine Bourdelle (1861-1929), Adam, 1889. Paris, musée Bourdelle CCO Paris Musées / Musée Bourdelle",
+  "title": {
+    "fr": "Expositions du printemps 2025 à La Piscine"
+  },
+  "keywords": {
+    "fr": [
+      "exposition",
+      "art moderne",
+      "musée",
+      "La Piscine",
+      "sculpture",
+      "ceramique",
+      "mode"
+    ]
+  },
+  "conditions": {
+    "fr": "Plein : 11€ / Réduit : 9€"
+  },
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "registration": [
+    {
+      "type": "link",
+      "value": "https://roubaix-lapiscine.tickeasy.com/fr-FR/accueil"
+    }
+  ],
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "attendanceMode": 1,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "fr": "Accès: Accès bus : Ligne 25, arrêt Musée Art et Industrie Accès métro : Ligne 2, Roubaix Grand Place ou Gare Jean Lebas"
+    },
+    "city": "Roubaix",
+    "timezone": "Europe/Paris",
+    "postalCode": "59100",
+    "latitude": 50.692168,
+    "imageCredits": "Architectes : A. Baert, 1932 - J.P. Philippon, 2001. Photo : Alain Leprince",
+    "description": {
+      "fr": "Dans l’ancienne piscine municipale de Roubaix, lieu emblématique de la ville, s’est installé un musée. Sur environ 8000 m², venez découvrir les collections textiles, mode, Beaux-Arts, céramique et design dans une magnifique architecture Art déco."
+    },
+    "setUid": 59170,
+    "uid": 37923057,
+    "createdAt": "2018-06-04T08:15:25.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [
+      "https://www.facebook.com/MuseeLaPiscine",
+      "https://twitter.com/MuseeLaPiscine",
+      "https://www.instagram.com/museelapiscine/",
+      "https://www.pictoaccess.fr/widgets/poi?uid=976dad87-f9a7-47c4-8e20-f291ad696ee4",
+      "https://pictoaccess.fr/widgets/poi?uid=976dad87-f9a7-47c4-8e20-f291ad696ee4"
+    ],
+    "state": 1,
+    "extId": "976dad87-f9a7-47c4-8e20-f291ad696ee4",
+    "department": "Nord",
+    "slug": "la-piscine-musee-dart-et-d-industrie-andre-diligent",
+    "email": null,
+    "longitude": 3.167645,
+    "updatedAt": "2024-04-21T19:55:25.000Z",
+    "image": "location37923057.jpg",
+    "website": "http://www.roubaix-lapiscine.com/",
+    "address": "23 rue de l'Espérance, Roubaix",
+    "adminLevel3": "Métropole Européenne de Lille",
+    "agendaUid": 79017343,
+    "adminLevel4": "Roubaix",
+    "adminLevel1": "Hauts-de-France",
+    "adminLevel2": "Nord",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjM3OTIzMDU3LCJuYW1lIjoiTGEgUGlzY2luZSAtIE11c8OpZSBkJ0FydCBldCBkJyBJbmR1c3RyaWUgQW5kcsOpIERpbGlnZW50In0=",
+    "tags": null,
+    "insee": "59512",
+    "phone": "03 20 69 23 60",
+    "district": "Centre",
+    "name": "La Piscine - Musée d'Art et d' Industrie André Diligent",
+    "region": "Hauts-de-France",
+    "extIds": [
+      {
+        "value": "976dad87-f9a7-47c4-8e20-f291ad696ee4",
+        "key": "default"
+      }
+    ]
+  },
+  "onlineAccessLink": null,
+  "timings": [
+    {
+      "begin": "2025-03-01T13:00:00+01:00",
+      "end": "2025-03-01T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-02T13:00:00+01:00",
+      "end": "2025-03-02T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-04T11:00:00+01:00",
+      "end": "2025-03-04T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-05T11:00:00+01:00",
+      "end": "2025-03-05T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-06T11:00:00+01:00",
+      "end": "2025-03-06T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-07T11:00:00+01:00",
+      "end": "2025-03-07T20:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-08T13:00:00+01:00",
+      "end": "2025-03-08T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-09T13:00:00+01:00",
+      "end": "2025-03-09T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-11T11:00:00+01:00",
+      "end": "2025-03-11T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-12T11:00:00+01:00",
+      "end": "2025-03-12T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-13T11:00:00+01:00",
+      "end": "2025-03-13T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-14T11:00:00+01:00",
+      "end": "2025-03-14T20:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-15T13:00:00+01:00",
+      "end": "2025-03-15T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-16T13:00:00+01:00",
+      "end": "2025-03-16T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-18T11:00:00+01:00",
+      "end": "2025-03-18T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-19T11:00:00+01:00",
+      "end": "2025-03-19T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-20T11:00:00+01:00",
+      "end": "2025-03-20T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-21T11:00:00+01:00",
+      "end": "2025-03-21T20:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-22T13:00:00+01:00",
+      "end": "2025-03-22T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-23T13:00:00+01:00",
+      "end": "2025-03-23T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-25T11:00:00+01:00",
+      "end": "2025-03-25T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-26T11:00:00+01:00",
+      "end": "2025-03-26T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-27T11:00:00+01:00",
+      "end": "2025-03-27T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-28T11:00:00+01:00",
+      "end": "2025-03-28T20:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-29T13:00:00+01:00",
+      "end": "2025-03-29T18:00:00+01:00"
+    },
+    {
+      "begin": "2025-03-30T13:00:00+02:00",
+      "end": "2025-03-30T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-01T11:00:00+02:00",
+      "end": "2025-04-01T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-02T11:00:00+02:00",
+      "end": "2025-04-02T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-03T11:00:00+02:00",
+      "end": "2025-04-03T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-04T11:00:00+02:00",
+      "end": "2025-04-04T20:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-05T13:00:00+02:00",
+      "end": "2025-04-05T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-06T13:00:00+02:00",
+      "end": "2025-04-06T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-08T11:00:00+02:00",
+      "end": "2025-04-08T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-09T11:00:00+02:00",
+      "end": "2025-04-09T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-10T11:00:00+02:00",
+      "end": "2025-04-10T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-11T11:00:00+02:00",
+      "end": "2025-04-11T20:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-12T13:00:00+02:00",
+      "end": "2025-04-12T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-13T13:00:00+02:00",
+      "end": "2025-04-13T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-15T11:00:00+02:00",
+      "end": "2025-04-15T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-16T11:00:00+02:00",
+      "end": "2025-04-16T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-17T11:00:00+02:00",
+      "end": "2025-04-17T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-18T11:00:00+02:00",
+      "end": "2025-04-18T20:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-19T13:00:00+02:00",
+      "end": "2025-04-19T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-20T13:00:00+02:00",
+      "end": "2025-04-20T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-22T11:00:00+02:00",
+      "end": "2025-04-22T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-23T11:00:00+02:00",
+      "end": "2025-04-23T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-24T11:00:00+02:00",
+      "end": "2025-04-24T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-25T11:00:00+02:00",
+      "end": "2025-04-25T20:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-26T13:00:00+02:00",
+      "end": "2025-04-26T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-27T13:00:00+02:00",
+      "end": "2025-04-27T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-29T11:00:00+02:00",
+      "end": "2025-04-29T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-30T11:00:00+02:00",
+      "end": "2025-04-30T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-02T11:00:00+02:00",
+      "end": "2025-05-02T20:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-03T13:00:00+02:00",
+      "end": "2025-05-03T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-04T13:00:00+02:00",
+      "end": "2025-05-04T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-06T11:00:00+02:00",
+      "end": "2025-05-06T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-07T11:00:00+02:00",
+      "end": "2025-05-07T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-08T11:00:00+02:00",
+      "end": "2025-05-08T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-09T11:00:00+02:00",
+      "end": "2025-05-09T20:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-10T13:00:00+02:00",
+      "end": "2025-05-10T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-11T13:00:00+02:00",
+      "end": "2025-05-11T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-13T11:00:00+02:00",
+      "end": "2025-05-13T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-14T11:00:00+02:00",
+      "end": "2025-05-14T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-15T11:00:00+02:00",
+      "end": "2025-05-15T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-16T11:00:00+02:00",
+      "end": "2025-05-16T20:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-17T13:00:00+02:00",
+      "end": "2025-05-17T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-18T13:00:00+02:00",
+      "end": "2025-05-18T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-20T11:00:00+02:00",
+      "end": "2025-05-20T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-21T11:00:00+02:00",
+      "end": "2025-05-21T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-22T11:00:00+02:00",
+      "end": "2025-05-22T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-23T11:00:00+02:00",
+      "end": "2025-05-23T20:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-24T13:00:00+02:00",
+      "end": "2025-05-24T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-25T13:00:00+02:00",
+      "end": "2025-05-25T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-27T11:00:00+02:00",
+      "end": "2025-05-27T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-28T11:00:00+02:00",
+      "end": "2025-05-28T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-29T11:00:00+02:00",
+      "end": "2025-05-29T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-30T11:00:00+02:00",
+      "end": "2025-05-30T20:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-31T13:00:00+02:00",
+      "end": "2025-05-31T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-06-01T13:00:00+02:00",
+      "end": "2025-06-01T18:00:00+02:00"
+    }
+  ],
+  "schedule_description": "18h-20h",
+  "status": 1,
+  "uid": 53640353,
+  "slug": "expositions-du-printemps-2025-a-la-piscine",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2025-01-21T17:22:43.000Z",
+  "creatorUid": 44532088,
+  "ownerUid": 44532088,
+  "updatedAt": "2025-01-23T13:22:37.000Z",
+  "links": [
+    {
+      "link": "https://www.roubaix-lapiscine.com/expositions/a-venir-musee-la-piscine/rodin-bourdelle-corps-a-corps/"
+    },
+    {
+      "link": "https://www.roubaix-lapiscine.com/expositions/a-venir-musee-la-piscine/elsa-sahal-pool-dance/"
+    },
+    {
+      "link": "https://www.roubaix-lapiscine.com/expositions/a-venir-musee-la-piscine/sans-dessus-dessous/"
+    }
+  ],
+  "extIds": null
+}
