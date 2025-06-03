@@ -42,7 +42,7 @@ export default ({
   const appRoot = app.locals.root;
   const getUpcomingEvents = () =>
     app.locals.agenda?.summary?.publishedEvents?.upcoming;
-  const ttl = app.locals.config?.cache?.refreshInterval || 60 * 60 * 1000;
+  const ttl = app.locals?.cache?.refreshInterval || 60 * 60 * 1000;
 
   log('LRU cache TTL set to %s ms', ttl);
 
