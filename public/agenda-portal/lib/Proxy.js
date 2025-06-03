@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import axios from 'axios';
 import qs from 'qs';
 import { LRUCache } from 'lru-cache';
 import logs from './Log.js';
@@ -9,13 +8,21 @@ const log = logs('proxy');
 
 const _internalGetAgendaSettings = async (agendaUid, key) => {
   try {
-    const { data } = await axios.get(
+    const response = await fetch(
       `https://api.openagenda.com/v2/agendas/${agendaUid}?key=${key}&detailed=1`,
     );
-    return data;
+
+    if (!response.ok) {
+      if (response.status === 403) {
+        throw new Error('Unauthorized');
+      }
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    return await response.json();
   } catch (err) {
-    if (err.response?.status === 403) {
-      throw new Error('Unauthorized');
+    if (err.message === 'Unauthorized') {
+      throw err;
     }
     throw err;
   }
@@ -139,13 +146,18 @@ export default ({
 
     log('fetching with params', appliedParams);
 
-    const { data } = await axios.get(
+    const url = new URL(
       `https://api.openagenda.com/v2/agendas/${agendaUid}/${res}`,
-      {
-        params: appliedParams,
-        paramsSerializer: qs.stringify,
-      },
     );
+    url.search = qs.stringify(appliedParams);
+
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+    }
+
+    const data = await response.json();
 
     return {
       ...data,
