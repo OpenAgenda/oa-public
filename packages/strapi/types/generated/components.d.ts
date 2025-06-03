@@ -38,6 +38,19 @@ export interface ComponentsCtaButton extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsFooterColumn extends Struct.ComponentSchema {
+  collectionName: 'components_components_footer_columns';
+  info: {
+    description: '';
+    displayName: 'FooterColumn';
+  };
+  attributes: {
+    Links: Schema.Attribute.Component<'components.link', true> &
+      Schema.Attribute.Required;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ComponentsHighlightCard extends Struct.ComponentSchema {
   collectionName: 'components_components_highlight_cards';
   info: {
@@ -119,6 +132,21 @@ export interface ComponentsIllustration extends Struct.ComponentSchema {
     image: Schema.Attribute.Media<'images' | 'files'> &
       Schema.Attribute.Required;
     width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
+  };
+}
+
+export interface ComponentsLink extends Struct.ComponentSchema {
+  collectionName: 'components_components_footer_links';
+  info: {
+    description: '';
+    displayName: 'Link';
+  };
+  attributes: {
+    isExternal: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
+    label: Schema.Attribute.String & Schema.Attribute.Required;
+    url: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -288,6 +316,19 @@ export interface SegmentsCarouselSet extends Struct.ComponentSchema {
   };
 }
 
+export interface SegmentsFooter extends Struct.ComponentSchema {
+  collectionName: 'components_segments_footers';
+  info: {
+    description: '';
+    displayName: 'Footer';
+  };
+  attributes: {
+    Columns: Schema.Attribute.Component<'components.footer-column', true> &
+      Schema.Attribute.Required;
+    contactUrl: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
   collectionName: 'components_segments_highlight_card_sets';
   info: {
@@ -393,15 +434,18 @@ declare module '@strapi/strapi' {
     export interface ComponentSchemas {
       'components.accordion': ComponentsAccordion;
       'components.cta-button': ComponentsCtaButton;
+      'components.footer-column': ComponentsFooterColumn;
       'components.highlight-card': ComponentsHighlightCard;
       'components.icon': ComponentsIcon;
       'components.illustration': ComponentsIllustration;
+      'components.link': ComponentsLink;
       'components.modular': ComponentsModular;
       'components.reference': ComponentsReference;
       'components.split-hero': ComponentsSplitHero;
       'components.tab': ComponentsTab;
       'segments.accordion-set': SegmentsAccordionSet;
       'segments.carousel-set': SegmentsCarouselSet;
+      'segments.footer': SegmentsFooter;
       'segments.highlight-card-set': SegmentsHighlightCardSet;
       'segments.modular-set': SegmentsModularSet;
       'segments.page-head': SegmentsPageHead;

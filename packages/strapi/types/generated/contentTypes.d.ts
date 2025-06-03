@@ -405,6 +405,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'segments.highlight-card-set',
         'segments.tab-set',
         'segments.reference-set',
+        'segments.footer',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

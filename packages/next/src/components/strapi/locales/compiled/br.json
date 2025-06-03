@@ -1,0 +1,26 @@
+{
+  "next.components.Strapi.contact": [
+    {
+      "type": 0,
+      "value": "Contacter"
+    }
+  ],
+  "next.components.Strapi.contactForm": [
+    {
+      "type": 0,
+      "value": "Formulaire de contact"
+    }
+  ],
+  "next.components.Strapi.github": [
+    {
+      "type": 0,
+      "value": "Notre Github"
+    }
+  ],
+  "next.components.Strapi.linkedin": [
+    {
+      "type": 0,
+      "value": "Notre LinkedIn"
+    }
+  ]
+}

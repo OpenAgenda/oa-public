@@ -559,6 +559,7 @@ function EmbedEventShow({
 EmbedEventShow.fetchLocale = (locale: string) =>
   Promise.all([
     fetchLocale(locale),
+    fetchCommonLocale('event/statuses', locale),
     fetchCommonLocale('event/accessibilities', locale),
     fetchFiltersLocales(locale),
   ]).then((results) => Object.assign({}, ...results));
