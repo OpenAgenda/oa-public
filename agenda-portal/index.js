@@ -15,14 +15,16 @@ import logs from './lib/Log.js';
 import Proxy from './lib/Proxy.js';
 import launch from './lib/launch.js';
 import loadResLocals from './lib/loadResLocals.js';
-import tasks from './tasks/index.js';
 import * as utils from './utils/index.js';
 import { register as registerHelpers } from './lib/helpers/index.js';
 import EventTransforms from './lib/events/Transforms.js';
 import index from './middleware/renderIndex.js';
 import error from './middleware/error.js';
 import * as eventMiddlewares from './middleware/event.js';
-import { redirectToNeighbor, navigationLinks } from './middleware/eventNavigation.js';
+import {
+  redirectToNeighbor,
+  navigationLinks,
+} from './middleware/eventNavigation.js';
 import list from './middleware/listEvents.js';
 import randomFromSet from './middleware/randomFromSet.js';
 import pageGlobals from './middleware/pageGlobals.js';
@@ -277,8 +279,6 @@ export default async function Portal(options) {
   app.use(mw.error);
 
   app.launch = launch.bind(null, app);
-
-  tasks({ config, app });
 
   return {
     app,
