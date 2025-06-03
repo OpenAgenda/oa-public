@@ -1,5 +1,6 @@
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import logs from '@openagenda/logs';
 
 import addText from './addText.js';
 import Cursor from './Cursor.js';
@@ -7,6 +8,7 @@ import adjustSize from './adjustSize.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
+const log = logs('addRegistration');
 
 const icons = {
   email: `${__dirname}/../../images/email.png`,
@@ -50,6 +52,7 @@ async function addContent(doc, parentCursor, params) {
   });
 
   for (const { type, value: registrationItemValue } of value) {
+    log('adding %s icon', type);
     const imageSize = await addImage(doc, cursor, {
       ...params,
       value: icons[type],
@@ -60,14 +63,18 @@ async function addContent(doc, parentCursor, params) {
     cursor.moveX(imageSize.width * 1.5);
     cursor.moveY(-imageSize.height * 0.3);
 
-    adjustSize(
-      size,
-      await addText(doc, cursor, {
-        ...params,
-        value: registrationItemValue,
-        link: `${prefixes[type]}${registrationItemValue}`,
-      }),
-    );
+    const valueSize = await addText(doc, cursor, {
+      ...params,
+      value: registrationItemValue,
+      link: `${prefixes[type]}${registrationItemValue}`,
+    });
+
+    if (valueSize.height === 0 && valueSize.width === 0) {
+      return valueSize;
+    }
+
+    log('adding value: %s', registrationItemValue);
+    adjustSize(size, valueSize);
 
     cursor.reset();
     cursor.moveY(size.height * 0.8);
@@ -83,12 +90,13 @@ export default async function addRegistration(doc, parentCursor, params = {}) {
     return { height: 0, width: 0 };
   }
 
+  log('simulating', { availableHeight });
   const { height } = await addContent(doc, parentCursor, {
     ...params,
     simulate: true,
   });
 
-  if (height > availableHeight) {
+  if (!height || height > availableHeight) {
     return {
       height: 0,
       width: 0,

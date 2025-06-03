@@ -1,0 +1,320 @@
+{
+  "firstTiming": {
+    "end": "2025-04-25T19:00:00.000+02:00",
+    "begin": "2025-04-25T10:00:00.000+02:00"
+  },
+  "nextTiming": {
+    "begin": "2025-06-02T13:00:00+02:00",
+    "end": "2025-06-02T19:00:00+02:00"
+  },
+  "lastTiming": {
+    "end": "2025-06-02T19:00:00.000+02:00",
+    "begin": "2025-06-02T13:00:00.000+02:00"
+  },
+  "member": null,
+  "dateRange": {
+    "ar": "٢٥ أبريل - ٢ يونيو",
+    "de": "25 April - 2 Juni",
+    "en": "25 April - 2 June",
+    "it": "25 aprile - 2 giugno",
+    "fr": "25 avril - 2 juin",
+    "es": "25 abril - 2 junio"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 41327758,
+    "image": "agenda41327758.jpg?__ts=1650891225489",
+    "description": "Agenda officiel du Musée des Beaux-Arts de la ville de Bordeaux.",
+    "official": false,
+    "title": "Musée des Beaux-Arts Bordeaux",
+    "slug": "musba_bordeaux",
+    "url": "https://www.musba-bordeaux.fr/",
+    "_agg": "eyJ1aWQiOjQxMzI3NzU4LCJ0aXRsZSI6Ik11c8OpZSBkZXMgQmVhdXgtQXJ0cyBCb3JkZWF1eCIsImltYWdlIjoiYWdlbmRhNDEzMjc3NTguanBnP19fdHM9MTY1MDg5MTIyNTQ4OSIsInVybCI6Imh0dHBzOi8vd3d3Lm11c2JhLWJvcmRlYXV4LmZyLyIsInNsdWciOiJtdXNiYV9ib3JkZWF1eCJ9"
+  },
+  "sourceAgendas": [
+    {
+      "image": "agenda83392987.187184036f0c4af89683244d918456d9.jpg?__ts=1741342248378",
+      "private": 0,
+      "indexed": 1,
+      "locationSetUid": null,
+      "official": 1,
+      "description": "Agenda de la ville de Bordeaux",
+      "title": "Ville de Bordeaux",
+      "url": "https://www.bordeaux.fr",
+      "_agg": "eyJ1aWQiOjgzMzkyOTg3LCJ0aXRsZSI6IlZpbGxlIGRlIEJvcmRlYXV4IiwiaW1hZ2UiOiJhZ2VuZGE4MzM5Mjk4Ny4xODcxODQwMzZmMGM0YWY4OTY4MzI0NGQ5MTg0NTZkOS5qcGc/X190cz0xNzQxMzQyMjQ4Mzc4In0=",
+      "uid": 83392987,
+      "createdAt": "2023-10-26T08:23:43.000Z",
+      "officializedAt": "2024-07-18T06:29:27.000Z",
+      "slug": "ville-de-bordeaux",
+      "updatedAt": "2025-05-16T10:15:12.000Z"
+    },
+    {
+      "image": "agenda41327758.jpg?__ts=1650891225489",
+      "private": 0,
+      "indexed": 1,
+      "locationSetUid": null,
+      "official": 1,
+      "description": "Agenda officiel du Musée des Beaux-Arts de la ville de Bordeaux.",
+      "title": "Musée des Beaux-Arts Bordeaux",
+      "url": "https://www.musba-bordeaux.fr/",
+      "_agg": "eyJ1aWQiOjQxMzI3NzU4LCJ0aXRsZSI6Ik11c8OpZSBkZXMgQmVhdXgtQXJ0cyBCb3JkZWF1eCIsImltYWdlIjoiYWdlbmRhNDEzMjc3NTguanBnP19fdHM9MTY1MDg5MTIyNTQ4OSJ9",
+      "uid": 41327758,
+      "createdAt": "2021-07-13T10:22:01.000Z",
+      "officializedAt": "2021-07-13T13:41:31.000Z",
+      "slug": "musba_bordeaux",
+      "updatedAt": "2025-05-15T07:41:29.000Z"
+    }
+  ],
+  "intermunicipal_interest": [1],
+  "recurring": [],
+  "categories-agenda-metropolitain": 52,
+  "image": {
+    "filename": "3d5a19fa52d643f49d0c8b98fa43b18a.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 892
+    },
+    "variants": [
+      {
+        "filename": "3d5a19fa52d643f49d0c8b98fa43b18a.full.image.jpg",
+        "size": {
+          "width": 1947,
+          "height": 2480
+        },
+        "type": "full"
+      },
+      {
+        "filename": "3d5a19fa52d643f49d0c8b98fa43b18a.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": "© F. Deval, mairie de Bordeaux.",
+  "image-droits": true,
+  "title": {
+    "fr": "[Hors les murs] Suzanne Martin à la Bibliothèque Mériadeck."
+  },
+  "description": {
+    "fr": "Venez découvrir les œuvres de Suzanne Martin (1926–2004), une artiste touche-à-tout et une figure incontournable de l’abstraction à Bordeaux."
+  },
+  "keywords": {
+    "fr": ["exposition"]
+  },
+  "longDescription": {
+    "fr": "Du 25 avril au 2 juin 2025, la Bibliothèque Mériadeck présente une sélection d’œuvres de Suzanne Martin, issues des collections du Musée des Beaux-Arts de Bordeaux.\n\nProfitez de plusieurs rendez-vous dont la visite flash _Il était une fois Suzanne Martin_ le **10 mai, de 16h30 à 17h,** autour de cet accrochage.\n\n**Lieu :** Bibliothèque Mériadeck – Espace Bordeaux et l’Aquitaine.\n\n_Plus d'informations sur le programme général sur le web de la_ [_Bibliothèque Mériadeck_](https://bibliotheque.bordeaux.fr/)"
+  },
+  "conditions": {},
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "registration": [],
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "attendanceMode": 1,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Bordeaux",
+    "timezone": "Europe/Paris",
+    "postalCode": "33000",
+    "latitude": 44.835117,
+    "imageCredits": null,
+    "description": {},
+    "setUid": null,
+    "uid": 50723560,
+    "createdAt": "2022-01-26T13:34:29.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": "Saint-Augustin - Tauzin - Alphonse Dupeux",
+    "links": [],
+    "state": 0,
+    "extId": null,
+    "department": "Gironde",
+    "slug": "bibliotheque-meriadeck_8803895",
+    "email": null,
+    "longitude": -0.586759,
+    "updatedAt": "2022-01-26T13:34:29.000Z",
+    "image": null,
+    "website": null,
+    "address": "85 cours du Maréchal Juin, Bordeaux",
+    "adminLevel3": "Bordeaux Métropole",
+    "agendaUid": 41327758,
+    "adminLevel4": "Bordeaux",
+    "adminLevel1": "Nouvelle-Aquitaine",
+    "adminLevel2": "Gironde",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjUwNzIzNTYwLCJuYW1lIjoiQmlibGlvdGjDqHF1ZSBNw6lyaWFkZWNrIn0=",
+    "tags": null,
+    "insee": "33063",
+    "phone": null,
+    "district": "Saint-Augustin - Tauzin - Alphonse Dupeux",
+    "name": "Bibliothèque Mériadeck",
+    "region": "Nouvelle-Aquitaine",
+    "extIds": null
+  },
+  "onlineAccessLink": null,
+  "status": 1,
+  "timings": [
+    {
+      "begin": "2025-04-25T10:00:00+02:00",
+      "end": "2025-04-25T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-26T10:00:00+02:00",
+      "end": "2025-04-26T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-28T13:00:00+02:00",
+      "end": "2025-04-28T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-29T10:00:00+02:00",
+      "end": "2025-04-29T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-04-30T10:00:00+02:00",
+      "end": "2025-04-30T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-01T13:00:00+02:00",
+      "end": "2025-05-01T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-02T10:00:00+02:00",
+      "end": "2025-05-02T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-03T10:00:00+02:00",
+      "end": "2025-05-03T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-05T13:00:00+02:00",
+      "end": "2025-05-05T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-06T10:00:00+02:00",
+      "end": "2025-05-06T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-07T10:00:00+02:00",
+      "end": "2025-05-07T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-08T13:00:00+02:00",
+      "end": "2025-05-08T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-09T10:00:00+02:00",
+      "end": "2025-05-09T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-10T10:00:00+02:00",
+      "end": "2025-05-10T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-12T13:00:00+02:00",
+      "end": "2025-05-12T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-13T10:00:00+02:00",
+      "end": "2025-05-13T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-14T10:00:00+02:00",
+      "end": "2025-05-14T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-15T13:00:00+02:00",
+      "end": "2025-05-15T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-16T10:00:00+02:00",
+      "end": "2025-05-16T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-17T10:00:00+02:00",
+      "end": "2025-05-17T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-19T13:00:00+02:00",
+      "end": "2025-05-19T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-20T10:00:00+02:00",
+      "end": "2025-05-20T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-21T10:00:00+02:00",
+      "end": "2025-05-21T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-22T13:00:00+02:00",
+      "end": "2025-05-22T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-23T10:00:00+02:00",
+      "end": "2025-05-23T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-24T10:00:00+02:00",
+      "end": "2025-05-24T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-26T13:00:00+02:00",
+      "end": "2025-05-26T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-27T10:00:00+02:00",
+      "end": "2025-05-27T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-28T10:00:00+02:00",
+      "end": "2025-05-28T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-29T13:00:00+02:00",
+      "end": "2025-05-29T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-30T10:00:00+02:00",
+      "end": "2025-05-30T19:00:00+02:00"
+    },
+    {
+      "begin": "2025-05-31T10:00:00+02:00",
+      "end": "2025-05-31T18:00:00+02:00"
+    },
+    {
+      "begin": "2025-06-02T13:00:00+02:00",
+      "end": "2025-06-02T19:00:00+02:00"
+    }
+  ],
+  "extIds": null,
+  "categories-ville-de-bordeaux": 103,
+  "uid": 25972426,
+  "slug": "rendez-vous-suzanne-martin-a-la-bibliotheque-meriadeck",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2025-03-28T13:47:43.000Z",
+  "creatorUid": 96300109,
+  "ownerUid": 96300109,
+  "updatedAt": "2025-05-12T15:13:08.000Z",
+  "links": [
+    {
+      "link": "https://bibliotheque.bordeaux.fr/"
+    }
+  ]
+}
