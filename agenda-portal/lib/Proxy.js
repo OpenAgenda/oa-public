@@ -43,11 +43,12 @@ export default ({
   const getUpcomingEvents = () =>
     app.locals.agenda?.summary?.publishedEvents?.upcoming;
   const ttl = app.locals?.cache?.refreshInterval || 60 * 60 * 1000;
+  const max = app.locals?.cache?.maxEntries || 1000;
 
-  log('LRU cache TTL set to %s ms', ttl);
+  log('LRU cache TTL set to %s ms and max entries set to %s', ttl, max);
 
-  const headCache = new LRUCache({ ttl, ttlAutopurge: true });
-  const eventsCache = new LRUCache({ ttl, ttlAutopurge: true });
+  const headCache = new LRUCache({ max, ttl });
+  const eventsCache = new LRUCache({ max, ttl });
 
   async function cachedGetAgendaSettings(agendaUid, accessKey) {
     const cacheKey = `head-${agendaUid}-${accessKey}`;

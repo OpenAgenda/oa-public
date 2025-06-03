@@ -53,6 +53,7 @@ Portal({
   iframable: process.env.PORTAL_IFRAMABLE,
   iframeParent: process.env.PORTAL_IFRAME_PARENT_URL,
   cache: {
+    maxEntries: 1000,
     // interval at which cache is refreshed ( in milliseconds )
     refreshInterval: 60 * 60 * 1000,
   },
