@@ -83,12 +83,12 @@ export default ({
     const query = {
       ...preFilter,
       ...clientPreFilter,
-      ..._.omit(userQuery, ['pre']),
+      ..._.omit(userQuery, ['pre', 'nc']),
     };
 
     // Apply default filter if no specific filters are provided
     const hasNoFilters = !Object.keys(
-      _.omit(userQuery, ['aggregations', 'size', 'page', 'detailed']),
+      _.omit(userQuery, ['aggregations', 'size', 'page', 'detailed', 'nc']),
     ).length;
 
     if (hasNoFilters && defaultFilter) {
@@ -111,10 +111,9 @@ export default ({
     return query;
   }
 
-  async function _actualFetch(agendaUid, res, userQuery) {
-    log('actual fetch on %s (%s) with userQuery %j', agendaUid, res, userQuery);
+  async function _actualFetch(agendaUid, res, query) {
+    log('actual fetch on %s (%s) with query %j', agendaUid, res, query);
 
-    const query = buildQuery(userQuery);
     const limit = calculateLimit(query.limit);
     const offset = calculateOffset(query, limit);
 
@@ -168,9 +167,8 @@ export default ({
   }
 
   async function _cachedFetch(agendaUid, res, userQuery) {
-    const cacheKey = ['events', agendaUid, res, qs.stringify(userQuery)].join(
-      '|',
-    );
+    const query = buildQuery(userQuery);
+    const cacheKey = ['events', agendaUid, res, qs.stringify(query)].join('|');
 
     if (eventsCache.has(cacheKey)) {
       log('cache hit for event %s', cacheKey);
@@ -178,7 +176,7 @@ export default ({
     }
 
     log('cache miss for event %s', cacheKey);
-    const result = await _actualFetch(agendaUid, res, userQuery);
+    const result = await _actualFetch(agendaUid, res, query);
     eventsCache.set(cacheKey, result);
     return result;
   }
