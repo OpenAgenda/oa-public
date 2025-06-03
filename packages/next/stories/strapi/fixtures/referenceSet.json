@@ -1,0 +1,201 @@
+{
+  "__component": "segments.reference-set",
+  "id": 5,
+  "title": "Des services connectables",
+  "References": [
+    {
+      "id": 15,
+      "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "tags": "Magasin de données",
+      "image": {
+        "id": 86,
+        "documentId": "od6o99o95y8226ukakx8jlmv",
+        "name": "logo-opendatasoft.svg",
+        "alternativeText": null,
+        "caption": null,
+        "width": 178,
+        "height": 24,
+        "formats": null,
+        "hash": "logo_opendatasoft_45c788c61d",
+        "ext": ".svg",
+        "mime": "image/svg+xml",
+        "size": 3.52,
+        "url": "https://cdn.openagenda.com/assets/corpo/logo_opendatasoft_45c788c61d.svg",
+        "previewUrl": null,
+        "provider": "aws-s3",
+        "provider_metadata": null,
+        "createdAt": "2025-06-03T10:38:19.335Z",
+        "updatedAt": "2025-06-03T10:38:19.335Z",
+        "publishedAt": "2025-06-03T10:38:19.336Z"
+      }
+    },
+    {
+      "id": 16,
+      "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "tags": "Billetterie",
+      "image": {
+        "id": 87,
+        "documentId": "jivwmo5w9w65vtr3dsubwoll",
+        "name": "passCulture.webp",
+        "alternativeText": null,
+        "caption": null,
+        "width": 474,
+        "height": 197,
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_passCulture.webp",
+            "hash": "thumbnail_pass_Culture_35413692cb",
+            "ext": ".webp",
+            "mime": "image/webp",
+            "path": null,
+            "width": 245,
+            "height": 102,
+            "size": 3.65,
+            "sizeInBytes": 3648,
+            "url": "https://cdn.openagenda.com/assets/corpo/thumbnail_pass_Culture_35413692cb.webp"
+          }
+        },
+        "hash": "pass_Culture_35413692cb",
+        "ext": ".webp",
+        "mime": "image/webp",
+        "size": 7.52,
+        "url": "https://cdn.openagenda.com/assets/corpo/pass_Culture_35413692cb.webp",
+        "previewUrl": null,
+        "provider": "aws-s3",
+        "provider_metadata": null,
+        "createdAt": "2025-06-03T10:41:30.801Z",
+        "updatedAt": "2025-06-03T10:41:30.801Z",
+        "publishedAt": "2025-06-03T10:41:30.801Z"
+      }
+    },
+    {
+      "id": 17,
+      "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "tags": "Cartographie",
+      "image": {
+        "id": 88,
+        "documentId": "vy5ycod7f8eincwyxav3l3vu",
+        "name": "wemap.png",
+        "alternativeText": null,
+        "caption": null,
+        "width": 258,
+        "height": 244,
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_wemap.png",
+            "hash": "thumbnail_wemap_001fea5d24",
+            "ext": ".png",
+            "mime": "image/png",
+            "path": null,
+            "width": 165,
+            "height": 156,
+            "size": 8.76,
+            "sizeInBytes": 8759,
+            "url": "https://cdn.openagenda.com/assets/corpo/thumbnail_wemap_001fea5d24.png"
+          }
+        },
+        "hash": "wemap_001fea5d24",
+        "ext": ".png",
+        "mime": "image/png",
+        "size": 2.96,
+        "url": "https://cdn.openagenda.com/assets/corpo/wemap_001fea5d24.png",
+        "previewUrl": null,
+        "provider": "aws-s3",
+        "provider_metadata": null,
+        "createdAt": "2025-06-03T10:43:53.481Z",
+        "updatedAt": "2025-06-03T10:43:53.481Z",
+        "publishedAt": "2025-06-03T10:43:53.481Z"
+      }
+    },
+    {
+      "id": 18,
+      "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "tags": "Billetterie",
+      "image": {
+        "id": 89,
+        "documentId": "dotj1twktjyuymr0b7o5jty2",
+        "name": "eventbrite.webp",
+        "alternativeText": null,
+        "caption": null,
+        "width": 474,
+        "height": 316,
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_eventbrite.webp",
+            "hash": "thumbnail_eventbrite_5164bba7b9",
+            "ext": ".webp",
+            "mime": "image/webp",
+            "path": null,
+            "width": 234,
+            "height": 156,
+            "size": 2.07,
+            "sizeInBytes": 2070,
+            "url": "https://cdn.openagenda.com/assets/corpo/thumbnail_eventbrite_5164bba7b9.webp"
+          }
+        },
+        "hash": "eventbrite_5164bba7b9",
+        "ext": ".webp",
+        "mime": "image/webp",
+        "size": 4.11,
+        "url": "https://cdn.openagenda.com/assets/corpo/eventbrite_5164bba7b9.webp",
+        "previewUrl": null,
+        "provider": "aws-s3",
+        "provider_metadata": null,
+        "createdAt": "2025-06-03T10:45:43.880Z",
+        "updatedAt": "2025-06-03T10:45:43.880Z",
+        "publishedAt": "2025-06-03T10:45:43.881Z"
+      }
+    },
+    {
+      "id": 19,
+      "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "tags": "SIT",
+      "image": {
+        "id": 90,
+        "documentId": "df2je6i46otp5d1cn7qsvavf",
+        "name": "Capture d’écran du 2025-06-03 12-51-38.png",
+        "alternativeText": null,
+        "caption": null,
+        "width": 515,
+        "height": 144,
+        "formats": {
+          "thumbnail": {
+            "name": "thumbnail_Capture d’écran du 2025-06-03 12-51-38.png",
+            "hash": "thumbnail_Capture_d_ecran_du_2025_06_03_12_51_38_3533276d4f",
+            "ext": ".png",
+            "mime": "image/png",
+            "path": null,
+            "width": 245,
+            "height": 69,
+            "size": 33.78,
+            "sizeInBytes": 33776,
+            "url": "https://cdn.openagenda.com/assets/corpo/thumbnail_Capture_d_ecran_du_2025_06_03_12_51_38_3533276d4f.png"
+          },
+          "small": {
+            "name": "small_Capture d’écran du 2025-06-03 12-51-38.png",
+            "hash": "small_Capture_d_ecran_du_2025_06_03_12_51_38_3533276d4f",
+            "ext": ".png",
+            "mime": "image/png",
+            "path": null,
+            "width": 500,
+            "height": 140,
+            "size": 113.71,
+            "sizeInBytes": 113710,
+            "url": "https://cdn.openagenda.com/assets/corpo/small_Capture_d_ecran_du_2025_06_03_12_51_38_3533276d4f.png"
+          }
+        },
+        "hash": "Capture_d_ecran_du_2025_06_03_12_51_38_3533276d4f",
+        "ext": ".png",
+        "mime": "image/png",
+        "size": 30.58,
+        "url": "https://cdn.openagenda.com/assets/corpo/Capture_d_ecran_du_2025_06_03_12_51_38_3533276d4f.png",
+        "previewUrl": null,
+        "provider": "aws-s3",
+        "provider_metadata": null,
+        "createdAt": "2025-06-03T10:51:49.854Z",
+        "updatedAt": "2025-06-03T10:51:49.854Z",
+        "publishedAt": "2025-06-03T10:51:49.854Z"
+      }
+    }
+  ]
+}

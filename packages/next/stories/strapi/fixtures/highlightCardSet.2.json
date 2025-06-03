@@ -1,0 +1,142 @@
+{
+  "__component": "segments.highlight-card-set",
+  "id": 17,
+  "title": "Une équipe qualifiée à votre service",
+  "Cards": [
+    {
+      "id": 58,
+      "title": "Une plateforme en constante amélioration",
+      "smallIllustration": true,
+      "description": "Notre équipe de développement est à l'écoute de vos retours utilisateurs afin de faire évoluer la plateforme en ligne OpenAgenda. Inscrivez-vous à notre infolettre pour être tenus au courant des nouvelles fonctionnalités développées.",
+      "Illustration": {
+        "id": 5923,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 83,
+          "documentId": "ixprk2yi3msrm0njbg8d2pug",
+          "name": "fleche et escalier de ronds.png",
+          "alternativeText": null,
+          "caption": null,
+          "width": 447,
+          "height": 398,
+          "formats": {
+            "thumbnail": {
+              "name": "thumbnail_fleche et escalier de ronds.png",
+              "hash": "thumbnail_fleche_et_escalier_de_ronds_310230584a",
+              "ext": ".png",
+              "mime": "image/png",
+              "path": null,
+              "width": 175,
+              "height": 156,
+              "size": 6.23,
+              "sizeInBytes": 6230,
+              "url": "https://cdn.openagenda.com/assets/corpo/thumbnail_fleche_et_escalier_de_ronds_310230584a.png"
+            }
+          },
+          "hash": "fleche_et_escalier_de_ronds_310230584a",
+          "ext": ".png",
+          "mime": "image/png",
+          "size": 5.06,
+          "url": "https://cdn.openagenda.com/assets/corpo/fleche_et_escalier_de_ronds_310230584a.png",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-06-03T10:04:44.917Z",
+          "updatedAt": "2025-06-03T10:04:44.917Z",
+          "publishedAt": "2025-06-03T10:04:44.918Z"
+        }
+      }
+    },
+    {
+      "id": 59,
+      "title": "Besoin d'aide ?",
+      "smallIllustration": true,
+      "description": "Notre service support est assuré par de vraies personnes, disponibles du lundi au vendredi entre 9h et 18h pour vous accompagner dans la prise en main de la plateforme. Découvrez également nos pages de documentation, nos tutoriels ou participez à l'un de nos webinaires",
+      "Illustration": {
+        "id": 5924,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 84,
+          "documentId": "b5zduxeke2o6g3r0poomyx3b",
+          "name": "question validation.png",
+          "alternativeText": null,
+          "caption": null,
+          "width": 447,
+          "height": 398,
+          "formats": {
+            "thumbnail": {
+              "name": "thumbnail_question validation.png",
+              "hash": "thumbnail_question_validation_64b35dc40b",
+              "ext": ".png",
+              "mime": "image/png",
+              "path": null,
+              "width": 175,
+              "height": 156,
+              "size": 5.5,
+              "sizeInBytes": 5501,
+              "url": "https://cdn.openagenda.com/assets/corpo/thumbnail_question_validation_64b35dc40b.png"
+            }
+          },
+          "hash": "question_validation_64b35dc40b",
+          "ext": ".png",
+          "mime": "image/png",
+          "size": 4.06,
+          "url": "https://cdn.openagenda.com/assets/corpo/question_validation_64b35dc40b.png",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-06-03T10:09:26.424Z",
+          "updatedAt": "2025-06-03T10:09:26.424Z",
+          "publishedAt": "2025-06-03T10:09:26.425Z"
+        }
+      }
+    },
+    {
+      "id": 60,
+      "title": "Conseil & Stratégie",
+      "smallIllustration": true,
+      "description": "Au-delà de la prise en main de l'outil numérique, notre équipe vous apporte des conseils pour optimiser votre stratégie de diffusion évènementielle",
+      "Illustration": {
+        "id": 5925,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 85,
+          "documentId": "yw9f00bt1umt9cg0bozjun8c",
+          "name": "flechedanscible.png",
+          "alternativeText": null,
+          "caption": null,
+          "width": 363,
+          "height": 363,
+          "formats": {
+            "thumbnail": {
+              "name": "thumbnail_flechedanscible.png",
+              "hash": "thumbnail_flechedanscible_c558393818",
+              "ext": ".png",
+              "mime": "image/png",
+              "path": null,
+              "width": 156,
+              "height": 156,
+              "size": 7.8,
+              "sizeInBytes": 7795,
+              "url": "https://cdn.openagenda.com/assets/corpo/thumbnail_flechedanscible_c558393818.png"
+            }
+          },
+          "hash": "flechedanscible_c558393818",
+          "ext": ".png",
+          "mime": "image/png",
+          "size": 5.34,
+          "url": "https://cdn.openagenda.com/assets/corpo/flechedanscible_c558393818.png",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-06-03T10:10:13.941Z",
+          "updatedAt": "2025-06-03T10:10:13.941Z",
+          "publishedAt": "2025-06-03T10:10:13.942Z"
+        }
+      }
+    }
+  ]
+}

@@ -70,7 +70,7 @@ export default function ReferenceSet({
 
   return (
     <SegmentContainer title={title}>
-      <Wrap gap="6">
+      <Wrap gap="6" justify="center">
         {ReferencesData.map((reference) => (
           <WrapItem key={reference.id}>
             <ReferenceItem {...reference} />

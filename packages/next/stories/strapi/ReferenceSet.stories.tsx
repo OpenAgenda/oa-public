@@ -1,53 +1,38 @@
+import type { StoryObj } from '@storybook/react';
 import { Container } from '@openagenda/uikit';
 import ReferenceSet from 'components/strapi/ReferenceSet';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
+import FullScreenDecorator from '../decorators/FullScreenDecorator';
+import referenceSetData from './fixtures/referenceSet.json';
 
 export default {
   title: 'strapi/ReferenceSet',
-  decorators: [ProvidersDecorator],
+  component: ReferenceSet,
+  decorators: [FullScreenDecorator, ProvidersDecorator],
 };
+type Story = StoryObj<typeof ReferenceSet>;
 
-export function Overview() {
-  return (
-    <Container maxWidth="5xl">
+export const Overview: Story = {
+  render: () => (
+    <Container>
       <ReferenceSet
-        title="Nos partenaires"
-        References={[
-          {
-            id: '1',
-            link: 'https://www.openagenda.com',
-            image: {
-              url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
-              alternativeText: 'Logo OpenAgenda',
-            },
-            tags: 'Technologie, SaaS, Événements',
+        title={referenceSetData.title}
+        References={referenceSetData.References.map((ref) => ({
+          id: String(ref.id),
+          link: ref.link,
+          image: {
+            url: ref.image.url,
+            alternativeText: ref.image.alternativeText || undefined,
           },
-          {
-            id: '2',
-            link: 'https://www.example.com',
-            image: {
-              url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
-              alternativeText: 'Logo partenaire',
-            },
-            tags: 'Culture, Art, Musée',
-          },
-          {
-            id: '3',
-            link: 'https://www.partner3.com',
-            image: {
-              url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
-              alternativeText: 'Logo troisième partenaire',
-            },
-            tags: 'Sport, Loisirs',
-          },
-        ]}
+          tags: ref.tags,
+        }))}
       />
     </Container>
-  );
-}
+  ),
+};
 
-export function WithoutTitle() {
-  return (
+export const WithoutTitle: Story = {
+  render: () => (
     <Container maxWidth="5xl">
       <ReferenceSet
         References={[
@@ -71,11 +56,11 @@ export function WithoutTitle() {
         ]}
       />
     </Container>
-  );
-}
+  ),
+};
 
-export function SingleReference() {
-  return (
+export const SingleReference: Story = {
+  render: () => (
     <Container maxWidth="5xl">
       <ReferenceSet
         title="Partenaire principal"
@@ -92,11 +77,11 @@ export function SingleReference() {
         ]}
       />
     </Container>
-  );
-}
+  ),
+};
 
-export function WithoutTags() {
-  return (
+export const WithoutTags: Story = {
+  render: () => (
     <Container maxWidth="5xl">
       <ReferenceSet
         title="Références sans tags"
@@ -119,13 +104,13 @@ export function WithoutTags() {
         ]}
       />
     </Container>
-  );
-}
+  ),
+};
 
-export function EmptyState() {
-  return (
+export const EmptyState: Story = {
+  render: () => (
     <Container maxWidth="5xl">
       <ReferenceSet title="Aucune référence" References={[]} />
     </Container>
-  );
-}
+  ),
+};

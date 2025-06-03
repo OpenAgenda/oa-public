@@ -25,7 +25,7 @@ export default function SegmentContainer({
         py="24"
       >
         {title && (
-          <H2 mb={4} fontWeight="bold">
+          <H2 mb={16} fontWeight="bold" textAlign="center">
             {title}
           </H2>
         )}

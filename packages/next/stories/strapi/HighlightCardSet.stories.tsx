@@ -1,39 +1,29 @@
-import { Box } from '@openagenda/uikit';
-import HighlightCardComponent from 'components/strapi/HighlightCard';
 import HighlightCardSet from 'components/strapi/HighlightCardSet';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
+import FullScreenDecorator from '../decorators/FullScreenDecorator';
 import highlightCardSetData from './fixtures/highlightCardSet.json';
-
-const FullScreenDecorator = (Story) => (
-  <Box bg="white">
-    <Story />
-  </Box>
-);
+import highlightCardSetData2 from './fixtures/highlightCardSet.2.json';
 
 export default {
   title: 'strapi/HighlightCardSet',
+  component: HighlightCardSet,
   decorators: [FullScreenDecorator, ProvidersDecorator],
 };
 
-export function HighlightCard() {
-  // Use the third card from the JSON data
-  const cardData = highlightCardSetData.Cards[2];
-
-  return (
-    <HighlightCardComponent
-      title={cardData.title}
-      Illustration={cardData.Illustration}
-      smallIllustration={cardData.smallIllustration}
-      description={cardData.description}
-    />
-  );
-}
-
-export function Overview() {
+export function firstUseCase() {
   return (
     <HighlightCardSet
       title={highlightCardSetData.title}
       Cards={highlightCardSetData.Cards}
+    />
+  );
+}
+
+export function secondUseCase() {
+  return (
+    <HighlightCardSet
+      title={highlightCardSetData2.title}
+      Cards={highlightCardSetData2.Cards}
     />
   );
 }

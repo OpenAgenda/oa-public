@@ -32,7 +32,7 @@ export default function HighlightCard({
   // Helper function to format description for markdown
 
   const content = (
-    <Stack gap="3" maxW="sm" align="center" textAlign="center">
+    <Stack gap="3" maxW="280px" align="center" textAlign="center">
       {Illustration && (
         <Image
           src={Illustration.image.url}
