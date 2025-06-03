@@ -1,26 +1,25 @@
 import _ from 'lodash';
 import axios from 'axios';
 import qs from 'qs';
+import { LRUCache } from 'lru-cache';
 import logs from './Log.js';
 import transformQueryV1ToV2 from './utils/transformQueryV1ToV2.js';
 
 const log = logs('proxy');
 
-const getAgendaSettings = (agendaUid, key) =>
-  axios
-    .get(
+const _internalGetAgendaSettings = async (agendaUid, key) => {
+  try {
+    const { data } = await axios.get(
       `https://api.openagenda.com/v2/agendas/${agendaUid}?key=${key}&detailed=1`,
-    )
-    .then(({ data }) => data)
-    .catch((err) => {
-      if (err.response.status === 403) {
-        throw new Error('Unauthorized');
-      } else {
-        throw err;
-      }
-    });
-
-const cachedHead = _.memoize(getAgendaSettings);
+    );
+    return data;
+  } catch (err) {
+    if (err.response?.status === 403) {
+      throw new Error('Unauthorized');
+    }
+    throw err;
+  }
+};
 
 export default ({
   key,
@@ -33,15 +32,44 @@ export default ({
   longDescriptionFormat,
   app,
 }) => {
-  // Extract specific values from app.locals to prevent memory leaks
-  // Storing the entire 'app' object in closures can prevent garbage collection
-  // of Express app instances and their associated middleware/routes
   const appRoot = app.locals.root;
   const getUpcomingEvents = () =>
-    app.locals.agenda.summary.publishedEvents.upcoming;
+    app.locals.agenda?.summary?.publishedEvents?.upcoming;
+  const ttl = app.locals.config?.cache?.refreshInterval || 60 * 60 * 1000;
 
-  async function _fetch(agendaUid, res, userQuery) {
-    log('fetch on %s (%s) with userQuery %j', agendaUid, res, userQuery);
+  log('LRU cache TTL set to %s ms', ttl);
+
+  const headCache = new LRUCache({ ttl, ttlAutopurge: true });
+  const eventsCache = new LRUCache({ ttl, ttlAutopurge: true });
+
+  async function cachedGetAgendaSettings(agendaUid, accessKey) {
+    const cacheKey = `head-${agendaUid}-${accessKey}`;
+
+    if (headCache.has(cacheKey)) {
+      log('cache hit for head %s', cacheKey);
+      return headCache.get(cacheKey);
+    }
+
+    log('cache miss for head %s', cacheKey);
+    const data = await _internalGetAgendaSettings(agendaUid, accessKey);
+    headCache.set(cacheKey, data);
+    return data;
+  }
+
+  function calculateLimit(queryLimit) {
+    const parsedLimit = parseInt(queryLimit, 10);
+    return Number.isInteger(parsedLimit) ? parsedLimit : defaultLimit;
+  }
+
+  function calculateOffset(query, limit) {
+    if (query.offset) {
+      return parseInt(query.offset, 10);
+    }
+    const page = parseInt(query.page || 1, 10);
+    return (page - 1) * limit;
+  }
+
+  function buildQuery(userQuery) {
     const clientPreFilter = userQuery.pre ? qs.parse(userQuery.pre) : {};
 
     const query = {
@@ -50,48 +78,48 @@ export default ({
       ..._.omit(userQuery, ['pre']),
     };
 
-    if (
-      !Object.keys(
-        _.omit(userQuery, ['aggregations', 'size', 'page', 'detailed']),
-      ).length
-      && defaultFilter
-    ) {
+    // Apply default filter if no specific filters are provided
+    const hasNoFilters = !Object.keys(
+      _.omit(userQuery, ['aggregations', 'size', 'page', 'detailed']),
+    ).length;
+
+    if (hasNoFilters && defaultFilter) {
       Object.assign(query, defaultFilter);
     }
+
+    // Handle visibility of past events
     const hasVisibilityPastEvents = visibilityPastEvents === '1' || visibilityPastEvents === 1;
+    const upcomingEventsCount = getUpcomingEvents();
 
-    if (getUpcomingEvents() > 0) {
-      if (!userQuery.relative && userQuery.timings && hasVisibilityPastEvents) {
-        const relativeFilter = { relative: ['passed', 'current', 'upcoming'] };
-        Object.assign(query, relativeFilter);
-      }
+    if (
+      upcomingEventsCount > 0
+      && !userQuery.relative
+      && userQuery.timings
+      && hasVisibilityPastEvents
+    ) {
+      query.relative = ['passed', 'current', 'upcoming'];
     }
 
-    let limit;
+    return query;
+  }
 
-    if (Number.isInteger(parseInt(query.limit, 10))) {
-      limit = query.limit;
-    } else {
-      limit = defaultLimit;
-    }
+  async function _actualFetch(agendaUid, res, userQuery) {
+    log('actual fetch on %s (%s) with userQuery %j', agendaUid, res, userQuery);
 
-    const offset = parseInt(
-      _.get(
-        query,
-        'offset',
-        // if page is given rather than offset, use that.
-        (parseInt(_.get(query, 'page', 1), 10) - 1) * limit,
-      ),
-      10,
-    );
+    const query = buildQuery(userQuery);
+    const limit = calculateLimit(query.limit);
+    const offset = calculateOffset(query, limit);
+
+    const slugSchemaOptionIdMap = await cachedGetAgendaSettings(
+      agendaUid,
+      key,
+    ).then((a) => a.slugSchemaOptionIdMap);
 
     const params = {
       ..._.omit(query, ['oaq', 'lang']),
-      ...transformQueryV1ToV2(_.get(query, 'oaq', null), {
+      ...transformQueryV1ToV2(query.oaq || null, {
         timezone: defaultTimezone,
-        slugSchemaOptionIdMap: await cachedHead(agendaUid, key).then(
-          (a) => a.slugSchemaOptionIdMap,
-        ),
+        slugSchemaOptionIdMap,
         query,
       }),
       key,
@@ -101,7 +129,7 @@ export default ({
       host: appRoot,
     };
 
-    if (query && query.detailed) {
+    if (query.detailed) {
       params.detailed = query.detailed;
     }
 
@@ -109,51 +137,57 @@ export default ({
       ? proxyHookBeforeGet(params)
       : params;
 
-    log('fetching', appliedParams);
+    log('fetching with params', appliedParams);
 
-    return axios
-      .get(`https://api.openagenda.com/v2/agendas/${agendaUid}/${res}`, {
+    const { data } = await axios.get(
+      `https://api.openagenda.com/v2/agendas/${agendaUid}/${res}`,
+      {
         params: appliedParams,
         paramsSerializer: qs.stringify,
-      })
-      .then(({ data }) => ({
-        ...data,
-        offset,
-        limit,
-      }));
+      },
+    );
+
+    return {
+      ...data,
+      offset,
+      limit,
+    };
+  }
+
+  async function _cachedFetch(agendaUid, res, userQuery) {
+    const cacheKey = ['events', agendaUid, res, qs.stringify(userQuery)].join(
+      '|',
+    );
+
+    if (eventsCache.has(cacheKey)) {
+      log('cache hit for event %s', cacheKey);
+      return eventsCache.get(cacheKey);
+    }
+
+    log('cache miss for event %s', cacheKey);
+    const result = await _actualFetch(agendaUid, res, userQuery);
+    eventsCache.set(cacheKey, result);
+    return result;
   }
 
   function get(agendaUid, { uid, slug }) {
-    return _fetch(agendaUid, 'events', {
+    const query = {
       longDescriptionFormat,
-      ...uid ? { uid } : {},
-      ...slug ? { slug } : {},
       detailed: 1,
       relative: ['passed', 'upcoming', 'current'],
-    }).then((r) =>
-      r.events.find((e) => {
-        if (slug) {
-          return e.slug === slug;
-        }
-        return e.uid === parseInt(uid, 10);
-      }));
-  }
+      ...uid && { uid },
+      ...slug && { slug },
+    };
 
-  const cached = _.memoize(_fetch, (agendaUid, res, query) =>
-    [agendaUid, res, qs.stringify(query)].join('|'));
-
-  function clearCache() {
-    cached.cache.clear();
-    cachedHead.cache.clear();
-
-    log('cache is cleared');
+    return _cachedFetch(agendaUid, 'events', query).then((r) =>
+      r.events.find((e) =>
+        (slug ? e.slug === slug : e.uid === parseInt(uid, 10))));
   }
 
   return {
-    head: (agendaUid) => cachedHead(agendaUid, key),
-    list: (agendaUid, query) =>
-      cached(agendaUid, 'events', { ...query, detailed: 1 }),
-    clearCache,
+    head: (agendaUidToQuery) => cachedGetAgendaSettings(agendaUidToQuery, key),
+    list: (agendaUidToList, query) =>
+      _cachedFetch(agendaUidToList, 'events', { ...query, detailed: 1 }),
     get,
     defaultLimit,
   };
