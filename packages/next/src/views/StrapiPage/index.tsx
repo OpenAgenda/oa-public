@@ -28,6 +28,10 @@ export default function StrapiPage({ page }) {
       <Metas title={title} />
       <Global
         styles={{
+          html: {
+            backgroundColor: 'white',
+          },
+          backgroundColor: 'white',
           ':root': {
             '--font-noto-sans': notoSans.style.fontFamily,
             '--font-ubuntu-sans': ubuntuSans.style.fontFamily,

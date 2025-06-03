@@ -8,7 +8,7 @@ export default function TabSet({ title = null, Tabs: TabsData }) {
   }
 
   return (
-    <SegmentContainer backgroundColor={{ name: 'white' }} title={title}>
+    <SegmentContainer title={title}>
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
           {TabsData.map((tab) => (

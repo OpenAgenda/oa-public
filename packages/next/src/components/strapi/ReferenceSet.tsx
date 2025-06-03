@@ -69,7 +69,7 @@ export default function ReferenceSet({
   }
 
   return (
-    <SegmentContainer backgroundColor={{ name: 'white' }} title={title}>
+    <SegmentContainer title={title}>
       <Wrap gap="6">
         {ReferencesData.map((reference) => (
           <WrapItem key={reference.id}>
