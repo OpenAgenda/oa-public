@@ -50,7 +50,14 @@ function ReferenceItem({ link, image, tags: tagsString }: Reference) {
           <Wrap justify="center">
             {tags?.map((tag) => (
               <WrapItem key={tag}>
-                <Tag size="lg">{tag}</Tag>
+                <Tag
+                  variant="solid"
+                  border="none"
+                  size="lg"
+                  colorPalette="strapi.darkPink"
+                >
+                  {tag}
+                </Tag>
               </WrapItem>
             ))}
           </Wrap>

@@ -1,0 +1,6 @@
+name: Chakra
+version: 0.0.1
+schema: v31
+docs:
+  - name: Chakra v3
+    startUrl: https://chakra-ui.com/docs/get-started/llms
