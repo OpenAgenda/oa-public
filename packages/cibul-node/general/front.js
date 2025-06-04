@@ -37,6 +37,7 @@ function setLang(req, res, next) {
   req.lang = _.get(
     {
       '/': 'fr',
+      '/fr': 'fr',
       '/en': 'en',
       '/de': 'de',
       '/es': 'es',
@@ -288,7 +289,7 @@ export default (app) => {
   };
 
   app.get(
-    ['/', '/en', '/de', '/es', '/br', '/it', '/oc'],
+    ['/', '/fr', '/en', '/de', '/es', '/br', '/it', '/oc'],
     preMw,
     sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
     cacheMw,
