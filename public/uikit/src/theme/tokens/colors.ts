@@ -1,5 +1,8 @@
 import { defineTokens } from '@chakra-ui/react';
 
+// https://www.tints.dev/green/22C55E
+// https://coolors.co/30343f-fafaff-e4d9ff-41acdd-1e2749
+
 export const colors = defineTokens.colors({
   primary: {
     50: { value: '#eef7fc' },
@@ -7,7 +10,7 @@ export const colors = defineTokens.colors({
     200: { value: '#a8d9f0' },
     300: { value: '#86caea' },
     400: { value: '#63bbe3' },
-    500: { value: '#41acdd' }, // https://coolors.co/30343f-fafaff-e4d9ff-41acdd-1e2749
+    500: { value: '#41acdd' },
     600: { value: '#259ad0' },
     700: { value: '#1f80ad' },
     800: { value: '#18678b' },
@@ -15,8 +18,8 @@ export const colors = defineTokens.colors({
   },
   oaGray: {
     10: { value: '#fafafa' },
-    50: { value: '#efefef' }, //
-    100: { value: '#eeeeee' }, //
+    50: { value: '#efefef' },
+    100: { value: '#eeeeee' },
     200: { value: '#d6d6d6' },
     300: { value: '#b8b8b8' },
     400: { value: '#999999' },
@@ -24,7 +27,7 @@ export const colors = defineTokens.colors({
     600: { value: '#707070' },
     700: { value: '#5c5c5c' },
     800: { value: '#474747' },
-    900: { value: '#333333' }, //
+    900: { value: '#333333' },
   },
   warning: {
     100: { value: '#f8c663' },
@@ -67,7 +70,7 @@ export const colors = defineTokens.colors({
     controlled: { value: '#f6bb42' },
     published: { value: '#5cb85c' },
   },
-  institTheme: {
+  strapi: {
     blue: {
       50: { value: '#B9DFF3' },
       100: { value: '#97D2ED' },

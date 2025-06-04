@@ -479,20 +479,6 @@ export interface ApiThemeColorThemeColor extends Struct.CollectionTypeSchema {
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
-    swatch: Schema.Attribute.Enumeration<
-      [
-        's50',
-        's100',
-        's200',
-        's300',
-        's400',
-        's500',
-        's600',
-        's700',
-        's800',
-        's900',
-      ]
-    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
