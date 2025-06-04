@@ -11,7 +11,14 @@ const formatPriceCategory = (priceCategory) =>
     ['id'],
   );
 
-async function update(pc, passEventOfferId, _OAEvent, processedEntries, entry) {
+async function update(
+  pc,
+  passEventOfferId,
+  _passAddressId,
+  _OAEvent,
+  processedEntries,
+  entry,
+) {
   const succeeded = { priceCategories: [] };
   let error;
 
@@ -41,6 +48,7 @@ async function update(pc, passEventOfferId, _OAEvent, processedEntries, entry) {
 async function create(
   pc,
   passEventOfferId,
+  _passAddressId,
   _OAEvent,
   _processedEntries,
   entry,

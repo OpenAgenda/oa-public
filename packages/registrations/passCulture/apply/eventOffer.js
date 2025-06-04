@@ -18,23 +18,35 @@ const venueDiffThanLoc = ({ venueLoc, location }) => {
 async function update(
   pc,
   passEventOfferId,
+  passAddressId,
   OAEvent,
   _processedEntries,
   entry,
   options,
 ) {
+  console.log('apply update', {
+    passEventOfferId,
+    passAddressId,
+    OAEvent,
+    _processedEntries,
+    entry,
+  });
   const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
 
   const { categories, related } = !categoriesFromOptions || !relatedFromOptions
     ? await pc.offers.events.categories.list()
     : { categories: categoriesFromOptions, related: relatedFromOptions };
 
-  const eventOffer = await formatEvent(OAEvent, entry, {
-    ...options,
-    categories,
-    related,
-    patch: true,
-  });
+  const eventOffer = await formatEvent(
+    OAEvent,
+    { ...entry, addressId: passAddressId },
+    {
+      ...options,
+      categories,
+      related,
+      patch: true,
+    },
+  );
 
   const { error } = await pc.offers
     .events(passEventOfferId)
@@ -85,6 +97,7 @@ async function create({ pc, siren }, OAEvent, entry, options) {
     })
   ) {
     // Validate that OAEvent location has a postal code
+    console.log('this', OAEvent.location);
     if (!OAEvent.location?.postalCode) {
       return {
         error: new BadRequest({
