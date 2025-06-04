@@ -135,45 +135,45 @@ export const semanticColors = defineSemanticTokens.colors({
     },
   },
 
-  institTheme: {
+  strapi: {
     blue: {
       contrast: {
         value: { _light: 'white', _dark: 'white' },
       },
       fg: {
         value: {
-          _light: '{colors.institTheme.blue.700}',
-          _dark: '{colors.institTheme.blue.300}',
+          _light: '{colors.strapi.blue.700}',
+          _dark: '{colors.strapi.blue.300}',
         },
       },
       subtle: {
         value: {
-          _light: '{colors.institTheme.blue.100}',
-          _dark: '{colors.institTheme.blue.900}',
+          _light: '{colors.strapi.blue.100}',
+          _dark: '{colors.strapi.blue.900}',
         },
       },
       muted: {
         value: {
-          _light: '{colors.institTheme.blue.200}',
-          _dark: '{colors.institTheme.blue.800}',
+          _light: '{colors.strapi.blue.200}',
+          _dark: '{colors.strapi.blue.800}',
         },
       },
       emphasized: {
         value: {
-          _light: '{colors.institTheme.blue.300}',
-          _dark: '{colors.institTheme.blue.700}',
+          _light: '{colors.strapi.blue.300}',
+          _dark: '{colors.strapi.blue.700}',
         },
       },
       solid: {
         value: {
-          _light: '{colors.institTheme.blue.600}',
-          _dark: '{colors.institTheme.blue.600}',
+          _light: '{colors.strapi.blue.600}',
+          _dark: '{colors.strapi.blue.600}',
         },
       },
       focusRing: {
         value: {
-          _light: '{colors.institTheme.blue.600}',
-          _dark: '{colors.institTheme.blue.600}',
+          _light: '{colors.strapi.blue.600}',
+          _dark: '{colors.strapi.blue.600}',
         },
       },
     },
@@ -183,38 +183,38 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       fg: {
         value: {
-          _light: '{colors.institTheme.purple.700}',
-          _dark: '{colors.institTheme.purple.300}',
+          _light: '{colors.strapi.purple.700}',
+          _dark: '{colors.strapi.purple.300}',
         },
       },
       subtle: {
         value: {
-          _light: '{colors.institTheme.purple.100}',
-          _dark: '{colors.institTheme.purple.900}',
+          _light: '{colors.strapi.purple.100}',
+          _dark: '{colors.strapi.purple.900}',
         },
       },
       muted: {
         value: {
-          _light: '{colors.institTheme.purple.200}',
-          _dark: '{colors.institTheme.purple.800}',
+          _light: '{colors.strapi.purple.200}',
+          _dark: '{colors.strapi.purple.800}',
         },
       },
       emphasized: {
         value: {
-          _light: '{colors.institTheme.purple.300}',
-          _dark: '{colors.institTheme.purple.700}',
+          _light: '{colors.strapi.purple.300}',
+          _dark: '{colors.strapi.purple.700}',
         },
       },
       solid: {
         value: {
-          _light: '{colors.institTheme.purple.600}',
-          _dark: '{colors.institTheme.purple.600}',
+          _light: '{colors.strapi.purple.600}',
+          _dark: '{colors.strapi.purple.600}',
         },
       },
       focusRing: {
         value: {
-          _light: '{colors.institTheme.purple.600}',
-          _dark: '{colors.institTheme.purple.600}',
+          _light: '{colors.strapi.purple.600}',
+          _dark: '{colors.strapi.purple.600}',
         },
       },
     },
@@ -224,38 +224,38 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       fg: {
         value: {
-          _light: '{colors.institTheme.darkPink.700}',
-          _dark: '{colors.institTheme.darkPink.300}',
+          _light: '{colors.strapi.darkPink.700}',
+          _dark: '{colors.strapi.darkPink.300}',
         },
       },
       subtle: {
         value: {
-          _light: '{colors.institTheme.darkPink.100}',
-          _dark: '{colors.institTheme.darkPink.900}',
+          _light: '{colors.strapi.darkPink.100}',
+          _dark: '{colors.strapi.darkPink.900}',
         },
       },
       muted: {
         value: {
-          _light: '{colors.institTheme.darkPink.200}',
-          _dark: '{colors.institTheme.darkPink.800}',
+          _light: '{colors.strapi.darkPink.200}',
+          _dark: '{colors.strapi.darkPink.800}',
         },
       },
       emphasized: {
         value: {
-          _light: '{colors.institTheme.darkPink.300}',
-          _dark: '{colors.institTheme.darkPink.700}',
+          _light: '{colors.strapi.darkPink.300}',
+          _dark: '{colors.strapi.darkPink.700}',
         },
       },
       solid: {
         value: {
-          _light: '{colors.institTheme.darkPink.600}',
-          _dark: '{colors.institTheme.darkPink.600}',
+          _light: '{colors.strapi.darkPink.600}',
+          _dark: '{colors.strapi.darkPink.600}',
         },
       },
       focusRing: {
         value: {
-          _light: '{colors.institTheme.darkPink.600}',
-          _dark: '{colors.institTheme.darkPink.600}',
+          _light: '{colors.strapi.darkPink.600}',
+          _dark: '{colors.strapi.darkPink.600}',
         },
       },
     },
@@ -265,38 +265,38 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       fg: {
         value: {
-          _light: '{colors.institTheme.blueGrey.700}',
-          _dark: '{colors.institTheme.blueGrey.300}',
+          _light: '{colors.strapi.blueGrey.700}',
+          _dark: '{colors.strapi.blueGrey.300}',
         },
       },
       subtle: {
         value: {
-          _light: '{colors.institTheme.blueGrey.100}',
-          _dark: '{colors.institTheme.blueGrey.900}',
+          _light: '{colors.strapi.blueGrey.100}',
+          _dark: '{colors.strapi.blueGrey.900}',
         },
       },
       muted: {
         value: {
-          _light: '{colors.institTheme.blueGrey.200}',
-          _dark: '{colors.institTheme.blueGrey.800}',
+          _light: '{colors.strapi.blueGrey.200}',
+          _dark: '{colors.strapi.blueGrey.800}',
         },
       },
       emphasized: {
         value: {
-          _light: '{colors.institTheme.blueGrey.300}',
-          _dark: '{colors.institTheme.blueGrey.700}',
+          _light: '{colors.strapi.blueGrey.300}',
+          _dark: '{colors.strapi.blueGrey.700}',
         },
       },
       solid: {
         value: {
-          _light: '{colors.institTheme.blueGrey.600}',
-          _dark: '{colors.institTheme.blueGrey.600}',
+          _light: '{colors.strapi.blueGrey.600}',
+          _dark: '{colors.strapi.blueGrey.600}',
         },
       },
       focusRing: {
         value: {
-          _light: '{colors.institTheme.blueGrey.600}',
-          _dark: '{colors.institTheme.blueGrey.600}',
+          _light: '{colors.strapi.blueGrey.600}',
+          _dark: '{colors.strapi.blueGrey.600}',
         },
       },
     },
