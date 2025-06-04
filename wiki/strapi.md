@@ -2,6 +2,18 @@
 
 ## Récuperer la base de prod pour le développement
 
+### 1. En utilisant la clé de transfert
+
+Il faut:
+
+1. Placer la clé de transfert en variable d'environnement `STRAPI_TRANSFER_TOKEN` dans le .env de oa
+2. Lancer `docker exec -it strapi yarn strapi-pull`
+3. Redémarrer le conteneur strapi
+
+Pour plus d'infos, voir la [documentation de Strapi](https://docs.strapi.io/cms/data-management/transfer)
+
+### 2. En téléchargeant la base
+
 Il faut:
 
 1. Télécharger la base
