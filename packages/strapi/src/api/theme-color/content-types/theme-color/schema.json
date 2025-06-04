@@ -14,21 +14,6 @@
   "attributes": {
     "name": {
       "type": "string"
-    },
-    "swatch": {
-      "type": "enumeration",
-      "enum": [
-        "s50",
-        "s100",
-        "s200",
-        "s300",
-        "s400",
-        "s500",
-        "s600",
-        "s700",
-        "s800",
-        "s900"
-      ]
     }
   }
 }
