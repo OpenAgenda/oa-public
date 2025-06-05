@@ -576,7 +576,7 @@
   "next.views.EventShow.ShareModal.shareEvent": [
     {
       "type": 0,
-      "value": "Partager l'événement"
+      "value": "Partager / Exporter l'événement"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [
