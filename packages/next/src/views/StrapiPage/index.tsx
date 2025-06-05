@@ -20,7 +20,7 @@ const ubuntuSans = Ubuntu_Sans({
   subsets: ['latin'],
 });
 
-export default function StrapiPage({ page }) {
+export default function StrapiPage({ page, footer }) {
   const { title, Segments } = page;
 
   return (
@@ -48,11 +48,12 @@ export default function StrapiPage({ page }) {
           'segments.carousel-set': CarouselSet,
           'segments.tab-set': TabSet,
           'segments.reference-set': ReferenceSet,
-          'segments.footer': Footer,
         }[Segment['__component']];
 
         return <Component key={id} {...Segment} />;
       })}
+
+      {footer && <Footer {...footer} />}
     </>
   );
 }
