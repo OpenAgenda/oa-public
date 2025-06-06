@@ -20,7 +20,7 @@
     "storybook": "storybook dev"
   },
   "dependencies": {
-    "@iframe-resizer/parent": "^5.4.0-beta.14"
+    "@iframe-resizer/parent": "^5.4.6"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
