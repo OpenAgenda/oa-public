@@ -39,6 +39,7 @@ const formatDate = (OAEvent, entries, date) => {
 async function create(
   pc,
   passEventOfferId,
+  _passAddressId,
   OAEvent,
   processedEntries,
   entry,
@@ -87,6 +88,7 @@ async function applyDateOperation(
   operation,
   pc,
   passEventOfferId,
+  _passAddressId,
   _OAEvent,
   processedEntries,
   entry,

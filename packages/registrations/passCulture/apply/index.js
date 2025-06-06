@@ -121,6 +121,7 @@ export default async function apply(
   }
 
   const passEventOfferId = processed[0].response.passId;
+  const passAddressId = processed[0].response?.addressId;
 
   for (let index = 0; index < remainingDataEntries.length; index += 1) {
     const entryLogBundle = { ...logBundle, index };
@@ -143,7 +144,7 @@ export default async function apply(
     const { succeeded, response, remaining, error } = await getApplyFn(
       objectType,
       operation,
-    )(pc, passEventOfferId, OAEvent, processed, entry, {
+    )(pc, passEventOfferId, passAddressId, OAEvent, processed, entry, {
       ...options,
       logBundle: entryLogBundle,
     });

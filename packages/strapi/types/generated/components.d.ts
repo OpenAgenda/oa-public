@@ -316,19 +316,6 @@ export interface SegmentsCarouselSet extends Struct.ComponentSchema {
   };
 }
 
-export interface SegmentsFooter extends Struct.ComponentSchema {
-  collectionName: 'components_segments_footers';
-  info: {
-    description: '';
-    displayName: 'Footer';
-  };
-  attributes: {
-    Columns: Schema.Attribute.Component<'components.footer-column', true> &
-      Schema.Attribute.Required;
-    contactUrl: Schema.Attribute.String & Schema.Attribute.Required;
-  };
-}
-
 export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
   collectionName: 'components_segments_highlight_card_sets';
   info: {
@@ -445,7 +432,6 @@ declare module '@strapi/strapi' {
       'components.tab': ComponentsTab;
       'segments.accordion-set': SegmentsAccordionSet;
       'segments.carousel-set': SegmentsCarouselSet;
-      'segments.footer': SegmentsFooter;
       'segments.highlight-card-set': SegmentsHighlightCardSet;
       'segments.modular-set': SegmentsModularSet;
       'segments.page-head': SegmentsPageHead;

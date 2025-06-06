@@ -41,8 +41,7 @@
         "segments.carousel-set",
         "segments.highlight-card-set",
         "segments.tab-set",
-        "segments.reference-set",
-        "segments.footer"
+        "segments.reference-set"
       ],
       "pluginOptions": {
         "i18n": {

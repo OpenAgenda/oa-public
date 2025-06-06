@@ -135,7 +135,7 @@ describe('apply', () => {
             .pop();
 
           processed = await apply(
-            pc,
+            { pc, siren: ['123456789'] },
             CArtEvent,
             {
               venueId: 548,
@@ -173,6 +173,7 @@ describe('apply', () => {
           expect(processed[0].response).toEqual({
             passId: randomPassOfferID,
             isPending: false,
+            addressId: expect.any(Number),
           });
         });
 
@@ -246,7 +247,7 @@ describe('apply', () => {
 
         beforeAll(async () => {
           processed = await apply(
-            pc,
+            { pc, siren: ['123456789'] },
             CArtEvents[0],
             withPendingOffer,
             settings,
@@ -265,7 +266,12 @@ describe('apply', () => {
         });
 
         beforeAll(async () => {
-          processed = await apply(pc, CArtEvents[0], noLongerPending, settings);
+          processed = await apply(
+            { pc, siren: ['123456789'] },
+            CArtEvents[0],
+            noLongerPending,
+            settings,
+          );
         });
 
         test('all remaining operations are executed', () => {
@@ -286,7 +292,12 @@ describe('apply', () => {
         });
 
         beforeAll(async () => {
-          processed = await apply(pc, CArtEvents[0], rejected, { ...settings });
+          processed = await apply(
+            { pc, siren: ['123456789'] },
+            CArtEvents[0],
+            rejected,
+            { ...settings },
+          );
         });
 
         test('all remaining operations stopped', () => {
@@ -353,7 +364,7 @@ describe('apply', () => {
             .map((t) => new Date(t.begin).getTime())
             .pop();
           processed = await apply(
-            pc,
+            { pc, siren: ['123456789'] },
             CArtEvents[0],
             {
               venueId: 548,
@@ -425,7 +436,7 @@ describe('apply', () => {
 
       test('last item of processed elements contains an appliedAt timestamp', async () => {
         const processed = await apply(
-          pc,
+          { pc, siren: ['123456789'] },
           CArtEvents[0],
           applyValidTimingId(withPriceCategoryUpdate, CArtEvents[0]),
           settings,
@@ -461,7 +472,7 @@ describe('apply', () => {
 
       test('last item of processed elements contains an appliedAt timestamp', async () => {
         const processed = await apply(
-          pc,
+          { pc, siren: ['123456789'] },
           CArtEvents[0],
           applyValidTimingId(withDateUpdate, CArtEvents[0]),
           settings,
@@ -493,7 +504,7 @@ describe('apply', () => {
 
       test('last item of processed elements contains an appliedAt timestamp', async () => {
         const processed = await apply(
-          pc,
+          { pc, siren: ['123456789'] },
           CArtEvents[0],
           applyValidTimingId(withDateDelete, CArtEvents[0]),
           settings,
