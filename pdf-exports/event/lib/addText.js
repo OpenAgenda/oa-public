@@ -10,7 +10,7 @@ import rtd from './roundToDecimal.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
-const maxLoopCount = 20;
+const maxLoopCount = 100;
 
 const getSelectedFont = ({ bold, medium }) => {
   if (bold) {
@@ -216,7 +216,9 @@ function getAvailableWidth(doc, cursor, params) {
 
 export default function addText(doc, parentCursor, params = {}) {
   const {
-    availableHeight,
+    availableHeight = doc.page.height
+      - (doc.page.margins?.bottom ?? 0)
+      - parentCursor.y ?? 0,
     value,
     content,
     lang,
@@ -292,6 +294,7 @@ export default function addText(doc, parentCursor, params = {}) {
       });
       return {
         ...size,
+        overflowingHeight: size.height + lineSize.height,
         remaining: lines.slice(index).join(' '),
       };
     }

@@ -17,6 +17,15 @@ export default async function addTimings(doc, parentCursor, params = {}) {
     },
   } = params;
 
+  if (availableHeight < 0) {
+    log('  no available height left on page');
+    return {
+      width: 0,
+      height: 0,
+      remaining: params.value,
+    };
+  }
+
   const cursor = Cursor(parentCursor);
 
   const timingMonthSegments = areTimings(params.value)
@@ -39,13 +48,17 @@ export default async function addTimings(doc, parentCursor, params = {}) {
       availableWidthForSegment: rtd(availableWidthForSegment),
     });
 
-    const simulated = await addTimingsMonthSegment(doc, cursor, {
-      ...params,
-      value: timingMonthSegments[index],
-      availableHeight: availableHeightForSegment,
-      simulate: true,
-      margins: margins.monthSegments,
-    });
+    const simulated = await addTimingsMonthSegment(
+      doc,
+      { y: cursor.y, x: 0 },
+      {
+        ...params,
+        value: timingMonthSegments[index],
+        availableHeight: doc.page.height,
+        simulate: true,
+        margins: margins.monthSegments,
+      },
+    );
 
     if (simulated.width === 0 || simulated.width > availableWidthForSegment) {
       log('  no available space left for segment', {

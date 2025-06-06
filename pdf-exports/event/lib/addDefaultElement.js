@@ -16,9 +16,10 @@ function extractText(element) {
   return '';
 }
 
-function isOverflowing(doc, cursor, size) {
+function isOverflowing(doc, cursor, height) {
   const availableHeight = doc.page.height - (doc.page.margins?.bottom ?? 0);
-  return cursor.y + size.height > availableHeight;
+
+  return cursor.y + height > availableHeight;
 }
 
 export default async function addDefaultElement(doc, state, element, params) {
@@ -26,7 +27,7 @@ export default async function addDefaultElement(doc, state, element, params) {
   const value = `${params.prefix ?? ''}${extractText(element)}`;
   log(`${lgi(params.depth)}addDefaultElement`, { value, link });
   const { cursor } = state;
-  const { remaining, ...size } = addText(doc, state.cursor, {
+  const { remaining, overflowingHeight, ...size } = addText(doc, state.cursor, {
     ...params,
     value,
     link,
@@ -42,7 +43,7 @@ export default async function addDefaultElement(doc, state, element, params) {
     cursor.moveX(size.width);
     return {
       remaining,
-      overflow: isOverflowing(doc, cursor, size),
+      overflow: isOverflowing(doc, cursor, size.height),
     };
   }
 
@@ -52,6 +53,6 @@ export default async function addDefaultElement(doc, state, element, params) {
 
   return {
     remaining,
-    overflow: isOverflowing(doc, cursor, size),
+    overflow: isOverflowing(doc, cursor, size.height || overflowingHeight),
   };
 }

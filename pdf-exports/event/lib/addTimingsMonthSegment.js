@@ -83,10 +83,14 @@ export default async function addTimingMonth(doc, parentCursor, params) {
   for (const [weekIndex, week] of month.weeks.entries()) {
     for (const [dateIndex, date] of week.dates.entries()) {
       const value = `${date.label} - ${date.timings.map((t) => t.label).join(', ')}`;
-      const dateSize = await addText(doc, cursor, {
-        value,
-        simulate: true,
-      });
+      const dateSize = await addText(
+        doc,
+        { x: 0, y: 0 },
+        {
+          value,
+          simulate: true,
+        },
+      );
       if (size.height + dateSize.height > availableHeight) {
         log('not placing date item, height exceeds available height', {
           value,
