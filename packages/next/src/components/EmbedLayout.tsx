@@ -9,7 +9,7 @@ import {
   theme as defaultTheme,
   UIKitProvider,
   useConst,
-  createCache,
+  defaultCache,
 } from '@openagenda/uikit';
 import useSyncUrlWithParent from 'hooks/useSyncUrlWithParent';
 import useIsFirstRender from 'hooks/useIsFirstRender';
@@ -34,9 +34,6 @@ type EmbedLayoutDataValue = {
   referrer: string;
   setReferrer: React.Dispatch<React.SetStateAction<string | null>>;
 } & EmbedParams;
-
-// Key `css` is needed because of a bug with turbopack and chakra
-const defaultCache = createCache({ key: 'css' });
 
 export const [EmbedLayoutDataProvider, useEmbedLayoutData] =
   createContext<EmbedLayoutDataValue>({
