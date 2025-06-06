@@ -1,0 +1,1 @@
+**Modalités :** Nous comptons sur la présence des jeunes sur les deux jours afin de mener le projet jusqu’au bout. Les places sont limitées, une inscription est nécessaire depuis le site de la Ville : [https://www.saintjeandebraye.fr/evenement/ateliers-urbbraye/](https://www.saintjeandebraye.fr/evenement/ateliers-urbbraye/)

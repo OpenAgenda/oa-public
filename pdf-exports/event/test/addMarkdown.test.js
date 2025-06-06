@@ -12,11 +12,11 @@ let segments = process.argv.slice(2);
 
 // If no arguments provided, render all segments
 if (segments.length === 0) {
-  segments = ['tiny', 'emojis', 'girls'];
+  segments = ['tiny', 'emojis', 'girls', 'modalites'];
 }
 
 // Validate all segments
-const validSegments = ['tiny', 'emojis', 'girls'];
+const validSegments = ['tiny', 'emojis', 'girls', 'modalites'];
 for (const segment of segments) {
   if (!validSegments.includes(segment)) {
     console.error(`Invalid segment: ${segment}`);
@@ -56,6 +56,13 @@ for (const segment of segments) {
         'utf-8',
       ),
       availableWidth: 120,
+    });
+  } else if (segment === 'modalites') {
+    await addMarkdown(doc, cursor, {
+      value: await readFile(
+        `${__dirname}/fixtures/modalites-de-formation.md`,
+        'utf-8',
+      ),
     });
   }
 

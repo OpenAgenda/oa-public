@@ -6,7 +6,10 @@ import addText from '../lib/addText.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
-const doc = new PDFDocument({ size: 'A4', margin: 0 });
+const doc = new PDFDocument({
+  size: 'A4',
+  margin: 0,
+});
 
 doc.pipe(fs.createWriteStream(`${__dirname}/renders/addText.pdf`));
 
@@ -55,5 +58,13 @@ cursor.moveY(
 );
 
 cursor.setX(0);
+
+cursor.moveY(
+  addText(doc, cursor, {
+    value: fs.readFileSync(`${__dirname}/fixtures/intrepides.txt`, 'utf8'),
+    availableWidth,
+    segmentable: true,
+  }).height,
+);
 
 doc.end();
