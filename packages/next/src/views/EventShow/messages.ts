@@ -307,7 +307,7 @@ export const shareModal = defineMessages({
   },
   shareEvent: {
     id: 'next.views.EventShow.ShareModal.shareEvent',
-    defaultMessage: 'Share the event',
+    defaultMessage: 'Share / Export the event',
   },
   shareOnSocialNetworks: {
     id: 'next.views.EventShow.ShareModal.shareOnSocialNetworks',
@@ -475,7 +475,7 @@ export const navigationButton = defineMessages({
 export const sidebar = defineMessages({
   share: {
     id: 'next.views.EventShow.Sidebar.share',
-    defaultMessage: 'Share',
+    defaultMessage: 'Share / Export',
   },
   accessEventOnline: {
     id: 'next.views.EventShow.Sidebar.accessEventOnline',

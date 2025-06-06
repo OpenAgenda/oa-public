@@ -1,5 +1,9 @@
 {
   "next.views.EventShow.ShareModal.downloadButton": "Download",
   "next.views.EventShow.ShareModal.downloadPDF": "Download PDF",
+  "next.views.EventShow.ShareModal.feedbackEmailBody": "I'm testing the PDF export on the event {eventUrl} and I would like to make some suggestions: ...",
+  "next.views.EventShow.ShareModal.feedbackEmailSubject": "Export PDF",
+  "next.views.EventShow.ShareModal.feedbackLink": "Tell us how to improve it!",
+  "next.views.EventShow.ShareModal.feedbackQuestion": "Do you find this export useful?",
   "next.views.EventShow.ShareModal.new": "NEW"
 }

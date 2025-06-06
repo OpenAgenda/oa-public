@@ -1,5 +1,5 @@
 import { useIntl, defineMessages } from 'react-intl';
-import { Button, Link, Flex } from '@openagenda/uikit';
+import { Button, Link, Flex, Text } from '@openagenda/uikit';
 import { Tag } from '@openagenda/uikit/snippets';
 import { FaIcon } from 'icons';
 import { faFilePdf } from 'icons/regular';
@@ -18,12 +18,35 @@ const pdfMessages = defineMessages({
     id: 'next.views.EventShow.ShareModal.new',
     defaultMessage: 'NEW',
   },
+  feedbackQuestion: {
+    id: 'next.views.EventShow.ShareModal.feedbackQuestion',
+    defaultMessage: 'Do you find this export useful?',
+  },
+  feedbackLink: {
+    id: 'next.views.EventShow.ShareModal.feedbackLink',
+    defaultMessage: 'Tell us how to improve it!',
+  },
+  feedbackEmailSubject: {
+    id: 'next.views.EventShow.ShareModal.feedbackEmailSubject',
+    defaultMessage: 'Export PDF',
+  },
+  feedbackEmailBody: {
+    id: 'next.views.EventShow.ShareModal.feedbackEmailBody',
+    defaultMessage:
+      "I'm testing the PDF export on the event {eventUrl} and I would like to make some suggestions: ...",
+  },
 });
 
 export default function DownloadPDF({ agenda, event }) {
   const intl = useIntl();
 
   const pdfUrl = `/api/agendas/${agenda.uid}/events/${event.uid}.pdf`;
+  const eventUrl = `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`;
+  const mailtoHref = `mailto:support@openagenda.com?subject=${encodeURIComponent(
+    intl.formatMessage(pdfMessages.feedbackEmailSubject),
+  )}&body=${encodeURIComponent(
+    intl.formatMessage(pdfMessages.feedbackEmailBody, { eventUrl }),
+  )}`;
 
   return (
     <AccordionItem
@@ -46,7 +69,7 @@ export default function DownloadPDF({ agenda, event }) {
         </>
       }
     >
-      <Flex justify="center">
+      <Flex direction="column" align="center" gap={4}>
         <Button asChild>
           <Link
             unstyled
@@ -59,6 +82,12 @@ export default function DownloadPDF({ agenda, event }) {
             {intl.formatMessage(pdfMessages.download)}
           </Link>
         </Button>
+        <Flex gap={2}>
+          <Text>{intl.formatMessage(pdfMessages.feedbackQuestion)}</Text>
+          <Link href={mailtoHref} color="primary.500">
+            {intl.formatMessage(pdfMessages.feedbackLink)}
+          </Link>
+        </Flex>
       </Flex>
     </AccordionItem>
   );
