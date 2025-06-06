@@ -9,7 +9,8 @@
     "deploy": "strapi deploy",
     "develop": "strapi develop",
     "start": "strapi start",
-    "strapi": "strapi"
+    "strapi": "strapi",
+    "strapi-pull": "strapi transfer --from https://strapi.oagenda.com/admin --from-token $TRANSFER_TOKEN"
   },
   "dependencies": {
     "@strapi/core": "^5.13.1",

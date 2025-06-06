@@ -576,7 +576,7 @@
   "next.views.EventShow.ShareModal.shareEvent": [
     {
       "type": 0,
-      "value": "Share the event"
+      "value": "Share / Export the event"
     }
   ],
   "next.views.EventShow.ShareModal.shareLink": [
@@ -672,7 +672,7 @@
   "next.views.EventShow.Sidebar.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Share / Export"
     }
   ],
   "next.views.EventShow.Sidebar.startingAt": [

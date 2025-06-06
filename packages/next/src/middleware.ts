@@ -4,7 +4,6 @@ import { isOutdatedBrowser } from '@openagenda/outdated-browser/middleware';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
 import parseAcceptLanguage from 'utils/parseAcceptLanguage';
-import { strapiUrlRegex } from '@/src/utils/isNextUrl';
 
 const MATCHER_REGEX =
   /^\/(api|_next\/static|_next\/image|favicon\.ico)($|\/).*$/;
@@ -15,15 +14,6 @@ export async function middleware(req: NextRequest) {
   }
 
   /* locale redirection */
-  // strapi is only french
-  if (
-    req.nextUrl.locale !== 'fr' &&
-    strapiUrlRegex.test(req.nextUrl.pathname)
-  ) {
-    return NextResponse.redirect(
-      new URL(`/fr/${req.nextUrl.pathname}${req.nextUrl.search}`, req.url),
-    );
-  }
 
   // req.cookies.get('NEXT_LOCALE');
   const acceptLanguage = parseAcceptLanguage(

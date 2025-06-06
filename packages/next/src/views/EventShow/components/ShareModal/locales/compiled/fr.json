@@ -11,6 +11,38 @@
       "value": "Télécharger un PDF"
     }
   ],
+  "next.views.EventShow.ShareModal.feedbackEmailBody": [
+    {
+      "type": 0,
+      "value": "Je teste l'export PDF sur l'événement "
+    },
+    {
+      "type": 1,
+      "value": "eventUrl"
+    },
+    {
+      "type": 0,
+      "value": " et je souhaiterais faire quelques suggestions : ..."
+    }
+  ],
+  "next.views.EventShow.ShareModal.feedbackEmailSubject": [
+    {
+      "type": 0,
+      "value": "Export PDF"
+    }
+  ],
+  "next.views.EventShow.ShareModal.feedbackLink": [
+    {
+      "type": 0,
+      "value": "Dites-nous comment l'améliorer !"
+    }
+  ],
+  "next.views.EventShow.ShareModal.feedbackQuestion": [
+    {
+      "type": 0,
+      "value": "Vous trouvez cet export utile ?"
+    }
+  ],
   "next.views.EventShow.ShareModal.new": [
     {
       "type": 0,

@@ -1,0 +1,220 @@
+{
+  "firstTiming": {
+    "end": "2025-07-14T23:59:00.000+02:00",
+    "begin": "2025-07-14T08:00:00.000+02:00"
+  },
+  "nextTiming": {
+    "begin": "2025-07-14T08:00:00+02:00",
+    "end": "2025-07-14T23:59:00+02:00"
+  },
+  "lastTiming": {
+    "end": "2025-07-19T13:30:00.000+02:00",
+    "begin": "2025-07-19T00:00:00.000+02:00"
+  },
+  "member": {
+    "uid": 14997710,
+    "role": 1,
+    "phone": "0612590325",
+    "organization": "SARL les Grelodots",
+    "name": "Samuel CARUSO",
+    "invited": false,
+    "position": "DIRECTEUR ET GERANT",
+    "user": {
+      "uid": 14997710,
+      "culture": "fr",
+      "fullName": "lesgrelodots"
+    },
+    "email": "contact@lesgrelodots.fr",
+    "_agg": "eyJ1aWQiOjE0OTk3NzEwLCJuYW1lIjoiU2FtdWVsIENBUlVTTyJ9"
+  },
+  "dateRange": {
+    "ar": "١٤ - ١٩ يوليو",
+    "de": "14 - 19 Juli",
+    "en": "14 - 19 July",
+    "it": "14 - 19 luglio",
+    "fr": "14 - 19 juillet",
+    "es": "14 - 19 julio"
+  },
+  "state": 2,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "image": "agenda49534310.jpg",
+    "private": 0,
+    "locationSetUid": null,
+    "official": true,
+    "description": "Cet agenda est ouvert à la contribution",
+    "title": "Offre de \"Colos apprenantes\" - Saône-et-Loire",
+    "url": "https://openagenda.com/agendas?search=Offre+de+%22Colos+apprenantes%22",
+    "_agg": "eyJ1aWQiOjEwOTcyMjI0LCJ0aXRsZSI6Ik9mZnJlIGRlIFwiQ29sb3MgYXBwcmVuYW50ZXNcIiAtIFNhw7RuZS1ldC1Mb2lyZSIsImltYWdlIjoiYWdlbmRhNDk1MzQzMTAuanBnIiwidXJsIjoiaHR0cHM6Ly9vcGVuYWdlbmRhLmNvbS9hZ2VuZGFzP3NlYXJjaD1PZmZyZStkZSslMjJDb2xvcythcHByZW5hbnRlcyUyMiIsInNsdWciOiJvZmZyZS1kZS1jb2xvcy1hcHByZW5hbnRlcy1zYW9uZS1ldC1sb2lyZSJ9",
+    "uid": 10972224,
+    "createdAt": "2020-09-23T14:26:20.000Z",
+    "officializedAt": "2020-09-23T14:26:20.000Z",
+    "slug": "offre-de-colos-apprenantes-saone-et-loire",
+    "updatedAt": "2025-04-17T11:22:16.000Z"
+  },
+  "sourceAgendas": [],
+  "presentation-de-lorganisateur-type-experience-dans-lorganisation-daccueils-collectifs-de-mineurs": "Séjours de vacances Dans Le Morvan,\n\nThématique éco-citoyen et axé autour du milieu forestier.",
+  "projet-educatif": {
+    "originalName": "PROJET ÉDUCATIF.pdf",
+    "extension": "pdf",
+    "filename": "98d7a85023c84ccfa1e80a4da3e5722d.projet-educatif.pdf"
+  },
+  "numero-de-lorganisateur": "071ORG0428",
+  "en-plus-de-celui-dorganisateur-de-sejours-avez-vous-etabli-ou-allez-vous-etablir-un-partenariat-avec-letat-pour-tenir-un-role-de-prescripteur": 199,
+  "image": {
+    "filename": "353d46014ad046bca58120d2daa790f2.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 493
+    },
+    "variants": [
+      {
+        "filename": "353d46014ad046bca58120d2daa790f2.full.image.jpg",
+        "size": {
+          "width": 894,
+          "height": 630
+        },
+        "type": "full"
+      },
+      {
+        "filename": "353d46014ad046bca58120d2daa790f2.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": null,
+  "title": {
+    "fr": "les intrépides"
+  },
+  "status": 1,
+  "le-sejour-se-deroule": [189],
+  "longDescription": {
+    "fr": "Au centre Les Grelodots, nous favorisons la débrouillardise. Avant tout, l’enfant est acteur de ses vacances. Nous sommes défenseurs de l’éducation populaire et nous développons l’accès à l’autonomie par l’exploration. Le centre s’inscrit dans une démarche de sensibilisation à l’environnement. Ainsi, on y découvre l’éco citoyenneté tout en s’amusant !  \nLes enfants élaborent leur programme en concertation avec les animateurs. Aux Grelodots, nous respectons le rythme de chacun. Par conséquent, nous aménageons toujours un temps personnel chaque jour où l’enfant peut choisir à sa guise de se reposer, jouer, lire, discuter,… Aussi, nous préférons les réveils échelonnés."
+  },
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {},
+    "city": "Bussy",
+    "timezone": "Europe/Paris",
+    "postalCode": "71550",
+    "latitude": 47.078604,
+    "imageCredits": null,
+    "description": {},
+    "setUid": null,
+    "uid": 26621565,
+    "createdAt": "2023-04-07T16:32:02.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [],
+    "state": 0,
+    "extId": null,
+    "department": "Saône-et-Loire",
+    "slug": "les-grelodots_2629144",
+    "email": null,
+    "longitude": 4.096592,
+    "updatedAt": "2023-04-07T16:32:02.000Z",
+    "image": null,
+    "website": null,
+    "address": "17 rue du docteur Roy 71550 Anost",
+    "adminLevel3": null,
+    "agendaUid": 10972224,
+    "adminLevel4": "Bussy",
+    "adminLevel1": "Bourgogne-Franche-Comté",
+    "adminLevel2": "Saône-et-Loire",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjI2NjIxNTY1LCJuYW1lIjoiTGVzIEdyZWxvZG90cyJ9",
+    "tags": null,
+    "insee": "71009",
+    "phone": null,
+    "district": null,
+    "name": "Les Grelodots",
+    "region": "Bourgogne-Franche-Comté",
+    "extIds": null
+  },
+  "timings": [
+    {
+      "begin": "2025-07-14T08:00:00+02:00",
+      "end": "2025-07-14T23:59:00+02:00"
+    },
+    {
+      "begin": "2025-07-15T00:00:00+02:00",
+      "end": "2025-07-15T23:59:00+02:00"
+    },
+    {
+      "begin": "2025-07-16T00:00:00+02:00",
+      "end": "2025-07-16T23:59:00+02:00"
+    },
+    {
+      "begin": "2025-07-17T00:00:00+02:00",
+      "end": "2025-07-17T23:59:00+02:00"
+    },
+    {
+      "begin": "2025-07-18T00:00:00+02:00",
+      "end": "2025-07-18T23:59:00+02:00"
+    },
+    {
+      "begin": "2025-07-19T00:00:00+02:00",
+      "end": "2025-07-19T13:30:00+02:00"
+    }
+  ],
+  "age": {
+    "min": 6,
+    "max": 14
+  },
+  "description": {
+    "fr": "dans le cadre de l'opération \"colonies apprenantes\" par le Ministère de l'Éducation Nationale."
+  },
+  "objectifs-pedagogiques-et-competences-visees-etre-capable-de": "• Que les enfants âgés de 6 à 14 ans passent de vraies vacances en prenant conscience du vivre ensemble  \n• Développer la prise de choix et l’autonomie de l’enfant  \n• Accès à l’écocitoyenneté à l’échelle individuelle et collective (enfants et animateurs)",
+  "thematiques-principales-developpees-par-le-projet-pedagogique-deux-items-possibles": [
+    47, 150
+  ],
+  "qualifications": [191, 192],
+  "organisation-des-modules-de-renforcement-scolaire-frequence-duree-des-seances-materiels-locaux": null,
+  "actions-retenues-pour-favoriser-la-mixite-et-linclusion-sociale-territoriale-et-de-genre": "Distribution de flyers dans plusieurs milieu sociaux : écoles rurales & urbaines, centre sociaux, MECS",
+  "actions-retenues-pour-favoriser-la-participation-des-enfants-et-des-jeunes": "Réunions journalières avec les enfants, choix des activités et construction du planning\nParticipation aux tâches communes (rangement, nettoyage des tables,...)\nLes enfants peuvent choisir l'atelier auquel ils souhaitent participer le matin (possibilité d'en faire plusieurs, de tourner, sur une matinée)",
+  "lien-avec-les-familles-merci-de-preciser-comment-est-prevue-la-communication-avec-les-familles-avant-pendant-et-apres-le-sejour": "Avant : - envoi de communication à propos du séjour (fiche d'inventaire, conseil pour le trousseau, exemples d'activités, déroulé d'une journée)\n- mise en place du blog\n\nPendant : - Mise à jour du blog\n- Rédaction de courriers par les enfants\n\nAprès : - Questionnaire de satisfaction\n- Invitation des familles à suivre les réseaux sociaux du centre",
+  "organisation-de-la-vie-quotidienne-merci-de-preciser-comment-sorganisent-lhebergement-couchage-repas-douche-etc": "7H30 • LE LEVER\n\n8h - 9h40 • LE PETIT DÉJEUNER\n\nL’enfant choisi sur le buffet ce qu’il souhaite manger.\n\nUne fois que les enfants ont pris leur petit-déjeuner, ils peuvent passer dans l’espace d’activité. Les animateurs jouent avec les enfants.\n\n10h - 10h30 • TOILETTE + RANGEMENT\n\nRetour dans les chambres pour la petite toilette (visage et dents) et le rangement.\n\nLes animateurs aident et motivent les enfants à s’habiller, se coiffer, se laver les dents et la figure ainsi que pour le rangement des chambres et de l’hébergement.\n\n\n10h30 – 12h • LES ATELIERS\n\nLe matin plusieurs ateliers sont proposés aux enfants. Le fait de mettre en place des ateliers permet aux enfants de tourner sur plusieurs ateliers le matin selon leurs envies.\n\n\nLe rangement fait partie intégrante de l’activité, il se fait avec les enfants.\n\n12h - 13h • LE REPAS\n\nLes enfants participent au débarrassage des tables. Ils trient les déchets et s'il y en a, distribue les restes alimentaires aux animaux.\n\n13h - 14h • LE TEMPS CALME\nPossibilité d’aller dans la bibliothèque, dans les salles d’activités, dans le parc.Sur place il y a un poulailler qui nous sert à éliminer au maximum nos déchets organiques, en plus du compost. La mare et son biotope peuvent être observés et étudiés (netonecte, triton, gerris, dytique, etc...), tout comme les hôtels à insectes et la faune sauvage vivant sur place (oiseaux, insecte, mammifères...).\n\n\n14h - 14h20 • LA RÉUNION D’ENFANTS + LES INSCRIPTIONS EN VEILLÉE\nLa manière dont sont impliqués les enfants sur les réunions d'enfants diffèrent selon leurs âges (thèmes abordés, mise en place des temps de paroles, etc..).\n\n14h30– 17h30 • LES ACTIVITÉS + LE GOÛTER\nPour les activités : Au début du séjour les enfants reçoivent un carnet d'aventure.\nCelui-ci leur permet de tracer leur séjour et leurs apprentissages et nous faisons le point des acquis aux réunions d'enfants. Une sortie traces et indices peut être organisée pour apprendre à observer les traces laissées par les animaux (coulée, crottes, pomme de pin grignotée, fourmilières, empreintes de sabots, pattes ou mains). À l'aide d'une clé d'identification, les enfants apprennent à différencier les espèces et leurs familles .\n\nNous proposons également la fabrication d'un herber. Ce dernier leur apprend à différencier plusieurs espèce de plantes ou d'arbres et à les classer (résineux, feuillus).\nLa démarche est de leur donner les outils facilitant les apprentissages selon leurs souhaits et envies. Ainsi nous favorisons la démarche scientifique : émettre des hypothèses et les vérifier .\n17h30 - 19h • LES DOUCHES + LE TEMPS LIBRE\n\nTemps libre à partir de 18h : ce moment est idéal pour les appels aux parents, l’écriture des lettres,...\n\n19h • LE REPAS\n\n20h - 21h • LES VEILLÉES\nPour les veillées, il y a les bivouac et tous les apprentissages que cela inclu : lecture de carte, tracé d'itinéraire, monter une tente, observation de faune et flore, mise en place de menu (et donc parler de l'équilibre alimentaire), le rôle des forêts et leur gestion...\nFeux de camps, film-débats, soirée étoiles, observation insectes ou animaux nocturne (chauve-souris, chouette...) sont parmis les veillées qui peuvent êtres proposées. Lors des veillées en bivouac, nous faisont, s'il le souhaite, un affût ou un temps d'écoute qui permet d'apprendre plusieurs bruits d'animaux. Ces temps permettent également de les rassurer sur les différents bruits que la forêt peux émettre.\n\n21h – 21h30 • LE COUCHER\n\nBrossage des dents, mise en pyjama et petit temps de lecture\n\n21h30 • L’EXTINCTION DES FEUX",
+  "partenariats-locaux": "Mairie, Maison du patrimoine oral de Bourgogne, ONF",
+  "accessibility": {
+    "ii": false,
+    "hi": false,
+    "vi": false,
+    "pi": false,
+    "mi": false
+  },
+  "conditions": {
+    "fr": "480"
+  },
+  "registration": [
+    {
+      "type": "link",
+      "value": "https://www.lesgrelodots.fr/colonies-de-vacances/#tarifs-inscription"
+    }
+  ],
+  "keywords": {
+    "fr": ["nature", "faune", "Flore", "Aventure", "Bivouac", "accrobranches"]
+  },
+  "nombre-de-places-ouvertes": 40,
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "vacances-scolaires-concernees": 203,
+  "nombre-de-jours": 6,
+  "extIds": null,
+  "uid": 86615382,
+  "slug": "les-intrepides-2620977",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2025-02-19T12:52:46.000Z",
+  "creatorUid": 14997710,
+  "ownerUid": 14997710,
+  "updatedAt": "2025-04-02T09:42:48.000Z",
+  "links": []
+}

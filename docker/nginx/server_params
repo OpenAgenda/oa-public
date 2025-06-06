@@ -126,7 +126,7 @@ location ~ ^/agendas/([0-9]+)/(events|locations|settings|sources)\.(json|csv|xls
 ##########################################################
 #                NODEJS
 
-location ~ ^/(en|de|br|es|it|oc)$ {
+location ~ ^/(fr|en|de|br|es|it|oc)$ {
   include conf.d/nodejs_params;
 }
 
