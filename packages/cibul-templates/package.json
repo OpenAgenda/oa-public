@@ -10,7 +10,7 @@
   "dependencies": {
     "@babel/core": "^7.23.3",
     "@babel/runtime-corejs3": "^7.23.2",
-    "@iframe-resizer/child": "^5.4.0-beta.14",
+    "@iframe-resizer/child": "^5.4.6",
     "@loadable/component": "^5.14.1",
     "@loadable/webpack-plugin": "^5.14.2",
     "@openagenda/activity-apps": "^1.2.1",
