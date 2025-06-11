@@ -2780,7 +2780,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emotion/babel-plugin@npm:^11.11.0, @emotion/babel-plugin@npm:^11.13.5":
+"@emotion/babel-plugin@npm:^11.13.5":
   version: 11.13.5
   resolution: "@emotion/babel-plugin@npm:11.13.5"
   dependencies:
@@ -5493,8 +5493,6 @@ __metadata:
     "@babel/runtime-corejs3": "npm:^7.23.2"
     "@cfaester/enzyme-adapter-react-18": "npm:^0.6.0"
     "@dnd-kit/core": "npm:^6.1.0"
-    "@emotion/babel-plugin": "npm:^11.11.0"
-    "@emotion/react": "npm:^11.11.1"
     "@floating-ui/react": "npm:^0.26.13"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
