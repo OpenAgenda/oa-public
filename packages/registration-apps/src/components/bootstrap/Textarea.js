@@ -5,10 +5,12 @@ import FieldCounter from './FieldCounter.js';
 export default function Textarea({
   id,
   label,
+  info,
   onChange,
   value,
   placeholder,
   max,
+  required,
 }) {
   const ref = useRef();
 
@@ -21,7 +23,15 @@ export default function Textarea({
       {label ? (
         <label htmlFor={id} className="margin-right-xs">
           {label}
+          {required && (
+            <span style={{ fontWeight: 'normal' }}> (Champ obligatoire)</span>
+          )}
         </label>
+      ) : null}
+      {info ? (
+        <div style={{ marginBottom: '8px', fontSize: '14px', color: '#666' }}>
+          {info}
+        </div>
       ) : null}
       <textarea
         ref={ref}
