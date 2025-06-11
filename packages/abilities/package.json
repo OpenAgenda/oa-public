@@ -40,7 +40,7 @@
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/users": "^3.1.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
-    "@storybook/react-webpack5": "^9.0.6",
+    "@storybook/react-webpack5": "^9.0.8",
     "babel-jest": "^29.7.0",
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
@@ -52,7 +52,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rimraf": "^3.0.1",
-    "storybook": "^9.0.6"
+    "storybook": "^9.0.8"
   },
   "peerDependencies": {
     "react": "^19.0.0",
