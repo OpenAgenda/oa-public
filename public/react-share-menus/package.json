@@ -35,11 +35,11 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/react-webpack5": "^8.5.8",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
+    "@storybook/react-webpack5": "^9.0.8",
     "axios-mock-adapter": "^1.19.0",
     "rimraf": "^3.0.1",
-    "storybook": "^8.5.8",
+    "storybook": "^9.0.8",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {
