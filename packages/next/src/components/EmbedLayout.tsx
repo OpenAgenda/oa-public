@@ -70,6 +70,9 @@ function useEmbedTheme({ primaryColor, secondaryColor }) {
         html: {
           bg: null,
         },
+        body: {
+          minH: 0,
+        },
       },
       theme: {
         tokens: {
