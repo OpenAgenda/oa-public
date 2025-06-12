@@ -5,9 +5,6 @@ import PageDecorator from './decorators/PageDecorator.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-const getHostname = () =>
-  (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
-
 const getDefaultState = ({ apiRoot } = {}) => ({
   settings: {
     apiRoot,
@@ -29,7 +26,7 @@ export function App() {
     createApp({
       history: createMemoryHistory(),
       initialState: getDefaultState({
-        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}`,
+        apiRoot: '/',
       }),
     }),
     {

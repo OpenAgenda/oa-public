@@ -6,6 +6,7 @@
     {
       "id": 15,
       "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "title": "OpenDataSoft",
       "tags": "Magasin de données",
       "image": {
         "id": 86,
@@ -32,6 +33,7 @@
     {
       "id": 16,
       "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "title": "Tourinsoft",
       "tags": "Billetterie",
       "image": {
         "id": 87,
@@ -71,6 +73,7 @@
     {
       "id": 17,
       "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "title": "Apidae",
       "tags": "Cartographie",
       "image": {
         "id": 88,
@@ -110,6 +113,7 @@
     {
       "id": 18,
       "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "title": "Sitra",
       "tags": "Billetterie",
       "image": {
         "id": 89,
@@ -149,6 +153,7 @@
     {
       "id": 19,
       "link": "https://doc.openagenda.com/fr/article/services-tiers-connectables-avec-un-agenda-dclwkc/",
+      "title": "Decibelles Data",
       "tags": "SIT",
       "image": {
         "id": 90,

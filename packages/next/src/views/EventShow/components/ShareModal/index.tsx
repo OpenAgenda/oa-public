@@ -29,7 +29,7 @@ export default function ShareModal({
 
   const dialogRef = useRef<HTMLDivElement>(null);
 
-  // Remove sharemodal=1 from url
+  // Remove sharemodal from url
   const onClose = useCallback(() => {
     const url = new URL(router.asPath, 'https://n');
 

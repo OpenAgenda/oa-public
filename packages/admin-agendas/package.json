@@ -9,7 +9,7 @@
   },
   "scripts": {
     "build": "babel components/src -d components/lib -s --env-name esm --root-mode upward",
-    "storybook": "STORYBOOK_API_PORT=3000 storybook dev -p 9001",
+    "sb": "STORYBOOK_API_PORT=3000 storybook dev -p 9001",
     "clean": "rimraf components/lib",
     "prepack": "yarn clean && yarn build"
   },
@@ -37,8 +37,8 @@
     "@babel/core": "^7.23.3",
     "@babel/node": "^7.22.19",
     "@openagenda/bs-templates": "^2.5.0",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/react-webpack5": "^8.5.8",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
+    "@storybook/react-webpack5": "^9.0.8",
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",
@@ -48,7 +48,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rimraf": "^3.0.1",
-    "storybook": "^8.5.8"
+    "storybook": "^9.0.8"
   },
   "peerDependencies": {
     "react": "^19.0.0"

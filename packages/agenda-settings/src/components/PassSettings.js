@@ -16,7 +16,7 @@ const messages = defineMessages({
   },
   siren: {
     id: 'AgendaSettings.Components.PassSettings.siren',
-    defaultMessage: 'SIREN',
+    defaultMessage: 'To activate the gateway, specify a SIREN',
   },
   enterSiren: {
     id: 'AgendaSettings.Components.PassSettings.enterSiren',
@@ -24,7 +24,7 @@ const messages = defineMessages({
   },
   sirenMustBe9Digits: {
     id: 'AgendaSettings.Components.PassSettings.sirenMustBe9Digits',
-    defaultMessage: 'The SIREN must contain 9 digits',
+    defaultMessage: 'A SIREN consists of 9 digits',
   },
   save: {
     id: 'AgendaSettings.Components.PassSettings.save',
@@ -44,20 +44,24 @@ const messages = defineMessages({
   },
   editSiren: {
     id: 'AgendaSettings.Components.PassSettings.editSiren',
-    defaultMessage: 'Edit SIREN',
+    defaultMessage: 'Modifier',
   },
   currentSiren: {
     id: 'AgendaSettings.Components.PassSettings.currentSiren',
     defaultMessage: 'Current SIREN',
   },
-  contributorAccess: {
-    id: 'AgendaSettings.Components.PassSettings.contributorAccess',
-    defaultMessage: 'Contributor Access',
+  gatewayAccess: {
+    id: 'AgendaSettings.Components.PassSettings.gatewayAccess',
+    defaultMessage: 'Accès à la passerelle',
   },
-  contributorAccessDescription: {
-    id: 'AgendaSettings.Components.PassSettings.contributorAccessDescription',
+  gatewayAccessDescription: {
+    id: 'AgendaSettings.Components.PassSettings.gatewayAccessDescription',
     defaultMessage:
-      'To allow contributors to enter Pass Culture offers, contact us.',
+      'The gateway is enabled for agenda administrators or moderators. To open access to contributors, {contactLink}.',
+  },
+  contactUs: {
+    id: 'AgendaSettings.Components.PassSettings.contactUs',
+    defaultMessage: 'contact us',
   },
   cancel: {
     id: 'AgendaSettings.Components.PassSettings.cancel',
@@ -75,6 +79,19 @@ const messages = defineMessages({
     id: 'AgendaSettings.Components.PassSettings.defaultVenueSaved',
     defaultMessage: 'Default venue saved successfully',
   },
+  clearSettings: {
+    id: 'AgendaSettings.Components.PassSettings.clearSettings',
+    defaultMessage: 'Clear Settings',
+  },
+  clearSettingsConfirm: {
+    id: 'AgendaSettings.Components.PassSettings.clearSettingsConfirm',
+    defaultMessage:
+      'Are you sure you want to clear the SIREN and default venue settings? This action cannot be undone.',
+  },
+  clearSettingsSuccess: {
+    id: 'AgendaSettings.Components.PassSettings.clearSettingsSuccess',
+    defaultMessage: 'Settings cleared successfully',
+  },
 });
 
 export default function PassSettings() {
@@ -85,10 +102,12 @@ export default function PassSettings() {
   const [siren, setSiren] = useState('');
   const [saveError, setSaveError] = useState(null);
   const [saveSuccess, setSaveSuccess] = useState(false);
+  const [clearSuccess, setClearSuccess] = useState(false);
   const [defaultVenueId, setDefaultVenueId] = useState(null);
   const [tempSelectedVenueId, setTempSelectedVenueId] = useState(null);
   const [showSaveButton, setShowSaveButton] = useState(false);
   const [isEditingSiren, setIsEditingSiren] = useState(false);
+  const [hasVenues, setHasVenues] = useState(false);
 
   const sirenIsSet = !!agenda?.settings?.registration?.passCulture?.siren?.length;
   const currentSiren = agenda?.settings?.registration?.passCulture?.siren;
@@ -114,6 +133,33 @@ export default function PassSettings() {
     }
   }, [defaultVenueId, tempSelectedVenueId]);
 
+  useEffect(() => {
+    // Check if venues are available when SIREN is set
+    if (sirenIsSet && agenda?.uid) {
+      const checkVenues = async () => {
+        try {
+          const response = await fetch(
+            `/api/agendas/${agenda.uid}/settings/passCulture`,
+          );
+          if (response.ok) {
+            const data = await response.json();
+            const hasVenuesData = data?.offererVenues?.some(
+              (offerer) => offerer.venues && offerer.venues.length > 0,
+            );
+            setHasVenues(hasVenuesData);
+          }
+        } catch (error) {
+          console.log('Error checking venues:', error);
+          setHasVenues(false);
+        }
+      };
+
+      checkVenues();
+    } else {
+      setHasVenues(false);
+    }
+  }, [sirenIsSet, agenda?.uid]);
+
   const handleSaveSiren = async (e) => {
     e.preventDefault();
     setSaveError(null);
@@ -136,11 +182,6 @@ export default function PassSettings() {
       await dispatch(agendaActions.edit(settingsUpdate));
       setSaveSuccess(true);
       setIsEditingSiren(false);
-
-      // Reload the page to reflect the updated settings
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
     } catch (error) {
       setSaveError(error.message || 'Failed to save SIREN');
     }
@@ -171,7 +212,12 @@ export default function PassSettings() {
                 id="siren"
                 className="form-control"
                 value={siren}
-                onChange={(e) => setSiren(e.target.value)}
+                onChange={(e) => {
+                  setSiren(e.target.value);
+                  // Clear success messages when user makes changes
+                  setSaveSuccess(false);
+                  setClearSuccess(false);
+                }}
                 placeholder={intl.formatMessage(messages.enterSiren)}
                 pattern="[0-9]{9}"
                 title={intl.formatMessage(messages.sirenMustBe9Digits)}
@@ -196,7 +242,7 @@ export default function PassSettings() {
               {sirenIsSet && (
                 <button
                   type="button"
-                  className="btn btn-secondary"
+                  className="btn btn-secondary margin-left-xs"
                   onClick={() => {
                     setIsEditingSiren(false);
                     setSiren(currentSiren);
@@ -228,49 +274,71 @@ export default function PassSettings() {
     // Show current SIREN with edit option
     return (
       <div className="mb-4">
-        <h4 className="mb-2">{intl.formatMessage(messages.currentSiren)}</h4>
-        <div className="p-3 bg-light rounded d-flex justify-content-between align-items-center">
-          <strong className="me-3">{currentSiren}</strong>
-          <button
-            type="button"
-            className="btn btn-outline-primary btn-sm margin-left-sm"
-            onClick={() => setIsEditingSiren(true)}
-          >
-            {intl.formatMessage(messages.editSiren)}
-          </button>
-        </div>
+        <div>SIREN: {currentSiren}</div>
+        <button
+          type="button"
+          className="btn btn-link"
+          onClick={() => setIsEditingSiren(true)}
+          style={{ padding: '0', textDecoration: 'none' }}
+        >
+          {intl.formatMessage(messages.editSiren)}
+        </button>
       </div>
     );
   };
 
-  const renderContributorAccessSection = () => (
+  const renderNoVenuesSection = () => (
     <div className="mb-4">
-      <h4>{intl.formatMessage(messages.contributorAccess)}</h4>
-      <p className="text-muted mb-3">
-        {intl.formatMessage(messages.contributorAccessDescription)}
+      <p>
+        Aucun lieu pass Culture lié à ce SIRET n&apos;a été trouvé.
+        Connectez-vous à votre compte pass pro pour:
       </p>
-      <a
-        className="btn btn-primary btn-medium text-center"
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`/support?origin=${encodeURIComponent(
-          window.location.pathname,
-        )}&subject=PassCulture`}
-      >
-        {intl.formatMessage(messages.askForActivation)}
-      </a>
+      <ol>
+        <li>Vérifier que des lieux y sont associés</li>
+        <li>
+          Que OpenAgenda est défini comme <strong>logiciel tiers lié</strong>{' '}
+          pour au moins un de vos lieux
+        </li>
+      </ol>
+      <p>
+        Consultez la{' '}
+        <a
+          href="https://doc.openagenda.com/integration-du-pass-culture-sur-openagenda/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          documentation pass
+        </a>{' '}
+        pour plus de détails
+      </p>
+    </div>
+  );
+
+  const renderGatewayAccessSection = () => (
+    <div className="mb-4">
+      <h4>{intl.formatMessage(messages.gatewayAccess)}</h4>
+      <p className="text-muted mb-3">
+        {intl.formatMessage(messages.gatewayAccessDescription, {
+          contactLink: (
+            <a
+              href={`/support?origin=${encodeURIComponent(
+                window.location.pathname,
+              )}&subject=PassCulture`}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {intl.formatMessage(messages.contactUs)}
+            </a>
+          ),
+        })}
+      </p>
     </div>
   );
 
   if (!sirenIsSet) {
     // If agenda is official, show the SIREN input form
     if (agenda.official) {
-      return (
-        <>
-          {renderSirenSection()}
-          {renderContributorAccessSection()}
-        </>
-      );
+      return <>{renderSirenSection()}</>;
     }
 
     // If not official, show the standard "ask for activation" UI
@@ -302,7 +370,16 @@ export default function PassSettings() {
   const handleVenueSelect = (venueId) => {
     setTempSelectedVenueId(venueId);
     setShowSaveButton(true);
+    // Clear success messages when user makes changes
+    setSaveSuccess(false);
+    setClearSuccess(false);
   };
+
+  /*   const handleVenuesLoaded = (venues) => {
+    // Check if venues array exists and has items
+    const hasVenuesData = venues && venues.length > 0;
+    setHasVenues(hasVenuesData);
+  }; */
 
   const handleSaveDefaultVenue = async () => {
     // Allow saving null to clear the default venue
@@ -328,62 +405,146 @@ export default function PassSettings() {
       setDefaultVenueId(tempSelectedVenueId);
       setSaveSuccess(true);
       setShowSaveButton(false);
-
-      // Reload the page to reflect the updated settings
-      setTimeout(() => {
-        window.location.reload();
-      }, 1500);
     } catch (error) {
       setSaveError(error.message || 'Failed to save default venue');
     }
   };
 
+  const handleClearSettings = async () => {
+    setSaveError(null);
+    setSaveSuccess(false);
+    setClearSuccess(false);
+
+    try {
+      const settingsUpdate = {
+        settings: {
+          ...agenda.settings,
+          registration: {
+            ...agenda.settings?.registration,
+            passCulture: {
+              siren: null,
+              defaultVenueId: null,
+            },
+          },
+        },
+      };
+
+      await dispatch(agendaActions.edit(settingsUpdate));
+      setClearSuccess(true);
+    } catch (error) {
+      setSaveError(error.message || 'Failed to clear settings');
+    }
+  };
+
   return (
     <>
-      {renderSirenSection()}
+      {!sirenIsSet || isEditingSiren
+        ? renderSirenSection()
+        : (
+          <>
+            {/* Header section */}
+            <div className="mb-4">
+              <p className="text-muted">
+                Évitez les doubles saisies en créant vos offres pass Culture
+                directement depuis les formulaires d&apos;événement OpenAgenda
+              </p>
+              <a
+                href="https://doc.openagenda.com/integration-du-pass-culture-sur-openagenda/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary"
+                style={{ textDecoration: 'none' }}
+              >
+                En savoir plus
+              </a>
+            </div>
 
-      <div className="d-flex justify-content-between align-items-center mb-3">
-        <h4>{intl.formatMessage(messages.defaultVenue)}</h4>
-        {showSaveButton && (
-          <button
-            type="button"
-            className="btn btn-primary"
-            onClick={handleSaveDefaultVenue}
-            disabled={loading}
-          >
-            {loading
-              ? intl.formatMessage(messages.saving)
-              : intl.formatMessage(messages.save)}
-          </button>
+            {/* SIREN section */}
+            <div className="mb-4 margin-top-sm">
+              <div className="d-flex align-items-baseline">
+                <div>SIREN: {currentSiren}</div>
+                <button
+                  type="button"
+                  className="btn btn-link btn-sm text-primary ms-3"
+                  onClick={() => setIsEditingSiren(true)}
+                  style={{
+                    textDecoration: 'none',
+                    padding: '0',
+                    lineHeight: 'inherit',
+                  }}
+                >
+                  Modifier
+                </button>
+              </div>
+            </div>
+
+            {/* Venues section */}
+            <div className="mb-4">
+              <h4>Lieux pass Culture associés au SIREN</h4>
+              <p className="text-muted">
+                Sélectionnez un lieu par défaut pour éviter un choix additionnel à
+                chaque nouvelle saisie
+              </p>
+
+              <ListVenues
+                res={{
+                  settings: `/api/agendas/${agenda.uid}/settings/passCulture`,
+                }}
+                defaultVenueId={tempSelectedVenueId || defaultVenueId}
+                mode="select"
+                onSelect={handleVenueSelect}
+              />
+
+              {showSaveButton && (
+              <div className="d-flex justify-content-end mb-3">
+                <button
+                  type="button"
+                  className="btn btn-primary"
+                  onClick={handleSaveDefaultVenue}
+                  disabled={loading}
+                >
+                  {loading
+                    ? intl.formatMessage(messages.saving)
+                    : intl.formatMessage(messages.save)}
+                </button>
+              </div>
+              )}
+            </div>
+
+            {/* Gateway access section */}
+            {hasVenues && renderGatewayAccessSection()}
+
+            {saveError && (
+            <div className="alert alert-danger margin-top-sm">
+              {intl.formatMessage(messages.saveError)}
+            </div>
+            )}
+
+            {saveSuccess && (
+            <div className="alert alert-success margin-top-sm">
+              {intl.formatMessage(messages.defaultVenueSaved)}
+            </div>
+            )}
+
+            {clearSuccess && (
+            <div className="alert alert-success margin-top-sm">
+              {intl.formatMessage(messages.clearSettingsSuccess)}
+            </div>
+            )}
+
+            {!hasVenues && renderNoVenuesSection()}
+            {/* Clear Settings section */}
+            <div className="mb-4 border-top pt-4">
+              <button
+                type="button"
+                className="btn btn-link btn-link-inline text-danger"
+                onClick={handleClearSettings}
+              >
+                {intl.formatMessage(messages.clearSettings)}
+              </button>
+            </div>
+          </>
         )}
-      </div>
-
-      <p className="text-muted mb-3">
-        {intl.formatMessage(messages.selectDefaultVenue)}
-      </p>
-
-      <ListVenues
-        res={{
-          settings: `/api/agendas/${agenda.uid}/settings/passCulture`,
-        }}
-        defaultVenueId={tempSelectedVenueId || defaultVenueId}
-        mode="select"
-        onSelect={handleVenueSelect}
-      />
-
-      {saveError && (
-        <div className="alert alert-danger margin-top-sm">
-          {intl.formatMessage(messages.saveError)}
-        </div>
-      )}
-
-      {saveSuccess && (
-        <div className="alert alert-success margin-top-sm">
-          {intl.formatMessage(messages.defaultVenueSaved)}
-        </div>
-      )}
-
-      {renderContributorAccessSection()}
     </>
   );
 }

@@ -30,65 +30,6 @@ export default function ListVenues({
     }
   };
 
-  const handleKeyDown = (event, venueId) => {
-    if (event.key === 'Enter' || event.key === ' ') {
-      event.preventDefault();
-      handleVenueClick(venueId);
-    }
-  };
-
-  const venueItem = (venue, moreThanOneOfferer, isDefault) => {
-    const isSelectable = mode === 'select';
-
-    const content = (
-      <div>
-        <b>{venue.publicName}</b>
-        <div>{`${venue.location.address}, ${venue.location.postalCode}, ${venue.location.city}`}</div>
-        {moreThanOneOfferer ? <div>Propriétaire: {venue.offerer}</div> : null}
-      </div>
-    );
-
-    if (isSelectable) {
-      return (
-        <li
-          key={venue.id}
-          className={`list-group-item ${isDefault ? 'active' : ''}`}
-        >
-          <button
-            type="button"
-            className="btn btn-link p-0 text-start w-100 border-0"
-            onClick={() => handleVenueClick(venue.id)}
-            onKeyDown={(event) => handleKeyDown(event, venue.id)}
-            aria-pressed={isDefault}
-            style={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center',
-              textDecoration: 'none',
-              color: 'inherit',
-            }}
-          >
-            {content}
-          </button>
-        </li>
-      );
-    }
-
-    return (
-      <li
-        key={venue.id}
-        className="list-group-item"
-        style={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        }}
-      >
-        {content}
-      </li>
-    );
-  };
-
   if (isLoadingPassData) {
     return <Spinner />;
   }
@@ -112,10 +53,67 @@ export default function ListVenues({
       ) : (
         <div>Lieux configurés:</div>
       )}
-      <ul className="margin-v-z margin-bottom-md list-unstyled list-group">
-        {venues.map((v) =>
-          venueItem(v, offerers.length > 1, v.id === defaultVenueId))}
-      </ul>
+
+      <table
+        className="table table-borderless"
+        style={{ backgroundColor: 'white' }}
+      >
+        <tbody>
+          {venues.map((venue) => {
+            const isDefault = venue.id === defaultVenueId;
+            const isSelectable = mode === 'select';
+
+            return (
+              <tr
+                key={venue.id}
+                style={{
+                  backgroundColor: 'white',
+                  border: '1px solid #dee2e6',
+                }}
+              >
+                <td className="border-0 py-2 align-top">
+                  <div>{venue.publicName}</div>
+                  <div className="text-muted small">
+                    {`${venue.location.address}, ${venue.location.postalCode}, ${venue.location.city}`}
+                  </div>
+                </td>
+                <td
+                  className="border-0 py-2 text-center align-top"
+                  style={{ width: '200px' }}
+                >
+                  {isDefault && (
+                    <span
+                      className="text-muted btn-sm"
+                      style={{
+                        lineHeight: '1.5',
+                        padding: '0.25rem 0.5rem',
+                        display: 'inline-block',
+                      }}
+                    >
+                      Lieu par défaut
+                    </span>
+                  )}
+                </td>
+                <td
+                  className="border-0 py-2 text-end align-top"
+                  style={{ width: '120px' }}
+                >
+                  {isSelectable && (
+                    <button
+                      type="button"
+                      className="btn btn-link btn-sm text-primary p-0"
+                      onClick={() => handleVenueClick(venue.id)}
+                      style={{ textDecoration: 'none', lineHeight: '1.5' }}
+                    >
+                      {isDefault ? 'Désélectionner' : 'Sélectionner'}
+                    </button>
+                  )}
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 }

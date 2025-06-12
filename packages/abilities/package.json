@@ -5,9 +5,9 @@
   "type": "module",
   "main": "build/service/index.js",
   "scripts": {
-    "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
+    "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn sb --ci\"",
     "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM server.dev.js",
-    "storybook": "STORYBOOK_API_PORT=3000 storybook dev -p 9001",
+    "sb": "STORYBOOK_API_PORT=3000 storybook dev -p 9001",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --testEnvironment=node --forceExit --detectOpenHandles",
     "build": "babel --copy-files -d build src -s --env-name esm --root-mode upward",
     "extract-messages": "oa-intl --esm",
@@ -39,8 +39,8 @@
     "@openagenda/agendas": "^1.7.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/users": "^3.1.0",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/react-webpack5": "^8.5.8",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
+    "@storybook/react-webpack5": "^9.0.8",
     "babel-jest": "^29.7.0",
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
@@ -52,7 +52,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rimraf": "^3.0.1",
-    "storybook": "^8.5.8"
+    "storybook": "^9.0.8"
   },
   "peerDependencies": {
     "react": "^19.0.0",

@@ -6,7 +6,7 @@ const defaults = {
   initialState: {
     settings: {
       prefix: '/activities',
-      apiRoot: `localhost:${process.env.PORT || 3000}`,
+      apiRoot: 'localhost:3000',
       perPageLimit: 20,
     },
     res: {

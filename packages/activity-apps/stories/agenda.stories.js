@@ -6,9 +6,6 @@ import PageDecorator from './decorators/PageDecorator.js';
 import '@openagenda/bs-templates/compiled/main.css';
 import agenda from './fixtures/agenda.json';
 
-/* const getHostname = () =>
-  (typeof window !== 'undefined' ? window.location.hostname : 'localhost'); */
-
 const getDefaultState = ({ apiRoot } = {}) => ({
   settings: {
     apiRoot,

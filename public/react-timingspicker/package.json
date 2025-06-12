@@ -40,16 +40,15 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/addon-viewport": "^8.5.8",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.5",
-    "@storybook/react-webpack5": "^8.5.8",
-    "@storybook/test": "^8.5.8",
+    "@storybook/addon-viewport": "^9.0.8",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
+    "@storybook/react-webpack5": "^9.0.8",
     "bootstrap": "3.3.5",
     "jest": "^29.7.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "rimraf": "^3.0.1",
-    "storybook": "^8.5.8",
+    "storybook": "^9.0.8",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {

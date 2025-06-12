@@ -9,9 +9,9 @@ const config = {
   stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   staticDirs: ['../dist'],
   framework: {
-    name: getAbsolutePath('@storybook/html-webpack5'),
+    name: getAbsolutePath('@storybook/html-vite'),
     options: {},
   },
-  addons: [getAbsolutePath('@storybook/addon-essentials')],
+  addons: [],
 };
 export default config;

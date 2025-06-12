@@ -14,6 +14,7 @@ import {
   useDisclosure,
   NoBreak,
   Link,
+  ClientOnly,
 } from '@openagenda/uikit';
 import { nl2br } from '@openagenda/react-shared';
 import { faEnvelope, faPlus } from 'icons/solid';
@@ -231,17 +232,19 @@ export default function AgendaHeader({ agenda }) {
         </Wrap>
       </VStack>
 
-      {exportIsOpen ? (
-        <ExportModal
-          isOpen
-          onClose={exportOnClose}
-          agenda={agenda}
-          defaultValue={displayExportModalValue}
-        />
-      ) : null}
-      {aggregateIsOpen ? (
-        <AggregateModal isOpen onClose={aggregateOnClose} agenda={agenda} />
-      ) : null}
+      <ClientOnly>
+        {exportIsOpen ? (
+          <ExportModal
+            isOpen
+            onClose={exportOnClose}
+            agenda={agenda}
+            defaultValue={displayExportModalValue}
+          />
+        ) : null}
+        {aggregateIsOpen ? (
+          <AggregateModal isOpen onClose={aggregateOnClose} agenda={agenda} />
+        ) : null}
+      </ClientOnly>
     </Stack>
   );
 }
