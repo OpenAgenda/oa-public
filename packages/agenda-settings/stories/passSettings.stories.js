@@ -1,7 +1,12 @@
 import { http, HttpResponse } from 'msw';
+import { Provider } from 'react-redux';
+import { createStore, combineReducers } from 'redux';
 import { LayoutDataContext } from '@openagenda/react-shared';
 import { useMemo } from 'react';
 import PassSettings from '../src/components/PassSettings.js';
+import agendaReducer from '../src/reducers/agenda.js';
+import keysReducer from '../src/reducers/keys.js';
+import modalsReducer from '../src/reducers/modals.js';
 import IntlProviderDecorator from './decorators/IntlProvider.js';
 
 // Sample venue data for the mock API response
@@ -35,9 +40,26 @@ const venuesData = {
   ],
 };
 
-// Create a wrapper component that provides the necessary context
+// Empty venues data for no venues scenario
+const noVenuesData = {
+  offererVenues: [],
+};
+
+// Create Redux store with the necessary reducers
+const rootReducer = combineReducers({
+  agenda: agendaReducer,
+  keys: keysReducer,
+  modals: modalsReducer,
+});
+
+const store = createStore(rootReducer, {
+  agenda: { loading: false },
+  keys: {},
+  modals: {},
+});
+
+// Create a wrapper component that provides both Redux and Layout context
 const PassSettingsWrapper = ({ agendaData, children }) => {
-  // Make sure the agenda.uid is 83549053 to match the MSW mock
   const agenda = useMemo(
     () => ({
       ...agendaData,
@@ -49,9 +71,11 @@ const PassSettingsWrapper = ({ agendaData, children }) => {
   const contextValue = useMemo(() => ({ agenda }), [agenda]);
 
   return (
-    <LayoutDataContext.Provider value={contextValue}>
-      {children}
-    </LayoutDataContext.Provider>
+    <Provider store={store}>
+      <LayoutDataContext.Provider value={contextValue}>
+        {children}
+      </LayoutDataContext.Provider>
+    </Provider>
   );
 };
 
@@ -145,3 +169,43 @@ export const DefaultVenueSet = () => (
     </div>
   </PassSettingsWrapper>
 );
+
+// SIREN set but no venues found
+export const SirenSetNoVenues = {
+  parameters: {
+    msw: {
+      handlers: [
+        // Mock the API call to return no venues
+        http.get('/api/agendas/83549053/settings/passCulture', () =>
+          HttpResponse.json(noVenuesData)),
+        // Mock the API call to save the default venue
+        http.post('/api/agendas/83549053/settings/passCulture', () =>
+          HttpResponse.json({ success: true })),
+      ],
+    },
+  },
+  render: () => (
+    <PassSettingsWrapper
+      agendaData={{
+        uid: 83549053,
+        official: true,
+        settings: {
+          registration: {
+            passCulture: {
+              siren: '123456789',
+            },
+          },
+        },
+      }}
+    >
+      <div className="container">
+        <div className="row">
+          <div className="col-md-8 offset-md-2">
+            <h2>Pass Culture Settings</h2>
+            <PassSettings />
+          </div>
+        </div>
+      </div>
+    </PassSettingsWrapper>
+  ),
+};
