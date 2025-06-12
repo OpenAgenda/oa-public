@@ -34,7 +34,6 @@ export default function Description({
               href="https://passculture.docsend.com/view/c5ywca7ximmi5it2"
               target="_blank"
               rel="noopener noreferrer"
-              style={{ color: '#007bff', textDecoration: 'underline' }}
             >
               ici
             </a>{' '}
@@ -62,7 +61,7 @@ export default function Description({
         onClick={handleUseEventDescription}
         style={{ textDecoration: 'none', fontSize: '14px', padding: '0' }}
       >
-        Utiliser la description de l&apos;événement
+        Charger la description longue de l&apos;événement
       </button>
     </div>
   );
