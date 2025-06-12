@@ -1,11 +1,13 @@
 import _ from 'lodash';
-import { formatInTimeZone } from 'date-fns-tz';
+import dateFns from 'date-fns-tz';
 
 import { spreadTimings } from '@openagenda/date-utils';
 import fr from 'date-fns/locale/fr/index.js';
 import de from 'date-fns/locale/de/index.js';
 import it from 'date-fns/locale/it/index.js';
 import es from 'date-fns/locale/es/index.js';
+
+const { formatInTimeZone } = dateFns;
 
 const locales = {
   fr,
