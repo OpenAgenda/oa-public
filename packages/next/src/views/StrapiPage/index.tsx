@@ -21,11 +21,11 @@ const ubuntuSans = Ubuntu_Sans({
 });
 
 export default function StrapiPage({ page, footer }) {
-  const { title, Segments } = page;
+  const { title, description, keywords, Segments } = page;
 
   return (
     <>
-      <Metas title={title} />
+      <Metas title={title} description={description} keywords={keywords} />
       <Global
         styles={{
           html: {

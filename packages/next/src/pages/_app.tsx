@@ -5,16 +5,17 @@ import { NextPage } from 'next';
 import { AppProps } from 'next/app';
 import Head from 'next/head';
 import { Cookies } from 'react-cookie';
+import { getLocaleValue } from '@openagenda/intl';
 import { EmotionCache } from '@openagenda/uikit';
 import Providers from 'Providers';
 import SentryErrorBoundary from 'components/SentryErrorBoundary';
 import useMatomoTracker from 'hooks/useMatomoTracker';
+import * as metas from 'config/metas';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
 interface PageProps {
   intlMessages: Record<string, string>;
-  sessionLocale?: string;
 }
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
@@ -53,11 +54,11 @@ function MyApp({
         />
         <meta
           name="description"
-          content="Communicate efficiently on your events"
+          content={getLocaleValue(metas.description, router.locale)}
         />
         <meta
           name="keywords"
-          content="openagenda, agendas, events, opendata, open data, network, networked"
+          content={getLocaleValue(metas.keywords, router.locale)}
         />
         <meta name="theme-color" content="#41ACDD" />
         <title>OpenAgenda</title>

@@ -2,7 +2,7 @@ import Head from 'next/head';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 
-export default function Metas({ title }) {
+export default function Metas({ title, description = null, keywords = null }) {
   const intl = useIntl();
   const router = useRouter();
 
@@ -15,6 +15,9 @@ export default function Metas({ title }) {
     <Head>
       <title>{pageTitle}</title>
       <meta name="robots" content="index, follow" />
+
+      {description && <meta name="description" content={description} />}
+      {keywords && <meta name="keywords" content={keywords} />}
 
       <link rel="canonical" href={canonicalUrl} />
     </Head>
