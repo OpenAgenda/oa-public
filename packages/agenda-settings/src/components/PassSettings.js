@@ -514,17 +514,6 @@ export default function PassSettings() {
             {/* Gateway access section */}
             {hasVenues && renderGatewayAccessSection()}
 
-            {/* Clear Settings section */}
-            <div className="mb-4 border-top pt-4">
-              <button
-                type="button"
-                className="btn btn-link btn-link-inline text-danger"
-                onClick={handleClearSettings}
-              >
-                {intl.formatMessage(messages.clearSettings)}
-              </button>
-            </div>
-
             {saveError && (
             <div className="alert alert-danger margin-top-sm">
               {intl.formatMessage(messages.saveError)}
@@ -544,6 +533,16 @@ export default function PassSettings() {
             )}
 
             {!hasVenues && renderNoVenuesSection()}
+            {/* Clear Settings section */}
+            <div className="mb-4 border-top pt-4">
+              <button
+                type="button"
+                className="btn btn-link btn-link-inline text-danger"
+                onClick={handleClearSettings}
+              >
+                {intl.formatMessage(messages.clearSettings)}
+              </button>
+            </div>
           </>
         )}
     </>
