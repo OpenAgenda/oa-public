@@ -11,7 +11,7 @@ export default {
     options: {},
   },
   addons: [
-    getAbsolutePath('@storybook/addon-viewport'),
+    getAbsolutePath('storybook/viewport'),
     getAbsolutePath('@storybook/addon-webpack5-compiler-babel'),
   ],
   babel: (config) => {
