@@ -139,7 +139,7 @@ export default async function renderEvent(
     const locationSegment = [
       {
         width: 4,
-        padding: 10,
+        padding: event.location.image ? 10 : 0,
         contentItemMargin: 3,
         content: locationMain({})
           .concat(locationCoordinates(event.location))
