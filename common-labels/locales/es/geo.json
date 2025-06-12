@@ -1,3 +1,6 @@
 {
-  "common.geo.location": "Lugar"
+  "common.geo.city": "Ciudad",
+  "common.geo.department": "Departamento",
+  "common.geo.location": "Lugar",
+  "common.geo.region": "Región"
 }
