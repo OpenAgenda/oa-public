@@ -15,6 +15,9 @@
       "required": true,
       "allowedTypes": ["images", "files"]
     },
+    "title": {
+      "type": "string"
+    },
     "tags": {
       "type": "string"
     }

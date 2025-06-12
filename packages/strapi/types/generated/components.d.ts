@@ -217,6 +217,7 @@ export interface ComponentsReference extends Struct.ComponentSchema {
       Schema.Attribute.Required;
     link: Schema.Attribute.String;
     tags: Schema.Attribute.String;
+    title: Schema.Attribute.String;
   };
 }
 
@@ -399,6 +400,7 @@ export interface SegmentsReferenceSet extends Struct.ComponentSchema {
     displayName: 'ReferenceSet';
   };
   attributes: {
+    hasFilter: Schema.Attribute.Boolean;
     References: Schema.Attribute.Component<'components.reference', true>;
     title: Schema.Attribute.String;
   };
