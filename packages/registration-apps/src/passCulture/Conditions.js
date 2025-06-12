@@ -2,9 +2,9 @@ import { useContext, useState } from 'react';
 import ComponentsContext from '../components/Context.js';
 
 const getInitialItemCollectionDetails = (conditions, value) => {
+  if (typeof value?.itemCollectionDetails === 'string') return value.itemCollectionDetails;
   if (typeof conditions?.fr === 'string') return conditions.fr;
   if (typeof conditions === 'string') return conditions;
-  if (typeof value?.itemCollectionDetails === 'string') return value.itemCollectionDetails;
   return null;
 };
 
