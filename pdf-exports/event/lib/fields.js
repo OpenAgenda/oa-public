@@ -42,6 +42,7 @@ export const conditionsAndRegistrationGroup = [
     field: 'conditions',
     omitLabel: false,
     fieldType: 'text',
+    displayLabelIfUnset: false,
   },
   {
     field: 'registration',
