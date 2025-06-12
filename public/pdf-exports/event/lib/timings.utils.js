@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import { format, parseISO } from 'date-fns';
+import { formatInTimeZone } from 'date-fns-tz';
+
 import { spreadTimings } from '@openagenda/date-utils';
 import fr from 'date-fns/locale/fr/index.js';
 import de from 'date-fns/locale/de/index.js';
@@ -13,6 +14,23 @@ const locales = {
   es,
 };
 
+const formatTimingLabel = (t, timezone, lang) =>
+  formatInTimeZone(new Date(t.begin), timezone, 'HH:mm', {
+    locale: locales[lang],
+  });
+
+const formatDateLabel = (date, timezone, lang) =>
+  formatInTimeZone(new Date(date), timezone, 'EEEE d', {
+    locale: locales[lang],
+  });
+
+const formatMonthLabel = (month, timezone, lang) =>
+  _.capitalize(
+    formatInTimeZone(new Date(month), timezone, 'MMMM yyyy', {
+      locale: locales[lang],
+    }),
+  );
+
 export function getTimingMonthSegments({ value, relatedValues, lang }) {
   const { timezone = 'Europe/Paris' } = relatedValues;
 
@@ -20,21 +38,15 @@ export function getTimingMonthSegments({ value, relatedValues, lang }) {
 
   return Object.keys(datesByMonth).map((month) => ({
     value: month,
-    label: _.capitalize(
-      format(parseISO(month), 'MMMM yyyy', {
-        locale: locales[lang],
-      }),
-    ),
+    label: formatMonthLabel(month, timezone, lang),
     weeks: Object.keys(datesByMonth[month]).map((week) => ({
       value: week,
       dates: Object.keys(datesByMonth[month][week]).map((date) => ({
-        label: format(parseISO(date), 'EEEE d', {
-          locale: locales[lang],
-        }),
+        label: formatDateLabel(date, timezone, lang),
         value: date,
         timings: datesByMonth[month][week][date].map((t) => ({
           value: t,
-          label: `${format(parseISO(t.begin), 'HH:mm')}`,
+          label: formatTimingLabel(t, timezone, lang),
         })),
       })),
     })),
