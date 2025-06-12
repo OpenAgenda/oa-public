@@ -12,6 +12,7 @@ import {
   Link,
   Button,
   Tabs,
+  ClientOnly,
   useBreakpointValue,
 } from '@openagenda/uikit';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
@@ -22,6 +23,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
 import useSession from 'hooks/useSession';
+import useLocationQuery from 'hooks/useLocationQuery';
 import Featured from 'components/Featured';
 import isAdminMod from '../../utils/isAdminMod';
 import { useAgenda } from './contexts/agenda';
@@ -66,6 +68,7 @@ export type EventShowProps = {
 function EventShow({ preload }: EventShowProps) {
   const intl = useIntl();
   const router = useRouter();
+  const urlQuery = useLocationQuery();
   const dateFnsLocale = useDateFnsLocale();
   const agenda = useAgenda();
 
@@ -119,6 +122,8 @@ function EventShow({ preload }: EventShowProps) {
     [agenda.schema, dateFnsLocale, event, contentLocale, intl.locale],
   );
 
+  const shareModal = urlQuery.sharemodal as string;
+
   const {
     shareIsOpen,
     shareOnOpen,
@@ -127,7 +132,7 @@ function EventShow({ preload }: EventShowProps) {
     emailSentIsOpen,
     emailSentOnClose,
     onEmailSent,
-  } = useShareModal({ defaultOpen: searchParams.sharemodal === '1' });
+  } = useShareModal({ defaultOpen: Boolean(shareModal) });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
@@ -412,16 +417,20 @@ function EventShow({ preload }: EventShowProps) {
 
       {needConsentFor ? <ConsentBanner consentFor={needConsentFor} /> : null}
 
-      {shareIsOpen ? (
-        <ShareModal
-          isOpen
-          onClose={shareOnClose}
-          agenda={agenda}
-          event={event}
-          contentLocale={contentLocale}
-          onEmailSent={onEmailSent}
-        />
-      ) : null}
+      <ClientOnly>
+        {shareIsOpen ? (
+          <ShareModal
+            key="sharemodal"
+            isOpen
+            onClose={shareOnClose}
+            agenda={agenda}
+            event={event}
+            contentLocale={contentLocale}
+            onEmailSent={onEmailSent}
+            defaultValue={shareModal}
+          />
+        ) : null}
+      </ClientOnly>
 
       {emailSentIsOpen ? (
         <EmailConfirmationAlert
