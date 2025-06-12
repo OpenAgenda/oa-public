@@ -1,0 +1,228 @@
+{
+  "firstTiming": {
+    "end": "2025-09-20T12:30:00.000+02:00",
+    "begin": "2025-09-20T09:30:00.000+02:00"
+  },
+  "nextTiming": {
+    "begin": "2025-09-20T09:30:00+02:00",
+    "end": "2025-09-20T12:30:00+02:00"
+  },
+  "lastTiming": {
+    "end": "2025-09-21T18:00:00.000+02:00",
+    "begin": "2025-09-21T14:00:00.000+02:00"
+  },
+  "member": {
+    "uid": 2528096,
+    "role": 1,
+    "phone": "0787401186",
+    "organization": "Bunkers de Pignerolle",
+    "name": "Guillaume",
+    "position": "Secrétaire",
+    "email": "association@memorial-bunkers-pignerolle.org",
+    "_agg": "eyJ1aWQiOjI1MjgwOTYsIm5hbWUiOiJHdWlsbGF1bWUifQ==",
+    "deletedUser": false,
+    "updatedAt": "2025-06-11T22:46:39.000Z"
+  },
+  "dateRange": {
+    "ar": "٢٠ و ٢١ سبتمبر ",
+    "de": "20 und 21 September",
+    "en": "20 and 21 September",
+    "it": "20 e 21 settembre",
+    "fr": "20 et 21 septembre",
+    "es": "20 i 21 septiembre"
+  },
+  "state": 0,
+  "featured": false,
+  "motive": null,
+  "originAgenda": {
+    "uid": 8110569,
+    "image": "https://cdn.openagenda.com/main/agenda5316770.79442f36a51249b89756314394a676d4.jpg",
+    "description": "La 42e édition des Journées européennes du patrimoine se déroulera les 20 et 21 septembre 2025. La journée dédiée au public scolaire se déroulera le vendredi 19 septembre (opération « Levez les yeux ! »)\nRetrouvez les informations et conditions pour participer à l'événement sur notre site Internet",
+    "official": false,
+    "title": "Journées européennes du patrimoine 2025 : Pays de la Loire",
+    "slug": "jep-2025-pays-de-la-loire",
+    "url": "https://journeesdupatrimoine.culture.gouv.fr",
+    "_agg": "eyJ1aWQiOjgxMTA1NjksInRpdGxlIjoiSm91cm7DqWVzIGV1cm9ww6llbm5lcyBkdSBwYXRyaW1vaW5lIDIwMjUgOiBQYXlzIGRlIGxhIExvaXJlIiwiaW1hZ2UiOiJodHRwczovL2Nkbi5vcGVuYWdlbmRhLmNvbS9tYWluL2FnZW5kYTUzMTY3NzAuNzk0NDJmMzZhNTEyNDliODk3NTYzMTQzOTRhNjc2ZDQuanBnIiwidXJsIjoiaHR0cHM6Ly9qb3VybmVlc2R1cGF0cmltb2luZS5jdWx0dXJlLmdvdXYuZnIiLCJzbHVnIjoiamVwLTIwMjUtcGF5cy1kZS1sYS1sb2lyZSJ9"
+  },
+  "sourceAgendas": [],
+  "title": {
+    "de": "Besuch der Bunker des Parks von Pignerolle",
+    "en": "Visit of the bunkers of the park of Pignerolle",
+    "it": "Visita ai bunker del parco di Pignerolle",
+    "fr": "Visite des bunkers du parc de Pignerolle",
+    "es": "Visita a los bunkers del parque de Pignerolle"
+  },
+  "types-devenement": 10,
+  "specificites": [],
+  "theme": [18],
+  "image": {
+    "filename": "50a40d5fd01c4aedb627fbd70c25f6a3.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 519
+    },
+    "variants": [
+      {
+        "filename": "50a40d5fd01c4aedb627fbd70c25f6a3.full.image.jpg",
+        "size": {
+          "width": 828,
+          "height": 614
+        },
+        "type": "full"
+      },
+      {
+        "filename": "50a40d5fd01c4aedb627fbd70c25f6a3.thumb.image.jpg",
+        "size": {
+          "width": 200,
+          "height": 200
+        },
+        "type": "thumbnail"
+      }
+    ],
+    "base": "https://cdn.openagenda.com/main/"
+  },
+  "imageCredits": "Association du Mémorial des bunkers de Pignerolle",
+  "jaccepte-que-limage-puisse-etre-librement-utilisee-a-la-condition": true,
+  "attendanceMode": 1,
+  "onlineAccessLink": null,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "de": "Öffentlicher Verkehr: Irigo-Linie (Linie 4) 10 Minuten zu Fuß; Kostenloses Parken in der Nähe; Denkmal teilweise für Menschen mit Behinderungen zugänglich (für Rollstühle nicht zugänglich)",
+      "en": "Public transport: Irigo line (line 4) 10 minutes walk; Free parking nearby; Monument partially accessible to people with disabilities (wheelchair accessible)",
+      "it": "Mezzi pubblici: linea irigo (linea 4) a 10 minuti a piedi; parcheggio gratuito nelle vicinanze; monumento accessibile parzialmente alle persone con disabilità (inaccessibile alle sedie a rotelle)",
+      "fr": "Transport en commun : ligne irigo  (ligne 4) à 10 minutes à pieds ; Parking gratuit à proximité ; Monument accessible partiellement au personnes en situation de handicap (inaccessible aux fauteuils roulants)",
+      "es": "Transporte público: línea irigo (línea 4) a 10 minutos a pie; Aparcamiento gratuito cercano; Monumento parcialmente accesible para personas con discapacidad (inaccesible para sillas de ruedas)"
+    },
+    "types-de-lieu": [6, 12],
+    "city": "Saint-Barthélemy-d'Anjou",
+    "timezone": "Europe/Paris",
+    "postalCode": "49124",
+    "latitude": 47.466867,
+    "imageCredits": null,
+    "description": {
+      "de": "Anläßlich der Tage des Kulturerbes hat die Vereinigung des Memorial des Bunkers von Pignerolle, einer anerkannten Vereinigung von allgemeinem Interesse, schlägt kommentierte Besichtigungen der Bunker und des unterirdischen Teils des Parks Pignerolle vor, die abwechselnd von der Kriegsmarine (deutsche Kriegsmarine) an Unterwasserbasen und Offshore-Gebäude zwischen 1942 und 1944 übermittelt wurden (Schlacht um den Atlantik), Wohnort für viele Weine zwischen 1946 und 1964 und für Präsident De Gaulle vorgesehener Schutzraum.\nEine historische Ausstellung ist geplant.",
+      "en": "On the occasion of the Heritage Day, the association of the Memorial of the bunkers of Pignerolle, recognized association of general interest, offers guided tours of the bunkers and the underground part of the park of Pignerolle which were in turn place of transfer of messages of the Kriegsmarine (German navy) from Berlin to the submarine bases and the ships at sea between 1942 and 1944 (Battle of the Atlantic), place of habitation for many angevins between 1946 and 1964 and shelter against atomic considered for President De Gaulle.\nAn exhibition of a historical character is envisaged.",
+      "it": "In occasione delle Giornata del Patrimonio, l'Associazione del Memoriale dei Bunker di Pignerolle, associazione riconosciuta d'interesse generale, propone visite commentate dei bunker e della parte sotterranea del parco di Pignerolle che furono a turno luogo di trasferimento di messaggi dalla Kriegsmarine (marina militare tedesca) da Berlino alle basi sottomarine e alle navi in mare tra il 1942 e il 1944 (Battaglia dell'Atlantico), luogo di abitazione per molti Asburgo tra il 1946 e il 1964 e rifugio antiatomico previsto per il presidente De Gaulle.\nÈ prevista un'esposizione di carattere storico.",
+      "fr": "A l'occasion des journée du Patrimoine, l'association du Mémorial des bunkers de Pignerolle, association reconnue d'intérêt général, propose des visites commentées des bunkers et de la partie souterraine du parc de Pignerolle qui furent tour à tour lieu de transfert de messages de la Kriegsmarine (marine de guerre allemande) depuis Berlin vers les bases sous-marines et les bâtiments en mer entre 1942 et 1944 (Bataille de l'Atlantique), lieu d'habitation pour de nombreux angevins entre 1946 et 1964 et abri antiatomique envisagé pour le président De Gaulle. \n\nUne exposition à caractère historique est envisagée.",
+      "es": "Con motivo del Día del Patrimonio, la asociación del Memorial de los búnkeres de Pignerolle, asociación reconocida de interés general, propone visitas comentadas de los búnkeres y de la parte subterránea del parque de Pignerolle que fueron a su vez lugar de transferencia de mensajes de la Kriegsmarine (marina de guerra alemana) desde Berlín a las bases submarinas y los edificios en el mar entre 1942 y 1944 (Batalla del Atlántico), lugar de residencia para numerosos Angevins entre 1946 y 1964 y refugio antiatómico previsto para el presidente De Gaulle.\nSe prevé una exposición de carácter histórico."
+    },
+    "setUid": null,
+    "uid": 76545729,
+    "createdAt": "2021-05-27T12:28:38.000Z",
+    "duplicateCandidates": null,
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": [
+      "https://www.facebook.com/Bunkers.Angers",
+      "https://mobile.twitter.com/MemorialBunkers",
+      "https://www.instagram.com/bunkers_de_pignerolle/"
+    ],
+    "state": 1,
+    "department": "Maine-et-Loire",
+    "slug": "parc-de-pignerolle-49124-saint-barthelemy-danjou_9617369",
+    "email": "association@memorial-bunkers-pignerolle.org",
+    "longitude": -0.485071,
+    "updatedAt": "2024-06-26T15:39:13.000Z",
+    "image": null,
+    "website": "https://www.memorial-bunkers-pignerolle.org",
+    "address": "Route de Beaufort, 49124 Saint-Barthélemy-d'Anjou",
+    "adminLevel3": "Angers Loire Métropole",
+    "agendaUid": 8110569,
+    "adminLevel4": "Saint-Barthélemy-d'Anjou",
+    "adminLevel1": "Pays de la Loire",
+    "adminLevel2": "Maine-et-Loire",
+    "mergedIn": null,
+    "protections-appellation-et-labels": [42, 51],
+    "_agg": "eyJ1aWQiOjc2NTQ1NzI5LCJuYW1lIjoiUGFyYyBkZSBQaWduZXJvbGxlIn0=",
+    "tags": [
+      {
+        "id": 42,
+        "label": "Monument historique"
+      },
+      {
+        "id": 51,
+        "label": "Site patrimonial remarquable"
+      },
+      {
+        "id": 6,
+        "label": {
+          "en": "Édifice militaire, enceinte urbaine",
+          "fr": "Édifice militaire, enceinte urbaine"
+        }
+      },
+      {
+        "id": 12,
+        "label": {
+          "en": "Édifice commémoratif",
+          "fr": "Édifice commémoratif"
+        }
+      }
+    ],
+    "insee": "49267",
+    "phone": "07 87 40 11 86",
+    "district": null,
+    "name": "Parc de Pignerolle",
+    "region": "Pays de la Loire",
+    "extIds": null,
+    "extId": null
+  },
+  "timings": [
+    {
+      "begin": "2025-09-20T09:30:00+02:00",
+      "end": "2025-09-20T12:30:00+02:00"
+    },
+    {
+      "begin": "2025-09-20T14:00:00+02:00",
+      "end": "2025-09-20T18:00:00+02:00"
+    }
+  ],
+  "description": {
+    "de": "Europäische Tage des Kulturerbes 2025",
+    "en": "European Heritage Days 2025",
+    "it": "Giornate europee del patrimonio 2025",
+    "fr": "Journées européennes du patrimoine 2025",
+    "es": "Jornadas europeas del patrimonio 2025"
+  },
+  "longDescription": {
+    "de": "Anlässlich der Europäischen Tage des Kulturerbes schlägt die Vereinigung des Mémorial des bunkers de Pignerolle vor:\n**Freie Besichtigung der Bunker** von Pignerolle während des ganzen Wochenendes ohne vorherige Reservierung.\n*   **Ausstellung** in **der** Orangerie mit dem Titel «L'Ecole et **la Résistance: des jours** sombres **aux** lendemains de la Libération **1940-1945».**\n*   **Ausstellung** in der Orangerie mit dem Titel **«**Widerstand durch **Kunst und Kultur 1940-1945».**\n*   Präsentation einer virtuellen Tour **auf einem** Touchscreen des Admiralbunker im freien Zugang.\n*   Präsentation eines persönlichen Archivfilms, **der** die Befreiung von Angers und die Angevines und die Angevins in der Begeisterung des 8\\. Mai 1945 zeigt!\n*   ****Konferenz** über** die **markanten Kämpfe der alliierten Marine an der französischen Atlantikküste und in der Nordsee 1940-1943 (nur am Sonntag** 21_**/09 um 15 Uhr) von Patrice Villeneuve.**_\n*   Ausstellung von **Modellen und Dioramen** von Schiffen, Tauchbooten und U-Booten, die an den Landungen und verschiedenen Kämpfen auf den Meeren während des Zweiten Weltkriegs beteiligt waren.\n*   Präsentation **von** Dioramen über den ****ersten** und zweiten **Weltkrieg**. Das** Diorama über den **Zweiten Weltkrieg** wird die Fallschirmlandung ****der**** Pathfinder in der **Nacht vom 5**. **auf** den **6\\. August 1944** zeigen, in der etwa hundert freiwillige Fallschirmjäger der 82\\. und 101\\. Luftflotte hinter den deutschen Linien **im** normannischer Hafen mit der Aufgabe, mit Hilfe von neuem Eureka-Leuchtfeuer oder einfachen leuchtenden Fackeln die verschiedenen Drop-Zonen für den Hauptteil der Luftlandetruppen, die einige Stunden später von C47 und waco-Planern **gesprungen** werden. Diese Freiwilligen waren die ersten Verbündeten, die den französischen Boden betreten haben.\n*   **Ausstellung** des Maison de l'**Europe** in Angers/Maine-et-Loire zum **Thema** der **Anfänge** des europäischen **Bauens und den großen Persönlichkeiten, die diesen Bau** geprägt **haben**.",
+    "en": "On the occasion of the European Heritage Days, the association of the Memorial des bunkers de Pignerolle proposes:\n**Free visit of the bunkers** of Pignerolle throughout the weekend without prior reservation.\n*   **Exhibition** in the Orangerie entitled «**L'Ecole et la Résistance: des jours sombres aux lendemains de la Libération 1940-1945**».\n*   **Exhibition** in **the Orangerie entitled «Resisting through Art and Culture 1940-1945**».\n*   Presentation of a **virtual tour** on tablet of the admiral bunker in free access.\n*   Presentation **of a personal archival film** showing the Liberation of Angers and the Angevines and the Angevins in the fervour of 8 May 1945 liberated!\n*   **Conference** on the decisive **battles of the allied navy on the French Atlantic coast and in the North Sea 1940-1943 (**_**only on Sunday 21/09 at 3 pm**_**)** by Patrice Villeneuve.\n*   Exhibition of **models and dioramas** of ships, submersibles and submarines that participated in the landings and various battles on the seas during the Second World War.\n*   Presentation of **dioramas on the first and second world war**. The World War II diorama will present the **Pathfinder parachute drop during the night of 5 to 6 August 1944**, during which a hundred volunteer paratroopers from the 82nd and 101st airborn were dropped behind the German lines in the Normand boccage with the task of marking, Using the recent eureka beacon or simple luminous torches, the various drop zone drop for the bulk of the airborne troops parachuted a few hours later by C47 and waco planners. These volunteers are the first allies to have stepped on French soil.\n*   **Exhibition** of the Maison de l'Europe d'Angers/Maine-et-Loire on the theme of **the beginnings of European construction and the great figures who marked this construction**.",
+    "it": "In occasione delle giornate europee del patrimonio, l'associazione del Memoriale dei bunker di Pignerolle propone:\n**Visita libera dei bunker** di Pignerolle durante tutto il fine settimana senza prenotazione.\n*   **Esposizione** nell'Orangerie dal titolo «L'Ecole et la **Résistance: des jours sombres aux lendemains de la Libération 1940-1945».**\n*   **Esposizione** nell'Orangerie dal titolo «Resistere per l'**Arte e la Cultura 1940-1945».**\n*   Presentazione di una visita virtuale **su tablet** del bunker ammiraglio in accesso libero.\n*   Presentazione di un film d'archivio **personale** che mostra la liberazione di Angers e gli angioini nel fervore dell'8 maggio 1945 liberato!\n*   **Conferenza **sui**** combattimenti marcatori **della marina alleata sulla costa atlantica francese e nel Mare del Nord 1940-1943 (solo domenica** 21_**/09 alle ore 15) di Patrice Villeneuve.**_\n*   Esposizione di **modelli e diorami** di navi, sommergibili e sottomarini che hanno partecipato agli sbarchi e ai vari combattimenti in mare durante la seconda guerra mondiale.\n*   Presentazione di diorami **sulla prima e la seconda guerra mondiale. Il** diorama riguardante la **seconda guerra mondiale** presenterà il lancio in paracadute **del** Pathfinder nella **notte** tra il **5** e il **6 agosto 1944**, **durante il quale** un centinaio di paracadutisti volontari **dell**'82o e 101o aerobato sono stati lanciati dietro le linee tedesche nel boccage normand con la missione di balistica, con l'aiuto di recenti balise eureka o semplici torce luminose, le varie drop zone di lancio per il grosso delle truppe aeree paracadutate poche ore più tardi dai C47 e i pianificatori waco. Questi volontari sono i primi alleati ad aver calcato il suolo francese.\n*   **Esposizione** della Maison del'Europe di Angers/Maine-et-Loire sul tema degli inizi della **costruzione europea e delle grandi figure che hanno segnato questa costruzione.**",
+    "fr": "A l'occasion des journées européennes du Patrimoine, l'association du Mémorial des bunkers de Pignerolle propose :\n\n**Visite libre des bunkers** de Pignerolle tout au long du week-end sans réservation au préalable.\n\n*   **Exposition** dans l'Orangerie intitulée « **L’Ecole et la Résistance : des jours sombres aux lendemains de la Libération 1940-1945** ».\n*   **Exposition** dans l'Orangerie intitulée « **Résister par l’Art et la Culture 1940-1945** ».\n*   Présentation d'une **visite virtuelle** sur tablette tactile du bunker amiral en accès libre.\n*   Présentation d'un **film d'archives** personnelles montrant la Libération d'Angers et les angevines et les angevins dans la ferveur du 8 mai 1945 libéré !\n*   **Conférence** sur les **combats marquants de la marine alliée sur la côte atlantique française et en Mer du Nord 1940-1943 (**_**uniquement le dimanche 21/09 à 15 heures**_**)** par Patrice Villeneuve.\n*   Exposition de **maquettes et dioramas** de navires, de submersibles et de sous-marins ayant participé aux débarquements et aux divers combats sur les mers durant la seconde Guerre mondiale.\n*   Présentation de **dioramas sur la premiere et la seconde Guerre mondiale**. Le diorama concernant la seconde Guerre mondiale présentera le parachutage de **Pathfinder durant la nuit du 5 au 6 août 1944** au cours de laquelle une centaine de parachutistes volontaires de la 82ème et de la 101ème airborn ont été parachutés derrière les lignes allemandes dans le boccage normand avec pour mission de baliser, à l'aide de récente balise eureka ou de simple flambeaux lumineux, les différentes drop zone de largage pour le gros des troupes aéroportées parachutées quelques heures plus tard par les C47 et les planneurs waco. Ces volontaires sont les premiers alliés à avoir foulé le sol français.\n*   **Exposition** de la Maison de l'Europe d'Angers/Maine-et-Loire sur la thématique des **débuts de la construction européennes et les grandes figures qui ont marquée cette construction**.",
+    "es": "Con motivo de las jornadas europeas del Patrimonio, la asociación del Mémorial des bunkers de Pignerolle propone:\n**Visita libre de los bunkers** de Pignerolle durante todo el fin de semana sin reserva previa.\n*   **Exposición** en la Orangerie titulada «L**'Ecole et la Résistance: des jours sombres aux lendemains de la Libération 1940-1945**».\n*   **Exposición** en la Orangerie titulada «**Resistir por el arte y la cultura 1940-1945**».\n*   Presentación de una **visita virtual** en tableta táctil del búnker almirante en acceso libre.\n*   Presentación de una **película de archivo personal que** muestra la Liberación de Angers y los angevines y los angevins en el fervor del 8 de mayo 1945 liberado!\n*   **Conferencia** sobre los **combates destacados de la marina aliada en la costa atlántica francesa y en el Mar del Norte 1940-1943 (**_**solo el domingo 21/09 a las 15 horas**_**)** por Patrice Villeneuve.\n*   Exposición de **maquetas y dioramas** de buques, sumergibles y submarinos que participaron en los desembarcos y en las diversas batallas marítimas durante la segunda guerra mundial.\n*   Presentación de **dioramas sobre la primera y segunda guerra mundial**. El diorama relativo a la segunda guerra mundial presentará el paracaídas de **Pathfinder durante la noche del 5 al 6 de agosto de 1944** durante la cual un centenar de paracaidistas voluntarios de la 82a y 101a aerotransportada fueron lanzados detrás de las líneas alemanas en el boccage normand con la misión de balizar, Con la ayuda de recientes balizas eureka o simples antorchas luminosas, las diferentes zonas de caída para el grueso de las tropas aerotransportadas paracaidistas unas horas más tarde por los C47 y los planificadores waco. Estos voluntarios son los primeros aliados en pisar el suelo francés.\n*   **Exposición** de la Maison de l'Europe de Angers/Maine-et-Loire sobre el tema de los **inicios de la construcción europea y las grandes figuras que han marcado esta construcción**."
+  },
+  "conditions-de-participation": [15, 12],
+  "registration": [],
+  "conditions": {
+    "de": "Kostenlos und freier Eintritt. Spenden für den Verein möglich. Eine Taschenlampe für die Bunkerbesichtigung mitbringen. Die Bunker können für einige Personen frisch sein: Sorgen Sie dafür, dass sie sich decken. Teilweise zugänglich PMR.",
+    "en": "Free and free entry. Donations possible for the association. Provide a flashlight for the visit of the bunkers. The bunkers can be cool for some people: provide something to cover. Partially accessible PMR.",
+    "it": "Gratuito e ingresso libero. Donazioni possibili per l'associazione. Prevedere una torcia per la visita dei bunker. I bunker possono essere freschi per alcune persone: prevedere qualcosa da coprirsi. Parzialmente accessibile PMR.",
+    "fr": "Gratuit et entrée libre. Dons possibles pour l'association. Prévoir une lampe torche pour la visite des bunkers. Les bunkers peuvent être frais pour certaines personnes : prévoir de quoi se couvrir. Partiellement accessible PMR.",
+    "es": "Gratis y entrada libre. Donaciones posibles para la asociación. Prever una linterna para la visita de los bunkers. Los bunkers pueden ser frescos para algunas personas: tener algo que cubrir. Parcialmente accesible PMR."
+  },
+  "type-de-public": 40,
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "accessibility": {
+    "ii": true,
+    "hi": true,
+    "vi": true,
+    "pi": true,
+    "mi": true
+  },
+  "keywords": {},
+  "status": 1,
+  "extIds": null,
+  "uid": 92634388,
+  "slug": "visite-des-bunkers-du-parc-de-pignerolle",
+  "private": 0,
+  "timezone": "Europe/Paris",
+  "draft": 0,
+  "createdAt": "2025-05-29T20:39:55.000Z",
+  "creatorUid": 2528096,
+  "ownerUid": 2528096,
+  "updatedAt": "2025-06-12T13:57:04.195Z",
+  "links": []
+}

@@ -39,9 +39,11 @@ export default async function addTimingMonth(doc, parentCursor, params) {
   if (displayMonthName && evaluateTitleHeight) {
     const { height: titleHeight, width: titleWidth } = await addText(
       doc,
-      cursor,
+      { x: 0, y: 0 },
       {
         ...params,
+        availableHeight: undefined,
+        availableWidth: undefined,
         value: month.label,
         bold: true,
         simulate: true,

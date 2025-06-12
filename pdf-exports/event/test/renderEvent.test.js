@@ -78,6 +78,11 @@ const fixturePairs = [
     agenda: await readFx('colo.agenda'),
     event: await readFx('intrepides.event'),
   },
+  {
+    name: 'bunkers',
+    agenda: await readFx('jep-2025-pays-de-la-loire'),
+    event: await readFx('bunkers.event'),
+  },
 ].filter(({ name }) => (selectedPDF ? selectedPDF === name : true));
 
 // Generate PDFs for each fixture pair
