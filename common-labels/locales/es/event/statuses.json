@@ -1,3 +1,7 @@
 {
+  "common.event.statuses.full": "Completo",
+  "common.event.statuses.movedOnline": "Movido en línea",
+  "common.event.statuses.postponed": "Pospuesto",
+  "common.event.statuses.rescheduled": "Reprogramado",
   "common.event.statuses.scheduled": "Programado"
 }
