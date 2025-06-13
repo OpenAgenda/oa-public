@@ -2,6 +2,7 @@
   "ReactFilters.DateRangeFilter.startDate": "Inicio",
   "ReactFilters.DefinedRangeFilter.startDate": "Inicio",
   "ReactFilters.ValueBadge.removeFilter": "Eliminar filtro",
+  "ReactFilters.ValueBadge.removeFilterWithTitle": "Eliminar filtro ({title})",
   "ReactFilters.components.fields.SearchInput.ariaLabel": "Buscar",
   "ReactFilters.dateRanges.currentMonth": "Este mes",
   "ReactFilters.dateRanges.currentWeek": "Esta semana",
