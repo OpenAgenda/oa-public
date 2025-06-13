@@ -13,11 +13,14 @@
   "ReactFilters.messages.attendanceMode.mixed": "Mezclado",
   "ReactFilters.messages.attendanceMode.offline": "Desconnectad",
   "ReactFilters.messages.attendanceMode.online": "En linea",
+  "ReactFilters.messages.boolean.notSelected": "No seleccionado",
+  "ReactFilters.messages.boolean.selected": "Seleccionado",
   "ReactFilters.messages.choiceFilter.searchPlaceholder": "Buscar",
   "ReactFilters.messages.filterTitles.attendanceMode": "Modo de asistencia",
   "ReactFilters.messages.filterTitles.city": "Ciudad",
   "ReactFilters.messages.filterTitles.department": "Departamento",
   "ReactFilters.messages.filterTitles.district": "Distrito",
+  "ReactFilters.messages.filterTitles.keyword": "Palabras clave",
   "ReactFilters.messages.filterTitles.locationUid": "Lugar",
   "ReactFilters.messages.filterTitles.region": "Región",
   "ReactFilters.messages.filterTitles.relative": "Pasados / actuales / próximos",
@@ -27,5 +30,10 @@
   "ReactFilters.messages.filterTitles.timings": "Fecha",
   "ReactFilters.messages.provenance.contribution": "Contribución",
   "ReactFilters.messages.relative.upcoming": "Próximos",
-  "ReactFilters.messages.status.programmed": "Programado"
+  "ReactFilters.messages.state.controlled": "Controlado",
+  "ReactFilters.messages.state.published": "Publicado",
+  "ReactFilters.messages.state.refused": "Rechazado",
+  "ReactFilters.messages.state.toModerate": "Para moderar",
+  "ReactFilters.messages.status.programmed": "Programado",
+  "ReactFilters.useGetFilterOptions.emptyOption": "(Sin valor)"
 }
