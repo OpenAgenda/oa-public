@@ -6,10 +6,12 @@
   "common.event.fields.description": "Descripción corta",
   "common.event.fields.image": "Imagen",
   "common.event.fields.imageCredits": "Créditos de las imágenes",
+  "common.event.fields.keywords": "Palabras clave",
   "common.event.fields.location": "Lugar",
   "common.event.fields.longDescription": "Descripción larga",
   "common.event.fields.onlineAccessLink": "Enlace de acceso",
   "common.event.fields.registration": "Herramientas de registro",
   "common.event.fields.status": "Estado",
+  "common.event.fields.timings": "Horarios",
   "common.event.fields.title": "título"
 }
