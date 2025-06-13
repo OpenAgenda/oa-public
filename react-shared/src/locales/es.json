@@ -3,7 +3,11 @@
   "ReactShared.AgendaContextBar.addEvent": "Añadir un evento",
   "ReactShared.AuthenticateAndConfirm.submit": "Confirmar",
   "ReactShared.ImageInput.acceptedFiles": "Formatos aceptados",
+  "ReactShared.ImageInput.fileTooLarge": "El archivo {fileName} es de {fileSize}, el límite superior para el tamaño del archivo es {maxSize}",
+  "ReactShared.ImageInput.fileTooSmall": "El archivo {fileName} es de {fileSize}, el límite inferior para el tamaño del archivo es {minSize}",
+  "ReactShared.ImageInput.notSupported": "El archivo {fileName} no es compatible",
   "ReactShared.ImageInput.remove": "Eliminar",
+  "ReactShared.ImageInput.tooManyFiles": "Demasiados archivos, solo acepta un único archivo",
   "ReactShared.ImageInput.update": "Cambiar imagen",
   "ReactShared.ImageInput.upload": "Cargar imagen"
 }
