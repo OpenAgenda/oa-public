@@ -29,11 +29,17 @@
   "ReactFilters.messages.filterTitles.status": "Estado",
   "ReactFilters.messages.filterTitles.timings": "Fecha",
   "ReactFilters.messages.provenance.contribution": "Contribución",
+  "ReactFilters.messages.relative.current": "Actual",
+  "ReactFilters.messages.relative.passed": "Pasado",
   "ReactFilters.messages.relative.upcoming": "Próximos",
   "ReactFilters.messages.state.controlled": "Controlado",
   "ReactFilters.messages.state.published": "Publicado",
   "ReactFilters.messages.state.refused": "Rechazado",
   "ReactFilters.messages.state.toModerate": "Para moderar",
+  "ReactFilters.messages.status.full": "Completo",
+  "ReactFilters.messages.status.movedOnline": "Movido en línea",
+  "ReactFilters.messages.status.postponed": "Pospuesto",
   "ReactFilters.messages.status.programmed": "Programado",
+  "ReactFilters.messages.status.rescheduled": "Reprogramado",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Sin valor)"
 }
