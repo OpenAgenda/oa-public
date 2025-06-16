@@ -24,13 +24,6 @@ async function update(
   entry,
   options,
 ) {
-  console.log('apply update', {
-    passEventOfferId,
-    passAddressId,
-    OAEvent,
-    _processedEntries,
-    entry,
-  });
   const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
 
   const { categories, related } = !categoriesFromOptions || !relatedFromOptions
@@ -97,7 +90,6 @@ async function create({ pc, siren }, OAEvent, entry, options) {
     })
   ) {
     // Validate that OAEvent location has a postal code
-    console.log('this', OAEvent.location);
     if (!OAEvent.location?.postalCode) {
       return {
         error: new BadRequest({
