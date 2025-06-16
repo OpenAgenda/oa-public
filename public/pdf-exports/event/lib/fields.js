@@ -112,5 +112,6 @@ export const locationDescriptions = [
     fieldType: 'text',
     omitLabel: false,
     filterUnset: true,
+    displayLabelIfUnset: false,
   },
 ].map((f) => ({ ...f, fontSize: f.fontSize ?? '0.9em' }));
