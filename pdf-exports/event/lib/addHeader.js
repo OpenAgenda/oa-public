@@ -29,13 +29,14 @@ async function addAgendaPart(agenda, doc, parentCursor, params) {
     cursor.moveX(size.width);
   }
 
-  const titleSize = addText(doc, cursor, {
-    value: title,
-    simulate,
-    fontSize: '1.1em',
-  });
-
-  size.width += titleSize.width;
+  adjustSize(
+    size,
+    addText(doc, cursor, {
+      value: title,
+      simulate,
+      fontSize: '1.1em',
+    }),
+  );
 
   return size;
 }

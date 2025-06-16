@@ -4,6 +4,7 @@ import flattenLabel from '../lib/flattenLabel.js';
 import addMultipageSegments from './lib/addMultipageSegments.js';
 import rtd from './lib/roundToDecimal.js';
 import addHeader from './lib/addHeader.js';
+import isLandscape from './lib/isLandscape.js';
 import sectionTitle from './lib/sectionTitle.js';
 
 import {
@@ -59,9 +60,11 @@ export default async function renderEvent(
     fieldType: 'image',
     relatedValues: [{ from: 'imageCredits', to: 'credits' }],
   };
-  const hasLandscapeMainImage = event.image?.size?.width && event?.image?.size?.height
-    ? event.image.size.width / event.image.size.height > 1
-    : true;
+  const hasLandscapeMainImage = await isLandscape(
+    event.image,
+    options.imagePath,
+  );
+
   const hasLongLocationDescription = event.location?.description
     && flattenLabel(event.location?.description, lang)?.length > 300;
 
