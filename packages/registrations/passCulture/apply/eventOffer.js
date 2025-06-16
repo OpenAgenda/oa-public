@@ -110,8 +110,13 @@ async function create({ pc, siren }, OAEvent, entry, options) {
       });
       log.info('created address', address);
     } catch (error) {
-      log('error', 'address error', error.response.data);
-      throw error;
+      return {
+        error: handleError('failed to create pass address', {
+          response: error.response,
+          siren,
+          location: OAEvent.location,
+        }),
+      };
     }
   }
   const eventOffer = await formatEvent(
