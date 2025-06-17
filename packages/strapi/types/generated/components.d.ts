@@ -390,6 +390,7 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
+    video: Schema.Attribute.Enumeration<['presentation']>;
   };
 }
 

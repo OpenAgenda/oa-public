@@ -23,6 +23,10 @@
       "repeatable": false,
       "component": "components.illustration"
     },
+    "video": {
+      "type": "enumeration",
+      "enum": ["presentation"]
+    },
     "backgroundColor": {
       "type": "relation",
       "relation": "oneToOne",
