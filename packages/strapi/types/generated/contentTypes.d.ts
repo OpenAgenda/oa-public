@@ -447,12 +447,10 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     Segments: Schema.Attribute.DynamicZone<
       [
         'segments.page-head',
-        'segments.modular-set',
-        'segments.accordion-set',
-        'segments.carousel-set',
         'segments.highlight-card-set',
         'segments.tab-set',
         'segments.reference-set',
+        'components.split-hero',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{

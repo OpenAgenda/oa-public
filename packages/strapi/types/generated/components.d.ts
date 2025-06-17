@@ -228,10 +228,9 @@ export interface ComponentsSplitHero extends Struct.ComponentSchema {
     displayName: 'SplitHero';
   };
   attributes: {
-    direction: Schema.Attribute.Enumeration<['row', 'row-reverted']> &
-      Schema.Attribute.Required &
-      Schema.Attribute.DefaultTo<'row'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    imagePosition: Schema.Attribute.Enumeration<['left', 'right']> &
+      Schema.Attribute.DefaultTo<'left'>;
     text: Schema.Attribute.RichText & Schema.Attribute.Required;
     title: Schema.Attribute.String;
   };
