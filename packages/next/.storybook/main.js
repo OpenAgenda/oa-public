@@ -1,4 +1,4 @@
-import path, { dirname, join } from 'node:path';
+import { dirname, join } from 'node:path';
 
 function getAbsolutePath(value) {
   return dirname(require.resolve(join(value, 'package.json')));
