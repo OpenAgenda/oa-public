@@ -6,9 +6,7 @@ import makeLabelGetter from '@openagenda/labels';
 const getLabel = makeLabelGetter(formSchemaLabels);
 
 export default function RadioField(props) {
-  const { onChange, field, value, lang, enabled } = props;
-
-  const optional = field.optional ?? true;
+  const { onChange, field, value, lang, enabled, isOptional } = props;
 
   const [hasClicked, setHasClicked] = useState(false);
 
@@ -31,7 +29,7 @@ export default function RadioField(props) {
       {field.options
         .filter((o) => o.display)
         .concat(
-          optional
+          isOptional
             ? [
               {
                 label: getLabel('noChoice', lang),

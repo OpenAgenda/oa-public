@@ -110,6 +110,7 @@ export default function Field(props) {
     relatedValues,
     labels,
     userRole: role,
+    isOptional,
   };
 
   return (
