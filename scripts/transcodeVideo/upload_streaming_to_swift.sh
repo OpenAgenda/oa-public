@@ -3,14 +3,38 @@
 # Script pour uploader le contenu d'un répertoire local vers OpenStack Swift
 # en utilisant --object-name comme préfixe pour le contenu du répertoire.
 
+# Vérification de l'argument
+if [ $# -ne 1 ]; then
+    echo "Usage: $0 <nom_dossier_swift>"
+    echo "Exemple: $0 my-video-folder"
+    echo ""
+    echo "L'argument sera utilisé dans le chemin Swift: videos/<nom_dossier_swift>"
+    exit 1
+fi
+
+SWIFT_FOLDER_NAME="$1"
+
+# Validation de l'argument (pas de caractères spéciaux)
+if [[ ! "$SWIFT_FOLDER_NAME" =~ ^[a-zA-Z0-9_-]+$ ]]; then
+    echo "Erreur: Le nom du dossier Swift ne doit contenir que des lettres, chiffres, tirets et underscores"
+    echo "Fourni: '$SWIFT_FOLDER_NAME'"
+    exit 1
+fi
+
 # --- Configuration ---
 LOCAL_SOURCE_DIR="streaming_output"
 SWIFT_CONTAINER_NAME="assets"
 # Pour --object-name utilisé comme préfixe, il doit se terminer par un slash
 # pour simuler un dossier.
-SWIFT_OBJECT_PREFIX="videos/presentation"
+SWIFT_OBJECT_PREFIX="videos/$SWIFT_FOLDER_NAME/"
 SWIFT_SEGMENT_SIZE=1073741824
 SWIFT_UPLOAD_OPTIONS="--verbose --changed"
+
+echo "📁 Configuration de l'upload:"
+echo "  Dossier local: $LOCAL_SOURCE_DIR"
+echo "  Conteneur Swift: $SWIFT_CONTAINER_NAME"
+echo "  Préfixe Swift: $SWIFT_OBJECT_PREFIX"
+echo ""
 
 # --- Vérifications Préliminaires ---
 if [ ! -d "$LOCAL_SOURCE_DIR" ]; then
@@ -48,7 +72,7 @@ fi
 echo ""
 echo "Début de l'upload du contenu de '$LOCAL_SOURCE_DIR' vers :"
 echo "  Conteneur Swift : $SWIFT_CONTAINER_NAME"
-echo "  Préfixe Objet  : $SWIFT_OBJECT_PREFIX" # Changement de nom de variable pour la clarté
+echo "  Préfixe Objet  : $SWIFT_OBJECT_PREFIX"
 echo ""
 
 # Utilisation d'une sous-shell pour que le 'cd' n'affecte pas le script principal

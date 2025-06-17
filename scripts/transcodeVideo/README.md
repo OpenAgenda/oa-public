@@ -14,5 +14,5 @@ Se connecter à Swift (voir `wiki/openstack.md`), puis lancer les commandes suiv
 ./encode_renditions.sh
 ./package_streams.sh
 ./generate_thumbnails_vtt.sh
-./upload_streaming_to_swift.sh
+./upload_streaming_to_swift.sh <video_name>
 ```
