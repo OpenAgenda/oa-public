@@ -65,7 +65,7 @@
     "fr": ["Mot", "clé", "trousseau"]
   },
   "longDescription": {
-    "fr": "Une description un peu plus longue"
+    "fr": "Une description un peu plus longue avec de l’<em>italique</em>."
   },
   "conditions": {
     "fr": "Interdit aux chiens"
