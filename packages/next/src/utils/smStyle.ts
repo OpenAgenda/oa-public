@@ -28,6 +28,9 @@ const smStyle: SystemStyleObject = {
       textDecorationColor: 'currentColor/20',
     },
   },
+  '& em': {
+    fontStyle: 'italic',
+  },
   '& h1': {
     fontSize: '3xl',
   },
