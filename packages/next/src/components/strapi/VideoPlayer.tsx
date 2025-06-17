@@ -27,13 +27,13 @@ import styles from './VideoPlayer.module.scss';
 const StyledMediaPlayer = chakra(MediaPlayer);
 
 interface VideoPlayerProps {
+  video?: string;
+  sources?: MediaSrc[];
   title?: string;
   poster?: string;
-  video?: string; // Nom de la vidéo pour le mapping ou génération automatique
-  sources?: MediaSrc[]; // Sources personnalisées optionnelles
+  thumbnails?: string;
 }
 
-// Traductions pour le player Vidstack utilisant react-intl avec les clés exactes de Vidstack
 const getVideoTranslations = (intl: any) => ({
   Announcements: intl.formatMessage(messages.announcements),
   Accessibility: intl.formatMessage(messages.accessibility),
@@ -109,19 +109,22 @@ const generateVideoSources = (
 // Mapping des vidéos avec informations prédéfinies
 const videoMapping: Record<
   string,
-  { title: string; sources?: MediaSrc[]; poster?: string }
+  { title: string; sources?: MediaSrc[]; poster?: string; thumbnails?: string }
 > = {
   presentation: {
     title: "Présentation d'OpenAgenda",
-    // poster: 'https://storage.openagenda.com/assets/videos/presentation/cover.png',
+    // poster: 'https://cdn.openagenda.com/assets/videos/presentation/cover.png',
+    thumbnails:
+      'https://cdn.openagenda.com/assets/videos/presentation/thumbnails_webp_sprite.vtt',
   },
 };
 
 const MultiFormatVideoPlayer = ({
-  title,
-  poster,
   video = 'presentation',
   sources,
+  title,
+  poster,
+  thumbnails,
 }: VideoPlayerProps) => {
   const player = useRef<MediaPlayerInstance>(null);
   const intl = useIntl();
@@ -132,6 +135,7 @@ const MultiFormatVideoPlayer = ({
     sources || videoInfo?.sources || generateVideoSources(video);
   const videoTitle = title || videoInfo?.title;
   const videoPoster = poster || videoInfo?.poster;
+  const videoThumbnails = thumbnails || videoInfo?.thumbnails;
 
   function onProviderChange(
     provider: MediaProviderAdapter | null,
@@ -174,7 +178,7 @@ const MultiFormatVideoPlayer = ({
 
       <DefaultVideoLayout
         icons={defaultLayoutIcons}
-        thumbnails="https://storage.openagenda.com/assets/videos/presentation/thumbnails_webp_sprite.vtt"
+        thumbnails={videoThumbnails}
         translations={getVideoTranslations(intl)}
         colorScheme="light"
         noModal
