@@ -6,6 +6,7 @@ import HighlightCardSet from 'components/strapi/HighlightCardSet';
 import CarouselSet from 'components/strapi/CarouselSet';
 import TabSet from 'components/strapi/TabSet';
 import ReferenceSet from 'components/strapi/ReferenceSet';
+import SplitHeroSegment from 'components/strapi/SplitHeroSegment';
 import Footer from 'components/strapi/Footer';
 import Metas from './components/Metas';
 import fetchLocale from './locales';
@@ -48,6 +49,7 @@ export default function StrapiPage({ page, footer }) {
           'segments.carousel-set': CarouselSet,
           'segments.tab-set': TabSet,
           'segments.reference-set': ReferenceSet,
+          'components.split-hero': SplitHeroSegment,
         }[Segment['__component']];
 
         return <Component key={id} {...Segment} />;

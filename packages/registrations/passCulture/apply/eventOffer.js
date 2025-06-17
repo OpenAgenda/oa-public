@@ -1,6 +1,7 @@
 import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 import formatEvent from '../lib/formatEvent.js';
+import extractStreetFromOAAddress from '../lib/extractStreetFromOAAddress.js';
 import handleError from './handleError.js';
 
 const log = logs('passCulture/eventOffer');
@@ -24,13 +25,6 @@ async function update(
   entry,
   options,
 ) {
-  console.log('apply update', {
-    passEventOfferId,
-    passAddressId,
-    OAEvent,
-    _processedEntries,
-    entry,
-  });
   const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
 
   const { categories, related } = !categoriesFromOptions || !relatedFromOptions
@@ -97,7 +91,6 @@ async function create({ pc, siren }, OAEvent, entry, options) {
     })
   ) {
     // Validate that OAEvent location has a postal code
-    console.log('this', OAEvent.location);
     if (!OAEvent.location?.postalCode) {
       return {
         error: new BadRequest({
@@ -114,12 +107,17 @@ async function create({ pc, siren }, OAEvent, entry, options) {
         latitude: OAEvent.location.latitude,
         longitude: OAEvent.location.longitude,
         postalCode: OAEvent.location.postalCode,
-        street: OAEvent.location.address,
+        street: extractStreetFromOAAddress(OAEvent.location),
       });
       log.info('created address', address);
     } catch (error) {
-      log('error', 'address error', error.response.data);
-      throw error;
+      return {
+        error: handleError('failed to create pass address', {
+          response: error.response,
+          siren,
+          location: OAEvent.location,
+        }),
+      };
     }
   }
   const eventOffer = await formatEvent(

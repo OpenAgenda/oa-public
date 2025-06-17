@@ -4,6 +4,7 @@ import urlToBuffer from '../../utils/urlToBuffer.js';
 import addText from './addText.js';
 import Cursor from './Cursor.js';
 import adjustSize from './adjustSize.js';
+import extractImageInfoFromValue from './extractImageInfoFromValue.js';
 
 const log = logs('addImage');
 
@@ -11,7 +12,7 @@ async function getAdjustedSize(
   buffer,
   { size, firstOfColumn, availableHeight, availableWidth },
 ) {
-  const { width, height } = size ?? await sharp(buffer).metadata();
+  const { width, height } = size?.width && size?.height ? size : await sharp(buffer).metadata();
 
   log(
     '  got w:%s,h:%s for available w:%s,h:%s',
@@ -37,23 +38,6 @@ async function getAdjustedSize(
 
   return adjusted;
 }
-
-const extractImageInfoFromValue = (value, defaultImagePath) => {
-  if (!value) return { filename: undefined };
-
-  if (typeof value !== 'string') {
-    return value;
-  }
-
-  const parts = value.split('/');
-  const filename = parts.pop();
-  const path = parts.join('/');
-
-  return {
-    filename,
-    base: path.length ? `${path}/` : defaultImagePath,
-  };
-};
 
 function addCredits(doc, cursor, params) {
   const { relatedValues } = params;

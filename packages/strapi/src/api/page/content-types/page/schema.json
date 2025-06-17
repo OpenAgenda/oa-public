@@ -52,12 +52,10 @@
       "type": "dynamiczone",
       "components": [
         "segments.page-head",
-        "segments.modular-set",
-        "segments.accordion-set",
-        "segments.carousel-set",
         "segments.highlight-card-set",
         "segments.tab-set",
-        "segments.reference-set"
+        "segments.reference-set",
+        "components.split-hero"
       ],
       "pluginOptions": {
         "i18n": {

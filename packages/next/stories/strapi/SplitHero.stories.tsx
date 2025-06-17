@@ -11,17 +11,30 @@ export function Overview() {
   return (
     <Container maxWidth="5xl">
       <SplitHero
-        title="SplitHero title"
+        title="Fini les fastidieux copier-coller !"
         image={{
           url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
           alternativeText: 'Guy writing something on a calendar',
         }}
-        text={`### **Fini les fastidieux copier-coller !**
-
+        text={`###
 * Préparez votre programmation *en équipe*
-* Connectez votre agenda avec d’autres *outils métiers* (SIT, SIGB, billetteries …) grâce à notre API
+* Connectez votre agenda avec d'autres *outils métiers* (SIT, SIGB, billetteries …) grâce à notre API
 * *Affichez votre agenda* sur votre site web grâce à notre Iframe ou les extensions que nous avons développés pour les principaux CMS
-* *Diffusez en un clic* votre programmation auprès des agendas de territoire ou d’autres réseaux
+* *Diffusez en un clic* votre programmation auprès des agendas de territoire ou d'autres réseaux
+* *Exportez votre agenda* vers tous vos autres supports de communication : réseaux sociaux, affichage papier, etc.`}
+      />
+      <SplitHero
+        title="Fini les fastidieux copier-coller !"
+        imagePosition="right"
+        image={{
+          url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
+          alternativeText: 'Guy writing something on a calendar',
+        }}
+        text={`###
+* Préparez votre programmation *en équipe*
+* Connectez votre agenda avec d'autres *outils métiers* (SIT, SIGB, billetteries …) grâce à notre API
+* *Affichez votre agenda* sur votre site web grâce à notre Iframe ou les extensions que nous avons développés pour les principaux CMS
+* *Diffusez en un clic* votre programmation auprès des agendas de territoire ou d'autres réseaux
 * *Exportez votre agenda* vers tous vos autres supports de communication : réseaux sociaux, affichage papier, etc.`}
       />
     </Container>

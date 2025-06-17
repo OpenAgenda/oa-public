@@ -155,6 +155,46 @@ describe('PassCultureSDK', () => {
         },
       ]);
     });
+
+    it('search error', async () => {
+      let error;
+      try {
+        await pc.offers.addresses.search({
+          city: 'Strasbourg',
+          postalCode: 67201, // postal code is invalid here
+          street: '15 place André Maurois, 67200 Strasbourg',
+        });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.response.status).toBe(400);
+      expect(error.response.data).toEqual({
+        __root__: [
+          'No municipality found for `city=Strasbourg` and `postalCode=67201`',
+        ],
+      });
+    });
+
+    it('create error', async () => {
+      let error;
+      try {
+        await pc.offers.addresses.create({
+          city: 'Strasbourg',
+          latitude: 48.591836,
+          longitude: 7.697631,
+          postalCode: 67201,
+          street: '15 place André Maurois, 67200 Strasbourg',
+        });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.response.status).toBe(400);
+      expect(error.response.data).toEqual({
+        __root__: [
+          'No municipality found for `city=Strasbourg` and `postalCode=67201`',
+        ],
+      });
+    });
   });
 
   describe('offers.events', () => {

@@ -19,11 +19,10 @@
       "type": "richtext",
       "required": true
     },
-    "direction": {
+    "imagePosition": {
       "type": "enumeration",
-      "enum": ["row", "row-reverted"],
-      "default": "row",
-      "required": true
+      "enum": ["left", "right"],
+      "default": "left"
     }
   }
 }
