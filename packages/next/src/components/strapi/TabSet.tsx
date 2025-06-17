@@ -18,16 +18,11 @@ export default function TabSet({ title = null, Tabs: TabsData }) {
           ))}
         </Tabs.List>
 
-        {TabsData.map(
-          (tab) => (
-            console.log(tab.content),
-            (
-              <Tabs.Content key={tab.id} value={tab.id}>
-                <SplitHero {...tab.content} />
-              </Tabs.Content>
-            )
-          ),
-        )}
+        {TabsData.map((tab) => (
+          <Tabs.Content key={tab.id} value={tab.id}>
+            <SplitHero {...tab.content} />
+          </Tabs.Content>
+        ))}
       </Tabs.Root>
     </SegmentContainer>
   );

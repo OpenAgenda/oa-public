@@ -88,8 +88,6 @@ export default function PageHead({
 }: PageHeadProps) {
   const hasTwoColumns = Boolean(Illustration || video);
 
-  console.log({ hasTwoColumns });
-
   const templateColumns = video
     ? { base: '1fr', md: '1fr 1fr' }
     : Illustration
