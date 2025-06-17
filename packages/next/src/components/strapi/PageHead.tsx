@@ -11,30 +11,29 @@ import { color } from 'utils/strapi';
 import CTAButton from './CTAButton';
 import IllustrationComponent from './Illustration';
 import SegmentContainer from './SegmentContainer';
-import type { Color } from './types';
+import VideoPlayer from './VideoPlayer';
 
 const PageHeadContent = ({
   title,
   description,
   CTA,
-  Illustration,
+  centered,
   titleColor,
   descriptionColor,
   fontSize,
-}: Pick<
+}: { centered?: boolean } & Pick<
   PageHeadProps,
   | 'title'
   | 'description'
   | 'CTA'
-  | 'Illustration'
   | 'titleColor'
   | 'descriptionColor'
   | 'fontSize'
 >) => (
   <Stack
     gap={0}
-    align={Illustration ? undefined : 'center'}
-    textAlign={Illustration ? undefined : 'center'}
+    align={centered ? undefined : 'center'}
+    textAlign={centered ? undefined : 'center'}
   >
     <Heading
       as="h1"
@@ -55,6 +54,8 @@ const PageHeadContent = ({
   </Stack>
 );
 
+import type { Color } from './types';
+
 interface PageHeadProps {
   backgroundColor?: any;
   titleColor?: Color;
@@ -66,6 +67,7 @@ interface PageHeadProps {
     label: string;
     link: string;
   };
+  video?: string;
   Illustration?: {
     image: {
       url: string;
@@ -78,33 +80,49 @@ export default function PageHead({
   title,
   description,
   CTA,
+  video,
   Illustration,
   backgroundColor,
   titleColor,
   descriptionColor,
 }: PageHeadProps) {
+  const hasTwoColumns = Boolean(Illustration || video);
+
+  console.log({ hasTwoColumns });
+
+  const templateColumns = video
+    ? { base: '1fr', md: '1fr 1fr' }
+    : Illustration
+      ? { base: '1fr', md: '1fr auto' }
+      : '1fr';
+
   return (
     <SegmentContainer
       backgroundColor={backgroundColor}
       fontColor={color(titleColor)}
     >
       <Grid
-        templateColumns={Illustration ? { base: '1fr', md: '1fr auto' } : '1fr'}
+        templateColumns={templateColumns}
         gap={8}
         alignItems="center"
-        justifyItems={Illustration ? undefined : 'center'}
+        justifyItems={hasTwoColumns ? undefined : 'center'}
         py={12}
       >
-        <GridItem maxW={Illustration ? undefined : 'container.md'}>
+        <GridItem maxW={hasTwoColumns ? undefined : 'container.md'}>
           <PageHeadContent
             title={title}
             description={description}
             CTA={CTA}
-            Illustration={Illustration}
+            centered={hasTwoColumns}
             titleColor={titleColor}
             descriptionColor={descriptionColor}
           />
         </GridItem>
+        {video ? (
+          <GridItem>
+            <VideoPlayer />
+          </GridItem>
+        ) : null}
         {Illustration ? (
           <GridItem>
             <IllustrationComponent {...Illustration} />

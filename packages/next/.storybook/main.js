@@ -1,4 +1,4 @@
-import { dirname, join } from 'node:path';
+import path, { dirname, join } from 'node:path';
 
 function getAbsolutePath(value) {
   return dirname(require.resolve(join(value, 'package.json')));
@@ -20,7 +20,18 @@ const main = {
 
   staticDirs: ['../public', './public', '../stories/static'],
 
-  addons: [],
+  webpackFinal: async (config) => {
+    // https://github.com/vidstack/player/pull/1655
+    if (config.module && config.module.rules) {
+      config.module.rules.push({
+        test: /\.css$/,
+        include: getAbsolutePath('@vidstack/react'),
+        sideEffects: true,
+      });
+    }
+
+    return config;
+  },
 };
 
 export default main;
