@@ -1,6 +1,7 @@
 import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 import formatEvent from '../lib/formatEvent.js';
+import extractStreetFromOAAddress from '../lib/extractStreetFromOAAddress.js';
 import handleError from './handleError.js';
 
 const log = logs('passCulture/eventOffer');
@@ -106,7 +107,7 @@ async function create({ pc, siren }, OAEvent, entry, options) {
         latitude: OAEvent.location.latitude,
         longitude: OAEvent.location.longitude,
         postalCode: OAEvent.location.postalCode,
-        street: OAEvent.location.address,
+        street: extractStreetFromOAAddress(OAEvent.location),
       });
       log.info('created address', address);
     } catch (error) {
