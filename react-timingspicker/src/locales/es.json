@@ -4,11 +4,13 @@
   "rtp.multiRecurrencerForm.day": "día",
   "rtp.multiRecurrencerForm.endBeforeStart": "El final debe ser después del comienzo",
   "rtp.multiRecurrencerForm.month": "mes",
+  "rtp.multiRecurrencerForm.submit": "Aplicar",
   "rtp.multiRecurrencerForm.title": "Definir una recurrencia",
   "rtp.multiRecurrencerForm.week": "semana",
   "rtp.recurrencerForm.day": "día",
   "rtp.recurrencerForm.endBeforeStart": "El final debe ser después del principio",
   "rtp.recurrencerForm.month": "mes",
+  "rtp.recurrencerForm.submit": "Aplicar",
   "rtp.recurrencerForm.week": "semana",
   "rtp.scheduler.openMultiRecurrencerModal": "Definir una recurrencia"
 }
