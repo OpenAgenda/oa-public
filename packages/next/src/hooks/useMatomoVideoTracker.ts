@@ -1,4 +1,5 @@
 import { useCallback } from 'react';
+import { getOpenAgendaTracker } from 'utils/addMatomoTracker';
 
 declare const window: {
   Matomo?: any;
@@ -8,15 +9,13 @@ interface VideoEventData {
   videoTitle?: string;
   videoUrl?: string;
   position?: number;
-  duration?: number;
 }
 
 export default function useMatomoVideoTracker() {
   const trackContentImpression = useCallback((data: VideoEventData) => {
     try {
-      if (window.Matomo?.getTracker) {
-        const tracker = window.Matomo.getTracker();
-
+      const tracker = getOpenAgendaTracker();
+      if (tracker) {
         tracker.trackContentImpression(
           data.videoTitle || 'video', // Nom du contenu
           'video', // Type de contenu
@@ -34,9 +33,8 @@ export default function useMatomoVideoTracker() {
   const trackVideoEvent = useCallback(
     (action: string, data: VideoEventData = {}) => {
       try {
-        if (window.Matomo?.getTracker) {
-          const tracker = window.Matomo.getTracker();
-
+        const tracker = getOpenAgendaTracker();
+        if (tracker) {
           tracker.trackEvent(
             'Video',
             action,
@@ -44,16 +42,13 @@ export default function useMatomoVideoTracker() {
             data.position || 0,
           );
 
-          // Pour les interactions de contenu, on doit d'abord déclarer le contenu
           if (action === 'Play' || action === 'Resume') {
-            // S'assurer que le contenu est déclaré
             tracker.trackContentImpression(
               data.videoTitle || 'video',
               'video',
               data.videoUrl || window.location.href,
             );
 
-            // Puis tracker l'interaction
             tracker.trackContentInteraction(
               'play',
               data.videoTitle || 'video',

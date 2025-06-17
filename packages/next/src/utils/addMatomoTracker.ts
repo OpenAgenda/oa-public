@@ -1,6 +1,7 @@
 declare const window: {
   Matomo?: any;
   matomoPluginAsyncInit?: any;
+  openAgendaTracker?: any;
 } & Window;
 
 export function normalizeUrl(url: string) {
@@ -30,6 +31,8 @@ export function addMatomoTracker({ matomoUrl, matomoSiteId }) {
         matomoTracker.disableCookies();
         matomoTracker.trackPageView();
         matomoTracker.enableLinkTracking();
+
+        window.openAgendaTracker = matomoTracker;
       } catch (err) {
         console.log('addMatomoTracker error', err);
       }
@@ -41,6 +44,10 @@ export function addMatomoTracker({ matomoUrl, matomoSiteId }) {
   scriptElem.async = true;
   scriptElem.src = `https://${matomoDomain}/matomo.js`;
   firstScript.parentNode.insertBefore(scriptElem, firstScript);
+}
+
+export function getOpenAgendaTracker() {
+  return window.openAgendaTracker || null;
 }
 
 export function addMatomoClientTracker({

@@ -175,7 +175,6 @@ const MultiFormatVideoPlayer = ({
       videoTitle,
       videoUrl: getSourceUrl(videoSources[0]),
       position: player.current?.currentTime || 0,
-      duration: player.current?.duration || 0,
     });
   };
 
@@ -184,7 +183,6 @@ const MultiFormatVideoPlayer = ({
       videoTitle,
       videoUrl: getSourceUrl(videoSources[0]),
       position: player.current?.currentTime || 0,
-      duration: player.current?.duration || 0,
     });
   };
 
@@ -193,7 +191,6 @@ const MultiFormatVideoPlayer = ({
       videoTitle,
       videoUrl: getSourceUrl(videoSources[0]),
       position: player.current?.currentTime || 0,
-      duration: player.current?.duration || 0,
     });
   };
 
@@ -202,7 +199,6 @@ const MultiFormatVideoPlayer = ({
       videoTitle,
       videoUrl: getSourceUrl(videoSources[0]),
       position: player.current?.currentTime || 0,
-      duration: player.current?.duration || 0,
     });
   };
 
@@ -222,7 +218,6 @@ const MultiFormatVideoPlayer = ({
           videoTitle,
           videoUrl: getSourceUrl(videoSources[0]),
           position: currentTime,
-          duration,
           percentage,
         });
       }
