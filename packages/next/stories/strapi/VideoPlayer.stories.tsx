@@ -6,10 +6,6 @@ import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import FullScreenDecorator from '../decorators/FullScreenDecorator';
 import intlMessagesLoader from '../loaders/intlMessagesLoader';
 
-import '@vidstack/react/player/styles/default/theme.css';
-import '@vidstack/react/player/styles/default/layouts/audio.css';
-import '@vidstack/react/player/styles/default/layouts/video.css';
-
 export default {
   title: 'strapi/VideoPlayer',
   component: VideoPlayer,

@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { chakra } from '@openagenda/uikit';
 import {
@@ -17,10 +17,10 @@ import {
   DefaultVideoLayout,
   defaultLayoutIcons,
 } from '@vidstack/react/player/layouts/default';
+import useMatomoVideoTracker from 'hooks/useMatomoVideoTracker';
 import messages from './videoPlayerMessages';
 
 import '@vidstack/react/player/styles/default/theme.css';
-import '@vidstack/react/player/styles/default/layouts/audio.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
 import styles from './VideoPlayer.module.scss';
 
@@ -93,6 +93,14 @@ const getVideoTranslations = (intl: any) => ({
   Volume: intl.formatMessage(messages.volume),
 });
 
+const getSourceUrl = (source: MediaSrc | undefined): string => {
+  if (!source) return '';
+  if (typeof source === 'string') return source;
+  if (typeof source === 'object' && typeof source.src === 'string')
+    return source.src;
+  return '';
+};
+
 const generateVideoSources = (
   videoName: string = 'presentation',
 ): MediaSrc[] => [
@@ -128,6 +136,10 @@ const MultiFormatVideoPlayer = ({
 }: VideoPlayerProps) => {
   const player = useRef<MediaPlayerInstance>(null);
   const intl = useIntl();
+  const matomoVideoTracker = useMatomoVideoTracker();
+  const [trackedPercentages, setTrackedPercentages] = useState<Set<number>>(
+    new Set(),
+  );
 
   const videoInfo = videoMapping[video];
 
@@ -136,6 +148,13 @@ const MultiFormatVideoPlayer = ({
   const videoTitle = title || videoInfo?.title;
   const videoPoster = poster || videoInfo?.poster;
   const videoThumbnails = thumbnails || videoInfo?.thumbnails;
+
+  useEffect(() => {
+    matomoVideoTracker.trackContentImpression({
+      videoTitle,
+      videoUrl: getSourceUrl(videoSources[0]),
+    });
+  }, [matomoVideoTracker, videoSources, videoTitle]);
 
   function onProviderChange(
     provider: MediaProviderAdapter | null,
@@ -151,6 +170,65 @@ const MultiFormatVideoPlayer = ({
     }
   }
 
+  const handleVideoPlay = () => {
+    matomoVideoTracker.trackVideoPlay({
+      videoTitle,
+      videoUrl: getSourceUrl(videoSources[0]),
+      position: player.current?.currentTime || 0,
+      duration: player.current?.duration || 0,
+    });
+  };
+
+  const handleVideoPause = () => {
+    matomoVideoTracker.trackVideoPause({
+      videoTitle,
+      videoUrl: getSourceUrl(videoSources[0]),
+      position: player.current?.currentTime || 0,
+      duration: player.current?.duration || 0,
+    });
+  };
+
+  const handleVideoSeek = () => {
+    matomoVideoTracker.trackVideoSeek({
+      videoTitle,
+      videoUrl: getSourceUrl(videoSources[0]),
+      position: player.current?.currentTime || 0,
+      duration: player.current?.duration || 0,
+    });
+  };
+
+  const handleVideoEnd = () => {
+    matomoVideoTracker.trackVideoComplete({
+      videoTitle,
+      videoUrl: getSourceUrl(videoSources[0]),
+      position: player.current?.currentTime || 0,
+      duration: player.current?.duration || 0,
+    });
+  };
+
+  const handleTimeUpdate = () => {
+    const currentTime = player.current?.currentTime || 0;
+    const duration = player.current?.duration || 0;
+
+    if (duration > 0) {
+      const percentage = Math.floor((currentTime / duration) * 100);
+      if (
+        [25, 50, 75].includes(percentage) &&
+        !trackedPercentages.has(percentage)
+      ) {
+        setTrackedPercentages((prev) => new Set([...prev, percentage]));
+
+        matomoVideoTracker.trackVideoProgress({
+          videoTitle,
+          videoUrl: getSourceUrl(videoSources[0]),
+          position: currentTime,
+          duration,
+          percentage,
+        });
+      }
+    }
+  };
+
   return (
     <StyledMediaPlayer
       ref={player}
@@ -164,6 +242,11 @@ const MultiFormatVideoPlayer = ({
       crossOrigin=""
       playsInline
       onProviderChange={onProviderChange}
+      onPlay={handleVideoPlay}
+      onPause={handleVideoPause}
+      onSeeking={handleVideoSeek}
+      onEnded={handleVideoEnd}
+      onTimeUpdate={handleTimeUpdate}
       css={{
         '--brand-color': 'colors.primary.500',
       }}
