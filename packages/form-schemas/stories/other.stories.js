@@ -498,6 +498,59 @@ export function RequiredConditional() {
   );
 }
 
+export function OptionalRadioWithNoneChoice() {
+  const props = {
+    lang: 'fr',
+    withErrors: true,
+    schema: {
+      fields: [
+        {
+          field: 'organizerType',
+          fieldType: 'radio',
+          label: "Type d'organisateur",
+          optional: false,
+          options: [
+            {
+              id: 1,
+              label: "Agence d'architecture",
+              value: 'agence',
+              display: true,
+            },
+            {
+              id: 2,
+              label: 'Autre type',
+              value: 'autre',
+              display: true,
+            },
+          ],
+        },
+        {
+          field: 'otherOrganizerType',
+          fieldType: 'radio',
+          label: "Autres types d'organisateurs",
+          optionalWith: {
+            field: 'organizerType',
+            value: [1],
+          },
+          options: [
+            { id: 1, label: 'Bibliothèque', value: 'biblio', display: true },
+            { id: 2, label: 'Musée', value: 'musee', display: true },
+            { id: 3, label: 'Centre culturel', value: 'centre', display: true },
+          ],
+        },
+      ],
+    },
+  };
+
+  return (
+    <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+      <div className="row margin-v-md margin-h-sm">
+        <FormSchemaComponent {...props} />
+      </div>
+    </div>
+  );
+}
+
 export function WithLinkedFields() {
   const props = {
     lang: 'fr',
