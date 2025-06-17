@@ -97,11 +97,11 @@ const generateVideoSources = (
   videoName: string = 'presentation',
 ): MediaSrc[] => [
   {
-    src: `https://storage.openagenda.com/assets/videos/${videoName}/manifest.mpd`,
+    src: `https://cdn.openagenda.com/assets/videos/${videoName}/manifest.mpd`,
     type: 'application/dash+xml',
   },
   {
-    src: `https://storage.openagenda.com/assets/videos/${videoName}/master.m3u8`,
+    src: `https://cdn.openagenda.com/assets/videos/${videoName}/master.m3u8`,
     type: 'application/vnd.apple.mpegurl',
   },
 ];
