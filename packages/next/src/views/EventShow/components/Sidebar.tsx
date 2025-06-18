@@ -36,7 +36,7 @@ import defaultSize from 'utils/defaultSize';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
 import { sidebar as messages } from '../messages';
-import Timings from './Timings';
+import TimingsSectionComponent from './TimingsSection';
 import References from './References';
 import AccessibilitySection from './AccessibilitySection';
 import AgeSection from './AgeSection';
@@ -320,11 +320,7 @@ export function RegistrationSection({
 }
 
 export function TimingsSection({ event }) {
-  return (
-    <Box ml="12" fontSize={defaultSize}>
-      <Timings timings={event.timings} timezone={event.timezone} />
-    </Box>
-  );
+  return <TimingsSectionComponent event={event} />;
 }
 
 export function LocationPreview({ event, icon = faLocationDot }) {
