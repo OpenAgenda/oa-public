@@ -17,7 +17,6 @@ export default function AccordionItem({
   contentAlign = null,
   contentColor,
 }) {
-  console.log(value);
   return (
     <ChakraAccordionItem value={String(value)} border="none">
       <Accordion.ItemTrigger p="4">

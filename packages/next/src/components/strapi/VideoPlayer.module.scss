@@ -1,0 +1,37 @@
+.player {
+  --brand-color: #f5f5f5;
+  --focus-color: #4e9cf6;
+
+  --audio-brand: var(--brand-color);
+  --audio-focus-ring-color: var(--focus-color);
+  --audio-border-radius: 2px;
+
+  --video-brand: var(--brand-color);
+  --video-focus-ring-color: var(--focus-color);
+  --video-border-radius: 2px;
+
+  :global(.vds-video-layout[data-sm] .vds-volume) {
+    --media-slider-track-bg: rgba(0, 0, 0, 0.15);
+  }
+
+  /* 👉 https://vidstack.io/docs/player/components/layouts/default#css-variables for more. */
+
+  // Sélecteurs pour les différents types de vue
+  &[data-view-type='audio'] {
+    .vds-poster {
+      display: none;
+    }
+  }
+
+  &[data-view-type='video'] {
+    aspect-ratio: 16 / 9;
+  }
+}
+
+//.player :global(.vds-slider-track) {
+//    background-color: rgba(0, 0, 0, 0.15);
+//}
+//
+//.player :global(.vds-slider-track-fill) { /* La partie remplie de la piste */
+//    //background-color: white; /* Ou une couleur vive */
+//}
