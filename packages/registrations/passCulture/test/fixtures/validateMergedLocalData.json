@@ -1,0 +1,59 @@
+{
+  "current": {
+    "appliedAt": {},
+    "operation": "create",
+    "description": "pass-specific description",
+    "eventDuration": 180,
+    "category": "CINE_PLEIN_AIR",
+    "venueId": 548,
+    "bookingContact": "some@booking.contact",
+    "addressId": 2477,
+    "passId": 119419,
+    "isPending": false,
+    "priceCategories": [
+      {
+        "price": 0,
+        "label": "Tarif unique",
+        "id": 0,
+        "passId": 9276
+      }
+    ],
+    "dates": [
+      {
+        "id": 1,
+        "priceCategoryId": 0,
+        "quantity": 100,
+        "timingId": 1750320005202,
+        "passId": 174650
+      }
+    ]
+  },
+  "event": {
+    "uid": 123,
+    "title": {
+      "fr": "Test event 1706"
+    },
+    "timings": [
+      {
+        "begin": "2025-06-20T08:00:05.202Z",
+        "end": "2025-06-20T10:00:05.202Z",
+        "id": 1750406405202
+      }
+    ],
+    "location": {
+      "address": "3 allée Jacqueline Maillan, 44200 Nantes",
+      "city": "Nantes",
+      "postalCode": 44200
+    }
+  },
+  "params": {
+    "categories": [
+      {
+        "value": "CINE_PLEIN_AIR",
+        "label": "Cinéma plein air",
+        "related": []
+      }
+    ],
+    "related": []
+  }
+}

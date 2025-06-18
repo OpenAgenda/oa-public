@@ -1,0 +1,107 @@
+{
+  "data": [
+    {
+      "description": "pass-specific description",
+      "eventDuration": 180,
+      "category": "CINE_PLEIN_AIR",
+      "venueId": 548,
+      "bookingContact": "some@booking.contact",
+      "response": {
+        "addressId": 2477,
+        "passId": 119428,
+        "isPending": false
+      },
+      "appliedAt": "2025-06-18T09:26:46.711Z",
+      "operation": "create"
+    },
+    {
+      "priceCategories": [
+        {
+          "price": 0,
+          "label": "Tarif unique",
+          "id": 0
+        }
+      ],
+      "response": {
+        "priceCategories": [
+          {
+            "id": 0,
+            "passId": 9285
+          }
+        ]
+      },
+      "appliedAt": "2025-06-18T09:26:46.787Z",
+      "operation": "create"
+    },
+    {
+      "dates": [
+        {
+          "id": 1,
+          "priceCategoryId": 0,
+          "quantity": 100,
+          "timingId": 1750320045087
+        }
+      ],
+      "response": {
+        "dates": [
+          {
+            "id": 1,
+            "passId": 174659
+          }
+        ]
+      },
+      "appliedAt": "2025-06-18T09:26:46.986Z",
+      "operation": "create"
+    },
+    {
+      "dates": [
+        {
+          "id": 2,
+          "priceCategoryId": 0,
+          "timingId": 1750406445087,
+          "quantity": "100"
+        }
+      ]
+    },
+    {
+      "dates": [
+        {
+          "quantity": 123,
+          "priceCategoryId": 0,
+          "timingId": 1750320045087,
+          "id": 1,
+          "passId": 174659,
+          "deleted": true
+        }
+      ]
+    }
+  ],
+  "event": {
+    "uid": 123,
+    "title": {
+      "fr": "Test event 1706"
+    },
+    "timings": [
+      {
+        "begin": "2025-06-20T08:00:45.087Z",
+        "end": "2025-06-20T10:00:45.087Z",
+        "id": 1750406445087
+      }
+    ],
+    "location": {
+      "address": "3 allée Jacqueline Maillan, 44200 Nantes",
+      "city": "Nantes",
+      "postalCode": 44200
+    }
+  },
+  "params": {
+    "categories": [
+      {
+        "value": "CINE_PLEIN_AIR",
+        "label": "Cinéma plein air",
+        "related": []
+      }
+    ],
+    "related": []
+  }
+}

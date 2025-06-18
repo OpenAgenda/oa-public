@@ -10,34 +10,51 @@ import { validatePriceCategories } from './validatePriceCategory.js';
 const log = debug('validateSpreadLocalData');
 
 export default function validateSpreadLocalData(data, event, params = {}) {
+  log('validating data at each new entry step for %s entries', data.length);
   const processedItems = data.reduce((processed, entry, index) => {
+    const isApplied = !!entry.appliedAt;
+    log('adding entry %s', index);
     const current = { merged: {} };
 
     if (!params.categories) {
       throw new Error('categories are required for event offer validation');
     }
 
+    current.merged.value = getCurrentValue(
+      processed.map(({ clean }) => clean).concat(entry),
+    );
+
     try {
-      current.merged.clean = validateMergedLocalData(
-        getCurrentValue(processed.map(({ clean }) => clean).concat(entry)),
-        event,
-        params,
-      );
+      current.merged.clean = isApplied
+        ? current.merged.value
+        : validateMergedLocalData(current.merged.value, event, params);
     } catch (error) {
       current.merged.errors = error.info.errors;
     }
 
-    log('merge at step', { index, merged: current.merged });
+    if (current.merged.errors) {
+      log(
+        '  compiled data is invalid OR incomplete at step %s',
+        index,
+        current.merged.errors,
+      );
+    } else {
+      log('  compiled data is valid at step %s', index, {
+        merged: current.merged,
+      });
+    }
 
     const type = getObjectType(entry); // eventOffer, dates ou priceCategories
 
-    log('evaluating entry', { type, entry });
+    log('  evaluating entry', { type, entry });
 
-    const cleanEntry = {
-      ...entry.response ? { response: entry.response } : undefined,
-      ...entry.appliedAt ? { appliedAt: entry.appliedAt } : undefined,
-      ...entry.operation ? { operation: entry.operation } : undefined,
-    };
+    const cleanEntry = isApplied
+      ? entry
+      : {
+        ...entry.response ? { response: entry.response } : undefined,
+        ...entry.appliedAt ? { appliedAt: entry.appliedAt } : undefined,
+        ...entry.operation ? { operation: entry.operation } : undefined,
+      };
 
     try {
       if (type === 'eventOffer') {
@@ -52,7 +69,8 @@ export default function validateSpreadLocalData(data, event, params = {}) {
       } else if (type === 'dates') {
         cleanEntry.dates = validateDates(
           entry.dates,
-          current.merged.clean?.priceCategories,
+          current.merged.clean?.priceCategories
+            ?? current.merged.value?.priceCategories,
           event,
         );
       }
