@@ -11,6 +11,7 @@ export function Overview() {
   return (
     <TabSet
       title="Des solutions adaptées à vos besoins"
+      description="Découvrez nos différentes offres conçues pour répondre à vos besoins spécifiques"
       Tabs={[
         {
           id: 2,

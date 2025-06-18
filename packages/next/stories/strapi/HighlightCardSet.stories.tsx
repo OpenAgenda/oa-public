@@ -14,6 +14,7 @@ export function firstUseCase() {
   return (
     <HighlightCardSet
       title={highlightCardSetData.title}
+      description="Découvrez nos principales fonctionnalités et avantages"
       Cards={highlightCardSetData.Cards}
     />
   );
@@ -23,6 +24,7 @@ export function secondUseCase() {
   return (
     <HighlightCardSet
       title={highlightCardSetData2.title}
+      description="Une autre présentation de nos services avec description"
       Cards={highlightCardSetData2.Cards}
     />
   );

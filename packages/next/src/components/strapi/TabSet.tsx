@@ -2,13 +2,23 @@ import { Tabs } from '@openagenda/uikit';
 import SplitHero from './SplitHero';
 import SegmentContainer from './SegmentContainer';
 
-export default function TabSet({ title = null, Tabs: TabsData }) {
+interface TabSetProps {
+  title?: string;
+  description?: string;
+  Tabs: Array<any>;
+}
+
+export default function TabSet({
+  title = null,
+  description,
+  Tabs: TabsData,
+}: TabSetProps) {
   if (!TabsData?.length) {
     return null;
   }
 
   return (
-    <SegmentContainer title={title}>
+    <SegmentContainer title={title} description={description}>
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
           {TabsData.map((tab) => (

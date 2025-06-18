@@ -24,6 +24,7 @@ type Reference = {
 
 type ReferenceSetProps = {
   title?: string;
+  description?: string;
   References?: Reference[];
   hasFilter?: boolean;
 };
@@ -89,6 +90,7 @@ function ReferenceItem({ link, image, title, tags: tagsString }: Reference) {
 
 export default function ReferenceSet({
   title = null,
+  description,
   References: ReferencesData,
   hasFilter = false,
 }: ReferenceSetProps) {
@@ -141,7 +143,7 @@ export default function ReferenceSet({
   }
 
   return (
-    <SegmentContainer title={title}>
+    <SegmentContainer title={title} description={description}>
       {hasFilter && allTags.length > 0 && (
         <VStack gap="4" mb="8">
           <Wrap gap="2" justify="center">
