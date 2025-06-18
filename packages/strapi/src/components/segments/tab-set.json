@@ -14,6 +14,9 @@
       "type": "component",
       "repeatable": true,
       "component": "components.tab"
+    },
+    "description": {
+      "type": "string"
     }
   }
 }
