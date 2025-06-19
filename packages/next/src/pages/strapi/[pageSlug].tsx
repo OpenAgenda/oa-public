@@ -3,7 +3,7 @@ import ky from 'ky';
 import { NextPageWithLayout } from 'pages/_app';
 import StrapiPage from 'views/StrapiPage';
 import Layout from 'components/Layout';
-import fetchStrapiPageData from 'utils/fetchStrapiPageData';
+import { fetchPageData } from 'utils/strapi';
 
 interface PageData {
   documentId: string;
@@ -88,7 +88,7 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
     };
   }
 
-  const { intlMessages, page, footer } = await fetchStrapiPageData({
+  const { intlMessages, page, footer } = await fetchPageData({
     APIBase,
     authToken,
     documentId: matches[0].documentId,
