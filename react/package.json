@@ -1,0 +1,68 @@
+{
+  "name": "@openagenda/react",
+  "version": "0.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/OpenAgenda/oa-public.git"
+  },
+  "homepage": "https://github.com/OpenAgenda/oa-public",
+  "publishConfig": {
+    "access": "public"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "sb": "storybook dev",
+    "start": "yarn sb",
+    "prepack": "tsup src !src/types/modules.d.ts --clean --format esm,cjs --dts"
+  },
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "import": "./dist/components/index.mjs",
+      "require": "./dist/components/index.js"
+    }
+  },
+  "dependencies": {
+    "@openagenda/common-labels": "^1.2.4",
+    "@openagenda/react-filters": "^2.13.0",
+    "@openagenda/react-shared": "^2.4.3",
+    "@openagenda/uikit": "^0.0.1",
+    "ky": "^1.7.2",
+    "qs": "^6.11.0",
+    "react-intl": "^7.1.5",
+    "react-use": "^17.6.0",
+    "swr": "^2.1.1"
+  },
+  "devDependencies": {
+    "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/tsconfig": "^0.0.0",
+    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
+    "@storybook/react-webpack5": "^9.0.8",
+    "@types/qs": "^6",
+    "msw": "^2.3.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "storybook": "^9.0.8",
+    "tsconfig-paths-webpack-plugin": "^4.2.0",
+    "tsup": "^8.4.0",
+    "typescript": "^5.6.3"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  },
+  "msw": {
+    "workerDirectory": [
+      ".storybook/public"
+    ]
+  }
+}

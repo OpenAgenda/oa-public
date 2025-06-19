@@ -1,0 +1,20 @@
+{
+  "extends": "@openagenda/tsconfig/react-library",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "strictNullChecks": false,
+    "noImplicitAny": false,
+    "noFallthroughCasesInSwitch": true,
+    "downlevelIteration": true,
+    "target": "ES2020",
+    "moduleResolution": "bundler",
+    "paths": {
+      "*": ["./src/*"],
+      "@openagenda/uikit": ["../../../public/uikit/src"],
+      "@openagenda/uikit/*": ["../../../public/uikit/src/*"],
+      "@openagenda/react-shared": ["../../../public/react-shared/src"]
+    }
+  },
+  "exclude": ["node_modules"],
+  "include": ["src/types/*.d.ts", "src", "stories"]
+}
