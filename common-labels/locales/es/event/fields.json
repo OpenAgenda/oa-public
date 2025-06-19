@@ -1,18 +1,19 @@
 {
-  "common.event.fields.accessibility": "Accesibilidad especial",
+  "common.event.fields.accessibility": "Condiciones de accesibilidad",
   "common.event.fields.age": "Edad del objetivo",
   "common.event.fields.attendanceMode": "Modo de asistencia",
   "common.event.fields.conditions": "Condiciones",
   "common.event.fields.description": "Descripción corta",
   "common.event.fields.extIds": "Identificadores externos",
   "common.event.fields.image": "Imagen",
-  "common.event.fields.imageCredits": "Créditos de las imágenes",
+  "common.event.fields.imageCredits": "Créditos de la imagen",
   "common.event.fields.keywords": "Palabras clave",
   "common.event.fields.location": "Lugar",
   "common.event.fields.longDescription": "Descripción larga",
   "common.event.fields.onlineAccessLink": "Enlace de acceso",
-  "common.event.fields.registration": "Herramientas de registro",
+  "common.event.fields.registration": "Inscripción",
+  "common.event.fields.slug": "Slug",
   "common.event.fields.status": "Estado",
   "common.event.fields.timings": "Horarios",
-  "common.event.fields.title": "título"
+  "common.event.fields.title": "Título"
 }
