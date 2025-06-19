@@ -1,6 +1,7 @@
 {
   "ReactShareMenus.ExportModal.cancel": "Anular",
   "ReactShareMenus.ExportModal.exportAll": "Descargar todos los eventos",
+  "ReactShareMenus.ExportModal.jsonDoc2": "aquí",
   "ReactShareMenus.ExportModal.login": "Inicie sesión para acceder al enlace de exportación directamente desde este menú",
   "ReactShareMenus.ExportModal.title": "Exportar",
   "aggregator-title": "Importar en un agenda",
