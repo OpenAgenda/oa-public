@@ -18,6 +18,10 @@ const config: StorybookConfig = {
 
   stories: ['../stories/*.mdx', '../stories/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
+  babel: (config: any) => {
+    return { ...config, rootMode: 'upward' };
+  },
+
   addons: [getAbsolutePath('@storybook/addon-webpack5-compiler-babel')],
 
   refs: {
