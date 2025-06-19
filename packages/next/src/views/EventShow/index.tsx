@@ -42,6 +42,7 @@ import Sidebar, {
   ShareSection,
   AccessibilitySection,
 } from './components/Sidebar';
+import TimingsSection from './components/TimingsSection';
 import Footer from './components/Footer';
 import StatusTag from './components/StatusTag';
 import ContributorSection from './components/ContributorSection';
@@ -343,7 +344,19 @@ function EventShow({ preload }: EventShowProps) {
                 ) : null}
               </Flex>
             </div>
-
+            {/* timings section */}
+            <Flex
+              as="main"
+              display={{ base: 'flex', lg: 'none' }}
+              direction="column"
+              gap="4"
+              position="relative"
+              p="8"
+              bg="white"
+              borderRadius="sm"
+            >
+              <TimingsSection event={event} />
+            </Flex>
             {/* additional fields */}
             {hasAdditionalFields ? (
               <Flex
