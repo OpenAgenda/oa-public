@@ -1,12 +1,11 @@
 import isString from 'lodash/isString';
-import isURL from 'validator/lib/isURL';
 import listify from './listify';
 import emailValidator from './email';
 import cleanParams from './lib/params';
 
 const validateEmail = emailValidator();
 
-const isEmail = v => {
+const isEmail = (v) => {
   try {
     validateEmail(v);
   } catch (e) {
@@ -16,7 +15,7 @@ const isEmail = v => {
   return true;
 };
 
-export default config => {
+export default (config) => {
   const params = cleanParams('link', config, {
     error: {
       code: 'link.invalid',
@@ -26,7 +25,7 @@ export default config => {
 
   const shouldntMatch = [/\s/, /\/:/, /;/];
 
-  const validate = value => {
+  const validate = (value) => {
     const templateError = {
       field: params.field,
       code: 'link.invalid',
@@ -42,6 +41,8 @@ export default config => {
 
     if (isString(value)) {
       clean = value.trim();
+      // Normalize protocol to lowercase
+      clean = clean.replace(/^(HTTP|HTTPS):/i, (match) => match.toLowerCase());
     }
 
     if ((!value || !value.length) && !(value instanceof Object) && params.optional) {
@@ -69,16 +70,19 @@ export default config => {
       throw error;
     }
 
-    shouldntMatch.forEach(rgx => {
+    shouldntMatch.forEach((rgx) => {
       if (rgx.test(clean)) {
         throw error;
       }
     });
 
-    if (!isURL(clean, {
-      allow_protocol_relative_urls: true,
-      allow_underscores: true,
-    })) {
+    // Use native URL constructor for validation
+    try {
+      // Handle protocol-relative URLs by adding a temporary protocol
+      const urlToTest = clean.startsWith('//') ? `http:${clean}` : clean;
+      // eslint-disable-next-line no-unused-vars
+      const url = new URL(urlToTest);
+    } catch (e) {
       throw error;
     }
 
