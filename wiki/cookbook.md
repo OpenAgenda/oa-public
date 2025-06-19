@@ -154,6 +154,17 @@ Si pour une raison ou une autre les fichiers de logs (/var/log/run.log) se rempl
 
 Le process du noeud écrivant dans le fichier s'accroche à un descripteur de fichier qu'il ne lache que quand le service est relancé. Si le descripteur reste occupé alors que la commande `rm` est utilisée, le fichier n'apparait plus sur un `ls`, mais il reste présent sur le disque: l'espace n'est pas libéré et il faut relancer le service. Tronquer le fichier ne pose pas ce problème.
 
+### Débloquer un index en lecture seule
+
+Si le disque dur se remplit, passé un certain seuil l'index se met en lecture seule. Dans ce cas toute opération d'écriture renvoie une erreur 429. Si le problème du disque est résolu, la commande suivante débloque l'index:
+
+```
+curl -X PUT "http://localhost:9200/dev/_settings" -H "Content-Type: application/json" -d'
+{
+  "index.blocks.read_only_allow_delete": null
+}'
+```
+
 ## React
 
 ### Contexte
