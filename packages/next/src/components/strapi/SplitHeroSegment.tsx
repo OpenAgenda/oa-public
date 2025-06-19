@@ -11,13 +11,12 @@ interface SplitHeroSegmentProps {
 
 export default function SplitHeroSegment({
   title,
-  description,
   image,
   text,
   imagePosition,
 }: SplitHeroSegmentProps) {
   return (
-    <SegmentContainer title={title} description={description}>
+    <SegmentContainer>
       <SplitHero
         title={title}
         image={image}
