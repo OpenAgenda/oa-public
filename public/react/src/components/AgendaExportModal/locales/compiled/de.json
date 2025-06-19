@@ -1,0 +1,296 @@
+{
+  "react.components.AgendaExportModal.PDFDownload": [
+    {
+      "type": 0,
+      "value": "Download"
+    }
+  ],
+  "react.components.AgendaExportModal.PDFGeoSections": [
+    {
+      "type": 0,
+      "value": "Add geographical sections"
+    }
+  ],
+  "react.components.AgendaExportModal.PDFHighlightLocationName": [
+    {
+      "type": 0,
+      "value": "Highlight the location"
+    }
+  ],
+  "react.components.AgendaExportModal.PDFSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "Segments"
+    }
+  ],
+  "react.components.AgendaExportModal.PDFSelectSub": [
+    {
+      "type": 0,
+      "value": "Select one or more values"
+    }
+  ],
+  "react.components.AgendaExportModal.allFields": [
+    {
+      "type": 0,
+      "value": "Export every field"
+    }
+  ],
+  "react.components.AgendaExportModal.allLanguages": [
+    {
+      "type": 0,
+      "value": "Export in all languages"
+    }
+  ],
+  "react.components.AgendaExportModal.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "react.components.AgendaExportModal.close": [
+    {
+      "type": 0,
+      "value": "Schließen"
+    }
+  ],
+  "react.components.AgendaExportModal.color": [
+    {
+      "type": 0,
+      "value": "Color"
+    }
+  ],
+  "react.components.AgendaExportModal.copied": [
+    {
+      "type": 0,
+      "value": "Copied"
+    }
+  ],
+  "react.components.AgendaExportModal.copy": [
+    {
+      "type": 0,
+      "value": "Copy"
+    }
+  ],
+  "react.components.AgendaExportModal.detailedFormat": [
+    {
+      "type": 0,
+      "value": "Use the detailed format"
+    }
+  ],
+  "react.components.AgendaExportModal.detectLang": [
+    {
+      "type": 0,
+      "value": "Detect language automatically"
+    }
+  ],
+  "react.components.AgendaExportModal.distributeFields": [
+    {
+      "type": 0,
+      "value": "Fields with options: display one value per column"
+    }
+  ],
+  "react.components.AgendaExportModal.documentation": [
+    {
+      "type": 0,
+      "value": "See the documentation"
+    }
+  ],
+  "react.components.AgendaExportModal.embed": [
+    {
+      "type": 0,
+      "value": "Embed"
+    }
+  ],
+  "react.components.AgendaExportModal.embedSeeEvents": [
+    {
+      "type": 0,
+      "value": "See events of "
+    },
+    {
+      "type": 1,
+      "value": "title"
+    }
+  ],
+  "react.components.AgendaExportModal.exportAll": [
+    {
+      "type": 0,
+      "value": "Export all events"
+    }
+  ],
+  "react.components.AgendaExportModal.exportJson": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Use the previous JSON export version"
+        }
+      ],
+      "type": 8,
+      "value": "link1"
+    },
+    {
+      "type": 0,
+      "value": " (Documentation "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "here"
+        }
+      ],
+      "type": 8,
+      "value": "link2"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "react.components.AgendaExportModal.exportSelection": [
+    {
+      "type": 0,
+      "value": "Export current event selection"
+    }
+  ],
+  "react.components.AgendaExportModal.filterSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "One or more filters"
+    }
+  ],
+  "react.components.AgendaExportModal.filterSelectSub": [
+    {
+      "type": 0,
+      "value": "Drag and drop filters to adjust order"
+    }
+  ],
+  "react.components.AgendaExportModal.gcalStep2": [
+    {
+      "type": 0,
+      "value": "In the left section, open \"Other Calendars > Add by URL\"."
+    }
+  ],
+  "react.components.AgendaExportModal.gcalStep3": [
+    {
+      "type": 0,
+      "value": "Follow the instructions by pasting the link you copied in step 1"
+    }
+  ],
+  "react.components.AgendaExportModal.inputField": [
+    {
+      "type": 0,
+      "value": "Select the fields to export"
+    }
+  ],
+  "react.components.AgendaExportModal.inputFormat": [
+    {
+      "type": 0,
+      "value": "Choose a format"
+    }
+  ],
+  "react.components.AgendaExportModal.instructions": [
+    {
+      "type": 0,
+      "value": "Instructions"
+    }
+  ],
+  "react.components.AgendaExportModal.instructionsCopyLink": [
+    {
+      "type": 0,
+      "value": "Copy the link in the field above and open "
+    },
+    {
+      "type": 1,
+      "value": "link"
+    }
+  ],
+  "react.components.AgendaExportModal.login": [
+    {
+      "type": 0,
+      "value": "Please log in to access the export link directly from this menu"
+    }
+  ],
+  "react.components.AgendaExportModal.new": [
+    {
+      "type": 0,
+      "value": "New"
+    }
+  ],
+  "react.components.AgendaExportModal.openData": [
+    {
+      "type": 0,
+      "value": "The content of this agenda can be used following the "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Open Data principle"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "react.components.AgendaExportModal.openInSamePage": [
+    {
+      "type": 0,
+      "value": "Open events on the same page"
+    }
+  ],
+  "react.components.AgendaExportModal.outlookStep2": [
+    {
+      "type": 0,
+      "value": "At the bottom of the page, select the calendar icon"
+    }
+  ],
+  "react.components.AgendaExportModal.outlookStep3": [
+    {
+      "type": 0,
+      "value": "In the navigation pane, select \"Add calendar\""
+    }
+  ],
+  "react.components.AgendaExportModal.outlookStep4": [
+    {
+      "type": 0,
+      "value": "Select \"Subscribe from web\""
+    }
+  ],
+  "react.components.AgendaExportModal.outlookStep5": [
+    {
+      "type": 0,
+      "value": "Paste the URL you copied in step 1. Select \"Import\"."
+    }
+  ],
+  "react.components.AgendaExportModal.selectAll": [
+    {
+      "type": 0,
+      "value": "Select all"
+    }
+  ],
+  "react.components.AgendaExportModal.showFilters": [
+    {
+      "type": 0,
+      "value": "Show filters"
+    }
+  ],
+  "react.components.AgendaExportModal.spreadsheetTitle": [
+    {
+      "type": 0,
+      "value": "Spreadsheet (Excel / CSV)"
+    }
+  ],
+  "react.components.AgendaExportModal.title": [
+    {
+      "type": 0,
+      "value": "Export"
+    }
+  ],
+  "react.components.AgendaExportModal.viewEmbedDoc": [
+    {
+      "type": 0,
+      "value": "See all options on the documentation"
+    }
+  ]
+}
