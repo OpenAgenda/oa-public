@@ -29,7 +29,7 @@ export default function TabSet({
         </Tabs.List>
 
         {TabsData.map((tab) => (
-          <Tabs.Content key={tab.id} value={tab.id} p={6}>
+          <Tabs.Content key={tab.id} value={tab.id} py={12} px={3}>
             <SplitHero {...tab.content} />
           </Tabs.Content>
         ))}
