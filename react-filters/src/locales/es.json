@@ -19,6 +19,7 @@
   "ReactFilters.messages.boolean.selected": "Seleccionado",
   "ReactFilters.messages.choiceFilter.searchPlaceholder": "Buscar",
   "ReactFilters.messages.featured.featured": "Destacado",
+  "ReactFilters.messages.filterTitles.accessibility": "accesibilidad",
   "ReactFilters.messages.filterTitles.attendanceMode": "Modo de asistencia",
   "ReactFilters.messages.filterTitles.city": "Ciudad",
   "ReactFilters.messages.filterTitles.department": "Departamento",
