@@ -34,11 +34,21 @@ export default function HighlightCard({
   const content = (
     <Stack gap="3" maxW="280px" align="center" textAlign="center">
       {Illustration && (
-        <Image
-          src={Illustration.image.url}
-          alt={title || ''}
-          maxW={smallIllustration ? '100px' : undefined}
-        />
+        <Box
+          height={smallIllustration ? '100px' : '120px'}
+          width="100%"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Image
+            src={Illustration.image.url}
+            alt={title || ''}
+            maxW={smallIllustration ? '100px' : '200px'}
+            maxH={smallIllustration ? '100px' : '120px'}
+            objectFit="contain"
+          />
+        </Box>
       )}
       {title && <Heading size="md">{title}</Heading>}
       {description && (

@@ -3,6 +3,7 @@ import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import FullScreenDecorator from '../decorators/FullScreenDecorator';
 import highlightCardSetData from './fixtures/highlightCardSet.json';
 import highlightCardSetData2 from './fixtures/highlightCardSet.2.json';
+import highlightCardSetData3 from './fixtures/highlightCardSet.3.json';
 
 export default {
   title: 'strapi/HighlightCardSet',
@@ -30,49 +31,12 @@ export function secondUseCase() {
   );
 }
 
-export function MobileWidth() {
+export function horizontalAlignment() {
   return (
-    <div
-      style={{ maxWidth: '375px', border: '2px dashed #ccc', padding: '16px' }}
-    >
-      <p
-        style={{
-          fontSize: '12px',
-          color: '#666',
-          marginBottom: '16px',
-          textAlign: 'center',
-        }}
-      >
-        📱 Mobile viewport simulation (375px width) - Cards stack vertically
-      </p>
-      <HighlightCardSet
-        title={highlightCardSetData.title}
-        Cards={highlightCardSetData.Cards}
-      />
-    </div>
-  );
-}
-
-export function TabletWidth() {
-  return (
-    <div
-      style={{ maxWidth: '768px', border: '2px dashed #ccc', padding: '16px' }}
-    >
-      <p
-        style={{
-          fontSize: '12px',
-          color: '#666',
-          marginBottom: '16px',
-          textAlign: 'center',
-        }}
-      >
-        📱 Tablet viewport simulation (768px width)
-      </p>
-      <HighlightCardSet
-        title={highlightCardSetData.title}
-        Cards={highlightCardSetData.Cards}
-      />
-    </div>
+    <HighlightCardSet
+      title="Les items apparaissent alignés malgré la différence de format des images"
+      Cards={highlightCardSetData3.Cards}
+    />
   );
 }
 
