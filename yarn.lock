@@ -10046,6 +10046,7 @@ __metadata:
     "@openagenda/mails": "npm:^4.0.1"
     "@openagenda/md": "npm:^1.0.0"
     "@openagenda/outdated-browser": "npm:^0.0.0"
+    "@openagenda/react": "npm:^0.0.0"
     "@openagenda/react-filters": "npm:^2.13.0"
     "@openagenda/react-shared": "npm:^2.4.3"
     "@openagenda/registrations": "npm:^0.0.2"
@@ -10607,6 +10608,37 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/react@npm:^0.0.0, @openagenda/react@workspace:public/react":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/react@workspace:public/react"
+  dependencies:
+    "@openagenda/common-labels": "npm:^1.2.4"
+    "@openagenda/eslint-config": "npm:^1.4.0"
+    "@openagenda/react-filters": "npm:^2.13.0"
+    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/tsconfig": "npm:^0.0.0"
+    "@openagenda/uikit": "npm:^0.0.1"
+    "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
+    "@storybook/react-webpack5": "npm:^9.0.8"
+    "@types/qs": "npm:^6"
+    ky: "npm:^1.7.2"
+    msw: "npm:^2.3.0"
+    qs: "npm:^6.11.0"
+    react: "npm:^19.0.0"
+    react-dom: "npm:^19.0.0"
+    react-intl: "npm:^7.1.5"
+    react-use: "npm:^17.6.0"
+    storybook: "npm:^9.0.8"
+    swr: "npm:^2.1.1"
+    tsconfig-paths-webpack-plugin: "npm:^4.2.0"
+    tsup: "npm:^8.4.0"
+    typescript: "npm:^5.6.3"
+  peerDependencies:
+    react: ^19.0.0
+    react-dom: ^19.0.0
+  languageName: unknown
+  linkType: soft
+
 "@openagenda/registration-apps@npm:^0.0.0, @openagenda/registration-apps@workspace:packages/registration-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/registration-apps@workspace:packages/registration-apps"
@@ -10854,7 +10886,6 @@ __metadata:
     "@chakra-ui/react": "npm:^3.20.0"
     "@emotion/cache": "npm:^11.14.0"
     "@emotion/react": "npm:^11.14.0"
-    "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
@@ -18389,6 +18420,13 @@ __metadata:
   version: 6.9.6
   resolution: "@types/qs@npm:6.9.6"
   checksum: 10c0/2e97fdbd6cb16d78c00c86bfc34824132b7ce0b3fb98c79b3ea7a1eb28f0194b93bb09d0bf330f0949bd115e7abf9a95f0e0df785dbaeeb7496f12e35c7c9bb7
+  languageName: node
+  linkType: hard
+
+"@types/qs@npm:^6":
+  version: 6.14.0
+  resolution: "@types/qs@npm:6.14.0"
+  checksum: 10c0/5b3036df6e507483869cdb3858201b2e0b64b4793dc4974f188caa5b5732f2333ab9db45c08157975054d3b070788b35088b4bc60257ae263885016ee2131310
   languageName: node
   linkType: hard
 
@@ -52674,6 +52712,18 @@ __metadata:
     enhanced-resolve: "npm:^5.7.0"
     tsconfig-paths: "npm:^4.1.2"
   checksum: 10c0/c030e867e70a3f6d1799fdffa209c3a35e1435ad99aac01946b9ebb0fa8208b7b508c1dfe8c8e13d6a2ef70c75b4db062fbfd3c1f3362c69b6c65ffd4a50e226
+  languageName: node
+  linkType: hard
+
+"tsconfig-paths-webpack-plugin@npm:^4.2.0":
+  version: 4.2.0
+  resolution: "tsconfig-paths-webpack-plugin@npm:4.2.0"
+  dependencies:
+    chalk: "npm:^4.1.0"
+    enhanced-resolve: "npm:^5.7.0"
+    tapable: "npm:^2.2.1"
+    tsconfig-paths: "npm:^4.1.2"
+  checksum: 10c0/495c5ab7c1cb079217d98fe25d61def01e4bab38047c7ab25ec11876cc8c697ff01f43ea6c9933181875e51e49835407fc71afd92ea6cca1ba1bebf513dfb510
   languageName: node
   linkType: hard
 
