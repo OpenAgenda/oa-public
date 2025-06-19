@@ -4,6 +4,7 @@
   "common.event.fields.attendanceMode": "Modo de asistencia",
   "common.event.fields.conditions": "Condiciones",
   "common.event.fields.description": "Descripción corta",
+  "common.event.fields.extIds": "Identificadores externos",
   "common.event.fields.image": "Imagen",
   "common.event.fields.imageCredits": "Créditos de las imágenes",
   "common.event.fields.keywords": "Palabras clave",
