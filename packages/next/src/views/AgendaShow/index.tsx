@@ -19,6 +19,7 @@ import {
   fetchLocale as fetchFiltersLocales,
 } from '@openagenda/react-filters';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
+import fetchAgendaExportModalLocale from '@openagenda/react/components/AgendaExportModal/locales';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
@@ -257,6 +258,7 @@ AgendaShow.fetchLocale = (locale: string) =>
     fetchCommonLocale('event/attendanceModes', locale),
     fetchCommonLocale('event/statuses', locale),
     fetchFiltersLocales(locale),
+    fetchAgendaExportModalLocale(locale),
   ]).then((results) => Object.assign({}, ...results));
 
 AgendaShow.includeFields = includeFields;

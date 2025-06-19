@@ -14,6 +14,8 @@
       "@openagenda/uikit": ["../../../public/uikit/src"],
       "@openagenda/uikit/*": ["../../../public/uikit/src/*"],
       "@openagenda/date-utils": ["../../../public/date-utils/src"],
+      "@openagenda/react": ["../../../public/react/src"],
+      "@openagenda/react/*": ["../../../public/react/src/*"],
       "@openagenda/react-filters": ["../../../public/react-filters/src"],
       "@openagenda/react-filters/*": ["../../../public/react-filters/src/*"],
       "@openagenda/react-shared": ["../../../public/react-shared/src"]
