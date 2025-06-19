@@ -3,7 +3,7 @@ import ky from 'ky';
 import { NextPageWithLayout } from 'pages/_app';
 import StrapiPage from 'views/StrapiPage';
 import Layout from 'components/Layout';
-import buildPopulateStrapiQuery from 'utils/buildPopulateStrapiQuery';
+import fetchStrapiPageData from 'utils/fetchStrapiPageData';
 
 interface PageData {
   documentId: string;
@@ -88,31 +88,13 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
     };
   }
 
-  const populateList = await buildPopulateStrapiQuery('page');
-  const populateParams = populateList.map((v) => `populate[]=${v}`).join('&');
-  const pageRes = `${APIBase}/pages/${matches[0].documentId}?${populateParams}&locale=${locale}`;
-
-  const footerPopulateList = await buildPopulateStrapiQuery('footer');
-  const footerPopulateParams = footerPopulateList
-    .map((v) => `populate[]=${v}`)
-    .join('&');
-  const footerRes = `${APIBase}/footer?${footerPopulateParams}&locale=${locale}`;
-
-  const [intlMessages, { data: page }, { data: footer }] = await Promise.all([
-    StrapiPage.fetchLocale(locale),
-    ky(pageRes, {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    }).json<StrapiResponse>(),
-    ky(footerRes, {
-      headers: {
-        Authorization: `Bearer ${authToken}`,
-      },
-    })
-      .json<{ data: any }>()
-      .catch(() => ({ data: null })),
-  ]);
+  const { intlMessages, page, footer } = await fetchStrapiPageData({
+    APIBase,
+    authToken,
+    documentId: matches[0].documentId,
+    locale,
+    fetchLocale: StrapiPage.fetchLocale,
+  });
 
   return {
     props: {
