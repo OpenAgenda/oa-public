@@ -45,9 +45,6 @@ import PassBookingModal from './PassBookingModal';
 
 export { default as AccessibilitySection } from './AccessibilitySection';
 
-const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
-console.log('S3bucket', S3_BUCKET);
-
 function getPassImgSource(passData) {
   const currValue = getCurrentPassValue(passData);
   if (currValue?.isRejected)

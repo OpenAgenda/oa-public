@@ -18,7 +18,11 @@ export default function SegmentContainer({
   description,
 }: SegmentContainerProps) {
   return (
-    <chakra.div backgroundColor={`${backgroundColor.name}.solid`}>
+    <chakra.div
+      backgroundColor={
+        backgroundColor ? `${backgroundColor?.name}.solid` : null
+      }
+    >
       <Container
         maxW="7xl"
         color={fontColor ? color(fontColor) : undefined}
