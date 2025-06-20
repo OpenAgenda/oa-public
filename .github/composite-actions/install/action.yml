@@ -43,7 +43,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: yarn install --frozen-lockfile
+      run: yarn install
       env:
         NPM_TOKEN: ${{ inputs.npm-token }}
         OA_PUBLIC_LOCKFILE: yarn.lock
