@@ -1,0 +1,50 @@
+name: Install
+description: Sets up Node.js and runs install
+
+inputs:
+  npm-token:
+    description: 'NPM authentication token'
+    required: false
+  font-awesome-npm-token:
+    description: 'NPM authentication token for Font Awesome'
+    required: false
+
+runs:
+  using: composite
+  steps:
+    - name: Enable Corepack
+      run: corepack enable
+      shell: bash
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 'lts/*'
+        cache: yarn
+
+    - name: Manually configure NPM and Yarn authentication
+      if: ${{ inputs.npm-token != '' }}
+      shell: bash
+      run: |
+        echo "//registry.npmjs.org/:_authToken=\${{ env.NPM_TOKEN }}" > ~/.npmrc
+        echo "@openagenda:registry=https://registry.npmjs.org/" >> ~/.npmrc
+
+        echo "npmRegistries:" >> ~/.yarnrc.yml
+        echo "  //registry.npmjs.org:" >> ~/.yarnrc.yml
+        echo "    npmAuthToken: "\${{ env.NPM_TOKEN }}"" >> ~/.yarnrc.yml
+      env:
+        NPM_TOKEN: ${{ inputs.npm-token }}
+
+    - name: Setup Git User
+      shell: bash
+      run: |
+        git config --global user.email "kevin.bertho@gmail.com"
+        git config --global user.name "Kévin Berthommier"
+
+    - name: Install dependencies
+      shell: bash
+      run: yarn install --frozen-lockfile
+      env:
+        NPM_TOKEN: ${{ inputs.npm-token }}
+        OA_PUBLIC_LOCKFILE: yarn.lock
+        FONTAWESOME_NPM_AUTH_TOKEN: ${{ inputs.font-awesome-npm-token }}
