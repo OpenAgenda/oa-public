@@ -1,5 +1,11 @@
 # Change Log
 
+## 1.4.1
+
+### Patch Changes
+
+- [`bb1a44c`](https://github.com/OpenAgenda/oa/commit/bb1a44c7339fc9043bbd15f99221c527f0d7fd27) Thanks [@bertho-zero](https://github.com/bertho-zero)! - changeset test
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
