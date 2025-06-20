@@ -20,7 +20,7 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: 'lts/*'
-        cache: yarn --no-immutable
+        cache: yarn
 
     - name: Manually configure NPM and Yarn authentication
       if: ${{ inputs.npm-token != '' }}
@@ -43,7 +43,7 @@ runs:
 
     - name: Install dependencies
       shell: bash
-      run: yarn install
+      run: yarn install --no-immutable
       env:
         NPM_TOKEN: ${{ inputs.npm-token }}
         OA_PUBLIC_LOCKFILE: yarn.lock
