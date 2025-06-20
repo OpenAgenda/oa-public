@@ -20,7 +20,7 @@ runs:
       uses: actions/setup-node@v4
       with:
         node-version: 'lts/*'
-        cache: yarn
+        cache: yarn --no-immutable
 
     - name: Manually configure NPM and Yarn authentication
       if: ${{ inputs.npm-token != '' }}
