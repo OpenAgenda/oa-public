@@ -8,6 +8,7 @@ on:
       - 'public/**'
     branches:
       - main
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -20,6 +21,9 @@ jobs:
     runs-on: ubuntu-latest
     env:
       NODE_ENV: production
+
+    # Only trigger on pushes to the main branch or manually
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.ref_name == 'main')
 
     steps:
       - name: Checkout
