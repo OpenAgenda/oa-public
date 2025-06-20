@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.5.2
+
+### Patch Changes
+
+- Updated dependencies [[`bb1a44c`](https://github.com/OpenAgenda/oa/commit/bb1a44c7339fc9043bbd15f99221c527f0d7fd27)]:
+  - @openagenda/react-timingspicker@1.4.1
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
