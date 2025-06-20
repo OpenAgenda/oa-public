@@ -107,7 +107,7 @@ export default async function renderEvent(
     width: 3,
     padding: 10,
     contentItemMargin: 3,
-    content: (hasLandscapeMainImage ? [] : [imageField])
+    content: (hasLandscapeMainImage || !imageField ? [] : [imageField])
       .concat(conditionsAndRegistrationGroup)
       .concat(
         displayLocationInSidebar
