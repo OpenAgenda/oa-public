@@ -17,7 +17,7 @@
     "postinstall": "chakra typegen src/theme/index.ts",
     "sb": "storybook dev -p 9001 --ci",
     "start": "yarn sb",
-    "prepack": "tsup src --clean --format esm,cjs --dts"
+    "prepack": "NODE_OPTIONS=\"--max-old-space-size=4096\" tsup src --clean --format esm,cjs --dts"
   },
   "exports": {
     "./package.json": "./package.json",
@@ -63,7 +63,7 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "storybook": "^9.0.8",
-    "tsup": "^8.4.0",
+    "tsup": "^8.5.0",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
