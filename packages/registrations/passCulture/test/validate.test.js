@@ -543,9 +543,9 @@ describe('validate', () => {
         );
 
         expect(Object.keys(clean[1])).toEqual([
-          'response',
-          'appliedAt',
           'operation',
+          'appliedAt',
+          'response',
         ]);
       });
 

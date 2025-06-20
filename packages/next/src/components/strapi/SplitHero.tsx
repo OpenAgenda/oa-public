@@ -9,7 +9,7 @@ export default function SplitHero({
 }) {
   return (
     <Flex
-      gap="8"
+      gap={14}
       direction={{
         base: 'column',
         md: imagePosition === 'left' ? 'row' : 'row-reverse',

@@ -17,6 +17,9 @@
     },
     "hasFilter": {
       "type": "boolean"
+    },
+    "description": {
+      "type": "string"
     }
   }
 }

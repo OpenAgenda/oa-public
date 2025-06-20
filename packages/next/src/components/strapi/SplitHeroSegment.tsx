@@ -1,10 +1,28 @@
 import SegmentContainer from './SegmentContainer';
 import SplitHero from './SplitHero';
 
-export default function SplitHeroSegment(props) {
+interface SplitHeroSegmentProps {
+  title?: string;
+  description?: string;
+  image?: any;
+  text?: string;
+  imagePosition?: string;
+}
+
+export default function SplitHeroSegment({
+  title,
+  image,
+  text,
+  imagePosition,
+}: SplitHeroSegmentProps) {
   return (
     <SegmentContainer>
-      <SplitHero {...props} />
+      <SplitHero
+        title={title}
+        image={image}
+        text={text}
+        imagePosition={imagePosition}
+      />
     </SegmentContainer>
   );
 }

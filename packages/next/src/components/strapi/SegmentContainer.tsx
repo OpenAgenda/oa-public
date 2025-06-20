@@ -1,4 +1,4 @@
-import { Container, chakra, H2 } from '@openagenda/uikit';
+import { Container, chakra, H2, Heading } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 import type { Color } from './types';
 
@@ -7,6 +7,7 @@ interface SegmentContainerProps {
   backgroundColor?: Color;
   fontColor?: Color;
   title?: string;
+  description?: string;
 }
 
 export default function SegmentContainer({
@@ -14,10 +15,13 @@ export default function SegmentContainer({
   backgroundColor,
   fontColor,
   title,
+  description,
 }: SegmentContainerProps) {
   return (
     <chakra.div
-      backgroundColor={backgroundColor ? color(backgroundColor) : undefined}
+      backgroundColor={
+        backgroundColor ? `${backgroundColor?.name}.solid` : null
+      }
     >
       <Container
         maxW="7xl"
@@ -25,9 +29,14 @@ export default function SegmentContainer({
         py="24"
       >
         {title && (
-          <H2 mb={16} fontWeight="bold" textAlign="center">
+          <H2 mb={description ? 4 : 16} fontWeight="bold" textAlign="center">
             {title}
           </H2>
+        )}
+        {description && (
+          <Heading size="md" textAlign="center" color="gray.600" mb={16}>
+            {description}
+          </Heading>
         )}
         {children}
       </Container>

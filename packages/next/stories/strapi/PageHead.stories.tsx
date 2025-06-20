@@ -54,10 +54,12 @@ export const WithColors = {
       link: 'https://google.com?q=12',
     },
     backgroundColor: {
-      name: 'darkPurple',
-      swatch: '500',
+      name: 'strapi.blueGreen',
     },
-    fontColor: {
+    titleColor: {
+      name: 'white',
+    },
+    descriptionColor: {
       name: 'white',
     },
   },

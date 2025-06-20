@@ -319,11 +319,13 @@ export interface SegmentsCarouselSet extends Struct.ComponentSchema {
 export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
   collectionName: 'components_segments_highlight_card_sets';
   info: {
+    description: '';
     displayName: 'HighlightCardSet';
     icon: 'apps';
   };
   attributes: {
     Cards: Schema.Attribute.Component<'components.highlight-card', true>;
+    description: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
 }
@@ -400,6 +402,7 @@ export interface SegmentsReferenceSet extends Struct.ComponentSchema {
     displayName: 'ReferenceSet';
   };
   attributes: {
+    description: Schema.Attribute.String;
     hasFilter: Schema.Attribute.Boolean;
     References: Schema.Attribute.Component<'components.reference', true>;
     title: Schema.Attribute.String;
@@ -413,6 +416,7 @@ export interface SegmentsTabSet extends Struct.ComponentSchema {
     displayName: 'TabSet';
   };
   attributes: {
+    description: Schema.Attribute.String;
     Tabs: Schema.Attribute.Component<'components.tab', true>;
     title: Schema.Attribute.String;
   };

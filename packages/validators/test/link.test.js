@@ -42,7 +42,7 @@ describe('link validator', () => {
       const cleanLinks = [];
       const errors = [];
 
-      links.forEach(l => {
+      links.forEach((l) => {
         try {
           cleanLinks.push(validate(l));
         } catch (e) {
@@ -56,6 +56,13 @@ describe('link validator', () => {
 
     it('http is added if missing', () => {
       expect(validate('lemonde.fr')).toBe('http://lemonde.fr');
+    });
+
+    it('uppercase protocols are normalized to lowercase', () => {
+      expect(validate('HTTP://example.com')).toBe('http://example.com');
+      expect(validate('HTTPS://example.com')).toBe('https://example.com');
+      expect(validate('Http://example.com')).toBe('http://example.com');
+      expect(validate('Https://example.com')).toBe('https://example.com');
     });
 
     it('are links', () => {
@@ -75,7 +82,7 @@ describe('link validator', () => {
         'http://url_d_inscription.fr/',
       ];
 
-      const notLinks = links.filter(l => {
+      const notLinks = links.filter((l) => {
         try {
           validate(l);
           return false;
@@ -96,7 +103,7 @@ describe('link validator', () => {
         '42',
       ];
 
-      const areLinks = links.filter(l => {
+      const areLinks = links.filter((l) => {
         try {
           validate(l);
 

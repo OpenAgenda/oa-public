@@ -49,7 +49,6 @@ function formatValue(
   }
 
   if (field.fieldType === 'markdown' && value) {
-    console.log(value);
     return fromMarkdownToHTML(value);
   }
 

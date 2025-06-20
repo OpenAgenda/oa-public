@@ -1,0 +1,143 @@
+{
+  "__component": "segments.highlight-card-set",
+  "id": 27,
+  "title": "HighlightCardSet",
+  "description": null,
+  "Cards": [
+    {
+      "id": 85,
+      "title": "Un beau soleil",
+      "smallIllustration": true,
+      "description": "Le HighlightCardSet permet de placer un segment de page affichant une suite de cartes",
+      "Illustration": {
+        "id": 6004,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 253,
+          "documentId": "t5vuh1f1a3ugo2y5agmpzjhl",
+          "name": "path3.png",
+          "alternativeText": null,
+          "caption": null,
+          "width": 424,
+          "height": 395,
+          "formats": {
+            "thumbnail": {
+              "name": "thumbnail_path3.png",
+              "hash": "thumbnail_path3_249ca738c5",
+              "ext": ".png",
+              "mime": "image/png",
+              "path": null,
+              "width": 167,
+              "height": 156,
+              "size": 4.46,
+              "sizeInBytes": 4457,
+              "url": "https://cdn.openagenda.com/dev/corpo/thumbnail_path3_249ca738c5.png"
+            }
+          },
+          "hash": "path3_249ca738c5",
+          "ext": ".png",
+          "mime": "image/png",
+          "size": 3.82,
+          "url": "https://cdn.openagenda.com/dev/corpo/path3_249ca738c5.png",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-06-17T10:23:43.024Z",
+          "updatedAt": "2025-06-17T10:23:43.024Z",
+          "publishedAt": "2025-06-17T10:23:43.025Z"
+        }
+      }
+    },
+    {
+      "id": 86,
+      "title": "Une chaussure de clown",
+      "smallIllustration": true,
+      "description": "Chaque carte est composée d'un titre, d'une illustration - petite ou grande - et d'un descriptif",
+      "Illustration": {
+        "id": 6005,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 254,
+          "documentId": "k8gj5nlq19vdhbcjx45fs2fi",
+          "name": "path4.png",
+          "alternativeText": null,
+          "caption": null,
+          "width": 235,
+          "height": 168,
+          "formats": {
+            "thumbnail": {
+              "name": "thumbnail_path4.png",
+              "hash": "thumbnail_path4_0ccbae85c6",
+              "ext": ".png",
+              "mime": "image/png",
+              "path": null,
+              "width": 218,
+              "height": 156,
+              "size": 10.81,
+              "sizeInBytes": 10805,
+              "url": "https://cdn.openagenda.com/dev/corpo/thumbnail_path4_0ccbae85c6.png"
+            }
+          },
+          "hash": "path4_0ccbae85c6",
+          "ext": ".png",
+          "mime": "image/png",
+          "size": 3.14,
+          "url": "https://cdn.openagenda.com/dev/corpo/path4_0ccbae85c6.png",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-06-17T10:24:56.887Z",
+          "updatedAt": "2025-06-17T10:24:56.887Z",
+          "publishedAt": "2025-06-17T10:24:56.887Z"
+        }
+      }
+    },
+    {
+      "id": 87,
+      "title": "Un lapin mutant",
+      "smallIllustration": true,
+      "description": "Il est particulièrement réussi celui-là",
+      "Illustration": {
+        "id": 6006,
+        "borderRadius": null,
+        "width": null,
+        "image": {
+          "id": 255,
+          "documentId": "srcp3n2quxoagg70wt25lg0o",
+          "name": "path5.png",
+          "alternativeText": null,
+          "caption": null,
+          "width": 276,
+          "height": 313,
+          "formats": {
+            "thumbnail": {
+              "name": "thumbnail_path5.png",
+              "hash": "thumbnail_path5_1e1ad7ecca",
+              "ext": ".png",
+              "mime": "image/png",
+              "path": null,
+              "width": 138,
+              "height": 156,
+              "size": 9.1,
+              "sizeInBytes": 9098,
+              "url": "https://cdn.openagenda.com/dev/corpo/thumbnail_path5_1e1ad7ecca.png"
+            }
+          },
+          "hash": "path5_1e1ad7ecca",
+          "ext": ".png",
+          "mime": "image/png",
+          "size": 6.2,
+          "url": "https://cdn.openagenda.com/dev/corpo/path5_1e1ad7ecca.png",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-06-17T10:26:29.342Z",
+          "updatedAt": "2025-06-17T10:26:29.342Z",
+          "publishedAt": "2025-06-17T10:26:29.342Z"
+        }
+      }
+    }
+  ]
+}

@@ -40,3 +40,38 @@ export function Overview() {
     </Container>
   );
 }
+
+export function ImageLeftWithBulletPointsAndNumbers() {
+  return (
+    <Container maxWidth="5xl">
+      <SplitHero
+        title="Complete Event Management Solution"
+        image={{
+          url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
+          alternativeText: 'Professional event planning workspace',
+        }}
+        text={`Transform your event management process with our comprehensive platform that combines powerful features with intuitive design.
+
+## Key Features:
+* **Real-time collaboration** - Work seamlessly with your team members
+* **Advanced scheduling** - Smart calendar integration and conflict detection  
+* **Multi-platform publishing** - Distribute events across all your channels
+* **Analytics dashboard** - Track engagement and performance metrics
+* **Custom branding** - Maintain your organization's visual identity
+
+## Getting Started Process:
+1. **Account Setup** - Create your organization profile and invite team members
+2. **Event Creation** - Use our intuitive form builder to design your events
+3. **Content Management** - Upload images, descriptions, and promotional materials
+4. **Distribution Strategy** - Configure your publishing channels and social media
+5. **Launch & Monitor** - Go live and track your event's performance in real-time
+
+## Additional Benefits:
+* Automated email notifications and reminders
+* Mobile-responsive event pages
+* Integration with popular ticketing platforms
+* 24/7 customer support and training resources`}
+      />
+    </Container>
+  );
+}

@@ -53,7 +53,12 @@ const mdStyle: SystemStyleObject = {
   '& ul': {
     marginTop: '1em',
     marginBottom: '1em',
-    paddingInlineStart: '1.5em',
+    paddingInlineStart: '40px',
+  },
+  '& ol': {
+    marginTop: '1em',
+    marginBottom: '1em',
+    paddingInlineStart: '40px',
   },
   '& li': {
     marginTop: '0.285em',

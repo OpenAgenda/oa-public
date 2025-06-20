@@ -515,6 +515,177 @@ describe('apply', () => {
         );
       });
     });
+
+    describe('with a date deletion and a date create', () => {
+      let server;
+      let processed;
+      const randomPassOfferID = Math.ceil(Math.random() * 100000);
+      const randomAddressId = Math.ceil(Math.random() * 10000);
+      const randomPriceCategoryId = Math.ceil(Math.random() * 10000);
+      const randomDateId1 = Math.ceil(Math.random() * 100000);
+      const randomDateId2 = Math.ceil(Math.random() * 100000);
+
+      const today = new Date();
+      const tomorrow = new Date();
+      tomorrow.setDate(today.getDate() + 1);
+      const dayAfter = new Date();
+      dayAfter.setDate(today.getDate() + 2);
+
+      // one timing tomorrow morning, one the day after
+      const timings = [tomorrow, dayAfter]
+        .map((d) => {
+          d.setHours(10); // at 10
+          d.setMinutes(0);
+
+          const begin = d.toISOString();
+          d.setHours(d.getHours() + 2);
+          return {
+            begin,
+            end: d.toISOString(),
+          };
+        })
+        .map((timing) => ({ ...timing, id: new Date(timing.begin).getTime() }));
+
+      const OAEvent = {
+        uid: 123,
+        title: { fr: 'Test event 1706' },
+        timings,
+        location: {
+          address: '3 allée Jacqueline Maillan, 44200 Nantes',
+          city: 'Nantes',
+          postalCode: 44200,
+        },
+      };
+
+      beforeAll(() => {
+        server = setupServer(
+          http.get(`${api}/public/offers/v1/offerer_venues`, () =>
+            HttpResponse.json(settings.offererVenues)),
+          http.post(`${api}/public/offers/v1/events`, () =>
+            HttpResponse.json({
+              id: randomPassOfferID,
+              status: 'PASPENDING',
+            })),
+          http.post(
+            `${api}/public/offers/v1/events/:id/price_categories`,
+            async ({ request }) =>
+              HttpResponse.json({
+                priceCategories: (await request.json()).priceCategories.map(
+                  (priceCategory) => ({
+                    ...priceCategory,
+                    id: randomPriceCategoryId,
+                  }),
+                ),
+              }),
+          ),
+          http.post(
+            `${api}/public/offers/v1/events/:id/dates`,
+            async ({ request }) => {
+              const requestData = await request.json();
+              return HttpResponse.json({
+                dates: requestData.dates.map((date) => ({
+                  ...date,
+                  id: date.id === 1 ? randomDateId1 : randomDateId2,
+                })),
+              });
+            },
+          ),
+          http.delete(
+            `${api}/public/offers/v1/events/:eventOfferId/dates/:id`,
+            async () => new HttpResponse(''),
+          ),
+          http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
+          http.post(
+            `${api}/public/offers/v1/addresses`,
+            async ({ request }) => {
+              const r = await request.json();
+              return HttpResponse.json({
+                ...r,
+                id: randomAddressId,
+                banId: null,
+              });
+            },
+          ),
+        );
+
+        server.listen();
+      });
+
+      afterAll(() => {
+        server.close();
+      });
+
+      beforeAll(async () => {
+        processed = await apply(
+          {
+            pc,
+            siren: ['123456789'],
+          },
+          OAEvent,
+          {
+            eventDuration: 180,
+            bookingContact: 'some@booking.contact',
+            venueId: 548,
+            description: 'pass-specific description',
+            category: 'CINE_PLEIN_AIR',
+            priceCategories: [
+              {
+                price: 0,
+                label: 'Tarif unique',
+                id: 0,
+              },
+            ],
+            dates: [
+              {
+                quantity: 100,
+                priceCategoryId: 0,
+                id: 1,
+                timingId: timings[0].id,
+              },
+            ],
+          },
+        );
+      });
+
+      test('a date is removed, another is added while an event timing is also removed', async () => {
+        const updatedProcessed = await apply(
+          {
+            pc,
+            siren: ['123456789'],
+          },
+          {
+            ...OAEvent,
+            timings: [timings[1]], // one timing was removed
+          },
+          processed.concat({
+            editing: true, // noise ?
+            dates: [
+              {
+                quantity: 123,
+                priceCategoryId: 0,
+                timingId: timings[0].id,
+                id: 1,
+                passId: processed.find((item) => item.dates).response.dates[0]
+                  .passId,
+                deleted: true,
+              },
+              {
+                id: 2,
+                priceCategoryId: 0,
+                timingId: timings[1].id,
+                quantity: '100',
+              },
+            ],
+          }),
+        );
+
+        const appliedEntryCount = updatedProcessed
+          .map((entry) => entry.appliedAt)
+          .filter((appliedAt) => !!appliedAt).length;
+
+        expect(appliedEntryCount).toBe(5);
+      });
+    });
   });
 
   describe('unit', () => {

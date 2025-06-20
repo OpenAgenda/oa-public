@@ -1,0 +1,187 @@
+{
+  "__component": "segments.tab-set",
+  "id": 18,
+  "title": "TabSet",
+  "description": null,
+  "Tabs": [
+    {
+      "id": 36,
+      "title": "Premier onglet",
+      "content": {
+        "id": 50,
+        "title": "On gère plein d'agendas",
+        "text": "Ce sont des SplitHero qui servent de contenu pour les onglets.",
+        "imagePosition": "left",
+        "image": {
+          "id": 181,
+          "documentId": "m2vpugpvgadfvcvuipz9zfbk",
+          "name": "octopusCalendar.svg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 348,
+          "height": 314,
+          "formats": null,
+          "hash": "octopus_Calendar_00ab61f0bb",
+          "ext": ".svg",
+          "mime": "image/svg+xml",
+          "size": 182.54,
+          "url": "https://cdn.openagenda.com/dev/corpo/octopus_Calendar_00ab61f0bb.svg",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-01-21T08:35:36.789Z",
+          "updatedAt": "2025-01-21T08:35:36.789Z",
+          "publishedAt": "2025-01-21T08:35:36.790Z"
+        }
+      }
+    },
+    {
+      "id": 37,
+      "title": "Deuxième onglet",
+      "content": {
+        "id": 51,
+        "title": "Collaborer dans l'entente et l'harmonie",
+        "text": "Un peu de blabla",
+        "imagePosition": "right",
+        "image": {
+          "id": 180,
+          "documentId": "e0lx18o6fjs6ql3o7f6vasbd",
+          "name": "collaborativeMonkeys.png",
+          "alternativeText": null,
+          "caption": null,
+          "width": 777,
+          "height": 728,
+          "formats": {
+            "thumbnail": {
+              "name": "thumbnail_collaborativeMonkeys.png",
+              "hash": "thumbnail_collaborative_Monkeys_800e99e3eb",
+              "ext": ".png",
+              "mime": "image/png",
+              "path": null,
+              "width": 167,
+              "height": 156,
+              "size": 24.82,
+              "sizeInBytes": 24824,
+              "url": "https://cdn.openagenda.com/dev/corpo/thumbnail_collaborative_Monkeys_800e99e3eb.png"
+            },
+            "medium": {
+              "name": "medium_collaborativeMonkeys.png",
+              "hash": "medium_collaborative_Monkeys_800e99e3eb",
+              "ext": ".png",
+              "mime": "image/png",
+              "path": null,
+              "width": 750,
+              "height": 703,
+              "size": 224.52,
+              "sizeInBytes": 224524,
+              "url": "https://cdn.openagenda.com/dev/corpo/medium_collaborative_Monkeys_800e99e3eb.png"
+            },
+            "small": {
+              "name": "small_collaborativeMonkeys.png",
+              "hash": "small_collaborative_Monkeys_800e99e3eb",
+              "ext": ".png",
+              "mime": "image/png",
+              "path": null,
+              "width": 500,
+              "height": 468,
+              "size": 122.38,
+              "sizeInBytes": 122381,
+              "url": "https://cdn.openagenda.com/dev/corpo/small_collaborative_Monkeys_800e99e3eb.png"
+            }
+          },
+          "hash": "collaborative_Monkeys_800e99e3eb",
+          "ext": ".png",
+          "mime": "image/png",
+          "size": 72.4,
+          "url": "https://cdn.openagenda.com/dev/corpo/collaborative_Monkeys_800e99e3eb.png",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-01-21T08:32:32.988Z",
+          "updatedAt": "2025-01-21T08:32:32.988Z",
+          "publishedAt": "2025-01-21T08:32:32.989Z"
+        }
+      }
+    },
+    {
+      "id": 38,
+      "title": "Troisième onglet",
+      "content": {
+        "id": 52,
+        "title": "Cette image est en paysage",
+        "text": "Pour voir ce que ça donne avec une image en paysage",
+        "imagePosition": "left",
+        "image": {
+          "id": 197,
+          "documentId": "oksxdtwmz3d86uxwzsy29unq",
+          "name": "calendarseverywhere.webp",
+          "alternativeText": null,
+          "caption": null,
+          "width": 1792,
+          "height": 1024,
+          "formats": {
+            "small": {
+              "name": "small_calendarseverywhere.webp",
+              "hash": "small_calendarseverywhere_f7a1a06e56",
+              "ext": ".webp",
+              "mime": "image/webp",
+              "path": null,
+              "width": 500,
+              "height": 286,
+              "size": 48.09,
+              "sizeInBytes": 48090,
+              "url": "https://cdn.openagenda.com/dev/corpo/small_calendarseverywhere_f7a1a06e56.webp"
+            },
+            "large": {
+              "name": "large_calendarseverywhere.webp",
+              "hash": "large_calendarseverywhere_f7a1a06e56",
+              "ext": ".webp",
+              "mime": "image/webp",
+              "path": null,
+              "width": 1000,
+              "height": 571,
+              "size": 151.94,
+              "sizeInBytes": 151938,
+              "url": "https://cdn.openagenda.com/dev/corpo/large_calendarseverywhere_f7a1a06e56.webp"
+            },
+            "thumbnail": {
+              "name": "thumbnail_calendarseverywhere.webp",
+              "hash": "thumbnail_calendarseverywhere_f7a1a06e56",
+              "ext": ".webp",
+              "mime": "image/webp",
+              "path": null,
+              "width": 245,
+              "height": 140,
+              "size": 14.47,
+              "sizeInBytes": 14472,
+              "url": "https://cdn.openagenda.com/dev/corpo/thumbnail_calendarseverywhere_f7a1a06e56.webp"
+            },
+            "medium": {
+              "name": "medium_calendarseverywhere.webp",
+              "hash": "medium_calendarseverywhere_f7a1a06e56",
+              "ext": ".webp",
+              "mime": "image/webp",
+              "path": null,
+              "width": 750,
+              "height": 429,
+              "size": 95.82,
+              "sizeInBytes": 95818,
+              "url": "https://cdn.openagenda.com/dev/corpo/medium_calendarseverywhere_f7a1a06e56.webp"
+            }
+          },
+          "hash": "calendarseverywhere_f7a1a06e56",
+          "ext": ".webp",
+          "mime": "image/webp",
+          "size": 427.73,
+          "url": "https://cdn.openagenda.com/dev/corpo/calendarseverywhere_f7a1a06e56.webp",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-02-11T16:26:38.735Z",
+          "updatedAt": "2025-03-14T12:35:04.367Z",
+          "publishedAt": "2025-02-11T16:26:38.736Z"
+        }
+      }
+    }
+  ]
+}

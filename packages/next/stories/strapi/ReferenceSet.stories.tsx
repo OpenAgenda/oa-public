@@ -17,6 +17,7 @@ export const Overview: Story = {
     <Container>
       <ReferenceSet
         title={referenceSetData.title}
+        description="Découvrez nos partenaires et références qui nous font confiance"
         References={referenceSetData.References.map((ref) => ({
           id: String(ref.id),
           link: ref.link,
@@ -66,6 +67,7 @@ export const SingleReference: Story = {
     <Container maxWidth="5xl">
       <ReferenceSet
         title="Référence unique"
+        description="Un exemple avec une seule référence pour démonstration"
         References={[
           {
             id: '1',

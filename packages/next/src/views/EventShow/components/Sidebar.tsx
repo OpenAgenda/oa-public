@@ -36,7 +36,7 @@ import defaultSize from 'utils/defaultSize';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
 import { sidebar as messages } from '../messages';
-import Timings from './Timings';
+import TimingsSectionComponent from './TimingsSection';
 import References from './References';
 import AccessibilitySection from './AccessibilitySection';
 import AgeSection from './AgeSection';
@@ -44,9 +44,6 @@ import Map from './Map';
 import PassBookingModal from './PassBookingModal';
 
 export { default as AccessibilitySection } from './AccessibilitySection';
-
-const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
-console.log('S3bucket', S3_BUCKET);
 
 function getPassImgSource(passData) {
   const currValue = getCurrentPassValue(passData);
@@ -320,11 +317,7 @@ export function RegistrationSection({
 }
 
 export function TimingsSection({ event }) {
-  return (
-    <Box ml="12" fontSize={defaultSize}>
-      <Timings timings={event.timings} timezone={event.timezone} />
-    </Box>
-  );
+  return <TimingsSectionComponent event={event} />;
 }
 
 export function LocationPreview({ event, icon = faLocationDot }) {
