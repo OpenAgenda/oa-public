@@ -168,7 +168,7 @@ const Options = ({ field, value, lang, onChange }) => {
                 onRemove={() => removeOption(index)}
                 onUpdate={(i, o) => updateOption(i, o)}
                 key={option.value}
-                disableDnD={mode !== null}
+                disableDnD={mode === modes.EDITING}
               />
             ))}
           </div>

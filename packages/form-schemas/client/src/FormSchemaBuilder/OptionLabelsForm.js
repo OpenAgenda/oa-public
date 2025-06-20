@@ -9,7 +9,7 @@ import labels from './lib/labels.js';
 
 const focusOnFirstInput = () => {
   try {
-    document.querySelector('.js_add_option_input input').focus();
+    document.querySelector('.js_add_option_input textarea').focus();
   } catch (e) {
     console.log(e);
   }
