@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/agenda-settings",
   "version": "1.4.0",
+  "private": true,
   "description": "",
   "repository": "https://github.com/OpenAgenda/oa",
   "author": "",

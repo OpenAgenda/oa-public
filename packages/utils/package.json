@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/utils",
   "version": "1.3.0",
+  "private": true,
   "description": "minimalistic utilities lib",
   "scripts": {
     "test": "jest"

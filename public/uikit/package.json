@@ -56,7 +56,6 @@
   },
   "devDependencies": {
     "@chakra-ui/cli": "^3.20.0",
-    "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/tsconfig": "^0.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",

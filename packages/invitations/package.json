@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/invitations",
   "version": "1.1.7",
+  "private": true,
   "description": "The invitation service",
   "type": "module",
   "main": "service/index.js",

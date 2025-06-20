@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/aggregator-sources",
   "version": "1.3.1",
+  "private": true,
   "description": "",
   "repository": {
     "type": "git",

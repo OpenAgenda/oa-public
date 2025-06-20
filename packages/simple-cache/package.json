@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/simple-cache",
   "version": "2.1.0",
+  "private": true,
   "description": "Redis wrapper to provide simple to use interface for http caching.",
   "type": "module",
   "main": "index.js",

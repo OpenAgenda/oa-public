@@ -155,6 +155,7 @@ const config = async () => {
         '@chakra-ui/react',
         '@openagenda/activity-apps',
         '@openagenda/intl',
+        '@openagenda/react',
         '@openagenda/react-filters',
         '@openagenda/react-shared',
         '@openagenda/sdk-js',

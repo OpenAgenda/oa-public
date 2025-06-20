@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/members",
   "version": "1.15.13",
+  "private": true,
   "type": "module",
   "main": "index.js",
   "scripts": {

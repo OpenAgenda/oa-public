@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/agenda-stats",
   "version": "1.10.2",
+  "private": true,
   "license": "MIT",
   "repository": {
     "type": "git",

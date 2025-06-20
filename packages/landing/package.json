@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/landing",
   "version": "1.3.16",
+  "private": true,
   "description": "Project to speed up configuration of corpo static pages",
   "type": "module",
   "main": "index.js",

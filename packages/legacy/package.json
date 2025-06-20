@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/legacy",
   "version": "1.11.0",
+  "private": true,
   "description": "handle refactored legacy operations",
   "type": "module",
   "main": "index.js",

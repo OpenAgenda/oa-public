@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/keys",
   "version": "2.2.10",
+  "private": true,
   "description": "",
   "type": "module",
   "main": "service/index.js",

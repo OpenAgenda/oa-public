@@ -16,6 +16,7 @@ import {
   Link,
   ClientOnly,
 } from '@openagenda/uikit';
+import { AgendaExportModal } from '@openagenda/react';
 import { nl2br } from '@openagenda/react-shared';
 import { faEnvelope, faPlus } from 'icons/solid';
 import { faShareNodes } from 'icons/regular';
@@ -25,11 +26,11 @@ import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import useLocationQuery from 'hooks/useLocationQuery';
+import useUser from 'hooks/useUser';
 import { thumborLoader } from 'utils/imageLoader';
 import hrefWithLang from 'utils/hrefWithLang';
 import getSession from 'utils/getSession';
 import AggregateModal from './AggregateModal';
-import ExportModal from './ExportModal';
 
 const messages = defineMessages({
   contact: {
@@ -73,6 +74,8 @@ export default function AgendaHeader({ agenda }) {
 
   const router = useRouter();
   const urlQuery = useLocationQuery();
+
+  const { user } = useUser();
 
   const mailtoUrl = getMailtoUrl(agenda.settings.inbox?.mailto);
 
@@ -234,10 +237,12 @@ export default function AgendaHeader({ agenda }) {
 
       <ClientOnly>
         {exportIsOpen ? (
-          <ExportModal
+          <AgendaExportModal
             isOpen
             onClose={exportOnClose}
+            user={user}
             agenda={agenda}
+            query={urlQuery}
             defaultValue={displayExportModalValue}
           />
         ) : null}

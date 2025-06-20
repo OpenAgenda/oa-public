@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/cibul-templates",
   "version": "1.4.1",
+  "private": true,
   "description": "cibul templates library",
   "license": "MIT",
   "scripts": {

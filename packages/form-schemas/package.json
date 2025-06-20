@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/form-schemas",
   "version": "1.9.2",
+  "private": true,
   "description": "Handle event data structure configuration storage",
   "keywords": [],
   "author": "",

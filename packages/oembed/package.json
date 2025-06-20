@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/oembed",
   "version": "2.2.1",
+  "private": true,
   "type": "module",
   "main": "index.js",
   "license": "MIT",

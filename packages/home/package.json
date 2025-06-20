@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/home",
   "version": "2.2.1",
+  "private": true,
   "description": "Oh la home",
   "type": "module",
   "main": "dist/app.js",

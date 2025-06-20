@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/react-layouts",
   "version": "2.2.1",
+  "private": true,
   "type": "module",
   "main": "dist/index.js",
   "license": "MIT",
