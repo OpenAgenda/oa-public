@@ -19,7 +19,7 @@
     "release": "./scripts/release/00-release.sh",
     "pull-public": "git subtree pull --prefix public oa-public",
     "push-public": "git subtree push --prefix public --rejoin oa-public",
-    "changeset:publish": "changeset publish && node scripts/sync-releases-to-public.sh",
+    "changeset:publish": "changeset publish && ./scripts/sync-releases-to-public.sh",
     "changeset:version": "changeset version"
   },
   "config": {
