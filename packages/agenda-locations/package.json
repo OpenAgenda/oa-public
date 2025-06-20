@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/agenda-locations",
   "version": "2.1.2",
+  "private": true,
   "description": "",
   "main": "index.js",
   "repository": {

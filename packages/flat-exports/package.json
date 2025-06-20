@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/flat-exports",
   "version": "1.4.0",
+  "private": true,
   "description": "Provide streams and transforms for event flat exports ( csv, xlsx, ical, rss )",
   "repository": {
     "type": "git",

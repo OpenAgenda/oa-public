@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/event-search",
   "version": "2.8.0",
+  "private": true,
   "description": "",
   "type": "module",
   "main": "index.js",

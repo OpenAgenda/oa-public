@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/member-apps",
   "version": "2.1.1",
+  "private": true,
   "description": "",
   "keywords": [],
   "author": "",

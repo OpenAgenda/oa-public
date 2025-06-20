@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/event-form",
   "version": "1.5.1",
+  "private": true,
   "type": "module",
   "main": "build/index.js",
   "scripts": {

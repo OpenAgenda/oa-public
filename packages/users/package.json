@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/users",
   "version": "3.1.0",
+  "private": true,
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"

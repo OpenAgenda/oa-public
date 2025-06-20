@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/react-integration-app",
   "version": "1.6.1",
+  "private": true,
   "main": "index.js",
   "license": "MIT",
   "type": "module",

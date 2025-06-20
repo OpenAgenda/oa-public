@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/sessions",
   "version": "4.1.0",
+  "private": true,
   "description": "The sessions service. Handles and provides information on open sessions of the OpenAgenda platform. Sessions are either logged or not.",
   "keywords": [],
   "author": "",

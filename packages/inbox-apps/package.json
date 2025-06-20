@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/inbox-apps",
   "version": "1.2.1",
+  "private": true,
   "author": "Bertho <kevin.bertho@gmail.com>",
   "license": "MIT",
   "repository": {
