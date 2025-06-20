@@ -106,6 +106,7 @@ export default async function GenerateExportStream(
         );
         cursor.y += documentHeaderHeight + margin;
         isFirstPage = false;
+        log('added document header');
       }
       addFooter(
         doc,
@@ -113,6 +114,7 @@ export default async function GenerateExportStream(
         margin,
         { fontSize },
       );
+      log('added footer');
     }
 
     let simulatedHeight = 0;

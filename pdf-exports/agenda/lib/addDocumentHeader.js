@@ -1,7 +1,10 @@
+import logs from '@openagenda/logs';
 import addAgendaLogo from '../../utils/addAgendaLogo.js';
 import addSeparatorLine from '../../utils/addSeparatorLine.js';
 import cleanString from '../../utils/cleanString.js';
 import addText from './addText.js';
+
+const log = logs('addDocumentHeader');
 
 export default async function addDocumentHeader(
   agenda,
@@ -10,6 +13,7 @@ export default async function addDocumentHeader(
   cursor,
   options = {},
 ) {
+  log('processing');
   const {
     base = {
       margin: 20,
@@ -27,8 +31,8 @@ export default async function addDocumentHeader(
     x: cursor.x,
   };
 
-  let logoHeight;
-  let logoWidth;
+  let logoHeight = 0;
+  let logoWidth = 0;
   let titleFontSize;
   let fontSize;
   let logoHeightAndWidth;
@@ -53,6 +57,12 @@ export default async function addDocumentHeader(
     logoHeightAndWidth = 70;
     margin = base.margin;
   }
+  log('font sizes, margins and logo dimensions are defined', {
+    titleFontSize,
+    fontSize,
+    logoHeightAndWidth,
+    margin,
+  });
 
   localCursor.y += margin;
 
@@ -63,12 +73,14 @@ export default async function addDocumentHeader(
       localCursor,
       logoHeightAndWidth,
     );
+    log('logo dimensions', logo);
 
     logoHeight = logo.height;
     logoWidth = logo.width;
     localCursor.x += logo.width + base.margin;
   }
   const textMaxWidth = doc.page.width - logoWidth - base.margin * 3;
+  log('textMaxWidth is %s', textMaxWidth);
 
   const { height: heightOfTitle, width: widthOfTitle } = addText(
     doc,
@@ -87,6 +99,7 @@ export default async function addDocumentHeader(
   let widthOfLocation;
 
   if (mode === 'locationName' && firstEvent) {
+    log('fetching location name');
     const firstEventLocation = firstEvent.location;
 
     const { height: heightOfLocation, width: widthLocation } = addText(
@@ -99,6 +112,7 @@ export default async function addDocumentHeader(
     widthOfLocation = widthLocation;
   }
 
+  log('adding agenda description');
   const { height: heightOfDescription, width: widthOfDescription } = addText(
     doc,
     localCursor,
@@ -112,6 +126,7 @@ export default async function addDocumentHeader(
   localCursor.y += heightOfDescription + base.margin / 10;
 
   if (agenda.url) {
+    log('defining dimensions of agenda URL');
     const agendaUrl = addText(doc, localCursor, agenda.url, {
       width: textMaxWidth,
       fontSize,
@@ -126,6 +141,7 @@ export default async function addDocumentHeader(
     localCursor.y += heightOfURL + base.margin / 10;
   }
 
+  log('writing agenda URL to document for a max width of %s', textMaxWidth);
   const { height: heightOfOaAgendaURL, width: widthOfOaAgendaURL } = addText(
     doc,
     localCursor,
@@ -147,6 +163,7 @@ export default async function addDocumentHeader(
   localCursor.x = base.margin * 3;
 
   if (displaySeparator) {
+    log('adding separator');
     localCursor.y = Math.max(textColHeight, logoHeight + margin) + margin;
     const { height: separatorLineHeight } = addSeparatorLine(doc, localCursor, {
       base,
