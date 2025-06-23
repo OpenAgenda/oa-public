@@ -11,6 +11,15 @@ type ReferenceSetProps = {
   hasFilter?: boolean;
 };
 
+const allowedTagColors = [
+  'strapi.rosyRed',
+  'strapi.blueViolet',
+  'strapi.paleLavender',
+  'strapi.blueGreen',
+  'strapi.sandBeige',
+  'strapi.mutedPlum',
+];
+
 export default function ReferenceSet({
   title = null,
   description,
@@ -33,6 +42,14 @@ export default function ReferenceSet({
 
     return Array.from(tagsSet).sort();
   }, [ReferencesData]);
+
+  const tagColorMap = useMemo(() => {
+    const colorMap: Record<string, string> = {};
+    allTags.forEach((tag, index) => {
+      colorMap[tag] = allowedTagColors[index % allowedTagColors.length];
+    });
+    return colorMap;
+  }, [allTags]);
 
   const filteredReferences = useMemo(() => {
     if (!ReferencesData?.length || selectedTags.size === 0) {
@@ -72,13 +89,14 @@ export default function ReferenceSet({
           allTags={allTags}
           selectedTags={selectedTags}
           onToggleTag={toggleTag}
+          tagColorMap={tagColorMap}
         />
       )}
 
       <Wrap gap="6" justify="center">
         {filteredReferences.map((reference) => (
           <WrapItem key={reference.id}>
-            <ReferenceItem {...reference} />
+            <ReferenceItem {...reference} tagColorMap={tagColorMap} />
           </WrapItem>
         ))}
       </Wrap>

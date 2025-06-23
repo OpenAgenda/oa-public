@@ -20,12 +20,17 @@ type Reference = {
   tags?: string;
 };
 
+type ReferenceItemProps = Reference & {
+  tagColorMap: Record<string, string>;
+};
+
 export default function ReferenceItem({
   link,
   image,
   title,
   tags: tagsString,
-}: Reference) {
+  tagColorMap,
+}: ReferenceItemProps) {
   const tags = tagsString?.split(',').map((tag) => tag.trim());
 
   return (
@@ -34,8 +39,8 @@ export default function ReferenceItem({
         gap="4"
         p="4"
         border="2px solid"
-        borderColor="gray.200"
-        borderRadius="lg"
+        borderColor="gray.100"
+        borderRadius="sm"
         width="280px"
         maxWidth="280px"
         alignItems="center"
@@ -70,8 +75,9 @@ export default function ReferenceItem({
                 <Tag
                   variant="solid"
                   border="none"
+                  borderRadius={0}
                   size="lg"
-                  colorPalette="strapi.darkPink"
+                  colorPalette={tagColorMap[tag]}
                 >
                   {tag}
                 </Tag>

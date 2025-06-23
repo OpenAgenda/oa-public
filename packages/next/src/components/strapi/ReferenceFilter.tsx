@@ -5,12 +5,14 @@ type ReferenceFilterProps = {
   allTags: string[];
   selectedTags: Set<string>;
   onToggleTag: (tag: string) => void;
+  tagColorMap: Record<string, string>;
 };
 
 export default function ReferenceFilter({
   allTags,
   selectedTags,
   onToggleTag,
+  tagColorMap,
 }: ReferenceFilterProps) {
   if (allTags.length === 0) {
     return null;
@@ -21,20 +23,22 @@ export default function ReferenceFilter({
       <Wrap gap="2" justify="center">
         {allTags.map((tag) => {
           const isSelected = selectedTags.has(tag);
+          const tagColor = tagColorMap[tag];
           return (
             <WrapItem key={tag}>
               <Tag
                 as="button"
                 variant={isSelected ? 'solid' : 'outline'}
                 border="1px solid"
-                borderColor={isSelected ? 'strapi.darkPink.600' : 'gray.300'}
+                borderColor={isSelected ? `${tagColor}.600` : `${tagColor}.600`}
+                borderRadius={0}
                 size="lg"
-                colorPalette={isSelected ? 'strapi.darkPink' : 'gray'}
+                colorPalette={isSelected ? tagColor : 'gray'}
                 cursor="pointer"
                 onClick={() => onToggleTag(tag)}
                 _hover={{
-                  borderColor: 'strapi.darkPink.600',
-                  bg: isSelected ? 'strapi.darkPink.600' : 'strapi.darkPink.50',
+                  borderColor: `${tagColor}.600`,
+                  bg: isSelected ? `${tagColor}.600` : `${tagColor}.50`,
                 }}
                 transition="all 0.2s"
               >
