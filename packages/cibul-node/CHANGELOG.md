@@ -1,5 +1,16 @@
 # Change Log
 
+## 0.15.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/event-form@1.5.2
+  - @openagenda/agenda-contribute@1.5.3
+  - @openagenda/agenda-schemas-app@0.0.1
+  - @openagenda/network-apps@1.1.14
+  - @openagenda/react-integration-app@1.6.2
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

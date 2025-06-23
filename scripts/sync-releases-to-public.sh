@@ -1,98 +1,120 @@
 #!/bin/bash
+# Ce script synchronise les releases Changesets (tags et notes) d'un monorepo privé
+# vers un repo public qui contient un subtree des packages publics.
 
-# Arrête le script si une commande échoue
+# Arrête le script si une commande échoue pour éviter un état incohérent.
 set -e
 
 # --- CONFIGURATION ---
-PRIVATE_RELEASE_COMMIT_MSG="chore: version packages"
+# Le scope NPM de vos packages. Utilisé pour trouver les tags pertinents.
+PACKAGE_SCOPE="@openagenda"
+
+# Configuration du remote et du repo public
 PUBLIC_REMOTE_NAME="oa-public"
 PUBLIC_REPO_OWNER_NAME="openagenda/oa-public"
 PUBLIC_REPO_BRANCH="main"
+
+# Le dossier racine dans le monorepo qui contient les packages publics.
 SUBTREE_PREFIX="public"
 # --- FIN CONFIGURATION ---
 
-if ! git remote | grep -q "^${PUBLIC_REMOTE_NAME}$"; then
-  echo "🔗 Ajout du remote '${PUBLIC_REMOTE_NAME}'..."
-  git remote add ${PUBLIC_REMOTE_NAME} https://github.com/${PUBLIC_REPO_OWNER_NAME}.git
+
+# --- ÉTAPE 1 : PRÉPARATION DE L'ENVIRONNEMENT GIT ---
+# S'assure que le remote utilise bien une URL HTTPS, compatible avec le PAT de GitHub Actions.
+# C'est crucial pour que l'authentification fonctionne en CI.
+PUBLIC_REPO_URL="https://github.com/${PUBLIC_REPO_OWNER_NAME}.git"
+if git remote | grep -q "^${PUBLIC_REMOTE_NAME}$"; then
+  echo "✔️ Remote '${PUBLIC_REMOTE_NAME}' déjà configuré. Forçage de l'URL en HTTPS..."
+  git remote set-url ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_URL}
+else
+  echo "🔗 Ajout du nouveau remote '${PUBLIC_REMOTE_NAME}' avec l'URL HTTPS..."
+  git remote add ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_URL}
 fi
 
-echo "🚀 Démarrage de la synchronisation des releases vers le repo public (${PUBLIC_REPO_OWNER_NAME})..."
+echo "🚀 Démarrage de la synchronisation des releases vers ${PUBLIC_REPO_OWNER_NAME}..."
 
-# 1. S'assurer que le remote public est à jour localement
-echo "🔍 Mise à jour du remote '${PUBLIC_REMOTE_NAME}'..."
+# On s'assure d'avoir les dernières informations du remote public, notamment les tags existants.
+echo "🔍 Mise à jour des informations du remote '${PUBLIC_REMOTE_NAME}'..."
 git fetch ${PUBLIC_REMOTE_NAME}
 
-# 2. Trouver le SHA du dernier commit de release dans le repo privé
-echo "🔍 Recherche du dernier commit de release..."
-RELEASE_COMMIT_SHA=$(git log --grep="^${PRIVATE_RELEASE_COMMIT_MSG}$" -n 1 --format=%H)
+
+# --- ÉTAPE 2 : DÉTECTION DU COMMIT DE RELEASE À TRAITER ---
+# L'input `INPUT_RELEASE_COMMIT_SHA` vient de `workflow_dispatch` dans l'action GitHub.
+RELEASE_COMMIT_SHA_INPUT="${INPUT_RELEASE_COMMIT_SHA}"
+
+if [ -n "$RELEASE_COMMIT_SHA_INPUT" ]; then
+  # Mode manuel : l'utilisateur a fourni un SHA, on l'utilise sans poser de questions.
+  echo "🕹️  Mode manuel activé. Utilisation du SHA de commit fourni : $RELEASE_COMMIT_SHA_INPUT"
+  RELEASE_COMMIT_SHA="$RELEASE_COMMIT_SHA_INPUT"
+else
+  # Mode automatique : on trouve la dernière release non synchronisée.
+  echo "🤖 Mode automatique. Recherche de la dernière release non synchronisée..."
+
+  # On parcourt les 5 derniers tags créés (du plus récent au plus ancien) pour trouver un candidat.
+  for tag_name in $(git tag -l "${PACKAGE_SCOPE}/*" --sort=-creatordate | head -n 5); do
+    echo "  - Vérification du tag : ${tag_name}"
+
+    # On vérifie si ce tag existe DÉJÀ sur le remote public.
+    # `git ls-remote` est la commande parfaite pour ça, elle n'affecte pas le repo local.
+    if git ls-remote --exit-code --tags ${PUBLIC_REMOTE_NAME} "refs/tags/${tag_name}" >/dev/null; then
+      echo "    -> ✔️ Le tag ${tag_name} existe déjà sur le remote. Release déjà synchronisée."
+    else
+      echo "    -> 🎯 Le tag ${tag_name} n'existe pas sur le remote. C'est notre candidat !"
+      # On a trouvé notre release ! On récupère le SHA du commit sur lequel ce tag est placé.
+      RELEASE_COMMIT_SHA=$(git rev-list -n 1 "${tag_name}")
+      break
+    fi
+  done
+fi
 
 if [ -z "$RELEASE_COMMIT_SHA" ]; then
-  echo "✅ Aucune nouvelle release trouvée. Rien à faire."
+  echo "✔️ Aucune nouvelle release à synchroniser n'a été trouvée. Tout est à jour !"
   exit 0
 fi
-echo "✅ Commit de release trouvé : ${RELEASE_COMMIT_SHA}"
 
-# 3. Trouver tous les tags associés à ce commit
-echo "🏷️  Recherche des tags associés à ce commit..."
-TAGS=$(git tag --points-at ${RELEASE_COMMIT_SHA})
+echo "✔️ Commit de release à traiter trouvé : ${RELEASE_COMMIT_SHA}"
 
-if [ -z "$TAGS" ]; {
-  echo "⚠️ Aucun tag trouvé pour le commit de release. Il y a peut-être un problème. Arrêt."
-  exit 1
-}
 
-# 4. Récupérer les notes de release complètes depuis le corps du commit
-echo "📝 Extraction des notes de release depuis le corps du commit..."
-# git show -s --format=%B retourne le sujet ET le corps du commit
+# --- ÉTAPE 3 : SYNCHRONISATION ---
+# On récupère les informations de la release UNE SEULE FOIS.
+TAGS=$(git tag --points-at "${RELEASE_COMMIT_SHA}")
+echo -e "🏷️ Tags à synchroniser trouvés sur ce commit:\n${TAGS}"
+
+# On récupère les notes de la release depuis le corps du commit.
+echo "📝 Extraction des notes de release..."
 RELEASE_NOTES=$(git show -s --format=%B "${RELEASE_COMMIT_SHA}")
 
-# Boucle sur chaque tag trouvé
+echo "---"
+echo "🛰️   Poussée du subtree complet '${SUBTREE_PREFIX}' vers ${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}..."
+
+# ON EXÉCUTE LA COMMANDE DE POUSSÉE UNE SEULE FOIS POUR TOUT LE DOSSIER `public`
+SUBTREE_PUSH_OUTPUT=$(git subtree push --rejoin --prefix=${SUBTREE_PREFIX} ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_BRANCH})
+
+# On extrait le SHA du commit unique créé dans le repo public.
+PUBLIC_COMMIT_SHA=$(echo "${SUBTREE_PUSH_OUTPUT}" | grep -oE '[a-f0-9]{40}\.\.[a-f0-9]{40}' | cut -d'.' -f1)
+
+if [ -z "$PUBLIC_COMMIT_SHA" ]; then
+  echo "⚠️ Impossible d'extraire le SHA. Récupération via fetch..."
+  git fetch ${PUBLIC_REMOTE_NAME}
+  PUBLIC_COMMIT_SHA=$(git rev-parse "${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}")
+fi
+echo "🎯 Commit unique créé sur ${PUBLIC_REPO_OWNER_NAME} : ${PUBLIC_COMMIT_SHA}"
+
+# On boucle sur les tags UNIQUEMENT pour créer les releases GitHub.
+echo -e "🏷️ Création des releases GitHub pour les tags suivants :\n${TAGS}"
+
+# Boucle sur chaque tag pour effectuer la synchronisation.
 for TAG_NAME in $TAGS; do
   echo "---"
-  echo "🔄 Traitement du tag : ${TAG_NAME}"
+  echo "🎉 Création de la release pour le tag : ${TAG_NAME}"
 
-  # Extrait le nom du package du tag (ex: my-package@1.2.3 -> my-package)
-  PACKAGE_NAME=$(echo ${TAG_NAME} | sed -E 's/@([0-9]+\.?){3}//')
-  PACKAGE_SUBTREE_PATH="${SUBTREE_PREFIX}/${PACKAGE_NAME}"
-
-  if [ ! -d "$PACKAGE_SUBTREE_PATH" ]; then
-    echo "⚠️ Le dossier ${PACKAGE_SUBTREE_PATH} n'existe pas, tag ignoré."
-    continue
-  fi
-
-  echo "📦 Nom du package : ${PACKAGE_NAME}"
-  echo "📁 Chemin du subtree : ${PACKAGE_SUBTREE_PATH}"
-
-  # 5. Pousser le subtree vers le remote public
-  # C'est l'équivalent de votre commande, mais pour un seul package à la fois
-  echo "🛰️  Poussée du subtree pour ${PACKAGE_NAME} vers ${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}..."
-  # 'git subtree push' retourne le SHA du commit créé sur la branche distante
-  SUBTREE_PUSH_OUTPUT=$(git subtree push --rejoin --prefix=${PACKAGE_SUBTREE_PATH} ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_BRANCH})
-
-  # 6. Trouver le SHA du commit créé dans le repo public
-  # L'astuce est que `git subtree push` retourne "remote: ... new_sha..old_sha"
-  # On extrait ce nouveau SHA. C'est beaucoup plus fiable que de chercher par message.
-  PUBLIC_COMMIT_SHA=$(echo "${SUBTREE_PUSH_OUTPUT}" | grep -oE '[a-f0-9]{40}\.\.[a-f0-9]{40}' | cut -d'.' -f1)
-
-  # Fallback si l'extraction échoue (messages de git peuvent changer)
-  if [ -z "$PUBLIC_COMMIT_SHA" ]; then
-    echo "⚠️ Impossible d'extraire le SHA depuis la sortie de subtree push. Tentative de récupération via fetch..."
-    git fetch ${PUBLIC_REMOTE_NAME}
-    PUBLIC_COMMIT_SHA=$(git rev-parse "${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}")
-  fi
-
-  echo "🎯 Commit correspondant trouvé sur ${PUBLIC_REMOTE_NAME}: ${PUBLIC_COMMIT_SHA}"
-
-  # 7. Créer la release GitHub sur le repo public en utilisant `gh`
-  # `gh` va créer le tag et la release en une seule commande.
-  echo "🎉 Création de la release et du tag GitHub sur ${PUBLIC_REPO_OWNER_NAME}..."
   gh release create "${TAG_NAME}" \
     --repo "${PUBLIC_REPO_OWNER_NAME}" \
     --title "${TAG_NAME}" \
     --notes "${RELEASE_NOTES}" \
-    --target "${PUBLIC_COMMIT_SHA}" # Crée le tag directement sur le bon commit du repo public
+    --target "${PUBLIC_COMMIT_SHA}"
 
-  echo "✅ Synchronisation terminée pour ${TAG_NAME} !"
+  echo "✔️ Release ${TAG_NAME} créée avec succès !"
 done
 
 echo "---"

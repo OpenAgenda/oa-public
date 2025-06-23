@@ -1,5 +1,13 @@
 # Change Log
 
+## 1.6.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/agenda-contribute@1.5.3
+  - @openagenda/agenda-schemas-app@0.0.1
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
