@@ -1,1 +1,0 @@
-{"version":3,"sources":["../../src/locales/es.json"],"sourcesContent":["{\n  \"event-form.components.Events.remove\": \"Eliminar\",\n  \"event-form.components.Events.search\": \"Buscar\"\n}\n"],"mappings":";;;AACE,IAAAA,sCAAuC;AACvC,IAAAC,sCAAuC;AAFzC;AAAA,EACE,uCAAAD;AAAA,EACA,uCAAAC;AACF;","names":["event-form.components.Events.remove","event-form.components.Events.search"]}

@@ -1,1 +1,0 @@
-{"version":3,"file":"labelKeys.js","names":[],"sources":["../../../src/FormSchemaBuilder/lib/labelKeys.js"],"sourcesContent":["export default ['label', 'info', 'sub', 'placeholder'];\n"],"mappings":"AAAA,eAAe,CAAC,OAAO,EAAE,MAAM,EAAE,KAAK,EAAE,aAAa,CAAC","ignoreList":[]}

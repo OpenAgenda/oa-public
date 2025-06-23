@@ -1,1 +1,0 @@
-!function(){"use strict";document.querySelectorAll("[data-sidebar-toggle]").forEach((e=>{e.addEventListener("click",(()=>{document.body.classList.toggle("sidebar-open")}))})),document.querySelectorAll(".collapsable").forEach((e=>{e.querySelector(".collapsable-trigger").addEventListener("click",(()=>{e.classList.toggle("collapsed")}))}))}();
