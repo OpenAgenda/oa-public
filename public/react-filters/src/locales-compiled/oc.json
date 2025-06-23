@@ -1,0 +1,642 @@
+{
+  "ReactFilters.DateRangeFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "Del "
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " al "
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.endDate": [
+    {
+      "type": 0,
+      "value": "Fin"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.from": [
+    {
+      "type": 0,
+      "value": "A comptar del "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.startDate": [
+    {
+      "type": 0,
+      "value": "Començar"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.until": [
+    {
+      "type": 0,
+      "value": "Fins al "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "Del "
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " al "
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.endDate": [
+    {
+      "type": 0,
+      "value": "Fin"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.from": [
+    {
+      "type": 0,
+      "value": "A comptar del "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.singleDate": [
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.startDate": [
+    {
+      "type": 0,
+      "value": "Començar"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.until": [
+    {
+      "type": 0,
+      "value": "Fins al "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.Sort.chronological": [
+    {
+      "type": 0,
+      "value": "Òrdre cronologic"
+    }
+  ],
+  "ReactFilters.Sort.publicView": [
+    {
+      "type": 0,
+      "value": "Vue publique"
+    }
+  ],
+  "ReactFilters.Sort.recentlyUpdated": [
+    {
+      "type": 0,
+      "value": "Mes a jorn recentament"
+    }
+  ],
+  "ReactFilters.Sort.relevance": [
+    {
+      "type": 0,
+      "value": "Pertinéncia"
+    }
+  ],
+  "ReactFilters.TimelineField.selectDay": [
+    {
+      "type": 0,
+      "value": "Choisissez un jour"
+    }
+  ],
+  "ReactFilters.TimelineField.selectMonth": [
+    {
+      "type": 0,
+      "value": "Choisissez un mois"
+    }
+  ],
+  "ReactFilters.TimelineFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "Del "
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " al "
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    }
+  ],
+  "ReactFilters.TimelineFilter.from": [
+    {
+      "type": 0,
+      "value": "A comptar del "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.TimelineFilter.until": [
+    {
+      "type": 0,
+      "value": "Fins al "
+    },
+    {
+      "type": 1,
+      "value": "date"
+    }
+  ],
+  "ReactFilters.ValueBadge.removeFilter": [
+    {
+      "type": 0,
+      "value": "Tirar lo filtre"
+    }
+  ],
+  "ReactFilters.ValueBadge.removeFilterWithTitle": [
+    {
+      "type": 0,
+      "value": "Tirar lo filtre ("
+    },
+    {
+      "type": 1,
+      "value": "title"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "ReactFilters.components.fields.SearchInput.ariaLabel": [
+    {
+      "type": 0,
+      "value": "Cercar"
+    }
+  ],
+  "ReactFilters.dateRanges.currentMonth": [
+    {
+      "type": 0,
+      "value": "Mes en cors"
+    }
+  ],
+  "ReactFilters.dateRanges.currentWeek": [
+    {
+      "type": 0,
+      "value": "Setmana en cors"
+    }
+  ],
+  "ReactFilters.dateRanges.thisWeekend": [
+    {
+      "type": 0,
+      "value": "Aquesta dimenjada"
+    }
+  ],
+  "ReactFilters.dateRanges.today": [
+    {
+      "type": 0,
+      "value": "Uèi"
+    }
+  ],
+  "ReactFilters.dateRanges.tomorrow": [
+    {
+      "type": 0,
+      "value": "Deman"
+    }
+  ],
+  "ReactFilters.fields.NumberRangeField.gte": [
+    {
+      "type": 0,
+      "value": "Min"
+    }
+  ],
+  "ReactFilters.fields.NumberRangeField.lte": [
+    {
+      "type": 0,
+      "value": "Max"
+    }
+  ],
+  "ReactFilters.fields.SimpleRangeField.endDate": [
+    {
+      "type": 0,
+      "value": "Date de fin"
+    }
+  ],
+  "ReactFilters.fields.SimpleRangeField.startDate": [
+    {
+      "type": 0,
+      "value": "Date de début"
+    }
+  ],
+  "ReactFilters.filters.MapFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Mapa"
+    }
+  ],
+  "ReactFilters.filters.searchFilter.placeholder": [
+    {
+      "type": 0,
+      "value": "Cercar"
+    }
+  ],
+  "ReactFilters.filters.searchFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "Cercar"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.hi": [
+    {
+      "type": 0,
+      "value": "Handicap auditiu"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.ii": [
+    {
+      "type": 0,
+      "value": "Handicap intellectual"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.mi": [
+    {
+      "type": 0,
+      "value": "Handicap motor"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.pi": [
+    {
+      "type": 0,
+      "value": "Handicap psiquic"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.vi": [
+    {
+      "type": 0,
+      "value": "Handicap visual"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.mixed": [
+    {
+      "type": 0,
+      "value": "Mesclat"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.offline": [
+    {
+      "type": 0,
+      "value": "Sus plaça"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.online": [
+    {
+      "type": 0,
+      "value": "En linha"
+    }
+  ],
+  "ReactFilters.messages.boolean.notSelected": [
+    {
+      "type": 0,
+      "value": "Pas seleccionat"
+    }
+  ],
+  "ReactFilters.messages.boolean.selected": [
+    {
+      "type": 0,
+      "value": "Seleccionat"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.lessOptions": [
+    {
+      "type": 0,
+      "value": "Mens d'opcions"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.moreOptions": [
+    {
+      "type": 0,
+      "value": "Mai d'opcions"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.noResult": [
+    {
+      "type": 0,
+      "value": "Pas cap resultat"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.searchPlaceholder": [
+    {
+      "type": 0,
+      "value": "Cercar"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.unrecognizedOption": [
+    {
+      "type": 0,
+      "value": "Valor de filtre desconeguda ("
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "ReactFilters.messages.featured.featured": [
+    {
+      "type": 0,
+      "value": "Meses en avant"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.accessibility": [
+    {
+      "type": 0,
+      "value": "Accessibilitat"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.addMethod": [
+    {
+      "type": 0,
+      "value": "Origina"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Administrative level 3"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.attendanceMode": [
+    {
+      "type": 0,
+      "value": "Mòde de participacion"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.city": [
+    {
+      "type": 0,
+      "value": "Vila"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.countryCode": [
+    {
+      "type": 0,
+      "value": "País"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.createdAt": [
+    {
+      "type": 0,
+      "value": "Data de creacion"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.department": [
+    {
+      "type": 0,
+      "value": "Departament"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.district": [
+    {
+      "type": 0,
+      "value": "Districte"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.featured": [
+    {
+      "type": 0,
+      "value": "Meses en avant"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.geo": [
+    {
+      "type": 0,
+      "value": "Mapa"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.keyword": [
+    {
+      "type": 0,
+      "value": "Mots claus"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.languages": [
+    {
+      "type": 0,
+      "value": "Lengas"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.locationUid": [
+    {
+      "type": 0,
+      "value": "Lòc"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.memberUid": [
+    {
+      "type": 0,
+      "value": "Membre"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.originAgendaUid": [
+    {
+      "type": 0,
+      "value": "Agenda d'origina"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.region": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.relative": [
+    {
+      "type": 0,
+      "value": "Passat / en cors / a venir"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.search": [
+    {
+      "type": 0,
+      "value": "Cercar"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.sourceAgendaUid": [
+    {
+      "type": 0,
+      "value": "Agenda sorsa"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.state": [
+    {
+      "type": 0,
+      "value": "Estatut"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.status": [
+    {
+      "type": 0,
+      "value": "Estat"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.timings": [
+    {
+      "type": 0,
+      "value": "Data"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.updatedAt": [
+    {
+      "type": 0,
+      "value": "Data de mesa a jorn"
+    }
+  ],
+  "ReactFilters.messages.map.searchHere": [
+    {
+      "type": 0,
+      "value": "Rechercher ici"
+    }
+  ],
+  "ReactFilters.messages.map.searchWithMap": [
+    {
+      "type": 0,
+      "value": "Cercar sus la mapa"
+    }
+  ],
+  "ReactFilters.messages.provenance.aggregation": [
+    {
+      "type": 0,
+      "value": "Agregacion"
+    }
+  ],
+  "ReactFilters.messages.provenance.contribution": [
+    {
+      "type": 0,
+      "value": "Contribucion"
+    }
+  ],
+  "ReactFilters.messages.provenance.share": [
+    {
+      "type": 0,
+      "value": "Partatjar"
+    }
+  ],
+  "ReactFilters.messages.relative.current": [
+    {
+      "type": 0,
+      "value": "Actual"
+    }
+  ],
+  "ReactFilters.messages.relative.passed": [
+    {
+      "type": 0,
+      "value": "Passat"
+    }
+  ],
+  "ReactFilters.messages.relative.upcoming": [
+    {
+      "type": 0,
+      "value": "A venir"
+    }
+  ],
+  "ReactFilters.messages.state.controlled": [
+    {
+      "type": 0,
+      "value": "Revisat"
+    }
+  ],
+  "ReactFilters.messages.state.published": [
+    {
+      "type": 0,
+      "value": "Publicat"
+    }
+  ],
+  "ReactFilters.messages.state.refused": [
+    {
+      "type": 0,
+      "value": "Refusat"
+    }
+  ],
+  "ReactFilters.messages.state.toModerate": [
+    {
+      "type": 0,
+      "value": "De moderar"
+    }
+  ],
+  "ReactFilters.messages.status.cancelled": [
+    {
+      "type": 0,
+      "value": "Anullat"
+    }
+  ],
+  "ReactFilters.messages.status.full": [
+    {
+      "type": 0,
+      "value": "Totalament complèt"
+    }
+  ],
+  "ReactFilters.messages.status.movedOnline": [
+    {
+      "type": 0,
+      "value": "Transferit en linha"
+    }
+  ],
+  "ReactFilters.messages.status.postponed": [
+    {
+      "type": 0,
+      "value": "Remandat"
+    }
+  ],
+  "ReactFilters.messages.status.programmed": [
+    {
+      "type": 0,
+      "value": "Previst"
+    }
+  ],
+  "ReactFilters.messages.status.rescheduled": [
+    {
+      "type": 0,
+      "value": "Tornat planificar"
+    }
+  ],
+  "ReactFilters.useGetFilterOptions.emptyOption": [
+    {
+      "type": 0,
+      "value": "(Sens valor)"
+    }
+  ]
+}

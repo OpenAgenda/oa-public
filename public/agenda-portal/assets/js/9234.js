@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_openagenda_agenda_portal=self.webpackChunk_openagenda_agenda_portal||[]).push([[9234],{49234:function(a,e,l){l.r(e),e.default={touch:"मैप एक जगह से दूसरी जगह ले जाने के लिए दो उंगलियों का इस्तेमाल करें",scroll:"मैप को ज़ूम करने के लिए ctrl + स्क्रोल का उपयोग करें",scrollMac:"मैप को ज़ूम करने के लिए ⌘ + स्क्रोल का उपयोग करें"}}}]);

@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_openagenda_agenda_portal=self.webpackChunk_openagenda_agenda_portal||[]).push([[2150],{32150:function(a,e,r){r.r(e),e.default={touch:"Folosiți două degete pentru a deplasa harta",scroll:"Apăsați tasta ctrl și derulați simultan pentru a mări harta",scrollMac:"Folosiți ⌘ și derulați pentru a mări/micșora harta"}}}]);

@@ -1,0 +1,44 @@
+{
+  "event-form.components.Events.emptySelection": [
+    {
+      "type": 0,
+      "value": "crwdns33846:0crwdne33846:0"
+    }
+  ],
+  "event-form.components.Events.loadError": [
+    {
+      "type": 0,
+      "value": "crwdns33848:0crwdne33848:0"
+    }
+  ],
+  "event-form.components.Events.noResult": [
+    {
+      "type": 0,
+      "value": "crwdns33862:0crwdne33862:0"
+    }
+  ],
+  "event-form.components.Events.remove": [
+    {
+      "type": 0,
+      "value": "crwdns33850:0crwdne33850:0"
+    }
+  ],
+  "event-form.components.Events.search": [
+    {
+      "type": 0,
+      "value": "crwdns34082:0crwdne34082:0"
+    }
+  ],
+  "event-form.components.Events.searchEvents": [
+    {
+      "type": 0,
+      "value": "crwdns33852:0crwdne33852:0"
+    }
+  ],
+  "event-form.components.Events.show": [
+    {
+      "type": 0,
+      "value": "crwdns33854:0crwdne33854:0"
+    }
+  ]
+}

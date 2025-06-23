@@ -1,0 +1,98 @@
+{
+  "react-layouts.AdminHeader.administration": [
+    {
+      "type": 0,
+      "value": "crwdns886:0crwdne886:0"
+    }
+  ],
+  "react-layouts.AdminHeader.return": [
+    {
+      "type": 0,
+      "value": "crwdns890:0crwdne890:0"
+    }
+  ],
+  "react-layouts.AdminSections.newTab": [
+    {
+      "type": 0,
+      "value": "crwdns888:0crwdne888:0"
+    }
+  ],
+  "react-layouts.Announcement.close": [
+    {
+      "type": 0,
+      "value": "crwdns34090:0crwdne34090:0"
+    }
+  ],
+  "react-layouts.MainLayout.createAgenda": [
+    {
+      "type": 0,
+      "value": "crwdns892:0crwdne892:0"
+    }
+  ],
+  "react-layouts.MainLayout.general": [
+    {
+      "type": 0,
+      "value": "crwdns894:0crwdne894:0"
+    }
+  ],
+  "react-layouts.MainLayout.help": [
+    {
+      "type": 0,
+      "value": "crwdns896:0crwdne896:0"
+    }
+  ],
+  "react-layouts.MainLayout.menu": [
+    {
+      "type": 0,
+      "value": "crwdns34092:0crwdne34092:0"
+    }
+  ],
+  "react-layouts.MainLayout.myAgendas": [
+    {
+      "type": 0,
+      "value": "crwdns898:0crwdne898:0"
+    }
+  ],
+  "react-layouts.MainLayout.myEvents": [
+    {
+      "type": 0,
+      "value": "crwdns900:0crwdne900:0"
+    }
+  ],
+  "react-layouts.MainLayout.searchAgenda": [
+    {
+      "type": 0,
+      "value": "crwdns902:0crwdne902:0"
+    }
+  ],
+  "react-layouts.MainLayout.settings": [
+    {
+      "type": 0,
+      "value": "crwdns904:0crwdne904:0"
+    }
+  ],
+  "react-layouts.MainLayout.signin": [
+    {
+      "type": 0,
+      "value": "crwdns906:0crwdne906:0"
+    }
+  ],
+  "react-layouts.MainLayout.signout": [
+    {
+      "type": 0,
+      "value": "crwdns908:0crwdne908:0"
+    }
+  ],
+  "react-layouts.MainLayout.translate": [
+    {
+      "type": 0,
+      "value": "crwdns6070:0crwdne6070:0"
+    }
+  ],
+  "react-layouts.components.Search.search": [
+    {
+      "type": 0,
+      "value": "crwdns910:0crwdne910:0"
+    }
+  ]
+}

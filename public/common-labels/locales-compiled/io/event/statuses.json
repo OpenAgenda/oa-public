@@ -1,0 +1,74 @@
+{
+  "common.event.statuses.cancelled": [
+    {
+      "type": 0,
+      "value": "crwdns33309:0crwdne33309:0"
+    }
+  ],
+  "common.event.statuses.cancelledInfo": [
+    {
+      "type": 0,
+      "value": "crwdns33311:0crwdne33311:0"
+    }
+  ],
+  "common.event.statuses.full": [
+    {
+      "type": 0,
+      "value": "crwdns33313:0crwdne33313:0"
+    }
+  ],
+  "common.event.statuses.fullInfo": [
+    {
+      "type": 0,
+      "value": "crwdns33315:0crwdne33315:0"
+    }
+  ],
+  "common.event.statuses.movedOnline": [
+    {
+      "type": 0,
+      "value": "crwdns33317:0crwdne33317:0"
+    }
+  ],
+  "common.event.statuses.movedOnlineInfo": [
+    {
+      "type": 0,
+      "value": "crwdns33319:0crwdne33319:0"
+    }
+  ],
+  "common.event.statuses.postponed": [
+    {
+      "type": 0,
+      "value": "crwdns33321:0crwdne33321:0"
+    }
+  ],
+  "common.event.statuses.postponedInfo": [
+    {
+      "type": 0,
+      "value": "crwdns33323:0crwdne33323:0"
+    }
+  ],
+  "common.event.statuses.rescheduled": [
+    {
+      "type": 0,
+      "value": "crwdns33325:0crwdne33325:0"
+    }
+  ],
+  "common.event.statuses.rescheduledInfo": [
+    {
+      "type": 0,
+      "value": "crwdns33327:0crwdne33327:0"
+    }
+  ],
+  "common.event.statuses.scheduled": [
+    {
+      "type": 0,
+      "value": "crwdns33329:0crwdne33329:0"
+    }
+  ],
+  "common.event.statuses.scheduledInfo": [
+    {
+      "type": 0,
+      "value": "crwdns33331:0crwdne33331:0"
+    }
+  ]
+}

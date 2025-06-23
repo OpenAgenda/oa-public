@@ -81,10 +81,14 @@ export default async function addImage(doc, parentCursor, params) {
     throw new Error('base and paths are missing from value');
   }
 
-  const { height: creditsHeight } = addCredits(doc, cursor, {
-    ...params,
-    simulate: true,
-  });
+  const { height: creditsHeight } = addCredits(
+    doc,
+    { y: 0, x: 0 },
+    {
+      ...params,
+      simulate: true,
+    },
+  );
 
   const buffer = await urlToBuffer(`${base}${filename}`);
 
@@ -103,7 +107,12 @@ export default async function addImage(doc, parentCursor, params) {
     };
   }
 
-  if (min?.height && adjustedSize.height < min.height) {
+  if (
+    adjustedSize.width < availableWidth
+    && min?.height
+    && adjustedSize.height < min.height
+  ) {
+    // image has been reduced too much for readibility
     return {
       height: 0,
       width: 0,

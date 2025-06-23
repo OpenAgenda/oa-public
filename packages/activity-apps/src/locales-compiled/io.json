@@ -1,0 +1,3838 @@
+{
+  "ActivityApps.HistoryModal.noActivity": [
+    {
+      "type": 0,
+      "value": "crwdns33247:0crwdne33247:0"
+    }
+  ],
+  "ActivityApps.Notifications.delete": [
+    {
+      "type": 0,
+      "value": "crwdns34104:0crwdne34104:0"
+    }
+  ],
+  "ActivityApps.Notifications.markAllAsRead": [
+    {
+      "type": 0,
+      "value": "crwdns32530:0crwdne32530:0"
+    }
+  ],
+  "ActivityApps.Notifications.markAsRead": [
+    {
+      "type": 0,
+      "value": "crwdns34106:0crwdne34106:0"
+    }
+  ],
+  "ActivityApps.Notifications.next": [
+    {
+      "type": 0,
+      "value": "crwdns32532:0crwdne32532:0"
+    }
+  ],
+  "ActivityApps.Notifications.noNotif": [
+    {
+      "type": 0,
+      "value": "crwdns32534:0crwdne32534:0"
+    }
+  ],
+  "ActivityApps.Notifications.viewHistory": [
+    {
+      "type": 0,
+      "value": "crwdns32772:0crwdne32772:0"
+    }
+  ],
+  "ActivityApps.XAdministrators": [
+    {
+      "type": 0,
+      "value": "crwdns33211:0count="
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33211:0"
+    }
+  ],
+  "ActivityApps.XContributors": [
+    {
+      "type": 0,
+      "value": "crwdns33213:0count="
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33213:0"
+    }
+  ],
+  "ActivityApps.XModerators": [
+    {
+      "type": 0,
+      "value": "crwdns33215:0count="
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33215:0"
+    }
+  ],
+  "ActivityApps.XOthers": [
+    {
+      "type": 0,
+      "value": "crwdns32538:0count="
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32538:0"
+    }
+  ],
+  "ActivityApps.XReaders": [
+    {
+      "type": 0,
+      "value": "crwdns33217:0count="
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33217:0"
+    }
+  ],
+  "ActivityApps.acceptInvitation.full": [
+    {
+      "type": 0,
+      "value": "crwdns32540:0"
+    },
+    {
+      "type": 1,
+      "value": "invited"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32540:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32540:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32540:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32540:0"
+    }
+  ],
+  "ActivityApps.acceptInvitation.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns32542:0"
+    },
+    {
+      "type": 1,
+      "value": "invited"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32542:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32542:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32542:0"
+    }
+  ],
+  "ActivityApps.addEvent.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32544:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32544:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32544:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32544:0"
+    }
+  ],
+  "ActivityApps.addEvent.full": [
+    {
+      "type": 0,
+      "value": "crwdns32546:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32546:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32546:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32546:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32546:0"
+    }
+  ],
+  "ActivityApps.addEvent.target": [
+    {
+      "type": 0,
+      "value": "crwdns32548:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32548:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32548:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32548:0"
+    }
+  ],
+  "ActivityApps.addMember.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32550:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32550:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32550:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32550:0"
+    }
+  ],
+  "ActivityApps.addMember.full": [
+    {
+      "type": 0,
+      "value": "crwdns32552:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32552:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32552:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32552:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32552:0"
+    }
+  ],
+  "ActivityApps.addMember.target": [
+    {
+      "type": 0,
+      "value": "crwdns32554:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32554:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32554:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32554:0"
+    }
+  ],
+  "ActivityApps.addSource.full": [
+    {
+      "type": 0,
+      "value": "crwdns32556:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32556:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32556:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32556:0"
+    }
+  ],
+  "ActivityApps.addSource.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns32558:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32558:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32558:0"
+    }
+  ],
+  "ActivityApps.agendaCreate": [
+    {
+      "type": 0,
+      "value": "crwdns32560:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32560:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32560:0"
+    }
+  ],
+  "ActivityApps.agendaSendMessage.detailButton": [
+    {
+      "type": 0,
+      "value": "crwdns34110:0crwdne34110:0"
+    }
+  ],
+  "ActivityApps.agendaSendMessage.detailModalTitle": [
+    {
+      "type": 0,
+      "value": "crwdns34112:0crwdne34112:0"
+    }
+  ],
+  "ActivityApps.agendaSendMessage.full": [
+    {
+      "type": 0,
+      "value": "crwdns33219:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33219:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33219:0"
+    }
+  ],
+  "ActivityApps.agendaSendMessage.fullWithSubject": [
+    {
+      "type": 0,
+      "value": "crwdns33221:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33221:0"
+    },
+    {
+      "type": 1,
+      "value": "subject"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33221:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33221:0"
+    }
+  ],
+  "ActivityApps.agendaSendMessage.noDetail": [
+    {
+      "type": 0,
+      "value": "crwdns34114:0crwdne34114:0"
+    }
+  ],
+  "ActivityApps.agendaSendMessage.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns33223:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33223:0"
+    }
+  ],
+  "ActivityApps.agendaSendMessage.withoutTargetWithSubject": [
+    {
+      "type": 0,
+      "value": "crwdns33225:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33225:0"
+    },
+    {
+      "type": 1,
+      "value": "subject"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33225:0"
+    }
+  ],
+  "ActivityApps.agendaUpdate.full": [
+    {
+      "type": 0,
+      "value": "crwdns32562:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32562:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32562:0"
+    }
+  ],
+  "ActivityApps.agendaUpdate.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns32564:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32564:0"
+    }
+  ],
+  "ActivityApps.aggregateEvent.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32566:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32566:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32566:0"
+    }
+  ],
+  "ActivityApps.aggregateEvent.full": [
+    {
+      "type": 0,
+      "value": "crwdns32568:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32568:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32568:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32568:0"
+    }
+  ],
+  "ActivityApps.changeEventState.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32570:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32570:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32570:0"
+    },
+    {
+      "type": 1,
+      "value": "oldState"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32570:0"
+    },
+    {
+      "type": 1,
+      "value": "newState"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32570:0"
+    }
+  ],
+  "ActivityApps.changeEventState.full": [
+    {
+      "type": 0,
+      "value": "crwdns32572:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32572:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32572:0"
+    },
+    {
+      "type": 1,
+      "value": "oldState"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32572:0"
+    },
+    {
+      "type": 1,
+      "value": "newState"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32572:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32572:0"
+    }
+  ],
+  "ActivityApps.eventCreate.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32574:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32574:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32574:0"
+    }
+  ],
+  "ActivityApps.eventCreate.full": [
+    {
+      "type": 0,
+      "value": "crwdns32576:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32576:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32576:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32576:0"
+    }
+  ],
+  "ActivityApps.eventCreate.target": [
+    {
+      "type": 0,
+      "value": "crwdns32578:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32578:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32578:0"
+    }
+  ],
+  "ActivityApps.eventDelete.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32580:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32580:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32580:0"
+    }
+  ],
+  "ActivityApps.eventDelete.full": [
+    {
+      "type": 0,
+      "value": "crwdns32582:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32582:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32582:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32582:0"
+    }
+  ],
+  "ActivityApps.eventDelete.target": [
+    {
+      "type": 0,
+      "value": "crwdns32584:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32584:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32584:0"
+    }
+  ],
+  "ActivityApps.eventDuplicate.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32586:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32586:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32586:0"
+    },
+    {
+      "type": 1,
+      "value": "duplicateOriginAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32586:0"
+    }
+  ],
+  "ActivityApps.eventDuplicate.full": [
+    {
+      "type": 0,
+      "value": "crwdns32588:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32588:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32588:0"
+    },
+    {
+      "type": 1,
+      "value": "duplicateOriginAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32588:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32588:0"
+    }
+  ],
+  "ActivityApps.eventDuplicate.target": [
+    {
+      "type": 0,
+      "value": "crwdns32590:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32590:0"
+    },
+    {
+      "type": 1,
+      "value": "duplicateOriginAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32590:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32590:0"
+    }
+  ],
+  "ActivityApps.eventUpdate.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32592:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32592:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32592:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32592:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32592:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32592:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32592:0"
+    }
+  ],
+  "ActivityApps.eventUpdate.detailButton": [
+    {
+      "type": 0,
+      "value": "crwdns34116:0crwdne34116:0"
+    }
+  ],
+  "ActivityApps.eventUpdate.detailModalTitle": [
+    {
+      "type": 0,
+      "value": "crwdns34118:0crwdne34118:0"
+    }
+  ],
+  "ActivityApps.eventUpdate.full": [
+    {
+      "type": 0,
+      "value": "crwdns32594:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32594:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32594:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32594:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32594:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32594:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32594:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32594:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32594:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32594:0"
+    }
+  ],
+  "ActivityApps.eventUpdate.target": [
+    {
+      "type": 0,
+      "value": "crwdns32596:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32596:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32596:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32596:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32596:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32596:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32596:0"
+    }
+  ],
+  "ActivityApps.history": [
+    {
+      "type": 0,
+      "value": "crwdns33183:0crwdne33183:0"
+    }
+  ],
+  "ActivityApps.locationCreate.actor": [
+    {
+      "type": 0,
+      "value": "crwdns33185:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33185:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33185:0"
+    }
+  ],
+  "ActivityApps.locationCreate.full": [
+    {
+      "type": 0,
+      "value": "crwdns33187:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33187:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33187:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33187:0"
+    }
+  ],
+  "ActivityApps.locationCreate.target": [
+    {
+      "type": 0,
+      "value": "crwdns33189:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33189:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33189:0"
+    }
+  ],
+  "ActivityApps.locationMerge.actor": [
+    {
+      "type": 0,
+      "value": "crwdns33191:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33191:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33191:0"
+    }
+  ],
+  "ActivityApps.locationMerge.full": [
+    {
+      "type": 0,
+      "value": "crwdns33193:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33193:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33193:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33193:0"
+    }
+  ],
+  "ActivityApps.locationMerge.target": [
+    {
+      "type": 0,
+      "value": "crwdns33195:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33195:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33195:0"
+    }
+  ],
+  "ActivityApps.locationRemove.actor": [
+    {
+      "type": 0,
+      "value": "crwdns33197:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33197:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33197:0"
+    }
+  ],
+  "ActivityApps.locationRemove.full": [
+    {
+      "type": 0,
+      "value": "crwdns33199:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33199:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33199:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33199:0"
+    }
+  ],
+  "ActivityApps.locationRemove.target": [
+    {
+      "type": 0,
+      "value": "crwdns33201:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33201:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33201:0"
+    }
+  ],
+  "ActivityApps.locationUpdate.actor": [
+    {
+      "type": 0,
+      "value": "crwdns33203:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33203:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33203:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33203:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33203:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33203:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33203:0"
+    }
+  ],
+  "ActivityApps.locationUpdate.full": [
+    {
+      "type": 0,
+      "value": "crwdns33205:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33205:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33205:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33205:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33205:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33205:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33205:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33205:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33205:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33205:0"
+    }
+  ],
+  "ActivityApps.locationUpdate.target": [
+    {
+      "type": 0,
+      "value": "crwdns33207:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33207:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33207:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33207:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33207:0"
+    },
+    {
+      "type": 1,
+      "value": "locationName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33207:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33207:0"
+    }
+  ],
+  "ActivityApps.noAgendaActivity": [
+    {
+      "type": 0,
+      "value": "crwdns33249:0crwdne33249:0"
+    }
+  ],
+  "ActivityApps.noUserActivity": [
+    {
+      "type": 0,
+      "value": "crwdns33251:0crwdne33251:0"
+    }
+  ],
+  "ActivityApps.notifications.agenda": [
+    {
+      "type": 0,
+      "value": "crwdns32598:0others="
+    },
+    {
+      "type": 1,
+      "value": "others"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32598:0agenda="
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32598:0agenda="
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32598:0agenda="
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32598:0others="
+    },
+    {
+      "type": 1,
+      "value": "others"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32598:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaAcceptInvitation": [
+    {
+      "type": 0,
+      "value": "crwdns32600:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32600:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32600:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32600:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaAddEvent": [
+    {
+      "type": 0,
+      "value": "crwdns32602:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32602:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32602:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32602:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32602:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaAddEvent.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32774:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32774:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32774:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32774:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaAddMember": [
+    {
+      "type": 0,
+      "value": "crwdns32604:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32604:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32604:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32604:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32604:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaAddMember.withYou": [
+    {
+      "type": 0,
+      "value": "crwdns32776:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32776:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32776:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32776:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaAddMember.withYou.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32778:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32778:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32778:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaAddMember.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32780:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32780:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32780:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32780:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaAddSource": [
+    {
+      "type": 0,
+      "value": "crwdns32608:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32608:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32608:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32608:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaAggregateEvent": [
+    {
+      "type": 0,
+      "value": "crwdns32610:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32610:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32610:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32610:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaChangeEventState": [
+    {
+      "type": 0,
+      "value": "crwdns32612:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32612:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32612:0"
+    },
+    {
+      "type": 1,
+      "value": "oldState"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32612:0"
+    },
+    {
+      "type": 1,
+      "value": "newState"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32612:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32612:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaCreate": [
+    {
+      "type": 0,
+      "value": "crwdns32614:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32614:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32614:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaPublishEvent": [
+    {
+      "type": 0,
+      "value": "crwdns32616:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32616:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32616:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32616:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaPublishEvent.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32782:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32782:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32782:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRefuseEvent": [
+    {
+      "type": 0,
+      "value": "crwdns32618:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32618:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32618:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32618:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRefuseEvent.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32784:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32784:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32784:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveDeletedEvent": [
+    {
+      "type": 0,
+      "value": "crwdns32620:0object="
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32620:0target="
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32620:0objectCount="
+    },
+    {
+      "type": 1,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32620:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveEvent": [
+    {
+      "type": 0,
+      "value": "crwdns32622:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32622:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32622:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32622:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveEvent.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32786:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32786:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32786:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveMember": [
+    {
+      "type": 0,
+      "value": "crwdns32788:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32788:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32788:0"
+    },
+    {
+      "type": 1,
+      "value": "removedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32788:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32788:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveMember.withYou": [
+    {
+      "type": 0,
+      "value": "crwdns32790:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32790:0"
+    },
+    {
+      "type": 1,
+      "value": "removedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32790:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32790:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveMember.withYou.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32792:0"
+    },
+    {
+      "type": 1,
+      "value": "removedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32792:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32792:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveMember.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32794:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32794:0"
+    },
+    {
+      "type": 1,
+      "value": "removedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32794:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32794:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveSource": [
+    {
+      "type": 0,
+      "value": "crwdns32626:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32626:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32626:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32626:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaSendInvitation": [
+    {
+      "type": 0,
+      "value": "crwdns32628:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32628:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32628:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32628:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32628:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaSetMemberRole": [
+    {
+      "type": 0,
+      "value": "crwdns32630:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32630:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32630:0"
+    },
+    {
+      "type": 1,
+      "value": "afterRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32630:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32630:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaSetMemberRole.withYou": [
+    {
+      "type": 0,
+      "value": "crwdns32796:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32796:0"
+    },
+    {
+      "type": 1,
+      "value": "afterRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32796:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32796:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaSetMemberRole.withYou.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32798:0"
+    },
+    {
+      "type": 1,
+      "value": "afterRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32798:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32798:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaSetMemberRole.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32800:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32800:0"
+    },
+    {
+      "type": 1,
+      "value": "afterRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32800:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32800:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaSetOfficial": [
+    {
+      "type": 0,
+      "value": "crwdns32634:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32634:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaSystemChangeEventState": [
+    {
+      "type": 0,
+      "value": "crwdns33281:0object="
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33281:0objectCount="
+    },
+    {
+      "type": 1,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33281:0objectCount="
+    },
+    {
+      "type": 1,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33281:0target="
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33281:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaSystemRemoveEvent": [
+    {
+      "type": 0,
+      "value": "crwdns32636:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32636:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32636:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaSystemUnpublishEvent": [
+    {
+      "type": 0,
+      "value": "crwdns32638:0objectCount="
+    },
+    {
+      "type": 1,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32638:0object="
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32638:0target="
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32638:0object="
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32638:0target="
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32638:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaUnpublishEvent": [
+    {
+      "type": 0,
+      "value": "crwdns32640:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32640:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32640:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32640:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaUnpublishEvent.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32802:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32802:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32802:0"
+    }
+  ],
+  "ActivityApps.notifications.agendaUpdate": [
+    {
+      "type": 0,
+      "value": "crwdns32642:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32642:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32642:0"
+    }
+  ],
+  "ActivityApps.notifications.email": [
+    {
+      "type": 0,
+      "value": "crwdns32644:0others="
+    },
+    {
+      "type": 1,
+      "value": "others"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32644:0email="
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32644:0email="
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32644:0email="
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32644:0others="
+    },
+    {
+      "type": 1,
+      "value": "others"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32644:0"
+    }
+  ],
+  "ActivityApps.notifications.event": [
+    {
+      "type": 0,
+      "value": "crwdns32646:0others="
+    },
+    {
+      "type": 1,
+      "value": "others"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32646:0event="
+    },
+    {
+      "type": 1,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32646:0event="
+    },
+    {
+      "type": 1,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32646:0event="
+    },
+    {
+      "type": 1,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32646:0others="
+    },
+    {
+      "type": 1,
+      "value": "others"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32646:0"
+    }
+  ],
+  "ActivityApps.notifications.eventCreate": [
+    {
+      "type": 0,
+      "value": "crwdns32648:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32648:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32648:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32648:0"
+    }
+  ],
+  "ActivityApps.notifications.eventDelete": [
+    {
+      "type": 0,
+      "value": "crwdns32650:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32650:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32650:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32650:0"
+    }
+  ],
+  "ActivityApps.notifications.eventDelete.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32804:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32804:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32804:0"
+    }
+  ],
+  "ActivityApps.notifications.eventDuplicate": [
+    {
+      "type": 0,
+      "value": "crwdns32652:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32652:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32652:0"
+    },
+    {
+      "type": 1,
+      "value": "duplicateOriginAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32652:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32652:0"
+    }
+  ],
+  "ActivityApps.notifications.eventDuplicate.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32806:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32806:0"
+    },
+    {
+      "type": 1,
+      "value": "duplicateOriginAgendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32806:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32806:0"
+    }
+  ],
+  "ActivityApps.notifications.eventUpdate": [
+    {
+      "type": 0,
+      "value": "crwdns32654:0"
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32654:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32654:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32654:0"
+    }
+  ],
+  "ActivityApps.notifications.eventUpdate.withoutActor": [
+    {
+      "type": 0,
+      "value": "crwdns32808:0"
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32808:0"
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32808:0"
+    }
+  ],
+  "ActivityApps.notifications.user": [
+    {
+      "type": 0,
+      "value": "crwdns32656:0others="
+    },
+    {
+      "type": 1,
+      "value": "others"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32656:0user="
+    },
+    {
+      "type": 1,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32656:0user="
+    },
+    {
+      "type": 1,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32656:0user="
+    },
+    {
+      "type": 1,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32656:0others="
+    },
+    {
+      "type": 1,
+      "value": "others"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32656:0"
+    }
+  ],
+  "ActivityApps.publishEvent.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32658:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32658:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32658:0"
+    }
+  ],
+  "ActivityApps.publishEvent.full": [
+    {
+      "type": 0,
+      "value": "crwdns32660:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32660:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32660:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32660:0"
+    }
+  ],
+  "ActivityApps.publishEvent.target": [
+    {
+      "type": 0,
+      "value": "crwdns32662:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32662:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32662:0"
+    }
+  ],
+  "ActivityApps.refuseEvent.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32664:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32664:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32664:0"
+    }
+  ],
+  "ActivityApps.refuseEvent.detailButton": [
+    {
+      "type": 0,
+      "value": "crwdns34120:0crwdne34120:0"
+    }
+  ],
+  "ActivityApps.refuseEvent.detailModalTitle": [
+    {
+      "type": 0,
+      "value": "crwdns34122:0crwdne34122:0"
+    }
+  ],
+  "ActivityApps.refuseEvent.full": [
+    {
+      "type": 0,
+      "value": "crwdns32666:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32666:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32666:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32666:0"
+    }
+  ],
+  "ActivityApps.refuseEvent.noDetail": [
+    {
+      "type": 0,
+      "value": "crwdns34124:0crwdne34124:0"
+    }
+  ],
+  "ActivityApps.refuseEvent.target": [
+    {
+      "type": 0,
+      "value": "crwdns32668:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32668:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32668:0"
+    }
+  ],
+  "ActivityApps.removeDeletedEvent.full": [
+    {
+      "type": 0,
+      "value": "crwdns32670:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32670:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32670:0"
+    }
+  ],
+  "ActivityApps.removeDeletedEvent.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns32672:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32672:0"
+    }
+  ],
+  "ActivityApps.removeEvent.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32674:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32674:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32674:0"
+    }
+  ],
+  "ActivityApps.removeEvent.full": [
+    {
+      "type": 0,
+      "value": "crwdns32676:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32676:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32676:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32676:0"
+    }
+  ],
+  "ActivityApps.removeEvent.target": [
+    {
+      "type": 0,
+      "value": "crwdns32678:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32678:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32678:0"
+    }
+  ],
+  "ActivityApps.removeMember.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32680:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32680:0"
+    },
+    {
+      "type": 1,
+      "value": "removedMember"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32680:0"
+    },
+    {
+      "type": 1,
+      "value": "removedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32680:0"
+    }
+  ],
+  "ActivityApps.removeMember.full": [
+    {
+      "type": 0,
+      "value": "crwdns32682:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32682:0"
+    },
+    {
+      "type": 1,
+      "value": "removedMember"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32682:0"
+    },
+    {
+      "type": 1,
+      "value": "removedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32682:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32682:0"
+    }
+  ],
+  "ActivityApps.removeMember.target": [
+    {
+      "type": 0,
+      "value": "crwdns32684:0"
+    },
+    {
+      "type": 1,
+      "value": "removedMember"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32684:0"
+    },
+    {
+      "type": 1,
+      "value": "removedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32684:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32684:0"
+    }
+  ],
+  "ActivityApps.removeSource.full": [
+    {
+      "type": 0,
+      "value": "crwdns32686:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32686:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32686:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32686:0"
+    }
+  ],
+  "ActivityApps.removeSource.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns32688:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32688:0"
+    },
+    {
+      "type": 1,
+      "value": "sourceName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32688:0"
+    }
+  ],
+  "ActivityApps.sendInvitation.full": [
+    {
+      "type": 0,
+      "value": "crwdns32690:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32690:0"
+    },
+    {
+      "type": 1,
+      "value": "invited"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32690:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32690:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32690:0"
+    }
+  ],
+  "ActivityApps.sendInvitation.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns32692:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32692:0"
+    },
+    {
+      "type": 1,
+      "value": "invited"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32692:0"
+    },
+    {
+      "type": 1,
+      "value": "invitedRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32692:0"
+    }
+  ],
+  "ActivityApps.setMemberRole.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32694:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32694:0"
+    },
+    {
+      "type": 1,
+      "value": "modifiedMember"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32694:0"
+    },
+    {
+      "type": 1,
+      "value": "beforeRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32694:0"
+    },
+    {
+      "type": 1,
+      "value": "afterRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32694:0"
+    }
+  ],
+  "ActivityApps.setMemberRole.full": [
+    {
+      "type": 0,
+      "value": "crwdns32696:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32696:0"
+    },
+    {
+      "type": 1,
+      "value": "modifiedMember"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32696:0"
+    },
+    {
+      "type": 1,
+      "value": "beforeRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32696:0"
+    },
+    {
+      "type": 1,
+      "value": "afterRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32696:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32696:0"
+    }
+  ],
+  "ActivityApps.setMemberRole.target": [
+    {
+      "type": 0,
+      "value": "crwdns32698:0"
+    },
+    {
+      "type": 1,
+      "value": "modifiedMember"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32698:0"
+    },
+    {
+      "type": 1,
+      "value": "beforeRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32698:0"
+    },
+    {
+      "type": 1,
+      "value": "afterRole"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32698:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32698:0"
+    }
+  ],
+  "ActivityApps.setOfficial.full": [
+    {
+      "type": 0,
+      "value": "crwdns32700:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32700:0"
+    }
+  ],
+  "ActivityApps.setOfficial.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns32702:0crwdne32702:0"
+    }
+  ],
+  "ActivityApps.systemChangeEventState.full": [
+    {
+      "type": 0,
+      "value": "crwdns33283:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33283:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33283:0"
+    }
+  ],
+  "ActivityApps.systemChangeEventState.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns33285:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33285:0"
+    }
+  ],
+  "ActivityApps.systemRemoveEvent.full": [
+    {
+      "type": 0,
+      "value": "crwdns32704:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32704:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32704:0"
+    }
+  ],
+  "ActivityApps.systemRemoveEvent.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns32706:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32706:0"
+    }
+  ],
+  "ActivityApps.systemUnpublishEvent.full": [
+    {
+      "type": 0,
+      "value": "crwdns32708:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32708:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32708:0"
+    }
+  ],
+  "ActivityApps.systemUnpublishEvent.withoutTarget": [
+    {
+      "type": 0,
+      "value": "crwdns32710:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32710:0"
+    }
+  ],
+  "ActivityApps.unpublishEvent.actor": [
+    {
+      "type": 0,
+      "value": "crwdns32712:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32712:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32712:0"
+    }
+  ],
+  "ActivityApps.unpublishEvent.full": [
+    {
+      "type": 0,
+      "value": "crwdns32714:0"
+    },
+    {
+      "type": 1,
+      "value": "userName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32714:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32714:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32714:0"
+    }
+  ],
+  "ActivityApps.unpublishEvent.target": [
+    {
+      "type": 0,
+      "value": "crwdns32716:0"
+    },
+    {
+      "type": 1,
+      "value": "eventName"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd32716:0"
+    },
+    {
+      "type": 1,
+      "value": "agendaName"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32716:0"
+    }
+  ]
+}

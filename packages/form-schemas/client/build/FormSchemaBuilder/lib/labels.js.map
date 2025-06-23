@@ -1,0 +1,1 @@
+{"version":3,"file":"labels.js","names":["default"],"sources":["../../../src/FormSchemaBuilder/lib/labels.js"],"sourcesContent":["// eslint-disable-next-line no-restricted-exports\nexport { default } from '@openagenda/labels/form-schemas/builder.js';\n"],"mappings":"AAAA;AACA,SAASA,OAAO,QAAQ,4CAA4C","ignoreList":[]}

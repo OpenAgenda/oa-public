@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/utils/getMultilingualFieldNames.js"],"sourcesContent":["export default (schema) =>\n  schema.fields.filter((f) => f.languages).map((f) => f.field);\n"],"mappings":";AAAA,IAAO,oCAAQ,CAAC,WACd,OAAO,OAAO,OAAO,CAAC,MAAM,EAAE,SAAS,EAAE,IAAI,CAAC,MAAM,EAAE,KAAK;","names":[]}

@@ -1,0 +1,20 @@
+{
+  "ReactFilters.messages.attendanceMode.mixed": [
+    {
+      "type": 0,
+      "value": "Mista"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.offline": [
+    {
+      "type": 0,
+      "value": "In presenza"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ]
+}

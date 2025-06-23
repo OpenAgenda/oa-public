@@ -1,0 +1,475 @@
+{
+  "ReactShared.AgendaAdminModContextBar.empty": [
+    {
+      "type": 0,
+      "value": "This calendar is empty"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.events": [
+    {
+      "type": 0,
+      "value": "Events in this calendar"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.manage": [
+    {
+      "type": 0,
+      "value": "Gestionar"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.moderated": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 to be moderated"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " to be moderated"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.published": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 published"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " published"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.readyToPublish": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 ready to publish"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " ready to publish"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaAdminModContextBar.refused": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 refused"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " refused"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaContextBar.addEvent": [
+    {
+      "type": 0,
+      "value": "Añadir un evento"
+    }
+  ],
+  "ReactShared.AgendaContextBar.drafts": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 draft"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " drafts"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaContextBar.draftsModalInfo": [
+    {
+      "type": 0,
+      "value": "These are the draft you saved. They are not visible to the calendar moderators. They must be completed and submitted before they can be moderated and published."
+    }
+  ],
+  "ReactShared.AgendaContextBar.draftsModalTitle": [
+    {
+      "type": 0,
+      "value": "Drafts"
+    }
+  ],
+  "ReactShared.AgendaContextBar.moderated": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " in moderation"
+    }
+  ],
+  "ReactShared.AgendaContextBar.moderatedModalInfo": [
+    {
+      "type": 0,
+      "value": "These events have been submitted to the agenda for moderation but have not yet been published."
+    }
+  ],
+  "ReactShared.AgendaContextBar.moderatedModalTitle": [
+    {
+      "type": 0,
+      "value": "Events in moderation"
+    }
+  ],
+  "ReactShared.AgendaContextBar.myEvents": [
+    {
+      "type": 0,
+      "value": "My events in this calendar"
+    }
+  ],
+  "ReactShared.AgendaContextBar.noEvents": [
+    {
+      "type": 0,
+      "value": "You haven't submitted any events in this calendar yet"
+    }
+  ],
+  "ReactShared.AgendaContextBar.published": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 published"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " published"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaContextBar.publishedModalInfo": [
+    {
+      "type": 0,
+      "value": "These events have been published and are accessible by the viewers of the calendar"
+    }
+  ],
+  "ReactShared.AgendaContextBar.publishedModalTitle": [
+    {
+      "type": 0,
+      "value": "Published events"
+    }
+  ],
+  "ReactShared.AgendaContextBar.refused": [
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 refused"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " refused"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ReactShared.AgendaContextBar.refusedModalInfo": [
+    {
+      "type": 0,
+      "value": "These events have been submitted but have been refused by the moderators. They will not be published."
+    }
+  ],
+  "ReactShared.AgendaContextBar.refusedModalTitle": [
+    {
+      "type": 0,
+      "value": "Refused events"
+    }
+  ],
+  "ReactShared.AuthenticateAndConfirm.authenticationError": [
+    {
+      "type": 0,
+      "value": "The submitted password is invalid. Please try again."
+    }
+  ],
+  "ReactShared.AuthenticateAndConfirm.otherError": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "ReactShared.AuthenticateAndConfirm.password": [
+    {
+      "type": 0,
+      "value": "Type in your password to complete the operation"
+    }
+  ],
+  "ReactShared.AuthenticateAndConfirm.submit": [
+    {
+      "type": 0,
+      "value": "Confirmar"
+    }
+  ],
+  "ReactShared.ConsentBanner.accept": [
+    {
+      "type": 0,
+      "value": "Accept"
+    }
+  ],
+  "ReactShared.ConsentBanner.decline": [
+    {
+      "type": 0,
+      "value": "Decline"
+    }
+  ],
+  "ReactShared.ConsentBanner.informationText": [
+    {
+      "type": 0,
+      "value": "This agenda uses cookies from the "
+    },
+    {
+      "type": 1,
+      "value": "service"
+    },
+    {
+      "type": 0,
+      "value": " tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?"
+    }
+  ],
+  "ReactShared.ConsentBanner.moreInfoLink": [
+    {
+      "type": 0,
+      "value": "Click here for more information"
+    }
+  ],
+  "ReactShared.EventSelection.emptyList": [
+    {
+      "type": 0,
+      "value": "No matching events were found"
+    }
+  ],
+  "ReactShared.EventSelection.undefinedDescription": [
+    {
+      "type": 0,
+      "value": "Undefined description"
+    }
+  ],
+  "ReactShared.EventSelection.undefinedTitle": [
+    {
+      "type": 0,
+      "value": "Draft event without title"
+    }
+  ],
+  "ReactShared.ImageInput.acceptedFiles": [
+    {
+      "type": 0,
+      "value": "Formatos aceptados"
+    }
+  ],
+  "ReactShared.ImageInput.fileTooLarge": [
+    {
+      "type": 0,
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the upper limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "maxSize"
+    }
+  ],
+  "ReactShared.ImageInput.fileTooSmall": [
+    {
+      "type": 0,
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is "
+    },
+    {
+      "type": 1,
+      "value": "fileSize"
+    },
+    {
+      "type": 0,
+      "value": ", the lower limit for file size is "
+    },
+    {
+      "type": 1,
+      "value": "minSize"
+    }
+  ],
+  "ReactShared.ImageInput.notSupported": [
+    {
+      "type": 0,
+      "value": "File "
+    },
+    {
+      "type": 1,
+      "value": "fileName"
+    },
+    {
+      "type": 0,
+      "value": " is not supported"
+    }
+  ],
+  "ReactShared.ImageInput.remove": [
+    {
+      "type": 0,
+      "value": "Eliminar"
+    }
+  ],
+  "ReactShared.ImageInput.tooManyFiles": [
+    {
+      "type": 0,
+      "value": "Too many files, only accepts a single file"
+    }
+  ],
+  "ReactShared.ImageInput.update": [
+    {
+      "type": 0,
+      "value": "Cambiar imagen"
+    }
+  ],
+  "ReactShared.ImageInput.upload": [
+    {
+      "type": 0,
+      "value": "Cargar imagen"
+    }
+  ],
+  "ReactShared.LeaveWarningPrompt.areYouSure": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to leave this page? All unsaved data will be lost."
+    }
+  ]
+}

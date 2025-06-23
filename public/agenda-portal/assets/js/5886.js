@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_openagenda_agenda_portal=self.webpackChunk_openagenda_agenda_portal||[]).push([[5886],{85886:function(a,e,r){r.r(e),e.default={touch:"Utiliza dous dedos para mover o mapa",scroll:"Preme Ctrl mentres te desprazas para ampliar o mapa",scrollMac:"Preme ⌘ e desprázate para ampliar o mapa"}}}]);

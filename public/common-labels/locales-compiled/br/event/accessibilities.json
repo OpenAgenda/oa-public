@@ -1,0 +1,44 @@
+{
+  "common.event.accessibilities.accessibleEvent": [
+    {
+      "type": 0,
+      "value": "Aménagements à l'accessibilité"
+    }
+  ],
+  "common.event.accessibilities.detail": [
+    {
+      "type": 0,
+      "value": "Cet événement inclut des aménagements à l'accessibilité"
+    }
+  ],
+  "common.event.accessibilities.hi": [
+    {
+      "type": 0,
+      "value": "Handicap auditif"
+    }
+  ],
+  "common.event.accessibilities.ii": [
+    {
+      "type": 0,
+      "value": "Handicap intellectuel"
+    }
+  ],
+  "common.event.accessibilities.mi": [
+    {
+      "type": 0,
+      "value": "Handicap moteur"
+    }
+  ],
+  "common.event.accessibilities.pi": [
+    {
+      "type": 0,
+      "value": "Handicap psychique"
+    }
+  ],
+  "common.event.accessibilities.vi": [
+    {
+      "type": 0,
+      "value": "Handicap visuel"
+    }
+  ]
+}

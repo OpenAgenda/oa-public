@@ -1,0 +1,408 @@
+{
+  "AgendaSetting.contribution.memberRights": [
+    {
+      "type": 0,
+      "value": "crwdns33996:0crwdne33996:0"
+    }
+  ],
+  "AgendaSetting.contribution.modosInviteModosLabel": [
+    {
+      "type": 0,
+      "value": "crwdns33998:0crwdne33998:0"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.deleteDescription": [
+    {
+      "type": 0,
+      "value": "crwdns34128:0crwdne34128:0"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.deleteTitle": [
+    {
+      "type": 0,
+      "value": "crwdns34130:0crwdne34130:0"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.filtersMenuDescription": [
+    {
+      "type": 0,
+      "value": "crwdns34040:0crwdne34040:0"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.filtersMenuTitle": [
+    {
+      "type": 0,
+      "value": "crwdns34042:0crwdne34042:0"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.identifier": [
+    {
+      "type": 0,
+      "value": "crwdns34168:0crwdne34168:0"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.closeConfirm": [
+    {
+      "type": 0,
+      "value": "crwdns34132:0crwdne34132:0"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.confirm": [
+    {
+      "type": 0,
+      "value": "crwdns34134:0crwdne34134:0"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.confirmButton": [
+    {
+      "type": 0,
+      "value": "crwdns34136:0crwdne34136:0"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.confirmDetail": [
+    {
+      "type": 0,
+      "value": "crwdns34138:0crwdne34138:0"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.dataImplication": [
+    {
+      "type": 0,
+      "value": "crwdns34140:0crwdne34140:0"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.eventsImplication": [
+    {
+      "type": 0,
+      "value": "crwdns34142:0crwdne34142:0"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.verifyAuthenticate": [
+    {
+      "type": 0,
+      "value": "crwdns34144:0crwdne34144:0"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.verifyAuthenticateDetail": [
+    {
+      "type": 0,
+      "value": "crwdns34146:0crwdne34146:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.adminInfo": [
+    {
+      "type": 0,
+      "value": "crwdns34044:0crwdne34044:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.adminLabel": [
+    {
+      "type": 0,
+      "value": "crwdns34046:0crwdne34046:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.cancel": [
+    {
+      "type": 0,
+      "value": "crwdns34048:0crwdne34048:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.publicInfo": [
+    {
+      "type": 0,
+      "value": "crwdns34050:0crwdne34050:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.publicLabel": [
+    {
+      "type": 0,
+      "value": "crwdns34052:0crwdne34052:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.reset": [
+    {
+      "type": 0,
+      "value": "crwdns34054:0crwdne34054:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.resetModalConfirm": [
+    {
+      "type": 0,
+      "value": "crwdns34056:0crwdne34056:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.resetModalMessage": [
+    {
+      "type": 0,
+      "value": "crwdns34058:0crwdne34058:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.resetModalTitle": [
+    {
+      "type": 0,
+      "value": "crwdns34060:0crwdne34060:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.selectPlaceholder": [
+    {
+      "type": 0,
+      "value": "crwdns34068:0crwdne34068:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.sub": [
+    {
+      "type": 0,
+      "value": "crwdns34062:0crwdne34062:0"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.submit": [
+    {
+      "type": 0,
+      "value": "crwdns34064:0crwdne34064:0"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIAgendaConfigurationRoute": [
+    {
+      "type": 0,
+      "value": "crwdns34170:0crwdne34170:0"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIClickHere": [
+    {
+      "type": 0,
+      "value": "crwdns34172:0crwdne34172:0"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIDocumentation": [
+    {
+      "type": 0,
+      "value": "crwdns34174:0"
+    },
+    {
+      "type": 1,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": "crwdne34174:0"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIEventsListRoute": [
+    {
+      "type": 0,
+      "value": "crwdns34176:0crwdne34176:0"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIPresentation": [
+    {
+      "type": 0,
+      "value": "crwdns34178:0crwdne34178:0"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.askForActivation": [
+    {
+      "type": 0,
+      "value": "Ask for activation"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.clearSettings": [
+    {
+      "type": 0,
+      "value": "Clear Settings"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.clearSettingsConfirm": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to clear the SIREN and default venue settings? This action cannot be undone."
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.clearSettingsSuccess": [
+    {
+      "type": 0,
+      "value": "Settings cleared successfully"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.contactUs": [
+    {
+      "type": 0,
+      "value": "contact us"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.currentSiren": [
+    {
+      "type": 0,
+      "value": "Current SIREN"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.defaultVenue": [
+    {
+      "type": 0,
+      "value": "Default venue"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.defaultVenueSaved": [
+    {
+      "type": 0,
+      "value": "Default venue saved successfully"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.editSiren": [
+    {
+      "type": 0,
+      "value": "Edit SIREN"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.enterSiren": [
+    {
+      "type": 0,
+      "value": "Enter your SIREN number"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.gatewayAccess": [
+    {
+      "type": 0,
+      "value": "Gateway Access"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.gatewayAccessDescription": [
+    {
+      "type": 0,
+      "value": "The gateway is enabled for agenda administrators or moderators. To open access to contributors, "
+    },
+    {
+      "type": 1,
+      "value": "contactLink"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.learnMore": [
+    {
+      "type": 0,
+      "value": "Learn more"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.saveError": [
+    {
+      "type": 0,
+      "value": "An error occurred while saving"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.saving": [
+    {
+      "type": 0,
+      "value": "Saving..."
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.selectDefaultVenue": [
+    {
+      "type": 0,
+      "value": "Select a default venue"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.siren": [
+    {
+      "type": 0,
+      "value": "To activate the gateway, specify a SIREN"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.sirenMustBe9Digits": [
+    {
+      "type": 0,
+      "value": "A SIREN consists of 9 digits"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.sirenSavedSuccessfully": [
+    {
+      "type": 0,
+      "value": "SIREN saved successfully"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.formEvent": [
+    {
+      "type": 0,
+      "value": "crwdns16512:0crwdne16512:0"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.onlineEvents": [
+    {
+      "type": 0,
+      "value": "crwdns16514:0crwdne16514:0"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.onlineEventsDesc": [
+    {
+      "type": 0,
+      "value": "crwdns16516:0crwdne16516:0"
+    }
+  ],
+  "AgendaSettings.contribution.GDPRInformationPlaceholder": [
+    {
+      "type": 0,
+      "value": "crwdns33552:0crwdne33552:0"
+    }
+  ],
+  "AgendaSettings.contribution.closedContibution": [
+    {
+      "type": 0,
+      "value": "crwdns16522:0crwdne16522:0"
+    }
+  ],
+  "AgendaSettings.contribution.closedContibutionDesc": [
+    {
+      "type": 0,
+      "value": "crwdns16524:0crwdne16524:0"
+    }
+  ],
+  "AgendaSettings.contribution.contribUseFields": [
+    {
+      "type": 0,
+      "value": "crwdns32829:0crwdne32829:0"
+    }
+  ],
+  "AgendaSettings.contribution.contribution": [
+    {
+      "type": 0,
+      "value": "crwdns16526:0crwdne16526:0"
+    }
+  ],
+  "AgendaSettings.contribution.openContribution": [
+    {
+      "type": 0,
+      "value": "crwdns16528:0crwdne16528:0"
+    }
+  ],
+  "AgendaSettings.contribution.openContributionDesc": [
+    {
+      "type": 0,
+      "value": "crwdns16530:0crwdne16530:0"
+    }
+  ],
+  "AgendaSettings.contribution.reducedContribution": [
+    {
+      "type": 0,
+      "value": "crwdns16532:0crwdne16532:0"
+    }
+  ],
+  "AgendaSettings.contribution.reducedContributionDesc": [
+    {
+      "type": 0,
+      "value": "crwdns16534:0crwdne16534:0"
+    }
+  ]
+}

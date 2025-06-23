@@ -1,0 +1,152 @@
+{
+  "AgendaMember.RequestFeatureLink.findOutMore": [
+    {
+      "type": 0,
+      "value": "find out more"
+    }
+  ],
+  "AgendaMember.RequestFeatureLink.link": [
+    {
+      "type": 0,
+      "value": "Ask for feature activation"
+    }
+  ],
+  "AgendaMember.RequestFeatureLink.title": [
+    {
+      "type": 0,
+      "value": "Feature activation"
+    }
+  ],
+  "MemberApps.Dashboard.messageHistory": [
+    {
+      "type": 0,
+      "value": "Message history"
+    }
+  ],
+  "MemberApps.Dashboard.nameModeratorsActivation": [
+    {
+      "type": 0,
+      "value": "This feature is activated upon request. It allows you to name a member as moderator. Write us a short message and we'll process your request promptly."
+    }
+  ],
+  "MemberApps.Dashboard.sendMessageToFilteredMembers": [
+    {
+      "type": 0,
+      "value": "The message will be sent to the current selection of members ("
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " out of "
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "MemberApps.Dashboard.sendMessageToMembers": [
+    {
+      "type": 0,
+      "value": "Send a message to the members"
+    }
+  ],
+  "MemberApps.Dashboard.sendMessageToUnfilteredMembers": [
+    {
+      "type": 0,
+      "value": "The message will be sent to all members ("
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "MemberApps.Dashboard.writeToMembersActivation": [
+    {
+      "type": 0,
+      "value": "This feature is activated upon request. It allows an administrator to send a grouped message to a selection of members. Write us a short message and we'll process your request promptly."
+    }
+  ],
+  "MemberApps.Form.GDPRSummary": [
+    {
+      "type": 0,
+      "value": "This information will be visible to the agenda moderators."
+    }
+  ],
+  "MemberApps.Form.cancel": [
+    {
+      "type": 0,
+      "value": "Anular"
+    }
+  ],
+  "MemberApps.Form.confirm": [
+    {
+      "type": 0,
+      "value": "Ok"
+    }
+  ],
+  "MemberApps.Form.confirmRemove": [
+    {
+      "type": 0,
+      "value": "Quitar la agenda"
+    }
+  ],
+  "MemberApps.Form.confirmRemoveInfo": [
+    {
+      "type": 0,
+      "value": "Si quitas de la agenda, dejarás de recibir notificaciones y ya no podrás editar tus eventos ni añadir otros nuevos. La agenda dejará de aparecer en tu pantalla de inicio."
+    }
+  ],
+  "MemberApps.Form.moreInfo": [
+    {
+      "type": 0,
+      "value": "Read more"
+    }
+  ],
+  "MemberApps.Form.remove": [
+    {
+      "type": 0,
+      "value": "Quiero quitar la agenda"
+    }
+  ],
+  "MemberApps.Form.removeFail": [
+    {
+      "type": 0,
+      "value": "La solicitud ha fallado. Vuelva a intentarlo en breve. Si el problema persiste, envíenos un breve mensaje a support@openagenda.com"
+    }
+  ],
+  "MemberApps.Form.removeSuccess": [
+    {
+      "type": 0,
+      "value": "Ya no es miembro de la agenda"
+    }
+  ],
+  "MemberApps.Form.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "MemberApps.Form.success": [
+    {
+      "type": 0,
+      "value": "The update was successful"
+    }
+  ],
+  "MemberApps.Form.updateTitle": [
+    {
+      "type": 0,
+      "value": "Contact form"
+    }
+  ]
+}

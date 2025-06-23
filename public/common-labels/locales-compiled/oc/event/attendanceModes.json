@@ -1,0 +1,20 @@
+{
+  "ReactFilters.messages.attendanceMode.mixed": [
+    {
+      "type": 0,
+      "value": "Mesclat"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.offline": [
+    {
+      "type": 0,
+      "value": "Sus plaça"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.online": [
+    {
+      "type": 0,
+      "value": "En linha"
+    }
+  ]
+}

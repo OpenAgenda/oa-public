@@ -1,0 +1,26 @@
+{
+  "common.roles.administrator": [
+    {
+      "type": 0,
+      "value": "crwdns32750:0crwdne32750:0"
+    }
+  ],
+  "common.roles.contributor": [
+    {
+      "type": 0,
+      "value": "crwdns32752:0crwdne32752:0"
+    }
+  ],
+  "common.roles.moderator": [
+    {
+      "type": 0,
+      "value": "crwdns32754:0crwdne32754:0"
+    }
+  ],
+  "common.roles.reader": [
+    {
+      "type": 0,
+      "value": "crwdns32756:0crwdne32756:0"
+    }
+  ]
+}

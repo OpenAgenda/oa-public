@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_openagenda_agenda_portal=self.webpackChunk_openagenda_agenda_portal||[]).push([[245],{30245:function(a,t,i){i.r(t),t.default={touch:"Lai pārvietotu karti, bīdiet to ar diviem pirkstiem",scroll:"Kartes tālummaiņai izmantojiet ctrl + ritināšanu",scrollMac:"Lai veiktu kartes tālummaiņu, izmantojiet ⌘ + ritināšanu"}}}]);

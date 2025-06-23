@@ -1,0 +1,939 @@
+{
+  "EventAdminApp.Actions.createAnEvent": [
+    {
+      "type": 0,
+      "value": "Neue Veranstaltung erstellen"
+    }
+  ],
+  "EventAdminApp.Actions.select": [
+    {
+      "type": 0,
+      "value": "Select"
+    }
+  ],
+  "EventAdminApp.BatchedStateSelector.confirmation": [
+    {
+      "type": 0,
+      "value": "The state change is in progress and may take some time."
+    }
+  ],
+  "EventAdminApp.BatchedStateSelector.ok": [
+    {
+      "type": 0,
+      "value": "Schließen"
+    }
+  ],
+  "EventAdminApp.BatchedStateSelector.title": [
+    {
+      "type": 0,
+      "value": "Confirmation"
+    }
+  ],
+  "EventAdminApp.Dashboard.allSelected": [
+    {
+      "type": 0,
+      "value": "All "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "size"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " events on this page are selected."
+    }
+  ],
+  "EventAdminApp.Dashboard.cancelSelection": [
+    {
+      "type": 0,
+      "value": "Cancel selection"
+    }
+  ],
+  "EventAdminApp.Dashboard.changeState": [
+    {
+      "type": 0,
+      "value": "Change state"
+    }
+  ],
+  "EventAdminApp.Dashboard.clearFilters": [
+    {
+      "type": 0,
+      "value": "Clear filters"
+    }
+  ],
+  "EventAdminApp.Dashboard.extendedAllSelected": [
+    {
+      "type": 0,
+      "value": "The "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " events corresponding to the current filters are selected."
+    }
+  ],
+  "EventAdminApp.Dashboard.groupedActions": [
+    {
+      "type": 0,
+      "value": "Grouped actions on selection"
+    }
+  ],
+  "EventAdminApp.Dashboard.next": [
+    {
+      "type": 0,
+      "value": "Next"
+    }
+  ],
+  "EventAdminApp.Dashboard.previous": [
+    {
+      "type": 0,
+      "value": "Bisherige"
+    }
+  ],
+  "EventAdminApp.Dashboard.searchPlaceholder": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ],
+  "EventAdminApp.Dashboard.selectAll": [
+    {
+      "type": 0,
+      "value": "Select all"
+    }
+  ],
+  "EventAdminApp.Dashboard.selectExtendedAll": [
+    {
+      "type": 0,
+      "value": "Select "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " events matching the current filters."
+    }
+  ],
+  "EventAdminApp.Dashboard.selectedEvents": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "EventAdminApp.Dashboard.sortedBy": [
+    {
+      "type": 0,
+      "value": "Sorted by:"
+    }
+  ],
+  "EventAdminApp.Dashboard.state": [
+    {
+      "type": 0,
+      "value": "State"
+    }
+  ],
+  "EventAdminApp.Dashboard.totalEvents": [
+    {
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
+    }
+  ],
+  "EventAdminApp.Dashboard.totalWithFilters": [
+    {
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "selection"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
+    },
+    {
+      "type": 0,
+      "value": " / "
+    },
+    {
+      "children": [
+        {
+          "style": null,
+          "type": 2,
+          "value": "total"
+        }
+      ],
+      "type": 8,
+      "value": "strong"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
+    }
+  ],
+  "EventAdminApp.Dashboard.unselect": [
+    {
+      "type": 0,
+      "value": "Unselect"
+    }
+  ],
+  "EventAdminApp.Dashboard.yourSelection": [
+    {
+      "type": 0,
+      "value": "Your selection:"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.addSources": [
+    {
+      "type": 0,
+      "value": "Aggregate events published on other agendas by "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "adding them to sources"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.alternatively": [
+    {
+      "type": 0,
+      "value": "Alternatively, you can:"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.createFirstEvent": [
+    {
+      "type": 0,
+      "value": "Create a first event"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.inviteMembers": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Invite people"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " to contribute"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.noEvents": [
+    {
+      "type": 0,
+      "value": "Your agenda does not yet reference any event!"
+    }
+  ],
+  "EventAdminApp.EmptyDashboard.visitDoc": [
+    {
+      "type": 0,
+      "value": "Visit "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "our documentation"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " to find out more."
+    }
+  ],
+  "EventAdminApp.EventItem.addFeatured": [
+    {
+      "type": 0,
+      "value": "Add to featured"
+    }
+  ],
+  "EventAdminApp.EventItem.addedBy": [
+    {
+      "type": 0,
+      "value": "Added by "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " from "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agenda"
+        }
+      ],
+      "type": 8,
+      "value": "agendaLink"
+    }
+  ],
+  "EventAdminApp.EventItem.administrator": [
+    {
+      "type": 0,
+      "value": "Administrator"
+    }
+  ],
+  "EventAdminApp.EventItem.aggregatedFrom": [
+    {
+      "type": 0,
+      "value": "Aggregated from "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "title"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EventItem.contact": [
+    {
+      "type": 0,
+      "value": "Contact"
+    }
+  ],
+  "EventAdminApp.EventItem.contributor": [
+    {
+      "type": 0,
+      "value": "Contributor"
+    }
+  ],
+  "EventAdminApp.EventItem.createdBy": [
+    {
+      "type": 0,
+      "value": "Created by "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "name"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EventItem.delete": [
+    {
+      "type": 0,
+      "value": "Delete"
+    }
+  ],
+  "EventAdminApp.EventItem.edit": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
+  "EventAdminApp.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "ausgewählt"
+    }
+  ],
+  "EventAdminApp.EventItem.memberPlaceholder": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Unnamed member"
+        }
+      ],
+      "type": 8,
+      "value": "decorate"
+    }
+  ],
+  "EventAdminApp.EventItem.moderator": [
+    {
+      "type": 0,
+      "value": "Moderator"
+    }
+  ],
+  "EventAdminApp.EventItem.motiveTitle": [
+    {
+      "type": 0,
+      "value": "Motive"
+    }
+  ],
+  "EventAdminApp.EventItem.noRoleMemberPlaceholder": [
+    {
+      "type": 0,
+      "value": "a member"
+    }
+  ],
+  "EventAdminApp.EventItem.onlineEvent": [
+    {
+      "type": 0,
+      "value": "Online event"
+    }
+  ],
+  "EventAdminApp.EventItem.passed": [
+    {
+      "type": 0,
+      "value": "Passed"
+    }
+  ],
+  "EventAdminApp.EventItem.remove": [
+    {
+      "type": 0,
+      "value": "Remove from agenda"
+    }
+  ],
+  "EventAdminApp.EventItem.removeFeatured": [
+    {
+      "type": 0,
+      "value": "Remove from featured"
+    }
+  ],
+  "EventAdminApp.EventItem.seeMotive": [
+    {
+      "type": 0,
+      "value": "Motive of refusal"
+    }
+  ],
+  "EventAdminApp.EventItem.shared": [
+    {
+      "type": 0,
+      "value": "Shared by a member which has left the agenda"
+    }
+  ],
+  "EventAdminApp.EventItem.sharedBy": [
+    {
+      "type": 0,
+      "value": "Shared by "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "memberName"
+        }
+      ],
+      "type": 8,
+      "value": "memberLink"
+    }
+  ],
+  "EventAdminApp.EventItem.sharedFrom": [
+    {
+      "type": 0,
+      "value": "Shared from "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "title"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    }
+  ],
+  "EventAdminApp.EventItem.sharedFromBy": [
+    {
+      "type": 0,
+      "value": "Shared from "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaTitle"
+        }
+      ],
+      "type": 8,
+      "value": "agendaLink"
+    },
+    {
+      "type": 0,
+      "value": " by "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "memberName"
+        }
+      ],
+      "type": 8,
+      "value": "memberLink"
+    }
+  ],
+  "EventAdminApp.EventItem.showLocation": [
+    {
+      "type": 0,
+      "value": "Show location"
+    }
+  ],
+  "EventAdminApp.EventItem.showOnlineLocation": [
+    {
+      "type": 0,
+      "value": "Access the online event"
+    }
+  ],
+  "EventAdminApp.EventItem.unnamedMemberInfo": [
+    {
+      "type": 0,
+      "value": "Member has not specified his/her name"
+    }
+  ],
+  "EventAdminApp.EventStateSelector.motive": [
+    {
+      "type": 0,
+      "value": "Motive"
+    }
+  ],
+  "EventAdminApp.EventStateSelector.motiveConfirm": [
+    {
+      "type": 0,
+      "value": "Confirm"
+    }
+  ],
+  "EventAdminApp.EventStateSelector.motiveInfo": [
+    {
+      "type": 0,
+      "value": "The motive will be presented to the contributor in the notification sent to him by email as well as directly associated with the status on the event page."
+    }
+  ],
+  "EventAdminApp.EventStateSelector.motivePlaceholder": [
+    {
+      "type": 0,
+      "value": "Motive of refusal"
+    }
+  ],
+  "EventAdminApp.EventStateSelector.motiveTitle": [
+    {
+      "type": 0,
+      "value": "Confirm refusal"
+    }
+  ],
+  "EventAdminApp.FiltersPortal.filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
+  "EventAdminApp.FiltersPortal.showAllFilters": [
+    {
+      "type": 0,
+      "value": "Show all filters"
+    }
+  ],
+  "EventAdminApp.PassImage.edit": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
+  "EventAdminApp.PassImage.link": [
+    {
+      "type": 0,
+      "value": "This event is linked to a pass Culture offer"
+    }
+  ],
+  "EventAdminApp.PassImage.linkErrored": [
+    {
+      "type": 0,
+      "value": "An error occurred during the creation or update of the linked pass Culture offer. Contact support to find a resolution"
+    }
+  ],
+  "EventAdminApp.PassImage.linkPending": [
+    {
+      "type": 0,
+      "value": "The pass Culture offer linked with this event is pending moderation by the pass Culture team"
+    }
+  ],
+  "EventAdminApp.PassImage.linkRejected": [
+    {
+      "type": 0,
+      "value": "The pass Culture offer linked with this event was rejected by the pass Culture team"
+    }
+  ],
+  "EventAdminApp.PassImage.linkUnpublished": [
+    {
+      "type": 0,
+      "value": "The offer will be created upon publication of the event"
+    }
+  ],
+  "EventAdminApp.PassImage.see": [
+    {
+      "type": 0,
+      "value": "See"
+    }
+  ],
+  "EventAdminApp.RemoveModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirm"
+    }
+  ],
+  "EventAdminApp.RemoveModal.deleteDesc": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda."
+    }
+  ],
+  "EventAdminApp.RemoveModal.deleteEvent": [
+    {
+      "type": 0,
+      "value": "Delete an event"
+    }
+  ],
+  "EventAdminApp.RemoveModal.removeDesc": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to do this? If you remove the event from this agenda, it will no longer be listed in the exports and will be removed from any agenda aggregating your events"
+    }
+  ],
+  "EventAdminApp.RemoveModal.removeEvent": [
+    {
+      "type": 0,
+      "value": "Remove an event"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.mixed": [
+    {
+      "type": 0,
+      "value": "Gemischt"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.offline": [
+    {
+      "type": 0,
+      "value": "Offline"
+    }
+  ],
+  "EventAdminApp.messages.attendanceModes.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ],
+  "EventAdminApp.messages.exports.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "EventAdminApp.messages.exports.export": [
+    {
+      "type": 0,
+      "value": "Export"
+    }
+  ],
+  "EventAdminApp.messages.exports.exportDesc": [
+    {
+      "type": 0,
+      "value": "Export "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
+    }
+  ],
+  "EventAdminApp.messages.exports.exportSelection": [
+    {
+      "type": 0,
+      "value": "Export"
+    }
+  ],
+  "EventAdminApp.messages.exports.toDOCX": [
+    {
+      "type": 0,
+      "value": "docx"
+    }
+  ],
+  "EventAdminApp.messages.exports.toICS": [
+    {
+      "type": 0,
+      "value": "ics"
+    }
+  ],
+  "EventAdminApp.messages.exports.toJSON": [
+    {
+      "type": 0,
+      "value": "json"
+    }
+  ],
+  "EventAdminApp.messages.exports.toMD": [
+    {
+      "type": 0,
+      "value": "md"
+    }
+  ],
+  "EventAdminApp.messages.exports.toPDF": [
+    {
+      "type": 0,
+      "value": "to PDF"
+    }
+  ],
+  "EventAdminApp.messages.exports.toRSS": [
+    {
+      "type": 0,
+      "value": "rss"
+    }
+  ],
+  "EventAdminApp.messages.exports.toSpreadsheet": [
+    {
+      "type": 0,
+      "value": "to spreadsheet (csv / xlsx)"
+    }
+  ],
+  "EventAdminApp.messages.exports.toTXT": [
+    {
+      "type": 0,
+      "value": "txt"
+    }
+  ],
+  "EventAdminApp.messages.relative.current": [
+    {
+      "type": 0,
+      "value": "Current"
+    }
+  ],
+  "EventAdminApp.messages.relative.passed": [
+    {
+      "type": 0,
+      "value": "Passed"
+    }
+  ],
+  "EventAdminApp.messages.relative.upcoming": [
+    {
+      "type": 0,
+      "value": "Upcoming"
+    }
+  ],
+  "EventAdminApp.messages.status.cancelled": [
+    {
+      "type": 0,
+      "value": "Canceled"
+    }
+  ],
+  "EventAdminApp.messages.status.full": [
+    {
+      "type": 0,
+      "value": "Fully booked"
+    }
+  ],
+  "EventAdminApp.messages.status.movedOnline": [
+    {
+      "type": 0,
+      "value": "Moved online"
+    }
+  ],
+  "EventAdminApp.messages.status.postponed": [
+    {
+      "type": 0,
+      "value": "Postponed"
+    }
+  ],
+  "EventAdminApp.messages.status.programmed": [
+    {
+      "type": 0,
+      "value": "Programmed"
+    }
+  ],
+  "EventAdminApp.messages.status.rescheduled": [
+    {
+      "type": 0,
+      "value": "Rescheduled"
+    }
+  ]
+}

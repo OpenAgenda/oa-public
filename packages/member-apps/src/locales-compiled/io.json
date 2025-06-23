@@ -1,0 +1,152 @@
+{
+  "AgendaMember.RequestFeatureLink.findOutMore": [
+    {
+      "type": 0,
+      "value": "crwdns33360:0crwdne33360:0"
+    }
+  ],
+  "AgendaMember.RequestFeatureLink.link": [
+    {
+      "type": 0,
+      "value": "crwdns33342:0crwdne33342:0"
+    }
+  ],
+  "AgendaMember.RequestFeatureLink.title": [
+    {
+      "type": 0,
+      "value": "crwdns33344:0crwdne33344:0"
+    }
+  ],
+  "MemberApps.Dashboard.messageHistory": [
+    {
+      "type": 0,
+      "value": "crwdns33241:0crwdne33241:0"
+    }
+  ],
+  "MemberApps.Dashboard.nameModeratorsActivation": [
+    {
+      "type": 0,
+      "value": "crwdns33346:0crwdne33346:0"
+    }
+  ],
+  "MemberApps.Dashboard.sendMessageToFilteredMembers": [
+    {
+      "type": 0,
+      "value": "crwdns33287:0"
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd33287:0"
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33287:0"
+    }
+  ],
+  "MemberApps.Dashboard.sendMessageToMembers": [
+    {
+      "type": 0,
+      "value": "crwdns33289:0crwdne33289:0"
+    }
+  ],
+  "MemberApps.Dashboard.sendMessageToUnfilteredMembers": [
+    {
+      "type": 0,
+      "value": "crwdns33291:0"
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33291:0"
+    }
+  ],
+  "MemberApps.Dashboard.writeToMembersActivation": [
+    {
+      "type": 0,
+      "value": "crwdns33348:0crwdne33348:0"
+    }
+  ],
+  "MemberApps.Form.GDPRSummary": [
+    {
+      "type": 0,
+      "value": "crwdns17324:0crwdne17324:0"
+    }
+  ],
+  "MemberApps.Form.cancel": [
+    {
+      "type": 0,
+      "value": "crwdns16221:0crwdne16221:0"
+    }
+  ],
+  "MemberApps.Form.confirm": [
+    {
+      "type": 0,
+      "value": "crwdns16223:0crwdne16223:0"
+    }
+  ],
+  "MemberApps.Form.confirmRemove": [
+    {
+      "type": 0,
+      "value": "crwdns16225:0crwdne16225:0"
+    }
+  ],
+  "MemberApps.Form.confirmRemoveInfo": [
+    {
+      "type": 0,
+      "value": "crwdns16227:0crwdne16227:0"
+    }
+  ],
+  "MemberApps.Form.moreInfo": [
+    {
+      "type": 0,
+      "value": "crwdns17326:0crwdne17326:0"
+    }
+  ],
+  "MemberApps.Form.remove": [
+    {
+      "type": 0,
+      "value": "crwdns16229:0crwdne16229:0"
+    }
+  ],
+  "MemberApps.Form.removeFail": [
+    {
+      "type": 0,
+      "value": "crwdns16231:0crwdne16231:0"
+    }
+  ],
+  "MemberApps.Form.removeSuccess": [
+    {
+      "type": 0,
+      "value": "crwdns16233:0crwdne16233:0"
+    }
+  ],
+  "MemberApps.Form.save": [
+    {
+      "type": 0,
+      "value": "crwdns16259:0crwdne16259:0"
+    }
+  ],
+  "MemberApps.Form.success": [
+    {
+      "type": 0,
+      "value": "crwdns16213:0crwdne16213:0"
+    }
+  ],
+  "MemberApps.Form.updateTitle": [
+    {
+      "type": 0,
+      "value": "crwdns16215:0crwdne16215:0"
+    }
+  ]
+}

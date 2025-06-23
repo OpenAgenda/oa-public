@@ -1,0 +1,32 @@
+{
+  "common.geo.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Inter-city"
+    }
+  ],
+  "common.geo.city": [
+    {
+      "type": 0,
+      "value": "Città"
+    }
+  ],
+  "common.geo.department": [
+    {
+      "type": 0,
+      "value": "Provincia"
+    }
+  ],
+  "common.geo.location": [
+    {
+      "type": 0,
+      "value": "Luogo"
+    }
+  ],
+  "common.geo.region": [
+    {
+      "type": 0,
+      "value": "Regione"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "react-layouts.AdminHeader.administration": [
+    {
+      "type": 0,
+      "value": "Gestione"
+    }
+  ],
+  "react-layouts.AdminHeader.return": [
+    {
+      "type": 0,
+      "value": "Vedere la pagina pubblica"
+    }
+  ],
+  "react-layouts.AdminSections.newTab": [
+    {
+      "type": 0,
+      "value": "Nuovo!"
+    }
+  ],
+  "react-layouts.Announcement.close": [
+    {
+      "type": 0,
+      "value": "Chiudere"
+    }
+  ],
+  "react-layouts.MainLayout.createAgenda": [
+    {
+      "type": 0,
+      "value": "Create an agenda"
+    }
+  ],
+  "react-layouts.MainLayout.general": [
+    {
+      "type": 0,
+      "value": "General"
+    }
+  ],
+  "react-layouts.MainLayout.help": [
+    {
+      "type": 0,
+      "value": "Aiuto"
+    }
+  ],
+  "react-layouts.MainLayout.menu": [
+    {
+      "type": 0,
+      "value": "Menu"
+    }
+  ],
+  "react-layouts.MainLayout.myAgendas": [
+    {
+      "type": 0,
+      "value": "Le mie agende"
+    }
+  ],
+  "react-layouts.MainLayout.myEvents": [
+    {
+      "type": 0,
+      "value": "I miei eventi"
+    }
+  ],
+  "react-layouts.MainLayout.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Cerca un'agenda"
+    }
+  ],
+  "react-layouts.MainLayout.settings": [
+    {
+      "type": 0,
+      "value": "Impostazioni"
+    }
+  ],
+  "react-layouts.MainLayout.signin": [
+    {
+      "type": 0,
+      "value": "Accedi"
+    }
+  ],
+  "react-layouts.MainLayout.signout": [
+    {
+      "type": 0,
+      "value": "Uscire"
+    }
+  ],
+  "react-layouts.MainLayout.translate": [
+    {
+      "type": 0,
+      "value": "Gestire"
+    }
+  ],
+  "react-layouts.components.Search.search": [
+    {
+      "type": 0,
+      "value": "Cercare un'agenda"
+    }
+  ]
+}

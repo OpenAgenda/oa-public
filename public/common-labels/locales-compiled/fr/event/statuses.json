@@ -1,0 +1,74 @@
+{
+  "common.event.statuses.cancelled": [
+    {
+      "type": 0,
+      "value": "Annulé"
+    }
+  ],
+  "common.event.statuses.cancelledInfo": [
+    {
+      "type": 0,
+      "value": "L'événement a été annulé de manière permanente"
+    }
+  ],
+  "common.event.statuses.full": [
+    {
+      "type": 0,
+      "value": "Complet"
+    }
+  ],
+  "common.event.statuses.fullInfo": [
+    {
+      "type": 0,
+      "value": "L'événement n'accepte plus de nouveaux participants"
+    }
+  ],
+  "common.event.statuses.movedOnline": [
+    {
+      "type": 0,
+      "value": "Déplacé en ligne"
+    }
+  ],
+  "common.event.statuses.movedOnlineInfo": [
+    {
+      "type": 0,
+      "value": "L'événement ne sera plus suivi dans un lieu physique"
+    }
+  ],
+  "common.event.statuses.postponed": [
+    {
+      "type": 0,
+      "value": "Reporté"
+    }
+  ],
+  "common.event.statuses.postponedInfo": [
+    {
+      "type": 0,
+      "value": "L'événement a été reporté à des dates encore non connues"
+    }
+  ],
+  "common.event.statuses.rescheduled": [
+    {
+      "type": 0,
+      "value": "Reprogrammé"
+    }
+  ],
+  "common.event.statuses.rescheduledInfo": [
+    {
+      "type": 0,
+      "value": "Les horaires et/ou dates de l'événement ont été modifiées"
+    }
+  ],
+  "common.event.statuses.scheduled": [
+    {
+      "type": 0,
+      "value": "Programmé"
+    }
+  ],
+  "common.event.statuses.scheduledInfo": [
+    {
+      "type": 0,
+      "value": "L'événement est programmé au lieu et aux horaires annoncés"
+    }
+  ]
+}

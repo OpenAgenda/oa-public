@@ -97,7 +97,12 @@ export default async function renderEvent(
   const locationImage = {
     field: 'location.image',
     fieldType: 'image',
-    relatedValues: [{ from: 'location.imageCredits', to: 'credits' }],
+    relatedValues: [
+      {
+        from: 'location.imageCredits',
+        to: 'credits',
+      },
+    ],
     min: { height: 50 },
   };
 

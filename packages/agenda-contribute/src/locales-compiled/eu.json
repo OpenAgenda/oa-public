@@ -1,0 +1,389 @@
+{
+  "AgendaContribute.Canvas.fromAgenda": [
+    {
+      "type": 0,
+      "value": "de la agenda"
+    }
+  ],
+  "AgendaContribute.Canvas.shareEvent": [
+    {
+      "type": 0,
+      "value": "Compartir un evento"
+    }
+  ],
+  "AgendaContribute.Canvas.takeEvent": [
+    {
+      "type": 0,
+      "value": "Tomar"
+    }
+  ],
+  "AgendaContribute.Canvas.toAgenda": [
+    {
+      "type": 0,
+      "value": "en la agenda"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.addEvent": [
+    {
+      "type": 0,
+      "value": "Añadir un evento"
+    }
+  ],
+  "AgendaContribute.CanvasWithStepper.editDraftTitle": [
+    {
+      "type": 0,
+      "value": "Borrador"
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forAdminModerators": [
+    {
+      "type": 0,
+      "value": "Actualmente esta agenda no está abierta a colaboradores. Sólo los administradores o moderadores pueden añadir eventos."
+    }
+  ],
+  "AgendaContribute.ClosedMessage.forContributors": [
+    {
+      "type": 0,
+      "value": "Esta agenda no está o ha dejado de estar abierta a nuevas contribuciones."
+    }
+  ],
+  "AgendaContribute.Confirmation.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Póngase en contacto con los administradores de la agenda"
+    }
+  ],
+  "AgendaContribute.Confirmation.createOtherEvent": [
+    {
+      "type": 0,
+      "value": "Añadir otro evento"
+    }
+  ],
+  "AgendaContribute.Confirmation.duplicateEvent": [
+    {
+      "type": 0,
+      "value": "Duplicar el evento"
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState0": [
+    {
+      "type": 0,
+      "value": "Su evento ha sido guardado. El espera ahora una moderación. Usted sará notificado de su publicación."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState1": [
+    {
+      "type": 0,
+      "value": "Su evento ha sido guardado. Usted sará notificado de su publicación."
+    }
+  ],
+  "AgendaContribute.Confirmation.recapDetailState2": [
+    {
+      "type": 0,
+      "value": "Su evento ha sido guardado y publicado en el agenda."
+    }
+  ],
+  "AgendaContribute.Confirmation.seeEventAction": [
+    {
+      "type": 0,
+      "value": "Ver mi evento"
+    }
+  ],
+  "AgendaContribute.Confirmation.showMyEvents": [
+    {
+      "type": 0,
+      "value": "Ver todos los eventos"
+    }
+  ],
+  "AgendaContribute.EditConfirmation.end": [
+    {
+      "type": 0,
+      "value": "Cerca"
+    }
+  ],
+  "AgendaContribute.EditConfirmation.eventUpdateSuccessInfo": [
+    {
+      "type": 0,
+      "value": "The event was updated"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.cancelChange": [
+    {
+      "type": 0,
+      "value": "Cancelar el compartimiento"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.conditions": [
+    {
+      "type": 0,
+      "value": "Condiciones"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.description": [
+    {
+      "type": 0,
+      "value": "descripción"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.imageCredits": [
+    {
+      "type": 0,
+      "value": "Créditos de las imágenes"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.longDescription": [
+    {
+      "type": 0,
+      "value": "Descripción larga"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.registration": [
+    {
+      "type": 0,
+      "value": "Herramientas de registro"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.shareRestrictionInfo": [
+    {
+      "type": 0,
+      "value": "Para que el evento \""
+    },
+    {
+      "type": 1,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "\" se pueda compartir en la agenda \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\", se deben tener en cuenta las siguientes cuestiones"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.suggestChange": [
+    {
+      "type": 0,
+      "value": "Sugerir un cambio"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.timings": [
+    {
+      "type": 0,
+      "value": "Horarios"
+    }
+  ],
+  "AgendaContribute.ErrorMessage.title": [
+    {
+      "type": 0,
+      "value": "título"
+    }
+  ],
+  "AgendaContribute.EventEdit.unpublishWarning": [
+    {
+      "type": 0,
+      "value": "If modified, the event will be unpublished for moderation."
+    }
+  ],
+  "AgendaContribute.EventEdit.unpublishWarningTitle": [
+    {
+      "type": 0,
+      "value": "Unpublish Warning"
+    }
+  ],
+  "AgendaContribute.EventEdit.unpublishWarningWithLink": [
+    {
+      "type": 0,
+      "value": "If modified, the event will be unpublished for moderation. You can also suggest minor changes to moderators by writing a message. [Suggest Change]"
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "a"
+    }
+  ],
+  "AgendaContribute.EventEdit.update": [
+    {
+      "type": 0,
+      "value": "Actualizar"
+    }
+  ],
+  "AgendaContribute.EventIsAlreadyInTarget.goBack": [
+    {
+      "type": 0,
+      "value": "Volver"
+    }
+  ],
+  "AgendaContribute.EventIsAlreadyInTarget.isInTarget": [
+    {
+      "type": 0,
+      "value": "El evento ya está referenciado en la agenda a la que desea compartirlo. Si no lo ves aparecer en la página principal, es probable que los administradores aún no lo hayan publicado."
+    }
+  ],
+  "AgendaContribute.EventNew.create": [
+    {
+      "type": 0,
+      "value": "Crear evento"
+    }
+  ],
+  "AgendaContribute.EventNew.deleteDraft": [
+    {
+      "type": 0,
+      "value": "Eliminar el proyecto"
+    }
+  ],
+  "AgendaContribute.EventNew.draft": [
+    {
+      "type": 0,
+      "value": "Guardar borrador"
+    }
+  ],
+  "AgendaContribute.EventNew.updateDraft": [
+    {
+      "type": 0,
+      "value": "Actualización del proyecto"
+    }
+  ],
+  "AgendaContribute.EventShare.share": [
+    {
+      "type": 0,
+      "value": "Añadir el evento"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.goBack": [
+    {
+      "type": 0,
+      "value": "Volver a la pagina de el evento en "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.goTo": [
+    {
+      "type": 0,
+      "value": "Ver el evento en "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.publishedEvent": [
+    {
+      "type": 0,
+      "value": "El evento se publica ahora en \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "AgendaContribute.EventWasSuccessfullyShared.sharedEvent": [
+    {
+      "type": 0,
+      "value": "El evento se ha añadido a \""
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "\". Será revisado antes de ser publicado"
+    }
+  ],
+  "AgendaContribute.Member.share": [
+    {
+      "type": 0,
+      "value": "Esta agenda requiere que se introduzca alguna información sobre usted para permitir que se compartan eventos"
+    }
+  ],
+  "AgendaContribute.Member.subtitle": [
+    {
+      "type": 0,
+      "value": "Presentase antes de introducir sus eventos"
+    }
+  ],
+  "AgendaContribute.Member.title": [
+    {
+      "type": 0,
+      "value": "Bienvenido!"
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.noEditionRights": [
+    {
+      "type": 0,
+      "value": "You do not have edition rights on this event."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEdited": [
+    {
+      "type": 0,
+      "value": "Aquí solo se pueden editar las entradas adicionales del formulario."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.onlyAdditionalFieldsCanBeEditedInfo": [
+    {
+      "type": 0,
+      "value": "Este evento se ha añadido a la agenda \"%agenda%\" a través de un compartimiento o por agregación. Sólo los miembros de la agenda donde se aportó el evento pueden modificar su contenido."
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.requestEditionRights": [
+    {
+      "type": 0,
+      "value": "Request edition rights"
+    }
+  ],
+  "AgendaContribute.RequestEditionRights.requestEditionRightsInfo": [
+    {
+      "type": 0,
+      "value": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej: título, descripción, horarios...)"
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.additionalFieldsShowInfo": [
+    {
+      "type": 0,
+      "value": "Actualmente sólo se muestran los campos adicionales de la agenda"
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.showEventFields": [
+    {
+      "type": 0,
+      "value": "Edit event fields"
+    }
+  ],
+  "AgendaContribute.ShowFullEventForm.showEventFieldsInfo": [
+    {
+      "type": 0,
+      "value": "You have edition rights over the event. Any edition brought to the event will be visible anywhere it is published."
+    }
+  ],
+  "AgendaContribute.Stepper.confirmation": [
+    {
+      "type": 0,
+      "value": "Confirmación"
+    }
+  ],
+  "AgendaContribute.Stepper.event": [
+    {
+      "type": 0,
+      "value": "Mi evento"
+    }
+  ],
+  "AgendaContribute.Stepper.member": [
+    {
+      "type": 0,
+      "value": "Perfil de miembro"
+    }
+  ]
+}

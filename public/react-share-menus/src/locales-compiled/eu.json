@@ -1,0 +1,324 @@
+{
+  "ReactShareMenus.ExportModal.cancel": [
+    {
+      "type": 0,
+      "value": "Anular"
+    }
+  ],
+  "ReactShareMenus.ExportModal.close": [
+    {
+      "type": 0,
+      "value": "close"
+    }
+  ],
+  "ReactShareMenus.ExportModal.detailedFormat": [
+    {
+      "type": 0,
+      "value": "Use the detailed format"
+    }
+  ],
+  "ReactShareMenus.ExportModal.documentation": [
+    {
+      "type": 0,
+      "value": "See the documentation"
+    }
+  ],
+  "ReactShareMenus.ExportModal.exportAll": [
+    {
+      "type": 0,
+      "value": "Descargar todos los eventos"
+    }
+  ],
+  "ReactShareMenus.ExportModal.exportJson": [
+    {
+      "type": 0,
+      "value": "Use the previous JSON export version"
+    }
+  ],
+  "ReactShareMenus.ExportModal.exportSelection": [
+    {
+      "type": 0,
+      "value": "Expect current event selection"
+    }
+  ],
+  "ReactShareMenus.ExportModal.inputFormat": [
+    {
+      "type": 0,
+      "value": "Choose a format"
+    }
+  ],
+  "ReactShareMenus.ExportModal.jsonDoc1": [
+    {
+      "type": 0,
+      "value": "Documentation"
+    }
+  ],
+  "ReactShareMenus.ExportModal.jsonDoc2": [
+    {
+      "type": 0,
+      "value": "here"
+    }
+  ],
+  "ReactShareMenus.ExportModal.login": [
+    {
+      "type": 0,
+      "value": "Inicie sesión para acceder al enlace de exportación directamente desde este menú"
+    }
+  ],
+  "ReactShareMenus.ExportModal.title": [
+    {
+      "type": 0,
+      "value": "Exportar"
+    }
+  ],
+  "aggregator-description": [
+    {
+      "type": 0,
+      "value": "Events published by "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": " will be automatically added to the selected calendar."
+    }
+  ],
+  "aggregator-title": [
+    {
+      "type": 0,
+      "value": "Importar en un agenda"
+    }
+  ],
+  "all-fields": [
+    {
+      "type": 0,
+      "value": "Export every field"
+    }
+  ],
+  "all-languages": [
+    {
+      "type": 0,
+      "value": "Export in all languages"
+    }
+  ],
+  "calendar-date": [
+    {
+      "type": 0,
+      "value": "This event has no upcoming dates"
+    }
+  ],
+  "connection-btn": [
+    {
+      "type": 0,
+      "value": "Sign In"
+    }
+  ],
+  "create-agenda": [
+    {
+      "type": 0,
+      "value": "Create an agenda"
+    }
+  ],
+  "distribute-fields": [
+    {
+      "type": 0,
+      "value": "Fields with options: display one value per column"
+    }
+  ],
+  "email-placeholder": [
+    {
+      "type": 0,
+      "value": "Type in the email you want to send the event to"
+    }
+  ],
+  "email-success": [
+    {
+      "type": 0,
+      "value": "The event was sent to "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "no email address"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " email address"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " email addresses"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "gcalStep2": [
+    {
+      "type": 0,
+      "value": "2. In the left section, open \"Other Calendars > Add by URL\"."
+    }
+  ],
+  "gcalStep3": [
+    {
+      "type": 0,
+      "value": "3. Follow the instructions by pasting the link you copied in step 1"
+    }
+  ],
+  "import": [
+    {
+      "type": 0,
+      "value": "Import"
+    }
+  ],
+  "input-field": [
+    {
+      "type": 0,
+      "value": "Select the fields to export"
+    }
+  ],
+  "instructions": [
+    {
+      "type": 0,
+      "value": "Instructions"
+    }
+  ],
+  "instructionsCopyLink": [
+    {
+      "type": 0,
+      "value": "1. Copy the link in the field above and open "
+    }
+  ],
+  "no-agenda": [
+    {
+      "type": 0,
+      "value": "Advertencia: Su cuenta no administra ninguna agenda. Por favor, cree una primero si desea agregar los eventos de "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "official-agenda": [
+    {
+      "type": 0,
+      "value": "Official agenda"
+    }
+  ],
+  "outlookStep2": [
+    {
+      "type": 0,
+      "value": "2. At the bottom of the page, select the calendar icon"
+    }
+  ],
+  "outlookStep3": [
+    {
+      "type": 0,
+      "value": "3. In the navigation pane, select \"Add calendar\""
+    }
+  ],
+  "outlookStep4": [
+    {
+      "type": 0,
+      "value": "4. Select \"Subscribe from web\""
+    }
+  ],
+  "outlookStep5": [
+    {
+      "type": 0,
+      "value": "5. Paste the URL you copied in step 1. Select \"Import\"."
+    }
+  ],
+  "private-agenda": [
+    {
+      "type": 0,
+      "value": "Eventos privados"
+    }
+  ],
+  "search-agenda": [
+    {
+      "type": 0,
+      "value": "Buscar"
+    }
+  ],
+  "select-all": [
+    {
+      "type": 0,
+      "value": "Select all"
+    }
+  ],
+  "send": [
+    {
+      "type": 0,
+      "value": "Send"
+    }
+  ],
+  "share-calendar": [
+    {
+      "type": 0,
+      "value": "Import in a personal calendar"
+    }
+  ],
+  "share-email": [
+    {
+      "type": 0,
+      "value": "Send by email"
+    }
+  ],
+  "share-oa": [
+    {
+      "type": 0,
+      "value": "Compartir su OpenAgenda"
+    }
+  ],
+  "share-title": [
+    {
+      "type": 0,
+      "value": "Compartir el evento"
+    }
+  ],
+  "sign-in": [
+    {
+      "type": 0,
+      "value": "You need to sign in to your account to add this event to your OpenAgendas"
+    }
+  ],
+  "sign-in-agg": [
+    {
+      "type": 0,
+      "value": "Debe iniciar sesión en su cuenta para importar esta agenda."
+    }
+  ]
+}

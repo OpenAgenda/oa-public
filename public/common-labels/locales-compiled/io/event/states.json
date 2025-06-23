@@ -1,0 +1,26 @@
+{
+  "common.event.states.published": [
+    {
+      "type": 0,
+      "value": "crwdns17340:0crwdne17340:0"
+    }
+  ],
+  "common.event.states.readyToPublish": [
+    {
+      "type": 0,
+      "value": "crwdns32770:0crwdne32770:0"
+    }
+  ],
+  "common.event.states.refused": [
+    {
+      "type": 0,
+      "value": "crwdns17334:0crwdne17334:0"
+    }
+  ],
+  "common.event.states.toModerate": [
+    {
+      "type": 0,
+      "value": "crwdns17336:0crwdne17336:0"
+    }
+  ]
+}

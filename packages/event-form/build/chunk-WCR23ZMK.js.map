@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/validators/events.js"],"sourcesContent":["import integerValidator from '@openagenda/validators/integer.js';\n\nconst validate = integerValidator({ list: true });\n\nexport default () => validate;\n"],"mappings":";AAAA,OAAO,sBAAsB;AAE7B,IAAM,WAAW,iBAAiB,EAAE,MAAM,KAAK,CAAC;AAEhD,IAAO,iBAAQ,MAAM;","names":[]}

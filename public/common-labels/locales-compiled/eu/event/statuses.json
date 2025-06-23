@@ -1,0 +1,74 @@
+{
+  "common.event.statuses.cancelled": [
+    {
+      "type": 0,
+      "value": "Cancelled"
+    }
+  ],
+  "common.event.statuses.cancelledInfo": [
+    {
+      "type": 0,
+      "value": "The event has been permanently cancelled"
+    }
+  ],
+  "common.event.statuses.full": [
+    {
+      "type": 0,
+      "value": "Fully booked"
+    }
+  ],
+  "common.event.statuses.fullInfo": [
+    {
+      "type": 0,
+      "value": "New participants are no longer accepted to the event"
+    }
+  ],
+  "common.event.statuses.movedOnline": [
+    {
+      "type": 0,
+      "value": "Moved online"
+    }
+  ],
+  "common.event.statuses.movedOnlineInfo": [
+    {
+      "type": 0,
+      "value": "The event will no longer be attended to at a physical location"
+    }
+  ],
+  "common.event.statuses.postponed": [
+    {
+      "type": 0,
+      "value": "Postponed"
+    }
+  ],
+  "common.event.statuses.postponedInfo": [
+    {
+      "type": 0,
+      "value": "The event has been postponed to dates not yet known"
+    }
+  ],
+  "common.event.statuses.rescheduled": [
+    {
+      "type": 0,
+      "value": "Rescheduled"
+    }
+  ],
+  "common.event.statuses.rescheduledInfo": [
+    {
+      "type": 0,
+      "value": "The timings and/or dates of the event have been modified"
+    }
+  ],
+  "common.event.statuses.scheduled": [
+    {
+      "type": 0,
+      "value": "Programado"
+    }
+  ],
+  "common.event.statuses.scheduledInfo": [
+    {
+      "type": 0,
+      "value": "The event is scheduled at the indicated location and time"
+    }
+  ]
+}

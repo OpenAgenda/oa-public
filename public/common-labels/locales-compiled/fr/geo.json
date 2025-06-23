@@ -1,0 +1,32 @@
+{
+  "common.geo.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Intercommunalité"
+    }
+  ],
+  "common.geo.city": [
+    {
+      "type": 0,
+      "value": "Ville"
+    }
+  ],
+  "common.geo.department": [
+    {
+      "type": 0,
+      "value": "Département"
+    }
+  ],
+  "common.geo.location": [
+    {
+      "type": 0,
+      "value": "Lieu"
+    }
+  ],
+  "common.geo.region": [
+    {
+      "type": 0,
+      "value": "Région"
+    }
+  ]
+}

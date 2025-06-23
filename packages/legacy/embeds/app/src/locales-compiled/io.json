@@ -1,0 +1,140 @@
+{
+  "LegacyEmbed.Presentation.contactUs": [
+    {
+      "type": 0,
+      "value": "crwdns33362:0crwdne33362:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.create": [
+    {
+      "type": 0,
+      "value": "crwdns30626:0crwdne30626:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.embedAction": [
+    {
+      "type": 0,
+      "value": "crwdns34148:0crwdne34148:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.embedPresentation": [
+    {
+      "type": 0,
+      "value": "crwdns34150:0crwdne34150:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.legacyEmbedPresentation": [
+    {
+      "type": 0,
+      "value": "crwdns33364:0crwdne33364:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.legacyEmbedSummary": [
+    {
+      "type": 0,
+      "value": "crwdns33366:0crwdne33366:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.legacyEmbedTitle": [
+    {
+      "type": 0,
+      "value": "crwdns33368:0crwdne33368:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.legacyEmbedWarning": [
+    {
+      "type": 0,
+      "value": "crwdns33370:0crwdne33370:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.legacyEmbedWarningDetail": [
+    {
+      "type": 0,
+      "value": "crwdns33372:0crwdne33372:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.moreInfo": [
+    {
+      "type": 0,
+      "value": "crwdns33374:0crwdne33374:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.otherIntegrations": [
+    {
+      "type": 0,
+      "value": "crwdns34152:0crwdne34152:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.pluginsAction": [
+    {
+      "type": 0,
+      "value": "crwdns33376:0crwdne33376:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.pluginsPresentation": [
+    {
+      "type": 0,
+      "value": "crwdns33378:0crwdne33378:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.pluginsSummary": [
+    {
+      "type": 0,
+      "value": "crwdns33380:0crwdne33380:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.pluginsTitle": [
+    {
+      "type": 0,
+      "value": "crwdns33382:0crwdne33382:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.portalPresentation": [
+    {
+      "type": 0,
+      "value": "crwdns33384:0crwdne33384:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.portalSummary": [
+    {
+      "type": 0,
+      "value": "crwdns33386:0crwdne33386:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.portalTitle": [
+    {
+      "type": 0,
+      "value": "crwdns33388:0crwdne33388:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.standardEmbedGetBack": [
+    {
+      "type": 0,
+      "value": "crwdns33392:0crwdne33392:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.standardEmbedPresentation": [
+    {
+      "type": 0,
+      "value": "crwdns33394:0crwdne33394:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.standardEmbedSummary": [
+    {
+      "type": 0,
+      "value": "crwdns33396:0crwdne33396:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.standardEmbedTitle": [
+    {
+      "type": 0,
+      "value": "crwdns33398:0crwdne33398:0"
+    }
+  ],
+  "LegacyEmbed.Presentation.title": [
+    {
+      "type": 0,
+      "value": "crwdns30632:0crwdne30632:0"
+    }
+  ]
+}

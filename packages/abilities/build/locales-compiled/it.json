@@ -1,0 +1,198 @@
+{
+  "Abilities.AbilitiesEditor.error": [
+    {
+      "type": 0,
+      "value": "C'è stato un errore."
+    }
+  ],
+  "Abilities.AbilitiesForm.save": [
+    {
+      "type": 0,
+      "value": "Salva"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Impostazioni amministratore/moderatore:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": [
+    {
+      "type": 0,
+      "value": "Impostazioni contributori:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Le impostazioni dell'amministratore/moderatore:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": [
+    {
+      "type": 0,
+      "value": "Le impostazioni del contributore:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": [
+    {
+      "type": 0,
+      "value": "Le tue impostazioni globali:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterDescription": [
+    {
+      "type": 0,
+      "value": "Segui le prossime evoluzioni in arrivo su OpenAgenda! È possibile annullare l'iscrizione in qualsiasi momento."
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "Clicca qui per iscriverti"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
+    {
+      "type": 0,
+      "value": "Riceverete ora la prossima newsletter! Per annullare l'iscrizione, basta cliccare sul link che sarà posto in fondo a ogni messaggio."
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterTitle": [
+    {
+      "type": 0,
+      "value": "Ricevere la newsletter"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.search": [
+    {
+      "type": 0,
+      "value": "Cerca"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": [
+    {
+      "type": 0,
+      "value": "Ricevi messaggi inviati all'agenda"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEvent": [
+    {
+      "type": 0,
+      "value": "Ricevi eventi inviati da altri utenti"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": [
+    {
+      "type": 0,
+      "value": "Ricevi creazioni di eventi"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": [
+    {
+      "type": 0,
+      "value": "Ricevi aggregazioni di eventi"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventChangeState": [
+    {
+      "type": 0,
+      "value": "Ricevi modifiche di stato a "
+    },
+    {
+      "type": 1,
+      "value": "state"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": [
+    {
+      "type": 0,
+      "value": "Ricevi creazioni di eventi"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventUpdate": [
+    {
+      "type": 0,
+      "value": "Ricevi aggiornamenti di eventi"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveInvitation": [
+    {
+      "type": 0,
+      "value": "Ricevi inviti"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMemberMessage": [
+    {
+      "type": 0,
+      "value": "Ricevere i messaggi inviati tramite la funzione “Scrivi a loro”"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": [
+    {
+      "type": 0,
+      "value": "Ricevere notifiche quando qualcuno aggiunge i miei eventi"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": [
+    {
+      "type": 0,
+      "value": "Ricevi notifiche quando un agenda aggrega i miei eventi"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": [
+    {
+      "type": 0,
+      "value": "Ricevi notifiche quando qualcuno cambia il stato dei miei eventi su un agenda"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventCreation": [
+    {
+      "type": 0,
+      "value": "Ricevi conferme delle creazioni del tuo evento"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": [
+    {
+      "type": 0,
+      "value": "Ricevi notifiche quando qualcuno aggiorna i miei eventi"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": [
+    {
+      "type": 0,
+      "value": "Ricevi i riassunti delle notifiche"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveUserInboxMessage": [
+    {
+      "type": 0,
+      "value": "Ricevi messaggi anche sul mio indirizzo email"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.controlled": [
+    {
+      "type": 0,
+      "value": "controllato"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.published": [
+    {
+      "type": 0,
+      "value": "pubblicato"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.refused": [
+    {
+      "type": 0,
+      "value": "rifiutato"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.toControl": [
+    {
+      "type": 0,
+      "value": "da completare"
+    }
+  ]
+}

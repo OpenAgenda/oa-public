@@ -1,0 +1,20 @@
+{
+  "ReactFilters.messages.attendanceMode.mixed": [
+    {
+      "type": 0,
+      "value": "Gemischt"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.offline": [
+    {
+      "type": 0,
+      "value": "Offline"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ]
+}

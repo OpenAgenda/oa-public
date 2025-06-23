@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["default","OaSdk"],"sources":["../src/index.js"],"sourcesContent":["export { default as OaSdk } from './api';\nexport * from './schema-org';\n"],"mappings":"AAAA,SAASA,OAAO,IAAIC,KAAK,QAAQ,OAAO;AACxC,cAAc,cAAc","ignoreList":[]}

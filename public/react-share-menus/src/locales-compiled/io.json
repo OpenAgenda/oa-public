@@ -1,0 +1,290 @@
+{
+  "ReactShareMenus.ExportModal.cancel": [
+    {
+      "type": 0,
+      "value": "crwdns32506:0crwdne32506:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.close": [
+    {
+      "type": 0,
+      "value": "crwdns32508:0crwdne32508:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.detailedFormat": [
+    {
+      "type": 0,
+      "value": "crwdns32510:0crwdne32510:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.documentation": [
+    {
+      "type": 0,
+      "value": "crwdns32512:0crwdne32512:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.exportAll": [
+    {
+      "type": 0,
+      "value": "crwdns32514:0crwdne32514:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.exportJson": [
+    {
+      "type": 0,
+      "value": "crwdns32516:0crwdne32516:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.exportSelection": [
+    {
+      "type": 0,
+      "value": "crwdns32518:0crwdne32518:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.inputFormat": [
+    {
+      "type": 0,
+      "value": "crwdns32520:0crwdne32520:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.jsonDoc1": [
+    {
+      "type": 0,
+      "value": "crwdns32522:0crwdne32522:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.jsonDoc2": [
+    {
+      "type": 0,
+      "value": "crwdns32524:0crwdne32524:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.login": [
+    {
+      "type": 0,
+      "value": "crwdns32526:0crwdne32526:0"
+    }
+  ],
+  "ReactShareMenus.ExportModal.title": [
+    {
+      "type": 0,
+      "value": "crwdns32528:0crwdne32528:0"
+    }
+  ],
+  "aggregator-description": [
+    {
+      "type": 0,
+      "value": "crwdns16642:0"
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16642:0"
+    }
+  ],
+  "aggregator-title": [
+    {
+      "type": 0,
+      "value": "crwdns16644:0crwdne16644:0"
+    }
+  ],
+  "all-fields": [
+    {
+      "type": 0,
+      "value": "crwdns16646:0crwdne16646:0"
+    }
+  ],
+  "all-languages": [
+    {
+      "type": 0,
+      "value": "crwdns16648:0crwdne16648:0"
+    }
+  ],
+  "calendar-date": [
+    {
+      "type": 0,
+      "value": "crwdns16650:0crwdne16650:0"
+    }
+  ],
+  "connection-btn": [
+    {
+      "type": 0,
+      "value": "crwdns16656:0crwdne16656:0"
+    }
+  ],
+  "create-agenda": [
+    {
+      "type": 0,
+      "value": "crwdns16658:0crwdne16658:0"
+    }
+  ],
+  "distribute-fields": [
+    {
+      "type": 0,
+      "value": "crwdns16918:0crwdne16918:0"
+    }
+  ],
+  "email-placeholder": [
+    {
+      "type": 0,
+      "value": "crwdns16664:0crwdne16664:0"
+    }
+  ],
+  "email-success": [
+    {
+      "type": 0,
+      "value": "crwdns16666:0count="
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16666:0"
+    }
+  ],
+  "gcalStep2": [
+    {
+      "type": 0,
+      "value": "crwdns16670:0crwdne16670:0"
+    }
+  ],
+  "gcalStep3": [
+    {
+      "type": 0,
+      "value": "crwdns16672:0crwdne16672:0"
+    }
+  ],
+  "import": [
+    {
+      "type": 0,
+      "value": "crwdns16674:0crwdne16674:0"
+    }
+  ],
+  "input-field": [
+    {
+      "type": 0,
+      "value": "crwdns16676:0crwdne16676:0"
+    }
+  ],
+  "instructions": [
+    {
+      "type": 0,
+      "value": "crwdns16680:0crwdne16680:0"
+    }
+  ],
+  "instructionsCopyLink": [
+    {
+      "type": 0,
+      "value": "crwdns16682:0crwdne16682:0"
+    }
+  ],
+  "no-agenda": [
+    {
+      "type": 0,
+      "value": "crwdns16692:0"
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16692:0"
+    }
+  ],
+  "official-agenda": [
+    {
+      "type": 0,
+      "value": "crwdns16694:0crwdne16694:0"
+    }
+  ],
+  "outlookStep2": [
+    {
+      "type": 0,
+      "value": "crwdns16696:0crwdne16696:0"
+    }
+  ],
+  "outlookStep3": [
+    {
+      "type": 0,
+      "value": "crwdns16698:0crwdne16698:0"
+    }
+  ],
+  "outlookStep4": [
+    {
+      "type": 0,
+      "value": "crwdns16700:0crwdne16700:0"
+    }
+  ],
+  "outlookStep5": [
+    {
+      "type": 0,
+      "value": "crwdns16702:0crwdne16702:0"
+    }
+  ],
+  "private-agenda": [
+    {
+      "type": 0,
+      "value": "crwdns16704:0crwdne16704:0"
+    }
+  ],
+  "search-agenda": [
+    {
+      "type": 0,
+      "value": "crwdns16706:0crwdne16706:0"
+    }
+  ],
+  "select-all": [
+    {
+      "type": 0,
+      "value": "crwdns16708:0crwdne16708:0"
+    }
+  ],
+  "send": [
+    {
+      "type": 0,
+      "value": "crwdns16710:0crwdne16710:0"
+    }
+  ],
+  "share-calendar": [
+    {
+      "type": 0,
+      "value": "crwdns16712:0crwdne16712:0"
+    }
+  ],
+  "share-email": [
+    {
+      "type": 0,
+      "value": "crwdns16714:0crwdne16714:0"
+    }
+  ],
+  "share-oa": [
+    {
+      "type": 0,
+      "value": "crwdns16716:0crwdne16716:0"
+    }
+  ],
+  "share-title": [
+    {
+      "type": 0,
+      "value": "crwdns16718:0crwdne16718:0"
+    }
+  ],
+  "sign-in": [
+    {
+      "type": 0,
+      "value": "crwdns16720:0crwdne16720:0"
+    }
+  ],
+  "sign-in-agg": [
+    {
+      "type": 0,
+      "value": "crwdns16722:0crwdne16722:0"
+    }
+  ]
+}

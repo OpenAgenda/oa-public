@@ -1,0 +1,44 @@
+{
+  "common.event.accessibilities.accessibleEvent": [
+    {
+      "type": 0,
+      "value": "This event includes accessibility accommodations"
+    }
+  ],
+  "common.event.accessibilities.detail": [
+    {
+      "type": 0,
+      "value": "This event has installations setup to address specific types of disabilities"
+    }
+  ],
+  "common.event.accessibilities.hi": [
+    {
+      "type": 0,
+      "value": "Schwerhörig"
+    }
+  ],
+  "common.event.accessibilities.ii": [
+    {
+      "type": 0,
+      "value": "Geistige Behinderung"
+    }
+  ],
+  "common.event.accessibilities.mi": [
+    {
+      "type": 0,
+      "value": "Motorische beeinträchtigung"
+    }
+  ],
+  "common.event.accessibilities.pi": [
+    {
+      "type": 0,
+      "value": "Psychische behinderung"
+    }
+  ],
+  "common.event.accessibilities.vi": [
+    {
+      "type": 0,
+      "value": "Sehbehinderung"
+    }
+  ]
+}

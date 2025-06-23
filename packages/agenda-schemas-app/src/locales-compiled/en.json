@@ -1,0 +1,122 @@
+{
+  "AgendaSchema.AfterRedirectModal.body": [
+    {
+      "type": 0,
+      "value": "Member form configuration is not activated on your calendar"
+    }
+  ],
+  "AgendaSchema.AfterRedirectModal.title": [
+    {
+      "type": 0,
+      "value": "Information"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.eventInfo": [
+    {
+      "type": 0,
+      "value": "Events configuration"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.events": [
+    {
+      "type": 0,
+      "value": "Events"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.memberInfo": [
+    {
+      "type": 0,
+      "value": "Members configuration"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.memberInfoAsk": [
+    {
+      "type": 0,
+      "value": "Ask for access to member configuration"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.members": [
+    {
+      "type": 0,
+      "value": "Members"
+    }
+  ],
+  "AgendaSchema.EmbedSelection.notActivated": [
+    {
+      "type": 0,
+      "value": "This feature is not activated on your calendar"
+    }
+  ],
+  "AgendaSchema.adaptForm": [
+    {
+      "type": 0,
+      "value": "Adapt the configuration of the event form"
+    }
+  ],
+  "AgendaSchema.adaptMemberForm": [
+    {
+      "type": 0,
+      "value": "Adapt the configuration of the member form"
+    }
+  ],
+  "AgendaSchema.canAddField": [
+    {
+      "type": 0,
+      "value": "You can add the field of your choice to the event form"
+    }
+  ],
+  "AgendaSchema.event": [
+    {
+      "type": 0,
+      "value": "Standard"
+    }
+  ],
+  "AgendaSchema.eventDetail": [
+    {
+      "type": 0,
+      "value": "Standard event field"
+    }
+  ],
+  "AgendaSchema.goToContrib": [
+    {
+      "type": 0,
+      "value": "Go to contribution settings"
+    }
+  ],
+  "AgendaSchema.member": [
+    {
+      "type": 0,
+      "value": "Standard Member"
+    }
+  ],
+  "AgendaSchema.memberDetail": [
+    {
+      "type": 0,
+      "value": "Standard member field"
+    }
+  ],
+  "AgendaSchema.needMoreFields": [
+    {
+      "type": 0,
+      "value": "Need more fields?"
+    }
+  ],
+  "AgendaSchema.network": [
+    {
+      "type": 0,
+      "value": "Network"
+    }
+  ],
+  "AgendaSchema.networkDetail": [
+    {
+      "type": 0,
+      "value": "Field required by the agenda network"
+    }
+  ],
+  "AgendaSchema.warning": [
+    {
+      "type": 0,
+      "value": "Your calendar's contribution settings do not require your members to enter an identification card."
+    }
+  ]
+}

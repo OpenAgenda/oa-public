@@ -1,0 +1,44 @@
+{
+  "common.event.accessibilities.accessibleEvent": [
+    {
+      "type": 0,
+      "value": "Questo evento include sistemazioni accessibili"
+    }
+  ],
+  "common.event.accessibilities.detail": [
+    {
+      "type": 0,
+      "value": "Questo evento prevede installazioni predisposte per affrontare specifici tipi di disabilità"
+    }
+  ],
+  "common.event.accessibilities.hi": [
+    {
+      "type": 0,
+      "value": "Disabilità uditiva"
+    }
+  ],
+  "common.event.accessibilities.ii": [
+    {
+      "type": 0,
+      "value": "Disabilità cognitiva"
+    }
+  ],
+  "common.event.accessibilities.mi": [
+    {
+      "type": 0,
+      "value": "Disabilità motoria"
+    }
+  ],
+  "common.event.accessibilities.pi": [
+    {
+      "type": 0,
+      "value": "Disabilità psichica"
+    }
+  ],
+  "common.event.accessibilities.vi": [
+    {
+      "type": 0,
+      "value": "Disabilità visiva"
+    }
+  ]
+}

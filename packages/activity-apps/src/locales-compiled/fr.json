@@ -1,0 +1,6295 @@
+{
+  "ActivityApps.HistoryModal.noActivity": [
+    {
+      "type": 0,
+      "value": "Pas d'activité"
+    }
+  ],
+  "ActivityApps.Notifications.delete": [
+    {
+      "type": 0,
+      "value": "Supprimer"
+    }
+  ],
+  "ActivityApps.Notifications.markAllAsRead": [
+    {
+      "type": 0,
+      "value": "Tout marquer comme lu"
+    }
+  ],
+  "ActivityApps.Notifications.markAsRead": [
+    {
+      "type": 0,
+      "value": "Mark as read"
+    }
+  ],
+  "ActivityApps.Notifications.next": [
+    {
+      "type": 0,
+      "value": "Suivant"
+    }
+  ],
+  "ActivityApps.Notifications.noNotif": [
+    {
+      "type": 0,
+      "value": "Aucune notification."
+    }
+  ],
+  "ActivityApps.Notifications.viewHistory": [
+    {
+      "type": 0,
+      "value": "Voir l'historique"
+    }
+  ],
+  "ActivityApps.XAdministrators": [
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " administrateur"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " administrateurs"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ActivityApps.XContributors": [
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " contributeur"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " contributeurs"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ActivityApps.XModerators": [
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " modérateur"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " modérateurs"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ActivityApps.XOthers": [
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " autre"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " autres"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ActivityApps.XReaders": [
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " lecteur"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " lecteurs"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "ActivityApps.acceptInvitation.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invited"
+        }
+      ],
+      "type": 8,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": " a accepté l'invitation de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " pour devenir "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.acceptInvitation.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invited"
+        }
+      ],
+      "type": 8,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": " a accepté l'invitation de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " pour devenir "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.addEvent.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a ajouté "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " à partir de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "sourceAgenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.addEvent.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a ajouté "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " à partir de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "sourceAgenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.addEvent.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été ajouté sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " à partir de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "sourceAgenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.addMember.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a ajouté "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " en tant que "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.addMember.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a ajouté "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " en tant que "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.addMember.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a été ajouté en tant que "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.addSource.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a ajouté "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " aux sources de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.addSource.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a ajouté "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " aux sources."
+    }
+  ],
+  "ActivityApps.agendaCreate": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a créé l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.agendaSendMessage.detailButton": [
+    {
+      "type": 0,
+      "value": "Voir le message"
+    }
+  ],
+  "ActivityApps.agendaSendMessage.detailModalTitle": [
+    {
+      "type": 0,
+      "value": "Message"
+    }
+  ],
+  "ActivityApps.agendaSendMessage.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a envoyé un message à "
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "recipientRoles"
+    },
+    {
+      "type": 0,
+      "value": " sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.agendaSendMessage.fullWithSubject": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a envoyé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "subject"
+        }
+      ],
+      "type": 8,
+      "value": "subj"
+    },
+    {
+      "type": 0,
+      "value": " à "
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "recipientRoles"
+    },
+    {
+      "type": 0,
+      "value": " sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.agendaSendMessage.noDetail": [
+    {
+      "type": 0,
+      "value": "Le contenu du message est indisponible: seuls les messages envoyés après le 1er novembre 2024 sont consultables ici."
+    }
+  ],
+  "ActivityApps.agendaSendMessage.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a envoyé un message à "
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "recipientRoles"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.agendaSendMessage.withoutTargetWithSubject": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a envoyé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "subject"
+        }
+      ],
+      "type": 8,
+      "value": "subj"
+    },
+    {
+      "type": 0,
+      "value": " à "
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "recipientRoles"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.agendaUpdate.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a mis à jour l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.agendaUpdate.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a mis à jour l'agenda."
+    }
+  ],
+  "ActivityApps.aggregateEvent.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été agrégé à partir de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "sourceAgenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.aggregateEvent.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " a agrégé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " à partir de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "sourceAgenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.changeEventState.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a passé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " de \""
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "oldState"
+        }
+      ],
+      "type": 8,
+      "value": "state"
+    },
+    {
+      "type": 0,
+      "value": "\" à \""
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "newState"
+        }
+      ],
+      "type": 8,
+      "value": "state"
+    },
+    {
+      "type": 0,
+      "value": "\"."
+    }
+  ],
+  "ActivityApps.changeEventState.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a passé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " de \""
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "oldState"
+        }
+      ],
+      "type": 8,
+      "value": "state"
+    },
+    {
+      "type": 0,
+      "value": "\" à \""
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "newState"
+        }
+      ],
+      "type": 8,
+      "value": "state"
+    },
+    {
+      "type": 0,
+      "value": "\" sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventCreate.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a créé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventCreate.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a créé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventCreate.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été créé sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventDelete.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a supprimé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventDelete.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a supprimé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventDelete.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été supprimé sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventDuplicate.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a dupliqué "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " à partir de l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "duplicateOriginAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "duplicateOriginAgenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventDuplicate.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a dupliqué "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " à partir de l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "duplicateOriginAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "duplicateOriginAgenda"
+    },
+    {
+      "type": 0,
+      "value": " à l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventDuplicate.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été dupliqué "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "duplicateOriginAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "duplicateOriginAgenda"
+    },
+    {
+      "type": 0,
+      "value": " à l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.eventUpdate.actor": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié le champ "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "field"
+        },
+        {
+          "type": 0,
+          "value": " de "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "eventName"
+            }
+          ],
+          "type": 8,
+          "value": "event"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "singleDiff"
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "fields"
+        },
+        {
+          "type": 0,
+          "value": " de "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "eventName"
+            }
+          ],
+          "type": 8,
+          "value": "event"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "someDiff"
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "fields"
+        },
+        {
+          "type": 0,
+          "value": " de "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "eventName"
+            }
+          ],
+          "type": 8,
+          "value": "event"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "manyDiff"
+    }
+  ],
+  "ActivityApps.eventUpdate.detailButton": [
+    {
+      "type": 0,
+      "value": "Voir les modifications"
+    }
+  ],
+  "ActivityApps.eventUpdate.detailModalTitle": [
+    {
+      "type": 0,
+      "value": "Champs modifiés"
+    }
+  ],
+  "ActivityApps.eventUpdate.full": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié le champ "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "field"
+        },
+        {
+          "type": 0,
+          "value": " de "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "eventName"
+            }
+          ],
+          "type": 8,
+          "value": "event"
+        },
+        {
+          "type": 0,
+          "value": " sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "singleDiff"
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "fields"
+        },
+        {
+          "type": 0,
+          "value": " de "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "eventName"
+            }
+          ],
+          "type": 8,
+          "value": "event"
+        },
+        {
+          "type": 0,
+          "value": " sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "someDiff"
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "fields"
+        },
+        {
+          "type": 0,
+          "value": " de "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "eventName"
+            }
+          ],
+          "type": 8,
+          "value": "event"
+        },
+        {
+          "type": 0,
+          "value": " sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "manyDiff"
+    }
+  ],
+  "ActivityApps.eventUpdate.target": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Le champ "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "field"
+        },
+        {
+          "type": 0,
+          "value": " de "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "eventName"
+            }
+          ],
+          "type": 8,
+          "value": "event"
+        },
+        {
+          "type": 0,
+          "value": " a été modifié sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "singleDiff"
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "fields"
+        },
+        {
+          "type": 0,
+          "value": " de "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "eventName"
+            }
+          ],
+          "type": 8,
+          "value": "event"
+        },
+        {
+          "type": 0,
+          "value": " ont été modifiés sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "someDiff"
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "fields"
+        },
+        {
+          "type": 0,
+          "value": " de "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "eventName"
+            }
+          ],
+          "type": 8,
+          "value": "event"
+        },
+        {
+          "type": 0,
+          "value": " ont été modifiés sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "manyDiff"
+    }
+  ],
+  "ActivityApps.history": [
+    {
+      "type": 0,
+      "value": "Historique"
+    }
+  ],
+  "ActivityApps.locationCreate.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a créé le lieu "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "locationName"
+        }
+      ],
+      "type": 8,
+      "value": "location"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.locationCreate.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a créé le lieu "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "locationName"
+        }
+      ],
+      "type": 8,
+      "value": "location"
+    },
+    {
+      "type": 0,
+      "value": " sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.locationCreate.target": [
+    {
+      "type": 0,
+      "value": "Le lieu "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "locationName"
+        }
+      ],
+      "type": 8,
+      "value": "location"
+    },
+    {
+      "type": 0,
+      "value": " a été créé sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.locationMerge.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a fusionné le lieu "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "locationName"
+        }
+      ],
+      "type": 8,
+      "value": "location"
+    },
+    {
+      "type": 0,
+      "value": " avec "
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "mergedOthers"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.locationMerge.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a fusionné le lieu "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "locationName"
+        }
+      ],
+      "type": 8,
+      "value": "location"
+    },
+    {
+      "type": 0,
+      "value": " avec "
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "mergedOthers"
+    },
+    {
+      "type": 0,
+      "value": " sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.locationMerge.target": [
+    {
+      "type": 0,
+      "value": "Le lieu "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "locationName"
+        }
+      ],
+      "type": 8,
+      "value": "location"
+    },
+    {
+      "type": 0,
+      "value": " a été fusionné avec "
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "mergedOthers"
+    },
+    {
+      "type": 0,
+      "value": " sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.locationRemove.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a supprimé le lieu "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "locationName"
+        }
+      ],
+      "type": 8,
+      "value": "location"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.locationRemove.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a supprimé le lieu "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "locationName"
+        }
+      ],
+      "type": 8,
+      "value": "location"
+    },
+    {
+      "type": 0,
+      "value": " sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.locationRemove.target": [
+    {
+      "type": 0,
+      "value": "Le lieu "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "locationName"
+        }
+      ],
+      "type": 8,
+      "value": "location"
+    },
+    {
+      "type": 0,
+      "value": " a été supprimé sur l'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.locationUpdate.actor": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié le champ "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "locationField"
+        },
+        {
+          "type": 0,
+          "value": " du lieu "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "locationName"
+            }
+          ],
+          "type": 8,
+          "value": "location"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "singleDiff"
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "locationFields"
+        },
+        {
+          "type": 0,
+          "value": " du lieu "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "locationName"
+            }
+          ],
+          "type": 8,
+          "value": "location"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "someDiff"
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "locationFields"
+        },
+        {
+          "type": 0,
+          "value": " du lieu "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "locationName"
+            }
+          ],
+          "type": 8,
+          "value": "location"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "manyDiff"
+    }
+  ],
+  "ActivityApps.locationUpdate.full": [
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié le champ "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "locationField"
+        },
+        {
+          "type": 0,
+          "value": " du lieu "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "locationName"
+            }
+          ],
+          "type": 8,
+          "value": "location"
+        },
+        {
+          "type": 0,
+          "value": " sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "singleDiff"
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "locationFields"
+        },
+        {
+          "type": 0,
+          "value": " du lieu "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "locationName"
+            }
+          ],
+          "type": 8,
+          "value": "location"
+        },
+        {
+          "type": 0,
+          "value": " sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "someDiff"
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "userName"
+            }
+          ],
+          "type": 8,
+          "value": "user"
+        },
+        {
+          "type": 0,
+          "value": " a modifié les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "locationFields"
+        },
+        {
+          "type": 0,
+          "value": " du lieu "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "locationName"
+            }
+          ],
+          "type": 8,
+          "value": "location"
+        },
+        {
+          "type": 0,
+          "value": " sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "manyDiff"
+    }
+  ],
+  "ActivityApps.locationUpdate.target": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Le champ "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "locationField"
+        },
+        {
+          "type": 0,
+          "value": " du lieu "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "locationName"
+            }
+          ],
+          "type": 8,
+          "value": "location"
+        },
+        {
+          "type": 0,
+          "value": " a été mis à jour sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "singleDiff"
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "locationFields"
+        },
+        {
+          "type": 0,
+          "value": " du lieu "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "locationName"
+            }
+          ],
+          "type": 8,
+          "value": "location"
+        },
+        {
+          "type": 0,
+          "value": " ont été mis à jour sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "someDiff"
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Les champs "
+        },
+        {
+          "children": [],
+          "type": 8,
+          "value": "locationFields"
+        },
+        {
+          "type": 0,
+          "value": " du lieu "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "locationName"
+            }
+          ],
+          "type": 8,
+          "value": "location"
+        },
+        {
+          "type": 0,
+          "value": " ont été mis à jour sur "
+        },
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "agendaName"
+            }
+          ],
+          "type": 8,
+          "value": "agenda"
+        },
+        {
+          "type": 0,
+          "value": "."
+        }
+      ],
+      "type": 8,
+      "value": "manyDiff"
+    }
+  ],
+  "ActivityApps.noAgendaActivity": [
+    {
+      "type": 0,
+      "value": "L'activité de votre agenda s'affichera ici."
+    }
+  ],
+  "ActivityApps.noUserActivity": [
+    {
+      "type": 0,
+      "value": "Vos activités s'afficheront ici."
+    }
+  ],
+  "ActivityApps.notifications.agenda": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 1,
+              "value": "agenda"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "agenda"
+            },
+            {
+              "type": 0,
+              "value": " et 1 autre agenda"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "agenda"
+            },
+            {
+              "type": 0,
+              "value": " et "
+            },
+            {
+              "type": 1,
+              "value": "others"
+            },
+            {
+              "type": 0,
+              "value": " autres agendas"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "others"
+    }
+  ],
+  "ActivityApps.notifications.agendaAcceptInvitation": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " accepté l'invitation pour devenir "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "invitedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaAddEvent": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " ajouté "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": " à partir de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaAddEvent.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été ajouté"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été ajoutés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": " à partir de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaAddMember": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " ajouté "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " en tant que "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "invitedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaAddMember.withYou": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " vous a ajouté en tant que "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "invitedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaAddMember.withYou.withoutActor": [
+    {
+      "type": 0,
+      "value": "Vous avez été ajouté en tant que "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "invitedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaAddMember.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été ajouté"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été ajoutés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " en tant que "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "invitedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaAddSource": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " ajouté "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " aux sources de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaAggregateEvent": [
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": " a agrégé "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " à partir de "
+    },
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaChangeEventState": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " passé "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "oldState"
+            }
+          ],
+          "type": 8,
+          "value": "state"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " à "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "newState"
+            }
+          ],
+          "type": 8,
+          "value": "state"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaCreate": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " a créé l'agenda "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaPublishEvent": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " publié "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaPublishEvent.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été publié"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été publiés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaRefuseEvent": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " refusé "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaRefuseEvent.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été refusé"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été refusés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveDeletedEvent": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " été retiré de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": " après "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "sa"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "leur"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " suppression."
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveEvent": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " retiré "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveEvent.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été retiré"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été retirés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveMember": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " retiré "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " ("
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "removedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": ") de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveMember.withYou": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " vous ("
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "removedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": ") a retiré de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveMember.withYou.withoutActor": [
+    {
+      "type": 0,
+      "value": "Vous ("
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "removedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": ") avez été retiré de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveMember.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été retiré"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été retirés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " ("
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "removedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": ") de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaRemoveSource": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " retiré "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " des sources de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaSendInvitation": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " invité "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " en tant que "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "invitedRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaSetMemberRole": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " nommé "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " en tant que "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "afterRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaSetMemberRole.withYou": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " vous a nommé "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "afterRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaSetMemberRole.withYou.withoutActor": [
+    {
+      "type": 0,
+      "value": "Vous avez été nommé "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "afterRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaSetMemberRole.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été nommé"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été nommés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "children": [
+        {
+          "children": [
+            {
+              "type": 1,
+              "value": "afterRole"
+            }
+          ],
+          "type": 8,
+          "value": "role"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaSetOfficial": [
+    {
+      "type": 0,
+      "value": "L'agenda "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": " est devenu officiel."
+    }
+  ],
+  "ActivityApps.notifications.agendaSystemChangeEventState": [
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 1,
+              "value": "object"
+            },
+            {
+              "type": 0,
+              "value": " a été automatiquement remis en modération car il a été modifié par son contributeur sur "
+            },
+            {
+              "type": 1,
+              "value": "target"
+            },
+            {
+              "type": 0,
+              "value": "."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "object"
+            },
+            {
+              "type": 0,
+              "value": " ont été automatiquement remis en modération car ils ont été modifié par leur contributeur sur "
+            },
+            {
+              "type": 1,
+              "value": "target"
+            },
+            {
+              "type": 0,
+              "value": "."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    }
+  ],
+  "ActivityApps.notifications.agendaSystemRemoveEvent": [
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 1,
+              "value": "object"
+            },
+            {
+              "type": 0,
+              "value": " a été retiré après avoir été dépublié ou retiré de la source."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "object"
+            },
+            {
+              "type": 0,
+              "value": " ont été retirés après avoir été dépubliés ou retirés de la source."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    }
+  ],
+  "ActivityApps.notifications.agendaSystemUnpublishEvent": [
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 1,
+              "value": "object"
+            },
+            {
+              "type": 0,
+              "value": " est de nouveau en modération sur "
+            },
+            {
+              "type": 1,
+              "value": "target"
+            },
+            {
+              "type": 0,
+              "value": " suite à une modification."
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "object"
+            },
+            {
+              "type": 0,
+              "value": " sont de nouveau en modération sur "
+            },
+            {
+              "type": 1,
+              "value": "target"
+            },
+            {
+              "type": 0,
+              "value": " suite à une modification."
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    }
+  ],
+  "ActivityApps.notifications.agendaUnpublishEvent": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " dépublié "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaUnpublishEvent.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été dépublié"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été dépubliés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.agendaUpdate": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " mis à jour l'agenda "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.email": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 1,
+              "value": "email"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "email"
+            },
+            {
+              "type": 0,
+              "value": " et 1 autre"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "email"
+            },
+            {
+              "type": 0,
+              "value": " et "
+            },
+            {
+              "type": 1,
+              "value": "others"
+            },
+            {
+              "type": 0,
+              "value": " autres"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "others"
+    }
+  ],
+  "ActivityApps.notifications.event": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 1,
+              "value": "event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "event"
+            },
+            {
+              "type": 0,
+              "value": " et 1 autre événement"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "event"
+            },
+            {
+              "type": 0,
+              "value": " et "
+            },
+            {
+              "type": 1,
+              "value": "others"
+            },
+            {
+              "type": 0,
+              "value": " autres événements"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "others"
+    }
+  ],
+  "ActivityApps.notifications.eventCreate": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " créé "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.eventDelete": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " supprimé "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.eventDelete.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été supprimé"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été supprimés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.eventDuplicate": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " dupliqué "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "duplicateOriginAgendaName"
+        }
+      ],
+      "type": 8,
+      "value": "hl"
+    },
+    {
+      "type": 0,
+      "value": " à "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.eventDuplicate.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été dupliqué"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été dupliqués"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " à "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.eventUpdate": [
+    {
+      "type": 1,
+      "value": "actor"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "actorCount"
+    },
+    {
+      "type": 0,
+      "value": " modifié "
+    },
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.eventUpdate.withoutActor": [
+    {
+      "type": 1,
+      "value": "object"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=1": {
+          "value": [
+            {
+              "type": 0,
+              "value": "a été modifié"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "ont été modifiés"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "objectCount"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "type": 1,
+      "value": "target"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.notifications.user": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 1,
+              "value": "user"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 1,
+              "value": "user"
+            },
+            {
+              "type": 0,
+              "value": " et 1 autre utilisateur"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 1,
+              "value": "user"
+            },
+            {
+              "type": 0,
+              "value": " et "
+            },
+            {
+              "type": 1,
+              "value": "others"
+            },
+            {
+              "type": 0,
+              "value": " autres utilisateurs"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "others"
+    }
+  ],
+  "ActivityApps.publishEvent.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a publié "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.publishEvent.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a publié "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.publishEvent.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été publié sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.refuseEvent.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a refusé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.refuseEvent.detailButton": [
+    {
+      "type": 0,
+      "value": "Voir le motif"
+    }
+  ],
+  "ActivityApps.refuseEvent.detailModalTitle": [
+    {
+      "type": 0,
+      "value": "Motif du refus"
+    }
+  ],
+  "ActivityApps.refuseEvent.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a refusé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.refuseEvent.noDetail": [
+    {
+      "type": 0,
+      "value": "Aucun motif n'a été renseigné"
+    }
+  ],
+  "ActivityApps.refuseEvent.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été refusé sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.removeDeletedEvent.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été retiré de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " après sa suppression."
+    }
+  ],
+  "ActivityApps.removeDeletedEvent.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été supprimé."
+    }
+  ],
+  "ActivityApps.removeEvent.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a retiré "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.removeEvent.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a retiré "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.removeEvent.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été retiré "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.removeMember.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a retiré "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "removedMember"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " ("
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "removedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": ")."
+    }
+  ],
+  "ActivityApps.removeMember.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a retiré "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "removedMember"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " ("
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "removedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": ") de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.removeMember.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "removedMember"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " ("
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "removedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": ") a été retiré de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.removeSource.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a retiré "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " des sources de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.removeSource.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a retiré "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "sourceName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " des sources."
+    }
+  ],
+  "ActivityApps.sendInvitation.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a invité "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invited"
+        }
+      ],
+      "type": 8,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": " en tant que "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.sendInvitation.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a invité "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invited"
+        }
+      ],
+      "type": 8,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": " en tant que "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "invitedRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.setMemberRole.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a passé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "modifiedMember"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "beforeRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": " à "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "afterRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.setMemberRole.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a passé "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "modifiedMember"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "beforeRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": " à "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "afterRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.setMemberRole.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "modifiedMember"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " est passé de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "beforeRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": " à "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "afterRole"
+        }
+      ],
+      "type": 8,
+      "value": "role"
+    },
+    {
+      "type": 0,
+      "value": " sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.setOfficial.full": [
+    {
+      "type": 0,
+      "value": "L'agenda "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " est devenu officiel."
+    }
+  ],
+  "ActivityApps.setOfficial.withoutTarget": [
+    {
+      "type": 0,
+      "value": "L'agenda est devenu officiel."
+    }
+  ],
+  "ActivityApps.systemChangeEventState.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été automatiquement remis en modération car il a été modifié par son contributeur sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.systemChangeEventState.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été automatiquement remis en modération car il a été modifié par son contributeur."
+    }
+  ],
+  "ActivityApps.systemRemoveEvent.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été retiré de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " après avoir été dépublié ou retiré de la source."
+    }
+  ],
+  "ActivityApps.systemRemoveEvent.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été retiré après avoir été dépublié ou retiré de la source."
+    }
+  ],
+  "ActivityApps.systemUnpublishEvent.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " est de nouveau en modération sur "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " suite à une modification."
+    }
+  ],
+  "ActivityApps.systemUnpublishEvent.withoutTarget": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " est de nouveau en modération suite à une modification."
+    }
+  ],
+  "ActivityApps.unpublishEvent.actor": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a dépublier "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.unpublishEvent.full": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "userName"
+        }
+      ],
+      "type": 8,
+      "value": "user"
+    },
+    {
+      "type": 0,
+      "value": " a dépublié "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "ActivityApps.unpublishEvent.target": [
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "eventName"
+        }
+      ],
+      "type": 8,
+      "value": "event"
+    },
+    {
+      "type": 0,
+      "value": " a été dépublié de "
+    },
+    {
+      "children": [
+        {
+          "type": 1,
+          "value": "agendaName"
+        }
+      ],
+      "type": 8,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ]
+}

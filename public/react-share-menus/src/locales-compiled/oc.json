@@ -1,0 +1,324 @@
+{
+  "ReactShareMenus.ExportModal.cancel": [
+    {
+      "type": 0,
+      "value": "Anullar"
+    }
+  ],
+  "ReactShareMenus.ExportModal.close": [
+    {
+      "type": 0,
+      "value": "Tampar"
+    }
+  ],
+  "ReactShareMenus.ExportModal.detailedFormat": [
+    {
+      "type": 0,
+      "value": "Far servir lo format detalhat"
+    }
+  ],
+  "ReactShareMenus.ExportModal.documentation": [
+    {
+      "type": 0,
+      "value": "Veire la documentacion"
+    }
+  ],
+  "ReactShareMenus.ExportModal.exportAll": [
+    {
+      "type": 0,
+      "value": "Exportar totes los eveniments"
+    }
+  ],
+  "ReactShareMenus.ExportModal.exportJson": [
+    {
+      "type": 0,
+      "value": "Utilizar la version precedenta d'expòrt JSON"
+    }
+  ],
+  "ReactShareMenus.ExportModal.exportSelection": [
+    {
+      "type": 0,
+      "value": "Esperar la seleccion actuala d'eveniments"
+    }
+  ],
+  "ReactShareMenus.ExportModal.inputFormat": [
+    {
+      "type": 0,
+      "value": "Causir un format"
+    }
+  ],
+  "ReactShareMenus.ExportModal.jsonDoc1": [
+    {
+      "type": 0,
+      "value": "Documentacion"
+    }
+  ],
+  "ReactShareMenus.ExportModal.jsonDoc2": [
+    {
+      "type": 0,
+      "value": "aquí"
+    }
+  ],
+  "ReactShareMenus.ExportModal.login": [
+    {
+      "type": 0,
+      "value": "Mercés de vos connectar per accedir al ligam d'exportacion dirèctament a partir d'aqueste menut"
+    }
+  ],
+  "ReactShareMenus.ExportModal.title": [
+    {
+      "type": 0,
+      "value": "Exportar"
+    }
+  ],
+  "aggregator-description": [
+    {
+      "type": 0,
+      "value": "Los eveniments publicats per "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": " seràn automaticament aponduts al calendièr seleccionat."
+    }
+  ],
+  "aggregator-title": [
+    {
+      "type": 0,
+      "value": "Agregar a una agenda"
+    }
+  ],
+  "all-fields": [
+    {
+      "type": 0,
+      "value": "Exportat totes los camps"
+    }
+  ],
+  "all-languages": [
+    {
+      "type": 0,
+      "value": "Exportar dins totas las lengas"
+    }
+  ],
+  "calendar-date": [
+    {
+      "type": 0,
+      "value": "Aqueste eveniment a pas de data a venir"
+    }
+  ],
+  "connection-btn": [
+    {
+      "type": 0,
+      "value": "Se connectar"
+    }
+  ],
+  "create-agenda": [
+    {
+      "type": 0,
+      "value": "Crear una agenda"
+    }
+  ],
+  "distribute-fields": [
+    {
+      "type": 0,
+      "value": "Camps amb opcions: mostrar una valor per colomna"
+    }
+  ],
+  "email-placeholder": [
+    {
+      "type": 0,
+      "value": "Dintratz l'email sul qual volètz mandar l'eveniment"
+    }
+  ],
+  "email-success": [
+    {
+      "type": 0,
+      "value": "L'eveniment es estat mandat a "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "cap adreça email"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " adreça email"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " adreças email"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "gcalStep2": [
+    {
+      "type": 0,
+      "value": "2. Dins la seccion a esquèrra, dobrissètz \"Autres calendièrs > Apondre per URL\"."
+    }
+  ],
+  "gcalStep3": [
+    {
+      "type": 0,
+      "value": "3. Seguissètz las instruccions en pegant lo ligam que copièretz a l'etapa 1"
+    }
+  ],
+  "import": [
+    {
+      "type": 0,
+      "value": "Importar"
+    }
+  ],
+  "input-field": [
+    {
+      "type": 0,
+      "value": "Seleccionatz los camps d'exportar"
+    }
+  ],
+  "instructions": [
+    {
+      "type": 0,
+      "value": "Instruccions"
+    }
+  ],
+  "instructionsCopyLink": [
+    {
+      "type": 0,
+      "value": "1. Copiatz lo ligam dins lo camp dejós e dobrissètz "
+    }
+  ],
+  "no-agenda": [
+    {
+      "type": 0,
+      "value": "Atencion: vòstre compte baileja pas cap agenda. Mercés de ne crear una primièr se volètz agregar los eveniments de "
+    },
+    {
+      "type": 1,
+      "value": "targetAgenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "official-agenda": [
+    {
+      "type": 0,
+      "value": "Agenda oficiala"
+    }
+  ],
+  "outlookStep2": [
+    {
+      "type": 0,
+      "value": "2. Al pè de la pagina, seleccionatz l'icòna de calendièr"
+    }
+  ],
+  "outlookStep3": [
+    {
+      "type": 0,
+      "value": "3. Dins lo panèl de navigacion, causissètz \"Apondre calendièr\""
+    }
+  ],
+  "outlookStep4": [
+    {
+      "type": 0,
+      "value": "4. Causissètz \"Soscriure a partir del web\""
+    }
+  ],
+  "outlookStep5": [
+    {
+      "type": 0,
+      "value": "5. Pegats l'URL que copièretz a l'etapa 1. Causissètz \"Impòrt\"."
+    }
+  ],
+  "private-agenda": [
+    {
+      "type": 0,
+      "value": "Agenda privada"
+    }
+  ],
+  "search-agenda": [
+    {
+      "type": 0,
+      "value": "Cercar"
+    }
+  ],
+  "select-all": [
+    {
+      "type": 0,
+      "value": "Seleccionar tot"
+    }
+  ],
+  "send": [
+    {
+      "type": 0,
+      "value": "Mandar"
+    }
+  ],
+  "share-calendar": [
+    {
+      "type": 0,
+      "value": "Importar dins un calendièr personal"
+    }
+  ],
+  "share-email": [
+    {
+      "type": 0,
+      "value": "Mandar per email"
+    }
+  ],
+  "share-oa": [
+    {
+      "type": 0,
+      "value": "Partejar sus OpenAgenda"
+    }
+  ],
+  "share-title": [
+    {
+      "type": 0,
+      "value": "Partejar aquel eveniment"
+    }
+  ],
+  "sign-in": [
+    {
+      "type": 0,
+      "value": "Vos cal connectar a vòstre compte per apondre aqueste eveniment a vòstres OpenAgendas"
+    }
+  ],
+  "sign-in-agg": [
+    {
+      "type": 0,
+      "value": "Vos cal connectar a vòstre compte per agregar aqueste eveniment."
+    }
+  ]
+}

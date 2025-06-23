@@ -1,0 +1,1 @@
+{"version":3,"sources":["../src/utils/fetchLocale.js"],"sourcesContent":["export default function fetchLocale(locale) {\n  return import(`../locales-compiled/${locale}.json`).then(\n    (mod) => mod.default,\n  );\n}\n"],"mappings":";;;;;;;;;;;;;;;;;;;AAAe,SAAR,YAA6B,QAAQ;AAC1C,SAAc,wDAAuB,MAAM,SAAS;AAAA,IAClD,CAAC,QAAQ,IAAI;AAAA,EACf;AACF;","names":[]}

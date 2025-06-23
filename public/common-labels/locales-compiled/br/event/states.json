@@ -1,0 +1,26 @@
+{
+  "common.event.states.published": [
+    {
+      "type": 0,
+      "value": "Embannet"
+    }
+  ],
+  "common.event.states.readyToPublish": [
+    {
+      "type": 0,
+      "value": "Prest da vezañ embannet"
+    }
+  ],
+  "common.event.states.refused": [
+    {
+      "type": 0,
+      "value": "Nac'het"
+    }
+  ],
+  "common.event.states.toModerate": [
+    {
+      "type": 0,
+      "value": "À modérer"
+    }
+  ]
+}

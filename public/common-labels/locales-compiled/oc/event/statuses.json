@@ -1,0 +1,74 @@
+{
+  "common.event.statuses.cancelled": [
+    {
+      "type": 0,
+      "value": "Anullat"
+    }
+  ],
+  "common.event.statuses.cancelledInfo": [
+    {
+      "type": 0,
+      "value": "L'eveniment es estat definitivament anullat"
+    }
+  ],
+  "common.event.statuses.full": [
+    {
+      "type": 0,
+      "value": "Totalament complèt"
+    }
+  ],
+  "common.event.statuses.fullInfo": [
+    {
+      "type": 0,
+      "value": "Los participants novèls son pas pus acceptats a l'eveniment"
+    }
+  ],
+  "common.event.statuses.movedOnline": [
+    {
+      "type": 0,
+      "value": "Transferit en linha"
+    }
+  ],
+  "common.event.statuses.movedOnlineInfo": [
+    {
+      "type": 0,
+      "value": "L'eveniment se debanarà pas mai en un lòc fisic"
+    }
+  ],
+  "common.event.statuses.postponed": [
+    {
+      "type": 0,
+      "value": "Remandat"
+    }
+  ],
+  "common.event.statuses.postponedInfo": [
+    {
+      "type": 0,
+      "value": "Las datas d'eveniment son pas pus validas. Las datas novèlas son pas encara conegudas"
+    }
+  ],
+  "common.event.statuses.rescheduled": [
+    {
+      "type": 0,
+      "value": "Tornat planificar"
+    }
+  ],
+  "common.event.statuses.rescheduledInfo": [
+    {
+      "type": 0,
+      "value": "Las oras e datas de l'eveniment son estadas modificadas"
+    }
+  ],
+  "common.event.statuses.scheduled": [
+    {
+      "type": 0,
+      "value": "Programat"
+    }
+  ],
+  "common.event.statuses.scheduledInfo": [
+    {
+      "type": 0,
+      "value": "L'eveniment es previst al lòc e a l'ora indicats"
+    }
+  ]
+}

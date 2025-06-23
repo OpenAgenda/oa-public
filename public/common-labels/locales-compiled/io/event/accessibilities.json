@@ -1,0 +1,44 @@
+{
+  "common.event.accessibilities.accessibleEvent": [
+    {
+      "type": 0,
+      "value": "crwdns34433:0crwdne34433:0"
+    }
+  ],
+  "common.event.accessibilities.detail": [
+    {
+      "type": 0,
+      "value": "crwdns34435:0crwdne34435:0"
+    }
+  ],
+  "common.event.accessibilities.hi": [
+    {
+      "type": 0,
+      "value": "crwdns34437:0crwdne34437:0"
+    }
+  ],
+  "common.event.accessibilities.ii": [
+    {
+      "type": 0,
+      "value": "crwdns34439:0crwdne34439:0"
+    }
+  ],
+  "common.event.accessibilities.mi": [
+    {
+      "type": 0,
+      "value": "crwdns34441:0crwdne34441:0"
+    }
+  ],
+  "common.event.accessibilities.pi": [
+    {
+      "type": 0,
+      "value": "crwdns34443:0crwdne34443:0"
+    }
+  ],
+  "common.event.accessibilities.vi": [
+    {
+      "type": 0,
+      "value": "crwdns34445:0crwdne34445:0"
+    }
+  ]
+}

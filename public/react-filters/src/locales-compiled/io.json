@@ -1,0 +1,686 @@
+{
+  "ReactFilters.DateRangeFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "crwdns16546:0"
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd16546:0"
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16546:0"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.endDate": [
+    {
+      "type": 0,
+      "value": "crwdns16548:0crwdne16548:0"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.from": [
+    {
+      "type": 0,
+      "value": "crwdns16550:0"
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16550:0"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.startDate": [
+    {
+      "type": 0,
+      "value": "crwdns16554:0crwdne16554:0"
+    }
+  ],
+  "ReactFilters.DateRangeFilter.until": [
+    {
+      "type": 0,
+      "value": "crwdns16556:0"
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16556:0"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "crwdns16558:0"
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd16558:0"
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16558:0"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.endDate": [
+    {
+      "type": 0,
+      "value": "crwdns16560:0crwdne16560:0"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.from": [
+    {
+      "type": 0,
+      "value": "crwdns16562:0"
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16562:0"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.singleDate": [
+    {
+      "type": 0,
+      "value": "crwdns16564:0"
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16564:0"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.startDate": [
+    {
+      "type": 0,
+      "value": "crwdns16566:0crwdne16566:0"
+    }
+  ],
+  "ReactFilters.DefinedRangeFilter.until": [
+    {
+      "type": 0,
+      "value": "crwdns16568:0"
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16568:0"
+    }
+  ],
+  "ReactFilters.Sort.chronological": [
+    {
+      "type": 0,
+      "value": "crwdns17304:0crwdne17304:0"
+    }
+  ],
+  "ReactFilters.Sort.publicView": [
+    {
+      "type": 0,
+      "value": "crwdns33908:0crwdne33908:0"
+    }
+  ],
+  "ReactFilters.Sort.recentlyUpdated": [
+    {
+      "type": 0,
+      "value": "crwdns17306:0crwdne17306:0"
+    }
+  ],
+  "ReactFilters.Sort.relevance": [
+    {
+      "type": 0,
+      "value": "crwdns17308:0crwdne17308:0"
+    }
+  ],
+  "ReactFilters.TimelineField.selectDay": [
+    {
+      "type": 0,
+      "value": "crwdns34401:0crwdne34401:0"
+    }
+  ],
+  "ReactFilters.TimelineField.selectMonth": [
+    {
+      "type": 0,
+      "value": "crwdns34403:0crwdne34403:0"
+    }
+  ],
+  "ReactFilters.TimelineFilter.dateRange": [
+    {
+      "type": 0,
+      "value": "crwdns34405:0"
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd34405:0"
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdne34405:0"
+    }
+  ],
+  "ReactFilters.TimelineFilter.from": [
+    {
+      "type": 0,
+      "value": "crwdns34407:0"
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdne34407:0"
+    }
+  ],
+  "ReactFilters.TimelineFilter.until": [
+    {
+      "type": 0,
+      "value": "crwdns34409:0"
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdne34409:0"
+    }
+  ],
+  "ReactFilters.ValueBadge.removeFilter": [
+    {
+      "type": 0,
+      "value": "crwdns16572:0crwdne16572:0"
+    }
+  ],
+  "ReactFilters.ValueBadge.removeFilterWithTitle": [
+    {
+      "type": 0,
+      "value": "crwdns16870:0"
+    },
+    {
+      "type": 1,
+      "value": "title"
+    },
+    {
+      "type": 0,
+      "value": "crwdne16870:0"
+    }
+  ],
+  "ReactFilters.components.fields.SearchInput.ariaLabel": [
+    {
+      "type": 0,
+      "value": "crwdns34411:0crwdne34411:0"
+    }
+  ],
+  "ReactFilters.dateRanges.currentMonth": [
+    {
+      "type": 0,
+      "value": "crwdns16574:0crwdne16574:0"
+    }
+  ],
+  "ReactFilters.dateRanges.currentWeek": [
+    {
+      "type": 0,
+      "value": "crwdns16576:0crwdne16576:0"
+    }
+  ],
+  "ReactFilters.dateRanges.thisWeekend": [
+    {
+      "type": 0,
+      "value": "crwdns16578:0crwdne16578:0"
+    }
+  ],
+  "ReactFilters.dateRanges.today": [
+    {
+      "type": 0,
+      "value": "crwdns16580:0crwdne16580:0"
+    }
+  ],
+  "ReactFilters.dateRanges.tomorrow": [
+    {
+      "type": 0,
+      "value": "crwdns16582:0crwdne16582:0"
+    }
+  ],
+  "ReactFilters.fields.NumberRangeField.gte": [
+    {
+      "type": 0,
+      "value": "crwdns33910:0crwdne33910:0"
+    }
+  ],
+  "ReactFilters.fields.NumberRangeField.lte": [
+    {
+      "type": 0,
+      "value": "crwdns33912:0crwdne33912:0"
+    }
+  ],
+  "ReactFilters.fields.SimpleRangeField.endDate": [
+    {
+      "type": 0,
+      "value": "crwdns34413:0crwdne34413:0"
+    }
+  ],
+  "ReactFilters.fields.SimpleRangeField.startDate": [
+    {
+      "type": 0,
+      "value": "crwdns34415:0crwdne34415:0"
+    }
+  ],
+  "ReactFilters.filters.MapFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "crwdns16584:0crwdne16584:0"
+    }
+  ],
+  "ReactFilters.filters.searchFilter.placeholder": [
+    {
+      "type": 0,
+      "value": "crwdns16586:0crwdne16586:0"
+    }
+  ],
+  "ReactFilters.filters.searchFilter.previewLabel": [
+    {
+      "type": 0,
+      "value": "crwdns16588:0crwdne16588:0"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.hi": [
+    {
+      "type": 0,
+      "value": "crwdns32422:0crwdne32422:0"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.ii": [
+    {
+      "type": 0,
+      "value": "crwdns32424:0crwdne32424:0"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.mi": [
+    {
+      "type": 0,
+      "value": "crwdns32426:0crwdne32426:0"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.pi": [
+    {
+      "type": 0,
+      "value": "crwdns32428:0crwdne32428:0"
+    }
+  ],
+  "ReactFilters.messages.accessiblities.vi": [
+    {
+      "type": 0,
+      "value": "crwdns32430:0crwdne32430:0"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.mixed": [
+    {
+      "type": 0,
+      "value": "crwdns16872:0crwdne16872:0"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.offline": [
+    {
+      "type": 0,
+      "value": "crwdns16874:0crwdne16874:0"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.online": [
+    {
+      "type": 0,
+      "value": "crwdns16876:0crwdne16876:0"
+    }
+  ],
+  "ReactFilters.messages.boolean.notSelected": [
+    {
+      "type": 0,
+      "value": "crwdns17310:0crwdne17310:0"
+    }
+  ],
+  "ReactFilters.messages.boolean.selected": [
+    {
+      "type": 0,
+      "value": "crwdns17312:0crwdne17312:0"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.lessOptions": [
+    {
+      "type": 0,
+      "value": "crwdns32809:0crwdne32809:0"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.moreOptions": [
+    {
+      "type": 0,
+      "value": "crwdns32811:0crwdne32811:0"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.noResult": [
+    {
+      "type": 0,
+      "value": "crwdns32813:0crwdne32813:0"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.searchPlaceholder": [
+    {
+      "type": 0,
+      "value": "crwdns32815:0crwdne32815:0"
+    }
+  ],
+  "ReactFilters.messages.choiceFilter.unrecognizedOption": [
+    {
+      "type": 0,
+      "value": "crwdns32817:0"
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32817:0"
+    }
+  ],
+  "ReactFilters.messages.featured.featured": [
+    {
+      "type": 0,
+      "value": "crwdns16878:0crwdne16878:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.accessibility": [
+    {
+      "type": 0,
+      "value": "crwdns32434:0crwdne32434:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.addMethod": [
+    {
+      "type": 0,
+      "value": "crwdns16596:0crwdne16596:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.adminLevel3": [
+    {
+      "type": 0,
+      "value": "crwdns16598:0crwdne16598:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.attendanceMode": [
+    {
+      "type": 0,
+      "value": "crwdns16600:0crwdne16600:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.city": [
+    {
+      "type": 0,
+      "value": "crwdns16602:0crwdne16602:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.countryCode": [
+    {
+      "type": 0,
+      "value": "crwdns33337:0crwdne33337:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.createdAt": [
+    {
+      "type": 0,
+      "value": "crwdns16604:0crwdne16604:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.department": [
+    {
+      "type": 0,
+      "value": "crwdns16606:0crwdne16606:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.district": [
+    {
+      "type": 0,
+      "value": "crwdns16608:0crwdne16608:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.featured": [
+    {
+      "type": 0,
+      "value": "crwdns16610:0crwdne16610:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.geo": [
+    {
+      "type": 0,
+      "value": "crwdns16612:0crwdne16612:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.keyword": [
+    {
+      "type": 0,
+      "value": "crwdns16614:0crwdne16614:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.languages": [
+    {
+      "type": 0,
+      "value": "crwdns32825:0crwdne32825:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.locationUid": [
+    {
+      "type": 0,
+      "value": "crwdns16616:0crwdne16616:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.memberUid": [
+    {
+      "type": 0,
+      "value": "crwdns16618:0crwdne16618:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.originAgendaUid": [
+    {
+      "type": 0,
+      "value": "crwdns16620:0crwdne16620:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.region": [
+    {
+      "type": 0,
+      "value": "crwdns16622:0crwdne16622:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.relative": [
+    {
+      "type": 0,
+      "value": "crwdns16624:0crwdne16624:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.search": [
+    {
+      "type": 0,
+      "value": "crwdns34417:0crwdne34417:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.sourceAgendaUid": [
+    {
+      "type": 0,
+      "value": "crwdns16626:0crwdne16626:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.state": [
+    {
+      "type": 0,
+      "value": "crwdns16628:0crwdne16628:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.status": [
+    {
+      "type": 0,
+      "value": "crwdns16630:0crwdne16630:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.timings": [
+    {
+      "type": 0,
+      "value": "crwdns16632:0crwdne16632:0"
+    }
+  ],
+  "ReactFilters.messages.filterTitles.updatedAt": [
+    {
+      "type": 0,
+      "value": "crwdns16634:0crwdne16634:0"
+    }
+  ],
+  "ReactFilters.messages.map.searchHere": [
+    {
+      "type": 0,
+      "value": "crwdns34419:0crwdne34419:0"
+    }
+  ],
+  "ReactFilters.messages.map.searchWithMap": [
+    {
+      "type": 0,
+      "value": "crwdns32827:0crwdne32827:0"
+    }
+  ],
+  "ReactFilters.messages.provenance.aggregation": [
+    {
+      "type": 0,
+      "value": "crwdns16880:0crwdne16880:0"
+    }
+  ],
+  "ReactFilters.messages.provenance.contribution": [
+    {
+      "type": 0,
+      "value": "crwdns16882:0crwdne16882:0"
+    }
+  ],
+  "ReactFilters.messages.provenance.share": [
+    {
+      "type": 0,
+      "value": "crwdns16884:0crwdne16884:0"
+    }
+  ],
+  "ReactFilters.messages.relative.current": [
+    {
+      "type": 0,
+      "value": "crwdns16886:0crwdne16886:0"
+    }
+  ],
+  "ReactFilters.messages.relative.passed": [
+    {
+      "type": 0,
+      "value": "crwdns16888:0crwdne16888:0"
+    }
+  ],
+  "ReactFilters.messages.relative.upcoming": [
+    {
+      "type": 0,
+      "value": "crwdns16890:0crwdne16890:0"
+    }
+  ],
+  "ReactFilters.messages.state.controlled": [
+    {
+      "type": 0,
+      "value": "crwdns16892:0crwdne16892:0"
+    }
+  ],
+  "ReactFilters.messages.state.published": [
+    {
+      "type": 0,
+      "value": "crwdns16894:0crwdne16894:0"
+    }
+  ],
+  "ReactFilters.messages.state.refused": [
+    {
+      "type": 0,
+      "value": "crwdns16896:0crwdne16896:0"
+    }
+  ],
+  "ReactFilters.messages.state.toModerate": [
+    {
+      "type": 0,
+      "value": "crwdns16898:0crwdne16898:0"
+    }
+  ],
+  "ReactFilters.messages.status.cancelled": [
+    {
+      "type": 0,
+      "value": "crwdns16900:0crwdne16900:0"
+    }
+  ],
+  "ReactFilters.messages.status.full": [
+    {
+      "type": 0,
+      "value": "crwdns16902:0crwdne16902:0"
+    }
+  ],
+  "ReactFilters.messages.status.movedOnline": [
+    {
+      "type": 0,
+      "value": "crwdns16904:0crwdne16904:0"
+    }
+  ],
+  "ReactFilters.messages.status.postponed": [
+    {
+      "type": 0,
+      "value": "crwdns16906:0crwdne16906:0"
+    }
+  ],
+  "ReactFilters.messages.status.programmed": [
+    {
+      "type": 0,
+      "value": "crwdns16908:0crwdne16908:0"
+    }
+  ],
+  "ReactFilters.messages.status.rescheduled": [
+    {
+      "type": 0,
+      "value": "crwdns16910:0crwdne16910:0"
+    }
+  ],
+  "ReactFilters.useGetFilterOptions.emptyOption": [
+    {
+      "type": 0,
+      "value": "crwdns16912:0crwdne16912:0"
+    }
+  ]
+}

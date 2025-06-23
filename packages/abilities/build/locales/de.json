@@ -1,0 +1,19 @@
+{
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": "Einstellungen Veranstalter:",
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": "Deine Admin- / Moderatoreinstellungen:",
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": "Meine Veranstaltereinstellungen:",
+  "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": "Erhalte Nachrichten bei Änderungen des Bearbeitungstatus",
+  "Abilities.RulesCheckbox.rules.receiveEvent": "Infos über Veranstaltungen anderer User",
+  "Abilities.RulesCheckbox.rules.receiveEventChangeState": "Erhalte Nachrichten wenn sich der Status meiner Veranstaltungen ändert",
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": "Erhalte Nachrichten zu neu angelegte Events",
+  "Abilities.RulesCheckbox.rules.receiveEventUpdate": "Erhalte Nachrichten zu Veröffentlichungen",
+  "Abilities.RulesCheckbox.rules.receiveInvitation": "Einladungen erhalten",
+  "Abilities.RulesCheckbox.rules.receiveMemberMessage": "Erhalte Nachrichten die über \"Write to them\" Funktion gesendet wurden",
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": "Erhalte Bestätigungen wenn jemand meine Veranstaltung hinzufügt",
+  "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": "Erhalte Nachrichten bei Änderungen des Bearbeitungstatus",
+  "Abilities.RulesCheckbox.rules.receiveMyEventCreation": "Erhalte Bestätigungen nach Anlegen einer Veranstaltung",
+  "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": "Erhalte Nachrichten wenn meine Veranstaltung geändert wurde",
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": "Zusammenfassungen und Benachrichtigungen erhalten",
+  "Abilities.RulesCheckbox.rules.receiveUserInboxMessage": "Erhalte Nachrichten aus deiner Open-Agenda Inbox",
+  "Abilities.RulesCheckbox.states.refused": "Erhalte Ablehnungsstatus"
+}

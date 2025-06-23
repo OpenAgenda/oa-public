@@ -1,0 +1,1 @@
+{"version":3,"file":"isObject.js","names":["o","Object","prototype","toString","call"],"sources":["../../src/iso/isObject.js"],"sourcesContent":["export default (o) => Object.prototype.toString.call(o) === '[object Object]';\n"],"mappings":"AAAA,eAAgBA,CAAC,IAAKC,MAAM,CAACC,SAAS,CAACC,QAAQ,CAACC,IAAI,CAACJ,CAAC,CAAC,KAAK,iBAAiB","ignoreList":[]}

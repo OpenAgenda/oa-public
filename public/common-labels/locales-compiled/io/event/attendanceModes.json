@@ -1,0 +1,20 @@
+{
+  "ReactFilters.messages.attendanceMode.mixed": [
+    {
+      "type": 0,
+      "value": "crwdns32819:0crwdne32819:0"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.offline": [
+    {
+      "type": 0,
+      "value": "crwdns32821:0crwdne32821:0"
+    }
+  ],
+  "ReactFilters.messages.attendanceMode.online": [
+    {
+      "type": 0,
+      "value": "crwdns32823:0crwdne32823:0"
+    }
+  ]
+}

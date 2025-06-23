@@ -1,0 +1,1 @@
+{"version":3,"file":"index.js","names":["_toEventSchema","_interopRequireDefault","require"],"sources":["../../src/schema-org/index.js"],"sourcesContent":["export { default as toEventSchema } from './toEventSchema';\n"],"mappings":";;;;;;;;;;;;AAAA,IAAAA,cAAA,GAAAC,sBAAA,CAAAC,OAAA","ignoreList":[]}

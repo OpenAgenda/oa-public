@@ -1,0 +1,44 @@
+{
+  "event-form.components.Events.emptySelection": [
+    {
+      "type": 0,
+      "value": "No events have been selected"
+    }
+  ],
+  "event-form.components.Events.loadError": [
+    {
+      "type": 0,
+      "value": "Load error, please try again"
+    }
+  ],
+  "event-form.components.Events.noResult": [
+    {
+      "type": 0,
+      "value": "No matching event found"
+    }
+  ],
+  "event-form.components.Events.remove": [
+    {
+      "type": 0,
+      "value": "Remove"
+    }
+  ],
+  "event-form.components.Events.search": [
+    {
+      "type": 0,
+      "value": "Search"
+    }
+  ],
+  "event-form.components.Events.searchEvents": [
+    {
+      "type": 0,
+      "value": "Event search"
+    }
+  ],
+  "event-form.components.Events.show": [
+    {
+      "type": 0,
+      "value": "Ansehen"
+    }
+  ]
+}

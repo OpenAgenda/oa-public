@@ -1,0 +1,418 @@
+{
+  "AgendaSetting.contribution.memberRights": [
+    {
+      "type": 0,
+      "value": "Member Rights"
+    }
+  ],
+  "AgendaSetting.contribution.modosInviteModosLabel": [
+    {
+      "type": 0,
+      "value": "Allow Moderators to invite moderators"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.deleteDescription": [
+    {
+      "type": 0,
+      "value": "Deleting an agenda is irrevocable"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.deleteTitle": [
+    {
+      "type": 0,
+      "value": "Delete"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.filtersMenuDescription": [
+    {
+      "type": 0,
+      "value": "Define which filters you want to show on the front page of the agenda as well as in the administration"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.filtersMenuTitle": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
+  "AgendaSettings.AdvancedEdition.identifier": [
+    {
+      "type": 0,
+      "value": "Identificador"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.closeConfirm": [
+    {
+      "type": 0,
+      "value": "Cerca"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.confirm": [
+    {
+      "type": 0,
+      "value": "Deletion complete"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.confirmButton": [
+    {
+      "type": 0,
+      "value": "Confirmar eliminación"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.confirmDetail": [
+    {
+      "type": 0,
+      "value": "The agenda was successfully deleted, you will now be redirected to your homepage"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.dataImplication": [
+    {
+      "type": 0,
+      "value": "All associated conversations, activity history and members data will also be deleted"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.eventsImplication": [
+    {
+      "type": 0,
+      "value": "The events that have been created in this agenda will also be deleted and be removed from the agendas where they have been shared"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.verifyAuthenticate": [
+    {
+      "type": 0,
+      "value": "Verify your authentication"
+    }
+  ],
+  "AgendaSettings.Components.DeleteAgenda.verifyAuthenticateDetail": [
+    {
+      "type": 0,
+      "value": "Please authenticate to confirm the deletion of this agenda"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.adminInfo": [
+    {
+      "type": 0,
+      "value": "List of filters that are shown on the administration events tab. Select the filters useful for moderating event contents."
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.adminLabel": [
+    {
+      "type": 0,
+      "value": "Administration filters"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel changes"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.publicInfo": [
+    {
+      "type": 0,
+      "value": "List of filters that are shown on the homepage. Select the filters that are most relevant for visitors viewing the contents of the agenda."
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.publicLabel": [
+    {
+      "type": 0,
+      "value": "Homepage filters"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.reset": [
+    {
+      "type": 0,
+      "value": "Reset configuration"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.resetModalConfirm": [
+    {
+      "type": 0,
+      "value": "Confirmar"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.resetModalMessage": [
+    {
+      "type": 0,
+      "value": "Are you sure? Your current filter selection will be lost and will go back to defaults"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.resetModalTitle": [
+    {
+      "type": 0,
+      "value": "Confirm filter selection reset"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.selectPlaceholder": [
+    {
+      "type": 0,
+      "value": "Select one or more filters"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.sub": [
+    {
+      "type": 0,
+      "value": "Drag and drop filters to adjust order"
+    }
+  ],
+  "AgendaSettings.Components.FiltersSettings.submit": [
+    {
+      "type": 0,
+      "value": "Validar"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIAgendaConfigurationRoute": [
+    {
+      "type": 0,
+      "value": "See the settings and general information"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIClickHere": [
+    {
+      "type": 0,
+      "value": "Click here"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIDocumentation": [
+    {
+      "type": 0,
+      "value": "See all details by visiting the full documentation: "
+    },
+    {
+      "type": 1,
+      "value": "link"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIEventsListRoute": [
+    {
+      "type": 0,
+      "value": "List the events referenced in the agenda"
+    }
+  ],
+  "AgendaSettings.Components.IdentifierInformation.APIPresentation": [
+    {
+      "type": 0,
+      "value": "The identifier of an agenda is useful for API calls. Here are a few examples"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.askForActivation": [
+    {
+      "type": 0,
+      "value": "Ask for activation"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.clearSettings": [
+    {
+      "type": 0,
+      "value": "Clear Settings"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.clearSettingsConfirm": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to clear the SIREN and default venue settings? This action cannot be undone."
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.clearSettingsSuccess": [
+    {
+      "type": 0,
+      "value": "Settings cleared successfully"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.contactUs": [
+    {
+      "type": 0,
+      "value": "contact us"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.currentSiren": [
+    {
+      "type": 0,
+      "value": "Current SIREN"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.defaultVenue": [
+    {
+      "type": 0,
+      "value": "Default venue"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.defaultVenueSaved": [
+    {
+      "type": 0,
+      "value": "Default venue saved successfully"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.editSiren": [
+    {
+      "type": 0,
+      "value": "Edit SIREN"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.enterSiren": [
+    {
+      "type": 0,
+      "value": "Enter your SIREN number"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.gatewayAccess": [
+    {
+      "type": 0,
+      "value": "Gateway Access"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.gatewayAccessDescription": [
+    {
+      "type": 0,
+      "value": "The gateway is enabled for agenda administrators or moderators. To open access to contributors, "
+    },
+    {
+      "type": 1,
+      "value": "contactLink"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.learnMore": [
+    {
+      "type": 0,
+      "value": "Learn more"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.saveError": [
+    {
+      "type": 0,
+      "value": "An error occurred while saving"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.saving": [
+    {
+      "type": 0,
+      "value": "Saving..."
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.selectDefaultVenue": [
+    {
+      "type": 0,
+      "value": "Select a default venue"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.siren": [
+    {
+      "type": 0,
+      "value": "To activate the gateway, specify a SIREN"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.sirenMustBe9Digits": [
+    {
+      "type": 0,
+      "value": "A SIREN consists of 9 digits"
+    }
+  ],
+  "AgendaSettings.Components.PassSettings.sirenSavedSuccessfully": [
+    {
+      "type": 0,
+      "value": "SIREN saved successfully"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.formEvent": [
+    {
+      "type": 0,
+      "value": "Form event"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.onlineEvents": [
+    {
+      "type": 0,
+      "value": "Allow online event entry"
+    }
+  ],
+  "AgendaSettings.CreationSecondStep.onlineEventsDesc": [
+    {
+      "type": 0,
+      "value": "Online events can be associated with physical locations"
+    }
+  ],
+  "AgendaSettings.contribution.GDPRInformationPlaceholder": [
+    {
+      "type": 0,
+      "value": "This information will be visible to the agenda moderators"
+    }
+  ],
+  "AgendaSettings.contribution.closedContibution": [
+    {
+      "type": 0,
+      "value": "Closed"
+    }
+  ],
+  "AgendaSettings.contribution.closedContibutionDesc": [
+    {
+      "type": 0,
+      "value": "The agenda does not accept new contributions"
+    }
+  ],
+  "AgendaSettings.contribution.contribUseFields": [
+    {
+      "type": 0,
+      "value": "Invite members to present themselves (organization, phone, name, title, email, "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "customizable fields"
+        }
+      ],
+      "type": 8,
+      "value": "a"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "AgendaSettings.contribution.contribution": [
+    {
+      "type": 0,
+      "value": "Contribución"
+    }
+  ],
+  "AgendaSettings.contribution.openContribution": [
+    {
+      "type": 0,
+      "value": "Ver"
+    }
+  ],
+  "AgendaSettings.contribution.openContributionDesc": [
+    {
+      "type": 0,
+      "value": "Any user can add events, under your moderation"
+    }
+  ],
+  "AgendaSettings.contribution.reducedContribution": [
+    {
+      "type": 0,
+      "value": "Reduced"
+    }
+  ],
+  "AgendaSettings.contribution.reducedContributionDesc": [
+    {
+      "type": 0,
+      "value": "Only invited users can add events"
+    }
+  ]
+}

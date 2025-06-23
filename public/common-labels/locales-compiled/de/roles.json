@@ -1,0 +1,26 @@
+{
+  "common.roles.administrator": [
+    {
+      "type": 0,
+      "value": "Administrator"
+    }
+  ],
+  "common.roles.contributor": [
+    {
+      "type": 0,
+      "value": "Contributor"
+    }
+  ],
+  "common.roles.moderator": [
+    {
+      "type": 0,
+      "value": "Moderator"
+    }
+  ],
+  "common.roles.reader": [
+    {
+      "type": 0,
+      "value": "Reader"
+    }
+  ]
+}

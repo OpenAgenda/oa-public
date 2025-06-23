@@ -1,0 +1,898 @@
+{
+  "AgendaState.message.emptyOption": [
+    {
+      "type": 0,
+      "value": "crwdns17314:0crwdne17314:0"
+    }
+  ],
+  "AgendaStats.BooleanTooltipItem.notSelected": [
+    {
+      "type": 0,
+      "value": "crwdns30658:0crwdne30658:0"
+    }
+  ],
+  "AgendaStats.BooleanTooltipItem.selected": [
+    {
+      "type": 0,
+      "value": "crwdns30660:0crwdne30660:0"
+    }
+  ],
+  "AgendaStats.ChartAdder.addChart": [
+    {
+      "type": 0,
+      "value": "crwdns304:0crwdne304:0"
+    }
+  ],
+  "AgendaStats.ChartWrapper.remove": [
+    {
+      "type": 0,
+      "value": "crwdns306:0crwdne306:0"
+    }
+  ],
+  "AgendaStats.ChartWrapper.update": [
+    {
+      "type": 0,
+      "value": "crwdns308:0crwdne308:0"
+    }
+  ],
+  "AgendaStats.ChartWrapper.withSelector": [
+    {
+      "type": 0,
+      "value": "crwdns310:0"
+    },
+    {
+      "type": 1,
+      "value": "message"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd310:0"
+    },
+    {
+      "type": 1,
+      "value": "selector"
+    },
+    {
+      "type": 0,
+      "value": "crwdne310:0"
+    }
+  ],
+  "AgendaStats.ComposedChart.noValue": [
+    {
+      "type": 0,
+      "value": "crwdns312:0crwdne312:0"
+    }
+  ],
+  "AgendaStats.ComposedChart.tooltipContentCreatedAt": [
+    {
+      "type": 0,
+      "value": "crwdns314:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd314:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd314:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd314:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdne314:0"
+    }
+  ],
+  "AgendaStats.ComposedChart.tooltipContentEvents": [
+    {
+      "type": 0,
+      "value": "crwdns316:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd316:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd316:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd316:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdne316:0"
+    }
+  ],
+  "AgendaStats.ComposedChart.tooltipContentTimings": [
+    {
+      "type": 0,
+      "value": "crwdns318:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd318:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd318:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd318:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdne318:0"
+    }
+  ],
+  "AgendaStats.ComposedChart.tooltipContentUpdatedAt": [
+    {
+      "type": 0,
+      "value": "crwdns320:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd320:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd320:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd320:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdne320:0"
+    }
+  ],
+  "AgendaStats.CustomTooltip.events": [
+    {
+      "type": 0,
+      "value": "crwdns322:0value="
+    },
+    {
+      "type": 1,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": "crwdne322:0"
+    }
+  ],
+  "AgendaStats.Dashboard.cancel": [
+    {
+      "type": 0,
+      "value": "crwdns324:0crwdne324:0"
+    }
+  ],
+  "AgendaStats.Dashboard.changeOrder": [
+    {
+      "type": 0,
+      "value": "crwdns326:0crwdne326:0"
+    }
+  ],
+  "AgendaStats.Dashboard.edit": [
+    {
+      "type": 0,
+      "value": "crwdns328:0crwdne328:0"
+    }
+  ],
+  "AgendaStats.Dashboard.filters": [
+    {
+      "type": 0,
+      "value": "crwdns330:0crwdne330:0"
+    }
+  ],
+  "AgendaStats.Dashboard.pulseDesc": [
+    {
+      "type": 0,
+      "value": "crwdns336:0crwdne336:0"
+    }
+  ],
+  "AgendaStats.Dashboard.save": [
+    {
+      "type": 0,
+      "value": "crwdns338:0crwdne338:0"
+    }
+  ],
+  "AgendaStats.Dashboard.totalEvents": [
+    {
+      "type": 0,
+      "value": "crwdns340:0total="
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd340:0total="
+    },
+    {
+      "type": 1,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": "crwdne340:0"
+    }
+  ],
+  "AgendaStats.DateTooltipItem.tooltipDay": [
+    {
+      "type": 0,
+      "value": "crwdns342:0date="
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdne342:0"
+    }
+  ],
+  "AgendaStats.DateTooltipItem.tooltipMonth": [
+    {
+      "type": 0,
+      "value": "crwdns344:0date="
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdne344:0"
+    }
+  ],
+  "AgendaStats.DateTooltipItem.tooltipWeek": [
+    {
+      "type": 0,
+      "value": "crwdns346:0date="
+    },
+    {
+      "type": 1,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd346:0weekEnd="
+    },
+    {
+      "type": 1,
+      "value": "weekEnd"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd346:0br="
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd346:0weekNumber="
+    },
+    {
+      "type": 1,
+      "value": "weekNumber"
+    },
+    {
+      "type": 0,
+      "value": "crwdne346:0"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.action": [
+    {
+      "type": 0,
+      "value": "crwdns17316:0crwdne17316:0"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.creationHelp": [
+    {
+      "type": 0,
+      "value": "crwdns17318:0crwdne17318:0"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.description": [
+    {
+      "type": 0,
+      "value": "crwdns17320:0crwdne17320:0"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.title": [
+    {
+      "type": 0,
+      "value": "crwdns17322:0crwdne17322:0"
+    }
+  ],
+  "AgendaStats.IntervalSelect.day": [
+    {
+      "type": 0,
+      "value": "crwdns348:0crwdne348:0"
+    }
+  ],
+  "AgendaStats.IntervalSelect.month": [
+    {
+      "type": 0,
+      "value": "crwdns350:0crwdne350:0"
+    }
+  ],
+  "AgendaStats.IntervalSelect.week": [
+    {
+      "type": 0,
+      "value": "crwdns352:0crwdne352:0"
+    }
+  ],
+  "AgendaStats.LoadMore.loadMore": [
+    {
+      "type": 0,
+      "value": "crwdns354:0crwdne354:0"
+    }
+  ],
+  "AgendaStats.LoadMore.nothingMore": [
+    {
+      "type": 0,
+      "value": "crwdns356:0crwdne356:0"
+    }
+  ],
+  "AgendaStats.OrderModal.modalTitle": [
+    {
+      "type": 0,
+      "value": "crwdns358:0crwdne358:0"
+    }
+  ],
+  "AgendaStats.OrderModal.oneColumn": [
+    {
+      "type": 0,
+      "value": "crwdns360:0crwdne360:0"
+    }
+  ],
+  "AgendaStats.OrderModal.oneLine": [
+    {
+      "type": 0,
+      "value": "crwdns362:0crwdne362:0"
+    }
+  ],
+  "AgendaStats.OrderModal.separator": [
+    {
+      "type": 0,
+      "value": "crwdns364:0crwdne364:0"
+    }
+  ],
+  "AgendaStats.OrderModal.submit": [
+    {
+      "type": 0,
+      "value": "crwdns366:0crwdne366:0"
+    }
+  ],
+  "AgendaStats.OrderModal.width": [
+    {
+      "type": 0,
+      "value": "crwdns368:0crwdne368:0"
+    }
+  ],
+  "AgendaStats.RangeFilter.range": [
+    {
+      "type": 0,
+      "value": "crwdns370:0startDate="
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd370:0endDate="
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdne370:0"
+    }
+  ],
+  "AgendaStats.RangeFilter.sameDayRange": [
+    {
+      "type": 0,
+      "value": "crwdns372:0startDate="
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdne372:0"
+    }
+  ],
+  "AgendaStats.RangeFilter.update": [
+    {
+      "type": 0,
+      "value": "crwdns374:0crwdne374:0"
+    }
+  ],
+  "AgendaStats.RangeModal.cancel": [
+    {
+      "type": 0,
+      "value": "crwdns376:0crwdne376:0"
+    }
+  ],
+  "AgendaStats.RangeModal.modalTitle": [
+    {
+      "type": 0,
+      "value": "crwdns378:0crwdne378:0"
+    }
+  ],
+  "AgendaStats.RangeModal.submit": [
+    {
+      "type": 0,
+      "value": "crwdns380:0crwdne380:0"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.range": [
+    {
+      "type": 0,
+      "value": "crwdns382:0startDate="
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdnd382:0endDate="
+    },
+    {
+      "type": 1,
+      "value": "endDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdne382:0"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.sameDayRange": [
+    {
+      "type": 0,
+      "value": "crwdns384:0startDate="
+    },
+    {
+      "type": 1,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": "crwdne384:0"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.submit": [
+    {
+      "type": 0,
+      "value": "crwdns386:0crwdne386:0"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.typeCreatedAt": [
+    {
+      "type": 0,
+      "value": "crwdns1052:0crwdne1052:0"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.typeDate": [
+    {
+      "type": 0,
+      "value": "crwdns1050:0crwdne1050:0"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.cancel": [
+    {
+      "type": 0,
+      "value": "crwdns15950:0crwdne15950:0"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.createdAtDesc": [
+    {
+      "type": 0,
+      "value": "crwdns392:0crwdne392:0"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.dateDesc": [
+    {
+      "type": 0,
+      "value": "crwdns394:0crwdne394:0"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.modalTitle": [
+    {
+      "type": 0,
+      "value": "crwdns396:0crwdne396:0"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.rangeTypeDesc": [
+    {
+      "type": 0,
+      "value": "crwdns398:0crwdne398:0"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.submit": [
+    {
+      "type": 0,
+      "value": "crwdns15952:0crwdne15952:0"
+    }
+  ],
+  "AgendaStats.Separator.remove": [
+    {
+      "type": 0,
+      "value": "crwdns400:0crwdne400:0"
+    }
+  ],
+  "AgendaStats.Separator.separator": [
+    {
+      "type": 0,
+      "value": "crwdns402:0crwdne402:0"
+    }
+  ],
+  "AgendaStats.StatEditModal.modalTitle": [
+    {
+      "type": 0,
+      "value": "crwdns404:0"
+    },
+    {
+      "type": 1,
+      "value": "chartTitle"
+    },
+    {
+      "type": 0,
+      "value": "crwdne404:0"
+    }
+  ],
+  "AgendaStats.StateTooltipItem.controlled": [
+    {
+      "type": 0,
+      "value": "crwdns406:0crwdne406:0"
+    }
+  ],
+  "AgendaStats.StateTooltipItem.published": [
+    {
+      "type": 0,
+      "value": "crwdns408:0crwdne408:0"
+    }
+  ],
+  "AgendaStats.StateTooltipItem.refused": [
+    {
+      "type": 0,
+      "value": "crwdns410:0crwdne410:0"
+    }
+  ],
+  "AgendaStats.StateTooltipItem.toModerate": [
+    {
+      "type": 0,
+      "value": "crwdns412:0crwdne412:0"
+    }
+  ],
+  "AgendaStats.dateRanges.currentMonth": [
+    {
+      "type": 0,
+      "value": "crwdns414:0crwdne414:0"
+    }
+  ],
+  "AgendaStats.dateRanges.currentWeek": [
+    {
+      "type": 0,
+      "value": "crwdns416:0crwdne416:0"
+    }
+  ],
+  "AgendaStats.dateRanges.currentYear": [
+    {
+      "type": 0,
+      "value": "crwdns418:0crwdne418:0"
+    }
+  ],
+  "AgendaStats.dateRanges.daysStartingToday": [
+    {
+      "type": 0,
+      "value": "crwdns420:0crwdne420:0"
+    }
+  ],
+  "AgendaStats.dateRanges.daysUpToToday": [
+    {
+      "type": 0,
+      "value": "crwdns422:0crwdne422:0"
+    }
+  ],
+  "AgendaStats.dateRanges.lastMonth": [
+    {
+      "type": 0,
+      "value": "crwdns424:0crwdne424:0"
+    }
+  ],
+  "AgendaStats.dateRanges.lastWeek": [
+    {
+      "type": 0,
+      "value": "crwdns426:0crwdne426:0"
+    }
+  ],
+  "AgendaStats.dateRanges.lastYear": [
+    {
+      "type": 0,
+      "value": "crwdns428:0crwdne428:0"
+    }
+  ],
+  "AgendaStats.form.add": [
+    {
+      "type": 0,
+      "value": "crwdns430:0crwdne430:0"
+    }
+  ],
+  "AgendaStats.form.avg": [
+    {
+      "type": 0,
+      "value": "crwdns16177:0crwdne16177:0"
+    }
+  ],
+  "AgendaStats.form.cancel": [
+    {
+      "type": 0,
+      "value": "crwdns432:0crwdne432:0"
+    }
+  ],
+  "AgendaStats.form.componentWidth": [
+    {
+      "type": 0,
+      "value": "crwdns436:0crwdne436:0"
+    }
+  ],
+  "AgendaStats.form.data": [
+    {
+      "type": 0,
+      "value": "crwdns16187:0crwdne16187:0"
+    }
+  ],
+  "AgendaStats.form.max": [
+    {
+      "type": 0,
+      "value": "crwdns16179:0crwdne16179:0"
+    }
+  ],
+  "AgendaStats.form.metric": [
+    {
+      "type": 0,
+      "value": "crwdns16181:0crwdne16181:0"
+    }
+  ],
+  "AgendaStats.form.min": [
+    {
+      "type": 0,
+      "value": "crwdns16183:0crwdne16183:0"
+    }
+  ],
+  "AgendaStats.form.oneColumn": [
+    {
+      "type": 0,
+      "value": "crwdns438:0crwdne438:0"
+    }
+  ],
+  "AgendaStats.form.oneLine": [
+    {
+      "type": 0,
+      "value": "crwdns440:0crwdne440:0"
+    }
+  ],
+  "AgendaStats.form.others": [
+    {
+      "type": 0,
+      "value": "crwdns442:0crwdne442:0"
+    }
+  ],
+  "AgendaStats.form.remove": [
+    {
+      "type": 0,
+      "value": "crwdns444:0crwdne444:0"
+    }
+  ],
+  "AgendaStats.form.separator": [
+    {
+      "type": 0,
+      "value": "crwdns446:0crwdne446:0"
+    }
+  ],
+  "AgendaStats.form.sum": [
+    {
+      "type": 0,
+      "value": "crwdns16185:0crwdne16185:0"
+    }
+  ],
+  "AgendaStats.form.typeSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "crwdns448:0crwdne448:0"
+    }
+  ],
+  "AgendaStats.form.update": [
+    {
+      "type": 0,
+      "value": "crwdns450:0crwdne450:0"
+    }
+  ],
+  "AgendaStats.form.widthSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "crwdns452:0crwdne452:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.cities": [
+    {
+      "type": 0,
+      "value": "crwdns454:0crwdne454:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.createdAt": [
+    {
+      "type": 0,
+      "value": "crwdns456:0crwdne456:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.createdAtUpdatedAt": [
+    {
+      "type": 0,
+      "value": "crwdns458:0crwdne458:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.departments": [
+    {
+      "type": 0,
+      "value": "crwdns460:0crwdne460:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.keywords": [
+    {
+      "type": 0,
+      "value": "crwdns462:0crwdne462:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.members": [
+    {
+      "type": 0,
+      "value": "crwdns464:0crwdne464:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.originAgendas": [
+    {
+      "type": 0,
+      "value": "crwdns466:0crwdne466:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.regions": [
+    {
+      "type": 0,
+      "value": "crwdns468:0crwdne468:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.states": [
+    {
+      "type": 0,
+      "value": "crwdns470:0crwdne470:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.timings": [
+    {
+      "type": 0,
+      "value": "crwdns472:0crwdne472:0"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.updatedAt": [
+    {
+      "type": 0,
+      "value": "crwdns474:0crwdne474:0"
+    }
+  ],
+  "AgendaStats.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "crwdns15954:0crwdne15954:0"
+    }
+  ],
+  "AgendaStats.messages.states.published": [
+    {
+      "type": 0,
+      "value": "crwdns15956:0crwdne15956:0"
+    }
+  ],
+  "AgendaStats.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "crwdns15958:0crwdne15958:0"
+    }
+  ],
+  "AgendaStats.messages.states.toModerate": [
+    {
+      "type": 0,
+      "value": "crwdns15960:0crwdne15960:0"
+    }
+  ],
+  "AgendaStats.utils.addRestItem.noValue": [
+    {
+      "type": 0,
+      "value": "crwdns476:0crwdne476:0"
+    }
+  ],
+  "AgendaStats.utils.addRestItem.others": [
+    {
+      "type": 0,
+      "value": "crwdns478:0crwdne478:0"
+    }
+  ]
+}

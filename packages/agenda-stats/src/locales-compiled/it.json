@@ -1,0 +1,984 @@
+{
+  "AgendaState.message.emptyOption": [
+    {
+      "type": 0,
+      "value": "(Nessun valore)"
+    }
+  ],
+  "AgendaStats.BooleanTooltipItem.notSelected": [
+    {
+      "type": 0,
+      "value": "Non selezionato"
+    }
+  ],
+  "AgendaStats.BooleanTooltipItem.selected": [
+    {
+      "type": 0,
+      "value": "Selezionato"
+    }
+  ],
+  "AgendaStats.ChartAdder.addChart": [
+    {
+      "type": 0,
+      "value": "Aggiungi un grafico"
+    }
+  ],
+  "AgendaStats.ChartWrapper.remove": [
+    {
+      "type": 0,
+      "value": "Rimuovere"
+    }
+  ],
+  "AgendaStats.ChartWrapper.update": [
+    {
+      "type": 0,
+      "value": "Aggiornare"
+    }
+  ],
+  "AgendaStats.ChartWrapper.withSelector": [
+    {
+      "type": 1,
+      "value": "message"
+    },
+    {
+      "type": 0,
+      "value": " di "
+    },
+    {
+      "type": 1,
+      "value": "selector"
+    }
+  ],
+  "AgendaStats.ComposedChart.noValue": [
+    {
+      "type": 0,
+      "value": "Nessun valore."
+    }
+  ],
+  "AgendaStats.ComposedChart.tooltipContentCreatedAt": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " evento creato"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " evento creato"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " eventi creati"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "value"
+    }
+  ],
+  "AgendaStats.ComposedChart.tooltipContentEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " evento"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " evento"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " eventi"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "value"
+    }
+  ],
+  "AgendaStats.ComposedChart.tooltipContentTimings": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " orario"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " orario"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " orari"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "value"
+    }
+  ],
+  "AgendaStats.ComposedChart.tooltipContentUpdatedAt": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " evento aggiornato"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " evento aggiornato"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "style": null,
+              "type": 2,
+              "value": "value"
+            },
+            {
+              "type": 0,
+              "value": " eventi aggiornati"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "value"
+    }
+  ],
+  "AgendaStats.CustomTooltip.events": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "value"
+    },
+    {
+      "type": 0,
+      "value": " eventi"
+    }
+  ],
+  "AgendaStats.Dashboard.cancel": [
+    {
+      "type": 0,
+      "value": "Annullare"
+    }
+  ],
+  "AgendaStats.Dashboard.changeOrder": [
+    {
+      "type": 0,
+      "value": "Ordina"
+    }
+  ],
+  "AgendaStats.Dashboard.edit": [
+    {
+      "type": 0,
+      "value": "Modifica le statistiche"
+    }
+  ],
+  "AgendaStats.Dashboard.filters": [
+    {
+      "type": 0,
+      "value": "Filtri"
+    }
+  ],
+  "AgendaStats.Dashboard.pulseDesc": [
+    {
+      "type": 0,
+      "value": "Attività dello anno scorso"
+    }
+  ],
+  "AgendaStats.Dashboard.save": [
+    {
+      "type": 0,
+      "value": "Salva"
+    }
+  ],
+  "AgendaStats.Dashboard.totalEvents": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "total"
+    },
+    {
+      "type": 0,
+      "value": " "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "evento"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "evento"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 0,
+              "value": "eventi"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "total"
+    }
+  ],
+  "AgendaStats.DateTooltipItem.tooltipDay": [
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "long",
+          "weekday": "long",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMMMddeeeee",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
+  "AgendaStats.DateTooltipItem.tooltipMonth": [
+    {
+      "style": {
+        "parsedOptions": {
+          "month": "long",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMMM",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    }
+  ],
+  "AgendaStats.DateTooltipItem.tooltipWeek": [
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "date"
+    },
+    {
+      "type": 0,
+      "value": " - "
+    },
+    {
+      "style": {
+        "parsedOptions": {
+          "day": "2-digit",
+          "month": "2-digit",
+          "year": "numeric"
+        },
+        "pattern": "yyyyMMdd",
+        "type": 1
+      },
+      "type": 4,
+      "value": "weekEnd"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Settimana "
+    },
+    {
+      "type": 1,
+      "value": "weekNumber"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.action": [
+    {
+      "type": 0,
+      "value": "Creare un evento"
+    }
+  ],
+  "AgendaStats.EmptyDashboard.creationHelp": [
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Cliccare qui"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " per sapere di più come aggiungere eventi in un agenda."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.description": [
+    {
+      "type": 0,
+      "value": "Aggiungete o inserite eventi e configurate qui un report composto da grafici a barre o istogrammi per avere una panoramica della vostra programmazione."
+    }
+  ],
+  "AgendaStats.EmptyDashboard.title": [
+    {
+      "type": 0,
+      "value": "Generare statistiche sui eventi dell'agenda."
+    }
+  ],
+  "AgendaStats.IntervalSelect.day": [
+    {
+      "type": 0,
+      "value": "giorno"
+    }
+  ],
+  "AgendaStats.IntervalSelect.month": [
+    {
+      "type": 0,
+      "value": "mese"
+    }
+  ],
+  "AgendaStats.IntervalSelect.week": [
+    {
+      "type": 0,
+      "value": "settimana"
+    }
+  ],
+  "AgendaStats.LoadMore.loadMore": [
+    {
+      "type": 0,
+      "value": "Carica altro"
+    }
+  ],
+  "AgendaStats.LoadMore.nothingMore": [
+    {
+      "type": 0,
+      "value": "Non c'è niente di più"
+    }
+  ],
+  "AgendaStats.OrderModal.modalTitle": [
+    {
+      "type": 0,
+      "value": "Ordina"
+    }
+  ],
+  "AgendaStats.OrderModal.oneColumn": [
+    {
+      "type": 0,
+      "value": "Una colonna"
+    }
+  ],
+  "AgendaStats.OrderModal.oneLine": [
+    {
+      "type": 0,
+      "value": "Una riga"
+    }
+  ],
+  "AgendaStats.OrderModal.separator": [
+    {
+      "type": 0,
+      "value": "Separatore"
+    }
+  ],
+  "AgendaStats.OrderModal.submit": [
+    {
+      "type": 0,
+      "value": "Convalidare"
+    }
+  ],
+  "AgendaStats.OrderModal.width": [
+    {
+      "type": 0,
+      "value": "Larghezza:"
+    }
+  ],
+  "AgendaStats.RangeFilter.range": [
+    {
+      "type": 0,
+      "value": "Da "
+    },
+    {
+      "style": null,
+      "type": 3,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " a "
+    },
+    {
+      "style": null,
+      "type": 3,
+      "value": "endDate"
+    }
+  ],
+  "AgendaStats.RangeFilter.sameDayRange": [
+    {
+      "type": 0,
+      "value": "Il "
+    },
+    {
+      "style": null,
+      "type": 3,
+      "value": "startDate"
+    }
+  ],
+  "AgendaStats.RangeFilter.update": [
+    {
+      "type": 0,
+      "value": "Aggiorna"
+    }
+  ],
+  "AgendaStats.RangeModal.cancel": [
+    {
+      "type": 0,
+      "value": "Annulla"
+    }
+  ],
+  "AgendaStats.RangeModal.modalTitle": [
+    {
+      "type": 0,
+      "value": "Scegli periodo"
+    }
+  ],
+  "AgendaStats.RangeModal.submit": [
+    {
+      "type": 0,
+      "value": "Invia"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.range": [
+    {
+      "type": 0,
+      "value": "Da "
+    },
+    {
+      "style": null,
+      "type": 3,
+      "value": "startDate"
+    },
+    {
+      "type": 0,
+      "value": " a "
+    },
+    {
+      "style": null,
+      "type": 3,
+      "value": "endDate"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.sameDayRange": [
+    {
+      "type": 0,
+      "value": "Il "
+    },
+    {
+      "style": null,
+      "type": 3,
+      "value": "startDate"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.submit": [
+    {
+      "type": 0,
+      "value": "Aggiorna"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.typeCreatedAt": [
+    {
+      "type": 0,
+      "value": "Per creazione"
+    }
+  ],
+  "AgendaStats.RangeTypeFilter.typeDate": [
+    {
+      "type": 0,
+      "value": "Per orario"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.cancel": [
+    {
+      "type": 0,
+      "value": "Annullare"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.createdAtDesc": [
+    {
+      "type": 0,
+      "value": "la data di creazione degli eventi"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.dateDesc": [
+    {
+      "type": 0,
+      "value": "gli orari degli eventi"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.modalTitle": [
+    {
+      "type": 0,
+      "value": "Scegli il tipo di intervallo di periodo"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.rangeTypeDesc": [
+    {
+      "type": 0,
+      "value": "Il periodo compreso tra "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "X"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " e "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Y"
+        }
+      ],
+      "type": 8,
+      "value": "b"
+    },
+    {
+      "type": 0,
+      "value": " si applica:"
+    }
+  ],
+  "AgendaStats.RangeTypeModal.submit": [
+    {
+      "type": 0,
+      "value": "Inviare"
+    }
+  ],
+  "AgendaStats.Separator.remove": [
+    {
+      "type": 0,
+      "value": "Rimuovi"
+    }
+  ],
+  "AgendaStats.Separator.separator": [
+    {
+      "type": 0,
+      "value": "Separatore"
+    }
+  ],
+  "AgendaStats.StatEditModal.modalTitle": [
+    {
+      "type": 0,
+      "value": "Modifica il grafico: "
+    },
+    {
+      "type": 1,
+      "value": "chartTitle"
+    }
+  ],
+  "AgendaStats.StateTooltipItem.controlled": [
+    {
+      "type": 0,
+      "value": "Controllato"
+    }
+  ],
+  "AgendaStats.StateTooltipItem.published": [
+    {
+      "type": 0,
+      "value": "Pubblicato"
+    }
+  ],
+  "AgendaStats.StateTooltipItem.refused": [
+    {
+      "type": 0,
+      "value": "Rifiutato"
+    }
+  ],
+  "AgendaStats.StateTooltipItem.toModerate": [
+    {
+      "type": 0,
+      "value": "Da moderare"
+    }
+  ],
+  "AgendaStats.dateRanges.currentMonth": [
+    {
+      "type": 0,
+      "value": "Mese corrente"
+    }
+  ],
+  "AgendaStats.dateRanges.currentWeek": [
+    {
+      "type": 0,
+      "value": "Settimana corrente"
+    }
+  ],
+  "AgendaStats.dateRanges.currentYear": [
+    {
+      "type": 0,
+      "value": "Anno corrente"
+    }
+  ],
+  "AgendaStats.dateRanges.daysStartingToday": [
+    {
+      "type": 0,
+      "value": "giorni da oggi"
+    }
+  ],
+  "AgendaStats.dateRanges.daysUpToToday": [
+    {
+      "type": 0,
+      "value": "giorni fino ad oggi"
+    }
+  ],
+  "AgendaStats.dateRanges.lastMonth": [
+    {
+      "type": 0,
+      "value": "Mese Scorso"
+    }
+  ],
+  "AgendaStats.dateRanges.lastWeek": [
+    {
+      "type": 0,
+      "value": "Ultima Settimana"
+    }
+  ],
+  "AgendaStats.dateRanges.lastYear": [
+    {
+      "type": 0,
+      "value": "Anno scorso"
+    }
+  ],
+  "AgendaStats.form.add": [
+    {
+      "type": 0,
+      "value": "Aggiungere"
+    }
+  ],
+  "AgendaStats.form.avg": [
+    {
+      "type": 0,
+      "value": "Medio"
+    }
+  ],
+  "AgendaStats.form.cancel": [
+    {
+      "type": 0,
+      "value": "Annulla"
+    }
+  ],
+  "AgendaStats.form.componentWidth": [
+    {
+      "type": 0,
+      "value": "Larghezza del componente"
+    }
+  ],
+  "AgendaStats.form.data": [
+    {
+      "type": 0,
+      "value": "Dati"
+    }
+  ],
+  "AgendaStats.form.max": [
+    {
+      "type": 0,
+      "value": "Maximum"
+    }
+  ],
+  "AgendaStats.form.metric": [
+    {
+      "type": 0,
+      "value": "Statistiche"
+    }
+  ],
+  "AgendaStats.form.min": [
+    {
+      "type": 0,
+      "value": "Minimum"
+    }
+  ],
+  "AgendaStats.form.oneColumn": [
+    {
+      "type": 0,
+      "value": "1 colonna"
+    }
+  ],
+  "AgendaStats.form.oneLine": [
+    {
+      "type": 0,
+      "value": "1 linea"
+    }
+  ],
+  "AgendaStats.form.others": [
+    {
+      "type": 0,
+      "value": "Altri"
+    }
+  ],
+  "AgendaStats.form.remove": [
+    {
+      "type": 0,
+      "value": "Rimuovi"
+    }
+  ],
+  "AgendaStats.form.separator": [
+    {
+      "type": 0,
+      "value": "Separatore"
+    }
+  ],
+  "AgendaStats.form.sum": [
+    {
+      "type": 0,
+      "value": "Riassunto"
+    }
+  ],
+  "AgendaStats.form.typeSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "Seleziona un elemento da aggiungere"
+    }
+  ],
+  "AgendaStats.form.update": [
+    {
+      "type": 0,
+      "value": "Aggiornare"
+    }
+  ],
+  "AgendaStats.form.widthSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "Selezionare"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.cities": [
+    {
+      "type": 0,
+      "value": "Città"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.createdAt": [
+    {
+      "type": 0,
+      "value": "Eventi creati"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.createdAtUpdatedAt": [
+    {
+      "type": 0,
+      "value": "Eventi salvati"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.departments": [
+    {
+      "type": 0,
+      "value": "Dipartimenti"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.keywords": [
+    {
+      "type": 0,
+      "value": "Parole Chiave"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.members": [
+    {
+      "type": 0,
+      "value": "Membri"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.originAgendas": [
+    {
+      "type": 0,
+      "value": "Agende di origine"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.regions": [
+    {
+      "type": 0,
+      "value": "Regioni"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.states": [
+    {
+      "type": 0,
+      "value": "Paesi"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.timings": [
+    {
+      "type": 0,
+      "value": "Orari"
+    }
+  ],
+  "AgendaStats.messages.chartTitles.updatedAt": [
+    {
+      "type": 0,
+      "value": "Eventi aggiornati"
+    }
+  ],
+  "AgendaStats.messages.states.controlled": [
+    {
+      "type": 0,
+      "value": "Controllato"
+    }
+  ],
+  "AgendaStats.messages.states.published": [
+    {
+      "type": 0,
+      "value": "Pubblicato"
+    }
+  ],
+  "AgendaStats.messages.states.refused": [
+    {
+      "type": 0,
+      "value": "Rifiutato"
+    }
+  ],
+  "AgendaStats.messages.states.toModerate": [
+    {
+      "type": 0,
+      "value": "Da moderare"
+    }
+  ],
+  "AgendaStats.utils.addRestItem.noValue": [
+    {
+      "type": 0,
+      "value": "Nessun valore"
+    }
+  ],
+  "AgendaStats.utils.addRestItem.others": [
+    {
+      "type": 0,
+      "value": "Altri"
+    }
+  ]
+}
