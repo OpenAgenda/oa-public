@@ -33,7 +33,7 @@ export interface ComponentsCtaButton extends Struct.ComponentSchema {
     label: Schema.Attribute.String;
     link: Schema.Attribute.String & Schema.Attribute.Required;
     variant: Schema.Attribute.Enumeration<
-      ['outline', 'solid', 'link', 'ghost']
+      ['solid', 'outline', 'link', 'plain', 'subtle', 'surface', 'ghost']
     >;
   };
 }
@@ -381,7 +381,7 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
       'api::theme-color.theme-color'
     >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
-    description: Schema.Attribute.Text;
+    description: Schema.Attribute.RichText;
     descriptionColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'
