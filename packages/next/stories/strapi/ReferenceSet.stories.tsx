@@ -28,6 +28,16 @@ export const Overview: Story = {
           title: ref.title,
           tags: ref.tags,
         }))}
+        CTAs={[
+          {
+            label: 'Moi aussi',
+            link: 'https://moi.fr',
+            variant: 'solid',
+            colorPalette: {
+              name: 'strapi.blueGreen',
+            },
+          },
+        ]}
       />
     </Container>
   ),

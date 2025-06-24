@@ -1,6 +1,7 @@
-import { Container, chakra, H2, Heading } from '@openagenda/uikit';
+import { Container, chakra, H2, Heading, Box } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 import type { Color } from './types';
+import CTAButtons from './CTAButtons';
 
 interface SegmentContainerProps {
   children: React.ReactNode;
@@ -8,6 +9,7 @@ interface SegmentContainerProps {
   fontColor?: Color;
   title?: string;
   description?: string;
+  CTAs?: any[];
 }
 
 export default function SegmentContainer({
@@ -16,6 +18,7 @@ export default function SegmentContainer({
   fontColor,
   title,
   description,
+  CTAs,
 }: SegmentContainerProps) {
   return (
     <chakra.div
@@ -39,6 +42,11 @@ export default function SegmentContainer({
           </Heading>
         )}
         {children}
+        {CTAs && CTAs.length > 0 && (
+          <Box mt="12">
+            <CTAButtons CTAs={CTAs} justify="center" />
+          </Box>
+        )}
       </Container>
     </chakra.div>
   );

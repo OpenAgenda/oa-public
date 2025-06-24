@@ -47,7 +47,7 @@ const PageHeadContent = ({
       {description}
     </Text>
     {CTA ? (
-      <Box>
+      <Box mt={9}>
         <CTAButton {...CTA} />
       </Box>
     ) : null}

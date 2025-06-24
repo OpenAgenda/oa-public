@@ -9,6 +9,7 @@ type ReferenceSetProps = {
   description?: string;
   References?: Reference[];
   hasFilter?: boolean;
+  CTAs?: any[];
 };
 
 const allowedTagColors = [
@@ -25,6 +26,7 @@ export default function ReferenceSet({
   description,
   References: ReferencesData,
   hasFilter = false,
+  CTAs,
 }: ReferenceSetProps) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
 
@@ -83,7 +85,7 @@ export default function ReferenceSet({
   }
 
   return (
-    <SegmentContainer title={title} description={description}>
+    <SegmentContainer title={title} description={description} CTAs={CTAs}>
       {hasFilter && (
         <ReferenceFilter
           allTags={allTags}

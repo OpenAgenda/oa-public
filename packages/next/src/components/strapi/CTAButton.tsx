@@ -23,7 +23,6 @@ export default function CTAButton({
       colorPalette={colorPalette ? colorPalette.name : 'primary'}
       size="lg"
       variant={variant}
-      mt={9}
     >
       <Link href={link}>{label}</Link>
     </Button>
