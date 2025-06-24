@@ -25,14 +25,18 @@ const reactMdComponents = {
 interface StrapiMarkdownProps {
   children: string;
   flex?: string;
+  color?: string;
+  mt?: number;
 }
 
 export default function StrapiMarkdown({
   children,
   flex = '1',
+  color,
+  mt,
 }: StrapiMarkdownProps) {
   return (
-    <chakra.div flex={flex} css={mdStyle}>
+    <chakra.div flex={flex} css={mdStyle} color={color} mt={mt}>
       <ReactMarkdown
         remarkPlugins={remarkPlugins}
         rehypePlugins={rehypePlugins}
