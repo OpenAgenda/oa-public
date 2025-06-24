@@ -24,7 +24,12 @@ export default function TabSet({
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
           {TabsData.map((tab) => (
-            <Tabs.Trigger key={tab.id} value={tab.id} fontSize="md">
+            <Tabs.Trigger
+              key={tab.id}
+              value={tab.id}
+              fontSize="md"
+              colorPalette="strapi.rosyRed"
+            >
               {tab.title}
             </Tabs.Trigger>
           ))}

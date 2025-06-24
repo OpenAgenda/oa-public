@@ -32,12 +32,12 @@ export default function SegmentContainer({
         py="24"
       >
         {title && (
-          <H2 mb={description ? 4 : 16} fontWeight="bold" textAlign="center">
+          <H2 mb={description ? 6 : 16} fontWeight="bold" textAlign="center">
             {title}
           </H2>
         )}
         {description && (
-          <Heading size="md" textAlign="center" color="gray.600" mb={16}>
+          <Heading size="md" textAlign="center" color="gray.600" mb={6}>
             {description}
           </Heading>
         )}

@@ -95,7 +95,7 @@ export default function ReferenceSet({
         />
       )}
 
-      <Wrap gap="6" justify="center">
+      <Wrap gap="6" justify="center" mt="10">
         {filteredReferences.map((reference) => (
           <WrapItem key={reference.id}>
             <ReferenceItem {...reference} tagColorMap={tagColorMap} />
