@@ -228,6 +228,7 @@ export interface ComponentsSplitHero extends Struct.ComponentSchema {
     displayName: 'SplitHero';
   };
   attributes: {
+    CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     imagePosition: Schema.Attribute.Enumeration<['left', 'right']> &
       Schema.Attribute.DefaultTo<'left'>;
@@ -325,6 +326,7 @@ export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
   };
   attributes: {
     Cards: Schema.Attribute.Component<'components.highlight-card', true>;
+    CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
     title: Schema.Attribute.String;
   };
@@ -378,7 +380,7 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
       'oneToOne',
       'api::theme-color.theme-color'
     >;
-    CTA: Schema.Attribute.Component<'components.cta-button', false>;
+    CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.Text;
     descriptionColor: Schema.Attribute.Relation<
       'oneToOne',
@@ -402,6 +404,7 @@ export interface SegmentsReferenceSet extends Struct.ComponentSchema {
     displayName: 'ReferenceSet';
   };
   attributes: {
+    CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
     hasFilter: Schema.Attribute.Boolean;
     References: Schema.Attribute.Component<'components.reference', true>;
@@ -416,6 +419,7 @@ export interface SegmentsTabSet extends Struct.ComponentSchema {
     displayName: 'TabSet';
   };
   attributes: {
+    CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
     Tabs: Schema.Attribute.Component<'components.tab', true>;
     title: Schema.Attribute.String;

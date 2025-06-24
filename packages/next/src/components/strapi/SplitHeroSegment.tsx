@@ -7,6 +7,7 @@ interface SplitHeroSegmentProps {
   image?: any;
   text?: string;
   imagePosition?: string;
+  CTAs?: any;
 }
 
 export default function SplitHeroSegment({
@@ -14,6 +15,7 @@ export default function SplitHeroSegment({
   image,
   text,
   imagePosition,
+  CTAs,
 }: SplitHeroSegmentProps) {
   return (
     <SegmentContainer>
@@ -22,6 +24,7 @@ export default function SplitHeroSegment({
         image={image}
         text={text}
         imagePosition={imagePosition}
+        CTAs={CTAs}
       />
     </SegmentContainer>
   );

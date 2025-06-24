@@ -6,19 +6,21 @@ interface TabSetProps {
   title?: string;
   description?: string;
   Tabs: Array<any>;
+  CTAs?: any[];
 }
 
 export default function TabSet({
   title = null,
   description,
   Tabs: TabsData,
+  CTAs,
 }: TabSetProps) {
   if (!TabsData?.length) {
     return null;
   }
 
   return (
-    <SegmentContainer title={title} description={description}>
+    <SegmentContainer title={title} description={description} CTAs={CTAs}>
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
           {TabsData.map((tab) => (

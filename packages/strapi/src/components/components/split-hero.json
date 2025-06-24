@@ -23,6 +23,11 @@
       "type": "enumeration",
       "enum": ["left", "right"],
       "default": "left"
+    },
+    "CTAs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.cta-button"
     }
   }
 }

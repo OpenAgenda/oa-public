@@ -6,15 +6,17 @@ interface HighlightCardSetProps {
   title: string;
   description?: string;
   Cards: Array<any>;
+  CTAs?: any[];
 }
 
 export default function HighlightCardSet({
   title,
   description,
   Cards,
+  CTAs,
 }: HighlightCardSetProps) {
   return (
-    <SegmentContainer title={title}>
+    <SegmentContainer title={title} CTAs={CTAs}>
       <Stack gap={8} align="center">
         {description && (
           <Heading size="md" textAlign="center" color="gray.600">
