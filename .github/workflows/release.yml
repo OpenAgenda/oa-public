@@ -65,6 +65,7 @@ jobs:
 
       - name: Sync to public
         run: |
+          git checkout main
           ./scripts/sync-releases-to-public.sh
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}

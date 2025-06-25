@@ -3,9 +3,18 @@ set -e
 
 # --- CONFIGURATION ---
 PUBLIC_REMOTE_NAME="oa-public"
+MAIN_BRANCH_NAME="main"
 # --- FIN CONFIGURATION ---
 
 echo "--- Initialisation de la synchronisation de subtree ---"
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [ "$CURRENT_BRANCH" != "$MAIN_BRANCH_NAME" ]; then
+    echo "❌ Erreur : Ce script doit être lancé depuis la branche '$MAIN_BRANCH_NAME'."
+    echo "   Branche actuelle : '$CURRENT_BRANCH'"
+    exit 1
+fi
+
 
 if ! git diff --quiet HEAD; then
     echo "❌ Erreur : Le répertoire de travail doit être propre avant l'initialisation."
