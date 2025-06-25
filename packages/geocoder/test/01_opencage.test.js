@@ -8,6 +8,14 @@ describe('opencage', () => {
   const geocode = Opencage(config.opencage);
 
   describe('forward', () => {
+    it('Strasbourg', async () => {
+      const res = await geocode('15 place André Maurois, 67201 Strasbourg', {
+        countryCode: 'FR',
+        first: true,
+      });
+      expect(res.adminLevel4).toBe('Strasbourg');
+      expect(res.postalCode).toBe('67201');
+    });
     it('Sommières-du-Clain', async () => {
       const res = await geocode('5 Rte de Poitiers, 86160 Sommières-du-Clain', {
         countryCode: 'FR',
@@ -492,7 +500,7 @@ describe('opencage', () => {
         ),
       ).toEqual({
         adminLevel4: 'Mana',
-        adminLevel2: null,
+        adminLevel2: 'Guyane',
         adminLevel1: 'Guyane',
         country: 'France',
         countryCode: 'fr',

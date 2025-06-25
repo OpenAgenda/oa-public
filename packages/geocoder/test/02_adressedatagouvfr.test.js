@@ -60,5 +60,13 @@ describe('adresse.data.gouv.fr', () => {
       );
       expect(result.city).toBe('Lyon');
     });
+
+    it('Strasbourg', async () => {
+      const result = await geocode.detailed(
+        '15 place André Maurois, 67201 Strasbourg',
+      );
+      expect(result.city).toBe('Strasbourg');
+      expect(result.postalCode).toBe('67200'); // not 67201
+    });
   });
 });
