@@ -21,8 +21,9 @@ elif [ "$LOCAL_SHA" == "$BASE_SHA" ]; then
     echo "Veuillez d'abord faire 'git pull' pour vous mettre à jour."
     exit 1
 elif [ "$REMOTE_SHA" == "$BASE_SHA" ]; then
-    echo "⚠️  Avertissement : Votre branche locale a des commits qui n'ont pas été poussés sur 'origin'."
-    echo "L'opération continuera, mais assurez-vous que c'est bien ce que vous voulez."
+    echo "❌ Erreur : Votre branche locale est en avance sur le remote."
+    echo "Veuillez d'abord faire 'git push' pour vous mettre à jour."
+    exit 1
 else
     echo "❌ Erreur : Votre branche locale a divergé du remote."
     echo "Veuillez faire 'git pull --rebase' ou une autre stratégie de fusion pour résoudre la divergence."
@@ -64,9 +65,15 @@ if [ -z "$COMMIT_LIST" ]; then
 fi
 
 # Étape 3 : Réplication
+WORKTREE_PATH="../subtree-worktree-$$"
 FINAL_BRANCH="subtree-replicated-$$"
-echo "🧬 Préparation de la branche de réplication '${FINAL_BRANCH}'..."
-git checkout -b ${FINAL_BRANCH} "remotes/${PUBLIC_REMOTE_NAME}/main"
+
+# Piège pour garantir le nettoyage même si le script échoue
+# `trap` s'exécutera à la sortie du script (EXIT), quoi qu'il arrive.
+trap 'echo "🧹 Nettoyage du worktree temporaire..."; git worktree remove --force "${WORKTREE_PATH}";' EXIT
+
+echo "🌳 Création d'un worktree sécurisé dans '${WORKTREE_PATH}'..."
+git worktree add -b ${FINAL_BRANCH} "${WORKTREE_PATH}" "remotes/${PUBLIC_REMOTE_NAME}/main"
 
 for commit_sha in $COMMIT_LIST; do
     echo "  -> Réplication : $(git log -1 --oneline ${commit_sha})"
@@ -79,16 +86,17 @@ for commit_sha in $COMMIT_LIST; do
         # Pour un merge, on ne patche pas. On impose l'état exact du sous-dossier.
         # C'est la seule méthode fiable pour gérer les résolutions de conflits.
         SUBTREE_TREE_SHA=$(git rev-parse "${commit_sha}:${SUBTREE_PREFIX}")
-        git rm -rfq .
-        git read-tree --prefix '' -u "${SUBTREE_TREE_SHA}"
+        git -C "${WORKTREE_PATH}" rm -rfq .
+        git -C "${WORKTREE_PATH}" read-tree --prefix '' -u "${SUBTREE_TREE_SHA}"
     else
         # Pour un commit normal, la méthode du patch est efficace.
-        git diff-tree -p --binary ${commit_sha}^ ${commit_sha} -- "${SUBTREE_PREFIX}" | sed "s| a/${SUBTREE_PREFIX}/| a/|g; s| b/${SUBTREE_PREFIX}/| b/|g" | git apply -3
+        # On exécute diff-tree ici (répertoire principal) et on pipe le résultat vers apply dans le worktree
+        git diff-tree -p --binary ${commit_sha}^ ${commit_sha} -- "${SUBTREE_PREFIX}" | sed "s| a/${SUBTREE_PREFIX}/| a/|g; s| b/${SUBTREE_PREFIX}/| b/|g" | git -C "${WORKTREE_PATH}" apply -3
     fi
 
-    git add .
+    git -C "${WORKTREE_PATH}" add .
 
-    if ! git diff --staged --quiet; then
+    if ! git -C "${WORKTREE_PATH}" diff --staged --quiet; then
         # Recréer le commit avec l'auteur et le message d'origine
         export GIT_AUTHOR_NAME=$(git show -s --format='%an' "${commit_sha}")
         export GIT_AUTHOR_EMAIL=$(git show -s --format='%ae' "${commit_sha}")
@@ -98,7 +106,7 @@ for commit_sha in $COMMIT_LIST; do
         export GIT_COMMITTER_DATE=$(git show -s --format='%cd' "${commit_sha}")
         COMMIT_MESSAGE=$(git show -s --format=%B "${commit_sha}")
 
-        git commit -m "${COMMIT_MESSAGE}" --no-verify
+        git -C "${WORKTREE_PATH}" commit -m "${COMMIT_MESSAGE}" --no-verify
 
         unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_AUTHOR_DATE
         unset GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL GIT_COMMITTER_DATE
@@ -108,15 +116,16 @@ for commit_sha in $COMMIT_LIST; do
 done
 
 # Étape 4 : Pousser le résultat
-echo "🛰️ Poussée vers ${PUBLIC_REMOTE_NAME}..."
-git push ${PUBLIC_REMOTE_NAME} "${FINAL_BRANCH}:main"
-NEW_PUBLIC_HEAD_SHA=$(git rev-parse ${FINAL_BRANCH})
+echo "🛰️ Poussée vers ${PUBLIC_REMOTE_NAME} depuis le worktree..."
+git -C "${WORKTREE_PATH}" push ${PUBLIC_REMOTE_NAME} "${FINAL_BRANCH}:main"
+NEW_PUBLIC_HEAD_SHA=$(git -C "${WORKTREE_PATH}" rev-parse ${FINAL_BRANCH})
 
 # Étape 5 : Création du nouveau commit d'ancrage dans `oa`
 echo "✍️ Création du nouveau commit d'ancrage..."
-git checkout -
-git branch -D ${FINAL_BRANCH}
-COMMIT_MESSAGE=$(printf "chore: sync with %s\n\nAligns oa commit %s with %s commit %s" "${PUBLIC_REMOTE_NAME}" "${OA_HEAD_SHA}" "${PUBLIC_REMOTE_NAME}" "${NEW_PUBLIC_HEAD_SHA}")
 
+COMMIT_MESSAGE=$(printf "chore: sync with %s\n\nAligns oa commit %s with %s commit %s" "${PUBLIC_REMOTE_NAME}" "${OA_HEAD_SHA}" "${PUBLIC_REMOTE_NAME}" "${NEW_PUBLIC_HEAD_SHA}")
 git commit --allow-empty -m "${COMMIT_MESSAGE}" --no-verify
+
+echo "🛰️ Poussée finale du commit d'ancrage vers 'origin'..."
+git push
 echo "✨ Push terminé"
