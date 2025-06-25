@@ -37,7 +37,9 @@ export default function SplitHero({
         />
       ) : null}
       <Box flex="1">
-        <H3 mb="4">{title}</H3>
+        <H3 mb="4" fontWeight={600}>
+          {title}
+        </H3>
         <StrapiMarkdown>{text}</StrapiMarkdown>
         {CTAs && CTAs.length > 0 && (
           <Box mt={6}>

@@ -73,3 +73,12 @@ export async function fetchPageData({
     footer,
   };
 }
+
+export const allowedItemColors = [
+  'strapi.flashy.rosyRed',
+  'strapi.flashy.blueViolet',
+  'strapi.flashy.paleLavender',
+  'strapi.flashy.blueGreen',
+  'strapi.flashy.sandBeige',
+  'strapi.flashy.mutedPlum',
+];

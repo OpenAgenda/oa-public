@@ -1,4 +1,5 @@
 import { Tabs } from '@openagenda/uikit';
+import { allowedItemColors } from 'utils/strapi';
 import SplitHero from './SplitHero';
 import SegmentContainer from './SegmentContainer';
 
@@ -23,12 +24,12 @@ export default function TabSet({
     <SegmentContainer title={title} description={description} CTAs={CTAs}>
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
-          {TabsData.map((tab) => (
+          {TabsData.map((tab, index) => (
             <Tabs.Trigger
               key={tab.id}
               value={tab.id}
               fontSize="md"
-              colorPalette="strapi.rosyRed"
+              colorPalette={allowedItemColors[index % allowedItemColors.length]}
             >
               {tab.title}
             </Tabs.Trigger>
