@@ -86,24 +86,29 @@ for commit_sha in $COMMIT_LIST; do
         git diff-tree -p --binary ${commit_sha}^ ${commit_sha} -- "${SUBTREE_PREFIX}" | sed "s| a/${SUBTREE_PREFIX}/| a/|g; s| b/${SUBTREE_PREFIX}/| b/|g" | git apply -3
     fi
 
-    # Recréer le commit avec l'auteur et le message d'origine
-    export GIT_AUTHOR_NAME=$(git show -s --format='%an' "${commit_sha}")
-    export GIT_AUTHOR_EMAIL=$(git show -s --format='%ae' "${commit_sha}")
-    export GIT_AUTHOR_DATE=$(git show -s --format='%ad' "${commit_sha}")
-    export GIT_COMMITTER_NAME=$(git show -s --format='%cn' "${commit_sha}")
-    export GIT_COMMITTER_EMAIL=$(git show -s --format='%ce' "${commit_sha}")
-    export GIT_COMMITTER_DATE=$(git show -s --format='%cd' "${commit_sha}")
-    COMMIT_MESSAGE=$(git show -s --format=%B "${commit_sha}")
-
     git add .
-    git commit -m "${COMMIT_MESSAGE}" --no-verify
 
-    unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_AUTHOR_DATE
-    unset GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL GIT_COMMITTER_DATE
+    if ! git diff --staged --quiet; then
+        # Recréer le commit avec l'auteur et le message d'origine
+        export GIT_AUTHOR_NAME=$(git show -s --format='%an' "${commit_sha}")
+        export GIT_AUTHOR_EMAIL=$(git show -s --format='%ae' "${commit_sha}")
+        export GIT_AUTHOR_DATE=$(git show -s --format='%ad' "${commit_sha}")
+        export GIT_COMMITTER_NAME=$(git show -s --format='%cn' "${commit_sha}")
+        export GIT_COMMITTER_EMAIL=$(git show -s --format='%ce' "${commit_sha}")
+        export GIT_COMMITTER_DATE=$(git show -s --format='%cd' "${commit_sha}")
+        COMMIT_MESSAGE=$(git show -s --format=%B "${commit_sha}")
+
+        git commit -m "${COMMIT_MESSAGE}" --no-verify
+
+        unset GIT_AUTHOR_NAME GIT_AUTHOR_EMAIL GIT_AUTHOR_DATE
+        unset GIT_COMMITTER_NAME GIT_COMMITTER_EMAIL GIT_COMMITTER_DATE
+    else
+        echo "     (Aucun changement net pour ce commit, ignoré)"
+    fi
 done
 
 # Étape 4 : Pousser le résultat
-echo "🛰️ Poussée vers oa-public..."
+echo "🛰️ Poussée vers ${PUBLIC_REMOTE_NAME}..."
 git push ${PUBLIC_REMOTE_NAME} "${FINAL_BRANCH}:main"
 NEW_PUBLIC_HEAD_SHA=$(git rev-parse ${FINAL_BRANCH})
 
