@@ -28,7 +28,7 @@ export default function TabSet({
               key={tab.id}
               value={tab.id}
               fontSize="md"
-              colorPalette="strapi.rosyRed"
+              colorPalette="strapi.flashy.rosyRed"
             >
               {tab.title}
             </Tabs.Trigger>
