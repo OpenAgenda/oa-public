@@ -15,9 +15,7 @@ PACKAGE_SCOPE="@openagenda"
 PUBLIC_REMOTE_NAME="oa-public"
 PUBLIC_REPO_OWNER_NAME="openagenda/oa-public"
 PUBLIC_REPO_BRANCH="main"
-
-# Le dossier racine dans le monorepo qui contient les packages publics.
-SUBTREE_PREFIX="public"
+SOURCE_REPO_OWNER_NAME="OpenAgenda/oa"
 # --- FIN CONFIGURATION ---
 
 
@@ -56,8 +54,8 @@ else
   # Mode automatique : on trouve la dernière release non synchronisée.
   echo "🤖 Mode automatique. Recherche de la dernière release non synchronisée..."
 
-  # On parcourt les 5 derniers tags créés (du plus récent au plus ancien) pour trouver un candidat.
-  for tag_name in $(git tag -l "${PACKAGE_SCOPE}/*" --sort=-creatordate | head -n 5); do
+  # On parcourt les 10 derniers tags créés (du plus récent au plus ancien) pour trouver un candidat.
+  for tag_name in $(git tag -l "${PACKAGE_SCOPE}/*" --sort=-creatordate | head -n 10); do
     echo "  - Vérification du tag : ${tag_name}"
 
     # On vérifie si ce tag existe DÉJÀ sur le remote public.
@@ -86,10 +84,6 @@ echo "✔️ Commit de release à traiter trouvé : ${RELEASE_COMMIT_SHA}"
 TAGS=$(git tag --points-at "${RELEASE_COMMIT_SHA}")
 echo -e "🏷️ Tags à synchroniser trouvés sur ce commit:\n${TAGS}"
 
-# On récupère les notes de la release depuis le corps du commit.
-echo "📝 Extraction des notes de release..."
-RELEASE_NOTES=$(git show -s --format=%B "${RELEASE_COMMIT_SHA}")
-
 PUBLIC_COMMIT_SHA=$(git rev-parse "${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}")
 
 echo "🎯 Commit unique créé sur ${PUBLIC_REPO_OWNER_NAME} : ${PUBLIC_COMMIT_SHA}"
@@ -101,6 +95,14 @@ echo -e "🏷️ Création des releases GitHub pour les tags suivants :\n${TAGS}
 for TAG_NAME in $TAGS; do
   echo "---"
   echo "🎉 Création de la release pour le tag : ${TAG_NAME}"
+
+  echo "📝 Extraction des notes de release..."
+  RELEASE_NOTES=$(gh release view "${TAG_NAME}" --repo "${SOURCE_REPO_OWNER_NAME}" --json body -q .body)
+
+  if [ -z "$RELEASE_NOTES" ]; then
+    echo "    ⚠️ Avertissement : Aucune note de release trouvée pour le tag ${TAG_NAME} sur le dépôt source. On utilisera un message par défaut."
+    RELEASE_NOTES="Release ${TAG_NAME}"
+  fi
 
   gh release create "${TAG_NAME}" \
     --repo "${PUBLIC_REPO_OWNER_NAME}" \
