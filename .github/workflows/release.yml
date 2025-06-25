@@ -2,10 +2,10 @@ name: Release
 
 on:
   push:
-    #    paths:
-    #      - '.changeset/**'
-    #      - 'packages/**'
-    #      - 'public/**'
+    paths:
+      - '.changeset/**'
+      - 'packages/**'
+      - 'public/**'
     branches:
       - main
   workflow_dispatch:
@@ -42,33 +42,29 @@ jobs:
         run: |
           git remote add oa-public "https://github.com/OpenAgenda/oa-public.git" || true
 
-      #      - name: Install
-      #        uses: ./.github/composite-actions/install
-      #        with:
-      #          npm-token: ${{ secrets.NPM_TOKEN }}
-      #          font-awesome-npm-token: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
+      - name: Install
+        uses: ./.github/composite-actions/install
+        with:
+          npm-token: ${{ secrets.NPM_TOKEN }}
+          font-awesome-npm-token: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
-      #      - name: Build
-      #        run: yarn turbo prepack
+      - name: Build
+        run: yarn turbo prepack
 
-      #      - name: Create release Pull Request or publish to NPM
-      #        id: changesets
-      #        uses: changesets/action@v1
-      #        with:
-      #          publish: yarn changeset publish
-      #          commit: 'chore: version packages'
-      #          setupGitUser: false
-      #        env:
-      #          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-      #          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+      - name: Create release Pull Request or publish to NPM
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          publish: yarn changeset publish
+          commit: 'chore: version packages'
+          setupGitUser: false
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
       - name: Sync to public
         run: |
-          rm -f ~/.netrc
-          git config --global url."https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/".insteadOf "https://github.com/"
-          git config --global user.name "Kévin Berthommier"
-          git config --global user.email "kevin.bertho@gmail.com"
           ./scripts/sync-releases-to-public.sh
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
