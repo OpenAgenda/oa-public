@@ -101,7 +101,8 @@ export default function PassSettings() {
   const loading = useSelector((state) => state.agenda.loading);
   const [siren, setSiren] = useState('');
   const [saveError, setSaveError] = useState(null);
-  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [sirenSaveSuccess, setSirenSaveSuccess] = useState(false);
+  const [venueSaveSuccess, setVenueSaveSuccess] = useState(false);
   const [clearSuccess, setClearSuccess] = useState(false);
   const [defaultVenueId, setDefaultVenueId] = useState(null);
   const [tempSelectedVenueId, setTempSelectedVenueId] = useState(null);
@@ -158,12 +159,14 @@ export default function PassSettings() {
     } else {
       setHasVenues(false);
     }
-  }, [sirenIsSet, agenda?.uid]);
+  }, [sirenIsSet, agenda?.uid, currentSiren]);
 
   const handleSaveSiren = async (e) => {
     e.preventDefault();
     setSaveError(null);
-    setSaveSuccess(false);
+    setSirenSaveSuccess(false);
+    setVenueSaveSuccess(false);
+    setClearSuccess(false);
 
     try {
       const settingsUpdate = {
@@ -180,7 +183,7 @@ export default function PassSettings() {
       };
 
       await dispatch(agendaActions.edit(settingsUpdate));
-      setSaveSuccess(true);
+      setSirenSaveSuccess(true);
       setIsEditingSiren(false);
     } catch (error) {
       setSaveError(error.message || 'Failed to save SIREN');
@@ -215,7 +218,8 @@ export default function PassSettings() {
                 onChange={(e) => {
                   setSiren(e.target.value);
                   // Clear success messages when user makes changes
-                  setSaveSuccess(false);
+                  setSirenSaveSuccess(false);
+                  setVenueSaveSuccess(false);
                   setClearSuccess(false);
                 }}
                 placeholder={intl.formatMessage(messages.enterSiren)}
@@ -247,7 +251,9 @@ export default function PassSettings() {
                     setIsEditingSiren(false);
                     setSiren(currentSiren);
                     setSaveError(null);
-                    setSaveSuccess(false);
+                    setSirenSaveSuccess(false);
+                    setVenueSaveSuccess(false);
+                    setClearSuccess(false);
                   }}
                 >
                   {intl.formatMessage(messages.cancel)}
@@ -261,7 +267,7 @@ export default function PassSettings() {
               </div>
             )}
 
-            {saveSuccess && (
+            {sirenSaveSuccess && (
               <div className="alert alert-success margin-top-sm">
                 {intl.formatMessage(messages.sirenSavedSuccessfully)}
               </div>
@@ -288,7 +294,7 @@ export default function PassSettings() {
   };
 
   const renderNoVenuesSection = () => (
-    <div className="mb-4">
+    <div className="mb-4 margin-top-sm">
       <p>
         Aucun lieu pass Culture lié à ce SIRET n&apos;a été trouvé.
         Connectez-vous à votre compte pass pro pour:
@@ -371,20 +377,17 @@ export default function PassSettings() {
     setTempSelectedVenueId(venueId);
     setShowSaveButton(true);
     // Clear success messages when user makes changes
-    setSaveSuccess(false);
+    setSirenSaveSuccess(false);
+    setVenueSaveSuccess(false);
     setClearSuccess(false);
   };
-
-  /*   const handleVenuesLoaded = (venues) => {
-    // Check if venues array exists and has items
-    const hasVenuesData = venues && venues.length > 0;
-    setHasVenues(hasVenuesData);
-  }; */
 
   const handleSaveDefaultVenue = async () => {
     // Allow saving null to clear the default venue
     setSaveError(null);
-    setSaveSuccess(false);
+    setSirenSaveSuccess(false);
+    setVenueSaveSuccess(false);
+    setClearSuccess(false);
 
     try {
       const settingsUpdate = {
@@ -403,7 +406,7 @@ export default function PassSettings() {
       await dispatch(agendaActions.edit(settingsUpdate));
 
       setDefaultVenueId(tempSelectedVenueId);
-      setSaveSuccess(true);
+      setVenueSaveSuccess(true);
       setShowSaveButton(false);
     } catch (error) {
       setSaveError(error.message || 'Failed to save default venue');
@@ -412,7 +415,8 @@ export default function PassSettings() {
 
   const handleClearSettings = async () => {
     setSaveError(null);
-    setSaveSuccess(false);
+    setSirenSaveSuccess(false);
+    setVenueSaveSuccess(false);
     setClearSuccess(false);
 
     try {
@@ -444,10 +448,6 @@ export default function PassSettings() {
           <>
             {/* Header section */}
             <div className="mb-4">
-              <p className="text-muted">
-                Évitez les doubles saisies en créant vos offres pass Culture
-                directement depuis les formulaires d&apos;événement OpenAgenda
-              </p>
               <a
                 href="https://doc.openagenda.com/integration-du-pass-culture-sur-openagenda/"
                 target="_blank"
@@ -466,7 +466,10 @@ export default function PassSettings() {
                 <button
                   type="button"
                   className="btn btn-link btn-sm text-primary ms-3"
-                  onClick={() => setIsEditingSiren(true)}
+                  onClick={() => {
+                    setIsEditingSiren(true);
+                    setClearSuccess(false);
+                  }}
                   style={{
                     textDecoration: 'none',
                     padding: '0',
@@ -479,11 +482,12 @@ export default function PassSettings() {
             </div>
 
             {/* Venues section */}
+            {hasVenues && (
             <div className="mb-4">
               <h4>Lieux pass Culture associés au SIREN</h4>
               <p className="text-muted">
-                Sélectionnez un lieu par défaut pour éviter un choix additionnel à
-                chaque nouvelle saisie
+                Sélectionnez un lieu par défaut pour éviter un choix additionnel
+                à chaque nouvelle saisie
               </p>
 
               <ListVenues
@@ -510,6 +514,7 @@ export default function PassSettings() {
               </div>
               )}
             </div>
+            )}
 
             {/* Gateway access section */}
             {hasVenues && renderGatewayAccessSection()}
@@ -520,7 +525,7 @@ export default function PassSettings() {
             </div>
             )}
 
-            {saveSuccess && (
+            {venueSaveSuccess && (
             <div className="alert alert-success margin-top-sm">
               {intl.formatMessage(messages.defaultVenueSaved)}
             </div>
