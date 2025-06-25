@@ -37,7 +37,7 @@ export default function SegmentContainer({
           </H2>
         )}
         {description && (
-          <Heading size="md" textAlign="center" color="gray.600" mb={6}>
+          <Heading size="md" textAlign="center" color="gray.600" mb={16}>
             {description}
           </Heading>
         )}

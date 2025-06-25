@@ -40,6 +40,7 @@ export default function HighlightCard({
           display="flex"
           alignItems="center"
           justifyContent="center"
+          mb={2}
         >
           <Image
             src={Illustration.image.url}
@@ -50,7 +51,11 @@ export default function HighlightCard({
           />
         </Box>
       )}
-      {title && <Heading size="md">{title}</Heading>}
+      {title && (
+        <Heading size="md" fontWeight={600}>
+          {title}
+        </Heading>
+      )}
       {description && (
         <Box color="gray.600">
           <StrapiMarkdown flex="none">{String(description)}</StrapiMarkdown>

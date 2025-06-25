@@ -31,12 +31,12 @@ export default function StrapiPage({ page, footer }) {
         styles={{
           html: {
             backgroundColor: 'white',
+            ':root': {
+              '--font-noto-sans': notoSans.style.fontFamily,
+              '--font-ubuntu-sans': ubuntuSans.style.fontFamily,
+            },
           },
           backgroundColor: 'white',
-          ':root': {
-            '--font-noto-sans': notoSans.style.fontFamily,
-            '--font-ubuntu-sans': ubuntuSans.style.fontFamily,
-          },
         }}
       />
 

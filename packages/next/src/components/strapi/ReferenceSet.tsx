@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Wrap, WrapItem } from '@openagenda/uikit';
+import { allowedItemColors } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
 import ReferenceItem, { type Reference } from './ReferenceItem';
 import ReferenceFilter from './ReferenceFilter';
@@ -11,15 +12,6 @@ type ReferenceSetProps = {
   hasFilter?: boolean;
   CTAs?: any[];
 };
-
-const allowedTagColors = [
-  'strapi.flashy.rosyRed',
-  'strapi.flashy.blueViolet',
-  'strapi.flashy.paleLavender',
-  'strapi.flashy.blueGreen',
-  'strapi.flashy.sandBeige',
-  'strapi.flashy.mutedPlum',
-];
 
 export default function ReferenceSet({
   title = null,
@@ -48,7 +40,7 @@ export default function ReferenceSet({
   const tagColorMap = useMemo(() => {
     const colorMap: Record<string, string> = {};
     allTags.forEach((tag, index) => {
-      colorMap[tag] = allowedTagColors[index % allowedTagColors.length];
+      colorMap[tag] = allowedItemColors[index % allowedItemColors.length];
     });
     return colorMap;
   }, [allTags]);
