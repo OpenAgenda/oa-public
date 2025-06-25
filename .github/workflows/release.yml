@@ -2,10 +2,10 @@ name: Release
 
 on:
   push:
-    paths:
-      - '.changeset/**'
-      - 'packages/**'
-      - 'public/**'
+    #    paths:
+    #      - '.changeset/**'
+    #      - 'packages/**'
+    #      - 'public/**'
     branches:
       - main
   workflow_dispatch:
@@ -36,6 +36,7 @@ jobs:
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Add public remote
         run: |
