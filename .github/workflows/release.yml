@@ -54,7 +54,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: changeset publish
+          publish: yarn changeset publish
           commit: 'chore: version packages'
           setupGitUser: false
         env:
