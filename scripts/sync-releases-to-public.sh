@@ -5,6 +5,8 @@
 # Arrête le script si une commande échoue pour éviter un état incohérent.
 set -e
 
+THIS_DIR=$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
 # --- CONFIGURATION ---
 # Le scope NPM de vos packages. Utilisé pour trouver les tags pertinents.
 PACKAGE_SCOPE="@openagenda"
@@ -32,7 +34,7 @@ fi
 
 echo "---"
 echo "🛰️ Poussée du subtree 'public' vers ${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}..."
-./subtree/push.sh
+${THIS_DIR}/subtree/push.sh
 echo "---"
 
 echo "🚀 Démarrage de la synchronisation des releases vers ${PUBLIC_REPO_OWNER_NAME}..."
