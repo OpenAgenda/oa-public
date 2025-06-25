@@ -19,10 +19,12 @@ export const Default = {
       },
       width: { name: 'md' },
     },
-    CTA: {
-      label: 'Créer un agenda',
-      link: '/agendas/new',
-    },
+    CTAs: [
+      {
+        label: 'Créer un agenda',
+        link: '/agendas/new',
+      },
+    ],
   },
 };
 
@@ -30,11 +32,16 @@ export const NoIllustration = {
   args: {
     title: 'Intégrez votre agenda à votre site',
     description:
-      'Une API, un code à coller sur votre page, des plugins Drupal, Wordpress et Typo3',
-    CTA: {
-      label: 'Sortir le chien',
-      link: 'https://woafy.fr/quand-et-combien-de-faut-il-sortir-son-chien-au-minimum/',
-    },
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    CTAs: [
+      {
+        label: 'Sortir le chien',
+        link: 'https://woafy.fr/quand-et-combien-de-faut-il-sortir-son-chien-au-minimum/',
+        colorPalette: {
+          name: 'strapi.blueGreen',
+        },
+      },
+    ],
   },
 };
 
@@ -49,10 +56,12 @@ export const WithColors = {
       },
       width: { name: 'xs' },
     },
-    CTA: {
-      label: 'Mettre un 12',
-      link: 'https://google.com?q=12',
-    },
+    CTAs: [
+      {
+        label: 'Mettre un 12',
+        link: 'https://google.com?q=12',
+      },
+    ],
     backgroundColor: {
       name: 'strapi.blueGreen',
     },

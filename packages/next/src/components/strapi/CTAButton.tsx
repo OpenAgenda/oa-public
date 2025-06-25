@@ -20,7 +20,11 @@ export default function CTAButton({
   return (
     <Button
       asChild
-      colorPalette={colorPalette ? colorPalette.name : 'primary'}
+      colorPalette={
+        colorPalette
+          ? colorPalette.name.replace('strapi.', 'strapi.flashy.')
+          : 'primary'
+      }
       size="lg"
       variant={variant}
     >

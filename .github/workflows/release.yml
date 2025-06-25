@@ -37,6 +37,10 @@ jobs:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
+      - name: Add public remote
+        run: |
+          git remote add oa-public https://github.com/OpenAgenda/oa-public.git || true
+
       - name: Install
         uses: ./.github/composite-actions/install
         with:

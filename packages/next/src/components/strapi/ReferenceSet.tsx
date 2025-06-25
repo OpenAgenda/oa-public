@@ -13,12 +13,12 @@ type ReferenceSetProps = {
 };
 
 const allowedTagColors = [
-  'strapi.rosyRed',
-  'strapi.blueViolet',
-  'strapi.paleLavender',
-  'strapi.blueGreen',
-  'strapi.sandBeige',
-  'strapi.mutedPlum',
+  'strapi.flashy.rosyRed',
+  'strapi.flashy.blueViolet',
+  'strapi.flashy.paleLavender',
+  'strapi.flashy.blueGreen',
+  'strapi.flashy.sandBeige',
+  'strapi.flashy.mutedPlum',
 ];
 
 export default function ReferenceSet({
@@ -95,7 +95,7 @@ export default function ReferenceSet({
         />
       )}
 
-      <Wrap gap="6" justify="center">
+      <Wrap gap="6" justify="center" mt="10">
         {filteredReferences.map((reference) => (
           <WrapItem key={reference.id}>
             <ReferenceItem {...reference} tagColorMap={tagColorMap} />

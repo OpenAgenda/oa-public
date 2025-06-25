@@ -10,9 +10,6 @@
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "text"
-    },
     "Illustration": {
       "type": "component",
       "repeatable": false,
@@ -46,6 +43,9 @@
       "type": "component",
       "repeatable": true,
       "component": "components.cta-button"
+    },
+    "description": {
+      "type": "richtext"
     }
   }
 }
