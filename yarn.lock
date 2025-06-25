@@ -11171,6 +11171,7 @@ __metadata:
   dependencies:
     "@inquirer/prompts": "npm:^7.5.3"
     "@openagenda/eslint-config": "npm:^1.4.0"
+    "@openagenda/geocoder": "npm:^1.2.9"
     "@openagenda/logs": "npm:^1.1.9"
     "@openagenda/verror": "npm:^3.1.0"
     axios: "npm:^1.4.0"

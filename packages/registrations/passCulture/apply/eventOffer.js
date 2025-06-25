@@ -1,20 +1,10 @@
 import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 import formatEvent from '../lib/formatEvent.js';
-import extractStreetFromOAAddress from '../lib/extractStreetFromOAAddress.js';
 import handleError from './handleError.js';
+import address from './address.js';
 
 const log = logs('passCulture/eventOffer');
-
-const venueDiffThanLoc = ({ venueLoc, location }) => {
-  if (!venueLoc || !location) return true; // If either is missing, consider them different
-
-  return (
-    venueLoc.address !== location.address
-    || venueLoc.city !== location.city
-    || venueLoc.postalCode !== location.postalCode
-  );
-};
 
 async function update(
   pc,
@@ -57,7 +47,6 @@ async function update(
 }
 
 async function create({ pc, siren }, OAEvent, entry, options) {
-  let address = null;
   const { categories: categoriesFromOptions, related: relatedFromOptions } = options;
 
   const { categories, related } = !categoriesFromOptions || !relatedFromOptions
@@ -84,45 +73,17 @@ async function create({ pc, siren }, OAEvent, entry, options) {
     };
   }
 
-  if (
-    venueDiffThanLoc({
-      venueLoc: usedVenue.location,
-      location: OAEvent.location,
-    })
-  ) {
-    // Validate that OAEvent location has a postal code
-    if (!OAEvent.location?.postalCode) {
-      return {
-        error: new BadRequest({
-          message: 'OAEvent location postal code is required',
-          info: {
-            location: OAEvent.location,
-          },
-        }),
-      };
-    }
-    try {
-      address = await pc.offers.addresses.create({
-        city: OAEvent.location.city,
-        latitude: OAEvent.location.latitude,
-        longitude: OAEvent.location.longitude,
-        postalCode: OAEvent.location.postalCode,
-        street: extractStreetFromOAAddress(OAEvent.location),
-      });
-      log.info('created address', address);
-    } catch (error) {
-      return {
-        error: handleError('failed to create pass address', {
-          response: error.response,
-          siren,
-          location: OAEvent.location,
-        }),
-      };
-    }
+  // Create address if needed using the address module
+  const { address: createdAddress, error: addressError } = await address.createAddressIfNeeded(pc, OAEvent, usedVenue, siren);
+
+  if (addressError) {
+    return {
+      error: addressError,
+    };
   }
   const eventOffer = await formatEvent(
     OAEvent,
-    { ...entry, addressId: address?.id },
+    { ...entry, addressId: createdAddress?.id },
     {
       ...options,
       categories,
@@ -138,7 +99,7 @@ async function create({ pc, siren }, OAEvent, entry, options) {
     succeeded: error ? undefined : entry,
     error,
     response: {
-      addressId: address?.id,
+      addressId: createdAddress?.id,
       passId: id,
       isPending: status === 'PENDING',
     },
