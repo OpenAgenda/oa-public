@@ -39,7 +39,7 @@ jobs:
 
       - name: Add public remote
         run: |
-          git remote add oa-public "https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/OpenAgenda/oa-public.git" || true
+          git remote add oa-public "https://bertho-zero:${{ secrets.GH_TOKEN }}@github.com/OpenAgenda/oa-public.git" || true
 
       - name: Install
         uses: ./.github/composite-actions/install
