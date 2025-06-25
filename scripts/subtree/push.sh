@@ -44,7 +44,7 @@ if [ -z "$LAST_SYNC_COMMIT" ]; then
 fi
 SYNC_INFO=$(git log -1 --pretty=format:%B "${LAST_SYNC_COMMIT}")
 #LAST_SYNC_OA_SHA=$(git rev-parse ${LAST_SYNC_COMMIT}^)
-#LAST_SYNC_OA_SHA=$(echo "$SYNC_INFO" | grep "Aligns oa commit" | awk '{print $4}')
+LAST_SYNC_OA_SHA=$(echo "$SYNC_INFO" | grep "Aligns oa commit" | awk '{print $4}')
 LAST_SYNC_PUBLIC_SHA=$(echo "$SYNC_INFO" | grep "with oa-public commit" | awk '{print $NF}')
 
 echo "✔️ Dernière synchro : oa@${LAST_SYNC_OA_SHA:0:7} <-> oa-public@${LAST_SYNC_PUBLIC_SHA:0:7}"
