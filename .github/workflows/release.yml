@@ -37,9 +37,13 @@ jobs:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
 
+      - name: Configure Git Credentials
+        run: |
+          git config --global url."https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/".insteadOf "https://github.com/"
+
       - name: Add public remote
         run: |
-          git remote add oa-public "https://bertho-zero:${{ secrets.GH_TOKEN }}@github.com/OpenAgenda/oa-public.git" || true
+          git remote add oa-public "https://github.com/OpenAgenda/oa-public.git" || true
 
       - name: Install
         uses: ./.github/composite-actions/install
