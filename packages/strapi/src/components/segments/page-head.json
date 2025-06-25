@@ -10,14 +10,6 @@
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "text"
-    },
-    "CTA": {
-      "type": "component",
-      "repeatable": false,
-      "component": "components.cta-button"
-    },
     "Illustration": {
       "type": "component",
       "repeatable": false,
@@ -46,6 +38,14 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::size.size"
+    },
+    "CTAs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.cta-button"
+    },
+    "description": {
+      "type": "richtext"
     }
   }
 }

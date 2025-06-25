@@ -20,6 +20,11 @@
     },
     "description": {
       "type": "string"
+    },
+    "CTAs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.cta-button"
     }
   }
 }

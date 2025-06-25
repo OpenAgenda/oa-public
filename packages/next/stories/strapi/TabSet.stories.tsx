@@ -29,6 +29,24 @@ export function Overview() {
           },
         },
       ]}
+      CTAs={[
+        {
+          label: "J'aime les pieuvres",
+          link: 'https://pieuvres.fr',
+          variant: 'solid',
+          colorPalette: {
+            name: 'strapi.blueGreen',
+          },
+        },
+        {
+          label: "J'aime les agendas",
+          link: 'https://agendas.fr',
+          variant: 'outline',
+          colorPalette: {
+            name: 'strapi.mutedPlum',
+          },
+        },
+      ]}
     />
   );
 }

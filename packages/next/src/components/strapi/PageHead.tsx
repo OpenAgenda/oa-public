@@ -4,19 +4,19 @@ import {
   GridItem,
   Stack,
   Heading,
-  Text,
   HeadingProps,
 } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
-import CTAButton from './CTAButton';
+import CTAButtons from './CTAButtons';
 import IllustrationComponent from './Illustration';
 import SegmentContainer from './SegmentContainer';
+import StrapiMarkdown from './StrapiMarkdown';
 import VideoPlayer from './VideoPlayer';
 
 const PageHeadContent = ({
   title,
   description,
-  CTA,
+  CTAs,
   centered,
   titleColor,
   descriptionColor,
@@ -25,7 +25,7 @@ const PageHeadContent = ({
   PageHeadProps,
   | 'title'
   | 'description'
-  | 'CTA'
+  | 'CTAs'
   | 'titleColor'
   | 'descriptionColor'
   | 'fontSize'
@@ -43,12 +43,12 @@ const PageHeadContent = ({
     >
       {title}
     </Heading>
-    <Text fontSize="lg" color={color(descriptionColor) || 'gray.600'} mt={7}>
+    <StrapiMarkdown color={color(descriptionColor) || 'gray.600'} mt={7}>
       {description}
-    </Text>
-    {CTA ? (
-      <Box>
-        <CTAButton {...CTA} />
+    </StrapiMarkdown>
+    {CTAs && CTAs.length > 0 ? (
+      <Box mt={9}>
+        <CTAButtons CTAs={CTAs} />
       </Box>
     ) : null}
   </Stack>
@@ -63,10 +63,7 @@ interface PageHeadProps {
   title: string;
   description: string;
   fontSize?: Color;
-  CTA?: {
-    label: string;
-    link: string;
-  };
+  CTAs?: any[];
   video?: string;
   Illustration?: {
     image: {
@@ -79,7 +76,7 @@ interface PageHeadProps {
 export default function PageHead({
   title,
   description,
-  CTA,
+  CTAs,
   video,
   Illustration,
   backgroundColor,
@@ -110,7 +107,7 @@ export default function PageHead({
           <PageHeadContent
             title={title}
             description={description}
-            CTA={CTA}
+            CTAs={CTAs}
             centered={hasTwoColumns}
             titleColor={titleColor}
             descriptionColor={descriptionColor}

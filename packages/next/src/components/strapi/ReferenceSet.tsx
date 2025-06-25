@@ -1,98 +1,32 @@
 import { useState, useMemo } from 'react';
-import {
-  Image,
-  VStack,
-  Wrap,
-  WrapItem,
-  LinkOverlay,
-  LinkBox,
-  Text,
-} from '@openagenda/uikit';
-import { Tag } from '@openagenda/uikit/snippets';
+import { Wrap, WrapItem } from '@openagenda/uikit';
 import SegmentContainer from './SegmentContainer';
-
-type Reference = {
-  id: string;
-  link?: string;
-  image: {
-    url: string;
-    alternativeText?: string;
-  };
-  title?: string;
-  tags?: string;
-};
+import ReferenceItem, { type Reference } from './ReferenceItem';
+import ReferenceFilter from './ReferenceFilter';
 
 type ReferenceSetProps = {
   title?: string;
   description?: string;
   References?: Reference[];
   hasFilter?: boolean;
+  CTAs?: any[];
 };
 
-function ReferenceItem({ link, image, title, tags: tagsString }: Reference) {
-  const tags = tagsString?.split(',').map((tag) => tag.trim());
-
-  return (
-    <LinkBox asChild>
-      <VStack
-        gap="4"
-        p="4"
-        border="2px solid"
-        borderColor="gray.200"
-        borderRadius="lg"
-        width="280px"
-        maxWidth="280px"
-        alignItems="center"
-      >
-        <LinkOverlay href={link} target="_blank" rel="noopener noreferrer">
-          <Image
-            src={`${image.url}`}
-            alt={image.alternativeText}
-            height="200px"
-            maxW="200px"
-            objectFit="contain"
-          />
-        </LinkOverlay>
-
-        {title && (
-          <Text
-            fontSize="lg"
-            fontWeight="semibold"
-            textAlign="center"
-            color="gray.700"
-            px="2"
-            wordBreak="break-word"
-          >
-            {title}
-          </Text>
-        )}
-
-        {tags?.length > 0 ? (
-          <Wrap justify="center" maxWidth="100%">
-            {tags?.map((tag) => (
-              <WrapItem key={tag}>
-                <Tag
-                  variant="solid"
-                  border="none"
-                  size="lg"
-                  colorPalette="strapi.darkPink"
-                >
-                  {tag}
-                </Tag>
-              </WrapItem>
-            ))}
-          </Wrap>
-        ) : null}
-      </VStack>
-    </LinkBox>
-  );
-}
+const allowedTagColors = [
+  'strapi.rosyRed',
+  'strapi.blueViolet',
+  'strapi.paleLavender',
+  'strapi.blueGreen',
+  'strapi.sandBeige',
+  'strapi.mutedPlum',
+];
 
 export default function ReferenceSet({
   title = null,
   description,
   References: ReferencesData,
   hasFilter = false,
+  CTAs,
 }: ReferenceSetProps) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
 
@@ -110,6 +44,14 @@ export default function ReferenceSet({
 
     return Array.from(tagsSet).sort();
   }, [ReferencesData]);
+
+  const tagColorMap = useMemo(() => {
+    const colorMap: Record<string, string> = {};
+    allTags.forEach((tag, index) => {
+      colorMap[tag] = allowedTagColors[index % allowedTagColors.length];
+    });
+    return colorMap;
+  }, [allTags]);
 
   const filteredReferences = useMemo(() => {
     if (!ReferencesData?.length || selectedTags.size === 0) {
@@ -143,46 +85,20 @@ export default function ReferenceSet({
   }
 
   return (
-    <SegmentContainer title={title} description={description}>
-      {hasFilter && allTags.length > 0 && (
-        <VStack gap="4" mb="8">
-          <Wrap gap="2" justify="center">
-            {allTags.map((tag) => {
-              const isSelected = selectedTags.has(tag);
-              return (
-                <WrapItem key={tag}>
-                  <Tag
-                    as="button"
-                    variant={isSelected ? 'solid' : 'outline'}
-                    border="1px solid"
-                    borderColor={
-                      isSelected ? 'strapi.darkPink.600' : 'gray.300'
-                    }
-                    size="lg"
-                    colorPalette={isSelected ? 'strapi.darkPink' : 'gray'}
-                    cursor="pointer"
-                    onClick={() => toggleTag(tag)}
-                    _hover={{
-                      borderColor: 'strapi.darkPink.600',
-                      bg: isSelected
-                        ? 'strapi.darkPink.600'
-                        : 'strapi.darkPink.50',
-                    }}
-                    transition="all 0.2s"
-                  >
-                    {tag}
-                  </Tag>
-                </WrapItem>
-              );
-            })}
-          </Wrap>
-        </VStack>
+    <SegmentContainer title={title} description={description} CTAs={CTAs}>
+      {hasFilter && (
+        <ReferenceFilter
+          allTags={allTags}
+          selectedTags={selectedTags}
+          onToggleTag={toggleTag}
+          tagColorMap={tagColorMap}
+        />
       )}
 
-      <Wrap gap="6" justify="center">
+      <Wrap gap="6" justify="center" mt="10">
         {filteredReferences.map((reference) => (
           <WrapItem key={reference.id}>
-            <ReferenceItem {...reference} />
+            <ReferenceItem {...reference} tagColorMap={tagColorMap} />
           </WrapItem>
         ))}
       </Wrap>

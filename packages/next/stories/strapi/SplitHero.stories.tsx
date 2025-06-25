@@ -36,6 +36,24 @@ export function Overview() {
 * *Affichez votre agenda* sur votre site web grâce à notre Iframe ou les extensions que nous avons développés pour les principaux CMS
 * *Diffusez en un clic* votre programmation auprès des agendas de territoire ou d'autres réseaux
 * *Exportez votre agenda* vers tous vos autres supports de communication : réseaux sociaux, affichage papier, etc.`}
+        CTAs={[
+          {
+            label: "J'aime les bateaux",
+            link: 'https://bateau.fr',
+            variant: 'solid',
+            colorPalette: {
+              name: 'strapi.blueGreen',
+            },
+          },
+          {
+            label: "J'aime les avions",
+            link: 'https://avions.fr',
+            variant: 'outline',
+            colorPalette: {
+              name: 'strapi.mutedPlum',
+            },
+          },
+        ]}
       />
     </Container>
   );
