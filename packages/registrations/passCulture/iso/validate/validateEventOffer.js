@@ -5,11 +5,7 @@ import validateEmail from './validateEmail.js';
 export default function validateEventOffer(data, options = {}) {
   const { categories, related, partial = false } = options;
 
-  const {
-    bookingContact,
-    venueId,
-    bookingEmail /* , itemCollectionDetails */,
-  } = data;
+  const { bookingContact, venueId, bookingEmail, itemCollectionDetails } = data;
 
   const clean = ['name', 'description', 'duo', 'eventDuration'].reduce(
     (usedData, field) =>
@@ -88,17 +84,9 @@ export default function validateEventOffer(data, options = {}) {
     }
   }
 
-  /*   if ((partial && itemCollectionDetails) || !partial) {
-    try {
-      clean.itemCollectionDetails = validateEmail(
-        itemCollectionDetails,
-        'itemCollectionDetails',
-        { optional: true },
-      );
-    } catch (error) {
-      error.info.errors.forEach((e) => errors.push(e));
-    }
-  } */
+  if ((partial && itemCollectionDetails) || !partial) {
+    clean.itemCollectionDetails = itemCollectionDetails;
+  }
 
   if (errors.length) {
     throw new BadRequest({
