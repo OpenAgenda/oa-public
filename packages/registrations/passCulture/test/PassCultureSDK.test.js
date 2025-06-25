@@ -128,6 +128,27 @@ describe('PassCultureSDK', () => {
       expect(typeof created.longitude).toBe('number');
     });
 
+    it('create err postalcode', async () => {
+      let err;
+      const postalCode = '67201';
+      const city = 'Strasbourg';
+      try {
+        await pc.offers.addresses.create({
+          city: 'Strasbourg',
+          latitude: 48.578651,
+          longitude: 7.70854,
+          postalCode: '67201',
+          street: 'Quartier de l`Elsau',
+        });
+      } catch (error) {
+        const [firstError] = error.response.data.__root__;
+        err = firstError;
+      }
+      expect(err).toStrictEqual(
+        `No municipality found for \`city=${city}\` and \`postalCode=${postalCode}\``,
+      );
+    });
+
     it('search', async () => {
       response = await pc.offers.addresses.search({
         city: 'Paris',
@@ -324,7 +345,7 @@ describe('PassCultureSDK', () => {
 
       const formatted = await formatEvent(
         pickEvent('animation-enfant-parure-de-terre-2615625'),
-        { venueId, category: 'CINE_PLEIN_AIR' },
+        { venueId, category: 'CINE_PLEIN_AIR', itemCollectionDetails: 'test' },
         { lang: 'fr' },
       );
 
@@ -336,6 +357,13 @@ describe('PassCultureSDK', () => {
     it('patch updates the event description', async () => {
       const resp = await pc.offers.events(id).patch({ description: 'test' });
       expect(resp.description).toBe('test');
+    });
+
+    it('patch updates the event itemCollectionDetails', async () => {
+      const resp = await pc.offers
+        .events(id)
+        .patch({ itemCollectionDetails: 'patched' });
+      expect(resp.itemCollectionDetails).toBe('patched');
     });
 
     it('patch updates the event duration', async () => {

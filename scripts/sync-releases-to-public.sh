@@ -5,6 +5,8 @@
 # Arrête le script si une commande échoue pour éviter un état incohérent.
 set -e
 
+THIS_DIR=$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
 # --- CONFIGURATION ---
 # Le scope NPM de vos packages. Utilisé pour trouver les tags pertinents.
 PACKAGE_SCOPE="@openagenda"
@@ -24,12 +26,16 @@ SUBTREE_PREFIX="public"
 # C'est crucial pour que l'authentification fonctionne en CI.
 PUBLIC_REPO_URL="https://github.com/${PUBLIC_REPO_OWNER_NAME}.git"
 if git remote | grep -q "^${PUBLIC_REMOTE_NAME}$"; then
-  echo "✔️ Remote '${PUBLIC_REMOTE_NAME}' déjà configuré. Forçage de l'URL en HTTPS..."
-  git remote set-url ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_URL}
+  echo "✔️ Remote '${PUBLIC_REMOTE_NAME}' déjà configuré."
 else
   echo "🔗 Ajout du nouveau remote '${PUBLIC_REMOTE_NAME}' avec l'URL HTTPS..."
   git remote add ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_URL}
 fi
+
+echo "---"
+echo "🛰️ Poussée du subtree 'public' vers ${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}..."
+${THIS_DIR}/subtree/push.sh
+echo "---"
 
 echo "🚀 Démarrage de la synchronisation des releases vers ${PUBLIC_REPO_OWNER_NAME}..."
 
@@ -84,20 +90,8 @@ echo -e "🏷️ Tags à synchroniser trouvés sur ce commit:\n${TAGS}"
 echo "📝 Extraction des notes de release..."
 RELEASE_NOTES=$(git show -s --format=%B "${RELEASE_COMMIT_SHA}")
 
-echo "---"
-echo "🛰️   Poussée du subtree complet '${SUBTREE_PREFIX}' vers ${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}..."
+PUBLIC_COMMIT_SHA=$(git rev-parse "${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}")
 
-# ON EXÉCUTE LA COMMANDE DE POUSSÉE UNE SEULE FOIS POUR TOUT LE DOSSIER `public`
-SUBTREE_PUSH_OUTPUT=$(git subtree push --rejoin --prefix=${SUBTREE_PREFIX} ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_BRANCH})
-
-# On extrait le SHA du commit unique créé dans le repo public.
-PUBLIC_COMMIT_SHA=$(echo "${SUBTREE_PUSH_OUTPUT}" | grep -oE '[a-f0-9]{40}\.\.[a-f0-9]{40}' | cut -d'.' -f1)
-
-if [ -z "$PUBLIC_COMMIT_SHA" ]; then
-  echo "⚠️ Impossible d'extraire le SHA. Récupération via fetch..."
-  git fetch ${PUBLIC_REMOTE_NAME}
-  PUBLIC_COMMIT_SHA=$(git rev-parse "${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}")
-fi
 echo "🎯 Commit unique créé sur ${PUBLIC_REPO_OWNER_NAME} : ${PUBLIC_COMMIT_SHA}"
 
 # On boucle sur les tags UNIQUEMENT pour créer les releases GitHub.
