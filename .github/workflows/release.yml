@@ -54,6 +54,7 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
+          publish: changeset publish
           commit: 'chore: version packages'
           setupGitUser: false
         env:
@@ -63,8 +64,8 @@ jobs:
 
       - name: Sync to public
         run: |
+          rm -f ~/.netrc
           git config --global url."https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/".insteadOf "https://github.com/"
-
           ./scripts/sync-releases-to-public.sh
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
