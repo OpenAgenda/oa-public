@@ -95,7 +95,7 @@ export default function ReferenceSet({
             <ReferenceItem
               {...reference}
               tagColorMap={tagColorMap}
-              smallIllustrations={smallIllustrations}
+              smallIllustrations={smallIllustrations !== false}
             />
           </WrapItem>
         ))}

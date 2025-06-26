@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import { Button, ButtonProps } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 import type { Color } from './types';
 
 interface CTAButtonProps {
@@ -22,8 +23,8 @@ export default function CTAButton({
       asChild
       colorPalette={
         colorPalette
-          ? colorPalette.name.replace('strapi.', 'strapi.flashy.')
-          : 'primary'
+          ? color(colorPalette?.name).replace('strapi.', 'strapi.flashy.')
+          : 'strapi.flashy.blueViolet'
       }
       size="lg"
       variant={variant}
