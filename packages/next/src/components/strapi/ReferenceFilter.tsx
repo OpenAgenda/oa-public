@@ -31,7 +31,7 @@ export default function ReferenceFilter({
                 variant={isSelected ? 'solid' : 'outline'}
                 border="1px solid"
                 borderColor={isSelected ? `${tagColor}.600` : `${tagColor}.600`}
-                borderRadius={0}
+                borderRadius={2}
                 size="lg"
                 colorPalette={isSelected ? tagColor : 'gray'}
                 cursor="pointer"

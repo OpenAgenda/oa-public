@@ -8,6 +8,7 @@ import {
   Text,
   SimpleGrid,
 } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 import Image from 'components/Image';
 import logoPic from '../../../public/images/oa.svg';
 import messages from './messages';
@@ -161,7 +162,12 @@ export default function Footer({
   );
 
   return (
-    <Container maxW="7xl" bg="white" pt="24" pb="12">
+    <Container maxW="7xl" bg="white" pt="18" pb="12">
+      <Box
+        borderTop="solid 2px"
+        borderColor={color('strapi.flashy.blueViolet', 600)}
+        pb="12"
+      />
       <Flex
         direction={{ base: 'column', md: 'row' }}
         gap={{ base: 8, md: 10 }}

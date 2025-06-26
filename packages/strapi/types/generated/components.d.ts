@@ -249,74 +249,6 @@ export interface ComponentsTab extends Struct.ComponentSchema {
   };
 }
 
-export interface SegmentsAccordionSet extends Struct.ComponentSchema {
-  collectionName: 'components_segments_accordion_sets';
-  info: {
-    description: '';
-    displayName: 'AccordionSet';
-  };
-  attributes: {
-    backgroundColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    borderRadius: Schema.Attribute.Enumeration<
-      ['none', 'sm', 'md', 'lg', 'xl', 'full']
-    >;
-    boxAlign: Schema.Attribute.Enumeration<['left', 'right', 'center']>;
-    Components: Schema.Attribute.Component<'components.accordion', true>;
-    contentColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    maxWidth: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
-    title: Schema.Attribute.String;
-    useAccordion: Schema.Attribute.Boolean;
-    width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
-  };
-}
-
-export interface SegmentsCarouselSet extends Struct.ComponentSchema {
-  collectionName: 'components_segments_carousel_sets';
-  info: {
-    description: '';
-    displayName: 'CarouselSet';
-  };
-  attributes: {
-    backgroundColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    borderRadius: Schema.Attribute.Enumeration<
-      ['none', 'sm', 'md', 'lg', 'xl', 'full']
-    >;
-    carouselBgColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    colorPalette: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    Components: Schema.Attribute.Component<'components.modular', true>;
-    description: Schema.Attribute.Text;
-    descriptionColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    gradient: Schema.Attribute.Boolean;
-    title: Schema.Attribute.String;
-    titleColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    variant: Schema.Attribute.Enumeration<
-      ['outline', 'solid', 'link', 'ghost']
-    >;
-    width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
-  };
-}
-
 export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
   collectionName: 'components_segments_highlight_card_sets';
   info: {
@@ -329,43 +261,6 @@ export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
     title: Schema.Attribute.String;
-  };
-}
-
-export interface SegmentsModularSet extends Struct.ComponentSchema {
-  collectionName: 'components_segments_modular_sets';
-  info: {
-    description: '';
-    displayName: 'ModularSet';
-  };
-  attributes: {
-    backgroundColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    Components: Schema.Attribute.Component<'components.modular', true>;
-    CTA: Schema.Attribute.Component<'components.cta-button', false>;
-    description: Schema.Attribute.String;
-    descriptionColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    fontColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
-    justifyContent: Schema.Attribute.Enumeration<['left', 'center', 'right']>;
-    margin: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
-    title: Schema.Attribute.String;
-    titleColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
-    verticalAlign: Schema.Attribute.Enumeration<
-      ['center', 'stretch', 'flex-start']
-    >;
-    width: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
   };
 }
 
@@ -408,6 +303,8 @@ export interface SegmentsReferenceSet extends Struct.ComponentSchema {
     description: Schema.Attribute.String;
     hasFilter: Schema.Attribute.Boolean;
     References: Schema.Attribute.Component<'components.reference', true>;
+    smallIllustrations: Schema.Attribute.Boolean &
+      Schema.Attribute.DefaultTo<true>;
     title: Schema.Attribute.String;
   };
 }
@@ -440,10 +337,7 @@ declare module '@strapi/strapi' {
       'components.reference': ComponentsReference;
       'components.split-hero': ComponentsSplitHero;
       'components.tab': ComponentsTab;
-      'segments.accordion-set': SegmentsAccordionSet;
-      'segments.carousel-set': SegmentsCarouselSet;
       'segments.highlight-card-set': SegmentsHighlightCardSet;
-      'segments.modular-set': SegmentsModularSet;
       'segments.page-head': SegmentsPageHead;
       'segments.reference-set': SegmentsReferenceSet;
       'segments.tab-set': SegmentsTabSet;

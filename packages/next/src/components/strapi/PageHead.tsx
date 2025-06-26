@@ -92,10 +92,7 @@ export default function PageHead({
       : '1fr';
 
   return (
-    <SegmentContainer
-      backgroundColor={backgroundColor}
-      fontColor={color(titleColor)}
-    >
+    <SegmentContainer backgroundColor={backgroundColor} fontColor={titleColor}>
       <Grid
         templateColumns={templateColumns}
         gap={8}

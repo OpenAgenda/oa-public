@@ -28,7 +28,7 @@ export default function SegmentContainer({
     >
       <Container
         maxW="7xl"
-        color={fontColor ? color(fontColor) : undefined}
+        color={fontColor ? color(fontColor.name) : undefined}
         py="24"
       >
         {title && (
