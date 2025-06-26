@@ -36,10 +36,11 @@ jobs:
         with:
           # This makes Actions fetch all Git history so that Changesets can generate changelogs with the correct commits
           fetch-depth: 0
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: Add public remote
         run: |
-          git remote add oa-public "https://x-access-token:${{ secrets.GH_TOKEN }}@github.com/OpenAgenda/oa-public.git" || true
+          git remote add oa-public "https://github.com/OpenAgenda/oa-public.git" || true
 
       - name: Install
         uses: ./.github/composite-actions/install
@@ -54,10 +55,17 @@ jobs:
         id: changesets
         uses: changesets/action@v1
         with:
-          publish: yarn changeset:publish
+          publish: yarn changeset publish
           commit: 'chore: version packages'
           setupGitUser: false
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+
+      - name: Sync to public
+        run: |
+          git checkout main
+          ./scripts/sync-releases-to-public.sh
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}

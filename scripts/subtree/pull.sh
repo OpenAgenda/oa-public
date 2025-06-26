@@ -4,9 +4,18 @@ set -e
 # --- CONFIGURATION ---
 PUBLIC_REMOTE_NAME="oa-public"
 SUBTREE_PREFIX="public"
+MAIN_BRANCH_NAME="main"
 # --- FIN CONFIGURATION ---
 
 echo "--- Démarrage du PULL ---"
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [ "$CURRENT_BRANCH" != "$MAIN_BRANCH_NAME" ]; then
+    echo "❌ Erreur : Ce script doit être lancé depuis la branche '$MAIN_BRANCH_NAME'."
+    echo "   Branche actuelle : '$CURRENT_BRANCH'"
+    exit 1
+fi
+
 
 if ! git diff --quiet HEAD; then
     echo "❌ Erreur : Modifications non commitées. Commitez ou rangez ('stash') vos changements."

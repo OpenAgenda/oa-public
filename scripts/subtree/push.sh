@@ -4,9 +4,17 @@ set -e
 # --- CONFIGURATION ---
 PUBLIC_REMOTE_NAME="oa-public"
 SUBTREE_PREFIX="public"
+MAIN_BRANCH_NAME="main"
 # --- FIN CONFIGURATION ---
 
 echo "--- Démarrage du PUSH par réplication ---"
+
+CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+if [ "$CURRENT_BRANCH" != "$MAIN_BRANCH_NAME" ]; then
+    echo "❌ Erreur : Ce script doit être lancé depuis la branche '$MAIN_BRANCH_NAME'."
+    echo "   Branche actuelle : '$CURRENT_BRANCH'"
+    exit 1
+fi
 
 git remote update origin --prune # Met à jour toutes les références de 'origin'
 
