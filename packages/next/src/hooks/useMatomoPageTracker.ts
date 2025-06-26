@@ -16,11 +16,11 @@ import {
 function getPageCategory(url: string): string {
   const cleanUrl = url.split('?')[0];
 
+  if (agendasSearchUrlRegex.test(cleanUrl)) return 'agendas-search';
   if (agendaShowUrlRegex.test(cleanUrl)) return 'agenda';
   if (eventShowUrlRegex.test(cleanUrl)) return 'event';
   if (embedAgendaUrlRegex.test(cleanUrl)) return 'embed-agenda';
   if (embedEventUrlRegex.test(cleanUrl)) return 'embed-event';
-  if (agendasSearchUrlRegex.test(cleanUrl)) return 'agendas-search';
   if (strapiUrlRegex.test(cleanUrl)) return 'strapi';
 
   if (cleanUrl === '/') return 'home';
