@@ -12,6 +12,7 @@ interface VideoEventData {
 
 export default function useMatomoVideoTracker() {
   const pendingImpressions = useRef<VideoEventData[]>([]);
+  const pendingInteractions = useRef<VideoEventData[]>([]);
 
   const trackContentImpressionWhenReady = useCallback(
     (data: VideoEventData) => {
@@ -51,6 +52,38 @@ export default function useMatomoVideoTracker() {
     [trackContentImpressionWhenReady],
   );
 
+  const trackContentInteractionOnce = useCallback((data: VideoEventData) => {
+    const key = `${data.videoTitle}_${data.videoUrl}`;
+    if (
+      !pendingInteractions.current.find(
+        (item) => `${item.videoTitle}_${item.videoUrl}` === key,
+      )
+    ) {
+      pendingInteractions.current.push(data);
+
+      const doTrack = () => {
+        try {
+          const tracker = getOpenAgendaTracker();
+          if (tracker) {
+            tracker.trackContentInteraction(
+              'play',
+              data.videoTitle || 'video',
+              'video',
+              data.videoUrl || window.location.href,
+            );
+          }
+        } catch (error) {
+          console.warn(
+            "Erreur lors du tracking d'interaction de contenu Matomo:",
+            error,
+          );
+        }
+      };
+
+      executeWhenMatomoReady(doTrack);
+    }
+  }, []);
+
   const trackVideoEvent = useCallback(
     (action: string, data: VideoEventData = {}) => {
       const doTrack = () => {
@@ -65,12 +98,7 @@ export default function useMatomoVideoTracker() {
             );
 
             if (action === 'Play' || action === 'Resume') {
-              tracker.trackContentInteraction(
-                'play',
-                data.videoTitle || 'video',
-                'video',
-                data.videoUrl || window.location.href,
-              );
+              trackContentInteractionOnce(data);
             }
           }
         } catch (error) {
@@ -80,7 +108,7 @@ export default function useMatomoVideoTracker() {
 
       executeWhenMatomoReady(doTrack);
     },
-    [],
+    [trackContentInteractionOnce],
   );
 
   const trackVideoPlay = useCallback(
