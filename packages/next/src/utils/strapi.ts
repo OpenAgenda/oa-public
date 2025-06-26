@@ -1,5 +1,6 @@
 import ky from 'ky';
 import { system } from '@openagenda/uikit';
+import type { Color } from '../components/strapi/types';
 import buildPopulateStrapiQuery from './buildPopulateStrapiQuery';
 interface FetchStrapiPageDataParams {
   APIBase: string;
@@ -26,8 +27,12 @@ interface StrapiResponse {
   data: PageData[];
 }
 
-export function color(name: string, swatch?: any): string {
-  return `${system.tokens.colorPaletteMap.has(name) ? name : `strapi.${name}`}${swatch ? `.${swatch}` : ''}`;
+export function color(c: string | Color, swatch?: any): string {
+  if (!c) {
+    return;
+  }
+  const colorName = typeof c === 'string' ? c : c.name;
+  return `${system.tokens.colorPaletteMap.has(colorName) ? colorName : `strapi.${colorName}`}${swatch ? `.${swatch}` : ''}`;
 }
 
 export async function fetchPageData({

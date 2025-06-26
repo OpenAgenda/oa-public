@@ -6,8 +6,6 @@ import type { Color } from './types';
 interface CTAButtonProps {
   link: string;
   label: string;
-  fontColor?: Color;
-  backgroundColor?: Color;
   colorPalette?: Color;
   variant?: ButtonProps['variant'];
 }

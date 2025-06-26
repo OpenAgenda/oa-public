@@ -1,9 +1,7 @@
 import { Noto_Sans, Ubuntu_Sans } from 'next/font/google';
 import { Global } from '@openagenda/uikit';
 import PageHead from 'components/strapi/PageHead';
-import ModularSet from 'components/strapi/ModularSet';
 import HighlightCardSet from 'components/strapi/HighlightCardSet';
-import CarouselSet from 'components/strapi/CarouselSet';
 import TabSet from 'components/strapi/TabSet';
 import ReferenceSet from 'components/strapi/ReferenceSet';
 import SplitHeroSegment from 'components/strapi/SplitHeroSegment';
@@ -45,8 +43,6 @@ export default function StrapiPage({ page, footer }) {
         const Component = {
           'segments.highlight-card-set': HighlightCardSet,
           'segments.page-head': PageHead,
-          'segments.modular-set': ModularSet,
-          'segments.carousel-set': CarouselSet,
           'segments.tab-set': TabSet,
           'segments.reference-set': ReferenceSet,
           'components.split-hero': SplitHeroSegment,

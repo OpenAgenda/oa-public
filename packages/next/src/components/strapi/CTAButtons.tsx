@@ -6,8 +6,6 @@ interface CTAButtonsProps {
   CTAs?: Array<{
     link: string;
     label: string;
-    fontColor?: Color;
-    backgroundColor?: Color;
     colorPalette?: Color;
     variant?: ButtonProps['variant'];
   }>;
@@ -26,8 +24,6 @@ export default function CTAButtons({ CTAs, justify }: CTAButtonsProps) {
           key={index}
           link={cta.link}
           label={cta.label}
-          fontColor={cta.fontColor}
-          backgroundColor={cta.backgroundColor}
           colorPalette={cta.colorPalette}
           variant={cta.variant}
         />
