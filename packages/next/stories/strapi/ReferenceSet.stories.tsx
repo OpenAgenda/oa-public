@@ -5,6 +5,58 @@ import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import FullScreenDecorator from '../decorators/FullScreenDecorator';
 import referenceSetData from './fixtures/referenceSet.json';
 
+const stevens = [
+  {
+    id: '1',
+    link: 'https://www.openagenda.com',
+    image: {
+      url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
+      alternativeText: 'OpenAgenda',
+    },
+    tags: 'Technologie, SaaS, Événements',
+  },
+  {
+    id: '2',
+    link: 'https://www.example.com',
+    image: {
+      url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
+      alternativeText: 'Partenaire Tech',
+    },
+    tags: 'Technologie, Innovation, IA',
+  },
+  {
+    id: '3',
+    link: 'https://www.culture.fr',
+    image: {
+      url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
+      alternativeText: 'Partenaire Culture',
+    },
+    tags: 'Culture, Événements, Art',
+  },
+  {
+    id: '4',
+    link: 'https://www.startup.io',
+    image: {
+      url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
+      alternativeText: 'Startup',
+    },
+    tags: 'Innovation, SaaS, IA',
+  },
+  {
+    id: '5',
+    image: {
+      url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
+      alternativeText: 'Organisme public',
+    },
+    tags: 'Public, Culture, Subventions',
+  },
+];
+
+const stevensWithTitles = stevens.map((s, i) => ({
+  ...s,
+  title: ['Steven', 'Phteven', 'Pthevfen', 'Phhtfvveen', 'Pfvfthtv'][i],
+}));
+
 export default {
   title: 'strapi/ReferenceSet',
   component: ReferenceSet,
@@ -138,52 +190,33 @@ export const WithFilter: Story = {
       <ReferenceSet
         title="Références avec filtrage par tags"
         hasFilter={true}
-        References={[
-          {
-            id: '1',
-            link: 'https://www.openagenda.com',
-            image: {
-              url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
-              alternativeText: 'OpenAgenda',
-            },
-            tags: 'Technologie, SaaS, Événements',
-          },
-          {
-            id: '2',
-            link: 'https://www.example.com',
-            image: {
-              url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
-              alternativeText: 'Partenaire Tech',
-            },
-            tags: 'Technologie, Innovation, IA',
-          },
-          {
-            id: '3',
-            link: 'https://www.culture.fr',
-            image: {
-              url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
-              alternativeText: 'Partenaire Culture',
-            },
-            tags: 'Culture, Événements, Art',
-          },
-          {
-            id: '4',
-            link: 'https://www.startup.io',
-            image: {
-              url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
-              alternativeText: 'Startup',
-            },
-            tags: 'Innovation, SaaS, IA',
-          },
-          {
-            id: '5',
-            image: {
-              url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
-              alternativeText: 'Organisme public',
-            },
-            tags: 'Public, Culture, Subventions',
-          },
-        ]}
+        References={stevens}
+      />
+    </Container>
+  ),
+};
+
+export const WithBigIllustration: Story = {
+  render: () => (
+    <Container maxWidth="5xl">
+      <ReferenceSet
+        title="Références avec filtrage par tags"
+        hasFilter={true}
+        References={stevens}
+        smallIllustrations={false}
+      />
+    </Container>
+  ),
+};
+
+export const WithBigIllustrationAndTitle: Story = {
+  render: () => (
+    <Container maxWidth="5xl">
+      <ReferenceSet
+        title="Références avec filtrage par tags"
+        hasFilter={true}
+        References={stevensWithTitles}
+        smallIllustrations={false}
       />
     </Container>
   ),

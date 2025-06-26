@@ -22,6 +22,7 @@ type Reference = {
 
 type ReferenceItemProps = Reference & {
   tagColorMap: Record<string, string>;
+  smallIllustrations?: boolean;
 };
 
 export default function ReferenceItem({
@@ -30,28 +31,24 @@ export default function ReferenceItem({
   title,
   tags: tagsString,
   tagColorMap,
+  smallIllustrations = true,
 }: ReferenceItemProps) {
   const tags = tagsString?.split(',').map((tag) => tag.trim());
 
   return (
     <LinkBox asChild>
       <VStack
-        gap="4"
-        p="4"
-        border="2px solid"
-        borderColor="gray.100"
-        borderRadius="sm"
-        width="280px"
-        maxWidth="280px"
+        width={smallIllustrations ? '280px' : '360px'}
+        maxWidth={smallIllustrations ? '280px' : '360px'}
         alignItems="center"
       >
         <LinkOverlay href={link} target="_blank" rel="noopener noreferrer">
           <Image
             src={`${image.url}`}
             alt={image.alternativeText}
-            height="200px"
-            maxW="200px"
-            objectFit="contain"
+            height={smallIllustrations ? '200px' : '360px'}
+            maxW={smallIllustrations ? '200px' : '360px'}
+            objectFit={smallIllustrations ? 'contain' : 'cover'}
           />
         </LinkOverlay>
 
@@ -69,13 +66,13 @@ export default function ReferenceItem({
         )}
 
         {tags?.length > 0 ? (
-          <Wrap justify="center" maxWidth="100%">
+          <Wrap justify="center" maxWidth="100%" pt={title ? '0' : '3'}>
             {tags?.map((tag) => (
               <WrapItem key={tag}>
                 <Tag
                   variant="solid"
                   border="none"
-                  borderRadius={0}
+                  borderRadius={2}
                   size="lg"
                   colorPalette={tagColorMap[tag]}
                 >
