@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import breaks from 'remark-breaks';
 import rehypeExternalLinks from 'rehype-external-links';
 import { chakra, CloseButton, Container, Link } from '@openagenda/uikit';
+import defaultSize from 'utils/defaultSize';
 import useUser from 'hooks/useUser';
 
 const remarkPlugins = [breaks];
@@ -108,6 +109,7 @@ export default function Announcement() {
             },
           },
         }}
+        fontSize={defaultSize}
         display="flex"
         justifyContent="space-between"
       >
