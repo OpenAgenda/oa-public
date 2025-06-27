@@ -6,7 +6,7 @@
     {
       "id": 58,
       "title": "Une plateforme en constante amélioration",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "Notre équipe de développement est à l'écoute de vos retours utilisateurs afin de faire évoluer la plateforme en ligne OpenAgenda. Inscrivez-vous à notre infolettre pour être tenus au courant des nouvelles fonctionnalités développées.",
       "image": {
         "id": 83,
@@ -47,7 +47,7 @@
     {
       "id": 59,
       "title": "Besoin d'aide ?",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "Notre service support est assuré par de vraies personnes, disponibles du lundi au vendredi entre 9h et 18h pour vous accompagner dans la prise en main de la plateforme. Découvrez également nos pages de documentation, nos tutoriels ou participez à l'un de nos webinaires",
       "image": {
         "id": 84,
@@ -88,7 +88,7 @@
     {
       "id": 60,
       "title": "Conseil & Stratégie",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "Au-delà de la prise en main de l'outil numérique, notre équipe vous apporte des conseils pour optimiser votre stratégie de diffusion évènementielle",
       "image": {
         "id": 85,

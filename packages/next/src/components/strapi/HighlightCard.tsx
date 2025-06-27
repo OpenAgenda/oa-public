@@ -16,7 +16,7 @@ interface HighlightCardProps {
     url: string;
     alternativeText?: string;
   };
-  smallIllustration?: boolean;
+  smallImage?: boolean;
   link?: string;
 }
 
@@ -24,7 +24,7 @@ export default function HighlightCard({
   title,
   description,
   image,
-  smallIllustration,
+  smallImage,
   link,
 }: HighlightCardProps) {
   // Helper function to format description for markdown
@@ -33,7 +33,7 @@ export default function HighlightCard({
     <Stack gap="3" maxW="280px" align="center" textAlign="center">
       {image && (
         <Box
-          height={smallIllustration ? '100px' : '120px'}
+          height={smallImage ? '100px' : '120px'}
           width="100%"
           display="flex"
           alignItems="center"
@@ -43,8 +43,8 @@ export default function HighlightCard({
           <Image
             src={image.url}
             alt={image.alternativeText}
-            maxW={smallIllustration ? '100px' : '200px'}
-            maxH={smallIllustration ? '100px' : '120px'}
+            maxW={smallImage ? '100px' : '200px'}
+            maxH={smallImage ? '100px' : '120px'}
             objectFit="contain"
           />
         </Box>

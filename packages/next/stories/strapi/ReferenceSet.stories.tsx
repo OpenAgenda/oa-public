@@ -203,7 +203,7 @@ export const WithBigIllustration: Story = {
         title="Références avec filtrage par tags"
         hasFilter={true}
         References={stevens}
-        smallIllustrations={false}
+        smallImages={false}
       />
     </Container>
   ),
@@ -216,7 +216,7 @@ export const WithBigIllustrationAndTitle: Story = {
         title="Références avec filtrage par tags"
         hasFilter={true}
         References={stevensWithTitles}
-        smallIllustrations={false}
+        smallImages={false}
       />
     </Container>
   ),

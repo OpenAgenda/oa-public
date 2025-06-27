@@ -10,7 +10,7 @@ type ReferenceSetProps = {
   description?: string;
   References?: Reference[];
   hasFilter?: boolean;
-  smallIllustrations?: boolean;
+  smallImages?: boolean;
   CTAs?: any[];
 };
 
@@ -19,7 +19,7 @@ export default function ReferenceSet({
   description,
   References: ReferencesData,
   hasFilter = false,
-  smallIllustrations = true,
+  smallImages = true,
   CTAs,
 }: ReferenceSetProps) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
@@ -95,7 +95,7 @@ export default function ReferenceSet({
             <ReferenceItem
               {...reference}
               tagColorMap={tagColorMap}
-              smallIllustrations={smallIllustrations !== false}
+              smallImages={smallImages !== false}
             />
           </WrapItem>
         ))}

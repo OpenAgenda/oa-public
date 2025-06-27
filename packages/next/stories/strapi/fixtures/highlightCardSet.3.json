@@ -7,7 +7,7 @@
     {
       "id": 85,
       "title": "Un beau soleil",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "Le HighlightCardSet permet de placer un segment de page affichant une suite de cartes",
       "image": {
         "id": 253,
@@ -48,7 +48,7 @@
     {
       "id": 86,
       "title": "Une chaussure de clown",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "Chaque carte est composée d'un titre, d'une illustration - petite ou grande - et d'un descriptif",
       "image": {
         "id": 254,
@@ -89,7 +89,7 @@
     {
       "id": 87,
       "title": "Un lapin mutant",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "Il est particulièrement réussi celui-là",
       "image": {
         "id": 255,

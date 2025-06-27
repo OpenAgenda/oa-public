@@ -6,7 +6,7 @@
     {
       "id": 54,
       "title": "Une société française",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "OpenAgenda est une société française qui propose une solution numérique conforme au RGPD",
       "image": {
         "id": 82,
@@ -34,7 +34,7 @@
     {
       "id": 55,
       "title": "Des données hébergées en Europe",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "Nous utilisons une solution d'hébergement située en Europe afin de garantir la confidentialité et la sécurité de vos données et qui s'engage pour la réduction de son empreinte écologique",
       "image": {
         "id": 79,
@@ -62,7 +62,7 @@
     {
       "id": 56,
       "title": "10 ans d’expérience",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "Créée en 2015, OpenAgenda recense aujourd'hui\n• 1 480 886 événements sur\n• 40 897 agendas issus de\n• 553 554 contributeurs et contributrices",
       "image": {
         "id": 80,
@@ -90,7 +90,7 @@
     {
       "id": 57,
       "title": "Open Data",
-      "smallIllustration": true,
+      "smallImage": true,
       "description": "Les données de nos agendas respectent un modèle standardisé et sont sous licence ouverte.",
       "image": {
         "id": 81,

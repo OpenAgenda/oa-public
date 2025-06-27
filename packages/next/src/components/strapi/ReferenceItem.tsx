@@ -22,7 +22,7 @@ type Reference = {
 
 type ReferenceItemProps = Reference & {
   tagColorMap: Record<string, string>;
-  smallIllustrations?: boolean;
+  smallImages?: boolean;
 };
 
 export default function ReferenceItem({
@@ -31,24 +31,24 @@ export default function ReferenceItem({
   title,
   tags: tagsString,
   tagColorMap,
-  smallIllustrations = true,
+  smallImages = true,
 }: ReferenceItemProps) {
   const tags = tagsString?.split(',').map((tag) => tag.trim());
 
   return (
     <LinkBox asChild>
       <VStack
-        width={smallIllustrations ? '280px' : '360px'}
-        maxWidth={smallIllustrations ? '280px' : '360px'}
+        width={smallImages ? '280px' : '360px'}
+        maxWidth={smallImages ? '280px' : '360px'}
         alignItems="center"
       >
         <LinkOverlay href={link} target="_blank" rel="noopener noreferrer">
           <Image
             src={`${image.url}`}
             alt={image.alternativeText}
-            height={smallIllustrations ? '200px' : '360px'}
-            maxW={smallIllustrations ? '200px' : '360px'}
-            objectFit={smallIllustrations ? 'contain' : 'cover'}
+            height={smallImages ? '200px' : '360px'}
+            maxW={smallImages ? '200px' : '360px'}
+            objectFit={smallImages ? 'contain' : 'cover'}
           />
         </LinkOverlay>
 
