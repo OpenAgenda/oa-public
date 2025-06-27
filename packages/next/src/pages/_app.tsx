@@ -10,6 +10,7 @@ import { EmotionCache } from '@openagenda/uikit';
 import Providers from 'Providers';
 import SentryErrorBoundary from 'components/SentryErrorBoundary';
 import useMatomoTracker from 'hooks/useMatomoTracker';
+import useMatomoPageTracker from 'hooks/useMatomoPageTracker';
 import * as metas from 'config/metas';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
@@ -44,6 +45,9 @@ function MyApp({
   const { intlMessages } = pageProps;
 
   useMatomoTracker();
+  useMatomoPageTracker({
+    debug: process.env.NODE_ENV === 'development',
+  });
 
   return (
     <>
