@@ -5,10 +5,11 @@ import {
   Stack,
   Heading,
   HeadingProps,
+  Image,
 } from '@openagenda/uikit';
+
 import { color } from 'utils/strapi';
 import CTAButtons from './CTAButtons';
-import IllustrationComponent from './Illustration';
 import SegmentContainer from './SegmentContainer';
 import StrapiMarkdown from './StrapiMarkdown';
 import VideoPlayer from './VideoPlayer';
@@ -65,11 +66,10 @@ interface PageHeadProps {
   fontSize?: Color;
   CTAs?: any[];
   video?: string;
-  Illustration?: {
-    image: {
-      url: string;
-      alternativeText?: string;
-    };
+  image?: {
+    url: string;
+    alternativeText?: string;
+    width?: string;
   };
 }
 
@@ -78,16 +78,16 @@ export default function PageHead({
   description,
   CTAs,
   video,
-  Illustration,
+  image,
   backgroundColor,
   titleColor,
   descriptionColor,
 }: PageHeadProps) {
-  const hasTwoColumns = Boolean(Illustration || video);
+  const hasTwoColumns = Boolean(image || video);
 
   const templateColumns = video
     ? { base: '1fr', md: '1fr 1fr' }
-    : Illustration
+    : image
       ? { base: '1fr', md: '1fr auto' }
       : '1fr';
 
@@ -115,9 +115,15 @@ export default function PageHead({
             <VideoPlayer />
           </GridItem>
         ) : null}
-        {Illustration ? (
+        {image ? (
           <GridItem>
-            <IllustrationComponent {...Illustration} />
+            <Image
+              src={image.url}
+              alt={image.alternativeText}
+              maxW="full"
+              w={image.width}
+              objectFit="contain"
+            />
           </GridItem>
         ) : null}
       </Grid>

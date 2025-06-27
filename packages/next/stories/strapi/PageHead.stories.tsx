@@ -12,12 +12,9 @@ export const Default = {
     title: 'Recensez et diffusez tous vos événements',
     description:
       "OpenAgenda vous permet de gérer, collaborer et diffuser des événements autour d'un ou plusieurs agendas interconnectés",
-    Illustration: {
-      image: {
-        url: '/guyWritingOnACalendar.png',
-        alternativeText: 'Guy writing something on a calendar',
-      },
-      width: { name: 'md' },
+    image: {
+      url: '/guyWritingOnACalendar.png',
+      alternativeText: 'Guy writing something on a calendar',
     },
     CTAs: [
       {
@@ -47,14 +44,11 @@ export const NoIllustration = {
 
 export const WithColors = {
   args: {
-    title: 'Vous ne savez pas quoi écrire dans votre Casendap ?',
+    title: 'Vous ne savez pas quoi écrire dans votre Casendap ?',
     description: "Mettez un 12, on n'est plus à ça près.",
-    Illustration: {
-      image: {
-        url: '/casendapwhite.png',
-        alternativeText: 'Un casendap',
-      },
-      width: { name: 'xs' },
+    image: {
+      url: '/casendapwhite.png',
+      alternativeText: 'Un casendap',
     },
     CTAs: [
       {

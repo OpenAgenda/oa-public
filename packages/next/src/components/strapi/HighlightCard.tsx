@@ -12,11 +12,9 @@ interface RichTextParagraph {
 interface HighlightCardProps {
   title?: string;
   description?: string | RichTextParagraph[];
-  Illustration?: {
-    image: {
-      url: string;
-    };
-    borderRadius?: string;
+  image?: {
+    url: string;
+    alternativeText?: string;
   };
   smallIllustration?: boolean;
   link?: string;
@@ -25,7 +23,7 @@ interface HighlightCardProps {
 export default function HighlightCard({
   title,
   description,
-  Illustration,
+  image,
   smallIllustration,
   link,
 }: HighlightCardProps) {
@@ -33,7 +31,7 @@ export default function HighlightCard({
 
   const content = (
     <Stack gap="3" maxW="280px" align="center" textAlign="center">
-      {Illustration && (
+      {image && (
         <Box
           height={smallIllustration ? '100px' : '120px'}
           width="100%"
@@ -43,8 +41,8 @@ export default function HighlightCard({
           mb={2}
         >
           <Image
-            src={Illustration.image.url}
-            alt={title || ''}
+            src={image.url}
+            alt={image.alternativeText}
             maxW={smallIllustration ? '100px' : '200px'}
             maxH={smallIllustration ? '100px' : '120px'}
             objectFit="contain"
