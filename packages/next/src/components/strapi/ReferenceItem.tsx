@@ -6,8 +6,10 @@ import {
   LinkOverlay,
   LinkBox,
   Text,
+  Box,
 } from '@openagenda/uikit';
 import { Tag } from '@openagenda/uikit/snippets';
+import Icon from './Icon';
 
 type Reference = {
   id: string;
@@ -38,19 +40,54 @@ export default function ReferenceItem({
   return (
     <LinkBox asChild>
       <VStack
-        width={smallImages ? '280px' : '360px'}
-        maxWidth={smallImages ? '280px' : '360px'}
+        width={smallImages ? '300px' : '380px'}
+        maxWidth={smallImages ? '300px' : '380px'}
         alignItems="center"
       >
-        <LinkOverlay href={link} target="_blank" rel="noopener noreferrer">
-          <Image
-            src={`${image.url}`}
-            alt={image.alternativeText}
-            height={smallImages ? '200px' : '360px'}
-            maxW={smallImages ? '200px' : '360px'}
-            objectFit={smallImages ? 'contain' : 'cover'}
-          />
-        </LinkOverlay>
+        <Box
+          position="relative"
+          display="inline-block"
+          _hover={{
+            '& .hover-overlay': {
+              opacity: 1,
+            },
+          }}
+        >
+          <LinkOverlay href={link} target="_blank" rel="noopener noreferrer">
+            <Image
+              src={`${image.url}`}
+              alt={image.alternativeText}
+              height={smallImages ? '220px' : '380px'}
+              maxW={smallImages ? '220px' : '380px'}
+              objectFit={smallImages ? 'contain' : 'cover'}
+              p={2}
+            />
+          </LinkOverlay>
+
+          {/* Hover overlay */}
+          <Box
+            className="hover-overlay"
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            bg="blackAlpha.500"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            opacity="0"
+            transition="opacity 0.2s ease-in-out"
+            pointerEvents="none"
+          >
+            <Icon
+              name="up-right-from-square"
+              size="fa-2x"
+              style="regular"
+              color="white"
+            />
+          </Box>
+        </Box>
 
         {title && (
           <Text
