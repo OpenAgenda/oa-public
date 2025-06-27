@@ -47,11 +47,11 @@ const colorMap = {
   //   border: 'success.500',
   // },
   warning: {
-    text: 'warning.500',
+    text: 'warning.900',
     bg: 'white',
     border: 'warning.500',
-    link: 'warning.500',
-    linkHover: 'warning.600',
+    link: 'warning.900',
+    linkHover: 'warning.800',
   },
   danger: {
     text: 'danger.500',
@@ -122,7 +122,7 @@ export default function Announcement() {
             {user.announcement.content}
           </ReactMarkdown>
         </chakra.div>
-        <CloseButton onClick={hideAnnouncement} />
+        <CloseButton color={colors.link} onClick={hideAnnouncement} />
       </Container>
     </chakra.div>
   );
