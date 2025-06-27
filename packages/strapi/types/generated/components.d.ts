@@ -211,7 +211,7 @@ export interface SegmentsReferenceSet extends Struct.ComponentSchema {
     description: Schema.Attribute.String;
     hasFilter: Schema.Attribute.Boolean;
     References: Schema.Attribute.Component<'components.reference', true>;
-    smallImage: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
+    smallImages: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     title: Schema.Attribute.String;
   };
 }
