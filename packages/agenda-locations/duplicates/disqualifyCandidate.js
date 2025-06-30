@@ -39,6 +39,7 @@ async function disqualifyCandidate(endpoints, dirtyUids) {
       log.error('while pactching', error);
     }
   }
+  log('info', 'processed', { uids: locationUids, count: locationUids.length });
   log('disqualify went well');
 }
 
