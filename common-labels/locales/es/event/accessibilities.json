@@ -1,1 +1,7 @@
-{}
+{
+  "common.event.accessibilities.hi": "Discapacidad auditiva",
+  "common.event.accessibilities.ii": "Discapacidad intelectual",
+  "common.event.accessibilities.mi": "Discapacidad motriz",
+  "common.event.accessibilities.pi": "Discapacidad psicológica",
+  "common.event.accessibilities.vi": "Discapacidad visual"
+}
