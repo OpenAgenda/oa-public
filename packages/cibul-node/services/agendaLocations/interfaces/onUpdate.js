@@ -22,9 +22,13 @@ export default function onUpdate(queue, services) {
 
     // Activity
     const { core } = services;
-    const { agendaUid, userUid } = context;
+    const { agendaUid, userUid } = context || {};
     let agenda;
 
+    if (!agendaUid) {
+      log.warn('no agendaUid in context, not registering activity');
+      return;
+    }
     try {
       agenda = await core.agendas(agendaUid).get({
         detailed: true,
@@ -67,35 +71,34 @@ export default function onUpdate(queue, services) {
         ),
       );
     }
-
-    if (userUid) {
-      try {
-        await registerUpdateActivity({
-          services,
-          agendaUid,
-          userUid,
-          agenda,
-          before,
-          after,
-        });
-      } catch (e) {
-        log('Failed to register update activity');
-        log.error(
-          new VError(
-            {
-              cause: e,
-              info: {
-                agendaUid,
-                locationUid: before.uid,
-              },
-            },
-            'Failed to register update activity',
-          ),
-        );
-      }
-    } else {
-      log.debug('no userUid in context, not registering activity');
+    if (!userUid) {
+      log.warn('no userUid in context, not registering activity');
+      return;
     }
-    log('onupdateEnd');
+
+    try {
+      await registerUpdateActivity({
+        services,
+        agendaUid,
+        userUid,
+        agenda,
+        before,
+        after,
+      });
+    } catch (e) {
+      log('Failed to register update activity');
+      log.error(
+        new VError(
+          {
+            cause: e,
+            info: {
+              agendaUid,
+              locationUid: before.uid,
+            },
+          },
+          'Failed to register update activity',
+        ),
+      );
+    }
   };
 }
