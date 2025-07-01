@@ -167,13 +167,14 @@ function Dashboard() {
       dispatch(mergeActions.initiate());
       return { mergeMode: true };
     }
+    dispatch(mergeActions.closeMerge());
     return { mergeMode: false };
   }, [pathname, dispatch, settings?.access.merge.authorized]);
 
   useEffect(() => {
     if (!mergeMode && detailLocationUid) setOpenDetails(detailLocationUid);
   }, [mergeMode, detailLocationUid]);
-
+  console.log('merge', { mergeMode, merge });
   const { search, page } = useMemo(() => {
     const parsed = betterQsParse(historyLocation.search);
     const { page: retrivedPage, ...searchObj } = parsed;
