@@ -5,70 +5,58 @@ import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries.js';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
 import completeExternalActions from '../completeExternalActions.js';
+import { actions as actionsMessages } from '../messages.js';
 import Badge from './ExtIdBadgeWithMoreInfo.js';
 
 const getLabels = makeLabelGetter(countries);
 
-const messages = defineMessages({
-  edit: {
-    id: 'AgendaLocations.LocationItem.edit',
-    defaultMessage: 'Edit',
-  },
-  show: {
-    id: 'AgendaLocations.LocationItem.show',
-    defaultMessage: 'Show',
-  },
-  remove: {
-    id: 'AgendaLocations.LocationItem.remove',
-    defaultMessage: 'Delete',
-  },
-  select: {
-    id: 'AgendaLocations.LocationItem.select',
-    defaultMessage: 'Select',
-  },
-  refLocationMerge: {
-    id: 'AgendaLocations.LocationItem.refLocationMerge',
-    defaultMessage: 'Reference location for merge',
-  },
-  unselect: {
-    id: 'AgendaLocations.LocationItem.unselect',
-    defaultMessage: 'Unselect',
-  },
-  verify: {
-    id: 'AgendaLocations.LocationItem.verify',
-    defaultMessage: 'To verify',
-  },
-  noEvent: {
-    id: 'AgendaLocations.LocationItem.noEvent',
-    defaultMessage: 'No associated event',
-  },
-  detailsButton: {
-    id: 'AgendaLocations.LocationItem.detailsButton',
-    defaultMessage: 'Details',
-  },
-  seeEvents: {
-    id: 'AgendaLocations.LocationItem.seeEvents',
-    defaultMessage:
-      '{count, plural, =0 {nothing} one {1 associated event} other {# associated events}}',
-  },
-  verifyDuplicates: {
-    id: 'AgendaLocations.LocationItem.verifyDuplicates',
-    defaultMessage:
-      '{count, plural, =0 {nothing} one {1 duplicate to verify} other {# duplicates to verify}}',
-  },
-  verifyAndMerge: {
-    id: 'AgendaLocations.LocationItem.verifyAndMerge',
-    defaultMessage: 'Verify and Merge',
-  },
-  history: {
-    id: 'AgendaLocations.LocationItem.history',
-    defaultMessage: 'History',
-  },
-  locationHistory: {
-    id: 'AgendaLocations.LocationItem.locationHistory',
-    defaultMessage: 'Location history',
-  },
-});
+const messages = {
+  ...actionsMessages,
+  ...defineMessages({
+    refLocationMerge: {
+      id: 'AgendaLocations.LocationItem.refLocationMerge',
+      defaultMessage: 'Reference location for merge',
+    },
+    unselect: {
+      id: 'AgendaLocations.LocationItem.unselect',
+      defaultMessage: 'Unselect',
+    },
+    verify: {
+      id: 'AgendaLocations.LocationItem.verify',
+      defaultMessage: 'To verify',
+    },
+    noEvent: {
+      id: 'AgendaLocations.LocationItem.noEvent',
+      defaultMessage: 'No associated event',
+    },
+    detailsButton: {
+      id: 'AgendaLocations.LocationItem.detailsButton',
+      defaultMessage: 'Details',
+    },
+    seeEvents: {
+      id: 'AgendaLocations.LocationItem.seeEvents',
+      defaultMessage:
+        '{count, plural, =0 {nothing} one {1 associated event} other {# associated events}}',
+    },
+    verifyDuplicates: {
+      id: 'AgendaLocations.LocationItem.verifyDuplicates',
+      defaultMessage:
+        '{count, plural, =0 {nothing} one {1 duplicate to verify} other {# duplicates to verify}}',
+    },
+    verifyAndMerge: {
+      id: 'AgendaLocations.LocationItem.verifyAndMerge',
+      defaultMessage: 'Verify and Merge',
+    },
+    history: {
+      id: 'AgendaLocations.LocationItem.history',
+      defaultMessage: 'History',
+    },
+    locationHistory: {
+      id: 'AgendaLocations.LocationItem.locationHistory',
+      defaultMessage: 'Location history',
+    },
+  }),
+};
 
 function LocationHistoryTrigger({ openModal, children }) {
   return (
@@ -113,7 +101,7 @@ const LocationItem = ({
           <text className="margin-right-xs">
             {externalAction?.label && externalAction?.label[intl.locale]
               ? externalAction?.label[intl.locale]
-              : `${intl.formatMessage(messages[externalAction.action])}`}
+              : `${intl.formatMessage(actionsMessages[messages.action])}`}
           </text>
           <i className="fa fa-external-link" aria-hidden="true" />
         </a>

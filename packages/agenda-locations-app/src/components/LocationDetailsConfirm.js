@@ -3,7 +3,7 @@ import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields.js';
 import flattenTagSetLabels from '../flattenTagSetLabels.js';
-import adminLevels from '../adminLevels.js';
+import { adminLevels } from '../messages.js';
 
 const messages = {
   ...adminLevels,
