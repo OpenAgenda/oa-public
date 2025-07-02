@@ -210,6 +210,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.post('/agendas/:agendaUid/events/search', [
     track.mw('api', 'list', 'events'),
+    mw.validateNavSize,
     mw.searchAgendaEvents(core, { queryNamespace: 'parsedData' }),
     ...app.services.usageCounters
       ? [app.services.usageCounters.mw.increment('agendaEvents')]
@@ -262,6 +263,7 @@ export default (core, { useRouter = true } = {}) => {
     [
       mw.convertLegacyFilter,
       track.mw('api', 'list', 'events'),
+      mw.validateNavSize,
       mw.searchAgendaEvents(core),
       ...app.services.usageCounters
         ? [app.services.usageCounters.mw.increment('agendaEvents')]
@@ -274,6 +276,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get('/agendas/:agendaUid/events.json-ld', [
     track.mw('api', 'list', 'events'),
+    mw.validateNavSize,
     mw.searchAgendaEvents(core, {
       sendResponse: false,
       queryNamespace: 'query',
