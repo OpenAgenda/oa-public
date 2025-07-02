@@ -185,12 +185,12 @@ async function add(config, ...rest) {
 
   const activity = await service.activities.get(activityId);
 
-  const feedContainsActivity = [];
+  const feedContainsActivity = new Set();
 
   for (const feed of feeds) {
     const mask = await getActivityMask(config, { activity, targetFeed: feed });
     await addActivityToFeed(config, { activity, targetFeed: feed, mask });
-    feedContainsActivity.push(feed);
+    feedContainsActivity.add(feed.targetFeed);
   }
 
   let followers = feeds.flatMap((v) => v.followedBy);
@@ -200,24 +200,69 @@ async function add(config, ...rest) {
     ? [].concat(activityConfig.filterFollows)
     : [];
 
+  const startTime = performance.now();
+
+  // Cache local pour éviter les récupérations répétées de feeds
+  const feedCache = new Map();
+  let cacheHits = 0;
+  let cacheMisses = 0;
+
+  // Fonction helper pour récupérer un feed avec cache
+  const getCachedFeed = async (feedIdentifier, options = {}) => {
+    const cacheKey = `${feedIdentifier}-${JSON.stringify(options)}`;
+
+    if (feedCache.has(cacheKey)) {
+      cacheHits += 1;
+      return feedCache.get(cacheKey);
+    }
+
+    cacheMisses += 1;
+    const feed = await service.feed(feedIdentifier).get(options);
+    feedCache.set(cacheKey, feed);
+    return feed;
+  };
+
+  // Compteurs de performance
+  let totalIterations = 0;
+  let timeSpentInFeedChecks = 0;
+  let timeSpentInPromiseAll = 0;
+  let timeSpentInFilterFollows = 0;
+  let timeSpentInActivityMask = 0;
+  let timeSpentInAddActivityToFeed = 0;
+  let timeSpentInNextFollowersLoop = 0;
+  let timeSpentInFeedService = 0;
+  let timeSpentInFollowersFilter = 0;
+
   while (followers.length) {
+    totalIterations += 1;
+
+    // Set des targetFeed à ignorer pour cette itération
+    const ignoredTargetFeeds = new Set();
+
     for (const follower of followers) {
-      if (
-        feedContainsActivity.some((v) => v.targetFeed === follower.targetFeed)
-      ) {
-        followers = followers.filter(
-          (v) => v.targetFeed !== follower.targetFeed,
-        );
+      // Mesurer le temps des vérifications de feed
+      const feedCheckStart = performance.now();
+      if (feedContainsActivity.has(follower.targetFeed)) {
+        const filterStart = performance.now();
+        ignoredTargetFeeds.add(follower.targetFeed);
+        timeSpentInFollowersFilter += performance.now() - filterStart;
+        timeSpentInFeedChecks += performance.now() - feedCheckStart;
         continue;
       }
+      timeSpentInFeedChecks += performance.now() - feedCheckStart;
 
+      // Mesurer le temps des appels Promise.all
+      const promiseAllStart = performance.now();
       const [originFeed, targetFeed] = await Promise.all([
-        service.feed(follower.originFeed).get({ internal: true }),
-        service.feed(follower.targetFeed).get({ internal: true }),
+        getCachedFeed(follower.originFeed, { internal: true }),
+        getCachedFeed(follower.targetFeed, { internal: true }),
       ]);
+      timeSpentInPromiseAll += performance.now() - promiseAllStart;
 
       let allowedFollow = true;
 
+      // Mesurer le temps des filtres follows
+      const filterFollowsStart = performance.now();
       for (const filterFollow of filterFollows) {
         const acceptedFilter = await filterFollow({
           activity,
@@ -228,39 +273,81 @@ async function add(config, ...rest) {
         });
 
         if (!acceptedFilter) {
-          followers = followers.filter(
-            (v) => v.targetFeed !== follower.targetFeed,
-          );
+          const filterStart = performance.now();
+          ignoredTargetFeeds.add(follower.targetFeed);
+          timeSpentInFollowersFilter += performance.now() - filterStart;
           allowedFollow = false;
           break;
         }
       }
+      timeSpentInFilterFollows += performance.now() - filterFollowsStart;
 
       if (allowedFollow) {
+        // Mesurer le temps de getActivityMask
+        const maskStart = performance.now();
         const mask = await getActivityMask(config, {
           activity,
           targetFeed,
           originFeed,
           follow: follower,
         });
+        timeSpentInActivityMask += performance.now() - maskStart;
+
+        // Mesurer le temps d'addActivityToFeed
+        const addActivityStart = performance.now();
         await addActivityToFeed(config, { activity, targetFeed, mask });
-        feedContainsActivity.push(follower);
+        timeSpentInAddActivityToFeed += performance.now() - addActivityStart;
+
+        feedContainsActivity.add(follower.targetFeed);
       }
     }
 
+    // Mesurer le temps de la boucle des nextFollowers
+    const nextFollowersStart = performance.now();
     const nextFollowers = [];
 
     for (const follower of followers) {
-      const { followedBy } = await service.feed(follower.targetFeed).get({
+      // Ignorer les éléments marqués comme ignorés
+      if (ignoredTargetFeeds.has(follower.targetFeed)) {
+        continue;
+      }
+
+      // Mesurer le temps des appels service.feed
+      const feedServiceStart = performance.now();
+      const { followedBy } = await getCachedFeed(follower.targetFeed, {
         internal: true,
         followedBy: true,
       });
+      timeSpentInFeedService += performance.now() - feedServiceStart;
 
       nextFollowers.push(...followedBy);
     }
 
     followers = nextFollowers;
+    timeSpentInNextFollowersLoop += performance.now() - nextFollowersStart;
   }
+
+  const endTime = performance.now();
+  const totalTime = endTime - startTime;
+
+  // Affichage des statistiques de performance
+  log.info(`
+=== ANALYSE DE PERFORMANCE ===
+Temps total: ${totalTime.toFixed(2)} ms
+Nombre d'itérations: ${totalIterations}
+
+--- Répartition du temps ---
+Vérifications feed: ${timeSpentInFeedChecks.toFixed(2)} ms (${((timeSpentInFeedChecks / totalTime) * 100).toFixed(1)}%)
+Promise.all (feeds): ${timeSpentInPromiseAll.toFixed(2)} ms (${((timeSpentInPromiseAll / totalTime) * 100).toFixed(1)}%)
+Filtres follows: ${timeSpentInFilterFollows.toFixed(2)} ms (${((timeSpentInFilterFollows / totalTime) * 100).toFixed(1)}%)
+getActivityMask: ${timeSpentInActivityMask.toFixed(2)} ms (${((timeSpentInActivityMask / totalTime) * 100).toFixed(1)}%)
+addActivityToFeed: ${timeSpentInAddActivityToFeed.toFixed(2)} ms (${((timeSpentInAddActivityToFeed / totalTime) * 100).toFixed(1)}%)
+Service feed calls: ${timeSpentInFeedService.toFixed(2)} ms (${((timeSpentInFeedService / totalTime) * 100).toFixed(1)}%)
+Boucle nextFollowers: ${timeSpentInNextFollowersLoop.toFixed(2)} ms (${((timeSpentInNextFollowersLoop / totalTime) * 100).toFixed(1)}%)
+Filtre followers: ${timeSpentInFollowersFilter.toFixed(2)} ms (${((timeSpentInFollowersFilter / totalTime) * 100).toFixed(1)}%)
+Cache hits: ${cacheHits}
+Cache misses: ${cacheMisses}
+===============================`);
 
   return activity;
 }

@@ -583,6 +583,7 @@ describe('activities - activities', () => {
                 target: 'La fumette',
               },
             },
+            detail: null,
           });
         });
     });
