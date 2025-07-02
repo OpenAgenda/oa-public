@@ -23,7 +23,9 @@ export default function SegmentContainer({
   return (
     <chakra.div
       backgroundColor={
-        backgroundColor ? `${backgroundColor?.name}.solid` : null
+        backgroundColor
+          ? [color(`${backgroundColor?.name}`), 'solid'].join('.')
+          : null
       }
     >
       <Container

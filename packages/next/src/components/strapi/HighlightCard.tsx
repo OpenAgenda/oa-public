@@ -12,30 +12,28 @@ interface RichTextParagraph {
 interface HighlightCardProps {
   title?: string;
   description?: string | RichTextParagraph[];
-  Illustration?: {
-    image: {
-      url: string;
-    };
-    borderRadius?: string;
+  image?: {
+    url: string;
+    alternativeText?: string;
   };
-  smallIllustration?: boolean;
+  smallImage?: boolean;
   link?: string;
 }
 
 export default function HighlightCard({
   title,
   description,
-  Illustration,
-  smallIllustration,
+  image,
+  smallImage,
   link,
 }: HighlightCardProps) {
   // Helper function to format description for markdown
 
   const content = (
     <Stack gap="3" maxW="280px" align="center" textAlign="center">
-      {Illustration && (
+      {image && (
         <Box
-          height={smallIllustration ? '100px' : '120px'}
+          height={smallImage ? '100px' : '120px'}
           width="100%"
           display="flex"
           alignItems="center"
@@ -43,10 +41,10 @@ export default function HighlightCard({
           mb={2}
         >
           <Image
-            src={Illustration.image.url}
-            alt={title || ''}
-            maxW={smallIllustration ? '100px' : '200px'}
-            maxH={smallIllustration ? '100px' : '120px'}
+            src={image.url}
+            alt={image.alternativeText}
+            maxW={smallImage ? '100px' : '200px'}
+            maxH={smallImage ? '100px' : '120px'}
             objectFit="contain"
           />
         </Box>

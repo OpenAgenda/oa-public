@@ -1,5 +1,4 @@
 import { BadRequest } from '@openagenda/verror';
-
 import { validateDates } from './validateDate.js';
 import { validatePriceCategories } from './validatePriceCategory.js';
 import validateEventOffer from './validateEventOffer.js';

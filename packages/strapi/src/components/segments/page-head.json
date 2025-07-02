@@ -10,11 +10,6 @@
       "type": "string",
       "required": true
     },
-    "Illustration": {
-      "type": "component",
-      "repeatable": false,
-      "component": "components.illustration"
-    },
     "video": {
       "type": "enumeration",
       "enum": ["presentation"]
@@ -46,6 +41,11 @@
     },
     "description": {
       "type": "richtext"
+    },
+    "image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false
     }
   }
 }
