@@ -54,6 +54,14 @@ describe('activities - feed', () => {
           entityUid: 42,
         }));
 
+      it('get multiple feeds by ids', async () => {
+        const feeds = await service.feed({ id: [2, 4] }).get();
+        expect(feeds).toBeInstanceOf(Array);
+        expect(feeds).toHaveLength(2);
+        expect(feeds[0]).toMatchObject({ entityType: 'user', entityUid: 42 });
+        expect(feeds[1]).toMatchObject({ entityType: 'user', entityUid: 44 });
+      });
+
       it('get a feed with his follow', () =>
         expect(service.feed(4).get({ followed: true })).resolves.toMatchObject({
           entityType: 'user',
