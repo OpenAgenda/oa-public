@@ -18,6 +18,7 @@ interface HighlightCardProps {
   };
   smallImage?: boolean;
   link?: string;
+  cardSize?: string;
 }
 
 export default function HighlightCard({
@@ -26,11 +27,17 @@ export default function HighlightCard({
   image,
   smallImage,
   link,
+  cardSize = 'medium',
 }: HighlightCardProps) {
   // Helper function to format description for markdown
 
   const content = (
-    <Stack gap="3" maxW="280px" align="center" textAlign="center">
+    <Stack
+      gap={cardSize === 'large' ? 6 : 4}
+      maxW={cardSize === 'large' ? '340px' : '280px'}
+      align="center"
+      textAlign="center"
+    >
       {image && (
         <Box
           height={smallImage ? '100px' : '120px'}
@@ -56,7 +63,9 @@ export default function HighlightCard({
       )}
       {description && (
         <Box color="gray.600">
-          <StrapiMarkdown flex="none">{String(description)}</StrapiMarkdown>
+          <StrapiMarkdown flex="none" textAlign="left">
+            {String(description)}
+          </StrapiMarkdown>
         </Box>
       )}
     </Stack>

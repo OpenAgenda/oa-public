@@ -166,6 +166,8 @@ export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
   };
   attributes: {
     Cards: Schema.Attribute.Component<'components.highlight-card', true>;
+    cardSize: Schema.Attribute.Enumeration<['medium', 'large']> &
+      Schema.Attribute.DefaultTo<'medium'>;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
     title: Schema.Attribute.String;

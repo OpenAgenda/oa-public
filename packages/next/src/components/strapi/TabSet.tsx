@@ -29,6 +29,7 @@ export default function TabSet({
               key={tab.id}
               value={tab.id}
               fontSize="md"
+              pb={6}
               colorPalette={allowedItemColors[index % allowedItemColors.length]}
             >
               {tab.title}
