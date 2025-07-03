@@ -20,14 +20,28 @@ async function getOrSetCache(context, cacheName, key, factoryFn) {
   return value;
 }
 
-function and(...args) {
-  return (props) =>
-    args.reduce(async (accu, fn) => await accu && fn(props), true);
+function and(...functions) {
+  return async (props) => {
+    for (const fn of functions) {
+      const result = await fn(props);
+      if (!result) {
+        return false;
+      }
+    }
+    return true;
+  };
 }
 
-function or(...args) {
-  return (props) =>
-    args.reduce(async (accu, fn) => await accu || fn(props), false);
+function or(...functions) {
+  return async (props) => {
+    for (const fn of functions) {
+      const result = await fn(props);
+      if (result) {
+        return true;
+      }
+    }
+    return false;
+  };
 }
 
 // function not(a) {
