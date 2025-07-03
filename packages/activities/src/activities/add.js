@@ -87,12 +87,12 @@ const fieldsSchema = [
 
 async function getActivityMask(
   config,
-  { activity, targetFeed, originFeed, follow },
+  { activity, targetFeed, originFeed, follow, context },
 ) {
   const maskFn = config.activities[activity.verb]?.mask;
 
   return maskFn
-    ? maskFn({ activity, targetFeed, originFeed, follow, config })
+    ? maskFn({ activity, targetFeed, originFeed, follow, config, context })
     : null;
 }
 
@@ -156,26 +156,23 @@ async function add(config, ...rest) {
   const feeds = [];
 
   for (const feedToGet of feedsToGet) {
-    feeds.push(
-      await service.feed(feedToGet).get({
-        internal: true,
-        followedBy: true,
-      }),
-    );
+    const feed = await service.feed(feedToGet).get({
+      internal: true,
+      followedBy: true,
+    });
+    if (feed) {
+      feeds.push(feed);
+    }
   }
 
   if (!feeds.length) {
-    throw new Error('You should choose at least one feed for add activity');
-  }
-
-  if (feeds.filter((v) => !v).length) {
     throw new VError(
       {
         info: {
           feeds: feedsToGet,
         },
       },
-      "One or more feeds doesn't exist",
+      "Feeds doesn't exist",
     );
   }
 
@@ -186,9 +183,15 @@ async function add(config, ...rest) {
   const activity = await service.activities.get(activityId);
 
   const feedContainsActivity = new Set();
+  // used for cache in filterFollows and mask
+  const context = {};
 
   for (const feed of feeds) {
-    const mask = await getActivityMask(config, { activity, targetFeed: feed });
+    const mask = await getActivityMask(config, {
+      activity,
+      targetFeed: feed,
+      context,
+    });
     await addActivityToFeed(config, { activity, targetFeed: feed, mask });
     feedContainsActivity.add(feed.targetFeed);
   }
@@ -291,6 +294,7 @@ async function add(config, ...rest) {
           originFeed,
           follow: follower,
           config,
+          context,
         });
 
         if (!acceptedFilter) {
@@ -311,6 +315,7 @@ async function add(config, ...rest) {
           targetFeed,
           originFeed,
           follow: follower,
+          context,
         });
         timeSpentInActivityMask += performance.now() - maskStart;
 

@@ -13,8 +13,8 @@
     "mails-editor": "node --watch-preserve-output --watch-path=./services/mails/templates --watch-path=./services/mails/components --watch-path=./scripts/mailsEditor.js scripts/mailsEditor.js"
   },
   "dependencies": {
-    "@bull-board/api": "^5.2.0",
-    "@bull-board/express": "^5.2.0",
+    "@bull-board/api": "^6.10.1",
+    "@bull-board/express": "^6.10.1",
     "@feathersjs/commons": "^4.5.2",
     "@feathersjs/errors": "^4.5.1",
     "@feathersjs/express": "^4.5.1",
@@ -90,7 +90,7 @@
     "@uppy/companion": "^4.15.1",
     "axios": "^1.4.0",
     "body-parser": "^1.19.0",
-    "bullmq": "^3.14.0",
+    "bullmq": "^5.56.1",
     "concurrently": "^7.3.0",
     "date-fns": "^2.16.1",
     "date-fns-tz": "^2.0.0",
