@@ -8,6 +8,7 @@ const log = require('@openagenda/logs')('activities/add');
 
 schema.register({
   text: validators.text,
+  date: validators.date,
   pass: validators.pass,
 });
 
@@ -80,6 +81,14 @@ const fieldsSchema = [
     name: 'detail',
     schema: {
       type: 'pass',
+      optional: true,
+    },
+  },
+  {
+    name: 'created_at',
+    dataKey: 'createdAt',
+    schema: {
+      type: 'date',
       optional: true,
     },
   },

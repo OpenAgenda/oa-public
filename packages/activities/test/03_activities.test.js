@@ -404,6 +404,47 @@ describe('activities - activities', () => {
         },
       }));
 
+    it('add an activity with date', () =>
+      expect(
+        service
+          .feed({ entityType: 'user', entityUid: 46 })
+          .activities.add({
+            actor: 'user:78978978',
+            verb: 'event.withMask',
+            object: 'event:56488589',
+            target: 'agenda:78625845',
+            store: {
+              labels: {
+                actor: 'Jacky',
+                object: 'Réunion des junkies anonymes 2',
+                target: 'La fumette',
+              },
+            },
+            createdAt: new Date(2025, 1, 1),
+          })
+          .then((activity) =>
+            knex(config.schemas.feed_activity)
+              .select()
+              .where({ activity_id: activity.id })
+              .then((rows) => {
+                expect(rows.map((v) => v.feed_id)).toEqual([6, 4, 7, 8, 9, 10]);
+
+                return activity;
+              })),
+      ).resolves.toMatchObject({
+        id: 13,
+        verb: 'event.withMask',
+        object: 'event:56488589',
+        target: 'agenda:78625845',
+        store: {
+          labels: {
+            object: 'Réunion des junkies anonymes 2',
+            target: 'La fumette',
+          },
+        },
+        createdAt: new Date(2025, 1, 1),
+      }));
+
     it("add an activity in a feed that doesn't exist", async () => {
       const error = await service
         .feed({ entityType: 'user', entityUid: 75 })
