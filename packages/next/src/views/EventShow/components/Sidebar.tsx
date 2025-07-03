@@ -124,7 +124,7 @@ export function ShareSection({
       <Icon color="oaGray.300" justifySelf="center" fontSize="3xl">
         <FaIcon icon={icon} />
       </Icon>
-      <Button onClick={shareOnOpen} disabled={isDisabled}>
+      <Button onClick={shareOnOpen} disabled={isDisabled} colorPalette="oaBlue">
         {intl.formatMessage(messages.share)}
       </Button>
     </Grid>
@@ -239,7 +239,9 @@ export function ConditionsSection({ event, icon = faTicket, ...props }) {
         <FaIcon icon={icon} />
       </Icon>
       <Box color="oaGray.500">
-        <b>{intl.formatMessage(messages.conditions)}</b>
+        <chakra.h3 fontWeight="bold">
+          {intl.formatMessage(messages.conditions)}
+        </chakra.h3>
       </Box>
       <Box gridColumn="2" fontSize={defaultSize}>
         {event.conditions[intl.locale]}
@@ -278,7 +280,9 @@ export function RegistrationSection({
         <FaIcon icon={icon} />
       </Icon>
       <Box color="oaGray.500">
-        <b>{intl.formatMessage(messages.registration)}</b>
+        <chakra.h3 fontWeight="bold">
+          {intl.formatMessage(messages.registration)}
+        </chakra.h3>
       </Box>
       {registration.map((registrationItem) => (
         <Fragment key={registrationItem.value}>
@@ -302,6 +306,7 @@ export function RegistrationSection({
               wordBreak="break-all"
               maxW="full"
               lineClamp={2}
+              colorPalette="oaBlue"
             >
               {registrationItem.type === 'link'
                 ? intl.formatMessage(messages.registerBook)
@@ -343,6 +348,7 @@ export function LocationPreview({ event, icon = faLocationDot }) {
           href={`https://www.openstreetmap.org/directions?to=${event.location.latitude}%2C${event.location.longitude}`}
           target="_blank"
           rel="noopener nofollow"
+          colorPalette="oaBlue"
         >
           {event.location.address}
         </Link>
@@ -419,6 +425,7 @@ export function PassCultureSection({
           rel="noopener nofollow"
           wordBreak="break-all"
           maxW="full"
+          colorPalette="oaBlue"
         >
           {getCurrentPassValue(passCulture)?.value
             ? intl.formatMessage(messages.accessPassOffer)
@@ -436,6 +443,7 @@ export function PassCultureSection({
             onClick={bookingOnOpen}
             wordBreak="break-all"
             maxW="full"
+            colorPalette="oaBlue"
           >
             Réservations
           </Link>

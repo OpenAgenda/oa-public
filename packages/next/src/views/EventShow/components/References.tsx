@@ -47,7 +47,7 @@ export default function References({ agenda, event }) {
           display="block"
           textAlign="center"
           color="fg"
-          _hover={{ color: 'primary.500', textDecoration: 'underline' }}
+          _hover={{ color: 'oaBlue.500', textDecoration: 'underline' }}
         >
           <NextLink
             href={`/${agendaReference.slug}/events/${event.slug}`}

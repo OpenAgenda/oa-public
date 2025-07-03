@@ -37,10 +37,11 @@ export default function OfficialAgenda({
       {...tooltipProps}
     >
       <Icon
+        aria-label={intl.formatMessage(messages.officialAgenda)}
         {...props}
         css={{
           '--fa-primary-color': 'white',
-          '--fa-secondary-color': 'colors.primary.500',
+          '--fa-secondary-color': 'colors.oaBlue.500',
           '--fa-primary-opacity': '1',
           '--fa-secondary-opacity': '1',
         }}

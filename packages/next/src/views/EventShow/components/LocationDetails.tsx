@@ -211,6 +211,7 @@ export default function LocationDetails({
                   target="_blank"
                   rel="noopener nofollow"
                   wordBreak="break-all"
+                  colorPalette="oaBlue"
                 >
                   {location.website}
                 </Link>
@@ -226,6 +227,7 @@ export default function LocationDetails({
                   href={`tel:${location.phone}`}
                   target="_blank"
                   rel="noopener nofollow"
+                  colorPalette="oaBlue"
                 >
                   {location.phone}
                 </Link>
@@ -241,12 +243,13 @@ export default function LocationDetails({
             </chakra.div>
             <List.Root variant="plain">
               {location.links?.map((link) => (
-                <List.Item asChild key={link}>
+                <List.Item key={link}>
                   <Link
                     href={link}
                     target="_blank"
                     rel="noopener nofollow"
                     wordBreak="break-all"
+                    colorPalette="oaBlue"
                   >
                     {link}
                   </Link>

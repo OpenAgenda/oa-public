@@ -144,8 +144,8 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
       borderColor="fg"
       bg="transparent"
       _hover={{
-        color: 'primary.500',
-        borderColor: 'primary.500',
+        color: 'oaBlue.500',
+        borderColor: 'oaBlue.500',
       }}
       onClick={goToSiblingEvent}
       visibility={isVisible ? 'visible' : 'hidden'}

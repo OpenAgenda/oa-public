@@ -56,7 +56,9 @@ export default function AccessibilitySection({
         color="oaGray.500"
         title={intl.formatMessage(messages.accessibleDetail)}
       >
-        <b>{intl.formatMessage(messages.accessibleEvent)}</b>
+        <chakra.h3 fontWeight="bold">
+          {intl.formatMessage(messages.accessibleEvent)}
+        </chakra.h3>
       </Box>
       {accessibilities.map(([accessibilityKey, accessibilityValue]) => {
         if (!accessibilityValue) {

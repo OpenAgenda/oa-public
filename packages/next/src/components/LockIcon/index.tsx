@@ -28,7 +28,7 @@ export default function LockIcon({
   const message = messages[type] ? intl.formatMessage(messages[type]) : label;
 
   const icon = (
-    <Icon {...props}>
+    <Icon aria-label={message} {...props}>
       <FontAwesomeIcon icon={faLock} />
     </Icon>
   );

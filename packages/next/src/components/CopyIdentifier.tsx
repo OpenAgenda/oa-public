@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react';
+import { defineMessages, useIntl } from 'react-intl';
 import {
   Input,
   InputGroup,
@@ -10,6 +11,21 @@ import copyText from 'utils/copyText';
 import { FaIcon } from 'icons';
 import { faClipboard, faCheck } from 'icons/solid';
 
+const messages = defineMessages({
+  copy: {
+    id: 'next.components.CopyIdentifier.copy',
+    defaultMessage: 'Copy identifier',
+  },
+  copied: {
+    id: 'next.components.CopyIdentifier.copied',
+    defaultMessage: 'Identifier copied',
+  },
+  clickToCopyIdentifier: {
+    id: 'next.components.CopyIdentifier.clickToCopyIdentifier',
+    defaultMessage: 'Click to copy the event identifier',
+  },
+});
+
 interface CopyIdentifierProps extends Omit<InputGroupProps, 'children'> {
   identifier: number;
   size?: InputProps['size'];
@@ -20,6 +36,7 @@ export default function CopyIdentifier({
   size = 'md',
   ...rest
 }: CopyIdentifierProps) {
+  const intl = useIntl();
   const [copied, setCopied] = useState(false);
 
   const copy = useCallback(() => {
@@ -35,7 +52,7 @@ export default function CopyIdentifier({
       {...rest}
       startAddon="UID"
       startAddonProps={{
-        bg: 'primary.500',
+        bg: 'oaBlue.500',
         color: 'white',
       }}
       endElement={
@@ -47,6 +64,11 @@ export default function CopyIdentifier({
           color={copied ? 'green.400' : 'fg.muted'}
           me="-3"
           onClick={copy}
+          aria-label={
+            copied
+              ? intl.formatMessage(messages.copied)
+              : intl.formatMessage(messages.copy)
+          }
         >
           <FaIcon icon={copied ? faCheck : faClipboard} />
         </Button>
@@ -59,6 +81,7 @@ export default function CopyIdentifier({
         value={identifier}
         cursor="pointer"
         onClick={copy}
+        aria-label={intl.formatMessage(messages.clickToCopyIdentifier)}
       />
     </InputGroup>
   );

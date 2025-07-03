@@ -57,8 +57,8 @@ export default function DownloadPDF({ agenda, event }) {
           <Tag
             bgColor="transparent"
             border="1px solid"
-            borderColor="primary.500"
-            color="primary.500"
+            borderColor="oaBlue.500"
+            color="oaBlue.500"
             variant="solid"
             borderRadius="full"
             fontWeight="bold"
@@ -84,7 +84,7 @@ export default function DownloadPDF({ agenda, event }) {
         </Button>
         <Flex gap={2}>
           <Text>{intl.formatMessage(pdfMessages.feedbackQuestion)}</Text>
-          <Link href={mailtoHref} color="primary.500">
+          <Link href={mailtoHref} color="oaBlue.500">
             {intl.formatMessage(pdfMessages.feedbackLink)}
           </Link>
         </Flex>
