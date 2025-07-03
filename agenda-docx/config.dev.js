@@ -9,5 +9,9 @@ export default {
     region: process.env.S3_DEV_REGION,
     bucket: process.env.S3_DEV_BUCKET,
   },
+  redis: {
+    port: 6379,
+    host: 'localhost',
+  },
   localTmpPath: os.tmpdir(),
 };

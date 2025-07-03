@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { Component } from 'react';
+import sa from 'superagent';
 import { Form, Field } from 'react-final-form';
 import moment from 'moment';
 import { formatDistanceToNow } from 'date-fns';
@@ -130,44 +131,29 @@ export default class ExportModal extends Component {
 
     this.setState({ loading: true });
 
-    let url = `${prefix}/${agendaUid}${res}`;
-    const params = new URLSearchParams();
+    const request = sa[method](`${prefix}/${agendaUid}${res}`);
 
     if (templateName) {
-      params.append('templateName', templateName);
+      request.query({ templateName });
     }
 
     if (from) {
-      params.append('from', from.toISOString().split('T').shift());
+      request.query({
+        from: from.toISOString().split('T').shift(),
+      });
     }
 
     if (to) {
-      params.append('to', to.toISOString().split('T').shift());
+      request.query({
+        to: to.toISOString().split('T').shift(),
+      });
     }
 
-    if (params.toString()) {
-      url += `?${params.toString()}`;
-    }
-
-    const fetchOptions = {
-      method,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
-
-    return fetch(url, fetchOptions)
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
-        return response.json();
-      })
-      .then(
-        (body) =>
-          new Promise((resolve) =>
-            this.setState({ loading: false }, () => resolve(body))),
-      );
+    return request.then(
+      ({ body }) =>
+        new Promise((resolve) =>
+          this.setState({ loading: false }, () => resolve(body))),
+    );
   };
 
   renderGenerateForm = () => {

@@ -5,6 +5,7 @@ const winston = require('winston');
 const getTransporters = require('./getTransporters');
 const Logger = require('./Logger');
 const { getCallerFile, getModule } = require('./utils/caller');
+const context = require('./context');
 
 let config;
 const levels = Object.keys(winston.config.npm.levels);
@@ -190,6 +191,7 @@ module.exports = Object.assign(
     init,
     setModuleConfig,
     createLogger2,
+    context,
   },
   basicLogger,
   getCustomProperties(basicLogger),

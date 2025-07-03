@@ -1,7 +1,7 @@
 'use strict';
 
 const winston = require('winston');
-const { context, trace } = require('@opentelemetry/api');
+const context = require('../context');
 const cloneError = require('../utils/cloneError');
 
 class SentryTransport extends winston.Transport {
@@ -74,16 +74,16 @@ class SentryTransport extends winston.Transport {
       return cb(null, true);
     }
 
-    const span = trace.getSpan(context.active());
-
     this.sentry.withScope((scope) => {
       const ns = this.prefix + namespace;
 
       scope.setLevel(this.levelsMap[level]);
       scope.setTag('namespace', ns);
 
-      if (span?.attributes) {
-        scope.setTags(span.attributes);
+      const store = context.getStore();
+
+      if (store) {
+        scope.setTags(store);
       }
 
       scope.setContext('data', displayedMeta);

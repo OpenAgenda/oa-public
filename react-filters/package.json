@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-filters",
-  "version": "2.13.1",
+  "version": "2.13.0",
   "type": "module",
   "main": "build/index.js",
   "sideEffects": false,
@@ -48,7 +48,7 @@
     "@openagenda/leaflet-gesture-handling": "^1.5.0",
     "@openagenda/react-date-range": "^2.0.2",
     "@openagenda/react-portal-ssr": "^1.0.3",
-    "@openagenda/react-shared": "^2.4.4",
+    "@openagenda/react-shared": "^2.4.3",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",

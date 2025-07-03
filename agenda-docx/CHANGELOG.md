@@ -1,12 +1,5 @@
 # Change Log
 
-## 1.2.2
-
-### Patch Changes
-
-- Updated dependencies [[`9130206`](https://github.com/OpenAgenda/oa/commit/9130206f01c7b004965a026e357974f68c5d4dc9)]:
-  - @openagenda/logs@1.1.10
-
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

@@ -23,8 +23,7 @@ describe('reversability', () => {
   });
 
   test('with double end of lines', () => {
-    const html = fromMarkdownToHTML(withDoubleEndOfLines);
-    const result = fromHTMLToMarkdown(html);
+    const result = fromHTMLToMarkdown(fromMarkdownToHTML(withDoubleEndOfLines));
 
     expect(result).toBe(withDoubleEndOfLines);
   });

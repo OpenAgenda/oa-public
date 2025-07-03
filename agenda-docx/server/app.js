@@ -3,7 +3,7 @@ import ih from 'immutability-helper';
 import agendaFiles from './lib/agendaFiles.js';
 import defaultState from './defaultState.js';
 
-export default function App({ onProcessGenerateRequest, s3, bucketPath }) {
+export default function App({ queue, s3, bucketPath }) {
   const app = express();
 
   app.use(express.urlencoded({ extended: true }));
@@ -43,7 +43,7 @@ export default function App({ onProcessGenerateRequest, s3, bucketPath }) {
 
     await req.agendaFiles.setJSON('state.json', updatedState);
 
-    await onProcessGenerateRequest({
+    await queue('processGenerateRequest', {
       uid: req.params.agendaUid,
       templateName: req.query.templateName,
       from: req.query.from,

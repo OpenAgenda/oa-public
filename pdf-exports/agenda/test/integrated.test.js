@@ -3,7 +3,7 @@ import qs from 'qs';
 import PDFExports from '../index.js';
 
 import APIEventsStream from './lib/APIEventsStream.js';
-import agenda from './fixtures/agenda.json' with { type: 'json' };
+import agenda from './fixtures/agenda.json' assert { type: 'json' };
 
 const {
   AGENDA_UID: agendaUID,

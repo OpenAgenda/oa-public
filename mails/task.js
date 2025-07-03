@@ -4,6 +4,10 @@ import defaultFormatMessage from './utils/defaultFormatMessage.js';
 
 const log = logs('mails/task');
 
+function _sleep(ms) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 export async function runFilterTask(config, params) {
   const logPayload = {
     recipient: params.to,
@@ -44,7 +48,7 @@ export async function runFilterTask(config, params) {
 
     log.info('Queuing for send', logPayload);
 
-    config.queue.add('sendMail', params);
+    config.queues.sendMails('method', params);
   } catch (error) {
     log.error('Error on sending email', { params, error });
   }
@@ -52,12 +56,22 @@ export async function runFilterTask(config, params) {
 
 export async function runSendTask(config, params) {
   try {
+    const now = Date.now();
+
     await config.transporter.sendMail(params);
 
     log.info('Sent', {
       to: params.to,
       template: params.template,
     });
+
+    const timeDiff = Date.now() - now;
+    const interval = config.transport.rateDelta / config.transport.rateLimit;
+    const timeToWait = timeDiff > interval ? 0 : interval - timeDiff;
+
+    if (timeToWait) {
+      await _sleep(timeToWait);
+    }
   } catch (error) {
     log.error('Error on sending email', { params, error });
   }

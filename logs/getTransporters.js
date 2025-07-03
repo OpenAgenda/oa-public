@@ -3,7 +3,6 @@
 const DebugTransport = require('./transports/DebugTransport');
 const SentryTransport = require('./transports/SentryTransport');
 const InsightOpsTransport = require('./transports/InsightOpsTransport');
-const OtelTransport = require('./transports/OtelTransport');
 
 module.exports = function getTransporters(...configs) {
   const params = Object.assign(
@@ -12,7 +11,6 @@ module.exports = function getTransporters(...configs) {
       namespace: '',
       token: null,
       enableDebug: false,
-      otel: false,
     },
     ...configs,
   );
@@ -47,16 +45,6 @@ module.exports = function getTransporters(...configs) {
         prefix: params.prefix,
         namespace: params.namespace,
         sentry: params.sentry,
-      }),
-    );
-  }
-
-  if (params.otel) {
-    transports.push(
-      new OtelTransport({
-        level: 'debug',
-        prefix: params.prefix,
-        namespace: params.namespace,
       }),
     );
   }

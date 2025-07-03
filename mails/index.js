@@ -98,7 +98,7 @@ class Mails {
       };
 
       try {
-        if (!enqueue || !config.queue) {
+        if (!enqueue || !config.queues) {
           if (
             typeof config.sendFilter === 'function'
             && !await config.sendFilter(params)
@@ -125,7 +125,10 @@ class Mails {
 
         const method = !enqueue
           ? config.transporter.sendMail.bind(config.transporter)
-          : config.queue.add.bind(config.queue, 'prepareMail');
+          : config.queues.prepareMails.bind(
+            config.queues.prepareMails,
+            'method',
+          );
         const result = await method(params);
 
         results.push(result);
@@ -151,34 +154,22 @@ class Mails {
   task() {
     const { config } = this;
 
-    if (!config.queue) {
+    if (!config.queues) {
       return;
     }
 
-    if (typeof config.createWorker === 'function') {
-      log.error(
-        'Queue is used, but the required createWorker method has not been implemented.',
-      );
-    }
-
-    this.worker = config.createWorker((job) => {
-      switch (job.name) {
-        case 'prepareMail':
-          return runFilterTask(config, job.data);
-        case 'sendMail':
-          return runSendTask(config, job.data);
-        default:
-          log.warn(`Unknown job ${job.name}`);
-      }
+    config.queues.prepareMails.register({
+      method: runFilterTask.bind(null, this.config),
+    });
+    config.queues.sendMails.register({
+      method: runSendTask.bind(null, this.config),
     });
 
-    this.worker.on('error', (failedReason) => log.error(failedReason));
-    this.worker.on('failed', (job, error) =>
-      config.onTaskError(job.name, job.data, error));
+    config.queues.prepareMails.on('error', config.onTaskError);
+    config.queues.sendMails.on('error', config.onTaskError);
 
-    if (!this.worker.isRunning()) {
-      this.worker.run();
-    }
+    config.queues.prepareMails.run();
+    config.queues.sendMails.run();
   }
 }
 

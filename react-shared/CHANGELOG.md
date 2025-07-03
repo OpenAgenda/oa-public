@@ -1,12 +1,5 @@
 # Change Log
 
-## 2.4.4
-
-### Patch Changes
-
-- Updated dependencies [[`507cf12`](https://github.com/OpenAgenda/oa/commit/507cf127fef88e6c4e902cc8064fdff47d268c83)]:
-  - @openagenda/md@1.0.1
-
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

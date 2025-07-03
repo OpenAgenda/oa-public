@@ -216,7 +216,7 @@ const Map = React.forwardRef(
     const [viewport] = useState(() =>
       (input.value ? valueToViewport(input.value) : initialViewport));
 
-    const skipMoveRef = useRef(!!initialViewport);
+    const skipMoveRef = useRef(true);
 
     const [data, setData] = useState(() => []);
 
@@ -236,10 +236,7 @@ const Map = React.forwardRef(
             const innerZoom = map.getBoundsZoom(bounds1);
 
             loadGeoData(innerBounds, innerZoom)
-              .then((newData) => {
-                setData(newData?.reverse() ?? []);
-                setDisplayedMarkers(true);
-              })
+              .then((newData) => setData(newData?.reverse() ?? []))
               .catch((err) => {
                 console.log('Failed to load geo data', err);
               });
@@ -272,24 +269,22 @@ const Map = React.forwardRef(
           '<a href="https://leafletjs.com" title="A JavaScript library for interactive maps">Leaflet</a>',
         );
 
-        if (initialViewport) {
-          waitMapBounds(map).then((bounds1) => {
-            const innerBounds = normalizeBounds(bounds1, unpadRatio);
-            const innerZoom = map.getBoundsZoom(bounds1);
+        waitMapBounds(map).then((bounds1) => {
+          const innerBounds = normalizeBounds(bounds1, unpadRatio);
+          const innerZoom = map.getBoundsZoom(bounds1);
 
-            loadGeoData(innerBounds, innerZoom)
-              .then((newData) => {
-                setData(newData?.reverse() ?? []);
-                setDisplayedMarkers(true);
-              })
-              .catch((err) => {
-                console.log('Failed to load geo data', err);
-              })
-              .finally(() => {
-                skipMoveRef.current = false;
-              });
-          });
-        }
+          loadGeoData(innerBounds, innerZoom)
+            .then((newData) => {
+              setData(newData?.reverse() ?? []);
+              setDisplayedMarkers(true);
+            })
+            .catch((err) => {
+              console.log('Failed to load geo data', err);
+            })
+            .finally(() => {
+              skipMoveRef.current = false;
+            });
+        });
       },
       [bounds, loadGeoData],
     );

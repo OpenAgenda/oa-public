@@ -1,11 +1,5 @@
 # Change Log
 
-## 1.1.10
-
-### Patch Changes
-
-- [`9130206`](https://github.com/OpenAgenda/oa/commit/9130206f01c7b004965a026e357974f68c5d4dc9) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Replace AsyncLocalStorage with OpenTelemetry context
-
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

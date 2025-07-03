@@ -1,19 +1,14 @@
 {
   "name": "@openagenda/logs",
-  "version": "1.1.10",
+  "version": "1.1.9",
   "license": "MIT",
   "publishConfig": {
     "access": "public"
   },
-  "sideEffects": [
-    "index.js"
-  ],
   "scripts": {
     "test": "jest --forceExit --detectOpenHandles"
   },
   "dependencies": {
-    "@opentelemetry/api": "^1.9.0",
-    "@opentelemetry/api-logs": "^0.203.0",
     "debug": "^4.1.1",
     "r7insight_node": "^3.3.1",
     "winston": "^2.4.5"

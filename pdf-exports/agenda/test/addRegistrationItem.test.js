@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addRegistration from '../lib/addRegistration.js';
 import getIntl from '../../utils/intl.js';
-import eventData from './fixtures/registrationItem/events.json' with { type: 'json' };
+import eventData from './fixtures/registrationItem/events.json' assert { type: 'json' };
 
 const { PDF_TEST_FOLDER: pdfTestFolder } = process.env;
 
