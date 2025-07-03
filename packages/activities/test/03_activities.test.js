@@ -426,7 +426,7 @@ describe('activities - activities', () => {
         );
 
       return expect(error).toMatchObject({
-        message: "One or more feeds doesn't exist",
+        message: "Feeds doesn't exist",
         info: {
           feeds: [{ entityType: 'user', entityUid: 75 }],
         },

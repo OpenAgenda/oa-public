@@ -156,26 +156,23 @@ async function add(config, ...rest) {
   const feeds = [];
 
   for (const feedToGet of feedsToGet) {
-    feeds.push(
-      await service.feed(feedToGet).get({
-        internal: true,
-        followedBy: true,
-      }),
-    );
+    const feed = await service.feed(feedToGet).get({
+      internal: true,
+      followedBy: true,
+    });
+    if (feed) {
+      feeds.push(feed);
+    }
   }
 
   if (!feeds.length) {
-    throw new Error('You should choose at least one feed for add activity');
-  }
-
-  if (feeds.filter((v) => !v).length) {
     throw new VError(
       {
         info: {
           feeds: feedsToGet,
         },
       },
-      "One or more feeds doesn't exist",
+      "Feeds doesn't exist",
     );
   }
 
