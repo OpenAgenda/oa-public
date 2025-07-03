@@ -6,6 +6,7 @@
   "ReactShareMenus.ExportModal.title": "Exportar",
   "aggregator-title": "Importar en un agenda",
   "calendar-date": "This event has no upcoming dates",
+  "create-agenda": "Crear una agenda",
   "no-agenda": "Advertencia: Su cuenta no administra ninguna agenda. Por favor, cree una primero si desea agregar los eventos de {targetAgenda}.",
   "official-agenda": "Agenda oficial",
   "private-agenda": "Eventos privados",
