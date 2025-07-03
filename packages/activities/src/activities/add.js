@@ -87,12 +87,12 @@ const fieldsSchema = [
 
 async function getActivityMask(
   config,
-  { activity, targetFeed, originFeed, follow },
+  { activity, targetFeed, originFeed, follow, context },
 ) {
   const maskFn = config.activities[activity.verb]?.mask;
 
   return maskFn
-    ? maskFn({ activity, targetFeed, originFeed, follow, config })
+    ? maskFn({ activity, targetFeed, originFeed, follow, config, context })
     : null;
 }
 
@@ -183,9 +183,15 @@ async function add(config, ...rest) {
   const activity = await service.activities.get(activityId);
 
   const feedContainsActivity = new Set();
+  // used for cache in filterFollows and mask
+  const context = {};
 
   for (const feed of feeds) {
-    const mask = await getActivityMask(config, { activity, targetFeed: feed });
+    const mask = await getActivityMask(config, {
+      activity,
+      targetFeed: feed,
+      context,
+    });
     await addActivityToFeed(config, { activity, targetFeed: feed, mask });
     feedContainsActivity.add(feed.targetFeed);
   }
@@ -199,8 +205,6 @@ async function add(config, ...rest) {
 
   const startTime = performance.now();
 
-  // used for cache in filterFollows and mask
-  const context = {};
   const feedCache = new Map();
 
   // Compteurs de performance
