@@ -1,3 +1,4 @@
 {
+  "common.errors.endLessThanBegin": "Al menos un horario es inválido con una hora de inicio que ocurre después de la hora de finalización",
   "common.errors.required": "Necesario"
 }
