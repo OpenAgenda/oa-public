@@ -296,12 +296,12 @@ const activitiesConfig = {
       toAgenda('target.uid'), // to agenda
       fromAgendaToAdminMod, // to adminMods
       and(
-        isPublishedEvent,
-        isPublicTargetAgenda,
         or(
           toAgenda('store.duplicateOriginAgendaUid'), // duplicate origin agenda
           toOwner,
         ),
+        isPublishedEvent,
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -495,12 +495,12 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('store.contributorUid'), // to contributor
       and(
-        isPublicTargetAgenda,
         or(
           toAgenda('store.sourceAgendaUids'), // source agendas
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -548,12 +548,12 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('store.contributorUid'), // to contributor
       and(
-        isPublicTargetAgenda,
         or(
           toAgenda('store.sourceAgendaUids'), // source agendas
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -601,12 +601,12 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('store.contributorUid'), // to contributor
       and(
-        isPublicTargetAgenda,
         or(
           toAgenda('store.sourceAgendaUids'), // source agendas
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -669,13 +669,13 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('actor.uid'), // to contributor
       and(
-        isPublishedEvent,
-        isPublicTargetAgenda,
         or(
           toAgenda('sourceAgendaUids'), // source agendas
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublishedEvent,
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -1264,13 +1264,13 @@ const activitiesConfig = {
       toAgenda('target.uid'), // to aggregator
       fromAgendaToAdminMod, // to adminMods
       and(
-        isPublishedEvent,
-        isPublicTargetAgenda,
         or(
           toAgenda('actor.uid'), // source agenda
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublishedEvent,
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -1327,13 +1327,13 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('actor.uid'), // to contributor
       and(
-        isPublishedEvent,
-        isPublicTargetAgenda,
         or(
           toAgenda('store.sourceAgendaUid'), // source agenda
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublishedEvent,
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
