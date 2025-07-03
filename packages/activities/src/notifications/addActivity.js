@@ -101,12 +101,15 @@ module.exports = async function addActivity(
       return result;
     }, {});
 
+    const createdAt = activity.createdAt || new Date();
+
     const [id] = await knex(config.schemas.feed_notification).insert({
       feed_id: feed.id,
       verb: activity.verb,
       group_by: groupedBy,
       store: JSON.stringify(_.merge(store, additionalProps.store)),
-      updated_at: new Date(),
+      created_at: createdAt,
+      updated_at: createdAt,
     });
 
     return service.feed(feed).notifications.get(id);
@@ -136,11 +139,13 @@ module.exports = async function addActivity(
     },
   };
 
+  const updatedAt = activity.createdAt || new Date();
+
   await knex(config.schemas.feed_notification)
     .where({ id: notif.id })
     .update({
       store: JSON.stringify(store),
-      updated_at: new Date(),
+      updated_at: updatedAt,
     });
 
   return service.feed(feed).notifications.get(notif.id);

@@ -7,7 +7,11 @@ export default ({ bull, activities }) => {
 
   return Object.assign(
     function addActivity(feedIdentifiers, activity, options = {}) {
-      return queue.add('addActivity', { feedIdentifiers, activity, options });
+      return queue.add('addActivity', {
+        feedIdentifiers,
+        activity: { ...activity, createdAt: new Date() },
+        options,
+      });
     },
     {
       task() {
