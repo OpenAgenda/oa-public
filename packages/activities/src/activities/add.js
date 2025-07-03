@@ -199,6 +199,8 @@ async function add(config, ...rest) {
 
   const startTime = performance.now();
 
+  // used for cache in filterFollows and mask
+  const context = {};
   const feedCache = new Map();
 
   // Compteurs de performance
@@ -288,6 +290,7 @@ async function add(config, ...rest) {
           originFeed,
           follow: follower,
           config,
+          context,
         });
 
         if (!acceptedFilter) {
@@ -308,6 +311,7 @@ async function add(config, ...rest) {
           targetFeed,
           originFeed,
           follow: follower,
+          context,
         });
         timeSpentInActivityMask += performance.now() - maskStart;
 
