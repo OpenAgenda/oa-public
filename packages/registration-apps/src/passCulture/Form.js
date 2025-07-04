@@ -192,7 +192,7 @@ export default function Form({
       {!defaultVenueId ? (
         <Section>
           <Select
-            disabled={openSubForm || patchMode}
+            disabled={openSubForm}
             label="Lieu"
             value={currentValue?.venueId}
             placeholder="Sélectionner un lieu"
