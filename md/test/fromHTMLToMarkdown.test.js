@@ -105,6 +105,14 @@ describe('fromHTMLToMarkdown', () => {
     );
   });
 
+  test('if mailto is already present in html, it should not break parsing', () => {
+    const r = fromHTMLToMarkdown(
+      '<p><a href="mailto:email@email.com">link</a></p>',
+    );
+
+    expect(r).toBe('[link](mailto:email@email.com)');
+  });
+
   test('emails in italic sentences are extracted too', () => {
     expect(
       fromHTMLToMarkdown(
