@@ -1,13 +1,15 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields.js';
+import completeExternalActions from '../completeExternalActions.js';
 import flattenTagSetLabels from '../flattenTagSetLabels.js';
-import adminLevels from '../adminLevels.js';
+import * as appMessages from '../messages.js';
 
 const messages = {
-  ...adminLevels,
+  ...appMessages.actions,
+  ...appMessages.adminLevels,
   ...defineMessages({
     insee: {
       id: 'AgendaLocations.LocationDetails.insee',
@@ -129,6 +131,13 @@ const LocationDetails = ({
   onEdit,
 }) => {
   const intl = useIntl();
+
+  const { externalActions, usedExtIds } = useMemo(
+    () =>
+      completeExternalActions(settings?.locations?.extIds, location?.extIds),
+    [settings, location],
+  );
+
   const [contentLang, setContentLang] = useState(
     getPreferredLang(location.description, lang),
   );
@@ -143,6 +152,26 @@ const LocationDetails = ({
     e.preventDefault();
     setContentLang(newContentLang);
   };
+
+  const renderExternalActions = (extId) =>
+    externalActions
+      .filter((a) => a.extId.key === extId.key)
+      .map((externalAction) => (
+        <a
+          className="margin-right-sm"
+          key={externalAction.action}
+          href={externalAction.link}
+          target="_blank"
+          rel="noreferrer"
+        >
+          <text className="margin-right-xs">
+            {externalAction?.label && externalAction?.label[intl.locale]
+              ? externalAction?.label[intl.locale]
+              : `${intl.formatMessage(messages[externalAction.action])}`}
+          </text>
+          <i className="fa fa-external-link" aria-hidden="true" />
+        </a>
+      ));
 
   const renderLinkedAgendas = () => {
     const filteredLAgendas = linkedAgendas.filter((a) => a.uid !== agenda.uid);
@@ -219,10 +248,18 @@ const LocationDetails = ({
           <button
             type="button"
             className="btn btn-link padding-all-z"
+            disabled={
+              (externalActions
+                && externalActions.filter((a) => a.action === 'edit'))
+              || false
+            }
             onClick={onEdit}
           >
             <FormattedMessage {...messages.editLocation} />
           </button>
+          {externalActions ? (
+            <div>{usedExtIds.map((e) => renderExternalActions(e))}</div>
+          ) : null}
         </div>
         <p title={hoverInfo}>{location.address}</p>
         <a

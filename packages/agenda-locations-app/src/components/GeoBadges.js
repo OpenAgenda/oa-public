@@ -1,7 +1,7 @@
 import { defineMessages, useIntl } from 'react-intl';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields.js';
-import adminLevels from '../adminLevels.js';
+import { adminLevels } from '../messages.js';
 
 const messages = {
   ...defineMessages({
