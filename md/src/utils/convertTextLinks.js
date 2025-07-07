@@ -95,6 +95,49 @@ function isMarkdownLink(input, refIndex, link) {
     searchIndex -= 1;
   }
 
+  // Additional check: Look forward from the link to see if we're inside a markdown link's text part
+  // This handles cases like [**https://google.fr**](https://google.fr)
+  let forwardIndex = index + link.length;
+  let foundFormattingEnd = false;
+
+  // Skip over markdown formatting characters after the link
+  while (forwardIndex < input.length) {
+    const char = input.charAt(forwardIndex);
+    if (char === '*' || char === '_') {
+      foundFormattingEnd = true;
+      forwardIndex += 1;
+      continue;
+    }
+    break;
+  }
+
+  // If we found formatting and then a closing bracket followed by opening paren
+  if (
+    foundFormattingEnd
+    && forwardIndex < input.length
+    && input.charAt(forwardIndex) === ']'
+    && forwardIndex + 1 < input.length
+    && input.charAt(forwardIndex + 1) === '('
+  ) {
+    // Look backwards from our link to find the opening bracket
+    let backwardIndex = index - 1;
+
+    // Skip over markdown formatting characters before the link
+    while (backwardIndex >= 0) {
+      const char = input.charAt(backwardIndex);
+      if (char === '*' || char === '_') {
+        backwardIndex -= 1;
+        continue;
+      }
+      break;
+    }
+
+    // Check if we find the opening bracket
+    if (backwardIndex >= 0 && input.charAt(backwardIndex) === '[') {
+      return true;
+    }
+  }
+
   return false;
 }
 

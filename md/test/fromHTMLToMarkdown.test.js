@@ -159,11 +159,10 @@ Une autre ligne
 Une ligne plus loin`);
   });
 
-  test.skip('bold link', () => {
-    expect(
-      fromHTMLToMarkdown(
-        '<p><a href="https://google.fr"><strong>https://google.fr</strong></a></p>',
-      ),
-    ).toBe('[**https://google.fr**](http://google.fr)');
+  test('bold link', () => {
+    const markdown = fromHTMLToMarkdown(
+      '<p><a href="https://google.fr"><strong>https://google.fr</strong></a></p>',
+    );
+    expect(markdown).toBe('[**https://google.fr**](https://google.fr)');
   });
 });
