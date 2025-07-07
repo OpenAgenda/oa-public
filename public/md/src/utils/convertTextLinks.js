@@ -41,10 +41,61 @@ function isMarkdownLink(input, refIndex, link) {
   }
 
   // [...](ishere)
-  return (
+  if (
     input.substr(index + link.length, 1) === ')'
     && input.substr(index - 2, 2) === ']('
-  );
+  ) {
+    return true;
+  }
+
+  // Check if the link is already inside the URL part of a markdown link
+  // Look backwards to find if we're inside a ](...) structure
+  let searchIndex = index - 1;
+  let foundClosingBracket = false;
+  let foundOpeningParen = false;
+
+  while (searchIndex >= 0) {
+    const char = input.charAt(searchIndex);
+
+    if (char === ')' && !foundClosingBracket) {
+      // We're looking for the structure, but if we hit a closing paren first,
+      // we're not inside a markdown link URL
+      break;
+    }
+
+    if (char === '(' && !foundOpeningParen) {
+      foundOpeningParen = true;
+      searchIndex -= 1;
+      continue;
+    }
+
+    if (foundOpeningParen && char === ']') {
+      foundClosingBracket = true;
+      // Check if there's a '[' before this ']'
+      let bracketSearchIndex = searchIndex - 1;
+      let bracketDepth = 1;
+
+      while (bracketSearchIndex >= 0 && bracketDepth > 0) {
+        const bracketChar = input.charAt(bracketSearchIndex);
+        if (bracketChar === ']') {
+          bracketDepth += 1;
+        } else if (bracketChar === '[') {
+          bracketDepth -= 1;
+        }
+        bracketSearchIndex -= 1;
+      }
+
+      if (bracketDepth === 0) {
+        // We found a complete markdown link structure and our link is inside the URL part
+        return true;
+      }
+      break;
+    }
+
+    searchIndex -= 1;
+  }
+
+  return false;
 }
 
 export default function convertTextLinks(markdownInput) {
