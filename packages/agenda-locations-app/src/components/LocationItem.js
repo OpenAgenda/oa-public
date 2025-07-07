@@ -101,7 +101,7 @@ const LocationItem = ({
           <text className="margin-right-xs">
             {externalAction?.label && externalAction?.label[intl.locale]
               ? externalAction?.label[intl.locale]
-              : `${intl.formatMessage(actionsMessages[messages.action])}`}
+              : `${intl.formatMessage(actionsMessages[externalAction.action])}`}
           </text>
           <i className="fa fa-external-link" aria-hidden="true" />
         </a>
