@@ -16,7 +16,7 @@
   "ReactShared.AgendaContextBar.myEvents": "Mes événements dans l'agenda",
   "ReactShared.AgendaContextBar.noEvents": "Vous n'avez complété encore aucun événement sur cet agenda",
   "ReactShared.AgendaContextBar.published": "{count, plural, one {1 publié} other {# publiés}}",
-  "ReactShared.AgendaContextBar.publishedModalInfo": "Ces événements ont été publié et sont visibles par les visiteurs de l'agenda",
+  "ReactShared.AgendaContextBar.publishedModalInfo": "Ces événements ont été publiés et sont visibles par les visiteurs de l'agenda",
   "ReactShared.AgendaContextBar.publishedModalTitle": "Événements publiés",
   "ReactShared.AgendaContextBar.refused": "{count, plural, one {1 refusé} other {# refusés}}",
   "ReactShared.AgendaContextBar.refusedModalInfo": "Les événements suivants ont été revus par les modérateurs de l'agenda et ont été refusés. Ils ne seront pas publiés.",
