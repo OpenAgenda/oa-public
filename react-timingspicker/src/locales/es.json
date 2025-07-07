@@ -40,6 +40,8 @@
   "rtp.recurrencerForm.day": "día",
   "rtp.recurrencerForm.endBeforeStart": "El final debe ser después del principio",
   "rtp.recurrencerForm.ends": "Termina",
+  "rtp.recurrencerForm.everyMonthByDate": "Cada {dayNumber, selectordinal, other {{dayNumber, number}o}} del mes",
+  "rtp.recurrencerForm.everyMonthByWeekday": "Cada {weekNumber, selectordinal, one {#er} other {#o}} {weekday} del mes",
   "rtp.recurrencerForm.forceSubmit": "Crear igualmente",
   "rtp.recurrencerForm.intervalTooSmall": "El intervalo debe ser mayor a 0",
   "rtp.recurrencerForm.invalidDate": "Fecha de final inválida",
