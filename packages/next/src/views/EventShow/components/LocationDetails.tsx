@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-
+import { useMemo } from 'react';
 import {
   Box,
   chakra,
@@ -29,6 +29,7 @@ import defaultStyle from 'utils/defaultStyle';
 import { faPhone, faChevronDown } from 'icons/solid';
 import { FALLBACK_LOCALE } from 'config/constants';
 import Image from 'components/Image';
+import completeExternalActions from 'utils/completeExternalActions';
 import messages from '../messages';
 
 import LocationHistory from './LocationHistory';
@@ -48,6 +49,20 @@ export default function LocationDetails({
 }) {
   const intl = useIntl();
 
+  const { externalActions } = useMemo(
+    () =>
+      completeExternalActions(
+        agenda.settings?.locations?.extIds,
+        location?.extIds,
+      ),
+    [agenda, location],
+  );
+
+  // Filter external actions for edit actions
+  const externalEditActions = useMemo(() => {
+    if (!externalActions || !Array.isArray(externalActions)) return [];
+    return externalActions.filter((action) => action.action === 'edit');
+  }, [externalActions]);
   return (
     <div>
       <Heading as="h2" fontSize="2xl" mb="4">
@@ -70,23 +85,47 @@ export default function LocationDetails({
               </FloatingButton>
             </MenuTrigger>
             <MenuContent minW="3xs">
-              <MenuItem asChild value="edit-location">
-                {canEdit ? (
-                  <Link
-                    unstyled
-                    href={`/${agenda.slug}/admin/locations/${location.uid}/edit`}
+              {externalEditActions.length > 0 ? 
+                externalEditActions.map((action, index) => (
+                  <MenuItem
+                    asChild
+                    value={`external-edit-${index}`}
+                    key={`external-edit-${index}`}
                   >
-                    {intl.formatMessage(messages.editLocation)}
-                  </Link>
-                ) : (
-                  <Link
-                    unstyled
-                    href={`/${agenda.slug}/locations/${location.agendaUid}.${location.uid}/suggest-change`}
-                  >
-                    {intl.formatMessage(messages.suggestLocationChange)}
-                  </Link>
-                )}
-              </MenuItem>
+                    <Link
+                      unstyled
+                      href={action.link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {intl.formatMessage(messages.suggestLocationChange)}
+                      <i
+                        className="fa fa-external-link"
+                        aria-hidden="true"
+                        style={{ marginLeft: '8px' }}
+                      />
+                    </Link>
+                  </MenuItem>
+                ))
+               : (
+                <MenuItem asChild value="edit-location">
+                  {canEdit ? (
+                    <Link
+                      unstyled
+                      href={`/${agenda.slug}/admin/locations/${location.uid}/edit`}
+                    >
+                      {intl.formatMessage(messages.editLocation)}
+                    </Link>
+                  ) : (
+                    <Link
+                      unstyled
+                      href={`/${agenda.slug}/locations/${location.agendaUid}.${location.uid}/suggest-change`}
+                    >
+                      {intl.formatMessage(messages.suggestLocationChange)}
+                    </Link>
+                  )}
+                </MenuItem>
+              )}
               <MenuItem asChild value="location-history">
                 <LocationHistory />
               </MenuItem>
@@ -95,20 +134,36 @@ export default function LocationDetails({
         ) : null}
         {displayEditAction ? (
           <FloatingButton asChild>
-            <Link
-              unstyled
-              href={
-                canEdit
-                  ? `/${agenda.slug}/admin/locations/${location.uid}/edit`
-                  : `/${agenda.slug}/locations/${location.agendaUid}.${location.uid}/suggest-change`
-              }
-            >
-              {intl.formatMessage(
-                canEdit
-                  ? messages.editLocation
-                  : messages.suggestLocationChange,
-              )}
-            </Link>
+            {externalEditActions.length > 0 ? (
+              <Link
+                unstyled
+                href={externalEditActions[0].link}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {intl.formatMessage(messages.suggestLocationChange)}
+                <i
+                  className="fa fa-external-link"
+                  aria-hidden="true"
+                  style={{ marginLeft: '8px' }}
+                />
+              </Link>
+            ) : (
+              <Link
+                unstyled
+                href={
+                  canEdit
+                    ? `/${agenda.slug}/admin/locations/${location.uid}/edit`
+                    : `/${agenda.slug}/locations/${location.agendaUid}.${location.uid}/suggest-change`
+                }
+              >
+                {intl.formatMessage(
+                  canEdit
+                    ? messages.editLocation
+                    : messages.suggestLocationChange,
+                )}
+              </Link>
+            )}
           </FloatingButton>
         ) : null}
 
