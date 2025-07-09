@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
+import { NotFound } from '@openagenda/verror';
 import getAggregator from '../getAggregator.js';
 import validateListQuery from '../validateListQuery.js';
 import validateListNav from '../validateListNav.js';
@@ -19,7 +20,7 @@ export default async (
 
   if (!aggregatorId) {
     log('Aggregator not found');
-    throw new Error('Aggregator not found');
+    throw new NotFound('Aggregator not found');
   }
 
   const { detailed } = {
