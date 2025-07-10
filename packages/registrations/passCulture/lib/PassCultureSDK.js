@@ -170,7 +170,7 @@ export default function PassCultureSDK(params) {
             null,
             params,
             'get',
-            `/public/offers/adressesId/${addressesId}`,
+            `/public/offers/v1/addresses/${addressesId}`,
           ),
         }),
         {

@@ -144,10 +144,18 @@ export default async function apply(
     const { succeeded, response, remaining, error } = await getApplyFn(
       objectType,
       operation,
-    )(pc, passEventOfferId, passAddressId, OAEvent, processed, entry, {
-      ...options,
-      logBundle: entryLogBundle,
-    });
+    )(
+      { pc, siren },
+      passEventOfferId,
+      passAddressId,
+      OAEvent,
+      processed,
+      entry,
+      {
+        ...options,
+        logBundle: entryLogBundle,
+      },
+    );
 
     if (succeeded) {
       processed.push({
