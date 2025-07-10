@@ -2,8 +2,8 @@
 
 const winston = require('winston');
 const Logger = require('r7insight_node');
+const { context, trace } = require('@opentelemetry/api');
 const isEmptyObject = require('../utils/isEmptyObject');
-const context = require('../context');
 
 const stackDelim = /\n\s*/g;
 
@@ -123,10 +123,15 @@ class InsightOpsTransport extends winston.Transport {
       }
     }
 
-    const store = context.getStore();
+    const span = trace.getSpan(context.active());
+    if (span) {
+      const spanContext = span.spanContext();
+      displayedMeta.traceId = spanContext.traceId;
+      displayedMeta.spanId = spanContext.spanId;
 
-    if (store) {
-      Object.assign(displayedMeta, store);
+      if (span.attributes) {
+        Object.assign(displayedMeta, span.attributes);
+      }
     }
 
     this.logger.log(
