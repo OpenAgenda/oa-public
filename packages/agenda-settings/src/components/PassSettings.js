@@ -109,10 +109,12 @@ export default function PassSettings() {
   const [showSaveButton, setShowSaveButton] = useState(false);
   const [isEditingSiren, setIsEditingSiren] = useState(false);
   const [hasVenues, setHasVenues] = useState(false);
+  const [isInitialized, setIsInitialized] = useState(false);
 
   const sirenIsSet = !!agenda?.settings?.registration?.passCulture?.siren?.length;
   const currentSiren = agenda?.settings?.registration?.passCulture?.siren;
-
+  console.log('tempSelectedVenueId', tempSelectedVenueId);
+  console.log('defaulVenueId', defaultVenueId);
   useEffect(() => {
     // Load the default venue ID from settings if it exists
     if (agenda?.settings?.registration?.passCulture?.defaultVenueId) {
@@ -128,11 +130,12 @@ export default function PassSettings() {
   }, [agenda, sirenIsSet, currentSiren]);
 
   useEffect(() => {
-    // Initialize tempSelectedVenueId with defaultVenueId when it's loaded
-    if (defaultVenueId && !tempSelectedVenueId) {
+    // Initialize tempSelectedVenueId with defaultVenueId when it's loaded (only once)
+    if (defaultVenueId && !isInitialized) {
       setTempSelectedVenueId(defaultVenueId);
+      setIsInitialized(true);
     }
-  }, [defaultVenueId, tempSelectedVenueId]);
+  }, [defaultVenueId, isInitialized]);
 
   useEffect(() => {
     // Check if venues are available when SIREN is set
@@ -283,9 +286,8 @@ export default function PassSettings() {
         <div>SIREN: {currentSiren}</div>
         <button
           type="button"
-          className="btn btn-link"
+          className="btn btn-link text-primary p-0"
           onClick={() => setIsEditingSiren(true)}
-          style={{ padding: '0', textDecoration: 'none' }}
         >
           {intl.formatMessage(messages.editSiren)}
         </button>
@@ -322,7 +324,9 @@ export default function PassSettings() {
 
   const renderGatewayAccessSection = () => (
     <div className="mb-4">
-      <h4>{intl.formatMessage(messages.gatewayAccess)}</h4>
+      <p className="mb-2">
+        <strong>{intl.formatMessage(messages.gatewayAccess)}</strong>
+      </p>
       <p className="text-muted mb-3">
         {intl.formatMessage(messages.gatewayAccessDescription, {
           contactLink: (
@@ -452,8 +456,7 @@ export default function PassSettings() {
                 href="https://doc.openagenda.com/integration-du-pass-culture-sur-openagenda/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-primary"
-                style={{ textDecoration: 'none' }}
+                className="btn btn-link-inline"
               >
                 En savoir plus
               </a>
@@ -465,15 +468,10 @@ export default function PassSettings() {
                 <div>SIREN: {currentSiren}</div>
                 <button
                   type="button"
-                  className="btn btn-link btn-sm text-primary ms-3"
+                  className="btn btn-link-inline"
                   onClick={() => {
                     setIsEditingSiren(true);
                     setClearSuccess(false);
-                  }}
-                  style={{
-                    textDecoration: 'none',
-                    padding: '0',
-                    lineHeight: 'inherit',
                   }}
                 >
                   Modifier
@@ -484,7 +482,9 @@ export default function PassSettings() {
             {/* Venues section */}
             {hasVenues && (
             <div className="mb-4">
-              <h4>Lieux pass Culture associés au SIREN</h4>
+              <p className="mb-2 margin-top-sm margin-bottom-xs">
+                <strong>Lieux pass Culture associés au SIREN</strong>
+              </p>
               <p className="text-muted">
                 Sélectionnez un lieu par défaut pour éviter un choix additionnel
                 à chaque nouvelle saisie
@@ -494,7 +494,7 @@ export default function PassSettings() {
                 res={{
                   settings: `/api/agendas/${agenda.uid}/settings/passCulture`,
                 }}
-                defaultVenueId={tempSelectedVenueId || defaultVenueId}
+                defaultVenueId={tempSelectedVenueId}
                 mode="select"
                 onSelect={handleVenueSelect}
               />
@@ -503,7 +503,7 @@ export default function PassSettings() {
               <div className="d-flex justify-content-end mb-3">
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-primary margin-bottom-sm"
                   onClick={handleSaveDefaultVenue}
                   disabled={loading}
                 >
@@ -542,7 +542,7 @@ export default function PassSettings() {
             <div className="mb-4 border-top pt-4">
               <button
                 type="button"
-                className="btn btn-link btn-link-inline text-danger"
+                className="btn btn-link text-danger p-0"
                 onClick={handleClearSettings}
               >
                 {intl.formatMessage(messages.clearSettings)}
