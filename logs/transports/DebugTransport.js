@@ -3,7 +3,7 @@
 const util = require('node:util');
 const winston = require('winston');
 const debug = require('debug');
-const context = require('../context');
+const { context, trace } = require('@opentelemetry/api');
 const cloneError = require('../utils/cloneError');
 const isEmptyObject = require('../utils/isEmptyObject');
 
@@ -51,10 +51,15 @@ class DebugTransport extends winston.Transport {
       }
     }
 
-    const store = context.getStore();
+    const span = trace.getSpan(context.active());
+    if (span) {
+      const spanContext = span.spanContext();
+      displayedMeta.traceId = spanContext.traceId;
+      displayedMeta.spanId = spanContext.spanId;
 
-    if (store) {
-      Object.assign(displayedMeta, store);
+      if (span.attributes) {
+        Object.assign(displayedMeta, span.attributes);
+      }
     }
 
     const args = (msg.length ? [msg] : []).concat(
