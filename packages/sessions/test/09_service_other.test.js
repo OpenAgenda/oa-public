@@ -80,6 +80,7 @@ describe('session - functional (server): isLogged & getCulture', () => {
       expect(serviceHelpers.cleanSession(session)).toEqual({
         somekey: '123',
         expires: undefined,
+        sessionId: null,
       });
     });
   });

@@ -1,5 +1,6 @@
 import morgan from 'morgan';
 import logs from '@openagenda/logs';
+import { trace, context } from '@opentelemetry/api';
 
 const log = logs('incoming');
 
@@ -92,32 +93,37 @@ export const middleware = morgan(
       secure: req.secure,
     };
 
-    if (process.env.NODE_ENV === 'production') {
-      log.info(data);
-    } else {
-      const {
-        method,
-        url,
-        httpVersion,
-        ip,
-        status,
-        contentLength,
-        responseTime,
-      } = data;
+    // trace in finished here, we need to force context for logs
+    const finalSpan = req[Symbol.for('oa.otel.span')];
 
-      log.info(
-        withColor(
-          [
-            `"${method} ${colored(url, 1)} HTTP/${httpVersion}"`,
-            ip,
-            colored(colored(status, color), 1),
-            contentLength ? humanSize(contentLength, 2) : '-',
-            '~',
-            `${responseTime}ms`,
-          ].join(' '),
-        ),
-      );
-    }
+    context.with(trace.setSpan(context.active(), finalSpan), () => {
+      if (process.env.NODE_ENV === 'production') {
+        log.info(data);
+      } else {
+        const {
+          method,
+          url,
+          httpVersion,
+          ip,
+          status,
+          contentLength,
+          responseTime,
+        } = data;
+
+        log.info(
+          withColor(
+            [
+              `"${method} ${colored(url, 1)} HTTP/${httpVersion}"`,
+              ip,
+              colored(colored(status, color), 1),
+              contentLength ? humanSize(contentLength, 2) : '-',
+              '~',
+              `${responseTime}ms`,
+            ].join(' '),
+          ),
+        );
+      }
+    });
   },
   {
     skip: (req) => blacklist.some((regexp) => regexp.test(req.originalUrl)),

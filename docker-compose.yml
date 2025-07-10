@@ -208,6 +208,7 @@ services:
       CRISP_IDENTIFIER: ${CRISP_IDENTIFIER}
       CRISP_KEY: ${CRISP_KEY}
       STRAPI_API_AUTH_TOKEN: ${STRAPI_API_AUTH_TOKEN}
+      OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT}
     ports:
       - 8903:8903
 
@@ -294,6 +295,17 @@ services:
       - ${ELASTICHQ_CLIENT_CERT:-/dev/null}:/ssl/cert.pem
     links:
       - es7
+
+  jaeger:
+    container_name: jaeger
+    image: cr.jaegertracing.io/jaegertracing/jaeger
+    restart: always
+    ports:
+      - 16686:16686 # Jaeger UI
+      - 4317:4317 # Jaeger gRPC endpoint
+      - 4318:4318 # Jaeger HTTP endpoint
+      - 5778:5778 # Jaeger sampling endpoint
+      - 9411:9411 # Jaeger Zipkin endpoint
 
 volumes:
   esdata:

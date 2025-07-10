@@ -1,5 +1,5 @@
 import * as Sentry from '@sentry/node';
-import context from '@openagenda/logs/context.js';
+import { context, trace } from '@opentelemetry/api';
 import express from 'express';
 
 function isObject(o) {
@@ -10,14 +10,14 @@ export default function sentryErrorHandler(options) {
   const router = express.Router({ mergeParams: true });
 
   router.use((req, res, next) => {
+    const span = trace.getSpan(context.active());
+
     Sentry.withScope((scope) => {
       if (options?.tag) {
         scope.setTag(options.tag, true);
 
-        const store = context.getStore();
-
-        if (store) {
-          scope.setTags(store);
+        if (span?.attributes) {
+          scope.setTags(span.attributes);
         }
 
         scope.addEventProcessor((event) => {
