@@ -1,3 +1,4 @@
+import { randomBytes } from 'node:crypto';
 import logger from '@openagenda/logs';
 import VError from '@openagenda/verror';
 import cookieValidate from '../iso/cookie.validate.js';
@@ -79,8 +80,11 @@ async function open(config, request, response, identifier) {
 
   // store session in cookie
 
+  console.log('KEEP', request.session.sessionId);
+
   cookieData = cookieValidate({
     user: sessionUser,
+    sessionId: request.session.sessionId || randomBytes(12).toString('hex'),
     expires,
   });
 

@@ -188,6 +188,7 @@ describe('session - functional (server): middleware', () => {
                 name: 'Gaetan Latouche',
                 thumbnail: '//graph.facebook.com/100002280111541/picture',
               },
+              sessionId: expect.any(String),
             });
 
             res.send('ok');

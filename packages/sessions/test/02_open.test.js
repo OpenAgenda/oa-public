@@ -92,6 +92,7 @@ describe('session - functional (server): open', () => {
             name: 'Gaetan Latouche',
             thumbnail: '//graph.facebook.com/100002280111541/picture',
           },
+          sessionId: expect.any(String),
         });
 
         rs();
