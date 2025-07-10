@@ -1,33 +1,9 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { Spinner } from '@openagenda/react-shared';
-import completeExternalActions from '../completeExternalActions.js';
 import LocationDetails from './LocationDetailsConfirm.js';
 
 const messages = defineMessages({
-  guide: {
-    id: 'AgendaLocations.LocationConfirmation.guide',
-    defaultMessage: 'Are the details of this location correct ?',
-  },
-  browseDetails: {
-    id: 'AgendaLocations.LocationConfirmation.browseDetails',
-    defaultMessage:
-      'Browse the detailed information below then confirm your choice at the bottom of this menu',
-  },
-  guideDetail: {
-    id: 'AgendaLocations.LocationConfirmation.guideDetail',
-    defaultMessage:
-      'If some changes have to be made, click on the button below to provide details on the change to agenda administrators',
-  },
-  suggest: {
-    id: 'AgendaLocations.LocationConfirmation.suggest',
-    defaultMessage: 'Suggest a change',
-  },
-  suggestChangeMessage: {
-    id: 'AgendaLocations.LocationConfirmation.suggestChangeMessage',
-    defaultMessage:
-      'A new tab was opened in your browser. Provide the details of the change in the dialog before confirming your selection',
-  },
   confirm: {
     id: 'AgendaLocations.LocationConfirmation.confirm',
     defaultMessage: 'Confirm',
@@ -46,8 +22,6 @@ const LocationConfirmation = ({
   onConfirm,
   onCancel,
 }) => {
-  const [suggestChangeMessage, setSuggestChangeMessage] = useState(false);
-
   const [detailedLocation, setDetailedLocation] = useState();
 
   useEffect(() => {
@@ -59,49 +33,12 @@ const LocationConfirmation = ({
     );
   }, [res.get, location.uid]);
 
-  const { externalActions } = useMemo(
-    () => completeExternalActions(settings?.extIds, detailedLocation?.extIds),
-    [settings, detailedLocation],
-  );
-
   if (!detailedLocation) {
     return <Spinner page />;
   }
 
   return (
     <div>
-      <div className="info-block margin-v-sm">
-        <label htmlFor="guide">
-          <FormattedMessage {...messages.guide} />
-        </label>
-        <p>
-          <FormattedMessage {...messages.browseDetails} />
-        </p>
-        <p>
-          <FormattedMessage {...messages.guideDetail} />
-        </p>
-        <div className="text-center">
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href={
-              !externalActions
-              || !externalActions.find((e) => e.action === 'edit')
-                ? res.suggestChange.replace(':locationUid', location.uid)
-                : externalActions.find((e) => e.action === 'edit').link
-            }
-            onClick={() => setSuggestChangeMessage(true)}
-            className="btn btn-default margin-h-sm"
-          >
-            <FormattedMessage {...messages.suggest} />
-          </a>
-          {suggestChangeMessage ? (
-            <div className="margin-v-sm">
-              <FormattedMessage {...messages.suggestChangeMessage} />
-            </div>
-          ) : null}
-        </div>
-      </div>
       <LocationDetails
         res={res}
         location={detailedLocation}

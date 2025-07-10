@@ -1,6 +1,25 @@
 import { defineMessages } from 'react-intl';
 
-const messages = defineMessages({
+export const actions = defineMessages({
+  edit: {
+    id: 'AgendaLocations.edit',
+    defaultMessage: 'Edit',
+  },
+  show: {
+    id: 'AgendaLocations.show',
+    defaultMessage: 'Show',
+  },
+  remove: {
+    id: 'AgendaLocations.remove',
+    defaultMessage: 'Delete',
+  },
+  select: {
+    id: 'AgendaLocations.select',
+    defaultMessage: 'Select',
+  },
+});
+
+export const adminLevels = defineMessages({
   adminLevel1: {
     id: 'AgendaLocations.adminLevel1',
     defaultMessage: 'adminLevel1',
@@ -94,5 +113,3 @@ const messages = defineMessages({
     defaultMessage: 'City District',
   },
 });
-
-export default messages;
