@@ -4,7 +4,7 @@ import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.js';
 import * as track from '../lib/track.js';
-import * as logContextMw from '../lib/logContextMw.js';
+import * as otelMw from '../lib/otelMw.js';
 import boolQuery from '../lib/boolQuery.js';
 import * as mw from './middleware/index.js';
 import getSettingsEndpoint from './endpoints/settingsGet.js';
@@ -65,7 +65,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
 
-  app.use(logContextMw.withUserUid);
+  app.use(otelMw.addUserContext);
 
   // load all the things
   app.param('agendaUid', mw.loadAgenda);

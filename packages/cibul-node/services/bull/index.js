@@ -26,6 +26,18 @@ export function init(config, services) {
       checkPrefixOption(opts);
       super(name, { connection, ...opts }, con);
     }
+
+    async add(name, data, opts = {}) {
+      const newOpts = {
+        ...opts,
+        meta: {
+          ...opts.meta || {},
+          service: 'cibul-node',
+        },
+      };
+
+      return super.add(name, data, newOpts);
+    }
   }
 
   class Worker extends bullmq.Worker {

@@ -4,8 +4,8 @@ import './lib/sourceMapSupport.js';
 import '@openagenda/polyfills/intl.js';
 import '@openagenda/polyfills/intl-locales.js';
 
+import './tracing.js';
 import './lib/initLog.js';
-import './sentry.config.js';
 
 import { randomBytes } from 'node:crypto';
 import logs from '@openagenda/logs';
@@ -24,7 +24,7 @@ import { middleware as logRequestMw } from './services/logRequests.js';
 import sentryErrorHandler from './lib/sentryErrorHandler.js';
 import cmn from './lib/commons-app.js';
 import contentSecurityPolicy from './lib/contentSecurityPolicy.js';
-import * as logContextMw from './lib/logContextMw.js';
+import * as otelMw from './lib/otelMw.js';
 import redirectRootLangPaths from './lib/redirectRootLangPaths.js';
 
 const ADMIN = process.argv.includes('admin');
@@ -66,7 +66,7 @@ try {
     secureHeaders,
     sessions.mw,
     sessions.mw.load({ detailed: true }),
-    logContextMw.withUserUid,
+    otelMw.addUserContext,
     logRequestMw,
     redirectRootLangPaths,
   );
@@ -132,14 +132,7 @@ try {
   if (API) {
     const apiServer = express()
       .set('trust proxy', ['loopback', 'uniquelocal'])
-      .use(
-        '/v2',
-        logContextMw.withContext,
-        secureHeaders,
-        logRequestMw,
-        setAPIType('standalone'),
-        api,
-      )
+      .use('/v2', secureHeaders, logRequestMw, setAPIType('standalone'), api)
       .listen(config.apiPort, () => {
         console.log(`-- API listening on port ${config.apiPort} --`);
       });
