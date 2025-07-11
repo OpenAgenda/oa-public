@@ -216,6 +216,29 @@ describe('PassCultureSDK', () => {
         ],
       });
     });
+
+    it('get', async () => {
+      // First create an address to get a valid ID
+      const created = await pc.offers.addresses.create({
+        city: 'Paris',
+        latitude: 48.86696,
+        longitude: 2.31014,
+        postalCode: '75001',
+        street: '182 Rue Saint-Honoré',
+      });
+
+      // Test getting the address by ID
+      const retrieved = await pc.offers.addresses(created.id).get();
+
+      expect(retrieved).toMatchObject({
+        id: created.id,
+        city: 'Paris',
+        postalCode: '75001',
+        street: '182 Rue Saint-Honoré',
+      });
+      expect(typeof retrieved.latitude).toBe('number');
+      expect(typeof retrieved.longitude).toBe('number');
+    });
   });
 
   describe('offers.events', () => {
@@ -473,14 +496,20 @@ describe('PassCultureSDK', () => {
 
     it('(NEW can now) patch updates event venue', async () => {
       const offererVenues = await pc.offers.offererVenues();
-
+      const fetchedOffer1 = await pc.offers.events(id).get();
       const location = {
         type: 'physical',
         venueId: offererVenues[0].venues[1].id,
       };
 
       const offer = await pc.offers.events(id).patch({ location });
-
+      const fetchedOffer = await pc.offers.events(id).get();
+      console.log(
+        offer.location,
+        fetchedOffer1.location,
+        fetchedOffer.location,
+        offererVenues[0].venues[1].id,
+      );
       expect(offer.location.venueId).toBe(offererVenues[0].venues[1].id);
     });
   });
