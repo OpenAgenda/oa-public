@@ -81,6 +81,39 @@ async function update(
       });
       // Continue with existing addressId if we can't fetch current address
     }
+  } else if (!passAddressId && OAEvent.location) {
+    // Handle case where no address exists but location data is available
+    log(
+      'No existing address but location data available, creating new address',
+    );
+
+    const offererVenues = await Promise.all(
+      siren.map((sirenValue) => pc.offers.offererVenues({ siren: sirenValue })),
+    );
+    const venues = offererVenues.flatMap((responseArray) =>
+      responseArray.flatMap((item) => item.venues));
+    const usedVenue = venues.find((v) => v.id === entry.venueId);
+
+    if (!usedVenue) {
+      addressError = new BadRequest({
+        info: {
+          entryVenueId: entry.venueId,
+          venues,
+        },
+      });
+    } else {
+      // Create address using the same logic as in create function
+      const { address: createdAddress, error: newAddressError } = await address.createAddressIfNeeded(pc, OAEvent, usedVenue, siren);
+
+      if (newAddressError) {
+        addressError = newAddressError;
+      } else if (createdAddress) {
+        finalAddressId = createdAddress.id;
+        log('New address created for event without existing address', {
+          newAddressId: finalAddressId,
+        });
+      }
+    }
   }
 
   // Return early if there was an address error

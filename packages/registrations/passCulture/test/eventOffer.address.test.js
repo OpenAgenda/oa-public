@@ -77,7 +77,7 @@ describe('eventOffer address logic', () => {
       };
 
       const result = await eventOffer.update(
-        { pc, siren: '123456789' },
+        { pc, siren: ['123456789'] },
         'event123',
         '123', // passAddressId
         OAEvent,
@@ -107,7 +107,7 @@ describe('eventOffer address logic', () => {
       };
 
       const result = await eventOffer.update(
-        { pc },
+        { pc, siren: ['123456789'] },
         'event123',
         '123', // passAddressId
         OAEvent,
@@ -137,7 +137,7 @@ describe('eventOffer address logic', () => {
       };
 
       const result = await eventOffer.update(
-        { pc },
+        { pc, siren: ['123456789'] },
         'event123',
         null, // no passAddressId
         OAEvent,
@@ -167,7 +167,7 @@ describe('eventOffer address logic', () => {
       };
 
       const result = await eventOffer.update(
-        { pc },
+        { pc, siren: ['123456789'] },
         'event123',
         '999', // non-existent passAddressId
         OAEvent,
