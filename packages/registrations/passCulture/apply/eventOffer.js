@@ -26,11 +26,9 @@ async function update(
   let addressError = null;
 
   if (passAddressId && OAEvent.location) {
-    console.log('this', passAddressId, OAEvent.location, { siren });
     try {
       // Fetch current address from Pass Culture
       const currentAddress = await pc.offers.addresses(passAddressId).get();
-      console.log('currentAddress', currentAddress);
       // Compare current address with OA event location
       const addressDifferent = currentAddress.address !== OAEvent.location.address
         || currentAddress.city !== OAEvent.location.city
