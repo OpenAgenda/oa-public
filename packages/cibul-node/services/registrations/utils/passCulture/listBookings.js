@@ -119,7 +119,9 @@ export default async function listBookings(
     // Get bookings
     let bookings;
     try {
-      bookings = await passCultureService.listBookings(passId);
+      bookings = await passCultureService.listBookings(passId, {
+        detailed: true,
+      });
     } catch (error) {
       throw new VError({
         cause: error,
