@@ -2,7 +2,7 @@ import logs from '@openagenda/logs';
 
 const log = logs('passCulture/listBooking');
 
-export default async function listBooking(pc, passId, listParams) {
+export default async function listBookings(pc, passId, listParams) {
   let allBookings = [];
   let firstIndex = 1;
   let currBookings = null;
