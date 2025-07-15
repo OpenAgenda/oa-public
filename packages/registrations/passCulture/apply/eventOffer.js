@@ -26,11 +26,9 @@ async function update(
   let addressError = null;
 
   if (passAddressId && OAEvent.location) {
-    console.log('this', passAddressId, OAEvent.location, { siren });
     try {
       // Fetch current address from Pass Culture
       const currentAddress = await pc.offers.addresses(passAddressId).get();
-      console.log('currentAddress', currentAddress);
       // Compare current address with OA event location
       const addressDifferent = currentAddress.address !== OAEvent.location.address
         || currentAddress.city !== OAEvent.location.city
@@ -82,6 +80,39 @@ async function update(
         error: e.message,
       });
       // Continue with existing addressId if we can't fetch current address
+    }
+  } else if (!passAddressId && OAEvent.location) {
+    // Handle case where no address exists but location data is available
+    log(
+      'No existing address but location data available, creating new address',
+    );
+
+    const offererVenues = await Promise.all(
+      siren.map((sirenValue) => pc.offers.offererVenues({ siren: sirenValue })),
+    );
+    const venues = offererVenues.flatMap((responseArray) =>
+      responseArray.flatMap((item) => item.venues));
+    const usedVenue = venues.find((v) => v.id === entry.venueId);
+
+    if (!usedVenue) {
+      addressError = new BadRequest({
+        info: {
+          entryVenueId: entry.venueId,
+          venues,
+        },
+      });
+    } else {
+      // Create address using the same logic as in create function
+      const { address: createdAddress, error: newAddressError } = await address.createAddressIfNeeded(pc, OAEvent, usedVenue, siren);
+
+      if (newAddressError) {
+        addressError = newAddressError;
+      } else if (createdAddress) {
+        finalAddressId = createdAddress.id;
+        log('New address created for event without existing address', {
+          newAddressId: finalAddressId,
+        });
+      }
     }
   }
 

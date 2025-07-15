@@ -2,6 +2,7 @@ import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import PassCultureSDK from '../lib/PassCultureSDK.js';
 import eventOffer from '../apply/eventOffer.js';
+import openAPIData from './fixtures/openapi.json';
 
 const api = 'https://pc.local';
 
@@ -49,30 +50,7 @@ describe('eventOffer address logic', () => {
           },
         ),
         // Mock categories endpoint
-        http.get(`${api}/openapi.json`, () =>
-          HttpResponse.json({
-            components: {
-              schemas: {
-                EventOfferCreation: {
-                  properties: {
-                    category: { enum: ['CONCERT'] },
-                    categoryRelatedFields: {
-                      allOf: [
-                        {
-                          if: {
-                            properties: { category: { const: 'CONCERT' } },
-                          },
-                          then: {
-                            properties: { musicType: { enum: ['JAZZ'] } },
-                          },
-                        },
-                      ],
-                    },
-                  },
-                },
-              },
-            },
-          })),
+        http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
       );
 
       server.listen();
@@ -99,7 +77,7 @@ describe('eventOffer address logic', () => {
       };
 
       const result = await eventOffer.update(
-        pc,
+        { pc, siren: ['123456789'] },
         'event123',
         '123', // passAddressId
         OAEvent,
@@ -129,7 +107,7 @@ describe('eventOffer address logic', () => {
       };
 
       const result = await eventOffer.update(
-        pc,
+        { pc, siren: ['123456789'] },
         'event123',
         '123', // passAddressId
         OAEvent,
@@ -159,7 +137,7 @@ describe('eventOffer address logic', () => {
       };
 
       const result = await eventOffer.update(
-        pc,
+        { pc, siren: ['123456789'] },
         'event123',
         null, // no passAddressId
         OAEvent,
@@ -189,7 +167,7 @@ describe('eventOffer address logic', () => {
       };
 
       const result = await eventOffer.update(
-        pc,
+        { pc, siren: ['123456789'] },
         'event123',
         '999', // non-existent passAddressId
         OAEvent,
