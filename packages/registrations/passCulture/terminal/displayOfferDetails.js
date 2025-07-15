@@ -4,6 +4,7 @@ import { inspect } from 'node:util';
 import { confirm, input } from '@inquirer/prompts';
 import chalk from 'chalk';
 import PassCultureSDK from '../lib/PassCultureSDK.js';
+import listBookings from '../listBookings.js';
 import { maskApiKey } from './lib/utils.js';
 import displayMainInfo from './lib/displayMainInfo.js';
 import displayError from './lib/displayError.js';
@@ -57,19 +58,33 @@ async function main() {
     process.exit(0);
   }
 
-  // Ask for offer ID
-  const offerId = await input({
-    message: 'Enter Offer ID:',
-    validate: (inputValue) => {
-      if (!inputValue.trim()) {
-        return 'Please enter a valid offer ID';
-      }
-      if (!/^\d+$/.test(inputValue.trim())) {
-        return 'Offer ID should be numeric';
-      }
-      return true;
-    },
-  });
+  // Get offer ID from command line argument or prompt
+  let offerId = process.argv[2];
+
+  if (offerId) {
+    // Validate command line offer ID
+    if (!/^\d+$/.test(offerId.trim())) {
+      console.log(
+        chalk.red('❌ Invalid offer ID provided as argument. Must be numeric.'),
+      );
+      process.exit(1);
+    }
+    console.log(chalk.cyan(`📋 Using offer ID from argument: ${offerId}`));
+  } else {
+    // Ask for offer ID
+    offerId = await input({
+      message: 'Enter Offer ID:',
+      validate: (inputValue) => {
+        if (!inputValue.trim()) {
+          return 'Please enter a valid offer ID';
+        }
+        if (!/^\d+$/.test(inputValue.trim())) {
+          return 'Offer ID should be numeric';
+        }
+        return true;
+      },
+    });
+  }
 
   console.log(chalk.blue(`\n🚀 Fetching offer details for ID: ${offerId}...`));
 
@@ -85,6 +100,32 @@ async function main() {
     const offerDetails = await pc.offers.events(offerId).get();
 
     displayMainInfo(chalk, offerDetails);
+
+    // Ask about displaying bookings
+    const displayBookings = await confirm({
+      message: 'Display all bookings for this offer?',
+      default: true,
+    });
+
+    if (displayBookings) {
+      try {
+        console.log(chalk.blue('\n🎫 Fetching bookings...'));
+        const bookings = await listBookings(pc, offerId, { detailed: true });
+
+        console.log(chalk.bold.cyan('\n📋 BOOKINGS'));
+        console.log(chalk.cyan('============\n'));
+
+        if (bookings && bookings.length > 0) {
+          console.log(chalk.green(`✅ Found ${bookings.length} booking(s):\n`));
+          console.log(inspect(bookings, inspectOptions));
+        } else {
+          console.log(chalk.yellow('ℹ️ No bookings found for this offer'));
+        }
+      } catch (error) {
+        console.log(chalk.red('\n❌ Error fetching bookings:'));
+        console.log(chalk.red(error.message));
+      }
+    }
 
     const displayDump = await confirm({
       message: 'Display complete object dump?',
