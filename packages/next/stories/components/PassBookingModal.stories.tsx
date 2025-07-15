@@ -34,6 +34,7 @@ export const Interactive = () => {
         onClose={handleClose}
         agendaUid="123"
         eventUid="456"
+        timezone="Europe/Paris"
       />
     </Box>
   );
@@ -66,6 +67,7 @@ export const WithLoader = () => {
         onClose={handleClose}
         agendaUid="123"
         eventUid="456"
+        timezone="Europe/Paris"
       />
     </Box>
   );
@@ -100,6 +102,7 @@ export const WithError = () => {
         onClose={handleClose}
         agendaUid="123"
         eventUid="456"
+        timezone="Europe/Paris"
       />
     </Box>
   );
@@ -134,6 +137,7 @@ export const AllStates = () => {
           onClose={() => setIsOpenNormal(false)}
           agendaUid="123"
           eventUid="normal"
+          timezone="Europe/Paris"
         />
       </Box>
 
@@ -149,6 +153,7 @@ export const AllStates = () => {
           onClose={() => setIsOpenLoader(false)}
           agendaUid="123"
           eventUid="loading"
+          timezone="Europe/Paris"
         />
       </Box>
 
@@ -164,6 +169,7 @@ export const AllStates = () => {
           onClose={() => setIsOpenError(false)}
           agendaUid="123"
           eventUid="error"
+          timezone="Europe/Paris"
         />
       </Box>
     </VStack>
