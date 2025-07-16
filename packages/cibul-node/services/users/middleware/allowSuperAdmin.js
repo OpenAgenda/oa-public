@@ -37,6 +37,7 @@ export default function allowSuperAdmin(params = {}) {
 
     if (redirect) {
       res.redirect(302, redirectURL);
+      return;
     }
 
     next(new Forbidden());

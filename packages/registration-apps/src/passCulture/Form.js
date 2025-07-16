@@ -134,7 +134,7 @@ export default function Form({
     .reduce((carry, item) => carry.concat(item.venues), [])
     .map((v) => ({
       value: v.id,
-      label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
+      label: `${v.publicName || v.legalName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
     }));
 
   const status = useMemo(() => {

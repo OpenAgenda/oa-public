@@ -447,6 +447,7 @@ export function PassCultureSection({
           onClose={bookingOnClose}
           agendaUid={agenda.uid}
           eventUid={event.uid}
+          timezone={event.timezone}
         />
       )}
     </Grid>

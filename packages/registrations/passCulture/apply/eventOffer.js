@@ -7,7 +7,7 @@ import address from './address.js';
 const log = logs('passCulture/eventOffer');
 
 async function update(
-  pc,
+  { pc, siren },
   passEventOfferId,
   passAddressId,
   OAEvent,
@@ -21,9 +21,113 @@ async function update(
     ? await pc.offers.events.categories.list()
     : { categories: categoriesFromOptions, related: relatedFromOptions };
 
+  // Check if address needs to be updated
+  let finalAddressId = passAddressId;
+  let addressError = null;
+
+  if (passAddressId && OAEvent.location) {
+    try {
+      // Fetch current address from Pass Culture
+      const currentAddress = await pc.offers.addresses(passAddressId).get();
+      // Compare current address with OA event location
+      const addressDifferent = currentAddress.address !== OAEvent.location.address
+        || currentAddress.city !== OAEvent.location.city
+        || currentAddress.postalCode !== OAEvent.location.postalCode;
+
+      if (addressDifferent) {
+        log('Address differs, creating new address', {
+          currentAddress: {
+            address: currentAddress.address,
+            city: currentAddress.city,
+            postalCode: currentAddress.postalCode,
+          },
+          newLocation: {
+            address: OAEvent.location.address,
+            city: OAEvent.location.city,
+            postalCode: OAEvent.location.postalCode,
+          },
+        });
+
+        const offererVenues = await Promise.all(
+          siren.map((sirenValue) =>
+            pc.offers.offererVenues({ siren: sirenValue })),
+        );
+        const venues = offererVenues.flatMap((responseArray) =>
+          responseArray.flatMap((item) => item.venues));
+        const usedVenue = venues.find((v) => v.id === entry.venueId);
+        // Create new address using existing logic
+        const { address: newAddress, error: newAddressError } = await address.createAddressIfNeeded(
+          pc,
+          OAEvent,
+          usedVenue, // Pass current address as venue-like object
+          options.siren || [],
+        );
+
+        if (newAddressError) {
+          addressError = newAddressError;
+        } else if (newAddress) {
+          finalAddressId = newAddress.id;
+          log('New address created', { newAddressId: finalAddressId });
+        }
+      } else {
+        log('Address unchanged, keeping existing addressId', {
+          addressId: passAddressId,
+        });
+      }
+    } catch (e) {
+      log.error('Failed to fetch current address', {
+        passAddressId,
+        error: e.message,
+      });
+      // Continue with existing addressId if we can't fetch current address
+    }
+  } else if (!passAddressId && OAEvent.location) {
+    // Handle case where no address exists but location data is available
+    log(
+      'No existing address but location data available, creating new address',
+    );
+
+    const offererVenues = await Promise.all(
+      siren.map((sirenValue) => pc.offers.offererVenues({ siren: sirenValue })),
+    );
+    const venues = offererVenues.flatMap((responseArray) =>
+      responseArray.flatMap((item) => item.venues));
+    const usedVenue = venues.find((v) => v.id === entry.venueId);
+
+    if (!usedVenue) {
+      addressError = new BadRequest({
+        info: {
+          entryVenueId: entry.venueId,
+          venues,
+        },
+      });
+    } else {
+      // Create address using the same logic as in create function
+      const { address: createdAddress, error: newAddressError } = await address.createAddressIfNeeded(pc, OAEvent, usedVenue, siren);
+
+      if (newAddressError) {
+        addressError = newAddressError;
+      } else if (createdAddress) {
+        finalAddressId = createdAddress.id;
+        log('New address created for event without existing address', {
+          newAddressId: finalAddressId,
+        });
+      }
+    }
+  }
+
+  // Return early if there was an address error
+  if (addressError) {
+    return {
+      succeeded: undefined,
+      remaining: entry,
+      error: addressError,
+    };
+  }
+
   const eventOffer = await formatEvent(
     OAEvent,
-    { ...entry, addressId: passAddressId },
+    { ...entry, addressId: finalAddressId },
     {
       ...options,
       categories,

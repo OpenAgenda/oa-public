@@ -1,7 +1,7 @@
 import { VError } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 
-const log = logs('services/registrations/utils/passCulture/listBooking');
+const log = logs('services/registrations/utils/passCulture/listBookings');
 
 const buildSummary = (bookings) => {
   const summary = {
@@ -21,7 +21,7 @@ const buildSummary = (bookings) => {
   return summary;
 };
 
-export default async function listBooking(
+export default async function listBookings(
   { services },
   agenda,
   event,
@@ -29,7 +29,7 @@ export default async function listBooking(
 ) {
   try {
     const { registrations, core } = services;
-    log.debug('listBooking request', {
+    log.debug('listBookings request', {
       agenda: agenda?.uid,
       event: event?.uid,
       actingUserUid,
@@ -119,7 +119,9 @@ export default async function listBooking(
     // Get bookings
     let bookings;
     try {
-      bookings = await passCultureService.listBooking(passId);
+      bookings = await passCultureService.listBookings(passId, {
+        detailed: true,
+      });
     } catch (error) {
       throw new VError({
         cause: error,
