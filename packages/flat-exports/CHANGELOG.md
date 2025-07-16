@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.4.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/form-schemas@1.9.3
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

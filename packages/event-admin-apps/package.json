@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/event-admin-apps",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "private": true,
   "description": "",
   "repository": {
@@ -26,14 +26,14 @@
     "extract-messages": "oa-intl --esm"
   },
   "dependencies": {
-    "@openagenda/agenda-docx": "^1.2.1",
+    "@openagenda/agenda-docx": "^1.2.2",
     "@openagenda/common-labels": "^1.0.0",
-    "@openagenda/event-search": "^2.8.0",
+    "@openagenda/event-search": "^2.8.1",
     "@openagenda/intl": "^1.1.5",
-    "@openagenda/react-filters": "^2.13.0",
-    "@openagenda/react-share-menus": "^1.1.0",
-    "@openagenda/react-shared": "^2.4.3",
-    "@openagenda/registrations": "^0.0.2",
+    "@openagenda/react-filters": "^2.13.1",
+    "@openagenda/react-share-menus": "^1.1.1",
+    "@openagenda/react-shared": "^2.4.4",
+    "@openagenda/registrations": "^0.0.3",
     "axios": "^0.21.1",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@loadable/component": "^5.14.1",
-    "@openagenda/bs-templates": "^2.5.0",
+    "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",

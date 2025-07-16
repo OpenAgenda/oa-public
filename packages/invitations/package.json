@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/invitations",
-  "version": "1.1.7",
+  "version": "1.1.8",
   "private": true,
   "description": "The invitation service",
   "type": "module",
@@ -17,7 +17,7 @@
   "license": "ISC",
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/invitations",
   "dependencies": {
-    "@openagenda/logs": "^1.1.2",
+    "@openagenda/logs": "^1.1.10",
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.0.1",

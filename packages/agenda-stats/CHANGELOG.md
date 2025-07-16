@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.10.3
+
+### Patch Changes
+
+- Updated dependencies [[`3cef30d`](https://github.com/OpenAgenda/oa/commit/3cef30d15f26a2f2bf267941b80a7bd3fd27f560)]:
+  - @openagenda/react-filters@2.13.1
+  - @openagenda/event-search@2.8.1
+  - @openagenda/react-shared@2.4.4
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
