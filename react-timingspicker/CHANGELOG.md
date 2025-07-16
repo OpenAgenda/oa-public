@@ -1,5 +1,12 @@
 # Change Log
 
+## 1.4.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/react-shared@2.4.4
+
 ## 1.4.1
 
 ### Patch Changes

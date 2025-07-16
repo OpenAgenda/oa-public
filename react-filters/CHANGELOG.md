@@ -1,5 +1,14 @@
 # Change Log
 
+## 2.13.1
+
+### Patch Changes
+
+- [`3cef30d`](https://github.com/OpenAgenda/oa/commit/3cef30d15f26a2f2bf267941b80a7bd3fd27f560) Thanks [@bertho-zero](https://github.com/bertho-zero)! - don't load geo data and block map viewport when initialViewport is absent
+
+- Updated dependencies []:
+  - @openagenda/react-shared@2.4.4
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
