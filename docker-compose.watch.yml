@@ -1,3 +1,5 @@
+name: oa
+
 services:
   node:
     command: >

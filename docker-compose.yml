@@ -1,3 +1,5 @@
+name: oa
+
 services:
   nginx:
     container_name: nginx
@@ -26,6 +28,8 @@ services:
       - ${ELASTICHQ_SSL_KEY:-/dev/null}:/ssl/elastichq.key.pem
       - ${MAILCATCHER_SSL_CERT:-/dev/null}:/ssl/mailcatcher.cert.pem
       - ${MAILCATCHER_SSL_KEY:-/dev/null}:/ssl/mailcatcher.key.pem
+      - ${GRAFANA_SSL_CERT:-/dev/null}:/ssl/grafana.cert.pem
+      - ${GRAFANA_SSL_KEY:-/dev/null}:/ssl/grafana.key.pem
     command: >
       /bin/bash -c
         "for filename in $$(find /tmp/nginx/ -type f -name '*'); do
@@ -41,6 +45,7 @@ services:
       - mailcatcher
       - elastichq
       - strapi
+      - grafana
     depends_on:
       - node
 
@@ -209,6 +214,8 @@ services:
       OTEL_EXPORTER_OTLP_ENDPOINT: ${OTEL_EXPORTER_OTLP_ENDPOINT}
     ports:
       - 8903:8903
+    extra_hosts:
+      - 'host.docker.internal:host-gateway'
 
   mysql:
     container_name: mysql
@@ -294,16 +301,20 @@ services:
     links:
       - es7
 
-  jaeger:
-    container_name: jaeger
-    image: cr.jaegertracing.io/jaegertracing/jaeger
+  grafana:
+    container_name: grafana
+    image: docker.io/grafana/otel-lgtm
     restart: always
     ports:
-      - 16686:16686 # Jaeger UI
-      - 4317:4317 # Jaeger gRPC endpoint
-      - 4318:4318 # Jaeger HTTP endpoint
-      - 5778:5778 # Jaeger sampling endpoint
-      - 9411:9411 # Jaeger Zipkin endpoint
+      - 3000:3000 # UI
+      - 4317:4317 # gRPC endpoint
+      - 4318:4318 # HTTP endpoint
+    environment:
+      GF_PATHS_DATA: /data/grafana
+    volumes:
+      - ${GRAFANA_DATA_PATH}/grafana:/data/grafana
+      - ${GRAFANA_DATA_PATH}/prometheus:/data/prometheus
+      - ${GRAFANA_DATA_PATH}/loki:/data/loki
 
 volumes:
   esdata:
