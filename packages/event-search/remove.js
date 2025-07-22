@@ -39,7 +39,7 @@ export default async function remove(config, set, identifiers, options = {}) {
   }
 
   if (res.body.result === 'deleted') {
-    log('info', 'event %j was removed from set %s', identifiers, set, {
+    log('event %j was removed from set %s', identifiers, set, {
       operation: 'remove',
       set,
       identifiers,
