@@ -15,3 +15,4 @@ export { default as rejectAgendaKey } from './rejectAgendaKey.js';
 export { default as sendJSONLD } from './sendJSONLD.js';
 export { default as loadEventPDF } from './loadEventPDF.js';
 export { default as validateNavSize } from './validateNavSize.js';
+export { default as extractIncludeFields } from './extractIncludeFields.js';

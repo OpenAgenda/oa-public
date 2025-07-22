@@ -1056,7 +1056,7 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
-  app.get('/agendas', (req, res, next) => {
+  app.get('/agendas', mw.extractIncludeFields, (req, res, next) => {
     core.agendas
       .search(req.query, req.query, {
         useDefaultImage:
@@ -1064,7 +1064,7 @@ export default (core, { useRouter = true } = {}) => {
         includeImagePath: !(
           req.query.includeImagePath && req.query.includeImagePath === '0'
         ),
-        includeFields: req.query.fields ? [].concat(req.query.fields) : null,
+        includeFields: req.includeFields,
       })
       .then((data) => res.json({ ...data, success: true }), next);
   });
