@@ -4992,12 +4992,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@emnapi/runtime@npm:^1.4.0":
-  version: 1.4.3
-  resolution: "@emnapi/runtime@npm:1.4.3"
+"@emnapi/runtime@npm:^1.4.4":
+  version: 1.4.5
+  resolution: "@emnapi/runtime@npm:1.4.5"
   dependencies:
     tslib: "npm:^2.4.0"
-  checksum: 10c0/3b7ab72d21cb4e034f07df80165265f85f445ef3f581d1bc87b67e5239428baa00200b68a7d5e37a0425c3a78320b541b07f76c5530f6f6f95336a6294ebf30b
+  checksum: 10c0/37a0278be5ac81e918efe36f1449875cbafba947039c53c65a1f8fc238001b866446fc66041513b286baaff5d6f9bec667f5164b3ca481373a8d9cb65bfc984b
   languageName: node
   linkType: hard
 
@@ -7178,11 +7178,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-darwin-arm64@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-darwin-arm64@npm:0.34.1"
+"@img/sharp-darwin-arm64@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-darwin-arm64@npm:0.34.3"
   dependencies:
-    "@img/sharp-libvips-darwin-arm64": "npm:1.1.0"
+    "@img/sharp-libvips-darwin-arm64": "npm:1.2.0"
   dependenciesMeta:
     "@img/sharp-libvips-darwin-arm64":
       optional: true
@@ -7202,11 +7202,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-darwin-x64@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-darwin-x64@npm:0.34.1"
+"@img/sharp-darwin-x64@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-darwin-x64@npm:0.34.3"
   dependencies:
-    "@img/sharp-libvips-darwin-x64": "npm:1.1.0"
+    "@img/sharp-libvips-darwin-x64": "npm:1.2.0"
   dependenciesMeta:
     "@img/sharp-libvips-darwin-x64":
       optional: true
@@ -7221,9 +7221,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-libvips-darwin-arm64@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@img/sharp-libvips-darwin-arm64@npm:1.1.0"
+"@img/sharp-libvips-darwin-arm64@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@img/sharp-libvips-darwin-arm64@npm:1.2.0"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
@@ -7235,9 +7235,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-libvips-darwin-x64@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@img/sharp-libvips-darwin-x64@npm:1.1.0"
+"@img/sharp-libvips-darwin-x64@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@img/sharp-libvips-darwin-x64@npm:1.2.0"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -7249,9 +7249,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-libvips-linux-arm64@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@img/sharp-libvips-linux-arm64@npm:1.1.0"
+"@img/sharp-libvips-linux-arm64@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@img/sharp-libvips-linux-arm64@npm:1.2.0"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
@@ -7263,16 +7263,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-libvips-linux-arm@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@img/sharp-libvips-linux-arm@npm:1.1.0"
+"@img/sharp-libvips-linux-arm@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@img/sharp-libvips-linux-arm@npm:1.2.0"
   conditions: os=linux & cpu=arm & libc=glibc
   languageName: node
   linkType: hard
 
-"@img/sharp-libvips-linux-ppc64@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@img/sharp-libvips-linux-ppc64@npm:1.1.0"
+"@img/sharp-libvips-linux-ppc64@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@img/sharp-libvips-linux-ppc64@npm:1.2.0"
   conditions: os=linux & cpu=ppc64 & libc=glibc
   languageName: node
   linkType: hard
@@ -7284,9 +7284,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-libvips-linux-s390x@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@img/sharp-libvips-linux-s390x@npm:1.1.0"
+"@img/sharp-libvips-linux-s390x@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@img/sharp-libvips-linux-s390x@npm:1.2.0"
   conditions: os=linux & cpu=s390x & libc=glibc
   languageName: node
   linkType: hard
@@ -7298,9 +7298,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-libvips-linux-x64@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@img/sharp-libvips-linux-x64@npm:1.1.0"
+"@img/sharp-libvips-linux-x64@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@img/sharp-libvips-linux-x64@npm:1.2.0"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
@@ -7312,9 +7312,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-libvips-linuxmusl-arm64@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@img/sharp-libvips-linuxmusl-arm64@npm:1.1.0"
+"@img/sharp-libvips-linuxmusl-arm64@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@img/sharp-libvips-linuxmusl-arm64@npm:1.2.0"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
@@ -7326,9 +7326,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-libvips-linuxmusl-x64@npm:1.1.0":
-  version: 1.1.0
-  resolution: "@img/sharp-libvips-linuxmusl-x64@npm:1.1.0"
+"@img/sharp-libvips-linuxmusl-x64@npm:1.2.0":
+  version: 1.2.0
+  resolution: "@img/sharp-libvips-linuxmusl-x64@npm:1.2.0"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
@@ -7345,11 +7345,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-linux-arm64@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-linux-arm64@npm:0.34.1"
+"@img/sharp-linux-arm64@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-linux-arm64@npm:0.34.3"
   dependencies:
-    "@img/sharp-libvips-linux-arm64": "npm:1.1.0"
+    "@img/sharp-libvips-linux-arm64": "npm:1.2.0"
   dependenciesMeta:
     "@img/sharp-libvips-linux-arm64":
       optional: true
@@ -7369,15 +7369,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-linux-arm@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-linux-arm@npm:0.34.1"
+"@img/sharp-linux-arm@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-linux-arm@npm:0.34.3"
   dependencies:
-    "@img/sharp-libvips-linux-arm": "npm:1.1.0"
+    "@img/sharp-libvips-linux-arm": "npm:1.2.0"
   dependenciesMeta:
     "@img/sharp-libvips-linux-arm":
       optional: true
   conditions: os=linux & cpu=arm & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@img/sharp-linux-ppc64@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-linux-ppc64@npm:0.34.3"
+  dependencies:
+    "@img/sharp-libvips-linux-ppc64": "npm:1.2.0"
+  dependenciesMeta:
+    "@img/sharp-libvips-linux-ppc64":
+      optional: true
+  conditions: os=linux & cpu=ppc64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -7393,11 +7405,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-linux-s390x@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-linux-s390x@npm:0.34.1"
+"@img/sharp-linux-s390x@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-linux-s390x@npm:0.34.3"
   dependencies:
-    "@img/sharp-libvips-linux-s390x": "npm:1.1.0"
+    "@img/sharp-libvips-linux-s390x": "npm:1.2.0"
   dependenciesMeta:
     "@img/sharp-libvips-linux-s390x":
       optional: true
@@ -7417,11 +7429,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-linux-x64@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-linux-x64@npm:0.34.1"
+"@img/sharp-linux-x64@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-linux-x64@npm:0.34.3"
   dependencies:
-    "@img/sharp-libvips-linux-x64": "npm:1.1.0"
+    "@img/sharp-libvips-linux-x64": "npm:1.2.0"
   dependenciesMeta:
     "@img/sharp-libvips-linux-x64":
       optional: true
@@ -7441,11 +7453,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-linuxmusl-arm64@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-linuxmusl-arm64@npm:0.34.1"
+"@img/sharp-linuxmusl-arm64@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-linuxmusl-arm64@npm:0.34.3"
   dependencies:
-    "@img/sharp-libvips-linuxmusl-arm64": "npm:1.1.0"
+    "@img/sharp-libvips-linuxmusl-arm64": "npm:1.2.0"
   dependenciesMeta:
     "@img/sharp-libvips-linuxmusl-arm64":
       optional: true
@@ -7465,11 +7477,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-linuxmusl-x64@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-linuxmusl-x64@npm:0.34.1"
+"@img/sharp-linuxmusl-x64@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-linuxmusl-x64@npm:0.34.3"
   dependencies:
-    "@img/sharp-libvips-linuxmusl-x64": "npm:1.1.0"
+    "@img/sharp-libvips-linuxmusl-x64": "npm:1.2.0"
   dependenciesMeta:
     "@img/sharp-libvips-linuxmusl-x64":
       optional: true
@@ -7486,12 +7498,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-wasm32@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-wasm32@npm:0.34.1"
+"@img/sharp-wasm32@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-wasm32@npm:0.34.3"
   dependencies:
-    "@emnapi/runtime": "npm:^1.4.0"
+    "@emnapi/runtime": "npm:^1.4.4"
   conditions: cpu=wasm32
+  languageName: node
+  linkType: hard
+
+"@img/sharp-win32-arm64@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-win32-arm64@npm:0.34.3"
+  conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
@@ -7502,9 +7521,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-win32-ia32@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-win32-ia32@npm:0.34.1"
+"@img/sharp-win32-ia32@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-win32-ia32@npm:0.34.3"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
@@ -7516,9 +7535,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@img/sharp-win32-x64@npm:0.34.1":
-  version: 0.34.1
-  resolution: "@img/sharp-win32-x64@npm:0.34.1"
+"@img/sharp-win32-x64@npm:0.34.3":
+  version: 0.34.3
+  resolution: "@img/sharp-win32-x64@npm:0.34.3"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -8580,10 +8599,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:15.3.3":
-  version: 15.3.3
-  resolution: "@next/env@npm:15.3.3"
-  checksum: 10c0/b47ef78c4194900f52a274270932a633ba21f39377fc6ad478839c3c1e3fffccb8ad25b286a1beb11f91fe9d09a299087ccb9c205a4e610ad95af65f24e49e5a
+"@next/env@npm:15.4.1":
+  version: 15.4.1
+  resolution: "@next/env@npm:15.4.1"
+  checksum: 10c0/389c4c5d126c252a742d78336d0b8d99678a83cb003a2f80f805adc89fcb9e9f617a279c0db07ca94d8c7c94458f34992dd49fcdd10c5d00940c45ad5cf79fbd
   languageName: node
   linkType: hard
 
@@ -8596,58 +8615,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:15.3.3":
-  version: 15.3.3
-  resolution: "@next/swc-darwin-arm64@npm:15.3.3"
+"@next/swc-darwin-arm64@npm:15.4.1":
+  version: 15.4.1
+  resolution: "@next/swc-darwin-arm64@npm:15.4.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:15.3.3":
-  version: 15.3.3
-  resolution: "@next/swc-darwin-x64@npm:15.3.3"
+"@next/swc-darwin-x64@npm:15.4.1":
+  version: 15.4.1
+  resolution: "@next/swc-darwin-x64@npm:15.4.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:15.3.3":
-  version: 15.3.3
-  resolution: "@next/swc-linux-arm64-gnu@npm:15.3.3"
+"@next/swc-linux-arm64-gnu@npm:15.4.1":
+  version: 15.4.1
+  resolution: "@next/swc-linux-arm64-gnu@npm:15.4.1"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-musl@npm:15.3.3":
-  version: 15.3.3
-  resolution: "@next/swc-linux-arm64-musl@npm:15.3.3"
+"@next/swc-linux-arm64-musl@npm:15.4.1":
+  version: 15.4.1
+  resolution: "@next/swc-linux-arm64-musl@npm:15.4.1"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:15.3.3":
-  version: 15.3.3
-  resolution: "@next/swc-linux-x64-gnu@npm:15.3.3"
+"@next/swc-linux-x64-gnu@npm:15.4.1":
+  version: 15.4.1
+  resolution: "@next/swc-linux-x64-gnu@npm:15.4.1"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-musl@npm:15.3.3":
-  version: 15.3.3
-  resolution: "@next/swc-linux-x64-musl@npm:15.3.3"
+"@next/swc-linux-x64-musl@npm:15.4.1":
+  version: 15.4.1
+  resolution: "@next/swc-linux-x64-musl@npm:15.4.1"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-win32-arm64-msvc@npm:15.3.3":
-  version: 15.3.3
-  resolution: "@next/swc-win32-arm64-msvc@npm:15.3.3"
+"@next/swc-win32-arm64-msvc@npm:15.4.1":
+  version: 15.4.1
+  resolution: "@next/swc-win32-arm64-msvc@npm:15.4.1"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-win32-x64-msvc@npm:15.3.3":
-  version: 15.3.3
-  resolution: "@next/swc-win32-x64-msvc@npm:15.3.3"
+"@next/swc-win32-x64-msvc@npm:15.4.1":
+  version: 15.4.1
+  resolution: "@next/swc-win32-x64-msvc@npm:15.4.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -8753,19 +8772,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/abilities@npm:^1.3.1, @openagenda/abilities@workspace:packages/abilities":
+"@openagenda/abilities@npm:^1.3.2, @openagenda/abilities@workspace:packages/abilities":
   version: 0.0.0-use.local
   resolution: "@openagenda/abilities@workspace:packages/abilities"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
     "@casl/ability": "npm:^2.4.2"
-    "@openagenda/agendas": "npm:^1.7.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/agendas": "npm:^1.7.1"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/users": "npm:^3.1.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/users": "npm:^3.1.1"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     babel-jest: "npm:^29.7.0"
@@ -8799,11 +8818,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/activities@npm:^2.3.0, @openagenda/activities@workspace:packages/activities":
+"@openagenda/activities@npm:^2.3.1, @openagenda/activities@workspace:packages/activities":
   version: 0.0.0-use.local
   resolution: "@openagenda/activities@workspace:packages/activities"
   dependencies:
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
@@ -8814,22 +8833,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/activity-apps@npm:^1.2.1, @openagenda/activity-apps@workspace:packages/activity-apps":
+"@openagenda/activity-apps@npm:^1.2.2, @openagenda/activity-apps@workspace:packages/activity-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/activity-apps@workspace:packages/activity-apps"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/activities": "npm:^2.3.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/activities": "npm:^2.3.1"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/md": "npm:^1.0.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/react-bootstrap-datetimerangepicker": "npm:^2.0.5"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/sessions": "npm:^4.1.0"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/sessions": "npm:^4.1.1"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     bootstrap-daterangepicker: "npm:^2.1.25"
@@ -8867,7 +8886,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/admin-agendas@npm:^1.1.17, @openagenda/admin-agendas@workspace:packages/admin-agendas":
+"@openagenda/admin-agendas@npm:^1.1.18, @openagenda/admin-agendas@workspace:packages/admin-agendas":
   version: 0.0.0-use.local
   resolution: "@openagenda/admin-agendas@workspace:packages/admin-agendas"
   dependencies:
@@ -8875,10 +8894,10 @@ __metadata:
     "@babel/core": "npm:^7.23.3"
     "@babel/node": "npm:^7.22.19"
     "@babel/runtime-corejs3": "npm:^7.23.2"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@openagenda/utils": "npm:^1.3.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -8902,20 +8921,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-contribute@npm:^1.5.3, @openagenda/agenda-contribute@workspace:packages/agenda-contribute":
+"@openagenda/agenda-contribute@npm:^1.5.4, @openagenda/agenda-contribute@workspace:packages/agenda-contribute":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-contribute@workspace:packages/agenda-contribute"
   dependencies:
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/common-labels": "npm:^1.0.0"
-    "@openagenda/event-form": "npm:^1.5.2"
-    "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/event-form": "npm:^1.5.3"
+    "@openagenda/form-schemas": "npm:^1.9.3"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/member-apps": "npm:^2.1.1"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/registration-apps": "npm:^0.0.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/member-apps": "npm:^2.1.2"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/registration-apps": "npm:^0.0.1"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -8953,7 +8972,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-docx@npm:^1.2.1, @openagenda/agenda-docx@workspace:public/agenda-docx":
+"@openagenda/agenda-docx@npm:^1.2.2, @openagenda/agenda-docx@workspace:public/agenda-docx":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-docx@workspace:public/agenda-docx"
   dependencies:
@@ -8961,10 +8980,10 @@ __metadata:
     "@aws-sdk/lib-storage": "npm:^3.705.0"
     "@babel/cli": "npm:^7.23.0"
     "@openagenda/babel-preset": "npm:^1.5.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/queues": "npm:2.0.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/queues": "npm:2.0.1"
     "@openagenda/verror": "npm:^3.1.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -8995,13 +9014,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-events@npm:^1.11.14, @openagenda/agenda-events@workspace:packages/agenda-events":
+"@openagenda/agenda-events@npm:^1.11.15, @openagenda/agenda-events@workspace:packages/agenda-events":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-events@workspace:packages/agenda-events"
   dependencies:
     "@openagenda/fixtures": "npm:^2.0.2"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/queues": "npm:^2.0.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/queues": "npm:^2.0.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
@@ -9014,7 +9033,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-locations-app@npm:^0.0.0, @openagenda/agenda-locations-app@workspace:packages/agenda-locations-app":
+"@openagenda/agenda-locations-app@npm:^0.0.1, @openagenda/agenda-locations-app@workspace:packages/agenda-locations-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-locations-app@workspace:packages/agenda-locations-app"
   dependencies:
@@ -9022,16 +9041,16 @@ __metadata:
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/activity-apps": "npm:^1.2.1"
-    "@openagenda/agenda-locations": "npm:^2.1.2"
+    "@openagenda/activity-apps": "npm:^1.2.2"
+    "@openagenda/agenda-locations": "npm:^2.1.3"
     "@openagenda/babel-preset": "npm:^1.5.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/countries": "npm:^0.1.1"
     "@openagenda/files": "npm:^3.1.0"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/leaflet-gesture-handling": "npm:^1.5.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -9073,7 +9092,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-locations@npm:^2.1.2, @openagenda/agenda-locations@workspace:packages/agenda-locations":
+"@openagenda/agenda-locations@npm:^2.1.3, @openagenda/agenda-locations@workspace:packages/agenda-locations":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-locations@workspace:packages/agenda-locations"
   dependencies:
@@ -9081,7 +9100,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/files": "npm:^3.1.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
@@ -9109,7 +9128,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@npm:^6.12.4, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@npm:^6.12.5, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -9120,12 +9139,12 @@ __metadata:
     "@openagenda/browserslist-config": "npm:^1.0.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/md": "npm:^1.0.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-filters": "npm:^2.13.0"
+    "@openagenda/react-filters": "npm:^2.13.1"
     "@openagenda/react-portal-ssr": "npm:^1.0.3"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     babel-loader: "npm:^9.1.3"
     babel-plugin-handlebars-inline-precompile: "npm:^2.1.1"
     bootstrap: "npm:^4.3.1"
@@ -9184,15 +9203,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-schemas-app@npm:^0.0.1, @openagenda/agenda-schemas-app@workspace:packages/agenda-schemas-app":
+"@openagenda/agenda-schemas-app@npm:^0.0.2, @openagenda/agenda-schemas-app@workspace:packages/agenda-schemas-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-schemas-app@workspace:packages/agenda-schemas-app"
   dependencies:
-    "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/event-form": "npm:^1.5.2"
-    "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/bs-templates": "npm:^2.5.1"
+    "@openagenda/event-form": "npm:^1.5.3"
+    "@openagenda/form-schemas": "npm:^1.9.3"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     cors: "npm:^2.8.5"
@@ -9219,14 +9238,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-search@npm:^1.4.0, @openagenda/agenda-search@workspace:packages/agenda-search":
+"@openagenda/agenda-search@npm:^1.4.1, @openagenda/agenda-search@workspace:packages/agenda-search":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-search@workspace:packages/agenda-search"
   dependencies:
     "@elastic/elasticsearch": "npm:^7.0.0"
-    "@openagenda/agendas": "npm:^1.7.0"
+    "@openagenda/agendas": "npm:^1.7.1"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
@@ -9241,20 +9260,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-settings@npm:^1.4.0, @openagenda/agenda-settings@workspace:packages/agenda-settings":
+"@openagenda/agenda-settings@npm:^1.4.1, @openagenda/agenda-settings@workspace:packages/agenda-settings":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-settings@workspace:packages/agenda-settings"
   dependencies:
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/agendas": "npm:^1.7.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/agendas": "npm:^1.7.1"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/react-filters": "npm:^2.13.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/registration-apps": "npm:^0.0.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/react-filters": "npm:^2.13.1"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/registration-apps": "npm:^0.0.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
@@ -9292,18 +9311,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-stats@npm:^1.10.2, @openagenda/agenda-stats@workspace:packages/agenda-stats":
+"@openagenda/agenda-stats@npm:^1.10.3, @openagenda/agenda-stats@workspace:packages/agenda-stats":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-stats@workspace:packages/agenda-stats"
   dependencies:
     "@dnd-kit/react": "npm:^0.0.9"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/event-search": "npm:^2.8.0"
+    "@openagenda/event-search": "npm:^2.8.1"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/react-filters": "npm:^2.13.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-filters": "npm:^2.13.1"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     classnames: "npm:^2.5.1"
@@ -9343,13 +9362,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agendas@npm:^1.7.0, @openagenda/agendas@workspace:packages/agendas":
+"@openagenda/agendas@npm:^1.7.1, @openagenda/agendas@workspace:packages/agendas":
   version: 0.0.0-use.local
   resolution: "@openagenda/agendas@workspace:packages/agendas"
   dependencies:
     "@openagenda/files": "npm:^3.1.0"
     "@openagenda/fixtures": "npm:^2.0.2"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/mysql-utils": "npm:^2.0.4"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/utils": "npm:^1.3.0"
@@ -9363,19 +9382,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/aggregator-sources@npm:^1.3.1, @openagenda/aggregator-sources@workspace:packages/aggregator-sources":
+"@openagenda/aggregator-sources@npm:^1.3.2, @openagenda/aggregator-sources@workspace:packages/aggregator-sources":
   version: 0.0.0-use.local
   resolution: "@openagenda/aggregator-sources@workspace:packages/aggregator-sources"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
     "@dnd-kit/react": "npm:^0.0.9"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/agendas": "npm:^1.7.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/agendas": "npm:^1.7.1"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     axios: "npm:^1.4.0"
@@ -9422,12 +9441,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/aggregators@npm:^1.11.6, @openagenda/aggregators@workspace:packages/aggregators":
+"@openagenda/aggregators@npm:^1.11.7, @openagenda/aggregators@workspace:packages/aggregators":
   version: 0.0.0-use.local
   resolution: "@openagenda/aggregators@workspace:packages/aggregators"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     deep-diff: "npm:^1.0.2"
@@ -9496,7 +9515,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/bs-templates@npm:^2.5.0, @openagenda/bs-templates@workspace:public/bs-templates":
+"@openagenda/bs-templates@npm:^2.5.1, @openagenda/bs-templates@workspace:public/bs-templates":
   version: 0.0.0-use.local
   resolution: "@openagenda/bs-templates@workspace:public/bs-templates"
   dependencies:
@@ -9520,7 +9539,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/cibul-templates@npm:^1.4.1, @openagenda/cibul-templates@workspace:packages/cibul-templates":
+"@openagenda/cibul-templates@npm:^1.4.2, @openagenda/cibul-templates@workspace:packages/cibul-templates":
   version: 0.0.0-use.local
   resolution: "@openagenda/cibul-templates@workspace:packages/cibul-templates"
   dependencies:
@@ -9529,22 +9548,22 @@ __metadata:
     "@iframe-resizer/child": "npm:^5.4.6"
     "@loadable/component": "npm:^5.14.1"
     "@loadable/webpack-plugin": "npm:^5.14.2"
-    "@openagenda/activity-apps": "npm:^1.2.1"
-    "@openagenda/admin-agendas": "npm:^1.1.17"
-    "@openagenda/aggregator-sources": "npm:^1.3.1"
+    "@openagenda/activity-apps": "npm:^1.2.2"
+    "@openagenda/admin-agendas": "npm:^1.1.18"
+    "@openagenda/aggregator-sources": "npm:^1.3.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
-    "@openagenda/home": "npm:^2.2.1"
-    "@openagenda/inbox-apps": "npm:^1.2.1"
+    "@openagenda/bs-templates": "npm:^2.5.1"
+    "@openagenda/home": "npm:^2.2.2"
+    "@openagenda/inbox-apps": "npm:^1.2.2"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/leaflet.markercluster": "npm:^0.4.0"
-    "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/member-apps": "npm:^2.1.1"
+    "@openagenda/md": "npm:^1.0.1"
+    "@openagenda/member-apps": "npm:^2.1.2"
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/sessions": "npm:^4.1.0"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/sessions": "npm:^4.1.1"
     "@openagenda/tumblr-parser": "npm:^0.1.3"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/widgets": "npm:^0.0.0"
@@ -9635,12 +9654,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/custom@npm:^1.3.14, @openagenda/custom@workspace:packages/custom":
+"@openagenda/custom@npm:^1.3.15, @openagenda/custom@workspace:packages/custom":
   version: 0.0.0-use.local
   resolution: "@openagenda/custom@workspace:packages/custom"
   dependencies:
     "@openagenda/fixtures": "npm:^2.0.2"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     immutability-helper: "npm:^3.0.0"
@@ -9703,7 +9722,7 @@ __metadata:
   resolution: "@openagenda/discord@workspace:packages/discord"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     discord.js: "npm:^12.5.3"
     jest: "npm:^29.7.0"
   languageName: unknown
@@ -9732,21 +9751,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-admin-apps@npm:^0.0.0, @openagenda/event-admin-apps@workspace:packages/event-admin-apps":
+"@openagenda/event-admin-apps@npm:^0.0.1, @openagenda/event-admin-apps@workspace:packages/event-admin-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-admin-apps@workspace:packages/event-admin-apps"
   dependencies:
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/agenda-docx": "npm:^1.2.1"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/agenda-docx": "npm:^1.2.2"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/common-labels": "npm:^1.0.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/event-search": "npm:^2.8.0"
+    "@openagenda/event-search": "npm:^2.8.1"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/react-filters": "npm:^2.13.0"
-    "@openagenda/react-share-menus": "npm:^1.1.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/registrations": "npm:^0.0.2"
+    "@openagenda/react-filters": "npm:^2.13.1"
+    "@openagenda/react-share-menus": "npm:^1.1.1"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/registrations": "npm:^0.0.3"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     axios: "npm:^0.21.1"
@@ -9787,22 +9806,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-form@npm:^1.5.2, @openagenda/event-form@workspace:packages/event-form":
+"@openagenda/event-form@npm:^1.5.3, @openagenda/event-form@workspace:packages/event-form":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-form@workspace:packages/event-form"
   dependencies:
-    "@openagenda/agenda-locations": "npm:^2.1.2"
-    "@openagenda/agenda-locations-app": "npm:^0.0.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/agenda-locations": "npm:^2.1.3"
+    "@openagenda/agenda-locations-app": "npm:^0.0.1"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/common-labels": "npm:^1.0.0"
     "@openagenda/countries": "npm:^0.1.1"
-    "@openagenda/events": "npm:^3.0.0"
-    "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/events": "npm:^3.0.1"
+    "@openagenda/form-schemas": "npm:^1.9.3"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/react-timingspicker": "npm:^1.4.1"
-    "@openagenda/registration-apps": "npm:^0.0.0"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/react-timingspicker": "npm:^1.4.2"
+    "@openagenda/registration-apps": "npm:^0.0.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
@@ -9834,7 +9853,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/event-search@npm:^2.8.0, @openagenda/event-search@workspace:packages/event-search":
+"@openagenda/event-search@npm:^2.8.1, @openagenda/event-search@workspace:packages/event-search":
   version: 0.0.0-use.local
   resolution: "@openagenda/event-search@workspace:packages/event-search"
   dependencies:
@@ -9842,9 +9861,9 @@ __metadata:
     "@openagenda/countries": "npm:^0.1.1"
     "@openagenda/date-range": "npm:^2.3.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/form-schemas": "npm:^1.9.3"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
@@ -9860,15 +9879,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/events@npm:^3.0.0, @openagenda/events@workspace:packages/events":
+"@openagenda/events@npm:^3.0.1, @openagenda/events@workspace:packages/events":
   version: 0.0.0-use.local
   resolution: "@openagenda/events@workspace:packages/events"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/files": "npm:^3.1.0"
-    "@openagenda/form-schemas": "npm:^1.9.1"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/md": "npm:^1.0.0"
+    "@openagenda/form-schemas": "npm:^1.9.3"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     immutability-helper: "npm:^3.0.0"
@@ -9913,11 +9932,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/flat-exports@npm:^1.4.0, @openagenda/flat-exports@workspace:packages/flat-exports":
+"@openagenda/flat-exports@npm:^1.4.1, @openagenda/flat-exports@workspace:packages/flat-exports":
   version: 0.0.0-use.local
   resolution: "@openagenda/flat-exports@workspace:packages/flat-exports"
   dependencies:
-    "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/form-schemas": "npm:^1.9.3"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/stream-utils": "npm:^1.1.0"
@@ -9935,7 +9954,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/form-schemas@npm:^1.9.1, @openagenda/form-schemas@npm:^1.9.2, @openagenda/form-schemas@workspace:packages/form-schemas":
+"@openagenda/form-schemas@npm:^1.9.3, @openagenda/form-schemas@workspace:packages/form-schemas":
   version: 0.0.0-use.local
   resolution: "@openagenda/form-schemas@workspace:packages/form-schemas"
   dependencies:
@@ -9946,14 +9965,14 @@ __metadata:
     "@dnd-kit/modifiers": "npm:^9.0.0"
     "@dnd-kit/sortable": "npm:^10.0.0"
     "@dnd-kit/utilities": "npm:^3.2.2"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/md": "npm:^1.0.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/react-dropzone": "npm:^14.3.5"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
@@ -10013,19 +10032,19 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/home@npm:^2.2.1, @openagenda/home@workspace:packages/home":
+"@openagenda/home@npm:^2.2.2, @openagenda/home@workspace:packages/home":
   version: 0.0.0-use.local
   resolution: "@openagenda/home@workspace:packages/home"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/member-apps": "npm:^2.1.1"
-    "@openagenda/members": "npm:^1.15.13"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/member-apps": "npm:^2.1.2"
+    "@openagenda/members": "npm:^1.15.14"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     classnames: "npm:^2.3.1"
@@ -10060,21 +10079,21 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/inbox-apps@npm:^1.2.1, @openagenda/inbox-apps@workspace:packages/inbox-apps":
+"@openagenda/inbox-apps@npm:^1.2.2, @openagenda/inbox-apps@workspace:packages/inbox-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/inbox-apps@workspace:packages/inbox-apps"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
     "@cfaester/enzyme-adapter-react-18": "npm:^0.6.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/form-schemas": "npm:^1.9.3"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/sessions": "npm:^4.1.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/md": "npm:^1.0.1"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/sessions": "npm:^4.1.1"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -10128,13 +10147,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/inboxes@npm:^1.1.14, @openagenda/inboxes@workspace:packages/inboxes":
+"@openagenda/inboxes@npm:^1.1.15, @openagenda/inboxes@workspace:packages/inboxes":
   version: 0.0.0-use.local
   resolution: "@openagenda/inboxes@workspace:packages/inboxes"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/fixtures": "npm:^2.0.2"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/verror": "npm:^3.1.0"
     "@uppy/companion": "npm:^4.12.3"
@@ -10179,12 +10198,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/invitations@npm:^1.1.7, @openagenda/invitations@workspace:packages/invitations":
+"@openagenda/invitations@npm:^1.1.8, @openagenda/invitations@workspace:packages/invitations":
   version: 0.0.0-use.local
   resolution: "@openagenda/invitations@workspace:packages/invitations"
   dependencies:
     "@openagenda/fixtures": "npm:^2.0.1"
-    "@openagenda/logs": "npm:^1.1.2"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/mysql-utils": "npm:^2.0.4"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.0.1"
@@ -10195,12 +10214,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/keys@npm:^2.2.10, @openagenda/keys@workspace:packages/keys":
+"@openagenda/keys@npm:^2.2.11, @openagenda/keys@workspace:packages/keys":
   version: 0.0.0-use.local
   resolution: "@openagenda/keys@workspace:packages/keys"
   dependencies:
     "@openagenda/fixtures": "npm:^2.0.2"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/mysql-utils": "npm:^2.0.4"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -10226,13 +10245,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/landing@npm:^1.3.16, @openagenda/landing@workspace:packages/landing":
+"@openagenda/landing@npm:^1.3.17, @openagenda/landing@workspace:packages/landing":
   version: 0.0.0-use.local
   resolution: "@openagenda/landing@workspace:packages/landing"
   dependencies:
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/md": "npm:^1.0.0"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     express: "npm:^4.17.1"
@@ -10263,16 +10282,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/legacy@npm:^1.11.0, @openagenda/legacy@workspace:packages/legacy":
+"@openagenda/legacy@npm:^1.11.1, @openagenda/legacy@workspace:packages/legacy":
   version: 0.0.0-use.local
   resolution: "@openagenda/legacy@workspace:packages/legacy"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/md": "npm:^1.0.1"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
@@ -10312,11 +10331,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/logs@npm:^1.1.2, @openagenda/logs@npm:^1.1.9, @openagenda/logs@workspace:public/logs":
+"@openagenda/logs@npm:^1.1.10, @openagenda/logs@workspace:public/logs":
   version: 0.0.0-use.local
   resolution: "@openagenda/logs@workspace:public/logs"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
+    "@opentelemetry/api-logs": "npm:^0.203.0"
     debug: "npm:^4.1.1"
     jest: "npm:^29.7.0"
     r7insight_node: "npm:^3.3.1"
@@ -10325,7 +10345,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/mails-editor@npm:^2.0.0, @openagenda/mails-editor@workspace:public/mails-editor":
+"@openagenda/mails-editor@npm:^2.0.1, @openagenda/mails-editor@workspace:public/mails-editor":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails-editor@workspace:public/mails-editor"
   dependencies:
@@ -10345,15 +10365,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/mails@npm:^4.0.1, @openagenda/mails@workspace:public/mails":
+"@openagenda/mails@npm:^4.0.2, @openagenda/mails@workspace:public/mails":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails@workspace:public/mails"
   dependencies:
     "@formatjs/intl": "npm:^2.2.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/queues": "npm:^2.0.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/queues": "npm:^2.0.1"
     "@openagenda/verror": "npm:^3.1.0"
     ejs: "npm:^3.1.9"
     emoji-regex: "npm:^10.3.0"
@@ -10369,7 +10389,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/md@npm:^1.0.0, @openagenda/md@workspace:public/md":
+"@openagenda/md@npm:^1.0.1, @openagenda/md@workspace:public/md":
   version: 0.0.0-use.local
   resolution: "@openagenda/md@workspace:public/md"
   dependencies:
@@ -10383,22 +10403,22 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/member-apps@npm:^2.1.1, @openagenda/member-apps@workspace:packages/member-apps":
+"@openagenda/member-apps@npm:^2.1.2, @openagenda/member-apps@workspace:packages/member-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/member-apps@workspace:packages/member-apps"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/activity-apps": "npm:^1.2.1"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/activity-apps": "npm:^1.2.2"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/form-schemas": "npm:^1.9.3"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/mails": "npm:^4.0.1"
-    "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/members": "npm:^1.15.13"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/mails": "npm:^4.0.2"
+    "@openagenda/md": "npm:^1.0.1"
+    "@openagenda/members": "npm:^1.15.14"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -10434,13 +10454,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/members@npm:^1.15.13, @openagenda/members@workspace:packages/members":
+"@openagenda/members@npm:^1.15.14, @openagenda/members@workspace:packages/members":
   version: 0.0.0-use.local
   resolution: "@openagenda/members@workspace:packages/members"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     immutability-helper: "npm:^3.0.1"
@@ -10475,7 +10495,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/network-apps@npm:^1.1.14, @openagenda/network-apps@workspace:packages/network-apps":
+"@openagenda/network-apps@npm:^1.1.15, @openagenda/network-apps@workspace:packages/network-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/network-apps@workspace:packages/network-apps"
   dependencies:
@@ -10483,13 +10503,13 @@ __metadata:
     "@babel/core": "npm:^7.23.3"
     "@babel/runtime-corejs3": "npm:^7.23.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/event-form": "npm:^1.5.2"
-    "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/event-form": "npm:^1.5.3"
+    "@openagenda/form-schemas": "npm:^1.9.3"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     axios: "npm:^0.21.1"
@@ -10528,11 +10548,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/networks@npm:^1.2.14, @openagenda/networks@workspace:packages/networks":
+"@openagenda/networks@npm:^1.2.15, @openagenda/networks@workspace:packages/networks":
   version: 0.0.0-use.local
   resolution: "@openagenda/networks@workspace:packages/networks"
   dependencies:
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     jest: "npm:^29.7.0"
@@ -10561,34 +10581,51 @@ __metadata:
     "@iframe-resizer/child": "npm:^5.4.6"
     "@iframe-resizer/react": "npm:^5.4.6"
     "@next/bundle-analyzer": "npm:^15.2.2"
-    "@openagenda/activity-apps": "npm:^1.2.1"
+    "@openagenda/activity-apps": "npm:^1.2.2"
     "@openagenda/browserslist-config": "npm:^1.0.0"
     "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/date-utils": "npm:^0.0.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/leaflet-gesture-handling": "npm:^1.5.0"
-    "@openagenda/mails": "npm:^4.0.1"
-    "@openagenda/md": "npm:^1.0.0"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/mails": "npm:^4.0.2"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/react": "npm:^0.0.1"
-    "@openagenda/react-filters": "npm:^2.13.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/registrations": "npm:^0.0.2"
+    "@openagenda/react": "npm:^0.0.2"
+    "@openagenda/react-filters": "npm:^2.13.1"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/registrations": "npm:^0.0.3"
     "@openagenda/sdk-js": "npm:^2.0.3"
-    "@openagenda/sessions": "npm:^4.1.0"
+    "@openagenda/sessions": "npm:^4.1.1"
     "@openagenda/tsconfig": "npm:^0.0.0"
-    "@openagenda/uikit": "npm:^0.0.1"
+    "@openagenda/uikit": "npm:^0.0.2"
     "@openagenda/verror": "npm:^3.1.0"
-    "@sentry/nextjs": "npm:^9.5.0"
+    "@opentelemetry/api": "npm:^1.9.0"
+    "@opentelemetry/exporter-jaeger": "npm:^2.0.1"
+    "@opentelemetry/exporter-logs-otlp-proto": "npm:^0.203.0"
+    "@opentelemetry/exporter-metrics-otlp-proto": "npm:^0.203.0"
+    "@opentelemetry/exporter-trace-otlp-proto": "npm:^0.203.0"
+    "@opentelemetry/instrumentation-http": "npm:^0.203.0"
+    "@opentelemetry/resources": "npm:^2.0.1"
+    "@opentelemetry/sdk-logs": "npm:^0.203.0"
+    "@opentelemetry/sdk-metrics": "npm:^2.0.1"
+    "@opentelemetry/sdk-node": "npm:^0.203.0"
+    "@opentelemetry/sdk-trace-base": "npm:^2.0.1"
+    "@sentry/nextjs": "npm:^9.38.0"
+    "@sentry/opentelemetry": "npm:^9.36.0"
     "@storybook/addon-styling-webpack": "npm:^2.0.0"
     "@storybook/builder-webpack5": "npm:^9.0.8"
     "@storybook/nextjs": "npm:^9.0.8"
+    "@types/cookies": "npm:^0"
     "@types/eslint": "npm:^8"
     "@types/leaflet": "npm:^1.9.6"
+    "@types/morgan": "npm:^1"
+    "@vercel/otel": "npm:^1.13.0"
     "@vidstack/react": "npm:^1.12.13"
     base64-js: "npm:^1.5.1"
     color2k: "npm:^2.0.3"
+    cookies: "npm:^0.9.1"
     css-loader: "npm:^6.8.1"
     dashjs: "npm:^4.7.4"
     date-fns: "npm:^2.29.3"
@@ -10602,9 +10639,10 @@ __metadata:
     ky: "npm:^1.1.3"
     leaflet: "npm:^1.9.4"
     lodash: "npm:^4.17.21"
+    morgan: "npm:^1.10.0"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
-    next: "npm:15.3.3"
+    next: "npm:15.4.1"
     qs: "npm:^6.11.0"
     react: "npm:^19.0.0"
     react-content-loader: "npm:^7.0.2"
@@ -10629,11 +10667,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/oembed@npm:^2.2.1, @openagenda/oembed@workspace:packages/oembed":
+"@openagenda/oembed@npm:^2.2.2, @openagenda/oembed@workspace:packages/oembed":
   version: 0.0.0-use.local
   resolution: "@openagenda/oembed@workspace:packages/oembed"
   dependencies:
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
     axios: "npm:^0.21.1"
     cheerio: "npm:^1.0.0-rc.10"
@@ -10661,7 +10699,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/pdf-exports@npm:^0.0.1, @openagenda/pdf-exports@workspace:public/pdf-exports":
+"@openagenda/pdf-exports@npm:^0.0.2, @openagenda/pdf-exports@workspace:public/pdf-exports":
   version: 0.0.0-use.local
   resolution: "@openagenda/pdf-exports@workspace:public/pdf-exports"
   dependencies:
@@ -10672,7 +10710,7 @@ __metadata:
     "@openagenda/date-utils": "npm:^0.0.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/verror": "npm:^3.1.0"
     axios: "npm:^0.21.1"
     date-fns: "npm:^2.29.3"
@@ -10731,11 +10769,11 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/queues@npm:2.0.0, @openagenda/queues@npm:^2.0.0, @openagenda/queues@workspace:public/queues":
+"@openagenda/queues@npm:2.0.1, @openagenda/queues@npm:^2.0.1, @openagenda/queues@workspace:public/queues":
   version: 0.0.0-use.local
   resolution: "@openagenda/queues@workspace:public/queues"
   dependencies:
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/verror": "npm:^3.1.0"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"
@@ -10786,7 +10824,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@npm:^2.13.0, @openagenda/react-filters@workspace:public/react-filters":
+"@openagenda/react-filters@npm:^2.13.1, @openagenda/react-filters@workspace:public/react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:public/react-filters"
   dependencies:
@@ -10799,7 +10837,7 @@ __metadata:
     "@openagenda/leaflet-gesture-handling": "npm:^1.5.0"
     "@openagenda/react-date-range": "npm:^2.0.2"
     "@openagenda/react-portal-ssr": "npm:^1.0.3"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     axios: "npm:^0.21.1"
@@ -10853,7 +10891,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-integration-app@npm:^1.6.2, @openagenda/react-integration-app@workspace:packages/react-integration-app":
+"@openagenda/react-integration-app@npm:^1.6.3, @openagenda/react-integration-app@workspace:packages/react-integration-app":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-integration-app@workspace:packages/react-integration-app"
   dependencies:
@@ -10862,29 +10900,29 @@ __metadata:
     "@loadable/component": "npm:^5.14.1"
     "@loadable/server": "npm:^5.14.2"
     "@loadable/webpack-plugin": "npm:^5.14.2"
-    "@openagenda/activity-apps": "npm:^1.2.1"
-    "@openagenda/agenda-contribute": "npm:^1.5.3"
-    "@openagenda/agenda-locations-app": "npm:^0.0.0"
-    "@openagenda/agenda-schemas-app": "npm:^0.0.1"
-    "@openagenda/agenda-settings": "npm:^1.4.0"
-    "@openagenda/agenda-stats": "npm:^1.10.2"
-    "@openagenda/aggregator-sources": "npm:^1.3.1"
+    "@openagenda/activity-apps": "npm:^1.2.2"
+    "@openagenda/agenda-contribute": "npm:^1.5.4"
+    "@openagenda/agenda-locations-app": "npm:^0.0.1"
+    "@openagenda/agenda-schemas-app": "npm:^0.0.2"
+    "@openagenda/agenda-settings": "npm:^1.4.1"
+    "@openagenda/agenda-stats": "npm:^1.10.3"
+    "@openagenda/aggregator-sources": "npm:^1.3.2"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/event-admin-apps": "npm:^0.0.0"
-    "@openagenda/home": "npm:^2.2.1"
-    "@openagenda/inbox-apps": "npm:^1.2.1"
+    "@openagenda/event-admin-apps": "npm:^0.0.1"
+    "@openagenda/home": "npm:^2.2.2"
+    "@openagenda/inbox-apps": "npm:^1.2.2"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/legacy": "npm:^1.11.0"
-    "@openagenda/member-apps": "npm:^2.1.1"
+    "@openagenda/legacy": "npm:^1.11.1"
+    "@openagenda/member-apps": "npm:^2.1.2"
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-layouts": "npm:^2.2.1"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/supervisor": "npm:^1.3.1"
-    "@openagenda/user-apps": "npm:^1.2.1"
+    "@openagenda/react-layouts": "npm:^2.2.2"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/supervisor": "npm:^1.3.2"
+    "@openagenda/user-apps": "npm:^1.2.2"
     "@pmmmwh/react-refresh-webpack-plugin": "npm:^0.5.4"
-    "@sentry/react": "npm:^9.5.0"
+    "@sentry/react": "npm:^9.38.0"
     "@sentry/utils": "npm:^8.55.0"
     "@welldone-software/why-did-you-render": "npm:^6.0.0-rc.1"
     babel-loader: "npm:^9.1.3"
@@ -10925,18 +10963,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-layouts@npm:^2.2.1, @openagenda/react-layouts@workspace:packages/react-layouts":
+"@openagenda/react-layouts@npm:^2.2.2, @openagenda/react-layouts@workspace:packages/react-layouts":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-layouts@workspace:packages/react-layouts"
   dependencies:
-    "@openagenda/activity-apps": "npm:^1.2.1"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/activity-apps": "npm:^1.2.2"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/members": "npm:^1.15.13"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/sessions": "npm:^4.1.0"
-    "@sentry/react": "npm:^9.5.0"
+    "@openagenda/members": "npm:^1.15.14"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/sessions": "npm:^4.1.1"
+    "@sentry/react": "npm:^9.38.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     classnames: "npm:^2.3.1"
@@ -10988,14 +11026,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-share-menus@npm:^1.1.0, @openagenda/react-share-menus@workspace:public/react-share-menus":
+"@openagenda/react-share-menus@npm:^1.1.1, @openagenda/react-share-menus@workspace:public/react-share-menus":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-share-menus@workspace:public/react-share-menus"
   dependencies:
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     axios: "npm:^0.21.1"
@@ -11018,7 +11056,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-shared@npm:^2.4.3, @openagenda/react-shared@workspace:public/react-shared":
+"@openagenda/react-shared@npm:^2.4.4, @openagenda/react-shared@workspace:public/react-shared":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-shared@workspace:public/react-shared"
   dependencies:
@@ -11030,11 +11068,11 @@ __metadata:
     "@floating-ui/react": "npm:^0.26.13"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/babel-preset": "npm:^1.5.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/common-labels": "npm:^1.0.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/md": "npm:^1.0.0"
+    "@openagenda/md": "npm:^1.0.1"
     "@openagenda/react-dropzone": "npm:^14.3.5"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/preset-scss": "npm:^1.0.3"
@@ -11098,13 +11136,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react-timingspicker@npm:^1.4.1, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
+"@openagenda/react-timingspicker@npm:^1.4.2, @openagenda/react-timingspicker@workspace:public/react-timingspicker":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-timingspicker@workspace:public/react-timingspicker"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@storybook/addon-viewport": "npm:^9.0.8"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -11133,16 +11171,16 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/react@npm:^0.0.1, @openagenda/react@workspace:public/react":
+"@openagenda/react@npm:^0.0.2, @openagenda/react@workspace:public/react":
   version: 0.0.0-use.local
   resolution: "@openagenda/react@workspace:public/react"
   dependencies:
     "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/react-filters": "npm:^2.13.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-filters": "npm:^2.13.1"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@openagenda/tsconfig": "npm:^0.0.0"
-    "@openagenda/uikit": "npm:^0.0.1"
+    "@openagenda/uikit": "npm:^0.0.2"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     "@types/qs": "npm:^6"
@@ -11164,15 +11202,15 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/registration-apps@npm:^0.0.0, @openagenda/registration-apps@workspace:packages/registration-apps":
+"@openagenda/registration-apps@npm:^0.0.1, @openagenda/registration-apps@workspace:packages/registration-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/registration-apps@workspace:packages/registration-apps"
   dependencies:
     "@babel/cli": "npm:^7.23.0"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/registrations": "npm:^0.0.2"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/registrations": "npm:^0.0.3"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     autosize: "npm:^6.0.1"
@@ -11197,13 +11235,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/registrations@npm:^0.0.2, @openagenda/registrations@workspace:packages/registrations":
+"@openagenda/registrations@npm:^0.0.3, @openagenda/registrations@workspace:packages/registrations":
   version: 0.0.0-use.local
   resolution: "@openagenda/registrations@workspace:packages/registrations"
   dependencies:
     "@inquirer/prompts": "npm:^7.5.3"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/verror": "npm:^3.1.0"
     axios: "npm:^1.4.0"
     chalk: "npm:^5.4.1"
@@ -11272,12 +11310,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/sessions@npm:^4.1.0, @openagenda/sessions@workspace:packages/sessions":
+"@openagenda/sessions@npm:^4.1.1, @openagenda/sessions@workspace:packages/sessions":
   version: 0.0.0-use.local
   resolution: "@openagenda/sessions@workspace:packages/sessions"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -11304,11 +11342,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/simple-cache@npm:^2.1.0, @openagenda/simple-cache@workspace:packages/simple-cache":
+"@openagenda/simple-cache@npm:^2.1.1, @openagenda/simple-cache@workspace:packages/simple-cache":
   version: 0.0.0-use.local
   resolution: "@openagenda/simple-cache@workspace:packages/simple-cache"
   dependencies:
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/verror": "npm:^3.1.0"
     jest: "npm:^29.7.0"
     redis: "npm:^4.6.6"
@@ -11344,16 +11382,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/supervisor@npm:^1.3.1, @openagenda/supervisor@workspace:packages/supervisor":
+"@openagenda/supervisor@npm:^1.3.2, @openagenda/supervisor@workspace:packages/supervisor":
   version: 0.0.0-use.local
   resolution: "@openagenda/supervisor@workspace:packages/supervisor"
   dependencies:
     "@loadable/babel-plugin": "npm:^5.13.2"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/react-shared": "npm:^2.4.3"
+    "@openagenda/react-shared": "npm:^2.4.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     classnames: "npm:^2.3.1"
@@ -11405,7 +11443,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/uikit@npm:^0.0.1, @openagenda/uikit@workspace:public/uikit":
+"@openagenda/uikit@npm:^0.0.2, @openagenda/uikit@workspace:public/uikit":
   version: 0.0.0-use.local
   resolution: "@openagenda/uikit@workspace:public/uikit"
   dependencies:
@@ -11445,12 +11483,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/usage-counters@npm:^0.0.1, @openagenda/usage-counters@workspace:packages/usage-counters":
+"@openagenda/usage-counters@npm:^0.0.2, @openagenda/usage-counters@workspace:packages/usage-counters":
   version: 0.0.0-use.local
   resolution: "@openagenda/usage-counters@workspace:packages/usage-counters"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/logs": "npm:^1.1.10"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.21"
@@ -11460,17 +11498,17 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/user-apps@npm:^1.2.1, @openagenda/user-apps@workspace:packages/user-apps":
+"@openagenda/user-apps@npm:^1.2.2, @openagenda/user-apps@workspace:packages/user-apps":
   version: 0.0.0-use.local
   resolution: "@openagenda/user-apps@workspace:packages/user-apps"
   dependencies:
-    "@openagenda/abilities": "npm:^1.3.1"
-    "@openagenda/bs-templates": "npm:^2.5.0"
+    "@openagenda/abilities": "npm:^1.3.2"
+    "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/users": "npm:^3.1.0"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/users": "npm:^3.1.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -11502,7 +11540,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/users@npm:^3.1.0, @openagenda/users@workspace:packages/users":
+"@openagenda/users@npm:^3.1.1, @openagenda/users@workspace:packages/users":
   version: 0.0.0-use.local
   resolution: "@openagenda/users@workspace:packages/users"
   dependencies:
@@ -11510,8 +11548,8 @@ __metadata:
     "@feathersjs/hooks": "npm:^0.4.0-alpha.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/files": "npm:^3.1.0"
-    "@openagenda/keys": "npm:^2.2.10"
-    "@openagenda/logs": "npm:^1.1.9"
+    "@openagenda/keys": "npm:^2.2.11"
+    "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
     feathers-hooks-common: "npm:^5.0.2"
     feathers-knex: "npm:^7.1.0"
@@ -11587,12 +11625,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@opentelemetry/api-logs@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/api-logs@npm:0.202.0"
+"@opentelemetry/api-logs@npm:0.203.0, @opentelemetry/api-logs@npm:^0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/api-logs@npm:0.203.0"
   dependencies:
     "@opentelemetry/api": "npm:^1.3.0"
-  checksum: 10c0/2b6fd961c9303c5581367e7bef16a0cc7e7fc9a22ffae417ac7812151238760a9c0db20aad2c222c492cd8afc8353a611076bcac9272168d04b64e6386e71a66
+  checksum: 10c0/e7a0a0ff46aaeb62192a99f45ef4889222e4fea09be25cab6fea811afc2df95c02ea050b2c98dfc0fc5a6ec6a623d87096af2751fdf91ddbb3afcab61b5325da
   languageName: node
   linkType: hard
 
@@ -11652,160 +11690,174 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-logs-otlp-grpc@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-logs-otlp-grpc@npm:0.202.0"
+"@opentelemetry/exporter-jaeger@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "@opentelemetry/exporter-jaeger@npm:2.0.1"
+  dependencies:
+    "@opentelemetry/core": "npm:2.0.1"
+    "@opentelemetry/sdk-trace-base": "npm:2.0.1"
+    "@opentelemetry/semantic-conventions": "npm:^1.29.0"
+    jaeger-client: "npm:^3.15.0"
+  peerDependencies:
+    "@opentelemetry/api": ^1.0.0
+  checksum: 10c0/5120cd843865fe2f2d10e782b0df5f08e7d14f747c943920405a9237c706597863c66fd0a6ca1b83790ebdd2fd0bac6e009ce0f56102cc84eebd0543ee88cdb6
+  languageName: node
+  linkType: hard
+
+"@opentelemetry/exporter-logs-otlp-grpc@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-logs-otlp-grpc@npm:0.203.0"
   dependencies:
     "@grpc/grpc-js": "npm:^1.7.1"
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-grpc-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
-    "@opentelemetry/sdk-logs": "npm:0.202.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-grpc-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
+    "@opentelemetry/sdk-logs": "npm:0.203.0"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/b6a19d50807965f4767d777e82ef8ec8cbb910c18a5435918eabc7bee6c56c4363388a79820dac302217e5d0c59ba4317b59b6a2297e94248d8caca56f447398
+  checksum: 10c0/61c88ecc21063d348c885b6b21bd074f0e2a931321f17bffea4dc29c7dacccd199c3d8b317a64e3c8ebb8e00a528fa04382e288e3cd7bf459774c2b22d0b2592
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-logs-otlp-http@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-logs-otlp-http@npm:0.202.0"
+"@opentelemetry/exporter-logs-otlp-http@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-logs-otlp-http@npm:0.203.0"
   dependencies:
-    "@opentelemetry/api-logs": "npm:0.202.0"
+    "@opentelemetry/api-logs": "npm:0.203.0"
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
-    "@opentelemetry/sdk-logs": "npm:0.202.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
+    "@opentelemetry/sdk-logs": "npm:0.203.0"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/4e891dc369de7f8d04b1a804efabf96871c7a7bebb03a1856628c786677716a8ebcb6515e0971058d84965130e16a5202e9ed2512e5ff4f114d92d18d93ef2fd
+  checksum: 10c0/724109336a3fd46cddddc7fce8cec6887cecce775241a3821336a68b7b643d35b8a9830658922b5ccf3df51387bd91bfcc63afc71e15dbd403d0541561477f8f
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-logs-otlp-proto@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-logs-otlp-proto@npm:0.202.0"
+"@opentelemetry/exporter-logs-otlp-proto@npm:0.203.0, @opentelemetry/exporter-logs-otlp-proto@npm:^0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-logs-otlp-proto@npm:0.203.0"
   dependencies:
-    "@opentelemetry/api-logs": "npm:0.202.0"
+    "@opentelemetry/api-logs": "npm:0.203.0"
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
     "@opentelemetry/resources": "npm:2.0.1"
-    "@opentelemetry/sdk-logs": "npm:0.202.0"
+    "@opentelemetry/sdk-logs": "npm:0.203.0"
     "@opentelemetry/sdk-trace-base": "npm:2.0.1"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/cc1724d344dfce533e99286cab5345545a11b7519e73a6d78f6cb5a782831da194140b3dc8e8cb4f8d372d2f7df531329223ed7f35169ded76b08d72f8ec045c
+  checksum: 10c0/8c85d6b07469c12c8b5e39bdd419e18224a696d2092d2a5f3df82e64b477b21c8032132eb50ad87369e9f114edb582aed4f56a457ac519411d034198916dfba0
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-metrics-otlp-grpc@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-metrics-otlp-grpc@npm:0.202.0"
+"@opentelemetry/exporter-metrics-otlp-grpc@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-metrics-otlp-grpc@npm:0.203.0"
   dependencies:
     "@grpc/grpc-js": "npm:^1.7.1"
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/exporter-metrics-otlp-http": "npm:0.202.0"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-grpc-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
+    "@opentelemetry/exporter-metrics-otlp-http": "npm:0.203.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-grpc-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
     "@opentelemetry/resources": "npm:2.0.1"
     "@opentelemetry/sdk-metrics": "npm:2.0.1"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/a310f4e72b0d6535cc07bafc6286489b61e8d1b919e6484d704aef01969378e42cac96e7b3cc9aabfe5e08d9303dca76d221624f9002f9614d3871f3effbe90d
+  checksum: 10c0/e708f099247189cbc14900c23ee32c7552b9a4356211678c3d2ed307139590cb3c5c01026304067c775fe827ccbe043e49161ad6879599a6f9305c223a85ed4e
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-metrics-otlp-http@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-metrics-otlp-http@npm:0.202.0"
+"@opentelemetry/exporter-metrics-otlp-http@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-metrics-otlp-http@npm:0.203.0"
   dependencies:
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
     "@opentelemetry/resources": "npm:2.0.1"
     "@opentelemetry/sdk-metrics": "npm:2.0.1"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/a1f4d2284d2fc72205a24b0d4a5720788fe1df7b4af56c4fc222eccd36cb3ebd50aadbc85c52a21708dd9ce8cd7b506fcd2f22434f653d68927bc7ce7a4b96c9
+  checksum: 10c0/6fd10835fa998023095b57f74d550f976fe3396cfdc1004fb6f678bd9fadc86d58f428d0c0f8618d1a96f20f3fbb8c6e6e4862e4833b22bcf70dc0b7920cb049
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-metrics-otlp-proto@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-metrics-otlp-proto@npm:0.202.0"
+"@opentelemetry/exporter-metrics-otlp-proto@npm:0.203.0, @opentelemetry/exporter-metrics-otlp-proto@npm:^0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-metrics-otlp-proto@npm:0.203.0"
   dependencies:
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/exporter-metrics-otlp-http": "npm:0.202.0"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
+    "@opentelemetry/exporter-metrics-otlp-http": "npm:0.203.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
     "@opentelemetry/resources": "npm:2.0.1"
     "@opentelemetry/sdk-metrics": "npm:2.0.1"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/7be21fe5b1b6685caad5e1cd178ad9a30add2a90ed910c33e050b06285bc709f709c4b9db34ad842d2c6df9a68f9f48531a9d45b7982733d14b278b08daabf37
+  checksum: 10c0/0947c0b70f8644f7eabbaffb9c671752628eca3f92f372308ee51083870566c70cf8d99ca38e9b9381e6c4f78fdd8e897b1af541727faccd8ce15adb83a31aed
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-prometheus@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-prometheus@npm:0.202.0"
+"@opentelemetry/exporter-prometheus@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-prometheus@npm:0.203.0"
   dependencies:
     "@opentelemetry/core": "npm:2.0.1"
     "@opentelemetry/resources": "npm:2.0.1"
     "@opentelemetry/sdk-metrics": "npm:2.0.1"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/6115cb6ae9634294a4f4422d92710dd01d9e049da5a0587fa5d42b5d49991111c0a95075ec8804a7aa7dd42e2c2580e425d63bb31a952af4478175b8b4e92576
+  checksum: 10c0/e931de4a7bf3c4c6896245a242997097430f5ea4cda6f80f5fce0f987d29db2c3d0ab9dc43a2e3b30b1fa92ce7300cbef15c8ac4c70d82b3b42ea86a977aa469
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-trace-otlp-grpc@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-trace-otlp-grpc@npm:0.202.0"
+"@opentelemetry/exporter-trace-otlp-grpc@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-trace-otlp-grpc@npm:0.203.0"
   dependencies:
     "@grpc/grpc-js": "npm:^1.7.1"
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-grpc-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-grpc-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
     "@opentelemetry/resources": "npm:2.0.1"
     "@opentelemetry/sdk-trace-base": "npm:2.0.1"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/b997c0ee2704ffddffd0a2f9204ea9f4963cecd8d39027082e0c105b6fc8b8e3679bbff835f81f4b5997b0846e57ce4a6d2a3fb241b03a3a37a8c90a53e9440b
+  checksum: 10c0/67f6c63c2fcb38a63db9708cd0a420c1090717f5945767fa779a7c324adbc610f3aec44259eb7b76fbf98ee684049a42a492a54df5d37db31c4d7e460596623e
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-trace-otlp-http@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-trace-otlp-http@npm:0.202.0"
+"@opentelemetry/exporter-trace-otlp-http@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-trace-otlp-http@npm:0.203.0"
   dependencies:
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
     "@opentelemetry/resources": "npm:2.0.1"
     "@opentelemetry/sdk-trace-base": "npm:2.0.1"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/9cc7c2d65699f8634a0b39f0a9ea89ef4114562f57f0fb08a986cb92a2ba1fed9085ecabf3d3cafe95d311579a61fba4cf0a95cddc09df3990bc35cf5226098b
+  checksum: 10c0/21a65ebc40dcab05cf11178e5037f96847ce344c4a855aac46dcab3f74982016318ee75fafdfeeb42f10b92a0a781b7cd8b2b5b036cbe53c14714fd13940142e
   languageName: node
   linkType: hard
 
-"@opentelemetry/exporter-trace-otlp-proto@npm:0.202.0, @opentelemetry/exporter-trace-otlp-proto@npm:^0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/exporter-trace-otlp-proto@npm:0.202.0"
+"@opentelemetry/exporter-trace-otlp-proto@npm:0.203.0, @opentelemetry/exporter-trace-otlp-proto@npm:^0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/exporter-trace-otlp-proto@npm:0.203.0"
   dependencies:
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
     "@opentelemetry/resources": "npm:2.0.1"
     "@opentelemetry/sdk-trace-base": "npm:2.0.1"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/c65405d18e6f04f48beac58c72a23eca47814c741ee8b997f2413adc8ee6c1fd76efe920349c0180cf4a0ee0f00599c6f217d364be19eef9d98ee84b7feb867e
+  checksum: 10c0/e7b6e159950b457970b1020f67acb1b5b8bc205c1cf099202a8d50985d674d92857633d407f81a5289235e3fccaa369900e537f312dfee47814b150d41a264b9
   languageName: node
   linkType: hard
 
@@ -11874,29 +11926,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/instrumentation-express@npm:^0.51.0":
-  version: 0.51.1
-  resolution: "@opentelemetry/instrumentation-express@npm:0.51.1"
+"@opentelemetry/instrumentation-express@npm:^0.52.0":
+  version: 0.52.0
+  resolution: "@opentelemetry/instrumentation-express@npm:0.52.0"
   dependencies:
     "@opentelemetry/core": "npm:^2.0.0"
-    "@opentelemetry/instrumentation": "npm:^0.202.0"
+    "@opentelemetry/instrumentation": "npm:^0.203.0"
     "@opentelemetry/semantic-conventions": "npm:^1.27.0"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/d025506ed5d7f4556435db0a2c887cf144756a58d12a5329e4c1a82832dfc9c3955f7bd062175dbd864095c62a36f1a646e4209cbafcd221548d1e8ca6634908
-  languageName: node
-  linkType: hard
-
-"@opentelemetry/instrumentation-fastify@npm:0.44.2":
-  version: 0.44.2
-  resolution: "@opentelemetry/instrumentation-fastify@npm:0.44.2"
-  dependencies:
-    "@opentelemetry/core": "npm:^1.8.0"
-    "@opentelemetry/instrumentation": "npm:^0.57.1"
-    "@opentelemetry/semantic-conventions": "npm:^1.27.0"
-  peerDependencies:
-    "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/2306bbf9b59e5d29002b9c14493de92817e268c92587b285a0a4bbeece4a3f791db8e0d1be0e22ad9f6a97075071aa5c3269cf2d219e378480dc1ceafbf2927c
+  checksum: 10c0/fb0e2122ae5c2003b107ff198c2efa7d261644d4c67a176d5cc53774f63745b465b8c427fda3426e417bf130b3db6591d11a7a1df9cd716999b432279acd158a
   languageName: node
   linkType: hard
 
@@ -11962,17 +12001,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/instrumentation-http@npm:^0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/instrumentation-http@npm:0.202.0"
+"@opentelemetry/instrumentation-http@npm:^0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/instrumentation-http@npm:0.203.0"
   dependencies:
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/instrumentation": "npm:0.202.0"
+    "@opentelemetry/instrumentation": "npm:0.203.0"
     "@opentelemetry/semantic-conventions": "npm:^1.29.0"
     forwarded-parse: "npm:2.1.2"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/ba221223573bdfa7011292cd373bbaf68e1236887510bb051a8a61d7e72c0aed95d59f0031169d539289032f9ad5f6e50a7e0e57236f66f10e9f1ce2f83020f3
+  checksum: 10c0/424eeb5b162b480a8a6157ca147ecd074de3e6d31298fed115e4d6f47ca3f65ba0a79a43f3a998ebd9f0f6e96da1092500408590150c308c5ef91c0b760ae467
   languageName: node
   linkType: hard
 
@@ -12142,16 +12181,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/instrumentation@npm:0.202.0, @opentelemetry/instrumentation@npm:^0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/instrumentation@npm:0.202.0"
+"@opentelemetry/instrumentation@npm:0.203.0, @opentelemetry/instrumentation@npm:^0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/instrumentation@npm:0.203.0"
   dependencies:
-    "@opentelemetry/api-logs": "npm:0.202.0"
+    "@opentelemetry/api-logs": "npm:0.203.0"
     import-in-the-middle: "npm:^1.8.1"
     require-in-the-middle: "npm:^7.1.1"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/3edac99d3093841bcd6008c19353f989042231485bcfe93c069e6ac41f35ab11800998275c0e3a85873656a21af982b8fd8721da974288a4ac653ecae8407641
+  checksum: 10c0/b9de27ea7b42c54b1d0dab15dac62d4fc71c781bb6a48e90fa4ce8ce97be1b78e1fa9f05f58c39f68ca0e4a5590b8538d04209482f6b0632958926f7e80a28c1
   languageName: node
   linkType: hard
 
@@ -12171,46 +12210,46 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/otlp-exporter-base@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/otlp-exporter-base@npm:0.202.0"
+"@opentelemetry/otlp-exporter-base@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/otlp-exporter-base@npm:0.203.0"
   dependencies:
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/800047f125988a55da6e7cb732a5a000e39fa707f4f40e86976a50b72e93ccee9cb6d75a62ea9ca4e494233fc21812fb5cffd0de581fe9df478ea68f005230ca
+  checksum: 10c0/ad5b771b06b192f06f332f60701d1ad208df88a05975b16e1cdd1dff8e1cb66e775b3e9de513c2f5d48f390f25ca35411ead08ce4849c8203b86a264d34561d3
   languageName: node
   linkType: hard
 
-"@opentelemetry/otlp-grpc-exporter-base@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/otlp-grpc-exporter-base@npm:0.202.0"
+"@opentelemetry/otlp-grpc-exporter-base@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/otlp-grpc-exporter-base@npm:0.203.0"
   dependencies:
     "@grpc/grpc-js": "npm:^1.7.1"
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/otlp-exporter-base": "npm:0.202.0"
-    "@opentelemetry/otlp-transformer": "npm:0.202.0"
+    "@opentelemetry/otlp-exporter-base": "npm:0.203.0"
+    "@opentelemetry/otlp-transformer": "npm:0.203.0"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/f04e0a5d3935f4aaafceae5795dd7e9ba3e5df3f327b76d483c7855f68ae675f4455e90bae47b895bc58b840684e130220ddd3475fb78b4ec80ef45cb7b70311
+  checksum: 10c0/8e0936a7bc5359fe2f15d6302e7ba2cafe93e3dc95c0d316a95b78d8638822939612f07cb27c60544eefbabae2c8ed9b83d246695e92af30b0896a7c3888db32
   languageName: node
   linkType: hard
 
-"@opentelemetry/otlp-transformer@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/otlp-transformer@npm:0.202.0"
+"@opentelemetry/otlp-transformer@npm:0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/otlp-transformer@npm:0.203.0"
   dependencies:
-    "@opentelemetry/api-logs": "npm:0.202.0"
+    "@opentelemetry/api-logs": "npm:0.203.0"
     "@opentelemetry/core": "npm:2.0.1"
     "@opentelemetry/resources": "npm:2.0.1"
-    "@opentelemetry/sdk-logs": "npm:0.202.0"
+    "@opentelemetry/sdk-logs": "npm:0.203.0"
     "@opentelemetry/sdk-metrics": "npm:2.0.1"
     "@opentelemetry/sdk-trace-base": "npm:2.0.1"
     protobufjs: "npm:^7.3.0"
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
-  checksum: 10c0/33cd518ba39904d9a6baf2486efc61f979d8e27a2f0418b6f908f54c9b93412dac1bca1571e1c7f8ec8a08c3c74ab5bc11de8aa74c1a99f80dcab4ef5c7b28c8
+  checksum: 10c0/3f7b4bfe4bcab4db434ff2c4e59b53de53642d379b80056610456d8e9ae0cbab0f8b69f088078637b7b5ceffd0ac2fda68469c5f295b1c0ac625f522f640338c
   languageName: node
   linkType: hard
 
@@ -12267,20 +12306,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/sdk-logs@npm:0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/sdk-logs@npm:0.202.0"
+"@opentelemetry/sdk-logs@npm:0.203.0, @opentelemetry/sdk-logs@npm:^0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/sdk-logs@npm:0.203.0"
   dependencies:
-    "@opentelemetry/api-logs": "npm:0.202.0"
+    "@opentelemetry/api-logs": "npm:0.203.0"
     "@opentelemetry/core": "npm:2.0.1"
     "@opentelemetry/resources": "npm:2.0.1"
   peerDependencies:
     "@opentelemetry/api": ">=1.4.0 <1.10.0"
-  checksum: 10c0/02659eb5da445f7740eafd79dfebefd38a4265751b7b9cb78c7231dcb2e3b2b9d073dff16abbb0da7cff0837be880dc5b581118601c7630f976a4ccf9db62ab2
+  checksum: 10c0/02dd9d9969628f05f71ae1d149f1aa6d1fee2dad607923a68a1cfc923e94b046dcc0e18e85e865324e3bda0cee7a5a0ba9fa0d57e4e95fa672be103e2ce60270
   languageName: node
   linkType: hard
 
-"@opentelemetry/sdk-metrics@npm:2.0.1":
+"@opentelemetry/sdk-metrics@npm:2.0.1, @opentelemetry/sdk-metrics@npm:^2.0.1":
   version: 2.0.1
   resolution: "@opentelemetry/sdk-metrics@npm:2.0.1"
   dependencies:
@@ -12292,35 +12331,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/sdk-node@npm:^0.202.0":
-  version: 0.202.0
-  resolution: "@opentelemetry/sdk-node@npm:0.202.0"
+"@opentelemetry/sdk-node@npm:^0.203.0":
+  version: 0.203.0
+  resolution: "@opentelemetry/sdk-node@npm:0.203.0"
   dependencies:
-    "@opentelemetry/api-logs": "npm:0.202.0"
+    "@opentelemetry/api-logs": "npm:0.203.0"
     "@opentelemetry/core": "npm:2.0.1"
-    "@opentelemetry/exporter-logs-otlp-grpc": "npm:0.202.0"
-    "@opentelemetry/exporter-logs-otlp-http": "npm:0.202.0"
-    "@opentelemetry/exporter-logs-otlp-proto": "npm:0.202.0"
-    "@opentelemetry/exporter-metrics-otlp-grpc": "npm:0.202.0"
-    "@opentelemetry/exporter-metrics-otlp-http": "npm:0.202.0"
-    "@opentelemetry/exporter-metrics-otlp-proto": "npm:0.202.0"
-    "@opentelemetry/exporter-prometheus": "npm:0.202.0"
-    "@opentelemetry/exporter-trace-otlp-grpc": "npm:0.202.0"
-    "@opentelemetry/exporter-trace-otlp-http": "npm:0.202.0"
-    "@opentelemetry/exporter-trace-otlp-proto": "npm:0.202.0"
+    "@opentelemetry/exporter-logs-otlp-grpc": "npm:0.203.0"
+    "@opentelemetry/exporter-logs-otlp-http": "npm:0.203.0"
+    "@opentelemetry/exporter-logs-otlp-proto": "npm:0.203.0"
+    "@opentelemetry/exporter-metrics-otlp-grpc": "npm:0.203.0"
+    "@opentelemetry/exporter-metrics-otlp-http": "npm:0.203.0"
+    "@opentelemetry/exporter-metrics-otlp-proto": "npm:0.203.0"
+    "@opentelemetry/exporter-prometheus": "npm:0.203.0"
+    "@opentelemetry/exporter-trace-otlp-grpc": "npm:0.203.0"
+    "@opentelemetry/exporter-trace-otlp-http": "npm:0.203.0"
+    "@opentelemetry/exporter-trace-otlp-proto": "npm:0.203.0"
     "@opentelemetry/exporter-zipkin": "npm:2.0.1"
-    "@opentelemetry/instrumentation": "npm:0.202.0"
+    "@opentelemetry/instrumentation": "npm:0.203.0"
     "@opentelemetry/propagator-b3": "npm:2.0.1"
     "@opentelemetry/propagator-jaeger": "npm:2.0.1"
     "@opentelemetry/resources": "npm:2.0.1"
-    "@opentelemetry/sdk-logs": "npm:0.202.0"
+    "@opentelemetry/sdk-logs": "npm:0.203.0"
     "@opentelemetry/sdk-metrics": "npm:2.0.1"
     "@opentelemetry/sdk-trace-base": "npm:2.0.1"
     "@opentelemetry/sdk-trace-node": "npm:2.0.1"
     "@opentelemetry/semantic-conventions": "npm:^1.29.0"
   peerDependencies:
     "@opentelemetry/api": ">=1.3.0 <1.10.0"
-  checksum: 10c0/8df1556294a0a23ec1608f8eb51837820f86ec09e70e3df656fa5e7a176d736c0b13dce14f990ac7037cb14a90012eb3bdb85c54001a905d40368201ab7813b1
+  checksum: 10c0/2c846f40908afad73d7898516c37e35ab34a63c2147f0241d39c7442207f42de7bd6d451afbccf7a102022a5132465b98ffcdd1fbc77050b49909c501b42cbd8
   languageName: node
   linkType: hard
 
@@ -12370,7 +12409,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@opentelemetry/semantic-conventions@npm:^1.27.0, @opentelemetry/semantic-conventions@npm:^1.30.0":
+"@opentelemetry/semantic-conventions@npm:^1.27.0":
   version: 1.30.0
   resolution: "@opentelemetry/semantic-conventions@npm:1.30.0"
   checksum: 10c0/0bf99552e3b4b7e8b7eb504b678d52f59c6f259df88e740a2011a0d858e523d36fee86047ae1b7f45849c77f00f970c3059ba58e0a06a7d47d6f01dbe8c455bd
@@ -12701,17 +12740,6 @@ __metadata:
   peerDependencies:
     "@opentelemetry/api": ^1.8
   checksum: 10c0/2b1f2b46955a1353fb5ba522c0e51a55dcd15eee2d140b5c7b7368bfe1fa2a80b51c4ba3b90f5246ee0beae4cf3e383266c3294cf2ecb856ddd84cdbd3f30e99
-  languageName: node
-  linkType: hard
-
-"@prisma/instrumentation@npm:6.4.1":
-  version: 6.4.1
-  resolution: "@prisma/instrumentation@npm:6.4.1"
-  dependencies:
-    "@opentelemetry/instrumentation": "npm:^0.52.0 || ^0.53.0 || ^0.54.0 || ^0.55.0 || ^0.56.0 || ^0.57.0"
-  peerDependencies:
-    "@opentelemetry/api": ^1.8
-  checksum: 10c0/16e95b000f98d9ff3af20df1c7350329286b5bed236c66801d72f314ba788def44e02a210313a3858998c6a3fc3175c6815cfec0b6cf9f1f74e015fd768135a7
   languageName: node
   linkType: hard
 
@@ -14031,13 +14059,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm-eabi@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-android-arm-eabi@npm:4.34.9"
-  conditions: os=android & cpu=arm
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-android-arm-eabi@npm:4.38.0":
   version: 4.38.0
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.38.0"
@@ -14048,6 +14069,13 @@ __metadata:
 "@rollup/rollup-android-arm-eabi@npm:4.41.0":
   version: 4.41.0
   resolution: "@rollup/rollup-android-arm-eabi@npm:4.41.0"
+  conditions: os=android & cpu=arm
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-android-arm-eabi@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-android-arm-eabi@npm:4.45.1"
   conditions: os=android & cpu=arm
   languageName: node
   linkType: hard
@@ -14066,13 +14094,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-android-arm64@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-android-arm64@npm:4.34.9"
-  conditions: os=android & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-android-arm64@npm:4.38.0":
   version: 4.38.0
   resolution: "@rollup/rollup-android-arm64@npm:4.38.0"
@@ -14083,6 +14104,13 @@ __metadata:
 "@rollup/rollup-android-arm64@npm:4.41.0":
   version: 4.41.0
   resolution: "@rollup/rollup-android-arm64@npm:4.41.0"
+  conditions: os=android & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-android-arm64@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-android-arm64@npm:4.45.1"
   conditions: os=android & cpu=arm64
   languageName: node
   linkType: hard
@@ -14101,13 +14129,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-arm64@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-darwin-arm64@npm:4.34.9"
-  conditions: os=darwin & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-darwin-arm64@npm:4.38.0":
   version: 4.38.0
   resolution: "@rollup/rollup-darwin-arm64@npm:4.38.0"
@@ -14118,6 +14139,13 @@ __metadata:
 "@rollup/rollup-darwin-arm64@npm:4.41.0":
   version: 4.41.0
   resolution: "@rollup/rollup-darwin-arm64@npm:4.41.0"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-darwin-arm64@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-darwin-arm64@npm:4.45.1"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
@@ -14136,13 +14164,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-darwin-x64@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-darwin-x64@npm:4.34.9"
-  conditions: os=darwin & cpu=x64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-darwin-x64@npm:4.38.0":
   version: 4.38.0
   resolution: "@rollup/rollup-darwin-x64@npm:4.38.0"
@@ -14153,6 +14174,13 @@ __metadata:
 "@rollup/rollup-darwin-x64@npm:4.41.0":
   version: 4.41.0
   resolution: "@rollup/rollup-darwin-x64@npm:4.41.0"
+  conditions: os=darwin & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-darwin-x64@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-darwin-x64@npm:4.45.1"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
@@ -14171,13 +14199,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-arm64@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-freebsd-arm64@npm:4.34.9"
-  conditions: os=freebsd & cpu=arm64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-freebsd-arm64@npm:4.38.0":
   version: 4.38.0
   resolution: "@rollup/rollup-freebsd-arm64@npm:4.38.0"
@@ -14192,16 +14213,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-x64@npm:4.24.2":
-  version: 4.24.2
-  resolution: "@rollup/rollup-freebsd-x64@npm:4.24.2"
-  conditions: os=freebsd & cpu=x64
+"@rollup/rollup-freebsd-arm64@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-freebsd-arm64@npm:4.45.1"
+  conditions: os=freebsd & cpu=arm64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-freebsd-x64@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-freebsd-x64@npm:4.34.9"
+"@rollup/rollup-freebsd-x64@npm:4.24.2":
+  version: 4.24.2
+  resolution: "@rollup/rollup-freebsd-x64@npm:4.24.2"
   conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
@@ -14220,16 +14241,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-gnueabihf@npm:4.24.2":
-  version: 4.24.2
-  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.24.2"
-  conditions: os=linux & cpu=arm & libc=glibc
+"@rollup/rollup-freebsd-x64@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-freebsd-x64@npm:4.45.1"
+  conditions: os=freebsd & cpu=x64
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm-gnueabihf@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.34.9"
+"@rollup/rollup-linux-arm-gnueabihf@npm:4.24.2":
+  version: 4.24.2
+  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.24.2"
   conditions: os=linux & cpu=arm & libc=glibc
   languageName: node
   linkType: hard
@@ -14248,6 +14269,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-linux-arm-gnueabihf@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.45.1"
+  conditions: os=linux & cpu=arm & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-linux-arm-gnueabihf@npm:4.9.6":
   version: 4.9.6
   resolution: "@rollup/rollup-linux-arm-gnueabihf@npm:4.9.6"
@@ -14258,13 +14286,6 @@ __metadata:
 "@rollup/rollup-linux-arm-musleabihf@npm:4.24.2":
   version: 4.24.2
   resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.24.2"
-  conditions: os=linux & cpu=arm & libc=musl
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-arm-musleabihf@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.34.9"
   conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
@@ -14283,16 +14304,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-gnu@npm:4.24.2":
-  version: 4.24.2
-  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.24.2"
-  conditions: os=linux & cpu=arm64 & libc=glibc
+"@rollup/rollup-linux-arm-musleabihf@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-arm-musleabihf@npm:4.45.1"
+  conditions: os=linux & cpu=arm & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-gnu@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.34.9"
+"@rollup/rollup-linux-arm64-gnu@npm:4.24.2":
+  version: 4.24.2
+  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.24.2"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
@@ -14311,6 +14332,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-linux-arm64-gnu@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.45.1"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-linux-arm64-gnu@npm:4.9.6":
   version: 4.9.6
   resolution: "@rollup/rollup-linux-arm64-gnu@npm:4.9.6"
@@ -14321,13 +14349,6 @@ __metadata:
 "@rollup/rollup-linux-arm64-musl@npm:4.24.2":
   version: 4.24.2
   resolution: "@rollup/rollup-linux-arm64-musl@npm:4.24.2"
-  conditions: os=linux & cpu=arm64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-arm64-musl@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.34.9"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
@@ -14346,17 +14367,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-arm64-musl@npm:4.9.6":
-  version: 4.9.6
-  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.9.6"
+"@rollup/rollup-linux-arm64-musl@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.45.1"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-loongarch64-gnu@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-loongarch64-gnu@npm:4.34.9"
-  conditions: os=linux & cpu=loong64 & libc=glibc
+"@rollup/rollup-linux-arm64-musl@npm:4.9.6":
+  version: 4.9.6
+  resolution: "@rollup/rollup-linux-arm64-musl@npm:4.9.6"
+  conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
@@ -14374,16 +14395,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-powerpc64le-gnu@npm:4.24.2":
-  version: 4.24.2
-  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.24.2"
-  conditions: os=linux & cpu=ppc64 & libc=glibc
+"@rollup/rollup-linux-loongarch64-gnu@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-loongarch64-gnu@npm:4.45.1"
+  conditions: os=linux & cpu=loong64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-powerpc64le-gnu@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.34.9"
+"@rollup/rollup-linux-powerpc64le-gnu@npm:4.24.2":
+  version: 4.24.2
+  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.24.2"
   conditions: os=linux & cpu=ppc64 & libc=glibc
   languageName: node
   linkType: hard
@@ -14402,16 +14423,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-riscv64-gnu@npm:4.24.2":
-  version: 4.24.2
-  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.24.2"
-  conditions: os=linux & cpu=riscv64 & libc=glibc
+"@rollup/rollup-linux-powerpc64le-gnu@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-powerpc64le-gnu@npm:4.45.1"
+  conditions: os=linux & cpu=ppc64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-riscv64-gnu@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.34.9"
+"@rollup/rollup-linux-riscv64-gnu@npm:4.24.2":
+  version: 4.24.2
+  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.24.2"
   conditions: os=linux & cpu=riscv64 & libc=glibc
   languageName: node
   linkType: hard
@@ -14426,6 +14447,13 @@ __metadata:
 "@rollup/rollup-linux-riscv64-gnu@npm:4.41.0":
   version: 4.41.0
   resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.41.0"
+  conditions: os=linux & cpu=riscv64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-linux-riscv64-gnu@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-riscv64-gnu@npm:4.45.1"
   conditions: os=linux & cpu=riscv64 & libc=glibc
   languageName: node
   linkType: hard
@@ -14451,16 +14479,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-s390x-gnu@npm:4.24.2":
-  version: 4.24.2
-  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.24.2"
-  conditions: os=linux & cpu=s390x & libc=glibc
+"@rollup/rollup-linux-riscv64-musl@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-riscv64-musl@npm:4.45.1"
+  conditions: os=linux & cpu=riscv64 & libc=musl
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-s390x-gnu@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.34.9"
+"@rollup/rollup-linux-s390x-gnu@npm:4.24.2":
+  version: 4.24.2
+  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.24.2"
   conditions: os=linux & cpu=s390x & libc=glibc
   languageName: node
   linkType: hard
@@ -14479,16 +14507,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-gnu@npm:4.24.2":
-  version: 4.24.2
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.24.2"
-  conditions: os=linux & cpu=x64 & libc=glibc
+"@rollup/rollup-linux-s390x-gnu@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-s390x-gnu@npm:4.45.1"
+  conditions: os=linux & cpu=s390x & libc=glibc
   languageName: node
   linkType: hard
 
-"@rollup/rollup-linux-x64-gnu@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.34.9"
+"@rollup/rollup-linux-x64-gnu@npm:4.24.2":
+  version: 4.24.2
+  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.24.2"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
@@ -14507,6 +14535,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-linux-x64-gnu@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-x64-gnu@npm:4.45.1"
+  conditions: os=linux & cpu=x64 & libc=glibc
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-linux-x64-gnu@npm:4.9.6":
   version: 4.9.6
   resolution: "@rollup/rollup-linux-x64-gnu@npm:4.9.6"
@@ -14517,13 +14552,6 @@ __metadata:
 "@rollup/rollup-linux-x64-musl@npm:4.24.2":
   version: 4.24.2
   resolution: "@rollup/rollup-linux-x64-musl@npm:4.24.2"
-  conditions: os=linux & cpu=x64 & libc=musl
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-linux-x64-musl@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-linux-x64-musl@npm:4.34.9"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
@@ -14542,6 +14570,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-linux-x64-musl@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-linux-x64-musl@npm:4.45.1"
+  conditions: os=linux & cpu=x64 & libc=musl
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-linux-x64-musl@npm:4.9.6":
   version: 4.9.6
   resolution: "@rollup/rollup-linux-x64-musl@npm:4.9.6"
@@ -14552,13 +14587,6 @@ __metadata:
 "@rollup/rollup-win32-arm64-msvc@npm:4.24.2":
   version: 4.24.2
   resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.24.2"
-  conditions: os=win32 & cpu=arm64
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-win32-arm64-msvc@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.34.9"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
@@ -14577,6 +14605,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-win32-arm64-msvc@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.45.1"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-win32-arm64-msvc@npm:4.9.6":
   version: 4.9.6
   resolution: "@rollup/rollup-win32-arm64-msvc@npm:4.9.6"
@@ -14587,13 +14622,6 @@ __metadata:
 "@rollup/rollup-win32-ia32-msvc@npm:4.24.2":
   version: 4.24.2
   resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.24.2"
-  conditions: os=win32 & cpu=ia32
-  languageName: node
-  linkType: hard
-
-"@rollup/rollup-win32-ia32-msvc@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.34.9"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
@@ -14612,6 +14640,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@rollup/rollup-win32-ia32-msvc@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.45.1"
+  conditions: os=win32 & cpu=ia32
+  languageName: node
+  linkType: hard
+
 "@rollup/rollup-win32-ia32-msvc@npm:4.9.6":
   version: 4.9.6
   resolution: "@rollup/rollup-win32-ia32-msvc@npm:4.9.6"
@@ -14626,13 +14661,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@rollup/rollup-win32-x64-msvc@npm:4.34.9":
-  version: 4.34.9
-  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.34.9"
-  conditions: os=win32 & cpu=x64
-  languageName: node
-  linkType: hard
-
 "@rollup/rollup-win32-x64-msvc@npm:4.38.0":
   version: 4.38.0
   resolution: "@rollup/rollup-win32-x64-msvc@npm:4.38.0"
@@ -14643,6 +14671,13 @@ __metadata:
 "@rollup/rollup-win32-x64-msvc@npm:4.41.0":
   version: 4.41.0
   resolution: "@rollup/rollup-win32-x64-msvc@npm:4.41.0"
+  conditions: os=win32 & cpu=x64
+  languageName: node
+  linkType: hard
+
+"@rollup/rollup-win32-x64-msvc@npm:4.45.1":
+  version: 4.45.1
+  resolution: "@rollup/rollup-win32-x64-msvc@npm:4.45.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -14723,140 +14758,148 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry-internal/browser-utils@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@sentry-internal/browser-utils@npm:9.5.0"
+"@sentry-internal/browser-utils@npm:9.40.0":
+  version: 9.40.0
+  resolution: "@sentry-internal/browser-utils@npm:9.40.0"
   dependencies:
-    "@sentry/core": "npm:9.5.0"
-  checksum: 10c0/b942bab1908640711d7bdfd8de23643854dd177b06ccca532fb4358ebd0be4f42b5f4e6cebab0611b10e74f062d2224ecba81596c50a4d594e87030edfe31c7f
+    "@sentry/core": "npm:9.40.0"
+  checksum: 10c0/d78bdec3b8177ea8977dc598a13d7ff9141f2d1431c6cecb3cb6b5820714a02367313f39dc1051bdd94680f86731bd70e1d93b1bcd4c6ab09a699098d6fbdeb1
   languageName: node
   linkType: hard
 
-"@sentry-internal/feedback@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@sentry-internal/feedback@npm:9.5.0"
+"@sentry-internal/feedback@npm:9.40.0":
+  version: 9.40.0
+  resolution: "@sentry-internal/feedback@npm:9.40.0"
   dependencies:
-    "@sentry/core": "npm:9.5.0"
-  checksum: 10c0/85cb7a2fede5b1af62eea11adad1c5543d0ddc6e2a9b0856fe102735b3633203557c05d5ccdfa059dd56c3c2f6e36d7e6f5b163420624ad888dbb2035db5d38d
+    "@sentry/core": "npm:9.40.0"
+  checksum: 10c0/2476aa844c4d91fa6dcbf309b053f4abf96273a120ffb2dd6fb368b0bd03ec01773ed21c68972c3d7051f86b83967f5536c630f52f06db85e79b5f3245390ca0
   languageName: node
   linkType: hard
 
-"@sentry-internal/replay-canvas@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@sentry-internal/replay-canvas@npm:9.5.0"
+"@sentry-internal/replay-canvas@npm:9.40.0":
+  version: 9.40.0
+  resolution: "@sentry-internal/replay-canvas@npm:9.40.0"
   dependencies:
-    "@sentry-internal/replay": "npm:9.5.0"
-    "@sentry/core": "npm:9.5.0"
-  checksum: 10c0/547d29761cd7a641713ae42b7c31fb816946b1145056512146623b1e0b6a80bdba4675cf9e5251ae2c12786a286d305bb83d3f6d6e4e51fc048720588a73d4a8
+    "@sentry-internal/replay": "npm:9.40.0"
+    "@sentry/core": "npm:9.40.0"
+  checksum: 10c0/ae625df3c2410e0ef98148aba02b2def5e31a1cc9af2bb51630ce2b0351702fe241005c6437de70777913bd0623846dc3facbdff7cb714936c3b226fd9cb21ae
   languageName: node
   linkType: hard
 
-"@sentry-internal/replay@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@sentry-internal/replay@npm:9.5.0"
+"@sentry-internal/replay@npm:9.40.0":
+  version: 9.40.0
+  resolution: "@sentry-internal/replay@npm:9.40.0"
   dependencies:
-    "@sentry-internal/browser-utils": "npm:9.5.0"
-    "@sentry/core": "npm:9.5.0"
-  checksum: 10c0/b24ffde3e1be3ad03e8002829fc524f89203e3c559db61f07c8fbd2029b7d7b80929e9efb841c267c85a3b617155a21dd8532a93913f3d81210fb79dd9f7875c
+    "@sentry-internal/browser-utils": "npm:9.40.0"
+    "@sentry/core": "npm:9.40.0"
+  checksum: 10c0/c6b4a8ab2f56199607e56952f751b1a0734916d0861ddd583aed883b829e96a48ba0733a6578b66b6f8d4f2efc7e6d659698cdbd6c54b4120a22aa7d9d5144b2
   languageName: node
   linkType: hard
 
-"@sentry/babel-plugin-component-annotate@npm:3.2.1":
-  version: 3.2.1
-  resolution: "@sentry/babel-plugin-component-annotate@npm:3.2.1"
-  checksum: 10c0/26ec2e7f8c0f46be4b78d109310cf07b218e6b288cf8dd19dd55226396f531beead93362bd2bf9e942a142d5db2bb9c4c0c4d202975ae620088d8b86b6ab5f50
+"@sentry/babel-plugin-component-annotate@npm:3.6.1":
+  version: 3.6.1
+  resolution: "@sentry/babel-plugin-component-annotate@npm:3.6.1"
+  checksum: 10c0/e8876cd4c370ad24d148bbce4f2bda53f35a7a4bd4209c543e9448f0d2577245fb1fa20a7742e50c6171dbc78158fc36fbc53e23939d492abad4e7c8752a962f
   languageName: node
   linkType: hard
 
-"@sentry/browser@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@sentry/browser@npm:9.5.0"
+"@sentry/browser@npm:9.40.0":
+  version: 9.40.0
+  resolution: "@sentry/browser@npm:9.40.0"
   dependencies:
-    "@sentry-internal/browser-utils": "npm:9.5.0"
-    "@sentry-internal/feedback": "npm:9.5.0"
-    "@sentry-internal/replay": "npm:9.5.0"
-    "@sentry-internal/replay-canvas": "npm:9.5.0"
-    "@sentry/core": "npm:9.5.0"
-  checksum: 10c0/dcf2ed30d48f569d4a408f42c581ae85ba49e2128aa185870b09b92e6cd6297c49d72b8857b65366242a8c9846970fb6d09903ad40279e7109ebd9aee6a1e637
+    "@sentry-internal/browser-utils": "npm:9.40.0"
+    "@sentry-internal/feedback": "npm:9.40.0"
+    "@sentry-internal/replay": "npm:9.40.0"
+    "@sentry-internal/replay-canvas": "npm:9.40.0"
+    "@sentry/core": "npm:9.40.0"
+  checksum: 10c0/011cb1fa2db804f666dbd96712523b6226eda41e5c3cb5c6f50fc97d45315ce8fc05134555ac95aeef922137ecd29cf4854c8bb9d10882c723455bc257506772
   languageName: node
   linkType: hard
 
-"@sentry/bundler-plugin-core@npm:3.2.1":
-  version: 3.2.1
-  resolution: "@sentry/bundler-plugin-core@npm:3.2.1"
+"@sentry/bundler-plugin-core@npm:3.6.1":
+  version: 3.6.1
+  resolution: "@sentry/bundler-plugin-core@npm:3.6.1"
   dependencies:
     "@babel/core": "npm:^7.18.5"
-    "@sentry/babel-plugin-component-annotate": "npm:3.2.1"
-    "@sentry/cli": "npm:2.42.2"
+    "@sentry/babel-plugin-component-annotate": "npm:3.6.1"
+    "@sentry/cli": "npm:^2.49.0"
     dotenv: "npm:^16.3.1"
     find-up: "npm:^5.0.0"
     glob: "npm:^9.3.2"
     magic-string: "npm:0.30.8"
     unplugin: "npm:1.0.1"
-  checksum: 10c0/e88fea801534bde21d60cf325abb9933e0c2d2a992a918a331c684917416ace91eebc82a50f4f4dbe367d5094d57a09ba4da753dbdd2e16254f117d9f16e36d4
+  checksum: 10c0/64db0123db0c6e4f31be09cc7fb4b5b8ef4721d693f40d852d3e8e9f1e1e1c4289491a1c3d656603c0b422da836161a3ca2042ee7ee96f284cef52e1c4d407ae
   languageName: node
   linkType: hard
 
-"@sentry/cli-darwin@npm:2.42.2":
-  version: 2.42.2
-  resolution: "@sentry/cli-darwin@npm:2.42.2"
+"@sentry/cli-darwin@npm:2.50.1":
+  version: 2.50.1
+  resolution: "@sentry/cli-darwin@npm:2.50.1"
   conditions: os=darwin
   languageName: node
   linkType: hard
 
-"@sentry/cli-linux-arm64@npm:2.42.2":
-  version: 2.42.2
-  resolution: "@sentry/cli-linux-arm64@npm:2.42.2"
-  conditions: (os=linux | os=freebsd) & cpu=arm64
+"@sentry/cli-linux-arm64@npm:2.50.1":
+  version: 2.50.1
+  resolution: "@sentry/cli-linux-arm64@npm:2.50.1"
+  conditions: (os=linux | os=freebsd | os=android) & cpu=arm64
   languageName: node
   linkType: hard
 
-"@sentry/cli-linux-arm@npm:2.42.2":
-  version: 2.42.2
-  resolution: "@sentry/cli-linux-arm@npm:2.42.2"
-  conditions: (os=linux | os=freebsd) & cpu=arm
+"@sentry/cli-linux-arm@npm:2.50.1":
+  version: 2.50.1
+  resolution: "@sentry/cli-linux-arm@npm:2.50.1"
+  conditions: (os=linux | os=freebsd | os=android) & cpu=arm
   languageName: node
   linkType: hard
 
-"@sentry/cli-linux-i686@npm:2.42.2":
-  version: 2.42.2
-  resolution: "@sentry/cli-linux-i686@npm:2.42.2"
-  conditions: (os=linux | os=freebsd) & (cpu=x86 | cpu=ia32)
+"@sentry/cli-linux-i686@npm:2.50.1":
+  version: 2.50.1
+  resolution: "@sentry/cli-linux-i686@npm:2.50.1"
+  conditions: (os=linux | os=freebsd | os=android) & (cpu=x86 | cpu=ia32)
   languageName: node
   linkType: hard
 
-"@sentry/cli-linux-x64@npm:2.42.2":
-  version: 2.42.2
-  resolution: "@sentry/cli-linux-x64@npm:2.42.2"
-  conditions: (os=linux | os=freebsd) & cpu=x64
+"@sentry/cli-linux-x64@npm:2.50.1":
+  version: 2.50.1
+  resolution: "@sentry/cli-linux-x64@npm:2.50.1"
+  conditions: (os=linux | os=freebsd | os=android) & cpu=x64
   languageName: node
   linkType: hard
 
-"@sentry/cli-win32-i686@npm:2.42.2":
-  version: 2.42.2
-  resolution: "@sentry/cli-win32-i686@npm:2.42.2"
+"@sentry/cli-win32-arm64@npm:2.50.1":
+  version: 2.50.1
+  resolution: "@sentry/cli-win32-arm64@npm:2.50.1"
+  conditions: os=win32 & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@sentry/cli-win32-i686@npm:2.50.1":
+  version: 2.50.1
+  resolution: "@sentry/cli-win32-i686@npm:2.50.1"
   conditions: os=win32 & (cpu=x86 | cpu=ia32)
   languageName: node
   linkType: hard
 
-"@sentry/cli-win32-x64@npm:2.42.2":
-  version: 2.42.2
-  resolution: "@sentry/cli-win32-x64@npm:2.42.2"
+"@sentry/cli-win32-x64@npm:2.50.1":
+  version: 2.50.1
+  resolution: "@sentry/cli-win32-x64@npm:2.50.1"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@sentry/cli@npm:2.42.2":
-  version: 2.42.2
-  resolution: "@sentry/cli@npm:2.42.2"
+"@sentry/cli@npm:^2.49.0":
+  version: 2.50.1
+  resolution: "@sentry/cli@npm:2.50.1"
   dependencies:
-    "@sentry/cli-darwin": "npm:2.42.2"
-    "@sentry/cli-linux-arm": "npm:2.42.2"
-    "@sentry/cli-linux-arm64": "npm:2.42.2"
-    "@sentry/cli-linux-i686": "npm:2.42.2"
-    "@sentry/cli-linux-x64": "npm:2.42.2"
-    "@sentry/cli-win32-i686": "npm:2.42.2"
-    "@sentry/cli-win32-x64": "npm:2.42.2"
+    "@sentry/cli-darwin": "npm:2.50.1"
+    "@sentry/cli-linux-arm": "npm:2.50.1"
+    "@sentry/cli-linux-arm64": "npm:2.50.1"
+    "@sentry/cli-linux-i686": "npm:2.50.1"
+    "@sentry/cli-linux-x64": "npm:2.50.1"
+    "@sentry/cli-win32-arm64": "npm:2.50.1"
+    "@sentry/cli-win32-i686": "npm:2.50.1"
+    "@sentry/cli-win32-x64": "npm:2.50.1"
     https-proxy-agent: "npm:^5.0.0"
     node-fetch: "npm:^2.6.7"
     progress: "npm:^2.0.3"
@@ -14873,13 +14916,15 @@ __metadata:
       optional: true
     "@sentry/cli-linux-x64":
       optional: true
+    "@sentry/cli-win32-arm64":
+      optional: true
     "@sentry/cli-win32-i686":
       optional: true
     "@sentry/cli-win32-x64":
       optional: true
   bin:
     sentry-cli: bin/sentry-cli
-  checksum: 10c0/286910a194a386b9f21ef9e6dc171cbba35f1db09cb3bd53f19724ccf08b0819fb1c35e7fd2e7844da24a28428ca94ff3be7ae85f14056d6e6fc0193976d3815
+  checksum: 10c0/b2c96bfb17ddb9d548e7b18579acade0ef3d919e137320767a69b37530fde57d88c2e6d0ba5111173ddc3b3e41185d3e149fe5d1cf8a2ce3c115bac4b1aff79f
   languageName: node
   linkType: hard
 
@@ -14890,108 +14935,66 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/core@npm:9.36.0, @sentry/core@npm:^9.36.0":
+"@sentry/core@npm:9.36.0":
   version: 9.36.0
   resolution: "@sentry/core@npm:9.36.0"
   checksum: 10c0/2facc28ce61713f4f887fa4d26d966987de969a7f0b6f8ec9f511c7730c2a6749803ea568d44a41247c6bdde4f3a1f01b92825ccab9e1d706bf43b6ebfd7d4a2
   languageName: node
   linkType: hard
 
-"@sentry/core@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@sentry/core@npm:9.5.0"
-  checksum: 10c0/10adb8bae5709c2784247ff4b7834a534f5ad74ebf4ba0f77761b61d75f22bdb0b147f60aef8399b42cf92545d3ccff479cfd1b0b318e310ac1bcadbc3be48e8
+"@sentry/core@npm:9.40.0, @sentry/core@npm:^9.38.0":
+  version: 9.40.0
+  resolution: "@sentry/core@npm:9.40.0"
+  checksum: 10c0/724724fc4ba1e014f2104758eee8a54bb3d1ac8a037209bb61c908cdd5efa2c4ecba4a68ddbe35f5dbbc842b4bcd073d3395ae49960a9277f1af2f6440ccaa4c
   languageName: node
   linkType: hard
 
-"@sentry/nextjs@npm:^9.5.0":
-  version: 9.5.0
-  resolution: "@sentry/nextjs@npm:9.5.0"
+"@sentry/nextjs@npm:^9.38.0":
+  version: 9.40.0
+  resolution: "@sentry/nextjs@npm:9.40.0"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
-    "@opentelemetry/semantic-conventions": "npm:^1.30.0"
+    "@opentelemetry/semantic-conventions": "npm:^1.34.0"
     "@rollup/plugin-commonjs": "npm:28.0.1"
-    "@sentry-internal/browser-utils": "npm:9.5.0"
-    "@sentry/core": "npm:9.5.0"
-    "@sentry/node": "npm:9.5.0"
-    "@sentry/opentelemetry": "npm:9.5.0"
-    "@sentry/react": "npm:9.5.0"
-    "@sentry/vercel-edge": "npm:9.5.0"
-    "@sentry/webpack-plugin": "npm:3.2.1"
+    "@sentry-internal/browser-utils": "npm:9.40.0"
+    "@sentry/core": "npm:9.40.0"
+    "@sentry/node": "npm:9.40.0"
+    "@sentry/opentelemetry": "npm:9.40.0"
+    "@sentry/react": "npm:9.40.0"
+    "@sentry/vercel-edge": "npm:9.40.0"
+    "@sentry/webpack-plugin": "npm:^3.5.0"
     chalk: "npm:3.0.0"
     resolve: "npm:1.22.8"
-    rollup: "npm:4.34.9"
+    rollup: "npm:^4.35.0"
     stacktrace-parser: "npm:^0.1.10"
   peerDependencies:
     next: ^13.2.0 || ^14.0 || ^15.0.0-rc.0
-  checksum: 10c0/ceed29954581f6b255aca2d6ad7056a13026cf1dcd6e6562199c225303ac1e451ca7ac53f2fbe51faca4a836664977070a647b47fca54dcd8aae5e541c3a72c3
+  checksum: 10c0/b48ff6e13d2c298bdc35f2e443f750ec9fc44350107b5e4736aa35c2f7407ac309927edf7d7ea04d3f10fc20d74fe015572f4995086220efb1c981601a04d477
   languageName: node
   linkType: hard
 
-"@sentry/node-core@npm:9.36.0":
-  version: 9.36.0
-  resolution: "@sentry/node-core@npm:9.36.0"
+"@sentry/node-core@npm:9.40.0":
+  version: 9.40.0
+  resolution: "@sentry/node-core@npm:9.40.0"
   dependencies:
-    "@sentry/core": "npm:9.36.0"
-    "@sentry/opentelemetry": "npm:9.36.0"
+    "@sentry/core": "npm:9.40.0"
+    "@sentry/opentelemetry": "npm:9.40.0"
     import-in-the-middle: "npm:^1.14.2"
   peerDependencies:
     "@opentelemetry/api": ^1.9.0
     "@opentelemetry/context-async-hooks": ^1.30.1 || ^2.0.0
     "@opentelemetry/core": ^1.30.1 || ^2.0.0
-    "@opentelemetry/instrumentation": ^0.57.1 || ^0.202.0
+    "@opentelemetry/instrumentation": ">=0.57.1 <1"
     "@opentelemetry/resources": ^1.30.1 || ^2.0.0
     "@opentelemetry/sdk-trace-base": ^1.30.1 || ^2.0.0
     "@opentelemetry/semantic-conventions": ^1.34.0
-  checksum: 10c0/7bd4e37e9b9ca8cc318de35fb24d8e1034df394ab1c4f067092cf9ce1c970c08845ac1926f77b2ffaa029b7d711e6ff2d14658265f6c3f3040344f461c609c97
+  checksum: 10c0/1e26555d04a8c45e75f8deca0d64afb1ec83eef2ca4d519ec8ef3e98234f35da7213020bd1e5cd02cafbc3a270deb00e82188c5c98ae3ee8abb0ceca6ff30080
   languageName: node
   linkType: hard
 
-"@sentry/node@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@sentry/node@npm:9.5.0"
-  dependencies:
-    "@opentelemetry/api": "npm:^1.9.0"
-    "@opentelemetry/context-async-hooks": "npm:^1.30.1"
-    "@opentelemetry/core": "npm:^1.30.1"
-    "@opentelemetry/instrumentation": "npm:^0.57.2"
-    "@opentelemetry/instrumentation-amqplib": "npm:^0.46.1"
-    "@opentelemetry/instrumentation-connect": "npm:0.43.1"
-    "@opentelemetry/instrumentation-dataloader": "npm:0.16.1"
-    "@opentelemetry/instrumentation-express": "npm:0.47.1"
-    "@opentelemetry/instrumentation-fastify": "npm:0.44.2"
-    "@opentelemetry/instrumentation-fs": "npm:0.19.1"
-    "@opentelemetry/instrumentation-generic-pool": "npm:0.43.1"
-    "@opentelemetry/instrumentation-graphql": "npm:0.47.1"
-    "@opentelemetry/instrumentation-hapi": "npm:0.45.2"
-    "@opentelemetry/instrumentation-http": "npm:0.57.2"
-    "@opentelemetry/instrumentation-ioredis": "npm:0.47.1"
-    "@opentelemetry/instrumentation-kafkajs": "npm:0.7.1"
-    "@opentelemetry/instrumentation-knex": "npm:0.44.1"
-    "@opentelemetry/instrumentation-koa": "npm:0.47.1"
-    "@opentelemetry/instrumentation-lru-memoizer": "npm:0.44.1"
-    "@opentelemetry/instrumentation-mongodb": "npm:0.52.0"
-    "@opentelemetry/instrumentation-mongoose": "npm:0.46.1"
-    "@opentelemetry/instrumentation-mysql": "npm:0.45.1"
-    "@opentelemetry/instrumentation-mysql2": "npm:0.45.2"
-    "@opentelemetry/instrumentation-pg": "npm:0.51.1"
-    "@opentelemetry/instrumentation-redis-4": "npm:0.46.1"
-    "@opentelemetry/instrumentation-tedious": "npm:0.18.1"
-    "@opentelemetry/instrumentation-undici": "npm:0.10.1"
-    "@opentelemetry/resources": "npm:^1.30.1"
-    "@opentelemetry/sdk-trace-base": "npm:^1.30.1"
-    "@opentelemetry/semantic-conventions": "npm:^1.30.0"
-    "@prisma/instrumentation": "npm:6.4.1"
-    "@sentry/core": "npm:9.5.0"
-    "@sentry/opentelemetry": "npm:9.5.0"
-    import-in-the-middle: "npm:^1.13.0"
-  checksum: 10c0/6f3631e5cc6da5629e53ce0241d1ff62b7773f69061df7142663509a3ceb1445b8b4b2844d1ffddfda01b45272a595226242413155293e9b93bf8815e65b4e34
-  languageName: node
-  linkType: hard
-
-"@sentry/node@npm:^9.36.0":
-  version: 9.36.0
-  resolution: "@sentry/node@npm:9.36.0"
+"@sentry/node@npm:9.40.0, @sentry/node@npm:^9.38.0":
+  version: 9.40.0
+  resolution: "@sentry/node@npm:9.40.0"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/context-async-hooks": "npm:^1.30.1"
@@ -15023,16 +15026,31 @@ __metadata:
     "@opentelemetry/sdk-trace-base": "npm:^1.30.1"
     "@opentelemetry/semantic-conventions": "npm:^1.34.0"
     "@prisma/instrumentation": "npm:6.11.1"
-    "@sentry/core": "npm:9.36.0"
-    "@sentry/node-core": "npm:9.36.0"
-    "@sentry/opentelemetry": "npm:9.36.0"
+    "@sentry/core": "npm:9.40.0"
+    "@sentry/node-core": "npm:9.40.0"
+    "@sentry/opentelemetry": "npm:9.40.0"
     import-in-the-middle: "npm:^1.14.2"
     minimatch: "npm:^9.0.0"
-  checksum: 10c0/fbd7f7d3769cb120e1b4fd0224fc1d2c8d8492ab1629b12f1671a0efc63b8444317c0a706c322735cfd2611f619a092a2cd7abfd6094ec47a8276dc9612e3d29
+  checksum: 10c0/beeb71d596f0a1b68a77bd83e74006f959d9b3bf14cbf8d2a75321eb3fcec618091777417e8cb40d62397128aefd97ef4dae464b9aa70b0a492bbb626e898576
   languageName: node
   linkType: hard
 
-"@sentry/opentelemetry@npm:9.36.0, @sentry/opentelemetry@npm:^9.36.0":
+"@sentry/opentelemetry@npm:9.40.0":
+  version: 9.40.0
+  resolution: "@sentry/opentelemetry@npm:9.40.0"
+  dependencies:
+    "@sentry/core": "npm:9.40.0"
+  peerDependencies:
+    "@opentelemetry/api": ^1.9.0
+    "@opentelemetry/context-async-hooks": ^1.30.1 || ^2.0.0
+    "@opentelemetry/core": ^1.30.1 || ^2.0.0
+    "@opentelemetry/sdk-trace-base": ^1.30.1 || ^2.0.0
+    "@opentelemetry/semantic-conventions": ^1.34.0
+  checksum: 10c0/086d2d07fb23eed649401ca7a65355796febc162eab23c2810824c1231dcd493f931f900728fc92852a59d9bf39595ea128925b7663462fdaf40563d0e3fda8a
+  languageName: node
+  linkType: hard
+
+"@sentry/opentelemetry@npm:^9.36.0":
   version: 9.36.0
   resolution: "@sentry/opentelemetry@npm:9.36.0"
   dependencies:
@@ -15048,32 +15066,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/opentelemetry@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@sentry/opentelemetry@npm:9.5.0"
+"@sentry/react@npm:9.40.0, @sentry/react@npm:^9.38.0":
+  version: 9.40.0
+  resolution: "@sentry/react@npm:9.40.0"
   dependencies:
-    "@sentry/core": "npm:9.5.0"
-  peerDependencies:
-    "@opentelemetry/api": ^1.9.0
-    "@opentelemetry/context-async-hooks": ^1.30.1
-    "@opentelemetry/core": ^1.30.1
-    "@opentelemetry/instrumentation": ^0.57.1
-    "@opentelemetry/sdk-trace-base": ^1.30.1
-    "@opentelemetry/semantic-conventions": ^1.28.0
-  checksum: 10c0/7ff82bc0f018b9acf65616fda3419e87435de3584f1314f37ce586af7ebe37e2b654c2bb66e5e68657dd8cdd344cf0f9d8abfae5785f3735f8e49d7b741ded3b
-  languageName: node
-  linkType: hard
-
-"@sentry/react@npm:9.5.0, @sentry/react@npm:^9.5.0":
-  version: 9.5.0
-  resolution: "@sentry/react@npm:9.5.0"
-  dependencies:
-    "@sentry/browser": "npm:9.5.0"
-    "@sentry/core": "npm:9.5.0"
+    "@sentry/browser": "npm:9.40.0"
+    "@sentry/core": "npm:9.40.0"
     hoist-non-react-statics: "npm:^3.3.2"
   peerDependencies:
     react: ^16.14.0 || 17.x || 18.x || 19.x
-  checksum: 10c0/716a7002c81e691b33ee26b00a1b0ea8714ef3326bedc5cf8a534c54a3c9cd957c2f18543c30f2f514df78799e386ef19d3a03a42ed727e6edc68824df07a77a
+  checksum: 10c0/b1ccbdaa8124b4e8dfe224c68f687b3d48d4ca27361b466d86b736554ceabcade6fb6293a3af1cc0514932df7a7e31b9d5cb84cec4fee30f814f301735a0a39b
   languageName: node
   linkType: hard
 
@@ -15086,26 +15088,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@sentry/vercel-edge@npm:9.5.0":
-  version: 9.5.0
-  resolution: "@sentry/vercel-edge@npm:9.5.0"
+"@sentry/vercel-edge@npm:9.40.0":
+  version: 9.40.0
+  resolution: "@sentry/vercel-edge@npm:9.40.0"
   dependencies:
     "@opentelemetry/api": "npm:^1.9.0"
-    "@sentry/core": "npm:9.5.0"
-  checksum: 10c0/c8f8bec4a196cf44416fb5be1fc9089c05dd2cbdc98d12f20141d193c9105515ac3b50f2fe204da37dab7110bd58934b280f5530a1a5d3c6da0f9889dca52164
+    "@opentelemetry/resources": "npm:^1.30.1"
+    "@opentelemetry/semantic-conventions": "npm:^1.34.0"
+    "@sentry/core": "npm:9.40.0"
+    "@sentry/opentelemetry": "npm:9.40.0"
+  checksum: 10c0/9e92a7c4bea6cf99cebfb9d58763aad9195f65d79e97e61677dc1345ce8f43416d55a38de0d730a124c2799d916f61525819e12e39562852539434cfc015bda7
   languageName: node
   linkType: hard
 
-"@sentry/webpack-plugin@npm:3.2.1":
-  version: 3.2.1
-  resolution: "@sentry/webpack-plugin@npm:3.2.1"
+"@sentry/webpack-plugin@npm:^3.5.0":
+  version: 3.6.1
+  resolution: "@sentry/webpack-plugin@npm:3.6.1"
   dependencies:
-    "@sentry/bundler-plugin-core": "npm:3.2.1"
+    "@sentry/bundler-plugin-core": "npm:3.6.1"
     unplugin: "npm:1.0.1"
     uuid: "npm:^9.0.0"
   peerDependencies:
     webpack: ">=4.40.0"
-  checksum: 10c0/8d11b2560561ffa3c3386af892d823a7a228f22e445029a0b2497661a8638bd73414cbae2daeb593e9d18ab2c47aeb62246f0808d53a8f6503e4fdd6f9a37f60
+  checksum: 10c0/dc9466b32df15faa98915a916faeaaca4dc374d823f855c39f3edbdf9939eaf44d73f49bc3de9a91bb593ae5f76de1a55aa5939d319c9ef752076a169e44f43d
   languageName: node
   linkType: hard
 
@@ -18289,7 +18294,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/counter@npm:0.1.3, @swc/counter@npm:^0.1.3":
+"@swc/counter@npm:^0.1.3":
   version: 0.1.3
   resolution: "@swc/counter@npm:0.1.3"
   checksum: 10c0/8424f60f6bf8694cfd2a9bca45845bce29f26105cda8cf19cdb9fd3e78dc6338699e4db77a89ae449260bafa1cc6bec307e81e7fb96dbf7dcfce0eea55151356
@@ -18726,6 +18731,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/cookies@npm:^0":
+  version: 0.9.1
+  resolution: "@types/cookies@npm:0.9.1"
+  dependencies:
+    "@types/connect": "npm:*"
+    "@types/express": "npm:*"
+    "@types/keygrip": "npm:*"
+    "@types/node": "npm:*"
+  checksum: 10c0/730db4fb29435a4cc3c3243d9b8f4db8eb8b92cc4302217700ac808032fdfc30d9b408cace9818283d85c886d114ed8e6e9461f9975034853ca7de8b06225a4f
+  languageName: node
+  linkType: hard
+
 "@types/cors@npm:^2.8.12":
   version: 2.8.12
   resolution: "@types/cors@npm:2.8.12"
@@ -18901,6 +18918,13 @@ __metadata:
   version: 1.0.7
   resolution: "@types/estree@npm:1.0.7"
   checksum: 10c0/be815254316882f7c40847336cd484c3bc1c3e34f710d197160d455dc9d6d050ffbf4c3bc76585dba86f737f020ab20bdb137ebe0e9116b0c86c7c0342221b8c
+  languageName: node
+  linkType: hard
+
+"@types/estree@npm:1.0.8":
+  version: 1.0.8
+  resolution: "@types/estree@npm:1.0.8"
+  checksum: 10c0/39d34d1afaa338ab9763f37ad6066e3f349444f9052b9676a7cc0252ef9485a41c6d81c9c4e0d26e9077993354edf25efc853f3224dd4b447175ef62bdcc86a5
   languageName: node
   linkType: hard
 
@@ -19362,6 +19386,15 @@ __metadata:
   version: 1.2.2
   resolution: "@types/minimist@npm:1.2.2"
   checksum: 10c0/f220f57f682bbc3793dab4518f8e2180faa79d8e2589c79614fd777d7182be203ba399020c3a056a115064f5d57a065004a32b522b2737246407621681b24137
+  languageName: node
+  linkType: hard
+
+"@types/morgan@npm:^1":
+  version: 1.9.10
+  resolution: "@types/morgan@npm:1.9.10"
+  dependencies:
+    "@types/node": "npm:*"
+  checksum: 10c0/419f3fdefd89771f4935b690d7e49954ef8e1e3dd4a050a4b53daa363911df987c14e6d5f4fcba07a931a32c5a6ef1b318b6927c1b390cfb8ec900e84a230c02
   languageName: node
   linkType: hard
 
@@ -20554,6 +20587,21 @@ __metadata:
   version: 1.2.1
   resolution: "@vercel/edge@npm:1.2.1"
   checksum: 10c0/ace3cc730a8d8fd37b2849d2b5240adbf1d888f4af9332082adc5cc63e3df109aca2dbc0db30a1fe79b1812946d27a03c4008edaee9d860226c1f1048444d966
+  languageName: node
+  linkType: hard
+
+"@vercel/otel@npm:^1.13.0":
+  version: 1.13.0
+  resolution: "@vercel/otel@npm:1.13.0"
+  peerDependencies:
+    "@opentelemetry/api": ">=1.7.0 <2.0.0"
+    "@opentelemetry/api-logs": ">=0.46.0 <0.200.0"
+    "@opentelemetry/instrumentation": ">=0.46.0 <0.200.0"
+    "@opentelemetry/resources": ">=1.19.0 <2.0.0"
+    "@opentelemetry/sdk-logs": ">=0.46.0 <0.200.0"
+    "@opentelemetry/sdk-metrics": ">=1.19.0 <2.0.0"
+    "@opentelemetry/sdk-trace-base": ">=1.19.0 <2.0.0"
+  checksum: 10c0/720e1fd7efa3882fc147ec749d78e861d2d0644184838947c5754a8fa4e29d59e201ca54649dac4c4b75f4d932c8b62711e94f8fecd3176a96fc380eb7dd9437
   languageName: node
   linkType: hard
 
@@ -22263,6 +22311,13 @@ __metadata:
   dependencies:
     string-width: "npm:^3.0.0"
   checksum: 10c0/85b8c6d3990737df5d99f1c7ad343981f9424b48aadd4b1a5167be3ce4b42a69a5358671d3354b8fee63d94ecedf5512ab1ffe594a1e8c44db830c7d4ca07c72
+  languageName: node
+  linkType: hard
+
+"ansi-color@npm:^0.2.1":
+  version: 0.2.1
+  resolution: "ansi-color@npm:0.2.1"
+  checksum: 10c0/0ccfb57aadd3a955d1bbdc8392fb24e7e13b247812955b0182a3bea3f733d757e49f0b8faa00a6d2c619613f2d2a3136096f91e1fb4d688c39cf24b4f776a0d3
   languageName: node
   linkType: hard
 
@@ -24477,6 +24532,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"bufrw@npm:^1.3.0":
+  version: 1.4.0
+  resolution: "bufrw@npm:1.4.0"
+  dependencies:
+    ansi-color: "npm:^0.2.1"
+    error: "npm:^7.0.0"
+    hexer: "npm:^1.5.0"
+    xtend: "npm:^4.0.0"
+  checksum: 10c0/f4bfd7e13796f1f562753661be8b72c7eaac38e77b06edd5f238f8567d3d973c7f2686b1098bd5914fb88dc7141252d8361d0507e818af321fab13ef93ad3239
+  languageName: node
+  linkType: hard
+
 "buildcheck@npm:~0.0.6":
   version: 0.0.6
   resolution: "buildcheck@npm:0.0.6"
@@ -24603,15 +24670,6 @@ __metadata:
   peerDependencies:
     esbuild: ">=0.18"
   checksum: 10c0/8bff9df68eb686f05af952003c78e70ffed2817968f92aebb2af620cc0b7428c8154df761d28f1b38508532204278950624ef86ce63644013dc57660a9d1810f
-  languageName: node
-  linkType: hard
-
-"busboy@npm:1.6.0":
-  version: 1.6.0
-  resolution: "busboy@npm:1.6.0"
-  dependencies:
-    streamsearch: "npm:^1.1.0"
-  checksum: 10c0/fa7e836a2b82699b6e074393428b91ae579d4f9e21f5ac468e1b459a244341d722d2d22d10920cdd849743dbece6dca11d72de939fb75a7448825cf2babfba1f
   languageName: node
   linkType: hard
 
@@ -25409,81 +25467,86 @@ __metadata:
     "@feathersjs/feathers": "npm:^4.5.1"
     "@feathersjs/hooks": "npm:^0.4.0-alpha.0"
     "@loadable/component": "npm:^5.14.1"
-    "@openagenda/abilities": "npm:^1.3.1"
-    "@openagenda/activities": "npm:^2.3.0"
-    "@openagenda/activity-apps": "npm:^1.2.1"
-    "@openagenda/agenda-contribute": "npm:^1.5.3"
-    "@openagenda/agenda-docx": "npm:^1.2.1"
-    "@openagenda/agenda-events": "npm:^1.11.14"
-    "@openagenda/agenda-locations": "npm:^2.1.2"
-    "@openagenda/agenda-locations-app": "npm:^0.0.0"
-    "@openagenda/agenda-portal": "npm:^6.12.4"
-    "@openagenda/agenda-schemas-app": "npm:^0.0.1"
-    "@openagenda/agenda-search": "npm:^1.4.0"
-    "@openagenda/agenda-settings": "npm:^1.4.0"
-    "@openagenda/agenda-stats": "npm:^1.10.2"
-    "@openagenda/agendas": "npm:^1.7.0"
-    "@openagenda/aggregator-sources": "npm:^1.3.1"
-    "@openagenda/aggregators": "npm:^1.11.6"
-    "@openagenda/cibul-templates": "npm:^1.4.1"
-    "@openagenda/custom": "npm:^1.3.14"
+    "@openagenda/abilities": "npm:^1.3.2"
+    "@openagenda/activities": "npm:^2.3.1"
+    "@openagenda/activity-apps": "npm:^1.2.2"
+    "@openagenda/agenda-contribute": "npm:^1.5.4"
+    "@openagenda/agenda-docx": "npm:^1.2.2"
+    "@openagenda/agenda-events": "npm:^1.11.15"
+    "@openagenda/agenda-locations": "npm:^2.1.3"
+    "@openagenda/agenda-locations-app": "npm:^0.0.1"
+    "@openagenda/agenda-portal": "npm:^6.12.5"
+    "@openagenda/agenda-schemas-app": "npm:^0.0.2"
+    "@openagenda/agenda-search": "npm:^1.4.1"
+    "@openagenda/agenda-settings": "npm:^1.4.1"
+    "@openagenda/agenda-stats": "npm:^1.10.3"
+    "@openagenda/agendas": "npm:^1.7.1"
+    "@openagenda/aggregator-sources": "npm:^1.3.2"
+    "@openagenda/aggregators": "npm:^1.11.7"
+    "@openagenda/cibul-templates": "npm:^1.4.2"
+    "@openagenda/custom": "npm:^1.3.15"
     "@openagenda/date-range": "npm:^2.3.0"
     "@openagenda/discord": "npm:^1.0.0"
-    "@openagenda/event-form": "npm:^1.5.2"
-    "@openagenda/event-search": "npm:^2.8.0"
-    "@openagenda/events": "npm:^3.0.0"
+    "@openagenda/event-form": "npm:^1.5.3"
+    "@openagenda/event-search": "npm:^2.8.1"
+    "@openagenda/events": "npm:^3.0.1"
     "@openagenda/files": "npm:^3.1.0"
-    "@openagenda/flat-exports": "npm:^1.4.0"
-    "@openagenda/form-schemas": "npm:^1.9.2"
+    "@openagenda/flat-exports": "npm:^1.4.1"
+    "@openagenda/form-schemas": "npm:^1.9.3"
     "@openagenda/geocoder": "npm:^1.2.9"
-    "@openagenda/home": "npm:^2.2.1"
-    "@openagenda/inbox-apps": "npm:^1.2.1"
-    "@openagenda/inboxes": "npm:^1.1.14"
+    "@openagenda/home": "npm:^2.2.2"
+    "@openagenda/inbox-apps": "npm:^1.2.2"
+    "@openagenda/inboxes": "npm:^1.1.15"
     "@openagenda/intl": "npm:^1.1.5"
-    "@openagenda/invitations": "npm:^1.1.7"
-    "@openagenda/keys": "npm:^2.2.10"
+    "@openagenda/invitations": "npm:^1.1.8"
+    "@openagenda/keys": "npm:^2.2.11"
     "@openagenda/labels": "npm:^2.3.0"
-    "@openagenda/landing": "npm:^1.3.16"
-    "@openagenda/legacy": "npm:^1.11.0"
-    "@openagenda/logs": "npm:^1.1.9"
-    "@openagenda/mails": "npm:^4.0.1"
-    "@openagenda/mails-editor": "npm:^2.0.0"
-    "@openagenda/md": "npm:^1.0.0"
-    "@openagenda/member-apps": "npm:^2.1.1"
-    "@openagenda/members": "npm:^1.15.13"
-    "@openagenda/network-apps": "npm:^1.1.14"
-    "@openagenda/networks": "npm:^1.2.14"
-    "@openagenda/oembed": "npm:^2.2.1"
+    "@openagenda/landing": "npm:^1.3.17"
+    "@openagenda/legacy": "npm:^1.11.1"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/mails": "npm:^4.0.2"
+    "@openagenda/mails-editor": "npm:^2.0.1"
+    "@openagenda/md": "npm:^1.0.1"
+    "@openagenda/member-apps": "npm:^2.1.2"
+    "@openagenda/members": "npm:^1.15.14"
+    "@openagenda/network-apps": "npm:^1.1.15"
+    "@openagenda/networks": "npm:^1.2.15"
+    "@openagenda/oembed": "npm:^2.2.2"
     "@openagenda/outdated-browser": "npm:^0.0.0"
-    "@openagenda/pdf-exports": "npm:^0.0.1"
+    "@openagenda/pdf-exports": "npm:^0.0.2"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/queues": "npm:^2.0.0"
-    "@openagenda/react-integration-app": "npm:^1.6.2"
-    "@openagenda/react-layouts": "npm:^2.2.1"
-    "@openagenda/react-shared": "npm:^2.4.3"
-    "@openagenda/registrations": "npm:^0.0.2"
+    "@openagenda/queues": "npm:^2.0.1"
+    "@openagenda/react-integration-app": "npm:^1.6.3"
+    "@openagenda/react-layouts": "npm:^2.2.2"
+    "@openagenda/react-shared": "npm:^2.4.4"
+    "@openagenda/registrations": "npm:^0.0.3"
     "@openagenda/sdk-js": "workspace:^"
     "@openagenda/security": "npm:^1.0.0"
-    "@openagenda/sessions": "npm:^4.1.0"
+    "@openagenda/sessions": "npm:^4.1.1"
     "@openagenda/shares": "npm:^0.1.1"
-    "@openagenda/simple-cache": "npm:^2.1.0"
+    "@openagenda/simple-cache": "npm:^2.1.1"
     "@openagenda/stream-utils": "npm:^1.1.0"
     "@openagenda/tumblr-parser": "npm:^0.1.3"
     "@openagenda/unsubscriptions": "npm:^1.0.0"
-    "@openagenda/usage-counters": "npm:^0.0.1"
-    "@openagenda/users": "npm:^3.1.0"
+    "@openagenda/usage-counters": "npm:^0.0.2"
+    "@openagenda/users": "npm:^3.1.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
     "@opentelemetry/api": "npm:^1.9.0"
-    "@opentelemetry/exporter-trace-otlp-proto": "npm:^0.202.0"
-    "@opentelemetry/instrumentation-express": "npm:^0.51.0"
-    "@opentelemetry/instrumentation-http": "npm:^0.202.0"
+    "@opentelemetry/api-logs": "npm:^0.203.0"
+    "@opentelemetry/exporter-logs-otlp-proto": "npm:^0.203.0"
+    "@opentelemetry/exporter-metrics-otlp-proto": "npm:^0.203.0"
+    "@opentelemetry/exporter-trace-otlp-proto": "npm:^0.203.0"
+    "@opentelemetry/instrumentation-express": "npm:^0.52.0"
+    "@opentelemetry/instrumentation-http": "npm:^0.203.0"
     "@opentelemetry/resources": "npm:^2.0.1"
-    "@opentelemetry/sdk-node": "npm:^0.202.0"
+    "@opentelemetry/sdk-logs": "npm:^0.203.0"
+    "@opentelemetry/sdk-metrics": "npm:^2.0.1"
+    "@opentelemetry/sdk-node": "npm:^0.203.0"
     "@opentelemetry/sdk-trace-base": "npm:^2.0.1"
-    "@sentry/core": "npm:^9.36.0"
-    "@sentry/node": "npm:^9.36.0"
+    "@sentry/core": "npm:^9.38.0"
+    "@sentry/node": "npm:^9.38.0"
     "@sentry/opentelemetry": "npm:^9.36.0"
     "@uppy/companion": "npm:^4.15.1"
     acorn: "npm:^8.12.1"
@@ -25530,6 +25593,7 @@ __metadata:
     mysql: "npm:^2.18.1"
     nodemon: "npm:^2.0.4"
     oauth: "npm:^0.9.15"
+    on-finished: "npm:^2.4.1"
     p-throttle: "npm:^3.1.0"
     passport: "npm:^0.4.0"
     passport-facebook: "npm:^2.1.1"
@@ -26883,7 +26947,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookies@npm:~0.9.0":
+"cookies@npm:^0.9.1, cookies@npm:~0.9.0":
   version: 0.9.1
   resolution: "cookies@npm:0.9.1"
   dependencies:
@@ -28777,6 +28841,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"detect-libc@npm:^2.0.4":
+  version: 2.0.4
+  resolution: "detect-libc@npm:2.0.4"
+  checksum: 10c0/c15541f836eba4b1f521e4eecc28eefefdbc10a94d3b8cb4c507689f332cc111babb95deda66f2de050b22122113189986d5190be97d51b5a2b23b938415e67c
+  languageName: node
+  linkType: hard
+
 "detect-newline@npm:^3.0.0":
   version: 3.1.0
   resolution: "detect-newline@npm:3.1.0"
@@ -29763,6 +29834,25 @@ __metadata:
   dependencies:
     stackframe: "npm:^1.1.1"
   checksum: 10c0/4a09ea8d6309f2ad492d8e5e417ddf3aeed17440e6747ea128f8423de1e6b9f24db9220845426ab43224481ebe6ec52e92aaff8211e7d28b79f462a220745352
+  languageName: node
+  linkType: hard
+
+"error@npm:7.0.2":
+  version: 7.0.2
+  resolution: "error@npm:7.0.2"
+  dependencies:
+    string-template: "npm:~0.2.1"
+    xtend: "npm:~4.0.0"
+  checksum: 10c0/abee95f258f34490278bfb5f5852420e23f9d7dd7754215144391a731c2e7f68ccb5367497ca7cc20459d1eb7ae5d119d6c82f620a9340150034ddd2e3603178
+  languageName: node
+  linkType: hard
+
+"error@npm:^7.0.0":
+  version: 7.2.1
+  resolution: "error@npm:7.2.1"
+  dependencies:
+    string-template: "npm:~0.2.1"
+  checksum: 10c0/91ce301017292eab20b59e27a0bc322a8f45fcf48d992761530d20c5f9c5699a2ae1822fc94298d4815fd35c2595e89139a7c6fdd3bbe9e93871e3b412186567
   languageName: node
   linkType: hard
 
@@ -34499,6 +34589,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"hexer@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "hexer@npm:1.5.0"
+  dependencies:
+    ansi-color: "npm:^0.2.1"
+    minimist: "npm:^1.1.0"
+    process: "npm:^0.10.0"
+    xtend: "npm:^4.0.0"
+  bin:
+    hexer: ./cli.js
+  checksum: 10c0/43b00fad220a98ed98dad3a3d0e7297bd3d0ce66f0d935a2927e07c0d29f5b8de92f9c0fa32c641daa4291ccb19385fa1bd0853d298983ec9b3ec88e7686ee5c
+  languageName: node
+  linkType: hard
+
 "hexoid@npm:^1.0.0":
   version: 1.0.0
   resolution: "hexoid@npm:1.0.0"
@@ -35316,18 +35420,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-in-the-middle@npm:^1.13.0, import-in-the-middle@npm:^1.8.1":
-  version: 1.13.1
-  resolution: "import-in-the-middle@npm:1.13.1"
-  dependencies:
-    acorn: "npm:^8.14.0"
-    acorn-import-attributes: "npm:^1.9.5"
-    cjs-module-lexer: "npm:^1.2.2"
-    module-details-from-path: "npm:^1.0.3"
-  checksum: 10c0/4ef05a924c37ff718dd08654927c90d470d92fd9425d646b0d423aaddc89655848debd14761bcb6efa4f57870d63ff38109bab31ca8a1d9d5df2e7d84d2649cf
-  languageName: node
-  linkType: hard
-
 "import-in-the-middle@npm:^1.14.2":
   version: 1.14.2
   resolution: "import-in-the-middle@npm:1.14.2"
@@ -35337,6 +35429,18 @@ __metadata:
     cjs-module-lexer: "npm:^1.2.2"
     module-details-from-path: "npm:^1.0.3"
   checksum: 10c0/ee614a09d3772ad39f8005d798458e541cbfb897b8f97623f4bac527eecc51984586cfbf8f195715df5c463ec0b7fce8086489dc12f758ffe5ea485b8a29da01
+  languageName: node
+  linkType: hard
+
+"import-in-the-middle@npm:^1.8.1":
+  version: 1.13.1
+  resolution: "import-in-the-middle@npm:1.13.1"
+  dependencies:
+    acorn: "npm:^8.14.0"
+    acorn-import-attributes: "npm:^1.9.5"
+    cjs-module-lexer: "npm:^1.2.2"
+    module-details-from-path: "npm:^1.0.3"
+  checksum: 10c0/4ef05a924c37ff718dd08654927c90d470d92fd9425d646b0d423aaddc89655848debd14761bcb6efa4f57870d63ff38109bab31ca8a1d9d5df2e7d84d2649cf
   languageName: node
   linkType: hard
 
@@ -37357,6 +37461,19 @@ __metadata:
     "@pkgjs/parseargs":
       optional: true
   checksum: 10c0/7e42d1ea411b4d57d43ea8a6afbca9224382804359cb72626d0fc45bb8db1de5ad0248283c3db45fe73e77210750d4fcc7c2b4fe5d24fda94aaa24d658295c5f
+  languageName: node
+  linkType: hard
+
+"jaeger-client@npm:^3.15.0":
+  version: 3.19.0
+  resolution: "jaeger-client@npm:3.19.0"
+  dependencies:
+    node-int64: "npm:^0.4.0"
+    opentracing: "npm:^0.14.4"
+    thriftrw: "npm:^3.5.0"
+    uuid: "npm:^8.3.2"
+    xorshift: "npm:^1.1.1"
+  checksum: 10c0/04f5683461212de49e4d5b6ca6b214276a797e361fba852231bc5e7fdcee76b053a6e618e5490106d7f7254917d928dda0880f7cd71e35dece7e09bbdcdd0927
   languageName: node
   linkType: hard
 
@@ -39872,6 +39989,13 @@ __metadata:
   version: 0.1.1
   resolution: "long-timeout@npm:0.1.1"
   checksum: 10c0/a62240cc8f449d7a00081e817ae543fb1ded4d9fc05492e9fa8d6868cb33b2c9d5d71176a6f8be4473df7ba4b208460b3073b0e05069c3ec286122f3e4b5747f
+  languageName: node
+  linkType: hard
+
+"long@npm:^2.4.0":
+  version: 2.4.0
+  resolution: "long@npm:2.4.0"
+  checksum: 10c0/2560d6a299f2177b94ce300cc21fc15dbf72d9899ddac7bd10251468e1b4eabbce48463f651fea15cc4acf2c4775e3507767c58df73945d5d6ae4e12ac058796
   languageName: node
   linkType: hard
 
@@ -42774,29 +42898,27 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:15.3.3":
-  version: 15.3.3
-  resolution: "next@npm:15.3.3"
+"next@npm:15.4.1":
+  version: 15.4.1
+  resolution: "next@npm:15.4.1"
   dependencies:
-    "@next/env": "npm:15.3.3"
-    "@next/swc-darwin-arm64": "npm:15.3.3"
-    "@next/swc-darwin-x64": "npm:15.3.3"
-    "@next/swc-linux-arm64-gnu": "npm:15.3.3"
-    "@next/swc-linux-arm64-musl": "npm:15.3.3"
-    "@next/swc-linux-x64-gnu": "npm:15.3.3"
-    "@next/swc-linux-x64-musl": "npm:15.3.3"
-    "@next/swc-win32-arm64-msvc": "npm:15.3.3"
-    "@next/swc-win32-x64-msvc": "npm:15.3.3"
-    "@swc/counter": "npm:0.1.3"
+    "@next/env": "npm:15.4.1"
+    "@next/swc-darwin-arm64": "npm:15.4.1"
+    "@next/swc-darwin-x64": "npm:15.4.1"
+    "@next/swc-linux-arm64-gnu": "npm:15.4.1"
+    "@next/swc-linux-arm64-musl": "npm:15.4.1"
+    "@next/swc-linux-x64-gnu": "npm:15.4.1"
+    "@next/swc-linux-x64-musl": "npm:15.4.1"
+    "@next/swc-win32-arm64-msvc": "npm:15.4.1"
+    "@next/swc-win32-x64-msvc": "npm:15.4.1"
     "@swc/helpers": "npm:0.5.15"
-    busboy: "npm:1.6.0"
     caniuse-lite: "npm:^1.0.30001579"
     postcss: "npm:8.4.31"
-    sharp: "npm:^0.34.1"
+    sharp: "npm:^0.34.3"
     styled-jsx: "npm:5.1.6"
   peerDependencies:
     "@opentelemetry/api": ^1.1.0
-    "@playwright/test": ^1.41.2
+    "@playwright/test": ^1.51.1
     babel-plugin-react-compiler: "*"
     react: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
     react-dom: ^18.2.0 || 19.0.0-rc-de68d2f4-20241204 || ^19.0.0
@@ -42831,7 +42953,7 @@ __metadata:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: 10c0/b519d348efd905ac63b2e5cb1e5a3d8e5d11d992aba436f4eef28c66f4555f155bb2bd489d0d029867e926539b31a3f14dd81b0ebca54ce9f3d65a883fb94d4b
+  checksum: 10c0/5a3c6a5d411c21917457eb66be577def739d3237f95663eed94dbe8274b7cdee64a76c2b05ec792930c6488587b613d125413927d1d5202414b8d576e527f8e0
   languageName: node
   linkType: hard
 
@@ -43940,6 +44062,13 @@ __metadata:
   bin:
     opener: bin/opener-bin.js
   checksum: 10c0/dd56256ab0cf796585617bc28e06e058adf09211781e70b264c76a1dbe16e90f868c974e5bf5309c93469157c7d14b89c35dc53fe7293b0e40b4d2f92073bc79
+  languageName: node
+  linkType: hard
+
+"opentracing@npm:^0.14.4":
+  version: 0.14.7
+  resolution: "opentracing@npm:0.14.7"
+  checksum: 10c0/a7be8d697b1997548233423f5f4c196e285af8e864a24d7704fc6029beb73cd1f987651ca814e207629c6bc624cb03297a86601c0dc51cdca9a07a20f97b71ea
   languageName: node
   linkType: hard
 
@@ -46461,6 +46590,13 @@ __metadata:
   version: 0.11.10
   resolution: "process@npm:0.11.10"
   checksum: 10c0/40c3ce4b7e6d4b8c3355479df77aeed46f81b279818ccdc500124e6a5ab882c0cc81ff7ea16384873a95a74c4570b01b120f287abbdd4c877931460eca6084b3
+  languageName: node
+  linkType: hard
+
+"process@npm:^0.10.0":
+  version: 0.10.1
+  resolution: "process@npm:0.10.1"
+  checksum: 10c0/2608c672bb59fbd5e87f0c4df512540995af7e047c4eed024e1a4a1c9b144ce394840ce15069a97b82afef7aa58c6e2e8e959c1b711fe3a1f7bfb6529b03084c
   languageName: node
   linkType: hard
 
@@ -49735,78 +49871,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"rollup@npm:4.34.9":
-  version: 4.34.9
-  resolution: "rollup@npm:4.34.9"
-  dependencies:
-    "@rollup/rollup-android-arm-eabi": "npm:4.34.9"
-    "@rollup/rollup-android-arm64": "npm:4.34.9"
-    "@rollup/rollup-darwin-arm64": "npm:4.34.9"
-    "@rollup/rollup-darwin-x64": "npm:4.34.9"
-    "@rollup/rollup-freebsd-arm64": "npm:4.34.9"
-    "@rollup/rollup-freebsd-x64": "npm:4.34.9"
-    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.34.9"
-    "@rollup/rollup-linux-arm-musleabihf": "npm:4.34.9"
-    "@rollup/rollup-linux-arm64-gnu": "npm:4.34.9"
-    "@rollup/rollup-linux-arm64-musl": "npm:4.34.9"
-    "@rollup/rollup-linux-loongarch64-gnu": "npm:4.34.9"
-    "@rollup/rollup-linux-powerpc64le-gnu": "npm:4.34.9"
-    "@rollup/rollup-linux-riscv64-gnu": "npm:4.34.9"
-    "@rollup/rollup-linux-s390x-gnu": "npm:4.34.9"
-    "@rollup/rollup-linux-x64-gnu": "npm:4.34.9"
-    "@rollup/rollup-linux-x64-musl": "npm:4.34.9"
-    "@rollup/rollup-win32-arm64-msvc": "npm:4.34.9"
-    "@rollup/rollup-win32-ia32-msvc": "npm:4.34.9"
-    "@rollup/rollup-win32-x64-msvc": "npm:4.34.9"
-    "@types/estree": "npm:1.0.6"
-    fsevents: "npm:~2.3.2"
-  dependenciesMeta:
-    "@rollup/rollup-android-arm-eabi":
-      optional: true
-    "@rollup/rollup-android-arm64":
-      optional: true
-    "@rollup/rollup-darwin-arm64":
-      optional: true
-    "@rollup/rollup-darwin-x64":
-      optional: true
-    "@rollup/rollup-freebsd-arm64":
-      optional: true
-    "@rollup/rollup-freebsd-x64":
-      optional: true
-    "@rollup/rollup-linux-arm-gnueabihf":
-      optional: true
-    "@rollup/rollup-linux-arm-musleabihf":
-      optional: true
-    "@rollup/rollup-linux-arm64-gnu":
-      optional: true
-    "@rollup/rollup-linux-arm64-musl":
-      optional: true
-    "@rollup/rollup-linux-loongarch64-gnu":
-      optional: true
-    "@rollup/rollup-linux-powerpc64le-gnu":
-      optional: true
-    "@rollup/rollup-linux-riscv64-gnu":
-      optional: true
-    "@rollup/rollup-linux-s390x-gnu":
-      optional: true
-    "@rollup/rollup-linux-x64-gnu":
-      optional: true
-    "@rollup/rollup-linux-x64-musl":
-      optional: true
-    "@rollup/rollup-win32-arm64-msvc":
-      optional: true
-    "@rollup/rollup-win32-ia32-msvc":
-      optional: true
-    "@rollup/rollup-win32-x64-msvc":
-      optional: true
-    fsevents:
-      optional: true
-  bin:
-    rollup: dist/bin/rollup
-  checksum: 10c0/dd0be1f7c4f8a93040026be13ecc39259fb55313db0dac7eafd97a3ac01ab4584e6b1a8afd86b0259dcf391699d5560a678abe6c0729af0aa4f2d5df70f05c8c
-  languageName: node
-  linkType: hard
-
 "rollup@npm:^2.74.1":
   version: 2.79.1
   resolution: "rollup@npm:2.79.1"
@@ -50091,6 +50155,81 @@ __metadata:
   bin:
     rollup: dist/bin/rollup
   checksum: 10c0/931a6d3bf34fa13adec44a8660319bb7b2f61fbabbf2030f4d29df991fb37b6a685cd7dc203fde8d4ab8b4fe783f1fe8814e448a97f651dc4727511faf958cb4
+  languageName: node
+  linkType: hard
+
+"rollup@npm:^4.35.0":
+  version: 4.45.1
+  resolution: "rollup@npm:4.45.1"
+  dependencies:
+    "@rollup/rollup-android-arm-eabi": "npm:4.45.1"
+    "@rollup/rollup-android-arm64": "npm:4.45.1"
+    "@rollup/rollup-darwin-arm64": "npm:4.45.1"
+    "@rollup/rollup-darwin-x64": "npm:4.45.1"
+    "@rollup/rollup-freebsd-arm64": "npm:4.45.1"
+    "@rollup/rollup-freebsd-x64": "npm:4.45.1"
+    "@rollup/rollup-linux-arm-gnueabihf": "npm:4.45.1"
+    "@rollup/rollup-linux-arm-musleabihf": "npm:4.45.1"
+    "@rollup/rollup-linux-arm64-gnu": "npm:4.45.1"
+    "@rollup/rollup-linux-arm64-musl": "npm:4.45.1"
+    "@rollup/rollup-linux-loongarch64-gnu": "npm:4.45.1"
+    "@rollup/rollup-linux-powerpc64le-gnu": "npm:4.45.1"
+    "@rollup/rollup-linux-riscv64-gnu": "npm:4.45.1"
+    "@rollup/rollup-linux-riscv64-musl": "npm:4.45.1"
+    "@rollup/rollup-linux-s390x-gnu": "npm:4.45.1"
+    "@rollup/rollup-linux-x64-gnu": "npm:4.45.1"
+    "@rollup/rollup-linux-x64-musl": "npm:4.45.1"
+    "@rollup/rollup-win32-arm64-msvc": "npm:4.45.1"
+    "@rollup/rollup-win32-ia32-msvc": "npm:4.45.1"
+    "@rollup/rollup-win32-x64-msvc": "npm:4.45.1"
+    "@types/estree": "npm:1.0.8"
+    fsevents: "npm:~2.3.2"
+  dependenciesMeta:
+    "@rollup/rollup-android-arm-eabi":
+      optional: true
+    "@rollup/rollup-android-arm64":
+      optional: true
+    "@rollup/rollup-darwin-arm64":
+      optional: true
+    "@rollup/rollup-darwin-x64":
+      optional: true
+    "@rollup/rollup-freebsd-arm64":
+      optional: true
+    "@rollup/rollup-freebsd-x64":
+      optional: true
+    "@rollup/rollup-linux-arm-gnueabihf":
+      optional: true
+    "@rollup/rollup-linux-arm-musleabihf":
+      optional: true
+    "@rollup/rollup-linux-arm64-gnu":
+      optional: true
+    "@rollup/rollup-linux-arm64-musl":
+      optional: true
+    "@rollup/rollup-linux-loongarch64-gnu":
+      optional: true
+    "@rollup/rollup-linux-powerpc64le-gnu":
+      optional: true
+    "@rollup/rollup-linux-riscv64-gnu":
+      optional: true
+    "@rollup/rollup-linux-riscv64-musl":
+      optional: true
+    "@rollup/rollup-linux-s390x-gnu":
+      optional: true
+    "@rollup/rollup-linux-x64-gnu":
+      optional: true
+    "@rollup/rollup-linux-x64-musl":
+      optional: true
+    "@rollup/rollup-win32-arm64-msvc":
+      optional: true
+    "@rollup/rollup-win32-ia32-msvc":
+      optional: true
+    "@rollup/rollup-win32-x64-msvc":
+      optional: true
+    fsevents:
+      optional: true
+  bin:
+    rollup: dist/bin/rollup
+  checksum: 10c0/d641c283fe25d5db9e32c5bd977847cae1773f1021301d7baf936c65110e30e0608bb43cade46827df64a6149a67b853e72d3e92b46603c7ceb3b50bbd9ee1f8
   languageName: node
   linkType: hard
 
@@ -50680,7 +50819,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:^7.5.2, semver@npm:^7.6.3, semver@npm:^7.7.1":
+"semver@npm:^7.5.2, semver@npm:^7.6.3":
   version: 7.7.1
   resolution: "semver@npm:7.7.1"
   bin:
@@ -50713,6 +50852,15 @@ __metadata:
   bin:
     semver: bin/semver.js
   checksum: 10c0/bcd1c03209b4be7d8ca86c976a0410beba7d4ec1d49d846a4be154b958db1ff5eaee50760c1d4f4070b19dee3236b8672d3e09642c53ea23740398bba2538a2d
+  languageName: node
+  linkType: hard
+
+"semver@npm:^7.7.2":
+  version: 7.7.2
+  resolution: "semver@npm:7.7.2"
+  bin:
+    semver: bin/semver.js
+  checksum: 10c0/aca305edfbf2383c22571cb7714f48cadc7ac95371b4b52362fb8eeffdfbc0de0669368b82b2b15978f8848f01d7114da65697e56cd8c37b0dab8c58e543f9ea
   languageName: node
   linkType: hard
 
@@ -51120,33 +51268,35 @@ __metadata:
   languageName: node
   linkType: hard
 
-"sharp@npm:^0.34.1":
-  version: 0.34.1
-  resolution: "sharp@npm:0.34.1"
+"sharp@npm:^0.34.3":
+  version: 0.34.3
+  resolution: "sharp@npm:0.34.3"
   dependencies:
-    "@img/sharp-darwin-arm64": "npm:0.34.1"
-    "@img/sharp-darwin-x64": "npm:0.34.1"
-    "@img/sharp-libvips-darwin-arm64": "npm:1.1.0"
-    "@img/sharp-libvips-darwin-x64": "npm:1.1.0"
-    "@img/sharp-libvips-linux-arm": "npm:1.1.0"
-    "@img/sharp-libvips-linux-arm64": "npm:1.1.0"
-    "@img/sharp-libvips-linux-ppc64": "npm:1.1.0"
-    "@img/sharp-libvips-linux-s390x": "npm:1.1.0"
-    "@img/sharp-libvips-linux-x64": "npm:1.1.0"
-    "@img/sharp-libvips-linuxmusl-arm64": "npm:1.1.0"
-    "@img/sharp-libvips-linuxmusl-x64": "npm:1.1.0"
-    "@img/sharp-linux-arm": "npm:0.34.1"
-    "@img/sharp-linux-arm64": "npm:0.34.1"
-    "@img/sharp-linux-s390x": "npm:0.34.1"
-    "@img/sharp-linux-x64": "npm:0.34.1"
-    "@img/sharp-linuxmusl-arm64": "npm:0.34.1"
-    "@img/sharp-linuxmusl-x64": "npm:0.34.1"
-    "@img/sharp-wasm32": "npm:0.34.1"
-    "@img/sharp-win32-ia32": "npm:0.34.1"
-    "@img/sharp-win32-x64": "npm:0.34.1"
+    "@img/sharp-darwin-arm64": "npm:0.34.3"
+    "@img/sharp-darwin-x64": "npm:0.34.3"
+    "@img/sharp-libvips-darwin-arm64": "npm:1.2.0"
+    "@img/sharp-libvips-darwin-x64": "npm:1.2.0"
+    "@img/sharp-libvips-linux-arm": "npm:1.2.0"
+    "@img/sharp-libvips-linux-arm64": "npm:1.2.0"
+    "@img/sharp-libvips-linux-ppc64": "npm:1.2.0"
+    "@img/sharp-libvips-linux-s390x": "npm:1.2.0"
+    "@img/sharp-libvips-linux-x64": "npm:1.2.0"
+    "@img/sharp-libvips-linuxmusl-arm64": "npm:1.2.0"
+    "@img/sharp-libvips-linuxmusl-x64": "npm:1.2.0"
+    "@img/sharp-linux-arm": "npm:0.34.3"
+    "@img/sharp-linux-arm64": "npm:0.34.3"
+    "@img/sharp-linux-ppc64": "npm:0.34.3"
+    "@img/sharp-linux-s390x": "npm:0.34.3"
+    "@img/sharp-linux-x64": "npm:0.34.3"
+    "@img/sharp-linuxmusl-arm64": "npm:0.34.3"
+    "@img/sharp-linuxmusl-x64": "npm:0.34.3"
+    "@img/sharp-wasm32": "npm:0.34.3"
+    "@img/sharp-win32-arm64": "npm:0.34.3"
+    "@img/sharp-win32-ia32": "npm:0.34.3"
+    "@img/sharp-win32-x64": "npm:0.34.3"
     color: "npm:^4.2.3"
-    detect-libc: "npm:^2.0.3"
-    semver: "npm:^7.7.1"
+    detect-libc: "npm:^2.0.4"
+    semver: "npm:^7.7.2"
   dependenciesMeta:
     "@img/sharp-darwin-arm64":
       optional: true
@@ -51174,6 +51324,8 @@ __metadata:
       optional: true
     "@img/sharp-linux-arm64":
       optional: true
+    "@img/sharp-linux-ppc64":
+      optional: true
     "@img/sharp-linux-s390x":
       optional: true
     "@img/sharp-linux-x64":
@@ -51184,11 +51336,13 @@ __metadata:
       optional: true
     "@img/sharp-wasm32":
       optional: true
+    "@img/sharp-win32-arm64":
+      optional: true
     "@img/sharp-win32-ia32":
       optional: true
     "@img/sharp-win32-x64":
       optional: true
-  checksum: 10c0/50f5ffb18a775ec9f0d4d39bdc4356fdfa1fc97e69d8800d68e960b93b1c0cce7ee5242225d3b86ffae5801890fd7f93acfee00018f247e7df70fee2b4de7945
+  checksum: 10c0/df9e6645e3db6ed298a0ac956ba74e468c367fc038b547936fbdddc6a29fce9af40413acbef73b3716291530760f311a20e45c8983f20ee5ea69dd2f21464a2b
   languageName: node
   linkType: hard
 
@@ -52449,13 +52603,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"streamsearch@npm:^1.1.0":
-  version: 1.1.0
-  resolution: "streamsearch@npm:1.1.0"
-  checksum: 10c0/fbd9aecc2621364384d157f7e59426f4bfd385e8b424b5aaa79c83a6f5a1c8fd2e4e3289e95de1eb3511cb96bb333d6281a9919fafce760e4edb35b2cd2facab
-  languageName: node
-  linkType: hard
-
 "strict-event-emitter@npm:^0.5.1":
   version: 0.5.1
   resolution: "strict-event-emitter@npm:0.5.1"
@@ -52489,6 +52636,13 @@ __metadata:
     char-regex: "npm:^1.0.2"
     strip-ansi: "npm:^6.0.0"
   checksum: 10c0/160c226cc2c7621f4c1d857390bb9d2d4cd46cfa6c89142248feb0aa6dd06e1877d94759a6dc00b0d3962173086c408a4f5a3ed2be9b353f58abb403290d7f6c
+  languageName: node
+  linkType: hard
+
+"string-template@npm:~0.2.1":
+  version: 0.2.1
+  resolution: "string-template@npm:0.2.1"
+  checksum: 10c0/5dc9bd8741e50aaf1ebb616c64fdada32301dc52718692a7a13088285b96fecd1010ab612b348ef29c08dff4df4f96c8e80689ca855a578d01cc182e48199182
   languageName: node
   linkType: hard
 
@@ -53506,6 +53660,19 @@ __metadata:
   dependencies:
     any-promise: "npm:^1.0.0"
   checksum: 10c0/f375aeb2b05c100a456a30bc3ed07ef03a39cbdefe02e0403fb714b8c7e57eeaad1a2f5c4ecfb9ce554ce3db9c2b024eba144843cd9e344566d9fcee73b04767
+  languageName: node
+  linkType: hard
+
+"thriftrw@npm:^3.5.0":
+  version: 3.12.0
+  resolution: "thriftrw@npm:3.12.0"
+  dependencies:
+    bufrw: "npm:^1.3.0"
+    error: "npm:7.0.2"
+    long: "npm:^2.4.0"
+  bin:
+    thrift2json: ./thrift2json.js
+  checksum: 10c0/3f7f4184eb3d722c8f07be7a27f960f9ebe4c014532cb77d625b69f2246e5c3f9f1e7be2dbbf438372e6d6827b32ba55f658c80addcb9b511e907017205f9213
   languageName: node
   linkType: hard
 
@@ -57623,7 +57790,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"xtend@npm:^4.0.0, xtend@npm:^4.0.1, xtend@npm:^4.0.2, xtend@npm:~4.0.1":
+"xorshift@npm:^1.1.1":
+  version: 1.2.0
+  resolution: "xorshift@npm:1.2.0"
+  checksum: 10c0/e805cdda3ca16ea48d3e1dbcb6f55f7c135bcf5219ae842bdea814486e4e6788cefc6703a04140b93be631370c1a7403c51ab0a6554ec68d66e84b601e34a722
+  languageName: node
+  linkType: hard
+
+"xtend@npm:^4.0.0, xtend@npm:^4.0.1, xtend@npm:^4.0.2, xtend@npm:~4.0.0, xtend@npm:~4.0.1":
   version: 4.0.2
   resolution: "xtend@npm:4.0.2"
   checksum: 10c0/366ae4783eec6100f8a02dff02ac907bf29f9a00b82ac0264b4d8b832ead18306797e283cf19de776538babfdcb2101375ec5646b59f08c52128ac4ab812ed0e
