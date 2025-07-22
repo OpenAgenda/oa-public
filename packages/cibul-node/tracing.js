@@ -1,8 +1,10 @@
 import { NodeSDK } from '@opentelemetry/sdk-node';
-import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
-import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
+import { BatchLogRecordProcessor } from '@opentelemetry/sdk-logs';
 import { BatchSpanProcessor } from '@opentelemetry/sdk-trace-base';
+import { PeriodicExportingMetricReader } from '@opentelemetry/sdk-metrics';
 import { OTLPTraceExporter } from '@opentelemetry/exporter-trace-otlp-proto';
+import { OTLPMetricExporter } from '@opentelemetry/exporter-metrics-otlp-proto';
+import { OTLPLogExporter } from '@opentelemetry/exporter-logs-otlp-proto';
 import { resourceFromAttributes } from '@opentelemetry/resources';
 import {
   trace,
@@ -22,8 +24,6 @@ if (process.env.NODE_ENV !== 'production') {
   // Optional: For internal OpenTelemetry debugging
   diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
 }
-
-const SPAN_KEY = Symbol.for('oa.otel.span');
 
 class InheritedAttributesSpanProcessor {
   constructor(attributeKeys) {
@@ -69,24 +69,10 @@ const sdk = new NodeSDK({
     'service.name': 'cibul-node',
     'service.namespace': 'oa',
   }),
-  instrumentations: sentryClient
-    ? undefined
-    : [
-      new HttpInstrumentation(),
-      new ExpressInstrumentation({
-        requestHook: (span, { request }) => {
-          request[SPAN_KEY] = span;
-
-          if (request.otelAttributes) {
-            span.setAttributes(request.otelAttributes);
-          }
-        },
-      }),
-    ],
-  sampler: sentryClient ? new SentrySampler(sentryClient) : undefined,
+  sampler: new SentrySampler(sentryClient),
   spanProcessors: [
     new InheritedAttributesSpanProcessor(INHERITED_ATTRIBUTES),
-    sentryClient ? new SentrySpanProcessor() : null,
+    new SentrySpanProcessor(),
     process.env.OTEL_EXPORTER_OTLP_ENDPOINT
       ? new BatchSpanProcessor(
         new OTLPTraceExporter({
@@ -95,13 +81,22 @@ const sdk = new NodeSDK({
       )
       : null,
   ].filter(Boolean),
-  textMapPropagator: sentryClient ? new SentryPropagator() : undefined,
-  contextManager: sentryClient ? new SentryContextManager() : undefined,
-  // metricReader: new PeriodicExportingMetricReader({
-  //   exporter: new OTLPMetricExporter({
-  //     url: `${process.env.OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics`,
-  //   }),
-  // }),
+  logRecordProcessors: [
+    process.env.OTEL_EXPORTER_OTLP_ENDPOINT
+      ? new BatchLogRecordProcessor(
+        new OTLPLogExporter({
+          url: `${process.env.OTEL_EXPORTER_OTLP_ENDPOINT}/v1/logs`,
+        }),
+      )
+      : null,
+  ],
+  textMapPropagator: new SentryPropagator(),
+  contextManager: new SentryContextManager(),
+  metricReader: new PeriodicExportingMetricReader({
+    exporter: new OTLPMetricExporter({
+      url: `${process.env.OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics`,
+    }),
+  }),
 });
 
 validateOpenTelemetrySetup();
@@ -113,10 +108,8 @@ sdk.start();
 // eslint-disable-next-line dot-notation
 await sdk['_resource']?.waitForAsyncAttributes?.();
 
-if (sentryClient) {
-  // eslint-disable-next-line dot-notation
-  sentryClient.traceProvider = sdk['_tracerProvider'];
-}
+// eslint-disable-next-line dot-notation
+sentryClient.traceProvider = sdk['_tracerProvider'];
 
 // TODO check this, OA can have multiple services to gracefully shutdown
 process.on('SIGTERM', () => {

@@ -50,7 +50,7 @@ export default (app) => {
     app,
     '/:agendaSlug/admin/locations',
   );
-  app.use('/', app.services.inboxes.plugApp());
+  app.services.inboxes.plugApp(app);
   app.services.agendaContribute.plugApp(app);
   app.services.agendaEvents.plugApp(app);
   networkApps(app);

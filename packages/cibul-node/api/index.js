@@ -1141,6 +1141,8 @@ export default (core, { useRouter = true } = {}) => {
         .then((result) => res.json(result)),
   ]);
 
+  app.get('/noop', (req, res) => res.send());
+
   log('done');
 
   app.use(sentryErrorHandler({ tag: 'api' }));
