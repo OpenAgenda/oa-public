@@ -106,8 +106,14 @@ function load({ sessions }, options) {
   );
 
   return (req, res, next) => {
-    sessions.get(req, { detailed: params.detailed }, (err, user) => {
+    sessions.get(req, { detailed: params.detailed }, async (err, user) => {
       if (err) return next(err);
+
+      // session is in cookie but not in redis
+      if (req.session?.user && !user) {
+        const { sessionId } = req.session;
+        req.session = sessionId ? { sessionId } : null;
+      }
 
       req[params.target] = user;
 

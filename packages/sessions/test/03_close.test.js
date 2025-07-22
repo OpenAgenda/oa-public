@@ -56,7 +56,7 @@ describe('session - functional (server): close', () => {
         sessions.close(request, (err1, _result) => {
           if (err1) return reject(err1);
 
-          expect(request.session).toBe(null);
+          expect(request.session).toEqual({ sessionId: expect.any(String) });
 
           resolve();
         });

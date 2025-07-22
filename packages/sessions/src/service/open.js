@@ -80,8 +80,6 @@ async function open(config, request, response, identifier) {
 
   // store session in cookie
 
-  console.log('KEEP', request.session.sessionId);
-
   cookieData = cookieValidate({
     user: sessionUser,
     sessionId: request.session.sessionId || randomBytes(12).toString('hex'),
