@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/keys",
-  "version": "2.2.10",
+  "version": "2.2.11",
   "private": true,
   "description": "",
   "type": "module",
@@ -16,7 +16,7 @@
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/keys",
   "dependencies": {
-    "@openagenda/logs": "^1.1.9",
+    "@openagenda/logs": "^1.1.10",
     "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.4.0",

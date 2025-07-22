@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.1.15
+
+### Patch Changes
+
+- Updated dependencies [[`9130206`](https://github.com/OpenAgenda/oa/commit/9130206f01c7b004965a026e357974f68c5d4dc9)]:
+  - @openagenda/logs@1.1.10
+  - @openagenda/form-schemas@1.9.3
+  - @openagenda/event-form@1.5.3
+  - @openagenda/react-shared@2.4.4
+
 ## 1.1.14
 
 ### Patch Changes

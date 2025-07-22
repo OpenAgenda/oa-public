@@ -1,0 +1,9 @@
+# @openagenda/registration-apps
+
+## 0.0.1
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/registrations@0.0.3
+  - @openagenda/react-shared@2.4.4

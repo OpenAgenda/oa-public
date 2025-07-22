@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react-share-menus",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "",
   "repository": {
     "type": "git",
@@ -19,9 +19,9 @@
     "extract-messages": "oa-intl --esm"
   },
   "dependencies": {
-    "@openagenda/bs-templates": "^2.5.0",
+    "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/intl": "^1.1.5",
-    "@openagenda/react-shared": "^2.4.3",
+    "@openagenda/react-shared": "^2.4.4",
     "axios": "^0.21.1",
     "base-64": "^1.0.0",
     "final-form": "^4.20.2",

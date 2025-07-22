@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-schemas-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "",
   "repository": {
@@ -18,10 +18,10 @@
     "prepack": "oa-intl compile --esm && yarn build"
   },
   "dependencies": {
-    "@openagenda/event-form": "^1.5.2",
-    "@openagenda/form-schemas": "^1.9.2",
+    "@openagenda/event-form": "^1.5.3",
+    "@openagenda/form-schemas": "^1.9.3",
     "@openagenda/intl": "^1.1.5",
-    "@openagenda/react-shared": "^2.4.3",
+    "@openagenda/react-shared": "^2.4.4",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "history": "^4.10.1",
@@ -36,7 +36,7 @@
     "redial": "^0.5.0"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.5.0",
+    "@openagenda/bs-templates": "^2.5.1",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",
     "react": "^19.0.0",

@@ -1,5 +1,18 @@
 # Change Log
 
+## 2.1.2
+
+### Patch Changes
+
+- Updated dependencies [[`616e54c`](https://github.com/OpenAgenda/oa/commit/616e54c1159c8585ee0dfbaac7557ee55c22bbba), [`507cf12`](https://github.com/OpenAgenda/oa/commit/507cf127fef88e6c4e902cc8064fdff47d268c83)]:
+  - @openagenda/bs-templates@2.5.1
+  - @openagenda/md@1.0.1
+  - @openagenda/activity-apps@1.2.2
+  - @openagenda/form-schemas@1.9.3
+  - @openagenda/members@1.15.14
+  - @openagenda/mails@4.0.2
+  - @openagenda/react-shared@2.4.4
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
