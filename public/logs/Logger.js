@@ -5,7 +5,15 @@ const getTransporters = require('./getTransporters');
 
 module.exports = class Logger extends winston.Logger {
   constructor(options = {}) {
-    const { prefix, namespace, enableDebug, token, sentry, ...superOptions } = options;
+    const {
+      prefix,
+      namespace,
+      enableDebug,
+      token,
+      sentry,
+      otel,
+      ...superOptions
+    } = options;
 
     super({
       transports: getTransporters({
@@ -14,6 +22,7 @@ module.exports = class Logger extends winston.Logger {
         enableDebug,
         token,
         sentry,
+        otel,
       }),
       ...superOptions,
     });
