@@ -23,7 +23,7 @@
     "@openagenda/members": "^1.15.14",
     "@openagenda/react-shared": "^2.4.4",
     "@openagenda/sessions": "^4.1.1",
-    "@sentry/react": "^9.5.0",
+    "@sentry/react": "^9.38.0",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
     "immer": "^10.0.3",
