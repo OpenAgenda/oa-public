@@ -28,8 +28,6 @@ export default (services) =>
       uids.length < 20 ? `(${uids.join(', ')})` : null,
     );
 
-    const impactedAgendaUids = [];
-
     for (const eventUid of uids) {
       // update search indices
       const relatedReferences = await agendaEvents.list
@@ -57,10 +55,6 @@ export default (services) =>
           } else {
             log.error('failed to resync event', { eventUid, agendaUid, error });
           }
-        }
-
-        if (!impactedAgendaUids.includes(agendaUid)) {
-          impactedAgendaUids.push(agendaUid);
         }
       }
     }
