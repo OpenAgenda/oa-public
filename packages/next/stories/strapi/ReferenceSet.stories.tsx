@@ -107,7 +107,6 @@ export const WithoutTitle: Story = {
               url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
               alternativeText: 'Logo OpenAgenda',
             },
-            title: 'Site Web OpenAgenda',
             tags: 'Technologie, SaaS',
           },
           {

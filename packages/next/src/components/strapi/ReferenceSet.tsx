@@ -89,7 +89,7 @@ export default function ReferenceSet({
         />
       )}
 
-      <Wrap gap="10" justify="center">
+      <Wrap gap="8" justify="center">
         {filteredReferences.map((reference) => (
           <WrapItem key={reference.id}>
             <ReferenceItem

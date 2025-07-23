@@ -43,7 +43,21 @@ export default function ReferenceItem({
         width={smallImages ? '300px' : '380px'}
         maxWidth={smallImages ? '300px' : '380px'}
         alignItems="center"
+        gap={2}
       >
+        {title && (
+          <Text
+            fontSize="lg"
+            fontWeight="semibold"
+            textAlign="center"
+            color="gray.700"
+            px="2"
+            wordBreak="break-word"
+          >
+            {title}
+          </Text>
+        )}
+
         <Box
           position="relative"
           display="inline-block"
@@ -59,8 +73,7 @@ export default function ReferenceItem({
               alt={image.alternativeText}
               height={smallImages ? '220px' : '380px'}
               maxW={smallImages ? '220px' : '380px'}
-              objectFit={smallImages ? 'contain' : 'cover'}
-              p={2}
+              objectFit="cover"
             />
           </LinkOverlay>
 
@@ -89,21 +102,8 @@ export default function ReferenceItem({
           </Box>
         </Box>
 
-        {title && (
-          <Text
-            fontSize="lg"
-            fontWeight="semibold"
-            textAlign="center"
-            color="gray.700"
-            px="2"
-            wordBreak="break-word"
-          >
-            {title}
-          </Text>
-        )}
-
         {tags?.length > 0 ? (
-          <Wrap justify="center" maxWidth="100%" pt={title ? '0' : '3'}>
+          <Wrap justify="center" maxWidth="100%" pt={1}>
             {tags?.map((tag) => (
               <WrapItem key={tag}>
                 <Tag
