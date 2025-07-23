@@ -28,7 +28,7 @@ export default function LockIcon({
   const message = messages[type] ? intl.formatMessage(messages[type]) : label;
 
   const icon = (
-    <Icon aria-label={message} {...props}>
+    <Icon {...props}>
       <FontAwesomeIcon icon={faLock} />
     </Icon>
   );
@@ -52,7 +52,9 @@ export default function LockIcon({
       // arrowSize={8}
       // arrowPadding={6}
     >
-      {icon}
+      <span role="img" aria-label={message}>
+        {icon}
+      </span>
     </Tooltip>
   );
 }
