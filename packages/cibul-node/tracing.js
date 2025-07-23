@@ -92,11 +92,13 @@ const sdk = new NodeSDK({
   ],
   textMapPropagator: new SentryPropagator(),
   contextManager: new SentryContextManager(),
-  metricReader: new PeriodicExportingMetricReader({
-    exporter: new OTLPMetricExporter({
-      url: `${process.env.OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics`,
-    }),
-  }),
+  metricReader: process.env.OTEL_EXPORTER_OTLP_ENDPOINT
+    ? new PeriodicExportingMetricReader({
+      exporter: new OTLPMetricExporter({
+        url: `${process.env.OTEL_EXPORTER_OTLP_ENDPOINT}/v1/metrics`,
+      }),
+    })
+    : null,
 });
 
 validateOpenTelemetrySetup();

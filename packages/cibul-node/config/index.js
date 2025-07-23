@@ -55,12 +55,12 @@ const config = {
         enableDebug: false,
         token: insightOpsKeys?.oa ?? null,
         sentry: Sentry,
-        otel: true,
+        otel: !!process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
       }
       : {
         prefix: 'oa:',
         token: false,
-        otel: true,
+        otel: !!process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
       },
   name: 'cibul-node',
   domain: prod.domains?.main ?? process.env.DOMAIN ?? 'd.openagenda.com',
@@ -622,7 +622,7 @@ debug.enable(config.logger.enableDebug);
 config.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`,
   token: insightOpsKeys[key],
-  otel: true,
+  otel: !!process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
 });
 
 export default config;
