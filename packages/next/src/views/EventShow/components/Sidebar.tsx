@@ -306,6 +306,10 @@ export function RegistrationSection({
               wordBreak="break-all"
               maxW="full"
               lineClamp={2}
+              color="primary.600"
+              _hover={{
+                color: 'primary.700',
+              }}
             >
               {registrationItem.type === 'link'
                 ? intl.formatMessage(messages.registerBook)
@@ -347,10 +351,14 @@ export function LocationPreview({ event, icon = faLocationDot }) {
           href={`https://www.openstreetmap.org/directions?to=${event.location.latitude}%2C${event.location.longitude}`}
           target="_blank"
           rel="noopener nofollow"
+          color="primary.600"
+          _hover={{
+            color: 'primary.700',
+          }}
         >
           {event.location.address}
         </Link>
-        <Wrap color="oaGray.500">
+        <Wrap color="oaGray.700">
           {['department', 'region', 'country'].map((part) => (
             <WrapItem key={part}>{event.location[part]}</WrapItem>
           ))}

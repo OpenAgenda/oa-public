@@ -53,7 +53,7 @@ function Label({ field }) {
 
 function NoInput({ message = 'noInput' }) {
   return (
-    <chakra.em color="oaGray.500" fontSize={defaultSize}>
+    <chakra.em color="oaGray.600" fontSize={defaultSize}>
       {useIntl().formatMessage(messages[message])}
     </chakra.em>
   );

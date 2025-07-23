@@ -164,7 +164,7 @@ function TimingsWithNavigation({ timings, timezone }) {
             size="lg"
             variant="ghost"
             _hover={{
-              color: 'oaBlue.500',
+              color: 'primary.500',
             }}
             justifySelf="start"
             onClick={() => setCurrentMonth(previousMonth)}
@@ -193,7 +193,7 @@ function TimingsWithNavigation({ timings, timezone }) {
             size="lg"
             variant="ghost"
             _hover={{
-              color: 'oaBlue.500',
+              color: 'primary.500',
             }}
             justifySelf="end"
             onClick={() => setCurrentMonth(nextMonth)}

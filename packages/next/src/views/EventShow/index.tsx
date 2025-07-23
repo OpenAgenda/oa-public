@@ -361,7 +361,7 @@ function EventShow({ preload }: EventShowProps) {
                   ) : null}
 
                   {event.keywords?.[contentLocale]?.length ? (
-                    <chakra.div color="oaGray.500" css={defaultStyle}>
+                    <chakra.div color="oaGray.600" css={defaultStyle}>
                       {intl.formatList(event.keywords[contentLocale], {
                         style: 'narrow',
                       })}
