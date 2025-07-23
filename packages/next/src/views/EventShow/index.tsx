@@ -443,7 +443,6 @@ function EventShow({ preload }: EventShowProps) {
               ) : null}
 
               {!mailtoSettings?.enabled && session?.user ? <Inbox /> : null}
-              <Inbox />
             </GridItem>
 
             <GridItem area="footer">
