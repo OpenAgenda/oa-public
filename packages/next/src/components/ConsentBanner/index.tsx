@@ -68,7 +68,7 @@ function ConsentFixed({ consentFor, setConsent }) {
             href={link}
             target="_blank"
             rel="noopener nofollow"
-            color="oaBlue.500"
+            color="primary.500"
           >
             {intl.formatMessage(messages.moreInfoLink)}
           </Link>
@@ -116,7 +116,7 @@ function ConsentOverlay({ consentFor, setConsent }) {
                 href={link}
                 target="_blank"
                 rel="noopener nofollow"
-                color="oaBlue.500"
+                color="primary.500"
               >
                 {intl.formatMessage(messages.moreInfoLink)}
               </Link>

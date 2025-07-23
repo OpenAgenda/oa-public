@@ -71,7 +71,7 @@ function LinkField({ field }) {
       href={`${prefix}${field.value}`}
       target="_blank"
       rel="noopener nofollow"
-      color="oaBlue.500"
+      color="primary.500"
     >
       {field.value}
     </Link>
@@ -117,7 +117,7 @@ function FileField({ field }) {
       href={value.link}
       target="_blank"
       rel="noopener nofollow"
-      color="oaBlue.500"
+      color="primary.500"
       download={value.originalName}
     >
       {value.originalName}

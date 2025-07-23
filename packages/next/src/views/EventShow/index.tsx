@@ -260,7 +260,6 @@ function EventShow({ preload }: EventShowProps) {
                         value={language}
                         id={`tabs-r5-trigger-${language}`}
                         aria-controls={`tabs-r5-content-${language}`}
-                        colorPalette="oaBlue"
                       >
                         <Tabs.Content
                           key={language}

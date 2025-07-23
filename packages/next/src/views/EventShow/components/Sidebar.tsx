@@ -124,7 +124,7 @@ export function ShareSection({
       <Icon color="oaGray.300" justifySelf="center" fontSize="3xl">
         <FaIcon icon={icon} />
       </Icon>
-      <Button onClick={shareOnOpen} disabled={isDisabled} colorPalette="oaBlue">
+      <Button onClick={shareOnOpen} disabled={isDisabled}>
         {intl.formatMessage(messages.share)}
       </Button>
     </Grid>
@@ -306,7 +306,6 @@ export function RegistrationSection({
               wordBreak="break-all"
               maxW="full"
               lineClamp={2}
-              colorPalette="oaBlue"
             >
               {registrationItem.type === 'link'
                 ? intl.formatMessage(messages.registerBook)
@@ -348,7 +347,6 @@ export function LocationPreview({ event, icon = faLocationDot }) {
           href={`https://www.openstreetmap.org/directions?to=${event.location.latitude}%2C${event.location.longitude}`}
           target="_blank"
           rel="noopener nofollow"
-          colorPalette="oaBlue"
         >
           {event.location.address}
         </Link>
@@ -425,7 +423,6 @@ export function PassCultureSection({
           rel="noopener nofollow"
           wordBreak="break-all"
           maxW="full"
-          colorPalette="oaBlue"
         >
           {getCurrentPassValue(passCulture)?.value
             ? intl.formatMessage(messages.accessPassOffer)
@@ -443,7 +440,6 @@ export function PassCultureSection({
             onClick={bookingOnOpen}
             wordBreak="break-all"
             maxW="full"
-            colorPalette="oaBlue"
           >
             Réservations
           </Link>

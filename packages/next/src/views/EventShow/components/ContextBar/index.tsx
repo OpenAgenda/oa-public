@@ -30,7 +30,7 @@ const Column = chakra('div', {
   base: {
     display: 'flex',
     alignItems: 'center',
-    bg: 'oaBlue.500',
+    bg: 'primary.500',
     // flex: '1',
     h: '50px',
     // flexBasis: ['100%', null, 'auto'],

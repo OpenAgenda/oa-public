@@ -52,7 +52,7 @@ export default function CopyIdentifier({
       {...rest}
       startAddon="UID"
       startAddonProps={{
-        bg: 'oaBlue.500',
+        bg: 'primary.500',
         color: 'white',
       }}
       endElement={

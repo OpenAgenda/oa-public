@@ -15,10 +15,10 @@ const ContextBarButton = forwardRef<HTMLButtonElement, any>(
         whiteSpace="normal"
         _hover={{
           textDecoration: 'none',
-          bgColor: 'oaBlue.600',
+          bgColor: 'primary.600',
         }}
         _active={{
-          bgColor: 'oaBlue.600',
+          bgColor: 'primary.600',
         }}
         {...buttonProps}
         // __css={{
