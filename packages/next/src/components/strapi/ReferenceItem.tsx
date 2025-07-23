@@ -27,6 +27,17 @@ type ReferenceItemProps = Reference & {
   smallImages?: boolean;
 };
 
+const sizes = {
+  small: {
+    container: '260px',
+    image: '190px',
+  },
+  big: {
+    container: '320px',
+    image: '320px',
+  },
+};
+
 export default function ReferenceItem({
   link,
   image,
@@ -37,11 +48,13 @@ export default function ReferenceItem({
 }: ReferenceItemProps) {
   const tags = tagsString?.split(',').map((tag) => tag.trim());
 
+  const size = sizes[smallImages ? 'small' : 'big'];
+
   return (
     <LinkBox asChild>
       <VStack
-        width={smallImages ? '300px' : '380px'}
-        maxWidth={smallImages ? '300px' : '380px'}
+        width={size.container}
+        maxWidth={size.container}
         alignItems="center"
         gap={2}
       >
@@ -71,8 +84,8 @@ export default function ReferenceItem({
             <Image
               src={`${image.url}`}
               alt={image.alternativeText}
-              height={smallImages ? '220px' : '380px'}
-              maxW={smallImages ? '220px' : '380px'}
+              height={size.image}
+              maxW={size.image}
               objectFit="cover"
             />
           </LinkOverlay>
