@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addMultipageSegments from '../lib/addMultipageSegments.js';
 import addText from '../lib/addText.js';
-import onlineEvent from './fixtures/onlineAttendance.event.json' assert { type: 'json' };
+import onlineEvent from './fixtures/onlineAttendance.event.json' with { type: 'json' };
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 

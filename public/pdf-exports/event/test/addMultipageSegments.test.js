@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addMultipageSegments from '../lib/addMultipageSegments.js';
 import addText from '../lib/addText.js';
-import loiretEvent from './fixtures/withRegistrationLink.event.json' assert { type: 'json' };
+import loiretEvent from './fixtures/withRegistrationLink.event.json' with { type: 'json' };
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 
