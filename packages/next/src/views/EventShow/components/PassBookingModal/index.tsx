@@ -60,7 +60,7 @@ const PassBookingModal = ({
     <DialogRoot size="xl" open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader fontSize="xl" fontWeight="semibold">
-          Réservations Pass Culture
+          Réservations pass Culture
         </DialogHeader>
         <DialogCloseTrigger />
         <DialogBody>

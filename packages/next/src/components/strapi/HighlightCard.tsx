@@ -57,7 +57,7 @@ export default function HighlightCard({
         </Box>
       )}
       {title && (
-        <Heading size="md" fontWeight={600}>
+        <Heading size="lg" fontWeight={600}>
           {title}
         </Heading>
       )}

@@ -27,6 +27,17 @@ type ReferenceItemProps = Reference & {
   smallImages?: boolean;
 };
 
+const sizes = {
+  small: {
+    container: '260px',
+    image: '190px',
+  },
+  big: {
+    container: '320px',
+    image: '320px',
+  },
+};
+
 export default function ReferenceItem({
   link,
   image,
@@ -37,13 +48,29 @@ export default function ReferenceItem({
 }: ReferenceItemProps) {
   const tags = tagsString?.split(',').map((tag) => tag.trim());
 
+  const size = sizes[smallImages ? 'small' : 'big'];
+
   return (
     <LinkBox asChild>
       <VStack
-        width={smallImages ? '300px' : '380px'}
-        maxWidth={smallImages ? '300px' : '380px'}
+        width={size.container}
+        maxWidth={size.container}
         alignItems="center"
+        gap={2}
       >
+        {title && (
+          <Text
+            fontSize="lg"
+            fontWeight="semibold"
+            textAlign="center"
+            color="gray.700"
+            px="2"
+            wordBreak="break-word"
+          >
+            {title}
+          </Text>
+        )}
+
         <Box
           position="relative"
           display="inline-block"
@@ -57,10 +84,9 @@ export default function ReferenceItem({
             <Image
               src={`${image.url}`}
               alt={image.alternativeText}
-              height={smallImages ? '220px' : '380px'}
-              maxW={smallImages ? '220px' : '380px'}
-              objectFit={smallImages ? 'contain' : 'cover'}
-              p={2}
+              height={size.image}
+              maxW={size.image}
+              objectFit="cover"
             />
           </LinkOverlay>
 
@@ -89,21 +115,8 @@ export default function ReferenceItem({
           </Box>
         </Box>
 
-        {title && (
-          <Text
-            fontSize="lg"
-            fontWeight="semibold"
-            textAlign="center"
-            color="gray.700"
-            px="2"
-            wordBreak="break-word"
-          >
-            {title}
-          </Text>
-        )}
-
         {tags?.length > 0 ? (
-          <Wrap justify="center" maxWidth="100%" pt={title ? '0' : '3'}>
+          <Wrap justify="center" maxWidth="100%" pt={1}>
             {tags?.map((tag) => (
               <WrapItem key={tag}>
                 <Tag
