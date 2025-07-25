@@ -128,6 +128,7 @@ module.exports = (env = {}, argv = {}) => {
             /\/node_modules\/nth-check\//,
             /\/node_modules\/@formatjs\//,
             /\/node_modules\/intl-messageformat\//,
+            /\/node_modules\/@dnd-kit\/react\//,
           ],
         },
         {

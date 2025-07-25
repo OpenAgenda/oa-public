@@ -22,6 +22,7 @@
   "dependencies": {
     "@openagenda/intl": "^1.1.5",
     "@openagenda/react-shared": "^2.4.4",
+    "@openagenda/uikit": "^0.0.2",
     "classnames": "^2.3.1",
     "final-form": "^4.20.2",
     "final-form-arrays": "^3.0.2",
