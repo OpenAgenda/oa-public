@@ -40,6 +40,7 @@
     "@openagenda/intl": "^1.1.5",
     "@openagenda/md": "^1.0.1",
     "@openagenda/react-dropzone": "^14.3.5",
+    "@openagenda/uikit": "^0.0.2",
     "axios": "^0.21.1",
     "bytes": "^3.1.0",
     "classnames": "^2.3.1",
