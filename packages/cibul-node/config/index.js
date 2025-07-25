@@ -48,6 +48,10 @@ const config = {
   logPath: '/var/tmp/cibul-node.log',
   logPathDebug: '/var/tmp/cibul-node-debug.log',
   logPathError: '/var/tmp/cibul-node-errors.log',
+  insightOps: {
+    logTokens: insightOpsKeys,
+    apiKey: process.env.OA_INSIGHT_OPS_API_KEY,
+  },
   logger:
     process.env.NODE_ENV === 'production'
       ? {
