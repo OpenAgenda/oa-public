@@ -1,2 +1,6 @@
-@import '../templates/variables';
-@import '../templates/admin/style';
+@layer reset, bootstrap, base, tokens, recipes;
+
+@layer bootstrap {
+  @import '../templates/variables';
+  @import '../templates/admin/style';
+}
