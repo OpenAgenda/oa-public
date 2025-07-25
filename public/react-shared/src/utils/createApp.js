@@ -3,6 +3,7 @@ import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
+import { UIKitProvider } from '@openagenda/uikit';
 import { ApiClientContext } from '../contexts/index.js';
 import createApiClient from './apiClient.js';
 import createStore from './createStore.js';
@@ -73,11 +74,13 @@ export default function createApp(options) {
   });
 
   const Content = React.memo(({ extraProps, switchProps }) => (
-    <Provider store={store}>
-      <ApiClientContext.Provider value={client}>
-        {renderRoutes(routes, extraProps, switchProps)}
-      </ApiClientContext.Provider>
-    </Provider>
+    <UIKitProvider>
+      <Provider store={store}>
+        <ApiClientContext.Provider value={client}>
+          {renderRoutes(routes, extraProps, switchProps)}
+        </ApiClientContext.Provider>
+      </Provider>
+    </UIKitProvider>
   ));
 
   return {
