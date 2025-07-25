@@ -12,6 +12,7 @@ import {
 } from '@sentry/core';
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
+import { BullMQInstrumentation } from '@appsignal/opentelemetry-instrumentation-bullmq';
 
 const SENTRY_DSN = process.env.SENTRY_DSN
   || process.env.NEXT_PUBLIC_SENTRY_DSN
@@ -134,6 +135,7 @@ const sentryClient = Sentry.init({
       requestHook: (span, info) => requestHook(span, info),
       spanNameHook: (info, defaultName) => spanNameHook(info, defaultName),
     }),
+    new BullMQInstrumentation(),
   ],
 });
 
