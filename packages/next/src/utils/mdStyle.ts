@@ -22,6 +22,7 @@ const mdStyle: SystemStyleObject = {
       textDecorationColor: 'currentColor/20',
     },
     fontSize: 'md',
+    display: 'inline',
   },
   '& h1': {
     fontSize: '3xl',
