@@ -4,8 +4,8 @@ import addText from '../lib/addText.js';
 import addEventItem from '../lib/addEventItem/index.js';
 import getIntl from '../../utils/intl.js';
 
-import expoNature from './fixtures/expoNature.event.json' assert { type: 'json' };
-import agenda from './fixtures/mel.agenda.json' assert { type: 'json' };
+import expoNature from './fixtures/expoNature.event.json' with { type: 'json' };
+import agenda from './fixtures/mel.agenda.json' with { type: 'json' };
 
 const { PDF_TEST_FOLDER: pdfTestFolder = '/tmp', LANG: lang = 'fr' } = process.env;
 

@@ -3,7 +3,7 @@ import PDFDocument from 'pdfkit';
 import cursorYOverflowing from '../../utils/cursorYOverflowing.js';
 import addFooter from '../lib/addFooter.js';
 import addText from '../lib/addText.js';
-import texts from './fixtures/texts.json' assert { type: 'json' };
+import texts from './fixtures/texts.json' with { type: 'json' };
 
 const pdfTestFolder = process.env.PDF_TEST_FOLDER;
 const cursor = { x: 0, y: 0 };
