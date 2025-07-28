@@ -1,6 +1,2 @@
-@layer reset, bootstrap, base, tokens, recipes;
-
-@layer bootstrap {
-  @import '../templates/variables';
-  @import '../templates/rich-text/tinymce';
-}
+@import '../templates/variables';
+@import '../templates/rich-text/tinymce';
