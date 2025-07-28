@@ -1,3 +1,5 @@
+import { chakra } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
 import SplitHero from './SplitHero';
 
@@ -8,7 +10,10 @@ interface SplitHeroSegmentProps {
   text?: string;
   imagePosition?: string;
   CTAs?: any;
+  backgroundColor?: any;
 }
+
+const StyledSegmentContainer = chakra(SegmentContainer);
 
 export default function SplitHeroSegment({
   title,
@@ -16,9 +21,17 @@ export default function SplitHeroSegment({
   text,
   imagePosition,
   CTAs,
+  backgroundColor,
 }: SplitHeroSegmentProps) {
   return (
-    <SegmentContainer>
+    <StyledSegmentContainer
+      colorPalette={backgroundColor}
+      bg={
+        !backgroundColor || backgroundColor.name === 'white'
+          ? 'white'
+          : color(backgroundColor.name, 'subtle')
+      }
+    >
       <SplitHero
         title={title}
         image={image}
@@ -26,6 +39,6 @@ export default function SplitHeroSegment({
         imagePosition={imagePosition}
         CTAs={CTAs}
       />
-    </SegmentContainer>
+    </StyledSegmentContainer>
   );
 }

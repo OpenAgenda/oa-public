@@ -10,6 +10,7 @@ interface SegmentContainerProps {
   title?: string;
   description?: string;
   CTAs?: any[];
+  className?: string;
 }
 
 export default function SegmentContainer({
@@ -19,13 +20,15 @@ export default function SegmentContainer({
   title,
   description,
   CTAs,
+  className,
 }: SegmentContainerProps) {
   return (
     <chakra.div
+      className={className}
       backgroundColor={
         backgroundColor
           ? [color(`${backgroundColor?.name}`), 'solid'].join('.')
-          : null
+          : undefined
       }
     >
       <Container

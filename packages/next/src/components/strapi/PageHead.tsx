@@ -1,4 +1,5 @@
 import {
+  chakra,
   Box,
   Grid,
   GridItem,
@@ -73,6 +74,8 @@ interface PageHeadProps {
   };
 }
 
+const StyledSegmentContainer = chakra(SegmentContainer);
+
 export default function PageHead({
   title,
   description,
@@ -92,7 +95,15 @@ export default function PageHead({
       : '1fr';
 
   return (
-    <SegmentContainer backgroundColor={backgroundColor} fontColor={titleColor}>
+    <StyledSegmentContainer
+      fontColor={titleColor}
+      colorPalette={backgroundColor}
+      bg={
+        !backgroundColor || backgroundColor.name === 'white'
+          ? 'white'
+          : color(backgroundColor.name, 'subtle')
+      }
+    >
       <Grid
         templateColumns={templateColumns}
         gap={8}
@@ -127,6 +138,6 @@ export default function PageHead({
           </GridItem>
         ) : null}
       </Grid>
-    </SegmentContainer>
+    </StyledSegmentContainer>
   );
 }
