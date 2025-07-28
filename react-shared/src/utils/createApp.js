@@ -3,7 +3,7 @@ import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
 import { Provider } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { UIKitProvider } from '@openagenda/uikit';
+import { UIKitProvider, createSystem, themeConfig } from '@openagenda/uikit';
 import { ApiClientContext } from '../contexts/index.js';
 import createApiClient from './apiClient.js';
 import createStore from './createStore.js';
@@ -15,6 +15,11 @@ function getDefaultHistory(req) {
     ? createMemoryHistory({ initialEntries: [req.originalUrl] })
     : createBrowserHistory();
 }
+
+const system = createSystem(themeConfig, {
+  disableLayers: true,
+  preflight: false,
+});
 
 export default function createApp(options) {
   const {
@@ -74,7 +79,7 @@ export default function createApp(options) {
   });
 
   const Content = React.memo(({ extraProps, switchProps }) => (
-    <UIKitProvider>
+    <UIKitProvider theme={system}>
       <Provider store={store}>
         <ApiClientContext.Provider value={client}>
           {renderRoutes(routes, extraProps, switchProps)}
