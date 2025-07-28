@@ -1,4 +1,4 @@
-import { Tabs } from '@openagenda/uikit';
+import { Tabs, H3 } from '@openagenda/uikit';
 import { allowedItemColors } from 'utils/strapi';
 import SplitHero from './SplitHero';
 import SegmentContainer from './SegmentContainer';
@@ -39,7 +39,7 @@ export default function TabSet({
 
         {TabsData.map((tab) => (
           <Tabs.Content key={tab.id} value={tab.id} py={12} px={3}>
-            <SplitHero {...tab.content} />
+            <SplitHero {...tab.content} TitleComponent={H3} />
           </Tabs.Content>
         ))}
       </Tabs.Root>
