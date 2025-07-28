@@ -62,6 +62,11 @@
           "localized": true
         }
       }
+    },
+    "themeColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
     }
   }
 }
