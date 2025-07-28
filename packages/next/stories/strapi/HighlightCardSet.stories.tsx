@@ -50,6 +50,16 @@ export function WithActualData() {
   );
 }
 
+export function WithLongLinks() {
+  return (
+    <HighlightCardSet
+      title={highlightCardSetData.title}
+      description="Découvrez nos principales fonctionnalités et avantages"
+      Cards={[highlightCardSetData.Cards[0]]}
+    />
+  );
+}
+
 export function WithMoreActualData() {
   return (
     <HighlightCardSet
