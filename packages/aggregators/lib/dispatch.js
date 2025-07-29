@@ -25,7 +25,7 @@ export default async ({ queue, knex }, action, data) => {
     };
   });
 
-  await queue(action, {
+  await queue.add(action, {
     aggregatorsBuffer,
     sourceAgendaUid: agenda.uid,
     ...data,

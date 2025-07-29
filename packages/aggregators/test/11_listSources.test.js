@@ -21,11 +21,12 @@ describe('11 - list sources', () => {
 
     svc = createInstance({
       knex: f.client,
-      queues: () =>
-        Object.assign(async () => {}, {
-          register: () => {},
-          on: () => {},
-        }),
+      queue: {
+        add: () => {},
+      },
+      createWorker: () => ({
+        on: () => {},
+      }),
       interfaces: {
         getAgendasByUids,
       },
