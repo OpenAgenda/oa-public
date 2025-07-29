@@ -133,7 +133,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
     let response;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -142,7 +142,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
       beforeAll(async () => {
         response = await axios({
           method: 'get',
-          url: `http://localhost:3000/me/agendas?key=${key}`,
+          url: `http://localhost:4000/me/agendas?key=${key}`,
         }).then((r) => r.data);
       });
 

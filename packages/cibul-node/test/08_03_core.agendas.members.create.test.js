@@ -184,7 +184,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     let nonMemberAccessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -192,7 +192,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     beforeAll(async () => {
       adminAccessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -203,7 +203,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
       nonMemberAccessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -217,7 +217,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       beforeAll(async () => {
         await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/2/members',
+          url: 'http://localhost:4000/agendas/2/members',
           headers: {
             'access-token': adminAccessToken,
             'content-type': 'application/json',
@@ -246,7 +246,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       it('member invite', async () => {
         await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/2/members/invite',
+          url: 'http://localhost:4000/agendas/2/members/invite',
           headers: {
             'access-token': adminAccessToken,
             'content-type': 'application/json',
@@ -276,7 +276,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       it('user can add himself on open agenda through api', async () => {
         await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/48353388/members',
+          url: 'http://localhost:4000/agendas/48353388/members',
           headers: {
             'access-token': nonMemberAccessToken,
             'content-type': 'application/json',
@@ -308,7 +308,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         try {
           await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/2/members',
+            url: 'http://localhost:4000/agendas/2/members',
             headers: {
               'access-token': nonMemberAccessToken,
               'content-type': 'application/json',
@@ -331,7 +331,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         let response;
         const contributorAccessToken = await axios({
           method: 'post',
-          url: 'http://localhost:3000/requestAccessToken',
+          url: 'http://localhost:4000/requestAccessToken',
           headers: {
             'content-type': 'application/json',
           },
@@ -343,7 +343,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         try {
           await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/2/members',
+            url: 'http://localhost:4000/agendas/2/members',
             headers: {
               'access-token': contributorAccessToken,
               'content-type': 'application/json',

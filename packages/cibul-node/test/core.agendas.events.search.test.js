@@ -415,7 +415,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     let accessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -423,7 +423,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -440,7 +440,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           response = await axios({
             method: 'get',
-            url: 'http://localhost:3000/agendas/2/events',
+            url: 'http://localhost:4000/agendas/2/events',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -476,7 +476,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       beforeAll(async () => {
         response = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/2/events/search',
+          url: 'http://localhost:4000/agendas/2/events/search',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -505,7 +505,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           response = await axios({
             method: 'get',
-            url: 'http://localhost:3000/agendas/2/events/1',
+            url: 'http://localhost:4000/agendas/2/events/1',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -531,7 +531,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('administrators have access to restricted admin field', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events/1',
+          url: 'http://localhost:4000/agendas/2/events/1',
           headers: {
             'content-type': 'application/json',
             'access-token': accessToken,
@@ -550,7 +550,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       beforeAll(async () => {
         event = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events/1?detailed=1&useDateHoursMinutesFormat=1',
+          url: 'http://localhost:4000/agendas/2/events/1?detailed=1&useDateHoursMinutesFormat=1',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -574,7 +574,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           response = await axios({
             method: 'get',
-            url: 'http://localhost:3000/agendas/2/events',
+            url: 'http://localhost:4000/agendas/2/events',
             headers: {
               'content-type': 'application/json',
             },
@@ -604,7 +604,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           await axios({
             method: 'get',
-            url: 'http://localhost:3000/agendas/2/events/1',
+            url: 'http://localhost:4000/agendas/2/events/1',
             headers: {
               'content-type': 'application/json',
             },
@@ -622,7 +622,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('published events are gettable by non adminmods', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events/2',
+          url: 'http://localhost:4000/agendas/2/events/2',
           headers: {
             'content-type': 'application/json',
           },
@@ -637,7 +637,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('administrator field is not visible to non adminmod', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events/1',
+          url: 'http://localhost:4000/agendas/2/events/1',
           headers: {
             'content-type': 'application/json',
           },
@@ -652,7 +652,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('get by slug', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events/slug/event-2',
+          url: 'http://localhost:4000/agendas/2/events/slug/event-2',
           headers: {
             'content-type': 'application/json',
           },
@@ -667,7 +667,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('get by agenda slug and event slug', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/slug/un-agenda-thematique/events/slug/event-2',
+          url: 'http://localhost:4000/agendas/slug/un-agenda-thematique/events/slug/event-2',
           headers: {
             'content-type': 'application/json',
           },
@@ -682,7 +682,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('includeFields: get by slug with additional field labels', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events/slug/event-1?detailed=1&includeLabels=1',
+          url: 'http://localhost:4000/agendas/2/events/slug/event-1?detailed=1&includeLabels=1',
           headers: {
             'content-type': 'application/json',
           },
@@ -700,7 +700,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('get can provide origin and source agenda data', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events/2?detailed=1',
+          url: 'http://localhost:4000/agendas/2/events/2?detailed=1',
           headers: {
             'content-type': 'application/json',
           },
@@ -716,7 +716,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('unpublished event is gettable by owning contributor', async () => {
         const { event } = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events/1',
+          url: 'http://localhost:4000/agendas/2/events/1',
           headers: {
             'content-type': 'application/json',
           },
@@ -734,7 +734,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           await axios({
             method: 'get',
-            url: 'http://localhost:3000/agendas/2/events/1',
+            url: 'http://localhost:4000/agendas/2/events/1',
             headers: {
               'content-type': 'application/json',
             },
@@ -754,7 +754,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           await axios({
             method: 'get',
-            url: 'http://localhost:3000/agendas/1/events/3',
+            url: 'http://localhost:4000/agendas/1/events/3',
             headers: {
               'content-type': 'application/json',
             },
@@ -772,7 +772,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('draft event is gettable by contributing contributor', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events/3',
+          url: 'http://localhost:4000/agendas/2/events/3',
           headers: {
             'content-type': 'application/json',
           },
@@ -787,7 +787,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('draft event restricted data is gettable by credded user', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/1/events/4',
+          url: 'http://localhost:4000/agendas/1/events/4',
           headers: {
             'content-type': 'application/json',
           },
@@ -805,7 +805,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         try {
           await axios({
             method: 'get',
-            url: 'http://localhost:3000/agendas/2/events/3',
+            url: 'http://localhost:4000/agendas/2/events/3',
             headers: {
               'content-type': 'application/json',
             },
@@ -827,7 +827,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       beforeAll(async () => {
         const axiosParams = {
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events',
+          url: 'http://localhost:4000/agendas/2/events',
           headers: {
             'content-type': 'application/json',
           },
@@ -885,7 +885,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('aggregations can be requested through query params', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events',
+          url: 'http://localhost:4000/agendas/2/events',
           headers: {
             'content-type': 'application/json',
           },
@@ -903,7 +903,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('removed option at true', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/1/events',
+          url: 'http://localhost:4000/agendas/1/events',
           headers: {
             'content-type': 'application/json',
           },
@@ -918,7 +918,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('default removed option at false', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/1/events',
+          url: 'http://localhost:4000/agendas/1/events',
           headers: {
             'content-type': 'application/json',
           },
@@ -932,7 +932,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('removed option at null', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/1/events',
+          url: 'http://localhost:4000/agendas/1/events',
           headers: {
             'content-type': 'application/json',
           },
@@ -947,7 +947,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('sort by location fields', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/2/events',
+          url: 'http://localhost:4000/agendas/2/events',
           headers: {
             'content-type': 'application/json',
           },
@@ -962,7 +962,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('get by extIds', async () => {
         const response = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/1/events/ext/test/1234',
+          url: 'http://localhost:4000/agendas/1/events/ext/test/1234',
           headers: {
             'content-type': 'application/json',
           },

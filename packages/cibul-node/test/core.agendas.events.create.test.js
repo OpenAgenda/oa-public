@@ -927,7 +927,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
     let response;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -935,7 +935,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -950,7 +950,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         try {
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/events',
+            url: 'http://localhost:4000/agendas/17026855/events',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -1015,7 +1015,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
       it('create with superagent', async () => {
         const createResponse = await request
-          .post('http://localhost:3000/agendas/17026855/events')
+          .post('http://localhost:4000/agendas/17026855/events')
           .type('form')
           .accept('json')
           .query({ key: null })
@@ -1030,7 +1030,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       it('create online event', async () => {
         const onlineEventCreateResponse = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/17026855/events',
+          url: 'http://localhost:4000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -1071,7 +1071,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         try {
           await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/events',
+            url: 'http://localhost:4000/agendas/17026855/events',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -1118,7 +1118,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         let error;
         try {
           await request
-            .post('http://localhost:3000/agendas/17026855/events')
+            .post('http://localhost:4000/agendas/17026855/events')
             .type('form')
             .accept('json')
             .query({ key: null })
@@ -1177,7 +1177,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
           oneLanguageResponse = await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/events',
+            url: 'http://localhost:4000/agendas/17026855/events',
             data: form,
             headers: form.getHeaders(),
           }).then((r) => r.data);
@@ -1208,7 +1208,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       it('Event is created in french if lang is set to french in header', async () => {
         const frenchResponse = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/17026855/events',
+          url: 'http://localhost:4000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -1229,7 +1229,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       beforeAll(async () => {
         await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/17026855/events',
+          url: 'http://localhost:4000/agendas/17026855/events',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -1279,7 +1279,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       test('when ref is not specified, enableWith required field is not processed', async () => {
         const { event } = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/89904399/events',
+          url: 'http://localhost:4000/agendas/89904399/events',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -1296,7 +1296,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       test('when ref field is specified, enableWith required field triggers validation error when not set', async () => {
         const errorResponse = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/89904399/events',
+          url: 'http://localhost:4000/agendas/89904399/events',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',

@@ -728,7 +728,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     let response;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -736,7 +736,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -752,7 +752,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         try {
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/events/19201989',
+            url: 'http://localhost:4000/agendas/17026855/events/19201989',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -805,7 +805,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         try {
           await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/events/19201989',
+            url: 'http://localhost:4000/agendas/17026855/events/19201989',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -853,7 +853,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         try {
           await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/events/19201989',
+            url: 'http://localhost:4000/agendas/17026855/events/19201989',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -913,7 +913,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         try {
           response = await axios({
             method: 'patch',
-            url: 'http://localhost:3000/agendas/17026855/events/19390293',
+            url: 'http://localhost:4000/agendas/17026855/events/19390293',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -964,7 +964,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         try {
           response = await axios({
             method: 'patch',
-            url: 'http://localhost:3000/agendas/17026855/events/19390293',
+            url: 'http://localhost:4000/agendas/17026855/events/19390293',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -985,7 +985,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       it('updating extIds replaces existing when mergeExtIds options is false', async () => {
         response = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/17026855/events/19390293?mergeExtIds=false',
+          url: 'http://localhost:4000/agendas/17026855/events/19390293?mergeExtIds=false',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -1028,7 +1028,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       it('monolingual patch is by default english', async () => {
         const patchResponse = await axios({
           method: 'patch',
-          url: 'http://localhost:3000/agendas/17026855/events/19201989',
+          url: 'http://localhost:4000/agendas/17026855/events/19201989',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -1046,7 +1046,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       it('monolingual patch is in language specified in header', async () => {
         const patchLangInHeaderResponse = await axios({
           method: 'patch',
-          url: 'http://localhost:3000/agendas/17026855/events/19201989',
+          url: 'http://localhost:4000/agendas/17026855/events/19201989',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',

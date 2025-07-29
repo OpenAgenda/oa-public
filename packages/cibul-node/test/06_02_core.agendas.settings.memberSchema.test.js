@@ -63,11 +63,11 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
     let contribAccessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
 
       adminAccessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -79,7 +79,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
       try {
         contribAccessToken = await axios({
           method: 'post',
-          url: 'http://localhost:3000/requestAccessToken',
+          url: 'http://localhost:4000/requestAccessToken',
           headers: {
             'content-type': 'application/json',
           },
@@ -96,7 +96,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
 
     it('get settings memberSchema for configuration with adminKey', async () => {
       const res = await axios.get(
-        `http://localhost:3000/agendas/60935574/settings/memberSchema/configure?key=${administratorKey}`,
+        `http://localhost:4000/agendas/60935574/settings/memberSchema/configure?key=${administratorKey}`,
         { params: {} },
       );
       expect(res.data.parents.length).toBe(1);
@@ -105,7 +105,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
 
     it('get settings memberSchema for member with andminKey', async () => {
       const res = await axios.get(
-        `http://localhost:3000/agendas/60935574/settings/memberSchema?key=${administratorKey}`,
+        `http://localhost:4000/agendas/60935574/settings/memberSchema?key=${administratorKey}`,
         { params: {} },
       );
       expect(res.data.merged.fields).toBeTruthy();
@@ -116,7 +116,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
       try {
         result = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/60935574/settings/memberSchema/configure',
+          url: 'http://localhost:4000/agendas/60935574/settings/memberSchema/configure',
           headers: {
             'access-token': adminAccessToken,
             'content-type': 'application/json',
@@ -136,7 +136,7 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
       try {
         await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/60935574/settings/memberSchema/configure',
+          url: 'http://localhost:4000/agendas/60935574/settings/memberSchema/configure',
           headers: {
             'access-token': contribAccessToken,
             'content-type': 'application/json',
