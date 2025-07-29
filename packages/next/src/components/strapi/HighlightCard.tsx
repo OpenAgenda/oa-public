@@ -33,17 +33,20 @@ export default function HighlightCard({
   backgroundColor,
 }: HighlightCardProps) {
   // Helper function to format description for markdown
+  console.log('backgroundColor', backgroundColor);
   const content = (
     <Stack
       gap={cardSize === 'large' ? 6 : 4}
+      padding={cardSize === 'large' ? 6 : 4}
       maxW={cardSize === 'large' ? '340px' : '280px'}
       align="center"
       textAlign="center"
-      colorPalette={backgroundColor?.name}
-      bg={
+      backgroundColor={
         backgroundColor?.name === 'white'
-          ? 'white'
-          : color(backgroundColor.name, 'subtle')
+          ? backgroundColor.name
+          : backgroundColor
+            ? [color(`${backgroundColor?.name}`), 'subtle'].join('.')
+            : null
       }
     >
       {image && (

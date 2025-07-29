@@ -22,9 +22,16 @@ const ubuntuSans = Ubuntu_Sans({
 export default function StrapiPage({ page, footer }) {
   const { title, description, keywords, Segments, themeColor } = page;
 
-  const colors = themeColor
-    ? [themeColor, { name: 'white' }]
-    : [{ name: 'white' }];
+  const colors = [
+    {
+      segment: themeColor,
+      component: { name: 'white' },
+    },
+    {
+      segment: { name: 'white' },
+      component: themeColor,
+    },
+  ];
 
   return (
     <>
@@ -56,8 +63,9 @@ export default function StrapiPage({ page, footer }) {
           <Component
             key={id}
             {...Segment}
-            backgroundColor={colors[i % 2]}
-            themeColor={themeColor}
+            backgroundColor={colors[i % 2].segment}
+            componentsBackgroundColor={colors[i % 2].component}
+            colorVariant={themeColor ? 'subtle' : undefined}
           />
         );
       })}

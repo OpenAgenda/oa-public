@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
-import { chakra, Wrap, WrapItem } from '@openagenda/uikit';
-import { allowedItemColors , color } from 'utils/strapi';
+import { Wrap, WrapItem } from '@openagenda/uikit';
+import { allowedItemColors } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
 import ReferenceItem, { type Reference } from './ReferenceItem';
 import ReferenceFilter from './ReferenceFilter';
@@ -13,9 +13,8 @@ type ReferenceSetProps = {
   smallImages?: boolean;
   CTAs?: any[];
   backgroundColor?: any;
+  colorVariant?: string;
 };
-
-const StyledSegmentContainer = chakra(SegmentContainer);
 
 export default function ReferenceSet({
   title = null,
@@ -25,6 +24,7 @@ export default function ReferenceSet({
   smallImages = true,
   CTAs,
   backgroundColor,
+  colorVariant,
 }: ReferenceSetProps) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
 
@@ -83,16 +83,12 @@ export default function ReferenceSet({
   }
 
   return (
-    <StyledSegmentContainer
+    <SegmentContainer
       title={title}
       description={description}
       CTAs={CTAs}
-      colorPalette={backgroundColor}
-      bg={
-        !backgroundColor || backgroundColor.name === 'white'
-          ? 'white'
-          : color(backgroundColor.name, 'subtle')
-      }
+      backgroundColor={backgroundColor}
+      colorVariant={colorVariant}
     >
       {hasFilter && (
         <ReferenceFilter
@@ -114,6 +110,6 @@ export default function ReferenceSet({
           </WrapItem>
         ))}
       </Wrap>
-    </StyledSegmentContainer>
+    </SegmentContainer>
   );
 }

@@ -1,5 +1,4 @@
-import { chakra, Flex, Stack } from '@openagenda/uikit';
-import { color } from 'utils/strapi';
+import { Flex, Stack } from '@openagenda/uikit';
 import HighlightCard from './HighlightCard';
 import SegmentContainer from './SegmentContainer';
 
@@ -10,10 +9,9 @@ interface HighlightCardSetProps {
   Cards: Array<any>;
   CTAs?: any[];
   backgroundColor?: any;
-  themeColor?: any;
+  componentsBackgroundColor?: any;
+  colorVariant?: string;
 }
-
-const StyledSegmentContainer = chakra(SegmentContainer);
 
 export default function HighlightCardSet({
   title,
@@ -22,20 +20,16 @@ export default function HighlightCardSet({
   CTAs,
   cardSize = 'medium',
   backgroundColor,
-  themeColor,
+  componentsBackgroundColor,
+  colorVariant,
 }: HighlightCardSetProps) {
-  const componentBackgroundColor =
-    themeColor?.name === 'white' ? themeColor : { name: 'white' };
   return (
-    <StyledSegmentContainer
+    <SegmentContainer
       title={title}
       description={description}
       CTAs={CTAs}
-      bg={
-        !backgroundColor || backgroundColor.name === 'white'
-          ? 'white'
-          : color(backgroundColor.name, 'subtle')
-      }
+      backgroundColor={backgroundColor}
+      colorVariant={colorVariant}
     >
       <Stack gap={cardSize === 'large' ? 10 : 8} align="center">
         <Flex wrap="wrap" justify="center" gap={cardSize === 'large' ? 12 : 8}>
@@ -44,11 +38,11 @@ export default function HighlightCardSet({
               key={Highlight.id}
               {...Highlight}
               cardSize={cardSize}
-              backgroundColor={componentBackgroundColor}
+              backgroundColor={componentsBackgroundColor}
             />
           ))}
         </Flex>
       </Stack>
-    </StyledSegmentContainer>
+    </SegmentContainer>
   );
 }

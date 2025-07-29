@@ -1,5 +1,4 @@
 import {
-  chakra,
   Box,
   Grid,
   GridItem,
@@ -60,6 +59,7 @@ import type { Color } from './types';
 
 interface PageHeadProps {
   backgroundColor?: any;
+  colorVariant?: string;
   titleColor?: Color;
   descriptionColor?: Color;
   title: string;
@@ -74,8 +74,6 @@ interface PageHeadProps {
   };
 }
 
-const StyledSegmentContainer = chakra(SegmentContainer);
-
 export default function PageHead({
   title,
   description,
@@ -83,6 +81,7 @@ export default function PageHead({
   video,
   image,
   backgroundColor,
+  colorVariant,
   titleColor,
   descriptionColor,
 }: PageHeadProps) {
@@ -95,14 +94,10 @@ export default function PageHead({
       : '1fr';
 
   return (
-    <StyledSegmentContainer
+    <SegmentContainer
       fontColor={titleColor}
-      colorPalette={backgroundColor}
-      bg={
-        !backgroundColor || backgroundColor.name === 'white'
-          ? 'white'
-          : color(backgroundColor.name, 'subtle')
-      }
+      backgroundColor={backgroundColor}
+      colorVariant={colorVariant}
     >
       <Grid
         templateColumns={templateColumns}
@@ -138,6 +133,6 @@ export default function PageHead({
           </GridItem>
         ) : null}
       </Grid>
-    </StyledSegmentContainer>
+    </SegmentContainer>
   );
 }

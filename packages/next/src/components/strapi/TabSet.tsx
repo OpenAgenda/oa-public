@@ -1,5 +1,5 @@
-import { chakra, Tabs } from '@openagenda/uikit';
-import { allowedItemColors , color } from 'utils/strapi';
+import { Tabs } from '@openagenda/uikit';
+import { allowedItemColors } from 'utils/strapi';
 import SplitHero from './SplitHero';
 import SegmentContainer from './SegmentContainer';
 
@@ -9,9 +9,8 @@ interface TabSetProps {
   Tabs: Array<any>;
   CTAs?: any[];
   backgroundColor?: any;
+  colorVariant?: string;
 }
-
-const StyledSegmentContainer = chakra(SegmentContainer);
 
 export default function TabSet({
   title = null,
@@ -19,22 +18,20 @@ export default function TabSet({
   Tabs: TabsData,
   CTAs,
   backgroundColor,
+  colorVariant,
 }: TabSetProps) {
   if (!TabsData?.length) {
     return null;
   }
 
+  console.log('backgroundColor', backgroundColor);
   return (
-    <StyledSegmentContainer
+    <SegmentContainer
       title={title}
       description={description}
       CTAs={CTAs}
-      colorPalette={backgroundColor}
-      bg={
-        !backgroundColor || backgroundColor.name === 'white'
-          ? 'white'
-          : color(backgroundColor.name, 'subtle')
-      }
+      backgroundColor={backgroundColor}
+      colorVariant={colorVariant}
     >
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
@@ -57,6 +54,6 @@ export default function TabSet({
           </Tabs.Content>
         ))}
       </Tabs.Root>
-    </StyledSegmentContainer>
+    </SegmentContainer>
   );
 }
