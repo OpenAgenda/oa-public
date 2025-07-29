@@ -67,3 +67,36 @@ export const WithColors = {
     },
   },
 };
+
+export const WithSubtleBackground = {
+  args: {
+    title: 'Alternance de backgrounds',
+    description: 'Premier fond coloré, second fond blanc',
+    image: {
+      url: '/guyWritingOnACalendar.png',
+      alternativeText: 'Guy writing something on a calendar',
+    },
+    CTAs: [
+      {
+        label: 'Créer un agenda',
+        link: '/agendas/new',
+      },
+    ],
+    backgroundColor: {
+      name: 'strapi.blueGreen',
+    },
+    titleColor: {
+      name: 'white',
+    },
+    descriptionColor: {
+      name: 'white',
+    },
+  },
+  render: (args) => (
+    <PageHead
+      {...args}
+      backgroundColor={{ name: 'rosyRed' }}
+      colorVariant="subtle"
+    />
+  ),
+};
