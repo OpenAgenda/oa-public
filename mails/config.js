@@ -25,7 +25,6 @@ const defaultConfig = {
     rateDelta: 1000,
   },
   defaults: {},
-  queueName: 'mails',
   disableVerify: false,
   onTaskError(method, args, error) {
     log.error('Error on sending email in task', { args, error });
@@ -105,14 +104,6 @@ async function createConfig(c = {}) {
 
   if (!config.intl) {
     config.intl = await createMultiIntl(config.templatesDir);
-  }
-
-  // Queue
-  if (config.Queues) {
-    config.queues = {
-      prepareMails: await config.Queues(`pre-${config.queueName}`),
-      sendMails: await config.Queues(config.queueName),
-    };
   }
 
   const transportLogger = {

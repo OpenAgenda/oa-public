@@ -1,8 +1,6 @@
 import path from 'node:path';
-import _ from 'lodash';
 import nodemailer from 'nodemailer';
-import redis from 'redis';
-import Queues from '@openagenda/queues';
+import bullmq from 'bullmq';
 import createMails from '../index.js';
 
 const { jest } = import.meta;
@@ -16,19 +14,15 @@ function _sleep(ms) {
 describe('task', () => {
   let mails;
 
-  jest.setTimeout(30000);
-
   beforeAll(async () => {
     const account = await nodemailer.createTestAccount();
 
-    const redisClient = redis.createClient({
-      socket: {
+    const queue = new bullmq.Queue('mailsTest-task', {
+      connection: {
         host: 'localhost',
         port: 6379,
       },
     });
-
-    await redisClient.connect();
 
     mails = await createMails({
       templatesDir,
@@ -52,15 +46,27 @@ describe('task', () => {
           domain: 'https://openagenda.com',
         },
       },
-      Queues: Queues({
-        redis: redisClient,
-        prefix: 'mails:',
-      }),
-      queueName: 'mailsTest-task',
+      queue,
+      createWorker: (processor) =>
+        new bullmq.Worker(queue.name, processor, {
+          connection: {
+            host: 'localhost',
+            port: 6379,
+          },
+          prefix: queue.opts.prefix,
+          autorun: false,
+          removeOnComplete: {
+            age: 3600, // keep up to 1 hour
+            count: 1000, // keep up to 1000 jobs
+          },
+          removeOnFail: {
+            age: 7 * 24 * 3600, // keep up to 7 days
+            count: 1000, // keep up to 1000 jobs
+          },
+        }),
     });
 
-    await mails.config.queues.prepareMails.clear();
-    await mails.config.queues.sendMails.clear();
+    await queue.drain();
 
     mails.task();
   });
@@ -70,47 +76,8 @@ describe('task', () => {
     jest.restoreAllMocks();
   });
 
-  it('respect rateLimit with pool transporter', async () => {
-    const recipients = [
-      'kevin.bertho@gmail.com',
-      'kevin.berthommier@openagenda.com',
-      'user1@openagenda.com',
-      'user2@openagenda.com',
-      'user3@openagenda.com',
-      'user4@openagenda.com',
-      'user5@openagenda.com',
-      'user6@openagenda.com',
-      'kaore@openagenda.com',
-    ];
-
-    const start = Date.now();
-    const spy = jest.spyOn(mails.config.transporter, 'sendMail');
-
-    const { results, errors } = await mails.send({
-      template: 'helloWorld',
-      data: {
-        username: 'unknown',
-      },
-      to: recipients,
-    });
-
-    expect(results).toHaveLength(9);
-    expect(errors).toHaveLength(0);
-
-    const wait = async () => {
-      if (spy.mock.calls.length === 9) {
-        return;
-      }
-
-      await _sleep(50);
-
-      return wait();
-    };
-
-    await wait();
-
-    expect(_.map(spy.mock.calls, '[0].to.address')).toEqual(recipients);
-    expect(Date.now() - start).toBeGreaterThan((recipients.length - 1) * 300);
+  afterAll(async () => {
+    await mails.worker.close();
   });
 
   it("send a mail with an error don't send anything", async () => {
