@@ -367,7 +367,6 @@ export const WithSubtleBackground = {
         tags: ref.tags,
       }))}
       backgroundColor={{ name: 'rosyRed' }}
-      colorVariant="subtle"
     />
   ),
 };

@@ -79,7 +79,6 @@ export function WithSubtleBackground() {
     <TabSet
       title={tabSetFixture.title}
       backgroundColor={{ name: 'rosyRed' }}
-      colorVariant="subtle"
       description={tabSetFixture.description}
       Tabs={tabSetFixture.Tabs.map((tab) => ({
         id: tab.id,

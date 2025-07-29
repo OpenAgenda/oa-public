@@ -68,7 +68,6 @@ export function WithSubtleBackground() {
       Cards={highlightCardSetData.Cards}
       backgroundColor={{ name: 'rosyRed' }}
       componentsBackgroundColor={{ name: 'white' }}
-      colorVariant="subtle"
     />
   );
 }

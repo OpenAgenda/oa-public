@@ -42,7 +42,7 @@ export const NoIllustration = {
   },
 };
 
-export const WithColors = {
+export const WithSubtleBackground = {
   args: {
     title: 'Vous ne savez pas quoi écrire dans votre Casendap ?',
     description: "Mettez un 12, on n'est plus à ça près.",
@@ -57,8 +57,9 @@ export const WithColors = {
       },
     ],
     backgroundColor: {
-      name: 'strapi.blueGreen',
+      name: 'blueGreen',
     },
+    colorVariant: 'subtle',
     titleColor: {
       name: 'white',
     },
@@ -68,23 +69,24 @@ export const WithColors = {
   },
 };
 
-export const WithSubtleBackground = {
+export const WithSolidBackground = {
   args: {
-    title: 'Alternance de backgrounds',
-    description: 'Premier fond coloré, second fond blanc',
+    title: 'Vous ne savez pas quoi écrire dans votre Casendap ?',
+    description: "Mettez un 12, on n'est plus à ça près.",
     image: {
-      url: '/guyWritingOnACalendar.png',
-      alternativeText: 'Guy writing something on a calendar',
+      url: '/casendapwhite.png',
+      alternativeText: 'Un casendap',
     },
     CTAs: [
       {
-        label: 'Créer un agenda',
-        link: '/agendas/new',
+        label: 'Mettre un 12',
+        link: 'https://google.com?q=12',
       },
     ],
     backgroundColor: {
-      name: 'strapi.blueGreen',
+      name: 'blueGreen',
     },
+    colorVariant: 'solid',
     titleColor: {
       name: 'white',
     },
@@ -92,11 +94,4 @@ export const WithSubtleBackground = {
       name: 'white',
     },
   },
-  render: (args) => (
-    <PageHead
-      {...args}
-      backgroundColor={{ name: 'rosyRed' }}
-      colorVariant="subtle"
-    />
-  ),
 };

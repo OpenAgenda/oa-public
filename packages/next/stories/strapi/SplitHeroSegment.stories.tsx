@@ -58,7 +58,6 @@ export function WithSubtleBackground() {
 * *Diffusez en un clic* votre programmation auprès des agendas de territoire ou d'autres réseaux
 * *Exportez votre agenda* vers tous vos autres supports de communication : réseaux sociaux, affichage papier, etc.`}
       backgroundColor={{ name: 'rosyRed' }}
-      colorVariant="subtle"
       CTAs={[
         {
           label: "J'aime les bateaux",
