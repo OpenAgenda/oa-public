@@ -9,10 +9,17 @@ import testConfig from './testConfig.js';
 describe('11 - core - functional (server): core.users().agendas.list()', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '012.sql.js'));
+  const config = testConfig.extendWith({
+    es75: {
+      ...testConfig.es75,
+      agendaEventsIndex: 'test_users_agendas_list',
+    },
+  });
+
+  beforeAll(() => loadFixtures(config.db, '012.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -37,7 +44,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
 
     await services.simpleCache.clearAll();
     await core.agendas(1).events.search.rebuild();

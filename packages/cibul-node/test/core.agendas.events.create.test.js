@@ -14,6 +14,13 @@ import testConfig from './testConfig.js';
 describe('core - functional (server): core.agendas().events.create()', () => {
   let core;
 
+  const config = testConfig.extendWith({
+    es75: {
+      ...testConfig.es75,
+      agendaEventsIndex: 'test_events_create',
+    },
+  });
+
   const now = new Date();
   const inAnHour = new Date();
   inAnHour.setHours(inAnHour.getHours() + 1);
@@ -36,10 +43,10 @@ describe('core - functional (server): core.agendas().events.create()', () => {
     },
   };
 
-  beforeAll(() => loadFixtures(testConfig.db, '002.sql.js'));
+  beforeAll(() => loadFixtures(config.db, '002.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -67,7 +74,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
     await core.agendas(17026855).events.search.rebuild();
   });
 

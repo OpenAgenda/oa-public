@@ -15,7 +15,13 @@ const log = logs('13_01');
 describe('13 - core - functional(server): core.agendas().locations.list', () => {
   let core;
 
-  const config = testConfig.extendWith({ queuesPrefix: 'q13_01:' });
+  const config = testConfig.extendWith({
+    queuesPrefix: 'q13_01:',
+    es75: {
+      ...testConfig.es75,
+      agendaEventsIndex: 'test_13_01_locations',
+    },
+  });
 
   beforeAll(() => loadFixtures(config.db, '014.sql.js'));
 

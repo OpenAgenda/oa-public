@@ -8,10 +8,17 @@ import loadFixtures from './fixtures/load.js';
 describe('core - functional (server): core.agendas().events.update()', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '004.sql.js'));
+  const config = testConfig.extendWith({
+    es75: {
+      ...testConfig.es75,
+      agendaEventsIndex: 'test_events_update',
+    },
+  });
+
+  beforeAll(() => loadFixtures(config.db, '004.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -37,7 +44,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
 
     await core.agendas(17026855).events.search.rebuild();
     await core.agendas(9491431).events.search.rebuild();

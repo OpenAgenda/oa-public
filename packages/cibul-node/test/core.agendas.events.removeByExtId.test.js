@@ -10,10 +10,17 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
   let core;
   const memberUserUid = 63170200;
 
-  beforeAll(() => loadFixtures(testConfig.db, '003.sql.js'));
+  const config = testConfig.extendWith({
+    es75: {
+      ...testConfig.es75,
+      agendaEventsIndex: 'test-events-removebyextid',
+    },
+  });
+
+  beforeAll(() => loadFixtures(config.db, '003.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -38,7 +45,7 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
 
     services.aggregators.task();
 
