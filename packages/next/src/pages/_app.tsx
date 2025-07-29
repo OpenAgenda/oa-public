@@ -117,7 +117,7 @@ MyApp.getInitialProps = async (context: AppContext) => {
     span?.setAttribute('session.id', session?.sessionId);
     req.otelAttributes['session.id'] = session?.sessionId;
 
-    if (session.user?.uid) {
+    if (session?.user?.uid) {
       span?.setAttribute('user.uid', session.user.uid);
       req.otelAttributes['user.uid'] = session.user.uid;
     }
