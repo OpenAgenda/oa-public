@@ -17,11 +17,10 @@ export default (queue, services) =>
       mergeInLocation.uid,
     );
 
-    queue(
-      'updateEventLocationReferences',
-      locations.map((l) => l.uid),
-      mergeInLocation.uid,
-    );
+    queue.add('updateEventLocationReferences', {
+      locationsUids: locations.map((l) => l.uid),
+      mergedInLocationUid: mergeInLocation.uid,
+    });
 
     // Activity
     let agenda;
