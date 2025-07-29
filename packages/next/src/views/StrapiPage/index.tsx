@@ -5,6 +5,7 @@ import HighlightCardSet from 'components/strapi/HighlightCardSet';
 import TabSet from 'components/strapi/TabSet';
 import ReferenceSet from 'components/strapi/ReferenceSet';
 import SplitHeroSegment from 'components/strapi/SplitHeroSegment';
+import useCrispClient from 'hooks/useCrispClient';
 import Footer from 'components/strapi/Footer';
 import Metas from './components/Metas';
 import fetchLocale from './locales';
@@ -21,6 +22,8 @@ const ubuntuSans = Ubuntu_Sans({
 
 export default function StrapiPage({ page, footer }) {
   const { title, description, keywords, Segments } = page;
+
+  useCrispClient();
 
   return (
     <>
