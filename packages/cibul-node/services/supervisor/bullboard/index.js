@@ -58,6 +58,9 @@ export function plugApp(app, base = '/bullboard') {
       new BullMQAdapter(new Queue('mails', { prefix: '{mails}' }), {
         displayName: 'Emails',
       }),
+      new BullMQAdapter(new Queue('users', { prefix: '{users}' }), {
+        displayName: 'Anonymisation des utilisateurs',
+      }),
     ],
     serverAdapter,
   });
