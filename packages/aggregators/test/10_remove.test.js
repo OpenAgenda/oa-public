@@ -19,11 +19,12 @@ describe('10 - remove', () => {
 
     svc = createInstance({
       knex: f.client,
-      queues: () =>
-        Object.assign(tracker.bind(null, 'queue'), {
-          register: tracker('register'),
-          on: tracker('on'),
-        }),
+      queue: {
+        add: tracker('register'),
+      },
+      createWorker: () => ({
+        on: tracker('on'),
+      }),
       interfaces: {},
     });
   });

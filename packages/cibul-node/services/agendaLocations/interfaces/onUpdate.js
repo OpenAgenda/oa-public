@@ -14,7 +14,7 @@ export default function onUpdate(queue, services) {
     log('location %s', before.uid);
     try {
       if (diff(_.omit(before, ['updatedAt']), _.omit(after, ['updatedAt']))) {
-        queue('syncImpactedEventsAndAgendas', before, after);
+        queue.add('syncImpactedEventsAndAgendas', { before, after });
       }
     } catch (e) {
       log('error', 'failed to evaluate distance', e);

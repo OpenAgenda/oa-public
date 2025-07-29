@@ -30,7 +30,7 @@ export default ({ bull, activities }) => {
                 break;
               }
               default:
-                log.warn(`Unkown job ${job.name}`);
+                log.warn(`Unknown job ${job.name}`);
             }
           },
           {

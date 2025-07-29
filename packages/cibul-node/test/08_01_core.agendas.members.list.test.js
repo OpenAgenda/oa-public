@@ -176,7 +176,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
     let server;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -187,7 +187,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
       beforeAll(async () => {
         response = await axios({
           method: 'get',
-          url: `http://localhost:3000/agendas/2/members?key=${administratorKey}`,
+          url: `http://localhost:4000/agendas/2/members?key=${administratorKey}`,
         }).then((r) => r.data);
       });
 
@@ -207,7 +207,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members?key=${administratorKey}&limit=1111`,
+            url: `http://localhost:4000/agendas/2/members?key=${administratorKey}&limit=1111`,
           });
         } catch (e) {
           response = e.response;
@@ -231,7 +231,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members?key=${contributorKey}`,
+            url: `http://localhost:4000/agendas/2/members?key=${contributorKey}`,
           });
         } catch (e) {
           response = e.response;
@@ -245,7 +245,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members?key=${nonMemberKey}`,
+            url: `http://localhost:4000/agendas/2/members?key=${nonMemberKey}`,
           });
         } catch (e) {
           response = e.response;

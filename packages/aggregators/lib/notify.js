@@ -37,5 +37,8 @@ export default async ({ getAgendaSourceId, queue }, type, data) => {
     ]),
   );
 
-  queue('dispatch', aggregationAction, data);
+  queue.add('dispatch', {
+    action: aggregationAction,
+    data,
+  });
 };

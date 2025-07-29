@@ -32,12 +32,28 @@ export function plugApp(app, base = '/bullboard') {
 
   createBullBoard({
     queues: [
-      new BullMQAdapter(
-        new Queue('memberMessages', { prefix: '{memberMessages}' }),
-      ),
-      new BullMQAdapter(new Queue('addActivity', { prefix: '{addActivity}' })),
+      new BullMQAdapter(new Queue('aggregators', { prefix: '{aggregators}' }), {
+        displayName: 'Agrégations',
+      }),
+      new BullMQAdapter(new Queue('locations', { prefix: '{locations}' }), {
+        displayName: 'Fusions de lieux',
+      }),
+      new BullMQAdapter(new Queue('addActivity', { prefix: '{addActivity}' }), {
+        prefix: 'Activités.',
+        displayName: "Ajouts d'activités",
+        delimiter: '.',
+      }),
       new BullMQAdapter(
         new Queue('prepareSummary', { prefix: '{prepareSummary}' }),
+        {
+          prefix: 'Activités.',
+          displayName: 'Résumés de notifications',
+          delimiter: '.',
+        },
+      ),
+      new BullMQAdapter(
+        new Queue('memberMessages', { prefix: '{memberMessages}' }),
+        { displayName: 'Messages aux membres' },
       ),
     ],
     serverAdapter,

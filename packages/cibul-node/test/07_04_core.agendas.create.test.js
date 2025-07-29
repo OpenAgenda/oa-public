@@ -79,7 +79,7 @@ describe('07 - core - functional (server): core.agendas().create', () => {
     let accessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -87,7 +87,7 @@ describe('07 - core - functional (server): core.agendas().create', () => {
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -100,7 +100,7 @@ describe('07 - core - functional (server): core.agendas().create', () => {
     test('basic create', async () => {
       const response = await axios({
         method: 'post',
-        url: 'http://localhost:3000/agendas',
+        url: 'http://localhost:4000/agendas',
         headers: {
           'access-token': accessToken,
           'content-type': 'application/json',

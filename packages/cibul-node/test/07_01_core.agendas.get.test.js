@@ -205,7 +205,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     const contributorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -215,7 +215,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       beforeAll(async () => {
         const result = await axios.get(
-          `http://localhost:3000/agendas/92983929?key=${contributorKey}`,
+          `http://localhost:4000/agendas/92983929?key=${contributorKey}`,
         );
         agenda = result.data;
       });
@@ -234,7 +234,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       it('get from non-administrator with includeMemberSchema option', async () => {
         const res = await axios.get(
-          `http://localhost:3000/agendas/92983929?key=${contributorKey}`,
+          `http://localhost:4000/agendas/92983929?key=${contributorKey}`,
           { params: { includeMemberSchema: true } },
         );
         expect(res.data.memberSchema.fields[1].optional).toBeFalsy();
@@ -246,21 +246,21 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       it('get from administrator provides administrator-access field', async () => {
         const { data: agenda } = await axios.get(
-          `http://localhost:3000/agendas/92983929?key=${administratorKey}`,
+          `http://localhost:4000/agendas/92983929?key=${administratorKey}`,
         );
         expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
       });
 
       it('fix: get on private agenda', async () => {
         const { data: agenda } = await axios.get(
-          `http://localhost:3000/agendas/78971487?key=${administratorKey}`,
+          `http://localhost:4000/agendas/78971487?key=${administratorKey}`,
         );
         expect(agenda.title).toBe('Un agenda privé');
       });
 
       it('get from administrator with includeMemberSchema option', async () => {
         const res = await axios.get(
-          'http://localhost:3000/agendas/92983929?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9',
+          'http://localhost:4000/agendas/92983929?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9',
           { params: { includeMemberSchema: true } },
         );
         expect(res.data.memberSchema.fields[0].optional).toBeTruthy();
@@ -272,7 +272,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       beforeAll(async () => {
         const result = await axios.get(
-          `http://localhost:3000/agendas/slug/agenda-champ-contributeur?key=${contributorKey}`,
+          `http://localhost:4000/agendas/slug/agenda-champ-contributeur?key=${contributorKey}`,
         );
         agenda = result.data;
       });

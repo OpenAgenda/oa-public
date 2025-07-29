@@ -106,7 +106,7 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
     let event;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -114,7 +114,7 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -137,7 +137,7 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
     it('create', async () => {
       response = await axios({
         method: 'put',
-        url: 'http://localhost:3000/agendas/17026855/events/ext/test/something',
+        url: 'http://localhost:4000/agendas/17026855/events/ext/test/something',
         headers: {
           'access-token': accessToken,
           'content-type': 'application/json',
@@ -183,7 +183,7 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
     it('update', async () => {
       response = await axios({
         method: 'put',
-        url: 'http://localhost:3000/agendas/17026855/events/ext/test/thing',
+        url: 'http://localhost:4000/agendas/17026855/events/ext/test/thing',
         headers: {
           'access-token': accessToken,
           'content-type': 'application/json',

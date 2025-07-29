@@ -180,7 +180,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
     let accessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -188,7 +188,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -202,7 +202,7 @@ describe('08 - core - functional (server): core.agendas().members.patch', () => 
       beforeAll(async () => {
         await axios({
           method: 'patch',
-          url: 'http://localhost:3000/agendas/2/members/1',
+          url: 'http://localhost:4000/agendas/2/members/1',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',

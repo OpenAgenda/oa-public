@@ -15,7 +15,7 @@ export default async function task({ config, queue, services }) {
           await sendMessageChain(config, { queue, services }, job.data);
           break;
         default:
-          log.warn(`Unkown job ${job.name}`);
+          log.warn(`Unknown job ${job.name}`);
       }
     },
     {
