@@ -13,7 +13,6 @@ type ReferenceSetProps = {
   smallImages?: boolean;
   CTAs?: any[];
   backgroundColor?: any;
-  colorVariant?: string;
 };
 
 export default function ReferenceSet({
@@ -24,7 +23,6 @@ export default function ReferenceSet({
   smallImages = true,
   CTAs,
   backgroundColor,
-  colorVariant,
 }: ReferenceSetProps) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
 
@@ -88,7 +86,6 @@ export default function ReferenceSet({
       description={description}
       CTAs={CTAs}
       backgroundColor={backgroundColor}
-      colorVariant={colorVariant}
     >
       {hasFilter && (
         <ReferenceFilter

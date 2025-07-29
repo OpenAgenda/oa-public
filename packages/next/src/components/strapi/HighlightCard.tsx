@@ -33,7 +33,6 @@ export default function HighlightCard({
   backgroundColor,
 }: HighlightCardProps) {
   // Helper function to format description for markdown
-  console.log('backgroundColor', backgroundColor);
   const content = (
     <Stack
       gap={cardSize === 'large' ? 6 : 4}

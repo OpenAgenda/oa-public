@@ -17,7 +17,7 @@ interface SegmentContainerProps {
 export default function SegmentContainer({
   children,
   backgroundColor,
-  colorVariant = 'solid',
+  colorVariant = 'subtle',
   fontColor,
   title,
   description,

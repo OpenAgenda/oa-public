@@ -9,7 +9,6 @@ interface SplitHeroSegmentProps {
   imagePosition?: string;
   CTAs?: any;
   backgroundColor?: any;
-  colorVariant?: string;
 }
 
 export default function SplitHeroSegment({
@@ -19,13 +18,9 @@ export default function SplitHeroSegment({
   imagePosition,
   CTAs,
   backgroundColor,
-  colorVariant,
 }: SplitHeroSegmentProps) {
   return (
-    <SegmentContainer
-      backgroundColor={backgroundColor}
-      colorVariant={colorVariant}
-    >
+    <SegmentContainer backgroundColor={backgroundColor}>
       <SplitHero
         title={title}
         image={image}

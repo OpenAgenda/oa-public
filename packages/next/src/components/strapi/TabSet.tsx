@@ -9,7 +9,6 @@ interface TabSetProps {
   Tabs: Array<any>;
   CTAs?: any[];
   backgroundColor?: any;
-  colorVariant?: string;
 }
 
 export default function TabSet({
@@ -18,20 +17,17 @@ export default function TabSet({
   Tabs: TabsData,
   CTAs,
   backgroundColor,
-  colorVariant,
 }: TabSetProps) {
   if (!TabsData?.length) {
     return null;
   }
 
-  console.log('backgroundColor', backgroundColor);
   return (
     <SegmentContainer
       title={title}
       description={description}
       CTAs={CTAs}
       backgroundColor={backgroundColor}
-      colorVariant={colorVariant}
     >
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
