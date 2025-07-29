@@ -55,6 +55,9 @@ export function plugApp(app, base = '/bullboard') {
         new Queue('memberMessages', { prefix: '{memberMessages}' }),
         { displayName: 'Messages aux membres' },
       ),
+      new BullMQAdapter(new Queue('mails', { prefix: '{mails}' }), {
+        displayName: 'Emails',
+      }),
     ],
     serverAdapter,
   });
