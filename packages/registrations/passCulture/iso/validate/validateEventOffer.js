@@ -7,7 +7,13 @@ export default function validateEventOffer(data, options = {}) {
 
   const { bookingContact, venueId, bookingEmail, itemCollectionDetails } = data;
 
-  const clean = ['name', 'description', 'duo', 'eventDuration'].reduce(
+  const clean = [
+    'name',
+    'description',
+    'duo',
+    'eventDuration',
+    'updateAddress',
+  ].reduce(
     (usedData, field) =>
       (data[field] ? { ...usedData, [field]: data[field] } : usedData),
     {},

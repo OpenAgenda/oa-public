@@ -12,8 +12,20 @@ function decorateWithInfoFields(data, entry) {
   };
 }
 
+function findLastVenueIdFromData(dataArray) {
+  // Look through the original data array in reverse order to find the last venueId
+  for (let i = dataArray.length - 1; i >= 0; i--) {
+    const entry = dataArray[i];
+    if (entry.venueId) {
+      return entry.venueId;
+    }
+  }
+  return null;
+}
+
 function spreadAccordingToObjectType(data) {
-  return [].concat(data).reduce((spreadEntries, entry) => {
+  const dataArray = [].concat(data);
+  return dataArray.reduce((spreadEntries, entry) => {
     const {
       priceCategories,
       dates,
@@ -21,6 +33,7 @@ function spreadAccordingToObjectType(data) {
       appliedAt,
       operation,
       editing,
+      updateAddress,
       ...remaining
     } = entry;
 
@@ -40,7 +53,22 @@ function spreadAccordingToObjectType(data) {
       spread.push(decorateWithInfoFields({ dates }, entry));
     }
 
-    if (!dates && !priceCategories && !hasOtherData) {
+    // If editing is true and updateAddress is true, create an eventOffer entry to force update
+    if (
+      !dates
+      && !priceCategories
+      && !hasOtherData
+      && editing
+      && updateAddress
+    ) {
+      // Find the last venueId from the original data array
+      const lastVenueId = findLastVenueIdFromData(dataArray);
+      const updateEntry = { updateAddress: true };
+      if (lastVenueId) {
+        updateEntry.venueId = lastVenueId;
+      }
+      spread.push(decorateWithInfoFields(updateEntry, entry));
+    } else if (!dates && !priceCategories && !hasOtherData) {
       spread.push({ operation, appliedAt, response });
     }
 
