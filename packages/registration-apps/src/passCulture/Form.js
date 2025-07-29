@@ -154,19 +154,26 @@ export default function Form({
 
   useEffect(() => {
     const defaultsAtInit = {};
+
+    // defaultVenueId has absolute priority over everything
     if (defaultVenueId) {
       defaultsAtInit.venueId = defaultVenueId;
-    }
-    if (venuesOptions.length === 1 && !initialValue.venueId) {
-      defaultsAtInit.venueId = venuesOptions[0].value;
-    }
+    } else {
+      if (venuesOptions.length === 1 && !storedValue.venueId) {
+        defaultsAtInit.venueId = venuesOptions[0].value;
+      }
 
-    if (venuesOptions.length > 1 && oaLocation?.name) {
-      const match = checkForLocationMatch(
-        oaLocation,
-        offererVenues.reduce((carry, item) => carry.concat(item.venues), []),
-      );
-      if (match) defaultsAtInit.venueId = match;
+      if (
+        venuesOptions.length > 1
+        && oaLocation?.name
+        && !storedValue.venueId
+      ) {
+        const match = checkForLocationMatch(
+          oaLocation,
+          offererVenues.reduce((carry, item) => carry.concat(item.venues), []),
+        );
+        if (match) defaultsAtInit.venueId = match;
+      }
     }
 
     if (!hasPriceCategories(storedValue)) {
