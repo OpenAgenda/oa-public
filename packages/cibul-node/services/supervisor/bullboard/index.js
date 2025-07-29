@@ -61,6 +61,9 @@ export function plugApp(app, base = '/bullboard') {
       new BullMQAdapter(new Queue('users', { prefix: '{users}' }), {
         displayName: 'Anonymisation des utilisateurs',
       }),
+      new BullMQAdapter(new Queue('members', { prefix: '{members}' }), {
+        displayName: 'Invitations de membres',
+      }),
     ],
     serverAdapter,
   });
