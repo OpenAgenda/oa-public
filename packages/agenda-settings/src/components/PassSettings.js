@@ -113,8 +113,7 @@ export default function PassSettings() {
 
   const sirenIsSet = !!agenda?.settings?.registration?.passCulture?.siren?.length;
   const currentSiren = agenda?.settings?.registration?.passCulture?.siren;
-  console.log('tempSelectedVenueId', tempSelectedVenueId);
-  console.log('defaulVenueId', defaultVenueId);
+
   useEffect(() => {
     // Load the default venue ID from settings if it exists
     if (agenda?.settings?.registration?.passCulture?.defaultVenueId) {
