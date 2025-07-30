@@ -121,9 +121,6 @@ export default (config, core, services) => {
 
   // services.inboxes.tasks.sync();
 
-  // handle interfaces for grouped operations (a remove of a 100 refs queues 100 onRemoves executions)
-  services.agendaEvents.task();
-
   services.eventSearch.task();
 
   if (services.unsubscriptions) {
