@@ -59,19 +59,22 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
           );
 
           core.tasks({
-            execute() {},
+            active() {},
             error(...args) {
               done(args);
             },
-            success(...args) {
-              if (args[0] === 'batchedPatch') return done();
+            failed(...args) {
+              done(args);
+            },
+            completed(...args) {
+              if (args[0].name === 'batchedPatch') return done();
             },
           });
         }),
     );
 
     afterAll(async () => {
-      await core.tasks.stop({ reset: true });
+      await core.tasks.clear();
     });
 
     it('event is updated through batch operation', async () => {
@@ -98,19 +101,22 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
           );
 
           core.tasks({
-            execute() {},
+            active() {},
             error(...args) {
               done(args);
             },
-            success(...args) {
-              if (args[0] === 'batchedPatch') return done();
+            failed(...args) {
+              done(args);
+            },
+            completed(...args) {
+              if (args[0].name === 'batchedPatch') return done();
             },
           });
         }),
     );
 
     afterAll(async () => {
-      await core.tasks.stop({ reset: true });
+      await core.tasks.clear();
     });
 
     it('event is updated through batch operation with search', async () => {
