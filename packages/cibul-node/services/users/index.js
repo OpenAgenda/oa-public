@@ -52,6 +52,8 @@ export async function init(config, services) {
     },
   );
 
+  worker.on('error', (failedReason) => log.error('error', failedReason));
+
   const oldQueue = queues('users');
 
   oldQueue.register({
