@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import PDFDocument from 'pdfkit';
 import addText from '../lib/addText.js';
 import getTruncatedLabel from '../lib/getTruncatedLabel.js';
-import sentences from './fixtures/sentences.json' assert { type: 'json' };
+import sentences from './fixtures/sentences.json' with { type: 'json' };
 
 const pdfTestFolder = process.env.PDF_TEST_FOLDER;
 

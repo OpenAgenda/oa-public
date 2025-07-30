@@ -2,72 +2,11 @@
 
 const winston = require('winston');
 const Logger = require('r7insight_node');
+const { context, trace } = require('@opentelemetry/api');
 const isEmptyObject = require('../utils/isEmptyObject');
-const context = require('../context');
+const cloneAndReplaceErrors = require('../utils/cloneAndReplaceErrors');
 
 const stackDelim = /\n\s*/g;
-
-// enhanced VError.prototype.toJSON
-function errorToJSON(error) {
-  const obj = {
-    name: error.name || 'Error',
-    message: error.message,
-    shortMessage: undefined, // to keep order
-    stack: undefined, // to keep order
-  };
-
-  Object.assign(obj, error);
-
-  if (error.shortMessage) {
-    obj.shortMessage = error.shortMessage;
-  }
-
-  obj.stack = error.stack && error.stack.split(stackDelim);
-
-  if (error.cause) {
-    obj.cause = errorToJSON(error.cause);
-  }
-
-  if (error.info) {
-    obj.info = error.info;
-  }
-
-  // Conserve keys order in obj
-  for (const key in error['@@verror/meta']) {
-    if (
-      Object.prototype.hasOwnProperty.call(error['@@verror/meta'], key)
-      && !(key in obj)
-    ) {
-      obj[key] = error['@@verror/meta'][key];
-    }
-  }
-
-  return obj;
-}
-
-function cloneAndReplaceErrors(obj) {
-  function deepClone(item) {
-    if (item === null || typeof item !== 'object') {
-      return item;
-    }
-
-    if (item instanceof Error) {
-      return errorToJSON(item);
-    }
-
-    if (Array.isArray(item)) {
-      return item.map(deepClone);
-    }
-
-    const clone = {};
-    for (const [key, value] of Object.entries(item)) {
-      clone[key] = deepClone(value);
-    }
-    return clone;
-  }
-
-  return deepClone(obj);
-}
 
 class InsightOpsTransport extends winston.Transport {
   constructor(options) {
@@ -123,21 +62,29 @@ class InsightOpsTransport extends winston.Transport {
       }
     }
 
-    const store = context.getStore();
+    const span = trace.getSpan(context.active());
+    if (span) {
+      const spanContext = span.spanContext();
+      displayedMeta.traceId = spanContext.traceId;
+      displayedMeta.spanId = spanContext.spanId;
 
-    if (store) {
-      Object.assign(displayedMeta, store);
+      if (span.attributes) {
+        Object.assign(displayedMeta, span.attributes);
+      }
     }
 
     this.logger.log(
-      cloneAndReplaceErrors({
-        level,
-        prefix: this.prefix,
-        namespace: meta.namespace || this.namespace,
-        message: msg,
-        error,
-        meta: !isEmptyObject(displayedMeta) ? displayedMeta : undefined,
-      }),
+      cloneAndReplaceErrors(
+        {
+          level,
+          prefix: this.prefix,
+          namespace: meta.namespace || this.namespace,
+          message: msg,
+          error,
+          meta: !isEmptyObject(displayedMeta) ? displayedMeta : undefined,
+        },
+        stackDelim,
+      ),
     );
 
     cb(null, true);

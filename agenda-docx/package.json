@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-docx",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "type": "module",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
@@ -20,7 +20,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.705.0",
     "@aws-sdk/lib-storage": "^3.705.0",
-    "@openagenda/logs": "^1.1.9",
+    "@openagenda/logs": "^1.1.10",
     "@openagenda/verror": "^3.1.0",
     "angular-expressions": "^0.3.0",
     "date-fns": "^4.1.0",
@@ -40,9 +40,9 @@
   "devDependencies": {
     "@babel/cli": "^7.23.0",
     "@openagenda/babel-preset": "^1.5.0",
-    "@openagenda/bs-templates": "^2.5.0",
+    "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/eslint-config": "^1.4.0",
-    "@openagenda/queues": "2.0.0",
+    "@openagenda/queues": "2.0.1",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",
     "jest": "^29.7.0",
