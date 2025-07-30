@@ -24,12 +24,38 @@ import plugApp from './plugApp.js';
 const log = logs('services/users');
 
 export async function init(config, services) {
-  const { agendas, keys, queues } = services;
+  const { agendas, keys, bull, queues } = services;
 
-  const queue = queues('users');
+  const queue = new bull.Queue('users', { prefix: '{users}' });
 
-  queue.register({
-    anonymizeDeletedUser: anonymizeDeletedUser(services),
+  const worker = new bull.Worker(
+    queue.name,
+    (job) => {
+      switch (job.name) {
+        case 'anonymizeDeletedUser':
+          return anonymizeDeletedUser(services, job.data);
+        default:
+          log.warn(`Unknown job ${job.name}`);
+      }
+    },
+    {
+      prefix: queue.opts.prefix,
+      autorun: false,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
+    },
+  );
+
+  const oldQueue = queues('users');
+
+  oldQueue.register({
+    anonymizeDeletedUser: (data) => queue.add('anonymizeDeletedUser', data),
   });
 
   const tokensService = new Users.Tokens({
@@ -103,12 +129,18 @@ export async function init(config, services) {
   service.tasks = {
     processQueue: () => {
       log('processQueue task');
-      queue.run();
+      oldQueue.run();
+      worker.run();
     },
     notifyAndRemove: notifyAndRemove(services),
   };
 
   service.plugApp = plugApp;
+
+  service.shutdown = async () => {
+    await oldQueue.stop();
+    await worker.close();
+  };
 
   return service;
 }

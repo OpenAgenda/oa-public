@@ -129,7 +129,6 @@ export async function init(config, services) {
       search: transverseSearch,
     },
     shutdown: async (options) => {
-      log('shutting down');
       await queue.stop({ clear: options.clear });
       await rebuildQueue.stop({ clear: options.clear });
     },

@@ -30,62 +30,57 @@ async function resyncMemberEvents({ core, agendaUid, userUid }) {
   }
 }
 
-export default function anonymizeDeletedUser(services) {
-  return async ({ user }) => {
-    const {
-      core,
-      activities: activitiesSvc,
-      members: membersSvc,
-      tracker,
-    } = services;
+export default async function anonymizeDeletedUser(services, { user }) {
+  const {
+    core,
+    activities: activitiesSvc,
+    members: membersSvc,
+    tracker,
+  } = services;
 
-    const members = await membersSvc.list(
-      { userUid: user.uid },
-      { limit: 1000 },
-    );
+  const members = await membersSvc.list({ userUid: user.uid }, { limit: 1000 });
 
-    log('anonymize %s member refs', members.length);
+  log('anonymize %s member refs', members.length);
 
-    for (const member of members) {
-      try {
-        await membersSvc.patch(
-          member.id,
-          {
-            deletedUser: true,
-            custom: {
-              ...member.custom,
-              contactNumber: null,
-              contactName: null,
-              email: null,
-            },
+  for (const member of members) {
+    try {
+      await membersSvc.patch(
+        member.id,
+        {
+          deletedUser: true,
+          custom: {
+            ...member.custom,
+            contactNumber: null,
+            contactName: null,
+            email: null,
           },
-          { requireCustom: false },
-        );
-      } catch (err) {
-        log('error', 'could not mark member as removed', err);
-      }
-
-      const { agendaUid } = member;
-
-      await resyncMemberEvents({ core, agendaUid, userUid: user.uid });
+        },
+        { requireCustom: false },
+      );
+    } catch (err) {
+      log('error', 'could not mark member as removed', err);
     }
 
-    if (activitiesSvc) {
-      log('removing user feed for user %s', user.uid);
-      await activitiesSvc
-        .feed({
-          entityType: 'user',
-          entityUid: user.uid,
-        })
-        .remove();
+    const { agendaUid } = member;
 
-      log('anonymizing activities for user %s', user.uid);
-      await activitiesSvc.activities.anonymize(`user:${user.uid}`);
-      if (user.email) {
-        await activitiesSvc.activities.anonymize(`email:${user.email}`);
-      }
+    await resyncMemberEvents({ core, agendaUid, userUid: user.uid });
+  }
+
+  if (activitiesSvc) {
+    log('removing user feed for user %s', user.uid);
+    await activitiesSvc
+      .feed({
+        entityType: 'user',
+        entityUid: user.uid,
+      })
+      .remove();
+
+    log('anonymizing activities for user %s', user.uid);
+    await activitiesSvc.activities.anonymize(`user:${user.uid}`);
+    if (user.email) {
+      await activitiesSvc.activities.anonymize(`email:${user.email}`);
     }
+  }
 
-    tracker('users.anonymizeDeletedUser.done');
-  };
+  tracker('users.anonymizeDeletedUser.done');
 }

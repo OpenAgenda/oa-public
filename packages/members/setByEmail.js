@@ -62,49 +62,46 @@ async function setByEmail(config, data, options = {}) {
   };
 }
 
-function _logQueue(queue) {
-  queue.on('error', (fn, args, error) => {
-    log('error', fn, args, error);
+function task(service, config) {
+  const worker = config.createWorker((job) => {
+    switch (job.name) {
+      case 'setByEmail': {
+        return setByEmail(config, job.data.data, job.data.options);
+      }
+      default: {
+        throw new Error(`Unknown job ${job.name}`);
+      }
+    }
   });
-  queue.on('execute', (fn, args) => {
-    log('executing', fn, args);
-  });
-  queue.on('success', (fn, args, result) => {
-    log('success', fn, args, result);
-  });
-}
 
-function task(config) {
   const { queues, queueName } = {
     queues: null,
     queueName: defaultQueueName,
     ...config,
   };
 
-  const queue = queues(queueName);
+  const oldQueue = queues(queueName);
 
-  queue.register({
-    setByEmail: setByEmail.bind(null, config),
+  oldQueue.register({
+    setByEmail: (data, options) =>
+      config.queue.add('setByEmail', { data, options }),
   });
 
-  _logQueue(queue);
+  oldQueue.run();
 
-  queue.run();
+  worker.run();
+
+  service.worker = worker;
+  service.oldQueue = oldQueue;
 }
 
 async function bulk(config, base, emails = [], options = {}) {
   log('bulk');
 
-  const { bulkThreshold, queues, queueName } = {
-    queues: null,
-    queueName: defaultQueueName,
+  const { bulkThreshold, queue } = {
     bulkThreshold: 10,
     ...config,
   };
-
-  const queue = queues(queueName);
-
-  _logQueue(queue);
 
   const queueJobs = emails.length > bulkThreshold;
 
@@ -119,7 +116,7 @@ async function bulk(config, base, emails = [], options = {}) {
     const data = { ...base, email };
 
     if (queueJobs) {
-      await queue('setByEmail', data, options);
+      await queue.add('setByEmail', { data, options });
     } else {
       result.processed.push(await setByEmail(config, data, options));
     }

@@ -113,11 +113,4 @@ await sdk['_resource']?.waitForAsyncAttributes?.();
 // eslint-disable-next-line dot-notation
 sentryClient.traceProvider = sdk['_tracerProvider'];
 
-// TODO check this, OA can have multiple services to gracefully shutdown
-process.on('SIGTERM', () => {
-  sdk
-    .shutdown()
-    .then(() => console.log('Tracing terminated'))
-    .catch((error) => console.log('Error terminating tracing', error))
-    .finally(() => process.exit(0));
-});
+export { sdk };

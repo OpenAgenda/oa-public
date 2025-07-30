@@ -153,7 +153,7 @@ export default function EventItem({
   const passUnpublished = !passId
     && Object.keys(
       getCurrentValue(
-        event.registration.find((r) => r.service === 'passCulture')?.data,
+        event.registration?.find((r) => r.service === 'passCulture')?.data,
       ),
     ).length;
 

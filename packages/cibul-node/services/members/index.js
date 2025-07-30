@@ -1,6 +1,5 @@
 import Service from '@openagenda/members';
 import logs from '@openagenda/logs';
-import activitiesTask from './lib/activities.js';
 import getEventCountByUserUid from './getEventCountByUserUid.js';
 import getUsersByUid from './getUsersByUid.js';
 import getUserByEmail from './getUserByEmail.js';
@@ -18,15 +17,30 @@ const log = logs('services/members');
 const members = {};
 
 export function init(config, services) {
-  const { queues } = services;
+  const { queues, bull } = services;
 
-  const activityQueue = queues('memberActivities');
+  const queue = new bull.Queue('members', { prefix: '{members}' });
+  const createWorker = (processor) =>
+    new bull.Worker(queue.name, processor, {
+      prefix: queue.opts.prefix,
+      autorun: false,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
+    });
 
   Object.assign(
     members,
     Service({
       knex: config.knex,
       schema: 'reviewer',
+      queue,
+      createWorker,
       queues,
       bulkThreshold: 10,
       logger: config.getLogConfig('svc', 'members'),
@@ -35,17 +49,12 @@ export function init(config, services) {
         getUsersByUid: getUsersByUid.bind(null, services),
         getUserByEmail: getUserByEmail.bind(null, services),
         getAgendasByUid: getAgendasByUid.bind(null, services),
-        onCreate: onCreate.bind(null, { services, config, activityQueue }),
-        onRemove: onRemove({ services, members, activityQueue }),
-        onPatch: onPatch.bind(null, { services, config, activityQueue }),
+        onCreate: onCreate.bind(null, { services, config }),
+        onRemove: onRemove({ services, members }),
+        onPatch: onPatch.bind(null, { services, config }),
       },
     }),
   );
-
-  const { task: activityTask } = activitiesTask({
-    queue: activityQueue,
-    services,
-  });
 
   const sendGroupMail = SendGroupMail(config, services);
 
@@ -57,7 +66,6 @@ export function init(config, services) {
         log('running tasks');
         members.task();
         sendGroupMail.task();
-        activityTask();
       },
       sendGroupMail,
       listAllAdminMods: listAllAdminMods(members),
