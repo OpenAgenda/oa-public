@@ -148,7 +148,7 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       subtle: {
         value: {
-          _light: '{colors.strapi.blueViolet.100}',
+          _light: '{colors.strapi.blueViolet.50}',
           _dark: '{colors.strapi.blueViolet.900}',
         },
       },
@@ -189,7 +189,7 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       subtle: {
         value: {
-          _light: '{colors.strapi.rosyRed.100}',
+          _light: '{colors.strapi.rosyRed.50}',
           _dark: '{colors.strapi.rosyRed.900}',
         },
       },
@@ -271,7 +271,7 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       subtle: {
         value: {
-          _light: '{colors.strapi.blueGreen.100}',
+          _light: '{colors.strapi.blueGreen.50}',
           _dark: '{colors.strapi.blueGreen.900}',
         },
       },
@@ -353,7 +353,7 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       subtle: {
         value: {
-          _light: '{colors.strapi.mutedPlum.100}',
+          _light: '{colors.strapi.mutedPlum.50}',
           _dark: '{colors.strapi.mutedPlum.900}',
         },
       },
