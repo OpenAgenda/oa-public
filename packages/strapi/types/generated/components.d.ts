@@ -181,10 +181,6 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
     displayName: 'PageHead';
   };
   attributes: {
-    backgroundColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.RichText;
     descriptionColor: Schema.Attribute.Relation<
