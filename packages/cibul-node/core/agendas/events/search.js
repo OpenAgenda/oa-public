@@ -248,7 +248,7 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
   }
 }
 
-async function batchResyncEvents(core, agendaUid, query, options = {}) {
+async function batchResyncEvents(core, { agendaUid, query, options = {} }) {
   const stream = await search(core, agendaUid, query, null, {
     ...options,
     stream: true,
@@ -265,5 +265,5 @@ export function resyncEvents(core) {
   });
 
   return (agendaUid, query, options = {}) =>
-    core.tasks.enqueue('batchResyncEvents', agendaUid, query, options);
+    core.tasks.enqueue('batchResyncEvents', { agendaUid, query, options });
 }
