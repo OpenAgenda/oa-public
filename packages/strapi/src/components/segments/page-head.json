@@ -14,11 +14,6 @@
       "type": "enumeration",
       "enum": ["presentation"]
     },
-    "backgroundColor": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::theme-color.theme-color"
-    },
     "titleColor": {
       "type": "relation",
       "relation": "oneToOne",
@@ -43,9 +38,10 @@
       "type": "richtext"
     },
     "image": {
-      "allowedTypes": ["images"],
       "type": "media",
-      "multiple": false
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
     }
   }
 }

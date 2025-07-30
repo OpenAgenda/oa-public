@@ -59,6 +59,7 @@ import type { Color } from './types';
 
 interface PageHeadProps {
   backgroundColor?: any;
+  colorVariant?: string;
   titleColor?: Color;
   descriptionColor?: Color;
   title: string;
@@ -80,6 +81,7 @@ export default function PageHead({
   video,
   image,
   backgroundColor,
+  colorVariant,
   titleColor,
   descriptionColor,
 }: PageHeadProps) {
@@ -92,7 +94,11 @@ export default function PageHead({
       : '1fr';
 
   return (
-    <SegmentContainer backgroundColor={backgroundColor} fontColor={titleColor}>
+    <SegmentContainer
+      fontColor={titleColor}
+      backgroundColor={backgroundColor}
+      colorVariant={colorVariant}
+    >
       <Grid
         templateColumns={templateColumns}
         gap={8}

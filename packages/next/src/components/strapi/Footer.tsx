@@ -29,6 +29,8 @@ type Column = {
 type FooterProps = {
   Columns?: Column[];
   contactUrl: string;
+  backgroundColor?: any;
+  colorVariant?: string;
 };
 
 function calculateColsForBreakpoint(
@@ -91,7 +93,11 @@ function getResponsiveGridColumns(itemCount: number) {
   };
 }
 
-function ColumnItem({ title, Links }: Column) {
+function ColumnItem({
+  title,
+  Links,
+  backgroundColor,
+}: Column & { backgroundColor?: any }) {
   return (
     <VStack align="start" gap={3}>
       <Text fontWeight="bold" fontSize="lg">
@@ -104,7 +110,7 @@ function ColumnItem({ title, Links }: Column) {
             href={link.url}
             target={link.isExternal ? '_blank' : undefined}
             rel={link.isExternal ? 'noopener nofollow' : undefined}
-            color="gray.600"
+            color={backgroundColor ? 'gray.300' : 'gray.600'}
             _hover={{ color: 'primary.500' }}
           >
             {link.label}
@@ -118,6 +124,8 @@ function ColumnItem({ title, Links }: Column) {
 export default function Footer({
   Columns: FooterColumnsData,
   contactUrl,
+  backgroundColor,
+  colorVariant = 'solid',
 }: FooterProps) {
   const intl = useIntl();
 
@@ -134,7 +142,7 @@ export default function Footer({
       <VStack align="start" gap={2}>
         <Link
           href={contactUrl}
-          color="gray.600"
+          color={backgroundColor ? 'gray.300' : 'gray.600'}
           _hover={{ color: 'primary.500' }}
         >
           {intl.formatMessage(messages.contactForm)}
@@ -143,7 +151,7 @@ export default function Footer({
           href="https://www.linkedin.com/company/openagenda"
           target="_blank"
           rel="noopener nofollow"
-          color="gray.600"
+          color={backgroundColor ? 'gray.300' : 'gray.600'}
           _hover={{ color: 'primary.500' }}
         >
           {intl.formatMessage(messages.linkedin)}
@@ -152,7 +160,7 @@ export default function Footer({
           href="https://github.com/openagenda"
           target="_blank"
           rel="noopener nofollow"
-          color="gray.600"
+          color={backgroundColor ? 'gray.300' : 'gray.600'}
           _hover={{ color: 'primary.500' }}
         >
           {intl.formatMessage(messages.github)}
@@ -162,35 +170,47 @@ export default function Footer({
   );
 
   return (
-    <Container maxW="7xl" bg="white" pt="18" pb="12">
-      <Box
-        borderTop="solid 2px"
-        borderColor={color('strapi.flashy.blueViolet', 600)}
-        pb="12"
-      />
-      <Flex
-        direction={{ base: 'column', md: 'row' }}
-        gap={{ base: 8, md: 10 }}
-        alignItems={{ base: 'start', md: 'start' }}
-      >
-        <Box flexShrink={0} mb={{ base: 6, md: 0 }}>
-          <Image src={logoPic} width="172" alt="" />
-        </Box>
+    <Box
+      backgroundColor={
+        backgroundColor
+          ? [color(`${backgroundColor?.name}`), colorVariant].join('.')
+          : null
+      }
+    >
+      <Container maxW="7xl" pt="18" pb="12">
+        <Box
+          borderTop="solid 2px"
+          borderColor={color('strapi.flashy.blueViolet', 600)}
+          pb="12"
+        />
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          gap={{ base: 8, md: 10 }}
+          alignItems={{ base: 'start', md: 'start' }}
+        >
+          <Box flexShrink={0} mb={{ base: 6, md: 0 }}>
+            <Image src={logoPic} width="172" alt="" />
+          </Box>
 
-        {totalItemsInGrid > 0 && (
-          <SimpleGrid
-            columns={gridColumnConfig}
-            gapX={{ base: 6, md: 8 }}
-            gapY={{ base: 8, md: 10 }}
-            width="100%"
-          >
-            {contactColumnJsx}
-            {dataColumns.map((columnData) => (
-              <ColumnItem key={columnData.id} {...columnData} />
-            ))}
-          </SimpleGrid>
-        )}
-      </Flex>
-    </Container>
+          {totalItemsInGrid > 0 && (
+            <SimpleGrid
+              columns={gridColumnConfig}
+              gapX={{ base: 6, md: 8 }}
+              gapY={{ base: 8, md: 10 }}
+              width="100%"
+            >
+              {contactColumnJsx}
+              {dataColumns.map((columnData) => (
+                <ColumnItem
+                  key={columnData.id}
+                  {...columnData}
+                  backgroundColor={backgroundColor}
+                />
+              ))}
+            </SimpleGrid>
+          )}
+        </Flex>
+      </Container>
+    </Box>
   );
 }

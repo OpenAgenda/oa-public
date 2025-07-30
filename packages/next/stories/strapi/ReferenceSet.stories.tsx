@@ -349,3 +349,23 @@ export const WithTitles: Story = {
     </Container>
   ),
 };
+
+export const WithSubtleBackground = {
+  render: () => (
+    <ReferenceSet
+      title="Références avec fond coloré"
+      description="Découvrez nos partenaires et références qui nous font confiance"
+      References={referenceSetData.References.map((ref) => ({
+        id: String(ref.id),
+        link: ref.link,
+        image: {
+          url: ref.image.url,
+          alternativeText: ref.image.alternativeText || undefined,
+        },
+        title: ref.title,
+        tags: ref.tags,
+      }))}
+      backgroundColor={{ name: 'rosyRed' }}
+    />
+  ),
+};

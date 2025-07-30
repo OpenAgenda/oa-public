@@ -8,6 +8,7 @@ interface TabSetProps {
   description?: string;
   Tabs: Array<any>;
   CTAs?: any[];
+  backgroundColor?: any;
 }
 
 export default function TabSet({
@@ -15,13 +16,19 @@ export default function TabSet({
   description,
   Tabs: TabsData,
   CTAs,
+  backgroundColor,
 }: TabSetProps) {
   if (!TabsData?.length) {
     return null;
   }
 
   return (
-    <SegmentContainer title={title} description={description} CTAs={CTAs}>
+    <SegmentContainer
+      title={title}
+      description={description}
+      CTAs={CTAs}
+      backgroundColor={backgroundColor}
+    >
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
           {TabsData.map((tab, index) => (
