@@ -13,7 +13,6 @@ Requirements:
 
 - nodejs
 - An amazon bucket
-- An available redis implementation
 
 Install the things:
 
@@ -30,14 +29,7 @@ Put the following config in a config.dev.js file:
         secretAccessKey: 'yourawssecretaccesskeyid',
         bucket: 'someawsbucketname'
       },
-      redis: {
-        port: 6379,
-        host: 'localhost'
-      },
-      queue: {
-        namespace: 'docx',
-        separator: ':'
-      },
+      onProcessGenerateRequest: (jobData) => {},
       localTmpPath: '/var/tmp'
     }
 
@@ -60,7 +52,7 @@ This repo implements every functionality required to have a working docx generat
       React UI Component
             |
             v
-      Express app -> [ redis queue ] -> block pop task
+      Express app -> [ queue ] -> block pop task
             |                                |
          updates                           updates,
             |                                |   generates docx,
@@ -71,5 +63,5 @@ This repo implements every functionality required to have a working docx generat
 Here are the different parts:
 
 - **UI Component**: Allows users to see the state of the export, download a file when available, and queue requests to generate updated exports
-- **Express app**: Provides all endpoints required to interface with the UI. It enqueues any new request to generate a new export on a redis queue.
+- **Express app**: Provides all endpoints required to interface with the UI. It enqueues any new request to generate a new export on a queue (optional).
 - **Task**: Monitors the queue using a blocking pop. Processes docx generation request and uploads resulting documents on S3
