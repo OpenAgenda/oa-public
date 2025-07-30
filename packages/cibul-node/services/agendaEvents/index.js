@@ -5,15 +5,10 @@ import plugApp from './plugApp.js';
 import clearOldSoftRemoved from './clearOldSoftRemovedEvents.js';
 
 export function init(config, services) {
-  const { queues } = services;
-
-  const queue = queues('agendaEvents');
-
   return Object.assign(
     AgendaEvents({
       mysql: config.db,
       knex: config.knex,
-      queue,
       redisClient: services.redis,
       logger: config.getLogConfig('svc', 'agendaEvents'),
       schemas: {
@@ -25,12 +20,6 @@ export function init(config, services) {
     {
       plugApp,
       clearOldSoftRemoved: clearOldSoftRemoved.bind(null, services),
-      task: () => queue.run(),
-      shutdown: (options = {}) =>
-        queue.stop({
-          remove: true,
-          clear: options.reset ?? false,
-        }),
     },
   );
 }

@@ -16,6 +16,6 @@ create table if not exists `agenda_event` (
   index agenda_uid_idx (agenda_uid),
   index event_uid_idx (event_uid),
   index aggregated_idx (aggregated),
-  index agenda_uid_event_uid_idx (agenda_uid, event_uid)
+  index agenda_uid_event_uid_idx (agenda_uid, event_uid),
   primary key ( id )
 ) engine=InnoDB  default character set utf8mb4 collate utf8mb4_0900_ai_ci;

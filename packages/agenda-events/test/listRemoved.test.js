@@ -1,7 +1,5 @@
 import _ from 'lodash';
 import knex from 'knex';
-import redis from 'redis';
-import Queues from '@openagenda/queues';
 import Service from '../index.js';
 import config from '../testconfig.js';
 import fixtures from './fixtures/index.js';
@@ -10,7 +8,6 @@ import sourceAgendasFixtures from './fixtures/sourceAgendas.json';
 
 describe('agendaEvents - functional (server): listRemoved', () => {
   let svc;
-  let redisClient;
   let knexClient;
 
   beforeAll(async () => {
@@ -22,12 +19,6 @@ describe('agendaEvents - functional (server): listRemoved', () => {
   });
 
   beforeAll(async () => {
-    redisClient = redis.createClient({
-      socket: { host: 'localhost', port: 6379 },
-    });
-
-    await redisClient.connect();
-
     knexClient = knex({
       client: 'mysql',
       connection: config.mysql,
@@ -38,10 +29,6 @@ describe('agendaEvents - functional (server): listRemoved', () => {
     svc = Service({
       ...config,
       knex: knexClient,
-      queue: Queues({
-        redis: redisClient,
-        prefix: 'agenda-events',
-      })('listRemoved'),
       interfaces: {
         ...config.interfaces,
         getMembers: async (aes) =>
@@ -59,7 +46,6 @@ describe('agendaEvents - functional (server): listRemoved', () => {
     });
   });
 
-  afterAll(async () => redisClient.quit());
   afterAll(() => knexClient.destroy());
 
   it('simple list all removed', async () => {

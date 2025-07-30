@@ -66,14 +66,14 @@ export function plugApp(app, base = '/bullboard') {
       }),
       new BullMQAdapter(new Queue('eventSearch', { prefix: '{eventSearch}' }), {
         prefix: 'eventSearch.',
-        displayName: 'Indexation des événements',
+        displayName: 'Synchronisation des événements',
         delimiter: '.',
       }),
       new BullMQAdapter(
         new Queue('eventSearch-rebuild', { prefix: '{eventSearch-rebuild}' }),
         {
           prefix: 'eventSearch.',
-          displayName: 'Rebuild événements',
+          displayName: 'Rebuild index',
           delimiter: '.',
         },
       ),
@@ -82,6 +82,9 @@ export function plugApp(app, base = '/bullboard') {
       }),
       new BullMQAdapter(new Queue('users', { prefix: '{users}' }), {
         displayName: 'Anonymisation des utilisateurs',
+      }),
+      new BullMQAdapter(new Queue('agendaDocx', { prefix: '{agendaDocx}' }), {
+        displayName: 'Docx agendas',
       }),
     ],
     serverAdapter,
