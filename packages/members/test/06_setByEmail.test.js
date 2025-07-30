@@ -31,6 +31,7 @@ describe('members - functional - setByEmail', () => {
       },
       createWorker: () => ({
         run: () => {},
+        on: () => {},
       }),
       bulkThreshold: 1,
     });

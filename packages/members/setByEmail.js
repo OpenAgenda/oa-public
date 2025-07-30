@@ -74,6 +74,8 @@ function task(service, config) {
     }
   });
 
+  worker.on('error', (failedReason) => log.error('error', failedReason));
+
   const { queues, queueName } = {
     queues: null,
     queueName: defaultQueueName,
