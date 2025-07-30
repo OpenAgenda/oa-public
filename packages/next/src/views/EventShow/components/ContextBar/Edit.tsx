@@ -1,4 +1,4 @@
-import { useId } from 'react';
+import { useId, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import { chakra, Link, useBreakpointValue } from '@openagenda/uikit';
@@ -12,6 +12,7 @@ import {
 import { FaIcon } from 'icons';
 import { faPencil, faChevronDown } from 'icons/solid';
 import base64 from 'utils/base64';
+import completeExternalActions from 'utils/completeExternalActions';
 import { contextBar as messages } from '../../messages';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
@@ -28,10 +29,32 @@ function LinkMenuItem({ value, href, children }) {
   );
 }
 
-function LocationMenuItem({ agenda, event, member, intl }) {
+function LocationMenuItem({
+  agenda,
+  event,
+  member,
+  intl,
+  externalEditActions,
+}) {
   if (!event.location) {
     return null;
   }
+
+  if (externalEditActions && externalEditActions.length > 0) {
+    return (
+      <MenuItem value="edit-location" asChild fontWeight="bold" height="50px">
+        <Link
+          unstyled
+          href={externalEditActions[0].link}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          {intl.formatMessage(messages.suggestLocationChange)}
+        </Link>
+      </MenuItem>
+    );
+  }
+
   if (canModifyLocation(member, event, agenda)) {
     return (
       <LinkMenuItem
@@ -68,6 +91,20 @@ export default function Edit({ agenda, contextBarRef }) {
   const url = new URL(localePrefix + router.asPath, 'https://n');
   const currentUrl = url.pathname + url.search;
   const editLink = `/${agenda.slug}/contribute/event/${event.uid}?redirect=${base64.encode(currentUrl)}`;
+
+  const { externalActions } = useMemo(
+    () =>
+      completeExternalActions(
+        agenda.settings?.locations?.extIds,
+        (event.location as any)?.extIds || [],
+      ),
+    [agenda, event.location],
+  );
+
+  const externalEditActions = useMemo(() => {
+    if (!externalActions || !Array.isArray(externalActions)) return [];
+    return externalActions.filter((action) => action.action === 'edit');
+  }, [externalActions]);
 
   return (
     <MenuRoot
@@ -117,6 +154,7 @@ export default function Edit({ agenda, contextBarRef }) {
           event={event}
           member={me.member}
           intl={intl}
+          externalEditActions={externalEditActions}
         />
       </MenuContent>
     </MenuRoot>
