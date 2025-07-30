@@ -18,7 +18,7 @@ const rehypePlugins = [
 const reactMdComponents = {
   a(props) {
     const { node, ...rest } = props;
-    return <Link {...rest} />;
+    return <Link {...rest} color="strapi.flashy.blueViolet.500 !important" />;
   },
 };
 
