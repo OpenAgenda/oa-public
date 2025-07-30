@@ -14,35 +14,40 @@ export async function removeFromAgendaIndex(
   return searchIndex.remove({ uid: eventUid }, { refresh });
 }
 
-export default (services, queue, eventSearch) => async ({ event, agenda, deletion, otherAgendaReferences }) => {
-  log('remove');
+export default (services, queue, eventSearch) =>
+  async ({ event, agenda, deletion, otherAgendaReferences }) => {
+    log('remove');
 
-  try {
-    await removeFromAgendaIndex(eventSearch, agenda.uid, event.uid, true);
-  } catch (e) {
-    log(
-      'error',
-      'failed to remove event from agenda %s index: %s',
-      agenda.uid,
-      e.message,
-    );
-  }
+    try {
+      await removeFromAgendaIndex(eventSearch, {
+        agendaUid: agenda.uid,
+        eventUid: event.uid,
+        refresh: true,
+      });
+    } catch (e) {
+      log(
+        'error',
+        'failed to remove event from agenda %s index: %s',
+        agenda.uid,
+        e.message,
+      );
+    }
 
-  log('update transverse index');
-  if (!otherAgendaReferences.filter((ae) => ae.state === 2).length) {
-    await queue.add('transverseIndexRemove', event.uid);
-  }
+    log('update transverse index');
+    if (!otherAgendaReferences.filter((ae) => ae.state === 2).length) {
+      await queue.add('transverseIndexRemove', event.uid);
+    }
 
-  if (!deletion) {
-    return log('done');
-  }
+    if (!deletion) {
+      return log('done');
+    }
 
-  for (const { agendaUid } of otherAgendaReferences) {
-    await queue.add('removeFromAgendaIndex', {
-      agendaUid,
-      eventUid: event.uid,
-    });
-  }
+    for (const { agendaUid } of otherAgendaReferences) {
+      await queue.add('removeFromAgendaIndex', {
+        agendaUid,
+        eventUid: event.uid,
+      });
+    }
 
-  log('done');
-};
+    log('done');
+  };
