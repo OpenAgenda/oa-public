@@ -9000,7 +9000,6 @@ __metadata:
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/queues": "npm:2.0.1"
     "@openagenda/verror": "npm:^3.1.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -9020,7 +9019,6 @@ __metadata:
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-final-form: "npm:^6.5.3"
-    redis: "npm:^4.6.6"
     remove-markdown: "npm:^0.3.0"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^9.0.8"
@@ -9037,7 +9035,6 @@ __metadata:
   dependencies:
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/queues": "npm:^2.0.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
@@ -10390,8 +10387,8 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/queues": "npm:^2.0.1"
     "@openagenda/verror": "npm:^3.1.0"
+    bullmq: "npm:^5.56.8"
     ejs: "npm:^3.1.9"
     emoji-regex: "npm:^10.3.0"
     isemail: "npm:^3.2.0"
@@ -10401,7 +10398,6 @@ __metadata:
     mjml-core: "npm:^4.13.0"
     nodemailer: "npm:^6.9.1"
     nodemailer-mailgun-transport: "npm:^2.1.5"
-    redis: "npm:^4.6.6"
     tlds: "npm:^1.253.0"
   languageName: unknown
   linkType: soft
@@ -10786,7 +10782,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/queues@npm:2.0.1, @openagenda/queues@npm:^2.0.1, @openagenda/queues@workspace:public/queues":
+"@openagenda/queues@npm:^2.0.1, @openagenda/queues@workspace:public/queues":
   version: 0.0.0-use.local
   resolution: "@openagenda/queues@workspace:public/queues"
   dependencies:
@@ -24619,6 +24615,21 @@ __metadata:
     tslib: "npm:^2.0.0"
     uuid: "npm:^9.0.0"
   checksum: 10c0/31eaa6a3bfb6b0f039f0eb7bea6c0af4f858c49207aebfdcef6d3e7c53f032667825db9420d390a576e018bc8c4251688113f7cb821d1255e40f892adc689ce4
+  languageName: node
+  linkType: hard
+
+"bullmq@npm:^5.56.8":
+  version: 5.56.8
+  resolution: "bullmq@npm:5.56.8"
+  dependencies:
+    cron-parser: "npm:^4.9.0"
+    ioredis: "npm:^5.4.1"
+    msgpackr: "npm:^1.11.2"
+    node-abort-controller: "npm:^3.1.1"
+    semver: "npm:^7.5.4"
+    tslib: "npm:^2.0.0"
+    uuid: "npm:^9.0.0"
+  checksum: 10c0/c8a5bf8cf66bdd78d0bb849fb312febf56a805b89e2e18bbdd9ac686d8f337d0398bc5943e6097501df8c73184207426f7a0b698b12025cfacedf4db47ce0143
   languageName: node
   linkType: hard
 
