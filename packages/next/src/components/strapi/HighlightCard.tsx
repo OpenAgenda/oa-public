@@ -40,6 +40,7 @@ export default function HighlightCard({
       maxW={cardSize === 'large' ? '340px' : '280px'}
       align="center"
       textAlign="center"
+      borderRadius={4}
       backgroundColor={
         backgroundColor?.name === 'white'
           ? backgroundColor.name

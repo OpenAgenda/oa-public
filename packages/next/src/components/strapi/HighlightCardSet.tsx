@@ -9,7 +9,7 @@ interface HighlightCardSetProps {
   Cards: Array<any>;
   CTAs?: any[];
   backgroundColor?: any;
-  componentsBackgroundColor?: any;
+  componentBackgroundColor?: any;
 }
 
 export default function HighlightCardSet({
@@ -19,7 +19,7 @@ export default function HighlightCardSet({
   CTAs,
   cardSize = 'medium',
   backgroundColor,
-  componentsBackgroundColor,
+  componentBackgroundColor,
 }: HighlightCardSetProps) {
   return (
     <SegmentContainer
@@ -35,7 +35,7 @@ export default function HighlightCardSet({
               key={Highlight.id}
               {...Highlight}
               cardSize={cardSize}
-              backgroundColor={componentsBackgroundColor}
+              backgroundColor={componentBackgroundColor}
             />
           ))}
         </Flex>
