@@ -14,8 +14,6 @@ import SendGroupMail from './lib/SendGroupMail/index.js';
 
 const log = logs('services/members');
 
-const members = {};
-
 export function init(config, services) {
   const { queues, bull } = services;
 
@@ -34,55 +32,50 @@ export function init(config, services) {
       },
     });
 
-  Object.assign(
-    members,
-    Service({
-      knex: config.knex,
-      schema: 'reviewer',
-      queue,
-      createWorker,
-      queues,
-      bulkThreshold: 10,
-      logger: config.getLogConfig('svc', 'members'),
-      interfaces: {
-        getEventCountByUserUid: getEventCountByUserUid.bind(null, services),
-        getUsersByUid: getUsersByUid.bind(null, services),
-        getUserByEmail: getUserByEmail.bind(null, services),
-        getAgendasByUid: getAgendasByUid.bind(null, services),
-        onCreate: onCreate.bind(null, { services, config }),
-        onRemove: onRemove({ services, members }),
-        onPatch: onPatch.bind(null, { services, config }),
-      },
-    }),
-  );
+  const service = Service({
+    knex: config.knex,
+    schema: 'reviewer',
+    queue,
+    createWorker,
+    queues,
+    bulkThreshold: 10,
+    logger: config.getLogConfig('svc', 'members'),
+    interfaces: {
+      getEventCountByUserUid: getEventCountByUserUid.bind(null, services),
+      getUsersByUid: getUsersByUid.bind(null, services),
+      getUserByEmail: getUserByEmail.bind(null, services),
+      getAgendasByUid: getAgendasByUid.bind(null, services),
+      onCreate: onCreate.bind(null, { services, config }),
+      onRemove: onRemove({ services }),
+      onPatch: onPatch.bind(null, { services, config }),
+    },
+  });
 
+  const membersTask = service.task; // will be overridden
   const sendGroupMail = SendGroupMail(config, services);
 
-  return Object.assign(
-    plugApp, // module.exports
-    members,
-    {
-      task: () => {
-        log('running tasks');
-        members.task();
-        sendGroupMail.task();
-      },
-      sendGroupMail,
-      listAllAdminMods: listAllAdminMods(members),
-      mw: {
-        load: mw.load.default,
-        loadOrFail: mw.load.orFail,
-        loadOr: mw.load.or,
-        list: mw.list.default.bind(null, members),
-        loadAndAuthorize: mw.load.andAuthorize,
-        authorizeAdminModOrEventOwner: mw.authorize.adminModOrEventOwner,
-        authorizeAdminModOrKey: mw.authorize.adminModOrKey,
-        loadTarget: Object.assign(mw.loadTarget.default.bind(null, members), {
-          options: mw.loadTarget.options.bind(null, members),
-        }),
-      },
+  return Object.assign(service, {
+    task: () => {
+      log('running tasks');
+      membersTask();
+      sendGroupMail.task();
     },
-  );
+    plugApp,
+    sendGroupMail,
+    listAllAdminMods: listAllAdminMods(service),
+    mw: {
+      load: mw.load.default,
+      loadOrFail: mw.load.orFail,
+      loadOr: mw.load.or,
+      list: mw.list.default.bind(null, service),
+      loadAndAuthorize: mw.load.andAuthorize,
+      authorizeAdminModOrEventOwner: mw.authorize.adminModOrEventOwner,
+      authorizeAdminModOrKey: mw.authorize.adminModOrKey,
+      loadTarget: Object.assign(mw.loadTarget.default.bind(null, service), {
+        options: mw.loadTarget.options.bind(null, service),
+      }),
+    },
+  });
 }
 
 export default Object.assign(plugApp, {

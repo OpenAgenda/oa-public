@@ -30,7 +30,7 @@ async function removeInvitationsToMember({ invitations }, member) {
   }
 }
 
-export default function onRemove({ services, members }) {
+export default function onRemove({ services }) {
   return async (member, context) => {
     log('removed', member);
 
@@ -40,6 +40,7 @@ export default function onRemove({ services, members }) {
       agendas,
       invitations,
       inboxes,
+      members,
     } = services;
 
     const { Inbox } = inboxes;
