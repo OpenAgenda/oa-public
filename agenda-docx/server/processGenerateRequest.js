@@ -61,4 +61,6 @@ export default async function processGenerateRequest(
   state.queued = false;
 
   await files.setJSON('state.json', state);
+
+  return state;
 }

@@ -13,27 +13,22 @@ function getState({ s3 }, agendaUid) {
 }
 
 export default function AgendaDocx(options = {}) {
-  const { queue, localTmpPath, s3, bucketPath } = options;
+  const { onProcessGenerateRequest, localTmpPath, s3, bucketPath } = options;
 
   if (options.logger) {
     logger.setModuleConfig(options.logger);
   }
 
-  if (queue) {
-    queue.register({
-      processGenerateRequest: processGenerateRequest.bind(null, {
-        s3,
-        localTmpPath,
-      }),
-    });
-  }
-
   return {
     app: App({
-      queue,
+      onProcessGenerateRequest,
       s3,
       bucketPath,
     }),
     getState: getState.bind(null, { s3 }),
+    processGenerateRequest: processGenerateRequest.bind(null, {
+      s3,
+      localTmpPath,
+    }),
   };
 }
