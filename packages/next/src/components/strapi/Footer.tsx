@@ -10,8 +10,10 @@ import {
 } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 import Image from 'components/Image';
-import logoPic from '../../../public/images/oa.svg';
+import logoPic from '../../../public/images/oa-white.svg';
 import messages from './messages';
+
+import type { Color } from './types';
 
 type LinkData = {
   id: string;
@@ -24,6 +26,7 @@ type Column = {
   id: string;
   title: string;
   Links: LinkData[];
+  fontColor?: Color;
 };
 
 type FooterProps = {
@@ -31,6 +34,7 @@ type FooterProps = {
   contactUrl: string;
   backgroundColor?: any;
   colorVariant?: string;
+  fontColor?: Color;
 };
 
 function calculateColsForBreakpoint(
@@ -93,14 +97,14 @@ function getResponsiveGridColumns(itemCount: number) {
   };
 }
 
-function ColumnItem({
-  title,
-  Links,
-  backgroundColor,
-}: Column & { backgroundColor?: any }) {
+function ColumnItem({ title, Links, fontColor }: Column) {
   return (
     <VStack align="start" gap={3}>
-      <Text fontWeight="bold" fontSize="lg">
+      <Text
+        fontWeight="bold"
+        fontSize="lg"
+        color={fontColor ? color(fontColor) : undefined}
+      >
         {title}
       </Text>
       <VStack align="start" gap={2}>
@@ -110,7 +114,7 @@ function ColumnItem({
             href={link.url}
             target={link.isExternal ? '_blank' : undefined}
             rel={link.isExternal ? 'noopener nofollow' : undefined}
-            color={backgroundColor ? 'gray.300' : 'gray.600'}
+            color={fontColor ? color(fontColor) : undefined}
             _hover={{ color: 'primary.500' }}
           >
             {link.label}
@@ -126,17 +130,22 @@ export default function Footer({
   contactUrl,
   backgroundColor,
   colorVariant = 'solid',
+  fontColor,
 }: FooterProps) {
   const intl = useIntl();
 
   const dataColumns = FooterColumnsData || [];
-  const totalItemsInGrid = 1 + dataColumns.length; // +1 for the contact column
+  const totalItemsInGrid = 2 + dataColumns.length; // +1 for the contact column
 
   const gridColumnConfig = getResponsiveGridColumns(totalItemsInGrid);
 
   const contactColumnJsx = (
     <VStack align="start" gap={3}>
-      <Text fontWeight="bold" fontSize="lg">
+      <Text
+        fontWeight="bold"
+        fontSize="lg"
+        color={fontColor ? color(fontColor) : undefined}
+      >
         {intl.formatMessage(messages.contact)}
       </Text>
       <VStack align="start" gap={2}>
@@ -177,38 +186,30 @@ export default function Footer({
           : null
       }
     >
-      <Container maxW="7xl" pt="18" pb="12">
-        <Box
-          borderTop="solid 2px"
-          borderColor={color('strapi.flashy.blueViolet', 600)}
-          pb="12"
-        />
+      <Container maxW="7xl" py="16">
         <Flex
           direction={{ base: 'column', md: 'row' }}
           gap={{ base: 8, md: 10 }}
           alignItems={{ base: 'start', md: 'start' }}
         >
-          <Box flexShrink={0} mb={{ base: 6, md: 0 }}>
-            <Image src={logoPic} width="172" alt="" />
-          </Box>
-
-          {totalItemsInGrid > 0 && (
-            <SimpleGrid
-              columns={gridColumnConfig}
-              gapX={{ base: 6, md: 8 }}
-              gapY={{ base: 8, md: 10 }}
-              width="100%"
-            >
-              {contactColumnJsx}
-              {dataColumns.map((columnData) => (
-                <ColumnItem
-                  key={columnData.id}
-                  {...columnData}
-                  backgroundColor={backgroundColor}
-                />
-              ))}
-            </SimpleGrid>
-          )}
+          <SimpleGrid
+            columns={gridColumnConfig}
+            gapX={{ base: 6, md: 8 }}
+            gapY={{ base: 8, md: 10 }}
+            width="100%"
+          >
+            <VStack align="start" gap={3}>
+              <Image src={logoPic} width="172" alt="" />
+            </VStack>
+            {contactColumnJsx}
+            {dataColumns.map((columnData) => (
+              <ColumnItem
+                key={columnData.id}
+                {...columnData}
+                fontColor={fontColor}
+              />
+            ))}
+          </SimpleGrid>
         </Flex>
       </Container>
     </Box>

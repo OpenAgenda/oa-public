@@ -77,7 +77,12 @@ export default function StrapiPage({ page, footer }) {
         );
       })}
 
-      {footer && <Footer {...footer} />}
+      {footer && (
+        <Footer
+          {...footer}
+          backgroundColor={colors[Segments.length % 2].segment}
+        />
+      )}
     </>
   );
 }
