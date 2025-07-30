@@ -4,19 +4,20 @@ import {
   GridItem,
   Stack,
   Heading,
-  Text,
   HeadingProps,
+  Image,
 } from '@openagenda/uikit';
+
 import { color } from 'utils/strapi';
-import CTAButton from './CTAButton';
-import IllustrationComponent from './Illustration';
+import CTAButtons from './CTAButtons';
 import SegmentContainer from './SegmentContainer';
+import StrapiMarkdown from './StrapiMarkdown';
 import VideoPlayer from './VideoPlayer';
 
 const PageHeadContent = ({
   title,
   description,
-  CTA,
+  CTAs,
   centered,
   titleColor,
   descriptionColor,
@@ -25,7 +26,7 @@ const PageHeadContent = ({
   PageHeadProps,
   | 'title'
   | 'description'
-  | 'CTA'
+  | 'CTAs'
   | 'titleColor'
   | 'descriptionColor'
   | 'fontSize'
@@ -43,12 +44,12 @@ const PageHeadContent = ({
     >
       {title}
     </Heading>
-    <Text fontSize="lg" color={color(descriptionColor) || 'gray.600'} mt={7}>
+    <StrapiMarkdown color={color(descriptionColor) || 'gray.600'} mt={7}>
       {description}
-    </Text>
-    {CTA ? (
+    </StrapiMarkdown>
+    {CTAs && CTAs.length > 0 ? (
       <Box mt={9}>
-        <CTAButton {...CTA} />
+        <CTAButtons CTAs={CTAs} />
       </Box>
     ) : null}
   </Stack>
@@ -58,46 +59,45 @@ import type { Color } from './types';
 
 interface PageHeadProps {
   backgroundColor?: any;
+  colorVariant?: string;
   titleColor?: Color;
   descriptionColor?: Color;
   title: string;
   description: string;
   fontSize?: Color;
-  CTA?: {
-    label: string;
-    link: string;
-  };
+  CTAs?: any[];
   video?: string;
-  Illustration?: {
-    image: {
-      url: string;
-      alternativeText?: string;
-    };
+  image?: {
+    url: string;
+    alternativeText?: string;
+    width?: string;
   };
 }
 
 export default function PageHead({
   title,
   description,
-  CTA,
+  CTAs,
   video,
-  Illustration,
+  image,
   backgroundColor,
+  colorVariant,
   titleColor,
   descriptionColor,
 }: PageHeadProps) {
-  const hasTwoColumns = Boolean(Illustration || video);
+  const hasTwoColumns = Boolean(image || video);
 
   const templateColumns = video
     ? { base: '1fr', md: '1fr 1fr' }
-    : Illustration
+    : image
       ? { base: '1fr', md: '1fr auto' }
       : '1fr';
 
   return (
     <SegmentContainer
+      fontColor={titleColor}
       backgroundColor={backgroundColor}
-      fontColor={color(titleColor)}
+      colorVariant={colorVariant}
     >
       <Grid
         templateColumns={templateColumns}
@@ -110,7 +110,7 @@ export default function PageHead({
           <PageHeadContent
             title={title}
             description={description}
-            CTA={CTA}
+            CTAs={CTAs}
             centered={hasTwoColumns}
             titleColor={titleColor}
             descriptionColor={descriptionColor}
@@ -121,9 +121,15 @@ export default function PageHead({
             <VideoPlayer />
           </GridItem>
         ) : null}
-        {Illustration ? (
+        {image ? (
           <GridItem>
-            <IllustrationComponent {...Illustration} />
+            <Image
+              src={image.url}
+              alt={image.alternativeText}
+              maxW="full"
+              w={image.width}
+              objectFit="contain"
+            />
           </GridItem>
         ) : null}
       </Grid>

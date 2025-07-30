@@ -1,4 +1,6 @@
 import ky from 'ky';
+import { system } from '@openagenda/uikit';
+import type { Color } from '../components/strapi/types';
 import buildPopulateStrapiQuery from './buildPopulateStrapiQuery';
 interface FetchStrapiPageDataParams {
   APIBase: string;
@@ -14,15 +16,6 @@ interface FetchStrapiPageDataResult {
   footer: any;
 }
 
-export function color(c) {
-  if (!c) {
-    return;
-  }
-  return [undefined, null].includes(c.swatch)
-    ? c.name
-    : `${c.name}.${c.swatch.replace('s', '')}`;
-}
-
 interface PageData {
   documentId: string;
   locale: string;
@@ -32,6 +25,14 @@ interface PageData {
 
 interface StrapiResponse {
   data: PageData[];
+}
+
+export function color(c: string | Color, swatch?: any): string {
+  if (!c) {
+    return;
+  }
+  const colorName = typeof c === 'string' ? c : c.name;
+  return `${system.tokens.colorPaletteMap.has(colorName) ? colorName : `strapi.${colorName}`}${swatch ? `.${swatch}` : ''}`;
 }
 
 export async function fetchPageData({
@@ -73,3 +74,7 @@ export async function fetchPageData({
     footer,
   };
 }
+
+export const allowedItemColors = Array.from(
+  system.tokens.colorPaletteMap.keys(),
+).filter((k) => k.match(/^strapi\.flashy\./));

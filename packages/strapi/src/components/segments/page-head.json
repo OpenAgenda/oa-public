@@ -10,22 +10,9 @@
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "text"
-    },
-    "Illustration": {
-      "type": "component",
-      "repeatable": false,
-      "component": "components.illustration"
-    },
     "video": {
       "type": "enumeration",
       "enum": ["presentation"]
-    },
-    "backgroundColor": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::theme-color.theme-color"
     },
     "titleColor": {
       "type": "relation",
@@ -46,6 +33,15 @@
       "type": "component",
       "repeatable": true,
       "component": "components.cta-button"
+    },
+    "description": {
+      "type": "richtext"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
     }
   }
 }

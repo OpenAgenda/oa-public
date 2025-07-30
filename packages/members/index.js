@@ -14,7 +14,6 @@ function Service(options = {}) {
     schema: 'member',
     interfaces: {},
     bulkThreshold: 10,
-    queues: null,
     ...options,
   };
 
@@ -22,7 +21,7 @@ function Service(options = {}) {
     logger.setModuleConfig(config.logger);
   }
 
-  return {
+  const service = {
     get: Object.assign(get.bind(null, config), {
       byEmail: get.byEmail.bind(null, config),
     }),
@@ -40,9 +39,17 @@ function Service(options = {}) {
         bulk: setByEmail.bulk.bind(null, config),
       }),
     },
-    task: setByEmail.task.bind(null, config),
     utils,
   };
+
+  service.task = setByEmail.task.bind(null, service, config);
+
+  service.shutdown = async () => {
+    await service.oldQueue?.stop();
+    await service.worker?.close();
+  };
+
+  return service;
 }
 
 Service.utils = utils;

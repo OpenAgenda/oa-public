@@ -56,5 +56,6 @@ raw.push(
 );
 
 insertEventSet(knex, raw, 'saison-dexposition-de-lautomne-2020');
+insertEventSet(knex, raw, 'passCultureTestEvent');
 
 export default `${raw.join(';\n')};`;

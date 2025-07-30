@@ -142,7 +142,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
     const updatedRegistration = !clean.draft
       && registrations
-      && await registrations.utils.passCulture.process(agenda, clean);
+      && await registrations.utils.passCulture.process(
+        agenda,
+        clean,
+        agendaEvent?.state,
+      );
 
     if (updatedRegistration) clean.event.registration = updatedRegistration;
 

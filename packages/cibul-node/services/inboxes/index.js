@@ -23,7 +23,7 @@ export async function init(config, services) {
     onMessageCreate: onMessageCreate.bind(null, { services, mailsDomain }),
     getInboxesDetails: getInboxesDetails.bind(null, services),
     onAction: onAction.bind(null, services),
-    onInboxCreate,
+    onInboxCreate: onInboxCreate.bind(null, services),
     filterAction: filterAction.bind(null, services),
   };
 

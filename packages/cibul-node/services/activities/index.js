@@ -68,6 +68,33 @@ export async function init(config, services) {
   service.addActivity = addActivity({ bull, activities: service });
   service.prepareSummary = prepareSummary;
 
+  // setTimeout(() => {
+  //   service.addActivity(
+  //     {
+  //       entityType: 'event',
+  //       entityUid: 91448040,
+  //     },
+  //     {
+  //       actor: 'agenda:7476421',
+  //       verb: 'agenda.aggregateEvent',
+  //       object: 'event:91448040',
+  //       target: 'agenda:2406996',
+  //       store: {
+  //         state: 2,
+  //         ownerUid: 20822537,
+  //         originAgendaUid: 6922839,
+  //         labels: {
+  //           actor: 'Fête de la musique 2025',
+  //           object: {
+  //             de: 'Hanse de Vries',
+  //           },
+  //           target: 'Fête de la musique',
+  //         },
+  //       },
+  //     },
+  //   );
+  // }, 5000);
+
   Object.assign(service.tasks, RebuildTasks({ config, services }));
 
   return Object.assign(service, {

@@ -3,11 +3,15 @@ import EventSearch from '@openagenda/event-search';
 import logs from '@openagenda/logs';
 import add from './add.js';
 import update from './update.js';
-import remove from './remove.js';
+import remove, { removeFromAgendaIndex } from './remove.js';
 import rebuild from './rebuild.js';
 import agendaIndexSearch from './agendaIndexSearch.js';
 import agendaIndexRebuild from './agendaIndexRebuild.js';
-import transverseIndex from './transverseIndex.js';
+import {
+  transverseIndexRebuild,
+  transverseIndexRemove,
+  transverseIndexUpdate,
+} from './transverseIndex.js';
 import getAgendaSearchIndex from './lib/getAgendaSearchIndex.js';
 import agendaRoutes from './agendaRoutes.js';
 import { loadOtherUpdates, otherUpdate } from './lib/otherUpdates.js';
@@ -15,27 +19,35 @@ import { loadOtherUpdates, otherUpdate } from './lib/otherUpdates.js';
 const log = logs('services/eventSearch');
 
 async function task({
-  queue,
-  rebuildQueue,
+  worker,
+  rebuildWorker,
+  oldQueue,
+  oldRebuildQueue,
   updateMapping,
   updateDynamicSettings,
 }) {
   log('task');
 
-  queue.on('error', (fn, args, error) => {
+  oldQueue.run();
+  oldRebuildQueue.run();
+
+  worker.on('error', (failedReason) => log.error('error', failedReason));
+  worker.on('failed', (job, error) => {
     if (error.statusCode === 404) {
-      log('warn', fn, args, error);
+      log.warn(job.name, job.data, error);
     } else {
-      log('error', fn, args, error);
+      log.error(job.name, job.data, error);
     }
   });
-  queue.on('execute', (fn) => log(fn, 'execute')); // (fn, args) => log(fn, 'execute'));
-  queue.on('success', (fn) => log(fn, 'success')); // (fn, args, result) => log(fn, 'success'));
+  worker.on('active', (job) => log.info(job.name, 'execute'));
+  worker.on('completed', (job, _result, _prev) =>
+    log.info(job.name, 'success'));
+  worker.run();
 
-  queue.run();
-
-  rebuildQueue.on('error', (fn, args, error) => log('error', fn, args, error));
-  rebuildQueue.run();
+  rebuildWorker.on('error', (failedReason) => log.error('error', failedReason));
+  rebuildWorker.on('failed', (job, error) =>
+    log.error(job.name, job.data, error));
+  rebuildWorker.run();
 
   await updateMapping();
   await updateDynamicSettings();
@@ -43,7 +55,7 @@ async function task({
 
 export async function init(config, services) {
   log('init');
-  const { queues, tracker } = services;
+  const { bull, queues, tracker } = services;
 
   const port = _.get(config, 'es75.port', 9200);
   const protocol = _.get(
@@ -89,29 +101,105 @@ export async function init(config, services) {
     },
   });
 
-  const queue = queues('eventSearch');
-  const rebuildQueue = queues('eventSearch:rebuild');
+  const transverseIndex = eventSearch('events');
 
-  const transverseSearch = transverseIndex(
-    { services, config },
-    eventSearch,
-    queue,
+  const queue = new bull.Queue('eventSearch', { prefix: '{eventSearch}' });
+  const worker = new bull.Worker(
+    queue.name,
+    (job) => {
+      switch (job.name) {
+        case 'loadOtherUpdates':
+          return loadOtherUpdates(services, queue, job.data);
+        case 'otherUpdate':
+          return otherUpdate(services, eventSearch, job.data);
+        case 'removeFromAgendaIndex':
+          return removeFromAgendaIndex(eventSearch, job.data);
+        case 'transverseIndexRebuild':
+          return transverseIndexRebuild(services, transverseIndex, job.data);
+        case 'transverseIndexUpdate':
+          return transverseIndexUpdate(
+            config,
+            services,
+            transverseIndex,
+            job.data,
+          );
+        case 'transverseIndexRemove':
+          return transverseIndexRemove(transverseIndex, job.data);
+        default:
+          log.warn(`Unknown job ${job.name}`);
+      }
+    },
+    {
+      prefix: queue.opts.prefix,
+      autorun: false,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
+    },
   );
 
-  rebuildQueue.register({
-    agenda: (agenda) => agendaIndexRebuild(services, eventSearch, agenda),
-    transverse: (options) => queue('transverseIndexRebuild', options),
+  const rebuildQueue = new bull.Queue('eventSearch-rebuild', {
+    prefix: '{eventSearch-rebuild}',
+  });
+  const rebuildWorker = new bull.Worker(
+    rebuildQueue.name,
+    (job) => {
+      switch (job.name) {
+        case 'agenda':
+          return agendaIndexRebuild(services, eventSearch, job.data);
+        case 'transverse':
+          return queue.add('transverseIndexRebuild', job.data);
+        default:
+          log.warn(`Unknown job ${job.name}`);
+      }
+    },
+    {
+      prefix: rebuildQueue.opts.prefix,
+      autorun: false,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
+    },
+  );
+
+  const oldQueue = queues('eventSearch');
+  const oldRebuildQueue = queues('eventSearch:rebuild');
+
+  oldRebuildQueue.register({
+    agenda: (agenda) => rebuildQueue.add('agenda', agenda),
+    transverse: (options) => rebuildQueue.add('transverse', options),
   });
 
-  queue.register({
-    loadOtherUpdates: loadOtherUpdates.bind(null, services, queue),
-    otherUpdate: otherUpdate.bind(null, services, eventSearch),
+  oldQueue.register({
+    loadOtherUpdates: (agendaUid, eventUid) =>
+      queue.add('loadOtherUpdates', { agendaUid, eventUid }),
+    otherUpdate: (agendaUid, eventUid) =>
+      queue.add('otherUpdate', { agendaUid, eventUid }),
+    removeFromAgendaIndex: (agendaUid, eventUid, refresh) =>
+      queue.add('removeFromAgendaIndex', { agendaUid, eventUid, refresh }),
+    transverseIndexRebuild: (options) =>
+      queue.add('transverseIndexRebuild', options),
+    transverseIndexUpdate: (event) => queue.add('transverseIndexUpdate', event),
+    transverseIndexRemove: (eventUid) =>
+      queue.add('transverseIndexRemove', eventUid),
   });
 
   return {
     task: task.bind(null, {
-      queue,
-      rebuildQueue,
+      worker,
+      rebuildWorker,
+      oldQueue,
+      oldRebuildQueue,
       updateMapping: eventSearch.updateMapping,
       updateDynamicSettings: eventSearch.updateDynamicSettings,
     }),
@@ -125,13 +213,20 @@ export async function init(config, services) {
       clear: getAgendaSearchIndex(eventSearch, agenda.uid).clear,
     }),
     transverse: {
-      rebuild: (options) => queue('transverseIndexRebuild', options),
-      search: transverseSearch,
+      rebuild: (options) => queue.add('transverseIndexRebuild', options),
+      search: transverseIndex.search,
     },
     shutdown: async (options) => {
-      log('shutting down');
-      await queue.stop({ clear: options.clear });
-      await rebuildQueue.stop({ clear: options.clear });
+      await oldQueue.stop({ clear: options.clear });
+      await oldRebuildQueue.stop({ clear: options.clear });
+
+      if (options.clear) {
+        await queue.drain();
+        await rebuildQueue.drain();
+      }
+
+      await worker.close();
+      await rebuildWorker.close();
     },
     apps: {
       agendas: agendaRoutes(config, services),

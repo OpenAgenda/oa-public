@@ -301,6 +301,15 @@ export default (app) => {
     '/signout',
     preMw,
     sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
+    (req, res, next) => {
+      if (req.cookies.loggedAs) {
+        const sessionId = req.session?.sessionId;
+        req.session = sessionId ? { sessionId } : null;
+        res.clearCookie('loggedAs');
+        return res.redirect(302, '/');
+      }
+      next();
+    },
     sessions.mw.close(),
     (req, res) => res.redirect(302, '/'),
   );

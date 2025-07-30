@@ -195,11 +195,18 @@ export default function UserShow({
         </tbody>
       </table>
 
-      <a onClick={onUserSignin} href="#">
-        Signin as user
-      </a>
+      <p>
+        <a href={`/supervisor/users?userUid=${user.uid}`}>
+          Voir les logs de l'utilisateur
+        </a>
+      </p>
 
-      <br />
+      <p>
+        <a onClick={onUserSignin} href="#">
+          Signin as user
+        </a>
+      </p>
+
       <form className="form-inline" onSubmit={handleSubmitChangePassword}>
         <div className="form-group">
           <label htmlFor="password">Nouveau mot de passe: </label>

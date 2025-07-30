@@ -21,6 +21,9 @@ export default function Dashboard() {
           <li>
             <a href={`${prefix}/bullboard`}>Bullboard</a>
           </li>
+          <li>
+            <a href={`${prefix}/users`}>Tracker les utilisateurs</a>
+          </li>
         </ul>
       </div>
     </div>

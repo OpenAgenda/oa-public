@@ -36,9 +36,9 @@ describe('session - functional (server): middleware', () => {
       const agent = sa.agent();
 
       return agent
-        .get('http://localhost:3000/land')
-        .then(() => agent.post('http://localhost:3000/signin'))
-        .then(() => agent.post('http://localhost:3000/sync'));
+        .get('http://localhost:4000/land')
+        .then(() => agent.post('http://localhost:4000/signin'))
+        .then(() => agent.post('http://localhost:4000/sync'));
     }
 
     beforeEach(() => {
@@ -108,9 +108,9 @@ describe('session - functional (server): middleware', () => {
       const agent = sa.agent();
 
       return agent
-        .get('http://localhost:3000/land')
-        .then(() => agent.post('http://localhost:3000/signin'))
-        .then(() => agent.get('http://localhost:3000/cookied'));
+        .get('http://localhost:4000/land')
+        .then(() => agent.post('http://localhost:4000/signin'))
+        .then(() => agent.get('http://localhost:4000/cookied'));
     }
 
     beforeAll(() => {
@@ -188,6 +188,7 @@ describe('session - functional (server): middleware', () => {
                 name: 'Gaetan Latouche',
                 thumbnail: '//graph.facebook.com/100002280111541/picture',
               },
+              sessionId: expect.any(String),
             });
 
             res.send('ok');
@@ -226,10 +227,10 @@ describe('session - functional (server): middleware', () => {
       const agent = sa.agent();
 
       return agent
-        .get('http://localhost:3000/land')
+        .get('http://localhost:4000/land')
         .then(() =>
-          (signin ? agent.post('http://localhost:3000/signin') : () => {}))
-        .then(() => agent.post('http://localhost:3000/any'));
+          (signin ? agent.post('http://localhost:4000/signin') : () => {}))
+        .then(() => agent.post('http://localhost:4000/any'));
     }
 
     beforeAll(() => {
@@ -360,9 +361,9 @@ describe('session - functional (server): middleware', () => {
       const agent = sa.agent();
 
       return agent
-        .get('http://localhost:3000/land')
-        .then(() => agent.post('http://localhost:3000/signin'))
-        .then(() => agent.post('http://localhost:3000/signout'));
+        .get('http://localhost:4000/land')
+        .then(() => agent.post('http://localhost:4000/signin'))
+        .then(() => agent.post('http://localhost:4000/signout'));
     }
 
     beforeAll(() => {
@@ -401,7 +402,7 @@ describe('session - functional (server): middleware', () => {
           sessions.close(req, (err, result) => {
             expect(result.success).toBe(true);
 
-            expect(req.session).toBeNull();
+            expect(req.session).toEqual({ sessionId: expect.any(String) });
 
             res.send('ok');
           });
@@ -434,7 +435,7 @@ describe('session - functional (server): middleware', () => {
           (req, res, _next) => {
             expect(req.result.success).toBe(true);
 
-            expect(req.session).toBeNull();
+            expect(req.session).toEqual({ sessionId: expect.any(String) });
 
             res.send('ok');
           },
@@ -454,9 +455,9 @@ describe('session - functional (server): middleware', () => {
       const agent = sa.agent();
 
       return agent
-        .get('http://localhost:3000/land')
-        .then(() => agent.post('http://localhost:3000/signin'))
-        .then(() => agent.get('http://localhost:3000/get'));
+        .get('http://localhost:4000/land')
+        .then(() => agent.post('http://localhost:4000/signin'))
+        .then(() => agent.get('http://localhost:4000/get'));
     }
 
     beforeAll(() => {

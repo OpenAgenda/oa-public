@@ -1,3 +1,4 @@
+import { randomBytes } from 'node:crypto';
 import _ from 'lodash';
 import cookieSessionLib from 'cookie-session';
 import cookieParserLib from 'cookie-parser';
@@ -41,7 +42,7 @@ function use(config, { cookieSession, cookieParser }, req, res, next) {
         try {
           if (sess === false || sess === null) {
             // remove
-            res.cookie(config.userCookieName, '');
+            res.cookie(config.userCookie.name, '');
           } else if ((!sess.isNew || sess.isPopulated) && sess.isChanged) {
             // save populated or non-new changed session
             res.cookie(
@@ -49,7 +50,7 @@ function use(config, { cookieSession, cookieParser }, req, res, next) {
               Buffer.from(JSON.stringify(sess)).toString('base64'),
               {
                 encode: (v) => v,
-                expires: sess.expires ? new Date(sess.expires) : null,
+                expires: sess.expires ? new Date(sess.expires) : undefined,
                 secure: config.userCookie.secure,
                 sameSite: config.userCookie.sameSite,
               },
@@ -67,6 +68,8 @@ function use(config, { cookieSession, cookieParser }, req, res, next) {
       Object.keys(validateUnlogged.default).forEach((k) => {
         req.session[k] = validateUnlogged.default[k];
       });
+
+      req.session.sessionId = randomBytes(12).toString('hex');
 
       next();
     });
@@ -103,8 +106,14 @@ function load({ sessions }, options) {
   );
 
   return (req, res, next) => {
-    sessions.get(req, { detailed: params.detailed }, (err, user) => {
+    sessions.get(req, { detailed: params.detailed }, async (err, user) => {
       if (err) return next(err);
+
+      // session is in cookie but not in redis
+      if (req.session?.user && !user) {
+        const { sessionId } = req.session;
+        req.session = sessionId ? { sessionId } : null;
+      }
 
       req[params.target] = user;
 

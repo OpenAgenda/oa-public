@@ -5,7 +5,7 @@
   "AgendaLocations.LocationForm.description": "Beschreibung",
   "AgendaLocations.LocationForm.descriptionInfo": "Details über den Standort",
   "AgendaLocations.LocationForm.imageCredits": "Bildnachweis",
-  "AgendaLocations.LocationItem.show": "Ansehen",
   "AgendaLocations.RemoveModal.closeModal": "Schließen",
-  "AgendaLocations.UpdateForm.info": "Alle Veranstaltungen an diesem Ort angebracht werden aktualisiert"
+  "AgendaLocations.UpdateForm.info": "Alle Veranstaltungen an diesem Ort angebracht werden aktualisiert",
+  "AgendaLocations.show": "Ansehen"
 }

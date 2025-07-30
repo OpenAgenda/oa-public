@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react';
 import { Wrap, WrapItem } from '@openagenda/uikit';
+import { allowedItemColors } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
 import ReferenceItem, { type Reference } from './ReferenceItem';
 import ReferenceFilter from './ReferenceFilter';
@@ -9,24 +10,19 @@ type ReferenceSetProps = {
   description?: string;
   References?: Reference[];
   hasFilter?: boolean;
+  smallImages?: boolean;
   CTAs?: any[];
+  backgroundColor?: any;
 };
-
-const allowedTagColors = [
-  'strapi.rosyRed',
-  'strapi.blueViolet',
-  'strapi.paleLavender',
-  'strapi.blueGreen',
-  'strapi.sandBeige',
-  'strapi.mutedPlum',
-];
 
 export default function ReferenceSet({
   title = null,
   description,
   References: ReferencesData,
   hasFilter = false,
+  smallImages = true,
   CTAs,
+  backgroundColor,
 }: ReferenceSetProps) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
 
@@ -48,7 +44,7 @@ export default function ReferenceSet({
   const tagColorMap = useMemo(() => {
     const colorMap: Record<string, string> = {};
     allTags.forEach((tag, index) => {
-      colorMap[tag] = allowedTagColors[index % allowedTagColors.length];
+      colorMap[tag] = allowedItemColors[index % allowedItemColors.length];
     });
     return colorMap;
   }, [allTags]);
@@ -85,7 +81,12 @@ export default function ReferenceSet({
   }
 
   return (
-    <SegmentContainer title={title} description={description} CTAs={CTAs}>
+    <SegmentContainer
+      title={title}
+      description={description}
+      CTAs={CTAs}
+      backgroundColor={backgroundColor}
+    >
       {hasFilter && (
         <ReferenceFilter
           allTags={allTags}
@@ -95,10 +96,14 @@ export default function ReferenceSet({
         />
       )}
 
-      <Wrap gap="6" justify="center">
+      <Wrap gap="8" justify="center">
         {filteredReferences.map((reference) => (
           <WrapItem key={reference.id}>
-            <ReferenceItem {...reference} tagColorMap={tagColorMap} />
+            <ReferenceItem
+              {...reference}
+              tagColorMap={tagColorMap}
+              smallImages={smallImages !== false}
+            />
           </WrapItem>
         ))}
       </Wrap>

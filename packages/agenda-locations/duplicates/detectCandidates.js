@@ -63,7 +63,7 @@ async function detectDuplicateCandidates(
   }
 
   if (saveCandidates) {
-    await addDuplicateCandidates(endpoints, location.uid, candidates);
+    await addDuplicateCandidates(endpoints, location, candidates);
   }
   return candidates;
 }

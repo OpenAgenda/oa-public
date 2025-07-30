@@ -126,7 +126,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
     let server;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -137,7 +137,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       beforeAll(async () => {
         member = await axios({
           method: 'get',
-          url: `http://localhost:3000/agendas/2/members/1?key=${contributorKey}`,
+          url: `http://localhost:4000/agendas/2/members/1?key=${contributorKey}`,
         }).then((r) => r.data);
       });
 
@@ -160,7 +160,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       const mail = 'lise.p@grois.fr';
       const res = await axios({
         method: 'get',
-        url: `http://localhost:3000/agendas/2/members/email/${mail}?key=${administratorKey}`,
+        url: `http://localhost:4000/agendas/2/members/email/${mail}?key=${administratorKey}`,
       });
       expect(res.data).toEqual({
         userUid: 50073466,
@@ -181,7 +181,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members/8978?key=${administratorKey}`,
+            url: `http://localhost:4000/agendas/2/members/8978?key=${administratorKey}`,
           });
         } catch (e) {
           error = e;
@@ -195,7 +195,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members/5?key=${contributorKey}`,
+            url: `http://localhost:4000/agendas/2/members/5?key=${contributorKey}`,
           });
         } catch (e) {
           error = e;
@@ -209,7 +209,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members/email/test@toto.com?key=${administratorKey}`,
+            url: `http://localhost:4000/agendas/2/members/email/test@toto.com?key=${administratorKey}`,
           });
         } catch (e) {
           error = e;
@@ -223,7 +223,7 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
         try {
           await axios({
             method: 'get',
-            url: `http://localhost:3000/agendas/2/members/8978?key=${nonMemberKey}`,
+            url: `http://localhost:4000/agendas/2/members/8978?key=${nonMemberKey}`,
           });
         } catch (e) {
           response = e.response;

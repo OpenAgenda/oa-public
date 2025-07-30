@@ -26,7 +26,7 @@ export const Connected = {
   },
 };
 
-export const WithAnnouncement = {
+export const WithDangerAnnouncement = {
   render: () => {
     localStorage.removeItem('oa:announcement');
     return <Layout>Sample content</Layout>;
@@ -40,15 +40,35 @@ export const WithAnnouncement = {
             announcement: {
               id: '2023-12-13T09:35:17.286Z',
               content:
-                "Oulala, c'est la décadence **han** !\n\n"
-                + 'Lorem ipsum dolor sit amet,\n'
-                + 'consectetur adipisicing elit.\n'
-                + 'Ab amet at, autem commodi eaque enim eum fugiat illo iure necessitatibus neque,\n'
-                + 'nesciunt nisi porro quasi quo sint veniam veritatis voluptate. [test](/home) [test](https://google.fr)\n\n'
-                + '![image](https://imagesdev-1cb1b.kxcdn.com/user.profile.75052324.jpg?format=webp&width=32)',
+                'Un truc est complètement H.S. [Cliquez ici pour en savoir plus](https://openagenda.com)',
               kind: 'danger',
             },
-          })),
+          }),
+        ),
+      ],
+    },
+  },
+};
+
+export const WithWarningAnnouncement = {
+  render: () => {
+    localStorage.removeItem('oa:announcement');
+    return <Layout>Sample content</Layout>;
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/users/me', () =>
+          HttpResponse.json({
+            ...userFixtures,
+            announcement: {
+              id: '2023-12-13T09:35:17.286Z',
+              content:
+                'Un truc est pas tout à fait mais un peu H.S. quand même [Cliquez ici pour en savoir plus](https://openagenda.com)',
+              kind: 'warning',
+            },
+          }),
+        ),
       ],
     },
   },

@@ -105,6 +105,14 @@ describe('fromHTMLToMarkdown', () => {
     );
   });
 
+  test('if mailto is already present in html, it should not break parsing', () => {
+    const r = fromHTMLToMarkdown(
+      '<p><a href="mailto:email@email.com">link</a></p>',
+    );
+
+    expect(r).toBe('[link](mailto:email@email.com)');
+  });
+
   test('emails in italic sentences are extracted too', () => {
     expect(
       fromHTMLToMarkdown(
@@ -151,11 +159,10 @@ Une autre ligne
 Une ligne plus loin`);
   });
 
-  test.skip('bold link', () => {
-    expect(
-      fromHTMLToMarkdown(
-        '<p><a href="https://google.fr"><strong>https://google.fr</strong></a></p>',
-      ),
-    ).toBe('[**https://google.fr**](http://google.fr)');
+  test('bold link', () => {
+    const markdown = fromHTMLToMarkdown(
+      '<p><a href="https://google.fr"><strong>https://google.fr</strong></a></p>',
+    );
+    expect(markdown).toBe('[**https://google.fr**](https://google.fr)');
   });
 });

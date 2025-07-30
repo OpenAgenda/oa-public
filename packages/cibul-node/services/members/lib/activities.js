@@ -1,9 +1,6 @@
 import _ from 'lodash';
-import logs from '@openagenda/logs';
 
-const log = logs('services/members/activities');
-
-function addMemberCreate(
+export function addMemberCreate(
   services,
   { user, member, agenda, senderUser, context },
 ) {
@@ -30,7 +27,7 @@ function addMemberCreate(
   );
 }
 
-function addMemberRemove(
+export function addMemberRemove(
   services,
   { user, member, agenda, userMember, memberUser },
 ) {
@@ -58,7 +55,7 @@ function addMemberRemove(
   );
 }
 
-async function addMemberRoleChange(
+export async function addMemberRoleChange(
   services,
   { user, before, member, agenda, context, senderUser },
 ) {
@@ -104,17 +101,17 @@ async function addMemberRoleChange(
   );
 }
 
-function addMemberAcceptInvitation(
+export function addMemberAcceptInvitation(
   services,
   { agenda, user, senderUser, member, context },
 ) {
   const { activities } = services;
-  return activities
-    .feed({
+  return activities.addActivity(
+    {
       entityType: 'agenda',
       entityUid: agenda.uid,
-    })
-    .activities.add({
+    },
+    {
       actor: `user:${user.uid}`,
       verb: 'agenda.acceptInvitation',
       object: `user:${senderUser.uid}`,
@@ -127,26 +124,6 @@ function addMemberAcceptInvitation(
         },
         role: member.role,
       },
-    });
+    },
+  );
 }
-
-function task(queue, services) {
-  log('task');
-
-  queue.register({
-    addMemberRemove: addMemberRemove.bind(null, services),
-    addMemberCreate: addMemberCreate.bind(null, services),
-    addMemberRoleChange: addMemberRoleChange.bind(null, services),
-    addMemberAcceptInvitation: addMemberAcceptInvitation.bind(null, services),
-  });
-
-  queue.on('error', (fn, args, error) => log('error', fn, args, error));
-  queue.on('execute', (fn, _args) => log(fn, 'execute'));
-  queue.on('success', (fn, _args, _result) => log(fn, 'success'));
-
-  queue.run();
-}
-
-export default ({ queue, services }) => ({
-  task: task.bind(null, queue, services),
-});

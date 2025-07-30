@@ -9,6 +9,7 @@ const FEED_TYPES = require('../feedTypes');
 schema.register({
   choice: validators.choice,
   number: validators.number,
+  list: validators.list,
 });
 
 async function get(config, identifiers, options = {}) {
@@ -21,6 +22,8 @@ async function get(config, identifiers, options = {}) {
     ...options,
   };
 
+  const isArrayOfIds = 'id' in identifiers && Array.isArray(identifiers.id);
+
   const fieldSchema = [
     {
       name: 'id',
@@ -28,7 +31,8 @@ async function get(config, identifiers, options = {}) {
       schema:
         'id' in identifiers
           ? {
-            type: 'number',
+            type: isArrayOfIds ? 'list' : 'number',
+            ...isArrayOfIds ? { types: ['number'] } : undefined,
             optional: false,
           }
           : null,
@@ -58,20 +62,19 @@ async function get(config, identifiers, options = {}) {
   ];
 
   const dataSchema = fieldSchema.reduce((prev, field) => {
-    if (!field.schema) return prev;
-
-    prev[field.dataKey || field.name] = field.schema;
-
+    if (field.schema) {
+      prev[field.dataKey || field.name] = field.schema;
+    }
     return prev;
   }, {});
 
   const validate = schema(dataSchema);
-
   const data = validate(identifiers);
 
   const columnToSelect = fieldSchema.reduce((prev, field) => {
-    if (!params.internal && field.internal) return prev;
-
+    if (!params.internal && field.internal) {
+      return prev;
+    }
     prev.push(
       `${field.table ? `${field.table}.${field.name}` : field.name} as ${field.dataKey || field.name}`,
     );
@@ -82,48 +85,66 @@ async function get(config, identifiers, options = {}) {
     columnToSelect.push('id');
   }
 
-  const where = fieldSchema.reduce((prev, field) => {
-    if (!data[field.dataKey || field.name]) return prev;
+  const query = knex(config.schemas.feed).select(columnToSelect);
+  let feeds;
 
-    prev[field.name] = data[field.dataKey || field.name];
-    return prev;
-  }, {});
+  if (isArrayOfIds) {
+    feeds = await query.whereIn('id', data.id);
+  } else {
+    const where = fieldSchema.reduce((prev, field) => {
+      if (data[field.dataKey || field.name]) {
+        prev[field.name] = data[field.dataKey || field.name];
+      }
+      return prev;
+    }, {});
+    const feed = await query.first().where(where);
+    feeds = feed ? [feed] : [];
+  }
 
-  const feed = await knex(config.schemas.feed)
-    .first(columnToSelect)
-    .where(where);
+  if (_.isEmpty(feeds)) {
+    return isArrayOfIds ? [] : null;
+  }
 
-  if (feed && params.followed) {
+  const feedIds = feeds.map((f) => f.id);
+
+  if (params.followed) {
     const follows = await knex(config.schemas.feed_follow)
       .select()
-      .where({ target_feed: feed.id });
+      .whereIn('target_feed', feedIds);
 
-    feed.followed = follows.map((follow) => {
-      const mappedFeed = _.mapKeys(follow, (v, k) => _.camelCase(k));
-      mappedFeed.store = JSON.parse(mappedFeed.store || '{}');
-      return mappedFeed;
+    const followsByTarget = _.groupBy(follows, 'target_feed');
+
+    feeds.forEach((feed) => {
+      feed.followed = (followsByTarget[feed.id] || []).map((follow) => {
+        const mappedFeed = _.mapKeys(follow, (v, k) => _.camelCase(k));
+        mappedFeed.store = JSON.parse(mappedFeed.store || '{}');
+        return mappedFeed;
+      });
     });
   }
 
-  if (feed && params.followedBy) {
+  if (params.followedBy) {
     const follows = await knex(config.schemas.feed_follow)
       .select()
-      .where({ origin_feed: feed.id });
+      .whereIn('origin_feed', feedIds);
 
-    feed.followedBy = follows.map((follow) => {
-      const mappedFeed = _.mapKeys(follow, (v, k) => _.camelCase(k));
-      mappedFeed.store = JSON.parse(mappedFeed.store || '{}');
-      return mappedFeed;
+    const followsByOrigin = _.groupBy(follows, 'origin_feed');
+
+    feeds.forEach((feed) => {
+      feed.followedBy = (followsByOrigin[feed.id] || []).map((follow) => {
+        const mappedFeed = _.mapKeys(follow, (v, k) => _.camelCase(k));
+        mappedFeed.store = JSON.parse(mappedFeed.store || '{}');
+        return mappedFeed;
+      });
     });
   }
-
-  if (!feed) return null;
 
   if (!params.internal && (params.followed || params.followedBy)) {
-    return _.omit(feed, 'id');
+    const result = feeds.map((feed) => _.omit(feed, 'id'));
+    return isArrayOfIds ? result : result[0];
   }
 
-  return feed;
+  return isArrayOfIds ? feeds : feeds[0];
 }
 
 module.exports = get;

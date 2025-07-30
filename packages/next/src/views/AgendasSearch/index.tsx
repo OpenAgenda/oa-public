@@ -88,7 +88,7 @@ function AgendasSearch({ preload }: AgendasSearchProps) {
       if (previousPageData && !previousPageData.agendas?.length) return null;
 
       const reqQuery = {
-        search,
+        search: search || 'search' in query ? search : undefined,
         network: query.network,
         locationSet: query.locationSet,
       };

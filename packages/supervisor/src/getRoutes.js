@@ -111,6 +111,32 @@ const Elasticsearch = loadableEsm(
   { ssr: false },
 );
 
+const Users = loadableEsm(
+  {
+    chunkName: 'supervisor-Users',
+    importAsync: () =>
+      import(
+        /* webpackChunkName: "supervisor-Users" */
+        './containers/Users.js'
+      ),
+    // importSync:
+    //   // eslint-disable-next-line camelcase
+    //   typeof __webpack_require__ === 'undefined'
+    //     ? await import('./containers/Users.js')
+    //     : null,
+    resolve: () => {
+      if (contextRequire) {
+        return contextRequire.resolve('./containers/Users.js');
+      }
+      const { resolve } = import.meta;
+      if (typeof resolve === 'function') {
+        return resolve('./containers/Users.js');
+      }
+    },
+  },
+  { ssr: false },
+);
+
 export default (prefix = '') => [
   {
     path: prefix,
@@ -120,12 +146,14 @@ export default (prefix = '') => [
       {
         path: `${prefix}/announcement`,
         component: AnnouncementManager,
-        activeTab: 'profile',
       },
       {
         path: `${prefix}/elasticsearch`,
         component: Elasticsearch,
-        activeTab: 'profile',
+      },
+      {
+        path: `${prefix}/users`,
+        component: Users,
       },
     ],
   },

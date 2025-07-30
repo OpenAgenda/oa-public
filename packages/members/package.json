@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/members",
-  "version": "1.15.13",
+  "version": "1.15.14",
   "private": true,
   "type": "module",
   "main": "index.js",
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@openagenda/labels": "^2.3.0",
-    "@openagenda/logs": "^1.1.9",
+    "@openagenda/logs": "^1.1.10",
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.1.0",
     "immutability-helper": "^3.0.1",

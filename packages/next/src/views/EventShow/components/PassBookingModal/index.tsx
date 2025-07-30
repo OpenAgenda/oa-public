@@ -15,6 +15,7 @@ interface PassBookingModalProps {
   onClose: () => void;
   agendaUid?: string;
   eventUid?: string;
+  timezone?: string;
 }
 
 const PassBookingModal = ({
@@ -22,6 +23,7 @@ const PassBookingModal = ({
   onClose,
   agendaUid,
   eventUid,
+  timezone,
 }: PassBookingModalProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -58,7 +60,7 @@ const PassBookingModal = ({
     <DialogRoot size="xl" open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader fontSize="xl" fontWeight="semibold">
-          Réservations Pass Culture
+          Réservations pass Culture
         </DialogHeader>
         <DialogCloseTrigger />
         <DialogBody>
@@ -71,7 +73,7 @@ const PassBookingModal = ({
               <Text color="red.500">{error}</Text>
             </Center>
           ) : (
-            <BookingModalBody data={bookingData} />
+            <BookingModalBody data={bookingData} timezone={timezone} />
           )}
         </DialogBody>
         <DialogFooter>

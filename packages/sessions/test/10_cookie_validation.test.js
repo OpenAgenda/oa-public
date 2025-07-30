@@ -10,6 +10,7 @@ describe('session - unit (iso): cookie data validate', () => {
         thumbnail: '//graph.facebook.com/100002280111541/picture',
       },
       expires: undefined,
+      sessionId: null,
     };
 
     expect(validate(cookieData)).toEqual(cookieData);

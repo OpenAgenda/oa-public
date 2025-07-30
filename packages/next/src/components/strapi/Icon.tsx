@@ -12,6 +12,7 @@ import {
   faRocketLaunch as faRocketLaunchSolid,
   faShare as faShareSolid,
   faShareNodes as faShareNodesSolid,
+  faUpRightFromSquare as faUpRightFromSquareSolid,
 } from 'icons/solid';
 
 import {
@@ -25,6 +26,7 @@ import {
   faRocketLaunch as faRocketLaunchRegular,
   faShare as faShareRegular,
   faShareNodes as faShareNodesRegular,
+  faUpRightFromSquare as faUpRightFromSquareRegular,
 } from 'icons/regular';
 
 import {
@@ -38,6 +40,7 @@ import {
   faRocketLaunch as faRocketLaunchThin,
   faShare as faShareThin,
   faShareNodes as faShareNodesThin,
+  faUpRightFromSquare as faUpRightFromSquareThin,
 } from 'icons/thin';
 
 const solid = {
@@ -51,6 +54,7 @@ const solid = {
   'rocket-launch': faRocketLaunchSolid,
   share: faShareSolid,
   'share-nodes': faShareNodesSolid,
+  'up-right-from-square': faUpRightFromSquareSolid,
 };
 
 const regular = {
@@ -64,6 +68,7 @@ const regular = {
   'rocket-launch': faRocketLaunchRegular,
   share: faShareRegular,
   'share-nodes': faShareNodesRegular,
+  'up-right-from-square': faUpRightFromSquareRegular,
 };
 
 const thin = {
@@ -77,6 +82,7 @@ const thin = {
   'rocket-launch': faRocketLaunchThin,
   share: faShareThin,
   'share-nodes': faShareNodesThin,
+  'up-right-from-square': faUpRightFromSquareThin,
 };
 
 interface IconProps {

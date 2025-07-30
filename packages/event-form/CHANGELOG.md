@@ -1,5 +1,18 @@
 # Change Log
 
+## 1.5.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/agenda-locations@2.1.3
+  - @openagenda/events@3.0.1
+  - @openagenda/form-schemas@1.9.3
+  - @openagenda/agenda-locations-app@0.0.1
+  - @openagenda/registration-apps@0.0.1
+  - @openagenda/react-shared@2.4.4
+  - @openagenda/react-timingspicker@1.4.2
+
 ## 1.5.2
 
 ### Patch Changes

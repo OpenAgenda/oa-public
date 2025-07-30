@@ -2,6 +2,7 @@ import _ from 'lodash';
 import membersSvc from '@openagenda/members';
 import logs from '@openagenda/logs';
 import clearCache from './lib/clearCache.js';
+import { addMemberRemove } from './lib/activities.js';
 
 const {
   utils: {
@@ -29,7 +30,7 @@ async function removeInvitationsToMember({ invitations }, member) {
   }
 }
 
-export default function onRemove({ services, members, activityQueue }) {
+export default function onRemove({ services }) {
   return async (member, context) => {
     log('removed', member);
 
@@ -39,6 +40,7 @@ export default function onRemove({ services, members, activityQueue }) {
       agendas,
       invitations,
       inboxes,
+      members,
     } = services;
 
     const { Inbox } = inboxes;
@@ -80,7 +82,7 @@ export default function onRemove({ services, members, activityQueue }) {
         });
 
       try {
-        await activityQueue('addMemberRemove', {
+        await addMemberRemove(services, {
           user, // user removing
           member, // member removed
           agenda,

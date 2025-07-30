@@ -14,7 +14,7 @@ export function launchTestApp(routes) {
     [].concat(routes[k]).forEach((r) => app[method](path, r));
   });
 
-  return app.listen(3000);
+  return app.listen(4000);
 }
 
 export function roundTrip(req, res) {

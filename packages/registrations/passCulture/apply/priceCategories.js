@@ -12,7 +12,7 @@ const formatPriceCategory = (priceCategory) =>
   );
 
 async function update(
-  pc,
+  { pc },
   passEventOfferId,
   _passAddressId,
   _OAEvent,
@@ -46,7 +46,7 @@ async function update(
 }
 
 async function create(
-  pc,
+  { pc },
   passEventOfferId,
   _passAddressId,
   _OAEvent,

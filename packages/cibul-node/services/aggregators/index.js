@@ -9,13 +9,29 @@ const log = logs('services/aggregators');
 
 export function init(config, services) {
   log('init');
-  const { agendas: agendasSvc, tracker } = services;
+  const { agendas: agendasSvc, queues, bull, tracker } = services;
 
-  let task;
+  const queue = new bull.Queue('aggregators', { prefix: '{aggregators}' });
+  const createWorker = (processor) =>
+    new bull.Worker(queue.name, processor, {
+      prefix: queue.opts.prefix,
+      autorun: false,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
+    });
+
+  const oldQueue = queues('aggregator');
 
   const aggregators = Aggregators({
     knex: config.knex,
-    queues: services.queues,
+    queue,
+    createWorker,
     logger: config.getLogConfig('svc', 'aggregators'),
     interfaces: {
       getMergedSchema: (agendaUid) =>
@@ -213,12 +229,25 @@ export function init(config, services) {
     plugApp: plugApp.bind(null, config),
     ...aggregators,
     shutdown: async (options) => {
-      if (!task) return;
-      return options.clear ? task.stopAndClear() : task.stop();
+      // if (!aggregators.worker.isRunning()) return;
+      if (options.clear) {
+        await queue.drain();
+      }
+      await oldQueue.stop();
+      await aggregators.worker.close();
     },
     task: () => {
-      task = aggregators.task();
-      return task;
+      oldQueue.register({
+        dispatch: (action, data) => queue.add('dispatch', { action, data }),
+        evaluateEvent: (data) => queue.add('evaluateEvent', data),
+        removeEvent: (data) => queue.add('removeEvent', data),
+        loadSourceEvaluates: (data) => queue.add('loadSourceEvaluates', data),
+        loadSourceRemoves: (data) => queue.add('loadSourceRemoves', data),
+      });
+
+      oldQueue.run();
+
+      aggregators.worker.run();
     },
   };
 }

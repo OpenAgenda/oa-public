@@ -23,7 +23,7 @@ export default async (services, rebuildQueue) => {
 
     for (const agenda of agendas) {
       log('%s: queuing rebuild', agenda.slug);
-      await rebuildQueue('agenda', agenda);
+      await rebuildQueue.add('agenda', agenda);
       count += 1;
     }
 
@@ -32,5 +32,5 @@ export default async (services, rebuildQueue) => {
 
   log('info', 'completed rebuild queueing for %s agendas', count);
 
-  await rebuildQueue('transverse');
+  await rebuildQueue.add('transverse');
 };

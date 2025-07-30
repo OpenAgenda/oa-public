@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -33,9 +33,9 @@
   },
   "dependencies": {
     "@openagenda/common-labels": "^1.2.4",
-    "@openagenda/react-filters": "^2.13.0",
-    "@openagenda/react-shared": "^2.4.3",
-    "@openagenda/uikit": "^0.0.1",
+    "@openagenda/react-filters": "^2.13.1",
+    "@openagenda/react-shared": "^2.4.4",
+    "@openagenda/uikit": "^0.0.2",
     "ky": "^1.7.2",
     "qs": "^6.11.0",
     "react-intl": "^7.1.5",

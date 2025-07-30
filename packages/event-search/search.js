@@ -270,7 +270,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     );
   }
 
-  log('info', 'response', {
+  log('response', {
     time: new Date().getTime() - start,
     query,
     nav,

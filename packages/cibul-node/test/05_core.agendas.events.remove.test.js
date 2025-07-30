@@ -138,7 +138,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     let response;
 
     beforeAll(async () => {
-      server = api(core, { useRouter: false }).listen(3000);
+      server = api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -146,7 +146,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -159,7 +159,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     beforeAll(async () => {
       response = await axios({
         method: 'delete',
-        url: 'http://localhost:3000/agendas/17026855/events/90298390',
+        url: 'http://localhost:4000/agendas/17026855/events/90298390',
         headers: {
           'content-type': 'application/json',
           'access-token': accessToken,
@@ -178,7 +178,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     it('deleting non-existant event returns 404', async () => {
       const errorResponse = await axios({
         method: 'delete',
-        url: 'http://localhost:3000/agendas/17026855/events/90298390',
+        url: 'http://localhost:4000/agendas/17026855/events/90298390',
         headers: {
           'content-type': 'application/json',
           'access-token': accessToken,
@@ -194,7 +194,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     it('user with no relevent authorization cannot delete event', async () => {
       const anotherAccessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -205,7 +205,7 @@ describe('core - functional (server): core agendas() events.remove()', () => {
 
       const { error, result } = await axios({
         method: 'delete',
-        url: 'http://localhost:3000/agendas/17026855/events/789456',
+        url: 'http://localhost:4000/agendas/17026855/events/789456',
         headers: {
           'content-type': 'application/json',
           'access-token': anotherAccessToken,

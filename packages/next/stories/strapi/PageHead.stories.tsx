@@ -12,17 +12,16 @@ export const Default = {
     title: 'Recensez et diffusez tous vos événements',
     description:
       "OpenAgenda vous permet de gérer, collaborer et diffuser des événements autour d'un ou plusieurs agendas interconnectés",
-    Illustration: {
-      image: {
-        url: '/guyWritingOnACalendar.png',
-        alternativeText: 'Guy writing something on a calendar',
+    image: {
+      url: '/guyWritingOnACalendar.png',
+      alternativeText: 'Guy writing something on a calendar',
+    },
+    CTAs: [
+      {
+        label: 'Créer un agenda',
+        link: '/agendas/new',
       },
-      width: { name: 'md' },
-    },
-    CTA: {
-      label: 'Créer un agenda',
-      link: '/agendas/new',
-    },
+    ],
   },
 };
 
@@ -30,32 +29,64 @@ export const NoIllustration = {
   args: {
     title: 'Intégrez votre agenda à votre site',
     description:
-      'Une API, un code à coller sur votre page, des plugins Drupal, Wordpress et Typo3',
-    CTA: {
-      label: 'Sortir le chien',
-      link: 'https://woafy.fr/quand-et-combien-de-faut-il-sortir-son-chien-au-minimum/',
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    CTAs: [
+      {
+        label: 'Sortir le chien',
+        link: 'https://woafy.fr/quand-et-combien-de-faut-il-sortir-son-chien-au-minimum/',
+        colorPalette: {
+          name: 'strapi.blueGreen',
+        },
+      },
+    ],
+  },
+};
+
+export const WithSubtleBackground = {
+  args: {
+    title: 'Vous ne savez pas quoi écrire dans votre Casendap ?',
+    description: "Mettez un 12, on n'est plus à ça près.",
+    image: {
+      url: '/casendapwhite.png',
+      alternativeText: 'Un casendap',
+    },
+    CTAs: [
+      {
+        label: 'Mettre un 12',
+        link: 'https://google.com?q=12',
+      },
+    ],
+    backgroundColor: {
+      name: 'blueGreen',
+    },
+    colorVariant: 'subtle',
+    titleColor: {
+      name: 'white',
+    },
+    descriptionColor: {
+      name: 'white',
     },
   },
 };
 
-export const WithColors = {
+export const WithSolidBackground = {
   args: {
-    title: 'Vous ne savez pas quoi écrire dans votre Casendap ?',
+    title: 'Vous ne savez pas quoi écrire dans votre Casendap ?',
     description: "Mettez un 12, on n'est plus à ça près.",
-    Illustration: {
-      image: {
-        url: '/casendapwhite.png',
-        alternativeText: 'Un casendap',
+    image: {
+      url: '/casendapwhite.png',
+      alternativeText: 'Un casendap',
+    },
+    CTAs: [
+      {
+        label: 'Mettre un 12',
+        link: 'https://google.com?q=12',
       },
-      width: { name: 'xs' },
-    },
-    CTA: {
-      label: 'Mettre un 12',
-      link: 'https://google.com?q=12',
-    },
+    ],
     backgroundColor: {
-      name: 'strapi.blueGreen',
+      name: 'blueGreen',
     },
+    colorVariant: 'solid',
     titleColor: {
       name: 'white',
     },

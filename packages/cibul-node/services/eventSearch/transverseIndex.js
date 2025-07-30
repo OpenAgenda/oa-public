@@ -3,7 +3,7 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/eventSearch/transverseIndex');
 
-async function transverseIndexRemove(searchIndex, eventUid) {
+export async function transverseIndexRemove(searchIndex, eventUid) {
   log('removing event %s from transverse index', eventUid);
   try {
     return searchIndex.remove({ uid: eventUid });
@@ -12,7 +12,12 @@ async function transverseIndexRemove(searchIndex, eventUid) {
   }
 }
 
-async function transverseIndexUpdate(config, services, searchIndex, event) {
+export async function transverseIndexUpdate(
+  config,
+  services,
+  searchIndex,
+  event,
+) {
   const { uid } = event;
   const { tracker } = services;
 
@@ -28,7 +33,11 @@ async function transverseIndexUpdate(config, services, searchIndex, event) {
   tracker('transverseIndex.done');
 }
 
-async function transverseIndexRebuild(services, searchIndex, options = {}) {
+export async function transverseIndexRebuild(
+  services,
+  searchIndex,
+  options = {},
+) {
   const {
     events: eventsSvc,
     agendaEvents: agendaEventSvc,
@@ -140,24 +149,3 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
 
   return rebuildResult;
 }
-
-export default ({ services, config }, eventSearch, queue) => {
-  const searchIndex = eventSearch('events');
-
-  queue.register({
-    transverseIndexRebuild: transverseIndexRebuild.bind(
-      null,
-      services,
-      searchIndex,
-    ),
-    transverseIndexUpdate: transverseIndexUpdate.bind(
-      null,
-      config,
-      services,
-      searchIndex,
-    ),
-    transverseIndexRemove: transverseIndexRemove.bind(null, searchIndex),
-  });
-
-  return searchIndex.search;
-};

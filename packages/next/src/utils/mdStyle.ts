@@ -1,12 +1,8 @@
 import { SystemStyleObject } from '@openagenda/uikit';
 
 const mdStyle: SystemStyleObject = {
-  // '& ul': {
-  //   ps: '40px',
-  //   mb: '10px',
-  // },
   '& p': {
-    mb: '10px',
+    mb: '0.57em', // Matches list item spacing (2 * 0.285em)
     '&:last-child': {
       mb: '0',
     },
@@ -25,6 +21,8 @@ const mdStyle: SystemStyleObject = {
       textUnderlineOffset: '3px',
       textDecorationColor: 'currentColor/20',
     },
+    fontSize: 'md',
+    display: 'inline',
   },
   '& h1': {
     fontSize: '3xl',
@@ -53,12 +51,12 @@ const mdStyle: SystemStyleObject = {
   '& ul': {
     marginTop: '1em',
     marginBottom: '1em',
-    paddingInlineStart: '40px',
+    paddingInlineStart: '20px',
   },
   '& ol': {
     marginTop: '1em',
     marginBottom: '1em',
-    paddingInlineStart: '40px',
+    paddingInlineStart: '20px',
   },
   '& li': {
     marginTop: '0.285em',
@@ -79,22 +77,6 @@ const mdStyle: SystemStyleObject = {
     },
   },
   '& > ul > li p': {
-    marginTop: '0.5em',
-    marginBottom: '0.5em',
-  },
-  '& > ul > li > p:first-of-type': {
-    marginTop: '1em',
-  },
-  '& > ul > li > p:last-of-type': {
-    marginBottom: '1em',
-  },
-  '& > ol > li > p:first-of-type': {
-    marginTop: '1em',
-  },
-  '& > ol > li > p:last-of-type': {
-    marginBottom: '1em',
-  },
-  '& ul ul, ul ol, ol ul, ol ol': {
     marginTop: '0.5em',
     marginBottom: '0.5em',
   },

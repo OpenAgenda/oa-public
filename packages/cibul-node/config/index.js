@@ -48,6 +48,10 @@ const config = {
   logPath: '/var/tmp/cibul-node.log',
   logPathDebug: '/var/tmp/cibul-node-debug.log',
   logPathError: '/var/tmp/cibul-node-errors.log',
+  insightOps: {
+    logTokens: insightOpsKeys,
+    apiKey: process.env.OA_INSIGHT_OPS_API_KEY,
+  },
   logger:
     process.env.NODE_ENV === 'production'
       ? {
@@ -55,10 +59,12 @@ const config = {
         enableDebug: false,
         token: insightOpsKeys?.oa ?? null,
         sentry: Sentry,
+        otel: !!process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
       }
       : {
         prefix: 'oa:',
         token: false,
+        otel: !!process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
       },
   name: 'cibul-node',
   domain: prod.domains?.main ?? process.env.DOMAIN ?? 'd.openagenda.com',
@@ -82,6 +88,21 @@ const config = {
   callToActionEmails: prod.sales && prod.sales.emails,
   contactResource: prod.sales && prod.sales.pipedriveForm,
   tiles: prod.tiles || process.env.MAP_TILES,
+  enforceAPISizeLimitAgendaExclusionList: [
+    17821345, 69218883, 98559275, 17341714, 23868942, 52853891, 85121895,
+    58095305, 76126842, 63471975, 49283376, 44891982, 83549053, 71022838,
+    2749382, 82470621, 83770274, 78042370, 253926, 4641117, 6922839, 3224921,
+    22851577, 979472, 9059178, 13880145, 68165804, 2342325, 36779486, 87231512,
+    9847586, 78613663, 83392987, 91990573, 16440826, 6956942, 72639287,
+    93202109, 96583097, 92305987, 33200551, 12003263, 37233432, 78623851,
+    17542672, 96215598, 27549140, 69319016, 63637214, 6956618, 87833415,
+    16265731, 68229714, 10905380, 86184123, 20289708, 14758456, 1108324,
+    6922839, 42448083, 2883956, 69322949, 80515007, 14115607, 96493090,
+    13844012, 13885588, 28622776, 32257586, 35336366, 36404645, 44378712,
+    51677067, 55205678, 60871835, 72120377, 76028533, 83007326, 89137171,
+    9434165, 97256762, 99371247, 41792566, 63578210, 10387409, 26283955,
+    94991195, 61694203, 81741424, 36994113, 20500020,
+  ],
   staticTiles: prod.staticTiles || process.env.STATIC_MAP_TILES,
   opencage: {
     key: prod.opencage?.key ?? process.env.OPENCAGE_KEY,
@@ -605,6 +626,7 @@ debug.enable(config.logger.enableDebug);
 config.getLogConfig = (prefix, key, keyInPrefix = true) => ({
   prefix: keyInPrefix ? `${prefix}:${key}:` : `${prefix}:`,
   token: insightOpsKeys[key],
+  otel: !!process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
 });
 
 export default config;

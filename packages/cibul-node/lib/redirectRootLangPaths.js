@@ -1,4 +1,4 @@
-export default (req, res, next) => {
+export default function redirectRootLangPaths(req, res, next) {
   const { services } = req.app;
 
   const { core } = services;
@@ -14,4 +14,4 @@ export default (req, res, next) => {
   }
 
   next();
-};
+}

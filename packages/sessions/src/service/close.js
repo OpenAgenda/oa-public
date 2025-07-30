@@ -5,7 +5,7 @@ function closeByUid(config, uid) {
 }
 
 async function close(config, request) {
-  const cookieUser = cleanSession(request.session).user;
+  const { user: cookieUser, sessionId } = cleanSession(request.session);
 
   if (!cookieUser) {
     return {
@@ -16,7 +16,7 @@ async function close(config, request) {
 
   await closeByUid(config, cookieUser.uid);
 
-  request.session = null;
+  request.session = sessionId ? { sessionId } : null;
 
   return {
     success: true,

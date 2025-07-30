@@ -13,6 +13,43 @@ export async function middleware(req: NextRequest) {
     return;
   }
 
+  const requestHeaders = new Headers(req.headers);
+  const responseHeaders = new Headers();
+
+  if (!req.cookies.has('oa')) {
+    try {
+      const noopResponse = await fetch(
+        `${process.env.NEXT_API_INTERNAL_BASE_URL}/api/noop`,
+        {
+          headers: req.headers,
+        },
+      );
+      const cookiesFromApi = noopResponse.headers.getSetCookie();
+
+      if (cookiesFromApi.length > 0) {
+        const currentRequestCookieHeader = requestHeaders.get('Cookie') || '';
+        const newCookiesForRequestHeader = cookiesFromApi
+          .map((c) => c.split(';')[0])
+          .join('; ');
+
+        requestHeaders.set(
+          'Cookie',
+          [currentRequestCookieHeader, newCookiesForRequestHeader]
+            .filter(Boolean)
+            .join('; '),
+        );
+
+        cookiesFromApi.forEach((cookie) => {
+          responseHeaders.append('Set-Cookie', cookie);
+        });
+      }
+    } catch {
+      //
+    }
+  }
+
+  let response: NextResponse;
+
   /* locale redirection */
 
   // req.cookies.get('NEXT_LOCALE');
@@ -33,12 +70,20 @@ export async function middleware(req: NextRequest) {
   );
 
   if (nextLocale === 'default') {
-    return NextResponse.redirect(
-      new URL(
-        `/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`,
-        req.url,
-      ),
+    const redirectUrl = new URL(
+      `/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`,
+      req.url,
     );
+    return NextResponse.redirect(redirectUrl, {
+      headers: responseHeaders,
+    });
+  } else {
+    response = NextResponse.next({
+      request: {
+        headers: requestHeaders,
+      },
+      headers: responseHeaders,
+    });
   }
 
   // if (nextLocale === 'default' && locale !== defaultLocale && SUPPORTED_LOCALES.includes(locale)) {
@@ -61,10 +106,10 @@ export async function middleware(req: NextRequest) {
 
   // see https://github.com/vercel/next.js/issues/36049#issuecomment-1122077832
   if (outdatedBrowserCookie !== isOutdated) {
-    const response = NextResponse.next();
     response.cookies.set('outdatedBrowser', String(isOutdated));
-    return response;
   }
+
+  return response;
 }
 
 export const config = {

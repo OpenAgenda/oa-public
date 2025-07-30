@@ -10,6 +10,7 @@ describe('members - functional - setByEmail', () => {
   const f = fixtures(config.mysql);
 
   let svc;
+  const queueCalls = [];
 
   beforeAll(async () => {
     await f.load();
@@ -23,6 +24,15 @@ describe('members - functional - setByEmail', () => {
         onRemove: () => {},
       },
       queues,
+      queue: {
+        add: (name, data) => {
+          queueCalls.push({ name, data });
+        },
+      },
+      createWorker: () => ({
+        run: () => {},
+        on: () => {},
+      }),
       bulkThreshold: 1,
     });
   });
@@ -113,18 +123,9 @@ describe('members - functional - setByEmail', () => {
     });
 
     describe('bulk', () => {
-      const queueCalls = [];
       let result;
 
       beforeAll(async () => {
-        queues.mockOn('register', (methods) => {
-          queueCalls.push({ call: 'register', methods });
-        });
-
-        queues.mockOn('queue', (...args) => {
-          queueCalls.push({ call: 'queue', args });
-        });
-
         svc.task();
 
         result = await svc.set.byEmail.bulk(
@@ -139,13 +140,8 @@ describe('members - functional - setByEmail', () => {
         );
       });
 
-      test('service task registers setByEmail method', () => {
-        expect(queueCalls[0].call).toBe('register');
-        expect(Object.keys(queueCalls[0].methods)[0]).toBe('setByEmail');
-      });
-
       test('if bulk items are above threshold, they are queued', () => {
-        expect(queueCalls.filter((c) => c.call === 'queue')).toHaveLength(2);
+        expect(queueCalls).toHaveLength(2);
       });
 
       test('result provides queued count', () => {
@@ -153,14 +149,22 @@ describe('members - functional - setByEmail', () => {
       });
 
       test('queued arguments are prepared to be given as is to set method', () => {
-        expect(queueCalls.filter((c) => c.call === 'queue')[0]).toEqual({
-          call: 'queue',
-          args: [
-            'setByEmail',
-            { agendaUid: 123, role: 1, email: 'albert@oa.com' },
-            { requireCustom: false },
-          ],
-        });
+        expect(queueCalls).toEqual([
+          {
+            data: {
+              data: { agendaUid: 123, email: 'albert@oa.com', role: 1 },
+              options: { requireCustom: false },
+            },
+            name: 'setByEmail',
+          },
+          {
+            data: {
+              data: { agendaUid: 123, email: 'alice@oa.com', role: 1 },
+              options: { requireCustom: false },
+            },
+            name: 'setByEmail',
+          },
+        ]);
       });
 
       test('if bulk items are below threshold, they are processed directly', async () => {

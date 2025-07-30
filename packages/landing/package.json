@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/landing",
-  "version": "1.3.16",
+  "version": "1.3.17",
   "private": true,
   "description": "Project to speed up configuration of corpo static pages",
   "type": "module",
@@ -11,7 +11,7 @@
   },
   "dependencies": {
     "@openagenda/labels": "^2.3.0",
-    "@openagenda/md": "^1.0.0",
+    "@openagenda/md": "^1.0.1",
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.1.0",
     "express": "^4.17.1",
@@ -20,7 +20,7 @@
     "pug": "^2.0.0-beta6"
   },
   "devDependencies": {
-    "@openagenda/bs-templates": "^2.5.0",
+    "@openagenda/bs-templates": "^2.5.1",
     "jest": "^29.7.0",
     "nodemon": "^3.1.7",
     "reload": "^3.2.1"

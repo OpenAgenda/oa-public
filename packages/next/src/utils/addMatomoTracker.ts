@@ -18,26 +18,40 @@ export function normalizeUrl(url: string) {
   return result;
 }
 
+export function executeWhenMatomoReady(callback: () => void) {
+  if (window.Matomo?.initialized) {
+    callback();
+  } else if (Array.isArray(window.matomoPluginAsyncInit)) {
+    window.matomoPluginAsyncInit.push(callback);
+  } else {
+    window.matomoPluginAsyncInit = [callback];
+  }
+}
+
 export function addMatomoTracker({ matomoUrl, matomoSiteId }) {
   const matomoDomain = normalizeUrl(matomoUrl);
 
-  window.matomoPluginAsyncInit = [
-    () => {
-      try {
-        const matomoTracker = window.Matomo.getTracker(
-          `https://${matomoDomain}/matomo.php`,
-          matomoSiteId,
-        );
-        matomoTracker.disableCookies();
-        matomoTracker.trackPageView();
-        matomoTracker.enableLinkTracking();
+  const initTracker = () => {
+    try {
+      const matomoTracker = window.Matomo.getTracker(
+        `https://${matomoDomain}/matomo.php`,
+        matomoSiteId,
+      );
+      matomoTracker.disableCookies();
+      matomoTracker.trackPageView();
+      matomoTracker.enableLinkTracking();
 
-        window.openAgendaTracker = matomoTracker;
-      } catch (err) {
-        console.log('addMatomoTracker error', err);
-      }
-    },
-  ];
+      window.openAgendaTracker = matomoTracker;
+    } catch (err) {
+      console.log('addMatomoTracker error', err);
+    }
+  };
+
+  if (Array.isArray(window.matomoPluginAsyncInit)) {
+    window.matomoPluginAsyncInit.unshift(initTracker);
+  } else {
+    window.matomoPluginAsyncInit = [initTracker];
+  }
 
   const scriptElem = document.createElement('script');
   const firstScript = document.getElementsByTagName('script')[0];
@@ -77,11 +91,5 @@ export function addMatomoClientTracker({
     }
   }
 
-  if (window.Matomo?.initialized) {
-    addTracker();
-  } else if (Array.isArray(window.matomoPluginAsyncInit)) {
-    window.matomoPluginAsyncInit.push(addTracker);
-  } else {
-    window.matomoPluginAsyncInit = [addTracker];
-  }
+  executeWhenMatomoReady(addTracker);
 }

@@ -103,10 +103,17 @@ export default (config, core, services) => {
 
   services.supervisor.elasticsearch.task();
 
-  services.agendaLocations.task({
-    duplicationDetection: config.locationDuplicationDetection,
-    reset: false,
-  });
+  tfy(
+    services.agendaLocations.task({
+      duplicationDetection: config.locationDuplicationDetection,
+      reset: false,
+    }),
+    {
+      period: 'weekly',
+      day: 'sunday',
+      time: '15:00',
+    },
+  );
 
   services.users.tasks.processQueue();
 

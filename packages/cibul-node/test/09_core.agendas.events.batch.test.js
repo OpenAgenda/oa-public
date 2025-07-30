@@ -41,10 +41,7 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
     await core.agendas(99501607).events.search.rebuild();
   });
 
-  afterAll(async () => {
-    core.services.knex.destroy();
-    config.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('basic batch with core.agendas.events.list', () => {
     beforeAll(

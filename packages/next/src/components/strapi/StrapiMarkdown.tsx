@@ -25,20 +25,36 @@ const reactMdComponents = {
 interface StrapiMarkdownProps {
   children: string;
   flex?: string;
+  color?: string;
+  mt?: number;
+  textAlign?: 'left' | 'center' | 'right' | 'justify';
 }
 
 export default function StrapiMarkdown({
   children,
   flex = '1',
+  color,
+  mt,
+  textAlign,
 }: StrapiMarkdownProps) {
+  // Preprocess content to convert single line breaks to double line breaks
+  // This creates proper paragraph spacing instead of just <br> tags
+  const processedContent = children.replace(/\n/g, '\n\n');
+
   return (
-    <chakra.div flex={flex} css={mdStyle}>
+    <chakra.div
+      flex={flex}
+      css={mdStyle}
+      color={color}
+      mt={mt}
+      textAlign={textAlign}
+    >
       <ReactMarkdown
         remarkPlugins={remarkPlugins}
         rehypePlugins={rehypePlugins}
         components={reactMdComponents}
       >
-        {children}
+        {processedContent}
       </ReactMarkdown>
     </chakra.div>
   );

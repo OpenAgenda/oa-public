@@ -7,7 +7,7 @@
     "noFallthroughCasesInSwitch": true,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "target": "es5",
+    "target": "esnext",
     "paths": {
       "@/*": ["../*"],
       "@openagenda/intl": ["../../../public/intl/src"],

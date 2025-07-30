@@ -4,7 +4,7 @@ import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.js';
 import * as track from '../lib/track.js';
-import * as logContextMw from '../lib/logContextMw.js';
+import * as otelMw from '../lib/otelMw.js';
 import boolQuery from '../lib/boolQuery.js';
 import * as mw from './middleware/index.js';
 import getSettingsEndpoint from './endpoints/settingsGet.js';
@@ -65,7 +65,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
 
-  app.use(logContextMw.withUserUid);
+  app.use(otelMw.addUserContext);
 
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
@@ -210,6 +210,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.post('/agendas/:agendaUid/events/search', [
     track.mw('api', 'list', 'events'),
+    mw.validateNavSize,
     mw.searchAgendaEvents(core, { queryNamespace: 'parsedData' }),
     ...app.services.usageCounters
       ? [app.services.usageCounters.mw.increment('agendaEvents')]
@@ -262,6 +263,7 @@ export default (core, { useRouter = true } = {}) => {
     [
       mw.convertLegacyFilter,
       track.mw('api', 'list', 'events'),
+      mw.validateNavSize,
       mw.searchAgendaEvents(core),
       ...app.services.usageCounters
         ? [app.services.usageCounters.mw.increment('agendaEvents')]
@@ -274,6 +276,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get('/agendas/:agendaUid/events.json-ld', [
     track.mw('api', 'list', 'events'),
+    mw.validateNavSize,
     mw.searchAgendaEvents(core, {
       sendResponse: false,
       queryNamespace: 'query',
@@ -1053,7 +1056,7 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
-  app.get('/agendas', (req, res, next) => {
+  app.get('/agendas', mw.extractIncludeFields, (req, res, next) => {
     core.agendas
       .search(req.query, req.query, {
         useDefaultImage:
@@ -1061,7 +1064,7 @@ export default (core, { useRouter = true } = {}) => {
         includeImagePath: !(
           req.query.includeImagePath && req.query.includeImagePath === '0'
         ),
-        includeFields: req.query.fields ? [].concat(req.query.fields) : null,
+        includeFields: req.includeFields,
       })
       .then((data) => res.json({ ...data, success: true }), next);
   });
@@ -1137,6 +1140,8 @@ export default (core, { useRouter = true } = {}) => {
         })
         .then((result) => res.json(result)),
   ]);
+
+  app.get('/noop', (req, res) => res.send());
 
   log('done');
 
