@@ -31,7 +31,7 @@
         }
       }
     },
-    "backgroundColor": {
+    "fontColor": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
