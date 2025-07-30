@@ -3,7 +3,11 @@ import updateAgendaIndex from './updateAgendaIndex.js';
 
 const log = logs('services/eventSearch/otherUpdates');
 
-export async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
+export async function loadOtherUpdates(
+  services,
+  queue,
+  { agendaUid, eventUid },
+) {
   const { agendaEvents } = services;
 
   log('loadOtherUpdates');
@@ -26,7 +30,11 @@ export async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
   }
 }
 
-export async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
+export async function otherUpdate(
+  services,
+  eventSearch,
+  { agendaUid, eventUid },
+) {
   const { core, tracker } = services;
 
   log('  otherUpdate', agendaUid, eventUid);

@@ -53,16 +53,35 @@ export function plugApp(app, base = '/bullboard') {
       ),
       new BullMQAdapter(
         new Queue('memberMessages', { prefix: '{memberMessages}' }),
-        { displayName: 'Messages aux membres' },
+        {
+          prefix: 'Membres.',
+          displayName: 'Messages aux membres',
+          delimiter: '.',
+        },
+      ),
+      new BullMQAdapter(new Queue('members', { prefix: '{members}' }), {
+        prefix: 'Membres.',
+        displayName: 'Invitations de membres',
+        delimiter: '.',
+      }),
+      new BullMQAdapter(new Queue('eventSearch', { prefix: '{eventSearch}' }), {
+        prefix: 'eventSearch.',
+        displayName: 'Indexation des événements',
+        delimiter: '.',
+      }),
+      new BullMQAdapter(
+        new Queue('eventSearch-rebuild', { prefix: '{eventSearch-rebuild}' }),
+        {
+          prefix: 'eventSearch.',
+          displayName: 'Rebuild événements',
+          delimiter: '.',
+        },
       ),
       new BullMQAdapter(new Queue('mails', { prefix: '{mails}' }), {
         displayName: 'Emails',
       }),
       new BullMQAdapter(new Queue('users', { prefix: '{users}' }), {
         displayName: 'Anonymisation des utilisateurs',
-      }),
-      new BullMQAdapter(new Queue('members', { prefix: '{members}' }), {
-        displayName: 'Invitations de membres',
       }),
     ],
     serverAdapter,
