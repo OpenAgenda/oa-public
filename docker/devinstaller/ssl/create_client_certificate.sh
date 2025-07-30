@@ -16,11 +16,11 @@ openssl genrsa -aes256 -passout pass:xxxx -out clients/private/$1.pass.key 4096 
 
 openssl req -new -key clients/private/$1.key -out $1.csr
 
-openssl x509 -req -days 365 -in $1.csr -CA certs/ca.crt -CAkey certs/private/ca.key -set_serial $2 -out clients/$1.crt
+openssl x509 -req -days 365 -in $1.csr -CA certs/auth.crt -CAkey certs/private/auth.key -set_serial $2 -out clients/$1.crt
 
 rm $1.csr
 
-openssl verify -verbose -CAfile certs/ca.crt clients/$1.crt
+openssl verify -verbose -CAfile certs/auth.crt clients/$1.crt
 
 openssl pkcs12 -export -clcerts \
   -in clients/$1.crt \
