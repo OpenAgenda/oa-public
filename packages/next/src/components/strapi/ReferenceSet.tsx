@@ -12,6 +12,7 @@ type ReferenceSetProps = {
   hasFilter?: boolean;
   smallImages?: boolean;
   CTAs?: any[];
+  backgroundColor?: any;
 };
 
 export default function ReferenceSet({
@@ -21,6 +22,7 @@ export default function ReferenceSet({
   hasFilter = false,
   smallImages = true,
   CTAs,
+  backgroundColor,
 }: ReferenceSetProps) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
 
@@ -79,7 +81,12 @@ export default function ReferenceSet({
   }
 
   return (
-    <SegmentContainer title={title} description={description} CTAs={CTAs}>
+    <SegmentContainer
+      title={title}
+      description={description}
+      CTAs={CTAs}
+      backgroundColor={backgroundColor}
+    >
       {hasFilter && (
         <ReferenceFilter
           allTags={allTags}

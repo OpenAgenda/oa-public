@@ -69,3 +69,15 @@ export function WithMoreActualData() {
     />
   );
 }
+
+export function WithSubtleBackground() {
+  return (
+    <HighlightCardSet
+      title={highlightCardSetData.title}
+      description="Découvrez nos principales fonctionnalités et avantages"
+      Cards={highlightCardSetData.Cards}
+      backgroundColor={{ name: 'rosyRed' }}
+      componentsBackgroundColor={{ name: 'white' }}
+    />
+  );
+}

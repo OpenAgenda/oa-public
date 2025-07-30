@@ -4,7 +4,8 @@
   "info": {
     "singularName": "footer",
     "pluralName": "footers",
-    "displayName": "Footer"
+    "displayName": "Footer",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -29,6 +30,11 @@
           "localized": true
         }
       }
+    },
+    "backgroundColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
     }
   }
 }

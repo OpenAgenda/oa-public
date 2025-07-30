@@ -376,6 +376,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiFooterFooter extends Struct.SingleTypeSchema {
   collectionName: 'footers';
   info: {
+    description: '';
     displayName: 'Footer';
     pluralName: 'footers';
     singularName: 'footer';
@@ -389,6 +390,10 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
     };
   };
   attributes: {
+    backgroundColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     Columns: Schema.Attribute.Component<'components.footer-column', true> &
       Schema.Attribute.Required &
       Schema.Attribute.SetPluginOptions<{
@@ -464,6 +469,10 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    themeColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     title: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

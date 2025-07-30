@@ -1,4 +1,5 @@
 import { Stack, Heading, Image, Link, Box } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 import StrapiMarkdown from './StrapiMarkdown';
 
 interface RichTextParagraph {
@@ -19,6 +20,7 @@ interface HighlightCardProps {
   smallImage?: boolean;
   link?: string;
   cardSize?: string;
+  backgroundColor?: any;
 }
 
 export default function HighlightCard({
@@ -28,15 +30,23 @@ export default function HighlightCard({
   smallImage,
   link,
   cardSize = 'medium',
+  backgroundColor,
 }: HighlightCardProps) {
   // Helper function to format description for markdown
-
   const content = (
     <Stack
       gap={cardSize === 'large' ? 6 : 4}
+      padding={cardSize === 'large' ? 6 : 4}
       maxW={cardSize === 'large' ? '340px' : '280px'}
       align="center"
       textAlign="center"
+      backgroundColor={
+        backgroundColor?.name === 'white'
+          ? backgroundColor.name
+          : backgroundColor
+            ? [color(`${backgroundColor?.name}`), 'subtle'].join('.')
+            : null
+      }
     >
       {image && (
         <Box

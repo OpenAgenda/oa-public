@@ -21,7 +21,18 @@ const ubuntuSans = Ubuntu_Sans({
 });
 
 export default function StrapiPage({ page, footer }) {
-  const { title, description, keywords, Segments } = page;
+  const { title, description, keywords, Segments, themeColor } = page;
+
+  const colors = [
+    {
+      segment: themeColor,
+      component: { name: 'white' },
+    },
+    {
+      segment: { name: 'white' },
+      component: themeColor,
+    },
+  ];
 
   useCrispClient();
 
@@ -41,8 +52,8 @@ export default function StrapiPage({ page, footer }) {
         }}
       />
 
-      {Segments.map((Segment) => {
-        const { id } = Segment;
+      {Segments.map((Segment, i) => {
+        const { id, backgroundColor } = Segment;
         const Component = {
           'segments.highlight-card-set': HighlightCardSet,
           'segments.page-head': PageHead,
@@ -51,7 +62,15 @@ export default function StrapiPage({ page, footer }) {
           'components.split-hero': SplitHeroSegment,
         }[Segment['__component']];
 
-        return <Component key={id} {...Segment} />;
+        return (
+          <Component
+            key={id}
+            {...Segment}
+            backgroundColor={backgroundColor || colors[i % 2].segment}
+            componentsBackgroundColor={colors[i % 2].component}
+            colorVariant={backgroundColor ? 'solid' : 'subtle'}
+          />
+        );
       })}
 
       {footer && <Footer {...footer} />}
