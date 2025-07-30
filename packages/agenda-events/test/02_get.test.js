@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import redis from 'redis';
 import knex from 'knex';
-import Queues from '@openagenda/queues';
 
 import Service from '../index.js';
 import config from '../testconfig.js';
@@ -12,7 +10,6 @@ import sourceAgendasFixtures from './fixtures/sourceAgendas.json';
 
 describe('agendaEvents - 02 - functional (server): get', () => {
   let svc;
-  let redisClient;
   let knexClient;
 
   beforeAll(async () => {
@@ -24,12 +21,6 @@ describe('agendaEvents - 02 - functional (server): get', () => {
   });
 
   beforeAll(async () => {
-    redisClient = redis.createClient({
-      socket: { host: 'localhost', port: 6379 },
-    });
-
-    await redisClient.connect();
-
     knexClient = knex({
       client: 'mysql',
       connection: config.mysql,
@@ -40,10 +31,6 @@ describe('agendaEvents - 02 - functional (server): get', () => {
     svc = Service({
       ...config,
       knex: knexClient,
-      queue: Queues({
-        redis: redisClient,
-        prefix: 'agenda-events',
-      })('02_get'),
       interfaces: {
         ...config.interfaces,
         getMembers: async (aes) =>
@@ -63,7 +50,6 @@ describe('agendaEvents - 02 - functional (server): get', () => {
     });
   });
 
-  afterAll(async () => redisClient.quit());
   afterAll(() => knexClient.destroy());
 
   describe('simple get', () => {

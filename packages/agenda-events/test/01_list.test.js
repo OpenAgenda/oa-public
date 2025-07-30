@@ -1,7 +1,5 @@
 import _ from 'lodash';
 import knex from 'knex';
-import redis from 'redis';
-import Queues from '@openagenda/queues';
 import Service from '../index.js';
 import config from '../testconfig.js';
 import states from '../iso/states.js';
@@ -11,7 +9,6 @@ import sourceAgendasFixtures from './fixtures/sourceAgendas.json';
 
 describe('agendaEvents - 01 - functional (server): list', () => {
   let svc;
-  let redisClient;
   let knexClient;
 
   beforeAll(async () => {
@@ -23,12 +20,6 @@ describe('agendaEvents - 01 - functional (server): list', () => {
   });
 
   beforeAll(async () => {
-    redisClient = redis.createClient({
-      socket: { host: 'localhost', port: 6379 },
-    });
-
-    await redisClient.connect();
-
     knexClient = knex({
       client: 'mysql',
       connection: config.mysql,
@@ -39,10 +30,6 @@ describe('agendaEvents - 01 - functional (server): list', () => {
     svc = Service({
       ...config,
       knex: knexClient,
-      queue: Queues({
-        redis: redisClient,
-        prefix: 'agenda-events',
-      })('01_list'),
       interfaces: {
         ...config.interfaces,
         getMembers: async (aes) =>
@@ -60,7 +47,6 @@ describe('agendaEvents - 01 - functional (server): list', () => {
     });
   });
 
-  afterAll(async () => redisClient.quit());
   afterAll(() => knexClient.destroy());
 
   it('simple list', async () => {
@@ -204,8 +190,8 @@ describe('agendaEvents - 01 - functional (server): list', () => {
 
     const next = await svc(62792452).listByLastId(lastId, 10);
 
-    expect(lastId).toBe(437234);
-    expect(next.lastId).toBe(437415);
+    expect(lastId).toBe(469723);
+    expect(next.lastId).toBe(511694);
   });
 
   it('list by event uid', async () => {

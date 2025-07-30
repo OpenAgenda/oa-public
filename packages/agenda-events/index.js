@@ -10,35 +10,16 @@ import set from './service/set.js';
 import remove from './service/remove.js';
 import * as validate from './iso/validate.js';
 import * as stats from './service/stats.js';
-import interfacesTask from './tasks/interfaces.js';
 import setSourcePaths from './utils/setSourcePaths.js';
 import states from './iso/states.js';
 
-export default (c) => {
-  const config = {
-    queueNames: {
-      interfaces: 'agendaEventInterfaces',
-    },
-    ...c,
-  };
-
-  const { queue } = config;
-
-  const { interfaces } = config;
-
-  if (queue) {
-    queue.register({
-      onRemove: interfaces.onRemove,
-    });
-  }
-
-  if (c.logger) {
-    logger.setModuleConfig(c.logger);
+export default (config) => {
+  if (config.logger) {
+    logger.setModuleConfig(config.logger);
   }
 
   const service = {
     config,
-    queue,
     client:
       config.knex
       || knex({
@@ -60,7 +41,6 @@ export default (c) => {
     listByUserUid: list.byUserUid.bind(null, service),
     listByEventUid: list.byEventUid.bind(null, service),
     countByUserUid: stats.countByUserUid.bind(null, service),
-    interfacesTask: interfacesTask.bind(null, service),
   });
 
   service.exposed = Object.assign(
@@ -84,9 +64,6 @@ export default (c) => {
         removed: listRemoved.bind(null, service),
       },
       remove: remove.byEventUid.bind(null, service),
-      tasks: {
-        interfaces: service.interfacesTask,
-      },
       validate: validate.validateData,
       utils: {
         setSourcePaths: setSourcePaths.bind(null, service),

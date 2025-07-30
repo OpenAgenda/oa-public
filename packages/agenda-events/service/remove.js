@@ -67,7 +67,7 @@ async function remove(service, agendaUid, eventUid, options = {}) {
 }
 
 export async function byEventUid(service, eventUid, options) {
-  const { client, listByEventUid, queue } = service;
+  const { config, client, listByEventUid } = service;
 
   let aesToBeRemoved = [];
   let offset = 0;
@@ -81,9 +81,8 @@ export async function byEventUid(service, eventUid, options) {
       if (aeToBeRemoved.aggregated) {
         await service.getAggregatedCount.dec(aeToBeRemoved.agendaUid);
       }
-      if (queue) {
-        await queue(
-          'onRemove',
+      if (config.interfaces.onRemove) {
+        config.interfaces.onRemove(
           aeToBeRemoved,
           options ? options.context : undefined,
         );
