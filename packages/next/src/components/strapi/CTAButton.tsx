@@ -19,6 +19,7 @@ export default function CTAButton({
   return (
     <Button
       asChild
+      color={colorPalette?.name === 'white' ? 'white' : undefined}
       colorPalette={
         colorPalette
           ? color(colorPalette?.name).replace('strapi.', 'strapi.flashy.')
