@@ -53,7 +53,7 @@ export default function StrapiPage({ page, footer }) {
       />
 
       {Segments.map((Segment, i) => {
-        const { id, backgroundColor } = Segment;
+        const { id } = Segment;
         const Component = {
           'segments.highlight-card-set': HighlightCardSet,
           'segments.page-head': PageHead,
@@ -66,9 +66,13 @@ export default function StrapiPage({ page, footer }) {
           <Component
             key={id}
             {...Segment}
-            backgroundColor={backgroundColor || colors[i % 2].segment}
-            componentsBackgroundColor={colors[i % 2].component}
-            colorVariant={backgroundColor ? 'solid' : 'subtle'}
+            backgroundColor={colors[i % 2].segment}
+            componentBackgroundColor={colors[i % 2].component}
+            colorVariant={
+              Segment['__component'] === 'segments.page-head'
+                ? 'solid'
+                : 'subtle'
+            }
           />
         );
       })}
