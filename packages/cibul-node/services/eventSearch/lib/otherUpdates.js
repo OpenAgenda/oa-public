@@ -26,7 +26,7 @@ export async function loadOtherUpdates(
 
   // here you know if it is published somewhere or not
   for (const remainingAgendaUid of remainingAgendaUids) {
-    await queue('otherUpdate', remainingAgendaUid, eventUid);
+    await queue.add('otherUpdate', { agendaUid: remainingAgendaUid, eventUid });
   }
 }
 
