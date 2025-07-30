@@ -119,6 +119,8 @@ export default (config, core, services) => {
 
   services.members.task();
 
+  services.inboxes.task();
+
   // services.inboxes.tasks.sync();
 
   services.eventSearch.task();

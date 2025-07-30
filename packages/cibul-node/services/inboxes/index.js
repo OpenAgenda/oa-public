@@ -12,7 +12,7 @@ import onMessageCreate from './onMessageCreate.js';
 import plugApp from './plugApp/index.js';
 
 export async function init(config, services) {
-  const { queues, redis } = services;
+  const { bull, queues, redis } = services;
 
   const {
     mails: { domain: mailsDomain },
@@ -27,7 +27,21 @@ export async function init(config, services) {
     filterAction: filterAction.bind(null, services),
   };
 
-  const queue = queues(config.queues.inboxesSync);
+  const oldQueue = queues('inboxesSync');
+  const queue = new bull.Queue('inboxesSync', { prefix: '{inboxesSync}' });
+  const createWorker = (processor) =>
+    new bull.Worker(queue.name, processor, {
+      prefix: queue.opts.prefix,
+      autorun: false,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
+    });
 
   const service = await inboxes(
     _.merge(
@@ -58,7 +72,9 @@ export async function init(config, services) {
           users: () => services.users,
         },
         redis,
+        oldQueue,
         queue,
+        createWorker,
         interfaces,
         defaultAction: {
           code: 'default',
@@ -238,12 +254,20 @@ export async function init(config, services) {
 
   Object.assign(service, {
     plugApp: plugApp.bind(null, config, services),
-    task: () => queue.run(),
-    shutdown: (options = {}) =>
-      queue.stop({
+    task: () => {
+      oldQueue.run();
+      service.worker.run();
+    },
+    shutdown: async (options = {}) => {
+      await oldQueue.stop({
         remove: true,
         clear: options.reset ?? false,
-      }),
+      });
+      if (options.reset) {
+        await queue.drain();
+      }
+      await service.worker.close();
+    },
   });
 
   return service;
