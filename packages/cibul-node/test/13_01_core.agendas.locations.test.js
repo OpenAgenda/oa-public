@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import _ from 'lodash';
 import axios from 'axios';
-import FormData from 'form-data';
 import qs from 'qs';
 import logs from '@openagenda/logs';
 import api from '../api/index.js';
@@ -464,7 +463,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
           const form = new FormData();
 
-          form.append('image', fs.createReadStream('/tmp/pirates.jpg'));
+          form.append(
+            'image',
+            await fs.openAsBlob('/tmp/pirates.jpg'),
+            'pirates.jpg',
+          );
           form.append('access_token', accessToken);
           form.append(
             'data',
@@ -478,7 +481,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           response = await axios({
             method: 'post',
             url: 'http://localhost:4000/agendas/17026855/locations',
-            headers: form.getHeaders(),
             data: form,
           });
         } catch (e) {
@@ -514,7 +516,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           createdLocation = await axios({
             method: 'post',
             url: 'http://localhost:4000/agendas/17026855/locations',
-            headers: form.getHeaders(),
             data: form,
           });
         } catch (e) {
