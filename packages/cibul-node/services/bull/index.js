@@ -5,8 +5,9 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/bull');
 
-function checkPrefixOption(opts) {
-  if (!opts.prefix?.match(/\{.+\}/)) {
+function normalizeOpts(opts, { connection, queuesPrefix }) {
+  const prefix = (queuesPrefix ?? '') + (opts.prefix ?? '');
+  if (!prefix?.match(/\{.+\}/)) {
     console.warn(
       [
         'BullMQ: WARNING! Your option prefix must be defined with a redis cluster hash tag.',
@@ -14,38 +15,44 @@ function checkPrefixOption(opts) {
       ].join(' '),
     );
   }
+  return {
+    prefix,
+    connection,
+    ...opts,
+  };
 }
 
 export function init(config, services) {
   log('init');
 
   const connection = services.redis.ioRedis;
+  const { queuesPrefix } = config;
 
   class Queue extends bullmq.Queue {
     constructor(name, opts, con) {
-      checkPrefixOption(opts);
-      super(name, { connection, ...opts }, con);
+      const options = normalizeOpts(opts, { connection, queuesPrefix });
+      super(name, options, con);
     }
   }
 
   class Worker extends bullmq.Worker {
     constructor(name, processor, opts, con) {
-      checkPrefixOption(opts);
-      super(name, processor, { connection, ...opts }, con);
+      const options = normalizeOpts(opts, { connection, queuesPrefix });
+      super(name, processor, options, con);
     }
   }
 
   class QueueEvents extends bullmq.QueueEvents {
     constructor(name, opts, con) {
-      checkPrefixOption(opts);
-      super(name, { connection, ...opts }, con);
+      const options = normalizeOpts(opts, { connection, queuesPrefix });
+      super(name, options, con);
     }
   }
 
   class FlowProducer extends bullmq.FlowProducer {
     constructor(opts, con) {
-      checkPrefixOption(opts);
-      super({ connection, ...opts }, con);
+      const options = normalizeOpts(opts, { connection, queuesPrefix });
+      super(options, con);
     }
   }
 
