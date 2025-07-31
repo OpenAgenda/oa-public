@@ -25,10 +25,7 @@ const stripHtml = (html) =>
   sanitizeHTML(html, { allowedTags: [], allowedAttributes: {} });
 
 export async function init(config, services) {
-  const { queues, bull } = services;
-
-  const oldPrepareQueue = queues('pre-mails');
-  const oldSendQueue = queues('mails');
+  const { bull } = services;
 
   const queue = new bull.Queue('mails', { prefix: '{mails}' });
   const createWorker = (processor) =>
@@ -75,28 +72,11 @@ export async function init(config, services) {
     beforeSend: (params) => defineUnsubscriptionLinks(services, config, params),
   });
 
-  const originalTask = mails.task.bind(mails);
-
   return Object.assign(mails, {
     plugApp,
     addressParser: createMails.addressParser,
     async shutdown() {
-      await oldPrepareQueue.stop();
-      await oldSendQueue.stop();
       await mails.worker?.close();
-    },
-    task: () => {
-      originalTask();
-
-      oldPrepareQueue.register({
-        method: (data) => queue.add('prepareMail', data),
-      });
-      oldSendQueue.register({
-        method: (data) => queue.add('sendMail', data),
-      });
-
-      oldPrepareQueue.run();
-      oldSendQueue.run();
     },
   });
 }

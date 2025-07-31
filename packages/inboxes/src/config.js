@@ -18,7 +18,6 @@ export default async function makeConfig(c) {
     'types',
     'defaultAction',
     'redis',
-    'oldQueue',
     'queue',
     'createWorker',
     'defaultImagePath',

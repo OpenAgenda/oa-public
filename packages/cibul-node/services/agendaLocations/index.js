@@ -21,11 +21,9 @@ import detectDuplicateCandidates from './tasks/detectDuplicateCandidates.js';
 const log = logs('services/agendaLocations');
 
 export async function init(config, services) {
-  const { geocoder, bull, queues } = services;
+  const { geocoder, bull } = services;
 
   const queue = new bull.Queue('locations', { prefix: '{locations}' });
-  const oldQueue = queues('locations');
-
   const worker = new bull.Worker(
     queue.name,
     (job) => {
@@ -93,7 +91,6 @@ export async function init(config, services) {
         await queue.drain();
       }
 
-      await oldQueue.stop();
       await worker.close();
 
       log('task stopped');
@@ -102,16 +99,6 @@ export async function init(config, services) {
       const { duplicationDetection, reset = false } = options;
 
       log('task');
-
-      oldQueue.register({
-        syncImpactedEventsAndAgendas: (before, after) =>
-          queue.add('syncImpactedEventsAndAgendas', { before, after }),
-        updateEventLocationReferences: (locationsUids, mergedInLocationUid) =>
-          queue.add('updateEventLocationReferences', {
-            locationsUids,
-            mergedInLocationUid,
-          }),
-      });
 
       if (duplicationDetection?.enabled) {
         detectDuplicateCandidates(services, duplicationDetection);
@@ -122,7 +109,6 @@ export async function init(config, services) {
         await queue.drain();
       }
 
-      oldQueue.run();
       if (!worker.isRunning()) {
         worker.run();
       }

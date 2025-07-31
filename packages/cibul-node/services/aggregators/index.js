@@ -9,7 +9,7 @@ const log = logs('services/aggregators');
 
 export function init(config, services) {
   log('init');
-  const { agendas: agendasSvc, queues, bull, tracker } = services;
+  const { agendas: agendasSvc, bull, tracker } = services;
 
   const queue = new bull.Queue('aggregators', { prefix: '{aggregators}' });
   const createWorker = (processor) =>
@@ -25,8 +25,6 @@ export function init(config, services) {
         count: 1000, // keep up to 1000 jobs
       },
     });
-
-  const oldQueue = queues('aggregator');
 
   const aggregators = Aggregators({
     knex: config.knex,
@@ -233,20 +231,9 @@ export function init(config, services) {
       if (options.clear) {
         await queue.drain();
       }
-      await oldQueue.stop();
       await aggregators.worker.close();
     },
     task: () => {
-      oldQueue.register({
-        dispatch: (action, data) => queue.add('dispatch', { action, data }),
-        evaluateEvent: (data) => queue.add('evaluateEvent', data),
-        removeEvent: (data) => queue.add('removeEvent', data),
-        loadSourceEvaluates: (data) => queue.add('loadSourceEvaluates', data),
-        loadSourceRemoves: (data) => queue.add('loadSourceRemoves', data),
-      });
-
-      oldQueue.run();
-
       aggregators.worker.run();
     },
   };

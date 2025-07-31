@@ -14,7 +14,7 @@ import makeConfig from './config.js';
 export default async function createService(conf) {
   const config = await makeConfig(conf);
 
-  const { oldQueue, queue, createWorker, knex, schemas, mailsDomain } = config;
+  const { createWorker, knex, schemas, mailsDomain } = config;
 
   const svc = {};
 
@@ -37,13 +37,6 @@ export default async function createService(conf) {
   });
 
   worker.on('error', (failedReason) => console.error('error', failedReason));
-
-  if (oldQueue) {
-    oldQueue.register({
-      syncUser: (user) => queue.add('syncUser', user),
-      syncAgenda: (agenda) => queue.add('syncAgenda', agenda),
-    });
-  }
 
   Object.assign(svc, {
     config,

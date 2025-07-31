@@ -7,8 +7,6 @@ import { isSuperiorTo } from './iso/compareRoles.js';
 
 const log = logs('setByEmail');
 
-const defaultQueueName = 'membersBulkSetEmails';
-
 async function setByEmail(config, data, options = {}) {
   if (!_.get(data, 'agendaUid')) {
     throw new Error('Bad payload: agendaUid is missing');
@@ -76,25 +74,9 @@ function task(service, config) {
 
   worker.on('error', (failedReason) => log.error('error', failedReason));
 
-  const { queues, queueName } = {
-    queues: null,
-    queueName: defaultQueueName,
-    ...config,
-  };
-
-  const oldQueue = queues(queueName);
-
-  oldQueue.register({
-    setByEmail: (data, options) =>
-      config.queue.add('setByEmail', { data, options }),
-  });
-
-  oldQueue.run();
-
   worker.run();
 
   service.worker = worker;
-  service.oldQueue = oldQueue;
 }
 
 async function bulk(config, base, emails = [], options = {}) {
