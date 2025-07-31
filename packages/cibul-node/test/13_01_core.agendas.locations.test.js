@@ -52,6 +52,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
     core = Core(services, config);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(93399464).events.search.rebuild();
     await core.agendas(48353388).events.search.rebuild();
     await core.agendas(17026855).events.search.rebuild();

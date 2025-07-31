@@ -42,6 +42,13 @@ describe('11 - core - functional (server): core.users().agendas.events', () => {
 
     core = Core(services, config);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(17026855).events.search.rebuild();
   });
 

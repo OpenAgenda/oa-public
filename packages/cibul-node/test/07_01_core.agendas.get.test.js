@@ -38,6 +38,13 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
     core = Core(services, testConfig);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(92983929).events.search.rebuild();
     await services.simpleCache.clearAll();
   });

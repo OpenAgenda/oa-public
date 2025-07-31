@@ -35,6 +35,13 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
 
     core = Core(services, testConfig);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(17026855).events.search.rebuild();
   });
 

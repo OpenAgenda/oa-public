@@ -46,6 +46,13 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
 
     core = Core(services, config);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     services.aggregators.task();
 
     await core.agendas(17026855).events.search.rebuild();

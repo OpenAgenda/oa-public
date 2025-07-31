@@ -42,6 +42,13 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
     core = Core(services, config);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(123).events.search.rebuild();
   });
 

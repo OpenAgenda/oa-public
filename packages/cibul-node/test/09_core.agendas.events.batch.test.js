@@ -37,6 +37,13 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
 
     core = Core(services, config);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(99501607).events.search.rebuild();
   });
 
