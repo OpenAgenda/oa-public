@@ -21,15 +21,10 @@ const log = logs('services/eventSearch');
 async function task({
   worker,
   rebuildWorker,
-  oldQueue,
-  oldRebuildQueue,
   updateMapping,
   updateDynamicSettings,
 }) {
   log('task');
-
-  oldQueue.run();
-  oldRebuildQueue.run();
 
   worker.on('error', (failedReason) => log.error('error', failedReason));
   worker.on('failed', (job, error) => {
@@ -55,7 +50,7 @@ async function task({
 
 export async function init(config, services) {
   log('init');
-  const { bull, queues, tracker } = services;
+  const { bull, tracker } = services;
 
   const port = _.get(config, 'es75.port', 9200);
   const protocol = _.get(
@@ -172,34 +167,10 @@ export async function init(config, services) {
     },
   );
 
-  const oldQueue = queues('eventSearch');
-  const oldRebuildQueue = queues('eventSearch:rebuild');
-
-  oldRebuildQueue.register({
-    agenda: (agenda) => rebuildQueue.add('agenda', agenda),
-    transverse: (options) => rebuildQueue.add('transverse', options),
-  });
-
-  oldQueue.register({
-    loadOtherUpdates: (agendaUid, eventUid) =>
-      queue.add('loadOtherUpdates', { agendaUid, eventUid }),
-    otherUpdate: (agendaUid, eventUid) =>
-      queue.add('otherUpdate', { agendaUid, eventUid }),
-    removeFromAgendaIndex: (agendaUid, eventUid, refresh) =>
-      queue.add('removeFromAgendaIndex', { agendaUid, eventUid, refresh }),
-    transverseIndexRebuild: (options) =>
-      queue.add('transverseIndexRebuild', options),
-    transverseIndexUpdate: (event) => queue.add('transverseIndexUpdate', event),
-    transverseIndexRemove: (eventUid) =>
-      queue.add('transverseIndexRemove', eventUid),
-  });
-
   return {
     task: task.bind(null, {
       worker,
       rebuildWorker,
-      oldQueue,
-      oldRebuildQueue,
       updateMapping: eventSearch.updateMapping,
       updateDynamicSettings: eventSearch.updateDynamicSettings,
     }),
@@ -217,9 +188,6 @@ export async function init(config, services) {
       search: transverseIndex.search,
     },
     shutdown: async (options) => {
-      await oldQueue.stop({ clear: options.clear });
-      await oldRebuildQueue.stop({ clear: options.clear });
-
       if (options.clear) {
         await queue.drain();
         await rebuildQueue.drain();

@@ -18,7 +18,6 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
         'redis',
         'simpleCache',
         'accessTokens',
-        'queues',
         'bull',
         'files',
         'events',

@@ -59,7 +59,7 @@ export default async function update(
     operation === 'index'
     && ['created', 'updated'].includes(result.body.result)
   ) {
-    log('event %j was %s in set %s', result.body.result, identifiers, set, {
+    log('event %j was %s in set %s', identifiers, result.body.result, set, {
       operation,
       set,
       identifiers,
@@ -69,8 +69,8 @@ export default async function update(
     log(
       'warn',
       'event %j was not %s in set %s',
-      operation === 'update' ? 'updated' : 'indexed',
       identifiers,
+      operation === 'update' ? 'updated' : 'indexed',
       set,
       {
         operation,

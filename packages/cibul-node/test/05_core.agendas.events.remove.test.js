@@ -16,7 +16,6 @@ describe('core - functional (server): core agendas() events.remove()', () => {
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',

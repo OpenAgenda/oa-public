@@ -183,8 +183,10 @@ encode_rendition() {
         scale_filter="scale=w=${width}:h=${height}"
     fi
 
+    local full_video_filter="${scale_filter},format=yuv420p"
+
     ffmpeg -i "$input_file" -y \
-        -vf "$scale_filter" \
+        -vf "$full_video_filter" \
         -c:v libx264 -profile:v "$profile" -level:v "$level" \
         -x264-params "scenecut=0:open_gop=0:min-keyint=${keyint}:keyint=${keyint}" \
         -minrate "$bitrate" -maxrate "$maxrate" -bufsize "$bufsize" -b:v "$bitrate" \

@@ -16,7 +16,6 @@ describe('11 - core - functional (server): core.users().agendas.events.getContex
         'simpleCache',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',

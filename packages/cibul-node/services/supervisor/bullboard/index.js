@@ -38,6 +38,12 @@ export function plugApp(app, base = '/bullboard') {
       new BullMQAdapter(new Queue('locations', { prefix: '{locations}' }), {
         displayName: 'Fusions de lieux',
       }),
+      new BullMQAdapter(new Queue('core', { prefix: '{core}' }), {
+        displayName: 'Core',
+      }),
+      new BullMQAdapter(new Queue('inboxesSync', { prefix: '{inboxesSync}' }), {
+        displayName: 'Sync messageries',
+      }),
       new BullMQAdapter(new Queue('addActivity', { prefix: '{addActivity}' }), {
         prefix: 'Activités.',
         displayName: "Ajouts d'activités",

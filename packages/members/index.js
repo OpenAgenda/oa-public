@@ -45,7 +45,6 @@ function Service(options = {}) {
   service.task = setByEmail.task.bind(null, service, config);
 
   service.shutdown = async () => {
-    await service.oldQueue?.stop();
     await service.worker?.close();
   };
 

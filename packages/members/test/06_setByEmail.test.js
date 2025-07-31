@@ -1,7 +1,6 @@
 import config from '../testconfig.js';
 import Service from '../index.js';
 import fixtures from './fixtures/index.js';
-import queues from './mock/queues.js';
 import getUsersByUid from './fixtures/getUsersByUid.js';
 import getEventCountByUserUid from './fixtures/getEventCountByUserUid.js';
 import getUserByEmail from './fixtures/getUserByEmail.js';
@@ -23,7 +22,6 @@ describe('members - functional - setByEmail', () => {
         getUserByEmail,
         onRemove: () => {},
       },
-      queues,
       queue: {
         add: (name, data) => {
           queueCalls.push({ name, data });

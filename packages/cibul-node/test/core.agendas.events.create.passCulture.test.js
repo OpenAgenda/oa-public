@@ -29,7 +29,6 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',

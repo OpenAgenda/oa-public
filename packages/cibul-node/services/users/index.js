@@ -24,7 +24,7 @@ import plugApp from './plugApp.js';
 const log = logs('services/users');
 
 export async function init(config, services) {
-  const { agendas, keys, bull, queues } = services;
+  const { agendas, keys, bull } = services;
 
   const queue = new bull.Queue('users', { prefix: '{users}' });
 
@@ -53,12 +53,6 @@ export async function init(config, services) {
   );
 
   worker.on('error', (failedReason) => log.error('error', failedReason));
-
-  const oldQueue = queues('users');
-
-  oldQueue.register({
-    anonymizeDeletedUser: (data) => queue.add('anonymizeDeletedUser', data),
-  });
 
   const tokensService = new Users.Tokens({
     Model: config.knex,
@@ -131,7 +125,6 @@ export async function init(config, services) {
   service.tasks = {
     processQueue: () => {
       log('processQueue task');
-      oldQueue.run();
       worker.run();
     },
     notifyAndRemove: notifyAndRemove(services),
@@ -140,7 +133,6 @@ export async function init(config, services) {
   service.plugApp = plugApp;
 
   service.shutdown = async () => {
-    await oldQueue.stop();
     await worker.close();
   };
 

@@ -30,16 +30,7 @@ const config = {
   nextPort: process.env.OA_NEXT_PORT || 8901,
   port: process.env.OA_SERVER_PORT || 8903,
   apiPort: process.env.OA_API_PORT || 8902,
-  jobsQueue: 'jobs',
   enableMigrations: true,
-  queues: {
-    aggregator: 'aggregator',
-    oembed: 'oembed',
-    stakeholderCreate: 'stakeholderCreate',
-    notificationAddActivity: 'notificationAddActivity',
-    notificationSendSummary: 'notificationSendSummary',
-    inboxesSync: 'inboxesSync',
-  },
   agendaSearchRecentThreshold: parseInt(
     process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14,
     10,
