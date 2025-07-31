@@ -11,6 +11,9 @@ export default (services, config) => {
     services,
     tasks: Tasks(services),
     getConfig: () => config,
+    shutdown: async (options = {}) => {
+      await core.tasks.stop(options);
+    },
   };
 
   core.agendas = Agendas(core);
