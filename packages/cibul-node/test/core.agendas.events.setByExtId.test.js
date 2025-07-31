@@ -19,7 +19,6 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
         'redis',
         'simpleCache',
         'tracker', // for testing
-        'queues',
         'bull',
         'files',
         'events',

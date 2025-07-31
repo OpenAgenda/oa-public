@@ -26,7 +26,6 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
         'redis',
         'simpleCache',
         'tracker', // for testing
-        'queues',
         'bull',
         'files',
         'events',

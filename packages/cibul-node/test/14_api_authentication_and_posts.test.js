@@ -25,7 +25,6 @@ describe('14 - core - functional(server): api authentication and posts', () => {
         'simpleCache',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',

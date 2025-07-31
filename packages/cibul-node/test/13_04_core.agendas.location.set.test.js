@@ -21,7 +21,6 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
         'tracker',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',

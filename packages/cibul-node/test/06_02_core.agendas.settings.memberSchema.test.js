@@ -20,7 +20,6 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',

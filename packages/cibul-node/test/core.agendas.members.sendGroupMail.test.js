@@ -18,7 +18,6 @@ describe('core.agendas.members.sendGroupMail', () => {
         'simpleCache',
         'accessTokens',
         'files',
-        'queues',
         'mails',
         'bull',
         'events',

@@ -15,7 +15,7 @@ import SendGroupMail from './lib/SendGroupMail/index.js';
 const log = logs('services/members');
 
 export function init(config, services) {
-  const { queues, bull } = services;
+  const { bull } = services;
 
   const queue = new bull.Queue('members', { prefix: '{members}' });
   const createWorker = (processor) =>
@@ -37,7 +37,6 @@ export function init(config, services) {
     schema: 'reviewer',
     queue,
     createWorker,
-    queues,
     bulkThreshold: 10,
     logger: config.getLogConfig('svc', 'members'),
     interfaces: {

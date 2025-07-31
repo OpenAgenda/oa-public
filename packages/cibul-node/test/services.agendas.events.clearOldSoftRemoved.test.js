@@ -14,7 +14,6 @@ describe('services - functional (server): core agendas() events.clearOldSoftRemo
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',

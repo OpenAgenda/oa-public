@@ -18,7 +18,6 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',

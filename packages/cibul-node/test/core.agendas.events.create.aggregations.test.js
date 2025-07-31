@@ -22,7 +22,6 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
         'redis',
         'simpleCache',
         'tracker', // for testing
-        'queues',
         'bull',
         'files',
         'events',

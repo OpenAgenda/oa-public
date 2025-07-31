@@ -30,7 +30,6 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',

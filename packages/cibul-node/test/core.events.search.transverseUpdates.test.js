@@ -18,7 +18,6 @@ describe('core - functional (server): core.events.search', () => {
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',

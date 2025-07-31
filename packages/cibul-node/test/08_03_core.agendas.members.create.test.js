@@ -20,7 +20,6 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         'simpleCache',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',
