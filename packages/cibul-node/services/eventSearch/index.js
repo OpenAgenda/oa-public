@@ -167,7 +167,7 @@ export async function init(config, services) {
     },
   );
 
-  return {
+  const service = {
     task: task.bind(null, {
       worker,
       rebuildWorker,
@@ -195,6 +195,8 @@ export async function init(config, services) {
 
       await worker.close();
       await rebuildWorker.close();
+
+      await service.getConfig().client.close();
     },
     apps: {
       agendas: agendaRoutes(config, services),
@@ -202,4 +204,6 @@ export async function init(config, services) {
     cluster: eventSearch.cluster,
     getConfig: eventSearch.getConfig,
   };
+
+  return service;
 }

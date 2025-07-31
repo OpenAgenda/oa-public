@@ -132,7 +132,10 @@ export async function init(config, services) {
 
   service.plugApp = plugApp;
 
-  service.shutdown = async () => {
+  service.shutdown = async (options = {}) => {
+    if (options.clear) {
+      await queue.drain();
+    }
     await worker.close();
   };
 

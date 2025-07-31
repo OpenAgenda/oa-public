@@ -51,9 +51,7 @@ describe('core - functional (server): core.events.search', () => {
     core.services.tracker.flush();
   });
 
-  afterAll(() => {
-    core.services.shutdown({ clear: true });
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('patching', () => {
     beforeAll(async () => {

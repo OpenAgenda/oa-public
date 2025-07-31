@@ -63,7 +63,7 @@ export default function tasks(services) {
         await queue.drain();
       },
       stop: async (options = {}) => {
-        if (options.reset) {
+        if (options.clear) {
           await queue.drain();
         }
         await worker.close();
