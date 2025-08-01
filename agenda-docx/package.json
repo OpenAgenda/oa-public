@@ -33,7 +33,6 @@
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.31",
     "pizzip": "^3.0.6",
-    "qs": "^6.11.2",
     "react-final-form": "^6.5.3",
     "remove-markdown": "^0.3.0"
   },
