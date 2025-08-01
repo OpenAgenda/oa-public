@@ -42,7 +42,6 @@
     "react-select": "^5.8.3",
     "react-tagsinput": "^3.19.0",
     "react-text-mask": "^5.4.3",
-    "superagent": "^3.8.3",
     "use-debounce": "^10.0.4"
   },
   "devDependencies": {
