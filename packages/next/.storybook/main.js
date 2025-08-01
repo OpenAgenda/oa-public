@@ -20,6 +20,8 @@ const main = {
 
   staticDirs: ['../public', './public', '../stories/static'],
 
+  addons: ['@storybook/addon-a11y'],
+
   webpackFinal: async (config) => {
     // https://github.com/vidstack/player/pull/1655
     if (config.module && config.module.rules) {

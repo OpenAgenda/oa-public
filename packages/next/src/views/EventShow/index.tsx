@@ -154,280 +154,305 @@ function EventShow({ preload }: EventShowProps) {
           <ContextBar />
         </Box>
       ) : null}
+      <Box as="main">
+        <Box as="header" w="full" bg="#413a42" px="4" py="8">
+          <Container
+            maxW="5xl"
+            color="white"
+            textAlign={{ base: 'center', md: 'start' }}
+          >
+            <AgendaHeader />
+          </Container>
+        </Box>
 
-      <Box as="header" w="full" bg="#413a42" px="4" py="8">
-        <Container
-          maxW="5xl"
-          color="white"
-          textAlign={{ base: 'center', md: 'start' }}
-        >
-          <AgendaHeader />
-        </Container>
-      </Box>
-
-      <Flex
-        display={{ base: 'flex', xl: 'none' }}
-        justify="space-around"
-        mt="8"
-      >
-        <NavigateButton direction="previous" />
-        <NavigateButton direction="next" />
-      </Flex>
-
-      <Flex justify="center" mx="8">
-        <Box
-          order="1"
-          top="48"
-          mt="48"
-          mx="auto"
-          pos="sticky"
-          alignSelf="flex-start"
-          minW="10em"
-          textAlign="center"
-          display={{ base: 'none', xl: 'block' }}
+        <Flex
+          as="nav"
+          aria-label={intl.formatMessage(messages.eventNavigation)}
+          display={{ base: 'flex', xl: 'none' }}
+          justify="space-around"
+          mt="8"
         >
           <NavigateButton direction="previous" />
-        </Box>
-
-        <Box
-          order="3"
-          top="48"
-          mt="48"
-          mx="auto"
-          pos="sticky"
-          alignSelf="flex-start"
-          minW="10em"
-          textAlign="center"
-          display={{ base: 'none', xl: 'block' }}
-        >
           <NavigateButton direction="next" />
-        </Box>
+        </Flex>
 
-        <Grid
-          order="2"
-          templateAreas={{
-            base: `"event"
-                   "footer"`,
-            lg: `"left event sidebar"
-                 "left event footer"`,
-          }}
-          templateColumns={{
-            base: '1fr',
-            lg: 'minmax(80px, 1fr) 8fr minmax(300px, 4fr)',
-          }}
-          templateRows="auto minmax(0, 1fr)"
-          rowGap="8"
-          columnGap="10"
-          mt="8"
-          maxW="7xl"
+        <Flex
+          as="nav"
+          aria-label={intl.formatMessage(messages.eventNavigation)}
+          justify="center"
+          mx="8"
         >
-          <GridItem area="left" display={{ base: 'none', lg: 'block' }}>
-            <Flex direction="row" gap="8" mt="16">
-              <Featured featured={event.featured} size="lg" />
-            </Flex>
-          </GridItem>
-          <GridItem area="sidebar" display={{ base: 'none', lg: 'block' }}>
-            <Flex direction="row" gap="8" mt="16">
-              <Sidebar
-                shareOnOpen={shareOnOpen}
-                isEventContributor={isEventContributor}
-              />
-            </Flex>
-          </GridItem>
+          <Box
+            order="1"
+            top="48"
+            mt="48"
+            mx="auto"
+            pos="sticky"
+            alignSelf="flex-start"
+            minW="10em"
+            textAlign="center"
+            display={{ base: 'none', xl: 'block' }}
+          >
+            <NavigateButton direction="previous" />
+          </Box>
 
-          <GridItem area="event" display="flex" flexDirection="column" gap="12">
-            <div>
-              <Tabs.Root
-                value={tabValue}
-                onValueChange={(e) => handleTabsChange(e.value)}
-              >
-                <Tabs.List>
-                  {languages.map((language) => (
-                    <Tabs.Trigger key={language} value={language}>
-                      {language.toUpperCase()}
-                    </Tabs.Trigger>
-                  ))}
-                </Tabs.List>
-              </Tabs.Root>
+          <Box
+            order="3"
+            top="48"
+            mt="48"
+            mx="auto"
+            pos="sticky"
+            alignSelf="flex-start"
+            minW="10em"
+            textAlign="center"
+            display={{ base: 'none', xl: 'block' }}
+          >
+            <NavigateButton direction="next" />
+          </Box>
 
-              <Flex
-                as="main"
-                display="flex"
-                direction="column"
-                gap="4"
-                position="relative"
-                p="8"
-                bg="white"
-                // border="1px solid"
-                // borderColor="oaGray.100"
-                borderRadius="sm"
-                // _hover={{
-                //   borderColor: 'primary.500',
-                // }}
-              >
-                {event.status !== 1 ? (
-                  <chakra.div>
-                    <StatusTag status={event.status} />
-                  </chakra.div>
-                ) : null}
-
-                {event.title?.[contentLocale] ? (
-                  <Heading as="h1" fontSize="4xl">
-                    {event.title[contentLocale]}
-                  </Heading>
-                ) : null}
-
-                {event.description?.[contentLocale] ? (
-                  <Box fontSize="xl">{event.description[contentLocale]}</Box>
-                ) : null}
-
-                <ShareSection
-                  isDisabled={!!event.private}
+          <Grid
+            order="2"
+            templateAreas={{
+              base: `"event"
+                    "footer"`,
+              lg: `"left event sidebar"
+                  "left event footer"`,
+            }}
+            templateColumns={{
+              base: '1fr',
+              lg: 'minmax(80px, 1fr) 8fr minmax(300px, 4fr)',
+            }}
+            templateRows="auto minmax(0, 1fr)"
+            rowGap="8"
+            columnGap="10"
+            mt="8"
+            maxW="7xl"
+          >
+            <GridItem area="left" display={{ base: 'none', lg: 'block' }}>
+              <Flex direction="row" gap="8" mt="16">
+                <Featured featured={event.featured} size="lg" />
+              </Flex>
+            </GridItem>
+            <GridItem area="sidebar" display={{ base: 'none', lg: 'block' }}>
+              <Flex direction="row" gap="8" mt="16">
+                <Sidebar
                   shareOnOpen={shareOnOpen}
-                  display={{ base: 'grid', lg: 'none' }}
-                  justifyItems="flex-start"
-                />
-                <OnlineAccessSection
-                  event={event}
-                  display={{ base: 'grid', lg: 'none' }}
-                />
-                <DateRangeSection
-                  event={event}
-                  display={{ base: 'grid', lg: 'none' }}
-                />
-                <ConditionsSection
-                  event={event}
-                  display={{ base: 'grid', lg: 'none' }}
-                />
-                <RegistrationSection
                   isEventContributor={isEventContributor}
-                  event={event}
-                  agenda={agenda}
-                  display={{ base: 'grid', lg: 'none' }}
-                />
-                <AccessibilitySection
-                  event={event}
-                  display={{ base: 'grid', lg: 'none' }}
-                />
-
-                {event.image || event.imageCredits ? (
-                  <chakra.div mx="-8">
-                    <EventImage
-                      event={event}
-                      // >= 1095 : 659px
-                      // >= 992 : 66.67vw
-                      // < 992 : 100vw
-                      sizes="(max-width: 992px) 100vw, (max-width: 1095px) 66.67vw, 659px"
-                    />
-
-                    {event.imageCredits ? (
-                      <Flex justify="flex-end" color="oaGray.500" px="2">
-                        {event.imageCredits}
-                      </Flex>
-                    ) : null}
-                  </chakra.div>
-                ) : null}
-
-                {event.longDescription?.[contentLocale] ? (
-                  <LongDescription
-                    html={event.longDescription[contentLocale]}
-                    links={event.links}
-                  />
-                ) : null}
-
-                {event.keywords?.[contentLocale]?.length ? (
-                  <chakra.div color="oaGray.500" css={defaultStyle}>
-                    {intl.formatList(event.keywords[contentLocale], {
-                      style: 'narrow',
-                    })}
-                  </chakra.div>
-                ) : null}
-              </Flex>
-            </div>
-            {/* timings section */}
-            <Flex
-              as="main"
-              display={{ base: 'flex', lg: 'none' }}
-              direction="column"
-              gap="4"
-              position="relative"
-              p="8"
-              bg="white"
-              borderRadius="sm"
-            >
-              <TimingsSection event={event} />
-            </Flex>
-            {/* additional fields */}
-            {hasAdditionalFields ? (
-              <Flex
-                direction="column"
-                gap="4"
-                position="relative"
-                p="8"
-                bg="white"
-                borderRadius="sm"
-              >
-                <AdditionalFields
-                  agenda={agenda}
-                  additionalFields={additionalFields}
                 />
               </Flex>
-            ) : null}
+            </GridItem>
 
-            {event.location ? (
-              <LocationDetails
-                location={event.location}
-                agenda={agenda}
-                contentLocale={contentLocale}
-                displayAdminMenu={canEditEvent && !isMobile}
-                displayEditAction={!canEditEvent && !isMobile}
-                canEdit={canModifyLocation(me?.member, event, agenda)}
-              />
-            ) : null}
-
-            <ContributorSection contentLocale={contentLocale} />
-
-            <Activities
-              res={`/api/agendas/${agenda.uid}/events/${event.uid}/activities`}
-              hideEmpty
+            <GridItem
+              area="event"
+              display="flex"
+              flexDirection="column"
+              gap="12"
             >
-              <chakra.div css={defaultStyle}>
-                <Heading as="h2" fontSize="2xl" mb="4">
-                  {intl.formatMessage(messages.history)}
-                </Heading>
-                <ActivitiesList p={8} />
-              </chakra.div>
-            </Activities>
-
-            {mailtoSettings?.enabled ? (
               <div>
-                <Heading as="h2" fontSize="2xl" mb="4">
-                  {intl.formatMessage(messages.contactAdministrators)}
-                </Heading>
-                <Flex bg="white" justify="space-around">
-                  <Button asChild my="8">
-                    <Link
-                      href={`mailto:${mailtoSettings.email}?subject=${encodeURIComponent(mailtoSettings.subject)}`}
-                    >
-                      {intl.formatMessage(messages.sendAnEmail)}
-                    </Link>
-                  </Button>
+                <Tabs.Root
+                  value={tabValue}
+                  onValueChange={(e) => handleTabsChange(e.value)}
+                >
+                  <Tabs.List>
+                    {languages.map((language) => (
+                      <Tabs.Trigger
+                        key={language}
+                        value={language}
+                        id={`tabs-r5-trigger-${language}`}
+                        aria-controls={`tabs-r5-content-${language}`}
+                      >
+                        <Tabs.Content
+                          key={language}
+                          value={language}
+                          id={`tabs-r5-content-${language}`}
+                          aria-labelledby={`tabs-r5-trigger-${language}`}
+                          role="tabpanel"
+                          p={0}
+                        >
+                          {language.toUpperCase()}
+                        </Tabs.Content>
+                      </Tabs.Trigger>
+                    ))}
+                  </Tabs.List>
+                </Tabs.Root>
+
+                <Flex
+                  display="flex"
+                  direction="column"
+                  gap="4"
+                  position="relative"
+                  p="8"
+                  bg="white"
+                  // border="1px solid"
+                  // borderColor="oaGray.100"
+                  borderRadius="sm"
+                  // _hover={{
+                  //   borderColor: 'primary.500',
+                  // }}
+                >
+                  {event.status !== 1 ? (
+                    <chakra.div>
+                      <StatusTag status={event.status} />
+                    </chakra.div>
+                  ) : null}
+
+                  {event.title?.[contentLocale] ? (
+                    <Heading as="h1" fontSize="4xl">
+                      {event.title[contentLocale]}
+                    </Heading>
+                  ) : null}
+
+                  {event.description?.[contentLocale] ? (
+                    <Box fontSize="xl">{event.description[contentLocale]}</Box>
+                  ) : null}
+
+                  <ShareSection
+                    isDisabled={!!event.private}
+                    shareOnOpen={shareOnOpen}
+                    display={{ base: 'grid', lg: 'none' }}
+                    justifyItems="flex-start"
+                  />
+                  <OnlineAccessSection
+                    event={event}
+                    display={{ base: 'grid', lg: 'none' }}
+                  />
+                  <DateRangeSection
+                    event={event}
+                    display={{ base: 'grid', lg: 'none' }}
+                  />
+                  <ConditionsSection
+                    event={event}
+                    display={{ base: 'grid', lg: 'none' }}
+                  />
+                  <RegistrationSection
+                    isEventContributor={isEventContributor}
+                    event={event}
+                    agenda={agenda}
+                    display={{ base: 'grid', lg: 'none' }}
+                  />
+                  <AccessibilitySection
+                    event={event}
+                    display={{ base: 'grid', lg: 'none' }}
+                  />
+
+                  {event.image || event.imageCredits ? (
+                    <chakra.div mx="-8">
+                      <EventImage
+                        event={event}
+                        // >= 1095 : 659px
+                        // >= 992 : 66.67vw
+                        // < 992 : 100vw
+                        sizes="(max-width: 992px) 100vw, (max-width: 1095px) 66.67vw, 659px"
+                      />
+
+                      {event.imageCredits ? (
+                        <Flex justify="flex-end" color="oaGray.500" px="2">
+                          {event.imageCredits}
+                        </Flex>
+                      ) : null}
+                    </chakra.div>
+                  ) : null}
+
+                  {event.longDescription?.[contentLocale] ? (
+                    <LongDescription
+                      html={event.longDescription[contentLocale]}
+                      links={event.links}
+                    />
+                  ) : null}
+
+                  {event.keywords?.[contentLocale]?.length ? (
+                    <chakra.div color="oaGray.600" css={defaultStyle}>
+                      {intl.formatList(event.keywords[contentLocale], {
+                        style: 'narrow',
+                      })}
+                    </chakra.div>
+                  ) : null}
                 </Flex>
               </div>
-            ) : null}
+              {/* timings section */}
+              <Flex
+                as="main"
+                display={{ base: 'flex', lg: 'none' }}
+                direction="column"
+                gap="4"
+                position="relative"
+                p="8"
+                bg="white"
+                borderRadius="sm"
+              >
+                <TimingsSection event={event} />
+              </Flex>
+              {/* additional fields */}
+              {hasAdditionalFields ? (
+                <Flex
+                  direction="column"
+                  gap="4"
+                  position="relative"
+                  p="8"
+                  bg="white"
+                  borderRadius="sm"
+                >
+                  <AdditionalFields
+                    agenda={agenda}
+                    additionalFields={additionalFields}
+                  />
+                </Flex>
+              ) : null}
 
-            {!mailtoSettings?.enabled && session?.user ? <Inbox /> : null}
-          </GridItem>
+              {event.location ? (
+                <LocationDetails
+                  location={event.location}
+                  agenda={agenda}
+                  contentLocale={contentLocale}
+                  displayAdminMenu={canEditEvent && !isMobile}
+                  displayEditAction={!canEditEvent && !isMobile}
+                  canEdit={canModifyLocation(me?.member, event, agenda)}
+                />
+              ) : null}
 
-          <GridItem area="footer">
-            <Box pb="2">
-              <CopyIdentifier identifier={event.uid} size="sm" maxW="220px" />
-            </Box>
-            <Footer />
-          </GridItem>
-        </Grid>
-      </Flex>
+              <ContributorSection contentLocale={contentLocale} />
 
+              <Activities
+                res={`/api/agendas/${agenda.uid}/events/${event.uid}/activities`}
+                hideEmpty
+              >
+                <chakra.div css={defaultStyle}>
+                  <Heading as="h2" fontSize="2xl" mb="4">
+                    {intl.formatMessage(messages.history)}
+                  </Heading>
+                  <ActivitiesList p={8} />
+                </chakra.div>
+              </Activities>
+
+              {mailtoSettings?.enabled ? (
+                <div>
+                  <Heading as="h2" fontSize="2xl" mb="4">
+                    {intl.formatMessage(messages.contactAdministrators)}
+                  </Heading>
+                  <Flex bg="white" justify="space-around">
+                    <Button asChild my="8">
+                      <Link
+                        href={`mailto:${mailtoSettings.email}?subject=${encodeURIComponent(mailtoSettings.subject)}`}
+                      >
+                        {intl.formatMessage(messages.sendAnEmail)}
+                      </Link>
+                    </Button>
+                  </Flex>
+                </div>
+              ) : null}
+
+              {!mailtoSettings?.enabled && session?.user ? <Inbox /> : null}
+            </GridItem>
+
+            <GridItem area="footer">
+              <Box pb="2">
+                <CopyIdentifier identifier={event.uid} size="sm" maxW="220px" />
+              </Box>
+              <Footer />
+            </GridItem>
+          </Grid>
+        </Flex>
+      </Box>
       {needConsentFor ? <ConsentBanner consentFor={needConsentFor} /> : null}
 
       <ClientOnly>

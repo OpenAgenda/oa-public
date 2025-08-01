@@ -72,31 +72,31 @@ function Registration(props) {
   return (
     <div className="">
       {(settings.passCulture?.siren ?? []).length
-        && access.includes(userRole) ? (
-          <PassCultureCheckbox
-            access={access}
-            value={passCultureValue}
-            settings={settings.passCulture}
-            timings={relatedValues?.timings ?? []}
-            location={relatedValues?.location ?? {}}
-            title={relatedValues?.title?.fr || relatedValues?.title || null}
-            longDesc={
+      && access.includes(userRole) ? (
+        <PassCultureCheckbox
+          access={access}
+          value={passCultureValue}
+          settings={settings.passCulture}
+          timings={relatedValues?.timings ?? []}
+          location={relatedValues?.location ?? {}}
+          title={relatedValues?.title?.fr || relatedValues?.title || null}
+          longDesc={
             relatedValues?.longDescription?.fr
             || relatedValues?.longDescription
             || null
           }
-            conditions={
+          conditions={
             relatedValues?.conditions?.fr || relatedValues?.conditions || null
           }
-            onChange={(updatedPassCultureValue) =>
-              propsOnChange(
-                mergeSpreadRegistrationValues({
-                  standard: standardValue,
-                  passCulture: updatedPassCultureValue,
-                  OGValue: value || [],
-                }),
-              )}
-          />
+          onChange={(updatedPassCultureValue) =>
+            propsOnChange(
+              mergeSpreadRegistrationValues({
+                standard: standardValue,
+                passCulture: updatedPassCultureValue,
+                OGValue: value || [],
+              }),
+            )}
+        />
         ) : null}
       <StandardRegistrationField
         value={standardValue}

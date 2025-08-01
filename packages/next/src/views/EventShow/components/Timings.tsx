@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useId } from 'react';
 import { useIntl } from 'react-intl';
 import { isFuture, compareAsc, parseISO } from 'date-fns';
 import { formatInTimeZone } from 'date-fns-tz';
@@ -65,35 +65,51 @@ function findNextMonth(timingsPerMonth: SpreadTimings, month: string) {
   return sortedMonths[currentIndex + 1];
 }
 
-function TimingsDisplay({ timingsPerWeek, timezone }) {
+function DayTimings({ day, dayTimings, timezone }) {
   const dateFnsLocale = useDateFnsLocale();
+  const dayId = useId();
 
   return (
-    <Flex direction="column" gap="2">
+    <Flex as="li" key={day} justify="space-between">
+      <div id={dayId}>
+        {capitalize(
+          formatInTimeZone(new Date(day), 'UTC', 'eeee d', {
+            locale: dateFnsLocale,
+          }),
+        )}
+      </div>
+      <Flex as="ul" direction="column" aria-labelledby={dayId}>
+        {dayTimings.map((timing) => (
+          <Box as="li" key={timing.begin}>
+            <time dateTime={new Date(timing.begin).toISOString()}>
+              {formatInTimeZone(new Date(timing.begin), timezone, 'HH:mm', {
+                locale: dateFnsLocale,
+              })}
+            </time>
+            &nbsp;-&nbsp;
+            <time dateTime={new Date(timing.end).toISOString()}>
+              {formatInTimeZone(new Date(timing.end), timezone, 'HH:mm', {
+                locale: dateFnsLocale,
+              })}
+            </time>
+          </Box>
+        ))}
+      </Flex>
+    </Flex>
+  );
+}
+
+function TimingsDisplay({ timingsPerWeek, timezone }) {
+  return (
+    <Flex as="ul" direction="column" gap="2">
       {Object.values(timingsPerWeek).map((week) =>
         Object.entries(week).map(([day, dayTimings]) => (
-          <Flex key={day} justify="space-between">
-            <div>
-              {capitalize(
-                formatInTimeZone(new Date(day), 'UTC', 'eeee d', {
-                  locale: dateFnsLocale,
-                }),
-              )}
-            </div>
-            <div>
-              {dayTimings.map((timing) => (
-                <div key={timing.begin}>
-                  {formatInTimeZone(new Date(timing.begin), timezone, 'HH:mm', {
-                    locale: dateFnsLocale,
-                  })}
-                  &nbsp;-&nbsp;
-                  {formatInTimeZone(new Date(timing.end), timezone, 'HH:mm', {
-                    locale: dateFnsLocale,
-                  })}
-                </div>
-              ))}
-            </div>
-          </Flex>
+          <DayTimings
+            key={day}
+            day={day}
+            dayTimings={dayTimings}
+            timezone={timezone}
+          />
         )),
       )}
     </Flex>
@@ -114,7 +130,7 @@ function TimingsWithNavigation({ timings, timezone }) {
   );
 
   const [currentMonth, setCurrentMonth] = useState(
-    () => nextOrLastTiming.month,
+    () => nextOrLastTiming?.month,
   );
 
   const previousMonth = useMemo(
@@ -126,9 +142,15 @@ function TimingsWithNavigation({ timings, timezone }) {
     [currentMonth, timingsPerMonth],
   );
 
+  if (!currentMonth) {
+    return null;
+  }
+
   return (
     <>
       <Grid
+        as="nav"
+        aria-label={intl.formatMessage(messages.navigationByMonth)}
         templateColumns="1fr auto 1fr"
         alignItems="center"
         h="12"
@@ -149,8 +171,16 @@ function TimingsWithNavigation({ timings, timezone }) {
           >
             <FaIcon icon={faChevronLeft} />
           </IconButton>
-        ) : null}
-        <Box gridColumn="2" fontWeight="bold">
+        ) : (
+          <Box />
+        )}
+        <Box
+          as="h2"
+          gridColumn="2"
+          fontWeight="bold"
+          aria-live="polite"
+          aria-atomic="true"
+        >
           {capitalize(
             formatInTimeZone(new Date(currentMonth), 'UTC', 'MMMM yyyy', {
               locale: dateFnsLocale,
@@ -170,7 +200,9 @@ function TimingsWithNavigation({ timings, timezone }) {
           >
             <FaIcon icon={faChevronRight} />
           </IconButton>
-        ) : null}
+        ) : (
+          <Box />
+        )}
       </Grid>
 
       <TimingsDisplay
@@ -194,6 +226,7 @@ function TimingsWithoutNavigation({ timings, timezone }) {
       {Object.entries(timingsPerMonth).map(([month, weeks]) => (
         <div key={month}>
           <Flex
+            as="h2"
             h="12"
             borderY="1px solid"
             borderColor="oaGray.300"
@@ -217,6 +250,10 @@ function TimingsWithoutNavigation({ timings, timezone }) {
 }
 
 export default function Timings({ timings, timezone }) {
+  if (!timings || timings.length === 0) {
+    return null;
+  }
+
   if (timings.length <= 10) {
     return <TimingsWithoutNavigation timings={timings} timezone={timezone} />;
   }

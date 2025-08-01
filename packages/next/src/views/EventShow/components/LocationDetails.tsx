@@ -296,7 +296,7 @@ export default function LocationDetails({
             </chakra.div>
             <List.Root variant="plain">
               {location.links?.map((link) => (
-                <List.Item asChild key={link}>
+                <List.Item key={link}>
                   <Link
                     href={link}
                     target="_blank"
