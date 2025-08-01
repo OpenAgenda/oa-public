@@ -1,9 +1,7 @@
 import fs from 'node:fs';
 import _ from 'lodash';
 import axios from 'axios';
-import FormData from 'form-data';
 import ih from 'immutability-helper';
-import request from 'superagent';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
@@ -74,17 +72,15 @@ describe('core - functional (server): core.agendas().events.create()', () => {
     });
 
     core = Core(services, config);
-    await core.agendas(17026855).events.search.rebuild();
-  });
 
-  afterAll(async () => {
-    try {
-      await core.services.eventSearch.getConfig().client.indices.delete({
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
         index: 'test',
-      });
-    } catch (e) {
-      /* */
-    }
+      })
+      .catch(() => null);
+
+    await core.agendas(17026855).events.search.rebuild();
   });
 
   afterAll(() => core.services.simpleCache.clearAll());
@@ -995,12 +991,17 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       });
 
       it('image is uploaded to cdn when provided by url', async () => {
-        const uploadedHead = await request
-          .head(response.event.image.base + response.event.image.filename)
-          .then((res) => res.header);
-        const sinceLastModified = new Date().getTime()
-          - new Date(uploadedHead['last-modified']).getTime();
-        expect(sinceLastModified).toBeLessThan(10000);
+        const url = response.event.image.base + response.event.image.filename;
+
+        const res = await fetch(url, { method: 'HEAD' });
+        if (!res.ok) {
+          throw new Error(`HEAD ${url} → ${res.status}`);
+        }
+
+        const lastModified = res.headers.get('last-modified');
+        const sinceLastModified = Date.now() - new Date(lastModified).getTime();
+
+        expect(sinceLastModified).toBeLessThan(10_000);
       });
 
       it('response gives success key at true if creation was a success', () => {
@@ -1019,18 +1020,28 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         expect(response.event.imageCredits).toBe('Les crédits');
       });
 
-      it('create with superagent', async () => {
-        const createResponse = await request
-          .post('http://localhost:4000/agendas/17026855/events')
-          .type('form')
-          .accept('json')
-          .query({ key: null })
-          .set('access-token', accessToken)
-          .field({
-            data: JSON.stringify(_.omit(eventsFixtures[3], ['state'])),
-          });
+      it('create with fetch', async () => {
+        const form = new FormData();
+        form.append(
+          'data',
+          JSON.stringify(_.omit(eventsFixtures[3], ['state'])),
+        );
 
-        expect(createResponse.body.success).toBe(true);
+        const createResponse = await fetch(
+          'http://localhost:4000/agendas/17026855/events?key=',
+          {
+            method: 'POST',
+            headers: {
+              Accept: 'application/json',
+              'access-token': accessToken,
+            },
+            body: form,
+          },
+        );
+
+        const body = await createResponse.json();
+
+        expect(body.success).toBe(true);
       });
 
       it('create online event', async () => {
@@ -1121,25 +1132,24 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       });
 
       it('contributor may not set state through api', async () => {
-        let error;
-        try {
-          await request
-            .post('http://localhost:4000/agendas/17026855/events')
-            .type('form')
-            .accept('json')
-            .query({ key: null })
-            .set('access-token', accessToken)
-            .field({
-              data: JSON.stringify(eventsFixtures[3]),
-            });
-        } catch (e) {
-          error = e;
-        }
+        const url = 'http://localhost:4000/agendas/17026855/events?key';
 
-        expect(error.response.statusCode).toBe(403);
-        expect(error.response.body.message).toBe(
-          'not authorized to publish events',
-        );
+        const form = new FormData();
+        form.append('data', JSON.stringify(eventsFixtures[3]));
+
+        const res = await fetch(url, {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'access-token': accessToken,
+          },
+          body: form,
+        });
+
+        expect(res.status).toBe(403);
+
+        const body = await res.json();
+        expect(body.message).toBe('not authorized to publish events');
       });
     });
 
@@ -1177,16 +1187,24 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         try {
           const form = new FormData();
 
-          form.append('image', fs.createReadStream('/tmp/pirates.jpg'));
+          form.append(
+            'image',
+            await fs.openAsBlob('/tmp/pirates.jpg'),
+            'pirates.jpg',
+          );
           form.append('access_token', accessToken);
           form.append('data', JSON.stringify(data));
 
-          oneLanguageResponse = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/events',
-            data: form,
-            headers: form.getHeaders(),
-          }).then((r) => r.data);
+          oneLanguageResponse = await fetch(
+            'http://localhost:4000/agendas/17026855/events',
+            {
+              method: 'POST',
+              body: form,
+              headers: {
+                Accept: 'application/json',
+              },
+            },
+          ).then((res) => res.json());
         } catch (e) {
           /* console.log(JSON.stringify(e.      let oneLanguageResponse
             .data, null, 2)); */
@@ -1200,15 +1218,18 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       });
 
       it('image is uploaded to cdn when provided by file given as multipart', async () => {
-        const uploadedHead = await request
-          .head(
-            oneLanguageResponse.event.image.base
-              + oneLanguageResponse.event.image.filename,
-          )
-          .then((res) => res.header);
-        const sinceLastModified = new Date().getTime()
-          - new Date(uploadedHead['last-modified']).getTime();
-        expect(sinceLastModified).toBeLessThan(20000);
+        const url = oneLanguageResponse.event.image.base
+          + oneLanguageResponse.event.image.filename;
+
+        const res = await fetch(url, { method: 'HEAD' });
+        if (!res.ok) {
+          throw new Error(`HEAD ${url} → ${res.status}`);
+        }
+
+        const lastModified = res.headers.get('last-modified');
+        const sinceLastModified = Date.now() - new Date(lastModified).getTime();
+
+        expect(sinceLastModified).toBeLessThan(20_000);
       });
 
       it('Event is created in french if lang is set to french in header', async () => {

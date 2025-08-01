@@ -120,7 +120,7 @@ export default class FormSchemaComponent extends Component {
       files: this.get('files'),
     })
       .then((response) => {
-        if (response.statusCode !== 200) {
+        if (response.status !== 200) {
           this.onServerError(response);
           return;
         }
@@ -164,7 +164,7 @@ export default class FormSchemaComponent extends Component {
 
     let globalErrorPath = 'state.labels.errors.serverException';
 
-    if (res.statusCode === 413) {
+    if (res.status === 413) {
       globalErrorPath = 'state.labels.errors.serverErrorTooLargeFile';
     }
 

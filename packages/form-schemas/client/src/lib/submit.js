@@ -1,36 +1,56 @@
 import _ from 'lodash';
-import sa from 'superagent';
 
 export default ({ res, values, files, query, method }) => {
   const hasFiles = _.keys(files).length;
 
-  // IE11 does not like empty strings;
-  const req = sa[method || 'post'](res || _.get(window, 'location.href'));
-
-  req.ok((response) => response.status < 500);
-
+  let url = res || _.get(window, 'location.href');
   if (_.isObject(query)) {
-    req.query(query);
+    const searchParams = new URLSearchParams(query);
+    url += (url.includes('?') ? '&' : '?') + searchParams.toString();
   }
+
+  const fetchOptions = {
+    method: method || 'post',
+  };
 
   if (!hasFiles) {
-    return req.send({
+    fetchOptions.headers = {
+      'Content-Type': 'application/json',
+    };
+    fetchOptions.body = JSON.stringify({
       data: JSON.stringify(values),
     });
+  } else {
+    const formData = new FormData();
+
+    _.keys(files).forEach((fieldName) => {
+      [].concat(files[fieldName]).forEach((file, index) => {
+        if (!files[fieldName]) throw new Error(`file field is not defined: ${fieldName}`);
+
+        formData.append(fieldName, files[fieldName][index]);
+      });
+    });
+
+    formData.append('data', JSON.stringify(values));
+    fetchOptions.body = formData;
   }
 
-  _.keys(files).forEach((fieldName) => {
-    // handle multiple files if need be
-    [].concat(files[fieldName]).forEach((file, index) => {
-      if (!files[fieldName]) throw new Error(`file field is not defined: ${fieldName}`);
+  return fetch(url, fetchOptions).then((response) => {
+    if (response.status >= 500) {
+      throw new Error(`Server error: ${response.status}`);
+    }
 
-      req.attach(fieldName, files[fieldName][index]);
-    });
-  });
-
-  req.field('data', JSON.stringify(values));
-
-  return new Promise((rs, rj) => {
-    req.end((err, response) => (err ? rj(err) : rs(response)));
+    return response
+      .json()
+      .then((body) => ({
+        status: response.status,
+        ok: response.ok,
+        body,
+      }))
+      .catch(() => ({
+        status: response.status,
+        ok: response.ok,
+        body: null,
+      }));
   });
 };

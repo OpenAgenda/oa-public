@@ -58,16 +58,6 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
     services.registrations.task();
   });
 
-  afterAll(async () => {
-    try {
-      await core.services.eventSearch.getConfig().client.indices.delete({
-        index: 'test',
-      });
-    } catch (e) {
-      /* */
-    }
-  });
-
   afterAll(() => core.services.simpleCache.clearAll());
 
   afterAll(() => core.services.shutdown({ clear: true }));

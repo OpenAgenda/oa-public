@@ -1,5 +1,4 @@
 import axios from 'axios';
-import FormData from 'form-data';
 import Core from '../core/index.js';
 import api from '../api/index.js';
 import Services from '../services/init.js';
@@ -41,6 +40,13 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     });
 
     core = Core(services, config);
+
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
 
     await core.agendas(123).events.search.rebuild();
   });
@@ -92,7 +98,6 @@ describe('14 - core - functional(server): api authentication and posts', () => {
       const otherAccessToken = await axios({
         method: 'post',
         url: 'http://localhost:4000/requestAccessToken',
-        headers: form.getHeaders(),
         data: form,
       }).then((r) => r.data.access_token);
 

@@ -45,18 +45,15 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
     core = Core(services, config);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(17026855).events.search.rebuild();
     await core.agendas(9491431).events.search.rebuild();
-  });
-
-  afterAll(async () => {
-    try {
-      await core.services.eventSearch.getConfig().client.indices.delete({
-        index: 'test',
-      });
-    } catch (e) {
-      // log if needed
-    }
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

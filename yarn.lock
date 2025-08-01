@@ -9022,7 +9022,6 @@ __metadata:
     remove-markdown: "npm:^0.3.0"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^9.0.8"
-    superagent: "npm:^3.8.3"
   peerDependencies:
     react: ^19.0.0
     react-dom: ^19.0.0
@@ -9070,7 +9069,6 @@ __metadata:
     "@storybook/react-webpack5": "npm:^9.0.8"
     cors: "npm:^2.8.5"
     express: "npm:^4.17.1"
-    form-data: "npm:^3.0.0"
     history: "npm:^4.10.1"
     immer: "npm:^10.0.3"
     jest: "npm:^29.7.0"
@@ -9138,7 +9136,6 @@ __metadata:
     nodemon: "npm:^2.0.4"
     redis: "npm:^4.6.6"
     slugify: "npm:^1.4.5"
-    superagent: "npm:^3.8.2"
   languageName: unknown
   linkType: soft
 
@@ -9633,7 +9630,6 @@ __metadata:
     spin.js: "npm:2.3.2"
     st: "npm:1.2.2"
     store: "npm:1.3.17"
-    superagent: "npm:^3.8.1"
     terser-webpack-plugin: "npm:^5.3.9"
     use-debounce: "npm:^10.0.4"
     webpack: "npm:^5.53.0"
@@ -9861,7 +9857,6 @@ __metadata:
     react-text-mask: "npm:^5.4.3"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^9.0.8"
-    superagent: "npm:^3.8.3"
     tsup: "npm:^8.3.5"
     use-debounce: "npm:^10.0.4"
   languageName: unknown
@@ -10025,7 +10020,6 @@ __metadata:
     slate-react: "npm:^0.112.1"
     slugify: "npm:^1.4.5"
     storybook: "npm:^9.0.8"
-    superagent: "npm:^3.8.3"
     turndown: "npm:^7.1.2"
     uuid: "npm:^3.4.0"
   languageName: unknown
@@ -10782,18 +10776,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/queues@npm:^2.0.1, @openagenda/queues@workspace:public/queues":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/queues@workspace:public/queues"
-  dependencies:
-    "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/verror": "npm:^3.1.0"
-    jest: "npm:^29.7.0"
-    lodash: "npm:^4.17.15"
-    redis: "npm:^4.6.6"
-  languageName: unknown
-  linkType: soft
-
 "@openagenda/react-bootstrap-datetimerangepicker@npm:^2.0.5":
   version: 2.0.5
   resolution: "@openagenda/react-bootstrap-datetimerangepicker@npm:2.0.5"
@@ -11343,7 +11325,6 @@ __metadata:
     on-headers: "npm:^1.0.2"
     redis: "npm:^4.6.6"
     rimraf: "npm:^3.0.1"
-    superagent: "npm:^3.3.1"
   languageName: unknown
   linkType: soft
 
@@ -25530,7 +25511,6 @@ __metadata:
     "@openagenda/outdated-browser": "npm:^0.0.0"
     "@openagenda/pdf-exports": "npm:^0.0.2"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/queues": "npm:^2.0.1"
     "@openagenda/react-integration-app": "npm:^1.6.3"
     "@openagenda/react-layouts": "npm:^2.2.2"
     "@openagenda/react-shared": "npm:^2.4.4"
@@ -25583,7 +25563,6 @@ __metadata:
     fast-levenshtein: "npm:^2.0.6"
     feathers-authentication-hooks: "npm:^0.3.0"
     feathers-hooks-common: "npm:^4.20.7"
-    form-data: "npm:^3.0.0"
     glob: "npm:^10.4.2"
     helmet: "npm:^7.0.0"
     history: "npm:^4.10.1"
@@ -25628,7 +25607,6 @@ __metadata:
     sinon: "npm:^7.5.0"
     slugify: "npm:^1.4.5"
     source-map-support: "npm:^0.5.21"
-    superagent: "npm:^3.8.2"
     ts-dedent: "npm:^2.2.0"
     turndown: "npm:^7.1.2"
     type-is: "npm:^1.6.18"
@@ -26431,7 +26409,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"component-emitter@npm:^1.2.0, component-emitter@npm:^1.2.1, component-emitter@npm:~1.3.0":
+"component-emitter@npm:^1.2.1, component-emitter@npm:~1.3.0":
   version: 1.3.0
   resolution: "component-emitter@npm:1.3.0"
   checksum: 10c0/68774a0a3754fb6c0ba53c2e88886dfbd0c773931066abb1d7fd1b0c893b2a838d8f088ab4dca1f18cc1a4fc2e6932019eba3ded2d931b5ba2241ce40e93a24f
@@ -26941,13 +26919,6 @@ __metadata:
   version: 0.7.2
   resolution: "cookie@npm:0.7.2"
   checksum: 10c0/9596e8ccdbf1a3a88ae02cf5ee80c1c50959423e1022e4e60b91dd87c622af1da309253d8abdb258fb5e3eacb4f08e579dc58b4897b8087574eee0fd35dfa5d2
-  languageName: node
-  linkType: hard
-
-"cookiejar@npm:^2.1.0":
-  version: 2.1.2
-  resolution: "cookiejar@npm:2.1.2"
-  checksum: 10c0/01b6ef3e41c57ca71bced1a0dcf027814d92216e7b9e0975d2ae29869bc15d0865a6111ef1b39b7e0dbd2f16f06a9c85579466b72209fd80aa742be21a1c3079
   languageName: node
   linkType: hard
 
@@ -32909,17 +32880,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^2.3.1":
-  version: 2.5.1
-  resolution: "form-data@npm:2.5.1"
-  dependencies:
-    asynckit: "npm:^0.4.0"
-    combined-stream: "npm:^1.0.6"
-    mime-types: "npm:^2.1.12"
-  checksum: 10c0/7e8fb913b84a7ac04074781a18d0f94735bbe82815ff35348803331f6480956ff0035db5bcf15826edee09fe01e665cfac664678f1526646a6374ee13f960e56
-  languageName: node
-  linkType: hard
-
 "form-data@npm:^3.0.0":
   version: 3.0.0
   resolution: "form-data@npm:3.0.0"
@@ -32977,13 +32937,6 @@ __metadata:
   dependencies:
     fetch-blob: "npm:^3.1.2"
   checksum: 10c0/5392ec484f9ce0d5e0d52fb5a78e7486637d516179b0eb84d81389d7eccf9ca2f663079da56f761355c0a65792810e3b345dc24db9a8bbbcf24ef3c8c88570c6
-  languageName: node
-  linkType: hard
-
-"formidable@npm:^1.2.0":
-  version: 1.2.2
-  resolution: "formidable@npm:1.2.2"
-  checksum: 10c0/b6793b5b8c554df6c21955806a9fab2807906a0b048447140302e33ba9d13721e01e8f6dd91bed3b1ab2bbe37988b9fc759f8c19b571421bced8e6c0ad370ed4
   languageName: node
   linkType: hard
 
@@ -40968,7 +40921,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"methods@npm:^1.1.1, methods@npm:^1.1.2, methods@npm:~1.1.2":
+"methods@npm:^1.1.2, methods@npm:~1.1.2":
   version: 1.1.2
   resolution: "methods@npm:1.1.2"
   checksum: 10c0/bdf7cc72ff0a33e3eede03708c08983c4d7a173f91348b4b1e4f47d4cdbf734433ad971e7d1e8c77247d9e5cd8adb81ea4c67b0a2db526b758b2233d7814b8b2
@@ -41605,7 +41558,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime@npm:1.6.0, mime@npm:^1.4.1":
+"mime@npm:1.6.0":
   version: 1.6.0
   resolution: "mime@npm:1.6.0"
   bin:
@@ -47058,7 +47011,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"qs@npm:6.11.0, qs@npm:^6.10.3, qs@npm:^6.11.0, qs@npm:^6.5.1, qs@npm:^6.9.1, qs@npm:^6.9.4":
+"qs@npm:6.11.0, qs@npm:^6.10.3, qs@npm:^6.11.0, qs@npm:^6.9.1, qs@npm:^6.9.4":
   version: 6.11.0
   resolution: "qs@npm:6.11.0"
   dependencies:
@@ -53263,24 +53216,6 @@ __metadata:
     sucrase: bin/sucrase
     sucrase-node: bin/sucrase-node
   checksum: 10c0/ac85f3359d2c2ecbf5febca6a24ae9bf96c931f05fde533c22a94f59c6a74895e5d5f0e871878dfd59c2697a75ebb04e4b2224ef0bfc24ca1210735c2ec191ef
-  languageName: node
-  linkType: hard
-
-"superagent@npm:^3.3.1, superagent@npm:^3.8.1, superagent@npm:^3.8.2, superagent@npm:^3.8.3":
-  version: 3.8.3
-  resolution: "superagent@npm:3.8.3"
-  dependencies:
-    component-emitter: "npm:^1.2.0"
-    cookiejar: "npm:^2.1.0"
-    debug: "npm:^3.1.0"
-    extend: "npm:^3.0.0"
-    form-data: "npm:^2.3.1"
-    formidable: "npm:^1.2.0"
-    methods: "npm:^1.1.1"
-    mime: "npm:^1.4.1"
-    qs: "npm:^6.5.1"
-    readable-stream: "npm:^2.3.5"
-  checksum: 10c0/e467c39aee7aa57dc2e45b5c7c76d70a7ad4fff8d3d2b57a2da0edfaca0e598562fc9f8f74a1383661744f68b3dfd2cca388a3000b41d6c2d8e0e5d031d152fe
   languageName: node
   linkType: hard
 

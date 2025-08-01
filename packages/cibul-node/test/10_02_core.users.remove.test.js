@@ -37,6 +37,13 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
     core = Core(services, testConfig);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(6184770).events.search.rebuild();
     await services.simpleCache.clearAll();
 

@@ -32,7 +32,6 @@
     "@openagenda/validators": "^2.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
-    "form-data": "^3.0.0",
     "history": "^4.10.1",
     "immer": "^10.0.3",
     "languages": "^0.1.3",

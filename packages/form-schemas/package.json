@@ -68,7 +68,6 @@
     "slate-html-serializer": "^0.8.13",
     "slate-react": "^0.112.1",
     "slugify": "^1.4.5",
-    "superagent": "^3.8.3",
     "turndown": "^7.1.2",
     "uuid": "^3.4.0"
   },
