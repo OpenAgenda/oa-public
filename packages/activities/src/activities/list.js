@@ -112,7 +112,7 @@ module.exports = async function list(config, feedIdentifiers, ...restArgs) {
         `${config.schemas.activity}.id`,
       )
       .where(`${config.schemas.feed_activity}.feed_id`, feed ? feed.id : 0)
-      .orderBy(`${config.schemas.activity}.id`, 'desc');
+      .orderBy(`${config.schemas.feed_activity}.activity_id`, 'desc');
   } else {
     request.orderBy(`${config.schemas.activity}.id`, 'desc');
   }
