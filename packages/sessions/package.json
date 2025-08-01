@@ -32,8 +32,7 @@
     "@openagenda/eslint-config": "^1.4.0",
     "express": "^4.17.1",
     "jest": "^29.7.0",
-    "rimraf": "^3.0.1",
-    "superagent": "^3.3.1"
+    "rimraf": "^3.0.1"
   },
   "jest": {
     "transform": {}
