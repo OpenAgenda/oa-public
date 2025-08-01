@@ -2,7 +2,6 @@
 
 const _ = require('lodash');
 const slug = require('slugify');
-const sa = require('superagent');
 
 const NS = 'insee';
 
@@ -25,7 +24,11 @@ module.exports = (redisClient) =>
       return format(JSON.parse(cached));
     }
 
-    const { body } = await sa.get(res({ latitude, longitude }));
+    const response = await fetch(res({ latitude, longitude }));
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    const body = await response.json();
 
     redisClient.hSet(NS, getKey({ city, department }), JSON.stringify(body));
 
