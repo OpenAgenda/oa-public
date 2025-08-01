@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
-import FormData from 'form-data';
 
 import useRes from '../hooks/useRes.js';
 
