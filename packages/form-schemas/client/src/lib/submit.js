@@ -1,12 +1,12 @@
 import _ from 'lodash';
+import qs from 'qs';
 
 export default ({ res, values, files, query, method }) => {
   const hasFiles = _.keys(files).length;
 
   let url = res || _.get(window, 'location.href');
   if (_.isObject(query)) {
-    const searchParams = new URLSearchParams(query);
-    url += (url.includes('?') ? '&' : '?') + searchParams.toString();
+    url += (url.includes('?') ? '&' : '?') + qs.stringify(query);
   }
 
   const fetchOptions = {
