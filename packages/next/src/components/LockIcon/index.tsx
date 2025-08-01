@@ -52,7 +52,9 @@ export default function LockIcon({
       // arrowSize={8}
       // arrowPadding={6}
     >
-      {icon}
+      <span role="img" aria-label={message}>
+        {icon}
+      </span>
     </Tooltip>
   );
 }

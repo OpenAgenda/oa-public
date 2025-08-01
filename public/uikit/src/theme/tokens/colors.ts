@@ -16,6 +16,18 @@ export const colors = defineTokens.colors({
     800: { value: '#18678b' },
     900: { value: '#124D68' },
   },
+  // primary: {
+  //   50: { value: '#ebf1fe' },
+  //   100: { value: '#d7e3fe' },
+  //   200: { value: '#acc7fc' },
+  //   300: { value: '#7aacfb' },
+  //   400: { value: '#2d92f9' },
+  //   500: { value: '#1d77ce' },
+  //   600: { value: '#1560a7' },
+  //   700: { value: '#0e4880' },
+  //   800: { value: '#07315a' },
+  //   900: { value: '#031c37' },
+  // },
   oaGray: {
     10: { value: '#fafafa' },
     50: { value: '#efefef' },

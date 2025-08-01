@@ -60,11 +60,8 @@ export default function AgendaHeader() {
 
         <VStack gap="3" align={{ base: 'center', md: 'start' }}>
           {agenda.network ? (
-            <Link asChild>
-              <NextLink
-                href={`/agendas?network=${agenda.network.uid}`}
-                color="white"
-              >
+            <Link asChild color="white">
+              <NextLink href={`/agendas?network=${agenda.network.uid}`}>
                 {agenda.network.title}
                 &nbsp;›
               </NextLink>

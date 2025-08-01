@@ -54,7 +54,7 @@ function ActivityDetail({ activity, config }) {
     }
   }, [activityId, detailIsOpen]);
   return (
-    <chakra.div color="oaGray.500">
+    <chakra.div color="oaGray.600">
       <Button onClick={detailOnOpen} variant="link" as="a">
         {intl.formatMessage({ id: detailLabelIds.button })}
       </Button>
@@ -103,7 +103,7 @@ function renderLink(link, content) {
 
 function Activity({ formattedActivity, activity, isBrowser, config }) {
   return (
-    <chakra.div color="oaGray.500">
+    <chakra.div color="oaGray.600">
       <div>{formattedActivity}</div>
       <chakra.div visibility={isBrowser ? 'visible' : 'hidden'}>
         <FormattedDate
