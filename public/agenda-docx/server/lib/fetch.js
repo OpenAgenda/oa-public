@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import logs from '@openagenda/logs';
+import qs from 'qs';
 
 const log = logs('fetch');
 
@@ -30,7 +31,7 @@ function _fetch(agendaUid, offset, limit, query) {
     { offset, limit, query },
   );
 
-  const params = new URLSearchParams({
+  const params = qs.stringify({
     offset: offset.toString(),
     limit: limit.toString(),
     oaq: query || '',
