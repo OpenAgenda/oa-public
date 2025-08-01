@@ -52,6 +52,11 @@ export default defineMessages({
     id: 'next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange',
     defaultMessage: 'Suggest a change on the location',
   },
+
+  eventNavigation: {
+    id: 'next.views.EventShow.eventNavigation',
+    defaultMessage: 'Event navigation',
+  },
 });
 
 export const contextBar = defineMessages({
@@ -527,6 +532,14 @@ export const timings = defineMessages({
   nextMonth: {
     id: 'next.views.EventShow.Timings.nextMonth',
     defaultMessage: 'Next month',
+  },
+  calendarNavigation: {
+    id: 'next.views.EventShow.Timings.calendarNavigation',
+    defaultMessage: 'Calendar navigation for selecting month',
+  },
+  navigationByMonth: {
+    id: 'next.views.EventShow.Timings.navigationByMonth',
+    defaultMessage: 'Navigation by month',
   },
 });
 

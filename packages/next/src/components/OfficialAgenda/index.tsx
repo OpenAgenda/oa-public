@@ -36,17 +36,19 @@ export default function OfficialAgenda({
       // arrowPadding={6}
       {...tooltipProps}
     >
-      <Icon
-        {...props}
-        css={{
-          '--fa-primary-color': 'white',
-          '--fa-secondary-color': 'colors.primary.500',
-          '--fa-primary-opacity': '1',
-          '--fa-secondary-opacity': '1',
-        }}
-      >
-        <FontAwesomeIcon icon={faBadgeCheck} />
-      </Icon>
+      <span role="img" aria-label={intl.formatMessage(messages.officialAgenda)}>
+        <Icon
+          {...props}
+          css={{
+            '--fa-primary-color': 'colors.primary.500',
+            '--fa-secondary-color': 'white',
+            '--fa-primary-opacity': '1',
+            '--fa-secondary-opacity': '1',
+          }}
+        >
+          <FontAwesomeIcon icon={faBadgeCheck} />
+        </Icon>
+      </span>
     </Tooltip>
   );
 }

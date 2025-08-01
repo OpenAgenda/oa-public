@@ -3,7 +3,7 @@ import IframeResizer from '@iframe-resizer/react';
 import { Heading, Flex } from '@openagenda/uikit';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
-import { inbox as messages } from '../messages';
+import messages, { inbox as inboxMessages } from '../messages';
 
 const ROOT = process.env.NEXT_PUBLIC_ROOT;
 
@@ -16,7 +16,7 @@ export default function Inbox() {
   return (
     <div>
       <Heading as="h2" fontSize="2xl" mb="4">
-        {intl.formatMessage(messages.inbox)}
+        {intl.formatMessage(inboxMessages.inbox)}
       </Heading>
       <Flex
         display="flex"
@@ -36,6 +36,7 @@ export default function Inbox() {
       >
         <IframeResizer
           src={`${ROOT}/${agenda.slug}/events/${event.slug}/embed-inbox?lang=${intl.locale}`}
+          title={intl.formatMessage(messages.contactAdministrators)}
           style={{ width: '1px', minWidth: '100%' }}
           license="12ajjdewwwy-26rnhw2943-1s7g1u8ma0i"
         />

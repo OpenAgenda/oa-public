@@ -124,7 +124,7 @@ export default function ShareOnOA({ agenda, event }) {
   return (
     <AccordionItem value="on-oa" title={intl.formatMessage(messages.onOA)}>
       <form onSubmit={onSubmit}>
-        <SearchInput onChange={setSearchValue} />
+        <SearchInput onChange={setSearchValue} autoComplete="off" />
       </form>
 
       <VStack gap="4" pt="4" align="start">

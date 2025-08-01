@@ -18,6 +18,7 @@ interface SearchInputProps {
   initialValue?: string;
   onButtonClick?: () => void;
   placeholder?: string;
+  autoComplete?: string;
 }
 
 export default function SearchInput({
@@ -26,6 +27,7 @@ export default function SearchInput({
   initialValue = '',
   onButtonClick = null,
   placeholder,
+  autoComplete,
 }: SearchInputProps) {
   const intl = useIntl();
   const [searchText, setSearchText] = useState(initialValue);
@@ -69,6 +71,7 @@ export default function SearchInput({
         value={searchText}
         onChange={onChange}
         placeholder={placeholder || intl.formatMessage(messages.ariaLabel)}
+        autoComplete={autoComplete}
       />
     </InputGroup>
   );
