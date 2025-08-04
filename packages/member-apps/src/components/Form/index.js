@@ -224,7 +224,7 @@ export default ({
       ) : (
         <>
           <FormSchemaComponent
-            method={operation === 'update' ? 'patch' : 'post'}
+            method={operation === 'update' ? 'PATCH' : 'POST'}
             res={{
               patch: saveRes,
               post: saveRes,
