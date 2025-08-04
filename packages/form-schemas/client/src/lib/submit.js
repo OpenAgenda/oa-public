@@ -10,7 +10,7 @@ export default ({ res, values, files, query, method }) => {
   }
 
   const fetchOptions = {
-    method: method || 'post',
+    method: method?.toUpperCase() || 'POST',
   };
 
   if (!hasFiles) {
