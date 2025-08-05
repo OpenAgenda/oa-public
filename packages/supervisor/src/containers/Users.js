@@ -55,21 +55,46 @@ export default function Users() {
 
   const [userUid, setUserUid] = useState(query.userUid || '');
   const [inputValue, setInputValue] = useState(query.userUid || '75052324');
+  const [fromDateInputValue, setFromDateInputValue] = useState(
+    query.from || '',
+  );
+  const [toDateInputValue, setToDateInputValue] = useState(query.to || '');
+  const [searchFromDate, setSearchFromDate] = useState(query.from || '');
+  const [searchToDate, setSearchToDate] = useState(query.to || '');
 
   useEffect(() => {
     if (query.userUid) {
       setUserUid(query.userUid);
       setInputValue(query.userUid);
     }
-  }, [query.userUid]);
+    if (query.from) {
+      setFromDateInputValue(query.from);
+      setSearchFromDate(query.from);
+    }
+    if (query.to) {
+      setToDateInputValue(query.to);
+      setSearchToDate(query.to);
+    }
+  }, [query.userUid, query.from, query.to]);
 
   const queryClient = useQueryClient();
-  const queryKey = ['supervisor', 'users', 'logs', userUid];
+  const queryKey = [
+    'supervisor',
+    'users',
+    'logs',
+    userUid,
+    searchFromDate,
+    searchToDate,
+  ];
 
   const fetcher = () =>
     new Promise((resolve, reject) => {
+      const params = new URLSearchParams({ userUid });
+      if (searchFromDate) params.append('from', new Date(searchFromDate).getTime());
+      if (searchToDate) params.append('to', new Date(searchToDate).getTime());
+
       const eventSource = new EventSource(
-        `/supervisor/users/logs?userUid=${userUid}`,
+        `/supervisor/users/logs?${params.toString()}`,
       );
 
       let allLogs = [];
@@ -173,13 +198,9 @@ export default function Users() {
       };
     });
 
-  const { isLoading, error, data } = useQuery(
-    ['supervisor', 'users', 'logs', userUid],
-    fetcher,
-    {
-      enabled: !!userUid,
-    },
-  );
+  const { isLoading, error, data } = useQuery(queryKey, fetcher, {
+    enabled: !!userUid,
+  });
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -187,9 +208,16 @@ export default function Users() {
       const newUserUid = inputValue.trim();
       setUserUid(newUserUid);
 
+      const searchParams = { userUid: newUserUid };
+      if (fromDateInputValue) searchParams.from = fromDateInputValue;
+      if (toDateInputValue) searchParams.to = toDateInputValue;
+
+      setSearchFromDate(fromDateInputValue);
+      setSearchToDate(toDateInputValue);
+
       history.push({
         pathname: location.pathname,
-        search: qs.stringify({ userUid: newUserUid }),
+        search: qs.stringify(searchParams),
       });
     }
   };
@@ -202,7 +230,7 @@ export default function Users() {
         </Heading>
 
         <Box as="form" onSubmit={handleSubmit} mb={6}>
-          <HStack spacing={4} align="end">
+          <HStack spacing={4} align="end" wrap="wrap">
             <Box>
               <div>User UID:</div>
               <Input
@@ -210,6 +238,26 @@ export default function Users() {
                 value={inputValue}
                 onChange={(e) => setInputValue(e.target.value)}
                 placeholder="Entrez l'UID utilisateur"
+                minW="200px"
+              />
+            </Box>
+            <Box>
+              <div>Date de début:</div>
+              <Input
+                id="fromDate"
+                type="datetime-local"
+                value={fromDateInputValue}
+                onChange={(e) => setFromDateInputValue(e.target.value)}
+                minW="200px"
+              />
+            </Box>
+            <Box>
+              <div>Date de fin:</div>
+              <Input
+                id="toDate"
+                type="datetime-local"
+                value={toDateInputValue}
+                onChange={(e) => setToDateInputValue(e.target.value)}
                 minW="200px"
               />
             </Box>
