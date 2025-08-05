@@ -9,7 +9,7 @@ export function plugApp(app, base = '/users') {
     sessions.mw.ifUnlogged(cmn.redirectToSignin),
     users.mw.allowSuperAdmin(),
     async (req, res, next) => {
-      const { userUid } = req.query;
+      const { userUid, from, to } = req.query;
       if (!userUid) {
         return next(new Error('userUid is required'));
       }
@@ -28,7 +28,11 @@ export function plugApp(app, base = '/users') {
 
       try {
         // Stream logs using the generator
-        for await (const result of supervisor.users.getLogs(userUid)) {
+        for await (const result of supervisor.users.getLogs({
+          userUid,
+          from,
+          to,
+        })) {
           res.write(`event: ${result.type}\n`);
           res.write(`data: ${JSON.stringify(result.data)}\n\n`);
         }
@@ -47,10 +51,13 @@ export function plugApp(app, base = '/users') {
 
 export function init(config, _services) {
   return {
-    getLogs: (userUid) =>
-      getLogs(userUid, {
-        apiKey: config.insightOps.apiKey,
-        logToken: '0f890359-4cce-411c-8ab4-c6cd2347d2e6',
-      }),
+    getLogs: ({ userUid, from, to }) =>
+      getLogs(
+        { userUid, from, to },
+        {
+          apiKey: config.insightOps.apiKey,
+          logToken: '0f890359-4cce-411c-8ab4-c6cd2347d2e6',
+        },
+      ),
   };
 }

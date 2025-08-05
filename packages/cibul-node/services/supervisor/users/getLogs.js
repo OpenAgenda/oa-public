@@ -59,16 +59,18 @@ async function pollToCompletion(initialResponse, apiKey) {
 
 async function* executeQuery(query, params, config) {
   const { apiKey, logToken } = config;
-  const toTsMillis = Date.now();
-  const fromTsMillis = toTsMillis - LAST_N_HOURS * 60 * 60 * 1000;
+  const toTsMillis = params.to ? params.to : Date.now();
+  const fromTsMillis = params.from
+    ? params.from
+    : toTsMillis - LAST_N_HOURS * 60 * 60 * 1000;
   const baseUrl = `https://${INSIGHT_OPS_REGION}.rest.logs.insight.rapid7.com/query/logs/${logToken}`;
 
   const initialUrl = new URL(baseUrl);
   initialUrl.search = new URLSearchParams({
     query,
+    ...params,
     from: fromTsMillis,
     to: toTsMillis,
-    ...params,
   }).toString();
   let nextUrl = initialUrl.toString();
   let hasMorePages = true;
@@ -109,12 +111,16 @@ async function* executeQuery(query, params, config) {
   }
 }
 
-export default async function* getLogs(userUid, config) {
+export default async function* getLogs({ userUid, from, to }, config) {
   const sessionQuery = `where(meta.user.uid = "${userUid}") groupby("meta.session.id")`;
 
   let sessionIds = [];
   // Yield session data as it arrives
-  for await (const sessionData of executeQuery(sessionQuery, {}, config)) {
+  for await (const sessionData of executeQuery(
+    sessionQuery,
+    { from, to },
+    config,
+  )) {
     if (sessionData && Array.isArray(sessionData)) {
       const newSessionIds = sessionData.map((group) => Object.keys(group)[0]);
       sessionIds = sessionIds.concat(newSessionIds);
@@ -151,7 +157,7 @@ export default async function* getLogs(userUid, config) {
   // Yield log data as it arrives
   for await (const logsData of executeQuery(
     logsQuery,
-    { most_recent_first: true, per_page: 500 },
+    { from, to, most_recent_first: true, per_page: 500 },
     config,
   )) {
     if (logsData && Array.isArray(logsData)) {
