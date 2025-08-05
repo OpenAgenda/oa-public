@@ -119,6 +119,14 @@ export default function UserShow({
     );
   }
 
+  const from = new Date(user.lastSignin);
+  from.setHours(from.getHours() - 1);
+  const to = new Date(user.lastSignin);
+  to.setDate(to.getDate() + 1);
+
+  const fromIso = `${from.getFullYear()}-${String(from.getMonth() + 1).padStart(2, '0')}-${String(from.getDate()).padStart(2, '0')}T${String(from.getHours()).padStart(2, '0')}:${String(from.getMinutes()).padStart(2, '0')}`;
+  const toIso = `${to.getFullYear()}-${String(to.getMonth() + 1).padStart(2, '0')}-${String(to.getDate()).padStart(2, '0')}T${String(to.getHours()).padStart(2, '0')}:${String(to.getMinutes()).padStart(2, '0')}`;
+
   return (
     <div>
       <h2>{user.fullName}</h2>
@@ -196,7 +204,9 @@ export default function UserShow({
       </table>
 
       <p>
-        <a href={`/supervisor/users?userUid=${user.uid}`}>
+        <a
+          href={`/supervisor/users?userUid=${user.uid}&from=${fromIso}&to=${toIso}`}
+        >
           Voir les logs de l'utilisateur
         </a>
       </p>
