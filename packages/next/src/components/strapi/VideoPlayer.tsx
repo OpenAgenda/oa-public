@@ -121,7 +121,7 @@ const videoMapping: Record<
 > = {
   presentation: {
     title: "Présentation d'OpenAgenda",
-    // poster: 'https://cdn.openagenda.com/assets/videos/presentation/cover.png',
+    poster: 'https://img.openagenda.com/u/750x0/main/poster-pres-oa-video.png',
     thumbnails:
       'https://cdn.openagenda.com/assets/videos/presentation/thumbnails_webp_sprite.vtt',
   },
@@ -244,7 +244,13 @@ const MultiFormatVideoPlayer = ({
       onTimeUpdate={handleTimeUpdate}
       css={{
         '--brand-color': 'colors.primary.500',
+        '--video-load-button-bg': 'rgba(255, 255, 255, 0.8)',
+        '& .vds-poster': {
+          height: 'auto',
+        },
       }}
+      load="play"
+      posterLoad="visible"
     >
       <MediaProvider>
         {videoPoster && (
