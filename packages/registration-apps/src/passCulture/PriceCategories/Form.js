@@ -24,6 +24,7 @@ export default function PriceCategoryForm({
         type="text"
         label="Label"
         placeholder="Ex: carré or, tarif adulte..."
+        max="50"
         onChange={(e) => onChange({ ...value, label: e.target.value })}
       />
       <Input
