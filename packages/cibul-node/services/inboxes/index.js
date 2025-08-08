@@ -62,9 +62,11 @@ export async function init(config, services) {
       {
         mailsDomain: config.mails.domain,
         logger: config.getLogConfig('oa', 'inboxes'),
-        migrations: {
-          tableName: 'inboxes_migrations',
-        },
+        migrations: config.enableMigrations
+          ? {
+            tableName: 'inboxes_migrations',
+          }
+          : false,
         services: {
           agendas: () => services.agendas,
           members: () => services.members,
@@ -222,28 +224,30 @@ export async function init(config, services) {
         mw: {
           limit: 20,
         },
-        uppyCompanion: companion.app({
-          s3: {
-            getKey: ({ filename }) => filename,
-            endpoint: 'https://s3.pub1.infomaniak.cloud',
-            key: config.s3.accessKeyId,
-            secret: config.s3.secretAccessKey,
-            bucket: config.s3.bucket,
-            region: config.s3.region,
-            acl: 'public-read',
-            awsClientOptions: {
-              forcePathStyle: true,
+        uppyCompanion: config.uppy
+          ? companion.app({
+            s3: {
+              getKey: ({ filename }) => filename,
+              endpoint: 'https://s3.pub1.infomaniak.cloud',
+              key: config.s3.accessKeyId,
+              secret: config.s3.secretAccessKey,
+              bucket: config.s3.bucket,
+              region: config.s3.region,
+              acl: 'public-read',
+              awsClientOptions: {
+                forcePathStyle: true,
+              },
             },
-          },
-          server: {
-            host: config.domain,
-            protocol: 'https',
-          },
-          secret: config.uppy.secret,
-          debug: true,
-          filePath: config.tmpFolderPath,
-          uploadUrls: [RegExp(`/^https:\\/\\/${config.domain}\\//`)],
-        }),
+            server: {
+              host: config.domain,
+              protocol: 'https',
+            },
+            secret: config.uppy.secret,
+            debug: true,
+            filePath: config.tmpFolderPath,
+            uploadUrls: [RegExp(`/^https:\\/\\/${config.domain}\\//`)],
+          })
+          : null,
       },
     ),
   );
