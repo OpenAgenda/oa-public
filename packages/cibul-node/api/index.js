@@ -522,8 +522,15 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda.uid)
         .members.invite(
-          { role: req.body.role, emails: req.body.emails },
-          { context: req.context, userUid: req.user.uid },
+          {
+            role: req.body.role,
+            emails: req.body.emails,
+            message: req.body.message,
+          },
+          {
+            context: req.context,
+            userUid: req.user.uid,
+          },
         )
         .then((data) => res.json(data), next),
   );
