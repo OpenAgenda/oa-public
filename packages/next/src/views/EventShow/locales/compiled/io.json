@@ -673,6 +673,18 @@
       "value": "crwdns34385:0crwdne34385:0"
     }
   ],
+  "next.views.EventShow.Timings.calendarNavigation": [
+    {
+      "type": 0,
+      "value": "Calendar navigation for selecting month"
+    }
+  ],
+  "next.views.EventShow.Timings.navigationByMonth": [
+    {
+      "type": 0,
+      "value": "Navigation by month"
+    }
+  ],
   "next.views.EventShow.Timings.nextMonth": [
     {
       "type": 0,
@@ -713,6 +725,12 @@
     {
       "type": 0,
       "value": "crwdns33766:0crwdne33766:0"
+    }
+  ],
+  "next.views.EventShow.eventNavigation": [
+    {
+      "type": 0,
+      "value": "Event navigation"
     }
   ],
   "next.views.EventShow.history": [

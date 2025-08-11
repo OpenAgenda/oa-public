@@ -11,7 +11,7 @@ import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import qs from 'qs';
-import { chakra, useConst } from '@openagenda/uikit';
+import { chakra, useConst, Button, Flex, Spacer } from '@openagenda/uikit';
 import {
   FiltersProvider,
   getFilters,
@@ -30,11 +30,14 @@ import { omitParams } from 'utils/embedParams';
 import useEventsQuery from 'views/AgendaShow/hooks/useEventsQuery';
 import includeFields from 'views/AgendaShow/includeFields';
 import { TotalSkeleton } from 'views/AgendaShow/components/LoadingPage';
+import { FaIcon } from 'icons';
+import { faShareNodes } from 'icons/regular';
 import type { Agenda } from 'types';
 import Metas from './components/Metas';
 import { EventsSkeleton, FiltersSkeleton } from './components/LoadingPage';
-import fetchLocale from './locales';
 import getPrefilteredQuery from './utils/getPrefilteredQuery';
+import messages from './messages';
+import fetchLocale from './locales';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -67,9 +70,11 @@ function EmbedAgendaShow({
     prefilter,
     sort,
     displayTotal,
+    exportModal,
     logo,
     referrer: layoutDataReferrer,
     setReferrer,
+    themeConfig,
   } = useEmbedLayoutData();
 
   const referrer = layoutDataReferrer || referrerProps;
@@ -226,16 +231,46 @@ function EmbedAgendaShow({
                 </Suspense>
               ) : null}
 
-              {displayTotal !== false ? (
+              {displayTotal !== false || exportModal ? (
                 <Suspense fallback={<TotalSkeleton />}>
-                  <DynamicTotalPart
-                    agenda={agenda}
-                    filters={filters}
-                    query={query}
-                    includeFields={includeFields}
-                    prefilter={prefilter}
-                    referrer={referrer}
-                  />
+                  <Flex alignItems="center">
+                    {displayTotal !== false ? (
+                      <DynamicTotalPart
+                        agenda={agenda}
+                        filters={filters}
+                        query={query}
+                        includeFields={includeFields}
+                        prefilter={prefilter}
+                        referrer={referrer}
+                      />
+                    ) : null}
+
+                    <Spacer />
+
+                    {exportModal ? (
+                      <Button
+                        alignSelf="center"
+                        variant="outline"
+                        onClick={() =>
+                          window.parentIFrame.sendMessage({
+                            type: 'openAgendaExportModal',
+                            agenda,
+                            query: omitParams(
+                              getPrefilteredQuery({
+                                query,
+                                prefilter,
+                                filters,
+                              }),
+                            ),
+                            themeConfig,
+                          })
+                        }
+                      >
+                        <FaIcon icon={faShareNodes} />
+                        {intl.formatMessage(messages.export)}
+                      </Button>
+                    ) : null}
+                  </Flex>
                 </Suspense>
               ) : null}
 

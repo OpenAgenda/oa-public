@@ -33,6 +33,7 @@ type EmbedLayoutDataValue = {
   setQuery: React.Dispatch<React.SetStateAction<Record<string, any>>>;
   referrer: string;
   setReferrer: React.Dispatch<React.SetStateAction<string | null>>;
+  themeConfig: any;
 } & EmbedParams;
 
 export const [EmbedLayoutDataProvider, useEmbedLayoutData] =
@@ -49,7 +50,7 @@ function getContrastingColor(color) {
     : '#000';
 }
 
-function useEmbedTheme({ primaryColor, secondaryColor }) {
+function useEmbedThemeConfig({ primaryColor, secondaryColor }) {
   return useConst(() => {
     const primaryColorPalette = primaryColor
       ? createColorPalette({ value: primaryColor })
@@ -65,7 +66,7 @@ function useEmbedTheme({ primaryColor, secondaryColor }) {
       ? getContrastingColor(secondaryColor)
       : undefined;
 
-    return createSystem(defaultTheme._config, {
+    return {
       globalCss: {
         html: {
           bg: null,
@@ -84,8 +85,12 @@ function useEmbedTheme({ primaryColor, secondaryColor }) {
           },
         },
       },
-    });
+    };
   });
+}
+
+function useEmbedTheme(config) {
+  return useConst(() => createSystem(defaultTheme._config, config));
 }
 
 export default function EmbedLayout({
@@ -143,10 +148,11 @@ export default function EmbedLayout({
     query,
   ]);
 
-  const theme = useEmbedTheme({
+  const themeConfig = useEmbedThemeConfig({
     primaryColor: embedParams.primaryColor,
     secondaryColor: embedParams.secondaryColor,
   });
+  const theme = useEmbedTheme(themeConfig);
 
   const value = useMemo<EmbedLayoutDataValue>(
     () => ({
@@ -158,6 +164,7 @@ export default function EmbedLayout({
       setQuery,
       referrer,
       setReferrer,
+      themeConfig,
       ...embedParams,
     }),
     [
@@ -167,6 +174,7 @@ export default function EmbedLayout({
       prefilter,
       query,
       referrer,
+      theme._config,
       embedParams,
     ],
   );
