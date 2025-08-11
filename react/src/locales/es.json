@@ -1,0 +1,9 @@
+{
+  "react.components.AgendaExportModal.PDFDownload": "Descargar",
+  "react.components.AgendaExportModal.cancel": "Anular",
+  "react.components.AgendaExportModal.close": "Cerca",
+  "react.components.AgendaExportModal.copied": "Copiado",
+  "react.components.AgendaExportModal.exportAll": "Descargar todos los eventos",
+  "react.components.AgendaExportModal.login": "Inicie sesión para acceder al enlace de exportación directamente desde este menú",
+  "react.components.AgendaExportModal.title": "Exportar"
+}

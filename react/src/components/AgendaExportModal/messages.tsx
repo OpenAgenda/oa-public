@@ -22,6 +22,10 @@ export default defineMessages({
     defaultMessage:
       'Please log in to access the export link directly from this menu',
   },
+  needAuthentication: {
+    id: 'react.components.AgendaExportModal.needAuthentication',
+    defaultMessage: 'The use of the API requires authentication.',
+  },
   exportAll: {
     id: 'react.components.AgendaExportModal.exportAll',
     defaultMessage: 'Export all events',
@@ -42,6 +46,11 @@ export default defineMessages({
     id: 'react.components.AgendaExportModal.openData',
     defaultMessage:
       'The content of this agenda can be used following the <link>Open Data principle</link>',
+  },
+  openDataInfoEmbed: {
+    id: 'react.components.AgendaExportModal.openDataInfoEmbed',
+    defaultMessage:
+      'This content comes from the agenda {agenda} on OpenAgenda and can be used following the <linkOpendata>Open Data principle</linkOpendata>.',
   },
   embed: {
     id: 'react.components.AgendaExportModal.embed',
