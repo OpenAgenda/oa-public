@@ -11,7 +11,6 @@ import Body from './Body';
 import messages from './messages';
 
 interface ExportModalProps {
-  user?: any;
   agenda: Agenda;
   query: any;
   isOpen: boolean;
@@ -19,24 +18,39 @@ interface ExportModalProps {
   defaultValue?: string | string[];
   rootUrl?: string;
   apiRootUrl?: string;
+  renderHost?: 'local' | 'parent';
+  fetchAgendaExportSettings?: ({ agendaUid }) => Promise<any>;
 }
 
 export default function ExportModal({
   isOpen,
   onClose,
-  user = null,
   agenda,
   query,
   defaultValue = [],
   rootUrl = 'https://openagenda.com',
   apiRootUrl = 'https://api.openagenda.com',
+  renderHost = 'local',
+  fetchAgendaExportSettings = null,
 }: ExportModalProps) {
   const intl = useIntl();
 
   const dialogRef = useRef<HTMLDivElement>(null);
 
   return (
-    <DialogRoot open={isOpen} onOpenChange={onClose}>
+    <DialogRoot
+      open={isOpen}
+      onOpenChange={onClose}
+      onInteractOutside={(e) => {
+        const evt = e.detail.originalEvent as FocusEvent;
+        const originalTarget = evt.target as HTMLElement | null;
+        const target = e.target as HTMLElement | null;
+        const rootNode = target?.getRootNode() as ShadowRoot | undefined;
+        if (e.type === 'focus.outside' && originalTarget === rootNode?.host) {
+          e.preventDefault();
+        }
+      }}
+    >
       <DialogContent ref={dialogRef}>
         <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.modalTitle)}
@@ -44,13 +58,14 @@ export default function ExportModal({
         <DialogCloseTrigger />
         <Body
           dialogRef={dialogRef}
-          user={user}
           agenda={agenda}
           query={query}
           onClose={onClose}
           defaultValue={defaultValue}
           rootUrl={rootUrl}
           apiRootUrl={apiRootUrl}
+          renderHost={renderHost}
+          fetchAgendaExportSettings={fetchAgendaExportSettings}
         />
       </DialogContent>
     </DialogRoot>

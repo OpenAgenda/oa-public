@@ -68,13 +68,14 @@ function completeUrls(
 
 export default function Body({
   dialogRef,
-  user,
   agenda,
   query,
   onClose,
   defaultValue,
   rootUrl = 'https://openagenda.com',
   apiRootUrl = 'https://api.openagenda.com',
+  renderHost = 'local',
+  fetchAgendaExportSettings = null,
 }) {
   const intl = useIntl();
 
@@ -84,10 +85,11 @@ export default function Body({
     return completeUrls(agenda.uid, usedQuery, rootUrl, apiRootUrl);
   }, [mode, agenda.uid, query, rootUrl, apiRootUrl]);
 
-  const { data: meData, mutate: meMutate } = useSWR<any>(res.me, fetcher);
-  const { data: exportSettingsData, isLoading: exportSettingsLoading } = useSWR<any>(res.agendaExportSettings, fetcher);
+  const { data: exportSettingsData, isLoading: exportSettingsLoading } = useSWR<any>(res.agendaExportSettings, (url) =>
+    (fetchAgendaExportSettings
+      ? fetchAgendaExportSettings(agenda.uid)
+      : fetcher(url)));
 
-  const publicKey = meData?.apiKey;
   const languages = exportSettingsData?.languages;
   const hasMultipleLocations = exportSettingsData?.hasMultipleLocations ?? true;
   const fields = exportSettingsData?.spreadsheetColumns;
@@ -96,27 +98,6 @@ export default function Body({
     e.preventDefault();
 
     let exportUrl = res.export[type];
-
-    if (user && type === 'jsonV2') {
-      let key = publicKey;
-      if (!key) {
-        try {
-          await ky('/users/me/generateApiKey?$client[publicKey]=true').json();
-          const data = await meMutate();
-          key = data.apiKey;
-        } catch (error) {
-          console.log("Can't generate api key", error);
-        }
-      }
-
-      exportUrl = new URL(res.export.jsonV2);
-      if (options.detailed) {
-        exportUrl.searchParams.append('detailed', '1');
-      } else {
-        exportUrl.searchParams.delete('detailed');
-      }
-      exportUrl.searchParams.append('key', key);
-    }
 
     if (type === 'spreadsheet') {
       exportUrl = new URL(
@@ -161,17 +142,38 @@ export default function Body({
   return (
     <DialogBody>
       <Box alignItems="start" mb="4">
-        {intl.formatMessage(messages.openDataInfo, {
-          link: (chunks) => (
-            <Link
-              href="https://doc.openagenda.com/des-agendas-en-donnees-ouvertes-opendata"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {chunks}
-            </Link>
-          ),
-        })}
+        {renderHost === 'parent'
+          ? intl.formatMessage(messages.openDataInfoEmbed, {
+            agenda: (
+              <Link
+                href={`https://openagenda.com/${agenda.slug}`}
+                target="_blank"
+                rel="noopener"
+              >
+                {agenda.title}
+              </Link>
+            ),
+            linkOpendata: (chunks) => (
+              <Link
+                href="https://doc.openagenda.com/des-agendas-en-donnees-ouvertes-opendata"
+                target="_blank"
+                rel="noopener"
+              >
+                {chunks}
+              </Link>
+            ),
+          })
+          : intl.formatMessage(messages.openDataInfo, {
+            link: (chunks) => (
+              <Link
+                href="https://doc.openagenda.com/des-agendas-en-donnees-ouvertes-opendata"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {chunks}
+              </Link>
+            ),
+          })}
       </Box>
       <RadioGroup value={mode} onValueChange={(e) => setMode(e.value)}>
         <VStack gap="2" alignItems="start">
@@ -198,7 +200,7 @@ export default function Body({
             handleSubmit={handleSubmit}
             hasMultipleLocations={hasMultipleLocations}
           />
-          <JsonAccordionItem user={user} handleSubmit={handleSubmit} />
+          <JsonAccordionItem res={res} />
           <GcalAccordionItem res={res} />
           <OutlookAccordionItem res={res} />
           <IcsAccordionItem handleSubmit={handleSubmit} />

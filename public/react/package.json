@@ -16,7 +16,8 @@
   "scripts": {
     "sb": "storybook dev",
     "start": "yarn sb",
-    "prepack": "tsup src !src/types/modules.d.ts --clean --format esm,cjs --dts"
+    "prepack": "oa-intl compile --esm -o 'src/locales/compiled/%lang%.json' && tsup src !src/types/modules.d.ts --clean --format esm,cjs --dts",
+    "extract-messages": "oa-intl --esm --compiled 'src/locales/compiled/%lang%.json'"
   },
   "exports": {
     "./package.json": "./package.json",
@@ -29,6 +30,16 @@
       "types": "./dist/components/index.d.ts",
       "import": "./dist/components/index.mjs",
       "require": "./dist/components/index.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.mjs",
+      "require": "./dist/components/*.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js"
     }
   },
   "dependencies": {
