@@ -13,7 +13,7 @@ const inputToOuputPath = require('./utils/inputToOuputPath');
 const fileExists = require('./utils/fileExists');
 
 const defaults = {
-  files: ['src/**/*.js'],
+  files: ['src/**/*.{js,jsx,ts,tsx}'],
   output: 'src/locales/%lang%.json',
   defaultLang: DEFAULT_LANG,
   langs: DEFAULT_LANGS,
@@ -49,7 +49,7 @@ function getDefaults({ extractedMessages, lang, defaultLang, definedDefault }) {
 
 async function extractMessages({ files, idInterpolationPattern, format }) {
   const filesToExtract = files.reduce((accu, globFiles) => {
-    accu.push(...glob.sync(globFiles));
+    accu.push(...glob.sync(globFiles, { ignore: ['**/*.d.ts'] }));
     return accu;
   }, []);
   const result = {};
@@ -79,7 +79,7 @@ async function extractLang({
   const result = {};
 
   for (const globFiles of files) {
-    for (const file of glob.sync(globFiles)) {
+    for (const file of glob.sync(globFiles, { ignore: ['**/*.d.ts'] })) {
       if (skipEmpty && Object.keys(extractedMessages[file]).length === 0) {
         continue;
       }
