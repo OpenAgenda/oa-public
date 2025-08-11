@@ -1,4 +1,12 @@
 import iframeResize from '@iframe-resizer/parent';
+import {
+  AgendaExportModal,
+  fetchLocale as fetchReactLocale,
+} from '@openagenda/react';
+import { fetchLocale as fetchFiltersLocales } from '@openagenda/react-filters';
+import { createSystem, themeConfig as oaThemeConfig } from '@openagenda/uikit';
+import { createRoot } from 'react-dom/client';
+import Provider, { themeConfig } from './components/Provider';
 
 function encodeForURLHash(url) {
   const charsToEncode = ['#', '%'];
@@ -70,6 +78,27 @@ export default class EmbedLoader {
             },
             iframe,
           );
+
+          const pendingRequests = new Map();
+          iframe.iFrameResizer.oaPendingRequests = pendingRequests;
+          iframe.iFrameResizer.callChild = function callChild(
+            action,
+            payload = {},
+          ) {
+            return new Promise((resolve, reject) => {
+              const id = crypto.randomUUID
+                ? crypto.randomUUID()
+                : Math.random().toString(36).slice(2);
+
+              pendingRequests.set(id, { resolve, reject });
+              iframe.iFrameResizer.sendMessage({
+                type: 'request',
+                id,
+                action,
+                payload,
+              });
+            });
+          };
         });
 
         agendaBlockquote.parentNode.replaceChild(iframe, agendaBlockquote);
@@ -121,6 +150,10 @@ export default class EmbedLoader {
       url.searchParams.set('displayTotal', dataset.displayTotal);
     }
 
+    if (dataset.exportModal) {
+      url.searchParams.set('exportModal', dataset.exportModal);
+    }
+
     if (dataset.logo) {
       url.searchParams.set('logo', dataset.logo);
     }
@@ -157,7 +190,7 @@ export default class EmbedLoader {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  onChildMessage({ message }) {
+  async onChildMessage({ iframe, message }) {
     if (message.type === 'urlChange') {
       const newUrl = message.url;
 
@@ -173,6 +206,60 @@ export default class EmbedLoader {
 
       const encodedNewUrl = `#!${encodeForURLHash(newUrl)}`;
       window.history.replaceState(null, null, encodedNewUrl);
+    }
+
+    if (message.type === 'openAgendaExportModal') {
+      const modalDiv = document.createElement('div');
+      document.body.appendChild(modalDiv);
+
+      const locale = 'fr';
+
+      const intlMessages = await Promise.all([
+        fetchReactLocale(locale),
+        fetchFiltersLocales(locale),
+      ]).then((results) => Object.assign({}, ...results));
+
+      const root = createRoot(modalDiv);
+
+      const onClose = () => {
+        root.unmount();
+        document.body.removeChild(modalDiv);
+      };
+
+      const system = createSystem(oaThemeConfig, themeConfig, {
+        ...message.themeConfig,
+        globalCss: {
+          ':host': message.themeConfig.globalCss?.html ?? {},
+        },
+      });
+
+      root.render(
+        <Provider intlMessages={intlMessages} locale="fr" theme={system}>
+          <AgendaExportModal
+            isOpen
+            onClose={onClose}
+            agenda={message.agenda}
+            query={message.query}
+            renderHost="parent"
+            fetchAgendaExportSettings={(agendaUid) =>
+              iframe.iFrameResizer.callChild('fetchAgendaExportSettings', {
+                agendaUid,
+              })}
+          />
+        </Provider>,
+      );
+    }
+
+    const { oaPendingRequests } = iframe.iFrameResizer;
+
+    if (message.type === 'response' && oaPendingRequests?.has(message.id)) {
+      const { resolve, reject } = oaPendingRequests.get(message.id);
+      oaPendingRequests.delete(message.id);
+      if (message.error) {
+        reject(message.error);
+      } else {
+        resolve(message.result);
+      }
     }
   }
 }
