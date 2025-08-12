@@ -179,4 +179,8 @@ export default defineMessages({
     id: 'react.components.AgendaExportModal.detectLang',
     defaultMessage: 'Detect language automatically',
   },
+  showContributionButton: {
+    id: 'react.components.AgendaExportModal.showContributionButton',
+    defaultMessage: 'Show contribution button',
+  },
 });
