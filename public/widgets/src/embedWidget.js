@@ -154,6 +154,10 @@ export default class EmbedLoader {
       url.searchParams.set('exportModal', dataset.exportModal);
     }
 
+    if (dataset.contributionButton) {
+      url.searchParams.set('contributionButton', dataset.contributionButton);
+    }
+
     if (dataset.logo) {
       url.searchParams.set('logo', dataset.logo);
     }
