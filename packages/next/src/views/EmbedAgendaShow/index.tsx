@@ -11,7 +11,14 @@ import { useIntl } from 'react-intl';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import qs from 'qs';
-import { chakra, useConst, Button, Flex, Spacer } from '@openagenda/uikit';
+import {
+  chakra,
+  useConst,
+  Button,
+  Flex,
+  Spacer,
+  Link,
+} from '@openagenda/uikit';
 import {
   FiltersProvider,
   getFilters,
@@ -32,6 +39,7 @@ import includeFields from 'views/AgendaShow/includeFields';
 import { TotalSkeleton } from 'views/AgendaShow/components/LoadingPage';
 import { FaIcon } from 'icons';
 import { faShareNodes } from 'icons/regular';
+import { faPlus } from 'icons/solid';
 import type { Agenda } from 'types';
 import Metas from './components/Metas';
 import { EventsSkeleton, FiltersSkeleton } from './components/LoadingPage';
@@ -71,6 +79,7 @@ function EmbedAgendaShow({
     sort,
     displayTotal,
     exportModal,
+    contributionButton,
     logo,
     referrer: layoutDataReferrer,
     setReferrer,
@@ -231,9 +240,9 @@ function EmbedAgendaShow({
                 </Suspense>
               ) : null}
 
-              {displayTotal !== false || exportModal ? (
+              {displayTotal !== false || exportModal || contributionButton ? (
                 <Suspense fallback={<TotalSkeleton />}>
-                  <Flex alignItems="center">
+                  <Flex alignItems="center" wrap="wrap" gap="2">
                     {displayTotal !== false ? (
                       <DynamicTotalPart
                         agenda={agenda}
@@ -247,28 +256,46 @@ function EmbedAgendaShow({
 
                     <Spacer />
 
-                    {exportModal ? (
-                      <Button
-                        alignSelf="center"
-                        variant="outline"
-                        onClick={() =>
-                          window.parentIFrame.sendMessage({
-                            type: 'openAgendaExportModal',
-                            agenda,
-                            query: omitParams(
-                              getPrefilteredQuery({
-                                query,
-                                prefilter,
-                                filters,
-                              }),
-                            ),
-                            themeConfig,
-                          })
-                        }
-                      >
-                        <FaIcon icon={faShareNodes} />
-                        {intl.formatMessage(messages.export)}
-                      </Button>
+                    {exportModal || contributionButton ? (
+                      <Flex wrap="wrap" gap="2">
+                        {exportModal ? (
+                          <Button
+                            alignSelf="center"
+                            variant="outline"
+                            onClick={() =>
+                              window.parentIFrame.sendMessage({
+                                type: 'openAgendaExportModal',
+                                agenda,
+                                query: omitParams(
+                                  getPrefilteredQuery({
+                                    query,
+                                    prefilter,
+                                    filters,
+                                  }),
+                                ),
+                                themeConfig,
+                              })
+                            }
+                          >
+                            <FaIcon icon={faShareNodes} />
+                            {intl.formatMessage(messages.export)}
+                          </Button>
+                        ) : null}
+
+                        {contributionButton ? (
+                          <Button asChild alignSelf="center" variant="outline">
+                            <Link
+                              unstyled
+                              href={`${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/contribute`}
+                              target="_blank"
+                              rel="noopener nofollow"
+                            >
+                              <FaIcon icon={faPlus} />
+                              {intl.formatMessage(messages.addEvent)}
+                            </Link>
+                          </Button>
+                        ) : null}
+                      </Flex>
                     ) : null}
                   </Flex>
                 </Suspense>

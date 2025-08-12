@@ -65,6 +65,7 @@ export type EmbedParams = {
   sort?: SortParam;
   displayTotal?: boolean;
   exportModal?: boolean;
+  contributionButton?: boolean;
   logo?: LogoParam;
 };
 
@@ -146,17 +147,7 @@ export function validateSort(value: string): SortParam | null {
   return null;
 }
 
-function parseAndValidateDisplayTotal(value: string): boolean | null {
-  if (value === '0' || value === 'false') {
-    return false;
-  }
-  if (value === '1' || value === 'true') {
-    return true;
-  }
-  return null;
-}
-
-function parseAndValidateExportModal(value: string): boolean | null {
+function parseAndValidateBoolean(value: string): boolean | null {
   if (value === '0' || value === 'false') {
     return false;
   }
@@ -181,8 +172,9 @@ const parsers = {
   imageList: parseImageList,
   mapSize: parseMapSize,
   sort: validateSort,
-  displayTotal: parseAndValidateDisplayTotal,
-  exportModal: parseAndValidateExportModal,
+  displayTotal: parseAndValidateBoolean,
+  exportModal: parseAndValidateBoolean,
+  contributionButton: parseAndValidateBoolean,
   logo: parseAndValidateLogo,
 };
 
