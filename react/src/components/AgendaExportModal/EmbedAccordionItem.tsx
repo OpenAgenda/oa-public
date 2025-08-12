@@ -43,6 +43,7 @@ function getEmbedCode({
   agenda,
   withFilters,
   selectedFilters,
+  contributionButton,
   openEventsOnOA,
   primaryColor,
   lang,
@@ -51,6 +52,10 @@ function getEmbedCode({
 
   if (withFilters && selectedFilters.length) {
     attributes.push(`data-filters="${selectedFilters.join(',')}"`);
+  }
+
+  if (contributionButton) {
+    attributes.push('data-contribution-button="true"');
   }
 
   if (openEventsOnOA) {
@@ -86,6 +91,9 @@ export default function EmbedAccordionItem({ dialogRef, res, agenda }) {
   const [copied, setCopied] = useState(false);
 
   const [withFilters, setWithFilters] = useState(true);
+  const [contributionButton, setContributionButton] = useState(
+    agenda.settings?.contribution?.type === 1 || false,
+  );
   const [openEventsOnOA, setOpenEventsOnOA] = useState(true);
   const [primaryColor, setPrimaryColor] = useState(DEFAULT_COLOR);
   const [lang, setLang] = useState('');
@@ -106,6 +114,7 @@ export default function EmbedAccordionItem({ dialogRef, res, agenda }) {
     agenda,
     withFilters,
     selectedFilters,
+    contributionButton,
     openEventsOnOA,
     primaryColor,
     lang,
@@ -149,6 +158,14 @@ export default function EmbedAccordionItem({ dialogRef, res, agenda }) {
             <div>{intl.formatMessage(messages.filterSelectSub)}</div>
           </Box>
         ) : null}
+
+        <Checkbox
+          checked={!contributionButton}
+          onCheckedChange={() => setContributionButton(!contributionButton)}
+          w="fit-content"
+        >
+          {intl.formatMessage(messages.showContributionButton)}
+        </Checkbox>
 
         <Checkbox
           checked={!openEventsOnOA}
