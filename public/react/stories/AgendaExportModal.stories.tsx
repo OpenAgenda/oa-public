@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { Button, useDisclosure } from '@openagenda/uikit';
 import AgendaExportModal from 'components/AgendaExportModal';
-import fetchLocale from 'components/AgendaExportModal/locales';
+import fetchLocale from 'fetchLocale';
 import { Agenda } from 'types';
 import intlMessagesLoader from './loaders/intlMessagesLoader';
 import ProvidersDecorator from './decorators/ProvidersDecorator';
