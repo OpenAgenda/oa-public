@@ -3,6 +3,7 @@ import {
   validatePriceCategory,
   validateLocalData,
 } from '../iso/validate/index.js';
+import { findLastVenueIdFromData } from '../iso/utils.js';
 
 import settings from './fixtures/settings.json';
 import dataWithPendingOffer from './fixtures/data.withPendingOffer.pc.json';
@@ -770,6 +771,63 @@ describe('validate', () => {
           ],
         });
       });
+    });
+  });
+
+  describe('findLastVenueIdFromData', () => {
+    test('returns the last venueId from data array', () => {
+      const data = [
+        { venueId: 123, category: 'CONCERT' },
+        { priceCategories: [{ price: 0, label: 'Gratuit' }] },
+        { dates: [{ id: 1, quantity: 1 }] },
+        { venueId: 789 }, // This should be returned as it's the last one
+      ];
+
+      const result = findLastVenueIdFromData(data);
+      expect(result).toBe(789);
+    });
+
+    test('returns the first venueId when only one exists', () => {
+      const data = [
+        { venueId: 456, category: 'CONCERT' },
+        { priceCategories: [{ price: 0, label: 'Gratuit' }] },
+        { dates: [{ id: 1, quantity: 1 }] },
+      ];
+
+      const result = findLastVenueIdFromData(data);
+      expect(result).toBe(456);
+    });
+
+    test('returns null when no venueId exists in data', () => {
+      const data = [
+        { category: 'CONCERT' },
+        { priceCategories: [{ price: 0, label: 'Gratuit' }] },
+        { dates: [{ id: 1, quantity: 1 }] },
+      ];
+
+      const result = findLastVenueIdFromData(data);
+      expect(result).toBe(null);
+    });
+
+    test('returns null for empty array', () => {
+      const data = [];
+
+      const result = findLastVenueIdFromData(data);
+      expect(result).toBe(null);
+    });
+
+    test('ignores falsy venueId values and returns the last truthy one', () => {
+      const data = [
+        { venueId: 123 },
+        { venueId: null },
+        { venueId: undefined },
+        { venueId: 0 }, // This is falsy but should be considered valid
+        { venueId: 456 },
+        { venueId: '' }, // This is falsy
+      ];
+
+      const result = findLastVenueIdFromData(data);
+      expect(result).toBe(456);
     });
   });
 });

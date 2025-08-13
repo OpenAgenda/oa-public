@@ -144,6 +144,17 @@ export function getCurrentValue(data) {
   return result;
 }
 
+export function findLastVenueIdFromData(dataArray) {
+  // Look through the data array in reverse order to find the last venueId
+  for (let i = dataArray.length - 1; i >= 0; i--) {
+    const entry = dataArray[i];
+    if (entry.venueId) {
+      return entry.venueId;
+    }
+  }
+  return null;
+}
+
 export function getObjectType(entry) {
   const { priceCategories, dates, ...remaining } = entry;
 

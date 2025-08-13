@@ -32,6 +32,12 @@ async function createAddressIfNeeded(pc, OAEvent, usedVenue, siren) {
 
   // Validate that OAEvent location has a postal code
   if (!OAEvent.location?.postalCode) {
+    log.info('address validation failed: missing postal code', {
+      siren,
+      location: OAEvent.location,
+      eventId: OAEvent.uid,
+      reason: 'missing_postal_code',
+    });
     return {
       address: null,
       error: new BadRequest(
@@ -48,12 +54,38 @@ async function createAddressIfNeeded(pc, OAEvent, usedVenue, siren) {
     };
   }
 
+  // Extract street and validate it's not empty or falsy
+  const street = extractStreetFromOAAddress(OAEvent.location);
+  if (!street || street === '') {
+    log.info('address validation failed: missing street', {
+      siren,
+      location: OAEvent.location,
+      eventId: OAEvent.uid,
+      reason: 'missing_street',
+      extractedStreet: street,
+    });
+    return {
+      address: null,
+      error: new BadRequest(
+        {
+          info: {
+            siren,
+            location: OAEvent.location,
+            eventId: OAEvent.uid,
+            reason: 'missing_street',
+          },
+        },
+        'OAEvent location street is required',
+      ),
+    };
+  }
+
   const addressQuery = {
     city: OAEvent.location.city,
     latitude: OAEvent.location.latitude,
     longitude: OAEvent.location.longitude,
     postalCode: OAEvent.location.postalCode,
-    street: extractStreetFromOAAddress(OAEvent.location),
+    street,
   };
 
   let error = null;
