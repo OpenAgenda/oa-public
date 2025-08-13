@@ -259,10 +259,7 @@ export default (core, { useRouter = true } = {}) => {
         .conversations.create(req.parsedData, {
           userUid: req.user.uid,
         })
-        .then(
-          (conversation) => res.json({ success: true, conversation }),
-          next,
-        ),
+        .then(() => res.json({ success: true }), next),
   ]);
 
   if (app.services.activities) {

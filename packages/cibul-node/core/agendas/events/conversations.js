@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { BadRequest } from '@openagenda/verror';
 
 const create = async (core, agendaOrUid, eventOrUid, data, options) => {
   const { services } = core;
@@ -30,6 +31,10 @@ const create = async (core, agendaOrUid, eventOrUid, data, options) => {
   const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
     throwOnNotFound: true,
   });
+
+  if (userUid === agendaEvent.userUid) {
+    throw new BadRequest('Cannot create conversation with yourself');
+  }
 
   const consolidatedData = {
     type: 'event',
