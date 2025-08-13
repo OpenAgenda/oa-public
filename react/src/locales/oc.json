@@ -1,0 +1,19 @@
+{
+  "react.components.AgendaExportModal.PDFDownload": "Descargar",
+  "react.components.AgendaExportModal.allFields": "Exportat totes los camps",
+  "react.components.AgendaExportModal.allLanguages": "Exportar dins totas las lengas",
+  "react.components.AgendaExportModal.cancel": "Anullar",
+  "react.components.AgendaExportModal.close": "Tampar",
+  "react.components.AgendaExportModal.copied": "Copiat",
+  "react.components.AgendaExportModal.copy": "Copiar",
+  "react.components.AgendaExportModal.detailedFormat": "Far servir lo format detalhat",
+  "react.components.AgendaExportModal.distributeFields": "Camps amb opcions: mostrar una valor per colomna",
+  "react.components.AgendaExportModal.documentation": "Veire la documentacion",
+  "react.components.AgendaExportModal.exportAll": "Exportar totes los eveniments",
+  "react.components.AgendaExportModal.inputField": "Seleccionatz los camps d'exportar",
+  "react.components.AgendaExportModal.inputFormat": "Causir un format",
+  "react.components.AgendaExportModal.instructions": "Instruccions",
+  "react.components.AgendaExportModal.login": "Mercés de vos connectar per accedir al ligam d'exportacion dirèctament a partir d'aqueste menut",
+  "react.components.AgendaExportModal.selectAll": "Seleccionar tot",
+  "react.components.AgendaExportModal.title": "Exportar"
+}
