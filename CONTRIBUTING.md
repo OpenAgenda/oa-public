@@ -21,6 +21,18 @@ we use the git commit messages to **generate the change log**~~.
 
 [commitlint](https://github.com/conventional-changelog/commitlint) checks if your commit messages meet the [conventional commit format](https://www.conventionalcommits.org/).
 
+## Pull requests
+
+Prefer to use rebase on your branches.
+
+```bash
+git fetch origin
+git rebase origin/main
+git push --force-with-lease
+```
+
+If you have conflicts, resolve them, then run `git add <file>` and `git rebase --continue`.
+
 ## Release workflow
 
 The publication can be summarized in three steps:
