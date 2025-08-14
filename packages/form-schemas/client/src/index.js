@@ -114,7 +114,7 @@ export default class FormSchemaComponent extends Component {
 
     submit({
       method,
-      res: _.get(res, method, ''),
+      res: _.get(res, method.toLowerCase(), ''),
       formSchema: this._getFormSchema(),
       values: draft !== undefined ? { ...values, draft } : values, // values can be clean anew once received by server
       files: this.get('files'),

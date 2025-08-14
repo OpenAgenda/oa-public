@@ -50,16 +50,15 @@ export default function Description({
       />
 
       {description?.length > 1000 && (
-        <div style={{ color: '#dc3545', fontSize: '12px', marginTop: '4px' }}>
+        <div className="text-danger text-xs margin-top-xs">
           Attention votre description actuelle fait plus de 1000 caracteres
         </div>
       )}
 
       <button
         type="button"
-        className="btn btn-link mt-2"
+        className="btn btn-link margin-top-xs text-sm padding-all-z"
         onClick={handleUseEventDescription}
-        style={{ textDecoration: 'none', fontSize: '14px', padding: '0' }}
       >
         Charger la description longue de l&apos;événement
       </button>

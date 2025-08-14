@@ -26,7 +26,6 @@ import OAIcon from 'components/OAIcon';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import useLocationQuery from 'hooks/useLocationQuery';
-import useUser from 'hooks/useUser';
 import { thumborLoader } from 'utils/imageLoader';
 import hrefWithLang from 'utils/hrefWithLang';
 import getSession from 'utils/getSession';
@@ -74,8 +73,6 @@ export default function AgendaHeader({ agenda }) {
 
   const router = useRouter();
   const urlQuery = useLocationQuery();
-
-  const { user } = useUser();
 
   const mailtoUrl = getMailtoUrl(agenda.settings.inbox?.mailto);
 
@@ -240,7 +237,6 @@ export default function AgendaHeader({ agenda }) {
           <AgendaExportModal
             isOpen
             onClose={exportOnClose}
-            user={user}
             agenda={agenda}
             query={urlQuery}
             defaultValue={displayExportModalValue}

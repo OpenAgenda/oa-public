@@ -1,5 +1,5 @@
 #!/bin/bash
-set -e
+set -euo pipefail
 
 # --- CONFIGURATION ---
 PUBLIC_REMOTE_NAME="oa-public"
@@ -39,7 +39,7 @@ else
 fi
 
 # Étape 1 : Préparation et analyse de divergence
-git fetch ${PUBLIC_REMOTE_NAME}
+git fetch "${PUBLIC_REMOTE_NAME}"
 PUBLIC_MAIN_BRANCH="remotes/${PUBLIC_REMOTE_NAME}/main"
 PUBLIC_HEAD_SHA=$(git rev-parse "${PUBLIC_MAIN_BRANCH}")
 OA_HEAD_SHA=$(git rev-parse HEAD)
@@ -81,7 +81,7 @@ FINAL_BRANCH="subtree-replicated-$$"
 trap 'echo "🧹 Nettoyage du worktree temporaire..."; git worktree remove --force "${WORKTREE_PATH}";' EXIT
 
 echo "🌳 Création d'un worktree sécurisé dans '${WORKTREE_PATH}'..."
-git worktree add -b ${FINAL_BRANCH} "${WORKTREE_PATH}" "remotes/${PUBLIC_REMOTE_NAME}/main"
+git worktree add -b "${FINAL_BRANCH}" "${WORKTREE_PATH}" "remotes/${PUBLIC_REMOTE_NAME}/main"
 
 for commit_sha in $COMMIT_LIST; do
     echo "  -> Réplication : $(git log -1 --oneline ${commit_sha})"
@@ -91,18 +91,51 @@ for commit_sha in $COMMIT_LIST; do
 
     if [ "$parent_count" -gt 1 ]; then
         echo "     (Commit de fusion détecté : imposition de l'état final)"
+        git -C "${WORKTREE_PATH}" reset --hard -q
+        git -C "${WORKTREE_PATH}" clean -fdx -q
+
         # Pour un merge, on ne patche pas. On impose l'état exact du sous-dossier.
         # C'est la seule méthode fiable pour gérer les résolutions de conflits.
-        SUBTREE_TREE_SHA=$(git rev-parse "${commit_sha}:${SUBTREE_PREFIX}")
-        git -C "${WORKTREE_PATH}" rm -rfq .
-        git -C "${WORKTREE_PATH}" read-tree --prefix '' -u "${SUBTREE_TREE_SHA}"
+        SUBTREE_TREE_SHA=$(git rev-parse "${commit_sha}:${SUBTREE_PREFIX}" 2>/dev/null || true)
+        git -C "${WORKTREE_PATH}" rm -rfq . || true
+
+        if [ -n "$SUBTREE_TREE_SHA" ]; then
+          git -C "${WORKTREE_PATH}" read-tree --reset -u "${SUBTREE_TREE_SHA}"
+        else
+          # le sous-dossier a été supprimé dans ce commit
+          git -C "${WORKTREE_PATH}" read-tree --empty -u
+        fi
     else
-        # Pour un commit normal, la méthode du patch est efficace.
-        # On exécute diff-tree ici (répertoire principal) et on pipe le résultat vers apply dans le worktree
-        git diff-tree -p --binary ${commit_sha}^ ${commit_sha} -- "${SUBTREE_PREFIX}" | sed "s| a/${SUBTREE_PREFIX}/| a/|g; s| b/${SUBTREE_PREFIX}/| b/|g" | git -C "${WORKTREE_PATH}" apply -3
+        if ! ( git diff-tree -p --binary "${commit_sha}^" "${commit_sha}" -- "${SUBTREE_PREFIX}" \
+              | sed "s| a/${SUBTREE_PREFIX}/| a/|g; s| b/${SUBTREE_PREFIX}/| b/|g" \
+              | git -C "${WORKTREE_PATH}" apply -3 -q ); then
+            echo "     (Conflit lors du patch — imposition de l'état exact du sous-dossier)"
+            git -C "${WORKTREE_PATH}" reset --hard -q
+            git -C "${WORKTREE_PATH}" clean -fdx -q
+
+            SUBTREE_TREE_SHA=$(git rev-parse "${commit_sha}:${SUBTREE_PREFIX}" 2>/dev/null || true)
+            git -C "${WORKTREE_PATH}" rm -rfq . || true
+
+            if [ -n "$SUBTREE_TREE_SHA" ]; then
+              git -C "${WORKTREE_PATH}" read-tree --reset -u "${SUBTREE_TREE_SHA}"
+            else
+              git -C "${WORKTREE_PATH}" read-tree --empty -u
+            fi
+        fi
     fi
 
-    git -C "${WORKTREE_PATH}" add .
+    git -C "${WORKTREE_PATH}" add -A
+
+    # SHA de l’arbre du sous-dossier dans ce commit (ou arbre vide si le dossier n’existe pas)
+    SUBTREE_TREE_SHA=$(git rev-parse "${commit_sha}:${SUBTREE_PREFIX}" 2>/dev/null || echo 4b825dc642cb6eb9a060e54bf8d69288fbee4904)
+
+    # SHA de l’arbre actuellement indexé dans le worktree
+    INDEX_TREE_SHA=$(git -C "${WORKTREE_PATH}" write-tree)
+
+    if [ "$INDEX_TREE_SHA" != "$SUBTREE_TREE_SHA" ]; then
+      echo "❌ Mismatch: l’arbre indexé du worktree ne correspond pas à ${SUBTREE_PREFIX} de ${commit_sha}"
+      exit 1
+    fi
 
     if ! git -C "${WORKTREE_PATH}" diff --staged --quiet; then
         # Recréer le commit avec l'auteur et le message d'origine

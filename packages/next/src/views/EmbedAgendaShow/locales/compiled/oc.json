@@ -1,4 +1,10 @@
 {
+  "ReactFilters.EmbedAgendaShow.addEvent": [
+    {
+      "type": 0,
+      "value": "Ajouter un événement"
+    }
+  ],
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
@@ -17,6 +23,12 @@
     {
       "type": 0,
       "value": ")"
+    }
+  ],
+  "next.views.EmbedAgendaShow.export": [
+    {
+      "type": 0,
+      "value": "Exporter"
     }
   ],
   "next.views.EmbedAgendaShow.search": [

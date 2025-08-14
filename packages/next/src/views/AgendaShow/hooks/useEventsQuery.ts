@@ -50,7 +50,7 @@ export default function useEventsQuery({
       suspense,
       keepPreviousData: true,
       revalidateFirstPage: false,
-      // revalidateOnMount: false,
+      revalidateOnMount: false,
       // revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,

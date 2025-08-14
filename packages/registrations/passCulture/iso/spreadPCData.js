@@ -1,4 +1,4 @@
-import { getObjectType } from './utils.js';
+import { getObjectType, findLastVenueIdFromData } from './utils.js';
 import { getEntryItemOperationType } from './getOperationType.js';
 
 function decorateWithInfoFields(data, entry) {
@@ -10,17 +10,6 @@ function decorateWithInfoFields(data, entry) {
       {},
     ),
   };
-}
-
-function findLastVenueIdFromData(dataArray) {
-  // Look through the original data array in reverse order to find the last venueId
-  for (let i = dataArray.length - 1; i >= 0; i--) {
-    const entry = dataArray[i];
-    if (entry.venueId) {
-      return entry.venueId;
-    }
-  }
-  return null;
 }
 
 function spreadAccordingToObjectType(data) {

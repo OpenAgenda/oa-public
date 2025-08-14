@@ -2,6 +2,7 @@ import { BadRequest } from '@openagenda/verror';
 import debug from 'debug';
 
 import spreadPCData from '../spreadPCData.js';
+import { findLastVenueIdFromData } from '../utils.js';
 import validateLocalData from './validateLocalData.js';
 import validateDate from './validateDate.js';
 import validatePriceCategory from './validatePriceCategory.js';
@@ -13,8 +14,7 @@ async function validate({ pc, siren }, event, data = {}, options = {}) {
   const spreadData = spreadPCData(data);
   log('processing', { data, spreadData });
 
-  const [firstItem] = spreadData;
-  const { venueId } = firstItem;
+  const venueId = findLastVenueIdFromData(spreadData);
 
   const { categories, related } = options.categories && options.related
     ? options

@@ -1,6 +1,8 @@
 {
+  "ReactFilters.EmbedAgendaShow.addEvent": "Add event",
   "ReactFilters.ValueBadge.removeFilter": "Remove filter",
   "ReactFilters.ValueBadge.removeFilterWithTitle": "Remove filter ({title})",
+  "next.views.EmbedAgendaShow.export": "Export",
   "next.views.EmbedAgendaShow.search": "Search",
   "next.views.EmbedAgendaShow.seeMore": "See more"
 }

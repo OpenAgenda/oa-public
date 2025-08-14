@@ -251,6 +251,21 @@ export default (core, { useRouter = true } = {}) => {
       )
       .then((references) => res.json({ success: true, references }), next));
 
+  app.post('/agendas/:agendaUid/events/:eventUid/conversations', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .events(req.event.uid)
+        .conversations.create(req.parsedData, {
+          userUid: req.user.uid,
+        })
+        .then(
+          (conversation) => res.json({ success: true, conversation }),
+          next,
+        ),
+  ]);
+
   if (app.services.activities) {
     app.get(
       '/agendas/:agendaUid/events/:eventUid/activities',
