@@ -86,6 +86,7 @@ export default (core, { useRouter = true } = {}) => {
   // control all the things
   app.post('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
   app.patch('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
+  app.put('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
   app.get('/agendas/:agendaUid.prv', mw.member.allow());
   app.get(
     [
@@ -374,20 +375,12 @@ export default (core, { useRouter = true } = {}) => {
 
   app.put('/agendas/:agendaUid/events/ext/:extKey/:extId', [
     mw.evaluateAnonymousAccess,
-    (req, res, next) =>
-      core
-        .agendas(req.agenda.uid)
-        .events.setByExtId(
-          req.params.extKey,
-          req.params.extId,
-          req.parsedData,
-          {
-            context: {
-              userUid: req.user.uid,
-            },
-          },
-        )
-        .then((event) => res.json(event), next),
+    mw.eventUpdate.byExtId,
+  ]);
+
+  app.patch('/agendas/:agendaUid/events/ext/:extKey/:extId', [
+    mw.evaluateAnonymousAccess,
+    mw.eventUpdate.byExtId,
   ]);
 
   app.delete('/agendas/:agendaUid/events/ext/:extKey/:extId', [
@@ -534,8 +527,15 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda.uid)
         .members.invite(
-          { role: req.body.role, emails: req.body.emails },
-          { context: req.context, userUid: req.user.uid },
+          {
+            role: req.body.role,
+            emails: req.body.emails,
+            message: req.body.message,
+          },
+          {
+            context: req.context,
+            userUid: req.user.uid,
+          },
         )
         .then((data) => res.json(data), next),
   );

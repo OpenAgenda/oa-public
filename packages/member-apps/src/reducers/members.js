@@ -365,9 +365,7 @@ export function invite(agenda, data) {
       return client.post(res.invite.replace(':agendaUid', agenda.uid), {
         emails,
         role: data.role,
-        context: {
-          message: data.message,
-        },
+        message: data.message,
       });
     },
   };
