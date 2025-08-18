@@ -5748,6 +5748,7 @@ __metadata:
   dependencies:
     "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/eslint-config": "npm:^1.4.0"
+    "@openagenda/intl": "npm:^1.1.5"
     "@openagenda/react-filters": "npm:^2.13.1"
     "@openagenda/react-shared": "npm:^2.4.4"
     "@openagenda/tsconfig": "npm:^0.0.0"
