@@ -55,6 +55,7 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/intl": "^1.1.5",
     "@openagenda/tsconfig": "^0.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",
