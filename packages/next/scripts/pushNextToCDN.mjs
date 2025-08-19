@@ -41,10 +41,6 @@ async function detectMimeType(filePath) {
   const fileContent = await readFile(filePath);
   const detectedType = await fileTypeFromBuffer(fileContent);
 
-  if (detectedType === 'application/xml' && filePath.endsWith('.svg')) {
-    return mimeFallbacks['.svg'];
-  }
-
   if (detectedType) {
     return detectedType.mime;
   }
