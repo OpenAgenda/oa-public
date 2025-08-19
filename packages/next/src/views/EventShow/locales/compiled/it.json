@@ -41,6 +41,12 @@
       "value": "Vedere tutti gli eventi"
     }
   ],
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": [
+    {
+      "type": 0,
+      "value": "View network agendas"
+    }
+  ],
   "next.views.EventShow.ContextBar.backToDashboard": [
     {
       "type": 0,
@@ -695,6 +701,18 @@
       "value": "Suggerisci una modifica della posizione"
     }
   ],
+  "next.views.EventShow.Timings.calendarNavigation": [
+    {
+      "type": 0,
+      "value": "Calendar navigation for selecting month"
+    }
+  ],
+  "next.views.EventShow.Timings.navigationByMonth": [
+    {
+      "type": 0,
+      "value": "Navigation by month"
+    }
+  ],
   "next.views.EventShow.Timings.nextMonth": [
     {
       "type": 0,
@@ -735,6 +753,12 @@
     {
       "type": 0,
       "value": "Contact administrators"
+    }
+  ],
+  "next.views.EventShow.eventNavigation": [
+    {
+      "type": 0,
+      "value": "Event navigation"
     }
   ],
   "next.views.EventShow.history": [

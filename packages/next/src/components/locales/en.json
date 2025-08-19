@@ -1,4 +1,7 @@
 {
+  "next.components.CopyIdentifier.clickToCopyIdentifier": "Click to copy the event identifier",
+  "next.components.CopyIdentifier.copied": "Identifier copied",
+  "next.components.CopyIdentifier.copy": "Copy identifier",
   "next.components.SearchInput.ariaLabel": "Search",
   "next.views.AgendaShow.EventItem.featured": "Featured"
 }
