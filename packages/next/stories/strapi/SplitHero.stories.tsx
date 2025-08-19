@@ -53,6 +53,14 @@ export function Overview() {
               name: 'strapi.mutedPlum',
             },
           },
+          {
+            label: 'Pas fan des bagnoles',
+            link: 'https://bagnoles.fr',
+            variant: 'link',
+            colorPalette: {
+              name: 'strapi.blueGreen',
+            },
+          },
         ]}
       />
     </Container>

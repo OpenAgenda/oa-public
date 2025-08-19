@@ -45,7 +45,10 @@ export default function SplitHero({
         <StrapiMarkdown>{text}</StrapiMarkdown>
         {CTAs && CTAs.length > 0 && (
           <Box mt={6}>
-            <CTAButtons CTAs={CTAs} />
+            <CTAButtons
+              CTAs={CTAs}
+              justify={{ base: 'center', md: 'flex-start' }}
+            />
           </Box>
         )}
       </Box>
