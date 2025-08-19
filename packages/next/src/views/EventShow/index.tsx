@@ -255,25 +255,13 @@ function EventShow({ preload }: EventShowProps) {
                 >
                   <Tabs.List>
                     {languages.map((language) => (
-                      <Tabs.Trigger
-                        key={language}
-                        value={language}
-                        id={`tabs-r5-trigger-${language}`}
-                        aria-controls={`tabs-r5-content-${language}`}
-                      >
+                      <Tabs.Trigger key={language} value={language}>
                         {language.toUpperCase()}
                       </Tabs.Trigger>
                     ))}
                   </Tabs.List>
                   {languages.map((language) => (
-                    <Tabs.Content
-                      key={language}
-                      value={language}
-                      id={`tabs-r5-content-${language}`}
-                      aria-labelledby={`tabs-r5-trigger-${language}`}
-                      role="tabpanel"
-                      p={0}
-                    >
+                    <Tabs.Content key={language} value={language} p={0}>
                       <Flex
                         display="flex"
                         direction="column"
