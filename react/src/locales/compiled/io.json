@@ -1,0 +1,304 @@
+{
+  "react.components.AgendaExportModal.PDFDownload": [
+    {
+      "type": 0,
+      "value": "crwdns34240:0crwdne34240:0"
+    }
+  ],
+  "react.components.AgendaExportModal.PDFGeoSections": [
+    {
+      "type": 0,
+      "value": "crwdns34242:0crwdne34242:0"
+    }
+  ],
+  "react.components.AgendaExportModal.PDFHighlightLocationName": [
+    {
+      "type": 0,
+      "value": "crwdns34244:0crwdne34244:0"
+    }
+  ],
+  "react.components.AgendaExportModal.PDFSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "crwdns34248:0crwdne34248:0"
+    }
+  ],
+  "react.components.AgendaExportModal.PDFSelectSub": [
+    {
+      "type": 0,
+      "value": "crwdns34246:0crwdne34246:0"
+    }
+  ],
+  "react.components.AgendaExportModal.allFields": [
+    {
+      "type": 0,
+      "value": "crwdns33930:0crwdne33930:0"
+    }
+  ],
+  "react.components.AgendaExportModal.allLanguages": [
+    {
+      "type": 0,
+      "value": "crwdns33932:0crwdne33932:0"
+    }
+  ],
+  "react.components.AgendaExportModal.cancel": [
+    {
+      "type": 0,
+      "value": "crwdns33045:0crwdne33045:0"
+    }
+  ],
+  "react.components.AgendaExportModal.close": [
+    {
+      "type": 0,
+      "value": "crwdns33047:0crwdne33047:0"
+    }
+  ],
+  "react.components.AgendaExportModal.color": [
+    {
+      "type": 0,
+      "value": "crwdns34098:0crwdne34098:0"
+    }
+  ],
+  "react.components.AgendaExportModal.copied": [
+    {
+      "type": 0,
+      "value": "crwdns33936:0crwdne33936:0"
+    }
+  ],
+  "react.components.AgendaExportModal.copy": [
+    {
+      "type": 0,
+      "value": "crwdns33938:0crwdne33938:0"
+    }
+  ],
+  "react.components.AgendaExportModal.detailedFormat": [
+    {
+      "type": 0,
+      "value": "crwdns33049:0crwdne33049:0"
+    }
+  ],
+  "react.components.AgendaExportModal.detectLang": [
+    {
+      "type": 0,
+      "value": "crwdns34352:0crwdne34352:0"
+    }
+  ],
+  "react.components.AgendaExportModal.distributeFields": [
+    {
+      "type": 0,
+      "value": "crwdns33942:0crwdne33942:0"
+    }
+  ],
+  "react.components.AgendaExportModal.documentation": [
+    {
+      "type": 0,
+      "value": "crwdns33051:0crwdne33051:0"
+    }
+  ],
+  "react.components.AgendaExportModal.embed": [
+    {
+      "type": 0,
+      "value": "crwdns33944:0crwdne33944:0"
+    }
+  ],
+  "react.components.AgendaExportModal.embedSeeEvents": [
+    {
+      "type": 0,
+      "value": "crwdns33946:0"
+    },
+    {
+      "type": 1,
+      "value": "title"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33946:0"
+    }
+  ],
+  "react.components.AgendaExportModal.exportAll": [
+    {
+      "type": 0,
+      "value": "crwdns33053:0crwdne33053:0"
+    }
+  ],
+  "react.components.AgendaExportModal.exportSelection": [
+    {
+      "type": 0,
+      "value": "crwdns33057:0crwdne33057:0"
+    }
+  ],
+  "react.components.AgendaExportModal.filterSelectPlaceholder": [
+    {
+      "type": 0,
+      "value": "crwdns34180:0crwdne34180:0"
+    }
+  ],
+  "react.components.AgendaExportModal.filterSelectSub": [
+    {
+      "type": 0,
+      "value": "crwdns34182:0crwdne34182:0"
+    }
+  ],
+  "react.components.AgendaExportModal.gcalStep2": [
+    {
+      "type": 0,
+      "value": "crwdns33948:0crwdne33948:0"
+    }
+  ],
+  "react.components.AgendaExportModal.gcalStep3": [
+    {
+      "type": 0,
+      "value": "crwdns33950:0crwdne33950:0"
+    }
+  ],
+  "react.components.AgendaExportModal.inputField": [
+    {
+      "type": 0,
+      "value": "crwdns33952:0crwdne33952:0"
+    }
+  ],
+  "react.components.AgendaExportModal.inputFormat": [
+    {
+      "type": 0,
+      "value": "crwdns33059:0crwdne33059:0"
+    }
+  ],
+  "react.components.AgendaExportModal.instructions": [
+    {
+      "type": 0,
+      "value": "crwdns33954:0crwdne33954:0"
+    }
+  ],
+  "react.components.AgendaExportModal.instructionsCopyLink": [
+    {
+      "type": 0,
+      "value": "crwdns33956:0"
+    },
+    {
+      "type": 1,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": "crwdne33956:0"
+    }
+  ],
+  "react.components.AgendaExportModal.login": [
+    {
+      "type": 0,
+      "value": "crwdns33065:0crwdne33065:0"
+    }
+  ],
+  "react.components.AgendaExportModal.needAuthentication": [
+    {
+      "type": 0,
+      "value": "The use of the API requires authentication."
+    }
+  ],
+  "react.components.AgendaExportModal.new": [
+    {
+      "type": 0,
+      "value": "crwdns34100:0crwdne34100:0"
+    }
+  ],
+  "react.components.AgendaExportModal.openData": [
+    {
+      "type": 0,
+      "value": "crwdns33341:0crwdne33341:0"
+    }
+  ],
+  "react.components.AgendaExportModal.openDataInfoEmbed": [
+    {
+      "type": 0,
+      "value": "This content comes from the agenda "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " on OpenAgenda and can be used following the "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Open Data"
+        }
+      ],
+      "type": 8,
+      "value": "linkOpendata"
+    },
+    {
+      "type": 0,
+      "value": " principle."
+    }
+  ],
+  "react.components.AgendaExportModal.openInSamePage": [
+    {
+      "type": 0,
+      "value": "crwdns34072:0crwdne34072:0"
+    }
+  ],
+  "react.components.AgendaExportModal.outlookStep2": [
+    {
+      "type": 0,
+      "value": "crwdns33960:0crwdne33960:0"
+    }
+  ],
+  "react.components.AgendaExportModal.outlookStep3": [
+    {
+      "type": 0,
+      "value": "crwdns33962:0crwdne33962:0"
+    }
+  ],
+  "react.components.AgendaExportModal.outlookStep4": [
+    {
+      "type": 0,
+      "value": "crwdns33964:0crwdne33964:0"
+    }
+  ],
+  "react.components.AgendaExportModal.outlookStep5": [
+    {
+      "type": 0,
+      "value": "crwdns33966:0crwdne33966:0"
+    }
+  ],
+  "react.components.AgendaExportModal.selectAll": [
+    {
+      "type": 0,
+      "value": "crwdns33968:0crwdne33968:0"
+    }
+  ],
+  "react.components.AgendaExportModal.showContributionButton": [
+    {
+      "type": 0,
+      "value": "Show contribution button"
+    }
+  ],
+  "react.components.AgendaExportModal.showFilters": [
+    {
+      "type": 0,
+      "value": "crwdns34074:0crwdne34074:0"
+    }
+  ],
+  "react.components.AgendaExportModal.spreadsheetTitle": [
+    {
+      "type": 0,
+      "value": "crwdns33970:0crwdne33970:0"
+    }
+  ],
+  "react.components.AgendaExportModal.title": [
+    {
+      "type": 0,
+      "value": "crwdns33067:0crwdne33067:0"
+    }
+  ],
+  "react.components.AgendaExportModal.viewEmbedDoc": [
+    {
+      "type": 0,
+      "value": "crwdns34250:0crwdne34250:0"
+    }
+  ]
+}
