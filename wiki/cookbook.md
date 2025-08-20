@@ -3,6 +3,7 @@
 ## Table des matières
 
 - GIT
+- Téléchargement de la base de prod
 - Jelastic
   - Portails agenda
   - Cluster redis
@@ -61,6 +62,29 @@ Si un commit est perdu (sur une branche détachée qui n'a pas été fusionné a
     git fsck --lost-found
 
 https://stackoverflow.com/questions/16368605/is-there-a-tool-to-have-git-show-detached-heads-in-a-graph/16368880
+
+## Téléchargement de la base de prod
+
+Alias pratique pour se connecter au container db:
+`alias oadb="mysql -u root -pgrut -h 127.0.0.1"`
+
+On télécharge puis on unzip le backup du jours
+
+```
+scp root@195.15.238.99:/data/backups/oa-2025-08-20_03h00m.sql.bz2 ~/Téléchargements
+bunzip2 ~/Téléchargements/oa-2025-08-20_03h00m.sql.bz2
+```
+
+On drop et créé la db dans le container
+
+```
+drop database oadev;
+create database oadev;
+```
+
+Puis on charge le backup bunzippé:
+
+`mysql -uroot -p -h 127.0.0.1 oadev < oa-2025-08-20_03h00m.sql`
 
 ## Jelastic
 
