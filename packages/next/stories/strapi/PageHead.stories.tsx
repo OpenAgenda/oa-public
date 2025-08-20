@@ -77,3 +77,147 @@ export const WithSolidBackground = {
     },
   },
 };
+
+export const CharcoalAndWhiteWithoutAnImage = {
+  args: {
+    title: 'Intégrez votre agenda à votre site',
+    description:
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    colorVariant: 'solid',
+    titleColor: {
+      name: 'white',
+    },
+    descriptionColor: {
+      name: 'white',
+    },
+    backgroundColor: {
+      name: 'classyCharcoal',
+    },
+  },
+};
+
+export const TurquoiseAndWhiteWithoutAnImage = {
+  args: {
+    title: 'Intégrez votre agenda à votre site',
+    description:
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    colorVariant: 'solid',
+    titleColor: {
+      name: 'white',
+    },
+    descriptionColor: {
+      name: 'white',
+    },
+    backgroundColor: {
+      name: 'genericTurquoise',
+    },
+  },
+};
+
+export const AliceBlueWithoutAnImage = {
+  args: {
+    title: 'Intégrez votre agenda à votre site',
+    description:
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    colorVariant: 'solid',
+    titleColor: {
+      name: 'classyCharcoal',
+    },
+    descriptionColor: {
+      name: 'classyCharcoal',
+    },
+    backgroundColor: {
+      name: 'discreetAliceBlue',
+    },
+  },
+};
+
+export const GenericIcterineWithoutAnImage = {
+  args: {
+    title: 'Intégrez votre agenda à votre site',
+    description:
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    colorVariant: 'solid',
+    titleColor: {
+      name: 'classyCharcoal',
+    },
+    descriptionColor: {
+      name: 'classyCharcoal',
+    },
+    backgroundColor: {
+      name: 'genericIcterine',
+    },
+  },
+};
+
+export const SquashAtomicTangerineWithoutAnImage = {
+  args: {
+    title: 'Intégrez votre agenda à votre site',
+    description:
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    colorVariant: 'solid',
+    titleColor: {
+      name: 'classyCharcoal',
+    },
+    descriptionColor: {
+      name: 'classyCharcoal',
+    },
+    backgroundColor: {
+      name: 'squashAtomicTangerine',
+    },
+  },
+};
+
+export const MatchingMulberryWithoutAnImage = {
+  args: {
+    title: 'Intégrez votre agenda à votre site',
+    description:
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    colorVariant: 'solid',
+    titleColor: {
+      name: 'white',
+    },
+    descriptionColor: {
+      name: 'white',
+    },
+    backgroundColor: {
+      name: 'matchingMulberry',
+    },
+  },
+};
+
+export const ThreedomPigmentGreenWithoutAnImage = {
+  args: {
+    title: 'Intégrez votre agenda à votre site',
+    description:
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    colorVariant: 'solid',
+    titleColor: {
+      name: 'white',
+    },
+    descriptionColor: {
+      name: 'white',
+    },
+    backgroundColor: {
+      name: 'threedomPigmentGreen',
+    },
+  },
+};
+
+export const CollectivePersianBlueWithoutAnImage = {
+  args: {
+    title: 'Intégrez votre agenda à votre site',
+    description:
+      'Une **API**, un code à coller sur votre page, des plugins *Drupal*, *Wordpress* et *Typo3*',
+    colorVariant: 'solid',
+    titleColor: {
+      name: 'white',
+    },
+    descriptionColor: {
+      name: 'white',
+    },
+    backgroundColor: {
+      name: 'collectivePersianBlue',
+    },
+  },
+};
