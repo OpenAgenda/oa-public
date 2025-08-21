@@ -42,7 +42,7 @@ export function Overview() {
             link: 'https://bateau.fr',
             variant: 'solid',
             colorPalette: {
-              name: 'strapi.blueGreen',
+              name: 'strapi.ruddyBlue',
             },
           },
           {
