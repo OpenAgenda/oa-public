@@ -8,12 +8,13 @@ import {
   Text,
   SimpleGrid,
 } from '@openagenda/uikit';
-import { color } from 'utils/strapi';
 import Image from 'components/Image';
 import logoPic from '../../../public/images/oa-white.svg';
 import messages from './messages';
 
 import type { Color } from './types';
+
+const fontColor = 'gray.100';
 
 type LinkData = {
   id: string;
@@ -32,8 +33,6 @@ type Column = {
 type FooterProps = {
   Columns?: Column[];
   contactUrl: string;
-  backgroundColor?: any;
-  colorVariant?: string;
   fontColor?: Color;
 };
 
@@ -97,14 +96,10 @@ function getResponsiveGridColumns(itemCount: number) {
   };
 }
 
-function ColumnItem({ title, Links, fontColor }: Column) {
+function ColumnItem({ title, Links }: Column) {
   return (
     <VStack align="start" gap={3}>
-      <Text
-        fontWeight="bold"
-        fontSize="lg"
-        color={fontColor ? color(fontColor) : undefined}
-      >
+      <Text fontWeight="bold" fontSize="lg" color={fontColor}>
         {title}
       </Text>
       <VStack align="start" gap={2}>
@@ -114,7 +109,7 @@ function ColumnItem({ title, Links, fontColor }: Column) {
             href={link.url}
             target={link.isExternal ? '_blank' : undefined}
             rel={link.isExternal ? 'noopener nofollow' : undefined}
-            color={fontColor ? color(fontColor) : undefined}
+            color={fontColor}
             _hover={{ color: 'primary.500' }}
           >
             {link.label}
@@ -128,9 +123,6 @@ function ColumnItem({ title, Links, fontColor }: Column) {
 export default function Footer({
   Columns: FooterColumnsData,
   contactUrl,
-  backgroundColor,
-  colorVariant = 'solid',
-  fontColor,
 }: FooterProps) {
   const intl = useIntl();
 
@@ -141,17 +133,13 @@ export default function Footer({
 
   const contactColumnJsx = (
     <VStack align="start" gap={3}>
-      <Text
-        fontWeight="bold"
-        fontSize="lg"
-        color={fontColor ? color(fontColor) : undefined}
-      >
+      <Text fontWeight="bold" fontSize="lg" color={fontColor}>
         {intl.formatMessage(messages.contact)}
       </Text>
       <VStack align="start" gap={2}>
         <Link
           href={contactUrl}
-          color={backgroundColor ? 'gray.300' : 'gray.600'}
+          color={fontColor}
           _hover={{ color: 'primary.500' }}
         >
           {intl.formatMessage(messages.contactForm)}
@@ -160,7 +148,7 @@ export default function Footer({
           href="https://www.linkedin.com/company/openagenda"
           target="_blank"
           rel="noopener nofollow"
-          color={backgroundColor ? 'gray.300' : 'gray.600'}
+          color={fontColor}
           _hover={{ color: 'primary.500' }}
         >
           {intl.formatMessage(messages.linkedin)}
@@ -169,7 +157,7 @@ export default function Footer({
           href="https://github.com/openagenda"
           target="_blank"
           rel="noopener nofollow"
-          color={backgroundColor ? 'gray.300' : 'gray.600'}
+          color={fontColor}
           _hover={{ color: 'primary.500' }}
         >
           {intl.formatMessage(messages.github)}
@@ -179,13 +167,7 @@ export default function Footer({
   );
 
   return (
-    <Box
-      backgroundColor={
-        backgroundColor
-          ? [color(`${backgroundColor?.name}`), colorVariant].join('.')
-          : null
-      }
-    >
+    <Box backgroundColor="classyCharcoal.solid">
       <Container maxW="7xl" py="16">
         <Flex
           direction={{ base: 'column', md: 'row' }}
@@ -203,11 +185,7 @@ export default function Footer({
             </VStack>
             {contactColumnJsx}
             {dataColumns.map((columnData) => (
-              <ColumnItem
-                key={columnData.id}
-                {...columnData}
-                fontColor={fontColor}
-              />
+              <ColumnItem key={columnData.id} {...columnData} />
             ))}
           </SimpleGrid>
         </Flex>
