@@ -136,6 +136,129 @@ export const semanticColors = defineSemanticTokens.colors({
   },
 
   strapi: {
+    genericCelestialBlue: {
+      contrast: {
+        value: { _light: 'white', _dark: 'white' },
+      },
+      fg: {
+        value: {
+          _light: '{colors.strapi.genericCelestialBlue.700}',
+          _dark: '{colors.strapi.genericCelestialBlue.300}',
+        },
+      },
+      subtle: {
+        value: {
+          _light: '{colors.strapi.genericCelestialBlue.50}',
+          _dark: '{colors.strapi.genericCelestialBlue.900}',
+        },
+      },
+      muted: {
+        value: {
+          _light: '{colors.strapi.genericCelestialBlue.200}',
+          _dark: '{colors.strapi.genericCelestialBlue.800}',
+        },
+      },
+      emphasized: {
+        value: {
+          _light: '{colors.strapi.genericCelestialBlue.300}',
+          _dark: '{colors.strapi.genericCelestialBlue.700}',
+        },
+      },
+      solid: {
+        value: {
+          _light: '{colors.strapi.genericCelestialBlue.600}',
+          _dark: '{colors.strapi.genericCelestialBlue.600}',
+        },
+      },
+      focusRing: {
+        value: {
+          _light: '{colors.strapi.genericCelestialBlue.600}',
+          _dark: '{colors.strapi.genericCelestialBlue.600}',
+        },
+      },
+    },
+    genericMoonstone: {
+      contrast: {
+        value: { _light: 'white', _dark: 'white' },
+      },
+      fg: {
+        value: {
+          _light: '{colors.strapi.genericMoonstone.700}',
+          _dark: '{colors.strapi.genericMoonstone.300}',
+        },
+      },
+      subtle: {
+        value: {
+          _light: '{colors.strapi.genericMoonstone.50}',
+          _dark: '{colors.strapi.genericMoonstone.900}',
+        },
+      },
+      muted: {
+        value: {
+          _light: '{colors.strapi.genericMoonstone.200}',
+          _dark: '{colors.strapi.genericMoonstone.800}',
+        },
+      },
+      emphasized: {
+        value: {
+          _light: '{colors.strapi.genericMoonstone.300}',
+          _dark: '{colors.strapi.genericMoonstone.700}',
+        },
+      },
+      solid: {
+        value: {
+          _light: '{colors.strapi.genericMoonstone.600}',
+          _dark: '{colors.strapi.genericMoonstone.600}',
+        },
+      },
+      focusRing: {
+        value: {
+          _light: '{colors.strapi.genericMoonstone.600}',
+          _dark: '{colors.strapi.genericMoonstone.600}',
+        },
+      },
+    },
+    genericLightGreen: {
+      contrast: {
+        value: { _light: 'white', _dark: 'white' },
+      },
+      fg: {
+        value: {
+          _light: '{colors.strapi.genericLightGreen.700}',
+          _dark: '{colors.strapi.genericLightGreen.300}',
+        },
+      },
+      subtle: {
+        value: {
+          _light: '{colors.strapi.genericLightGreen.50}',
+          _dark: '{colors.strapi.genericLightGreen.900}',
+        },
+      },
+      muted: {
+        value: {
+          _light: '{colors.strapi.genericLightGreen.200}',
+          _dark: '{colors.strapi.genericLightGreen.800}',
+        },
+      },
+      emphasized: {
+        value: {
+          _light: '{colors.strapi.genericLightGreen.300}',
+          _dark: '{colors.strapi.genericLightGreen.700}',
+        },
+      },
+      solid: {
+        value: {
+          _light: '{colors.strapi.genericLightGreen.600}',
+          _dark: '{colors.strapi.genericLightGreen.600}',
+        },
+      },
+      focusRing: {
+        value: {
+          _light: '{colors.strapi.genericLightGreen.600}',
+          _dark: '{colors.strapi.genericLightGreen.600}',
+        },
+      },
+    },
     blueViolet: {
       contrast: {
         value: { _light: 'white', _dark: 'white' },
@@ -956,6 +1079,170 @@ export const semanticColors = defineSemanticTokens.colors({
       value: {
         _light: '{colors.strapi.collectivePersianBlue.600}',
         _dark: '{colors.strapi.collectivePersianBlue.600}',
+      },
+    },
+  },
+  matchingRoyalBlue: {
+    contrast: {
+      value: { _light: 'white', _dark: 'white' },
+    },
+    fg: {
+      value: {
+        _light: '{colors.strapi.matchingRoyalBlue.700}',
+        _dark: '{colors.strapi.matchingRoyalBlue.300}',
+      },
+    },
+    subtle: {
+      value: {
+        _light: '{colors.strapi.matchingRoyalBlue.100}',
+        _dark: '{colors.strapi.matchingRoyalBlue.900}',
+      },
+    },
+    muted: {
+      value: {
+        _light: '{colors.strapi.matchingRoyalBlue.200}',
+        _dark: '{colors.strapi.matchingRoyalBlue.800}',
+      },
+    },
+    emphasized: {
+      value: {
+        _light: '{colors.strapi.matchingRoyalBlue.300}',
+        _dark: '{colors.strapi.matchingRoyalBlue.700}',
+      },
+    },
+    solid: {
+      value: {
+        _light: '{colors.strapi.matchingRoyalBlue.600}',
+        _dark: '{colors.strapi.matchingRoyalBlue.600}',
+      },
+    },
+    focusRing: {
+      value: {
+        _light: '{colors.strapi.matchingRoyalBlue.600}',
+        _dark: '{colors.strapi.matchingRoyalBlue.600}',
+      },
+    },
+  },
+  matchingAmethyst: {
+    contrast: {
+      value: { _light: 'white', _dark: 'white' },
+    },
+    fg: {
+      value: {
+        _light: '{colors.strapi.matchingAmethyst.700}',
+        _dark: '{colors.strapi.matchingAmethyst.300}',
+      },
+    },
+    subtle: {
+      value: {
+        _light: '{colors.strapi.matchingAmethyst.100}',
+        _dark: '{colors.strapi.matchingAmethyst.900}',
+      },
+    },
+    muted: {
+      value: {
+        _light: '{colors.strapi.matchingAmethyst.200}',
+        _dark: '{colors.strapi.matchingAmethyst.800}',
+      },
+    },
+    emphasized: {
+      value: {
+        _light: '{colors.strapi.matchingAmethyst.300}',
+        _dark: '{colors.strapi.matchingAmethyst.700}',
+      },
+    },
+    solid: {
+      value: {
+        _light: '{colors.strapi.matchingAmethyst.600}',
+        _dark: '{colors.strapi.matchingAmethyst.600}',
+      },
+    },
+    focusRing: {
+      value: {
+        _light: '{colors.strapi.matchingAmethyst.600}',
+        _dark: '{colors.strapi.matchingAmethyst.600}',
+      },
+    },
+  },
+  matchingPompAndPower: {
+    contrast: {
+      value: { _light: 'white', _dark: 'white' },
+    },
+    fg: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPower.700}',
+        _dark: '{colors.strapi.matchingPompAndPower.300}',
+      },
+    },
+    subtle: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPower.100}',
+        _dark: '{colors.strapi.matchingPompAndPower.900}',
+      },
+    },
+    muted: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPower.200}',
+        _dark: '{colors.strapi.matchingPompAndPower.800}',
+      },
+    },
+    emphasized: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPower.300}',
+        _dark: '{colors.strapi.matchingPompAndPower.700}',
+      },
+    },
+    solid: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPower.600}',
+        _dark: '{colors.strapi.matchingPompAndPower.600}',
+      },
+    },
+    focusRing: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPower.600}',
+        _dark: '{colors.strapi.matchingPompAndPower.600}',
+      },
+    },
+  },
+  matchingPompAndPowerer: {
+    contrast: {
+      value: { _light: 'white', _dark: 'white' },
+    },
+    fg: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPowerer.700}',
+        _dark: '{colors.strapi.matchingPompAndPowerer.300}',
+      },
+    },
+    subtle: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPowerer.100}',
+        _dark: '{colors.strapi.matchingPompAndPowerer.900}',
+      },
+    },
+    muted: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPowerer.200}',
+        _dark: '{colors.strapi.matchingPompAndPowerer.800}',
+      },
+    },
+    emphasized: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPowerer.300}',
+        _dark: '{colors.strapi.matchingPompAndPowerer.700}',
+      },
+    },
+    solid: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPowerer.600}',
+        _dark: '{colors.strapi.matchingPompAndPowerer.600}',
+      },
+    },
+    focusRing: {
+      value: {
+        _light: '{colors.strapi.matchingPompAndPowerer.600}',
+        _dark: '{colors.strapi.matchingPompAndPowerer.600}',
       },
     },
   },
