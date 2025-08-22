@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/user-apps",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "private": true,
   "type": "module",
   "main": "index.js",
@@ -13,11 +13,11 @@
     "extract-messages": "oa-intl --esm"
   },
   "dependencies": {
-    "@openagenda/abilities": "^1.3.2",
+    "@openagenda/abilities": "^1.3.3",
     "@openagenda/eslint-config": "^1.4.0",
-    "@openagenda/intl": "^1.1.5",
+    "@openagenda/intl": "^1.1.6",
     "@openagenda/labels": "^2.3.0",
-    "@openagenda/react-shared": "^2.4.4",
+    "@openagenda/react-shared": "^2.4.5",
     "@openagenda/users": "^3.1.1",
     "@openagenda/utils": "^1.3.0",
     "final-form": "^4.20.2",

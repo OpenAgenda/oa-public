@@ -1,5 +1,16 @@
 # Change Log
 
+## 2.1.3
+
+### Patch Changes
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f), [`da1437a`](https://github.com/OpenAgenda/oa/commit/da1437aad94b1c9bf5f2d8637322a7e10846d35b)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/mails@5.0.0
+  - @openagenda/activity-apps@1.2.3
+  - @openagenda/form-schemas@1.9.4
+  - @openagenda/react-shared@2.4.5
+
 ## 2.1.2
 
 ### Patch Changes

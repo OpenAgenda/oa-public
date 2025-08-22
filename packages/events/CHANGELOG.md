@@ -1,5 +1,12 @@
 # Change Log
 
+## 3.0.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/form-schemas@1.9.4
+
 ## 3.0.1
 
 ### Patch Changes
