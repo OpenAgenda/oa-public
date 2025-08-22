@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/pdf-exports",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "type": "module",
   "main": "index.js",
   "exports": {
@@ -15,7 +15,7 @@
     "@babel/preset-env": "^7.23.3",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/date-utils": "^0.0.1",
-    "@openagenda/intl": "^1.1.5",
+    "@openagenda/intl": "^1.1.6",
     "@openagenda/logs": "^1.1.10",
     "@openagenda/verror": "^3.1.0",
     "axios": "^0.21.1",

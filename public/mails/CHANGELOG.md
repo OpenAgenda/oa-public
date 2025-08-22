@@ -1,5 +1,16 @@
 # Change Log
 
+## 5.0.0
+
+### Major Changes
+
+- [`da1437a`](https://github.com/OpenAgenda/oa/commit/da1437aad94b1c9bf5f2d8637322a7e10846d35b) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Replace `@openagenda/queues` with `bullmq`
+
+### Patch Changes
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f)]:
+  - @openagenda/intl@1.1.6
+
 ## 4.0.2
 
 ### Patch Changes

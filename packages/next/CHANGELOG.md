@@ -1,5 +1,19 @@
 # @openagenda/next
 
+## 0.0.4
+
+### Patch Changes
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f), [`515a140`](https://github.com/OpenAgenda/oa/commit/515a140a8f56cebbe654a85afb3de2b6098322a3), [`ae1ea12`](https://github.com/OpenAgenda/oa/commit/ae1ea12c045351b375e7eddc6ea46a2d95dc735f), [`bfacacd`](https://github.com/OpenAgenda/oa/commit/bfacacdfb0d37bf82be9241e9690265db4a59a2e), [`da1437a`](https://github.com/OpenAgenda/oa/commit/da1437aad94b1c9bf5f2d8637322a7e10846d35b), [`a1f2728`](https://github.com/OpenAgenda/oa/commit/a1f2728cbb913dd2a0c2b98bb28d7856543195e4)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/uikit@0.0.3
+  - @openagenda/react-filters@2.13.2
+  - @openagenda/mails@5.0.0
+  - @openagenda/react@0.0.3
+  - @openagenda/activity-apps@1.2.3
+  - @openagenda/react-shared@2.4.5
+  - @openagenda/sdk-js@2.0.4
+
 ## 0.0.3
 
 ### Patch Changes

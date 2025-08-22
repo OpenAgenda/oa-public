@@ -1,5 +1,14 @@
 # Change Log
 
+## 2.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/member-apps@2.1.3
+  - @openagenda/react-shared@2.4.5
+
 ## 2.2.2
 
 ### Patch Changes

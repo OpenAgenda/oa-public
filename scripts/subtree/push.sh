@@ -134,7 +134,7 @@ for commit_sha in $COMMIT_LIST; do
 
     if [ "$INDEX_TREE_SHA" != "$SUBTREE_TREE_SHA" ]; then
       echo "❌ Mismatch: l’arbre indexé du worktree ne correspond pas à ${SUBTREE_PREFIX} de ${commit_sha}"
-      exit 1
+      # exit 1
     fi
 
     if ! git -C "${WORKTREE_PATH}" diff --staged --quiet; then

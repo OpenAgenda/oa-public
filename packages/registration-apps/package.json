@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/registration-apps",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "type": "module",
   "main": "dist/index.js",
@@ -18,7 +18,7 @@
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
   "dependencies": {
-    "@openagenda/react-shared": "^2.4.4",
+    "@openagenda/react-shared": "^2.4.5",
     "@openagenda/registrations": "^0.0.3",
     "autosize": "^6.0.1",
     "classnames": "^2.5.1",
