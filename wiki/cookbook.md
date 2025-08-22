@@ -3,6 +3,7 @@
 ## Table des matières
 
 - GIT
+- Téléchargement de la base de prod
 - Jelastic
   - Portails agenda
   - Cluster redis
@@ -61,6 +62,29 @@ Si un commit est perdu (sur une branche détachée qui n'a pas été fusionné a
     git fsck --lost-found
 
 https://stackoverflow.com/questions/16368605/is-there-a-tool-to-have-git-show-detached-heads-in-a-graph/16368880
+
+## Téléchargement de la base de prod
+
+Alias pratique pour se connecter au container db:
+`alias oadb="mysql -u root -pgrut -h 127.0.0.1"`
+
+On télécharge puis on unzip le backup du jours
+
+```
+scp root@195.15.238.99:/data/backups/oa-2025-08-20_03h00m.sql.bz2 ~/Téléchargements
+bunzip2 ~/Téléchargements/oa-2025-08-20_03h00m.sql.bz2
+```
+
+On drop et créé la db dans le container
+
+```
+drop database oadev;
+create database oadev;
+```
+
+Puis on charge le backup bunzippé:
+
+`mysql -uroot -p -h 127.0.0.1 oadev < oa-2025-08-20_03h00m.sql`
 
 ## Jelastic
 
@@ -136,13 +160,22 @@ Un éditeur de template peut être lancé depuis cibul-node: `yarn mails-editor`
 
 Les labels sont placés dans un dossier `locales`, une langue par fichier. Crowdin générera les fichiers restants après un push.
 
-## Ghost
+## Documentation
 
-Les sites de documentation utilisent un déploiement avec un équilibreur nginx et une image docker ghost 3.40.2-alpine. Une variable d'environnement doit être ajoutée pour préciser à ghost quelle url utiliser. Son nom: "url" (ex: https://doc.openagenda.com)
+### Quelle doc
 
-Un volume local contient tout le déploiement ghost: /var/lib/ghost. Pour déplacer un site ghost d'un environnement à un autre, il suffit de reprendre le contenu du dossier /var/lib/ghost/content
+La doc utilisateur est sur crisp. Celle pour les développeurs est sur github, ici: https://github.com/OpenAgenda/dev-doc
+Elle est hébergée sur les github pages, accessible sur https://developers.openagenda.com
+Elle utilise docusaurus et s'édite en éditant des fichiers, surtout markdown, ou markdown/react (.mdx)
 
-Pour changer de version de ghost (mineur ou patch), il suffit de changer d'image docker ghost dans la topologie du serveur sur Infomaniak. Le site sera indisponible le temps que la réinstallation se fasse.
+### Faire une modification
+
+Pour mettre à jour la documentation, il faut:
+clone ou pull le repo de la doc dev https://github.com/OpenAgenda/dev-doc
+yarn pour installer, yarn start pour lancer un env de dev qui va se coller au port 3000 par défaut, sur un autre s'il est pris
+éditer le fichier qui va bien
+commit & push sur main
+yarn deploy pour màj la prod. Le deploy se charge de maj la branche qui va bien pour provoquer la maj du site
 
 ## Elasticsearch
 

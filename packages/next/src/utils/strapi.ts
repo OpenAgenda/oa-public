@@ -32,6 +32,7 @@ export function color(c: string | Color, swatch?: any): string {
     return;
   }
   const colorName = typeof c === 'string' ? c : c.name;
+
   return `${system.tokens.colorPaletteMap.has(colorName) ? colorName : `strapi.${colorName}`}${swatch ? `.${swatch}` : ''}`;
 }
 
@@ -77,4 +78,4 @@ export async function fetchPageData({
 
 export const allowedItemColors = Array.from(
   system.tokens.colorPaletteMap.keys(),
-).filter((k) => k.match(/^strapi\.flashy\./));
+).filter((k) => k.match(/^strapi\./));

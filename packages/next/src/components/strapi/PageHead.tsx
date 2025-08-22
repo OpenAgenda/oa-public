@@ -39,12 +39,15 @@ const PageHeadContent = ({
     <Heading
       as="h1"
       size={(fontSize?.name || '5xl') as HeadingProps['size']}
-      color={color(titleColor)}
+      color={[color(titleColor), 'solid'].join('.')}
       fontWeight={600}
     >
       {title}
     </Heading>
-    <StrapiMarkdown color={color(descriptionColor) || 'gray.600'} mt={7}>
+    <StrapiMarkdown
+      color={[color(descriptionColor) || 'gray.600', 'solid'].join('.')}
+      mt={7}
+    >
       {description}
     </StrapiMarkdown>
     {CTAs && CTAs.length > 0 ? (

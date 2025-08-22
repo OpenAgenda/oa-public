@@ -255,119 +255,112 @@ function EventShow({ preload }: EventShowProps) {
                 >
                   <Tabs.List>
                     {languages.map((language) => (
-                      <Tabs.Trigger
-                        key={language}
-                        value={language}
-                        id={`tabs-r5-trigger-${language}`}
-                        aria-controls={`tabs-r5-content-${language}`}
-                      >
-                        <Tabs.Content
-                          key={language}
-                          value={language}
-                          id={`tabs-r5-content-${language}`}
-                          aria-labelledby={`tabs-r5-trigger-${language}`}
-                          role="tabpanel"
-                          p={0}
-                        >
-                          {language.toUpperCase()}
-                        </Tabs.Content>
+                      <Tabs.Trigger key={language} value={language}>
+                        {language.toUpperCase()}
                       </Tabs.Trigger>
                     ))}
                   </Tabs.List>
+                  {languages.map((language) => (
+                    <Tabs.Content key={language} value={language} p={0}>
+                      <Flex
+                        display="flex"
+                        direction="column"
+                        gap="4"
+                        position="relative"
+                        p="8"
+                        bg="white"
+                        // border="1px solid"
+                        // borderColor="oaGray.100"
+                        borderRadius="sm"
+                        // _hover={{
+                        //   borderColor: 'primary.500',
+                        // }}
+                      >
+                        {event.status !== 1 ? (
+                          <chakra.div>
+                            <StatusTag status={event.status} />
+                          </chakra.div>
+                        ) : null}
+
+                        {event.title?.[language] ? (
+                          <Heading as="h1" fontSize="4xl">
+                            {event.title[language]}
+                          </Heading>
+                        ) : null}
+
+                        {event.description?.[language] ? (
+                          <Box fontSize="xl">{event.description[language]}</Box>
+                        ) : null}
+
+                        <ShareSection
+                          isDisabled={!!event.private}
+                          shareOnOpen={shareOnOpen}
+                          display={{ base: 'grid', lg: 'none' }}
+                          justifyItems="flex-start"
+                        />
+                        <OnlineAccessSection
+                          event={event}
+                          display={{ base: 'grid', lg: 'none' }}
+                        />
+                        <DateRangeSection
+                          event={event}
+                          display={{ base: 'grid', lg: 'none' }}
+                        />
+                        <ConditionsSection
+                          event={event}
+                          display={{ base: 'grid', lg: 'none' }}
+                        />
+                        <RegistrationSection
+                          isEventContributor={isEventContributor}
+                          event={event}
+                          agenda={agenda}
+                          display={{ base: 'grid', lg: 'none' }}
+                        />
+                        <AccessibilitySection
+                          event={event}
+                          display={{ base: 'grid', lg: 'none' }}
+                        />
+
+                        {event.image || event.imageCredits ? (
+                          <chakra.div mx="-8">
+                            <EventImage
+                              event={event}
+                              // >= 1095 : 659px
+                              // >= 992 : 66.67vw
+                              // < 992 : 100vw
+                              sizes="(max-width: 992px) 100vw, (max-width: 1095px) 66.67vw, 659px"
+                            />
+
+                            {event.imageCredits ? (
+                              <Flex
+                                justify="flex-end"
+                                color="oaGray.500"
+                                px="2"
+                              >
+                                {event.imageCredits}
+                              </Flex>
+                            ) : null}
+                          </chakra.div>
+                        ) : null}
+
+                        {event.longDescription?.[language] ? (
+                          <LongDescription
+                            html={event.longDescription[language]}
+                            links={event.links}
+                          />
+                        ) : null}
+
+                        {event.keywords?.[language]?.length ? (
+                          <chakra.div color="oaGray.600" css={defaultStyle}>
+                            {intl.formatList(event.keywords[language], {
+                              style: 'narrow',
+                            })}
+                          </chakra.div>
+                        ) : null}
+                      </Flex>
+                    </Tabs.Content>
+                  ))}
                 </Tabs.Root>
-
-                <Flex
-                  display="flex"
-                  direction="column"
-                  gap="4"
-                  position="relative"
-                  p="8"
-                  bg="white"
-                  // border="1px solid"
-                  // borderColor="oaGray.100"
-                  borderRadius="sm"
-                  // _hover={{
-                  //   borderColor: 'primary.500',
-                  // }}
-                >
-                  {event.status !== 1 ? (
-                    <chakra.div>
-                      <StatusTag status={event.status} />
-                    </chakra.div>
-                  ) : null}
-
-                  {event.title?.[contentLocale] ? (
-                    <Heading as="h1" fontSize="4xl">
-                      {event.title[contentLocale]}
-                    </Heading>
-                  ) : null}
-
-                  {event.description?.[contentLocale] ? (
-                    <Box fontSize="xl">{event.description[contentLocale]}</Box>
-                  ) : null}
-
-                  <ShareSection
-                    isDisabled={!!event.private}
-                    shareOnOpen={shareOnOpen}
-                    display={{ base: 'grid', lg: 'none' }}
-                    justifyItems="flex-start"
-                  />
-                  <OnlineAccessSection
-                    event={event}
-                    display={{ base: 'grid', lg: 'none' }}
-                  />
-                  <DateRangeSection
-                    event={event}
-                    display={{ base: 'grid', lg: 'none' }}
-                  />
-                  <ConditionsSection
-                    event={event}
-                    display={{ base: 'grid', lg: 'none' }}
-                  />
-                  <RegistrationSection
-                    isEventContributor={isEventContributor}
-                    event={event}
-                    agenda={agenda}
-                    display={{ base: 'grid', lg: 'none' }}
-                  />
-                  <AccessibilitySection
-                    event={event}
-                    display={{ base: 'grid', lg: 'none' }}
-                  />
-
-                  {event.image || event.imageCredits ? (
-                    <chakra.div mx="-8">
-                      <EventImage
-                        event={event}
-                        // >= 1095 : 659px
-                        // >= 992 : 66.67vw
-                        // < 992 : 100vw
-                        sizes="(max-width: 992px) 100vw, (max-width: 1095px) 66.67vw, 659px"
-                      />
-
-                      {event.imageCredits ? (
-                        <Flex justify="flex-end" color="oaGray.500" px="2">
-                          {event.imageCredits}
-                        </Flex>
-                      ) : null}
-                    </chakra.div>
-                  ) : null}
-
-                  {event.longDescription?.[contentLocale] ? (
-                    <LongDescription
-                      html={event.longDescription[contentLocale]}
-                      links={event.links}
-                    />
-                  ) : null}
-
-                  {event.keywords?.[contentLocale]?.length ? (
-                    <chakra.div color="oaGray.600" css={defaultStyle}>
-                      {intl.formatList(event.keywords[contentLocale], {
-                        style: 'narrow',
-                      })}
-                    </chakra.div>
-                  ) : null}
-                </Flex>
               </div>
               {/* timings section */}
               <Flex
