@@ -27,6 +27,7 @@ export default function StandardRegistrationField({
   onInputChange,
   placeholder,
   infoLabel,
+  enabled,
 }) {
   return (
     <div className="multi-input">
@@ -37,6 +38,7 @@ export default function StandardRegistrationField({
         value={value ?? []}
         onlyUnique
         addOnBlur
+        disabled={!enabled}
         inputProps={{
           value: inputValue,
           onChange: onInputChange,
