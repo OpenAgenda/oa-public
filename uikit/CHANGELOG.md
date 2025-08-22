@@ -1,5 +1,13 @@
 # @openagenda/uikit
 
+## 0.0.3
+
+### Patch Changes
+
+- [`515a140`](https://github.com/OpenAgenda/oa/commit/515a140a8f56cebbe654a85afb3de2b6098322a3) Thanks [@bertho-zero](https://github.com/bertho-zero)! - upgrade chakra
+
+- [`bfacacd`](https://github.com/OpenAgenda/oa/commit/bfacacdfb0d37bf82be9241e9690265db4a59a2e) Thanks [@bertho-zero](https://github.com/bertho-zero)! - add fontSize to html
+
 ## 0.0.2
 
 ### Patch Changes

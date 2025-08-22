@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -44,9 +44,9 @@
   },
   "dependencies": {
     "@openagenda/common-labels": "^1.2.4",
-    "@openagenda/react-filters": "^2.13.1",
-    "@openagenda/react-shared": "^2.4.4",
-    "@openagenda/uikit": "^0.0.2",
+    "@openagenda/react-filters": "^2.13.2",
+    "@openagenda/react-shared": "^2.4.5",
+    "@openagenda/uikit": "^0.0.3",
     "ky": "^1.7.2",
     "qs": "^6.11.0",
     "react-intl": "^7.1.5",
@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "@openagenda/intl": "^1.1.5",
+    "@openagenda/intl": "^1.1.6",
     "@openagenda/tsconfig": "^0.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",

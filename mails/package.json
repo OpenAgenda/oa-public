@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/mails",
-  "version": "4.0.2",
+  "version": "5.0.0",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@formatjs/intl": "^2.2.1",
-    "@openagenda/intl": "^1.1.5",
+    "@openagenda/intl": "^1.1.6",
     "@openagenda/logs": "^1.1.10",
     "@openagenda/verror": "^3.1.0",
     "ejs": "^3.1.9",

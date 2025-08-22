@@ -1,5 +1,15 @@
 # Change Log
 
+## 2.13.2
+
+### Patch Changes
+
+- [`ae1ea12`](https://github.com/OpenAgenda/oa/commit/ae1ea12c045351b375e7eddc6ea46a2d95dc735f) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Fix build
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/react-shared@2.4.5
+
 ## 2.13.1
 
 ### Patch Changes

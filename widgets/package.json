@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/widgets",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "OpenAgenda widgets",
   "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
   "homepage": "https://github.com/OpenAgenda/oa-public",
@@ -21,9 +21,9 @@
   },
   "dependencies": {
     "@iframe-resizer/parent": "^5.4.6",
-    "@openagenda/react": "^0.0.2",
-    "@openagenda/react-filters": "^2.13.1",
-    "@openagenda/uikit": "^0.0.2",
+    "@openagenda/react": "^0.0.3",
+    "@openagenda/react-filters": "^2.13.2",
+    "@openagenda/uikit": "^0.0.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-intl": "^7.1.5",

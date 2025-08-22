@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/sdk-js",
-  "version": "2.0.3",
+  "version": "2.0.4",
   "repository": "git+ssh://git@github.com/OpenAgenda/oa-public.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
   "license": "MIT",
@@ -40,7 +40,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.23.2",
-    "@openagenda/intl": "^1.1.5",
+    "@openagenda/intl": "^1.1.6",
     "axios": "^0.26.1",
     "core-js": "^3.29.1",
     "lodash": "^4.17.15",
