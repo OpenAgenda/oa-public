@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import qs from 'qs';
 
-export default function defineRelativePart(attr, hash = null) {
+export function defineRelativePart(attr, hash = null) {
   const query = {};
   let path = '';
 

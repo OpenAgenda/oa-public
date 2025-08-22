@@ -1,8 +1,9 @@
-import defineRelativePart, {
+import {
   appendPreToNav,
-} from '../client/lib/defineRelativePart.js';
+  defineRelativePart,
+} from '../client/lib/relativePart.js';
 
-describe('26 - defineRelativePart', () => {
+describe('26 - relativePart', () => {
   test('hash values are loaded in relative part when set', () => {
     const relative = defineRelativePart(
       {},

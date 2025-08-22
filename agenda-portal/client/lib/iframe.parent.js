@@ -1,10 +1,12 @@
 import debug from 'debug';
 import { iframeResize } from 'iframe-resizer';
-import defineRelativePart from './defineRelativePart.js';
+import {
+  defineRelativePart,
+  removePreFromRelativePart,
+  appendPreToNav,
+} from './relativePart.js';
 
 const log = debug('iframe.parent');
-
-const { removePreFromRelativePart, appendPreToNav } = defineRelativePart;
 
 function getHash() {
   return (window.location.hash || '').replace(/^#/, '');
