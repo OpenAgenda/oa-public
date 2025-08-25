@@ -54,10 +54,7 @@ export default function ListVenues({
         <div>Lieux configurés:</div>
       )}
 
-      <table
-        className="table table-borderless"
-        style={{ backgroundColor: 'white' }}
-      >
+      <table className="table table-borderless bg-white">
         <tbody>
           {venues.map((venue) => {
             const isDefault = venue.id === defaultVenueId;
@@ -66,24 +63,28 @@ export default function ListVenues({
             return (
               <tr
                 key={venue.id}
+                className="bg-white"
                 style={{
-                  backgroundColor: 'white',
                   border: '1px solid #dee2e6',
                 }}
               >
-                <td className="border-0 py-2 align-top">
+                <td className="border-0 py-2 align-middle">
                   <div>{venue.publicName || venue.legalName}</div>
                   <div className="text-muted small">
                     {`${venue.location.address}, ${venue.location.postalCode}, ${venue.location.city}`}
                   </div>
                 </td>
                 <td
-                  className="border-0 py-2 text-center align-top"
-                  style={{ width: '200px' }}
+                  className="border-0 text-center"
+                  style={{
+                    width: '200px',
+                    verticalAlign: 'middle',
+                    height: '100%',
+                  }}
                 >
                   {isDefault && (
                     <span
-                      className="text-muted btn-sm"
+                      className="text-muted"
                       style={{
                         lineHeight: '1.5',
                         padding: '0.25rem 0.5rem',
@@ -95,8 +96,11 @@ export default function ListVenues({
                   )}
                 </td>
                 <td
-                  className="border-0 py-2 text-end align-top"
-                  style={{ width: '120px' }}
+                  className="border-0 text-end align-middle"
+                  style={{
+                    width: '120px',
+                    height: '100%',
+                  }}
                 >
                   {isSelectable && (
                     <button

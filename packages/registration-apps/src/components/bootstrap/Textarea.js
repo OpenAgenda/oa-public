@@ -11,6 +11,7 @@ export default function Textarea({
   placeholder,
   max,
   required,
+  actionButton,
 }) {
   const ref = useRef();
 
@@ -29,9 +30,7 @@ export default function Textarea({
         </label>
       ) : null}
       {info ? (
-        <div style={{ marginBottom: '8px', fontSize: '14px', color: '#666' }}>
-          {info}
-        </div>
+        <div className="text-muted text-sm margin-bottom-xs">{info}</div>
       ) : null}
       <textarea
         ref={ref}
@@ -44,6 +43,9 @@ export default function Textarea({
         rows={3}
       />
       {max ? <FieldCounter value={value} max={max} /> : null}
+      {actionButton ? (
+        <div className="margin-top-xs">{actionButton}</div>
+      ) : null}
     </div>
   );
 }

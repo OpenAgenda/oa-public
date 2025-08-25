@@ -156,7 +156,7 @@ export default function Form({
     const defaultsAtInit = {};
 
     // defaultVenueId has absolute priority over everything
-    if (defaultVenueId) {
+    if (defaultVenueId && storedValue.venueId !== defaultVenueId) {
       defaultsAtInit.venueId = defaultVenueId;
     } else {
       if (venuesOptions.length === 1 && !storedValue.venueId) {
@@ -172,7 +172,9 @@ export default function Form({
           oaLocation,
           offererVenues.reduce((carry, item) => carry.concat(item.venues), []),
         );
-        if (match) defaultsAtInit.venueId = match;
+        if (match && storedValue.venueId !== match) {
+          defaultsAtInit.venueId = match;
+        }
       }
     }
 
@@ -190,7 +192,10 @@ export default function Form({
       defaultsAtInit.duo = true;
     }
 
-    setPatch({ ...patch, ...defaultsAtInit });
+    // Only update patch if there are actual changes to apply
+    if (Object.keys(defaultsAtInit).length > 0) {
+      setPatch({ ...patch, ...defaultsAtInit });
+    }
   }, []);
 
   return (
