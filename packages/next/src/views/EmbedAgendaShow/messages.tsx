@@ -9,6 +9,14 @@ export default defineMessages({
     id: 'next.views.EmbedAgendaShow.search',
     defaultMessage: 'Search',
   },
+  export: {
+    id: 'next.views.EmbedAgendaShow.export',
+    defaultMessage: 'Export',
+  },
+  addEvent: {
+    id: 'ReactFilters.EmbedAgendaShow.addEvent',
+    defaultMessage: 'Add event',
+  },
   // TODO export and use messages from react-filters
   removeFilter: {
     id: 'ReactFilters.ValueBadge.removeFilter',

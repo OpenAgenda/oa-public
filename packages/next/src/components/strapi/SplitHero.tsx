@@ -1,4 +1,4 @@
-import { Box, Flex, H3, Image } from '@openagenda/uikit';
+import { Box, Flex, H2, Image } from '@openagenda/uikit';
 import StrapiMarkdown from './StrapiMarkdown';
 import CTAButtons from './CTAButtons';
 
@@ -9,6 +9,7 @@ interface SplitHeroProps {
   text?: string;
   imagePosition?: string;
   CTAs?: any[];
+  TitleComponent?: React.ComponentType<any>;
 }
 
 export default function SplitHero({
@@ -17,6 +18,7 @@ export default function SplitHero({
   text,
   imagePosition = 'left',
   CTAs,
+  TitleComponent = H2,
 }: SplitHeroProps) {
   return (
     <Flex
@@ -37,11 +39,16 @@ export default function SplitHero({
         />
       ) : null}
       <Box flex="1">
-        <H3 mb="4">{title}</H3>
+        <TitleComponent mb="4" fontWeight={600}>
+          {title}
+        </TitleComponent>
         <StrapiMarkdown>{text}</StrapiMarkdown>
         {CTAs && CTAs.length > 0 && (
           <Box mt={6}>
-            <CTAButtons CTAs={CTAs} />
+            <CTAButtons
+              CTAs={CTAs}
+              justify={{ base: 'center', md: 'flex-start' }}
+            />
           </Box>
         )}
       </Box>

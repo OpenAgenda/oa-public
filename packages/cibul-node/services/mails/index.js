@@ -25,7 +25,22 @@ const stripHtml = (html) =>
   sanitizeHTML(html, { allowedTags: [], allowedAttributes: {} });
 
 export async function init(config, services) {
-  const { queues } = services;
+  const { bull } = services;
+
+  const queue = new bull.Queue('mails', { prefix: '{mails}' });
+  const createWorker = (processor) =>
+    new bull.Worker(queue.name, processor, {
+      prefix: queue.opts.prefix,
+      autorun: false,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
+    });
 
   const mails = await createMails({
     // Templating
@@ -44,8 +59,8 @@ export async function init(config, services) {
     },
 
     // Queuing
-    queueName: 'mails',
-    Queues: queues,
+    queue,
+    createWorker,
 
     // Logging
     logger: config.getLogConfig('svc', 'mails', false),
@@ -60,5 +75,8 @@ export async function init(config, services) {
   return Object.assign(mails, {
     plugApp,
     addressParser: createMails.addressParser,
+    async shutdown() {
+      await mails.worker?.close();
+    },
   });
 }

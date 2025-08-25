@@ -1,5 +1,20 @@
 # Change Log
 
+## 2.4.5
+
+### Patch Changes
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f), [`515a140`](https://github.com/OpenAgenda/oa/commit/515a140a8f56cebbe654a85afb3de2b6098322a3), [`bfacacd`](https://github.com/OpenAgenda/oa/commit/bfacacdfb0d37bf82be9241e9690265db4a59a2e)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/uikit@0.0.3
+
+## 2.4.4
+
+### Patch Changes
+
+- Updated dependencies [[`507cf12`](https://github.com/OpenAgenda/oa/commit/507cf127fef88e6c4e902cc8064fdff47d268c83)]:
+  - @openagenda/md@1.0.1
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

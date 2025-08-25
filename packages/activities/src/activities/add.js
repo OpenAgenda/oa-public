@@ -8,6 +8,7 @@ const log = require('@openagenda/logs')('activities/add');
 
 schema.register({
   text: validators.text,
+  date: validators.date,
   pass: validators.pass,
 });
 
@@ -83,16 +84,24 @@ const fieldsSchema = [
       optional: true,
     },
   },
+  {
+    name: 'created_at',
+    dataKey: 'createdAt',
+    schema: {
+      type: 'date',
+      optional: true,
+    },
+  },
 ];
 
 async function getActivityMask(
   config,
-  { activity, targetFeed, originFeed, follow },
+  { activity, targetFeed, originFeed, follow, context },
 ) {
   const maskFn = config.activities[activity.verb]?.mask;
 
   return maskFn
-    ? maskFn({ activity, targetFeed, originFeed, follow, config })
+    ? maskFn({ activity, targetFeed, originFeed, follow, config, context })
     : null;
 }
 
@@ -156,26 +165,23 @@ async function add(config, ...rest) {
   const feeds = [];
 
   for (const feedToGet of feedsToGet) {
-    feeds.push(
-      await service.feed(feedToGet).get({
-        internal: true,
-        followedBy: true,
-      }),
-    );
+    const feed = await service.feed(feedToGet).get({
+      internal: true,
+      followedBy: true,
+    });
+    if (feed) {
+      feeds.push(feed);
+    }
   }
 
   if (!feeds.length) {
-    throw new Error('You should choose at least one feed for add activity');
-  }
-
-  if (feeds.filter((v) => !v).length) {
     throw new VError(
       {
         info: {
           feeds: feedsToGet,
         },
       },
-      "One or more feeds doesn't exist",
+      "Feeds doesn't exist",
     );
   }
 
@@ -185,12 +191,18 @@ async function add(config, ...rest) {
 
   const activity = await service.activities.get(activityId);
 
-  const feedContainsActivity = [];
+  const feedContainsActivity = new Set();
+  // used for cache in filterFollows and mask
+  const context = {};
 
   for (const feed of feeds) {
-    const mask = await getActivityMask(config, { activity, targetFeed: feed });
+    const mask = await getActivityMask(config, {
+      activity,
+      targetFeed: feed,
+      context,
+    });
     await addActivityToFeed(config, { activity, targetFeed: feed, mask });
-    feedContainsActivity.push(feed);
+    feedContainsActivity.add(feed.targetFeed);
   }
 
   let followers = feeds.flatMap((v) => v.followedBy);
@@ -200,24 +212,90 @@ async function add(config, ...rest) {
     ? [].concat(activityConfig.filterFollows)
     : [];
 
+  const startTime = performance.now();
+
+  const feedCache = new Map();
+
+  // Compteurs de performance
+  let totalIterations = 0;
+  let timeSpentInFeedChecks = 0;
+  let timeSpentInPromiseAll = 0;
+  let timeSpentInFilterFollows = 0;
+  let timeSpentInActivityMask = 0;
+  let timeSpentInAddActivityToFeed = 0;
+  let timeSpentInNextFollowersLoop = 0;
+  const timeSpentInFeedService = 0;
+  let timeSpentInFollowersFilter = 0;
+
   while (followers.length) {
+    totalIterations += 1;
+
+    const ignoredTargetFeeds = new Set();
+
+    const requiredFeedIds = new Set();
     for (const follower of followers) {
-      if (
-        feedContainsActivity.some((v) => v.targetFeed === follower.targetFeed)
-      ) {
-        followers = followers.filter(
-          (v) => v.targetFeed !== follower.targetFeed,
-        );
+      requiredFeedIds.add(follower.originFeed);
+      requiredFeedIds.add(follower.targetFeed);
+    }
+
+    // Pré-charger les feeds basiques (internal: true)
+    const basicCacheKey = (id) => `${id}-${JSON.stringify({ internal: true })}`;
+    const uncachedBasicIds = Array.from(requiredFeedIds).filter(
+      (id) => !feedCache.has(basicCacheKey(id)),
+    );
+
+    if (uncachedBasicIds.length > 0) {
+      (
+        await service.feeds({ id: uncachedBasicIds }).get({ internal: true })
+      ).forEach((feed) => {
+        feedCache.set(basicCacheKey(feed.id), feed);
+      });
+    }
+
+    // Pré-charger les followedBy pour tous les targetFeeds
+    const followedByCacheKey = (id) =>
+      `${id}-${JSON.stringify({ internal: true, followedBy: true })}`;
+    const targetFeedIds = Array.from(
+      new Set(followers.map((f) => f.targetFeed)),
+    );
+    const uncachedFollowedByIds = targetFeedIds.filter(
+      (id) => !feedCache.has(followedByCacheKey(id)),
+    );
+
+    if (uncachedFollowedByIds.length > 0) {
+      const feedsWithFollowedBy = await service
+        .feeds({ id: uncachedFollowedByIds })
+        .get({
+          internal: true,
+          followedBy: true,
+        });
+      feedsWithFollowedBy.forEach((feed) => {
+        feedCache.set(followedByCacheKey(feed.id), feed);
+      });
+    }
+
+    for (const follower of followers) {
+      // Mesurer le temps des vérifications de feed
+      const feedCheckStart = performance.now();
+      if (feedContainsActivity.has(follower.targetFeed)) {
+        const filterStart = performance.now();
+        ignoredTargetFeeds.add(follower.targetFeed);
+        timeSpentInFollowersFilter += performance.now() - filterStart;
+        timeSpentInFeedChecks += performance.now() - feedCheckStart;
         continue;
       }
+      timeSpentInFeedChecks += performance.now() - feedCheckStart;
 
-      const [originFeed, targetFeed] = await Promise.all([
-        service.feed(follower.originFeed).get({ internal: true }),
-        service.feed(follower.targetFeed).get({ internal: true }),
-      ]);
+      // Récupérer les feeds depuis le cache (déjà pré-chargés)
+      const cacheAccessStart = performance.now();
+      const originFeed = feedCache.get(basicCacheKey(follower.originFeed));
+      const targetFeed = feedCache.get(followedByCacheKey(follower.targetFeed));
+      timeSpentInPromiseAll += performance.now() - cacheAccessStart;
 
       let allowedFollow = true;
 
+      // Mesurer le temps des filtres follows
+      const filterFollowsStart = performance.now();
       for (const filterFollow of filterFollows) {
         const acceptedFilter = await filterFollow({
           activity,
@@ -225,42 +303,81 @@ async function add(config, ...rest) {
           originFeed,
           follow: follower,
           config,
+          context,
         });
 
         if (!acceptedFilter) {
-          followers = followers.filter(
-            (v) => v.targetFeed !== follower.targetFeed,
-          );
+          const filterStart = performance.now();
+          ignoredTargetFeeds.add(follower.targetFeed);
+          timeSpentInFollowersFilter += performance.now() - filterStart;
           allowedFollow = false;
           break;
         }
       }
+      timeSpentInFilterFollows += performance.now() - filterFollowsStart;
 
       if (allowedFollow) {
+        // Mesurer le temps de getActivityMask
+        const maskStart = performance.now();
         const mask = await getActivityMask(config, {
           activity,
           targetFeed,
           originFeed,
           follow: follower,
+          context,
         });
+        timeSpentInActivityMask += performance.now() - maskStart;
+
+        // Mesurer le temps d'addActivityToFeed
+        const addActivityStart = performance.now();
         await addActivityToFeed(config, { activity, targetFeed, mask });
-        feedContainsActivity.push(follower);
+        timeSpentInAddActivityToFeed += performance.now() - addActivityStart;
+
+        feedContainsActivity.add(follower.targetFeed);
       }
     }
 
+    const nextFollowersStart = performance.now();
     const nextFollowers = [];
 
+    const _followedByCacheKey = (id) =>
+      `${id}-${JSON.stringify({ internal: true, followedBy: true })}`;
+
     for (const follower of followers) {
-      const { followedBy } = await service.feed(follower.targetFeed).get({
-        internal: true,
-        followedBy: true,
-      });
+      if (ignoredTargetFeeds.has(follower.targetFeed)) {
+        continue;
+      }
 
-      nextFollowers.push(...followedBy);
+      const cachedFeed = feedCache.get(
+        _followedByCacheKey(follower.targetFeed),
+      );
+      if (cachedFeed && cachedFeed.followedBy) {
+        nextFollowers.push(...cachedFeed.followedBy);
+      }
     }
-
     followers = nextFollowers;
+    timeSpentInNextFollowersLoop += performance.now() - nextFollowersStart;
   }
+
+  const endTime = performance.now();
+  const totalTime = endTime - startTime;
+
+  // Affichage des statistiques de performance
+  log.info(`
+=== ANALYSE DE PERFORMANCE ===
+Temps total: ${totalTime.toFixed(2)} ms
+Nombre d'itérations: ${totalIterations}
+
+--- Répartition du temps ---
+Vérifications feed: ${timeSpentInFeedChecks.toFixed(2)} ms (${((timeSpentInFeedChecks / totalTime) * 100).toFixed(1)}%)
+Promise.all (feeds): ${timeSpentInPromiseAll.toFixed(2)} ms (${((timeSpentInPromiseAll / totalTime) * 100).toFixed(1)}%)
+Filtres follows: ${timeSpentInFilterFollows.toFixed(2)} ms (${((timeSpentInFilterFollows / totalTime) * 100).toFixed(1)}%)
+getActivityMask: ${timeSpentInActivityMask.toFixed(2)} ms (${((timeSpentInActivityMask / totalTime) * 100).toFixed(1)}%)
+addActivityToFeed: ${timeSpentInAddActivityToFeed.toFixed(2)} ms (${((timeSpentInAddActivityToFeed / totalTime) * 100).toFixed(1)}%)
+Service feed calls: ${timeSpentInFeedService.toFixed(2)} ms (${((timeSpentInFeedService / totalTime) * 100).toFixed(1)}%)
+Boucle nextFollowers: ${timeSpentInNextFollowersLoop.toFixed(2)} ms (${((timeSpentInNextFollowersLoop / totalTime) * 100).toFixed(1)}%)
+Filtre followers: ${timeSpentInFollowersFilter.toFixed(2)} ms (${((timeSpentInFollowersFilter / totalTime) * 100).toFixed(1)}%)
+===============================`);
 
   return activity;
 }

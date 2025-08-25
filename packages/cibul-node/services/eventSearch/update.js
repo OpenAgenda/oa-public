@@ -31,14 +31,17 @@ export default (services, queue, eventSearch) => {
       event.state !== 2
       && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)
     ) {
-      await queue('transverseIndexRemove', event.uid);
+      await queue.add('transverseIndexRemove', event.uid);
     } else {
-      await queue('transverseIndexUpdate', event);
+      await queue.add('transverseIndexUpdate', event);
     }
 
     if (updateOtherIndices) {
       log('update other indices');
-      await queue('loadOtherUpdates', agenda.uid, event.uid);
+      await queue.add('loadOtherUpdates', {
+        agendaUid: agenda.uid,
+        eventUid: event.uid,
+      });
     }
 
     log('done');

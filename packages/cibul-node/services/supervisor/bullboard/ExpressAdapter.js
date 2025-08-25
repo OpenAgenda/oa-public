@@ -44,6 +44,7 @@ export default class ExpressAdapter {
       throw new Error("Please call 'setQueues' before using 'registerPlugin'");
     }
     const router = express.Router();
+    router.use(express.json());
 
     routes.forEach((route) =>
       (Array.isArray(route.method) ? route.method : [route.method]).forEach(
@@ -55,6 +56,7 @@ export default class ExpressAdapter {
                 queues: this.bullBoardQueues,
                 query: req.query,
                 params: req.params,
+                body: req.body,
               });
 
               res.status(response.status || 200).json(response.body);
@@ -77,22 +79,15 @@ export default class ExpressAdapter {
   }
 
   setEntryRoute(routeDef) {
-    const { name } = routeDef.handler();
-
     const viewHandler = (_req, res, next) => {
-      const basePath = this.basePath.endsWith('/')
-        ? this.basePath
-        : `${this.basePath}/`;
-      const uiConfig = JSON.stringify(this.uiConfig)
-        .replace(/</g, '\\u003c')
-        .replace(/>/g, '\\u003e');
+      const { name, params } = routeDef.handler({
+        basePath: this.basePath,
+        uiConfig: this.uiConfig,
+      });
 
       ejs.renderFile(
         path.join(this.viewPath, name),
-        {
-          basePath,
-          uiConfig,
-        },
+        params,
         (err, renderedHtml) => {
           if (err) {
             next(err);

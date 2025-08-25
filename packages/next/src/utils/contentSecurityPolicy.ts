@@ -14,7 +14,7 @@ type Options = {
 export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
   defaultSrc: ["'none'"],
   baseUri: ["'none'"],
-  fontSrc: ["'self'"],
+  fontSrc: ["'self'", 'https://client.crisp.chat'],
   formAction: ["'self'"],
   frameAncestors: ["'self'"],
   imgSrc: [
@@ -25,6 +25,9 @@ export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
     ...process.env.NEXT_PUBLIC_MATOMO_URL
       ? [`https://${process.env.NEXT_PUBLIC_MATOMO_URL}`]
       : [],
+    'https://client.crisp.chat',
+    'https://image.crisp.chat',
+    'https://storage.crisp.chat',
   ],
   objectSrc: ["'none'"],
   scriptSrc: [
@@ -33,6 +36,8 @@ export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
     "'strict-dynamic'",
     ({ nonce = '' }) => `'nonce-${nonce}'`,
     ...process.env.NODE_ENV === 'development' ? ["'unsafe-eval'"] : [],
+    'https://client.crisp.chat',
+    'https://settings.crisp.chat',
   ],
   scriptSrcAttr: ["'none'"],
   styleSrc: [
@@ -41,12 +46,14 @@ export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
     ...process.env.NEXT_PUBLIC_ASSET_PREFIX
       ? [new URL(process.env.NEXT_PUBLIC_ASSET_PREFIX).origin]
       : [],
+    'https://client.crisp.chat',
   ],
-  mediaSrc: ["'self'", 'https:', 'data:'],
+  mediaSrc: ["'self'", 'https:', 'data:', 'https://client.crisp.chat'],
   frameSrc: [
     "'self'",
     'https://service.mtcaptcha.com',
     'https://service2.mtcaptcha.com',
+    'https://game.crisp.chat',
   ],
   connectSrc: [
     "'self'",
@@ -56,6 +63,10 @@ export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
     ...process.env.NEXT_PUBLIC_MATOMO_URL
       ? [`https://${process.env.NEXT_PUBLIC_MATOMO_URL}`]
       : [],
+    'https://client.crisp.chat',
+    'https://storage.crisp.chat',
+    'wss://client.relay.crisp.chat',
+    'wss://stream.relay.crisp.chat',
   ],
   upgradeInsecureRequests: [],
   blockAllMixedContent: [],

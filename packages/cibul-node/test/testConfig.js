@@ -4,7 +4,6 @@ import schemaNames from './mock/schemaNames.js';
 const testConfig = {
   domain: 'openagenda.com',
   track: true,
-  queues: {},
   db: {
     host: process.env.OA_MYSQL_TEST_HOST,
     user: process.env.OA_MYSQL_TEST_USER,

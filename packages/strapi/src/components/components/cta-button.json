@@ -20,7 +20,15 @@
     },
     "variant": {
       "type": "enumeration",
-      "enum": ["outline", "solid", "link", "ghost"]
+      "enum": [
+        "solid",
+        "outline",
+        "link",
+        "plain",
+        "subtle",
+        "surface",
+        "ghost"
+      ]
     }
   }
 }

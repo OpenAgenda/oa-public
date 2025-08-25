@@ -1,13 +1,37 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useIntl, defineMessages, FormattedMessage } from 'react-intl';
 
 import geoFields from '@openagenda/agenda-locations/utils/geoFields.js';
 import flattenTagSetLabels from '../flattenTagSetLabels.js';
-import adminLevels from '../adminLevels.js';
+import completeExternalActions from '../completeExternalActions.js';
+import { adminLevels } from '../messages.js';
 
 const messages = {
   ...adminLevels,
   ...defineMessages({
+    guide: {
+      id: 'AgendaLocations.LocationConfirmation.guide',
+      defaultMessage: 'Are the details of this location correct ?',
+    },
+    browseDetails: {
+      id: 'AgendaLocations.LocationConfirmation.browseDetails',
+      defaultMessage:
+        'Browse the detailed information below then confirm your choice at the bottom of this menu',
+    },
+    guideDetail: {
+      id: 'AgendaLocations.LocationConfirmation.guideDetail',
+      defaultMessage:
+        'If some changes have to be made, click on the button below to provide details on the change to agenda administrators',
+    },
+    suggest: {
+      id: 'AgendaLocations.LocationConfirmation.suggest',
+      defaultMessage: 'Suggest a change',
+    },
+    suggestChangeMessage: {
+      id: 'AgendaLocations.LocationConfirmation.suggestChangeMessage',
+      defaultMessage:
+        'A new tab was opened in your browser. Provide the details of the change in the dialog before confirming your selection',
+    },
     insee: {
       id: 'AgendaLocations.LocationDetails.insee',
       defaultMessage: 'INSEE code',
@@ -125,15 +149,21 @@ const getExistingLangs = (location) =>
     return langs;
   }, []);
 
-const LocationDetail = ({ location, settings, lang, staticTiles }) => {
+const LocationDetail = ({ res, location, settings, lang, staticTiles }) => {
   const intl = useIntl();
   const [contentLang, setContentLang] = useState(
     getPreferredLang(location.description, lang),
   );
+  const [suggestChangeMessage, setSuggestChangeMessage] = useState(false);
   const existingLangs = getExistingLangs(location);
   const staticMap = staticTiles?.replace(
     /{w}|{h}|{lon}|{lat}|{z}/gi,
     (matched) => mapValues(location)[matched],
+  );
+
+  const { externalActions } = useMemo(
+    () => completeExternalActions(settings?.extIds, location?.extIds),
+    [settings, location],
   );
 
   const toggleCurrentLang = (newContentLang, e) => {
@@ -146,6 +176,38 @@ const LocationDetail = ({ location, settings, lang, staticTiles }) => {
 
   return (
     <>
+      <div className="info-block margin-v-sm">
+        <label htmlFor="guide">
+          <FormattedMessage {...messages.guide} />
+        </label>
+        <p>
+          <FormattedMessage {...messages.browseDetails} />
+        </p>
+        <p>
+          <FormattedMessage {...messages.guideDetail} />
+        </p>
+        <div className="text-center">
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href={
+              !externalActions
+              || !externalActions.find((e) => e.action === 'edit')
+                ? res.suggestChange.replace(':locationUid', location.uid)
+                : externalActions.find((e) => e.action === 'edit').link
+            }
+            onClick={() => setSuggestChangeMessage(true)}
+            className="btn btn-default margin-h-sm"
+          >
+            <FormattedMessage {...messages.suggest} />
+          </a>
+          {suggestChangeMessage ? (
+            <div className="margin-v-sm">
+              <FormattedMessage {...messages.suggestChangeMessage} />
+            </div>
+          ) : null}
+        </div>
+      </div>
       <div className="margin-bottom-md">
         <ul className="list-unstyled" title={location.address}>
           <li>

@@ -14,7 +14,6 @@ describe('services - functional (server): core agendas() events.clearOldSoftRemo
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',
@@ -34,18 +33,15 @@ describe('services - functional (server): core agendas() events.clearOldSoftRemo
 
     core = Core(services, testConfig);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(17026855).events.search.rebuild();
     await core.agendas(17026800).events.search.rebuild();
-  });
-
-  afterAll(async () => {
-    try {
-      await core.services.eventSearch.getConfig().client.indices.delete({
-        index: 'test',
-      });
-    } catch (e) {
-      /* */
-    }
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

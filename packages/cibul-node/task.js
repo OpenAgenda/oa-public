@@ -103,19 +103,25 @@ export default (config, core, services) => {
 
   services.supervisor.elasticsearch.task();
 
-  services.agendaLocations.task({
-    duplicationDetection: config.locationDuplicationDetection,
-    reset: false,
-  });
+  tfy(
+    services.agendaLocations.task({
+      duplicationDetection: config.locationDuplicationDetection,
+      reset: false,
+    }),
+    {
+      period: 'weekly',
+      day: 'sunday',
+      time: '15:00',
+    },
+  );
 
   services.users.tasks.processQueue();
 
   services.members.task();
 
-  // services.inboxes.tasks.sync();
+  services.inboxes.task();
 
-  // handle interfaces for grouped operations (a remove of a 100 refs queues 100 onRemoves executions)
-  services.agendaEvents.task();
+  // services.inboxes.tasks.sync();
 
   services.eventSearch.task();
 

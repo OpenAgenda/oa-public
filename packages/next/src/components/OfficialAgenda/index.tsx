@@ -40,8 +40,8 @@ export default function OfficialAgenda({
         <Icon
           {...props}
           css={{
-            '--fa-primary-color': 'white',
-            '--fa-secondary-color': 'colors.primary.500',
+            '--fa-primary-color': 'colors.primary.500',
+            '--fa-secondary-color': 'white',
             '--fa-primary-opacity': '1',
             '--fa-secondary-opacity': '1',
           }}

@@ -21,7 +21,6 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
         'tracker',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',
@@ -96,7 +95,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
     let accessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -104,7 +103,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -120,7 +119,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
         try {
           createResponse = await axios({
             method: 'put',
-            url: 'http://localhost:3000/agendas/1234/locations/ext/gareDeRedon',
+            url: 'http://localhost:4000/agendas/1234/locations/ext/gareDeRedon',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -148,7 +147,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
         try {
           updateResponse = await axios({
             method: 'put',
-            url: 'http://localhost:3000/agendas/1234/locations/ext/laPiscine',
+            url: 'http://localhost:4000/agendas/1234/locations/ext/laPiscine',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',

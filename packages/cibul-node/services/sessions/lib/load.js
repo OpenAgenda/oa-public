@@ -5,8 +5,15 @@ const getAuthMessageLabel = makeLabelGetter(labels);
 
 function load(sessions, { detailed, redirect, msg } = {}) {
   return (req, res, next) => {
-    sessions.get(req, { detailed }, (err, user) => {
+    sessions.get(req, { detailed }, async (err, user) => {
       if (err) return next(err);
+
+      // session is in cookie but not in redis
+      if (req.session?.user && !user) {
+        const { sessionId } = req.session;
+        req.session = sessionId ? { sessionId } : null;
+      }
+
       if (!user && redirect) {
         const redirectURL = Buffer.from(req.originalUrl, 'utf-8').toString(
           'base64',

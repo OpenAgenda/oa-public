@@ -1,0 +1,62 @@
+{
+  "agendaEvents": [
+    {
+      "id": 2446688,
+      "agenda_uid": 64260763,
+      "event_uid": 22258579,
+      "state": 2,
+      "featured": 0,
+      "created_at": "2020-10-01 08:24:05",
+      "updated_at": "2020-10-15 15:29:55",
+      "legacy_id": "11286.819636",
+      "user_uid": 10866730,
+      "can_edit": 0,
+      "source_agenda_uid": "[]",
+      "aggregated": 0
+    },
+    {
+      "id": 2446689,
+      "agenda_uid": 79017343,
+      "event_uid": 22258579,
+      "state": 2,
+      "featured": 0,
+      "created_at": "2020-10-01 08:24:05",
+      "updated_at": "2020-10-15 15:29:55",
+      "legacy_id": "11286.819637",
+      "user_uid": 44532088,
+      "can_edit": 1,
+      "source_agenda_uid": "[]",
+      "aggregated": 0
+    }
+  ],
+  "event": {
+    "id": 822866,
+    "uid": 22258579,
+    "owner_uid": 44532088,
+    "creator_uid": 44532088,
+    "agenda_uid": 79017343,
+    "location_uid": 37923057,
+    "slug": "test-event-with-pass-culture",
+    "title": "{\"fr\":\"Test Event with Pass Culture\"}",
+    "description": "{\"fr\":\"Test event for passCulture registration testing\"}",
+    "long_description": "{\"fr\":\"This is a test event used to verify passCulture registration processing\"}",
+    "keywords": "{\"fr\":[\"test\",\"passCulture\"]}",
+    "conditions": "{\"fr\":\"Test conditions\"}",
+    "image": null,
+    "draft": 0,
+    "private": 0,
+    "attendance_mode": 1,
+    "online_access_link": null,
+    "links": "[]",
+    "references": "[]",
+    "file_key": null,
+    "timezone": "Europe/Paris",
+    "timings": "[{\"begin\":\"2020-11-07T12:00:00.000Z\",\"end\":\"2020-11-07T17:00:00.000Z\"}]",
+    "accessibility": "{\"mi\":false,\"hi\":false,\"pi\":false,\"vi\":false,\"ii\":false}",
+    "age": "{\"min\":null,\"max\":null}",
+    "registration": "[{\"lastProcessedAt\":\"2025-07-24T08:03:56.042Z\",\"data\":[{\"eventDuration\":180,\"bookingContact\":\"clement.lecroart@openagenda.com\",\"response\":{\"passId\":123299,\"isPending\":false,\"addressId\":2626},\"venueId\":548,\"description\":\"updated Loc ?\",\"category\":\"ATELIER_PRATIQUE_ART\",\"operation\":\"create\",\"appliedAt\":\"2025-07-24T08:03:54.689Z\",\"duo\":true},{\"priceCategories\":[{\"price\":0,\"label\":\"Tarif unique\",\"id\":0}],\"response\":{\"priceCategories\":[{\"passId\":9653,\"id\":0}]},\"operation\":\"create\",\"appliedAt\":\"2025-07-24T08:03:54.818Z\"},{\"response\":{\"dates\":[{\"passId\":179003,\"id\":1}]},\"dates\":[{\"quantity\":1,\"priceCategoryId\":0,\"timingId\":1753515000000,\"id\":1}],\"operation\":\"create\",\"appliedAt\":\"2025-07-24T08:03:56.042Z\"},{\"eventDuration\":200,\"bookingContact\":\"test@example.com\",\"venueId\":548,\"description\":\"location update test\",\"category\":\"ATELIER_PRATIQUE_ART\",\"operation\":\"update\",\"duo\":true}],\"service\":\"passCulture\",\"type\":\"link\",\"value\":\"https://integration.passculture.app/offre/123299\"}]",
+    "created_at": "2020-07-20 12:51:18",
+    "updated_at": "2021-01-11 13:07:49",
+    "deleted_at": null
+  }
+}

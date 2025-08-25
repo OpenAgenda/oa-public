@@ -16,7 +16,6 @@ describe('10 - core - functional (server): core.users().get()', () => {
         'simpleCache',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',

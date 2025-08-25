@@ -1,5 +1,31 @@
 # Change Log
 
+## 1.5.4
+
+### Patch Changes
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/agenda-locations-app@0.0.2
+  - @openagenda/form-schemas@1.9.4
+  - @openagenda/react-shared@2.4.5
+  - @openagenda/react-timingspicker@1.4.3
+  - @openagenda/events@3.0.2
+  - @openagenda/registration-apps@0.0.2
+
+## 1.5.3
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/agenda-locations@2.1.3
+  - @openagenda/events@3.0.1
+  - @openagenda/form-schemas@1.9.3
+  - @openagenda/agenda-locations-app@0.0.1
+  - @openagenda/registration-apps@0.0.1
+  - @openagenda/react-shared@2.4.4
+  - @openagenda/react-timingspicker@1.4.2
+
 ## 1.5.2
 
 ### Patch Changes

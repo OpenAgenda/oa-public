@@ -21,18 +21,38 @@ import detectDuplicateCandidates from './tasks/detectDuplicateCandidates.js';
 const log = logs('services/agendaLocations');
 
 export async function init(config, services) {
-  const queue = services.queues('locations');
-  let taskRunning = false;
+  const { geocoder, bull } = services;
 
-  const { geocoder } = services;
+  const queue = new bull.Queue('locations', { prefix: '{locations}' });
+  const worker = new bull.Worker(
+    queue.name,
+    (job) => {
+      switch (job.name) {
+        case 'syncImpactedEventsAndAgendas':
+          return syncImpactedEventsAndAgendas(services, job.data);
+        case 'updateEventLocationReferences':
+          return updateEventLocationReferences(services, job.data);
+        default:
+          log.warn(`Unknown job ${job.name}`);
+      }
+    },
+    {
+      prefix: queue.opts.prefix,
+      autorun: false,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
+    },
+  );
 
-  queue.register({
-    syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas(services),
-    updateEventLocationReferences: updateEventLocationReferences(services),
-  });
-
-  queue.on('error', (task, args, err) =>
-    log('error', 'task %s error', task, err));
+  worker.on('error', (failedReason) => log.error('error', failedReason));
+  worker.on('failed', (job, error) =>
+    log.error('task %s error', job.name, error));
 
   const instance = AgendaLocations({
     knex: config.knex,
@@ -66,25 +86,32 @@ export async function init(config, services) {
       },
     ),
     shutdown: async (options = {}) => {
-      if (!taskRunning) return;
-
       log('stopping task');
-      await queue.stop({ remove: true, clear: options.clear || options.reset });
+      if (options.clear || options.reset) {
+        await queue.drain();
+      }
+
+      await worker.close();
 
       log('task stopped');
     },
     task: async (options = {}) => {
       const { duplicationDetection, reset = false } = options;
-      taskRunning = true;
+
       log('task');
+
       if (duplicationDetection?.enabled) {
         detectDuplicateCandidates(services, duplicationDetection);
       }
       // clearAllDuplicateCandidates(services);
+
       if (reset) {
-        await queue.clear();
+        await queue.drain();
       }
-      queue.run();
+
+      if (!worker.isRunning()) {
+        worker.run();
+      }
     },
   });
 }

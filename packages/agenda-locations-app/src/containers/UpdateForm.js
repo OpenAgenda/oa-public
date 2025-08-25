@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
 import { useQuery } from 'react-query';
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
-import FormData from 'form-data';
 
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
 import AccessModal from '../components/AccessModal.js';

@@ -65,7 +65,7 @@
     "fr": ["Mot", "clé", "trousseau"]
   },
   "longDescription": {
-    "fr": "Une description un peu plus longue avec de l’<em>italique</em>."
+    "fr": "Une description un peu plus longue avec de l’<em>italique</em> et <a href=\"https://nonmaisjetestequandmemeparcequelàonnevoitpas.com\">un lien</a>."
   },
   "conditions": {
     "fr": "Interdit aux chiens"

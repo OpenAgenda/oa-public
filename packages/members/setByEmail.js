@@ -7,8 +7,6 @@ import { isSuperiorTo } from './iso/compareRoles.js';
 
 const log = logs('setByEmail');
 
-const defaultQueueName = 'membersBulkSetEmails';
-
 async function setByEmail(config, data, options = {}) {
   if (!_.get(data, 'agendaUid')) {
     throw new Error('Bad payload: agendaUid is missing');
@@ -62,49 +60,32 @@ async function setByEmail(config, data, options = {}) {
   };
 }
 
-function _logQueue(queue) {
-  queue.on('error', (fn, args, error) => {
-    log('error', fn, args, error);
-  });
-  queue.on('execute', (fn, args) => {
-    log('executing', fn, args);
-  });
-  queue.on('success', (fn, args, result) => {
-    log('success', fn, args, result);
-  });
-}
-
-function task(config) {
-  const { queues, queueName } = {
-    queues: null,
-    queueName: defaultQueueName,
-    ...config,
-  };
-
-  const queue = queues(queueName);
-
-  queue.register({
-    setByEmail: setByEmail.bind(null, config),
+function task(service, config) {
+  const worker = config.createWorker((job) => {
+    switch (job.name) {
+      case 'setByEmail': {
+        return setByEmail(config, job.data.data, job.data.options);
+      }
+      default: {
+        throw new Error(`Unknown job ${job.name}`);
+      }
+    }
   });
 
-  _logQueue(queue);
+  worker.on('error', (failedReason) => log.error('error', failedReason));
 
-  queue.run();
+  worker.run();
+
+  service.worker = worker;
 }
 
 async function bulk(config, base, emails = [], options = {}) {
   log('bulk');
 
-  const { bulkThreshold, queues, queueName } = {
-    queues: null,
-    queueName: defaultQueueName,
+  const { bulkThreshold, queue } = {
     bulkThreshold: 10,
     ...config,
   };
-
-  const queue = queues(queueName);
-
-  _logQueue(queue);
 
   const queueJobs = emails.length > bulkThreshold;
 
@@ -119,7 +100,7 @@ async function bulk(config, base, emails = [], options = {}) {
     const data = { ...base, email };
 
     if (queueJobs) {
-      await queue('setByEmail', data, options);
+      await queue.add('setByEmail', { data, options });
     } else {
       result.processed.push(await setByEmail(config, data, options));
     }

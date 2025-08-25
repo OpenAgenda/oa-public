@@ -20,56 +20,76 @@ import get from './lib/get.js';
 
 const log = logs('aggregators');
 
-function task({ queue }) {
-  queue.run();
-
-  return {
-    stopAndClear: async () => {
-      await queue.clear();
-      await queue.stop();
-    },
-  };
-}
-
-export default ({ knex, queues, interfaces, logger }) => {
-  const queue = queues('aggregator');
-
+export default ({ knex, queue, createWorker, interfaces, logger }) => {
   if (logger) {
     logs.setModuleConfig(logger);
   }
 
-  queue.register({
-    dispatch: dispatch.bind(null, { knex, queue }),
-    evaluateEvent: evaluateEvent.bind(null, {
-      getAggregatedCount: interfaces.getAggregatedCount,
-      referenceEvent: interfaces.referenceEvent,
-      getMergedSchema: interfaces.getMergedSchema,
-      getEventReference: interfaces.getEventReference,
-      updateSourcePaths: interfaces.updateSourcePaths,
-      updateEventReference: interfaces.updateEventReference,
-      enqueueRemove: queue.bind(null, 'removeEvent'),
-      enqueueEvaluate: queue.bind(null, 'evaluateEvent'),
-    }),
-    removeEvent: removeEvent.bind(null, {
-      getEventReference: interfaces.getEventReference,
-      unreferenceEvent: interfaces.unreferenceEvent,
-      updateSourcePaths: interfaces.updateSourcePaths,
-      enqueueRemove: queue.bind(null, 'removeEvent'),
-    }),
-    loadSourceEvaluates: loadSourceEvaluates.bind(null, {
-      listEventReferences: interfaces.listEventReferences,
-      enqueueEvaluate: queue.bind(null, 'evaluateEvent'),
-    }),
-    loadSourceRemoves: loadSourceRemoves.bind(null, {
-      listEventReferences: interfaces.listEventReferences,
-      enqueueRemove: queue.bind(null, 'removeEvent'),
-    }),
+  const worker = createWorker(async (job) => {
+    switch (job.name) {
+      case 'dispatch': {
+        await dispatch({ knex, queue }, job.data.action, job.data.data);
+        break;
+      }
+      case 'evaluateEvent': {
+        await evaluateEvent(
+          {
+            getAggregatedCount: interfaces.getAggregatedCount,
+            referenceEvent: interfaces.referenceEvent,
+            getMergedSchema: interfaces.getMergedSchema,
+            getEventReference: interfaces.getEventReference,
+            updateSourcePaths: interfaces.updateSourcePaths,
+            updateEventReference: interfaces.updateEventReference,
+            enqueueRemove: queue.add.bind(queue, 'removeEvent'),
+            enqueueEvaluate: queue.add.bind(queue, 'evaluateEvent'),
+          },
+          job.data,
+        );
+        break;
+      }
+      case 'removeEvent': {
+        await removeEvent(
+          {
+            getEventReference: interfaces.getEventReference,
+            unreferenceEvent: interfaces.unreferenceEvent,
+            updateSourcePaths: interfaces.updateSourcePaths,
+            enqueueRemove: queue.add.bind(queue, 'removeEvent'),
+          },
+          job.data,
+        );
+        break;
+      }
+      case 'loadSourceEvaluates': {
+        await loadSourceEvaluates(
+          {
+            listEventReferences: interfaces.listEventReferences,
+            enqueueEvaluate: queue.add.bind(queue, 'evaluateEvent'),
+          },
+          job.data,
+        );
+        break;
+      }
+      case 'loadSourceRemoves': {
+        await loadSourceRemoves(
+          {
+            listEventReferences: interfaces.listEventReferences,
+            enqueueRemove: queue.add.bind(queue, 'removeEvent'),
+          },
+          job.data,
+        );
+        break;
+      }
+      default:
+        log.warn(`Unknown job ${job.name}`);
+    }
   });
 
-  queue.on('error', (fn, args, error) => log('error', fn, args, error));
-  queue.on('execute', (fn) => log('processing "%s" from queue', fn));
-  queue.on('success', (fn, args, result) =>
-    log('done processing "%s" from queue', fn, result));
+  worker.on('error', (failedReason) => log.error('error', failedReason));
+  worker.on('failed', (job, error) => log.error(job.name, job.data, error));
+  worker.on('active', (job) =>
+    log.info('processing "%s" from queue', job.name));
+  worker.on('completed', (job, result, _prev) =>
+    log.info('done processing "%s" from queue', job.name, result));
 
   return {
     get: get.bind(null, {
@@ -87,7 +107,10 @@ export default ({ knex, queues, interfaces, logger }) => {
       add: addSource.bind(null, {
         knex,
         interfaces,
-        enqueueLoadSourceEvaluates: queue.bind(null, 'loadSourceEvaluates'),
+        enqueueLoadSourceEvaluates: queue.add.bind(
+          queue,
+          'loadSourceEvaluates',
+        ),
         addSourceEntry: addSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex),
         getMergedSchema: interfaces.getMergedSchema,
@@ -95,7 +118,10 @@ export default ({ knex, queues, interfaces, logger }) => {
       }),
       update: updateSource.bind(null, {
         interfaces,
-        enqueueLoadSourceEvaluates: queue.bind(null, 'loadSourceEvaluates'),
+        enqueueLoadSourceEvaluates: queue.add.bind(
+          queue,
+          'loadSourceEvaluates',
+        ),
         updateSourceEntry: updateSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex),
         getMergedSchema: interfaces.getMergedSchema,
@@ -106,7 +132,7 @@ export default ({ knex, queues, interfaces, logger }) => {
       }),
       remove: removeSource.bind(null, {
         interfaces,
-        enqueueLoadSourceRemoves: queue.bind(null, 'loadSourceRemoves'),
+        enqueueLoadSourceRemoves: queue.add.bind(queue, 'loadSourceRemoves'),
         getSourceEntry: getSourceEntry.bind(null, {
           knex,
           getAgendasByUids: interfaces.getAgendasByUids,
@@ -120,6 +146,6 @@ export default ({ knex, queues, interfaces, logger }) => {
       getAgendaSourceId: getAgendaSourceId.bind(null, knex),
       queue,
     }),
-    task: task.bind(null, { queue }),
+    worker,
   };
 };

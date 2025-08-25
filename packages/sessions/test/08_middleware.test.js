@@ -1,9 +1,48 @@
 import _ from 'lodash';
-import sa from 'superagent';
-import base64 from '@openagenda/utils/base64.js';
 import config from '../testconfig.js';
 import Sessions from '../src/service/index.js';
 import * as helpers from './lib/helpers.js';
+
+function createFetchAgent() {
+  let cookieHeader = null;
+
+  const agentFetch = async (url, options = {}) => {
+    if (cookieHeader) {
+      options.headers = { ...options.headers, Cookie: cookieHeader };
+    }
+
+    const response = await fetch(url, options);
+
+    const newCookies = response.headers.get('set-cookie');
+    if (newCookies) {
+      cookieHeader = newCookies
+        .split(/, (?=[a-zA-Z0-9_.-]+=)/)
+        .map((c) => c.split(';')[0])
+        .join('; ');
+    }
+
+    return response;
+  };
+
+  const getCookies = (asObject = true) => {
+    if (!cookieHeader) {
+      return asObject ? {} : null;
+    }
+    if (!asObject) {
+      return cookieHeader;
+    }
+    return cookieHeader.split('; ').reduce((acc, cookie) => {
+      const [key, value] = cookie.split('=');
+      if (key) acc[key] = value;
+      return acc;
+    }, {});
+  };
+
+  return {
+    fetch: agentFetch,
+    getCookies,
+  };
+}
 
 describe('session - functional (server): middleware', () => {
   let client;
@@ -32,13 +71,19 @@ describe('session - functional (server): middleware', () => {
 
     let culture = 'fr';
 
-    function _runClientSyncRoutine() {
-      const agent = sa.agent();
+    async function _runClientSyncRoutine() {
+      const agent = createFetchAgent();
+      const baseUrl = 'http://localhost:4000';
 
-      return agent
-        .get('http://localhost:3000/land')
-        .then(() => agent.post('http://localhost:3000/signin'))
-        .then(() => agent.post('http://localhost:3000/sync'));
+      await agent.fetch(`${baseUrl}/land`);
+      await agent.fetch(`${baseUrl}/signin`, { method: 'POST' });
+      const response = await agent.fetch(`${baseUrl}/sync`, { method: 'POST' });
+
+      if (!response.ok) {
+        throw new Error(`POST /sync failed with status: ${response.status}`);
+      }
+
+      return agent.getCookies();
     }
 
     beforeEach(() => {
@@ -90,10 +135,9 @@ describe('session - functional (server): middleware', () => {
         ],
       });
 
-      const res = await _runClientSyncRoutine();
-      const dc = base64
-        .decode(res.header['set-cookie'][0].split('=')[1].split(';')[0])
-        .replace(String.fromCharCode(0), '');
+      const cookies = await _runClientSyncRoutine();
+      const sessionCookie = cookies[config.sessionCookie.name];
+      const dc = Buffer.from(sessionCookie, 'base64').toString();
 
       expect(JSON.parse(dc).user.culture).toBe('en');
     });
@@ -104,13 +148,19 @@ describe('session - functional (server): middleware', () => {
     let mw;
     let server;
 
-    function _runClientOpenRoutine() {
-      const agent = sa.agent();
+    async function _runClientOpenRoutine() {
+      const agent = createFetchAgent();
+      const baseUrl = 'http://localhost:4000';
 
-      return agent
-        .get('http://localhost:3000/land')
-        .then(() => agent.post('http://localhost:3000/signin'))
-        .then(() => agent.get('http://localhost:3000/cookied'));
+      await agent.fetch(`${baseUrl}/land`);
+      await agent.fetch(`${baseUrl}/signin`, { method: 'POST' });
+      const response = await agent.fetch(`${baseUrl}/cookied`);
+
+      if (!response.ok) {
+        throw new Error(`GET /cookied failed with status: ${response.status}`);
+      }
+
+      return agent.getCookies();
     }
 
     beforeAll(() => {
@@ -188,6 +238,7 @@ describe('session - functional (server): middleware', () => {
                 name: 'Gaetan Latouche',
                 thumbnail: '//graph.facebook.com/100002280111541/picture',
               },
+              sessionId: expect.any(String),
             });
 
             res.send('ok');
@@ -222,14 +273,21 @@ describe('session - functional (server): middleware', () => {
     let mw;
     let server;
 
-    function _runClientIfLoggedRoutine(signin = false) {
-      const agent = sa.agent();
+    async function _runClientIfLoggedRoutine(signin = false) {
+      const agent = createFetchAgent();
+      const baseUrl = 'http://localhost:4000';
 
-      return agent
-        .get('http://localhost:3000/land')
-        .then(() =>
-          (signin ? agent.post('http://localhost:3000/signin') : () => {}))
-        .then(() => agent.post('http://localhost:3000/any'));
+      await agent.fetch(`${baseUrl}/land`);
+      if (signin) {
+        await agent.fetch(`${baseUrl}/signin`, { method: 'POST' });
+      }
+      const response = await agent.fetch(`${baseUrl}/any`, { method: 'POST' });
+
+      if (!response.ok) {
+        throw new Error(`POST /any failed with status: ${response.status}`);
+      }
+
+      return response.json();
     }
 
     beforeAll(() => {
@@ -267,9 +325,9 @@ describe('session - functional (server): middleware', () => {
         ],
       });
 
-      const res = await _runClientIfLoggedRoutine(false);
+      const data = await _runClientIfLoggedRoutine(false);
 
-      expect(res.body).toEqual({ ladida: true });
+      expect(data).toEqual({ ladida: true });
     });
 
     it('.ifUnlogged calls next if user is logged', async () => {
@@ -296,9 +354,9 @@ describe('session - functional (server): middleware', () => {
         ],
       });
 
-      const res = await _runClientIfLoggedRoutine(true);
+      const data = await _runClientIfLoggedRoutine(true);
 
-      expect(res.body).toEqual({ ladida: false });
+      expect(data).toEqual({ ladida: false });
     });
 
     it('.ifLogged calls next if user is not logged', async () => {
@@ -316,9 +374,9 @@ describe('session - functional (server): middleware', () => {
         ],
       });
 
-      const res = await _runClientIfLoggedRoutine(false);
+      const data = await _runClientIfLoggedRoutine(false);
 
-      expect(res.body).toEqual({ ladida: false });
+      expect(data).toEqual({ ladida: false });
     });
 
     it('.ifLogged calls given middleware if user is logged', async () => {
@@ -345,9 +403,9 @@ describe('session - functional (server): middleware', () => {
         ],
       });
 
-      const res = await _runClientIfLoggedRoutine(true);
+      const data = await _runClientIfLoggedRoutine(true);
 
-      expect(res.body).toEqual({ ladida: true });
+      expect(data).toEqual({ ladida: true });
     });
   });
 
@@ -356,13 +414,21 @@ describe('session - functional (server): middleware', () => {
     let mw;
     let server;
 
-    function _runClientCloseRoutine() {
-      const agent = sa.agent();
+    async function _runClientCloseRoutine() {
+      const agent = createFetchAgent();
+      const baseUrl = 'http://localhost:4000';
 
-      return agent
-        .get('http://localhost:3000/land')
-        .then(() => agent.post('http://localhost:3000/signin'))
-        .then(() => agent.post('http://localhost:3000/signout'));
+      await agent.fetch(`${baseUrl}/land`);
+      await agent.fetch(`${baseUrl}/signin`, { method: 'POST' });
+      const response = await agent.fetch(`${baseUrl}/signout`, {
+        method: 'POST',
+      });
+
+      if (!response.ok) {
+        throw new Error(`POST /signout failed with status: ${response.status}`);
+      }
+
+      return response.text();
     }
 
     beforeAll(() => {
@@ -401,7 +467,7 @@ describe('session - functional (server): middleware', () => {
           sessions.close(req, (err, result) => {
             expect(result.success).toBe(true);
 
-            expect(req.session).toBeNull();
+            expect(req.session).toEqual({ sessionId: expect.any(String) });
 
             res.send('ok');
           });
@@ -434,7 +500,7 @@ describe('session - functional (server): middleware', () => {
           (req, res, _next) => {
             expect(req.result.success).toBe(true);
 
-            expect(req.session).toBeNull();
+            expect(req.session).toEqual({ sessionId: expect.any(String) });
 
             res.send('ok');
           },
@@ -450,13 +516,19 @@ describe('session - functional (server): middleware', () => {
     let mw;
     let server;
 
-    function _runClientGetRoutine() {
-      const agent = sa.agent();
+    async function _runClientGetRoutine() {
+      const agent = createFetchAgent();
+      const baseUrl = 'http://localhost:4000';
 
-      return agent
-        .get('http://localhost:3000/land')
-        .then(() => agent.post('http://localhost:3000/signin'))
-        .then(() => agent.get('http://localhost:3000/get'));
+      await agent.fetch(`${baseUrl}/land`);
+      await agent.fetch(`${baseUrl}/signin`, { method: 'POST' });
+      const response = await agent.fetch(`${baseUrl}/get`);
+
+      if (!response.ok) {
+        throw new Error(`GET /get failed with status: ${response.status}`);
+      }
+
+      return response.text();
     }
 
     beforeAll(() => {

@@ -1,5 +1,28 @@
 # Change Log
 
+## 6.12.6
+
+### Patch Changes
+
+- [`ae1ea12`](https://github.com/OpenAgenda/oa/commit/ae1ea12c045351b375e7eddc6ea46a2d95dc735f) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Fix build
+
+- [`69a073b`](https://github.com/OpenAgenda/oa/commit/69a073b0ae438c653633319ecc8ad84d2f02087e) Thanks [@kaore](https://github.com/kaore)! - refactor relative path util
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f), [`ae1ea12`](https://github.com/OpenAgenda/oa/commit/ae1ea12c045351b375e7eddc6ea46a2d95dc735f)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/react-filters@2.13.2
+  - @openagenda/react-shared@2.4.5
+
+## 6.12.5
+
+### Patch Changes
+
+- Updated dependencies [[`9130206`](https://github.com/OpenAgenda/oa/commit/9130206f01c7b004965a026e357974f68c5d4dc9), [`507cf12`](https://github.com/OpenAgenda/oa/commit/507cf127fef88e6c4e902cc8064fdff47d268c83), [`3cef30d`](https://github.com/OpenAgenda/oa/commit/3cef30d15f26a2f2bf267941b80a7bd3fd27f560)]:
+  - @openagenda/logs@1.1.10
+  - @openagenda/md@1.0.1
+  - @openagenda/react-filters@2.13.1
+  - @openagenda/react-shared@2.4.4
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

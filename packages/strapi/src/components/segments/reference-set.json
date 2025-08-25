@@ -25,6 +25,10 @@
       "type": "component",
       "repeatable": true,
       "component": "components.cta-button"
+    },
+    "smallImages": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

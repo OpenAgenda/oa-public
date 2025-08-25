@@ -73,3 +73,27 @@ export function WithFixtureData() {
     />
   );
 }
+
+export function WithSubtleBackground() {
+  return (
+    <TabSet
+      title={tabSetFixture.title}
+      backgroundColor={{ name: 'rosyRed' }}
+      description={tabSetFixture.description}
+      Tabs={tabSetFixture.Tabs.map((tab) => ({
+        id: tab.id,
+        title: tab.title,
+        content: {
+          id: tab.content.id,
+          title: tab.content.title,
+          text: tab.content.text,
+          imagePosition: tab.content.imagePosition,
+          image: {
+            url: '/phteven.jpg',
+            alternativeText: tab.content.image.alternativeText,
+          },
+        },
+      }))}
+    />
+  );
+}

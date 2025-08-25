@@ -135,7 +135,7 @@ export default {
               {
                 info: { type },
               },
-              'Invalid requested aggregations: Unkown aggregation type',
+              'Invalid requested aggregations: Unknown aggregation type',
             );
           }
 

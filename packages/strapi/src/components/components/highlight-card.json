@@ -9,17 +9,17 @@
     "title": {
       "type": "string"
     },
-    "Illustration": {
-      "type": "component",
-      "repeatable": false,
-      "component": "components.illustration"
-    },
-    "smallIllustration": {
-      "type": "boolean",
-      "default": false
-    },
     "description": {
       "type": "richtext"
+    },
+    "image": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false
+    },
+    "smallImage": {
+      "type": "boolean",
+      "default": true
     }
   }
 }

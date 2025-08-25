@@ -19,7 +19,6 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',
@@ -117,11 +116,11 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
     let contribAccessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
 
       adminAccessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -133,7 +132,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
       try {
         contribAccessToken = await axios({
           method: 'post',
-          url: 'http://localhost:3000/requestAccessToken',
+          url: 'http://localhost:4000/requestAccessToken',
           headers: {
             'content-type': 'application/json',
           },
@@ -150,7 +149,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
 
     it('get settings eventSchema for configuration', async () => {
       const res = await axios.get(
-        `http://localhost:3000/agendas/60935574/settings/eventSchema/configure?key=${administratorKey}`,
+        `http://localhost:4000/agendas/60935574/settings/eventSchema/configure?key=${administratorKey}`,
         { params: { lang: 'en' } },
       );
       expect(res.data.parents.length).toBe(2);
@@ -159,7 +158,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
 
     it('get settings eventSchema without split options', async () => {
       const res = await axios.get(
-        `http://localhost:3000/agendas/60935574/settings/eventSchema?key=${administratorKey}`,
+        `http://localhost:4000/agendas/60935574/settings/eventSchema?key=${administratorKey}`,
         { params: {} },
       );
       expect(res.data.fields).toBeTruthy();
@@ -170,7 +169,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
       try {
         result = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/60935574/settings/eventSchema/configure',
+          url: 'http://localhost:4000/agendas/60935574/settings/eventSchema/configure',
           headers: {
             'access-token': adminAccessToken,
             'content-type': 'application/json',
@@ -190,7 +189,7 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
       try {
         await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/60935574/settings/eventSchema/configure',
+          url: 'http://localhost:4000/agendas/60935574/settings/eventSchema/configure',
           headers: {
             'access-token': contribAccessToken,
             'content-type': 'application/json',

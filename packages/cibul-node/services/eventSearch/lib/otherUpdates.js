@@ -3,7 +3,11 @@ import updateAgendaIndex from './updateAgendaIndex.js';
 
 const log = logs('services/eventSearch/otherUpdates');
 
-export async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
+export async function loadOtherUpdates(
+  services,
+  queue,
+  { agendaUid, eventUid },
+) {
   const { agendaEvents } = services;
 
   log('loadOtherUpdates');
@@ -22,11 +26,15 @@ export async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
 
   // here you know if it is published somewhere or not
   for (const remainingAgendaUid of remainingAgendaUids) {
-    await queue('otherUpdate', remainingAgendaUid, eventUid);
+    await queue.add('otherUpdate', { agendaUid: remainingAgendaUid, eventUid });
   }
 }
 
-export async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
+export async function otherUpdate(
+  services,
+  eventSearch,
+  { agendaUid, eventUid },
+) {
   const { core, tracker } = services;
 
   log('  otherUpdate', agendaUid, eventUid);

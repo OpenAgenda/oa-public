@@ -1,12 +1,15 @@
-import { Flex, Stack, Heading } from '@openagenda/uikit';
+import { Flex, Stack } from '@openagenda/uikit';
 import HighlightCard from './HighlightCard';
 import SegmentContainer from './SegmentContainer';
 
 interface HighlightCardSetProps {
   title: string;
   description?: string;
+  cardSize?: string;
   Cards: Array<any>;
   CTAs?: any[];
+  backgroundColor?: any;
+  componentBackgroundColor?: any;
 }
 
 export default function HighlightCardSet({
@@ -14,18 +17,26 @@ export default function HighlightCardSet({
   description,
   Cards,
   CTAs,
+  cardSize = 'medium',
+  backgroundColor,
+  componentBackgroundColor,
 }: HighlightCardSetProps) {
   return (
-    <SegmentContainer title={title} CTAs={CTAs}>
-      <Stack gap={8} align="center">
-        {description && (
-          <Heading size="md" textAlign="center" color="gray.600">
-            {description}
-          </Heading>
-        )}
-        <Flex wrap="wrap" justify="center" gap={8}>
+    <SegmentContainer
+      title={title}
+      description={description}
+      CTAs={CTAs}
+      backgroundColor={backgroundColor}
+    >
+      <Stack gap={cardSize === 'large' ? 10 : 8} align="center">
+        <Flex wrap="wrap" justify="center" gap={cardSize === 'large' ? 12 : 8}>
           {Cards.map((Highlight) => (
-            <HighlightCard key={Highlight.id} {...Highlight} />
+            <HighlightCard
+              key={Highlight.id}
+              {...Highlight}
+              cardSize={cardSize}
+              backgroundColor={componentBackgroundColor}
+            />
           ))}
         </Flex>
       </Stack>

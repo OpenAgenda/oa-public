@@ -9,7 +9,7 @@ async function detectAllDuplicateCandidates(
   options = {},
 ) {
   let after = 0;
-
+  let count = 0;
   while (after !== -1) {
     const { after: nextAfter, items: locations } = await endpoints.list(
       {},
@@ -22,15 +22,22 @@ async function detectAllDuplicateCandidates(
     }
 
     for (const location of locations) {
-      await detectDuplicateCandidates({ endpoints, internals }, location.uid, {
-        saveCandidates: true,
-      });
+      const candidates = await detectDuplicateCandidates(
+        { endpoints, internals },
+        location.uid,
+        {
+          saveCandidates: true,
+        },
+      );
       if (options.sleep) {
         await sleep(options.sleep);
       }
+      count += candidates.length;
     }
     after = nextAfter;
   }
+
+  return count;
 }
 
 module.exports = detectAllDuplicateCandidates;

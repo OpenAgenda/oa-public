@@ -49,7 +49,7 @@ export default async function update(
   let success = false;
 
   if (operation === 'update' && result.body.result === 'updated') {
-    log('info', 'event %j was updated in set %s', identifiers, set, {
+    log('event %j was updated in set %s', identifiers, set, {
       operation: 'update',
       set,
       identifiers,
@@ -59,25 +59,18 @@ export default async function update(
     operation === 'index'
     && ['created', 'updated'].includes(result.body.result)
   ) {
-    log(
-      'info',
-      'event %j was %s in set %s',
-      result.body.result,
-      identifiers,
+    log('event %j was %s in set %s', identifiers, result.body.result, set, {
+      operation,
       set,
-      {
-        operation,
-        set,
-        identifiers,
-      },
-    );
+      identifiers,
+    });
     success = true;
   } else {
     log(
       'warn',
       'event %j was not %s in set %s',
-      operation === 'update' ? 'updated' : 'indexed',
       identifiers,
+      operation === 'update' ? 'updated' : 'indexed',
       set,
       {
         operation,

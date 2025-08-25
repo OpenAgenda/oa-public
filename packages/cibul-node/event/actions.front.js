@@ -244,6 +244,7 @@ export default (app) => {
   app.get(
     '/:slug/events/:eventSlug/ics',
     loadAgendaBySlug,
+    (req, res, next) => (req.agenda ? next() : next({ code: 404 })),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) =>
       eventsSvc

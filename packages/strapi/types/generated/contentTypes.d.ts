@@ -376,6 +376,7 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
 export interface ApiFooterFooter extends Struct.SingleTypeSchema {
   collectionName: 'footers';
   info: {
+    description: '';
     displayName: 'Footer';
     pluralName: 'footers';
     singularName: 'footer';
@@ -400,6 +401,10 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+    fontColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::footer.footer'>;
     publishedAt: Schema.Attribute.DateTime;
@@ -464,6 +469,10 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
+    themeColor: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::theme-color.theme-color'
+    >;
     title: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {

@@ -27,6 +27,7 @@ export const resetAndCreateTables = () =>
     'activityFeed.create.sql',
     'activityFeedActivity.create.sql',
     'usageCounter.create.sql',
+    'inboxes.create.sql',
   ].map((fx) =>
     fs
       .readFileSync(`${import.meta.dirname}/${fx}`, 'utf-8')

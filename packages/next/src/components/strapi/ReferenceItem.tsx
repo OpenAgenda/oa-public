@@ -6,8 +6,10 @@ import {
   LinkOverlay,
   LinkBox,
   Text,
+  Box,
 } from '@openagenda/uikit';
 import { Tag } from '@openagenda/uikit/snippets';
+import Icon from './Icon';
 
 type Reference = {
   id: string;
@@ -22,6 +24,18 @@ type Reference = {
 
 type ReferenceItemProps = Reference & {
   tagColorMap: Record<string, string>;
+  smallImages?: boolean;
+};
+
+const sizes = {
+  small: {
+    container: '260px',
+    image: '190px',
+  },
+  big: {
+    container: '320px',
+    image: '320px',
+  },
 };
 
 export default function ReferenceItem({
@@ -30,31 +44,20 @@ export default function ReferenceItem({
   title,
   tags: tagsString,
   tagColorMap,
+  smallImages = true,
 }: ReferenceItemProps) {
   const tags = tagsString?.split(',').map((tag) => tag.trim());
+
+  const size = sizes[smallImages ? 'small' : 'big'];
 
   return (
     <LinkBox asChild>
       <VStack
-        gap="4"
-        p="4"
-        border="2px solid"
-        borderColor="gray.100"
-        borderRadius="sm"
-        width="280px"
-        maxWidth="280px"
+        width={size.container}
+        maxWidth={size.container}
         alignItems="center"
+        gap={2}
       >
-        <LinkOverlay href={link} target="_blank" rel="noopener noreferrer">
-          <Image
-            src={`${image.url}`}
-            alt={image.alternativeText}
-            height="200px"
-            maxW="200px"
-            objectFit="contain"
-          />
-        </LinkOverlay>
-
         {title && (
           <Text
             fontSize="lg"
@@ -68,14 +71,58 @@ export default function ReferenceItem({
           </Text>
         )}
 
+        <Box
+          position="relative"
+          display="inline-block"
+          _hover={{
+            '& .hover-overlay': {
+              opacity: 1,
+            },
+          }}
+        >
+          <LinkOverlay href={link} target="_blank" rel="noopener noreferrer">
+            <Image
+              src={`${image.url}`}
+              alt={image.alternativeText}
+              height={size.image}
+              maxW={size.image}
+              objectFit="cover"
+            />
+          </LinkOverlay>
+
+          {/* Hover overlay */}
+          <Box
+            className="hover-overlay"
+            position="absolute"
+            top="0"
+            left="0"
+            right="0"
+            bottom="0"
+            bg="blackAlpha.500"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            opacity="0"
+            transition="opacity 0.2s ease-in-out"
+            pointerEvents="none"
+          >
+            <Icon
+              name="up-right-from-square"
+              size="fa-2x"
+              style="regular"
+              color="white"
+            />
+          </Box>
+        </Box>
+
         {tags?.length > 0 ? (
-          <Wrap justify="center" maxWidth="100%">
+          <Wrap justify="center" maxWidth="100%" pt={1}>
             {tags?.map((tag) => (
               <WrapItem key={tag}>
                 <Tag
                   variant="solid"
                   border="none"
-                  borderRadius={0}
+                  borderRadius={2}
                   size="lg"
                   colorPalette={tagColorMap[tag]}
                 >

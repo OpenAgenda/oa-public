@@ -19,7 +19,7 @@ export default function Name({ value, onChange, title }) {
       label="Nom de l'offre"
       info={
         name?.length > 90
-          ? "La longueur du titre de l'événement excède la longueur autorisée par le Pass. Adaptez la saisie pour éviter un troncage arbitraire"
+          ? "La longueur du titre de l'événement excède la longueur autorisée par le pass. Adaptez la saisie pour éviter un troncage arbitraire"
           : null
       }
       warning={name?.length > 90}

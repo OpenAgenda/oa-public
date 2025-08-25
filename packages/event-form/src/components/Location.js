@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import sa from 'superagent';
 import { Component } from 'react';
 
 import { Modal, Spinner } from '@openagenda/react-shared';
@@ -90,16 +89,22 @@ class LocationComponent extends Component {
 
     const { onChange } = this.props;
 
-    sa.get(res.get.replace(':locationUid', locationUid)).then(
-      (response) => {
+    fetch(res.get.replace(':locationUid', locationUid))
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((body) => {
         this.setState({
           initing: false,
-          mode: response.body ? 'show' : 'search',
+          mode: body ? 'show' : 'search',
         });
 
-        onChange(response.body);
-      },
-      (err) => {
+        onChange(body);
+      })
+      .catch((err) => {
         console.log('could not load %s', locationUid);
         console.log(err);
 
@@ -107,8 +112,7 @@ class LocationComponent extends Component {
           initing: false,
           mode: 'search',
         });
-      },
-    );
+      });
   }
 
   renderSelector() {

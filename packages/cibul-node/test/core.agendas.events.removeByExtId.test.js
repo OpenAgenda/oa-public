@@ -10,16 +10,22 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
   let core;
   const memberUserUid = 63170200;
 
-  beforeAll(() => loadFixtures(testConfig.db, '003.sql.js'));
+  const config = testConfig.extendWith({
+    es75: {
+      ...testConfig.es75,
+      agendaEventsIndex: 'test-events-removebyextid',
+    },
+  });
+
+  beforeAll(() => loadFixtures(config.db, '003.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
         'simpleCache',
         'tracker', // for testing
-        'queues',
         'bull',
         'files',
         'events',
@@ -38,7 +44,14 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
+
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
 
     services.aggregators.task();
 
@@ -95,7 +108,7 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
     let event;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -103,7 +116,7 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -127,7 +140,7 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
       let err = null;
       response = await axios({
         method: 'delete',
-        url: 'http://localhost:3000/agendas/17026855/events/ext/test/thing',
+        url: 'http://localhost:4000/agendas/17026855/events/ext/test/thing',
         headers: {
           'access-token': accessToken,
           'content-type': 'application/json',

@@ -1,9 +1,10 @@
 import logs from '@openagenda/logs';
-import membersSvc from '../members/index.js';
 
 const log = logs('services/inboxes');
 
-export default async function onInboxCreate(inbox) {
+export default async function onInboxCreate(services, inbox) {
+  const { members: membersSvc } = services;
+
   switch (inbox.data.type) {
     case 'user': {
       const inboxUser = await inbox.users.add({

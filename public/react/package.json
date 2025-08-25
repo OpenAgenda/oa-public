@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/react",
-  "version": "0.0.0",
+  "version": "0.0.3",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -16,7 +16,8 @@
   "scripts": {
     "sb": "storybook dev",
     "start": "yarn sb",
-    "prepack": "tsup src !src/types/modules.d.ts --clean --format esm,cjs --dts"
+    "prepack": "oa-intl compile --esm -o 'src/locales/compiled/%lang%.json' && tsup src !src/types/modules.d.ts --clean --format esm,cjs --dts",
+    "extract-messages": "oa-intl --esm --compiled 'src/locales/compiled/%lang%.json'"
   },
   "exports": {
     "./package.json": "./package.json",
@@ -29,13 +30,23 @@
       "types": "./dist/components/index.d.ts",
       "import": "./dist/components/index.mjs",
       "require": "./dist/components/index.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*.d.ts",
+      "import": "./dist/components/*.mjs",
+      "require": "./dist/components/*.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js"
     }
   },
   "dependencies": {
     "@openagenda/common-labels": "^1.2.4",
-    "@openagenda/react-filters": "^2.13.0",
-    "@openagenda/react-shared": "^2.4.3",
-    "@openagenda/uikit": "^0.0.1",
+    "@openagenda/react-filters": "^2.13.2",
+    "@openagenda/react-shared": "^2.4.5",
+    "@openagenda/uikit": "^0.0.3",
     "ky": "^1.7.2",
     "qs": "^6.11.0",
     "react-intl": "^7.1.5",
@@ -44,6 +55,7 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
+    "@openagenda/intl": "^1.1.6",
     "@openagenda/tsconfig": "^0.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",

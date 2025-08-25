@@ -100,7 +100,6 @@ export default async function initServices(config = null, options = {}) {
   await init('errors', () => import('./errors.js'));
   await init('tracker', () => import('./tracker.js'));
   await init('genUrl', () => import('./genUrl.js'));
-  await init('queues', () => import('./queues.js'));
   await init('discord', () => import('./discord.js'));
   await init('files', () => import('./files.js'));
   await init('abilities', () => import('./abilities/index.js'));

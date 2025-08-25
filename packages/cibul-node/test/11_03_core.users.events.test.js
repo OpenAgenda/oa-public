@@ -6,17 +6,23 @@ import testConfig from './testConfig.js';
 describe('11 - core - functional (server): core.users().agendas.events', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '017.sql.js'));
+  const config = testConfig.extendWith({
+    es75: {
+      ...testConfig.es75,
+      agendaEventsIndex: 'test-users-events',
+    },
+  });
+
+  beforeAll(() => loadFixtures(config.db, '017.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
         'simpleCache',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',
@@ -34,7 +40,14 @@ describe('11 - core - functional (server): core.users().agendas.events', () => {
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
+
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
 
     await core.agendas(17026855).events.search.rebuild();
   });

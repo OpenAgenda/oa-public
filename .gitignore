@@ -1,5 +1,6 @@
 .idea/
 .vscode/
+.kilocode/
 *.code-workspace
 node_modules/
 npm-debug.log

@@ -9,8 +9,12 @@ import {
   SimpleGrid,
 } from '@openagenda/uikit';
 import Image from 'components/Image';
-import logoPic from '../../../public/images/oa.svg';
+import logoPic from '../../../public/images/oa-white.svg';
 import messages from './messages';
+
+import type { Color } from './types';
+
+const fontColor = 'gray.100';
 
 type LinkData = {
   id: string;
@@ -23,11 +27,13 @@ type Column = {
   id: string;
   title: string;
   Links: LinkData[];
+  fontColor?: Color;
 };
 
 type FooterProps = {
   Columns?: Column[];
   contactUrl: string;
+  fontColor?: Color;
 };
 
 function calculateColsForBreakpoint(
@@ -93,7 +99,7 @@ function getResponsiveGridColumns(itemCount: number) {
 function ColumnItem({ title, Links }: Column) {
   return (
     <VStack align="start" gap={3}>
-      <Text fontWeight="bold" fontSize="lg">
+      <Text fontWeight="bold" fontSize="lg" color={fontColor}>
         {title}
       </Text>
       <VStack align="start" gap={2}>
@@ -103,7 +109,7 @@ function ColumnItem({ title, Links }: Column) {
             href={link.url}
             target={link.isExternal ? '_blank' : undefined}
             rel={link.isExternal ? 'noopener nofollow' : undefined}
-            color="gray.600"
+            color={fontColor}
             _hover={{ color: 'primary.500' }}
           >
             {link.label}
@@ -121,19 +127,19 @@ export default function Footer({
   const intl = useIntl();
 
   const dataColumns = FooterColumnsData || [];
-  const totalItemsInGrid = 1 + dataColumns.length; // +1 for the contact column
+  const totalItemsInGrid = 2 + dataColumns.length; // +1 for the contact column
 
   const gridColumnConfig = getResponsiveGridColumns(totalItemsInGrid);
 
   const contactColumnJsx = (
     <VStack align="start" gap={3}>
-      <Text fontWeight="bold" fontSize="lg">
+      <Text fontWeight="bold" fontSize="lg" color={fontColor}>
         {intl.formatMessage(messages.contact)}
       </Text>
       <VStack align="start" gap={2}>
         <Link
           href={contactUrl}
-          color="gray.600"
+          color={fontColor}
           _hover={{ color: 'primary.500' }}
         >
           {intl.formatMessage(messages.contactForm)}
@@ -142,7 +148,7 @@ export default function Footer({
           href="https://www.linkedin.com/company/openagenda"
           target="_blank"
           rel="noopener nofollow"
-          color="gray.600"
+          color={fontColor}
           _hover={{ color: 'primary.500' }}
         >
           {intl.formatMessage(messages.linkedin)}
@@ -151,7 +157,7 @@ export default function Footer({
           href="https://github.com/openagenda"
           target="_blank"
           rel="noopener nofollow"
-          color="gray.600"
+          color={fontColor}
           _hover={{ color: 'primary.500' }}
         >
           {intl.formatMessage(messages.github)}
@@ -161,30 +167,29 @@ export default function Footer({
   );
 
   return (
-    <Container maxW="7xl" bg="white" pt="24" pb="12">
-      <Flex
-        direction={{ base: 'column', md: 'row' }}
-        gap={{ base: 8, md: 10 }}
-        alignItems={{ base: 'start', md: 'start' }}
-      >
-        <Box flexShrink={0} mb={{ base: 6, md: 0 }}>
-          <Image src={logoPic} width="172" alt="" />
-        </Box>
-
-        {totalItemsInGrid > 0 && (
+    <Box backgroundColor="classyCharcoal.solid">
+      <Container maxW="7xl" py="16">
+        <Flex
+          direction={{ base: 'column', md: 'row' }}
+          gap={{ base: 8, md: 10 }}
+          alignItems={{ base: 'start', md: 'start' }}
+        >
           <SimpleGrid
             columns={gridColumnConfig}
             gapX={{ base: 6, md: 8 }}
             gapY={{ base: 8, md: 10 }}
             width="100%"
           >
+            <VStack align="start" gap={3}>
+              <Image src={logoPic} width="172" alt="" />
+            </VStack>
             {contactColumnJsx}
             {dataColumns.map((columnData) => (
               <ColumnItem key={columnData.id} {...columnData} />
             ))}
           </SimpleGrid>
-        )}
-      </Flex>
-    </Container>
+        </Flex>
+      </Container>
+    </Box>
   );
 }

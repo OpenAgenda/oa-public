@@ -45,17 +45,19 @@ import PassBookingModal from './PassBookingModal';
 
 export { default as AccessibilitySection } from './AccessibilitySection';
 
+const imgRoute = process.env.NEXT_PUBLIC_ASSETS;
+
 function getPassImgSource(passData) {
   const currValue = getCurrentPassValue(passData);
   if (currValue?.isRejected)
-    return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-rejected-22.png';
+    return imgRoute + 'svc/registration-apps/pass-culture-rejected-22.png';
   if (currValue?.isPending)
-    return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-pending-22.png';
+    return imgRoute + 'svc/registration-apps/pass-culture-pending-22.png';
   if (currValue?.error)
-    return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-error-22.png';
+    return imgRoute + 'svc/registration-apps/pass-culture-error-22.png';
   if (!currValue?.value)
-    return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-unpublished-22.png';
-  return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png';
+    return imgRoute + 'svc/registration-apps/pass-culture-unpublished-22.png';
+  return imgRoute + 'svc/registration-apps/pass-culture-22.png';
 }
 
 function defaultGetRegistrationIcon(type: string) {
@@ -97,7 +99,7 @@ function extractPassFromRegistration(intl, registration) {
     passCulture:
       currentPassData && !currentPassData.isPending
         ? {
-            img: 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png',
+            img: imgRoute + 'svc/registration-apps/pass-culture-22.png',
             label: intl.formatMessage(messages.accessPassOffer),
             ...passItem,
           }
@@ -306,6 +308,10 @@ export function RegistrationSection({
               wordBreak="break-all"
               maxW="full"
               lineClamp={2}
+              color="primary.600"
+              _hover={{
+                color: 'primary.700',
+              }}
             >
               {registrationItem.type === 'link'
                 ? intl.formatMessage(messages.registerBook)
@@ -347,10 +353,14 @@ export function LocationPreview({ event, icon = faLocationDot }) {
           href={`https://www.openstreetmap.org/directions?to=${event.location.latitude}%2C${event.location.longitude}`}
           target="_blank"
           rel="noopener nofollow"
+          color="primary.600"
+          _hover={{
+            color: 'primary.700',
+          }}
         >
           {event.location.address}
         </Link>
-        <Wrap color="oaGray.500">
+        <Wrap color="oaGray.700">
           {['department', 'region', 'country'].map((part) => (
             <WrapItem key={part}>{event.location[part]}</WrapItem>
           ))}
@@ -451,6 +461,7 @@ export function PassCultureSection({
           onClose={bookingOnClose}
           agendaUid={agenda.uid}
           eventUid={event.uid}
+          timezone={event.timezone}
         />
       )}
     </Grid>

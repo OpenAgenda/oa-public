@@ -167,6 +167,7 @@ function Dashboard() {
       dispatch(mergeActions.initiate());
       return { mergeMode: true };
     }
+    dispatch(mergeActions.closeMerge());
     return { mergeMode: false };
   }, [pathname, dispatch, settings?.access.merge.authorized]);
 

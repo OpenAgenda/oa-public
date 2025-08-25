@@ -39,11 +39,7 @@ function Total({ total, upcomingOnly, passed: _passed, disabled: _disabled }) {
   // }, [disabled, passedUrl, router]);
 
   return (
-    <Text
-      display={{ base: 'flex', sm: 'block' }}
-      flexDirection="column"
-      alignSelf="start"
-    >
+    <Text>
       <chakra.span>
         {intl.formatMessage(
           messages[upcomingOnly ? 'totalUpcomingEvents' : 'totalEvents'],

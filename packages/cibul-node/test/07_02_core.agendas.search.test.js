@@ -16,7 +16,6 @@ describe('07 - core - functional (server): core.agendas().get', () => {
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',
@@ -38,6 +37,13 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     });
 
     core = Core(services, testConfig);
+
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
 
     await core.agendas(92983929).events.search.rebuild();
     await core.agendas.rebuildIndex();
@@ -155,7 +161,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
     let server;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -165,7 +171,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       beforeAll(async () => {
         response = await axios.get(
-          `http://localhost:3000/agendas?key=${publicKey}`,
+          `http://localhost:4000/agendas?key=${publicKey}`,
         );
       });
 
@@ -184,7 +190,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
       beforeAll(async () => {
         response = await axios.get(
-          `http://localhost:3000/agendas?key=${publicKey}&fields[]=summary&fields[]=schema&fields[]=settings`,
+          `http://localhost:4000/agendas?key=${publicKey}&fields[]=summary&fields[]=schema&fields[]=settings`,
         );
       });
 

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
-import sa from 'superagent';
 import logs from '@openagenda/logs';
+import qs from 'qs';
 
 const log = logs('fetch');
 
@@ -19,9 +19,9 @@ export function loadEventsFromFile(file) {
 export async function loadAgendaDetails(agendaUid) {
   log('loading agenda details for %s', agendaUid);
 
-  return sa
-    .get(`https://openagenda.com/agendas/${agendaUid}/settings.json`)
-    .then((result) => result.body);
+  return fetch(
+    `https://openagenda.com/agendas/${agendaUid}/settings.json`,
+  ).then((result) => result.json());
 }
 
 function _fetch(agendaUid, offset, limit, query) {
@@ -31,13 +31,22 @@ function _fetch(agendaUid, offset, limit, query) {
     { offset, limit, query },
   );
 
-  return sa
-    .get(`https://openagenda.com/agendas/${agendaUid}/events.json`, {
-      offset,
-      limit,
-      oaq: query,
+  const params = qs.stringify({
+    offset: offset.toString(),
+    limit: limit.toString(),
+    oaq: query || '',
+  });
+
+  return fetch(
+    `https://openagenda.com/agendas/${agendaUid}/events.json?${params}`,
+  )
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      return response.json();
     })
-    .then((result) => result.body.events);
+    .then((result) => result.events);
 }
 
 export async function fetchAndStoreEvents(destFolder, agendaUid, query) {

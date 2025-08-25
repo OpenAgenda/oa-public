@@ -17,4 +17,13 @@ export default {
   feed: 'activity_feed',
   activity: 'activity',
   feed_activity: 'activity_feed_activity',
+  // Inbox schemas needed for inboxes service
+  inbox: 'inboxes_inbox',
+  inboxUser: 'inboxes_inbox_user',
+  conversation: 'inboxes_conversation',
+  inboxConversation: 'inboxes_inbox_conversation',
+  message: 'inboxes_message',
+  messageAttachment: 'inboxes_message_attachment',
+  emailUtilsMessageIds: 'inboxes_email_message_ids',
+  emailUtilsReplyTos: 'inboxes_email_reply_tos',
 };

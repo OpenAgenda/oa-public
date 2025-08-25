@@ -1,7 +1,6 @@
 import fs from 'node:fs';
 import _ from 'lodash';
 import axios from 'axios';
-import FormData from 'form-data';
 import qs from 'qs';
 import logs from '@openagenda/logs';
 import api from '../api/index.js';
@@ -15,7 +14,13 @@ const log = logs('13_01');
 describe('13 - core - functional(server): core.agendas().locations.list', () => {
   let core;
 
-  const config = testConfig.extendWith({ queuesPrefix: 'q13_01:' });
+  const config = testConfig.extendWith({
+    queuesPrefix: 'q13_01:',
+    es75: {
+      ...testConfig.es75,
+      agendaEventsIndex: 'test_13_01_locations',
+    },
+  });
 
   beforeAll(() => loadFixtures(config.db, '014.sql.js'));
 
@@ -28,7 +33,6 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         'tracker',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',
@@ -46,6 +50,13 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
 
     core = Core(services, config);
+
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
 
     await core.agendas(93399464).events.search.rebuild();
     await core.agendas(48353388).events.search.rebuild();
@@ -237,7 +248,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     let response;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -245,7 +256,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -260,7 +271,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/locations',
+            url: 'http://localhost:4000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -293,7 +304,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('Wrong route throws 404', async () => {
         const { errorResponse } = await axios({
           method: 'post',
-          url: 'http://localhost:3000/17026855/locations',
+          url: 'http://localhost:4000/17026855/locations',
           headers: {
             'content-type': 'application/json',
           },
@@ -321,7 +332,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('Double-encoded JSON throws bad request error', async () => {
         const { errorResponse } = await axios({
           method: 'post',
-          url: 'http://localhost:3000/agendas/17026855/locations',
+          url: 'http://localhost:4000/agendas/17026855/locations',
           headers: {
             'content-type': 'application/json',
           },
@@ -349,7 +360,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         contributorAccessToken = await axios({
           method: 'post',
-          url: 'http://localhost:3000/requestAccessToken',
+          url: 'http://localhost:4000/requestAccessToken',
           headers: {
             'content-type': 'application/json',
           },
@@ -363,7 +374,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/93399464/locations',
+            url: 'http://localhost:4000/agendas/93399464/locations',
             headers: {
               'access-token': contributorAccessToken,
               'content-type': 'application/json',
@@ -390,7 +401,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/locations',
+            url: 'http://localhost:4000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -419,7 +430,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/locations',
+            url: 'http://localhost:4000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -452,7 +463,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
           const form = new FormData();
 
-          form.append('image', fs.createReadStream('/tmp/pirates.jpg'));
+          form.append(
+            'image',
+            await fs.openAsBlob('/tmp/pirates.jpg'),
+            'pirates.jpg',
+          );
           form.append('access_token', accessToken);
           form.append(
             'data',
@@ -465,8 +480,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/locations',
-            headers: form.getHeaders(),
+            url: 'http://localhost:4000/agendas/17026855/locations',
             data: form,
           });
         } catch (e) {
@@ -501,8 +515,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
           createdLocation = await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/locations',
-            headers: form.getHeaders(),
+            url: 'http://localhost:4000/agendas/17026855/locations',
             data: form,
           });
         } catch (e) {
@@ -524,7 +537,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           createResp = await axios({
             method: 'put',
-            url: 'http://localhost:3000/agendas/17026855/locations/ext/ard44',
+            url: 'http://localhost:4000/agendas/17026855/locations/ext/ard44',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -549,7 +562,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           updateResp = await axios({
             method: 'put',
-            url: 'http://localhost:3000/agendas/17026855/locations/ext/ard44',
+            url: 'http://localhost:4000/agendas/17026855/locations/ext/ard44',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -583,7 +596,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           response = await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/locations/24505639',
+            url: 'http://localhost:4000/agendas/17026855/locations/24505639',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -625,7 +638,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           response = await axios({
             method: 'patch',
-            url: 'http://localhost:3000/agendas/17026855/locations/24505639',
+            url: 'http://localhost:4000/agendas/17026855/locations/24505639',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -650,7 +663,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           patchResponse = await axios({
             method: 'patch',
-            url: 'http://localhost:3000/agendas/17026855/locations/ext/ard02',
+            url: 'http://localhost:4000/agendas/17026855/locations/ext/ard02',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -677,7 +690,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location is given using account key', async () => {
         const getResponse = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          url: 'http://localhost:4000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
             'content-type': 'application/json',
           },
@@ -691,7 +704,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location is given using access token', async () => {
         const getResponse = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations/95455142',
+          url: 'http://localhost:4000/agendas/17026855/locations/95455142',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -706,7 +719,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location chan be fetched using a slug', async () => {
         const getResponse = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations/slug/cabane-des-eveques?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          url: 'http://localhost:4000/agendas/17026855/locations/slug/cabane-des-eveques?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
             'content-type': 'application/json',
           },
@@ -720,7 +733,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location can be fetched using an default extId with value', async () => {
         const getResponse = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations/ext/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          url: 'http://localhost:4000/agendas/17026855/locations/ext/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
             'content-type': 'application/json',
           },
@@ -734,7 +747,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location chan be fetched using an extId whit key and value', async () => {
         const getResponse = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations/ext/default/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          url: 'http://localhost:4000/agendas/17026855/locations/ext/default/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
             'content-type': 'application/json',
           },
@@ -753,7 +766,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       beforeAll(async () => {
         allResults = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations',
+          url: 'http://localhost:4000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           },
@@ -764,7 +777,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
         result = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations',
+          url: 'http://localhost:4000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
@@ -797,7 +810,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('detailed option is useful to retrieve all location info', async () => {
         const detailedResults = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations',
+          url: 'http://localhost:4000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
@@ -854,7 +867,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('state filter limits result set to requested state', async () => {
         const { locations: verifiedLocations } = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/99501607/locations',
+          url: 'http://localhost:4000/agendas/99501607/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
@@ -871,7 +884,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('eventCounts option is accessible', async () => {
         const { locations } = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/99501607/locations',
+          url: 'http://localhost:4000/agendas/99501607/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1,
@@ -888,7 +901,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('value provided in after key can be used to fetch next location values', async () => {
         const nextResults = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations',
+          url: 'http://localhost:4000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             limit: 1, // legacy
@@ -908,7 +921,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('from and size can also be used for navigation', async () => {
         const nextResults = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations',
+          url: 'http://localhost:4000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             size: 1,
@@ -928,7 +941,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('order by name.asc provides ordered locations and an after key', async () => {
         const { locations, after } = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations',
+          url: 'http://localhost:4000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             order: 'name.asc',
@@ -951,7 +964,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('geo Filter', async () => {
         const geoResults = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations',
+          url: 'http://localhost:4000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
             geo: {
@@ -967,7 +980,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
         const noFilterResults = await axios({
           method: 'get',
-          url: 'http://localhost:3000/agendas/17026855/locations',
+          url: 'http://localhost:4000/agendas/17026855/locations',
           params: {
             key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           },
@@ -984,7 +997,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location is given using account key', async () => {
         const headResponse = await axios({
           method: 'head',
-          url: 'http://localhost:3000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          url: 'http://localhost:4000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
           headers: {
             'content-type': 'application/json',
           },
@@ -996,7 +1009,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('location is given using access token', async () => {
         const headResponse = await axios({
           method: 'head',
-          url: 'http://localhost:3000/agendas/17026855/locations/95455142',
+          url: 'http://localhost:4000/agendas/17026855/locations/95455142',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -1009,7 +1022,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('no location is found', async () => {
         const error = await axios({
           method: 'head',
-          url: 'http://localhost:3000/agendas/17026855/locations/456489786456',
+          url: 'http://localhost:4000/agendas/17026855/locations/456489786456',
           headers: {
             'access-token': accessToken,
             'content-type': 'application/json',
@@ -1027,7 +1040,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           removeResponse = await axios({
             method: 'delete',
-            url: 'http://localhost:3000/agendas/17026855/locations/95455142',
+            url: 'http://localhost:4000/agendas/17026855/locations/95455142',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',
@@ -1049,7 +1062,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         try {
           await axios({
             method: 'post',
-            url: 'http://localhost:3000/agendas/17026855/locations',
+            url: 'http://localhost:4000/agendas/17026855/locations',
             headers: {
               'access-token': accessToken,
               'content-type': 'application/json',

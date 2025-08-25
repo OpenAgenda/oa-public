@@ -4,6 +4,7 @@ import logs from '@openagenda/logs';
 import membersSvc from '@openagenda/members';
 import { send, sendInvitation } from './lib/mail.js';
 import clearCache from './lib/clearCache.js';
+import { addMemberCreate } from './lib/activities.js';
 
 const {
   utils: {
@@ -14,7 +15,7 @@ const {
 const log = logs('services/members/onCreate');
 
 async function _memberIsExistingUser(
-  { services, config, activityQueue },
+  { services, config },
   { member, user, agenda, context },
 ) {
   log('member is existing user', member);
@@ -84,7 +85,7 @@ async function _memberIsExistingUser(
   );
 
   try {
-    await activityQueue('addMemberCreate', {
+    await addMemberCreate(services, {
       user,
       member,
       agenda,
@@ -134,7 +135,7 @@ async function _memberIsInvitedNonUser(
   );
 }
 
-export default async ({ services, config, activityQueue }, member, context) => {
+export default async ({ services, config }, member, context) => {
   log('created', member);
 
   const { agendas } = services;
@@ -169,12 +170,12 @@ export default async ({ services, config, activityQueue }, member, context) => {
 
     if (member.userUid) {
       return _memberIsExistingUser(
-        { services, config, activityQueue },
+        { services, config },
         { member, user, agenda, context },
       );
     }
     return _memberIsInvitedNonUser(
-      { services, config, activityQueue },
+      { services, config },
       { member, agenda, context },
     );
   } catch (e) {

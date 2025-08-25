@@ -1,4 +1,4 @@
-import { getObjectType } from './utils.js';
+import { getObjectType, findLastVenueIdFromData } from './utils.js';
 import { getEntryItemOperationType } from './getOperationType.js';
 
 function decorateWithInfoFields(data, entry) {
@@ -13,7 +13,8 @@ function decorateWithInfoFields(data, entry) {
 }
 
 function spreadAccordingToObjectType(data) {
-  return [].concat(data).reduce((spreadEntries, entry) => {
+  const dataArray = [].concat(data);
+  return dataArray.reduce((spreadEntries, entry) => {
     const {
       priceCategories,
       dates,
@@ -21,6 +22,7 @@ function spreadAccordingToObjectType(data) {
       appliedAt,
       operation,
       editing,
+      updateAddress,
       ...remaining
     } = entry;
 
@@ -40,7 +42,22 @@ function spreadAccordingToObjectType(data) {
       spread.push(decorateWithInfoFields({ dates }, entry));
     }
 
-    if (!dates && !priceCategories && !hasOtherData) {
+    // If editing is true and updateAddress is true, create an eventOffer entry to force update
+    if (
+      !dates
+      && !priceCategories
+      && !hasOtherData
+      && editing
+      && updateAddress
+    ) {
+      // Find the last venueId from the original data array
+      const lastVenueId = findLastVenueIdFromData(dataArray);
+      const updateEntry = { updateAddress: true };
+      if (lastVenueId) {
+        updateEntry.venueId = lastVenueId;
+      }
+      spread.push(decorateWithInfoFields(updateEntry, entry));
+    } else if (!dates && !priceCategories && !hasOtherData) {
       spread.push({ operation, appliedAt, response });
     }
 

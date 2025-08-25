@@ -30,7 +30,6 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',
@@ -57,16 +56,6 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
     core = Core(services, testConfig);
 
     services.registrations.task();
-  });
-
-  afterAll(async () => {
-    try {
-      await core.services.eventSearch.getConfig().client.indices.delete({
-        index: 'test',
-      });
-    } catch (e) {
-      /* */
-    }
   });
 
   afterAll(() => core.services.simpleCache.clearAll());

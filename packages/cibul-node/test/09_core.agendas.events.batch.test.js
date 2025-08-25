@@ -18,7 +18,6 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
         'redis',
         'simpleCache',
         'accessTokens',
-        'queues',
         'bull',
         'files',
         'events',
@@ -38,13 +37,17 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
 
     core = Core(services, config);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(99501607).events.search.rebuild();
   });
 
-  afterAll(async () => {
-    core.services.knex.destroy();
-    config.redisClient.quit();
-  });
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('basic batch with core.agendas.events.list', () => {
     beforeAll(
@@ -62,19 +65,22 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
           );
 
           core.tasks({
-            execute() {},
+            active() {},
             error(...args) {
               done(args);
             },
-            success(...args) {
-              if (args[0] === 'batchedPatch') return done();
+            failed(...args) {
+              done(args);
+            },
+            completed(...args) {
+              if (args[0].name === 'batchedPatch') return done();
             },
           });
         }),
     );
 
     afterAll(async () => {
-      await core.tasks.stop({ reset: true });
+      await core.tasks.clear();
     });
 
     it('event is updated through batch operation', async () => {
@@ -101,19 +107,22 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
           );
 
           core.tasks({
-            execute() {},
+            active() {},
             error(...args) {
               done(args);
             },
-            success(...args) {
-              if (args[0] === 'batchedPatch') return done();
+            failed(...args) {
+              done(args);
+            },
+            completed(...args) {
+              if (args[0].name === 'batchedPatch') return done();
             },
           });
         }),
     );
 
     afterAll(async () => {
-      await core.tasks.stop({ reset: true });
+      await core.tasks.clear();
     });
 
     it('event is updated through batch operation with search', async () => {

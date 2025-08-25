@@ -1,6 +1,8 @@
 {
+  "ReactFilters.EmbedAgendaShow.addEvent": "",
   "ReactFilters.ValueBadge.removeFilter": "crwdns33978:0crwdne33978:0",
   "ReactFilters.ValueBadge.removeFilterWithTitle": "crwdns33980:0{title}crwdne33980:0",
+  "next.views.EmbedAgendaShow.export": "",
   "next.views.EmbedAgendaShow.search": "crwdns33982:0crwdne33982:0",
   "next.views.EmbedAgendaShow.seeMore": "crwdns33928:0crwdne33928:0"
 }

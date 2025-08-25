@@ -1,6 +1,7 @@
-import { Flex, Box, Text } from '@openagenda/uikit';
-import StrapiIllustration from 'components/strapi/Illustration';
+import { Flex, Box, SimpleGrid, Text } from '@openagenda/uikit';
 import Icon from 'components/strapi/Icon';
+import { color } from 'utils/strapi';
+import CTAButton from 'components/strapi/CTAButton';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 
 export default {
@@ -8,49 +9,79 @@ export default {
   decorators: [ProvidersDecorator],
 };
 
-export function Illustrations() {
+const ColorItem = ({ code }) => (
+  <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
+    <Box
+      backgroundColor={color(code, 500)}
+      width="100px"
+      height="100px"
+      mb={1}
+    />
+    <Text>{code}</Text>
+  </Box>
+);
+
+export function Colors() {
   return (
-    <Flex justify="center" align="center" height="100vh">
-      <Box m={3}>
-        <StrapiIllustration
-          image={{
-            url: '/rectanglePhteven.jpg',
-          }}
-          width={{ name: 'lg' }}
-        />
-        <Text textAlign="center">
-          <code>{`width={{ name: 'lg' }}`}</code>
-        </Text>
-      </Box>
-      <Box m={3}>
-        <StrapiIllustration
-          image={{
-            url: '/squarePhteven.jpg',
-          }}
-          width={{ name: 'sm' }}
-          borderRadius="full"
-        />
-        <Text textAlign="center">
-          <code>{`width={{ name: 'sm' }}`}</code>
-          <br />
-          <code>{`borderRadius="full"`}</code>
-        </Text>
-      </Box>
-      <Box m={3}>
-        <StrapiIllustration
-          image={{
-            url: '/squarePhteven.jpg',
-          }}
-          width={{ name: '3xs' }}
-          borderRadius="full"
-        />
-        <Text textAlign="center">
-          <code>{`width={{ name: '2xs' }}`}</code>
-          <br />
-          <code>{`borderRadius="full"`}</code>
-        </Text>
-      </Box>
-    </Flex>
+    <SimpleGrid
+      backgroundColor="white"
+      minChildWidth="120px"
+      gap="10px"
+      p={4}
+      width="100%"
+    >
+      {[
+        'frenchBlue',
+        'celestialBlue',
+        'moonStone',
+        'turquoise',
+        'lightGreen',
+        'icterine',
+        'royalBlue',
+        'amethyst',
+        'pompAndPower',
+        'pompAndPowerer',
+        'mulberry',
+        'spotVistaBlue',
+        'spotAliceBlue',
+        'goldenRod',
+        'papayaWhip',
+        'coyote',
+        'charcoal',
+        'cadetGray',
+        'fuchsiaRose',
+        'tickleMePink',
+        'myrtleGreen',
+        'chiliRed',
+        'seaGreen',
+        'vistaBlue',
+        'discreetAliceBlue',
+        'vanilla',
+        'pictonBlue',
+        'azure',
+        'lightSkyBlue',
+        'marianBlue',
+        'mayaBlue',
+        'bleuDeFrance',
+        'mediumSlateBlue',
+        'razzmatazz',
+        'carribeanCurrent',
+        'persianGreen',
+        'ashGray',
+        'burntOrange',
+        'darkCyan',
+        'aquamarine',
+        'mint',
+        'skipSeaGreen',
+        'naturalAliceBlue',
+        'ruddyBlue',
+        'sepia',
+        'goldenBrown',
+        'satinSheetGold',
+      ].map((code) => (
+        <ColorItem key={code} code={code} />
+      ))}
+    </SimpleGrid>
   );
 }
 
@@ -69,6 +100,40 @@ export function Icons() {
       <Box m={3}>
         <Icon style="solid" name="magnifying-glass" size="fa-lg" />
       </Box>
+    </Flex>
+  );
+}
+
+export function CTAButtons() {
+  const link = 'https://mycolor.space/?hex=%231D77CE&sub=1';
+  return (
+    <Flex
+      justify="center"
+      align="center"
+      height="100vh"
+      direction="column"
+      gap={4}
+    >
+      <CTAButton
+        link={link}
+        label="Royal blue"
+        colorPalette={{ name: 'royalBlue' }}
+      />
+      <CTAButton
+        link={link}
+        label="French blue"
+        colorPalette={{ name: 'frenchBlue' }}
+      />
+      <CTAButton
+        link={link}
+        label="Golden brown"
+        colorPalette={{ name: 'goldenBrown' }}
+      />
+      <CTAButton
+        link={link}
+        label="Razzmatazz"
+        colorPalette={{ name: 'razzmatazz' }}
+      />
     </Flex>
   );
 }

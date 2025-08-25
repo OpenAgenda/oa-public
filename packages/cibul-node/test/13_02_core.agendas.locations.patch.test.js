@@ -14,7 +14,6 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
         'knex',
         'redis',
         'simpleCache',
-        'queues',
         'bull',
         'files',
         'events',
@@ -22,6 +21,7 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
         'agendaEvents',
         'aggregators',
         'agendaLocations',
+        'registrations',
         'formSchemas',
         'custom',
         'eventSearch',
@@ -35,6 +35,13 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
     });
 
     core = Core(services, testConfig);
+
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
 
     await core.agendas(64260763).events.search.rebuild();
     await core.agendas(89904399).events.search.rebuild();
@@ -154,6 +161,122 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
             expect(events[0].location.address).toBe(
               "23 rue de l'Espérance, 59100 Roubaix",
             );
+          } catch (e) {
+            return rj(e);
+          }
+          rs();
+        },
+        true,
+      );
+    });
+  });
+
+  it('loadAndProcess is called when event has passCulture registration and location changes', async () => {
+    // Mock processApply to prevent external API calls and return a modified registration
+    let processApplyCalled = false;
+    core.services.registrations.utils.passCulture.processApply = async () => {
+      processApplyCalled = true;
+      return [
+        {
+          lastProcessedAt: new Date().toISOString(),
+          data: [
+            {
+              eventDuration: 200,
+              bookingContact: 'test@example.com',
+              venueId: 548,
+              description: 'location update test - PROCESSED',
+              category: 'ATELIER_PRATIQUE_ART',
+              operation: 'update',
+              appliedAt: new Date().toISOString(),
+              duo: true,
+            },
+          ],
+          service: 'passCulture',
+          type: 'link',
+          value: 'https://integration.passculture.app/offre/123299',
+        },
+      ];
+    };
+
+    // Get initial registration state of the test event
+    const initialEvent = await core.services.events.get(22258579, {
+      access: 'internal',
+      detailed: true,
+    });
+    const initialRegistration = initialEvent.registration;
+
+    core.agendas(64260763).locations.patch(37923057, {
+      address: '42 rue de la Test, Roubaix',
+      city: 'Roubaix Updated',
+    });
+
+    await new Promise((rs, rj) => {
+      core.services.tracker.on(
+        'agendaLocations.syncImpactedEventsAndAgendas.done',
+        async () => {
+          try {
+            // Verify that processApply was called (indicating loadAndProcess was triggered)
+            expect(processApplyCalled).toBe(true);
+
+            // Get updated registration state
+            const updatedEvent = await core.services.events.get(22258579, {
+              access: 'internal',
+              detailed: true,
+            });
+            const updatedRegistration = updatedEvent.registration;
+
+            // Verify that loadAndProcess was called by checking if registration was processed
+            // The registration should have been modified by the loadAndProcess call
+            expect(updatedRegistration).not.toEqual(initialRegistration);
+
+            // Verify the passCulture registration exists
+            const passCultureReg = updatedRegistration.find(
+              (r) => r.service === 'passCulture',
+            );
+            expect(passCultureReg).toBeDefined();
+          } catch (e) {
+            return rj(e);
+          }
+          rs();
+        },
+        true,
+      );
+    });
+  });
+
+  it('loadAndProcess is not called when event lacks passCulture registration', async () => {
+    // Use the existing event without passCulture registration (22258578)
+    const initialEvent = await core.services.events.get(22258578, {
+      access: 'internal',
+      detailed: true,
+    });
+    const initialRegistration = initialEvent.registration;
+
+    core.agendas(64260763).locations.patch(37923057, {
+      address: '99 rue de la Negative Test, Roubaix',
+      postalCode: '59100',
+    });
+
+    await new Promise((rs, rj) => {
+      core.services.tracker.on(
+        'agendaLocations.syncImpactedEventsAndAgendas.done',
+        async () => {
+          try {
+            // Get registration state after location patch
+            const updatedEvent = await core.services.events.get(22258578, {
+              access: 'internal',
+              detailed: true,
+            });
+            const updatedRegistration = updatedEvent.registration;
+
+            // Verify that registration was not modified (loadAndProcess was not called)
+            expect(updatedRegistration).toEqual(initialRegistration);
+
+            // Verify no passCulture registration exists
+            const passCultureReg = updatedRegistration.find(
+              (r) => r.service === 'passCulture',
+            );
+            expect(passCultureReg).toBeUndefined();
           } catch (e) {
             return rj(e);
           }

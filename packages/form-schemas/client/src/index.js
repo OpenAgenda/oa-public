@@ -114,13 +114,13 @@ export default class FormSchemaComponent extends Component {
 
     submit({
       method,
-      res: _.get(res, method, ''),
+      res: _.get(res, method.toLowerCase(), ''),
       formSchema: this._getFormSchema(),
       values: draft !== undefined ? { ...values, draft } : values, // values can be clean anew once received by server
       files: this.get('files'),
     })
       .then((response) => {
-        if (response.statusCode !== 200) {
+        if (response.status !== 200) {
           this.onServerError(response);
           return;
         }
@@ -164,7 +164,7 @@ export default class FormSchemaComponent extends Component {
 
     let globalErrorPath = 'state.labels.errors.serverException';
 
-    if (res.statusCode === 413) {
+    if (res.status === 413) {
       globalErrorPath = 'state.labels.errors.serverErrorTooLargeFile';
     }
 

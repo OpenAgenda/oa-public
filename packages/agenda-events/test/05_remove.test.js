@@ -1,15 +1,12 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import redis from 'redis';
 import knex from 'knex';
-import Queues from '@openagenda/queues';
 import Service from '../index.js';
 import config from '../testconfig.js';
 import fixtures from './fixtures/index.js';
 
 describe('agendaEvents - 05 - functional (server): remove', () => {
   let svc;
-  let redisClient;
   let knexClient;
 
   beforeEach(async () => {
@@ -27,14 +24,6 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
     });
   });
 
-  beforeAll(async () => {
-    redisClient = redis.createClient({
-      socket: { host: 'localhost', port: 6379 },
-    });
-
-    await redisClient.connect();
-  });
-
   beforeEach(() => {
     svc = Service({
       ...config,
@@ -42,7 +31,6 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
     });
   });
 
-  afterAll(async () => redisClient.quit());
   afterAll(() => knexClient.destroy());
 
   it('simple remove', async () => {
@@ -75,14 +63,8 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
     new Promise((rs) => {
       let count = 0;
 
-      const queue = Queues({
-        redis: redisClient,
-        prefix: 'agenda-events',
-      })('05_remove');
-
       const svc2 = Service({
         ...config,
-        queue,
         interfaces: {
           onRemove: (removed) => {
             count += 1;
@@ -90,7 +72,6 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
             expect(removed.eventUid).toEqual(15205357);
 
             if (count === 2) {
-              queue.stop();
               rs();
             }
           },
@@ -98,8 +79,6 @@ describe('agendaEvents - 05 - functional (server): remove', () => {
       });
 
       svc2.remove(15205357);
-
-      queue.run();
     }));
 
   it('context can be passed in options to be transfered to onRemove interface', () =>

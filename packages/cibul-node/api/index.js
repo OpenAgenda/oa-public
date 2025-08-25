@@ -4,7 +4,7 @@ import logs from '@openagenda/logs';
 import { NotAuthenticated } from '@openagenda/verror';
 import sentryErrorHandler from '../lib/sentryErrorHandler.js';
 import * as track from '../lib/track.js';
-import * as logContextMw from '../lib/logContextMw.js';
+import * as otelMw from '../lib/otelMw.js';
 import boolQuery from '../lib/boolQuery.js';
 import * as mw from './middleware/index.js';
 import getSettingsEndpoint from './endpoints/settingsGet.js';
@@ -65,7 +65,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
 
-  app.use(logContextMw.withUserUid);
+  app.use(otelMw.addUserContext);
 
   // load all the things
   app.param('agendaUid', mw.loadAgenda);
@@ -86,6 +86,7 @@ export default (core, { useRouter = true } = {}) => {
   // control all the things
   app.post('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
   app.patch('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
+  app.put('/agendas/:agendaUid/events(/*?)?', mw.member.allow());
   app.get('/agendas/:agendaUid.prv', mw.member.allow());
   app.get(
     [
@@ -210,6 +211,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.post('/agendas/:agendaUid/events/search', [
     track.mw('api', 'list', 'events'),
+    mw.validateNavSize,
     mw.searchAgendaEvents(core, { queryNamespace: 'parsedData' }),
     ...app.services.usageCounters
       ? [app.services.usageCounters.mw.increment('agendaEvents')]
@@ -249,6 +251,18 @@ export default (core, { useRouter = true } = {}) => {
       )
       .then((references) => res.json({ success: true, references }), next));
 
+  app.post('/agendas/:agendaUid/events/:eventUid/conversations', [
+    mw.member.allow(['administrator', 'moderator']),
+    (req, res, next) =>
+      core
+        .agendas(req.agenda.uid)
+        .events(req.event.uid)
+        .conversations.create(req.parsedData, {
+          userUid: req.user.uid,
+        })
+        .then(() => res.json({ success: true }), next),
+  ]);
+
   if (app.services.activities) {
     app.get(
       '/agendas/:agendaUid/events/:eventUid/activities',
@@ -262,6 +276,7 @@ export default (core, { useRouter = true } = {}) => {
     [
       mw.convertLegacyFilter,
       track.mw('api', 'list', 'events'),
+      mw.validateNavSize,
       mw.searchAgendaEvents(core),
       ...app.services.usageCounters
         ? [app.services.usageCounters.mw.increment('agendaEvents')]
@@ -274,6 +289,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.get('/agendas/:agendaUid/events.json-ld', [
     track.mw('api', 'list', 'events'),
+    mw.validateNavSize,
     mw.searchAgendaEvents(core, {
       sendResponse: false,
       queryNamespace: 'query',
@@ -359,20 +375,12 @@ export default (core, { useRouter = true } = {}) => {
 
   app.put('/agendas/:agendaUid/events/ext/:extKey/:extId', [
     mw.evaluateAnonymousAccess,
-    (req, res, next) =>
-      core
-        .agendas(req.agenda.uid)
-        .events.setByExtId(
-          req.params.extKey,
-          req.params.extId,
-          req.parsedData,
-          {
-            context: {
-              userUid: req.user.uid,
-            },
-          },
-        )
-        .then((event) => res.json(event), next),
+    mw.eventUpdate.byExtId,
+  ]);
+
+  app.patch('/agendas/:agendaUid/events/ext/:extKey/:extId', [
+    mw.evaluateAnonymousAccess,
+    mw.eventUpdate.byExtId,
   ]);
 
   app.delete('/agendas/:agendaUid/events/ext/:extKey/:extId', [
@@ -519,8 +527,15 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda.uid)
         .members.invite(
-          { role: req.body.role, emails: req.body.emails },
-          { context: req.context, userUid: req.user.uid },
+          {
+            role: req.body.role,
+            emails: req.body.emails,
+            message: req.body.message,
+          },
+          {
+            context: req.context,
+            userUid: req.user.uid,
+          },
         )
         .then((data) => res.json(data), next),
   );
@@ -1053,7 +1068,7 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
-  app.get('/agendas', (req, res, next) => {
+  app.get('/agendas', mw.extractIncludeFields, (req, res, next) => {
     core.agendas
       .search(req.query, req.query, {
         useDefaultImage:
@@ -1061,7 +1076,7 @@ export default (core, { useRouter = true } = {}) => {
         includeImagePath: !(
           req.query.includeImagePath && req.query.includeImagePath === '0'
         ),
-        includeFields: req.query.fields ? [].concat(req.query.fields) : null,
+        includeFields: req.includeFields,
       })
       .then((data) => res.json({ ...data, success: true }), next);
   });
@@ -1137,6 +1152,8 @@ export default (core, { useRouter = true } = {}) => {
         })
         .then((result) => res.json(result)),
   ]);
+
+  app.get('/noop', (req, res) => res.send());
 
   log('done');
 

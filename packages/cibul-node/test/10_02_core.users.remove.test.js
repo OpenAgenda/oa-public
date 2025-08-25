@@ -19,7 +19,6 @@ describe('10 - core - functional (server): core.users().remove()', () => {
         'tracker',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',
@@ -37,6 +36,13 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     });
 
     core = Core(services, testConfig);
+
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
 
     await core.agendas(6184770).events.search.rebuild();
     await services.simpleCache.clearAll();
@@ -97,7 +103,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     let accessToken;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -105,7 +111,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     beforeAll(async () => {
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -118,7 +124,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     it('user can delete his own account', async () => {
       await axios({
         method: 'delete',
-        url: 'http://localhost:3000/me',
+        url: 'http://localhost:4000/me',
         headers: {
           'access-token': accessToken,
           'content-type': 'application/json',

@@ -144,6 +144,17 @@ export function getCurrentValue(data) {
   return result;
 }
 
+export function findLastVenueIdFromData(dataArray) {
+  // Look through the data array in reverse order to find the last venueId
+  for (let i = dataArray.length - 1; i >= 0; i--) {
+    const entry = dataArray[i];
+    if (entry.venueId) {
+      return entry.venueId;
+    }
+  }
+  return null;
+}
+
 export function getObjectType(entry) {
   const { priceCategories, dates, ...remaining } = entry;
 
@@ -155,10 +166,20 @@ export function getObjectType(entry) {
     return 'dates';
   }
 
+  const meaningfulKeys = Object.keys(remaining).filter(
+    (k) => !['appliedAt', 'response', 'operation'].includes(k),
+  );
+
+  if (meaningfulKeys.length) {
+    return 'eventOffer';
+  }
+
+  // If there are no meaningful keys but we have metadata (appliedAt, response, operation),
+  // it's still considered an eventOffer entry
   if (
-    Object.keys(remaining).filter(
-      (k) => !['appliedAt', 'response', 'operation'].includes(k),
-    ).length
+    remaining.appliedAt !== undefined
+    || remaining.response !== undefined
+    || remaining.operation !== undefined
   ) {
     return 'eventOffer';
   }

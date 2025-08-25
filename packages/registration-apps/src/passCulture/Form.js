@@ -26,16 +26,36 @@ const hasPriceCategories = (value) => !!(value?.priceCategories ?? []).length;
 
 const checkForLocationMatch = (oaLocation, venues) => {
   const resp = venues.reduce((carry, item) => {
-    const levenshteinPercent = (distance(oaLocation.name, item.publicName) * 100)
-      / Math.max(oaLocation.name.length, item.publicName.length);
-    if (levenshteinPercent < 0.8) {
-      if (!carry || carry.levenshteinPercent < levenshteinPercent) {
+    let bestMatch = null;
+
+    // Check publicName if it exists
+    if (item.publicName) {
+      const publicNamePercent = (distance(oaLocation.name, item.publicName) * 100)
+        / Math.max(oaLocation.name.length, item.publicName.length);
+      bestMatch = { percent: publicNamePercent, name: 'publicName' };
+    }
+
+    // Check legalName if it exists
+    if (item.legalName) {
+      const legalNamePercent = (distance(oaLocation.name, item.legalName) * 100)
+        / Math.max(oaLocation.name.length, item.legalName.length);
+
+      // Use legalName if it's better than publicName or if publicName doesn't exist
+      if (!bestMatch || legalNamePercent < bestMatch.percent) {
+        bestMatch = { percent: legalNamePercent, name: 'legalName' };
+      }
+    }
+
+    // If we have a good match (less than 80% distance)
+    if (bestMatch && bestMatch.percent < 80) {
+      if (!carry || carry.levenshteinPercent > bestMatch.percent) {
         return {
           id: item.id,
-          levenshteinPercent,
+          levenshteinPercent: bestMatch.percent,
         };
       }
     }
+
     return carry;
   }, null);
   return resp?.id || null;
@@ -114,7 +134,7 @@ export default function Form({
     .reduce((carry, item) => carry.concat(item.venues), [])
     .map((v) => ({
       value: v.id,
-      label: `${v.publicName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
+      label: `${v.publicName || v.legalName} - ${v.location.address}, ${v.location.postalCode} ${v.location.city}`,
     }));
 
   const status = useMemo(() => {
@@ -134,19 +154,26 @@ export default function Form({
 
   useEffect(() => {
     const defaultsAtInit = {};
+
+    // defaultVenueId has absolute priority over everything
     if (defaultVenueId) {
       defaultsAtInit.venueId = defaultVenueId;
-    }
-    if (venuesOptions.length === 1 && !initialValue.venueId) {
-      defaultsAtInit.venueId = venuesOptions[0].value;
-    }
+    } else {
+      if (venuesOptions.length === 1 && !storedValue.venueId) {
+        defaultsAtInit.venueId = venuesOptions[0].value;
+      }
 
-    if (venuesOptions.length > 1 && oaLocation?.name) {
-      const match = checkForLocationMatch(
-        oaLocation,
-        offererVenues.reduce((carry, item) => carry.concat(item.venues), []),
-      );
-      if (match) defaultsAtInit.venueId = match;
+      if (
+        venuesOptions.length > 1
+        && oaLocation?.name
+        && !storedValue.venueId
+      ) {
+        const match = checkForLocationMatch(
+          oaLocation,
+          offererVenues.reduce((carry, item) => carry.concat(item.venues), []),
+        );
+        if (match) defaultsAtInit.venueId = match;
+      }
     }
 
     if (!hasPriceCategories(storedValue)) {
@@ -172,7 +199,7 @@ export default function Form({
       {!defaultVenueId ? (
         <Section>
           <Select
-            disabled={openSubForm || patchMode}
+            disabled={openSubForm}
             label="Lieu"
             value={currentValue?.venueId}
             placeholder="Sélectionner un lieu"

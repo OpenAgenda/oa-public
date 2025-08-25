@@ -4,6 +4,10 @@ import * as invitations from '@openagenda/invitations';
 import logs from '@openagenda/logs';
 import clearCache from './lib/clearCache.js';
 import { sendInvitation } from './lib/mail.js';
+import {
+  addMemberAcceptInvitation,
+  addMemberRoleChange,
+} from './lib/activities.js';
 
 const log = logs('services/members/onPatch');
 
@@ -14,7 +18,6 @@ async function onNewMember({
   senderUser,
   context,
   member,
-  activityQueue,
 }) {
   const usersSvc = services.users;
   const {
@@ -63,7 +66,7 @@ async function onNewMember({
     log('warn', 'inboxes service was not initialized');
   }
 
-  await activityQueue('addMemberAcceptInvitation', {
+  await addMemberAcceptInvitation(services, {
     agenda,
     user,
     senderUser,
@@ -73,7 +76,7 @@ async function onNewMember({
 }
 
 export default async function onPatch(
-  { services, config, activityQueue },
+  { services, config },
   before,
   member,
   context,
@@ -147,7 +150,6 @@ export default async function onPatch(
           senderUser,
           context,
           member,
-          activityQueue,
         });
       } catch (e) {
         log('error', 'failed to register new member', e);
@@ -155,7 +157,7 @@ export default async function onPatch(
     } else if (hasChangedRole) {
       log('member has changed role');
       try {
-        await activityQueue('addMemberRoleChange', {
+        await addMemberRoleChange(services, {
           user,
           before,
           member,

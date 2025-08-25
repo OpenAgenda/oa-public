@@ -14,7 +14,7 @@ import makeConfig from './config.js';
 export default async function createService(conf) {
   const config = await makeConfig(conf);
 
-  const { queue, knex, schemas, mailsDomain } = config;
+  const { createWorker, knex, schemas, mailsDomain } = config;
 
   const svc = {};
 
@@ -23,9 +23,20 @@ export default async function createService(conf) {
     syncAgenda: tasks.sync.syncAgenda.bind(null, svc),
   };
 
-  if (queue) {
-    queue.register(syncMethods);
-  }
+  const worker = createWorker((job) => {
+    switch (job.name) {
+      case 'syncUser':
+        syncMethods.syncUser(job.data);
+        break;
+      case 'syncAgenda':
+        syncMethods.syncAgenda(job.data);
+        break;
+      default:
+        throw new Error(`Unknown job name: ${job.name}`);
+    }
+  });
+
+  worker.on('error', (failedReason) => console.error('error', failedReason));
 
   Object.assign(svc, {
     config,
@@ -44,6 +55,7 @@ export default async function createService(conf) {
       schemas: _.pick(schemas, ['emailUtilsMessageIds', 'emailUtilsReplyTos']),
       mailsDomain,
     }),
+    worker,
   });
 
   // bind statics

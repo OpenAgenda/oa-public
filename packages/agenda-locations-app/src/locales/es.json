@@ -31,7 +31,6 @@
   "AgendaLocations.LocationForm.tooshort": "El texto es demasiado corto",
   "AgendaLocations.LocationForm.website": "Sitio web",
   "AgendaLocations.LocationItem.history": "Historia",
-  "AgendaLocations.LocationItem.remove": "Borrar",
   "AgendaLocations.LocationSearch.create": "Crear un nuevo lugar",
   "AgendaLocations.LocationSearch.namePlaceholder": "Introduzca el nombre de la ubicación del evento",
   "AgendaLocations.LocationSearch.noResult": "Ningún resultado coincide con su entrada",
@@ -44,5 +43,6 @@
   "AgendaLocations.RemoveModal.confirmRemove": "Confirmar eliminación",
   "AgendaLocations.RemoveModal.confirmRemoveMessage": "El lugar será eliminado de la base",
   "AgendaLocations.RemoveModal.removeTitle": "Borrar un luego",
-  "AgendaLocations.SearchInput.search": "Buscar"
+  "AgendaLocations.SearchInput.search": "Buscar",
+  "AgendaLocations.remove": "Borrar"
 }

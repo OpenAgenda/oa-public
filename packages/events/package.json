@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/events",
-  "version": "3.0.0",
+  "version": "3.0.2",
   "private": true,
   "description": "handle core event data",
   "author": "Kaoré",
@@ -18,9 +18,9 @@
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false --silent=false"
   },
   "dependencies": {
-    "@openagenda/form-schemas": "^1.9.1",
-    "@openagenda/logs": "^1.1.9",
-    "@openagenda/md": "^1.0.0",
+    "@openagenda/form-schemas": "^1.9.4",
+    "@openagenda/logs": "^1.1.10",
+    "@openagenda/md": "^1.0.1",
     "@openagenda/utils": "^1.3.0",
     "@openagenda/validators": "^2.4.0",
     "immutability-helper": "^3.0.0",

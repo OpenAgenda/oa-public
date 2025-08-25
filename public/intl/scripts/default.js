@@ -16,7 +16,7 @@ module.exports.describe = 'Extract and compile locales.';
 
 module.exports.builder = (yargsBuilder) => {
   yargsBuilder.positional('files', {
-    default: ['src/**/*.js'],
+    default: ['src/**/*.{js,jsx,ts,tsx}'],
     desc: 'Glob paths to extract translations from, the source files.',
     array: true,
   });

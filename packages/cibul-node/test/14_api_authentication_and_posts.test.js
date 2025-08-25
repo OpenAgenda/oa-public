@@ -1,5 +1,4 @@
 import axios from 'axios';
-import FormData from 'form-data';
 import Core from '../core/index.js';
 import api from '../api/index.js';
 import Services from '../services/init.js';
@@ -25,7 +24,6 @@ describe('14 - core - functional(server): api authentication and posts', () => {
         'simpleCache',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',
@@ -43,16 +41,23 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
     core = Core(services, config);
 
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
     await core.agendas(123).events.search.rebuild();
   });
 
   beforeAll(async () => {
-    server = await api(core, { useRouter: false }).listen(3000);
+    server = await api(core, { useRouter: false }).listen(4000);
   });
 
   const axiosJSONPayload = {
     method: 'post',
-    url: 'http://localhost:3000/requestAccessToken',
+    url: 'http://localhost:4000/requestAccessToken',
     headers: {
       'content-type': 'application/json',
     },
@@ -92,8 +97,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
       const otherAccessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
-        headers: form.getHeaders(),
+        url: 'http://localhost:4000/requestAccessToken',
         data: form,
       }).then((r) => r.data.access_token);
 
@@ -113,7 +117,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     it('agenda key can be used for read operations', async () => {
       const response = await axios({
         method: 'get',
-        url: 'http://localhost:3000/agendas/123/events?key=e830934e9d1848189ac74de3bfa7df0a',
+        url: 'http://localhost:4000/agendas/123/events?key=e830934e9d1848189ac74de3bfa7df0a',
       });
 
       expect(response.status).toBe(200);
@@ -122,7 +126,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     it('an agenda key on a /me/agendas call should throw a 403', async () => {
       const { error } = await axios({
         method: 'get',
-        url: 'http://localhost:3000/me/agendas?key=e830934e9d1848189ac74de3bfa7df0a',
+        url: 'http://localhost:4000/me/agendas?key=e830934e9d1848189ac74de3bfa7df0a',
       }).then(
         (r) => ({ response: r }),
         (e) => ({ error: e }),
@@ -141,7 +145,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     it('/me/agendas route is not accessible if no key is provided', async () => {
       const { error } = await axios({
         method: 'get',
-        url: 'http://localhost:3000/me/agendas',
+        url: 'http://localhost:4000/me/agendas',
       }).then(
         (r) => ({ response: r }),
         (e) => ({ error: e }),
@@ -154,7 +158,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     it('a public key provided in query can be used to access /me/agendas route', async () => {
       const { response } = await axios({
         method: 'get',
-        url: `http://localhost:3000/me/agendas?key=${userKey}`,
+        url: `http://localhost:4000/me/agendas?key=${userKey}`,
       }).then(
         (r) => ({ response: r }),
         (e) => ({ error: e }),
@@ -166,7 +170,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     it('a public key provided in query can be placed in headers to access /me/agendas route', async () => {
       const { response } = await axios({
         method: 'get',
-        url: 'http://localhost:3000/me/agendas',
+        url: 'http://localhost:4000/me/agendas',
         headers: {
           key: userKey,
         },

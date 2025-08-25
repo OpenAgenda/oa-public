@@ -3,11 +3,9 @@ import getAgendaSearchIndex from './lib/getAgendaSearchIndex.js';
 
 const log = logs('services/eventSearch/remove');
 
-async function removeFromAgendaIndex(
+export async function removeFromAgendaIndex(
   eventSearch,
-  agendaUid,
-  eventUid,
-  refresh = false,
+  { agendaUid, eventUid, refresh = false },
 ) {
   log('removeFromAgendaIndex');
 
@@ -16,16 +14,16 @@ async function removeFromAgendaIndex(
   return searchIndex.remove({ uid: eventUid }, { refresh });
 }
 
-export default (services, queue, eventSearch) => {
-  queue.register({
-    removeFromAgendaIndex: removeFromAgendaIndex.bind(null, eventSearch),
-  });
-
-  return async ({ event, agenda, deletion, otherAgendaReferences }) => {
+export default (services, queue, eventSearch) =>
+  async ({ event, agenda, deletion, otherAgendaReferences }) => {
     log('remove');
 
     try {
-      await removeFromAgendaIndex(eventSearch, agenda.uid, event.uid, true);
+      await removeFromAgendaIndex(eventSearch, {
+        agendaUid: agenda.uid,
+        eventUid: event.uid,
+        refresh: true,
+      });
     } catch (e) {
       log(
         'error',
@@ -37,7 +35,7 @@ export default (services, queue, eventSearch) => {
 
     log('update transverse index');
     if (!otherAgendaReferences.filter((ae) => ae.state === 2).length) {
-      await queue('transverseIndexRemove', event.uid);
+      await queue.add('transverseIndexRemove', event.uid);
     }
 
     if (!deletion) {
@@ -45,9 +43,11 @@ export default (services, queue, eventSearch) => {
     }
 
     for (const { agendaUid } of otherAgendaReferences) {
-      await queue('removeFromAgendaIndex', agendaUid, event.uid);
+      await queue.add('removeFromAgendaIndex', {
+        agendaUid,
+        eventUid: event.uid,
+      });
     }
 
     log('done');
   };
-};

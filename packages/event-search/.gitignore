@@ -7,3 +7,4 @@ coverage/
 .cache/
 sandbox/*result.json
 sandbox/in/_*
+CLAUDE.md

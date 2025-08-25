@@ -70,6 +70,11 @@ const fields = {
   expires: {
     type: 'date',
     optional: true,
+    default: undefined,
+  },
+  sessionId: {
+    type: 'text',
+    optional: true,
   },
 };
 

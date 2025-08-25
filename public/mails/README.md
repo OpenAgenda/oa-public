@@ -44,11 +44,6 @@ const config = {
   defaults: {},
 
   // Queuing
-  redis: {
-    host: 'localhost',
-    port: 6379,
-  },
-  queueName: 'mails',
   disableVerify: false,
 };
 
@@ -142,11 +137,8 @@ const mails = await createMails({
   defaults: {},
 
   // Queuing
-  redis: {
-    host: 'localhost',
-    port: 6379,
-  },
-  queueName: 'mails',
+  queue: BullMQ.Queue,
+  createWorker: (jobProcessor) => BullMQ.Worker,
 });
 ```
 
@@ -164,12 +156,12 @@ const mails = await createMails({
 | `mjmlConfigPath` |          | Uses the .mjmlconfig file in the specified path or directory to include custom components.                                                                                                                                         |
 | `transport`      |    \*    | An object that defines connection data, it's the first argument of `nodemailer.createTransport` ([SMTP](https://nodemailer.com/smtp/) or [other](https://nodemailer.com/transports/)).                                             |
 | `defaults`       |          | An object that is going to be merged into every message object. This allows you to specify shared options, for example to set the same _from_ address for every message. It's the second argument of `nodemailer.createTransport`. |
-| `redis`          |    \*    | An object with your Redis connection data, which will be used to stack your mails in a queue. <br />`{ host, port }` ([@openagenda/queues](https://github.com/OpenAgenda/oa-public/tree/main/queues))                              |
-| `queueName`      |    \*    | A string that is the name of your Redis queue.                                                                                                                                                                                     |
+| `queue`          |    \*    | A BullMQ queue.                                                                                                                                                                                                                    |
+| `createWorker`   |    \*    | A function that take a `jobProcessor` as argument and return a BullMQ worker.                                                                                                                                                      |
 | `disableVerify`  |          | A Boolean that allows to disable the verification of the transporter connection, it is done in the init.                                                                                                                           |
 | `logger`         |          | An object for the method `setModuleConfig` of [@openagenda/logs](https://github.com/OpenAgenda/oa-public/tree/main/logs)                                                                                                           |
 
-During initialization a `queue` and a `transporter` are added to the config, you can use them raw from anywhere with a require of `@openagenda/mails/config`.
+During initialization a `transporter` is added to the config, you can use it raw from anywhere with a require of `@openagenda/mails/config`.
 
 ### Mailing
 
@@ -177,7 +169,7 @@ During initialization a `queue` and a `transporter` are added to the config, you
 
 This is the main method, this function returns a Promise with one of these values:
 
-- an array of Redis IDs if the queue is activated
+- an array of BullMQ jobs if the queue is activated
 - an array of nodemailer `sendMail` results if the queue is disabled
 
 This is a nodemailer `sendMail` overload with some notable differences:
@@ -256,7 +248,7 @@ The `__` and `lang` values are passed to the template.
 
 #### `task()`
 
-If you can send a lot of messages it is better to use the Redis queue rather than the memory.
+If you can send a lot of messages it is better to use the BullMQ queue rather than the memory.
 
 To use a `rateLimit` you will need to boot a transport with the `pool: true` option.  
 Learn more at [Delivering bulk mail](https://nodemailer.com/usage/bulk-mail/) and [Pooled SMTP](https://nodemailer.com/smtp/pooled/)

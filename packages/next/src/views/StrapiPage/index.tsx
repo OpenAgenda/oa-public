@@ -1,12 +1,11 @@
 import { Noto_Sans, Ubuntu_Sans } from 'next/font/google';
 import { Global } from '@openagenda/uikit';
 import PageHead from 'components/strapi/PageHead';
-import ModularSet from 'components/strapi/ModularSet';
 import HighlightCardSet from 'components/strapi/HighlightCardSet';
-import CarouselSet from 'components/strapi/CarouselSet';
 import TabSet from 'components/strapi/TabSet';
 import ReferenceSet from 'components/strapi/ReferenceSet';
 import SplitHeroSegment from 'components/strapi/SplitHeroSegment';
+import useCrispClient from 'hooks/useCrispClient';
 import Footer from 'components/strapi/Footer';
 import Metas from './components/Metas';
 import fetchLocale from './locales';
@@ -22,7 +21,20 @@ const ubuntuSans = Ubuntu_Sans({
 });
 
 export default function StrapiPage({ page, footer }) {
-  const { title, description, keywords, Segments } = page;
+  const { title, description, keywords, Segments, themeColor } = page;
+
+  const colors = [
+    {
+      segment: themeColor,
+      component: { name: 'white' },
+    },
+    {
+      segment: { name: 'white' },
+      component: themeColor,
+    },
+  ];
+
+  useCrispClient();
 
   return (
     <>
@@ -31,31 +43,41 @@ export default function StrapiPage({ page, footer }) {
         styles={{
           html: {
             backgroundColor: 'white',
+            ':root': {
+              '--font-noto-sans': notoSans.style.fontFamily,
+              '--font-ubuntu-sans': ubuntuSans.style.fontFamily,
+            },
           },
           backgroundColor: 'white',
-          ':root': {
-            '--font-noto-sans': notoSans.style.fontFamily,
-            '--font-ubuntu-sans': ubuntuSans.style.fontFamily,
-          },
         }}
       />
 
-      {Segments.map((Segment) => {
+      {Segments.map((Segment, i) => {
         const { id } = Segment;
         const Component = {
           'segments.highlight-card-set': HighlightCardSet,
           'segments.page-head': PageHead,
-          'segments.modular-set': ModularSet,
-          'segments.carousel-set': CarouselSet,
           'segments.tab-set': TabSet,
           'segments.reference-set': ReferenceSet,
           'components.split-hero': SplitHeroSegment,
         }[Segment['__component']];
 
-        return <Component key={id} {...Segment} />;
+        return (
+          <Component
+            key={id}
+            {...Segment}
+            backgroundColor={colors[i % 2].segment}
+            componentBackgroundColor={colors[i % 2].component}
+            colorVariant={
+              Segment['__component'] === 'segments.page-head'
+                ? 'solid'
+                : 'subtle'
+            }
+          />
+        );
       })}
 
-      {footer && <Footer {...footer} />}
+      {footer && <Footer {...footer} backgroundColor={colors[0].segment} />}
     </>
   );
 }

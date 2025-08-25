@@ -10,22 +10,22 @@ export default async (services, options) => {
     (s) => !options.ignoredUids.setUids.includes(s.uid),
   )) {
     log('info', `detection started in locationSet ${set.uid}`);
+    let count = 0;
     try {
-      await agendaLocations
+      count = await agendaLocations
         .sets(set.uid)
         .locations.duplicates.detectAll(options);
     } catch (e) {
       log(e);
     }
-    log('info', `detection finished in locationSet ${set.uid}`);
+    log('info', 'processed', {
+      locationSetUid: set.uid,
+      detectedDuplicates: count,
+    });
   }
 
   let offset = 9999999999;
   while (offset !== null) {
-    const res = await agendasSVC.list({ order: 'id.desc' }, offset, 20, {
-      onlyIncludeFields: ['uid', 'locationSetUid'],
-      offsetAsLastId: true,
-    });
     const { agendas, lastId } = await agendasSVC.list(
       { order: 'id.desc' },
       offset,
@@ -35,7 +35,7 @@ export default async (services, options) => {
         offsetAsLastId: true,
       },
     );
-    log(res);
+
     if (!agendas || agendas.length === 0) {
       offset = null;
       continue;
@@ -47,14 +47,18 @@ export default async (services, options) => {
         && !options.ignoredUids.agendaUids.includes(a.uid),
     )) {
       log('info', `detection started in agenda ${agenda.uid}`);
+      let count = 0;
       try {
-        await agendaLocations(agenda.uid).duplicates.detectAll({
+        count = await agendaLocations(agenda.uid).duplicates.detectAll({
           sleep: options.sleep,
         });
       } catch (e) {
         log(e);
       }
-      log('info', `detection finished in agenda ${agenda.uid}`);
+      log('info', 'processed', {
+        locationAgendaUid: agenda.uid,
+        detectedDuplicates: count,
+      });
     }
   }
   log.info('global duplicates detection finished');

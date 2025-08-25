@@ -189,7 +189,8 @@ export async function defineJob(config, queue, stats) {
   let users;
 
   while (
-    (users = await usersSvc.find({ query: { $skip: pos, $limit: limit } }))
+    (users = (await usersSvc.find({ query: { $skip: pos, $limit: limit } }))
+      .data)
   ) {
     if (!users.length) break;
     pos += users.length;
@@ -198,7 +199,7 @@ export async function defineJob(config, queue, stats) {
 
     for (const user of users) {
       upStats(stats, 'usersToSync');
-      await queue('syncUser', user);
+      await queue.add('syncUser', user);
     }
   }
 
@@ -217,7 +218,7 @@ export async function defineJob(config, queue, stats) {
 
     for (const agenda of agendas) {
       upStats(stats, 'agendasToSync');
-      await queue('syncAgenda', agenda);
+      await queue.add('syncAgenda', agenda);
     }
   }
 
@@ -237,7 +238,7 @@ export default async function syncTask(svc) {
     // inboxUsersRemoved: 0,
   };
 
-  if (await queue.len()) {
+  if (await queue.count()) {
     log('queue is not empty');
     return;
   }

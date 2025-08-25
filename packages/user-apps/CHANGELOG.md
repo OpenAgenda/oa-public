@@ -1,5 +1,23 @@
 # Change Log
 
+## 1.2.3
+
+### Patch Changes
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/abilities@1.3.3
+  - @openagenda/react-shared@2.4.5
+
+## 1.2.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/abilities@1.3.2
+  - @openagenda/users@3.1.1
+  - @openagenda/react-shared@2.4.4
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 

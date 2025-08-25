@@ -5,6 +5,8 @@
 # Arrête le script si une commande échoue pour éviter un état incohérent.
 set -e
 
+THIS_DIR=$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)
+
 # --- CONFIGURATION ---
 # Le scope NPM de vos packages. Utilisé pour trouver les tags pertinents.
 PACKAGE_SCOPE="@openagenda"
@@ -13,9 +15,7 @@ PACKAGE_SCOPE="@openagenda"
 PUBLIC_REMOTE_NAME="oa-public"
 PUBLIC_REPO_OWNER_NAME="openagenda/oa-public"
 PUBLIC_REPO_BRANCH="main"
-
-# Le dossier racine dans le monorepo qui contient les packages publics.
-SUBTREE_PREFIX="public"
+SOURCE_REPO_OWNER_NAME="OpenAgenda/oa"
 # --- FIN CONFIGURATION ---
 
 
@@ -24,12 +24,16 @@ SUBTREE_PREFIX="public"
 # C'est crucial pour que l'authentification fonctionne en CI.
 PUBLIC_REPO_URL="https://github.com/${PUBLIC_REPO_OWNER_NAME}.git"
 if git remote | grep -q "^${PUBLIC_REMOTE_NAME}$"; then
-  echo "✔️ Remote '${PUBLIC_REMOTE_NAME}' déjà configuré. Forçage de l'URL en HTTPS..."
-  git remote set-url ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_URL}
+  echo "✔️ Remote '${PUBLIC_REMOTE_NAME}' déjà configuré."
 else
   echo "🔗 Ajout du nouveau remote '${PUBLIC_REMOTE_NAME}' avec l'URL HTTPS..."
   git remote add ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_URL}
 fi
+
+echo "---"
+echo "🛰️ Poussée du subtree 'public' vers ${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}..."
+${THIS_DIR}/subtree/push.sh
+echo "---"
 
 echo "🚀 Démarrage de la synchronisation des releases vers ${PUBLIC_REPO_OWNER_NAME}..."
 
@@ -50,8 +54,8 @@ else
   # Mode automatique : on trouve la dernière release non synchronisée.
   echo "🤖 Mode automatique. Recherche de la dernière release non synchronisée..."
 
-  # On parcourt les 5 derniers tags créés (du plus récent au plus ancien) pour trouver un candidat.
-  for tag_name in $(git tag -l "${PACKAGE_SCOPE}/*" --sort=-creatordate | head -n 5); do
+  # On parcourt les 10 derniers tags créés (du plus récent au plus ancien) pour trouver un candidat.
+  for tag_name in $(git tag -l "${PACKAGE_SCOPE}/*" --sort=-creatordate | head -n 10); do
     echo "  - Vérification du tag : ${tag_name}"
 
     # On vérifie si ce tag existe DÉJÀ sur le remote public.
@@ -80,24 +84,8 @@ echo "✔️ Commit de release à traiter trouvé : ${RELEASE_COMMIT_SHA}"
 TAGS=$(git tag --points-at "${RELEASE_COMMIT_SHA}")
 echo -e "🏷️ Tags à synchroniser trouvés sur ce commit:\n${TAGS}"
 
-# On récupère les notes de la release depuis le corps du commit.
-echo "📝 Extraction des notes de release..."
-RELEASE_NOTES=$(git show -s --format=%B "${RELEASE_COMMIT_SHA}")
+PUBLIC_COMMIT_SHA=$(git rev-parse "${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}")
 
-echo "---"
-echo "🛰️   Poussée du subtree complet '${SUBTREE_PREFIX}' vers ${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}..."
-
-# ON EXÉCUTE LA COMMANDE DE POUSSÉE UNE SEULE FOIS POUR TOUT LE DOSSIER `public`
-SUBTREE_PUSH_OUTPUT=$(git subtree push --rejoin --prefix=${SUBTREE_PREFIX} ${PUBLIC_REMOTE_NAME} ${PUBLIC_REPO_BRANCH})
-
-# On extrait le SHA du commit unique créé dans le repo public.
-PUBLIC_COMMIT_SHA=$(echo "${SUBTREE_PUSH_OUTPUT}" | grep -oE '[a-f0-9]{40}\.\.[a-f0-9]{40}' | cut -d'.' -f1)
-
-if [ -z "$PUBLIC_COMMIT_SHA" ]; then
-  echo "⚠️ Impossible d'extraire le SHA. Récupération via fetch..."
-  git fetch ${PUBLIC_REMOTE_NAME}
-  PUBLIC_COMMIT_SHA=$(git rev-parse "${PUBLIC_REMOTE_NAME}/${PUBLIC_REPO_BRANCH}")
-fi
 echo "🎯 Commit unique créé sur ${PUBLIC_REPO_OWNER_NAME} : ${PUBLIC_COMMIT_SHA}"
 
 # On boucle sur les tags UNIQUEMENT pour créer les releases GitHub.
@@ -107,6 +95,14 @@ echo -e "🏷️ Création des releases GitHub pour les tags suivants :\n${TAGS}
 for TAG_NAME in $TAGS; do
   echo "---"
   echo "🎉 Création de la release pour le tag : ${TAG_NAME}"
+
+  echo "📝 Extraction des notes de release..."
+  RELEASE_NOTES=$(gh release view "${TAG_NAME}" --repo "${SOURCE_REPO_OWNER_NAME}" --json body -q .body)
+
+  if [ -z "$RELEASE_NOTES" ]; then
+    echo "    ⚠️ Avertissement : Aucune note de release trouvée pour le tag ${TAG_NAME} sur le dépôt source. On utilisera un message par défaut."
+    RELEASE_NOTES="Release ${TAG_NAME}"
+  fi
 
   gh release create "${TAG_NAME}" \
     --repo "${PUBLIC_REPO_OWNER_NAME}" \

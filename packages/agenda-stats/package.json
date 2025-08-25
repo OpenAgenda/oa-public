@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-stats",
-  "version": "1.10.2",
+  "version": "1.10.4",
   "private": true,
   "license": "MIT",
   "repository": {
@@ -19,10 +19,10 @@
   },
   "dependencies": {
     "@dnd-kit/react": "^0.0.9",
-    "@openagenda/event-search": "^2.8.0",
-    "@openagenda/intl": "^1.1.5",
-    "@openagenda/react-filters": "^2.13.0",
-    "@openagenda/react-shared": "^2.4.3",
+    "@openagenda/event-search": "^2.8.2",
+    "@openagenda/intl": "^1.1.6",
+    "@openagenda/react-filters": "^2.13.2",
+    "@openagenda/react-shared": "^2.4.5",
     "classnames": "^2.5.1",
     "date-fns": "^2.11.1",
     "distinct-colors": "^2.1.0",
@@ -44,7 +44,7 @@
   },
   "devDependencies": {
     "@loadable/component": "^5.14.1",
-    "@openagenda/bs-templates": "^2.5.0",
+    "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",

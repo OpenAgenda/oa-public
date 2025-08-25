@@ -62,6 +62,13 @@ export default async function createActivity(services, before, after, context) {
   const changedFields = allChangedFields.reduce((accu, changedField) => {
     const fieldSchema = formSchema.fields.find((v) => v.field === changedField);
 
+    if (!fieldSchema) {
+      log.info(
+        `no schema found for field ${changedField} on agenda ${agenda.uid}`,
+      );
+      return accu;
+    }
+
     // skip internal fields
     if (
       fieldSchema.write?.length === 1

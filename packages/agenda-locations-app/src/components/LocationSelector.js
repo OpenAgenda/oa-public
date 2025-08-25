@@ -177,6 +177,7 @@ const LocationSelector = ({
           onClose={() => setSeeDetails(false)}
         >
           <LocationDetail
+            res={res}
             location={detailedLocation}
             settings={settings}
             lang={lang}

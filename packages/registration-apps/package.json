@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/registration-apps",
-  "version": "0.0.0",
+  "version": "0.0.2",
   "private": true,
   "type": "module",
   "main": "dist/index.js",
@@ -18,8 +18,8 @@
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
   "dependencies": {
-    "@openagenda/react-shared": "^2.4.3",
-    "@openagenda/registrations": "^0.0.2",
+    "@openagenda/react-shared": "^2.4.5",
+    "@openagenda/registrations": "^0.0.3",
     "autosize": "^6.0.1",
     "classnames": "^2.5.1",
     "fastest-levenshtein": "^1.0.16",
@@ -32,7 +32,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.23.0",
-    "@openagenda/bs-templates": "^2.5.0",
+    "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",

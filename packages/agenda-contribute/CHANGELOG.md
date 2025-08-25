@@ -1,5 +1,30 @@
 # Change Log
 
+## 1.5.5
+
+### Patch Changes
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/event-form@1.5.4
+  - @openagenda/form-schemas@1.9.4
+  - @openagenda/member-apps@2.1.3
+  - @openagenda/react-shared@2.4.5
+  - @openagenda/registration-apps@0.0.2
+
+## 1.5.4
+
+### Patch Changes
+
+- Updated dependencies [[`9130206`](https://github.com/OpenAgenda/oa/commit/9130206f01c7b004965a026e357974f68c5d4dc9), [`616e54c`](https://github.com/OpenAgenda/oa/commit/616e54c1159c8585ee0dfbaac7557ee55c22bbba)]:
+  - @openagenda/logs@1.1.10
+  - @openagenda/bs-templates@2.5.1
+  - @openagenda/form-schemas@1.9.3
+  - @openagenda/event-form@1.5.3
+  - @openagenda/member-apps@2.1.2
+  - @openagenda/registration-apps@0.0.1
+  - @openagenda/react-shared@2.4.4
+
 ## 1.5.3
 
 ### Patch Changes

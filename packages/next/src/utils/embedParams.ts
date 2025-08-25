@@ -64,6 +64,8 @@ export type EmbedParams = {
   mapSize?: MapSizeParam;
   sort?: SortParam;
   displayTotal?: boolean;
+  exportModal?: boolean;
+  contributionButton?: boolean;
   logo?: LogoParam;
 };
 
@@ -145,7 +147,7 @@ export function validateSort(value: string): SortParam | null {
   return null;
 }
 
-function parseAndValidateDisplayTotal(value: string): boolean | null {
+function parseAndValidateBoolean(value: string): boolean | null {
   if (value === '0' || value === 'false') {
     return false;
   }
@@ -155,7 +157,7 @@ function parseAndValidateDisplayTotal(value: string): boolean | null {
   return null;
 }
 
-function parseAndvalidateLogo(value: string): LogoParam {
+function parseAndValidateLogo(value: string): LogoParam {
   return value === 'hide' ? 'hide' : 'display';
 }
 
@@ -170,8 +172,10 @@ const parsers = {
   imageList: parseImageList,
   mapSize: parseMapSize,
   sort: validateSort,
-  displayTotal: parseAndValidateDisplayTotal,
-  logo: parseAndvalidateLogo,
+  displayTotal: parseAndValidateBoolean,
+  exportModal: parseAndValidateBoolean,
+  contributionButton: parseAndValidateBoolean,
+  logo: parseAndValidateLogo,
 };
 
 export const extractParams = (source: Record<string, string>): EmbedParams => {

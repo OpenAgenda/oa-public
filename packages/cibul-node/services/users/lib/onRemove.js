@@ -6,6 +6,6 @@ export default function onRemove({ queue }) {
       return ctx;
     }
 
-    queue('anonymizeDeletedUser', { user });
+    queue.add('anonymizeDeletedUser', { user });
   };
 }

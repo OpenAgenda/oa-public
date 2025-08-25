@@ -72,7 +72,7 @@ export default function ListVenues({
                 }}
               >
                 <td className="border-0 py-2 align-top">
-                  <div>{venue.publicName}</div>
+                  <div>{venue.publicName || venue.legalName}</div>
                   <div className="text-muted small">
                     {`${venue.location.address}, ${venue.location.postalCode}, ${venue.location.city}`}
                   </div>
@@ -101,9 +101,8 @@ export default function ListVenues({
                   {isSelectable && (
                     <button
                       type="button"
-                      className="btn btn-link btn-sm text-primary p-0"
+                      className="btn btn-link text-primary p-0"
                       onClick={() => handleVenueClick(venue.id)}
-                      style={{ textDecoration: 'none', lineHeight: '1.5' }}
                     >
                       {isDefault ? 'Désélectionner' : 'Sélectionner'}
                     </button>

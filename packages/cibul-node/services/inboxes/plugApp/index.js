@@ -1,12 +1,9 @@
-import express from 'express';
 import pages from './pages.js';
 import userEndpoints from './endpointRouters/user.js';
 import agendaEndpoints from './endpointRouters/agenda.js';
 import supportEndpoints from './endpointRouters/support.js';
 
-export default (config, services) => {
-  const app = express.Router();
-
+export default (config, services, app) => {
   pages(app, config, services);
 
   return app

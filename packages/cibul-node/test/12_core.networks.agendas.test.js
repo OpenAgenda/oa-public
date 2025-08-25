@@ -18,7 +18,6 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         'simpleCache',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',
@@ -138,10 +137,10 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     let accessToken;
     const superAdminSecret = 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM';
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
       accessToken = await axios({
         method: 'post',
-        url: 'http://localhost:3000/requestAccessToken',
+        url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
@@ -155,7 +154,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     it('agenda creation', async () => {
       const resp = await axios({
         method: 'post',
-        url: 'http://localhost:3000/networks/1/agendas',
+        url: 'http://localhost:4000/networks/1/agendas',
         headers: {
           'access-token': accessToken,
           'content-type': 'application/json',

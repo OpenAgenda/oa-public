@@ -19,6 +19,7 @@ export default async function makeConfig(c) {
     'defaultAction',
     'redis',
     'queue',
+    'createWorker',
     'defaultImagePath',
     'mailsDomain',
     's3',

@@ -1,4 +1,5 @@
 import { Stack, Heading, Image, Link, Box } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 import StrapiMarkdown from './StrapiMarkdown';
 
 interface RichTextParagraph {
@@ -12,48 +13,70 @@ interface RichTextParagraph {
 interface HighlightCardProps {
   title?: string;
   description?: string | RichTextParagraph[];
-  Illustration?: {
-    image: {
-      url: string;
-    };
-    borderRadius?: string;
+  image?: {
+    url: string;
+    alternativeText?: string;
   };
-  smallIllustration?: boolean;
+  smallImage?: boolean;
   link?: string;
+  cardSize?: string;
+  backgroundColor?: any;
 }
 
 export default function HighlightCard({
   title,
   description,
-  Illustration,
-  smallIllustration,
+  image,
+  smallImage,
   link,
+  cardSize = 'medium',
+  backgroundColor,
 }: HighlightCardProps) {
   // Helper function to format description for markdown
-
   const content = (
-    <Stack gap="3" maxW="280px" align="center" textAlign="center">
-      {Illustration && (
+    <Stack
+      gap={cardSize === 'large' ? 6 : 4}
+      padding={cardSize === 'large' ? 6 : 4}
+      maxW={cardSize === 'large' ? '340px' : '280px'}
+      align="center"
+      textAlign="center"
+      borderRadius={4}
+      backgroundColor={
+        backgroundColor?.name === 'white'
+          ? backgroundColor.name
+          : backgroundColor
+            ? [color(`${backgroundColor?.name}`), 'subtle'].join('.')
+            : null
+      }
+    >
+      {image && (
         <Box
-          height={smallIllustration ? '100px' : '120px'}
+          height={smallImage ? '100px' : '120px'}
           width="100%"
           display="flex"
           alignItems="center"
           justifyContent="center"
+          mb={2}
         >
           <Image
-            src={Illustration.image.url}
-            alt={title || ''}
-            maxW={smallIllustration ? '100px' : '200px'}
-            maxH={smallIllustration ? '100px' : '120px'}
+            src={image.url}
+            alt={image.alternativeText}
+            maxW={smallImage ? '100px' : '200px'}
+            maxH={smallImage ? '100px' : '120px'}
             objectFit="contain"
           />
         </Box>
       )}
-      {title && <Heading size="md">{title}</Heading>}
+      {title && (
+        <Heading size="lg" fontWeight={600}>
+          {title}
+        </Heading>
+      )}
       {description && (
         <Box color="gray.600">
-          <StrapiMarkdown flex="none">{String(description)}</StrapiMarkdown>
+          <StrapiMarkdown flex="none" textAlign="left">
+            {String(description)}
+          </StrapiMarkdown>
         </Box>
       )}
     </Stack>

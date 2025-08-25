@@ -1,5 +1,7 @@
 import { Box, Text, VStack, Table } from '@openagenda/uikit';
 import { Tooltip } from '@openagenda/uikit/snippets';
+import { formatInTimeZone } from 'date-fns-tz';
+import useDateFnsLocale from 'hooks/useDateFnsLocale';
 
 const STATUS_LABELS_FR = {
   CONFIRMED: 'Confirmées',
@@ -18,7 +20,9 @@ const STATUS_HELP_TEXTS = {
     "La réservation a été remboursée par pass Culture au lieu de l'événement",
 };
 
-const BookingModalBody = ({ data }) => {
+const BookingModalBody = ({ data, timezone }) => {
+  const dateFnsLocale = useDateFnsLocale();
+
   if (!data.total) return <Text>Aucune réservation trouvée.</Text>;
 
   const totalBookings = data.total;
@@ -77,6 +81,9 @@ const BookingModalBody = ({ data }) => {
                   Catégorie
                 </Table.ColumnHeader>
               )}
+              <Table.ColumnHeader style={headerCellStyle}>
+                Date et heure
+              </Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
           <Table.Body>
@@ -103,6 +110,22 @@ const BookingModalBody = ({ data }) => {
                 {showCategory && (
                   <Table.Cell>{b.priceCategoryLabel}</Table.Cell>
                 )}
+                <Table.Cell>
+                  {b.date?.beginningDatetime ? (
+                    <Text>
+                      {formatInTimeZone(
+                        new Date(b.date.beginningDatetime),
+                        timezone || 'Europe/Paris',
+                        'dd/MM/yyyy HH:mm',
+                        {
+                          locale: dateFnsLocale,
+                        },
+                      )}
+                    </Text>
+                  ) : (
+                    <Text color="gray.500">-</Text>
+                  )}
+                </Table.Cell>
               </Table.Row>
             ))}
           </Table.Body>

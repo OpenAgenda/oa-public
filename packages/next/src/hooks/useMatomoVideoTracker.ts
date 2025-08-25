@@ -1,9 +1,8 @@
-import { useCallback } from 'react';
-import { getOpenAgendaTracker } from 'utils/addMatomoTracker';
-
-declare const window: {
-  Matomo?: any;
-} & Window;
+import { useCallback, useRef } from 'react';
+import {
+  getOpenAgendaTracker,
+  executeWhenMatomoReady,
+} from 'utils/addMatomoTracker';
 
 interface VideoEventData {
   videoTitle?: string;
@@ -12,55 +11,104 @@ interface VideoEventData {
 }
 
 export default function useMatomoVideoTracker() {
-  const trackContentImpression = useCallback((data: VideoEventData) => {
-    try {
-      const tracker = getOpenAgendaTracker();
-      if (tracker) {
-        tracker.trackContentImpression(
-          data.videoTitle || 'video', // Nom du contenu
-          'video', // Type de contenu
-          data.videoUrl || window.location.href, // URL du contenu
-        );
+  const pendingImpressions = useRef<VideoEventData[]>([]);
+  const pendingInteractions = useRef<VideoEventData[]>([]);
+
+  const trackContentImpressionWhenReady = useCallback(
+    (data: VideoEventData) => {
+      const doTrack = () => {
+        try {
+          const tracker = getOpenAgendaTracker();
+          tracker.trackContentImpression(
+            data.videoTitle || 'video', // Nom du contenu
+            'video', // Type de contenu
+            data.videoUrl || window.location.href, // URL du contenu
+          );
+        } catch (error) {
+          console.warn(
+            "Erreur lors du tracking d'impression de contenu Matomo:",
+            error,
+          );
+        }
+      };
+
+      executeWhenMatomoReady(doTrack);
+    },
+    [],
+  );
+
+  const trackContentImpression = useCallback(
+    (data: VideoEventData) => {
+      const key = `${data.videoTitle}_${data.videoUrl}`;
+      if (
+        !pendingImpressions.current.find(
+          (item) => `${item.videoTitle}_${item.videoUrl}` === key,
+        )
+      ) {
+        pendingImpressions.current.push(data);
+        trackContentImpressionWhenReady(data);
       }
-    } catch (error) {
-      console.warn(
-        "Erreur lors du tracking d'impression de contenu Matomo:",
-        error,
-      );
+    },
+    [trackContentImpressionWhenReady],
+  );
+
+  const trackContentInteractionOnce = useCallback((data: VideoEventData) => {
+    const key = `${data.videoTitle}_${data.videoUrl}`;
+    if (
+      !pendingInteractions.current.find(
+        (item) => `${item.videoTitle}_${item.videoUrl}` === key,
+      )
+    ) {
+      pendingInteractions.current.push(data);
+
+      const doTrack = () => {
+        try {
+          const tracker = getOpenAgendaTracker();
+          if (tracker) {
+            tracker.trackContentInteraction(
+              'play',
+              data.videoTitle || 'video',
+              'video',
+              data.videoUrl || window.location.href,
+            );
+          }
+        } catch (error) {
+          console.warn(
+            "Erreur lors du tracking d'interaction de contenu Matomo:",
+            error,
+          );
+        }
+      };
+
+      executeWhenMatomoReady(doTrack);
     }
   }, []);
 
   const trackVideoEvent = useCallback(
     (action: string, data: VideoEventData = {}) => {
-      try {
-        const tracker = getOpenAgendaTracker();
-        if (tracker) {
-          tracker.trackEvent(
-            'Video',
-            action,
-            data.videoTitle || 'Unknown Video',
-            data.position || 0,
-          );
-
-          if (action === 'Play' || action === 'Resume') {
-            tracker.trackContentImpression(
-              data.videoTitle || 'video',
-              'video',
-              data.videoUrl || window.location.href,
+      const doTrack = () => {
+        try {
+          const tracker = getOpenAgendaTracker();
+          if (tracker) {
+            tracker.trackEvent(
+              'Video',
+              action,
+              data.videoTitle || 'Unknown Video',
+              data.position || 0,
             );
 
-            tracker.trackContentInteraction(
-              'play',
-              data.videoTitle || 'video',
-              data.videoUrl || window.location.href,
-            );
+            if (action === 'Play' || action === 'Resume') {
+              trackContentInteractionOnce(data);
+            }
           }
+        } catch (error) {
+          console.warn('Erreur lors du tracking vidéo Matomo:', error);
         }
-      } catch (error) {
-        console.warn('Erreur lors du tracking vidéo Matomo:', error);
-      }
+      };
+
+      executeWhenMatomoReady(doTrack);
     },
-    [],
+    [trackContentInteractionOnce],
   );
 
   const trackVideoPlay = useCallback(

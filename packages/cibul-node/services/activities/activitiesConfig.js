@@ -5,14 +5,43 @@ const {
   compareRoles: { isSuperiorToOrEqual },
 } = membersUtils;
 
-function and(...args) {
-  return (props) =>
-    args.reduce(async (accu, fn) => await accu && fn(props), true);
+async function getOrSetCache(context, cacheName, key, factoryFn) {
+  if (!context[cacheName]) {
+    context[cacheName] = new Map();
+  }
+  const cache = context[cacheName];
+
+  if (cache.has(key)) {
+    return cache.get(key);
+  }
+
+  const value = await factoryFn();
+  cache.set(key, value);
+  return value;
 }
 
-function or(...args) {
-  return (props) =>
-    args.reduce(async (accu, fn) => await accu || fn(props), false);
+function and(...functions) {
+  return async (props) => {
+    for (const fn of functions) {
+      const result = await fn(props);
+      if (!result) {
+        return false;
+      }
+    }
+    return true;
+  };
+}
+
+function or(...functions) {
+  return async (props) => {
+    for (const fn of functions) {
+      const result = await fn(props);
+      if (result) {
+        return true;
+      }
+    }
+    return false;
+  };
 }
 
 // function not(a) {
@@ -61,11 +90,25 @@ function toLocationSet() {
   return ({ targetFeed }) => targetFeed.entityType === 'locationSet';
 }
 
-async function isPublicTargetAgenda({ activity, config: { services } }) {
-  return !!await services.agendas.get(
-    { uid: getActivityEntity(activity, 'target.uid') },
-    { private: false },
+async function isPublicTargetAgenda({
+  activity,
+  config: { services },
+  context,
+}) {
+  const agendaUid = getActivityEntity(activity, 'target.uid');
+
+  if (!agendaUid) {
+    return false;
+  }
+
+  const agenda = await getOrSetCache(
+    context,
+    'publicAgendasCache',
+    agendaUid,
+    () => services.agendas.get({ uid: agendaUid }, { private: false }),
   );
+
+  return !!agenda;
 }
 
 function isPublishedEvent({ activity }) {
@@ -141,8 +184,9 @@ function hasVisibleDiff({ activity, targetFeed, follow }) {
   return false;
 }
 
-async function getMember(membersSvc, userUid, agendaUid) {
-  return membersSvc.get({ agendaUid, userUid });
+async function getMember(membersSvc, userUid, agendaUid, context) {
+  return getOrSetCache(context, 'membersCache', `${agendaUid}:${userUid}`, () =>
+    membersSvc.get({ agendaUid, userUid }));
 }
 
 function toOwner({ activity, targetFeed }) {
@@ -154,7 +198,7 @@ function toOwner({ activity, targetFeed }) {
 
 async function maskUserIsNotAdminModOf(
   { norActor, key, omit },
-  { activity, targetFeed, config: { services }, preloadedRole },
+  { activity, targetFeed, config: { services }, preloadedRole, context },
 ) {
   if (
     norActor
@@ -169,6 +213,7 @@ async function maskUserIsNotAdminModOf(
         services.members,
         targetFeed.entityUid,
         getActivityEntity(activity, key),
+        context,
       )
     )?.role
     : preloadedRole;
@@ -179,7 +224,7 @@ async function maskUserIsNotAdminModOf(
 }
 
 function maskFor({ sameAgenda, otherAgenda, userIsNotAdminModOf }) {
-  return async ({ activity, targetFeed, config, preloadedRole }) => {
+  return async ({ activity, targetFeed, config, preloadedRole, context }) => {
     // on the agenda
     if (
       sameAgenda
@@ -203,6 +248,7 @@ function maskFor({ sameAgenda, otherAgenda, userIsNotAdminModOf }) {
         targetFeed,
         config,
         preloadedRole,
+        context,
       });
     }
   };
@@ -264,12 +310,12 @@ const activitiesConfig = {
       toAgenda('target.uid'), // to agenda
       fromAgendaToAdminMod, // to adminMods
       and(
-        isPublishedEvent,
-        isPublicTargetAgenda,
         or(
           toAgenda('store.duplicateOriginAgendaUid'), // duplicate origin agenda
           toOwner,
         ),
+        isPublishedEvent,
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -311,7 +357,7 @@ const activitiesConfig = {
   },
   'event.update': {
     mask: async (props) => {
-      const { activity, targetFeed, config } = props;
+      const { activity, targetFeed, config, context } = props;
       const membersSvc = config.services.members;
 
       // preload member role, avoid double get
@@ -321,6 +367,7 @@ const activitiesConfig = {
             membersSvc,
             targetFeed.entityUid,
             getActivityEntity(activity, 'target.uid'),
+            context,
           )
         )?.role
         : null;
@@ -462,12 +509,12 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('store.contributorUid'), // to contributor
       and(
-        isPublicTargetAgenda,
         or(
           toAgenda('store.sourceAgendaUids'), // source agendas
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -515,12 +562,12 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('store.contributorUid'), // to contributor
       and(
-        isPublicTargetAgenda,
         or(
           toAgenda('store.sourceAgendaUids'), // source agendas
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -568,12 +615,12 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('store.contributorUid'), // to contributor
       and(
-        isPublicTargetAgenda,
         or(
           toAgenda('store.sourceAgendaUids'), // source agendas
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -636,13 +683,13 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('actor.uid'), // to contributor
       and(
-        isPublishedEvent,
-        isPublicTargetAgenda,
         or(
           toAgenda('sourceAgendaUids'), // source agendas
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublishedEvent,
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -1231,13 +1278,13 @@ const activitiesConfig = {
       toAgenda('target.uid'), // to aggregator
       fromAgendaToAdminMod, // to adminMods
       and(
-        isPublishedEvent,
-        isPublicTargetAgenda,
         or(
           toAgenda('actor.uid'), // source agenda
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublishedEvent,
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -1294,13 +1341,13 @@ const activitiesConfig = {
       fromAgendaToAdminMod, // to adminMods
       toUser('actor.uid'), // to contributor
       and(
-        isPublishedEvent,
-        isPublicTargetAgenda,
         or(
           toAgenda('store.sourceAgendaUid'), // source agenda
           toAgenda('store.originAgendaUid'), // origin agenda
           toOwner,
         ),
+        isPublishedEvent,
+        isPublicTargetAgenda,
       ),
     ),
     labelIds: [
@@ -1395,7 +1442,7 @@ const activitiesConfig = {
   },
   'location.update': {
     mask: async (props) => {
-      const { activity, targetFeed, config } = props;
+      const { activity, targetFeed, config, context } = props;
       const membersSvc = config.services.members;
 
       // preload member role, avoid double get
@@ -1405,6 +1452,7 @@ const activitiesConfig = {
             membersSvc,
             targetFeed.entityUid,
             getActivityEntity(activity, 'target.uid'),
+            context,
           )
         )?.role
         : null;

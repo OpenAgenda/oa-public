@@ -42,7 +42,7 @@ export function Overview() {
             link: 'https://bateau.fr',
             variant: 'solid',
             colorPalette: {
-              name: 'strapi.blueGreen',
+              name: 'strapi.ruddyBlue',
             },
           },
           {
@@ -51,6 +51,14 @@ export function Overview() {
             variant: 'outline',
             colorPalette: {
               name: 'strapi.mutedPlum',
+            },
+          },
+          {
+            label: 'Pas fan des bagnoles',
+            link: 'https://bagnoles.fr',
+            variant: 'link',
+            colorPalette: {
+              name: 'strapi.blueGreen',
             },
           },
         ]}

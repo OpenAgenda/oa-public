@@ -1,9 +1,13 @@
 import morgan from 'morgan';
+import onFinished from 'on-finished';
 import logs from '@openagenda/logs';
+import { trace, context } from '@opentelemetry/api';
 
 const log = logs('incoming');
 
-const blacklist = [/^\/legacy/];
+const blacklist = [/^\/(?:legacy|monit)(?:\/|$)/];
+
+const tracer = trace.getTracer('cibul-node');
 
 morgan.token('client-ip', (req) => {
   let clientIp;
@@ -57,24 +61,27 @@ function humanSize(bytes, precision) {
   return result.toFixed(precision) + suffix;
 }
 
-export const middleware = morgan(
+function getStatusColor(statusCode) {
+  // get status color
+  if (statusCode >= 500) {
+    return 31; // red
+  }
+  if (statusCode >= 400) {
+    return 33; // yellow
+  }
+  if (statusCode >= 300) {
+    return 36; // cyan
+  }
+  if (statusCode >= 200) {
+    return 32; // green
+  }
+  return 0; // no color
+}
+
+const logMw = morgan(
   (tokens, req, res) => {
     const statusCode = headersSent(res) ? res.statusCode : undefined;
-
-    // get status color
-    let color;
-
-    if (statusCode >= 500) {
-      color = 31; // red
-    } else if (statusCode >= 400) {
-      color = 33; // yellow
-    } else if (statusCode >= 300) {
-      color = 36; // cyan
-    } else if (statusCode >= 200) {
-      color = 32; // green
-    } else {
-      color = 0; // no color
-    }
+    const color = getStatusColor(statusCode);
 
     const { query } = req;
 
@@ -92,37 +99,72 @@ export const middleware = morgan(
       secure: req.secure,
     };
 
-    if (process.env.NODE_ENV === 'production') {
-      log.info(data);
-    } else {
-      const {
-        method,
-        url,
-        httpVersion,
-        ip,
-        status,
-        contentLength,
-        responseTime,
-      } = data;
+    // trace in finished here, we need to force context for logs
+    const finalSpan = req[Symbol.for('oa.otel.span')];
 
-      log.info(
-        withColor(
-          [
-            `"${method} ${colored(url, 1)} HTTP/${httpVersion}"`,
-            ip,
-            colored(colored(status, color), 1),
-            contentLength ? humanSize(contentLength, 2) : '-',
-            '~',
-            `${responseTime}ms`,
-          ].join(' '),
-        ),
-      );
-    }
+    context.with(trace.setSpan(context.active(), finalSpan), () => {
+      if (process.env.NODE_ENV === 'production') {
+        log.info(data);
+      } else {
+        const {
+          method,
+          url,
+          httpVersion,
+          ip,
+          status,
+          contentLength,
+          responseTime,
+        } = data;
+
+        log.info(
+          withColor(
+            [
+              `"${method} ${colored(url, 1)} HTTP/${httpVersion}"`,
+              ip,
+              colored(colored(status, color), 1),
+              contentLength ? humanSize(contentLength, 2) : '-',
+              '~',
+              `${responseTime}ms`,
+            ].join(' '),
+          ),
+        );
+      }
+
+      req.otelFinishSpan?.end();
+    });
   },
   {
     skip: (req) => blacklist.some((regexp) => regexp.test(req.originalUrl)),
   },
 );
+
+export const middleware = (req, res, next) => {
+  const ctx = context.active();
+  const activeSpan = trace.getActiveSpan();
+
+  if (!activeSpan) {
+    return logMw(req, res, next);
+  }
+
+  // open a span for "on-finished" and close it in morgan callback
+  onFinished(
+    res,
+    context.bind(ctx, () => {
+      tracer.startActiveSpan(
+        'response.finish',
+        undefined,
+        ctx, // même traceId
+        (span) => {
+          req.otelFinishSpan = span;
+        },
+      );
+    }),
+  );
+
+  logMw(req, res, () => {});
+
+  next();
+};
 
 export function init(config) {
   log.setConfig(config.getLogConfig('oa', 'requests'));

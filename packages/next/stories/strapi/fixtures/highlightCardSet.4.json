@@ -1,0 +1,58 @@
+{
+  "__component": "segments.highlight-card-set",
+  "id": 76,
+  "title": "Des solutions adaptées à vos besoins",
+  "description": null,
+  "cardSize": "large",
+  "Cards": [
+    {
+      "id": 267,
+      "title": "Pour les organisateurs d'évènements",
+      "description": "**Association, groupe, troupe, compagnie, établissement recevant du public, etc.**\n\nSaisissez vos événements une seule fois,  alimentez tous vos supports de communication, présentez un historique, partagez votre programmation avec les collectivités, administrations et médias",
+      "smallImage": true
+    },
+    {
+      "id": 268,
+      "title": "Pour les collectivités",
+      "description": "Recensez les événements de votre territoire:\n- Dotez vos équipements d'un outil d'agenda unifié\n- Rationalisez les agendas des sites que vous éditez\n- Gérez un répertoire de lieux unifié\n- Suivez les meilleurs pratiques de données ouvertes\n- Utilisez l'API en lecture-écriture afin de dessiner votre circuit de l'information.\n- Laissez-nous le support technique des utilisateurs !",
+      "smallImage": true
+    },
+    {
+      "id": 269,
+      "title": "OpenAgenda pour les festivals, salons et manifestation nationale",
+      "description": "Ouvrez un agenda participatif\nModérez les contributions\nDialoguez avec les organisateurs locaux\nÉtablissez des statistiques \nLaissez-nous le support technique des utilisateurs !",
+      "smallImage": true
+    },
+    {
+      "id": 270,
+      "title": "OpenAgenda pour les universités",
+      "description": "Recensez les événements de votre territoire\nDotez vos équipements d'un outil d'agenda unifié\nRationalisez les agendas des sites que vous éditez\nGérez un répertoire de lieux unique\nSuivez les meilleurs pratiques de données ouvertes",
+      "smallImage": true
+    },
+    {
+      "id": 271,
+      "title": "OpenAgenda pour les entreprises",
+      "description": "Recensez tous les événements organisés par les différents services : participations aux salons, formations, portes ouvertes, événements internes, interventions d'équipes",
+      "smallImage": true
+    },
+    {
+      "id": 272,
+      "title": "OpenAgenda pour les administrations",
+      "description": "Recensement des événements sur un thème et un territoire\nGestion de demandes de labellisation et subvention",
+      "smallImage": true
+    },
+    {
+      "id": 273,
+      "title": "OpenAgenda pour les médias",
+      "description": "Puisez dans OpenAgenda pour informer vos lecteurs des événements pertinents\nOuvrez un agenda participatif en amont de vos supports\nRelayez les manifestations nationales : Fête de la Musique, Journées Européennes du Patrimoine, ou autre",
+      "smallImage": true
+    },
+    {
+      "id": 274,
+      "title": "OpenAgenda votre cas particulier",
+      "description": "Votre contexte est différent de ceux listés jusqu'ici ? \nExplorez la liste des fonctions et contactez-nous !",
+      "smallImage": true
+    }
+  ],
+  "CTAs": []
+}

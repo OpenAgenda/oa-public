@@ -9,17 +9,23 @@ import testConfig from './testConfig.js';
 describe('11 - core - functional (server): core.users().agendas.list()', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '012.sql.js'));
+  const config = testConfig.extendWith({
+    es75: {
+      ...testConfig.es75,
+      agendaEventsIndex: 'test_users_agendas_list',
+    },
+  });
+
+  beforeAll(() => loadFixtures(config.db, '012.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
         'simpleCache',
         'accessTokens',
         'files',
-        'queues',
         'bull',
         'events',
         'agendas',
@@ -37,7 +43,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
 
     await services.simpleCache.clearAll();
     await core.agendas(1).events.search.rebuild();
@@ -133,7 +139,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
     let response;
 
     beforeAll(async () => {
-      server = await api(core, { useRouter: false }).listen(3000);
+      server = await api(core, { useRouter: false }).listen(4000);
     });
 
     afterAll(() => server.close());
@@ -142,7 +148,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
       beforeAll(async () => {
         response = await axios({
           method: 'get',
-          url: `http://localhost:3000/me/agendas?key=${key}`,
+          url: `http://localhost:4000/me/agendas?key=${key}`,
         }).then((r) => r.data);
       });
 

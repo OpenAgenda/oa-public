@@ -10,12 +10,15 @@ export default async function prepareConfig({ dir, envVars, nodes }) {
     API_DOMAIN: APIDomain,
     NODE_ENV: nodeEnv,
     OA_INTERNAL_SERVER_PORT: internalServerPort,
+    OA_SESSION_KEYS: sessionKeys,
+    OA_INSIGHT_OPS: insightOps,
     NEXT_PUBLIC_ASSET_PREFIX: nextPublicAssetPrefix,
     NEXT_PUBLIC_MAP_TILES: nextPublicMapTiles,
     SENTRY_AUTH_TOKEN: sentryAuthToken,
     NEXT_PUBLIC_IMAGE_PREFIX: nextPublicImagePrefix,
     STRAPI_API_BASE: strapiAPIBase,
     STRAPI_API_AUTH_TOKEN: strapiAPIAuthToken,
+    CRISP_WEBSITE_ID: crispWebsiteID,
   } = envVars;
 
   const nextEnvVars = [
@@ -24,6 +27,9 @@ export default async function prepareConfig({ dir, envVars, nodes }) {
     `NODE_ENV=${nodeEnv}`,
     `NEXT_API_INTERNAL_BASE_URL=http://${getNginxAddress(nodes)}:${internalServerPort}`,
     `NEXT_PUBLIC_MAP_TILES=${nextPublicMapTiles}`,
+    `NEXT_PUBLIC_CRISP_WEBSITE_ID=${crispWebsiteID}`,
+    `NEXT_SESSION_KEYS=${sessionKeys}`,
+    `NEXT_INSIGHT_OPS=${insightOps}`,
     `SENTRY_AUTH_TOKEN=${sentryAuthToken}`,
     `STRAPI_API_BASE=${strapiAPIBase}`,
     `STRAPI_API_AUTH_TOKEN=${strapiAPIAuthToken}`,

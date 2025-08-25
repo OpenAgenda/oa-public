@@ -1,4 +1,5 @@
-import { Tabs } from '@openagenda/uikit';
+import { Tabs, H3 } from '@openagenda/uikit';
+import { allowedItemColors } from 'utils/strapi';
 import SplitHero from './SplitHero';
 import SegmentContainer from './SegmentContainer';
 
@@ -7,6 +8,7 @@ interface TabSetProps {
   description?: string;
   Tabs: Array<any>;
   CTAs?: any[];
+  backgroundColor?: any;
 }
 
 export default function TabSet({
@@ -14,17 +16,29 @@ export default function TabSet({
   description,
   Tabs: TabsData,
   CTAs,
+  backgroundColor,
 }: TabSetProps) {
   if (!TabsData?.length) {
     return null;
   }
 
   return (
-    <SegmentContainer title={title} description={description} CTAs={CTAs}>
+    <SegmentContainer
+      title={title}
+      description={description}
+      CTAs={CTAs}
+      backgroundColor={backgroundColor}
+    >
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
-          {TabsData.map((tab) => (
-            <Tabs.Trigger key={tab.id} value={tab.id} fontSize="md">
+          {TabsData.map((tab, index) => (
+            <Tabs.Trigger
+              key={tab.id}
+              value={tab.id}
+              fontSize="md"
+              pb={6}
+              colorPalette={allowedItemColors[index % allowedItemColors.length]}
+            >
               {tab.title}
             </Tabs.Trigger>
           ))}
@@ -32,7 +46,7 @@ export default function TabSet({
 
         {TabsData.map((tab) => (
           <Tabs.Content key={tab.id} value={tab.id} py={12} px={3}>
-            <SplitHero {...tab.content} />
+            <SplitHero {...tab.content} TitleComponent={H3} />
           </Tabs.Content>
         ))}
       </Tabs.Root>

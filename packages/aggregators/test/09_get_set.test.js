@@ -21,11 +21,12 @@ describe('09 - set and get', () => {
   beforeAll(async () => {
     svc = createInstance({
       knex: f.client,
-      queues: () =>
-        Object.assign(tracker.bind(null, 'queue'), {
-          register: tracker('register'),
-          on: tracker('on'),
-        }),
+      queue: {
+        add: tracker('register'),
+      },
+      createWorker: () => ({
+        on: tracker('on'),
+      }),
       interfaces: {
         getAggregatedCount: () => 12, // interface arg is agenda uid
       },
