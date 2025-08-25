@@ -71,7 +71,7 @@
     "@openagenda/polyfills": "^1.2.5",
     "@openagenda/react-integration-app": "^1.6.4",
     "@openagenda/react-layouts": "^2.2.3",
-    "@openagenda/react-shared": "^2.4.5",
+    "@openagenda/react-shared": "^2.4.6",
     "@openagenda/registrations": "^0.0.3",
     "@openagenda/sdk-js": "workspace:^",
     "@openagenda/security": "^1.0.0",

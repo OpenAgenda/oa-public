@@ -22,7 +22,7 @@
     "@openagenda/form-schemas": "^1.9.4",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.10",
-    "@openagenda/react-shared": "^2.4.5",
+    "@openagenda/react-shared": "^2.4.6",
     "axios": "^0.21.1",
     "body-parser": "^1.18.2",
     "core-js": "^3.29.1",

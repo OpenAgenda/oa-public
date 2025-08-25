@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@openagenda/intl": "^1.1.6",
-    "@openagenda/react-shared": "^2.4.5",
+    "@openagenda/react-shared": "^2.4.6",
     "classnames": "^2.3.1",
     "core-js": "^3.29.1",
     "date-fns": "^2.1.0",
