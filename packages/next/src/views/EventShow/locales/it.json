@@ -6,6 +6,7 @@
   "next.views.EventShow.AdditionalFields.noSelection": "",
   "next.views.EventShow.AdditionalFields.restrictedInformation": "",
   "next.views.EventShow.AgendaHeader.showAllEvents": "Vedere tutti gli eventi",
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": "",
   "next.views.EventShow.ContextBar.backToDashboard": "Tornare al cruscotto",
   "next.views.EventShow.ContextBar.cancel": "Annullare",
   "next.views.EventShow.ContextBar.clearStatus": "",
