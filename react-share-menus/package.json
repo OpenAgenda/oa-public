@@ -21,7 +21,7 @@
   "dependencies": {
     "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/intl": "^1.1.6",
-    "@openagenda/react-shared": "^2.4.5",
+    "@openagenda/react-shared": "^2.4.6",
     "axios": "^0.21.1",
     "base-64": "^1.0.0",
     "final-form": "^4.20.2",

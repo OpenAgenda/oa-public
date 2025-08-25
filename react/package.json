@@ -45,7 +45,7 @@
   "dependencies": {
     "@openagenda/common-labels": "^1.2.4",
     "@openagenda/react-filters": "^2.13.2",
-    "@openagenda/react-shared": "^2.4.5",
+    "@openagenda/react-shared": "^2.4.6",
     "@openagenda/uikit": "^0.0.4",
     "ky": "^1.7.2",
     "qs": "^6.11.0",
