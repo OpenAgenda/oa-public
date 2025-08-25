@@ -137,7 +137,7 @@ export default async function Portal(options) {
   registerHelpers(hbs);
 
   const { intlByLocale, handlebarsHelper: i18nHelper } = await I18N(
-    path.join(dir, i18n),
+    typeof i18n === 'object' ? i18n : path.join(dir, i18n),
   );
 
   app.intlByLocale = intlByLocale;

@@ -30,8 +30,10 @@ function handlebarsHelper(intlByLocale) {
   };
 }
 
-export default async (path) => {
-  const userLocales = (await import(path)).default;
+export default async (pathOrObj) => {
+  const userLocales = typeof pathOrObj === 'object'
+    ? pathOrObj
+    : (await import(pathOrObj)).default;
   const locales = getFallbackedMessages(
     mergeLocales(filtersLocales, userLocales),
   );
