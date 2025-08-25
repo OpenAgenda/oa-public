@@ -50,7 +50,7 @@
     "@openagenda/registrations": "^0.0.3",
     "@openagenda/sdk-js": "^2.0.4",
     "@openagenda/sessions": "^4.1.1",
-    "@openagenda/uikit": "^0.0.3",
+    "@openagenda/uikit": "^0.0.4",
     "@openagenda/verror": "^3.1.0",
     "@opentelemetry/api": "^1.9.0",
     "@opentelemetry/exporter-jaeger": "^2.0.1",
