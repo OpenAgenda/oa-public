@@ -33,12 +33,15 @@ const messages = defineMessages({
   },
 });
 
+const imgRoute = process.env.NEXT_PUBLIC_ASSETS;
+
 const imgSource = (errored, rejected, pending, unpublished) => {
-  if (errored) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-error-22.png';
-  if (rejected) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-rejected-22.png';
-  if (pending) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-pending-22.png';
-  if (unpublished) return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-unpublished-22.png';
-  return 'https://cdn.openagenda.com/assets/svc/registration-apps/pass-culture-22.png';
+  const completedImgRoute = `${imgRoute}/svc/registration-apps/`;
+  if (errored) return `${completedImgRoute}pass-culture-error-22.png`;
+  if (rejected) return `${completedImgRoute}pass-culture-rejected-22.png`;
+  if (pending) return `${completedImgRoute}pass-culture-pending-22.png`;
+  if (unpublished) return `${completedImgRoute}pass-culture-unpublished-22.png`;
+  return `${completedImgRoute}pass-culture-22.png`;
 };
 
 const title = (intl, errored, rejected, pending, unpublished) => {
