@@ -23,6 +23,7 @@ function Registration(props) {
     } = {},
     lang = 'en',
     userRole,
+    enabled = true,
   } = props;
 
   const { StandardRegistrationField } = useContext(ComponentsContext);
@@ -75,6 +76,7 @@ function Registration(props) {
       && access.includes(userRole) ? (
         <PassCultureCheckbox
           access={access}
+          enabled={enabled}
           value={passCultureValue}
           settings={settings.passCulture}
           timings={relatedValues?.timings ?? []}
@@ -101,6 +103,7 @@ function Registration(props) {
       <StandardRegistrationField
         value={standardValue}
         inputValue={inputValue}
+        enabled={enabled}
         onChange={onStandardChange}
         onInputChange={onInputChange}
         placeholder={

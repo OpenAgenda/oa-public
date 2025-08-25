@@ -6,6 +6,7 @@
   "next.views.EventShow.AdditionalFields.noSelection": "",
   "next.views.EventShow.AdditionalFields.restrictedInformation": "",
   "next.views.EventShow.AgendaHeader.showAllEvents": "",
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": "",
   "next.views.EventShow.ContextBar.backToDashboard": "",
   "next.views.EventShow.ContextBar.cancel": "Anular",
   "next.views.EventShow.ContextBar.clearStatus": "",

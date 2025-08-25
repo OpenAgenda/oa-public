@@ -1,5 +1,14 @@
 # Change Log
 
+## 1.1.16
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/event-form@1.5.4
+  - @openagenda/form-schemas@1.9.4
+  - @openagenda/react-shared@2.4.5
+
 ## 1.1.15
 
 ### Patch Changes

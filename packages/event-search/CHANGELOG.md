@@ -1,5 +1,12 @@
 # Change Log
 
+## 2.8.2
+
+### Patch Changes
+
+- Updated dependencies []:
+  - @openagenda/form-schemas@1.9.4
+
 ## 2.8.1
 
 ### Patch Changes

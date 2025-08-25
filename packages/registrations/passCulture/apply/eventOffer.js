@@ -6,6 +6,22 @@ import address from './address.js';
 
 const log = logs('passCulture/eventOffer');
 
+function getLastDescription(_processedEntries, entry) {
+  if (entry?.description) {
+    return entry.description;
+  }
+
+  if (_processedEntries && _processedEntries.length > 0) {
+    for (let i = _processedEntries.length - 1; i >= 0; i--) {
+      if (_processedEntries[i]?.description) {
+        return _processedEntries[i].description;
+      }
+    }
+  }
+
+  return undefined;
+}
+
 async function update(
   { pc, siren },
   passEventOfferId,
@@ -127,7 +143,11 @@ async function update(
 
   const eventOffer = await formatEvent(
     OAEvent,
-    { ...entry, addressId: finalAddressId },
+    {
+      ...entry,
+      addressId: finalAddressId,
+      description: getLastDescription(_processedEntries, entry),
+    },
     {
       ...options,
       categories,

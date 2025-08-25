@@ -99,6 +99,7 @@ export default ({
   longDesc,
   title,
   conditions,
+  enabled = true,
 }) => {
   const [modal, setModal] = useState(false);
   const [isLoadingPassData, setIsLoadingPassData] = useState(true);
@@ -265,7 +266,7 @@ export default ({
             type="checkbox"
             checked={!!value}
             onChange={onCheck}
-            disabled={!hasData && !upcomingTimings.length}
+            disabled={!enabled || (!hasData && !upcomingTimings.length)}
           />
           <Image
             className="margin-left-sm"

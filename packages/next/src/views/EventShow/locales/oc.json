@@ -6,6 +6,7 @@
   "next.views.EventShow.AdditionalFields.noSelection": "Pas cap seleccion",
   "next.views.EventShow.AdditionalFields.restrictedInformation": "Informacion restrencha",
   "next.views.EventShow.AgendaHeader.showAllEvents": "",
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": "",
   "next.views.EventShow.ContextBar.backToDashboard": "",
   "next.views.EventShow.ContextBar.cancel": "Anullar",
   "next.views.EventShow.ContextBar.clearStatus": "Escafar l'estatut de l'eveniment",

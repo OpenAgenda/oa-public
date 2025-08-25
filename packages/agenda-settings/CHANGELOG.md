@@ -1,5 +1,15 @@
 # Change Log
 
+## 1.4.2
+
+### Patch Changes
+
+- Updated dependencies [[`e962591`](https://github.com/OpenAgenda/oa/commit/e96259133ffb537992ca14f19de1cfc2dc512b6f), [`ae1ea12`](https://github.com/OpenAgenda/oa/commit/ae1ea12c045351b375e7eddc6ea46a2d95dc735f)]:
+  - @openagenda/intl@1.1.6
+  - @openagenda/react-filters@2.13.2
+  - @openagenda/react-shared@2.4.5
+  - @openagenda/registration-apps@0.0.2
+
 ## 1.4.1
 
 ### Patch Changes

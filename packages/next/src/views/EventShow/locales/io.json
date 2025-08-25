@@ -6,6 +6,7 @@
   "next.views.EventShow.AdditionalFields.noSelection": "crwdns33594:0crwdne33594:0",
   "next.views.EventShow.AdditionalFields.restrictedInformation": "crwdns33596:0crwdne33596:0",
   "next.views.EventShow.AgendaHeader.showAllEvents": "crwdns33598:0crwdne33598:0",
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": "",
   "next.views.EventShow.ContextBar.backToDashboard": "crwdns33600:0crwdne33600:0",
   "next.views.EventShow.ContextBar.cancel": "crwdns33602:0crwdne33602:0",
   "next.views.EventShow.ContextBar.clearStatus": "crwdns33604:0crwdne33604:0",
