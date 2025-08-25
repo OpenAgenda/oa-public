@@ -5646,7 +5646,7 @@ __metadata:
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/md": "npm:^1.0.1"
     "@openagenda/react-dropzone": "npm:^14.3.5"
-    "@openagenda/uikit": "npm:^0.0.3"
+    "@openagenda/uikit": "npm:^0.0.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/preset-scss": "npm:^1.0.3"
     "@storybook/react-webpack5": "npm:^9.0.8"
@@ -5754,7 +5754,7 @@ __metadata:
     "@openagenda/react-filters": "npm:^2.13.2"
     "@openagenda/react-shared": "npm:^2.4.5"
     "@openagenda/tsconfig": "npm:^0.0.0"
-    "@openagenda/uikit": "npm:^0.0.3"
+    "@openagenda/uikit": "npm:^0.0.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
     "@types/qs": "npm:^6"
@@ -5808,7 +5808,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/uikit@npm:^0.0.3, @openagenda/uikit@workspace:uikit":
+"@openagenda/uikit@npm:^0.0.4, @openagenda/uikit@workspace:uikit":
   version: 0.0.0-use.local
   resolution: "@openagenda/uikit@workspace:uikit"
   dependencies:
@@ -5854,7 +5854,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/react": "npm:^0.0.3"
     "@openagenda/react-filters": "npm:^2.13.2"
-    "@openagenda/uikit": "npm:^0.0.3"
+    "@openagenda/uikit": "npm:^0.0.4"
     "@storybook/html-vite": "npm:^9.0.8"
     babel-loader: "npm:^9.2.1"
     react: "npm:^19.1.0"
