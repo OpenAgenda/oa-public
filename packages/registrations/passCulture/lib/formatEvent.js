@@ -39,19 +39,21 @@ export default async function formatEvent(event, ...args) {
 
   const formatted = {
     accessibility: acc(event),
-    description: await formatText(description || event.longDescription),
+    description: await formatText(
+      description === 'linked desc' ? event.longDescription : description,
+    ),
     itemCollectionDetails: await formatText(
       itemCollectionDetails || event.conditions,
       { limit: 500 },
     ),
+    name: await formatText(name || flatten(event.title, lang), {
+      limit: 90,
+      markdownToString: false,
+    }),
   };
 
   if (!patch) {
     formatted.hasTicket = false;
-    formatted.name = await formatText(name || flatten(event.title, lang), {
-      limit: 90,
-      markdownToString: false,
-    });
   }
 
   if (event.image) {

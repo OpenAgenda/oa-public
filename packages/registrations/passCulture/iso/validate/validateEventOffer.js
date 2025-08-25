@@ -12,7 +12,7 @@ export default function validateEventOffer(data, options = {}) {
     'description',
     'duo',
     'eventDuration',
-    'updateAddress',
+    'updateEventOffer',
   ].reduce(
     (usedData, field) =>
       (data[field] ? { ...usedData, [field]: data[field] } : usedData),

@@ -22,7 +22,7 @@ function spreadAccordingToObjectType(data) {
       appliedAt,
       operation,
       editing,
-      updateAddress,
+      updateEventOffer,
       ...remaining
     } = entry;
 
@@ -42,17 +42,17 @@ function spreadAccordingToObjectType(data) {
       spread.push(decorateWithInfoFields({ dates }, entry));
     }
 
-    // If editing is true and updateAddress is true, create an eventOffer entry to force update
+    // If editing is true and updateEventOffer is true, create an eventOffer entry to force update
     if (
       !dates
       && !priceCategories
       && !hasOtherData
       && editing
-      && updateAddress
+      && updateEventOffer
     ) {
       // Find the last venueId from the original data array
       const lastVenueId = findLastVenueIdFromData(dataArray);
-      const updateEntry = { updateAddress: true };
+      const updateEntry = { updateEventOffer: true };
       if (lastVenueId) {
         updateEntry.venueId = lastVenueId;
       }
