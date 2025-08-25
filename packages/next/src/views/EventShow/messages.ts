@@ -400,6 +400,10 @@ export const agendaHeader = defineMessages({
     id: 'next.views.EventShow.AgendaHeader.showAllEvents',
     defaultMessage: 'Show all events',
   },
+  viewNetworkAgendas: {
+    id: 'next.views.EventShow.AgendaHeader.viewNetworkAgendas',
+    defaultMessage: 'View network agendas',
+  },
 });
 
 export const contributorSection = defineMessages({

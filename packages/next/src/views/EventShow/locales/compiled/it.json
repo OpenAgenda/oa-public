@@ -41,6 +41,12 @@
       "value": "Vedere tutti gli eventi"
     }
   ],
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": [
+    {
+      "type": 0,
+      "value": "View network agendas"
+    }
+  ],
   "next.views.EventShow.ContextBar.backToDashboard": [
     {
       "type": 0,

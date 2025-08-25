@@ -6,6 +6,7 @@
   "next.views.EventShow.AdditionalFields.noSelection": "No selection",
   "next.views.EventShow.AdditionalFields.restrictedInformation": "Restricted information",
   "next.views.EventShow.AgendaHeader.showAllEvents": "Show all events",
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": "View network agendas",
   "next.views.EventShow.ContextBar.backToDashboard": "Back to dashboard",
   "next.views.EventShow.ContextBar.cancel": "Cancel",
   "next.views.EventShow.ContextBar.clearStatus": "Clear the status of the event",
