@@ -206,6 +206,8 @@ export default async function Portal(options) {
     webpackProxy(app, devServerPort);
   }
 
+  app.get('/health', (_req, res) => res.status(200).send());
+
   if (assets) {
     app.use(express.static(path.join(dir, assets)));
   }
