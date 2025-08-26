@@ -468,6 +468,7 @@ const initialState = async (req) => {
         apiRoot: `http://localhost:${config.port}`,
         perPageLimit: 20,
         mapTiles: config.tiles,
+        assetsPath: config.s3.assetsBucketPath,
       },
       res: {
         jsonExport: '/agendas/:uid/admin/events.v2.json',

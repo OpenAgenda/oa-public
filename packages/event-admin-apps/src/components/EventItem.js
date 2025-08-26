@@ -125,6 +125,7 @@ export default function EventItem({
   passRes,
   passTabIsOpen,
   setPassTab,
+  assetsPath,
 }) {
   const apiClient = useApiClient();
   const queryClient = useQueryClient();
@@ -274,6 +275,7 @@ export default function EventItem({
             passTabIsOpen={passTabIsOpen}
             setPassTab={setPassTab}
             eventUid={event.uid}
+            assetsPath={assetsPath}
           />
         ) : null}
       </div>
