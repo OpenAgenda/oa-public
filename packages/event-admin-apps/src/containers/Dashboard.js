@@ -227,6 +227,7 @@ function Dashboard() {
 
   const res = useSelector((state) => state.res);
   const mapTiles = useSelector((state) => state.settings.mapTiles);
+  const assetsPath = useSelector((state) => state.settings.assetsPath);
 
   const [passTabOpen, setPassTab] = useState(false);
 
@@ -831,6 +832,7 @@ function Dashboard() {
             passRes={res.passCulture}
             passTabIsOpen={passTabOpen === event.uid}
             setPassTab={(e) => setPassTab(e)}
+            assetsPath={assetsPath}
           />
         ))}
       </ul>

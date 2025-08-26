@@ -36,6 +36,7 @@ export function AnonymouslyContributedEvent() {
         isFirst={false}
         isLast={false}
         redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
       />
     </div>
   );
@@ -65,6 +66,7 @@ export function AnonymouslyContributedEventWithNoRole() {
         isFirst={false}
         isLast={false}
         redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
       />
     </div>
   );
@@ -86,6 +88,7 @@ export function SharedEventItem() {
         isFirst={false}
         isLast={false}
         redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
       />
     </div>
   );
@@ -111,6 +114,7 @@ export function RefusedWithMotiveEventItem() {
         isFirst={false}
         isLast={false}
         redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
       />
     </div>
   );
@@ -132,6 +136,7 @@ export function ContributedEventItem() {
         isFirst={false}
         isLast={false}
         redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
       />
     </div>
   );
@@ -153,6 +158,7 @@ export function AggregatedEventItem() {
         isFirst={false}
         isLast={false}
         redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
       />
     </div>
   );
@@ -174,6 +180,7 @@ export function SharedEventItemWithoutOrigin() {
         isFirst={false}
         isLast={false}
         redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
       />
     </div>
   );
@@ -195,6 +202,7 @@ export function SharedEventItemByAnonymous() {
         isFirst={false}
         isLast={false}
         redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
       />
     </div>
   );
@@ -217,6 +225,7 @@ export function MemberlessSharedEventItem() {
         isFirst={false}
         isLast={false}
         redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
       />
     </div>
   );

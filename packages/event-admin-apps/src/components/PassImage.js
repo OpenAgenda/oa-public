@@ -33,10 +33,8 @@ const messages = defineMessages({
   },
 });
 
-const imgRoute = process.env.NEXT_PUBLIC_ASSETS;
-
-const imgSource = (errored, rejected, pending, unpublished) => {
-  const completedImgRoute = `${imgRoute}/svc/registration-apps/`;
+const imgSource = (assetsPath, errored, rejected, pending, unpublished) => {
+  const completedImgRoute = `${assetsPath}svc/registration-apps/`;
   if (errored) return `${completedImgRoute}pass-culture-error-22.png`;
   if (rejected) return `${completedImgRoute}pass-culture-rejected-22.png`;
   if (pending) return `${completedImgRoute}pass-culture-pending-22.png`;
@@ -62,6 +60,7 @@ export default function PassImage({
   passTabIsOpen,
   setPassTab,
   eventUid,
+  assetsPath,
 }) {
   const intl = useIntl();
   const seeLink = passRes.show.replace(':id', passId);
@@ -76,7 +75,7 @@ export default function PassImage({
       })}
     >
       <img
-        src={imgSource(errored, rejected, pending, passUnpublished)}
+        src={imgSource(assetsPath, errored, rejected, pending, passUnpublished)}
         alt="logoPassCulture"
         title={title(intl, errored, rejected, pending, passUnpublished)}
       />

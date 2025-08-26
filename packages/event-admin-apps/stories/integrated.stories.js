@@ -16,6 +16,7 @@ const getDefaultState = () => ({
     prefix: '',
     perPageLimit: 20,
     mapTiles: '',
+    assetsPath: 'https://cdn.openagenda.com/assets/',
   },
   res: {
     jsonExport: '/:slug/events.json',
