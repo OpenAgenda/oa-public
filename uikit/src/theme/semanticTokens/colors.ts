@@ -387,22 +387,40 @@ export const semanticColors = defineSemanticTokens.colors({
         value: { _light: 'black', _dark: 'black' },
       },
       fg: {
-        value: { _light: '{colors.strapi.azure.600}', _dark: '{colors.strapi.azure.300}' },
+        value: {
+          _light: '{colors.strapi.azure.500}',
+          _dark: '{colors.strapi.azure.100}',
+        },
       },
       subtle: {
-        value: { _light: '{colors.strapi.azure.100}', _dark: '{colors.strapi.azure.900}' },
+        value: {
+          _light: '{colors.strapi.azure.900}',
+          _dark: '{colors.strapi.azure.100}',
+        },
       },
       muted: {
-        value: { _light: '{colors.strapi.azure.200}', _dark: '{colors.strapi.azure.800}' },
+        value: {
+          _light: '{colors.strapi.azure.200}',
+          _dark: '{colors.strapi.azure.800}',
+        },
       },
       emphasized: {
-        value: { _light: '{colors.strapi.azure.300}', _dark: '{colors.strapi.azure.700}' },
+        value: {
+          _light: '{colors.strapi.azure.300}',
+          _dark: '{colors.strapi.azure.700}',
+        },
       },
       solid: {
-        value: { _light: '{colors.strapi.azure.500}', _dark: '{colors.strapi.azure.500}' },
+        value: {
+          _light: '{colors.strapi.azure.500}',
+          _dark: '{colors.strapi.azure.500}',
+        },
       },
       focusRing: {
-        value: { _light: '{colors.strapi.azure.600}', _dark: '{colors.strapi.azure.600}' },
+        value: {
+          _light: '{colors.strapi.azure.600}',
+          _dark: '{colors.strapi.azure.600}',
+        },
       },
     },
     lightSkyBlue: {
@@ -902,22 +920,40 @@ export const semanticColors = defineSemanticTokens.colors({
         value: { _light: 'black', _dark: 'black' },
       },
       fg: {
-        value: { _light: '{colors.strapi.mint.600}', _dark: '{colors.strapi.mint.300}' },
+        value: {
+          _light: '{colors.strapi.mint.600}',
+          _dark: '{colors.strapi.mint.300}',
+        },
       },
       subtle: {
-        value: { _light: '{colors.strapi.mint.100}', _dark: '{colors.strapi.mint.900}' },
+        value: {
+          _light: '{colors.strapi.mint.100}',
+          _dark: '{colors.strapi.mint.900}',
+        },
       },
       muted: {
-        value: { _light: '{colors.strapi.mint.200}', _dark: '{colors.strapi.mint.800}' },
+        value: {
+          _light: '{colors.strapi.mint.200}',
+          _dark: '{colors.strapi.mint.800}',
+        },
       },
       emphasized: {
-        value: { _light: '{colors.strapi.mint.300}', _dark: '{colors.strapi.mint.700}' },
+        value: {
+          _light: '{colors.strapi.mint.300}',
+          _dark: '{colors.strapi.mint.700}',
+        },
       },
       solid: {
-        value: { _light: '{colors.strapi.mint.500}', _dark: '{colors.strapi.mint.500}' },
+        value: {
+          _light: '{colors.strapi.mint.500}',
+          _dark: '{colors.strapi.mint.500}',
+        },
       },
       focusRing: {
-        value: { _light: '{colors.strapi.mint.600}', _dark: '{colors.strapi.mint.600}' },
+        value: {
+          _light: '{colors.strapi.mint.600}',
+          _dark: '{colors.strapi.mint.600}',
+        },
       },
     },
     skipSeaGreen: {
@@ -1048,22 +1084,40 @@ export const semanticColors = defineSemanticTokens.colors({
         value: { _light: 'white', _dark: 'white' },
       },
       fg: {
-        value: { _light: '{colors.strapi.sepia.600}', _dark: '{colors.strapi.sepia.300}' },
+        value: {
+          _light: '{colors.strapi.sepia.600}',
+          _dark: '{colors.strapi.sepia.300}',
+        },
       },
       subtle: {
-        value: { _light: '{colors.strapi.sepia.100}', _dark: '{colors.strapi.sepia.900}' },
+        value: {
+          _light: '{colors.strapi.sepia.100}',
+          _dark: '{colors.strapi.sepia.900}',
+        },
       },
       muted: {
-        value: { _light: '{colors.strapi.sepia.200}', _dark: '{colors.strapi.sepia.800}' },
+        value: {
+          _light: '{colors.strapi.sepia.200}',
+          _dark: '{colors.strapi.sepia.800}',
+        },
       },
       emphasized: {
-        value: { _light: '{colors.strapi.sepia.300}', _dark: '{colors.strapi.sepia.700}' },
+        value: {
+          _light: '{colors.strapi.sepia.300}',
+          _dark: '{colors.strapi.sepia.700}',
+        },
       },
       solid: {
-        value: { _light: '{colors.strapi.sepia.500}', _dark: '{colors.strapi.sepia.500}' },
+        value: {
+          _light: '{colors.strapi.sepia.500}',
+          _dark: '{colors.strapi.sepia.500}',
+        },
       },
       focusRing: {
-        value: { _light: '{colors.strapi.sepia.600}', _dark: '{colors.strapi.sepia.600}' },
+        value: {
+          _light: '{colors.strapi.sepia.600}',
+          _dark: '{colors.strapi.sepia.600}',
+        },
       },
     },
     goldenBrown: {
