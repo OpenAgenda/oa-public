@@ -45,14 +45,7 @@ export default function ListVenues({
 
   return (
     <div>
-      {mode === 'select' ? (
-        <p className="text-muted mb-3">
-          Cliquez sur un lieu pour le sélectionner. Cliquez sur le lieu
-          sélectionné pour le désélectionner.
-        </p>
-      ) : (
-        <div>Lieux configurés:</div>
-      )}
+      {mode !== 'select' && <div>Lieux configurés:</div>}
 
       <div className="list-group">
         {venues.map((venue) => {
@@ -66,14 +59,14 @@ export default function ListVenues({
                   {venue.publicName || venue.legalName}
                   {isDefault && (
                     <i
-                      className="fas fa-check-circle text-primary margin-left-xs"
+                      className="fa-regular fa-square-check text-primary margin-left-xs"
                       data-toggle="tooltip"
                       data-placement="top"
                       title="Lieu par défaut"
                     />
                   )}
                 </div>
-                <div className="text-muted small">
+                <div className="text-muted">
                   {`${venue.location.address}, ${venue.location.postalCode}, ${venue.location.city}`}
                 </div>
                 <div>

@@ -485,8 +485,10 @@ export default function PassSettings() {
                 <strong>Lieux pass Culture associés au SIREN</strong>
               </p>
               <p className="text-muted">
-                Sélectionnez un lieu par défaut pour éviter un choix additionnel
-                à chaque nouvelle saisie
+                Sélectionnez un lieu pour lui associer toute nouvelle création
+                d&apos;offre pass Culture via la passerelle. Le choix du lieu ne
+                sera alors plus proposé dans le formulaire de saisie de
+                l&apos;offre pass.
               </p>
 
               <ListVenues
