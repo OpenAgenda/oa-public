@@ -9,6 +9,7 @@ import {
   SimpleGrid,
 } from '@openagenda/uikit';
 import Image from 'components/Image';
+import { color } from 'utils/strapi';
 import logoPic from '../../../public/images/oa-white.svg';
 import messages from './messages';
 
@@ -167,7 +168,7 @@ export default function Footer({
   );
 
   return (
-    <Box backgroundColor="classyCharcoal.solid">
+    <Box backgroundColor={color('charcoal', 500)}>
       <Container maxW="7xl" py="16">
         <Flex
           direction={{ base: 'column', md: 'row' }}
