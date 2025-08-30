@@ -277,12 +277,6 @@
       "value": "Select all"
     }
   ],
-  "react.components.AgendaExportModal.showContributionButton": [
-    {
-      "type": 0,
-      "value": "Show contribution button"
-    }
-  ],
   "react.components.AgendaExportModal.showFilters": [
     {
       "type": 0,
