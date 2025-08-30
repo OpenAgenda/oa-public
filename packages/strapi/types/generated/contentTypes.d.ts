@@ -452,6 +452,8 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
       }>;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>;
+    logoVariant: Schema.Attribute.Enumeration<['regular', 'white']> &
+      Schema.Attribute.DefaultTo<'regular'>;
     navFontColor: Schema.Attribute.Relation<
       'oneToOne',
       'api::theme-color.theme-color'

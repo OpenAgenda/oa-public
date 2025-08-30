@@ -77,6 +77,11 @@
       "type": "component",
       "repeatable": false,
       "component": "components.background-gradient"
+    },
+    "logoVariant": {
+      "type": "enumeration",
+      "enum": ["regular", "white"],
+      "default": "regular"
     }
   }
 }
