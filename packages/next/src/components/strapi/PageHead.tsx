@@ -61,7 +61,6 @@ const PageHeadContent = ({
 import type { Color } from './types';
 
 interface PageHeadProps {
-  backgroundColor?: any;
   colorVariant?: string;
   titleColor?: Color;
   descriptionColor?: Color;
@@ -83,7 +82,6 @@ export default function PageHead({
   CTAs,
   video,
   image,
-  backgroundColor,
   colorVariant,
   titleColor,
   descriptionColor,
@@ -97,11 +95,7 @@ export default function PageHead({
       : '1fr';
 
   return (
-    <SegmentContainer
-      fontColor={titleColor}
-      backgroundColor={backgroundColor}
-      colorVariant={colorVariant}
-    >
+    <SegmentContainer fontColor={titleColor} colorVariant={colorVariant}>
       <Grid
         templateColumns={templateColumns}
         gap={8}

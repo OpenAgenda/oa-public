@@ -1,8 +1,6 @@
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, NextPage } from 'next';
 import ky from 'ky';
-import { NextPageWithLayout } from 'pages/_app';
 import StrapiPage from 'views/StrapiPage';
-import Layout from 'components/Layout';
 import { fetchPageData } from 'utils/strapi';
 
 interface PageData {
@@ -105,10 +103,8 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
   };
 };
 
-const Page: NextPageWithLayout<PageProps> = ({ page, footer }) => (
+const Page: NextPage<PageProps> = ({ page, footer }) => (
   <StrapiPage page={page} footer={footer} />
 );
-
-Page.Layout = Layout;
 
 export default Page;

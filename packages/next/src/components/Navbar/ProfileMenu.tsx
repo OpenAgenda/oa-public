@@ -41,7 +41,7 @@ export default function ProfileMenu({ user, portalRef }) {
       {/* Desktop content */}
       {user ? (
         <MenuRoot positioning={{ placement: 'bottom-end' }}>
-          <MenuTrigger colorPalette="oaGray" asChild>
+          <MenuTrigger asChild>
             <Button
               variant="link"
               display={{ base: 'none', lg: 'flex' }}
@@ -131,7 +131,6 @@ export default function ProfileMenu({ user, portalRef }) {
       {/* Mobile content */}
       <IconButton
         aria-label="Open Menu" // TODO translate
-        colorPalette="oaGray"
         variant="ghost"
         size="md"
         mr="4"

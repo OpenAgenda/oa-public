@@ -20,6 +20,7 @@ type NavbarSearchInputProps = {
   onButtonClick?: () => void;
   isLoading?: boolean;
   disabled?: boolean;
+  transparent?: boolean;
 };
 
 // TODO use isLoading & disabled
@@ -30,6 +31,7 @@ export default function NavbarSearchInput({
   meta: _meta,
   onButtonClick,
   placeholder,
+  transparent = false,
   // isLoading,
   // disabled,
 }: NavbarSearchInputProps) {
@@ -37,7 +39,7 @@ export default function NavbarSearchInput({
 
   return (
     <InputGroup
-      bg="oaGray.10"
+      bg={transparent ? undefined : 'oaGray.10'}
       display="flex"
       flex="1"
       w="initial"
@@ -77,13 +79,13 @@ export default function NavbarSearchInput({
         boxShadow="none"
         pe="50px"
         _focus={{
-          border: '1px solid',
+          border: transparent ? '0' : '1px solid',
           borderColor: 'primary.500',
           boxShadow: 'none',
           outlineWidth: '0',
         }}
         _active={{
-          border: '1px solid',
+          border: transparent ? '0' : '1px solid',
           borderColor: 'primary.500',
           boxShadow: 'none',
         }}
