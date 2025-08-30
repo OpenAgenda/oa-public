@@ -271,12 +271,6 @@
       "value": "crwdns33968:0crwdne33968:0"
     }
   ],
-  "react.components.AgendaExportModal.showContributionButton": [
-    {
-      "type": 0,
-      "value": "Show contribution button"
-    }
-  ],
   "react.components.AgendaExportModal.showFilters": [
     {
       "type": 0,
