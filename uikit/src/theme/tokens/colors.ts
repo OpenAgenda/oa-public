@@ -29,6 +29,7 @@ export const colors = defineTokens.colors({
   //   900: { value: '#031c37' },
   // },
   oaGray: {
+    1: { value: '#ffffff' },
     10: { value: '#fafafa' },
     50: { value: '#efefef' },
     100: { value: '#eeeeee' },
@@ -40,6 +41,10 @@ export const colors = defineTokens.colors({
     700: { value: '#5c5c5c' },
     800: { value: '#474747' },
     900: { value: '#333333' },
+  },
+  oaWhite: {
+    200: { value: '#ffffff' },
+    500: { value: '#ffffff' },
   },
   warning: {
     100: { value: '#f8c663' },
