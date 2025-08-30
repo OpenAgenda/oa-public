@@ -47,6 +47,29 @@ export const semanticColors = defineSemanticTokens.colors({
       value: { _light: '{colors.oaGray.600}', _dark: '{colors.oaGray.600}' },
     },
   },
+  oaWhite: {
+    contrast: {
+      value: { _light: 'white', _dark: 'white' },
+    },
+    fg: {
+      value: { _light: '{colors.oaGray.1}', _dark: '{colors.oaGray.1}' },
+    },
+    subtle: {
+      value: { _light: 'transparent', _dark: 'transparent' },
+    },
+    muted: {
+      value: { _light: '{colors.oaGray.1}', _dark: '{colors.oaGray.1}' },
+    },
+    emphasized: {
+      value: { _light: '{colors.oaGray.1}', _dark: '{colors.oaGray.1}' },
+    },
+    solid: {
+      value: { _light: '{colors.oaGray.1}', _dark: '{colors.oaGray.1}' },
+    },
+    focusRing: {
+      value: { _light: '{colors.oaGray.1}', _dark: '{colors.oaGray.1}' },
+    },
+  },
   warning: {
     contrast: {
       value: { _light: 'white', _dark: 'white' },
