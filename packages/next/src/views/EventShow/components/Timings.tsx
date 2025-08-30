@@ -171,9 +171,7 @@ function TimingsWithNavigation({ timings, timezone }) {
           >
             <FaIcon icon={faChevronLeft} />
           </IconButton>
-        ) : (
-          <Box />
-        )}
+        ) : null}
         <Box
           as="h2"
           gridColumn="2"
@@ -200,9 +198,7 @@ function TimingsWithNavigation({ timings, timezone }) {
           >
             <FaIcon icon={faChevronRight} />
           </IconButton>
-        ) : (
-          <Box />
-        )}
+        ) : null}
       </Grid>
 
       <TimingsDisplay

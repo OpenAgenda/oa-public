@@ -364,7 +364,6 @@ function EventShow({ preload }: EventShowProps) {
               </div>
               {/* timings section */}
               <Flex
-                as="main"
                 display={{ base: 'flex', lg: 'none' }}
                 direction="column"
                 gap="4"
