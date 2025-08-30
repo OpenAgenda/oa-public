@@ -67,6 +67,16 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::theme-color.theme-color"
+    },
+    "navFontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::theme-color.theme-color"
+    },
+    "BackgroundGradient": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.background-gradient"
     }
   }
 }

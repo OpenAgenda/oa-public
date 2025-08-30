@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_components_background_gradients",
+  "info": {
+    "displayName": "BackgroundGradient"
+  },
+  "options": {},
+  "attributes": {
+    "direction": {
+      "type": "enumeration",
+      "enum": ["to right", "to bottom", "to right bottom"],
+      "default": "to right bottom"
+    },
+    "Colors": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::theme-color.theme-color"
+    }
+  }
+}
