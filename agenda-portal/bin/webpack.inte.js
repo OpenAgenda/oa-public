@@ -65,21 +65,17 @@ export default {
         ],
       },
       {
-        test: /\.(otf|ttf|ttc|eot|woff|woff2)$/,
-        loader: fileURLToPath(import.meta.resolve('file-loader')),
-        options: {
-          name: '[name].[contenthash:8].[ext]',
-          outputPath: 'fonts/',
-          esModule: false,
+        test: /\.(otf|ttf|ttc|eot|woff2?)$/i,
+        type: 'asset/resource',
+        generator: {
+          filename: 'fonts/[name].[contenthash:8][ext]',
         },
       },
       {
         test: /\.(png|jpe?g|gif|svg|webp)$/i,
-        loader: fileURLToPath(import.meta.resolve('file-loader')),
-        options: {
-          name: '[name].[contenthash:8].[ext]',
-          outputPath: 'images/',
-          esModule: false,
+        type: 'asset/resource',
+        generator: {
+          filename: 'images/[name].[contenthash:8][ext]',
         },
       },
     ],
