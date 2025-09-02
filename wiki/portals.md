@@ -138,3 +138,123 @@ docker network create --driver overlay --attachable public
 # Déployer les portails
 
 Il faut cloner le repo `oa-portals`, créer les `.env`, et déployer les portails avec `./deploy.sh`.
+
+Pour se connecter au registre docker:
+
+```bash
+docker login registry.oa.events -u portals
+```
+
+# Backup
+
+## Mise en place du backup
+
+Le backup est fait gràce à [restic](https://restic.net/).
+
+Sur le manager:
+
+```bash
+sudo apt install restic
+
+# Créer le fichier de mot de passe
+nano .restic-pass
+chmod 600 .restic-pass
+
+# Créer le fichier de configuration restic
+nano restic_credentials
+```
+
+Le fichier de configuration, en veillant à modifier les valeurs :
+
+```bash
+export OS_AUTH_URL=https://swiss-backup04.infomaniak.com/identity/v3
+export OS_REGION_NAME=RegionOne
+export OS_PROJECT_NAME=sb_project_SBI-1234
+export OS_PASSWORD=xxxx
+export OS_USER_DOMAIN_NAME=default
+export OS_USERNAME=SBI-1234
+export OS_PROJECT_DOMAIN_NAME=default
+# export RESTIC_REPOSITORY=swift:sb_project_SBI-1234:/oa-portals
+# export RESTIC_PASSWORD_FILE=/home/ubuntu/.restic-pass
+```
+
+Plus d'infos sur https://docs.infomaniak.cloud/block_storage/swissbackup/
+
+Pour gérer plusieurs profiles restic et automatiser les backups avec [resticprofile](https://creativeprojects.github.io/resticprofile/index.html):
+
+```bash
+curl -LO https://raw.githubusercontent.com/creativeprojects/resticprofile/master/install.sh
+chmod +x install.sh
+sudo ./install.sh -b /usr/local/bin
+
+sudo mkdir -p /etc/resticprofile
+nano /etc/resticprofile/profiles.yml
+```
+
+La config:
+
+```yml
+version: '1'
+
+default:
+  repository: swift:sb_project_SBI-1234:/oa-portals
+  password-file: /home/ubuntu/.restic-pass
+  env-file: /home/ubuntu/restic_credentials
+  backup:
+    verbose: true
+    source-base: /home/ubuntu
+    source: oa-portals
+    source-relative: true
+    schedule: 'daily'
+    schedule-permission: user
+  retention:
+    before-backup: false
+    after-backup: true
+    keep-last: 7
+    keep-daily: 7
+    keep-weekly: 4
+    keep-monthly: 6
+```
+
+Puis:
+
+```bash
+resticprofile init
+resticprofile backup
+sudo resticprofile schedule
+# Control
+resticprofile snapshots
+resticprofile status
+```
+
+## Restaurer les données
+
+```bash
+resticprofile restore --target /home/ubuntu/oa-portals --snapshot-id "latest:oa-portals"
+```
+
+## Utiliser les données en local
+
+Pour ça il faut installer restic et resticprofile de la même manière qu'au-dessus,
+avec une version allégée de `/etc/resticprofile/profiles.yml`:
+
+```yml
+version: '1'
+
+oa-portals:
+  repository: swift:sb_project_SBI-1234:/oa-portals
+  password-file: /home/bertho/.restic-pass
+  env-file: /home/bertho/restic_credentials
+```
+
+Pour lister les fichiers du dernier snapshots:
+
+```bash
+resticprofile ls@oa-portals latest
+```
+
+Pour restaurer le sous-dossier `oa-portals` du dernier snapshot:
+
+```bash
+resticprofile restore@oa-portals latest:/oa-portals --target ~/dev/oa-portal-restoration
+```
