@@ -199,7 +199,7 @@ Il faut d'abord se connecter au registre docker:
 docker login registry.oa.events -u portals
 ```
 
-Ensuite il faut cloner le repo `oa-portals`, créer les `.env`, et déployer les portails avec `./deploy.sh`.
+Ensuite il faut cloner ou restaurer le repo `oa-portals`, créer les `.env`, et déployer les portails avec `./deploy.sh`.
 
 Il y a une interface web pour voir ce que Traefik a déployé, c'est visible sur https://traefik.oa.events/dashboard/.
 
@@ -246,7 +246,7 @@ chmod +x install.sh
 sudo ./install.sh -b /usr/local/bin
 
 sudo mkdir -p /etc/resticprofile
-nano /etc/resticprofile/profiles.yml
+sudo nano /etc/resticprofile/profiles.yml
 ```
 
 La config:
@@ -274,10 +274,10 @@ default:
     keep-monthly: 6
 ```
 
-Puis:
+## Sauvegarder les données
 
 ```bash
-resticprofile init
+resticprofile init # une fois seulement
 resticprofile backup
 sudo resticprofile schedule
 # Control
