@@ -113,6 +113,7 @@ export default async function process(
     }
   } else if (
     changedOaFields
+    && clean.passCulture
     && (clean.agendaEvent.state
       ? clean.agendaEvent.state === 2
       : agendaEventOldState === 2)

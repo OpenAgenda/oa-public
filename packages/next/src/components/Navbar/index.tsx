@@ -2,15 +2,19 @@ import { useRef } from 'react';
 import { useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
 import { chakra, Box, Container, Flex } from '@openagenda/uikit';
+import { isUndefined } from 'swr/_internal';
 import useUser from 'hooks/useUser';
 import defaultSize from 'utils/defaultSize';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/NavbarSearchInput';
 import Image from 'components/Image';
 import hrefWithLang from 'utils/hrefWithLang';
+import { color } from 'utils/strapi';
 import getSession from 'utils/getSession';
 import logoPic from '../../../public/images/oa.svg';
-import miniLogoPic from '../../../public/images/oa_logo.svg';
+import whiteLogoPic from '../../../public/images/oa-white.svg';
+import miniLogoPic from '../../../public/images/oa-picto.svg';
+import whiteMiniLogoPic from '../../../public/images/oa-picto-white.svg';
 import HelpButton from './HelpButton';
 import LanguageSelector from './LanguageSelector';
 import ProfileLoader from './ProfileLoader';
@@ -31,7 +35,11 @@ function ProfileBar({ portalRef }) {
   return <ProfileMenu portalRef={portalRef} user={user} />;
 }
 
-export default function Navbar() {
+export default function Navbar({
+  discreet = false,
+  fontColor = undefined,
+  logoVariant = 'regular',
+}) {
   const intl = useIntl();
 
   const { inputValue, setInputValue, onSearch } = useSearch();
@@ -47,10 +55,11 @@ export default function Navbar() {
       ref={headerRef}
       display="flex"
       flexDirection="column"
-      bg="white"
+      bg={discreet ? undefined : 'white'}
       position="relative"
-      boxShadow="xs"
+      boxShadow={discreet ? undefined : 'xs'}
       fontSize={defaultSize}
+      colorPalette={fontColor}
     >
       <Container maxW="7xl" px={0}>
         <Flex justify="space-between" h="50px" align="stretch">
@@ -64,31 +73,65 @@ export default function Navbar() {
               flexShrink="0"
             >
               <Box display={{ base: 'none', md: 'block' }}>
-                <Image src={logoPic} width="125" alt="logo" />
+                <Image
+                  src={logoVariant === 'white' ? whiteLogoPic : logoPic}
+                  width="125"
+                  alt="logo"
+                />
               </Box>
               <Box display={{ base: 'block', md: 'none' }}>
-                <Image src={miniLogoPic} height="40" alt="logo" />
+                <Image
+                  src={logoVariant === 'white' ? whiteMiniLogoPic : miniLogoPic}
+                  height="40"
+                  alt="logo"
+                />
               </Box>
             </chakra.a>
             <chakra.form
               onSubmit={onSearch}
               display={{ base: 'none', lg: 'flex' }}
+              css={
+                discreet
+                  ? {
+                      margin: '7px',
+                    }
+                  : isUndefined
+              }
             >
               <StyledSearchInput
+                transparent={!!discreet}
                 input={{
                   value: inputValue,
                   onChange: (e) => setInputValue(e.target.value),
                 }}
                 css={{
-                  '& input': {
-                    borderY: 'none',
+                  '& input': discreet
+                    ? {
+                        border: `1px solid`,
+                        borderColor: color(fontColor, 200),
+                        borderRadius: '40px',
+                        color: fontColor ? color(fontColor, 500) : undefined,
+                      }
+                    : {
+                        borderY: 'none',
+                        color: fontColor ? color(fontColor, 500) : undefined,
+                      },
+                  '& input::placeholder': {
+                    color: fontColor ? color(fontColor, 500) : undefined,
+                  },
+                  '& svg': {
+                    color: fontColor ? color(fontColor, 500) : undefined,
                   },
                 }}
               />
             </chakra.form>
           </Flex>
 
-          <Flex direction="row" align="center">
+          <Flex
+            direction="row"
+            align="center"
+            colorPalette={fontColor ?? 'oaGray'}
+          >
             <HelpButton />
             <LanguageSelector />
             <ProfileBar portalRef={headerRef} />

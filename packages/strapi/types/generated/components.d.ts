@@ -1,5 +1,22 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ComponentsBackgroundGradient extends Struct.ComponentSchema {
+  collectionName: 'components_components_background_gradients';
+  info: {
+    displayName: 'BackgroundGradient';
+  };
+  attributes: {
+    Colors: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::theme-color.theme-color'
+    >;
+    direction: Schema.Attribute.Enumeration<
+      ['to right', 'to bottom', 'to right bottom']
+    > &
+      Schema.Attribute.DefaultTo<'to right bottom'>;
+  };
+}
+
 export interface ComponentsCtaButton extends Struct.ComponentSchema {
   collectionName: 'components_components_cta_buttons';
   info: {
@@ -231,6 +248,7 @@ export interface SegmentsTabSet extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'components.background-gradient': ComponentsBackgroundGradient;
       'components.cta-button': ComponentsCtaButton;
       'components.footer-column': ComponentsFooterColumn;
       'components.highlight-card': ComponentsHighlightCard;

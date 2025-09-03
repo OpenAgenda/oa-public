@@ -15,16 +15,6 @@ export default function HelpButton() {
       mx="4"
       alignSelf="center"
       transitionDuration="fast"
-      _hover={{
-        color: 'white',
-        bg: 'primary.500',
-        textDecoration: 'none',
-      }}
-      _active={{
-        color: 'white',
-        bg: 'primary.500',
-        textDecoration: 'none',
-      }}
     >
       <Link
         unstyled

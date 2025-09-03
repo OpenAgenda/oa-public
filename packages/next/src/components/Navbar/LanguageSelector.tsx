@@ -31,13 +31,7 @@ export default function LanguageSelector() {
   return (
     <MenuRoot>
       <MenuTrigger asChild>
-        <Button
-          variant="ghost"
-          colorPalette="oaGray"
-          size="sm"
-          mx="2"
-          alignSelf="center"
-        >
+        <Button variant="ghost" size="sm" mx="2" alignSelf="center">
           <FaIcon icon={faGlobe} />
           <Text fontWeight="medium">{currentLanguage.label}</Text>
           <FaIcon icon={faChevronDown} size="sm" />
@@ -52,8 +46,7 @@ export default function LanguageSelector() {
             asChild
             key={language.code}
             value={language.code}
-            fontWeight={language.code === intl.locale ? 'bold' : 'normal'}
-            color={language.code === intl.locale ? 'primary.500' : 'inherit'}
+            disabled={language.code === intl.locale}
           >
             <NextLink
               href={strapiUrlRegex.test(router.asPath) ? '/' : router.asPath}

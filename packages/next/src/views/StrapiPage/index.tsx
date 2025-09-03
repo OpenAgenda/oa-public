@@ -1,7 +1,9 @@
 import { Noto_Sans, Ubuntu_Sans } from 'next/font/google';
-import { Global } from '@openagenda/uikit';
+import { Global, chakra } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 import PageHead from 'components/strapi/PageHead';
 import HighlightCardSet from 'components/strapi/HighlightCardSet';
+import Navbar from 'components/Navbar';
 import TabSet from 'components/strapi/TabSet';
 import ReferenceSet from 'components/strapi/ReferenceSet';
 import SplitHeroSegment from 'components/strapi/SplitHeroSegment';
@@ -21,7 +23,16 @@ const ubuntuSans = Ubuntu_Sans({
 });
 
 export default function StrapiPage({ page, footer }) {
-  const { title, description, keywords, Segments, themeColor } = page;
+  const {
+    title,
+    description,
+    keywords,
+    Segments,
+    themeColor,
+    navFontColor,
+    BackgroundGradient,
+    logoVariant,
+  } = page;
 
   const colors = [
     {
@@ -42,42 +53,56 @@ export default function StrapiPage({ page, footer }) {
       <Global
         styles={{
           html: {
-            backgroundColor: 'white',
             ':root': {
               '--font-noto-sans': notoSans.style.fontFamily,
               '--font-ubuntu-sans': ubuntuSans.style.fontFamily,
             },
           },
-          backgroundColor: 'white',
         }}
       />
+      <chakra.div
+        backgroundColor={themeColor ? color(themeColor, 500) : null}
+        backgroundImage={
+          BackgroundGradient
+            ? `linear-gradient(${BackgroundGradient.direction}, ${BackgroundGradient.Colors.map((c) => `{colors.${color(c.name, 500)}}`).join(', ')})`
+            : null
+        }
+      >
+        <Navbar
+          discreet={!!navFontColor}
+          fontColor={
+            navFontColor?.name === 'white' ? 'oaWhite' : navFontColor?.name
+          }
+          logoVariant={logoVariant}
+        />
 
-      {Segments.map((Segment, i) => {
-        const { id } = Segment;
-        const Component = {
-          'segments.highlight-card-set': HighlightCardSet,
-          'segments.page-head': PageHead,
-          'segments.tab-set': TabSet,
-          'segments.reference-set': ReferenceSet,
-          'components.split-hero': SplitHeroSegment,
-        }[Segment['__component']];
+        {Segments.map((Segment, i) => {
+          const { id } = Segment;
+          const Component = {
+            'segments.highlight-card-set': HighlightCardSet,
+            'segments.page-head': PageHead,
+            'segments.tab-set': TabSet,
+            'segments.reference-set': ReferenceSet,
+            'components.split-hero': SplitHeroSegment,
+          }[Segment['__component']];
 
-        return (
-          <Component
-            key={id}
-            {...Segment}
-            backgroundColor={colors[i % 2].segment}
-            componentBackgroundColor={colors[i % 2].component}
-            colorVariant={
-              Segment['__component'] === 'segments.page-head'
-                ? 'solid'
-                : 'subtle'
-            }
-          />
-        );
-      })}
+          return (
+            <Component
+              key={id}
+              {...Segment}
+              backgroundColor={colors[i % 2].segment}
+              componentBackgroundColor={colors[i % 2].component}
+              colorVariant={
+                Segment['__component'] === 'segments.page-head'
+                  ? 'solid'
+                  : 'subtle'
+              }
+            />
+          );
+        })}
 
-      {footer && <Footer {...footer} backgroundColor={colors[0].segment} />}
+        {footer && <Footer {...footer} backgroundColor={colors[0].segment} />}
+      </chakra.div>
     </>
   );
 }
