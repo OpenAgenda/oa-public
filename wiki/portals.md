@@ -1,5 +1,15 @@
 # Portals
 
+L'architecture est basée sur [docker swarm](https://docs.docker.com/engine/swarm/), il y a un noeud **manager** qui reçoit le traffic (avec [Traefik](https://doc.traefik.io/traefik/)) et un ou plusieurs noeuds **workers** qui exécutent les services.
+
+La config et le déploiement des portails se passent sur le serveur du manager, c'est lui qui se débrouille avec le/les workers pour lancer / mettre à jour / supprimer les portails.
+
+Pour faciliter la gestion du DNS, on utilise une entrée **A** pour `*.oa.events` pour faire pointer tous les sous-domaines vers Traefik, qui redistribue automatiquement le traffic vers le portail correspondant.
+Traefik gère automatiquement les certificats avec Let's Encrypt, à chaque fois qu'il voit un `Host()` dans ses labels il tente de générer le certificat qui correspond (plus d'infos sur https://doc.traefik.io/traefik/reference/install-configuration/tls/certificate-resolvers/acme/#domain-definition).
+
+La procèdure d'installation qui est détaillée plus bas fonctionne avec un swarm sur OpenStack et un réseau privé entre les noeuds
+mais ça peut aussi fonctionner avec un swarm sur des VPS distants ou même un simple VPS en éxécutant tout sur le manager (traefik + portails).
+
 ## Ajouter un portail
 
 Pour ajouter un portail, il faut :
@@ -23,7 +33,22 @@ et enfin lancer `./deploy.sh` sur le serveur.
 
 Il faut modifier le `.env` concerné sur le serveur, puis lancer `./update-portal.sh <nom_du_portail>`.
 
+## Supprimer un portail
+
+Il suffit de supprimer le service + la config dans le `yml` de https://github.com/OpenAgenda/oa-portals/blob/main/portals/stack.yml
+puis `./deploy.sh` sur le serveur.
+
+## Éteindre un portail
+
+On peut modifier un label dans `yml` pour mettre `traefik.enable=false`, mais le service sera quand même lancé.
+
+Si on veut vraiment éteindre le service, il faut commenter le service dans le `yml`.
+
+Puis `./deploy.sh` sur le serveur.
+
 ## Déployer le swarm sur OpenStack
+
+Si tu n'as pas de fichier de connexion à OpenStack, tu peux le créer sur l'interface du Public Cloud dans _Identité_ > _Identifiants d'application_.
 
 ```bash
 # Se connecter à OpenStack
@@ -95,6 +120,37 @@ echo "Worker : $FIP_WRK"
 
 # Vérifier les serveurs
 openstack server list --long
+```
+
+Une fois les serveurs créés, il faut mettre la clé ssh sur 1password et la supprimer du pc !
+Laisse juste la clé publique dans `~/.ssh/swarm-key.pub`.
+
+Pour faciliter la connexion ssh tu peux ajouter la config suivante dans `~/.ssh/config`:
+
+```
+Match host swarm-manager
+  HostName <IP_DU_MANAGER>
+  User ubuntu
+  Port 22
+  IdentityFile ~/.ssh/swarm-key
+  IdentitiesOnly yes
+
+Match host swarm-worker
+  HostName <IP_DU_WORKER>
+  User ubuntu
+  Port 22
+  IdentityFile ~/.ssh/swarm-key
+  IdentitiesOnly yes
+```
+
+Et tu pourras faire:
+
+```bash
+ssh swarm-manager
+
+# ou
+
+ssh swarm-worker
 ```
 
 ### Installer docker sur chaque serveur
@@ -257,4 +313,80 @@ Pour restaurer le sous-dossier `oa-portals` du dernier snapshot:
 
 ```bash
 resticprofile restore@oa-portals latest:/oa-portals --target ~/dev/oa-portal-restoration
+```
+
+# Ptits trucs en plus
+
+## Nettoyer les images automatiquement
+
+Dans le repo `oa-portals` il y a un fichier `docker-prune.yml` qui nettoie toutes les images / containers et volumes non utilisés toutes les 24h, à ne pas exécuter en local.
+
+À déployer avec :
+
+```bash
+docker stack deploy -c docker-prune.yml docker-prune --detach=false
+```
+
+## Portainer
+
+Portainer est disponible sur https://portainer.oa.events
+
+Il permet de voir les logs, redémarrer les services, mettre à jour un service, etc.
+
+Pour le déployer, il faut créer un `portainer-agent-stack.yml` (plus d'infos sur https://docs.portainer.io/start/install/server/swarm/linux) :
+
+```yml
+version: '3.2'
+
+services:
+  agent:
+    image: portainer/agent:lts
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    networks:
+      - agent_network
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.platform.os == linux]
+
+  portainer:
+    image: portainer/portainer-ce:lts
+    command: -H tcp://tasks.agent:9001 --tlsskipverify
+    # Useless only with Traefik
+    # ports:
+    #   - "9443:9443"
+    #   - "9000:9000"
+    #   - "8000:8000"
+    volumes:
+      - portainer_data:/data
+    networks:
+      - public
+      - agent_network
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.portainer.rule=Host(`portainer.oa.events`)
+        - traefik.http.services.portainer.loadbalancer.server.port=9000
+
+networks:
+  agent_network:
+    driver: overlay
+    attachable: true
+  public:
+    external: true
+
+volumes:
+  portainer_data:
+```
+
+Puis :
+
+```bash
+docker stack deploy -c portainer-agent-stack.yml portainer --detach=false
 ```
