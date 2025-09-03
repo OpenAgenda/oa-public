@@ -193,13 +193,15 @@ docker network create --driver overlay --attachable public
 
 # Déployer les portails
 
-Il faut cloner le repo `oa-portals`, créer les `.env`, et déployer les portails avec `./deploy.sh`.
-
-Pour se connecter au registre docker:
+Il faut d'abord se connecter au registre docker:
 
 ```bash
 docker login registry.oa.events -u portals
 ```
+
+Ensuite il faut cloner le repo `oa-portals`, créer les `.env`, et déployer les portails avec `./deploy.sh`.
+
+Il y a une interface web pour voir ce que Traefik a déployé, c'est visible sur https://traefik.oa.events/dashboard/.
 
 # Backup
 
