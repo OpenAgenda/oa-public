@@ -4308,10 +4308,47 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@fortawesome/fontawesome-common-types@npm:6.7.2":
+  version: 6.7.2
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.7.2"
+  checksum: 10c0/0785df560542d9c08a0ba07bb7a39902274a3cd65c018672eb2520a99efccce18bdb7f7f4b1c6089763bc5627bf0f0837c3af963a8427eaeb535bd57c820a723
+  languageName: node
+  linkType: hard
+
 "@fortawesome/fontawesome-free@npm:^6.1.1":
-  version: 6.1.1
-  resolution: "@fortawesome/fontawesome-free@npm:6.1.1"
-  checksum: 10c0/34aa9f91b2574632627c1bff45611f6d7862118f6a4857611b5bccc27252ed950a0bae19c0c1af198c6d4b5bba7fd35806dd0eb30b55d001a0a42e2657d6604b
+  version: 6.7.2
+  resolution: "@fortawesome/fontawesome-free@npm:6.7.2"
+  checksum: 10c0/e27fb8b846f0bcf40c904acc210829a640329fc7b7ec4e42a7c43cb53739ed6052d78df90810f555a5c80bc608fee5a5174db3fa6da617f582d6210009a19278
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-brands-svg-icons@npm:^6.6.0":
+  version: 6.7.2
+  resolution: "@fortawesome/free-brands-svg-icons@npm:6.7.2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/054af882f3416d4a04dfe0f8db8f1ac645d07709a019e95368ae796c1aeee5929dfaf023e5568438a600e1bc1496e6e7270659d2be91b50531fdbd724034b22c
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-regular-svg-icons@npm:^6.6.0":
+  version: 6.7.2
+  resolution: "@fortawesome/free-regular-svg-icons@npm:6.7.2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/3a334cb0c837170f7b14759ddc8ef2a821b8d2c59b23a7b852d7e3fb16b066dd5fe8649e47bc1ef91764c78a78f51d1c0c8c5b8567e1680eeb21e8afdc70f5f7
+  languageName: node
+  linkType: hard
+
+"@fortawesome/react-fontawesome@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "@fortawesome/react-fontawesome@npm:0.2.3"
+  dependencies:
+    prop-types: "npm:^15.8.1"
+  peerDependencies:
+    "@fortawesome/fontawesome-svg-core": ~1 || ~6 || ~7
+    react: ^16.3 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/ccb0a90069d9b01c495358317ef4456acccb59311c98e7b96d19f4acdec167abb823a822792b9e668f3c8241b650a0c1a72ed7b505206c03c126b233efa4b5c8
   languageName: node
   linkType: hard
 
@@ -5115,7 +5152,6 @@ __metadata:
     debug: "npm:^4.1.1"
     dotenv: "npm:^16.4.5"
     express: "npm:^4.17.1"
-    file-loader: "npm:^6.2.0"
     hbs: "npm:^4.2.0"
     http-proxy: "npm:^1.18.1"
     iframe-resizer: "npm:^4.2.10"
@@ -5312,7 +5348,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/intl@npm:^1.1.6, @openagenda/intl@workspace:intl":
+"@openagenda/intl@npm:^1.1.5, @openagenda/intl@npm:^1.1.6, @openagenda/intl@workspace:intl":
   version: 0.0.0-use.local
   resolution: "@openagenda/intl@workspace:intl"
   dependencies:
@@ -5381,6 +5417,27 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/mails@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "@openagenda/mails@npm:4.0.2"
+  dependencies:
+    "@formatjs/intl": "npm:^2.2.1"
+    "@openagenda/intl": "npm:^1.1.5"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/verror": "npm:^3.1.0"
+    ejs: "npm:^3.1.9"
+    emoji-regex: "npm:^10.3.0"
+    isemail: "npm:^3.2.0"
+    lodash: "npm:^4.17.15"
+    mjml: "npm:^4.13.0"
+    mjml-core: "npm:^4.13.0"
+    nodemailer: "npm:^6.9.1"
+    nodemailer-mailgun-transport: "npm:^2.1.5"
+    tlds: "npm:^1.253.0"
+  checksum: 10c0/eecda0652606e774a434caea6fff61111f06089c07d259e316e83dbd78edbfa1324d3820c9f84685191c34034ccd5b4a13a518adb6131c5203ed6e70fafe1fdf
+  languageName: node
+  linkType: hard
+
 "@openagenda/mails@workspace:mails":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails@workspace:mails"
@@ -5398,7 +5455,7 @@ __metadata:
     lodash: "npm:^4.17.15"
     mjml: "npm:^4.13.0"
     mjml-core: "npm:^4.13.0"
-    nodemailer: "npm:^6.9.1"
+    nodemailer: "npm:^7.0.6"
     nodemailer-mailgun-transport: "npm:^2.1.5"
     tlds: "npm:^1.253.0"
   languageName: unknown
@@ -5748,21 +5805,29 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/react@workspace:react"
   dependencies:
+    "@fortawesome/free-brands-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-regular-svg-icons": "npm:^6.6.0"
+    "@fortawesome/react-fontawesome": "npm:^0.2.3"
     "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
+    "@openagenda/mails": "npm:^4.0.2"
     "@openagenda/react-filters": "npm:^2.13.2"
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@openagenda/uikit": "npm:^0.0.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
+    "@types/lodash": "npm:^4"
     "@types/qs": "npm:^6"
+    base64-js: "npm:^1.5.1"
     ky: "npm:^1.7.2"
+    lodash: "npm:^4.17.21"
     msw: "npm:^2.3.0"
     qs: "npm:^6.11.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
+    react-intersection-observer: "npm:^9.16.0"
     react-intl: "npm:^7.1.5"
     react-use: "npm:^17.6.0"
     storybook: "npm:^9.0.8"
@@ -7850,6 +7915,13 @@ __metadata:
   dependencies:
     "@types/node": "npm:*"
   checksum: 10c0/5098b339a80fe28a461785c455aded9271b2b35da8568375edae4c144422ea0dbeab5aab05929f4c51321ec6a07fd5e0980096c202e19da41a86314bf45700ec
+  languageName: node
+  linkType: hard
+
+"@types/lodash@npm:^4":
+  version: 4.17.20
+  resolution: "@types/lodash@npm:4.17.20"
+  checksum: 10c0/98cdd0faae22cbb8079a01a3bb65aa8f8c41143367486c1cbf5adc83f16c9272a2a5d2c1f541f61d0d73da543c16ee1d21cf2ef86cb93cd0cc0ac3bced6dd88f
   languageName: node
   linkType: hard
 
@@ -11043,7 +11115,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"base64-js@npm:^1.0.2, base64-js@npm:^1.1.2, base64-js@npm:^1.3.0, base64-js@npm:^1.3.1":
+"base64-js@npm:^1.0.2, base64-js@npm:^1.1.2, base64-js@npm:^1.3.0, base64-js@npm:^1.3.1, base64-js@npm:^1.5.1":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
   checksum: 10c0/f23823513b63173a001030fae4f2dabe283b99a9d324ade3ad3d148e218134676f1ee8568c877cd79ec1c53158dcf2d2ba527a97c606618928ba99dd930102bf
@@ -16775,18 +16847,6 @@ __metadata:
   dependencies:
     flat-cache: "npm:^3.0.4"
   checksum: 10c0/58473e8a82794d01b38e5e435f6feaf648e3f36fdb3a56e98f417f4efae71ad1c0d4ebd8a9a7c50c3ad085820a93fc7494ad721e0e4ebc1da3573f4e1c3c7cdd
-  languageName: node
-  linkType: hard
-
-"file-loader@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "file-loader@npm:6.2.0"
-  dependencies:
-    loader-utils: "npm:^2.0.0"
-    schema-utils: "npm:^3.0.0"
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 10c0/e176a57c2037ab0f78e5755dbf293a6b7f0f8392350a120bd03cc2ce2525bea017458ba28fea14ca535ff1848055e86d1a3a216bdb2561ef33395b27260a1dd3
   languageName: node
   linkType: hard
 
@@ -23477,6 +23537,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nodemailer@npm:^7.0.6":
+  version: 7.0.6
+  resolution: "nodemailer@npm:7.0.6"
+  checksum: 10c0/84d3bdca7baa048df538506726a3e63a116276b9ee1ad1e3cd55a8ccbdbf3dea34af0d9bfbe2fdb63cc83f9abe2dbab1737cd58562955e42cbf6cd46e82da49a
+  languageName: node
+  linkType: hard
+
 "nodemon@npm:^2.0.15, nodemon@npm:^2.0.6":
   version: 2.0.15
   resolution: "nodemon@npm:2.0.15"
@@ -25798,6 +25865,19 @@ __metadata:
   peerDependencies:
     react: "*"
   checksum: 10c0/a24309bfc993c19cbcbfc928157e53a137851822779977b9588f6dd41ffc4d11ebc98b447f4039b0d309a858f0a42980f6bfb4477fb19f9f2d1bc2e190fcf79c
+  languageName: node
+  linkType: hard
+
+"react-intersection-observer@npm:^9.16.0":
+  version: 9.16.0
+  resolution: "react-intersection-observer@npm:9.16.0"
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+  checksum: 10c0/2aee5103fb460c6e5a3ab5a4fdc8c69a5215e23699a12d7857f25ba765fed48eacbed94ca835d79edf00c0edcc9c4fbb5bb057a373402d0551718546810e0e48
   languageName: node
   linkType: hard
 
