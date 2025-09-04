@@ -7,6 +7,8 @@ export default function useLoadTimingsData(res, queryOrFn, options = {}) {
 
   return useCallback(
     async (additionalQuery = {}, { interval, timezone } = {}) => {
+      if (!res) return null;
+
       const query = typeof queryOrFn === 'function' ? queryOrFn() : queryOrFn;
 
       const params = {
