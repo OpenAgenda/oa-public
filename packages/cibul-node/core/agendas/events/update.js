@@ -141,7 +141,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     });
 
     let updatedRegistration = false;
-    if (!clean.draft && registrations) {
+    if (
+      !clean.draft
+      && registrations
+      && agenda?.settings?.registration?.passCulture
+    ) {
       try {
         updatedRegistration = await registrations.utils.passCulture.process(
           agenda,

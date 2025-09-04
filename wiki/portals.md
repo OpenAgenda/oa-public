@@ -1,5 +1,15 @@
 # Portals
 
+L'architecture est basée sur [docker swarm](https://docs.docker.com/engine/swarm/), il y a un noeud **manager** qui reçoit le traffic (avec [Traefik](https://doc.traefik.io/traefik/)) et un ou plusieurs noeuds **workers** qui exécutent les services.
+
+La config et le déploiement des portails se passent sur le serveur du manager, c'est lui qui se débrouille avec le/les workers pour lancer / mettre à jour / supprimer les portails.
+
+Pour faciliter la gestion du DNS, on utilise une entrée **A** pour `*.oa.events` pour faire pointer tous les sous-domaines vers Traefik, qui redistribue automatiquement le traffic vers le portail correspondant.
+Traefik gère automatiquement les certificats avec Let's Encrypt, à chaque fois qu'il voit un `Host()` dans ses labels il tente de générer le certificat qui correspond (plus d'infos sur https://doc.traefik.io/traefik/reference/install-configuration/tls/certificate-resolvers/acme/#domain-definition).
+
+La procèdure d'installation qui est détaillée plus bas fonctionne avec un swarm sur OpenStack et un réseau privé entre les noeuds
+mais ça peut aussi fonctionner avec un swarm sur des VPS distants ou même un simple VPS en éxécutant tout sur le manager (traefik + portails).
+
 ## Ajouter un portail
 
 Pour ajouter un portail, il faut :
@@ -23,7 +33,22 @@ et enfin lancer `./deploy.sh` sur le serveur.
 
 Il faut modifier le `.env` concerné sur le serveur, puis lancer `./update-portal.sh <nom_du_portail>`.
 
+## Supprimer un portail
+
+Il suffit de supprimer le service + la config dans le `yml` de https://github.com/OpenAgenda/oa-portals/blob/main/portals/stack.yml
+puis `./deploy.sh` sur le serveur.
+
+## Éteindre un portail
+
+On peut modifier un label dans `yml` pour mettre `traefik.enable=false`, mais le service sera quand même lancé.
+
+Si on veut vraiment éteindre le service, il faut commenter le service dans le `yml`.
+
+Puis `./deploy.sh` sur le serveur.
+
 ## Déployer le swarm sur OpenStack
+
+Si tu n'as pas de fichier de connexion à OpenStack, tu peux le créer sur l'interface du Public Cloud dans _Identité_ > _Identifiants d'application_.
 
 ```bash
 # Se connecter à OpenStack
@@ -97,6 +122,37 @@ echo "Worker : $FIP_WRK"
 openstack server list --long
 ```
 
+Une fois les serveurs créés, il faut mettre la clé ssh sur 1password et la supprimer du pc !
+Laisse juste la clé publique dans `~/.ssh/swarm-key.pub`.
+
+Pour faciliter la connexion ssh tu peux ajouter la config suivante dans `~/.ssh/config`:
+
+```
+Match host swarm-manager
+  HostName <IP_DU_MANAGER>
+  User ubuntu
+  Port 22
+  IdentityFile ~/.ssh/swarm-key
+  IdentitiesOnly yes
+
+Match host swarm-worker
+  HostName <IP_DU_WORKER>
+  User ubuntu
+  Port 22
+  IdentityFile ~/.ssh/swarm-key
+  IdentitiesOnly yes
+```
+
+Et tu pourras faire:
+
+```bash
+ssh swarm-manager
+
+# ou
+
+ssh swarm-worker
+```
+
 ### Installer docker sur chaque serveur
 
 ```bash
@@ -137,4 +193,202 @@ docker network create --driver overlay --attachable public
 
 # Déployer les portails
 
-Il faut cloner le repo `oa-portals`, créer les `.env`, et déployer les portails avec `./deploy.sh`.
+Il faut d'abord se connecter au registre docker:
+
+```bash
+docker login registry.oa.events -u portals
+```
+
+Ensuite il faut cloner ou restaurer le repo `oa-portals`, créer les `.env`, et déployer les portails avec `./deploy.sh`.
+
+Il y a une interface web pour voir ce que Traefik a déployé, c'est visible sur https://traefik.oa.events/dashboard/.
+
+# Backup
+
+## Mise en place du backup
+
+Le backup est fait gràce à [restic](https://restic.net/).
+
+Sur le manager:
+
+```bash
+sudo apt install restic
+
+# Créer le fichier de mot de passe
+nano .restic-pass
+chmod 600 .restic-pass
+
+# Créer le fichier de configuration restic
+nano restic_credentials
+```
+
+Le fichier de configuration, en veillant à modifier les valeurs :
+
+```bash
+export OS_AUTH_URL=https://swiss-backup04.infomaniak.com/identity/v3
+export OS_REGION_NAME=RegionOne
+export OS_PROJECT_NAME=sb_project_SBI-1234
+export OS_PASSWORD=xxxx
+export OS_USER_DOMAIN_NAME=default
+export OS_USERNAME=SBI-1234
+export OS_PROJECT_DOMAIN_NAME=default
+# export RESTIC_REPOSITORY=swift:sb_project_SBI-1234:/oa-portals
+# export RESTIC_PASSWORD_FILE=/home/ubuntu/.restic-pass
+```
+
+Plus d'infos sur https://docs.infomaniak.cloud/block_storage/swissbackup/
+
+Pour gérer plusieurs profiles restic et automatiser les backups avec [resticprofile](https://creativeprojects.github.io/resticprofile/index.html):
+
+```bash
+curl -LO https://raw.githubusercontent.com/creativeprojects/resticprofile/master/install.sh
+chmod +x install.sh
+sudo ./install.sh -b /usr/local/bin
+
+sudo mkdir -p /etc/resticprofile
+sudo nano /etc/resticprofile/profiles.yml
+```
+
+La config:
+
+```yml
+version: '1'
+
+default:
+  repository: swift:sb_project_SBI-1234:/oa-portals
+  password-file: /home/ubuntu/.restic-pass
+  env-file: /home/ubuntu/restic_credentials
+  backup:
+    verbose: true
+    source-base: /home/ubuntu
+    source: oa-portals
+    source-relative: true
+    schedule: 'daily'
+    schedule-permission: user
+  retention:
+    before-backup: false
+    after-backup: true
+    keep-last: 7
+    keep-daily: 7
+    keep-weekly: 4
+    keep-monthly: 6
+```
+
+## Sauvegarder les données
+
+```bash
+resticprofile init # une fois seulement
+resticprofile backup
+sudo resticprofile schedule
+# Control
+resticprofile snapshots
+resticprofile status
+```
+
+## Restaurer les données
+
+```bash
+resticprofile restore --target /home/ubuntu/oa-portals --snapshot-id "latest:oa-portals"
+```
+
+## Utiliser les données en local
+
+Pour ça il faut installer restic et resticprofile de la même manière qu'au-dessus,
+avec une version allégée de `/etc/resticprofile/profiles.yml`:
+
+```yml
+version: '1'
+
+oa-portals:
+  repository: swift:sb_project_SBI-1234:/oa-portals
+  password-file: /home/bertho/.restic-pass
+  env-file: /home/bertho/restic_credentials
+```
+
+Pour lister les fichiers du dernier snapshots:
+
+```bash
+resticprofile ls@oa-portals latest
+```
+
+Pour restaurer le sous-dossier `oa-portals` du dernier snapshot:
+
+```bash
+resticprofile restore@oa-portals latest:/oa-portals --target ~/dev/oa-portal-restoration
+```
+
+# Ptits trucs en plus
+
+## Nettoyer les images automatiquement
+
+Dans le repo `oa-portals` il y a un fichier `docker-prune.yml` qui nettoie toutes les images / containers et volumes non utilisés toutes les 24h, à ne pas exécuter en local.
+
+À déployer avec :
+
+```bash
+docker stack deploy -c docker-prune.yml docker-prune --detach=false
+```
+
+## Portainer
+
+Portainer est disponible sur https://portainer.oa.events
+
+Il permet de voir les logs, redémarrer les services, mettre à jour un service, etc.
+
+Pour le déployer, il faut créer un `portainer-agent-stack.yml` (plus d'infos sur https://docs.portainer.io/start/install/server/swarm/linux) :
+
+```yml
+version: '3.2'
+
+services:
+  agent:
+    image: portainer/agent:lts
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+    networks:
+      - agent_network
+    deploy:
+      mode: global
+      placement:
+        constraints: [node.platform.os == linux]
+
+  portainer:
+    image: portainer/portainer-ce:lts
+    command: -H tcp://tasks.agent:9001 --tlsskipverify
+    # Useless only with Traefik
+    # ports:
+    #   - "9443:9443"
+    #   - "9000:9000"
+    #   - "8000:8000"
+    volumes:
+      - portainer_data:/data
+    networks:
+      - public
+      - agent_network
+    deploy:
+      mode: replicated
+      replicas: 1
+      placement:
+        constraints: [node.role == manager]
+      labels:
+        - traefik.enable=true
+        - traefik.http.routers.portainer.rule=Host(`portainer.oa.events`)
+        - traefik.http.services.portainer.loadbalancer.server.port=9000
+
+networks:
+  agent_network:
+    driver: overlay
+    attachable: true
+  public:
+    external: true
+
+volumes:
+  portainer_data:
+```
+
+Puis :
+
+```bash
+docker stack deploy -c portainer-agent-stack.yml portainer --detach=false
+```
