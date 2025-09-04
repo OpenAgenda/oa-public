@@ -125,11 +125,11 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
           getOptions={getOptions}
           initialViewport={aggregations.viewport}
           getQuery={getQuery}
-                loadGeoData={loadGeoData}
-                withRef
-              />
-              <FavoritesFilter agenda={agenda} />
-            </Flex>
+          loadGeoData={loadGeoData}
+          withRef
+        />
+        <FavoritesFilter agenda={agenda} />
+      </Flex>
 
       <CopyIdentifier
         identifier={agenda.uid}

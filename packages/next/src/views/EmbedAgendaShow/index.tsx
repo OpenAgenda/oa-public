@@ -216,6 +216,7 @@ function EmbedAgendaShow({
           dateFnsLocale={dateFnsLocale}
           ref={filtersFormRef}
           filters={filters}
+          res={`/api/agendas/slug/${agenda.slug}/events`}
         >
           {isMounted ? (
             <>
