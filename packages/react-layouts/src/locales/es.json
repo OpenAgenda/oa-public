@@ -1,10 +1,18 @@
 {
+  "react-layouts.AdminHeader.administration": "Administración",
+  "react-layouts.AdminHeader.return": "Ir a la página principal de la Agenda",
   "react-layouts.AdminSections.newTab": "Nuevo!",
-  "react-layouts.Announcement.close": "Cerca",
+  "react-layouts.Announcement.close": "Cerrar",
+  "react-layouts.MainLayout.createAgenda": "Crear una agenda",
+  "react-layouts.MainLayout.general": "General",
   "react-layouts.MainLayout.help": "Ayuda",
+  "react-layouts.MainLayout.menu": "Menú",
   "react-layouts.MainLayout.myAgendas": "Mis agendas",
+  "react-layouts.MainLayout.myEvents": "Mis eventos",
   "react-layouts.MainLayout.searchAgenda": "Buscar una agenda",
+  "react-layouts.MainLayout.settings": "Configuración",
   "react-layouts.MainLayout.signin": "Conectarse",
   "react-layouts.MainLayout.signout": "Cerrar sesión",
-  "react-layouts.components.Search.search": "Buscar una agenda"
+  "react-layouts.MainLayout.translate": "Traducir",
+  "react-layouts.components.Search.search": "Buscar"
 }

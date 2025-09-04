@@ -33,7 +33,7 @@ module.exports = {
   "en": {
     "fr": "Anglais",
     "en": "English",
-    "es": "inglés",
+    "es": "Inglés",
     "it": "Italiano",
     "io": "crwdns15252:0crwdne15252:0",
     "oc": "Anglés"
@@ -41,7 +41,7 @@ module.exports = {
   "de": {
     "fr": "Allemand",
     "en": "German",
-    "es": "Aleman",
+    "es": "Alemán",
     "it": "Tedesco",
     "io": "crwdns15254:0crwdne15254:0",
     "oc": "Alemand"
@@ -49,7 +49,7 @@ module.exports = {
   "fr": {
     "fr": "Français",
     "en": "French",
-    "es": "Francès",
+    "es": "Francés",
     "it": "Francese",
     "io": "crwdns15256:0crwdne15256:0",
     "oc": "Francés"

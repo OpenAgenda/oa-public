@@ -15,26 +15,30 @@ module.exports = {
     "en": "You do not have edit rights to this event",
     "it": "Non avete accesso all'edizione di questo evento",
     "io": "crwdns11480:0crwdne11480:0",
-    "oc": "Avètz pas los dreits d'edicion per aqueste eveniment"
+    "oc": "Avètz pas los dreits d'edicion per aqueste eveniment",
+    "es": "No tienes los derechos de edición para este evento"
   },
   "noAccessToCreate": {
     "fr": "Vous n'avez pas accès à la création d'événements sur cet agenda",
     "en": "You do not have the right to create this event",
     "io": "crwdns11482:0crwdne11482:0",
-    "oc": "Avètz pas lo dreit de crear aqueste eveniment"
+    "oc": "Avètz pas lo dreit de crear aqueste eveniment",
+    "es": "No tienes los derechos para crear este evento"
   },
   "noAccessToDraft": {
     "fr": "Vous n'avez pas accès à l'édition de ce brouillon",
     "en": "You do not have edit rights to this draft",
     "it": "Non puoi modificare questa bozza",
     "io": "crwdns11484:0crwdne11484:0",
-    "oc": "Avètz pas los dreits d'edicion per aqueste borrolhon"
+    "oc": "Avètz pas los dreits d'edicion per aqueste borrolhon",
+    "es": "No tienes los derechos de edición para este borrador"
   },
   "eventNotLinkedToAgenda": {
     "fr": "L'événement n'est pas réferencé sur l'agenda",
     "en": "This event is not listed in agenda",
     "it": "L'evento non è presente nell'agenda",
     "io": "crwdns11486:0crwdne11486:0",
-    "oc": "Aqueste eveniment es pas referenciat sus l'agenda"
+    "oc": "Aqueste eveniment es pas referenciat sus l'agenda",
+    "es": "Este evento no está incluido en la agenda"
   }
 }

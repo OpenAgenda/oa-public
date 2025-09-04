@@ -5,13 +5,14 @@ module.exports = {
     "fr": "Le nombre doit être supérieur ou égal à %min%",
     "en": "The number must be equal to or higher than %min%",
     "io": "crwdns14032:0%min%crwdne14032:0",
-    "oc": "Lo nombre deu èsser superior o egal a %min%"
+    "oc": "Lo nombre deu èsser superior o egal a %min%",
+    "es": "El número debe ser igual o mayor a %min%"
   },
   "number.toobig": {
     "fr": "Le nombre doit être inférieur ou égal à %max%",
     "en": "The number must be equal to or lower than %max%",
     "de": "Die Zahl muss gleich oder niedriger als %max%",
-    "es": "El número debe ser menor o igual al %max%",
+    "es": "El número debe ser menor o igual a %max%",
     "br": "Arabat d'an niver bezañ ouzhpenn %max%",
     "it": "Il numero deve essere inferiore o uguale a %max%",
     "io": "crwdns14034:0%max%crwdne14034:0",
@@ -61,7 +62,7 @@ module.exports = {
     "fr": "Un email valide doit être renseigné",
     "en": "A valid email must be input",
     "de": "Eine gültige E-Mail muss eingegeben werden",
-    "es": "Un correo electrónico válido debe ser llenado",
+    "es": "Se debe ingresar un correo electrónico válido",
     "br": "Ret eo lakaat ur chomlec'h postel reizh",
     "it": "Deve essere compilata un'e-mail valida",
     "io": "crwdns14044:0crwdne14044:0",
@@ -71,7 +72,7 @@ module.exports = {
     "fr": "Un numéro de télephone valide doit être renseigné",
     "en": "A valid phone number must be input",
     "de": "Eine gültige Telefonnummer eingegeben werden muss",
-    "es": "Un número de teléfono válido debe llenarse",
+    "es": "Se debe ingresar un número de teléfono válido",
     "br": "Ret eo lakaat un niverenn bellgomz reizh",
     "it": "È necessario inserire un numero di telefono valido",
     "io": "crwdns14046:0crwdne14046:0",
@@ -81,7 +82,7 @@ module.exports = {
     "fr": "Un lien valide doit être renseigné",
     "en": "A valid link must be input",
     "de": "Ein gültiger Link muss eingegeben werden",
-    "es": "Una conexión válida debe llenarse",
+    "es": "Se debe ingresar un vínculo válido",
     "br": "Ret eo lakaat ul liamm reizh",
     "it": "Un link valido deve essere compilato",
     "io": "crwdns14048:0crwdne14048:0",
@@ -91,7 +92,7 @@ module.exports = {
     "fr": "Un nombre valide doit être renseigné",
     "en": "A valid number must be input",
     "de": "Eine gültige Nummer muss eingegeben werden",
-    "es": "Un número válido debe llenarse",
+    "es": "Se debe ingresar un número válido",
     "br": "Ret eo lakaat un niver reizh",
     "it": "Deve essere inserito un numero valido",
     "io": "crwdns14050:0crwdne14050:0",
@@ -101,7 +102,7 @@ module.exports = {
     "fr": "Un entier valide doit être renseigné",
     "en": "A valid integer must be input",
     "de": "Eine gültige ganze Zahl sein muss Intput",
-    "es": "Una completa válida deben llenarse",
+    "es": "Se debe ingresar un número entero válido",
     "br": "Ret eo lakaat un niver anterin reizh",
     "it": "Deve essere inserito un numero intero valido",
     "io": "crwdns14052:0crwdne14052:0",
@@ -151,13 +152,14 @@ module.exports = {
     "fr": "La sélection ne peut excéder %max% choix",
     "en": "The selection must not exceed %max% choices",
     "io": "crwdns16098:0%max%crwdne16098:0",
-    "oc": "La seleccion pòt pas aculhir mai de %max% causidas"
+    "oc": "La seleccion pòt pas aculhir mai de %max% causidas",
+    "es": "La selección no debe exceder %max% opciones"
   },
   "serverException": {
     "fr": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
     "en": "There was trouble while saving the data, try again in a short while",
     "de": "Es gab ein Problem bei der Datenspeicherung, warten sie einen Moment und versuchen es erneut",
-    "es": "Hubo una preocupación cuando se guarda, por favor, inténtelo de nuevo en un momento",
+    "es": "Ocurrió un error al registrar la información, por favor inténtelo nuevamente",
     "br": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h",
     "it": "C'è stato un problema durante il backup, riprovare tra un attimo",
     "io": "crwdns14062:0crwdne14062:0",
@@ -168,13 +170,14 @@ module.exports = {
     "en": "The submission failed: a too large image or file was loaded in the form. Maximum allowed size is %max% megabytes",
     "io": "crwdns14064:0%max%crwdne14064:0",
     "it": "L'invio non è riuscito: un'immagine o un file troppo grande è stato caricato nel modulo. La dimensione massima consentita è %max% megabyte",
-    "oc": "L'enregistrament a pas capitat : un imatge o un fichièr tròp bèl es estat cargat dins lo formulari. La talha maximum autorizada es de %max% megaoctets"
+    "oc": "L'enregistrament a pas capitat : un imatge o un fichièr tròp bèl es estat cargat dins lo formulari. La talha maximum autorizada es de %max% megaoctets",
+    "es": "El registro falló: se cargó una imagen o archivo demasiado grande en el formulario. El tamaño máximo permitido es %max% megabytes"
   },
   "noOrigin": {
     "fr": "Cet événement est indisponible car il n'est associé a aucun agenda",
     "en": "This event is unavailable as it is not associated to any agenda.",
     "de": "Dieses Veranstaltung ist nicht verfügbar, weil sie nicht mit einem Veranstaltungskalender verknüpft ist.",
-    "es": "Este evento no está disponible porque está asociado con ninguna agenda",
+    "es": "Este evento no se encuentra disponible, porque no está asociado con ninguna agenda",
     "br": "Ne c'haller ober netra gant an darvoud-mañ rak n'eo ket stag ouzh deiziataer ebet",
     "it": "Questo evento non è disponibile perché non è associato ad alcun agenda.",
     "io": "crwdns14066:0crwdne14066:0",
@@ -184,7 +187,7 @@ module.exports = {
     "fr": "Revenir à l'accueil",
     "en": "Back to the home page",
     "de": "Zurück zur Startseite",
-    "es": "volver al inicio",
+    "es": "Volver a la página de inicio",
     "it": "Torna alla home page",
     "io": "crwdns14068:0crwdne14068:0",
     "oc": "Tornar a l'acuèlh"
@@ -193,7 +196,7 @@ module.exports = {
     "fr": "Revenir à l'agenda",
     "en": "Back to the agenda page",
     "de": "Zurück zum Veranstaltungskalender",
-    "es": "Volver a la agenda",
+    "es": "Volver a la página de la agenda",
     "it": "Tornare all'agenda",
     "io": "crwdns14070:0crwdne14070:0",
     "oc": "Tornar a la pagina d'agenda"
@@ -211,7 +214,8 @@ module.exports = {
     "fr": "L'opération n'a pas pu aboutir, l'événement est soit incomplet, soit invalide. Corrigez la fiche avant de retenter l'opération.",
     "en": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again",
     "io": "crwdns16424:0crwdne16424:0",
-    "oc": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar"
+    "oc": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar",
+    "es": "No se pudo realizar la accion. El evento está incompleto o inválido. Actualízalo antes de intentarlo nuevamente"
   },
   "changeEmailErrorTitle": {
     "en": "The link you clicked on is invalid",

@@ -1,9 +1,9 @@
 {
   "addEvent": "Añadir un evento",
-  "contact": "Contactar con",
+  "contact": "Contactar",
   "export": "exportación",
   "manage": "Gestionar",
-  "officialAgenda": "oficial",
-  "privateAgenda": "Eventos privados",
-  "showCalendar": "Mostrar vista del agenda"
+  "officialAgenda": "Oficial",
+  "privateAgenda": "Agenda privada",
+  "showCalendar": "Mostrar vista del calendario"
 }

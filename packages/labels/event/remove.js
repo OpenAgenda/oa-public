@@ -36,7 +36,7 @@ module.exports = {
     "fr": "Êtes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda.",
     "io": "crwdns14420:0crwdne14420:0",
     "oc": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda.",
-    "es": "¿Está seguro de que desea hacerlo? Si elimina el evento de esta agenda, se eliminará permanentemente de todas las agendas de OpenAgenda."
+    "es": "¿Está seguro de que quieres realizar esta accion? Si eliminas el evento de esta agenda, se eliminará permanentemente de todas las agendas de OpenAgenda."
   },
   "confirm": {
     "en": "Confirm",

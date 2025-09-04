@@ -1,3 +1,14 @@
 {
-  "common.event.statuses.scheduled": "Programado"
+  "common.event.statuses.cancelled": "Cancelado",
+  "common.event.statuses.cancelledInfo": "El evento ha sido cancelado permanentemente",
+  "common.event.statuses.full": "Completo",
+  "common.event.statuses.fullInfo": "Ya no se aceptan nuevos participantes al evento",
+  "common.event.statuses.movedOnline": "Movido en línea",
+  "common.event.statuses.movedOnlineInfo": "Ya no se asistirá al evento en una ubicación física",
+  "common.event.statuses.postponed": "Pospuesto",
+  "common.event.statuses.postponedInfo": "El evento ha sido pospuesto a fechas aún no conocidas",
+  "common.event.statuses.rescheduled": "Reprogramado",
+  "common.event.statuses.rescheduledInfo": "Los horarios y/o fechas del evento han sido modificados",
+  "common.event.statuses.scheduled": "Programado",
+  "common.event.statuses.scheduledInfo": "El evento está programado en el lugar y hora indicados"
 }

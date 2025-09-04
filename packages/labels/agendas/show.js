@@ -27,7 +27,7 @@ module.exports = {
     "en": "Online",
     "fr": "En ligne",
     "it": "Evento online",
-    "es": "En linea",
+    "es": "En línea",
     "br": "Enlinenn",
     "io": "crwdns12904:0crwdne12904:0",
     "oc": "En linha"
@@ -127,7 +127,7 @@ module.exports = {
     "de": "über",
     "pl": "Dowiedz się więcej",
     "br": "Diwar-benn",
-    "es": "A proposito",
+    "es": "Acerca de",
     "io": "crwdns12922:0crwdne12922:0",
     "oc": "A prepaus"
   },
@@ -149,7 +149,7 @@ module.exports = {
     "de": "Nutzungbestimmungen",
     "pl": "Warunki korzystania",
     "br": "Penndivizoù implij",
-    "es": "Condiciones de uso",
+    "es": "Términos y condiciones",
     "io": "crwdns12926:0crwdne12926:0",
     "oc": "Condicions d'utilizacion"
   },
@@ -237,7 +237,7 @@ module.exports = {
     "de": "Seite neu laden",
     "pl": "Załaduj ponownie stronę",
     "br": "adkargañ ar bajenn deiziataer",
-    "es": "cargar la página del agenda",
+    "es": "Volver a cargar la página",
     "io": "crwdns12942:0crwdne12942:0",
     "oc": "tornar cargar aquesta pagina"
   },
@@ -248,7 +248,7 @@ module.exports = {
     "de": "Dieser Kalender hat noch keine Veranstaltungen veröffentlicht.",
     "pl": "Ten kalendarz nie opublikował jeszcze żadnego wydarzenia",
     "br": "An deiziataer-mañ n'en deus ket embannet darvoudoù c'hoazh",
-    "es": "Este agenda no ha publicado eventos",
+    "es": "Esta aún agenda no ha publicado eventos",
     "io": "crwdns12944:0crwdne12944:0",
     "oc": "Aquela agenda a pas encara cap eveniment publicat"
   },
@@ -259,7 +259,7 @@ module.exports = {
     "de": "Administrator kontaktieren.",
     "pl": "Skontaktuj się z administratorem",
     "br": "Mont e darempred gant ar merour",
-    "es": "contacto administrativo",
+    "es": "Contactar administrador",
     "io": "crwdns12946:0crwdne12946:0",
     "oc": "Contactar l'administrator·a"
   },
@@ -270,7 +270,7 @@ module.exports = {
     "de": "durch %name%",
     "pl": "przez %name%",
     "br": "dre %name%",
-    "es": "por su %name%",
+    "es": "por %name%",
     "io": "crwdns12948:0%name%crwdne12948:0",
     "oc": "per %name%"
   },
@@ -314,7 +314,7 @@ module.exports = {
     "de": "ausgewählt",
     "pl": "Opisane",
     "br": "Keleier pennañ",
-    "es": "Reflejos",
+    "es": "Destacado",
     "io": "crwdns12956:0crwdne12956:0",
     "oc": "Meses en avant"
   },
@@ -369,7 +369,7 @@ module.exports = {
     "de": "kontaktieren",
     "pl": "Skontaktuj",
     "br": "Mont e darempred",
-    "es": "Contactar con",
+    "es": "Contactar",
     "io": "crwdns12966:0crwdne12966:0",
     "oc": "Contactar"
   },
@@ -391,7 +391,7 @@ module.exports = {
     "de": "privater Kalender",
     "pl": "Kalendarz prywatny",
     "br": "Deiziataer prevez",
-    "es": "Eventos privados",
+    "es": "Agenda privada",
     "io": "crwdns12970:0crwdne12970:0",
     "oc": "Agenda privada"
   },
@@ -411,21 +411,24 @@ module.exports = {
     "fr": "Reprogrammé",
     "it": "Riprogrammato",
     "oc": "Tornat planificar",
-    "io": "crwdns16088:0crwdne16088:0"
+    "io": "crwdns16088:0crwdne16088:0",
+    "es": "Reprogramado"
   },
   "statusMovedOnline": {
     "en": "Moved online",
     "fr": "Déplacé en ligne",
     "it": "Oramai online",
     "oc": "Transferit en linha",
-    "io": "crwdns16090:0crwdne16090:0"
+    "io": "crwdns16090:0crwdne16090:0",
+    "es": "Movido en línea"
   },
   "statusPostponed": {
     "en": "Postponed",
     "fr": "Reporté",
     "it": "Riprogrammato",
     "io": "crwdns16092:0crwdne16092:0",
-    "oc": "Remandat"
+    "oc": "Remandat",
+    "es": "Pospuesto"
   },
   "statusCancelled": {
     "en": "Canceled",
@@ -440,6 +443,7 @@ module.exports = {
     "fr": "Complet",
     "it": "Completo",
     "oc": "Totalament complèt",
-    "io": "crwdns16096:0crwdne16096:0"
+    "io": "crwdns16096:0crwdne16096:0",
+    "es": "Completo"
   }
 }

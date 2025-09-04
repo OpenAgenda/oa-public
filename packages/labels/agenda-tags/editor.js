@@ -20,7 +20,7 @@ module.exports = {
     "en": "Information text",
     "fr": "Texte indicatif",
     "de": "Informationstext",
-    "es": "indicativa de texto",
+    "es": "Texto de información",
     "it": "Testo indicativo",
     "io": "crwdns12688:0crwdne12688:0",
     "oc": "Tèxte d'informacion"
@@ -56,7 +56,7 @@ module.exports = {
     "en": "this tag already exists in this group",
     "fr": "ce tag est déjà existant dans ce groupe",
     "de": "dieser Tag existiert bereits in dieser Gruppe",
-    "es": "etiqueta ya existe en este grupo",
+    "es": "la etiqueta ya existe en este grupo",
     "it": "questo tag esiste già in questo gruppo",
     "io": "crwdns12696:0crwdne12696:0",
     "oc": "aquesta etiqueta existís ja dins aqueste grop"
@@ -65,7 +65,7 @@ module.exports = {
     "en": "Tags",
     "fr": "Tags",
     "de": "Stichworte",
-    "es": "etiquetas",
+    "es": "Etiquetas",
     "it": "Tags",
     "io": "crwdns12698:0crwdne12698:0",
     "oc": "Etiquetas"
@@ -92,7 +92,7 @@ module.exports = {
     "en": "Name of the list",
     "fr": "Intitulé de la liste",
     "de": "Name der Liste",
-    "es": "Encabezando la lista",
+    "es": "Nombre de la lista",
     "it": "Nome della lista",
     "io": "crwdns12704:0crwdne12704:0",
     "oc": "Nom de la tièra"
@@ -101,7 +101,7 @@ module.exports = {
     "en": "Agenda tags",
     "fr": "Tags de l'agenda",
     "de": "Agenda-Tags",
-    "es": "Etiquetas agenda",
+    "es": "Etiquetas de la agenda",
     "it": "Tag dell'agenda",
     "io": "crwdns12706:0crwdne12706:0",
     "oc": "Etiquetas d'agenda"
@@ -110,7 +110,7 @@ module.exports = {
     "en": "Add",
     "fr": "Ajouter",
     "de": "Hinzufügen",
-    "es": "añadir",
+    "es": "Añadir",
     "it": "Aggiungere",
     "io": "crwdns12708:0crwdne12708:0",
     "oc": "Apondre"
@@ -137,7 +137,7 @@ module.exports = {
     "en": "Delete group",
     "fr": "Supprimer le groupe",
     "de": "Gruppe löschen",
-    "es": "eliminar grupo",
+    "es": "Eliminar grupo",
     "it": "Cancellare il gruppo",
     "io": "crwdns12714:0crwdne12714:0",
     "oc": "Suprimir lo grop"
@@ -146,7 +146,7 @@ module.exports = {
     "en": "Cancel",
     "fr": "Annuler",
     "de": "Stornieren",
-    "es": "Anular",
+    "es": "Cancelar",
     "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns12716:0crwdne12716:0",
@@ -156,7 +156,7 @@ module.exports = {
     "en": "There are %count% tags in this group. Are you sure?",
     "fr": "Il y a %count% tags dans ce groupe, êtes vous sûr de vouloir le supprimer?",
     "de": "Es gibt %count%-Tags in dieser Gruppe. Bist du sicher?",
-    "es": "Hay %count% etiquetas en este grupo está seguro de que quiere eliminar?",
+    "es": "¿Hay %count% etiquetas en este grupo estas seguro de que las quiere eliminar?",
     "it": "Ci sono %count% tags in questo gruppo, sei sicuro di volerli rimuovere?",
     "io": "crwdns12718:0%count%crwdne12718:0",
     "oc": "I a %count% etiquetas dins aqueste grop. Ne sètz segu·ra ?"
@@ -183,7 +183,7 @@ module.exports = {
     "en": "An error occurred while saving your data. Please try again later",
     "fr": "Une erreur est survenue lors de la sauvegarde de vos données. Veuillez retenter l'opération sous peu.",
     "de": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuche es später noch einmal",
-    "es": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve.",
+    "es": "Se produjo un error al guardar los datos. Por favor, intente la operación nuevamente",
     "it": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve",
     "io": "crwdns12724:0crwdne12724:0",
     "oc": "I aguèt una error pendent l'enregistrament de vòstras donadas. Mercés de tornar ensajar mai tard"
@@ -192,7 +192,7 @@ module.exports = {
     "en": "Ok",
     "fr": "Ok",
     "de": "OK",
-    "es": "Ok",
+    "es": "Listo",
     "it": "Ok",
     "io": "crwdns12726:0crwdne12726:0",
     "oc": "Ok"
@@ -201,7 +201,7 @@ module.exports = {
     "en": "Cancel",
     "fr": "Annuler",
     "de": "Stornieren",
-    "es": "Anular",
+    "es": "Cancelar",
     "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns12728:0crwdne12728:0",
@@ -211,7 +211,7 @@ module.exports = {
     "en": "Required",
     "fr": "Obligatoire",
     "de": "Erforderlich",
-    "es": "Necesario",
+    "es": "Requerido",
     "it": "Obbligatorio",
     "br": "Rekis",
     "io": "crwdns12730:0crwdne12730:0",
@@ -221,7 +221,7 @@ module.exports = {
     "en": "At least one tag must be checked.",
     "fr": "Au moins un tag doit être sélectionné.",
     "de": "Mindestens ein Tag muss überprüft werden.",
-    "es": "Al menos una etiqueta debe ser seleccionado.",
+    "es": "Al menos una etiqueta debe ser seleccionada.",
     "it": "Deve essere selezionato almeno un tag.",
     "io": "crwdns12732:0crwdne12732:0",
     "oc": "Cal seleccionar al mens una etiqueta."
@@ -230,7 +230,7 @@ module.exports = {
     "en": "Single choice",
     "fr": "Choix unique",
     "de": "Einzel Wahl",
-    "es": "única opción",
+    "es": "Selección única",
     "it": "Scelta unica",
     "io": "crwdns12734:0crwdne12734:0",
     "oc": "Causida unica"

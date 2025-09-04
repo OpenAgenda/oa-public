@@ -1,3 +1,7 @@
 {
-  "common.geo.location": "Lugar"
+  "common.geo.adminLevel3": "Interurbano",
+  "common.geo.city": "Ciudad",
+  "common.geo.department": "Departamento",
+  "common.geo.location": "Lugar",
+  "common.geo.region": "Región"
 }

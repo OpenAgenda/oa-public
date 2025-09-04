@@ -1,4 +1,4 @@
 {
-  "next.views.AgendaShow.ContextBar.emptySelection": "",
-  "next.views.AgendaShow.ContextBar.undefinedTitle": ""
+  "next.views.AgendaShow.ContextBar.emptySelection": "Ningún evento está referenciado",
+  "next.views.AgendaShow.ContextBar.undefinedTitle": "Borrador de evento sin título"
 }

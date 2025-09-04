@@ -18,7 +18,7 @@ module.exports = {
     "it": "Questo campo non può essere vuoto",
     "de": "Dieses Feld darf nicht leer sein.",
     "pl": "To pole nie może być puste",
-    "es": "Este campo no debe estar vacía",
+    "es": "Este campo no puede estar vacío",
     "br": "Ne c'hall ket ar vaezienn-mañ bezañ goullo",
     "io": "crwdns13132:0crwdne13132:0",
     "oc": "Aqueste camp pòt pas demorar voide"
@@ -29,7 +29,7 @@ module.exports = {
     "it": "Questa e-mail è già in uso",
     "de": "Diese E-Mail ist bereits in Verwendung.",
     "pl": "Ten e-mail jest już używany",
-    "es": "Este correo electrónico ya está en uso",
+    "es": "Este correo electrónico ya está usado",
     "br": "En implij emañ ar chomlec'h postel-mañ dija",
     "io": "crwdns13134:0crwdne13134:0",
     "oc": "Aqueste email es ja utilizat"
@@ -40,7 +40,7 @@ module.exports = {
     "it": "L'e-mail non è valida",
     "de": "Die E-Mail ist nicht gültig.",
     "pl": "Wiadomość e-mail jest nieważna",
-    "es": "Este correo electrónico no es válida",
+    "es": "Este correo electrónico no es válido",
     "br": "Direizh eo ar chomlec'h postel-mañ",
     "io": "crwdns13136:0crwdne13136:0",
     "oc": "L'email es pas valide"
@@ -60,7 +60,8 @@ module.exports = {
     "fr": "Le nom d'utilisateur ne doit pas excéder 50 caractères",
     "en": "The user name must not exceed 50 characters",
     "io": "crwdns34002:0crwdne34002:0",
-    "oc": "Lo nom d'utilizaire deu pas passar los 50 caractèrs"
+    "oc": "Lo nom d'utilizaire deu pas passar los 50 caractèrs",
+    "es": "El nombre de usuario no debe exceder los 50 caracteres"
   },
   "passwordNotEqual": {
     "en": "The passwords are not identical",
@@ -78,7 +79,8 @@ module.exports = {
     "en": "A password must be defined",
     "io": "crwdns34076:0crwdne34076:0",
     "it": "È necessario definire una password",
-    "oc": "Se deu definir un senhal"
+    "oc": "Se deu definir un senhal",
+    "es": "Se debe definir una contraseña"
   },
   "createAccount": {
     "fr": "Création d'un nouveau compte",
@@ -108,7 +110,7 @@ module.exports = {
     "it": "Lei già ha utilizzato OpenAgenda ?",
     "de": "Schon registriert ?",
     "pl": "Czy korzystałeś już z OpenAgendy ?",
-    "es": "Ya ha utilizado OpenAgenda ?",
+    "es": "¿Ya ha utilizado OpenAgenda ?",
     "br": "Daoust hag implijet ho peus OpenAgenda c'hoazh ?",
     "io": "crwdns13146:0crwdne13146:0",
     "oc": "Avètz ja utilizat OpenAgenda ?"
@@ -141,7 +143,7 @@ module.exports = {
     "it": "Il vostro nome utente sarà visibile agli amministratori delle agende di cui siete membri",
     "de": "Ihr Benutzername wird für die Administratoren der Terminkalender, bei denen Sie Mitglied sind, sichtbar sein..",
     "pl": "Twoja nazwa użytkownika będzie widoczna dla administratorów agend, których jesteś uczestnikiem",
-    "es": "Su nombre de usuario será visible para los administradores de las agendas de las que es miembro",
+    "es": "Su nombre de usuario será visible por los administradores de las agendas en las que eres miembro",
     "br": "",
     "io": "crwdns31272:0crwdne31272:0",
     "oc": "Vòstre nom d'utilizaire·a se poirà veire pels administrators de las agendas ont faretz de contribucions"
@@ -152,7 +154,7 @@ module.exports = {
     "it": "OpenAgenda invierà le notifiche a questo indirizzo. Non saranno trasmessi a terzi.",
     "de": "OpenAgenda sendet Ihnen Ihre Benachrichtigungen an diese Adresse. Sie wird nicht an Dritte weitergeleitet.",
     "pl": "OpenAgenda będzie wysyłać powiadomienia na ten adres. Nie będą one przekazywane osobom trzecim.",
-    "es": "OpenAgenda enviará sus notificaciones a esta dirección. No se transmitirá a ningún tercero.",
+    "es": "OpenAgenda enviará sus notificaciones a este correo electrónico. No se transmitirá a ningún tercero.",
     "br": "",
     "io": "crwdns31306:0crwdne31306:0",
     "oc": "OpenAgenda vos mandarà de notificacions a aquesta adreça. Serà pas transmesa a degun mai."
@@ -248,7 +250,8 @@ module.exports = {
     "en": "Read more",
     "it": "Per saperne di più",
     "io": "crwdns31274:0crwdne31274:0",
-    "oc": "Ne legir mai"
+    "oc": "Ne legir mai",
+    "es": "Leer más"
   },
   "orSocial": {
     "fr": "Ou",
@@ -263,7 +266,8 @@ module.exports = {
     "en": "Create an account using Facebook, Twitter or Google",
     "io": "crwdns31310:0crwdne31310:0",
     "oc": "Crear un compte amb Facebook, Twitter o Google",
-    "it": "Creare un account con Facebook, Twitter o Google"
+    "it": "Creare un account con Facebook, Twitter o Google",
+    "es": "Crea una cuenta usando Facebook, Twitter o Google"
   },
   "socialDescription": {
     "fr": "Votre compte OpenAgenda sera lié au compte de votre choix. L'authentification se fera alors en passant par la plateforme choisie.",

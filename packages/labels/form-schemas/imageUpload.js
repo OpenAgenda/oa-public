@@ -23,7 +23,7 @@ module.exports = {
     "en": "A problem occurred during the upload. Please try again",
     "fr": "Un problème est survenu pendant le chargement. Veuillez retenter",
     "de": "Es trat ein Problem beim Upload. Bitte versuche es erneut",
-    "es": "Se produjo un problema durante la carga. Por favor, inténtelo de nuevo.",
+    "es": "Ocurrió un error durante el cargamento. Por favor, inténtalo nuevamente",
     "it": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
     "io": "crwdns14868:0crwdne14868:0",
     "oc": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar"
@@ -41,7 +41,7 @@ module.exports = {
     "en": "Replace the file",
     "fr": "Remplacer le fichier",
     "de": "Ersetzen Sie die Datei",
-    "es": "reemplazar documento",
+    "es": "Reemplazar archivo",
     "it": "Sostituire il file",
     "io": "crwdns14872:0crwdne14872:0",
     "oc": "Remplaçar lo fichièr"
@@ -78,7 +78,7 @@ module.exports = {
     "fr": "Fichiers acceptés",
     "en": "Accepted files",
     "de": "Akzeptierte Dateiformate",
-    "es": "formatos aceptados",
+    "es": "Formatos de archivos aceptados",
     "it": "File accettati",
     "io": "crwdns14880:0crwdne14880:0",
     "oc": "Fichièrs acceptats"

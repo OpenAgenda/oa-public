@@ -1,1 +1,3 @@
-{}
+{
+  "required": "Este campo es obligatorio en la agenda de destino y no se ha definido ningún valor por él en el momento para el evento"
+}

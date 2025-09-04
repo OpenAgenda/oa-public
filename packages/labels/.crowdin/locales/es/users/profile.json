@@ -1,11 +1,11 @@
 {
-  "agendasTitle": "agendas",
-  "createAgenda": "Crear un agenda",
-  "general": "general",
+  "agendasTitle": "Agendas",
+  "createAgenda": "Crear una agenda",
+  "general": "General",
   "myAgendas": "Mis agendas",
   "myEvents": "Mis eventos",
-  "myProfile": "perfil",
+  "myProfile": "Mi perfil",
   "searchAgendas": "Buscar una agenda",
   "settings": "Configuración",
-  "signout": "Salir"
+  "signout": "Cerrar sesión"
 }
