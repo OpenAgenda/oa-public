@@ -127,10 +127,20 @@ async function createConfig(c = {}) {
           data: {
             ...mail.data,
             ...mail.data.references
-              ? { 'h:References': mail.data.references }
+              ? {
+                'h:References': mail.message._encodeHeaderValue(
+                  'references',
+                  mail.data.references,
+                ),
+              }
               : undefined,
             ...mail.data.inReplyTo
-              ? { 'h:InReplyTo': mail.data.inReplyTo }
+              ? {
+                'h:InReplyTo': mail.message._encodeHeaderValue(
+                  'in-reply-to',
+                  mail.data.inReplyTo,
+                ),
+              }
               : undefined,
           },
         },

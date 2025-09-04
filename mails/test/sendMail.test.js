@@ -262,7 +262,10 @@ describe('sendMail', () => {
       } = await mails.send({
         replyTo:
           'reply+4ede8acf-5ded-45dc-bbac-1979ce541813@mail.openagenda.com',
-        references: 'inboxMessage/95437@mail.openagenda.com',
+        references: [
+          'inboxMessage/95437@mail.openagenda.com',
+          'inboxMessage/95438@mail.openagenda.com',
+        ],
         template: 'helloWorld',
         data: {
           username: 'bertho',
