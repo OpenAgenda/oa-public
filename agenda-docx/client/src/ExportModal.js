@@ -345,6 +345,7 @@ export default class ExportModal extends Component {
                   href={svcState.file.path}
                   target="_blank"
                   rel="noopener noreferrer"
+                  download={svcState.file.name}
                 >
                   {labels.download}
                   <sup>(1)</sup>
