@@ -3,6 +3,7 @@ import { Box } from '@openagenda/uikit';
 import Navbar from 'components/Navbar';
 import HelpButtonComponent from 'components/Navbar/HelpButton';
 import LanguageSelectorComponent from 'components/Navbar/LanguageSelector';
+import NavbarSearchInputComponent from 'components/NavbarSearchInput';
 import { color } from 'utils/strapi';
 import fetchAllLocales from '../utils/fetchAllLocales';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
@@ -32,14 +33,8 @@ export const Connected = {
 
 export const Transparent = () => (
   <Box display="flex" flexDirection="column" height="100vh">
-    <Box bg={color('azure', 500)} flex={1}>
-      <Navbar discreet fontColor={color('mulberry')} />
-    </Box>
-    <Box bg={color('charcoal', 500)} flex={1}>
-      <Navbar discreet fontColor={color('azure')} logoVariant="white" />
-    </Box>
-    <Box bg={color('charcoal', 500)} flex={1}>
-      <Navbar discreet fontColor={color('oaWhite')} logoVariant="white" />
+    <Box bg={color('azure', 500)} flex={1} colorPalette={color('mulberry')}>
+      <Navbar discreet />
     </Box>
   </Box>
 );
@@ -99,4 +94,41 @@ export const LanguageSelector = () => (
       <LanguageSelectorComponent />
     </Box>
   </>
+);
+
+export const NavbarSearchInput = () => (
+  <Box display="flex" flexDirection="column" height="100vh">
+    <Box display="flex" flex={1} alignItems="center" justifyContent="center">
+      <NavbarSearchInputComponent maxW="300px" h="50px" />
+    </Box>
+    <Box
+      display="flex"
+      flex={1}
+      alignItems="center"
+      justifyContent="center"
+      bg={color('charcoal', 500)}
+    >
+      <NavbarSearchInputComponent maxW="300px" h="50px" />
+    </Box>
+    <Box
+      display="flex"
+      flex={1}
+      alignItems="center"
+      justifyContent="center"
+      bg={color('oaWhite', 500)}
+      colorPalette="strapi.mulberry"
+    >
+      <NavbarSearchInputComponent maxW="300px" h="50px" discreet />
+    </Box>
+    <Box
+      display="flex"
+      flex={1}
+      alignItems="center"
+      justifyContent="center"
+      bg={color('coyote', 500)}
+      colorPalette="strapi.azure"
+    >
+      <NavbarSearchInputComponent maxW="300px" h="50px" discreet />
+    </Box>
+  </Box>
 );

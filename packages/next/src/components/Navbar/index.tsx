@@ -9,7 +9,6 @@ import { FetchStatus } from 'config/types';
 import SearchInput from 'components/NavbarSearchInput';
 import Image from 'components/Image';
 import hrefWithLang from 'utils/hrefWithLang';
-import { color } from 'utils/strapi';
 import getSession from 'utils/getSession';
 import logoPic from '../../../public/images/oa.svg';
 import whiteLogoPic from '../../../public/images/oa-white.svg';
@@ -20,8 +19,6 @@ import LanguageSelector from './LanguageSelector';
 import ProfileLoader from './ProfileLoader';
 import ProfileMenu from './ProfileMenu';
 import useSearch from './useSearch';
-
-const StyledSearchInput = chakra(SearchInput);
 
 function ProfileBar({ portalRef }) {
   const { user, status } = useUser();
@@ -56,7 +53,11 @@ export default function Navbar({
       display="flex"
       flexDirection="column"
       bg={discreet ? undefined : 'white'}
-      position="relative"
+      position={discreet ? 'absolute' : 'relative'}
+      top={discreet ? 0 : undefined}
+      left={discreet ? 0 : undefined}
+      right={discreet ? 0 : undefined}
+      zIndex={discreet ? 1000 : undefined}
       boxShadow={discreet ? undefined : 'xs'}
       fontSize={defaultSize}
       colorPalette={fontColor}
@@ -98,40 +99,17 @@ export default function Navbar({
                   : isUndefined
               }
             >
-              <StyledSearchInput
-                transparent={!!discreet}
+              <SearchInput
+                discreet={discreet}
                 input={{
                   value: inputValue,
                   onChange: (e) => setInputValue(e.target.value),
-                }}
-                css={{
-                  '& input': discreet
-                    ? {
-                        border: `1px solid`,
-                        borderColor: color(fontColor, 200),
-                        borderRadius: '40px',
-                        color: fontColor ? color(fontColor, 500) : undefined,
-                      }
-                    : {
-                        borderY: 'none',
-                        color: fontColor ? color(fontColor, 500) : undefined,
-                      },
-                  '& input::placeholder': {
-                    color: fontColor ? color(fontColor, 500) : undefined,
-                  },
-                  '& svg': {
-                    color: fontColor ? color(fontColor, 500) : undefined,
-                  },
                 }}
               />
             </chakra.form>
           </Flex>
 
-          <Flex
-            direction="row"
-            align="center"
-            colorPalette={fontColor ?? 'oaGray'}
-          >
+          <Flex direction="row" align="center">
             <HelpButton />
             <LanguageSelector />
             <ProfileBar portalRef={headerRef} />
