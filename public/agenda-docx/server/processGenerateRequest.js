@@ -1,3 +1,4 @@
+import { randomBytes } from 'node:crypto';
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 import cleanString from './lib/cleanString.js';
@@ -44,7 +45,9 @@ export default async function processGenerateRequest(
       query: _.pick(data, 'from', 'to'),
     });
 
-    const filename = cleanString(`${agenda.title}.docx`);
+    const filename = cleanString(
+      `${agenda.slug}.${randomBytes(6).toString('hex')}.docx`,
+    );
 
     const { path } = await files.set(outputPath, filename);
 

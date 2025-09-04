@@ -38,6 +38,8 @@ async function setAgendaFile(client, bucket, uid, localFilePath, name = null) {
       Bucket: bucket,
       Key: [uid, name].join('/'),
       Body: fs.createReadStream(localFilePath),
+      ContentType:
+        'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
     },
   });
 
