@@ -273,6 +273,7 @@ function EmbedAgendaShow({
                                     filters,
                                   }),
                                 ),
+                                locale: intl.locale,
                                 themeConfig,
                               })
                             }

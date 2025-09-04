@@ -205,7 +205,11 @@ function EmbedEventShow({
           flexDirection="column"
           flexGrow="1"
         >
-          <Sidebar key={event.uid} referrer={referrer} />
+          <Sidebar
+            key={event.uid}
+            referrer={referrer}
+            contentLocale={contentLocale}
+          />
         </GridItem>
 
         <GridItem area="event" display="flex" flexDirection="column" gap="12">
@@ -288,6 +292,7 @@ function EmbedEventShow({
                 display={{ base: 'grid', lg: 'none' }}
                 justifyItems="flex-start"
                 icon={faShareNodes}
+                contentLocale={contentLocale}
               />
               <OnlineAccessSection
                 event={event}

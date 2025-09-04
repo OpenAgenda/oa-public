@@ -523,6 +523,12 @@
       "value": "crwdns33718:0crwdne33718:0"
     }
   ],
+  "next.views.EventShow.ShareModal.online": [
+    {
+      "type": 0,
+      "value": "crwdns33976:0crwdne33976:0"
+    }
+  ],
   "next.views.EventShow.ShareModal.selectTiming": [
     {
       "type": 0,
@@ -575,12 +581,6 @@
     {
       "type": 0,
       "value": "crwdns33738:0crwdne33738:0"
-    }
-  ],
-  "next.views.EventShow.ShareModale.online": [
-    {
-      "type": 0,
-      "value": "crwdns33976:0crwdne33976:0"
     }
   ],
   "next.views.EventShow.Sidebar.accessEventOnline": [

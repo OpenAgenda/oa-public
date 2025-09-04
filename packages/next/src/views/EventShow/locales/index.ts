@@ -10,7 +10,7 @@ import fetchLocale4 from 'components/Navbar/locales';
 import fetchLocale5 from 'components/NavbarSearchInput/locales';
 import fetchLocale6 from 'components/OfficialAgenda/locales';
 import fetchLocale7 from 'components/locales';
-import fetchLocale8 from 'views/EventShow/components/ShareModal/locales';
+import fetchLocale8 from 'components/strapi/locales';
 import fetchLocale9 from 'views/EventShow/components/locales';
 
 export default async function fetchLocale(locale) {

@@ -16,6 +16,8 @@ import {
   useBreakpointValue,
 } from '@openagenda/uikit';
 import fetchCommonLocale from '@openagenda/common-labels/fetchLocale';
+import fetchReactLocale from '@openagenda/react/fetchLocale';
+import { EventShareModal } from '@openagenda/react';
 import defaultStyle from 'utils/defaultStyle';
 import ConsentBanner from 'components/ConsentBanner';
 import CopyIdentifier from 'components/CopyIdentifier';
@@ -23,6 +25,7 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import useSearchParams from 'hooks/useSearchParams';
 import useSession from 'hooks/useSession';
+import useUser from 'hooks/useUser';
 import useLocationQuery from 'hooks/useLocationQuery';
 import Featured from 'components/Featured';
 import isAdminMod from '../../utils/isAdminMod';
@@ -47,7 +50,6 @@ import Footer from './components/Footer';
 import StatusTag from './components/StatusTag';
 import ContributorSection from './components/ContributorSection';
 import NavigateButton from './components/NavigateButton';
-import ShareModal from './components/ShareModal';
 import EmailConfirmationAlert from './components/EmailConfirmationAlert';
 import LdJson from './components/LdJson';
 import EventImage from './components/EventImage';
@@ -77,6 +79,7 @@ function EventShow({ preload }: EventShowProps) {
 
   const mailtoSettings = agenda.settings?.inbox?.mailto;
 
+  const { user } = useUser();
   const session = useSession();
 
   const { event } = useEvent();
@@ -133,7 +136,16 @@ function EventShow({ preload }: EventShowProps) {
     emailSentIsOpen,
     emailSentOnClose,
     onEmailSent,
-  } = useShareModal({ defaultOpen: Boolean(shareModal) });
+  } = useShareModal({
+    defaultOpen: Boolean(shareModal),
+    onClose: () => {
+      const url = new URL(router.asPath, 'https://n');
+
+      url.searchParams.delete('sharemodal');
+
+      router.replace(url.pathname + url.search, null, { shallow: true });
+    },
+  });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
   useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
@@ -449,15 +461,17 @@ function EventShow({ preload }: EventShowProps) {
 
       <ClientOnly>
         {shareIsOpen ? (
-          <ShareModal
+          <EventShareModal
             key="sharemodal"
             isOpen
             onClose={shareOnClose}
+            user={user}
             agenda={agenda}
             event={event}
             contentLocale={contentLocale}
             onEmailSent={onEmailSent}
             defaultValue={shareModal}
+            rootUrl={process.env.NEXT_PUBLIC_ROOT}
           />
         ) : null}
       </ClientOnly>
@@ -484,6 +498,7 @@ EventShow.fetchLocale = (locale: string) =>
     fetchCommonLocale('event/statuses', locale),
     fetchCommonLocale('event/accessibilities', locale),
     fetchCommonLocale('roles', locale),
+    fetchReactLocale(locale),
     import(
       `@openagenda/activity-apps/src/locales-compiled/${locale}.json`
     ).then((mod) => mod.default),

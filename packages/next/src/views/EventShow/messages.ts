@@ -367,7 +367,7 @@ export const shareModal = defineMessages({
     defaultMessage: 'Sign in',
   },
   online: {
-    id: 'next.views.EventShow.ShareModale.online',
+    id: 'next.views.EventShow.ShareModal.online',
     defaultMessage: 'Online',
   },
 });

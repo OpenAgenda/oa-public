@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import { Button, Grid, Icon, Link } from '@openagenda/uikit';
+import { Button, Grid, Icon } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
 import {
   AccessibilitySection,
@@ -24,6 +24,7 @@ import {
 } from 'icons/thin';
 import { sidebar as messages } from 'views/EventShow/messages';
 import { useAgenda } from 'views/EventShow/contexts/agenda';
+import { useEmbedLayoutData } from 'components/EmbedLayout';
 import useEvent from '../hooks/useEvent';
 
 export function getRegistrationIcon(type: string) {
@@ -39,9 +40,16 @@ export function getRegistrationIcon(type: string) {
   }
 }
 
-export function ShareSection({ event, icon = faShareNodes, ...props }) {
+export function ShareSection({
+  event,
+  contentLocale,
+  icon = faShareNodes,
+  ...props
+}) {
   const intl = useIntl();
   const agenda = useAgenda();
+
+  const { themeConfig } = useEmbedLayoutData();
 
   return (
     <Grid
@@ -55,29 +63,35 @@ export function ShareSection({ event, icon = faShareNodes, ...props }) {
         <FaIcon icon={icon} size="2xl" />
       </Icon>
       <Button
-        asChild
-        // leftIcon={<OAIcon />}
         variant="outline"
         disabled={!!event.private}
+        onClick={() =>
+          window.parentIFrame.sendMessage({
+            type: 'openEventShareModal',
+            agenda,
+            event,
+            contentLocale,
+            locale: intl.locale,
+            themeConfig,
+          })
+        }
       >
-        <Link
-          href={`/${agenda.slug}/events/${event.slug}?sharemodal=1`}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {intl.formatMessage(messages.share)}
-        </Link>
+        {intl.formatMessage(messages.share)}
       </Button>
     </Grid>
   );
 }
 
-export default function Sidebar({ referrer }) {
+export default function Sidebar({ referrer, contentLocale }) {
   const { event } = useEvent({ referrer });
 
   return (
     <>
-      <ShareSection event={event} icon={faShareNodes} />
+      <ShareSection
+        event={event}
+        contentLocale={contentLocale}
+        icon={faShareNodes}
+      />
       <OnlineAccessSection event={event} icon={faLink} />
       <DateRangeSection
         event={event}
