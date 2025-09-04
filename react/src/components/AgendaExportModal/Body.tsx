@@ -10,8 +10,8 @@ import {
   RadioGroup,
   Radio,
 } from '@openagenda/uikit/snippets';
-import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
-import ModalLoadingBody from 'components/ModalLoadingBody';
+import isUpcomingOnlyQuery from '../../utils/isUpcomingOnlyQuery';
+import ModalLoadingBody from '../ModalLoadingBody';
 import SpreadsheetAccordionItem from './SpreadsheetAccordionItem';
 import PdfAccordionItem from './PdfAccordionItem';
 import JsonAccordionItem from './JsonAccordionItem';

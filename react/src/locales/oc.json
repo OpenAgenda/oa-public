@@ -24,5 +24,12 @@
   "react.components.AgendaExportModal.outlookStep4": "Causissètz \"Soscriure a partir del web\"",
   "react.components.AgendaExportModal.outlookStep5": "Pegats l'URL que copièretz a l'etapa 1. Causissètz \"Impòrt\".",
   "react.components.AgendaExportModal.selectAll": "Seleccionar tot",
-  "react.components.AgendaExportModal.title": "Exportar"
+  "react.components.AgendaExportModal.title": "Exportar",
+  "react.components.EventShareModal.copied": "Copiat",
+  "react.components.EventShareModal.copy": "Copiar",
+  "react.components.EventShareModal.downloadButton": "Descargar",
+  "react.components.EventShareModal.import": "Importar",
+  "react.components.EventShareModal.online": "En linha",
+  "react.components.EventShareModal.shareCalendar": "Importar dins un calendièr personal",
+  "react.components.EventShareModal.signIn": "Se connectar"
 }

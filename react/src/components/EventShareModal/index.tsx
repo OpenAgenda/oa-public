@@ -6,39 +6,29 @@ import {
   DialogHeader,
   DialogCloseTrigger,
 } from '@openagenda/uikit/snippets';
-import { Agenda } from '../../types';
-import Body from './Body';
 import messages from './messages';
+import Body from './Body';
 
-interface ExportModalProps {
-  agenda: Agenda;
-  query: any;
-  isOpen: boolean;
-  onClose: () => void;
-  defaultValue?: string | string[];
-  rootUrl?: string;
-  apiRootUrl?: string;
-  renderHost?: 'local' | 'parent';
-  fetchAgendaExportSettings?: ({ agendaUid }) => Promise<any>;
-}
-
-export default function AgendaExportModal({
+export default function EventShareModal({
   isOpen,
   onClose,
   agenda,
-  query,
-  defaultValue = [],
+  event,
+  user = null,
+  contentLocale,
+  onEmailSent,
+  defaultValue = null,
+  children = null,
   rootUrl = 'https://openagenda.com',
-  apiRootUrl = 'https://api.openagenda.com',
   renderHost = 'local',
-  fetchAgendaExportSettings = null,
-}: ExportModalProps) {
+}) {
   const intl = useIntl();
 
   const dialogRef = useRef<HTMLDivElement>(null);
 
   return (
     <DialogRoot
+      size="md"
       open={isOpen}
       onOpenChange={onClose}
       onInteractOutside={(e) => {
@@ -53,20 +43,24 @@ export default function AgendaExportModal({
     >
       <DialogContent ref={dialogRef}>
         <DialogHeader fontSize="xl" fontWeight="semibold">
-          {intl.formatMessage(messages.modalTitle)}
+          {intl.formatMessage(messages.shareEvent)}
         </DialogHeader>
         <DialogCloseTrigger />
+
         <Body
           dialogRef={dialogRef}
           agenda={agenda}
-          query={query}
+          event={event}
+          user={user}
+          contentLocale={contentLocale}
           onClose={onClose}
+          onEmailSent={onEmailSent}
           defaultValue={defaultValue}
           rootUrl={rootUrl}
-          apiRootUrl={apiRootUrl}
           renderHost={renderHost}
-          fetchAgendaExportSettings={fetchAgendaExportSettings}
-        />
+        >
+          {children}
+        </Body>
       </DialogContent>
     </DialogRoot>
   );

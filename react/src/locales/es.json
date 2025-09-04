@@ -5,5 +5,9 @@
   "react.components.AgendaExportModal.copied": "Copiado",
   "react.components.AgendaExportModal.exportAll": "Descargar todos los eventos",
   "react.components.AgendaExportModal.login": "Inicie sesión para acceder al enlace de exportación directamente desde este menú",
-  "react.components.AgendaExportModal.title": "Exportar"
+  "react.components.AgendaExportModal.title": "Exportar",
+  "react.components.EventShareModal.copied": "Copiado",
+  "react.components.EventShareModal.downloadButton": "Descargar",
+  "react.components.EventShareModal.online": "En linea",
+  "react.components.EventShareModal.signIn": "Conectarse"
 }

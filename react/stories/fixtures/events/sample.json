@@ -1,0 +1,202 @@
+{
+  "nextTiming": {
+    "begin": "2038-08-26T11:00:00+02:00",
+    "end": "2038-08-26T14:00:00+02:00"
+  },
+  "lastTiming": {
+    "begin": "2038-08-26T11:00:00+02:00",
+    "end": "2038-08-26T14:00:00+02:00"
+  },
+  "originAgenda": {
+    "uid": 36441758,
+    "image": null,
+    "title": "testestes"
+  },
+  "state": 2,
+  "featured": false,
+  "dateRange": {
+    "ar": "السبت ٢٦ أغسطس, 11:00",
+    "de": "Samstag 26 August, 11:00",
+    "en": "Saturday 26 August, 11:00",
+    "it": "Sabato 26 agosto, 11:00",
+    "fr": "Samedi 26 août, 11h00",
+    "es": "Sábado 26 agosto, 11:00"
+  },
+  "member": {
+    "uid": 31046551,
+    "role": 2,
+    "phone": null,
+    "organization": null,
+    "name": "Kévin Berthommier - OpenAgenda",
+    "position": null,
+    "email": null,
+    "_agg": "eyJ1aWQiOjMxMDQ2NTUxLCJuYW1lIjoiS8OpdmluIEJlcnRob21taWVyIC0gT3BlbkFnZW5kYSJ9",
+    "deletedUser": false,
+    "updatedAt": "2023-08-21T14:41:50.000Z"
+  },
+  "un-lien": "http://oa.fr",
+  "phone": "0123456789",
+  "email": "marabout-honnete@serieux.fr",
+  "text-enrichi": "Oulala c'est la décadence **han** !",
+  "html": "Oulala c'est la décadence <b>han</b> !",
+  "un-champ-test": "Je voulais écrire \"Un champ texte\"",
+  "cases-a-cocher": 3,
+  "checkbox": [2, 3],
+  "image-custom": {
+    "extension": "jpg",
+    "filename": "271c4d3347fd4c4ebf5e3bd09a9dac98.joindre-une-photo-des-toilettes.jpg",
+    "originalName": "1021.jpg"
+  },
+  "file": {
+    "extension": "pdf",
+    "filename": "89503af2956d469d82d84c5ed7ec2e6a.projet-educatif.pdf",
+    "originalName": "pièce n° 1 Projet associatif et educatif adav.pdf"
+  },
+  "date-en-plus": "2023-08-14T22:00:00.000Z",
+  "image": null,
+  "imageCredits": null,
+  "title": {
+    "fr": "Un titre"
+  },
+  "description": {
+    "fr": "Desc"
+  },
+  "keywords": {
+    "fr": ["Mot", "clé", "trousseau"]
+  },
+  "longDescription": {
+    "fr": "Une description un peu plus longue avec de l’<em>italique</em> et <a href=\"https://nonmaisjetestequandmemeparcequelàonnevoitpas.com\">un lien</a>."
+  },
+  "conditions": {
+    "fr": "Interdit aux chiens"
+  },
+  "age": {
+    "min": 5,
+    "max": 20
+  },
+  "registration": [
+    {
+      "type": "link",
+      "value": "https://oa.com/sign-up"
+    },
+    {
+      "type": "email",
+      "value": "kkk@oagenda.com"
+    },
+    {
+      "type": "phone",
+      "value": "01 23 45 67 89"
+    }
+  ],
+  "accessibility": {
+    "ii": true,
+    "hi": false,
+    "vi": false,
+    "pi": true,
+    "mi": false
+  },
+  "attendanceMode": 1,
+  "location": {
+    "disqualifiedDuplicates": null,
+    "access": {
+      "de": "Anfahrt: Folgen Sie den Angaben «Historische Stätte der Oberstadt» Kostenloses Parken: Parkplatz, Isthmusplatz. EINSTIEG: Über die Treppe zum Platz des Marschalls Foch in der Nähe des Veranstaltungsraums des Archipels.",
+      "en": "Access by car: Follow the signs «Site historique de la Haute Ville». Free parking: Parking, Place de l'Isthme. PEDESTRIAN ACCESS: By the staircase, place Maréchal Foch near the theater l'Archipel.",
+      "it": "Accesso veicoli: Seguire le indicazioni «Sito storico dell'Alta Città». Parcheggio gratuito: Parcheggio, Piazza dell'Istmo. ACCESSO PEDONALE: Dalla scalinata, piazza Maresciallo Foch, vicino alla sala spettacoli dell'Arcipelago.",
+      "fr": "Accès véhicules : Suivre les indications « Site historique de la Haute Ville ». Stationnement gratuit: Parking, place de l’Isthme. ACCÈS PIÉTONS : Par l’escalier, place Maréchal Foch à proximité de la salle de spectacles l’Archipel.",
+      "es": "Acceso para vehículos: Siga las indicaciones «Sitio histórico de la Alta Ciudad». Aparcamiento gratuito: Parking, plaza del Istmo. ACCESO PEATONAL: Por la escalera, plaza Mariscal Foch cerca de la sala de espectáculos l'Archipel."
+    },
+    "city": "Granville",
+    "timezone": "Europe/Paris",
+    "postalCode": "50400",
+    "latitude": 48.839113,
+    "imageCredits": "© Ville de Granville - B. Croisy",
+    "description": {
+      "de": "Richard Anacréon, 1907 in Granville geboren, wo er 1992 verstarb, spendete seiner Heimatstadt in den 80er Jahren 280 Kunstwerke und 550 alte Bücher, die ein unvergleichliches Ganzes darstellen und die Kunst der ersten Hälfte des zwanzigsten Jahrhunderts widerspiegeln. Berühmte Künstler in dieser Sammlung sind: André Derain, Kees Van Dongen, Maurice de Vlaminck, Maurice Utrillo, Marie Laurencin, Paul Signac, Emile-Othon Friesz... sowie Schriftsteller: Paul Valéry, Colette, Jean Cocteau, André Suarès...",
+      "en": "Born in 1907 in Granville, where he died in 1992, Richard Anacréon donated 280 works of art and 550 old books to his hometown in the 1980s, constituting an unparalleled ensemble reflecting the art of the first half of the twentieth century. Prominent artists include André Derain, Kees Van Dongen, Maurice de Vlaminck, Maurice Utrillo, Marie Laurencin, Paul Signac, Emile-Othon Friesz… and writers: Paul Valéry, Colette, Jean Cocteau, André Suarès…",
+      "it": "Nato nel 1907 a Granville, dove morì nel 1992, Richard Anacréon donò alla sua città natale negli anni '80 280 opere d'arte e 550 libri antichi, costituendo un insieme senza equivalenti, riflesso dell'arte della prima metà del ventesimo secolo. Illustri artisti figurano in questa collezione: André Derain, Kees Van Dongen, Maurice de Vlaminck, Maurice Utrillo, Marie Laurencin, Paul Signac, Emile-Othon Friesz... e scrittori: Paul Valéry, Colette, Jean Cocteau, André Suarès...",
+      "fr": "Né en 1907 à Granville, où il décède en 1992, Richard Anacréon fait don à sa ville natale dans les années 80 de 280 œuvres d’art et de 550 livres anciens, constituant un ensemble sans équivalent, reflet de l’art de la première moitié du vingtième siècle. D'illustres artistes figurent dans cette collection : André Derain, Kees Van Dongen, Maurice de Vlaminck, Maurice Utrillo, Marie Laurencin, Paul Signac, Emile-Othon Friesz… ainsi que des écrivains : Paul Valéry, Colette, Jean Cocteau, André Suarès…",
+      "es": "Nacido en 1907 en Granville, donde falleció en 1992, Richard Anacréon donó a su ciudad natal en los años 80 280 obras de arte y 550 libros antiguos, constituyendo un conjunto único, reflejo del arte de la primera mitad del siglo XX. Ilustres artistas figuran en esta colección: André Derain, Kees Van Dongen, Maurice de Vlaminck, Maurice Utrillo, Marie Laurencin, Paul Signac, Emile-Othon Friesz... así como escritores: Paul Valéry, Colette, Jean Cocteau, André Suarès..."
+    },
+    "setUid": null,
+    "uid": 16162888,
+    "createdAt": "2019-03-14T14:38:27.000Z",
+    "duplicateCandidates": [],
+    "countryCode": "FR",
+    "adminLevel5": null,
+    "links": ["https://google.com", "https://x.com"],
+    "state": 1,
+    "extId": null,
+    "department": "Manche",
+    "slug": "musee-dart-moderne-richard-anacreon993_68959871",
+    "email": null,
+    "longitude": -1.600285,
+    "updatedAt": "2021-07-17T01:18:35.000Z",
+    "image": "location59810266.jpg",
+    "website": "http://www.ville-granville.fr",
+    "address": "Place de l’Isthme 50400 Granville",
+    "adminLevel3": null,
+    "agendaUid": 2452661,
+    "adminLevel4": "Granville",
+    "adminLevel1": "Normandie",
+    "adminLevel2": "Manche",
+    "mergedIn": null,
+    "_agg": "eyJ1aWQiOjE2MTYyODg4LCJuYW1lIjoiTXVzw6llIGQnYXJ0IG1vZGVybmUgUmljaGFyZCBBbmFjcsOpb24ifQ==",
+    "tags": [
+      {
+        "id": 40,
+        "label": "Musée de France"
+      },
+      {
+        "id": 17,
+        "label": { "en": "Museum of Arts", "fr": "Musée d'arts" }
+      }
+    ],
+    "insee": "50218",
+    "phone": "02 33 51 02 94",
+    "district": null,
+    "name": "Musée d'art moderne Richard Anacréon",
+    "region": "Normandie"
+  },
+  "onlineAccessLink": null,
+  "status": 1,
+  "timings": [
+    {
+      "begin": "2023-09-26T11:00:00+02:00",
+      "end": "2023-09-26T14:00:00+02:00"
+    },
+    {
+      "begin": "2023-09-26T14:00:00+02:00",
+      "end": "2023-09-26T15:00:00+02:00"
+    },
+    {
+      "begin": "2023-09-26T15:00:00+02:00",
+      "end": "2023-09-26T16:00:00+02:00"
+    },
+    {
+      "begin": "2023-09-27T14:00:00+02:00",
+      "end": "2023-09-27T15:00:00+02:00"
+    },
+    {
+      "begin": "2023-09-27T15:00:00+02:00",
+      "end": "2023-09-27T16:00:00+02:00"
+    },
+    {
+      "begin": "2023-10-26T11:00:00+02:00",
+      "end": "2023-10-26T14:00:00+02:00"
+    },
+    {
+      "begin": "2038-08-26T11:00:00+02:00",
+      "end": "2038-08-26T14:00:00+02:00"
+    }
+  ],
+  "uid": 30815625,
+  "slug": "un-titre-3127707",
+  "private": false,
+  "timezone": "Europe/Paris",
+  "draft": false,
+  "createdAt": "2023-08-21T14:41:49.898Z",
+  "creatorUid": 31046551,
+  "ownerUid": 31046551,
+  "updatedAt": "2023-08-21T14:41:50.000Z",
+  "links": []
+}

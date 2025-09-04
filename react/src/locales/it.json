@@ -32,5 +32,20 @@
   "react.components.AgendaExportModal.selectAll": "Selezionare tutto",
   "react.components.AgendaExportModal.showFilters": "Filtri dimostrati",
   "react.components.AgendaExportModal.title": "Esportare",
-  "react.components.AgendaExportModal.viewEmbedDoc": "Vedere tutte le opzioni nella documentazione"
+  "react.components.AgendaExportModal.viewEmbedDoc": "Vedere tutte le opzioni nella documentazione",
+  "react.components.EventShareModal.copied": "Copiato",
+  "react.components.EventShareModal.copy": "Copiare",
+  "react.components.EventShareModal.downloadButton": "Scaricare",
+  "react.components.EventShareModal.import": "Importare",
+  "react.components.EventShareModal.mustSignIn": "È necessario effettuare l'accesso per condividere questo evento",
+  "react.components.EventShareModal.onOA": "Su OpenAgenda",
+  "react.components.EventShareModal.online": "Online",
+  "react.components.EventShareModal.selectTiming": "Selezionare un orario",
+  "react.components.EventShareModal.send": "Inviare",
+  "react.components.EventShareModal.shareByEmail": "Condividere via e-mail",
+  "react.components.EventShareModal.shareByEmailPlaceholder": "Digitare gli indirizzi e-mail a cui si desidera inviare l'evento",
+  "react.components.EventShareModal.shareCalendar": "Importare in un calendario personale",
+  "react.components.EventShareModal.shareLink": "Condividere il link",
+  "react.components.EventShareModal.shareOnSocialNetworks": "Condividere sui social network",
+  "react.components.EventShareModal.signIn": "Accedere"
 }

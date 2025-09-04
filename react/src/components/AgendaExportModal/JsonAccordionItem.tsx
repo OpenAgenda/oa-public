@@ -3,8 +3,8 @@ import { useIntl } from 'react-intl';
 import { Button, Flex, Link, Text, Input } from '@openagenda/uikit';
 import { Checkbox, Tooltip } from '@openagenda/uikit/snippets';
 import { useTimeoutFn } from 'react-use';
-import AccordionItem from 'components/AccordionItem';
-import copyText from 'utils/copyText';
+import AccordionItem from '../AccordionItem';
+import copyText from '../../utils/copyText';
 import messages from './messages';
 
 export default function JsonAccordionItem({ res }) {
