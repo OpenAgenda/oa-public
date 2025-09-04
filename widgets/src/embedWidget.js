@@ -1,6 +1,7 @@
 import iframeResize from '@iframe-resizer/parent';
 import {
   AgendaExportModal,
+  EventShareModal,
   fetchLocale as fetchReactLocale,
 } from '@openagenda/react';
 import { fetchLocale as fetchFiltersLocales } from '@openagenda/react-filters';
@@ -216,11 +217,9 @@ export default class EmbedLoader {
       const modalDiv = document.createElement('div');
       document.body.appendChild(modalDiv);
 
-      const locale = 'fr';
-
       const intlMessages = await Promise.all([
-        fetchReactLocale(locale),
-        fetchFiltersLocales(locale),
+        fetchReactLocale(message.locale),
+        fetchFiltersLocales(message.locale),
       ]).then((results) => Object.assign({}, ...results));
 
       const root = createRoot(modalDiv);
@@ -238,7 +237,11 @@ export default class EmbedLoader {
       });
 
       root.render(
-        <Provider intlMessages={intlMessages} locale="fr" theme={system}>
+        <Provider
+          intlMessages={intlMessages}
+          locale={message.locale}
+          theme={system}
+        >
           <AgendaExportModal
             isOpen
             onClose={onClose}
@@ -249,6 +252,47 @@ export default class EmbedLoader {
               iframe.iFrameResizer.callChild('fetchAgendaExportSettings', {
                 agendaUid,
               })}
+          />
+        </Provider>,
+      );
+    }
+
+    if (message.type === 'openEventShareModal') {
+      const modalDiv = document.createElement('div');
+      document.body.appendChild(modalDiv);
+
+      const intlMessages = await Promise.all([
+        fetchReactLocale(message.locale),
+        fetchFiltersLocales(message.locale),
+      ]).then((results) => Object.assign({}, ...results));
+
+      const root = createRoot(modalDiv);
+
+      const onClose = () => {
+        root.unmount();
+        document.body.removeChild(modalDiv);
+      };
+
+      const system = createSystem(oaThemeConfig, themeConfig, {
+        ...message.themeConfig,
+        globalCss: {
+          ':host': message.themeConfig.globalCss?.html ?? {},
+        },
+      });
+
+      root.render(
+        <Provider
+          intlMessages={intlMessages}
+          locale={message.locale}
+          theme={system}
+        >
+          <EventShareModal
+            isOpen
+            onClose={onClose}
+            agenda={message.agenda}
+            event={message.event}
+            contentLocale={message.contentLocale}
+            renderHost="parent"
           />
         </Provider>,
       );
