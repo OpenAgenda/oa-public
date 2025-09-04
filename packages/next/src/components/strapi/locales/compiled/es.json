@@ -2,43 +2,43 @@
   "next.components.Strapi.contact": [
     {
       "type": 0,
-      "value": "Contact"
+      "value": "Contacto"
     }
   ],
   "next.components.Strapi.contactForm": [
     {
       "type": 0,
-      "value": "Contact form"
+      "value": "Formulario de contacto"
     }
   ],
   "next.components.Strapi.github": [
     {
       "type": 0,
-      "value": "Our Github"
+      "value": "Nuestro GitHub"
     }
   ],
   "next.components.Strapi.linkedin": [
     {
       "type": 0,
-      "value": "Our LinkedIn"
+      "value": "Nuestro LinkedIn"
     }
   ],
   "next.components.Strapi.videoPlayer.accessibility": [
     {
       "type": 0,
-      "value": "Accessibility"
+      "value": "accesibilidad"
     }
   ],
   "next.components.Strapi.videoPlayer.airPlay": [
     {
       "type": 0,
-      "value": "AirPlay"
+      "value": "Reproducción"
     }
   ],
   "next.components.Strapi.videoPlayer.announcements": [
     {
       "type": 0,
-      "value": "Announcements"
+      "value": "Anuncios"
     }
   ],
   "next.components.Strapi.videoPlayer.audio": [
@@ -56,43 +56,43 @@
   "next.components.Strapi.videoPlayer.boost": [
     {
       "type": 0,
-      "value": "Boost"
+      "value": "Aumentar"
     }
   ],
   "next.components.Strapi.videoPlayer.captionStyles": [
     {
       "type": 0,
-      "value": "Caption Styles"
+      "value": "Estilos de subtítulos"
     }
   ],
   "next.components.Strapi.videoPlayer.captions": [
     {
       "type": 0,
-      "value": "Captions"
+      "value": "Subtítulos"
     }
   ],
   "next.components.Strapi.videoPlayer.captionsLookLikeThis": [
     {
       "type": 0,
-      "value": "Captions look like this"
+      "value": "Los subtítulos aparecen así"
     }
   ],
   "next.components.Strapi.videoPlayer.chapters": [
     {
       "type": 0,
-      "value": "Chapters"
+      "value": "Capítulos"
     }
   ],
   "next.components.Strapi.videoPlayer.closedCaptionsOff": [
     {
       "type": 0,
-      "value": "Closed-Captions Off"
+      "value": "Subtítulos cerrados - Off"
     }
   ],
   "next.components.Strapi.videoPlayer.closedCaptionsOn": [
     {
       "type": 0,
-      "value": "Closed-Captions On"
+      "value": "Subtítulos cerrados - On"
     }
   ],
   "next.components.Strapi.videoPlayer.color": [
@@ -104,121 +104,121 @@
   "next.components.Strapi.videoPlayer.connected": [
     {
       "type": 0,
-      "value": "Connected"
+      "value": "Conectado"
     }
   ],
   "next.components.Strapi.videoPlayer.connecting": [
     {
       "type": 0,
-      "value": "Connecting"
+      "value": "Conectando"
     }
   ],
   "next.components.Strapi.videoPlayer.continue": [
     {
       "type": 0,
-      "value": "Continue"
+      "value": "Continuar"
     }
   ],
   "next.components.Strapi.videoPlayer.default": [
     {
       "type": 0,
-      "value": "Default"
+      "value": "Por defecto"
     }
   ],
   "next.components.Strapi.videoPlayer.disabled": [
     {
       "type": 0,
-      "value": "Disabled"
+      "value": "Deshabilitado"
     }
   ],
   "next.components.Strapi.videoPlayer.disconnected": [
     {
       "type": 0,
-      "value": "Disconnected"
+      "value": "Desconectado"
     }
   ],
   "next.components.Strapi.videoPlayer.displayBackground": [
     {
       "type": 0,
-      "value": "Display Background"
+      "value": "Mostrar fondo"
     }
   ],
   "next.components.Strapi.videoPlayer.download": [
     {
       "type": 0,
-      "value": "Download"
+      "value": "Descargar"
     }
   ],
   "next.components.Strapi.videoPlayer.enterFullscreen": [
     {
       "type": 0,
-      "value": "Enter fullscreen"
+      "value": "Entrar en pantalla completa"
     }
   ],
   "next.components.Strapi.videoPlayer.enterPiP": [
     {
       "type": 0,
-      "value": "Enter picture-in-picture"
+      "value": "Entrar imagen dentro de la imagen"
     }
   ],
   "next.components.Strapi.videoPlayer.exitFullscreen": [
     {
       "type": 0,
-      "value": "Exit fullscreen"
+      "value": "Salir de pantalla completa"
     }
   ],
   "next.components.Strapi.videoPlayer.exitPiP": [
     {
       "type": 0,
-      "value": "Exit picture-in-picture"
+      "value": "Salir imagen dentro de la imagen"
     }
   ],
   "next.components.Strapi.videoPlayer.family": [
     {
       "type": 0,
-      "value": "Family"
+      "value": "Familia"
     }
   ],
   "next.components.Strapi.videoPlayer.font": [
     {
       "type": 0,
-      "value": "Font"
+      "value": "Fuente de la letra"
     }
   ],
   "next.components.Strapi.videoPlayer.fullscreen": [
     {
       "type": 0,
-      "value": "Fullscreen"
+      "value": "Pantalla completa"
     }
   ],
   "next.components.Strapi.videoPlayer.googleCast": [
     {
       "type": 0,
-      "value": "Google Cast"
+      "value": "Conversor de Google"
     }
   ],
   "next.components.Strapi.videoPlayer.keyboardAnimations": [
     {
       "type": 0,
-      "value": "Keyboard Animations"
+      "value": "Animaciones de teclado"
     }
   ],
   "next.components.Strapi.videoPlayer.live": [
     {
       "type": 0,
-      "value": "Live"
+      "value": "En vivo"
     }
   ],
   "next.components.Strapi.videoPlayer.loop": [
     {
       "type": 0,
-      "value": "Loop"
+      "value": "Bucle"
     }
   ],
   "next.components.Strapi.videoPlayer.mute": [
     {
       "type": 0,
-      "value": "Mute"
+      "value": "Desactivar el micrófono"
     }
   ],
   "next.components.Strapi.videoPlayer.normal": [
@@ -230,19 +230,19 @@
   "next.components.Strapi.videoPlayer.off": [
     {
       "type": 0,
-      "value": "Off"
+      "value": "Cortar"
     }
   ],
   "next.components.Strapi.videoPlayer.opacity": [
     {
       "type": 0,
-      "value": "Opacity"
+      "value": "Opacidad"
     }
   ],
   "next.components.Strapi.videoPlayer.pause": [
     {
       "type": 0,
-      "value": "Pause"
+      "value": "Pausa"
     }
   ],
   "next.components.Strapi.videoPlayer.pip": [
@@ -254,109 +254,109 @@
   "next.components.Strapi.videoPlayer.play": [
     {
       "type": 0,
-      "value": "Play"
+      "value": "Lectura"
     }
   ],
   "next.components.Strapi.videoPlayer.playback": [
     {
       "type": 0,
-      "value": "Playback"
+      "value": "Reproducción"
     }
   ],
   "next.components.Strapi.videoPlayer.quality": [
     {
       "type": 0,
-      "value": "Quality"
+      "value": "Cualidad"
     }
   ],
   "next.components.Strapi.videoPlayer.replay": [
     {
       "type": 0,
-      "value": "Replay"
+      "value": "Darle replay"
     }
   ],
   "next.components.Strapi.videoPlayer.reset": [
     {
       "type": 0,
-      "value": "Reset"
+      "value": "Reinicializar"
     }
   ],
   "next.components.Strapi.videoPlayer.seek": [
     {
       "type": 0,
-      "value": "Seek"
+      "value": "Buscar"
     }
   ],
   "next.components.Strapi.videoPlayer.seekBackward": [
     {
       "type": 0,
-      "value": "Seek backward"
+      "value": "Buscar atrás"
     }
   ],
   "next.components.Strapi.videoPlayer.seekForward": [
     {
       "type": 0,
-      "value": "Seek forward"
+      "value": "Buscar adelante"
     }
   ],
   "next.components.Strapi.videoPlayer.settings": [
     {
       "type": 0,
-      "value": "Settings"
+      "value": "Configuración"
     }
   ],
   "next.components.Strapi.videoPlayer.shadow": [
     {
       "type": 0,
-      "value": "Shadow"
+      "value": "Sombra"
     }
   ],
   "next.components.Strapi.videoPlayer.size": [
     {
       "type": 0,
-      "value": "Size"
+      "value": "Tamaño"
     }
   ],
   "next.components.Strapi.videoPlayer.skipToLive": [
     {
       "type": 0,
-      "value": "Skip to live"
+      "value": "Pasar a en vivo"
     }
   ],
   "next.components.Strapi.videoPlayer.speed": [
     {
       "type": 0,
-      "value": "Speed"
+      "value": "Velocidad"
     }
   ],
   "next.components.Strapi.videoPlayer.text": [
     {
       "type": 0,
-      "value": "Text"
+      "value": "Texto"
     }
   ],
   "next.components.Strapi.videoPlayer.textBackground": [
     {
       "type": 0,
-      "value": "Text Background"
+      "value": "Texto de fondo"
     }
   ],
   "next.components.Strapi.videoPlayer.track": [
     {
       "type": 0,
-      "value": "Track"
+      "value": "Pista"
     }
   ],
   "next.components.Strapi.videoPlayer.unmute": [
     {
       "type": 0,
-      "value": "Unmute"
+      "value": "Reactivar el micrófono"
     }
   ],
   "next.components.Strapi.videoPlayer.volume": [
     {
       "type": 0,
-      "value": "Volume"
+      "value": "Volumen"
     }
   ]
 }

@@ -14,7 +14,7 @@
   "ReactFilters.ValueBadge.removeFilterWithTitle": [
     {
       "type": 0,
-      "value": "Remove filter ("
+      "value": "Eliminar filtro ("
     },
     {
       "type": 1,
@@ -28,7 +28,7 @@
   "next.views.EmbedAgendaShow.export": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "Exportar"
     }
   ],
   "next.views.EmbedAgendaShow.search": [
@@ -40,7 +40,7 @@
   "next.views.EmbedAgendaShow.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "Ver más"
     }
   ]
 }

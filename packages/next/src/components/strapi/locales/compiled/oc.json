@@ -2,13 +2,13 @@
   "next.components.Strapi.contact": [
     {
       "type": 0,
-      "value": "Contacter"
+      "value": "Contactar"
     }
   ],
   "next.components.Strapi.contactForm": [
     {
       "type": 0,
-      "value": "Formulaire de contact"
+      "value": "Formulari de contacte"
     }
   ],
   "next.components.Strapi.github": [
@@ -26,7 +26,7 @@
   "next.components.Strapi.videoPlayer.accessibility": [
     {
       "type": 0,
-      "value": "Accessibilité"
+      "value": "Accessibilitat"
     }
   ],
   "next.components.Strapi.videoPlayer.airPlay": [
@@ -146,7 +146,7 @@
   "next.components.Strapi.videoPlayer.download": [
     {
       "type": 0,
-      "value": "Télécharger"
+      "value": "Descargar"
     }
   ],
   "next.components.Strapi.videoPlayer.enterFullscreen": [
@@ -302,7 +302,7 @@
   "next.components.Strapi.videoPlayer.settings": [
     {
       "type": 0,
-      "value": "Paramètres"
+      "value": "Reglatges"
     }
   ],
   "next.components.Strapi.videoPlayer.shadow": [
