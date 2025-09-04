@@ -7061,92 +7061,101 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@fortawesome/fontawesome-common-types@npm:6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/fontawesome-common-types@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-common-types%2F-%2F6.6.0%2Ffontawesome-common-types-6.6.0.tgz"
-  checksum: 10c0/f76e5959f6ce01355f599126a3a68facba578dc8ebb7ad40fbd22417b7056364a577c1887720ec9653d4efa5b704a01150f5064fc7de237d697fd80e3d9c83aa
+"@fortawesome/fontawesome-common-types@npm:6.7.2":
+  version: 6.7.2
+  resolution: "@fortawesome/fontawesome-common-types@npm:6.7.2"
+  checksum: 10c0/0785df560542d9c08a0ba07bb7a39902274a3cd65c018672eb2520a99efccce18bdb7f7f4b1c6089763bc5627bf0f0837c3af963a8427eaeb535bd57c820a723
   languageName: node
   linkType: hard
 
 "@fortawesome/fontawesome-free@npm:^6.1.1":
-  version: 6.1.1
-  resolution: "@fortawesome/fontawesome-free@npm:6.1.1"
-  checksum: 10c0/34aa9f91b2574632627c1bff45611f6d7862118f6a4857611b5bccc27252ed950a0bae19c0c1af198c6d4b5bba7fd35806dd0eb30b55d001a0a42e2657d6604b
+  version: 6.7.2
+  resolution: "@fortawesome/fontawesome-free@npm:6.7.2"
+  checksum: 10c0/e27fb8b846f0bcf40c904acc210829a640329fc7b7ec4e42a7c43cb53739ed6052d78df90810f555a5c80bc608fee5a5174db3fa6da617f582d6210009a19278
   languageName: node
   linkType: hard
 
 "@fortawesome/fontawesome-svg-core@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/fontawesome-svg-core@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffontawesome-svg-core%2F-%2F6.6.0%2Ffontawesome-svg-core-6.6.0.tgz"
+  version: 6.7.2
+  resolution: "@fortawesome/fontawesome-svg-core@npm:6.7.2"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
-  checksum: 10c0/38e2840791711524a3c57d9ea48a5a2e99da6fa3c657ba6beaad7ec3b8da31489a9e38f42b23d70584c75b579dc1ff8c67e075bc9789032278e4da54bb86ecfe
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/9e4e2992b341d2d11cd6ab8cf001e2cb9be4266ce200b307d15c0618e7d2cf11c1c4c67a1f95f3cc70feed2380fa66672132c32078674d5f9cb2cb0b7703f3ac
   languageName: node
   linkType: hard
 
 "@fortawesome/free-brands-svg-icons@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/free-brands-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Ffree-brands-svg-icons%2F-%2F6.6.0%2Ffree-brands-svg-icons-6.6.0.tgz"
+  version: 6.7.2
+  resolution: "@fortawesome/free-brands-svg-icons@npm:6.7.2"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
-  checksum: 10c0/1135a22ff274939da477496f550b6750a1b5fd0ddd0c09bddb1874f2c183a5c8edb519de2cebf6454b12a8457c3eec587bdb6f68e96140cceeb6d02c1ec35479
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/054af882f3416d4a04dfe0f8db8f1ac645d07709a019e95368ae796c1aeee5929dfaf023e5568438a600e1bc1496e6e7270659d2be91b50531fdbd724034b22c
+  languageName: node
+  linkType: hard
+
+"@fortawesome/free-regular-svg-icons@npm:^6.6.0":
+  version: 6.7.2
+  resolution: "@fortawesome/free-regular-svg-icons@npm:6.7.2"
+  dependencies:
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/3a334cb0c837170f7b14759ddc8ef2a821b8d2c59b23a7b852d7e3fb16b066dd5fe8649e47bc1ef91764c78a78f51d1c0c8c5b8567e1680eeb21e8afdc70f5f7
   languageName: node
   linkType: hard
 
 "@fortawesome/pro-duotone-svg-icons@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/pro-duotone-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-duotone-svg-icons%2F-%2F6.6.0%2Fpro-duotone-svg-icons-6.6.0.tgz"
+  version: 6.7.2
+  resolution: "@fortawesome/pro-duotone-svg-icons@npm:6.7.2"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
-  checksum: 10c0/8e278ded5127c2158e7ebe95bdb9a635359cd92d5b94864eabf54021ee6c691c1b30e0a55719154322be229771c9c2bd5232c3abc29439f7e0d2eb1b49e80c1b
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/5064e1ffcf1a316be8ca38d4b64b80e675891f58e0b1ac7ad321d3c9aff2f28fbd3c40065fa48de7c942324cf9ad2fa02399fb0c977b927f615a02d1009730c3
   languageName: node
   linkType: hard
 
 "@fortawesome/pro-light-svg-icons@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/pro-light-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-light-svg-icons%2F-%2F6.6.0%2Fpro-light-svg-icons-6.6.0.tgz"
+  version: 6.7.2
+  resolution: "@fortawesome/pro-light-svg-icons@npm:6.7.2"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
-  checksum: 10c0/fbf51e6517e57657b7c9ea5730c2cbbd184377509282f922ec7fdd408dfe821820fa5a04c65f5db5ee79a3da583a50182a487594b4216a76edc144b753ca7fc4
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/7b4a468d5382e473a93c6413774f98be11b12dc76ee9dda4fcedf599de9e4791250deb90b20839ebf73fc59c207679414c73ad73ac1bb088104a32958d992e42
   languageName: node
   linkType: hard
 
 "@fortawesome/pro-regular-svg-icons@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/pro-regular-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-regular-svg-icons%2F-%2F6.6.0%2Fpro-regular-svg-icons-6.6.0.tgz"
+  version: 6.7.2
+  resolution: "@fortawesome/pro-regular-svg-icons@npm:6.7.2"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
-  checksum: 10c0/0f051410718d3c8cdd17fb3aa8b22db954e131d769de325f9abb3e6c1625472bb96838cef71974a36bfadb32604762217c6b49ac0d28377c0d23a37e7639caa9
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/23b7ce4f18b8751025431020d4c59344919794ebf0ace7d36ed2d50b5b78b10ed18dcf6e3951a3d80a3718769b5a862b84642f64389483edd0e30f825c04a735
   languageName: node
   linkType: hard
 
 "@fortawesome/pro-solid-svg-icons@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/pro-solid-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-solid-svg-icons%2F-%2F6.6.0%2Fpro-solid-svg-icons-6.6.0.tgz"
+  version: 6.7.2
+  resolution: "@fortawesome/pro-solid-svg-icons@npm:6.7.2"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
-  checksum: 10c0/9bdf705e571a963e61023bfaa862ead6d51548a5101f3ae30b4214f8be56e44f3792ca289314321f5cb7843717f0d8e7d4c381d812e772da8f841753010ded7e
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/6c9fa5c29136356bd720d4e46939153f774622cb82eb8a7ba8f638f3ed0e418db96e57bd43ed24b6cd14a17a58df8792029c9e9f73104e0eeebbe9acecf3079e
   languageName: node
   linkType: hard
 
 "@fortawesome/pro-thin-svg-icons@npm:^6.6.0":
-  version: 6.6.0
-  resolution: "@fortawesome/pro-thin-svg-icons@npm:6.6.0::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Fpro-thin-svg-icons%2F-%2F6.6.0%2Fpro-thin-svg-icons-6.6.0.tgz"
+  version: 6.7.2
+  resolution: "@fortawesome/pro-thin-svg-icons@npm:6.7.2"
   dependencies:
-    "@fortawesome/fontawesome-common-types": "npm:6.6.0"
-  checksum: 10c0/faf809d8c3ee3a088772f9cb1e11b45d38328a631a68f8b4c89696be2b77ae406c236b7e63fe81a4eedc6abfde272c276529cef3235f16c088502a9e775b294c
+    "@fortawesome/fontawesome-common-types": "npm:6.7.2"
+  checksum: 10c0/728b2ec887f2a6390639307db1ea718d4f54519f6d5d999c80d9870292e04662c1872a593fd13831708ad92d5fae12786becdaab713f75c5cb8f2175230fda5a
   languageName: node
   linkType: hard
 
-"@fortawesome/react-fontawesome@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@fortawesome/react-fontawesome@npm:0.2.2::__archiveUrl=https%3A%2F%2Fnpm.fontawesome.com%2F%40fortawesome%2Freact-fontawesome%2F-%2F0.2.2%2Freact-fontawesome-0.2.2.tgz"
+"@fortawesome/react-fontawesome@npm:^0.2.3":
+  version: 0.2.3
+  resolution: "@fortawesome/react-fontawesome@npm:0.2.3"
   dependencies:
     prop-types: "npm:^15.8.1"
   peerDependencies:
-    "@fortawesome/fontawesome-svg-core": ~1 || ~6
-    react: ">=16.3"
-  checksum: 10c0/824f96cd9be2e637738de3073450b30fe6b5a91b4f95df804c162b47ddf7d1a43df5ed7439a01e7236e888edc093efad1e61322ac693ddc3ae01147b90318745
+    "@fortawesome/fontawesome-svg-core": ~1 || ~6 || ~7
+    react: ^16.3 || ^17.0.0 || ^18.0.0 || ^19.0.0
+  checksum: 10c0/ccb0a90069d9b01c495358317ef4456acccb59311c98e7b96d19f4acdec167abb823a822792b9e668f3c8241b650a0c1a72ed7b505206c03c126b233efa4b5c8
   languageName: node
   linkType: hard
 
@@ -9236,7 +9245,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/agenda-portal@npm:^6.13.3, @openagenda/agenda-portal@workspace:public/agenda-portal":
+"@openagenda/agenda-portal@npm:^6.13.4, @openagenda/agenda-portal@workspace:public/agenda-portal":
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-portal@workspace:public/agenda-portal"
   dependencies:
@@ -9272,7 +9281,6 @@ __metadata:
     debug: "npm:^4.1.1"
     dotenv: "npm:^16.4.5"
     express: "npm:^4.17.1"
-    file-loader: "npm:^6.2.0"
     hbs: "npm:^4.2.0"
     http-proxy: "npm:^1.18.1"
     iframe-resizer: "npm:^4.2.10"
@@ -10280,7 +10288,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/intl@npm:^1.1.6, @openagenda/intl@workspace:^, @openagenda/intl@workspace:public/intl":
+"@openagenda/intl@npm:^1.1.5, @openagenda/intl@npm:^1.1.6, @openagenda/intl@workspace:^, @openagenda/intl@workspace:public/intl":
   version: 0.0.0-use.local
   resolution: "@openagenda/intl@workspace:public/intl"
   dependencies:
@@ -10473,6 +10481,27 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/mails@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "@openagenda/mails@npm:4.0.2"
+  dependencies:
+    "@formatjs/intl": "npm:^2.2.1"
+    "@openagenda/intl": "npm:^1.1.5"
+    "@openagenda/logs": "npm:^1.1.10"
+    "@openagenda/verror": "npm:^3.1.0"
+    ejs: "npm:^3.1.9"
+    emoji-regex: "npm:^10.3.0"
+    isemail: "npm:^3.2.0"
+    lodash: "npm:^4.17.15"
+    mjml: "npm:^4.13.0"
+    mjml-core: "npm:^4.13.0"
+    nodemailer: "npm:^6.9.1"
+    nodemailer-mailgun-transport: "npm:^2.1.5"
+    tlds: "npm:^1.253.0"
+  checksum: 10c0/eecda0652606e774a434caea6fff61111f06089c07d259e316e83dbd78edbfa1324d3820c9f84685191c34034ccd5b4a13a518adb6131c5203ed6e70fafe1fdf
+  languageName: node
+  linkType: hard
+
 "@openagenda/mails@npm:^5.0.0, @openagenda/mails@workspace:public/mails":
   version: 0.0.0-use.local
   resolution: "@openagenda/mails@workspace:public/mails"
@@ -10490,7 +10519,7 @@ __metadata:
     lodash: "npm:^4.17.15"
     mjml: "npm:^4.13.0"
     mjml-core: "npm:^4.13.0"
-    nodemailer: "npm:^6.9.1"
+    nodemailer: "npm:^7.0.6"
     nodemailer-mailgun-transport: "npm:^2.1.5"
     tlds: "npm:^1.253.0"
   languageName: unknown
@@ -10684,7 +10713,7 @@ __metadata:
     "@fortawesome/pro-regular-svg-icons": "npm:^6.6.0"
     "@fortawesome/pro-solid-svg-icons": "npm:^6.6.0"
     "@fortawesome/pro-thin-svg-icons": "npm:^6.6.0"
-    "@fortawesome/react-fontawesome": "npm:^0.2.2"
+    "@fortawesome/react-fontawesome": "npm:^0.2.3"
     "@iframe-resizer/child": "npm:^5.4.6"
     "@iframe-resizer/react": "npm:^5.4.6"
     "@next/bundle-analyzer": "npm:^15.2.2"
@@ -11272,21 +11301,29 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/react@workspace:public/react"
   dependencies:
+    "@fortawesome/free-brands-svg-icons": "npm:^6.6.0"
+    "@fortawesome/free-regular-svg-icons": "npm:^6.6.0"
+    "@fortawesome/react-fontawesome": "npm:^0.2.3"
     "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
+    "@openagenda/mails": "npm:^4.0.2"
     "@openagenda/react-filters": "npm:^2.13.2"
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@openagenda/uikit": "npm:^0.0.4"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
+    "@types/lodash": "npm:^4"
     "@types/qs": "npm:^6"
+    base64-js: "npm:^1.5.1"
     ky: "npm:^1.7.2"
+    lodash: "npm:^4.17.21"
     msw: "npm:^2.3.0"
     qs: "npm:^6.11.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
+    react-intersection-observer: "npm:^9.16.0"
     react-intl: "npm:^7.1.5"
     react-use: "npm:^17.6.0"
     storybook: "npm:^9.0.8"
@@ -19459,6 +19496,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/lodash@npm:^4":
+  version: 4.17.20
+  resolution: "@types/lodash@npm:4.17.20"
+  checksum: 10c0/98cdd0faae22cbb8079a01a3bb65aa8f8c41143367486c1cbf5adc83f16c9272a2a5d2c1f541f61d0d73da543c16ee1d21cf2ef86cb93cd0cc0ac3bced6dd88f
+  languageName: node
+  linkType: hard
+
 "@types/lodash@npm:^4.14.149, @types/lodash@npm:^4.14.165":
   version: 4.17.13
   resolution: "@types/lodash@npm:4.17.13"
@@ -25609,7 +25653,7 @@ __metadata:
     "@openagenda/agenda-events": "npm:^1.11.15"
     "@openagenda/agenda-locations": "npm:^2.1.3"
     "@openagenda/agenda-locations-app": "npm:^0.0.2"
-    "@openagenda/agenda-portal": "npm:^6.13.3"
+    "@openagenda/agenda-portal": "npm:^6.13.4"
     "@openagenda/agenda-schemas-app": "npm:^0.0.3"
     "@openagenda/agenda-search": "npm:^1.4.1"
     "@openagenda/agenda-settings": "npm:^1.4.2"
@@ -32553,18 +32597,6 @@ __metadata:
   dependencies:
     flat-cache: "npm:^3.0.4"
   checksum: 10c0/58473e8a82794d01b38e5e435f6feaf648e3f36fdb3a56e98f417f4efae71ad1c0d4ebd8a9a7c50c3ad085820a93fc7494ad721e0e4ebc1da3573f4e1c3c7cdd
-  languageName: node
-  linkType: hard
-
-"file-loader@npm:^6.2.0":
-  version: 6.2.0
-  resolution: "file-loader@npm:6.2.0"
-  dependencies:
-    loader-utils: "npm:^2.0.0"
-    schema-utils: "npm:^3.0.0"
-  peerDependencies:
-    webpack: ^4.0.0 || ^5.0.0
-  checksum: 10c0/e176a57c2037ab0f78e5755dbf293a6b7f0f8392350a120bd03cc2ce2525bea017458ba28fea14ca535ff1848055e86d1a3a216bdb2561ef33395b27260a1dd3
   languageName: node
   linkType: hard
 
@@ -43497,6 +43529,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"nodemailer@npm:^7.0.6":
+  version: 7.0.6
+  resolution: "nodemailer@npm:7.0.6"
+  checksum: 10c0/84d3bdca7baa048df538506726a3e63a116276b9ee1ad1e3cd55a8ccbdbf3dea34af0d9bfbe2fdb63cc83f9abe2dbab1737cd58562955e42cbf6cd46e82da49a
+  languageName: node
+  linkType: hard
+
 "nodemon@npm:3.0.2":
   version: 3.0.2
   resolution: "nodemon@npm:3.0.2"
@@ -47880,6 +47919,19 @@ __metadata:
   peerDependencies:
     react: "*"
   checksum: 10c0/a24309bfc993c19cbcbfc928157e53a137851822779977b9588f6dd41ffc4d11ebc98b447f4039b0d309a858f0a42980f6bfb4477fb19f9f2d1bc2e190fcf79c
+  languageName: node
+  linkType: hard
+
+"react-intersection-observer@npm:^9.16.0":
+  version: 9.16.0
+  resolution: "react-intersection-observer@npm:9.16.0"
+  peerDependencies:
+    react: ^17.0.0 || ^18.0.0 || ^19.0.0
+    react-dom: ^17.0.0 || ^18.0.0 || ^19.0.0
+  peerDependenciesMeta:
+    react-dom:
+      optional: true
+  checksum: 10c0/2aee5103fb460c6e5a3ab5a4fdc8c69a5215e23699a12d7857f25ba765fed48eacbed94ca835d79edf00c0edcc9c4fbb5bb057a373402d0551718546810e0e48
   languageName: node
   linkType: hard
 
