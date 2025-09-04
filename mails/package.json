@@ -29,7 +29,7 @@
     "lodash": "^4.17.15",
     "mjml": "^4.13.0",
     "mjml-core": "^4.13.0",
-    "nodemailer": "^6.9.1",
+    "nodemailer": "^7.0.6",
     "nodemailer-mailgun-transport": "^2.1.5",
     "tlds": "^1.253.0"
   },
