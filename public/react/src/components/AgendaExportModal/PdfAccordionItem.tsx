@@ -4,7 +4,7 @@ import geoMessages from '@openagenda/common-labels/geo';
 import { Button, Flex, Box } from '@openagenda/uikit';
 import { Checkbox } from '@openagenda/uikit/snippets';
 import { SortableSelect } from '@openagenda/react-shared';
-import AccordionItem from 'components/AccordionItem';
+import AccordionItem from '../AccordionItem';
 import messages from './messages';
 
 export default function PdfAccordionItem({

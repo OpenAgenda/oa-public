@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl';
 import { Button, chakra } from '@openagenda/uikit';
-import AccordionItem from 'components/AccordionItem';
+import AccordionItem from '../AccordionItem';
 import messages from './messages';
 
 export default function IcsAccordionItem({ handleSubmit }) {
