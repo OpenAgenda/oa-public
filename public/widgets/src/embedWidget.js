@@ -159,6 +159,10 @@ export default class EmbedLoader {
       url.searchParams.set('contributionButton', dataset.contributionButton);
     }
 
+    if (dataset.itemMinWidth) {
+      url.searchParams.set('itemMinWidth', dataset.itemMinWidth);
+    }
+
     if (dataset.logo) {
       url.searchParams.set('logo', dataset.logo);
     }
