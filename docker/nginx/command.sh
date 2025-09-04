@@ -9,7 +9,7 @@ if [ "$2" -lt 1 ]; then
 fi
 
 if [ "$3" -lt 1 ]; then
-  rm /etc/nginx/conf.d/mailcatcher.conf
+  rm /etc/nginx/conf.d/mailpit.conf
 fi
 
 if [ "$4" -lt 1 ]; then
