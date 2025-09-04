@@ -66,6 +66,7 @@ export type EmbedParams = {
   displayTotal?: boolean;
   exportModal?: boolean;
   contributionButton?: boolean;
+  itemMinWidth?: `${number}px`;
   logo?: LogoParam;
 };
 
@@ -140,6 +141,38 @@ function parseMapSize(value: string): MapSizeParam | null {
   }
 }
 
+function parseAndValidateItemMinWidth(value: string): `${number}px` | null {
+  if (typeof value !== 'string') return null;
+
+  const s = value.trim();
+
+  // Must be <number>px, without space between the number and 'px'
+  const m = /^([+-]?(?:\d+\.?\d*|\.\d+))px$/i.exec(s);
+  if (!m) return null;
+
+  let n = Number(m[1]);
+  if (!Number.isFinite(n)) return null;
+
+  // cannot be negative
+  if (n < 0) return null;
+
+  // Normalize -0 -> 0
+  if (Object.is(n, -0)) n = 0;
+
+  // Normalize textual representation without exponential or unnecessary zeros
+  let numStr = m[1].replace(/^\+/, '');
+  if (n === 0) {
+    numStr = '0';
+  } else {
+    if (numStr.startsWith('.')) numStr = '0' + numStr; // ".5" -> "0.5"
+    numStr = numStr.replace(/^0+(?=\d)/, ''); // "00012.340" -> "12.340"
+    numStr = numStr.replace(/(\.\d*?[1-9])0+$/, '$1'); // "12.3400" -> "12.34"
+    numStr = numStr.replace(/\.$/, ''); // "12." -> "12"
+  }
+
+  return `${numStr}px` as `${number}px`;
+}
+
 export function validateSort(value: string): SortParam | null {
   if (sortValues.includes(value as SortParam)) {
     return value as SortParam;
@@ -175,6 +208,7 @@ const parsers = {
   displayTotal: parseAndValidateBoolean,
   exportModal: parseAndValidateBoolean,
   contributionButton: parseAndValidateBoolean,
+  itemMinWidth: parseAndValidateItemMinWidth,
   logo: parseAndValidateLogo,
 };
 

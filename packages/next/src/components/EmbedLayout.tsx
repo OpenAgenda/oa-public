@@ -174,7 +174,7 @@ export default function EmbedLayout({
       prefilter,
       query,
       referrer,
-      theme._config,
+      themeConfig,
       embedParams,
     ],
   );
