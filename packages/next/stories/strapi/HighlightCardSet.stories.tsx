@@ -76,19 +76,23 @@ export function WithBackground() {
       title={highlightCardSetData.title}
       description="Découvrez nos principales fonctionnalités et avantages"
       Cards={highlightCardSetData.Cards}
-      backgroundColor={{ name: 'sandBeige' }}
-      componentBackgroundColor={{ name: 'white' }}
+      background={{ name: 'charcoal' }}
+      fontColor={{ name: 'white' }}
     />
   );
 }
 
-export function WithComponentBackground() {
+export function WithGradientBackground() {
   return (
     <HighlightCardSet
       title={highlightCardSetData.title}
       description="Découvrez nos principales fonctionnalités et avantages"
       Cards={highlightCardSetData.Cards}
-      componentBackgroundColor={{ name: 'paleLavender' }}
+      background={{
+        name: 'myFirstGradient',
+        css: 'linear-gradient(to right bottom, frenchBlue, 80%, moonStone)',
+      }}
+      fontColor={{ name: 'white' }}
     />
   );
 }
