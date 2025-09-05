@@ -8,6 +8,7 @@ interface SplitHeroProps {
   image?: any;
   text?: string;
   imagePosition?: string;
+  fontColor?: any;
   CTAs?: any[];
   TitleComponent?: React.ComponentType<any>;
 }

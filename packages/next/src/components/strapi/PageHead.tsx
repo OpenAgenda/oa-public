@@ -19,17 +19,11 @@ const PageHeadContent = ({
   description,
   CTAs,
   centered,
-  titleColor,
-  descriptionColor,
+  fontColor,
   fontSize,
 }: { centered?: boolean } & Pick<
   PageHeadProps,
-  | 'title'
-  | 'description'
-  | 'CTAs'
-  | 'titleColor'
-  | 'descriptionColor'
-  | 'fontSize'
+  'title' | 'description' | 'CTAs' | 'fontColor' | 'fontSize'
 >) => (
   <Stack
     gap={0}
@@ -39,13 +33,13 @@ const PageHeadContent = ({
     <Heading
       as="h1"
       size={(fontSize?.name || '5xl') as HeadingProps['size']}
-      color={[color(titleColor), 'solid'].join('.')}
+      color={[color(fontColor), 'solid'].join('.')}
       fontWeight={600}
     >
       {title}
     </Heading>
     <StrapiMarkdown
-      color={[color(descriptionColor) || 'gray.600', 'solid'].join('.')}
+      color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
       mt={7}
     >
       {description}
@@ -62,8 +56,8 @@ import type { Color } from './types';
 
 interface PageHeadProps {
   colorVariant?: string;
-  titleColor?: Color;
-  descriptionColor?: Color;
+  background?: any;
+  fontColor?: Color;
   title: string;
   description: string;
   fontSize?: Color;
@@ -82,9 +76,8 @@ export default function PageHead({
   CTAs,
   video,
   image,
-  colorVariant,
-  titleColor,
-  descriptionColor,
+  fontColor,
+  background,
 }: PageHeadProps) {
   const hasTwoColumns = Boolean(image || video);
 
@@ -95,7 +88,7 @@ export default function PageHead({
       : '1fr';
 
   return (
-    <SegmentContainer fontColor={titleColor} colorVariant={colorVariant}>
+    <SegmentContainer fontColor={fontColor} background={background}>
       <Grid
         templateColumns={templateColumns}
         gap={8}
@@ -109,8 +102,7 @@ export default function PageHead({
             description={description}
             CTAs={CTAs}
             centered={hasTwoColumns}
-            titleColor={titleColor}
-            descriptionColor={descriptionColor}
+            fontColor={fontColor}
           />
         </GridItem>
         {video ? (

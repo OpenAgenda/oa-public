@@ -69,9 +69,10 @@ export function Overview() {
 
 export function ImageLeftWithBulletPointsAndNumbers() {
   return (
-    <Container maxWidth="5xl">
+    <Container maxWidth="5xl" background="{colors.strapi.frenchBlue.500}">
       <SplitHero
         title="Complete Event Management Solution"
+        fontColor={{ name: 'azure' }}
         image={{
           url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
           alternativeText: 'Professional event planning workspace',

@@ -63,25 +63,15 @@
         }
       }
     },
-    "themeColor": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::theme-color.theme-color"
-    },
-    "navFontColor": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::theme-color.theme-color"
-    },
-    "BackgroundGradient": {
-      "type": "component",
-      "repeatable": false,
-      "component": "components.background-gradient"
-    },
     "logoVariant": {
       "type": "enumeration",
       "enum": ["regular", "white"],
       "default": "regular"
+    },
+    "navFontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
     }
   }
 }

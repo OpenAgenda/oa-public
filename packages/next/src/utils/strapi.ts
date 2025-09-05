@@ -31,9 +31,57 @@ export function color(c: string | Color, swatch?: any): string {
   if (!c) {
     return;
   }
-  const colorName = typeof c === 'string' ? c : c.name;
+  let colorName = typeof c === 'string' ? c : c.name;
+
+  if (colorName === 'white') {
+    colorName = 'oaWhite';
+  }
 
   return `${system.tokens.colorPaletteMap.has(colorName) ? colorName : `strapi.${colorName}`}${swatch ? `.${swatch}` : ''}`;
+}
+
+function mapStrapiColorsFromCSSRule(css) {
+  const start = css.indexOf('(');
+  const end = css.indexOf(')');
+
+  if (start === -1) {
+    return css;
+  }
+
+  return [
+    css.substr(0, start + 1),
+    css
+      .substr(start + 1, end - start - 1)
+      .split(',')
+      .map((c) => c.trim())
+      .map((c) =>
+        system.tokens.colorPaletteMap.has(`strapi.${c}`)
+          ? `{colors.${color(c, 500)}}`
+          : c,
+      )
+      .join(','),
+    css.substr(end),
+  ].join('');
+}
+
+export function getBackgroundImage(background) {
+  if (!background) {
+    return null;
+  }
+
+  const css = background.css
+    ? mapStrapiColorsFromCSSRule(background.css)
+    : null;
+
+  if (css) {
+    return css;
+  }
+
+  if (background.name) {
+    return `linear-gradient({colors.${color(background.name, 500)}})`;
+  }
+
+  return null;
 }
 
 export async function fetchPageData({

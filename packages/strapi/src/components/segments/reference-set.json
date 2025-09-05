@@ -29,6 +29,16 @@
     "smallImages": {
       "type": "boolean",
       "default": true
+    },
+    "background": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::background.background"
+    },
+    "fontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
     }
   }
 }

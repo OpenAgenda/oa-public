@@ -8,7 +8,8 @@ interface SplitHeroSegmentProps {
   text?: string;
   imagePosition?: string;
   CTAs?: any;
-  backgroundColor?: any;
+  background?: any;
+  fontColor?: any;
 }
 
 export default function SplitHeroSegment({
@@ -17,10 +18,11 @@ export default function SplitHeroSegment({
   text,
   imagePosition,
   CTAs,
-  backgroundColor,
+  background,
+  fontColor,
 }: SplitHeroSegmentProps) {
   return (
-    <SegmentContainer backgroundColor={backgroundColor}>
+    <SegmentContainer background={background} fontColor={fontColor}>
       <SplitHero
         title={title}
         image={image}

@@ -74,11 +74,46 @@ export function WithFixtureData() {
   );
 }
 
-export function WithSubtleBackground() {
+export function WithBackground() {
   return (
     <TabSet
       title={tabSetFixture.title}
-      backgroundColor={{ name: 'rosyRed' }}
+      background={{
+        name: 'frenchBlue',
+      }}
+      fontColor={{
+        name: 'oaWhite',
+      }}
+      description={tabSetFixture.description}
+      Tabs={tabSetFixture.Tabs.map((tab) => ({
+        id: tab.id,
+        title: tab.title,
+        content: {
+          id: tab.content.id,
+          title: tab.content.title,
+          text: tab.content.text,
+          imagePosition: tab.content.imagePosition,
+          image: {
+            url: '/phteven.jpg',
+            alternativeText: tab.content.image.alternativeText,
+          },
+        },
+      }))}
+    />
+  );
+}
+
+export function WithBackgroundGradient() {
+  return (
+    <TabSet
+      title={tabSetFixture.title}
+      background={{
+        name: 'myFirstGradient',
+        css: 'linear-gradient(to right bottom, frenchBlue, 80%, moonStone)',
+      }}
+      fontColor={{
+        name: 'oaWhite',
+      }}
       description={tabSetFixture.description}
       Tabs={tabSetFixture.Tabs.map((tab) => ({
         id: tab.id,
