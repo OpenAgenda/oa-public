@@ -58,5 +58,6 @@
   "next.components.Strapi.videoPlayer.textBackground": "",
   "next.components.Strapi.videoPlayer.track": "",
   "next.components.Strapi.videoPlayer.unmute": "",
-  "next.components.Strapi.videoPlayer.volume": ""
+  "next.components.Strapi.videoPlayer.volume": "",
+  "next.components.Strapi.ReferenceItem.more": ""
 }

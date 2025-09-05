@@ -17,7 +17,13 @@ const pickContextIdentifiers = require('./lib/pickAndCleanContextIdentifiers');
 const log = logs('list');
 
 async function list(service, query = {}, nav = {}, options = {}) {
-  log('received %j %j %j', query, nav, options);
+  const inflatedQuery = Object.keys(query || {}).length
+    ? Object.keys(query).reduce(
+      (inflated, key) => _.set(inflated, key.split('.'), query[key]),
+      {},
+    )
+    : null;
+  log('received %j %j %j', inflatedQuery, nav, options);
   const k = service.clients.knex(service.config.schema);
   const cleanListOptions = validateListOptions(options);
   const {
@@ -31,7 +37,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
   const cleanNav = validateNav(nav);
 
   await addListQuery(service, k, deleted, {
-    ...query,
+    ...inflatedQuery,
     ...pickContextIdentifiers(endpointId, ['agendaUid', 'setUid']),
   });
 

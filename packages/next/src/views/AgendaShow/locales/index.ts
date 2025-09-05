@@ -9,12 +9,11 @@ import fetchLocale3 from 'components/Navbar/locales';
 import fetchLocale4 from 'components/NavbarSearchInput/locales';
 import fetchLocale5 from 'components/OfficialAgenda/locales';
 import fetchLocale6 from 'components/locales';
-import fetchLocale7 from 'components/strapi/locales';
-import fetchLocale8 from 'views/AgendaShow/components/AggregateModal/locales';
-import fetchLocale9 from 'views/AgendaShow/components/ContextBar/locales';
-import fetchLocale10 from 'views/AgendaShow/components/locales';
-import fetchLocale11 from 'views/EventShow/components/locales';
-import fetchLocale12 from 'views/EventShow/locales';
+import fetchLocale7 from 'views/AgendaShow/components/AggregateModal/locales';
+import fetchLocale8 from 'views/AgendaShow/components/ContextBar/locales';
+import fetchLocale9 from 'views/AgendaShow/components/locales';
+import fetchLocale10 from 'views/EventShow/components/locales';
+import fetchLocale11 from 'views/EventShow/locales';
 
 export default async function fetchLocale(locale) {
   return Promise.all([
@@ -31,7 +30,6 @@ export default async function fetchLocale(locale) {
     fetchLocale9(locale),
     fetchLocale10(locale),
     fetchLocale11(locale),
-    fetchLocale12(locale),
   ])
     .then((results) => Object.assign({}, ...results))
     .catch((e) => {

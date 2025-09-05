@@ -1,5 +1,5 @@
-import { VStack, Wrap, WrapItem } from '@openagenda/uikit';
-import { Tag } from '@openagenda/uikit/snippets';
+import { VStack, Wrap, WrapItem, Badge } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
 
 type ReferenceFilterProps = {
   allTags: string[];
@@ -26,24 +26,18 @@ export default function ReferenceFilter({
           const tagColor = tagColorMap[tag];
           return (
             <WrapItem key={tag}>
-              <Tag
+              <Badge
                 as="button"
+                fontWeight={700}
                 variant={isSelected ? 'solid' : 'outline'}
-                border="1px solid"
-                borderColor={isSelected ? `${tagColor}.600` : `${tagColor}.600`}
-                borderRadius={2}
+                borderRadius={20}
                 size="lg"
-                colorPalette={isSelected ? tagColor : 'gray'}
+                colorPalette={color(tagColor)}
                 cursor="pointer"
                 onClick={() => onToggleTag(tag)}
-                _hover={{
-                  borderColor: `${tagColor}.600`,
-                  bg: isSelected ? `${tagColor}.600` : `${tagColor}.50`,
-                }}
-                transition="all 0.2s"
               >
                 {tag}
-              </Tag>
+              </Badge>
             </WrapItem>
           );
         })}

@@ -260,6 +260,23 @@ describe('agenda-locations - functional - list', () => {
       const gte = new Date('2019-09-05 14:45:18');
 
       const agendas = await svc(7196947).list(
+        { 'updatedAt.gte': gte },
+        {},
+        {
+          detailed: true,
+        },
+      );
+
+      expect(agendas.length).toBeGreaterThan(0);
+      agendas.forEach((agenda) => {
+        expect(agenda.updatedAt >= gte).toBe(true);
+      });
+    });
+
+    it('"updatedAt.gte" filter - legacy', async () => {
+      const gte = new Date('2019-09-05 14:45:18');
+
+      const agendas = await svc(7196947).list(
         { updatedAt: { gte } },
         {},
         {
