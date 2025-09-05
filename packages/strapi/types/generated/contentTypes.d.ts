@@ -373,6 +373,60 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBackgroundBackground extends Struct.CollectionTypeSchema {
+  collectionName: 'backgrounds';
+  info: {
+    displayName: 'Background';
+    pluralName: 'backgrounds';
+    singularName: 'background';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    css: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::background.background'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiColorColor extends Struct.CollectionTypeSchema {
+  collectionName: 'colors';
+  info: {
+    displayName: 'Color';
+    pluralName: 'colors';
+    singularName: 'color';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<'oneToMany', 'api::color.color'> &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String & Schema.Attribute.Required;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiFooterFooter extends Struct.SingleTypeSchema {
   collectionName: 'footers';
   info: {
@@ -401,10 +455,6 @@ export interface ApiFooterFooter extends Struct.SingleTypeSchema {
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
-    fontColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
     locale: Schema.Attribute.String;
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::footer.footer'>;
     publishedAt: Schema.Attribute.DateTime;
@@ -431,10 +481,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     };
   };
   attributes: {
-    BackgroundGradient: Schema.Attribute.Component<
-      'components.background-gradient',
-      false
-    >;
     createdAt: Schema.Attribute.DateTime;
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -454,10 +500,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::page.page'>;
     logoVariant: Schema.Attribute.Enumeration<['regular', 'white']> &
       Schema.Attribute.DefaultTo<'regular'>;
-    navFontColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
+    navFontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     publishedAt: Schema.Attribute.DateTime;
     Segments: Schema.Attribute.DynamicZone<
       [
@@ -479,10 +522,6 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
           localized: true;
         };
       }>;
-    themeColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
     title: Schema.Attribute.String &
       Schema.Attribute.SetPluginOptions<{
         i18n: {
@@ -513,35 +552,6 @@ export interface ApiSizeSize extends Struct.CollectionTypeSchema {
     localizations: Schema.Attribute.Relation<'oneToMany', 'api::size.size'> &
       Schema.Attribute.Private;
     name: Schema.Attribute.String & Schema.Attribute.Required;
-    publishedAt: Schema.Attribute.DateTime;
-    updatedAt: Schema.Attribute.DateTime;
-    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-  };
-}
-
-export interface ApiThemeColorThemeColor extends Struct.CollectionTypeSchema {
-  collectionName: 'theme_colors';
-  info: {
-    description: '';
-    displayName: 'ThemeColor';
-    pluralName: 'theme-colors';
-    singularName: 'theme-color';
-  };
-  options: {
-    draftAndPublish: true;
-  };
-  attributes: {
-    createdAt: Schema.Attribute.DateTime;
-    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
-      Schema.Attribute.Private;
-    locale: Schema.Attribute.String & Schema.Attribute.Private;
-    localizations: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::theme-color.theme-color'
-    > &
-      Schema.Attribute.Private;
-    name: Schema.Attribute.String;
     publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
@@ -1058,10 +1068,11 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::background.background': ApiBackgroundBackground;
+      'api::color.color': ApiColorColor;
       'api::footer.footer': ApiFooterFooter;
       'api::page.page': ApiPagePage;
       'api::size.size': ApiSizeSize;
-      'api::theme-color.theme-color': ApiThemeColorThemeColor;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

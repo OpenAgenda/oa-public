@@ -1,22 +1,5 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
-export interface ComponentsBackgroundGradient extends Struct.ComponentSchema {
-  collectionName: 'components_components_background_gradients';
-  info: {
-    displayName: 'BackgroundGradient';
-  };
-  attributes: {
-    Colors: Schema.Attribute.Relation<
-      'oneToMany',
-      'api::theme-color.theme-color'
-    >;
-    direction: Schema.Attribute.Enumeration<
-      ['to right', 'to bottom', 'to right bottom']
-    > &
-      Schema.Attribute.DefaultTo<'to right bottom'>;
-  };
-}
-
 export interface ComponentsCtaButton extends Struct.ComponentSchema {
   collectionName: 'components_components_cta_buttons';
   info: {
@@ -24,10 +7,6 @@ export interface ComponentsCtaButton extends Struct.ComponentSchema {
     displayName: 'CTAButton';
   };
   attributes: {
-    colorPalette: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
     label: Schema.Attribute.String;
     link: Schema.Attribute.String & Schema.Attribute.Required;
     variant: Schema.Attribute.Enumeration<
@@ -70,10 +49,6 @@ export interface ComponentsIcon extends Struct.ComponentSchema {
     displayName: 'Icon';
   };
   attributes: {
-    color: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
     name: Schema.Attribute.Enumeration<
       [
         'calendar',
@@ -153,7 +128,12 @@ export interface ComponentsSplitHero extends Struct.ComponentSchema {
     displayName: 'SplitHero';
   };
   attributes: {
+    background: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::background.background'
+    >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
+    fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
     imagePosition: Schema.Attribute.Enumeration<['left', 'right']> &
       Schema.Attribute.DefaultTo<'left'>;
@@ -182,11 +162,16 @@ export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
     icon: 'apps';
   };
   attributes: {
+    background: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::background.background'
+    >;
     Cards: Schema.Attribute.Component<'components.highlight-card', true>;
     cardSize: Schema.Attribute.Enumeration<['medium', 'large']> &
       Schema.Attribute.DefaultTo<'medium'>;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
+    fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     title: Schema.Attribute.String;
   };
 }
@@ -198,19 +183,16 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
     displayName: 'PageHead';
   };
   attributes: {
+    background: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::background.background'
+    >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.RichText;
-    descriptionColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
+    fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     image: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String & Schema.Attribute.Required;
-    titleColor: Schema.Attribute.Relation<
-      'oneToOne',
-      'api::theme-color.theme-color'
-    >;
     video: Schema.Attribute.Enumeration<['presentation']>;
   };
 }
@@ -222,8 +204,13 @@ export interface SegmentsReferenceSet extends Struct.ComponentSchema {
     displayName: 'ReferenceSet';
   };
   attributes: {
+    background: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::background.background'
+    >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
+    fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     hasFilter: Schema.Attribute.Boolean;
     References: Schema.Attribute.Component<'components.reference', true>;
     smallImages: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
@@ -238,8 +225,13 @@ export interface SegmentsTabSet extends Struct.ComponentSchema {
     displayName: 'TabSet';
   };
   attributes: {
+    background: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::background.background'
+    >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
+    fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     Tabs: Schema.Attribute.Component<'components.tab', true>;
     title: Schema.Attribute.String;
   };
@@ -248,7 +240,6 @@ export interface SegmentsTabSet extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
-      'components.background-gradient': ComponentsBackgroundGradient;
       'components.cta-button': ComponentsCtaButton;
       'components.footer-column': ComponentsFooterColumn;
       'components.highlight-card': ComponentsHighlightCard;

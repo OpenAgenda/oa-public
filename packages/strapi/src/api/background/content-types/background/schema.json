@@ -1,0 +1,21 @@
+{
+  "kind": "collectionType",
+  "collectionName": "backgrounds",
+  "info": {
+    "singularName": "background",
+    "pluralName": "backgrounds",
+    "displayName": "Background"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "css": {
+      "type": "string"
+    }
+  }
+}

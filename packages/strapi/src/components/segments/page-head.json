@@ -14,16 +14,6 @@
       "type": "enumeration",
       "enum": ["presentation"]
     },
-    "titleColor": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::theme-color.theme-color"
-    },
-    "descriptionColor": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::theme-color.theme-color"
-    },
     "fontSize": {
       "type": "relation",
       "relation": "oneToOne",
@@ -42,6 +32,16 @@
       "multiple": false,
       "required": false,
       "allowedTypes": ["images"]
+    },
+    "background": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::background.background"
+    },
+    "fontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
     }
   }
 }
