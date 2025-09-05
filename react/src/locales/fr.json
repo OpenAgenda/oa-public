@@ -14,5 +14,20 @@
   "react.components.AgendaExportModal.instructions": "Instructions",
   "react.components.AgendaExportModal.login": "Connectez-vous pour accéder au lien d'export directement depuis ce menu",
   "react.components.AgendaExportModal.selectAll": "Tout sélectionner",
-  "react.components.AgendaExportModal.title": "Exporter"
+  "react.components.AgendaExportModal.title": "Exporter",
+  "react.components.EventShareModal.copied": "Copié",
+  "react.components.EventShareModal.copy": "Copier",
+  "react.components.EventShareModal.import": "Importer",
+  "react.components.EventShareModal.mustSignIn": "Vous devez vous connecter pour partager cet événement dans un autre agenda",
+  "react.components.EventShareModal.onOA": "Sur OpenAgenda",
+  "react.components.EventShareModal.online": "En ligne",
+  "react.components.EventShareModal.selectTiming": "Sélectionner un horaire",
+  "react.components.EventShareModal.send": "Envoyer",
+  "react.components.EventShareModal.shareByEmailPlaceholder": "Saisissez les adresses e-mail auxquelles vous souhaitez envoyer l'événement",
+  "react.components.EventShareModal.shareCalendar": "Importer dans un calendrier personnel",
+  "react.components.EventShareModal.shareLink": "Partager le lien",
+  "react.components.EventShareModal.signIn": "Se connecter",
+  "react.components.LockIcon.privateAgenda": "Agenda privé",
+  "react.components.OfficialAgenda.officialAgenda": "Agenda officiel",
+  "react.components.SearchInput.ariaLabel": "Rechercher"
 }
