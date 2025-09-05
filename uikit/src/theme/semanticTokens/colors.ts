@@ -411,7 +411,7 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       fg: {
         value: {
-          _light: '{colors.strapi.azure.500}',
+          _light: '{colors.strapi.azure.800}',
           _dark: '{colors.strapi.azure.100}',
         },
       },
@@ -1706,7 +1706,7 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       solid: {
         value: {
-          _light: '{colors.strapi.spotAliceBlue.500}',
+          _light: '{colors.strapi.spotAliceBlue.800}',
           _dark: '{colors.strapi.spotAliceBlue.500}',
         },
       },
@@ -2157,7 +2157,7 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       solid: {
         value: {
-          _light: '{colors.strapi.discreetAliceBlue.500}',
+          _light: '{colors.strapi.discreetAliceBlue.800}',
           _dark: '{colors.strapi.discreetAliceBlue.500}',
         },
       },
