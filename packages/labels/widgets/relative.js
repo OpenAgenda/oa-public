@@ -15,7 +15,7 @@ module.exports = {
   "yesterday": {
     "en": "Yesterday",
     "fr": "hier",
-    "es": "ayer",
+    "es": "Ayer",
     "br": "dec'h",
     "it": "ieri",
     "de": "gestern",

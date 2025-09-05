@@ -5,7 +5,8 @@ module.exports = {
     "en": "{user} passed {event} from \"{before}\" to \"{after}\" on {agenda}.",
     "fr": "{user} a passé {event} de \"{before}\" à \"{after}\" sur {agenda}.",
     "io": "crwdns11154:0{user}crwdnd11154:0{event}crwdnd11154:0{before}crwdnd11154:0{after}crwdnd11154:0{agenda}crwdne11154:0",
-    "oc": "{user} a passat {event} de \"{before}\" a \"{after}\" sus {agenda}."
+    "oc": "{user} a passat {event} de \"{before}\" a \"{after}\" sus {agenda}.",
+    "es": "{user} pasó {event} de \"{before}\" a \"{after}\" en {agenda}."
   },
   "agenda.publishEvent": {
     "en": "{user} published {event} on {agenda}.",
@@ -29,7 +30,8 @@ module.exports = {
     "en": "{event} has been automatically unpublished on {agenda} for moderation",
     "fr": "{event} a été dépublié automatiquement sur {agenda} pour nouveau contrôle",
     "io": "crwdns16408:0{event}crwdnd16408:0{agenda}crwdne16408:0",
-    "oc": "{event} es estat automaticament despublicat de {agenda} per moderacion"
+    "oc": "{event} es estat automaticament despublicat de {agenda} per moderacion",
+    "es": "{event} ha sido despublicado automáticamente en {agenda} para moderación"
   },
   "agenda.removeEvent": {
     "en": "{user} removed {event} from {agenda}.",
@@ -54,7 +56,8 @@ module.exports = {
     "fr": "{user} a ajouté {event} à partir de {sourceAgenda}.",
     "it": "{user} ha aggiunto {event} da {sourceAgenda}.",
     "io": "crwdns11164:0{user}crwdnd11164:0{event}crwdnd11164:0{sourceAgenda}crwdne11164:0",
-    "oc": "{user} a apondut {event} a partir de {sourceAgenda}."
+    "oc": "{user} a apondut {event} a partir de {sourceAgenda}.",
+    "es": "{user} agregó {event} desde {sourceAgenda}."
   },
   "event.create": {
     "en": "{user} created {event} in the agenda {agenda}.",
@@ -79,21 +82,24 @@ module.exports = {
     "fr": "{user} a mis à jour le champ {fields} de {event} sur {agenda}.",
     "it": "{user} ha aggiornato il campo {fields} de {event} su {agenda}.",
     "io": "crwdns11170:0{user}crwdnd11170:0{fields}crwdnd11170:0{event}crwdnd11170:0{agenda}crwdne11170:0",
-    "oc": "{user} a metut a jorn lo camp {fields} de {event} sus {agenda}."
+    "oc": "{user} a metut a jorn lo camp {fields} de {event} sus {agenda}.",
+    "es": "{user} actualizó el campo {fields} de {event} en {agenda}."
   },
   "event.updateWithSomeChanges": {
     "en": "{user} updated {event} on {agenda}: {fields} have been changed.",
     "fr": "{user} a mis à jour {event} sur {agenda} : {fields} ont été modifiés.",
     "it": "{user} ha aggiornato {event} su {agenda}: {fields} sono stati modificati.",
     "io": "crwdns11172:0{user}crwdnd11172:0{event}crwdnd11172:0{agenda}crwdnd11172:0{fields}crwdne11172:0",
-    "oc": "{user} a metut a jorn {event} sus {agenda} : {fields} son estats cambiats."
+    "oc": "{user} a metut a jorn {event} sus {agenda} : {fields} son estats cambiats.",
+    "es": "{user} actualizó {event} en {agenda}: {fields} han sido editados."
   },
   "event.updateWithLotOfChanges": {
     "en": "{user} updated {event} on {agenda} ({fieldsCount} fields).",
     "fr": "{user} a mis à jour {event} sur {agenda} ({fieldsCount} champs).",
     "it": "{user} ha aggiornato {event} su {agenda} ({fieldsCount} champs).",
     "io": "crwdns11174:0{user}crwdnd11174:0{event}crwdnd11174:0{agenda}crwdnd11174:0{fieldsCount}crwdne11174:0",
-    "oc": "{user} a metut a jorn {event} sus {agenda} ({fieldsCount} camps)."
+    "oc": "{user} a metut a jorn {event} sus {agenda} ({fieldsCount} camps).",
+    "es": "{user} actualizó {event} en {agenda} ({fieldsCount} campos)."
   },
   "event.delete": {
     "en": "{user} deleted {event} on {agenda}.",
@@ -109,6 +115,7 @@ module.exports = {
     "fr": "Libellé d'activité manquant pour {verb}",
     "it": "Etichetta di attività mancante per {verb}",
     "io": "crwdns11178:0{verb}crwdne11178:0",
-    "oc": "Etiqueta d'activitat de manca per {verb}"
+    "oc": "Etiqueta d'activitat de manca per {verb}",
+    "es": "Etiqueta de actividad faltante para {verb}"
   }
 }

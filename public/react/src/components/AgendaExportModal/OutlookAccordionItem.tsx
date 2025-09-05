@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl';
 import { Flex, H4, Input, Link, List } from '@openagenda/uikit';
-import AccordionItem from 'components/AccordionItem';
+import AccordionItem from '../AccordionItem';
 import messages from './messages';
 
 export default function OutlookAccordionItem({ res }) {

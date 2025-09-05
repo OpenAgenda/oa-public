@@ -1,0 +1,1473 @@
+{
+  "total": 163,
+  "isMember": true,
+  "agendas": [
+    {
+      "locationSetUid": null,
+      "slug": "chatellerault",
+      "uid": 59272362,
+      "official": 1,
+      "title": "Châtellerault",
+      "description": "Bienvenue sur l'agenda événementiel de Châtellerault.\nÀ partir du 21 juillet, vérifiez auprès des organisateurs si le pass sanitaire est obligatoire.",
+      "url": "https://www.ville-chatellerault.fr/agenda/signaler-evenement",
+      "image": "agenda59272362.jpg",
+      "updatedAt": "2022-09-21T14:04:07.000Z",
+      "createdAt": "2018-04-24T07:49:26.000Z",
+      "officializedAt": "2018-09-07T07:50:01.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": "UA-158811880-2"
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 0,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": ["contributor"],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": "Pour déclarer un événement, vous devez utiliser l'un des agendas thématiques correspondant à celui-ci :\n\n*   [loisirs](https://openagenda.com/loisirs-chatellerault)\n*   [sport](https://openagenda.com/sport-grand-chatellerault)\n*   [culture](https://openagenda.com/culture-chatellerault)\n*   [environnement](https://openagenda.com/environnement-grand-chatellerault)\n*   [société](https://openagenda.com/societe-chatellerault)\n*   [tourisme](https://openagenda.com/tourisme-grand-chatellerault)\n*   [économie](https://openagenda.com/economie-grand-chatellerault)\n*   [patrimoine](https://openagenda.com/patrimoine-grand-chatellerault)",
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 121600,
+        "order": 121600,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2018-09-18T12:36:13.000Z",
+        "updatedAt": "2022-09-21T14:04:07.000Z",
+        "custom": {
+          "organization": "test",
+          "contactName": "Kévin Berthommier - OpenAgenda",
+          "contactNumber": "0608915022",
+          "contactPosition": "test",
+          "email": "kevin.bertho@gmail.com"
+        },
+        "actionsCounter": 4,
+        "agendaUid": 59272362,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "test-notif-54948",
+      "uid": 28977937,
+      "official": 0,
+      "title": "Test notif 54948",
+      "description": "Test notif 54948",
+      "url": null,
+      "image": null,
+      "updatedAt": "2022-09-06T11:29:08.000Z",
+      "createdAt": "2022-09-06T07:50:30.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": true
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 420748,
+        "order": 420748,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2022-09-06T07:50:30.000Z",
+        "updatedAt": "2022-09-06T07:50:30.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 0,
+        "agendaUid": 28977937,
+        "userUid": 31046551,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "test-notif",
+      "uid": 51970374,
+      "official": 0,
+      "title": "Test notif",
+      "description": "Test notif",
+      "url": null,
+      "image": null,
+      "updatedAt": "2022-09-05T12:35:24.000Z",
+      "createdAt": "2022-09-05T12:20:45.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": true
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 420745,
+        "order": 420745,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2022-09-05T12:20:45.000Z",
+        "updatedAt": "2022-09-05T12:35:24.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 2,
+        "agendaUid": 51970374,
+        "userUid": 31046551,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "testgreshgtr",
+      "uid": 7221498,
+      "official": 0,
+      "title": "Test",
+      "description": "test",
+      "url": null,
+      "image": null,
+      "updatedAt": "2022-08-09T16:22:17.000Z",
+      "createdAt": "2022-08-09T08:38:07.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": true
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 420740,
+        "order": 420740,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2022-08-09T08:38:07.000Z",
+        "updatedAt": "2022-08-09T16:22:17.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 3,
+        "agendaUid": 7221498,
+        "userUid": 31046551,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "agg-chatellekzopek",
+      "uid": 95106097,
+      "official": 0,
+      "title": "Agg Chatellekzopek",
+      "description": "Agg Chatellekzopek",
+      "url": null,
+      "image": null,
+      "updatedAt": "2022-06-28T13:00:02.000Z",
+      "createdAt": "2022-06-15T14:44:00.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 1,
+      "indexed": 1,
+      "member": {
+        "id": 420724,
+        "order": 420724,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2022-06-15T14:44:00.000Z",
+        "updatedAt": "2022-06-15T14:44:00.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 0,
+        "agendaUid": 95106097,
+        "userUid": 31046551,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "test-evenements-en-ligne",
+      "uid": 39293149,
+      "official": 0,
+      "title": "Test Evénements en ligne",
+      "description": "test",
+      "url": null,
+      "image": "agenda39293149.jpg?__ts=1652705335470",
+      "updatedAt": "2022-05-23T13:06:49.000Z",
+      "createdAt": "2021-03-08T13:45:46.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": true
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 0,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": ["contributor"],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 0,
+      "member": {
+        "id": 264913,
+        "order": 264913,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2021-03-08T13:48:56.000Z",
+        "updatedAt": "2021-03-08T13:48:56.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": "kevin.bertho@gmail.com"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 39293149,
+        "userUid": 31046551,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "test-portail",
+      "uid": 23945241,
+      "official": 0,
+      "title": "Test portail",
+      "description": "Test",
+      "url": null,
+      "image": null,
+      "updatedAt": "2022-05-20T09:30:51.000Z",
+      "createdAt": "2022-05-20T08:29:49.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 420607,
+        "order": 420607,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2022-05-20T08:29:49.000Z",
+        "updatedAt": "2022-05-20T09:30:51.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 1,
+        "agendaUid": 23945241,
+        "userUid": 31046551,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": 89039894,
+      "slug": "kiosq",
+      "uid": 18389211,
+      "official": 1,
+      "title": "KiosQ SQY",
+      "description": "Sortir à Saint-Quentin-en-Yvelines - Agenda du site kiosq.sqy.fr  : cinéma, spectacles, expositions, loisirs, patrimoine, jeune public à SQY.",
+      "url": "http://www.kiosq.sqy.fr/",
+      "image": "agenda18389211.jpg",
+      "updatedAt": "2022-05-20T07:02:03.000Z",
+      "createdAt": "2017-05-31T09:43:24.000Z",
+      "officializedAt": "2019-05-03T00:02:59.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": "UA-409256-32"
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": "CONSIGNES DE SAISIE\n\n1) sélectionner la \"catégorie\" : culture\n\n2) ajouter un ou plusieurs tags facultatifs pour le(s) thèmes",
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 150555,
+        "order": 150555,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-03-29T08:33:33.000Z",
+        "updatedAt": "2022-04-02T03:14:19.000Z",
+        "custom": {
+          "email": "kevin.bertho@gmail.com",
+          "contactName": "Kévin Berthommier - OpenAgenda"
+        },
+        "actionsCounter": 1063,
+        "agendaUid": 18389211,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "loiret-tourinsoft",
+      "uid": 4332300,
+      "official": 0,
+      "title": "Loiret - Tourinsoft",
+      "description": "Agenda de tous les événements en provenance de l'application Tourinsoft",
+      "url": "",
+      "image": "agenda4332300.jpg",
+      "updatedAt": "2022-05-20T03:01:04.000Z",
+      "createdAt": "2018-11-13T11:53:02.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": "UA-109980843-13"
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 0,
+      "member": {
+        "id": 126303,
+        "order": 126303,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2018-11-14T15:58:24.000Z",
+        "updatedAt": "2022-05-20T02:59:29.000Z",
+        "custom": {
+          "email": "kevin.bertho@gmail.com",
+          "contactName": "Kévin Berthommier - OpenAgenda"
+        },
+        "actionsCounter": 5038,
+        "agendaUid": 4332300,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": 66200,
+      "slug": "victoria-hall-client",
+      "uid": 53020999,
+      "official": 1,
+      "title": "Ville de Genève - Victoria Hall - Client",
+      "description": "Agenda du Victoria Hall",
+      "url": "https://www.ville-ge.ch/culture/victoria_hall/",
+      "image": "agenda53020999.jpg",
+      "updatedAt": "2022-05-19T08:57:48.000Z",
+      "createdAt": "2018-11-20T11:52:08.000Z",
+      "officializedAt": "2019-04-29T14:03:59.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 0,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": ["contributor"],
+          "defaultLang": null,
+          "allowLocationCreate": false,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 0,
+      "member": {
+        "id": 127148,
+        "order": 127148,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2018-11-27T18:31:35.000Z",
+        "updatedAt": "2018-12-18T15:05:50.000Z",
+        "custom": {
+          "contactName": "Kévin Berthommier - OpenAgenda",
+          "contactPosition": "dev",
+          "organization": "OpenAgenda",
+          "contactNumber": "0608915022",
+          "email": "kevin.bertho@gmail.com"
+        },
+        "actionsCounter": 1,
+        "agendaUid": 53020999,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "maison-de-larchitecture-des-hauts-de-france",
+      "uid": 78817187,
+      "official": 1,
+      "title": "[Archives] Maison de l'architecture des Hauts de France",
+      "description": "Agenda agrégé par l’Agenda annuel de l'architecture – MCC",
+      "url": "https://www.maisonarchitecture-hdf.fr/",
+      "image": "agenda78817187.jpg?__ts=1649235058315",
+      "updatedAt": "2022-05-18T14:54:54.000Z",
+      "createdAt": "2017-10-24T15:12:58.000Z",
+      "officializedAt": "2022-04-06T12:32:20.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 71220,
+        "order": 71220,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2017-10-24T15:52:41.000Z",
+        "updatedAt": "2017-10-24T15:52:41.000Z",
+        "custom": {},
+        "actionsCounter": 0,
+        "agendaUid": 78817187,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "maison-de-larchitecture-des-hauts-de-france218",
+      "uid": 10746689,
+      "official": 1,
+      "title": "Maison de l'architecture des Hauts de France",
+      "description": "Agenda agrégé par l’Agenda annuel de l'architecture – MCC\n\nhttps://www.maisonarchitecture-hdf.fr/",
+      "url": null,
+      "image": null,
+      "updatedAt": "2022-05-18T14:54:47.000Z",
+      "createdAt": "2022-04-06T13:00:06.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 385015,
+        "order": 385015,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2022-04-06T13:04:08.000Z",
+        "updatedAt": "2022-04-06T13:04:08.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": "kevin.bertho@gmail.com"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 10746689,
+        "userUid": 31046551,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "calendrier-annuel-de-l-architecture-mcc",
+      "uid": 90014930,
+      "official": 1,
+      "title": "Agenda annuel de l'architecture - Ministère de la Culture",
+      "description": "Vue d'ensemble des événements organisés autour de l'architecture, pendant toute l'année, à l'initiative des acteurs publics et privés.",
+      "url": "http://www.culture.gouv.fr/Thematiques/Architecture",
+      "image": "review_calendrier-annuel-de-l-architecture-mcc_01.jpg",
+      "updatedAt": "2022-05-18T14:54:46.000Z",
+      "createdAt": "2016-09-22T09:20:02.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": "Bonjour à tous,\n\nNous vous invitons à saisir vos événements directement sur l'agenda de votre structure.\n\nTous vos événements seront ainsi automatiquement repris sur l'agenda annuel de l'architecture.\n\nAvec une seule saisie, vous pouvez ainsi éditer votre agenda, qui est exportable sur votre site, l'agenda annuel de l'architecture et tous les réutilisateurs de la base OpenAgenda.\n\nBonne saisie... sur votre agenda !",
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 108548,
+        "order": 108548,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2018-05-02T09:26:51.000Z",
+        "updatedAt": "2018-05-02T09:26:51.000Z",
+        "custom": {
+          "email": "kevin.bertho@gmail.com",
+          "contactName": "Kévin Berthommier - OpenAgenda"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 90014930,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "maison-de-larchitecture-et-de-la-ville-paca",
+      "uid": 80526849,
+      "official": 1,
+      "title": "Maison de l'architecture et de la ville PACA",
+      "description": "Agenda aggrégé par l’Agenda annuel de l'architecture – MCC",
+      "url": "http://www.mavpaca.fr",
+      "image": "agenda80526849.jpg?__ts=1602167342507",
+      "updatedAt": "2022-05-18T13:19:57.000Z",
+      "createdAt": "2017-10-24T15:12:59.000Z",
+      "officializedAt": "2020-10-05T10:56:57.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 71222,
+        "order": 71222,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2017-10-24T15:52:41.000Z",
+        "updatedAt": "2017-10-24T15:52:41.000Z",
+        "custom": {},
+        "actionsCounter": 0,
+        "agendaUid": 80526849,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "conges-oa",
+      "uid": 50631376,
+      "official": 0,
+      "title": "Congés/absences OA",
+      "description": "DogFooding : tenons nos congés/absences/autres sur cet agenda privé.",
+      "url": null,
+      "image": "agenda50631376.jpg",
+      "updatedAt": "2022-05-17T17:13:29.000Z",
+      "createdAt": "2017-10-16T16:56:36.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 1,
+      "indexed": 1,
+      "member": {
+        "id": 70912,
+        "order": 70912,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2017-10-20T16:28:33.000Z",
+        "updatedAt": "2022-05-12T12:36:32.000Z",
+        "custom": {
+          "email": "kevin.bertho@gmail.com",
+          "contactName": "Kévin Berthommier - OpenAgenda"
+        },
+        "actionsCounter": 41,
+        "agendaUid": 50631376,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "maison-de-larchitecture-de-champagne-ardenne",
+      "uid": 67540020,
+      "official": 0,
+      "title": "La Maison de l’Architecture de Champagne-Ardenne",
+      "description": "Agenda aggrégé par l’Agenda annuel de l'architecture – MCC",
+      "url": "https://ma-ca.org/",
+      "image": "agenda67540020.jpg?__ts=1651359944408",
+      "updatedAt": "2022-05-17T13:39:20.000Z",
+      "createdAt": "2017-10-24T15:12:59.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 71217,
+        "order": 71217,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2017-10-24T15:52:41.000Z",
+        "updatedAt": "2017-10-24T15:52:41.000Z",
+        "custom": {},
+        "actionsCounter": 0,
+        "agendaUid": 67540020,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "ecole-nationale-superieure-darchitecture-de-nancy",
+      "uid": 36657880,
+      "official": 1,
+      "title": "Ecole nationale supérieure d'architecture de Nancy",
+      "description": "Agenda aggrégé par l’Agenda annuel de l'architecture – MCC",
+      "url": null,
+      "image": null,
+      "updatedAt": "2022-05-17T09:22:22.000Z",
+      "createdAt": "2017-10-24T15:12:56.000Z",
+      "officializedAt": "2017-12-08T11:01:52.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 71199,
+        "order": 71199,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2017-10-24T15:52:41.000Z",
+        "updatedAt": "2017-10-24T15:52:41.000Z",
+        "custom": {},
+        "actionsCounter": 0,
+        "agendaUid": 36657880,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "jep-2022-saint-pierre-et-miquelon",
+      "uid": 8541264,
+      "official": 1,
+      "title": "Journées européennes du patrimoine 2022 : Saint-Pierre et Miquelon",
+      "description": "La 39e édition des Journées Européennes du Patrimoine se déroulera les 17 et 18 septembre 2022. Retrouvez les informations et conditions pour participer à l'événement sur notre site Internet",
+      "url": "https://journeesdupatrimoine.culture.gouv.fr",
+      "image": "agenda39293149.jpg?__ts=1652705335470",
+      "updatedAt": "2022-05-17T08:18:42.000Z",
+      "createdAt": "2022-05-17T07:58:57.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 0,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": "Quelques recommandations pour saisir votre événement :\n\n * **Ne regroupez pas toute votre programmation dans une même fiche.** Cette simplification ne rend pas service aux visiteurs. Elle pénalisera vos événements qui ne pourront pas être interrogés par les filtres du moteur de recherche interne.\n * **N'écrivez pas de mots entiers en majuscules.**\n * **Ne donnez pas pour titre à votre événement le nom du lieu ou de la manifestation.**\n * Respectez au mieux les consignes de saisie figurant sur les différents champs du formulaire.\n\nLes événements proposés sur cet agenda seront validés avant publication par la coordination de l'opération.\n\nPour toute question, vous pouvez nous adresser un message via notre [formulaire de contact](https://journeesdupatrimoine.culturecommunication.gouv.fr/Nous-contacter).\n\nPour commander des affiches de la manifestation, veuillez remplir le [formulaire de commande de matériel](https://journeesdupatrimoine.culture.gouv.fr/En-pratique/Espace-organisateurs/Demande-de-materiel).\n\nBonne contribution,\n\nLe Ministère de la Culture\n\n",
+            "complete": "Merci pour votre contribution !\n\nLes événements proposés sur cet agenda seront validés avant publication par la coordination de l'opération. Vous recevrez un message au moment de la publication de votre événement.\n\nPour toute question, vous pouvez nous adresser un message via notre [formulaire de contact](https://journeesdupatrimoine.culturecommunication.gouv.fr/Nous-contacter).\n\nLe ministère de la Culture\n\n",
+            "publication": "Félicitations !\n\nVotre événement vient d'être publié par la coordination des \"Journées européennes du patrimoine 2022\".\nSi vous n'en avez pas déjà fait la demande, pensez à commander les [supports de communication de l'opération](https://journeesdupatrimoine.culture.gouv.fr/En-pratique/Espace-organisateurs/Demande-de-materiel).\n\nPour toute question, vous pouvez nous adresser un message via [notre formulaire de contact](https://journeesdupatrimoine.culturecommunication.gouv.fr/Nous-contacter).\n\nLe ministère de la Culture\n"
+          },
+          "useFields": true,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 0,
+      "member": {
+        "id": 420087,
+        "order": 420087,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2022-05-17T08:09:42.000Z",
+        "updatedAt": "2022-05-17T08:09:42.000Z",
+        "custom": {
+          "contactName": "Kévin Berthommier - OpenAgenda"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 8541264,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "maison-de-larchitecture-de-normandie-le-forum",
+      "uid": 39570386,
+      "official": 1,
+      "title": "Maison de l'architecture de Normandie - le Forum",
+      "description": "Agenda aggrégé par l’Agenda annuel de l'architecture – MCC",
+      "url": "http://man-leforum.fr/maison-de-l-architecture/",
+      "image": "agenda39570386.jpg?__ts=1641826965706",
+      "updatedAt": "2022-05-13T14:38:56.000Z",
+      "createdAt": "2017-10-24T15:12:55.000Z",
+      "officializedAt": "2022-01-10T13:26:55.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 71219,
+        "order": 71219,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2017-10-24T15:52:41.000Z",
+        "updatedAt": "2017-10-24T15:52:41.000Z",
+        "custom": {},
+        "actionsCounter": 0,
+        "agendaUid": 39570386,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "locationSetUid": null,
+      "slug": "maeb",
+      "uid": 48801866,
+      "official": 1,
+      "title": "Maison de l'Architecture et des espaces en Bretagne",
+      "description": "Agenda de la Maison de l'Architecture et des espaces en Bretagne, association de valorisation et de diffusion de la culture architecturale, urbaine et paysagère",
+      "url": "http://www.architecturebretagne.fr",
+      "image": "agenda48801866.jpg",
+      "updatedAt": "2022-05-11T15:28:12.000Z",
+      "createdAt": "2017-10-24T15:12:54.000Z",
+      "officializedAt": "2018-01-09T09:56:05.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "lab": {
+          "status": false
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": ["administrators", "moderators"],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null,
+            "GDPRInformation": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": []
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 71214,
+        "order": 71214,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2017-10-24T15:52:41.000Z",
+        "updatedAt": "2017-10-24T15:52:41.000Z",
+        "custom": {},
+        "actionsCounter": 0,
+        "agendaUid": 48801866,
+        "userUid": 31046551,
+        "slug": "kevin-berthommier-op"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    }
+  ]
+}

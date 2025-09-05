@@ -81,6 +81,27 @@ export default class Conversations {
 
     validate(ajv, listSchema, query);
 
+    const pick = this.userUid
+      ? knex
+        .select(`${schemas.inboxConversation}.conversation_id`)
+        .min({ inbox_id: `${schemas.inboxConversation}.inbox_id` })
+        .from(schemas.inboxConversation)
+        .join(schemas.inboxUser, function () {
+          this.on(
+            `${schemas.inboxUser}.inbox_id`,
+            `${schemas.inboxConversation}.inbox_id`,
+          ).onNull(`${schemas.inboxUser}.left_at`);
+        })
+        .where(`${schemas.inboxUser}.user_uid`, this.userUid)
+        .groupBy(`${schemas.inboxConversation}.conversation_id`)
+        .as('pick')
+      : knex
+        .select(`${schemas.inboxConversation}.conversation_id`)
+        .select({ inbox_id: `${schemas.inboxConversation}.inbox_id` })
+        .from(schemas.inboxConversation)
+        .where(`${schemas.inboxConversation}.inbox_id`, this.inbox.data.id)
+        .as('pick');
+
     const request = knex(schemas.conversation)
       .select()
       .column(
@@ -88,7 +109,7 @@ export default class Conversations {
           .listFields(conversationFieldsMap, 'select', 'db', options, true)
           .map((v) => `${schemas.conversation}.${v}`),
       )
-      .column(`${schemas.inbox}.id as inboxContextId`)
+      .select(knex.raw('?? AS ??', ['pick.inbox_id', 'inboxContextId']))
       .column(
         mapper
           .listFields(
@@ -114,16 +135,8 @@ export default class Conversations {
           .map((v) => `creatorInbox.${v}`),
       )
       .max(`${schemas.message}.id as latestMessageId`)
-      .leftJoin(
-        schemas.inboxConversation,
-        `${schemas.inboxConversation}.conversation_id`,
-        `${schemas.conversation}.id`,
-      )
-      .leftJoin(
-        schemas.inbox,
-        `${schemas.inbox}.id`,
-        `${schemas.inboxConversation}.inbox_id`,
-      )
+      .join(pick, 'pick.conversation_id', `${schemas.conversation}.id`)
+      .join(`${schemas.inbox} as ctxInbox`, 'ctxInbox.id', 'pick.inbox_id')
       .leftJoin(
         schemas.message,
         `${schemas.message}.conversation_id`,
@@ -146,7 +159,7 @@ export default class Conversations {
         ),
       )
       .havingNotNull('latestMessageId')
-      .groupBy(`${schemas.conversation}.id`, `${schemas.inbox}.id`)
+      .groupBy(`${schemas.conversation}.id`)
       .orderByRaw('(closedAt IS NOT NULL)')
       .orderByRaw('latestMessageId DESC')
       .orderByRaw(
@@ -155,7 +168,18 @@ export default class Conversations {
 
     if (this.userUid) {
       // viewed by user endpoint
+      const iuPick = knex
+        .select({ inbox_id: `${schemas.inboxUser}.inbox_id` })
+        .min({ id: `${schemas.inboxUser}.id` })
+        .from(schemas.inboxUser)
+        .whereNull(`${schemas.inboxUser}.left_at`)
+        .where(`${schemas.inboxUser}.user_uid`, this.userUid)
+        .groupBy(`${schemas.inboxUser}.inbox_id`)
+        .as('iuPick');
+
       request
+        .join(iuPick, 'iuPick.inbox_id', 'pick.inbox_id')
+        .join(`${schemas.inboxUser} as inboxUser`, 'inboxUser.id', 'iuPick.id')
         .column(
           mapper
             .listFields(
@@ -166,23 +190,14 @@ export default class Conversations {
               true,
               'inboxUser.',
             )
-            .map((v) => `${schemas.inboxUser}.${v}`),
+            .map((v) => `inboxUser.${v}`),
         )
-        .leftJoin(schemas.inboxUser, (join) =>
-          join
-            .on(
-              `${schemas.inboxUser}.inbox_id`,
-              `${schemas.inboxConversation}.inbox_id`,
-            )
-            .onNull(`${schemas.inboxUser}.left_at`))
-        .where(`${schemas.inboxUser}.user_uid`, this.userUid)
-        .groupBy(`${schemas.inboxUser}.id`);
-    } else {
-      // viewed by inbox endpoint
-      request.where(
-        `${schemas.inboxConversation}.inbox_id`,
-        this.inbox.data.id,
-      );
+        .groupBy(
+          'inboxUser.id',
+          'inboxUser.inbox_id',
+          'inboxUser.user_uid',
+          'inboxUser.left_at',
+        );
     }
 
     if (params.total) {

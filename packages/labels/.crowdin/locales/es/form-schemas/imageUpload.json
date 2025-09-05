@@ -1,10 +1,10 @@
 {
-  "acceptedExtensions": "formatos aceptados",
-  "error": "Se produjo un problema durante la carga. Por favor, inténtelo de nuevo.",
+  "acceptedExtensions": "Formatos de archivos aceptados",
+  "error": "Ocurrió un error durante el cargamento. Por favor, inténtalo nuevamente",
   "loading": "Cargando",
   "or": "O",
   "remove": "Eliminar",
-  "replace": "reemplazar documento",
+  "replace": "Reemplazar archivo",
   "tip": "Arrastre una imagen en el área sombreada.",
   "update": "Cambiar imagen",
   "upload": "Cargar imagen"

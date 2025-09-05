@@ -9,7 +9,7 @@ import {
   Wrap,
 } from '@openagenda/uikit';
 import { RadioGroup, Radio, Checkbox } from '@openagenda/uikit/snippets';
-import AccordionItem from 'components/AccordionItem';
+import AccordionItem from '../AccordionItem';
 import messages from './messages';
 
 function formatTarget(target: string[] | string) {

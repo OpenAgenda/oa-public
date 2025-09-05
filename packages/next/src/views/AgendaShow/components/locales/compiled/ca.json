@@ -14,7 +14,7 @@
   "next.views.AgendaShow.AgendaHeader.contact": [
     {
       "type": 0,
-      "value": "Contact"
+      "value": "Contacto"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.export": [
@@ -26,37 +26,37 @@
   "next.views.AgendaShow.AgendaHeader.officialAgenda": [
     {
       "type": 0,
-      "value": "Official agenda"
+      "value": "Agenda oficial"
     }
   ],
   "next.views.AgendaShow.EventItem.addToFavorites": [
     {
       "type": 0,
-      "value": "Add to favorites"
+      "value": "Añadir a favoritos"
     }
   ],
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "Destacado"
     }
   ],
   "next.views.AgendaShow.EventItem.removeFromFavorites": [
     {
       "type": 0,
-      "value": "Remove from favorites"
+      "value": "Quitar de favoritos"
     }
   ],
   "next.views.AgendaShow.EventItem.share": [
     {
       "type": 0,
-      "value": "Share"
+      "value": "Compartir"
     }
   ],
   "next.views.AgendaShow.Favorites.favorites": [
     {
       "type": 0,
-      "value": "Favorites"
+      "value": "Favoritos"
     }
   ]
 }

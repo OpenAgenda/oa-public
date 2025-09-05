@@ -7,7 +7,7 @@ module.exports = {
     "it": "Connessione",
     "de": "Login",
     "pl": "Podłączenie",
-    "es": "acceder",
+    "es": "Conexión",
     "br": "Kevreañ",
     "io": "crwdns13112:0crwdne13112:0",
     "oc": "Connexion"
@@ -84,7 +84,7 @@ module.exports = {
     "it": "Non hai ancora un account?",
     "de": "Noch nicht registriert? Hier geht's zur Anmeldung.",
     "pl": "Nie masz jeszcze konta?",
-    "es": "¿No tienes una cuenta?",
+    "es": "¿Aún no tienes cuenta?",
     "br": "N'ho peus kont ebet c'hoazh ?",
     "io": "crwdns13126:0crwdne13126:0",
     "oc": "Avètz pas encara de compte ?"
@@ -95,7 +95,7 @@ module.exports = {
     "it": "Crea un account!",
     "de": "Erstelle eine!",
     "pl": "Załóż je!",
-    "es": "Crea uno!",
+    "es": "¡Crea una!",
     "br": "Krouit unan !",
     "io": "crwdns13128:0crwdne13128:0",
     "oc": "Ne far un !"

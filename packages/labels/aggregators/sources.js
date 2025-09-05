@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Cette fonction permet de récupérer automatiquement les événements des agendas que vous aurez choisi.",
     "en": "This feature allows you to automatically fetch the events added to the agendas of your choice.",
     "de": "Automatisch Import",
-    "es": "Esta función recuperará automáticamente el agenda de eventos que ha elegido.",
+    "es": "Esta función permite recuperar automáticamente los eventos de la agenda que ha elegido.",
     "it": "Colla funzione di aggregazione, importa automaticamente gli eventi di altri agende.",
     "io": "crwdns13004:0crwdne13004:0",
     "oc": "Aquesta foncionalitat vos permet de recuperar de biais automatic los eveniments aponduts a las agendas que causiguèretz."
@@ -14,7 +14,7 @@ module.exports = {
     "fr": "Activer l'agrégation d'agendas",
     "en": "Activate agenda aggregation",
     "de": "Aktivieren Agenda Aggregation",
-    "es": "Habilitar la agregación de los agendas",
+    "es": "Habilitar la agregación de las agendas",
     "it": "Attiva la funzione di aggregazione",
     "io": "crwdns13006:0crwdne13006:0",
     "oc": "Activar l'agregacion d'agendas"
@@ -23,7 +23,7 @@ module.exports = {
     "fr": "Agendas sources",
     "en": "Source agendas",
     "de": "Quelle Kalenders",
-    "es": "fuentes agendas",
+    "es": "Agendas fuentes",
     "it": "Agende fonti",
     "io": "crwdns13008:0crwdne13008:0",
     "oc": "Agendas sorsas"
@@ -78,7 +78,7 @@ module.exports = {
     "fr": "Agenda officiel",
     "en": "Official agenda",
     "de": "offizielle Kalender",
-    "es": "agenda",
+    "es": "Agenda oficial",
     "it": "Agenda ufficiale",
     "br": "Deiziataer ofisiel",
     "io": "crwdns13020:0crwdne13020:0",
@@ -88,7 +88,7 @@ module.exports = {
     "fr": "Aucun résultat trouvé",
     "en": "No result found",
     "de": "Keine Einträge gefunden",
-    "es": "ningún resultado encontrado",
+    "es": "Ningún resultado encontrado",
     "it": "Nessun risultato trovato",
     "br": "N'eus bet kavet disoc'h ebet",
     "io": "crwdns13022:0crwdne13022:0",
@@ -107,7 +107,7 @@ module.exports = {
     "fr": "Êtes-vous sûr de vouloir retirer cet agenda de la liste des sources ?",
     "en": "Are you sure you want to delete this agenda from sources ?",
     "de": "Bist du sicher, dass du dieseVerwaltungskalender von Quellen löschen willst ?",
-    "es": "¿Está seguro de que desea eliminar esta agenda fuente?",
+    "es": "¿Estás seguro de que desea eliminar esta agenda de las fuentes?",
     "it": "Siete sicuri di voler eliminare questa agenda dalle fonti?",
     "io": "crwdns13026:0crwdne13026:0",
     "oc": "Sètz segur·a que volètz tirar aquela agenda de las sorsas ?"
@@ -125,7 +125,7 @@ module.exports = {
     "en": "%source% was removed from the sources of %agg%.",
     "fr": "%source% a été retiré des sources de %agg%.",
     "de": "% Source% wurde von den Quellen %agg% entfernt.",
-    "es": "%source% fue retirado fuentes agg.",
+    "es": "%source% ha sido retirado de las fuentes de %agg%",
     "it": "%source% è stata rimossa dalle fonti di %agg%.",
     "io": "crwdns13030:0%source%crwdnd13030:0%agg%crwdne13030:0",
     "oc": "%source% es estat tirat de las sorsas de %agg%."
@@ -134,7 +134,7 @@ module.exports = {
     "fr": "Nombre de résultats",
     "en": "Number of results",
     "de": "Anzahl der Ergebnisse",
-    "es": "Numero de resultados",
+    "es": "Número de resultados",
     "it": "Numero di risultati",
     "io": "crwdns13032:0crwdne13032:0",
     "oc": "Nombre de resultats"
@@ -143,7 +143,7 @@ module.exports = {
     "fr": "Total des sources",
     "en": "Total sources",
     "de": "insgesamt Quellen",
-    "es": "Total orígenes",
+    "es": "Total agendas fuentes",
     "it": "Totale fonti",
     "io": "crwdns13034:0crwdne13034:0",
     "oc": "Sorsas totalas"

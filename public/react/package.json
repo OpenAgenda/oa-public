@@ -36,6 +36,16 @@
       "import": "./dist/components/*.mjs",
       "require": "./dist/components/*.js"
     },
+    "./hooks": {
+      "types": "./dist/hooks/index.d.ts",
+      "import": "./dist/hooks/index.mjs",
+      "require": "./dist/hooks/index.js"
+    },
+    "./hooks/*": {
+      "types": "./dist/hooks/*.d.ts",
+      "import": "./dist/hooks/*.mjs",
+      "require": "./dist/hooks/*.js"
+    },
     "./*": {
       "types": "./dist/*.d.ts",
       "import": "./dist/*.mjs",
@@ -43,12 +53,19 @@
     }
   },
   "dependencies": {
+    "@fortawesome/free-brands-svg-icons": "^6.6.0",
+    "@fortawesome/free-regular-svg-icons": "^6.6.0",
+    "@fortawesome/react-fontawesome": "^0.2.3",
     "@openagenda/common-labels": "^1.2.4",
+    "@openagenda/mails": "^4.0.2",
     "@openagenda/react-filters": "^2.13.2",
     "@openagenda/react-shared": "^2.4.6",
     "@openagenda/uikit": "^0.0.4",
+    "base64-js": "^1.5.1",
     "ky": "^1.7.2",
+    "lodash": "^4.17.21",
     "qs": "^6.11.0",
+    "react-intersection-observer": "^9.16.0",
     "react-intl": "^7.1.5",
     "react-use": "^17.6.0",
     "swr": "^2.1.1"
@@ -59,6 +76,7 @@
     "@openagenda/tsconfig": "^0.0.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",
+    "@types/lodash": "^4",
     "@types/qs": "^6",
     "msw": "^2.3.0",
     "react": "^19.0.0",

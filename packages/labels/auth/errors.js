@@ -14,21 +14,24 @@ module.exports = {
     "fr": "Token invalide",
     "it": "Token non valido",
     "io": "crwdns13062:0crwdne13062:0",
-    "oc": "Geton invalid"
+    "oc": "Geton invalid",
+    "es": "Token inválido"
   },
   "userNotFound": {
     "en": "User not found",
     "fr": "Utilisateur introuvable",
     "it": "Nessun utilizzatore trovato",
     "io": "crwdns13064:0crwdne13064:0",
-    "oc": "Utilizaire·a pas trobat·da"
+    "oc": "Utilizaire·a pas trobat·da",
+    "es": "Usuario no encontrado"
   },
   "userNotActivated": {
     "en": "User not activated",
     "fr": "Utilisateur non activé",
     "it": "Conto non attivato",
     "io": "crwdns13066:0crwdne13066:0",
-    "oc": "Utilizaire·a pas activat·da"
+    "oc": "Utilizaire·a pas activat·da",
+    "es": "Usuario no activado"
   },
   "passwordsMustMatch": {
     "en": "Password must match.",
@@ -43,7 +46,8 @@ module.exports = {
     "fr": "Le champ ne peut être vide",
     "it": "Questo campo non può essere vuoto",
     "io": "crwdns13072:0crwdne13072:0",
-    "oc": "Lo camp pòt pas demorar voide"
+    "oc": "Lo camp pòt pas demorar voide",
+    "es": "El campo no puede estar vacío"
   },
   "passwordCouldNotBeModified": {
     "en": "The password could not be modified",
@@ -66,7 +70,8 @@ module.exports = {
     "fr": "Le lien est obsolète. Réessayez.",
     "it": "",
     "io": "crwdns13078:0crwdne13078:0",
-    "oc": "Lo ligam es passat. Tornatz ensajar."
+    "oc": "Lo ligam es passat. Tornatz ensajar.",
+    "es": "El enlace ha caducado. Inténtalo nuevamente."
   },
   "passwordUpdated": {
     "en": "Your password has been updated.",

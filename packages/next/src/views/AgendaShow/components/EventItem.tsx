@@ -19,6 +19,7 @@ import {
 } from '@openagenda/uikit';
 import { getLocaleValue } from '@openagenda/intl';
 import { useForm } from '@openagenda/react-filters';
+import { EventShareModal } from '@openagenda/react';
 import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -32,11 +33,11 @@ import {
   faStar as fasStar,
 } from '@fortawesome/pro-solid-svg-icons';
 import useShareModal from 'views/EventShow/hooks/useShareModal';
-import ShareModal from 'views/EventShow/components/ShareModal';
 import EmailConfirmationAlert from 'views/EventShow/components/EmailConfirmationAlert';
 import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useIsMounted from 'hooks/useIsMounted';
 import useLocationQuery from 'hooks/useLocationQuery';
+import useUser from 'hooks/useUser';
 import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import upperFirst from 'utils/upperFirst';
 import { thumborLoader } from 'utils/imageLoader';
@@ -214,6 +215,8 @@ export default function EventItem({
   const intl = useIntl();
 
   const query = useLocationQuery();
+
+  const { user } = useUser();
 
   const closestTiming = event.nextTiming ? event.nextTiming : event.lastTiming;
 
@@ -441,16 +444,18 @@ export default function EventItem({
       </EventStatusTooltip>
 
       {shareIsOpen ? (
-        <ShareModal
+        <EventShareModal
           isOpen
           onClose={shareOnClose}
+          user={user}
           agenda={agenda}
           event={event}
           contentLocale={intl.locale}
           onEmailSent={onEmailSent}
+          rootUrl={process.env.NEXT_PUBLIC_ROOT}
         >
           <ShareEventItem event={event} />
-        </ShareModal>
+        </EventShareModal>
       ) : null}
 
       {emailSentIsOpen ? (

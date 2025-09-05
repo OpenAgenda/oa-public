@@ -5,7 +5,8 @@ module.exports = {
     "en": "Target age",
     "fr": "Âge du public ciblé",
     "io": "crwdns33352:0crwdne33352:0",
-    "oc": "Atge-cibla"
+    "oc": "Atge-cibla",
+    "es": "Edad del público"
   },
   "uid": {
     "en": "Identifier",
@@ -120,7 +121,7 @@ module.exports = {
   "createdAt": {
     "en": "Creation date",
     "fr": "Création de la fiche",
-    "es": "La creación de los detalles",
+    "es": "Fecha de creación",
     "it": "Creazione del record",
     "io": "crwdns14170:0crwdne14170:0",
     "oc": "Data de creacion"
@@ -129,7 +130,7 @@ module.exports = {
     "en": "Timings overview",
     "fr": "Résumé horaires",
     "de": "Timings Überblick",
-    "es": "Resumen Horario",
+    "es": "Resumen de horario",
     "it": "Riassunto orario",
     "io": "crwdns14172:0crwdne14172:0",
     "oc": "Resumit oraris"
@@ -138,7 +139,7 @@ module.exports = {
     "en": "First date",
     "fr": "Première date",
     "de": "Erste Verabredung",
-    "es": "primera fecha",
+    "es": "Primera fecha",
     "it": "Prima data",
     "io": "crwdns14174:0crwdne14174:0",
     "oc": "Primièra data"
@@ -156,7 +157,7 @@ module.exports = {
     "en": "First end time",
     "fr": "Première fermeture",
     "de": "Erste Endzeit",
-    "es": "primer cierre",
+    "es": "Prime horario de cierre",
     "it": "Prima chiusura",
     "io": "crwdns14178:0crwdne14178:0",
     "oc": "Primièra tampadura"
@@ -192,7 +193,7 @@ module.exports = {
     "en": "Detailed timings",
     "fr": "Horaires détaillés",
     "de": "detaillierte Timings",
-    "es": "agenda detallado",
+    "es": "Horarios detallados",
     "it": "Orari dettagliati",
     "io": "crwdns14186:0crwdne14186:0",
     "oc": "Oraris detalhats"
@@ -237,7 +238,7 @@ module.exports = {
     "en": "Featured",
     "fr": "En Une",
     "de": "ausgewählt",
-    "es": "En titular",
+    "es": "Destacado",
     "it": "Fissato",
     "br": "Keleier pennañ",
     "io": "crwdns14194:0crwdne14194:0",
@@ -247,7 +248,7 @@ module.exports = {
     "en": "Link",
     "fr": "Lien",
     "de": "Verknüpfung",
-    "es": "enlace",
+    "es": "Enlace",
     "it": "Link",
     "io": "crwdns14196:0crwdne14196:0",
     "oc": "Ligam"
@@ -256,7 +257,8 @@ module.exports = {
     "en": "Permalink",
     "fr": "Permalien",
     "io": "crwdns16432:0crwdne16432:0",
-    "oc": "Permaligam"
+    "oc": "Permaligam",
+    "es": "Enlace permanente"
   },
   "location.uid": {
     "en": "Location identifier",
@@ -271,7 +273,7 @@ module.exports = {
     "en": "Latitude",
     "fr": "Latitude",
     "de": "Breite",
-    "es": "latitud",
+    "es": "Latitud",
     "it": "Latitudine",
     "io": "crwdns14200:0crwdne14200:0",
     "oc": "Latitud"
@@ -280,7 +282,7 @@ module.exports = {
     "en": "Longitude",
     "fr": "Longitude",
     "de": "Längengrad",
-    "es": "longitud",
+    "es": "Longitud",
     "it": "Longitudine",
     "io": "crwdns14202:0crwdne14202:0",
     "oc": "Longitud"
@@ -289,7 +291,7 @@ module.exports = {
     "en": "Location name",
     "fr": "Nom du lieu",
     "de": "Standortnamen",
-    "es": "Lugar Nombre",
+    "es": "Nombre del lugar",
     "it": "Nome del luogo",
     "io": "crwdns14204:0crwdne14204:0",
     "oc": "Nom de lòc"
@@ -298,7 +300,7 @@ module.exports = {
     "en": "Address",
     "fr": "Adresse",
     "de": "Adresse",
-    "es": "dirección",
+    "es": "Dirección",
     "it": "Indirizzo",
     "io": "crwdns14206:0crwdne14206:0",
     "oc": "Adreiça"
@@ -316,7 +318,7 @@ module.exports = {
     "en": "City",
     "fr": "Ville",
     "de": "Stadt",
-    "es": "ciudad",
+    "es": "Municipio",
     "it": "Città",
     "br": "Kêr",
     "io": "crwdns14210:0crwdne14210:0",
@@ -326,7 +328,7 @@ module.exports = {
     "en": "Department",
     "fr": "Département",
     "de": "Abteilung",
-    "es": "departamento",
+    "es": "Provincia",
     "it": "Provincia",
     "br": "Departamant",
     "io": "crwdns14212:0crwdne14212:0",
@@ -345,7 +347,7 @@ module.exports = {
     "en": "Country",
     "fr": "Pays",
     "de": "Land",
-    "es": "país",
+    "es": "País",
     "it": "Paese",
     "br": "Bro",
     "io": "crwdns14216:0crwdne14216:0",
@@ -373,7 +375,7 @@ module.exports = {
     "en": "Location phone",
     "fr": "Téléphone du lieu",
     "de": "Ort Telefon",
-    "es": "teléfono del lugar",
+    "es": "Teléfono del lugar",
     "it": "Numero di telefono del luogo",
     "io": "crwdns14222:0crwdne14222:0",
     "oc": "Telefòne del lòc"
@@ -382,7 +384,7 @@ module.exports = {
     "en": "Location website",
     "fr": "Site web du lieu",
     "de": "Location Website",
-    "es": "el sitio web del lugar",
+    "es": "Sitio web del lugar",
     "it": "Sito web del luogo",
     "io": "crwdns14224:0crwdne14224:0",
     "oc": "Site web del lòc"
@@ -391,7 +393,7 @@ module.exports = {
     "en": "Location links",
     "fr": "Liens du lieu",
     "de": "Ort Links",
-    "es": "enlaces del lugar",
+    "es": "Enlaces del lugar",
     "it": "Link del luogo",
     "io": "crwdns14226:0crwdne14226:0",
     "oc": "Ligams del lòc"
@@ -418,7 +420,7 @@ module.exports = {
     "en": "Location access / directions",
     "fr": "Accès / Itinéraire",
     "de": "Standortzugriff / Richtungen",
-    "es": "De acceso / Direcciones",
+    "es": "Acceso / Direcciones del lugar",
     "it": "Accesso / Indicazioni",
     "io": "crwdns14232:0crwdne14232:0",
     "oc": "Accès / Itinerari"
@@ -427,7 +429,7 @@ module.exports = {
     "en": "Tags",
     "fr": "Tags",
     "de": "Stichworte",
-    "es": "etiquetas",
+    "es": "Etiquetas",
     "it": "Tags",
     "io": "crwdns14234:0crwdne14234:0",
     "oc": "Etiquetas"
@@ -436,7 +438,7 @@ module.exports = {
     "en": "Minimum age",
     "fr": "Age minimum",
     "de": "Mindestalter",
-    "es": "edad mínima",
+    "es": "Edad mínima",
     "it": "Età minima",
     "io": "crwdns14236:0crwdne14236:0",
     "oc": "Atge minimum"
@@ -463,7 +465,7 @@ module.exports = {
     "en": "Origin agenda (uid)",
     "fr": "Agenda d'origine ( uid )",
     "de": "Origin Kalender (uid)",
-    "es": "agenda original (uid)",
+    "es": "Agenda de origen (uid)",
     "it": "Agenda originale (UID)",
     "io": "crwdns14242:0crwdne14242:0",
     "oc": "Agenda d'origina (uid)"
@@ -472,7 +474,7 @@ module.exports = {
     "en": "Contributor: Email",
     "fr": "Contributeur: Email",
     "de": "Anbieter: E-Mail",
-    "es": "Colaborador: Email",
+    "es": "Contribuyente: Correo electrónico",
     "it": "Collaboratore: Email",
     "io": "crwdns14244:0crwdne14244:0",
     "oc": "Contributor : Email"
@@ -481,7 +483,7 @@ module.exports = {
     "en": "Contributor: Phone number",
     "fr": "Contributeur: Téléphone",
     "de": "Anbieter: Telefonnummer",
-    "es": "Colaborador: Teléfono",
+    "es": "Contribuyente: Teléfono",
     "it": "Collaboratore: Telefono",
     "io": "crwdns14246:0crwdne14246:0",
     "oc": "Contributor : numèro de telefòne"
@@ -490,7 +492,7 @@ module.exports = {
     "en": "Contributor: Name",
     "fr": "Contributeur: Nom",
     "de": "Contributor: Name",
-    "es": "Colaborador: Nombre",
+    "es": "Contribuyente: Nombre",
     "it": "Collaboratore: Nome",
     "io": "crwdns14248:0crwdne14248:0",
     "oc": "Contributor : Nom"
@@ -508,7 +510,7 @@ module.exports = {
     "en": "Contributor: organization",
     "fr": "Contributeur: organisation",
     "de": "Anbieter: Unternehmen",
-    "es": "Colaborador: organización",
+    "es": "Contribuyente: organización",
     "it": "Collaboratore: organizzazione",
     "io": "crwdns14252:0crwdne14252:0",
     "oc": "Contributor : organizacion"
@@ -517,7 +519,7 @@ module.exports = {
     "en": "Category",
     "fr": "Catégorie",
     "de": "Kategorie",
-    "es": "categoría",
+    "es": "Categoría",
     "it": "Categoria",
     "io": "crwdns14254:0crwdne14254:0",
     "oc": "Categoria"
@@ -535,7 +537,7 @@ module.exports = {
     "en": "State",
     "fr": "Statut",
     "de": "Zustand",
-    "es": "estatus",
+    "es": "Estado",
     "it": "Stato",
     "io": "crwdns14258:0crwdne14258:0",
     "oc": "Estat"

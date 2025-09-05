@@ -1,8 +1,11 @@
 {
-  "abortedAuth": "Autenticación se detuvo en %service%",
+  "abortedAuth": "Autenticación se interrumpió en %service%",
   "accountEmailAlreadyExists": "Una cuenta de correo electrónico que utiliza este ya existe. Por favor, inicie sesión con su correo electrónico y contraseña",
-  "facebookEmailMissing": "El correo electrónico asociada con su cuenta de Facebook no está disponible. Visita Facebook para confirmar.",
-  "genericError": "Hubo una preocupación. Gracias a volver a intentarlo más tarde",
-  "limitedAccessAgenda": "El acceso a este agenda es limitado. La cuenta para el acceso.",
-  "limitedAccessEvent": "El acceso a este evento es limitado. La cuenta para el acceso."
+  "authRequired": "Necesitas autenticarte para acceder a esta página.",
+  "facebookEmailMissing": "El correo electrónico asociado con su cuenta Facebook no está disponible. Visita Facebook para confirmar.",
+  "genericError": "Ocurrió un error. Por favor inténtalo nuevamente en un momento",
+  "isBlacklisted": "Su cuenta ha sido añadida a nuestra lista de cuentas fraudulentas.",
+  "isBlacklistedInfo": "En caso de error por nuestra parte, contáctenos a través de nuestra aplicación de chat o el menú de Ayuda.",
+  "limitedAccessAgenda": "Necesitas autenticarte para acceder a esta agenda. Por favor conéctese",
+  "limitedAccessEvent": "Necesitas autenticarte para acceder a este evento. Por favor conéctese"
 }

@@ -240,6 +240,8 @@ export default function AgendaHeader({ agenda }) {
             agenda={agenda}
             query={urlQuery}
             defaultValue={displayExportModalValue}
+            rootUrl={process.env.NEXT_PUBLIC_ROOT}
+            apiRootUrl={process.env.NEXT_PUBLIC_API_ROOT}
           />
         ) : null}
         {aggregateIsOpen ? (

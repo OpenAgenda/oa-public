@@ -14,7 +14,7 @@ module.exports = {
     "en": "fair",
     "fr": "salon",
     "de": "Messe",
-    "es": "espectáculo",
+    "es": "feria",
     "it": "mostra",
     "io": "crwdns13986:0crwdne13986:0",
     "oc": "fièra"
@@ -68,7 +68,7 @@ module.exports = {
     "en": "company",
     "fr": "entreprise",
     "de": "Unternehmen",
-    "es": "negocios",
+    "es": "empresa",
     "it": "azienda",
     "io": "crwdns13998:0crwdne13998:0",
     "oc": "entrepresa"
@@ -77,7 +77,7 @@ module.exports = {
     "en": "convention center",
     "fr": "palais des congrès",
     "de": "Kongresszentrum",
-    "es": "Palacio de Congresos",
+    "es": "palacio de congresos",
     "it": "centro congressi",
     "io": "crwdns14000:0crwdne14000:0",
     "oc": "centre de congrès"
@@ -86,7 +86,7 @@ module.exports = {
     "en": "incubator",
     "fr": "fablab",
     "de": "Inkubator",
-    "es": "FabLab",
+    "es": "incubadora",
     "it": "fablab",
     "io": "crwdns14002:0crwdne14002:0",
     "oc": "coador"
@@ -95,7 +95,7 @@ module.exports = {
     "en": "coworking space",
     "fr": "tiers-lieu",
     "de": "Coworking space",
-    "es": "el tercer puesto",
+    "es": "espacio de coworking",
     "it": "terza posizione",
     "io": "crwdns14004:0crwdne14004:0",
     "oc": "tèrç-lòc"
@@ -104,7 +104,7 @@ module.exports = {
     "en": "fire station",
     "fr": "caserne",
     "de": "Feuerwehr",
-    "es": "barraca",
+    "es": "cuartel",
     "it": "caserma",
     "io": "crwdns14006:0crwdne14006:0",
     "oc": "casèrna"

@@ -1,3 +1,4 @@
 {
-  "react.components.AgendaExportModal.close": "Schließen"
+  "react.components.AgendaExportModal.close": "Schließen",
+  "react.components.EventShareModal.signIn": "Anmelden"
 }

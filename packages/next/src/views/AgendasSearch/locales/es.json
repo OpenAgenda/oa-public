@@ -1,10 +1,10 @@
 {
-  "next.views.AgendaSearch.bigTotal": "",
-  "next.views.AgendaSearch.latestUpdated": "",
-  "next.views.AgendaSearch.pageTitle": "",
-  "next.views.AgendaSearch.passedEvents": "",
-  "next.views.AgendaSearch.searchResultHead": "",
-  "next.views.AgendaSearch.seeMore": "",
-  "next.views.AgendaSearch.total": "",
-  "next.views.AgendaSearch.upcomingEvents": "{count, plural, =0 {Ningún evento próximo} one {1 evento próximo} other {# eventos próximos}}"
+  "next.views.AgendaSearch.bigTotal": "Más de {limit, number} agendas encontradas",
+  "next.views.AgendaSearch.latestUpdated": "Agendas actualizadas recientemente",
+  "next.views.AgendaSearch.pageTitle": "Búsqueda de agendas",
+  "next.views.AgendaSearch.passedEvents": "{count, plural, =0 {Ningún evento pasado} one {1 evento pasado} other {# eventos pasados}}",
+  "next.views.AgendaSearch.searchResultHead": "Resultados de búsqueda para\"{search}\"",
+  "next.views.AgendaSearch.seeMore": "Ver más",
+  "next.views.AgendaSearch.total": "{count, plural, =0 {Ninguna agenda encontrada} one {1 agenda encontrada} other {# agendas encontradas}}",
+  "next.views.AgendaSearch.upcomingEvents": "{count, plural, =0 {Ningún próximo evento} one {1 próximo evento} other {# próximos eventos}}"
 }

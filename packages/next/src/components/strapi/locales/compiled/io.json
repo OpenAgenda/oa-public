@@ -2,361 +2,361 @@
   "next.components.Strapi.contact": [
     {
       "type": 0,
-      "value": "Contact"
+      "value": "crwdns34481:0crwdne34481:0"
     }
   ],
   "next.components.Strapi.contactForm": [
     {
       "type": 0,
-      "value": "Contact form"
+      "value": "crwdns34483:0crwdne34483:0"
     }
   ],
   "next.components.Strapi.github": [
     {
       "type": 0,
-      "value": "Our Github"
+      "value": "crwdns34485:0crwdne34485:0"
     }
   ],
   "next.components.Strapi.linkedin": [
     {
       "type": 0,
-      "value": "Our LinkedIn"
+      "value": "crwdns34487:0crwdne34487:0"
     }
   ],
   "next.components.Strapi.videoPlayer.accessibility": [
     {
       "type": 0,
-      "value": "Accessibility"
+      "value": "crwdns34885:0crwdne34885:0"
     }
   ],
   "next.components.Strapi.videoPlayer.airPlay": [
     {
       "type": 0,
-      "value": "AirPlay"
+      "value": "crwdns34887:0crwdne34887:0"
     }
   ],
   "next.components.Strapi.videoPlayer.announcements": [
     {
       "type": 0,
-      "value": "Announcements"
+      "value": "crwdns34889:0crwdne34889:0"
     }
   ],
   "next.components.Strapi.videoPlayer.audio": [
     {
       "type": 0,
-      "value": "Audio"
+      "value": "crwdns34891:0crwdne34891:0"
     }
   ],
   "next.components.Strapi.videoPlayer.auto": [
     {
       "type": 0,
-      "value": "Auto"
+      "value": "crwdns34893:0crwdne34893:0"
     }
   ],
   "next.components.Strapi.videoPlayer.boost": [
     {
       "type": 0,
-      "value": "Boost"
+      "value": "crwdns34895:0crwdne34895:0"
     }
   ],
   "next.components.Strapi.videoPlayer.captionStyles": [
     {
       "type": 0,
-      "value": "Caption Styles"
+      "value": "crwdns34897:0crwdne34897:0"
     }
   ],
   "next.components.Strapi.videoPlayer.captions": [
     {
       "type": 0,
-      "value": "Captions"
+      "value": "crwdns34899:0crwdne34899:0"
     }
   ],
   "next.components.Strapi.videoPlayer.captionsLookLikeThis": [
     {
       "type": 0,
-      "value": "Captions look like this"
+      "value": "crwdns34901:0crwdne34901:0"
     }
   ],
   "next.components.Strapi.videoPlayer.chapters": [
     {
       "type": 0,
-      "value": "Chapters"
+      "value": "crwdns34903:0crwdne34903:0"
     }
   ],
   "next.components.Strapi.videoPlayer.closedCaptionsOff": [
     {
       "type": 0,
-      "value": "Closed-Captions Off"
+      "value": "crwdns34905:0crwdne34905:0"
     }
   ],
   "next.components.Strapi.videoPlayer.closedCaptionsOn": [
     {
       "type": 0,
-      "value": "Closed-Captions On"
+      "value": "crwdns34907:0crwdne34907:0"
     }
   ],
   "next.components.Strapi.videoPlayer.color": [
     {
       "type": 0,
-      "value": "Color"
+      "value": "crwdns34909:0crwdne34909:0"
     }
   ],
   "next.components.Strapi.videoPlayer.connected": [
     {
       "type": 0,
-      "value": "Connected"
+      "value": "crwdns34911:0crwdne34911:0"
     }
   ],
   "next.components.Strapi.videoPlayer.connecting": [
     {
       "type": 0,
-      "value": "Connecting"
+      "value": "crwdns34913:0crwdne34913:0"
     }
   ],
   "next.components.Strapi.videoPlayer.continue": [
     {
       "type": 0,
-      "value": "Continue"
+      "value": "crwdns34915:0crwdne34915:0"
     }
   ],
   "next.components.Strapi.videoPlayer.default": [
     {
       "type": 0,
-      "value": "Default"
+      "value": "crwdns34917:0crwdne34917:0"
     }
   ],
   "next.components.Strapi.videoPlayer.disabled": [
     {
       "type": 0,
-      "value": "Disabled"
+      "value": "crwdns34919:0crwdne34919:0"
     }
   ],
   "next.components.Strapi.videoPlayer.disconnected": [
     {
       "type": 0,
-      "value": "Disconnected"
+      "value": "crwdns34921:0crwdne34921:0"
     }
   ],
   "next.components.Strapi.videoPlayer.displayBackground": [
     {
       "type": 0,
-      "value": "Display Background"
+      "value": "crwdns34923:0crwdne34923:0"
     }
   ],
   "next.components.Strapi.videoPlayer.download": [
     {
       "type": 0,
-      "value": "Download"
+      "value": "crwdns34925:0crwdne34925:0"
     }
   ],
   "next.components.Strapi.videoPlayer.enterFullscreen": [
     {
       "type": 0,
-      "value": "Enter fullscreen"
+      "value": "crwdns34927:0crwdne34927:0"
     }
   ],
   "next.components.Strapi.videoPlayer.enterPiP": [
     {
       "type": 0,
-      "value": "Enter picture-in-picture"
+      "value": "crwdns34929:0crwdne34929:0"
     }
   ],
   "next.components.Strapi.videoPlayer.exitFullscreen": [
     {
       "type": 0,
-      "value": "Exit fullscreen"
+      "value": "crwdns34931:0crwdne34931:0"
     }
   ],
   "next.components.Strapi.videoPlayer.exitPiP": [
     {
       "type": 0,
-      "value": "Exit picture-in-picture"
+      "value": "crwdns34933:0crwdne34933:0"
     }
   ],
   "next.components.Strapi.videoPlayer.family": [
     {
       "type": 0,
-      "value": "Family"
+      "value": "crwdns34935:0crwdne34935:0"
     }
   ],
   "next.components.Strapi.videoPlayer.font": [
     {
       "type": 0,
-      "value": "Font"
+      "value": "crwdns34937:0crwdne34937:0"
     }
   ],
   "next.components.Strapi.videoPlayer.fullscreen": [
     {
       "type": 0,
-      "value": "Fullscreen"
+      "value": "crwdns34939:0crwdne34939:0"
     }
   ],
   "next.components.Strapi.videoPlayer.googleCast": [
     {
       "type": 0,
-      "value": "Google Cast"
+      "value": "crwdns34941:0crwdne34941:0"
     }
   ],
   "next.components.Strapi.videoPlayer.keyboardAnimations": [
     {
       "type": 0,
-      "value": "Keyboard Animations"
+      "value": "crwdns34943:0crwdne34943:0"
     }
   ],
   "next.components.Strapi.videoPlayer.live": [
     {
       "type": 0,
-      "value": "Live"
+      "value": "crwdns34945:0crwdne34945:0"
     }
   ],
   "next.components.Strapi.videoPlayer.loop": [
     {
       "type": 0,
-      "value": "Loop"
+      "value": "crwdns34947:0crwdne34947:0"
     }
   ],
   "next.components.Strapi.videoPlayer.mute": [
     {
       "type": 0,
-      "value": "Mute"
+      "value": "crwdns34949:0crwdne34949:0"
     }
   ],
   "next.components.Strapi.videoPlayer.normal": [
     {
       "type": 0,
-      "value": "Normal"
+      "value": "crwdns34951:0crwdne34951:0"
     }
   ],
   "next.components.Strapi.videoPlayer.off": [
     {
       "type": 0,
-      "value": "Off"
+      "value": "crwdns34953:0crwdne34953:0"
     }
   ],
   "next.components.Strapi.videoPlayer.opacity": [
     {
       "type": 0,
-      "value": "Opacity"
+      "value": "crwdns34955:0crwdne34955:0"
     }
   ],
   "next.components.Strapi.videoPlayer.pause": [
     {
       "type": 0,
-      "value": "Pause"
+      "value": "crwdns34957:0crwdne34957:0"
     }
   ],
   "next.components.Strapi.videoPlayer.pip": [
     {
       "type": 0,
-      "value": "PiP"
+      "value": "crwdns34959:0crwdne34959:0"
     }
   ],
   "next.components.Strapi.videoPlayer.play": [
     {
       "type": 0,
-      "value": "Play"
+      "value": "crwdns34961:0crwdne34961:0"
     }
   ],
   "next.components.Strapi.videoPlayer.playback": [
     {
       "type": 0,
-      "value": "Playback"
+      "value": "crwdns34963:0crwdne34963:0"
     }
   ],
   "next.components.Strapi.videoPlayer.quality": [
     {
       "type": 0,
-      "value": "Quality"
+      "value": "crwdns34965:0crwdne34965:0"
     }
   ],
   "next.components.Strapi.videoPlayer.replay": [
     {
       "type": 0,
-      "value": "Replay"
+      "value": "crwdns34967:0crwdne34967:0"
     }
   ],
   "next.components.Strapi.videoPlayer.reset": [
     {
       "type": 0,
-      "value": "Reset"
+      "value": "crwdns34969:0crwdne34969:0"
     }
   ],
   "next.components.Strapi.videoPlayer.seek": [
     {
       "type": 0,
-      "value": "Seek"
+      "value": "crwdns34971:0crwdne34971:0"
     }
   ],
   "next.components.Strapi.videoPlayer.seekBackward": [
     {
       "type": 0,
-      "value": "Seek backward"
+      "value": "crwdns34973:0crwdne34973:0"
     }
   ],
   "next.components.Strapi.videoPlayer.seekForward": [
     {
       "type": 0,
-      "value": "Seek forward"
+      "value": "crwdns34975:0crwdne34975:0"
     }
   ],
   "next.components.Strapi.videoPlayer.settings": [
     {
       "type": 0,
-      "value": "Settings"
+      "value": "crwdns34977:0crwdne34977:0"
     }
   ],
   "next.components.Strapi.videoPlayer.shadow": [
     {
       "type": 0,
-      "value": "Shadow"
+      "value": "crwdns34979:0crwdne34979:0"
     }
   ],
   "next.components.Strapi.videoPlayer.size": [
     {
       "type": 0,
-      "value": "Size"
+      "value": "crwdns34981:0crwdne34981:0"
     }
   ],
   "next.components.Strapi.videoPlayer.skipToLive": [
     {
       "type": 0,
-      "value": "Skip to live"
+      "value": "crwdns34983:0crwdne34983:0"
     }
   ],
   "next.components.Strapi.videoPlayer.speed": [
     {
       "type": 0,
-      "value": "Speed"
+      "value": "crwdns34985:0crwdne34985:0"
     }
   ],
   "next.components.Strapi.videoPlayer.text": [
     {
       "type": 0,
-      "value": "Text"
+      "value": "crwdns34987:0crwdne34987:0"
     }
   ],
   "next.components.Strapi.videoPlayer.textBackground": [
     {
       "type": 0,
-      "value": "Text Background"
+      "value": "crwdns34989:0crwdne34989:0"
     }
   ],
   "next.components.Strapi.videoPlayer.track": [
     {
       "type": 0,
-      "value": "Track"
+      "value": "crwdns34991:0crwdne34991:0"
     }
   ],
   "next.components.Strapi.videoPlayer.unmute": [
     {
       "type": 0,
-      "value": "Unmute"
+      "value": "crwdns34993:0crwdne34993:0"
     }
   ],
   "next.components.Strapi.videoPlayer.volume": [
     {
       "type": 0,
-      "value": "Volume"
+      "value": "crwdns34995:0crwdne34995:0"
     }
   ]
 }

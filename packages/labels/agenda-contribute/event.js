@@ -117,14 +117,16 @@ module.exports = {
     "io": "crwdns11528:0crwdne11528:0",
     "de": "Share an event",
     "oc": "Partejar un eveniment",
-    "it": "Condividere un evento"
+    "it": "Condividere un evento",
+    "es": "Compartir un evento"
   },
   "takeEvent": {
     "fr": "Reprendre",
     "en": "Take",
     "io": "crwdns11530:0crwdne11530:0",
     "de": "Take",
-    "oc": "Tornar prene"
+    "oc": "Tornar prene",
+    "es": "Tomar"
   },
   "fromAgenda": {
     "fr": "de l'agenda",
@@ -132,7 +134,8 @@ module.exports = {
     "io": "crwdns11532:0crwdne11532:0",
     "de": "from the agenda",
     "it": "dall'agenda",
-    "oc": "de l'agenda"
+    "oc": "de l'agenda",
+    "es": "de la agenda"
   },
   "toAgenda": {
     "fr": "sur l'agenda",
@@ -140,7 +143,8 @@ module.exports = {
     "io": "crwdns11534:0crwdne11534:0",
     "de": "to the agenda",
     "it": "fino all'agenda",
-    "oc": "de l'agenda"
+    "oc": "de l'agenda",
+    "es": "a la agenda"
   },
   "confirmAdd": {
     "fr": "Ajouter l'événement",
@@ -148,7 +152,8 @@ module.exports = {
     "io": "crwdns11536:0crwdne11536:0",
     "de": "Add the event",
     "it": "Aggiungere un evento",
-    "oc": "Apondre l'eveniment"
+    "oc": "Apondre l'eveniment",
+    "es": "Añadir el evento"
   },
   "noEditionRights": {
     "fr": "Vous n'avez pas les droits d'édition sur cet événement.",
@@ -156,7 +161,8 @@ module.exports = {
     "io": "crwdns11538:0crwdne11538:0",
     "de": "You do not have edition rights on this event.",
     "it": "Non avete accesso all'edizione di questo evento.",
-    "oc": "Avètz pas de dreits d'edicion sus aqueste eveniment."
+    "oc": "Avètz pas de dreits d'edicion sus aqueste eveniment.",
+    "es": "No tienes los derechos de edición para este evento."
   },
   "onlyAdditionalFieldsCanBeEdited": {
     "fr": "Seuls les champs additionnels de l'agenda peuvent être édités ici.",
@@ -164,7 +170,8 @@ module.exports = {
     "io": "crwdns11540:0crwdne11540:0",
     "de": "Only additional fields of the agenda can be edited here.",
     "it": "Solo i campi aggiuntivi dell'agenda possono essere modificati qui.",
-    "oc": "Sonque los camps suplementaris de l'agenda se pòdon modificar aquí."
+    "oc": "Sonque los camps suplementaris de l'agenda se pòdon modificar aquí.",
+    "es": "Solo se pueden editar los campos adicionales de la agenda."
   },
   "requestEditionRights": {
     "fr": "Demander les droits d'édition",
@@ -172,7 +179,8 @@ module.exports = {
     "io": "crwdns11542:0crwdne11542:0",
     "de": "Request edition rights",
     "it": "Chiedere il diritto di modificare questo evento",
-    "oc": "Demandar los dreits d'edicion"
+    "oc": "Demandar los dreits d'edicion",
+    "es": "Solicitar derechos de edición"
   },
   "onlyAdditionalFieldsCanBeEditedInfo": {
     "fr": "Cet événement a été ajouté à l'agenda \"%agenda%\" par partage ou agrégation. Seuls les membres de l'agenda où l'événement a été saisi peuvent en modifier le contenu.",
@@ -180,7 +188,8 @@ module.exports = {
     "io": "crwdns11544:0%agenda%crwdne11544:0",
     "de": "This event was added to the agenda \"%agenda%\" through a share or by aggregation. Only membres of the agenda where the event was contributed can change its content.",
     "it": "Questo evento è stato aggiunto all'agenda \"%agenda%\" attraverso una condivisione o un'aggregazione. Solo i membri dell'agenda dove l'evento è stato aggiunto possono cambiare il suo contenuto.",
-    "oc": "Aqueste eveniment es estat apondut a l'agenda \"%agenda%\" per un partatge o per agregacion. Sols los membres de l'agenda que l'eveniment es estat dintrat pòdon cambiar son contengut."
+    "oc": "Aqueste eveniment es estat apondut a l'agenda \"%agenda%\" per un partatge o per agregacion. Sols los membres de l'agenda que l'eveniment es estat dintrat pòdon cambiar son contengut.",
+    "es": "Este evento fue añadido a la agenda \"%agenda%\" a través de su compartir o por agregación. Solo los miembros de la agenda donde se contribuyó el evento pueden cambiar su contenido."
   },
   "requestEditionRightsInfo": {
     "fr": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
@@ -196,7 +205,8 @@ module.exports = {
     "en": "The following issues must be addressed to allow make the event \"%event%\" shareable on the agenda \"%agenda%\"",
     "it": "Le seguenti questioni devono essere affrontate per permettere di rendere l'evento \"%event%\" condivisibile sull'agenda \"%agenda%\"",
     "io": "crwdns16418:0%event%crwdnd16418:0%agenda%crwdne16418:0",
-    "oc": "Los problèmas seguents devon èsser tractats per permetre a l'eveniment \"%event%\" d'èsser partejat sus l'agenda \"%agenda%\""
+    "oc": "Los problèmas seguents devon èsser tractats per permetre a l'eveniment \"%event%\" d'èsser partejat sus l'agenda \"%agenda%\"",
+    "es": "Los siguientes problemas deben ser solucionados para permitir que el evento \"%event%\" sea compartible en la agenda \"%agenda%\""
   },
   "suggestChange": {
     "fr": "Suggérer une modification",

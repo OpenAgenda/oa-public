@@ -28,7 +28,7 @@
   "next.views.EmbedAgendaShow.export": [
     {
       "type": 0,
-      "value": "Exporter"
+      "value": "Exportar"
     }
   ],
   "next.views.EmbedAgendaShow.search": [

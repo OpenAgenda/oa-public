@@ -41,7 +41,7 @@ module.exports = {
     "en": "Register / book",
     "fr": "S'inscrire / Réserver",
     "de": "Registrieren / Buch",
-    "es": "Registrarse",
+    "es": "Registrarse / Reservar",
     "it": "Registrarsi / prenotare",
     "io": "crwdns14410:0crwdne14410:0",
     "oc": "S'inscriure / Reservar"
@@ -50,6 +50,7 @@ module.exports = {
     "en": "Access the pass Culture offer",
     "fr": "Accéder à l'offre pass Culture",
     "io": "crwdns33400:0crwdne33400:0",
-    "oc": "Accedir a l'ofèrta pass Culture"
+    "oc": "Accedir a l'ofèrta pass Culture",
+    "es": "Acceder a la oferta del pass Culture"
   }
 }

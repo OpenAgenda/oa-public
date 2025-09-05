@@ -38,7 +38,7 @@ export default async ({
 
   const events = await loadEventsFromFile(eventsFilePath);
 
-  const { title, description, url } = await loadAgendaDetails(agendaUid);
+  const { slug, title, description, url } = await loadAgendaDetails(agendaUid);
 
   const content = templateContent || await fs.readFile(templatePath, 'binary');
 
@@ -60,6 +60,7 @@ export default async ({
 
   doc.setData({
     agenda: {
+      slug,
       title,
       description,
       url,
@@ -109,6 +110,7 @@ export default async ({
   return {
     outputPath,
     agenda: {
+      slug,
       title,
       description,
       url,

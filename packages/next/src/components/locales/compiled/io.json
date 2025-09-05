@@ -2,19 +2,19 @@
   "next.components.CopyIdentifier.clickToCopyIdentifier": [
     {
       "type": 0,
-      "value": "Click to copy the event identifier"
+      "value": "crwdns35015:0crwdne35015:0"
     }
   ],
   "next.components.CopyIdentifier.copied": [
     {
       "type": 0,
-      "value": "Identifier copied"
+      "value": "crwdns35017:0crwdne35017:0"
     }
   ],
   "next.components.CopyIdentifier.copy": [
     {
       "type": 0,
-      "value": "Copy identifier"
+      "value": "crwdns35019:0crwdne35019:0"
     }
   ],
   "next.components.SearchInput.ariaLabel": [

@@ -41,7 +41,7 @@ module.exports = {
     "ar": "لا يتوفر أي تاريخ",
     "de": "keine Termine vorhanden%",
     "it": "nessun data disponibile",
-    "es": "Fecha no disponible",
+    "es": "Ninguna fecha disponible",
     "io": "crwdns12894:0crwdne12894:0",
     "oc": "pas de datas disponiblas"
   },
@@ -73,7 +73,8 @@ module.exports = {
     "de": ", einige Sonntage",
     "io": "crwdns33794:0crwdne33794:0",
     "oc": ", d'unes dimenges",
-    "it": ", alcune domeniche"
+    "it": ", alcune domeniche",
+    "es": ", algunos domingos"
   },
   "all-weekday-0": {
     "fr": ", les dimanches",
@@ -81,7 +82,8 @@ module.exports = {
     "de": ", jeden Sonntag",
     "io": "crwdns33796:0crwdne33796:0",
     "oc": ", cada dimenge",
-    "it": ", ogni domenica"
+    "it": ", ogni domenica",
+    "es": ", todos los domingos"
   },
   "some-weekday-1": {
     "fr": ", les lundis",
@@ -89,7 +91,8 @@ module.exports = {
     "de": ", einige Montags",
     "io": "crwdns33798:0crwdne33798:0",
     "oc": ", d'unes diluns",
-    "it": ", alcune lunedì"
+    "it": ", alcune lunedì",
+    "es": ", algunos lunes"
   },
   "all-weekday-1": {
     "fr": ", les lundis",
@@ -97,7 +100,8 @@ module.exports = {
     "de": ", jeden Montag",
     "io": "crwdns33800:0crwdne33800:0",
     "oc": ", cada diluns",
-    "it": ", ogni lunedì"
+    "it": ", ogni lunedì",
+    "es": ", todos los lunes"
   },
   "some-weekday-2": {
     "fr": ", certains mardis",
@@ -105,7 +109,8 @@ module.exports = {
     "de": ", einige Dienstage",
     "io": "crwdns33802:0crwdne33802:0",
     "oc": ", d'unes dimarç",
-    "it": ", alcune martedì"
+    "it": ", alcune martedì",
+    "es": ", algunos martes"
   },
   "all-weekday-2": {
     "fr": ", les mardis",
@@ -113,7 +118,8 @@ module.exports = {
     "de": ", jeden Dienstag",
     "io": "crwdns33804:0crwdne33804:0",
     "oc": ", cada dimars",
-    "it": ", ogni martedi"
+    "it": ", ogni martedi",
+    "es": ", todos los martes"
   },
   "some-weekday-3": {
     "fr": ", certains mercredis",
@@ -121,7 +127,8 @@ module.exports = {
     "de": ", einige Mittwochs",
     "io": "crwdns33806:0crwdne33806:0",
     "oc": ", d'unes dimècres",
-    "it": ", alcune mercoledì"
+    "it": ", alcune mercoledì",
+    "es": ", algunos miércoles"
   },
   "all-weekday-3": {
     "fr": ", les mercredis",
@@ -129,7 +136,8 @@ module.exports = {
     "de": ", an jedem Mittwoch",
     "io": "crwdns33808:0crwdne33808:0",
     "oc": ", cada dimècres",
-    "it": ", ogni mercoledì"
+    "it": ", ogni mercoledì",
+    "es": ", todos los miércoles"
   },
   "some-weekday-4": {
     "fr": ", certains jeudis",
@@ -137,7 +145,8 @@ module.exports = {
     "de": ", einige Donnerstage",
     "io": "crwdns33810:0crwdne33810:0",
     "oc": ", d'unes dijòus",
-    "it": ", alcune giovedì"
+    "it": ", alcune giovedì",
+    "es": ", algunos jueves"
   },
   "all-weekday-4": {
     "fr": ", les jeudis",
@@ -145,7 +154,8 @@ module.exports = {
     "de": ", jeden Donnerstag",
     "io": "crwdns33812:0crwdne33812:0",
     "oc": ", cada dijòus",
-    "it": ", ogni giovedì"
+    "it": ", ogni giovedì",
+    "es": ", todos los jueves"
   },
   "some-weekday-5": {
     "fr": ", certains vendredis",
@@ -153,7 +163,8 @@ module.exports = {
     "de": ", einige Freitage",
     "io": "crwdns33814:0crwdne33814:0",
     "oc": ", d'unes divendres",
-    "it": ", alcune venerdì"
+    "it": ", alcune venerdì",
+    "es": ", algunos viernes"
   },
   "all-weekday-5": {
     "fr": ", les vendredis",
@@ -161,7 +172,8 @@ module.exports = {
     "de": ", jeden Freitag",
     "io": "crwdns33816:0crwdne33816:0",
     "oc": ", cada divendres",
-    "it": ", ogni venerdì"
+    "it": ", ogni venerdì",
+    "es": ", todos los viernes"
   },
   "some-weekday-6": {
     "fr": ", certains samedis",
@@ -169,7 +181,8 @@ module.exports = {
     "de": ", einige Samstage",
     "io": "crwdns33818:0crwdne33818:0",
     "oc": ", d'unes dissabtes",
-    "it": ", alcune sabati"
+    "it": ", alcune sabati",
+    "es": ", algunos sábados"
   },
   "all-weekday-6": {
     "fr": ", les samedis",
@@ -177,7 +190,8 @@ module.exports = {
     "de": ", jeden Samstag",
     "io": "crwdns33820:0crwdne33820:0",
     "oc": ", cada dissabte",
-    "it": ", ogni sabato"
+    "it": ", ogni sabato",
+    "es": ", todos los sábados"
   },
   "weekday-0": {
     "en": "Sundays",
@@ -219,7 +233,7 @@ module.exports = {
     "ar": "الأربعاء",
     "de": "mittwoch",
     "it": "Mercoledì",
-    "es": "Miercoles",
+    "es": "Miércoles",
     "oc": "dimècres",
     "io": "crwdns16080:0crwdne16080:0"
   },
@@ -252,7 +266,7 @@ module.exports = {
     "ar": "السبت",
     "de": "sonnabend",
     "it": "Sabato",
-    "es": "Sabado",
+    "es": "Sábado",
     "oc": "dissabtes",
     "io": "crwdns16086:0crwdne16086:0"
   }

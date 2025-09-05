@@ -53,6 +53,7 @@ module.exports = {
     "fr": "Le format de l'image est inconnu",
     "en": "The format of the image is unknown",
     "io": "crwdns34126:0crwdne34126:0",
-    "oc": "Lo format d'imatge es desconegut"
+    "oc": "Lo format d'imatge es desconegut",
+    "es": "El formato de la imagen es desconocido"
   }
 }

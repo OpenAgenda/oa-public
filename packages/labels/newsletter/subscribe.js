@@ -14,7 +14,7 @@ module.exports = {
     "fr": "Vous avez été ajouté à notre liste d'envoi de lettre d'information. Merci!",
     "en": "You have been added to the newsletter list. Thanks!",
     "de": "Du wurdest in die Newsletter-Liste hinzugefügt. Vielen Dank!",
-    "es": "Se le ha añadido al de listas de correo. ¡Gracias!",
+    "es": "Ha sido añadido a la lista de envió del boletín de información. ¡Gracias!",
     "it": "Siete stati aggiunti alla nostra mailing list della newsletter. Grazie per il vostro interesse!",
     "io": "crwdns15784:0crwdne15784:0",
     "oc": "Sètz estat·da apondut·a a la lista de mandadís de la letra d'informacions. Mercés !"
@@ -23,7 +23,7 @@ module.exports = {
     "fr": "Vous ne recevrez désormais plus d'événements à l'adresse %email%",
     "en": "You will from now on no longer receive event emails at the address %email%",
     "de": "Du wirst ab sofort keine Veranstaltungs- E-Mails mehr an diese Adresse %email% erhalten.",
-    "es": "Ahora recibirá más eventos a %email%",
+    "es": "Ya no recibirá más eventos en el buzón de este correo %email%",
     "it": "Non riceverete più messaggi sopra eventi su l'indirizzo %email%",
     "io": "crwdns15786:0%email%crwdne15786:0",
     "oc": "A comptar d'ara recebretz pas pus d'emails suls eveniments a l'adreiça %email%"

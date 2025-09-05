@@ -80,6 +80,11 @@
       "outputs": ["esm/**", "lib/**"],
       "outputLogs": "new-only"
     },
+    "@openagenda/react#prepack": {
+      "dependsOn": ["^prepack"],
+      "outputs": ["dist/**", "src/locales/compiled/**"],
+      "outputLogs": "new-only"
+    },
     "@openagenda/react-shared#prepack": {
       "dependsOn": ["^prepack"],
       "outputs": ["css/**", "dist/**", "src/locales-compiled/**"],

@@ -50,7 +50,7 @@ module.exports = {
     "en": "You have been invited to contribute to the agenda %title%",
     "fr": "Vous avez été invité à contribuer à l'agenda %title%",
     "de": "Du wurdest eingeladen, etwas zum Veranstaltungskalender %title% beizutragen.",
-    "es": "Se le ha invitado a contribuir a la agenda %title%",
+    "es": "Ha sido invitado a contribuir a la agenda %title%",
     "it": "Siete stati invitati a contribuire all'agenda %title% agenda",
     "io": "crwdns15768:0%title%crwdne15768:0",
     "oc": "Sètz estat·da convidat·da a contribuir a l'agenda %title%"
@@ -59,7 +59,7 @@ module.exports = {
     "en": "You have become %credential% of the agenda %title%",
     "fr": "Vous êtes devenu %credential% de l'agenda %title%",
     "de": "Du bist jetzt %credential% der Veranstaltungskalender %title% ",
-    "es": "Usted se convirtió en el título %credencial% de la agenda %title%",
+    "es": "Usted se convirtió %credential% en la agenda %title%",
     "it": "Sei diventato %credenziale% dell'agenda %title%",
     "io": "crwdns15770:0%credential%crwdnd15770:0%title%crwdne15770:0",
     "oc": "Sètz vengut·da %credential% de l'agenda %title%"
@@ -95,7 +95,7 @@ module.exports = {
     "en": "You have been invited to contribute to the agenda **%title%** as a **%credential%**",
     "fr": "Vous avez été invité à contribuer à l'agenda **%title%** en tant que **%credential%**",
     "de": "Du wurdest eingeladen, etwas zum Veranstaltungskalender beizutragen.",
-    "es": "Usted ha sido invitado a contribuir a la agenda ** %title%** como **%credencial%**",
+    "es": "Ha sido invitado a contribuir a la agenda ** %title%** como **%credential%**",
     "it": "Siete stati invitati a contribuire all'agenda **%titolo%** come **%credenziali%**.",
     "io": "crwdns15778:0%title%crwdnd15778:0%credential%crwdne15778:0",
     "oc": "Sètz estat·da convidat·da a contribuir a l'agenda **%title%** coma **%credential%**"
@@ -104,7 +104,7 @@ module.exports = {
     "en": "The agenda %agenda% wrote you a message",
     "fr": "L'agenda %agenda% vous a écrit un message",
     "de": "Der Veranstaltungskalender %agenda% hat Dir eine Nachricht geschrieben.",
-    "es": "El agenda %agenda% escribió un mensaje",
+    "es": "La agenda %agenda% escribió un mensaje",
     "it": "Il agenda %agenda% vi ha scritto un messaggio",
     "io": "crwdns15780:0%agenda%crwdne15780:0",
     "oc": "L'agenda %agenda% vos a escrit un messatge"

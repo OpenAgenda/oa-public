@@ -6,7 +6,7 @@ import {
   DialogHeader,
   DialogCloseTrigger,
 } from '@openagenda/uikit/snippets';
-import { Agenda } from 'types';
+import { Agenda } from '../../types';
 import Body from './Body';
 import messages from './messages';
 
@@ -22,7 +22,7 @@ interface ExportModalProps {
   fetchAgendaExportSettings?: ({ agendaUid }) => Promise<any>;
 }
 
-export default function ExportModal({
+export default function AgendaExportModal({
   isOpen,
   onClose,
   agenda,

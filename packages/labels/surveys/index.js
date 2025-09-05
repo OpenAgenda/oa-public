@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Merci d'avoir participé!",
     "en": "Thank you for your contribution!",
     "de": "Danke für Ihren Beitrag!",
-    "es": "Gracias por participar!",
+    "es": "¡Gracias por su contribución!",
     "it": "Grazie per aver partecipato!",
     "io": "crwdns15788:0crwdne15788:0",
     "oc": "Mercés per vòstra contribucion !"
@@ -14,7 +14,7 @@ module.exports = {
     "fr": "Fermer",
     "en": "Close",
     "de": "Schließen",
-    "es": "Cerca",
+    "es": "Cerrar",
     "it": "Chiudere",
     "br": "Serriñ",
     "io": "crwdns15790:0crwdne15790:0",

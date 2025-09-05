@@ -117,13 +117,15 @@ module.exports = {
     "it": "L'accesso a questo campo è limitato agli amministratori e ai moderatori dell'agenda",
     "io": "crwdns16460:0crwdne16460:0",
     "de": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl",
-    "oc": "Lo camp es pas accessible als contributors"
+    "oc": "Lo camp es pas accessible als contributors",
+    "es": "El acceso a este campo está limitado a los administradores y moderadores de la agenda"
   },
   "stateFieldSub": {
     "fr": "Important: l'événement ne sera visible et diffusable que lorsqu'il aura été publié",
     "en": "Important: the event will be visible and shareable only when it will be published",
     "it": "Importante: l'evento sarà visibile e condivisibile solo quando sarà pubblicato",
     "io": "crwdns33404:0crwdne33404:0",
-    "oc": "Important : l'eveniment se poirà veire e compartir sonque quand serà publicat"
+    "oc": "Important : l'eveniment se poirà veire e compartir sonque quand serà publicat",
+    "es": "Importante: el evento será visible y compartible solo cuando sea publicado"
   }
 }

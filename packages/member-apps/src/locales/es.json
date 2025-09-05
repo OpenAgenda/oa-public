@@ -1,10 +1,23 @@
 {
+  "AgendaMember.RequestFeatureLink.findOutMore": "obtener más información",
+  "AgendaMember.RequestFeatureLink.link": "Solicitar activación de la funcionalidad",
+  "AgendaMember.RequestFeatureLink.title": "Activación de funcionalidad",
+  "MemberApps.Dashboard.messageHistory": "Historial de mensajes",
+  "MemberApps.Dashboard.nameModeratorsActivation": "Esta función se activa bajo solicitud. Le permite nombrar a un miembro como moderador. Escríbanos un mensaje y procesaremos su solicitud rápidamente.",
+  "MemberApps.Dashboard.sendMessageToFilteredMembers": "El mensaje se enviará a la selección actual de miembros ({count} de {total})",
+  "MemberApps.Dashboard.sendMessageToMembers": "Enviar mensaje al miembro",
+  "MemberApps.Dashboard.sendMessageToUnfilteredMembers": "El mensaje se enviará a todos los miembros ({total})",
+  "MemberApps.Dashboard.writeToMembersActivation": "Esta funcionalidad se activa bajo solicitud. Permite a un administrador enviar un mensaje agrupado a una selección de miembros. Escríbanos un mensaje y procesaremos su solicitud rápidamente.",
+  "MemberApps.Form.GDPRSummary": "Esta información será visible para los moderadores de la agenda.",
   "MemberApps.Form.cancel": "Anular",
   "MemberApps.Form.confirm": "Ok",
   "MemberApps.Form.confirmRemove": "Quitar la agenda",
   "MemberApps.Form.confirmRemoveInfo": "Si quitas de la agenda, dejarás de recibir notificaciones y ya no podrás editar tus eventos ni añadir otros nuevos. La agenda dejará de aparecer en tu pantalla de inicio.",
+  "MemberApps.Form.moreInfo": "Leer más",
   "MemberApps.Form.remove": "Quiero quitar la agenda",
   "MemberApps.Form.removeFail": "La solicitud ha fallado. Vuelva a intentarlo en breve. Si el problema persiste, envíenos un breve mensaje a support@openagenda.com",
   "MemberApps.Form.removeSuccess": "Ya no es miembro de la agenda",
-  "MemberApps.Form.save": "Guardar"
+  "MemberApps.Form.save": "Guardar",
+  "MemberApps.Form.success": "Se actualizo exitosamente",
+  "MemberApps.Form.updateTitle": "Formulario de contacto"
 }

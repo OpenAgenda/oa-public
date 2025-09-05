@@ -2,19 +2,19 @@
   "next.components.ConsentBanner.accept": [
     {
       "type": 0,
-      "value": "Accept"
+      "value": "Aceptar"
     }
   ],
   "next.components.ConsentBanner.decline": [
     {
       "type": 0,
-      "value": "Decline"
+      "value": "Rechazar"
     }
   ],
   "next.components.ConsentBanner.informationText": [
     {
       "type": 0,
-      "value": "This agenda uses cookies from the "
+      "value": "Esta agenda utiliza cookies del servicio de seguimiento "
     },
     {
       "type": 1,
@@ -22,13 +22,13 @@
     },
     {
       "type": 0,
-      "value": " tracking service. They allow the administrators of the agenda to get insight on what content is viewed by visitors on websites. Do you accept them?"
+      "value": ". Permiten a los administradores de la agenda obtener información sobre qué contenido ven los visitantes en los sitios web. ¿Las aceptas?"
     }
   ],
   "next.components.ConsentBanner.moreInfoLink": [
     {
       "type": 0,
-      "value": "Click here for more information"
+      "value": "Haga clic aquí para más información"
     }
   ]
 }

@@ -1,1 +1,25 @@
-{}
+{
+  "LegacyEmbed.Presentation.contactUs": "Contáctenos",
+  "LegacyEmbed.Presentation.create": "Crear un código de inserción para esta agenda",
+  "LegacyEmbed.Presentation.embedAction": "Mostrar modal de exportación",
+  "LegacyEmbed.Presentation.embedPresentation": "El código de integración público permite insertar fácilmente una agenda completa o una selección de eventos en una página web. Encuéntralo en el modal de exportación de la página principal de tu agenda.",
+  "LegacyEmbed.Presentation.legacyEmbedPresentation": "Crear un código de integración listo para el uso",
+  "LegacyEmbed.Presentation.legacyEmbedSummary": "Usar un código de integración listo para el uso",
+  "LegacyEmbed.Presentation.legacyEmbedTitle": "Código de integración clásico",
+  "LegacyEmbed.Presentation.legacyEmbedWarning": "Advertencia",
+  "LegacyEmbed.Presentation.legacyEmbedWarningDetail": "Se está rediseñando esta función; recomendamos el uso del método de código de integración personalizable para una nueva integración",
+  "LegacyEmbed.Presentation.moreInfo": "Más información",
+  "LegacyEmbed.Presentation.otherIntegrations": "Otras integraciones",
+  "LegacyEmbed.Presentation.pluginsAction": "Descubrir los plugins",
+  "LegacyEmbed.Presentation.pluginsPresentation": "Use el plugin correspondiente a tu CMS, permitiendo una integración flexible y avanzada de tus eventos: adapta el diseño y los estilos, elija los filtros para usar...",
+  "LegacyEmbed.Presentation.pluginsSummary": "Su página web funciona con WordPress, Drupal o Tipo",
+  "LegacyEmbed.Presentation.pluginsTitle": "Plugins",
+  "LegacyEmbed.Presentation.portalPresentation": "Implemente un portal de eventos personalizado dedicado en su dominio web. Tu agencia lo puede realizar o nuestro equipo de desarrolladores web OpenAgenda.",
+  "LegacyEmbed.Presentation.portalSummary": "Deseas una página web dedicada para mostrar tus eventos",
+  "LegacyEmbed.Presentation.portalTitle": "Página web de portal de eventos personalizado",
+  "LegacyEmbed.Presentation.standardEmbedGetBack": "Nos pondremos en contacto contigo pronto con un código de integración listo para el uso",
+  "LegacyEmbed.Presentation.standardEmbedPresentation": "Obtenga un código de integración para mostrar en una página de tu sitio web. Mostrará sus eventos así como las funciones de búsqueda y filtros de tu elección. Se pueden personalizar algunos ajustes de apariencia. La configuración y el uso de este código son gratuitos.",
+  "LegacyEmbed.Presentation.standardEmbedSummary": "Deseas un código de integración sencillo y eficiente para mostrar en tu página web",
+  "LegacyEmbed.Presentation.standardEmbedTitle": "Código de integración personalizable",
+  "LegacyEmbed.Presentation.title": "Integraciones"
+}

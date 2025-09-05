@@ -17,6 +17,8 @@
   "descriptionPlaceholder": "Una breve descripción de su evento",
   "descriptionPurpose": "Descripción de las pequeñas pantallas o lista",
   "descriptionSection": "Descripciones",
+  "extIds": "Identificadores externos",
+  "falseBoolean": "No seleccionado",
   "full": "Completo",
   "image": "Imagen del evento",
   "imageCredits": "Créditos del imágen",
@@ -36,6 +38,7 @@
   "movedOnline": "Trasladado en línea",
   "noDates": "Al menos una zona debe definirse",
   "noSelection": "Ninguna de las anteriores",
+  "nullBoolean": "(Sin valor)",
   "offlineAttendanceMode": "Desconnectad",
   "onlineAccessLink": "Enlace de acceso",
   "onlineAttendanceMode": "En linea",
@@ -58,5 +61,6 @@
   "title": "Título",
   "titlePlaceholder": "El título de su evento",
   "titlePurpose": "Nombre del evento",
+  "trueBoolean": "Seleccionado",
   "uploadButton": "Seleccionar"
 }

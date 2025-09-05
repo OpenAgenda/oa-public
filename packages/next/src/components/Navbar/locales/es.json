@@ -1,10 +1,10 @@
 {
   "next.components.Navbar.help": "Ayuda",
   "next.components.Navbar.myAgendas": "Mis agendas",
-  "next.components.Navbar.myEvents": "",
-  "next.components.Navbar.profileMenu": "",
-  "next.components.Navbar.settings": "",
+  "next.components.Navbar.myEvents": "Mis eventos",
+  "next.components.Navbar.profileMenu": "Menú del perfil",
+  "next.components.Navbar.settings": "Configuración",
   "next.components.Navbar.signIn": "Conectarse",
-  "next.components.Navbar.signOut": "",
+  "next.components.Navbar.signOut": "Cerrar sesión",
   "next.components.Navbar.signUp": "Inscribirse"
 }
