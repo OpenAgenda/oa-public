@@ -359,7 +359,7 @@
       "value": "Volume"
     }
   ],
-  "next.components.strapi.ReferenceItem.more": [
+  "next.components.Strapi.ReferenceItem.more": [
     {
       "type": 0,
       "value": "+ "

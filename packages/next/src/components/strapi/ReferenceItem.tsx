@@ -34,7 +34,7 @@ type ReferenceItemProps = Reference & {
 
 const messages = defineMessages({
   more: {
-    id: 'next.components.strapi.ReferenceItem.more',
+    id: 'next.components.Strapi.ReferenceItem.more',
     defaultMessage: '+ {count} more',
   },
 });
