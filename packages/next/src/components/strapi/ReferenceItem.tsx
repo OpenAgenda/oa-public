@@ -61,7 +61,7 @@ export default function ReferenceItem({
 }: ReferenceItemProps) {
   const allTags = tagsString?.split(',').map((tag) => tag.trim());
   const [displayedTags, setDisplayedTags] = useState(
-    allTags.filter((_t, i) => i < 5),
+    (allTags ?? []).filter((_t, i) => i < 5),
   );
 
   const size = sizes[smallImages ? 'small' : 'big'];
