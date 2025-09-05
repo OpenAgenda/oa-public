@@ -358,5 +358,19 @@
       "type": 0,
       "value": "Volume"
     }
+  ],
+  "next.components.strapi.ReferenceItem.more": [
+    {
+      "type": 0,
+      "value": "+ "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " more"
+    }
   ]
 }

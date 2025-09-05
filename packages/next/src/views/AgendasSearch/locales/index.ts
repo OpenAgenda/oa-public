@@ -8,7 +8,6 @@ import fetchLocale2 from 'components/Navbar/locales';
 import fetchLocale3 from 'components/NavbarSearchInput/locales';
 import fetchLocale4 from 'components/OfficialAgenda/locales';
 import fetchLocale5 from 'components/locales';
-import fetchLocale6 from 'components/strapi/locales';
 
 export default async function fetchLocale(locale) {
   return Promise.all([
@@ -19,7 +18,6 @@ export default async function fetchLocale(locale) {
     fetchLocale3(locale),
     fetchLocale4(locale),
     fetchLocale5(locale),
-    fetchLocale6(locale),
   ])
     .then((results) => Object.assign({}, ...results))
     .catch((e) => {
