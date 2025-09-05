@@ -1,1 +1,6 @@
-{}
+{
+  "common.event.states.published": "Publicado",
+  "common.event.states.readyToPublish": "Listo para publicar",
+  "common.event.states.refused": "Rechazado",
+  "common.event.states.toModerate": "Para moderar"
+}

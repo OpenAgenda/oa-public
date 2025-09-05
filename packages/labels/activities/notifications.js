@@ -86,21 +86,24 @@ module.exports = {
     "fr": "{actorCount, plural, one {{actor} a invité} other {{actor} ont invité}} {object} comme {credential} sur {target}.",
     "it": "{actor} ha invitato {object} come {credential} su {target}.",
     "io": "crwdns11208:0{actor}crwdnd11208:0{object}crwdnd11208:0{credential}crwdnd11208:0{target}crwdne11208:0",
-    "oc": "{actor} a convidat {object} coma {credential} sus {target}."
+    "oc": "{actor} a convidat {object} coma {credential} sus {target}.",
+    "es": "{actor} invitó a {object} como {credential} en {target}."
   },
   "agenda.acceptInvitation": {
     "en": "{actor} has accepted the invitation to become {credential} on {target}.",
     "fr": "{actorCount, plural, one {{actor} a accepté} other {{actor} ont accepté}} l'invitation pour devenir {credential} sur {target}.",
     "it": "{actor} ha accettato l'invito come {credential} su {target}.",
     "io": "crwdns11210:0{actor}crwdnd11210:0{credential}crwdnd11210:0{target}crwdne11210:0",
-    "oc": "{actor} a acceptat lo convit per venir {credential} sus {target}."
+    "oc": "{actor} a acceptat lo convit per venir {credential} sus {target}.",
+    "es": "{actor} ha aceptado la invitación para convertirse en {credential} en {target}."
   },
   "agenda.addMember": {
     "en": "{actor} added {object} as {credential} on {target}.",
     "fr": "{actorCount, plural, one {{actor} a ajouté} other {{actor} ont ajouté}} {object} comme {credential} sur {target}.",
     "it": "{actor} ha aggiunto {object} come {credential} su {target}.",
     "io": "crwdns11212:0{actor}crwdnd11212:0{object}crwdnd11212:0{credential}crwdnd11212:0{target}crwdne11212:0",
-    "oc": "{actor} a apondut {object} coma {credential} sus {target}."
+    "oc": "{actor} a apondut {object} coma {credential} sus {target}.",
+    "es": "{actor} agregó a {object} como {credential} en {target}."
   },
   "agenda.addMember.withYou": {
     "en": "{actor} added you as {credential} on {target}.",
@@ -117,21 +120,24 @@ module.exports = {
     "fr": "{actorCount, plural, one {{actor} a retiré} other {{actor} ont retiré}} {object} ({credential}) de {target}.",
     "it": "{actor} ha rimosso {object} ({credential}) da {target}.",
     "io": "crwdns11216:0{actor}crwdnd11216:0{object}crwdnd11216:0{credential}crwdnd11216:0{target}crwdne11216:0",
-    "oc": "{actor} a tirat {object} ({credential}) de {target}."
+    "oc": "{actor} a tirat {object} ({credential}) de {target}.",
+    "es": "{actor} eliminó a {object} ({credential}) de {target}."
   },
   "agenda.removeMember.withYou": {
     "en": "{actor} removed you ({credential}) from {target}.",
     "fr": "{actor} vous a retiré ({credential}) de {target}.",
     "it": "{actor} ti ha rimosso ({credential}) da {target}.",
     "io": "crwdns11218:0{actor}crwdnd11218:0{credential}crwdnd11218:0{target}crwdne11218:0",
-    "oc": "{actor} vos a tirat ({credential}) de {target}."
+    "oc": "{actor} vos a tirat ({credential}) de {target}.",
+    "es": "{actor} te eliminó ({credential}) de {target}."
   },
   "agenda.setMemberRole": {
     "en": "{actor} appointed {object} as {credential} on {target}.",
     "fr": "{actorCount, plural, one {{actor} a nommé} other {{actor} ont nommé}} {object} {credential} sur {target}.",
     "it": "{actor} ha aggiunto {object} come {credential} su {target}.",
     "io": "crwdns11220:0{actor}crwdnd11220:0{object}crwdnd11220:0{credential}crwdnd11220:0{target}crwdne11220:0",
-    "oc": "{actor} a nomenat {object} {credential} sus {target}."
+    "oc": "{actor} a nomenat {object} {credential} sus {target}.",
+    "es": "{actor} nombró a {object} como {credential} en {target}."
   },
   "agenda.setMemberRole.withYou": {
     "en": "{actor} appointed you as {credential} on {target}.",
@@ -148,14 +154,16 @@ module.exports = {
     "fr": "{actorCount, plural, one {{actor} a ajouté} other {{actor} ont ajouté}} {object} aux sources de {target}.",
     "it": "{actor} ha aggiunto {object} come fonte di {target}.",
     "io": "crwdns11224:0{actor}crwdnd11224:0{object}crwdnd11224:0{target}crwdne11224:0",
-    "oc": "{actor} a apondut {object} coma sorsa sus {target}."
+    "oc": "{actor} a apondut {object} coma sorsa sus {target}.",
+    "es": "{actor} agregó a {object} como fuente en {target}."
   },
   "agenda.removeSource": {
     "en": "{actor} removed {object} from the sources on {target}.",
     "fr": "{actorCount, plural, one {{actor} a retiré} other {{actor} ont retiré}} {object} des sources de {target}.",
     "it": "{actor} ha rimosso {object} dai fonti di {target}.",
     "io": "crwdns11226:0{actor}crwdnd11226:0{object}crwdnd11226:0{target}crwdne11226:0",
-    "oc": "{actor} a tirat {object} de las sorsas sus {target}."
+    "oc": "{actor} a tirat {object} de las sorsas sus {target}.",
+    "es": "{actor} eliminó a {object} de las fuentes en {target}."
   },
   "agenda.create": {
     "en": "{actor} created the agenda {target}.",
@@ -172,14 +180,16 @@ module.exports = {
     "fr": "{actorCount, plural, one {{actor} a mis} other {{actor} ont mis}} à jour les paramètres de contribution de {target}.",
     "it": "{actor} ha aggiornato le impostazioni di contribuzione di {target}.",
     "io": "crwdns11230:0{actor}crwdnd11230:0{target}crwdne11230:0",
-    "oc": "{actor} a metut a jorn los reglatges de contribucion de {target}."
+    "oc": "{actor} a metut a jorn los reglatges de contribucion de {target}.",
+    "es": "{actor} ha actualizado los parámetros de contribución de {target}."
   },
   "agenda.updateProfile": {
     "en": "{actor} updated the profile of {target}.",
     "fr": "{actorCount, plural, one {{actor} a mis} other {{actor} ont mis}} à jour le profil de {target}.",
     "it": "{actor} ha aggiornato il profilo di {target}.",
     "io": "crwdns11232:0{actor}crwdnd11232:0{target}crwdne11232:0",
-    "oc": "{actor} a metut lo perfil de {target} a jorn."
+    "oc": "{actor} a metut lo perfil de {target} a jorn.",
+    "es": "{actor} actualizó el perfil de {target}."
   },
   "agenda.rename": {
     "en": "{actor} renamed the agenda {beforeTitle} to {afterTitle}.",
@@ -214,7 +224,8 @@ module.exports = {
     "fr": "{actorCount, plural, one {{actor} a passé} other {{actor} ont passé}} {object} en \"{newState}\" sur {target}.",
     "it": "{actor} ha cambiato {object} come \"{newState}\" su {target}.",
     "io": "crwdns11240:0{actor}crwdnd11240:0{object}crwdnd11240:0{newState}crwdnd11240:0{target}crwdne11240:0",
-    "oc": "{actor} a passat {object} a \"{newState}\" sus {target}."
+    "oc": "{actor} a passat {object} a \"{newState}\" sus {target}.",
+    "es": "{actor} pasó {object} como \"{newState}\" en {target}."
   },
   "agenda.publishEvent": {
     "en": "{actor} published {object} on {target}.",
@@ -231,20 +242,23 @@ module.exports = {
     "fr": "{actorCount, plural, one {{actor} a dépublié} other {{actor} ont dépublié}} {object} sur {target}.",
     "it": "{actor} ha annullato la pubblicazione di {object} su {target}.",
     "io": "crwdns11244:0{actor}crwdnd11244:0{object}crwdnd11244:0{target}crwdne11244:0",
-    "oc": "{actor} a despublicat {object} sus {target}."
+    "oc": "{actor} a despublicat {object} sus {target}.",
+    "es": "{actor} despublicó {object} en {target}."
   },
   "agenda.systemUnpublishEvent": {
     "en": "{object} has been automatically unpublished on {target} for moderation",
     "fr": "{object} a été dépublié automatiquement sur {target} pour nouveau contrôle",
     "io": "crwdns16410:0{object}crwdnd16410:0{target}crwdne16410:0",
-    "oc": "{object} es estat automaticament despublicat de {target} per moderacion"
+    "oc": "{object} es estat automaticament despublicat de {target} per moderacion",
+    "es": "{object} ha sido despublicado automáticamente en {target} para moderación"
   },
   "agenda.removeEvent": {
     "en": "{actor} removed {object} from {target}.",
     "fr": "{actorCount, plural, one {{actor} a retiré} other {{actor} ont retiré}} {object} de {target}.",
     "it": "{actor} ha rimosso {object} da {target}.",
     "io": "crwdns11246:0{actor}crwdnd11246:0{object}crwdnd11246:0{target}crwdne11246:0",
-    "oc": "{actor} a tirat {object} de {target}."
+    "oc": "{actor} a tirat {object} de {target}.",
+    "es": "{actor} eliminó {object} de {target}."
   },
   "agenda.aggregateEvent": {
     "en": "{target} aggregated {object} from {actor}.",
@@ -261,27 +275,31 @@ module.exports = {
     "fr": "{actor} a ajouté {object} sur {target} à partir de {sourceAgenda}.",
     "it": "{actor} ha aggiunto {object} su {target} da {sourceAgenda}.",
     "io": "crwdns11250:0{actor}crwdnd11250:0{object}crwdnd11250:0{target}crwdnd11250:0{sourceAgenda}crwdne11250:0",
-    "oc": "{actor} a apondut {object} sus {target} a partir de {sourceAgenda}."
+    "oc": "{actor} a apondut {object} sus {target} a partir de {sourceAgenda}.",
+    "es": "{actor} agregó {object} en {target} desde {sourceAgenda}."
   },
   "event.create": {
     "en": "{actor} created {object} on {target}.",
     "fr": "{actorCount, plural, one {{actor} a créé} other {{actor} ont créé}} {object} sur {target}.",
     "it": "{actor} ha creato {object} in {target}.",
     "io": "crwdns11252:0{actor}crwdnd11252:0{object}crwdnd11252:0{target}crwdne11252:0",
-    "oc": "{actor} a creat {object} sus {target}."
+    "oc": "{actor} a creat {object} sus {target}.",
+    "es": "{actor} creó {object} en {target}."
   },
   "event.update": {
     "en": "{actor} updated {object} on {target}.",
     "fr": "{actorCount, plural, one {{actor} a mis} other {{actor} ont mis}} à jour {object} sur {target}.",
     "it": "{actor} ha aggiornato {object} su {target}.",
     "io": "crwdns11254:0{actor}crwdnd11254:0{object}crwdnd11254:0{target}crwdne11254:0",
-    "oc": "{actor} a metut {object} a jorn sus {target}."
+    "oc": "{actor} a metut {object} a jorn sus {target}.",
+    "es": "{actor} actualizó {object} en {target}."
   },
   "event.delete": {
     "en": "{actor} removed {object} from {target}.",
     "fr": "{actorCount, plural, one {{actor} a supprimé} other {{actor} ont supprimé}} {object} de {target}.",
     "it": "{actor} ha rimosso {object} de {target}.",
     "io": "crwdns11256:0{actor}crwdnd11256:0{object}crwdnd11256:0{target}crwdne11256:0",
-    "oc": "{actor} a tirat {object} de {target}."
+    "oc": "{actor} a tirat {object} de {target}.",
+    "es": "{actor} eliminó {object} de {target}."
   }
 }

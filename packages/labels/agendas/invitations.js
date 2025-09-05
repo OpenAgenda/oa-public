@@ -7,7 +7,7 @@ module.exports = {
     "it": "Si è verificato un errore durante l'elaborazione degli inviti. Si prega di riprovare in breve tempo.",
     "de": "Bei der Bearbeitung der Einladungen ist ein Fehler aufgetreten. Bitte versuche es in Kürze noch einmal.",
     "pl": "Podczas przetwarzania zaproszeń wystąpił błąd. Proszę spróbować ponownie za chwilę.",
-    "es": "Se ha recibido un error al procesar las invitaciones. Por favor, intente nuevamente en unos momentos",
+    "es": "Ocurrió un error al procesar las invitaciones. Por favor, inténtalo nuevamente ",
     "io": "crwdns12870:0crwdne12870:0",
     "oc": "I aguèt una error pendent lo tractament dels convits. Mercés de tornar ensajar dins un momentòt."
   },
@@ -27,7 +27,7 @@ module.exports = {
     "it": "I %count% e-mail sono in corso di elaborazione",
     "de": "Ihre %count% eingereichten E-Mails werden verarbeitet.",
     "pl": "Twoja %count% przesłanych wiadomości e-mail jest przetwarzana",
-    "es": "El recuento asunto del correo electrónico se está procesando",
+    "es": "Se están procesando los %count% correos enviados ",
     "io": "crwdns12874:0%count%crwdne12874:0",
     "oc": "Vòstres %count% emails sometuts son en cors de tractament"
   },
@@ -37,7 +37,7 @@ module.exports = {
     "it": "Nessun nuovo invito è stato inviato",
     "de": "Es wurde keine neue Einladung versendet.",
     "pl": "Nie wysłano nowego zaproszenia",
-    "es": "No hay nueva invitación fue enviada",
+    "es": "No hay nueva invitación enviada",
     "io": "crwdns12876:0crwdne12876:0",
     "oc": "Pas cap convit foguèt pas mandat"
   },
@@ -47,7 +47,7 @@ module.exports = {
     "it": "Inviti inviati: %count%",
     "de": "Gesendete Einladungen: %count%.",
     "pl": "Zaproszenia wysłane: %count%",
-    "es": "invitaciones enviados: %count%",
+    "es": "Invitaciones enviadas: %count%",
     "io": "crwdns12878:0%count%crwdne12878:0",
     "oc": "Mandar de convits : %count%"
   },
@@ -57,7 +57,7 @@ module.exports = {
     "it": "%count% inviti vengono di nuovo inviate.<br/><br/>Nota che gli inviti non possono essere inviati all'ingrosso più di una volta ogni 24 ore",
     "de": "%count% Einladungen werden erneut versendet.<br/><br/><br/> Beachten Sie, dass Einladungen nicht mehr als einmal alle 24 Stunden in großen Mengen versendet werden können.",
     "pl": "%count% zaproszenia są wysyłane ponownie.<br/><br/>Notka, że zaproszenia nie mogą być wysyłane masowo więcej niż raz na 24 godziny",
-    "es": "%count% invitaciones están siendo enviados. <br/> Tenga en cuenta que las invitaciones no se pueden reiniciar una vez cada 24 horas.",
+    "es": "%count% invitaciones están siendo enviadas. <br/> Tenga en cuenta que las invitaciones no se pueden reiniciar más de una vez cada 24 horas.",
     "io": "crwdns12880:0%count%crwdne12880:0",
     "oc": "%count% convits son a se tornar mandar.<br/><br/>Notatz que los convits se pòdon pas mandar en massa mai d'un còp totas las 24 oras"
   },
@@ -67,7 +67,7 @@ module.exports = {
     "it": "L'invito è essere risentito",
     "de": "Die Einladung wird erneut versendet.",
     "pl": "Zaproszenie jest wysyłane ponownie",
-    "es": "La invitación está siendo re-enviado",
+    "es": "La invitación está siendo reenviada",
     "io": "crwdns12882:0crwdne12882:0",
     "oc": "Lo convit es a se tornar mandar"
   }

@@ -6,21 +6,24 @@ module.exports = {
     "fr": "Identifiant",
     "io": "crwdns12102:0crwdne12102:0",
     "it": "ID",
-    "oc": "Identificant"
+    "oc": "Identificant",
+    "es": "Id"
   },
   "name": {
     "en": "Name",
     "fr": "Nom",
     "io": "crwdns12104:0crwdne12104:0",
     "it": "Nome",
-    "oc": "Nom"
+    "oc": "Nom",
+    "es": "Nombre"
   },
   "address": {
     "en": "Address",
     "fr": "Adresse",
     "io": "crwdns12106:0crwdne12106:0",
     "it": "Indirizzo",
-    "oc": "Adreiça"
+    "oc": "Adreiça",
+    "es": "Dirección"
   },
   "city": {
     "en": "City",
@@ -28,7 +31,8 @@ module.exports = {
     "br": "Kêr",
     "io": "crwdns12108:0crwdne12108:0",
     "it": "Città",
-    "oc": "Vila"
+    "oc": "Vila",
+    "es": "Ciudad"
   },
   "department": {
     "en": "Department",
@@ -36,63 +40,72 @@ module.exports = {
     "br": "Departamant",
     "io": "crwdns12110:0crwdne12110:0",
     "it": "Provincia",
-    "oc": "Departament"
+    "oc": "Departament",
+    "es": "Departamento"
   },
   "latitude": {
     "en": "Latitude",
     "fr": "Latitude",
     "io": "crwdns12112:0crwdne12112:0",
     "it": "Latitudine",
-    "oc": "Latitud"
+    "oc": "Latitud",
+    "es": "Latitud"
   },
   "longitude": {
     "en": "Longitude",
     "fr": "Longitude",
     "io": "crwdns12114:0crwdne12114:0",
     "it": "Longitudine",
-    "oc": "Longitud"
+    "oc": "Longitud",
+    "es": "Longitud"
   },
   "postalCode": {
     "en": "Postal code",
     "fr": "Code postal",
     "io": "crwdns12116:0crwdne12116:0",
     "it": "Codice postale",
-    "oc": "Còdi postal"
+    "oc": "Còdi postal",
+    "es": "Código postal"
   },
   "insee": {
     "en": "INSEE Code",
     "fr": "Code INSEE",
     "io": "crwdns12118:0crwdne12118:0",
     "it": "Codice INSEE (Francia)",
-    "oc": "Còdi INSEE"
+    "oc": "Còdi INSEE",
+    "es": "Código INSEE"
   },
   "siret": {
     "en": "SIRET Code",
     "fr": "Code SIRET",
     "io": "crwdns33876:0crwdne33876:0",
     "it": "Codice fiscale",
-    "oc": "N° SIRET"
+    "oc": "N° SIRET",
+    "es": "Código SIRET"
   },
   "countryCode": {
     "en": "Country code",
     "fr": "Code pays",
     "io": "crwdns12120:0crwdne12120:0",
     "it": "Codice del paese",
-    "oc": "Còdi país"
+    "oc": "Còdi país",
+    "es": "Código de país"
   },
   "district": {
     "en": "District",
     "fr": "Quartier",
     "io": "crwdns12122:0crwdne12122:0",
     "it": "Quartiere",
-    "oc": "Districte"
+    "oc": "Districte",
+    "es": "Distrito"
   },
   "region": {
     "en": "Region",
     "fr": "Région",
     "io": "crwdns12124:0crwdne12124:0",
     "it": "Regione",
-    "oc": "Region"
+    "oc": "Region",
+    "es": "Región"
   },
   "eventCount": {
     "en": "Associated events",
@@ -115,7 +128,8 @@ module.exports = {
     "fr": "Vérifié",
     "io": "crwdns12130:0crwdne12130:0",
     "it": "Verificato",
-    "oc": "Verificat"
+    "oc": "Verificat",
+    "es": "Verificado"
   },
   "extIds": {
     "en": "External ids",
@@ -129,7 +143,8 @@ module.exports = {
     "fr": "Code URL",
     "io": "crwdns12134:0crwdne12134:0",
     "it": "URL",
-    "oc": "Còdi URL"
+    "oc": "Còdi URL",
+    "es": "Código URL"
   },
   "website": {
     "en": "Website",
@@ -154,7 +169,7 @@ module.exports = {
     "en": "Description",
     "fr": "Description",
     "de": "Beschreibung",
-    "es": "descripción",
+    "es": "Descripción",
     "it": "Descrizione",
     "oc": "Descripcion",
     "io": "crwdns32875:0crwdne32875:0"

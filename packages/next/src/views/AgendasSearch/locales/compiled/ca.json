@@ -2,7 +2,7 @@
   "next.views.AgendaSearch.bigTotal": [
     {
       "type": 0,
-      "value": "More than "
+      "value": "Más de "
     },
     {
       "style": null,
@@ -11,19 +11,19 @@
     },
     {
       "type": 0,
-      "value": " agendas found"
+      "value": " agendas encontradas"
     }
   ],
   "next.views.AgendaSearch.latestUpdated": [
     {
       "type": 0,
-      "value": "Recently updated agendas"
+      "value": "Agendas actualizadas recientemente"
     }
   ],
   "next.views.AgendaSearch.pageTitle": [
     {
       "type": 0,
-      "value": "Agendas search"
+      "value": "Búsqueda de agendas"
     }
   ],
   "next.views.AgendaSearch.passedEvents": [
@@ -34,7 +34,7 @@
           "value": [
             {
               "type": 0,
-              "value": "No passed event"
+              "value": "Ningún evento pasado"
             }
           ]
         },
@@ -42,7 +42,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 passed event"
+              "value": "1 evento pasado"
             }
           ]
         },
@@ -53,7 +53,7 @@
             },
             {
               "type": 0,
-              "value": " passed events"
+              "value": " eventos pasados"
             }
           ]
         }
@@ -66,7 +66,7 @@
   "next.views.AgendaSearch.searchResultHead": [
     {
       "type": 0,
-      "value": "Search results for \""
+      "value": "Resultados de búsqueda para\""
     },
     {
       "type": 1,
@@ -80,7 +80,7 @@
   "next.views.AgendaSearch.seeMore": [
     {
       "type": 0,
-      "value": "See more"
+      "value": "Ver más"
     }
   ],
   "next.views.AgendaSearch.total": [
@@ -91,7 +91,7 @@
           "value": [
             {
               "type": 0,
-              "value": "No agenda found"
+              "value": "Ninguna agenda encontrada"
             }
           ]
         },
@@ -99,7 +99,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 agenda found"
+              "value": "1 agenda encontrada"
             }
           ]
         },
@@ -110,7 +110,7 @@
             },
             {
               "type": 0,
-              "value": " agendas found"
+              "value": " agendas encontradas"
             }
           ]
         }
@@ -128,7 +128,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Ningún evento próximo"
+              "value": "Ningún próximo evento"
             }
           ]
         },
@@ -136,7 +136,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 evento próximo"
+              "value": "1 próximo evento"
             }
           ]
         },
@@ -147,7 +147,7 @@
             },
             {
               "type": 0,
-              "value": " eventos próximos"
+              "value": " próximos eventos"
             }
           ]
         }

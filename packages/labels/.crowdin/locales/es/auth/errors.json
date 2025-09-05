@@ -1,7 +1,12 @@
 {
+  "fieldCannotBeEmpty": "El campo no puede estar vacío",
   "incorrectPassword": "Esta contraseña es incorrecta",
+  "invalidToken": "Token inválido",
   "passwordCouldNotBeModified": "No se ha podido modificar la contraseña",
   "passwordResetSent": "A password reset is being sent to your email",
   "passwordUpdated": "Su contraseña ha sido actualizada.",
-  "passwordsMustMatch": "La contraseña debe coincidir."
+  "passwordsMustMatch": "La contraseña debe coincidir.",
+  "resetLinkOutdated": "El enlace ha caducado. Inténtalo nuevamente.",
+  "userNotActivated": "Usuario no activado",
+  "userNotFound": "Usuario no encontrado"
 }

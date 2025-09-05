@@ -7,7 +7,7 @@ module.exports = {
     "it": "Ufficiale",
     "de": "offiziell",
     "pl": "Oficjalne",
-    "es": "oficial",
+    "es": "Oficial",
     "br": "Ofisiel",
     "io": "crwdns12856:0crwdne12856:0",
     "oc": "Oficial"
@@ -18,7 +18,7 @@ module.exports = {
     "it": "Agenda privato",
     "de": "privater Kalender",
     "pl": "Kalendarz prywatny",
-    "es": "Eventos privados",
+    "es": "Agenda privada",
     "br": "Deiziataer prevez",
     "io": "crwdns12858:0crwdne12858:0",
     "oc": "Agenda privada"
@@ -29,7 +29,7 @@ module.exports = {
     "it": "Contattare",
     "de": "kontaktieren",
     "pl": "Skontaktuj",
-    "es": "Contactar con",
+    "es": "Contactar",
     "br": "Mont e darempred",
     "io": "crwdns12860:0crwdne12860:0",
     "oc": "Contactar"
@@ -62,7 +62,7 @@ module.exports = {
     "it": "Vedere l'agenda in modo calendario",
     "de": "Kalenderansicht anzeigen",
     "pl": "Wyświetl widok kalendarza",
-    "es": "Mostrar vista del agenda",
+    "es": "Mostrar vista del calendario",
     "br": "Diskwel ar gwel deiziadur",
     "io": "crwdns12866:0crwdne12866:0",
     "oc": "Afichar la vista calendièr"

@@ -43,7 +43,7 @@ module.exports = {
     "fr": "Historique",
     "io": "crwdns32762:0crwdne32762:0",
     "oc": "Istoric",
-    "es": "Historia",
+    "es": "Histórico",
     "it": "Storia"
   },
   "newTab": {

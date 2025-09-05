@@ -1,4 +1,5 @@
 {
+  "format.unknown": "El formato de la imagen es desconocido",
   "location.required": "El lugar debe especificarse",
   "timings.empty": "A lo menos un horario debe ser definido",
   "timings.invalid": "A lo menos un horario debe ser definido",

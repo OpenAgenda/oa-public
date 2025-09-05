@@ -7,7 +7,7 @@ module.exports = {
     "it": "Il mio profilo",
     "de": "Mein Profil",
     "pl": "Mój profil",
-    "es": "perfil",
+    "es": "Mi perfil",
     "br": "Ma frofil",
     "io": "crwdns15802:0crwdne15802:0",
     "oc": "Mon perfil"
@@ -40,7 +40,7 @@ module.exports = {
     "it": "Uscire",
     "de": "Abmelden",
     "pl": "Wyloguj się",
-    "es": "Salir",
+    "es": "Cerrar sesión",
     "br": "Digevreañ",
     "io": "crwdns15808:0crwdne15808:0",
     "oc": "Desconnexion"
@@ -73,7 +73,7 @@ module.exports = {
     "it": "Creare un agenda",
     "de": "Agenda Anlegen",
     "pl": "Stwórz porządek obrad",
-    "es": "Crear un agenda",
+    "es": "Crear una agenda",
     "br": "Krouiñ un deiziataer",
     "io": "crwdns15814:0crwdne15814:0",
     "oc": "Crear una agenda"
@@ -84,7 +84,7 @@ module.exports = {
     "it": "In generale",
     "de": "Allgemein",
     "pl": "Uwagi ogólne",
-    "es": "general",
+    "es": "General",
     "br": "Dre vras",
     "io": "crwdns15816:0crwdne15816:0",
     "oc": "General"
@@ -95,7 +95,7 @@ module.exports = {
     "it": "Le agende",
     "de": "Agendas",
     "pl": "Porządek dzienny",
-    "es": "agendas",
+    "es": "Agendas",
     "br": "Deiziataerioù",
     "io": "crwdns15818:0crwdne15818:0",
     "oc": "Agendas"

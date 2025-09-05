@@ -295,7 +295,7 @@ module.exports = {
     "en": "Basic agenda features",
     "fr": "Fonctions de l'agenda basique",
     "de": "Grundlegende Funktionen Agenda",
-    "es": "Las funciones básicas de la agenda",
+    "es": "Funciones estándares de la agenda",
     "it": "Funzioni di base del calendario",
     "io": "crwdns13338:0crwdne13338:0",
     "oc": "Foncions de basa de l'agenda"
@@ -304,7 +304,7 @@ module.exports = {
     "en": "Premium support",
     "fr": "Support premium",
     "de": "Premium-Support",
-    "es": "Soporte premium",
+    "es": "Soporte prémium",
     "it": "Supporto Premium",
     "io": "crwdns13340:0crwdne13340:0",
     "oc": "Supòrt premium"
@@ -313,7 +313,7 @@ module.exports = {
     "en": "Extra event fields",
     "fr": "Champs additionnels",
     "de": "Extra Veranstaltungfelder",
-    "es": "campos adicionales",
+    "es": "Campos adicionales",
     "it": "Campi aggiuntivi",
     "io": "crwdns13342:0crwdne13342:0",
     "oc": "Camps d'eveniment suplementaris"
@@ -322,7 +322,7 @@ module.exports = {
     "en": "Custom embed",
     "fr": "Embed personnalisable",
     "de": "Individuelles einbetten",
-    "es": "incrustar personalizable",
+    "es": "Integración iframe personalizable",
     "it": "Incorporazione personalizzabile",
     "io": "crwdns13344:0crwdne13344:0",
     "oc": "Integracion pesonalizabla"
@@ -349,7 +349,7 @@ module.exports = {
     "en": "Premium agenda",
     "fr": "Agenda premium",
     "de": "Premium-Agenda",
-    "es": "Eventos de primera calidad",
+    "es": "Agenda prémium",
     "it": "Agenda Premium",
     "io": "crwdns13350:0crwdne13350:0",
     "oc": "Agenda premium"
@@ -358,7 +358,7 @@ module.exports = {
     "en": "20 premium agendas",
     "fr": "20 agendas premium",
     "de": "20 Premium-Kalenders",
-    "es": "20 agendas de primera calidad",
+    "es": "20 agendas prémium",
     "it": "20 agende premio",
     "io": "crwdns13352:0crwdne13352:0",
     "oc": "20 agendas premium"
@@ -367,7 +367,7 @@ module.exports = {
     "en": "Unlimited basic agendas",
     "fr": "Agendas basiques illimités",
     "de": "Unbegrenzte Grund Kalenders",
-    "es": "agendas básicos ilimitados",
+    "es": "Agendas estándares ilimitados",
     "it": "Agende di base illimitate",
     "io": "crwdns13354:0crwdne13354:0",
     "oc": "Agendas basicas illimitadas"
@@ -385,7 +385,7 @@ module.exports = {
     "en": "Dedicated support",
     "fr": "Conseil personnalisé",
     "de": "engagierte Unterstützung",
-    "es": "asesoramiento personalizado",
+    "es": "Asesoramiento personalizado",
     "it": "Consulenza personalizzata",
     "io": "crwdns13358:0crwdne13358:0",
     "oc": "Ajuda personalizada"
@@ -394,7 +394,7 @@ module.exports = {
     "en": "Custom features",
     "fr": "les fonctions Custom",
     "de": "benutzerdefinierte Funktionen",
-    "es": "Las funciones personalizadas",
+    "es": "Funciones personalizadas",
     "it": "Funzioni personalizzate",
     "io": "crwdns13360:0crwdne13360:0",
     "oc": "Foncionalitats personalizadas"
@@ -421,7 +421,7 @@ module.exports = {
     "en": "Custom notifications",
     "fr": "Personnalisation des notifications",
     "de": "benutzerdefinierte Benachrichtigungen",
-    "es": "personalizar las notificaciones",
+    "es": "Personalizar las notificaciones",
     "it": "Personalizzazione delle notifiche",
     "io": "crwdns13366:0crwdne13366:0",
     "oc": "Notificacions personalizadas"
@@ -430,7 +430,7 @@ module.exports = {
     "en": "Tailored",
     "fr": "Sur mesure",
     "de": "maßgeschneiderte",
-    "es": "costumbre",
+    "es": "A la medida",
     "it": "Su misura",
     "io": "crwdns13368:0crwdne13368:0",
     "oc": "A faiçon"
@@ -439,7 +439,7 @@ module.exports = {
     "en": "Event portal",
     "fr": "Portail",
     "de": "Eventportal",
-    "es": "portal",
+    "es": "Portal",
     "it": "Portale",
     "io": "crwdns13370:0crwdne13370:0",
     "oc": "Portal d'eveniment"
@@ -448,7 +448,7 @@ module.exports = {
     "en": "Premium features",
     "fr": "les fonctions Premium",
     "de": "Premium-Features",
-    "es": "características premium",
+    "es": "Funciones prémium",
     "it": "Caratteristiche Premium",
     "io": "crwdns13372:0crwdne13372:0",
     "oc": "Foncionalitats premium"
@@ -457,7 +457,7 @@ module.exports = {
     "en": "Editorial control",
     "fr": "Définition de l'axe éditorial",
     "de": "redaktionelle Kontrolle",
-    "es": "Definición de la línea editorial",
+    "es": "Control editorial",
     "it": "Definizione dell'asse editoriale",
     "io": "crwdns13374:0crwdne13374:0",
     "oc": "Contròle editorial"
@@ -475,7 +475,7 @@ module.exports = {
     "en": "Network deployment",
     "fr": "Déploiement des réseaux",
     "de": "Network Deployment",
-    "es": "despliegue de red",
+    "es": "Despliegue de red",
     "it": "Implementazione della rete",
     "io": "crwdns13378:0crwdne13378:0",
     "oc": "Desplega de la ret"
@@ -484,7 +484,7 @@ module.exports = {
     "en": "Paper program",
     "fr": "Programme papier",
     "de": "Paper-Programm",
-    "es": "agenda de papel",
+    "es": "Programa formato papel",
     "it": "Programma cartaceo",
     "io": "crwdns13380:0crwdne13380:0",
     "oc": "Programa papièr"
@@ -493,7 +493,7 @@ module.exports = {
     "en": "Currently on OpenAgenda",
     "fr": "En ce moment",
     "de": "Derzeit auf OpenAgenda",
-    "es": "En este momento",
+    "es": "Actualmente en OpenAgenda",
     "it": "Al momento",
     "io": "crwdns13382:0crwdne13382:0",
     "oc": "D'aquesta passa sus OpenAgenda"
@@ -530,7 +530,7 @@ module.exports = {
     "en": "Ready ?",
     "fr": "Prêt ?",
     "de": "Bereit ?",
-    "es": "Listo ?",
+    "es": "¿Listo?",
     "it": "Pronti?",
     "io": "crwdns13390:0crwdne13390:0",
     "oc": "Prèste·a ?"
@@ -539,7 +539,7 @@ module.exports = {
     "en": "Create your calendar now !",
     "fr": "Créez votre agenda !",
     "de": "Erstelle deinen Kalender jetzt!",
-    "es": "Crear su agenda!",
+    "es": "¡Crea tu agenda ahora!",
     "it": "Crea su agenda!",
     "io": "crwdns13392:0crwdne13392:0",
     "oc": "Fargatz vòstra agenda ara !"
@@ -557,7 +557,7 @@ module.exports = {
     "en": "Your email address",
     "fr": "Votre adresse email",
     "de": "deine Emailadresse",
-    "es": "Su dirección de correo electrónico",
+    "es": "Tu correo electrónico",
     "it": "Il suo indirizzo e-mail",
     "io": "crwdns13396:0crwdne13396:0",
     "oc": "Vòstra adreça email"
@@ -566,7 +566,7 @@ module.exports = {
     "en": "Subscribe",
     "fr": "S'abonner",
     "de": "Abonnieren",
-    "es": "suscribir",
+    "es": "Suscribir",
     "it": "Iscriviti alla nostra newsletter",
     "br": "Koumanantit",
     "io": "crwdns13398:0crwdne13398:0",
@@ -576,7 +576,7 @@ module.exports = {
     "en": "Our company",
     "fr": "La société",
     "de": "Unsere Firma",
-    "es": "La sociedad",
+    "es": "Nuestra compañía",
     "it": "L'azienda",
     "io": "crwdns13400:0crwdne13400:0",
     "oc": "La societat"
@@ -585,7 +585,7 @@ module.exports = {
     "en": "Jobs",
     "fr": "Recrutement",
     "de": "Arbeitsplätze",
-    "es": "reclutamiento",
+    "es": "Ofertas laborales",
     "it": "Reclutamento",
     "io": "crwdns13402:0crwdne13402:0",
     "oc": "Recrutament"
@@ -594,7 +594,7 @@ module.exports = {
     "en": "Our OpenAgenda !",
     "fr": "Notre OpenAgenda !",
     "de": "Unsere OpenAgenda!",
-    "es": "Nuestra OpenAgenda!",
+    "es": "¡Nuestra OpenAgenda!",
     "it": "Il nostro OpenAgenda!",
     "io": "crwdns13404:0crwdne13404:0",
     "oc": "Nòstre OpenAgenda !"
@@ -603,7 +603,7 @@ module.exports = {
     "en": "Our service",
     "fr": "Le service",
     "de": "Unser Service",
-    "es": "El servicio",
+    "es": "Nuestros servicios",
     "it": "Il servizio",
     "io": "crwdns13406:0crwdne13406:0",
     "oc": "Lo servici"
@@ -622,7 +622,7 @@ module.exports = {
     "en": "Documentation + API",
     "fr": "Documentation + API",
     "de": "Dokumentation + API",
-    "es": "Documentación de la API +",
+    "es": "Documentación y API",
     "it": "Documentazione + API",
     "io": "crwdns13410:0crwdne13410:0",
     "oc": "Documentacion + API"
@@ -631,7 +631,7 @@ module.exports = {
     "en": "Roadmap",
     "fr": "Plan de développement",
     "de": "Roadmap",
-    "es": "plan de desarrollo",
+    "es": "Plan de desarrollo",
     "it": "Piano di sviluppo",
     "io": "crwdns13412:0crwdne13412:0",
     "oc": "Plan de desvolopament"
@@ -649,7 +649,7 @@ module.exports = {
     "en": "Terms of use",
     "fr": "Conditions d'utilisation",
     "de": "Nutzungbestimmungen",
-    "es": "condiciones de uso",
+    "es": "Condiciones de uso",
     "it": "Modalità d'utilizzo",
     "br": "Penndivizoù implij",
     "io": "crwdns13416:0crwdne13416:0",
@@ -659,7 +659,7 @@ module.exports = {
     "en": "Operational support",
     "fr": "Accompagnement opérationnel",
     "de": "Operative Unterstützung",
-    "es": "apoyo operativo",
+    "es": "Soporte operacional",
     "it": "Supporto operativo",
     "io": "crwdns13418:0crwdne13418:0",
     "oc": "Supòrt operacional"
@@ -668,7 +668,7 @@ module.exports = {
     "en": "Content moderation",
     "fr": "Modération des contenus",
     "de": "Inhaltsmoderation",
-    "es": "La moderación de contenidos",
+    "es": "Moderación de contenidos",
     "it": "Moderazione dei contenuti",
     "io": "crwdns13420:0crwdne13420:0",
     "oc": "Moderacion de contenguts"
@@ -677,7 +677,7 @@ module.exports = {
     "en": "Reporting",
     "fr": "Reporting",
     "de": "Berichterstattung",
-    "es": "la presentación de informes",
+    "es": "Presentación de informes",
     "it": "Segnalazione",
     "io": "crwdns13422:0crwdne13422:0",
     "oc": "Rapòrts"
@@ -686,7 +686,7 @@ module.exports = {
     "en": "Training",
     "fr": "Formation",
     "de": "Ausbildung",
-    "es": "formación",
+    "es": "Formación",
     "it": "Formazione",
     "io": "crwdns13424:0crwdne13424:0",
     "oc": "Formacion"
@@ -695,7 +695,7 @@ module.exports = {
     "en": "Content promotion",
     "fr": "Promotion des contenus",
     "de": "Inhalt Förderung",
-    "es": "la promoción de contenidos",
+    "es": "Promoción de contenidos",
     "it": "Promozione dei contenuti",
     "io": "crwdns13426:0crwdne13426:0",
     "oc": "Promocion de contenguts"

@@ -589,7 +589,7 @@ module.exports = {
     "fr": "Demander d'activer la personnalisation des messages",
     "en": "Request to activate message customization",
     "de": "Anfordern Nachricht Anpassung aktivieren",
-    "es": "Solicitud permitir la personalización de los mensajes",
+    "es": "Solicitud para permitir la personalización de los mensajes",
     "it": "Richiesta di attivazione della personalizzazione del messaggio",
     "io": "crwdns12626:0crwdne12626:0",
     "oc": "Demandar d'activar la personalizacion dels messatges"
@@ -607,7 +607,7 @@ module.exports = {
     "fr": "Modifier la description des événements",
     "en": "Edit the description of events",
     "de": "Bearbeite die Beschreibung der Veranstaltungen",
-    "es": "Cambiar la descripción de los acontecimientos",
+    "es": "Cambiar la descripción de los eventos",
     "it": "Modificare la descrizione dell'evento",
     "io": "crwdns12630:0crwdne12630:0",
     "oc": "Modificar la descripcion dels eveniments"
@@ -643,7 +643,7 @@ module.exports = {
     "fr": "Dépublier l'événement afin qu'il soit contrôlé à nouveau",
     "en": "Unpublish the event so that it is checked again",
     "de": "Unpublish die Veranstaltung, so dass es erneut geprüft",
-    "es": "Anular la publicación del evento para que se comprueba de nuevo",
+    "es": "Cancelar la publicación del evento para que se compruebe de nuevo",
     "it": "Sbloccare l'evento in modo che possa essere ricontrollato",
     "io": "crwdns12638:0crwdne12638:0",
     "oc": "Despublicar l'eveniment per que siá controlat tornarmai"
@@ -652,7 +652,7 @@ module.exports = {
     "fr": "Messages aux contributeurs",
     "en": "Messages to contributors",
     "de": "Nachrichten an die Mitglieder",
-    "es": "Mensajes contribuyentes",
+    "es": "Mensajes a los contribuyentes",
     "it": "Messaggi ai collaboratori",
     "io": "crwdns12640:0crwdne12640:0",
     "oc": "Messatges als contributors"
@@ -661,7 +661,7 @@ module.exports = {
     "fr": "Consigne de saisie",
     "en": "Event form instructions",
     "de": "Veranstaltungsform Anweisungen",
-    "es": "Entrada de consigna",
+    "es": "Consignas del formulario de evento",
     "it": "Istruzione di ingresso",
     "io": "crwdns12642:0crwdne12642:0",
     "oc": "Instruccions de formulari d'eveniment"
@@ -670,7 +670,7 @@ module.exports = {
     "fr": "La consigne s'affiche au début du formulaire de saisie d'événement",
     "en": "The guideline appears at the beginning of the event entry form",
     "de": "Die Richtlinie erscheint zu Beginn der Veranstaltung Teilnahmeformular",
-    "es": "El conjunto aparece al principio de la forma de entrada de evento",
+    "es": "La consigna aparece al principio del formulario de evento",
     "it": "L'istruzione di ingresso viene all'inizio del modulo di registrazione dell'evento",
     "io": "crwdns12644:0crwdne12644:0",
     "oc": "La consigna apareis a la debuta del formulari de sasida d'eveniment"
@@ -680,20 +680,22 @@ module.exports = {
     "en": "Usage of member's personal information",
     "io": "crwdns30982:0crwdne30982:0",
     "oc": "Utilizacion de las informacions personalas dels membres",
-    "it": "Uso delle informazioni personali dei membri"
+    "it": "Uso delle informazioni personali dei membri",
+    "es": "Uso de la información personal de los miembros"
   },
   "GDPRInformationSubLabel": {
     "fr": "Modifier le texte présenté aux membres les informant de l'utilisation faite de leurs données personnelles",
     "en": "Modify the text presented to members informing them of the usage made of their personal information",
     "io": "crwdns30984:0crwdne30984:0",
     "oc": "Modificar lo tèxte presentat als membres los informant de l'utilizacion faita de lors informacions personalas",
-    "it": "Spiegare l'uso previsto di queste informazioni"
+    "it": "Spiegare l'uso previsto di queste informazioni",
+    "es": "Modificar el texto presentado a los miembros informándoles del uso que se hace de sus datos personales"
   },
   "contributionMessageComplete": {
     "fr": "Message de fin de contribution",
     "en": "End of contribution message",
     "de": "Ende der Beitrags Nachricht",
-    "es": "Entrada de mensaje de fin",
+    "es": "Fin del mensaje de contribución",
     "it": "Messaggio di fine contributo",
     "io": "crwdns12646:0crwdne12646:0",
     "oc": "Messatge de fin de contribucion"
@@ -702,7 +704,7 @@ module.exports = {
     "fr": "S'affiche lorsque le contributeur a enregistré sa contribution",
     "en": "Appears when the contributor has submitted their contribution",
     "de": "Erscheint, wenn der Beitrag ihres Beitrags vorgelegt hat",
-    "es": "Se muestra cuando soumi la contribución del colaborador",
+    "es": "Aparece cuando el contribuyente ha enviado su contribución",
     "it": "Appare quando il contribuente ha presentato il suo contributo",
     "io": "crwdns12648:0crwdne12648:0",
     "oc": "Apareis quand lo contributor a mandat la siá contribucion"
@@ -711,7 +713,7 @@ module.exports = {
     "fr": "Message de publication",
     "en": "Publication message",
     "de": "Veröffentlichung Nachricht",
-    "es": "Publicación de mensajes",
+    "es": "Mensaje de publicación",
     "it": "Messaggio di pubblicazione",
     "io": "crwdns12650:0crwdne12650:0",
     "oc": "Messatge de publicacion"
@@ -720,7 +722,7 @@ module.exports = {
     "fr": "Envoyé au contributeur lorsque son événement a été publié",
     "en": "Sent to the contributor when his event has been published",
     "de": "Gesendet an den Beitrag, wenn sein Fall wird veröffentlicht",
-    "es": "Enviado al contribuyente cuando se publicó el evento",
+    "es": "Enviado al contribuyente cuando se ha publicado su evento",
     "it": "Inviato al collaboratore quando il suo evento è stato pubblicato",
     "io": "crwdns12652:0crwdne12652:0",
     "oc": "Mandat al contributor quand l'eveniment es estat publicat"
@@ -747,7 +749,7 @@ module.exports = {
     "fr": "Désactiver la messagerie: Remplacer les liens de la messagerie par un envoi par email",
     "en": "Disable email: Replace inbox links with email",
     "de": "Deaktiviere E-Mail: Ersetzen Posteingang Links mit E-Mail",
-    "es": "Deshabilitar el correo: Reemplazar los lazos de correo mediante el envío de correo electrónico",
+    "es": "Deshabilitar el correo: Reemplazar links por correo electrónico",
     "it": "Disattivare l'e-mail: Sostituire i link presenti nell'e-mail con un messaggio e-mail",
     "io": "crwdns12658:0crwdne12658:0",
     "oc": "Desactivar los emails : emplaçar los ligams de la messatjariá per d'emails"
@@ -756,7 +758,7 @@ module.exports = {
     "fr": "Un lien \"mailto\" pointant sur cet email sera présent sur les pages de l'agenda.",
     "en": "A link \"mailto\" pointing to this email will be present on the pages of the agenda.",
     "de": "Ein Link „mailto“ zeigt auf diese E-Mail wird auf den Seiten der Kalender vorliegen.",
-    "es": "Un \"mailto\" enlace apuntando a este correo electrónico estará presente en las hojas del agenda.",
+    "es": "Un link \"mailto\" apunta a este correo electrónico estará presente en las páginas de la agenda",
     "it": "Un link \"mailto\" che punta a questa e-mail sarà presente su la pagina principale dell'agenda.",
     "io": "crwdns12660:0crwdne12660:0",
     "oc": "Un ligam \"mailto\" que punta sus aqueste email serà present sus las paginas de l'agenda."
@@ -765,7 +767,7 @@ module.exports = {
     "fr": "Email de réception",
     "en": "Reception email",
     "de": "Empfang E-Mail",
-    "es": "Recibir correo electrónico",
+    "es": "Correo electrónico de recepción",
     "it": "E-mail di ricezione",
     "io": "crwdns12662:0crwdne12662:0",
     "oc": "Email de recepcion"
@@ -774,7 +776,7 @@ module.exports = {
     "fr": "votre@email.com",
     "en": "your@email.com",
     "de": "your@email.com",
-    "es": "votre@email.com",
+    "es": "vuestro@email.com",
     "it": "votre@email.com",
     "io": "crwdns12664:0crwdne12664:0",
     "oc": "vostre@email.com"
@@ -783,7 +785,7 @@ module.exports = {
     "fr": "Modifier",
     "en": "Update",
     "de": "Aktualisieren",
-    "es": "Guardar",
+    "es": "Actualizar",
     "it": "Aggiornare",
     "br": "Hizivaat",
     "io": "crwdns12666:0crwdne12666:0",
@@ -802,7 +804,7 @@ module.exports = {
     "fr": "Message envoyé depuis l'agenda 'La semaine de l'industrie'",
     "en": "Message sent from 'Industry Week' agenda",
     "de": "Nachricht wurde gesendet von ‚Industry Week‘ Agenda",
-    "es": "Mensaje enviado desde el agenda 'Semana de la industria'",
+    "es": "Mensaje enviado desde la agenda 'Semana de la industria'",
     "it": "Messaggio inviato dall'agenda della \"Settimana dell'industria",
     "io": "crwdns12670:0crwdne12670:0",
     "oc": "Messatge mandat de l'agenda \"La setmana de l'industria\""
@@ -811,58 +813,66 @@ module.exports = {
     "en": "Url",
     "fr": "Url",
     "io": "crwdns33265:0crwdne33265:0",
-    "oc": "Url"
+    "oc": "Url",
+    "es": "Url"
   },
   "matomoSiteId": {
     "en": "Site id",
     "fr": "Identifiant du site",
     "io": "crwdns33267:0crwdne33267:0",
-    "oc": "Identificant del site"
+    "oc": "Identificant del site",
+    "es": "Id del sitio"
   },
   "matomoAskForConsent": {
     "en": "Request user consent",
     "fr": "Demander le consentement de l'utilisateur",
     "io": "crwdns33269:0crwdne33269:0",
-    "oc": "Demandar a l'utilizaire son consentiment"
+    "oc": "Demandar a l'utilizaire son consentiment",
+    "es": "Solicitar aprobación del usuario"
   },
   "matomoAskForConsentInfo": {
     "en": "My Matomo configurationg requires asking for consent",
     "fr": "Ma configuration Matomo nécessite de demander le consentement",
     "io": "crwdns33271:0crwdne33271:0",
     "oc": "Ma configuracion a mestièr de demandar lo consentiment",
-    "it": "La mia configurazione di Matomo richiede la richiesta di consenso"
+    "it": "La mia configurazione di Matomo richiede la richiesta di consenso",
+    "es": "La configuración de mi Matomo requiere solicitar aprobación"
   },
   "matomoCustomConfig": {
     "en": "I want to use a particular Matomo configuration. ",
     "fr": "Je souhaite utiliser une configuration Matomo particulière. ",
     "io": "crwdns33273:0crwdne33273:0",
     "oc": "Vòli utilizar una configuracion particulara de Matomo. ",
-    "it": "Voglio utilizzare una particolare configurazione di Matomo. "
+    "it": "Voglio utilizzare una particolare configurazione di Matomo. ",
+    "es": "Quiero usar una configuración particular de Matomo. "
   },
   "matomoSupport": {
     "en": "Contact support",
     "fr": "Contacter le support",
     "it": "Contatta il supporto",
     "oc": "Contactar l'assisténcia",
-    "io": "crwdns33275:0crwdne33275:0"
+    "io": "crwdns33275:0crwdne33275:0",
+    "es": "Contactar con el soporte"
   },
   "trackSelectPlaceholder": {
     "en": "Choose your tracking service (Google Analytics or Matomo)",
     "fr": "Choisissez votre service de suivi (Google Analytics ou Matomo)",
     "io": "crwdns33277:0crwdne33277:0",
-    "oc": "Causissètz vòstre servici de seguit (Google Analytics o Matomo)"
+    "oc": "Causissètz vòstre servici de seguit (Google Analytics o Matomo)",
+    "es": "Elija tu servicio de seguimiento (Google Analytics o Matomo)"
   },
   "moreInfo": {
     "en": "more info",
     "fr": "plus d’info",
     "io": "crwdns33279:0crwdne33279:0",
-    "oc": "mai d'informacions"
+    "oc": "mai d'informacions",
+    "es": "más información"
   },
   "googleAnalyticsId": {
     "fr": "Identifiant de suivi Google Analytics",
     "en": "Google Analytics Tracking ID",
     "de": "Google Analytics-Tracking-ID",
-    "es": "Seguimiento de Google Analytics ID",
+    "es": "Google Analytics ID",
     "it": "ID di tracciamento di Google Analytics",
     "io": "crwdns12672:0crwdne12672:0",
     "oc": "Identificant de seguit Google Analytics"
@@ -871,25 +881,29 @@ module.exports = {
     "fr": "Clé secrete de suivi Google Analytics",
     "en": "Google Analytics Tracking Secret key",
     "io": "crwdns33257:0crwdne33257:0",
-    "oc": "Clau secrèta de seguit Google Analytics"
+    "oc": "Clau secrèta de seguit Google Analytics",
+    "es": "Clave secreta de Google Analytics"
   },
   "googleAnalyticsTitle": {
     "fr": "Seulement pour les utilisateurs GA4",
     "en": "Only for GA4 users",
     "io": "crwdns33259:0crwdne33259:0",
-    "oc": "Per utilizaires GA4 sonque"
+    "oc": "Per utilizaires GA4 sonque",
+    "es": "Solo para usuarios de GA4"
   },
   "googleAnalyticsLabel": {
     "fr": "Suivi des exports et utilisation de l'API",
     "en": "Track export and API usage",
     "io": "crwdns33261:0crwdne33261:0",
-    "oc": "Seguit dels expòrts e de l'utilizacion de l'API"
+    "oc": "Seguit dels expòrts e de l'utilizacion de l'API",
+    "es": "Rastrear exportaciones y uso de la API"
   },
   "googleAnalyticsInfo": {
     "fr": "Pour créer un secret, accédez à l'interface utilisateur de Google Analytics : Admin > Flux de données > choisir votre flux > Protocole de mesure > Créer",
     "en": "To create a new secret, navigate in the Google Analytics UI to: Admin > Data Streams > choose your stream > Measurement Protocol > Create",
     "io": "crwdns33263:0crwdne33263:0",
-    "oc": "Per crear un novèl secrèt, anatz dins l'interfàcia utilizaire de Google Analytics : Administracion > Flus de donadas > Protocòl de mesura > Crear"
+    "oc": "Per crear un novèl secrèt, anatz dins l'interfàcia utilizaire de Google Analytics : Administracion > Flus de donadas > Protocòl de mesura > Crear",
+    "es": "Para crear una nueva clave secreta, navegue en la interfaz de Google Analytics a: Administrar > Flujos de datos > elija su flujo > Protocolo de medición > Crear"
   },
   "stats": {
     "fr": "Statistiques",
@@ -904,7 +918,7 @@ module.exports = {
     "fr": "Paramétrer vos informations de suivi",
     "en": "Set up your tracking information",
     "de": "Richten Sie Ihre Tracking-Informationen ein",
-    "es": "Configura tu información de seguimiento",
+    "es": "Configura tu información de tracking",
     "it": "Imposta le tue informazioni di tracciamento",
     "io": "crwdns12676:0crwdne12676:0",
     "oc": "Definissètz vòstre identificant de seguit Google Analytics"
@@ -923,21 +937,24 @@ module.exports = {
     "en": "Lab",
     "io": "crwdns12680:0crwdne12680:0",
     "it": "Lab",
-    "oc": "Lab"
+    "oc": "Lab",
+    "es": "Lab"
   },
   "labTabDescription": {
     "fr": "Utilisez les fonctionnalités disponibles en version bêta",
     "en": "Use the features available in beta version",
     "io": "crwdns12682:0crwdne12682:0",
     "it": "Utilizzare le caratteristiche disponibili nella versione beta",
-    "oc": "Utilizatz las foncionalitats disponiblas en version bèta"
+    "oc": "Utilizatz las foncionalitats disponiblas en version bèta",
+    "es": "Usar las funciones disponibles en la versión beta"
   },
   "eventStatusDesc": {
     "fr": "Activer les fonctions de changement d'état d'événement (annulé, complet, reporté...)",
     "en": "Activate event status controls (cancelled, full, rescheduled...)",
     "it": "Attivare i controlli dello stato dell'evento (cancellato, pieno, riprogrammato...)",
     "oc": "Activar los contròles d'estatut de l'eveniment (anullat, complèt, tornat programar...)",
-    "io": "crwdns16072:0crwdne16072:0"
+    "io": "crwdns16072:0crwdne16072:0",
+    "es": "Activar los controles de estado del evento (cancelado, lleno, reprogramado...)"
   },
   "eventStatusKnowMore": {
     "fr": "En savoir plus",
@@ -952,7 +969,8 @@ module.exports = {
     "fr": "Pass Culture",
     "en": "Pass Culture",
     "io": "crwdns33402:0crwdne33402:0",
-    "oc": "Pass Culture"
+    "oc": "Pass Culture",
+    "es": "Pass Culture"
   },
   "passTabDescription": {
     "fr": "Évitez des doubles saisies en créant vos offres Pass Culture directement depuis les formulaires événement OpenAgenda"

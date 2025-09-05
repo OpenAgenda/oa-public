@@ -1,3 +1,22 @@
 {
-  "AgendaSchema.EmbedSelection.events": "Eventos"
+  "AgendaSchema.AfterRedirectModal.body": "La configuración del formulario de miembros no está activada en tu agenda",
+  "AgendaSchema.AfterRedirectModal.title": "Información",
+  "AgendaSchema.EmbedSelection.eventInfo": "Configuración de eventos",
+  "AgendaSchema.EmbedSelection.events": "Eventos",
+  "AgendaSchema.EmbedSelection.memberInfo": "Configuración de miembros",
+  "AgendaSchema.EmbedSelection.memberInfoAsk": "Solicitar acceso a la configuración de miembros",
+  "AgendaSchema.EmbedSelection.members": "Miembros",
+  "AgendaSchema.EmbedSelection.notActivated": "Esta función no está activada en tu agenda",
+  "AgendaSchema.adaptForm": "Adaptar la configuración del formulario de eventos",
+  "AgendaSchema.adaptMemberForm": "Adaptar la configuración del formulario de miembros",
+  "AgendaSchema.canAddField": "Puedes añadir el campo de tu elección al formulario de eventos",
+  "AgendaSchema.event": "Estándar",
+  "AgendaSchema.eventDetail": "Campo de evento estándar",
+  "AgendaSchema.goToContrib": "Ir a la configuración de contribuciones",
+  "AgendaSchema.member": "Miembro Estándar",
+  "AgendaSchema.memberDetail": "Campo de miembro estándar",
+  "AgendaSchema.needMoreFields": "¿Necesitas más campos?",
+  "AgendaSchema.network": "Red",
+  "AgendaSchema.networkDetail": "Campo requerido por la red de agendas",
+  "AgendaSchema.warning": "La configuración de contribuciones de tu agenda no requiere que los miembros ingresen una tarjeta de identificación."
 }

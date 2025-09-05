@@ -1,10 +1,10 @@
 {
-  "connection": "acceder",
-  "createAccount": "Crea uno!",
+  "connection": "Conexión",
+  "createAccount": "¡Crea una!",
   "email": "Dirección de correo electrónico",
   "incorrectPassword": "El correo electrónico o la contraseña son incorrectos.",
   "lostPassword": "He perdido mi contraseña",
-  "noAccount": "¿No tienes una cuenta?",
+  "noAccount": "¿Aún no tienes cuenta?",
   "password": "Contraseña",
   "resetPassword": "Restablecimiento de contraseña",
   "signin": "Conectarse"

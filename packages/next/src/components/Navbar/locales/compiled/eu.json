@@ -14,19 +14,19 @@
   "next.components.Navbar.myEvents": [
     {
       "type": 0,
-      "value": "My events"
+      "value": "Mis eventos"
     }
   ],
   "next.components.Navbar.profileMenu": [
     {
       "type": 0,
-      "value": "Profile menu"
+      "value": "Menú del perfil"
     }
   ],
   "next.components.Navbar.settings": [
     {
       "type": 0,
-      "value": "Settings"
+      "value": "Configuración"
     }
   ],
   "next.components.Navbar.signIn": [
@@ -38,7 +38,7 @@
   "next.components.Navbar.signOut": [
     {
       "type": 0,
-      "value": "Sign out"
+      "value": "Cerrar sesión"
     }
   ],
   "next.components.Navbar.signUp": [

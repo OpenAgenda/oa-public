@@ -1,1 +1,9 @@
-{}
+{
+  "common.event.accessibilities.accessibleEvent": "Este evento incluye adaptaciones de accesibilidad",
+  "common.event.accessibilities.detail": "Este evento cuenta con instalaciones configuradas para atender tipos específicos de discapacidades",
+  "common.event.accessibilities.hi": "Discapacidad auditiva",
+  "common.event.accessibilities.ii": "Discapacidad intelectual",
+  "common.event.accessibilities.mi": "Discapacidad motriz",
+  "common.event.accessibilities.pi": "Discapacidad psicológica",
+  "common.event.accessibilities.vi": "Discapacidad visual"
+}

@@ -943,7 +943,8 @@ module.exports = {
     "de": "Britisches Territorium des Indischen Ozeans",
     "it": "British Indian Ocean Territory",
     "io": "crwdns11818:0crwdne11818:0",
-    "oc": "Territòri britanic de l'Ocean indian"
+    "oc": "Territòri britanic de l'Ocean indian",
+    "es": "Territorios Británicos del Océano Índico"
   },
   "IQ": {
     "en": "Iraq",
@@ -1329,7 +1330,8 @@ module.exports = {
     "de": "Montserrat",
     "it": "Montserrat",
     "io": "crwdns11904:0crwdne11904:0",
-    "oc": "Montserrat"
+    "oc": "Montserrat",
+    "es": "Montserrat"
   },
   "MT": {
     "en": "Malta",

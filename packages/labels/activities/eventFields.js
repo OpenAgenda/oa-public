@@ -14,28 +14,32 @@ module.exports = {
     "en": "description",
     "it": "descrizione",
     "io": "crwdns11182:0crwdne11182:0",
-    "oc": "descripcion"
+    "oc": "descripcion",
+    "es": "descripción"
   },
   "longDescription": {
     "fr": "description longue",
     "en": "long description",
     "it": "descrizione lunga",
     "io": "crwdns11184:0crwdne11184:0",
-    "oc": "descripcion longa"
+    "oc": "descripcion longa",
+    "es": "descripción larga"
   },
   "timings": {
     "fr": "horaires",
     "en": "timings",
     "it": "orari",
     "io": "crwdns11186:0crwdne11186:0",
-    "oc": "oraris"
+    "oc": "oraris",
+    "es": "horarios"
   },
   "location": {
     "fr": "lieu",
     "en": "location",
     "it": "luogo",
     "io": "crwdns11188:0crwdne11188:0",
-    "oc": "lòc"
+    "oc": "lòc",
+    "es": "ubicación"
   },
   "image": {
     "fr": "image",

@@ -2,7 +2,7 @@
   "ReactFilters.EmbedAgendaShow.addEvent": [
     {
       "type": 0,
-      "value": "Add event"
+      "value": "crwdns35011:0crwdne35011:0"
     }
   ],
   "ReactFilters.ValueBadge.removeFilter": [
@@ -28,7 +28,7 @@
   "next.views.EmbedAgendaShow.export": [
     {
       "type": 0,
-      "value": "Export"
+      "value": "crwdns35013:0crwdne35013:0"
     }
   ],
   "next.views.EmbedAgendaShow.search": [

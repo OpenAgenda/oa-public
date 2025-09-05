@@ -1,3 +1,9 @@
 {
-  "close": "Cerca"
+  "callToAction": "Actualizar mi navegador ahora",
+  "close": "Cerrar",
+  "outOfDate": "¡Tu navegador está desactualizado!",
+  "updateAppStore": "Por favor actualiza iOS desde la aplicación de Configuración",
+  "updateGooglePlay": "Por favor instala Chrome desde Google Play",
+  "updateWeb": "Actualiza tu navegador para ver este sitio web correctamente. ",
+  "url": "https://browser-update.org/update-browser.html"
 }

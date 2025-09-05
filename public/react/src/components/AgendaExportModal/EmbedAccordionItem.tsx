@@ -21,8 +21,8 @@ import {
 } from '@openagenda/uikit/snippets';
 import { FilterSelect } from '@openagenda/react-shared';
 import { getFilterSelectOptions } from '@openagenda/react-filters';
-import copyText from 'utils/copyText';
-import AccordionItem from 'components/AccordionItem';
+import copyText from '../../utils/copyText';
+import AccordionItem from '../AccordionItem';
 import messages from './messages';
 
 function escapeHTML(text: string) {

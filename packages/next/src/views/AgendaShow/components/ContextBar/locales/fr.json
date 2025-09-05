@@ -16,7 +16,7 @@
   "next.views.AgendaShow.ContextBar.notContributed": "Vous n'avez complété encore aucun événement sur cet agenda.",
   "next.views.AgendaShow.ContextBar.private": "Privé",
   "next.views.AgendaShow.ContextBar.published": "{count, plural, one {1 publié} other {# publiés}}",
-  "next.views.AgendaShow.ContextBar.publishedModalInfo": "Ces événements ont été publié et sont visibles par les visiteurs de l'agenda.",
+  "next.views.AgendaShow.ContextBar.publishedModalInfo": "Ces événements ont été publiés et sont visibles par les visiteurs de l'agenda.",
   "next.views.AgendaShow.ContextBar.publishedModalTitle": "Événements publiés",
   "next.views.AgendaShow.ContextBar.readyToPublish": "{count, plural, one {1 prêt à publier} other {# prêts à publier}}",
   "next.views.AgendaShow.ContextBar.refused": "{count, plural, one {1 refusé} other {# refusés}}",

@@ -9,9 +9,11 @@
   "learnMore": "Más información",
   "needOfficial": "¿Quieres una agenda formal?",
   "needPrivate": "¿Quieres una agenda privada? Esta característica es nueva, nos dice su uso.",
+  "or": "o",
   "requestOfficial": "Solicitar agenda oficial",
   "requestPrivate": "Solicitar un agenda íntimo",
   "sendLink": "Enviar el enlace a su agenda con sus colaboradores",
   "someActions": "Unas pocas acciones simples para un buen comienzo con su agenda",
-  "title": "Felicitaciones, su agenda está listo!"
+  "title": "¡Felicitaciones, su agenda está listo!",
+  "useAPlugin": "Usar un plug-in"
 }

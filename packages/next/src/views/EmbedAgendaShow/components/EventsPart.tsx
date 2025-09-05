@@ -24,7 +24,7 @@ export default function EventsPart({
   const intl = useIntl();
   const router = useRouter();
 
-  const { sort } = useEmbedLayoutData();
+  const { sort, itemMinWidth } = useEmbedLayoutData();
 
   const {
     data: pages,
@@ -82,7 +82,7 @@ export default function EventsPart({
   return (
     <>
       <SimpleGrid
-        templateColumns="repeat(auto-fill, minmax(min(290px, 100%), 1fr))"
+        templateColumns={`repeat(auto-fill, minmax(min(${itemMinWidth || '290px'}, 100%), 1fr))`}
         gap="10"
       >
         {pages?.map((page, pageIndex) =>

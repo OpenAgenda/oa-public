@@ -1,4 +1,9 @@
 {
+  "event-form.components.Events.emptySelection": "Ningún evento ha sido seleccionado",
+  "event-form.components.Events.loadError": "Error de carga, por favor intente nuevamente",
+  "event-form.components.Events.noResult": "No se encontró ningún evento coincidente",
   "event-form.components.Events.remove": "Eliminar",
-  "event-form.components.Events.search": "Buscar"
+  "event-form.components.Events.search": "Buscar",
+  "event-form.components.Events.searchEvents": "Búsqueda de eventos",
+  "event-form.components.Events.show": "Mostrar"
 }

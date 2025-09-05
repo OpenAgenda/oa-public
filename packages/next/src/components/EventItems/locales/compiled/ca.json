@@ -2,13 +2,13 @@
   "next.views.AgendaShow.ContextBar.emptySelection": [
     {
       "type": 0,
-      "value": "No event is referenced"
+      "value": "Ningún evento está referenciado"
     }
   ],
   "next.views.AgendaShow.ContextBar.undefinedTitle": [
     {
       "type": 0,
-      "value": "Draft event without title"
+      "value": "Borrador de evento sin título"
     }
   ]
 }

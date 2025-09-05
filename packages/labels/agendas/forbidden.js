@@ -14,7 +14,7 @@ module.exports = {
     "fr": "L'accès à cet agenda est restreint, contactez l'administrateur de l'agenda pour plus d'informations.",
     "en": "Access to this calendar is restricted, contact the administrator of the calendar for more information.",
     "de": "Der Zugriff auf diesen Kalender ist eingeschränkt. Weitere Informationen erhalten Sie vom Administrator des Kalenders.",
-    "es": "El acceso a este calendario está restringido, póngase en contacto con el administrador del calendario para obtener más información.",
+    "es": "El acceso a esta agenda está restringida, póngase en contacto con el administrador de la agenda para obtener más información.",
     "it": "L'accesso a questo calendario è limitato, contatta l'amministratore del calendario per ulteriori informazioni.",
     "io": "crwdns12850:0crwdne12850:0",
     "oc": "L'accès a aqueste calendièr es restrench, contactatz l'adminsitrator del calendièr per mai d'informacions."

@@ -2,7 +2,7 @@
   "ReactFilters.EmbedAgendaShow.addEvent": "",
   "ReactFilters.ValueBadge.removeFilter": "Rimuovere il filtro",
   "ReactFilters.ValueBadge.removeFilterWithTitle": "",
-  "next.views.EmbedAgendaShow.export": "",
+  "next.views.EmbedAgendaShow.export": "Esportare",
   "next.views.EmbedAgendaShow.search": "Cerca",
   "next.views.EmbedAgendaShow.seeMore": "Vedere di più"
 }

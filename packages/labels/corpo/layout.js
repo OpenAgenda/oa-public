@@ -5,7 +5,7 @@ module.exports = {
     "en": "Features",
     "fr": "Fonctions",
     "de": "Eigenschaften",
-    "es": "funciones",
+    "es": "Funciones",
     "it": "Funzioni",
     "io": "crwdns13430:0crwdne13430:0",
     "oc": "Foncionalitats"
@@ -14,7 +14,7 @@ module.exports = {
     "en": "Testimonials",
     "fr": "Références",
     "de": "Referenzen",
-    "es": "referencias",
+    "es": "Referencias",
     "it": "Riferimenti",
     "io": "crwdns13432:0crwdne13432:0",
     "oc": "Referéncias"

@@ -1,6 +1,6 @@
 {
-  "next.components.ConsentBanner.accept": "",
-  "next.components.ConsentBanner.decline": "",
-  "next.components.ConsentBanner.informationText": "",
-  "next.components.ConsentBanner.moreInfoLink": ""
+  "next.components.ConsentBanner.accept": "Aceptar",
+  "next.components.ConsentBanner.decline": "Rechazar",
+  "next.components.ConsentBanner.informationText": "Esta agenda utiliza cookies del servicio de seguimiento {service}. Permiten a los administradores de la agenda obtener información sobre qué contenido ven los visitantes en los sitios web. ¿Las aceptas?",
+  "next.components.ConsentBanner.moreInfoLink": "Haga clic aquí para más información"
 }

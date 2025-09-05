@@ -609,7 +609,8 @@ module.exports = {
     "de": "Auswählen",
     "oc": "Seleccionat",
     "io": "crwdns33354:0crwdne33354:0",
-    "it": "Selezionato"
+    "it": "Selezionato",
+    "es": "Seleccionado"
   },
   "falseBoolean": {
     "fr": "Non sélectionné",
@@ -617,18 +618,21 @@ module.exports = {
     "de": "Nicht ausgewählt",
     "oc": "Pas seleccionat",
     "io": "crwdns33356:0crwdne33356:0",
-    "it": "Non selezionato"
+    "it": "Non selezionato",
+    "es": "No seleccionado"
   },
   "nullBoolean": {
     "fr": "(Sans valeur)",
     "en": "(No value)",
     "io": "crwdns33358:0crwdne33358:0",
-    "oc": "(Pas cap valor)"
+    "oc": "(Pas cap valor)",
+    "es": "(Sin valor)"
   },
   "extIds": {
     "fr": "Identifiants externe",
     "en": "External identifiers",
     "io": "crwdns34156:0crwdne34156:0",
-    "oc": "Identificants extèrnes"
+    "oc": "Identificants extèrnes",
+    "es": "Identificadores externos"
   }
 };

@@ -1,4 +1,8 @@
 {
+  "description": "descripción",
   "image": "imagen",
+  "location": "ubicación",
+  "longDescription": "descripción larga",
+  "timings": "horarios",
   "title": "título"
 }

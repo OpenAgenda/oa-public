@@ -1,5 +1,5 @@
 {
-  "checkEmail": "Cliquez sur le lien de validation dans votre boîte de récéption",
+  "checkEmail": "Cliquez sur le lien de validation dans votre boîte de réception",
   "checkEmailInstruction": "Un email contenant le lien d'activation de votre compte est en cours d'envoi vers le courriel indiqué ci-dessous. Vérifiez votre boîte de réception pour terminer votre inscription.",
   "didNotReceive": "<b>Vous n'avez pas reçu de mail?</b> <br/>1. Vérifiez l'orthographe du courriel indiqué ci-dessus <br/>2. Vérifiez votre dossier de courriers indésirables ou autres dossiers similaires (dossiers d'outils de type \"Mailinblack\") <br /> 3. %resend% <br/> 4. Écrivez-nous à %support%",
   "followUs": "Suivez nous",

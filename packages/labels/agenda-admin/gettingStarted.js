@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Bravo, votre agenda est prêt !",
     "en": "Congratulations, your agenda is ready !",
     "de": "Herzlichen Glückwunsch, Ihr Programm fertig!",
-    "es": "Felicitaciones, su agenda está listo!",
+    "es": "¡Felicitaciones, su agenda está listo!",
     "it": "Auguri, il suo agenda è pronto!",
     "io": "crwdns11356:0crwdne11356:0",
     "oc": "Òsca, vòstra agenda es prèsta !"
@@ -132,13 +132,15 @@ module.exports = {
     "en": "or",
     "it": "oppure",
     "io": "crwdns16414:0crwdne16414:0",
-    "oc": "o"
+    "oc": "o",
+    "es": "o"
   },
   "useAPlugin": {
     "fr": "Utilisez un plugin",
     "en": "Use a plugin",
     "io": "crwdns16416:0crwdne16416:0",
-    "oc": "Utilisatz una extension"
+    "oc": "Utilisatz una extension",
+    "es": "Usar un plug-in"
   },
   "learnMore": {
     "fr": "En savoir plus",

@@ -23,7 +23,7 @@ module.exports = {
     "fr": "Voir l'événement",
     "en": "See the event",
     "de": "Deine Veranstaltung hier ansehen",
-    "es": "Ver evento",
+    "es": "Ver el evento",
     "it": "Vedere l'evento",
     "io": "crwdns12996:0crwdne12996:0",
     "oc": "Veire l'eveniment"
@@ -32,7 +32,7 @@ module.exports = {
     "fr": "à contrôler",
     "en": "to be controlled",
     "de": "kontrolliert werden",
-    "es": "al control",
+    "es": "para moderar",
     "it": "verificabile",
     "io": "crwdns12998:0crwdne12998:0",
     "oc": "de repassar"
@@ -41,7 +41,7 @@ module.exports = {
     "fr": "prêt à être publié",
     "en": "ready to publish",
     "de": "bereit zu veröffentlichen",
-    "es": "listo para su publicación",
+    "es": "listo para publicar",
     "it": "pronto per la pubblicazione",
     "io": "crwdns13000:0crwdne13000:0",
     "oc": "prèste a publicar"

@@ -1,1 +1,11 @@
-{}
+{
+  "at": " a las ",
+  "checkboxInfo": " Restringir los períodos permitidos para las fechas ingresadas",
+  "constraintError": "El nuevo límite debe estar dentro de la restricción exístante",
+  "constraintInfo": "El campo ya está restringido en un nivel superior",
+  "dateError": "La fecha de inicio debe ser anterior a la fecha de fin",
+  "from": "Desde ",
+  "timeError": "La hora ingresada no es válida",
+  "to": "Hasta ",
+  "usefulFor": "Útil para agendas que hacen referencia a eventos que tienen lugar durante un período limitado. Por ejemplo: diarios de ferias, festivales o eventos importantes"
+}
