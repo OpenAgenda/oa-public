@@ -34,10 +34,12 @@ function ProfileBar({ portalRef }) {
 
 export default function Navbar({
   discreet = false,
-  fontColor = undefined,
+  colorPalette = undefined,
   logoVariant = 'regular',
 }) {
   const intl = useIntl();
+
+  console.log(colorPalette);
 
   const { inputValue, setInputValue, onSearch } = useSearch();
 
@@ -60,7 +62,7 @@ export default function Navbar({
       zIndex={discreet ? 1000 : undefined}
       boxShadow={discreet ? undefined : 'xs'}
       fontSize={defaultSize}
-      colorPalette={fontColor}
+      colorPalette={colorPalette}
     >
       <Container maxW="7xl" px={0}>
         <Flex justify="space-between" h="50px" align="stretch">

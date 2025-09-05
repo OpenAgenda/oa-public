@@ -1,4 +1,4 @@
-import { Input, Button, InputGroup } from '@openagenda/uikit';
+import { chakra, Input, Button, InputGroup } from '@openagenda/uikit';
 // import { InputGroup } from '@openagenda/uikit/snippets';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/pro-solid-svg-icons';
@@ -20,18 +20,18 @@ type NavbarSearchInputProps = {
   onButtonClick?: () => void;
   isLoading?: boolean;
   disabled?: boolean;
-  transparent?: boolean;
+  discreet?: boolean;
 };
 
 // TODO use isLoading & disabled
-export default function NavbarSearchInput({
+function NavbarSearchInput({
   name = 'search',
   className,
   input,
   meta: _meta,
   onButtonClick,
   placeholder,
-  transparent = false,
+  discreet = false,
   // isLoading,
   // disabled,
 }: NavbarSearchInputProps) {
@@ -39,7 +39,7 @@ export default function NavbarSearchInput({
 
   return (
     <InputGroup
-      bg={transparent ? undefined : 'oaGray.10'}
+      bg={discreet ? undefined : 'oaGray.10'}
       display="flex"
       flex="1"
       w="initial"
@@ -55,7 +55,7 @@ export default function NavbarSearchInput({
           h="full"
           w="50px"
           px="0"
-          color="fg.subtle"
+          color={discreet ? 'colorPalette.fg' : 'fg.subtle'}
           _hover={{
             bg: 'none',
             color: 'colorPalette.solid',
@@ -75,19 +75,27 @@ export default function NavbarSearchInput({
       <Input
         h="inherit"
         placeholder={placeholder || intl.formatMessage(messages.ariaLabel)}
-        borderRadius="0"
+        borderRadius={discreet ? '40px' : '0'}
         boxShadow="none"
+        color="colorPalette.fg"
+        borderY={discreet ? undefined : 0}
+        borderColor={discreet ? 'colorPalette.fg' : 'oaGray'}
         pe="50px"
         _focus={{
-          border: transparent ? '0' : '1px solid',
-          borderColor: 'primary.500',
+          border: '1px solid',
+          borderColor: discreet ? 'colorPalette.fg' : 'primary.500',
           boxShadow: 'none',
           outlineWidth: '0',
         }}
         _active={{
-          border: transparent ? '0' : '1px solid',
-          borderColor: 'primary.500',
+          border: '1px solid',
+          borderColor: discreet ? 'colorPalette.fg' : 'primary.500',
           boxShadow: 'none',
+        }}
+        css={{
+          '&::placeholder': {
+            color: discreet ? 'colorPalette.fg' : undefined,
+          },
         }}
         name={name}
         {...input}
@@ -95,3 +103,5 @@ export default function NavbarSearchInput({
     </InputGroup>
   );
 }
+
+export default chakra(NavbarSearchInput);

@@ -1,43 +1,31 @@
 import { Container, chakra, H2, Heading, Box } from '@openagenda/uikit';
-import { color } from 'utils/strapi';
+import { color, getBackgroundImage } from 'utils/strapi';
 import type { Color } from './types';
 import CTAButtons from './CTAButtons';
 
 interface SegmentContainerProps {
   children: React.ReactNode;
-  backgroundColor?: Color;
+  background?: any;
   fontColor?: Color;
   title?: string;
   description?: string;
   CTAs?: any[];
-  className?: string;
   colorVariant?: string;
 }
 
 export default function SegmentContainer({
   children,
-  backgroundColor,
-  colorVariant = 'subtle',
+  background,
   fontColor,
   title,
   description,
   CTAs,
-  className,
 }: SegmentContainerProps) {
   return (
-    <chakra.div
-      className={className}
-      backgroundColor={
-        backgroundColor?.name === 'white'
-          ? backgroundColor.name
-          : backgroundColor
-            ? [color(`${backgroundColor?.name}`), colorVariant].join('.')
-            : null
-      }
-    >
+    <chakra.div backgroundImage={getBackgroundImage(background)}>
       <Container
         maxW="7xl"
-        color={fontColor ? color(fontColor.name) : undefined}
+        color={fontColor ? color(fontColor.name, 500) : undefined}
         py="24"
       >
         {title && (
@@ -46,7 +34,12 @@ export default function SegmentContainer({
           </H2>
         )}
         {description && (
-          <Heading size="md" textAlign="center" color="gray.600" mb={16}>
+          <Heading
+            size="md"
+            textAlign="center"
+            color={fontColor ? color(fontColor, 500) : 'gray.600'}
+            mb={16}
+          >
             {description}
           </Heading>
         )}

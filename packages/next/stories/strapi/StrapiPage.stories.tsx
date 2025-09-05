@@ -10,13 +10,10 @@ export default {
 };
 
 const page = {
-  title: 'PageHead with theme color',
+  title: 'PageHead basic white background',
   description: 'This is the story all about how',
   navFontColor: {
-    name: 'charcoal',
-  },
-  themeColor: {
-    name: 'discreetAliceBlue',
+    name: 'primary',
   },
   Segments: [
     {
@@ -28,6 +25,9 @@ const page = {
       image: {
         url: '/guyWritingOnACalendar.50.resized.png',
         alternativeText: 'Calendap ?',
+      },
+      background: {
+        name: 'oaWhite',
       },
       CTAs: [
         {
@@ -49,14 +49,36 @@ export const PageWithTurquoiseToGreenGradient = {
   args: {
     page: {
       ...page,
-      themeGradient: {
-        direction: 'to right bottom',
-        gradients: [
-          { name: 'turquoise' },
-          { name: 'lightGreen' },
-          { name: 'icterine' },
-        ],
+      navFontColor: {
+        name: 'oaWhite',
       },
+      logoVariant: 'white',
+      Segments: [
+        {
+          id: 1,
+          __component: 'segments.page-head',
+          title: 'Créez un agenda, recensez et diffusez votre programmation',
+          description:
+            "OpenAgenda est une plateforme web dédiée à la diffusion d'événements publics. Un organisateur d'événements peut y saisir sa programmation une seule fois et la diffuser sur de multiples supports.",
+          image: {
+            url: '/casendapwhite50.resized.png',
+            alternativeText: 'Calendap ?',
+          },
+          titleColor: {
+            name: 'oaWhite',
+          },
+          background: {
+            name: 'frenchBlueGradient',
+            css: 'linear-gradient(to bottom, frenchBlue, 90%, moonStone)',
+          },
+          CTAs: [
+            {
+              label: 'Créer un agenda',
+              link: '#',
+            },
+          ],
+        },
+      ],
     },
   },
 };
@@ -66,14 +88,7 @@ export const PageWithBlueGradient = {
     page: {
       ...page,
       navFontColor: { name: 'azure' },
-      themeGradient: {
-        direction: 'to bottom',
-        gradients: [
-          { name: 'amethyst' },
-          { name: 'royalBlue' },
-          { name: 'frenchBlue' },
-        ],
-      },
+      logoVariant: 'white',
       Segments: [
         {
           id: 1,
@@ -82,7 +97,10 @@ export const PageWithBlueGradient = {
           description:
             "OpenAgenda est une plateforme web dédiée à la diffusion d'événements publics. Un organisateur d'événements peut y saisir sa programmation une seule fois et la diffuser sur de multiples supports.",
           titleColor: {
-            name: 'white',
+            name: 'oaWhite',
+          },
+          background: {
+            name: 'frenchBlue',
           },
           image: {
             url: '/casendapwhite50.resized.png',

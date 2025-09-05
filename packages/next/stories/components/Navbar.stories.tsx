@@ -39,6 +39,14 @@ export const Transparent = () => (
   </Box>
 );
 
+export const TransparentOnCharcoal = () => (
+  <Box display="flex" flexDirection="column" height="100vh">
+    <Box bg={color('charcoal', 500)} flex={1}>
+      <Navbar discreet colorPalette={color('white')} logoVariant="white" />
+    </Box>
+  </Box>
+);
+
 export const HelpButton = () => (
   <Box display="flex" flexDirection="column" height="100vh">
     <Box
