@@ -15,5 +15,15 @@
   "react.components.AgendaExportModal.instructions": "Instruccions",
   "react.components.AgendaExportModal.login": "Mercés de vos connectar per accedir al ligam d'exportacion dirèctament a partir d'aqueste menut",
   "react.components.AgendaExportModal.selectAll": "Seleccionar tot",
-  "react.components.AgendaExportModal.title": "Exportar"
+  "react.components.AgendaExportModal.title": "Exportar",
+  "react.components.EventShareModal.copied": "Copiat",
+  "react.components.EventShareModal.copy": "Copiar",
+  "react.components.EventShareModal.downloadButton": "Descargar",
+  "react.components.EventShareModal.import": "Importar",
+  "react.components.EventShareModal.online": "En linha",
+  "react.components.EventShareModal.shareCalendar": "Importar dins un calendièr personal",
+  "react.components.EventShareModal.signIn": "Se connectar",
+  "react.components.LockIcon.privateAgenda": "Agenda privada",
+  "react.components.OfficialAgenda.officialAgenda": "Agenda oficiala",
+  "react.components.SearchInput.ariaLabel": "Cercar"
 }
