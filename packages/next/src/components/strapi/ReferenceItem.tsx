@@ -9,6 +9,7 @@ import {
   Box,
 } from '@openagenda/uikit';
 import { Tag } from '@openagenda/uikit/snippets';
+import { color } from 'utils/strapi';
 import Icon from './Icon';
 
 type Reference = {
@@ -25,6 +26,7 @@ type Reference = {
 type ReferenceItemProps = Reference & {
   tagColorMap: Record<string, string>;
   smallImages?: boolean;
+  fontColor?: any;
 };
 
 const sizes = {
@@ -45,6 +47,7 @@ export default function ReferenceItem({
   tags: tagsString,
   tagColorMap,
   smallImages = true,
+  fontColor,
 }: ReferenceItemProps) {
   const tags = tagsString?.split(',').map((tag) => tag.trim());
 
@@ -63,7 +66,7 @@ export default function ReferenceItem({
             fontSize="lg"
             fontWeight="semibold"
             textAlign="center"
-            color="gray.700"
+            color={fontColor ? color(fontColor.name, 500) : 'gray.700'}
             px="2"
             wordBreak="break-word"
           >

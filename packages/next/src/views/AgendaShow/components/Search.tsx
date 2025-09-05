@@ -5,10 +5,8 @@ import React, {
   RefAttributes,
 } from 'react';
 import { SearchFilter as ReactFiltersSearchFilter } from '@openagenda/react-filters';
-import { chakra, HTMLChakraProps } from '@openagenda/uikit';
+import { HTMLChakraProps } from '@openagenda/uikit';
 import SearchInput from 'components/NavbarSearchInput';
-
-const StyledSearchInput = chakra(SearchInput);
 
 // Should work but don't autocomplete:
 // type ForwardRefComponent<T, P = {}> = ReturnType<typeof React.forwardRef<T, P>>;
@@ -34,7 +32,7 @@ export default function Search({ disabled, isLoading, ...rest }) {
       filter={filter}
       isLoading={isLoading}
       disabled={disabled}
-      inputComponent={StyledSearchInput}
+      inputComponent={SearchInput}
       css={{
         h: '50px',
       }}

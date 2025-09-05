@@ -1,6 +1,5 @@
 import { useIntl } from 'react-intl';
 import {
-  chakra,
   Box,
   Button,
   Collapsible,
@@ -25,8 +24,6 @@ import { FaIcon } from 'icons';
 import { faBars } from 'icons/solid';
 import useSearch from './useSearch';
 import messages from './messages';
-
-const StyledSearchInput = chakra(SearchInput);
 
 export default function ProfileMenu({ user, portalRef }) {
   const intl = useIntl();
@@ -146,7 +143,7 @@ export default function ProfileMenu({ user, portalRef }) {
           <Collapsible.Content>
             <Box display={{ base: 'block', lg: 'none' }}>
               <form onSubmit={onSearch}>
-                <StyledSearchInput
+                <SearchInput
                   h="50px"
                   input={{
                     value: inputValue,

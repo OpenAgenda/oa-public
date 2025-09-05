@@ -350,11 +350,17 @@ export const WithTitles: Story = {
   ),
 };
 
-export const WithSubtleBackground = {
+export const WithBackground = {
   render: () => (
     <ReferenceSet
       title="Références avec fond coloré"
       description="Découvrez nos partenaires et références qui nous font confiance"
+      background={{
+        name: 'frenchBlue',
+      }}
+      fontColor={{
+        name: 'oaWhite',
+      }}
       References={referenceSetData.References.map((ref) => ({
         id: String(ref.id),
         link: ref.link,
@@ -365,7 +371,32 @@ export const WithSubtleBackground = {
         title: ref.title,
         tags: ref.tags,
       }))}
-      backgroundColor={{ name: 'rosyRed' }}
+    />
+  ),
+};
+
+export const WithBackgroundGradient = {
+  render: () => (
+    <ReferenceSet
+      title="Références avec fond gradué"
+      description="Découvrez nos partenaires et références qui nous font confiance"
+      background={{
+        name: 'myFirstGradient',
+        css: 'linear-gradient(to right bottom, frenchBlue, 80%, moonStone)',
+      }}
+      fontColor={{
+        name: 'oaWhite',
+      }}
+      References={referenceSetData.References.map((ref) => ({
+        id: String(ref.id),
+        link: ref.link,
+        image: {
+          url: ref.image.url,
+          alternativeText: ref.image.alternativeText || undefined,
+        },
+        title: ref.title,
+        tags: ref.tags,
+      }))}
     />
   ),
 };
