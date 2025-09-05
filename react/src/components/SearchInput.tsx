@@ -1,6 +1,6 @@
 import { useState, useMemo, useCallback, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import debounce from 'lodash/debounce';
+import debounce from 'lodash/debounce.js';
 import { InputGroup, Input, Button, createIcon } from '@openagenda/uikit';
 
 const MagnifyingGlassIcon = createIcon({

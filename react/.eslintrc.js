@@ -5,6 +5,7 @@ module.exports = {
   ignorePatterns: ['/dist'],
 
   rules: {
+    'import/extensions': ['error', 'ignorePackages'],
     'import/no-extraneous-dependencies': [
       'error',
       {
