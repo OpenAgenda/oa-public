@@ -10,7 +10,9 @@ export default async function task(internals) {
   const allKeys = await redisClient.sMembers(setKey);
   log('allKeys length ', allKeys.length);
   for (const key of allKeys) {
-    const value = JSON.parse(await redisClient.get(key));
+    const rawValue = await redisClient.get(key);
+    if (!rawValue) continue;
+    const value = JSON.parse(rawValue);
     const endDate = new Date(value.end);
     if (endDate.getTime() < now.getTime()) {
       // dump
