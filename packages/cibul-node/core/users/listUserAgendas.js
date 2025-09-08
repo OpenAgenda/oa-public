@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import { NotFound } from '@openagenda/verror';
 import formatMember from '../agendas/members/lib/format.js';
+import validateMemberNav from '../agendas/members/lib/validateNav.js';
 import validateIdentifier from './lib/validateIdentifier.js';
-import validateNav from './lib/validateNav.js';
 import validateOptions from './lib/validateOptions.js';
 import assignDetailedAgendaInfo from './lib/assignDetailedAgendaInfo.js';
 
@@ -30,7 +30,7 @@ export default (core, identifier) =>
         {
           userUid: user.uid,
         },
-        validateNav(nav),
+        validateMemberNav(nav),
         {
           detailed: true,
           total: true,
