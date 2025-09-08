@@ -65,18 +65,17 @@ export default function validateNav(nav, options = {}) {
 
   const { maxResultWindow = 10000 } = options;
 
-  const { offset, limit, searchAfter } = preClean;
-
-  if (offset) {
-    preClean.from = offset;
+  if ('offset' in preClean && !('from' in preClean)) {
+    preClean.from = preClean.offset;
   }
 
-  if (limit) {
-    preClean.size = limit;
+  if ('limit' in preClean && !('size' in preClean)) {
+    preClean.size = preClean.limit;
   }
 
-  if (Array.isArray(searchAfter)) {
-    preClean.searchAfter = searchAfter.map((s) => (s === 'null' ? null : s));
+  if (Array.isArray(preClean.searchAfter)) {
+    preClean.searchAfter = preClean.searchAfter.map((s) =>
+      (s === 'null' ? null : s));
   }
 
   const clean = navValidator(preClean);
