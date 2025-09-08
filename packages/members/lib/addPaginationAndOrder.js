@@ -49,7 +49,7 @@ function orderBy(k, after, column, orderDirection) {
 }
 
 export default (k, nav) => {
-  const { after, offset, limit, page, order } = cleanNav(nav);
+  const { after, from, size, page, order } = cleanNav(nav);
 
   const [orderField, orderDirection] = order.split('.');
   let column = _.snakeCase(orderField);
@@ -68,15 +68,15 @@ export default (k, nav) => {
           `not (${column} = ? and id ${_operator('desc')} ?)`,
           after || 0,
         ));
-  } else if (offset) {
-    k.offset(offset);
+  } else if (from) {
+    k.offset(from);
   } else if (page) {
-    k.offset((page - 1) * limit);
+    k.offset((page - 1) * size);
   }
 
   orderBy(k, after, column, orderDirection);
 
-  k.limit(limit);
+  k.limit(size);
 
   return {
     orderField,
