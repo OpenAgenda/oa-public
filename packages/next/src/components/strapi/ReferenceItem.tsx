@@ -7,8 +7,11 @@ import {
   LinkBox,
   Text,
   Box,
+  Badge,
+  Button,
 } from '@openagenda/uikit';
-import { Tag } from '@openagenda/uikit/snippets';
+import { defineMessages, useIntl } from 'react-intl';
+import { useState } from 'react';
 import { color } from 'utils/strapi';
 import Icon from './Icon';
 
@@ -28,6 +31,13 @@ type ReferenceItemProps = Reference & {
   smallImages?: boolean;
   fontColor?: any;
 };
+
+const messages = defineMessages({
+  more: {
+    id: 'next.components.Strapi.ReferenceItem.more',
+    defaultMessage: '+ {count} more',
+  },
+});
 
 const sizes = {
   small: {
@@ -49,9 +59,13 @@ export default function ReferenceItem({
   smallImages = true,
   fontColor,
 }: ReferenceItemProps) {
-  const tags = tagsString?.split(',').map((tag) => tag.trim());
+  const allTags = tagsString?.split(',').map((tag) => tag.trim());
+  const [displayedTags, setDisplayedTags] = useState(
+    (allTags ?? []).filter((_t, i) => i < 5),
+  );
 
   const size = sizes[smallImages ? 'small' : 'big'];
+  const intl = useIntl();
 
   return (
     <LinkBox asChild>
@@ -118,21 +132,34 @@ export default function ReferenceItem({
           </Box>
         </Box>
 
-        {tags?.length > 0 ? (
+        {displayedTags?.length > 0 ? (
           <Wrap justify="center" maxWidth="100%" pt={1}>
-            {tags?.map((tag) => (
+            {displayedTags?.map((tag) => (
               <WrapItem key={tag}>
-                <Tag
+                <Badge
                   variant="solid"
                   border="none"
-                  borderRadius={2}
+                  borderRadius={20}
                   size="lg"
                   colorPalette={tagColorMap[tag]}
                 >
                   {tag}
-                </Tag>
+                </Badge>
               </WrapItem>
             ))}
+            {displayedTags.length < allTags.length ? (
+              <Button
+                fontSize="md"
+                variant="link"
+                cursor="pointer"
+                borderRadius={20}
+                onClick={() => setDisplayedTags(allTags)}
+              >
+                {intl.formatMessage(messages.more, {
+                  count: allTags.length - displayedTags.length,
+                })}
+              </Button>
+            ) : null}
           </Wrap>
         ) : null}
       </VStack>

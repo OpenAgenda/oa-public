@@ -234,7 +234,7 @@ export const WithFilterManyTags: Story = {
               url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
               alternativeText: 'Ref 1',
             },
-            tags: 'React, TypeScript, Frontend, Web, UI/UX',
+            tags: 'React, TypeScript, Frontend, Web, UI/UX, Spider, Spaceship, Butterfly, Politics, Toes, Cloud, Singularity, Cult, Tardigrade',
           },
           {
             id: '2',
