@@ -21,11 +21,13 @@ describe('agendas - functional (server): list', () => {
         `${__dirname}/../model.sql`,
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
+        `${__dirname}/fixtures/stakeholder.data.sql`,
       ],
       map: {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
+        stakeholder: 'stakeholder',
       },
     }),
   );
@@ -194,6 +196,16 @@ describe('agendas - functional (server): list', () => {
 
     expect(agendas.length).toBe(1);
     expect(agendas[0].slug).toBe('inaregions');
+  });
+
+  it('list by user', async () => {
+    const { agendas } = await svc.list({
+      memberUserUid: 12345678,
+    });
+
+    expect(agendas.length).toBe(2);
+    expect(agendas[0].slug).toBe('inagrm');
+    expect(agendas[1].slug).toBe('inaregions');
   });
 
   it('DEPRECATE - list with ids and search gets agendas', async () => {

@@ -19,6 +19,10 @@ function build(files, options, cb) {
         table: config.schemas.agendaEvent,
         src: `${__dirname}/agenda_event.data.sql`,
       },
+      {
+        table: config.schemas.stakeholder,
+        src: `${__dirname}/stakeholder.data.sql`,
+      },
     ].filter((f) => files.includes(f.src.split('/').pop().split('.')[0])),
     options,
     cb,
