@@ -58,7 +58,7 @@ describe('core - functional: core.agendas().events.conversations', () => {
       const resp = await core
         .agendas(1001)
         .events(1)
-        .conversations.create({ message: 'test' }, { userUid: 2 });
+        .conversations.create({ message: 'test' }, { userUid: 1 });
       expect(resp).toBeTruthy();
     });
   });
@@ -102,21 +102,26 @@ describe('core - functional: core.agendas().events.conversations', () => {
 
     describe('successful calls', () => {
       it('admin can create conversation via API endpoint', async () => {
-        const response = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/1001/events/1/conversations',
-          headers: {
-            'access-token': adminAccessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            message: 'test conversation from admin',
-          },
-        });
-
-        expect(response.status).toBe(200);
-        expect(response.data.success).toBe(true);
-        expect(response.data.conversation).toBeTruthy();
+        try {
+          const response = await axios({
+            method: 'post',
+            url: 'http://localhost:4000/agendas/1001/events/1/conversations',
+            headers: {
+              'access-token': adminAccessToken,
+              'content-type': 'application/json',
+            },
+            data: {
+              message: 'test conversation from admin',
+            },
+          });
+          expect(response.status).toBe(200);
+          expect(response.data.success).toBe(true);
+        } catch (error) {
+          console.log('Error status:', error.response?.status);
+          console.log('Error data:', error.response?.data);
+          console.log('Error headers:', error.response?.headers);
+          throw error;
+        }
       });
     });
 

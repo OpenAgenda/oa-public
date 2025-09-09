@@ -12,7 +12,7 @@ const validate = schema({
   after: {
     type: 'integer',
   },
-  limit: {
+  size: {
     type: 'integer',
     max: 100,
     default: 20,
@@ -21,7 +21,15 @@ const validate = schema({
 
 export default (data) => {
   try {
-    return validate(data);
+    const preClean = {
+      ...data ?? {},
+    };
+
+    if ('limit' in preClean && !('size' in preClean)) {
+      preClean.size = preClean.limit;
+    }
+
+    return validate(preClean);
   } catch (errors) {
     throw new BadRequest({ info: { errors } }, 'invalid navigation parameters');
   }

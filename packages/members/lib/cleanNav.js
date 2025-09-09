@@ -15,11 +15,11 @@ const validate = schema({
     list: true,
     default: null,
   },
-  offset: {
+  from: {
     type: 'integer',
     default: null,
   },
-  limit: {
+  size: {
     type: 'integer',
     default: 20,
   },
@@ -45,7 +45,19 @@ const validate = schema({
 });
 
 export default (nav) => {
-  const clean = validate(nav);
+  const preClean = {
+    ...nav ?? {},
+  };
+
+  if ('offset' in preClean && !('from' in preClean)) {
+    preClean.from = preClean.offset;
+  }
+
+  if ('limit' in preClean && !('size' in preClean)) {
+    preClean.size = preClean.limit;
+  }
+
+  const clean = validate(preClean);
 
   if (clean.order === null) {
     clean.order = 'id.asc';

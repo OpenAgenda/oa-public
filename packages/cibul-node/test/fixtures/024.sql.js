@@ -129,7 +129,7 @@ raw.push(
   knex('agenda_event').insert([
     {
       id: 1,
-      user_uid: 1,
+      user_uid: 2, // Changed from 1 to 2 so admin (uid: 1) can create conversation with contributor (uid: 2)
       agenda_uid: 1001,
       event_uid: 1,
       state: 2,

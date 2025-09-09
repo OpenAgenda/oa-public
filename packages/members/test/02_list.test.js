@@ -107,6 +107,11 @@ describe('members - functional - list', () => {
       expect(second[0].id).toBe(2);
     });
 
+    test('with "from" and "size" keys', async () => {
+      const second = await svc.list({ agendaUid: 1 }, { from: 1, size: 1 });
+      expect(second[0].id).toBe(2);
+    });
+
     test('with "offset" and "limit" keys', async () => {
       const second = await svc.list({ agendaUid: 1 }, { offset: 1, limit: 1 });
       expect(second[0].id).toBe(2);

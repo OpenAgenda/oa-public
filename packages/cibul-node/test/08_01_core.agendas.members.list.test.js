@@ -220,7 +220,7 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
             message: 'the integer is too big',
             values: { max: 100 },
             origin: '1111',
-            field: 'limit',
+            field: 'size',
           },
         ]);
       });
