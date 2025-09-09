@@ -13,6 +13,7 @@ module.exports = {
     schemas: {
       agenda: 'agenda',
       agendaEvent: 'agenda_event',
+      stakeholder: 'stakeholder',
     },
 
     imagePath: 'https://cdn.openagenda.com/dev/',

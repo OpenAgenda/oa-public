@@ -94,6 +94,15 @@ function _search(k, query, options) {
     }
   }
 
+  if (query.memberUserUid) {
+    k.whereExists(function () {
+      this.select(1)
+        .from({ r: schemas.stakeholder })
+        .whereColumn('r.agenda_uid', `${schemas.agenda}.uid`)
+        .where('r.user_uid', query.memberUserUid);
+    });
+  }
+
   if (!query.search) return k;
 
   k[query.ids || query.id ? 'andWhere' : 'where'](function () {

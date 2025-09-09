@@ -55,6 +55,9 @@ module.exports = schema({
   networkUid: {
     type: 'integer',
   },
+  memberUserUid: {
+    type: 'integer',
+  },
   updatedAtGreaterThan: {
     type: 'date',
     default: null,

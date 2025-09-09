@@ -95,7 +95,11 @@ function Agendas() {
           );
         }
 
-        if (!state.isMember) {
+        if (
+          !state.agendas?.length
+          && !state.searchValue
+          && !state.listLoading
+        ) {
           return (
             <Wrapper>
               <Welcome />

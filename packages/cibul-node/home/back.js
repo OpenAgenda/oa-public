@@ -11,23 +11,15 @@ function getBooleanQuery(param) {
 }
 
 async function agendasList(req, res, next) {
-  const { agendas: agendaSvc, members: membersSvc } = req.app.services;
+  const { agendas: agendasSvc, members: membersSvc } = req.app.services;
 
   const page = req.query.page || 1;
   const offset = (page - 1) * LIST_LIMIT;
 
   try {
-    const members = await membersSvc.list(
+    const { total, agendas } = await agendasSvc.list(
       {
-        userUid: req.user.uid,
-        ...req.query.role ? { role: req.query.role } : {},
-      },
-      { offset: 0, limit: 1000 },
-    );
-
-    const { total, agendas } = await agendaSvc.list(
-      {
-        uid: members.map((s) => s.agendaUid),
+        memberUserUid: req.user.uid,
         search: req.query.search,
       },
       offset,
@@ -41,9 +33,17 @@ async function agendasList(req, res, next) {
       },
     );
 
+    const members = await membersSvc.list(
+      {
+        userUid: req.user.uid,
+        agendaUid: agendas.map((s) => s.uid),
+        ...req.query.role ? { role: req.query.role } : {},
+      },
+      { offset: 0, limit: LIST_LIMIT },
+    );
+
     res.send({
       total,
-      isMember: members.length > 0,
       agendas: agendas.map((agenda) =>
         _.assign(_.omit(agenda, ['credentials']), {
           member: members.find((s) => s.agendaUid === agenda.uid),
