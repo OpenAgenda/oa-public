@@ -37,10 +37,10 @@ Quelques ajustements sont utiles en amont d'ajouter un portail au swarm. On part
 
 Pour ajouter un portail (existant), il faut :
 
-1. ajouter un service + une config dans le `yml` de https://github.com/OpenAgenda/oa-portals/blob/main/portals/stack.yml (donc git clone le projet, faire des modfis dessus, puis push)
-2. `git commit` le yml
-3. `git pull` sur le serveur (le swarm manager. Pour se connecter au serveur, voir "Vérifier & ce connecter aux serveurs")
-4. créer le `.env` sur le serveur (le même, dans `oa-portals/portals/envs`)
+1. ajouter un service + une config dans le `yml` de https://github.com/OpenAgenda/oa-portals/blob/main/portals/stack.yml
+2. `git commit`+ `git push` le yml
+3. `git pull` sur le serveur du manager (voir "Se connecter aux serveurs")
+4. créer le `.env` sur le serveur dans `oa-portals/portals/envs`
 5. lancer `./deploy.sh`
 
 ## Mettre à jour un portail
