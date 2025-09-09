@@ -13,7 +13,7 @@ mais ça peut aussi fonctionner avec un swarm sur des VPS distants ou même un s
 ## En bref
 
 - **Le déploiement de production est sur l'infra OpenStack d'infomaniak**, région dc4-a.
-- **Registre des images de portail**: chaque portail a son image docker d'enregistrée sur un registre dédié, hébergé sur une VM voisine du déploiement des portails: `registry.oa.events`. Lorsqu'un portail est mis à jour, il faut mettre à jour son image: `docker login registry.oa.events -u portals` - voir 1password pour le mdp.
+- **Registre des images de portail**: chaque portail a son image docker d'enregistrée sur un registre dédié (comme le registre sur docker.com, mais auto-hébergé en utilisant harbor), hébergé sur une VM voisine du déploiement des portails: `registry.oa.events`. Lorsqu'un portail est mis à jour, il faut mettre à jour son image: `docker login registry.oa.events -u portals` - voir 1password pour le mdp.
 - **SSH sur les serveurs**: Pour lancer les script de mise à jour, de déploiement de portail, il faut se connecter au serveur "swarm manager". Voir la section "Vérifier & ce connecter aux serveurs" pour le détail.
 
 ## Todo
@@ -33,18 +33,17 @@ Quelques ajustements sont utiles en amont d'ajouter un portail au swarm. On part
 2. Rajouter le script `push-image` dans le `package.json`
 3. Ajoute un `i8n/index.js` qui export un objet vide (`export default {}`)
 4. Lancer `push-image` pour créer l'image du portail
-5. Prier. Quand `push-image` a fini de créer / placer l'image dans le registre, noter son nom (ex: `=> pushing registry.oa.events/portals/bassens:0.0.1-master with docker`)
+5. ...quand `push-image` a fini de créer et de placer l'image dans le registre, noter son nom qui s'affiche en fin de push dans le terminal (ex: `=> pushing registry.oa.events/portals/bassens:0.0.1-master with docker`, le nom du portail dans le registre dans ce cas est `registry.oa.events/portals/bassens:0.0.1-master`)
 
 ## Ajouter un portail
 
 Pour ajouter un portail (existant), il faut :
 
 1. ajouter un service + une config dans le `yml` de https://github.com/OpenAgenda/oa-portals/blob/main/portals/stack.yml (donc git clone le projet, faire des modfis dessus, puis push)
-2. créer le `.env` pour ce portail
-3. `git commit` le yml
-4. `git pull` sur le serveur (pour se connecter au serveur, voir "Vérifier & ce connecter aux serveurs")
-5. créer le `.env` sur le serveur
-6. lancer `./deploy.sh`
+2. `git commit` le yml
+3. `git pull` sur le serveur (le swarm manager) (pour se connecter au serveur, voir "Vérifier & ce connecter aux serveurs")
+4. créer le `.env` sur le serveur (le même)
+5. lancer `./deploy.sh`
 
 ## Mettre à jour un portail
 
