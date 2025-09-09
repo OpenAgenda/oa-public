@@ -132,6 +132,7 @@ export interface ComponentsSplitHero extends Struct.ComponentSchema {
       'oneToOne',
       'api::background.background'
     >;
+    coverImage: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
