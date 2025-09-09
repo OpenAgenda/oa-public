@@ -10,14 +10,39 @@ Traefik gère automatiquement les certificats avec Let's Encrypt, à chaque fois
 La procèdure d'installation qui est détaillée plus bas fonctionne avec un swarm sur OpenStack et un réseau privé entre les noeuds
 mais ça peut aussi fonctionner avec un swarm sur des VPS distants ou même un simple VPS en éxécutant tout sur le manager (traefik + portails).
 
+## En bref
+
+- **Le déploiement de production est sur l'infra OpenStack d'infomaniak**, région dc4-a.
+- **Registre des images de portail**: chaque portail a son image docker d'enregistrée sur un registre dédié, hébergé sur une VM voisine du déploiement des portails: `registry.oa.events`. Lorsqu'un portail est mis à jour, il faut mettre à jour son image: `docker login registry.oa.events -u portals` - voir 1password pour le mdp.
+- **SSH sur les serveurs**: Pour lancer les script de mise à jour, de déploiement de portail, il faut se connecter au serveur "swarm manager". Voir la section "Vérifier & ce connecter aux serveurs" pour le détail.
+
+## Todo
+
+- L'install d'un portail devrait inclure un `.yarnrc` pour nodeLinked node-modules, ajouter un `Dockerfile` et un `.dockerignore`
+- Une instruction pour ajouter le script
+- Les variables d'environnements qui ont toujours la même chose pourraient être traitées avec des valeurs par défaut pour ne pas avoir à les préciser systématiquement
+- Modifier le `server.js` du boot pour mettre `i18n: (await import(process.env.PORTAL_I18N_PATH)).default,`
+
+## Se connecter à une VM OpenStack
+
+## Préparer un portail
+
+Quelques ajustements sont utiles en amont d'ajouter un portail au swarm. On part d'un portail fonctionnel, qui `yarn start` bien en local avec les variables d'environnement qu'il faut.
+
+1. S'assurer que le `Dockerfile` et le `.dockerignore` est bien présent
+2. Rajouter le script `push-image` dans le `package.json`
+3. Ajoute un `i8n/index.js` qui export un objet vide (`export default {}`)
+4. Lancer `push-image` pour créer l'image du portail
+5. Prier. Quand `push-image` a fini de créer / placer l'image dans le registre, noter son nom (ex: `=> pushing registry.oa.events/portals/bassens:0.0.1-master with docker`)
+
 ## Ajouter un portail
 
-Pour ajouter un portail, il faut :
+Pour ajouter un portail (existant), il faut :
 
-1. ajouter un service + une config dans le `yml` de https://github.com/OpenAgenda/oa-portals/blob/main/portals/stack.yml
+1. ajouter un service + une config dans le `yml` de https://github.com/OpenAgenda/oa-portals/blob/main/portals/stack.yml (donc git clone le projet, faire des modfis dessus, puis push)
 2. créer le `.env` pour ce portail
 3. `git commit` le yml
-4. `git pull` sur le serveur
+4. `git pull` sur le serveur (pour se connecter au serveur, voir "Vérifier & ce connecter aux serveurs")
 5. créer le `.env` sur le serveur
 6. lancer `./deploy.sh`
 
@@ -50,7 +75,7 @@ Puis `./deploy.sh` sur le serveur.
 
 Si tu n'as pas de fichier de connexion à OpenStack, tu peux le créer sur l'interface du Public Cloud dans _Identité_ > _Identifiants d'application_.
 
-```bash
+````bash
 # Se connecter à OpenStack
 source ~/app-cred-kkkkaore-openrc.sh
 # export OS_REGION_NAME="dc4-a" # pour changer de région si nécessaire
@@ -61,56 +86,68 @@ openstack keypair create swarm-key > swarm.pem
 
 # Créer le réseau
 openstack network create swarm-net
-openstack subnet create \
-  --network swarm-net \
-  --subnet-range 10.10.0.0/24 \
-  --dns-nameserver 1.1.1.1 \
-  swarm-subnet
+openstack subnet create \```bash
+docker login registry.oa.events -u portals
+````
+
+--network swarm-net \
+ --subnet-range 10.10.0.0/24 \
+ --dns-nameserver 1.1.1.1 \
+ swarm-subnet
 
 # Créer le router
+
 openstack router create swarm-router
 openstack router set swarm-router --external-gateway ext-floating1
 openstack router add subnet swarm-router swarm-subnet
 
 # Créer un groupe de sécurité
+
 openstack security group create swarm-sg
 
 # SSH + ICMP
-openstack security group rule create --ingress --protocol tcp --dst-port 22   swarm-sg
-openstack security group rule create --ingress --protocol icmp                swarm-sg
+
+openstack security group rule create --ingress --protocol tcp --dst-port 22 swarm-sg
+openstack security group rule create --ingress --protocol icmp swarm-sg
 
 # HTTP/HTTPS
-openstack security group rule create --ingress --protocol tcp --dst-port 80   swarm-sg
-openstack security group rule create --ingress --protocol tcp --dst-port 443  swarm-sg
+
+openstack security group rule create --ingress --protocol tcp --dst-port 80 swarm-sg
+openstack security group rule create --ingress --protocol tcp --dst-port 443 swarm-sg
 
 # Swarm
+
 openstack security group rule create --ingress --protocol tcp --dst-port 2377 swarm-sg
 openstack security group rule create --ingress --protocol tcp --dst-port 7946 swarm-sg
 openstack security group rule create --ingress --protocol udp --dst-port 7946 swarm-sg
 openstack security group rule create --ingress --protocol udp --dst-port 4789 swarm-sg
 
 # Autoriser tout le trafic "intra-groupe"
+
 openstack security group rule create --ingress --protocol any --remote-group swarm-sg swarm-sg
 
 # Créer l'instance du manager
+
 openstack server create \
-  --flavor a8-ram16-disk20-perf1 \
-  --image "Ubuntu 24.04 LTS Noble Numbat" \
-  --key-name swarm-key \
-  --network swarm-net \
-  --security-group swarm-sg \
-  swarm-mgr-1
+ --flavor a8-ram16-disk20-perf1 \
+ --image "Ubuntu 24.04 LTS Noble Numbat" \
+ --key-name swarm-key \
+ --network swarm-net \
+ --security-group swarm-sg \
+ swarm-mgr-1
 
 # Créer l'instance du worker
+
 openstack server create \
-  --flavor a16-ram64-disk80-perf1 \
-  --image "Ubuntu 24.04 LTS Noble Numbat" \
-  --key-name swarm-key \
-  --network swarm-net \
-  --security-group swarm-sg \
-  swarm-wkr-1
+ --flavor a16-ram64-disk80-perf1 \
+ --image "Ubuntu 24.04 LTS Noble Numbat" \
+ --key-name swarm-key \
+ --network swarm-net \
+ --security-group swarm-sg \
+ swarm-wkr-1
 
 # Attribuer des IPs
+
 FIP_MGR=$(openstack floating ip create -f value -c floating_ip_address ext-floating1)
 FIP_WRK=$(openstack floating ip create -f value -c floating_ip_address ext-floating1)
 openstack server add floating ip swarm-mgr-1 $FIP_MGR
@@ -118,8 +155,10 @@ openstack server add floating ip swarm-wkr-1 $FIP_WRK
 echo "Manager: $FIP_MGR"
 echo "Worker : $FIP_WRK"
 
-# Vérifier les serveurs
+# Vérifier & ce connecter aux serveurs
+
 openstack server list --long
+
 ```
 
 Une fois les serveurs créés, il faut mettre la clé ssh sur 1password et la supprimer du pc !
@@ -128,20 +167,22 @@ Laisse juste la clé publique dans `~/.ssh/swarm-key.pub`.
 Pour faciliter la connexion ssh tu peux ajouter la config suivante dans `~/.ssh/config`:
 
 ```
+
 Match host swarm-manager
-  HostName <IP_DU_MANAGER>
-  User ubuntu
-  Port 22
-  IdentityFile ~/.ssh/swarm-key
-  IdentitiesOnly yes
+HostName <IP_DU_MANAGER>
+User ubuntu
+Port 22
+IdentityFile ~/.ssh/swarm-key
+IdentitiesOnly yes
 
 Match host swarm-worker
-  HostName <IP_DU_WORKER>
-  User ubuntu
-  Port 22
-  IdentityFile ~/.ssh/swarm-key
-  IdentitiesOnly yes
-```
+HostName <IP_DU_WORKER>
+User ubuntu
+Port 22
+IdentityFile ~/.ssh/swarm-key
+IdentitiesOnly yes
+
+````
 
 Et tu pourras faire:
 
@@ -151,7 +192,7 @@ ssh swarm-manager
 # ou
 
 ssh swarm-worker
-```
+````
 
 ### Installer docker sur chaque serveur
 
@@ -180,6 +221,10 @@ docker swarm join --token <SWARM_WORKER_TOKEN> <IP_PRIVEE_DU_MANAGER>:2377
 ```
 
 ---
+
+```bash
+docker login registry.oa.events -u portals
+```
 
 SUR LE MANAGER:
 
