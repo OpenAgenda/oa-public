@@ -71,7 +71,24 @@ export default async function process(
   event,
   agendaEventOldState,
 ) {
-  const { registrations } = services;
+  const { registrations, agendaLocations } = services;
+
+  const hasOfferCreationErrors = clean.passCulture[0]?.errors?.length && !clean.passCulture[1];
+  if (hasOfferCreationErrors) {
+    // Update event.registration data for passCulture service only
+    const updatedRegistration = clean.event.registration.map((regItem) => {
+      if (regItem.service === 'passCulture') {
+        return {
+          ...regItem,
+          data: clean.passCulture,
+        };
+      }
+      return regItem;
+    });
+
+    return updatedRegistration;
+    // return clean.passCulture
+  }
 
   const hasNewPassOffer = clean.passCulture
     && registrations.utils.passCulture.isNew(clean.passCulture);
@@ -86,6 +103,7 @@ export default async function process(
     log.info('  There is a pass culture payload with event', {
       eventUid: clean.event?.uid,
     });
+
     if (
       clean.agendaEvent.state
         ? clean.agendaEvent.state === 2
@@ -104,8 +122,14 @@ export default async function process(
       const passCultureService = registrations(
         agenda.settings.registration,
       ).passCulture;
+      const location = await agendaLocations.get(event.location.uid, {
+        detailed: true,
+      });
       try {
-        await passCultureService.validate(clean.event, clean.passCulture);
+        await passCultureService.validate(
+          { ...clean.event, location },
+          clean.passCulture,
+        );
       } catch (error) {
         log('error', error);
         throw error;
@@ -145,7 +169,7 @@ export default async function process(
 }
 
 export async function loadAndProcess({ services }, agendaUid, eventUid) {
-  const { agendas, events, agendaEvents } = services;
+  const { agendas, events, agendaEvents, registrations } = services;
 
   // get event first to check if it belongs to the requested agenda
   const event = await events.get(eventUid, {
@@ -174,19 +198,25 @@ export async function loadAndProcess({ services }, agendaUid, eventUid) {
 
   const passData = event.registration.find(
     (r) => r.service === 'passCulture',
-  ).data;
+  )?.data;
 
   if (passData) {
+    const hasNonApplied = registrations.utils.passCulture.hasNonApplied(passData);
+    const hasOfferCreationErrors = passData[0]?.errors?.length && !passData[1];
+    if (hasOfferCreationErrors && hasNonApplied) delete passData[0].errors;
+
     try {
       const updatedRegistration = await process(
         { services },
         agenda,
         {
           event,
-          passCulture: passData.concat({
-            editing: true,
-            updateEventOffer: true,
-          }),
+          passCulture: hasNonApplied
+            ? passData
+            : passData.concat({
+              editing: true,
+              updateEventOffer: true,
+            }),
           agendaEvent,
         },
         null,
