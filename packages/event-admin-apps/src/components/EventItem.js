@@ -151,6 +151,11 @@ export default function EventItem({
     )?.isRejected
     : undefined;
 
+  const passPublishedErrors = !passId
+    && getCurrentValue(
+      event.registration.find((r) => r.service === 'passCulture')?.data,
+    )?.errors;
+
   const passUnpublished = !passId
     && Object.keys(
       getCurrentValue(
@@ -269,6 +274,7 @@ export default function EventItem({
             pending={passPending}
             rejected={passRejected}
             errored={passErrored}
+            publishedErrors={passPublishedErrors}
             passUnpublished={passUnpublished}
             passId={passId}
             passRes={passRes}
