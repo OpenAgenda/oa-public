@@ -526,6 +526,10 @@ export const sidebar = defineMessages({
     id: 'next.views.EventShow.Sidebar.passUnpublished',
     defaultMessage: 'The offer will be created upon publication of the event',
   },
+  passPublishedErrors: {
+    id: 'next.views.EventShow.Sidebar.passPublishedErrors',
+    defaultMessage: 'The creation of the offer encountered errors',
+  },
 });
 
 export const timings = defineMessages({

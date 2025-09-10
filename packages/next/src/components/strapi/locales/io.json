@@ -1,4 +1,5 @@
 {
+  "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.contact": "crwdns34481:0crwdne34481:0",
   "next.components.Strapi.contactForm": "crwdns34483:0crwdne34483:0",
   "next.components.Strapi.github": "crwdns34485:0crwdne34485:0",
@@ -58,6 +59,5 @@
   "next.components.Strapi.videoPlayer.textBackground": "crwdns34989:0crwdne34989:0",
   "next.components.Strapi.videoPlayer.track": "crwdns34991:0crwdne34991:0",
   "next.components.Strapi.videoPlayer.unmute": "crwdns34993:0crwdne34993:0",
-  "next.components.Strapi.videoPlayer.volume": "crwdns34995:0crwdne34995:0",
-  "next.components.Strapi.ReferenceItem.more": ""
+  "next.components.Strapi.videoPlayer.volume": "crwdns34995:0crwdne34995:0"
 }

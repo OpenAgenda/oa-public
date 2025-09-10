@@ -100,6 +100,7 @@
   "next.views.EventShow.Sidebar.completeLink": "Complete link",
   "next.views.EventShow.Sidebar.conditions": "Conditions",
   "next.views.EventShow.Sidebar.minToMaxYearsOld": "{min} to {max} years old",
+  "next.views.EventShow.Sidebar.passPublishedErrors": "The creation of the offer encountered errors",
   "next.views.EventShow.Sidebar.passUnpublished": "The offer will be created upon publication of the event",
   "next.views.EventShow.Sidebar.passed": "Passed",
   "next.views.EventShow.Sidebar.registerBook": "Register / book:",

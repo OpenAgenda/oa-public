@@ -651,6 +651,12 @@
       "value": " years old"
     }
   ],
+  "next.views.EventShow.Sidebar.passPublishedErrors": [
+    {
+      "type": 0,
+      "value": "The creation of the offer encountered errors"
+    }
+  ],
   "next.views.EventShow.Sidebar.passUnpublished": [
     {
       "type": 0,
