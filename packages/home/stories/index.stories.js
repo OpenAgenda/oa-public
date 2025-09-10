@@ -22,7 +22,6 @@ function mswHandlers({ isNew = false } = {}) {
           ? {
             total: 0,
             agendas: [],
-            isMember: false,
           }
           : editedAgendasResponse,
       )),

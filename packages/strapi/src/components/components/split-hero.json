@@ -38,6 +38,10 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::color.color"
+    },
+    "coverImage": {
+      "type": "boolean",
+      "default": false
     }
   }
 }

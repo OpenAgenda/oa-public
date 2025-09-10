@@ -11,6 +11,7 @@ interface SegmentContainerProps {
   description?: string;
   CTAs?: any[];
   colorVariant?: string;
+  fullWidth?: boolean;
 }
 
 export default function SegmentContainer({
@@ -20,13 +21,15 @@ export default function SegmentContainer({
   title,
   description,
   CTAs,
+  fullWidth = false,
 }: SegmentContainerProps) {
   return (
     <chakra.div backgroundImage={getBackgroundImage(background)}>
       <Container
-        maxW="7xl"
+        maxW={fullWidth ? '100%' : '7xl'}
         color={fontColor ? color(fontColor.name, 500) : undefined}
-        py="24"
+        py={fullWidth ? 0 : 24}
+        px={fullWidth ? 0 : undefined}
       >
         {title && (
           <H2 mb={description ? 6 : 16} fontWeight="bold" textAlign="center">
