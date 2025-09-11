@@ -73,7 +73,7 @@ export default async function process(
 ) {
   const { registrations, agendaLocations } = services;
 
-  const hasOfferCreationErrors = clean.passCulture[0]?.errors?.length && !clean.passCulture[1];
+  const hasOfferCreationErrors = clean.passCulture?.[0]?.errors?.length && !clean.passCulture[1];
   if (hasOfferCreationErrors) {
     // Update event.registration data for passCulture service only
     const updatedRegistration = clean.event.registration.map((regItem) => {
