@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
 import { chakra, Box, Container, Flex } from '@openagenda/uikit';
@@ -32,18 +32,52 @@ function ProfileBar({ portalRef }) {
   return <ProfileMenu portalRef={portalRef} user={user} />;
 }
 
+function getPosition({ discreet, sticky }) {
+  if (sticky) {
+    return 'sticky';
+  }
+
+  return discreet ? 'absolute' : 'relative';
+}
+
+function getBackground({ discreet, sticky, stickyBackground }) {
+  if (!discreet) {
+    return 'white';
+  }
+
+  if (sticky && stickyBackground) {
+    return stickyBackground;
+  }
+}
+
 export default function Navbar({
   discreet = false,
   colorPalette = undefined,
   logoVariant = 'regular',
+  sticky = false,
+  stickyBackground = undefined,
 }) {
   const intl = useIntl();
+  const [stickyEnabled, setStickyEnabled] = useState(false);
 
-  console.log(colorPalette);
+  const navbarRef = useRef(undefined);
+
+  useEffect(() => {
+    if (!sticky || typeof window === 'undefined') {
+      return;
+    }
+
+    const handleScroll = () => {
+      if (navbarRef.current) {
+        setStickyEnabled(window.scrollY > 0);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [stickyEnabled, sticky]);
 
   const { inputValue, setInputValue, onSearch } = useSearch();
-
-  const headerRef = useRef(undefined);
 
   const [cookies] = useCookies();
   const sessionUser = getSession(cookies)?.user;
@@ -51,11 +85,15 @@ export default function Navbar({
 
   return (
     <chakra.header
-      ref={headerRef}
+      ref={navbarRef}
       display="flex"
       flexDirection="column"
-      bg={discreet ? undefined : 'white'}
-      position={discreet ? 'absolute' : 'relative'}
+      bg={getBackground({
+        discreet,
+        sticky: stickyEnabled,
+        stickyBackground,
+      })}
+      position={getPosition({ discreet, sticky: stickyEnabled })}
       top={discreet ? 0 : undefined}
       left={discreet ? 0 : undefined}
       right={discreet ? 0 : undefined}
@@ -114,7 +152,7 @@ export default function Navbar({
           <Flex direction="row" align="center">
             <HelpButton />
             <LanguageSelector />
-            <ProfileBar portalRef={headerRef} />
+            <ProfileBar portalRef={navbarRef} />
           </Flex>
         </Flex>
       </Container>

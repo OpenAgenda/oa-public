@@ -88,13 +88,14 @@ export default function PageHead({
       : '1fr';
 
   return (
-    <SegmentContainer fontColor={fontColor} background={background}>
+    <SegmentContainer fontColor={fontColor} background={background} fullHeight>
       <Grid
         templateColumns={templateColumns}
         gap={8}
         alignItems="center"
         justifyItems={hasTwoColumns ? undefined : 'center'}
         py={12}
+        height={{ md: '100%' }}
       >
         <GridItem maxW={hasTwoColumns ? undefined : 'container.md'}>
           <PageHeadContent
