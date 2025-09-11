@@ -501,6 +501,11 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
     logoVariant: Schema.Attribute.Enumeration<['regular', 'white']> &
       Schema.Attribute.DefaultTo<'regular'>;
     navFontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
+    navSticky: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
+    navStickyBackground: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::color.color'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     Segments: Schema.Attribute.DynamicZone<
       [

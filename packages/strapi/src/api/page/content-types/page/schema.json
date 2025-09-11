@@ -72,6 +72,15 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::color.color"
+    },
+    "navSticky": {
+      "type": "boolean",
+      "default": false
+    },
+    "navStickyBackground": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
     }
   }
 }
