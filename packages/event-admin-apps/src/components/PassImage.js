@@ -33,17 +33,31 @@ const messages = defineMessages({
   },
 });
 
-const imgSource = (assetsPath, errored, rejected, pending, unpublished) => {
+const imgSource = (
+  assetsPath,
+  errored,
+  publishedErrors,
+  rejected,
+  pending,
+  unpublished,
+) => {
   const completedImgRoute = `${assetsPath}svc/registration-apps/`;
-  if (errored) return `${completedImgRoute}pass-culture-error-22.png`;
+  if (errored || publishedErrors) return `${completedImgRoute}pass-culture-error-22.png`;
   if (rejected) return `${completedImgRoute}pass-culture-rejected-22.png`;
   if (pending) return `${completedImgRoute}pass-culture-pending-22.png`;
   if (unpublished) return `${completedImgRoute}pass-culture-unpublished-22.png`;
   return `${completedImgRoute}pass-culture-22.png`;
 };
 
-const title = (intl, errored, rejected, pending, unpublished) => {
-  if (errored) return intl.formatMessage(messages.linkedErrored);
+const title = (
+  intl,
+  errored,
+  publishedErrors,
+  rejected,
+  pending,
+  unpublished,
+) => {
+  if (errored || publishedErrors) return intl.formatMessage(messages.linkedErrored);
   if (rejected) return intl.formatMessage(messages.linkedRejected);
   if (pending) return intl.formatMessage(messages.linkedPending);
   if (unpublished) return intl.formatMessage(messages.likedUnpublished);
@@ -54,6 +68,7 @@ export default function PassImage({
   pending,
   rejected,
   errored,
+  publishedErrors,
   passUnpublished,
   passId,
   passRes,
@@ -75,9 +90,23 @@ export default function PassImage({
       })}
     >
       <img
-        src={imgSource(assetsPath, errored, rejected, pending, passUnpublished)}
+        src={imgSource(
+          assetsPath,
+          errored,
+          publishedErrors,
+          rejected,
+          pending,
+          passUnpublished,
+        )}
         alt="logoPassCulture"
-        title={title(intl, errored, rejected, pending, passUnpublished)}
+        title={title(
+          intl,
+          errored,
+          publishedErrors,
+          rejected,
+          pending,
+          passUnpublished,
+        )}
       />
       {passTabIsOpen ? (
         <span>

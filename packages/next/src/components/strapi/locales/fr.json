@@ -1,4 +1,5 @@
 {
+  "next.components.Strapi.ReferenceItem.more": "+ {count} en plus",
   "next.components.Strapi.contact": "Contacter",
   "next.components.Strapi.contactForm": "Formulaire de contact",
   "next.components.Strapi.github": "Notre Github",
@@ -58,6 +59,5 @@
   "next.components.Strapi.videoPlayer.textBackground": "Arrière-plan du texte",
   "next.components.Strapi.videoPlayer.track": "Piste",
   "next.components.Strapi.videoPlayer.unmute": "Rétablir le son",
-  "next.components.Strapi.videoPlayer.volume": "Volume",
-  "next.components.Strapi.ReferenceItem.more": "+ {count} en plus"
+  "next.components.Strapi.videoPlayer.volume": "Volume"
 }

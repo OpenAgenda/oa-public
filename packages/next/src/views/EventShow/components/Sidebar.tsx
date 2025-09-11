@@ -49,6 +49,9 @@ const imgRoute = process.env.NEXT_PUBLIC_ASSETS;
 
 function getPassImgSource(passData) {
   const currValue = getCurrentPassValue(passData);
+  const publishedCreationErrors = currValue?.data[0]?.errors;
+  if (publishedCreationErrors)
+    return imgRoute + 'svc/registration-apps/pass-culture-error-22.png';
   if (currValue?.isRejected)
     return imgRoute + 'svc/registration-apps/pass-culture-rejected-22.png';
   if (currValue?.isPending)
@@ -397,6 +400,8 @@ export function PassCultureSection({
   if (!passCulture) {
     return null;
   }
+  const publishedCreationErrors =
+    getCurrentPassValue(passCulture)?.data[0]?.errors;
 
   return (
     <Grid
@@ -434,11 +439,23 @@ export function PassCultureSection({
           wordBreak="break-all"
           maxW="full"
         >
-          {getCurrentPassValue(passCulture)?.value
-            ? intl.formatMessage(messages.accessPassOffer)
-            : intl.formatMessage(messages.passUnpublished)}
+          {publishedCreationErrors
+            ? intl.formatMessage(messages.passPublishedErrors)
+            : getCurrentPassValue(passCulture)?.value
+              ? intl.formatMessage(messages.accessPassOffer)
+              : intl.formatMessage(messages.passUnpublished)}
         </Link>
       </Fragment>
+
+      {publishedCreationErrors && (
+        <Box gridColumn="2" fontSize={defaultSize} color="danger.500" mt="2">
+          {publishedCreationErrors.map((error, index) => (
+            <Box key={index} mb="1">
+              • {error.label || error.message || error}
+            </Box>
+          ))}
+        </Box>
+      )}
 
       {isEventContributor && (
         <Fragment>

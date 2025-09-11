@@ -283,6 +283,13 @@ export default ({
             settings,
             value,
           })}
+          {title?.length > 90 ? (
+            <div className="text-warning">
+              La longueur du titre de l&apos;événement excède la longueur
+              autorisée par le pass. Adaptez la saisie pour éviter un troncage
+              arbitraire
+            </div>
+          ) : null}
           {!patchMode && !isLoadingPassData && issues.length ? (
             <ul className="padding-left-sm">
               {issues.map((issue) => (

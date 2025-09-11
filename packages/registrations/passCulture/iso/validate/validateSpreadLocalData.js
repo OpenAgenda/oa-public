@@ -10,7 +10,8 @@ import { validatePriceCategories } from './validatePriceCategory.js';
 const log = debug('validateSpreadLocalData');
 
 export default function validateSpreadLocalData(data, event, params = {}) {
-  log('validating data at each new entry step for %s entries', data.length);
+  const { noThrow = false } = params;
+
   const processedItems = data.reduce((processed, entry, index) => {
     const isApplied = !!entry.appliedAt;
     log('adding entry %s', index);
@@ -21,7 +22,10 @@ export default function validateSpreadLocalData(data, event, params = {}) {
     }
 
     current.merged.value = getCurrentValue(
-      processed.map(({ clean }) => clean).concat(entry),
+      processed
+        .map((pItem) =>
+          (Object.keys(pItem.clean).length ? pItem.clean : pItem.entry))
+        .concat(entry),
     );
 
     try {
@@ -60,7 +64,7 @@ export default function validateSpreadLocalData(data, event, params = {}) {
       if (type === 'eventOffer') {
         Object.assign(
           cleanEntry,
-          validateEventOffer(entry, { ...params, partial: true }),
+          validateEventOffer(entry, event, { ...params, partial: true }),
         );
       } else if (type === 'priceCategories') {
         cleanEntry.priceCategories = validatePriceCategories(
@@ -90,7 +94,7 @@ export default function validateSpreadLocalData(data, event, params = {}) {
       return processed;
     }
 
-    return processed.concat({ ...current, clean: cleanEntry });
+    return processed.concat({ ...current, clean: cleanEntry, entry });
   }, []);
 
   if (!processedItems.length) return [];
@@ -99,12 +103,15 @@ export default function validateSpreadLocalData(data, event, params = {}) {
 
   log('merge of spread data', merged);
 
-  if (merged.errors?.length) {
+  if (merged.errors?.length && !noThrow) {
     throw new BadRequest(
       { info: { errors: merged.errors } },
       'entries are invalid or incomplete',
     );
   }
 
+  if (merged.errors?.length && noThrow) {
+    return [{ ...merged.value, errors: merged?.errors }];
+  }
   return processedItems.map(({ clean }) => clean);
 }

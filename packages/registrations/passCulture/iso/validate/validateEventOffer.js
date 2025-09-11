@@ -1,8 +1,9 @@
 import { BadRequest } from '@openagenda/verror';
+import extractStreetFromOAAddress from '../../lib/extractStreetFromOAAddress.js';
 import validateRelatedField from './validateRelatedField.js';
 import validateEmail from './validateEmail.js';
 
-export default function validateEventOffer(data, options = {}) {
+export default function validateEventOffer(data, event, options = {}) {
   const { categories, related, partial = false } = options;
 
   const { bookingContact, venueId, bookingEmail, itemCollectionDetails } = data;
@@ -94,10 +95,50 @@ export default function validateEventOffer(data, options = {}) {
     clean.itemCollectionDetails = itemCollectionDetails;
   }
 
+  // Validate event location if it exists
+  if (event?.location) {
+    // Validate postal code
+
+    if (!event.location.postalCode) {
+      errors.push({
+        message: 'event location postal code is required',
+        code: 'registration.pass.invalidLocationPostalCode',
+        label: "Le code postal de l'événement est requis",
+        field: 'location.postalCode',
+      });
+    }
+
+    // Validate address exists
+    if (!event.location.address) {
+      errors.push({
+        message: 'event location address is required',
+        code: 'registration.pass.invalidLocationAddress',
+        label: "L'adresse de l'événement est requise",
+        field: 'location.address',
+      });
+    }
+
+    // Validate that street can be extracted from address
+    if (event.location.address && event.location.postalCode) {
+      const extractedStreet = extractStreetFromOAAddress(event.location);
+      if (!extractedStreet || extractedStreet.trim() === '') {
+        errors.push({
+          message: 'event location street cannot be extracted from address',
+          code: 'registration.pass.invalidLocationStreet',
+          label: "La rue ne peut pas être extraite de l'adresse de l'événement",
+          field: 'location.address',
+        });
+      }
+    }
+  }
+
   if (errors.length) {
-    throw new BadRequest({
-      info: { errors },
-    });
+    throw new BadRequest(
+      {
+        info: { errors },
+      },
+      'Validation failed',
+    );
   }
 
   return clean;

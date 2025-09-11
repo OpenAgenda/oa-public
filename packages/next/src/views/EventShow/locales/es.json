@@ -100,6 +100,7 @@
   "next.views.EventShow.Sidebar.completeLink": "Enlace completo",
   "next.views.EventShow.Sidebar.conditions": "Condiciones",
   "next.views.EventShow.Sidebar.minToMaxYearsOld": "De {min} a {max} años",
+  "next.views.EventShow.Sidebar.passPublishedErrors": "",
   "next.views.EventShow.Sidebar.passUnpublished": "La oferta se creará tras la publicación del evento",
   "next.views.EventShow.Sidebar.passed": "Pasado",
   "next.views.EventShow.Sidebar.registerBook": "Registrarse / reservar:",

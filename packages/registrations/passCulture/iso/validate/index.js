@@ -15,12 +15,16 @@ async function validate({ pc, siren }, event, data = {}, options = {}) {
   log('processing', { data, spreadData });
 
   const venueId = findLastVenueIdFromData(spreadData);
-
+  const { noThrow = false } = options;
   const { categories, related } = options.categories && options.related
     ? options
     : await pc.offers.events.categories.list();
 
-  const clean = validateLocalData(spreadData, event, { categories, related });
+  const clean = validateLocalData(spreadData, event, {
+    categories,
+    related,
+    noThrow,
+  });
 
   const hasVenue = await pc.offers
     .offererVenues({ siren })
@@ -29,7 +33,7 @@ async function validate({ pc, siren }, event, data = {}, options = {}) {
         .reduce((acc, { venues }) => [...acc, ...venues], [])
         .find((v) => v.id === venueId));
 
-  if (!hasVenue) {
+  if (!hasVenue && !noThrow) {
     throw new BadRequest(`offerer ${siren} has no venue with id ${venueId}`);
   }
 

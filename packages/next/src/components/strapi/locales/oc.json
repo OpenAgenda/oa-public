@@ -1,4 +1,5 @@
 {
+  "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.contact": "Contactar",
   "next.components.Strapi.contactForm": "Formulari de contacte",
   "next.components.Strapi.github": "",
@@ -58,6 +59,5 @@
   "next.components.Strapi.videoPlayer.textBackground": "",
   "next.components.Strapi.videoPlayer.track": "",
   "next.components.Strapi.videoPlayer.unmute": "",
-  "next.components.Strapi.videoPlayer.volume": "",
-  "next.components.Strapi.ReferenceItem.more": ""
+  "next.components.Strapi.videoPlayer.volume": ""
 }
