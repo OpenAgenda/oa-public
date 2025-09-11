@@ -23,8 +23,16 @@ const ubuntuSans = Ubuntu_Sans({
 });
 
 export default function StrapiPage({ page, footer }) {
-  const { title, description, keywords, Segments, navFontColor, logoVariant } =
-    page;
+  const {
+    title,
+    description,
+    keywords,
+    Segments,
+    navFontColor,
+    logoVariant,
+    navSticky,
+    navStickyBackground,
+  } = page;
 
   useCrispClient();
 
@@ -44,6 +52,10 @@ export default function StrapiPage({ page, footer }) {
       />
       <Navbar
         discreet={!!navFontColor}
+        sticky={!!navSticky}
+        stickyBackground={
+          navStickyBackground ? color(navStickyBackground, 500) : undefined
+        }
         colorPalette={navFontColor ? color(navFontColor) : undefined}
         logoVariant={logoVariant}
       />
