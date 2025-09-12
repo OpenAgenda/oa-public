@@ -32,6 +32,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::color.color"
+    },
+    "descriptionColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
     }
   }
 }
