@@ -485,6 +485,8 @@ $dayInWeek: 7;
   text-transform: uppercase;
   font-weight: 400;
   padding: 0 16px 4px 0;
+  border-bottom: 1px solid $oa-gray-light;
+  margin-right: 8px;
 }
 
 .rtp__calendar .rtp__days .rtp__row {
@@ -526,8 +528,16 @@ $dayInWeek: 7;
   }
 
 .rtp__calendar .rtp__scheduler {
-  border: 1px solid $oa-gray-light;
   position: relative;
+  height: 360px;
+  overflow-y: scroll;
+  margin-right: -8px; /* Hide scrollbar from content area */
+  padding-right: 8px; /* Add space for scrollbar outside */
+}
+
+.rtp__calendar .rtp__scheduler-content {
+  border-right: 1px solid $oa-gray-light;
+  border-left: 1px solid $oa-gray-light;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -535,8 +545,14 @@ $dayInWeek: 7;
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  height: 360px;
-  overflow-y: scroll;
+  width: calc(100% - 8px); /* Constrain content width to avoid overflow */
+  overflow: hidden; /* Ensure content stays within bounds */
+}
+
+.rtp__calendar .rtp__scheduler-bottom {
+  border-top: 1px solid $oa-gray-light;
+  display: block;
+  margin-right: 8px;
 }
 
 .rtp__calendar .rtp__body {
