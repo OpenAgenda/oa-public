@@ -73,6 +73,8 @@ export default async function process(
 ) {
   const { registrations, agendaLocations } = services;
 
+  if (!clean.passCulture) return false;
+
   const hasOfferCreationErrors = clean.passCulture?.[0]?.errors?.length && !clean.passCulture[1];
   if (hasOfferCreationErrors) {
     // Update event.registration data for passCulture service only
@@ -87,7 +89,6 @@ export default async function process(
     });
 
     return updatedRegistration;
-    // return clean.passCulture
   }
 
   const hasNewPassOffer = clean.passCulture
