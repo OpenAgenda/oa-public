@@ -7,6 +7,7 @@ interface SegmentContainerProps {
   children: React.ReactNode;
   background?: any;
   fontColor?: Color;
+  descriptionColor?: Color;
   title?: string;
   description?: string;
   CTAs?: any[];
@@ -19,6 +20,7 @@ export default function SegmentContainer({
   children,
   background,
   fontColor,
+  descriptionColor,
   title,
   description,
   CTAs,
@@ -43,7 +45,12 @@ export default function SegmentContainer({
           <Heading
             size="md"
             textAlign="center"
-            color={fontColor ? color(fontColor, 500) : 'gray.600'}
+            color={
+              descriptionColor || fontColor
+                ? color(descriptionColor || fontColor, 500)
+                : 'gray.600'
+            }
+            fontWeight={descriptionColor ? 'bold' : 'regular'}
             mb={16}
           >
             {description}
