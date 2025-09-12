@@ -70,6 +70,7 @@ export const Overview: Story = {
       <ReferenceSet
         title={referenceSetData.title}
         description="Découvrez nos partenaires et références qui nous font confiance"
+        descriptionColor={{ name: 'chiliRed' }}
         References={referenceSetData.References.map((ref) => ({
           id: String(ref.id),
           link: ref.link,

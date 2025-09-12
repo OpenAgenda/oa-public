@@ -3,7 +3,6 @@ import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import FullScreenDecorator from '../decorators/FullScreenDecorator';
 import highlightCardSetData from './fixtures/highlightCardSet.json';
 import highlightCardSetData2 from './fixtures/highlightCardSet.2.json';
-import highlightCardSetData3 from './fixtures/highlightCardSet.3.json';
 import highlightCardSetData4 from './fixtures/highlightCardSet.4.json';
 
 export default {
@@ -12,7 +11,7 @@ export default {
   decorators: [FullScreenDecorator, ProvidersDecorator],
 };
 
-export function firstUseCase() {
+export function basic() {
   return (
     <HighlightCardSet
       title={highlightCardSetData.title}
@@ -22,21 +21,13 @@ export function firstUseCase() {
   );
 }
 
-export function secondUseCase() {
+export function noBackgroundColorfulSegmentDescription() {
   return (
     <HighlightCardSet
       title={highlightCardSetData2.title}
-      description="Une autre présentation de nos services avec description"
+      description="Des icônes dérivés de font awesome sharp light"
+      descriptionColor={{ name: 'chiliRed' }}
       Cards={highlightCardSetData2.Cards}
-    />
-  );
-}
-
-export function horizontalAlignment() {
-  return (
-    <HighlightCardSet
-      title="Les items apparaissent alignés malgré la différence de format des images"
-      Cards={highlightCardSetData3.Cards}
     />
   );
 }

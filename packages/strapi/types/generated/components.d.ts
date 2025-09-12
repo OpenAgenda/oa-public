@@ -172,6 +172,7 @@ export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'medium'>;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
+    descriptionColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     title: Schema.Attribute.String;
   };
@@ -211,6 +212,7 @@ export interface SegmentsReferenceSet extends Struct.ComponentSchema {
     >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
+    descriptionColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     hasFilter: Schema.Attribute.Boolean;
     References: Schema.Attribute.Component<'components.reference', true>;
@@ -232,6 +234,7 @@ export interface SegmentsTabSet extends Struct.ComponentSchema {
     >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
+    descriptionColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     Tabs: Schema.Attribute.Component<'components.tab', true>;
     title: Schema.Attribute.String;

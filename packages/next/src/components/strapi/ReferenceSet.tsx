@@ -4,6 +4,7 @@ import { allowedItemColors } from 'utils/strapi';
 import SegmentContainer from './SegmentContainer';
 import ReferenceItem, { type Reference } from './ReferenceItem';
 import ReferenceFilter from './ReferenceFilter';
+import type { Color } from './types';
 
 type ReferenceSetProps = {
   title?: string;
@@ -13,7 +14,8 @@ type ReferenceSetProps = {
   smallImages?: boolean;
   CTAs?: any[];
   background?: any;
-  fontColor?: any;
+  fontColor?: Color;
+  descriptionColor?: Color;
 };
 
 export default function ReferenceSet({
@@ -25,6 +27,7 @@ export default function ReferenceSet({
   CTAs,
   background,
   fontColor,
+  descriptionColor,
 }: ReferenceSetProps) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
 
@@ -89,6 +92,7 @@ export default function ReferenceSet({
       CTAs={CTAs}
       background={background}
       fontColor={fontColor}
+      descriptionColor={descriptionColor}
     >
       {hasFilter && (
         <ReferenceFilter
