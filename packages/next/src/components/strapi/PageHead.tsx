@@ -38,12 +38,14 @@ const PageHeadContent = ({
     >
       {title}
     </Heading>
-    <StrapiMarkdown
-      color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
-      mt={7}
-    >
-      {description}
-    </StrapiMarkdown>
+    {description ? (
+      <StrapiMarkdown
+        color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
+        mt={7}
+      >
+        {description}
+      </StrapiMarkdown>
+    ) : null}
     {CTAs && CTAs.length > 0 ? (
       <Box mt={9}>
         <CTAButtons CTAs={CTAs} />
