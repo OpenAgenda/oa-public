@@ -217,6 +217,13 @@
 
 .rtp__calendar .rtp__scheduler {
   position: relative;
+  height: 360px;
+  overflow-y: scroll;
+  padding-right: 17px; /* Add space for scrollbar outside */
+  margin-right: -17px; /* Hide scrollbar from content area */
+}
+
+.rtp__calendar .rtp__scheduler-content {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -224,8 +231,8 @@
   -webkit-box-direction: normal;
   -ms-flex-direction: row;
   flex-direction: row;
-  height: 360px;
-  overflow-y: scroll;
+  width: calc(100% - 17px); /* Constrain content width to avoid overflow */
+  overflow: hidden; /* Ensure content stays within bounds */
 }
 
 .rtp__calendar .rtp__body {

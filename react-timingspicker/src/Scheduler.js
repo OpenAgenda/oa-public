@@ -485,51 +485,55 @@ class Scheduler extends Component {
         />
 
         <div ref={this.schedulerRef} className={`${classNamePrefix}scheduler`}>
-          <div className={`${classNamePrefix}index-column`}>
-            <Timetable
-              activeWeek={activeWeek}
-              step={step}
-              timingFormat={timingFormat}
-              cellHeight={cellHeight}
-              classNamePrefix={classNamePrefix}
-            />
-          </div>
+          <div className={`${classNamePrefix}scheduler-content`}>
+            <div className={`${classNamePrefix}index-column`}>
+              <Timetable
+                activeWeek={activeWeek}
+                step={step}
+                timingFormat={timingFormat}
+                cellHeight={cellHeight}
+                classNamePrefix={classNamePrefix}
+              />
+            </div>
 
-          <div className={`${classNamePrefix}content-column`}>
-            <DaysSelector
-              ref={this.selectorRef}
-              activeWeek={activeWeek}
-              weekStartsOn={weekStartsOn}
-              value={value}
-              onChange={onChange}
-              openEditModal={this.openEditModal}
-              editOnClick={editOnClick}
-              cellHeight={cellHeight}
-              step={step}
-              selectableStep={step / 2}
-              timingLimit={timingLimit}
-              allowedTimings={allowedTimings}
-              classNamePrefix={classNamePrefix}
-              breakpoint={breakpoint}
-              timingFormat={timingFormat}
-            />
+            <div className={`${classNamePrefix}content-column`}>
+              <DaysSelector
+                ref={this.selectorRef}
+                activeWeek={activeWeek}
+                weekStartsOn={weekStartsOn}
+                value={value}
+                onChange={onChange}
+                openEditModal={this.openEditModal}
+                editOnClick={editOnClick}
+                cellHeight={cellHeight}
+                step={step}
+                selectableStep={step / 2}
+                timingLimit={timingLimit}
+                allowedTimings={allowedTimings}
+                classNamePrefix={classNamePrefix}
+                breakpoint={breakpoint}
+                timingFormat={timingFormat}
+              />
+            </div>
           </div>
         </div>
 
-        <div
-          className={cn(
-            `${classNamePrefix}multi-recurrencer-button`,
-            classNames?.multiRecurrencerBtn,
-          )}
-          role="button"
-          tabIndex={0}
-          onClick={this.openMultiRecurrencerModal}
-          onKeyPress={this.openMultiRecurrencerModal}
-        >
-          <FormattedMessage
-            id="rtp.scheduler.openMultiRecurrencerModal"
-            defaultMessage="Define a recurring timings"
-          />
+        <div className={`${classNamePrefix}scheduler-bottom`}>
+          <div
+            className={cn(
+              `${classNamePrefix}multi-recurrencer-button`,
+              classNames?.multiRecurrencerBtn,
+            )}
+            role="button"
+            tabIndex={0}
+            onClick={this.openMultiRecurrencerModal}
+            onKeyPress={this.openMultiRecurrencerModal}
+          >
+            <FormattedMessage
+              id="rtp.scheduler.openMultiRecurrencerModal"
+              defaultMessage="Define a recurring timings"
+            />
+          </div>
         </div>
 
         <ReactModal
