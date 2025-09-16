@@ -824,7 +824,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/locations/ext/:locationExtKey/:locationExtValue',
     ],
     [
-      mw.member.allow(['administrator', 'moderator']),
+      mw.allowLocationSetWithContributorCreate(core),
       (req, res, next) =>
         core
           .agendas(req.agenda.uid)
