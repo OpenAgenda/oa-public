@@ -37,6 +37,18 @@
       "value": "Notre LinkedIn"
     }
   ],
+  "next.components.Strapi.newsletter": [
+    {
+      "type": 0,
+      "value": "S'inscrire à l'infolettre"
+    }
+  ],
+  "next.components.Strapi.submit": [
+    {
+      "type": 0,
+      "value": "S'inscrire"
+    }
+  ],
   "next.components.Strapi.videoPlayer.accessibility": [
     {
       "type": 0,

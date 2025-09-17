@@ -4,6 +4,8 @@
   "next.components.Strapi.contactForm": "Formulario de contacto",
   "next.components.Strapi.github": "Nuestro GitHub",
   "next.components.Strapi.linkedin": "Nuestro LinkedIn",
+  "next.components.Strapi.newsletter": "",
+  "next.components.Strapi.submit": "",
   "next.components.Strapi.videoPlayer.accessibility": "accesibilidad",
   "next.components.Strapi.videoPlayer.airPlay": "Reproducción",
   "next.components.Strapi.videoPlayer.announcements": "Anuncios",

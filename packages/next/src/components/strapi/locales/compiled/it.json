@@ -37,6 +37,18 @@
       "value": "Our LinkedIn"
     }
   ],
+  "next.components.Strapi.newsletter": [
+    {
+      "type": 0,
+      "value": "Subscribe to the newsletter"
+    }
+  ],
+  "next.components.Strapi.submit": [
+    {
+      "type": 0,
+      "value": "Submit"
+    }
+  ],
   "next.components.Strapi.videoPlayer.accessibility": [
     {
       "type": 0,

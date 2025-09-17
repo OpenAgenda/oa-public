@@ -5,9 +5,9 @@ export default defineMessages({
     id: 'next.components.Strapi.contact',
     defaultMessage: 'Contact',
   },
-  contactForm: {
-    id: 'next.components.Strapi.contactForm',
-    defaultMessage: 'Contact form',
+  contactEmail: {
+    id: 'next.components.Strapi.contactEmail',
+    defaultMessage: 'Our email',
   },
   linkedin: {
     id: 'next.components.Strapi.linkedin',
@@ -16,5 +16,17 @@ export default defineMessages({
   github: {
     id: 'next.components.Strapi.github',
     defaultMessage: 'Our Github',
+  },
+  bluesky: {
+    id: 'next.components.Strapi.bluesky',
+    defaultMessage: 'Our Bluesky',
+  },
+  newsletter: {
+    id: 'next.components.Strapi.newsletter',
+    defaultMessage: 'Subscribe to the newsletter',
+  },
+  submit: {
+    id: 'next.components.Strapi.submit',
+    defaultMessage: 'Submit',
   },
 });

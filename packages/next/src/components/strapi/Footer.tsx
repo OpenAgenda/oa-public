@@ -1,17 +1,16 @@
-import { useIntl } from 'react-intl';
 import {
-  Box,
   Container,
-  Flex,
   VStack,
   Link,
   Text,
   SimpleGrid,
+  Flex,
 } from '@openagenda/uikit';
 import Image from 'components/Image';
 import { color } from 'utils/strapi';
 import logoPic from '../../../public/images/oa-white.svg';
-import messages from './messages';
+import NewsletterSubscriptionInput from './NewsletterSubscriptionInput';
+import FollowUsLinks from './FollowUsLinks';
 
 import type { Color } from './types';
 
@@ -33,7 +32,6 @@ type Column = {
 
 type FooterProps = {
   Columns?: Column[];
-  contactUrl: string;
   fontColor?: Color;
 };
 
@@ -91,9 +89,9 @@ function getResponsiveGridColumns(itemCount: number) {
 
   return {
     base: 1,
-    sm: calculateColsForBreakpoint(itemCount, 2, idealColsFromSqrt),
-    md: calculateColsForBreakpoint(itemCount, 3, idealColsFromSqrt),
-    lg: calculateColsForBreakpoint(itemCount, 4, idealColsFromSqrt),
+    sm: calculateColsForBreakpoint(itemCount, 1, idealColsFromSqrt),
+    lg: calculateColsForBreakpoint(itemCount, 3, idealColsFromSqrt),
+    xl: calculateColsForBreakpoint(itemCount, 6, idealColsFromSqrt),
   };
 }
 
@@ -121,76 +119,57 @@ function ColumnItem({ title, Links }: Column) {
   );
 }
 
-export default function Footer({
-  Columns: FooterColumnsData,
-  contactUrl,
-}: FooterProps) {
-  const intl = useIntl();
-
+export default function Footer({ Columns: FooterColumnsData }: FooterProps) {
   const dataColumns = FooterColumnsData || [];
-  const totalItemsInGrid = 2 + dataColumns.length; // +1 for the contact column
+  const totalItemsInGrid = dataColumns.length; // +1 for the contact column
 
   const gridColumnConfig = getResponsiveGridColumns(totalItemsInGrid);
 
-  const contactColumnJsx = (
-    <VStack align="start" gap={3}>
-      <Text fontWeight="bold" fontSize="lg" color={fontColor}>
-        {intl.formatMessage(messages.contact)}
-      </Text>
-      <VStack align="start" gap={2}>
-        <Link
-          href={contactUrl}
-          color={fontColor}
-          _hover={{ color: 'primary.500' }}
-        >
-          {intl.formatMessage(messages.contactForm)}
-        </Link>
-        <Link
-          href="https://www.linkedin.com/company/openagenda"
-          target="_blank"
-          rel="noopener nofollow"
-          color={fontColor}
-          _hover={{ color: 'primary.500' }}
-        >
-          {intl.formatMessage(messages.linkedin)}
-        </Link>
-        <Link
-          href="https://github.com/openagenda"
-          target="_blank"
-          rel="noopener nofollow"
-          color={fontColor}
-          _hover={{ color: 'primary.500' }}
-        >
-          {intl.formatMessage(messages.github)}
-        </Link>
-      </VStack>
-    </VStack>
-  );
-
   return (
-    <Box backgroundColor={color('charcoal', 500)}>
-      <Container maxW="7xl" py="16">
-        <Flex
-          direction={{ base: 'column', md: 'row' }}
-          gap={{ base: 8, md: 10 }}
-          alignItems={{ base: 'start', md: 'start' }}
+    <Container
+      gap={{ base: 8, md: 10 }}
+      py="16"
+      maxW="100%"
+      backgroundColor={{ base: 'black', sm: color('charcoal', 500) }}
+      display="flex"
+    >
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        width="100%"
+        gap={4}
+        alignItems={{ lg: 'center' }}
+      >
+        <VStack
+          flex={{
+            base: 1,
+            lg: 2,
+            xl: 1,
+          }}
+          align="start"
+          gap={6}
+          marginBottom={{ base: 4, md: 0 }}
         >
-          <SimpleGrid
-            columns={gridColumnConfig}
-            gapX={{ base: 6, md: 8 }}
-            gapY={{ base: 8, md: 10 }}
-            width="100%"
-          >
-            <VStack align="start" gap={3}>
-              <Image src={logoPic} width="172" alt="" />
-            </VStack>
-            {contactColumnJsx}
-            {dataColumns.map((columnData) => (
-              <ColumnItem key={columnData.id} {...columnData} />
-            ))}
-          </SimpleGrid>
-        </Flex>
-      </Container>
-    </Box>
+          <Image src={logoPic} width="172" alt="" />
+          <FollowUsLinks fontColor={fontColor} />
+          <NewsletterSubscriptionInput fontColor={fontColor} />
+        </VStack>
+        <SimpleGrid
+          flex={{
+            base: 1,
+            lg: dataColumns.length <= 2 ? 2 : 3,
+            xl: dataColumns.length <= 2 ? 2 : 4,
+          }}
+          px="16"
+          columns={gridColumnConfig}
+          gapX={{ base: 6, md: 8 }}
+          gapY={{ base: 8, md: 10 }}
+          paddingInline={{ base: 0, sm: 16 }}
+        >
+          {dataColumns.map((columnData) => (
+            <ColumnItem key={columnData.id} {...columnData} />
+          ))}
+        </SimpleGrid>
+      </Flex>
+    </Container>
   );
 }
