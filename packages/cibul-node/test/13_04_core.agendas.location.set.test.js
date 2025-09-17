@@ -92,7 +92,8 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
 
   describe('api', () => {
     let server;
-    let accessToken;
+    let adminAccessToken;
+    let contributorAccessToken;
 
     beforeAll(async () => {
       server = await api(core, { useRouter: false }).listen(4000);
@@ -101,74 +102,162 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
+      // Get admin access token
+      adminAccessToken = await axios({
         method: 'post',
         url: 'http://localhost:4000/requestAccessToken',
         headers: {
           'content-type': 'application/json',
         },
         data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL', // admin code
+        },
+      }).then((r) => r.data.access_token);
+
+      // Get contributor access token
+      contributorAccessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:4000/requestAccessToken',
+        headers: {
+          'content-type': 'application/json',
+        },
+        data: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM', // contributor code
         },
       }).then((r) => r.data.access_token);
     });
 
-    describe('set new location', () => {
-      let createResponse;
-      beforeAll(async () => {
-        try {
-          createResponse = await axios({
-            method: 'put',
-            url: 'http://localhost:4000/agendas/1234/locations/ext/gareDeRedon',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'Gare de Redon',
-              address: 'quai de la gare, Redon',
-              latitude: 1,
-              longitude: 1,
-              countryCode: 'FR',
-            },
-          });
-        } catch (e) {
-          // console.log(e.response.data.message);
-        }
+    describe('admin permissions', () => {
+      describe('set new location', () => {
+        let createResponse;
+        beforeAll(async () => {
+          try {
+            createResponse = await axios({
+              method: 'put',
+              url: 'http://localhost:4000/agendas/1234/locations/ext/gareDeRedon',
+              headers: {
+                'access-token': adminAccessToken,
+                'content-type': 'application/json',
+              },
+              data: {
+                name: 'Gare de Redon',
+                address: 'quai de la gare, Redon',
+                latitude: 1,
+                longitude: 1,
+                countryCode: 'FR',
+              },
+            });
+          } catch (e) {
+            // console.log(e.response.data.message);
+          }
+        });
+        test('location was successfully created', () => {
+          expect(createResponse.data.location.extId).toEqual('gareDeRedon');
+        });
       });
-      test('location was successfully created', () => {
-        expect(createResponse.data.location.extId).toEqual('gareDeRedon');
+
+      describe('set previously existing location', () => {
+        let updateResponse;
+        beforeAll(async () => {
+          try {
+            updateResponse = await axios({
+              method: 'put',
+              url: 'http://localhost:4000/agendas/1234/locations/ext/laPiscine',
+              headers: {
+                'access-token': adminAccessToken,
+                'content-type': 'application/json',
+              },
+              data: {
+                name: 'La piscine mise à jour',
+                address: 'bord de la piscine, Roubaix',
+                latitude: 1,
+                longitude: 1,
+                countryCode: 'FR',
+              },
+            });
+          } catch (e) {
+            // console.log(e.response.data.message);
+          }
+        });
+
+        test('location is updated', () => {
+          expect(updateResponse.data.location.name).toBe(
+            'La piscine mise à jour',
+          );
+        });
       });
     });
 
-    describe('set previously existing location', () => {
-      let updateResponse;
-      beforeAll(async () => {
-        try {
-          updateResponse = await axios({
-            method: 'put',
-            url: 'http://localhost:4000/agendas/1234/locations/ext/laPiscine',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'La piscine mise à jour',
-              address: 'bord de la piscine, Roubaix',
-              latitude: 1,
-              longitude: 1,
-              countryCode: 'FR',
-            },
-          });
-        } catch (e) {
-          // console.log(e.response.data.message);
-        }
+    describe('contributor permissions', () => {
+      describe('can create new location', () => {
+        let createResponse;
+        beforeAll(async () => {
+          try {
+            createResponse = await axios({
+              method: 'put',
+              url: 'http://localhost:4000/agendas/1234/locations/ext/contributorNewLocation',
+              headers: {
+                'access-token': contributorAccessToken,
+                'content-type': 'application/json',
+              },
+              data: {
+                name: 'Contributor Created Location',
+                address: 'Created by contributor, Test City',
+                latitude: 1,
+                longitude: 1,
+                countryCode: 'FR',
+              },
+            });
+          } catch (e) {
+            createResponse = { error: e.response?.data || e.message };
+          }
+        });
+
+        test('location was successfully created by contributor', () => {
+          expect(createResponse.data.location.extId).toEqual(
+            'contributorNewLocation',
+          );
+          expect(createResponse.data.location.name).toBe(
+            'Contributor Created Location',
+          );
+        });
       });
 
-      test('location is updated', () => {
-        expect(updateResponse.data.location.name).toBe(
-          'La piscine mise à jour',
-        );
+      describe('cannot update existing location', () => {
+        let updateResponse;
+        let updateError;
+        beforeAll(async () => {
+          try {
+            // Try to update the location that was created by the admin in the previous test
+            updateResponse = await axios({
+              method: 'put',
+              url: 'http://localhost:4000/agendas/1234/locations/ext/laPiscine',
+              headers: {
+                'access-token': contributorAccessToken,
+                'content-type': 'application/json',
+              },
+              data: {
+                name: 'Contributor Trying to Update',
+                address: 'Should not be allowed, Test City',
+                latitude: 1,
+                longitude: 1,
+                countryCode: 'FR',
+              },
+            });
+          } catch (e) {
+            updateError = e.response?.data || e.message;
+          }
+        });
+
+        test('contributor cannot update existing location', () => {
+          expect(updateResponse).toBeUndefined();
+          expect(updateError).toBeDefined();
+          expect(updateError.error).toBe(
+            'user is not authorized to perform this operation',
+          );
+          expect(updateError.operation).toBe('update');
+          expect(updateError.userRole).toBe('contributor');
+        });
       });
     });
   });
