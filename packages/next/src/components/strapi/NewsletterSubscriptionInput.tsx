@@ -38,13 +38,14 @@ export default function NewsletterSubscriptionInput({
             <Input
               id="email"
               name="email"
+              type="email"
               flex="1"
               size="sm"
               color={fontColor}
               borderRightRadius={0}
             />
           </InputGroup>
-          <Button>{intl.formatMessage(messages.submit)}</Button>
+          <Button type="submit">{intl.formatMessage(messages.submit)}</Button>
         </Group>
       </Field.Root>
     </form>

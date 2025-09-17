@@ -1,7 +1,8 @@
 {
   "next.components.Strapi.ReferenceItem.more": "+ {count} more",
+  "next.components.Strapi.bluesky": "Our Bluesky",
   "next.components.Strapi.contact": "Contact",
-  "next.components.Strapi.contactForm": "Contact form",
+  "next.components.Strapi.contactEmail": "Our email",
   "next.components.Strapi.github": "Our Github",
   "next.components.Strapi.linkedin": "Our LinkedIn",
   "next.components.Strapi.newsletter": "Subscribe to the monthly newsletter",

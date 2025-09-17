@@ -13,16 +13,22 @@
       "value": " more"
     }
   ],
+  "next.components.Strapi.bluesky": [
+    {
+      "type": 0,
+      "value": "Our Bluesky"
+    }
+  ],
   "next.components.Strapi.contact": [
     {
       "type": 0,
       "value": "Contacto"
     }
   ],
-  "next.components.Strapi.contactForm": [
+  "next.components.Strapi.contactEmail": [
     {
       "type": 0,
-      "value": "Formulario de contacto"
+      "value": "Our email"
     }
   ],
   "next.components.Strapi.github": [
@@ -40,7 +46,7 @@
   "next.components.Strapi.newsletter": [
     {
       "type": 0,
-      "value": "Subscribe to the newsletter"
+      "value": "Subscribe to the monthly newsletter"
     }
   ],
   "next.components.Strapi.submit": [
