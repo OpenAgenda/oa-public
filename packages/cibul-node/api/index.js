@@ -931,6 +931,30 @@ export default (core, { useRouter = true } = {}) => {
     settings.resync,
   ]);
 
+  app.get('/agendas/:agendaUid/summary', [
+    mw.member.load,
+    track.mw('api', 'get', 'summary'),
+    (req, res, next) => {
+      // Handle both array format (?includes[]=value) and comma-separated string (?includes=value1,value2)
+      let includes = [];
+      if (req.query.includes) {
+        if (Array.isArray(req.query.includes)) {
+          includes = req.query.includes;
+        } else {
+          includes = req.query.includes.split(',');
+        }
+      }
+
+      core
+        .agendas(req.agenda.uid)
+        .summary({
+          access: req.access,
+          includes,
+        })
+        .then((summary) => res.json({ success: true, summary }), next);
+    },
+  ]);
+
   app.get('/me', (req, res, next) => {
     if (!req.user) {
       res.json({ logged: false });
