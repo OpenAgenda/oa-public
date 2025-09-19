@@ -118,6 +118,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       agendaEvent,
       member: actingMember,
       access,
+      userUid: actingUserUid,
     });
 
     if (filterUnauthorizedData) {

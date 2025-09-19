@@ -113,7 +113,12 @@ const canCreateEvent = (services, member, agendaIsClosed) => {
   return isSuperiorToOrEqual(member?.role, 'contributor');
 };
 
-const getCanEditEventOnAgenda = async (core, member, event, agendaIsClosed) => {
+const getCanEditEventOnAgenda = async (
+  core,
+  member,
+  event,
+  { agendaIsClosed, userUid, isMemberDataRequired },
+) => {
   const { members } = core.services;
 
   const { compareRoles } = members.utils;
@@ -123,9 +128,9 @@ const getCanEditEventOnAgenda = async (core, member, event, agendaIsClosed) => {
   }
 
   return !!(
-    member
+    (member || (!isMemberDataRequired && event.draft)) // a draft event may be edited by a user who is not yet a member
     && event
-    && await core.users(member.userUid).canEditEvent(event)
+    && await core.users(member?.userUid ?? userUid).canEditEvent(event)
   );
 };
 
@@ -152,8 +157,16 @@ function canContribute(
   );
 }
 
-async function fromMember(core, agenda, agendaEvent, event, member) {
+async function fromMember(
+  core,
+  agenda,
+  agendaEvent,
+  event,
+  member,
+  options = {},
+) {
   const { members } = core.services;
+  const { userUid } = options;
 
   const { compareRoles, getRoleSlug } = members.utils;
 
@@ -169,12 +182,11 @@ async function fromMember(core, agenda, agendaEvent, event, member) {
     agendaIsClosed ? ' on closed agenda' : '',
   );
 
-  const canEditEvent = await getCanEditEventOnAgenda(
-    core,
-    member,
-    event,
+  const canEditEvent = await getCanEditEventOnAgenda(core, member, event, {
     agendaIsClosed,
-  );
+    isMemberDataRequired,
+    userUid,
+  });
 
   return {
     canRead: agendaEvent
@@ -255,10 +267,11 @@ async function fromAccess(core, agenda, agendaEvent, event, access) {
 export default (
   core,
   _operation,
-  { agenda, agendaEvent, event, member, access },
+  { agenda, agendaEvent, event, member, access, userUid },
 ) => {
-  if (member && access !== 'internal') {
-    return fromMember(core, agenda, agendaEvent, event, member);
+  const hasActingUserUid = !!(member?.userUid || userUid);
+  if (hasActingUserUid && access !== 'internal') {
+    return fromMember(core, agenda, agendaEvent, event, member, { userUid });
   }
 
   return fromAccess(core, agenda, agendaEvent, event, access);
@@ -302,7 +315,7 @@ export async function getForUserOnAgenda(
     );
   }
 
-  return fromMember(core, agenda, agendaEvent, event, member);
+  return fromMember(core, agenda, agendaEvent, event, member, { userUid });
 }
 
 export function filterUnauthorized(clean, data, authorizations) {
