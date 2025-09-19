@@ -764,6 +764,12 @@ module.exports = [
         type: 'boolean',
         default: false,
       },
+      {
+        field: 'showTotals',
+        description: 'Show totals on statistics page',
+        type: 'boolean',
+        default: false,
+      },
     ],
   },
 ];
