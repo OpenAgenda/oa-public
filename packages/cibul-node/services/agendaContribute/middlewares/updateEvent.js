@@ -10,12 +10,9 @@ export default function updateEvent(req, res) {
   const undrafting = req.event.draft && !req.draft;
   const operation = undrafting ? 'update' : 'patch';
 
-  const filteredData = filterByAuth(
-    core,
-    req.agenda.uid,
-    req.authorizations,
-    req.dataWithFiles,
-  );
+  const filteredData = undrafting
+    ? req.dataWithFiles
+    : filterByAuth(core, req.agenda.uid, req.authorizations, req.dataWithFiles);
 
   log('%s event %s', undrafting ? 'undrafting' : 'updating', req.event.uid);
 
