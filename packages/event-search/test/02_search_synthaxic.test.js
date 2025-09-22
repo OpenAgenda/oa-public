@@ -80,4 +80,30 @@ describe('02 - event search - functional: synthaxic', () => {
 
     expect(events.length).toBe(4);
   });
+
+  it('varying term order should not prevent matches', async () => {
+    expect(
+      await service('synthaxic')
+        .search({
+          search: 'Zeus',
+        })
+        .then(({ total }) => total),
+    ).toBe(2);
+
+    expect(
+      await service('synthaxic')
+        .search({
+          search: 'zeus cheval',
+        })
+        .then(({ total }) => total),
+    ).toBe(2);
+
+    expect(
+      await service('synthaxic')
+        .search({
+          search: 'le cheval de zeus',
+        })
+        .then(({ total }) => total),
+    ).toBe(2);
+  });
 });

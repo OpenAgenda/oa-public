@@ -63,6 +63,26 @@
       "title": {
         "fr": "marché"
       }
+    },
+    {
+      "uid": 10,
+      "state": 2,
+      "title": {
+        "fr": "Zeus, le cheval des Jeux olympiques, de retour à Nantes"
+      },
+      "description": {
+        "fr": "Le rendez-vous est donné aux Nantaises et aux Nantais du 19 au 28 septembre 2025 sur le Cours Cambronne à Nantes."
+      }
+    },
+    {
+      "uid": 11,
+      "state": 2,
+      "title": {
+        "fr": "Rencontre avec l'Atelier blam"
+      },
+      "description": {
+        "fr": "Rencontre avec les techniciens de l'Atelier blam afin de revenir sur la fabrication du célèbre cheval métallique Zeus qui a fait rêver le monde lors des JO de Paris."
+      }
     }
   ]
 }

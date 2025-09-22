@@ -87,15 +87,34 @@ function _getQueryMustParts(cleanQuery) {
   // add multi_match search part
   if (cleanQuery.search) {
     parts.push({
-      multi_match: {
-        query: cleanQuery.search,
-        type: 'phrase_prefix',
-        fields: [
-          '_search_title',
-          '_search_description',
-          '_search_keywords_text',
-          '_search_full_address_text',
+      bool: {
+        should: [
+          {
+            multi_match: {
+              query: cleanQuery.search,
+              type: 'best_fields',
+              fields: [
+                '_search_title',
+                '_search_description',
+                '_search_keywords_text',
+                '_search_full_address_text',
+              ],
+            },
+          },
+          {
+            multi_match: {
+              query: cleanQuery.search,
+              type: 'phrase_prefix',
+              fields: [
+                '_search_title',
+                '_search_description',
+                '_search_keywords_text',
+                '_search_full_address_text',
+              ],
+            },
+          },
         ],
+        minimum_should_match: 1,
       },
     });
   }
