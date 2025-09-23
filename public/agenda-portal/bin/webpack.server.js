@@ -26,6 +26,26 @@ export default {
     },
   },
 
+  module: {
+    rules: [
+      // @openagenda/md depends on jsdom which requires this css file
+      {
+        test: /jsdom\/lib\/jsdom\/browser\/default-stylesheet\.css$/,
+        type: 'asset/source',
+      },
+      {
+        test: /jsdom\/lib\/jsdom\/living\/helpers\/style-rules\.js$/,
+        loader: 'string-replace-loader',
+        options: {
+          search:
+            /const\s+defaultStyleSheet\s*=\s*fs\.readFileSync\([\s\S]*?\);\s*/m,
+          replace:
+            'const defaultStyleSheet = require("jsdom/lib/jsdom/browser/default-stylesheet.css");\n',
+        },
+      },
+    ],
+  },
+
   plugins: [
     new webpack.DefinePlugin({
       'import.meta.dirname': '__dirname',
