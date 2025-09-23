@@ -86,11 +86,6 @@ export default function AutoFeaturedCardSet({
     ? count - displayedCards.length
     : 0;
 
-  console.log(
-    loadingItemCount,
-    `/api/agendas?${agendaSearch.split('?').pop()}`,
-  );
-
   const { data: { agendas } = { agendas: [] }, status } = useSWR(
     loadingItemCount > 0
       ? `/api/agendas?size=${loadingItemCount}&useDefaultImage=1&${agendaSearch.split('?').pop()}`
