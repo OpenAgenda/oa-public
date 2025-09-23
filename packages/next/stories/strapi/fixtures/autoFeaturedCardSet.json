@@ -1,0 +1,143 @@
+{
+  "__component": "segments.auto-featured-card-set",
+  "id": 3,
+  "title": "Opérations à la une",
+  "description": "Il s'en passe des chose en ce moment!",
+  "count": 6,
+  "agendaSearch": "https://openagenda.com/agendas?official=1",
+  "Cards": [
+    {
+      "id": 4,
+      "displayFrom": "2025-09-20T22:00:00.000Z",
+      "displayUntil": null,
+      "Card": {
+        "id": 4,
+        "title": "Journées européennes du patrimoine",
+        "description": "La 42e édition des Journées européennes du patrimoine se déroulera les 20 et 21 septembre 2025. La journée dédiée au public scolaire se déroulera le vendredi 19 septembre (opération « Levez les yeux ! »)\nRetrouvez les informations et conditions pour participer à l'événement sur notre site Internet",
+        "CTAs": [
+          {
+            "id": 8169,
+            "label": "Contribuer",
+            "link": "/jep",
+            "variant": "solid",
+            "color": "charcoal"
+          },
+          {
+            "id": 8170,
+            "label": "Voir",
+            "link": "/jep",
+            "variant": "link"
+          }
+        ],
+        "image": {
+          "id": 395,
+          "documentId": "dtm1dmls4hxwhg9xd4snotc8",
+          "name": "jep2025.webp",
+          "alternativeText": null,
+          "caption": null,
+          "width": 256,
+          "height": 256,
+          "formats": {
+            "thumbnail": {
+              "name": "thumbnail_jep2025.webp",
+              "hash": "thumbnail_jep2025_a1d6a796d2",
+              "ext": ".webp",
+              "mime": "image/webp",
+              "path": null,
+              "width": 156,
+              "height": 156,
+              "size": 7.57,
+              "sizeInBytes": 7570,
+              "url": "https://cdn.openagenda.com/dev/corpo/thumbnail_jep2025_a1d6a796d2.webp"
+            }
+          },
+          "hash": "jep2025_a1d6a796d2",
+          "ext": ".webp",
+          "mime": "image/webp",
+          "size": 16.54,
+          "url": "https://cdn.openagenda.com/dev/corpo/jep2025_a1d6a796d2.webp",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-09-18T10:55:57.334Z",
+          "updatedAt": "2025-09-18T10:55:57.334Z",
+          "publishedAt": "2025-09-18T10:55:57.337Z"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "displayFrom": "2025-09-20T22:00:00.000Z",
+      "displayUntil": "2025-09-22T22:00:00.000Z",
+      "Card": {
+        "id": 5,
+        "title": "La Métropole européenne de Lille",
+        "description": "Ouaich. Alors là il faut faire un peu de remplissage pour que le descriptif occupe un peu de place. Comme le bouton s'aligne avec les autres boutons en pied de page...",
+        "CTAs": [
+          {
+            "id": 8171,
+            "label": "Contribuer",
+            "link": "/mel",
+            "variant": "solid"
+          }
+        ],
+        "image": {
+          "id": 396,
+          "documentId": "t3n23ydve41nnwo96w3kaquf",
+          "name": "medium_Main_Image_A3_0cc920c64c.jpg",
+          "alternativeText": null,
+          "caption": null,
+          "width": 750,
+          "height": 614,
+          "formats": {
+            "small": {
+              "name": "small_medium_Main_Image_A3_0cc920c64c.jpg",
+              "hash": "small_medium_Main_Image_A3_0cc920c64c_b38905cb62",
+              "ext": ".jpg",
+              "mime": "image/jpeg",
+              "path": null,
+              "width": 500,
+              "height": 409,
+              "size": 29.96,
+              "sizeInBytes": 29960,
+              "url": "https://cdn.openagenda.com/dev/corpo/small_medium_Main_Image_A3_0cc920c64c_b38905cb62.jpg"
+            },
+            "thumbnail": {
+              "name": "thumbnail_medium_Main_Image_A3_0cc920c64c.jpg",
+              "hash": "thumbnail_medium_Main_Image_A3_0cc920c64c_b38905cb62",
+              "ext": ".jpg",
+              "mime": "image/jpeg",
+              "path": null,
+              "width": 191,
+              "height": 156,
+              "size": 5.68,
+              "sizeInBytes": 5683,
+              "url": "https://cdn.openagenda.com/dev/corpo/thumbnail_medium_Main_Image_A3_0cc920c64c_b38905cb62.jpg"
+            }
+          },
+          "hash": "medium_Main_Image_A3_0cc920c64c_b38905cb62",
+          "ext": ".jpg",
+          "mime": "image/jpeg",
+          "size": 61.51,
+          "url": "https://cdn.openagenda.com/dev/corpo/medium_Main_Image_A3_0cc920c64c_b38905cb62.jpg",
+          "previewUrl": null,
+          "provider": "aws-s3",
+          "provider_metadata": null,
+          "createdAt": "2025-09-22T09:40:21.301Z",
+          "updatedAt": "2025-09-22T09:40:21.301Z",
+          "publishedAt": "2025-09-22T09:40:21.303Z"
+        }
+      }
+    }
+  ],
+  "descriptionColor": {
+    "id": 48,
+    "documentId": "tgwzvvlixyl1sliulhr8cako",
+    "name": "bleuDeFrance",
+    "createdAt": "2025-09-05T08:56:34.081Z",
+    "updatedAt": "2025-09-05T08:56:34.081Z",
+    "publishedAt": "2025-09-05T08:56:34.088Z"
+  },
+  "fontColor": null,
+  "background": null
+}

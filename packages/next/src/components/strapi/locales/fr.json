@@ -1,5 +1,6 @@
 {
   "next.components.Strapi.ReferenceItem.more": "+ {count} en plus",
+  "next.components.Strapi.addEvent": "",
   "next.components.Strapi.bluesky": "",
   "next.components.Strapi.contact": "Contacter",
   "next.components.Strapi.contactEmail": "",
