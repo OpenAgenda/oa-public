@@ -130,7 +130,7 @@ export default function Footer({ Columns: FooterColumnsData }: FooterProps) {
       gap={{ base: 8, md: 10 }}
       py="16"
       maxW="100%"
-      backgroundColor={{ base: 'black', sm: color('charcoal', 500) }}
+      backgroundColor={color('charcoal', 500)}
       display="flex"
     >
       <Flex
@@ -163,7 +163,7 @@ export default function Footer({ Columns: FooterColumnsData }: FooterProps) {
           columns={gridColumnConfig}
           gapX={{ base: 6, md: 8 }}
           gapY={{ base: 8, md: 10 }}
-          paddingInline={{ base: 0, sm: 16 }}
+          paddingInline={{ base: 0, md: 16 }}
         >
           {dataColumns.map((columnData) => (
             <ColumnItem key={columnData.id} {...columnData} />
