@@ -1,5 +1,6 @@
 import countries from '@openagenda/labels/agenda-locations/countries.js';
 import * as aggObjects from './aggregatorObjects.js';
+import cleanTextForSearch from './cleanTextForSearch.js';
 
 const locationFields = [
   'name',
@@ -53,7 +54,9 @@ function formatLocation(data, options = {}) {
 }
 
 const extractSearchData = (location, country) => ({
-  _search_full_address_text: searchFullAddressText(location, country),
+  _search_full_address_text: cleanTextForSearch(
+    searchFullAddressText(location, country),
+  ),
   _search_location: {
     lat: location.latitude,
     lon: location.longitude,

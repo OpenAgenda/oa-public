@@ -84,6 +84,13 @@ function _getQueryMustParts(cleanQuery) {
     parts.push(_geoBounds(cleanQuery.geo));
   }
 
+  const searchFields = [
+    '_search_title',
+    '_search_description',
+    '_search_keywords_text',
+    '_search_full_address_text',
+  ];
+
   // add multi_match search part
   if (cleanQuery.search) {
     parts.push({
@@ -93,24 +100,14 @@ function _getQueryMustParts(cleanQuery) {
             multi_match: {
               query: cleanQuery.search,
               type: 'best_fields',
-              fields: [
-                '_search_title',
-                '_search_description',
-                '_search_keywords_text',
-                '_search_full_address_text',
-              ],
+              fields: searchFields,
             },
           },
           {
             multi_match: {
               query: cleanQuery.search,
               type: 'phrase_prefix',
-              fields: [
-                '_search_title',
-                '_search_description',
-                '_search_keywords_text',
-                '_search_full_address_text',
-              ],
+              fields: searchFields,
             },
           },
         ],

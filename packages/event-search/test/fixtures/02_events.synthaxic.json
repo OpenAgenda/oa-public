@@ -83,6 +83,16 @@
       "description": {
         "fr": "Rencontre avec les techniciens de l'Atelier blam afin de revenir sur la fabrication du célèbre cheval métallique Zeus qui a fait rêver le monde lors des JO de Paris."
       }
+    },
+    {
+      "uid": 12,
+      "state": 2,
+      "title": {
+        "fr": "Duathlon de Couëron #2"
+      },
+      "description": {
+        "fr": "Rendez-vous le 5 octobre 2025 sur les bords de Loire de Couëron pour la 2e édition du duathlon, organisé par l’association Couëron Triathlon."
+      }
     }
   ]
 }
