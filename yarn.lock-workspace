@@ -5176,6 +5176,7 @@ __metadata:
     sass: "npm:^1.22.10"
     sass-loader: "npm:^12.4.0"
     source-map-support: "npm:^0.5.19"
+    string-replace-loader: "npm:^3.2.0"
     style-loader: "npm:^3.3.1"
     use-debounce: "npm:^10.0.4"
     validator: "npm:^11.0.0"
@@ -27627,6 +27628,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"schema-utils@npm:^4":
+  version: 4.3.2
+  resolution: "schema-utils@npm:4.3.2"
+  dependencies:
+    "@types/json-schema": "npm:^7.0.9"
+    ajv: "npm:^8.9.0"
+    ajv-formats: "npm:^2.1.1"
+    ajv-keywords: "npm:^5.1.0"
+  checksum: 10c0/981632f9bf59f35b15a9bcdac671dd183f4946fe4b055ae71a301e66a9797b95e5dd450de581eb6cca56fb6583ce8f24d67b2d9f8e1b2936612209697f6c277e
+  languageName: node
+  linkType: hard
+
 "screenfull@npm:^5.1.0":
   version: 5.2.0
   resolution: "screenfull@npm:5.2.0"
@@ -28776,6 +28789,17 @@ __metadata:
     char-regex: "npm:^1.0.2"
     strip-ansi: "npm:^6.0.0"
   checksum: 10c0/160c226cc2c7621f4c1d857390bb9d2d4cd46cfa6c89142248feb0aa6dd06e1877d94759a6dc00b0d3962173086c408a4f5a3ed2be9b353f58abb403290d7f6c
+  languageName: node
+  linkType: hard
+
+"string-replace-loader@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "string-replace-loader@npm:3.2.0"
+  dependencies:
+    schema-utils: "npm:^4"
+  peerDependencies:
+    webpack: ^5
+  checksum: 10c0/b1b35e9e52a124c0d7202ab8e2e4470fe17eac7fd9a31caf0417939a81e1b0cf6da70da58d522a27ffb9eca9b4e5da558bbabd263f77d235206558b8e00154a6
   languageName: node
   linkType: hard
 
