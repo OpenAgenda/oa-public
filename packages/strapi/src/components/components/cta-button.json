@@ -24,6 +24,11 @@
         "surface",
         "ghost"
       ]
+    },
+    "color": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
     }
   }
 }

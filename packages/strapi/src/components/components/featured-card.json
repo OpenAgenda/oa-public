@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_components_featured_cards",
+  "info": {
+    "displayName": "FeaturedCard",
+    "icon": "calendar",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images", "files", "videos", "audios"]
+    },
+    "CTAs": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.cta-button"
+    }
+  }
+}

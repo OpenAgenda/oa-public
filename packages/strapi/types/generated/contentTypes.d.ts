@@ -514,6 +514,7 @@ export interface ApiPagePage extends Struct.CollectionTypeSchema {
         'segments.tab-set',
         'segments.reference-set',
         'components.split-hero',
+        'segments.auto-featured-card-set',
       ]
     > &
       Schema.Attribute.SetPluginOptions<{
