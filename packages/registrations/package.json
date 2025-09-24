@@ -5,7 +5,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --testTimeout=30000"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --testTimeout=30000 --forceExit"
   },
   "exports": {
     "./package.json": "./package.json",
