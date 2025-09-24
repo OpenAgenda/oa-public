@@ -1,0 +1,47 @@
+{
+  "after": [1, 214147],
+  "agendas": [
+    {
+      "uid": 5746,
+      "image": "https://cdn.openagenda.com/main/agenda5746.62aa76965e394c3fb681e69c7b311d98.jpg?__ts=1753203077286",
+      "description": "La 10eme édition des Journées nationales de l'architecture aura lieu du 16 au 19 octobre 2025 partout en France. Pour participer à l'événement, consulter notre site",
+      "official": true,
+      "title": "Journées nationales de l’architecture 2025 : Normandie",
+      "slug": "jnarchi-2025-normandie"
+    },
+    {
+      "uid": 41648,
+      "image": "https://cdn.openagenda.com/main/agenda41648.jpg?__ts=1664443597781",
+      "description": "Du 15 au 24 mars 2025, tous ensemble pour l'éveil du tout-petit ! \nUne semaine d'ateliers & activités à travers toute la France, pour réunir le trio parent-enfant-professionnel.",
+      "official": true,
+      "title": "La Semaine Nationale de la Petite Enfance",
+      "slug": "semainepetiteenfance"
+    },
+    {
+      "uid": 62695,
+      "image": "https://cdn.openagenda.com/main/agenda62695.jpg",
+      "description": "Retrouvez tous les événements du patrimoine sur Grand Châtellerault",
+      "official": true,
+      "title": "Patrimoine Grand Châtellerault",
+      "slug": "patrimoine-grand-chatellerault"
+    },
+    {
+      "uid": 90396,
+      "image": "https://cdn.openagenda.com/main/agenda90396.5f947836aaf34040b05d114cdd5f7338.jpg?__ts=1753202999813",
+      "description": "La 10eme édition des Journées nationales de l'architecture aura lieu du 16 au 19 octobre 2025 partout en France. Pour participer à l'événement, consulter notre site",
+      "official": true,
+      "title": "Journées nationales de l’architecture 2025 : Pays de la Loire",
+      "slug": "jnarchi-2025-pays-de-la-loire"
+    },
+    {
+      "uid": 214147,
+      "image": "https://cdn.openagenda.com/main/agenda214147.jpg?__ts=1670411649560",
+      "description": "306 rue Clémenceau\n59139 Wattignies",
+      "official": true,
+      "title": "Mairie de Wattignies",
+      "slug": "mairie-de-wattignies"
+    }
+  ],
+  "total": 4011,
+  "success": true
+}

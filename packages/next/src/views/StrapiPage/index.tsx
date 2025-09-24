@@ -7,6 +7,7 @@ import Navbar from 'components/Navbar';
 import TabSet from 'components/strapi/TabSet';
 import ReferenceSet from 'components/strapi/ReferenceSet';
 import SplitHeroSegment from 'components/strapi/SplitHeroSegment';
+import AutoFeaturedCardSet from 'components/strapi/AutoFeaturedCardSet';
 import useCrispClient from 'hooks/useCrispClient';
 import Footer from 'components/strapi/Footer';
 import Metas from './components/Metas';
@@ -67,6 +68,7 @@ export default function StrapiPage({ page, footer }) {
           'segments.page-head': PageHead,
           'segments.tab-set': TabSet,
           'segments.reference-set': ReferenceSet,
+          'segments.auto-featured-card-set': AutoFeaturedCardSet,
           'components.split-hero': SplitHeroSegment,
         }[Segment['__component']];
 

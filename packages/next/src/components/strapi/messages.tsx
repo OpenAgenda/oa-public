@@ -29,4 +29,8 @@ export default defineMessages({
     id: 'next.components.Strapi.submit',
     defaultMessage: 'Submit',
   },
+  addEvent: {
+    id: 'next.components.Strapi.addEvent',
+    defaultMessage: 'Add an event',
+  },
 });

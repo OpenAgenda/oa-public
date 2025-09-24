@@ -13,6 +13,12 @@
       "value": " en plus"
     }
   ],
+  "next.components.Strapi.addEvent": [
+    {
+      "type": 0,
+      "value": "Add an event"
+    }
+  ],
   "next.components.Strapi.bluesky": [
     {
       "type": 0,

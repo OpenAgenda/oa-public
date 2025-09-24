@@ -117,22 +117,32 @@ export function CTAButtons() {
       <CTAButton
         link={link}
         label="Royal blue"
-        colorPalette={{ name: 'royalBlue' }}
+        color={{ name: 'royalBlue' }}
+        size="sm"
       />
       <CTAButton
         link={link}
         label="French blue"
-        colorPalette={{ name: 'frenchBlue' }}
+        color={{ name: 'frenchBlue' }}
+        size="md"
+      />
+      <CTAButton
+        link={link}
+        label="Natural alice blue"
+        color={{ name: 'naturalAliceBlue' }}
+        size="lg"
       />
       <CTAButton
         link={link}
         label="Golden brown"
-        colorPalette={{ name: 'goldenBrown' }}
+        color={{ name: 'goldenBrown' }}
+        size="xl"
       />
       <CTAButton
         link={link}
         label="Razzmatazz"
-        colorPalette={{ name: 'razzmatazz' }}
+        color={{ name: 'razzmatazz' }}
+        size="xs"
       />
     </Flex>
   );

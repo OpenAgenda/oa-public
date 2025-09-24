@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_components_schedulable_featured_cards",
+  "info": {
+    "displayName": "SchedulableFeaturedCard",
+    "icon": "clock",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Card": {
+      "type": "component",
+      "repeatable": false,
+      "component": "components.featured-card"
+    },
+    "displayFrom": {
+      "type": "datetime"
+    },
+    "displayUntil": {
+      "type": "datetime"
+    }
+  }
+}

@@ -55,7 +55,8 @@
         "segments.highlight-card-set",
         "segments.tab-set",
         "segments.reference-set",
-        "components.split-hero"
+        "components.split-hero",
+        "segments.auto-featured-card-set"
       ],
       "pluginOptions": {
         "i18n": {
