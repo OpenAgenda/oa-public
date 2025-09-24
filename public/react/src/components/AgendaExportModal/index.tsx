@@ -20,6 +20,7 @@ interface ExportModalProps {
   apiRootUrl?: string;
   renderHost?: 'local' | 'parent';
   fetchAgendaExportSettings?: ({ agendaUid }) => Promise<any>;
+  portalRef?: React.RefObject<HTMLElement>;
 }
 
 export default function AgendaExportModal({
@@ -32,6 +33,7 @@ export default function AgendaExportModal({
   apiRootUrl = 'https://api.openagenda.com',
   renderHost = 'local',
   fetchAgendaExportSettings = null,
+  portalRef,
 }: ExportModalProps) {
   const intl = useIntl();
 
@@ -51,7 +53,7 @@ export default function AgendaExportModal({
         }
       }}
     >
-      <DialogContent ref={dialogRef}>
+      <DialogContent ref={dialogRef} portalRef={portalRef}>
         <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.modalTitle)}
         </DialogHeader>
