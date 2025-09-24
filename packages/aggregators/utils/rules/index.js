@@ -30,7 +30,7 @@ function evaluateRules(
         actions: [],
       };
     }
-    if (ruleActions) {
+    if (ruleActions !== null) {
       ruleActions.forEach((a) => actions.push(a));
     }
   }

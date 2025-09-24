@@ -118,7 +118,7 @@ describe('apply', () => {
           ),
         );
 
-        server.listen();
+        server.listen({ onUnhandledRequest: 'bypass' });
       });
 
       afterAll(() => {
@@ -235,7 +235,7 @@ describe('apply', () => {
           http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
         );
 
-        server.listen();
+        server.listen({ onUnhandledRequest: 'bypass' });
       });
 
       afterAll(() => {
@@ -349,7 +349,7 @@ describe('apply', () => {
           ),
         );
 
-        server.listen();
+        server.listen({ onUnhandledRequest: 'bypass' });
       });
 
       afterAll(() => {
@@ -498,8 +498,9 @@ describe('apply', () => {
         server.listen();
       });
 
-      afterAll(() => {
+      afterAll(async () => {
         server.close();
+        await new Promise((resolve) => setTimeout(resolve, 50));
       });
 
       test('last item of processed elements contains an appliedAt timestamp', async () => {
@@ -608,11 +609,13 @@ describe('apply', () => {
           ),
         );
 
-        server.listen();
+        server.listen({ onUnhandledRequest: 'bypass' });
       });
 
-      afterAll(() => {
+      afterAll(async () => {
         server.close();
+        server.resetHandlers();
+        await new Promise((resolve) => setTimeout(resolve, 100));
       });
 
       beforeAll(async () => {

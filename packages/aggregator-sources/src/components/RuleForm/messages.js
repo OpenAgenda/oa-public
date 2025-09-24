@@ -33,6 +33,23 @@ export default defineMessages({
     id: 'aggregator-sources.RuleForm.textFilterCaseSensitive',
     defaultMessage: 'the filter is case sensitive',
   },
+  allowOnlineEvent: {
+    id: 'aggregator-sources.RuleForm.allowOnlineEvent',
+    defaultMessage: 'Include online events',
+  },
+  allowOnlineEventHelp: {
+    id: 'aggregator-sources.RuleForm.allowOnlineEventHelp',
+    defaultMessage: 'Include events that are held online',
+  },
+  allowOnlineEventAll: {
+    id: 'aggregator-sources.RuleForm.allowOnlineEventAll',
+    defaultMessage: 'Include all online events',
+  },
+  allowOnlineEventStrict: {
+    id: 'aggregator-sources.RuleForm.allowOnlineEventStrict',
+    defaultMessage:
+      'Include online events without a location or with a location matching the filter',
+  },
   tagFilter: {
     id: 'aggregator-sources.RuleForm.tagFilter',
     defaultMessage: 'Tag filter',

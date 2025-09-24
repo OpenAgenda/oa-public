@@ -21,7 +21,7 @@ describe('eventOffer address logic', () => {
     beforeAll(() => {
       server = setupServer(
         // Mock address get endpoint
-        http.get(`${api}/public/offers/adressesId/:addressId`, ({ params }) => {
+        http.get(`${api}/public/offers/addresses/:addressId`, ({ params }) => {
           if (params.addressId === '123') {
             return HttpResponse.json({
               id: 123,
@@ -51,9 +51,32 @@ describe('eventOffer address logic', () => {
         ),
         // Mock categories endpoint
         http.get(`${api}/openapi.json`, () => HttpResponse.json(openAPIData)),
+        // Mock offerer venues endpoint
+        http.get(`${api}/public/offers/v1/offerer_venues`, () =>
+          HttpResponse.json([
+            {
+              id: 1,
+              venues: [
+                {
+                  id: 548,
+                  name: 'Test Venue',
+                  address: '1 rue de la Paix',
+                  city: 'Paris',
+                  postalCode: '75001',
+                },
+              ],
+            },
+          ])),
+        // Mock categories list endpoint
+        http.get(`${api}/public/offers/v1/events/categories`, () =>
+          HttpResponse.json({
+            categories:
+              openAPIData.components.schemas.EventOfferCategoryEnum.enum,
+            related: {},
+          })),
       );
 
-      server.listen();
+      server.listen({ onUnhandledRequest: 'bypass' });
     });
 
     afterAll(() => {

@@ -30,21 +30,26 @@ export default function SummarySection({ agendaUid }) {
 
   return (
     <div className="info-block margin-bottom-md">
-      <div className="text-center">
-        <FormattedMessage
-          id="AgendaStats.SummarySection.totalPublishedEvents"
-          defaultMessage="{eventCount, number} events published in {locationCount, number} locations by {creatorCount} contributors"
-          values={{
-            eventCount: publishedEvents.events,
-            locationCount: publishedEvents.eventLocations,
-            creatorCount: publishedEvents.eventCreators,
-          }}
-        />
+      <div className="text-left">
+        <div style={{ fontWeight: 'normal' }}>
+          <FormattedMessage
+            id="AgendaStats.SummarySection.totalPublishedEvents"
+            defaultMessage="<strong>{eventCount, number}</strong> events published in <strong>{locationCount, number}</strong> locations by <strong>{creatorCount, number}</strong> contributors"
+            values={{
+              eventCount: publishedEvents.events,
+              locationCount: publishedEvents.eventLocations,
+              creatorCount: publishedEvents.eventCreators,
+              strong: (chunks) => <strong>{chunks}</strong>,
+            }}
+          />
+        </div>
         <br />
-        <FormattedMessage
-          id="AgendaStats.SummarySection.totalPublishedEventsInfo"
-          defaultMessage="Events added by aggregation or sharing can be linked to contributors and locations referenced on other calendars"
-        />
+        <em className="margin-top-sm">
+          <FormattedMessage
+            id="AgendaStats.SummarySection.totalPublishedEventsInfo"
+            defaultMessage="To note: Events added by aggregation or sharing can be linked to contributors and locations referenced on other calendars"
+          />
+        </em>
       </div>
     </div>
   );

@@ -162,6 +162,18 @@ export default defineMessages({
     id: 'aggregator-sources.DefineRules.caseInsensitive',
     defaultMessage: 'case-insensitive',
   },
+  allowOnlineEvent: {
+    id: 'aggregator-sources.DefineRules.allowOnlineEvent',
+    defaultMessage: 'including online events',
+  },
+  allowOnlineEventAll: {
+    id: 'aggregator-sources.DefineRules.allowOnlineEventAll',
+    defaultMessage: 'including all online events',
+  },
+  allowOnlineEventStrict: {
+    id: 'aggregator-sources.DefineRules.allowOnlineEventStrict',
+    defaultMessage: 'including online events with matching location',
+  },
   brokenFilter: {
     id: 'aggregator-sources.DefineRules.brokenFilter',
     defaultMessage: 'Invalid filter',
