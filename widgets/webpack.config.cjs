@@ -13,18 +13,23 @@ const config = {
     filename: 'index.js',
   },
   module: {
+    parser: {
+      javascript: {
+        dynamicImportMode: 'eager',
+      },
+    },
     rules: [
       {
         test: /\.js$/,
         loader: require.resolve('babel-loader'),
+        options: { rootMode: 'upward' },
         exclude: /node_modules/,
-        options: {
-          rootMode: 'upward',
-        },
       },
     ],
   },
   optimization: {
+    splitChunks: false,
+    runtimeChunk: false,
     minimizer: [
       new TerserPlugin({
         terserOptions: {
