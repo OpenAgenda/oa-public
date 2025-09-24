@@ -30,7 +30,7 @@
     "react-shadow": "^20.6.0"
   },
   "devDependencies": {
-    "@babel/core": "^7.26.0",
+    "@babel/core": "^7.28.4",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/html-vite": "^9.0.8",
     "babel-loader": "^9.2.1",

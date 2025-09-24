@@ -41,7 +41,7 @@
     "example": "cd example && nodemon server.js"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.23.2",
+    "@babel/runtime-corejs3": "^7.28.4",
     "@emotion/react": "^11.11.1",
     "@formatjs/cli": "^2.11.3",
     "@openagenda/intl": "^1.1.6",

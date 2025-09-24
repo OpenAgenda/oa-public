@@ -39,7 +39,7 @@
     "test:e2e": "jest --config=jest.config.e2e.js"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.23.2",
+    "@babel/runtime-corejs3": "^7.28.4",
     "@openagenda/intl": "^1.1.6",
     "axios": "^0.26.1",
     "core-js": "^3.29.1",
@@ -48,8 +48,8 @@
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
-    "@babel/core": "^7.23.3",
+    "@babel/cli": "^7.28.3",
+    "@babel/core": "^7.28.4",
     "@openagenda/axios-mock-adapter": "^1.21.2",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/eslint-config": "^1.4.0",

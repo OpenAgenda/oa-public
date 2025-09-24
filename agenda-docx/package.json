@@ -38,7 +38,7 @@
     "remove-markdown": "^0.3.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
+    "@babel/cli": "^7.28.3",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/eslint-config": "^1.4.0",
