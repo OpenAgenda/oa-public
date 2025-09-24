@@ -8,6 +8,7 @@ import { fetchLocale as fetchFiltersLocales } from '@openagenda/react-filters';
 import { createSystem, themeConfig as oaThemeConfig } from '@openagenda/uikit';
 import { createRoot } from 'react-dom/client';
 import Provider, { themeConfig } from './components/Provider';
+import TopLayerPopover from './components/TopLayerPopover';
 
 function encodeForURLHash(url) {
   const charsToEncode = ['#', '%'];
@@ -246,17 +247,22 @@ export default class EmbedLoader {
           locale={message.locale}
           theme={system}
         >
-          <AgendaExportModal
-            isOpen
-            onClose={onClose}
-            agenda={message.agenda}
-            query={message.query}
-            renderHost="parent"
-            fetchAgendaExportSettings={(agendaUid) =>
-              iframe.iFrameResizer.callChild('fetchAgendaExportSettings', {
-                agendaUid,
-              })}
-          />
+          <TopLayerPopover open>
+            {(containerRef) => (
+              <AgendaExportModal
+                isOpen
+                onClose={onClose}
+                agenda={message.agenda}
+                query={message.query}
+                renderHost="parent"
+                fetchAgendaExportSettings={(agendaUid) =>
+                  iframe.iFrameResizer.callChild('fetchAgendaExportSettings', {
+                    agendaUid,
+                  })}
+                portalRef={containerRef}
+              />
+            )}
+          </TopLayerPopover>
         </Provider>,
       );
     }
@@ -290,14 +296,19 @@ export default class EmbedLoader {
           locale={message.locale}
           theme={system}
         >
-          <EventShareModal
-            isOpen
-            onClose={onClose}
-            agenda={message.agenda}
-            event={message.event}
-            contentLocale={message.contentLocale}
-            renderHost="parent"
-          />
+          <TopLayerPopover open>
+            {(containerRef) => (
+              <EventShareModal
+                isOpen
+                onClose={onClose}
+                agenda={message.agenda}
+                event={message.event}
+                contentLocale={message.contentLocale}
+                renderHost="parent"
+                portalRef={containerRef}
+              />
+            )}
+          </TopLayerPopover>
         </Provider>,
       );
     }
