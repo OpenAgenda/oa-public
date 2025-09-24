@@ -34,7 +34,4 @@ export default {
       },
     ],
   },
-  resolve: {
-    symlinks: false,
-  },
 };
