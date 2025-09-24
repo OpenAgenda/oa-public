@@ -5,6 +5,37 @@ import messages from './messages.js';
 import Select from './Select.js';
 import Radio from './Radio.js';
 
+const ConditionalOnlineEventOptions = ({ allowOnlineEventChecked, intl }) => {
+  if (!allowOnlineEventChecked) return null;
+
+  return (
+    <div className="row">
+      <div className="col-sm-2" />
+      <div className="col-sm-10">
+        <div className="margin-left-md">
+          <Field
+            component={Radio}
+            name="allowOnlineEventMode"
+            type="radio"
+            value="all"
+            defaultValue="all"
+            label={intl.formatMessage(messages.allowOnlineEventAll)}
+            classNameGroup="radio filter-choice"
+          />
+          <Field
+            component={Radio}
+            name="allowOnlineEventMode"
+            type="radio"
+            value="strictOrWithMatchingLocation"
+            label={intl.formatMessage(messages.allowOnlineEventStrict)}
+            classNameGroup="radio filter-choice"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default () => {
   const intl = useIntl();
   // const { initialValues } = useFormState();
@@ -73,6 +104,31 @@ export default () => {
           />
         </div>
       </div>
+      <div className="row">
+        <div className="col-sm-2" />
+        <div className="col-sm-10">
+          <Field
+            component={Radio}
+            name="allowOnlineEvent"
+            type="checkbox"
+            label={intl.formatMessage(messages.allowOnlineEvent)}
+            classNameGroup="radio filter-choice"
+            helpBlock={(
+              <div className="margin-h-z text-muted">
+                {intl.formatMessage(messages.allowOnlineEventHelp)}
+              </div>
+            )}
+          />
+        </div>
+      </div>
+      <Field name="allowOnlineEvent" subscription={{ value: true }}>
+        {({ input: { value: allowOnlineEventChecked } }) => (
+          <ConditionalOnlineEventOptions
+            allowOnlineEventChecked={allowOnlineEventChecked}
+            intl={intl}
+          />
+        )}
+      </Field>
     </>
   );
 };

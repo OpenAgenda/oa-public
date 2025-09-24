@@ -97,12 +97,19 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
       return result;
     }
 
+    // Handle allowOnlineEvent three-value system
+    const allowOnlineEventValue = query.location.allowOnlineEvent || false;
+    const allowOnlineEventChecked = allowOnlineEventValue !== false;
+    const allowOnlineEventMode = allowOnlineEventValue === false ? 'all' : allowOnlineEventValue;
+
     Object.assign(result, {
       withFilter: true,
       type: 'location',
       subdivision: key,
       locationValues: [].concat(query.location[key]),
       caseSensitive: key ? query.location.caseSensitive : false,
+      allowOnlineEvent: allowOnlineEventChecked,
+      allowOnlineEventMode,
     });
 
     return result;
@@ -247,17 +254,24 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
   }
 
   switch (values.type) {
-    case 'location':
+    case 'location': {
+      // Convert form values back to rule format
+      const allowOnlineEventValue = values.allowOnlineEvent
+        ? values.allowOnlineEventMode || 'all'
+        : false;
+
       return {
         query: {
           location: {
             [values.subdivision]: values.locationValues,
             caseSensitive: values.caseSensitive,
+            allowOnlineEvent: allowOnlineEventValue,
           },
         },
         required,
         actions,
       };
+    }
     case 'tags':
       return {
         query: {

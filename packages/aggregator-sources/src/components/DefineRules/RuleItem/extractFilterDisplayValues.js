@@ -106,6 +106,8 @@ const tagsFilter = ({ intl, rule, sourceAgenda }) => ({
 
 const locationFilter = ({ intl, rule }) => {
   const locationType = getFilterLocationType(rule);
+  const allowOnlineEventValue = rule.query.location?.allowOnlineEvent || false;
+
   return {
     label: intl.formatMessage(messages[locationType]),
     value: []
@@ -115,6 +117,7 @@ const locationFilter = ({ intl, rule }) => {
       geo: intl.formatMessage(messages[locationType]),
     }),
     caseSensitive: rule.query.location?.caseSensitive,
+    allowOnlineEvent: allowOnlineEventValue,
   };
 };
 
