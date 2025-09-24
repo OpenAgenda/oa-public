@@ -146,13 +146,15 @@ export default (data, options = {}) => {
     }
 
     if (multilingualFieldHasValue(event.title)) {
-      event._search_title = cleanTextForSearch(data.title);
+      event._search_title = Object.values(data.title);
+      event._search_title_filtered = cleanTextForSearch(data.title);
     } else {
       event._search_empty_fields.push('title');
     }
 
     if (multilingualFieldHasValue(event.description)) {
-      event._search_description = cleanTextForSearch(data.description);
+      event._search_description = Object.values(data.description);
+      event._search_description_filtered = cleanTextForSearch(data.description);
     } else {
       event._search_empty_fields.push('description');
     }
@@ -170,7 +172,7 @@ export default (data, options = {}) => {
       event._search_keywords = event._search_keywords.concat(
         Object.values(event.keywords),
       );
-      event._search_keywords_text = cleanTextForSearch(event.keywords);
+      event._search_keywords_text = Object.values(event.keywords);
     } else {
       event._search_empty_fields.push('keywords');
     }

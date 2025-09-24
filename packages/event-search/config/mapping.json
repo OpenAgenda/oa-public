@@ -167,6 +167,9 @@
     "type": "text",
     "analyzer": "french"
   },
+  "_search_title_filtered": {
+    "type": "text"
+  },
   "_search_additional_numbers": {
     "type": "nested",
     "properties": {
@@ -184,6 +187,9 @@
   "_search_description": {
     "type": "text",
     "analyzer": "default"
+  },
+  "_search_description_filtered": {
+    "type": "text"
   },
   "_search_languages": {
     "type": "keyword"

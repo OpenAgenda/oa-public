@@ -91,6 +91,11 @@ function _getQueryMustParts(cleanQuery) {
     '_search_full_address_text',
   ];
 
+  const filteredSearchFields = [
+    '_search_title_filtered',
+    '_search_description_filtered',
+  ];
+
   // add multi_match search part
   if (cleanQuery.search) {
     parts.push({
@@ -100,7 +105,7 @@ function _getQueryMustParts(cleanQuery) {
             multi_match: {
               query: cleanQuery.search,
               type: 'best_fields',
-              fields: searchFields,
+              fields: filteredSearchFields,
             },
           },
           {
