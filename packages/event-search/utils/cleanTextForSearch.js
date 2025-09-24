@@ -891,7 +891,9 @@ function cleanText(lang, text) {
   return text
     .split(' ')
     .filter(
-      (term) => !filteredTerms[lang] || !filteredTerms[lang].includes(term),
+      (term) =>
+        !filteredTerms[lang]
+        || !filteredTerms[lang].includes(term.toLowerCase()),
     )
     .join(' ');
 }
