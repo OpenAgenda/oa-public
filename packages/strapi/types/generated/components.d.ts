@@ -7,11 +7,27 @@ export interface ComponentsCtaButton extends Struct.ComponentSchema {
     displayName: 'CTAButton';
   };
   attributes: {
+    color: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     label: Schema.Attribute.String;
     link: Schema.Attribute.String & Schema.Attribute.Required;
     variant: Schema.Attribute.Enumeration<
       ['solid', 'outline', 'link', 'plain', 'subtle', 'surface', 'ghost']
     >;
+  };
+}
+
+export interface ComponentsFeaturedCard extends Struct.ComponentSchema {
+  collectionName: 'components_components_featured_cards';
+  info: {
+    description: '';
+    displayName: 'FeaturedCard';
+    icon: 'calendar';
+  };
+  attributes: {
+    CTAs: Schema.Attribute.Component<'components.cta-button', true>;
+    description: Schema.Attribute.Text;
+    image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    title: Schema.Attribute.String & Schema.Attribute.Required;
   };
 }
 
@@ -121,6 +137,21 @@ export interface ComponentsReference extends Struct.ComponentSchema {
   };
 }
 
+export interface ComponentsSchedulableFeaturedCard
+  extends Struct.ComponentSchema {
+  collectionName: 'components_components_schedulable_featured_cards';
+  info: {
+    description: '';
+    displayName: 'SchedulableFeaturedCard';
+    icon: 'clock';
+  };
+  attributes: {
+    Card: Schema.Attribute.Component<'components.featured-card', false>;
+    displayFrom: Schema.Attribute.DateTime;
+    displayUntil: Schema.Attribute.DateTime;
+  };
+}
+
 export interface ComponentsSplitHero extends Struct.ComponentSchema {
   collectionName: 'components_components_split_heroes';
   info: {
@@ -132,6 +163,7 @@ export interface ComponentsSplitHero extends Struct.ComponentSchema {
       'oneToOne',
       'api::background.background'
     >;
+    coverImage: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<false>;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
@@ -154,6 +186,32 @@ export interface ComponentsTab extends Struct.ComponentSchema {
   };
 }
 
+export interface SegmentsAutoFeaturedCardSet extends Struct.ComponentSchema {
+  collectionName: 'components_segments_auto_featured_card_sets';
+  info: {
+    description: '';
+    displayName: 'AutoFeaturedCardSet';
+    icon: 'calendar';
+  };
+  attributes: {
+    agendaSearch: Schema.Attribute.String &
+      Schema.Attribute.DefaultTo<'https://openagenda.com/agendas?official=1'>;
+    background: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::background.background'
+    >;
+    Cards: Schema.Attribute.Component<
+      'components.schedulable-featured-card',
+      true
+    >;
+    count: Schema.Attribute.Integer & Schema.Attribute.DefaultTo<6>;
+    description: Schema.Attribute.String;
+    descriptionColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
+    fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
+    title: Schema.Attribute.String;
+  };
+}
+
 export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
   collectionName: 'components_segments_highlight_card_sets';
   info: {
@@ -171,6 +229,7 @@ export interface SegmentsHighlightCardSet extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<'medium'>;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
+    descriptionColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     title: Schema.Attribute.String;
   };
@@ -210,6 +269,7 @@ export interface SegmentsReferenceSet extends Struct.ComponentSchema {
     >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
+    descriptionColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     hasFilter: Schema.Attribute.Boolean;
     References: Schema.Attribute.Component<'components.reference', true>;
@@ -231,6 +291,7 @@ export interface SegmentsTabSet extends Struct.ComponentSchema {
     >;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.String;
+    descriptionColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     Tabs: Schema.Attribute.Component<'components.tab', true>;
     title: Schema.Attribute.String;
@@ -241,13 +302,16 @@ declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
       'components.cta-button': ComponentsCtaButton;
+      'components.featured-card': ComponentsFeaturedCard;
       'components.footer-column': ComponentsFooterColumn;
       'components.highlight-card': ComponentsHighlightCard;
       'components.icon': ComponentsIcon;
       'components.link': ComponentsLink;
       'components.reference': ComponentsReference;
+      'components.schedulable-featured-card': ComponentsSchedulableFeaturedCard;
       'components.split-hero': ComponentsSplitHero;
       'components.tab': ComponentsTab;
+      'segments.auto-featured-card-set': SegmentsAutoFeaturedCardSet;
       'segments.highlight-card-set': SegmentsHighlightCardSet;
       'segments.page-head': SegmentsPageHead;
       'segments.reference-set': SegmentsReferenceSet;

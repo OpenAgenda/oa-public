@@ -63,6 +63,56 @@
       "title": {
         "fr": "marché"
       }
+    },
+    {
+      "uid": 10,
+      "state": 2,
+      "title": {
+        "fr": "Zeus, le cheval des Jeux olympiques, de retour à Nantes"
+      },
+      "description": {
+        "fr": "Le rendez-vous est donné aux Nantaises et aux Nantais du 19 au 28 septembre 2025 sur le Cours Cambronne à Nantes."
+      }
+    },
+    {
+      "uid": 11,
+      "state": 2,
+      "title": {
+        "fr": "Rencontre avec l'Atelier blam"
+      },
+      "description": {
+        "fr": "Rencontre avec les techniciens de l'Atelier blam afin de revenir sur la fabrication du célèbre cheval métallique Zeus qui a fait rêver le monde lors des JO de Paris."
+      }
+    },
+    {
+      "uid": 12,
+      "state": 2,
+      "title": {
+        "fr": "Duathlon de Couëron #2"
+      },
+      "description": {
+        "fr": "Rendez-vous le 5 octobre 2025 sur les bords de Loire de Couëron pour la 2e édition du duathlon, organisé par l’association Couëron Triathlon."
+      }
+    },
+    {
+      "uid": 13,
+      "state": 2,
+      "title": {
+        "fr": "Le prénom"
+      },
+      "description": {
+        "fr": "Dans le cadre des Samedis Nantais du boulevard et de l'humour"
+      }
+    },
+    {
+      "uid": 14,
+      "state": 2,
+      "title": {
+        "fr": "Exposition \"Le Muséum au fil du temps\""
+      },
+      "description": {
+        "fr": "Jeudi des Fabriques - Compagnie Les Majorettes d'Azay-Le-Rideau : Lou Reed (et les doudous sacrés)"
+      }
     }
   ]
 }

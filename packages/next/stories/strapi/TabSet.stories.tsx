@@ -13,6 +13,7 @@ export function Overview() {
     <TabSet
       title="Des solutions adaptées à vos besoins"
       description="Découvrez nos différentes offres conçues pour répondre à vos besoins spécifiques"
+      descriptionColor={{ name: 'chiliRed' }}
       Tabs={[
         {
           id: 2,

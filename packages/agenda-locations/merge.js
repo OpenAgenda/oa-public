@@ -49,7 +49,7 @@ async function merge(
         ? newDuplicateCandidates
         : null,
     },
-    { ...options },
+    { ...options, fromMerge: true },
   );
 
   log('removing other locations');

@@ -91,6 +91,28 @@ describe('agenda-locations - functional - merge', () => {
 
       expect(afterCount).toEqual(beforeCount - 2);
     });
+
+    it('updatedAt is not updated when merging', async () => {
+      const beforeMerge = await f
+        .client('location')
+        .first('updated_at')
+        .where('uid', 95301591);
+
+      const originalUpdatedAt = beforeMerge.updated_at;
+
+      await svc(7196947).merge(
+        95301591,
+        { uids: [98394655] },
+        { name: 'merged again' },
+      );
+
+      const afterMerge = await f
+        .client('location')
+        .first('updated_at')
+        .where('uid', 95301591);
+
+      expect(afterMerge.updated_at).toEqual(originalUpdatedAt);
+    });
   });
 
   describe('no data', () => {

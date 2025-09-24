@@ -20,7 +20,7 @@ const log = logs('core/agendas/events/create');
 export default async (core, agendaUid, data, options = {}) => {
   const { services } = core;
 
-  const { members, events, registrations } = services;
+  const { members, events, registrations, agendaLocations } = services;
 
   const {
     access = 'public',
@@ -96,7 +96,14 @@ export default async (core, agendaUid, data, options = {}) => {
         ).passCulture;
         log('validate pass data');
         try {
-          await passCultureService.validate(clean.event, clean.passCulture);
+          // get complete location
+          const location = await agendaLocations.get(clean.event.location.uid, {
+            detailed: true,
+          });
+          await passCultureService.validate(
+            { ...clean.event, location },
+            clean.passCulture,
+          );
         } catch (error) {
           log('error', error);
           throw error;

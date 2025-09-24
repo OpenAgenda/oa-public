@@ -7,6 +7,7 @@ import Navbar from 'components/Navbar';
 import TabSet from 'components/strapi/TabSet';
 import ReferenceSet from 'components/strapi/ReferenceSet';
 import SplitHeroSegment from 'components/strapi/SplitHeroSegment';
+import AutoFeaturedCardSet from 'components/strapi/AutoFeaturedCardSet';
 import useCrispClient from 'hooks/useCrispClient';
 import Footer from 'components/strapi/Footer';
 import Metas from './components/Metas';
@@ -23,8 +24,16 @@ const ubuntuSans = Ubuntu_Sans({
 });
 
 export default function StrapiPage({ page, footer }) {
-  const { title, description, keywords, Segments, navFontColor, logoVariant } =
-    page;
+  const {
+    title,
+    description,
+    keywords,
+    Segments,
+    navFontColor,
+    logoVariant,
+    navSticky,
+    navStickyBackground,
+  } = page;
 
   useCrispClient();
 
@@ -44,6 +53,10 @@ export default function StrapiPage({ page, footer }) {
       />
       <Navbar
         discreet={!!navFontColor}
+        sticky={!!navSticky}
+        stickyBackground={
+          navStickyBackground ? color(navStickyBackground, 500) : undefined
+        }
         colorPalette={navFontColor ? color(navFontColor) : undefined}
         logoVariant={logoVariant}
       />
@@ -55,6 +68,7 @@ export default function StrapiPage({ page, footer }) {
           'segments.page-head': PageHead,
           'segments.tab-set': TabSet,
           'segments.reference-set': ReferenceSet,
+          'segments.auto-featured-card-set': AutoFeaturedCardSet,
           'components.split-hero': SplitHeroSegment,
         }[Segment['__component']];
 

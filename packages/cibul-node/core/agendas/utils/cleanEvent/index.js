@@ -101,14 +101,20 @@ export default Object.assign(
     const passCulturePayload = clean.event.registration?.find(
       ({ service }) => service === 'passCulture',
     )?.data;
+
     if (
       passCulturePayload
       && registrations
       && getWriteAccess(options.member, options.access)
     ) {
+      const throwError = data?.registration?.find(({ service }) => service === 'passCulture')
+        ?.data || data.location;
+
       clean.passCulture = await registrations(
         agenda.settings.registration,
-      ).passCulture.validate(clean.event, passCulturePayload);
+      ).passCulture.validate({ ...clean.event, location }, passCulturePayload, {
+        noThrow: !throwError,
+      });
     } else if (passCulturePayload && !registrations) {
       log('passCulture payload is set but registrations is not initialized');
     }

@@ -38,12 +38,14 @@ const PageHeadContent = ({
     >
       {title}
     </Heading>
-    <StrapiMarkdown
-      color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
-      mt={7}
-    >
-      {description}
-    </StrapiMarkdown>
+    {description ? (
+      <StrapiMarkdown
+        color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
+        mt={7}
+      >
+        {description}
+      </StrapiMarkdown>
+    ) : null}
     {CTAs && CTAs.length > 0 ? (
       <Box mt={9}>
         <CTAButtons CTAs={CTAs} />
@@ -88,13 +90,14 @@ export default function PageHead({
       : '1fr';
 
   return (
-    <SegmentContainer fontColor={fontColor} background={background}>
+    <SegmentContainer fontColor={fontColor} background={background} fullHeight>
       <Grid
         templateColumns={templateColumns}
         gap={8}
         alignItems="center"
         justifyItems={hasTwoColumns ? undefined : 'center'}
         py={12}
+        height={{ md: '100%' }}
       >
         <GridItem maxW={hasTwoColumns ? undefined : 'container.md'}>
           <PageHeadContent

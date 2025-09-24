@@ -93,6 +93,7 @@ export function WithGradientBackground() {
         url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
         alternativeText: 'Guy writing something on a calendar',
       }}
+      imagePosition="right"
       text={`###
 * Préparez votre programmation *en équipe*
 * Connectez votre agenda avec d'autres *outils métiers* (SIT, SIGB, billetteries …) grâce à notre API
@@ -122,6 +123,83 @@ export function WithGradientBackground() {
           colorPalette: {
             name: 'strapi.rosyRed',
           },
+        },
+      ]}
+    />
+  );
+}
+
+export function ImageLeftAsBackground() {
+  return (
+    <SplitHeroSegment
+      background={{
+        name: 'spotAliceBlue',
+      }}
+      title="Pour les organisateurs d'événements"
+      image={{
+        url: '/contributrice.jpg',
+        alternativeText: 'Contributrice',
+      }}
+      coverImage={true}
+      text={`**Artistes, lieux culturels, associations, etc.**
+
+Fini les fastidieux copier-coller !
+
+* Saisissez vos événements en ligne une seule fois
+
+* Alimentez tous vos supports de communication
+
+* Partagez en un clic votre programmation avec des collectivités, administrations et médias
+`}
+      CTAs={[
+        {
+          label: 'Créer un agenda',
+          link: 'https://bateau.fr',
+          variant: 'solid',
+        },
+        {
+          label: "Découvrir l'offre",
+          link: 'https://avions.fr',
+          variant: 'outline',
+        },
+      ]}
+    />
+  );
+}
+
+export function ImageRightAsBackground() {
+  return (
+    <SplitHeroSegment
+      background={{
+        name: 'spotAliceBlue',
+      }}
+      title="Pour les organisateurs d'événements"
+      image={{
+        url: '/contributrice.jpg',
+        alternativeText: 'Contributrice',
+      }}
+      imagePosition="right"
+      coverImage={true}
+      text={`**Artistes, lieux culturels, associations, etc.**
+
+Fini les fastidieux copier-coller !
+
+* Saisissez vos événements en ligne une seule fois
+
+* Alimentez tous vos supports de communication
+
+* Partagez en un clic votre programmation avec des collectivités, administrations et médias
+`}
+      CTAs={[
+        {
+          label: 'Créer un agenda',
+          link: 'https://bateau.fr',
+          variant: 'solid',
+        },
+        {
+          label: "Découvrir l'offre",
+          link: 'https://avions.fr',
+          variant: 'outline',
         },
       ]}
     />

@@ -1,8 +1,13 @@
 {
+  "next.components.Strapi.ReferenceItem.more": "+ {count} en plus",
+  "next.components.Strapi.addEvent": "",
+  "next.components.Strapi.bluesky": "",
   "next.components.Strapi.contact": "Contacter",
-  "next.components.Strapi.contactForm": "Formulaire de contact",
+  "next.components.Strapi.contactEmail": "",
   "next.components.Strapi.github": "Notre Github",
   "next.components.Strapi.linkedin": "Notre LinkedIn",
+  "next.components.Strapi.newsletter": "S'inscrire à l'infolettre mensuelle",
+  "next.components.Strapi.submit": "S'inscrire",
   "next.components.Strapi.videoPlayer.accessibility": "Accessibilité",
   "next.components.Strapi.videoPlayer.airPlay": "AirPlay",
   "next.components.Strapi.videoPlayer.announcements": "Annonces",
@@ -58,6 +63,5 @@
   "next.components.Strapi.videoPlayer.textBackground": "Arrière-plan du texte",
   "next.components.Strapi.videoPlayer.track": "Piste",
   "next.components.Strapi.videoPlayer.unmute": "Rétablir le son",
-  "next.components.Strapi.videoPlayer.volume": "Volume",
-  "next.components.Strapi.ReferenceItem.more": "+ {count} en plus"
+  "next.components.Strapi.videoPlayer.volume": "Volume"
 }

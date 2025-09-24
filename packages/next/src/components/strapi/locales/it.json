@@ -1,8 +1,13 @@
 {
+  "next.components.Strapi.ReferenceItem.more": "",
+  "next.components.Strapi.addEvent": "",
+  "next.components.Strapi.bluesky": "",
   "next.components.Strapi.contact": "Contattare",
-  "next.components.Strapi.contactForm": "Modulo di contatto",
+  "next.components.Strapi.contactEmail": "",
   "next.components.Strapi.github": "",
   "next.components.Strapi.linkedin": "",
+  "next.components.Strapi.newsletter": "",
+  "next.components.Strapi.submit": "",
   "next.components.Strapi.videoPlayer.accessibility": "Accessibilità",
   "next.components.Strapi.videoPlayer.airPlay": "",
   "next.components.Strapi.videoPlayer.announcements": "",
@@ -58,6 +63,5 @@
   "next.components.Strapi.videoPlayer.textBackground": "",
   "next.components.Strapi.videoPlayer.track": "",
   "next.components.Strapi.videoPlayer.unmute": "",
-  "next.components.Strapi.videoPlayer.volume": "",
-  "next.components.Strapi.ReferenceItem.more": ""
+  "next.components.Strapi.videoPlayer.volume": ""
 }

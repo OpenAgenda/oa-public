@@ -7,26 +7,34 @@ interface SegmentContainerProps {
   children: React.ReactNode;
   background?: any;
   fontColor?: Color;
+  descriptionColor?: Color;
   title?: string;
   description?: string;
   CTAs?: any[];
   colorVariant?: string;
+  fullWidth?: boolean;
+  fullHeight?: boolean;
 }
 
 export default function SegmentContainer({
   children,
   background,
   fontColor,
+  descriptionColor,
   title,
   description,
   CTAs,
+  fullWidth = false,
+  fullHeight = false,
 }: SegmentContainerProps) {
   return (
     <chakra.div backgroundImage={getBackgroundImage(background)}>
       <Container
-        maxW="7xl"
+        maxW={fullWidth ? '100%' : '7xl'}
+        height={{ md: fullHeight ? '100vh' : undefined }}
         color={fontColor ? color(fontColor.name, 500) : undefined}
-        py="24"
+        py={fullWidth ? 0 : 24}
+        px={fullWidth ? 0 : undefined}
       >
         {title && (
           <H2 mb={description ? 6 : 16} fontWeight="bold" textAlign="center">
@@ -37,7 +45,12 @@ export default function SegmentContainer({
           <Heading
             size="md"
             textAlign="center"
-            color={fontColor ? color(fontColor, 500) : 'gray.600'}
+            color={
+              descriptionColor || fontColor
+                ? color(descriptionColor || fontColor, 500)
+                : 'gray.600'
+            }
+            fontWeight={descriptionColor ? 'bold' : 'regular'}
             mb={16}
           >
             {description}

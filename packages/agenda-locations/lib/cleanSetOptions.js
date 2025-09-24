@@ -32,4 +32,8 @@ module.exports = schema({
     type: 'boolean',
     default: true,
   },
+  fromMerge: {
+    type: 'boolean',
+    default: false,
+  },
 });

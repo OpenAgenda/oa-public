@@ -10,6 +10,7 @@ interface SplitHeroSegmentProps {
   CTAs?: any;
   background?: any;
   fontColor?: any;
+  coverImage?: boolean;
 }
 
 export default function SplitHeroSegment({
@@ -19,11 +20,18 @@ export default function SplitHeroSegment({
   imagePosition,
   CTAs,
   background,
+  coverImage,
   fontColor,
 }: SplitHeroSegmentProps) {
   return (
-    <SegmentContainer background={background} fontColor={fontColor}>
+    <SegmentContainer
+      background={background}
+      fontColor={fontColor}
+      fullWidth={!!coverImage}
+    >
       <SplitHero
+        coverImage={coverImage}
+        background={background}
         title={title}
         image={image}
         text={text}

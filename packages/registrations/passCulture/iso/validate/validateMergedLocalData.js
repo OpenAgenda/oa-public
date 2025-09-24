@@ -19,7 +19,7 @@ export default function validateMergedLocalData(data, event, options = {}) {
   };
 
   try {
-    Object.assign(clean, validateEventOffer(data, options));
+    Object.assign(clean, validateEventOffer(data, event, options));
   } catch (error) {
     error.info.errors.forEach((e) => errors.push(e));
   }

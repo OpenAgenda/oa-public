@@ -102,6 +102,7 @@
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.705.0",
+    "@chakra-ui/react-mcp": "^2.1.0",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/tsconfig": "^0.0.0",
     "@storybook/addon-a11y": "^9.0.13",

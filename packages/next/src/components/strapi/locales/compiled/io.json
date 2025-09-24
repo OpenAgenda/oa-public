@@ -1,14 +1,40 @@
 {
+  "next.components.Strapi.ReferenceItem.more": [
+    {
+      "type": 0,
+      "value": "+ "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " more"
+    }
+  ],
+  "next.components.Strapi.addEvent": [
+    {
+      "type": 0,
+      "value": "Add an event"
+    }
+  ],
+  "next.components.Strapi.bluesky": [
+    {
+      "type": 0,
+      "value": "Our Bluesky"
+    }
+  ],
   "next.components.Strapi.contact": [
     {
       "type": 0,
       "value": "crwdns34481:0crwdne34481:0"
     }
   ],
-  "next.components.Strapi.contactForm": [
+  "next.components.Strapi.contactEmail": [
     {
       "type": 0,
-      "value": "crwdns34483:0crwdne34483:0"
+      "value": "Our email"
     }
   ],
   "next.components.Strapi.github": [
@@ -21,6 +47,18 @@
     {
       "type": 0,
       "value": "crwdns34487:0crwdne34487:0"
+    }
+  ],
+  "next.components.Strapi.newsletter": [
+    {
+      "type": 0,
+      "value": "Subscribe to the monthly newsletter"
+    }
+  ],
+  "next.components.Strapi.submit": [
+    {
+      "type": 0,
+      "value": "Submit"
     }
   ],
   "next.components.Strapi.videoPlayer.accessibility": [
@@ -357,20 +395,6 @@
     {
       "type": 0,
       "value": "crwdns34995:0crwdne34995:0"
-    }
-  ],
-  "next.components.Strapi.ReferenceItem.more": [
-    {
-      "type": 0,
-      "value": "+ "
-    },
-    {
-      "type": 1,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " more"
     }
   ]
 }

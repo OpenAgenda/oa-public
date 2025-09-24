@@ -5,6 +5,7 @@ import { produce } from 'immer';
 import * as aggObjects from './aggregatorObjects.js';
 import formatMember from './formatMember.js';
 import extractLocationData from './extractLocationData.js';
+import cleanTextForSearch from './cleanTextForSearch.js';
 import extractSchemaAdditionalSearchables from './extractSchemaAdditionalSearchables.js';
 import cleanOptionedFields from './cleanOptionedFields.js';
 import toSortTimingFormat from './toSortTimingFormat.js';
@@ -145,13 +146,15 @@ export default (data, options = {}) => {
     }
 
     if (multilingualFieldHasValue(event.title)) {
-      event._search_title = Object.values(event.title);
+      event._search_title = Object.values(data.title);
+      event._search_title_filtered = cleanTextForSearch(data.title);
     } else {
       event._search_empty_fields.push('title');
     }
 
     if (multilingualFieldHasValue(event.description)) {
-      event._search_description = Object.values(event.description);
+      event._search_description = Object.values(data.description);
+      event._search_description_filtered = cleanTextForSearch(data.description);
     } else {
       event._search_empty_fields.push('description');
     }

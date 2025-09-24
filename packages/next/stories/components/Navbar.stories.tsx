@@ -47,6 +47,21 @@ export const TransparentOnCharcoal = () => (
   </Box>
 );
 
+export const StickyTransparentOnCharcoal = () => (
+  <Box display="flex" flexDirection="column" height="200vh">
+    <Navbar
+      discreet
+      sticky
+      stickyBackground={color('charcoal', 500)}
+      colorPalette={color('white')}
+      logoVariant="white"
+    />
+    <Box bg={color('charcoal', 500)} flex={1} />
+    <Box bg={color('azure', 500)} flex={1} />
+    <Box bg={color('spotAliceBlue', 500)} flex={1} />
+  </Box>
+);
+
 export const HelpButton = () => (
   <Box display="flex" flexDirection="column" height="100vh">
     <Box

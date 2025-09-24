@@ -21,7 +21,7 @@ describe('createEventOffer', () => {
     pc = PassCultureSDK({ api, key });
 
     venueId = (await pc.offers.offererVenues())[0].venues[0].id;
-  });
+  }, 60000); // 60 second timeout for integration test
 
   describe('Event offer errors', () => {
     it('throws error when venueId is not valid', async () => {

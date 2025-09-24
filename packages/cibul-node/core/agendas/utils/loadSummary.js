@@ -26,8 +26,32 @@ const getRecentlyAddedEvents = (core, agenda) => {
       ));
 };
 
-export default async (core, agenda, options = {}) => {
-  const { access = 'public' } = options;
+const getPublishedEventsCounts = async (core, agenda) => {
+  const stream = await core
+    .agendas(agenda.uid)
+    .events.search({ state: 2 }, null, {
+      includeFields: ['location.uid', 'creatorUid'],
+      stream: true,
+    });
+
+  const locationsUids = [];
+  const creatorsUids = [];
+  let eventsCount = 0;
+  for await (const event of stream) {
+    eventsCount += 1;
+    if (!locationsUids.includes(event.location.uid)) locationsUids.push(event.location.uid);
+    if (!creatorsUids.includes(event.creatorUid)) creatorsUids.push(event.creatorUid);
+  }
+
+  return {
+    locationsCount: locationsUids.length,
+    creatorsCount: creatorsUids.length,
+    eventsCount,
+  };
+};
+
+const loadSummary = async (core, agenda, options = {}) => {
+  const { access = 'public', includes = [] } = options;
 
   const { search } = core.services.eventSearch.agendas(agenda);
 
@@ -89,5 +113,24 @@ export default async (core, agenda, options = {}) => {
     { aggregations: 'viewport' },
   ).then(({ aggregations }) => aggregations.viewport);
 
+  if (includes.includes('publishedEvents')) {
+    const totals = await getPublishedEventsCounts(core, agenda);
+    summary.publishedEvents = {
+      ...summary.publishedEvents,
+      events: totals.eventsCount,
+      eventLocations: totals.locationsCount,
+      eventCreators: totals.creatorsCount,
+    };
+  }
+
   return summary;
 };
+
+const loadAgendaAndSummary = async (core, agendaUid, options) => {
+  const agenda = await core.agendas(agendaUid).get();
+  return loadSummary(core, agenda, options);
+};
+
+export default Object.assign(loadSummary, {
+  agendaAndSummary: loadAgendaAndSummary,
+});

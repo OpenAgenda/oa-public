@@ -1,107 +1,162 @@
 import Footer from 'components/strapi/Footer';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
+import fetchAllLocales from '../utils/fetchAllLocales';
 
 export default {
   title: 'strapi/Footer',
   decorators: [ProvidersDecorator],
+  component: Footer,
+  loaders: [
+    async () => ({
+      intlMessages: await fetchAllLocales('fr'),
+    }),
+  ],
 };
 
+const columns = [
+  {
+    id: '1',
+    title: 'Produit',
+    Links: [
+      {
+        id: '1-1',
+        label: 'Fonctionnalités',
+        url: '/features',
+        isExternal: false,
+      },
+      {
+        id: '1-2',
+        label: 'Tarifs',
+        url: '/pricing',
+        isExternal: false,
+      },
+      {
+        id: '1-3',
+        label: 'Documentation',
+        url: 'https://docs.openagenda.com',
+        isExternal: true,
+      },
+    ],
+  },
+  {
+    id: '2',
+    title: 'Entreprise',
+    Links: [
+      {
+        id: '2-1',
+        label: 'À propos',
+        url: '/about',
+        isExternal: false,
+      },
+      {
+        id: '2-2',
+        label: 'Carrières',
+        url: '/careers',
+        isExternal: false,
+      },
+      {
+        id: '2-3',
+        label: 'Blog',
+        url: 'https://blog.openagenda.com',
+        isExternal: true,
+      },
+    ],
+  },
+  {
+    id: '3',
+    title: 'Support',
+    Links: [
+      {
+        id: '3-1',
+        label: "Centre d'aide",
+        url: '/help',
+        isExternal: false,
+      },
+      {
+        id: '3-2',
+        label: 'Contact',
+        url: '/contact',
+        isExternal: false,
+      },
+      {
+        id: '3-3',
+        label: 'Statut',
+        url: 'https://status.openagenda.com',
+        isExternal: true,
+      },
+    ],
+  },
+  {
+    id: '4',
+    title: 'Légal',
+    Links: [
+      {
+        id: '4-1',
+        label: "Conditions d'utilisation",
+        url: '/terms',
+        isExternal: false,
+      },
+      {
+        id: '4-2',
+        label: 'Politique de confidentialité',
+        url: '/privacy',
+        isExternal: false,
+      },
+    ],
+  },
+];
+
 export function Overview() {
+  return <Footer Columns={columns} />;
+}
+
+export function OverviewWithOneLongColumn() {
   return (
     <Footer
-      contactUrl="/decouvrir/contactez-nous"
       Columns={[
         {
-          id: '1',
-          title: 'Produit',
+          id: '0',
+          title: 'Misc',
           Links: [
             {
-              id: '1-1',
+              id: '1',
               label: 'Fonctionnalités',
               url: '/features',
               isExternal: false,
             },
             {
-              id: '1-2',
+              id: '2',
               label: 'Tarifs',
               url: '/pricing',
               isExternal: false,
             },
             {
-              id: '1-3',
+              id: '3',
+              label: 'Documentation',
+              url: 'https://docs.openagenda.com',
+              isExternal: true,
+            },
+            {
+              id: '4',
+              label: 'Fonctionnalités',
+              url: '/features',
+              isExternal: false,
+            },
+            {
+              id: '5',
+              label: 'Tarifs',
+              url: '/pricing',
+              isExternal: false,
+            },
+            {
+              id: '6',
               label: 'Documentation',
               url: 'https://docs.openagenda.com',
               isExternal: true,
             },
           ],
         },
-        {
-          id: '2',
-          title: 'Entreprise',
-          Links: [
-            {
-              id: '2-1',
-              label: 'À propos',
-              url: '/about',
-              isExternal: false,
-            },
-            {
-              id: '2-2',
-              label: 'Carrières',
-              url: '/careers',
-              isExternal: false,
-            },
-            {
-              id: '2-3',
-              label: 'Blog',
-              url: 'https://blog.openagenda.com',
-              isExternal: true,
-            },
-          ],
-        },
-        {
-          id: '3',
-          title: 'Support',
-          Links: [
-            {
-              id: '3-1',
-              label: "Centre d'aide",
-              url: '/help',
-              isExternal: false,
-            },
-            {
-              id: '3-2',
-              label: 'Contact',
-              url: '/contact',
-              isExternal: false,
-            },
-            {
-              id: '3-3',
-              label: 'Statut',
-              url: 'https://status.openagenda.com',
-              isExternal: true,
-            },
-          ],
-        },
-        {
-          id: '4',
-          title: 'Légal',
-          Links: [
-            {
-              id: '4-1',
-              label: "Conditions d'utilisation",
-              url: '/terms',
-              isExternal: false,
-            },
-            {
-              id: '4-2',
-              label: 'Politique de confidentialité',
-              url: '/privacy',
-              isExternal: false,
-            },
-          ],
-        },
-      ]}
+      ].concat(columns)}
     />
   );
 }
@@ -109,7 +164,6 @@ export function Overview() {
 export function SingleColumn() {
   return (
     <Footer
-      contactUrl="/decouvrir/contactez-nous"
       Columns={[
         {
           id: '1',
@@ -146,10 +200,9 @@ export function SingleColumn() {
   );
 }
 
-export function ExternalLinksOnly() {
+export function ExternalLinksOnlyTwoColumns() {
   return (
     <Footer
-      contactUrl="/decouvrir/contactez-nous"
       Columns={[
         {
           id: '1',
@@ -193,5 +246,5 @@ export function ExternalLinksOnly() {
 }
 
 export function EmptyState() {
-  return <Footer contactUrl="/decouvrir/contactez-nous" Columns={[]} />;
+  return <Footer Columns={[]} />;
 }

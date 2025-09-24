@@ -100,6 +100,7 @@
   "next.views.EventShow.Sidebar.completeLink": "crwdns33744:0crwdne33744:0",
   "next.views.EventShow.Sidebar.conditions": "crwdns33746:0crwdne33746:0",
   "next.views.EventShow.Sidebar.minToMaxYearsOld": "crwdns33842:0{min}crwdnd33842:0{max}crwdne33842:0",
+  "next.views.EventShow.Sidebar.passPublishedErrors": "",
   "next.views.EventShow.Sidebar.passUnpublished": "crwdns34380:0crwdne34380:0",
   "next.views.EventShow.Sidebar.passed": "crwdns33748:0crwdne33748:0",
   "next.views.EventShow.Sidebar.registerBook": "crwdns33750:0crwdne33750:0",

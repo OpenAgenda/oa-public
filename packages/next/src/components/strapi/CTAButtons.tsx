@@ -6,13 +6,18 @@ interface CTAButtonsProps {
   CTAs?: Array<{
     link: string;
     label: string;
-    colorPalette?: Color;
+    color?: Color;
     variant?: ButtonProps['variant'];
   }>;
   justify?: any;
+  size?: ButtonProps['size'];
 }
 
-export default function CTAButtons({ CTAs, justify }: CTAButtonsProps) {
+export default function CTAButtons({
+  CTAs,
+  justify,
+  size = 'lg',
+}: CTAButtonsProps) {
   if (!CTAs || CTAs.length === 0) {
     return null;
   }
@@ -24,8 +29,9 @@ export default function CTAButtons({ CTAs, justify }: CTAButtonsProps) {
           key={index}
           link={cta.link}
           label={cta.label}
-          colorPalette={cta.colorPalette}
+          color={cta.color}
           variant={cta.variant}
+          size={size}
         />
       ))}
     </Flex>

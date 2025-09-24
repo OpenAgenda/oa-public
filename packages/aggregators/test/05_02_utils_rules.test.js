@@ -1005,6 +1005,399 @@ describe('05_02 - utils - rules', () => {
         ),
       ).toEqual({});
     });
+
+    describe('allowOnlineEvent option', () => {
+      test('online event passes location filter when allowOnlineEvent is all', () => {
+        expect(
+          rules(
+            [
+              {
+                query: {
+                  location: {
+                    city: 'Paris',
+                    allowOnlineEvent: 'all',
+                  },
+                },
+              },
+            ],
+            null,
+            null,
+            {
+              attendanceMode: 2, // online event
+              location: {
+                city: 'Toulouse', // different city
+              },
+            },
+          ),
+        ).toEqual({});
+      });
+
+      test('online event with no location data passes when allowOnlineEvent is all', () => {
+        expect(
+          rules(
+            [
+              {
+                query: {
+                  location: {
+                    city: 'Paris',
+                    allowOnlineEvent: 'all',
+                  },
+                },
+              },
+            ],
+            null,
+            null,
+            {
+              attendanceMode: 2, // online event
+              // no location data
+            },
+          ),
+        ).toEqual({});
+      });
+
+      test('online event fails location filter when allowOnlineEvent is false', () => {
+        expect(
+          rules(
+            [
+              {
+                query: {
+                  location: {
+                    city: 'Paris',
+                    allowOnlineEvent: false,
+                  },
+                },
+              },
+            ],
+            null,
+            null,
+            {
+              attendanceMode: 2, // online event
+              location: {
+                city: 'Toulouse', // different city
+              },
+            },
+          ),
+        ).toBeNull();
+      });
+
+      test('online event fails location filter when allowOnlineEvent is not specified (default behavior)', () => {
+        expect(
+          rules(
+            [
+              {
+                query: {
+                  location: {
+                    city: 'Paris',
+                  },
+                },
+              },
+            ],
+            null,
+            null,
+            {
+              attendanceMode: 2, // online event
+              location: {
+                city: 'Toulouse', // different city
+              },
+            },
+          ),
+        ).toBeNull();
+      });
+
+      test('physical event follows normal location rules regardless of allowOnlineEvent', () => {
+        expect(
+          rules(
+            [
+              {
+                query: {
+                  location: {
+                    city: 'Paris',
+                    allowOnlineEvent: 'all',
+                  },
+                },
+              },
+            ],
+            null,
+            null,
+            {
+              attendanceMode: 1, // physical event
+              location: {
+                city: 'Toulouse', // different city
+              },
+            },
+          ),
+        ).toBeNull();
+      });
+
+      test('physical event with no location data fails gracefully', () => {
+        expect(
+          rules(
+            [
+              {
+                query: {
+                  location: {
+                    city: 'Paris',
+                    allowOnlineEvent: 'all',
+                  },
+                },
+              },
+            ],
+            null,
+            null,
+            {
+              attendanceMode: 1, // physical event
+              // no location data
+            },
+          ),
+        ).toBeNull();
+      });
+
+      test('mixed event (attendanceMode 3) passes when allowOnlineEvent is all', () => {
+        expect(
+          rules(
+            [
+              {
+                query: {
+                  location: {
+                    city: 'Paris',
+                    allowOnlineEvent: 'all',
+                  },
+                },
+              },
+            ],
+            null,
+            null,
+            {
+              attendanceMode: 3, // mixed event
+              location: {
+                city: 'Toulouse', // different city - should still pass due to allowOnlineEvent
+              },
+            },
+          ),
+        ).toEqual({});
+      });
+
+      test('mixed event with no location data passes when allowOnlineEvent is all', () => {
+        expect(
+          rules(
+            [
+              {
+                query: {
+                  location: {
+                    city: 'Paris',
+                    allowOnlineEvent: 'all',
+                  },
+                },
+              },
+            ],
+            null,
+            null,
+            {
+              attendanceMode: 3, // mixed event
+              // no location data
+            },
+          ),
+        ).toEqual({});
+      });
+
+      test('event with no attendanceMode follows normal location rules', () => {
+        expect(
+          rules(
+            [
+              {
+                query: {
+                  location: {
+                    city: 'Paris',
+                    allowOnlineEvent: 'all',
+                  },
+                },
+              },
+            ],
+            null,
+            null,
+            {
+              // no attendanceMode
+              location: {
+                city: 'Paris', // matching city
+              },
+            },
+          ),
+        ).toEqual({});
+      });
+
+      describe('strictOrWithMatchingLocation mode', () => {
+        test('online event with no location data passes', () => {
+          expect(
+            rules(
+              [
+                {
+                  query: {
+                    location: {
+                      city: 'Paris',
+                      allowOnlineEvent: 'strictOrWithMatchingLocation',
+                    },
+                  },
+                },
+              ],
+              null,
+              null,
+              {
+                attendanceMode: 2, // online event
+                // no location data
+              },
+            ),
+          ).toEqual({});
+        });
+
+        test('online event with matching location data passes', () => {
+          expect(
+            rules(
+              [
+                {
+                  query: {
+                    location: {
+                      city: 'Paris',
+                      allowOnlineEvent: 'strictOrWithMatchingLocation',
+                    },
+                  },
+                },
+              ],
+              null,
+              null,
+              {
+                attendanceMode: 2, // online event
+                location: {
+                  city: 'Paris', // matching city
+                },
+              },
+            ),
+          ).toEqual({});
+        });
+
+        test('online event with non-matching location data fails', () => {
+          expect(
+            rules(
+              [
+                {
+                  query: {
+                    location: {
+                      city: 'Paris',
+                      allowOnlineEvent: 'strictOrWithMatchingLocation',
+                    },
+                  },
+                },
+              ],
+              null,
+              null,
+              {
+                attendanceMode: 2, // online event
+                location: {
+                  city: 'Toulouse', // different city
+                },
+              },
+            ),
+          ).toBeNull();
+        });
+
+        test('mixed event with no location data passes', () => {
+          expect(
+            rules(
+              [
+                {
+                  query: {
+                    location: {
+                      city: 'Paris',
+                      allowOnlineEvent: 'strictOrWithMatchingLocation',
+                    },
+                  },
+                },
+              ],
+              null,
+              null,
+              {
+                attendanceMode: 3, // mixed event
+                // no location data
+              },
+            ),
+          ).toEqual({});
+        });
+
+        test('mixed event with matching location data passes', () => {
+          expect(
+            rules(
+              [
+                {
+                  query: {
+                    location: {
+                      city: 'Paris',
+                      allowOnlineEvent: 'strictOrWithMatchingLocation',
+                    },
+                  },
+                },
+              ],
+              null,
+              null,
+              {
+                attendanceMode: 3, // mixed event
+                location: {
+                  city: 'Paris', // matching city
+                },
+              },
+            ),
+          ).toEqual({});
+        });
+
+        test('mixed event with non-matching location data fails', () => {
+          expect(
+            rules(
+              [
+                {
+                  query: {
+                    location: {
+                      city: 'Paris',
+                      allowOnlineEvent: 'strictOrWithMatchingLocation',
+                    },
+                  },
+                },
+              ],
+              null,
+              null,
+              {
+                attendanceMode: 3, // mixed event
+                location: {
+                  city: 'Toulouse', // different city
+                },
+              },
+            ),
+          ).toBeNull();
+        });
+
+        test('physical event still follows normal location rules', () => {
+          expect(
+            rules(
+              [
+                {
+                  query: {
+                    location: {
+                      city: 'Paris',
+                      allowOnlineEvent: 'strictOrWithMatchingLocation',
+                    },
+                  },
+                },
+              ],
+              null,
+              null,
+              {
+                attendanceMode: 1, // physical event
+                location: {
+                  city: 'Toulouse', // different city
+                },
+              },
+            ),
+          ).toBeNull();
+        });
+      });
+    });
   });
 
   describe('legacy', () => {

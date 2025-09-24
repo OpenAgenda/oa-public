@@ -36,9 +36,11 @@ describe('formatEvent', () => {
       'visite-guidee-le-cri-de-liberte-chagall-politique-464182',
     );
 
-    const description = await formatEvent(ev, { lang: 'fr' }).then(
-      (e) => e.description,
-    );
+    const description = await formatEvent(
+      ev,
+      { description: 'linked desc' },
+      { lang: 'fr' },
+    ).then((e) => e.description);
 
     expect(description.length).toBe(1000);
   });

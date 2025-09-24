@@ -1,8 +1,13 @@
 {
+  "next.components.Strapi.ReferenceItem.more": "",
+  "next.components.Strapi.addEvent": "",
+  "next.components.Strapi.bluesky": "",
   "next.components.Strapi.contact": "crwdns34481:0crwdne34481:0",
-  "next.components.Strapi.contactForm": "crwdns34483:0crwdne34483:0",
+  "next.components.Strapi.contactEmail": "",
   "next.components.Strapi.github": "crwdns34485:0crwdne34485:0",
   "next.components.Strapi.linkedin": "crwdns34487:0crwdne34487:0",
+  "next.components.Strapi.newsletter": "",
+  "next.components.Strapi.submit": "",
   "next.components.Strapi.videoPlayer.accessibility": "crwdns34885:0crwdne34885:0",
   "next.components.Strapi.videoPlayer.airPlay": "crwdns34887:0crwdne34887:0",
   "next.components.Strapi.videoPlayer.announcements": "crwdns34889:0crwdne34889:0",
@@ -58,6 +63,5 @@
   "next.components.Strapi.videoPlayer.textBackground": "crwdns34989:0crwdne34989:0",
   "next.components.Strapi.videoPlayer.track": "crwdns34991:0crwdne34991:0",
   "next.components.Strapi.videoPlayer.unmute": "crwdns34993:0crwdne34993:0",
-  "next.components.Strapi.videoPlayer.volume": "crwdns34995:0crwdne34995:0",
-  "next.components.Strapi.ReferenceItem.more": ""
+  "next.components.Strapi.videoPlayer.volume": "crwdns34995:0crwdne34995:0"
 }

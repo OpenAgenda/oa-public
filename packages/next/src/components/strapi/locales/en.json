@@ -1,8 +1,13 @@
 {
+  "next.components.Strapi.ReferenceItem.more": "+ {count} more",
+  "next.components.Strapi.addEvent": "Add an event",
+  "next.components.Strapi.bluesky": "Our Bluesky",
   "next.components.Strapi.contact": "Contact",
-  "next.components.Strapi.contactForm": "Contact form",
+  "next.components.Strapi.contactEmail": "Our email",
   "next.components.Strapi.github": "Our Github",
   "next.components.Strapi.linkedin": "Our LinkedIn",
+  "next.components.Strapi.newsletter": "Subscribe to the monthly newsletter",
+  "next.components.Strapi.submit": "Submit",
   "next.components.Strapi.videoPlayer.accessibility": "Accessibility",
   "next.components.Strapi.videoPlayer.airPlay": "AirPlay",
   "next.components.Strapi.videoPlayer.announcements": "Announcements",
@@ -58,6 +63,5 @@
   "next.components.Strapi.videoPlayer.textBackground": "Text Background",
   "next.components.Strapi.videoPlayer.track": "Track",
   "next.components.Strapi.videoPlayer.unmute": "Unmute",
-  "next.components.Strapi.videoPlayer.volume": "Volume",
-  "next.components.Strapi.ReferenceItem.more": "+ {count} more"
+  "next.components.Strapi.videoPlayer.volume": "Volume"
 }

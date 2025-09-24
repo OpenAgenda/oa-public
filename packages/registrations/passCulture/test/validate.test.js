@@ -2,6 +2,7 @@ import {
   validateDate,
   validatePriceCategory,
   validateLocalData,
+  validateEventOffer,
 } from '../iso/validate/index.js';
 import { findLastVenueIdFromData } from '../iso/utils.js';
 
@@ -9,6 +10,7 @@ import settings from './fixtures/settings.json';
 import dataWithPendingOffer from './fixtures/data.withPendingOffer.pc.json';
 import dataWithDependedOffer from './fixtures/data.withDependedOffer.pc.json';
 import partiallySpread from './fixtures/partiallySpread.json';
+import bambiEvent from './fixtures/bambi.event.json';
 
 describe('validate', () => {
   describe('validateDate', () => {
@@ -772,6 +774,63 @@ describe('validate', () => {
         });
       });
     });
+    test('errors on eventOffer do not stop merged from behing completed', async () => {
+      const data = [
+        {
+          venueId: 548,
+          duo: true,
+          category: 'ATELIER_PRATIQUE_ART',
+          eventDuration: 240,
+          description: 'linked desc',
+          bookingContact: 'clement.lecroart@openagenda.com',
+        },
+        { priceCategories: [{ label: 'Tarif unique', price: 0, id: 0 }] },
+        {
+          dates: [
+            {
+              id: 1,
+              timingId: 1757145600000,
+              priceCategoryId: 0,
+              quantity: '1',
+            },
+          ],
+        },
+      ];
+      const event = {
+        timings: [
+          {
+            begin: new Date(1757145600000),
+          },
+        ],
+        location: {
+          name: 'test',
+          postalCode: null,
+        },
+      };
+      let error;
+      try {
+        validateLocalData(data, event, settings);
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.info.errors).toStrictEqual([
+        {
+          message: 'event location postal code is required',
+          code: 'registration.pass.invalidLocationPostalCode',
+          label: "Le code postal de l'événement est requis",
+          field: 'location.postalCode',
+          fieldLabel: 'Pass Culture',
+        },
+        {
+          message: 'event location address is required',
+          code: 'registration.pass.invalidLocationAddress',
+          label: "L'adresse de l'événement est requise",
+          field: 'location.address',
+          fieldLabel: 'Pass Culture',
+        },
+      ]);
+    });
   });
 
   describe('findLastVenueIdFromData', () => {
@@ -828,6 +887,105 @@ describe('validate', () => {
 
       const result = findLastVenueIdFromData(data);
       expect(result).toBe(456);
+    });
+  });
+
+  describe('validateEventOffer location validation', () => {
+    const validData = {
+      category: 'SEANCE_CINE',
+      venueId: 28721,
+      bookingContact: 'test@example.com',
+    };
+
+    const options = {
+      categories: [{ value: 'SEANCE_CINE' }],
+      related: [],
+    };
+
+    test('should pass validation with complete location data', () => {
+      expect(() => {
+        validateEventOffer(validData, bambiEvent, options);
+      }).not.toThrow();
+    });
+
+    test('should fail validation when location has no postal code', () => {
+      const eventWithoutPostalCode = {
+        ...bambiEvent,
+        location: {
+          ...bambiEvent.location,
+          postalCode: null,
+        },
+      };
+
+      expect(() => {
+        validateEventOffer(validData, eventWithoutPostalCode, options);
+      }).toThrow('Validation failed');
+    });
+
+    test('should fail validation when location has no address', () => {
+      const eventWithoutAddress = {
+        ...bambiEvent,
+        location: {
+          ...bambiEvent.location,
+          address: null,
+        },
+      };
+
+      expect(() => {
+        validateEventOffer(validData, eventWithoutAddress, options);
+      }).toThrow('Validation failed');
+    });
+
+    test('should fail validation when street cannot be extracted from address', () => {
+      const eventWithInvalidAddress = {
+        ...bambiEvent,
+        location: {
+          ...bambiEvent.location,
+          address: '59200', // Only postal code, no street
+          postalCode: '59200',
+        },
+      };
+
+      expect(() => {
+        validateEventOffer(validData, eventWithInvalidAddress, options);
+      }).toThrow('Validation failed');
+    });
+
+    test('should pass validation when event has no location', () => {
+      const eventWithoutLocation = {
+        ...bambiEvent,
+        location: null,
+      };
+
+      expect(() => {
+        validateEventOffer(validData, eventWithoutLocation, options);
+      }).not.toThrow();
+    });
+
+    test('should include correct error codes and labels', () => {
+      const eventWithoutPostalCode = {
+        ...bambiEvent,
+        location: {
+          ...bambiEvent.location,
+          postalCode: null,
+        },
+      };
+
+      let thrownError;
+      try {
+        validateEventOffer(validData, eventWithoutPostalCode, options);
+      } catch (error) {
+        thrownError = error;
+      }
+
+      expect(thrownError).toBeDefined();
+      expect(thrownError.info.errors).toContainEqual(
+        expect.objectContaining({
+          code: 'registration.pass.invalidLocationPostalCode',
+          label: "Le code postal de l'événement est requis",
+          field: 'location.postalCode',
+        }),
+      );
     });
   });
 });

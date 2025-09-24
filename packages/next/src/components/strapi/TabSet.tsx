@@ -2,6 +2,7 @@ import { Tabs, H3 } from '@openagenda/uikit';
 import { allowedItemColors, color } from 'utils/strapi';
 import SplitHero from './SplitHero';
 import SegmentContainer from './SegmentContainer';
+import type { Color } from './types';
 
 interface TabSetProps {
   title?: string;
@@ -10,6 +11,7 @@ interface TabSetProps {
   CTAs?: any[];
   background?: any;
   fontColor?: any;
+  descriptionColor?: Color;
 }
 
 export default function TabSet({
@@ -19,6 +21,7 @@ export default function TabSet({
   CTAs,
   background,
   fontColor,
+  descriptionColor,
 }: TabSetProps) {
   if (!TabsData?.length) {
     return null;
@@ -31,6 +34,7 @@ export default function TabSet({
       CTAs={CTAs}
       background={background}
       fontColor={fontColor}
+      descriptionColor={descriptionColor}
     >
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>

@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_segments_auto_featured_card_sets",
+  "info": {
+    "displayName": "AutoFeaturedCardSet",
+    "icon": "calendar",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "Cards": {
+      "displayName": "SchedulableFeaturedCard",
+      "type": "component",
+      "repeatable": true,
+      "component": "components.schedulable-featured-card"
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "descriptionColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
+    },
+    "fontColor": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
+    },
+    "background": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::background.background"
+    },
+    "count": {
+      "type": "integer",
+      "default": 6
+    },
+    "agendaSearch": {
+      "type": "string",
+      "default": "https://openagenda.com/agendas?official=1"
+    }
+  }
+}

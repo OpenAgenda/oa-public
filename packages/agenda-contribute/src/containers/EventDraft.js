@@ -49,7 +49,7 @@ export default function EventDraft({ agenda, history }) {
     >
       {isContributionType(agenda, 'CLOSED') ? (
         <ClosedMessage
-          memberRole={agendaContext.me.member.role}
+          memberRole={agendaContext?.me?.member?.role}
           className="margin-bottom-md"
         />
       ) : null}
@@ -71,7 +71,7 @@ export default function EventDraft({ agenda, history }) {
             }),
           );
         }}
-        memberRole={agendaContext.me.member.role}
+        memberRole={agendaContext?.me?.member?.role}
         onDraftDelete={() =>
           dispatch(
             contributeReducer.eventDelete({

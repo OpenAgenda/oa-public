@@ -20,7 +20,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
   log('received %j payload', current.uid);
   await authorize(service, 'update', current.uid, options);
 
-  const { includeImagePath, autocomplete, mergeExtIds } = cleanOptions(options);
+  const { includeImagePath, autocomplete, mergeExtIds, fromMerge } = cleanOptions(options);
 
   const geocodeResult = shouldAttemptGeocode(autocomplete, data, isPatch)
     ? await service.decorateWithGeocodeData(data, current)
@@ -39,8 +39,9 @@ async function update({ service, isPatch }, current, data, options = {}) {
 
   const clean = {
     ...validate(dataToValidate, { isPatch, ignoreImage }),
-    updatedAt: new Date(),
   };
+
+  if (!fromMerge) clean.updatedAt = new Date();
 
   if (current.image && data.image === null) {
     clean.image = null;

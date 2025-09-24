@@ -1,14 +1,40 @@
 {
+  "next.components.Strapi.ReferenceItem.more": [
+    {
+      "type": 0,
+      "value": "+ "
+    },
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " en plus"
+    }
+  ],
+  "next.components.Strapi.addEvent": [
+    {
+      "type": 0,
+      "value": "Add an event"
+    }
+  ],
+  "next.components.Strapi.bluesky": [
+    {
+      "type": 0,
+      "value": "Our Bluesky"
+    }
+  ],
   "next.components.Strapi.contact": [
     {
       "type": 0,
       "value": "Contactar"
     }
   ],
-  "next.components.Strapi.contactForm": [
+  "next.components.Strapi.contactEmail": [
     {
       "type": 0,
-      "value": "Formulari de contacte"
+      "value": "Our email"
     }
   ],
   "next.components.Strapi.github": [
@@ -21,6 +47,18 @@
     {
       "type": 0,
       "value": "Notre LinkedIn"
+    }
+  ],
+  "next.components.Strapi.newsletter": [
+    {
+      "type": 0,
+      "value": "S'inscrire à l'infolettre mensuelle"
+    }
+  ],
+  "next.components.Strapi.submit": [
+    {
+      "type": 0,
+      "value": "S'inscrire"
     }
   ],
   "next.components.Strapi.videoPlayer.accessibility": [
@@ -357,20 +395,6 @@
     {
       "type": 0,
       "value": "Volume"
-    }
-  ],
-  "next.components.Strapi.ReferenceItem.more": [
-    {
-      "type": 0,
-      "value": "+ "
-    },
-    {
-      "type": 1,
-      "value": "count"
-    },
-    {
-      "type": 0,
-      "value": " en plus"
     }
   ]
 }

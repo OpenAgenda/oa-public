@@ -84,18 +84,39 @@ function _getQueryMustParts(cleanQuery) {
     parts.push(_geoBounds(cleanQuery.geo));
   }
 
+  const searchFields = [
+    '_search_title',
+    '_search_description',
+    '_search_keywords_text',
+    '_search_full_address_text',
+  ];
+
+  const filteredSearchFields = [
+    '_search_title_filtered',
+    '_search_description_filtered',
+  ];
+
   // add multi_match search part
   if (cleanQuery.search) {
     parts.push({
-      multi_match: {
-        query: cleanQuery.search,
-        type: 'phrase_prefix',
-        fields: [
-          '_search_title',
-          '_search_description',
-          '_search_keywords_text',
-          '_search_full_address_text',
+      bool: {
+        should: [
+          {
+            multi_match: {
+              query: cleanQuery.search,
+              type: 'best_fields',
+              fields: filteredSearchFields,
+            },
+          },
+          {
+            multi_match: {
+              query: cleanQuery.search,
+              type: 'phrase_prefix',
+              fields: searchFields,
+            },
+          },
         ],
+        minimum_should_match: 1,
       },
     });
   }

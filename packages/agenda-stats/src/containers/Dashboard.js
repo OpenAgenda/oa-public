@@ -29,6 +29,7 @@ import FiltersPreview from '../components/FiltersPreview.js';
 import OrderModal from '../components/OrderModal.js';
 import AggregationCharts from '../components/AggregationCharts.js';
 import PulseChart from '../components/PulseChart.js';
+import SummarySection from '../components/SummarySection.js';
 import determineDefaultRange from '../utils/determineDefaultRange.js';
 import emptyOptionMessage from '../messages/emptyOption.js';
 
@@ -367,6 +368,9 @@ function Dashboard() {
       filters={filters}
       dateFnsLocale={dateFnsLocales[intl.locale]}
     >
+      {agenda?.credentials?.showTotals ? (
+        <SummarySection agendaUid={agenda.uid} />
+      ) : null}
       {filtersQuery.data.total > 0 ? (
         <>
           <div className="row margin-top-sm">

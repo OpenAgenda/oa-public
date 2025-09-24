@@ -1,6 +1,7 @@
 import { Flex, Stack } from '@openagenda/uikit';
 import HighlightCard from './HighlightCard';
 import SegmentContainer from './SegmentContainer';
+import type { Color } from './types';
 
 interface HighlightCardSetProps {
   title: string;
@@ -9,7 +10,8 @@ interface HighlightCardSetProps {
   Cards: Array<any>;
   CTAs?: any[];
   background?: any;
-  fontColor?: any;
+  fontColor?: Color;
+  descriptionColor?: Color;
 }
 
 export default function HighlightCardSet({
@@ -20,6 +22,7 @@ export default function HighlightCardSet({
   cardSize = 'medium',
   background,
   fontColor,
+  descriptionColor,
 }: HighlightCardSetProps) {
   return (
     <SegmentContainer
@@ -28,6 +31,7 @@ export default function HighlightCardSet({
       CTAs={CTAs}
       background={background}
       fontColor={fontColor}
+      descriptionColor={descriptionColor}
     >
       <Stack gap={cardSize === 'large' ? 10 : 8} align="center">
         <Flex wrap="wrap" justify="center" gap={cardSize === 'large' ? 12 : 8}>

@@ -16,7 +16,10 @@ export default (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
 
   const isRequired = !!(required ?? true);
 
-  if (query.location && !evaluateLocation(data.location, query.location)) {
+  if (
+    query.location
+    && !evaluateLocation(data.location, query.location, data.attendanceMode)
+  ) {
     log('location filter is set but does not match');
     return isRequired ? false : null;
   }
@@ -63,5 +66,5 @@ export default (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
       return isRequired ? false : null;
     }
   }
-  return actions;
+  return actions || [];
 };
