@@ -889,9 +889,12 @@ function cleanText(lang, text) {
   }
 
   return text
+    .replace(/"|-/g, '')
     .split(' ')
     .filter(
-      (term) => !filteredTerms[lang] || !filteredTerms[lang].includes(term),
+      (term) =>
+        !filteredTerms[lang]
+        || !filteredTerms[lang].includes(term.toLowerCase()),
     )
     .join(' ');
 }

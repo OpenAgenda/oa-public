@@ -93,6 +93,26 @@
       "description": {
         "fr": "Rendez-vous le 5 octobre 2025 sur les bords de Loire de Couëron pour la 2e édition du duathlon, organisé par l’association Couëron Triathlon."
       }
+    },
+    {
+      "uid": 13,
+      "state": 2,
+      "title": {
+        "fr": "Le prénom"
+      },
+      "description": {
+        "fr": "Dans le cadre des Samedis Nantais du boulevard et de l'humour"
+      }
+    },
+    {
+      "uid": 14,
+      "state": 2,
+      "title": {
+        "fr": "Exposition \"Le Muséum au fil du temps\""
+      },
+      "description": {
+        "fr": "Jeudi des Fabriques - Compagnie Les Majorettes d'Azay-Le-Rideau : Lou Reed (et les doudous sacrés)"
+      }
     }
   ]
 }
