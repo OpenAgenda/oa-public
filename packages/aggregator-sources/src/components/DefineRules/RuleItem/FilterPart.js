@@ -50,15 +50,11 @@ export default ({ rule, intl, sourceAgendaSchema, sourceAgenda }) => {
               aA
             </span>
           ) : null}
-          {rule.query.location ? (
+          {rule.query.location && caseSensitive ? (
             <>
               <span
-                className={`badge badge-pill margin-h-xs badge-${caseSensitive ? 'info' : 'default'}`}
-                title={intl.formatMessage(
-                  caseSensitive
-                    ? messages.caseSensitive
-                    : messages.caseInsensitive,
-                )}
+                className="badge badge-pill margin-h-xs badge-default"
+                title={intl.formatMessage(messages.caseSensitive)}
               >
                 aA
               </span>
@@ -71,13 +67,7 @@ export default ({ rule, intl, sourceAgendaSchema, sourceAgenda }) => {
                       : messages.allowOnlineEventStrict,
                   )}
                 >
-                  <i
-                    className={
-                      allowOnlineEvent === 'all'
-                        ? 'fa fa-globe'
-                        : 'fa fa-map-marker'
-                    }
-                  />
+                  @
                 </span>
               ) : null}
             </>

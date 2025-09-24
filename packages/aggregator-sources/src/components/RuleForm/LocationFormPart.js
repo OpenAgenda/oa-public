@@ -38,7 +38,6 @@ const ConditionalOnlineEventOptions = ({ allowOnlineEventChecked, intl }) => {
 
 export default () => {
   const intl = useIntl();
-  // const { initialValues } = useFormState();
 
   return (
     <>
