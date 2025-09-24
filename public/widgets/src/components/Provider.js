@@ -22,11 +22,12 @@ export const themeConfig = defineConfig({
   globalCss: {
     [varRoot]: {
       ...oaThemeConfig.globalCss?.html ?? {},
-      h: '100dvh',
-      w: '100dvw',
-      top: 0,
-      left: 0,
-      position: 'fixed',
+      // h: '100dvh',
+      // w: '100dvw',
+      // top: 0,
+      // left: 0,
+      // position: 'fixed',
+
       // // Reset
       // all: 'initial',
       // all: 'initial',
