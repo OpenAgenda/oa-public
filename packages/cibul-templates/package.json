@@ -9,8 +9,8 @@
     "prepack": "node --max_old_space_size=4096 prodify/prodify"
   },
   "dependencies": {
-    "@babel/core": "^7.23.3",
-    "@babel/runtime-corejs3": "^7.23.2",
+    "@babel/core": "^7.28.4",
+    "@babel/runtime-corejs3": "^7.28.4",
     "@iframe-resizer/child": "^5.4.6",
     "@loadable/component": "^5.14.1",
     "@loadable/webpack-plugin": "^5.14.2",

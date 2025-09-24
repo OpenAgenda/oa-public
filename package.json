@@ -49,8 +49,8 @@
     "mime": "^2.4.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.3",
-    "@babel/runtime-corejs3": "^7.23.2",
+    "@babel/core": "^7.28.4",
+    "@babel/runtime-corejs3": "^7.28.4",
     "@changesets/changelog-github": "^0.5.1",
     "@changesets/cli": "patch:@changesets/cli@npm%3A2.29.4#~/public/.yarn/patches/@changesets-cli-npm-2.29.4-aeb1ee0739.patch",
     "@commitlint/cli": "^17.6.5",

@@ -39,7 +39,7 @@
     "prepack": "tsup src --format esm,cjs --clean"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.23.2",
+    "@babel/runtime-corejs3": "^7.28.4",
     "@formatjs/cli-lib": "^6.6.3",
     "@formatjs/intl": "^2.10.14",
     "core-js": "^3.29.1",

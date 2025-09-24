@@ -12,7 +12,7 @@
     "extract-messages": "oa-intl 'lib/**/*.js' 'agenda/**/*.js' 'event/**/*.js' --output 'locales/%lang%.json' --compiled 'locales-compiled/%lang%.json' --esm"
   },
   "dependencies": {
-    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-env": "^7.28.3",
     "@openagenda/babel-preset": "^1.5.0",
     "@openagenda/date-utils": "^0.0.1",
     "@openagenda/intl": "^1.1.6",
@@ -32,8 +32,8 @@
     "sharp": "^0.31.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.3",
-    "@babel/plugin-syntax-import-attributes": "^7.23.3",
+    "@babel/core": "^7.28.4",
+    "@babel/plugin-syntax-import-attributes": "^7.27.1",
     "@openagenda/eslint-config": "^1.4.0",
     "nodemon": "^3.0.3"
   }

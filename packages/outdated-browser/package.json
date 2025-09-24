@@ -27,7 +27,7 @@
     "ua-parser-js": "^1.0.34"
   },
   "devDependencies": {
-    "@babel/core": "^7.23.3",
+    "@babel/core": "^7.28.4",
     "@openagenda/babel-preset": "^1.5.0",
     "clean-webpack-plugin": "^4.0.0",
     "mini-css-extract-plugin": "^2.7.3",
