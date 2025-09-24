@@ -21,6 +21,7 @@ export default function EventShareModal({
   children = null,
   rootUrl = 'https://openagenda.com',
   renderHost = 'local',
+  portalRef = null,
 }) {
   const intl = useIntl();
 
@@ -41,7 +42,7 @@ export default function EventShareModal({
         }
       }}
     >
-      <DialogContent ref={dialogRef}>
+      <DialogContent ref={dialogRef} portalRef={portalRef}>
         <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.shareEvent)}
         </DialogHeader>
