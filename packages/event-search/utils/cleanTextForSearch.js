@@ -889,6 +889,7 @@ function cleanText(lang, text) {
   }
 
   return text
+    .replace(/"|-/g, '')
     .split(' ')
     .filter(
       (term) =>
