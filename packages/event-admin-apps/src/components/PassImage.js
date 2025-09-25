@@ -65,10 +65,7 @@ const title = (
 };
 
 export default function PassImage({
-  pending,
-  rejected,
-  errored,
-  publishedErrors,
+  passCurrentValue,
   passUnpublished,
   passId,
   passRes,
@@ -80,6 +77,10 @@ export default function PassImage({
   const intl = useIntl();
   const seeLink = passRes.show.replace(':id', passId);
   const editLink = passRes.edit.replace(':id', passId);
+  const pending = passId ? passCurrentValue?.isPending : undefined;
+  const errored = passId ? passCurrentValue?.error : undefined;
+  const rejected = passId ? passCurrentValue?.isRejected : undefined;
+  const publishedErrors = !passId && passCurrentValue?.errors;
 
   return (
     <button

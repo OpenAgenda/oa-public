@@ -98,7 +98,14 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     }
 
     // Handle allowOnlineEvent three-value system
-    const allowOnlineEventValue = query.location.allowOnlineEvent || false;
+    // Fix: Handle case where allowOnlineEvent is stored as an array
+    let allowOnlineEventValue = query.location.allowOnlineEvent || false;
+
+    // If it's an array, take the first value
+    if (Array.isArray(allowOnlineEventValue)) {
+      allowOnlineEventValue = allowOnlineEventValue[0] || false;
+    }
+
     const allowOnlineEventChecked = allowOnlineEventValue !== false;
     const allowOnlineEventMode = allowOnlineEventValue === false ? 'all' : allowOnlineEventValue;
 
@@ -256,7 +263,12 @@ export function valuesToRule(values, aggregatorAgendaSchema) {
   switch (values.type) {
     case 'location': {
       // Convert form values back to rule format
-      const allowOnlineEventValue = values.allowOnlineEvent
+      // Ensure allowOnlineEvent is treated as boolean, not array
+      const allowOnlineEventBoolean = Array.isArray(values.allowOnlineEvent)
+        ? values.allowOnlineEvent.length > 0
+        : !!values.allowOnlineEvent;
+
+      const allowOnlineEventValue = allowOnlineEventBoolean
         ? values.allowOnlineEventMode || 'all'
         : false;
 

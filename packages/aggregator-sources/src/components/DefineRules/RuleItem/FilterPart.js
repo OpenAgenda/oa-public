@@ -15,7 +15,6 @@ export default ({ rule, intl, sourceAgendaSchema, sourceAgenda }) => {
     sourceAgendaSchema,
     sourceAgenda,
   });
-
   const textField = extractTextField(rule.query.text);
   const labelClass = `margin-right-xs ${broken ? 'text-danger' : ''}`;
   return (
@@ -50,14 +49,16 @@ export default ({ rule, intl, sourceAgendaSchema, sourceAgenda }) => {
               aA
             </span>
           ) : null}
-          {rule.query.location && caseSensitive ? (
+          {rule.query.location ? (
             <>
-              <span
-                className="badge badge-pill margin-h-xs badge-default"
-                title={intl.formatMessage(messages.caseSensitive)}
-              >
-                aA
-              </span>
+              {caseSensitive ? (
+                <span
+                  className="badge badge-pill margin-h-xs badge-default"
+                  title={intl.formatMessage(messages.caseSensitive)}
+                >
+                  aA
+                </span>
+              ) : null}
               {allowOnlineEvent !== false ? (
                 <span
                   className="badge badge-pill margin-h-xs badge-default"

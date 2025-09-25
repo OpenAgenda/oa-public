@@ -131,37 +131,12 @@ export default function EventItem({
   const queryClient = useQueryClient();
   const intl = useIntl();
 
-  const passId = event.registration?.find((r) => r.service === 'passCulture')
-    ?.data?.[0]?.response?.passId;
-  const passPending = passId
-    ? getCurrentValue(
-      event.registration.find((r) => r.service === 'passCulture')?.data,
-    )?.isPending
-    : undefined;
-
-  const passErrored = passId
-    ? getCurrentValue(
-      event.registration.find((r) => r.service === 'passCulture')?.data,
-    )?.error
-    : undefined;
-
-  const passRejected = passId
-    ? getCurrentValue(
-      event.registration.find((r) => r.service === 'passCulture')?.data,
-    )?.isRejected
-    : undefined;
-
-  const passPublishedErrors = !passId
-    && getCurrentValue(
-      event.registration.find((r) => r.service === 'passCulture')?.data,
-    )?.errors;
-
-  const passUnpublished = !passId
-    && Object.keys(
-      getCurrentValue(
-        event.registration?.find((r) => r.service === 'passCulture')?.data,
-      ),
-    ).length;
+  const passData = event.registration?.find(
+    (r) => r.service === 'passCulture',
+  )?.data;
+  const passCurrentValue = getCurrentValue(passData);
+  const passId = passData?.[0]?.response?.passId;
+  const passUnpublished = !passId && Object.keys(passCurrentValue).length;
 
   const isPassed = useMemo(() => {
     if (!event.timings?.length) {
@@ -271,10 +246,7 @@ export default function EventItem({
         </a>
         {passId || passUnpublished ? (
           <PassImage
-            pending={passPending}
-            rejected={passRejected}
-            errored={passErrored}
-            publishedErrors={passPublishedErrors}
+            passCurrentValue={passCurrentValue}
             passUnpublished={passUnpublished}
             passId={passId}
             passRes={passRes}
