@@ -1,4 +1,4 @@
-import { /* useFormState, */ Field } from 'react-final-form';
+import { Field } from 'react-final-form';
 import { useIntl } from 'react-intl';
 import { ReactSelectField } from '@openagenda/react-shared';
 import messages from './messages.js';
@@ -18,7 +18,6 @@ const ConditionalOnlineEventOptions = ({ allowOnlineEventChecked, intl }) => {
             name="allowOnlineEventMode"
             type="radio"
             value="all"
-            defaultValue="all"
             label={intl.formatMessage(messages.allowOnlineEventAll)}
             classNameGroup="radio filter-choice"
           />
@@ -106,26 +105,46 @@ export default () => {
       <div className="row">
         <div className="col-sm-2" />
         <div className="col-sm-10">
-          <Field
-            component={Radio}
-            name="allowOnlineEvent"
-            type="checkbox"
-            label={intl.formatMessage(messages.allowOnlineEvent)}
-            classNameGroup="radio filter-choice"
-            helpBlock={(
-              <div className="margin-h-z text-muted">
-                {intl.formatMessage(messages.allowOnlineEventHelp)}
-              </div>
+          <Field name="allowOnlineEvent" type="checkbox">
+            {({ input, meta }) => (
+              <Radio
+                {...input}
+                checked={!!input.value}
+                onChange={(e) => input.onChange(e.target.checked)}
+                type="checkbox"
+                label={intl.formatMessage(messages.allowOnlineEvent)}
+                classNameGroup="radio filter-choice"
+                helpBlock={(
+                  <div className="margin-h-z text-muted">
+                    {intl.formatMessage(messages.allowOnlineEventHelp)}
+                  </div>
+                )}
+                input={input}
+                meta={meta}
+              />
             )}
-          />
+          </Field>
         </div>
       </div>
       <Field name="allowOnlineEvent" subscription={{ value: true }}>
         {({ input: { value: allowOnlineEventChecked } }) => (
-          <ConditionalOnlineEventOptions
-            allowOnlineEventChecked={allowOnlineEventChecked}
-            intl={intl}
-          />
+          <>
+            <ConditionalOnlineEventOptions
+              allowOnlineEventChecked={allowOnlineEventChecked}
+              intl={intl}
+            />
+            {/* Initialize allowOnlineEventMode with default value when allowOnlineEvent is checked */}
+            <Field name="allowOnlineEventMode">
+              {({ input }) => {
+                // Set default value to 'all' if allowOnlineEvent is checked but no mode is selected
+                if (allowOnlineEventChecked && !input.value) {
+                  // Use setTimeout to avoid React state update warnings
+                  setTimeout(() => input.onChange('all'), 0);
+                }
+                return null;
+              }}
+            </Field>
+          </>
         )}
       </Field>
     </>

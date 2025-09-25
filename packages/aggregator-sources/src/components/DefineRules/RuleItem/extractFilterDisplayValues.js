@@ -106,7 +106,12 @@ const tagsFilter = ({ intl, rule, sourceAgenda }) => ({
 
 const locationFilter = ({ intl, rule }) => {
   const locationType = getFilterLocationType(rule);
-  const allowOnlineEventValue = rule.query.location?.allowOnlineEvent || false;
+  let allowOnlineEventValue = rule.query.location?.allowOnlineEvent || false;
+
+  // Fix: Handle case where allowOnlineEvent is stored as an array
+  if (Array.isArray(allowOnlineEventValue)) {
+    allowOnlineEventValue = allowOnlineEventValue[0] || false;
+  }
 
   return {
     label: intl.formatMessage(messages[locationType]),
