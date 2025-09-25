@@ -37,6 +37,12 @@
       "value": "Our email"
     }
   ],
+  "next.components.Strapi.dailymotion": [
+    {
+      "type": 0,
+      "value": "Our Dailymotion"
+    }
+  ],
   "next.components.Strapi.github": [
     {
       "type": 0,

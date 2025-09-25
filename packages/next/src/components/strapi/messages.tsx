@@ -21,6 +21,10 @@ export default defineMessages({
     id: 'next.components.Strapi.bluesky',
     defaultMessage: 'Our Bluesky',
   },
+  dailymotion: {
+    id: 'next.components.Strapi.dailymotion',
+    defaultMessage: 'Our Dailymotion',
+  },
   newsletter: {
     id: 'next.components.Strapi.newsletter',
     defaultMessage: 'Subscribe to the newsletter',
