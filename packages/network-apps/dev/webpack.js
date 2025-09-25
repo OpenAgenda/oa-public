@@ -34,6 +34,5 @@ export default {
   },
   resolve: {
     extensions: ['.js', '.mjs', '.json', '.wasm'],
-    symlinks: false,
   },
 };

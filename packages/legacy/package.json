@@ -45,7 +45,7 @@
     "slugify": "^1.4.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
+    "@babel/cli": "^7.28.3",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
     "@storybook/react-webpack5": "^9.0.8",
     "jest": "^29.7.0",

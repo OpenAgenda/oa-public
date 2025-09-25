@@ -104,6 +104,5 @@ module.exports = {
   },
   resolve: {
     extensions: ['.js', '.mjs', '.json', '.wasm'],
-    symlinks: false,
   },
 };

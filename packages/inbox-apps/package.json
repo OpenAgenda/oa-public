@@ -52,7 +52,7 @@
     "redial": "^0.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
+    "@babel/cli": "^7.28.3",
     "@cfaester/enzyme-adapter-react-18": "^0.6.0",
     "@openagenda/bs-templates": "^2.5.1",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",

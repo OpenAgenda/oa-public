@@ -73,7 +73,7 @@
     "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
+    "@babel/cli": "^7.28.3",
     "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/fixtures": "^2.0.2",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",

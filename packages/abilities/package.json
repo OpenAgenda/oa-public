@@ -36,7 +36,7 @@
     "react-use": "^17.6.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
+    "@babel/cli": "^7.28.3",
     "@openagenda/agendas": "^1.7.1",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/users": "^3.1.1",

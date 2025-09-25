@@ -31,7 +31,7 @@
     "why": "^0.6.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.23.0",
+    "@babel/cli": "^7.28.3",
     "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
