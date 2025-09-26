@@ -5327,7 +5327,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/md": "npm:^1.0.1"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-filters": "npm:^2.13.2"
+    "@openagenda/react-filters": "npm:^2.13.3"
     "@openagenda/react-portal-ssr": "npm:^1.0.3"
     "@openagenda/react-shared": "npm:^2.4.6"
     babel-loader: "npm:^9.1.3"
@@ -5771,7 +5771,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@npm:^2.13.2, @openagenda/react-filters@workspace:react-filters":
+"@openagenda/react-filters@npm:^2.13.3, @openagenda/react-filters@workspace:react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:react-filters"
   dependencies:
@@ -6010,7 +6010,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/mails": "npm:^4.0.2"
-    "@openagenda/react-filters": "npm:^2.13.2"
+    "@openagenda/react-filters": "npm:^2.13.3"
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@openagenda/uikit": "npm:^0.0.4"
@@ -6116,7 +6116,7 @@ __metadata:
     "@iframe-resizer/parent": "npm:^5.4.6"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/react": "npm:^0.0.3"
-    "@openagenda/react-filters": "npm:^2.13.2"
+    "@openagenda/react-filters": "npm:^2.13.3"
     "@openagenda/uikit": "npm:^0.0.4"
     "@storybook/html-vite": "npm:^9.0.8"
     babel-loader: "npm:^9.2.1"
