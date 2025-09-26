@@ -15,9 +15,19 @@ const messages = defineMessages({
     id: 'ReactFilters.components.fields.SearchInput.ariaLabel',
     defaultMessage: 'Search',
   },
+  ariaLabelReset: {
+    id: 'ReactFilters.components.fields.SearchInput.ariaLabelReset',
+    defaultMessage: 'Reset search',
+  },
 });
 
-function Input({ input, placeholder, ariaLabel, onButtonClick, manualSubmit }) {
+function Input({
+  input,
+  placeholder,
+  ariaLabel,
+  onButtonClick,
+  isResetButton = false,
+}) {
   const intl = useIntl();
 
   return (
@@ -30,18 +40,24 @@ function Input({ input, placeholder, ariaLabel, onButtonClick, manualSubmit }) {
         title={ariaLabel}
         {...input}
       />
-      {!manualSubmit ? (
-        <div className="input-group-append">
-          <button
-            type="submit"
-            className="btn btn-outline-secondary"
-            onClick={onButtonClick}
-            aria-label={intl.formatMessage(messages.ariaLabel)}
-          >
+      <div className="input-group-append">
+        <button
+          type="submit"
+          className="btn btn-outline-secondary"
+          onClick={onButtonClick}
+          aria-label={
+            isResetButton
+              ? intl.formatMessage(messages.ariaLabelReset)
+              : intl.formatMessage(messages.ariaLabel)
+          }
+        >
+          {isResetButton ? (
+            <i className="fa fa-times" aria-hidden="true" />
+          ) : (
             <i className="fa fa-search" aria-hidden="true" />
-          </button>
-        </div>
-      ) : null}
+          )}
+        </button>
+      </div>
     </div>
   );
 }
@@ -59,6 +75,8 @@ export default function SearchInput({
   const {
     filtersOptions: { manualSubmit },
   } = useContext(FiltersAndWidgetsContext);
+
+  const isResetButton = tmpValue && (tmpValue === input.value || !manualSubmit);
 
   const debouncedOnChange = useDebouncedCallback((e) => {
     if (manualSearch) {
@@ -88,6 +106,15 @@ export default function SearchInput({
   const onButtonClick = useCallback(
     (e) => {
       e.preventDefault();
+
+      if (isResetButton) {
+        input.onChange('');
+        if (typeof onChange === 'function') {
+          onChange(tmpValue);
+        }
+        return form.submit();
+      }
+
       if (manualSearch) {
         input.onChange(tmpValue);
         if (typeof onChange === 'function') {
@@ -96,7 +123,7 @@ export default function SearchInput({
       }
       return form.submit();
     },
-    [form, input, manualSearch, onChange, tmpValue],
+    [form, input, manualSearch, onChange, tmpValue, isResetButton],
   );
 
   const wrappedInput = useMemo(
@@ -116,6 +143,7 @@ export default function SearchInput({
     input: wrappedInput,
     onButtonClick,
     manualSubmit,
+    isResetButton,
     ...rest,
   });
 }
