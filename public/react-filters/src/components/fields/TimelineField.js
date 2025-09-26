@@ -34,6 +34,10 @@ const messages = defineMessages({
     id: 'ReactFilters.TimelineField.selectDay',
     defaultMessage: 'Select day',
   },
+  wholeMonth: {
+    id: 'ReactFilters.TimelineField.wholeMonth',
+    defaultMessage: 'Whole month',
+  },
 });
 
 function focusedDateToTimingsQuery(focusedDate) {
@@ -175,8 +179,68 @@ function TimelineField(
     input.onChange(next);
   };
 
+  const areAllDaysSelected = useMemo(() => {
+    if (monthIndex === null || year === null) return false;
+    const nb = lastDayOfMonth(new Date(year, monthIndex, 1)).getDate();
+    if (nb === 0) return false;
+    const current = Array.isArray(input.value) ? input.value : [];
+    for (let d = 1; d <= nb; d += 1) {
+      const dateObj = new Date(year, monthIndex, d);
+      if (
+        !current.some(({ startDate }) =>
+          isSameDay(new Date(startDate), dateObj))
+      ) {
+        return false;
+      }
+    }
+    return true;
+  }, [input.value, monthIndex, year]);
+
+  const toggleWholeMonth = () => {
+    if (monthIndex === null || year === null) return;
+
+    const nb = lastDayOfMonth(new Date(year, monthIndex, 1)).getDate();
+    const monthDates = Array.from(
+      { length: nb },
+      (_, i) => new Date(year, monthIndex, i + 1),
+    );
+    const current = Array.isArray(input.value) ? input.value : [];
+
+    const allSelected = monthDates.every((dateObj) =>
+      current.some(({ startDate }) => isSameDay(new Date(startDate), dateObj)));
+
+    let next;
+    if (allSelected) {
+      // remove all days of month
+      next = current.filter(
+        ({ startDate }) =>
+          !monthDates.some((dateObj) =>
+            isSameDay(new Date(startDate), dateObj)),
+      );
+    } else {
+      // add missing days of month
+      const toAdd = monthDates
+        .filter(
+          (dateObj) =>
+            !current.some(({ startDate }) =>
+              isSameDay(new Date(startDate), dateObj)),
+        )
+        .map((dateObj) => ({
+          startDate: startOfDay(dateObj).toISOString(),
+          endDate: endOfDay(dateObj).toISOString(),
+        }));
+      next = [...current, ...toAdd];
+      next.sort((a, b) =>
+        compareAsc(new Date(a.startDate), new Date(b.startDate)));
+    }
+
+    if (current[0]?.tz && next.length) next[0].tz = current[0].tz;
+    input.onChange(next);
+  };
+
   const dayRefs = useRef([]);
   const monthRefs = useRef([]);
+  const allMonthRef = useRef(null);
 
   const daysSwiper = useRef(null);
   const monthsSwiper = useRef(null);
@@ -185,7 +249,6 @@ function TimelineField(
 
   const handleDayKey = (e, day, index) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      // like a click
       e.preventDefault();
       toggleDay(day);
     } else if (e.key === 'ArrowRight') {
@@ -199,9 +262,15 @@ function TimelineField(
     }
   };
 
+  const handleAllMonthKey = (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      toggleWholeMonth();
+    }
+  };
+
   const handleMonthKey = (e, pos) => {
     if (e.key === 'Enter' || e.key === ' ') {
-      // like a click
       e.preventDefault();
       handleSelectMonth(pos);
     } else if (e.key === 'ArrowRight') {
@@ -215,7 +284,6 @@ function TimelineField(
     }
   };
 
-  // const months = Array.from({ length: 12 }, (_, i) => i);
   const days = getDaysArray();
 
   return (
@@ -230,7 +298,6 @@ function TimelineField(
           slidesPerView="auto"
           centeredSlides
           centeredSlidesBounds
-          // loop
           freeMode
           navigation={{
             prevEl: '.oa-timeline-swiper-months-prev',
@@ -302,13 +369,37 @@ function TimelineField(
           className="oa-timeline-swiper-days"
           onSwiper={(sw) => {
             daysSwiper.current = sw;
-            sw.slideTo(initialDay - 1, 0);
+            sw.slideTo(initialDay, 0);
           }}
         >
+          <SwiperSlide key="__all__">
+            <span
+              role="option"
+              aria-selected={areAllDaysSelected}
+              ref={allMonthRef}
+              tabIndex={0}
+              onClick={() => {
+                if (daysSwiper.current && !daysSwiper.current.allowClick) return;
+                toggleWholeMonth();
+              }}
+              onKeyDown={handleAllMonthKey}
+              className={cn(
+                'oa-timeline-swiper-days-day',
+                'oa-timeline-swiper-days-all',
+                {
+                  'is-selected': areAllDaysSelected,
+                },
+              )}
+            >
+              {intl.formatMessage(messages.wholeMonth)}
+            </span>
+          </SwiperSlide>
+
           {days.map((day, idx) => {
             const dateObj = year !== null ? new Date(year, monthIndex, day) : null;
             const isChecked = dateObj
-              ? input.value?.some((d) => isSameDay(d.startDate, dateObj))
+              ? (Array.isArray(input.value) ? input.value : []).some((d) =>
+                isSameDay(new Date(d.startDate), dateObj))
               : false;
             const isTabStop = focusedDay === day;
 

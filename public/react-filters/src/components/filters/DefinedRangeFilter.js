@@ -38,7 +38,8 @@ const subscription = { value: true };
 
 // For display (store -> form)
 function formatValue(value) {
-  if (value === undefined) {
+  // ignore arrays (only from TimelineFilter)
+  if (value === undefined || Array.isArray(value)) {
     return [
       {
         startDate: null,
@@ -46,14 +47,6 @@ function formatValue(value) {
         key: 'selection',
       },
     ];
-  }
-
-  if (Array.isArray(value)) {
-    return value.map((v) => ({
-      ...v,
-      startDate: typeof v.gte === 'string' ? parseISO(v.gte) : v.gte,
-      endDate: typeof v.lte === 'string' ? parseISO(v.lte) : v.lte,
-    }));
   }
 
   if (typeof value === 'object') {
