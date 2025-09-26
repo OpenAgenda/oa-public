@@ -1,5 +1,26 @@
 import verifyAndLoadAccessTokenUser from './verifyAndLoadAccessTokenUser.js';
 
+function extractPublicKey(req) {
+  let publicKey;
+
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    publicKey = authHeader.startsWith('Bearer ')
+      ? authHeader.slice(7)
+      : authHeader;
+    if (publicKey.startsWith('tk-')) {
+      // is accessToken
+      return null;
+    }
+  }
+
+  if (!publicKey) {
+    publicKey = req.query.key ?? req.headers.key;
+  }
+
+  return publicKey;
+}
+
 export default async (req, res, next) => {
   let loadUserError;
   const { keys: keysSvc } = req.app.services;
@@ -8,9 +29,13 @@ export default async (req, res, next) => {
     return next();
   }
 
-  const publicKey = req.query.key ?? req.headers.key;
+  const publicKey = extractPublicKey(req);
 
-  if (!publicKey && req.headers['access-token']) {
+  if (
+    !publicKey
+    && (req.headers['access-token']
+      || req.headers.authorization?.startsWith('Bearer tk-'))
+  ) {
     return verifyAndLoadAccessTokenUser(req, res, next);
   }
 
