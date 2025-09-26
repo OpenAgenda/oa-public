@@ -16,13 +16,13 @@
   "next.components.Strapi.addEvent": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "Ajouter un événement"
     }
   ],
   "next.components.Strapi.bluesky": [
     {
       "type": 0,
-      "value": "Our Bluesky"
+      "value": "Bluesky"
     }
   ],
   "next.components.Strapi.contact": [
@@ -34,7 +34,13 @@
   "next.components.Strapi.contactEmail": [
     {
       "type": 0,
-      "value": "Our email"
+      "value": "Notre courriel"
+    }
+  ],
+  "next.components.Strapi.dailymotion": [
+    {
+      "type": 0,
+      "value": "Dailymotion"
     }
   ],
   "next.components.Strapi.github": [

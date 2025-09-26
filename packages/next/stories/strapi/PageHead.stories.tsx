@@ -15,6 +15,8 @@ export const Default = {
     image: {
       url: '/guyWritingOnACalendar.png',
       alternativeText: 'Guy writing something on a calendar',
+      width: '673px',
+      height: '673px',
     },
     CTAs: [
       {

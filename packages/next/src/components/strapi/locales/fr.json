@@ -1,9 +1,10 @@
 {
   "next.components.Strapi.ReferenceItem.more": "+ {count} en plus",
-  "next.components.Strapi.addEvent": "",
-  "next.components.Strapi.bluesky": "",
+  "next.components.Strapi.addEvent": "Ajouter un événement",
+  "next.components.Strapi.bluesky": "Bluesky",
   "next.components.Strapi.contact": "Contacter",
-  "next.components.Strapi.contactEmail": "",
+  "next.components.Strapi.contactEmail": "Notre courriel",
+  "next.components.Strapi.dailymotion": "Dailymotion",
   "next.components.Strapi.github": "Notre Github",
   "next.components.Strapi.linkedin": "Notre LinkedIn",
   "next.components.Strapi.newsletter": "S'inscrire à l'infolettre mensuelle",
