@@ -98,4 +98,44 @@ describe('boolean validator', () => {
 
     expect(validate(null)).toBeNull();
   });
+
+  it('throws an error when allowFalse is false and value is false-like', () => {
+    const validate = validators.boolean({
+      field: 'testField',
+      allowFalse: false,
+      optional: false,
+    });
+
+    let errors = [];
+
+    try {
+      validate(false);
+    } catch (e) {
+      errors = e;
+    }
+
+    expect(errors.length).toBe(1);
+    expect(errors[0].code).toBe('required');
+    expect(errors[0].message).toBe('value should be true');
+
+    errors = [];
+    try {
+      validate('false');
+    } catch (e) {
+      errors = e;
+    }
+
+    expect(errors.length).toBe(1);
+    expect(errors[0].code).toBe('required');
+
+    errors = [];
+    try {
+      validate('0');
+    } catch (e) {
+      errors = e;
+    }
+
+    expect(errors.length).toBe(1);
+    expect(errors[0].code).toBe('required');
+  });
 });
