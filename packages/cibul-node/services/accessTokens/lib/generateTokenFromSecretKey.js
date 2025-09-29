@@ -61,11 +61,11 @@ export default async function generateTokenFromSecretKey(
     api_key_set_id: apiKeySet.id,
     created_at: new Date(),
     updated_at: new Date(),
-    token: crypto
+    token: `tk-${crypto
       .createHmac('sha256', 'okilydokily')
       .update(secretKey + new Date().getTime() + apiKeySet.id)
       .digest('hex')
-      .substr(0, 32),
+      .substr(0, 29)}`,
     lifespan: TOKEN_LIFESPAN / 1000,
   };
 

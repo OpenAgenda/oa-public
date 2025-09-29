@@ -1,6 +1,6 @@
 import { useIntl } from 'react-intl';
 import { Icon, Link, HStack, VStack } from '@openagenda/uikit';
-import { faGithub, faBluesky, faLinkedin } from 'icons/brands';
+import { faGithub, faBluesky, faLinkedin, faDailymotion } from 'icons/brands';
 import { FaIcon } from 'icons';
 
 import messages from './messages';
@@ -39,6 +39,12 @@ export default function FollowUsLinks({ fontColor }) {
             icon: faLinkedin,
             href: 'https://www.linkedin.com/company/openagenda',
             title: intl.formatMessage(messages.linkedin),
+          },
+          {
+            key: 'dailymotion',
+            icon: faDailymotion,
+            href: 'https://www.dailymotion.com/OpenAgenda',
+            title: intl.formatMessage(messages.dailymotion),
           },
         ].map(({ icon, key, href, title }) => (
           <Link

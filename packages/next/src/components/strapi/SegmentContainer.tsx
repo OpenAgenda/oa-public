@@ -31,7 +31,7 @@ export default function SegmentContainer({
     <chakra.div backgroundImage={getBackgroundImage(background)}>
       <Container
         maxW={fullWidth ? '100%' : '7xl'}
-        height={{ md: fullHeight ? '100vh' : undefined }}
+        height={{ base: fullHeight ? '100vh' : undefined }}
         color={fontColor ? color(fontColor.name, 500) : undefined}
         py={fullWidth ? 0 : 24}
         px={fullWidth ? 0 : undefined}

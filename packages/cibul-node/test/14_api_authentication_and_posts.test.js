@@ -111,6 +111,18 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
       expect(data.expires_in).toBeGreaterThanOrEqual(3600 - 2); // slow tests may take a second or two
     });
+
+    it('access token can be used via header authorization', async () => {
+      const response = await axios({
+        method: 'get',
+        url: 'http://localhost:4000/agendas/123/events',
+        headers: {
+          authorization: `Bearer ${accessToken}`,
+        },
+      });
+
+      expect(response.status).toBe(200);
+    });
   });
 
   describe('agenda key', () => {
@@ -118,6 +130,18 @@ describe('14 - core - functional(server): api authentication and posts', () => {
       const response = await axios({
         method: 'get',
         url: 'http://localhost:4000/agendas/123/events?key=e830934e9d1848189ac74de3bfa7df0a',
+      });
+
+      expect(response.status).toBe(200);
+    });
+
+    it('agenda key can be used for read operations - header authorization', async () => {
+      const response = await axios({
+        method: 'get',
+        url: 'http://localhost:4000/agendas/123/events',
+        headers: {
+          authorization: 'Bearer e830934e9d1848189ac74de3bfa7df0a',
+        },
       });
 
       expect(response.status).toBe(200);
@@ -153,6 +177,21 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
       expect(error.response.status).toBe(403);
       expect(error.response.data.message).toBe('key is required');
+    });
+
+    it('a public key provided in header authorization can be used to access /me/agendas route', async () => {
+      const { response } = await axios({
+        method: 'get',
+        url: 'http://localhost:4000/me/agendas',
+        headers: {
+          authorization: `Bearer ${userKey}`,
+        },
+      }).then(
+        (r) => ({ response: r }),
+        (e) => ({ error: e }),
+      );
+
+      expect(response.status).toBe(200);
     });
 
     it('a public key provided in query can be used to access /me/agendas route', async () => {

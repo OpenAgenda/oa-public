@@ -1,12 +1,4 @@
-import {
-  Box,
-  Grid,
-  GridItem,
-  Stack,
-  Heading,
-  HeadingProps,
-  Image,
-} from '@openagenda/uikit';
+import { Box, Heading, HeadingProps, Image, Flex } from '@openagenda/uikit';
 
 import { color } from 'utils/strapi';
 import CTAButtons from './CTAButtons';
@@ -18,17 +10,19 @@ const PageHeadContent = ({
   title,
   description,
   CTAs,
-  centered,
+  alignItems,
   fontColor,
   fontSize,
-}: { centered?: boolean } & Pick<
+}: Pick<
   PageHeadProps,
-  'title' | 'description' | 'CTAs' | 'fontColor' | 'fontSize'
+  'title' | 'description' | 'CTAs' | 'fontColor' | 'fontSize' | 'alignItems'
 >) => (
-  <Stack
-    gap={0}
-    align={centered ? undefined : 'center'}
-    textAlign={centered ? undefined : 'center'}
+  <Flex
+    flex="1"
+    alignItems={alignItems}
+    textAlign={alignItems}
+    direction="column"
+    justifyContent="center"
   >
     <Heading
       as="h1"
@@ -42,6 +36,7 @@ const PageHeadContent = ({
       <StrapiMarkdown
         color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
         mt={7}
+        flex={null}
       >
         {description}
       </StrapiMarkdown>
@@ -51,7 +46,7 @@ const PageHeadContent = ({
         <CTAButtons CTAs={CTAs} />
       </Box>
     ) : null}
-  </Stack>
+  </Flex>
 );
 
 import type { Color } from './types';
@@ -69,8 +64,23 @@ interface PageHeadProps {
     url: string;
     alternativeText?: string;
     width?: string;
+    height?: string;
+  };
+  alignItems?: {
+    base?: string;
+    md?: string;
+    lg?: string;
   };
 }
+
+const gap = {
+  base: 8,
+  sm: 12,
+  md: 24,
+  lg: 12,
+  xl: '24',
+  '2xl': '36',
+};
 
 export default function PageHead({
   title,
@@ -81,50 +91,54 @@ export default function PageHead({
   fontColor,
   background,
 }: PageHeadProps) {
-  const hasTwoColumns = Boolean(image || video);
-
-  const templateColumns = video
-    ? { base: '1fr', md: '1fr 1fr' }
-    : image
-      ? { base: '1fr', md: '1fr auto' }
-      : '1fr';
+  const itemsCount = 1 + (image ? 1 : 0) + (video ? 1 : 0);
 
   return (
-    <SegmentContainer fontColor={fontColor} background={background} fullHeight>
-      <Grid
-        templateColumns={templateColumns}
-        gap={8}
+    <SegmentContainer
+      fullWidth
+      fontColor={fontColor}
+      background={background}
+      fullHeight
+    >
+      <Flex
+        height="100%"
         alignItems="center"
-        justifyItems={hasTwoColumns ? undefined : 'center'}
-        py={12}
-        height={{ md: '100%' }}
+        gap={gap}
+        p={gap}
+        direction={{
+          base: 'column',
+          lg: 'row',
+        }}
       >
-        <GridItem maxW={hasTwoColumns ? undefined : 'container.md'}>
-          <PageHeadContent
-            title={title}
-            description={description}
-            CTAs={CTAs}
-            centered={hasTwoColumns}
-            fontColor={fontColor}
-          />
-        </GridItem>
+        <PageHeadContent
+          title={title}
+          description={description}
+          CTAs={CTAs}
+          alignItems={{
+            base: 'center',
+            lg: itemsCount === 1 ? 'center' : 'start',
+          }}
+          fontColor={fontColor}
+        />
         {video ? (
-          <GridItem>
+          <Flex flex="1">
             <VideoPlayer />
-          </GridItem>
+          </Flex>
         ) : null}
         {image ? (
-          <GridItem>
+          <Flex flex="1" justifyContent="center">
             <Image
               src={image.url}
               alt={image.alternativeText}
-              maxW="full"
-              w={image.width}
+              maxW={{ lg: 'full' }}
+              maxH={{ base: 'full', lg: undefined }}
+              w={{ lg: image.width }}
+              h={{ base: image.height, lg: undefined }}
               objectFit="contain"
             />
-          </GridItem>
+          </Flex>
         ) : null}
-      </Grid>
+      </Flex>
     </SegmentContainer>
   );
 }
