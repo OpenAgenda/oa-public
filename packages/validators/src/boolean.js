@@ -6,6 +6,7 @@ export default (config = {}) => {
     default: undefined,
     optional: true,
     allowNull: false,
+    allowFalse: true,
   });
 
   return Object.assign((value) => {
@@ -14,6 +15,10 @@ export default (config = {}) => {
 
     if (isUndefined && !params.optional && !hasDefault) {
       throw errors(params, value, 'required', 'a boolean is required');
+    }
+
+    if(['0', 'false', false].indexOf(value) !== -1 && params.allowFalse === false && !params.optional){
+      throw errors(params, value, 'required', 'value should be true');
     }
 
     if (isUndefined && hasDefault) {
