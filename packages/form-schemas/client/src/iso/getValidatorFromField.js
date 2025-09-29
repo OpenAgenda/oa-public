@@ -132,6 +132,7 @@ export default (field, options = {}) => {
       'optionalWith',
       'enableWith',
       'allowNull',
+      'allowFalse',
       'allowURL',
       'imageWithSizeAndVariants',
       'allowPath',
