@@ -62,7 +62,7 @@ function processSend(
     }
   } else if (isMember) {
     if (role === 'administrator' || role === 'moderator') {
-      link = `${config.root}/agendas/${agenda.uid}/admin/events`;
+      link = `${config.root}/${agenda.slug}/admin/events`;
     } else if (role === 'contributor') {
       link = `${config.root}/agendas/${agenda.uid}/contribute`;
     }
