@@ -682,6 +682,13 @@ module.exports = {
     "it": "Questo campo è opzionale",
     "io": "crwdns14802:0crwdne14802:0"
   },
+  "fieldFormAllowFalse": {
+    "fr": "Autoriser la valeur false",
+    "en": "Allow false value",
+    "de": "Falschen Wert zulassen",
+    "es": "Permitir valor falso",
+    "it": "Consenti valore falso"
+  },
   "requiredField": {
     "fr": "Obligatoire",
     "en": "Required",
