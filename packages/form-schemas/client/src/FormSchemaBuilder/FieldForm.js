@@ -44,6 +44,20 @@ const fieldSchemaTypes = {
         'sub',
       ]),
     ),
+  booleanLike: ({ labelLanguages, parentsField }) =>
+    merge(
+      fg.labels({ labelLanguages }),
+      !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
+      fg.allowFalse(),
+      fieldOrder([
+        'label',
+        'optional',
+        'allowFalse',
+        'info',
+        'placeholder',
+        'sub',
+      ]),
+    ),
   radioLike: ({ labelLanguages, parentsField }) =>
     merge(
       fg.labels({ labelLanguages }),
@@ -69,16 +83,11 @@ const schemas = (type, { customFieldConfigurationSchemas }) => {
   if (type === 'section') {
     return fg.section;
   }
+  if (type === 'boolean') {
+    return fieldSchemaTypes.booleanLike;
+  }
   if (
-    [
-      'text',
-      'textarea',
-      'markdown',
-      'link',
-      'boolean',
-      'email',
-      'integer',
-    ].includes(type)
+    ['text', 'textarea', 'markdown', 'link', 'email', 'integer'].includes(type)
   ) {
     return fieldSchemaTypes.textLike;
   }

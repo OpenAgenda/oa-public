@@ -95,10 +95,25 @@ function optional() {
   };
 }
 
+function allowFalse() {
+  return {
+    fields: [
+      {
+        field: 'allowFalse',
+        fieldType: 'boolean',
+        optional: true,
+        default: true,
+        label: l.fieldFormAllowFalse,
+      },
+    ],
+  };
+}
+
 export default {
   labels,
   minMax,
   optional,
   options,
   section,
+  allowFalse,
 };
