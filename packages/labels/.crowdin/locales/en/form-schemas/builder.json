@@ -76,6 +76,7 @@
   "orderSave": "Apply the new order",
   "orderTitle": "Field order",
   "fieldFormOptional": "This field is optional",
+  "fieldFormAllowFalse": "Allow No",
   "requiredField": "Required",
   "fieldFormMaxTextLength": "Maximum length of the typed text",
   "fieldFormMinTextLength": "Minimum length of the typed text",

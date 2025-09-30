@@ -39,6 +39,7 @@
   "fieldFormMaxTextLength": "Longueur maximale du texte saisi",
   "fieldFormMinTextLength": "Longueur minimal du texte saisi",
   "fieldFormOptional": "Ce champ est facultatif",
+  "fieldFormAllowFalse": "Autoriser la valeur non",
   "fieldInfo": "Information complémentaire",
   "fieldInfoInfo": "S'affiche sous le titre (comme ceci)",
   "fieldLabel": "Titre du champ",
