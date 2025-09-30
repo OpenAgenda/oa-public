@@ -126,6 +126,12 @@ export default function buildFieldSchema(type, options = {}) {
       default: undefined,
     },
 
+    allowFalse: {
+      type: 'boolean',
+      optional: true,
+      default: undefined,
+    },
+
     related: {
       enable: {
         type: 'text',

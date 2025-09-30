@@ -7,8 +7,9 @@ module.exports = (type, values = {}, defaults = {}) => {
     field: undefined,
     allowNull: false,
     optional: true,
+    allowFalse: true,
     ...defaults,
-    ...values
+    ...values,
   };
 
   if (values.optional === undefined) {
@@ -16,4 +17,4 @@ module.exports = (type, values = {}, defaults = {}) => {
   }
 
   return params;
-}
+};

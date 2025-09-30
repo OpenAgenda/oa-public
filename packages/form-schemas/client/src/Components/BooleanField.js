@@ -37,12 +37,13 @@ export default (props) => {
 
   const isOptional = isFieldOptional(field, relatedValues);
   const checked = defineChecked(field, value);
+  const allowFalse = field?.allowFalse !== false;
 
   useEffect(function forceUncheckedBoxes() {
     if (!enabled) {
       return;
     }
-    if (!checked && !value && value !== false) {
+    if (!checked && !value && value !== false && !allowFalse === false) {
       onChange(false);
     }
   }, []);

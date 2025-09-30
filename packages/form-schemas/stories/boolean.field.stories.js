@@ -57,6 +57,7 @@ export const Required = () => {
                 label: 'Tu dois cocher',
                 optional: false,
                 sub: "C'est pas comme voulvoul",
+                allowFalse: false,
               },
             ],
           }}
