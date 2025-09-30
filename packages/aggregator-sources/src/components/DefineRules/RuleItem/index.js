@@ -1,5 +1,6 @@
 import { useIntl } from 'react-intl';
-import { useSortable } from '@dnd-kit/react/sortable';
+import { useSortable } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 import { hasFilter, hasValues } from '../../../utils/rules.js';
 import messages from './messages.js';
 import FilterPart from './FilterPart.js';
@@ -13,12 +14,33 @@ export default function RuleItem({
   sourceAgendaSchema,
   aggregatorAgenda,
   aggregatorAgendaSchema,
-  index,
+  index: _index,
+  isDragging: _isDragging,
 }) {
   const intl = useIntl();
-  const { ref } = useSortable({ id: rule.id, index });
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: rule.id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
   return (
-    <div className="list-group-item" ref={ref}>
+    <div
+      className="list-group-item"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
       {hasFilter(rule) ? (
         <FilterPart
           rule={rule}

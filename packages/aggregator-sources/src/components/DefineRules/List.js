@@ -2,7 +2,19 @@ import _ from 'lodash';
 import { useState, useCallback } from 'react';
 import * as ReactIs from 'react-is';
 import { useIntl } from 'react-intl';
-import { DragDropProvider } from '@dnd-kit/react';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
 import { MoreInfo } from '@openagenda/react-shared';
 import externalLinks from '../../utils/externalLinks.js';
 import readClipboard from '../../utils/readClipboard.js';
@@ -30,6 +42,18 @@ export default function List({
 }) {
   const intl = useIntl();
   const [error, setError] = useState(null);
+  const [isDragging, setIsDragging] = useState(false);
+
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
 
   const pasteRules = useCallback(async () => {
     addRules(await readClipboard().catch(() => null));
@@ -70,27 +94,43 @@ export default function List({
           </h4>
           <p>{intl.formatMessage(messages.filtersDesc)}</p>
           <div className="margin-v-sm">
-            <DragDropProvider
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragStart={() => {
+                setIsDragging(true);
+              }}
               onDragEnd={(event) => {
-                const from = event.operation.source.sortable.initialIndex;
-                const to = event.operation.source.sortable.previousIndex;
-                reorderRules(from, to, true);
+                const { active, over } = event;
+                if (active.id !== over.id) {
+                  const ruleIds = rules.requiredFilters.map((rule) => rule.id);
+                  const oldIndex = ruleIds.indexOf(active.id);
+                  const newIndex = ruleIds.indexOf(over.id);
+                  reorderRules(oldIndex, newIndex, true);
+                }
+                setIsDragging(false);
               }}
             >
-              {rules.requiredFilters.map((rule, index) => (
-                <RuleItem
-                  key={rule.id}
-                  rule={rule}
-                  onUpdate={setModeUpdate}
-                  onRemove={removeRule}
-                  sourceAgenda={sourceAgenda}
-                  sourceAgendaSchema={sourceSchema}
-                  aggregatorAgenda={aggregatorAgenda}
-                  aggregatorAgendaSchema={aggregatorAgendaSchema}
-                  index={index}
-                />
-              ))}
-            </DragDropProvider>
+              <SortableContext
+                items={rules.requiredFilters.map((rule) => rule.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {rules.requiredFilters.map((rule, index) => (
+                  <RuleItem
+                    key={rule.id}
+                    rule={rule}
+                    onUpdate={setModeUpdate}
+                    onRemove={removeRule}
+                    sourceAgenda={sourceAgenda}
+                    sourceAgendaSchema={sourceSchema}
+                    aggregatorAgenda={aggregatorAgenda}
+                    aggregatorAgendaSchema={aggregatorAgendaSchema}
+                    index={index}
+                    isDragging={isDragging}
+                  />
+                ))}
+              </SortableContext>
+            </DndContext>
           </div>
         </div>
         {/* eslint-enable */}
@@ -113,27 +153,43 @@ export default function List({
           </h4>
           <p>{intl.formatMessage(messages.actionsDesc)}</p>
           <div className="margin-v-sm">
-            <DragDropProvider
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragStart={() => {
+                setIsDragging(true);
+              }}
               onDragEnd={(event) => {
-                const from = event.operation.source.sortable.initialIndex;
-                const to = event.operation.source.sortable.previousIndex;
-                reorderRules(from, to, false);
+                const { active, over } = event;
+                if (active.id !== over.id) {
+                  const ruleIds = rules.actions.map((rule) => rule.id);
+                  const oldIndex = ruleIds.indexOf(active.id);
+                  const newIndex = ruleIds.indexOf(over.id);
+                  reorderRules(oldIndex, newIndex, false);
+                }
+                setIsDragging(false);
               }}
             >
-              {rules.actions.map((rule, index) => (
-                <RuleItem
-                  key={rule.id}
-                  rule={rule}
-                  onUpdate={setModeUpdate}
-                  onRemove={removeRule}
-                  sourceAgenda={sourceAgenda}
-                  sourceAgendaSchema={sourceSchema}
-                  aggregatorAgenda={aggregatorAgenda}
-                  aggregatorAgendaSchema={aggregatorAgendaSchema}
-                  index={index}
-                />
-              ))}
-            </DragDropProvider>
+              <SortableContext
+                items={rules.actions.map((rule) => rule.id)}
+                strategy={verticalListSortingStrategy}
+              >
+                {rules.actions.map((rule, index) => (
+                  <RuleItem
+                    key={rule.id}
+                    rule={rule}
+                    onUpdate={setModeUpdate}
+                    onRemove={removeRule}
+                    sourceAgenda={sourceAgenda}
+                    sourceAgendaSchema={sourceSchema}
+                    aggregatorAgenda={aggregatorAgenda}
+                    aggregatorAgendaSchema={aggregatorAgendaSchema}
+                    index={index}
+                    isDragging={isDragging}
+                  />
+                ))}
+              </SortableContext>
+            </DndContext>
           </div>
         </div>
         {/* eslint-enable */}
