@@ -11,14 +11,9 @@ export default function addNewMember(req, res, next) {
 
   core
     .agendas(req.agenda)
-    .members.create(
-      req.user.uid,
-      'contributor',
-      {},
-      {
-        userUid: req.user.uid,
-      },
-    )
+    .members.create(req.user.uid, 'contributor', null, {
+      userUid: req.user.uid,
+    })
     .then((member) => {
       log(
         'created contributor reference for user %s on agenda %s',

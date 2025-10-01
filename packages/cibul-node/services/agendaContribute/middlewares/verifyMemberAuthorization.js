@@ -39,14 +39,11 @@ export default async (req, res, next) => {
   }
 
   if (!req.member) {
-    req.member = await core.agendas(req.agenda).members.create(
-      req.user.uid,
-      'contributor',
-      {},
-      {
+    req.member = await core
+      .agendas(req.agenda)
+      .members.create(req.user.uid, 'contributor', null, {
         userUid: req.user.uid,
-      },
-    );
+      });
   }
 
   req.authorizations = await core
