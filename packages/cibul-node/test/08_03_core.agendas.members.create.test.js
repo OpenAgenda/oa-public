@@ -269,6 +269,74 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         expect(member.id).toBeTruthy();
         expect(member2.id).toBeTruthy();
       });
+
+      it('member invite with one email already a member', async () => {
+        // First, ensure one email is already a member
+        const existingEmail = 'existing.member@openagenda.com';
+        const newEmail = 'new.member@openagenda.com';
+
+        // Create the existing member first
+        await axios({
+          method: 'post',
+          url: 'http://localhost:4000/agendas/2/members/invite',
+          headers: {
+            'access-token': adminAccessToken,
+            'content-type': 'application/json',
+          },
+          data: {
+            role: 1,
+            emails: [existingEmail],
+          },
+        });
+
+        // Verify the existing member was created
+        const existingMember = await services.members.get.byEmail({
+          agendaUid: 2,
+          email: existingEmail,
+        });
+        expect(existingMember.id).toBeTruthy();
+
+        // Now invite both the existing member and a new member
+        const resp = await axios({
+          method: 'post',
+          url: 'http://localhost:4000/agendas/2/members/invite',
+          headers: {
+            'access-token': adminAccessToken,
+            'content-type': 'application/json',
+          },
+          data: {
+            role: 1,
+            emails: [existingEmail, newEmail],
+          },
+        });
+
+        // Verify the new member was created
+        const newMember = await services.members.get.byEmail({
+          agendaUid: 2,
+          email: newEmail,
+        });
+        expect(newMember.id).toBeTruthy();
+
+        // Verify the existing member still exists
+        const stillExistingMember = await services.members.get.byEmail({
+          agendaUid: 2,
+          email: existingEmail,
+        });
+        // Verify response structure
+        expect(resp.data.processed).toBeDefined();
+        expect(resp.data.already).toBeDefined();
+
+        // The new member should be in processed
+        expect(resp.data.processed).toHaveLength(1);
+        expect(resp.data.processed[0].email).toBe(newEmail);
+
+        // The existing member should be in already
+        expect(resp.data.already).toHaveLength(1);
+        expect(resp.data.already[0].email).toBe(existingEmail);
+
+        expect(stillExistingMember.id).toBeTruthy();
+        expect(stillExistingMember.id).toBe(existingMember.id);
+      });
     });
 
     describe('non member call', () => {

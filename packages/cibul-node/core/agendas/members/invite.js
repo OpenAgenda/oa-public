@@ -71,9 +71,32 @@ export default async (
         context,
       },
     )
-    .then((data) => ({
-      queued: data.queued,
-      processed: data.processed.map((p) =>
-        format(members, p.member, { roleAsSlug: true })),
-    }));
+    .then(async (data) => {
+      const newOrUpdated = [];
+      const already = [];
+
+      for (let i = 0; i < data.processed.length; i++) {
+        const p = data.processed[i];
+        const email = emails[i];
+
+        if (p.operation === null) {
+          // Member already exists with same role, need to fetch it
+          const existingMember = await members.get.byEmail({
+            agendaUid,
+            email,
+          });
+          if (existingMember) {
+            already.push(format(members, existingMember, { roleAsSlug: true }));
+          }
+        } else if (p.member) {
+          newOrUpdated.push(format(members, p.member, { roleAsSlug: true }));
+        }
+      }
+
+      return {
+        queued: data.queued,
+        processed: newOrUpdated,
+        already,
+      };
+    });
 };
