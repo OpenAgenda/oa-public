@@ -63,7 +63,9 @@ export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
 
   let cleanMemberData = null;
   try {
-    const validate = new FormSchema(schemas.merged).getValidate();
+    const validate = new FormSchema(schemas.merged).getValidate({
+      draft: true, // Allow optional fields when creating members
+    });
     cleanMemberData = validate(memberData);
   } catch (error) {
     throw new BadRequest(

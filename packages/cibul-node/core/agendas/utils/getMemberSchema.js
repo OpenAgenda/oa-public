@@ -59,7 +59,23 @@ export default async (services, agendaOrUid, options = {}) => {
       agendaSchema: null,
     };
   }
+
   const aditionalFields = await formSchemas.get(memberSchemaId);
+
+  // If schema doesn't exist or failed to load, return default schema
+  if (!aditionalFields) {
+    log(
+      'warn',
+      'memberSchemaId %s not found for agenda %s, using default schema',
+      memberSchemaId,
+      agenda.uid,
+    );
+    return {
+      merged: memberSchema({ optionalFields }),
+      schema: memberSchema({ optionalFields }),
+      agendaSchema: null,
+    };
+  }
 
   if (adminMod) {
     aditionalFields.fields = aditionalFields.fields.map((f) => ({
@@ -121,6 +137,20 @@ export const andParents = async function getMemberSchemaAndParents(
     };
   }
   const aditionalFields = await formSchemas.get(memberSchemaId);
+
+  // If schema doesn't exist, return null schema
+  if (!aditionalFields) {
+    log(
+      'warn',
+      'memberSchemaId %s not found for agenda %s in andParents',
+      memberSchemaId,
+      agendaOrUid?.uid || agendaOrUid,
+    );
+    return {
+      schema: null,
+      parents,
+    };
+  }
 
   return {
     schema: {
