@@ -188,6 +188,36 @@ describe('members - functional - setByEmail', () => {
           'operation',
         ]);
       });
+
+      test('handles existing member when processing directly', async () => {
+        // Use janine@ponceau.fr who has role 2 and promote to same role
+        // This tests that bulk can handle existing members even if no change occurs
+        const existingMember = await svc.get.byEmail({
+          email: 'janine@ponceau.fr',
+          agendaUid: 1,
+        });
+
+        expect(existingMember).not.toBeNull();
+        expect(existingMember.role).toBe(2);
+
+        // Process existing member with same role - should result in no operation
+        const bulkResult = await svc.set.byEmail.bulk(
+          {
+            agendaUid: 1,
+            role: 2,
+          },
+          ['janine@ponceau.fr'],
+          {
+            requireCustom: false,
+          },
+        );
+
+        expect(bulkResult.queued).toBe(0);
+        expect(bulkResult.processed).toHaveLength(1);
+
+        const processedItem = bulkResult.processed[0];
+        expect(processedItem.operation).toBeNull();
+      });
     });
   });
 });
