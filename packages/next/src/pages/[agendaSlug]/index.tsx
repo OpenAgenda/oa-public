@@ -50,7 +50,11 @@ export const getServerSideProps: GetServerSideProps = async ({
         {
           headers: {
             Cookie: req.headers.cookie,
-            Authorization: req.headers.authorization,
+            ...req.headers.authorization
+              ? {
+                  Authorization: req.headers.authorization,
+                }
+              : undefined,
           },
         },
       ).then((r) => {
@@ -78,12 +82,12 @@ export const getServerSideProps: GetServerSideProps = async ({
               ...matomoDomain ? [`https://${matomoDomain}`] : [],
               ...googleAnalytics
                 ? [
-                  'https://*.google-analytics.com',
-                  'https://*.analytics.google.com',
-                  'https://*.googletagmanager.com',
-                  'https://*.g.doubleclick.net',
-                  'https://*.google.com',
-                ]
+                    'https://*.google-analytics.com',
+                    'https://*.analytics.google.com',
+                    'https://*.googletagmanager.com',
+                    'https://*.g.doubleclick.net',
+                    'https://*.google.com',
+                  ]
                 : [],
             ],
             imgSrc: [
@@ -91,12 +95,12 @@ export const getServerSideProps: GetServerSideProps = async ({
               ...matomoDomain ? [`https://${matomoDomain}`] : [],
               ...googleAnalytics
                 ? [
-                  'https://*.google-analytics.com',
-                  'https://*.analytics.google.com',
-                  'https://*.googletagmanager.com',
-                  'https://*.g.doubleclick.net',
-                  'https://*.google.com',
-                ]
+                    'https://*.google-analytics.com',
+                    'https://*.analytics.google.com',
+                    'https://*.googletagmanager.com',
+                    'https://*.g.doubleclick.net',
+                    'https://*.google.com',
+                  ]
                 : [],
             ],
           },
@@ -124,11 +128,12 @@ export const getServerSideProps: GetServerSideProps = async ({
       include: listFiltersToInclude(agenda),
     });
 
-    const prefilter = !query.timings && query.passed !== '1'
-      ? {
-        relative: ['current', 'upcoming'],
-      }
-      : null;
+    const prefilter =
+      !query.timings && query.passed !== '1'
+        ? {
+            relative: ['current', 'upcoming'],
+          }
+        : null;
 
     const paramsBase = {
       aggsSizeLimit: 1500,

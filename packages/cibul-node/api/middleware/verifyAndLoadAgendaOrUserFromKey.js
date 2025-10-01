@@ -1,31 +1,30 @@
+import logs from '@openagenda/logs';
 import verifyAndLoadAccessTokenUser from './verifyAndLoadAccessTokenUser.js';
 
-function extractPublicKey(req) {
-  let publicKey;
+const log = logs('api/middleware/verifyAndLoadAgendaOrUserFromKey');
 
-  const authHeader = req.headers.authorization;
-  if (authHeader) {
-    publicKey = authHeader.startsWith('Bearer ')
-      ? authHeader.slice(7)
-      : authHeader;
-    if (publicKey.startsWith('tk-')) {
-      // is accessToken
-      return null;
-    }
+function extractPublicKey(req) {
+  if (!req.headers.authorization?.startsWith('Bearer ')) {
+    return req.query.key ?? req.headers.key;
   }
 
-  if (!publicKey) {
-    publicKey = req.query.key ?? req.headers.key;
+  const publicKey = req.headers.authorization.slice(7);
+
+  if (publicKey?.startsWith('tk-')) {
+    log('is token, not public key');
+    return null;
   }
 
   return publicKey;
 }
 
 export default async (req, res, next) => {
+  log('evaluating', { baseUrl: req.baseUrl });
   let loadUserError;
   const { keys: keysSvc } = req.app.services;
 
   if (req.user) {
+    log('user is already loaded');
     return next();
   }
 
@@ -36,12 +35,14 @@ export default async (req, res, next) => {
     && (req.headers['access-token']
       || req.headers.authorization?.startsWith('Bearer tk-'))
   ) {
+    log('public key is not available, looking at access token');
     return verifyAndLoadAccessTokenUser(req, res, next);
   }
 
   const isUIAPI = req.baseUrl === '/api';
 
   if (isUIAPI && !publicKey) {
+    log('is UI API, authentication is not required');
     return next();
   }
 
@@ -53,6 +54,7 @@ export default async (req, res, next) => {
   );
 
   if (!req.user && publicKey) {
+    log('user is not loaded, looking at agenda key');
     req.agendaKey = await keysSvc({
       type: 'agendaFullRead',
       key: publicKey,
@@ -61,6 +63,7 @@ export default async (req, res, next) => {
 
   try {
     if (!req.user && !req.agendaKey) {
+      log('user and agenda keys are not loaded, throwing error');
       throw new Error(
         loadUserError?.message ?? 'could not find user or agenda matching key',
       );
