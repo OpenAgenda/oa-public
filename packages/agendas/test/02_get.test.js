@@ -135,6 +135,7 @@ describe('agendas - functional (server): get', () => {
       eventOwnershipTransfer: false,
       useJSONBridge: false,
       memberCustom: false,
+      showTotals: false,
     });
   });
 
