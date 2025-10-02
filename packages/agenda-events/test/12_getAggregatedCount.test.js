@@ -15,7 +15,7 @@ describe('agendaEvents - 12 - functional (server): getAggregatedCount', () => {
     ]);
 
     knexClient = knex({
-      client: 'mysql',
+      client: 'mysql2',
       connection: config.mysql,
     });
 

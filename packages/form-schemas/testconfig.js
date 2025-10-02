@@ -3,7 +3,8 @@ export default {
     database: 'oatest_aes',
     user: 'root',
     password: 'grut',
-    ssl: true,
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
   schemas: {
     network: 'network',

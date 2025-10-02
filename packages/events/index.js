@@ -42,7 +42,7 @@ const createService = (c) => {
       knex:
         c.knex
         || knex({
-          client: 'mysql',
+          client: 'mysql2',
           connection: config.mysql,
         }),
     },

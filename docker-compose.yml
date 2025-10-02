@@ -319,3 +319,7 @@ services:
 volumes:
   esdata:
     driver: local
+
+networks:
+  default:
+    enable_ipv6: true

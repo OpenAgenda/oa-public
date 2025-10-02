@@ -10,7 +10,10 @@ const testConfig = {
     password: process.env.OA_MYSQL_TEST_PASSWORD,
     database: 'oatest',
     charset: 'utf8mb4',
-    ssl: true,
+    jsonStrings: true,
+    ssl: {
+      rejectUnauthorized: false,
+    },
   },
   redis: {
     host: 'localhost',

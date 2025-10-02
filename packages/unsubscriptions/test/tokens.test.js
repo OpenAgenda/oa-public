@@ -7,7 +7,7 @@ const dbConfig = {
   host: process.env.MYSQL_HOST,
   password: process.env.MYSQL_PASSWORD,
   user: process.env.MYSQL_USER,
-  ssl: true,
+  ssl: { rejectUnauthorized: false },
 };
 
 describe('tokens', () => {

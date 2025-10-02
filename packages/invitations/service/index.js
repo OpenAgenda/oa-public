@@ -20,7 +20,7 @@ function init(c, cb) {
   }
 
   knex = knexLib({
-    client: 'mysql',
+    client: 'mysql2',
     connection: { ...c.mysql },
   });
 

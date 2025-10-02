@@ -1,5 +1,5 @@
 import ih from 'immutability-helper';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 import schema from '@openagenda/validators/schema/index.js';
 import integer from '@openagenda/validators/integer.js';
 import text from '@openagenda/validators/text.js';

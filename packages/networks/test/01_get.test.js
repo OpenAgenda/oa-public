@@ -1,7 +1,7 @@
 import { promisify } from 'node:util';
 import knex from 'knex';
 import _ from 'lodash';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 import Service from '../index.js';
 import config from '../testconfig.js';
 import fixtures from './fixtures/index.js';
@@ -14,7 +14,7 @@ describe('network - functional ( server ): get', () => {
     const con = mysql.createConnection(
       _.extend(_.pick(config.mysql, ['user', 'password']), {
         multipleStatements: true,
-        ssl: true,
+        ssl: { rejectUnauthorized: false },
       }),
     );
 
@@ -27,7 +27,7 @@ describe('network - functional ( server ): get', () => {
 
   beforeAll(() => {
     k = knex({
-      client: 'mysql',
+      client: 'mysql2',
       connection: _.assign(
         {
           database: 'networktest',

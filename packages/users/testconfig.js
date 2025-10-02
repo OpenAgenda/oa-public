@@ -11,7 +11,7 @@ export default {
       database: 'oa_test_users',
       password: 'grut',
       user: 'root',
-      ssl: true,
+      ssl: { rejectUnauthorized: false },
     },
     schemas: {
       user: 'user',

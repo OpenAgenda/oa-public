@@ -107,13 +107,14 @@ const config = {
     cache: true,
     timezone: 'UTC',
     charset: 'utf8mb4',
+    jsonStrings: true,
     ssl: parseInt(process.env.MYSQL_SSL_VERIFY, 10)
       ? {
         ca: fs.readFileSync(process.env.MYSQL_SSL_CA),
         cert: fs.readFileSync(process.env.MYSQL_SSL_CERT),
         key: fs.readFileSync(process.env.MYSQL_SSL_KEY),
       }
-      : undefined,
+      : { rejectUnauthorized: false },
   },
   mails: {
     transport:

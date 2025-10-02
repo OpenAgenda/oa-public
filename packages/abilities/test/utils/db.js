@@ -1,6 +1,6 @@
 import { readFile } from 'node:fs';
 import { promisify } from 'node:util';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 export async function create(connection) {
   const client = mysql.createConnection({ ...connection, database: undefined });

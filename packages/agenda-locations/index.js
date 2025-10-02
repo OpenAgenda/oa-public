@@ -88,7 +88,7 @@ module.exports = Object.assign(
         knex:
           c.knex
           || knex({
-            client: 'mysql',
+            client: 'mysql2',
             connection: config.mysql,
           }),
         redis: c.redis,

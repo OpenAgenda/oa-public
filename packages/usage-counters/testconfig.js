@@ -3,7 +3,7 @@ export default {
     host: '127.0.0.1', // process.env.MYSQL_HOST
     password: 'grut',
     user: 'root',
-    ssl: true,
+    ssl: { rejectUnauthorized: false },
   },
 
   redis: {

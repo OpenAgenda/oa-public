@@ -9125,7 +9125,7 @@ __metadata:
     ky: "npm:^1.1.3"
     lodash: "npm:^4.17.15"
     morgan: "npm:^1.9.1"
-    mysql: "npm:^2.16.0"
+    mysql2: "npm:^3.15.1"
     nodemon: "npm:^3.0.3"
     rc-collapse: "npm:^3.1.0"
     react: "npm:^19.0.0"
@@ -9152,7 +9152,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.18.1"
+    mysql2: "npm:^3.15.1"
   languageName: unknown
   linkType: soft
 
@@ -9348,7 +9348,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.11.1"
+    mysql2: "npm:^3.15.1"
     redis: "npm:^4.6.6"
   languageName: unknown
   linkType: soft
@@ -9439,7 +9439,7 @@ __metadata:
     lodash: "npm:^4.17.15"
     morgan: "npm:^1.9.1"
     multer: "npm:^1.3.1"
-    mysql: "npm:^2.9.0"
+    mysql2: "npm:^3.15.1"
     nodemon: "npm:^2.0.4"
     redis: "npm:^4.6.6"
     slugify: "npm:^1.4.5"
@@ -9697,7 +9697,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.10.2"
+    mysql2: "npm:^3.15.1"
     slugify: "npm:^1.4.5"
   languageName: unknown
   linkType: soft
@@ -9707,7 +9707,9 @@ __metadata:
   resolution: "@openagenda/aggregator-sources@workspace:packages/aggregator-sources"
   dependencies:
     "@babel/cli": "npm:^7.28.3"
-    "@dnd-kit/react": "npm:^0.0.9"
+    "@dnd-kit/core": "npm:^6.3.1"
+    "@dnd-kit/sortable": "npm:^10.0.0"
+    "@dnd-kit/utilities": "npm:^3.2.2"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/agendas": "npm:^1.7.1"
     "@openagenda/bs-templates": "npm:^2.5.1"
@@ -9774,7 +9776,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.15.0"
+    mysql2: "npm:^3.15.1"
   languageName: unknown
   linkType: soft
 
@@ -9985,7 +9987,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.13.0"
+    mysql2: "npm:^3.15.1"
   languageName: unknown
   linkType: soft
 
@@ -10213,7 +10215,7 @@ __metadata:
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
     moment-timezone: "npm:0.5.31"
-    mysql: "npm:^2.11.1"
+    mysql2: "npm:^3.15.1"
     slugify: "npm:^1.6.6"
     uuid: "npm:^3.4.0"
   languageName: unknown
@@ -10314,7 +10316,7 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     multer: "npm:^1.4.4"
-    mysql: "npm:^2.18.1"
+    mysql2: "npm:^3.15.1"
     qs: "npm:^6.11.2"
     react: "npm:^19.0.0"
     react-date-range: "npm:^1.1.3"
@@ -10439,7 +10441,6 @@ __metadata:
     moment: "npm:^2.27.0"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
-    mysql: "npm:^2.16.0"
     qs: "npm:^6.9.1"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
@@ -10483,7 +10484,7 @@ __metadata:
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
     mime-types: "npm:^2.1.25"
-    mysql: "npm:^2.14.1"
+    mysql2: "npm:^3.15.1"
     redis: "npm:^4.6.6"
     rimraf: "npm:^3.0.1"
     uuid: "npm:^3.4.0"
@@ -10528,6 +10529,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.4"
+    mysql2: "npm:^3.15.1"
     uuid: "npm:^3.0.1"
   languageName: unknown
   linkType: soft
@@ -10545,7 +10547,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.18.1"
+    mysql2: "npm:^3.15.1"
     redis: "npm:^4.6.6"
     sinon: "npm:^8.1.1"
     uuid: "npm:^3.4.0"
@@ -10628,7 +10630,6 @@ __metadata:
     moment-timezone: "npm:^0.5.31"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
-    mysql: "npm:^2.16.0"
     react: "npm:^19.0.0"
     react-dom: "npm:^19.0.0"
     react-helmet-async: "npm:^1.0.3"
@@ -10805,7 +10806,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.13.0"
+    mysql2: "npm:^3.15.1"
     rimraf: "npm:^3.0.2"
     slugify: "npm:^1.4.5"
   languageName: unknown
@@ -10896,7 +10897,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.13.0"
+    mysql2: "npm:^3.15.1"
   languageName: unknown
   linkType: soft
 
@@ -11816,7 +11817,7 @@ __metadata:
     jsonwebtoken: "npm:^9.0.2"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.18.1"
+    mysql2: "npm:^3.15.1"
   languageName: unknown
   linkType: soft
 
@@ -11829,7 +11830,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.21"
-    mysql: "npm:^2.18.1"
+    mysql2: "npm:^3.15.1"
     redis: "npm:^4.6.6"
     why: "npm:^0.6.2"
   languageName: unknown
@@ -11893,7 +11894,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.17.1"
+    mysql2: "npm:^3.15.1"
     sinon: "npm:^8.1.1"
     tmp: "npm:^0.1.0"
     uuid: "npm:^3.4.0"
@@ -11909,7 +11910,7 @@ __metadata:
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
-    mysql: "npm:^2.16.0"
+    mysql2: "npm:^3.15.1"
     qs: "npm:^6.9.1"
     slugify: "npm:^1.4.5"
     validator: "npm:^12.2.0"
@@ -11975,6 +11976,15 @@ __metadata:
   dependencies:
     "@opentelemetry/api": "npm:^1.3.0"
   checksum: 10c0/e7a0a0ff46aaeb62192a99f45ef4889222e4fea09be25cab6fea811afc2df95c02ea050b2c98dfc0fc5a6ec6a623d87096af2751fdf91ddbb3afcab61b5325da
+  languageName: node
+  linkType: hard
+
+"@opentelemetry/api-logs@npm:0.205.0":
+  version: 0.205.0
+  resolution: "@opentelemetry/api-logs@npm:0.205.0"
+  dependencies:
+    "@opentelemetry/api": "npm:^1.3.0"
+  checksum: 10c0/db8f3e16d47e4ce006aceb5facb3570328e319f9d748ca2e7dd60e07ea509a38aa931eaf5bf0ab5a70090b98dff8b1b014df3a9bdbfc2e5968f4688d86449b36
   languageName: node
   linkType: hard
 
@@ -12467,6 +12477,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@opentelemetry/instrumentation-mysql2@npm:^0.52.3":
+  version: 0.52.3
+  resolution: "@opentelemetry/instrumentation-mysql2@npm:0.52.3"
+  dependencies:
+    "@opentelemetry/instrumentation": "npm:^0.205.0"
+    "@opentelemetry/sql-common": "npm:^0.41.2"
+  peerDependencies:
+    "@opentelemetry/api": ^1.3.0
+  checksum: 10c0/1d4cc1931ebb7371b7ee9771c2d6b56fdfbb3a7fadc650c375d4ddd533460118dc6e945c5e41091016783f744d1ad490faac54ea512b9f9726a5934a05041d53
+  languageName: node
+  linkType: hard
+
 "@opentelemetry/instrumentation-mysql@npm:0.45.1":
   version: 0.45.1
   resolution: "@opentelemetry/instrumentation-mysql@npm:0.45.1"
@@ -12573,6 +12595,19 @@ __metadata:
   peerDependencies:
     "@opentelemetry/api": ^1.3.0
   checksum: 10c0/79ca65b66357665d19f89da7027da25ea1c6b55ecdacb0a99534923743c80deb9282870db563de8ae284b13e7e0aab8413efa1937f199deeaef069e07c7e4875
+  languageName: node
+  linkType: hard
+
+"@opentelemetry/instrumentation@npm:^0.205.0":
+  version: 0.205.0
+  resolution: "@opentelemetry/instrumentation@npm:0.205.0"
+  dependencies:
+    "@opentelemetry/api-logs": "npm:0.205.0"
+    import-in-the-middle: "npm:^1.8.1"
+    require-in-the-middle: "npm:^7.1.1"
+  peerDependencies:
+    "@opentelemetry/api": ^1.3.0
+  checksum: 10c0/a6ff73528f1413d1c1028ec12ab43e09d3646704a4219f19b97c7668be85ab5555a85432ec34f2c7ec92047aee1ca460929c94c38d1991f6302fc41203a1aa75
   languageName: node
   linkType: hard
 
@@ -12820,6 +12855,17 @@ __metadata:
   peerDependencies:
     "@opentelemetry/api": ^1.1.0
   checksum: 10c0/60a70358f0c94f610e2995333e96b406626d67d03d38ed03b15a3461ad0f8d64afbf6275cca7cb58fe955ecdce832f3ffc9b73f9d88503bba5d2a620bbd6d351
+  languageName: node
+  linkType: hard
+
+"@opentelemetry/sql-common@npm:^0.41.2":
+  version: 0.41.2
+  resolution: "@opentelemetry/sql-common@npm:0.41.2"
+  dependencies:
+    "@opentelemetry/core": "npm:^2.0.0"
+  peerDependencies:
+    "@opentelemetry/api": ^1.1.0
+  checksum: 10c0/1774930abdad57a716662a3feffe8a7aca8e4494303356f04c3e958fddcdb1df29d464ca91db890e0501728b4fb6c4b578f3ecb83004bcdc9d7e81b739d24459
   languageName: node
   linkType: hard
 
@@ -23641,6 +23687,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"aws-ssl-profiles@npm:^1.1.1":
+  version: 1.1.2
+  resolution: "aws-ssl-profiles@npm:1.1.2"
+  checksum: 10c0/e5f59a4146fe3b88ad2a84f814886c788557b80b744c8cbcb1cbf8cf5ba19cc006a7a12e88819adc614ecda9233993f8f1d1f3b612cbc2f297196df9e8f4f66e
+  languageName: node
+  linkType: hard
+
 "axe-core@npm:^4.10.0":
   version: 4.10.0
   resolution: "axe-core@npm:4.10.0"
@@ -25937,6 +25990,7 @@ __metadata:
     "@opentelemetry/instrumentation-express": "npm:^0.52.0"
     "@opentelemetry/instrumentation-http": "npm:^0.203.0"
     "@opentelemetry/instrumentation-mysql": "npm:^0.49.0"
+    "@opentelemetry/instrumentation-mysql2": "npm:^0.52.3"
     "@opentelemetry/resources": "npm:^2.0.1"
     "@opentelemetry/sdk-logs": "npm:^0.203.0"
     "@opentelemetry/sdk-metrics": "npm:^2.0.1"
@@ -25985,7 +26039,7 @@ __metadata:
     morgan: "npm:^1.10.0"
     msw: "npm:^2.3.0"
     multer: "npm:^1.3.0"
-    mysql: "npm:^2.18.1"
+    mysql2: "npm:^3.15.1"
     nodemon: "npm:^2.0.4"
     oauth: "npm:^0.9.15"
     on-finished: "npm:^2.4.1"
@@ -33727,6 +33781,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"generate-function@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "generate-function@npm:2.3.1"
+  dependencies:
+    is-property: "npm:^1.0.2"
+  checksum: 10c0/4645cf1da90375e46a6f1dc51abc9933e5eafa4cd1a44c2f7e3909a30a4e9a1a08c14cd7d5b32da039da2dba2a085e1ed4597b580c196c3245b2d35d8bc0de5d
+  languageName: node
+  linkType: hard
+
 "generic-pool@npm:3.8.2":
   version: 3.8.2
   resolution: "generic-pool@npm:3.8.2"
@@ -35606,6 +35669,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"iconv-lite@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "iconv-lite@npm:0.7.0"
+  dependencies:
+    safer-buffer: "npm:>= 2.1.2 < 3.0.0"
+  checksum: 10c0/2382400469071c55b6746c531eed5fa4d033e5db6690b7331fb2a5f59a30d7a9782932e92253db26df33c1cf46fa200a3fbe524a2a7c62037c762283f188ec2f
+  languageName: node
+  linkType: hard
+
 "icss-utils@npm:^4.0.0, icss-utils@npm:^4.1.1":
   version: 4.1.1
   resolution: "icss-utils@npm:4.1.1"
@@ -37254,6 +37326,13 @@ __metadata:
   version: 4.0.0
   resolution: "is-promise@npm:4.0.0"
   checksum: 10c0/ebd5c672d73db781ab33ccb155fb9969d6028e37414d609b115cc534654c91ccd061821d5b987eefaa97cf4c62f0b909bb2f04db88306de26e91bfe8ddc01503
+  languageName: node
+  linkType: hard
+
+"is-property@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "is-property@npm:1.0.2"
+  checksum: 10c0/33ab65a136e4ba3f74d4f7d9d2a013f1bd207082e11cedb160698e8d5394644e873c39668d112a402175ccbc58a087cef87198ed46829dbddb479115a0257283
   languageName: node
   linkType: hard
 
@@ -40392,7 +40471,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"long@npm:^5.0.0":
+"long@npm:^5.0.0, long@npm:^5.2.1":
   version: 5.3.2
   resolution: "long@npm:5.3.2"
   checksum: 10c0/7130fe1cbce2dca06734b35b70d380ca3f70271c7f8852c922a7c62c86c4e35f0c39290565eca7133c625908d40e126ac57c02b1b1a4636b9457d77e1e60b981
@@ -40552,6 +40631,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lru-cache@npm:^7.14.1":
+  version: 7.18.3
+  resolution: "lru-cache@npm:7.18.3"
+  checksum: 10c0/b3a452b491433db885beed95041eb104c157ef7794b9c9b4d647be503be91769d11206bb573849a16b4cc0d03cbd15ffd22df7960997788b74c1d399ac7a4fed
+  languageName: node
+  linkType: hard
+
 "lru-cache@npm:^9.1.1 || ^10.0.0":
   version: 10.0.0
   resolution: "lru-cache@npm:10.0.0"
@@ -40575,6 +40661,13 @@ __metadata:
   dependencies:
     es5-ext: "npm:~0.10.2"
   checksum: 10c0/83517032b46843601c4528be65e8aaf85f5a7860a9cfa3e4f2b5591da436e7cd748d95b450c91434c4ffb75d3ae4c069ddbdd9f71ada56a99a00c03088c51b4d
+  languageName: node
+  linkType: hard
+
+"lru.min@npm:^1.0.0":
+  version: 1.1.2
+  resolution: "lru.min@npm:1.1.2"
+  checksum: 10c0/64f0cbb155899b62e57b5f0f1e69d5427252cf87cd1dd2ba87d6768da7636ba1e459bd6b97a7632cf50ee9ede927809dab5c50ab76651d56c3cbf970d1b08f5c
   languageName: node
   linkType: hard
 
@@ -43137,7 +43230,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mysql@npm:^2.10.2, mysql@npm:^2.11, mysql@npm:^2.11.1, mysql@npm:^2.13.0, mysql@npm:^2.14.1, mysql@npm:^2.15.0, mysql@npm:^2.16.0, mysql@npm:^2.17.1, mysql@npm:^2.18.1, mysql@npm:^2.9.0":
+"mysql2@npm:^3.15.1":
+  version: 3.15.1
+  resolution: "mysql2@npm:3.15.1"
+  dependencies:
+    aws-ssl-profiles: "npm:^1.1.1"
+    denque: "npm:^2.1.0"
+    generate-function: "npm:^2.3.1"
+    iconv-lite: "npm:^0.7.0"
+    long: "npm:^5.2.1"
+    lru.min: "npm:^1.0.0"
+    named-placeholders: "npm:^1.1.3"
+    seq-queue: "npm:^0.0.5"
+    sqlstring: "npm:^2.3.2"
+  checksum: 10c0/b40a90fda387a818f36e7fe486b41bfefafc7ee2925c53da761a8e3237fd63ddf72f8c64f8ff4a13abd593e8f72add852d405b5b011fe8b0763f428a2281f3ad
+  languageName: node
+  linkType: hard
+
+"mysql@npm:^2.10.2, mysql@npm:^2.11":
   version: 2.18.1
   resolution: "mysql@npm:2.18.1"
   dependencies:
@@ -43157,6 +43267,15 @@ __metadata:
     object-assign: "npm:^4.0.1"
     thenify-all: "npm:^1.0.0"
   checksum: 10c0/103114e93f87362f0b56ab5b2e7245051ad0276b646e3902c98397d18bb8f4a77f2ea4a2c9d3ad516034ea3a56553b60d3f5f78220001ca4c404bd711bd0af39
+  languageName: node
+  linkType: hard
+
+"named-placeholders@npm:^1.1.3":
+  version: 1.1.3
+  resolution: "named-placeholders@npm:1.1.3"
+  dependencies:
+    lru-cache: "npm:^7.14.1"
+  checksum: 10c0/cd83b4bbdf358b2285e3c51260fac2039c9d0546632b8a856b3eeabd3bfb3d5b597507ab319b97c281a4a70d748f38bc66fa218a61cb44f55ad997ad5d9c9935
   languageName: node
   linkType: hard
 
@@ -51431,6 +51550,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"seq-queue@npm:^0.0.5":
+  version: 0.0.5
+  resolution: "seq-queue@npm:0.0.5"
+  checksum: 10c0/ec870fc392f0e6e99ec0e551c3041c1a66144d1580efabae7358e572de127b0ad2f844c95a4861d2e6203f836adea4c8196345b37bed55331ead8f22d99ac84c
+  languageName: node
+  linkType: hard
+
 "serialize-error@npm:^2.1.0":
   version: 2.1.0
   resolution: "serialize-error@npm:2.1.0"
@@ -52815,6 +52941,13 @@ __metadata:
   version: 2.3.1
   resolution: "sqlstring@npm:2.3.1"
   checksum: 10c0/8c188effb480ca810f5a2c74deb034b99f5831aa1acfb372fab7029172e0e1f5add19195ad82416d3fd88a0646317a4d15a31e012d7b02da20f5e7e173deee24
+  languageName: node
+  linkType: hard
+
+"sqlstring@npm:^2.3.2":
+  version: 2.3.3
+  resolution: "sqlstring@npm:2.3.3"
+  checksum: 10c0/3b5dd7badb3d6312f494cfa6c9a381ee630fbe3dbd571c4c9eb8ecdb99a7bf5a1f7a5043191d768797f6b3c04eed5958ac6a5f948b998f0a138294c6d3125fbd
   languageName: node
   linkType: hard
 

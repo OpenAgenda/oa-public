@@ -2,7 +2,7 @@ import fs from 'node:fs';
 import Knex from 'knex';
 
 export const knex = Knex({
-  client: 'mysql',
+  client: 'mysql2',
 });
 
 export const resetAndCreateTables = () =>
