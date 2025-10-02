@@ -62,7 +62,7 @@ export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
   }
 
   let cleanMemberData = null;
-  console.log('this', data, agenda.settings.contribution);
+
   if (data || agenda.settings.contribution.useFields) {
     try {
       const validate = new FormSchema(schemas.merged).getValidate();
