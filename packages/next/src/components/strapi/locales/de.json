@@ -1,4 +1,8 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": "Ihr Dashboard",
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": "Benutzer",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Sie sind in Ihrem Konto **{email}** angemeldet. Finden Sie Ihre Agenden, Veranstaltungen und Nachrichten auf [Ihrem Dashboard](/home).",
+  "next.components.Strapi.LoggedUserWelcome.welcome": "Willkommen {firstName}!",
   "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.addEvent": "",
   "next.components.Strapi.bluesky": "",

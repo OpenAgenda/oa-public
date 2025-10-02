@@ -10,6 +10,7 @@ import SplitHeroSegment from 'components/strapi/SplitHeroSegment';
 import AutoFeaturedCardSet from 'components/strapi/AutoFeaturedCardSet';
 import useCrispClient from 'hooks/useCrispClient';
 import Footer from 'components/strapi/Footer';
+import LoggedUserWelcome from 'components/strapi/LoggedUserWelcome';
 import Metas from './components/Metas';
 import fetchLocale from './locales';
 
@@ -60,6 +61,7 @@ export default function StrapiPage({ page, footer }) {
         colorPalette={navFontColor ? color(navFontColor) : undefined}
         logoVariant={logoVariant}
       />
+      <LoggedUserWelcome top={16} />
 
       {Segments.map((Segment) => {
         const { id } = Segment;

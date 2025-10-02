@@ -6,11 +6,22 @@ import ky from 'ky';
 import { FetchStatus } from 'config/types';
 
 type User = {
+  uid?: number;
+  fullName?: string;
+  username?: string;
+  email?: string;
+  culture?: string;
+  image?: string | null;
+  isNew?: boolean;
+  createdAt?: string;
+  updatedAt?: string;
+  hasSocialAccount?: boolean;
+  hasLocalAccount?: boolean;
   announcement?: {
     id: string;
     kind: 'primary' | 'info' | 'success' | 'warning' | 'danger';
     content: string;
-  };
+  } | null;
 };
 
 // TODO wrap getServerSideProps with withUserSsr (https://github.com/vvo/iron-session/blob/main/next/index.ts#L54)
