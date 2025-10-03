@@ -11,7 +11,7 @@
     "@openagenda/validators": "^2.4.0",
     "knex": "^2.4.2",
     "lodash": "^4.17.15",
-    "mysql": "^2.16.0",
+    "mysql2": "^3.15.1",
     "qs": "^6.9.1",
     "slugify": "^1.4.5",
     "validator": "^12.2.0",

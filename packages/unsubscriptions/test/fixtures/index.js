@@ -3,7 +3,7 @@ import { promisify } from 'node:util';
 
 import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 import knex from 'knex';
 
 import unsubscriptionLinks from './unsubscriptionLinks.js';
@@ -13,7 +13,13 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export default async function fixtures(dbConfig) {
-  const k = knex({ client: 'mysql' });
+  const k = knex({
+    client: 'mysql2',
+    connection: {
+      ...dbConfig,
+      database: 'unsubscription_test',
+    },
+  });
 
   const con = mysql.createConnection({
     user: dbConfig.user,
@@ -35,11 +41,5 @@ export default async function fixtures(dbConfig) {
 
   con.end();
 
-  return knex({
-    client: 'mysql',
-    connection: {
-      ...dbConfig,
-      database: 'unsubscription_test',
-    },
-  });
+  return k;
 }

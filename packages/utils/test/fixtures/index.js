@@ -4,7 +4,7 @@ const fs = require('fs');
 const { promisify } = require('util');
 const _ = require('lodash');
 const knex = require('knex');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const reset = `
   drop database if exists {database};

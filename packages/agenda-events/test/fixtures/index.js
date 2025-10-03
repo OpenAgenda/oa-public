@@ -2,7 +2,7 @@ import * as url from 'node:url';
 import fs from 'node:fs';
 import { promisify } from 'node:util';
 import _ from 'lodash';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
 

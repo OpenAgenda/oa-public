@@ -2,10 +2,10 @@ import { promisify } from 'node:util';
 import fs from 'node:fs';
 import _ from 'lodash';
 import knex from 'knex';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 const mysqlKnex = knex({
-  client: 'mysql',
+  client: 'mysql2',
 });
 
 function _parseJSON(fx) {
@@ -51,7 +51,7 @@ async function _load(config, files) {
 
 export default (dbConfig) => {
   const client = knex({
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       ...dbConfig,
       database: 'oatest_aggregators',

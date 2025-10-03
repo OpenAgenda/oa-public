@@ -12,7 +12,7 @@ describe('activities - notifications', () => {
     service = await Service.initAndLoad({
       ...config,
       knex: knexLib({
-        client: 'mysql',
+        client: 'mysql2',
         connection: config.mysql,
       }),
     });

@@ -2,11 +2,11 @@ import fs from 'node:fs';
 import { promisify } from 'node:util';
 import _ from 'lodash';
 import knex from 'knex';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 import members from './members.json';
 
 function _sql() {
-  const k = knex({ client: 'mysql' });
+  const k = knex({ client: 'mysql2' });
 
   const raw = [
     fs.readFileSync(`${import.meta.dirname}/reset.sql`, 'utf-8'),
@@ -36,7 +36,7 @@ async function _load(dbConfig) {
 
 export default (dbConfig) => {
   const client = knex({
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       ...dbConfig,
       database: 'memberstest',

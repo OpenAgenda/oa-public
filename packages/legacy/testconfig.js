@@ -4,7 +4,8 @@ export default {
     user: 'root',
     password: 'grut',
     database: 'oatest_controldata',
-    ssl: true,
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
   redisPrefix: 'testControlData:',
 };

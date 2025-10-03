@@ -13,7 +13,7 @@ describe('activities - activities', () => {
 
   beforeEach(async () => {
     knex = knexLib({
-      client: 'mysql',
+      client: 'mysql2',
       connection: config.mysql,
     });
 
@@ -570,7 +570,7 @@ describe('activities - activities', () => {
       service = await Service({
         ...config,
         knex: knexLib({
-          client: 'mysql',
+          client: 'mysql2',
           connection: config.mysql,
         }),
         activities: {

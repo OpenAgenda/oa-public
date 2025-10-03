@@ -16,7 +16,7 @@
     "immutability-helper": "^2.2.2",
     "knex": "^2.4.2",
     "lodash": "^4.17.15",
-    "mysql": "^2.11.1"
+    "mysql2": "^3.15.1"
   },
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.2",
