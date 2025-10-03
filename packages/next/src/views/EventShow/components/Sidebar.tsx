@@ -33,6 +33,7 @@ import {
   faGear,
 } from 'icons/solid';
 import defaultSize from 'utils/defaultSize';
+import isAdminMod from 'utils/isAdminMod';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
 import { sidebar as messages } from '../messages';
@@ -383,6 +384,8 @@ export function LocationPreview({ event, icon = faLocationDot }) {
 
 export function PassCultureSection({
   isEventContributor,
+  isAdminMod: isAdminModProp,
+  userUid,
   event,
   agenda,
   ...props
@@ -396,6 +399,30 @@ export function PassCultureSection({
   } = useDisclosure();
 
   const { passCulture } = extractPassFromRegistration(intl, event.registration);
+
+  const canAccessReservations = useMemo(() => {
+    if (!passCulture) {
+      return false;
+    }
+
+    if (!passCulture.owner) {
+      // No owner defined: keep current behavior (isEventContributor)
+      return isEventContributor;
+    }
+
+    if (passCulture.owner.type === 'user') {
+      // User owner: check if current user's UID matches
+      return passCulture.owner.uid === userUid;
+    }
+
+    if (passCulture.owner.type === 'agenda') {
+      // Agenda owner: only adminMod can access if agenda UID matches
+      return isAdminModProp && passCulture.owner.uid === agenda.uid;
+    }
+
+    // Unknown owner type: deny access by default
+    return false;
+  }, [passCulture, isEventContributor, userUid, isAdminModProp, agenda.uid]);
 
   if (!passCulture) {
     return null;
@@ -457,7 +484,7 @@ export function PassCultureSection({
         </Box>
       )}
 
-      {isEventContributor && (
+      {canAccessReservations && (
         <Fragment>
           <Icon color="oaGray.300" justifySelf="end">
             <FaIcon icon={faGear} />
@@ -496,6 +523,7 @@ export function ReferencesSection({ agenda, event }) {
 export default function Sidebar({
   shareOnOpen = null,
   isEventContributor = false,
+  me,
 }) {
   const agenda = useAgenda();
   const { event } = useEvent();
@@ -515,6 +543,8 @@ export default function Sidebar({
       <RegistrationSection event={event} />
       <PassCultureSection
         isEventContributor={isEventContributor}
+        isAdminMod={isAdminMod(me?.member)}
+        userUid={me?.member?.userUid}
         event={event}
         agenda={agenda}
       />
