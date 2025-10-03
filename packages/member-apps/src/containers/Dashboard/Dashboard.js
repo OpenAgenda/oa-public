@@ -57,6 +57,16 @@ const messages = defineMessages({
     defaultMessage:
       "This feature is activated upon request. It allows you to name a member as moderator. Write us a short message and we'll process your request promptly.",
   },
+  membersAlreadyInvited: {
+    id: 'MemberApps.Dashboard.membersAlreadyInvited',
+    defaultMessage:
+      '{count, plural, =1 {1 user was} other {# users were}} already a member of the agenda',
+  },
+  viewAlreadyMembers: {
+    id: 'MemberApps.Dashboard.viewAlreadyMembers',
+    defaultMessage:
+      'View {count, plural, =1 {this member} other {these members}}',
+  },
 });
 
 function changeModalTitle(agenda, userRole) {
@@ -300,6 +310,7 @@ class Dashboard extends Component {
       resendInvitation,
       reactReduxContext,
       inviteError,
+      inviteResult,
       agenda,
       member,
       query,
@@ -686,7 +697,28 @@ class Dashboard extends Component {
                       )}
                   </div>
                 ) : (
-                  <div>{getLabel('membersInvited')}</div>
+                  <div>
+                    <div>{getLabel('membersInvited')}</div>
+                    {inviteResult?.already?.length > 0 && (
+                      <div className="margin-top-sm">
+                        <div>
+                          {intl.formatMessage(messages.membersAlreadyInvited, {
+                            count: inviteResult.already.length,
+                          })}
+                        </div>
+                        <a
+                          href={`/${agenda.slug}/admin/members?${inviteResult.already
+                            .filter((item) => item.userUid)
+                            .map((item) => `userUid[]=${item.userUid}`)
+                            .join('&')}`}
+                        >
+                          {intl.formatMessage(messages.viewAlreadyMembers, {
+                            count: inviteResult.already.length,
+                          })}
+                        </a>
+                      </div>
+                    )}
+                  </div>
                 )}
               </div>
             ) : (
@@ -796,6 +828,7 @@ export default withContext(
             credFilters: state.members.credFilters,
             showInviteResult: state.members.showInviteResult,
             inviteError: state.members.inviteError,
+            inviteResult: state.members.inviteResult,
             stats: state.members.stats ?? {},
             perPageLimit: state.settings.perPageLimit,
             modals: state.modals,
