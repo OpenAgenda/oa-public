@@ -1,6 +1,0 @@
-{
-  "template": "basic",
-  "title": "privateTitle",
-  "points": ["privatePrivate", "privateVisibility", "privateBroadcast"],
-  "leftImage": "//cdn.openagenda.com/static/private.png"
-}
