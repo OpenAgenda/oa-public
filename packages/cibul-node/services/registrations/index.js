@@ -4,6 +4,7 @@ import ProcessPassPendingOffers from './utils/ProcessPassPendingOffers.js';
 import processPassCultureApply from './utils/passCulture/processApply.js';
 import process, { loadAndProcess } from './utils/passCulture/process.js';
 import listBookings from './utils/passCulture/listBookings.js';
+import determineOwner from './utils/passCulture/determineOwner.js';
 
 const log = logs('services/registrations');
 
@@ -45,6 +46,7 @@ export function init(config, services) {
         process: process.bind(null, { services }),
         loadAndProcess: loadAndProcess.bind(null, { services }),
         bookings: listBookings.bind(null, { services }),
+        determineOwner,
         isMarkedAsPending: (data) => data?.[0]?.response?.isPending,
         isNew: (data) => !data[0]?.appliedAt,
         hasNonApplied: (data) =>

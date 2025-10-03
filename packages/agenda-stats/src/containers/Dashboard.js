@@ -176,6 +176,8 @@ function Dashboard() {
   const filters = useFilters(intl, agendaSchema.fields, {
     dateFnsLocale: dateFnsLocales[intl.locale],
     missingValue: 'null',
+    sort: agenda.settings?.admin?.filters?.displayed ?? ['state', 'relative'],
+    include: agenda.settings?.admin?.filters?.displayed,
   });
 
   const filtersQuery = useQuery(

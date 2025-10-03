@@ -70,9 +70,10 @@ export default async function process(
   clean,
   event,
   agendaEventOldState,
+  actingMember = null,
+  userUid = null,
 ) {
   const { registrations, agendaLocations } = services;
-
   if (!clean.passCulture) return false;
 
   const hasOfferCreationErrors = clean.passCulture?.[0]?.errors?.length && !clean.passCulture[1];
@@ -83,6 +84,14 @@ export default async function process(
         return {
           ...regItem,
           data: clean.passCulture,
+          // Preserve existing owner or set if missing (for legacy data)
+          owner:
+            regItem.owner
+            || registrations.utils.passCulture.determineOwner(
+              actingMember,
+              agenda.uid,
+              userUid,
+            ),
         };
       }
       return regItem;
@@ -114,6 +123,8 @@ export default async function process(
         return await registrations.utils.passCulture.processApply(
           agenda,
           clean,
+          actingMember,
+          userUid,
         );
       } catch (e) {
         log('error', e);
@@ -131,6 +142,27 @@ export default async function process(
           { ...clean.event, location },
           clean.passCulture,
         );
+
+        // Even for unpublished events, we need to set the owner key
+        // to reflect the acting member who submitted the passCulture data
+        const updatedRegistration = clean.event.registration.map((regItem) => {
+          if (regItem.service === 'passCulture') {
+            return {
+              ...regItem,
+              // Preserve existing owner or set if missing (for legacy data)
+              owner:
+                regItem.owner
+                || registrations.utils.passCulture.determineOwner(
+                  actingMember,
+                  agenda.uid,
+                  userUid,
+                ),
+            };
+          }
+          return regItem;
+        });
+
+        return updatedRegistration;
       } catch (error) {
         log('error', error);
         throw error;
@@ -156,6 +188,8 @@ export default async function process(
       return await registrations.utils.passCulture.processApply(
         agenda,
         updatedClean,
+        actingMember,
+        userUid,
       );
     } catch (e) {
       log('error', e);

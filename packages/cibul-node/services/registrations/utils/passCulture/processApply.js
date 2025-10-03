@@ -6,6 +6,8 @@ export default async function processPassCultureApply(
   { services },
   agenda,
   clean,
+  actingMember = null,
+  userUid = null,
 ) {
   log.info('called');
 
@@ -35,6 +37,11 @@ export default async function processPassCultureApply(
         ...r,
         data: applied,
         value: passCultureService.getEventOfferLink(applied),
+        owner: registrations.utils.passCulture.determineOwner(
+          actingMember,
+          agenda.uid,
+          userUid,
+        ),
         lastProcessedAt: new Date(),
       }
       : r));

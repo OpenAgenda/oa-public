@@ -114,11 +114,33 @@ describe('core - functional: core.agendas().events.create() - Pass Culture', () 
           .agendas(2010)
           .events.create(freshEventWithPassData, {
             access: 'moderator',
+            userUid: 82253124,
           });
 
         expect(event.registration[0].value).toBe(
           testConfig.passCulture.offerLink.replace(':id', 72585),
         );
+
+        // Test that owner key is set correctly for moderator role
+        expect(event.registration[0].owner).toEqual({
+          type: 'agenda',
+          uid: 2010,
+        });
+      });
+
+      it('owner key is set correctly for contributor role', async () => {
+        const event = await core
+          .agendas(2010)
+          .events.create(freshEventWithPassData, {
+            access: 'contributor',
+            userUid: 63170203,
+          });
+
+        // Test that owner key is set correctly for contributor role
+        expect(event.registration[0].owner).toEqual({
+          type: 'user',
+          uid: 63170203,
+        });
       });
     });
 

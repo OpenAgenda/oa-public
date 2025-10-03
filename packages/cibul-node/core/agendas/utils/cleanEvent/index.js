@@ -109,7 +109,6 @@ export default Object.assign(
     ) {
       const throwError = data?.registration?.find(({ service }) => service === 'passCulture')
         ?.data || data.location;
-
       clean.passCulture = await registrations(
         agenda.settings.registration,
       ).passCulture.validate({ ...clean.event, location }, passCulturePayload, {

@@ -46,7 +46,6 @@ export default async (core, agendaUid, data, options = {}) => {
 
   try {
     const member = userUid ? await members.get({ agendaUid, userUid }) : null;
-
     const agenda = await getAgenda(core.services, agendaUid, {
       detailed: true,
       includeMemberSchema: true,
@@ -84,7 +83,12 @@ export default async (core, agendaUid, data, options = {}) => {
       log('  There is a pass culture payload');
       if (clean.agendaEvent.state === 2) {
         try {
-          clean.event.registration = await registrations.utils.passCulture.processApply(agenda, clean);
+          clean.event.registration = await registrations.utils.passCulture.processApply(
+            agenda,
+            clean,
+            member,
+            userUid,
+          );
         } catch (e) {
           log('error', e);
           throw e;
@@ -104,6 +108,23 @@ export default async (core, agendaUid, data, options = {}) => {
             { ...clean.event, location },
             clean.passCulture,
           );
+
+          // Even for unpublished events during creation, we need to set the owner key
+          // to reflect the acting member who submitted the passCulture data
+          clean.event.registration = clean.event.registration.map((regItem) => {
+            if (regItem.service === 'passCulture') {
+              return {
+                ...regItem,
+                // Set owner for new passCulture registration
+                owner: registrations.utils.passCulture.determineOwner(
+                  member,
+                  agendaUid,
+                  userUid,
+                ),
+              };
+            }
+            return regItem;
+          });
         } catch (error) {
           log('error', error);
           throw error;

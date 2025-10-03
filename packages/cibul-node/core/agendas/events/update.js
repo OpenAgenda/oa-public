@@ -153,6 +153,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           clean,
           event,
           agendaEvent?.state,
+          actingMember,
+          actingUserUid,
         );
       } catch (e) {
         log('error', 'failed to process passCulture registration', e);
