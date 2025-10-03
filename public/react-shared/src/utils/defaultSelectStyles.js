@@ -1,4 +1,4 @@
-const BLUE = '#41acdd';
+const BLUE = '#1d77ce';
 const WHITE = '#fff';
 const GRAY = '#ccc';
 const LIGHTGRAY = '#f8f8f8';
