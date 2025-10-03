@@ -211,7 +211,7 @@ textarea {
   line-height: inherit; }
 
 a {
-  color: #41acdd;
+  color: #1d77ce;
   text-decoration: none; }
   a:hover,
   a:focus {
@@ -403,7 +403,7 @@ mark,
   color: #777777; }
 
 .text-primary {
-  color: #41acdd; }
+  color: #1d77ce; }
 
 a.text-primary:hover,
 a.text-primary:focus {
@@ -441,7 +441,7 @@ a.text-danger:focus {
   color: #fff; }
 
 .bg-primary {
-  background-color: #41acdd; }
+  background-color: #1d77ce; }
 
 a.bg-primary:hover,
 a.bg-primary:focus {
@@ -1768,7 +1768,7 @@ fieldset[disabled] a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #41acdd;
+  background-color: #1d77ce;
   border-color: #2ba3d9; }
   .btn-primary:focus,
   .btn-primary.focus {
@@ -1819,10 +1819,10 @@ fieldset[disabled] a.btn {
   fieldset[disabled] .btn-primary.focus,
   fieldset[disabled] .btn-primary:active,
   fieldset[disabled] .btn-primary.active {
-    background-color: #41acdd;
+    background-color: #1d77ce;
     border-color: #2ba3d9; }
   .btn-primary .badge {
-    color: #41acdd;
+    color: #1d77ce;
     background-color: #fff; }
 
 .btn-success {
@@ -2062,7 +2062,7 @@ fieldset[disabled] a.btn {
     background-color: #fff; }
 
 .btn-link {
-  color: #41acdd;
+  color: #1d77ce;
   font-weight: normal;
   border-radius: 0; }
   .btn-link,
@@ -2187,7 +2187,7 @@ input[type="button"].btn-block {
   color: #fff;
   text-decoration: none;
   outline: 0;
-  background-color: #41acdd; }
+  background-color: #1d77ce; }
 
 .dropdown-menu > .disabled > a,
 .dropdown-menu > .disabled > a:hover,
@@ -2564,7 +2564,7 @@ input[type="button"].btn-block {
   .nav .open > a:hover,
   .nav .open > a:focus {
     background-color: #eeeeee;
-    border-color: #41acdd; }
+    border-color: #1d77ce; }
   .nav .nav-divider {
     height: 1px;
     margin: 9px 0;
@@ -2604,7 +2604,7 @@ input[type="button"].btn-block {
   .nav-pills > li.active > a:hover,
   .nav-pills > li.active > a:focus {
     color: #fff;
-    background-color: #41acdd; }
+    background-color: #1d77ce; }
 
 .nav-stacked > li {
   float: none; }
