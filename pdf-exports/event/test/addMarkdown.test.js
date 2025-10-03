@@ -12,11 +12,11 @@ let segments = process.argv.slice(2);
 
 // If no arguments provided, render all segments
 if (segments.length === 0) {
-  segments = ['tiny', 'emojis', 'girls', 'modalites'];
+  segments = ['tiny', 'emojis', 'girls', 'modalites', 'lienlong'];
 }
 
 // Validate all segments
-const validSegments = ['tiny', 'emojis', 'girls', 'modalites'];
+const validSegments = ['tiny', 'emojis', 'girls', 'modalites', 'lienlong'];
 for (const segment of segments) {
   if (!validSegments.includes(segment)) {
     console.error(`Invalid segment: ${segment}`);
@@ -63,6 +63,10 @@ for (const segment of segments) {
         `${__dirname}/fixtures/modalites-de-formation.md`,
         'utf-8',
       ),
+    });
+  } else if (segment === 'lienlong') {
+    await addMarkdown(doc, cursor, {
+      value: await readFile(`${__dirname}/fixtures/lien-long.md`, 'utf-8'),
     });
   }
 

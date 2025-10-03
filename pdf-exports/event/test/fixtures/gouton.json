@@ -1,0 +1,1367 @@
+{
+  "agenda": {
+    "uid": 56170473,
+    "title": "Senlis",
+    "description": "Agenda Officiel de la ville de Senlis",
+    "slug": "senlis",
+    "url": "https://www.ville-senlis.fr/",
+    "networkUid": 16587915,
+    "image": "https://cdn.openagenda.com/main/agenda56170473.jpg?__ts=1641837391102",
+    "schema": {
+      "custom": {},
+      "fields": [
+        {
+          "field": "image",
+          "fieldType": "image",
+          "optional": true,
+          "label": {
+            "fr": "Image de l'événement"
+          },
+          "info": {
+            "fr": "Ajoutez de préférence une photo simple, plutôt qu'une affiche avec du texte"
+          },
+          "allowURL": true,
+          "allowPath": true,
+          "imageWithSizeAndVariants": true,
+          "extensions": ["jpg", "bmp", "png", "jpeg", "webp"],
+          "schemaType": "event"
+        },
+        {
+          "field": "imageCredits",
+          "fieldType": "text",
+          "optional": true,
+          "label": {
+            "fr": "Crédits de l'image",
+            "en": "Image credits",
+            "it": "Crediti immagine",
+            "de": "Bildnachweis",
+            "es": "Créditos del imágen",
+            "br": "Perc'henn ar skeudenn",
+            "io": "crwdns14300:0crwdne14300:0",
+            "oc": "Crèdits de l'imatge"
+          },
+          "schemaType": "event"
+        },
+        {
+          "field": "categorie",
+          "label": {
+            "fr": "Catégorie"
+          },
+          "options": [
+            {
+              "id": 2,
+              "value": "atelier",
+              "label": {
+                "fr": "Atelier"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 3,
+              "value": "spectacle",
+              "label": {
+                "fr": "Spectacle"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 4,
+              "value": "salon",
+              "label": {
+                "fr": "Salon"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 5,
+              "value": "rencontre",
+              "label": {
+                "fr": "Rencontre"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 6,
+              "value": "marche",
+              "label": {
+                "fr": "Marché"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 7,
+              "value": "projection",
+              "label": {
+                "fr": "Projection"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 8,
+              "value": "exposition",
+              "label": {
+                "fr": "Exposition"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 9,
+              "value": "sport",
+              "label": {
+                "fr": "Sport"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 10,
+              "value": "loisirs",
+              "label": {
+                "fr": "Loisirs"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 11,
+              "value": "vie-citoyenne",
+              "label": {
+                "fr": "Vie citoyenne"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 12,
+              "value": "entraide",
+              "label": {
+                "fr": "Entraide"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 13,
+              "value": "visite",
+              "label": {
+                "fr": "Visite"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "checkbox",
+          "schemaId": 41004,
+          "schemaType": "network"
+        },
+        {
+          "languages": [],
+          "field": "title",
+          "fieldType": "text",
+          "optional": false,
+          "max": 150,
+          "label": {
+            "fr": "Titre",
+            "en": "Title",
+            "it": "Titolo",
+            "de": "Titel",
+            "es": "Título",
+            "br": "Titl",
+            "io": "crwdns14284:0crwdne14284:0",
+            "oc": "Títol"
+          },
+          "placeholder": {
+            "fr": "Le titre de votre événement",
+            "en": "Title of your event",
+            "it": "Il titolo del tuo evento",
+            "de": "Titel Ihrer Veranstaltung",
+            "es": "El título de su evento",
+            "br": "Titl ho tarvoud",
+            "io": "crwdns14288:0crwdne14288:0",
+            "oc": "Títol de vòstre eveniment"
+          },
+          "purpose": {
+            "fr": "Titre de l'événement",
+            "en": "Title of the event",
+            "es": "Nombre del evento",
+            "br": "Titl an darvoud",
+            "io": "crwdns14286:0crwdne14286:0",
+            "it": "Il titolo del tuo evento",
+            "oc": "Títol de l'eveniment"
+          },
+          "sub": {
+            "fr": "",
+            "en": "",
+            "de": "",
+            "br": ""
+          },
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "description",
+          "fieldType": "text",
+          "label": {
+            "fr": "Description courte",
+            "en": "Short description",
+            "it": "Breve descrizione",
+            "de": "Kurzbeschreibung",
+            "es": "Descripción corta",
+            "br": "Deskrivadur berr",
+            "io": "crwdns14290:0crwdne14290:0",
+            "oc": "Descripcion corta"
+          },
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "keywords",
+          "fieldType": "keywords",
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "longDescription",
+          "fieldType": "longDescription",
+          "label": {
+            "fr": "Description longue",
+            "en": "Long description",
+            "it": "Descrizione lunga",
+            "de": "Lange Beschreibung",
+            "es": "Descripción larga",
+            "br": "Deskrivadur hir",
+            "io": "crwdns14302:0crwdne14302:0",
+            "oc": "Descripcion longa"
+          },
+          "max": 10000,
+          "sub": {
+            "fr": "",
+            "en": "",
+            "de": "",
+            "br": ""
+          },
+          "placeholder": {
+            "fr": "Saisissez une description détaillée de votre événement.",
+            "en": "Type in a detailed description of your event.",
+            "it": "Inserisci una descrizione dettagliata del tuo evento.",
+            "de": "Gebe eine detaillierte Beschreibung deiner Veranstaltung ein.",
+            "es": "Introduzca una descripción detallada de su evento.",
+            "br": "Skrivit un deskrivadur dre ar munud eus ho tarvoud.",
+            "io": "crwdns14304:0crwdne14304:0",
+            "oc": "Dintratz una descripcion detalhada de vòstre eveniment."
+          },
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "conditions",
+          "fieldType": "text",
+          "label": {
+            "fr": "Conditions de participation, tarifs",
+            "en": "Attendance conditions, pricing",
+            "it": "Condizioni di partecipazione, prezzi",
+            "de": "Teilnahmebedingungen, Preisgestaltung",
+            "es": "Condiciones de las tasas de participación",
+            "br": "Divizoù evit kemer perzh, prizioù",
+            "io": "crwdns14312:0crwdne14312:0",
+            "oc": "Condicions de participacion, tarifas"
+          },
+          "max": 255,
+          "placeholder": {
+            "fr": "Entrée libre, sur inscription, autre...",
+            "en": "Free access, registration required, other...",
+            "it": "Ingresso libero, su registrazione, altro...",
+            "de": "Freier Zugang, Registrierung erforderlich, andere.....",
+            "es": "Entrada gratuita para los suscriptores, otra ...",
+            "br": "Mont e-barzh digoust, ret eo en em enskrivañ, traoù all...",
+            "io": "crwdns14314:0crwdne14314:0",
+            "oc": "Entrada liura, reservacion necessària, autre..."
+          },
+          "sub": {
+            "fr": "",
+            "en": "",
+            "de": "",
+            "br": ""
+          },
+          "schemaType": "event"
+        },
+        {
+          "field": "age",
+          "fieldType": "age",
+          "optional": true,
+          "label": {
+            "fr": "Âge du public ciblé",
+            "en": "Targeted public age",
+            "it": "Età del pubblico di riferimento",
+            "de": "Gezieltes öffentliches Alter",
+            "es": "Edad del objetivo",
+            "br": "Oad an dud a glasker tizhout",
+            "io": "crwdns14326:0crwdne14326:0",
+            "oc": "Atge del public tocat"
+          },
+          "schemaType": "event"
+        },
+        {
+          "field": "registration",
+          "fieldType": "registration",
+          "label": {
+            "fr": "Outils d'inscription"
+          },
+          "info": {
+            "fr": "Liens, emails ou numéros de téléphone"
+          },
+          "sub": {
+            "fr": "Ne préciser qu'en cas de besoin d'inscription ou de réservation. "
+          },
+          "related": {
+            "other": [
+              "timings",
+              "location",
+              "longDescription",
+              "title",
+              "conditions"
+            ]
+          },
+          "selfHandled": ["info"],
+          "schemaType": "event",
+          "settings": {
+            "passCulture": {
+              "siren": null,
+              "bookingEmail": null,
+              "defaultVenueId": null,
+              "access": null,
+              "res": {
+                "context": "/api/me/agendas/56170473",
+                "settings": "/api/agendas/56170473/settings/passCulture",
+                "offerLink": "https://passculture.app/offre/:id",
+                "offerEditLink": "https://passculture.pro/offre/individuelle/:id/recapitulatif"
+              }
+            }
+          }
+        },
+        {
+          "field": "accessibility",
+          "fieldType": "accessibility",
+          "optional": true,
+          "label": {
+            "fr": "Accessibilité particulière",
+            "en": "Accessibility conditions",
+            "it": "Accessibilità speciale",
+            "de": "Bedingungen für die Zugänglichkeit",
+            "es": "Accesibilidad especial",
+            "br": "Monedusted",
+            "io": "crwdns14322:0crwdne14322:0",
+            "oc": "Condicions d'accès"
+          },
+          "schemaType": "event"
+        },
+        {
+          "display": false,
+          "field": "attendanceMode",
+          "fieldType": "radio",
+          "label": {
+            "fr": "Mode de participation",
+            "en": "Attendance mode",
+            "it": "Modalità di partecipazione",
+            "es": "Modo de asistencia",
+            "de": "Anwesenheitsmodus",
+            "br": "Doare perzhiañ",
+            "io": "crwdns14264:0crwdne14264:0",
+            "oc": "Mòde de participacion"
+          },
+          "optional": false,
+          "default": 1,
+          "options": [
+            {
+              "id": 1,
+              "value": "offline",
+              "label": {
+                "fr": "Sur place",
+                "en": "In situ",
+                "it": "In presenza",
+                "es": "Desconnectad",
+                "de": "Offline",
+                "br": "War al lec’h",
+                "io": "crwdns14266:0crwdne14266:0",
+                "oc": "Sus plaça"
+              }
+            },
+            {
+              "id": 2,
+              "value": "online",
+              "label": {
+                "fr": "En ligne",
+                "en": "Online",
+                "it": "Online",
+                "es": "En linea",
+                "de": "Online",
+                "br": "Enlinenn",
+                "io": "crwdns14268:0crwdne14268:0",
+                "oc": "En linha"
+              }
+            },
+            {
+              "id": 3,
+              "value": "mixed",
+              "label": {
+                "fr": "Mixte",
+                "en": "Mixed",
+                "it": "Mista",
+                "es": "Mezclado",
+                "de": "Gemischt",
+                "br": "Kemmesk",
+                "io": "crwdns14270:0crwdne14270:0",
+                "oc": "Mesclat"
+              }
+            }
+          ],
+          "schemaType": "event"
+        },
+        {
+          "field": "location",
+          "fieldType": "location",
+          "label": {
+            "fr": "Lieu",
+            "en": "Location",
+            "it": "Luogo",
+            "de": "Ort",
+            "es": "Lugar",
+            "br": "Lec'h",
+            "io": "crwdns14274:0crwdne14274:0",
+            "oc": "Lòc"
+          },
+          "schemaType": "event",
+          "schema": {
+            "fields": [
+              {
+                "field": "uid",
+                "fieldType": "integer",
+                "optional": false,
+                "label": {
+                  "en": "Id",
+                  "fr": "Identifiant",
+                  "io": "crwdns12102:0crwdne12102:0",
+                  "it": "ID",
+                  "oc": "Identificant",
+                  "es": "Id"
+                }
+              },
+              {
+                "field": "setUid",
+                "fieldType": "integer",
+                "optional": true,
+                "default": null
+              },
+              {
+                "field": "slug",
+                "fieldType": "text",
+                "optional": false,
+                "max": 100
+              },
+              {
+                "field": "name",
+                "optional": false,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list",
+                  "terms"
+                ],
+                "fieldType": "text",
+                "max": 100,
+                "label": {
+                  "en": "Name",
+                  "fr": "Nom",
+                  "io": "crwdns12104:0crwdne12104:0",
+                  "it": "Nome",
+                  "oc": "Nom",
+                  "es": "Nombre"
+                }
+              },
+              {
+                "field": "address",
+                "optional": false,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "max": 255,
+                "label": {
+                  "en": "Address",
+                  "fr": "Adresse",
+                  "io": "crwdns12106:0crwdne12106:0",
+                  "it": "Indirizzo",
+                  "oc": "Adreiça",
+                  "es": "Dirección"
+                }
+              },
+              {
+                "field": "countryCode",
+                "optional": false,
+                "fieldType": "text",
+                "max": 2,
+                "label": {
+                  "en": "Country code",
+                  "fr": "Code pays",
+                  "io": "crwdns12120:0crwdne12120:0",
+                  "it": "Codice del paese",
+                  "oc": "Còdi país",
+                  "es": "Código de país"
+                }
+              },
+              {
+                "field": "adminLevel1",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "Region",
+                  "fr": "Région",
+                  "io": "crwdns12124:0crwdne12124:0",
+                  "it": "Regione",
+                  "oc": "Region",
+                  "es": "Región"
+                }
+              },
+              {
+                "field": "adminLevel2",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "Department",
+                  "fr": "Département",
+                  "br": "Departamant",
+                  "io": "crwdns12110:0crwdne12110:0",
+                  "it": "Provincia",
+                  "oc": "Departament",
+                  "es": "Departamento"
+                }
+              },
+              {
+                "field": "adminLevel3",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255
+              },
+              {
+                "field": "adminLevel4",
+                "optional": true,
+                "fieldType": "text",
+                "max": 100,
+                "label": {
+                  "en": "City",
+                  "fr": "Ville",
+                  "br": "Kêr",
+                  "io": "crwdns12108:0crwdne12108:0",
+                  "it": "Città",
+                  "oc": "Vila",
+                  "es": "Ciudad"
+                }
+              },
+              {
+                "field": "city",
+                "optional": true,
+                "fieldType": "text",
+                "max": 100,
+                "label": {
+                  "en": "City",
+                  "fr": "Ville",
+                  "br": "Kêr",
+                  "io": "crwdns12108:0crwdne12108:0",
+                  "it": "Città",
+                  "oc": "Vila",
+                  "es": "Ciudad"
+                }
+              },
+              {
+                "field": "adminLevel5",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "Borough",
+                  "fr": "Arrondissement"
+                }
+              },
+              {
+                "field": "adminLevel6",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "City district",
+                  "fr": "Quartier"
+                }
+              },
+              {
+                "field": "district",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "District",
+                  "fr": "Quartier",
+                  "io": "crwdns12122:0crwdne12122:0",
+                  "it": "Quartiere",
+                  "oc": "Districte",
+                  "es": "Distrito"
+                }
+              },
+              {
+                "field": "postalCode",
+                "optional": true,
+                "fieldType": "text",
+                "max": 20,
+                "label": {
+                  "en": "Postal code",
+                  "fr": "Code postal",
+                  "io": "crwdns12116:0crwdne12116:0",
+                  "it": "Codice postale",
+                  "oc": "Còdi postal",
+                  "es": "Código postal"
+                }
+              },
+              {
+                "field": "insee",
+                "optional": true,
+                "fieldType": "text",
+                "max": 10,
+                "label": {
+                  "en": "INSEE Code",
+                  "fr": "Code INSEE",
+                  "io": "crwdns12118:0crwdne12118:0",
+                  "it": "Codice INSEE (Francia)",
+                  "oc": "Còdi INSEE",
+                  "es": "Código INSEE"
+                }
+              },
+              {
+                "field": "latitude",
+                "optional": false,
+                "fieldType": "latitude",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "label": {
+                  "en": "Latitude",
+                  "fr": "Latitude",
+                  "io": "crwdns12112:0crwdne12112:0",
+                  "it": "Latitudine",
+                  "oc": "Latitud",
+                  "es": "Latitud"
+                }
+              },
+              {
+                "field": "longitude",
+                "optional": false,
+                "fieldType": "longitude",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "label": {
+                  "en": "Longitude",
+                  "fr": "Longitude",
+                  "io": "crwdns12114:0crwdne12114:0",
+                  "it": "Longitudine",
+                  "oc": "Longitud",
+                  "es": "Longitud"
+                }
+              },
+              {
+                "field": "region",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "Region",
+                  "fr": "Région",
+                  "io": "crwdns12124:0crwdne12124:0",
+                  "it": "Regione",
+                  "oc": "Region",
+                  "es": "Región"
+                }
+              },
+              {
+                "field": "department",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "Department",
+                  "fr": "Département",
+                  "br": "Departamant",
+                  "io": "crwdns12110:0crwdne12110:0",
+                  "it": "Provincia",
+                  "oc": "Departament",
+                  "es": "Departamento"
+                }
+              },
+              {
+                "field": "timezone",
+                "optional": true,
+                "fieldType": "timezone",
+                "read": ["internal", "public"],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "updatedAt",
+                "optional": false,
+                "fieldType": "date",
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              },
+              {
+                "field": "createdAt",
+                "optional": false,
+                "fieldfieldType": "date",
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              },
+              {
+                "field": "image",
+                "optional": true,
+                "fieldType": "stream",
+                "allowNull": true
+              },
+              {
+                "field": "description",
+                "label": {
+                  "en": "Description",
+                  "fr": "Description",
+                  "de": "Beschreibung",
+                  "es": "Descripción",
+                  "it": "Descrizione",
+                  "oc": "Descripcion",
+                  "io": "crwdns32875:0crwdne32875:0"
+                },
+                "optional": true,
+                "fieldType": "multilingual",
+                "languages": [],
+                "max": 5000
+              },
+              {
+                "field": "tags",
+                "optional": true,
+                "fieldType": "pass"
+              },
+              {
+                "field": "website",
+                "optional": true,
+                "fieldType": "link",
+                "label": {
+                  "en": "Website",
+                  "fr": "Site internet",
+                  "es": "Sitio web",
+                  "oc": "Site web",
+                  "io": "crwdns32871:0crwdne32871:0",
+                  "it": "Sito web"
+                }
+              },
+              {
+                "field": "email",
+                "optional": true,
+                "fieldType": "email"
+              },
+              {
+                "field": "phone",
+                "optional": true,
+                "fieldType": "phone"
+              },
+              {
+                "field": "links",
+                "optional": true,
+                "list": true,
+                "fieldType": "link"
+              },
+              {
+                "field": "access",
+                "label": {
+                  "en": "Access",
+                  "fr": "Accès",
+                  "it": "Accesso",
+                  "de": "Zugang",
+                  "pl": "Dostęp",
+                  "es": "Acceso",
+                  "br": "Moned",
+                  "oc": "Accès",
+                  "io": "crwdns32873:0crwdne32873:0"
+                },
+                "optional": true,
+                "fieldType": "multilingual",
+                "languages": [],
+                "max": 1000
+              },
+              {
+                "field": "state",
+                "optional": true,
+                "fieldType": "choice",
+                "unique": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "default": 0,
+                "options": [0, 1]
+              },
+              {
+                "field": "imageCredits",
+                "optional": true,
+                "fieldType": "text",
+                "enableWith": "image"
+              },
+              {
+                "field": "siret",
+                "optional": true,
+                "fieldType": "regex",
+                "error": {
+                  "code": "invalidSIRET",
+                  "message": "siret must be 14 digits"
+                },
+                "max": 14,
+                "min": 14,
+                "regex": {},
+                "read": ["internal", "public"],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "imageRightsAreHeld",
+                "optional": true,
+                "fieldType": "boolean",
+                "read": ["internal", "public"],
+                "enableWith": "image"
+              },
+              {
+                "field": "extIds",
+                "fieldType": "extIds",
+                "optional": true,
+                "max": 200,
+                "read": ["internal", "public"]
+              },
+              {
+                "field": "duplicateCandidates",
+                "fieldType": "integer",
+                "list": {
+                  "max": 100,
+                  "default": null
+                },
+                "optional": true,
+                "read": ["internal", "public"],
+                "write": ["internal", "contributor"]
+              },
+              {
+                "field": "disqualifiedDuplicates",
+                "fieldType": "integer",
+                "list": {
+                  "max": 100,
+                  "default": null
+                },
+                "optional": true,
+                "read": ["internal", "public"],
+                "write": ["internal", "contributor"]
+              },
+              {
+                "field": "mergedIn",
+                "fieldType": "integer",
+                "optional": true,
+                "default": null,
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              }
+            ],
+            "schemaId": "location"
+          },
+          "settings": {}
+        },
+        {
+          "display": false,
+          "field": "onlineAccessLink",
+          "fieldType": "link",
+          "label": {
+            "fr": "Lien d'accès",
+            "en": "Access link",
+            "de": "Zugangslink",
+            "es": "Enlace de acceso",
+            "it": "Collegamento di accesso",
+            "br": "Liamm moned",
+            "io": "crwdns14272:0crwdne14272:0",
+            "oc": "Ligam d'accès"
+          },
+          "optional": false,
+          "enableWith": {
+            "field": "attendanceMode",
+            "value": [2, 3]
+          },
+          "schemaType": "event"
+        },
+        {
+          "field": "status",
+          "fieldType": "select",
+          "default": 1,
+          "display": false,
+          "label": {
+            "fr": "État",
+            "en": "Status",
+            "io": "crwdns16110:0crwdne16110:0",
+            "oc": "Estatut",
+            "es": "Estado"
+          },
+          "options": [
+            {
+              "id": 1,
+              "value": "scheduled",
+              "label": {
+                "fr": "Programmé",
+                "en": "Scheduled",
+                "io": "crwdns16100:0crwdne16100:0",
+                "es": "Programado",
+                "oc": "Programat"
+              }
+            },
+            {
+              "id": 2,
+              "value": "rescheduled",
+              "label": {
+                "fr": "Re-programmé",
+                "en": "Re-scheduled",
+                "io": "crwdns16102:0crwdne16102:0",
+                "es": "Reprogramado",
+                "oc": "Tornat programar"
+              }
+            },
+            {
+              "id": 3,
+              "value": "movedOnline",
+              "label": {
+                "fr": "Déplacé en ligne",
+                "en": "Moved online",
+                "it": "Oramai online",
+                "oc": "Transferit en linha",
+                "io": "crwdns16104:0crwdne16104:0",
+                "es": "Trasladado en línea"
+              }
+            },
+            {
+              "id": 4,
+              "value": "postponed",
+              "label": {
+                "fr": "Reporté",
+                "en": "Postponed",
+                "it": "Riprogrammato",
+                "io": "crwdns16108:0crwdne16108:0",
+                "oc": "Remandat",
+                "es": "Aplazado"
+              }
+            },
+            {
+              "id": 5,
+              "value": "full",
+              "label": {
+                "fr": "Complet",
+                "en": "Full",
+                "io": "crwdns16448:0crwdne16448:0",
+                "es": "Completo",
+                "oc": "Complèt"
+              }
+            },
+            {
+              "id": 6,
+              "value": "cancelled",
+              "label": {
+                "fr": "Annulé",
+                "en": "Canceled",
+                "it": "Cancellato",
+                "io": "crwdns16106:0crwdne16106:0",
+                "es": "Cancelado",
+                "oc": "Anullat"
+              }
+            }
+          ],
+          "schemaType": "event"
+        },
+        {
+          "field": "timings",
+          "fieldType": "timings",
+          "max": 800,
+          "optional": false,
+          "label": {
+            "fr": "Horaires",
+            "en": "Timings",
+            "it": "Orari",
+            "de": "Timings",
+            "es": "Horarios",
+            "br": "Eurioù",
+            "io": "crwdns14328:0crwdne14328:0",
+            "oc": "Oraris"
+          },
+          "info": {
+            "fr": "Définissez les horaires de votre événement",
+            "en": "Specify timings for your event",
+            "it": "Definire gli orari dell'evento",
+            "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
+            "es": "Indicar los horarios de su evento",
+            "br": "Lakait eurioù ho tarvoud",
+            "io": "crwdns14330:0crwdne14330:0",
+            "oc": "Indicar d'oraris per vòstre eveniment"
+          },
+          "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+          "schemaType": "event"
+        },
+        {
+          "field": "references",
+          "related": ["title", "categorie", "keywords"],
+          "fieldType": "abstract",
+          "schemaType": null
+        },
+        {
+          "field": "extIds",
+          "fieldType": "extIds",
+          "optional": true,
+          "display": false,
+          "label": {
+            "fr": "Identifiants externe",
+            "en": "External identifiers",
+            "io": "crwdns34156:0crwdne34156:0",
+            "oc": "Identificants extèrnes",
+            "es": "Identificadores externos"
+          },
+          "schemaType": "event"
+        },
+        {
+          "field": "uid",
+          "fieldType": "integer",
+          "schemaType": "event"
+        },
+        {
+          "field": "slug",
+          "fieldType": "text",
+          "schemaType": "event"
+        },
+        {
+          "field": "private",
+          "fieldType": "boolean",
+          "default": false,
+          "write": ["internal"],
+          "schemaType": "event"
+        },
+        {
+          "field": "timezone",
+          "fieldType": "text",
+          "write": ["internal"],
+          "schemaType": "event"
+        },
+        {
+          "field": "draft",
+          "fieldType": "boolean",
+          "default": false,
+          "write": ["internal"],
+          "schemaType": "event"
+        },
+        {
+          "field": "createdAt",
+          "fieldType": "date",
+          "write": ["internal"],
+          "schemaType": "event"
+        },
+        {
+          "field": "creatorUid",
+          "fieldType": "integer",
+          "write": ["internal"],
+          "schemaType": "event"
+        },
+        {
+          "field": "ownerUid",
+          "fieldType": "integer",
+          "write": ["internal"],
+          "schemaType": "event"
+        },
+        {
+          "field": "updatedAt",
+          "fieldType": "date",
+          "write": ["internal"],
+          "schemaType": "event"
+        },
+        {
+          "field": "agendaUid",
+          "fieldType": "integer",
+          "schemaType": "event"
+        },
+        {
+          "field": "fileKey",
+          "fieldType": "text",
+          "write": ["internal"],
+          "schemaType": "event"
+        },
+        {
+          "field": "locationUid",
+          "fieldType": "integer",
+          "schemaType": "event"
+        },
+        {
+          "field": "links",
+          "fieldType": "enrichedLinks",
+          "optional": true,
+          "write": ["internal"],
+          "schemaType": "event"
+        }
+      ]
+    }
+  },
+  "event": {
+    "firstTiming": {
+      "end": "2025-09-20T17:00:00.000+02:00",
+      "begin": "2025-09-20T10:30:00.000+02:00"
+    },
+    "nextTiming": {
+      "begin": "2025-10-04T14:00:00+02:00",
+      "end": "2025-10-04T16:00:00+02:00"
+    },
+    "lastTiming": {
+      "end": "2025-10-19T16:00:00.000+02:00",
+      "begin": "2025-10-19T14:30:00.000+02:00"
+    },
+    "dateRange": {
+      "ar": "٢٠ سبتمبر - ١٩ أكتوبر",
+      "de": "20 September - 19 Oktober",
+      "en": "20 September - 19 October",
+      "it": "20 settembre - 19 ottobre",
+      "fr": "20 septembre - 19 octobre",
+      "es": "20 septiembre - 19 octubre"
+    },
+    "state": 2,
+    "featured": false,
+    "motive": null,
+    "originAgenda": {
+      "image": "agenda56170473.jpg?__ts=1641837391102",
+      "private": 0,
+      "locationSetUid": 53180682,
+      "official": true,
+      "description": "Agenda Officiel de la ville de Senlis",
+      "title": "Senlis",
+      "url": "https://www.ville-senlis.fr/",
+      "_agg": "eyJ1aWQiOjU2MTcwNDczLCJ0aXRsZSI6IlNlbmxpcyIsImltYWdlIjoiYWdlbmRhNTYxNzA0NzMuanBnP19fdHM9MTY0MTgzNzM5MTEwMiIsInVybCI6Imh0dHBzOi8vd3d3LnZpbGxlLXNlbmxpcy5mci8iLCJzbHVnIjoic2VubGlzIn0=",
+      "uid": 56170473,
+      "createdAt": "2022-01-10T17:56:31.000Z",
+      "officializedAt": "2022-05-18T15:47:26.000Z",
+      "slug": "senlis",
+      "updatedAt": "2025-10-02T14:19:19.000Z"
+    },
+    "sourceAgendas": [],
+    "image": {
+      "filename": "5becccaa704d4724839d6b481c6c80da.base.image.jpg",
+      "size": {
+        "width": 700,
+        "height": 991
+      },
+      "variants": [
+        {
+          "filename": "5becccaa704d4724839d6b481c6c80da.full.image.jpg",
+          "size": {
+            "width": 600,
+            "height": 849
+          },
+          "type": "full"
+        },
+        {
+          "filename": "5becccaa704d4724839d6b481c6c80da.thumb.image.jpg",
+          "size": {
+            "width": 200,
+            "height": 200
+          },
+          "type": "thumbnail"
+        }
+      ],
+      "base": "https://cdn.openagenda.com/main/"
+    },
+    "imageCredits": null,
+    "categorie": [13, 2, 7, 8, 5, 6],
+    "title": {
+      "fr": "« Goûtons notre territoire »"
+    },
+    "description": {
+      "fr": "« Goûtons notre territoire », le plus gourmand des évènements locaux revient..."
+    },
+    "keywords": {
+      "fr": [
+        "PNR",
+        "Parc Naturel Régional",
+        "Parc Naturel Régional Oise Pays de France",
+        "Producteurs",
+        "Circuits courts"
+      ]
+    },
+    "longDescription": {
+      "fr": "**Du 20 septembre au 19 octobre, producteurs locaux et habitants sont invités à se rencontrer à l’occasion d’ateliers, de balades et de visites de ferme proposés dans le cadre de l’évènement « Goûtons notre territoire » organisé par le Parc naturel régional Oise - Pays de France.**  \nTous les deux ans, le Parc naturel régional Oise - Pays de France renouvelle l’organisation de l’évènement « Goûtons notre territoire ». Pensé comme un festival qui célèbre les producteurs locaux et fait la part belle à l’alimentation locale, l’évènement propose de multiples animations pour découvrir et déguster les spécialités qui constituent le terroir local.  \nVisites de ferme, ateliers découvertes ou culinaires mais aussi ciné-débat ou fresque de l’alimentation sont autant de formats d’animations imaginés par le Parc naturel régional pour permettre aux habitants et aux consommateurs de rencontrer les producteurs bénéficiant de la marque « Producteurs Oise - Pays de France », sur leur exploitation ou dans leur boutique à la ferme.  \n**« Goûtons notre territoire » est ainsi le prétexte pour des rencontres enrichissantes, des dégustations gourmandes mais surtout pour une sensibilisation à l’agriculture durable et au manger local promu par le Parc naturel régional Oise - Pays de France.**  \nProgramme complet sur : [https://www.parc-oise-paysdefrance.fr/evenements/goutons-notre-territoire-2/](https://www.parc-oise-paysdefrance.fr/evenements/goutons-notre-territoire-2/ )"
+    },
+    "conditions": {
+      "fr": "Inscription obligatoire pour l’ensemble des animations et ateliers au 03 44 63 65 65."
+    },
+    "age": {
+      "min": null,
+      "max": null
+    },
+    "registration": [
+      {
+        "type": "phone",
+        "value": "03 44 63 65 65"
+      }
+    ],
+    "accessibility": {
+      "ii": false,
+      "hi": false,
+      "vi": false,
+      "pi": false,
+      "mi": false
+    },
+    "attendanceMode": 1,
+    "location": {
+      "disqualifiedDuplicates": null,
+      "access": {},
+      "city": "Borest",
+      "timezone": "Europe/Paris",
+      "postalCode": "60300",
+      "latitude": 49.187443,
+      "imageCredits": "© Parc Naturel Oise Pays de France",
+      "description": {
+        "fr": "Créé en 2004, le Parc naturel régional Oise – Pays de France compte désormais, depuis le 18 janvier 2021, 70 communes de l’Oise et du Val d’Oise.\n\nIl s’étend de Pont-Sainte-Maxence au Nord, à Mareil-en-France au Sud, et de Villiers-Adam à l’Ouest à Auger-Saint-Vincent à l’Est.\n\nCOMMUNES DE L’OISE : Apremont – Auger-Saint-Vincent – Aumont-en-Halatte – Avilly-Saint-Léonard – Barbery – Beaurepaire – Boran-sur-Oise – Borest – Brasseuse – Chantilly – La Chapelle-en-Serval – Courteuil – Coye-la-Forêt – Creil – Ermenonville – Fleurines – Fontaine-Chaalis – Fresnoy-le-Luat – Gouvieux – Lamorlaye – Montagny-Sainte-Félicité – Montépilloy – Mont-l’Evêque – Montlognon – Mortefontaine – Nanteuil-le-Haudouin – Orry-la-Ville – Plailly – Pontarmé – Pontpoint – Pont-Sainte-Maxence – Précy-sur-Oise – Raray – Rhuis – Roberval – Rully – Saint-Maximin – Saint-Vaast-de-Longmont – Senlis – Thiers-sur-Thève – Ver-sur-Launette – Verneuil-en-Halatte – Villeneuve-sur-Verberie – Villers-Saint-Frambourg-Ognon – Vineuil-Saint-Firmin.\n\nCOMMUNES DU VAL D’OISE  : Asnières-sur-Oise – Beaumont-sur-Oise – Bellefontaine – Belloy-en-France – Béthemont-la-Forêt – Châtenay-en-France – Chaumontel – Chauvry – Fosses – Jagny-sous-bois – Lassy – Luzarches – Maffliers – Mareil-en-France – Mours – Nointel – Noisy-sur-Oise – Le Plessis-Luzarches – Presles – Saint-Martin-du-Tertre – Seugy – Survilliers – Viarmes – Villiers-Adam – Villiers-le-sec.\n\n\n\nInstallée dans le Château de la Borne Blanche, grande bâtisse du XIXème siècle, la Maison du Parc est le siège administratif et le lieu de travail de l’équipe. Située à l’arrêt RER Borne Blanche, en plein coeur d’un parc boisé de cinq hectares au sud ouest de la commune d’Orry-la-Ville, et en lisière de la forêt de Chantilly, c’est un lieu idéal de départ de randonnée. La Maison du Parc est ouverte en semaine au public et vous pouvez y venir chercher de l’information.\nChâteau de la Borne Blanche, 48 rue d'Hérivaux 60560 ORRY-LA-VILLE"
+      },
+      "setUid": 53180682,
+      "uid": 93145292,
+      "createdAt": "2025-10-02T08:29:57.000Z",
+      "duplicateCandidates": null,
+      "countryCode": "FR",
+      "adminLevel5": null,
+      "links": [],
+      "state": 1,
+      "extId": null,
+      "department": "Oise",
+      "slug": "parc-naturel-regional-oise-pays-de-france_3625920",
+      "email": "contact@parc-oise-paysdefrance.fr",
+      "longitude": 2.664613,
+      "updatedAt": "2025-10-02T13:25:49.000Z",
+      "image": "location93145292.6703a28c55134bcfa90d8da6c45b5883.jpg?_ts=1759396508033",
+      "website": "https://www.parc-oise-paysdefrance.fr/",
+      "address": "60300 SENLIS",
+      "adminLevel3": "Communauté de communes Senlis Sud Oise",
+      "agendaUid": null,
+      "adminLevel4": "Borest",
+      "adminLevel1": "Hauts-de-France",
+      "adminLevel2": "Oise",
+      "mergedIn": null,
+      "_agg": "eyJ1aWQiOjkzMTQ1MjkyLCJuYW1lIjoiUGFyYyBuYXR1cmVsIHLDqWdpb25hbCBPaXNlIFBheXMgZGUgRnJhbmNlIn0=",
+      "tags": null,
+      "insee": "60087",
+      "phone": "03 44 65 63 65",
+      "district": null,
+      "name": "Parc naturel régional Oise Pays de France",
+      "region": "Hauts-de-France",
+      "extIds": null
+    },
+    "onlineAccessLink": null,
+    "status": 1,
+    "timings": [
+      {
+        "begin": "2025-09-20T10:30:00+02:00",
+        "end": "2025-09-20T17:00:00+02:00"
+      },
+      {
+        "begin": "2025-09-21T14:30:00+02:00",
+        "end": "2025-09-21T16:00:00+02:00"
+      },
+      {
+        "begin": "2025-09-24T14:00:00+02:00",
+        "end": "2025-09-24T15:00:00+02:00"
+      },
+      {
+        "begin": "2025-09-27T14:00:00+02:00",
+        "end": "2025-09-27T15:00:00+02:00"
+      },
+      {
+        "begin": "2025-10-01T14:30:00+02:00",
+        "end": "2025-10-01T16:00:00+02:00"
+      },
+      {
+        "begin": "2025-10-04T14:00:00+02:00",
+        "end": "2025-10-04T16:00:00+02:00"
+      },
+      {
+        "begin": "2025-10-05T14:00:00+02:00",
+        "end": "2025-10-05T16:00:00+02:00"
+      },
+      {
+        "begin": "2025-10-10T17:00:00+02:00",
+        "end": "2025-10-10T18:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-12T14:00:00+02:00",
+        "end": "2025-10-12T15:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-17T18:30:00+02:00",
+        "end": "2025-10-17T21:00:00+02:00"
+      },
+      {
+        "begin": "2025-10-18T09:00:00+02:00",
+        "end": "2025-10-18T15:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-19T14:30:00+02:00",
+        "end": "2025-10-19T16:00:00+02:00"
+      }
+    ],
+    "extIds": null,
+    "uid": 26939318,
+    "slug": "goutons-notre-territoire",
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "draft": 0,
+    "createdAt": "2025-10-02T08:34:55.000Z",
+    "creatorUid": 52181029,
+    "ownerUid": 52181029,
+    "updatedAt": "2025-10-02T13:25:49.000Z",
+    "links": [
+      {
+        "link": "https://www.parc-oise-paysdefrance.fr/evenements/goutons-notre-territoire-2/"
+      }
+    ]
+  }
+}
