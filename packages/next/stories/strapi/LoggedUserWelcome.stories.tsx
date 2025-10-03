@@ -1,5 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { Box } from '@openagenda/uikit';
+import useUser from 'hooks/useUser';
 import LoggedUserWelcome from 'components/strapi/LoggedUserWelcome';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import fetchAllLocales from '../utils/fetchAllLocales';
@@ -17,17 +18,17 @@ export default {
   ],
 };
 
-export const NotConnected = () => <LoggedUserWelcome />;
-
-export const Connected = {
-  render: () => (
+export function Connected() {
+  const user = useUser();
+  return (
     <Box display="flex" flexDirection="column" height="200vh">
-      <LoggedUserWelcome />
+      <LoggedUserWelcome user={user} />
     </Box>
-  ),
-  parameters: {
-    msw: {
-      handlers: [http.get('/users/me', () => HttpResponse.json(userFixtures))],
-    },
+  );
+}
+
+Connected.parameters = {
+  msw: {
+    handlers: [http.get('/users/me', () => HttpResponse.json(userFixtures))],
   },
 };

@@ -8,8 +8,7 @@ import defaultSize from 'utils/defaultSize';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/NavbarSearchInput';
 import Image from 'components/Image';
-import hrefWithLang from 'utils/hrefWithLang';
-import getSession from 'utils/getSession';
+import getHomeHref from 'utils/getHomeHref';
 import logoPic from '../../../public/images/oa.svg';
 import whiteLogoPic from '../../../public/images/oa-white.svg';
 import miniLogoPic from '../../../public/images/oa-picto.svg';
@@ -61,6 +60,7 @@ export default function Navbar({
   const [stickyEnabled, setStickyEnabled] = useState(false);
 
   const navbarRef = useRef(undefined);
+  const [cookies] = useCookies();
 
   useEffect(() => {
     if (!sticky || typeof window === 'undefined') {
@@ -78,10 +78,6 @@ export default function Navbar({
   }, [stickyEnabled, sticky]);
 
   const { inputValue, setInputValue, onSearch } = useSearch();
-
-  const [cookies] = useCookies();
-  const sessionUser = getSession(cookies)?.user;
-  const homeHref = hrefWithLang('/', sessionUser ? null : intl.locale);
 
   return (
     <chakra.header
@@ -106,7 +102,7 @@ export default function Navbar({
         <Flex justify="space-between" h="50px" align="stretch">
           <Flex gap="8">
             <chakra.a
-              href={homeHref}
+              href={getHomeHref(cookies, intl)}
               pr="4"
               pl={{ base: '0', md: '4' }}
               display="flex"

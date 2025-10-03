@@ -1,6 +1,7 @@
 import { Noto_Sans, Ubuntu_Sans } from 'next/font/google';
 import { Global } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
+import useUser from 'hooks/useUser';
 import PageHead from 'components/strapi/PageHead';
 import HighlightCardSet from 'components/strapi/HighlightCardSet';
 import Navbar from 'components/Navbar';
@@ -37,6 +38,7 @@ export default function StrapiPage({ page, footer }) {
   } = page;
 
   useCrispClient();
+  const { user } = useUser();
 
   return (
     <>
@@ -61,9 +63,9 @@ export default function StrapiPage({ page, footer }) {
         colorPalette={navFontColor ? color(navFontColor) : undefined}
         logoVariant={logoVariant}
       />
-      <LoggedUserWelcome top={16} />
+      {user ? <LoggedUserWelcome top={16} user={user} /> : null}
 
-      {Segments.map((Segment) => {
+      {Segments.map((Segment, index) => {
         const { id } = Segment;
         const Component = {
           'segments.highlight-card-set': HighlightCardSet,
@@ -74,7 +76,13 @@ export default function StrapiPage({ page, footer }) {
           'components.split-hero': SplitHeroSegment,
         }[Segment['__component']];
 
-        return <Component key={id} {...Segment} />;
+        return (
+          <Component
+            key={id}
+            {...Segment}
+            additionalTopPadding={user && index === 0 && 24}
+          />
+        );
       })}
 
       {footer && <Footer {...footer} />}
