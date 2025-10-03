@@ -7,7 +7,7 @@ export function init(config) {
   log.setConfig(config.getLogConfig('oa', 'knexErrors'));
 
   const knex = knexLib({
-    client: 'mysql',
+    client: 'mysql2',
     connection: config.db,
     pool: { min: 0, max: 20 },
     schemas: config.schemas,

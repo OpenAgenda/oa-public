@@ -4,7 +4,7 @@ const fs = require('node:fs');
 const { promisify } = require('node:util');
 const _ = require('lodash');
 const knex = require('knex');
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 function _sql(SQLDataRelativePath) {
   const raw = [
@@ -31,7 +31,7 @@ async function _load(dbConfig, SQLDataRelativePath) {
 
 module.exports = (dbConfig, SQLDataRelativePath = 'ardeche/rows.sql') => {
   const client = knex({
-    client: 'mysql',
+    client: 'mysql2',
     connection: dbConfig,
   });
 

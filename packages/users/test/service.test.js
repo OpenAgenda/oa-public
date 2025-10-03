@@ -41,7 +41,7 @@ const getConfig = (options) => ({
 
 beforeEach(async () => {
   knex = knexLib({
-    client: 'mysql',
+    client: 'mysql2',
     connection: { ...config.mysql, database: null },
     schemas: config.schemas,
   });

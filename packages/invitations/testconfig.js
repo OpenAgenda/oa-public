@@ -4,7 +4,8 @@ export default {
     database: 'oa_test_invitations',
     password: 'grut',
     user: 'root',
-    ssl: true,
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
   schemas: {
     invitation: 'invitation',

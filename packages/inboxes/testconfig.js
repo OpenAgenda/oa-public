@@ -7,8 +7,9 @@ export default {
     password: 'grut',
     user: 'root',
     charset: 'utf8mb4',
-    timezone: 'UTC',
-    ssl: true,
+    timezone: 'Z',
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
   migrations: {
     tableName: 'inbox_migrations',

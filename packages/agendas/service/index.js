@@ -52,7 +52,7 @@ function init(c) {
 
   knex = _.get(c, 'knex')
     || knexLib({
-      client: 'mysql',
+      client: 'mysql2',
       connection: c.mysql,
     });
 

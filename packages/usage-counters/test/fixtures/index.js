@@ -5,13 +5,13 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import _ from 'lodash';
 import knex from 'knex';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 function _sql() {
-  // const k = knex({ client: 'mysql' });
+  // const k = knex({ client: 'mysql2' });
 
   const raw = [
     fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8'),
@@ -38,7 +38,7 @@ async function _load(dbConfig) {
 
 export default (dbConfig) => {
   const client = knex({
-    client: 'mysql',
+    client: 'mysql2',
     connection: {
       ...dbConfig,
       database: 'usageCounterTest',

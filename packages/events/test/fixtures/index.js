@@ -4,7 +4,7 @@ import fs from 'node:fs';
 import { promisify } from 'node:util';
 import _ from 'lodash';
 import knex from 'knex';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 import creditsEventCreate from './creditsEventCreate.json';
 import creditsEventUpdate from './creditsEventUpdate.json';
@@ -45,7 +45,7 @@ async function _load(dbConfig, schema, SQLDataRelativePath) {
 
 const createClient = (dbConfig, SQLDataRelativePath) => {
   const client = knex({
-    client: 'mysql',
+    client: 'mysql2',
     connection: dbConfig,
   });
 

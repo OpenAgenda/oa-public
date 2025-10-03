@@ -9,14 +9,14 @@ module.exports = {
       user: process.env.OA_MYSQL_DEV_USER,
       password: process.env.OA_MYSQL_DEV_PASSWORD,
       database: 'location_test',
-      table: 'location',
       ssl: parseInt(process.env.OA_MYSQL_DEV_SSL_VERIFY, 10)
         ? {
           ca: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CA),
           cert: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CERT),
           key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY),
         }
-        : true,
+        : { rejectUnauthorized: false },
+      jsonStrings: true,
     },
     schemas: {
       location: 'location',

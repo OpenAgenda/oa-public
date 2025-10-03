@@ -1,6 +1,6 @@
 import { promisify } from 'node:util';
 import _ from 'lodash';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 
 export default async (config, jsFile) => {
   const sql = await import(`./${jsFile}`).then((mod) => mod.default);

@@ -2,7 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 const Files = require('@openagenda/files');
 
 const svc = require('../service/index');

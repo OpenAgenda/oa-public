@@ -9,7 +9,8 @@ module.exports = {
     database: 'oa_test_activities',
     password: 'grut',
     user: 'root',
-    ssl: true,
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
   migrations: {
     tableName: 'activity_migrations',

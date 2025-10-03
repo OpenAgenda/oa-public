@@ -3,7 +3,7 @@ import testconfig from './testconfig.js';
 // Useful for the knex CLI
 
 export default {
-  client: 'mysql',
+  client: 'mysql2',
   connection: testconfig.mysql,
   schemas: testconfig.schemas,
   seeds: {

@@ -20,7 +20,7 @@ describe('agendaEvents - functional (server): listRemoved', () => {
 
   beforeAll(async () => {
     knexClient = knex({
-      client: 'mysql',
+      client: 'mysql2',
       connection: config.mysql,
     });
   });

@@ -187,9 +187,7 @@ export async function updateFormIndex(ability, data) {
       )
       : null,
     toCreate.length
-      ? config.knex
-        .batchInsert(config.schemas.rule, rulesLib.format(toCreate))
-        .returning('id')
+      ? config.knex.batchInsert(config.schemas.rule, rulesLib.format(toCreate))
       : null,
   ]);
 

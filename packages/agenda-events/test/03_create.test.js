@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import knex from 'knex';
 import ih from 'immutability-helper';
-import mysql from 'mysql';
+import mysql from 'mysql2';
 import Service from '../index.js';
 import config from '../testconfig.js';
 import fixtures from './fixtures/index.js';
@@ -20,7 +20,7 @@ describe('agendaEvents - 03 - functional (server): create', () => {
 
   beforeAll(async () => {
     knexClient = knex({
-      client: 'mysql',
+      client: 'mysql2',
       connection: config.mysql,
     });
   });

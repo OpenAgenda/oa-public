@@ -7,7 +7,8 @@ module.exports = {
       database: 'agenda_test',
       password: 'grut',
       user: 'root',
-      ssl: true,
+      jsonStrings: true,
+      ssl: { rejectUnauthorized: false },
     },
 
     schemas: {
