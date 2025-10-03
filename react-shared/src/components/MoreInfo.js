@@ -3,7 +3,7 @@ import { Tooltip, TooltipTrigger, TooltipContent } from './Tooltip.js';
 
 const Icon = forwardRef(function Icon({ link, className, style }, ref) {
   const iconStyle = {
-    color: '#41acdd',
+    color: '#1d77ce',
     fontSize: '1.3em',
     ...style,
   };

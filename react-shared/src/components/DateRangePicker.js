@@ -39,7 +39,7 @@ function DateRangePicker(
     meta,
     staticRanges = [],
     inputRanges = [],
-    rangeColor = '#41acdd',
+    rangeColor = '#1d77ce',
     disabled,
     ...otherProps
   },
