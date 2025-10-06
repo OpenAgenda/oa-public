@@ -3,10 +3,10 @@
 const _ = require('lodash');
 const VError = require('@openagenda/verror');
 const utils = require('@openagenda/utils');
-const mapper = require('@openagenda/mysql-utils/mapper');
 const map = require('./databaseFieldMap');
 const validate = require('./validate');
 const validateOptions = require('./validate/getOptions');
+const mapper = require('./lib/dbMapper');
 const sUtils = require('./lib/utils');
 
 const dbParse = mapper(map);

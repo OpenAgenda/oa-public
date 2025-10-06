@@ -1,4 +1,8 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": "vòstre taulèu de bòrd",
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": "utilizaire",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Sètz connectat a vòstre compte **{email}**. Trobatz vòstres agendas, eveniments e messatges sus [vòstre taulèu de bòrd](/home).",
+  "next.components.Strapi.LoggedUserWelcome.welcome": "Benvengut {firstName}!",
   "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.addEvent": "",
   "next.components.Strapi.bluesky": "",

@@ -14,6 +14,7 @@ interface SegmentContainerProps {
   colorVariant?: string;
   fullWidth?: boolean;
   fullHeight?: boolean;
+  additionalTopPadding: any;
 }
 
 export default function SegmentContainer({
@@ -26,6 +27,7 @@ export default function SegmentContainer({
   CTAs,
   fullWidth = false,
   fullHeight = false,
+  additionalTopPadding,
 }: SegmentContainerProps) {
   return (
     <chakra.div backgroundImage={getBackgroundImage(background)}>
@@ -33,9 +35,12 @@ export default function SegmentContainer({
         maxW={fullWidth ? '100%' : '7xl'}
         height={{ base: fullHeight ? '100vh' : undefined }}
         color={fontColor ? color(fontColor.name, 500) : undefined}
-        py={fullWidth ? 0 : 24}
+        py={fullWidth ? 0 : 20}
         px={fullWidth ? 0 : undefined}
       >
+        {additionalTopPadding ? (
+          <Box height={additionalTopPadding}></Box>
+        ) : null}
         {title && (
           <H2 mb={description ? 6 : 16} fontWeight="bold" textAlign="center">
             {title}

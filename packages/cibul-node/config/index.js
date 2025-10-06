@@ -104,15 +104,21 @@ const config = {
     port: process.env.MYSQL_PORT ?? prod.db?.port,
     user: process.env.MYSQL_USER ?? prod.db?.user,
     password: process.env.MYSQL_PASSWORD ?? prod.db?.password,
-    cache: true,
-    timezone: 'UTC',
+    timezone: 'Z',
     charset: 'utf8mb4',
     jsonStrings: true,
     ssl: parseInt(process.env.MYSQL_SSL_VERIFY, 10)
       ? {
-        ca: fs.readFileSync(process.env.MYSQL_SSL_CA),
-        cert: fs.readFileSync(process.env.MYSQL_SSL_CERT),
-        key: fs.readFileSync(process.env.MYSQL_SSL_KEY),
+        verifyIdentity: !!parseInt(process.env.MYSQL_SSL_VERIFY_IDENTITY, 10),
+        ca:
+            process.env.MYSQL_SSL_CA_STRING
+            || fs.readFileSync(process.env.MYSQL_SSL_CA),
+        cert:
+            process.env.MYSQL_SSL_CERT_STRING
+            || fs.readFileSync(process.env.MYSQL_SSL_CERT),
+        key:
+            process.env.MYSQL_SSL_KEY_STRING
+            || fs.readFileSync(process.env.MYSQL_SSL_KEY),
       }
       : { rejectUnauthorized: false },
   },

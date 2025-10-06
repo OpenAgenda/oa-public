@@ -65,24 +65,13 @@ function appendWord(line, word) {
   return `${line}${line[line.length - 1] === ' ' ? '' : ' '}${word}`;
 }
 
-function isWordFirstOfLine({ line, availableWidth, paragraphAvailableWidth }) {
-  if (line.length) {
-    return false;
-  }
-
-  if (paragraphAvailableWidth === undefined) {
-    return true;
-  }
-
-  return availableWidth === paragraphAvailableWidth;
-}
-
 function convertWordsToLine(
   doc,
   { paragraphWordsToAdd, availableWidth, paragraphAvailableWidth, isFirstLine },
 ) {
   let line = '';
   let wordFits = true;
+  let isWordFirstOfLine = true;
 
   const lineAvailableWidth = !isFirstLine && paragraphAvailableWidth
     ? paragraphAvailableWidth
@@ -99,7 +88,8 @@ function convertWordsToLine(
 
     if (
       !wordFits
-      && isWordFirstOfLine({ line, availableWidth, paragraphAvailableWidth })
+      && isWordFirstOfLine
+      // && isWordFirstOfLine({ line, availableWidth, paragraphAvailableWidth })
     ) {
       log('    word does not fit and is first of line: must be split');
       const [wordPartThatFits, restOfWord] = splitWord(
@@ -118,6 +108,7 @@ function convertWordsToLine(
       continue;
     }
     line = appendWord(line, word);
+    isWordFirstOfLine = false;
   }
   return line;
 }
@@ -127,7 +118,13 @@ function extractWords(str) {
 }
 
 function spreadTextIntoLines(doc, params = {}) {
-  const { value, paragraphAvailableWidth, availableWidth, fontSize, base } = params;
+  const {
+    value,
+    paragraphAvailableWidth, // available total width for a paragraph
+    availableWidth, // remaining available width on current line where provided text is to be placed
+    fontSize,
+    base,
+  } = params;
 
   doc.font(getSelectedFont(params)).fontSize(getFontSize(fontSize, base));
 
@@ -244,6 +241,7 @@ export default function addText(doc, parentCursor, params = {}) {
       };
   }
 
+  // available width on the line where given content is to be placed.
   const availableWidth = getAvailableWidth(doc, cursor, params);
 
   if (!segmentable) {

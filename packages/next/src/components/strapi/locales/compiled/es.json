@@ -1,4 +1,44 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": [
+    {
+      "type": 0,
+      "value": "tu panel de control"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": [
+    {
+      "type": 0,
+      "value": "usuario"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": [
+    {
+      "type": 0,
+      "value": "Has iniciado sesión en tu cuenta **"
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": "**. Encuentra tus agendas, eventos y mensajes en [tu panel de control](/home)."
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.welcome": [
+    {
+      "type": 0,
+      "value": "¡Bienvenido "
+    },
+    {
+      "type": 1,
+      "value": "firstName"
+    },
+    {
+      "type": 0,
+      "value": "!"
+    }
+  ],
   "next.components.Strapi.ReferenceItem.more": [
     {
       "type": 0,

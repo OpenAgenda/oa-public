@@ -1,4 +1,8 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": "la tua bacheca",
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": "utente",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Sei connesso al tuo account **{email}**. Trova i tuoi agende, eventi e messaggi su [la tua bacheca](/home).",
+  "next.components.Strapi.LoggedUserWelcome.welcome": "Benvenuto {firstName}!",
   "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.addEvent": "",
   "next.components.Strapi.bluesky": "",

@@ -1,4 +1,44 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": [
+    {
+      "type": 0,
+      "value": "votre tableau de bord"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": [
+    {
+      "type": 0,
+      "value": "utilisateur"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": [
+    {
+      "type": 0,
+      "value": "Vous êtes connecté à votre compte **"
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": "**. Retrouvez vos agendas, événements et messages sur [votre tableau de bord](/home)."
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.welcome": [
+    {
+      "type": 0,
+      "value": "Bienvenue "
+    },
+    {
+      "type": 1,
+      "value": "firstName"
+    },
+    {
+      "type": 0,
+      "value": " !"
+    }
+  ],
   "next.components.Strapi.ReferenceItem.more": [
     {
       "type": 0,

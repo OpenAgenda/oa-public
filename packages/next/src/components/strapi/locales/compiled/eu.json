@@ -1,4 +1,44 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": [
+    {
+      "type": 0,
+      "value": "zure kontrol-panela"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": [
+    {
+      "type": 0,
+      "value": "erabiltzailea"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": [
+    {
+      "type": 0,
+      "value": "Zure kontuan saioa hasi duzu **"
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": "**. Zure agendak, gertakariak eta mezuak aurkituko dituzu [zure kontrol-panela](/home) orrian."
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.welcome": [
+    {
+      "type": 0,
+      "value": "Ongi etorri "
+    },
+    {
+      "type": 1,
+      "value": "firstName"
+    },
+    {
+      "type": 0,
+      "value": "!"
+    }
+  ],
   "next.components.Strapi.ReferenceItem.more": [
     {
       "type": 0,

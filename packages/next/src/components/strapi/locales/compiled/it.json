@@ -1,4 +1,44 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": [
+    {
+      "type": 0,
+      "value": "la tua bacheca"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": [
+    {
+      "type": 0,
+      "value": "utente"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": [
+    {
+      "type": 0,
+      "value": "Sei connesso al tuo account **"
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": "**. Trova i tuoi agende, eventi e messaggi su [la tua bacheca](/home)."
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.welcome": [
+    {
+      "type": 0,
+      "value": "Benvenuto "
+    },
+    {
+      "type": 1,
+      "value": "firstName"
+    },
+    {
+      "type": 0,
+      "value": "!"
+    }
+  ],
   "next.components.Strapi.ReferenceItem.more": [
     {
       "type": 0,

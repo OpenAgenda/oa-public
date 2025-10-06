@@ -1,4 +1,44 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": [
+    {
+      "type": 0,
+      "value": "your dashboard"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": [
+    {
+      "type": 0,
+      "value": "user"
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": [
+    {
+      "type": 0,
+      "value": "You are logged in to your account **"
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": "**. Find your agendas, events, and messages on [your dashboard](/home)."
+    }
+  ],
+  "next.components.Strapi.LoggedUserWelcome.welcome": [
+    {
+      "type": 0,
+      "value": "Welcome "
+    },
+    {
+      "type": 1,
+      "value": "firstName"
+    },
+    {
+      "type": 0,
+      "value": "!"
+    }
+  ],
   "next.components.Strapi.ReferenceItem.more": [
     {
       "type": 0,

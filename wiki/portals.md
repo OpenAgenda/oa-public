@@ -84,7 +84,6 @@ openstack keypair create swarm-key > swarm.pem
 # Créer le réseau
 openstack network create swarm-net
 openstack subnet create
-docker login registry.oa.events -u portals
 
 --network swarm-net \
   --subnet-range 10.10.0.0/24 \
@@ -258,6 +257,7 @@ export OS_PASSWORD=xxxx
 export OS_USER_DOMAIN_NAME=default
 export OS_USERNAME=SBI-1234
 export OS_PROJECT_DOMAIN_NAME=default
+# useful when resticprofile is not used
 # export RESTIC_REPOSITORY=swift:sb_project_SBI-1234:/oa-portals
 # export RESTIC_PASSWORD_FILE=/home/ubuntu/.restic-pass
 ```
@@ -270,6 +270,7 @@ Pour gérer plusieurs profiles restic et automatiser les backups avec [resticpro
 curl -LO https://raw.githubusercontent.com/creativeprojects/resticprofile/master/install.sh
 chmod +x install.sh
 sudo ./install.sh -b /usr/local/bin
+rm install.sh
 
 sudo mkdir -p /etc/resticprofile
 sudo nano /etc/resticprofile/profiles.yml

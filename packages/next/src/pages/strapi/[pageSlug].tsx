@@ -41,9 +41,10 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async ({
   ).json<StrapiResponse>();
 
   if (!matches.length) {
+    // If the home page does not exist, redirect to /en
     return {
       redirect: {
-        destination: `/${locale}`,
+        destination: `/${pageSlug === 'home' ? 'en' : locale}`,
         permanent: false,
       },
     };

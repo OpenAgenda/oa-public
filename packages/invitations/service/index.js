@@ -4,7 +4,6 @@ import promisePlusCb from '@openagenda/service-utils/promisePlusCb.js';
 import uuid from 'uuid';
 import validators from '@openagenda/validators';
 import _ from 'lodash';
-import defineUnique from '@openagenda/mysql-utils/defineUnique.js';
 import Invitation from './Invitation.js';
 
 let config;
@@ -58,7 +57,7 @@ function parseGetArguments(...args) {
 }
 
 function _create(toPath, prerequisite = () => true) {
-  return (v) => {
+  return async (v) => {
     if (!prerequisite(v)) return v;
 
     const validateEmail = validators.email({ field: 'userEmail' });
@@ -70,32 +69,35 @@ function _create(toPath, prerequisite = () => true) {
       return v;
     }
 
-    return new Promise((resolve, reject) => {
-      defineUnique(
-        {
-          table: config.schemas.invitation,
-          field: 'token',
-          mysql: config.mysql,
-        },
-        () => uuid(),
-        (err, token) => {
-          if (err) reject(err);
+    const MAX_TRIES = 100;
+    let token = null;
 
-          return resolve(
-            knex(config.schemas.invitation)
-              .insert({
-                email: v.query.email,
-                token,
-              })
-              .then((result) => {
-                _.set(v, toPath, result[0]);
+    for (let i = 0; i < MAX_TRIES; i++) {
+      const candidateToken = uuid();
+      const existing = await knex(config.schemas.invitation)
+        .where('token', candidateToken)
+        .first();
 
-                return v;
-              }),
-          );
-        },
+      if (!existing) {
+        token = candidateToken;
+        break;
+      }
+    }
+
+    if (!token) {
+      throw new Error(
+        `Unable to generate a unique invitation token after ${MAX_TRIES} attempts.`,
       );
+    }
+
+    const result = await knex(config.schemas.invitation).insert({
+      email: v.query.email,
+      token,
     });
+
+    _.set(v, toPath, result[0]);
+
+    return v;
   };
 }
 

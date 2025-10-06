@@ -1,4 +1,8 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": "tu panel de control",
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": "usuario",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Has iniciado sesión en tu cuenta **{email}**. Encuentra tus agendas, eventos y mensajes en [tu panel de control](/home).",
+  "next.components.Strapi.LoggedUserWelcome.welcome": "¡Bienvenido {firstName}!",
   "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.addEvent": "",
   "next.components.Strapi.bluesky": "",
