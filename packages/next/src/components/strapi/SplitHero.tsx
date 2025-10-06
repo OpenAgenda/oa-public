@@ -96,6 +96,7 @@ export default function SplitHero({
         md: imagePosition === 'left' ? 'row' : 'row-reverse',
       }}
       align="center"
+      justify={!image ? 'center' : 'flex-start'}
     >
       {image ? (
         <Image
@@ -106,16 +107,22 @@ export default function SplitHero({
           height="auto"
         />
       ) : null}
-      <Box flex="1">
-        <TitleComponent mb="4" fontWeight={600}>
+      <Box flex="1" maxWidth={!image ? '800px' : '100%'}>
+        <TitleComponent
+          mb="4"
+          fontWeight={600}
+          textAlign={!image ? 'center' : { base: 'center', md: 'left' }}
+        >
           {title}
         </TitleComponent>
-        <StrapiMarkdown>{text}</StrapiMarkdown>
+        <StrapiMarkdown textAlign={!image ? 'center' : undefined}>
+          {text}
+        </StrapiMarkdown>
         {CTAs && CTAs.length > 0 && (
           <Box mt={6}>
             <CTAButtons
               CTAs={CTAs}
-              justify={{ base: 'center', md: 'flex-start' }}
+              justify={!image ? 'center' : { base: 'center', md: 'flex-start' }}
             />
           </Box>
         )}

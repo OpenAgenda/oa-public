@@ -90,6 +90,7 @@ export default Object.assign(
           }
 
           if (item.lastProcessedAt) cleanItem.lastProcessedAt = item.lastProcessedAt;
+          if (item.owner) cleanItem.owner = item.owner;
 
           return {
             errors,

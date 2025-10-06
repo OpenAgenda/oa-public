@@ -1,4 +1,8 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": "vua kontrol-panelo",
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": "uzanto",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Vu es konektita a vua konto **{email}**. Trovez vua agendi, eventi e mesaji sur [vua kontrol-panelo](/home).",
+  "next.components.Strapi.LoggedUserWelcome.welcome": "Bonvenon {firstName}!",
   "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.addEvent": "",
   "next.components.Strapi.bluesky": "",

@@ -37,4 +37,22 @@ export default defineMessages({
     id: 'next.components.Strapi.addEvent',
     defaultMessage: 'Add an event',
   },
+  // LoggedUserWelcome component messages
+  welcome: {
+    id: 'next.components.Strapi.LoggedUserWelcome.welcome',
+    defaultMessage: 'Welcome {firstName}!',
+  },
+  loggedIn: {
+    id: 'next.components.Strapi.LoggedUserWelcome.loggedIn',
+    defaultMessage:
+      'You are logged in to your account **{email}**. Find your agendas, events, and messages on [your dashboard](/home).',
+  },
+  dashboard: {
+    id: 'next.components.Strapi.LoggedUserWelcome.dashboard',
+    defaultMessage: 'your dashboard',
+  },
+  defaultUser: {
+    id: 'next.components.Strapi.LoggedUserWelcome.defaultUser',
+    defaultMessage: 'user',
+  },
 });

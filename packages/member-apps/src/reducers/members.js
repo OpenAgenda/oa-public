@@ -175,6 +175,7 @@ export default function reducer(state = initialState, action = null) {
     case INVITE_SUCCESS:
       return {
         ...state,
+        inviteResult: action.result,
         inviteError: null,
         inviteLoading: false,
         showInviteResult: true,
@@ -211,6 +212,7 @@ export default function reducer(state = initialState, action = null) {
       return {
         ...state,
         inviteError: false,
+        inviteResult: null,
         showInviteResult: false,
       };
     case ADD_CRED_FILTER:

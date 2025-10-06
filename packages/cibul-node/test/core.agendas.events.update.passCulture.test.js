@@ -119,6 +119,7 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
       beforeAll(async () => {
         event = await core.agendas(2010).events.create(freshEventWithPassData, {
           access: 'moderator',
+          userUid: 82253124,
         });
       });
 
@@ -168,13 +169,53 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
               },
             ],
           },
-          { access: 'moderator' },
+          { access: 'moderator', userUid: 82253124 },
         );
 
         expect(
           updated.registration.find((r) => r.service === 'passCulture').data
             .length,
         ).toBe(passData.length + 3);
+
+        // Test that owner key is preserved during updates
+        expect(
+          updated.registration.find((r) => r.service === 'passCulture').owner,
+        ).toEqual({
+          type: 'agenda',
+          uid: 2010,
+        });
+      });
+
+      test('owner key is preserved during regular updates', async () => {
+        // Use the existing event created by moderator in beforeAll
+        // Verify it has the correct owner (agenda type for moderator)
+        expect(
+          event.registration.find((r) => r.service === 'passCulture').owner,
+        ).toEqual({
+          type: 'agenda',
+          uid: 2010,
+        });
+
+        // Update event with same moderator (should preserve owner)
+        // Use a field that won't trigger passCulture processing
+        const updated = await core.agendas(2010).events.patch(
+          event.uid,
+          {
+            description: 'Updated description',
+          },
+          {
+            access: 'moderator',
+            userUid: 82253124,
+          },
+        );
+
+        // Test that owner key is still preserved
+        expect(
+          updated.registration.find((r) => r.service === 'passCulture').owner,
+        ).toEqual({
+          type: 'agenda',
+          uid: 2010,
+        });
       });
     });
   });

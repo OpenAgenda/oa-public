@@ -1,6 +1,9 @@
+import { http, HttpResponse } from 'msw';
 import StrapiPage from 'views/StrapiPage/index';
 import intlMessagesLoader from '../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
+
+import userFixtures from './fixtures/user.json';
 
 export default {
   title: 'strapi/StrapiPage',
@@ -79,6 +82,11 @@ export const PageWithTurquoiseToGreenGradient = {
           ],
         },
       ],
+    },
+  },
+  parameters: {
+    msw: {
+      handlers: [http.get('/users/me', () => HttpResponse.json(userFixtures))],
     },
   },
 };

@@ -71,6 +71,7 @@ interface PageHeadProps {
     md?: string;
     lg?: string;
   };
+  additionalTopPadding?: any;
 }
 
 const gap = {
@@ -90,6 +91,7 @@ export default function PageHead({
   image,
   fontColor,
   background,
+  additionalTopPadding,
 }: PageHeadProps) {
   const itemsCount = 1 + (image ? 1 : 0) + (video ? 1 : 0);
 
@@ -99,6 +101,7 @@ export default function PageHead({
       fontColor={fontColor}
       background={background}
       fullHeight
+      additionalTopPadding={additionalTopPadding}
     >
       <Flex
         height="100%"

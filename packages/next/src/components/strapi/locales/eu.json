@@ -1,4 +1,8 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": "zure kontrol-panela",
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": "erabiltzailea",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Zure kontuan saioa hasi duzu **{email}**. Zure agendak, gertakariak eta mezuak aurkituko dituzu [zure kontrol-panela](/home) orrian.",
+  "next.components.Strapi.LoggedUserWelcome.welcome": "Ongi etorri {firstName}!",
   "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.addEvent": "",
   "next.components.Strapi.bluesky": "",

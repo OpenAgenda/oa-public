@@ -102,3 +102,39 @@ export function ImageLeftWithBulletPointsAndNumbers() {
     </Container>
   );
 }
+
+export function NoImage() {
+  return (
+    <Container maxWidth="5xl">
+      <SplitHero
+        title="No Image Example"
+        text={`###
+This is an example of the SplitHero component when no image is provided.
+
+* The component should display only the text content
+* The layout should adjust to fill the available space
+* All other functionality (title, text, CTAs) should work normally
+
+This demonstrates how the component handles the absence of an image while maintaining its core functionality.`}
+        CTAs={[
+          {
+            label: 'Primary Action',
+            link: 'https://example.com',
+            variant: 'solid',
+            colorPalette: {
+              name: 'strapi.ruddyBlue',
+            },
+          },
+          {
+            label: 'Secondary Action',
+            link: 'https://example.com',
+            variant: 'outline',
+            colorPalette: {
+              name: 'strapi.mutedPlum',
+            },
+          },
+        ]}
+      />
+    </Container>
+  );
+}

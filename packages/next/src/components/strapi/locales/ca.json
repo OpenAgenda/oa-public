@@ -1,4 +1,8 @@
 {
+  "next.components.Strapi.LoggedUserWelcome.dashboard": "el vostre tauler de control",
+  "next.components.Strapi.LoggedUserWelcome.defaultUser": "usuari",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Heu iniciat sessió al vostre compte **{email}**. Trobeu les vostres agendes, esdeveniments i missatges a [el vostre tauler de control](/home).",
+  "next.components.Strapi.LoggedUserWelcome.welcome": "Benvingut {firstName}!",
   "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.addEvent": "",
   "next.components.Strapi.bluesky": "",
