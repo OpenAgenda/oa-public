@@ -17,6 +17,7 @@ import {
 import { Tooltip } from '@openagenda/uikit/snippets';
 import { getLocaleValue } from '@openagenda/intl';
 import { getCurrentValue as getCurrentPassValue } from '@openagenda/registrations/passCulture/iso/utils';
+import Image from 'components/Image';
 import { FaIcon } from 'icons';
 import {
   faShareNodes,
@@ -446,9 +447,11 @@ export function PassCultureSection({
         alignItems="center"
         justifyContent="center"
       >
-        <img
+        <Image
           src={getPassImgSource(passCulture)}
           alt="Pass Culture"
+          width={22}
+          height={22}
           style={{ width: '1em', height: '1em' }}
         />
       </Box>
