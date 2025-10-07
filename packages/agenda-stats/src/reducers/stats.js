@@ -316,7 +316,7 @@ export function load(agenda, stats, filters, query) {
     const decoratedStats = decorateStats(allStats, query);
     const aggregations = statsToAggregations(decoratedStats);
 
-    const params = {
+    const body = {
       size: 0,
       aggs: aggregations,
       ...query,
@@ -325,11 +325,11 @@ export function load(agenda, stats, filters, query) {
     return dispatch({
       types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
       promise: ({ client }) => {
-        const url = state.res.jsonExport
+        const url = state.res.search
           .replace(':slug', agenda.slug)
           .replace(':uid', agenda.uid);
 
-        return client.get(url, { params });
+        return client.post(url, body);
       },
       stats: decoratedStats,
       agendaUid: agenda.uid,
@@ -346,7 +346,7 @@ export function loadStat(agenda, statId, getStat = _.identity) {
     const newStat = getStat(actualStat);
 
     const decoratedStats = decorateStats([newStat]);
-    const params = {
+    const body = {
       size: 0,
       aggregations: statsToAggregations(decoratedStats),
       ...stats.query,
@@ -355,11 +355,11 @@ export function loadStat(agenda, statId, getStat = _.identity) {
     return dispatch({
       types: [LOAD_STAT, LOAD_STAT_SUCCESS, LOAD_STAT_FAIL],
       promise: ({ client }) => {
-        const url = res.jsonExport
+        const url = res.search
           .replace(':slug', agenda.slug)
           .replace(':uid', agenda.uid);
 
-        return client.get(url, { params });
+        return client.post(url, body);
       },
       statId,
       stat: decoratedStats[0],
