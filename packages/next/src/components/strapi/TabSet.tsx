@@ -12,6 +12,7 @@ interface TabSetProps {
   background?: any;
   fontColor?: any;
   descriptionColor?: Color;
+  additionalTopPadding?: any;
 }
 
 export default function TabSet({
@@ -22,6 +23,7 @@ export default function TabSet({
   background,
   fontColor,
   descriptionColor,
+  additionalTopPadding,
 }: TabSetProps) {
   if (!TabsData?.length) {
     return null;
@@ -35,6 +37,7 @@ export default function TabSet({
       background={background}
       fontColor={fontColor}
       descriptionColor={descriptionColor}
+      additionalTopPadding={additionalTopPadding}
     >
       <Tabs.Root defaultValue={TabsData[0].id}>
         <Tabs.List>
