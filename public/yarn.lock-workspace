@@ -5327,7 +5327,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/md": "npm:^1.0.1"
     "@openagenda/polyfills": "npm:^1.2.5"
-    "@openagenda/react-filters": "npm:^2.13.3"
+    "@openagenda/react-filters": "npm:^2.13.4"
     "@openagenda/react-portal-ssr": "npm:^1.0.3"
     "@openagenda/react-shared": "npm:^2.4.6"
     babel-loader: "npm:^9.1.3"
@@ -5771,7 +5771,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@openagenda/react-filters@npm:^2.13.3, @openagenda/react-filters@workspace:react-filters":
+"@openagenda/react-filters@npm:^2.13.4, @openagenda/react-filters@workspace:react-filters":
   version: 0.0.0-use.local
   resolution: "@openagenda/react-filters@workspace:react-filters"
   dependencies:
@@ -6010,7 +6010,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/mails": "npm:^4.0.2"
-    "@openagenda/react-filters": "npm:^2.13.3"
+    "@openagenda/react-filters": "npm:^2.13.4"
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@openagenda/uikit": "npm:^0.0.4"
@@ -6116,7 +6116,7 @@ __metadata:
     "@iframe-resizer/parent": "npm:^5.4.6"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/react": "npm:^0.0.3"
-    "@openagenda/react-filters": "npm:^2.13.3"
+    "@openagenda/react-filters": "npm:^2.13.4"
     "@openagenda/uikit": "npm:^0.0.4"
     "@storybook/html-vite": "npm:^9.0.8"
     babel-loader: "npm:^9.2.1"
@@ -17723,11 +17723,11 @@ __metadata:
   linkType: hard
 
 "get-tsconfig@npm:^4.10.0":
-  version: 4.10.1
-  resolution: "get-tsconfig@npm:4.10.1"
+  version: 4.11.0
+  resolution: "get-tsconfig@npm:4.11.0"
   dependencies:
     resolve-pkg-maps: "npm:^1.0.0"
-  checksum: 10c0/7f8e3dabc6a49b747920a800fb88e1952fef871cdf51b79e98db48275a5de6cdaf499c55ee67df5fa6fe7ce65f0063e26de0f2e53049b408c585aa74d39ffa21
+  checksum: 10c0/cccf65c8434cecbf24cf581a2d40f635c7bbf98e4bc241abd39d8a9990f2053bb5e8ed41496ed445a3a073a33ff716b531d99a71330e56cfac593e42d6adbd17
   languageName: node
   linkType: hard
 
