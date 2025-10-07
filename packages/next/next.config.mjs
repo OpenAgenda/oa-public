@@ -122,6 +122,11 @@ const config = async () => {
       async redirects() {
         return [
           {
+            source: '/strapi/:path*',
+            destination: '/p/:path*',
+            permanent: true,
+          },
+          {
             source: '/:slug.prv/:path*',
             destination: '/:slug/:path*',
             permanent: true,
@@ -155,6 +160,10 @@ const config = async () => {
             },
             {
               source: '/p/:path*',
+              destination: `/strapi/:path*`,
+            },
+            {
+              source: '/:lang/p/:path*',
               destination: `/strapi/:path*`,
             },
           ],
