@@ -35,7 +35,7 @@ export default function Body({
       {children}
 
       <Bleed inline="6">
-        <AccordionRoot as="form" collapsible defaultValue={[defaultValue]}>
+        <AccordionRoot collapsible defaultValue={[defaultValue]}>
           {renderHost === 'local' ? (
             <>
               {user ? (

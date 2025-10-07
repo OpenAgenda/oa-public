@@ -27,6 +27,7 @@ interface StrapiMarkdownProps {
   flex?: string;
   color?: string;
   mt?: number;
+  mb?: number;
   textAlign?: 'left' | 'center' | 'right' | 'justify';
 }
 
@@ -35,6 +36,7 @@ export default function StrapiMarkdown({
   flex = '1',
   color,
   mt,
+  mb,
   textAlign,
 }: StrapiMarkdownProps) {
   // Preprocess content to convert single line breaks to double line breaks
@@ -47,6 +49,7 @@ export default function StrapiMarkdown({
       css={mdStyle}
       color={color}
       mt={mt}
+      mb={mb}
       textAlign={textAlign}
     >
       <ReactMarkdown

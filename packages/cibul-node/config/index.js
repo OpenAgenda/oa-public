@@ -120,7 +120,7 @@ const config = {
             process.env.MYSQL_SSL_KEY_STRING
             || fs.readFileSync(process.env.MYSQL_SSL_KEY),
       }
-      : { rejectUnauthorized: false },
+      : undefined,
   },
   mails: {
     transport:

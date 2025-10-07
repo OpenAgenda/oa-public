@@ -314,7 +314,7 @@ Il faudra le supprimer et relancer mysql après l'import.
 sudo nano /etc/mysql/conf.d/99-import-turbo.cnf
 ```
 
-Cette config sert à limiter les vérifications superlues, les doubles écritures et les écritures disques trop fréquentes :
+Cette config sert à limiter les vérifications superflues, les doubles écritures et les écritures disques trop fréquentes :
 
 ```
 [mysqld]

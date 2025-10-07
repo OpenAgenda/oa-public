@@ -46,7 +46,7 @@ export default function ShareByEmail({ agenda, event, onClose, onEmailSent }) {
       value="email"
       title={intl.formatMessage(messages.shareByEmail)}
     >
-      <div>
+      <form>
         <Textarea
           placeholder={intl.formatMessage(messages.shareByEmailPlaceholder)}
           value={emailValue}
@@ -66,7 +66,7 @@ export default function ShareByEmail({ agenda, event, onClose, onEmailSent }) {
         >
           {intl.formatMessage(messages.send)}
         </Button>
-      </div>
+      </form>
     </AccordionItem>
   );
 }
