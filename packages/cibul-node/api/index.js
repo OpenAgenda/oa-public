@@ -939,9 +939,15 @@ export default (core, { useRouter = true } = {}) => {
       let includes = [];
       if (req.query.includes) {
         if (Array.isArray(req.query.includes)) {
-          includes = req.query.includes;
-        } else {
-          includes = req.query.includes.split(',');
+          includes = req.query.includes.filter(Boolean);
+        } else if (
+          typeof req.query.includes === 'string'
+          && req.query.includes.trim()
+        ) {
+          includes = req.query.includes
+            .split(',')
+            .map((s) => s.trim())
+            .filter(Boolean);
         }
       }
 
