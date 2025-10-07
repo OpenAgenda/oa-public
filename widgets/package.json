@@ -13,7 +13,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/widgets.js",
+  "main": "dist/index.js",
   "scripts": {
     "prepack": "webpack",
     "sb": "yarn storybook",
