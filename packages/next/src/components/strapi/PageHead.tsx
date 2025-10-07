@@ -21,7 +21,7 @@ interface PageHeadProps {
   fontColor?: Color;
   title: string;
   description: string;
-  fontSize?: Color;
+  fontSize?: HeadingProps['size'];
   CTAs?: any[];
   video?: string;
   image?: {
@@ -67,7 +67,7 @@ const TextContent = ({
   >
     <Heading
       as="h1"
-      size={(fontSize?.name || '5xl') as HeadingProps['size']}
+      size={fontSize || '5xl'}
       color={[color(fontColor), 'solid'].join('.')}
       fontWeight={600}
     >
@@ -94,7 +94,16 @@ const Content = ({
   fontSize,
   image,
   video,
-}) => {
+}: Pick<
+  PageHeadProps,
+  | 'title'
+  | 'description'
+  | 'CTAs'
+  | 'fontColor'
+  | 'fontSize'
+  | 'image'
+  | 'video'
+>) => {
   const itemsCount = 1 + (image ? 1 : 0) + (video ? 1 : 0);
 
   if (useBreakpointValue({ base: true, '2xl': false }) && video) {
@@ -109,7 +118,7 @@ const Content = ({
         >
           <Heading
             as="h1"
-            size={fontSize?.name || '5xl'}
+            size={fontSize || '5xl'}
             color={[color(fontColor), 'solid'].join('.')}
             fontWeight={600}
             textAlign="center"
