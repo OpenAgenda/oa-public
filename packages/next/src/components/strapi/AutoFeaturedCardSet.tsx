@@ -39,6 +39,7 @@ interface FeaturedAgendasProps {
   Cards: CardWrapper[];
   count?: number;
   agendaSearch?: string;
+  additionalTopPadding?: any;
 }
 
 function defineDisplayedCards(
@@ -79,6 +80,7 @@ export default function AutoFeaturedCardSet({
   background,
   fontColor,
   descriptionColor,
+  additionalTopPadding,
 }: FeaturedAgendasProps) {
   const intl = useIntl();
   const displayedCards = defineDisplayedCards(Cards, count);
@@ -99,6 +101,7 @@ export default function AutoFeaturedCardSet({
       background={background}
       fontColor={fontColor}
       descriptionColor={descriptionColor}
+      additionalTopPadding={additionalTopPadding}
     >
       <HStack gap={12} align="stretch" justify="center" flexWrap="wrap">
         {displayedCards.map((card, index) => (

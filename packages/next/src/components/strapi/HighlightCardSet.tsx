@@ -12,6 +12,7 @@ interface HighlightCardSetProps {
   background?: any;
   fontColor?: Color;
   descriptionColor?: Color;
+  additionalTopPadding?: any;
 }
 
 export default function HighlightCardSet({
@@ -23,6 +24,7 @@ export default function HighlightCardSet({
   background,
   fontColor,
   descriptionColor,
+  additionalTopPadding,
 }: HighlightCardSetProps) {
   return (
     <SegmentContainer
@@ -32,6 +34,7 @@ export default function HighlightCardSet({
       background={background}
       fontColor={fontColor}
       descriptionColor={descriptionColor}
+      additionalTopPadding={additionalTopPadding}
     >
       <Stack gap={cardSize === 'large' ? 10 : 8} align="center">
         <Flex wrap="wrap" justify="center" gap={cardSize === 'large' ? 12 : 8}>

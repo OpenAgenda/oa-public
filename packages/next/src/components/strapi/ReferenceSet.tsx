@@ -16,6 +16,7 @@ type ReferenceSetProps = {
   background?: any;
   fontColor?: Color;
   descriptionColor?: Color;
+  additionalTopPadding?: any;
 };
 
 export default function ReferenceSet({
@@ -28,6 +29,7 @@ export default function ReferenceSet({
   background,
   fontColor,
   descriptionColor,
+  additionalTopPadding,
 }: ReferenceSetProps) {
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
 
@@ -93,6 +95,7 @@ export default function ReferenceSet({
       background={background}
       fontColor={fontColor}
       descriptionColor={descriptionColor}
+      additionalTopPadding={additionalTopPadding}
     >
       {hasFilter && (
         <ReferenceFilter
