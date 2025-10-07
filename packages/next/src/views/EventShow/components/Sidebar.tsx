@@ -523,7 +523,7 @@ export function ReferencesSection({ agenda, event }) {
 export default function Sidebar({
   shareOnOpen = null,
   isEventContributor = false,
-  me,
+  me = null,
 }) {
   const agenda = useAgenda();
   const { event } = useEvent();
