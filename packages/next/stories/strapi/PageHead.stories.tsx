@@ -98,3 +98,22 @@ export const CharcoalAndWhiteWithoutAnImage = {
     },
   },
 };
+
+export const WithVideo = {
+  args: {
+    title:
+      "Publiez un agenda, rassemblez et diffusez toutes vos annonces d'événements",
+    description:
+      "OpenAgenda simplifie la gestion d'agendas pour les organisateurs, les collectivités et les développeurs. Publiez en quelques minutes et diffusez sur de multiples supports.",
+    video: 'presentation',
+    CTAs: [
+      {
+        id: 8146,
+        label: 'Créer un agenda',
+        link: 'https://openagenda.com/agendas/new',
+        variant: 'solid',
+        color: null,
+      },
+    ],
+  },
+};

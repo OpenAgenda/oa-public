@@ -4,7 +4,8 @@ export default {
     host: 'localhost',
     user: 'root',
     password: 'grut',
-    timezone: 'UTC',
-    ssl: true,
+    timezone: 'Z',
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
 };

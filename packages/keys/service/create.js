@@ -1,21 +1,28 @@
-import wn from 'when/node.js';
 import uuid from 'uuid';
 import VError from '@openagenda/verror';
-import defineUnique from '@openagenda/mysql-utils/defineUnique.js';
 import config from './config.js';
 import get from './get.js';
 import validateIdentifiers from './validators/identifiers.js';
 import validate from './validators/create.js';
 
-function getUuid() {
-  return wn.call(
-    defineUnique,
-    {
-      table: config.schemas.key,
-      field: 'key',
-      mysql: config.mysql,
-    },
-    () => uuid().replace(/-/g, ''),
+async function getUuid() {
+  const MAX_TRIES = 100;
+
+  for (let i = 0; i < MAX_TRIES; i++) {
+    const key = uuid().replace(/-/g, '');
+
+    const existing = await config
+      .knex(config.schemas.key)
+      .where('key', key)
+      .first();
+
+    if (!existing) {
+      return key;
+    }
+  }
+
+  throw new Error(
+    `Unable to generate a unique key after ${MAX_TRIES} attempts.`,
   );
 }
 

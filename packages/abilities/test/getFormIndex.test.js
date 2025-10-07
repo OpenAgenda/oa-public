@@ -17,7 +17,7 @@ beforeAll(async () => {
 
   knex = knexLib({
     schemas: testconfig.schemas,
-    client: 'mysql',
+    client: 'mysql2',
     connection: { ...testconfig.mysql },
   });
 

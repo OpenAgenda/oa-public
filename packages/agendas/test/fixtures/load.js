@@ -6,7 +6,7 @@ const knex = require('knex');
 
 module.exports = async ({ mysql, files, map }) => {
   const k = knex({
-    client: 'mysql',
+    client: 'mysql2',
     connection: _.extend(_.omit(mysql, ['database']), {
       multipleStatements: true,
     }),

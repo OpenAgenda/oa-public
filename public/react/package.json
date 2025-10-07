@@ -58,7 +58,7 @@
     "@fortawesome/react-fontawesome": "^0.2.3",
     "@openagenda/common-labels": "^1.2.4",
     "@openagenda/mails": "^4.0.2",
-    "@openagenda/react-filters": "^2.13.3",
+    "@openagenda/react-filters": "^2.13.4",
     "@openagenda/react-shared": "^2.4.6",
     "@openagenda/uikit": "^0.0.4",
     "base64-js": "^1.5.1",

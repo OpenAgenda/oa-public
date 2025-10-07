@@ -10,7 +10,7 @@ describe('keys - create', () => {
 
   beforeAll(async () => {
     knex = knexLib({
-      client: 'mysql',
+      client: 'mysql2',
       connection: config.mysql,
     });
 

@@ -1,16 +1,11 @@
 import { Box, Container, Flex } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
-import useUser from 'hooks/useUser';
+
 import messages from './messages';
 import StrapiMarkdown from './StrapiMarkdown';
 
-export default function LoggedUserWelcome({ top = 0 }) {
-  const { user } = useUser();
+export default function LoggedUserWelcome({ top = 0, user }) {
   const intl = useIntl();
-
-  if (!user) {
-    return null;
-  }
 
   // Extract first name from fullName
   const firstName =

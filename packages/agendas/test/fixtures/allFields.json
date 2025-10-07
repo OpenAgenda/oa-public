@@ -392,6 +392,11 @@
         "default": false,
         "description": "Keeps activities for an indefinite period",
         "type": "boolean"
+      },
+      "showTotals": {
+        "default": false,
+        "description": "Show totals on statistics page",
+        "type": "boolean"
       }
     }
   }

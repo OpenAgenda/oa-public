@@ -4,7 +4,8 @@ export default {
     database: 'oatest_custom',
     password: 'grut',
     user: 'root',
-    ssl: true,
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
 
   schemas: {

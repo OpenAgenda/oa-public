@@ -42,7 +42,7 @@ function Input({
       />
       <div className="input-group-append">
         <button
-          type="submit"
+          type={isResetButton ? 'button' : 'submit'}
           className="btn btn-outline-secondary"
           onClick={onButtonClick}
           aria-label={
@@ -67,6 +67,7 @@ export default function SearchInput({
   input,
   onChange, // user onChange
   manualSearch,
+  displayReset = false,
   ...rest
 }) {
   const form = useForm();
@@ -76,7 +77,7 @@ export default function SearchInput({
     filtersOptions: { manualSubmit },
   } = useContext(FiltersAndWidgetsContext);
 
-  const isResetButton = tmpValue && (tmpValue === input.value || !manualSubmit);
+  const isResetButton = displayReset && tmpValue && (tmpValue === input.value || !manualSubmit);
 
   const debouncedOnChange = useDebouncedCallback((e) => {
     if (manualSearch) {
@@ -107,7 +108,7 @@ export default function SearchInput({
     (e) => {
       e.preventDefault();
 
-      if (isResetButton) {
+      if (displayReset && isResetButton) {
         input.onChange('');
         if (typeof onChange === 'function') {
           onChange(tmpValue);
@@ -123,7 +124,15 @@ export default function SearchInput({
       }
       return form.submit();
     },
-    [form, input, manualSearch, onChange, tmpValue, isResetButton],
+    [
+      form,
+      input,
+      manualSearch,
+      onChange,
+      tmpValue,
+      isResetButton,
+      displayReset,
+    ],
   );
 
   const wrappedInput = useMemo(

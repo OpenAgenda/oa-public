@@ -152,14 +152,15 @@ const mysql = {
   user: 'root',
   password: 'grut',
   charset: 'utf8mb4',
-  timezone: 'UTC',
-  ssl: true,
+  timezone: 'Z',
+  jsonStrings: true,
+  ssl: { rejectUnauthorized: false },
 };
 
 export default {
   mysql,
   knex: knexLib({
-    client: 'mysql',
+    client: 'mysql2',
     connection: mysql,
   }),
   schemas: {

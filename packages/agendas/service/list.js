@@ -1,9 +1,9 @@
 'use strict';
 
 const _ = require('lodash');
-const mapper = require('@openagenda/mysql-utils/mapper');
 const parseListArguments = require('@openagenda/service-utils/parseListArguments');
 const map = require('./databaseFieldMap');
+const mapper = require('./lib/dbMapper');
 
 const dbParse = mapper(map);
 

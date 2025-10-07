@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import knexLib from 'knex';
 
-const knex = knexLib({ client: 'mysql' });
+const knex = knexLib({ client: 'mysql2' });
 
 const raw = [
   fs.readFileSync(`${import.meta.dirname}/reset.sql`, 'utf-8'),

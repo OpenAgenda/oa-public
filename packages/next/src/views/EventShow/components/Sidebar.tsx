@@ -17,6 +17,7 @@ import {
 import { Tooltip } from '@openagenda/uikit/snippets';
 import { getLocaleValue } from '@openagenda/intl';
 import { getCurrentValue as getCurrentPassValue } from '@openagenda/registrations/passCulture/iso/utils';
+import Image from 'components/Image';
 import { FaIcon } from 'icons';
 import {
   faShareNodes,
@@ -33,6 +34,7 @@ import {
   faGear,
 } from 'icons/solid';
 import defaultSize from 'utils/defaultSize';
+import isAdminMod from 'utils/isAdminMod';
 import { useAgenda } from '../contexts/agenda';
 import useEvent from '../hooks/useEvent';
 import { sidebar as messages } from '../messages';
@@ -383,6 +385,8 @@ export function LocationPreview({ event, icon = faLocationDot }) {
 
 export function PassCultureSection({
   isEventContributor,
+  isAdminMod: isAdminModProp,
+  userUid,
   event,
   agenda,
   ...props
@@ -396,6 +400,30 @@ export function PassCultureSection({
   } = useDisclosure();
 
   const { passCulture } = extractPassFromRegistration(intl, event.registration);
+
+  const canAccessReservations = useMemo(() => {
+    if (!passCulture) {
+      return false;
+    }
+
+    if (!passCulture.owner) {
+      // No owner defined: keep current behavior (isEventContributor)
+      return isEventContributor;
+    }
+
+    if (passCulture.owner.type === 'user') {
+      // User owner: check if current user's UID matches
+      return passCulture.owner.uid === userUid;
+    }
+
+    if (passCulture.owner.type === 'agenda') {
+      // Agenda owner: only adminMod can access if agenda UID matches
+      return isAdminModProp && passCulture.owner.uid === agenda.uid;
+    }
+
+    // Unknown owner type: deny access by default
+    return false;
+  }, [passCulture, isEventContributor, userUid, isAdminModProp, agenda.uid]);
 
   if (!passCulture) {
     return null;
@@ -419,9 +447,11 @@ export function PassCultureSection({
         alignItems="center"
         justifyContent="center"
       >
-        <img
+        <Image
           src={getPassImgSource(passCulture)}
           alt="Pass Culture"
+          width={22}
+          height={22}
           style={{ width: '1em', height: '1em' }}
         />
       </Box>
@@ -457,7 +487,7 @@ export function PassCultureSection({
         </Box>
       )}
 
-      {isEventContributor && (
+      {canAccessReservations && (
         <Fragment>
           <Icon color="oaGray.300" justifySelf="end">
             <FaIcon icon={faGear} />
@@ -496,6 +526,7 @@ export function ReferencesSection({ agenda, event }) {
 export default function Sidebar({
   shareOnOpen = null,
   isEventContributor = false,
+  me = null,
 }) {
   const agenda = useAgenda();
   const { event } = useEvent();
@@ -515,6 +546,8 @@ export default function Sidebar({
       <RegistrationSection event={event} />
       <PassCultureSection
         isEventContributor={isEventContributor}
+        isAdminMod={isAdminMod(me?.member)}
+        userUid={me?.member?.userUid}
         event={event}
         agenda={agenda}
       />

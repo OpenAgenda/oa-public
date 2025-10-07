@@ -9,7 +9,8 @@ export default {
     database: 'oatest_agenda_event',
     password: 'grut',
     user: 'root',
-    ssl: true,
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
 
   schemas: {

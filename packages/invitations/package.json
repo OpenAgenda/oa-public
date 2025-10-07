@@ -18,11 +18,11 @@
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/invitations",
   "dependencies": {
     "@openagenda/logs": "^1.1.10",
-    "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.0.1",
     "knex": "^2.4.2",
     "lodash": "^4.17.4",
+    "mysql2": "^3.15.1",
     "uuid": "^3.0.1"
   },
   "devDependencies": {

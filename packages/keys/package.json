@@ -17,7 +17,6 @@
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/keys",
   "dependencies": {
     "@openagenda/logs": "^1.1.10",
-    "@openagenda/mysql-utils": "^2.0.4",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.1.0",
@@ -29,7 +28,7 @@
     "@openagenda/fixtures": "^2.0.2",
     "jest": "^29.7.0",
     "knex": "^2.4.2",
-    "mysql": "^2.18.1",
+    "mysql2": "^3.15.1",
     "sinon": "^8.1.1"
   },
   "jest": {

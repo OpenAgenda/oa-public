@@ -65,6 +65,12 @@ const fieldSchemaTypes = {
       parentsField ? null : fg.options({ labelLanguages }),
       fieldOrder(['label', 'optional', 'options', 'placeholder', 'sub']),
     ),
+  fileLike: ({ labelLanguages, parentsField }) =>
+    merge(
+      fg.labels({ labelLanguages }),
+      !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null,
+      fieldOrder(['label', 'optional', 'info', 'placeholder', 'sub']),
+    ),
   customLike:
     (customFieldSchema) =>
       ({ labelLanguages }) =>
@@ -93,6 +99,9 @@ const schemas = (type, { customFieldConfigurationSchemas }) => {
   }
   if (['radio', 'checkbox', 'select', 'multiselect'].includes(type)) {
     return fieldSchemaTypes.radioLike;
+  }
+  if (['file', 'image'].includes(type)) {
+    return fieldSchemaTypes.fileLike;
   }
   if (
     customFieldConfigurationSchemas

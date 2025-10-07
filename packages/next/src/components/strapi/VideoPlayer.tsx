@@ -18,7 +18,7 @@ import {
   defaultLayoutIcons,
 } from '@vidstack/react/player/layouts/default';
 import useMatomoVideoTracker from 'hooks/useMatomoVideoTracker';
-import messages from './videoPlayerMessages';
+import getVideoTranslations from './getVideoTranslations';
 
 import '@vidstack/react/player/styles/default/theme.css';
 import '@vidstack/react/player/styles/default/layouts/video.css';
@@ -33,65 +33,6 @@ interface VideoPlayerProps {
   poster?: string;
   thumbnails?: string;
 }
-
-const getVideoTranslations = (intl: any) => ({
-  Announcements: intl.formatMessage(messages.announcements),
-  Accessibility: intl.formatMessage(messages.accessibility),
-  AirPlay: intl.formatMessage(messages.airPlay),
-  Audio: intl.formatMessage(messages.audio),
-  Auto: intl.formatMessage(messages.auto),
-  Boost: intl.formatMessage(messages.boost),
-  Captions: intl.formatMessage(messages.captions),
-  'Caption Styles': intl.formatMessage(messages.captionStyles),
-  'Captions look like this': intl.formatMessage(messages.captionsLookLikeThis),
-  Chapters: intl.formatMessage(messages.chapters),
-  'Closed-Captions Off': intl.formatMessage(messages.closedCaptionsOff),
-  'Closed-Captions On': intl.formatMessage(messages.closedCaptionsOn),
-  Connected: intl.formatMessage(messages.connected),
-  Continue: intl.formatMessage(messages.continue),
-  Connecting: intl.formatMessage(messages.connecting),
-  Default: intl.formatMessage(messages.default),
-  Disabled: intl.formatMessage(messages.disabled),
-  Disconnected: intl.formatMessage(messages.disconnected),
-  'Display Background': intl.formatMessage(messages.displayBackground),
-  Download: intl.formatMessage(messages.download),
-  'Enter Fullscreen': intl.formatMessage(messages.enterFullscreen),
-  'Enter PiP': intl.formatMessage(messages.enterPiP),
-  'Exit Fullscreen': intl.formatMessage(messages.exitFullscreen),
-  'Exit PiP': intl.formatMessage(messages.exitPiP),
-  Font: intl.formatMessage(messages.font),
-  Family: intl.formatMessage(messages.family),
-  Fullscreen: intl.formatMessage(messages.fullscreen),
-  'Google Cast': intl.formatMessage(messages.googleCast),
-  'Keyboard Animations': intl.formatMessage(messages.keyboardAnimations),
-  LIVE: intl.formatMessage(messages.live),
-  Loop: intl.formatMessage(messages.loop),
-  Mute: intl.formatMessage(messages.mute),
-  Normal: intl.formatMessage(messages.normal),
-  Off: intl.formatMessage(messages.off),
-  Pause: intl.formatMessage(messages.pause),
-  Play: intl.formatMessage(messages.play),
-  Playback: intl.formatMessage(messages.playback),
-  PiP: intl.formatMessage(messages.pip),
-  Quality: intl.formatMessage(messages.quality),
-  Replay: intl.formatMessage(messages.replay),
-  Reset: intl.formatMessage(messages.reset),
-  'Seek Backward': intl.formatMessage(messages.seekBackward),
-  'Seek Forward': intl.formatMessage(messages.seekForward),
-  Seek: intl.formatMessage(messages.seek),
-  Settings: intl.formatMessage(messages.settings),
-  'Skip To Live': intl.formatMessage(messages.skipToLive),
-  Speed: intl.formatMessage(messages.speed),
-  Size: intl.formatMessage(messages.size),
-  Color: intl.formatMessage(messages.color),
-  Opacity: intl.formatMessage(messages.opacity),
-  Shadow: intl.formatMessage(messages.shadow),
-  Text: intl.formatMessage(messages.text),
-  'Text Background': intl.formatMessage(messages.textBackground),
-  Track: intl.formatMessage(messages.track),
-  Unmute: intl.formatMessage(messages.unmute),
-  Volume: intl.formatMessage(messages.volume),
-});
 
 const getSourceUrl = (source: MediaSrc | undefined): string => {
   if (!source) return '';

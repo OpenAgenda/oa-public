@@ -4,21 +4,18 @@ const _ = require('lodash');
 const slugify = require('slugify');
 
 const logs = require('@openagenda/logs');
-const defineUnique = require('@openagenda/mysql-utils/defineUnique');
-const verifyUnique = require('@openagenda/mysql-utils/verifyUnique');
-const dbMapper = require('@openagenda/mysql-utils/mapper');
 
 const get = require('./get');
 const legacy = require('./legacy');
 const map = require('./databaseFieldMap');
 const validate = require('./validate');
+const dbMapper = require('./lib/dbMapper');
 
 const dbParse = dbMapper(map);
 const log = logs('set');
 
 let knex;
 let schemas;
-let mysqlConfig;
 let interfaces;
 let upload;
 
@@ -167,93 +164,83 @@ function _areIdentifiers(identifiers) {
     .filter((k) => ['id', 'uid', 'slug'].indexOf(k) === -1).length;
 }
 
-function _createUid(v) {
-  return new Promise((rs, rj) => {
-    defineUnique(
-      {
-        table: schemas.agenda,
-        field: 'uid',
-        mysql: mysqlConfig,
-      },
-      () => Math.ceil(Math.random() * 99999999),
-      (err, uid) => {
-        if (err) return rj(err);
+async function _createUid(v) {
+  const MAX_TRIES = 100;
 
-        v.data.uid = uid;
+  for (let i = 0; i < 100; i++) {
+    const uid = String(Math.ceil(Math.random() * 99999999));
 
-        log('created uid %s', uid);
+    const existing = await knex(schemas.agenda).where('uid', uid).first();
 
-        rs(v);
-      },
-    );
-  });
+    if (!existing) {
+      v.data.uid = uid;
+      log('created uid %s', uid);
+      return v;
+    }
+  }
+
+  throw new Error(
+    `Unable to generate a unique UID after ${MAX_TRIES} attempts.`,
+  );
 }
 
-function _createSlugIfNotSet(v) {
+async function _createSlugIfNotSet(v) {
   if (v.data.slug) return v;
 
-  return new Promise((rs, rj) => {
-    defineUnique(
-      {
-        table: schemas.agenda,
-        field: 'slug',
-        mysql: mysqlConfig,
-      },
-      (previousSlug) =>
-        slugify(v.data.title || '', { lower: true, strict: true })
-        + (previousSlug ? Math.ceil(Math.random() * 1000) : ''),
-      (err, slug) => {
-        if (err) return rj(err);
+  const MAX_TRIES = 100;
+  const baseSlug = slugify(v.data.title || '', { lower: true, strict: true });
 
-        log('created slug %s', slug);
+  for (let i = 0; i < MAX_TRIES; i++) {
+    const candidateSlug = i === 0 ? baseSlug : `${baseSlug}-${Math.ceil(Math.random() * 1000)}`;
 
-        v.data.slug = slug;
+    const existing = await knex(schemas.agenda)
+      .where('slug', candidateSlug)
+      .first();
 
-        rs(v);
-      },
-    );
-  });
+    if (!existing) {
+      log('created slug %s', candidateSlug);
+      v.data.slug = candidateSlug;
+      return v;
+    }
+  }
+
+  throw new Error(
+    `Unable to generate a unique slug for "${baseSlug}" after ${MAX_TRIES} attempts.`,
+  );
 }
 
 function _verifyUnique(field) {
-  return (v) => {
+  return async (v) => {
     log('verifying unique %s', field);
 
-    return new Promise((rs, rj) => {
-      // value checked for unicity is from data for create
-      // from merged values in case of update
-      const value = dbParse.toDb(v.id ? v.merged : v.data)[field];
+    const dataToParse = v.id ? v.merged : v.data;
+    const value = dbParse.toDb(dataToParse)[field];
 
-      verifyUnique(
-        {
-          table: schemas.agenda,
-          field,
-          value,
-          exclude: v.id ? { id: v.id } : false,
-          mysql: mysqlConfig,
-        },
-        (err, is) => {
-          if (err) return rj(err);
+    if (value === undefined || value === null) {
+      return v;
+    }
 
-          if (is) {
-            log('%s is unique', field);
+    const query = knex(schemas.agenda).where(field, value);
 
-            return rs(v);
-          }
+    if (v.id) {
+      query.whereNot('id', v.id);
+    }
 
-          log('%s is not unique', field);
+    const existing = await query.first();
 
-          v.errors.push({
-            field,
-            code: 'duplicate',
-            message: 'duplicate value found',
-            origin: value,
-          });
+    if (existing) {
+      log('%s is not unique', field);
+      v.errors.push({
+        field,
+        code: 'duplicate',
+        message: 'duplicate value found',
+        origin: value,
+      });
+    } else {
+      log('%s is unique', field);
+    }
 
-          return rs(v);
-        },
-      );
-    });
+    return v;
   };
 }
 
@@ -539,8 +526,6 @@ function init(s, k) {
   schemas = s.getConfig().schemas;
 
   knex = k;
-
-  mysqlConfig = s.getConfig().mysql;
 
   interfaces = s.getConfig().interfaces;
 

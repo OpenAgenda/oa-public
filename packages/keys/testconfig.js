@@ -6,7 +6,8 @@ export default {
     database: 'oa_test_keys',
     password: 'grut',
     user: 'root',
-    ssl: true,
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
   migrations: {
     tableName: 'key_migrations',

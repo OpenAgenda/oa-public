@@ -13,6 +13,7 @@ import {
 import { HttpInstrumentation } from '@opentelemetry/instrumentation-http';
 import { ExpressInstrumentation } from '@opentelemetry/instrumentation-express';
 import { MySQLInstrumentation } from '@opentelemetry/instrumentation-mysql';
+import { MySQL2Instrumentation } from '@opentelemetry/instrumentation-mysql2';
 import { BullMQInstrumentation } from '@appsignal/opentelemetry-instrumentation-bullmq';
 
 const SENTRY_DSN = process.env.SENTRY_DSN
@@ -107,7 +108,7 @@ const sentryClient = Sentry.init({
   integrations: (integrations) =>
     integrations.filter(
       (integration) =>
-        !['Express', 'Mysql', 'Redis'].includes(integration.name),
+        !['Express', 'Mysql', 'Mysql2', 'Redis'].includes(integration.name),
     ),
   openTelemetryInstrumentations: [
     new HttpInstrumentation({
@@ -139,6 +140,9 @@ const sentryClient = Sentry.init({
     }),
     new BullMQInstrumentation(),
     new MySQLInstrumentation({
+      enhancedDatabaseReporting: ENV === 'development',
+    }),
+    new MySQL2Instrumentation({
       enhancedDatabaseReporting: ENV === 'development',
     }),
   ],

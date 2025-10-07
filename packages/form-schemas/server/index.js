@@ -134,7 +134,7 @@ export default Object.assign(
       client:
         config.knex
         || knex({
-          client: 'mysql',
+          client: 'mysql2',
           connection: config.mysql,
         }),
       schemas: config.schemas,

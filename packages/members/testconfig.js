@@ -3,6 +3,7 @@ export default {
     host: '127.0.0.1',
     password: 'grut',
     user: 'root',
-    ssl: true,
+    jsonStrings: true,
+    ssl: { rejectUnauthorized: false },
   },
 };
