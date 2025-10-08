@@ -14,6 +14,7 @@ const testConfig = {
     ssl: {
       rejectUnauthorized: false,
     },
+    decimalNumbers: true,
   },
   redis: {
     host: 'localhost',
