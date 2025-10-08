@@ -11,7 +11,7 @@ describe('keys - update', () => {
   beforeAll(async () => {
     knex = knexLib({
       client: 'mysql2',
-      connection: testconfig.mysql,
+      connection: { ...testconfig.mysql },
     });
 
     redisClient = redis.createClient(testconfig.redis.connection);

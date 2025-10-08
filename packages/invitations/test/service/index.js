@@ -34,11 +34,9 @@ function initAndLoad(...args) {
     files = ['invitation'];
   }
 
-  svc.init(config, (err) => {
-    if (err) return cb(err);
+  svc.init(config);
 
-    fix(config, files, options, cb);
-  });
+  fix(config, files, options, cb);
 }
 
 export * from '../../service/index.js';

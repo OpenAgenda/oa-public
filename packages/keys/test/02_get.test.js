@@ -13,7 +13,7 @@ describe('keys - get', () => {
   beforeAll(async () => {
     knex = knexLib({
       client: 'mysql2',
-      connection: testconfig.mysql,
+      connection: { ...testconfig.mysql },
     });
 
     redisClient = redis.createClient(config.redis.connection);

@@ -32,7 +32,7 @@ async function _load(dbConfig, SQLDataRelativePath) {
 module.exports = (dbConfig, SQLDataRelativePath = 'ardeche/rows.sql') => {
   const client = knex({
     client: 'mysql2',
-    connection: dbConfig,
+    connection: { ...dbConfig },
   });
 
   return {

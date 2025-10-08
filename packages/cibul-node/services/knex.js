@@ -8,7 +8,7 @@ export function init(config) {
 
   const knex = knexLib({
     client: 'mysql2',
-    connection: config.db,
+    connection: { ...config.db },
     pool: { min: 0, max: 20 },
     schemas: config.schemas,
   });
