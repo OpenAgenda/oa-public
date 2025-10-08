@@ -5,6 +5,7 @@ import {
   Image,
   Flex,
   useBreakpointValue,
+  ButtonProps,
 } from '@openagenda/uikit';
 
 import { color } from 'utils/strapi';
@@ -14,6 +15,20 @@ import StrapiMarkdown from './StrapiMarkdown';
 import VideoPlayer from './VideoPlayer';
 
 import type { Color } from './types';
+import MultiColorText from './MultiColorText';
+
+interface TextPart {
+  id: number;
+  text: string;
+  color: {
+    id: number;
+    documentId: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  } | null;
+}
 
 interface PageHeadProps {
   colorVariant?: string;
@@ -22,7 +37,12 @@ interface PageHeadProps {
   title: string;
   description: string;
   fontSize?: HeadingProps['size'];
-  CTAs?: any[];
+  CTAs?: Array<{
+    link: string;
+    label: string;
+    color?: Color;
+    variant?: ButtonProps['variant'];
+  }>;
   video?: string;
   image?: {
     url: string;
@@ -36,6 +56,7 @@ interface PageHeadProps {
     lg?: string;
   };
   additionalTopPadding?: any;
+  coloredTitle?: TextPart[];
 }
 
 const gap = {
@@ -47,6 +68,25 @@ const gap = {
   '2xl': 36,
 };
 
+interface TextContentProps {
+  title: string;
+  description?: string;
+  CTAs?: Array<{
+    link: string;
+    label: string;
+    color?: Color;
+    variant?: ButtonProps['variant'];
+  }>;
+  alignItems?: {
+    base?: string;
+    md?: string;
+    lg?: string;
+  };
+  fontColor?: Color;
+  fontSize?: HeadingProps['size'];
+  coloredTitle?: TextPart[];
+}
+
 const TextContent = ({
   title,
   description,
@@ -54,10 +94,8 @@ const TextContent = ({
   alignItems,
   fontColor,
   fontSize,
-}: Pick<
-  PageHeadProps,
-  'title' | 'description' | 'CTAs' | 'fontColor' | 'fontSize' | 'alignItems'
->) => (
+  coloredTitle,
+}: TextContentProps) => (
   <Flex
     flex="1"
     alignItems={alignItems}
@@ -65,14 +103,13 @@ const TextContent = ({
     direction="column"
     justifyContent="center"
   >
-    <Heading
-      as="h1"
-      size={fontSize || '5xl'}
-      color={[color(fontColor), 'solid'].join('.')}
-      fontWeight={600}
-    >
-      {title}
-    </Heading>
+    <Title
+      coloredTitle={coloredTitle}
+      fontSize={fontSize}
+      fontColor={fontColor}
+      title={title}
+      textAlign="left"
+    />
     {description ? (
       <StrapiMarkdown
         color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
@@ -86,27 +123,84 @@ const TextContent = ({
   </Flex>
 );
 
+interface TitleProps {
+  coloredTitle?: TextPart[];
+  fontSize?: HeadingProps['size'];
+  fontColor?: Color;
+  title: string;
+  textAlign?: string;
+}
+
+const Title = ({
+  coloredTitle,
+  fontSize,
+  fontColor,
+  title,
+  textAlign = 'center',
+}: TitleProps) => {
+  const headingSize = fontSize || '5xl';
+
+  if (coloredTitle?.length) {
+    return (
+      <MultiColorText
+        as="h1"
+        TextParts={coloredTitle}
+        textProps={{
+          fontWeight: 600,
+          fontSize: headingSize,
+          textAlign: textAlign,
+        }}
+      />
+    );
+  }
+
+  return (
+    <Heading
+      as="h1"
+      size={headingSize}
+      color={[color(fontColor), 'solid'].join('.')}
+      fontWeight={600}
+      textAlign={textAlign}
+    >
+      {title}
+    </Heading>
+  );
+};
+
+interface ContentProps {
+  title: string;
+  coloredTitle?: TextPart[];
+  description?: string;
+  CTAs?: Array<{
+    link: string;
+    label: string;
+    color?: Color;
+    variant?: ButtonProps['variant'];
+  }>;
+  fontColor?: Color;
+  fontSize?: HeadingProps['size'];
+  image?: {
+    url: string;
+    alternativeText?: string;
+    width?: string;
+    height?: string;
+  };
+  video?: string;
+}
+
 const Content = ({
   title,
+  coloredTitle,
   description,
   CTAs = [],
   fontColor,
   fontSize,
   image,
   video,
-}: Pick<
-  PageHeadProps,
-  | 'title'
-  | 'description'
-  | 'CTAs'
-  | 'fontColor'
-  | 'fontSize'
-  | 'image'
-  | 'video'
->) => {
+}: ContentProps) => {
   const itemsCount = 1 + (image ? 1 : 0) + (video ? 1 : 0);
 
-  if (useBreakpointValue({ base: true, '2xl': false }) && video) {
+  if (useBreakpointValue({ base: true, '4xl': false }) && video) {
     return (
       <Box maxW="5xl" m="auto" height="100%" p={8}>
         <Flex
@@ -116,15 +210,14 @@ const Content = ({
           justifyContent="center"
           alignItems="center"
         >
-          <Heading
-            as="h1"
-            size={fontSize || '5xl'}
-            color={[color(fontColor), 'solid'].join('.')}
-            fontWeight={600}
+          <Title
+            coloredTitle={coloredTitle}
+            fontSize={fontSize}
+            fontColor={fontColor}
+            title={title}
             textAlign="center"
-          >
-            {title}
-          </Heading>
+          />
+
           {description ? (
             <StrapiMarkdown
               mt={12}
@@ -134,7 +227,7 @@ const Content = ({
               {description}
             </StrapiMarkdown>
           ) : null}
-          <VideoPlayer />
+          <VideoPlayer video={video} />
           {CTAs?.length ?? 0 > 0 ? (
             <CTAButtons CTAs={CTAs} justify="center" mt={2} />
           ) : null}
@@ -163,10 +256,11 @@ const Content = ({
           lg: itemsCount === 1 ? 'center' : 'start',
         }}
         fontColor={fontColor}
+        coloredTitle={coloredTitle}
       />
       {video ? (
         <Flex flex="1">
-          <VideoPlayer />
+          <VideoPlayer video={video} />
         </Flex>
       ) : null}
       {image ? (

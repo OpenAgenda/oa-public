@@ -1,0 +1,44 @@
+import React from 'react';
+import { Text, TextProps, Heading } from '@openagenda/uikit';
+import { color } from 'utils/strapi';
+
+interface TextPart {
+  id: number;
+  text: string;
+  color: {
+    id: number;
+    documentId: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  } | null;
+}
+
+interface MultiColorTextProps {
+  TextParts: TextPart[];
+  textProps?: TextProps;
+  as?: React.ElementType;
+}
+
+export default function MultiColorText({
+  TextParts,
+  as: asProp,
+  ...props
+}: MultiColorTextProps) {
+  const Wrapper = asProp === 'h1' ? Heading : Text;
+  return (
+    <Wrapper as={asProp} {...props}>
+      {TextParts.map((part) => (
+        <Text
+          fontSize="inherit"
+          key={part.id}
+          as="span"
+          color={part.color ? color(part.color.name, 500) : undefined}
+        >
+          {part.text}
+        </Text>
+      ))}
+    </Wrapper>
+  );
+}

@@ -117,6 +117,8 @@ export async function fetchPageData({
       .catch(() => ({ data: null })),
   ]);
 
+  console.log(JSON.stringify(page, null, 2));
+
   return {
     intlMessages,
     page,
