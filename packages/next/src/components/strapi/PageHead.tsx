@@ -145,11 +145,9 @@ const Title = ({
       <MultiColorText
         as="h1"
         TextParts={coloredTitle}
-        textProps={{
-          fontWeight: 600,
-          fontSize: headingSize,
-          textAlign: textAlign,
-        }}
+        fontWeight={600}
+        size={headingSize}
+        textAlign={textAlign}
       />
     );
   }

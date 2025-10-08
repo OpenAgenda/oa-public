@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TextProps, Heading } from '@openagenda/uikit';
+import { Text, Heading, HeadingProps } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
 
 interface TextPart {
@@ -17,8 +17,10 @@ interface TextPart {
 
 interface MultiColorTextProps {
   TextParts: TextPart[];
-  textProps?: TextProps;
   as?: React.ElementType;
+  fontWeight?: number;
+  size?: HeadingProps['size'];
+  textAlign?: string;
 }
 
 export default function MultiColorText({
