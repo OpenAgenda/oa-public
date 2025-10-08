@@ -2,7 +2,6 @@ import fs from 'node:fs';
 
 export const service = {
   mysql: {
-    timeout: 120000,
     host: process.env.OA_MYSQL_DEV_HOST,
     user: process.env.OA_MYSQL_DEV_USER,
     password: process.env.OA_MYSQL_DEV_PASSWORD,

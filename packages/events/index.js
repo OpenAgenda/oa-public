@@ -43,7 +43,7 @@ const createService = (c) => {
         c.knex
         || knex({
           client: 'mysql2',
-          connection: config.mysql,
+          connection: { ...config.mysql },
         }),
     },
     imageTransformAndUpload:

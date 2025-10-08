@@ -7,7 +7,6 @@ import clearOldSoftRemoved from './clearOldSoftRemovedEvents.js';
 export function init(config, services) {
   return Object.assign(
     AgendaEvents({
-      mysql: config.db,
       knex: config.knex,
       redisClient: services.redis,
       logger: config.getLogConfig('svc', 'agendaEvents'),

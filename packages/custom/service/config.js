@@ -22,7 +22,7 @@ function init(c) {
   if (!c.knex) {
     config.knex = knexLib({
       client: 'mysql2',
-      connection: c.mysql,
+      connection: { ...c.mysql },
     });
 
     ownedConnection = true;

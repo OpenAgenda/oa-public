@@ -14,7 +14,7 @@ describe.skip('activities - rebuid', () => {
   beforeAll(async () => {
     knex = knexLib({
       client: 'mysql2',
-      connection: config.mysql,
+      connection: { ...config.mysql },
     });
 
     service = await Service.initAndLoad(
