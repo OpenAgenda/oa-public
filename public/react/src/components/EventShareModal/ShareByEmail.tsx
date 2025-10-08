@@ -46,7 +46,13 @@ export default function ShareByEmail({ agenda, event, onClose, onEmailSent }) {
       value="email"
       title={intl.formatMessage(messages.shareByEmail)}
     >
-      <form>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (!emails.length || isMutating) return;
+          trigger(emails);
+        }}
+      >
         <Textarea
           placeholder={intl.formatMessage(messages.shareByEmailPlaceholder)}
           value={emailValue}
@@ -55,15 +61,7 @@ export default function ShareByEmail({ agenda, event, onClose, onEmailSent }) {
         <Text fontSize="sm" mb="2">
           {intl.formatMessage(messages.byEmailSub)}
         </Text>
-        <Button
-          type="submit"
-          disabled={!emails.length}
-          loading={isMutating}
-          onClick={(e) => {
-            e.preventDefault();
-            trigger(emails);
-          }}
-        >
+        <Button type="submit" disabled={!emails.length} loading={isMutating}>
           {intl.formatMessage(messages.send)}
         </Button>
       </form>
