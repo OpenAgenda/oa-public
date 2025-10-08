@@ -460,6 +460,7 @@ const initialState = async (req) => {
       res: {
         jsonExport: '/api/agendas/:uid/events',
         statsConfig: '/:slug/admin/statistics/config',
+        search: '/api/agendas/:uid/events/search',
       },
     },
     eventAdmin: {

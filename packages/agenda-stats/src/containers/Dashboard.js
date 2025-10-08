@@ -183,7 +183,17 @@ function Dashboard() {
   const filtersQuery = useQuery(
     ['agenda-stats', 'filtersBase', agenda.slug],
     () =>
-      getEvents(apiClient, res.jsonExport, agenda, filters, { size: 0 }, true),
+      getEvents(
+        apiClient,
+        res.search,
+        agenda,
+        filters,
+        { size: 0, state: null },
+        null,
+        true,
+        20,
+        'post',
+      ),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'isLoading', 'error'],
@@ -285,18 +295,18 @@ function Dashboard() {
     }
 
     const configUrl = `/${agenda.slug}/admin/statistics/config`;
-    const exportUrl = res.jsonExport
+    const searchUrl = res.search
       .replace(':slug', agenda.slug)
       .replace(':uid', agenda.uid);
 
-    const params = {
+    const body = {
       size: 0,
       aggregations: ['timespan'],
     };
 
     Promise.all([
       apiClient.get(configUrl),
-      apiClient.get(exportUrl, { params }),
+      apiClient.post(searchUrl, body),
     ]).then(([configResult, timespanResult]) => {
       const { first, last } = timespanResult.data.aggregations.timespan;
 
@@ -326,7 +336,7 @@ function Dashboard() {
     loaded,
     error,
     loading,
-    res.jsonExport,
+    res.search,
   ]);
 
   if (!loaded || filtersQuery.isFetching) {

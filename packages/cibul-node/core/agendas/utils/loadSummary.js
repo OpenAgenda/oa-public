@@ -16,14 +16,18 @@ const getRecentlyAddedEvents = (core, agenda) => {
       { size: 0 },
       { aggregations: ['addMethods'] },
     )
-    .then(({ aggregations }) =>
-      aggregations.addMethods.reduce(
+    .then(({ aggregations }) => {
+      if (!aggregations?.addMethods) {
+        return { contribution: 0, shared: 0, aggregation: 0 };
+      }
+      return aggregations.addMethods.reduce(
         (carry, { key, eventCount }) => ({
           ...carry,
           [key]: eventCount,
         }),
         { contribution: 0, shared: 0, aggregation: 0 },
-      ));
+      );
+    });
 };
 
 const getPublishedEventsCounts = async (core, agenda) => {
@@ -39,8 +43,12 @@ const getPublishedEventsCounts = async (core, agenda) => {
   let eventsCount = 0;
   for await (const event of stream) {
     eventsCount += 1;
-    if (!locationsUids.includes(event.location.uid)) locationsUids.push(event.location.uid);
-    if (!creatorsUids.includes(event.creatorUid)) creatorsUids.push(event.creatorUid);
+    if (event.location?.uid && !locationsUids.includes(event.location.uid)) {
+      locationsUids.push(event.location.uid);
+    }
+    if (event.creatorUid && !creatorsUids.includes(event.creatorUid)) {
+      creatorsUids.push(event.creatorUid);
+    }
   }
 
   return {
@@ -72,18 +80,21 @@ const loadSummary = async (core, agenda, options = {}) => {
 
   const summary = {
     keywords: ['cities', 'departments', 'regions', 'keywords'].reduce(
-      (keywords, agg) =>
-        keywords.concat(publishedResult[agg].map((a) => a.key)),
+      (keywords, agg) => {
+        const aggData = publishedResult[agg];
+        if (!aggData || !Array.isArray(aggData)) return keywords;
+        return keywords.concat(aggData.map((a) => a.key));
+      },
       [],
     ),
-    publishedEvents: publishedResult.relative.reduce(
+    publishedEvents: (publishedResult.relative || []).reduce(
       (carry, { key, eventCount }) => ({
         ...carry,
         [key]: eventCount,
       }),
       {},
     ),
-    languages: publishedResult.languages.reduce(
+    languages: (publishedResult.languages || []).reduce(
       (carry, { key, eventCount }) => ({
         ...carry,
         [key]: eventCount,
@@ -126,8 +137,10 @@ const loadSummary = async (core, agenda, options = {}) => {
   return summary;
 };
 
-const loadAgendaAndSummary = async (core, agendaUid, options) => {
-  const agenda = await core.agendas(agendaUid).get();
+const loadAgendaAndSummary = async (core, agendaUid, options = {}) => {
+  const agenda = await core.agendas(agendaUid).get({
+    access: options.access || 'public',
+  });
   return loadSummary(core, agenda, options);
 };
 
