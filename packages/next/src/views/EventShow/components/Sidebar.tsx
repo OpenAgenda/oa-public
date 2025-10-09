@@ -46,6 +46,7 @@ import Map from './Map';
 import PassBookingModal from './PassBookingModal';
 
 export { default as AccessibilitySection } from './AccessibilitySection';
+export { default as AgeSection } from './AgeSection';
 
 const imgRoute = process.env.NEXT_PUBLIC_ASSETS;
 

@@ -3,6 +3,7 @@ import { Button, Grid, Icon } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
 import {
   AccessibilitySection,
+  AgeSection,
   ConditionsSection,
   DateRangeSection,
   LocationPreview,
@@ -106,6 +107,7 @@ export default function Sidebar({ referrer, contentLocale }) {
       />
       <TimingsSection event={event} />
       <AccessibilitySection event={event} ageIcon={faChild} />
+      <AgeSection event={event} />
       <LocationPreview event={event} icon={faLocationDot} />
     </>
   );
