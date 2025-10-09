@@ -118,17 +118,16 @@ export const WithVideo = {
   },
 };
 
-export const WithColoredText = {
-  args: {
-    title:
-      "Publiez un agenda, rassemblez et diffusez toutes vos annonces d'événements",
-    description:
-      "OpenAgenda simplifie la gestion d'agendas pour les organisateurs, les collectivités et les développeurs. Publiez en quelques minutes et diffusez sur de multiples supports.",
-    video: 'presentation',
-    coloredTitle: [
+export const WithColoredText = () => (
+  <PageHead
+    title="Publiez un agenda, rassemblez et diffusez toutes vos annonces d'événements"
+    description="OpenAgenda simplifie la gestion d'agendas pour les organisateurs, les collectivités et les développeurs. Publiez en quelques minutes et diffusez sur de multiples supports."
+    video="presentation"
+    coloredTitle={[
       {
         id: 5,
         text: 'Publiez un ',
+        color: null,
       },
       {
         id: 6,
@@ -137,11 +136,15 @@ export const WithColoredText = {
           id: 48,
           documentId: 'tgwzvvlixyl1sliulhr8cako',
           name: 'bleuDeFrance',
+          createdAt: '2025-09-05T09:00:21.942Z',
+          updatedAt: '2025-09-05T09:00:21.942Z',
+          publishedAt: '2025-09-05T09:00:21.950Z',
         },
       },
       {
         id: 7,
         text: ', rassemblez et diffusez toutes vos annonces ',
+        color: null,
       },
       {
         id: 8,
@@ -150,11 +153,13 @@ export const WithColoredText = {
           id: 48,
           documentId: 'tgwzvvlixyl1sliulhr8cako',
           name: 'bleuDeFrance',
+          createdAt: '2025-09-05T09:00:21.942Z',
+          updatedAt: '2025-09-05T09:00:21.942Z',
+          publishedAt: '2025-09-05T09:00:21.950Z',
         },
       },
-    ],
-    fontColor: null,
-    background: {
+    ]}
+    background={{
       id: 26,
       documentId: 'rscens0ruqpq3o2ngay757ch',
       name: 'spotAliceBlue',
@@ -162,17 +167,14 @@ export const WithColoredText = {
       createdAt: '2025-09-05T09:00:21.942Z',
       updatedAt: '2025-09-05T09:00:21.942Z',
       publishedAt: '2025-09-05T09:00:21.950Z',
-    },
-    image: null,
-    CTAs: [
+    }}
+    CTAs={[
       {
-        id: 8218,
         label: 'Créer un agenda',
         link: 'https://openagenda.com/agendas/new',
         variant: 'solid',
         color: null,
       },
-    ],
-    fontSize: null,
-  },
-};
+    ]}
+  />
+);

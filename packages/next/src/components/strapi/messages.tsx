@@ -45,7 +45,7 @@ export default defineMessages({
   loggedIn: {
     id: 'next.components.Strapi.LoggedUserWelcome.loggedIn',
     defaultMessage:
-      'You are logged in to your account **{email}**. Find your agendas, events, and messages on [your dashboard](/home).',
+      'You are logged in to your account {email}. Find your agendas, events, and messages on {dashboard}.',
   },
   dashboard: {
     id: 'next.components.Strapi.LoggedUserWelcome.dashboard',

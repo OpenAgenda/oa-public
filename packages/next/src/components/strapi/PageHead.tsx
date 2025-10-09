@@ -68,61 +68,6 @@ const gap = {
   '2xl': 36,
 };
 
-interface TextContentProps {
-  title: string;
-  description?: string;
-  CTAs?: Array<{
-    link: string;
-    label: string;
-    color?: Color;
-    variant?: ButtonProps['variant'];
-  }>;
-  alignItems?: {
-    base?: string;
-    md?: string;
-    lg?: string;
-  };
-  fontColor?: Color;
-  fontSize?: HeadingProps['size'];
-  coloredTitle?: TextPart[];
-}
-
-const TextContent = ({
-  title,
-  description,
-  CTAs,
-  alignItems,
-  fontColor,
-  fontSize,
-  coloredTitle,
-}: TextContentProps) => (
-  <Flex
-    flex="1"
-    alignItems={alignItems}
-    textAlign={alignItems}
-    direction="column"
-    justifyContent="center"
-  >
-    <Title
-      coloredTitle={coloredTitle}
-      fontSize={fontSize}
-      fontColor={fontColor}
-      title={title}
-      textAlign="left"
-    />
-    {description ? (
-      <StrapiMarkdown
-        color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
-        mt={7}
-        flex={null}
-      >
-        {description}
-      </StrapiMarkdown>
-    ) : null}
-    {CTAs && CTAs.length > 0 ? <CTAButtons CTAs={CTAs} mt={9} /> : null}
-  </Flex>
-);
-
 interface TitleProps {
   coloredTitle?: TextPart[];
   fontSize?: HeadingProps['size'];
@@ -186,6 +131,17 @@ interface ContentProps {
   video?: string;
 }
 
+const Description = ({ mt, fontColor, description }) =>
+  description ? (
+    <StrapiMarkdown
+      mt={mt}
+      flex={null}
+      color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
+    >
+      {description}
+    </StrapiMarkdown>
+  ) : null;
+
 const Content = ({
   title,
   coloredTitle,
@@ -198,7 +154,10 @@ const Content = ({
 }: ContentProps) => {
   const itemsCount = 1 + (image ? 1 : 0) + (video ? 1 : 0);
 
-  if (useBreakpointValue({ base: true, '4xl': false }) && video) {
+  const isSmall = useBreakpointValue({ base: true, lg: false });
+  const isRegular = useBreakpointValue({ lg: true, '2xl': false });
+
+  if ((isSmall || isRegular) && video) {
     return (
       <Box maxW="5xl" m="auto" height="100%" p={8}>
         <Flex
@@ -216,46 +175,43 @@ const Content = ({
             textAlign="center"
           />
 
-          {description ? (
-            <StrapiMarkdown
-              mt={12}
-              flex={null}
-              color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
-            >
-              {description}
-            </StrapiMarkdown>
-          ) : null}
+          <Description
+            mt={12}
+            fontColor={fontColor}
+            description={description}
+          />
           <VideoPlayer video={video} />
-          {CTAs?.length ?? 0 > 0 ? (
-            <CTAButtons CTAs={CTAs} justify="center" mt={2} />
-          ) : null}
+          <CTAButtons CTAs={CTAs} justify="center" mt={2} />
         </Flex>
       </Box>
     );
   }
 
   return (
-    <Flex
-      height="100%"
-      alignItems="center"
-      gap={gap}
-      p={gap}
-      direction={{
-        base: 'column',
-        lg: 'row',
-      }}
-    >
-      <TextContent
-        title={title}
-        description={description}
-        CTAs={CTAs}
+    <Flex height="100%" alignItems="center" gap={gap} p={gap} direction="row">
+      <Flex
+        flex="1"
         alignItems={{
           base: 'center',
           lg: itemsCount === 1 ? 'center' : 'start',
         }}
-        fontColor={fontColor}
-        coloredTitle={coloredTitle}
-      />
+        textAlign={{
+          base: 'center',
+          lg: itemsCount === 1 ? 'center' : 'start',
+        }}
+        direction="column"
+        justifyContent="center"
+      >
+        <Title
+          coloredTitle={coloredTitle}
+          fontSize={{ base: '2xl', xl: '4xl', '2xl': '5xl' }}
+          fontColor={fontColor}
+          title={title}
+          textAlign="left"
+        />
+        <Description mt={7} fontColor={fontColor} description={description} />
+        {CTAs && CTAs.length > 0 ? <CTAButtons CTAs={CTAs} mt={9} /> : null}
+      </Flex>
       {video ? (
         <Flex flex="1">
           <VideoPlayer video={video} />

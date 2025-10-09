@@ -34,6 +34,7 @@ export default function SegmentContainer({
       <Container
         maxW={fullWidth ? '100%' : '7xl'}
         height={{ base: fullHeight ? '100vh' : undefined }}
+        minH={{ base: fullHeight ? '100vh' : undefined }}
         color={fontColor ? color(fontColor.name, 500) : undefined}
         py={fullWidth ? 0 : 20}
         px={fullWidth ? 0 : undefined}

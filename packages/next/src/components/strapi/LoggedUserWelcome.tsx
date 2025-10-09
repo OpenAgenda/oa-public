@@ -1,8 +1,7 @@
-import { Box, Container, Flex } from '@openagenda/uikit';
+import { Box, Container, Flex, Link } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 
 import messages from './messages';
-import StrapiMarkdown from './StrapiMarkdown';
 
 export default function LoggedUserWelcome({ top = 0, user }) {
   const intl = useIntl();
@@ -27,21 +26,25 @@ export default function LoggedUserWelcome({ top = 0, user }) {
     >
       <Flex
         direction="column"
-        bg="white"
+        bg="strapi.frenchBlue.500"
+        color="white"
         mx={4}
         py={4}
         px={6}
         borderRadius={8}
-        borderColor="primary.500"
-        borderWidth="1px"
       >
         <Box fontWeight="bold">
           {intl.formatMessage(messages.welcome, { firstName })}
         </Box>
         <Box>
-          <StrapiMarkdown>
-            {intl.formatMessage(messages.loggedIn, { email: user.email })}
-          </StrapiMarkdown>
+          {intl.formatMessage(messages.loggedIn, {
+            email: user.email ? <b>{user.email}</b> : null,
+            dashboard: (
+              <Link href="/home" fontSize="md" fontWeight="bold" color="white">
+                {intl.formatMessage(messages.dashboard)}
+              </Link>
+            ),
+          })}
         </Box>
       </Flex>
     </Container>
