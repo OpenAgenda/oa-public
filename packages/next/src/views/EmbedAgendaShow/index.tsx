@@ -80,6 +80,7 @@ function EmbedAgendaShow({
     displayTotal,
     exportModal,
     contributionButton,
+    pageSize,
     logo,
     referrer: layoutDataReferrer,
     setReferrer,
@@ -136,7 +137,7 @@ function EmbedAgendaShow({
       host: referrer,
     }),
     includeFields,
-    pageSize: 12,
+    pageSize,
     sort,
   });
 

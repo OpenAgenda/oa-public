@@ -67,6 +67,7 @@ export type EmbedParams = {
   exportModal?: boolean;
   contributionButton?: boolean;
   itemMinWidth?: `${number}px`;
+  pageSize?: number;
   logo?: LogoParam;
 };
 
@@ -190,6 +191,13 @@ function parseAndValidateBoolean(value: string): boolean | null {
   return null;
 }
 
+function parseAndValidateInteger(value: string): number | null {
+  if (!Number.isNaN(Number(value)) && Number.isInteger(parseFloat(value))) {
+    return parseInt(value, 10);
+  }
+  return null;
+}
+
 function parseAndValidateLogo(value: string): LogoParam {
   return value === 'hide' ? 'hide' : 'display';
 }
@@ -209,6 +217,7 @@ const parsers = {
   exportModal: parseAndValidateBoolean,
   contributionButton: parseAndValidateBoolean,
   itemMinWidth: parseAndValidateItemMinWidth,
+  pageSize: parseAndValidateInteger,
   logo: parseAndValidateLogo,
 };
 
