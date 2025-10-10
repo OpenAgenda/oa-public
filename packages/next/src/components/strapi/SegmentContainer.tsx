@@ -1,4 +1,4 @@
-import { Container, chakra, H2, Heading, Box } from '@openagenda/uikit';
+import { Container, chakra, H2, Heading, Box, Flex } from '@openagenda/uikit';
 import { color, getBackgroundImage } from 'utils/strapi';
 import type { Color } from './types';
 import CTAButtons from './CTAButtons';
@@ -33,11 +33,11 @@ export default function SegmentContainer({
     <chakra.div backgroundImage={getBackgroundImage(background)}>
       <Container
         maxW={fullWidth ? '100%' : '7xl'}
-        height={{ base: fullHeight ? '100vh' : undefined }}
         minH={{ base: fullHeight ? '100vh' : undefined }}
         color={fontColor ? color(fontColor.name, 500) : undefined}
         py={fullWidth ? 0 : 20}
         px={fullWidth ? 0 : undefined}
+        display="flex"
       >
         {additionalTopPadding ? (
           <Box height={additionalTopPadding}></Box>
@@ -62,7 +62,9 @@ export default function SegmentContainer({
             {description}
           </Heading>
         )}
-        {children}
+        <Flex flex="1" justifyContent="center">
+          {children}
+        </Flex>
         {CTAs && CTAs.length > 0 && (
           <Box mt="12">
             <CTAButtons CTAs={CTAs} justify="center" />

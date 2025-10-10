@@ -161,6 +161,7 @@ const Content = ({
     return (
       <Box maxW="5xl" m="auto" height="100%" p={8}>
         <Flex
+          py={5}
           height="100%"
           gap={2}
           direction="column"
@@ -180,7 +181,9 @@ const Content = ({
             fontColor={fontColor}
             description={description}
           />
-          <VideoPlayer video={video} />
+          <Box w="70%">
+            <VideoPlayer video={video} />
+          </Box>
           <CTAButtons CTAs={CTAs} justify="center" mt={2} />
         </Flex>
       </Box>
