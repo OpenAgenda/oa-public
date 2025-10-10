@@ -8,7 +8,6 @@ export default defineConfig({
   sourcemap: true,
   loader: {
     '.js': 'jsx',
-    '.json': 'copy',
   },
   esbuildOptions(options) {
     options.jsx = 'automatic';
