@@ -19,7 +19,7 @@ import ProfileLoader from './ProfileLoader';
 import ProfileMenu from './ProfileMenu';
 import useSearch from './useSearch';
 
-function ProfileBar({ portalRef }) {
+function ProfileBar({ portalRef, background }) {
   const { user, status } = useUser();
 
   if (status === FetchStatus.Fetching) {
@@ -28,7 +28,9 @@ function ProfileBar({ portalRef }) {
 
   // TODO error?.response?.status != 401 THEN toast error
 
-  return <ProfileMenu portalRef={portalRef} user={user} />;
+  return (
+    <ProfileMenu portalRef={portalRef} user={user} background={background} />
+  );
 }
 
 function getPosition({ discreet, sticky }) {
@@ -148,7 +150,14 @@ export default function Navbar({
           <Flex direction="row" align="center">
             <HelpButton />
             <LanguageSelector />
-            <ProfileBar portalRef={navbarRef} />
+            <ProfileBar
+              portalRef={navbarRef}
+              background={getBackground({
+                sticky: true,
+                discreet,
+                stickyBackground,
+              })}
+            />
           </Flex>
         </Flex>
       </Container>

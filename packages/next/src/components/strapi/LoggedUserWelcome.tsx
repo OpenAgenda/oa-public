@@ -37,7 +37,7 @@ export function LoggedUserWelcome({ top = 0, user, onClose }) {
       top={top}
       animation="slide-from-top 0.5s ease-out, fade-in 0.5s ease-in"
       height={0}
-      zIndex={1001}
+      zIndex="docked"
     >
       <Flex
         bg="strapi.frenchBlue.500"

@@ -25,7 +25,7 @@ import { faBars } from 'icons/solid';
 import useSearch from './useSearch';
 import messages from './messages';
 
-export default function ProfileMenu({ user, portalRef }) {
+export default function ProfileMenu({ user, portalRef, background = 'white' }) {
   const intl = useIntl();
 
   const collapseId = 'header-menu-collapse';
@@ -69,6 +69,7 @@ export default function ProfileMenu({ user, portalRef }) {
           </MenuTrigger>
           <MenuContent
             color="black"
+            background={background}
             minW="3xs"
             // Fix zIndex of menu + sticky navbar
             css={{ '--menu-z-index': 'zIndex.popover' }}
@@ -139,7 +140,7 @@ export default function ProfileMenu({ user, portalRef }) {
         <FaIcon icon={faBars} />
       </IconButton>
       <Portal container={portalRef}>
-        <Collapsible.Root id={collapseId} open={open}>
+        <Collapsible.Root id={collapseId} open={open} background={background}>
           <Collapsible.Content>
             <Box display={{ base: 'block', lg: 'none' }}>
               <form onSubmit={onSearch}>
