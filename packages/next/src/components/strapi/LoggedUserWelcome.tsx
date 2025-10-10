@@ -7,7 +7,7 @@ import messages from './messages';
 const STORAGE_WELCOME_KEY = 'oa:hideLoggedWelcomeUntil';
 const KEY_EXPIRY_DELAY = 1000 * 60 * 60 * 48;
 
-export function LoggedUserWelcome({ top = 0, user, onClose }) {
+export function LoggedUserWelcome({ top = 0, user, onClose = null }) {
   const intl = useIntl();
 
   // Extract first name from fullName
