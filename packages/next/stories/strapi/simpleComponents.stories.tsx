@@ -2,6 +2,7 @@ import { Flex, Box, SimpleGrid, Text } from '@openagenda/uikit';
 import Icon from 'components/strapi/Icon';
 import { color } from 'utils/strapi';
 import CTAButton from 'components/strapi/CTAButton';
+import MultiColorText from 'components/strapi/MultiColorText';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 
 export default {
@@ -145,5 +146,45 @@ export function CTAButtons() {
         size="xs"
       />
     </Flex>
+  );
+}
+
+export function MultiColorTextDefault() {
+  // Define color object once to avoid duplication
+  const bleuDeFranceColor = {
+    id: 48,
+    documentId: 'tgwzvvlixyl1sliulhr8cako',
+    name: 'bleuDeFrance',
+    createdAt: '2025-09-05T08:56:34.081Z',
+    updatedAt: '2025-09-05T08:56:34.081Z',
+    publishedAt: '2025-09-05T08:56:34.088Z',
+  };
+
+  return (
+    <MultiColorText
+      as="h1"
+      TextParts={[
+        {
+          id: 1,
+          text: 'Publiez un ',
+          color: null,
+        },
+        {
+          id: 2,
+          text: 'agenda',
+          color: bleuDeFranceColor,
+        },
+        {
+          id: 3,
+          text: ', rassemblez et diffusez toutes vos annonces ',
+          color: null,
+        },
+        {
+          id: 4,
+          text: "d'événements",
+          color: bleuDeFranceColor,
+        },
+      ]}
+    />
   );
 }

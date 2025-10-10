@@ -10,6 +10,7 @@
   --video-focus-ring-color: var(--focus-color);
   --video-border-radius: 2px;
   --video-bg: transparent;
+  --media-poster-bg: transparent;
 
   :global(.vds-video-layout[data-sm] .vds-volume) {
     --media-slider-track-bg: rgba(0, 0, 0, 0.15);

@@ -20,7 +20,7 @@ const SAVE = 'agenda-stats/stats/SAVE';
 const SAVE_SUCCESS = 'agenda-stats/stats/SAVE_SUCCESS';
 const SAVE_FAIL = 'agenda-stats/stats/SAVE_FAIL';
 
-const AGGREGATION_SIZE = 2000;
+const AGGREGATION_SIZE = 100; // Reduced from 2000 to avoid "too many aggregations" error
 
 const initialState = {};
 
@@ -317,6 +317,7 @@ export function load(agenda, stats, filters, query) {
     const aggregations = statsToAggregations(decoratedStats);
 
     const body = {
+      aggsSizeLimit: 1500,
       size: 0,
       aggs: aggregations,
       ...query,
@@ -347,6 +348,7 @@ export function loadStat(agenda, statId, getStat = _.identity) {
 
     const decoratedStats = decorateStats([newStat]);
     const body = {
+      aggsSizeLimit: 1500,
       size: 0,
       aggregations: statsToAggregations(decoratedStats),
       ...stats.query,

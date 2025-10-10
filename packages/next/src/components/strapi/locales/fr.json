@@ -1,7 +1,7 @@
 {
   "next.components.Strapi.LoggedUserWelcome.dashboard": "votre tableau de bord",
   "next.components.Strapi.LoggedUserWelcome.defaultUser": "utilisateur",
-  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Vous êtes connecté à votre compte **{email}**. Retrouvez vos agendas, événements et messages sur [votre tableau de bord](/home).",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Vous êtes connecté à votre compte {email}. Retrouvez vos agendas, événements et messages sur {dashboard}",
   "next.components.Strapi.LoggedUserWelcome.welcome": "Bienvenue {firstName} !",
   "next.components.Strapi.ReferenceItem.more": "+ {count} en plus",
   "next.components.Strapi.addEvent": "Ajouter un événement",

@@ -160,6 +160,11 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         { uid: 17026855, title: 'La Gargouille' },
       ]);
     });
+
+    it('latitude and longitude are numbers not strings', () => {
+      expect(typeof result.latitude).toBe('number');
+      expect(typeof result.longitude).toBe('number');
+    });
   });
 
   describe('get from a set', () => {
@@ -756,6 +761,22 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         const { location } = getResponse.data;
 
         expect(location.uid).toBe(42197191);
+      });
+
+      it('latitude and longitude are numbers not strings', async () => {
+        const getResponse = await axios({
+          method: 'get',
+          url: 'http://localhost:4000/agendas/17026855/locations/95455142',
+          headers: {
+            'access-token': accessToken,
+            'content-type': 'application/json',
+          },
+        });
+
+        const { location } = getResponse.data;
+
+        expect(typeof location.latitude).toBe('number');
+        expect(typeof location.longitude).toBe('number');
       });
     });
 
