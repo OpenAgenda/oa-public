@@ -6,10 +6,10 @@ import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import AccordionItem from '../AccordionItem';
 import messages from './messages';
 
-export default function DownloadPDF({ agenda, event }) {
+export default function DownloadPDF({ rootUrl, agenda, event }) {
   const intl = useIntl();
 
-  const pdfUrl = `/api/agendas/${agenda.uid}/events/${event.uid}.pdf`;
+  const pdfUrl = `${rootUrl}/api/agendas/${agenda.uid}/events/${event.uid}.pdf`;
   const eventUrl = `https://openagenda.com/agendas/${agenda.uid}/events/${event.uid}`;
   const mailtoHref = `mailto:support@openagenda.com?subject=${encodeURIComponent(
     intl.formatMessage(messages.feedbackEmailSubject),
