@@ -106,11 +106,7 @@ export default function ReferenceSet({
         />
       )}
 
-      <Wrap
-        gapX={smallImages === false ? 16 : 8}
-        gapY={smallImages === false ? 2 : 0}
-        justify="center"
-      >
+      <Wrap gapX={smallImages === false ? 16 : 8} gapY={0} justify="center">
         {filteredReferences.map((reference) => (
           <WrapItem key={reference.id}>
             <ReferenceItem

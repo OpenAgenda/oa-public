@@ -41,7 +41,7 @@ const messages = defineMessages({
 
 const sizes = {
   small: {
-    container: { width: '260px', height: '340px' },
+    container: { width: '260px', height: '370px' },
     image: '190px',
     gap: 2,
   },
@@ -139,42 +139,40 @@ export default function ReferenceItem({
           </Box>
         </Box>
 
-        {displayedTags?.length > 0 ? (
-          <Wrap
-            flex="1"
-            justify="center"
-            alignContent="start"
-            maxWidth="100%"
-            pt={1}
-          >
-            {displayedTags?.map((tag) => (
-              <WrapItem key={tag}>
-                <Badge
-                  variant="solid"
-                  border="none"
-                  borderRadius={20}
-                  size="lg"
-                  colorPalette={tagColorMap[tag]}
-                >
-                  {tag}
-                </Badge>
-              </WrapItem>
-            ))}
-            {displayedTags.length < allTags.length ? (
-              <Button
-                fontSize="md"
-                variant="link"
-                cursor="pointer"
+        <Wrap
+          flex="1"
+          justify="center"
+          alignContent="start"
+          maxWidth="100%"
+          pt={1}
+        >
+          {displayedTags?.map((tag) => (
+            <WrapItem key={tag}>
+              <Badge
+                variant="solid"
+                border="none"
                 borderRadius={20}
-                onClick={() => setDisplayedTags(allTags)}
+                size="lg"
+                colorPalette={tagColorMap[tag]}
               >
-                {intl.formatMessage(messages.more, {
-                  count: allTags.length - displayedTags.length,
-                })}
-              </Button>
-            ) : null}
-          </Wrap>
-        ) : null}
+                {tag}
+              </Badge>
+            </WrapItem>
+          ))}
+          {displayedTags?.length < allTags?.length ? (
+            <Button
+              fontSize="md"
+              variant="link"
+              cursor="pointer"
+              borderRadius={20}
+              onClick={() => setDisplayedTags(allTags)}
+            >
+              {intl.formatMessage(messages.more, {
+                count: allTags.length - displayedTags.length,
+              })}
+            </Button>
+          ) : null}
+        </Wrap>
       </Flex>
     </LinkBox>
   );
