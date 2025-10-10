@@ -164,6 +164,10 @@ export default class EmbedLoader {
       url.searchParams.set('itemMinWidth', dataset.itemMinWidth);
     }
 
+    if (dataset.pageSize) {
+      url.searchParams.set('pageSize', dataset.pageSize);
+    }
+
     if (dataset.logo) {
       url.searchParams.set('logo', dataset.logo);
     }
