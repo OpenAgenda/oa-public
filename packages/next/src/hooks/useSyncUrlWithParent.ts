@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useLatest } from 'react-use';
 import ky from 'ky';
 import { embedAgendaUrlRegex } from '../utils/isNextUrl';
+import useParentCommunication from './useParentCommunication';
 
 function removeHostQuery(urlString: string): string {
   const url = new URL(urlString, 'https://n');
@@ -28,11 +29,13 @@ async function handleRequest({ action, payload }: ParentRequest) {
 export default function useSyncUrlWithParent() {
   const router = useRouter();
   const [isFirstLoad, setIsFirstLoad] = useState(true);
+  const { handleParentResponse } = useParentCommunication();
 
   const latestRouter = useLatest(router);
 
   useLayoutEffect(() => {
     const onMessage = (message) => {
+      // Handle requests from parent to child
       if (message?.type === 'request') {
         handleRequest(message).then(
           (result) => {
@@ -55,6 +58,8 @@ export default function useSyncUrlWithParent() {
           },
         );
       }
+
+      handleParentResponse(message);
 
       // Useless for now
       // if (message.type === 'urlChange') {

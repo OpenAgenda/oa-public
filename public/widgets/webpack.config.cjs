@@ -9,15 +9,12 @@ const config = {
   mode,
   entry: './src/index.js',
   output: {
+    publicPath: 'auto',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'index.js',
+    filename: 'widgets.js',
+    chunkFilename: 'widgets-[chunkhash].js',
   },
   module: {
-    parser: {
-      javascript: {
-        dynamicImportMode: 'eager',
-      },
-    },
     rules: [
       {
         test: /\.js$/,
