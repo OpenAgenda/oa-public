@@ -61,9 +61,7 @@ export function LoggedUserWelcome({ top = 0, user, onClose = null }) {
                   fontSize="md"
                   fontWeight="bold"
                   color="white"
-                  css={{
-                    textDecoration: 'underline',
-                  }}
+                  variant="underline"
                 >
                   {intl.formatMessage(messages.dashboard)}
                 </Link>
