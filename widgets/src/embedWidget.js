@@ -1,14 +1,4 @@
 import iframeResize from '@iframe-resizer/parent';
-import {
-  AgendaExportModal,
-  EventShareModal,
-  fetchLocale as fetchReactLocale,
-} from '@openagenda/react';
-import { fetchLocale as fetchFiltersLocales } from '@openagenda/react-filters';
-import { createSystem, themeConfig as oaThemeConfig } from '@openagenda/uikit';
-import { createRoot } from 'react-dom/client';
-import Provider, { themeConfig } from './components/Provider';
-import TopLayerPopover from './components/TopLayerPopover';
 
 function encodeForURLHash(url) {
   const charsToEncode = ['#', '%'];
@@ -23,6 +13,23 @@ function encodeForURLHash(url) {
   }
 
   return encodedURL;
+}
+
+async function handleChildRequest(action, payload, iframe) {
+  switch (action) {
+    case 'openAgendaExportModal': {
+      const { renderAgendaExportModal } = await import('./dynamicModals');
+      await renderAgendaExportModal(payload, iframe);
+      break;
+    }
+    case 'openEventShareModal': {
+      const { renderEventShareModal } = await import('./dynamicModals');
+      await renderEventShareModal(payload);
+      break;
+    }
+    default:
+      throw new Error(`Unknown child request action: ${action}`);
+  }
 }
 
 export default class EmbedLoader {
@@ -222,103 +229,30 @@ export default class EmbedLoader {
       window.history.replaceState(null, null, encodedNewUrl);
     }
 
-    if (message.type === 'openAgendaExportModal') {
-      const modalDiv = document.createElement('div');
-      document.body.appendChild(modalDiv);
-
-      const intlMessages = await Promise.all([
-        fetchReactLocale(message.locale),
-        fetchFiltersLocales(message.locale),
-      ]).then((results) => Object.assign({}, ...results));
-
-      const root = createRoot(modalDiv);
-
-      const onClose = () => {
-        root.unmount();
-        document.body.removeChild(modalDiv);
-      };
-
-      const system = createSystem(oaThemeConfig, themeConfig, {
-        ...message.themeConfig,
-        globalCss: {
-          ':host': message.themeConfig.globalCss?.html ?? {},
-        },
-      });
-
-      root.render(
-        <Provider
-          intlMessages={intlMessages}
-          locale={message.locale}
-          theme={system}
-        >
-          <TopLayerPopover open>
-            {(containerRef) => (
-              <AgendaExportModal
-                isOpen
-                onClose={onClose}
-                agenda={message.agenda}
-                query={message.query}
-                renderHost="parent"
-                fetchAgendaExportSettings={(agendaUid) =>
-                  iframe.iFrameResizer.callChild('fetchAgendaExportSettings', {
-                    agendaUid,
-                  })}
-                portalRef={containerRef}
-              />
-            )}
-          </TopLayerPopover>
-        </Provider>,
-      );
+    // requests child to parent
+    if (message.type === 'childRequest') {
+      try {
+        const result = await handleChildRequest(
+          message.action,
+          message.payload,
+          iframe,
+        );
+        iframe.iFrameResizer.sendMessage({
+          type: 'childResponse',
+          id: message.id,
+          result,
+        });
+      } catch (error) {
+        iframe.iFrameResizer.sendMessage({
+          type: 'childResponse',
+          id: message.id,
+          error: String(error),
+        });
+      }
     }
 
-    if (message.type === 'openEventShareModal') {
-      const modalDiv = document.createElement('div');
-      document.body.appendChild(modalDiv);
-
-      const intlMessages = await Promise.all([
-        fetchReactLocale(message.locale),
-        fetchFiltersLocales(message.locale),
-      ]).then((results) => Object.assign({}, ...results));
-
-      const root = createRoot(modalDiv);
-
-      const onClose = () => {
-        root.unmount();
-        document.body.removeChild(modalDiv);
-      };
-
-      const system = createSystem(oaThemeConfig, themeConfig, {
-        ...message.themeConfig,
-        globalCss: {
-          ':host': message.themeConfig.globalCss?.html ?? {},
-        },
-      });
-
-      root.render(
-        <Provider
-          intlMessages={intlMessages}
-          locale={message.locale}
-          theme={system}
-        >
-          <TopLayerPopover open>
-            {(containerRef) => (
-              <EventShareModal
-                isOpen
-                onClose={onClose}
-                agenda={message.agenda}
-                event={message.event}
-                contentLocale={message.contentLocale}
-                renderHost="parent"
-                portalRef={containerRef}
-              />
-            )}
-          </TopLayerPopover>
-        </Provider>,
-      );
-    }
-
+    // requests parent to child
     const { oaPendingRequests } = iframe.iFrameResizer;
-
     if (message.type === 'response' && oaPendingRequests?.has(message.id)) {
       const { resolve, reject } = oaPendingRequests.get(message.id);
       oaPendingRequests.delete(message.id);
