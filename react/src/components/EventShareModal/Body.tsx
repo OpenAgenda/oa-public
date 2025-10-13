@@ -65,7 +65,7 @@ export default function Body({
             eventUrl={eventUrl}
             contentLocale={contentLocale}
           />
-          <DownloadPDF agenda={agenda} event={event} />
+          <DownloadPDF rootUrl={rootUrl} agenda={agenda} event={event} />
           <ShareLink absUrl={eventUrl} />
         </AccordionRoot>
       </Bleed>
