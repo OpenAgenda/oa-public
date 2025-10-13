@@ -1,3 +1,4 @@
+import { useCallback, useState, useEffect } from 'react';
 import { Noto_Sans, Ubuntu_Sans } from 'next/font/google';
 import { Global } from '@openagenda/uikit';
 import { color } from 'utils/strapi';
@@ -11,7 +12,10 @@ import SplitHeroSegment from 'components/strapi/SplitHeroSegment';
 import AutoFeaturedCardSet from 'components/strapi/AutoFeaturedCardSet';
 import useCrispClient from 'hooks/useCrispClient';
 import Footer from 'components/strapi/Footer';
-import LoggedUserWelcome from 'components/strapi/LoggedUserWelcome';
+import {
+  LoggedUserWelcome,
+  shouldDisplayLoggedUserWelcome,
+} from 'components/strapi/LoggedUserWelcome';
 import Metas from './components/Metas';
 import fetchLocale from './locales';
 
@@ -39,6 +43,16 @@ export default function StrapiPage({ page, footer }) {
 
   useCrispClient();
   const { user } = useUser();
+  const [displayLoggedUserWelcome, setDisplayLoggedUserWelcome] =
+    useState(false);
+
+  useEffect(() => {
+    setDisplayLoggedUserWelcome(shouldDisplayLoggedUserWelcome(user));
+  }, [user]);
+
+  const onCloseLoggedUserWelcome = useCallback(() => {
+    setDisplayLoggedUserWelcome(false);
+  }, []);
 
   return (
     <>
@@ -63,7 +77,13 @@ export default function StrapiPage({ page, footer }) {
         colorPalette={navFontColor ? color(navFontColor) : undefined}
         logoVariant={logoVariant}
       />
-      {user ? <LoggedUserWelcome top={16} user={user} /> : null}
+      {displayLoggedUserWelcome ? (
+        <LoggedUserWelcome
+          top={16}
+          user={user}
+          onClose={onCloseLoggedUserWelcome}
+        />
+      ) : null}
 
       {Segments.map((Segment, index) => {
         const { id } = Segment;
@@ -80,7 +100,7 @@ export default function StrapiPage({ page, footer }) {
           <Component
             key={id}
             {...Segment}
-            additionalTopPadding={user && index === 0 && 24}
+            additionalTopPadding={displayLoggedUserWelcome && index === 0 && 24}
           />
         );
       })}

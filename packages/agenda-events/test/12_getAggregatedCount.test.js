@@ -16,7 +16,7 @@ describe('agendaEvents - 12 - functional (server): getAggregatedCount', () => {
 
     knexClient = knex({
       client: 'mysql2',
-      connection: config.mysql,
+      connection: { ...config.mysql },
     });
 
     const aMonthAgo = new Date();

@@ -20,8 +20,6 @@ import ChoiceFilter from './ChoiceFilter';
 import SearchFilter from './SearchFilter';
 import { FiltersSkeleton } from './LoadingPage';
 
-const PAGE_SIZE = 12;
-
 const StyledAgendaShowMapFilter = wrapFilter(AgendaShowMapFilter);
 
 const MapFilter = React.forwardRef<any, any>(function MapFilter(props, ref) {
@@ -58,7 +56,7 @@ export default function FiltersPart({
 }) {
   const intl = useIntl();
 
-  const { sort } = useEmbedLayoutData();
+  const { sort, pageSize } = useEmbedLayoutData();
 
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
@@ -81,7 +79,7 @@ export default function FiltersPart({
       host: referrer,
     }),
     includeFields,
-    pageSize: PAGE_SIZE,
+    pageSize,
     sort,
   });
 

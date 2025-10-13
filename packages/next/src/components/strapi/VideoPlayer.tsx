@@ -62,7 +62,7 @@ const videoMapping: Record<
 > = {
   presentation: {
     title: "Présentation d'OpenAgenda",
-    poster: 'https://img.openagenda.com/u/750x0/main/poster-pres-oa-video.png',
+    poster: 'https://cdn.openagenda.com/main/poster-pres-oa-video-2.svg',
     thumbnails:
       'https://cdn.openagenda.com/assets/videos/presentation/thumbnails_webp_sprite.vtt',
   },

@@ -14,7 +14,7 @@
   "next.components.Strapi.LoggedUserWelcome.loggedIn": [
     {
       "type": 0,
-      "value": "Vous êtes connecté à votre compte **"
+      "value": "Vous êtes connecté à votre compte "
     },
     {
       "type": 1,
@@ -22,7 +22,11 @@
     },
     {
       "type": 0,
-      "value": "**. Retrouvez vos agendas, événements et messages sur [votre tableau de bord](/home)."
+      "value": ". Retrouvez vos agendas, événements et messages sur "
+    },
+    {
+      "type": 1,
+      "value": "dashboard"
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.welcome": [

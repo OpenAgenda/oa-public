@@ -11,8 +11,6 @@ import messages from '../messages';
 import EventItem from './EventItem';
 import { EventsSkeleton } from './LoadingPage';
 
-const PAGE_SIZE = 12;
-
 export default function EventsPart({
   agenda,
   filters,
@@ -24,7 +22,7 @@ export default function EventsPart({
   const intl = useIntl();
   const router = useRouter();
 
-  const { sort, itemMinWidth } = useEmbedLayoutData();
+  const { sort, itemMinWidth, pageSize } = useEmbedLayoutData();
 
   const {
     data: pages,
@@ -41,7 +39,7 @@ export default function EventsPart({
       host: referrer,
     }),
     includeFields,
-    pageSize: PAGE_SIZE,
+    pageSize,
     sort,
   });
 
@@ -51,7 +49,7 @@ export default function EventsPart({
     (size > 0 && pages && pages[size - 1] === undefined);
   const isEmpty = pages?.[0]?.events?.length === 0;
   const isReachingEnd =
-    isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
+    isEmpty || (pages && pages[pages.length - 1]?.events?.length < pageSize);
 
   const seeMoreUrl = useMemo(() => {
     const localePrefix = router.locale === 'default' ? '' : `/${router.locale}`;
@@ -93,9 +91,9 @@ export default function EventsPart({
               agenda={agenda}
               referrer={referrer}
               // nav
-              from={pageIndex * PAGE_SIZE + eventIndex}
+              from={pageIndex * pageSize + eventIndex}
               first={pageIndex === 0 && eventIndex === 0}
-              last={pageIndex * PAGE_SIZE + eventIndex === page.total - 1}
+              last={pageIndex * pageSize + eventIndex === page.total - 1}
             />
           )),
         )}

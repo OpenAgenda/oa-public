@@ -17,7 +17,7 @@ async function init(c) {
     logs.setModuleConfig(c.logger);
   }
 
-  _.merge(config, _.pick(c, ['mysql', 'schemas', 'redis', 'cache']));
+  _.merge(config, _.pick(c, ['schemas', 'redis', 'cache']));
 
   config.knex = c.knex;
 

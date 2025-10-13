@@ -5,6 +5,7 @@ import {
   useLayoutEffect,
   useMemo,
   useRef,
+  useState,
   useTransition,
 } from 'react';
 import { useIntl } from 'react-intl';
@@ -80,6 +81,7 @@ function EmbedAgendaShow({
     displayTotal,
     exportModal,
     contributionButton,
+    pageSize,
     logo,
     referrer: layoutDataReferrer,
     setReferrer,
@@ -127,6 +129,30 @@ function EmbedAgendaShow({
     include: filtersToInclude,
   });
 
+  const [isExportLoading, setIsExportLoading] = useState(false);
+
+  const handleExportClick = useCallback(async () => {
+    setIsExportLoading(true);
+    try {
+      await window.oaIFrame.callParent('openAgendaExportModal', {
+        agenda,
+        query: omitParams(
+          getPrefilteredQuery({
+            query,
+            prefilter,
+            filters,
+          }),
+        ),
+        locale: intl.locale,
+        themeConfig,
+      });
+    } catch (error) {
+      console.error('Export modal error:', error);
+    } finally {
+      setIsExportLoading(false);
+    }
+  }, [agenda, query, prefilter, filters, intl.locale, themeConfig]);
+
   const { data: pages } = useEventsQuery({
     agenda,
     filters,
@@ -136,7 +162,7 @@ function EmbedAgendaShow({
       host: referrer,
     }),
     includeFields,
-    pageSize: 12,
+    pageSize,
     sort,
   });
 
@@ -263,21 +289,9 @@ function EmbedAgendaShow({
                           <Button
                             alignSelf="center"
                             variant="outline"
-                            onClick={() =>
-                              window.parentIFrame.sendMessage({
-                                type: 'openAgendaExportModal',
-                                agenda,
-                                query: omitParams(
-                                  getPrefilteredQuery({
-                                    query,
-                                    prefilter,
-                                    filters,
-                                  }),
-                                ),
-                                locale: intl.locale,
-                                themeConfig,
-                              })
-                            }
+                            onClick={handleExportClick}
+                            disabled={isExportLoading}
+                            loading={isExportLoading}
                           >
                             <FaIcon icon={faShareNodes} />
                             {intl.formatMessage(messages.export)}

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_components_multi_color_texts",
+  "info": {
+    "displayName": "MultiColorText",
+    "icon": "brush"
+  },
+  "options": {},
+  "attributes": {
+    "TextBlock": {
+      "displayName": "ColoredText",
+      "type": "component",
+      "repeatable": true,
+      "component": "components.colored-text"
+    },
+    "size": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::size.size"
+    }
+  }
+}

@@ -12,8 +12,6 @@ import useGetFilterOptions from '../hooks/useGetFilterOptions';
 import getPrefilteredQuery from '../utils/getPrefilteredQuery';
 import FilterPreviewer from './FilterPreviewer';
 
-const PAGE_SIZE = 12;
-
 function Total({ total, upcomingOnly, passed: _passed, disabled: _disabled }) {
   const intl = useIntl();
   // const router = useRouter();
@@ -74,7 +72,7 @@ export default function TotalPart({
     getPrefilteredQuery({ query, prefilter, filters }),
   );
 
-  const { sort } = useEmbedLayoutData();
+  const { sort, pageSize } = useEmbedLayoutData();
 
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
@@ -102,7 +100,7 @@ export default function TotalPart({
       host: referrer,
     }),
     includeFields,
-    pageSize: PAGE_SIZE,
+    pageSize,
     sort,
   });
 
@@ -111,7 +109,7 @@ export default function TotalPart({
     isLoadingInitialData ||
     (size > 0 && pages && pages[size - 1] === undefined);
   // const isEmpty = pages?.[0]?.events?.length === 0;
-  // const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < PAGE_SIZE);
+  // const isReachingEnd = isEmpty || (pages && pages[pages.length - 1]?.events?.length < pageSize);
   // const isRefreshing = isValidating && pages && pages.length === size;
 
   const getOptions = useGetFilterOptions({

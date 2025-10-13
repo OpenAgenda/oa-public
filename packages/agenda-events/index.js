@@ -24,7 +24,7 @@ export default (config) => {
       config.knex
       || knex({
         client: 'mysql2',
-        connection: config.mysql,
+        connection: { ...config.mysql },
       }),
     redisClient: config.redisClient,
   };

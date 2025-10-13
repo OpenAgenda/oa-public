@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_components_colored_texts",
+  "info": {
+    "displayName": "ColoredText"
+  },
+  "options": {},
+  "attributes": {
+    "text": {
+      "type": "string",
+      "required": true
+    },
+    "color": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::color.color"
+    }
+  }
+}

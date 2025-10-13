@@ -8,7 +8,7 @@
   "attributes": {
     "title": {
       "type": "string",
-      "required": true
+      "required": false
     },
     "video": {
       "type": "enumeration",
@@ -42,6 +42,11 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::color.color"
+    },
+    "coloredTitle": {
+      "type": "component",
+      "repeatable": true,
+      "component": "components.colored-text"
     }
   }
 }

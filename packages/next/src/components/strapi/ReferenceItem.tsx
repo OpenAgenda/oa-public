@@ -1,6 +1,6 @@
 import {
   Image,
-  VStack,
+  Flex,
   Wrap,
   WrapItem,
   LinkOverlay,
@@ -41,12 +41,14 @@ const messages = defineMessages({
 
 const sizes = {
   small: {
-    container: '260px',
+    container: { width: '260px', height: '370px' },
     image: '190px',
+    gap: 2,
   },
   big: {
-    container: '320px',
+    container: { width: '320px', height: '460px' },
     image: '320px',
+    gap: 4,
   },
 };
 
@@ -69,24 +71,29 @@ export default function ReferenceItem({
 
   return (
     <LinkBox asChild>
-      <VStack
-        width={size.container}
-        maxWidth={size.container}
+      <Flex
+        width={size.container.width}
+        maxWidth={size.container.width}
+        height={size.container.height}
         alignItems="center"
-        gap={2}
+        gap={size.gap}
+        direction="column"
       >
-        {title && (
-          <Text
-            fontSize="lg"
-            fontWeight="semibold"
-            textAlign="center"
-            color={fontColor ? color(fontColor.name, 500) : 'gray.700'}
-            px="2"
-            wordBreak="break-word"
-          >
-            {title}
-          </Text>
-        )}
+        <Flex flex="1">
+          {title && (
+            <Text
+              alignSelf="end"
+              fontSize="lg"
+              fontWeight="semibold"
+              textAlign="center"
+              color={fontColor ? color(fontColor.name, 500) : 'gray.700'}
+              px="2"
+              wordBreak="break-word"
+            >
+              {title}
+            </Text>
+          )}
+        </Flex>
 
         <Box
           position="relative"
@@ -132,37 +139,41 @@ export default function ReferenceItem({
           </Box>
         </Box>
 
-        {displayedTags?.length > 0 ? (
-          <Wrap justify="center" maxWidth="100%" pt={1}>
-            {displayedTags?.map((tag) => (
-              <WrapItem key={tag}>
-                <Badge
-                  variant="solid"
-                  border="none"
-                  borderRadius={20}
-                  size="lg"
-                  colorPalette={tagColorMap[tag]}
-                >
-                  {tag}
-                </Badge>
-              </WrapItem>
-            ))}
-            {displayedTags.length < allTags.length ? (
-              <Button
-                fontSize="md"
-                variant="link"
-                cursor="pointer"
+        <Wrap
+          flex="1"
+          justify="center"
+          alignContent="start"
+          maxWidth="100%"
+          pt={1}
+        >
+          {displayedTags?.map((tag) => (
+            <WrapItem key={tag}>
+              <Badge
+                variant="solid"
+                border="none"
                 borderRadius={20}
-                onClick={() => setDisplayedTags(allTags)}
+                size="lg"
+                colorPalette={tagColorMap[tag]}
               >
-                {intl.formatMessage(messages.more, {
-                  count: allTags.length - displayedTags.length,
-                })}
-              </Button>
-            ) : null}
-          </Wrap>
-        ) : null}
-      </VStack>
+                {tag}
+              </Badge>
+            </WrapItem>
+          ))}
+          {displayedTags?.length < allTags?.length ? (
+            <Button
+              fontSize="md"
+              variant="link"
+              cursor="pointer"
+              borderRadius={20}
+              onClick={() => setDisplayedTags(allTags)}
+            >
+              {intl.formatMessage(messages.more, {
+                count: allTags.length - displayedTags.length,
+              })}
+            </Button>
+          ) : null}
+        </Wrap>
+      </Flex>
     </LinkBox>
   );
 }

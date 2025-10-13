@@ -46,7 +46,7 @@ async function _load(dbConfig, schema, SQLDataRelativePath) {
 const createClient = (dbConfig, SQLDataRelativePath) => {
   const client = knex({
     client: 'mysql2',
-    connection: dbConfig,
+    connection: { ...dbConfig },
   });
 
   return {

@@ -5,6 +5,7 @@ import {
   Image,
   Flex,
   useBreakpointValue,
+  ButtonProps,
 } from '@openagenda/uikit';
 
 import { color } from 'utils/strapi';
@@ -14,6 +15,20 @@ import StrapiMarkdown from './StrapiMarkdown';
 import VideoPlayer from './VideoPlayer';
 
 import type { Color } from './types';
+import MultiColorText from './MultiColorText';
+
+interface TextPart {
+  id: number;
+  text: string;
+  color: {
+    id: number;
+    documentId: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    publishedAt: string;
+  } | null;
+}
 
 interface PageHeadProps {
   colorVariant?: string;
@@ -22,7 +37,12 @@ interface PageHeadProps {
   title: string;
   description: string;
   fontSize?: HeadingProps['size'];
-  CTAs?: any[];
+  CTAs?: Array<{
+    link: string;
+    label: string;
+    color?: Color;
+    variant?: ButtonProps['variant'];
+  }>;
   video?: string;
   image?: {
     url: string;
@@ -36,6 +56,7 @@ interface PageHeadProps {
     lg?: string;
   };
   additionalTopPadding?: any;
+  coloredTitle?: TextPart[];
 }
 
 const gap = {
@@ -47,126 +68,156 @@ const gap = {
   '2xl': 36,
 };
 
-const TextContent = ({
-  title,
-  description,
-  CTAs,
-  alignItems,
-  fontColor,
+interface TitleProps {
+  coloredTitle?: TextPart[];
+  fontSize?: HeadingProps['size'];
+  fontColor?: Color;
+  title: string;
+  textAlign?: string;
+}
+
+const Title = ({
+  coloredTitle,
   fontSize,
-}: Pick<
-  PageHeadProps,
-  'title' | 'description' | 'CTAs' | 'fontColor' | 'fontSize' | 'alignItems'
->) => (
-  <Flex
-    flex="1"
-    alignItems={alignItems}
-    textAlign={alignItems}
-    direction="column"
-    justifyContent="center"
-  >
+  fontColor,
+  title,
+  textAlign = 'center',
+}: TitleProps) => {
+  const headingSize = fontSize || '5xl';
+
+  if (coloredTitle?.length) {
+    return (
+      <MultiColorText
+        as="h1"
+        TextParts={coloredTitle}
+        fontWeight={600}
+        size={headingSize}
+        textAlign={textAlign}
+      />
+    );
+  }
+
+  return (
     <Heading
       as="h1"
-      size={fontSize || '5xl'}
+      size={headingSize}
       color={[color(fontColor), 'solid'].join('.')}
       fontWeight={600}
+      textAlign={textAlign}
     >
       {title}
     </Heading>
-    {description ? (
-      <StrapiMarkdown
-        color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
-        mt={7}
-        flex={null}
-      >
-        {description}
-      </StrapiMarkdown>
-    ) : null}
-    {CTAs && CTAs.length > 0 ? <CTAButtons CTAs={CTAs} mt={9} /> : null}
-  </Flex>
-);
+  );
+};
+
+interface ContentProps {
+  title: string;
+  coloredTitle?: TextPart[];
+  description?: string;
+  CTAs?: Array<{
+    link: string;
+    label: string;
+    color?: Color;
+    variant?: ButtonProps['variant'];
+  }>;
+  fontColor?: Color;
+  fontSize?: HeadingProps['size'];
+  image?: {
+    url: string;
+    alternativeText?: string;
+    width?: string;
+    height?: string;
+  };
+  video?: string;
+}
+
+const Description = ({ mt, fontColor, description }) =>
+  description ? (
+    <StrapiMarkdown
+      mt={mt}
+      flex={null}
+      color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
+    >
+      {description}
+    </StrapiMarkdown>
+  ) : null;
 
 const Content = ({
   title,
+  coloredTitle,
   description,
   CTAs = [],
   fontColor,
   fontSize,
   image,
   video,
-}: Pick<
-  PageHeadProps,
-  | 'title'
-  | 'description'
-  | 'CTAs'
-  | 'fontColor'
-  | 'fontSize'
-  | 'image'
-  | 'video'
->) => {
+}: ContentProps) => {
   const itemsCount = 1 + (image ? 1 : 0) + (video ? 1 : 0);
 
-  if (useBreakpointValue({ base: true, '2xl': false }) && video) {
+  const isSmall = useBreakpointValue({ base: true, lg: false });
+  const isRegular = useBreakpointValue({ lg: true, '2xl': false });
+
+  if ((isSmall || isRegular) && video) {
     return (
       <Box maxW="5xl" m="auto" height="100%" p={8}>
         <Flex
+          py={5}
           height="100%"
           gap={2}
           direction="column"
           justifyContent="center"
           alignItems="center"
         >
-          <Heading
-            as="h1"
-            size={fontSize || '5xl'}
-            color={[color(fontColor), 'solid'].join('.')}
-            fontWeight={600}
+          <Title
+            coloredTitle={coloredTitle}
+            fontSize={fontSize}
+            fontColor={fontColor}
+            title={title}
             textAlign="center"
-          >
-            {title}
-          </Heading>
-          {description ? (
-            <StrapiMarkdown
-              mt={12}
-              flex={null}
-              color={[color(fontColor) || 'gray.600', 'solid'].join('.')}
-            >
-              {description}
-            </StrapiMarkdown>
-          ) : null}
-          <VideoPlayer />
-          {CTAs?.length ?? 0 > 0 ? (
-            <CTAButtons CTAs={CTAs} justify="center" mt={2} />
-          ) : null}
+          />
+
+          <Description
+            mt={12}
+            fontColor={fontColor}
+            description={description}
+          />
+          <Box w="70%">
+            <VideoPlayer video={video} />
+          </Box>
+          <CTAButtons CTAs={CTAs} justify="center" mt={2} />
         </Flex>
       </Box>
     );
   }
 
   return (
-    <Flex
-      height="100%"
-      alignItems="center"
-      gap={gap}
-      p={gap}
-      direction={{
-        base: 'column',
-        lg: 'row',
-      }}
-    >
-      <TextContent
-        title={title}
-        description={description}
-        CTAs={CTAs}
+    <Flex height="100%" alignItems="center" gap={gap} p={gap} direction="row">
+      <Flex
+        flex="1"
         alignItems={{
           base: 'center',
           lg: itemsCount === 1 ? 'center' : 'start',
         }}
-        fontColor={fontColor}
-      />
+        textAlign={{
+          base: 'center',
+          lg: itemsCount === 1 ? 'center' : 'start',
+        }}
+        direction="column"
+        justifyContent="center"
+      >
+        <Title
+          coloredTitle={coloredTitle}
+          fontSize={{ base: '2xl', xl: '4xl', '2xl': '5xl' }}
+          fontColor={fontColor}
+          title={title}
+          textAlign="left"
+        />
+        <Description mt={7} fontColor={fontColor} description={description} />
+        {CTAs && CTAs.length > 0 ? <CTAButtons CTAs={CTAs} mt={9} /> : null}
+      </Flex>
       {video ? (
         <Flex flex="1">
-          <VideoPlayer />
+          <VideoPlayer video={video} />
         </Flex>
       ) : null}
       {image ? (

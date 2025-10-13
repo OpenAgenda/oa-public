@@ -12,7 +12,7 @@ export const Main = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const Factory = () => `
@@ -29,7 +29,7 @@ export const Factory = () => `
     if (d.getElementById(id)) return t;
     js = d.createElement(s);
     js.id = id;
-    js.src = '/index.js';
+    js.src = '/widgets.js';
     js.async = true;
     fjs.parentNode.insertBefore(js, fjs);
   
@@ -58,7 +58,7 @@ export const Manual = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const BaseUrl = () => `
@@ -69,7 +69,7 @@ export const BaseUrl = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const BaseUrlTarget = () => `
@@ -80,7 +80,7 @@ export const BaseUrlTarget = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const Filters = () => `
@@ -91,7 +91,7 @@ export const Filters = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const Prefilter = () => `
@@ -102,7 +102,7 @@ export const Prefilter = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const Sort = () => `
@@ -113,7 +113,7 @@ export const Sort = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const PrimaryColor = () => `
@@ -124,7 +124,7 @@ export const PrimaryColor = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const ImageListContain = () => `
@@ -135,7 +135,7 @@ export const ImageListContain = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const ImageListCover = () => `
@@ -146,7 +146,7 @@ export const ImageListCover = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const MapHeight = () => `
@@ -157,7 +157,7 @@ export const MapHeight = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const MapRatio = () => `
@@ -168,7 +168,7 @@ export const MapRatio = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const ExportModal = () => `
@@ -179,7 +179,7 @@ export const ExportModal = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const ContributionButton = () => `
@@ -190,7 +190,7 @@ export const ContributionButton = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const WithUrl = () => `
@@ -201,7 +201,7 @@ export const WithUrl = () => `
 
   <!-- add hash -->
   <script>history.replaceState({}, '', '#!/fr/embed/agendas/83549053?categories-agenda-metropolitain%255B0%255D=47');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const FixedHeight = () => `
@@ -212,7 +212,7 @@ export const FixedHeight = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const FixedLanguage = () => `
@@ -223,7 +223,18 @@ export const FixedLanguage = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
+`;
+
+export const PageSize = () => `
+  <section class="page">
+    <h2>Agenda</h2>
+    <blockquote class="oa-agenda" align="center" data-page-size="4"><p lang="fr">Voir les événements de <a href="https://d.openagenda.com/agendas/83549053"><b>Mizvezh ar Brezhoneg | Le Mois du Breton</b></a></p></blockquote>
+  </section>
+
+  <!-- remove hash -->
+  <script>history.replaceState({}, '', '#');</script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;
 
 export const WithoutLogo = () => `
@@ -234,5 +245,5 @@ export const WithoutLogo = () => `
 
   <!-- remove hash -->
   <script>history.replaceState({}, '', '#');</script>
-  <script async src="/index.js" charset="utf-8"></script>
+  <script async src="/widgets.js" charset="utf-8"></script>
 `;

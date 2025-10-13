@@ -1,8 +1,10 @@
+import { useCallback, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Button, Grid, Icon } from '@openagenda/uikit';
 import { FaIcon } from 'icons';
 import {
   AccessibilitySection,
+  AgeSection,
   ConditionsSection,
   DateRangeSection,
   LocationPreview,
@@ -48,8 +50,26 @@ export function ShareSection({
 }) {
   const intl = useIntl();
   const agenda = useAgenda();
-
   const { themeConfig } = useEmbedLayoutData();
+
+  const [isShareLoading, setIsShareLoading] = useState(false);
+
+  const handleShareClick = useCallback(async () => {
+    setIsShareLoading(true);
+    try {
+      await window.oaIFrame.callParent('openEventShareModal', {
+        agenda,
+        event,
+        contentLocale,
+        locale: intl.locale,
+        themeConfig,
+      });
+    } catch (error) {
+      console.error('Share modal error:', error);
+    } finally {
+      setIsShareLoading(false);
+    }
+  }, [agenda, event, contentLocale, intl.locale, themeConfig]);
 
   return (
     <Grid
@@ -64,17 +84,9 @@ export function ShareSection({
       </Icon>
       <Button
         variant="outline"
-        disabled={!!event.private}
-        onClick={() =>
-          window.parentIFrame.sendMessage({
-            type: 'openEventShareModal',
-            agenda,
-            event,
-            contentLocale,
-            locale: intl.locale,
-            themeConfig,
-          })
-        }
+        disabled={!!event.private || isShareLoading}
+        loading={isShareLoading}
+        onClick={handleShareClick}
       >
         {intl.formatMessage(messages.share)}
       </Button>
@@ -106,6 +118,7 @@ export default function Sidebar({ referrer, contentLocale }) {
       />
       <TimingsSection event={event} />
       <AccessibilitySection event={event} ageIcon={faChild} />
+      <AgeSection event={event} />
       <LocationPreview event={event} icon={faLocationDot} />
     </>
   );

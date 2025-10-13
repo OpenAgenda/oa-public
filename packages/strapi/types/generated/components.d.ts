@@ -1,5 +1,16 @@
 import type { Schema, Struct } from '@strapi/strapi';
 
+export interface ComponentsColoredText extends Struct.ComponentSchema {
+  collectionName: 'components_components_colored_texts';
+  info: {
+    displayName: 'ColoredText';
+  };
+  attributes: {
+    color: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
+    text: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
 export interface ComponentsCtaButton extends Struct.ComponentSchema {
   collectionName: 'components_components_cta_buttons';
   info: {
@@ -119,6 +130,18 @@ export interface ComponentsLink extends Struct.ComponentSchema {
       Schema.Attribute.DefaultTo<false>;
     label: Schema.Attribute.String & Schema.Attribute.Required;
     url: Schema.Attribute.String & Schema.Attribute.Required;
+  };
+}
+
+export interface ComponentsMultiColorText extends Struct.ComponentSchema {
+  collectionName: 'components_components_multi_color_texts';
+  info: {
+    displayName: 'MultiColorText';
+    icon: 'brush';
+  };
+  attributes: {
+    size: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
+    TextBlock: Schema.Attribute.Component<'components.colored-text', true>;
   };
 }
 
@@ -246,12 +269,13 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
       'oneToOne',
       'api::background.background'
     >;
+    coloredTitle: Schema.Attribute.Component<'components.colored-text', true>;
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     description: Schema.Attribute.RichText;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
     image: Schema.Attribute.Media<'images'>;
-    title: Schema.Attribute.String & Schema.Attribute.Required;
+    title: Schema.Attribute.String;
     video: Schema.Attribute.Enumeration<['presentation']>;
   };
 }
@@ -301,12 +325,14 @@ export interface SegmentsTabSet extends Struct.ComponentSchema {
 declare module '@strapi/strapi' {
   export module Public {
     export interface ComponentSchemas {
+      'components.colored-text': ComponentsColoredText;
       'components.cta-button': ComponentsCtaButton;
       'components.featured-card': ComponentsFeaturedCard;
       'components.footer-column': ComponentsFooterColumn;
       'components.highlight-card': ComponentsHighlightCard;
       'components.icon': ComponentsIcon;
       'components.link': ComponentsLink;
+      'components.multi-color-text': ComponentsMultiColorText;
       'components.reference': ComponentsReference;
       'components.schedulable-featured-card': ComponentsSchedulableFeaturedCard;
       'components.split-hero': ComponentsSplitHero;

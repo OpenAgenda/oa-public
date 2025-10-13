@@ -91,7 +91,6 @@ function plugApp(app) {
 export function init(config, services) {
   agendasSvc.init({
     knex: config.knex,
-    mysql: config.db, // used by legacy unique value lib
     schemas: config.schemas,
     Files: services.files,
     imagePath: config.s3.mainBucketPath,

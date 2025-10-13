@@ -107,6 +107,7 @@ const config = {
     timezone: 'Z',
     charset: 'utf8mb4',
     jsonStrings: true,
+    decimalNumbers: true,
     ssl: parseInt(process.env.MYSQL_SSL_VERIFY, 10)
       ? {
         verifyIdentity: !!parseInt(process.env.MYSQL_SSL_VERIFY_IDENTITY, 10),

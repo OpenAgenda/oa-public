@@ -1,7 +1,7 @@
 import { http, HttpResponse } from 'msw';
 import { Box } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
-import LoggedUserWelcome from 'components/strapi/LoggedUserWelcome';
+import { LoggedUserWelcome } from 'components/strapi/LoggedUserWelcome';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import fetchAllLocales from '../utils/fetchAllLocales';
 
