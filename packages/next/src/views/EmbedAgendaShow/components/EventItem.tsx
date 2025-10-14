@@ -11,13 +11,14 @@ import {
   HStack,
   Icon,
 } from '@openagenda/uikit';
-import { getLocaleValue } from '@openagenda/intl';
+import { getLocaleValue, DEFAULT_LANG } from '@openagenda/intl';
 import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
 import Image from 'components/Image';
 import { useEmbedLayoutData } from 'components/EmbedLayout';
 import useLocationQuery from 'hooks/useLocationQuery';
 import { thumborLoader } from 'utils/imageLoader';
 import { sidebar as messages } from 'views/EventShow/messages';
+import getContentLocale from 'views/EventShow/utils/getContentLocale';
 import { FaIcon } from 'icons';
 import { faThumbtack } from 'icons/solid';
 
@@ -75,8 +76,11 @@ export default function EventItem({
 
   const query = useLocationQuery();
 
-  const { baseUrl, baseUrlTarget, primaryColor, imageList, sort } =
+  const { baseUrl, baseUrlTarget, primaryColor, imageList, sort, prefilter } =
     useEmbedLayoutData();
+
+  const languages = Object.keys(event.title);
+  const contentLocale = getContentLocale(languages, prefilter.cl, intl.locale);
 
   const nc = useMemo(
     () => ({
@@ -180,7 +184,12 @@ export default function EventItem({
       )}
       <Flex direction="column" p="6" gap="2" grow="1" minH="170px">
         <HStack color={primaryColor ? 'primary.500' : null} fontWeight="bold">
-          <span>{getLocaleValue(event.dateRange, intl.locale)}</span>
+          <span>
+            {getLocaleValue(event.dateRange, contentLocale, [
+              intl.locale,
+              DEFAULT_LANG,
+            ])}
+          </span>
           {!event.nextTiming ? (
             <Tag.Root
               borderRadius="full"
@@ -200,12 +209,10 @@ export default function EventItem({
             rel={eventLink.rel}
             href={eventLink.url}
           >
-            <b>{getLocaleValue(event.title, intl.locale)}</b>
+            <b>{event.title[contentLocale]}</b>
           </NextLink>
         </LinkOverlay>
-        <Box color="#545454">
-          {getLocaleValue(event.description, intl.locale)}
-        </Box>
+        <Box color="#545454">{event.description[contentLocale]}</Box>
         {event.location || event.onlineAccessLink ? (
           <Box fontSize="sm" color="#545454" mt="auto">
             {event.location ? (

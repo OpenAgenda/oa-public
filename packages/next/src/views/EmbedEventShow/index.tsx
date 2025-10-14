@@ -119,7 +119,7 @@ function EmbedEventShow({
   const searchParams = useSearchParams() as { cl?: string };
   const contentLocale = getContentLocale(
     languages,
-    searchParams.cl,
+    searchParams.cl || prefilter.cl,
     intl.locale,
   );
 
