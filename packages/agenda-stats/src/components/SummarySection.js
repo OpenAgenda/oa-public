@@ -1,11 +1,11 @@
 import { FormattedMessage } from 'react-intl';
 import { useQuery } from 'react-query';
-import { useApiClient } from '@openagenda/react-shared';
+import { useApiClient, Spinner } from '@openagenda/react-shared';
 
 export default function SummarySection({ agendaUid }) {
   const apiClient = useApiClient();
 
-  const { data, error } = useQuery(
+  const { data, error, isLoading } = useQuery(
     ['agenda-stats', 'summary', agendaUid],
     () =>
       apiClient.get(`/api/agendas/${agendaUid}/summary`, {
@@ -18,6 +18,17 @@ export default function SummarySection({ agendaUid }) {
       notifyOnChangeProps: ['data', 'error'],
     },
   );
+
+  // Show loading state
+  if (isLoading) {
+    return (
+      <div className="info-block margin-bottom-md">
+        <div className="text-center">
+          <Spinner mode="inline" />
+        </div>
+      </div>
+    );
+  }
 
   // Gracefully handle errors or missing data
   if (error || !data?.data?.summary?.publishedEvents) {
