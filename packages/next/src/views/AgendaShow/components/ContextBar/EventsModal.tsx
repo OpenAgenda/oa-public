@@ -153,7 +153,7 @@ function EventsModalBody({ agenda, bundleState }) {
       }
 
       const searchParamsStr = qs.stringify({
-        state: requestedState,
+        state: requestedState === 0 ? [0, 1] : requestedState, // works only for contribs
         after,
         limit: PAGE_SIZE,
       });
