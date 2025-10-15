@@ -22,6 +22,7 @@
   "next.views.EventShow.ContextBar.editEvent": "Modifier l'événement",
   "next.views.EventShow.ContextBar.editLocation": "Modifier le lieu",
   "next.views.EventShow.ContextBar.feature": "Mettre en une",
+  "next.views.EventShow.ContextBar.featured": "En une",
   "next.views.EventShow.ContextBar.featuredInfo": "Un événement en une apparaît en haut de la liste",
   "next.views.EventShow.ContextBar.fixEvent": "Corriger l'événement",
   "next.views.EventShow.ContextBar.invalidEvent": "Cet évènement n'est pas valide",
