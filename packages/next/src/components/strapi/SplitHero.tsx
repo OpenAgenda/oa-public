@@ -107,7 +107,11 @@ export default function SplitHero({
           height="auto"
         />
       ) : null}
-      <Box flex="1" maxWidth={!image ? '800px' : '100%'}>
+      <Box
+        flex="1"
+        maxWidth={!image ? '800px' : '100%'}
+        mx={{ base: 4, '2xl': 0 }}
+      >
         <TitleComponent
           mb="4"
           fontWeight={600}
