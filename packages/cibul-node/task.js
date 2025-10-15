@@ -1,24 +1,6 @@
 import tfy from './lib/taskify.js';
 import resetApiCounters from './general/resetApiCounters.task.js';
 
-/* async function removeMembersWithDeletedUser(config, services) {
-  const { knex, queues } = services;
-  const queue = queues('users');
-
-  const stream = knex(config.schemas.stakeholder)
-    .distinct(`${config.schemas.stakeholder}.user_uid as userUid`)
-    .join(config.schemas.user, `${config.schemas.stakeholder}.user_uid`, `${config.schemas.user}.uid`)
-    .where({
-      [`${config.schemas.stakeholder}.deleted_user`]: 0,
-      [`${config.schemas.user}.is_removed`]: 1,
-    })
-    .stream();
-
-  for await (const { userUid } of stream) {
-    queue('anonymizeDeletedUser', { user: { uid: userUid } });
-  }
-} */
-
 export default (config, core, services) => {
   tfy(resetApiCounters(config, services), {
     // bootOffset: 1000,
@@ -141,10 +123,4 @@ export default (config, core, services) => {
 
   // services.eventSearch.rebuild();
   // services.eventSearch.transverse.rebuild();
-
-  /* removeMembersWithDeletedUser(config, services)
-    .then(
-      () => console.error('BROKE MEMBERS FINISHED'),
-      e => console.error('BROKE MEMBERS FAIL', e),
-    ); */
 };
