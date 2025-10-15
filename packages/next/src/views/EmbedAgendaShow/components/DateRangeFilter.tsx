@@ -45,6 +45,10 @@ const DateRangeFilter = React.forwardRef<'div', any>(function DateRangeFilter(
           }}
           borderRadius="none"
           justifyContent="start"
+          textAlign="start"
+          whiteSpace="normal"
+          h="unset"
+          minH="9"
         >
           <FaIcon size="xl" icon={faCalendar} />
           {title}

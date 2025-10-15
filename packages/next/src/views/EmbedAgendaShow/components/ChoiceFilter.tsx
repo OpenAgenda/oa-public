@@ -112,6 +112,10 @@ const ChoiceFilter = React.forwardRef<any, any>(function ChoiceFilter(
           }}
           borderRadius="none"
           justifyContent="start"
+          textAlign="start"
+          whiteSpace="normal"
+          h="unset"
+          minH="9"
         >
           <FaIcon size="xl" icon={faTableCellsLarge} />
           {title}
