@@ -53,6 +53,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     core,
     preCleanSearchQuery(query),
     access,
+    options.userUid,
   );
 
   if (authorizedQuery.locationExtId) {
