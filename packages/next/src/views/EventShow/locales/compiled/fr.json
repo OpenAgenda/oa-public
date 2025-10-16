@@ -137,6 +137,12 @@
       "value": "Mettre en une"
     }
   ],
+  "next.views.EventShow.ContextBar.featured": [
+    {
+      "type": 0,
+      "value": "En une"
+    }
+  ],
   "next.views.EventShow.ContextBar.featuredInfo": [
     {
       "type": 0,

@@ -1,4 +1,4 @@
-const defaultDataColors = ['#41acdd', '#5cb85c', '#f6bb42', '#da4453'];
+const defaultDataColors = ['#1d77ce', '#5cb85c', '#f6bb42', '#da4453'];
 
 export const defaultStateColors = {
   2: '#5cb85c',

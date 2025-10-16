@@ -8,11 +8,13 @@ import {
   Grid,
   GridItem,
   Heading,
+  Icon,
   Link,
   List,
   Wrap,
   WrapItem,
 } from '@openagenda/uikit';
+import { Tag } from '@openagenda/uikit/snippets';
 import {
   fetchLocale as fetchFiltersLocales,
   getFilters,
@@ -60,6 +62,7 @@ import messages from 'views/EventShow/messages';
 import Map from 'views/EventShow/components/Map';
 import Timings from 'views/EventShow/components/Timings';
 import useNcEffect from 'views/EventShow/hooks/useNcEffect';
+import { faThumbtack } from 'icons/solid';
 import { thumborLoader } from 'utils/imageLoader';
 import { embedAgendaUrlRegex } from 'utils/isNextUrl';
 import { FALLBACK_LOCALE } from 'config/constants';
@@ -119,7 +122,7 @@ function EmbedEventShow({
   const searchParams = useSearchParams() as { cl?: string };
   const contentLocale = getContentLocale(
     languages,
-    searchParams.cl,
+    searchParams.cl || prefilter.cl,
     intl.locale,
   );
 
@@ -271,10 +274,24 @@ function EmbedEventShow({
               //   borderColor: 'primary.500',
               // }}
             >
-              {event.status !== 1 ? (
-                <chakra.div>
-                  <StatusTag status={event.status} />
-                </chakra.div>
+              {event.status !== 1 || event.featured ? (
+                <Wrap>
+                  {event.featured ? (
+                    <WrapItem>
+                      <Tag variant="solid">
+                        <Icon mr="2" color="primaryContrast">
+                          <FaIcon icon={faThumbtack} />
+                        </Icon>
+                        {intl.formatMessage(messages.featured)}
+                      </Tag>
+                    </WrapItem>
+                  ) : null}
+                  {event.status !== 1 ? (
+                    <WrapItem>
+                      <StatusTag status={event.status} />
+                    </WrapItem>
+                  ) : null}
+                </Wrap>
               ) : null}
 
               {event.title?.[contentLocale] ? (

@@ -1,8 +1,5 @@
 import { defineTokens } from '@chakra-ui/react';
 
-// https://www.tints.dev/green/22C55E
-// https://coolors.co/30343f-fafaff-e4d9ff-41acdd-1e2749
-
 export const colors = defineTokens.colors({
   primary: {
     50: { value: '#ebf1fe' },

@@ -165,6 +165,7 @@ export default function EmbedLayout({
       referrer,
       setReferrer,
       themeConfig,
+      pageSize: 12, // default value
       ...embedParams,
     }),
     [

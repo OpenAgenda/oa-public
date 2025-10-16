@@ -18,7 +18,7 @@ import {
   SentryPropagator,
   SentrySampler,
 } from '@sentry/opentelemetry';
-import sentryClient from './sentry.config.js';
+import sentryClient from '../sentry.config.js';
 
 if (process.env.NODE_ENV !== 'production') {
   // Optional: For internal OpenTelemetry debugging
@@ -68,6 +68,10 @@ const sdk = new NodeSDK({
   resource: resourceFromAttributes({
     'service.name': 'cibul-node',
     'service.namespace': 'oa',
+    'service.instance.id': ['MASTER_ID', 'NODE_APP_INSTANCE']
+      .map((n) => process.env[n])
+      .filter((n) => !!n?.length)
+      .join('.'),
   }),
   sampler: new SentrySampler(sentryClient),
   spanProcessors: [

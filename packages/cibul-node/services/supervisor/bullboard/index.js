@@ -36,7 +36,7 @@ export function plugApp(app, base = '/bullboard') {
         displayName: 'Agrégations',
       }),
       new BullMQAdapter(new Queue('locations', { prefix: '{locations}' }), {
-        displayName: 'Fusions de lieux',
+        displayName: 'Répercution des modifs de lieux',
       }),
       new BullMQAdapter(new Queue('core', { prefix: '{core}' }), {
         displayName: 'Core',

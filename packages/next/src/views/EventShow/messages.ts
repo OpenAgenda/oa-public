@@ -57,6 +57,11 @@ export default defineMessages({
     id: 'next.views.EventShow.eventNavigation',
     defaultMessage: 'Event navigation',
   },
+
+  featured: {
+    id: 'next.views.EventShow.ContextBar.featured',
+    defaultMessage: 'Featured',
+  },
 });
 
 export const contextBar = defineMessages({
