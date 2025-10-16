@@ -10,7 +10,7 @@ import { validatePriceCategories } from './validatePriceCategory.js';
 const log = debug('validateSpreadLocalData');
 
 export default function validateSpreadLocalData(data, event, params = {}) {
-  const { noThrow = false } = params;
+  const { throwOnError = true } = params;
 
   const processedItems = data.reduce((processed, entry, index) => {
     const isApplied = !!entry.appliedAt;
@@ -103,14 +103,14 @@ export default function validateSpreadLocalData(data, event, params = {}) {
 
   log('merge of spread data', merged);
 
-  if (merged.errors?.length && !noThrow) {
+  if (merged.errors?.length && throwOnError) {
     throw new BadRequest(
       { info: { errors: merged.errors } },
       'entries are invalid or incomplete',
     );
   }
 
-  if (merged.errors?.length && noThrow) {
+  if (merged.errors?.length && !throwOnError) {
     return [{ ...merged.value, errors: merged?.errors }];
   }
   return processedItems.map(({ clean }) => clean);
