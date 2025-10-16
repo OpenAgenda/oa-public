@@ -5,7 +5,6 @@ import '@openagenda/polyfills/intl.js';
 import '@openagenda/polyfills/intl-locales.js';
 
 // eslint-disable-next-line import/order
-import { sdk as otelSdk } from './tracing.js';
 import './lib/initLog.js';
 
 import { randomBytes } from 'node:crypto';
@@ -27,6 +26,7 @@ import cmn from './lib/commons-app.js';
 import contentSecurityPolicy from './lib/contentSecurityPolicy.js';
 import * as otelMw from './lib/otelMw.js';
 import redirectRootLangPaths from './lib/redirectRootLangPaths.js';
+import handleGracefulShutdown from './lib/handleGracefulShutdown.js';
 
 const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
@@ -147,39 +147,13 @@ try {
     task(config, core, services);
   }
 
-  let isShuttingDown = false;
-
-  const gracefulShutdown = async (signal) => {
-    if (isShuttingDown) {
-      console.log('Shutdown already in progress. Ignoring signal.');
-      return;
-    }
-    isShuttingDown = true;
-    console.log(`Received ${signal}. Gracefully shutting down...`);
-    const shutdownTimeout = setTimeout(() => {
-      console.error('Graceful shutdown timed out. Forcing exit.');
-      process.exit(1);
-    }, 10000);
-
-    try {
-      if (webServer) await new Promise((resolve) => webServer.close(resolve));
-      if (apiServer) await new Promise((resolve) => apiServer.close(resolve));
-      await services.shutdown();
-      await otelSdk.shutdown();
-
-      console.log('Graceful shutdown completed successfully.');
-      clearTimeout(shutdownTimeout);
-      process.exit(0);
-    } catch (error) {
-      console.error('Error during graceful shutdown:', error);
-      clearTimeout(shutdownTimeout);
-      process.exit(1);
-    }
-  };
-
-  ['SIGTERM', 'SIGINT'].forEach((signal) => {
-    process.on(signal, () => gracefulShutdown(signal));
-  });
+  handleGracefulShutdown(
+    {
+      web: webServer,
+      api: apiServer,
+    },
+    services,
+  );
 } catch (e) {
   log('error', 'could not init app:', e);
 }

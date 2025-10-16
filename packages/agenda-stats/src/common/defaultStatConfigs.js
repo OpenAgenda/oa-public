@@ -152,7 +152,7 @@ const defaultStatConfigs = {
     const dataColors = isBoolean
       ? defaultBooleanColors
       : isCheckbox
-        ? ['#41acdd', '#c6c6c6']
+        ? ['#1d77ce', '#c6c6c6']
         : undefined;
 
     return {
