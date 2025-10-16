@@ -126,10 +126,6 @@ location ~ ^/agendas/([0-9]+)/(events|locations|settings|sources)\.(json|csv|xls
 ##########################################################
 #                NODEJS
 
-location ~ ^/(fr|en|de|br|es|it|oc)$ {
-  include conf.d/nodejs_params;
-}
-
 location ~ ^/api(|/.+)$ {
   include conf.d/nodejs_params;
 }
@@ -306,10 +302,6 @@ location ~ ^/[^/]+/(admin|contribute|facebook|twitter|google|signin|signup|activ
 }
 
 location ~ ^/reports(|/.+)$ {
-  include conf.d/nodejs_params;
-}
-
-location = / {
   include conf.d/nodejs_params;
 }
 

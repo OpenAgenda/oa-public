@@ -384,6 +384,7 @@ function Dashboard() {
             'member.name',
             'member.role',
             'member.uid',
+            'member.organization',
             'sourceAgendas.title',
             'sourceAgendas.slug',
             'originAgenda.uid',

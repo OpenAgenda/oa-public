@@ -122,6 +122,11 @@ const config = async () => {
       async redirects() {
         return [
           {
+            source: '/strapi/:path*',
+            destination: '/p/:path*',
+            permanent: true,
+          },
+          {
             source: '/:slug.prv/:path*',
             destination: '/:slug/:path*',
             permanent: true,
@@ -137,6 +142,31 @@ const config = async () => {
 
         return {
           beforeFiles: [], // empty array needed because https://github.com/getsentry/sentry-javascript/pull/7649
+          afterFiles: [
+            {
+              source: '/fr',
+              destination: `/fr/strapi/accueil`,
+              locale: false,
+            },
+            {
+              source: '/en',
+              destination: `/en/strapi/home`,
+              locale: false,
+            },
+            {
+              // fallback for /, will redirect to good locale
+              source: '/',
+              destination: `/strapi/accueil`,
+            },
+            {
+              source: '/p/:path*',
+              destination: `/strapi/:path*`,
+            },
+            {
+              source: '/:lang/p/:path*',
+              destination: `/strapi/:path*`,
+            },
+          ],
           fallback: [
             {
               source: '/default/:path*',

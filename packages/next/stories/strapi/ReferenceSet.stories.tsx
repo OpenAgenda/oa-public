@@ -54,7 +54,13 @@ const stevens = [
 
 const stevensWithTitles = stevens.map((s, i) => ({
   ...s,
-  title: ['Steven', 'Phteven', 'Pthevfen', 'Phhtfvveen', 'Pfvfthtv'][i],
+  title: [
+    'Steven',
+    'Phteven, phe clafphieptht dog oph phem all',
+    'Pthevfen',
+    'Phhtfvveen',
+    'Pfvfthtv',
+  ][i],
 }));
 
 export default {
@@ -211,7 +217,7 @@ export const WithBigIllustration: Story = {
 
 export const WithBigIllustrationAndTitle: Story = {
   render: () => (
-    <Container maxWidth="5xl">
+    <Container>
       <ReferenceSet
         title="Références avec filtrage par tags"
         hasFilter={true}
@@ -333,8 +339,8 @@ export const WithTitles: Story = {
               url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
               alternativeText: 'Documentation',
             },
-            title: 'Guide de documentation',
-            tags: 'Documentation, Aide',
+            title: 'Guide de documentation complet et vraiment très bien fait',
+            tags: 'Documentation, Aide, API',
           },
           {
             id: '3',
@@ -343,7 +349,7 @@ export const WithTitles: Story = {
               url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
               alternativeText: 'Logo exemple',
             },
-            tags: 'Exemple',
+            tags: 'Exemple, Mots clés, Solution, Top, Méga, Groove',
           },
         ]}
       />

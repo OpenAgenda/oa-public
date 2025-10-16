@@ -927,7 +927,9 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.post('/agendas/:agendaUid/settings/resync', [
-    mw.member.allow(['administrator']),
+    mw.member.allow(['administrator'], {
+      or: allowSuperAdmin({ redirect: false }),
+    }),
     settings.resync,
   ]);
 

@@ -206,8 +206,14 @@ export default function EventItem({
     [index, isFirst, isLast, page, query],
   );
 
-  const memberPlaceholderMsg = (member) =>
-    event.member?.name ?? (
+  const memberPlaceholderMsg = (member) => {
+    if (event.member?.name) {
+      return event.member.organization
+        ? `${event.member.name} - ${event.member.organization}`
+        : event.member.name;
+    }
+
+    return (
       <span title={intl.formatMessage(messages.unnamedMemberInfo)}>
         {member?.role
           ? intl.formatMessage(messages.memberPlaceholder, {
@@ -220,6 +226,7 @@ export default function EventItem({
           : intl.formatMessage(messages.noRoleMemberPlaceholder)}
       </span>
     );
+  };
 
   return (
     <li
