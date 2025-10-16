@@ -675,13 +675,6 @@ module.exports = [
     write: ['internal'],
     fields: [
       {
-        field: 'useContributeApp',
-        description:
-          'Use new contribute application for creating and editing events',
-        type: 'boolean',
-        default: true,
-      },
-      {
         field: 'premiumCustomFields',
         description: 'Allow adding multiple custom fields to agenda form',
         type: 'boolean',
@@ -692,19 +685,6 @@ module.exports = [
         description: 'Add Moderator to member roles',
         type: 'boolean',
         default: false,
-      },
-      {
-        field: 'embedsHead',
-        description:
-          'Integrated agendas: The content of the <head> tag can be edited',
-        type: 'boolean',
-        default: true,
-      },
-      {
-        field: 'embedsTemplates',
-        description: 'Integrated agendas: Custom templates can be defined',
-        type: 'boolean',
-        default: true,
       },
       {
         field: 'activatingInvitations',
@@ -728,12 +708,6 @@ module.exports = [
         default: false,
       },
       {
-        field: 'prioritizedAggregator',
-        description: 'Prioritized queue for important aggregation networks',
-        type: 'boolean',
-        default: false,
-      },
-      {
         field: 'docxExport',
         description: 'Word export feature',
         type: 'boolean',
@@ -743,12 +717,6 @@ module.exports = [
         field: 'eventOwnershipTransfer',
         description:
           'Transfer ownership of event from one member to another within an agenda',
-        type: 'boolean',
-        default: false,
-      },
-      {
-        field: 'useJSONBridge',
-        description: 'JSON export V1 is generated from the V2 format',
         type: 'boolean',
         default: false,
       },

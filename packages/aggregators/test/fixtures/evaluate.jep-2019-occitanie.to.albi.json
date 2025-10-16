@@ -107,16 +107,12 @@
       "private": 0,
       "indexed": 1,
       "credentials": {
-        "useContributeApp": true,
         "premiumCustomFields": true,
         "moderators": true,
         "tags": false,
-        "embedsHead": false,
-        "embedsTemplates": false,
         "activatingInvitations": false,
         "aggregator": true,
         "invitationMessage": true,
-        "prioritizedAggregator": false,
         "docxExport": true,
         "eventOwnershipTransfer": false
       },

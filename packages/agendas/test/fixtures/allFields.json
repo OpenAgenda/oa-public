@@ -323,11 +323,6 @@
   },
   "credentials": {
     "fields": {
-      "useContributeApp": {
-        "description": "Use new contribute application for creating and editing events",
-        "type": "boolean",
-        "default": true
-      },
       "premiumCustomFields": {
         "description": "Allow adding multiple custom fields to agenda form",
         "type": "boolean",
@@ -337,16 +332,6 @@
         "description": "Add Moderator to member roles",
         "type": "boolean",
         "default": false
-      },
-      "embedsHead": {
-        "description": "Integrated agendas: The content of the <head> tag can be edited",
-        "type": "boolean",
-        "default": true
-      },
-      "embedsTemplates": {
-        "description": "Integrated agendas: Custom templates can be defined",
-        "type": "boolean",
-        "default": true
       },
       "activatingInvitations": {
         "description": "When the user with no account is invited to the agenda, no activation mail is required to complete signup",
@@ -363,11 +348,6 @@
         "type": "boolean",
         "default": false
       },
-      "prioritizedAggregator": {
-        "description": "Prioritized queue for important aggregation networks",
-        "type": "boolean",
-        "default": false
-      },
       "docxExport": {
         "description": "Word export feature",
         "type": "boolean",
@@ -375,11 +355,6 @@
       },
       "eventOwnershipTransfer": {
         "description": "Transfer ownership of event from one member to another within an agenda",
-        "type": "boolean",
-        "default": false
-      },
-      "useJSONBridge": {
-        "description": "JSON export V1 is generated from the V2 format",
         "type": "boolean",
         "default": false
       },
