@@ -121,19 +121,14 @@ describe('agendas - functional (server): get', () => {
     const agenda = await svc.get({ uid: 94345899 }, { internal: true });
 
     expect(_.get(agenda, 'credentials')).toEqual({
-      useContributeApp: true,
       premiumCustomFields: false,
       activatingInvitations: false,
-      embedsHead: true,
-      embedsTemplates: true,
       moderators: false,
       aggregator: false,
-      prioritizedAggregator: false,
       invitationMessage: false,
       keepActivities: false,
       docxExport: false,
       eventOwnershipTransfer: false,
-      useJSONBridge: false,
       memberCustom: false,
       showTotals: false,
     });

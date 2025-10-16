@@ -137,6 +137,12 @@
       "value": "Destacar"
     }
   ],
+  "next.views.EventShow.ContextBar.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
+  ],
   "next.views.EventShow.ContextBar.featuredInfo": [
     {
       "type": 0,

@@ -17,6 +17,7 @@ module.exports = {
         }
         : { rejectUnauthorized: false },
       jsonStrings: true,
+      decimalNumbers: true,
     },
     schemas: {
       location: 'location',

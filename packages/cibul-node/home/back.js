@@ -47,11 +47,6 @@ async function agendasList(req, res, next) {
       agendas: agendas.map((agenda) =>
         _.assign(_.omit(agenda, ['credentials']), {
           member: members.find((s) => s.agendaUid === agenda.uid),
-          useContributeApp: _.get(
-            agenda,
-            'credentials.useContributeApp',
-            false,
-          ),
           mailto: cmn.agendaMailTo(agenda),
         })),
     });

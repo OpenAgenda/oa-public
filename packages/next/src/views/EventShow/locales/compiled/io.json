@@ -137,6 +137,12 @@
       "value": "crwdns33622:0crwdne33622:0"
     }
   ],
+  "next.views.EventShow.ContextBar.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
+  ],
   "next.views.EventShow.ContextBar.featuredInfo": [
     {
       "type": 0,

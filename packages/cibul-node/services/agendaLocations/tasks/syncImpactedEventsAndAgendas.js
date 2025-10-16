@@ -20,7 +20,6 @@ export default async function syncImpactedEventsAndAgendas(
   } = services;
 
   tracker('agendaLocations.syncImpactedEventsAndAgendas');
-  if (before.uid === after.uid) return; // too remove
 
   const events = await eventsSvc.list(
     { locationUid: before.uid },
