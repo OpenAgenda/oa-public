@@ -64,10 +64,10 @@ export default function PulseChart({
           y2="0"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="10%" stopColor="#b0e6ff" />
-          <stop offset="33%" stopColor="#69c2ed" />
-          <stop offset="66%" stopColor="#41acdd" />
-          <stop offset="90%" stopColor="#31a2d7" />
+          <stop offset="10%" stopColor="#acc7fc" />
+          <stop offset="33%" stopColor="#7aacfb" />
+          <stop offset="66%" stopColor="#1d77ce" />
+          <stop offset="90%" stopColor="#1560a7" />
         </linearGradient>
       </defs>
       <YAxis type="number" domain={yAxisDomain} scale="sqrt" hide />
