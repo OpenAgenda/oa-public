@@ -5,4 +5,6 @@ export default ({ env }) => ({
     keys: env.array('APP_KEYS'),
     url: `${env.int('SSL') ? 'https://' : 'http://'}${env('URL')}`,
   },
+  // https://github.com/strapi/strapi/issues/24452
+  proxy: { koa: true },
 });
