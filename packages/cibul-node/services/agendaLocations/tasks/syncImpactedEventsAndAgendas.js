@@ -9,7 +9,7 @@ const diffForPass = (before, after) =>
 
 export default async function syncImpactedEventsAndAgendas(
   services,
-  { before, after: _after },
+  { before, after },
 ) {
   const {
     core,
@@ -20,6 +20,7 @@ export default async function syncImpactedEventsAndAgendas(
   } = services;
 
   tracker('agendaLocations.syncImpactedEventsAndAgendas');
+  if (before.uid === after.uid) return; // too remove
 
   const events = await eventsSvc.list(
     { locationUid: before.uid },
@@ -58,7 +59,7 @@ export default async function syncImpactedEventsAndAgendas(
         ({ service }) => service === 'passCulture',
       )?.data;
 
-      if (diffForPass(before, _after) && passCulturePayload) {
+      if (diffForPass(before, after) && passCulturePayload) {
         await registrations.utils.passCulture.loadAndProcess(
           agendaUid,
           event.uid,
