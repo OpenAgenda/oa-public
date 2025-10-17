@@ -1,7 +1,8 @@
 import { readdir, readFile } from 'node:fs/promises';
 import path from 'node:path';
 import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { fileTypeFromBuffer } from 'file-type';
+import { FileTypeParser } from 'file-type';
+import { detectXml } from '@file-type/xml';
 
 const {
   S3_ENDPOINT: endpoint,
@@ -37,9 +38,11 @@ const mimeFallbacks = {
   '.jpeg': 'image/jpeg',
 };
 
+const parser = new FileTypeParser({ customDetectors: [detectXml] });
+
 async function detectMimeType(filePath) {
   const fileContent = await readFile(filePath);
-  const detectedType = await fileTypeFromBuffer(fileContent);
+  const detectedType = await parser.fromBuffer(fileContent);
 
   if (detectedType) {
     return detectedType.mime;

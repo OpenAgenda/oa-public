@@ -125,6 +125,7 @@ const config = async () => {
             source: '/strapi/:path*',
             destination: '/p/:path*',
             permanent: true,
+            missing: [{ type: 'header', key: 'x-nextjs-data' }],
           },
           {
             source: '/:slug.prv/:path*',
