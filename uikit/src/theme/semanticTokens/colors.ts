@@ -6,7 +6,7 @@ export const semanticColors = defineSemanticTokens.colors({
       value: { _light: 'white', _dark: 'white' },
     },
     fg: {
-      value: { _light: '{colors.primary.600}', _dark: '{colors.primary.300}' },
+      value: { _light: '{colors.primary.500}', _dark: '{colors.primary.300}' },
     },
     subtle: {
       value: { _light: '{colors.primary.100}', _dark: '{colors.primary.900}' },
@@ -165,7 +165,7 @@ export const semanticColors = defineSemanticTokens.colors({
       },
       fg: {
         value: {
-          _light: '{colors.strapi.frenchBlue.600}',
+          _light: '{colors.strapi.frenchBlue.500}',
           _dark: '{colors.strapi.frenchBlue.300}',
         },
       },
