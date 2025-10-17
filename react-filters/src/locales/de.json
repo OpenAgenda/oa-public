@@ -64,6 +64,7 @@
   "ReactFilters.messages.filterTitles.status": "Status",
   "ReactFilters.messages.filterTitles.timings": "Datum",
   "ReactFilters.messages.filterTitles.updatedAt": "Datum der Aktualisierung",
+  "ReactFilters.messages.map.searchHere": "Hier suchen",
   "ReactFilters.messages.provenance.aggregation": "Aggregation",
   "ReactFilters.messages.provenance.contribution": "Beitrag",
   "ReactFilters.messages.provenance.share": "teilen",
