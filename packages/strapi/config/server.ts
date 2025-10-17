@@ -5,4 +5,5 @@ export default ({ env }) => ({
     keys: env.array('APP_KEYS'),
     url: `${env.int('SSL') ? 'https://' : 'http://'}${env('URL')}`,
   },
+  proxy: { koa: true },
 });
