@@ -15,7 +15,7 @@ async function validate({ pc, siren }, event, data = {}, options = {}) {
   log('processing', { data, spreadData });
 
   const venueId = findLastVenueIdFromData(spreadData);
-  const { throwOnError = options } = options;
+  const { throwOnError = true } = options;
   const { categories, related } = options.categories && options.related
     ? options
     : await pc.offers.events.categories.list();

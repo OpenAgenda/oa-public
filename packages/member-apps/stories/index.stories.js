@@ -59,8 +59,6 @@ export const App = () =>
           },
           credentials: {
             moderators: false,
-            embedsHead: false,
-            embedsTemplates: false,
             invitationMessage: true,
           },
           roles: [
