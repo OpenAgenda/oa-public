@@ -62,6 +62,7 @@
   "next.views.EventShow.ContextBar.unfeature": "Unfeature",
   "next.views.EventShow.ContributorSection.contributor": "Contributor",
   "next.views.EventShow.ContributorSection.edit": "Edit",
+  "next.views.EventShow.ContributorSection.emptyMember": "Contact sheet not informed",
   "next.views.EventShow.ContributorSection.privateInformation": "Private information",
   "next.views.EventShow.DuplicateModal.bigSentence": "You are about to create a new event based on a precedent.",
   "next.views.EventShow.DuplicateModal.createNewEventIn": "Create the new event in",

@@ -32,6 +32,13 @@ export default function ContributorSection({ contentLocale }) {
     [agenda.memberSchema, dateFnsLocale, member, contentLocale, intl.locale],
   );
 
+  const memberIsEmpty = useMemo(
+    () =>
+      !additionalFields ||
+      additionalFields.filter((f) => f.value !== null).length === 0,
+    [additionalFields],
+  );
+
   if (!member) {
     return null;
   }
@@ -81,7 +88,14 @@ export default function ContributorSection({ contentLocale }) {
           </Link>
         </FloatingButton>
 
-        <AdditionalFields additionalFields={additionalFields} agenda={agenda} />
+        {!memberIsEmpty ? (
+          <AdditionalFields
+            additionalFields={additionalFields}
+            agenda={agenda}
+          />
+        ) : (
+          <div>{intl.formatMessage(messages.emptyMember)}</div>
+        )}
       </Flex>
     </div>
   );

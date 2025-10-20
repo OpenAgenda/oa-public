@@ -65,6 +65,15 @@ export const StickyTransparentOnCharcoal = () => (
 export const HelpButton = () => (
   <Box display="flex" flexDirection="column" height="100vh">
     <Box
+      bg="white"
+      flex={1}
+      display="flex"
+      alignItems="center"
+      justifyContent="center"
+    >
+      <HelpButtonComponent />
+    </Box>
+    <Box
       bg={color('charcoal', 500)}
       flex={1}
       display="flex"
@@ -102,6 +111,9 @@ export const HelpButton = () => (
 
 export const LanguageSelector = () => (
   <>
+    <Box minH="30vh" pt="4" bg="white">
+      <LanguageSelectorComponent />
+    </Box>
     <Box
       bg={color('charcoal', 500)}
       minH="30vh"

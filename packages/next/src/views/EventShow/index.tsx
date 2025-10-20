@@ -84,8 +84,7 @@ function EventShow({ preload }: EventShowProps) {
 
   const { event } = useEvent();
   const { me, member } = useMember();
-  console.log('me', me);
-  console.log('member', member);
+
   const languages = Object.keys(event.title);
 
   const searchParams = useSearchParams() as {
