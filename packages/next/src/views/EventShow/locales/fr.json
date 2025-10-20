@@ -62,6 +62,7 @@
   "next.views.EventShow.ContextBar.unfeature": "Retirer de la une",
   "next.views.EventShow.ContributorSection.contributor": "Contributeur",
   "next.views.EventShow.ContributorSection.edit": "Modifier",
+  "next.views.EventShow.ContributorSection.emptyMember": "Fiche contact non informée",
   "next.views.EventShow.ContributorSection.privateInformation": "Information privée",
   "next.views.EventShow.DuplicateModal.bigSentence": "Vous êtes sur le point de créer un nouvel événement sur la base d’un précédent.",
   "next.views.EventShow.DuplicateModal.createNewEventIn": "Créer le nouvel événement dans",

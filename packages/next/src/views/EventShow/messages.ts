@@ -424,6 +424,10 @@ export const contributorSection = defineMessages({
     id: 'next.views.EventShow.ContributorSection.edit',
     defaultMessage: 'Edit',
   },
+  emptyMember: {
+    id: 'next.views.EventShow.ContributorSection.emptyMember',
+    defaultMessage: 'Contact sheet not informed',
+  },
 });
 
 export const emailConfirmationAlert = defineMessages({

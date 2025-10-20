@@ -377,6 +377,12 @@
       "value": "Modificar"
     }
   ],
+  "next.views.EventShow.ContributorSection.emptyMember": [
+    {
+      "type": 0,
+      "value": "Fiche contact non informée"
+    }
+  ],
   "next.views.EventShow.ContributorSection.privateInformation": [
     {
       "type": 0,

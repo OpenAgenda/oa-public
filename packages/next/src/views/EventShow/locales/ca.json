@@ -62,6 +62,7 @@
   "next.views.EventShow.ContextBar.unfeature": "",
   "next.views.EventShow.ContributorSection.contributor": "",
   "next.views.EventShow.ContributorSection.edit": "",
+  "next.views.EventShow.ContributorSection.emptyMember": "",
   "next.views.EventShow.ContributorSection.privateInformation": "",
   "next.views.EventShow.DuplicateModal.bigSentence": "",
   "next.views.EventShow.DuplicateModal.createNewEventIn": "",
