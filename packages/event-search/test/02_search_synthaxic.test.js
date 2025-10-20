@@ -106,4 +106,14 @@ describe('02 - event search - functional: synthaxic', () => {
         .then(({ total }) => total),
     ).toBe(2);
   });
+
+  it('"wrapped" search is for exact match', async () => {
+    expect(
+      await service('synthaxic')
+        .search({
+          search: '"célèbre cheval métallique Zeus"',
+        })
+        .then(({ total }) => total),
+    ).toBe(1);
+  });
 });

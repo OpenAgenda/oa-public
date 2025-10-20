@@ -96,8 +96,19 @@ function _getQueryMustParts(cleanQuery) {
     '_search_description_filtered',
   ];
 
-  // add multi_match search part
-  if (cleanQuery.search) {
+  if (/^".+"$/.test(cleanQuery.search)) {
+    parts.push({
+      bool: {
+        should: searchFields.map((field) => ({
+          match_phrase: {
+            [field]: cleanQuery.search.replace(/^"|"$/g, ''),
+          },
+        })),
+        minimum_should_match: 1,
+      },
+    });
+  } else if (cleanQuery.search) {
+    // add multi_match search part
     parts.push({
       bool: {
         should: [

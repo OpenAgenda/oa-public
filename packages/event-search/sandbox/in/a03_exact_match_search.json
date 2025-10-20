@@ -1,0 +1,68 @@
+{
+  "title": "Recherche entre guillemets",
+  "description": "hmm",
+  "value": {
+    "query": {
+      "bool": {
+        "must": [
+          {
+            "bool": {
+              "should": [
+                {
+                  "match_phrase": {
+                    "_search_title": "célèbre cheval métallique Zeus"
+                  }
+                },
+                {
+                  "match_phrase": {
+                    "_search_description": "célèbre cheval métallique Zeus"
+                  }
+                },
+                {
+                  "match_phrase": {
+                    "_search_keywords_text": "célèbre cheval métallique Zeus"
+                  }
+                },
+                {
+                  "match_phrase": {
+                    "_search_full_address_text": "célèbre cheval métallique Zeus"
+                  }
+                }
+              ],
+              "minimum_should_match": 1
+            }
+          }
+        ],
+        "filter": [
+          {
+            "term": {
+              "_set": "synthaxic"
+            }
+          },
+          {
+            "terms": {
+              "state": [2]
+            }
+          }
+        ],
+        "should": [
+          {
+            "bool": {
+              "must_not": {
+                "exists": {
+                  "field": "removed"
+                }
+              }
+            }
+          },
+          {
+            "term": {
+              "removed": false
+            }
+          }
+        ],
+        "minimum_should_match": 1
+      }
+    }
+  }
+}
