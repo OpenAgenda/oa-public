@@ -7,7 +7,7 @@
 Il faut:
 
 1. Placer la clé de transfert en variable d'environnement `STRAPI_TRANSFER_TOKEN` dans le .env de oa. Une clé de transfert est disponible dans 1password sous "Strapi Pull Token". Une fois la var d'env placée, ne pas oublier de faire un `dco strapi down` suivi d'un `dco strapi -d up` pour bien la chargée dans le container.
-2. Lancer `docker exec -it strapi yarn strapi-pull`
+2. Lancer `docker exec -it strapi yarn strapi-pull --exclude files --force`
 3. Redémarrer le conteneur strapi
 
 Pour plus d'infos, voir la [documentation de Strapi](https://docs.strapi.io/cms/data-management/transfer)
