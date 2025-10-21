@@ -1,6 +1,7 @@
 .player {
   --brand-color: #f5f5f5;
   --focus-color: #4e9cf6;
+  --play-button-background: rgba(0, 0, 0, 0.15);
 
   --audio-brand: var(--brand-color);
   --audio-focus-ring-color: var(--focus-color);
@@ -27,6 +28,10 @@
 
   &[data-view-type='video'] {
     aspect-ratio: 16 / 9;
+  }
+
+  :global(.vds-video-layout .vds-load-container .vds-play-button) {
+    background: rgba(0, 0, 0, 0.06);
   }
 }
 
