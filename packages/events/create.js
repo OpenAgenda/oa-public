@@ -47,6 +47,7 @@ export default async (service, data, o = {}) => {
   clean.timings = convertAndInjectTimingsWithTimezone(
     clean.timings,
     clean.timezone,
+    data.timings,
   );
 
   if (userUid) {
