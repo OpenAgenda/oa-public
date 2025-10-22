@@ -7,7 +7,7 @@ import { from as convertDHM } from '../iso/convertDateHoursMinutesTiming.js';
 const inLocalTZ = (d, tz, hasExplicitTimezone = false) => {
   if (!(d instanceof Date)) {
     return moment
-      .tz(d, 'YYYY-MM-DDTHH:mm:ss', tz)
+      .tz(d, 'YYYY-MM-DDTHH:mm:ss.SSS', tz)
       .locale('en')
       .toISOString(true);
   }
@@ -22,9 +22,10 @@ const inLocalTZ = (d, tz, hasExplicitTimezone = false) => {
   const hours = String(d.getHours()).padStart(2, '0');
   const minutes = String(d.getMinutes()).padStart(2, '0');
   const seconds = String(d.getSeconds()).padStart(2, '0');
-  const localString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
+  const milliseconds = String(d.getMilliseconds()).padStart(3, '0');
+  const localString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
   return moment
-    .tz(localString, 'YYYY-MM-DDTHH:mm:ss', tz)
+    .tz(localString, 'YYYY-MM-DDTHH:mm:ss.SSS', tz)
     .locale('en')
     .toISOString(true);
 };
