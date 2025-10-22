@@ -535,6 +535,75 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
     });
 
+    describe('successful create with emojis in description', () => {
+      let emojiLocation;
+
+      beforeAll(async () => {
+        try {
+          emojiLocation = await axios({
+            method: 'post',
+            url: 'http://localhost:4000/agendas/17026855/locations',
+            headers: {
+              'access-token': accessToken,
+              'content-type': 'application/json',
+            },
+            data: {
+              name: 'Le Café des Arts',
+              description:
+                'Un lieu chaleureux avec de la musique 🎵 et de bons moments 🎉',
+              address: '12 rue de la Paix, Paris',
+              countryCode: 'FR',
+            },
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      });
+
+      it('location is created successfully', () => {
+        expect(typeof emojiLocation.data.location.uid).toBe('number');
+      });
+
+      it('emojis are preserved in description', () => {
+        expect(emojiLocation.data.location.description.en).toBe(
+          'Un lieu chaleureux avec de la musique 🎵 et de bons moments 🎉',
+        );
+      });
+    });
+
+    describe('unsuccessful create with emoji in name', () => {
+      let error;
+
+      beforeAll(async () => {
+        try {
+          await axios({
+            method: 'post',
+            url: 'http://localhost:4000/agendas/17026855/locations',
+            headers: {
+              'access-token': accessToken,
+              'content-type': 'application/json',
+            },
+            data: {
+              name: 'Le Café ☕️ des Arts',
+              address: '12 rue de la Paix, Paris',
+              countryCode: 'FR',
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+      });
+
+      it('throws an error', () => {
+        expect(error).toBeDefined();
+        expect(error.response.status).toBe(400);
+      });
+
+      it('error indicates invalid data', () => {
+        expect(error.response.data.message).toBe('data is invalid');
+      });
+    });
+
     describe('put by extId', () => {
       let createResp = null;
       let updateResp = null;
