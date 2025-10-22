@@ -57,6 +57,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     fieldType: 'text',
     max: 100,
+    rejectEmojis: true,
     label: labels.name,
   },
   {
@@ -73,6 +74,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    rejectEmojis: true,
     label: labels.address,
   },
   {
@@ -90,6 +92,7 @@ module.exports = [
       'terms',
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
+    rejectEmojis: true,
     label: labels.countryCode,
   },
   {
@@ -107,6 +110,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    rejectEmojis: true,
     label: labels.region,
   },
   {
@@ -124,6 +128,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    rejectEmojis: true,
     label: labels.department,
   },
   {
@@ -141,6 +146,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    rejectEmojis: true,
     label: labels.adminLevel3,
   },
   {
@@ -158,6 +164,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 100,
+    rejectEmojis: true,
     label: labels.city,
   },
   {
@@ -174,6 +181,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 100,
+    rejectEmojis: true,
     label: labels.city,
   },
   {
@@ -191,6 +199,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    rejectEmojis: true,
     label: labels.adminLevel5,
   },
   {
@@ -208,6 +217,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    rejectEmojis: true,
     label: labels.adminLevel6,
   },
   {
@@ -218,6 +228,7 @@ module.exports = [
     read: ['internal', 'public', 'administrator', 'moderator', 'contributor'],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    rejectEmojis: true,
     label: labels.district,
   },
   {
@@ -227,6 +238,7 @@ module.exports = [
     read: ['internal', 'public', 'administrator', 'moderator', 'contributor'],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 20,
+    rejectEmojis: true,
     label: labels.postalCode,
   },
   {
@@ -236,6 +248,7 @@ module.exports = [
     read: ['internal', 'public', 'administrator', 'moderator', 'contributor'],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 10,
+    rejectEmojis: true,
     label: labels.insee,
   },
   {
@@ -282,6 +295,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    rejectEmojis: true,
     label: labels.region,
   },
   {
@@ -298,6 +312,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
+    rejectEmojis: true,
     label: labels.department,
   },
   {
@@ -429,6 +444,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     fieldType: 'multilingual',
     languages: [],
+    rejectEmojis: true,
     max: 1000,
   },
   {
@@ -465,6 +481,7 @@ module.exports = [
     read: ['internal', 'public', 'administrator', 'moderator', 'contributor'],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     enableWith: 'image',
+    rejectEmojis: true,
   },
   {
     field: 'siret',

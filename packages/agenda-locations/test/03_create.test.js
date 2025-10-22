@@ -373,6 +373,133 @@ describe('agenda-locations - functional - create', () => {
       expect(error.info.errors[0].code).toBe('string.toolong');
       expect(error.info.errors[0].field).toBe('value');
     });
+
+    describe('emoji handling', () => {
+      it('emoji as name should trigger validation error', async () => {
+        let error;
+        try {
+          await svc(7196947).create({
+            name: '🎭',
+            address: '114 Rue de Turenne, 75003 Paris',
+            latitude: 48.8632801,
+            longitude: 2.3622204,
+            countryCode: 'FR',
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).toBeDefined();
+        expect(error.info.errors[0].field).toBe('name');
+        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].message).toBe('emojis are not accepted');
+      });
+
+      it('emoji in address should trigger validation error', async () => {
+        let error;
+        try {
+          await svc(7196947).create({
+            name: 'Test Location',
+            address: '123 Main St 🏠, Paris',
+            latitude: 48.8632801,
+            longitude: 2.3622204,
+            countryCode: 'FR',
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).toBeDefined();
+        expect(error.info.errors[0].field).toBe('address');
+        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].message).toBe('emojis are not accepted');
+      });
+
+      it('emoji in city should trigger validation error', async () => {
+        let error;
+        try {
+          await svc(7196947).create({
+            name: 'Test Location',
+            address: '114 Rue de Turenne',
+            city: 'Paris 🗼',
+            latitude: 48.8632801,
+            longitude: 2.3622204,
+            countryCode: 'FR',
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).toBeDefined();
+        expect(error.info.errors[0].field).toBe('city');
+        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].message).toBe('emojis are not accepted');
+      });
+
+      it('emoji in imageCredits should trigger validation error', async () => {
+        let error;
+        try {
+          await svc(7196947).create({
+            name: 'Test Location',
+            address: '114 Rue de Turenne, 75003 Paris',
+            latitude: 48.8632801,
+            longitude: 2.3622204,
+            countryCode: 'FR',
+            image: fs.createReadStream(
+              `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+            ),
+            imageCredits: 'Photo by 📷 John',
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).toBeDefined();
+        expect(error.info.errors[0].field).toBe('imageCredits');
+        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].message).toBe('emojis are not accepted');
+      });
+
+      it('emoji in access field should trigger validation error', async () => {
+        let error;
+        try {
+          await svc(7196947).create({
+            name: 'Test Location',
+            address: '114 Rue de Turenne, 75003 Paris',
+            latitude: 48.8632801,
+            longitude: 2.3622204,
+            countryCode: 'FR',
+            access: {
+              fr: 'Accès handicapé ♿',
+              en: 'Wheelchair access',
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).toBeDefined();
+        expect(error.info.errors[0].field).toBe('access');
+        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].message).toBe('emojis are not accepted');
+      });
+
+      it('emoji in description field is allowed', async () => {
+        const location = await svc(7196947).create({
+          name: 'Test Location',
+          address: '114 Rue de Turenne, 75003 Paris',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+          description: {
+            fr: 'Un lieu magnifique 🎭✨',
+            en: 'A beautiful place',
+          },
+        });
+
+        expect(location.description.fr).toBe('Un lieu magnifique 🎭✨');
+      });
+    });
   });
 });
 
