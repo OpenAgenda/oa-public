@@ -66,6 +66,7 @@ function useEventLink({ baseUrl, baseUrlTarget, agenda, event, nc, referrer }) {
 export default function EventItem({
   event,
   agenda,
+  hideLocation = false,
   referrer,
   // nav
   from = 0,
@@ -213,9 +214,9 @@ export default function EventItem({
           </NextLink>
         </LinkOverlay>
         <Box color="#545454">{event.description[contentLocale]}</Box>
-        {event.location || event.onlineAccessLink ? (
+        {(!hideLocation && event.location) || event.onlineAccessLink ? (
           <Box fontSize="sm" color="#545454" mt="auto">
-            {event.location ? (
+            {!hideLocation && event.location ? (
               <div>
                 {event.location.name}
                 {event.location.city ? `, ${event.location.city}` : ''}

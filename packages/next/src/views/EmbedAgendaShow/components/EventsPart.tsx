@@ -22,7 +22,7 @@ export default function EventsPart({
   const intl = useIntl();
   const router = useRouter();
 
-  const { sort, itemMinWidth, pageSize } = useEmbedLayoutData();
+  const { sort, itemMinWidth, pageSize, hideLocation } = useEmbedLayoutData();
 
   const {
     data: pages,
@@ -89,6 +89,7 @@ export default function EventsPart({
               key={event.uid}
               event={event}
               agenda={agenda}
+              hideLocation={hideLocation}
               referrer={referrer}
               // nav
               from={pageIndex * pageSize + eventIndex}

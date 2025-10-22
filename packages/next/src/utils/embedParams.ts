@@ -68,6 +68,7 @@ export type EmbedParams = {
   contributionButton?: boolean;
   itemMinWidth?: `${number}px`;
   pageSize?: number;
+  hideLocation?: boolean;
   logo?: LogoParam;
 };
 
@@ -218,6 +219,7 @@ const parsers = {
   contributionButton: parseAndValidateBoolean,
   itemMinWidth: parseAndValidateItemMinWidth,
   pageSize: parseAndValidateInteger,
+  hideLocation: parseAndValidateBoolean,
   logo: parseAndValidateLogo,
 };
 
