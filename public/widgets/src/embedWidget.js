@@ -175,6 +175,10 @@ export default class EmbedLoader {
       url.searchParams.set('pageSize', dataset.pageSize);
     }
 
+    if (dataset.hideLocation) {
+      url.searchParams.set('hideLocation', dataset.hideLocation);
+    }
+
     if (dataset.logo) {
       url.searchParams.set('logo', dataset.logo);
     }
