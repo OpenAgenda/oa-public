@@ -372,7 +372,7 @@ describe('events - functional - create', () => {
       ]);
     });
 
-    it('timings are written down in db in event timezone', async () => {
+    it('timings are provided as string written down in db in event timezone', async () => {
       const event = await svc.create({
         title: 'Event create given a text stream instead of image',
         description: 'Nope',
@@ -393,6 +393,26 @@ describe('events - functional - create', () => {
           end: '2025-10-28T22:20:00.000+01:00',
         },
       ]);
+    });
+
+    it('timings are provided as date written down in db in event timezone', async () => {
+      const event = await svc.create({
+        title: 'Event create given a text stream instead of image',
+        description: 'Nope',
+        attendanceMode: 2,
+        onlineAccessLink: 'https://openagenda.com',
+        timezone: 'Europe/Paris',
+        timings: [
+          {
+            begin: new Date('2025-10-23T14:11:00.000Z'),
+            end: new Date('2025-10-23T15:11:00.000Z'),
+          },
+        ],
+      });
+
+      expect(new Date(event.timings[0].begin)).toEqual(
+        new Date('2025-10-23T16:11:00.000+02:00'),
+      );
     });
 
     it('timings are written down in db in event timezone when in YMHThms format', async () => {
