@@ -38,14 +38,14 @@
   "packageManager": "yarn@4.5.3",
   "resolutions": {
     "eslint-import-resolver-typescript": "3.5.1",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "jest-runtime@npm:^29.7.0": "patch:jest-runtime@npm%3A29.7.0#~/public/.yarn/patches/jest-runtime-npm-29.7.0-120fa64128.patch"
   },
   "dependencies": {
     "@openagenda/intl": "workspace:^",
     "@strapi/strapi": "^5.13.1",
-    "browserslist": "^4.20.0",
+    "browserslist": "^4.27.0",
     "mime": "^2.4.4"
   },
   "devDependencies": {

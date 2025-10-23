@@ -79,16 +79,16 @@
     "@types/lodash": "^4",
     "@types/qs": "^6",
     "msw": "^2.3.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "storybook": "^9.0.8",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
     "tsup": "^8.4.0",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   },
   "msw": {
     "workerDirectory": [
