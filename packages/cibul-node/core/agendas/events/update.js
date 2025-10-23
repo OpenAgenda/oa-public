@@ -366,10 +366,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         : ' (no acting user)',
       callOrigin,
       ...callOrigin === 'api'
-        ? {
-          event: response.event,
-          submittedData: data,
-        }
+        ? { event: response.event, submittedData: data }
         : undefined,
     });
   } catch (e) {
