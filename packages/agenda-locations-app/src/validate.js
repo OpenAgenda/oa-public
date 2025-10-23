@@ -104,6 +104,7 @@ function validateImageCredits(value, otherValues = {}, options = {}) {
       field: 'imageCredits',
       max: 255,
       optional: false,
+      rejectEmojis: true,
     })(value);
   }
 
@@ -156,6 +157,7 @@ function validateExtId(value, _otherValues = {}, _options = {}) {
     min: 0,
     max: 100,
     optional: true,
+    rejectEmojis: true,
   })(value);
 }
 
@@ -172,6 +174,7 @@ const baseValidators = [
     min: 3,
     max: 100,
     optional: false,
+    rejectEmojis: true,
   }),
   validators.pass({ field: 'image' }),
   validateImageCredits,
@@ -183,62 +186,72 @@ const baseValidators = [
     min: 3,
     max: 255,
     optional: false,
+    rejectEmojis: true,
   }),
   validators.text({
     field: 'adminLevel1',
     min: 0,
     max: 300,
     optional: true,
+    rejectEmojis: true,
   }),
   validators.text({
     field: 'adminLevel2',
     min: 3,
     max: 300,
     optional: true,
+    rejectEmojis: true,
   }),
   validators.text({
     field: 'adminLevel3',
     min: 3,
     max: 300,
     optional: true,
+    rejectEmojis: true,
   }),
   validators.text({
     field: 'adminLevel4',
     min: 2,
     max: 300,
     optional: true,
+    rejectEmojis: true,
   }),
   validators.text({
     field: 'city',
     min: 2,
     max: 300,
     optional: true,
+    rejectEmojis: true,
   }),
-  validators.text({ field: 'adminLevel5', optional: true }),
-  validators.text({ field: 'adminLevel6', optional: true }),
-  validators.text({ field: 'district', optional: true }),
+  validators.text({ field: 'adminLevel5', optional: true, rejectEmojis: true }),
+  validators.text({ field: 'adminLevel6', optional: true, rejectEmojis: true }),
+  validators.text({ field: 'district', optional: true, rejectEmojis: true }),
   validators.text({
     field: 'department',
     min: 3,
     max: 300,
     optional: true,
+    rejectEmojis: true,
   }),
   validators.text({
     field: 'region',
     min: 0,
     max: 300,
     optional: true,
+    rejectEmojis: true,
   }),
   validators.text({
     field: 'postalCode',
     min: 3,
     max: 20,
+    rejectEmojis: true,
     optional: true,
   }),
   validators.text({
     field: 'insee',
     min: 3,
     max: 20,
+    rejectEmojis: true,
     optional: true,
   }),
   validators.text({
@@ -251,6 +264,7 @@ const baseValidators = [
     field: 'eveId',
     min: 0,
     max: 42,
+    rejectEmojis: true,
     optional: true,
   }),
   validators.multilingual({
@@ -264,6 +278,7 @@ const baseValidators = [
     max: 1000,
     optional: true,
     defaultLanguage: 'fr',
+    rejectEmojis: true,
   }),
   validators.link({ field: 'website', min: 0, optional: true }),
   validators.email({ field: 'email', min: 0, optional: true }),

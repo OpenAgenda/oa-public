@@ -41,13 +41,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -115,13 +108,6 @@
           "useFields": true,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -185,13 +171,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -258,13 +237,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -328,13 +300,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -401,13 +366,6 @@
           "useFields": true,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -471,13 +429,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -541,13 +492,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -614,13 +558,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -687,13 +624,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -760,13 +690,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -836,13 +759,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -909,13 +825,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -979,13 +888,6 @@
           "useFields": false,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -1052,13 +954,6 @@
           "useFields": true,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -1128,13 +1023,6 @@
           "useFields": true,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -1201,13 +1089,6 @@
           "useFields": true,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -1274,13 +1155,6 @@
           "useFields": true,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -1347,13 +1221,6 @@
           "useFields": true,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,
@@ -1420,13 +1287,6 @@
           "useFields": true,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": false,
-          "source": "fr",
-          "sets": [],
-          "service": "reverso",
-          "options": null
         }
       },
       "private": 0,

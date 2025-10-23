@@ -148,8 +148,8 @@ describe('agenda-locations - functional - settings get', () => {
 
       it('when not defined at set level, values from agenda are used', async () => {
         const settings = await svc(10).settings.get();
-        expect(settings.labels.translationInfo.fr).toEqual(
-          "C'est pour traduire automatiquement",
+        expect(settings.labels.name.fr).toEqual(
+          'Saisissez le nom du lieu de l’événement',
         );
       });
     });

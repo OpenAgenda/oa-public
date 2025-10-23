@@ -233,8 +233,10 @@ describe('agendas - functional (server): set (update)', () => {
       { uid },
       {
         settings: {
-          translation: {
-            enabled: true,
+          public: {
+            filters: {
+              displayed: ['addMethod'],
+            },
           },
         },
       },
@@ -251,7 +253,9 @@ describe('agendas - functional (server): set (update)', () => {
       },
     );
 
-    expect(result.agenda.settings.translation.enabled).toBeTruthy();
+    expect(result.agenda.settings.public.filters.displayed).toStrictEqual([
+      'addMethod',
+    ]);
   });
 
   it('admin settings are not lost with update', async () => {

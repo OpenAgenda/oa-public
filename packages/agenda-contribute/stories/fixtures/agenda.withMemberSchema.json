@@ -45,12 +45,6 @@
         "publication": null
       },
       "useFields": true
-    },
-    "translation": {
-      "enabled": false,
-      "source": "fr",
-      "service": "reverso",
-      "options": null
     }
   },
   "summary": {

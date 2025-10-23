@@ -1,6 +1,7 @@
 import listify from './listify';
 import cleanParams from './lib/params';
 import errors from './lib/errors';
+import { emojiReg } from './lib/emojireg';
 
 export default config => {
   const params = cleanParams('text', config, {
@@ -13,6 +14,7 @@ export default config => {
     list: false,
     strict: false,
     emptyStringAsUndefined : true,
+    rejectEmojis: false,
   }, config || {});
 
   const validate = value => {
@@ -66,6 +68,10 @@ export default config => {
           }
         }
       );
+    }
+
+    if (clean && params.rejectEmojis && emojiReg.test(clean)) {
+      throw errors(params, value, 'string.invalid', 'emojis are not accepted');
     }
 
     return clean;

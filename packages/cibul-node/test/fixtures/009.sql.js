@@ -37,7 +37,7 @@ raw.push(
     {
       ...albiAgenda,
       settings:
-        '{"tracking":{"googleAnalytics":null},"lab":{"eventAdmin":true,"status":false},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null},"useFields":false,"authorizedIPAddresses":[]},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null}}',
+        '{"tracking":{"googleAnalytics":null},"lab":{"eventAdmin":true,"status":false},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null},"useFields":false,"authorizedIPAddresses":[]}}',
     },
   ]),
 );

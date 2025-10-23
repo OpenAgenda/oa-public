@@ -58,6 +58,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.link.invalid',
     defaultMessage: 'Invalid link',
   },
+  'string.invalid': {
+    id: 'AgendaLocations.LocationForm.string.invalid',
+    defaultMessage: 'Emojis are not accepted here',
+  },
   tooshort: {
     id: 'AgendaLocations.LocationForm.tooshort',
     defaultMessage: 'String is too short',

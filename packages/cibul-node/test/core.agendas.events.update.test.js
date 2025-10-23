@@ -776,12 +776,12 @@ describe('core - functional (server): core.agendas().events.update()', () => {
               },
               timings: [
                 {
-                  begin: new Date('2019-05-06T10:00:00'),
-                  end: new Date('2019-05-06T11:00:00'),
+                  begin: '2025-10-23T16:11:00+0200',
+                  end: '2025-10-23T17:11:00+0200',
                 },
                 {
-                  begin: new Date('2019-05-06T12:00:00'),
-                  end: new Date('2019-05-06T13:00:00'),
+                  begin: '2025-10-24T12:00:00+0200',
+                  end: '2025-10-24T14:00:00+0200',
                 },
               ],
               custom_description: 'Meh',
@@ -800,6 +800,12 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
       it('updated event is provided in event key', () => {
         expect(response.event.uid).toBe(19201989);
+      });
+
+      it('updated event has expected timings', () => {
+        expect(new Date(response.event.timings[0].begin)).toEqual(
+          new Date('2025-10-23T16:11:00.000+02:00'),
+        );
       });
     });
 

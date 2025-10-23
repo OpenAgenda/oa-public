@@ -24,12 +24,6 @@
     },
     "contribution": {
       "authorizedIPAddresses": []
-    },
-    "translation": {
-      "enabled": false,
-      "source": "fr",
-      "service": "reverso",
-      "options": null
     }
   },
   "network": null,

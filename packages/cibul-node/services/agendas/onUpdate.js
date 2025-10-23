@@ -9,7 +9,7 @@ const log = logs('agendas/onUpdate');
 export default async (services, before, after, context) => {
   const { activities, core, aggregators } = services;
 
-  // settings.{tracking,lab,inbox,contribution,translation}
+  // settings.{tracking,lab,inbox,contribution}
 
   await resetCache(services, after, { before });
 

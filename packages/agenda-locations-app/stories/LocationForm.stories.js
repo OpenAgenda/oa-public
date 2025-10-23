@@ -11,6 +11,7 @@ import Providers from './decorators/Providers.js';
 import ComponentCanvas from './decorators/ComponentCanvas.js';
 
 import location from './fixtures/location.json';
+import locationWithEmotes from './fixtures/locationWithEmotes.json';
 import agendaSettings from './fixtures/agendaTestSettings.json';
 
 export default {
@@ -27,6 +28,15 @@ const res = {
 export const BasicForm = () => (
   <LocationForm
     locationProp={location}
+    settings={agendaSettings}
+    mode="update"
+    res={res}
+  />
+);
+
+export const BasicFormWithEmotes = () => (
+  <LocationForm
+    locationProp={locationWithEmotes}
     settings={agendaSettings}
     mode="update"
     res={res}

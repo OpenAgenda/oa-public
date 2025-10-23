@@ -24,6 +24,10 @@ export default function SummarySection({ agendaUid }) {
     return (
       <div className="info-block margin-bottom-md">
         <div className="text-center">
+          <FormattedMessage
+            id="AgendaStats.SummarySection.loading"
+            defaultMessage="Summary section loading"
+          />
           <Spinner mode="inline" />
         </div>
       </div>

@@ -30,10 +30,11 @@ const inLocalTZ = (d, tz, hasExplicitTimezone = false) => {
     .toISOString(true);
 };
 
-const hasExplicitTimezone = (dateString) => {
-  if (typeof dateString !== 'string') return false;
+const hasExplicitTimezone = (d) => {
+  if (d instanceof Date) return true;
+  if (typeof d !== 'string') return false;
   // Z, +02:00, -05:30, +0200, +02, .000Z, .000+02:00
-  return /(\.\d{3})?([+-]\d{2}:?\d{2}?|Z)$/.test(dateString);
+  return /(\.\d{3})?([+-]\d{2}:?\d{2}?|Z)$/.test(d);
 };
 
 export default function convertAndInjectTimingsWithTimezone(
@@ -52,6 +53,7 @@ export default function convertAndInjectTimingsWithTimezone(
     const beginHasExplicitTz = originalTiming
       ? hasExplicitTimezone(originalTiming.begin)
       : false;
+
     const endHasExplicitTz = originalTiming
       ? hasExplicitTimezone(originalTiming.end)
       : false;

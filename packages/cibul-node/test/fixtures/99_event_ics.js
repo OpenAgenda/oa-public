@@ -116,7 +116,7 @@ export const agenda = {
   image: 'agenda65270117.jpg',
   store: '{"moderated":false,"mails":false,"customFields":[]}',
   settings:
-    '{"tracking":{"googleAnalytics":null},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"mailing":{"eventAggregation":false},"contribution":{"type":2,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"message":null,"messages":{"instructions":null,"complete":null,"publication":null},"useFields":false,"authorizedIPAddresses":[],"survey":false},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null}}',
+    '{"tracking":{"googleAnalytics":null},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"mailing":{"eventAggregation":false},"contribution":{"type":2,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"message":null,"messages":{"instructions":null,"complete":null,"publication":null},"useFields":false,"authorizedIPAddresses":[],"survey":false}}',
   main: 0,
   official: 1,
   private: 0,

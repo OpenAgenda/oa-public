@@ -61,6 +61,7 @@
   "AgendaStats.StateTooltipItem.published": "Publié",
   "AgendaStats.StateTooltipItem.refused": "Refusé",
   "AgendaStats.StateTooltipItem.toModerate": "À modérer",
+  "AgendaStats.SummarySection.loading": "Chargement de la section récapitulative",
   "AgendaStats.SummarySection.totalPublishedEvents": "{eventCount, plural, =0 {<strong>{eventCount, number}</strong> événement publié} one {<strong>{eventCount, number}</strong> événement publié} other {<strong>{eventCount, number}</strong> événements publiés}} dans {locationCount, plural, =0 {<strong>{locationCount, number}</strong> lieu} one {<strong>{locationCount, number}</strong> lieu} other {<strong>{locationCount, number}</strong> lieux}} par {creatorCount, plural, =0 {<strong>{creatorCount, number}</strong> contributeur} one {<strong>{creatorCount, number}</strong> contributeur} other {<strong>{creatorCount, number}</strong> contributeurs}}",
   "AgendaStats.SummarySection.totalPublishedEventsInfo": "À noter: Les événements ajoutés par agrégation ou partage peuvent être liés à des contributeurs et lieux référencés sur d'autres agendas",
   "AgendaStats.dateRanges.currentMonth": "Ce mois",

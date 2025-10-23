@@ -50,6 +50,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
     clean.timings = convertAndInjectTimingsWithTimezone(
       clean.timings,
       clean.timezone || current.timezone,
+      data.timings,
     );
   }
 
