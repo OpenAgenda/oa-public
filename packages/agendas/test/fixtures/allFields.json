@@ -192,60 +192,6 @@
           }
         }
       },
-      "translation": {
-        "optional": true,
-        "fields": {
-          "enabled": {
-            "type": "boolean",
-            "default": false
-          },
-          "source": {
-            "type": "text",
-            "min": 2,
-            "max": 2,
-            "default": "fr"
-          },
-          "sets": {
-            "fields": {
-              "source": {
-                "type": "text",
-                "min": 2,
-                "max": 2,
-                "default": "fr"
-              },
-              "target": {
-                "list": {
-                  "min": 0
-                },
-                "type": "text",
-                "min": 2,
-                "max": 2,
-                "default": ["en", "es", "it", "de"]
-              },
-              "checked": {
-                "list": {
-                  "min": 0
-                },
-                "type": "text",
-                "min": 2,
-                "max": 2,
-                "default": []
-              }
-            },
-            "list": {
-              "min": 0
-            },
-            "default": []
-          },
-          "service": {
-            "type": "text",
-            "default": "reverso"
-          },
-          "options": {
-            "type": "text"
-          }
-        }
-      },
       "registration": {
         "fields": {
           "passCulture": {

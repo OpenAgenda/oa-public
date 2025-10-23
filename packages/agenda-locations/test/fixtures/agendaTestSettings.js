@@ -5,24 +5,7 @@ module.exports = {
   eventForm: {
     detailed: true,
   },
-  translation: {
-    enabled: true,
-    options: 'eyJ1c2VyIjoiQ1VMVFVSRSIsInBhc3N3b3JkIjoiclU3elQ3cWhhIn0=',
-    service: 'reverso',
-    sets: [
-      {
-        source: 'fr',
-        checked: ['it', 'es'],
-        target: ['it', 'es', 'de'],
-      },
-    ],
-    source: 'fr',
-  },
   labels: {
-    translationInfo: {
-      fr: "C'est pour traduire automatiquement",
-      en: 'Translate au-to-ma-ti-ca-lly',
-    },
     name: {
       en: 'Name of the location of the event',
       fr: 'Saisissez le nom du lieu de l’événement',

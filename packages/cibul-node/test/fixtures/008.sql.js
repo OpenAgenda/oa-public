@@ -39,7 +39,7 @@ raw.push(
       uid: 12345,
       title: 'Un agenda configuré pour le pass',
       settings:
-        '{"tracking":{"googleAnalytics":null,"matomoUrl":null,"matomoSiteId":null,"matomoCustom":[]},"lab":{"status":true},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null,"GDPRInformation":null},"useFields":false,"authorizedIPAddresses":[]},"translation":{"enabled":false,"source":"fr","sets":[],"service":"reverso","options":null},"registration":{"passCulture":{"siren":["809346158"]}}}',
+        '{"tracking":{"googleAnalytics":null,"matomoUrl":null,"matomoSiteId":null,"matomoCustom":[]},"lab":{"status":true},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null,"GDPRInformation":null},"useFields":false,"authorizedIPAddresses":[]},"registration":{"passCulture":{"siren":["809346158"]}}}',
       network_uid: null,
     }),
   ]),

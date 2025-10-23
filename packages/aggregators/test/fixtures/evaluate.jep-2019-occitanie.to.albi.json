@@ -153,19 +153,6 @@
           "useFields": true,
           "authorizedIPAddresses": [],
           "survey": false
-        },
-        "translation": {
-          "enabled": true,
-          "source": "fr",
-          "sets": [
-            {
-              "source": "fr",
-              "target": ["it", "es", "de", "en"],
-              "checked": ["it", "es", "de", "en"]
-            }
-          ],
-          "service": "reverso",
-          "options": "eyJ1c2VyIjoiQ1VMVFVSRUFQSSIsInBhc3N3b3JkIjoiclU3elQ3cWhhIn0="
         }
       },
       "id": 20076,
@@ -179,13 +166,6 @@
         },
         "form": {
           "fields": [
-            {
-              "name": "translation",
-              "info": {
-                "fr": "Votre événement sera traduit automatiquement dans les langues ci-dessous. Vous pourrez modifier la traduction proposée par défaut, après l’enregistrement de votre événement, si celle-ci ne vous semble pas pertinente.",
-                "en": "Your event will be automatically translated in the languages checked here below."
-              }
-            },
             {
               "info": {
                 "en": "Specify the type and name of the event",

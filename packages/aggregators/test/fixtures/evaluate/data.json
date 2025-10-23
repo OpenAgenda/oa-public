@@ -161,13 +161,6 @@
         "useFields": false,
         "authorizedIPAddresses": [],
         "survey": false
-      },
-      "translation": {
-        "enabled": false,
-        "source": "fr",
-        "sets": [],
-        "service": "reverso",
-        "options": null
       }
     },
     "id": 14237,
