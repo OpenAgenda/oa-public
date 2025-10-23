@@ -747,6 +747,12 @@
         "schemaType": "event"
       },
       {
+        "field": "extIds",
+        "fieldType": "extIds",
+        "optional": true,
+        "display": false
+      },
+      {
         "field": "links",
         "fieldType": "integer",
         "optional": false,
