@@ -27,8 +27,8 @@
     "final-form": "^4.20.2",
     "lodash": "^4.17.15",
     "moment-timezone": "^0.5.31",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
     "react-final-form": "^6.5.3",
     "react-intl": "^6.8.4",
     "utf8": "^3.0.0"
@@ -43,7 +43,7 @@
     "tsup": "^8.3.5"
   },
   "peerDependencies": {
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0"
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
   }
 }
