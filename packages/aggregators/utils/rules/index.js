@@ -141,7 +141,9 @@ const getActionValues = ({
     && action.values[actionOperation].$copy
   ) {
     const value = data[action.values[actionOperation].$copy];
-    return typeof value === 'object' ? value[Object.keys(value)[0]] : value;
+    return typeof value === 'object' && value !== null
+      ? value[Object.keys(value)[0]]
+      : value;
   }
   return action.values[actionOperation];
 };
