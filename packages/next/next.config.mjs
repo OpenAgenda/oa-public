@@ -68,6 +68,7 @@ const config = async () => {
         localeDetection: false,
       },
       images: {
+        qualities: [75, 100],
         remotePatterns: [
           {
             protocol: 'https',
@@ -93,10 +94,6 @@ const config = async () => {
         ),
       },
       // productionBrowserSourceMaps: true,
-      eslint: {
-        dirs: ['src', 'scripts', '.storybook', 'stories'],
-        // ignoreDuringBuilds: true,
-      },
       // typescript: {
       //   ignoreBuildErrors: true,
       // },
@@ -104,10 +101,7 @@ const config = async () => {
         scrollRestoration: true,
         // forceSwcTransforms forces storybook to use SWC instead of babel
         forceSwcTransforms: true,
-      },
-      onDemandEntries: {
-        maxInactiveAge: 24 * 3600 * 1000, // 24h
-        pagesBufferLength: 50,
+        turbopackFileSystemCacheForDev: true,
       },
       // Compression is enabled with nginx
       compress: false,
@@ -197,6 +191,7 @@ const config = async () => {
         'react-markdown',
         'react-use',
       ],
+      allowedDevOrigins: ['d.openagenda.com'],
     }),
   );
 };

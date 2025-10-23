@@ -13,7 +13,7 @@ import wrapFilter from 'views/AgendaShow/wrapFilter';
 import { FaIcon } from 'icons';
 import { faCalendar } from 'icons/light';
 
-import '@openagenda/react-shared/css/react-date-range.css';
+// import '@openagenda/react-shared/css/react-date-range.css';
 
 const StyledDateRangeFilter = wrapFilter(ReactFiltersDateRangeFilter);
 

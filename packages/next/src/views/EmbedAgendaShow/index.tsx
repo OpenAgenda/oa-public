@@ -48,7 +48,7 @@ import getPrefilteredQuery from './utils/getPrefilteredQuery';
 import messages from './messages';
 import fetchLocale from './locales';
 
-import 'leaflet/dist/leaflet.css';
+// import 'leaflet/dist/leaflet.css';
 
 const DynamicEventsPart = dynamic(() => import('./components/EventsPart'));
 const DynamicTotalPart = dynamic(() => import('./components/TotalPart'));

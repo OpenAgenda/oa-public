@@ -2,7 +2,7 @@ import React from 'react';
 import { DateRangeFilter as ReactFiltersDateRangeFilter } from '@openagenda/react-filters';
 import wrapFilter from '../wrapFilter';
 
-import '@openagenda/react-shared/css/react-date-range.css';
+// import '@openagenda/react-shared/css/react-date-range.css';
 
 const StyledDateRangeFilter = wrapFilter(ReactFiltersDateRangeFilter);
 

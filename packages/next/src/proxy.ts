@@ -8,7 +8,7 @@ import parseAcceptLanguage from 'utils/parseAcceptLanguage';
 const MATCHER_REGEX =
   /^\/(api|_next\/static|_next\/image|favicon\.ico)($|\/).*$/;
 
-export async function middleware(req: NextRequest) {
+export async function proxy(req: NextRequest) {
   if (MATCHER_REGEX.test(req.nextUrl.pathname)) {
     return;
   }

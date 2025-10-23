@@ -18,6 +18,13 @@ import * as metas from 'config/metas';
 
 import '@fortawesome/fontawesome-svg-core/styles.css';
 
+// Because of a bug with packages hoisting and turbopack from Next 16
+import '@vidstack/react/player/styles/default/theme.css';
+import '@vidstack/react/player/styles/default/layouts/video.css';
+import 'leaflet/dist/leaflet.css';
+import '@openagenda/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
+import '@openagenda/react-shared/css/react-date-range.css';
+
 const logRequest =
   typeof window === 'undefined'
     ? await import('utils/logRequest').then((mod) => mod.default)
