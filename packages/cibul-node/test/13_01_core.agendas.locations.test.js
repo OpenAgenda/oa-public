@@ -303,6 +303,9 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       it('has fetched adminLevels', () => {
         expect(response.data.location.adminLevel1).toBe('Grand Est');
       });
+      it('tz', () => {
+        expect(response.data.location.timezone).toBe('Europe/Paris');
+      });
     });
 
     describe('bad requests', () => {
