@@ -72,12 +72,6 @@
       },
       "useFields": true,
       "authorizedIPAddresses": []
-    },
-    "translation": {
-      "enabled": false,
-      "source": "fr",
-      "service": "reverso",
-      "options": null
     }
   },
   "summary": {
