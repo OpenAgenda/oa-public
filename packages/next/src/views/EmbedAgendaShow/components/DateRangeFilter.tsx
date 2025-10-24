@@ -62,10 +62,13 @@ const DateRangeFilter = React.forwardRef<'div', any>(function DateRangeFilter(
           name={name}
           {...props}
           rangeColor={primary500}
-          sx={{
+          css={{
             '--rdr-border-color': 'colors.primary.500',
             '--rdr-body-selected-bg': 'colors.primary.500',
             '--rdr-today-content-bg': 'colors.primary.500',
+            '--rdr-today-content-selected': 'colors.primaryContrast',
+            '--rdr-body-color-selected':
+              'color-mix(in srgb, {colors.primaryContrast}, transparent 15%)',
           }}
         />
       </PopoverContent>
