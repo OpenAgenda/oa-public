@@ -1,6 +1,7 @@
 import { useRef, useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { chakra } from '@openagenda/uikit';
+import Image from 'next/image';
 import {
   MediaPlayer,
   MediaProvider,
@@ -170,7 +171,6 @@ const MultiFormatVideoPlayer = ({
       ref={player}
       title={videoTitle}
       src={videoSources}
-      poster={videoPoster}
       viewType="video"
       streamType="on-demand"
       logLevel="warn"
@@ -191,11 +191,19 @@ const MultiFormatVideoPlayer = ({
         },
       }}
       load="play"
-      posterLoad="visible"
+      posterLoad="eager"
     >
       <MediaProvider>
         {videoPoster && (
-          <Poster className="vds-poster" src={videoPoster} alt={videoTitle} />
+          <Poster asChild className="vds-poster">
+            <Image
+              preload
+              src={videoPoster}
+              alt={videoTitle}
+              width={960}
+              height={540}
+            />
+          </Poster>
         )}
         {/* Ajoutez vos tracks de sous-titres ici si nécessaire */}
         {/* <Track src="path/to/subtitles.vtt" kind="subtitles" label="Français" lang="fr" /> */}
