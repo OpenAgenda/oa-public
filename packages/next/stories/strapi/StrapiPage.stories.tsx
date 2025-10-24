@@ -52,10 +52,13 @@ export const PageWithTurquoiseToGreenGradient = {
   args: {
     page: {
       ...page,
-      navFontColor: {
+      navSticky: true,
+      navStickyBackground: {
         name: 'oaWhite',
       },
-      logoVariant: 'white',
+      navFontColor: {
+        name: 'oaBlue',
+      },
       Segments: [
         {
           id: 1,
@@ -72,7 +75,7 @@ export const PageWithTurquoiseToGreenGradient = {
           },
           background: {
             name: 'frenchBlueGradient',
-            css: 'linear-gradient(to bottom, frenchBlue, 90%, moonStone)',
+            css: 'linear-gradient(to left, frenchBlue, 50%, moonStone)',
           },
           CTAs: [
             {

@@ -41,12 +41,12 @@ function getPosition({ discreet, sticky }) {
   return discreet ? 'absolute' : 'relative';
 }
 
-function getBackground({ discreet, sticky, stickyBackground }) {
+function getBackground({ discreet, atTop, stickyBackground }) {
   if (!discreet) {
     return 'white';
   }
 
-  if (sticky && stickyBackground) {
+  if (!atTop && stickyBackground) {
     return stickyBackground;
   }
 }
@@ -59,25 +59,25 @@ export default function Navbar({
   stickyBackground = undefined,
 }) {
   const intl = useIntl();
-  const [stickyEnabled, setStickyEnabled] = useState(false);
+  const [atTop, setAtTop] = useState(true);
 
   const navbarRef = useRef(undefined);
   const [cookies] = useCookies();
 
   useEffect(() => {
-    if (!sticky || typeof window === 'undefined') {
+    if (typeof window === 'undefined') {
       return;
     }
 
     const handleScroll = () => {
       if (navbarRef.current) {
-        setStickyEnabled(window.scrollY > 0);
+        setAtTop(window.scrollY === 0);
       }
     };
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [stickyEnabled, sticky]);
+  }, []);
 
   const { inputValue, setInputValue, onSearch } = useSearch();
 
@@ -88,17 +88,19 @@ export default function Navbar({
       flexDirection="column"
       bg={getBackground({
         discreet,
-        sticky: stickyEnabled,
+        atTop,
         stickyBackground,
       })}
-      position={getPosition({ discreet, sticky: stickyEnabled })}
-      top={discreet ? 0 : undefined}
-      left={discreet ? 0 : undefined}
-      right={discreet ? 0 : undefined}
-      zIndex={discreet ? 1000 : undefined}
+      position={getPosition({ discreet, sticky })}
+      top={0}
+      left={0}
+      right={0}
+      zIndex={discreet || sticky ? 'sticky' : undefined}
       boxShadow={discreet ? undefined : 'xs'}
       fontSize={defaultSize}
       colorPalette={colorPalette}
+      mb={sticky ? '-50px' : undefined}
+      transition="backgrounds"
     >
       <Container maxW="7xl" px={0}>
         <Flex justify="space-between" h="50px" align="stretch">
@@ -153,7 +155,7 @@ export default function Navbar({
             <ProfileBar
               portalRef={navbarRef}
               background={getBackground({
-                sticky: true,
+                atTop: false,
                 discreet,
                 stickyBackground,
               })}
