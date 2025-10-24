@@ -12,3 +12,14 @@
   @import './react-date-range-other-variation.scss';
   @import './react-date-range.scss';
 }
+
+.colored {
+  max-width: 350px;
+
+  --rdr-border-color: #ffaaaa;
+  --rdr-body-selected-bg: #ffaaaa;
+  --rdr-today-content-bg: #ffaaaa;
+  --rdr-today-content-selected: #000;
+  --rdr-body-color-selected: color-mix(in srgb, #000, transparent 15%);
+  @import '../../scss/react-date-range.scss';
+}
