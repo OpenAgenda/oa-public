@@ -3,7 +3,7 @@ $container: 90% !important;
 $margin: auto;
 
 // Main
-$border-color: #1d77ce;
+$border-color: #1d77ce !default;
 $size: 12px;
 $bg: none;
 
@@ -40,7 +40,7 @@ $week-size: $size;
 
 // Body
 $body-color: #413a42 !default;
-$body-color-selected: rgba(255, 255, 255, 0.85);
+$body-color-selected: rgba(255, 255, 255, 0.85) !default;
 $body-bg: #fff;
 $body-selected-bg: #1d77ce !default;
 $body-size: $size;
@@ -50,8 +50,8 @@ $preview-bg: rgba(255, 255, 255, 0.09);
 
 // Today
 $today-content: '';
-$today-content-bg: #1d77ce;
-$today-content-selected: #fff;
+$today-content-bg: #1d77ce !default;
+$today-content-selected: #fff !default;
 
 // Disabled dates
 $passive-bg: transparent;
@@ -61,6 +61,8 @@ $passive-color: #d5dce0;
   --rdr-border-color: #{$border-color};
   --rdr-body-selected-bg: #{$body-selected-bg};
   --rdr-today-content-bg: #{$today-content-bg};
+  --rdr-today-content-selected: #{$today-content-selected};
+  --rdr-body-color-selected: #{$body-color-selected};
 }
 
 .rdrCalendarWrapper {
@@ -524,14 +526,14 @@ $passive-color: #d5dce0;
 .rdrDayToday:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span:after,
 .rdrDayToday:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span:after,
 .rdrDayToday:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span:after {
-  background: $today-content-selected;
+  background: var(--rdr-today-content-selected);
 }
 
 .rdrDay:not(.rdrDayPassive) .rdrInRange ~ .rdrDayNumber span,
 .rdrDay:not(.rdrDayPassive) .rdrStartEdge ~ .rdrDayNumber span,
 .rdrDay:not(.rdrDayPassive) .rdrEndEdge ~ .rdrDayNumber span,
 .rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
-  color: $body-color-selected;
+  color: var(--rdr-body-color-selected);
 }
 
 .rdrSelected,

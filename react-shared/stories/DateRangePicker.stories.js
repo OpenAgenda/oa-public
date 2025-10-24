@@ -57,5 +57,19 @@ export const Simple = () => (
         ]}
       />
     </div>
+    <div className="colored">
+      <DateRangePicker
+        input={{
+          onChange: () => {},
+          value: [
+            {
+              startDate: new Date('2025-10-09T23:00:00.000Z'),
+              endDate: new Date('2025-10-12T23:00:00.000Z'),
+              key: 'selection',
+            },
+          ],
+        }}
+      />
+    </div>
   </div>
 );
