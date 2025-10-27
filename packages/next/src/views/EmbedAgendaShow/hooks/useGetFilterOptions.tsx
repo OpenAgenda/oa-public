@@ -20,10 +20,10 @@ export default function useGetFilterOptions({
       if (filter?.type === 'choice') {
         if (prefilter[filter.name]) {
           return options.filter((v) => {
-            const dataKey = 'id' in v ? 'id' : 'key';
+            const optionKey = 'id' in v ? 'id' : 'value';
             return (
               prefilter[filter.name].findIndex(
-                (preValue) => preValue === String(v[dataKey]),
+                (preValue) => preValue === String(v[optionKey]),
               ) !== -1
             );
           });
