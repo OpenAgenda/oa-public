@@ -50,6 +50,7 @@ function completeUrls(
   };
 
   const apiQueryString = qs.stringify(apiQuery, { addQueryPrefix: true });
+  const embedQueryString = qs.stringify(query, { addQueryPrefix: true });
 
   return {
     agendaExportSettings: `/agendas/${agendaUid}/settings/exports`,
@@ -61,7 +62,7 @@ function completeUrls(
       ics: `${rootUrl}/agendas/${agendaUid}/events.v2.ics${apiQueryString}`,
       csv: `${rootUrl}/agendas/${agendaUid}/events.v2.csv${apiQueryString}`,
       rss: `${rootUrl}/agendas/${agendaUid}/events.v2.rss${apiQueryString}`,
-      embed: `${rootUrl}/agendas/${agendaUid}${apiQueryString}`,
+      embed: `${rootUrl}/agendas/${agendaUid}${embedQueryString}`,
     },
   };
 }
