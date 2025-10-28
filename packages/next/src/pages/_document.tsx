@@ -137,9 +137,9 @@ MyDocument.getInitialProps = async (
     styles: (
       <>
         {initialProps.styles}
-        {chunks.styles.map(({ key, ids, css }, i) => (
+        {chunks.styles.map(({ key, ids, css }) => (
           <style
-            key={i} // eslint-disable-line react/no-array-index-key
+            key={key}
             data-emotion={`${key} ${ids.join(' ')}`}
             dangerouslySetInnerHTML={{ __html: css }} // eslint-disable-line react/no-danger
           />

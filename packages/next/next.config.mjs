@@ -102,6 +102,7 @@ const config = async () => {
         // forceSwcTransforms forces storybook to use SWC instead of babel
         forceSwcTransforms: true,
         turbopackFileSystemCacheForDev: true,
+        optimizePackageImports: ['@chakra-ui/react'],
       },
       // Compression is enabled with nginx
       compress: false,
@@ -178,6 +179,7 @@ const config = async () => {
       },
       transpilePackages: [
         '@chakra-ui/react',
+        '@emotion/*',
         '@openagenda/activity-apps',
         '@openagenda/intl',
         '@openagenda/react',
@@ -185,6 +187,7 @@ const config = async () => {
         '@openagenda/react-shared',
         '@openagenda/sdk-js',
         '@openagenda/uikit',
+        '@zag-js/*',
         'intl-messageformat',
         'intl-messageformat-parser',
         'react-intl',

@@ -55,6 +55,7 @@ function MyApp({
 }: AppPropsWithLayout<PageProps>) {
   // Use the layout defined at the page level, if available
   const Layout = Component.Layout || Fragment;
+  const layoutProps = Component.Layout ? { emotionCache: cache } : null;
   const { theme } = Component;
 
   const { intlMessages } = pageProps;
@@ -90,7 +91,7 @@ function MyApp({
         cookies={universalCookies}
       >
         <SentryErrorBoundary>
-          <Layout emotionCache={cache}>
+          <Layout {...layoutProps}>
             <SentryErrorBoundary>
               <Component {...pageProps} />
             </SentryErrorBoundary>
