@@ -3,5 +3,6 @@
   "EventAdminApp.BatchedStateSelector.ok": "Schließen",
   "EventAdminApp.Dashboard.previous": "Bisherige",
   "EventAdminApp.EventItem.featured": "ausgewählt",
+  "EventAdminApp.SpreadsheetOptions.all-languages": "Alle",
   "EventAdminApp.messages.attendanceModes.mixed": "Gemischt"
 }

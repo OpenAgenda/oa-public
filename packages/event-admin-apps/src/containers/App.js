@@ -8,16 +8,10 @@ import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
 import commonLocales from '@openagenda/common-labels';
-import { modalLocales } from '@openagenda/react-share-menus';
 import eventsReducer from '../reducers/events.js';
 import * as appLocales from '../locales-compiled/index.js';
 
-const locales = mergeLocales(
-  appLocales,
-  reactFiltersLocales,
-  modalLocales,
-  commonLocales,
-);
+const locales = mergeLocales(appLocales, reactFiltersLocales, commonLocales);
 
 function App({ route }) {
   // const parentQueryClient = useQueryClient();

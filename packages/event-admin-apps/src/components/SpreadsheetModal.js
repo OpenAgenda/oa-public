@@ -3,8 +3,8 @@ import { useIntl } from 'react-intl';
 import qs from 'qs';
 import axios from 'axios';
 import { Modal } from '@openagenda/react-shared';
-import { SpreadsheetOptions } from '@openagenda/react-share-menus';
 import exportsMessages from '../messages/exports.js';
+import SpreadsheetOptions from './SpreadsheetOptions.js';
 
 export default function SpreadsheetModal({
   onClose,

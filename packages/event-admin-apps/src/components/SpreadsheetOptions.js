@@ -1,7 +1,50 @@
 import { useState, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
-import Radio from '../Radio.js';
+const messages = defineMessages({
+  inputField: {
+    id: 'EventAdminApp.SpreadsheetOptions.input-field',
+    defaultMessage: 'Select the fields to export',
+  },
+  allLanguages: {
+    id: 'EventAdminApp.SpreadsheetOptions.all-languages',
+    defaultMessage: 'Export in all languages',
+  },
+  allFields: {
+    id: 'EventAdminApp.SpreadsheetOptions.all-fields',
+    defaultMessage: 'Export every field',
+  },
+  selectAll: {
+    id: 'EventAdminApp.SpreadsheetOptions.select-all',
+    defaultMessage: 'Select all',
+  },
+  distributeOptions: {
+    id: 'EventAdminApp.SpreadsheetOptions.distribute-fields',
+    defaultMessage: 'Fields with options: display one value per column',
+  },
+});
+
+const Radio = ({ id, content, name, setChoice, defaultChecked = false }) => {
+  const handleChange = (e) => {
+    setChoice(e.target.value, e.target.id);
+  };
+
+  return (
+    <div className="radio" onChange={handleChange}>
+      <label htmlFor={id}>
+        <input
+          className=""
+          type="radio"
+          name={name}
+          id={id}
+          value={content}
+          defaultChecked={defaultChecked}
+        />
+        {content}
+      </label>
+    </div>
+  );
+};
 
 const SpreadsheetOptions = ({ languages, setChoice, fields, options }) => {
   const [displayLanguages, setDisplayLanguages] = useState(false);
@@ -12,28 +55,6 @@ const SpreadsheetOptions = ({ languages, setChoice, fields, options }) => {
   const [distributedFields, setDistributedFields] = useState([]);
 
   const intl = useIntl();
-  const messages = defineMessages({
-    inputField: {
-      id: 'input-field',
-      defaultMessage: 'Select the fields to export',
-    },
-    allLanguages: {
-      id: 'all-languages',
-      defaultMessage: 'Export in all languages',
-    },
-    allFields: {
-      id: 'all-fields',
-      defaultMessage: 'Export every field',
-    },
-    selectAll: {
-      id: 'select-all',
-      defaultMessage: 'Select all',
-    },
-    distributeOptions: {
-      id: 'distribute-fields',
-      defaultMessage: 'Fields with options: display one value per column',
-    },
-  });
 
   useEffect(() => {
     if (fields.length > 0) {
