@@ -79,7 +79,7 @@ export default function StrapiPage({ page, footer }) {
       />
       {displayLoggedUserWelcome ? (
         <LoggedUserWelcome
-          top={16}
+          top={!!navSticky ? 16 : 4}
           user={user}
           onClose={onCloseLoggedUserWelcome}
         />

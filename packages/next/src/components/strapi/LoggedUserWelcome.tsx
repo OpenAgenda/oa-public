@@ -35,6 +35,7 @@ export function LoggedUserWelcome({ top = 0, user, onClose = null }) {
       px={0}
       position="sticky"
       top={top}
+      mt={4}
       animation="slide-from-top 0.5s ease-out, fade-in 0.5s ease-in"
       height={0}
       zIndex="docked"
