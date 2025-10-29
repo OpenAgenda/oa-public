@@ -182,8 +182,9 @@ function EventShow({ preload }: EventShowProps) {
           as="nav"
           aria-label={intl.formatMessage(messages.eventNavigation)}
           display={{ base: 'flex', xl: 'none' }}
-          justify="space-around"
-          mt="8"
+          justify="space-between"
+          mt={{ base: 4, md: 8 }}
+          px={{ base: 2 }}
         >
           <NavigateButton direction="previous" />
           <NavigateButton direction="next" />
@@ -193,7 +194,7 @@ function EventShow({ preload }: EventShowProps) {
           as="nav"
           aria-label={intl.formatMessage(messages.eventNavigation)}
           justify="center"
-          mx="8"
+          mx={{ base: 0, md: 8 }}
         >
           <Box
             order="1"
@@ -238,7 +239,7 @@ function EventShow({ preload }: EventShowProps) {
             templateRows="auto minmax(0, 1fr)"
             rowGap="8"
             columnGap="10"
-            mt="8"
+            mt={{ base: 0, md: 8 }}
             maxW="7xl"
           >
             <GridItem area="left" display={{ base: 'none', lg: 'block' }}>
@@ -281,7 +282,7 @@ function EventShow({ preload }: EventShowProps) {
                         direction="column"
                         gap="4"
                         position="relative"
-                        p="8"
+                        p={{ base: 4, md: 8 }}
                         bg="white"
                         // border="1px solid"
                         // borderColor="oaGray.100"
@@ -336,7 +337,7 @@ function EventShow({ preload }: EventShowProps) {
                         />
 
                         {event.image || event.imageCredits ? (
-                          <chakra.div mx="-8">
+                          <chakra.div mx={{ base: '-2', md: '-8' }}>
                             <EventImage
                               event={event}
                               // >= 1095 : 659px
@@ -382,7 +383,7 @@ function EventShow({ preload }: EventShowProps) {
                 direction="column"
                 gap="4"
                 position="relative"
-                p="8"
+                p={{ base: 4, md: 8 }}
                 bg="white"
                 borderRadius="sm"
               >
@@ -394,7 +395,7 @@ function EventShow({ preload }: EventShowProps) {
                   direction="column"
                   gap="4"
                   position="relative"
-                  p="8"
+                  p={{ base: 4, md: 8 }}
                   bg="white"
                   borderRadius="sm"
                 >

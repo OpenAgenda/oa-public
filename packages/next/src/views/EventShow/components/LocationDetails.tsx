@@ -65,14 +65,14 @@ export default function LocationDetails({
   }, [externalActions]);
   return (
     <div>
-      <Heading as="h2" fontSize="2xl" mb="4">
+      <Heading as="h2" fontSize="2xl" mb="4" mx={{ base: 2, md: 0 }}>
         {intl.formatMessage(messages.aboutLocation)}
       </Heading>
       <Flex
         direction="column"
         gap="4"
         position="relative"
-        p="8"
+        p={{ base: 4, md: 8 }}
         bg="white"
         borderRadius="sm"
       >
