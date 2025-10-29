@@ -28,7 +28,9 @@ export default function SummarySection({ agendaUid }) {
             id="AgendaStats.SummarySection.loading"
             defaultMessage="Summary section loading"
           />
-          <Spinner mode="inline" />
+          <span className="margin-left-xs">
+            <Spinner mode="inline" />
+          </span>
         </div>
       </div>
     );
