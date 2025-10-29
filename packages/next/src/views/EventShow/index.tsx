@@ -167,11 +167,12 @@ function EventShow({ preload }: EventShowProps) {
         </Box>
       ) : null}
       <Box as="main">
-        <Box as="header" w="full" bg="#413a42" px="4" py="8">
+        <Box as="header" w="full" bg="#413a42" px={{ md: 4 }}>
           <Container
             maxW="5xl"
             color="white"
             textAlign={{ base: 'center', md: 'start' }}
+            px={0}
           >
             <AgendaHeader />
           </Container>

@@ -18,7 +18,7 @@ export default {
 
 export const BasicHeader = () => (
   <AgendaProvider agenda={agendaWithoutNetwork}>
-    <Box as="header" w="full" bg="#413a42" px="4" py="8">
+    <Box as="header" w="full" bg="#413a42">
       <Container maxW="container.xl" color="white">
         <AgendaHeader />
       </Container>
@@ -28,7 +28,7 @@ export const BasicHeader = () => (
 
 export const HeaderWithNetwork = () => (
   <AgendaProvider agenda={agendaWithNetwork}>
-    <Box as="header" w="full" bg="#413a42" px="4" py="8">
+    <Box as="header" w="full" bg="#413a42">
       <Container maxW="container.xl" color="white">
         <AgendaHeader />
       </Container>
