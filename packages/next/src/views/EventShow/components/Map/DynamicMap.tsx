@@ -8,8 +8,8 @@ import { chakra, theme } from '@openagenda/uikit';
 import markerIconImg from '../../../../../public/images/markerIcon.png';
 import '@openagenda/leaflet-gesture-handling';
 
-// import 'leaflet/dist/leaflet.css';
-// import '@openagenda/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
+import 'leaflet/dist/leaflet.css';
+import '@openagenda/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
 
 const { isValidProperty } = theme;
 

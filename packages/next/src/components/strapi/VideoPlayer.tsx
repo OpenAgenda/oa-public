@@ -21,8 +21,8 @@ import {
 import useMatomoVideoTracker from 'hooks/useMatomoVideoTracker';
 import getVideoTranslations from './getVideoTranslations';
 
-// import '@vidstack/react/player/styles/default/theme.css';
-// import '@vidstack/react/player/styles/default/layouts/video.css';
+import '@vidstack/react/player/styles/default/theme.css';
+import '@vidstack/react/player/styles/default/layouts/video.css';
 import styles from './VideoPlayer.module.scss';
 
 const StyledMediaPlayer = chakra(MediaPlayer);
