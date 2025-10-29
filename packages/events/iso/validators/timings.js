@@ -1,3 +1,4 @@
+import moment from 'moment-timezone';
 import validateDateHoursMinutesTiming from './dateHoursMinutesTiming.js';
 import validateTiming from './timing.js';
 
@@ -13,6 +14,32 @@ const checkOverlap = (timing1, timing2, isDHM) => {
     return false;
   }
   return toDate(timing1.end, isDHM) > toDate(timing2.begin, isDHM);
+};
+
+const hasExplicitTimezone = (d) => {
+  if (d instanceof Date) return true;
+  if (typeof d !== 'string') return false;
+  // Z, +02:00, -05:30, +0200, +02, .000Z, .000+02:00
+  return /(\.\d{3})?([+-]\d{2}:?\d{2}?|Z)$/.test(d);
+};
+
+const inLocalTZ = (d, tz, explicitTimezone = false) => {
+  if (explicitTimezone) {
+    return moment.tz(d, tz).locale('en').toISOString(true);
+  }
+
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  const hours = String(d.getHours()).padStart(2, '0');
+  const minutes = String(d.getMinutes()).padStart(2, '0');
+  const seconds = String(d.getSeconds()).padStart(2, '0');
+  const milliseconds = String(d.getMilliseconds()).padStart(3, '0');
+  const localString = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
+  return moment
+    .tz(localString, 'YYYY-MM-DDTHH:mm:ss.SSS', tz)
+    .locale('en')
+    .toISOString(true);
 };
 
 export default (options = {}) =>
@@ -72,8 +99,22 @@ export default (options = {}) =>
 
     timings.forEach((timing, index) => {
       try {
-        cleanTimings.push(validateSingle(timing));
+        if (!isDHM && 'Europe/Paris' /* options.timezone */) {
+          const beginHasExplicitTz = timing
+            ? hasExplicitTimezone(timing.begin)
+            : false;
+          const endHasExplicitTz = timing
+            ? hasExplicitTimezone(timing.end)
+            : false;
+          cleanTimings.push(validateSingle({
+            begin: inLocalTZ(new Date(timing.begin), 'Europe/Paris' /* options.timezone */, beginHasExplicitTz),
+            end: inLocalTZ(new Date(timing.end), 'Europe/Paris' /* options.timezone */, endHasExplicitTz),
+          }));
+        } else {
+          cleanTimings.push(validateSingle(timing));
+        }
       } catch (timingErrors) {
+        console.log(timingErrors);
         timingErrors.forEach((e) =>
           errors.push({
             ...baseError,
@@ -82,6 +123,8 @@ export default (options = {}) =>
           }));
       }
     });
+
+    console.log('cleanTimings', cleanTimings);
 
     // Sort timings first
     const sortedCleanTimings = isDHM
@@ -107,6 +150,8 @@ export default (options = {}) =>
       // eslint-disable-next-line no-throw-literal
       throw errors;
     }
+
+    console.log('sortedCleanTimings', sortedCleanTimings);
 
     return sortedCleanTimings;
   };

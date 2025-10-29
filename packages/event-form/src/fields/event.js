@@ -257,6 +257,9 @@ export default ({ labels }) => [
     info: labels?.timingsInfo,
     helpLink:
       'https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/',
+    related: {
+      other: ['timezone'],
+    },
   },
   {
     field: 'registration',
