@@ -2,7 +2,7 @@ module.exports = {
   root: true,
   extends: ['@openagenda/eslint-config/recommended', 'next/core-web-vitals'],
   plugins: ['unicorn'],
-  ignorePatterns: ['/.next', '/public'],
+  ignorePatterns: ['/.next', '/public', '/next-env.d.ts'],
   rules: {
     // "@next/next/no-html-link-for-pages": ["error", "src/pages/"]
     'import/no-extraneous-dependencies': [
