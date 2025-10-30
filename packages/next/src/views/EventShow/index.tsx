@@ -50,6 +50,7 @@ import Footer from './components/Footer';
 import StatusTag from './components/StatusTag';
 import ContributorSection from './components/ContributorSection';
 import NavigateButton from './components/NavigateButton';
+import BottomNavigateButtons from './components/BottomNavigateButtons';
 import EmailConfirmationAlert from './components/EmailConfirmationAlert';
 import LdJson from './components/LdJson';
 import EventImage from './components/EventImage';
@@ -155,6 +156,8 @@ function EventShow({ preload }: EventShowProps) {
   const displayContextBar = isEventContributor || isAdminMod(me?.member);
 
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const isExtraLarge = useBreakpointValue({ base: false, xl: true });
+
   const { canEditEvent = false } = me?.authorizations ?? {};
 
   return (
@@ -181,48 +184,38 @@ function EventShow({ preload }: EventShowProps) {
         <Flex
           as="nav"
           aria-label={intl.formatMessage(messages.eventNavigation)}
-          display={{ base: 'flex', xl: 'none' }}
-          justify="space-between"
-          mt={{ base: 4, md: 8 }}
-          px={{ base: 2 }}
-        >
-          <NavigateButton direction="previous" />
-          <NavigateButton direction="next" />
-        </Flex>
-
-        <Flex
-          as="nav"
-          aria-label={intl.formatMessage(messages.eventNavigation)}
           justify="center"
-          mx={{ base: 0, md: 8 }}
+          mx={{ base: 3, md: 8 }}
         >
-          <Box
-            order="1"
-            top="48"
-            mt="48"
-            mx="auto"
-            pos="sticky"
-            alignSelf="flex-start"
-            minW="10em"
-            textAlign="center"
-            display={{ base: 'none', xl: 'block' }}
-          >
-            <NavigateButton direction="previous" />
-          </Box>
+          {isExtraLarge ? (
+            <Box
+              order="1"
+              top="48"
+              mt="48"
+              mx="auto"
+              pos="sticky"
+              alignSelf="flex-start"
+              minW="10em"
+              textAlign="center"
+            >
+              <NavigateButton direction="previous" />
+            </Box>
+          ) : null}
 
-          <Box
-            order="3"
-            top="48"
-            mt="48"
-            mx="auto"
-            pos="sticky"
-            alignSelf="flex-start"
-            minW="10em"
-            textAlign="center"
-            display={{ base: 'none', xl: 'block' }}
-          >
-            <NavigateButton direction="next" />
-          </Box>
+          {isExtraLarge ? (
+            <Box
+              order="3"
+              top="48"
+              mt="48"
+              mx="auto"
+              pos="sticky"
+              alignSelf="flex-start"
+              minW="10em"
+              textAlign="center"
+            >
+              <NavigateButton direction="next" />
+            </Box>
+          ) : null}
 
           <Grid
             order="2"
@@ -262,6 +255,7 @@ function EventShow({ preload }: EventShowProps) {
               display="flex"
               flexDirection="column"
               gap="12"
+              mt={isExtraLarge ? 0 : 6}
             >
               <div>
                 <Tabs.Root
@@ -488,6 +482,12 @@ function EventShow({ preload }: EventShowProps) {
       ) : null}
 
       <LdJson />
+
+      {!isExtraLarge ? (
+        <Box pos="sticky" bottom="0" zIndex="sticky">
+          <BottomNavigateButtons intl={intl} messages={messages} />
+        </Box>
+      ) : null}
     </>
   );
 }

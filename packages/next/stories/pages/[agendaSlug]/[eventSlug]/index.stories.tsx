@@ -7,6 +7,8 @@ import eventFixtures from '../../../fixtures/events/sample.json';
 import agendaFixtures from './fixtures/agenda.fake.json';
 import agendaJEPFixtures from './fixtures/agenda.jep-2023-grand-est.json';
 import eventJEPFixtures from './fixtures/event.jep-2023-grand-est.json';
+import agendaNantesFixtures from './fixtures/agenda.nantes.json';
+import eventNantesFixtures from './fixtures/event.nantes.json';
 
 export default {
   title: 'pages/[agendaSlug]/events/[eventSlug]',
@@ -73,4 +75,56 @@ export const JEP2023 = {
       },
     },
   },
+};
+
+export const WithNavigation = {
+  render: (_args, { loaded: { intlMessages } }) => (
+    <EventShow.Layout>
+      <EventShow
+        intlMessages={intlMessages}
+        agenda={agendaNantesFixtures as Agenda}
+        fallback={{
+          [`/api/agendas/slug/${agendaNantesFixtures.slug}/events/slug/${eventNantesFixtures.slug}?longDescriptionFormat=HTMLWithEmbeds`]:
+            {
+              success: true,
+              event: eventNantesFixtures,
+            },
+        }}
+      />
+    </EventShow.Layout>
+  ),
+  parameters: {
+    nextjs: {
+      router: {
+        pathname: '/[agendaSlug]/events/[eventSlug]',
+        asPath: `${agendaNantesFixtures.slug}/events/${eventNantesFixtures.slug}`,
+        query: {
+          agendaSlug: agendaNantesFixtures.slug,
+          eventSlug: eventNantesFixtures.slug,
+        },
+      },
+    },
+  },
+  decorators: [
+    (Story) => {
+      const originalGetItem = Storage.prototype.getItem;
+
+      Storage.prototype.getItem = function (key) {
+        if (key === 'EventShow:nc') {
+          return JSON.stringify({
+            [`${agendaNantesFixtures.uid}.${eventNantesFixtures.uid}`]: {
+              from: 0,
+              first: false,
+              last: false,
+            },
+          });
+        }
+        return originalGetItem.call(this, key);
+      };
+
+      Storage.prototype.setItem = function () {};
+
+      return <Story />;
+    },
+  ],
 };
