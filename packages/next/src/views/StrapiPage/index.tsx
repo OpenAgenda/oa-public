@@ -79,7 +79,8 @@ export default function StrapiPage({ page, footer }) {
       />
       {displayLoggedUserWelcome ? (
         <LoggedUserWelcome
-          top={!!navSticky ? 16 : 4}
+          compressibleTop={!navSticky && !!navFontColor ? 50 : 0} // px
+          top={!!navSticky ? 12 : 0}
           user={user}
           onClose={onCloseLoggedUserWelcome}
         />

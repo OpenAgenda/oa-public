@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import { useCallback, useLayoutEffect, useState } from 'react';
 import { Box, Container, Flex, Link, CloseButton } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 
@@ -7,8 +7,15 @@ import messages from './messages';
 const STORAGE_WELCOME_KEY = 'oa:hideLoggedWelcomeUntil';
 const KEY_EXPIRY_DELAY = 1000 * 60 * 60 * 48;
 
-export function LoggedUserWelcome({ top = 0, user, onClose = null }) {
+export function LoggedUserWelcome({
+  top = 0,
+  user,
+  onClose = null,
+  compressibleTop = 0,
+}) {
   const intl = useIntl();
+
+  const [windowScroll, setWindowScroll] = useState(0);
 
   // Extract first name from fullName
   const firstName =
@@ -29,13 +36,27 @@ export function LoggedUserWelcome({ top = 0, user, onClose = null }) {
     }
   }, []);
 
+  useLayoutEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    const handleScroll = () => {
+      setWindowScroll(window.scrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const topMargin = Math.max(compressibleTop - windowScroll, 0);
+
   return (
     <Container
       maxW="7xl"
       px={0}
       position="sticky"
-      top={top}
-      mt={4}
+      top={compressibleTop ? `${topMargin}px` : top}
       animation="slide-from-top 0.5s ease-out, fade-in 0.5s ease-in"
       height={0}
       zIndex="docked"
@@ -48,6 +69,8 @@ export function LoggedUserWelcome({ top = 0, user, onClose = null }) {
         px={6}
         borderRadius={8}
         justifyContent="space-between"
+        position="relative"
+        top={4}
       >
         <Flex direction="column">
           <Box fontWeight="bold">
