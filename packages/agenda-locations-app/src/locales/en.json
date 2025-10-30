@@ -136,7 +136,7 @@
   "AgendaLocations.LocationForm.saving": "Saving",
   "AgendaLocations.LocationForm.siret": "SIRET",
   "AgendaLocations.LocationForm.siretInfo": "SIRET number of the main organization hosted by the location",
-  "AgendaLocations.LocationForm.string.invalid": "Invalid string",
+  "AgendaLocations.LocationForm.string.invalidHasEmojis": "Emojis are not accepted",
   "AgendaLocations.LocationForm.string.toolong": "String is too long",
   "AgendaLocations.LocationForm.string.tooshort": "String is too short",
   "AgendaLocations.LocationForm.toolong": "String is too long",
