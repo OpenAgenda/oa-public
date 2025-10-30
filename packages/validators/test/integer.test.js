@@ -1,4 +1,4 @@
-const validators = require('../src');
+import validators from '../src';
 
 describe('integer validator', () => {
   it('validates an integer', () => {

@@ -1,4 +1,4 @@
-const multilingual = require('../src/multilingual');
+import multilingual from '../src/multilingual';
 
 describe('multilingual validator', () => {
   describe('non optional', () => {

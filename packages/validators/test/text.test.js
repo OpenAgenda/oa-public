@@ -1,6 +1,4 @@
-'use strict';
-
-const validators = require('../src');
+import validators from '../src';
 
 describe('text validator', () => {
   describe('required', () => {
