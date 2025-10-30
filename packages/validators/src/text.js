@@ -71,7 +71,7 @@ export default config => {
     }
 
     if (clean && params.rejectEmojis && emojiReg.test(clean)) {
-      throw errors(params, value, 'string.invalid', 'emojis are not accepted');
+      throw errors(params, value, 'string.invalidHasEmojis', 'emojis are not accepted');
     }
 
     return clean;
