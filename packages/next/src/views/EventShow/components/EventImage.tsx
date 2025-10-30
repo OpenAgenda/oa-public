@@ -1,3 +1,4 @@
+import { useState, useLayoutEffect, useCallback } from 'react';
 import { Box } from '@openagenda/uikit';
 import { thumborLoader } from 'utils/imageLoader';
 import Image from 'components/Image';
@@ -6,13 +7,36 @@ const DEV_S3_BUCKET = process.env.NEXT_PUBLIC_DEV_S3_BUCKET;
 const S3_BUCKET = process.env.NEXT_PUBLIC_S3_BUCKET;
 
 export default function EventImage({ event, sizes = null }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentImageKey, setCurrentImageKey] = useState(
+    event?.image?.filename || '',
+  );
+
+  useLayoutEffect(() => {
+    if (event?.image?.filename && event.image.filename !== currentImageKey) {
+      setIsLoading(true);
+      setCurrentImageKey(event.image.filename);
+    }
+  }, [event?.image?.filename, currentImageKey]);
+
+  const handleImageLoad = useCallback(() => {
+    setIsLoading(false);
+  }, []);
+
   if (!event.image) {
     return null;
   }
 
   if (event.image?.size?.width && event.image?.size?.height) {
     return (
-      <Box asChild m="auto" w="full">
+      <Box
+        key={event.uid}
+        asChild
+        m="auto"
+        w="full"
+        opacity={isLoading ? 0 : 1}
+        transition="opacity 0.1s ease-in-out"
+      >
         <Image
           src={
             process.env.NODE_ENV === 'development'
@@ -29,7 +53,9 @@ export default function EventImage({ event, sizes = null }) {
           sizes={sizes}
           loader={thumborLoader}
           alt=""
-          priority
+          preload
+          onLoad={handleImageLoad}
+          onError={handleImageLoad}
         />
       </Box>
     );
@@ -37,11 +63,14 @@ export default function EventImage({ event, sizes = null }) {
 
   return (
     <Box
+      key={event.uid}
       asChild
       pos="unset !important"
       w="full !important"
       h="auto !important"
       m="auto"
+      opacity={isLoading ? 0 : 1}
+      transition="opacity 0.1s ease-in-out"
     >
       <Image
         src={
@@ -58,7 +87,9 @@ export default function EventImage({ event, sizes = null }) {
         sizes={sizes}
         loader={thumborLoader}
         alt=""
-        priority
+        preload
+        onLoad={handleImageLoad}
+        onError={handleImageLoad}
       />
     </Box>
   );

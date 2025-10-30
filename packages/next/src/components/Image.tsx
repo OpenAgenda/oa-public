@@ -8,6 +8,8 @@ type ImageWithFallbackProps = NextImageProps & {
 function ImageWithFallback({
   src,
   fallbackSrc,
+  onLoad,
+  onError,
   ref,
   ...rest
 }: ImageWithFallbackProps & React.RefAttributes<HTMLImageElement>) {
@@ -28,10 +30,14 @@ function ImageWithFallback({
           // Broken image
           setImgSrc(fallbackSrc);
         }
+        onLoad?.(e);
       }}
-      onError={() => {
+      onError={(e) => {
         if (fallbackSrc) {
           setImgSrc(fallbackSrc);
+        }
+        if (imgSrc === fallbackSrc) {
+          onError?.(e);
         }
       }}
     />
