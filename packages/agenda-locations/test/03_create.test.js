@@ -391,7 +391,7 @@ describe('agenda-locations - functional - create', () => {
 
         expect(error).toBeDefined();
         expect(error.info.errors[0].field).toBe('name');
-        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].code).toBe('string.invalidHasEmojis');
         expect(error.info.errors[0].message).toBe('emojis are not accepted');
       });
 
@@ -411,7 +411,7 @@ describe('agenda-locations - functional - create', () => {
 
         expect(error).toBeDefined();
         expect(error.info.errors[0].field).toBe('address');
-        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].code).toBe('string.invalidHasEmojis');
         expect(error.info.errors[0].message).toBe('emojis are not accepted');
       });
 
@@ -432,7 +432,7 @@ describe('agenda-locations - functional - create', () => {
 
         expect(error).toBeDefined();
         expect(error.info.errors[0].field).toBe('city');
-        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].code).toBe('string.invalidHasEmojis');
         expect(error.info.errors[0].message).toBe('emojis are not accepted');
       });
 
@@ -456,7 +456,7 @@ describe('agenda-locations - functional - create', () => {
 
         expect(error).toBeDefined();
         expect(error.info.errors[0].field).toBe('imageCredits');
-        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].code).toBe('string.invalidHasEmojis');
         expect(error.info.errors[0].message).toBe('emojis are not accepted');
       });
 
@@ -480,7 +480,7 @@ describe('agenda-locations - functional - create', () => {
 
         expect(error).toBeDefined();
         expect(error.info.errors[0].field).toBe('access');
-        expect(error.info.errors[0].code).toBe('string.invalid');
+        expect(error.info.errors[0].code).toBe('string.invalidHasEmojis');
         expect(error.info.errors[0].message).toBe('emojis are not accepted');
       });
 
