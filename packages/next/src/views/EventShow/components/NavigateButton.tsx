@@ -20,6 +20,21 @@ export type NavigateButtonProps = {
   referrer?: string;
 };
 
+function shouldIgnoreKeyboard(e: KeyboardEvent) {
+  const el = e.target as HTMLElement | null;
+  if (!el) return false;
+
+  if (el.isContentEditable) return true;
+
+  const tag = el.tagName;
+  if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return true;
+
+  const role = el.getAttribute('role');
+  if (role === 'textbox' || role === 'combobox') return true;
+
+  return false;
+}
+
 export function useGoToSiblingEvent({
   direction,
   agenda,
@@ -84,6 +99,12 @@ export function useGoToSiblingEvent({
 export function useNavigateKeyboardShortcut({ direction, goToSiblingEvent }) {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
+      if (shouldIgnoreKeyboard(e)) return;
+
+      if (e.altKey || e.ctrlKey || e.metaKey) {
+        return;
+      }
+
       if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
         e.preventDefault();
 
