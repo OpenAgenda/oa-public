@@ -1,4 +1,4 @@
-const validators = require('../src');
+import validators from '../src';
 
 describe('number validator', () => {
   it('is optional by default', () => {

@@ -136,7 +136,7 @@
   "AgendaLocations.LocationForm.saving": "Sauvegarde",
   "AgendaLocations.LocationForm.siret": "N° SIRET",
   "AgendaLocations.LocationForm.siretInfo": "Saisissez les 14 chiffres du Système d'Identification du Répertoire des Établissements facilitant l’identification de votre lieu dans les bases du ministère de la Culture.",
-  "AgendaLocations.LocationForm.string.invalid": "les emojis ne sont pas acceptés ici",
+  "AgendaLocations.LocationForm.string.invalidHasEmojis": "les emojis ne sont pas acceptés",
   "AgendaLocations.LocationForm.string.toolong": "Trop long",
   "AgendaLocations.LocationForm.string.tooshort": "Trop court",
   "AgendaLocations.LocationForm.toolong": "Trop long",
