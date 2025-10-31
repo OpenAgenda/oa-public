@@ -98,22 +98,52 @@ export default function validateEvent(
     /* draft = false, */
     validateAsDraft = false,
     partial = false,
-    evaluateEvent = true,
     event = null,
     validateWithStoredData = false,
     defaultLang = null,
     optionalSecondaryFields = false,
+    isStrictUnpublish = false,
     paths = null,
     member = null,
     access = 'public',
   } = options;
+
+  const errors = [];
+  const clean = {
+    event: null,
+    custom: null,
+    networkCustom: null,
+    agendaEvent: null,
+  };
+
+  // clean agenda-event data
+  try {
+    log('evaluating agenda-event reference data');
+
+    clean.agendaEvent = validateAgendaEvent(
+      {
+        ...data,
+        ...paths ? { sourcePaths: paths } : {},
+        userUid: member ? member.userUid : data.userUid || data.ownerUid,
+      },
+      { optionalSecondaryFields, partial },
+    );
+  } catch (agendaEventErrors) {
+    agendaEventErrors.forEach((err) =>
+      errors.push(_.set(err, 'step', 'agenda event data validation')));
+  }
+
+  if (isStrictUnpublish && errors.length) {
+    throw new BadRequest({ info: { errors } }, 'data is invalid');
+  } else if (isStrictUnpublish) {
+    return clean;
+  }
 
   const schemaExtensions = {
     network: networkFormSchema,
     agenda: formSchema,
   };
 
-  const errors = [];
   const { draftErrors } = evaluateDraft(event?.draft, data.draft, event?.uid);
 
   draftErrors.forEach((e) => errors.push(e));
@@ -142,15 +172,7 @@ export default function validateEvent(
     access: {
       write: getWriteAccess(member, access),
     },
-    includeEventFields: !!evaluateEvent,
   });
-
-  const clean = {
-    event: null,
-    custom: null,
-    networkCustom: null,
-    agendaEvent: null,
-  };
 
   // clean consolidated schemas data
   try {
@@ -195,23 +217,6 @@ export default function validateEvent(
       errors.push(_.set(err, 'step', 'validation')));
   }
 
-  // clean agenda-event data
-  try {
-    log('evaluating agenda-event reference data');
-
-    clean.agendaEvent = validateAgendaEvent(
-      {
-        ...data,
-        ...paths ? { sourcePaths: paths } : {},
-        userUid: member ? member.userUid : data.userUid || data.ownerUid,
-      },
-      { optionalSecondaryFields, partial },
-    );
-  } catch (agendaEventErrors) {
-    agendaEventErrors.forEach((err) =>
-      errors.push(_.set(err, 'step', 'agenda event data validation')));
-  }
-
   // location uid needs to be evaluated in location object
   // as default location values set to prepare location creation could be set
   if (
@@ -224,12 +229,7 @@ export default function validateEvent(
   }
 
   if (errors.length) {
-    throw new BadRequest(
-      {
-        info: { errors },
-      },
-      'data is invalid',
-    );
+    throw new BadRequest({ info: { errors } }, 'data is invalid');
   }
 
   return clean;

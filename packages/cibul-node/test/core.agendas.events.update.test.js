@@ -494,6 +494,25 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
       expect(event.motive).toBe('¬_¬');
     });
+
+    it('invalid event can be unpublished', async () => {
+      const { state } = await core
+        .agendas(9491431)
+        .events.patch(12993376, { state: 0 }, { access: 'internal' });
+      expect(state).toBe(0);
+    });
+
+    it('invalid event cannot be published', async () => {
+      let error;
+      try {
+        await core
+          .agendas(9491431)
+          .events.patch(12993376, { state: 2 }, { access: 'internal' });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('BadRequest');
+    });
   });
 
   describe('extIds', () => {
@@ -540,7 +559,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
   });
 
-  describe('patch on conditional field', () => {
+  describe('patch', () => {
     test('patch on event title does not remove registration value', async () => {
       const registrationValues = [
         { value: 'https://registration.link.com', type: 'link' },
@@ -564,6 +583,24 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           .events.get(12993375)
           .then(({ registration }) => registration),
       ).toEqual(registrationValues);
+    });
+
+    test('invalid event cannot be patched if fix is not part of patch', async () => {
+      let error;
+      try {
+        await core
+          .agendas(9491431)
+          .events.patch(
+            12993376,
+            { title: { fr: 'Un nouveau titre' } },
+            { access: 'internal' },
+          );
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('BadRequest');
+      const [validationError] = error.info.errors;
+      expect(validationError.message).toBe('at least one timing is required');
     });
   });
 
