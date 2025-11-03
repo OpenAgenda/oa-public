@@ -109,6 +109,19 @@ export default defineMessages({
     id: 'react.components.AgendaExportModal.distributeFields',
     defaultMessage: 'Fields with options: display one value per column',
   },
+  // RSS
+  sort: {
+    id: 'react.components.AgendaExportModal.sort',
+    defaultMessage: 'Sort by',
+  },
+  updatedDate: {
+    id: 'react.components.AgendaExportModal.updatedDate',
+    defaultMessage: 'Updated at',
+  },
+  chronological: {
+    id: 'react.components.AgendaExportModal.chronological',
+    defaultMessage: 'Chronological',
+  },
   // Gcal / Outlook
   instructions: {
     id: 'react.components.AgendaExportModal.instructions',
