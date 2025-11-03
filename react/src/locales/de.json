@@ -1,4 +1,5 @@
 {
+  "react.components.AgendaExportModal.chronological": "Chronologische reihenfolge",
   "react.components.AgendaExportModal.close": "Schließen",
   "react.components.EventShareModal.signIn": "Anmelden"
 }
