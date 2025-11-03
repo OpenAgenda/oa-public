@@ -1,6 +1,7 @@
 {
   "react.components.AgendaExportModal.allFields": "Exporter tous les champs",
   "react.components.AgendaExportModal.cancel": "Annuler",
+  "react.components.AgendaExportModal.chronological": "Ordre chronologique",
   "react.components.AgendaExportModal.close": "Fermer",
   "react.components.AgendaExportModal.copied": "Copié",
   "react.components.AgendaExportModal.copy": "Copier",
