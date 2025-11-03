@@ -3,6 +3,7 @@
   "react.components.AgendaExportModal.allFields": "Exportar todos los campos",
   "react.components.AgendaExportModal.allLanguages": "Exportar en todos los idiomas",
   "react.components.AgendaExportModal.cancel": "Anular",
+  "react.components.AgendaExportModal.chronological": "Orden cronológico",
   "react.components.AgendaExportModal.close": "Cerca",
   "react.components.AgendaExportModal.color": "Color",
   "react.components.AgendaExportModal.copied": "Copiado",
