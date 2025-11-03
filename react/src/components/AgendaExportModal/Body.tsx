@@ -205,7 +205,7 @@ export default function Body({
           <GcalAccordionItem res={res} />
           <OutlookAccordionItem res={res} />
           <IcsAccordionItem handleSubmit={handleSubmit} />
-          <RssAccordionItem handleSubmit={handleSubmit} />
+          <RssAccordionItem dialogRef={dialogRef} res={res} />
           <EmbedAccordionItem dialogRef={dialogRef} res={res} agenda={agenda} />
         </AccordionRoot>
       </Bleed>
