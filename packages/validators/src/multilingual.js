@@ -2,7 +2,19 @@ import text from './text';
 import cleanParams from './lib/params';
 import formatErrors from './lib/errors';
 
+const validateLangCode = text({ max: 2, min: 2, rejectEmojis: true });
+
 const DEFAULT_LANGUAGE = 'en';
+
+const isStringOrArrayOf = (v) => {
+  if (typeof v === 'string') {
+    return true;
+  }
+  if (Array.isArray(v) && typeof v?.[0] === 'string') {
+    return true;
+  }
+  return false;
+}
 
 export default (config = {}) => {
   const params = cleanParams('multilingual', config, {
@@ -19,12 +31,12 @@ export default (config = {}) => {
 
     // if is provided with string, validator distributes value
     // to all languages
-    if ((typeof origin === 'string') && params.languages.length) {
+    if (isStringOrArrayOf(origin) && params.languages.length) {
       Object.assign(value, params.languages.reduce((c, l) => ({
         ...c,
         [l]: origin,
       }), {}));
-    } else if (typeof origin === 'string') {
+    } else if (isStringOrArrayOf(origin)) {
       Object.assign(value, {
         [params.defaultLanguage || DEFAULT_LANGUAGE]: origin,
       });
@@ -54,6 +66,18 @@ export default (config = {}) => {
     }
 
     Object.keys(value).forEach((l) => {
+      try {
+        validateLangCode(l);
+      } catch (langCodeErrors) {
+        langCodeErrors.forEach(e => errors.push({
+          ...e,
+          code: 'lang.invalid',
+          message: 'lang code should be 2 [a-z] characters',
+          ...params.field ? { field: params.field } : undefined,
+        }));
+        return;
+      }
+      
       const langValue = value[l];
       if (params.optional && (langValue === undefined || langValue === null)) {
         return;
