@@ -80,6 +80,7 @@
   "EventAdminApp.messages.attendanceModes.mixed": "Mesclat",
   "EventAdminApp.messages.attendanceModes.offline": "Fòra linha",
   "EventAdminApp.messages.attendanceModes.online": "En linha",
+  "EventAdminApp.messages.exports.PDFDownload": "Descargar",
   "EventAdminApp.messages.exports.cancel": "Anullar",
   "EventAdminApp.messages.exports.export": "Exportar",
   "EventAdminApp.messages.exports.exportDesc": "Exportar {total, plural, =0 {# eveniment} one {# eveniment} other {# eveniments}}",

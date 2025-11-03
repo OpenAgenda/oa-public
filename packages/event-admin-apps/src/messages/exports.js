@@ -50,4 +50,24 @@ export default defineMessages({
     id: 'EventAdminApp.messages.exports.cancel',
     defaultMessage: 'Cancel',
   },
+  PDFHighlightLocationName: {
+    id: 'EventAdminApp.messages.exports.PDFHighlightLocationName',
+    defaultMessage: 'Highlight the location',
+  },
+  PDFSelectPlaceholder: {
+    id: 'EventAdminApp.messages.exports.PDFSelectPlaceholder',
+    defaultMessage: 'Select one or more segment keys',
+  },
+  PDFGeoSections: {
+    id: 'EventAdminApp.messages.exports.PDFGeoSections',
+    defaultMessage: 'Add geographical sections',
+  },
+  PDFDownload: {
+    id: 'EventAdminApp.messages.exports.PDFDownload',
+    defaultMessage: 'Download',
+  },
+  PDFSelectSub: {
+    id: 'EventAdminApp.messages.exports.PDFSelectSub',
+    defaultMessage: 'Drag and drop options to adjust order',
+  },
 });

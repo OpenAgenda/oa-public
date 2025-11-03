@@ -8,6 +8,7 @@ export default function ExportsDropdown({
   queryString,
   toggleDocxModal,
   toggleSpreadsheetModal,
+  togglePdfModal,
   className,
   disabled,
   children,
@@ -50,13 +51,14 @@ export default function ExportsDropdown({
           </button>
         </li>
         <li key="exports-pdf">
-          <a
-            download="events.v2.pdf"
-            href={`/agendas/${agenda.uid}/admin/events.v2.pdf${queryString}`}
+          <button
+            type="button"
             className="btn btn-link padding-v-xs btn-block"
+            onClick={togglePdfModal}
+            onKeyPress={togglePdfModal}
           >
             {intl.formatMessage(exportsMessages.toPDF)}
-          </a>
+          </button>
         </li>
         <li key="exports-ics">
           <a
