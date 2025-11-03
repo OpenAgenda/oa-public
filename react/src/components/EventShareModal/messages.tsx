@@ -94,4 +94,8 @@ export default defineMessages({
     defaultMessage:
       "I'm testing the PDF export on the event {eventUrl} and I would like to make some suggestions: ...",
   },
+  agendaClosedToContribution: {
+    id: 'react.components.EventShareModal.agendaClosedToContribution',
+    defaultMessage: 'This agenda is closed to contribution',
+  },
 });

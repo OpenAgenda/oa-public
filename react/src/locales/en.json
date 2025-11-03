@@ -43,6 +43,7 @@
   "react.components.AgendaExportModal.spreadsheetTitle": "Spreadsheet (Excel / CSV)",
   "react.components.AgendaExportModal.title": "Export",
   "react.components.AgendaExportModal.viewEmbedDoc": "See all options on the documentation",
+  "react.components.EventShareModal.agendaClosedToContribution": "This agenda is closed to contribution",
   "react.components.EventShareModal.byEmailSub": "The event will not be sent to more than 50 recipients",
   "react.components.EventShareModal.copied": "Copied",
   "react.components.EventShareModal.copy": "Copy",
