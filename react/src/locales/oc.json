@@ -1,6 +1,7 @@
 {
   "react.components.AgendaExportModal.PDFDownload": "Descargar",
   "react.components.AgendaExportModal.cancel": "Anullar",
+  "react.components.AgendaExportModal.chronological": "Òrdre cronologic",
   "react.components.AgendaExportModal.close": "Tampar",
   "react.components.AgendaExportModal.copied": "Copiat",
   "react.components.AgendaExportModal.copy": "Copiar",
