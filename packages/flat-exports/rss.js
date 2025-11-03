@@ -27,6 +27,7 @@ export default (head) => {
   };
 
   if (head.genUrl) eventOptions.genUrl = head.genUrl;
+  if (head.dateField) eventOptions.dateField = head.dateField;
 
   return {
     addEvent: (event) => feed.item(formatEvent(event, eventOptions)),

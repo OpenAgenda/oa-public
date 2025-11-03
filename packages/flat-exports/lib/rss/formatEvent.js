@@ -24,49 +24,51 @@ const validateOptions = schema({
     type: 'pass',
     default: (data) => `https://openagenda.com/events/${data.uid}`,
   },
+  dateField: {
+    type: 'text',
+    default: 'updatedAt',
+  },
 });
 
 export default (event, options = {}) => {
   const cleanOptions = validateOptions(options);
   const lang = pickLanguage(event, cleanOptions.lang);
 
-  return _.extend(
-    {
-      title: _.get(event, `title.${lang}`, ''),
-      description: formatDescription(
-        _.get(event.description, lang, ''),
-        _.get(event.dateRange, lang, event.dateRange.fr),
-        _.get(event.longDescription, lang, ''),
-      ),
-      url: cleanOptions.genUrl(event),
-      guid: [_.get(event, 'agenda.uid', null), event.uid]
-        .filter((v) => !!v)
-        .join('/'),
-      date: event.updatedAt,
-      lat: _.get(event, 'location.latitude', null),
-      long: _.get(event, 'location.longitude', null),
-      custom_elements: [
-        {
-          'ev:startdate': moment
-            .tz(_.first(event.timings).begin, event.timezone)
-            .format('YYYY-MM-DDTHH:mm:ss'),
-        },
-        {
-          'ev:enddate': moment
-            .tz(_.last(event.timings).end, event.timezone)
-            .format('YYYY-MM-DDTHH:mm:ss'),
-        },
-        {
-          'ev:location': [
-            _.get(event, 'location.name'),
-            _.get(event, 'location.address'),
-          ]
-            .filter((v) => v)
-            .join(' - '),
-        },
-      ],
-    },
-    event.image
+  return {
+    title: _.get(event, `title.${lang}`, ''),
+    description: formatDescription(
+      _.get(event.description, lang, ''),
+      _.get(event.dateRange, lang, event.dateRange.fr),
+      _.get(event.longDescription, lang, ''),
+    ),
+    url: cleanOptions.genUrl(event),
+    guid: [_.get(event, 'agenda.uid', null), event.uid]
+      .filter((v) => !!v)
+      .join('/'),
+    date: _.get(event, cleanOptions.dateField, event.updatedAt),
+    lat: _.get(event, 'location.latitude', null),
+    long: _.get(event, 'location.longitude', null),
+    custom_elements: [
+      {
+        'ev:startdate': moment
+          .tz(_.first(event.timings).begin, event.timezone)
+          .format('YYYY-MM-DDTHH:mm:ss'),
+      },
+      {
+        'ev:enddate': moment
+          .tz(_.last(event.timings).end, event.timezone)
+          .format('YYYY-MM-DDTHH:mm:ss'),
+      },
+      {
+        'ev:location': [
+          _.get(event, 'location.name'),
+          _.get(event, 'location.address'),
+        ]
+          .filter((v) => v)
+          .join(' - '),
+      },
+    ],
+    ...event.image
       ? {
         enclosure: {
           url: (event.image.base + event.image.filename).replace(
@@ -77,5 +79,5 @@ export default (event, options = {}) => {
         },
       }
       : {},
-  );
+  };
 };
