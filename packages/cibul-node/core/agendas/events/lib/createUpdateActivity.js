@@ -52,6 +52,14 @@ export default async function createActivity(services, before, after, context) {
     return log('error', new VError(e, 'Error to get user %s', context.userUid));
   }
 
+  // Clear location fields except uid
+  if (before.location && typeof before.location === 'object') {
+    before.location = { uid: before.location.uid };
+  }
+  if (after.location && typeof after.location === 'object') {
+    after.location = { uid: after.location.uid };
+  }
+
   const changes = diff(before, after);
 
   const allChangedFields = (changes ?? [])
