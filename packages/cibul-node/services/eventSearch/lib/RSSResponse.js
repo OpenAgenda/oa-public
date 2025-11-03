@@ -1,5 +1,17 @@
 import { rss } from '@openagenda/flat-exports';
 
+function getDateField(sort) {
+  if (sort === 'updatedAt.desc' || sort === 'updatedAt.asc') {
+    return 'updatedAt';
+  }
+
+  if (sort === 'lastTimingWithFeatured.asc') {
+    return 'nextTiming.begin';
+  }
+
+  return 'updatedAt';
+}
+
 export default (core) => async (req, res, next) => {
   const {
     root,
@@ -30,6 +42,7 @@ export default (core) => async (req, res, next) => {
       imageURL: agenda.image ? `${mainBucketPath}${agenda.image}` : null,
       language: req.lang,
       pubDate: agenda.updatedAt,
+      dateField: getDateField(query.sort),
     };
 
     if (query.embed_url) {
