@@ -3,19 +3,6 @@ import compileForValidation from '../lib/compileForValidation.js';
 
 describe('validate', () => {
   describe('miscellaneous', () => {
-    it('title can be specified in one language', async () => {
-      let titleErrors;
-      try {
-        await validate({
-          title: 'A title',
-        });
-      } catch (error) {
-        titleErrors = error.detail.filter((e) => e.field === 'title');
-      }
-
-      expect(titleErrors.length).toBe(0);
-    });
-
     it('location needs to be specified if attendanceMode is offline', async () => {
       let error;
       try {
@@ -300,6 +287,36 @@ describe('validate', () => {
         },
         'someotherlink.com',
       ]);
+    });
+  });
+
+  describe('languages', () => {
+    it('title can be specified in one language', async () => {
+      let titleErrors;
+      try {
+        await validate({
+          title: 'A title',
+        });
+      } catch (error) {
+        titleErrors = error.detail.filter((e) => e.field === 'title');
+      }
+
+      expect(titleErrors.length).toBe(0);
+    });
+
+    it('language codes need to be two alphanumerical characters', async () => {
+      let error;
+      try {
+        await validate(
+          {
+            title: { '"fr"': 'Un code langue mal formaté' },
+          },
+          { isDraft: true },
+        );
+      } catch (e) {
+        error = e;
+      }
+      expect(error.detail[0].code).toEqual('lang.invalid');
     });
   });
 

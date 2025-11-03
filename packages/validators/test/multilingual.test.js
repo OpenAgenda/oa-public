@@ -97,6 +97,14 @@ describe('multilingual validator', () => {
       });
     });
 
+    it('default preset language is "en" for some reason', () => {
+      const validateWithDefaultLang = multilingual();
+
+      const result = validateWithDefaultLang('There');
+
+      expect(result).toEqual({ en: 'There' });
+    });
+
     it('if a string is given, it is associated to the set default language', () => {
       const clean = validateWithDefaultLang('Un super validateur');
 
@@ -160,6 +168,7 @@ describe('multilingual validator', () => {
   });
 
   describe('other', () => {
+
     it('list option to true makes validator treat each language as a list of strings', () => {
       const validate = multilingual({
         list: true,
@@ -178,6 +187,16 @@ describe('multilingual validator', () => {
       });
     });
 
+    it('list something something with the default value', () => {
+      const validate = multilingual({
+        list: true,
+      });
+
+      const clean = validate(['un', 'deux', 'trois']);
+
+      expect(clean).toEqual({ en: ['un', 'deux', 'trois'] });
+    });
+
     it('default value can be null', () => {
       const validate = multilingual({
         default: null,
@@ -192,6 +211,26 @@ describe('multilingual validator', () => {
       const clean = validate({ FR: 'Vous aimez? C\'est français.' });
 
       expect(Object.keys(clean)[0]).toBe('fr');
+    });
+
+    it('malformed language codes throw a validation error', () => {
+      const validate = multilingual();
+
+      let error;
+      try {
+        validate({
+          '"fr"': 'Ceci n\'est pas une langue',
+        });
+      } catch (e) {
+        error = e?.[0];
+      }
+
+      expect(error).toEqual({
+        origin: '"fr"',
+        code: 'lang.invalid',
+        message: 'lang code should be 2 [a-z] characters',
+        values: { min: 2, max: 2 }
+      });
     });
 
     it('corresponding default language value is used when available', () => {

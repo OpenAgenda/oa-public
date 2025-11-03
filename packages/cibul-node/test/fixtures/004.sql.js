@@ -257,6 +257,7 @@ raw.push(
       updated_at: new Date('2019-05-06T10:00:00'),
     },
     load('events/des-oeuvres-et-vous.json'),
+    load('events/incomplete.json'),
   ]),
 );
 
@@ -343,6 +344,7 @@ raw.push(
       updated_at: new Date('2024-08-07T10:00:00'),
     },
     load('events/des-oeuvres-et-vous.ae.json'),
+    load('events/incomplete.ae.json'),
   ]),
 );
 

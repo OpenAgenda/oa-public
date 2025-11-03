@@ -18,6 +18,7 @@ export type NavigateButtonProps = {
   prefilter?: Record<string, any>;
   filters?: any;
   referrer?: string;
+  overlapping?: boolean;
 };
 
 function shouldIgnoreKeyboard(e: KeyboardEvent) {
@@ -125,7 +126,10 @@ export function useNavigateKeyboardShortcut({ direction, goToSiblingEvent }) {
   }, [direction, goToSiblingEvent]);
 }
 
-export default function NavigateButton({ direction }: NavigateButtonProps) {
+export default function NavigateButton({
+  direction,
+  overlapping = false,
+}: NavigateButtonProps) {
   const intl = useIntl();
   const query = useLocationQuery() as any;
   const agenda = useAgenda();
@@ -160,13 +164,14 @@ export default function NavigateButton({ direction }: NavigateButtonProps) {
       )}
       size="2xl"
       fontSize="2xl"
-      border="2px solid"
-      color="fg"
+      border={overlapping ? '0px' : '2px solid'}
+      color={overlapping ? 'bg' : 'fg'}
       borderColor="fg"
-      bg="transparent"
+      bg={overlapping ? 'primary.500' : 'transparent'}
       _hover={{
-        color: 'primary.500',
+        color: overlapping ? 'oaGray.100' : 'primary.500',
         borderColor: 'primary.500',
+        bg: overlapping ? 'primary.600' : 'transparent',
       }}
       onClick={goToSiblingEvent}
       visibility={isVisible ? 'visible' : 'hidden'}

@@ -46,6 +46,14 @@ function isDifferent(a, b) {
   return !!diff(_.omit(a, ignoredFields), _.omit(b, ignoredFields));
 }
 
+function isStrictUnpublish(data) {
+  if (Object.keys(data)?.length !== 1) return false;
+  if ([undefined, 2].includes(data.state)) {
+    return false;
+  }
+  return true;
+}
+
 export default Object.assign(
   async function cleanEvent(services, agenda, data, options = {}) {
     const { agendaEvents, registrations } = services;
@@ -95,10 +103,13 @@ export default Object.assign(
         validateAgendaEvent: agendaEvents.validate,
       },
       pre,
-      options,
+      {
+        ...options,
+        isStrictUnpublish: isStrictUnpublish(data),
+      },
     );
 
-    const passCulturePayload = clean.event.registration?.find(
+    const passCulturePayload = clean.event?.registration?.find(
       ({ service }) => service === 'passCulture',
     )?.data;
 
