@@ -860,6 +860,34 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       ]);
     });
 
+    it('create with invalid language code provoques validation error on languages', async () => {
+      let error;
+      try {
+        await core.agendas(17026855).events.create(
+          {
+            ...validData,
+            title: {
+              '"fr"': 'Malformed language code',
+            },
+            description: {
+              '"fr"': 'Malformed language code',
+            },
+          },
+          options,
+        );
+      } catch (e) {
+        error = e;
+      }
+      expect(error.info.errors[0]).toEqual({
+        origin: '"fr"',
+        code: 'lang.invalid',
+        message: 'lang code should be 2 [a-z] characters',
+        values: { min: 2, max: 2 },
+        field: 'title',
+        step: 'validation',
+      });
+    });
+
     it('create without specified location returns validation error', async () => {
       let error;
       try {
