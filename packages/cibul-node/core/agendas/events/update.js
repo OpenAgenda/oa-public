@@ -112,8 +112,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       aggregated,
     });
 
-    console.log(1, clean.event.timings);
-
     const authorizations = await loadAuthorizations(core, 'update', {
       agenda,
       event,
