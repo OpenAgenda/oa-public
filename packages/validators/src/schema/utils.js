@@ -78,7 +78,7 @@ function mapValuesToValidators(fields, values, defaults) {
         ...rootCarry,
         ...(validatorOptions.related[relatedKey] ?? []).reduce((carry, relatedField) => ({
           ...carry,
-          [relatedField]: values[relatedField]
+          [relatedField]: values?.[relatedField]
         }), {}),
       }), {}),
       isEnabled: _isEnabled(valuesWithDefaults, fields, fields[fieldName]),
