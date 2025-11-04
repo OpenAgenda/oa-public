@@ -1,9 +1,9 @@
-const booleanValidator = require('../src/boolean');
-const choiceValidator = require('../src/choice');
-const numberValidator = require('../src/number');
-const integerValidator = require('../src/integer');
-const textValidator = require('../src/text');
-const schema = require('../src/schema');
+import booleanValidator from '../src/boolean';
+import choiceValidator from '../src/choice';
+import numberValidator from '../src/number';
+import integerValidator from '../src/integer';
+import textValidator from '../src/text';
+import schema from '../src/schema';
 
 schema.register({
   boolean: booleanValidator,

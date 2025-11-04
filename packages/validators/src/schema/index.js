@@ -34,7 +34,7 @@ function schema(options) {
 
     flattened.forEach(flat => {
       try {
-        clean[flat.field] = flat.isEnabled ? flat.validator(flat.value) : null;
+        clean[flat.field] = flat.isEnabled ? flat.validator(flat.value, Object.keys(flat.related ?? {}).length ? { related: flat.related } : {}) : null;
       } catch (errs) {
         if (!_.isArray(errs)) throw errs;
 

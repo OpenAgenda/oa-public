@@ -71,7 +71,11 @@ module.exports = function list(...args) {
     throw errors;
   }
 
-  function validate(value, cleanOnly = false) {
+  function validate(value, options = {}) {
+    const {
+      cleanOnly = false,
+    } = typeof options === 'boolean' ? { cleanOnly: options } : options;
+
     const clean = [];
     const errors = [];
 
