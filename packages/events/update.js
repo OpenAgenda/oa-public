@@ -6,8 +6,8 @@ import generateFileKey from './lib/generateFileKey.js';
 import validate from './lib/validate.js';
 import processImage from './lib/processImage.js';
 import handleInterface from './lib/handleInterface.js';
-import convertAndInjectTimingsWithTimezone from './utils/convertAndInjectTimingsWithTimezone.js';
 import lastClean from './lib/lastEventClean.js';
+import convertAndInjectTimingsWithTimezone from './utils/convertAndInjectTimingsWithTimezone.js';
 
 const log = logs('update');
 
@@ -49,8 +49,7 @@ async function update({ service, isPatch }, current, data, o = {}) {
   if (clean.timings !== undefined) {
     clean.timings = convertAndInjectTimingsWithTimezone(
       clean.timings,
-      clean.timezone || current.timezone,
-      data.timings,
+      clean.timezone,
     );
   }
 

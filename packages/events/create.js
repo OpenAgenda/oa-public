@@ -7,8 +7,8 @@ import generateSlug from './lib/generateSlug.js';
 import generateFileKey from './lib/generateFileKey.js';
 import processImage from './lib/processImage.js';
 import handleInterface from './lib/handleInterface.js';
-import convertAndInjectTimingsWithTimezone from './utils/convertAndInjectTimingsWithTimezone.js';
 import lastClean from './lib/lastEventClean.js';
+import convertAndInjectTimingsWithTimezone from './utils/convertAndInjectTimingsWithTimezone.js';
 
 const log = logs('create');
 
@@ -47,7 +47,6 @@ export default async (service, data, o = {}) => {
   clean.timings = convertAndInjectTimingsWithTimezone(
     clean.timings,
     clean.timezone,
-    data.timings,
   );
 
   if (userUid) {
