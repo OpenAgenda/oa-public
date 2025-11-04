@@ -131,6 +131,7 @@ export default (field, options = {}) => {
       'optional',
       'optionalWith',
       'enableWith',
+      'related',
       'allowNull',
       'allowFalse',
       'allowURL',
