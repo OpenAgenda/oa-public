@@ -1,6 +1,5 @@
 import Select from 'react-select';
 import { useState, useEffect } from 'react';
-import axios from 'axios';
 import countries from '@openagenda/countries/labels.js';
 import defaultLocationLabels from '@openagenda/labels/event/defaultLocation.js';
 import flattenLabels from '@openagenda/labels/flatten.js';
@@ -30,9 +29,9 @@ const DefaultLocation = ({
 
   useEffect(() => {
     if (value?.uid) {
-      axios
-        .get(field.res.getLocationDetails.replace(':locationUid', value.uid))
-        .then((r) => setLoc(r.data));
+      fetch(field.res.getLocationDetails.replace(':locationUid', value.uid))
+        .then((r) => r.json())
+        .then((data) => setLoc(data));
     }
   }, []);
 
