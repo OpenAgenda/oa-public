@@ -9812,7 +9812,6 @@ __metadata:
     "@openagenda/react-shared": "npm:^2.4.6"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
-    axios: "npm:^1.4.0"
     classnames: "npm:^2.3.1"
     date-fns: "npm:^2.29.3"
     final-form: "npm:^4.20.2"
@@ -10181,7 +10180,6 @@ __metadata:
     "@openagenda/registrations": "npm:^0.0.3"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
-    axios: "npm:^0.21.1"
     classnames: "npm:^2.3.1"
     core-js: "npm:^3.29.1"
     date-fns: "npm:^2.11.1"
@@ -10239,7 +10237,6 @@ __metadata:
     "@openagenda/validators": "npm:^2.4.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
-    axios: "npm:^1.4.0"
     classnames: "npm:^2.3.1"
     core-js: "npm:^3.29.1"
     date-fns: "npm:^2.11.1"
@@ -10279,7 +10276,6 @@ __metadata:
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.1.0"
-    axios: "npm:^0.21.1"
     debug: "npm:^4.1.1"
     deep-diff: "npm:^1.0.2"
     immer: "npm:^10.0.3"
@@ -10688,7 +10684,6 @@ __metadata:
     "@openagenda/verror": "npm:^3.1.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
-    axios: "npm:^0.21.1"
     debug: "npm:^4.1.1"
     deep-diff: "npm:^1.0.2"
     immer: "npm:^10.0.3"
@@ -26970,7 +26965,6 @@ __metadata:
     "@uppy/companion": "npm:^4.15.1"
     acorn: "npm:^8.12.1"
     acorn-walk: "npm:^8.3.3"
-    axios: "npm:^1.4.0"
     body-parser: "npm:^1.19.0"
     bullmq: "npm:^5.56.1"
     concurrently: "npm:^7.3.0"
@@ -26998,6 +26992,7 @@ __metadata:
     jest: "npm:^29.7.0"
     jsdom: "npm:^23.0.1"
     knex: "npm:^2.4.2"
+    ky: "npm:^1.14.0"
     languages: "npm:^0.1.3"
     lodash: "npm:^4.17.15"
     mjml-core: "npm:^4.13.0"
@@ -40685,6 +40680,13 @@ __metadata:
   version: 1.1.3
   resolution: "ky@npm:1.1.3"
   checksum: 10c0/b198ffdd9294525e641becec20130f941d1cda333fa782da5da68c1f09d9d9adab65f9dffa8de1b62341732142aec2f335555ae4564a922c2dcafd793a2e41cc
+  languageName: node
+  linkType: hard
+
+"ky@npm:^1.14.0":
+  version: 1.14.0
+  resolution: "ky@npm:1.14.0"
+  checksum: 10c0/ae30950feaa863fd95854bc0f528a04a36fa04828c119b098c5a0933a46126ccaee829ec0d6d6fc968faa4d0a23501c3203534d024d60540541d322d9772983d
   languageName: node
   linkType: hard
 
