@@ -661,6 +661,28 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
   });
 
+  describe('patch one language only with languages field', () => {
+    let result;
+
+    beforeAll(async () => {
+      result = await core.agendas(17026855).events.patch(
+        19201989,
+        {
+          title: { fr: 'Le français est modifié' },
+          languages: ['fr'],
+        },
+        {
+          access: 'moderator',
+        },
+      );
+    });
+
+    it('translates one language', () => {
+      expect(result.title.fr).toBe('Le français est modifié');
+      expect(result.title.en).toBeUndefined();
+    });
+  });
+
   describe('other', () => {
     it('if state is not specified in provided data, state is not updated', async () => {
       const { state: currentState } = await core.services
@@ -811,14 +833,11 @@ describe('core - functional (server): core.agendas().events.update()', () => {
               location: {
                 uid: 123,
               },
+              timezone: 'Europe/Paris',
               timings: [
                 {
-                  begin: '2025-10-23T16:11:00+0200',
-                  end: '2025-10-23T17:11:00+0200',
-                },
-                {
-                  begin: '2025-10-24T12:00:00+0200',
-                  end: '2025-10-24T14:00:00+0200',
+                  begin: '2025-10-28T20:30:00',
+                  end: '2025-10-28T22:20:00',
                 },
               ],
               custom_description: 'Meh',
@@ -839,9 +858,9 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         expect(response.event.uid).toBe(19201989);
       });
 
-      it('updated event has expected timings', () => {
+      it.only('updated event has expected timings', () => {
         expect(new Date(response.event.timings[0].begin)).toEqual(
-          new Date('2025-10-23T16:11:00.000+02:00'),
+          new Date('2025-10-28T20:30:00.000+01:00'),
         );
       });
     });

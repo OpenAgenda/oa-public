@@ -5,7 +5,7 @@ export default function withFieldValueMatches(fieldOptions, withKey, values, fie
   const withParams = _.get(fieldOptions, withKey);
 
   const withField = typeof withParams === 'string' ? withParams : withParams.field;
-  const value = values === undefined ? undefined : values[withField];
+  const value = values?.[withField];
 
   const evaluateRefFieldAsTruthy = typeof withParams === 'string';
 
@@ -23,7 +23,6 @@ export default function withFieldValueMatches(fieldOptions, withKey, values, fie
     return !!choice.preClean({
       options: [].concat(withParams.value)
     }, value).length;
-    // return !!choice.preClean(fields[withField], withParams.value).length;
   }
 
   if (value instanceof Array) {

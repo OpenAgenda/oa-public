@@ -15,19 +15,20 @@ const checkOverlap = (timing1, timing2, isDHM) => {
   return toDate(timing1.end, isDHM) > toDate(timing2.begin, isDHM);
 };
 
-export default (options = {}) =>
-  (dirty) => {
+export default (params = {}) =>
+  (dirty, options = {}) => {
+    const { timezone = 'Europe/Paris' } = options?.related ?? {};
     const errors = [];
     const baseError = {
       origin: dirty,
       field: 'timings',
     };
 
-    const timings = options.default && [undefined, null].includes(dirty)
-      ? options.default
+    const timings = params.default && [undefined, null].includes(dirty)
+      ? params.default
       : dirty;
 
-    if (options.optional && !timings) {
+    if (params.optional && !timings) {
       return timings;
     }
 
@@ -53,13 +54,13 @@ export default (options = {}) =>
       ];
     }
 
-    if (options.max && timings.length > options.max) {
+    if (params.max && timings.length > params.max) {
       // eslint-disable-next-line no-throw-literal
       throw [
         {
           ...baseError,
-          code: `timings.max.${options.max}`,
-          message: `maximum authorized number of timings (${options.max}) exceeded: ${timings.length}`,
+          code: `timings.max.${params.max}`,
+          message: `maximum authorized number of timings (${params.max}) exceeded: ${timings.length}`,
         },
       ];
     }
@@ -72,7 +73,11 @@ export default (options = {}) =>
 
     timings.forEach((timing, index) => {
       try {
-        cleanTimings.push(validateSingle(timing));
+        if (!isDHM && timezone) {
+          cleanTimings.push(validateSingle(timing, { timezone }));
+        } else {
+          cleanTimings.push(validateSingle(timing));
+        }
       } catch (timingErrors) {
         timingErrors.forEach((e) =>
           errors.push({
@@ -107,6 +112,5 @@ export default (options = {}) =>
       // eslint-disable-next-line no-throw-literal
       throw errors;
     }
-
     return sortedCleanTimings;
   };

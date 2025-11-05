@@ -30,7 +30,7 @@ describe( 'schema functions ( unit tests )', () => {
 
       expect(flattened.length).toBe(1);
 
-      expect(_.keys( flattened[ 0 ] )).toEqual([ 'field', 'validator', 'value', 'isEnabled' ]);
+      expect(_.keys( flattened[ 0 ] )).toEqual([ 'field', 'validator', 'value', 'related', 'isEnabled' ]);
 
       expect(_.pick( flattened[ 0 ], [ 'field', 'value' ] )).toEqual({
         field: 'title',

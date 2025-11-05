@@ -68,20 +68,31 @@ function asArray(obj) {
 function mergeEventWithPatch(event, patch, { schema, defaultLang }) {
   return schema.fields
     .filter((f) => f.languages)
-    .map((f) => f.field)
-    .filter((field) => event[field] !== undefined || patch[field] !== undefined)
+    .filter(
+      (field) =>
+        event[field.field] !== undefined || patch[field.field] !== undefined,
+    )
     .map((field) => ({
-      field,
+      fieldName: field.field,
+      fieldLanguages: field.languages,
       fieldPatch:
-        typeof patch[field] === 'string'
-          ? { [defaultLang]: patch[field] }
-          : patch[field],
+        typeof patch[field.field] === 'string'
+          ? { [defaultLang]: patch[field.field] }
+          : patch[field.field],
     }))
     .reduce(
-      (carry, { field, fieldPatch }) => ({
-        ...carry,
-        [field]: { ...event[field], ...fieldPatch },
-      }),
+      (carry, { fieldName, fieldLanguages, fieldPatch }) => {
+        const merged = { ...event[fieldName], ...fieldPatch };
+        // Filter to only keep languages specified in the field's languages array
+        const filtered = fieldLanguages
+          ? _.pick(merged, fieldLanguages)
+          : merged;
+
+        return {
+          ...carry,
+          [fieldName]: filtered,
+        };
+      },
       {
         ...event,
         ...patch,

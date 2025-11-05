@@ -216,6 +216,30 @@ describe('validate', () => {
     });
   });
 
+  describe('timings and timezone', () => {
+    test('timings passed as strings takes timezone value into account', async () => {
+      const { timings } = await validate(
+        {
+          timings: [
+            {
+              begin: '2025-11-04T12:00:00',
+              end: '2025-11-04T14:00:00',
+            },
+          ],
+          timezone: 'America/New_York',
+        },
+        { isDraft: true },
+      );
+
+      expect(timings).toEqual([
+        {
+          begin: new Date('2025-11-04T17:00:00.000Z'),
+          end: new Date('2025-11-04T19:00:00.000Z'),
+        },
+      ]);
+    });
+  });
+
   describe('registration', () => {
     it('if registration data is provided as a list of strings, it is converted into a list of { type, value } objects', async () => {
       const { registration } = await validate(

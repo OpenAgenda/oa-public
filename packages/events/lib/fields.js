@@ -261,6 +261,7 @@ export default [
     db: {
       type: 'json',
     },
+    related: { other: ['timezone'] },
   },
   {
     field: 'extIds',
