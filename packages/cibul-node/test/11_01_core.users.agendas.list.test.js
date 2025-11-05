@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -146,10 +146,9 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
 
     describe('successful call', () => {
       beforeAll(async () => {
-        response = await axios({
-          method: 'get',
-          url: `http://localhost:4000/me/agendas?key=${key}`,
-        }).then((r) => r.data);
+        response = await ky
+          .get(`http://localhost:4000/me/agendas?key=${key}`)
+          .json();
       });
 
       it('response includes a success, total, a list of items and an after key', () => {

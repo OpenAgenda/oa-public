@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
@@ -66,19 +66,17 @@ describe('core - functional (server): core.agendas().events.create api authentic
       let response;
 
       beforeAll(async () => {
-        const result = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/requestAccessToken',
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: {
-            code: 'N0ty3poxNSTtdPJHUG6896UseQhM',
-          },
-        }).then(
-          () => {},
-          (e) => e,
-        );
+        const result = await ky
+          .post('http://localhost:4000/requestAccessToken', {
+            json: {
+              code: 'N0ty3poxNSTtdPJHUG6896UseQhM',
+            },
+          })
+          .json()
+          .then(
+            () => {},
+            (e) => e,
+          );
 
         response = result.response;
       });
@@ -87,8 +85,9 @@ describe('core - functional (server): core.agendas().events.create api authentic
         expect(response.status).toBe(401);
       });
 
-      it('message', () => {
-        expect(response.data.message).toBe('Invalid key');
+      it('message', async () => {
+        const errorData = await response.json();
+        expect(errorData.message).toBe('Invalid key');
       });
     });
 
@@ -97,33 +96,31 @@ describe('core - functional (server): core.agendas().events.create api authentic
       let response;
 
       beforeAll(async () => {
-        accessToken = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/requestAccessToken',
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: {
-            code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
-          },
-        }).then((r) => r.data.access_token);
+        const tokenResponse = await ky
+          .post('http://localhost:4000/requestAccessToken', {
+            json: {
+              code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
+            },
+          })
+          .json();
+        accessToken = tokenResponse.access_token;
       });
 
       beforeAll(async () => {
-        response = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/17026855/events',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            /* should not reach validation */
-          },
-        }).then(
-          () => {},
-          (e) => e.response,
-        );
+        response = await ky
+          .post('http://localhost:4000/agendas/17026855/events', {
+            headers: {
+              'access-token': accessToken,
+            },
+            json: {
+              /* should not reach validation */
+            },
+          })
+          .json()
+          .then(
+            () => {},
+            (e) => e.response,
+          );
       });
 
       it('response status is 403', () => {

@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import qs from 'qs';
 import logs from '@openagenda/logs';
 import api from '../api/index.js';
@@ -259,105 +259,98 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
     });
 
     describe('successful create by administrator', () => {
       beforeAll(async () => {
         try {
-          response = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/locations',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'Chez les beaufs de kevin',
-              address: '12 grande rue, Chattancourt',
-              countryCode: 'fr',
-            },
-          });
+          response = await ky
+            .post('http://localhost:4000/agendas/17026855/locations', {
+              headers: {
+                'access-token': accessToken,
+              },
+              json: {
+                name: 'Chez les beaufs de kevin',
+                address: '12 grande rue, Chattancourt',
+                countryCode: 'fr',
+              },
+            })
+            .json();
         } catch (e) {
           // console.log(e.response.data);
         }
       });
 
       it('created location is provided in response', () => {
-        expect(response.data.location.name).toBe('Chez les beaufs de kevin');
+        expect(response.location.name).toBe('Chez les beaufs de kevin');
       });
 
       it('agendaId is not provided in response', () => {
-        expect(response.data.location.agendaId).toBeUndefined();
+        expect(response.location.agendaId).toBeUndefined();
       });
 
       it('has fetched adminLevels', () => {
-        expect(response.data.location.adminLevel1).toBe('Grand Est');
+        expect(response.location.adminLevel1).toBe('Grand Est');
       });
       it('tz', () => {
-        expect(response.data.location.timezone).toBe('Europe/Paris');
+        expect(response.location.timezone).toBe('Europe/Paris');
       });
     });
 
     describe('bad requests', () => {
       it('Wrong route throws 404', async () => {
-        const { errorResponse } = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/17026855/locations',
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: {
-            access_token: accessToken,
-            data: {
-              name: 'Un lieu',
-              address: "15 rue de l'adresse imaginaire, Trifouifoui",
-              countryCode: 'fr',
+        const errorResponse = await ky
+          .post('http://localhost:4000/17026855/locations', {
+            json: {
+              access_token: accessToken,
+              data: {
+                name: 'Un lieu',
+                address: "15 rue de l'adresse imaginaire, Trifouifoui",
+                countryCode: 'fr',
+              },
             },
-          },
-        }).then(
-          (r) => ({
-            response: r,
-          }),
-          (e) => ({
-            errorResponse: e.response,
-          }),
-        );
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
         expect(errorResponse.status).toBe(404);
-        expect(errorResponse.data.info).toBe('Unhandled route');
+        const errorData = await errorResponse.json();
+        expect(errorData.info).toBe('Unhandled route');
       });
 
       it('Double-encoded JSON throws bad request error', async () => {
-        const { errorResponse } = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/17026855/locations',
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: JSON.stringify(
-            JSON.stringify({
-              access_token: accessToken,
-              data: {
-                name: 'Chez les beaufs de kevin',
-                address: '12 grande rue, Chattancourt',
-                countryCode: 'fr',
-              },
-            }),
-          ),
-        }).then(
-          (r) => ({ response: r }),
-          (e) => ({ errorResponse: e.response }),
-        );
+        const errorResponse = await ky
+          .post('http://localhost:4000/agendas/17026855/locations', {
+            body: JSON.stringify(
+              JSON.stringify({
+                access_token: accessToken,
+                data: {
+                  name: 'Chez les beaufs de kevin',
+                  address: '12 grande rue, Chattancourt',
+                  countryCode: 'fr',
+                },
+              }),
+            ),
+            headers: {
+              'content-type': 'application/json',
+            },
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
         expect(errorResponse.status).toBe(400);
       });
     });
@@ -366,98 +359,91 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       let contributorAccessToken;
 
       beforeAll(async () => {
-        contributorAccessToken = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/requestAccessToken',
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: {
-            code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
-          },
-        }).then((r) => r.data.access_token);
+        const contributorTokenResponse = await ky
+          .post('http://localhost:4000/requestAccessToken', {
+            json: {
+              code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
+            },
+          })
+          .json();
+        contributorAccessToken = contributorTokenResponse.access_token;
       });
 
       beforeAll(async () => {
         try {
-          response = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/93399464/locations',
-            headers: {
-              'access-token': contributorAccessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'Marre',
-              address: '4 route de Charny, 55100 Marre',
-              countryCode: 'fr',
-            },
-          });
+          response = await ky
+            .post('http://localhost:4000/agendas/93399464/locations', {
+              headers: {
+                'access-token': contributorAccessToken,
+              },
+              json: {
+                name: 'Marre',
+                address: '4 route de Charny, 55100 Marre',
+                countryCode: 'fr',
+              },
+            })
+            .json();
         } catch (e) {
           // console.log(e.response.data);
         }
       });
 
       it('successful create by contributor', () => {
-        expect(response.status).toBe(200);
+        expect(response).toBeDefined();
       });
     });
 
     describe('unsuccessful create cause unknowed adress', () => {
       let error;
       beforeAll(async () => {
-        try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/locations',
+        error = await ky
+          .post('http://localhost:4000/agendas/17026855/locations', {
             headers: {
               'access-token': accessToken,
-              'content-type': 'application/json',
             },
-            data: {
+            json: {
               name: 'Error on address',
               address: 'Route des Bordes, 82110 LAUZERTE',
               countryCode: 'fr',
             },
-          });
-        } catch (e) {
-          // console.log(e.data.response)
-          error = e;
-        }
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err,
+          );
       });
-      it('test error message', () => {
-        expect(error.response.data.message).toBe(
-          "geocoder didn't find address",
-        );
+      it('test error message', async () => {
+        const errorData = await error.response.json();
+        expect(errorData.message).toBe("geocoder didn't find address");
       });
     });
 
     describe('unsuccessful create cause extId too long', () => {
       let error;
       beforeAll(async () => {
-        try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/locations',
+        error = await ky
+          .post('http://localhost:4000/agendas/17026855/locations', {
             headers: {
               'access-token': accessToken,
-              'content-type': 'application/json',
             },
-            data: {
+            json: {
               name: 'Marre',
               address: '4 route de Charny, 55100 Marre',
               countryCode: 'fr',
               extId:
                 'hggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqdhggdjsfhgiygUEYGFDUQGYZDzhbqhsdbqhsdshqbdsqhgdsjqdhgqhjgdqjhdgsqd',
             },
-          });
-        } catch (e) {
-          // console.log(e.data.response)
-          error = e;
-        }
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err,
+          );
       });
-      it('test error message', () => {
-        expect(error.response.data.message).toBe('data is invalid');
+      it('test error message', async () => {
+        const errorData = await error.response.json();
+        expect(errorData.message).toBe('data is invalid');
       });
     });
 
@@ -486,20 +472,20 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             }),
           );
 
-          response = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/locations',
-            data: form,
-          });
+          response = await ky
+            .post('http://localhost:4000/agendas/17026855/locations', {
+              body: form,
+            })
+            .json();
         } catch (e) {
           log('error', e);
         }
       });
 
       it('image of created location is uploaded', async () => {
-        const uploadedHead = await axios.head(response.data.location.image);
+        const uploadedHead = await ky.head(response.location.image);
         const sinceLastModified = new Date().getTime()
-          - new Date(uploadedHead.headers['last-modified']).getTime();
+          - new Date(uploadedHead.headers.get('last-modified')).getTime();
         expect(sinceLastModified).toBeLessThan(5000);
       });
     });
@@ -521,18 +507,18 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
             }),
           );
 
-          createdLocation = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/locations',
-            data: form,
-          });
+          createdLocation = await ky
+            .post('http://localhost:4000/agendas/17026855/locations', {
+              body: form,
+            })
+            .json();
         } catch (e) {
           // console.log(e);
         }
       });
 
       it('response contains created location', () => {
-        expect(createdLocation.data.location.name).toBe(
+        expect(createdLocation.location.name).toBe(
           'Un lieu sans image mais en enctype form-data',
         );
       });
@@ -543,32 +529,31 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       beforeAll(async () => {
         try {
-          emojiLocation = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/locations',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'Le Café des Arts',
-              description:
-                'Un lieu chaleureux avec de la musique 🎵 et de bons moments 🎉',
-              address: '12 rue de la Paix, Paris',
-              countryCode: 'FR',
-            },
-          });
+          emojiLocation = await ky
+            .post('http://localhost:4000/agendas/17026855/locations', {
+              headers: {
+                'access-token': accessToken,
+              },
+              json: {
+                name: 'Le Café des Arts',
+                description:
+                  'Un lieu chaleureux avec de la musique 🎵 et de bons moments 🎉',
+                address: '12 rue de la Paix, Paris',
+                countryCode: 'FR',
+              },
+            })
+            .json();
         } catch (e) {
           console.log(e);
         }
       });
 
       it('location is created successfully', () => {
-        expect(typeof emojiLocation.data.location.uid).toBe('number');
+        expect(typeof emojiLocation.location.uid).toBe('number');
       });
 
       it('emojis are preserved in description', () => {
-        expect(emojiLocation.data.location.description.en).toBe(
+        expect(emojiLocation.location.description.en).toBe(
           'Un lieu chaleureux avec de la musique 🎵 et de bons moments 🎉',
         );
       });
@@ -578,23 +563,22 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       let error;
 
       beforeAll(async () => {
-        try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/locations',
+        error = await ky
+          .post('http://localhost:4000/agendas/17026855/locations', {
             headers: {
               'access-token': accessToken,
-              'content-type': 'application/json',
             },
-            data: {
+            json: {
               name: 'Le Café ☕️ des Arts',
               address: '12 rue de la Paix, Paris',
               countryCode: 'FR',
             },
-          });
-        } catch (e) {
-          error = e;
-        }
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err,
+          );
       });
 
       it('throws an error', () => {
@@ -602,8 +586,9 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
         expect(error.response.status).toBe(400);
       });
 
-      it('error indicates invalid data', () => {
-        expect(error.response.data.message).toBe('data is invalid');
+      it('error indicates invalid data', async () => {
+        const errorData = await error.response.json();
+        expect(errorData.message).toBe('data is invalid');
       });
     });
 
@@ -612,57 +597,55 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       let updateResp = null;
       beforeAll(async () => {
         try {
-          createResp = await axios({
-            method: 'put',
-            url: 'http://localhost:4000/agendas/17026855/locations/ext/ard44',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'Tournon-sur-Rhône',
-              address: 'Place St Julien, 07300 Tournon-sur-Rhône',
-              adminLevel4: 'Tournon-sur-Rhône',
-              region: 'Auvergne-Rhône-Alpes',
-              department: 'Ardèche',
-              postalCode: '07300',
-              insee: '07324',
-              countryCode: 'FR',
-              latitude: 45.068507,
-              longitude: 4.830648,
-            },
-          });
+          createResp = await ky
+            .put('http://localhost:4000/agendas/17026855/locations/ext/ard44', {
+              headers: {
+                'access-token': accessToken,
+              },
+              json: {
+                name: 'Tournon-sur-Rhône',
+                address: 'Place St Julien, 07300 Tournon-sur-Rhône',
+                adminLevel4: 'Tournon-sur-Rhône',
+                region: 'Auvergne-Rhône-Alpes',
+                department: 'Ardèche',
+                postalCode: '07300',
+                insee: '07324',
+                countryCode: 'FR',
+                latitude: 45.068507,
+                longitude: 4.830648,
+              },
+            })
+            .json();
         } catch (error) {
           // console.log('create error', error);
         }
 
         try {
-          updateResp = await axios({
-            method: 'put',
-            url: 'http://localhost:4000/agendas/17026855/locations/ext/ard44',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'Tournon-sur-Rhône Updated',
-            },
-          });
+          updateResp = await ky
+            .put('http://localhost:4000/agendas/17026855/locations/ext/ard44', {
+              headers: {
+                'access-token': accessToken,
+              },
+              json: {
+                name: 'Tournon-sur-Rhône Updated',
+              },
+            })
+            .json();
         } catch (error) {
           // console.log('update error', error.response.data)
         }
       });
       it('successful create', () => {
-        expect(createResp.data.location.extId).toBe('ard44');
-        expect(createResp.data.location.extIds).toStrictEqual([
+        expect(createResp.location.extId).toBe('ard44');
+        expect(createResp.location.extIds).toStrictEqual([
           { key: 'default', value: 'ard44' },
         ]);
       });
       it('successfull update', () => {
-        expect(updateResp.data.location.uid).toBe(createResp.data.location.uid);
-        expect(updateResp.data.location.name).toBe('Tournon-sur-Rhône Updated');
-        expect(updateResp.data.location.extId).toBe('ard44');
-        expect(updateResp.data.location.extIds).toStrictEqual([
+        expect(updateResp.location.uid).toBe(createResp.location.uid);
+        expect(updateResp.location.name).toBe('Tournon-sur-Rhône Updated');
+        expect(updateResp.location.extId).toBe('ard44');
+        expect(updateResp.location.extIds).toStrictEqual([
           { key: 'default', value: 'ard44' },
         ]);
       });
@@ -671,39 +654,38 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     describe('successful update', () => {
       beforeAll(async () => {
         try {
-          response = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/locations/24505639',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'Tournon-sur-Rhône',
-              address: 'Place St Julien, 07300 Tournon-sur-Rhône',
-              adminLevel4: 'Tournon-sur-Rhône',
-              region: 'Auvergne-Rhône-Alpes',
-              department: 'Ardèche',
-              postalCode: '07300',
-              insee: '07324',
-              extId: 'ard04',
-              countryCode: 'FR',
-              latitude: 45.068507,
-              longitude: 4.830648,
-            },
-          });
+          response = await ky
+            .post('http://localhost:4000/agendas/17026855/locations/24505639', {
+              headers: {
+                'access-token': accessToken,
+              },
+              json: {
+                name: 'Tournon-sur-Rhône',
+                address: 'Place St Julien, 07300 Tournon-sur-Rhône',
+                adminLevel4: 'Tournon-sur-Rhône',
+                region: 'Auvergne-Rhône-Alpes',
+                department: 'Ardèche',
+                postalCode: '07300',
+                insee: '07324',
+                extId: 'ard04',
+                countryCode: 'FR',
+                latitude: 45.068507,
+                longitude: 4.830648,
+              },
+            })
+            .json();
         } catch (e) {
           // console.log(e.response.data);
         }
       });
 
       it('response contains the updated location', () => {
-        expect(response.data.location.name).toBe('Tournon-sur-Rhône');
+        expect(response.location.name).toBe('Tournon-sur-Rhône');
       });
 
       it('extId set in extId and extIds keys', () => {
-        expect(response.data.location.extId).toBe('ard04');
-        expect(response.data.location.extIds).toStrictEqual([
+        expect(response.location.extId).toBe('ard04');
+        expect(response.location.extIds).toStrictEqual([
           { key: 'default', value: 'ard04' },
           { key: 'test', value: 'qs2' },
         ]);
@@ -713,24 +695,26 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     describe('successful patch', () => {
       beforeAll(async () => {
         try {
-          response = await axios({
-            method: 'patch',
-            url: 'http://localhost:4000/agendas/17026855/locations/24505639',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'Tournon-sur-Rhône patché',
-            },
-          });
+          response = await ky
+            .patch(
+              'http://localhost:4000/agendas/17026855/locations/24505639',
+              {
+                headers: {
+                  'access-token': accessToken,
+                },
+                json: {
+                  name: 'Tournon-sur-Rhône patché',
+                },
+              },
+            )
+            .json();
         } catch (e) {
           // console.log(e.response.data);
         }
       });
 
       it('response contains the patched location', () => {
-        expect(response.data.location.name).toBe('Tournon-sur-Rhône patché');
+        expect(response.location.name).toBe('Tournon-sur-Rhône patché');
       });
     });
 
@@ -738,114 +722,106 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       let patchResponse;
       beforeAll(async () => {
         try {
-          patchResponse = await axios({
-            method: 'patch',
-            url: 'http://localhost:4000/agendas/17026855/locations/ext/ard02',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              name: 'patché par extId',
-            },
-          });
+          patchResponse = await ky
+            .patch(
+              'http://localhost:4000/agendas/17026855/locations/ext/ard02',
+              {
+                headers: {
+                  'access-token': accessToken,
+                },
+                json: {
+                  name: 'patché par extId',
+                },
+              },
+            )
+            .json();
         } catch (e) {
           console.log(e.response.data);
         }
       });
 
       it('response code is 200', () => {
-        expect(patchResponse.status).toBe(200);
+        expect(patchResponse).toBeDefined();
       });
 
       it('patched data is in response', () => {
-        expect(patchResponse.data.location.name).toBe('patché par extId');
+        expect(patchResponse.location.name).toBe('patché par extId');
       });
     });
 
     describe('successful get', () => {
       it('location is given using account key', async () => {
-        const getResponse = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-          headers: {
-            'content-type': 'application/json',
-          },
-        });
+        const getResponse = await ky
+          .get(
+            'http://localhost:4000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          )
+          .json();
 
-        const { location } = getResponse.data;
+        const { location } = getResponse;
 
         expect(location.uid).toBe(95455142);
       });
 
       it('location is given using access token', async () => {
-        const getResponse = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations/95455142',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-        });
+        const getResponse = await ky
+          .get('http://localhost:4000/agendas/17026855/locations/95455142', {
+            headers: {
+              'access-token': accessToken,
+            },
+          })
+          .json();
 
-        const { location } = getResponse.data;
+        const { location } = getResponse;
 
         expect(location.uid).toBe(95455142);
       });
 
       it('location chan be fetched using a slug', async () => {
-        const getResponse = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations/slug/cabane-des-eveques?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-          headers: {
-            'content-type': 'application/json',
-          },
-        });
+        const getResponse = await ky
+          .get(
+            'http://localhost:4000/agendas/17026855/locations/slug/cabane-des-eveques?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          )
+          .json();
 
-        const { location } = getResponse.data;
+        const { location } = getResponse;
 
         expect(location.uid).toBe(95455142);
       });
 
       it('location can be fetched using an default extId with value', async () => {
-        const getResponse = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations/ext/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-          headers: {
-            'content-type': 'application/json',
-          },
-        });
+        const getResponse = await ky
+          .get(
+            'http://localhost:4000/agendas/17026855/locations/ext/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          )
+          .json();
 
-        const { location } = getResponse.data;
+        const { location } = getResponse;
 
         expect(location.uid).toBe(42197191);
       });
 
       it('location chan be fetched using an extId whit key and value', async () => {
-        const getResponse = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations/ext/default/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-          headers: {
-            'content-type': 'application/json',
-          },
-        });
+        const getResponse = await ky
+          .get(
+            'http://localhost:4000/agendas/17026855/locations/ext/default/ard02?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          )
+          .json();
 
-        const { location } = getResponse.data;
+        const { location } = getResponse;
 
         expect(location.uid).toBe(42197191);
       });
 
       it('latitude and longitude are numbers not strings', async () => {
-        const getResponse = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations/95455142',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-        });
+        const getResponse = await ky
+          .get('http://localhost:4000/agendas/17026855/locations/95455142', {
+            headers: {
+              'access-token': accessToken,
+            },
+          })
+          .json();
 
-        const { location } = getResponse.data;
+        const { location } = getResponse;
 
         expect(typeof location.latitude).toBe('number');
         expect(typeof location.longitude).toBe('number');
@@ -857,28 +833,22 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       let allResults;
 
       beforeAll(async () => {
-        allResults = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-        }).then((r) => r?.data);
+        allResults = await ky
+          .get('http://localhost:4000/agendas/17026855/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            },
+          })
+          .json();
 
-        result = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            limit: 1,
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-        }).then((r) => r?.data);
+        result = await ky
+          .get('http://localhost:4000/agendas/17026855/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+              limit: 1,
+            },
+          })
+          .json();
       });
 
       it('locations are in locations key of response', () => {
@@ -901,18 +871,15 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('detailed option is useful to retrieve all location info', async () => {
-        const detailedResults = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            limit: 1,
-            detailed: true,
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-        }).then((r) => r?.data);
+        const detailedResults = await ky
+          .get('http://localhost:4000/agendas/17026855/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+              limit: 1,
+              detailed: true,
+            },
+          })
+          .json();
 
         expect(Object.keys(detailedResults.locations[0])).toEqual([
           'uid',
@@ -958,52 +925,43 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('state filter limits result set to requested state', async () => {
-        const { locations: verifiedLocations } = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/99501607/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            limit: 1,
-            state: 1,
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-        }).then((r) => r?.data);
+        const { locations: verifiedLocations } = await ky
+          .get('http://localhost:4000/agendas/99501607/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+              limit: 1,
+              state: 1,
+            },
+          })
+          .json();
 
         expect(verifiedLocations.length).toBe(0);
       });
 
       it('eventCounts option is accessible', async () => {
-        const { locations } = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/99501607/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            limit: 1,
-            eventCounts: 1,
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-        }).then((r) => r?.data);
+        const { locations } = await ky
+          .get('http://localhost:4000/agendas/99501607/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+              limit: 1,
+              eventCounts: 1,
+            },
+          })
+          .json();
 
         expect(locations[0].eventCount).toBe(1);
       });
 
       it('value provided in after key can be used to fetch next location values', async () => {
-        const nextResults = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            limit: 1, // legacy
-            after: result.after,
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-        }).then((r) => r?.data);
+        const nextResults = await ky
+          .get('http://localhost:4000/agendas/17026855/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+              limit: 1, // legacy
+              after: result.after,
+            },
+          })
+          .json();
 
         const locationNames = allResults.locations.map((l) => l.name);
         const nextLocationName = locationNames[locationNames.indexOf(result.locations[0].name) + 1];
@@ -1012,18 +970,15 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('from and size can also be used for navigation', async () => {
-        const nextResults = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            size: 1,
-            from: 2,
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-        }).then((r) => r?.data);
+        const nextResults = await ky
+          .get('http://localhost:4000/agendas/17026855/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+              size: 1,
+              from: 2,
+            },
+          })
+          .json();
 
         const locationNames = allResults.locations.map((l) => l.name);
 
@@ -1032,17 +987,14 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('order by name.asc provides ordered locations and an after key', async () => {
-        const { locations, after } = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            order: 'name.asc',
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-        }).then((r) => r?.data);
+        const { locations, after } = await ky
+          .get('http://localhost:4000/agendas/17026855/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+              order: 'name.asc',
+            },
+          })
+          .json();
 
         expect(locations.map((i) => i.name).join(' - ')).toBe(
           locations
@@ -1055,72 +1007,61 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
 
       it('geo Filter', async () => {
-        const geoResults = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            geo: {
-              northEast: { lat: '48', lng: '5' },
-              southWest: { lat: '44.37', lng: '0.00' },
-            },
+        const geoParams = qs.stringify({
+          key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          geo: {
+            northEast: { lat: '48', lng: '5' },
+            southWest: { lat: '44.37', lng: '0.00' },
           },
-          headers: {
-            'content-type': 'application/json',
-          },
-          paramsSerializer: (params) => qs.stringify(params),
-        }).then((r) => r?.data);
+        });
+        const geoResults = await ky
+          .get(`http://localhost:4000/agendas/17026855/locations?${geoParams}`)
+          .json();
 
-        const noFilterResults = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/17026855/locations',
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-          },
-          headers: {
-            'content-type': 'application/json',
-          },
-          paramsSerializer: (params) => qs.stringify(params),
-        }).then((r) => r?.data);
+        const noFilterResults = await ky
+          .get('http://localhost:4000/agendas/17026855/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+            },
+          })
+          .json();
         expect(geoResults.total).toBeLessThan(noFilterResults.total);
       });
     });
 
     describe('head', () => {
       it('location is given using account key', async () => {
-        const headResponse = await axios({
-          method: 'head',
-          url: 'http://localhost:4000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-          headers: {
-            'content-type': 'application/json',
-          },
-        });
+        const headResponse = await ky.head(
+          'http://localhost:4000/agendas/17026855/locations/95455142?key=egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+        );
 
         expect(headResponse.status).toBe(200);
       });
 
       it('location is given using access token', async () => {
-        const headResponse = await axios({
-          method: 'head',
-          url: 'http://localhost:4000/agendas/17026855/locations/95455142',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
+        const headResponse = await ky.head(
+          'http://localhost:4000/agendas/17026855/locations/95455142',
+          {
+            headers: {
+              'access-token': accessToken,
+            },
           },
-        });
+        );
 
         expect(headResponse.status).toBe(200);
       });
 
       it('no location is found', async () => {
-        const error = await axios({
-          method: 'head',
-          url: 'http://localhost:4000/agendas/17026855/locations/456489786456',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-        }).catch((e) => e);
+        const error = await ky
+          .head(
+            'http://localhost:4000/agendas/17026855/locations/456489786456',
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            },
+          )
+          .catch((e) => e);
 
         expect(error.response.status).toBe(404);
       });
@@ -1131,49 +1072,50 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
 
       beforeAll(async () => {
         try {
-          removeResponse = await axios({
-            method: 'delete',
-            url: 'http://localhost:4000/agendas/17026855/locations/95455142',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-          });
+          removeResponse = await ky
+            .delete(
+              'http://localhost:4000/agendas/17026855/locations/95455142',
+              {
+                headers: {
+                  'access-token': accessToken,
+                },
+              },
+            )
+            .json();
         } catch (e) {
           // console.log(e);
         }
       });
 
       it('response contains the removed location', () => {
-        expect(removeResponse.data.location.uid).toBe(95455142);
+        expect(removeResponse.location.uid).toBe(95455142);
       });
     });
 
     describe('fix create because name is too long', () => {
       let error;
       beforeAll(async () => {
-        try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/locations',
+        error = await ky
+          .post('http://localhost:4000/agendas/17026855/locations', {
             headers: {
               'access-token': accessToken,
-              'content-type': 'application/json',
             },
-            data: {
+            json: {
               name: 'Boulevard de Yougoslavie, Parc des Hautes Ourmes, Jardin Slovène, Square de Galicie, Parc de Landry, square de Sétubal',
               address: '2 Boulevard de Yougoslavie, Rennes, France',
               countryCode: 'fr',
             },
-          });
-        } catch (e) {
-          // console.log(e.response.data);
-          error = e;
-        }
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err,
+          );
       });
-      it('test error message', () => {
-        expect(error.response.data.errors[0].code).toBe('string.toolong');
-        expect(error.response.data.message).toBe('data is invalid');
+      it('test error message', async () => {
+        const errorData = await error.response.json();
+        expect(errorData.errors[0].code).toBe('string.toolong');
+        expect(errorData.message).toBe('data is invalid');
       });
     });
   });

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -140,27 +140,24 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
     });
 
     beforeAll(async () => {
-      response = await axios({
-        method: 'delete',
-        url: 'http://localhost:4000/agendas/17026855/events/90298390',
-        headers: {
-          'content-type': 'application/json',
-          'access-token': accessToken,
-        },
-      }).then((r) => r.data);
+      response = await ky
+        .delete('http://localhost:4000/agendas/17026855/events/90298390', {
+          headers: {
+            'access-token': accessToken,
+          },
+        })
+        .json();
     });
 
     it('response gives success key at true if creation was a success', () => {
@@ -172,44 +169,42 @@ describe('core - functional (server): core agendas() events.remove()', () => {
     });
 
     it('deleting non-existant event returns 404', async () => {
-      const errorResponse = await axios({
-        method: 'delete',
-        url: 'http://localhost:4000/agendas/17026855/events/90298390',
-        headers: {
-          'content-type': 'application/json',
-          'access-token': accessToken,
-        },
-      }).then(
-        () => {},
-        (err) => err.response,
-      );
+      const errorResponse = await ky
+        .delete('http://localhost:4000/agendas/17026855/events/90298390', {
+          headers: {
+            'access-token': accessToken,
+          },
+        })
+        .json()
+        .then(
+          () => {},
+          (err) => err.response,
+        );
 
       expect(errorResponse.status).toBe(404);
     });
 
     it('user with no relevent authorization cannot delete event', async () => {
-      const anotherAccessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
+          },
+        })
+        .json();
+      const anotherAccessToken = tokenResponse.access_token;
 
-      const { error, result } = await axios({
-        method: 'delete',
-        url: 'http://localhost:4000/agendas/17026855/events/789456',
-        headers: {
-          'content-type': 'application/json',
-          'access-token': anotherAccessToken,
-        },
-      }).then(
-        (r) => ({ result: r }),
-        (e) => ({ error: e }),
-      );
+      const { error, result } = await ky
+        .delete('http://localhost:4000/agendas/17026855/events/789456', {
+          headers: {
+            'access-token': anotherAccessToken,
+          },
+        })
+        .json()
+        .then(
+          (r) => ({ result: r }),
+          (e) => ({ error: e }),
+        );
 
       expect(result).toBeUndefined();
       expect(error.response.status).toBe(403);

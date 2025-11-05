@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
 import api from '../api/index.js';
@@ -118,16 +118,14 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: secret,
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: secret,
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
 
       event = await core.agendas(17026855).events.create(
         { ...eventFixtures[2], extIds: [{ key: 'test', value: 'thing' }] },
@@ -141,44 +139,45 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
     });
 
     it('create', async () => {
-      response = await axios({
-        method: 'put',
-        url: 'http://localhost:4000/agendas/17026855/events/ext/test/something',
-        headers: {
-          'access-token': accessToken,
-          'content-type': 'application/json',
-        },
-        data: {
-          state: 0,
-          featured: true,
-          title: {
-            fr: "Un événement mis à jour via l'api",
-            en: 'An updated event through the api',
-          },
-          description: {
-            fr: 'Une description',
-            en: 'A desc',
-          },
-          location: {
-            uid: 123,
-          },
-          timings: [
-            {
-              begin: new Date('2019-05-06T10:00:00'),
-              end: new Date('2019-05-06T11:00:00'),
+      response = await ky
+        .put(
+          'http://localhost:4000/agendas/17026855/events/ext/test/something',
+          {
+            headers: {
+              'access-token': accessToken,
             },
-            {
-              begin: new Date('2019-05-06T12:00:00'),
-              end: new Date('2019-05-06T13:00:00'),
+            json: {
+              state: 0,
+              featured: true,
+              title: {
+                fr: "Un événement mis à jour via l'api",
+                en: 'An updated event through the api',
+              },
+              description: {
+                fr: 'Une description',
+                en: 'A desc',
+              },
+              location: {
+                uid: 123,
+              },
+              timings: [
+                {
+                  begin: new Date('2019-05-06T10:00:00'),
+                  end: new Date('2019-05-06T11:00:00'),
+                },
+                {
+                  begin: new Date('2019-05-06T12:00:00'),
+                  end: new Date('2019-05-06T13:00:00'),
+                },
+              ],
+              custom_description: 'Meh',
+              'categories-agenda-metropolitain': 43,
+              'thematiques-bordeaux-metropole': [3],
+              extIds: [{ key: 'test', value: 'something' }],
             },
-          ],
-          custom_description: 'Meh',
-          'categories-agenda-metropolitain': 43,
-          'thematiques-bordeaux-metropole': [3],
-          extIds: [{ key: 'test', value: 'something' }],
-        },
-      })
-        .then((r) => r.data)
+          },
+        )
+        .json()
         .catch((e) => console.log(e));
 
       expect(response.extIds).toStrictEqual([
@@ -187,44 +186,42 @@ describe('core - functional (server): core.agendas().events.setByExtId()', () =>
     });
 
     it('update', async () => {
-      response = await axios({
-        method: 'put',
-        url: 'http://localhost:4000/agendas/17026855/events/ext/test/thing',
-        headers: {
-          'access-token': accessToken,
-          'content-type': 'application/json',
-        },
-        data: {
-          state: 0,
-          featured: true,
-          title: {
-            fr: "Un événement mis à jour via l'api",
-            en: 'An updated event through the api',
+      response = await ky
+        .put('http://localhost:4000/agendas/17026855/events/ext/test/thing', {
+          headers: {
+            'access-token': accessToken,
           },
-          description: {
-            fr: 'Une description',
-            en: 'A desc',
-          },
-          location: {
-            uid: 123,
-          },
-          timings: [
-            {
-              begin: new Date('2019-05-06T10:00:00'),
-              end: new Date('2019-05-06T11:00:00'),
+          json: {
+            state: 0,
+            featured: true,
+            title: {
+              fr: "Un événement mis à jour via l'api",
+              en: 'An updated event through the api',
             },
-            {
-              begin: new Date('2019-05-06T12:00:00'),
-              end: new Date('2019-05-06T13:00:00'),
+            description: {
+              fr: 'Une description',
+              en: 'A desc',
             },
-          ],
-          custom_description: 'Meh',
-          'categories-agenda-metropolitain': 43,
-          'thematiques-bordeaux-metropole': [3],
-          extIds: [{ key: 'test', value: 'thing' }],
-        },
-      })
-        .then((r) => r.data)
+            location: {
+              uid: 123,
+            },
+            timings: [
+              {
+                begin: new Date('2019-05-06T10:00:00'),
+                end: new Date('2019-05-06T11:00:00'),
+              },
+              {
+                begin: new Date('2019-05-06T12:00:00'),
+                end: new Date('2019-05-06T13:00:00'),
+              },
+            ],
+            custom_description: 'Meh',
+            'categories-agenda-metropolitain': 43,
+            'thematiques-bordeaux-metropole': [3],
+            extIds: [{ key: 'test', value: 'thing' }],
+          },
+        })
+        .json()
         .catch((e) => console.log(e));
       expect(response.uid).toBe(event.uid);
       expect(response.extIds).toStrictEqual([{ key: 'test', value: 'thing' }]);

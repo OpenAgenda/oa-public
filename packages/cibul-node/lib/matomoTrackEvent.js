@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 
 const completeUrl = (url) => {
   if (url.includes('/matomo.php')) return url;
@@ -23,9 +23,9 @@ export default function matomoTrackEvent({
     action_name: `${category}_${action}_${label}`,
   };
 
-  return axios.post(`https://${completedUrl}`, payload, {
+  return ky.post(`https://${completedUrl}`, {
+    body: new URLSearchParams(payload),
     headers: {
-      'Content-Type': 'application/x-www-form-urlencoded',
       Origin: rootPath,
     },
   });

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -64,28 +64,24 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
     beforeAll(async () => {
       server = await api(core, { useRouter: false }).listen(4000);
 
-      adminAccessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const adminTokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
+        })
+        .json();
+      adminAccessToken = adminTokenResponse.access_token;
 
       try {
-        contribAccessToken = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/requestAccessToken',
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: {
-            code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
-          },
-        }).then((r) => r.data.access_token);
+        const contribTokenResponse = await ky
+          .post('http://localhost:4000/requestAccessToken', {
+            json: {
+              code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
+            },
+          })
+          .json();
+        contribAccessToken = contribTokenResponse.access_token;
       } catch (e) {
         // console.log(e.response);
       }
@@ -94,59 +90,64 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
     afterAll(() => server.close());
 
     it('get settings memberSchema for configuration with adminKey', async () => {
-      const res = await axios.get(
-        `http://localhost:4000/agendas/60935574/settings/memberSchema/configure?key=${administratorKey}`,
-        { params: {} },
-      );
-      expect(res.data.parents.length).toBe(1);
-      expect(res.data.schema).toBeTruthy();
+      const res = await ky
+        .get(
+          `http://localhost:4000/agendas/60935574/settings/memberSchema/configure?key=${administratorKey}`,
+        )
+        .json();
+      expect(res.parents.length).toBe(1);
+      expect(res.schema).toBeTruthy();
     });
 
     it('get settings memberSchema for member with andminKey', async () => {
-      const res = await axios.get(
-        `http://localhost:4000/agendas/60935574/settings/memberSchema?key=${administratorKey}`,
-        { params: {} },
-      );
-      expect(res.data.merged.fields).toBeTruthy();
+      const res = await ky
+        .get(
+          `http://localhost:4000/agendas/60935574/settings/memberSchema?key=${administratorKey}`,
+        )
+        .json();
+      expect(res.merged.fields).toBeTruthy();
     });
 
     it('succesfull post memberSchema from adminUser', async () => {
       let result;
       try {
-        result = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/60935574/settings/memberSchema/configure',
-          headers: {
-            'access-token': adminAccessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            fields: [{ field: 'phone', optional: false }],
-          },
-        });
+        result = await ky
+          .post(
+            'http://localhost:4000/agendas/60935574/settings/memberSchema/configure',
+            {
+              headers: {
+                'access-token': adminAccessToken,
+              },
+              json: {
+                fields: [{ field: 'phone', optional: false }],
+              },
+            },
+          )
+          .json();
       } catch (error) {
         // console.log(error);
       }
-      expect(result.data).toBeTruthy();
+      expect(result).toBeTruthy();
     });
 
     it('unsuccessfull post memberSchema from contrib', async () => {
-      let response;
-      try {
-        await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/60935574/settings/memberSchema/configure',
-          headers: {
-            'access-token': contribAccessToken,
-            'content-type': 'application/json',
+      const response = await ky
+        .post(
+          'http://localhost:4000/agendas/60935574/settings/memberSchema/configure',
+          {
+            headers: {
+              'access-token': contribAccessToken,
+            },
+            json: {
+              fields: [{ field: 'phone', optional: false }],
+            },
           },
-          data: {
-            fields: [{ field: 'phone', optional: false }],
-          },
-        });
-      } catch (error) {
-        response = error.response;
-      }
+        )
+        .json()
+        .then(
+          () => {},
+          (err) => err.response,
+        );
       expect(response.status).toBe(403);
     });
   });

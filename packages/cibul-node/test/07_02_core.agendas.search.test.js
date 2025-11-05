@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -170,13 +170,13 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       let response;
 
       beforeAll(async () => {
-        response = await axios.get(
-          `http://localhost:4000/agendas?key=${publicKey}`,
-        );
+        response = await ky
+          .get(`http://localhost:4000/agendas?key=${publicKey}`)
+          .json();
       });
 
       it('agendas, total, success and after keys are provided in response', async () => {
-        expect(Object.keys(response.data)).toEqual([
+        expect(Object.keys(response)).toEqual([
           'after',
           'agendas',
           'total',
@@ -189,13 +189,15 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       let response;
 
       beforeAll(async () => {
-        response = await axios.get(
-          `http://localhost:4000/agendas?key=${publicKey}&fields[]=summary&fields[]=schema&fields[]=settings`,
-        );
+        response = await ky
+          .get(
+            `http://localhost:4000/agendas?key=${publicKey}&fields[]=summary&fields[]=schema&fields[]=settings`,
+          )
+          .json();
       });
 
       it('explicitely requested fields can be requested', () => {
-        expect(Object.keys(response.data.agendas[0]).sort()).toEqual([
+        expect(Object.keys(response.agendas[0]).sort()).toEqual([
           'description',
           'image',
           'official',

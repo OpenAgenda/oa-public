@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import Core from '../core/index.js';
 import api from '../api/index.js';
 import Services from '../services/init.js';
@@ -76,49 +76,49 @@ describe('core - functional: core.agendas().events.conversations', () => {
 
     beforeAll(async () => {
       // Get admin access token
-      adminAccessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
-        },
-      }).then((r) => r.data.access_token);
+      const adminTokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
+          },
+        })
+        .json();
+      adminAccessToken = adminTokenResponse.access_token;
 
       // Get contributor access token
-      contributorAccessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const contributorTokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
+        })
+        .json();
+      contributorAccessToken = contributorTokenResponse.access_token;
     });
 
     describe('successful calls', () => {
       it('admin can create conversation via API endpoint', async () => {
         try {
-          const response = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/1001/events/1/conversations',
-            headers: {
-              'access-token': adminAccessToken,
-              'content-type': 'application/json',
+          const response = await ky.post(
+            'http://localhost:4000/agendas/1001/events/1/conversations',
+            {
+              headers: {
+                'access-token': adminAccessToken,
+              },
+              json: {
+                message: 'test conversation from admin',
+              },
             },
-            data: {
-              message: 'test conversation from admin',
-            },
-          });
+          );
           expect(response.status).toBe(200);
-          expect(response.data.success).toBe(true);
+          const responseData = await response.json();
+          expect(responseData.success).toBe(true);
         } catch (error) {
           console.log('Error status:', error.response?.status);
-          console.log('Error data:', error.response?.data);
+          console.log(
+            'Error data:',
+            await error.response?.json().catch(() => {}),
+          );
           console.log('Error headers:', error.response?.headers);
           throw error;
         }
@@ -130,17 +130,16 @@ describe('core - functional: core.agendas().events.conversations', () => {
         let response;
 
         try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/1001/events/1/conversations',
-            headers: {
-              'access-token': contributorAccessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              message: 'test conversation from contributor',
-            },
-          });
+          await ky
+            .post('http://localhost:4000/agendas/1001/events/1/conversations', {
+              headers: {
+                'access-token': contributorAccessToken,
+              },
+              json: {
+                message: 'test conversation from contributor',
+              },
+            })
+            .json();
         } catch (e) {
           response = e.response;
         }

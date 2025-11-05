@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -109,25 +109,20 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
     });
 
     it('user can delete his own account', async () => {
-      await axios({
-        method: 'delete',
-        url: 'http://localhost:4000/me',
+      await ky.delete('http://localhost:4000/me', {
         headers: {
           'access-token': accessToken,
-          'content-type': 'application/json',
         },
       });
 

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 
 export default function ga4TrackEvent(
   gaTrackingId,
@@ -24,13 +24,10 @@ export default function ga4TrackEvent(
     ],
   };
 
-  return axios.post(
+  return ky.post(
     `https://www.google-analytics.com/mp/collect?measurement_id=${gaTrackingId}&api_secret=${secret}`,
-    payload,
     {
-      headers: {
-        'Content-Type': 'application/json',
-      },
+      json: payload,
     },
   );
 }

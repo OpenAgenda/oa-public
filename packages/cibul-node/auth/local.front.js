@@ -1,5 +1,4 @@
 import fs from 'node:fs';
-import axios from 'axios';
 import _ from 'lodash';
 import qs from 'qs';
 import passport from 'passport';
@@ -182,9 +181,13 @@ async function captchaCheck(values) {
   let result;
 
   try {
-    result = await axios.get(
+    const response = await fetch(
       `${verifyUrl}?privatekey=${privateKey}&token=${captchaToken}`,
     );
+    if (!response.ok) {
+      throw new Error(`HTTP error! status: ${response.status}`);
+    }
+    result = await response.json();
   } catch (e) {
     log.error('Error with the mtCaptcha service', e);
     values.data.errors = {
@@ -194,7 +197,7 @@ async function captchaCheck(values) {
     return values;
   }
 
-  if (!result.data.success) {
+  if (!result.success) {
     values.data.errors = {
       ...values.data.errors,
       captcha: 'captchaTryAgain',
@@ -202,7 +205,7 @@ async function captchaCheck(values) {
     return values;
   }
 
-  const { tokeninfo: tokenInfo } = result.data;
+  const { tokeninfo: tokenInfo } = result;
 
   log.info('mtCaptcha ip check', {
     tokenInfoIP: tokenInfo.ip,

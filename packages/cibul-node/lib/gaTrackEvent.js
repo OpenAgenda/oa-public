@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import qs from 'qs';
 import pThrottle from 'p-throttle';
 
@@ -13,9 +13,8 @@ export default function gaTrackEvent(
   label,
   rest,
 ) {
-  return axios.post(
-    'https://www.google-analytics.com/collect',
-    qs.stringify({
+  return ky.post('https://www.google-analytics.com/collect', {
+    body: qs.stringify({
       // API Version.
       v: '1',
       // Tracking ID / Property ID.
@@ -33,7 +32,10 @@ export default function gaTrackEvent(
       // Rest ...
       ...rest,
     }),
-  );
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+  });
 }
 
 export const batch = function gaTrackEventBatch(
@@ -42,7 +44,17 @@ export const batch = function gaTrackEventBatch(
   events,
   rest,
 ) {
-  const throttledPost = pThrottle(axios.post, 1, 1000);
+  const throttledPost = pThrottle(
+    (url, data) =>
+      ky.post(url, {
+        body: data,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }),
+    1,
+    1000,
+  );
   const eventChunks = _.chunk(events, 20);
   const requests = [];
 

@@ -1,6 +1,5 @@
-import axios from 'axios';
-import ih from 'immutability-helper';
-import { produce } from 'immer';
+import ky from 'ky';
+import qs from 'qs';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
@@ -427,16 +426,14 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
     });
 
     describe('successful list for adminmod user', () => {
@@ -444,18 +441,17 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       beforeAll(async () => {
         try {
-          response = await axios({
-            method: 'get',
-            url: 'http://localhost:4000/agendas/2/events',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            params: {
-              state: [-1, 0, 1, 2],
-              detailed: 1,
-            },
-          }).then((r) => r.data);
+          response = await ky
+            .get('http://localhost:4000/agendas/2/events', {
+              headers: {
+                'access-token': accessToken,
+              },
+              searchParams: qs.stringify({
+                detailed: 1,
+                state: [-1, 0, 1, 2],
+              }),
+            })
+            .json();
         } catch (e) {
           // console.log(e);
         }
@@ -480,22 +476,22 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       let response;
 
       beforeAll(async () => {
-        response = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/2/events/search',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            state: [-1, 0, 1, 2],
-            detailed: 1,
-            uid: 2,
-          },
-        }).then(
-          (r) => r.data,
-          (err) => err.response.data,
-        );
+        response = await ky
+          .post('http://localhost:4000/agendas/2/events/search', {
+            headers: {
+              'access-token': accessToken,
+            },
+            json: {
+              state: [-1, 0, 1, 2],
+              detailed: 1,
+              uid: 2,
+            },
+          })
+          .json()
+          .then(
+            (r) => r,
+            (err) => err.json(),
+          );
       });
 
       it('search results match query', () => {
@@ -509,14 +505,13 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       beforeAll(async () => {
         try {
-          response = await axios({
-            method: 'get',
-            url: 'http://localhost:4000/agendas/2/events/1',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-          }).then((r) => r.data);
+          response = await ky
+            .get('http://localhost:4000/agendas/2/events/1', {
+              headers: {
+                'access-token': accessToken,
+              },
+            })
+            .json();
         } catch (e) {
           // console.log(e);
         }
@@ -535,14 +530,13 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       // Je dois rajouter un test avec un contributeur qui va chercher
       // ce même événement et qui ne voit pas le champ admin
       it('administrators have access to restricted admin field', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events/1',
-          headers: {
-            'content-type': 'application/json',
-            'access-token': accessToken,
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/2/events/1', {
+            headers: {
+              'access-token': accessToken,
+            },
+          })
+          .json();
 
         expect(response.event.note).toBe(
           'Une note interne pour les administrateurs',
@@ -554,14 +548,17 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       let event;
 
       beforeAll(async () => {
-        event = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events/1?detailed=1&useDateHoursMinutesFormat=1',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-        }).then((r) => r.data.event);
+        const responseData = await ky
+          .get(
+            'http://localhost:4000/agendas/2/events/1?detailed=1&useDateHoursMinutesFormat=1',
+            {
+              headers: {
+                'access-token': accessToken,
+              },
+            },
+          )
+          .json();
+        event = responseData.event;
       });
 
       it('useDateHoursMinutesFormat', async () => {
@@ -578,18 +575,15 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       beforeAll(async () => {
         try {
-          response = await axios({
-            method: 'get',
-            url: 'http://localhost:4000/agendas/2/events',
-            headers: {
-              'content-type': 'application/json',
-            },
-            params: {
-              key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
-              state: [-1, 0, 1, 2],
-              detailed: 1,
-            },
-          }).then((r) => r.data);
+          response = await ky
+            .get('http://localhost:4000/agendas/2/events', {
+              searchParams: qs.stringify({
+                key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
+                detailed: '1',
+                state: [-1, 0, 1, 2],
+              }),
+            })
+            .json();
         } catch (e) {
           // console.log(e);
         }
@@ -608,16 +602,13 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         let error;
 
         try {
-          await axios({
-            method: 'get',
-            url: 'http://localhost:4000/agendas/2/events/1',
-            headers: {
-              'content-type': 'application/json',
-            },
-            params: {
-              key: nonAdminModKey,
-            },
-          });
+          await ky
+            .get('http://localhost:4000/agendas/2/events/1', {
+              searchParams: {
+                key: nonAdminModKey,
+              },
+            })
+            .json();
         } catch (e) {
           error = e;
         }
@@ -626,76 +617,66 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       it('published events are gettable by non adminmods', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events/2',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: nonAdminModKey,
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/2/events/2', {
+            searchParams: {
+              key: nonAdminModKey,
+            },
+          })
+          .json();
 
         expect(response.event.uid).toBe(2);
       });
 
       it('administrator field is not visible to non adminmod', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events/1',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/2/events/1', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+            },
+          })
+          .json();
 
         expect(response.event.note).toBeUndefined();
       });
 
       it('get by slug', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events/slug/event-2',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: nonAdminModKey,
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/2/events/slug/event-2', {
+            searchParams: {
+              key: nonAdminModKey,
+            },
+          })
+          .json();
 
         expect(response.event.uid).toBe(2);
       });
 
       it('get by agenda slug and event slug', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/slug/un-agenda-thematique/events/slug/event-2',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: nonAdminModKey,
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get(
+            'http://localhost:4000/agendas/slug/un-agenda-thematique/events/slug/event-2',
+            {
+              searchParams: {
+                key: nonAdminModKey,
+              },
+            },
+          )
+          .json();
 
         expect(response.event.uid).toBe(2);
       });
 
       it('includeFields: get by slug with additional field labels', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events/slug/event-1?detailed=1&includeLabels=1',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/2/events/slug/event-1', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+              detailed: -1,
+              includeLabels: 1,
+            },
+          })
+          .json();
 
         expect(response.event.thematique).toEqual({
           id: 2,
@@ -704,32 +685,27 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       it('get can provide origin and source agenda data', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events/2?detailed=1',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/2/events/2?detailed=1', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+            },
+          })
+          .json();
 
         expect(response.event.originAgenda).toBeDefined();
         expect(response.event.sourceAgendas).toBeDefined();
       });
 
       it('unpublished event is gettable by owning contributor', async () => {
-        const { event } = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events/1',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
-          },
-        }).then((r) => r.data);
+        const responseData = await ky
+          .get('http://localhost:4000/agendas/2/events/1', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+            },
+          })
+          .json();
+        const { event } = responseData;
 
         expect(event.uid).toEqual(1);
       });
@@ -738,16 +714,13 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         let error;
 
         try {
-          await axios({
-            method: 'get',
-            url: 'http://localhost:4000/agendas/2/events/1',
-            headers: {
-              'content-type': 'application/json',
-            },
-            params: {
-              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL',
-            },
-          });
+          await ky
+            .get('http://localhost:4000/agendas/2/events/1', {
+              searchParams: {
+                key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1NL',
+              },
+            })
+            .json();
         } catch (e) {
           error = e;
         }
@@ -758,16 +731,13 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       it('draft event is not gettable from agenda other than one with which it is associated', async () => {
         let error;
         try {
-          await axios({
-            method: 'get',
-            url: 'http://localhost:4000/agendas/1/events/3',
-            headers: {
-              'content-type': 'application/json',
-            },
-            params: {
-              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
-            },
-          });
+          await ky
+            .get('http://localhost:4000/agendas/1/events/3', {
+              searchParams: {
+                key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+              },
+            })
+            .json();
         } catch (e) {
           error = e;
         }
@@ -776,49 +746,43 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       });
 
       it('draft event is gettable by contributing contributor', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events/3',
-          headers: {
-            'content-type': 'application/json',
+        const response = await ky.get(
+          'http://localhost:4000/agendas/2/events/3',
+          {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
+            },
           },
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz',
-          },
-        });
+        );
 
         expect(response.status).toBe(200);
       });
 
       it('draft event restricted data is gettable by credded user', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/1/events/4',
-          headers: {
-            'content-type': 'application/json',
+        const response = await ky.get(
+          'http://localhost:4000/agendas/1/events/4',
+          {
+            searchParams: {
+              key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+            },
           },
-          params: {
-            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
-          },
-        });
+        );
+        const responseData = await response.json();
 
-        expect(response.data.event.note).toBe('Une autre note interne');
+        expect(responseData.event.note).toBe('Une autre note interne');
       });
 
       it('draft event is not gettable by other user', async () => {
         let error;
 
         try {
-          await axios({
-            method: 'get',
-            url: 'http://localhost:4000/agendas/2/events/3',
-            headers: {
-              'content-type': 'application/json',
-            },
-            params: {
-              key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
-            },
-          }).then((r) => r.data);
+          await ky
+            .get('http://localhost:4000/agendas/2/events/3', {
+              searchParams: {
+                key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
+              },
+            })
+            .json();
         } catch (e) {
           error = e;
         }
@@ -831,33 +795,33 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       const responses = [];
 
       beforeAll(async () => {
-        const axiosParams = {
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-            state: [-1, 0, 1, 2],
-            size: 1,
-            sort: 'updatedAt.desc',
-          },
+        const searchParams = {
+          key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+          state: [-1, 0, 1, 2],
+          size: 1,
+          sort: 'updatedAt.desc',
         };
 
         try {
-          responses.push(await axios(axiosParams).then((r) => r.data));
+          responses.push(
+            await ky
+              .get('http://localhost:4000/agendas/2/events', {
+                searchParams: qs.stringify(searchParams),
+              })
+              .json(),
+          );
 
           const { after } = responses[0];
 
           responses.push(
-            await axios(
-              ih(axiosParams, {
-                params: {
-                  after: { $set: after },
-                },
-              }),
-            ).then((r) => r.data),
+            await ky
+              .get('http://localhost:4000/agendas/2/events', {
+                searchParams: qs.stringify({
+                  ...searchParams,
+                  after,
+                }),
+              })
+              .json(),
           );
         } catch (e) {
           // console.log(e);
@@ -865,12 +829,15 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
         try {
           responses.push(
-            await axios(
-              produce(axiosParams, (draft) => {
-                draft.params.size = 2;
-                draft.params.from = 1;
-              }),
-            ).then((r) => r.data),
+            await ky
+              .get('http://localhost:4000/agendas/2/events', {
+                searchParams: qs.stringify({
+                  ...searchParams,
+                  size: 2,
+                  from: 1,
+                }),
+              })
+              .json(),
           );
         } catch (e) {
           // console.log(e);
@@ -889,93 +856,75 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
     describe('options', () => {
       it('aggregations can be requested through query params', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
-            state: [-1, 0, 1, 2],
-            detailed: 1,
-            aggregations: 'states',
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/2/events', {
+            searchParams: qs.stringify({
+              key: '1hFOmegP30toI8hA1if8auC6aMbVg1N9',
+              detailed: '1',
+              aggregations: 'states',
+              state: [-1, 0, 1, 2],
+            }),
+          })
+          .json();
 
         expect(response.aggregations).toBeDefined();
       });
 
       it('removed option at true', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/1/events',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
-            removed: 1,
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/1/events', {
+            searchParams: {
+              key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+              removed: 1,
+            },
+          })
+          .json();
         expect(response.total).toBe(1);
       });
 
       it('default removed option at false', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/1/events',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/1/events', {
+            searchParams: {
+              key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+            },
+          })
+          .json();
         expect(response.total).toBe(2);
       });
 
       it('removed option at null', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/1/events',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
-            removed: 'null',
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/1/events', {
+            searchParams: {
+              key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+              removed: 'null',
+            },
+          })
+          .json();
         expect(response.total).toBe(3);
       });
 
       it('sort by location fields', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/2/events',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
-            sort: ['location.department.asc'],
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/2/events', {
+            searchParams: {
+              key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+              sort: 'location.department.asc',
+            },
+          })
+          .json();
         expect(response.sort).toEqual(['location.department.asc']);
       });
 
       it('get by extIds', async () => {
-        const response = await axios({
-          method: 'get',
-          url: 'http://localhost:4000/agendas/1/events/ext/test/1234',
-          headers: {
-            'content-type': 'application/json',
-          },
-          params: {
-            key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
-          },
-        }).then((r) => r.data);
+        const response = await ky
+          .get('http://localhost:4000/agendas/1/events/ext/test/1234', {
+            searchParams: {
+              key: 'egP36aMb0toI8auC1Vg1NL8hAhFOm1if',
+            },
+          })
+          .json();
 
         expect(response.event.uid).toBe(6);
         expect(response.event.extIds).toStrictEqual([

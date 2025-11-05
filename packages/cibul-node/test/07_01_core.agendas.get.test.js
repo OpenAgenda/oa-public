@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -220,10 +220,11 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       let agenda;
 
       beforeAll(async () => {
-        const result = await axios.get(
-          `http://localhost:4000/agendas/92983929?key=${contributorKey}`,
-        );
-        agenda = result.data;
+        agenda = await ky
+          .get('http://localhost:4000/agendas/92983929', {
+            searchParams: { key: contributorKey },
+          })
+          .json();
       });
 
       it('simple get provides uid, title and slug', async () => {
@@ -239,11 +240,12 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       });
 
       it('get from non-administrator with includeMemberSchema option', async () => {
-        const res = await axios.get(
-          `http://localhost:4000/agendas/92983929?key=${contributorKey}`,
-          { params: { includeMemberSchema: true } },
-        );
-        expect(res.data.memberSchema.fields[1].optional).toBeFalsy();
+        const res = await ky
+          .get('http://localhost:4000/agendas/92983929', {
+            searchParams: { key: contributorKey, includeMemberSchema: true },
+          })
+          .json();
+        expect(res.memberSchema.fields[1].optional).toBeFalsy();
       });
     });
 
@@ -251,25 +253,26 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       const administratorKey = '0toI8hA1if8auC1hFOmegP36aMbVg1N9';
 
       it('get from administrator provides administrator-access field', async () => {
-        const { data: agenda } = await axios.get(
-          `http://localhost:4000/agendas/92983929?key=${administratorKey}`,
-        );
+        const agenda = await ky
+          .get(`http://localhost:4000/agendas/92983929?key=${administratorKey}`)
+          .json();
         expect(agenda.settings.contribution.authorizedIPAddresses).toEqual([]);
       });
 
       it('fix: get on private agenda', async () => {
-        const { data: agenda } = await axios.get(
-          `http://localhost:4000/agendas/78971487?key=${administratorKey}`,
-        );
+        const agenda = await ky
+          .get(`http://localhost:4000/agendas/78971487?key=${administratorKey}`)
+          .json();
         expect(agenda.title).toBe('Un agenda privé');
       });
 
       it('get from administrator with includeMemberSchema option', async () => {
-        const res = await axios.get(
-          'http://localhost:4000/agendas/92983929?key=0toI8hA1if8auC1hFOmegP36aMbVg1N9',
-          { params: { includeMemberSchema: true } },
-        );
-        expect(res.data.memberSchema.fields[0].optional).toBeTruthy();
+        const res = await ky
+          .get('http://localhost:4000/agendas/92983929', {
+            searchParams: { key: administratorKey, includeMemberSchema: true },
+          })
+          .json();
+        expect(res.memberSchema.fields[0].optional).toBeTruthy();
       });
     });
 
@@ -277,10 +280,11 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       let agenda;
 
       beforeAll(async () => {
-        const result = await axios.get(
-          `http://localhost:4000/agendas/slug/agenda-champ-contributeur?key=${contributorKey}`,
-        );
-        agenda = result.data;
+        agenda = await ky
+          .get(
+            `http://localhost:4000/agendas/slug/agenda-champ-contributeur?key=${contributorKey}`,
+          )
+          .json();
       });
 
       it('simple get provides uid, title and slug', async () => {

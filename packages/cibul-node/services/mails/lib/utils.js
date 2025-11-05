@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import logs from '@openagenda/logs';
 
 const log = logs('services/mails/utils');
@@ -32,15 +32,13 @@ export async function isMailgunBounced(mailgunConfig, email) {
   } = mailgunConfig;
 
   try {
-    const { data: bounce } = await axios(
-      `https://api.mailgun.net/v3/${domain}/bounces/${email}`,
-      {
-        auth: {
-          username: 'api',
-          password: apiKey,
+    const bounce = await ky
+      .get(`https://api.mailgun.net/v3/${domain}/bounces/${email}`, {
+        headers: {
+          Authorization: `Basic ${Buffer.from(`api:${apiKey}`).toString('base64')}`,
         },
-      },
-    );
+      })
+      .json();
 
     if (bounce && bounce.code) {
       return true;

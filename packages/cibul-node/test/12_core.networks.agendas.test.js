@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import api from '../api/index.js';
@@ -138,32 +138,29 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     const superAdminSecret = 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM';
     beforeAll(async () => {
       server = await api(core, { useRouter: false }).listen(4000);
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: superAdminSecret,
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: superAdminSecret,
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
     });
 
     afterAll(() => server.close());
     it('agenda creation', async () => {
-      const resp = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/networks/1/agendas',
-        headers: {
-          'access-token': accessToken,
-          'content-type': 'application/json',
-        },
-        data: {
-          title: 'new agenda',
-          description: 'new agenda description',
-        },
-      }).then((r) => r.data);
+      const resp = await ky
+        .post('http://localhost:4000/networks/1/agendas', {
+          headers: {
+            'access-token': accessToken,
+          },
+          json: {
+            title: 'new agenda',
+            description: 'new agenda description',
+          },
+        })
+        .json();
 
       expect(resp.title).toBe('new agenda');
     });

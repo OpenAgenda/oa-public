@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -134,10 +134,11 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
       let member;
 
       beforeAll(async () => {
-        member = await axios({
-          method: 'get',
-          url: `http://localhost:4000/agendas/2/members/1?key=${contributorKey}`,
-        }).then((r) => r.data);
+        member = await ky
+          .get(
+            `http://localhost:4000/agendas/2/members/1?key=${contributorKey}`,
+          )
+          .json();
       });
 
       it('member data is provided', () => {
@@ -157,11 +158,12 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
 
     it('get member from mail', async () => {
       const mail = 'lise.p@grois.fr';
-      const res = await axios({
-        method: 'get',
-        url: `http://localhost:4000/agendas/2/members/email/${mail}?key=${administratorKey}`,
-      });
-      expect(res.data).toEqual({
+      const res = await ky
+        .get(
+          `http://localhost:4000/agendas/2/members/email/${mail}?key=${administratorKey}`,
+        )
+        .json();
+      expect(res).toEqual({
         userUid: 50073466,
         deletedUser: false,
         name: 'Lise',
@@ -176,57 +178,57 @@ describe('08 - core - functional (server): core.agendas().members.get', () => {
 
     describe('unsuccessful calls', () => {
       it('404', async () => {
-        let error;
-        try {
-          await axios({
-            method: 'get',
-            url: `http://localhost:4000/agendas/2/members/8978?key=${administratorKey}`,
-          });
-        } catch (e) {
-          error = e;
-        }
+        const response = await ky
+          .get(
+            `http://localhost:4000/agendas/2/members/8978?key=${administratorKey}`,
+          )
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
-        expect(error.response.status).toBe(404);
+        expect(response.status).toBe(404);
       });
 
       it('403 - contributor does not have access to other members data', async () => {
-        let error;
-        try {
-          await axios({
-            method: 'get',
-            url: `http://localhost:4000/agendas/2/members/5?key=${contributorKey}`,
-          });
-        } catch (e) {
-          error = e;
-        }
+        const response = await ky
+          .get(
+            `http://localhost:4000/agendas/2/members/5?key=${contributorKey}`,
+          )
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
-        expect(error.response.status).toBe(403);
+        expect(response.status).toBe(403);
       });
 
       it('404 on getByEmail', async () => {
-        let error;
-        try {
-          await axios({
-            method: 'get',
-            url: `http://localhost:4000/agendas/2/members/email/test@toto.com?key=${administratorKey}`,
-          });
-        } catch (e) {
-          error = e;
-        }
+        const response = await ky
+          .get(
+            `http://localhost:4000/agendas/2/members/email/test@toto.com?key=${administratorKey}`,
+          )
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
-        expect(error.response.status).toBe(404);
+        expect(response.status).toBe(404);
       });
 
       it('Non-member does not have access to get', async () => {
-        let response;
-        try {
-          await axios({
-            method: 'get',
-            url: `http://localhost:4000/agendas/2/members/8978?key=${nonMemberKey}`,
-          });
-        } catch (e) {
-          response = e.response;
-        }
+        const response = await ky
+          .get(
+            `http://localhost:4000/agendas/2/members/8978?key=${nonMemberKey}`,
+          )
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
         expect(response.status).toBe(403);
       });

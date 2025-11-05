@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -189,45 +189,40 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      adminAccessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
-        },
-      }).then((r) => r.data.access_token);
+      const adminTokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
+          },
+        })
+        .json();
+      adminAccessToken = adminTokenResponse.access_token;
 
-      nonMemberAccessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U',
-        },
-      }).then((r) => r.data.access_token);
+      const nonMemberTokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJseQhLHUG6896U',
+          },
+        })
+        .json();
+      nonMemberAccessToken = nonMemberTokenResponse.access_token;
     });
 
     describe('successfull call', () => {
       beforeAll(async () => {
-        await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/2/members',
-          headers: {
-            'access-token': adminAccessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            name: 'Hélène',
-            position: 'Responsable de communication',
-            role: 'administrator',
-            userUid: 10866730,
-          },
-        }).then((r) => r.data);
+        await ky
+          .post('http://localhost:4000/agendas/2/members', {
+            headers: {
+              'access-token': adminAccessToken,
+            },
+            json: {
+              name: 'Hélène',
+              position: 'Responsable de communication',
+              role: 'administrator',
+              userUid: 10866730,
+            },
+          })
+          .json();
       });
 
       it('member data is saved', async () => {
@@ -243,14 +238,11 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       });
 
       it('member invite', async () => {
-        await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/2/members/invite',
+        await ky.post('http://localhost:4000/agendas/2/members/invite', {
           headers: {
             'access-token': adminAccessToken,
-            'content-type': 'application/json',
           },
-          data: {
+          json: {
             role: 1,
             emails: [
               'clement.lecroart@openagenda.com',
@@ -276,14 +268,11 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         const newEmail = 'new.member@openagenda.com';
 
         // Create the existing member first
-        await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/2/members/invite',
+        await ky.post('http://localhost:4000/agendas/2/members/invite', {
           headers: {
             'access-token': adminAccessToken,
-            'content-type': 'application/json',
           },
-          data: {
+          json: {
             role: 1,
             emails: [existingEmail],
           },
@@ -297,18 +286,17 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         expect(existingMember.id).toBeTruthy();
 
         // Now invite both the existing member and a new member
-        const resp = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/2/members/invite',
-          headers: {
-            'access-token': adminAccessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            role: 1,
-            emails: [existingEmail, newEmail],
-          },
-        });
+        const resp = await ky
+          .post('http://localhost:4000/agendas/2/members/invite', {
+            headers: {
+              'access-token': adminAccessToken,
+            },
+            json: {
+              role: 1,
+              emails: [existingEmail, newEmail],
+            },
+          })
+          .json();
 
         // Verify the new member was created
         const newMember = await services.members.get.byEmail({
@@ -323,16 +311,16 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           email: existingEmail,
         });
         // Verify response structure
-        expect(resp.data.processed).toBeDefined();
-        expect(resp.data.already).toBeDefined();
+        expect(resp.processed).toBeDefined();
+        expect(resp.already).toBeDefined();
 
         // The new member should be in processed
-        expect(resp.data.processed).toHaveLength(1);
-        expect(resp.data.processed[0].email).toBe(newEmail);
+        expect(resp.processed).toHaveLength(1);
+        expect(resp.processed[0].email).toBe(newEmail);
 
         // The existing member should be in already
-        expect(resp.data.already).toHaveLength(1);
-        expect(resp.data.already[0].email).toBe(existingEmail);
+        expect(resp.already).toHaveLength(1);
+        expect(resp.already[0].email).toBe(existingEmail);
 
         expect(stillExistingMember.id).toBeTruthy();
         expect(stillExistingMember.id).toBe(existingMember.id);
@@ -341,20 +329,19 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
     describe('non member call', () => {
       it('user can add himself on open agenda through api', async () => {
-        await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/48353388/members',
-          headers: {
-            'access-token': nonMemberAccessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            name: 'Chris sie',
-            position: 'Petite main',
-            role: 'contributor',
-            userUid: 24372732,
-          },
-        }).then((r) => r.data);
+        await ky
+          .post('http://localhost:4000/agendas/48353388/members', {
+            headers: {
+              'access-token': nonMemberAccessToken,
+            },
+            json: {
+              name: 'Chris sie',
+              position: 'Petite main',
+              role: 'contributor',
+              userUid: 24372732,
+            },
+          })
+          .json();
 
         const entry = await core.services.knex('reviewer').first().where({
           user_uid: 24372732,
@@ -370,61 +357,54 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
     describe('unsuccessful calls', () => {
       it('non-member cannot create member other than himself', async () => {
-        let response;
-
-        try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/2/members',
+        const response = await ky
+          .post('http://localhost:4000/agendas/2/members', {
             headers: {
               'access-token': nonMemberAccessToken,
-              'content-type': 'application/json',
             },
-            data: {
+            json: {
               name: 'Hélène',
               position: 'Responsable de communication',
               role: 'administrator',
               userUid: 10866730,
             },
-          });
-        } catch (e) {
-          response = e.response;
-        }
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
         expect(response.status).toBe(403);
       });
 
       it('contributor cannot create member', async () => {
-        let response;
-        const contributorAccessToken = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/requestAccessToken',
-          headers: {
-            'content-type': 'application/json',
-          },
-          data: {
-            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-          },
-        }).then((r) => r.data.access_token);
+        const contributorTokenResponse = await ky
+          .post('http://localhost:4000/requestAccessToken', {
+            json: {
+              code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+            },
+          })
+          .json();
+        const contributorAccessToken = contributorTokenResponse.access_token;
 
-        try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/2/members',
+        const response = await ky
+          .post('http://localhost:4000/agendas/2/members', {
             headers: {
               'access-token': contributorAccessToken,
-              'content-type': 'application/json',
             },
-            data: {
+            json: {
               name: 'Hélène',
               position: 'Responsable de communication',
               role: 'administrator',
               userUid: 10866730,
             },
-          });
-        } catch (e) {
-          response = e.response;
-        }
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
         expect(response.status).toBe(403);
       });

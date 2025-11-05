@@ -1,6 +1,6 @@
 import fs from 'node:fs';
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import ih from 'immutability-helper';
 import api from '../api/index.js';
 import Core from '../core/index.js';
@@ -963,56 +963,53 @@ describe('core - functional (server): core.agendas().events.create()', () => {
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
     });
 
     describe('successful create', () => {
       beforeAll(async () => {
         try {
-          response = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/events',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              title: {
-                FR: 'Un événement créé par API',
+          response = await ky
+            .post('http://localhost:4000/agendas/17026855/events', {
+              headers: {
+                'access-token': accessToken,
               },
-              description: {
-                FR: 'Un tout petit événement',
-              },
-              image: {
-                url: 'https://cdn.openagenda.com/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
-                credits: 'Les crédits',
-              },
-              timings: [
-                {
-                  begin: new Date('2019-05-06T10:00:00'),
-                  end: new Date('2019-05-06T11:00:00'),
+              json: {
+                title: {
+                  FR: 'Un événement créé par API',
                 },
-              ],
-              keywords: {
-                FR: ['un', 'deux', 'trois'],
+                description: {
+                  FR: 'Un tout petit événement',
+                },
+                image: {
+                  url: 'https://cdn.openagenda.com/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
+                  credits: 'Les crédits',
+                },
+                timings: [
+                  {
+                    begin: new Date('2019-05-06T10:00:00'),
+                    end: new Date('2019-05-06T11:00:00'),
+                  },
+                ],
+                keywords: {
+                  FR: ['un', 'deux', 'trois'],
+                },
+                location: {
+                  uid: 123,
+                },
+                'categories-agenda-metropolitain': 42,
+                'thematiques-bordeaux-metropole': [3, 4],
+                accessibility: { sl: true },
               },
-              location: {
-                uid: 123,
-              },
-              'categories-agenda-metropolitain': 42,
-              'thematiques-bordeaux-metropole': [3, 4],
-              accessibility: { sl: true },
-            },
-          }).then((r) => r.data);
+            })
+            .json();
         } catch (e) {
           // console.log(e.response.data);
         }
@@ -1073,55 +1070,12 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       });
 
       it('create online event', async () => {
-        const onlineEventCreateResponse = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/17026855/events',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            title: {
-              fr: 'Un événement créé par API',
-            },
-            description: {
-              fr: 'Un tout petit événement',
-            },
-            image: {
-              url: 'https://cdn.openagenda.com/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
-              credits: 'Les crédits',
-            },
-            timings: [
-              {
-                begin: new Date('2019-05-06T10:00:00'),
-                end: new Date('2019-05-06T11:00:00'),
-              },
-            ],
-            keywords: {
-              fr: ['un', 'deux', 'trois'],
-            },
-            attendanceMode: 2,
-            onlineAccessLink: 'https://openagenda.com',
-            'categories-agenda-metropolitain': 42,
-            'thematiques-bordeaux-metropole': [3, 4],
-            accessibility: { sl: true },
-          },
-        }).then((r) => r.data);
-
-        expect(onlineEventCreateResponse.event.attendanceMode).toBe(2);
-      });
-
-      it('create event with invalid url provided in image', async () => {
-        let error;
-        try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/events',
+        const onlineEventCreateResponse = await ky
+          .post('http://localhost:4000/agendas/17026855/events', {
             headers: {
               'access-token': accessToken,
-              'content-type': 'application/json',
             },
-            data: {
+            json: {
               title: {
                 fr: 'Un événement créé par API',
               },
@@ -1129,7 +1083,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
                 fr: 'Un tout petit événement',
               },
               image: {
-                url: 'https://cdn.openagenda.com/main/event_a-l-abo',
+                url: 'https://cdn.openagenda.com/main/event_a-l-abordage-la-nouvelle-exposition-du-conservatoire-du-jeu-de-societe-au-centre-national-du-jeu_734952.jpg',
                 credits: 'Les crédits',
               },
               timings: [
@@ -1138,18 +1092,60 @@ describe('core - functional (server): core.agendas().events.create()', () => {
                   end: new Date('2019-05-06T11:00:00'),
                 },
               ],
+              keywords: {
+                fr: ['un', 'deux', 'trois'],
+              },
               attendanceMode: 2,
               onlineAccessLink: 'https://openagenda.com',
               'categories-agenda-metropolitain': 42,
               'thematiques-bordeaux-metropole': [3, 4],
+              accessibility: { sl: true },
             },
-          }).then((r) => r.data);
+          })
+          .json();
+
+        expect(onlineEventCreateResponse.event.attendanceMode).toBe(2);
+      });
+
+      it('create event with invalid url provided in image', async () => {
+        let error;
+        try {
+          await ky
+            .post('http://localhost:4000/agendas/17026855/events', {
+              headers: {
+                'access-token': accessToken,
+              },
+              json: {
+                title: {
+                  fr: 'Un événement créé par API',
+                },
+                description: {
+                  fr: 'Un tout petit événement',
+                },
+                image: {
+                  url: 'https://cdn.openagenda.com/main/event_a-l-abo',
+                  credits: 'Les crédits',
+                },
+                timings: [
+                  {
+                    begin: new Date('2019-05-06T10:00:00'),
+                    end: new Date('2019-05-06T11:00:00'),
+                  },
+                ],
+                attendanceMode: 2,
+                onlineAccessLink: 'https://openagenda.com',
+                'categories-agenda-metropolitain': 42,
+                'thematiques-bordeaux-metropole': [3, 4],
+              },
+            })
+            .json();
         } catch (e) {
           error = e;
         }
 
         expect(error.response.status).toBe(400);
-        expect(error.response.data.errors).toEqual([
+        const errorData = await error.response.json();
+        expect(errorData.errors).toEqual([
           {
             field: 'image',
             code: 'url.invalid',
@@ -1261,16 +1257,15 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       });
 
       it('Event is created in french if lang is set to french in header', async () => {
-        const frenchResponse = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/17026855/events',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-            lang: 'fr',
-          },
-          data: _.omit(data, ['image']),
-        }).then((r) => r.data);
+        const frenchResponse = await ky
+          .post('http://localhost:4000/agendas/17026855/events', {
+            headers: {
+              'access-token': accessToken,
+              lang: 'fr',
+            },
+            json: _.omit(data, ['image']),
+          })
+          .json();
 
         expect(frenchResponse.event.title).toEqual({
           fr: 'Un autre événement créé par API',
@@ -1282,35 +1277,36 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       let errorResponse;
 
       beforeAll(async () => {
-        await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/17026855/events',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            title: {
-              fr: 'Un événement créé par API',
+        await ky
+          .post('http://localhost:4000/agendas/17026855/events', {
+            headers: {
+              'access-token': accessToken,
             },
-            timings: [],
-            location: {
-              uid: 123,
+            json: {
+              title: {
+                fr: 'Un événement créé par API',
+              },
+              timings: [],
+              location: {
+                uid: 123,
+              },
+              'categories-agenda-metropolitain': 42,
+              'thematiques-bordeaux-metropole': [3, 4],
             },
-            'categories-agenda-metropolitain': 42,
-            'thematiques-bordeaux-metropole': [3, 4],
-          },
-        }).catch((e) => {
-          errorResponse = e.response;
-        });
+          })
+          .json()
+          .catch((e) => {
+            errorResponse = e.response;
+          });
       });
 
       it('response is 400', () => {
         expect(errorResponse.status).toBe(400);
       });
 
-      it('list of validation errors is provided in body', () => {
-        expect(errorResponse.data.errors).toEqual([
+      it('list of validation errors is provided in body', async () => {
+        const errorData = await errorResponse.json();
+        expect(errorData.errors).toEqual([
           {
             lang: 'fr',
             field: 'description',
@@ -1332,39 +1328,43 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
     describe('conditional required field', () => {
       test('when ref is not specified, enableWith required field is not processed', async () => {
-        const { event } = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/89904399/events',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            ...basicEventData,
-            image: undefined,
-          },
-        }).then((r) => r.data);
+        const responseData = await ky
+          .post('http://localhost:4000/agendas/89904399/events', {
+            headers: {
+              'access-token': accessToken,
+            },
+            json: {
+              ...basicEventData,
+              image: undefined,
+            },
+          })
+          .json();
+        const { event } = responseData;
 
         expect(event.uid).toBeDefined();
       });
 
       test('when ref field is specified, enableWith required field triggers validation error when not set', async () => {
-        const errorResponse = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/89904399/events',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            ...basicEventData,
-            image: {
-              url: 'https://cdn.openagenda.com/main/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
+        const errorResponse = await ky
+          .post('http://localhost:4000/agendas/89904399/events', {
+            headers: {
+              'access-token': accessToken,
             },
-          },
-        }).catch((r) => r.response);
+            json: {
+              ...basicEventData,
+              image: {
+                url: 'https://cdn.openagenda.com/main/eed1137a9bd146f0ae7f28668e5a1052.full.image.jpg',
+              },
+            },
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
-        expect(errorResponse.data.message).toBe('data is invalid');
+        const errorData = await errorResponse.json();
+        expect(errorData.message).toBe('data is invalid');
       });
     });
   });

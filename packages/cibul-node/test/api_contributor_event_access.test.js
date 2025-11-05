@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import Core from '../core/index.js';
 import api from '../api/index.js';
 import Services from '../services/init.js';
@@ -60,28 +60,24 @@ describe('api: contributor access to their own events based on state', () => {
 
   beforeAll(async () => {
     // Request access token for user 1 (creator)
-    accessToken = await axios({
-      method: 'post',
-      url: 'http://localhost:4001/requestAccessToken',
-      headers: {
-        'content-type': 'application/json',
-      },
-      data: {
-        code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-      },
-    }).then((r) => r.data.access_token);
+    const creatorTokenResponse = await ky
+      .post('http://localhost:4001/requestAccessToken', {
+        json: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        },
+      })
+      .json();
+    accessToken = creatorTokenResponse.access_token;
 
     // Request access token for user 2 (other contributor, not creator)
-    otherContributorToken = await axios({
-      method: 'post',
-      url: 'http://localhost:4001/requestAccessToken',
-      headers: {
-        'content-type': 'application/json',
-      },
-      data: {
-        code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhN',
-      },
-    }).then((r) => r.data.access_token);
+    const otherTokenResponse = await ky
+      .post('http://localhost:4001/requestAccessToken', {
+        json: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhN',
+        },
+      })
+      .json();
+    otherContributorToken = otherTokenResponse.access_token;
   });
 
   afterAll(() => server.close());
@@ -90,57 +86,52 @@ describe('api: contributor access to their own events based on state', () => {
 
   describe('Bug demonstration: contributor access based on event state', () => {
     it('state filter is cleaned for contrib', async () => {
-      const response = await axios({
-        method: 'get',
-        url: 'http://localhost:4001/agendas/3/events',
+      const response = await ky.get('http://localhost:4001/agendas/3/events', {
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
-        params: {
+        searchParams: {
           state: [0, 1, 2],
         },
       });
 
       expect(response.status).toBe(200);
-      const unpublishedEvent = response.data.events.find((e) => e.state !== 2);
+      const responseData = await response.json();
+      const unpublishedEvent = responseData.events.find((e) => e.state !== 2);
       expect(unpublishedEvent).toBeUndefined();
     });
 
     it('state filter is not cleaned if member filter is seet and the same has acting member', async () => {
-      const response = await axios({
-        method: 'get',
-        url: 'http://localhost:4001/agendas/3/events',
+      const response = await ky.get('http://localhost:4001/agendas/3/events', {
         headers: {
           authorization: `Bearer ${accessToken}`,
         },
-        params: {
+        searchParams: {
           state: [0, 1, 2],
           memberUid: 1,
         },
       });
 
       expect(response.status).toBe(200);
-      const unpublishedEvent = response.data.events.filter(
-        (e) => e.state !== 2,
-      );
+      const responseData = await response.json();
+      const unpublishedEvent = responseData.events.filter((e) => e.state !== 2);
       expect(unpublishedEvent.length).toBeTruthy();
     });
 
     it('state filter is clean if member filter is set but not the same as acting member', async () => {
-      const response = await axios({
-        method: 'get',
-        url: 'http://localhost:4001/agendas/3/events',
+      const response = await ky.get('http://localhost:4001/agendas/3/events', {
         headers: {
           authorization: `Bearer ${otherContributorToken}`,
         },
-        params: {
+        searchParams: {
           state: [0, 1, 2],
           memberUid: 1,
         },
       });
 
       expect(response.status).toBe(200);
-      const unpublishedEvent = response.data.events.find((e) => e.state !== 2);
+      const responseData = await response.json();
+      const unpublishedEvent = responseData.events.find((e) => e.state !== 2);
       expect(unpublishedEvent).toBeUndefined();
     });
   });

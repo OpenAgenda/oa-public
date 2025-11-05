@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -65,28 +65,25 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL',
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
     });
 
     describe('successfull call', () => {
       beforeAll(async () => {
-        await axios({
-          method: 'delete',
-          url: 'http://localhost:4000/agendas/2/members/5',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-        }).then((r) => r.data);
+        await ky
+          .delete('http://localhost:4000/agendas/2/members/5', {
+            headers: {
+              'access-token': accessToken,
+            },
+          })
+          .json();
       });
 
       it('member was removed', async () => {

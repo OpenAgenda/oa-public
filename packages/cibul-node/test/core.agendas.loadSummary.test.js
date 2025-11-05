@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
@@ -63,16 +63,14 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
   beforeAll(async () => {
     // Get access token for authenticated requests
-    accessToken = await axios({
-      method: 'post',
-      url: `${baseUrl}/requestAccessToken`,
-      headers: {
-        'content-type': 'application/json',
-      },
-      data: {
-        code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-      },
-    }).then((r) => r.data.access_token);
+    const tokenResponse = await ky
+      .post(`${baseUrl}/requestAccessToken`, {
+        json: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+        },
+      })
+      .json();
+    accessToken = tokenResponse.access_token;
 
     // Get agenda key for some tests
     agendaKey = 'e830934e9d1848189ac74de3bfa7df0a'; // From fixtures
@@ -120,197 +118,197 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
   describe('API functionality', () => {
     it('should return basic summary without includes parameter via API', async () => {
-      const response = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary?key=${agendaKey}`,
-      });
+      const response = await ky.get(
+        `${baseUrl}/agendas/123/summary?key=${agendaKey}`,
+      );
+      const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(response.data.success).toBe(true);
-      expect(response.data.summary).toBeDefined();
+      expect(responseData.success).toBe(true);
+      expect(responseData.summary).toBeDefined();
 
       // Check basic summary structure
-      expect(response.data.summary).toHaveProperty('keywords');
-      expect(response.data.summary).toHaveProperty('publishedEvents');
-      expect(response.data.summary).toHaveProperty('languages');
-      expect(response.data.summary).toHaveProperty('recentlyAddedEvents');
-      expect(response.data.summary).toHaveProperty('viewport');
+      expect(responseData.summary).toHaveProperty('keywords');
+      expect(responseData.summary).toHaveProperty('publishedEvents');
+      expect(responseData.summary).toHaveProperty('languages');
+      expect(responseData.summary).toHaveProperty('recentlyAddedEvents');
+      expect(responseData.summary).toHaveProperty('viewport');
 
       // Should NOT have totals without includes parameter
-      expect(response.data.summary).not.toHaveProperty('totals');
+      expect(responseData.summary).not.toHaveProperty('totals');
     });
 
     it('should return summary with enhanced publishedEvents when includes=publishedEvents via API (comma-separated)', async () => {
-      const response = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary?includes=publishedEvents&key=${agendaKey}`,
-      });
+      const response = await ky.get(
+        `${baseUrl}/agendas/123/summary?includes=publishedEvents&key=${agendaKey}`,
+      );
+      const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(response.data.success).toBe(true);
-      expect(response.data.summary).toBeDefined();
+      expect(responseData.success).toBe(true);
+      expect(responseData.summary).toBeDefined();
 
       // Check that enhanced publishedEvents are included
-      expect(response.data.summary).toHaveProperty('publishedEvents');
-      expect(response.data.summary.publishedEvents).toHaveProperty('events');
-      expect(response.data.summary.publishedEvents).toHaveProperty(
+      expect(responseData.summary).toHaveProperty('publishedEvents');
+      expect(responseData.summary.publishedEvents).toHaveProperty('events');
+      expect(responseData.summary.publishedEvents).toHaveProperty(
         'eventLocations',
       );
-      expect(response.data.summary.publishedEvents).toHaveProperty(
+      expect(responseData.summary.publishedEvents).toHaveProperty(
         'eventCreators',
       );
 
       // Verify enhanced publishedEvents are numbers
-      expect(typeof response.data.summary.publishedEvents.events).toBe(
+      expect(typeof responseData.summary.publishedEvents.events).toBe('number');
+      expect(typeof responseData.summary.publishedEvents.eventLocations).toBe(
         'number',
       );
-      expect(typeof response.data.summary.publishedEvents.eventLocations).toBe(
-        'number',
-      );
-      expect(typeof response.data.summary.publishedEvents.eventCreators).toBe(
+      expect(typeof responseData.summary.publishedEvents.eventCreators).toBe(
         'number',
       );
     });
 
     it('should return summary with enhanced publishedEvents when includes[]=publishedEvents via API (array format)', async () => {
-      const response = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary?includes[]=publishedEvents&key=${agendaKey}`,
-      });
+      const response = await ky.get(
+        `${baseUrl}/agendas/123/summary?includes[]=publishedEvents&key=${agendaKey}`,
+      );
+      const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(response.data.success).toBe(true);
-      expect(response.data.summary).toBeDefined();
+      expect(responseData.success).toBe(true);
+      expect(responseData.summary).toBeDefined();
 
       // Check that enhanced publishedEvents are included
-      expect(response.data.summary).toHaveProperty('publishedEvents');
-      expect(response.data.summary.publishedEvents).toHaveProperty('events');
-      expect(response.data.summary.publishedEvents).toHaveProperty(
+      expect(responseData.summary).toHaveProperty('publishedEvents');
+      expect(responseData.summary.publishedEvents).toHaveProperty('events');
+      expect(responseData.summary.publishedEvents).toHaveProperty(
         'eventLocations',
       );
-      expect(response.data.summary.publishedEvents).toHaveProperty(
+      expect(responseData.summary.publishedEvents).toHaveProperty(
         'eventCreators',
       );
 
       // Verify enhanced publishedEvents are numbers
-      expect(typeof response.data.summary.publishedEvents.events).toBe(
+      expect(typeof responseData.summary.publishedEvents.events).toBe('number');
+      expect(typeof responseData.summary.publishedEvents.eventLocations).toBe(
         'number',
       );
-      expect(typeof response.data.summary.publishedEvents.eventLocations).toBe(
-        'number',
-      );
-      expect(typeof response.data.summary.publishedEvents.eventCreators).toBe(
+      expect(typeof responseData.summary.publishedEvents.eventCreators).toBe(
         'number',
       );
     });
 
     it('should work with access token authentication', async () => {
-      const response = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary?includes=publishedEvents`,
-        headers: {
-          'access-token': accessToken,
+      const response = await ky.get(
+        `${baseUrl}/agendas/123/summary?includes=publishedEvents`,
+        {
+          headers: {
+            'access-token': accessToken,
+          },
         },
-      });
+      );
+      const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(response.data.success).toBe(true);
-      expect(response.data.summary).toHaveProperty('publishedEvents');
-      expect(response.data.summary.publishedEvents).toHaveProperty('events');
+      expect(responseData.success).toBe(true);
+      expect(responseData.summary).toHaveProperty('publishedEvents');
+      expect(responseData.summary.publishedEvents).toHaveProperty('events');
     });
 
     it('should require authentication when no key provided', async () => {
-      const { error } = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary`,
-      }).then(
-        (r) => ({ response: r }),
-        (e) => ({ error: e }),
-      );
+      const error = await ky
+        .get(`${baseUrl}/agendas/123/summary`)
+        .json()
+        .then(
+          () => {},
+          (err) => err,
+        );
 
       expect(error.response.status).toBe(403);
     });
 
     it('should handle invalid agenda UID', async () => {
-      const { error } = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/99999/summary?key=${agendaKey}`,
-      }).then(
-        (r) => ({ response: r }),
-        (e) => ({ error: e }),
-      );
+      const error = await ky
+        .get(`${baseUrl}/agendas/99999/summary?key=${agendaKey}`)
+        .json()
+        .then(
+          () => {},
+          (err) => err,
+        );
 
       expect(error.response.status).toBe(404);
     });
 
     it('should handle multiple includes parameters (comma-separated)', async () => {
-      const response = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary?includes=publishedEvents,other&key=${agendaKey}`,
-      });
+      const response = await ky.get(
+        `${baseUrl}/agendas/123/summary?includes=publishedEvents,other&key=${agendaKey}`,
+      );
+      const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(response.data.success).toBe(true);
-      expect(response.data.summary).toHaveProperty('publishedEvents');
-      expect(response.data.summary.publishedEvents).toHaveProperty('events');
+      expect(responseData.success).toBe(true);
+      expect(responseData.summary).toHaveProperty('publishedEvents');
+      expect(responseData.summary.publishedEvents).toHaveProperty('events');
     });
 
     it('should handle multiple includes parameters (array format)', async () => {
-      const response = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary?includes[]=publishedEvents&includes[]=other&key=${agendaKey}`,
-      });
+      const response = await ky.get(
+        `${baseUrl}/agendas/123/summary?includes[]=publishedEvents&includes[]=other&key=${agendaKey}`,
+      );
+      const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(response.data.success).toBe(true);
-      expect(response.data.summary).toHaveProperty('publishedEvents');
-      expect(response.data.summary.publishedEvents).toHaveProperty('events');
+      expect(responseData.success).toBe(true);
+      expect(responseData.summary).toHaveProperty('publishedEvents');
+      expect(responseData.summary.publishedEvents).toHaveProperty('events');
     });
 
     it('should work with empty includes parameter', async () => {
-      const response = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary?includes=&key=${agendaKey}`,
-      });
+      const response = await ky.get(
+        `${baseUrl}/agendas/123/summary?includes=&key=${agendaKey}`,
+      );
+      const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(response.data.success).toBe(true);
-      expect(response.data.summary).not.toHaveProperty('totals');
+      expect(responseData.success).toBe(true);
+      expect(responseData.summary).not.toHaveProperty('totals');
     });
 
     it('should work with personal user key authentication', async () => {
-      const response = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary?includes=publishedEvents&key=${userKey}`,
-      });
+      const response = await ky.get(
+        `${baseUrl}/agendas/123/summary?includes=publishedEvents&key=${userKey}`,
+      );
+      const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(response.data.success).toBe(true);
-      expect(response.data.summary).toBeDefined();
-      expect(response.data.summary).toHaveProperty('publishedEvents');
-      expect(response.data.summary.publishedEvents).toHaveProperty('events');
-      expect(response.data.summary.publishedEvents).toHaveProperty(
+      expect(responseData.success).toBe(true);
+      expect(responseData.summary).toBeDefined();
+      expect(responseData.summary).toHaveProperty('publishedEvents');
+      expect(responseData.summary.publishedEvents).toHaveProperty('events');
+      expect(responseData.summary.publishedEvents).toHaveProperty(
         'eventLocations',
       );
-      expect(response.data.summary.publishedEvents).toHaveProperty(
+      expect(responseData.summary.publishedEvents).toHaveProperty(
         'eventCreators',
       );
     });
 
     it('should work with personal user key in headers', async () => {
-      const response = await axios({
-        method: 'get',
-        url: `${baseUrl}/agendas/123/summary?includes=publishedEvents`,
-        headers: {
-          key: userKey,
+      const response = await ky.get(
+        `${baseUrl}/agendas/123/summary?includes=publishedEvents`,
+        {
+          headers: {
+            key: userKey,
+          },
         },
-      });
+      );
+      const responseData = await response.json();
 
       expect(response.status).toBe(200);
-      expect(response.data.success).toBe(true);
-      expect(response.data.summary).toBeDefined();
-      expect(response.data.summary).toHaveProperty('publishedEvents');
-      expect(response.data.summary.publishedEvents).toHaveProperty('events');
+      expect(responseData.success).toBe(true);
+      expect(responseData.summary).toBeDefined();
+      expect(responseData.summary).toHaveProperty('publishedEvents');
+      expect(responseData.summary.publishedEvents).toHaveProperty('events');
     });
   });
 });

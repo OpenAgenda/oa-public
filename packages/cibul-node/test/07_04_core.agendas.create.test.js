@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -84,33 +84,30 @@ describe('07 - core - functional (server): core.agendas().create', () => {
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
     });
 
     test('basic create', async () => {
-      const response = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/agendas',
-        headers: {
-          'access-token': accessToken,
-          'content-type': 'application/json',
-        },
-        data: {
-          title: 'Un agenda créé via API',
-          description: 'Test',
-        },
-      });
+      const response = await ky
+        .post('http://localhost:4000/agendas', {
+          headers: {
+            'access-token': accessToken,
+          },
+          json: {
+            title: 'Un agenda créé via API',
+            description: 'Test',
+          },
+        })
+        .json();
 
-      expect(response.data.title).toBe('Un agenda créé via API');
+      expect(response.title).toBe('Un agenda créé via API');
     });
   });
 });

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -184,10 +184,11 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
       let response;
 
       beforeAll(async () => {
-        response = await axios({
-          method: 'get',
-          url: `http://localhost:4000/agendas/2/members?key=${administratorKey}`,
-        }).then((r) => r.data);
+        response = await ky
+          .get(
+            `http://localhost:4000/agendas/2/members?key=${administratorKey}`,
+          )
+          .json();
       });
 
       it('response includes a success, total, a list of items and an after key', () => {
@@ -202,19 +203,19 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
 
     describe('unsuccessful calls', () => {
       it('Bad Request', async () => {
-        let response;
-        try {
-          await axios({
-            method: 'get',
-            url: `http://localhost:4000/agendas/2/members?key=${administratorKey}&limit=1111`,
-          });
-        } catch (e) {
-          response = e.response;
-        }
+        const response = await ky
+          .get(
+            `http://localhost:4000/agendas/2/members?key=${administratorKey}&limit=1111`,
+          )
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
         expect(response.status).toBe(400);
 
-        expect(response.data.errors).toEqual([
+        expect((await response.json()).errors).toEqual([
           {
             code: 'integer.toobig',
             message: 'the integer is too big',
@@ -226,29 +227,25 @@ describe('08 - core - functional (server): core.agendas().members.list', () => {
       });
 
       it('Contributor does not have access to list', async () => {
-        let response;
-        try {
-          await axios({
-            method: 'get',
-            url: `http://localhost:4000/agendas/2/members?key=${contributorKey}`,
-          });
-        } catch (e) {
-          response = e.response;
-        }
+        const response = await ky
+          .get(`http://localhost:4000/agendas/2/members?key=${contributorKey}`)
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
         expect(response.status).toBe(403);
       });
 
       it('Non-member does not have access to list', async () => {
-        let response;
-        try {
-          await axios({
-            method: 'get',
-            url: `http://localhost:4000/agendas/2/members?key=${nonMemberKey}`,
-          });
-        } catch (e) {
-          response = e.response;
-        }
+        const response = await ky
+          .get(`http://localhost:4000/agendas/2/members?key=${nonMemberKey}`)
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
 
         expect(response.status).toBe(403);
       });

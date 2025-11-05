@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
 import api from '../api/index.js';
@@ -114,16 +114,14 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          code: secret,
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            code: secret,
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
 
       event = await core.agendas(17026855).events.create(
         { ...eventFixtures[2], extIds: [{ key: 'test', value: 'thing' }] },
@@ -138,15 +136,16 @@ describe('core - functional (server): core.agendas().events.removeByExtId()', ()
 
     it('removed', async () => {
       let err = null;
-      response = await axios({
-        method: 'delete',
-        url: 'http://localhost:4000/agendas/17026855/events/ext/test/thing',
-        headers: {
-          'access-token': accessToken,
-          'content-type': 'application/json',
-        },
-      })
-        .then((r) => r.data)
+      response = await ky
+        .delete(
+          'http://localhost:4000/agendas/17026855/events/ext/test/thing',
+          {
+            headers: {
+              'access-token': accessToken,
+            },
+          },
+        )
+        .json()
         .catch((e) => console.log(e));
       try {
         await core

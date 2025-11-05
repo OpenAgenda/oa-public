@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -796,55 +796,52 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     afterAll(() => server.close());
 
     beforeAll(async () => {
-      accessToken = await axios({
-        method: 'post',
-        url: 'http://localhost:4000/requestAccessToken',
-        headers: {
-          'content-type': 'application/json',
-        },
-        data: {
-          // contributor
-          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
-        },
-      }).then((r) => r.data.access_token);
+      const tokenResponse = await ky
+        .post('http://localhost:4000/requestAccessToken', {
+          json: {
+            // contributor
+            code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM',
+          },
+        })
+        .json();
+      accessToken = tokenResponse.access_token;
     });
 
     describe('successful update', () => {
       beforeAll(async () => {
         try {
-          response = await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/events/19201989',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              state: 0,
-              featured: true,
-              title: {
-                fr: "Un événement mis à jour via l'api",
-                en: 'An updated event through the api',
+          response = await ky
+            .post('http://localhost:4000/agendas/17026855/events/19201989', {
+              headers: {
+                'access-token': accessToken,
               },
-              description: {
-                fr: 'Une description',
-                en: 'A desc',
-              },
-              location: {
-                uid: 123,
-              },
-              timezone: 'Europe/Paris',
-              timings: [
-                {
-                  begin: '2025-10-28T20:30:00',
-                  end: '2025-10-28T22:20:00',
+              json: {
+                state: 0,
+                featured: true,
+                title: {
+                  fr: "Un événement mis à jour via l'api",
+                  en: 'An updated event through the api',
                 },
-              ],
-              custom_description: 'Meh',
-              'categories-agenda-metropolitain': 43,
-              'thematiques-bordeaux-metropole': [3],
-            },
-          }).then((r) => r.data);
+                description: {
+                  fr: 'Une description',
+                  en: 'A desc',
+                },
+                location: {
+                  uid: 123,
+                },
+                timezone: 'Europe/Paris',
+                timings: [
+                  {
+                    begin: '2025-10-28T20:30:00',
+                    end: '2025-10-28T22:20:00',
+                  },
+                ],
+                custom_description: 'Meh',
+                'categories-agenda-metropolitain': 43,
+                'thematiques-bordeaux-metropole': [3],
+              },
+            })
+            .json();
         } catch (e) {
           // log if needed
         }
@@ -858,7 +855,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         expect(response.event.uid).toBe(19201989);
       });
 
-      it.only('updated event has expected timings', () => {
+      it('updated event has expected timings', () => {
         expect(new Date(response.event.timings[0].begin)).toEqual(
           new Date('2025-10-28T20:30:00.000+01:00'),
         );
@@ -868,30 +865,29 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     describe('unsuccessful update', () => {
       beforeAll(async () => {
         try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/events/19201989',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              title: {
-                fr: "Un événement mis à jour via l'api",
-                en: 'An updated event through the api',
+          await ky
+            .post('http://localhost:4000/agendas/17026855/events/19201989', {
+              headers: {
+                'access-token': accessToken,
               },
-              description: {
-                fr: 'Une description',
-                en: 'A desc',
+              json: {
+                title: {
+                  fr: "Un événement mis à jour via l'api",
+                  en: 'An updated event through the api',
+                },
+                description: {
+                  fr: 'Une description',
+                  en: 'A desc',
+                },
+                location: {
+                  uid: 123,
+                },
+                custom_description: 'Meh',
+                'categories-agenda-metropolitain': 43,
+                'thematiques-bordeaux-metropole': [3],
               },
-              location: {
-                uid: 123,
-              },
-              custom_description: 'Meh',
-              'categories-agenda-metropolitain': 43,
-              'thematiques-bordeaux-metropole': [3],
-            },
-          });
+            })
+            .json();
         } catch (e) {
           response = e.response;
         }
@@ -901,8 +897,9 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         expect(response.status).toBe(400);
       });
 
-      it('response body provides validation errors', () => {
-        expect(response.data.errors).toEqual([
+      it('response body provides validation errors', async () => {
+        const errorData = await response.json();
+        expect(errorData.errors).toEqual([
           {
             code: 'timings.invalid',
             message: 'Invalid timings',
@@ -916,41 +913,40 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     describe('unsuccessful update - invalid image', () => {
       beforeAll(async () => {
         try {
-          await axios({
-            method: 'post',
-            url: 'http://localhost:4000/agendas/17026855/events/19201989',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              title: {
-                fr: "Un événement mis à jour via l'api",
-                en: 'An updated event through the api',
+          await ky
+            .post('http://localhost:4000/agendas/17026855/events/19201989', {
+              headers: {
+                'access-token': accessToken,
               },
-              description: {
-                fr: 'Une description',
-                en: 'A desc',
-              },
-              location: {
-                uid: 123,
-              },
-              custom_description: 'Meh',
-              'categories-agenda-metropolitain': 43,
-              'thematiques-bordeaux-metropole': [3],
-              timings: [
-                {
-                  begin: new Date('2019-05-06T10:00:00'),
-                  end: new Date('2019-05-06T11:00:00'),
+              json: {
+                title: {
+                  fr: "Un événement mis à jour via l'api",
+                  en: 'An updated event through the api',
                 },
-                {
-                  begin: new Date('2019-05-06T12:00:00'),
-                  end: new Date('2019-05-06T13:00:00'),
+                description: {
+                  fr: 'Une description',
+                  en: 'A desc',
                 },
-              ],
-              image: { url: 'https://google.fr' },
-            },
-          });
+                location: {
+                  uid: 123,
+                },
+                custom_description: 'Meh',
+                'categories-agenda-metropolitain': 43,
+                'thematiques-bordeaux-metropole': [3],
+                timings: [
+                  {
+                    begin: new Date('2019-05-06T10:00:00'),
+                    end: new Date('2019-05-06T11:00:00'),
+                  },
+                  {
+                    begin: new Date('2019-05-06T12:00:00'),
+                    end: new Date('2019-05-06T13:00:00'),
+                  },
+                ],
+                image: { url: 'https://google.fr' },
+              },
+            })
+            .json();
         } catch (e) {
           response = e.response;
         }
@@ -960,8 +956,9 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         expect(response.status).toBe(400);
       });
 
-      it('response body provides validation errors', () => {
-        expect(response.data.errors).toEqual([
+      it('response body provides validation errors', async () => {
+        const errorData = await response.json();
+        expect(errorData.errors).toEqual([
           {
             field: 'image',
             code: 'format.unknown',
@@ -975,41 +972,32 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
     describe('successful patch', () => {
       beforeAll(async () => {
-        try {
-          response = await axios({
-            method: 'patch',
-            url: 'http://localhost:4000/agendas/17026855/events/19390293',
+        response = await ky
+          .patch('http://localhost:4000/agendas/17026855/events/19390293', {
             headers: {
               'access-token': accessToken,
-              'content-type': 'application/json',
             },
-            data: {
+            json: {
               title: {
                 fr: "Un événement mis à jour via l'api",
               },
               attendanceMode: 2,
               onlineAccessLink: 'https://openagenda.com',
             },
-          });
-        } catch (e) {
-          // console.log(e);
-        }
-      });
-
-      it('status is 200', () => {
-        expect(response.status).toBe(200);
+          })
+          .json();
       });
 
       it('body contains event', () => {
-        expect(response.data.event.uid).toBe(19390293);
+        expect(response.event.uid).toBe(19390293);
       });
 
       it('fix: image is maintained', () => {
-        expect(response.data.event.image.filename).toEqual('fdqfsdq.jpg');
+        expect(response.event.image.filename).toEqual('fdqfsdq.jpg');
       });
 
       it('attendanceMode is patched', () => {
-        expect(response.data.event.attendanceMode).toBe(2);
+        expect(response.event.attendanceMode).toBe(2);
       });
     });
 
@@ -1025,20 +1013,20 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           },
         );
       });
+
       it('patching extIds add to existing', async () => {
         try {
-          response = await axios({
-            method: 'patch',
-            url: 'http://localhost:4000/agendas/17026855/events/19390293',
-            headers: {
-              'access-token': accessToken,
-              'content-type': 'application/json',
-            },
-            data: {
-              extIds: [{ key: 'test2', value: '423' }],
-            },
-          });
-          expect(response.data.event.extIds).toEqual([
+          response = await ky
+            .patch('http://localhost:4000/agendas/17026855/events/19390293', {
+              headers: {
+                'access-token': accessToken,
+              },
+              json: {
+                extIds: [{ key: 'test2', value: '423' }],
+              },
+            })
+            .json();
+          expect(response.event.extIds).toEqual([
             { key: 'test2', value: '423' },
             { key: 'test', value: '123' },
           ]);
@@ -1048,81 +1036,81 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       });
 
       it('updating extIds replaces existing when mergeExtIds options is false', async () => {
-        response = await axios({
-          method: 'post',
-          url: 'http://localhost:4000/agendas/17026855/events/19390293?mergeExtIds=false',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            state: 0,
-            featured: true,
-            title: {
-              fr: "Un événement mis à jour via l'api",
-              en: 'An updated event through the api',
-            },
-            description: {
-              fr: 'Une description',
-              en: 'A desc',
-            },
-            location: {
-              uid: 123,
-            },
-            timings: [
-              {
-                begin: new Date('2019-05-06T10:00:00'),
-                end: new Date('2019-05-06T11:00:00'),
+        response = await ky
+          .post(
+            'http://localhost:4000/agendas/17026855/events/19390293?mergeExtIds=false',
+            {
+              headers: {
+                'access-token': accessToken,
               },
-              {
-                begin: new Date('2019-05-06T12:00:00'),
-                end: new Date('2019-05-06T13:00:00'),
+              json: {
+                state: 0,
+                featured: true,
+                title: {
+                  fr: "Un événement mis à jour via l'api",
+                  en: 'An updated event through the api',
+                },
+                description: {
+                  fr: 'Une description',
+                  en: 'A desc',
+                },
+                location: {
+                  uid: 123,
+                },
+                timings: [
+                  {
+                    begin: new Date('2019-05-06T10:00:00'),
+                    end: new Date('2019-05-06T11:00:00'),
+                  },
+                  {
+                    begin: new Date('2019-05-06T12:00:00'),
+                    end: new Date('2019-05-06T13:00:00'),
+                  },
+                ],
+                custom_description: 'Meh',
+                'categories-agenda-metropolitain': 43,
+                'thematiques-bordeaux-metropole': [3],
+                extIds: [{ key: 'test3', value: '423' }],
               },
-            ],
-            custom_description: 'Meh',
-            'categories-agenda-metropolitain': 43,
-            'thematiques-bordeaux-metropole': [3],
-            extIds: [{ key: 'test3', value: '423' }],
-          },
-        }).then((r) => r.data);
+            },
+          )
+          .json();
         expect(response.event.extIds).toEqual([{ key: 'test3', value: '423' }]);
       });
     });
 
     describe('monolingual patch', () => {
       it('monolingual patch is by default english', async () => {
-        const patchResponse = await axios({
-          method: 'patch',
-          url: 'http://localhost:4000/agendas/17026855/events/19201989',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-          },
-          data: {
-            title: 'Un événement remis à jour',
-          },
-        });
+        const patchResponse = await ky
+          .patch('http://localhost:4000/agendas/17026855/events/19201989', {
+            headers: {
+              'access-token': accessToken,
+            },
+            json: {
+              title: 'Un événement remis à jour',
+            },
+          })
+          .json();
 
-        expect(patchResponse.data.event.title.en).toEqual(
+        expect(patchResponse.event.title.en).toEqual(
           'Un événement remis à jour',
         );
       });
 
       it('monolingual patch is in language specified in header', async () => {
-        const patchLangInHeaderResponse = await axios({
-          method: 'patch',
-          url: 'http://localhost:4000/agendas/17026855/events/19201989',
-          headers: {
-            'access-token': accessToken,
-            'content-type': 'application/json',
-            lang: 'fr',
-          },
-          data: {
-            title: 'Un événement reremis à jour',
-          },
-        });
+        const patchLangInHeaderResponse = await ky
+          .patch('http://localhost:4000/agendas/17026855/events/19201989', {
+            headers: {
+              'access-token': accessToken,
+              lang: 'fr',
+            },
+            json: {
+              title: 'Un événement reremis à jour',
+            },
+          })
+          .json();
 
-        expect(patchLangInHeaderResponse.data.event.title.fr).toEqual(
+        expect(patchLangInHeaderResponse.event.title.fr).toEqual(
           'Un événement reremis à jour',
         );
       });
