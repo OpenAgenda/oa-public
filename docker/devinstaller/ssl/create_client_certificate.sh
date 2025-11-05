@@ -25,6 +25,9 @@ openssl verify -verbose -CAfile certs/auth.crt clients/$1.crt
 openssl pkcs12 -export -clcerts \
   -in clients/$1.crt \
   -inkey clients/private/$1.key \
-  -out clients/$1.p12
+  -out clients/$1.p12 \
+  -macalg sha1 \
+  -keypbe PBE-SHA1-3DES \
+  -certpbe PBE-SHA1-3DES
 
 echo "-> clients/$1.p12"
