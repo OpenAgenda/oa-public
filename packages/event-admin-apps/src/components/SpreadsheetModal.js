@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import qs from 'qs';
-import axios from 'axios';
 import { Modal } from '@openagenda/react-shared';
 import exportsMessages from '../messages/exports.js';
 import SpreadsheetOptions from './SpreadsheetOptions.js';
@@ -23,9 +22,10 @@ export default function SpreadsheetModal({
 
   useEffect(() => {
     async function fetchData() {
-      const { data } = await axios.get(
+      const response = await fetch(
         `/agendas/${agendaUid}/admin/settings/exports`,
       );
+      const data = await response.json();
       setLanguages(data.languages);
       setFields(data.spreadsheetColumns);
     }
