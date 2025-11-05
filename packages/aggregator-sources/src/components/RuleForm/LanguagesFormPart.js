@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useIntl } from 'react-intl';
 import { Field } from 'react-final-form';
-import axios from 'axios';
 
 import { ReactSelectField } from '@openagenda/react-shared';
 import messages from './messages.js';
@@ -12,27 +11,29 @@ export default ({ sourceAgendaUid, res }) => {
   const [languagesOptions, setLanguagesOptions] = useState([]);
 
   useEffect(() => {
-    axios.get(res.replace(':agendaUid', sourceAgendaUid)).then((r) => {
-      const langs = r.data.aggregations.languages;
-      if (langs) {
-        setLanguagesOptions(
-          langs
-            .filter((l) => l.eventCount)
-            .reduce((prev, curr) => {
-              const label = intl.formatDisplayName([curr.key], {
-                type: 'language',
-              });
-              return prev.concat([
-                {
-                  value: curr.key,
-                  label: label.charAt(0).toUpperCase() + label.slice(1),
-                },
-              ]);
-            }, []),
-        );
-      }
-      setIsLoadingLang(false);
-    });
+    fetch(res.replace(':agendaUid', sourceAgendaUid))
+      .then((r) => r.json())
+      .then((data) => {
+        const langs = data.aggregations.languages;
+        if (langs) {
+          setLanguagesOptions(
+            langs
+              .filter((l) => l.eventCount)
+              .reduce((prev, curr) => {
+                const label = intl.formatDisplayName([curr.key], {
+                  type: 'language',
+                });
+                return prev.concat([
+                  {
+                    value: curr.key,
+                    label: label.charAt(0).toUpperCase() + label.slice(1),
+                  },
+                ]);
+              }, []),
+          );
+        }
+        setIsLoadingLang(false);
+      });
   }, [intl, res, sourceAgendaUid]);
 
   return (
