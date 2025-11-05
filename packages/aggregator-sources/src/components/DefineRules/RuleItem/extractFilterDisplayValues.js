@@ -99,9 +99,11 @@ const choiceFilter = ({ intl, rule, sourceAgendaSchema, sourceAgenda }) => {
 const tagsFilter = ({ intl, rule, sourceAgenda }) => ({
   label: intl.formatMessage(messages.tags),
   value: [].concat(rule.query.tags).join(', '),
-  detail: intl.formatMessage(messages.sourceAgendaTagsDetail, {
-    agendaTitle: sourceAgenda.title,
-  }),
+  detail: sourceAgenda
+    ? intl.formatMessage(messages.sourceAgendaTagsDetail, {
+      agendaTitle: sourceAgenda.title,
+    })
+    : null,
 });
 
 const locationFilter = ({ intl, rule }) => {
