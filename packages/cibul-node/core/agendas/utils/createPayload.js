@@ -93,7 +93,7 @@ function getEvent(data, key) {
 }
 
 function getMember(data) {
-  return _.get(data, 'services.after.agendaEvent.member', null);
+  return data?.services?.after?.agendaEvent?.member ?? null;
 }
 
 function makeGetResponse(core, data) {

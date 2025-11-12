@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import createPayload from '../utils/createPayload.js';
 import formatLocationExtIds from '../locations/formatExtIds.js';
@@ -126,7 +125,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   if (load.custom && agenda.network) {
     payload.setItem(
       'custom.network',
-      await custom(_.get(agenda, 'network.formSchemaId')).get(eventUid),
+      await custom(agenda.network.formSchemaId).get(eventUid),
     );
   }
 
