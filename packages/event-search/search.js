@@ -147,6 +147,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     useDefaultImage,
     aggsSizeLimit,
     removed,
+    valid,
     useAdminLevels,
   } = validateOptions(options);
 
@@ -176,6 +177,9 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     includes.push('removed');
   }
 
+  // Always include valid field since it has default filtering behavior
+  includes.push('valid');
+
   let cleanQuery;
   try {
     cleanQuery = inflateAndCleanQuery(query, {
@@ -183,6 +187,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
       formSchema,
       emptyValue,
       removed,
+      valid,
     });
   } catch (errors) {
     throw Array.isArray(errors)
@@ -200,6 +205,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
       includes,
       emptyValue,
       removed,
+      valid,
     },
   );
 

@@ -17,6 +17,7 @@ import * as relative from './relative.js';
 import * as timings from './timings.js';
 import * as accessibilities from './accessibilities.js';
 import * as sourceAgendas from './sourceAgendas.js';
+import valid from './valid.js';
 
 const aggregationTypes = {
   additionalFields,
@@ -43,6 +44,7 @@ const aggregationTypes = {
   status: terms('status', { order: { _key: 'asc' } }),
   addMethods: terms('addMethod'),
   attendanceModes: terms('attendanceMode', { order: { _key: 'desc' } }),
+  valid,
   timings,
   createdAt: timestamp('createdAt'),
   updatedAt: timestamp('_exclusiveUpdatedAt'),
@@ -139,10 +141,21 @@ export default {
             );
           }
 
-          return {
+          const result = {
             ...aggregationDSL,
             [key]: formatDSL(query, getOptions(r, options)),
           };
+
+          // Special handling for valid aggregation with missing parameter
+          if (type === 'valid' && r.missing !== undefined) {
+            result[`${key}_missing`] = {
+              missing: {
+                field: 'valid',
+              },
+            };
+          }
+
+          return result;
         },
         missingAdditionalFields.formatDSL(requested, query, options),
       );
@@ -151,15 +164,27 @@ export default {
     missingAdditionalFields.dispatchMissingCounts(
       requested,
       result,
-      requested.map(extractKeyAndType).reduce(
-        (formatted, { key, type, requested: r }) => ({
-          ...formatted,
-          [key]: aggregationTypes[type].formatResult(result[key], {
+      requested
+        .map(extractKeyAndType)
+        .reduce((formatted, { key, type, requested: r }) => {
+          const opts = {
             ...getOptions(r, options),
             query,
-          }),
-        }),
-        {},
-      ),
+          };
+
+          // For valid aggregation with missing parameter, pass the missing count
+          if (
+            type === 'valid'
+            && r.missing !== undefined
+            && result[`${key}_missing`]
+          ) {
+            opts.missingCount = result[`${key}_missing`].doc_count;
+          }
+
+          return {
+            ...formatted,
+            [key]: aggregationTypes[type].formatResult(result[key], opts),
+          };
+        }, {}),
     ),
 };
