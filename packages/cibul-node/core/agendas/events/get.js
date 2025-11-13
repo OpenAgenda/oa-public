@@ -3,6 +3,7 @@ import logs from '@openagenda/logs';
 import createPayload from '../utils/createPayload.js';
 import formatLocationExtIds from '../locations/formatExtIds.js';
 import getAgenda from '../utils/getAgenda.js';
+import eventLoadOptions from '../utils/eventLoadOptions.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 
 const log = logs('core/agendas/events/get');
@@ -16,7 +17,6 @@ export default async (core, agendaUid, eventUid, options = {}) => {
 
   const {
     lang,
-    load,
     access,
     returnPayload,
     detailed,
@@ -28,12 +28,6 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     private: loadPrivate,
   } = {
     lang: null,
-    load: {
-      event: true,
-      custom: true,
-      agendaEvent: true,
-      member: true,
-    },
     access: 'public',
     returnPayload: false,
     detailed: false,
@@ -45,6 +39,8 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     private: false,
     ...options,
   };
+
+  const load = eventLoadOptions.get(options);
 
   const agenda = await getAgenda(services, agendaUid, { detailed: true });
 

@@ -1011,7 +1011,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
             })
             .json();
         } catch (e) {
-          // console.log(e.response.data);
+          console.log(e.response.data);
         }
       });
 

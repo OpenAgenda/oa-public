@@ -61,6 +61,7 @@ async function eventMailSend(req, res, next) {
       .agendas(req.agenda.uid)
       .events.get(req.event.uid, {
         load: {
+          default: false,
           custom: true,
         },
         returnPayload: true,

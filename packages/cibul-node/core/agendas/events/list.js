@@ -40,6 +40,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
 
   const { load, returnPayload, access, detailed, removed } = {
     load: {
+      default: false,
       event: true,
       agendaEvent: true,
       custom: true,

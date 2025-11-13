@@ -44,6 +44,7 @@ async function agendaBatchList(core, { agendaUid, operation, query, args }) {
       {
         ...options,
         load: {
+          default: false,
           agendaEvent: true,
         },
         returnPayload: true,
