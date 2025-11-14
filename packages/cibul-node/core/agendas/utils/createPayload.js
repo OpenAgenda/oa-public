@@ -78,23 +78,10 @@ async function getCompiledEvent(
   });
 
   if (eventLoadOptions.getValid({ load: loadOption })) {
-    merged.valid = await cleanEvent(
-      core.services,
+    merged.valid = await cleanEvent.getIsValid(
+      core,
       data.agendas.current,
-      {},
-      {
-        validateWithStoredData: true,
-        event: merged,
-        optionalSecondaryFields: true,
-      },
-    ).then(
-      () => true,
-      (error) => {
-        if (error.name === 'BadRequest') {
-          return false;
-        }
-        throw error;
-      },
+      merged,
     );
   }
 

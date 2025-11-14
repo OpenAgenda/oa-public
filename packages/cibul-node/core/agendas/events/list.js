@@ -209,24 +209,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
 
   if (load.valid) {
     for (const event of compiledEvents) {
-      event.valid = await cleanEvent(
-        core.services,
-        agenda,
-        {},
-        {
-          validateWithStoredData: true,
-          optionalSecondaryField: true,
-          event,
-        },
-      ).then(
-        () => true,
-        (error) => {
-          if (error.name === 'BadRequest') {
-            return false;
-          }
-          throw error;
-        },
-      );
+      event.valid = await cleanEvent.getIsValid(core, agenda, event);
     }
   }
 

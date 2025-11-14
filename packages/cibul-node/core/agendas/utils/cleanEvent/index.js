@@ -54,86 +54,107 @@ function isStrictUnpublish(data) {
   return true;
 }
 
-export default Object.assign(
-  async function cleanEvent(services, agenda, data, options = {}) {
-    const { agendaEvents, registrations } = services;
+async function cleanEvent(services, agenda, data, options = {}) {
+  const { agendaEvents, registrations } = services;
 
-    const completeEventData = options.validateWithStoredData
-      ? {
-        ...options.event,
-        ...data,
+  const completeEventData = options.validateWithStoredData
+    ? {
+      ...options.event,
+      ...data,
+    }
+    : data;
+
+  const locationUid = extractLocationUidFromData({ data, completeEventData });
+
+  const location = locationUid
+    ? await services.agendaLocations
+      .get(
+        {
+          uid: locationUid,
+        },
+        {
+          returnMergeTarget: true,
+          deleted: null,
+        },
+      )
+      .catch((e) => {
+        if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
+          throw e;
+        }
+      })
+    : null;
+
+  log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
+
+  const pre = moveLegacyImageCredits(
+    locationUid !== undefined ? { ...data, locationUid } : data,
+  );
+
+  if (location) {
+    pre.location = location;
+  }
+
+  const clean = validateEvent(
+    {
+      formSchema: agenda.formSchema,
+      networkFormSchema: _.get(agenda, 'network.formSchema'),
+      location,
+      validateAgendaEvent: agendaEvents.validate,
+    },
+    pre,
+    {
+      ...options,
+      isStrictUnpublish: isStrictUnpublish(data),
+    },
+  );
+
+  const passCulturePayload = clean.event?.registration?.find(
+    ({ service }) => service === 'passCulture',
+  )?.data;
+
+  if (
+    passCulturePayload
+    && registrations
+    && getWriteAccess(options.member, options.access)
+  ) {
+    const throwOnError = data?.registration?.find(({ service }) => service === 'passCulture')
+      ?.data || data.location;
+    clean.passCulture = await registrations(
+      agenda.settings.registration,
+    ).passCulture.validate({ ...clean.event, location }, passCulturePayload, {
+      throwOnError,
+    });
+  } else if (passCulturePayload && !registrations) {
+    log('passCulture payload is set but registrations is not initialized');
+  }
+
+  return clean;
+}
+
+function getIsValid(core, agenda, event) {
+  return cleanEvent(
+    core.services,
+    agenda,
+    {},
+    {
+      validateWithStoredData: true,
+      event,
+      optionalSecondaryFields: true,
+    },
+  ).then(
+    () => true,
+    (error) => {
+      if (error.name !== 'BadRequest') {
+        throw error;
       }
-      : data;
+      return false;
+    },
+  );
+}
 
-    const locationUid = extractLocationUidFromData({ data, completeEventData });
-
-    const location = locationUid
-      ? await services.agendaLocations
-        .get(
-          {
-            uid: locationUid,
-          },
-          {
-            returnMergeTarget: true,
-            deleted: null,
-          },
-        )
-        .catch((e) => {
-          if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
-            throw e;
-          }
-        })
-      : null;
-
-    log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
-
-    const pre = moveLegacyImageCredits(
-      locationUid !== undefined ? { ...data, locationUid } : data,
-    );
-
-    if (location) {
-      pre.location = location;
-    }
-
-    const clean = validateEvent(
-      {
-        formSchema: agenda.formSchema,
-        networkFormSchema: _.get(agenda, 'network.formSchema'),
-        location,
-        validateAgendaEvent: agendaEvents.validate,
-      },
-      pre,
-      {
-        ...options,
-        isStrictUnpublish: isStrictUnpublish(data),
-      },
-    );
-
-    const passCulturePayload = clean.event?.registration?.find(
-      ({ service }) => service === 'passCulture',
-    )?.data;
-
-    if (
-      passCulturePayload
-      && registrations
-      && getWriteAccess(options.member, options.access)
-    ) {
-      const throwOnError = data?.registration?.find(({ service }) => service === 'passCulture')
-        ?.data || data.location;
-      clean.passCulture = await registrations(
-        agenda.settings.registration,
-      ).passCulture.validate({ ...clean.event, location }, passCulturePayload, {
-        throwOnError,
-      });
-    } else if (passCulturePayload && !registrations) {
-      log('passCulture payload is set but registrations is not initialized');
-    }
-
-    return clean;
-  },
-  {
-    containsEventData,
-    isDifferent,
-    eventFields,
-  },
-);
+export default Object.assign(cleanEvent, {
+  containsEventData,
+  isDifferent,
+  eventFields,
+  getIsValid,
+});
