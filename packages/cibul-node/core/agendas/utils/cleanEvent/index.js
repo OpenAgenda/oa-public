@@ -10,6 +10,7 @@ import moveLegacyImageCredits from './moveLegacyImageCredits.js';
 const { diff } = deepDiff;
 
 const log = logs('core/agendas/utils/cleanEvent');
+const validLog = logs('core/agendas/utils/cleanEvent.getIsValid');
 
 const eventFields = eventSchema.eventFields({
   labels,
@@ -145,8 +146,12 @@ function getIsValid(core, agenda, event) {
     () => true,
     (error) => {
       if (error.name !== 'BadRequest') {
+        validLog.debug('%s: exception', event.slug, { error });
         throw error;
       }
+      validLog.debug('%s: NOT valid', event.slug, {
+        errors: error.info.errors,
+      });
       return false;
     },
   );
