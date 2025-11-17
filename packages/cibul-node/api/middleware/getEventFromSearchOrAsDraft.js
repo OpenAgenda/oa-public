@@ -24,6 +24,9 @@ export default async function getEventFromSearchOrAsDraft(req, res, next) {
       .agendas(req.agenda.uid)
       .events.search.get(identifier, {
         detailed: true,
+        load: {
+          valid: true,
+        },
         userUid: req.user?.uid,
         longDescriptionFormat: req.query.longDescriptionFormat,
         useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
