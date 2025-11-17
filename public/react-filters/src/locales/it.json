@@ -58,7 +58,7 @@
   "ReactFilters.messages.filterTitles.status": "Stato",
   "ReactFilters.messages.filterTitles.timings": "Orari",
   "ReactFilters.messages.filterTitles.updatedAt": "Data di aggiornamento",
-  "ReactFilters.messages.filterTitles.valid": "Validità",
+  "ReactFilters.messages.filterTitles.valid": "Conformità",
   "ReactFilters.messages.provenance.aggregation": "Aggregazione",
   "ReactFilters.messages.provenance.contribution": "Contribuzione",
   "ReactFilters.messages.provenance.share": "Condividere",
@@ -75,8 +75,8 @@
   "ReactFilters.messages.status.postponed": "Riprogrammato",
   "ReactFilters.messages.status.programmed": "Programmato",
   "ReactFilters.messages.status.rescheduled": "Riprogrammato",
-  "ReactFilters.messages.valid.invalid": "Non valido",
+  "ReactFilters.messages.valid.invalid": "Non conforme",
   "ReactFilters.messages.valid.undefined": "Indefinito",
-  "ReactFilters.messages.valid.valid": "Valido",
+  "ReactFilters.messages.valid.valid": "Conforme",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Nessun valore)"
 }

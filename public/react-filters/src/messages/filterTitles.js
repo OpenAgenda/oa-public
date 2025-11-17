@@ -99,6 +99,6 @@ export default defineMessages({
   },
   valid: {
     id: 'ReactFilters.messages.filterTitles.valid',
-    defaultMessage: 'Validity',
+    defaultMessage: 'Compliance',
   },
 });

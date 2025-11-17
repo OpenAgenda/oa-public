@@ -1,6 +1,6 @@
 {
-  "ReactFilters.messages.filterTitles.valid": "Validesa",
-  "ReactFilters.messages.valid.invalid": "Invàlid",
+  "ReactFilters.messages.filterTitles.valid": "Conformitat",
+  "ReactFilters.messages.valid.invalid": "No conforme",
   "ReactFilters.messages.valid.undefined": "Indefinit",
-  "ReactFilters.messages.valid.valid": "Vàlid"
+  "ReactFilters.messages.valid.valid": "Conforme"
 }
