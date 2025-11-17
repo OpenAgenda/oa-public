@@ -437,7 +437,7 @@ function _addAdditionalFieldsToFilterParts(
 
 function _getQueryFilterParts(
   cleanQuery,
-  { additionalAndSchemaFields, emptyValue, removed = false, valid = true },
+  { additionalAndSchemaFields, emptyValue, removed = false },
 ) {
   const parts = [];
   const { relative, addMethod } = cleanQuery;
@@ -494,14 +494,6 @@ function _getQueryFilterParts(
 
   if (removed === true) {
     parts.push(_terms('removed', true));
-  }
-
-  if (valid === true) {
-    parts.push(_terms('valid', true));
-  }
-
-  if (valid === false) {
-    parts.push(_terms('valid', false));
   }
 
   if (cleanQuery.valid !== null && cleanQuery.valid !== undefined) {
@@ -632,7 +624,7 @@ function shouldParts() {
 }
 
 export default function getDSLQueryPart(cleanQuery, options = {}) {
-  const { formSchema, emptyValue, removed = false, valid = null } = options;
+  const { formSchema, emptyValue, removed = false } = options;
 
   const query = {};
   const additionalAndSchemaFields = getFormSchemaAdditionalFields(
@@ -645,7 +637,6 @@ export default function getDSLQueryPart(cleanQuery, options = {}) {
     additionalAndSchemaFields,
     emptyValue,
     removed,
-    valid,
   });
 
   const mustNotFilterParts = _getQueryMustNotFilterParts(cleanQuery);

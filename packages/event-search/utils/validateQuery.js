@@ -164,6 +164,12 @@ const validate = schema({
     allowNull: true,
     default: null,
   },
+  valid: {
+    optional: true,
+    type: 'boolean',
+    allowNull: true,
+    default: null,
+  },
   attendanceMode: {
     optional: true,
     type: 'choice',

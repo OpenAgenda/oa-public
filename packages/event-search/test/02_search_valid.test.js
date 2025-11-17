@@ -25,7 +25,11 @@ describe('02 - event search - functional: valid', () => {
   });
 
   it('valid null (default behavior)', async () => {
-    const { events } = await service('valid').search({}, { size: 10 });
+    const { events } = await service('valid').search(
+      { valid: null },
+      { size: 10 },
+      { detailed: true },
+    );
 
     // By default (valid: null), should return all events (10 total)
     expect(events.length).toBe(10);
@@ -36,11 +40,9 @@ describe('02 - event search - functional: valid', () => {
 
   it('valid true', async () => {
     const { events } = await service('valid').search(
-      {},
+      { valid: true },
       { size: 10 },
-      {
-        valid: true,
-      },
+      { detailed: true },
     );
 
     // valid: true should return ONLY events with valid === true
@@ -52,11 +54,9 @@ describe('02 - event search - functional: valid', () => {
 
   it('valid false', async () => {
     const { events } = await service('valid').search(
-      {},
+      { valid: false },
       { size: 10 },
-      {
-        valid: false,
-      },
+      { detailed: true },
     );
 
     expect(events.length).toBe(2);
@@ -65,11 +65,9 @@ describe('02 - event search - functional: valid', () => {
 
   it('valid null', async () => {
     const { events } = await service('valid').search(
-      {},
+      { valid: null },
       { size: 10 },
-      {
-        valid: null,
-      },
+      { detailed: true },
     );
 
     expect(events.length).toBe(10);
@@ -80,11 +78,8 @@ describe('02 - event search - functional: valid', () => {
 
   it('sort with valid null', async () => {
     const { events } = await service('valid').search(
-      {},
+      { valid: null },
       { size: 10 },
-      {
-        valid: null,
-      },
     );
 
     expect(events.map((e) => e.uid)).toStrictEqual([
@@ -143,5 +138,39 @@ describe('02 - event search - functional: valid', () => {
         eventCount: 2,
       },
     ]);
+  });
+
+  describe('valid field inclusion in results', () => {
+    it('valid field is NOT included in non-detailed search by default', async () => {
+      const { events } = await service('valid').search(
+        { valid: null },
+        { size: 10 },
+      );
+
+      // valid should not be in the returned event data
+      expect(events[0]).not.toHaveProperty('valid');
+    });
+
+    it('valid field IS included in detailed search', async () => {
+      const { events } = await service('valid').search(
+        { valid: null },
+        { size: 10 },
+        { detailed: true },
+      );
+
+      // valid should be in the returned event data
+      expect(events[0]).toHaveProperty('valid');
+    });
+
+    it('valid field IS included when explicitly requested via includeFields', async () => {
+      const { events } = await service('valid').search(
+        { valid: null },
+        { size: 10 },
+        { includeFields: ['valid'] },
+      );
+
+      // valid should be in the returned event data
+      expect(events[0]).toHaveProperty('valid');
+    });
   });
 });
