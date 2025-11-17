@@ -1,1 +1,6 @@
-{}
+{
+  "ReactFilters.messages.filterTitles.valid": "Validesa",
+  "ReactFilters.messages.valid.invalid": "Invàlid",
+  "ReactFilters.messages.valid.undefined": "Indefinit",
+  "ReactFilters.messages.valid.valid": "Vàlid"
+}

@@ -7,6 +7,7 @@ import featuredMessages from '../messages/featured.js';
 import stateMessages from '../messages/state.js';
 import statusMessages from '../messages/status.js';
 import booleanMessages from '../messages/boolean.js';
+import validMessages from '../messages/valid.js';
 import accessibilitiesMessages from '../messages/accessibilities.js';
 import dateRanges from './dateRanges.js';
 
@@ -354,6 +355,24 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
       defaults(filter, {
         type: 'favorites',
         aggregation: null,
+      });
+      break;
+    case 'valid':
+      defaults(filter, {
+        type: 'choice',
+        options: [
+          {
+            label: intl.formatMessage(validMessages.valid),
+            value: 'true',
+          },
+          {
+            label: intl.formatMessage(validMessages.invalid),
+            value: 'false',
+          },
+        ],
+        aggregation: {
+          type: 'valid',
+        },
       });
       break;
     default:

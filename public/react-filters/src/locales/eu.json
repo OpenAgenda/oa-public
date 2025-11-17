@@ -1,1 +1,6 @@
-{}
+{
+  "ReactFilters.messages.filterTitles.valid": "Baliozkotasuna",
+  "ReactFilters.messages.valid.invalid": "Baliogabe",
+  "ReactFilters.messages.valid.undefined": "Definitu gabe",
+  "ReactFilters.messages.valid.valid": "Baliozkoa"
+}

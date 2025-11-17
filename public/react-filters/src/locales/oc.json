@@ -67,6 +67,7 @@
   "ReactFilters.messages.filterTitles.status": "Estat",
   "ReactFilters.messages.filterTitles.timings": "Data",
   "ReactFilters.messages.filterTitles.updatedAt": "Data de mesa a jorn",
+  "ReactFilters.messages.filterTitles.valid": "Validitat",
   "ReactFilters.messages.provenance.aggregation": "Agregacion",
   "ReactFilters.messages.provenance.contribution": "Contribucion",
   "ReactFilters.messages.provenance.share": "Partatjar",
@@ -83,5 +84,8 @@
   "ReactFilters.messages.status.postponed": "Remandat",
   "ReactFilters.messages.status.programmed": "Previst",
   "ReactFilters.messages.status.rescheduled": "Tornat planificar",
+  "ReactFilters.messages.valid.invalid": "Invalid",
+  "ReactFilters.messages.valid.undefined": "Indefinit",
+  "ReactFilters.messages.valid.valid": "Valid",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Sens valor)"
 }

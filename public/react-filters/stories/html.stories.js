@@ -730,3 +730,30 @@ export const SortChoiceListInDropdown = () => (
   />
 );
 SortChoiceListInDropdown.storyName = 'Choice with sort list in dropdown';
+
+export const Valid = () => (
+  <Html
+    options={{
+      locale: 'fr',
+      filtersBase: {
+        valid: [
+          { key: 'true', eventCount: 4 },
+          { key: 'false', eventCount: 2 },
+        ],
+      },
+      aggregations: {
+        valid: [
+          { key: 'true', eventCount: 4 },
+          { key: 'false', eventCount: 2 },
+        ],
+      },
+    }}
+    html={_.template(`
+      <div
+        data-oa-filter="an-id"
+        data-oa-filter-params="<%- JSON.stringify({ type: 'choice', name: 'valid' }) %>"
+      ></div>
+    `)()}
+  />
+);
+Valid.storyName = 'Valid filter';
