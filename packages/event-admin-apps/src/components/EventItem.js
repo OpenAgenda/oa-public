@@ -107,6 +107,15 @@ const messages = defineMessages({
     id: 'EventAdminApp.EventItem.motiveTitle',
     defaultMessage: 'Motive',
   },
+  invalidEventInfo: {
+    id: 'EventAdminApp.EventItem.invalidEventInfo',
+    defaultMessage:
+      'This event does not meet the criteria defined by the calendar form. This can happen if the form configuration has changed. To correct the event, edit it.',
+  },
+  invalidEventInfoTitle: {
+    id: 'EventAdminApp.EventItem.invalidEventInfoTitle',
+    defaultMessage: 'Invalid',
+  },
 });
 
 export default function EventItem({
@@ -241,6 +250,18 @@ export default function EventItem({
           href={`/${agenda.slug}/events/${event.slug}${adminNavStr}`}
           style={{ color: 'inherit' }}
         >
+          {event.valid === false ? (
+            <span className="padding-right-sm">
+              <MoreInfo
+                title={intl.formatMessage(messages.invalidEventInfoTitle)}
+                content={intl.formatMessage(messages.invalidEventInfo)}
+                placement="bottom"
+              >
+                <i className="fa fa-exclamation-circle text-danger" />
+              </MoreInfo>
+            </span>
+          ) : null}
+
           <StatusBadge status={event.status} intl={intl} />
 
           <b>{getLocaleValue(event.title, intl.locale)}</b>
