@@ -65,6 +65,7 @@
   "ReactFilters.messages.filterTitles.status": "Status",
   "ReactFilters.messages.filterTitles.timings": "Datum",
   "ReactFilters.messages.filterTitles.updatedAt": "Datum der Aktualisierung",
+  "ReactFilters.messages.filterTitles.valid": "Gültigkeit",
   "ReactFilters.messages.provenance.aggregation": "Aggregation",
   "ReactFilters.messages.provenance.contribution": "Beitrag",
   "ReactFilters.messages.provenance.share": "teilen",
@@ -81,5 +82,8 @@
   "ReactFilters.messages.status.postponed": "Verschoben",
   "ReactFilters.messages.status.programmed": "Geplant",
   "ReactFilters.messages.status.rescheduled": "Verschoben",
+  "ReactFilters.messages.valid.invalid": "Ungültig",
+  "ReactFilters.messages.valid.undefined": "Undefiniert",
+  "ReactFilters.messages.valid.valid": "Gültig",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Ohne Wert)"
 }

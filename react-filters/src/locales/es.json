@@ -74,6 +74,7 @@
   "ReactFilters.messages.filterTitles.status": "Estado",
   "ReactFilters.messages.filterTitles.timings": "Fecha",
   "ReactFilters.messages.filterTitles.updatedAt": "Fecha de actualización",
+  "ReactFilters.messages.filterTitles.valid": "Validez",
   "ReactFilters.messages.map.searchHere": "Buscar aquí",
   "ReactFilters.messages.provenance.aggregation": "Agregación",
   "ReactFilters.messages.provenance.contribution": "Contribución",
@@ -91,5 +92,8 @@
   "ReactFilters.messages.status.postponed": "Pospuesto",
   "ReactFilters.messages.status.programmed": "Programado",
   "ReactFilters.messages.status.rescheduled": "Reprogramado",
+  "ReactFilters.messages.valid.invalid": "Inválido",
+  "ReactFilters.messages.valid.undefined": "Indefinido",
+  "ReactFilters.messages.valid.valid": "Válido",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Sin valor)"
 }

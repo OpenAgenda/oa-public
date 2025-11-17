@@ -97,4 +97,8 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.languages',
     defaultMessage: 'Languages',
   },
+  valid: {
+    id: 'ReactFilters.messages.filterTitles.valid',
+    defaultMessage: 'Validity',
+  },
 });

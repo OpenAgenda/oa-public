@@ -138,3 +138,29 @@ export const SimpleDateRange = ({ onSubmit }) => (
     </FiltersProvider>
   </IntlProvider>
 );
+
+export const ValidFilter = ({ onSubmit }) => {
+  const validFilter = {
+    name: 'valid',
+    type: 'choice',
+  };
+
+  return (
+    <IntlProvider locale={lang}>
+      <FiltersProvider onSubmit={onSubmit}>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm-4">
+              <ChoiceFilter.Collapsable
+                name="valid"
+                filter={validFilter}
+                getOptions={(filter) => filter.options || []}
+              />
+            </div>
+          </div>
+        </div>
+      </FiltersProvider>
+    </IntlProvider>
+  );
+};
+ValidFilter.storyName = 'Valid Filter';
