@@ -16,6 +16,7 @@ class DebugTransport extends winston.Transport {
       namespace: '',
       level: 'debug',
       enable: false,
+      includeSpan: true,
       ...options,
     };
 
@@ -23,6 +24,7 @@ class DebugTransport extends winston.Transport {
     this.level = params.level;
     this.prefix = params.prefix;
     this.namespace = params.namespace;
+    this.includeSpan = params.includeSpan;
 
     const debugName = this.getDebugName();
 
@@ -53,7 +55,7 @@ class DebugTransport extends winston.Transport {
       }
     }
 
-    const span = trace.getSpan(context.active());
+    const span = this.includeSpan && trace.getSpan(context.active());
     if (span) {
       const spanContext = span.spanContext();
       displayedMeta.traceId = spanContext.traceId;
