@@ -3,11 +3,11 @@ import { defineMessages } from 'react-intl';
 export default defineMessages({
   valid: {
     id: 'ReactFilters.messages.valid.valid',
-    defaultMessage: 'Valid',
+    defaultMessage: 'Compliant',
   },
   invalid: {
     id: 'ReactFilters.messages.valid.invalid',
-    defaultMessage: 'Invalid',
+    defaultMessage: 'Non-compliant',
   },
   undefined: {
     id: 'ReactFilters.messages.valid.undefined',

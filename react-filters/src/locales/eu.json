@@ -1,6 +1,6 @@
 {
-  "ReactFilters.messages.filterTitles.valid": "Baliozkotasuna",
-  "ReactFilters.messages.valid.invalid": "Baliogabe",
+  "ReactFilters.messages.filterTitles.valid": "Betetze-maila",
+  "ReactFilters.messages.valid.invalid": "Ez da betetzen",
   "ReactFilters.messages.valid.undefined": "Definitu gabe",
-  "ReactFilters.messages.valid.valid": "Baliozkoa"
+  "ReactFilters.messages.valid.valid": "Betetzen du"
 }

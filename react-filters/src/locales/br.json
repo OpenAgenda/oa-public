@@ -4,8 +4,8 @@
   "ReactFilters.messages.filterTitles.countryCode": "Vro",
   "ReactFilters.messages.filterTitles.department": "Departamant",
   "ReactFilters.messages.filterTitles.timings": "Eurioù",
-  "ReactFilters.messages.filterTitles.valid": "Gwirder",
-  "ReactFilters.messages.valid.invalid": "Invalid",
+  "ReactFilters.messages.filterTitles.valid": "Kenfurmelezh",
+  "ReactFilters.messages.valid.invalid": "Digemfurm",
   "ReactFilters.messages.valid.undefined": "Undefined",
-  "ReactFilters.messages.valid.valid": "Valid"
+  "ReactFilters.messages.valid.valid": "Kenfurm"
 }
