@@ -150,6 +150,7 @@ describe('11 - event-search - unit: formatEvent', () => {
         'location.district',
         'description',
         'member',
+        'valid',
         'someAdditionalOptions',
       ]);
     });

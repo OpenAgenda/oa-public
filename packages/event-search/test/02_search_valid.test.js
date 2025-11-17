@@ -31,11 +31,11 @@ describe('02 - event search - functional: valid', () => {
       { detailed: true },
     );
 
-    // By default (valid: null), should return all events (10 total)
-    expect(events.length).toBe(10);
-    expect(events.filter((e) => e.valid === true).length).toBe(4);
+    // valid: null should return only events with undefined valid field
+    expect(events.length).toBe(4);
     expect(events.filter((e) => e.valid === undefined).length).toBe(4);
-    expect(events.filter((e) => e.valid === false).length).toBe(2);
+    expect(events.filter((e) => e.valid === true).length).toBe(0);
+    expect(events.filter((e) => e.valid === false).length).toBe(0);
   });
 
   it('valid true', async () => {
@@ -63,17 +63,29 @@ describe('02 - event search - functional: valid', () => {
     expect(events.filter((e) => e.valid === false).length).toBe(2);
   });
 
-  it('valid null', async () => {
+  it('valid omitted (no filter)', async () => {
     const { events } = await service('valid').search(
-      { valid: null },
+      {},
       { size: 10 },
       { detailed: true },
     );
 
+    // When valid field is omitted, should return all events (10 total)
     expect(events.length).toBe(10);
     expect(events.filter((e) => e.valid === true).length).toBe(4);
     expect(events.filter((e) => e.valid === false).length).toBe(2);
     expect(events.filter((e) => e.valid === undefined).length).toBe(4);
+  });
+
+  it('valid both true and false', async () => {
+    const { events } = await service('valid').search(
+      { valid: [true, false] },
+      { size: 10 },
+      { detailed: true },
+    );
+    expect(events.length).toBe(6);
+    expect(events.filter((e) => e.valid === true).length).toBe(4);
+    expect(events.filter((e) => e.valid === false).length).toBe(2);
   });
 
   it('sort with valid null', async () => {
@@ -82,9 +94,8 @@ describe('02 - event search - functional: valid', () => {
       { size: 10 },
     );
 
-    expect(events.map((e) => e.uid)).toStrictEqual([
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-    ]);
+    // valid: null filters for undefined values only (4 events: 6, 7, 8, 9)
+    expect(events.map((e) => e.uid)).toStrictEqual([6, 7, 8, 9]);
   });
 
   it('aggregation on valid field provides count for events', async () => {
@@ -143,7 +154,7 @@ describe('02 - event search - functional: valid', () => {
   describe('valid field inclusion in results', () => {
     it('valid field is NOT included in non-detailed search by default', async () => {
       const { events } = await service('valid').search(
-        { valid: null },
+        { valid: true },
         { size: 10 },
       );
 
@@ -153,24 +164,26 @@ describe('02 - event search - functional: valid', () => {
 
     it('valid field IS included in detailed search', async () => {
       const { events } = await service('valid').search(
-        { valid: null },
+        { valid: true },
         { size: 10 },
         { detailed: true },
       );
 
       // valid should be in the returned event data
       expect(events[0]).toHaveProperty('valid');
+      expect(events[0].valid).toBe(true);
     });
 
     it('valid field IS included when explicitly requested via includeFields', async () => {
       const { events } = await service('valid').search(
-        { valid: null },
+        { valid: true },
         { size: 10 },
         { includeFields: ['valid'] },
       );
 
       // valid should be in the returned event data
       expect(events[0]).toHaveProperty('valid');
+      expect(events[0].valid).toBe(true);
     });
   });
 });

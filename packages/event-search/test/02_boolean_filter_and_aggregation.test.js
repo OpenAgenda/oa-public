@@ -61,6 +61,23 @@ describe('02 - event search - functional: boolean type', () => {
     });
   });
 
+  it('both true and false', async () => {
+    const { events } = await service('boolean').search(
+      {
+        trueOrFalse: [true, false],
+      },
+      {},
+      {
+        formSchema: fixtures.formSchema,
+        detailed: true,
+      },
+    );
+    expect(events.length).toBe(3);
+    events.forEach((event) => {
+      expect(event.trueOrFalse).toBeDefined();
+    });
+  });
+
   it('filter on false', async () => {
     const { events } = await service('boolean').search(
       {

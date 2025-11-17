@@ -5,17 +5,13 @@ import convertTimingsRange from './convertTimingsRange.js';
 export default produce((query = {}, options = {}) => {
   const { removed } = { removed: false, ...options };
 
-  // Handle valid field that might come as an array with string values
-  // The boolean validator treats ['false'] as truthy, so we need to convert it first
   if (Array.isArray(query.valid) && query.valid.length > 0) {
-    const value = query.valid[0]; // Take first element
-    if (value === 'true' || value === true) {
-      query.valid = true;
-    } else if (value === 'false' || value === false) {
-      query.valid = false;
-    } else if (value === 'null' || value === null || value === undefined) {
-      query.valid = null;
-    }
+    query.valid = query.valid.map((v) => {
+      if (v === 'true' || v === true) return true;
+      if (v === 'false' || v === false) return false;
+      if (v === 'null' || v === null || v === undefined) return null;
+      return v;
+    });
   }
 
   if (
