@@ -25,7 +25,7 @@ describe('02 - event search - functional: timings sorting', () => {
     }));
 
   it('by default sorts from the nearest to the furthest in the future', async () => {
-    const { events } = await service('timings').search({});
+    const { events } = await service('timings').search({ keyword: 'ltwf' });
 
     expect(events.map((e) => e.title.fr)).toEqual([
       'Tic',
@@ -90,6 +90,7 @@ describe('02 - event search - functional: timings sorting', () => {
 
   it('filtered on specific upcoming period focuses search on the filtered period', async () => {
     const { events } = await service('timings').search({
+      keyword: 'ltwf',
       timings: {
         gte: new Date('2030-01-02T00:00:00+0200'),
       },
@@ -276,6 +277,21 @@ describe('02 - event search - functional: timings sorting', () => {
 
       expect(error.name).toBe('BadRequest');
       expect(error.message).toBe('invalid after value');
+    });
+
+    it('some sort issue', async () => {
+      const { events } = await service('timings').search({
+        keyword: 'badshoe',
+        timings: {
+          gte: '2010-01-01T00:00:00+01:00',
+        },
+        sort: 'timings.asc',
+      });
+
+      expect(events.map((e) => e.title.fr)).toEqual([
+        'À venir et dans le filtre',
+        'Passé mais dans le filtre',
+      ]);
     });
   });
 });

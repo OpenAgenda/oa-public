@@ -21,7 +21,11 @@ function getMinSortTimings(query) {
       return new Date();
     }
 
-    const minDate = new Date(Math.min(...dates.map((d) => d.getTime())));
+    const minDate = Math.max(
+      new Date(Math.min(...dates.map((d) => d.getTime()))),
+      new Date(),
+    );
+
     return minDate;
   }
 
@@ -42,7 +46,6 @@ const timings = (query, options = {}) => {
             range: {
               '_sort_timings.accessible_until': {
                 gte: toSortTimingFormat(getMinSortTimings(query)),
-                // gte: toSortTimingFormat(query?.timings?.gte ?? new Date()),
               },
             },
           },
