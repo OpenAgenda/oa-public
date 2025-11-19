@@ -98,6 +98,17 @@ describe('02 - event search - functional: valid', () => {
     expect(events.map((e) => e.uid)).toStrictEqual([6, 7, 8, 9]);
   });
 
+  it('valid is retuned when detailed', async () => {
+    const { events } = await service('valid').search(
+      { uid: 1 },
+      { size: 10 },
+      { detailed: 1 },
+    );
+
+    expect(events[0].valid).toBeTruthy();
+    expect(events.map((e) => e.uid)).toStrictEqual([1]);
+  });
+
   it('aggregation on valid field provides count for events', async () => {
     const { aggregations } = await service('valid').search(
       {},
