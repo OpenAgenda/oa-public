@@ -1,8 +1,6 @@
 import logs from '@openagenda/logs';
 import { NotFound, Forbidden } from '@openagenda/verror';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
-import eventLoadOptions from '../utils/eventLoadOptions.js';
-import cleanEvent from '../utils/cleanEvent/index.js';
 import formatExtIds from '../locations/formatExtIds.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 import convertToDateHoursMinutesTimings from './lib/convertToDateHoursMinutesFormat.js';
@@ -176,12 +174,7 @@ export async function get(core, agendaUid, identifier, options = {}) {
 
   const filtered = await filterEventByRole(agenda, event, context);
 
-  return eventLoadOptions.getValid(options)
-    ? {
-      ...filtered,
-      valid: await cleanEvent.getIsValid(core, agenda, event),
-    }
-    : filtered;
+  return { ...filtered, valid: event?.valid };
 }
 
 export default async function search(

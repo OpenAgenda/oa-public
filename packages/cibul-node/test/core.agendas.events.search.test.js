@@ -413,6 +413,14 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       );
       expect(event.extIds).toStrictEqual([{ key: 'test', value: '1234' }]);
     });
+
+    it('valid key should be given when detailed', async () => {
+      const event = await core
+        .agendas(2)
+        .events.search.get({ uid: 1 }, { userUid: 1, detailed: true });
+
+      expect(event.valid).toBeDefined();
+    });
   });
 
   describe('api', () => {
@@ -567,6 +575,10 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           hours: '10',
           minutes: '00',
         });
+      });
+
+      it('valid key should be given when detailed', () => {
+        expect(event.valid).toBeDefined();
       });
     });
 
