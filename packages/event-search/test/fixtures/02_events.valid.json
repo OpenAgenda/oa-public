@@ -1,0 +1,187 @@
+{
+  "lastId": -1,
+  "events": [
+    {
+      "id": 1,
+      "ownerUid": 789672,
+      "creatorUid": null,
+      "slug": "valid_event_1",
+      "uid": 1,
+      "title": {
+        "fr": "Événement valide 1"
+      },
+      "description": {
+        "fr": "Un événement valide"
+      },
+      "updatedAt": "2016-11-04T05:16:42.000Z",
+      "agendaUid": 7678672,
+      "locationUid": 1,
+      "state": 2,
+      "valid": true
+    },
+    {
+      "id": 2,
+      "ownerUid": 789672,
+      "creatorUid": null,
+      "slug": "valid_event_2",
+      "uid": 2,
+      "title": {
+        "fr": "Événement valide 2"
+      },
+      "description": {
+        "fr": "Un autre événement valide"
+      },
+      "updatedAt": "2016-11-04T05:16:42.000Z",
+      "agendaUid": 7678672,
+      "locationUid": 1,
+      "state": 2,
+      "valid": true
+    },
+    {
+      "id": 3,
+      "ownerUid": 789672,
+      "creatorUid": null,
+      "slug": "valid_event_3",
+      "uid": 3,
+      "title": {
+        "fr": "Événement valide 3"
+      },
+      "description": {
+        "fr": "Encore un événement valide"
+      },
+      "updatedAt": "2016-11-04T05:16:42.000Z",
+      "agendaUid": 7678672,
+      "locationUid": 1,
+      "state": 2,
+      "valid": true
+    },
+    {
+      "id": 4,
+      "ownerUid": 789115,
+      "creatorUid": null,
+      "slug": "invalid_event_1",
+      "uid": 4,
+      "title": {
+        "fr": "Événement non valide 1"
+      },
+      "description": {
+        "fr": "Un événement non valide"
+      },
+      "timezone": "Europe/Paris",
+      "updatedAt": "2016-11-04T05:18:42.000Z",
+      "state": 2,
+      "valid": false
+    },
+    {
+      "id": 5,
+      "ownerUid": 789115,
+      "creatorUid": null,
+      "slug": "invalid_event_2",
+      "uid": 5,
+      "title": {
+        "fr": "Événement non valide 2"
+      },
+      "description": {
+        "fr": "Un autre événement non valide"
+      },
+      "timezone": "Europe/Paris",
+      "updatedAt": "2016-11-04T05:18:42.000Z",
+      "state": 2,
+      "valid": false
+    },
+    {
+      "id": 6,
+      "ownerUid": 797897,
+      "creatorUid": null,
+      "slug": "undefined_valid_event_1",
+      "uid": 6,
+      "title": {
+        "fr": "Événement sans validation 1"
+      },
+      "description": {
+        "fr": "Événement sans champ valid"
+      },
+      "timezone": "Europe/Paris",
+      "updatedAt": "2016-11-04T05:18:42.000Z",
+      "createdAt": "2016-11-04T05:18:42.000Z",
+      "agendaUid": 796789,
+      "locationUid": 1,
+      "state": 2
+    },
+    {
+      "id": 7,
+      "ownerUid": 797897,
+      "creatorUid": null,
+      "slug": "undefined_valid_event_2",
+      "uid": 7,
+      "title": {
+        "fr": "Événement sans validation 2"
+      },
+      "description": {
+        "fr": "Un autre événement sans champ valid"
+      },
+      "timezone": "Europe/Paris",
+      "updatedAt": "2016-11-04T05:18:42.000Z",
+      "createdAt": "2016-11-04T05:18:42.000Z",
+      "agendaUid": 796789,
+      "locationUid": 1,
+      "state": 2
+    },
+    {
+      "id": 8,
+      "ownerUid": 797897,
+      "creatorUid": null,
+      "slug": "undefined_valid_event_3",
+      "uid": 8,
+      "title": {
+        "fr": "Événement sans validation 3"
+      },
+      "description": {
+        "fr": "Encore un événement sans champ valid"
+      },
+      "timezone": "Europe/Paris",
+      "updatedAt": "2016-11-04T05:18:42.000Z",
+      "createdAt": "2016-11-04T05:18:42.000Z",
+      "agendaUid": 796789,
+      "locationUid": 1,
+      "state": 2
+    },
+    {
+      "id": 9,
+      "ownerUid": 797897,
+      "creatorUid": null,
+      "slug": "undefined_valid_event_4",
+      "uid": 9,
+      "title": {
+        "fr": "Événement sans validation 4"
+      },
+      "description": {
+        "fr": "Dernier événement sans champ valid"
+      },
+      "timezone": "Europe/Paris",
+      "updatedAt": "2016-11-04T05:18:42.000Z",
+      "createdAt": "2016-11-04T05:18:42.000Z",
+      "agendaUid": 796789,
+      "locationUid": 1,
+      "state": 2
+    },
+    {
+      "id": 10,
+      "ownerUid": 789672,
+      "creatorUid": null,
+      "slug": "valid_event_4",
+      "uid": 10,
+      "title": {
+        "fr": "Événement valide 4"
+      },
+      "description": {
+        "fr": "Un quatrième événement valide"
+      },
+      "updatedAt": "2016-11-04T05:16:42.000Z",
+      "agendaUid": 7678672,
+      "locationUid": 1,
+      "state": 2,
+      "valid": true
+    }
+  ]
+}

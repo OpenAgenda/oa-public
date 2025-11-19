@@ -9,11 +9,12 @@ export default (query = {}, nav = {}, options = {}) => {
     includes = null,
     emptyValue,
     removed = false,
+    valid = null,
   } = options;
 
   const DSL = {
     track_total_hits: true,
-    query: getDSLQueryPart(query, { formSchema, emptyValue, removed }),
+    query: getDSLQueryPart(query, { formSchema, emptyValue, removed, valid }),
     _source: getDSLSourcePart(includes),
   };
 

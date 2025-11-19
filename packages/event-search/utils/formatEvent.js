@@ -215,6 +215,10 @@ export default (data, options = {}) => {
       event._exclusiveUpdatedAt = event.updatedAt;
     }
 
+    if (event.valid === undefined) {
+      event._search_empty_fields.push('valid');
+    }
+
     if (!formSchema) {
       return event;
     }

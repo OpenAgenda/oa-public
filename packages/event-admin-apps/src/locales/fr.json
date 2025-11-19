@@ -38,6 +38,8 @@
   "EventAdminApp.EventItem.delete": "Supprimer",
   "EventAdminApp.EventItem.edit": "Modifier",
   "EventAdminApp.EventItem.featured": "En une",
+  "EventAdminApp.EventItem.invalidEventInfo": "Cet événement ne répond pas aux critères définis par le formulaire de l'agenda. Ceci peut arriver si la configuration du formulaire a évolué. Pour corriger l'événement éditez-le ",
+  "EventAdminApp.EventItem.invalidEventInfoTitle": "Non valide",
   "EventAdminApp.EventItem.memberPlaceholder": "un membre {role}",
   "EventAdminApp.EventItem.moderator": "modérateur",
   "EventAdminApp.EventItem.motiveTitle": "Motif",

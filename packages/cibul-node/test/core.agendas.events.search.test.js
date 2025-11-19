@@ -413,6 +413,14 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       );
       expect(event.extIds).toStrictEqual([{ key: 'test', value: '1234' }]);
     });
+
+    it('valid key should be given when detailed', async () => {
+      const event = await core
+        .agendas(2)
+        .events.search.get({ uid: 1 }, { userUid: 1, detailed: true });
+
+      expect(event.valid).toBeDefined();
+    });
   });
 
   describe('api', () => {
@@ -567,6 +575,10 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           hours: '10',
           minutes: '00',
         });
+      });
+
+      it('valid key should be given when detailed', () => {
+        expect(event.valid).toBeDefined();
       });
     });
 
@@ -800,6 +812,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           state: [-1, 0, 1, 2],
           size: 1,
           sort: 'updatedAt.desc',
+          if: ['uid', 'updatedAt'],
         };
 
         try {
@@ -846,7 +859,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       it('after key allows getting the next results', () => {
         expect(responses[0].events[0].uid).toBe(1);
-        expect(responses[1].events[0].uid).toBe(2);
+        expect(responses[1].events[0].uid).toBe(7);
       });
 
       it('from can be used via api', async () => {

@@ -2,6 +2,8 @@ import _ from 'lodash';
 import logs from '@openagenda/logs';
 import getAgenda from '../utils/getAgenda.js';
 import * as merge from '../utils/merge.js';
+import eventLoadOptions from '../utils/eventLoadOptions.js';
+import cleanEvent from '../utils/cleanEvent/index.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
 import formatLocationsExtIds from '../locations/formatExtIds.js';
 
@@ -38,20 +40,17 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
     ...nav,
   };
 
-  const { load, returnPayload, access, detailed, removed } = {
-    load: {
-      event: true,
-      agendaEvent: true,
-      custom: true,
-      member: true,
-      user: true,
-    },
+  eventLoadOptions.getValid(options);
+
+  const { returnPayload, access, detailed, removed } = {
     returnPayload: false,
     access: 'public',
     detailed: false,
     removed: false,
     ...options,
   };
+
+  const load = eventLoadOptions.get(options);
 
   const fetched = {};
 
@@ -171,7 +170,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
         uid,
         ...merge.eventFromObject(
           {
-            agendaEvent: fetched.agendaEvents[index],
+            agendaEvent: fetched.agendaEvents?.[index],
             event: load.event ? event : null,
             custom: load.custom
               ? {
@@ -207,6 +206,12 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
       };
     })
     .filter((event) => !!event);
+
+  if (load.valid) {
+    for (const event of compiledEvents) {
+      event.valid = await cleanEvent.getIsValid(core, agenda, event);
+    }
+  }
 
   return returnPayload
     ? {

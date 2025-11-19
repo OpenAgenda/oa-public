@@ -160,6 +160,9 @@
   "removed": {
     "type": "boolean"
   },
+  "valid": {
+    "type": "boolean"
+  },
   "_exclusiveUpdatedAt": {
     "type": "date"
   },

@@ -38,6 +38,8 @@
   "EventAdminApp.EventItem.delete": "Delete",
   "EventAdminApp.EventItem.edit": "Edit",
   "EventAdminApp.EventItem.featured": "Featured",
+  "EventAdminApp.EventItem.invalidEventInfo": "This event does not meet the criteria defined by the agenda form. This can happen if the form configuration has changed. To correct the event, edit it.",
+  "EventAdminApp.EventItem.invalidEventInfoTitle": "Invalid",
   "EventAdminApp.EventItem.memberPlaceholder": "<decorate>Unnamed member</decorate>",
   "EventAdminApp.EventItem.moderator": "Moderator",
   "EventAdminApp.EventItem.motiveTitle": "Motive",

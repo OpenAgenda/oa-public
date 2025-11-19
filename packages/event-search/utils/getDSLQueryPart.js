@@ -496,6 +496,12 @@ function _getQueryFilterParts(
     parts.push(_terms('removed', true));
   }
 
+  if (cleanQuery.valid === null) {
+    parts.push(_mustPart('term', '_search_empty_fields', 'valid'));
+  } else if (cleanQuery.valid !== undefined) {
+    parts.push(_terms('valid', cleanQuery.valid));
+  }
+
   if (cleanQuery?.extId && cleanQuery.extId.key && cleanQuery.extId.value) {
     parts.push(_extIdFilter(cleanQuery.extId));
   }
