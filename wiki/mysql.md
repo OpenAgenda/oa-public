@@ -440,10 +440,9 @@ default:
   env-file: /home/ubuntu/restic_credentials
   backup:
     run-before:
-      - >
-        mysqlsh --js -u <MYSQL_USER> "-p<MYSQL_PASSWORD>" -S /run/mysqld/mysqld.sock -e
-        "util.dumpSchemas(['oa'], '/tmp/oa-dump',
-        {threads:16, showProgress:true, compression:'none'})"
+      - |
+        sudo mysqlsh --js --password= -S /run/mysqld/mysqld.sock -e "util.dumpSchemas(['oa'], '/tmp/oa-dump', {threads:16, showProgress:false, compression:'none'})"
+        sudo chown -R ubuntu:ubuntu /tmp/oa-dump
 
     run-finally:
       - rm -rf "/tmp/oa-dump"
@@ -458,6 +457,7 @@ default:
   retention:
     before-backup: false
     after-backup: true
+    group-by: [host]
     keep-last: 7
     keep-daily: 7
     keep-weekly: 4
