@@ -28,12 +28,15 @@ export default (services, queue, eventSearch) => {
     });
 
     if (
-      event.state !== 2
+      !event.private
+      && event.state !== 2
       && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)
     ) {
       await queue.add('transverseIndexRemove', event.uid);
-    } else {
+    } else if (!event.private) {
       await queue.add('transverseIndexUpdate', event);
+    } else {
+      tracker(`eventSearch.update:${agenda.uid}.${event.uid}:noTransverse`);
     }
 
     if (updateOtherIndices) {
