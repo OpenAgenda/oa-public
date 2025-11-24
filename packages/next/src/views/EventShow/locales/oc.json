@@ -133,5 +133,7 @@
   "next.views.EventShow.transferOwnershipModal.nameless": "Sens nom",
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "",
   "next.views.EventShow.transferOwnershipModal.transfer": "",
-  "next.views.EventShow.transferOwnershipModal.transferOwnership": "Transferir la proprietat"
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": "Transferir la proprietat",
+  "views.EventShow.contextBar.invalidEventInfo": "",
+  "views.EventShow.contextBar.nonCompliant": ""
 }

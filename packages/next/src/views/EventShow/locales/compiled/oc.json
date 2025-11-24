@@ -866,5 +866,17 @@
       "type": 0,
       "value": "Transferir la proprietat"
     }
+  ],
+  "views.EventShow.contextBar.invalidEventInfo": [
+    {
+      "type": 0,
+      "value": "Cet événement ne répond pas aux critères définis par le formulaire de l'agenda. Cela peut se produire si la configuration du formulaire a été modifiée. Pour corriger l'événement, modifiez-le."
+    }
+  ],
+  "views.EventShow.contextBar.nonCompliant": [
+    {
+      "type": 0,
+      "value": "Non conforme"
+    }
   ]
 }

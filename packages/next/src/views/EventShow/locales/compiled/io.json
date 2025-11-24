@@ -840,5 +840,17 @@
       "type": 0,
       "value": "crwdns33874:0crwdne33874:0"
     }
+  ],
+  "views.EventShow.contextBar.invalidEventInfo": [
+    {
+      "type": 0,
+      "value": "This event does not meet the criteria defined by the agenda form. This can happen if the form configuration has changed. To correct the event, edit it."
+    }
+  ],
+  "views.EventShow.contextBar.nonCompliant": [
+    {
+      "type": 0,
+      "value": "Non-compliant"
+    }
   ]
 }
