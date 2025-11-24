@@ -23,6 +23,12 @@ export async function transverseIndexUpdate(
 
   const { refreshTransverseIndexOnUpdate = false } = config.es75;
 
+  if (event.private) {
+    log('event is private, exiting', { eventUid: uid });
+    tracker('transverseIndex.done');
+    return;
+  }
+
   log('updating/adding event in transverse index', { eventUid: uid });
   const result = await searchIndex.update({ uid }, event, {
     operation: 'index',

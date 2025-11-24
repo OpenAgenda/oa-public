@@ -49,6 +49,7 @@ describe('core - functional (server): core.events.search', () => {
 
     await core.agendas(17026855).events.search.rebuild();
     await core.agendas(92983929).events.search.rebuild();
+    await core.agendas(99508978).events.search.rebuild();
     await services.eventSearch.transverse.rebuild();
 
     services.eventSearch.task();
@@ -84,6 +85,42 @@ describe('core - functional (server): core.events.search', () => {
       const indexed = await core.events.search({ uid: 99999999 });
 
       expect(indexed.events[0].title.fr).toBe('test');
+    });
+  });
+
+  describe('searching', () => {
+    let privateEvent;
+
+    beforeAll(async () => {
+      const { events } = await core.events.search({ uid: 897978987 });
+
+      [privateEvent] = events;
+
+      core
+        .agendas(99508978)
+        .events.patch(
+          897978987,
+          { description: { fr: 'caché' } },
+          { access: 'administrator', detailed: true, private: null },
+        );
+
+      return new Promise((rs) => {
+        core.services.tracker.on(
+          'eventSearch.update:99508978.897978987:noTransverse',
+          rs,
+          true,
+        );
+      });
+    });
+
+    it('private events are not indexed after rebuild', () => {
+      expect(privateEvent).toBeUndefined();
+    });
+
+    it('private events are not indexed', async () => {
+      expect(
+        await core.events.search({ uid: 897978987 }).then(({ total }) => total),
+      ).toBe(0);
     });
   });
 });
