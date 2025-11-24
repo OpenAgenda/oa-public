@@ -428,6 +428,12 @@ input[type="checkbox"] {
   @include form-control-validation($state-danger-text, $state-danger-text, $state-danger-bg);
 }
 
+// Apply validation colors to .sub elements
+.has-warning .sub,
+.sub.has-warning {
+  color: $state-warning-text;
+}
+
 // Reposition feedback icon if input has visible label above
 .has-feedback label {
 
