@@ -1,14 +1,14 @@
 {
-  "agenda": "Agenda",
   "allDay": "Den ganzen Tag",
-  "date": "Datum",
-  "day": "Tag",
-  "event": "Veranstaltung",
-  "month": "Monat",
-  "more": "Alle Veranstaltungen ansehen",
-  "next": "Weiter",
   "previous": "Vorherige",
-  "time": "Zeit",
+  "next": "Weiter",
   "today": "Heute",
-  "week": "Woche"
+  "month": "Monat",
+  "week": "Woche",
+  "day": "Tag",
+  "agenda": "Agenda",
+  "date": "Datum",
+  "time": "Zeit",
+  "event": "Veranstaltung",
+  "more": "Alle Veranstaltungen ansehen"
 }

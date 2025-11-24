@@ -1,7 +1,7 @@
 {
-  "guestUnsubscriptionSucceed": "Ahora estas de baja.",
+  "tokenNotFound": "La ficha para darse de baja no se ha encontrado.",
   "tokenAlreadyUsed": "La ficha para darse de baja ya ha sido usada.",
   "tokenMalformed": "El vínculo ya no se encuentra válido. Ya se ha probablemente usado.",
-  "tokenNotFound": "La ficha para darse de baja no se ha encontrado.",
-  "unsubscriptionSucceed": "Sus ajustes se han actualizado."
+  "unsubscriptionSucceed": "Sus ajustes se han actualizado.",
+  "guestUnsubscriptionSucceed": "Ahora estas de baja."
 }

@@ -1,15 +1,15 @@
 {
+  "sendAgain": "El correo electrónico de activación ha sido reenviado",
+  "sendActivateOnSigninAttempt": "Tu cuenta no está activada. Haz clic en el enlace del correo electrónico de activación que se acaba de enviar.",
   "checkEmail": "Averigua sus correos electrónicos para validar el enlace de activación",
   "checkEmailInstruction": "Un correo electrónico con un enlace de activación para su cuenta será enviado en breve. Averigua su bandeja de entrada para completar su registro.",
   "didNotReceive": "<b>¿No ha recibido ningún correo electrónico?</b><br>1. Averigua la ortografía del correo electrónico registrado.<br/>2. Averigua su carpeta de correos no deseados<br/> 3.%resend%<br/> Contacta el soporte a %support% ",
-  "followUs": "Síguenos",
-  "followUsOnBlueSky": "Síguenos en Bluesky",
-  "followUsOnLinkedIn": "Síguenos en LinkedIn",
-  "getOurNewsletter": "Recibe nuestro boletín de información",
   "resend": "Haz clic aquí para volver a enviar",
-  "sendActivateOnSigninAttempt": "Tu cuenta no está activada. Haz clic en el enlace del correo electrónico de activación que se acaba de enviar.",
-  "sendAgain": "El correo electrónico de activación ha sido reenviado",
   "stayUpToDate": "¡Mantente al tanto de las novedades OpenAgenda!",
-  "subscribe": "Suscribirse",
-  "yourEmail": "Tu correo electrónico"
+  "followUs": "Síguenos",
+  "followUsOnLinkedIn": "Síguenos en LinkedIn",
+  "followUsOnBlueSky": "Síguenos en Bluesky",
+  "getOurNewsletter": "Recibe nuestro boletín de información",
+  "yourEmail": "Tu correo electrónico",
+  "subscribe": "Suscribirse"
 }

@@ -21,5 +21,8 @@
   "defaultBack": "Back to the home page",
   "defaultAgendaBack": "Back to the agenda page",
   "pageDoesNotExist": "The page you requested does not exist",
-  "invalidOrIncompleteEvent": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again"
+  "invalidOrIncompleteEvent": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again",
+  "changeEmailErrorTitle": "The link you clicked on is invalid",
+  "changeEmailError": "This can happen for a few reasons:\n1. This link was already used and the email change was already validated.\n2. Several email changes were submitted sequentially. In that case only the last link sent to your inbox can be valid.\n3. You are attempting to open this link from an account different than the one from which the request was initiated.\n\nContact support if this problem persists.",
+  "contactSupport": "Contact support"
 }

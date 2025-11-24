@@ -1,11 +1,11 @@
 {
-  "contributions": "Eventi contribuitati",
-  "credential": "Ruolo",
-  "email": "Invia un'e-mail a",
   "name": "Nome",
+  "email": "Invia un'e-mail a",
   "organization": "Ragione sociale",
   "phone": "Telefono",
   "position": "Ruolo",
+  "contributions": "Eventi contribuitati",
+  "credential": "Ruolo",
   "role": "Ruolo",
   "state": "Stato"
 }

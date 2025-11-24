@@ -1,7 +1,7 @@
 {
-  "cancel": "Stornieren",
-  "syncError": "Kann nicht gespeichert werden. Bitte versuche es erneut.",
   "update": "sparen",
+  "updating": "Aktualisierung",
   "updated": "Gerettet",
-  "updating": "Aktualisierung"
+  "syncError": "Kann nicht gespeichert werden. Bitte versuche es erneut.",
+  "cancel": "Stornieren"
 }

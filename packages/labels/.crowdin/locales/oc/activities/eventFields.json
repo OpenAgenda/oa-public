@@ -1,8 +1,8 @@
 {
+  "title": "títol",
   "description": "descripcion",
-  "image": "imatge",
-  "location": "lòc",
   "longDescription": "descripcion longa",
   "timings": "oraris",
-  "title": "títol"
+  "location": "lòc",
+  "image": "imatge"
 }

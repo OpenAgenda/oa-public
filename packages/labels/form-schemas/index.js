@@ -79,5 +79,9 @@ module.exports = {
     "en": "Fullscreen",
     "io": "crwdns34088:0crwdne34088:0",
     "es": "Pantalla completa"
+  },
+  "warnAllCaps": {
+    "fr" : "Évitez les saisies uniquement en lettres majuscules",
+    "en" : "Avoid typing a text using only capital letters",
   }
 };

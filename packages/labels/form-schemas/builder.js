@@ -684,7 +684,7 @@ module.exports = {
   },
   "fieldFormAllowFalse": {
     "fr": "Autoriser la valeur non",
-    "en": "Allow no value",
+    "en": "Allow No",
     "de": "Falschen Wert zulassen",
     "es": "Permitir valor falso",
     "it": "Consenti valore falso"

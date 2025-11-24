@@ -1,8 +1,8 @@
 {
-  "contributor": "Collaboratore",
   "filterList": "Filtro",
-  "loading": "Caricamento in corso",
+  "title": "Titolo",
   "locationName": "Nome del luogo",
   "region": "Regione",
-  "title": "Titolo"
+  "contributor": "Collaboratore",
+  "loading": "Caricamento in corso"
 }

@@ -1,7 +1,7 @@
 {
   "layoutFeatures": "Eigenschaften",
+  "layoutTestimonials": "Referenzen",
   "layoutPricing": "Preisgestaltung",
-  "layoutSignin": "Anmelden",
   "layoutSignup": "Registrieren",
-  "layoutTestimonials": "Referenzen"
+  "layoutSignin": "Anmelden"
 }

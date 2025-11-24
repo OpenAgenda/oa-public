@@ -7,5 +7,6 @@
   "noOption": "No match",
   "selectPlaceholder": "Select...",
   "cancel": "Cancel",
-  "fullscreen": "Fullscreen"
+  "fullscreen": "Fullscreen",
+  "warnAllCaps": "Avoid typing a text using only capital letters"
 }
