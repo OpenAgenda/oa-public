@@ -251,13 +251,19 @@ export default function EventItem({
           style={{ color: 'inherit' }}
         >
           {event.valid === false ? (
-            <span className="padding-right-sm">
+            <span className="padding-right-xs">
               <MoreInfo
                 title={intl.formatMessage(messages.invalidEventInfoTitle)}
                 content={intl.formatMessage(messages.invalidEventInfo)}
                 placement="bottom"
               >
-                <i className="fa fa-exclamation-circle text-danger" />
+                <i
+                  className="fa fa-exclamation-circle text-danger"
+                  style={{
+                    fontSize: '20px',
+                    verticalAlign: 'middle',
+                  }}
+                />
               </MoreInfo>
             </span>
           ) : null}

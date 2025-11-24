@@ -148,7 +148,7 @@ export function ContributedIvalidEventItem() {
       <EventItem
         key={2}
         agenda={agenda}
-        event={{ ...contributedEvent, valid: false }}
+        event={{ ...contributedEvent, valid: false, status: 2 }}
         openRemoveModal={() => {}}
         selected={false}
         selectEvent={() => {}}
