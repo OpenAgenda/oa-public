@@ -132,6 +132,12 @@ export default function buildFieldSchema(type, options = {}) {
       default: undefined,
     },
 
+    warnAllCaps: {
+      type: 'boolean',
+      optional: true,
+      default: false,
+    },
+
     related: {
       enable: {
         type: 'text',

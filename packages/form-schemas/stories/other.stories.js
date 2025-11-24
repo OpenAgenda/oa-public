@@ -97,6 +97,44 @@ export function RequiredMultilingualField() {
   );
 }
 
+export function WarnAllCapsField() {
+  const onSubmit = ({ values }) => {
+    alert(JSON.stringify(values, null, 2));
+  };
+
+  const props = {
+    lang: 'fr',
+    onSubmit: (v) => onSubmit(v),
+    schema: {
+      fields: [
+        {
+          field: 'amultilingualfield',
+          fieldType: 'text',
+          optional: false,
+          languages: ['fr', 'en'],
+          label: "N'importe quoi en français",
+          warnAllCaps: true,
+        },
+        {
+          field: 'anonmultilingualfield',
+          fieldType: 'text',
+          optional: false,
+          label: 'A non-multilingual field with all caps warning',
+          warnAllCaps: true,
+        },
+      ],
+    },
+  };
+
+  return (
+    <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
+      <div className="row margin-v-md margin-h-sm">
+        <FormSchemaComponent {...props} />
+      </div>
+    </div>
+  );
+}
+
 export function FormWithACustomField() {
   const props = {
     res: {
