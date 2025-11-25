@@ -44,7 +44,7 @@ export const Required = () => {
 
   return (
     <>
-      <p>A single optional checkbox</p>
+      <p>A single required checkbox</p>
       <div className="col col-sm-6 wsq">
         <FormSchemaComponent
           onChange={(d) => setData(d)}

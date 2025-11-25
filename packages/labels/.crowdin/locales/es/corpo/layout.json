@@ -1,7 +1,7 @@
 {
   "layoutFeatures": "Funciones",
+  "layoutTestimonials": "Referencias",
   "layoutPricing": "Tarifas",
-  "layoutSignin": "Conectarse",
   "layoutSignup": "Inscribirse",
-  "layoutTestimonials": "Referencias"
+  "layoutSignin": "Conectarse"
 }

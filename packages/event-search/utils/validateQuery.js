@@ -7,6 +7,7 @@ import longitudeValidator from '@openagenda/validators/longitude.js';
 import dateValidator from '@openagenda/validators/date.js';
 import choiceValidator from '@openagenda/validators/choice.js';
 import booleanValidator from '@openagenda/validators/boolean.js';
+import validFieldValidator from './validators/validField.js';
 import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
 import preCleanRawQuery from './preCleanRawQuery.js';
 import derelativize from './derelativize.js';
@@ -20,6 +21,7 @@ schema.register({
   date: dateValidator,
   choice: choiceValidator,
   boolean: booleanValidator,
+  validField: validFieldValidator,
 });
 
 const validate = schema({
@@ -163,6 +165,11 @@ const validate = schema({
     type: 'boolean',
     allowNull: true,
     default: null,
+  },
+  valid: {
+    optional: true,
+    type: 'validField',
+    allowNull: true,
   },
   attendanceMode: {
     optional: true,

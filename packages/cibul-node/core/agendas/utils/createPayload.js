@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import * as merge from './merge.js';
+import eventLoadOptions from './eventLoadOptions.js';
 import getMemberSchema from './getMemberSchema.js';
+import cleanEvent from './cleanEvent/index.js';
 
 // const log = require('@openagenda/logs')('core/agendas/utils/createPayload');
 
@@ -61,27 +63,29 @@ async function getCompiledEvent(
   formSchema = null,
   loadOption = null,
 ) {
-  const load = loadOption || {
-    custom: true,
-    event: true,
-    agendaEvent: true,
-    agenda: true,
-    member: true,
-    user: true,
-  };
   const includeFields = access === null
     ? null
     : (
       formSchema || getFormSchema(data.agendas.current, { access })
     ).fields.map((f) => f.field);
 
-  return merge.eventFromObject(data.services[key], {
+  const merged = merge.eventFromObject(data.services[key], {
     includeFields,
     originAgenda: await getOriginAgenda(core.services, data),
     member: data.member,
     user: data.user,
-    load,
+    load: loadOption,
   });
+
+  if (eventLoadOptions.getValid({ load: loadOption })) {
+    merged.valid = await cleanEvent.getIsValid(
+      core,
+      data.agendas.current,
+      merged,
+    );
+  }
+
+  return merged;
 }
 
 function getEvent(data, key) {
@@ -93,21 +97,23 @@ function getEvent(data, key) {
 }
 
 function getMember(data) {
-  return _.get(data, 'services.after.agendaEvent.member', null);
+  return data?.services?.after?.agendaEvent?.member ?? null;
 }
 
 function makeGetResponse(core, data) {
   return async (primaryKey = 'event', options = {}) => {
-    const { access, load } = {
-      access: null,
-      load: {
+    const access = (typeof options === 'object' ? options?.access : options) ?? null;
+
+    const load = {
+      ...{
         custom: true,
         event: true,
         agendaEvent: true,
         agenda: true,
         member: true,
+        valid: false,
       },
-      ...typeof options === 'object' ? options : { access: options },
+      ...options?.load,
     };
 
     const formSchema = getFormSchema(data.agendas.current, {

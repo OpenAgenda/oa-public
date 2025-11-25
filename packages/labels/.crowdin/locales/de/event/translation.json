@@ -1,11 +1,11 @@
 {
-  "deactivatedTranslation": "Die automatische Übersetzung ist deaktiviert",
-  "processingTranslation": "Verarbeitung Übersetzung",
-  "savingPartialTranslation": "Übersetzungen wurden zum Teil nur abgerufen. Speichern sowieso",
-  "sourceChange": "Veränderung",
+  "translationTitle": "automatisierte Übersetzung",
+  "translationInfo": "#VALUE!",
   "sourceLanguage": "Ausgangssprache",
   "targetLanguages": "Zielsprachen",
   "translationHelp": "Finde mehr heraus",
-  "translationInfo": "#VALUE!",
-  "translationTitle": "automatisierte Übersetzung"
+  "processingTranslation": "Verarbeitung Übersetzung",
+  "savingPartialTranslation": "Übersetzungen wurden zum Teil nur abgerufen. Speichern sowieso",
+  "sourceChange": "Veränderung",
+  "deactivatedTranslation": "Die automatische Übersetzung ist deaktiviert"
 }

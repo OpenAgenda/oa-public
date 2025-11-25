@@ -172,7 +172,9 @@ export async function get(core, agendaUid, identifier, options = {}) {
     throw new Forbidden('not authorized to read event');
   }
 
-  return filterEventByRole(agenda, event, context);
+  const filtered = await filterEventByRole(agenda, event, context);
+
+  return { ...filtered, valid: event?.valid };
 }
 
 export default async function search(

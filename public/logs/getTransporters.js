@@ -12,6 +12,7 @@ module.exports = function getTransporters(...configs) {
       namespace: '',
       token: null,
       enableDebug: false,
+      includeSpan: true,
       otel: false,
     },
     ...configs,
@@ -25,6 +26,7 @@ module.exports = function getTransporters(...configs) {
       prefix: params.prefix,
       namespace: params.namespace,
       enable: params.enableDebug,
+      includeSpan: params.includeSpan,
     }),
   );
 

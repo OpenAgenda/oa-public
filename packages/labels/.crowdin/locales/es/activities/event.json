@@ -1,16 +1,16 @@
 {
-  "agenda.addEvent": "{user} agregó {event} desde {sourceAgenda}.",
-  "agenda.aggregateEvent": "{agenda} ha importado {event} de {sourceAgenda}.",
   "agenda.changeEventState": "{user} pasó {event} de \"{before}\" a \"{after}\" en {agenda}.",
   "agenda.publishEvent": "{user} registró {event} sobre el agenda {agenda}.",
-  "agenda.removeEvent": "{user} {event} sobre el agenda {agenda} eliminado.",
-  "agenda.systemUnpublishEvent": "{event} ha sido despublicado automáticamente en {agenda} para moderación",
   "agenda.unpublishEvent": "{user} ha cancellado la publicacion de {event} en la agenda  {agenda}.",
+  "agenda.systemUnpublishEvent": "{event} ha sido despublicado automáticamente en {agenda} para moderación",
+  "agenda.removeEvent": "{user} {event} sobre el agenda {agenda} eliminado.",
+  "agenda.aggregateEvent": "{agenda} ha importado {event} de {sourceAgenda}.",
+  "agenda.addEvent": "{user} agregó {event} desde {sourceAgenda}.",
   "event.create": "{user} creado {event} en el agenda del {agenda}.",
-  "event.delete": "{user} elimina eventos de la agenda {agenda}.",
   "event.update": "{user} ha actualizado {event} de {agenda}.",
-  "event.updateWithLotOfChanges": "{user} actualizó {event} en {agenda} ({fieldsCount} campos).",
   "event.updateWithOneChange": "{user} actualizó el campo {fields} de {event} en {agenda}.",
   "event.updateWithSomeChanges": "{user} actualizó {event} en {agenda}: {fields} han sido editados.",
+  "event.updateWithLotOfChanges": "{user} actualizó {event} en {agenda} ({fieldsCount} campos).",
+  "event.delete": "{user} elimina eventos de la agenda {agenda}.",
   "unknownActivity": "Etiqueta de actividad faltante para {verb}"
 }

@@ -260,6 +260,33 @@ raw.push(
       updated_at: new Date('2022-06-22T09:00:00.000Z'),
       ext_ids: JSON.stringify([{ key: 'test', value: '1234' }]),
     },
+    {
+      id: 7,
+      owner_uid: 1,
+      agenda_uid: 1,
+      creator_uid: 1,
+      slug: 'event-7',
+      uid: 7,
+      draft: 0,
+      title: JSON.stringify({
+        fr: 'Evénement invalide',
+      }),
+      description: JSON.stringify({}),
+      long_description: JSON.stringify({
+        fr: 'Description longue 7',
+      }),
+      timings: JSON.stringify([
+        {
+          begin: new Date('2019-09-27T10:00:00+0200'),
+          end: new Date('2019-09-27T12:00:00+0200'),
+        },
+      ]),
+      location_uid: 1,
+      timezone: 'Europe/Paris',
+      created_at: new Date(),
+      updated_at: new Date(),
+      file_key: '31a7df7098744844b6c6ce0d2cdba0f4',
+    },
   ]),
 );
 
@@ -322,6 +349,15 @@ raw.push(
       state: 2,
       created_at: new Date('2022-06-01T14:00:00.000Z'),
       updated_at: new Date('2022-06-30T09:00:00.000Z'),
+    },
+    {
+      id: 7,
+      user_uid: 1,
+      agenda_uid: 2,
+      event_uid: 7,
+      state: 2,
+      created_at: new Date(),
+      updated_at: new Date(),
     },
   ]),
 );

@@ -41,6 +41,7 @@ raw.push(
     load('sql/agendas/officedutourismeroubaix.json'),
     load('sql/agendas/metropole-europeenne-de-lille.json'),
     load('sql/agendas/ndm.json'),
+    load('sql/agendas/private.json'),
   ]),
 );
 
@@ -258,6 +259,7 @@ raw.push(
     },
     load('events/des-oeuvres-et-vous.json'),
     load('events/incomplete.json'),
+    load('events/private.json'),
   ]),
 );
 
@@ -345,6 +347,7 @@ raw.push(
     },
     load('events/des-oeuvres-et-vous.ae.json'),
     load('events/incomplete.ae.json'),
+    load('events/private.ae.json'),
   ]),
 );
 

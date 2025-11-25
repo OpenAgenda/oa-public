@@ -45,6 +45,9 @@ export async function otherUpdate(
       returnPayload: true,
       detailed: true,
       access: 'internal',
+      load: {
+        default: true,
+      },
     });
 
   if (tracker) {

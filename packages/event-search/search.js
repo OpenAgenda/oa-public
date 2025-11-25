@@ -176,6 +176,11 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     includes.push('removed');
   }
 
+  // Only include valid field if detailed or explicitly requested
+  if (detailed || (requestedIncludes && requestedIncludes.includes('valid'))) {
+    includes.push('valid');
+  }
+
   let cleanQuery;
   try {
     cleanQuery = inflateAndCleanQuery(query, {

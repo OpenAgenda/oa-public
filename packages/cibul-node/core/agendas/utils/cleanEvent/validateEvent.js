@@ -106,7 +106,6 @@ export default function validateEvent(
   options = {},
 ) {
   const {
-    /* draft = false, */
     validateAsDraft = false,
     partial = false,
     event = null,

@@ -133,5 +133,7 @@
   "next.views.EventShow.transferOwnershipModal.nameless": "",
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "",
   "next.views.EventShow.transferOwnershipModal.transfer": "",
-  "next.views.EventShow.transferOwnershipModal.transferOwnership": ""
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": "",
+  "views.EventShow.contextBar.invalidEventInfo": "",
+  "views.EventShow.contextBar.nonCompliant": ""
 }

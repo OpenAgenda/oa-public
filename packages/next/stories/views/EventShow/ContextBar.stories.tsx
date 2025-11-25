@@ -138,6 +138,36 @@ export const Moderator = {
   },
 };
 
+export const ModeratorInvalid = {
+  render: () => (
+    <Fixtures event={{ ...eventFixtures, valid: false }}>
+      <ContextBar />
+    </Fixtures>
+  ),
+  parameters: {
+    msw: {
+      handlers: [
+        http.get(
+          `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
+          () =>
+            HttpResponse.json({
+              me: {
+                member: {
+                  role: 'moderator',
+                },
+                authorizations: {
+                  canEditEvent: true,
+                  canChangeState: true,
+                  canPublishEvent: true,
+                },
+              },
+            }),
+        ),
+      ],
+    },
+  },
+};
+
 export const Administrator = {
   render: () => (
     <Fixtures event={eventFixtures}>

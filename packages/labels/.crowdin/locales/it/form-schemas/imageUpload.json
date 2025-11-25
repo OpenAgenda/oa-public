@@ -1,11 +1,11 @@
 {
-  "acceptedExtensions": "File accettati",
-  "error": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
-  "loading": "Caricamento in corso",
-  "or": "OPPURE",
-  "remove": "Rimuovere",
-  "replace": "Sostituire il file",
-  "tip": "Trascinare un'immagine nella zona d'ombra.",
+  "upload": "Carica un'immagine",
   "update": "Aggiornare l'immagine",
-  "upload": "Carica un'immagine"
+  "error": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
+  "tip": "Trascinare un'immagine nella zona d'ombra.",
+  "replace": "Sostituire il file",
+  "loading": "Caricamento in corso",
+  "remove": "Rimuovere",
+  "or": "OPPURE",
+  "acceptedExtensions": "File accettati"
 }

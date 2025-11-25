@@ -1,11 +1,11 @@
 {
-  "fieldCannotBeEmpty": "Questo campo non può essere vuoto",
   "incorrectPassword": "Questo password non è corretto",
   "invalidToken": "Token non valido",
+  "userNotFound": "Nessun utilizzatore trovato",
+  "userNotActivated": "Conto non attivato",
+  "passwordsMustMatch": "La password deve corrispondere.",
+  "fieldCannotBeEmpty": "Questo campo non può essere vuoto",
   "passwordCouldNotBeModified": "La password non può essere modificata",
   "passwordResetSent": "Una reimpostazione della password è stata inviata alla sua email",
-  "passwordUpdated": "La tua password è stata aggiornata.",
-  "passwordsMustMatch": "La password deve corrispondere.",
-  "userNotActivated": "Conto non attivato",
-  "userNotFound": "Nessun utilizzatore trovato"
+  "passwordUpdated": "La tua password è stata aggiornata."
 }

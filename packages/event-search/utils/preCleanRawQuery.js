@@ -5,6 +5,15 @@ import convertTimingsRange from './convertTimingsRange.js';
 export default produce((query = {}, options = {}) => {
   const { removed } = { removed: false, ...options };
 
+  if (Array.isArray(query.valid) && query.valid.length > 0) {
+    query.valid = query.valid.map((v) => {
+      if (v === 'true' || v === true) return true;
+      if (v === 'false' || v === false) return false;
+      if (v === 'null' || v === null || v === undefined) return null;
+      return v;
+    });
+  }
+
   if (
     query.countryCode
     && query.countryCode.length

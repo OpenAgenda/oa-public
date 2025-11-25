@@ -284,6 +284,15 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.motive',
     defaultMessage: 'Motive',
   },
+  nonCompliant: {
+    id: 'views.EventShow.contextBar.nonCompliant',
+    defaultMessage: 'Non-compliant',
+  },
+  invalidEventInfo: {
+    id: 'views.EventShow.contextBar.invalidEventInfo',
+    defaultMessage:
+      'This event does not meet the criteria defined by the agenda form. This can happen if the form configuration has changed. To correct the event, edit it.',
+  },
 });
 
 export const duplicateModal = defineMessages({

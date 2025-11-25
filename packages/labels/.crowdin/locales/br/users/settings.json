@@ -1,11 +1,11 @@
 {
-  "confirmation": "Kadarnaat",
-  "email": "Postel",
-  "filterInputPlaceholder": "Klask un deiziataer",
   "modify": "Kemmañ",
+  "email": "Postel",
   "password": "Ger-tremen",
   "save": "Enrollañ",
-  "validationEmailAction": "Kadarnaat ar goulenn",
+  "confirmation": "Kadarnaat",
+  "validationEmailSubject": "Cheñch chomlec'h postel",
   "validationEmailContent": "Demat deoc'h,\n\nGoulennet ho peus cheñch ar chomlec'h postel a zo stag ouzh ho kont OpenAgenda.\nMa n'eo ket ganeoc'h eo bet graet ar goulenn cheñchamant, na glikit ket war al liamm, ken eeun ha tra.",
-  "validationEmailSubject": "Cheñch chomlec'h postel"
+  "validationEmailAction": "Kadarnaat ar goulenn",
+  "filterInputPlaceholder": "Klask un deiziataer"
 }

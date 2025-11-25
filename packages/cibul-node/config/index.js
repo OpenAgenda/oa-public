@@ -55,6 +55,7 @@ const config = {
       : {
         prefix: 'oa:',
         token: false,
+        includeSpan: !!parseInt(process.env.DEBUG_INCLUDE_SPAN ?? '1', 10),
         otel: !!process.env.OTEL_EXPORTER_OTLP_ENDPOINT,
       },
   name: 'cibul-node',

@@ -4,6 +4,7 @@ import eventFormSchema from '@openagenda/event-form/src/schema.js';
 import tagSetToFormSchema from '@openagenda/legacy/tagSetToFormSchema/index.js';
 import agendaLocations from '@openagenda/agenda-locations';
 import getAddMethod from './getAddMethod.js';
+import eventLoadOptions from './eventLoadOptions.js';
 
 const log = logs('core/agendas/utils/merge');
 
@@ -21,19 +22,15 @@ function mergeEvent(
   agendaCustom,
   options = {},
 ) {
-  const { originAgenda, includeFields, member, user, load } = {
+  const { originAgenda, includeFields, member, user } = {
     includeFields: null,
     originAgenda: null,
     member: null,
     user: null,
-    load: {
-      event: true,
-      custom: true,
-      agendaEvent: true,
-      user: true,
-    },
     ...options,
   };
+
+  const load = eventLoadOptions.get(options);
 
   const logBundle = {
     eventUid: event?.uid ?? agendaEvent?.eventUid,

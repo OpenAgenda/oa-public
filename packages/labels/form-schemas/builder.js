@@ -683,8 +683,8 @@ module.exports = {
     "io": "crwdns14802:0crwdne14802:0"
   },
   "fieldFormAllowFalse": {
-    "fr": "Autoriser la valeur non",
-    "en": "Allow no value",
+    "fr": "Autoriser que ce champ soit non-coché",
+    "en": "Allow this field to be unchecked",
     "de": "Falschen Wert zulassen",
     "es": "Permitir valor falso",
     "it": "Consenti valore falso"

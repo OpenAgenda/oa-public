@@ -1,9 +1,11 @@
+import { useState, useEffect } from 'react';
 import classNames from 'classnames';
 
 import flattenFieldLabels from '../lib/flatten.js';
 import isFieldEnabled from '../lib/isFieldEnabled.js';
 import isFieldOptional from '../lib/isFieldOptional.js';
 import hasHelp from '../lib/hasHelp.js';
+import isAllCaps from '../lib/isAllCaps.js';
 import FieldCounter from './FieldCounter.js';
 import Help from './Help.js';
 import Info from './Info.js';
@@ -87,11 +89,19 @@ export default function Field(props) {
   const field = flattenFieldLabels(schemaField, lang);
   const isMultilingual = Array.isArray(field.languages);
 
+  const [debouncedValue, setDebouncedValue] = useState(value);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setDebouncedValue(value);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, [value]);
+
   const hasMaxCounter = field.max
     && !isMultilingual
     && !['integer', 'number'].includes(field.fieldType);
-
-  // field is decorated with labels
 
   const FieldComponent = getFieldComponent(props);
 
@@ -99,6 +109,7 @@ export default function Field(props) {
   const isOptional = isFieldOptional(field, relatedValues);
 
   const enabledError = isEnabled && error;
+  const hasAllCapsWarning = !isMultilingual && field?.warnAllCaps && isAllCaps(debouncedValue);
 
   const fieldComponentsProps = {
     enabled: isEnabled,
@@ -111,6 +122,12 @@ export default function Field(props) {
     labels,
     userRole: role,
     isOptional,
+  };
+
+  const multilingualFieldProps = {
+    ...fieldComponentsProps,
+    FieldComponent,
+    debouncedValue,
   };
 
   return (
@@ -158,16 +175,23 @@ export default function Field(props) {
         <Info value={field.info} />
       ) : null}
       {isMultilingual ? (
-        <MultilingualField
-          {...fieldComponentsProps}
-          FieldComponent={FieldComponent}
-        />
+        <MultilingualField {...multilingualFieldProps} />
       ) : (
-        <FieldComponent {...fieldComponentsProps} />
+        <div
+          className={classNames({
+            'has-warning': !!hasAllCapsWarning,
+          })}
+        >
+          <FieldComponent {...fieldComponentsProps} />
+        </div>
       )}
       {hasMaxCounter ? <FieldCounter value={value} max={field.max} /> : null}
       {!isMultilingual && !decoratedByFieldComponent(field, 'sub') ? (
-        <Sub label={field.sub} error={enabledError} FieldCounter />
+        <Sub
+          label={field.sub}
+          error={enabledError}
+          warning={hasAllCapsWarning ? labels.warnAllCaps : null}
+        />
       ) : null}
     </div>
   );

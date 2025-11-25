@@ -138,6 +138,7 @@ export default (field, options = {}) => {
       'imageWithSizeAndVariants',
       'allowPath',
       'allowObject',
+      'warnAllCaps',
       'default',
     ]),
     draft ? { optional: true, type } : { type },

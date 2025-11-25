@@ -79,6 +79,7 @@ export type Event = {
   };
   status: number;
   private: boolean;
+  valid?: boolean;
   ownerUid: number;
   passCulture?: {
     service: string;

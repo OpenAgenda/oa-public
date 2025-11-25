@@ -19,6 +19,7 @@ function eventsList(core, agenda) {
           detailed: true,
           access: 'internal',
           removed: null,
+          load: { valid: true },
         },
       )
       .then(({ events, lastId: nextLastId }) => {

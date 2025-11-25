@@ -1,9 +1,9 @@
 {
-  "confirm": "Confirmar",
-  "eventDeleteDetails": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda.",
-  "eventDeleteTitle": "Supression d'eveniment",
-  "eventDeleted": "L'eveniment es estat definitivament escafat",
-  "eventRemoveDetails": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments",
+  "eventRemoved": "Aqueste eveniment foguèt tirat de l'agenda",
   "eventRemoveTitle": "Tirar un eveniment de l'agenda",
-  "eventRemoved": "Aqueste eveniment foguèt tirat de l'agenda"
+  "eventRemoveDetails": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments",
+  "eventDeleteTitle": "Supression d'eveniment",
+  "eventDeleteDetails": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda.",
+  "confirm": "Confirmar",
+  "eventDeleted": "L'eveniment es estat definitivament escafat"
 }

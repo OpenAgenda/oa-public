@@ -36,7 +36,7 @@ export default function StatusBadge({ status, intl }) {
   }
 
   return (
-    <span className="padding-right-sm status">
+    <span className="padding-right-xs status">
       <span
         title={intl.formatMessage(statusMessages[`${slug}Info`])}
         className={className}

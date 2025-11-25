@@ -142,6 +142,28 @@ export function ContributedEventItem() {
   );
 }
 
+export function ContributedIvalidEventItem() {
+  return (
+    <div className="list-unstyled">
+      <EventItem
+        key={2}
+        agenda={agenda}
+        event={{ ...contributedEvent, valid: false, status: 2 }}
+        openRemoveModal={() => {}}
+        selected={false}
+        selectEvent={() => {}}
+        query={{}}
+        page={1}
+        index={0}
+        isFirst={false}
+        isLast={false}
+        redirectURL="redirectURL"
+        assetsPath="https://cdn.openagenda.com/assets/"
+      />
+    </div>
+  );
+}
+
 export function AggregatedEventItem() {
   return (
     <div className="list-unstyled">

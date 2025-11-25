@@ -1,9 +1,9 @@
 {
-  "format.unknown": "Le format de l'image est inconnu",
-  "location.required": "Le lieu doit être spécifié",
   "timings.empty": "Au moins un horaire doit être renseigné",
+  "location.required": "Le lieu doit être spécifié",
+  "timings.toolong": "Il ne peut y avoir plus de 800 plages horaires pour un même événement",
+  "timings.min.1": "Au moins un horaire doit être défini",
   "timings.invalid": "Au moins un horaire doit être défini",
   "timings.max.1": "Sur cette opération, la saisie de plage horaire est limitée à 1. Utilisez l'option 'Dupliquer l'événement' après la création afin de renseigner d'autres horaires.",
-  "timings.min.1": "Au moins un horaire doit être défini",
-  "timings.toolong": "Il ne peut y avoir plus de 800 plages horaires pour un même événement"
+  "format.unknown": "Le format de l'image est inconnu"
 }

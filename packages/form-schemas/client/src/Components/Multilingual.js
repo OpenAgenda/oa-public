@@ -2,6 +2,7 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import { useCallback } from 'react';
 
+import isAllCaps from '../lib/isAllCaps.js';
 import FieldCounter from './FieldCounter.js';
 import Sub from './Sub.js';
 
@@ -34,11 +35,13 @@ function multilingualizeValue(value, languages) {
 const MultilingualField = ({
   onChange,
   value,
+  debouncedValue,
   field,
   error,
   enabled,
   lang,
   FieldComponent,
+  labels,
 }) => {
   const myOnChange = useCallback(
     (language, singleLanguageValue) => {
@@ -66,23 +69,31 @@ const MultilingualField = ({
         },
       });
 
+      const languageValue = extractLanguageValue(value, l);
+      const debouncedLanguageValue = extractLanguageValue(debouncedValue, l);
+      const hasAllCapsWarning = field?.warnAllCaps && isAllCaps(debouncedLanguageValue);
+
       return (
-        <div>
+        <div className={hasAllCapsWarning ? 'has-warning' : ''}>
           <FieldComponent
             lang={lang}
             field={languageField}
             enabled={enabled}
-            value={extractLanguageValue(value, l)}
+            value={languageValue}
             onChange={(v) => myOnChange(l, v)}
           />
           {field.max ? (
             <FieldCounter value={_.get(value, l)} max={field.max} />
           ) : null}
-          <Sub label={field.sub} error={_.get(error, l)} />
+          <Sub
+            label={field.sub}
+            error={_.get(error, l)}
+            warning={hasAllCapsWarning ? labels.warnAllCaps : null}
+          />
         </div>
       );
     },
-    [enabled, error, field, value, myOnChange, lang],
+    [enabled, error, field, value, debouncedValue, myOnChange, lang, labels],
   );
 
   if (field.languages.length === 1) {

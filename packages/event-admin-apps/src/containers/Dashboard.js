@@ -395,6 +395,7 @@ function Dashboard() {
             'onlineAccessLink',
             'registration',
             'motive',
+            'valid',
           ],
         },
         page,

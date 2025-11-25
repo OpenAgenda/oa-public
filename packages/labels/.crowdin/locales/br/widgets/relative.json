@@ -1,13 +1,13 @@
 {
-  "days": "deizioù",
-  "months": "miz",
+  "today": "Hiziv",
+  "yesterday": "dec'h",
+  "tomorrow": "Warc'hoazh",
+  "thisWeekend": "An dibenn-sizhun-mañ",
+  "thisWeek": "Ar sizhun-mañ",
+  "thisMonth": "Ar miz-mañ",
   "relativeToNowPast": "pell zo %count% %units%",
   "relativeToNowUpcoming": "%count% %units%",
-  "thisMonth": "Ar miz-mañ",
-  "thisWeek": "Ar sizhun-mañ",
-  "thisWeekend": "An dibenn-sizhun-mañ",
-  "today": "Hiziv",
-  "tomorrow": "Warc'hoazh",
-  "years": "bloaz",
-  "yesterday": "dec'h"
+  "days": "deizioù",
+  "months": "miz",
+  "years": "bloaz"
 }

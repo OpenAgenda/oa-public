@@ -11,6 +11,7 @@ export default (app) => {
         .agendas(req.agenda.uid)
         .events.get(req.params.eventUid, {
           load: {
+            default: false,
             custom: true,
           },
           returnPayload: true,
