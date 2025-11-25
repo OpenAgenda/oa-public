@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/next",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "private": true,
   "description": "OpenAgenda main NextJs app",
   "sideEffects": [
@@ -48,7 +48,7 @@
     "@openagenda/react-filters": "^2.13.4",
     "@openagenda/react-shared": "^2.4.6",
     "@openagenda/registrations": "^0.0.3",
-    "@openagenda/sdk-js": "^2.0.4",
+    "@openagenda/sdk-js": "^3.0.0",
     "@openagenda/sessions": "^4.1.1",
     "@openagenda/uikit": "^0.0.4",
     "@openagenda/verror": "^3.1.0",
