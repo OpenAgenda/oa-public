@@ -1,5 +1,11 @@
 # Change Log
 
+## 3.0.0
+
+### Major Changes
+
+- [`e193736`](https://github.com/OpenAgenda/oa/commit/e19373651264c0939329e64deb00a98b59f11158) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Replace Axios with Ky for requests
+
 ## 2.0.4
 
 ### Patch Changes
