@@ -1,5 +1,6 @@
-import { OaSdk } from '../../src';
-import testconfig from '../../testconfig';
+import { jest, describe, it } from '@jest/globals';
+import { OaSdk } from '../../src/index.js';
+import testconfig from '../../testconfig.js';
 
 describe('locations', () => {
   jest.setTimeout(10000);

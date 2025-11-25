@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import qs from 'qs';
 
 const dev = process.env.NODE_ENV === 'development';
@@ -16,15 +16,15 @@ export default async function loadEventData(agendaUid, publicKey, pageNumber) {
     'onlineAccessLink',
   ];
 
-  const { data } = await axios.get(
-    `https://${
-      dev ? 'd' : ''
-    }api.openagenda.com/v2/agendas/${agendaUid}/events?${qs.stringify({
-      includeFields,
-      key: publicKey,
-      after: pageNumber?.map(String),
-    })}`,
-  );
-
-  return data;
+  return ky
+    .get(
+      `https://${
+        dev ? 'd' : ''
+      }api.openagenda.com/v2/agendas/${agendaUid}/events?${qs.stringify({
+        includeFields,
+        key: publicKey,
+        after: pageNumber?.map(String),
+      })}`,
+    )
+    .json();
 }

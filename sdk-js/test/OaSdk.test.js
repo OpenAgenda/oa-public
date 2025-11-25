@@ -1,28 +1,28 @@
 import sinon from 'sinon';
-import MockAdapter from '@openagenda/axios-mock-adapter';
-import { OaSdk } from '../src';
-import testconfig from '../testconfig';
+import { setupServer } from 'msw/node';
+import { http, HttpResponse } from 'msw';
+import { OaSdk } from '../src/index.js';
+import testconfig from '../testconfig.js';
 
-function mockAuth(api) {
-  const mock = new MockAdapter(api);
-
-  mock
-    .onPost('/requestAccessToken')
-    .reply(200, {
+const handlers = [
+  http.post('*/requestAccessToken', () =>
+    HttpResponse.json({
       access_token: '4fcf5c0a3e38c9ed9da5818ffdf4f1a7',
       expires_in: 3600,
-    })
-    .onAny()
-    .reply(500);
+    })),
 
-  return mock;
-}
+  http.all('*', () => new HttpResponse(null, { status: 500 })),
+];
+
+const server = setupServer(...handlers);
+
+beforeAll(() => server.listen());
+afterEach(() => server.resetHandlers());
+afterAll(() => server.close());
 
 describe('connection', () => {
   it('simple connect', async () => {
     const oa = new OaSdk({ secretKey: testconfig.secretKey });
-
-    mockAuth(oa.api);
 
     await oa.connect();
 
@@ -31,8 +31,6 @@ describe('connection', () => {
 
   it('simple connect - key provided on connect', async () => {
     const oa = new OaSdk();
-
-    mockAuth(oa.api);
 
     await oa.connect(testconfig.secretKey);
 
@@ -43,8 +41,6 @@ describe('connection', () => {
 describe('refresh expired token', () => {
   it('refresh token if needed', async () => {
     const oa = new OaSdk();
-
-    mockAuth(oa.api);
 
     const spy = sinon.spy(oa, 'connect');
 

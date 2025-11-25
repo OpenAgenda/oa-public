@@ -1,5 +1,5 @@
 import { formatInTimeZone } from 'date-fns-tz';
-import { toEventSchema } from '../src';
+import { toEventSchema } from '../src/index.js';
 
 function formatDate(date, tz = 'Europe/Paris') {
   return formatInTimeZone(date, tz, "yyyy-MM-dd'T'HH:mm:ssXXX");

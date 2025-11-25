@@ -153,8 +153,6 @@ function FiltersProvider(
     missingValue = null,
     mapTiles = null,
     dateFnsLocale = undefined,
-    // for test
-    apiClient = null,
     // form config
     onSubmit = null,
     initialValues = null,
@@ -174,7 +172,6 @@ function FiltersProvider(
       missingValue={missingValue}
       mapTiles={mapTiles}
       dateFnsLocale={dateFnsLocale}
-      apiClient={apiClient}
       onSubmit={onSubmit}
       initialValues={initialValues}
       subscription={subscription}

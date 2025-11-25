@@ -5432,20 +5432,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/axios-mock-adapter@npm:^1.21.0, @openagenda/axios-mock-adapter@npm:^1.21.2":
-  version: 1.21.2
-  resolution: "@openagenda/axios-mock-adapter@npm:1.21.2"
-  dependencies:
-    fast-deep-equal: "npm:^3.1.3"
-    is-blob: "npm:^2.1.0"
-    is-buffer: "npm:^2.0.5"
-    path-to-regexp: "npm:^6.2.0"
-  peerDependencies:
-    axios: ">= 0.9.0"
-  checksum: 10c0/c0af419822006bb74990ff03d0ab3fa962da6c433c38068f322b55e4ea2e2b134f12aae7df2d9a338e79f0adb5b893653a864791fbece39e32248c957bfa71fe
-  languageName: node
-  linkType: hard
-
 "@openagenda/babel-plugin-lodash@npm:^3.4.0":
   version: 3.4.0
   resolution: "@openagenda/babel-plugin-lodash@npm:3.4.0"
@@ -5719,18 +5705,14 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/pdf-exports@workspace:pdf-exports"
   dependencies:
-    "@babel/core": "npm:^7.28.4"
-    "@babel/plugin-syntax-import-attributes": "npm:^7.27.1"
-    "@babel/preset-env": "npm:^7.28.3"
-    "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/date-utils": "npm:^0.0.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/verror": "npm:^3.1.0"
-    axios: "npm:^0.21.1"
     date-fns: "npm:^2.29.3"
     date-fns-tz: "npm:^1.3.7"
+    ky: "npm:^1.14.0"
     lodash: "npm:^4.17.21"
     moment: "npm:^2.30.1"
     nodemon: "npm:^3.0.3"
@@ -5820,7 +5802,6 @@ __metadata:
     "@babel/runtime-corejs3": "npm:^7.28.4"
     "@emotion/react": "npm:^11.11.1"
     "@formatjs/cli": "npm:^2.11.3"
-    "@openagenda/axios-mock-adapter": "npm:^1.21.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/leaflet-gesture-handling": "npm:^1.5.0"
@@ -5829,7 +5810,6 @@ __metadata:
     "@openagenda/react-shared": "npm:^2.4.6"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
-    axios: "npm:^0.21.1"
     babel-loader: "npm:^9.1.3"
     body-parser: "npm:^1.19.0"
     bootstrap: "npm:4.3.1"
@@ -5845,9 +5825,12 @@ __metadata:
     final-form: "npm:^4.20.2"
     fuse.js: "npm:^7.1.0"
     jest: "npm:^29.7.0"
+    ky: "npm:^1.14.0"
     leaflet: "npm:^1.9.3"
     lodash: "npm:^4.17.20"
     mkdirp: "npm:^3.0.1"
+    msw: "npm:^2.3.0"
+    msw-storybook-addon: "npm:^2.0.5"
     nodemon: "npm:^2.0.15"
     qs: "npm:^6.9.1"
     raw-loader: "npm:^4.0.2"
@@ -5917,7 +5900,6 @@ __metadata:
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/preset-scss": "npm:^1.0.3"
     "@storybook/react-webpack5": "npm:^9.0.8"
-    axios: "npm:^0.21.1"
     babel-jest: "npm:^29.7.0"
     bytes: "npm:^3.1.0"
     classnames: "npm:^2.3.1"
@@ -5929,6 +5911,7 @@ __metadata:
     hoist-non-react-statics: "npm:^3.3.1"
     jest: "npm:^29.7.0"
     jest-environment-jsdom: "npm:^29.7.0"
+    ky: "npm:^1.14.0"
     load-script: "npm:^2.0.0"
     lodash: "npm:^4.17.20"
     msw: "npm:^2.3.0"
@@ -6055,24 +6038,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/sdk-js@workspace:sdk-js"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
-    "@babel/core": "npm:^7.28.4"
-    "@babel/runtime-corejs3": "npm:^7.28.4"
-    "@openagenda/axios-mock-adapter": "npm:^1.21.2"
-    "@openagenda/babel-preset": "npm:^1.5.0"
+    "@jest/globals": "npm:^29.7.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
-    axios: "npm:^0.26.1"
-    babel-jest: "npm:^29.7.0"
-    core-js: "npm:^3.29.1"
     date-fns: "npm:^2.29.3"
     date-fns-tz: "npm:^2.0.0"
     jest: "npm:^29.7.0"
-    lodash: "npm:^4.17.15"
+    ky: "npm:^1.14.0"
     moment: "npm:^2.27.0"
+    msw: "npm:^2.3.0"
     qs: "npm:^6.10.3"
-    regenerator-runtime: "npm:^0.13.7"
-    rimraf: "npm:^3.0.1"
     sinon: "npm:^4.4.5"
   languageName: unknown
   linkType: soft
@@ -11145,24 +11120,6 @@ __metadata:
   version: 4.10.0
   resolution: "axe-core@npm:4.10.0"
   checksum: 10c0/732c171d48caaace5e784895c4dacb8ca6155e9d98045138ebe3952f78457dd05b92c57d05b41ce2a570aff87dbd0471e8398d2c0f6ebe79617b746c8f658998
-  languageName: node
-  linkType: hard
-
-"axios@npm:^0.21.1":
-  version: 0.21.3
-  resolution: "axios@npm:0.21.3"
-  dependencies:
-    follow-redirects: "npm:^1.14.0"
-  checksum: 10c0/13a9f9430364b8216a12f7cc2a21b627b2ef4240e81152547eefceeb520161f8712dbb60c868bcc42200e39afc8c050601d7711c01e0c6c84a1f7d8f5a9ced27
-  languageName: node
-  linkType: hard
-
-"axios@npm:^0.26.1":
-  version: 0.26.1
-  resolution: "axios@npm:0.26.1"
-  dependencies:
-    follow-redirects: "npm:^1.14.8"
-  checksum: 10c0/77ad7f1e6ca04fcd3fa8af1795b09d8b7c005b71a31f28d99ba40cda0bdcc12a4627801d7fac5efa62b9f667a8402bd54c669039694373bc8d44f6be611f785c
   languageName: node
   linkType: hard
 
@@ -17555,7 +17512,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.14.0, follow-redirects@npm:^1.14.8, follow-redirects@npm:^1.15.0":
+"follow-redirects@npm:^1.0.0, follow-redirects@npm:^1.15.0":
   version: 1.15.2
   resolution: "follow-redirects@npm:1.15.2"
   peerDependenciesMeta:
@@ -19722,13 +19679,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-blob@npm:^2.1.0":
-  version: 2.1.0
-  resolution: "is-blob@npm:2.1.0"
-  checksum: 10c0/324eb4dc16a359acf14c56c0f65a031c9ddb6ec8ca651894783abe3f3252688facd9e02edeb756eddca0c8ddb5b1efd0af97ea7d3c7b8567fc29fa75f9b1a159
-  languageName: node
-  linkType: hard
-
 "is-boolean-object@npm:^1.0.1, is-boolean-object@npm:^1.1.0":
   version: 1.1.0
   resolution: "is-boolean-object@npm:1.1.0"
@@ -19755,7 +19705,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-buffer@npm:^2.0.0, is-buffer@npm:^2.0.5":
+"is-buffer@npm:^2.0.0":
   version: 2.0.5
   resolution: "is-buffer@npm:2.0.5"
   checksum: 10c0/e603f6fced83cf94c53399cff3bda1a9f08e391b872b64a73793b0928be3e5f047f2bcece230edb7632eaea2acdbfcb56c23b33d8a20c820023b230f1485679a
@@ -21645,6 +21595,13 @@ __metadata:
   version: 2.0.5
   resolution: "klona@npm:2.0.5"
   checksum: 10c0/5b752c11ca8e2996612386699f52cc5aed802aa4116663d26239ac0b054fae25191dacb95587ecf1a167b039daa9fc3fa2da17dfd5d0821f3037de3821d9a9e5
+  languageName: node
+  linkType: hard
+
+"ky@npm:^1.14.0":
+  version: 1.14.0
+  resolution: "ky@npm:1.14.0"
+  checksum: 10c0/ae30950feaa863fd95854bc0f528a04a36fa04828c119b098c5a0933a46126ccaee829ec0d6d6fc968faa4d0a23501c3203534d024d60540541d322d9772983d
   languageName: node
   linkType: hard
 

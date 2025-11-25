@@ -1,13 +1,17 @@
-/* global axios, Qs */
+import ky from 'ky';
+import qs from 'qs';
 
 async function loadEventList(values, aggregations = []) {
   try {
-    const { data } = await axios.get('/events', {
-      params: { ...values, aggregations, aggsSizeLimit: 2000 },
-      paramsSerializer: Qs.stringify,
-    });
-
-    return data;
+    return ky
+      .get('/events', {
+        searchParams: qs.stringify({
+          ...values,
+          aggregations,
+          aggsSizeLimit: 2000,
+        }),
+      })
+      .json();
   } catch (e) {
     console.log('Error:', e);
   }

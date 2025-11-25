@@ -1,9 +1,6 @@
-'use strict';
+import sharedConfig from './jest.config.js';
 
-const sharedConfig = require('./jest.config');
-
-module.exports = {
+export default {
   ...sharedConfig,
-
   testPathIgnorePatterns: ['<rootDir>/test/e2e/'],
 };

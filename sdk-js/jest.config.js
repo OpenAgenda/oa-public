@@ -1,5 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   displayName: '@openagenda/sdk-js',
+  transform: {},
 };

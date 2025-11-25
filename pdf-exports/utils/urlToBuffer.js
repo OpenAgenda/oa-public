@@ -1,12 +1,9 @@
-import axios from 'axios';
+import ky from 'ky';
 
 export default async function urlToBuffer(url, replacementImage) {
   try {
-    const image = await axios.get(url.replace('dev', 'main'), {
-      responseType: 'arraybuffer',
-    });
-    const buffer = Buffer.from(image.data, 'base64');
-    return buffer;
+    const image = await ky.get(url.replace('dev', 'main')).arrayBuffer();
+    return Buffer.from(image);
   } catch (error) {
     console.error('Error fetching image:', error);
 

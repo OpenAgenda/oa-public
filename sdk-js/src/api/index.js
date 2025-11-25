@@ -1,63 +1,74 @@
-import _ from 'lodash';
-import axios from 'axios';
-import qs from 'qs';
-import Events from './Events';
-import Locations from './Locations';
-import reduceAccessToken from './utils/reduceAccessToken';
-import getNonce from './utils/getNonce';
+import ky from 'ky';
+import Events from './Events.js';
+import Locations from './Locations.js';
 
 export default class OaSdk {
   constructor(options) {
-    this.params = _.merge(
-      {
-        publicKey: null,
-        secretKey: null,
-      },
-      options,
-    );
+    this.params = {
+      publicKey: null,
+      secretKey: null,
+      ...options,
+    };
 
     this.accessToken = null;
     this.expiresIn = null;
 
-    this.api = axios.create({
-      baseURL:
+    this.api = ky.create({
+      prefixUrl:
         process.env.NODE_ENV !== 'development'
           ? 'https://api.openagenda.com/v2'
           : 'https://dapi.openagenda.com/v2',
-      paramsSerializer: qs.stringify,
-    });
+      hooks: {
+        beforeRequest: [
+          async (request, reqOptions) => {
+            if (!reqOptions.skipRefreshToken && this.params.secretKey) {
+              await this.refreshToken();
+            }
 
-    this.api.interceptors.request.use(async (config) => {
-      if (!config.skipRefreshToken && this.params.secretKey) {
-        await this.refreshToken();
-      }
+            if (!reqOptions.skipAccessToken && this.accessToken) {
+              request.headers.set('access-token', this.accessToken);
+            }
 
-      if (!config.skipAccessToken && this.accessToken) {
-        config.headers = {
-          'access-token': this.accessToken,
-          ...config.headers,
-        };
-      }
+            if (
+              !reqOptions.skipPublicKey
+              && request.method === 'GET'
+              && !this.accessToken
+            ) {
+              const url = new URL(request.url);
+              url.searchParams.set('key', this.params.publicKey);
 
-      if (!config.skipNonce && this.accessToken) {
-        config.headers = {
-          nonce: getNonce(this.reducedAccessToken, this.requestTokenTime),
-          ...config.headers,
-        };
-      }
+              return new Request(url, request);
+            }
+          },
+        ],
+        beforeError: [
+          async (error) => {
+            const { response } = error;
 
-      if (
-        !config.skipPublicKey
-        && config.method === 'get'
-        && !this.accessToken
-      ) {
-        config.params = {
-          key: this.params.publicKey,
-          ...config.params,
-        };
-      }
+            if (response && response.body) {
+              try {
+                const contentType = response.headers.get('content-type') || '';
 
-      return config;
+                if (contentType.includes('application/json')) {
+                  error.response.data = await response.json();
+                } else {
+                  error.response.data = await response.text();
+                }
+              } catch (_) {
+                try {
+                  if (!error.response.data) {
+                    error.response.data = await response.text();
+                  }
+                } catch (_1) {
+                  //
+                }
+              }
+            }
+
+            return error;
+          },
+        ],
+      },
     });
   }
 
@@ -72,22 +83,19 @@ export default class OaSdk {
       this.params.secretKey = secretKey;
     }
 
-    const response = await this.api.post(
-      '/requestAccessToken',
-      {
-        'grant-type': 'authorization_code',
-        code: secretKey || this.params.secretKey,
-      },
-      {
-        skipRefreshToken: true, // avoid loop
-      },
-    );
+    const response = await this.api
+      .post('requestAccessToken', {
+        json: {
+          'grant-type': 'authorization_code',
+          code: secretKey || this.params.secretKey,
+        },
+        skipRefreshToken: true,
+      })
+      .json();
 
-    this.accessToken = response.data.access_token;
-    this.expiresIn = response.data.expires_in;
+    this.accessToken = response.access_token;
+    this.expiresIn = response.expires_in;
     this.requestTokenTime = time;
-
-    this.reducedAccessToken = reduceAccessToken(this.accessToken);
 
     return response;
   }

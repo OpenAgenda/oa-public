@@ -4,7 +4,7 @@ import path from 'node:path';
 import { promisify } from 'node:util';
 import express from 'express';
 import bodyParser from 'body-parser';
-import axios from 'axios';
+import ky from 'ky';
 import qs from 'qs';
 import * as sass from 'sass';
 
@@ -43,17 +43,15 @@ app.use(express.static(path.join(import.meta.dirname, 'assets')));
 app.get('/', async (req, res, next) => {
   try {
     // load events
-    const { data } = await axios.get(
-      `https://api.openagenda.com/v2/agendas/${AGENDA_UID}/events`,
-      {
-        params: {
+    const data = await ky
+      .get(`https://api.openagenda.com/v2/agendas/${AGENDA_UID}/events`, {
+        searchParams: qs.stringify({
           ...req.query,
           detailed: true,
           key: API_KEY,
-        },
-        paramsSerializer: qs.stringify,
-      },
-    );
+        }),
+      })
+      .json();
 
     // render
     res.render('index', { events: data.events, agendaUid: AGENDA_UID });
@@ -66,17 +64,15 @@ app.get('/', async (req, res, next) => {
 app.get('/events', async (req, res, next) => {
   try {
     // load events
-    const { data } = await axios.get(
-      `https://api.openagenda.com/v2/agendas/${AGENDA_UID}/events`,
-      {
-        params: {
+    const data = await ky
+      .get(`https://api.openagenda.com/v2/agendas/${AGENDA_UID}/events`, {
+        searchParams: qs.stringify({
           ...req.query,
           detailed: true,
           key: API_KEY,
-        },
-        paramsSerializer: qs.stringify,
-      },
-    );
+        }),
+      })
+      .json();
 
     // render
     const render = promisify(app.render.bind(app));

@@ -1,1 +1,1 @@
-export { default as toEventSchema } from './toEventSchema';
+export { default as toEventSchema } from './toEventSchema.js';
