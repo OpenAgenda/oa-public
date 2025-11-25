@@ -38,10 +38,14 @@ export default function EventStateSelector({ agenda, event }) {
 
   const mutation = useMutation(
     (value) =>
-      apiClient.post(`/${agenda.slug}/events/${event.slug}/state`, {
-        state: value,
-        motive: value === -1 ? motive : null,
-      }),
+      apiClient
+        .post(`/${agenda.slug}/events/${event.slug}/state`, {
+          json: {
+            state: value,
+            motive: value === -1 ? motive : null,
+          },
+        })
+        .json(),
     {
       onSuccess: toggleEventItemValue({
         queryClient,

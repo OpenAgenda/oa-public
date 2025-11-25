@@ -9,15 +9,16 @@ const inspectOptions = {
   compact: false,
 };
 
-export default function displayError(chalk, error) {
+export default async function displayError(chalk, error) {
   console.log(chalk.red('\n❌ Error fetching offer details:'));
   if (error.response) {
     // API Error
     console.log(chalk.red(`Status: ${error.response.status}`));
     console.log(chalk.red(`Status Text: ${error.response.statusText}`));
-    if (error.response.data) {
+    const errorData = await error.response.json();
+    if (errorData) {
       console.log(chalk.red('Response Data:'));
-      console.log(inspect(error.response.data, inspectOptions));
+      console.log(inspect(errorData, inspectOptions));
     }
     // Provide helpful suggestions
     if (error.response.status === 404) {

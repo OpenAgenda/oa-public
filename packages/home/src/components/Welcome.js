@@ -66,17 +66,19 @@ export default function Welcome() {
   twoWeekAgo.setDate(twoWeekAgo.getDate() - 14);
 
   const agendasQuery = useQuery('welcome-agendas', () =>
-    apiClient.get('/agendas.json', {
-      params: {
-        sort: 'recentlyAddedEvents.desc',
-        contributionType: 1,
-        official: 1,
-        limit: 5,
-        updatedAt: {
-          gte: twoWeekAgo,
+    apiClient
+      .get('/agendas.json', {
+        searchParams: {
+          sort: 'recentlyAddedEvents.desc',
+          contributionType: 1,
+          official: 1,
+          limit: 5,
+          updatedAt: {
+            gte: twoWeekAgo,
+          },
         },
-      },
-    }));
+      })
+      .json());
 
   return (
     <div className="content">

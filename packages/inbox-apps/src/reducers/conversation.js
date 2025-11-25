@@ -179,14 +179,16 @@ export function load(conversationId, query, agenda) {
       query,
       perPageLimit,
       promise: ({ client }) =>
-        client.get(
-          res.messages.list
-            .replace(':slug', agenda && agenda.slug)
-            .replace(':agendaUid', agenda && agenda.uid)
-            .replace(':eventUid', event && event.uid)
-            .replace(':conversationId', conversationId),
-          { params: query },
-        ),
+        client
+          .get(
+            res.messages.list
+              .replace(':slug', agenda && agenda.slug)
+              .replace(':agendaUid', agenda && agenda.uid)
+              .replace(':eventUid', event && event.uid)
+              .replace(':conversationId', conversationId),
+            { searchParams: query },
+          )
+          .json(),
     });
   };
 }
@@ -201,12 +203,14 @@ export function loadAuthor(agenda) {
     promise: ({ client }, { getState }) => {
       const { res, event } = getState();
 
-      return client.get(
-        res.author
-          .replace(':slug', agenda && agenda.slug)
-          .replace(':agendaUid', agenda && agenda.uid)
-          .replace(':eventUid', event && event.uid),
-      );
+      return client
+        .get(
+          res.author
+            .replace(':slug', agenda && agenda.slug)
+            .replace(':agendaUid', agenda && agenda.uid)
+            .replace(':eventUid', event && event.uid),
+        )
+        .json();
     },
   };
 }
@@ -224,19 +228,21 @@ export function nextPage(conversationId, agenda) {
       types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
       perPageLimit,
       promise: ({ client }) =>
-        client.get(
-          res.messages.list
-            .replace(':slug', agenda && agenda.slug)
-            .replace(':agendaUid', agenda && agenda.uid)
-            .replace(':eventUid', event && event.uid)
-            .replace(':conversationId', conversationId),
-          {
-            params: {
-              ...conversation.query,
-              page: conversation.page + 1,
+        client
+          .get(
+            res.messages.list
+              .replace(':slug', agenda && agenda.slug)
+              .replace(':agendaUid', agenda && agenda.uid)
+              .replace(':eventUid', event && event.uid)
+              .replace(':conversationId', conversationId),
+            {
+              searchParams: {
+                ...conversation.query,
+                page: conversation.page + 1,
+              },
             },
-          },
-        ),
+          )
+          .json(),
     });
   };
 }
@@ -247,14 +253,16 @@ export function sendMessage(conversationId, data, agenda) {
     promise: ({ client }, { getState }) => {
       const { res, event } = getState();
 
-      return client.post(
-        res.messages.create
-          .replace(':slug', agenda && agenda.slug)
-          .replace(':agendaUid', agenda && agenda.uid)
-          .replace(':eventUid', event && event.uid)
-          .replace(':conversationId', conversationId),
-        data,
-      );
+      return client
+        .post(
+          res.messages.create
+            .replace(':slug', agenda && agenda.slug)
+            .replace(':agendaUid', agenda && agenda.uid)
+            .replace(':eventUid', event && event.uid)
+            .replace(':conversationId', conversationId),
+          { json: data },
+        )
+        .json();
     },
   };
 }
@@ -275,6 +283,7 @@ export function triggerAction(conversationId, code, agenda) {
               .replace(':conversationId', conversationId)
               .replace(':code', code),
           )
+          .json()
           .then((result) => {
             if (code === 'removeTechnicalSupport') {
               history.push(
@@ -295,13 +304,15 @@ export function resume(conversationId, agenda) {
     promise: ({ client }, { getState }) => {
       const { res, event } = getState();
 
-      return client.get(
-        res.conversations.resume
-          .replace(':slug', agenda && agenda.slug)
-          .replace(':agendaUid', agenda && agenda.uid)
-          .replace(':eventUid', event && event.uid)
-          .replace(':conversationId', conversationId),
-      );
+      return client
+        .get(
+          res.conversations.resume
+            .replace(':slug', agenda && agenda.slug)
+            .replace(':agendaUid', agenda && agenda.uid)
+            .replace(':eventUid', event && event.uid)
+            .replace(':conversationId', conversationId),
+        )
+        .json();
     },
   };
 }

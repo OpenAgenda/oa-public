@@ -49,9 +49,9 @@ function SourceItem({ source }) {
     [dispatch, source],
   );
   const showModalUpdate = useCallback(async () => {
-    const schema = await apiClient.get(
-      `/${source.agenda.slug}/settings/schema`,
-    );
+    const schema = await apiClient
+      .get(`/${source.agenda.slug}/settings/schema`)
+      .json();
 
     dispatch(modalsActions.showModal('updateSource', { source, schema }));
   }, [apiClient, dispatch, source]);

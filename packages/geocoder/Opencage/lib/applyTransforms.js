@@ -1,11 +1,9 @@
-'use strict';
-
-const transforms = require('./transforms.json');
+import transforms from './transforms.json' with { type: 'json' };
 
 // easier to troubleshoot if separated
 const _test = (rgx, value) => new RegExp(rgx).test(value);
 
-module.exports = (location) => {
+export default (location) => {
   const updated = { ...location };
   // location is updated as it goes along transforms
   transforms.forEach((transform) => {

@@ -10,12 +10,14 @@ function AgendasSearch({ res, render, fieldProps }) {
 
   const agendasSearchRequest = useCallback(
     ({ search, page }) =>
-      apiClient.get(res, {
-        params: {
-          search: search === '' ? undefined : search,
-          page,
-        },
-      }),
+      apiClient
+        .get(res, {
+          searchParams: {
+            search: search === '' ? undefined : search,
+            page,
+          },
+        })
+        .json(),
     [apiClient, res],
   );
 

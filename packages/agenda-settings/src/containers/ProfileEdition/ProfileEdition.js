@@ -70,14 +70,14 @@ export default function ProfileEdition() {
     (values, form) =>
       dispatch(edit(values))
         .then((result) => {
-          const newSlug = result.data.agenda.slug;
+          const newSlug = result.agenda.slug;
 
           if (newSlug !== slug) {
             history.push(location.pathname.replace(slug, newSlug));
             return;
           }
 
-          form.reset(result.data.agenda);
+          form.reset(result.agenda);
         })
         .catch(catchFormErrors),
     [dispatch, history, location.pathname, slug],
@@ -87,6 +87,7 @@ export default function ProfileEdition() {
     <IntlProvider
       key={lang}
       locale={lang}
+      // eslint-disable-next-line import/namespace
       messages={sharedLocales[lang]}
       defaultLocale={getSupportedLocale(lang)}
     >

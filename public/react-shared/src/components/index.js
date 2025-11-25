@@ -1,5 +1,4 @@
 export { default as AgendasSearch } from './AgendasSearch.js';
-export { default as ApiClientProvider } from './ApiClientProvider.js';
 export { default as ConsentBanner } from './ConsentBanner.js';
 export { default as Case } from './Case.js';
 export { default as FilterSelect } from './FilterSelect.js';

@@ -1,5 +1,6 @@
+import { Readable } from 'node:stream';
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import mime from 'mime-types';
 import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
@@ -579,35 +580,41 @@ export const messages = {
         .then((v) => _.mapKeys(v, (value, key) => _.camelCase(key)));
 
       try {
-        const { data, headers } = await axios({
-          method: 'get',
-          url: `https://cdn.openagenda.com/${svc.config.s3.bucket}/${filename}`,
-          responseType: 'stream',
-        });
-
-        res.set(
-          'Content-Type',
-          headers['content-type']
-            || mime.contentType(filename)
-            || 'application/octet-stream',
+        const response = await ky.get(
+          `https://cdn.openagenda.com/${svc.config.s3.bucket}/${filename}`,
+          {
+            throwHttpErrors: false,
+          },
         );
+
+        if (!response.ok) {
+          throw new VError(
+            { info: { status: response.status } },
+            `Download failed with status ${response.status}`,
+          );
+        }
+
+        const contentType = response.headers.get('content-type')
+          || mime.contentType(filename)
+          || 'application/octet-stream';
+
+        res.set('Content-Type', contentType);
 
         res.set(
           'Content-Disposition',
           /\.(jpeg|jpg|gif|png|svg|bmp)$/i.test(filename)
             ? 'inline'
-            : `attachment; filename=${
+            : `attachment; filename="${
               attachment ? attachment.originalName : filename
-            }`,
+            }"`,
         );
 
-        data.pipe(res);
+        const nodeStream = Readable.fromWeb(response.body);
+        nodeStream.on('error', (err) => res.destroy(err));
+        nodeStream.pipe(res);
       } catch (error) {
         res.status(403);
-
-        next(
-          new VError(error.response || error, 'Cannot download the attachment'),
-        );
+        next(new VError(error, 'Cannot download the attachment'));
       }
     });
   },

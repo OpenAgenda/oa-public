@@ -13,7 +13,7 @@ export default function Elasticsearch() {
   const [replicas, setReplicas] = useState('');
   const { isLoading, error, data } = useQuery(
     ['supervisor', 'esCluster'],
-    async () => (await apiClient('/supervisor/elasticsearch/cluster')).data,
+    () => apiClient.get('/supervisor/elasticsearch/cluster').json(),
     {
       refetchInterval: 1000,
       onSuccess: (data2) => {
@@ -27,9 +27,13 @@ export default function Elasticsearch() {
 
   const replicasMutation = useMutation(
     (value) =>
-      apiClient.post('/supervisor/elasticsearch/cluster/replicas', {
-        value: parseInt(value, 10),
-      }),
+      apiClient
+        .post('/supervisor/elasticsearch/cluster/replicas', {
+          json: {
+            value: parseInt(value, 10),
+          },
+        })
+        .json(),
     {
       // Optimistically update the cache value on mutate, but store
       // the old value and return it so that it's accessible in case of

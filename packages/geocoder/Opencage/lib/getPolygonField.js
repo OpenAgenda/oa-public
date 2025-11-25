@@ -1,18 +1,14 @@
-'use strict';
-
-const axios = require('axios');
-const inside = require('point-in-polygon');
+import ky from 'ky';
+import inside from 'point-in-polygon';
 
 async function getPolygonsSet(field, location) {
   const countryCode = (location.countryCode || '').toUpperCase();
-  return axios
-    .get(
-      `https://cdn.openagenda.com/assets/svc/geocoder/${field}/${countryCode}.${location.adminLevel4}.json`,
-    )
-    .then(({ data }) => data);
+  return ky(
+    `https://cdn.openagenda.com/assets/svc/geocoder/${field}/${countryCode}.${location.adminLevel4}.json`,
+  ).json();
 }
 
-module.exports = async (field, location) => {
+export default async (field, location) => {
   const set = await getPolygonsSet(field, location).catch(() => null);
   if (!set) {
     return null;

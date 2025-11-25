@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   publicKey:
     'aba898cbd4cf4627b6a78e887ec36dfb' ?? process.env.OA_API_PUBLIC_KEY,
   secretKey:

@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky, { TimeoutError } from 'ky';
 import logs from '@openagenda/logs';
 
 const log = logs('passCulture/ignAddress');
@@ -42,20 +42,18 @@ async function geocodeAddress(addressString, options = {}) {
       params,
     });
 
-    const response = await axios.get(`${IGN_GEOCODING_BASE_URL}/search`, {
-      params,
-      timeout,
-      headers: {
-        'User-Agent': 'OpenAgenda-Registrations/1.0',
-      },
-    });
+    const data = await ky
+      .get(`${IGN_GEOCODING_BASE_URL}/search`, {
+        searchParams: params,
+        timeout,
+        headers: {
+          'User-Agent': 'OpenAgenda-Registrations/1.0',
+        },
+      })
+      .json();
 
     // Check if we have results
-    if (
-      !response.data
-      || !response.data.features
-      || response.data.features.length === 0
-    ) {
+    if (!data || !data.features || data.features.length === 0) {
       log.warn('No results found for address', { address: addressString });
       return {
         success: false,
@@ -65,7 +63,7 @@ async function geocodeAddress(addressString, options = {}) {
     }
 
     // Extract the first (best) result
-    const feature = response.data.features[0];
+    const feature = data.features[0];
     const { properties } = feature;
     const { coordinates } = feature.geometry;
 
@@ -109,7 +107,7 @@ async function geocodeAddress(addressString, options = {}) {
     // Handle different types of errors
     let errorMessage = 'Unknown error occurred during geocoding';
 
-    if (error.code === 'ECONNABORTED') {
+    if (error instanceof TimeoutError) {
       errorMessage = 'Request timeout - IGN API did not respond in time';
     } else if (error.response) {
       // API returned an error response
@@ -189,20 +187,18 @@ async function reverseGeocode(latitude, longitude, options = {}) {
       params,
     });
 
-    const response = await axios.get(`${IGN_GEOCODING_BASE_URL}/reverse`, {
-      params,
-      timeout,
-      headers: {
-        'User-Agent': 'OpenAgenda-Registrations/1.0',
-      },
-    });
+    const data = await ky
+      .get(`${IGN_GEOCODING_BASE_URL}/reverse`, {
+        searchParams: params,
+        timeout,
+        headers: {
+          'User-Agent': 'OpenAgenda-Registrations/1.0',
+        },
+      })
+      .json();
 
     // Check if we have results
-    if (
-      !response.data
-      || !response.data.features
-      || response.data.features.length === 0
-    ) {
+    if (!data || !data.features || data.features.length === 0) {
       log.warn('No results found for coordinates', { latitude, longitude });
       return {
         success: false,
@@ -212,7 +208,7 @@ async function reverseGeocode(latitude, longitude, options = {}) {
     }
 
     // Extract the first (closest) result
-    const feature = response.data.features[0];
+    const feature = data.features[0];
     const { properties } = feature;
 
     const result = {

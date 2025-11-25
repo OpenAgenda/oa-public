@@ -113,7 +113,9 @@ export function load(slug, query) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.list.replace(':slug', slug), { params: query });
+      return client
+        .get(res.list.replace(':slug', slug), { searchParams: query })
+        .json();
     },
   };
 }
@@ -124,7 +126,7 @@ export function loadAggregator(slug) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.getAggregator.replace(':slug', slug));
+      return client.get(res.getAggregator.replace(':slug', slug)).json();
     },
   };
 }
@@ -139,7 +141,9 @@ export function createAggregator(slug) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.setAggregator.replace(':slug', slug), {});
+      return client
+        .post(res.setAggregator.replace(':slug', slug), { json: {} })
+        .json();
     },
   };
 }
@@ -150,9 +154,11 @@ export function list(query) {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.list.replace(':slug', params.slug), {
-        params: query,
-      });
+      return client
+        .get(res.list.replace(':slug', params.slug), {
+          searchParams: query,
+        })
+        .json();
     },
   };
 }
@@ -201,7 +207,7 @@ export function update(uid, { rules, evaluate }) {
       const url = res.update
         .replace(':slug', params.slug)
         .replace(':sourceAgendaUid', uid);
-      return client.patch(url, { rules, query });
+      return client.patch(url, { json: { rules, query } }).json();
     },
   };
 }
@@ -217,11 +223,13 @@ export function remove(id, { evaluate }) {
         .replace(':slug', params.slug)
         .replace(':sourceId', id);
 
-      return client.delete(url, {
-        params: {
-          evaluate,
-        },
-      });
+      return client
+        .delete(url, {
+          searchParams: {
+            evaluate,
+          },
+        })
+        .json();
     },
   };
 }
@@ -238,9 +246,7 @@ export function setAggregatorRules(rules) {
 
       const url = res.setAggregator.replace(':slug', params.slug);
 
-      return client.post(url, {
-        rules,
-      });
+      return client.post(url, { json: { rules } }).json();
     },
   };
 }

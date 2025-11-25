@@ -53,7 +53,7 @@ export default function InboxSettingsForm() {
   const onSubmit = useCallback(
     (data, form) =>
       dispatch(agendaActions.edit({ settings: { inbox: { mailto: data } } }))
-        .then((result) => form.reset(getFormValues(result.data.agenda)))
+        .then((result) => form.reset(getFormValues(result.agenda)))
         .catch((error) => catchFormErrors(error, 'settings.inbox.mailto')),
     [dispatch],
   );

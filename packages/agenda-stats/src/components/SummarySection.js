@@ -8,11 +8,13 @@ export default function SummarySection({ agendaUid }) {
   const { data, error, isLoading } = useQuery(
     ['agenda-stats', 'summary', agendaUid],
     () =>
-      apiClient.get(`/api/agendas/${agendaUid}/summary`, {
-        params: {
-          includes: ['publishedEvents'],
-        },
-      }),
+      apiClient
+        .get(`/api/agendas/${agendaUid}/summary`, {
+          searchParams: {
+            includes: ['publishedEvents'],
+          },
+        })
+        .json(),
     {
       staleTime: 1000,
       notifyOnChangeProps: ['data', 'error'],
@@ -37,13 +39,13 @@ export default function SummarySection({ agendaUid }) {
   }
 
   // Gracefully handle errors or missing data
-  if (error || !data?.data?.summary?.publishedEvents) {
+  if (error || !data?.summary?.publishedEvents) {
     return null;
   }
 
   const {
     summary: { publishedEvents },
-  } = data.data;
+  } = data;
 
   return (
     <div className="info-block margin-bottom-md">

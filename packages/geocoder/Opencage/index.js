@@ -1,11 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import ky from 'ky';
+import ParseAndTransform from './lib/parseAndTransform.js';
+import buildGeoTree from './lib/buildGeoTree.js';
 
-const _ = require('lodash');
-const axios = require('axios');
-const ParseAndTransform = require('./lib/parseAndTransform');
-const buildGeoTree = require('./lib/buildGeoTree');
-
-const geoTreePath = `${__dirname}/../geoTree`;
+const geoTreePath = `${import.meta.dirname}/../geoTree`;
 
 const forwardURL = (query, { key, pretty, countryCode, language }) =>
   [
@@ -63,12 +61,10 @@ async function reverse(
   longitude,
   { first, language, raw },
 ) {
-  const results = await axios
-    .request({
-      url: reverseURL(latitude, longitude, { key, language }),
-    })
-    .then((r) => _.get(r, 'data.results'));
-
+  const data = await ky(
+    reverseURL(latitude, longitude, { key, language }),
+  ).json();
+  const results = _.get(data, 'results', []);
   const transformed = await parseAndTransform(results, { raw });
   return first ? _.first(transformed) : transformed;
 }
@@ -85,26 +81,20 @@ async function geocode(
     return first ? null : [];
   }
 
-  const results = await axios
-    .request({
-      url: forwardURL(cleanQuery, {
-        key,
-        countryCode: cleanCountryCode,
-        language,
-      }),
-    })
-    .then((r) => _.get(r, 'data.results'));
+  const data = await ky(
+    forwardURL(cleanQuery, {
+      key,
+      countryCode: cleanCountryCode,
+      language,
+    }),
+  ).json();
 
+  const results = _.get(data, 'results', []);
   const transformed = await parseAndTransform(results, { raw });
   return first ? _.first(transformed) : transformed;
 }
 
-module.exports = ({ key }) =>
-  _.assign(geocode.bind(null, key), {
-    reverse: reverse.bind(null, key),
-  });
-
-module.exports = ({ key }) => {
+export default ({ key }) => {
   const geoTree = buildGeoTree(geoTreePath);
   const parseAndTransform = ParseAndTransform(geoTree);
   return Object.assign(geocode.bind(null, key, parseAndTransform), {

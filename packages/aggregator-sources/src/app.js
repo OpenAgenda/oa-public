@@ -30,7 +30,6 @@ export default (options) => {
       initialState,
       prefix,
       getRoutes,
-      legacyApiClient: true,
     });
 
   const result = getApp();

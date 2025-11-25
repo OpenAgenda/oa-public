@@ -1,7 +1,8 @@
+import { jest, describe, it } from '@jest/globals';
 import sinon from 'sinon';
-import { OaSdk } from '../../src';
-import testconfig from '../../testconfig';
-import getError from '../utils/getError';
+import { OaSdk } from '../../src/index.js';
+import testconfig from '../../testconfig.js';
+import getError from '../utils/getError.js';
 
 describe('connection', () => {
   jest.setTimeout(10000);
@@ -25,7 +26,7 @@ describe('connection', () => {
 
     const error = await getError(() => oa.connect('inexistant'));
 
-    expect(error.message).toBe('Request failed with status code 401');
+    expect(error.message).toMatch(/^Request failed with status code 401/);
     expect(error.response.status).toBe(401);
     expect(error.response.statusText).toBe('Unauthorized');
   });

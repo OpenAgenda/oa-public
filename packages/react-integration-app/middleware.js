@@ -103,8 +103,6 @@ export default function match({ initialState, publicPath, apiRoot }) {
 
       const reduxMiddleware = createReduxMiddleware(layoutStore);
 
-      // const apiClient = createApiClient(apiRoot, req);
-
       const apps = [
         ['home', createHomeApp, [MainLayout, RequiredUser]],
         ['userSettings', createUserSettingsApp, [MainLayout, RequiredUser]],

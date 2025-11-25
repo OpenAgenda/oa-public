@@ -75,11 +75,6 @@
       "outputs": [".next/**", "!.next/cache/**"],
       "outputLogs": "new-only"
     },
-    "@openagenda/sdk-js#prepack": {
-      "dependsOn": ["^prepack"],
-      "outputs": ["esm/**", "lib/**"],
-      "outputLogs": "new-only"
-    },
     "@openagenda/react#prepack": {
       "dependsOn": ["^prepack"],
       "outputs": ["dist/**", "src/locales/compiled/**"],

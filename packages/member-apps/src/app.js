@@ -31,6 +31,5 @@ export default function app(options) {
     apiRoot,
     prefix,
     getRoutes,
-    legacyApiClient: true,
   });
 }

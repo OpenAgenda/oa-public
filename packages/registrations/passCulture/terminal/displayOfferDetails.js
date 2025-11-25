@@ -143,7 +143,7 @@ async function main() {
 
     console.log(chalk.green('\n✨ Offer details displayed successfully!'));
   } catch (error) {
-    displayError(chalk, error);
+    await displayError(chalk, error);
     process.exit(1);
   }
 }

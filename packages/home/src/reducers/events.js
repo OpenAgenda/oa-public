@@ -96,7 +96,7 @@ export function load(query) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.events.list, { params: query });
+      return client.get(res.events.list, { searchParams: query }).json();
     },
   };
 }
@@ -107,7 +107,7 @@ export function list(query) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.events.list, { params: query });
+      return client.get(res.events.list, { searchParams: query }).json();
     },
   };
 }
@@ -119,7 +119,9 @@ export function nextPage(query, page) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.events.list, { params: { ...query, page } });
+      return client
+        .get(res.events.list, { searchParams: { ...query, page } })
+        .json();
     },
   };
 }

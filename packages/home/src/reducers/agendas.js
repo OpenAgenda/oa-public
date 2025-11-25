@@ -143,7 +143,7 @@ export function load(key, query) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.agendas.list, { params: query });
+      return client.get(res.agendas.list, { searchParams: query }).json();
     },
   };
 }
@@ -155,7 +155,7 @@ export function list(key, query) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.agendas.list, { params: query });
+      return client.get(res.agendas.list, { searchParams: query }).json();
     },
   };
 }
@@ -168,7 +168,9 @@ export function nextPage(key, query, page) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.agendas.list, { params: { ...query, page } });
+      return client
+        .get(res.agendas.list, { searchParams: { ...query, page } })
+        .json();
     },
   };
 }

@@ -2,13 +2,14 @@
   "name": "@openagenda/geocoder",
   "version": "1.2.9",
   "private": true,
+  "type": "module",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false"
+    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false"
   },
   "dependencies": {
-    "axios": "^0.21.1",
+    "ky": "^1.14.0",
     "lodash": "^4.17.15",
     "point-in-polygon": "^1.0.1"
   },
@@ -18,5 +19,8 @@
     "babel-jest": "^29.7.0",
     "expect": "^27.0.6",
     "jest": "^29.7.0"
+  },
+  "jest": {
+    "transform": {}
   }
 }

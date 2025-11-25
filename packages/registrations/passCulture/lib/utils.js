@@ -1,5 +1,5 @@
 import fs from 'node:fs/promises';
-import axios from 'axios';
+import ky from 'ky';
 import { remark } from 'remark';
 import strip from 'strip-markdown';
 import gm from 'gm';
@@ -28,13 +28,9 @@ export async function formatText(value, options = {}) {
 }
 
 export async function processImage({ url, path }) {
-  const input = await (url
-    ? axios
-      .get(url, {
-        responseType: 'arraybuffer',
-      })
-      .then((r) => r.data)
-    : fs.readFile(path));
+  const input = url
+    ? Buffer.from(await ky.get(url).arrayBuffer())
+    : await fs.readFile(path);
 
   return new Promise((rs, rj) => {
     imagick(input)

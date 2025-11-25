@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import ih from 'immutability-helper';
 
 const actionTypes = [
@@ -11,10 +11,10 @@ const actionTypes = [
   'SERVER_ERROR',
 ].reduce((a, v) => _.set(a, v, `network-apps/network/${v}`), {});
 
-function dispatchError(dispatch, error) {
+async function dispatchError(dispatch, error) {
   dispatch({
     type: actionTypes.SERVER_ERROR,
-    error: _.get(error, 'response.body.message', error.message),
+    error: await error.json?.().message || error.message,
   });
 }
 
@@ -25,11 +25,7 @@ function load() {
     };
 
     try {
-      const { data: networks } = await axios.get(getState().config.base, {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
+      const networks = await ky(getState().config.base).json();
 
       _.assign(successDispatch, { networks });
     } catch (e) {
@@ -48,7 +44,7 @@ function addSubmit(e) {
       main: { add },
     } = getState();
 
-    await axios.post(getState().config.base, add);
+    await ky.post(getState().config.base, { json: add }).text();
 
     return load()(dispatch, getState);
   };

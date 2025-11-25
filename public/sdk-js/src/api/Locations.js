@@ -1,3 +1,5 @@
+import qs from 'qs';
+
 export default class Locations {
   constructor(sdk) {
     this.sdk = sdk;
@@ -5,16 +7,17 @@ export default class Locations {
 
   get(agendaUid, locationUid) {
     return this.sdk.api
-      .get(`/agendas/${agendaUid}/locations/${locationUid}`)
-      .then((v) => v.data.location);
+      .get(`agendas/${agendaUid}/locations/${locationUid}`)
+      .json()
+      .then((v) => v.location);
   }
 
   list(agendaUid, data) {
     return this.sdk.api
-      .get(`/agendas/${agendaUid}/locations`, {
-        params: data,
+      .get(`agendas/${agendaUid}/locations`, {
+        searchParams: qs.stringify(data),
       })
-      .then((v) => v.data);
+      .json();
   }
 
   create(agendaUid, data) {
@@ -27,25 +30,29 @@ export default class Locations {
      * */
 
     return this.sdk.api
-      .post(`/agendas/${agendaUid}/locations`, data)
-      .then((v) => v.data.location);
+      .post(`agendas/${agendaUid}/locations`, { json: data })
+      .json()
+      .then((v) => v.location);
   }
 
   patch(agendaUid, eventUid, data) {
     return this.sdk.api
-      .patch(`/agendas/${agendaUid}/locations/${eventUid}`, data)
-      .then((v) => v.data.location);
+      .patch(`agendas/${agendaUid}/locations/${eventUid}`, { json: data })
+      .json()
+      .then((v) => v.location);
   }
 
   update(agendaUid, eventUid, data) {
     return this.sdk.api
-      .post(`/agendas/${agendaUid}/locations/${eventUid}`, data)
-      .then((v) => v.data.location);
+      .post(`agendas/${agendaUid}/locations/${eventUid}`, { json: data })
+      .json()
+      .then((v) => v.location);
   }
 
   delete(agendaUid, eventUid) {
     return this.sdk.api
-      .delete(`/agendas/${agendaUid}/locations/${eventUid}`)
-      .then((v) => v.data.location);
+      .delete(`agendas/${agendaUid}/locations/${eventUid}`)
+      .json()
+      .then((v) => v.location);
   }
 }

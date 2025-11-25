@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react';
-import axios from 'axios';
+import ky from 'ky';
 import { defineMessages, useIntl } from 'react-intl';
 
 import Pager from './Pager.js';
@@ -143,14 +143,14 @@ export default function EventSelection({
   const loadEvents = useCallback(
     (forOffset = 0) => {
       setIsLoading(true);
-      axios
-        .get(res, {
-          params: {
-            offset: forOffset,
-            limit: PAGE_SIZE,
-          },
-        })
-        .then(({ data }) => {
+      ky.get(res, {
+        searchParams: {
+          offset: forOffset,
+          limit: PAGE_SIZE,
+        },
+      })
+        .json()
+        .then((data) => {
           setEvents(data.events);
           setTotal(data.total);
           setIsLoading(false);

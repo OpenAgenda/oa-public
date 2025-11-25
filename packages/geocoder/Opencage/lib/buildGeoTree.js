@@ -1,6 +1,4 @@
-'use strict';
-
-const fs = require('node:fs');
+import fs from 'node:fs';
 
 function buildLeaf(leaf) {
   const adminLevel = Object.keys(leaf)
@@ -93,4 +91,4 @@ function processTreeItem(nodePath, nodeData = {}, options = {}) {
   };
 }
 
-module.exports = processTreeItem;
+export default processTreeItem;

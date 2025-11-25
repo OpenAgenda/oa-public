@@ -43,9 +43,9 @@ export function verifyLocationCount(uid) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(
-        res.agendaAdmin.verifyLocationCount.replace(':uid', uid),
-      );
+      return client
+        .get(res.agendaAdmin.verifyLocationCount.replace(':uid', uid))
+        .json();
     },
   };
 }

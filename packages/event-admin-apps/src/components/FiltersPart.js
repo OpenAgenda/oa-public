@@ -11,10 +11,8 @@ import {
   useGetTotal,
   useLoadGeoData,
 } from '@openagenda/react-filters';
-import { useApiClient } from '@openagenda/react-shared';
 
 function FiltersPart({ agenda, filters, query, filtersQuery, eventsQuery }) {
-  const apiClient = useApiClient();
   const intl = useIntl();
   const res = useSelector((state) => state.res);
 
@@ -31,7 +29,7 @@ function FiltersPart({ agenda, filters, query, filtersQuery, eventsQuery }) {
   const getOptions = useGetFilterOptions(intl, filterAggs, aggregations);
   const getTotal = useGetTotal(aggregations);
   const loadGeoData = useLoadGeoData(
-    apiClient,
+    null,
     geoRes,
     { state: null, ...query },
     { searchMethod: 'post' },

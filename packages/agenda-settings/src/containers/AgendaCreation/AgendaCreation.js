@@ -88,7 +88,7 @@ export default function AgendaCreation() {
       try {
         const result = await dispatch(create(values));
 
-        history.push(res.onCreated.replace(':slug', result.data.agenda.slug));
+        history.push(res.onCreated.replace(':slug', result.agenda.slug));
       } catch (e) {
         return catchFormErrors(e);
       }

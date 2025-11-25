@@ -159,8 +159,8 @@ async function update(
   const { error } = await pc.offers
     .events(passEventOfferId)
     .patch(eventOffer)
-    .catch((e) => ({
-      error: handleError('eventOffer update', e),
+    .catch(async (e) => ({
+      error: await handleError('eventOffer update', e),
     }));
 
   return {
@@ -217,7 +217,7 @@ async function create({ pc, siren }, OAEvent, entry, options) {
 
   const { id, status, error } = await pc.offers.events
     .create(eventOffer)
-    .catch((e) => ({ error: handleError('eventOffer create', e) }));
+    .catch(async (e) => ({ error: await handleError('eventOffer create', e) }));
 
   return {
     succeeded: error ? undefined : entry,

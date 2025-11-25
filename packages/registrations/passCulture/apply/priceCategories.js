@@ -30,7 +30,7 @@ async function update(
         .patch(_.omit(priceCategory, ['id']));
       succeeded.priceCategories.push(priceCategory);
     } catch (e) {
-      error = handleError('priceCategories update', e);
+      error = await handleError('priceCategories update', e);
       break;
     }
   }
@@ -58,7 +58,9 @@ async function create(
     .priceCategories.create({
       priceCategories: entry.priceCategories.map(formatPriceCategory),
     })
-    .catch((e) => ({ error: handleError('priceCategories create', e) }));
+    .catch(async (e) => ({
+      error: await handleError('priceCategories create', e),
+    }));
 
   return {
     succeeded: error ? undefined : entry,

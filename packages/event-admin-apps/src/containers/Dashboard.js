@@ -324,13 +324,16 @@ function Dashboard() {
   const onRemove = useCallback(() => {
     const { event } = removeModal.data;
 
-    apiClient.delete(`/api/agendas/${agenda.uid}/events/${event.uid}`).then(
-      () =>
-        queryClient
-          .refetchQueries(['event-admin-apps', 'events', agenda.slug])
-          .catch(() => null),
-      (e) => console.log('ERROR', e),
-    );
+    apiClient
+      .delete(`/api/agendas/${agenda.uid}/events/${event.uid}`)
+      .json()
+      .then(
+        () =>
+          queryClient
+            .refetchQueries(['event-admin-apps', 'events', agenda.slug])
+            .catch(() => null),
+        (e) => console.log('ERROR', e),
+      );
 
     removeModal.close();
   }, [agenda.slug, apiClient, queryClient, removeModal, agenda.uid]);
@@ -339,7 +342,7 @@ function Dashboard() {
     ['event-admin-apps', 'filtersBase', agenda.slug],
     () =>
       getEvents(
-        apiClient,
+        null,
         res.search,
         agenda,
         filters,
@@ -359,7 +362,7 @@ function Dashboard() {
     ['event-admin-apps', 'events', agenda.slug, { query, page }],
     () =>
       getEvents(
-        apiClient,
+        null,
         res.search,
         agenda,
         filters,

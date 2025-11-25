@@ -29,14 +29,13 @@ export default function createApp(options) {
     req,
     apiClient,
     apiRoot,
-    legacyApiClient,
     prefix,
     getReducers,
     getRoutes,
     reduxMiddleware = [],
   } = options;
 
-  const client = apiClient || createApiClient(apiRoot, req, { legacy: legacyApiClient });
+  const client = apiClient || createApiClient(apiRoot, req);
   const history = options.history || getDefaultHistory(req);
   const helpers = {};
   const store = createStore(

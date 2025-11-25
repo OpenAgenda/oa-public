@@ -15,7 +15,7 @@ export default function LabSettingsForm() {
   const onSubmit = useCallback(
     (data, form) =>
       dispatch(agendaActions.edit({ settings: { lab: data } }))
-        .then((result) => form.reset(result.data.agenda.settings.lab))
+        .then((result) => form.reset(result.agenda.settings.lab))
         .catch((error) => catchFormErrors(error, 'settings.lab')),
     [dispatch],
   );

@@ -141,7 +141,8 @@ describe('PassCultureSDK', () => {
           street: 'Quartier de l`Elsau',
         });
       } catch (error) {
-        const [firstError] = error.response.data.__root__;
+        const errorData = await error.response.json();
+        const [firstError] = errorData.__root__;
         err = firstError;
       }
       expect(err).toStrictEqual(
@@ -189,7 +190,7 @@ describe('PassCultureSDK', () => {
         error = e;
       }
       expect(error.response.status).toBe(400);
-      expect(error.response.data).toEqual({
+      expect(await error.response.json()).toEqual({
         __root__: [
           'No municipality found for `city=Strasbourg` and `postalCode=67201`',
         ],
@@ -210,7 +211,7 @@ describe('PassCultureSDK', () => {
         error = e;
       }
       expect(error.response.status).toBe(400);
-      expect(error.response.data).toEqual({
+      expect(await error.response.json()).toEqual({
         __root__: [
           'No municipality found for `city=Strasbourg` and `postalCode=67201`',
         ],
@@ -346,9 +347,9 @@ describe('PassCultureSDK', () => {
       try {
         /* const { id, name } = */ await pc.offers.events.create(formatted);
       } catch (error) {
-        err = error.response.data;
+        err = await error.response.json();
       }
-      expect(err).toStrictEqual({
+      expect(err).toEqual({
         'categoryRelatedFields.CONCERT_create.musicType': ['field required'],
       });
     });
@@ -447,7 +448,7 @@ describe('PassCultureSDK', () => {
       } catch (error) {
         err = error;
       }
-      expect(err.response.data).toEqual({
+      expect(await err.response.json()).toEqual({
         extraProp: ['extra fields not permitted'],
       });
     });
@@ -459,7 +460,7 @@ describe('PassCultureSDK', () => {
       } catch (error) {
         err = error;
       }
-      expect(err.response.data).toEqual({
+      expect(await err.response.json()).toEqual({
         hasTicket: ['extra fields not permitted'],
       });
     });
@@ -477,7 +478,7 @@ describe('PassCultureSDK', () => {
       } catch (error) {
         err = error;
       }
-      expect(err.response.data).toStrictEqual({
+      expect(await err.response.json()).toEqual({
         'categoryRelatedFields.category': ['The category cannot be changed'],
       });
     });
@@ -588,7 +589,7 @@ describe('PassCultureSDK', () => {
             price: 12,
           });
       } catch (error) {
-        console.log('error', error.response.data);
+        console.log('error', await error.response.json());
       }
 
       expect(patchedPriceCategory).toEqual({
@@ -659,7 +660,7 @@ describe('PassCultureSDK', () => {
         })
         .catch((e) => e);
 
-      expect(error.response.data).toEqual({
+      expect(await error.response.json()).toEqual({
         'dates.0.bookingLimitDatetime': ['field required'],
       });
     });
@@ -706,7 +707,7 @@ describe('PassCultureSDK', () => {
         })
         .then(
           (r) => r,
-          (e) => e.response.data,
+          (e) => e.response.json(),
         );
 
       expect(dateAfterPatch.quantity).toBe(date.quantity + 1);

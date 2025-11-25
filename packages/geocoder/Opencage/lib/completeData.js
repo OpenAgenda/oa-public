@@ -1,5 +1,3 @@
-'use strict';
-
 const checkEveryLevel = (location, level) => {
   let updated = { ...location };
   const adminLevelName = Object.keys(level).find((key) =>
@@ -28,4 +26,4 @@ const completeData = (location, geoTree) => {
   return updated;
 };
 
-module.exports = completeData;
+export default completeData;

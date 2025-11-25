@@ -184,7 +184,7 @@ function Dashboard() {
     ['agenda-stats', 'filtersBase', agenda.slug],
     () =>
       getEvents(
-        apiClient,
+        null,
         res.search,
         agenda,
         filters,
@@ -305,10 +305,10 @@ function Dashboard() {
     };
 
     Promise.all([
-      apiClient.get(configUrl),
-      apiClient.post(searchUrl, body),
+      apiClient.get(configUrl).json(),
+      apiClient.post(searchUrl, { json: body }).json(),
     ]).then(([configResult, timespanResult]) => {
-      const { first, last } = timespanResult.data.aggregations.timespan;
+      const { first, last } = timespanResult.aggregations.timespan;
 
       if (!Object.keys(initialQuery).length) {
         // Timespan is a `timings` query
@@ -317,12 +317,12 @@ function Dashboard() {
         };
 
         return dispatch(
-          statsActions.load(agenda, configResult.data, filters, defaultQuery),
+          statsActions.load(agenda, configResult, filters, defaultQuery),
         ).then(() => setInitialQuery(defaultQuery));
       }
 
       return dispatch(
-        statsActions.load(agenda, configResult.data, filters, initialQuery),
+        statsActions.load(agenda, configResult, filters, initialQuery),
       );
     });
   }, [

@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import mdExtractor from 'markdown-link-extractor';
-import cheerio from 'cheerio';
+import * as cheerio from 'cheerio';
 import logger from '@openagenda/logs';
 import linkValidator from '@openagenda/validators/link.js';
 import validateOptions from './validators/options.js';
@@ -70,17 +70,19 @@ export default class OEmbed {
     log('getting data for %s', url);
 
     try {
-      const result = await axios.get(this.params.iframely.res, {
-        params: {
-          api_key: this.params.iframely.key,
-          url,
-          lazy: options.lazy ? 1 : 0,
-        },
-      });
+      const result = await ky
+        .get(this.params.iframely.res, {
+          searchParams: {
+            api_key: this.params.iframely.key,
+            url,
+            lazy: options.lazy ? 1 : 0,
+          },
+        })
+        .json();
 
       log('retrieved data for %s', url);
 
-      return extractScript(result.data);
+      return extractScript(result);
     } catch (err) {
       if (err?.response?.status === 417) {
         return null;

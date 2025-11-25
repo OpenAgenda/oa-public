@@ -88,9 +88,7 @@ export default function TrackingSettingsForm() {
       }
       return dispatch(agendaActions.edit({ settings: { tracking: data } }))
         .then((result) =>
-          form.reset(
-            getFormValues(result.data.agenda /* .settings.tracking */),
-          ))
+          form.reset(getFormValues(result.agenda /* .settings.tracking */)))
         .catch((error) => catchFormErrors(error, 'settings.tracking'));
     },
     [dispatch],

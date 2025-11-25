@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import { createRoot } from 'react-dom/client';
 import App from './App.js';
 
@@ -9,7 +9,7 @@ const init = JSON.parse(document.getElementById('init').innerHTML);
 (async () => {
   const config = {
     ...init.config,
-    ...(await axios.get(`${init.config.base}/config.json`)).data,
+    ...await ky(`${init.config.base}/config.json`).json(),
   };
 
   createRoot(document.getElementById('app')).render(<App {...config} />);

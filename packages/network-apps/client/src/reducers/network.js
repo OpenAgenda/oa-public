@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import axios from 'axios';
+import ky from 'ky';
 import { dispatchError } from './main.js';
 
 const actionTypes = [
@@ -26,13 +26,9 @@ async function _post({ dispatch, successType, res, data, failType }) {
   };
 
   try {
-    const response = await axios.post(res, data, {
-      headers: {
-        Accept: 'application/json',
-      },
-    });
+    const response = await ky.post(res, { json: data }).json();
 
-    Object.assign(successDispatch, { agenda: response.data });
+    Object.assign(successDispatch, { agenda: response });
   } catch (e) {
     dispatch({ type: failType });
     return dispatchError(dispatch, e);
@@ -50,13 +46,7 @@ function loadAgendas() {
     const successDispatch = { type: actionTypes.LOAD_AGENDAS_SUCCESS };
 
     try {
-      const {
-        data: { network, agendas },
-      } = await axios.get(history.location.pathname, {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
+      const { network, agendas } = await ky(history.location.pathname).json();
 
       _.assign(successDispatch, { network, agendas });
     } catch (e) {
@@ -110,13 +100,7 @@ function load() {
     };
 
     try {
-      const {
-        data: { schema, network },
-      } = await axios.get(history.location.pathname, {
-        headers: {
-          Accept: 'application/json',
-        },
-      });
+      const { schema, network } = await ky(history.location.pathname).json();
 
       _.assign(successDispatch, { schema, network });
     } catch (e) {

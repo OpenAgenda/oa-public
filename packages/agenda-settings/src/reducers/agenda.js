@@ -1,3 +1,4 @@
+import { isHTTPError } from 'ky';
 import toMixedMultipart from '@openagenda/utils/toMixedMultipart.js';
 
 const LOAD = 'agenda-settings/agenda/LOAD';
@@ -59,7 +60,18 @@ export function create(data) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.create, toMixedMultipart(data));
+      return client
+        .post(res.create, { body: toMixedMultipart(data) })
+        .json()
+        .catch(async (error) => {
+          if (!isHTTPError(error)) {
+            throw error;
+          }
+
+          error.response.data = await error.response.json();
+
+          throw error;
+        });
     },
   };
 }
@@ -70,10 +82,20 @@ export function edit(data) {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.post(
-        res.set.replace(':slug', params.slug),
-        toMixedMultipart(data),
-      );
+      return client
+        .post(res.set.replace(':slug', params.slug), {
+          body: toMixedMultipart(data),
+        })
+        .json()
+        .catch(async (error) => {
+          if (!isHTTPError(error)) {
+            throw error;
+          }
+
+          error.response.data = await error.response.json();
+
+          throw error;
+        });
     },
   };
 }
@@ -84,7 +106,18 @@ export function remove() {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.remove.replace(':slug', params.slug));
+      return client
+        .post(res.remove.replace(':slug', params.slug))
+        .json()
+        .catch(async (error) => {
+          if (!isHTTPError(error)) {
+            throw error;
+          }
+
+          error.response.data = await error.response.json();
+
+          throw error;
+        });
     },
   };
 }

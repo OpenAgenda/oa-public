@@ -1,7 +1,8 @@
-import _ from 'lodash';
+import { randomUUID } from 'node:crypto';
+import { jest, describe, it } from '@jest/globals';
 import moment from 'moment';
-import { OaSdk } from '../../src';
-import testconfig from '../../testconfig';
+import { OaSdk } from '../../src/index.js';
+import testconfig from '../../testconfig.js';
 
 describe('events', () => {
   jest.setTimeout(10000);
@@ -28,7 +29,7 @@ describe('events', () => {
 
   it('create an event', async () => {
     createdEvent = await oa.events.create(testconfig.agendaUid, {
-      slug: `a-title-${_.random(10 ** 6)}`,
+      slug: `a-title-${randomUUID()}`,
       title: {
         fr: 'Un titre',
         en: 'A title',
@@ -56,7 +57,7 @@ describe('events', () => {
 
   it('create an event - with keywords', async () => {
     createdEvent = await oa.events.create(testconfig.agendaUid, {
-      slug: `a-title-${_.random(10 ** 6)}`,
+      slug: `a-title-${randomUUID()}`,
       title: {
         fr: 'Un titre',
         en: 'A title',
@@ -94,7 +95,7 @@ describe('events', () => {
   it('fails to create an event', async () => {
     await expect(
       oa.events.create(testconfig.agendaUid, {
-        slug: `a-title-${_.random(10 ** 6)}`,
+        slug: `a-title-${randomUUID()}`,
         description: {
           fr: 'On va faire un truc',
           en: 'We make a truc',
@@ -141,7 +142,7 @@ describe('events', () => {
 
   it('get an event', async () => {
     createdEvent = await oa.events.create(testconfig.agendaUid, {
-      slug: `a-title-${_.random(10 ** 6)}`,
+      slug: `a-title-${randomUUID()}`,
       title: {
         fr: 'Un titre',
         en: 'A title',
@@ -170,7 +171,7 @@ describe('events', () => {
 
   it('get an event - publicKey only', async () => {
     createdEvent = await oa.events.create(testconfig.agendaUid, {
-      slug: `a-title-${_.random(10 ** 6)}`,
+      slug: `a-title-${randomUUID()}`,
       title: {
         fr: 'Un titre',
         en: 'A title',
@@ -204,7 +205,7 @@ describe('events', () => {
 
   it('list events', async () => {
     createdEvent = await oa.events.create(testconfig.agendaUid, {
-      slug: `a-title-${_.random(10 ** 6)}`,
+      slug: `a-title-${randomUUID()}`,
       title: {
         fr: 'Un titre',
         en: 'A title',
@@ -243,7 +244,7 @@ describe('events', () => {
 
   it('patch an event', async () => {
     createdEvent = await oa.events.create(testconfig.agendaUid, {
-      slug: `a-title-${_.random(10 ** 6)}`,
+      slug: `a-title-${randomUUID()}`,
       title: {
         fr: 'Un titre',
         en: 'A title',
@@ -283,7 +284,7 @@ describe('events', () => {
 
   it('update an event', async () => {
     createdEvent = await oa.events.create(testconfig.agendaUid, {
-      slug: `a-title-${_.random(10 ** 6)}`,
+      slug: `a-title-${randomUUID()}`,
       title: {
         fr: 'Un titre',
         en: 'A title',
@@ -324,7 +325,7 @@ describe('events', () => {
 
   it('update an event - invalid data', async () => {
     createdEvent = await oa.events.create(testconfig.agendaUid, {
-      slug: `a-title-${_.random(10 ** 6)}`,
+      slug: `a-title-${randomUUID()}`,
       title: {
         fr: 'Un titre',
         en: 'A title',
@@ -368,7 +369,7 @@ describe('events', () => {
 
   it('delete an event', async () => {
     const event = await oa.events.create(testconfig.agendaUid, {
-      slug: `a-title-${_.random(10 ** 6)}`,
+      slug: `a-title-${randomUUID()}`,
       title: {
         fr: 'Un titre',
         en: 'A title',

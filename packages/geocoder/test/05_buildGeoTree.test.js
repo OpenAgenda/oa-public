@@ -1,7 +1,6 @@
-'use strict';
+import buildGeoTree from '../Opencage/lib/buildGeoTree.js';
 
-const geoTreePath = `${__dirname}/fixtures/geoTree`;
-const buildGeoTree = require('../Opencage/lib/buildGeoTree');
+const geoTreePath = `${import.meta.dirname}/fixtures/geoTree`;
 
 describe('buildGeoTree', () => {
   let result;
@@ -31,7 +30,7 @@ describe('buildGeoTree', () => {
     expect(adminLevel4.find((e) => e.name === 'Lille')).toBeTruthy();
   });
   test('build It', () => {
-    const build = buildGeoTree(`${__dirname}/../geoTree`);
+    const build = buildGeoTree(`${import.meta.dirname}/../geoTree`);
     // console.log(JSON.stringify(build, null, 2));
     expect(build).toBeTruthy();
   });

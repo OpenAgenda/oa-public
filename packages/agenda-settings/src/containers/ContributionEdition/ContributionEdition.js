@@ -125,7 +125,7 @@ export default function ContributionEdition() {
         }),
       )
         .then((result) => {
-          const newContribSettings = result.data.agenda.settings.contribution;
+          const newContribSettings = result.agenda.settings.contribution;
 
           form.reset(newContribSettings);
           setHasInstructions(

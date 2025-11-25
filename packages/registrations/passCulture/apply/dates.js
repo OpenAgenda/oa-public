@@ -62,10 +62,10 @@ async function create(
   } catch (error) {
     log.info('failed to create dates', {
       ...createLogBundle,
-      status: error.response.status,
+      status: error.status,
     });
     return {
-      error: handleError('dates create', error),
+      error: await handleError('dates create', error),
     };
   }
 
@@ -107,7 +107,7 @@ async function applyDateOperation(
 
       succeeded.dates.push(date);
     } catch (e) {
-      error = handleError(`dates ${operation}`, e);
+      error = await handleError(`dates ${operation}`, e);
       break;
     }
   }

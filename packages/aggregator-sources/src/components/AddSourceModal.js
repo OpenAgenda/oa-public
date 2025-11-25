@@ -298,9 +298,9 @@ export default function AddSourceModal({
 
   const onSelectAgenda = useCallback(
     async (sourceAgenda) => {
-      sourceAgenda.schema = await apiClient.get(
-        `/${sourceAgenda.slug}/settings/schema`,
-      );
+      sourceAgenda.schema = await apiClient
+        .get(`/${sourceAgenda.slug}/settings/schema`)
+        .json();
 
       setSelectedAgenda(sourceAgenda);
       setSelectedStep('defineRules');

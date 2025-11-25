@@ -4,7 +4,7 @@ module.exports = {
   extends: '../.eslintrc',
 
   parserOptions: {
-    sourceType: 'script',
+    sourceType: 'module',
   },
 
   ignorePatterns: ['/lib', '/esm'],
@@ -20,10 +20,9 @@ module.exports = {
 
   overrides: [
     {
-      files: ['src/**/*.js', 'test/**/*.js'],
-
+      files: ['**/*.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],

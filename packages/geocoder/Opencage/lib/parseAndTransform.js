@@ -1,9 +1,7 @@
-'use strict';
-
-const _ = require('lodash');
-const getPolygonField = require('./getPolygonField');
-const applyTransforms = require('./applyTransforms');
-const completeData = require('./completeData');
+import _ from 'lodash';
+import getPolygonField from './getPolygonField.js';
+import applyTransforms from './applyTransforms.js';
+import completeData from './completeData.js';
 
 async function _applyTransformsOnGeocodeItem(geocodeResult) {
   const updated = applyTransforms(geocodeResult);
@@ -78,4 +76,4 @@ function parseAndTransform(geoTree) {
   };
 }
 
-module.exports = parseAndTransform;
+export default parseAndTransform;

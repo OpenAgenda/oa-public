@@ -51,7 +51,7 @@ export default async function attemptOfferCompletion(
     log.error('failed to create dates', e);
     return {
       dates,
-      errors: formatErrors(e.response.data),
+      errors: formatErrors(await e.response.json()),
     };
   }
 }

@@ -31,9 +31,13 @@ export default function BatchedStateSelector({
 
   const mutation = useMutation(
     (variables) =>
-      apiClient.patch(`/${agenda.slug}/admin/events/batch${queryString}`, {
-        state: variables.state,
-      }),
+      apiClient
+        .patch(`/${agenda.slug}/admin/events/batch${queryString}`, {
+          json: {
+            state: variables.state,
+          },
+        })
+        .json(),
     {
       onSuccess: (/* result, value */) => {
         confirmationModal.open();

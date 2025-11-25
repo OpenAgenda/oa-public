@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import { v4 as uuidv4 } from 'uuid';
+import { isHTTPError } from 'ky';
 import statsToAggregations from '../utils/statsToAggregations.js';
 import rangeToCalendarInterval from '../utils/rangeToCalendarInterval.js';
 import { getChartConfig } from '../common/defaultStatConfigs.js';
@@ -108,14 +109,14 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         agendaUid: action.agendaUid,
         loaded: true,
-        totalEvents: action.result.data.total,
+        totalEvents: action.result.total,
         data: action.stats.map((v) => {
           if (!v.aggregation) {
             return v;
           }
 
           const getData = (agg) =>
-            action.result.data.aggregations[`${agg.type}-${v.id}`];
+            action.result.aggregations[`${agg.type}-${v.id}`];
 
           return {
             ...v,
@@ -181,7 +182,7 @@ export default function reducer(state = initialState, action = {}) {
     case LOAD_STAT_SUCCESS: {
       const statIndex = state.data.findIndex((v) => v.id === action.statId);
       const getData = (agg) =>
-        action.result.data.aggregations[`${agg.type}-${action.statId}`];
+        action.result.aggregations[`${agg.type}-${action.statId}`];
 
       const newStat = {
         ...action.stat,
@@ -330,7 +331,18 @@ export function load(agenda, stats, filters, query) {
           .replace(':slug', agenda.slug)
           .replace(':uid', agenda.uid);
 
-        return client.post(url, body);
+        return client
+          .post(url, { json: body })
+          .json()
+          .catch(async (error) => {
+            if (!isHTTPError(error)) {
+              throw error;
+            }
+
+            error.response.data = await error.response.json();
+
+            throw error;
+          });
       },
       stats: decoratedStats,
       agendaUid: agenda.uid,
@@ -361,7 +373,18 @@ export function loadStat(agenda, statId, getStat = _.identity) {
           .replace(':slug', agenda.slug)
           .replace(':uid', agenda.uid);
 
-        return client.post(url, body);
+        return client
+          .post(url, { json: body })
+          .json()
+          .catch(async (error) => {
+            if (!isHTTPError(error)) {
+              throw error;
+            }
+
+            error.response.data = await error.response.json();
+
+            throw error;
+          });
       },
       statId,
       stat: decoratedStats[0],
@@ -388,17 +411,27 @@ export function save(agenda) {
           .replace(':slug', agenda.slug)
           .replace(':uid', agenda.uid);
 
-        return client.put(
-          url,
-          data
-            .filter((v) => v.chart || v.separator)
-            .map((v) => ({
-              id: v.id,
-              aggregation: v.aggregation,
-              chart: v.chart,
-              separator: v.separator,
-            })),
-        );
+        return client
+          .put(url, {
+            json: data
+              .filter((v) => v.chart || v.separator)
+              .map((v) => ({
+                id: v.id,
+                aggregation: v.aggregation,
+                chart: v.chart,
+                separator: v.separator,
+              })),
+          })
+          .json()
+          .catch(async (error) => {
+            if (!isHTTPError(error)) {
+              throw error;
+            }
+
+            error.response.data = await error.response.json();
+
+            throw error;
+          });
       },
     });
   };

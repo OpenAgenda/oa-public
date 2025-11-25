@@ -84,18 +84,20 @@ export function load(query, agenda) {
       query,
       perPageLimit,
       promise: ({ client }) =>
-        client.get(
-          res.conversations.list
-            .replace(':slug', agenda && agenda.slug)
-            .replace(':agendaUid', agenda && agenda.uid)
-            .replace(':eventUid', event && event.uid),
-          {
-            params: {
-              ...pick(defaultQuery, 'type', 'typeIdentifier'),
-              ...query,
+        client
+          .get(
+            res.conversations.list
+              .replace(':slug', agenda && agenda.slug)
+              .replace(':agendaUid', agenda && agenda.uid)
+              .replace(':eventUid', event && event.uid),
+            {
+              searchParams: {
+                ...pick(defaultQuery, 'type', 'typeIdentifier'),
+                ...query,
+              },
             },
-          },
-        ),
+          )
+          .json(),
     });
   };
 }
@@ -113,20 +115,22 @@ export function nextPage(agenda) {
       types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
       perPageLimit,
       promise: ({ client }) =>
-        client.get(
-          res.conversations.list
-            .replace(':slug', agenda && agenda.slug)
-            .replace(':agendaUid', agenda && agenda.uid)
-            .replace(':eventUid', event && event.uid),
-          {
-            params: {
-              ...pick(defaultQuery, 'type', 'typeIdentifier'),
-              ...inbox.query,
-              total: undefined,
-              page: inbox.page + 1,
+        client
+          .get(
+            res.conversations.list
+              .replace(':slug', agenda && agenda.slug)
+              .replace(':agendaUid', agenda && agenda.uid)
+              .replace(':eventUid', event && event.uid),
+            {
+              searchParams: {
+                ...pick(defaultQuery, 'type', 'typeIdentifier'),
+                ...inbox.query,
+                total: undefined,
+                page: inbox.page + 1,
+              },
             },
-          },
-        ),
+          )
+          .json(),
     });
   };
 }

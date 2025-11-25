@@ -27,6 +27,7 @@
     "date-fns": "^2.11.1",
     "distinct-colors": "^2.1.0",
     "final-form": "^4.20.2",
+    "ky": "^1.14.0",
     "lodash": "^4.17.15",
     "qs": "^6.9.1",
     "react-content-loader": "^5.1.0",

@@ -47,11 +47,12 @@ export default async function createEventOffer(
   try {
     result.eventOffer = await pc.offers.events.create(eventOffer);
   } catch (e) {
-    log.error('create failed', { error: e?.response?.data });
+    const errorData = await e?.response?.json?.();
+    log.error('create failed', { error: errorData });
     throw new BadRequest(
       {
         info: {
-          errors: formatErrors(e.response.data),
+          errors: formatErrors(errorData),
         },
       },
       'data is invalid',
@@ -82,7 +83,7 @@ export default async function createEventOffer(
     log.error('failed to create price categories', e);
     return {
       ...result,
-      errors: formatErrors(e.response.data),
+      errors: formatErrors(await e.response.json()),
     };
   }
 
@@ -128,7 +129,7 @@ export default async function createEventOffer(
     log.error('failed to create dates', e);
     return {
       ...result,
-      errors: formatErrors(e.response.data),
+      errors: formatErrors(await e.response.json()),
     };
   }
 

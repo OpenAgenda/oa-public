@@ -156,7 +156,7 @@ async function main() {
     console.log(chalk.cyan(`Offer ID: ${offerId}`));
     console.log(chalk.cyan(`Response: ${inspect(result, inspectOptions)}`));
   } catch (error) {
-    displayError(chalk, error);
+    await displayError(chalk, error);
     process.exit(1);
   }
 }

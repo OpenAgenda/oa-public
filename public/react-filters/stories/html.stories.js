@@ -1,14 +1,10 @@
 /* eslint-disable react/no-danger */
+import { http, HttpResponse } from 'msw';
 import _ from 'lodash';
 import { useEffect, useRef, useState } from 'react';
-import MockAdapter from '@openagenda/axios-mock-adapter';
-import { apiClient } from '@openagenda/react-shared';
 import example from './templates/example.ejs';
 
 require('./scss/main.scss');
-
-const axios = apiClient();
-const mock = new MockAdapter(axios);
 
 function Script(props) {
   const added = useRef(false);
@@ -50,14 +46,6 @@ function Link(props) {
   }, [props]);
 
   return null;
-}
-
-function mockApi() {
-  mock.reset();
-  mock.onGet('/events').reply(200, {
-    events: [],
-    aggregations: {},
-  });
 }
 
 function Html({ html, options }) {
@@ -109,39 +97,50 @@ export default {
   title: 'React filters/Html',
 };
 
-export const SimpleExample = () => {
-  mockApi();
-  return (
-    <Html
-      html={example}
-      options={{
-        apiClient: axios, // only for mock
-        locale: 'fr',
-        locales: {
-          en: {
-            eventsTotal:
-              '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
+export const SimpleExample = {
+  name: 'Filters',
+  render() {
+    return (
+      <Html
+        html={example}
+        options={{
+          locale: 'fr',
+          locales: {
+            en: {
+              eventsTotal:
+                '{total, plural, =0 {No events match this search} one {{total} event} other {{total} events}}',
+            },
+            fr: {
+              eventsTotal:
+                '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+            },
           },
-          fr: {
-            eventsTotal:
-              '{total, plural, =0 {Aucun événement ne correspond à cette recherche} one {{total} événement} other {{total} événements}}',
+          defaultViewport: {
+            topLeft: {
+              latitude: 64.14049196988344,
+              longitude: -123.36745304055512,
+            },
+            bottomRight: {
+              latitude: -39.238451002165675,
+              longitude: 135.83260595798492,
+            },
           },
-        },
-        defaultViewport: {
-          topLeft: {
-            latitude: 64.14049196988344,
-            longitude: -123.36745304055512,
-          },
-          bottomRight: {
-            latitude: -39.238451002165675,
-            longitude: 135.83260595798492,
-          },
-        },
-      }}
-    />
-  );
+        }}
+      />
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/events', () =>
+          HttpResponse.json({
+            events: [],
+            aggregations: {},
+          })),
+      ],
+    },
+  },
 };
-SimpleExample.storyName = 'Filters';
 
 export const Playground = () => {
   const agendaUidRef = useRef();
@@ -265,25 +264,25 @@ export const NumberRange = () => (
 );
 NumberRange.storyName = 'Number range filter';
 
-export const Map = () => {
-  mockApi();
-  return (
-    <Html
-      options={{
-        apiClient: axios,
-        locale: 'fr',
-        defaultViewport: {
-          topLeft: {
-            latitude: 64.14049196988344,
-            longitude: -123.36745304055512,
+export const Map = {
+  name: 'Map filter',
+  render() {
+    return (
+      <Html
+        options={{
+          locale: 'fr',
+          defaultViewport: {
+            topLeft: {
+              latitude: 64.14049196988344,
+              longitude: -123.36745304055512,
+            },
+            bottomRight: {
+              latitude: -39.238451002165675,
+              longitude: 135.83260595798492,
+            },
           },
-          bottomRight: {
-            latitude: -39.238451002165675,
-            longitude: 135.83260595798492,
-          },
-        },
-      }}
-      html={_.template(`
+        }}
+        html={_.template(`
         <div
           data-oa-filter="an-id"
           data-oa-filter-params="<%- JSON.stringify({
@@ -296,10 +295,21 @@ export const Map = () => {
           }) %>"
         ></div>
       `)()}
-    />
-  );
+      />
+    );
+  },
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/events', () =>
+          HttpResponse.json({
+            events: [],
+            aggregations: {},
+          })),
+      ],
+    },
+  },
 };
-Map.storyName = 'Map filter';
 
 export const Relative = () => (
   <Html

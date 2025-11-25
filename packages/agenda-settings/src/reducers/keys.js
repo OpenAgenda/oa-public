@@ -1,3 +1,5 @@
+import { isHTTPError } from 'ky';
+
 const LOAD = 'agenda-settings/keys/LOAD';
 const LOAD_SUCCESS = 'agenda-settings/keys/LOAD_SUCCESS';
 const LOAD_FAIL = 'agenda-settings/keys/LOAD_FAIL';
@@ -29,7 +31,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        data: action.result.data,
+        data: action.result,
         error: null,
       };
     case LOAD_FAIL:
@@ -54,7 +56,7 @@ export default function reducer(state = initialState, action = {}) {
         data: {
           ...state.data,
           total: state.data.total + 1,
-          items: [...state.data.items, action.result.data],
+          items: [...state.data.items, action.result],
         },
       };
     case CREATE_FAIL:
@@ -79,7 +81,7 @@ export default function reducer(state = initialState, action = {}) {
           ...state.data,
           items: [
             ...state.data.items.slice(0, index),
-            action.result.data,
+            action.result,
             ...state.data.items.slice(index + 1),
           ],
         },
@@ -131,7 +133,18 @@ export function load() {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.keys.list.replace(':slug', params.slug));
+      return client
+        .get(res.keys.list.replace(':slug', params.slug))
+        .json()
+        .catch(async (error) => {
+          if (!isHTTPError(error)) {
+            throw error;
+          }
+
+          error.response.data = await error.response.json();
+
+          throw error;
+        });
     },
   };
 }
@@ -142,7 +155,18 @@ export function create(values) {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.keys.create.replace(':slug', params.slug), values);
+      return client
+        .post(res.keys.create.replace(':slug', params.slug), { json: values })
+        .json()
+        .catch(async (error) => {
+          if (!isHTTPError(error)) {
+            throw error;
+          }
+
+          error.response.data = await error.response.json();
+
+          throw error;
+        });
     },
   };
 }
@@ -154,13 +178,21 @@ export function update(key, values) {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.patch(
-        res.keys.update.replace(':slug', params.slug),
-        values,
-        {
-          params: { key },
-        },
-      );
+      return client
+        .patch(res.keys.update.replace(':slug', params.slug), {
+          searchParams: { key },
+          json: values,
+        })
+        .json()
+        .catch(async (error) => {
+          if (!isHTTPError(error)) {
+            throw error;
+          }
+
+          error.response.data = await error.response.json();
+
+          throw error;
+        });
     },
   };
 }
@@ -172,9 +204,20 @@ export function remove(key) {
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.delete(res.keys.remove.replace(':slug', params.slug), {
-        params: { key },
-      });
+      return client
+        .delete(res.keys.remove.replace(':slug', params.slug), {
+          searchParams: { key },
+        })
+        .json()
+        .catch(async (error) => {
+          if (!isHTTPError(error)) {
+            throw error;
+          }
+
+          error.response.data = await error.response.json();
+
+          throw error;
+        });
     },
   };
 }

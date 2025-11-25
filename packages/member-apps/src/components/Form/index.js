@@ -1,4 +1,4 @@
-import axios from 'axios';
+import ky from 'ky';
 import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
@@ -102,8 +102,7 @@ export default ({
   userRole,
 }) => {
   const query = operation === 'update' && !member
-    ? useQuery('getMember', () => axios.get(getRes), {
-      select: ({ data }) => data,
+    ? useQuery('getMember', () => ky.get(getRes).json(), {
       cacheTime: 0,
     })
     : {};
@@ -165,8 +164,9 @@ export default ({
             type="button"
             className="btn btn-danger margin-top-sm"
             onClick={() =>
-              axios
+              ky
                 .delete(saveRes)
+                .json()
                 .then(onRemove)
                 .catch(() => setStep('removeFail'))}
           >

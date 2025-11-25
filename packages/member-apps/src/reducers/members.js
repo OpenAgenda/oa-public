@@ -246,9 +246,11 @@ export function load(agenda, query = {}) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.list.replace(':slug', agenda.slug), {
-        params: query,
-      });
+      return client
+        .get(res.list.replace(':slug', agenda.slug), {
+          searchParams: query,
+        })
+        .json();
     },
   };
 }
@@ -259,7 +261,7 @@ export function getStats(agenda) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.stats.replace(':slug', agenda.slug));
+      return client.get(res.stats.replace(':slug', agenda.slug)).json();
     },
   };
 }
@@ -269,9 +271,11 @@ export function getSchema(agenda) {
     types: [GET_SCHEMA, GET_SCHEMA_SUCCESS, GET_SCHEMA_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
-      return client.get(res.getSchema.replace(':agendaUid', agenda.uid), {
-        params: { merged: 1 },
-      });
+      return client
+        .get(res.getSchema.replace(':agendaUid', agenda.uid), {
+          searchParams: { merged: 1 },
+        })
+        .json();
     },
   };
 }
@@ -282,9 +286,11 @@ export function list(agenda, query = {}) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.list.replace(':slug', agenda.slug), {
-        params: query,
-      });
+      return client
+        .get(res.list.replace(':slug', agenda.slug), {
+          searchParams: query,
+        })
+        .json();
     },
   };
 }
@@ -296,12 +302,14 @@ export function nextPage(agenda, query, page) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.list.replace(':slug', agenda.slug), {
-        params: {
-          ...query,
-          page,
-        },
-      });
+      return client
+        .get(res.list.replace(':slug', agenda.slug), {
+          searchParams: {
+            ...query,
+            page,
+          },
+        })
+        .json();
     },
   };
 }
@@ -313,14 +321,16 @@ export function patch(agenda, memberId, { role }) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.patch(
-        res.update
-          .replace(':agendaUid', agenda.uid)
-          .replace(':memberId', memberId),
-        {
-          role,
-        },
-      );
+      return client
+        .patch(
+          res.update
+            .replace(':agendaUid', agenda.uid)
+            .replace(':memberId', memberId),
+          {
+            json: { role },
+          },
+        )
+        .json();
     },
   };
 }
@@ -364,11 +374,15 @@ export function invite(agenda, data) {
         .map((email) => email.trim())
         .filter((email) => !!email);
 
-      return client.post(res.invite.replace(':agendaUid', agenda.uid), {
-        emails,
-        role: data.role,
-        message: data.message,
-      });
+      return client
+        .post(res.invite.replace(':agendaUid', agenda.uid), {
+          json: {
+            emails,
+            role: data.role,
+            message: data.message,
+          },
+        })
+        .json();
     },
   };
 }
@@ -383,10 +397,11 @@ export function resendInvitation(agenda, id) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.put(
-        res.resend.replace(':slug', agenda.slug).replace(':id', id),
-        {},
-      );
+      return client
+        .put(res.resend.replace(':slug', agenda.slug).replace(':id', id), {
+          json: {},
+        })
+        .json();
     },
   };
 }
@@ -404,11 +419,13 @@ export function remove(agenda, memberId) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.delete(
-        res.remove
-          .replace(':agendaUid', agenda.uid)
-          .replace(':memberId', memberId),
-      );
+      return client
+        .delete(
+          res.remove
+            .replace(':agendaUid', agenda.uid)
+            .replace(':memberId', memberId),
+        )
+        .json();
     },
   };
 }
@@ -419,13 +436,12 @@ export function sendMessage(agenda, data, query) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post(
-        res.sendMessage.replace(':agendaUid', agenda.uid),
-        data,
-        {
-          params: query,
-        },
-      );
+      return client
+        .post(res.sendMessage.replace(':agendaUid', agenda.uid), {
+          searchParams: query,
+          json: data,
+        })
+        .json();
     },
   };
 }

@@ -46,10 +46,14 @@ export default function AnnouncementManager({ user }) {
   );
   const onSubmit = useCallback(
     async (data) => {
-      await apiClient.post('/supervisor/announcement', {
-        id: user.announcement?.id || new Date().toISOString(),
-        ...data,
-      });
+      await apiClient
+        .post('/supervisor/announcement', {
+          json: {
+            id: user.announcement?.id || new Date().toISOString(),
+            ...data,
+          },
+        })
+        .text();
       window.location.reload();
     },
     [apiClient, user],
@@ -62,7 +66,7 @@ export default function AnnouncementManager({ user }) {
     }));
 
   const onRemove = useCallback(async () => {
-    await apiClient.delete('/supervisor/announcement');
+    await apiClient.delete('/supervisor/announcement').text();
     window.location.reload();
   }, [apiClient]);
 

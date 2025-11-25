@@ -1,6 +1,4 @@
-'use strict';
-
-const applyTransforms = require('../Opencage/lib/applyTransforms');
+import applyTransforms from '../Opencage/lib/applyTransforms.js';
 
 describe('post-geocode transforms', () => {
   describe('Rhone && Métropole de Lyon', () => {

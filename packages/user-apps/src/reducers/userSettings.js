@@ -1,3 +1,4 @@
+import { isHTTPError } from 'ky';
 import {
   SubmissionError,
   change as changeFieldValue,
@@ -118,14 +119,23 @@ export function load() {
         return userSettings.user;
       }
 
-      const user = await client.get(res.getMe, {
-        params: {
-          $client: {
-            includeImagePath: true,
-            detailed: true,
+      const user = await client
+        .get(res.getMe, {
+          searchParams: {
+            $client: {
+              includeImagePath: true,
+              detailed: true,
+            },
           },
-        },
-      });
+        })
+        .json()
+        .catch(async (error) => {
+          if (!isHTTPError(error)) {
+            throw error;
+          }
+
+          throw await error.response.json();
+        });
 
       dispatch(changeFieldValue('profileSettings', 'fullName', user.fullName));
       dispatch(changeFieldValue('profileSettings', 'culture', user.culture));
@@ -160,18 +170,17 @@ export function updateUser(data = {}) {
       const { res } = getState();
 
       try {
-        const result = await client.patch(
-          res.updateProfile,
-          toMixedMultipart(data),
-          {
-            params: {
+        const result = await client
+          .patch(res.updateProfile, {
+            searchParams: {
               $client: {
                 includeImagePath: true,
                 detailed: true,
               },
             },
-          },
-        );
+            body: toMixedMultipart(data),
+          })
+          .json();
 
         dispatch(displayMessage('updateProfile', true));
         // if ( userSettings.user.culture !== result.culture ) {
@@ -184,12 +193,17 @@ export function updateUser(data = {}) {
 
         return result;
       } catch (error) {
-        const errors = getFormFirstErrors(error.errors);
+        if (!isHTTPError(error)) {
+          throw new SubmissionError({ _error: error.message });
+        }
+
+        const responseError = await error.response.json();
+        const errors = getFormFirstErrors(responseError.errors);
 
         if (Object.keys(errors).length) {
           throw new SubmissionError(errors);
-        } else if (error.message) {
-          throw new SubmissionError({ _error: error.message });
+        } else if (responseError.message) {
+          throw new SubmissionError({ _error: responseError.message });
         }
       }
     },
@@ -203,14 +217,17 @@ export function changePassword(data) {
       const { res } = getState();
 
       try {
-        const result = await client.patch(res.changePassword, data, {
-          params: {
-            $client: {
-              includeImagePath: true,
-              detailed: true,
+        const result = await client
+          .patch(res.changePassword, {
+            searchParams: {
+              $client: {
+                includeImagePath: true,
+                detailed: true,
+              },
             },
-          },
-        });
+            json: data,
+          })
+          .json();
 
         dispatch(displayMessage('changePassword', true));
         setTimeout(
@@ -221,12 +238,17 @@ export function changePassword(data) {
 
         return result;
       } catch (error) {
-        const errors = getFormFirstErrors(error.errors);
+        if (!isHTTPError(error)) {
+          throw new SubmissionError({ _error: error.message });
+        }
+
+        const responseError = await error.response.json();
+        const errors = getFormFirstErrors(responseError.errors);
 
         if (Object.keys(errors).length) {
           throw new SubmissionError(errors);
-        } else if (error.message) {
-          throw new SubmissionError({ _error: error.message });
+        } else if (responseError.message) {
+          throw new SubmissionError({ _error: responseError.message });
         }
       }
     },
@@ -239,15 +261,17 @@ export function generateApiKey(secret) {
     promise: async ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.generateApiKey, {
-        params: {
-          $client: {
-            includeImagePath: true,
-            detailed: true,
-            [secret ? 'secretKey' : 'publicKey']: true,
+      return client
+        .get(res.generateApiKey, {
+          searchParams: {
+            $client: {
+              includeImagePath: true,
+              detailed: true,
+              [secret ? 'secretKey' : 'publicKey']: true,
+            },
           },
-        },
-      });
+        })
+        .json();
     },
   };
 }

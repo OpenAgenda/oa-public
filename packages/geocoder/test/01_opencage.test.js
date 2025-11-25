@@ -1,8 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-const Opencage = require('../Opencage');
-const config = require('../testconfig');
+import _ from 'lodash';
+import Opencage from '../Opencage/index.js';
+import config from '../testconfig.js';
 
 describe('opencage', () => {
   const geocode = Opencage(config.opencage);

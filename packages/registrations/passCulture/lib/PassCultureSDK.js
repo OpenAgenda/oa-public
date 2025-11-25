@@ -1,7 +1,7 @@
 import * as url from 'node:url';
 import { readFile } from 'node:fs/promises';
 import _ from 'lodash';
-import axios from 'axios';
+import ky from 'ky';
 import { extractSchemaOptions } from './utils.js';
 
 const __dirname = url.fileURLToPath(new URL('.', import.meta.url));
@@ -26,10 +26,7 @@ const labelizeENUMValue = (value) => {
 };
 
 async function listEventOfferCategories({ api }) {
-  const openAPIObj = await axios({
-    method: 'get',
-    url: `${api}/openapi.json`,
-  }).then((r) => r.data);
+  const openAPIObj = await ky.get(`${api}/openapi.json`).json();
 
   const categories = extractSchemaOptions(
     openAPIObj,
@@ -62,12 +59,11 @@ async function listEventOfferCategories({ api }) {
 }
 
 function call({ key, api }, method, path, data) {
-  return axios({
+  return ky(`${api}${path}`, {
     method,
-    url: `${api}${path}`,
     headers: headers(key),
-    ...method === 'get' ? { params: data ?? {} } : { data },
-  }).then((response) => response.data);
+    ...method === 'get' ? { searchParams: data ?? {} } : { json: data },
+  }).json();
 }
 
 export default function PassCultureSDK(params) {

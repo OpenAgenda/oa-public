@@ -160,9 +160,13 @@ export default function EventItem({
 
   const mutation = useMutation(
     (value) =>
-      apiClient.patch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
-        featured: value,
-      }),
+      apiClient
+        .patch(`/api/agendas/${agenda.uid}/events/${event.uid}`, {
+          json: {
+            featured: value,
+          },
+        })
+        .json(),
     {
       onSuccess: toggleEventItemValue({
         queryClient,

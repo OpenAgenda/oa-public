@@ -21,27 +21,29 @@ export default function PulseChart({
       const startOfPastYear = subDays(now, 364);
 
       return (
-        await apiClient.get(`/api/agendas/${agendaUid}/events`, {
-          params: {
-            size: 0,
-            aggregations: [
-              {
-                key: 'pulse',
-                type: 'createdOrUpdatedAt',
-                fixedInterval: '7d',
-                extendedBounds: {
-                  min: startOfPastYear,
-                  max: now,
+        await apiClient
+          .get(`/api/agendas/${agendaUid}/events`, {
+            searchParams: {
+              size: 0,
+              aggregations: [
+                {
+                  key: 'pulse',
+                  type: 'createdOrUpdatedAt',
+                  fixedInterval: '7d',
+                  extendedBounds: {
+                    min: startOfPastYear,
+                    max: now,
+                  },
                 },
+              ],
+              updatedAt: {
+                gte: startOfPastYear,
+                lte: now,
               },
-            ],
-            updatedAt: {
-              gte: startOfPastYear,
-              lte: now,
             },
-          },
-        })
-      ).data?.aggregations?.pulse;
+          })
+          .json()
+      )?.aggregations?.pulse;
     },
     {
       refetchOnWindowFocus: false,

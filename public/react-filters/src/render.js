@@ -33,7 +33,6 @@ export default function renderFiltersAndWidgets({
   missingValue = 'null',
   onLoad,
   filtersBase,
-  apiClient,
   manualSubmit,
   ...rest
 } = {}) {
@@ -77,7 +76,6 @@ export default function renderFiltersAndWidgets({
         widgets={widgets}
         onSubmit={wrapCallback(onFilterChange)}
         initialValues={omit(initialValues, 'sort')}
-        apiClient={apiClient}
         res={res}
         dateFnsLocale={dateFnsLocales[locale]}
         missingValue={missingValue}

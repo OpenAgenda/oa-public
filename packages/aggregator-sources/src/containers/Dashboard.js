@@ -236,17 +236,18 @@ function Dashboard() {
     }
 
     (async () => {
-      const { sources } = await apiClient.get(
-        res.list.replace(':slug', aggregatorAgenda.slug),
-        { params: { slug: queryValue.source } },
-      );
+      const { sources } = await apiClient
+        .get(res.list.replace(':slug', aggregatorAgenda.slug), {
+          searchParams: { slug: queryValue.source },
+        })
+        .json();
 
       if (queryValue.source && sources.length === 1) {
         const source = sources[0];
 
-        const schema = await apiClient.get(
-          `/${source.agenda.slug}/settings/schema`,
-        );
+        const schema = await apiClient
+          .get(`/${source.agenda.slug}/settings/schema`)
+          .json();
 
         dispatch(
           modalsActions.showModal('updateSource', {
@@ -261,8 +262,8 @@ function Dashboard() {
       }
 
       const [_agenda, schema] = await Promise.all([
-        apiClient.get(res.getAgenda.replace(':slug', queryValue.source)),
-        apiClient.get(`/${queryValue.source}/settings/schema`),
+        apiClient.get(res.getAgenda.replace(':slug', queryValue.source)).json(),
+        apiClient.get(`/${queryValue.source}/settings/schema`).json(),
       ]).catch(() => []);
 
       _agenda.schema = schema;

@@ -51,13 +51,15 @@ export function createConversation(data, agenda) {
     promise: ({ client }, { getState }) => {
       const { res, event } = getState();
 
-      return client.post(
-        res.conversations.create
-          .replace(':slug', agenda && agenda.slug)
-          .replace(':agendaUid', agenda && agenda.uid)
-          .replace(':eventUid', event && event.uid),
-        data,
-      );
+      return client
+        .post(
+          res.conversations.create
+            .replace(':slug', agenda && agenda.slug)
+            .replace(':agendaUid', agenda && agenda.uid)
+            .replace(':eventUid', event && event.uid),
+          { json: data },
+        )
+        .json();
     },
   };
 }

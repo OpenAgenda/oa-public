@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const AdresseDataGouvFR = require('../AdresseDataGouvFR');
+import _ from 'lodash';
+import AdresseDataGouvFR from '../AdresseDataGouvFR.js';
 
 describe('adresse.data.gouv.fr', () => {
   const geocode = AdresseDataGouvFR();

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   opencage: {
     key: process.env.OPENCAGE_KEY,
   },

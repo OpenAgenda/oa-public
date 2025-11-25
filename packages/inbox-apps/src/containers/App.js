@@ -35,7 +35,7 @@ function App({ route }) {
 
   useEffect(() => {
     if (res.refreshCheck) {
-      apiClient.get(res.refreshCheck).catch(null);
+      apiClient.get(res.refreshCheck).text().catch(null);
     }
   }, [apiClient, res.refreshCheck]);
 

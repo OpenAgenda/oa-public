@@ -1,7 +1,6 @@
-'use strict';
+import completeData from '../Opencage/lib/completeData.js';
 
-const completeData = require('../Opencage/lib/completeData');
-const geoTreeEx = require('./fixtures/geoTreeEx.json');
+import geoTreeEx from './fixtures/geoTreeEx.json' with { type: 'json' };
 
 const locationLille = {
   address: 'Rue des Stations, 59013 Lille, France',
