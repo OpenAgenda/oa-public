@@ -10979,7 +10979,7 @@ __metadata:
     "@openagenda/react-filters": "npm:^2.13.4"
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/registrations": "npm:^0.0.3"
-    "@openagenda/sdk-js": "npm:^2.0.4"
+    "@openagenda/sdk-js": "npm:^3.0.0"
     "@openagenda/sessions": "npm:^4.1.1"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@openagenda/uikit": "npm:^0.0.4"
@@ -11612,7 +11612,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/sdk-js@npm:^2.0.4, @openagenda/sdk-js@workspace:^, @openagenda/sdk-js@workspace:public/sdk-js":
+"@openagenda/sdk-js@npm:^3.0.0, @openagenda/sdk-js@workspace:^, @openagenda/sdk-js@workspace:public/sdk-js":
   version: 0.0.0-use.local
   resolution: "@openagenda/sdk-js@workspace:public/sdk-js"
   dependencies:
