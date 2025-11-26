@@ -119,7 +119,12 @@ export async function init(config, services) {
             job.data,
           );
         case 'transverseIndexRemove':
-          return transverseIndexRemove(transverseIndex, job.data);
+          return transverseIndexRemove(
+            config,
+            services,
+            transverseIndex,
+            job.data,
+          );
         default:
           log.warn(`Unknown job ${job.name}`);
       }

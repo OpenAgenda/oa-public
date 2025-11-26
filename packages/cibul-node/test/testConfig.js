@@ -54,7 +54,10 @@ const testConfig = {
             !process.env.OA_ELASTICSEARCH_750_DEV_SSL_NO_VERIFY,
       }
       : null,
-    refreshTransverseIndexOnUpdate: true,
+    refreshTransverseIndex: {
+      onUpdate: true,
+      onRemove: true,
+    },
   },
   agendaSearchAlias: process.env.OA_AGENDA_SEARCH_TEST_ALIAS || 'agendas_test',
   oembed: {

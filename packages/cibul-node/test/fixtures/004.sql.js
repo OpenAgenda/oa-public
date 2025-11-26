@@ -42,6 +42,7 @@ raw.push(
     load('sql/agendas/metropole-europeenne-de-lille.json'),
     load('sql/agendas/ndm.json'),
     load('sql/agendas/private.json'),
+    load('sql/agendas/unindexed.json'),
   ]),
 );
 
@@ -260,6 +261,9 @@ raw.push(
     load('events/des-oeuvres-et-vous.json'),
     load('events/incomplete.json'),
     load('events/private.json'),
+    load('events/proposition-de-spectacle.json'),
+    load('events/spectacle-accepte.json'),
+    load('events/spectacle-plus-acceptable.json'),
   ]),
 );
 
@@ -348,6 +352,11 @@ raw.push(
     load('events/des-oeuvres-et-vous.ae.json'),
     load('events/incomplete.ae.json'),
     load('events/private.ae.json'),
+    load('events/proposition-de-spectacle.ae.json'),
+    load('events/spectacle-accepte.ae.json'),
+    load('events/spectacle-accepte.ae2.json'),
+    load('events/spectacle-plus-acceptable.ae.json'),
+    load('events/spectacle-plus-acceptable.ae2.json'),
   ]),
 );
 
