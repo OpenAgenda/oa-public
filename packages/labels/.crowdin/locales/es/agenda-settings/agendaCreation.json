@@ -16,7 +16,7 @@
   "contribDefaultState": "Estado de les eventos por defecto",
   "contribDefaultStatePublished": "Publicado",
   "contribDefaultStatePublishedText": "Puede actualizar los eventos más tarde.",
-  "contribDefaultStateUnpublished": "Inédito",
+  "contribDefaultStateUnpublished": "A moderar",
   "contribDefaultStateUnpublishedText": "Los eventos se harán públicos después de su validación.",
   "previous": "Anterior",
   "createAgenda": "Crear agenda",

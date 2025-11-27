@@ -129,13 +129,13 @@ module.exports = {
     "oc": "podètz modificar los eveniments mai tard"
   },
   "contribDefaultStateUnpublished": {
-    "fr": "Non-publiés",
-    "en": "Unpublished",
-    "de": "unveröffentlicht",
-    "es": "Inédito",
-    "it": "Inedito",
-    "io": "crwdns12526:0crwdne12526:0",
-    "oc": "Pas publicat"
+    'fr': 'À modérer',
+    'en': 'To moderate',
+    'de': 'Zu moderieren',
+    'es': 'A moderar',
+    'it': 'Da moderare',
+    'io': 'crwdns12526:0crwdne12526:0',
+    'oc': 'A moderar'
   },
   "contribDefaultStateUnpublishedText": {
     "fr": "Les événements ne deviennent publics qu'après votre validation.",

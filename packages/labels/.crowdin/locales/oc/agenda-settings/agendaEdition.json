@@ -13,7 +13,7 @@
   "contribDefaultState": "Estatut per defaut dels eveniments",
   "contribDefaultStatePublished": "Publicat",
   "contribDefaultStatePublishedText": "podètz modificar los eveniments mai tard",
-  "contribDefaultStateUnpublished": "Pas publicat",
+  "contribDefaultStateUnpublished": "A moderar",
   "contribDefaultStateUnpublishedText": "los eveniments venon publics pas qu'aprèp vòstra validacion",
   "required": "Requesit",
   "string.tooshort": "La cadena de caractèrs es tròp corteta",
