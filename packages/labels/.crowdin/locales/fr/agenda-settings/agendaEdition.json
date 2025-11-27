@@ -13,7 +13,7 @@
   "contribDefaultState": "Statut par défaut des événements",
   "contribDefaultStatePublished": "Publié",
   "contribDefaultStatePublishedText": "Vous pouvez modifier les événements ensuite.",
-  "contribDefaultStateUnpublished": "Non-publiés",
+  "contribDefaultStateUnpublished": "À modérer",
   "contribDefaultStateUnpublishedText": "Les événements ne deviennent publics qu'après votre validation.",
   "required": "Obligatoire",
   "string.tooshort": "La chaîne de caractères est trop courte",

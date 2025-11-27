@@ -13,7 +13,7 @@
   "contribDefaultState": "Eventos de estado por defecto",
   "contribDefaultStatePublished": "Publicado",
   "contribDefaultStatePublishedText": "Se pueden cambiar los eventos a continuación.",
-  "contribDefaultStateUnpublished": "Inédito",
+  "contribDefaultStateUnpublished": "A moderar",
   "contribDefaultStateUnpublishedText": "Los eventos se harán públicos después de su validación.",
   "required": "Necesario",
   "string.tooshort": "La cadena es demasiado corta",

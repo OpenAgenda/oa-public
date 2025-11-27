@@ -16,7 +16,7 @@
   "contribDefaultState": "Default-Zustand der Veranstaltungen",
   "contribDefaultStatePublished": "Veröffentlicht",
   "contribDefaultStatePublishedText": "Du kannst später die Veranstaltungen bearbeiten.",
-  "contribDefaultStateUnpublished": "unveröffentlicht",
+  "contribDefaultStateUnpublished": "Zu moderieren",
   "contribDefaultStateUnpublishedText": "Veranstaltungen werden erst nach der Validierung der Öffentlichkeit.",
   "previous": "Bisherige",
   "createAgenda": "Erstellen Agenda",
