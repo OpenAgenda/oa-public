@@ -1,3 +1,5 @@
+import removeDiacritics from './removeDiacritics.js';
+
 const filteredTerms = {
   fr: [
     'alors',
@@ -888,15 +890,17 @@ function cleanText(lang, text) {
     return text;
   }
 
-  return text
-    .replace(/"|-/g, '')
-    .split(' ')
-    .filter(
-      (term) =>
-        !filteredTerms[lang]
-        || !filteredTerms[lang].includes(term.toLowerCase()),
-    )
-    .join(' ');
+  return removeDiacritics(
+    text
+      .replace(/"|-/g, '')
+      .split(' ')
+      .filter(
+        (term) =>
+          !filteredTerms[lang]
+          || !filteredTerms[lang].includes(term.toLowerCase()),
+      )
+      .join(' '),
+  );
 }
 
 export default function cleanTextForSearch(text) {
