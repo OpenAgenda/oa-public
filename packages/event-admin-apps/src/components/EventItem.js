@@ -254,24 +254,6 @@ export default function EventItem({
           href={`/${agenda.slug}/events/${event.slug}${adminNavStr}`}
           style={{ color: 'inherit' }}
         >
-          {event.valid === false ? (
-            <span className="padding-right-xs">
-              <MoreInfo
-                title={intl.formatMessage(messages.invalidEventInfoTitle)}
-                content={intl.formatMessage(messages.invalidEventInfo)}
-                placement="bottom"
-              >
-                <i
-                  className="fa fa-exclamation-circle text-danger"
-                  style={{
-                    fontSize: '20px',
-                    verticalAlign: 'middle',
-                  }}
-                />
-              </MoreInfo>
-            </span>
-          ) : null}
-
           <StatusBadge status={event.status} intl={intl} />
 
           <b>{getLocaleValue(event.title, intl.locale)}</b>
@@ -295,6 +277,33 @@ export default function EventItem({
           />
         ) : null}
       </div>
+
+      {/* Invalid */}
+      {event.valid === false ? (
+        <div className="margin-top-xs text-danger">
+          <MoreInfo
+            content={intl.formatMessage(messages.invalidEventInfo)}
+            placement="bottom"
+          >
+            <span
+              style={{
+                backgroundColor: 'transparent',
+                border: 'none',
+                display: 'inline',
+              }}
+            >
+              <i
+                className="fa fa-exclamation-circle text-danger padding-right-xs"
+                style={{
+                  fontSize: '20px',
+                  verticalAlign: 'middle',
+                }}
+              />
+              {intl.formatMessage(messages.invalidEventInfoTitle)}
+            </span>
+          </MoreInfo>
+        </div>
+      ) : null}
 
       {/* Location */}
 
