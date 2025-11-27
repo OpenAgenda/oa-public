@@ -76,7 +76,7 @@
   "ReactFilters.messages.filterTitles.status": "État",
   "ReactFilters.messages.filterTitles.timings": "Date",
   "ReactFilters.messages.filterTitles.updatedAt": "Date de mise à jour",
-  "ReactFilters.messages.filterTitles.valid": "Conformité",
+  "ReactFilters.messages.filterTitles.valid": "Conformité avec le formulaire",
   "ReactFilters.messages.map.searchHere": "Rechercher ici",
   "ReactFilters.messages.provenance.aggregation": "Agrégation",
   "ReactFilters.messages.provenance.contribution": "Contribution",
@@ -94,7 +94,7 @@
   "ReactFilters.messages.status.postponed": "Reporté",
   "ReactFilters.messages.status.programmed": "Programmé",
   "ReactFilters.messages.status.rescheduled": "Reprogrammé",
-  "ReactFilters.messages.valid.invalid": "Non conforme",
+  "ReactFilters.messages.valid.invalid": "À corriger/compléter",
   "ReactFilters.messages.valid.undefined": "Indéfini",
   "ReactFilters.messages.valid.valid": "Conforme",
   "ReactFilters.useGetFilterOptions.emptyOption": "(Sans valeur)"
