@@ -40,7 +40,7 @@ export default function EventState({ value, displayLabel = true }) {
           style={{
             height: '19px',
             width: '19px',
-            verticalAlign: 'baseline',
+            verticalAlign: 'text-bottom',
             cursor: 'pointer',
           }}
         >
