@@ -67,7 +67,7 @@ function toMixedMultipart(data, bodyKey = 'data', form = new FormData()) {
     }
 
     // Array of Blobs
-    if (Array.isArray(value) && value.every(v => (v instanceof Blob))) {
+    if (Array.isArray(value) && value.length > 0 && value.every(v => (v instanceof Blob))) {
       value.forEach((v, i) => {
         form.append(`${path}[${i}]`, v);
       });
