@@ -1,5 +1,11 @@
 # Change Log
 
+## 6.14.0
+
+### Minor Changes
+
+- [`f183e7f`](https://github.com/OpenAgenda/oa/commit/f183e7fc53521859d2bf78dc06aafcd021117a27) Thanks [@bertho-zero](https://github.com/bertho-zero)! - Add an option `includeFields` to reduce size of event list.
+
 ## 6.12.6
 
 ### Patch Changes
