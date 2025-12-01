@@ -30,7 +30,7 @@ export default function reduxMiddleware(layoutStore, queryClient) {
           queryClient.setQueryData(
             query.queryKey,
             produce((draft) => {
-              draft.agenda = action.result.data.agenda;
+              draft.agenda = action.result.agenda;
             }),
           );
           break;
