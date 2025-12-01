@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "6.14.0",
+  "version": "6.14.1",
   "type": "module",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
