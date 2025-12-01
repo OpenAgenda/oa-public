@@ -10,6 +10,7 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
   let core;
 
   const config = testConfig.extendWith({
+    cachePrefix: 'core_agendas_events_create_aggregation_tests',
     queuesPrefix: 'createaggrtst:',
   });
 
@@ -108,13 +109,12 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
     describe('update of aggregated event', () => {
       let updated;
       beforeAll(async () => {
-        updated = await core.agendas(55268170).events.update(
+        updated = await core.agendas(55268170).events.patch(
           event.uid,
           {
             featured: 1,
           },
           {
-            partial: true,
             detailed: true,
             userUid: 1,
           },
@@ -186,13 +186,12 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
       });
 
       // first aggregation happened
-      await core.agendas(17026800).events.update(
+      core.agendas(17026800).events.patch(
         event.uid,
         {
           'categories-agenda-metropolitain': 43,
         },
         {
-          partial: true,
           context,
         },
       );

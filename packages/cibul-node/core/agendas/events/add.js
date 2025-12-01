@@ -72,8 +72,8 @@ export default async (core, agendaUid, eventUid, data, options = {}) => {
   log('  loaded agenda %s', agenda.slug);
 
   const clean = await cleanEvent(services, agenda, data, {
-    validateWithStoredData: true,
-    event,
+    isPatch: true,
+    storedData: event,
     paths,
     aggregated,
     member,

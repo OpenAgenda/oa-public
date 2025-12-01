@@ -34,14 +34,13 @@ export default (req, res, next) => {
 
   req.app.services.core
     .agendas(req.agenda.uid)
-    .events.update(
+    .events.patch(
       req.event.uid,
       {
         state,
         motive,
       },
       {
-        partial: true,
         access: req.access,
         private: null,
         context: {
@@ -76,7 +75,7 @@ export function batched(req, res, next) {
   req.app.services.core
     .agendas(req.agenda.uid)
     .events.batch(
-      'update',
+      'patch',
       {
         state: stateSwitch[0],
       },
@@ -84,7 +83,6 @@ export function batched(req, res, next) {
         state: stateSwitch[1],
       },
       {
-        partial: true,
         access: req.access,
         context: {
           userUid: req.user.uid,

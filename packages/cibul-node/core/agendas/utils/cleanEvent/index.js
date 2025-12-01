@@ -48,7 +48,9 @@ function isDifferent(a, b) {
 }
 
 function isStrictUnpublish(data) {
-  if (Object.keys(data)?.length !== 1) return false;
+  if (Object.keys(_.omit(data, ['motive']))?.length !== 1) {
+    return false;
+  }
   if ([undefined, 2].includes(data.state)) {
     return false;
   }
@@ -58,9 +60,11 @@ function isStrictUnpublish(data) {
 async function cleanEvent(services, agenda, data, options = {}) {
   const { agendaEvents, registrations } = services;
 
-  const completeEventData = options.validateWithStoredData
+  const { isPatch = false, storedData = {} } = options;
+
+  const completeEventData = isPatch
     ? {
-      ...options.event,
+      ...storedData,
       ...data,
     }
     : data;
@@ -133,16 +137,9 @@ async function cleanEvent(services, agenda, data, options = {}) {
 }
 
 function getIsValid(core, agenda, event) {
-  return cleanEvent(
-    core.services,
-    agenda,
-    {},
-    {
-      validateWithStoredData: true,
-      event,
-      optionalSecondaryFields: true,
-    },
-  ).then(
+  return cleanEvent(core.services, agenda, event, {
+    optionalSecondaryFields: true,
+  }).then(
     () => true,
     (error) => {
       if (error.name !== 'BadRequest') {

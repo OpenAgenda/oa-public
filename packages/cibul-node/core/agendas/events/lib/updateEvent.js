@@ -16,7 +16,7 @@ export default async function updateEvent(
     eventUid,
     privateOption,
     event,
-    partial,
+    isPatch,
     userLang,
     mergeExtIds,
   },
@@ -42,7 +42,7 @@ export default async function updateEvent(
     payload.setItem(
       'event',
       event,
-      await events[partial ? 'patch' : 'update'](eventUid, clean.event, {
+      await events[isPatch ? 'patch' : 'update'](eventUid, clean.event, {
         context: {
           agendaUid,
           userUid,

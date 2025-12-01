@@ -2,7 +2,7 @@ import _ from 'lodash';
 import boolQuery from '../../lib/boolQuery.js';
 
 const getOptions = (req, mergeWith = {}) => ({
-  partial: req.method === 'PATCH',
+  isPatch: req.method === 'PATCH',
   batched: boolQuery(req.headers.batched || req.body.batched),
   context: {
     userUid: req.member.userUid,

@@ -495,11 +495,13 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       expect(event.motive).toBe('¬_¬');
     });
 
-    it('invalid event can be unpublished', async () => {
-      const { state } = await core
+    it('invalid event can be unpublished, it stays invalid', async () => {
+      const result = await core
         .agendas(9491431)
         .events.patch(12993376, { state: 0 }, { access: 'internal' });
-      expect(state).toBe(0);
+
+      expect(result.state).toBe(0);
+      expect(result.valid).toBe(false);
     });
 
     it('invalid event cannot be published', async () => {
@@ -508,6 +510,18 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         await core
           .agendas(9491431)
           .events.patch(12993376, { state: 2 }, { access: 'internal' });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.name).toBe('BadRequest');
+    });
+
+    it('invalid event with additional values cannot be published', async () => {
+      let error;
+      try {
+        await core
+          .agendas(64260763)
+          .events.patch(38298329, { state: 2 }, { access: 'internal' });
       } catch (e) {
         error = e;
       }
@@ -599,7 +613,9 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         error = e;
       }
       expect(error.name).toBe('BadRequest');
-      const [validationError] = error.info.errors;
+      const validationError = error.info.errors.find(
+        ({ field }) => field === 'timings',
+      );
       expect(validationError.message).toBe('at least one timing is required');
     });
   });
@@ -787,7 +803,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
   describe('api', () => {
     let server;
     let accessToken;
-    let response;
 
     beforeAll(async () => {
       server = await api(core, { useRouter: false }).listen(4000);
@@ -808,6 +823,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
 
     describe('successful update', () => {
+      let response;
       beforeAll(async () => {
         try {
           response = await ky
@@ -863,6 +879,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
 
     describe('unsuccessful update', () => {
+      let response;
       beforeAll(async () => {
         try {
           await ky
@@ -911,6 +928,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
 
     describe('unsuccessful update - invalid image', () => {
+      let response;
       beforeAll(async () => {
         try {
           await ky
@@ -971,6 +989,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
 
     describe('successful patch', () => {
+      let response;
       beforeAll(async () => {
         response = await ky
           .patch('http://localhost:4000/agendas/17026855/events/19390293', {
@@ -984,11 +1003,12 @@ describe('core - functional (server): core.agendas().events.update()', () => {
               attendanceMode: 2,
               onlineAccessLink: 'https://openagenda.com',
             },
+            throwHttpErrors: false,
           })
           .json();
       });
 
-      it('body contains event', () => {
+      it('body contains event', async () => {
         expect(response.event.uid).toBe(19390293);
       });
 
@@ -1002,6 +1022,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
 
     describe('extIds', () => {
+      let response;
       beforeAll(async () => {
         await core.agendas(17026855).events.patch(
           19390293,

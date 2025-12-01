@@ -70,11 +70,22 @@ raw.push(
 
 raw.push(
   knex('form_schema').insert(
-    [2, 5, 6, 41].map((id) =>
-      load(`form-schemas/${id}.json`, (fs) => ({
-        id,
-        store: JSON.stringify(fs),
-      }))),
+    [2, 5, 6, 41]
+      .map((id) =>
+        load(`form-schemas/${id}.json`, (fs) => ({
+          id,
+          store: JSON.stringify(fs),
+        })))
+      .concat([
+        load('form-schemas/374.json', (fs) => ({
+          id: 374,
+          store: JSON.stringify(fs),
+        })),
+        load('form-schemas/conditionalRegistration.schema.json', (fs) => ({
+          id: 39147,
+          store: JSON.stringify(fs),
+        })),
+      ]),
   ),
 );
 
@@ -264,6 +275,7 @@ raw.push(
     load('events/proposition-de-spectacle.json'),
     load('events/spectacle-accepte.json'),
     load('events/spectacle-plus-acceptable.json'),
+    load('events/invalid-additional-fields.json'),
   ]),
 );
 
@@ -357,6 +369,7 @@ raw.push(
     load('events/spectacle-accepte.ae2.json'),
     load('events/spectacle-plus-acceptable.ae.json'),
     load('events/spectacle-plus-acceptable.ae2.json'),
+    load('events/invalid-additional-fields.ae.json'),
   ]),
 );
 
@@ -415,19 +428,36 @@ raw.push(
       created_at: new Date(),
       updated_at: new Date(),
     },
-  ]),
-);
-
-raw.push(
-  knex('form_schema').insert([
-    load('form-schemas/374.json', (fs) => ({
-      id: 374,
-      store: JSON.stringify(fs),
-    })),
-    load('form-schemas/conditionalRegistration.schema.json', (fs) => ({
-      id: 39147,
-      store: JSON.stringify(fs),
-    })),
+    {
+      id: 6,
+      form_schema_id: 2,
+      identifier: 19390293,
+      store: JSON.stringify({
+        'categories-agenda-metropolitain': 42,
+      }),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      id: 7,
+      form_schema_id: 374,
+      identifier: 3969008,
+      store: JSON.stringify({
+        'categories-metropolitaines': 101,
+      }),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      id: 8,
+      form_schema_id: 41,
+      identifier: 3969008,
+      store: JSON.stringify({
+        'categories-metropolitaines': 8,
+      }),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
   ]),
 );
 
