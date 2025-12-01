@@ -29,7 +29,11 @@ const messages = defineMessages({
   },
 });
 
-export default function EventStateSelector({ agenda, event }) {
+export default function EventStateSelector({
+  agenda,
+  event,
+  isEventValid = true,
+}) {
   const apiClient = useApiClient();
   const queryClient = useQueryClient();
   const rejectionModal = useModal();
@@ -59,9 +63,13 @@ export default function EventStateSelector({ agenda, event }) {
   const onChange = useCallback(
     (option) => {
       if (option.value === -1) return rejectionModal.open();
+      if (option.value === 2 && !isEventValid) {
+        // Prevent publishing invalid events
+        return;
+      }
       return mutation.mutate(option.value);
     },
-    [mutation, rejectionModal],
+    [mutation, rejectionModal, isEventValid],
   );
 
   return (
@@ -69,6 +77,7 @@ export default function EventStateSelector({ agenda, event }) {
       <StateSelector
         value={event.state}
         onChange={onChange}
+        isEventValid={isEventValid}
         isDisabled={mutation.isLoading}
         isLoading={mutation.isLoading}
       />
