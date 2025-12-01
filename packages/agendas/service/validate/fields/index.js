@@ -2,6 +2,7 @@
 
 const c = require('../contributionTypes');
 const s = require('../eventStates');
+const statuses = require('../eventStatuses');
 
 module.exports = [
   {
@@ -555,6 +556,30 @@ module.exports = [
             type: 'ip',
             list: true,
             default: [],
+          },
+          {
+            field: 'status',
+            type: 'schema',
+            read: [
+              'administrator',
+              'moderator',
+              'internal',
+              'public',
+              'legacy',
+              'legacyPublic',
+            ],
+            fields: [
+              {
+                field: 'enabled',
+                type: 'choice',
+                default: [
+                  statuses.RESCHEDULED,
+                  statuses.FULL,
+                  statuses.CANCELLED,
+                ],
+                options: Object.values(statuses),
+              },
+            ],
           },
         ],
       },
