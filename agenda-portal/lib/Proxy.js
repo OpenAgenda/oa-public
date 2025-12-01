@@ -37,6 +37,7 @@ export default ({
   defaultTimezone,
   proxyHookBeforeGet,
   longDescriptionFormat,
+  includeFields,
   app,
 }) => {
   const appRoot = app.locals.root;
@@ -88,7 +89,14 @@ export default ({
 
     // Apply default filter if no specific filters are provided
     const hasNoFilters = !Object.keys(
-      _.omit(userQuery, ['aggregations', 'size', 'page', 'detailed', 'nc']),
+      _.omit(userQuery, [
+        'aggregations',
+        'size',
+        'page',
+        'detailed',
+        'nc',
+        'includeFields',
+      ]),
     ).length;
 
     if (hasNoFilters && defaultFilter) {
@@ -123,7 +131,7 @@ export default ({
     ).then((a) => a.slugSchemaOptionIdMap);
 
     const params = {
-      ..._.omit(query, ['oaq', 'lang']),
+      ..._.omit(query, ['oaq', 'lang', 'includeFields', 'detailed']),
       ...transformQueryV1ToV2(query.oaq || null, {
         timezone: defaultTimezone,
         slugSchemaOptionIdMap,
@@ -136,7 +144,11 @@ export default ({
       host: appRoot,
     };
 
-    if (query.detailed) {
+    if (query.includeFields) {
+      params.if = query.includeFields;
+    }
+
+    if (!query.includeFields && query.detailed) {
       params.detailed = query.detailed;
     }
 
@@ -198,7 +210,11 @@ export default ({
   return {
     head: (agendaUidToQuery) => cachedGetAgendaSettings(agendaUidToQuery, key),
     list: (agendaUidToList, query) =>
-      _cachedFetch(agendaUidToList, 'events', { ...query, detailed: 1 }),
+      _cachedFetch(agendaUidToList, 'events', {
+        ...query,
+        includeFields,
+        detailed: 1,
+      }),
     get,
     defaultLimit,
   };

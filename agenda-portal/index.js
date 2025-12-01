@@ -96,6 +96,7 @@ export default async function Portal(options) {
     proxyHookBeforeGet,
     devServerPort,
     longDescriptionFormat,
+    includeFields,
   } = config;
 
   const middlewareHooks = {
@@ -156,6 +157,7 @@ export default async function Portal(options) {
       defaultTimezone,
       proxyHookBeforeGet,
       longDescriptionFormat,
+      includeFields,
       app,
     });
 
