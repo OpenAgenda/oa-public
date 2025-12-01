@@ -145,7 +145,15 @@ export default ({
     };
 
     if (query.includeFields) {
-      params.if = query.includeFields;
+      params.if = [
+        ...new Set([
+          'slug',
+          'uid',
+          'firstTiming',
+          'lastTiming',
+          ...query.includeFields,
+        ]),
+      ];
     }
 
     if (!query.includeFields && query.detailed) {

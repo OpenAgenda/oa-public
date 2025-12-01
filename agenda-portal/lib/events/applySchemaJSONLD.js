@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import getTimingsSchemaJSONLD from '../timings/getSchemaJSONLD.js';
 import {
   getValue as getBeginValue,
@@ -6,12 +5,11 @@ import {
 } from '../timings/begin.js';
 
 export function get(event, { defaultTimezone }) {
-  const firstTiming = _.first(event.timings);
   return getTimingsSchemaJSONLD(
     event,
     {
-      [getBeginKey(firstTiming)]: getBeginValue(firstTiming),
-      end: _.last(event.timings).end,
+      [getBeginKey(event.firstTiming)]: getBeginValue(event.firstTiming),
+      end: event.lastTiming.end,
     },
     defaultTimezone,
   );
