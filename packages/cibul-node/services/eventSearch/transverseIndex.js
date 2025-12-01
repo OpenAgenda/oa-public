@@ -3,12 +3,84 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/eventSearch/transverseIndex');
 
-export async function transverseIndexRemove(searchIndex, eventUid) {
+async function isEventPublishedOnAnIndexedAgenda(
+  services,
+  event,
+  options = {},
+) {
+  const { excludeAgenda } = options;
+
+  const { agendaEvents: agendaEventSvc, agendas: agendasSvc } = services;
+
+  const agendaUidsWhereIsPublished = await agendaEventSvc.list
+    .byEventUid(event.uid, {
+      state: 2,
+      ...excludeAgenda ? { excludeAgendaUid: excludeAgenda.uid } : undefined,
+    })
+    .then(({ items }) => items.map(({ agendaUid }) => agendaUid));
+
+  const { total: indexedAgendasReferencingEventTotal } = await agendasSvc.list(
+    {
+      uid: agendaUidsWhereIsPublished,
+    },
+    0,
+    0,
+    {
+      indexed: true,
+      total: true,
+    },
+  );
+
+  return !!indexedAgendasReferencingEventTotal;
+}
+
+export async function transverseIndexRemove(
+  config,
+  services,
+  searchIndex,
+  eventUid,
+) {
+  const { tracker } = services;
   log.debug('removing event %s from transverse index', eventUid);
   try {
-    return searchIndex.remove({ uid: eventUid });
+    const result = await searchIndex.remove(
+      { uid: eventUid },
+      {
+        refresh: !!config.es75.refreshTransverseIndex?.onRemove,
+      },
+    );
+    tracker(`transverseIndexRemove.${eventUid}.done`);
+    return result;
   } catch (e) {
     log.warn('remove failed', { eventUid });
+  }
+}
+
+export async function transverseUpdateEvaluateUpdateEnqueue(
+  services,
+  queue,
+  agenda,
+  event,
+) {
+  const { tracker } = services;
+  if (event.private) {
+    tracker(`eventSearch.update:${agenda.uid}.${event.uid}:noTransverse`);
+    return;
+  }
+
+  const agendaIsIndexedAndEventPublished = agenda.indexed && event.state === 2;
+
+  if (agendaIsIndexedAndEventPublished) {
+    // avoid querying db for other agendas if we know that event is published on current indexed agenda
+    await queue.add('transverseIndexUpdate', event);
+  } else if (
+    await isEventPublishedOnAnIndexedAgenda(services, event, {
+      excludeAgenda: agenda,
+    })
+  ) {
+    await queue.add('transverseIndexUpdate', event);
+  } else {
+    await queue.add('transverseIndexRemove', event.uid);
   }
 }
 
@@ -21,7 +93,7 @@ export async function transverseIndexUpdate(
   const { uid } = event;
   const { tracker } = services;
 
-  const { refreshTransverseIndexOnUpdate = false } = config.es75;
+  const { refreshTransverseIndex } = config.es75;
 
   if (event.private) {
     log.debug('event is private, exiting', { eventUid: uid });
@@ -32,7 +104,7 @@ export async function transverseIndexUpdate(
   log.debug('updating/adding event in transverse index', { eventUid: uid });
   const result = await searchIndex.update({ uid }, event, {
     operation: 'index',
-    refresh: refreshTransverseIndexOnUpdate,
+    refresh: !!refreshTransverseIndex?.onUpdate,
   });
   log.debug('updated/added event in transverse index', {
     eventUid: uid,
@@ -47,11 +119,7 @@ export async function transverseIndexRebuild(
   searchIndex,
   options = {},
 ) {
-  const {
-    events: eventsSvc,
-    agendaEvents: agendaEventSvc,
-    agendas: agendasSvc,
-  } = services;
+  const { events: eventsSvc } = services;
 
   const { createdSince, stopAtCount } = {
     createdSince: 180, // days
@@ -78,7 +146,8 @@ export async function transverseIndexRebuild(
 
   const rebuildResult = await searchIndex.rebuild({
     eventsList: async (lastId, limit) => {
-      log.debug('listing %s from id %s', limit, lastId);
+      const after = lastId === 0 ? initialLastId : lastId;
+      log.info('listing %s from id %s', limit, after);
       if (stop) {
         return {
           lastId: -1,
@@ -89,7 +158,7 @@ export async function transverseIndexRebuild(
       const { items: events, after: newLastId } = await eventsSvc.list(
         {},
         {
-          after: lastId === 0 ? initialLastId : lastId,
+          after,
           limit,
         },
         {
@@ -107,25 +176,7 @@ export async function transverseIndexRebuild(
           continue;
         }
 
-        const agendaUidsWhereIsPublished = await agendaEventSvc.list
-          .byEventUid(event.uid, { state: 2 })
-          .then(({ items }) => items.map(({ agendaUid }) => agendaUid));
-
-        if (!agendaUidsWhereIsPublished.length) {
-          log.debug(
-            '  %s, (%s): not published anywhere, not indexing',
-            event.slug,
-            event.uid,
-          );
-          continue;
-        }
-
-        const { total: indexedAgendasReferencingEventTotal } = await agendasSvc.list({ uid: agendaUidsWhereIsPublished }, 0, 0, {
-          indexed: true,
-          total: true,
-        });
-
-        if (indexedAgendasReferencingEventTotal === 0) {
+        if (!await isEventPublishedOnAnIndexedAgenda(services, event)) {
           log.debug(
             '  %s, (%s): not published on any indexed agenda, not indexing',
             event.slug,
@@ -149,7 +200,7 @@ export async function transverseIndexRebuild(
       log.debug(
         'reindexing %s events in transverse index (%s)',
         eventsToBeIndexed.length,
-        lastId,
+        after,
       );
 
       return {

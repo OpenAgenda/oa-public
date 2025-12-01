@@ -15,7 +15,21 @@ export default (agenda, memberMode) => {
     isLoading,
     error,
     refetch,
-    schema: data?.schema || null,
-    parents: data?.parents,
+    schema: data?.schema
+      ? {
+        ...data.schema,
+        fields: data.schema.fields?.filter((f) => f.field !== 'extIds'),
+      }
+      : null,
+    parents:
+      data?.parents?.map((parent) => ({
+        ...parent,
+        schema: parent.schema
+          ? {
+            ...parent.schema,
+            fields: parent.schema.fields?.filter((f) => f.field !== 'extIds'),
+          }
+          : parent.schema,
+      })) || [],
   };
 };

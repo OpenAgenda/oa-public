@@ -132,8 +132,10 @@ export default (data, options = {}) => {
         ]),
         firstTiming,
         lastTiming,
-        _search_last_timing: new Date(lastTiming.end),
-        _search_first_timing: new Date(firstTiming.begin),
+        _search_last_timing: lastTiming ? new Date(lastTiming.end) : undefined,
+        _search_first_timing: firstTiming
+          ? new Date(firstTiming.begin)
+          : undefined,
         timings: event.timings.map((t) => ({
           ...t,
           _search_begin_from_midnight: secondsMidnightDiff(t.begin, timezone),

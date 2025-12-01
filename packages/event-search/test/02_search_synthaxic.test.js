@@ -75,6 +75,7 @@ describe('02 - event search - functional: synthaxic', () => {
 
   it('"marche" matches with "Marché", "Marche", "marche" and "marché"', async () => {
     const { events } = await service('synthaxic').search({
+      keyword: 'marche',
       search: 'marché',
     });
 
@@ -115,5 +116,19 @@ describe('02 - event search - functional: synthaxic', () => {
         })
         .then(({ total }) => total),
     ).toBe(1);
+  });
+
+  it('Noel, Noël, Noêl', async () => {
+    const nonAccentedSearchResult = await service('synthaxic').search({
+      keyword: 'accents',
+      search: 'noel',
+    });
+
+    const accentedSearchResult = await service('synthaxic').search({
+      keyword: 'accents',
+      search: 'noël',
+    });
+
+    expect(nonAccentedSearchResult).toEqual(accentedSearchResult);
   });
 });

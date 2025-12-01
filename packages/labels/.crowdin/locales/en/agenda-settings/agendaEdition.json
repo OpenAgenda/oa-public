@@ -13,7 +13,7 @@
   "contribDefaultState": "Default status of events",
   "contribDefaultStatePublished": "Published",
   "contribDefaultStatePublishedText": "You can edit the events later.",
-  "contribDefaultStateUnpublished": "Unpublished",
+  "contribDefaultStateUnpublished": "To moderate",
   "contribDefaultStateUnpublishedText": "Events become public only after your validation.",
   "required": "Required",
   "string.tooshort": "String is too short",

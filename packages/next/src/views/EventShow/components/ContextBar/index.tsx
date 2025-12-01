@@ -25,7 +25,6 @@ import StateSelector from './StateSelector';
 import ContextBarButton from './ContextBarButton';
 import OtherActions from './OtherActions';
 import Edit from './Edit';
-import ValidStatus from './ValidStatus';
 
 const Column = chakra('div', {
   base: {
@@ -99,49 +98,39 @@ export default function ContextBar() {
 
   const editLink = `/${agenda.slug}/contribute/event/${event.uid}?redirect=${base64.encode(currentUrl)}`;
 
-  const showValidStatus = isAdminMod(me?.member) && event.valid === false;
-  const adminColumns = showValidStatus ? 5 : 4;
-
   return (
     <Collapsible.Root open>
       <Collapsible.Content>
         <SimpleGrid
           ref={ref}
-          columns={isAdminMod(me?.member) ? adminColumns : 3}
+          columns={isAdminMod(me?.member) ? 4 : 3}
           bg="white"
           gap="1px"
         >
           {isAdminMod(me?.member) ? (
-            <>
-              <Column>
-                <Tooltip
-                  content={intl.formatMessage(messages.backToDashboard)}
-                  disabled={!isMobile}
-                  openDelay={0}
-                  closeDelay={0}
+            <Column>
+              <Tooltip
+                content={intl.formatMessage(messages.backToDashboard)}
+                disabled={!isMobile}
+                openDelay={0}
+                closeDelay={0}
+              >
+                <ContextBarButton
+                  asChild
+                  justifyContent={{ base: 'center', md: 'space-between' }}
                 >
-                  <ContextBarButton
-                    asChild
-                    justifyContent={{ base: 'center', md: 'space-between' }}
+                  <Link
+                    href={`/${agenda.slug}/admin/events${qs.stringify(getAdminNav(eventNc), { addQueryPrefix: true })}`}
                   >
-                    <Link
-                      href={`/${agenda.slug}/admin/events${qs.stringify(getAdminNav(eventNc), { addQueryPrefix: true })}`}
-                    >
-                      {isMobile ? (
-                        <FaIcon icon={faTurnLeft} size="lg" />
-                      ) : 
-                        intl.formatMessage(messages.backToDashboard)
-                      }
-                    </Link>
-                  </ContextBarButton>
-                </Tooltip>
-              </Column>
-              {showValidStatus ? (
-                <Column>
-                  <ValidStatus editLink={editLink} contextBarRef={ref} />
-                </Column>
-              ) : null}
-            </>
+                    {isMobile ? (
+                      <FaIcon icon={faTurnLeft} size="lg" />
+                    ) : 
+                      intl.formatMessage(messages.backToDashboard)
+                    }
+                  </Link>
+                </ContextBarButton>
+              </Tooltip>
+            </Column>
           ) : null}
           <Column>
             <StateSelector

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
 import keywordizeDiscreteValue from './keywordizeDiscreteValue.js';
+import removeDiacritics from './removeDiacritics.js';
 
 const termsFiltersMap = {
   memberUid: 'member.uid',
@@ -114,14 +115,14 @@ function _getQueryMustParts(cleanQuery) {
         should: [
           {
             multi_match: {
-              query: cleanQuery.search,
+              query: removeDiacritics(cleanQuery.search),
               type: 'best_fields',
               fields: filteredSearchFields,
             },
           },
           {
             multi_match: {
-              query: cleanQuery.search,
+              query: removeDiacritics(cleanQuery.search),
               type: 'phrase_prefix',
               fields: searchFields,
             },

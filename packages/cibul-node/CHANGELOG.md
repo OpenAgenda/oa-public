@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.15.4
+
+### Patch Changes
+
+- Updated dependencies [[`e193736`](https://github.com/OpenAgenda/oa/commit/e19373651264c0939329e64deb00a98b59f11158)]:
+  - @openagenda/sdk-js@3.0.0
+
 ## 0.15.3
 
 ### Patch Changes

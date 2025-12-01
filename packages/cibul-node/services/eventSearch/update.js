@@ -1,11 +1,11 @@
 import logs from '@openagenda/logs';
-import hasOtherPublishedReferences from './lib/hasOtherPublishedReferences.js';
 import updateAgendaIndex from './lib/updateAgendaIndex.js';
+import { transverseUpdateEvaluateUpdateEnqueue } from './transverseIndex.js';
 
 const log = logs('services/eventSearch/update');
 
 export default (services, queue, eventSearch) => {
-  const { agendaEvents, tracker } = services;
+  const { tracker } = services;
 
   return async ({ agenda, member, formSchema, event }, options = {}) => {
     log('update', {
@@ -27,17 +27,7 @@ export default (services, queue, eventSearch) => {
       event,
     });
 
-    if (
-      !event.private
-      && event.state !== 2
-      && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)
-    ) {
-      await queue.add('transverseIndexRemove', event.uid);
-    } else if (!event.private) {
-      await queue.add('transverseIndexUpdate', event);
-    } else {
-      tracker(`eventSearch.update:${agenda.uid}.${event.uid}:noTransverse`);
-    }
+    await transverseUpdateEvaluateUpdateEnqueue(services, queue, agenda, event);
 
     if (updateOtherIndices) {
       log('update other indices');

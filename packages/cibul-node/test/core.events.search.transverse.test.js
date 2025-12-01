@@ -53,6 +53,8 @@ describe('core - functional (server): core.events.search', () => {
     await services.eventSearch.transverse.rebuild();
 
     services.eventSearch.task();
+
+    return new Promise((rs) => setTimeout(rs, 500));
   });
 
   beforeAll(() => {
@@ -88,7 +90,7 @@ describe('core - functional (server): core.events.search', () => {
     });
   });
 
-  describe('searching', () => {
+  describe('private events', () => {
     let privateEvent;
 
     beforeAll(async () => {
@@ -121,6 +123,53 @@ describe('core - functional (server): core.events.search', () => {
       expect(
         await core.events.search({ uid: 897978987 }).then(({ total }) => total),
       ).toBe(0);
+    });
+  });
+
+  describe('unindexed events', () => {
+    let beforeUnpublishFromIndexedAgenda;
+
+    beforeAll(async () => {
+      beforeUnpublishFromIndexedAgenda = await core.events
+        .search({
+          uid: 278122187,
+        })
+        .then(({ total }) => total);
+
+      core
+        .agendas(17026855)
+        .events.patch(278122187, { state: 0 }, { access: 'administrator' });
+
+      return new Promise((rs) => {
+        core.services.tracker.on(
+          'transverseIndexRemove.278122187.done',
+          rs,
+          true,
+        );
+      });
+    });
+
+    it('event published exclusively on unindexed agendas are not visible in transverse index', async () => {
+      expect(
+        await core.events.search({ uid: 84738297 }).then(({ total }) => total),
+      ).toBe(0);
+    });
+
+    it('event published on unindexed agenda but also on indexed agenda is visible in the transverse index', async () => {
+      expect(
+        await core.events.search({ uid: 278128919 }).then(({ total }) => total),
+      ).toBe(1);
+    });
+
+    it('event that was published on index agenda and unindexed agenda but is unpubished from indexed disappears from transverse index', async () => {
+      const after = await core.events
+        .search({
+          uid: 278122187,
+        })
+        .then(({ total }) => total);
+
+      expect(beforeUnpublishFromIndexedAgenda).toBe(1);
+      expect(after).toBe(0);
     });
   });
 });

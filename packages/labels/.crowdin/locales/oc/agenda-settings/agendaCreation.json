@@ -16,7 +16,7 @@
   "contribDefaultState": "Estatut per defaut dels eveniments",
   "contribDefaultStatePublished": "Publicat",
   "contribDefaultStatePublishedText": "Podètz modificar los eveniments mai tard.",
-  "contribDefaultStateUnpublished": "Pas publicat",
+  "contribDefaultStateUnpublished": "A moderar",
   "contribDefaultStateUnpublishedText": "Los eveniments venon publics pas qu'aprèp validacion.",
   "previous": "Precedent",
   "createAgenda": "Crear l'agenda",
