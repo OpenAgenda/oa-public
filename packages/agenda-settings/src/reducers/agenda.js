@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        data: action.result.data,
+        data: action.result,
         error: null,
       };
     case LOAD_FAIL:
@@ -47,7 +47,7 @@ export default function reducer(state = initialState, action = {}) {
     case EDIT_SUCCESS:
       return {
         ...state,
-        data: action.result.data.agenda,
+        data: action.result.agenda,
       };
     default:
       return state;

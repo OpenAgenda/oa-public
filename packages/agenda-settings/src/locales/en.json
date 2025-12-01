@@ -6,6 +6,8 @@
   "AgendaSettings.AdvancedEdition.filtersMenuDescription": "Define which filters you want to show on the front page of the agenda as well as in the administration",
   "AgendaSettings.AdvancedEdition.filtersMenuTitle": "Filters",
   "AgendaSettings.AdvancedEdition.identifier": "Identifier",
+  "AgendaSettings.AdvancedEdition.statusesDescription": "Selection of states offered to contributors",
+  "AgendaSettings.AdvancedEdition.statusesTitle": "Statuses",
   "AgendaSettings.Components.DeleteAgenda.closeConfirm": "Close",
   "AgendaSettings.Components.DeleteAgenda.confirm": "Deletion complete",
   "AgendaSettings.Components.DeleteAgenda.confirmButton": "Confirm deletion",

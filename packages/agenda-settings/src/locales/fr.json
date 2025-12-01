@@ -6,6 +6,8 @@
   "AgendaSettings.AdvancedEdition.filtersMenuDescription": "Définir les filtres qui sont présentés sur l'accueil de l'agenda ou l'administration des événements",
   "AgendaSettings.AdvancedEdition.filtersMenuTitle": "Filtres",
   "AgendaSettings.AdvancedEdition.identifier": "Identifiant",
+  "AgendaSettings.AdvancedEdition.statusesDescription": "Choix des états proposés aux contributeurs",
+  "AgendaSettings.AdvancedEdition.statusesTitle": "États",
   "AgendaSettings.Components.DeleteAgenda.closeConfirm": "Fermer",
   "AgendaSettings.Components.DeleteAgenda.confirm": "Suppression terminée",
   "AgendaSettings.Components.DeleteAgenda.confirmButton": "Confirmer la suppression",
