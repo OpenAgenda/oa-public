@@ -45,6 +45,14 @@ Portal({
   defaultFilter: {
     // featured: 1,
   },
+  includeFields: [
+    'title',
+    'description',
+    'image',
+    'timings',
+    'dateRange',
+    'location',
+  ],
   manualSubmit: process.env.PORTAL_MANUAL_SUBMIT,
   filtersFormSelector: process.env.PORTAL_FILTERS_FORM_SELECTOR,
   // visibility of past events when relative or timings filter is specified
