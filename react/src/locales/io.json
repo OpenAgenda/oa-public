@@ -59,6 +59,7 @@
   "react.components.EventShareModal.import": "crwdns35131:0crwdne35131:0",
   "react.components.EventShareModal.mustSignIn": "crwdns35133:0crwdne35133:0",
   "react.components.EventShareModal.new": "crwdns35135:0crwdne35135:0",
+  "react.components.EventShareModal.noUpcomingTimings": "crwdns35285:0crwdne35285:0",
   "react.components.EventShareModal.onOA": "crwdns35137:0crwdne35137:0",
   "react.components.EventShareModal.online": "crwdns35139:0crwdne35139:0",
   "react.components.EventShareModal.selectTiming": "crwdns35141:0crwdne35141:0",
