@@ -63,6 +63,7 @@
   "next.views.EventShow.ContributorSection.contributor": "Contributor·a",
   "next.views.EventShow.ContributorSection.edit": "Modificar",
   "next.views.EventShow.ContributorSection.emptyMember": "",
+  "next.views.EventShow.ContributorSection.meEdit": "",
   "next.views.EventShow.ContributorSection.privateInformation": "Informacion privada",
   "next.views.EventShow.DuplicateModal.bigSentence": "Sètz a mand de crear un eveniment novèl sus la basa d'un precedent.",
   "next.views.EventShow.DuplicateModal.createNewEventIn": "Crear l'eveniment novèl dins",

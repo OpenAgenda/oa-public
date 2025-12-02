@@ -63,6 +63,7 @@
   "next.views.EventShow.ContributorSection.contributor": "",
   "next.views.EventShow.ContributorSection.edit": "",
   "next.views.EventShow.ContributorSection.emptyMember": "",
+  "next.views.EventShow.ContributorSection.meEdit": "",
   "next.views.EventShow.ContributorSection.privateInformation": "",
   "next.views.EventShow.DuplicateModal.bigSentence": "Du bist dabei, eine neue Veranstaltung auf der Grundlage einen Präzedenzfall zu schaffen.",
   "next.views.EventShow.DuplicateModal.createNewEventIn": "",

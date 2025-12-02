@@ -435,7 +435,11 @@ export const contributorSection = defineMessages({
   },
   edit: {
     id: 'next.views.EventShow.ContributorSection.edit',
-    defaultMessage: 'Edit',
+    defaultMessage: "Edit the contributor's information",
+  },
+  meEdit: {
+    id: 'next.views.EventShow.ContributorSection.meEdit',
+    defaultMessage: 'Edit my information',
   },
   emptyMember: {
     id: 'next.views.EventShow.ContributorSection.emptyMember',

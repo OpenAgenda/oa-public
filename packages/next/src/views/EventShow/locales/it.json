@@ -63,6 +63,7 @@
   "next.views.EventShow.ContributorSection.contributor": "Collaboratore",
   "next.views.EventShow.ContributorSection.edit": "Modificare",
   "next.views.EventShow.ContributorSection.emptyMember": "",
+  "next.views.EventShow.ContributorSection.meEdit": "",
   "next.views.EventShow.ContributorSection.privateInformation": "",
   "next.views.EventShow.DuplicateModal.bigSentence": "State per creare un nuovo evento basato su un evento precedente.",
   "next.views.EventShow.DuplicateModal.createNewEventIn": "Creare il nuovo evento in",

@@ -43,7 +43,7 @@ export default function ContributorSection({ contentLocale }) {
     return null;
   }
 
-  const isEventContributor = member && member.userUid === me?.member?.userUid;
+  const isEventContributor = member?.userUid === me?.member?.userUid;
 
   return (
     <div>
@@ -84,7 +84,9 @@ export default function ContributorSection({ contentLocale }) {
                 : `/${agenda.slug}/admin/members?userUid=${member.userUid}`
             }
           >
-            {intl.formatMessage(messages.edit)}
+            {intl.formatMessage(
+              isEventContributor ? messages.meEdit : messages.edit,
+            )}
           </Link>
         </FloatingButton>
 

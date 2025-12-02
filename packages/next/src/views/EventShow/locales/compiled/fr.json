@@ -374,13 +374,19 @@
   "next.views.EventShow.ContributorSection.edit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Modifier la iche contact du membre"
     }
   ],
   "next.views.EventShow.ContributorSection.emptyMember": [
     {
       "type": 0,
       "value": "Fiche contact non informée"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.meEdit": [
+    {
+      "type": 0,
+      "value": "Modifier ma fiche contact"
     }
   ],
   "next.views.EventShow.ContributorSection.privateInformation": [

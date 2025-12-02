@@ -63,6 +63,7 @@
   "next.views.EventShow.ContributorSection.contributor": "Contribuyente",
   "next.views.EventShow.ContributorSection.edit": "Editar",
   "next.views.EventShow.ContributorSection.emptyMember": "",
+  "next.views.EventShow.ContributorSection.meEdit": "",
   "next.views.EventShow.ContributorSection.privateInformation": "Información privada",
   "next.views.EventShow.DuplicateModal.bigSentence": "Vas a crear un nuevo evento en la base de un precedente.",
   "next.views.EventShow.DuplicateModal.createNewEventIn": "Crear un nuevo evento en",
