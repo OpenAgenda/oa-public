@@ -59,6 +59,7 @@
   "react.components.EventShareModal.import": "Import",
   "react.components.EventShareModal.mustSignIn": "You must sign in to share this event on another agenda",
   "react.components.EventShareModal.new": "NEW",
+  "react.components.EventShareModal.noUpcomingTimings": "This event has no upcoming timings",
   "react.components.EventShareModal.onOA": "On OpenAgenda",
   "react.components.EventShareModal.online": "Online",
   "react.components.EventShareModal.selectTiming": "Select a timing",
