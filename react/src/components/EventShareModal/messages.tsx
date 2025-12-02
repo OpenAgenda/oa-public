@@ -98,4 +98,8 @@ export default defineMessages({
     id: 'react.components.EventShareModal.agendaClosedToContribution',
     defaultMessage: 'This agenda is closed to contribution',
   },
+  noUpcomingTimings: {
+    id: 'react.components.EventShareModal.noUpcomingTimings',
+    defaultMessage: 'This event has no upcoming timings',
+  },
 });
