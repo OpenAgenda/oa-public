@@ -18,6 +18,7 @@ const handledTypes = [
   'latitude',
   'longitude',
   'boolean',
+  'date',
 ];
 
 const isIncluded = (fieldMap, includeFields, f) =>
