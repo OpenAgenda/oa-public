@@ -117,6 +117,7 @@
   "next.views.EventShow.aboutLocation": "Acerca del lugar",
   "next.views.EventShow.access": "Acceso",
   "next.views.EventShow.actions": "Acciones",
+  "next.views.EventShow.additionalFieldsSectionTitle": "",
   "next.views.EventShow.backToList": "Volver a la lista",
   "next.views.EventShow.contactAdministrators": "Contactar los administradores",
   "next.views.EventShow.eventNavigation": "",

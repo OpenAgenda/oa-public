@@ -5,6 +5,10 @@ export default defineMessages({
     id: 'next.views.EventShow.aboutLocation',
     defaultMessage: 'About the location',
   },
+  additionalFieldsSectionTitle: {
+    id: 'next.views.EventShow.additionalFieldsSectionTitle',
+    defaultMessage: 'Additionnal information',
+  },
   tags: {
     id: 'next.views.EventShow.tags',
     defaultMessage: 'Tags',

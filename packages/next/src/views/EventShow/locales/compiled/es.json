@@ -765,6 +765,12 @@
       "value": "Acciones"
     }
   ],
+  "next.views.EventShow.additionalFieldsSectionTitle": [
+    {
+      "type": 0,
+      "value": "Additionnal information"
+    }
+  ],
   "next.views.EventShow.backToList": [
     {
       "type": 0,

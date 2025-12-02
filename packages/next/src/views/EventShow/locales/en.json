@@ -117,6 +117,7 @@
   "next.views.EventShow.aboutLocation": "About the location",
   "next.views.EventShow.access": "Access",
   "next.views.EventShow.actions": "Actions",
+  "next.views.EventShow.additionalFieldsSectionTitle": "Additionnal information",
   "next.views.EventShow.backToList": "Back to list",
   "next.views.EventShow.contactAdministrators": "Contact administrators",
   "next.views.EventShow.eventNavigation": "Event navigation",

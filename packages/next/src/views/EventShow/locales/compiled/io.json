@@ -739,6 +739,12 @@
       "value": "crwdns34010:0crwdne34010:0"
     }
   ],
+  "next.views.EventShow.additionalFieldsSectionTitle": [
+    {
+      "type": 0,
+      "value": "Additionnal information"
+    }
+  ],
   "next.views.EventShow.backToList": [
     {
       "type": 0,
