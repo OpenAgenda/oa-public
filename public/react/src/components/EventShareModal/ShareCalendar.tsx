@@ -175,6 +175,8 @@ export default function ShareCalendar({
     (currentAndUpcomingTimings.length === 1 ? '0' : ''));
   const [service, setService] = useState('');
 
+  const hasUpcomingTimings = currentAndUpcomingTimings.length > 0;
+
   const importUrl = getImportUrl({
     intl,
     service,
@@ -185,10 +187,16 @@ export default function ShareCalendar({
     contentLocale,
   });
 
-  return currentAndUpcomingTimings.length ? (
+  return (
     <AccordionItem
       value="calendar"
       title={intl.formatMessage(messages.shareCalendar)}
+      disabled={!hasUpcomingTimings}
+      disabledTooltip={
+        !hasUpcomingTimings
+          ? intl.formatMessage(messages.noUpcomingTimings)
+          : undefined
+      }
     >
       <SelectRoot
         collection={currentAndUpcomingTimingsCollection}
@@ -229,5 +237,5 @@ export default function ShareCalendar({
         </Link>
       </Button>
     </AccordionItem>
-  ) : null;
+  );
 }
