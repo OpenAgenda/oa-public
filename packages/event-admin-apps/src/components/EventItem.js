@@ -110,7 +110,7 @@ const messages = defineMessages({
   invalidEventInfo: {
     id: 'EventAdminApp.EventItem.invalidEventInfo',
     defaultMessage:
-      'This event does not meet the criteria defined by the calendar form. This can happen if the form configuration has changed. To correct the event, edit it.',
+      'This event does not meet the criteria defined by the agenda form. This can happen if the form configuration has changed. To correct the event, edit it.',
   },
   invalidEventInfoTitle: {
     id: 'EventAdminApp.EventItem.invalidEventInfoTitle',
@@ -295,8 +295,8 @@ export default function EventItem({
               <i
                 className="fa fa-exclamation-circle text-danger padding-right-xs"
                 style={{
-                  fontSize: '20px',
-                  verticalAlign: 'middle',
+                  fontSize: '19px',
+                  verticalAlign: 'text-bottom',
                 }}
               />
               {intl.formatMessage(messages.invalidEventInfoTitle)}
@@ -369,6 +369,7 @@ export default function EventItem({
               event={event}
               query={query}
               page={page}
+              isEventValid={event.valid !== false}
             />
           </li>
 

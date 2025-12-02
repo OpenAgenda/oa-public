@@ -41,28 +41,32 @@
       "state": 2,
       "title": {
         "fr": "Marche"
-      }
+      },
+      "keywords": { "fr": ["marche"] }
     },
     {
       "uid": 7,
       "state": 2,
       "title": {
         "fr": "Marché"
-      }
+      },
+      "keywords": { "fr": ["marche"] }
     },
     {
       "uid": 8,
       "state": 2,
       "title": {
         "fr": "marche"
-      }
+      },
+      "keywords": { "fr": ["marche"] }
     },
     {
       "uid": 9,
       "state": 2,
       "title": {
         "fr": "marché"
-      }
+      },
+      "keywords": { "fr": ["marche"] }
     },
     {
       "uid": 10,
@@ -112,6 +116,39 @@
       },
       "description": {
         "fr": "Jeudi des Fabriques - Compagnie Les Majorettes d'Azay-Le-Rideau : Lou Reed (et les doudous sacrés)"
+      }
+    },
+    {
+      "uid": 15,
+      "state": 2,
+      "keywords": { "fr": ["accents"] },
+      "title": {
+        "fr": "Marché de noel"
+      },
+      "description": {
+        "fr": "Ça devrait marcher"
+      }
+    },
+    {
+      "uid": 16,
+      "state": 2,
+      "keywords": { "fr": ["accents"] },
+      "title": {
+        "fr": "Sapin de noël"
+      },
+      "description": {
+        "fr": "Dans un salon"
+      }
+    },
+    {
+      "uid": 17,
+      "state": 2,
+      "keywords": { "fr": ["accents"] },
+      "title": {
+        "fr": "Papa noêl"
+      },
+      "description": {
+        "fr": "Pas la bonne orthographe"
       }
     }
   ]

@@ -100,10 +100,9 @@ export function init(config, services) {
         try {
           await services.core
             .agendas(aggregatorAgendaUid)
-            .events.update(eventUid, payload, {
+            .events.patch(eventUid, payload, {
               aggregated,
               batched,
-              partial: true,
               access: 'administrator',
             });
           tracker('aggregators.updateEventReference.done');

@@ -12,12 +12,11 @@ describe('98 - core unit - cleanEvent', () => {
           links: [{ link: 'https://openagenda.com' }],
         },
         {
-          validateWithStoredData: true,
-          event: {
+          validateAsDraft: true,
+          storedData: {
             uid: 18992812,
           },
           access: 'internal',
-          partial: true,
         },
       );
 
@@ -44,15 +43,24 @@ describe('98 - core unit - cleanEvent', () => {
           image_alt_text: 'Un texte',
         },
         {
-          validateWithStoredData: true,
-          event: {
+          isPatch: true,
+          storedData: {
             uid: 18992812,
+            title: { fr: 'Un titre' },
+            description: { fr: 'Une description' },
+            attendanceMode: 2,
+            onlineAccessLink: 'https://event.com',
             image: {
               filename: 'an-image.jpg',
             },
+            timings: [
+              {
+                begin: new Date('2025-12-01T10:00:00'),
+                end: new Date('2025-12-01T11:00:00'),
+              },
+            ],
           },
           access: 'contributor',
-          partial: true,
         },
       );
       expect(result.custom.image_alt_text).toBe('Un texte');
@@ -78,9 +86,8 @@ describe('98 - core unit - cleanEvent', () => {
           image_alt_text: 'Un texte',
         },
         {
-          validateWithStoredData: false,
+          validateAsDraft: true,
           access: 'contributor',
-          partial: true,
         },
       );
 

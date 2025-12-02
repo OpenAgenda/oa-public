@@ -53,7 +53,6 @@ export default async (core, agendaUid, data, options = {}) => {
     log('  loaded agenda %s', agenda.slug);
 
     const clean = await cleanEvent(services, agenda, data, {
-      /* draft, */
       validateAsDraft: isDraft,
       defaultLang,
       filterUnauthorizedData,
@@ -75,7 +74,6 @@ export default async (core, agendaUid, data, options = {}) => {
 
     assignState(agenda, null, clean, data, {
       authorizations,
-      /* draft, */
     });
     log('  associated state');
 

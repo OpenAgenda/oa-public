@@ -45,7 +45,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   );
 
   const {
-    partial = false,
     defaultLang = 'en',
     batched = false,
     aggregated = null,
@@ -56,6 +55,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     callOrigin = 'ui',
     userLang = 'en',
     mergeExtIds = true,
+    isPatch = false,
   } = options;
 
   let response;
@@ -100,12 +100,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       : null;
 
     const clean = await cleanEvent(core.services, agenda, data, {
-      validateWithStoredData: !!partial,
       // required to validate related fields in case of partial update
-      event: eventWithAdditionalValues,
+      storedData: eventWithAdditionalValues,
       validateAsDraft: isDraft,
+      isPatch,
       optionalSecondaryFields: true,
-      partial,
       access,
       member: actingMember,
       defaultLang,
@@ -171,12 +170,12 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         clean,
         payload,
         draft: isDraft,
+        isPatch,
         agendaUid,
         userUid: actingUserUid,
         eventUid,
         privateOption,
         event,
-        partial,
         userLang,
         mergeExtIds,
       });
@@ -297,16 +296,18 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       }
     }
 
-    response = await payload.getResponse('event', access);
-    const compiledEvent = await payload.getCompiledEvent();
+    response = await payload.getResponse('event', {
+      access,
+      load: { valid: true },
+    });
 
     try {
       await eventSearch.update({
         ...response,
         formSchema,
         event: event.location
-          ? convertLocationAdditionalFields(formSchema, compiledEvent)
-          : compiledEvent,
+          ? convertLocationAdditionalFields(formSchema, response.event)
+          : response.event,
       });
       log('updated search for event %s', eventUid);
     } catch (e) {
@@ -320,12 +321,13 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     const before = await payload.getCompiledEvent('before');
+    const after = await payload.getCompiledEvent();
 
-    if (isEventDifferent(before, compiledEvent)) {
+    if (isEventDifferent(before, after)) {
       try {
         await sendUpdateEmail(core, {
           batched,
-          event: compiledEvent,
+          event: after,
           agenda,
         });
       } catch (e) {
@@ -348,7 +350,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     await aggregators.notify(before.draft ? 'addEvent' : 'updateEvent', {
-      event: compiledEvent,
+      event: after,
       before,
       agenda,
       formSchema,
@@ -388,7 +390,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 function patch(core, agendaUid, eventUid, data, options = {}) {
   return update(core, agendaUid, eventUid, data, {
     ...options,
-    partial: true,
+    isPatch: true,
   });
 }
 

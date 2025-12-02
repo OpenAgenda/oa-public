@@ -1,5 +1,12 @@
 # Change Log
 
+## 0.15.5
+
+### Patch Changes
+
+- Updated dependencies [[`f183e7f`](https://github.com/OpenAgenda/oa/commit/f183e7fc53521859d2bf78dc06aafcd021117a27)]:
+  - @openagenda/agenda-portal@6.14.0
+
 ## 0.15.4
 
 ### Patch Changes

@@ -107,9 +107,8 @@ export default function validateEvent(
 ) {
   const {
     validateAsDraft = false,
-    partial = false,
-    event = null,
-    validateWithStoredData = false,
+    isPatch = false,
+    storedData = null,
     defaultLang = null,
     optionalSecondaryFields = false,
     isStrictUnpublish = false,
@@ -117,6 +116,8 @@ export default function validateEvent(
     member = null,
     access = 'public',
   } = options;
+
+  log('validating event', { isStrictUnpublish });
 
   const errors = [];
   const clean = {
@@ -136,7 +137,7 @@ export default function validateEvent(
         ...paths ? { sourcePaths: paths } : {},
         userUid: member ? member.userUid : data.userUid || data.ownerUid,
       },
-      { optionalSecondaryFields, partial },
+      { optionalSecondaryFields, partial: isPatch },
     );
   } catch (agendaEventErrors) {
     agendaEventErrors.forEach((err) =>
@@ -154,7 +155,11 @@ export default function validateEvent(
     agenda: formSchema,
   };
 
-  const { draftErrors } = evaluateDraft(event?.draft, data.draft, event?.uid);
+  const { draftErrors } = evaluateDraft(
+    storedData?.draft,
+    data.draft,
+    storedData?.uid,
+  );
 
   draftErrors.forEach((e) => errors.push(e));
 
@@ -165,12 +170,7 @@ export default function validateEvent(
   const languages = data?.languages
     || extractLanguages(
       null,
-      event
-        ? {
-          ...event,
-          ...data,
-        }
-        : data,
+      { ...storedData, ...data },
       { defaultLanguage: defaultLang },
     );
 
@@ -194,16 +194,12 @@ export default function validateEvent(
 
     // update:
     //   event data must be complete and evaluated as such. current data must not be added for validation
-    // patch:
+    // patch or add:
     //   event data is partial. current data must be added for validation
-    // add:
-    //   event data is partial.
 
-    const consolidatedClean = (
-      partial || validateAsDraft ? validate.part : validate
-    )(
-      validateWithStoredData
-        ? mergeEventWithPatch(event, data, {
+    const consolidatedClean = (validateAsDraft ? validate.part : validate)(
+      isPatch
+        ? mergeEventWithPatch(storedData, data, {
           schema: consolidatedSchema,
           defaultLang,
         })

@@ -56,14 +56,20 @@ const stateSelectStyles = {
   }),
 };
 
-export default function StateSelector({ value, onChange, ...otherProps }) {
+export default function StateSelector({
+  value,
+  onChange,
+  isEventValid = true,
+  ...otherProps
+}) {
   const stateOptions = useMemo(
     () =>
       [-1, 0, 1, 2].map((v) => ({
         label: <EventState value={v} />,
         value: v,
+        isDisabled: !isEventValid && v === 2,
       })),
-    [],
+    [isEventValid],
   );
 
   const selectValue = useMemo(
