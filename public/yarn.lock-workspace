@@ -4668,10 +4668,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ioredis/commands@npm:^1.1.1":
-  version: 1.2.0
-  resolution: "@ioredis/commands@npm:1.2.0"
-  checksum: 10c0/a5d3c29dd84d8a28b7c67a441ac1715cbd7337a7b88649c0f17c345d89aa218578d2b360760017c48149ef8a70f44b051af9ac0921a0622c2b479614c4f65b36
+"@ioredis/commands@npm:1.4.0":
+  version: 1.4.0
+  resolution: "@ioredis/commands@npm:1.4.0"
+  checksum: 10c0/99afe21fba794f84a2b84cceabcc370a7622e7b8b97a6589456c07c9fa62a15d54c5546f6f7214fb9a2458b1fa87579d5c531aaf48e06cc9be156d5923892c8d
   languageName: node
   linkType: hard
 
@@ -5673,7 +5673,7 @@ __metadata:
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/verror": "npm:^3.1.0"
-    bullmq: "npm:^5.56.8"
+    bullmq: "npm:^5.65.1"
     ejs: "npm:^3.1.9"
     emoji-regex: "npm:^10.3.0"
     isemail: "npm:^3.2.0"
@@ -11983,18 +11983,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"bullmq@npm:^5.56.8":
-  version: 5.56.8
-  resolution: "bullmq@npm:5.56.8"
+"bullmq@npm:^5.65.1":
+  version: 5.65.1
+  resolution: "bullmq@npm:5.65.1"
   dependencies:
     cron-parser: "npm:^4.9.0"
-    ioredis: "npm:^5.4.1"
+    ioredis: "npm:^5.8.2"
     msgpackr: "npm:^1.11.2"
     node-abort-controller: "npm:^3.1.1"
     semver: "npm:^7.5.4"
     tslib: "npm:^2.0.0"
-    uuid: "npm:^9.0.0"
-  checksum: 10c0/c8a5bf8cf66bdd78d0bb849fb312febf56a805b89e2e18bbdd9ac686d8f337d0398bc5943e6097501df8c73184207426f7a0b698b12025cfacedf4db47ce0143
+    uuid: "npm:^11.1.0"
+  checksum: 10c0/bbe4843b22db4c6be42335c3ac5d906d09b09efc7e8a9e61913d04822ad4ea76ffbf56b1c0c81b898ee75e5d40f452f6cd71246ab283377e14ff76b3803cba32
   languageName: node
   linkType: hard
 
@@ -19497,11 +19497,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^5.4.1":
-  version: 5.6.1
-  resolution: "ioredis@npm:5.6.1"
+"ioredis@npm:^5.8.2":
+  version: 5.8.2
+  resolution: "ioredis@npm:5.8.2"
   dependencies:
-    "@ioredis/commands": "npm:^1.1.1"
+    "@ioredis/commands": "npm:1.4.0"
     cluster-key-slot: "npm:^1.1.0"
     debug: "npm:^4.3.4"
     denque: "npm:^2.1.0"
@@ -19510,7 +19510,7 @@ __metadata:
     redis-errors: "npm:^1.2.0"
     redis-parser: "npm:^3.0.0"
     standard-as-callback: "npm:^2.1.0"
-  checksum: 10c0/26ae49cf448e807e454a9bdea5a9dfdcf669e2fdbf2df341900a0fb693c5662fea7e39db3227ce8972d1bda0ba7da9b7410e5163b12d8878a579548d847220ac
+  checksum: 10c0/305e385f811d49908899e32c2de69616cd059f909afd9e0a53e54f596b1a5835ee3449bfc6a3c49afbc5a2fd27990059e316cc78f449c94024957bd34c826d88
   languageName: node
   linkType: hard
 
@@ -31952,21 +31952,21 @@ __metadata:
   languageName: node
   linkType: hard
 
+"uuid@npm:^11.1.0":
+  version: 11.1.0
+  resolution: "uuid@npm:11.1.0"
+  bin:
+    uuid: dist/esm/bin/uuid
+  checksum: 10c0/34aa51b9874ae398c2b799c88a127701408cd581ee89ec3baa53509dd8728cbb25826f2a038f9465f8b7be446f0fbf11558862965b18d21c993684297628d4d3
+  languageName: node
+  linkType: hard
+
 "uuid@npm:^3.3.2, uuid@npm:^3.4.0":
   version: 3.4.0
   resolution: "uuid@npm:3.4.0"
   bin:
     uuid: ./bin/uuid
   checksum: 10c0/1c13950df865c4f506ebfe0a24023571fa80edf2e62364297a537c80af09c618299797bbf2dbac6b1f8ae5ad182ba474b89db61e0e85839683991f7e08795347
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^9.0.0":
-  version: 9.0.0
-  resolution: "uuid@npm:9.0.0"
-  bin:
-    uuid: dist/bin/uuid
-  checksum: 10c0/8867e438990d1d33ac61093e2e4e3477a2148b844e4fa9e3c2360fa4399292429c4b6ec64537eb1659c97b2d10db349c673ad58b50e2824a11e0d3630de3c056
   languageName: node
   linkType: hard
 
