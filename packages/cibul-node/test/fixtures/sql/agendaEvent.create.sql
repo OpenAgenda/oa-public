@@ -8,7 +8,6 @@ CREATE TABLE IF NOT EXISTS `agenda_event` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `removed` tinyint(1) NOT NULL DEFAULT '0',
-  `legacy_id` varchar(30) DEFAULT NULL,
   `user_uid` bigint(20) DEFAULT NULL,
   `source_agenda_uid` varchar(300),
   `aggregated` varchar(32) default null,

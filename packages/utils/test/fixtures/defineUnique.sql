@@ -7,7 +7,6 @@ CREATE TABLE `ae` (
   `featured` tinyint(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
-  `legacy_id` varchar(30) DEFAULT NULL,
   `user_uid` bigint(20) DEFAULT NULL,
   `can_edit` tinyint(4) DEFAULT '0',
   `source_agenda_uid` varchar(300) DEFAULT NULL,
