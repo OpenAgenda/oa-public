@@ -188,7 +188,9 @@ export default function Edit({ agenda, contextBarRef }) {
           intl={intl}
           externalEditActions={externalEditActions}
         />
-        <MemberMenuItem agenda={agenda} me={me} member={member} intl={intl} />
+        {member ? (
+          <MemberMenuItem agenda={agenda} me={me} member={member} intl={intl} />
+        ) : null}
       </MenuContent>
     </MenuRoot>
   );
