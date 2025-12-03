@@ -62,6 +62,14 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
 
+      - name: Upload NPM Debug Log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: npm-debug-logs
+          path: /home/runner/.npm/_logs/*.log
+          retention-days: 1
+
       - name: Sync to public
         run: |
           git checkout main
