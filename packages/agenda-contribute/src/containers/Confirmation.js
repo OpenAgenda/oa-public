@@ -111,9 +111,12 @@ export default function Confirmation({ history, agenda }) {
                 doRedirect(
                   history,
                   location,
-                  res.showEvent
+                  `${res.showEvent
                     .replace(':agendaUid', agenda.uid)
-                    .replace(':eventUid', createdEvent.uid),
+                    .replace(
+                      ':eventUid',
+                      createdEvent.uid,
+                    )}?mtm_source=contribute_confirmation&mtm_medium=site&mtm_campaign=show_event`,
                 )}
             >
               {m(messages.seeEventAction)}
@@ -124,9 +127,12 @@ export default function Confirmation({ history, agenda }) {
               type="button"
               className="btn btn-default btn-block"
               onClick={() =>
-                doRedirect(history, location, prefix, {
-                  ignoreURLRedirect: true,
-                })}
+                doRedirect(
+                  history,
+                  location,
+                  `${prefix}?mtm_source=contribute_confirmation&mtm_medium=site&mtm_campaign=create_other_event`,
+                  { ignoreURLRedirect: true },
+                )}
             >
               {m(messages.createOtherEvent)}
             </button>
@@ -139,7 +145,7 @@ export default function Confirmation({ history, agenda }) {
                 doRedirect(
                   history,
                   location,
-                  `${prefix}?eventUid=${createdEvent.uid}&agendaUid=${agenda.uid}`,
+                  `${prefix}?eventUid=${createdEvent.uid}&agendaUid=${agenda.uid}&mtm_source=contribute_confirmation&mtm_medium=site&mtm_campaign=duplicate_event`,
                   { ignoreURLRedirect: true },
                 )}
             >
@@ -151,9 +157,12 @@ export default function Confirmation({ history, agenda }) {
               type="button"
               className="btn btn-default btn-block"
               onClick={() =>
-                doRedirect(history, location, res.showMyEvents, {
-                  ignoreURLRedirect: true,
-                })}
+                doRedirect(
+                  history,
+                  location,
+                  `${res.showMyEvents}?mtm_source=contribute_confirmation&mtm_medium=site&mtm_campaign=show_my_events`,
+                  { ignoreURLRedirect: true },
+                )}
             >
               {m(messages.showMyEvents)}
             </button>
@@ -166,9 +175,12 @@ export default function Confirmation({ history, agenda }) {
                 doRedirect(
                   history,
                   location,
-                  res.contactAdministrators
+                  `${res.contactAdministrators
                     .replace(':agendaUid', agenda.uid)
-                    .replace(':eventUid', createdEvent.uid),
+                    .replace(
+                      ':eventUid',
+                      createdEvent.uid,
+                    )}?mtm_source=contribute_confirmation&mtm_medium=site&mtm_campaign=contact_administrators`,
                   { ignoreURLRedirect: true },
                 )}
             >
