@@ -12,6 +12,7 @@ interface SplitHeroSegmentProps {
   fontColor?: any;
   coverImage?: boolean;
   additionalTopPadding?: any;
+  imageMaxWidth?: number;
 }
 
 export default function SplitHeroSegment({
@@ -24,6 +25,7 @@ export default function SplitHeroSegment({
   coverImage,
   fontColor,
   additionalTopPadding,
+  imageMaxWidth,
 }: SplitHeroSegmentProps) {
   return (
     <SegmentContainer
@@ -39,6 +41,7 @@ export default function SplitHeroSegment({
         image={image}
         text={text}
         imagePosition={imagePosition}
+        imageMaxWidth={imageMaxWidth}
         CTAs={CTAs}
       />
     </SegmentContainer>
