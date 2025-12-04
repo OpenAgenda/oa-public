@@ -148,7 +148,7 @@ if (runUpdateNext || runAll) {
 
 if (runUpdateTask || runAll) {
   runs.push(async () => {
-    await buildAndUploadEcosystemFile(taskNodes.all(), 'task', {
+    await buildAndUploadEcosystemFile(taskNodes.all(), ['task:critical', 'task:search', 'task:aggregation', 'task:maintenance', 'task:notifications'], {
       SSHKeyPath,
       envVars,
       nodeArgs: '--max-old-space-size=4096',

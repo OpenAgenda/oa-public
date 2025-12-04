@@ -1,12 +1,12 @@
 module.exports = {
-  apps : [{
-    name: 'server',
+  apps : [${appArgList}].map((args) => ({
+    name: args,
     script: 'server.js',
-    args: '${args}',
+    args,
     cwd: '/root/oa/packages/cibul-node',
     node_args: '${node_args}',
     instances: ${instances},
     exec_mode: 'cluster',
     env: ${env},
-  }]
+  }))
 };

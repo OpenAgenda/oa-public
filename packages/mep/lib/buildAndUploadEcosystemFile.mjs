@@ -1,23 +1,12 @@
 import sftp from './sftp.mjs';
-import copyAndEditFile from './copyAndEditFile.mjs';
+import buildEcosystemFile from './buildEcosystemFile.mjs';
 
 export default async function buildAndUploadEcosystemFile(nodes, args, options = {}) {
   const {
     SSHKeyPath,
-    envVars,
-    dir,
-    instances,
-    nodeArgs = '',
   } = options;
 
-  const configFilePath = `${dir}/${args.replace(/\s/g, '-')}.config.js`;
-
-  await copyAndEditFile('ecosystem.config.js', configFilePath, {
-    env: JSON.stringify(envVars, null, 2),
-    args,
-    node_args: nodeArgs,
-    instances,
-  });
+  const configFilePath = await buildEcosystemFile(args, options);
 
   await sftp(
     nodes,
