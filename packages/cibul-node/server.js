@@ -29,7 +29,9 @@ import redirectRootLangPaths from './lib/redirectRootLangPaths.js';
 import handleGracefulShutdown from './lib/handleGracefulShutdown.js';
 
 const ADMIN = process.argv.includes('admin');
-const TASK = process.argv.includes('task');
+const TASKS = process.argv
+  .filter((a) => a.includes('task'))
+  .map((t) => t.split(':').pop());
 const WEB = process.argv.includes('web');
 const API = process.argv.includes('api');
 
@@ -96,9 +98,6 @@ try {
     app.use('/api', setAPIType('UI'));
     app.use('/api', api);
     web(app, config);
-  }
-
-  if (TASK || WEB) {
     app.use((req, res, next) => {
       if (res.data === undefined) {
         return next();
@@ -143,8 +142,8 @@ try {
     apiServer.keepAliveTimeout = 56000;
   }
 
-  if (TASK) {
-    task(config, core, services);
+  if (TASKS.length) {
+    task(config, core, services, TASKS);
   }
 
   handleGracefulShutdown(
