@@ -14,6 +14,7 @@ interface SplitHeroProps {
   fontColor?: any;
   CTAs?: any[];
   TitleComponent?: React.ComponentType<any>;
+  imageMaxWidth?: number;
 }
 
 export default function SplitHero({
@@ -22,6 +23,7 @@ export default function SplitHero({
   text,
   imagePosition = 'left',
   coverImage = false,
+  imageMaxWidth = 33,
   background,
   CTAs,
   TitleComponent = H2,
@@ -103,7 +105,10 @@ export default function SplitHero({
           src={`${image.url}`}
           alt={image.alternativeText}
           borderRadius="lg"
-          maxW={{ base: 'full', md: '33%' }}
+          maxW={{
+            base: 'full',
+            md: `${imageMaxWidth}%`,
+          }}
           height="auto"
         />
       ) : null}

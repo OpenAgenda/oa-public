@@ -57,6 +57,7 @@ interface PageHeadProps {
   };
   additionalTopPadding?: any;
   coloredTitle?: TextPart[];
+  fullHeight?: boolean;
 }
 
 const gap = {
@@ -238,13 +239,18 @@ const Content = ({
 };
 
 export default function PageHead(props: PageHeadProps) {
-  const { fontColor, background, additionalTopPadding } = props;
+  const {
+    fontColor,
+    background,
+    additionalTopPadding,
+    fullHeight = true,
+  } = props;
   return (
     <SegmentContainer
       fullWidth
       fontColor={fontColor}
       background={background}
-      fullHeight
+      fullHeight={fullHeight}
       additionalTopPadding={additionalTopPadding}
     >
       <Content {...props} />
