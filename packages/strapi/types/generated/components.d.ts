@@ -190,6 +190,15 @@ export interface ComponentsSplitHero extends Struct.ComponentSchema {
     CTAs: Schema.Attribute.Component<'components.cta-button', true>;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     image: Schema.Attribute.Media<'images' | 'files' | 'videos' | 'audios'>;
+    imageMaxWidth: Schema.Attribute.Integer &
+      Schema.Attribute.SetMinMax<
+        {
+          max: 100;
+          min: 0;
+        },
+        number
+      > &
+      Schema.Attribute.DefaultTo<33>;
     imagePosition: Schema.Attribute.Enumeration<['left', 'right']> &
       Schema.Attribute.DefaultTo<'left'>;
     text: Schema.Attribute.RichText & Schema.Attribute.Required;
@@ -274,6 +283,7 @@ export interface SegmentsPageHead extends Struct.ComponentSchema {
     description: Schema.Attribute.RichText;
     fontColor: Schema.Attribute.Relation<'oneToOne', 'api::color.color'>;
     fontSize: Schema.Attribute.Relation<'oneToOne', 'api::size.size'>;
+    fullHeight: Schema.Attribute.Boolean & Schema.Attribute.DefaultTo<true>;
     image: Schema.Attribute.Media<'images'>;
     title: Schema.Attribute.String;
     video: Schema.Attribute.Enumeration<['presentation']>;

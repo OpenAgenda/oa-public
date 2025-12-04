@@ -21,13 +21,13 @@
     },
     "imagePosition": {
       "type": "enumeration",
-      "enum": ["left", "right"],
-      "default": "left"
+      "default": "left",
+      "enum": ["left", "right"]
     },
     "CTAs": {
       "type": "component",
-      "repeatable": true,
-      "component": "components.cta-button"
+      "component": "components.cta-button",
+      "repeatable": true
     },
     "background": {
       "type": "relation",
@@ -42,6 +42,22 @@
     "coverImage": {
       "type": "boolean",
       "default": false
+    },
+    "imageMaxWidth": {
+      "type": "integer",
+      "conditions": {
+        "visible": {
+          "!=": [
+            {
+              "var": "coverImage"
+            },
+            true
+          ]
+        }
+      },
+      "default": 33,
+      "min": 0,
+      "max": 100
     }
   }
 }

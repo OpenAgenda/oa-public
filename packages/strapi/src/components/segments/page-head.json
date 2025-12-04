@@ -21,8 +21,8 @@
     },
     "CTAs": {
       "type": "component",
-      "repeatable": true,
-      "component": "components.cta-button"
+      "component": "components.cta-button",
+      "repeatable": true
     },
     "description": {
       "type": "richtext"
@@ -45,8 +45,12 @@
     },
     "coloredTitle": {
       "type": "component",
-      "repeatable": true,
-      "component": "components.colored-text"
+      "component": "components.colored-text",
+      "repeatable": true
+    },
+    "fullHeight": {
+      "type": "boolean",
+      "default": true
     }
   }
 }
