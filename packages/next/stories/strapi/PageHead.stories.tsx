@@ -178,3 +178,35 @@ export const WithColoredText = () => (
     ]}
   />
 );
+
+export const NotFullHeight = () => (
+  <PageHead
+    title="Publiez un agenda, rassemblez et diffusez toutes vos annonces d'événements"
+    description="OpenAgenda simplifie la gestion d'agendas pour les organisateurs, les collectivités et les développeurs. Publiez en quelques minutes et diffusez sur de multiples supports."
+    video="presentation"
+    coloredTitle={[
+      {
+        id: 5,
+        text: "Publiez un agenda, rassemblez et diffusez toutes vos annonces d'événements",
+        color: null,
+      },
+    ]}
+    fullHeight={false}
+    background={{
+      id: 26,
+      name: 'white',
+      css: null,
+      createdAt: '2025-09-05T09:00:21.942Z',
+      updatedAt: '2025-09-05T09:00:21.942Z',
+      publishedAt: '2025-09-05T09:00:21.950Z',
+    }}
+    CTAs={[
+      {
+        label: 'Créer un agenda',
+        link: 'https://openagenda.com/agendas/new',
+        variant: 'solid',
+        color: null,
+      },
+    ]}
+  />
+);

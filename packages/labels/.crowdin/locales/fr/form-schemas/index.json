@@ -7,5 +7,5 @@
   "noOption": "Pas de correspondance",
   "selectPlaceholder": "Sélectionner...",
   "cancel": "Annuler",
-  "warnAllCaps": "Évitez les saisies uniquement en lettres majuscules"
+  "warnAllCaps": "Évitez les saisies exclusivement en lettres majuscules"
 }
