@@ -197,7 +197,12 @@ const messages = defineMessages({
   imageRights: {
     id: 'AgendaLocations.LocationForm.imageRights',
     defaultMessage:
-      'I accept that the image can be freely used, on the condition of attributing it to the author by quoting his name, and shared under the same conditions.',
+      'I declare having the rights to broadcast this visual and consent to its distribution by third parties on any medium, in accordance with the <cguLink>CGU</cguLink>',
+  },
+  imageRightsCguUrl: {
+    id: 'AgendaLocations.LocationForm.imageRightsCguUrl',
+    defaultMessage:
+      'https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/?bust=1753360775422',
   },
   siret: {
     id: 'AgendaLocations.LocationForm.siret',
@@ -453,7 +458,20 @@ const LocationForm = ({
               checked={!!location.imageRightsAreHeld}
             />
             <span className="margin-right-xs">
-              {intl.formatMessage(messages.imageRights)}
+              <FormattedMessage
+                {...messages.imageRights}
+                values={{
+                  cguLink: (chunks) => (
+                    <a
+                      href={intl.formatMessage(messages.imageRightsCguUrl)}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {chunks}
+                    </a>
+                  ),
+                }}
+              />
             </span>
             <span className="margin-right-xs">
               {intl.formatMessage(messages.requiredField)}
