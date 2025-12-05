@@ -155,12 +155,12 @@ function Dashboard() {
           </a>
         </div>
       ) : null}
-      {maxFields === 1 ? (
+      {!agenda?.credentials?.premiumCustomFields ? (
         <div>
           <p>{intl.formatMessage(messages.canAddField)}</p>
         </div>
       ) : null}
-      {maxFields === 1 && maxFields >= currentFieldCount ? (
+      {!agenda?.credentials?.premiumCustomFields && currentFieldCount >= 1 ? (
         <div>
           <a
             href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}
@@ -268,7 +268,7 @@ function Dashboard() {
             },
           }}
         />
-        {maxFields === 1 && maxFields >= currentFieldCount ? (
+        {!agenda?.credentials?.premiumCustomFields && currentFieldCount >= 1 ? (
           <div>
             <a
               href={`/support?origin=${encodeURIComponent(window.location.pathname)}&subject=agendaSchema`}
