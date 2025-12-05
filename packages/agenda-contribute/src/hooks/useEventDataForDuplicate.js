@@ -12,7 +12,10 @@ const { removeUnduplicatable } = utils;
 
 const log = debug('useEventDataForDuplicate');
 
-export default function useEventDataForDuplicate(destinationAgenda) {
+export default function useEventDataForDuplicate(
+  destinationAgenda,
+  memberRole,
+) {
   const location = useLocation();
 
   const { eventUid, agendaUid } = qs.parse(location.search, {
@@ -76,6 +79,7 @@ export default function useEventDataForDuplicate(destinationAgenda) {
             destinationAgenda,
             referenceAgenda,
             referenceData,
+            memberRole,
           )
           : null,
       duplicateOrigin: {

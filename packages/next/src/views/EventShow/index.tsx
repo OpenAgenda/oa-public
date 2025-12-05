@@ -385,19 +385,29 @@ function EventShow({ preload }: EventShowProps) {
               </Flex>
               {/* additional fields */}
               {hasAdditionalFields ? (
-                <Flex
-                  direction="column"
-                  gap="4"
-                  position="relative"
-                  p={{ base: 4, md: 8 }}
-                  bg="white"
-                  borderRadius="sm"
-                >
-                  <AdditionalFields
-                    agenda={agenda}
-                    additionalFields={additionalFields}
-                  />
-                </Flex>
+                <div>
+                  <Heading
+                    as="h2"
+                    fontSize="2xl"
+                    mb="4"
+                    mx={{ base: 2, md: 0 }}
+                  >
+                    {intl.formatMessage(messages.additionalFieldsSectionTitle)}
+                  </Heading>
+                  <Flex
+                    direction="column"
+                    gap="4"
+                    position="relative"
+                    p={{ base: 4, md: 8 }}
+                    bg="white"
+                    borderRadius="sm"
+                  >
+                    <AdditionalFields
+                      agenda={agenda}
+                      additionalFields={additionalFields}
+                    />
+                  </Flex>
+                </div>
               ) : null}
 
               {event.location ? (

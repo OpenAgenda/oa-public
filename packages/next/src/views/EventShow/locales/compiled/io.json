@@ -383,6 +383,12 @@
       "value": "Contact sheet not informed"
     }
   ],
+  "next.views.EventShow.ContributorSection.meEdit": [
+    {
+      "type": 0,
+      "value": "Edit my information"
+    }
+  ],
   "next.views.EventShow.ContributorSection.privateInformation": [
     {
       "type": 0,
@@ -737,6 +743,12 @@
     {
       "type": 0,
       "value": "crwdns34010:0crwdne34010:0"
+    }
+  ],
+  "next.views.EventShow.additionalFieldsSectionTitle": [
+    {
+      "type": 0,
+      "value": "Additionnal information"
     }
   ],
   "next.views.EventShow.backToList": [

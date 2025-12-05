@@ -5,6 +5,10 @@ export default defineMessages({
     id: 'next.views.EventShow.aboutLocation',
     defaultMessage: 'About the location',
   },
+  additionalFieldsSectionTitle: {
+    id: 'next.views.EventShow.additionalFieldsSectionTitle',
+    defaultMessage: 'Additionnal information',
+  },
   tags: {
     id: 'next.views.EventShow.tags',
     defaultMessage: 'Tags',
@@ -431,7 +435,11 @@ export const contributorSection = defineMessages({
   },
   edit: {
     id: 'next.views.EventShow.ContributorSection.edit',
-    defaultMessage: 'Edit',
+    defaultMessage: "Edit the contributor's information",
+  },
+  meEdit: {
+    id: 'next.views.EventShow.ContributorSection.meEdit',
+    defaultMessage: 'Edit my information',
   },
   emptyMember: {
     id: 'next.views.EventShow.ContributorSection.emptyMember',

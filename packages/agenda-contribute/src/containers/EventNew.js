@@ -35,7 +35,7 @@ export default function EventNew({ agenda, history }) {
     isReferenceLoading,
     referenceData,
     duplicateOrigin,
-  } = useEventDataForDuplicate(agenda);
+  } = useEventDataForDuplicate(agenda, agendaContext?.me?.member?.role);
 
   if (isLoading || isReferenceLoading) {
     return <Loading />;

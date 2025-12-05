@@ -9,6 +9,11 @@
       "label": "Custom text field"
     },
     {
+      "field": "customtextField2",
+      "fieldType": "email",
+      "label": "Custom text field2"
+    },
+    {
       "field": "entreelibre",
       "label": {
         "fr": "Entrée libre",

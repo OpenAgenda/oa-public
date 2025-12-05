@@ -53,9 +53,12 @@ export const Contributor = {
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
           () =>
             HttpResponse.json({
+              member: {
+                userUid: eventFixtures.ownerUid,
+              },
               me: {
                 member: {
-                  uid: eventFixtures.ownerUid,
+                  userUid: eventFixtures.ownerUid,
                   role: 'contributor',
                 },
                 authorizations: {
@@ -90,9 +93,12 @@ export const ContributorRejectedEvent = {
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
           () =>
             HttpResponse.json({
+              member: {
+                userUid: eventFixtures.ownerUid,
+              },
               me: {
                 member: {
-                  uid: eventFixtures.ownerUid,
+                  userUid: eventFixtures.ownerUid,
                   role: 'contributor',
                 },
                 authorizations: {
@@ -151,6 +157,9 @@ export const ModeratorInvalid = {
           `/api/me/agendas/${agendaFixtures.uid}/events/${eventFixtures.uid}`,
           () =>
             HttpResponse.json({
+              member: {
+                userUid: 31046551,
+              },
               me: {
                 member: {
                   role: 'moderator',
@@ -200,7 +209,7 @@ export const Administrator = {
 
 export const InvalidEventOnStateOrFeaturedChange = {
   render: () => (
-    <Fixtures event={eventFixtures}>
+    <Fixtures event={{ ...eventFixtures, valid: false }}>
       <ContextBar />
     </Fixtures>
   ),

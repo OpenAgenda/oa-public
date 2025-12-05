@@ -1,4 +1,4 @@
-import { Container } from '@openagenda/uikit';
+import { Container, Separator } from '@openagenda/uikit';
 import SplitHero from 'components/strapi/SplitHero';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 
@@ -23,6 +23,7 @@ export function Overview() {
 * *Diffusez en un clic* votre programmation auprès des agendas de territoire ou d'autres réseaux
 * *Exportez votre agenda* vers tous vos autres supports de communication : réseaux sociaux, affichage papier, etc.`}
       />
+      <Separator m={12} />
       <SplitHero
         title="Fini les fastidieux copier-coller !"
         imagePosition="right"
@@ -62,6 +63,21 @@ export function Overview() {
             },
           },
         ]}
+      />
+      <Separator m={12} />
+      <SplitHero
+        title="Fini les fastidieux copier-coller !"
+        image={{
+          url: '/guyWritingOnACalendar.50.resized.png',
+          alternativeText: 'Guy writing something on a calendar',
+        }}
+        imageMaxWidth={45}
+        text={`###
+* Préparez votre programmation *en équipe*
+* Connectez votre agenda avec d'autres *outils métiers* (SIT, SIGB, billetteries …) grâce à notre API
+* *Affichez votre agenda* sur votre site web grâce à notre Iframe ou les extensions que nous avons développés pour les principaux CMS
+* *Diffusez en un clic* votre programmation auprès des agendas de territoire ou d'autres réseaux
+* *Exportez votre agenda* vers tous vos autres supports de communication : réseaux sociaux, affichage papier, etc.`}
       />
     </Container>
   );

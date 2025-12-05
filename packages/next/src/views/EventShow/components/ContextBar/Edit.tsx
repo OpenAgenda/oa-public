@@ -23,64 +23,9 @@ import completeExternalActions from 'utils/completeExternalActions';
 import { contextBar as messages } from '../../messages';
 import useEvent from '../../hooks/useEvent';
 import useMember from '../../hooks/useMember';
-import canModifyLocation from '../../utils/canModifyLocation';
 import ContextBarButton from './ContextBarButton';
-
-function LinkMenuItem({ value, href, children }) {
-  return (
-    <MenuItem value={value} asChild fontWeight="bold" height="50px">
-      <Link unstyled href={href}>
-        {children}
-      </Link>
-    </MenuItem>
-  );
-}
-
-function LocationMenuItem({
-  agenda,
-  event,
-  member,
-  intl,
-  externalEditActions,
-}) {
-  if (!event.location) {
-    return null;
-  }
-
-  if (externalEditActions && externalEditActions.length > 0) {
-    return (
-      <MenuItem value="edit-location" asChild fontWeight="bold" height="50px">
-        <Link
-          unstyled
-          href={externalEditActions[0].link}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          {intl.formatMessage(messages.suggestLocationChange)}
-        </Link>
-      </MenuItem>
-    );
-  }
-
-  if (canModifyLocation(member, event, agenda)) {
-    return (
-      <LinkMenuItem
-        value="edit-location"
-        href={`/${agenda.slug}/admin/locations/${event.location.uid}/edit`}
-      >
-        {intl.formatMessage(messages.editLocation)}
-      </LinkMenuItem>
-    );
-  }
-  return (
-    <LinkMenuItem
-      value="edit-location"
-      href={`/${agenda.slug}/locations/${event.location.agendaUid}.${event.location.uid}/suggest-change`}
-    >
-      {intl.formatMessage(messages.suggestLocationChange)}
-    </LinkMenuItem>
-  );
-}
+import LocationMenuItem from './LocationMenuItem';
+import MemberMenuItem from './MemberMenuItem';
 
 export default function Edit({ agenda, contextBarRef }) {
   const intl = useIntl();
@@ -90,7 +35,7 @@ export default function Edit({ agenda, contextBarRef }) {
   const router = useRouter();
 
   const { event } = useEvent();
-  const { me } = useMember();
+  const { me, member } = useMember();
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -236,12 +181,16 @@ export default function Edit({ agenda, contextBarRef }) {
           </Link>
         </MenuItem>
         <LocationMenuItem
+          messages={messages}
           agenda={agenda}
           event={event}
-          member={me.member}
+          me={me}
           intl={intl}
           externalEditActions={externalEditActions}
         />
+        {member ? (
+          <MemberMenuItem agenda={agenda} me={me} member={member} intl={intl} />
+        ) : null}
       </MenuContent>
     </MenuRoot>
   );

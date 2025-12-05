@@ -283,10 +283,10 @@ function shouldDisplayEventFields({
   return !!requestedDisplayEventFields;
 }
 
-function removeUnduplicatable(destinationAgenda, agenda, data) {
+function removeUnduplicatable(destinationAgenda, agenda, data, memberRole) {
   log('filtering unduplicatable event data');
 
-  if (!agenda) {
+  if (!agenda || !memberRole) {
     return null;
   }
 
@@ -297,9 +297,18 @@ function removeUnduplicatable(destinationAgenda, agenda, data) {
     'fileKey',
     'state',
     'timings',
+    'extIds',
   ].concat(
     agenda.schema.fields
-      .filter((f) => !(f.duplicatable ?? true))
+      .filter((f) => {
+        if (f.display === false) {
+          return true;
+        }
+        if (Array.isArray(f.display) && !f.display.includes(memberRole)) {
+          return true;
+        }
+        return false;
+      })
       .map((f) => f.field),
   );
 
