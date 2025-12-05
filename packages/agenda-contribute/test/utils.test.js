@@ -76,6 +76,7 @@ describe('utils', () => {
           title: 'Event title',
           timings: [{ begin: 'begin', en: 'end' }],
         },
+        'contributor',
       );
 
       expect(duplicatableData.timings).toBeUndefined();
@@ -105,6 +106,7 @@ describe('utils', () => {
             },
           ],
         },
+        'contributor',
       );
 
       expect(duplicatableData.registration).toEqual([
@@ -113,6 +115,96 @@ describe('utils', () => {
           value: 'https://openagenda.com',
         },
       ]);
+    });
+
+    test('fields with display: false are removed', () => {
+      const duplicatableData = removeUnduplicatable(
+        {
+          title: 'Destination agenda',
+          uid: 'dest-uid',
+        },
+        {
+          title: 'Source Agenda',
+          uid: 'source-uid',
+          schema: {
+            fields: [
+              {
+                field: 'customField',
+                display: false,
+              },
+            ],
+          },
+        },
+        {
+          title: 'Event title',
+          customField: 'custom value',
+          description: 'Event description',
+        },
+        'contributor',
+      );
+
+      expect(duplicatableData.customField).toBeUndefined();
+      expect(duplicatableData.description).toBe('Event description');
+    });
+
+    test('fields with display array that excludes memberRole are removed', () => {
+      const duplicatableData = removeUnduplicatable(
+        {
+          title: 'Destination agenda',
+          uid: 'dest-uid',
+        },
+        {
+          title: 'Source Agenda',
+          uid: 'source-uid',
+          schema: {
+            fields: [
+              {
+                field: 'restrictedField',
+                display: ['admin', 'editor'],
+              },
+            ],
+          },
+        },
+        {
+          title: 'Event title',
+          restrictedField: 'restricted value',
+          description: 'Event description',
+        },
+        'contributor',
+      );
+
+      expect(duplicatableData.restrictedField).toBeUndefined();
+      expect(duplicatableData.description).toBe('Event description');
+    });
+
+    test('fields with display array that includes memberRole are kept', () => {
+      const duplicatableData = removeUnduplicatable(
+        {
+          title: 'Destination agenda',
+          uid: 'dest-uid',
+        },
+        {
+          title: 'Source Agenda',
+          uid: 'source-uid',
+          schema: {
+            fields: [
+              {
+                field: 'allowedField',
+                display: ['admin', 'contributor', 'editor'],
+              },
+            ],
+          },
+        },
+        {
+          title: 'Event title',
+          allowedField: 'allowed value',
+          description: 'Event description',
+        },
+        'contributor',
+      );
+
+      expect(duplicatableData.allowedField).toBe('allowed value');
+      expect(duplicatableData.description).toBe('Event description');
     });
   });
 });
