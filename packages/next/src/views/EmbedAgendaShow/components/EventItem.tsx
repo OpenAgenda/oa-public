@@ -35,14 +35,23 @@ function isValidUrl(url: string) {
   }
 }
 
-function useEventLink({ baseUrl, baseUrlTarget, agenda, event, nc, referrer }) {
+function useEventLink({
+  baseUrl,
+  baseUrlTarget,
+  agenda,
+  event,
+  nc,
+  referrer,
+  locale,
+  contentLocale,
+}) {
   return useMemo(() => {
     if (baseUrl === 'oa') {
       const target = baseUrlTarget || '_blank';
       return {
         target,
         rel: target === '_blank' ? 'nofollow noopener' : '',
-        url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}${qs.stringify({ nc }, { addQueryPrefix: true })}`,
+        url: `${process.env.NEXT_PUBLIC_ROOT}/${locale}/${agenda.slug}/events/${event.slug}${qs.stringify({ nc, cl: contentLocale }, { addQueryPrefix: true })}`,
       };
     }
 
@@ -104,6 +113,8 @@ export default function EventItem({
     event,
     nc,
     referrer,
+    locale: intl.locale,
+    contentLocale: prefilter.cl,
   });
 
   const imageHeight = imageList ? imageList.height : '170px';

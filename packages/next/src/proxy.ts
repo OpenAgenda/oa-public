@@ -4,6 +4,7 @@ import { isOutdatedBrowser } from '@openagenda/outdated-browser/middleware';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import getSession from 'utils/getSession';
 import parseAcceptLanguage from 'utils/parseAcceptLanguage';
+import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'config/constants';
 
 const MATCHER_REGEX =
   /^\/(api|_next\/static|_next\/image|favicon\.ico)($|\/).*$/;
@@ -60,7 +61,7 @@ export async function proxy(req: NextRequest) {
   const nextLocale = req.nextUrl.locale;
   const qsLocale = req.nextUrl.searchParams.get('lang');
 
-  // const defaultLocale = userLocale || DEFAULT_LOCALE;
+  const defaultLocale = userLocale || DEFAULT_LOCALE;
 
   const locale = getPreferredLocale(
     qsLocale,
@@ -70,6 +71,19 @@ export async function proxy(req: NextRequest) {
   );
 
   if (nextLocale === 'default') {
+    // content language is different from user language
+    if (locale !== defaultLocale) {
+      // ?lang become ?cl
+      if (qsLocale !== locale && !req.nextUrl.searchParams.has('cl')) {
+        req.nextUrl.searchParams.set('cl', qsLocale);
+      }
+    }
+
+    // is also an interface language
+    if (SUPPORTED_LOCALES.includes(locale)) {
+      req.nextUrl.searchParams.delete('lang');
+    }
+
     const redirectUrl = new URL(
       `/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`,
       req.url,
@@ -85,16 +99,6 @@ export async function proxy(req: NextRequest) {
       headers: responseHeaders,
     });
   }
-
-  // if (nextLocale === 'default' && locale !== defaultLocale && SUPPORTED_LOCALES.includes(locale)) {
-  //   if (qsLocale === locale) {
-  //     req.nextUrl.searchParams.delete('lang');
-  //   }
-  //
-  //   return NextResponse.redirect(
-  //     new URL(`/${locale}${req.nextUrl.pathname}${req.nextUrl.search}`, req.url),
-  //   );
-  // }
 
   /* outdated browser */
   const isOutdated = isOutdatedBrowser(req.headers.get('user-agent'), {
