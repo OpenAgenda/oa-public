@@ -47,6 +47,10 @@ const ruleMessages = defineMessages({
     id: 'Abilities.RulesCheckbox.rules.receiveEvent',
     defaultMessage: 'Receive events sent by other users',
   },
+  receiveBehavioralEmails: {
+    id: 'Abilities.RulesCheckbox.rules.receiveBehavioralEmails',
+    defaultMessage: 'Receive behavioral emails',
+  },
   receiveMyEventChangeState: {
     id: 'Abilities.RulesCheckbox.rules.receiveMyEventChangeState',
     defaultMessage:

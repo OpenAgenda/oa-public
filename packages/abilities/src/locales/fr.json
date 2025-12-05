@@ -12,6 +12,7 @@
   "Abilities.RulesCheckbox.AbilitiesForm.newsletterTitle": "Recevoir l'infolettre",
   "Abilities.RulesCheckbox.AbilitiesForm.search": "Rechercher",
   "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": "Recevoir les messages de la messagerie agenda",
+  "Abilities.RulesCheckbox.rules.receiveBehavioralEmails": "Recevoir les emails comportementaux",
   "Abilities.RulesCheckbox.rules.receiveEvent": "Recevoir les événements envoyés par d'autres utilisateurs",
   "Abilities.RulesCheckbox.rules.receiveEventAddition": "Recevoir les ajouts d'événements",
   "Abilities.RulesCheckbox.rules.receiveEventAggregation": "Recevoir les agrégations d'événements",
