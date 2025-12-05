@@ -10,6 +10,7 @@ export default function onActivation() {
       activities,
       users,
       inboxes: { Inbox },
+      behavioralEmails,
     } = context.services;
     const user = context.result;
 
@@ -35,6 +36,12 @@ export default function onActivation() {
         log('error', err);
       }
     }
+
+    behavioralEmails.addJob(
+      'inactiveUser',
+      { userUid: user.uid },
+      { delay: 7 * 24 * 60 * 60 * 1000 },
+    );
 
     const { invitation } = context.params.optionals || {};
 

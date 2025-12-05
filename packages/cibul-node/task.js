@@ -75,6 +75,8 @@ export default (config, core, services) => {
 
   services.mails.task();
 
+  services.behavioralEmails.task();
+
   if (services.registrations) {
     services.registrations.task();
   }

@@ -110,6 +110,7 @@ export async function init(config, services) {
         user({ can, cannot, rules }) {
           can('receive', 'invitation');
           can('receive', 'notificationsSummary');
+          can('receive', 'behavioralEmails');
           can('receive', 'memberMessage');
           can('receive', 'userInboxMessage');
           can('receive', 'agendaInboxMessage');
