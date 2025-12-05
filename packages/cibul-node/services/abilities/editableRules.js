@@ -101,6 +101,11 @@ export default {
     },
     {
       actions: 'receive',
+      subject: 'behavioralEmails',
+      tag: 'user',
+    },
+    {
+      actions: 'receive',
       subject: 'memberMessage',
       tag: 'contributor',
     },

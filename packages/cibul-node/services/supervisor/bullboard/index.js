@@ -92,6 +92,12 @@ export function plugApp(app, base = '/bullboard') {
       new BullMQAdapter(new Queue('agendaDocx', { prefix: '{agendaDocx}' }), {
         displayName: 'Docx agendas',
       }),
+      new BullMQAdapter(
+        new Queue('behavioralEmails', { prefix: '{behavioralEmails}' }),
+        {
+          displayName: 'Emails comportementaux',
+        },
+      ),
     ],
     serverAdapter,
   });

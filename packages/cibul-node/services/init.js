@@ -131,6 +131,7 @@ export default async function initServices(config = null, options = {}) {
   await init('unsubscriptions', () => import('./unsubscriptions.js'));
   await init('security', () => import('./security.js'));
   await init('mails', () => import('./mails/index.js'));
+  await init('behavioralEmails', () => import('./behavioralEmails/index.js'));
   await init('sessions', () => import('./sessions/index.js'));
   await init('networkApps', () => import('./networkApps.js'));
   await init('networks', () => import('./networks.js'));

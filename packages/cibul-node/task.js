@@ -9,6 +9,8 @@ export default (config, core, services, tasksList) => {
 
     services.mails.task();
 
+    services.behavioralEmails.task();
+
     services.users.tasks.processQueue();
 
     if (services.registrations) {
