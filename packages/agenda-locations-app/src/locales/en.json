@@ -143,6 +143,7 @@
   "AgendaLocations.LocationForm.tooshort": "String is too short",
   "AgendaLocations.LocationForm.updateSubmit": "Update",
   "AgendaLocations.LocationForm.updateSubmitError": "The location could not be updated",
+  "AgendaLocations.LocationForm.warnAllCaps": "Avoid typing a text using only capital letters",
   "AgendaLocations.LocationForm.website": "Website",
   "AgendaLocations.LocationItem.detailsButton": "Details",
   "AgendaLocations.LocationItem.extIdActionInfo": "This location is linked to data from a database external to OpenAgenda. The associated actions open a tab on your browser allowing the consultation/editing of the data directly on this database.",

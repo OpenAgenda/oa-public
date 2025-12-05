@@ -143,6 +143,7 @@
   "AgendaLocations.LocationForm.tooshort": "Trop court",
   "AgendaLocations.LocationForm.updateSubmit": "Mettre à jour",
   "AgendaLocations.LocationForm.updateSubmitError": "Le lieu n'a pas pu être mis à jour",
+  "AgendaLocations.LocationForm.warnAllCaps": "Évitez les saisies exclusivement en lettres majuscules",
   "AgendaLocations.LocationForm.website": "Site web",
   "AgendaLocations.LocationItem.detailsButton": "Détail",
   "AgendaLocations.LocationItem.extIdActionInfo": "Ce lieu est lié à une donnée d'une base externe à OpenAgenda.Les actions associées ouvrent un onglet sur votre navigateur permettant la consultation/ édition de la donnée directement sur cette base.",

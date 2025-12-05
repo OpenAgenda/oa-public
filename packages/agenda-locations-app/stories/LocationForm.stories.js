@@ -68,6 +68,22 @@ export const FormWithSIRETInput = () => (
   />
 );
 
+export const FormWithAllCapsWarning = () => (
+  <LocationForm
+    locationProp={produce(location, (draft) => {
+      draft.name = 'MOULIN ROUGE';
+    })}
+    settings={produce(agendaSettings, (draft) => {
+      draft.nameWarnAllCaps = true;
+    })}
+    mode="update"
+    res={res}
+    onSubmit={(data) => {
+      console.log(data);
+    }}
+  />
+);
+
 export const BasicGeoFieldsAndMap = () => {
   const [locationGeo, setLocation] = useState(null);
   return (

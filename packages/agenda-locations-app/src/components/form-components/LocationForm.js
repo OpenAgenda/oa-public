@@ -212,6 +212,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.invalidSIRET',
     defaultMessage: 'SIRET must be composed of 14 digits',
   },
+  warnAllCaps: {
+    id: 'AgendaLocations.LocationForm.warnAllCaps',
+    defaultMessage: 'Avoid typing a text using only capital letters',
+  },
 });
 
 const LocationForm = ({
@@ -609,6 +613,8 @@ const LocationForm = ({
         groupClassName={
           errors && errors.find((e) => e.field === 'name') ? 'has-error' : ''
         }
+        warnAllCaps={settings?.nameWarnAllCaps}
+        warnAllCapsMessage={getLabel('warnAllCaps')}
       />
 
       <GeoFieldsAndMap
