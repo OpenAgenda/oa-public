@@ -16,7 +16,7 @@ export default ({
   const form = useForm();
 
   const [textFieldMode, setTextFieldMode] = useState(
-    action?.values?.$copy ? 'copy' : 'set',
+    action?.copyValues ? 'copy' : 'set',
   );
 
   return (
@@ -24,12 +24,12 @@ export default ({
       <div className="form-inline margin-bottom-xs">
         <label
           className="radio-inline"
-          htmlFor="text-radio-set"
+          htmlFor={`${name}-text-radio-set`}
           title={intl.formatMessage(messages.setTextTitle)}
         >
           <input
             type="radio"
-            id="text-radio-set"
+            id={`${name}-text-radio-set`}
             onClick={() => setTextFieldMode('set')}
             checked={textFieldMode === 'set'}
           />
@@ -37,12 +37,12 @@ export default ({
         </label>
         <label
           className="radio-inline"
-          htmlFor="text-radio-copy"
+          htmlFor={`${name}-text-radio-copy`}
           title={intl.formatMessage(messages.copyTextTitle)}
         >
           <input
             type="radio"
-            id="text-radio-copy"
+            id={`${name}-text-radio-copy`}
             onClick={() => setTextFieldMode('copy')}
             checked={textFieldMode === 'copy'}
           />
