@@ -10,6 +10,7 @@ import getAgenda from '../utils/getAgenda.js';
 import formatError from '../utils/formatError.js';
 import loadAuthorizations, {
   filterUnauthorized,
+  getAccessFromMember,
 } from '../../utils/authorizations.js';
 import assignState from '../utils/assignState.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
@@ -297,17 +298,22 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     response = await payload.getResponse('event', {
-      access,
+      access: getAccessFromMember(core.services, actingMember, access),
       load: { valid: true },
     });
+
+    const fullEvent = {
+      before: await payload.getCompiledEvent('before'), // full access for internal use
+      after: await payload.getCompiledEvent(), // full access for internal use
+    };
 
     try {
       await eventSearch.update({
         ...response,
         formSchema,
-        event: event.location
-          ? convertLocationAdditionalFields(formSchema, response.event)
-          : response.event,
+        event: fullEvent.after.location
+          ? convertLocationAdditionalFields(formSchema, fullEvent.after)
+          : fullEvent.after,
       });
       log('updated search for event %s', eventUid);
     } catch (e) {
@@ -320,14 +326,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       );
     }
 
-    const before = await payload.getCompiledEvent('before');
-    const after = await payload.getCompiledEvent();
-
-    if (isEventDifferent(before, after)) {
+    if (isEventDifferent(fullEvent.before, fullEvent.after)) {
       try {
         await sendUpdateEmail(core, {
           batched,
-          event: after,
+          event: fullEvent.after,
           agenda,
         });
       } catch (e) {
@@ -349,13 +352,16 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       });
     }
 
-    await aggregators.notify(before.draft ? 'addEvent' : 'updateEvent', {
-      event: after,
-      before,
-      agenda,
-      formSchema,
-      batched,
-    });
+    await aggregators.notify(
+      fullEvent.before.draft ? 'addEvent' : 'updateEvent',
+      {
+        event: fullEvent.after,
+        before: fullEvent.before,
+        agenda,
+        formSchema,
+        batched,
+      },
+    );
 
     await refreshAgenda(agenda.uid);
 

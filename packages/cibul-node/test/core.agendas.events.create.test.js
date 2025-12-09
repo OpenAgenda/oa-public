@@ -248,7 +248,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
           },
           {
             context: {
-              userUid: 63170200,
+              userUid: 46863451,
             },
             returnPayload: true,
             access: 'contributor',
@@ -260,7 +260,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         expect(Object.keys(result.formSchema)).toEqual(['custom', 'fields']);
       });
 
-      it('fields with moderator as access are not provided in schema', () => {
+      it('fields with moderator as access are not provided in schema when provided access is contributor', () => {
         expect(
           result.formSchema.fields.filter(
             (f) => f.field === 'custom_description',
@@ -289,7 +289,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
       });
 
       it('member is part of payload', () => {
-        expect(result.member.userUid).toBe(63170200);
+        expect(result.member.userUid).toBe(46863451);
       });
 
       it('agenda is part payload', () => {
