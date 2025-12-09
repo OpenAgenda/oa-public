@@ -232,23 +232,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
     const formSchema = await payload.getFormSchema({ access: 'internal' });
 
-    const beforeEvent = await payload.getCompiledEvent('before');
-    const afterEvent = await payload.getCompiledEvent();
-
-    if (!event.draft && isEventDifferent(beforeEvent, afterEvent)) {
-      try {
-        await createUpdateActivity(core.services, beforeEvent, afterEvent, {
-          userUid: actingUserUid,
-          agenda,
-          formSchema,
-          member: actingMember,
-          agendaEvent,
-        });
-      } catch (e) {
-        log('error', 'failed to create activity', e);
-      }
-    }
-
     // if event is not draft or was just undrafted, agendaEvent ref must be set
     if (clean.agendaEvent) {
       try {
@@ -326,7 +309,9 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       );
     }
 
-    if (isEventDifferent(fullEvent.before, fullEvent.after)) {
+    const eventHasChanged = isEventDifferent(fullEvent.before, fullEvent.after);
+
+    if (eventHasChanged) {
       try {
         await sendUpdateEmail(core, {
           batched,
@@ -335,6 +320,25 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         });
       } catch (e) {
         log('error', 'failed to send update notification email', e);
+      }
+    }
+
+    if (eventHasChanged && !event.draft) {
+      try {
+        await createUpdateActivity(
+          core.services,
+          fullEvent.before,
+          fullEvent.after,
+          {
+            userUid: actingUserUid,
+            agenda,
+            formSchema,
+            member: actingMember,
+            agendaEvent,
+          },
+        );
+      } catch (e) {
+        log('error', 'failed to create activity', e);
       }
     }
 
