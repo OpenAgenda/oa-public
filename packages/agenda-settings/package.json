@@ -18,6 +18,7 @@
   },
   "dependencies": {
     "@openagenda/agendas": "^1.7.1",
+    "@openagenda/common-labels": "^1.2.4",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/intl": "^1.1.6",
     "@openagenda/labels": "^2.3.0",

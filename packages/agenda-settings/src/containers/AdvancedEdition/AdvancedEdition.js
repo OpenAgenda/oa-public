@@ -7,11 +7,13 @@ import {
   Modal,
   useLayoutData,
 } from '@openagenda/react-shared';
+import statusMessages from '@openagenda/common-labels/event/statuses';
 import {
   KeysManager,
   InboxSettingsForm,
   TrackingSettingsForm,
   LabSettingsForm,
+  StatusesForm,
   PassSettings,
   FiltersSettings,
   DeleteAgenda,
@@ -37,6 +39,14 @@ const messages = defineMessages({
     defaultMessage:
       'Define which filters you want to show on the front page of the agenda as well as in the administration',
   },
+  statusesTitle: {
+    id: 'AgendaSettings.AdvancedEdition.statusesTitle',
+    defaultMessage: 'Statuses',
+  },
+  statusesDescription: {
+    id: 'AgendaSettings.AdvancedEdition.statusesDescription',
+    defaultMessage: 'Selection of states offered to contributors',
+  },
   deleteTitle: {
     id: 'AgendaSettings.AdvancedEdition.deleteTitle',
     defaultMessage: 'Delete',
@@ -50,6 +60,14 @@ const messages = defineMessages({
     defaultMessage: 'Identifier',
   },
 });
+
+const statusesMap = {
+  2: 'rescheduled',
+  3: 'movedOnline',
+  4: 'postponed',
+  5: 'full',
+  6: 'cancelled',
+};
 
 function TableRow({
   activeTab,
@@ -261,6 +279,34 @@ export default function AdvancedEdition() {
                   )}
                 </div>
               )}
+            />
+
+            <TableRow
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              tableName="statuses"
+              description={<b>{intl.formatMessage(messages.statusesTitle)}</b>}
+              closedComponent={(
+                <>
+                  {intl.formatMessage(messages.statusesDescription)}
+                  <br />
+                  {!agenda.settings?.contribution?.status?.enabled
+                  || agenda.settings?.contribution?.status?.enabled?.length ? (
+                    <b className="text-muted">
+                      {intl.formatList(
+                        (
+                          agenda.settings?.contribution?.status?.enabled || [
+                            2, 5, 6,
+                          ]
+                        ).map((v) =>
+                          intl.formatMessage(statusMessages[statusesMap[v]])),
+                        { style: 'narrow' },
+                      )}
+                    </b>
+                    ) : null}
+                </>
+              )}
+              openedComponent={<StatusesForm />}
             />
 
             <TableRow
