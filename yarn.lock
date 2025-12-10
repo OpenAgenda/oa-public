@@ -9681,6 +9681,7 @@ __metadata:
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/agendas": "npm:^1.7.1"
     "@openagenda/bs-templates": "npm:^2.5.1"
+    "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/labels": "npm:^2.3.0"

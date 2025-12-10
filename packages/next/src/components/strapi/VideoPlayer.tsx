@@ -19,6 +19,7 @@ import {
   defaultLayoutIcons,
 } from '@vidstack/react/player/layouts/default';
 import useMatomoVideoTracker from 'hooks/useMatomoVideoTracker';
+import { videoPoster as defaultVideoPoster } from 'utils/strapi';
 import getVideoTranslations from './getVideoTranslations';
 
 import '@vidstack/react/player/styles/default/theme.css';
@@ -63,7 +64,7 @@ const videoMapping: Record<
 > = {
   presentation: {
     title: "Présentation d'OpenAgenda",
-    poster: 'https://cdn.openagenda.com/main/poster-pres-oa-video-4.svg',
+    poster: defaultVideoPoster,
     thumbnails:
       'https://cdn.openagenda.com/assets/videos/presentation/thumbnails_webp_sprite.vtt',
   },
@@ -88,7 +89,7 @@ const MultiFormatVideoPlayer = ({
   const videoSources =
     sources || videoInfo?.sources || generateVideoSources(video);
   const videoTitle = title || videoInfo?.title;
-  const videoPoster = poster || videoInfo?.poster;
+  const videoPoster = poster || videoInfo?.poster || defaultVideoPoster;
   const videoThumbnails = thumbnails || videoInfo?.thumbnails;
 
   useEffect(() => {

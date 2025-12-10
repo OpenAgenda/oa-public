@@ -277,6 +277,20 @@ export default (
   return fromAccess(core, agenda, agendaEvent, event, access);
 };
 
+export function getAccessFromMember(services, member, defaultAccess) {
+  const {
+    members: {
+      utils: { getRoleSlug },
+    },
+  } = services;
+
+  if (member) {
+    return getRoleSlug(member.role);
+  }
+
+  return defaultAccess;
+}
+
 export async function getForUserOnAgenda(
   core,
   userUid,
