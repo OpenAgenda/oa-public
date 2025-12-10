@@ -1,9 +1,7 @@
-import _ from 'lodash';
 import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import { getAccessFromMember } from '../../utils/authorizations.js';
 import refreshAgenda from './refreshAgenda.js';
-import setCustom from './setCustom.js';
 import convertLocationAdditionalFields from './convertLocationAdditionalFields.js';
 import formatError from './formatError.js';
 
@@ -87,41 +85,29 @@ export default async (core, payload, clean, options = {}) => {
 
   // create custom data
   if (agenda.formSchemaId && clean.custom) {
-    const result = await setCustom(
-      custom,
-      agenda.formSchemaId,
+    const result = await custom(agenda.formSchemaId).set(
       event.uid,
       clean.custom,
-      {
-        draft,
-        agendaId: clean.agendaId,
-      },
+      { validate: false, partial: true }, // validation is already done
     );
-
-    if (result.errors.length) {
-      log('error', 'could not set custom data', result.errors);
-    }
-
     payload.setItem('custom.agenda', result.before, result.custom);
+  } else if (agenda.formSchemaId) {
+    const agendaData = await custom(agenda.formSchemaId).get(event.uid);
+    payload.setItem('custom.agenda', agendaData, agendaData);
   }
 
-  if (_.get(agenda, 'network.formSchemaId') && clean.networkCustom) {
-    const result = await setCustom(
-      custom,
-      agenda.network.formSchemaId,
+  if (agenda.network?.formSchemaId && clean.networkCustom) {
+    const result = await custom(agenda.network.formSchemaId).set(
       event.uid,
       clean.networkCustom,
-      {
-        draft,
-        agendaId: clean.agendaId,
-      },
+      { validate: false, partial: true }, // validation is already done
     );
-
-    if (result.errors.length) {
-      log('error', 'could not set network custom data', result.errors);
-    }
-
     payload.setItem('custom.network', result.before, result.custom);
+  } else if (agenda.network?.formSchemaId) {
+    const networkData = await custom(agenda.network?.formSchemaId).get(
+      event.uid,
+    );
+    payload.setItem('custom.network', networkData, networkData);
   }
 
   if (draft) {
@@ -154,7 +140,9 @@ export default async (core, payload, clean, options = {}) => {
     'event',
     getAccessFromMember(core.services, actingMember, access),
   );
-  const compiledEvent = await payload.getCompiledEvent(); // full access for internal use
+  const compiledEvent = await payload.getCompiledEvent('after', null, null, {
+    valid: true,
+  }); // full access for internal use
   const formSchema = await payload.getFormSchema({ access: 'internal' }); // full access for internal use
 
   try {
