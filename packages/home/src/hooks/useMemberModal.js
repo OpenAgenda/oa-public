@@ -1,14 +1,18 @@
+import { useEffect } from 'react';
 import qs from 'qs';
 
-export default (res, agendaUid, memberEditModal) => {
-  if (agendaUid && !memberEditModal.isOpen) {
-    const url = res.agendas.get.replace(':agendaUid', agendaUid);
+export default function useMemberModal(res, agendaUid, memberEditModal) {
+  useEffect(() => {
+    if (!agendaUid || memberEditModal.isOpen) return;
 
-    fetch(
-      `${url}${url.includes('?') ? '&' : '?'}${qs.stringify({
-        includes: ['me.member', 'agenda'],
-      })}`,
-    )
+    const url = res.agendas.get.replace(':agendaUid', agendaUid);
+    const query = qs.stringify({
+      includes: ['me.member', 'agenda'],
+    });
+
+    const finalUrl = `${url}${url.includes('?') ? '&' : '?'}${query}`;
+
+    fetch(finalUrl)
       .then((response) => {
         if (!response.ok) {
           throw new Error(`Invalid status (${response.status})`);
@@ -23,11 +27,9 @@ export default (res, agendaUid, memberEditModal) => {
           schema: data.agenda.memberSchema,
           agenda: data.agenda,
         });
-        return data;
       })
       .catch((err) => {
         console.error('Error fetching agenda:', err);
       });
-  }
-  return true;
-};
+  }, [agendaUid, memberEditModal.isOpen, res]);
+}
