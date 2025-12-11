@@ -8994,10 +8994,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@next/env@npm:16.0.1"
-  checksum: 10c0/f993bd72f91a3617d2d91c984d0d63c0a94a6e132787c9f93a43425125fe8ab8568928e4c1acd47e76c3acf6e9065296984e06ba8227a52e85b323b197c4e1c1
+"@next/env@npm:16.0.8":
+  version: 16.0.8
+  resolution: "@next/env@npm:16.0.8"
+  checksum: 10c0/1741d23c21ccc2f2ac00feb838c1a91c22a9841e268697938a442b3675bd56173b8daf219032aef998c17b61a318002b4abe9939aadbaefd6f3df11503772e87
   languageName: node
   linkType: hard
 
@@ -9010,58 +9010,58 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@next/swc-darwin-arm64@npm:16.0.1"
+"@next/swc-darwin-arm64@npm:16.0.8":
+  version: 16.0.8
+  resolution: "@next/swc-darwin-arm64@npm:16.0.8"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@next/swc-darwin-x64@npm:16.0.1"
+"@next/swc-darwin-x64@npm:16.0.8":
+  version: 16.0.8
+  resolution: "@next/swc-darwin-x64@npm:16.0.8"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@next/swc-linux-arm64-gnu@npm:16.0.1"
+"@next/swc-linux-arm64-gnu@npm:16.0.8":
+  version: 16.0.8
+  resolution: "@next/swc-linux-arm64-gnu@npm:16.0.8"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-musl@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@next/swc-linux-arm64-musl@npm:16.0.1"
+"@next/swc-linux-arm64-musl@npm:16.0.8":
+  version: 16.0.8
+  resolution: "@next/swc-linux-arm64-musl@npm:16.0.8"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@next/swc-linux-x64-gnu@npm:16.0.1"
+"@next/swc-linux-x64-gnu@npm:16.0.8":
+  version: 16.0.8
+  resolution: "@next/swc-linux-x64-gnu@npm:16.0.8"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-musl@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@next/swc-linux-x64-musl@npm:16.0.1"
+"@next/swc-linux-x64-musl@npm:16.0.8":
+  version: 16.0.8
+  resolution: "@next/swc-linux-x64-musl@npm:16.0.8"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-win32-arm64-msvc@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@next/swc-win32-arm64-msvc@npm:16.0.1"
+"@next/swc-win32-arm64-msvc@npm:16.0.8":
+  version: 16.0.8
+  resolution: "@next/swc-win32-arm64-msvc@npm:16.0.8"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-win32-x64-msvc@npm:16.0.1":
-  version: 16.0.1
-  resolution: "@next/swc-win32-x64-msvc@npm:16.0.1"
+"@next/swc-win32-x64-msvc@npm:16.0.8":
+  version: 16.0.8
+  resolution: "@next/swc-win32-x64-msvc@npm:16.0.8"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -9222,16 +9222,16 @@ __metadata:
     mysql2: "npm:^3.15.1"
     nodemon: "npm:^3.0.3"
     rc-collapse: "npm:^3.1.0"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^4.1.0"
     react-intl: "npm:^6.8.4"
     react-use: "npm:^17.6.0"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^9.0.8"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -9277,8 +9277,8 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-helmet-async: "npm:^1.0.3"
     react-intersection-observer: "npm:^9.4.1"
     react-intl: "npm:^6.8.4"
@@ -9296,7 +9296,7 @@ __metadata:
     swr: "npm:^2.1.1"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
+    react: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -9328,13 +9328,13 @@ __metadata:
     morgan: "npm:^1.9.1"
     nodemon: "npm:^2.0.4"
     rc-switch: "npm:^1.4.2"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-intersection-observer: "npm:^9.4.1"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^9.0.8"
   peerDependencies:
-    react: ^19.2.0
+    react: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -9368,8 +9368,8 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.9.4"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
     react-markdown: "npm:^6.0.0"
@@ -9384,8 +9384,8 @@ __metadata:
     storybook: "npm:^9.0.8"
     tsup: "npm:^8.3.5"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -9417,15 +9417,15 @@ __metadata:
     msw-storybook-addon: "npm:^2.0.5"
     pizzip: "npm:^3.0.6"
     qs: "npm:^6.11.2"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     remove-markdown: "npm:^0.3.0"
     rimraf: "npm:^3.0.1"
     storybook: "npm:^9.0.8"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -9479,8 +9479,8 @@ __metadata:
     multer: "npm:^1.3.1"
     qs: "npm:^6.9.1"
     rc-switch: "npm:^1.4.3"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
     react-leaflet: "npm:^3.1.0"
@@ -9497,8 +9497,8 @@ __metadata:
     storybook: "npm:^9.0.8"
     use-debounce: "npm:^10.0.4"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
     react-router: ^5.1.2
     react-router-dom: ^5.1.2
     redux: ^4.0.0
@@ -9589,9 +9589,9 @@ __metadata:
     moment-timezone: "npm:^0.5.31"
     ncp: "npm:^2.0.0"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-cookie-consent: "npm:^7.2.1"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     react-intl: "npm:^6.8.4"
     react-query: "npm:^3.6.0"
     regenerator-runtime: "npm:^0.13.7"
@@ -9633,8 +9633,8 @@ __metadata:
     history: "npm:^4.10.1"
     ky: "npm:^1.7.2"
     lodash: "npm:^4.17.15"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
     react-query: "npm:^3.6.0"
@@ -9645,8 +9645,8 @@ __metadata:
     storybook: "npm:^9.0.8"
     tsup: "npm:^8.3.5"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
     react-router-dom: ^5.1.2
     redux: ^4.0.0
   languageName: unknown
@@ -9701,9 +9701,9 @@ __metadata:
     lodash: "npm:^4.17.15"
     msw: "npm:^2.8.4"
     msw-storybook-addon: "npm:^2.0.5"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-copy-to-clipboard: "npm:^5.0.2"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.8"
     react-final-form-listeners: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
@@ -9720,7 +9720,7 @@ __metadata:
     tsup: "npm:^8.3.5"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
+    react: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -9750,10 +9750,10 @@ __metadata:
     ky: "npm:^1.14.0"
     lodash: "npm:^4.17.15"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-content-loader: "npm:^5.1.0"
     react-date-range: "npm:^1.1.3"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^6.8.4"
     react-query: "npm:^3.6.0"
@@ -9771,8 +9771,8 @@ __metadata:
     uuid: "npm:^8.2.0"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -9826,11 +9826,11 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-beautiful-dnd: "npm:^13.0.0"
     react-copy-to-clipboard: "npm:^5.0.2"
     react-date-range: "npm:^2.0.0-alpha.4"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.8"
     react-final-form-arrays: "npm:^3.1.1"
     react-intl: "npm:^6.8.4"
@@ -9851,7 +9851,7 @@ __metadata:
     toggle-selection: "npm:^1.0.6"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
+    react: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -9904,8 +9904,8 @@ __metadata:
     "@types/react-dom": "npm:^19.0.3"
     babel-plugin-add-module-exports: "npm:^1.0.4"
     babel-plugin-react-intl: "npm:^8.2.25"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-refresh: "npm:^0.14.0"
   peerDependencies:
     "@babel/core": ^7.26.0
@@ -9932,10 +9932,10 @@ __metadata:
     moment: "npm:^2.27.0"
     node-watch: "npm:^0.3.5"
     nodemon: "npm:^2.0.6"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-datepicker: "npm:^1.6.0"
     react-day-picker: "npm:^7.3.0"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     reload: "npm:^3.2.1"
     sass: "npm:^1.52.1"
     walk: "npm:^2.3.9"
@@ -10002,10 +10002,10 @@ __metadata:
     raven-js: "npm:^3.9.1"
     raw-loader: "npm:^4.0.0"
     rc-switch: "npm:^1.4.3"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-cookie-consent: "npm:^7.2.1"
     react-copy-to-clipboard: "npm:^5.0.2"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^6.8.4"
     react-redux: "npm:^7.1.3"
@@ -10178,8 +10178,8 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.9.4"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
     react-query: "npm:^3.39.2"
@@ -10198,8 +10198,8 @@ __metadata:
     tsup: "npm:^8.3.5"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -10237,9 +10237,9 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.10.3"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-date-range: "npm:^1.1.3"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     react-intl: "npm:^6.8.4"
     react-select: "npm:^5.8.3"
     react-tagsinput: "npm:^3.19.0"
@@ -10395,9 +10395,9 @@ __metadata:
     multer: "npm:^1.4.4"
     mysql2: "npm:^3.15.1"
     qs: "npm:^6.11.2"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-date-range: "npm:^1.1.3"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     react-intl: "npm:^6.8.4"
     react-markdown: "npm:^6.0.0"
     react-router-dom: "npm:^5.1.2"
@@ -10451,8 +10451,8 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
@@ -10469,7 +10469,7 @@ __metadata:
     storybook: "npm:^9.0.8"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
+    react: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -10519,8 +10519,8 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-redux: "npm:^7.1.3"
     react-router: "npm:^5.1.2"
@@ -10536,7 +10536,7 @@ __metadata:
     storybook: "npm:^9.0.8"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
+    react: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -10585,7 +10585,7 @@ __metadata:
     tsup: "npm:^8.0.1"
     yargs: "npm:^17.4.0"
   peerDependencies:
-    react: ^19.2.0
+    react: ^19.2.1
   peerDependenciesMeta:
     react:
       optional: true
@@ -10685,8 +10685,8 @@ __metadata:
     moment-timezone: "npm:^0.5.31"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
     react-leaflet: "npm:^3.1.0"
@@ -10699,8 +10699,8 @@ __metadata:
     slugify: "npm:^1.4.5"
     storybook: "npm:^9.0.8"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
     redux: ^4.0.5
   languageName: unknown
   linkType: soft
@@ -10823,8 +10823,8 @@ __metadata:
     ky: "npm:^1.14.0"
     lodash: "npm:^4.17.15"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
@@ -10841,7 +10841,7 @@ __metadata:
     tlds: "npm:^1.236.0"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
+    react: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -10907,8 +10907,8 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     nodemon: "npm:^2.0.4"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-redux: "npm:^7.1.3"
     react-router: "npm:^5.1.2"
     react-router-config: "npm:^5.1.1"
@@ -11028,12 +11028,12 @@ __metadata:
     morgan: "npm:^1.10.0"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
-    next: "npm:16.0.1"
+    next: "npm:16.0.8"
     qs: "npm:^6.11.0"
-    react: "npm:19.2.0"
+    react: "npm:19.2.1"
     react-content-loader: "npm:^7.0.2"
     react-cookie: "npm:^7.2.0"
-    react-dom: "npm:19.2.0"
+    react-dom: "npm:19.2.1"
     react-intersection-observer: "npm:^9.4.1"
     react-intl: "npm:^7.1.5"
     react-leaflet: "npm:^4.2.1"
@@ -11233,8 +11233,8 @@ __metadata:
     nodemon: "npm:^2.0.15"
     qs: "npm:^6.9.1"
     raw-loader: "npm:^4.0.2"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-final-form-listeners: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
@@ -11257,8 +11257,8 @@ __metadata:
     webpack-cli: "npm:^5.1.4"
     webpackbar: "npm:^5.0.0-3"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -11310,8 +11310,8 @@ __metadata:
     mini-css-extract-plugin: "npm:^1.5.0"
     mkdirp: "npm:^3.0.1"
     nprogress: "npm:^0.2.0"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
     react-query: "npm:^3.6.0"
@@ -11357,8 +11357,8 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-error-boundary: "npm:^1.2.5"
     react-helmet-async: "npm:^1.0.3"
     react-intl: "npm:^6.8.4"
@@ -11376,7 +11376,7 @@ __metadata:
     storybook: "npm:^9.0.8"
     tsup: "npm:^8.3.5"
   peerDependencies:
-    react: ^19.2.0
+    react: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
   languageName: unknown
@@ -11388,12 +11388,12 @@ __metadata:
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
     cheerio: "npm:^1.0.0-rc.10"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     tsup: "npm:^8.3.5"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -11436,10 +11436,10 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-cookie-consent: "npm:^7.2.1"
     react-date-range: "npm:^1.4.0"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^6.8.4"
     react-markdown: "npm:^6.0.0"
@@ -11459,7 +11459,7 @@ __metadata:
     turndown: "npm:^7.1.2"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
+    react: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     react-select: ^5.8.3
@@ -11494,9 +11494,9 @@ __metadata:
     date-fns: "npm:^2.1.0"
     final-form: "npm:^4.20.2"
     jest: "npm:^29.7.0"
-    react: "npm:^19.2.0"
+    react: "npm:^19.2.1"
     react-day-picker: "npm:^7.3.0"
-    react-dom: "npm:^19.2.0"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-icons: "npm:^3.8.0"
     react-intl: "npm:^6.8.4"
@@ -11509,7 +11509,7 @@ __metadata:
     text-mask-addons: "npm:^3.8.0"
     tsup: "npm:^8.3.5"
   peerDependencies:
-    react: ^19.2.0
+    react: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -11537,8 +11537,8 @@ __metadata:
     lodash: "npm:^4.17.21"
     msw: "npm:^2.3.0"
     qs: "npm:^6.11.0"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-intersection-observer: "npm:^9.16.0"
     react-intl: "npm:^7.1.5"
     react-use: "npm:^17.6.0"
@@ -11548,8 +11548,8 @@ __metadata:
     tsup: "npm:^8.4.0"
     typescript: "npm:^5.6.3"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -11571,8 +11571,8 @@ __metadata:
     jest: "npm:^29.7.0"
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-select: "npm:^5.8.3"
     react-tagsinput: "npm:^3.19.0"
     rimraf: "npm:^3.0.1"
@@ -11581,8 +11581,8 @@ __metadata:
     validator: "npm:^12.2.0"
     why: "npm:^0.6.2"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -11743,8 +11743,8 @@ __metadata:
     history: "npm:^4.10.1"
     lodash: "npm:^4.17.15"
     qs: "npm:^6.9.1"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-final-form-arrays: "npm:^3.1.1"
     react-intl: "npm:^6.8.4"
@@ -11761,8 +11761,8 @@ __metadata:
     tsup: "npm:^8.3.5"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -11797,16 +11797,16 @@ __metadata:
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^3.0.6"
     "@storybook/react-webpack5": "npm:^9.0.8"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-icons: "npm:^5.5.0"
     react-remove-scroll: "npm:^2.7.1"
     storybook: "npm:^9.0.8"
     tsup: "npm:^8.5.0"
     typescript: "npm:^5.6.3"
   peerDependencies:
-    react: ^19.2.0
-    react-dom: ^19.2.0
+    react: ^19.2.1
+    react-dom: ^19.2.1
   languageName: unknown
   linkType: soft
 
@@ -11861,8 +11861,8 @@ __metadata:
     msw: "npm:^2.3.0"
     msw-storybook-addon: "npm:^2.0.5"
     qs: "npm:^6.9.4"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^6.8.4"
     react-redux: "npm:^7.1.3"
@@ -11876,7 +11876,7 @@ __metadata:
     tsup: "npm:^8.3.5"
   peerDependencies:
     "@loadable/component": ^5.12.0
-    react: ^19.2.0
+    react: ^19.2.1
     react-router: ^5.0.0
     react-router-dom: ^5.0.0
     redux: ^4.0.5
@@ -26975,8 +26975,8 @@ __metadata:
     planer: "npm:^1.1.1"
     qs: "npm:^6.9.1"
     rate-limit-redis: "npm:^4.2.0"
-    react: "npm:^19.2.0"
-    react-dom: "npm:^19.2.0"
+    react: "npm:^19.2.1"
+    react-dom: "npm:^19.2.1"
     react-query: "npm:^3.6.0"
     react-router: "npm:^5.1.2"
     react-router-dom: "npm:^5.1.2"
@@ -44477,19 +44477,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:16.0.1":
-  version: 16.0.1
-  resolution: "next@npm:16.0.1"
+"next@npm:16.0.8":
+  version: 16.0.8
+  resolution: "next@npm:16.0.8"
   dependencies:
-    "@next/env": "npm:16.0.1"
-    "@next/swc-darwin-arm64": "npm:16.0.1"
-    "@next/swc-darwin-x64": "npm:16.0.1"
-    "@next/swc-linux-arm64-gnu": "npm:16.0.1"
-    "@next/swc-linux-arm64-musl": "npm:16.0.1"
-    "@next/swc-linux-x64-gnu": "npm:16.0.1"
-    "@next/swc-linux-x64-musl": "npm:16.0.1"
-    "@next/swc-win32-arm64-msvc": "npm:16.0.1"
-    "@next/swc-win32-x64-msvc": "npm:16.0.1"
+    "@next/env": "npm:16.0.8"
+    "@next/swc-darwin-arm64": "npm:16.0.8"
+    "@next/swc-darwin-x64": "npm:16.0.8"
+    "@next/swc-linux-arm64-gnu": "npm:16.0.8"
+    "@next/swc-linux-arm64-musl": "npm:16.0.8"
+    "@next/swc-linux-x64-gnu": "npm:16.0.8"
+    "@next/swc-linux-x64-musl": "npm:16.0.8"
+    "@next/swc-win32-arm64-msvc": "npm:16.0.8"
+    "@next/swc-win32-x64-msvc": "npm:16.0.8"
     "@swc/helpers": "npm:0.5.15"
     caniuse-lite: "npm:^1.0.30001579"
     postcss: "npm:8.4.31"
@@ -44532,7 +44532,7 @@ __metadata:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: 10c0/91390fe601d39e54306f303f0d53cd20b7eef6f1496a0e32246dcb87ddba212a20e3aa887c96ff51ed27e8585892dfb639a4f3210af1b43f5f9018740ac2795f
+  checksum: 10c0/b4ace26f864ee33e34f8994f1f2249f0b8c529570002ea8e086448c7b4fe20887649ac5b41c007aabced52f3bb4c9259ecc91422eec3ddd3c59f5ecc7828436b
   languageName: node
   linkType: hard
 
@@ -48986,14 +48986,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:19.2.0":
-  version: 19.2.0
-  resolution: "react-dom@npm:19.2.0"
+"react-dom@npm:19.2.1":
+  version: 19.2.1
+  resolution: "react-dom@npm:19.2.1"
   dependencies:
     scheduler: "npm:^0.27.0"
   peerDependencies:
-    react: ^19.2.0
-  checksum: 10c0/fa2cae05248d01288e91523b590ce4e7635b1e13f1344e225f850d722a8da037bf0782f63b1c1d46353334e0c696909b82e582f8cad607948fde6f7646cc18d9
+    react: ^19.2.1
+  checksum: 10c0/e56b6b3d72314df580ca800b70a69a21c6372703c8f45d9b5451ca6519faefb2496d76ffa9c5adb94136d2bbf2fd303d0dfc208a2cd77ede3132877471af9470
   languageName: node
   linkType: hard
 
@@ -49998,10 +49998,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:19.2.0":
-  version: 19.2.0
-  resolution: "react@npm:19.2.0"
-  checksum: 10c0/1b6d64eacb9324725bfe1e7860cb7a6b8a34bc89a482920765ebff5c10578eb487e6b46b2f0df263bd27a25edbdae2c45e5ea5d81ae61404301c1a7192c38330
+"react@npm:19.2.1":
+  version: 19.2.1
+  resolution: "react@npm:19.2.1"
+  checksum: 10c0/2b5eaf407abb3db84090434c20d6c5a8e447ab7abcd8fe9eaf1ddc299babcf31284ee9db7ea5671d21c85ac5298bd632fa1a7da1ed78d5b368a537f5e1cd5d62
   languageName: node
   linkType: hard
 
