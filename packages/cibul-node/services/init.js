@@ -144,6 +144,7 @@ export default async function initServices(config = null, options = {}) {
   await init('reports', () => import('./reports.js'));
   await init('dynamicScripts', () => import('./dynamicScripts.js'));
   await init('usageCounters', () => import('./usageCounters/index.js'));
+  await init('monitor', () => import('./monitor.js'));
 
   const timeDiff = new Date().getTime() - t.getTime();
 
