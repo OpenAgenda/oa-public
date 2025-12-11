@@ -83,6 +83,7 @@ export default function AgendaItem({ agenda }) {
                 // zIndex + position because of LinkBox
                 zIndex="0"
                 pos="relative"
+                invertedColors
                 tooltipProps={{
                   contentProps: {
                     css: { '--tooltip-bg': 'black' },

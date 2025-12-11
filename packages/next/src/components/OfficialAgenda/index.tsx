@@ -13,10 +13,12 @@ const messages = defineMessages({
 
 export interface OfficialAgendaProps extends IconProps {
   tooltipProps?: Omit<TooltipProps, 'children' | 'content'>;
+  invertedColors?: boolean;
 }
 
 export default function OfficialAgenda({
   tooltipProps,
+  invertedColors = false,
   ...props
 }: OfficialAgendaProps) {
   const intl = useIntl();
@@ -40,8 +42,12 @@ export default function OfficialAgenda({
         <Icon
           {...props}
           css={{
-            '--fa-primary-color': 'colors.primary.500',
-            '--fa-secondary-color': 'white',
+            '--fa-primary-color': invertedColors
+              ? 'white'
+              : 'colors.primary.500',
+            '--fa-secondary-color': invertedColors
+              ? 'colors.primary.500'
+              : 'white',
             '--fa-primary-opacity': '1',
             '--fa-secondary-opacity': '1',
           }}
