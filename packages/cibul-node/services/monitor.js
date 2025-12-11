@@ -8,7 +8,7 @@ export async function init() {
   const log = logs('monitor');
   const {
     NODE_APP_INSTANCE: appInstance,
-    pm_name: processName,
+    name: processName,
     pm_id: processID,
   } = process.env;
 
