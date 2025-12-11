@@ -62,7 +62,6 @@ export default function VerticalBarChart({
         {[].concat(dataKey).map((k, i) => (
           <Bar
             key={k}
-            activeBar
             dataKey={k}
             isAnimationActive={false}
             barSize={18}
