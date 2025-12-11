@@ -23,6 +23,7 @@
   - Si on a modifié le pack
 - Redis
 - Regex
+- MySQL
 - Node
 - Yarn
   - Publier une lib publique de manière isolée
@@ -400,6 +401,50 @@ Utilitaires pour gérer des regex avec des routes express:
 
 - [PillarJs](https://github.com/pillarjs/path-to-regexp): convertit une route express en regex
 - [Express Route Tester](https://forbeslindesay.github.io/express-route-tester/): app de test de route express
+
+## MySQL
+
+Pour faire un dump de la base en récupérant un backup stoqué de Swiss Backup, on utilise restic. Les instructions d'installation sont dans wiki/mysql.md.
+
+Il faut ensuite un fichier `/etc/resticprofile/profiles.yml` avec des infos dispo sur notre repo swiss backup:
+
+```
+version: "1"
+
+mysql:
+  repository: swift:sb_project_{RECUPERER SUR SWISSBACKUP}76:/mysql
+  password-file: /home/kaore/.restic-pass-mysql
+  env-file: /home/kaore/restic_credentials
+```
+
+Le mot de passe pour déchiffrer les fichiers compressés est placé directement dans le fichier `.restic-pass-mysql`. Il s trouve sur 1password.
+Le contenu de `restic_credentials` est une série de `export` de variables d'environnements qui permettent à restic de se connecter au swiss backup. Ils sont listés dans 1password.
+
+On met tout ça en place une fois en place sur notre machine, puis la procédure de téléchargement du backup est la suivante. À savoir, la config intermédiaire `my.conf` est dans `docker/mysql` et permet d'optimiser le temps de téléchargement du backup. Attention à la date du dernier fichier télécharger. Son nom en dépend.
+
+```
+mysql -e "DROP DATABASE IF EXISTS oadev; CREATE DATABASE oadev;"
+resticprofile mysql.restore --target /tmp --snapshot-id "latest"
+tar -I lbzip2 -xf /tmp/oa-dump-2025-11-20_08h02m.tar.bz2 -C /tmp
+# modifier docker/mysql/my.cnf
+dco restart mysql
+mysqlsh --js -u root -S /run/mysqld/mysqld.sock -e "
+  util.loadDump(
+    '/tmp/oa-dump',
+    {
+      threads: 16,
+      deferTableIndexes: 'all',
+      skipBinlog: true,
+      showProgress: true,
+      schema: 'oadev',
+      resetProgress: true,
+    }
+  )
+"
+# restaurer docker/mysql/my.cnf
+dco restart mysql
+rm -r /tmp/oa-dump
+```
 
 ## Node
 
