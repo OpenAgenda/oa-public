@@ -6,7 +6,11 @@ const period = 60 * 1000;
 
 export async function init() {
   const log = logs('monitor');
-  const { NODE_APP_INSTANCE: appInstance } = process.env;
+  const {
+    NODE_APP_INSTANCE: appInstance,
+    pm_name: processName,
+    pm_id: processID,
+  } = process.env;
 
   const hostname = os.hostname();
 
@@ -18,6 +22,9 @@ export async function init() {
     log.info({
       hostname,
       appInstance,
+      processName,
+      processID,
+      fullProcessName: `${hostname}_${processName}_${processID})`,
       argv,
       rss: Math.ceil(memoryUsage.rss / divideBy),
       heapTotal: Math.ceil(memoryUsage.heapTotal / divideBy),
