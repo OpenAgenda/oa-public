@@ -42,7 +42,7 @@ export default function LoadMore({ stat }) {
   }
 
   return (
-    <div className="text-center">
+    <div className="text-center hidden-print">
       <button
         type="button"
         className="btn btn-primary btn-bordered"

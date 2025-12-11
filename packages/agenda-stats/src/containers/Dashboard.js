@@ -404,7 +404,7 @@ function Dashboard() {
               </MoreInfo>
             </div>
 
-            <div className="col-sm-6 text-right">
+            <div className="col-sm-6 text-right hidden-print">
               <div>{editButtons}</div>
               {editing ? (
                 <button
@@ -447,7 +447,9 @@ function Dashboard() {
 
           <AggregationCharts />
 
-          <div className="margin-top-md text-right">{editButtons}</div>
+          <div className="margin-top-md text-right hidden-print">
+            {editButtons}
+          </div>
 
           {orderModal.isOpen ? (
             <OrderModal onSubmit={onOrderChange} onClose={orderModal.close} />
