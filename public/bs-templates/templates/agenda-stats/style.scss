@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .agenda-stats {
   .popup-overlay {
     section {
@@ -23,11 +25,11 @@
   @media print and (min-width: $screen-sm-min) {
     .col-print-sm-12 {
       float: left;
-      width: percentage(12 / $grid-columns);
+      width: percentage(math.div(12, $grid-columns));
     }
     .col-print-sm-6 {
       float: left;
-      width: percentage(6 / $grid-columns);
+      width: percentage(math.div(6, $grid-columns));
     }
   }
 
