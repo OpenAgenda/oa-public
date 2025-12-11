@@ -600,11 +600,12 @@ describe('core - functional (server): core.agendas().events.update()', () => {
     });
 
     test('custom values are maintained on state patch', async () => {
-      const result = await core
-        .agendas(9491431)
-        .events.patch(12993375, { state: 1 }, { access: 'internal' });
-
-      expect(result['types-devenement']).not.toBeUndefined();
+      expect(
+        await core
+          .agendas(9491431)
+          .events.patch(12993375, { state: 1 }, { access: 'internal' })
+          .then((event) => event['types-devenement']),
+      ).not.toBeUndefined();
 
       expect(
         await core
@@ -612,6 +613,18 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           .events.get(12993375)
           .then((event) => event['types-devenement']),
       ).not.toBeUndefined();
+
+      const {
+        events: [eventFromSearch],
+      } = await core
+        .agendas(9491431)
+        .events.search(
+          { state: null, uid: 12993375 },
+          {},
+          { access: 'internal' },
+        );
+
+      expect(eventFromSearch['types-devenement']).not.toBeUndefined();
     });
 
     test('invalid event cannot be patched if fix is not part of patch', async () => {
