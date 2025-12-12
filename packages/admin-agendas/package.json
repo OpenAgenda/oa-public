@@ -46,12 +46,12 @@
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "nodemon": "^2.0.4",
-    "react": "^19.2.1",
-    "react-dom": "^19.2.1",
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2",
     "rimraf": "^3.0.1",
     "storybook": "^9.0.8"
   },
   "peerDependencies": {
-    "react": "^19.2.1"
+    "react": "^19.2.2"
   }
 }
