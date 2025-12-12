@@ -33,6 +33,10 @@
   :global(.vds-video-layout .vds-load-container .vds-play-button) {
     background: rgba(0, 0, 0, 0.06);
   }
+
+  :global(.vds-tooltip-content:not([data-visible])) {
+    display: none;
+  }
 }
 
 //.player :global(.vds-slider-track) {
