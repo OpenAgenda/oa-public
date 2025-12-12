@@ -20,12 +20,12 @@ export function addUserContext(req, res, next) {
   setAttributes({ req, span }, 'user.uid', req.user?.uid);
   setAttributes(
     { req, span },
-    'process.hostname',
+    'hostname',
     services.monitor?.processInfo?.hostname,
   );
   setAttributes(
     { req, span },
-    'process.name',
+    'processName',
     services.monitor?.processInfo?.processName,
   );
 

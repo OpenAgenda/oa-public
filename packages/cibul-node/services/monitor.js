@@ -12,7 +12,10 @@ function getProcessInfo() {
   const hostname = os.hostname();
   return {
     hostname,
-    processName: `${hostname}_${pm2ProcessName}_${processID}`,
+    processName: `${hostname}_${pm2ProcessName}_${processID}`.replace(
+      /\s/g,
+      '_',
+    ),
     argv,
   };
 }
