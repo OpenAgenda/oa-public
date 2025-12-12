@@ -4,32 +4,36 @@ import logs from '@openagenda/logs';
 const divideBy = 1024 * 1024;
 const period = 60 * 1000;
 
-export async function init() {
-  const log = logs('monitor');
-  const {
-    NODE_APP_INSTANCE: appInstance,
-    name: processName,
-    pm_id: processID,
-  } = process.env;
+function getProcessInfo() {
+  const { name: pm2ProcessName, pm_id: processID } = process.env;
+
+  const [_nodePath, _processContainer, ...argv] = process.argv;
 
   const hostname = os.hostname();
+  return {
+    hostname,
+    processName: `${hostname}_${pm2ProcessName}_${processID}`,
+    argv,
+  };
+}
+
+export async function init() {
+  const log = logs('monitor');
+  const processInfo = getProcessInfo();
 
   setInterval(() => {
     const memoryUsage = process.memoryUsage();
 
-    const [_nodePath, _processContainer, ...argv] = process.argv;
-
     log.info({
-      hostname,
-      appInstance,
-      processName,
-      processID,
-      fullProcessName: `${hostname}_${processName}_${processID})`,
-      argv,
+      ...processInfo,
       rss: Math.ceil(memoryUsage.rss / divideBy),
       heapTotal: Math.ceil(memoryUsage.heapTotal / divideBy),
       heapUsed: Math.ceil(memoryUsage.heapUsed / divideBy),
       external: Math.ceil(memoryUsage.external / divideBy),
     });
   }, period);
+
+  return {
+    processInfo,
+  };
 }
