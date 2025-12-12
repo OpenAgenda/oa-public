@@ -4,9 +4,12 @@ function setAttributes({ req, span }, key, value) {
   if (value === undefined) {
     return;
   }
+  if (req.otelAttributes === undefined) {
+    req.otelAttributes = {};
+  }
 
   span?.setAttribute(key, value);
-  (req.otelAttributes ?? {})[key] = value;
+  req.otelAttributes[key] = value;
 }
 
 export function addUserContext(req, res, next) {
