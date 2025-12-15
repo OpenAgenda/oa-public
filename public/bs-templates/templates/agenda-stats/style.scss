@@ -1,3 +1,5 @@
+@use 'sass:math';
+
 .agenda-stats {
   .popup-overlay {
     section {
@@ -18,5 +20,20 @@
 
   .oa-collapse-item {
     border-bottom: 1px solid $oa-gray-lightish;
+  }
+
+  @media print and (min-width: $screen-sm-min) {
+    .col-print-sm-12 {
+      float: left;
+      width: percentage(math.div(12, $grid-columns));
+    }
+    .col-print-sm-6 {
+      float: left;
+      width: percentage(math.div(6, $grid-columns));
+    }
+  }
+
+  @media print {
+    .print-break-inside-avoid { break-inside: avoid; }
   }
 }

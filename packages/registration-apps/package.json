@@ -39,14 +39,14 @@
     "jest": "^29.7.0",
     "msw": "^2.3.0",
     "msw-storybook-addon": "^2.0.5",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2",
     "rimraf": "^3.0.1",
     "storybook": "^9.0.8"
   },
   "peerDependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2"
   },
   "msw": {
     "workerDirectory": ".storybook/public"

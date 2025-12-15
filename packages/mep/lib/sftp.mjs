@@ -11,7 +11,7 @@ export default async function sftp(
 ) {
   const results = [];
   for (const node of nodes) {
-    const endpoint = `${user}@${new URL(node.adminUrl).hostname}`;
+    const endpoint = `${user}@${node.address}`;
     console.log('sftp of %s to %s %s', file, endpoint, destPath);
     const result = await exec(
       `scp -i ${SSHKeyPath} -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${file} ${endpoint}:${destPath}`,

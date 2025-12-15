@@ -33,7 +33,6 @@ export default function StrapiPage({ page, footer }) {
   const {
     title,
     description,
-    keywords,
     Segments,
     navFontColor,
     logoVariant,
@@ -56,7 +55,7 @@ export default function StrapiPage({ page, footer }) {
 
   return (
     <>
-      <Metas title={title} description={description} keywords={keywords} />
+      <Metas title={title} description={description} segment={Segments?.[0]} />
       <Global
         styles={{
           html: {

@@ -4,12 +4,12 @@ import logs from '@openagenda/logs';
 import { Forbidden } from '@openagenda/verror';
 import createPayload from '../utils/createPayload.js';
 import refreshAgenda from '../utils/refreshAgenda.js';
-import setCustom from '../utils/setCustom.js';
 import cleanEvent from '../utils/cleanEvent/index.js';
 import getAgenda from '../utils/getAgenda.js';
 import formatError from '../utils/formatError.js';
 import loadAuthorizations, {
   filterUnauthorized,
+  getAccessFromMember,
 } from '../../utils/authorizations.js';
 import assignState from '../utils/assignState.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
@@ -184,43 +184,35 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     if (agenda.formSchemaId && clean.custom) {
-      const result = await setCustom(
-        custom,
-        agenda.formSchemaId,
+      const result = await custom(agenda.formSchemaId).set(
         eventUid,
         clean.custom,
-        {
-          draft: isDraft,
-          agendaId: agenda.id,
-          access,
-        },
+        { validate: false, partial: true }, // validation is already done
       );
-      if (result.success) {
-        log('updated agenda custom data %s.%s', agenda.formSchemaId, eventUid);
-        payload.setItem('custom.agenda', result.before, result.custom);
-      }
+      log('updated agenda custom data %s.%s', agenda.formSchemaId, eventUid);
+      payload.setItem('custom.agenda', result.before, result.custom);
+    } else if (agenda.formSchemaId) {
+      const agendaData = await custom(agenda.formSchemaId).get(eventUid);
+      payload.setItem('custom.agenda', agendaData, agendaData);
     }
 
     if (agenda.network?.formSchemaId && clean.networkCustom) {
-      const result = await setCustom(
-        custom,
-        agenda.network.formSchemaId,
+      const result = await custom(agenda.network.formSchemaId).set(
         eventUid,
         clean.networkCustom,
-        {
-          agendaId: agenda.id,
-          access,
-        },
+        { validate: false, partial: true }, // validation is already done
       );
-
-      if (result.success) {
-        log(
-          'updated network custom data %s.%s',
-          agenda.network.formSchemaId,
-          eventUid,
-        );
-        payload.setItem('custom.network', result.before, result.custom);
-      }
+      log(
+        'updated network custom data %s.%s',
+        agenda.network.formSchemaId,
+        eventUid,
+      );
+      payload.setItem('custom.network', result.before, result.custom);
+    } else if (agenda.network?.formSchemaId) {
+      const networkData = await custom(agenda.network?.formSchemaId).get(
+        eventUid,
+      );
+      payload.setItem('custom.network', networkData, networkData);
     }
 
     if (isDraft) {
@@ -230,23 +222,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     const formSchema = await payload.getFormSchema({ access: 'internal' });
-
-    const beforeEvent = await payload.getCompiledEvent('before');
-    const afterEvent = await payload.getCompiledEvent();
-
-    if (!event.draft && isEventDifferent(beforeEvent, afterEvent)) {
-      try {
-        await createUpdateActivity(core.services, beforeEvent, afterEvent, {
-          userUid: actingUserUid,
-          agenda,
-          formSchema,
-          member: actingMember,
-          agendaEvent,
-        });
-      } catch (e) {
-        log('error', 'failed to create activity', e);
-      }
-    }
 
     // if event is not draft or was just undrafted, agendaEvent ref must be set
     if (clean.agendaEvent) {
@@ -297,17 +272,26 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     response = await payload.getResponse('event', {
-      access,
+      access: getAccessFromMember(core.services, actingMember, access),
       load: { valid: true },
     });
+
+    const fullEvent = {
+      before: await payload.getCompiledEvent('before', null, null, {
+        valid: true,
+      }), // full access for internal use
+      after: await payload.getCompiledEvent('after', null, null, {
+        valid: true,
+      }), // full access for internal use
+    };
 
     try {
       await eventSearch.update({
         ...response,
         formSchema,
-        event: event.location
-          ? convertLocationAdditionalFields(formSchema, response.event)
-          : response.event,
+        event: fullEvent.after.location
+          ? convertLocationAdditionalFields(formSchema, fullEvent.after)
+          : fullEvent.after,
       });
       log('updated search for event %s', eventUid);
     } catch (e) {
@@ -320,18 +304,36 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       );
     }
 
-    const before = await payload.getCompiledEvent('before');
-    const after = await payload.getCompiledEvent();
+    const eventHasChanged = isEventDifferent(fullEvent.before, fullEvent.after);
 
-    if (isEventDifferent(before, after)) {
+    if (eventHasChanged) {
       try {
         await sendUpdateEmail(core, {
           batched,
-          event: after,
+          event: fullEvent.after,
           agenda,
         });
       } catch (e) {
         log('error', 'failed to send update notification email', e);
+      }
+    }
+
+    if (eventHasChanged && !event.draft) {
+      try {
+        await createUpdateActivity(
+          core.services,
+          fullEvent.before,
+          fullEvent.after,
+          {
+            userUid: actingUserUid,
+            agenda,
+            formSchema,
+            member: actingMember,
+            agendaEvent,
+          },
+        );
+      } catch (e) {
+        log('error', 'failed to create activity', e);
       }
     }
 
@@ -349,13 +351,16 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       });
     }
 
-    await aggregators.notify(before.draft ? 'addEvent' : 'updateEvent', {
-      event: after,
-      before,
-      agenda,
-      formSchema,
-      batched,
-    });
+    await aggregators.notify(
+      fullEvent.before.draft ? 'addEvent' : 'updateEvent',
+      {
+        event: fullEvent.after,
+        before: fullEvent.before,
+        agenda,
+        formSchema,
+        batched,
+      },
+    );
 
     await refreshAgenda(agenda.uid);
 

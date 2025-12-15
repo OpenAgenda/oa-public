@@ -244,7 +244,7 @@ function _filterProtected(namespace, v) {
 
 function _merge(v) {
   v.merged = _.mergeWith({}, v.current, v.data, (obj, src, key) => {
-    if (key === 'filters') {
+    if (['filters', 'status'].includes(key)) {
       return src;
     }
 

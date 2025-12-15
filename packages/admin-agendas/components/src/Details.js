@@ -139,7 +139,7 @@ export default function Details(props) {
       return (
         <tr key={member.id}>
           <td className="text-info text-center" colSpan={7}>
-            User invited (
+            Invité (
             {member.custom.contactName ? <Fragment>{member.custom.contactName}: </Fragment> : null}
             {member.custom.email})
           </td>
@@ -157,7 +157,7 @@ export default function Details(props) {
         <td>{member.user?.fullName}</td>
         <td>{member.user?.username}</td>
         <td>{member.user?.email}</td>
-        <td>le {member.user?.createdAt}</td>
+        <td>le {member.user?.lastSignin}</td>
         <td>
           <a href={`/admin/users/signin?uid=${member.user?.uid}`}>
             <i className="fa fa-sign-in" aria-hidden="true"></i>
@@ -183,7 +183,7 @@ export default function Details(props) {
             <th>Nom complet</th>
             <th>Nom d'utilisateur</th>
             <th>Email</th>
-            <th>Depuis</th>
+            <th>Dernière connexion</th>
             <th>Actions</th>
           </tr>
         </thead>

@@ -22,11 +22,11 @@ function AgendaAdminFiltersLayout({
         </div>
       </div>
       <div className="row body">
-        <div className="col-md-offset-2 col-md-2 col-sm-12 nav wsq">
+        <div className="col-md-offset-2 col-md-2 col-sm-12 nav wsq hidden-print">
           <AdminSections sections={sections} agenda={agenda} role={role} />
         </div>
         <div
-          className="col-md-3 col-md-push-5 col-sm-12 wsq filters"
+          className="col-md-3 col-md-push-5 col-sm-12 wsq filters hidden-print"
           ref={filtersContainerRef}
         />
         <div className="col-md-5 col-md-pull-3 col-sm-12 wsq padding-bottom-sm">

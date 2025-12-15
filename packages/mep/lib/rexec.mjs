@@ -63,7 +63,7 @@ export default async function rexec(
             rs();
           })
           .connect({
-            host: new URL(node.adminUrl).hostname,
+            host: node.address,
             privateKey,
             username: user,
           });

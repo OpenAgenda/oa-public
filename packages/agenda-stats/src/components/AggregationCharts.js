@@ -78,7 +78,7 @@ function AggregationCharts() {
         <ChartWrapper
           key={stat.id}
           editMode={editMode}
-          className={`col-md-12 col-lg-${chartCol} margin-top-md`}
+          className={`col-md-12 col-lg-${chartCol} col-print-sm-${chartCol} margin-top-md print-break-inside-avoid`}
           stat={stat}
           // chartConfig={chartConfig}
           query={query}
@@ -101,7 +101,7 @@ function AggregationCharts() {
             <ChartWrapper
               key={stat.id}
               editMode={editMode}
-              className={`col-md-12 col-lg-${chartCol} margin-top-md`}
+              className={`col-md-12 col-lg-${chartCol} col-print-sm-${chartCol} margin-top-md print-break-inside-avoid`}
             />
           )}
           stat={stat}

@@ -27,6 +27,9 @@ interface StrapiResponse {
   data: PageData[];
 }
 
+export const videoPoster =
+  'https://cdn.openagenda.com/main/poster-pres-oa-video-4.svg';
+
 export function color(c: string | Color, swatch?: any): string {
   if (!c) {
     return;

@@ -90,8 +90,8 @@
     "msw-storybook-addon": "^2.0.5",
     "nodemon": "^2.0.15",
     "raw-loader": "^4.0.2",
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0",
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2",
     "rimraf": "^3.0.1",
     "sass": "^1.83.1",
     "source-map-loader": "^2.0.1",
@@ -103,8 +103,8 @@
     "webpackbar": "^5.0.0-3"
   },
   "peerDependencies": {
-    "react": "^19.2.0",
-    "react-dom": "^19.2.0"
+    "react": "^19.2.2",
+    "react-dom": "^19.2.2"
   },
   "msw": {
     "workerDirectory": [

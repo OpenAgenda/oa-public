@@ -83,6 +83,9 @@ export default function OtherActions({ agenda, editLink, contextBarRef }) {
   const isEventContributor = member && member.userUid === me?.member?.userUid;
   const isOriginAgenda = event.originAgenda?.uid === agenda.uid;
   const { canEditEvent = false } = me?.authorizations ?? {};
+  const enabledStatuses = agenda.settings?.contribution?.status?.enabled || [
+    2, 5, 6,
+  ];
 
   const invalidEventModal = useInvalidEventModal(editLink);
 
@@ -253,7 +256,7 @@ export default function OtherActions({ agenda, editLink, contextBarRef }) {
             action={intl.formatMessage(messages.duplicate)}
             description={intl.formatMessage(messages.duplicateInfo)}
           />
-          {agenda.settings?.lab?.status && canEditEvent ? (
+          {canEditEvent ? (
             <>
               <MenuSeparator />
               <ButtonMenuItem
@@ -262,38 +265,54 @@ export default function OtherActions({ agenda, editLink, contextBarRef }) {
                 action={intl.formatMessage(messages.clearStatus)}
                 description={intl.formatMessage(messages.clearStatusInfo)}
               />
-              <ButtonMenuItem
-                value="mark-as-rescheduled"
-                onClick={() => patchEvent({ status: 2 })}
-                action={intl.formatMessage(messages.markAsRescheduled)}
-                description={intl.formatMessage(messages.markAsRescheduledInfo)}
-              />
-              <ButtonMenuItem
-                value="mark-as-moved-online"
-                onClick={() => patchEvent({ status: 3 })}
-                action={intl.formatMessage(messages.markAsMovedOnline)}
-                description={intl.formatMessage(
-                  messages.markAsMovedOnlineStatus,
-                )}
-              />
-              <ButtonMenuItem
-                value="mark-as-postponed"
-                onClick={() => patchEvent({ status: 4 })}
-                action={intl.formatMessage(messages.markAsPostponed)}
-                description={intl.formatMessage(messages.markAsPostponedStatus)}
-              />
-              <ButtonMenuItem
-                value="mark-as-full"
-                onClick={() => patchEvent({ status: 5 })}
-                action={intl.formatMessage(messages.markAsFull)}
-                description={intl.formatMessage(messages.markAsFullStatus)}
-              />
-              <ButtonMenuItem
-                value="mark-as-cancelled"
-                onClick={() => patchEvent({ status: 6 })}
-                action={intl.formatMessage(messages.markAsCancelled)}
-                description={intl.formatMessage(messages.markAsCancelledStatus)}
-              />
+              {enabledStatuses.includes(2) ? (
+                <ButtonMenuItem
+                  value="mark-as-rescheduled"
+                  onClick={() => patchEvent({ status: 2 })}
+                  action={intl.formatMessage(messages.markAsRescheduled)}
+                  description={intl.formatMessage(
+                    messages.markAsRescheduledInfo,
+                  )}
+                />
+              ) : null}
+              {enabledStatuses.includes(3) ? (
+                <ButtonMenuItem
+                  value="mark-as-moved-online"
+                  onClick={() => patchEvent({ status: 3 })}
+                  action={intl.formatMessage(messages.markAsMovedOnline)}
+                  description={intl.formatMessage(
+                    messages.markAsMovedOnlineStatus,
+                  )}
+                />
+              ) : null}
+              {enabledStatuses.includes(4) ? (
+                <ButtonMenuItem
+                  value="mark-as-postponed"
+                  onClick={() => patchEvent({ status: 4 })}
+                  action={intl.formatMessage(messages.markAsPostponed)}
+                  description={intl.formatMessage(
+                    messages.markAsPostponedStatus,
+                  )}
+                />
+              ) : null}
+              {enabledStatuses.includes(5) ? (
+                <ButtonMenuItem
+                  value="mark-as-full"
+                  onClick={() => patchEvent({ status: 5 })}
+                  action={intl.formatMessage(messages.markAsFull)}
+                  description={intl.formatMessage(messages.markAsFullStatus)}
+                />
+              ) : null}
+              {enabledStatuses.includes(6) ? (
+                <ButtonMenuItem
+                  value="mark-as-cancelled"
+                  onClick={() => patchEvent({ status: 6 })}
+                  action={intl.formatMessage(messages.markAsCancelled)}
+                  description={intl.formatMessage(
+                    messages.markAsCancelledStatus,
+                  )}
+                />
+              ) : null}
             </>
           ) : null}
           {displayRemove || displayRequestEditionRights ? (

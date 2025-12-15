@@ -24,6 +24,7 @@ raw.push(
     load('sql/users/50300.json'),
     load('sql/users/01.json'), // janine id 1, uid 1,
     load('sql/users/kevin.json'),
+    load('sql/users/margaux.json'),
   ]),
 );
 
@@ -65,6 +66,12 @@ raw.push(
       }),
     }),
     load('sql/members/71386.json'),
+    load('sql/members/lise.contributor.albi.json', {
+      id: 789645464,
+      agenda_uid: 17026855,
+      user_uid: 46863451,
+      credential: 1,
+    }),
     load('sql/members/kev.admin.json'),
     load('sql/members/kev.admin.json', {
       id: 78946456,
