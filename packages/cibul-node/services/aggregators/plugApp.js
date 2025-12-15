@@ -77,7 +77,7 @@ export default (config, parentApp) => {
       const query = {};
       if (_.isInteger(parseInt(req.query?.search, 10))) {
         query.uid = parseInt(req.query?.search, 10);
-      } else if (isURL(req.query?.search)) {
+      } else if (req.query?.search && isURL(req.query.search)) {
         const uidOrSlug = req.query?.search.split('/').pop().split('?').shift();
         const isUID = _.isInteger(parseInt(uidOrSlug, 10));
 
