@@ -20,12 +20,36 @@ function getProcessInfo() {
   };
 }
 
+function getCPUUsage() {
+  const cpus = os.cpus();
+  let totalIdle = 0;
+  let totalTick = 0;
+  for (const cpu of cpus) {
+    for (const type of ['user', 'nice', 'sys', 'idle', 'irq']) {
+      if (cpu.times[type] === undefined) continue;
+      totalTick += cpu.times[type];
+      if (type === 'idle') totalIdle += cpu.times[type];
+    }
+  }
+
+  return {
+    idle: totalIdle / cpus.length,
+    total: totalTick / cpus.length,
+  };
+}
+
 export async function init() {
   const log = logs('monitor');
   const processInfo = getProcessInfo();
 
+  let lastMeasure = getCPUUsage();
+
   setInterval(() => {
     const memoryUsage = process.memoryUsage();
+    const nextMeasure = getCPUUsage();
+
+    const totalDiff = nextMeasure.total - lastMeasure.total;
+    const idleDiff = nextMeasure.idle - lastMeasure.idle;
 
     log.info({
       ...processInfo,
@@ -33,7 +57,11 @@ export async function init() {
       heapTotal: Math.ceil(memoryUsage.heapTotal / divideBy),
       heapUsed: Math.ceil(memoryUsage.heapUsed / divideBy),
       external: Math.ceil(memoryUsage.external / divideBy),
+      CPUPercentage:
+        totalDiff > 0 ? 100 - Math.floor(100 * (idleDiff / totalDiff)) : 0,
     });
+
+    lastMeasure = nextMeasure;
   }, period);
 
   return {
