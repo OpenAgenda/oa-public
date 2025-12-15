@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS ${agenda} (
   id BIGINT AUTO_INCREMENT,
   uid BIGINT UNIQUE,
-  main TINYINT(1) DEFAULT '0' NOT NULL,
   official TINYINT(1) DEFAULT '0' NOT NULL,
   officialized_at DATETIME,
   private TINYINT(1) DEFAULT '0' NOT NULL,
@@ -16,12 +15,6 @@ CREATE TABLE IF NOT EXISTS ${agenda} (
   description VARCHAR(400), /* 150 in real world */
   image VARCHAR(255),
   url VARCHAR(255),
-  collaborative TINYINT(1) DEFAULT '0' NOT NULL,
-  /* deprecate - replaced by settings.contribution.type */
-  contribution_type TINYINT DEFAULT 0 NOT NULL,
-  /* deprecate - replaced by settings.contribution.message */
-  contribution_info TEXT,
-  store TEXT,
   credentials TEXT,
   settings TEXT,
   created_at DATETIME NOT NULL,

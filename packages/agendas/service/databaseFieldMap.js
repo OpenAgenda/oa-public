@@ -92,12 +92,4 @@ module.exports = [
     protected: true,
     list: false,
   },
-  {
-    db: 'store',
-    obj: 'legacyStore',
-    type: 'json',
-    internal: true,
-    protected: true,
-    list: false,
-  },
 ];
