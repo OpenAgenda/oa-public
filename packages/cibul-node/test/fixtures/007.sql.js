@@ -16,22 +16,6 @@ raw.push(
       form_schema_id: 26,
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
-      store: JSON.stringify(`{
-    "customFields": [ {
-      "name": "cle_session",
-      "label": {
-        "fr": "Clé session",
-        "en": "Clé session"
-      },
-      "info": {
-        "fr": "Ce champ est complété automatiquement, merci de ne pas le modifier.",
-        "en": "Ce champ est complété automatiquement, merci de ne pas le modifier."
-      },
-      "fieldType": "integer",
-      "optional": true,
-      "type": "private"
-    } ]
-  }`),
     },
     {
       id: 13902,
@@ -44,22 +28,6 @@ raw.push(
       member_schema_id: 8,
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
-      store: JSON.stringify(`{
-    "customFields": [ {
-      "name": "cle_session",
-      "label": {
-        "fr": "Clé session",
-        "en": "Clé session"
-      },
-      "info": {
-        "fr": "Ce champ est complété automatiquement, merci de ne pas le modifier.",
-        "en": "Ce champ est complété automatiquement, merci de ne pas le modifier."
-      },
-      "fieldType": "integer",
-      "optional": true,
-      "type": "private"
-    } ]
-  }`),
     },
   ]),
 );
