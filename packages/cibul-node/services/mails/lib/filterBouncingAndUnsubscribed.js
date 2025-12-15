@@ -7,6 +7,8 @@ import {
   ccIsDestinary,
 } from './utils.js';
 
+const log = logs('services/mails/filterBouncingAndUnsubscribed');
+
 export default async function filterBouncingAndUnsubscribed(
   services,
   config,
@@ -17,8 +19,6 @@ export default async function filterBouncingAndUnsubscribed(
   const {
     mails: { domain: mailsDomain },
   } = config;
-
-  const log = logs('services/mails/filterBouncingAndUnsubscribed');
 
   const { unsubscriptions, address: email } = params[ccIsDestinary({ mailsDomain }, params) ? 'cc' : 'to'];
 
