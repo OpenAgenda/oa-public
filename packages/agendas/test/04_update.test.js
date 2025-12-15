@@ -20,7 +20,6 @@ describe('agendas - functional (server): set (update)', () => {
         database: config.mysql.database,
         agenda: 'agenda',
         agendaEvent: 'agenda_event',
-        legacyCredential: 'legacy_credential_set',
       },
     }),
   );

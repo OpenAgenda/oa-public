@@ -6,7 +6,6 @@ const slugify = require('slugify');
 const logs = require('@openagenda/logs');
 
 const get = require('./get');
-const legacy = require('./legacy');
 const map = require('./databaseFieldMap');
 const validate = require('./validate');
 const dbMapper = require('./lib/dbMapper');
@@ -101,24 +100,6 @@ function _doUpdate(v) {
 
       return v;
     });
-}
-
-function _applyToLegacy(v) {
-  if (!v.success) return v;
-
-  return new Promise((rs) => {
-    legacy(v.id).applyToLegacy(v.clean, (err) => {
-      if (err) {
-        log('error', {
-          message: 'agenda legacy save triggered error',
-          error: err,
-        });
-      } else {
-        log('applied agenda configuration to legacy data structure');
-      }
-      rs(v);
-    });
-  });
 }
 
 function _doCreate(v) {
@@ -391,8 +372,6 @@ function _update(identifiers, data, o, c) {
 
       .then(_doUpdate)
 
-      .then(_applyToLegacy)
-
       .then(
         _get({
           target: 'updated',
@@ -474,8 +453,6 @@ function _create(data, o, c) {
     .then(_profileImage)
 
     .then(_doCreate)
-
-    .then(_applyToLegacy)
 
     .then(
       _get({

@@ -7,7 +7,6 @@ const logger = require('@openagenda/logs');
 const middleware = require('../middleware');
 const Agenda = require('./Agenda');
 const get = require('./get');
-const legacy = require('./legacy');
 const list = require('./list');
 const remove = require('./remove');
 const set = require('./set');
@@ -121,8 +120,6 @@ function init(c) {
   Agenda.init(service);
 
   slugs.init(schemas, knex);
-
-  legacy.init(schemas, knex);
 
   middleware.init(c, service);
 }
