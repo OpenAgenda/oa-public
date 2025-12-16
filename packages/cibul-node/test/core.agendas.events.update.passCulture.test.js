@@ -217,6 +217,18 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
           uid: 2010,
         });
       });
+
+      test('event with passCulture data can be added to agenda not interfaced with passCulture', async () => {
+        const result = await core
+          .agendas(2017)
+          .events.add(
+            event.uid,
+            {},
+            { returnPayload: true, access: 'internal' },
+          );
+
+        expect(result.success).toBe(true);
+      });
     });
   });
 });

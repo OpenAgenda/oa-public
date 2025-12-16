@@ -26,6 +26,10 @@ async function validate({ pc, siren }, event, data = {}, options = {}) {
     throwOnError,
   });
 
+  if (siren === null) {
+    throw new BadRequest('offerer siren is null');
+  }
+
   const hasVenue = await pc.offers
     .offererVenues({ siren })
     .then((offererVenues) =>
