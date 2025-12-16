@@ -28,6 +28,8 @@ export default async function addParentElement(
 
   const children = [...element.children];
 
+  let lastRemaining = null;
+
   while (children.length) {
     const child = children.shift();
     log(
@@ -36,22 +38,45 @@ export default async function addParentElement(
       rtd({ simulate, x: cursor.x }),
     );
 
+    const availableHeight = rtd(cursor.lineHeight);
+
+    if (!availableHeight) {
+      return { overflow: true };
+    }
+
     const result = await addMarkdownElement(doc, state, child, {
       ...params,
       bold: params.bold || child.type === 'strong',
       depth,
       paragraphAvailableWidth: cursor.availableWidth,
       availableWidth: cursor.availableWidth - (cursor.x - cursor.init.x),
-      availableHeight: rtd(cursor.lineHeight),
+      availableHeight,
     });
 
     if (result?.overflow) {
       return { overflow: true };
     }
 
-    if (result?.remaining?.length) {
+    const remaining = result?.remaining;
+
+    if (remaining?.length) {
+      if (lastRemaining === remaining) {
+        throw new Error(
+          `Infinite loop detected: remaining unchanged (${remaining.length} length).`,
+        );
+      }
+      if (lastRemaining != null && remaining.length >= lastRemaining.length) {
+        throw new Error(
+          `Infinite loop detected: remaining not shrinking (prev=${lastRemaining.length}, now=${remaining.length}).`,
+        );
+      }
+
+      lastRemaining = remaining;
+
       log(`${lgi(depth)} ↦ stacking remaining back in children to process`);
-      children.splice(0, 0, injectRemainingInElement(child, result?.remaining));
+      children.splice(0, 0, injectRemainingInElement(child, remaining));
+    } else {
+      lastRemaining = null;
     }
   }
 }

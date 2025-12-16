@@ -1,24 +1,873 @@
 {
   "agenda": {
-    "uid": 56170473,
-    "title": "Senlis",
-    "description": "Agenda Officiel de la ville de Senlis",
-    "slug": "senlis",
-    "url": "https://www.ville-senlis.fr/",
-    "networkUid": 16587915,
-    "image": "https://cdn.openagenda.com/main/agenda56170473.jpg?__ts=1641837391102",
+    "uid": 44152079,
+    "title": "Maison de l'Habitat Durable",
+    "description": "Agenda de la Maison de l'Habitat Durable, guichet unique de la rénovation durable et énergétique des logements de la métropole lilloise.\nContact 03 59 00 03 59",
+    "slug": "mhd",
+    "url": "http://www.maisonhabitatdurable-lillemetropole.fr",
+    "official": 1,
+    "networkUid": 245900410,
+    "locationSetUid": 59170,
+    "updatedAt": "2025-12-15T15:11:12.000Z",
+    "createdAt": "2018-02-13T15:20:43.000Z",
+    "memberSchemaId": null,
+    "officializedAt": "2018-04-16T14:59:12.000Z",
+    "image": "https://cdn.openagenda.com/main/agenda44152079.jpg",
+    "private": 0,
+    "indexed": 1,
+    "settings": {
+      "tracking": {
+        "googleAnalytics": "UA-133158521-8",
+        "matomoUrl": null,
+        "matomoSiteId": null,
+        "matomoCustom": []
+      },
+      "public": {
+        "filters": {
+          "displayed": null
+        }
+      },
+      "lab": {
+        "status": false
+      },
+      "inbox": {
+        "mailto": {
+          "enabled": false,
+          "email": null,
+          "subject": null,
+          "body": null
+        }
+      },
+      "contribution": {
+        "type": 2,
+        "defaultState": 0,
+        "canPublish": ["administrators", "moderators"],
+        "moderateOnChangeBy": [],
+        "defaultLang": null,
+        "allowLocationCreate": true,
+        "messages": {
+          "instructions": null,
+          "complete": null,
+          "publication": null,
+          "GDPRInformation": null
+        },
+        "useFields": false,
+        "status": {
+          "enabled": [2, 5, 6]
+        }
+      },
+      "registration": {
+        "passCulture": {
+          "siren": null,
+          "bookingEmail": null,
+          "defaultVenueId": null,
+          "access": null
+        }
+      }
+    },
+    "summary": {
+      "keywords": [
+        "Lille",
+        "Tourcoing",
+        "Roubaix",
+        "Armentières",
+        "Villeneuve-d'Ascq",
+        "Marcq-en-Barœul",
+        "Hem",
+        "Leers",
+        "Croix",
+        "Lezennes",
+        "Nord",
+        "Hauts-de-France",
+        "Logement",
+        "Habitat",
+        "Loisirs",
+        "Développement durable",
+        "rénovation",
+        "Copropriétés",
+        "travaux",
+        "logement",
+        "copropriétés",
+        "isolation"
+      ],
+      "publishedEvents": {
+        "current": 0,
+        "passed": 1184,
+        "upcoming": 45
+      },
+      "languages": {
+        "fr": 1229,
+        "en": 16,
+        "nl": 16
+      },
+      "recentlyAddedEvents": {
+        "contribution": 38,
+        "shared": 0,
+        "aggregation": 0
+      },
+      "viewport": {
+        "topLeft": {
+          "latitude": 50.77243998181075,
+          "longitude": 2.8041229583323
+        },
+        "bottomRight": {
+          "latitude": 50.52823696285486,
+          "longitude": 3.2455969601869583
+        }
+      }
+    },
+    "network": {
+      "uid": 245900410,
+      "formSchemaId": 41,
+      "title": "Métropole Européenne de Lille"
+    },
+    "locationSet": {
+      "uid": 59170,
+      "title": "Lieux de la Métropole européenne de Lille"
+    },
     "schema": {
       "custom": {},
       "fields": [
+        {
+          "field": "interetintercommunal",
+          "label": {
+            "fr": "Événement d’intérêt métropolitain",
+            "en": "Événement d’intérêt métropolitain"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "default": [1],
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "options": [
+            {
+              "id": 1,
+              "value": "true",
+              "label": {
+                "fr": "Ajouter mon événement à l’agenda de la Métropole Européenne de Lille",
+                "en": "Ajouter mon événement à l’agenda de la Métropole Européenne de Lille"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "checkbox",
+          "schemaId": 41,
+          "schemaType": "network"
+        },
+        {
+          "field": "recurringevent",
+          "label": {
+            "fr": "Événement récurrent",
+            "en": "Événement récurrent"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "options": [
+            {
+              "id": 2,
+              "value": "true",
+              "label": {
+                "fr": "Événement récurrent",
+                "en": "Événement récurrent"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "checkbox",
+          "schemaId": 41,
+          "schemaType": "network"
+        },
+        {
+          "field": "categories-metropolitaines",
+          "label": {
+            "fr": "Catégories Métropolitaines",
+            "en": "Catégories Métropolitaines"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": false,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "options": [
+            {
+              "id": 3,
+              "value": "atelier",
+              "label": {
+                "fr": "Atelier",
+                "en": "Workshop"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 4,
+              "value": "braderie-brocante",
+              "label": {
+                "fr": "Braderie - Brocante",
+                "en": "Garage sale"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 5,
+              "value": "ceremonie",
+              "label": {
+                "fr": "Cérémonie",
+                "en": "Ceremony"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 6,
+              "value": "cinema",
+              "label": {
+                "fr": "Cinéma",
+                "en": "Movies"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 7,
+              "value": "conference-rencontre",
+              "label": {
+                "fr": "Conférence - Rencontre",
+                "en": "Conferences"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 8,
+              "value": "conseil-municipal",
+              "label": {
+                "fr": "Conseil Municipal",
+                "en": "Municipality meeting"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 9,
+              "value": "danse",
+              "label": {
+                "fr": "Danse",
+                "en": "Dance"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 10,
+              "value": "developpement-durable",
+              "label": {
+                "fr": "Développement durable",
+                "en": "Sustainable development"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 11,
+              "value": "emploi",
+              "label": {
+                "fr": "Emploi",
+                "en": "Employment"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 12,
+              "value": "exposition",
+              "label": {
+                "fr": "Exposition",
+                "en": "Exhibition"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 13,
+              "value": "fete-festival",
+              "label": {
+                "fr": "Fête - Festival",
+                "en": "Festival"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 14,
+              "value": "formation",
+              "label": {
+                "fr": "Formation",
+                "en": "Training"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 15,
+              "value": "lecture",
+              "label": {
+                "fr": "Lecture",
+                "en": "Reading"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 16,
+              "value": "mode",
+              "label": {
+                "fr": "Mode",
+                "en": "Fashion"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 17,
+              "value": "musique",
+              "label": {
+                "fr": "Musique",
+                "en": "Music"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 37,
+              "value": "numerique",
+              "label": {
+                "fr": "Numérique",
+                "en": "Digital"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 18,
+              "value": "reunion-publique",
+              "label": {
+                "fr": "Réunion publique",
+                "en": "Public meeting"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 19,
+              "value": "sante",
+              "label": {
+                "fr": "Santé",
+                "en": "Health"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 20,
+              "value": "spectacle",
+              "label": {
+                "fr": "Spectacle",
+                "en": "Spectacle"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 21,
+              "value": "sport",
+              "label": {
+                "fr": "Sport",
+                "en": "Sport"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 22,
+              "value": "theatre",
+              "label": {
+                "fr": "Théâtre",
+                "en": "Theatre"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 38,
+              "value": "transition-durable",
+              "label": {
+                "fr": "Transition durable",
+                "en": "Transition durable"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 23,
+              "value": "visite-balade",
+              "label": {
+                "fr": "Visite - Balade",
+                "en": "Visit - walk"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 28,
+              "value": "aucune",
+              "label": {
+                "fr": "Aucune catégorie",
+                "en": "No category"
+              },
+              "info": null,
+              "display": false
+            }
+          ],
+          "fieldType": "checkbox",
+          "schemaId": 41,
+          "schemaType": "network"
+        },
+        {
+          "field": "categories-specifiques-la-cart",
+          "label": {
+            "fr": "Catégories spécifiques La C'Art",
+            "en": "Specific categories of La C'Art"
+          },
+          "optional": true,
+          "display": false,
+          "enable": true,
+          "origin": "tags",
+          "options": [
+            {
+              "id": 40,
+              "value": "hors-les-murs",
+              "label": {
+                "fr": "Hors les murs",
+                "en": "Hors les murs"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 41,
+              "value": "jeune-public",
+              "label": {
+                "fr": "Jeune public",
+                "en": "Young audience"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "checkbox",
+          "schemaId": 41,
+          "schemaType": "network"
+        },
+        {
+          "field": "organisateur",
+          "fieldType": "select",
+          "label": "Organisé par",
+          "display": false,
+          "enableWith": {
+            "field": "categories-specifiques-la-cart",
+            "value": [40]
+          },
+          "options": [
+            {
+              "id": 1004,
+              "label": "LaM",
+              "value": "lam"
+            },
+            {
+              "id": 1005,
+              "label": "Musée de l'Hospice Comtesse",
+              "value": "musée-de-l-hospice-comtesse"
+            },
+            {
+              "id": 1007,
+              "label": "La villa Cavrois",
+              "value": "la-villa-cavrois"
+            },
+            {
+              "id": 1008,
+              "label": "La Piscine, Musée d'Art et d'Industrie André Diligent",
+              "value": "la-piscine-musée-d-art-et-d-industrie-andré-diligent"
+            },
+            {
+              "id": 1009,
+              "label": "Palais des Beaux-Arts de Lille",
+              "value": "palais-des-beaux-arts-de-lille"
+            },
+            {
+              "id": 1010,
+              "label": "Musée d'histoire naturelle (fermeture temporaire)",
+              "value": "musée-d-histoire-naturelle-fermeture-temporaire"
+            },
+            {
+              "id": 1011,
+              "label": "MUba Eugène Leroy",
+              "value": "muba-eugène-leroy"
+            },
+            {
+              "id": 1012,
+              "label": "Le Fresnoy - Studio national des arts contemporains",
+              "value": "le-fresnoy-studio-national-des-arts-contemporains"
+            },
+            {
+              "id": 1014,
+              "label": "Louvre-Lens",
+              "value": "louvre-lens"
+            },
+            {
+              "id": 1015,
+              "label": "La Manufacture, musée de la Mémoire et de la création textile",
+              "value": "la-manufacture-musée-de-la-mémoire-et-de-la-création-textile"
+            },
+            {
+              "id": 1032,
+              "label": "Musée de la Bataille de Fromelles",
+              "value": "musée-de-la-bataille-de-fromelles"
+            },
+            {
+              "id": 1054,
+              "label": "Institut du monde arabe",
+              "value": "institut-du-monde-arabe"
+            },
+            {
+              "id": 1058,
+              "label": "La Condition Publique ",
+              "value": "la-condition-publique"
+            },
+            {
+              "id": 1098,
+              "label": "Tripostal",
+              "value": "tripostal"
+            },
+            {
+              "id": 1180,
+              "label": "Musée de Flandre",
+              "value": "musée-de-flandre"
+            },
+            {
+              "id": 1181,
+              "label": "Musée Matisse",
+              "value": "musée-matisse"
+            },
+            {
+              "id": 1182,
+              "label": "MusVerre",
+              "value": "musverre"
+            },
+            {
+              "id": 1183,
+              "label": "Forum antique de Bavay",
+              "value": "forum-antique-de-bavay"
+            },
+            {
+              "id": 1193,
+              "label": "Forum départemental des Sciences",
+              "value": "forum-départemental-des-sciences"
+            },
+            {
+              "id": 1195,
+              "label": "Sciences Po Lille - BDA",
+              "value": "sciences-po-lille-bda"
+            },
+            {
+              "id": 1214,
+              "label": "Saint-Sauveur",
+              "value": "saint-sauveur"
+            },
+            {
+              "id": 1271,
+              "label": "Maison natale Charles de Gaulle",
+              "value": "maison-natale-charles-de-gaulle"
+            },
+            {
+              "id": 1272,
+              "label": "Secours Populaire Français",
+              "value": "secours-populaire-français"
+            },
+            {
+              "id": 1307,
+              "label": "IN FLANDERS FIELDS MUSEUM",
+              "value": "in-flanders-fields-museum"
+            },
+            {
+              "id": 1308,
+              "label": "TAMAT - Musée de la Tapisserie et des Arts Textiles de la Fédération Wallonie Bruxelles ",
+              "value": "tamat-musée-de-la-tapisserie-et-des-arts-textiles-de-la-fédération-wallonie-bruxelles"
+            },
+            {
+              "id": 1309,
+              "label": "Texture musée de lin et du textile",
+              "value": "texture-musée-de-lin-et-du-textile"
+            },
+            {
+              "id": 1310,
+              "label": "Musée des Beaux-Arts de Tournai",
+              "value": "musée-des-beaux-arts-de-tournai"
+            },
+            {
+              "id": 1311,
+              "label": "Musée de Folklore vie Frontalière (MUSEF) ",
+              "value": "musée-de-folklore-vie-frontalière-musef"
+            },
+            {
+              "id": 1312,
+              "label": "PLUGSTREET 14-18 EXPERIENCE",
+              "value": "plugstreet-14-18-experience"
+            },
+            {
+              "id": 1313,
+              "label": "Yper museum",
+              "value": "yper-museum"
+            },
+            {
+              "id": 1314,
+              "label": "Abby",
+              "value": "abby"
+            },
+            {
+              "id": 1315,
+              "label": "Le Grand Bleu",
+              "value": "le-grand-bleu"
+            },
+            {
+              "id": 1316,
+              "label": "La Rose des Vents",
+              "value": "la-rose-des-vents"
+            },
+            {
+              "id": 1317,
+              "label": "Lille Art Up ! Foire d’art contemporain",
+              "value": "lille-art-up-foire-d’art-contemporain"
+            },
+            {
+              "id": 1318,
+              "label": "Espaces Naturels de la MEL",
+              "value": "espaces-naturels-de-la-mel"
+            },
+            {
+              "id": 1319,
+              "label": "Latitudes Contemporaines",
+              "value": "latitudes-contemporaines"
+            },
+            {
+              "id": 1320,
+              "label": "La Virgule",
+              "value": "la-virgule"
+            },
+            {
+              "id": 1321,
+              "label": "Le Prato",
+              "value": "le-prato"
+            }
+          ],
+          "schemaId": 41,
+          "schemaType": "network"
+        },
+        {
+          "field": "label",
+          "label": {
+            "fr": "Label",
+            "en": "Label"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "tags",
+          "enableWith": null,
+          "optionalWith": null,
+          "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "options": [
+            {
+              "id": 25,
+              "value": "design",
+              "label": {
+                "fr": "Design",
+                "en": "Design"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 33,
+              "value": "espaces-naturels-metropolitains",
+              "label": {
+                "fr": "Espaces Naturels Métropolitains",
+                "en": "Espaces Naturels Métropolitains"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 30,
+              "value": "espaces-naturels-sensibles",
+              "label": {
+                "fr": "Espaces Naturels Sensibles",
+                "en": "Espaces Naturels Sensibles"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 35,
+              "value": "jeux-olympiques-2024",
+              "label": {
+                "fr": "Jeux Olympiques 2024",
+                "en": "Jeux Olympiques 2024"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 27,
+              "value": "journees-europeennes-du-patrimoine",
+              "label": {
+                "fr": "Journées Européennes du Patrimoine",
+                "en": "Journées Européennes du Patrimoine"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 29,
+              "value": "nuits-des-bibliotheques",
+              "label": {
+                "fr": "Nuits des bibliothèques",
+                "en": "Nuits des bibliothèques"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 36,
+              "value": "fiesta-lille3000",
+              "label": {
+                "fr": "Fiesta-lille3000",
+                "en": "Fiesta-lille3000"
+              },
+              "info": null,
+              "display": true
+            },
+            {
+              "id": 39,
+              "value": "tour-de-france-2025",
+              "label": {
+                "fr": "Tour de France 2025",
+                "en": "Tour de France 2025"
+              },
+              "info": null,
+              "display": true
+            }
+          ],
+          "fieldType": "checkbox",
+          "schemaId": 41,
+          "schemaType": "network"
+        },
         {
           "field": "image",
           "fieldType": "image",
           "optional": true,
           "label": {
-            "fr": "Image de l'événement"
+            "fr": "Image de l'événement",
+            "en": "Image of the event",
+            "it": "Immagine dell'evento",
+            "de": "Bild der Veranstaltung",
+            "es": "Imagen del evento",
+            "br": "Skeudenn an darvoud",
+            "io": "crwdns14296:0crwdne14296:0",
+            "oc": "Imatge de l'eveniment"
           },
           "info": {
-            "fr": "Ajoutez de préférence une photo simple, plutôt qu'une affiche avec du texte"
+            "fr": "Chargez une image d'au moins 300 pixels de large",
+            "en": "Load an image of at least 300 pixels width",
+            "it": "Carica un'immagine di almeno 300 pixel di larghezza",
+            "de": "Laden Sie ein Bild mit einer Breite von mindestens 300 Pixeln.",
+            "es": "Cargar una imagen de al menos 300 píxeles de ancho",
+            "br": "Kargit ur skeudenn gant 300 piksel a ledander d'an nebeutañ",
+            "io": "crwdns14298:0crwdne14298:0",
+            "oc": "Cargatz un image d'al mens 300 pixèls de largor"
           },
           "allowURL": true,
           "allowPath": true,
@@ -45,147 +894,6 @@
           "max": 255,
           "schemaId": null,
           "schemaType": "event"
-        },
-        {
-          "field": "categorie",
-          "label": {
-            "fr": "Catégorie"
-          },
-          "help": null,
-          "helpLink": null,
-          "helpContent": null,
-          "info": null,
-          "sub": null,
-          "placeholder": null,
-          "write": null,
-          "read": null,
-          "optional": false,
-          "display": true,
-          "enable": true,
-          "origin": null,
-          "enableWith": null,
-          "optionalWith": null,
-          "related": {
-            "enable": [],
-            "optional": [],
-            "other": []
-          },
-          "selfHandled": [],
-          "min": null,
-          "max": null,
-          "options": [
-            {
-              "id": 2,
-              "value": "atelier",
-              "label": {
-                "fr": "Atelier"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 3,
-              "value": "spectacle",
-              "label": {
-                "fr": "Spectacle"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 4,
-              "value": "salon",
-              "label": {
-                "fr": "Salon"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 5,
-              "value": "rencontre",
-              "label": {
-                "fr": "Rencontre"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 6,
-              "value": "marche",
-              "label": {
-                "fr": "Marché"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 7,
-              "value": "projection",
-              "label": {
-                "fr": "Projection"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 8,
-              "value": "exposition",
-              "label": {
-                "fr": "Exposition"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 9,
-              "value": "sport",
-              "label": {
-                "fr": "Sport"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 10,
-              "value": "loisirs",
-              "label": {
-                "fr": "Loisirs"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 11,
-              "value": "vie-citoyenne",
-              "label": {
-                "fr": "Vie citoyenne"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 12,
-              "value": "entraide",
-              "label": {
-                "fr": "Entraide"
-              },
-              "info": null,
-              "display": true
-            },
-            {
-              "id": 13,
-              "value": "visite",
-              "label": {
-                "fr": "Visite"
-              },
-              "info": null,
-              "display": true
-            }
-          ],
-          "fieldType": "checkbox",
-          "schemaId": 41004,
-          "schemaType": "network"
         },
         {
           "languages": [],
@@ -403,13 +1111,34 @@
           "field": "registration",
           "fieldType": "registration",
           "label": {
-            "fr": "Outils d'inscription"
+            "fr": "Outils d'inscription",
+            "en": "Registration",
+            "it": "Registrazione",
+            "de": "Registrierung",
+            "es": "Herramientas de registro",
+            "br": "En em enskrivañ",
+            "io": "crwdns14316:0crwdne14316:0",
+            "oc": "Inscripcion"
           },
           "info": {
-            "fr": "Liens, emails ou numéros de téléphone"
+            "fr": "Liens, emails ou numéros de téléphone",
+            "en": "Links, emails or phone numbers",
+            "it": "Link, e-mail o numeri di telefono",
+            "de": "Links, E-Mails oder Telefonnummern",
+            "es": "Enlaces, números de teléfono o correo electrónico",
+            "br": "Liammoù, chomlec'hioù postel pe niverennoù pellgomz",
+            "io": "crwdns14320:0crwdne14320:0",
+            "oc": "Ligams, emails o numèros de telefòne"
           },
           "sub": {
-            "fr": "Ne préciser qu'en cas de besoin d'inscription ou de réservation. "
+            "fr": "Séparez les items par des tabulations ou des virgules",
+            "en": "Separate each item with tabs or commas",
+            "it": "Separare le voci per tabulazione o virgole",
+            "de": "Trenne jedes Element mit Tabs oder Kommas.",
+            "es": "artículos por separado con tabulaciones o comas",
+            "br": "Dispartiit an elfennoù gant arouezennoù taolennata pe virgulennoù",
+            "io": "crwdns14318:0crwdne14318:0",
+            "oc": "Desseparatz cada element per de tabulacion o de virgulas"
           },
           "related": {
             "other": [
@@ -430,8 +1159,8 @@
               "defaultVenueId": null,
               "access": null,
               "res": {
-                "context": "/api/me/agendas/56170473",
-                "settings": "/api/agendas/56170473/settings/passCulture",
+                "context": "/api/me/agendas/44152079",
+                "settings": "/api/agendas/44152079/settings/passCulture",
                 "offerLink": "https://passculture.app/offre/:id",
                 "offerEditLink": "https://passculture.pro/offre/individuelle/:id/recapitulatif"
               }
@@ -456,7 +1185,7 @@
           "schemaType": "event"
         },
         {
-          "display": false,
+          "display": true,
           "field": "attendanceMode",
           "fieldType": "radio",
           "label": {
@@ -602,6 +1331,7 @@
                 ],
                 "fieldType": "text",
                 "max": 100,
+                "rejectEmojis": true,
                 "label": {
                   "en": "Name",
                   "fr": "Nom",
@@ -630,6 +1360,7 @@
                   "contributor"
                 ],
                 "max": 255,
+                "rejectEmojis": true,
                 "label": {
                   "en": "Address",
                   "fr": "Adresse",
@@ -658,6 +1389,7 @@
                   "moderator",
                   "contributor"
                 ],
+                "rejectEmojis": true,
                 "label": {
                   "en": "Country code",
                   "fr": "Code pays",
@@ -686,6 +1418,7 @@
                   "contributor"
                 ],
                 "max": 255,
+                "rejectEmojis": true,
                 "label": {
                   "en": "Region",
                   "fr": "Région",
@@ -714,6 +1447,7 @@
                   "contributor"
                 ],
                 "max": 255,
+                "rejectEmojis": true,
                 "label": {
                   "en": "Department",
                   "fr": "Département",
@@ -742,7 +1476,8 @@
                   "moderator",
                   "contributor"
                 ],
-                "max": 255
+                "max": 255,
+                "rejectEmojis": true
               },
               {
                 "field": "adminLevel4",
@@ -763,6 +1498,7 @@
                   "contributor"
                 ],
                 "max": 100,
+                "rejectEmojis": true,
                 "label": {
                   "en": "City",
                   "fr": "Ville",
@@ -792,6 +1528,7 @@
                   "contributor"
                 ],
                 "max": 100,
+                "rejectEmojis": true,
                 "label": {
                   "en": "City",
                   "fr": "Ville",
@@ -821,6 +1558,7 @@
                   "contributor"
                 ],
                 "max": 255,
+                "rejectEmojis": true,
                 "label": {
                   "en": "Borough",
                   "fr": "Arrondissement"
@@ -845,6 +1583,7 @@
                   "contributor"
                 ],
                 "max": 255,
+                "rejectEmojis": true,
                 "label": {
                   "en": "City district",
                   "fr": "Quartier"
@@ -868,6 +1607,7 @@
                   "contributor"
                 ],
                 "max": 255,
+                "rejectEmojis": true,
                 "label": {
                   "en": "District",
                   "fr": "Quartier",
@@ -895,6 +1635,7 @@
                   "contributor"
                 ],
                 "max": 20,
+                "rejectEmojis": true,
                 "label": {
                   "en": "Postal code",
                   "fr": "Code postal",
@@ -922,6 +1663,7 @@
                   "contributor"
                 ],
                 "max": 10,
+                "rejectEmojis": true,
                 "label": {
                   "en": "INSEE Code",
                   "fr": "Code INSEE",
@@ -1004,6 +1746,7 @@
                   "contributor"
                 ],
                 "max": 255,
+                "rejectEmojis": true,
                 "label": {
                   "en": "Region",
                   "fr": "Région",
@@ -1032,6 +1775,7 @@
                   "contributor"
                 ],
                 "max": 255,
+                "rejectEmojis": true,
                 "label": {
                   "en": "Department",
                   "fr": "Département",
@@ -1244,6 +1988,7 @@
                 ],
                 "fieldType": "multilingual",
                 "languages": [],
+                "rejectEmojis": true,
                 "max": 1000
               },
               {
@@ -1285,7 +2030,8 @@
                   "moderator",
                   "contributor"
                 ],
-                "enableWith": "image"
+                "enableWith": "image",
+                "rejectEmojis": true
               },
               {
                 "field": "siret",
@@ -1368,7 +2114,7 @@
           "settings": {}
         },
         {
-          "display": false,
+          "display": true,
           "field": "onlineAccessLink",
           "fieldType": "link",
           "label": {
@@ -1385,6 +2131,38 @@
           "enableWith": {
             "field": "attendanceMode",
             "value": [2, 3]
+          },
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "timings",
+          "fieldType": "timings",
+          "max": 800,
+          "optional": false,
+          "label": {
+            "fr": "Horaires",
+            "en": "Timings",
+            "it": "Orari",
+            "de": "Timings",
+            "es": "Horarios",
+            "br": "Eurioù",
+            "io": "crwdns14328:0crwdne14328:0",
+            "oc": "Oraris"
+          },
+          "info": {
+            "fr": "Définissez les horaires de votre événement",
+            "en": "Specify timings for your event",
+            "it": "Definire gli orari dell'evento",
+            "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
+            "es": "Indicar los horarios de su evento",
+            "br": "Lakait eurioù ho tarvoud",
+            "io": "crwdns14330:0crwdne14330:0",
+            "oc": "Indicar d'oraris per vòstre eveniment"
+          },
+          "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+          "related": {
+            "other": ["timezone"]
           },
           "schemaId": null,
           "schemaType": "event"
@@ -1474,42 +2252,6 @@
           ],
           "schemaId": null,
           "schemaType": "event"
-        },
-        {
-          "field": "timings",
-          "fieldType": "timings",
-          "max": 800,
-          "optional": false,
-          "label": {
-            "fr": "Horaires",
-            "en": "Timings",
-            "it": "Orari",
-            "de": "Timings",
-            "es": "Horarios",
-            "br": "Eurioù",
-            "io": "crwdns14328:0crwdne14328:0",
-            "oc": "Oraris"
-          },
-          "info": {
-            "fr": "Définissez les horaires de votre événement",
-            "en": "Specify timings for your event",
-            "it": "Definire gli orari dell'evento",
-            "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
-            "es": "Indicar los horarios de su evento",
-            "br": "Lakait eurioù ho tarvoud",
-            "io": "crwdns14330:0crwdne14330:0",
-            "oc": "Indicar d'oraris per vòstre eveniment"
-          },
-          "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
-          "schemaId": null,
-          "schemaType": "event"
-        },
-        {
-          "field": "references",
-          "related": ["title", "categorie", "keywords"],
-          "fieldType": "abstract",
-          "schemaId": null,
-          "schemaType": null
         },
         {
           "field": "extIds",
@@ -1629,61 +2371,62 @@
   },
   "event": {
     "firstTiming": {
-      "end": "2025-09-20T17:00:00.000+02:00",
-      "begin": "2025-09-20T10:30:00.000+02:00"
+      "end": "2021-05-19T19:30:00.000+02:00",
+      "begin": "2021-05-19T17:30:00.000+02:00"
     },
-    "nextTiming": {
-      "begin": "2025-10-04T14:00:00+02:00",
-      "end": "2025-10-04T16:00:00+02:00"
-    },
+    "nextTiming": null,
     "lastTiming": {
-      "end": "2025-10-19T16:00:00.000+02:00",
-      "begin": "2025-10-19T14:30:00.000+02:00"
+      "end": "2021-05-19T19:30:00.000+02:00",
+      "begin": "2021-05-19T17:30:00.000+02:00"
     },
     "dateRange": {
-      "ar": "٢٠ سبتمبر - ١٩ أكتوبر",
-      "de": "20 September - 19 Oktober",
-      "en": "20 September - 19 October",
-      "it": "20 settembre - 19 ottobre",
-      "fr": "20 septembre - 19 octobre",
-      "es": "20 septiembre - 19 octubre"
+      "ar": "الأربعاء ١٩ مايو ٢٠٢١, 17:30",
+      "de": "Mittwoch 19 Mai 2021, 17:30",
+      "en": "Wednesday 19 May 2021, 17:30",
+      "it": "Mercoledì 19 maggio 2021, 17:30",
+      "fr": "Mercredi 19 mai 2021, 17h30",
+      "es": "Miércoles 19 mayo 2021, 17:30"
     },
     "state": 2,
     "featured": false,
     "motive": null,
     "originAgenda": {
-      "image": "agenda56170473.jpg?__ts=1641837391102",
+      "image": "agenda44152079.jpg",
       "private": 0,
-      "locationSetUid": 53180682,
+      "locationSetUid": 59170,
       "official": true,
-      "description": "Agenda Officiel de la ville de Senlis",
-      "title": "Senlis",
-      "url": "https://www.ville-senlis.fr/",
-      "_agg": "eyJ1aWQiOjU2MTcwNDczLCJ0aXRsZSI6IlNlbmxpcyIsImltYWdlIjoiYWdlbmRhNTYxNzA0NzMuanBnP19fdHM9MTY0MTgzNzM5MTEwMiIsInVybCI6Imh0dHBzOi8vd3d3LnZpbGxlLXNlbmxpcy5mci8iLCJzbHVnIjoic2VubGlzIn0=",
-      "uid": 56170473,
-      "createdAt": "2022-01-10T17:56:31.000Z",
-      "officializedAt": "2022-05-18T15:47:26.000Z",
-      "slug": "senlis",
-      "updatedAt": "2025-10-02T14:19:19.000Z"
+      "description": "Agenda de la Maison de l'Habitat Durable, guichet unique de la rénovation durable et énergétique des logements de la métropole lilloise.\nContact 03 59 00 03 59",
+      "title": "Maison de l'Habitat Durable",
+      "url": "http://www.maisonhabitatdurable-lillemetropole.fr",
+      "_agg": "eyJ1aWQiOjQ0MTUyMDc5LCJ0aXRsZSI6Ik1haXNvbiBkZSBsJ0hhYml0YXQgRHVyYWJsZSIsImltYWdlIjoiYWdlbmRhNDQxNTIwNzkuanBnIiwidXJsIjoiaHR0cDovL3d3dy5tYWlzb25oYWJpdGF0ZHVyYWJsZS1saWxsZW1ldHJvcG9sZS5mciIsInNsdWciOiJtaGQifQ==",
+      "uid": 44152079,
+      "createdAt": "2018-02-13T15:20:43.000Z",
+      "officializedAt": "2018-04-16T14:59:12.000Z",
+      "slug": "mhd",
+      "updatedAt": "2025-12-08T13:20:18.000Z"
     },
     "sourceAgendas": [],
+    "interetintercommunal": [1, 1],
+    "recurringevent": [],
+    "categories-metropolitaines": [28],
+    "label": [],
     "image": {
-      "filename": "5becccaa704d4724839d6b481c6c80da.base.image.jpg",
+      "filename": "ec31c512e4f54b6886f4b47c996c7a33.base.image.jpg",
       "size": {
         "width": 700,
-        "height": 991
+        "height": 394
       },
       "variants": [
         {
-          "filename": "5becccaa704d4724839d6b481c6c80da.full.image.jpg",
+          "filename": "ec31c512e4f54b6886f4b47c996c7a33.full.image.jpg",
           "size": {
-            "width": 600,
-            "height": 849
+            "width": 842,
+            "height": 474
           },
           "type": "full"
         },
         {
-          "filename": "5becccaa704d4724839d6b481c6c80da.thumb.image.jpg",
+          "filename": "ec31c512e4f54b6886f4b47c996c7a33.thumb.image.jpg",
           "size": {
             "width": 200,
             "height": 200
@@ -1693,28 +2436,21 @@
       ],
       "base": "https://cdn.openagenda.com/main/"
     },
-    "imageCredits": null,
-    "categorie": [13, 2, 7, 8, 5, 6],
+    "imageCredits": "AMELIO",
     "title": {
-      "fr": "« Goûtons notre territoire »"
+      "fr": "Les clefs pour démarrer un projet de rénovation globale avec AmelioCopro"
     },
     "description": {
-      "fr": "« Goûtons notre territoire », le plus gourmand des évènements locaux revient..."
+      "fr": "Quelles sont les principales étapes, les pièges à éviter pour rénover énergétiquement sa copropriété et comment AMELIO COPRO peut vous aider ?"
     },
     "keywords": {
-      "fr": [
-        "PNR",
-        "Parc Naturel Régional",
-        "Parc Naturel Régional Oise Pays de France",
-        "Producteurs",
-        "Circuits courts"
-      ]
+      "fr": ["copropriétés"]
     },
     "longDescription": {
-      "fr": "**Du 20 septembre au 19 octobre, producteurs locaux et habitants sont invités à se rencontrer à l’occasion d’ateliers, de balades et de visites de ferme proposés dans le cadre de l’évènement « Goûtons notre territoire » organisé par le Parc naturel régional Oise - Pays de France.**  \nTous les deux ans, le Parc naturel régional Oise - Pays de France renouvelle l’organisation de l’évènement « Goûtons notre territoire ». Pensé comme un festival qui célèbre les producteurs locaux et fait la part belle à l’alimentation locale, l’évènement propose de multiples animations pour découvrir et déguster les spécialités qui constituent le terroir local.  \nVisites de ferme, ateliers découvertes ou culinaires mais aussi ciné-débat ou fresque de l’alimentation sont autant de formats d’animations imaginés par le Parc naturel régional pour permettre aux habitants et aux consommateurs de rencontrer les producteurs bénéficiant de la marque « Producteurs Oise - Pays de France », sur leur exploitation ou dans leur boutique à la ferme.  \n**« Goûtons notre territoire » est ainsi le prétexte pour des rencontres enrichissantes, des dégustations gourmandes mais surtout pour une sensibilisation à l’agriculture durable et au manger local promu par le Parc naturel régional Oise - Pays de France.**  \nProgramme complet sur : [https://www.parc-oise-paysdefrance.fr/evenements/goutons-notre-territoire-2/](https://www.parc-oise-paysdefrance.fr/evenements/goutons-notre-territoire-2/ )"
+      "fr": "La Genèse d’un projet de rénovation énergétique en copropriété : comment faire naître le projet et le conduire jusqu’à la décision de l’Assemblée générale ? Quelles sont les principales étapes, les pièges à éviter et comment AMELIO COPRO peut vous aider ?\n\nEcoutez le conseiller AmelioCopro et posez-lui vos questions .\n\nCette conférence est gratuite.\n\nElle se déroulera sous forme de webinaire (en ligne).\n\nInscription préalable obligatoire via ce formulaire :\n[https://docs.google.com/forms/d/e/1FAIpQLSew8i0p0Z5PqDAD510HVJjvuX1ZSx\\_khnmDHTEeGEMKrxjGvg/viewform?usp=sf\\_link](https://docs.google.com/forms/d/e/1FAIpQLSew8i0p0Z5PqDAD510HVJjvuX1ZSx_khnmDHTEeGEMKrxjGvg/viewform?usp=sf_link)"
     },
     "conditions": {
-      "fr": "Inscription obligatoire pour l’ensemble des animations et ateliers au 03 44 63 65 65."
+      "fr": "Atelier gratuit, inscription préalable obligatoire"
     },
     "age": {
       "min": null,
@@ -1722,8 +2458,8 @@
     },
     "registration": [
       {
-        "type": "phone",
-        "value": "03 44 63 65 65"
+        "type": "link",
+        "value": "https://docs.google.com/forms/d/e/1FAIpQLSew8i0p0Z5PqDAD510HVJjvuX1ZSx_khnmDHTEeGEMKrxjGvg/viewform?usp=sf_link"
       }
     ],
     "accessibility": {
@@ -1737,112 +2473,81 @@
     "location": {
       "disqualifiedDuplicates": null,
       "access": {},
-      "city": "Borest",
+      "city": "Lille",
       "timezone": "Europe/Paris",
-      "postalCode": "60300",
-      "latitude": 49.187443,
-      "imageCredits": "© Parc Naturel Oise Pays de France",
-      "description": {
-        "fr": "Créé en 2004, le Parc naturel régional Oise – Pays de France compte désormais, depuis le 18 janvier 2021, 70 communes de l’Oise et du Val d’Oise.\n\nIl s’étend de Pont-Sainte-Maxence au Nord, à Mareil-en-France au Sud, et de Villiers-Adam à l’Ouest à Auger-Saint-Vincent à l’Est.\n\nCOMMUNES DE L’OISE : Apremont – Auger-Saint-Vincent – Aumont-en-Halatte – Avilly-Saint-Léonard – Barbery – Beaurepaire – Boran-sur-Oise – Borest – Brasseuse – Chantilly – La Chapelle-en-Serval – Courteuil – Coye-la-Forêt – Creil – Ermenonville – Fleurines – Fontaine-Chaalis – Fresnoy-le-Luat – Gouvieux – Lamorlaye – Montagny-Sainte-Félicité – Montépilloy – Mont-l’Evêque – Montlognon – Mortefontaine – Nanteuil-le-Haudouin – Orry-la-Ville – Plailly – Pontarmé – Pontpoint – Pont-Sainte-Maxence – Précy-sur-Oise – Raray – Rhuis – Roberval – Rully – Saint-Maximin – Saint-Vaast-de-Longmont – Senlis – Thiers-sur-Thève – Ver-sur-Launette – Verneuil-en-Halatte – Villeneuve-sur-Verberie – Villers-Saint-Frambourg-Ognon – Vineuil-Saint-Firmin.\n\nCOMMUNES DU VAL D’OISE  : Asnières-sur-Oise – Beaumont-sur-Oise – Bellefontaine – Belloy-en-France – Béthemont-la-Forêt – Châtenay-en-France – Chaumontel – Chauvry – Fosses – Jagny-sous-bois – Lassy – Luzarches – Maffliers – Mareil-en-France – Mours – Nointel – Noisy-sur-Oise – Le Plessis-Luzarches – Presles – Saint-Martin-du-Tertre – Seugy – Survilliers – Viarmes – Villiers-Adam – Villiers-le-sec.\n\n\n\nInstallée dans le Château de la Borne Blanche, grande bâtisse du XIXème siècle, la Maison du Parc est le siège administratif et le lieu de travail de l’équipe. Située à l’arrêt RER Borne Blanche, en plein coeur d’un parc boisé de cinq hectares au sud ouest de la commune d’Orry-la-Ville, et en lisière de la forêt de Chantilly, c’est un lieu idéal de départ de randonnée. La Maison du Parc est ouverte en semaine au public et vous pouvez y venir chercher de l’information.\nChâteau de la Borne Blanche, 48 rue d'Hérivaux 60560 ORRY-LA-VILLE"
-      },
-      "setUid": 53180682,
-      "uid": 93145292,
-      "createdAt": "2025-10-02T08:29:57.000Z",
-      "duplicateCandidates": null,
+      "postalCode": null,
+      "latitude": 50.636565,
+      "imageCredits": null,
+      "description": {},
+      "setUid": 59170,
+      "uid": 36814588,
+      "createdAt": "2020-10-09T10:24:01.000Z",
+      "duplicateCandidates": [59067877],
       "countryCode": "FR",
       "adminLevel5": null,
       "links": [],
-      "state": 1,
+      "state": 0,
       "extId": null,
-      "department": "Oise",
-      "slug": "parc-naturel-regional-oise-pays-de-france_3625920",
-      "email": "contact@parc-oise-paysdefrance.fr",
-      "longitude": 2.664613,
-      "updatedAt": "2025-10-02T13:25:49.000Z",
-      "image": "location93145292.6703a28c55134bcfa90d8da6c45b5883.jpg?_ts=1759396508033",
-      "website": "https://www.parc-oise-paysdefrance.fr/",
-      "address": "60300 SENLIS",
-      "adminLevel3": "Communauté de communes Senlis Sud Oise",
-      "agendaUid": null,
-      "adminLevel4": "Borest",
+      "department": "Nord",
+      "slug": "en-ligne_9646112",
+      "email": null,
+      "longitude": 3.063528,
+      "updatedAt": "2025-06-30T18:43:29.000Z",
+      "image": null,
+      "website": null,
+      "address": "Lille",
+      "adminLevel3": "Métropole Européenne de Lille",
+      "agendaUid": 44152079,
+      "adminLevel4": "Lille",
       "adminLevel1": "Hauts-de-France",
-      "adminLevel2": "Oise",
+      "adminLevel2": "Nord",
       "mergedIn": null,
-      "_agg": "eyJ1aWQiOjkzMTQ1MjkyLCJuYW1lIjoiUGFyYyBuYXR1cmVsIHLDqWdpb25hbCBPaXNlIFBheXMgZGUgRnJhbmNlIn0=",
+      "_agg": "eyJ1aWQiOjM2ODE0NTg4LCJuYW1lIjoiRW4gbGlnbmUifQ==",
       "tags": null,
-      "insee": "60087",
-      "phone": "03 44 63 65 65",
-      "district": null,
-      "name": "Parc naturel régional Oise Pays de France",
+      "insee": "59350",
+      "phone": null,
+      "district": "Lille-Centre",
+      "name": "En ligne",
       "region": "Hauts-de-France",
       "extIds": null
     },
     "onlineAccessLink": null,
-    "status": 1,
     "timings": [
       {
-        "begin": "2025-09-20T10:30:00+02:00",
-        "end": "2025-09-20T17:00:00+02:00"
-      },
-      {
-        "begin": "2025-09-21T14:30:00+02:00",
-        "end": "2025-09-21T16:00:00+02:00"
-      },
-      {
-        "begin": "2025-09-24T14:00:00+02:00",
-        "end": "2025-09-24T15:00:00+02:00"
-      },
-      {
-        "begin": "2025-09-27T14:00:00+02:00",
-        "end": "2025-09-27T15:00:00+02:00"
-      },
-      {
-        "begin": "2025-10-01T14:30:00+02:00",
-        "end": "2025-10-01T16:00:00+02:00"
-      },
-      {
-        "begin": "2025-10-04T14:00:00+02:00",
-        "end": "2025-10-04T16:00:00+02:00"
-      },
-      {
-        "begin": "2025-10-05T14:00:00+02:00",
-        "end": "2025-10-05T16:00:00+02:00"
-      },
-      {
-        "begin": "2025-10-10T17:00:00+02:00",
-        "end": "2025-10-10T18:30:00+02:00"
-      },
-      {
-        "begin": "2025-10-12T14:00:00+02:00",
-        "end": "2025-10-12T15:30:00+02:00"
-      },
-      {
-        "begin": "2025-10-17T18:30:00+02:00",
-        "end": "2025-10-17T21:00:00+02:00"
-      },
-      {
-        "begin": "2025-10-18T09:00:00+02:00",
-        "end": "2025-10-18T15:30:00+02:00"
-      },
-      {
-        "begin": "2025-10-19T14:30:00+02:00",
-        "end": "2025-10-19T16:00:00+02:00"
+        "begin": "2021-05-19T17:30:00+02:00",
+        "end": "2021-05-19T19:30:00+02:00"
       }
     ],
+    "status": 1,
     "extIds": null,
-    "uid": 26939318,
-    "slug": "goutons-notre-territoire",
+    "uid": 7148014,
+    "slug": "les-clefs-pour-demarrer-un-projet-de-renovation-globale-avec-ameliocopro",
     "private": 0,
     "timezone": "Europe/Paris",
     "draft": 0,
-    "createdAt": "2025-10-02T08:34:55.000Z",
-    "creatorUid": 52181029,
-    "ownerUid": 52181029,
-    "updatedAt": "2025-10-02T13:25:49.000Z",
+    "createdAt": "2021-02-25T14:48:40.000Z",
+    "creatorUid": 89955467,
+    "ownerUid": 89955467,
+    "updatedAt": "2025-06-30T18:43:29.000Z",
     "links": [
       {
-        "link": "https://www.parc-oise-paysdefrance.fr/evenements/goutons-notre-territoire-2/"
+        "data": {
+          "cache_age": 86400,
+          "thumbnail_width": 200,
+          "description": "Votre inscription sera prise en compte quand vous aurez rempli et validé ce formulaire.  Ce webinaire vous est proposé par AMELIO, l'habitat durable dans la MEL, et la Maison de l'Habitat Durable.  L'équipe AMELIO / Maison de l'habitat durable",
+          "html": "<iframe src=\"https://docs.google.com/forms/d/e/1FAIpQLSew8i0p0Z5PqDAD510HVJjvuX1ZSx_khnmDHTEeGEMKrxjGvg/viewform?usp=sf_link&amp;embedded=true&amp;usp=embed_googleplus\" style=\"border: 0; width: 100%; height: 1381px;\" allowfullscreen></iframe>",
+          "type": "rich",
+          "title": "Inscription Webinaire : mercredi 19 mai 2021 à 17h30, Les clefs pour démarrer un projet de rénovation globale avec AmelioCopro",
+          "provider_name": "Google Docs",
+          "thumbnail_url": "https://lh6.googleusercontent.com/vAOe7z-KmE8glgt1Y0-1n9eLJ-xitiVTJqr3ohZ0vOKggaQlwmmyrkAJDnHZsEs1Drllbm8WytE=w1200-h630-p",
+          "version": "1.0",
+          "url": "https://docs.google.com/forms/d/e/1FAIpQLSew8i0p0Z5PqDAD510HVJjvuX1ZSx_khnmDHTEeGEMKrxjGvg/viewform?usp=sf_link&embedded=true",
+          "thumbnail_height": 200,
+          "height": 1381
+        },
+        "link": "https://docs.google.com/forms/d/e/1FAIpQLSew8i0p0Z5PqDAD510HVJjvuX1ZSx_khnmDHTEeGEMKrxjGvg/viewform?usp=sf_link"
       }
-    ]
+    ],
+    "valid": true
   }
 }
