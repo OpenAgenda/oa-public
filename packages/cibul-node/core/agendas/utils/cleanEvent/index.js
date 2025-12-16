@@ -57,6 +57,11 @@ function isStrictUnpublish(data) {
   return true;
 }
 
+function getPassCulturePayload(data) {
+  return data?.registration?.find(({ service }) => service === 'passCulture')
+    ?.data;
+}
+
 async function cleanEvent(services, agenda, data, options = {}) {
   const { agendaEvents, registrations } = services;
 
@@ -113,17 +118,17 @@ async function cleanEvent(services, agenda, data, options = {}) {
     },
   );
 
-  const passCulturePayload = clean.event?.registration?.find(
-    ({ service }) => service === 'passCulture',
-  )?.data;
+  const hasPassCulturePayload = !!getPassCulturePayload(data);
+  const passCulturePayload = getPassCulturePayload(clean.event);
 
   if (
-    passCulturePayload
+    hasPassCulturePayload
     && registrations
     && getWriteAccess(options.member, options.access)
   ) {
     const throwOnError = data?.registration?.find(({ service }) => service === 'passCulture')
       ?.data || data.location;
+
     clean.passCulture = await registrations(
       agenda.settings.registration,
     ).passCulture.validate({ ...clean.event, location }, passCulturePayload, {

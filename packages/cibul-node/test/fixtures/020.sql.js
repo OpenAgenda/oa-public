@@ -14,6 +14,21 @@ raw.push(
       settings: JSON.stringify(settingsWithConfiguredPass),
       form_schema_id: null,
     }),
+    load('sql/agendas/albi.json', {
+      uid: 2017,
+      form_schema_id: null,
+      network_uid: null,
+      settings: JSON.stringify({
+        registration: {
+          passCulture: {
+            siren: null,
+            bookingEmail: null,
+            defaultVenueId: null,
+            access: null,
+          },
+        },
+      }),
+    }),
   ]),
 );
 
