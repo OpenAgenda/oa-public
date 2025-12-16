@@ -26,7 +26,7 @@ export default async function addOptioned(doc, cursor, params = {}) {
       simulate: true,
       assessHeight: false,
     });
-    if (height > availableHeight) {
+    if (!height || height > availableHeight) {
       return { height: 0, width: 0, remaining: value };
     }
   }
