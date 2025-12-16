@@ -205,10 +205,10 @@ function getAvailableWidth(doc, cursor, params) {
   const { width: legacyWidth, availableWidth } = params;
 
   if (availableWidth || legacyWidth) {
-    return availableWidth || legacyWidth;
+    return Math.ceil(availableWidth || legacyWidth);
   }
 
-  return doc.page.width - cursor.x - doc.page.margins.right;
+  return Math.ceil(doc.page.width - cursor.x - doc.page.margins.right);
 }
 
 export default function addText(doc, parentCursor, params = {}) {
