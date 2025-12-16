@@ -88,6 +88,11 @@ const fixturePairs = [
     agenda: await readFx('gouton').then((d) => d.agenda),
     event: await readFx('gouton').then((d) => d.event),
   },
+  {
+    name: 'sandbox',
+    agenda: await readFx('sandbox').then((d) => d.agenda),
+    event: await readFx('sandbox').then((d) => d.event),
+  },
 ].filter(({ name }) => (selectedPDF ? selectedPDF === name : true));
 
 // Generate PDFs for each fixture pair
