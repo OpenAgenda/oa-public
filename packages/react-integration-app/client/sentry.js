@@ -3,7 +3,7 @@
 // https://docs.sentry.io/platforms/javascript/guides/react/
 
 import { init } from '@sentry/react';
-import { dsnFromString } from '@sentry/utils';
+import { dsnFromString } from '@sentry/core';
 
 const SENTRY_DSN = process.env.SENTRY_DSN
   || 'https://5fe9d785fe8c43d2aac6372740474a4d@o60122.ingest.sentry.io/128991';
