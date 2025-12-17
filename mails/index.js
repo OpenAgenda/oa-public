@@ -155,7 +155,7 @@ class Mails {
       return;
     }
 
-    if (typeof config.createWorker === 'function') {
+    if (typeof config.createWorker !== 'function') {
       log.error(
         'Queue is used, but the required createWorker method has not been implemented.',
       );
