@@ -127,6 +127,7 @@ const initialState = async (req) => {
         isTranslator,
         translateMode,
         outdatedBrowser: req.outdatedBrowser,
+        matomoCloudId: config.matomoCloudId,
       },
       res: {
         main: {
