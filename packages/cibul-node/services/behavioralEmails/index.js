@@ -17,10 +17,11 @@ export async function init(config, services) {
         case 'inactiveUser': {
           const { userUid } = job.data;
           if (!await isInactiveUser(services, userUid)) {
+            log.info('User is active in the last 7d', { userUid });
             return;
           }
 
-          log.info('Send email to inactive user +7j', { userUid });
+          log.info('Send email to inactive user +7d', { userUid });
 
           // const user = await users.get(userUid);
           // const lang = user.culture || 'fr';
