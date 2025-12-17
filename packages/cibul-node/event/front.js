@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import qs from 'qs';
 import errorLabels from '@openagenda/labels/errors/index.js';
 import cmn from '../lib/commons-app.js';
 import redirectMiddelware from './redirect.middleware.js';
@@ -10,15 +11,26 @@ function redirect(req, res, next) {
   if (!req.agenda || !req.event) {
     return next({ code: 404 });
   }
-  if (req.query.sharemodal) {
-    return res.redirect(
-      301,
-      `${root}/${req.agenda.slug}/events/${req.event.slug}?sharemodal${req.query.lang ? `&lang=${req.query.lang}` : ''}`,
-    );
+
+  const preservedQuery = Object.fromEntries(
+    Object.entries(req.query).filter(
+      ([key]) =>
+        key === 'lang' || key.startsWith('utm_') || key.startsWith('mtm_'),
+    ),
+  );
+
+  if (req.query.sharemodal !== undefined) {
+    preservedQuery.sharemodal = null;
   }
-  res.redirect(
+
+  const queryString = qs.stringify(preservedQuery, {
+    addQueryPrefix: true,
+    skipNulls: true,
+  });
+
+  return res.redirect(
     301,
-    `${root}/${req.agenda.slug}/events/${req.event.slug}${req.query.lang ? `?lang=${req.query.lang}` : ''}`,
+    `${root}/${req.agenda.slug}/events/${req.event.slug}${queryString}`,
   );
 }
 
