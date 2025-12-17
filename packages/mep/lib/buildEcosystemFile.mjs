@@ -18,6 +18,7 @@ export default async function buildEcosystemFile(args, options = {}) {
     appArgList: argsListStringified,
     node_args: nodeArgs,
     instances,
+    log_date_format: 'YYYY-MM-DD HH:mm Z',
   });
 
   return configFilePath;
