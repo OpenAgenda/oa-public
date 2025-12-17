@@ -8,6 +8,9 @@ const withBundleAnalyzer = bundleAnalyser({
 
 const withSentry = (c) =>
   withSentryConfig(c, {
+    org: 'openagenda',
+    project: 'openagenda',
+    authToken: process.env.SENTRY_AUTH_TOKEN,
     widenClientFileUpload: true,
     transpileClientSDK: true,
     tunnelRoute: '/monit',
