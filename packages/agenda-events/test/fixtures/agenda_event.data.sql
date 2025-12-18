@@ -15,7 +15,8 @@ INSERT INTO `agenda_event` (`id`, `agenda_uid`, `event_uid`, `source_agenda_uid`
 (437141, 62792452, 60059313, '[11,[22],33]', 1, 0, '2016-01-25 16:19:30', '2016-01-25 16:19:30', 1);
 
 INSERT INTO `agenda_event` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`, `removed`, `user_uid`) VALUES
-(436065, 62792452, 53117384, 0, 0, '2016-01-19 13:51:59', '2016-01-19 13:52:59', 1, null);
+(436065, 62792452, 53117384, 0, 0, '2016-01-19 13:51:59', '2016-01-19 13:52:59', 1, null),
+(789461, 62792452, 5313789, 0, 0, '2016-01-19 13:51:59', '2016-01-19 13:52:59', 1, null);
 
 INSERT INTO `agenda_event` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`, `user_uid`) VALUES
 (436064, 62792452, 53117383, 0, 0, '2016-01-19 13:52:59', '2016-01-19 13:52:59', null),
