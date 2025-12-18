@@ -4,6 +4,7 @@ import formatEvent from './utils/formatEvent.js';
 import getDocumentId from './utils/getDocumentId.js';
 import getIndexName from './utils/getIndexName.js';
 import validateOptions from './utils/validateUpdateOptions.js';
+import validateIdentifiers from './utils/validateIdentifiers.js';
 import ESToVerror from './utils/ESToVerror.js';
 
 const log = logs('update');
@@ -16,6 +17,7 @@ export default async function update(
   options = {},
 ) {
   const { refresh, formSchema, operation } = validateOptions(options);
+  validateIdentifiers(identifiers);
 
   const { client, defaultIndex, interfaces } = config;
 
