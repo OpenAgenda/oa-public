@@ -376,6 +376,19 @@ describe('core - functional (server): core.agendas().events.get()', () => {
       expect(await core.agendas(2).events.get(18978979)).toBe(null);
     });
 
+    it('get existing event but not referenced on agenda returns null', async () => {
+      expect(await core.agendas(1).events.get(18978979)).toBe(null);
+    });
+
+    it('get existing event with payload but not referenced on agenda returns null on event reference', async () => {
+      expect(
+        await core
+          .agendas(1)
+          .events.get(18978979, { returnPayload: true })
+          .then((r) => r.event),
+      ).toBe(null);
+    });
+
     it('get with load.custom option only gets custom data', async () => {
       const data = await core.agendas(2).events.get(1, {
         load: {

@@ -55,17 +55,17 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     log('agendaEvent ref fetched');
   }
 
-  if (load.event) {
-    const event = await events.get(eventUid, {
-      access: access === 'internal' ? 'internal' : 'public',
-      detailed,
-      lang,
-      useFallbackLang: true,
-      useDateHoursMinutesFormat,
-      useLocationObjectFormat,
-      private: loadPrivate,
-    });
+  const event = await events.get(eventUid, {
+    access: access === 'internal' ? 'internal' : 'public',
+    detailed,
+    lang,
+    useFallbackLang: true,
+    useDateHoursMinutesFormat,
+    useLocationObjectFormat,
+    private: loadPrivate,
+  });
 
+  if (load.event) {
     if (
       convertLongDescription.shouldConvert(
         event?.longDescription,
