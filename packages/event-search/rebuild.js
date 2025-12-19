@@ -66,12 +66,17 @@ export default async function rebuild(config, set, options = {}) {
     do {
       const timer = Timer();
 
-      const { lastId: nextLastId, events } = await eventsList(lastId, limit);
+      const {
+        lastId: nextLastId,
+        events,
+        times: eventListTimes,
+      } = await eventsList(lastId, limit);
 
       const logBundle = {
         times: {
           list: timer(true),
         },
+        eventListTimes,
         count: events.length,
         lastId,
       };
