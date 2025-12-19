@@ -52,6 +52,26 @@ export const WithData = () => {
   );
 };
 
+export const WithDefault = () => {
+  const [value, setValue] = useState();
+
+  return (
+    <div className="oa-form col-lg-offset-3 col-lg-6">
+      <Registration
+        value={value}
+        onChange={setValue}
+        field={{
+          default: ['https://billetterie-etincelles.palais-decouverte.fr/'],
+          placeholder: {
+            fr: 'Ajouter un item ici',
+          },
+        }}
+        lang="fr"
+      />
+    </div>
+  );
+};
+
 export const Required = () => {
   const [value, setValue] = useState([]);
 
