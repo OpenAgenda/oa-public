@@ -9,6 +9,11 @@ const log = logs('rebuild');
 
 const limit = 10;
 
+const Timer = () => {
+  const now = new Date();
+  return () => new Date().getTime() - now.getTime();
+};
+
 export default async function rebuild(config, set, options = {}) {
   log('called');
   const operations = [];
@@ -18,7 +23,7 @@ export default async function rebuild(config, set, options = {}) {
 
   const { client, defaultIndex } = config;
 
-  const { eventsList = null, formSchema = null } = options;
+  const { eventsList = null, formSchema = null, ons = {} } = options;
 
   const index = getIndexName(set, defaultIndex);
 
@@ -53,7 +58,17 @@ export default async function rebuild(config, set, options = {}) {
 
   try {
     do {
+      const timer = Timer();
+
       const { lastId: nextLastId, events } = await eventsList(lastId, limit);
+
+      const logBundle = {
+        times: {
+          list: timer(),
+        },
+        count: events.length,
+        lastId,
+      };
 
       log('bulk indexing %s events from %s', events.length, lastId);
 
@@ -91,6 +106,12 @@ export default async function rebuild(config, set, options = {}) {
             r.items.map((i) => i.index.error),
           );
           throw new Error('bulk index failed');
+        }
+
+        logBundle.times.bulk = timer();
+
+        if (ons.bulk) {
+          ons.bulk(logBundle);
         }
 
         counts.created += r.items.filter(
