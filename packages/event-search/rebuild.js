@@ -18,14 +18,7 @@ export default async function rebuild(config, set, options = {}) {
 
   const { client, defaultIndex } = config;
 
-  const {
-    eventsList = null,
-    formSchema = null,
-    /* on = {
-      bulk: () => {},
-      error: () => {},
-    }, */
-  } = options;
+  const { eventsList = null, formSchema = null } = options;
 
   const index = getIndexName(set, defaultIndex);
 
