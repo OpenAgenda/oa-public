@@ -10,8 +10,14 @@ const log = logs('rebuild');
 const limit = 10;
 
 const Timer = () => {
-  const now = new Date();
-  return () => new Date().getTime() - now.getTime();
+  let now = new Date();
+  return (reset) => {
+    const ms = new Date().getTime() - now.getTime();
+    if (reset) {
+      now = new Date();
+    }
+    return ms;
+  };
 };
 
 export default async function rebuild(config, set, options = {}) {
@@ -64,7 +70,7 @@ export default async function rebuild(config, set, options = {}) {
 
       const logBundle = {
         times: {
-          list: timer(),
+          list: timer(true),
         },
         count: events.length,
         lastId,
@@ -108,18 +114,19 @@ export default async function rebuild(config, set, options = {}) {
           throw new Error('bulk index failed');
         }
 
-        logBundle.times.bulk = timer();
-
-        if (ons.bulk) {
-          ons.bulk(logBundle);
-        }
-
         counts.created += r.items.filter(
           (i) => i.index.result === 'created',
         ).length;
         counts.updated += r.items.filter(
           (i) => i.index.result === 'updated',
         ).length;
+
+        logBundle.times.bulk = timer();
+        logBundle.processed = counts.created + counts.updated + counts.errored;
+
+        if (ons.bulk) {
+          ons.bulk(logBundle);
+        }
       }
 
       if (nextLastId === -1) {
