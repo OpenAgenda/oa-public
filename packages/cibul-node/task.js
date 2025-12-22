@@ -38,7 +38,7 @@ export default (config, core, services, tasksList) => {
     services.supervisor.elasticsearch.task();
 
     tfy(
-      services.agendaLocations.task({
+      services.agendaLocations.task.bind(null, {
         duplicationDetection: config.locationDuplicationDetection,
         reset: false,
       }),
