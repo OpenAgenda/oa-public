@@ -228,7 +228,9 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
 
   if (load.valid) {
     for (const event of compiledEvents) {
-      event.valid = await cleanEvent.getIsValid(core, agenda, event);
+      event.valid = await cleanEvent.getIsValid(core, agenda, event, {
+        verifyLocationExists: false,
+      });
     }
     times.valid = stopwatch();
   }
