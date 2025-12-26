@@ -107,6 +107,40 @@ describe('text validator', () => {
       }
       throw new Error('should not be here');
     });
+
+    describe('sanitizeEncoding: utf8mb3', () => {
+      const validate = validators.text({
+        field: 'text',
+        sanitizeEncoding: 'utf8mb3',
+      });
+
+      it('use case: address', () => {
+        expect(
+          validate('𝗦𝗮𝗹𝗹𝗲 𝟴𝟰𝟯 𝗟𝗼𝘀 𝗔𝗻𝗴𝗲𝗹𝗲𝘀, 𝗖𝗶𝘁𝗲́ 𝗺𝘂𝗻𝗶𝗰𝗶𝗽𝗮𝗹𝗲, 𝟰 𝗿𝘂𝗲 𝗖𝗹𝗮𝘂𝗱𝗲 𝗕𝗼𝗻𝗻𝗶𝗲𝗿, 𝗕𝗼𝗿𝗱𝗲𝗮𝘂𝘅')
+        ).toBe('Salle 843 Los Angeles, Cité municipale, 4 rue Claude Bonnier, Bordeaux');
+      });
+      
+  
+      it('converts uppercase letters', () => {
+        expect(validate('𝗦𝗔𝗠𝗣𝗟𝗘')).toBe('SAMPLE');
+      });
+  
+      it('converts lowercase letters', () => {
+        expect(validate('𝗮𝗯𝗰𝗱𝗲𝗳')).toBe('abcdef');
+      });
+  
+      it('converts numbers', () => {
+        expect(validate('𝟬𝟭𝟮𝟯𝟰𝟱𝟲𝟳𝟴𝟵')).toBe('0123456789');
+      });
+  
+      it('handles mixed content', () => {
+        expect(validate('𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝟭𝟮𝟯')).toBe('Testing 123');
+      });
+  
+      it('preserves regular characters', () => {
+        expect(validate('Regular text 123')).toBe('Regular text 123');
+      });
+    });
   });
 
   describe('optional', () => {
