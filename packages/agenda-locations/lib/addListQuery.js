@@ -19,6 +19,7 @@ const validate = schema({
   },
   search: {
     type: 'text',
+    sanitizeEncoding: 'utf8mb3',
     max: 255,
   },
   extId: {

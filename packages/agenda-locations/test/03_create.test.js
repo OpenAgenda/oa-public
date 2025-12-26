@@ -374,6 +374,24 @@ describe('agenda-locations - functional - create', () => {
       expect(error.info.errors[0].field).toBe('value');
     });
 
+    describe('utf8mb4 conversion', () => {
+      it('address and name are cleaned up', async () => {
+        const created = await svc(7196947).create({
+          name: '𝗖𝗶𝘁𝗲́ 𝗺𝘂𝗻𝗶𝗰𝗶𝗽𝗮𝗹𝗲',
+          address:
+            '𝗦𝗮𝗹𝗹𝗲 𝟴𝟰𝟯 𝗟𝗼𝘀 𝗔𝗻𝗴𝗲𝗹𝗲𝘀, 𝗖𝗶𝘁𝗲́ 𝗺𝘂𝗻𝗶𝗰𝗶𝗽𝗮𝗹𝗲, 𝟰 𝗿𝘂𝗲 𝗖𝗹𝗮𝘂𝗱𝗲 𝗕𝗼𝗻𝗻𝗶𝗲𝗿, 𝗕𝗼𝗿𝗱𝗲𝗮𝘂𝘅',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+        });
+
+        expect(created.name).toBe('Cité municipale');
+        expect(created.address).toBe(
+          'Salle 843 Los Angeles, Cité municipale, 4 rue Claude Bonnier, Bordeaux',
+        );
+      });
+    });
+
     describe('emoji handling', () => {
       it('emoji as name should trigger validation error', async () => {
         let error;

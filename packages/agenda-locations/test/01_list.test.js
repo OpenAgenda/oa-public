@@ -189,6 +189,21 @@ describe('agenda-locations - functional - list', () => {
       expect(items[0].name).toBe('Abbatiale Sainte-Marie');
     });
 
+    it('utfmb4 search', async () => {
+      let errors;
+
+      try {
+        await svc(7196947).list({
+          search:
+            '𝗦𝗮𝗹𝗹𝗲 𝟴𝟰𝟯 𝗟𝗼𝘀 𝗔𝗻𝗴𝗲𝗹𝗲𝘀, 𝗖𝗶𝘁𝗲́ 𝗺𝘂𝗻𝗶𝗰𝗶𝗽𝗮𝗹𝗲, 𝟰 𝗿𝘂𝗲 𝗖𝗹𝗮𝘂𝗱𝗲 𝗕𝗼𝗻𝗻𝗶𝗲𝗿, 𝗕𝗼𝗿𝗱𝗲𝗮𝘂𝘅',
+        });
+      } catch (e) {
+        errors = e;
+      }
+
+      expect(errors).toBeUndefined();
+    });
+
     it('"search" queries department field', async () => {
       const items = await svc(7196947).list({ search: 'nom de département' });
 
