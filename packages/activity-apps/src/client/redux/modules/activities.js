@@ -125,9 +125,9 @@ export function list(query, agenda) {
       promise: ({ client }) =>
         client
           .get(res.list.replace(':slug', agenda && agenda.slug), {
-            params: query,
+            searchParams: query,
           })
-          .then((response) => response.data),
+          .then((response) => response.json()),
     });
   };
 }
@@ -143,12 +143,12 @@ export function nextPage(query, fromId, agenda) {
       promise: ({ client }) =>
         client
           .get(res.list.replace(':slug', agenda && agenda.slug), {
-            params: {
+            searchParams: {
               ...query,
               fromId,
             },
           })
-          .then((response) => response.data),
+          .then((response) => response.json()),
     });
   };
 }
