@@ -647,6 +647,141 @@ On termine en supprimant ce dossier :
 rm -rf newcerts
 ```
 
+# Configuration de production
+
+## Configuration avant le 26/12/2025
+
+- Les fichiers de configuration sont lus selon leur présence dans l'ordre suivant: `/etc/my.cnf /etc/mysql/my.cnf ~/.my.cnf`
+- `/etc/mysql/my.cnf` indique que les fichier présents dans `/etc/mysql/conf.d` sont chargés dans l'ordre alphabétique.
+
+C'est le fichier `/etc/mysql/conf.d/my_custom.cnf` qui contient les ajustements par rapport à l'installation de base:
+
+```
+[mysqld]
+# --- Généraux ---
+skip-name-resolve
+skip-log-bin
+log_error = /var/log/mysql/error.log
+
+# --- InnoDB ---
+innodb_buffer_pool_size       = 48G
+innodb_buffer_pool_instances  = 8
+# innodb_buffer_pool_chunk_size = 56M
+innodb_redo_log_capacity      = 4G
+innodb_flush_log_at_trx_commit = 2
+innodb_flush_method           = O_DIRECT
+innodb_read_io_threads = 8
+innodb_write_io_threads = 8
+innodb_io_capacity            = 400  # perf1
+innodb_io_capacity_max        = 800
+
+# --- Connexions & buffers ---
+max_connections          = 300
+max_allowed_packet       = 1024M
+tmp_table_size           = 256M
+max_heap_table_size      = 256M
+sort_buffer_size         = 4M
+read_buffer_size         = 256K
+read_rnd_buffer_size     = 256K
+thread_stack             = 256K
+table_open_cache         = 8000
+table_definition_cache   = 4096
+
+ssl_ca = /etc/mysql/ssl/ca.pem
+ssl_cert = /etc/mysql/ssl/server-cert.pem
+ssl_key = /etc/mysql/ssl/server-key.pem
+require_secure_transport = ON
+```
+
+La VM présente les ressources suivantes:
+
+- OS: Ubuntu 24.04 LTS Noble Numbat
+- VCPU: 16
+- RAM: 64Go
+- Volume attaché: 15Gio
+- Type du volume attaché: CEPH_1_perf2
+- Performances max du volume: iops: 1000. read and writes : 400MB/s
+
+## Ajustements du 26/12/2025
+
+La base fait un peu moins de 15Go, le conseil de l'agent "expert MySQL" (Magistral Medium):
+
+```
+    innodb_buffer_pool_size :
+        Réduit de 48 Go à 24 Go.
+        Avec 14,8 Go de données, 24 Go (1,6x la taille des données) est suffisant pour maintenir un bon hit rate tout en libérant de la mémoire pour d'autres usages.
+
+    innodb_io_capacity et innodb_io_capacity_max :
+        Augmentés à 600 et 1000 respectivement pour mieux utiliser les capacités de votre stockage CEPH (1000 IOPS).
+
+    max_allowed_packet :
+        1024M est extrêmement élevé. Normalement, quelques dizaines de Mo suffisent (64–256M). 1024M peut être dangereux (attaque potentielle en DoS mémoire, bugs avec certaines requêtes)
+        256M : Assez grand pour les opérations légitimes, assez petit pour limiter les risques. / suffisant pour quasiment toutes les requêtes et beaucoup plus sûr que 1 Go.
+
+    thread_cache_size :
+        Votre thread_cache_size est très bas (11) par rapport au nombre de threads créées (751 356). Cela signifie que MySQL crée fréquemment de nouvelles connexions au lieu de réutiliser les threads mises en cache.
+        On augmente à 64
+
+```
+
+J'en profite pour ajouter le nécessaire pour rendre les log de requêtes lentes facilement activable/desactivable.
+
+Voir la conversation [ici](https://console.mistral.ai/build/playground?conversationId=conv_019b5ab1419175ae84403f44e260e55f)
+
+Que ce soit chatGPT ou Mistral, il faut s'y reprendre à plus d'une fois pour trouver les bonnes valeurs et creuser un peu pour bien comprendre chaque ajustement.
+
+`/etc/mysql/conf.d/my_custom.cnf` devient:
+
+```
+[mysqld]
+# --- Généraux ---
+skip-name-resolve
+skip-log-bin
+log_error = /var/log/mysql/error.log
+
+slow_query_log = 0
+slow_query_log_file = /var/log/mysql/mysql-slow.log
+long_query_time = 10
+#log_queries_not_using_indexes = 1  # Optionnel : log les requêtes sans index
+
+# --- InnoDB ---
+innodb_buffer_pool_size       = 24G
+innodb_buffer_pool_instances  = 8
+# innodb_buffer_pool_chunk_size = 56M
+innodb_redo_log_capacity      = 4G
+innodb_flush_log_at_trx_commit = 2
+innodb_flush_method           = O_DIRECT
+innodb_read_io_threads = 8
+innodb_write_io_threads = 8
+innodb_io_capacity            = 600  # perf1
+innodb_io_capacity_max        = 1000
+
+# --- Connexions & buffers ---
+max_connections          = 300
+max_allowed_packet       = 256M
+tmp_table_size           = 256M
+max_heap_table_size      = 256M
+sort_buffer_size         = 4M
+read_buffer_size         = 256K
+read_rnd_buffer_size     = 256K
+thread_stack             = 256K
+thread_cache_size        = 64
+table_open_cache         = 8000
+table_definition_cache   = 4096
+
+
+ssl_ca = /etc/mysql/ssl/ca.pem
+ssl_cert = /etc/mysql/ssl/server-cert.pem
+ssl_key = /etc/mysql/ssl/server-key.pem
+require_secure_transport = ON
+```
+
+Une commande utile pour surveiller le nombre de connexions par utilisateur à un instant donné:
+
+```
+watch -n 5 "sudo mysql -e 'SELECT user, COUNT(*) FROM information_schema.processlist GROUP BY user ORDER BY COUNT(*) DESC;'"
+```
+
 # Plus
 
 Pour utiliser une ipv6 dans docker il faut activer le réseau ipv6.
