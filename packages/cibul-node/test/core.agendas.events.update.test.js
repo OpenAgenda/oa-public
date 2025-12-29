@@ -1297,4 +1297,25 @@ describe('core - functional (server): core.agendas().events.update()', () => {
       expect(patchedEvent.categories).toBe(2);
     });
   });
+  describe('patch error', () => {
+    it('not found event', async () => {
+      let err;
+
+      try {
+        await core.agendas(89904399).events.patch(
+          3,
+          {
+            title: { fr: 'Patché' },
+          },
+          {
+            userUid: 10866730,
+          },
+        );
+      } catch (error) {
+        err = error;
+      }
+
+      expect(err.message).toBe('Not found');
+    });
+  });
 });

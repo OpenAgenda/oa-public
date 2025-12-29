@@ -59,7 +59,7 @@ export async function otherUpdate(
     return;
   }
 
-  const result = await updateAgendaIndex(eventSearch, {
+  await updateAgendaIndex(eventSearch, {
     agenda,
     formSchema,
     member,
@@ -69,6 +69,4 @@ export async function otherUpdate(
   if (tracker) {
     tracker(`eventSearch.otherUpdate.done:${agendaUid}.${eventUid}`);
   }
-
-  return result;
 }

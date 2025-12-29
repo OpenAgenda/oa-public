@@ -25,6 +25,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     includeEmbedScripts,
     cspNonce,
     private: loadPrivate,
+    throwOnNotFound,
   } = {
     lang: null,
     access: 'public',
@@ -63,6 +64,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     useDateHoursMinutesFormat,
     useLocationObjectFormat,
     private: loadPrivate,
+    throwOnNotFound,
   });
 
   if (load.event) {
