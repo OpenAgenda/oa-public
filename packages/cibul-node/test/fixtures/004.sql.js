@@ -43,6 +43,26 @@ raw.push(
     load('sql/agendas/ndm.json'),
     load('sql/agendas/private.json'),
     load('sql/agendas/unindexed.json'),
+    {
+      id: 222,
+      uid: 55555555,
+      slug: 'degesco-test-agenda',
+      title: 'Degesco Test Agenda',
+      description: 'Test agenda for degesco form schema',
+      form_schema_id: 999,
+      owner_id: 50304,
+      official: 0,
+      private: 0,
+      credentials: '{}',
+      settings: JSON.stringify({
+        contribution: {
+          type: 1,
+          defaultState: 1,
+        },
+      }),
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+    },
   ]),
 );
 
@@ -85,6 +105,10 @@ raw.push(
           id: 39147,
           store: JSON.stringify(fs),
         })),
+        load('form-schemas/contribRestrictedField.json', (fs) => ({
+          id: 999,
+          store: JSON.stringify(fs),
+        })),
       ]),
   ),
 );
@@ -106,6 +130,48 @@ raw.push(
       id: 879456456,
       agenda_uid: 9491431,
     }),
+    {
+      id: 999001,
+      user_id: 41303,
+      review_id: 222,
+      user_uid: 10866730,
+      agenda_uid: 55555555,
+      credential: 2,
+      created_at: '2017-10-30 14:21:07',
+      updated_at: '2017-10-30 14:21:07',
+      store: '{}',
+      organization: 'degesco-admin',
+      deleted_user: 0,
+      actions_counter: 1,
+    },
+    {
+      id: 999002,
+      user_id: 73289,
+      review_id: 222,
+      user_uid: 24372732,
+      agenda_uid: 55555555,
+      credential: 1,
+      created_at: '2017-10-30 14:21:07',
+      updated_at: '2017-10-30 14:21:07',
+      store: '{}',
+      organization: 'degesco-contributor',
+      deleted_user: 0,
+      actions_counter: 1,
+    },
+    {
+      id: 999003,
+      user_id: 63460,
+      review_id: 222,
+      user_uid: 82253124,
+      agenda_uid: 55555555,
+      credential: 3,
+      created_at: '2017-10-30 14:21:07',
+      updated_at: '2017-10-30 14:21:07',
+      store: '{}',
+      organization: 'degesco-moderator',
+      deleted_user: 0,
+      actions_counter: 1,
+    },
   ]),
 );
 
@@ -276,6 +342,56 @@ raw.push(
     load('events/spectacle-accepte.json'),
     load('events/spectacle-plus-acceptable.json'),
     load('events/invalid-additional-fields.json'),
+    {
+      id: 19,
+      uid: 77777777,
+      draft: 0,
+      slug: 'degesco-event-1',
+      owner_uid: 24372732,
+      creator_uid: 24372732,
+      agenda_uid: 55555555,
+      title: JSON.stringify({
+        fr: 'Événement Degesco 1',
+      }),
+      timings: JSON.stringify([
+        {
+          begin: new Date('2025-05-06T10:00:00'),
+          end: new Date('2025-05-06T11:00:00'),
+        },
+      ]),
+      location_uid: 123,
+      description: JSON.stringify({
+        fr: 'Description du premier événement degesco',
+      }),
+      timezone: 'Europe/Paris',
+      created_at: new Date('2019-05-06T10:00:00'),
+      updated_at: new Date('2019-05-06T10:00:00'),
+    },
+    {
+      id: 20,
+      uid: 77777778,
+      draft: 0,
+      slug: 'degesco-event-2',
+      owner_uid: 10866730,
+      creator_uid: 10866730,
+      agenda_uid: 55555555,
+      title: JSON.stringify({
+        fr: 'Événement Degesco 2',
+      }),
+      timings: JSON.stringify([
+        {
+          begin: new Date('2025-06-15T14:00:00'),
+          end: new Date('2025-06-15T16:00:00'),
+        },
+      ]),
+      location_uid: 123,
+      description: JSON.stringify({
+        fr: 'Description du deuxième événement degesco',
+      }),
+      timezone: 'Europe/Paris',
+      created_at: new Date('2019-05-06T10:00:00'),
+      updated_at: new Date('2019-05-06T10:00:00'),
+    },
   ]),
 );
 
@@ -370,6 +486,26 @@ raw.push(
     load('events/spectacle-plus-acceptable.ae.json'),
     load('events/spectacle-plus-acceptable.ae2.json'),
     load('events/invalid-additional-fields.ae.json'),
+    {
+      id: 9,
+      event_uid: 77777777,
+      agenda_uid: 55555555,
+      user_uid: 24372732,
+      state: 1,
+      created_at: new Date('2019-05-06T10:00:00'),
+      updated_at: new Date('2019-05-06T10:00:00'),
+      can_edit: 1,
+    },
+    {
+      id: 10,
+      event_uid: 77777778,
+      agenda_uid: 55555555,
+      user_uid: 10866730,
+      state: 1,
+      created_at: new Date('2019-05-06T10:00:00'),
+      updated_at: new Date('2019-05-06T10:00:00'),
+      can_edit: 1,
+    },
   ]),
 );
 
@@ -454,6 +590,26 @@ raw.push(
       identifier: 3969008,
       store: JSON.stringify({
         'categories-metropolitaines': 8,
+      }),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      id: 9,
+      form_schema_id: 999,
+      identifier: 77777777,
+      store: JSON.stringify({
+        contributorOnlyField: 'initial value',
+      }),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      id: 10,
+      form_schema_id: 999,
+      identifier: 77777778,
+      store: JSON.stringify({
+        contributorOnlyField: 'initial value',
       }),
       created_at: new Date(),
       updated_at: new Date(),

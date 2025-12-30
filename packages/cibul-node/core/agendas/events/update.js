@@ -124,6 +124,24 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       filterUnauthorized(clean, data, authorizations);
     }
 
+    // Check if the user submitted fields but none made it through to clean
+    if (actingUserUid && Object.keys(data).length > 0) {
+      const submittedKeys = Object.keys(data);
+      const hasAnySubmittedFieldInClean = submittedKeys.some((key) => {
+        if (clean.event && key in clean.event) return true;
+        if (clean.agendaEvent && key in clean.agendaEvent) return true;
+        if (clean.custom && key in clean.custom) return true;
+        if (clean.networkCustom && key in clean.networkCustom) return true;
+        return false;
+      });
+
+      if (!hasAnySubmittedFieldInClean) {
+        throw new Forbidden(
+          'All provided fields were filtered due to insufficient permissions',
+        );
+      }
+    }
+
     if (!authorizations.canEditEvent && containsEventData(data)) {
       throw new Forbidden(
         {
