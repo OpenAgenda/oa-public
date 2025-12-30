@@ -2,7 +2,7 @@ import { Readable } from 'node:stream';
 import _ from 'lodash';
 import ky from 'ky';
 import mime from 'mime-types';
-import VError from '@openagenda/verror';
+import VError, { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import Inbox from './Inbox.js';
 import Conversations from './Conversations.js';
@@ -568,15 +568,17 @@ export const messages = {
 
     return wrap(async (req, res, next) => {
       const filename = _.get(req, namespaces.filename, null);
+      const id = parseInt(_.get(req, namespaces.id, null), 10);
+
+      if (Number.isNaN(id)) {
+        throw new BadRequest('Invalid attachment ID');
+      }
 
       const attachment = await svc.config
         .knex(svc.config.schemas.messageAttachment)
         .select()
         .first()
-        .where({
-          id: parseInt(_.get(req, namespaces.id, null), 10),
-          filename,
-        })
+        .where({ id, filename })
         .then((v) => _.mapKeys(v, (value, key) => _.camelCase(key)));
 
       try {

@@ -96,7 +96,9 @@ function isStrictUnpublish(data) {
 }
 
 function getPassCulturePayload(data) {
-  return data?.registration?.find(({ service }) => service === 'passCulture')
+  return []
+    .concat(data?.registration)
+    .find((registrationItem) => registrationItem?.service === 'passCulture')
     ?.data;
 }
 

@@ -61,6 +61,12 @@ cursor.setX(0);
 
 cursor.moveY(
   addText(doc, cursor, {
+    value: 'Letters pdfkit handles badly: É',
+  }).height,
+);
+
+cursor.moveY(
+  addText(doc, cursor, {
     value: fs.readFileSync(`${__dirname}/fixtures/intrepides.txt`, 'utf8'),
     availableWidth,
     segmentable: true,

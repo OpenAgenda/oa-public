@@ -180,13 +180,14 @@ export default (config, services) => {
 
   router.get(
     '/download-attachment',
+    sessions.mw.ifUnlogged((_req, res) =>
+      res.status(400).json({ error: 'Not logged' })),
     inboxMw.messages.downloadAttachment({
       namespaces: {
         id: 'query.id',
         filename: 'query.filename',
       },
     }),
-
     errorHandler,
   );
 

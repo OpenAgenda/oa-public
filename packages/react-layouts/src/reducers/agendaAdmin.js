@@ -33,7 +33,7 @@ export default (state = initialState, action = {}) => {
   }
 };
 
-export function verifyLocationCount(uid) {
+export function verifyLocationCount(agendaSlug) {
   return {
     types: [
       VERIFY_LOCATION_COUNT,
@@ -44,7 +44,7 @@ export function verifyLocationCount(uid) {
       const { res } = getState();
 
       return client
-        .get(res.agendaAdmin.verifyLocationCount.replace(':uid', uid))
+        .get(res.agendaAdmin.verifyLocationCount.replace(':slug', agendaSlug))
         .json();
     },
   };
