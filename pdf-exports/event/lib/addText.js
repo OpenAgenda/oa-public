@@ -7,6 +7,7 @@ import getIntl from '../../utils/intl.js';
 import Cursor from './Cursor.js';
 import adjustSize from './adjustSize.js';
 import rtd from './roundToDecimal.js';
+import cleanText from './cleanText.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -225,7 +226,7 @@ export default function addText(doc, parentCursor, params = {}) {
 
   const cursor = Cursor(parentCursor);
 
-  const text = getLocaleValue(value ?? content, lang);
+  const text = cleanText(getLocaleValue(value ?? content, lang));
 
   if ([undefined, null].includes(text)) {
     log('addText - empty');
