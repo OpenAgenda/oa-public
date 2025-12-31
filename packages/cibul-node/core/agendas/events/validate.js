@@ -12,11 +12,10 @@ export default async (core, agendaUid, data, options = {}) => {
 
   const { members } = services;
 
-  const { access, draft, defaultLang, filterUnauthorizedData } = {
+  const { access, draft, defaultLang } = {
     access: 'public', // read or write?
     draft: false,
     defaultLang: 'en',
-    filterUnauthorizedData: false,
     returnPayload: false,
     ...options,
   };
@@ -31,7 +30,6 @@ export default async (core, agendaUid, data, options = {}) => {
   return cleanEvent(services, agenda, data, {
     draft,
     defaultLang,
-    filterUnauthorizedData,
     member,
     access,
   });

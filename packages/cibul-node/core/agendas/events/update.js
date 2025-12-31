@@ -49,7 +49,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     batched = false,
     aggregated = null,
     access = 'public',
-    filterUnauthorizedData = false,
+    filterUnauthorizedData = true,
     returnPayload = false,
     private: privateOption = false,
     callOrigin = 'ui',
@@ -120,26 +120,13 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       userUid: actingUserUid,
     });
 
+    const { type: stateChangeType } = assignState(agenda, event, clean, data, {
+      authorizations,
+      currentState: agendaEvent?.state,
+    });
+
     if (filterUnauthorizedData) {
-      filterUnauthorized(clean, data, authorizations);
-    }
-
-    // Check if the user submitted fields but none made it through to clean
-    if (actingUserUid && Object.keys(data).length > 0) {
-      const submittedKeys = Object.keys(data);
-      const hasAnySubmittedFieldInClean = submittedKeys.some((key) => {
-        if (clean.event && key in clean.event) return true;
-        if (clean.agendaEvent && key in clean.agendaEvent) return true;
-        if (clean.custom && key in clean.custom) return true;
-        if (clean.networkCustom && key in clean.networkCustom) return true;
-        return false;
-      });
-
-      if (!hasAnySubmittedFieldInClean) {
-        throw new Forbidden(
-          'All provided fields were filtered due to insufficient permissions',
-        );
-      }
+      filterUnauthorized(agendaUid, eventUid, clean, data, authorizations);
     }
 
     if (!authorizations.canEditEvent && containsEventData(data)) {
@@ -152,11 +139,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         'not authorized to edit event',
       );
     }
-
-    const { type: stateChangeType } = assignState(agenda, event, clean, data, {
-      authorizations,
-      currentState: agendaEvent?.state,
-    });
 
     let updatedRegistration = false;
     if (

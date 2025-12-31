@@ -15,7 +15,6 @@ export default function addEvent(req, res) {
       {
         draft: false,
         userUid: req.user.uid,
-        filterUnauthorizedData: true,
         sourceAgenda: req.fromAgenda,
       },
     )
