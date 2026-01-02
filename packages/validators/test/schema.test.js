@@ -1,5 +1,5 @@
-const validators = require('../src');
-const schema = require('../src/schema');
+import validators from '../src';
+import schema from '../schema';
 
 describe('schema validator', () => {
   describe('shallow schemas', () => {
