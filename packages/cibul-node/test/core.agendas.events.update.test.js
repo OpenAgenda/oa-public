@@ -54,23 +54,433 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
     await core.agendas(17026855).events.search.rebuild();
     await core.agendas(9491431).events.search.rebuild();
-    await core.agendas(55555555).events.search.rebuild();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  describe('simple update', () => {
-    let event;
+  describe('core', () => {
+    describe('simple update', () => {
+      let event;
 
-    beforeAll(async () => {
-      try {
+      beforeAll(async () => {
+        try {
+          event = await core.agendas(17026855).events.update(
+            19201989,
+            {
+              state: 0,
+              featured: true,
+              title: {
+                fr: 'Un événement mis à jour',
+                en: 'An updated event',
+              },
+              description: {
+                fr: 'Une description',
+                en: 'A desc',
+              },
+              location: {
+                uid: 123,
+              },
+              attendanceMode: 2,
+              onlineAccessLink: 'https://openagenda.com',
+              timings: [
+                {
+                  begin: new Date('2019-05-06T10:00:00'),
+                  end: new Date('2019-05-06T11:00:00'),
+                },
+                {
+                  begin: new Date('2019-05-06T12:00:00'),
+                  end: new Date('2019-05-06T13:00:00'),
+                },
+              ],
+              custom_description: 'Meh',
+              'categories-agenda-metropolitain': 43,
+              'thematiques-bordeaux-metropole': [3],
+            },
+            {
+              access: 'administrator',
+              detailed: true,
+            },
+          );
+        } catch (e) {
+          // console.log(e);
+        }
+      });
+
+      describe('response', () => {
+        it('updated event is provided as a response', () => {
+          expect(event.uid).toBe(19201989);
+          expect(event.title.fr).toBe('Un événement mis à jour');
+        });
+
+        it('updated state is provided in response', () => {
+          expect(event.state).toBe(0);
+        });
+
+        it('canEdit is in response', () => {
+          expect(event.canEdit).toBeTruthy();
+        });
+
+        it('provides the location in a location key', async () => {
+          expect(event.location.name).toBe('La boutique');
+        });
+
+        it('attendanceMode and onlineAccessLink can be edited at update', () => {
+          expect(event.attendanceMode).toBe(2);
+          expect(event.onlineAccessLink).toBe('https://openagenda.com');
+        });
+      });
+
+      describe('persistence', () => {
+        it('custom values are updated', async () => {
+          const data = await core.services.custom(2).get(event.uid);
+
+          expect(data['thematiques-bordeaux-metropole']).toEqual([3]);
+        });
+
+        it('event state in agenda is updated', async () => {
+          const { state } = await core.services
+            .agendaEvents(17026855)
+            .get(19201989);
+
+          expect(state).toBe(0);
+        });
+      });
+
+      describe('search', () => {
+        let result;
+
+        beforeAll(async () => {
+          result = await core.agendas(17026855).events.search(
+            {
+              uid: event.uid,
+              state: null,
+            },
+            {},
+            {
+              detailed: true,
+              access: 'administrator',
+            },
+          );
+        });
+
+        it('indexed document is updated', () => {
+          expect(result.events[0]['thematiques-bordeaux-metropole']).toEqual([
+            3,
+          ]);
+        });
+
+        it('indexed member name is account full name when member name is unspecified', async () => {
+          expect(result.events[0].member.name).toBe('steve');
+        });
+      });
+
+      describe('fixes', () => {
+        it('location store should not be present in result', () => {
+          expect(event.location.store).toBeUndefined();
+        });
+      });
+    });
+
+    describe('draft update', () => {
+      let event;
+
+      beforeAll(async () => {
         event = await core.agendas(17026855).events.update(
+          83902931,
+          {
+            title: {
+              fr: 'Un brouillon mis à jour',
+              en: 'An updated event',
+            },
+            description: {
+              fr: 'Une description',
+              en: 'A desc',
+            },
+            custom_description: 'Meh',
+            'categories-agenda-metropolitain': 42,
+            'thematiques-bordeaux-metropole': [4],
+            draft: true,
+          },
+          {
+            access: 'contributor',
+          },
+        );
+      });
+
+      it('update is still draft', async () => {
+        const e = await core.services.events.get({ uid: 83902931 });
+        expect(e.draft).toBe(1);
+      });
+
+      it('draft is updated', () => {
+        expect(event.title.fr).toBe('Un brouillon mis à jour');
+      });
+
+      it('custom data is updated', async () => {
+        const data = await core.services.custom(2).get(83902931);
+        expect(data['thematiques-bordeaux-metropole']).toEqual([4]);
+      });
+
+      it('an undrafted event takes the state required by agenda settings', async () => {
+        const otherEvent = await core.agendas(17026855).events.update(
+          83902932,
+          {
+            title: {
+              fr: 'Un brouillon plus brouillon',
+            },
+            description: {
+              fr: 'Une desc courte',
+            },
+            locationUid: 123,
+            timings: [
+              {
+                begin: new Date('2019-12-18T14:30:00'),
+                end: new Date('2019-12-18T15:30:00'),
+              },
+            ],
+            draft: false,
+          },
+          {
+            access: 'administrator',
+          },
+        );
+
+        expect(otherEvent.state).toBe(1);
+      });
+    });
+
+    describe('extIds', () => {
+      let extIdsEvent;
+      beforeAll(async () => {
+        extIdsEvent = await core.agendas(17026855).events.patch(
           19201989,
           {
-            state: 0,
+            extIds: [{ key: 'test', value: '123' }],
+          },
+          {
+            access: 'internal',
+          },
+        );
+      });
+      it('patching extIds add to existing', async () => {
+        const event = await core.agendas(17026855).events.patch(
+          19201989,
+          {
+            extIds: [{ key: 'test2', value: '423' }],
+          },
+          {
+            access: 'internal',
+          },
+        );
+        expect(event.extIds).toEqual([
+          { key: 'test2', value: '423' },
+          { key: 'test', value: '123' },
+        ]);
+      });
+      it('updating extIds replaces existing when mergeExtIds is false', async () => {
+        const event = await core.agendas(17026855).events.update(
+          19201989,
+          {
+            ...extIdsEvent,
+            extIds: [{ key: 'test3', value: '423' }],
+          },
+          {
+            access: 'internal',
+            mergeExtIds: false,
+          },
+        );
+        expect(event.extIds).toEqual([{ key: 'test3', value: '423' }]);
+      });
+    });
+
+    describe('patch', () => {
+      it('patch on event title does not remove registration value', async () => {
+        const registrationValues = [
+          { value: 'https://registration.link.com', type: 'link' },
+        ];
+        expect(
+          await core
+            .agendas(9491431)
+            .events.get(12993375)
+            .then(({ registration }) => registration),
+        ).toEqual(registrationValues);
+        await core
+          .agendas(9491431)
+          .events.patch(
+            12993375,
+            { title: { fr: 'Un nouveau titre' } },
+            { access: 'internal' },
+          );
+        expect(
+          await core
+            .agendas(9491431)
+            .events.get(12993375)
+            .then(({ registration }) => registration),
+        ).toEqual(registrationValues);
+      });
+
+      it('custom values are maintained on state patch', async () => {
+        expect(
+          await core
+            .agendas(9491431)
+            .events.patch(12993375, { state: 1 }, { access: 'internal' })
+            .then((event) => event['types-devenement']),
+        ).not.toBeUndefined();
+
+        expect(
+          await core
+            .agendas(9491431)
+            .events.get(12993375)
+            .then((event) => event['types-devenement']),
+        ).not.toBeUndefined();
+
+        const {
+          events: [eventFromSearch],
+        } = await core
+          .agendas(9491431)
+          .events.search(
+            { state: null, uid: 12993375 },
+            {},
+            { access: 'internal' },
+          );
+
+        expect(eventFromSearch['types-devenement']).not.toBeUndefined();
+      });
+
+      it('invalid event cannot be patched if fix is not part of patch', async () => {
+        let error;
+        try {
+          await core
+            .agendas(9491431)
+            .events.patch(
+              12993376,
+              { title: { fr: 'Un nouveau titre' } },
+              { access: 'internal' },
+            );
+        } catch (e) {
+          error = e;
+        }
+        expect(error.name).toBe('BadRequest');
+        const validationError = error.info.errors.find(
+          ({ field }) => field === 'timings',
+        );
+        expect(validationError.message).toBe('at least one timing is required');
+      });
+    });
+
+    describe('patch with returnPayload: true', () => {
+      let result;
+
+      beforeAll(async () => {
+        result = await core.agendas(17026855).events.patch(
+          19201989,
+          {
+            state: -1,
+          },
+          {
+            access: 'moderator',
+            returnPayload: true,
+          },
+        );
+      });
+
+      describe('response', () => {
+        it('success bool is provided in response', () => {
+          expect(result.success).toBe(true);
+        });
+
+        it('updated event is provided in event response key', () => {
+          expect(result.event.description.fr).toBe('Une description');
+        });
+
+        it('patched data is in event', () => {
+          expect(result.event.state).toBe(-1);
+        });
+      });
+    });
+
+    describe('patch one language only', () => {
+      let result;
+      let titleBefore;
+
+      beforeAll(async () => {
+        titleBefore = await core
+          .agendas(17026855)
+          .events.get(19201989)
+          .then((e) => e.title);
+        result = await core.agendas(17026855).events.patch(
+          19201989,
+          {
+            title: { fr: 'Le français est modifié' },
+          },
+          {
+            access: 'moderator',
+          },
+        );
+      });
+
+      it('translates one language', () => {
+        expect(result.title.fr).toBe('Le français est modifié');
+        expect(result.title.en).toBe(titleBefore.en);
+      });
+    });
+
+    describe('patch one language only with languages field', () => {
+      let result;
+
+      beforeAll(async () => {
+        result = await core.agendas(17026855).events.patch(
+          19201989,
+          {
+            title: { fr: 'Le français est modifié' },
+            languages: ['fr'],
+          },
+          {
+            access: 'moderator',
+          },
+        );
+      });
+
+      it('translates one language', () => {
+        expect(result.title.fr).toBe('Le français est modifié');
+        expect(result.title.en).toBeUndefined();
+      });
+    });
+
+    describe('patch error', () => {
+      it('not found event', async () => {
+        let err;
+
+        try {
+          await core.agendas(89904399).events.patch(
+            3,
+            {
+              title: { fr: 'Patché' },
+            },
+            {
+              userUid: 10866730,
+            },
+          );
+        } catch (error) {
+          err = error;
+        }
+
+        expect(err.message).toBe('Not found');
+      });
+    });
+
+    describe('other', () => {
+      it('if state is not specified in provided data, state is not updated', async () => {
+        const { state: currentState } = await core.services
+          .agendaEvents(17026855)
+          .get(19201989);
+
+        await core.agendas(17026855).events.update(
+          19201989,
+          {
             featured: true,
             title: {
-              fr: 'Un événement mis à jour',
+              fr: 'Un événement remis à jour',
               en: 'An updated event',
             },
             description: {
@@ -80,8 +490,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             location: {
               uid: 123,
             },
-            attendanceMode: 2,
-            onlineAccessLink: 'https://openagenda.com',
             timings: [
               {
                 begin: new Date('2019-05-06T10:00:00'),
@@ -92,740 +500,74 @@ describe('core - functional (server): core.agendas().events.update()', () => {
                 end: new Date('2019-05-06T13:00:00'),
               },
             ],
-            custom_description: 'Meh',
             'categories-agenda-metropolitain': 43,
             'thematiques-bordeaux-metropole': [3],
           },
           {
             access: 'administrator',
-            detailed: true,
           },
         );
-      } catch (e) {
-        // console.log(e);
-      }
-    });
 
-    describe('response', () => {
-      it('updated event is provided as a response', () => {
-        expect(event.uid).toBe(19201989);
-        expect(event.title.fr).toBe('Un événement mis à jour');
-      });
-
-      it('updated state is provided in response', () => {
-        expect(event.state).toBe(0);
-      });
-
-      it('canEdit is in response', () => {
-        expect(event.canEdit).toBeTruthy();
-      });
-
-      it('provides the location in a location key', async () => {
-        expect(event.location.name).toBe('La boutique');
-      });
-
-      it('attendanceMode and onlineAccessLink can be edited at update', () => {
-        expect(event.attendanceMode).toBe(2);
-        expect(event.onlineAccessLink).toBe('https://openagenda.com');
-      });
-    });
-
-    describe('persistence', () => {
-      it('custom values are updated', async () => {
-        const data = await core.services.custom(2).get(event.uid);
-
-        expect(data['thematiques-bordeaux-metropole']).toEqual([3]);
-      });
-
-      it('event state in agenda is updated', async () => {
-        const { state } = await core.services
+        const { state: updatedState } = await core.services
           .agendaEvents(17026855)
           .get(19201989);
 
-        expect(state).toBe(0);
+        expect(currentState).toBe(updatedState);
       });
-    });
 
-    describe('search', () => {
-      let result;
-
-      beforeAll(async () => {
-        result = await core.agendas(17026855).events.search(
+      it('event can be updated with timings specifying begin&end as { date, hours, minutes } objects', async () => {
+        const event = await core.agendas(17026855).events.patch(
+          19201989,
           {
-            uid: event.uid,
-            state: null,
+            timings: [
+              {
+                begin: {
+                  date: '2019-12-14',
+                  hours: 18,
+                  minutes: 28,
+                },
+                end: {
+                  date: '2019-12-14',
+                  hours: 18,
+                  minutes: 40,
+                },
+              },
+            ],
           },
-          {},
-          {
-            detailed: true,
-            access: 'administrator',
-          },
+          { access: 'administrator' },
         );
+
+        expect(new Date(event.timings[0].begin).getUTCHours()).toBe(17);
+        expect(new Date(event.timings[0].begin).getMinutes()).toBe(28);
       });
 
-      it('indexed document is updated', () => {
-        expect(result.events[0]['thematiques-bordeaux-metropole']).toEqual([3]);
-      });
-
-      it('indexed member name is account full name when member name is unspecified', async () => {
-        expect(result.events[0].member.name).toBe('steve');
-      });
-    });
-
-    describe('fixes', () => {
-      it('location store should not be present in result', () => {
-        expect(event.location.store).toBeUndefined();
-      });
-    });
-  });
-
-  describe('updates with different accesses', () => {
-    beforeAll(() =>
-      core.agendas(92983929).events.update(
-        19390293,
-        {
-          title: {
-            fr: 'Un autre événement mis à jour',
+      it('online event location can be removed through patch', async () => {
+        const event = await core.agendas(17026855).events.patch(
+          19201989,
+          {
+            attendanceMode: 2,
+            onlineAccessLink: 'https://openagenda.com',
+            location: null,
           },
-          description: {
-            fr: 'Une description',
-          },
-          image: {
-            filename: 'fdqfsdq.jpg',
-          },
-          locationUid: 123,
-          timings: [
-            {
-              begin: new Date('2019-12-18T14:30:00'),
-              end: new Date('2019-12-18T15:30:00'),
-            },
-          ],
-          'organisation-interne': 'Il faut que René y aille',
-          categories: 2,
-        },
-        {
-          access: 'contributor',
-        },
-      ));
+          { access: 'administrator' },
+        );
 
-    beforeAll(() =>
-      core.agendas(92983929).events.update(
-        19390294,
-        {
-          title: {
-            fr: 'Et un autre événement mis à jour',
-          },
-          description: {
-            fr: 'Une description',
-          },
-          locationUid: 123,
-          timings: [
-            {
-              begin: new Date('2019-12-18T14:30:00'),
-              end: new Date('2019-12-18T15:30:00'),
-            },
-          ],
-          'organisation-interne': 'Il faut que René y aille',
-          categories: 1,
-        },
-        {
-          access: 'administrator',
-        },
-      ));
-
-    it('a contributor access cannot update an administrator field', async () => {
-      const data = await core.services.custom(5).get(19390293);
-      expect(data).toEqual({
-        'organisation-interne': 'Il faut que Thérèse y soit',
+        expect(event.locationUid).toBeUndefined();
       });
-    });
 
-    it('an administrator access can update an administrator field', async () => {
-      const data = await core.services.custom(5).get(19390294);
-      expect(data).toEqual({
-        'organisation-interne': 'Il faut que René y aille',
-      });
-    });
-
-    it('a moderator cannot publish if role is not in agenda canPublish list', async () => {
-      let error;
-      try {
-        await core.agendas(37026800).events.patch(
+      it('internal patch patches', async () => {
+        const patchedEvent = await core.agendas(37026800).events.patch(
           88888888,
           {
-            state: 2,
+            location: { uid: 73780602 },
           },
           {
-            access: 'moderator',
+            access: 'internal',
           },
         );
-      } catch (e) {
-        error = e;
-      }
-      expect(error.message).toBe('not authorized to publish events');
-    });
-  });
 
-  describe('agenda access on event', () => {
-    it('an agenda with ref can_edit at 0 cannot patch event', async () => {
-      let error;
-      try {
-        await core.agendas(92983929).events.patch(
-          99999999,
-          {
-            description: {
-              fr: 'Une desc patchée',
-            },
-          },
-          {
-            access: 'moderator',
-          },
-        );
-      } catch (e) {
-        error = e;
-      }
-      expect(error.message).toEqual('not authorized to edit event');
-    });
-
-    it('an agenda wih ref can_edit at 1 can patch event', async () => {
-      const updated = await core.agendas(17026855).events.patch(
-        99999999,
-        {
-          title: {
-            fr: 'Un titre patché',
-          },
-        },
-        {
-          access: 'moderator',
-        },
-      );
-
-      expect(updated.title.fr).toBe('Un titre patché');
-    });
-
-    it('if agenda does not have edit access and patch excludes event-specific data, patch can occur', async () => {
-      const patched = await core.agendas(92983929).events.patch(
-        99999999,
-        {
-          state: 2,
-        },
-        {
-          access: 'moderator',
-        },
-      );
-
-      expect(patched.state).toBe(2);
-    });
-  });
-
-  describe('draft update', () => {
-    let event;
-
-    beforeAll(async () => {
-      event = await core.agendas(17026855).events.update(
-        83902931,
-        {
-          title: {
-            fr: 'Un brouillon mis à jour',
-            en: 'An updated event',
-          },
-          description: {
-            fr: 'Une description',
-            en: 'A desc',
-          },
-          custom_description: 'Meh',
-          'categories-agenda-metropolitain': 42,
-          'thematiques-bordeaux-metropole': [4],
-          draft: true,
-        },
-        {
-          access: 'contributor',
-        },
-      );
-    });
-
-    it('update is still draft', async () => {
-      const e = await core.services.events.get({ uid: 83902931 });
-      expect(e.draft).toBe(1);
-    });
-
-    it('draft is updated', () => {
-      expect(event.title.fr).toBe('Un brouillon mis à jour');
-    });
-
-    it('custom data is updated', async () => {
-      const data = await core.services.custom(2).get(83902931);
-      expect(data['thematiques-bordeaux-metropole']).toEqual([4]);
-    });
-
-    it('an undrafted event takes the state required by agenda settings', async () => {
-      const otherEvent = await core.agendas(17026855).events.update(
-        83902932,
-        {
-          title: {
-            fr: 'Un brouillon plus brouillon',
-          },
-          description: {
-            fr: 'Une desc courte',
-          },
-          locationUid: 123,
-          timings: [
-            {
-              begin: new Date('2019-12-18T14:30:00'),
-              end: new Date('2019-12-18T15:30:00'),
-            },
-          ],
-          draft: false,
-        },
-        {
-          access: 'administrator',
-        },
-      );
-
-      expect(otherEvent.state).toBe(1);
-    });
-  });
-
-  describe('state', () => {
-    it('contributor does not have access to event state change', async () => {
-      const { state: stateBefore } = await core.services
-        .agendaEvents(17026855)
-        .get(19201989);
-
-      await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          state: 1,
-        },
-        {
-          access: 'contributor',
-        },
-      );
-
-      const { state: stateAfter } = await core.services
-        .agendaEvents(17026855)
-        .get(19201989);
-
-      expect(stateBefore).toEqual(stateAfter);
-      expect(stateAfter !== 1).toBeTruthy();
-    });
-
-    it('administrator can change state', async () => {
-      const event = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          state: 2,
-        },
-        {
-          access: 'administrator',
-        },
-      );
-      expect(event.state).toBe(2);
-    });
-
-    it('moderator can change state', async () => {
-      const event = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          state: 1,
-        },
-        {
-          access: 'moderator',
-        },
-      );
-      expect(event.state).toEqual(1);
-    });
-
-    it('moderator can add motive when refusing event', async () => {
-      const event = await core.agendas(17026855).events.patch(
-        88888888,
-        {
-          state: -1,
-          motive: '😬',
-        },
-        {
-          access: 'moderator',
-        },
-      );
-
-      expect(event.motive).toBe('😬');
-    });
-
-    it('when published event is updated by role listed in moderateOnChangeBy, state reverts to 0', async () => {
-      const event = await core.agendas(92983929).events.patch(
-        19390293,
-        {
-          title: {
-            fr: 'Titre modifié',
-          },
-        },
-        {
-          access: 'contributor',
-        },
-      );
-
-      expect(event.state).toBe(0);
-    });
-
-    it('location ref can be patched', async () => {
-      const event = await core.agendas(92983929).events.patch(
-        19390293,
-        {
-          locationUid: 73780602,
-        },
-        {
-          access: 'moderator',
-        },
-      );
-
-      expect(event.location.uid).toBe(73780602);
-    });
-
-    it('moderator can change state to refused (-1) and add a motive', async () => {
-      const event = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          state: -1,
-          motive: '¬_¬',
-        },
-        {
-          access: 'moderator',
-        },
-      );
-
-      expect(event.motive).toBe('¬_¬');
-    });
-
-    it('invalid event can be unpublished, it stays invalid', async () => {
-      const result = await core
-        .agendas(9491431)
-        .events.patch(12993376, { state: 0 }, { access: 'internal' });
-
-      expect(result.state).toBe(0);
-      expect(result.valid).toBe(false);
-    });
-
-    it('invalid event cannot be published', async () => {
-      let error;
-      try {
-        await core
-          .agendas(9491431)
-          .events.patch(12993376, { state: 2 }, { access: 'internal' });
-      } catch (e) {
-        error = e;
-      }
-      expect(error.name).toBe('BadRequest');
-    });
-
-    it('invalid event with additional values cannot be published', async () => {
-      let error;
-      try {
-        await core
-          .agendas(64260763)
-          .events.patch(38298329, { state: 2 }, { access: 'internal' });
-      } catch (e) {
-        error = e;
-      }
-      expect(error.name).toBe('BadRequest');
-    });
-  });
-
-  describe('extIds', () => {
-    let extIdsEvent;
-    beforeAll(async () => {
-      extIdsEvent = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          extIds: [{ key: 'test', value: '123' }],
-        },
-        {
-          access: 'internal',
-        },
-      );
-    });
-    it('patching extIds add to existing', async () => {
-      const event = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          extIds: [{ key: 'test2', value: '423' }],
-        },
-        {
-          access: 'internal',
-        },
-      );
-      expect(event.extIds).toEqual([
-        { key: 'test2', value: '423' },
-        { key: 'test', value: '123' },
-      ]);
-    });
-    it('updating extIds replaces existing when mergeExtIds is false', async () => {
-      const event = await core.agendas(17026855).events.update(
-        19201989,
-        {
-          ...extIdsEvent,
-          extIds: [{ key: 'test3', value: '423' }],
-        },
-        {
-          access: 'internal',
-          mergeExtIds: false,
-        },
-      );
-      expect(event.extIds).toEqual([{ key: 'test3', value: '423' }]);
-    });
-  });
-
-  describe('patch', () => {
-    test('patch on event title does not remove registration value', async () => {
-      const registrationValues = [
-        { value: 'https://registration.link.com', type: 'link' },
-      ];
-      expect(
-        await core
-          .agendas(9491431)
-          .events.get(12993375)
-          .then(({ registration }) => registration),
-      ).toEqual(registrationValues);
-      await core
-        .agendas(9491431)
-        .events.patch(
-          12993375,
-          { title: { fr: 'Un nouveau titre' } },
-          { access: 'internal' },
-        );
-      expect(
-        await core
-          .agendas(9491431)
-          .events.get(12993375)
-          .then(({ registration }) => registration),
-      ).toEqual(registrationValues);
-    });
-
-    test('custom values are maintained on state patch', async () => {
-      expect(
-        await core
-          .agendas(9491431)
-          .events.patch(12993375, { state: 1 }, { access: 'internal' })
-          .then((event) => event['types-devenement']),
-      ).not.toBeUndefined();
-
-      expect(
-        await core
-          .agendas(9491431)
-          .events.get(12993375)
-          .then((event) => event['types-devenement']),
-      ).not.toBeUndefined();
-
-      const {
-        events: [eventFromSearch],
-      } = await core
-        .agendas(9491431)
-        .events.search(
-          { state: null, uid: 12993375 },
-          {},
-          { access: 'internal' },
-        );
-
-      expect(eventFromSearch['types-devenement']).not.toBeUndefined();
-    });
-
-    test('invalid event cannot be patched if fix is not part of patch', async () => {
-      let error;
-      try {
-        await core
-          .agendas(9491431)
-          .events.patch(
-            12993376,
-            { title: { fr: 'Un nouveau titre' } },
-            { access: 'internal' },
-          );
-      } catch (e) {
-        error = e;
-      }
-      expect(error.name).toBe('BadRequest');
-      const validationError = error.info.errors.find(
-        ({ field }) => field === 'timings',
-      );
-      expect(validationError.message).toBe('at least one timing is required');
-    });
-  });
-
-  describe('patch with returnPayload: true', () => {
-    let result;
-
-    beforeAll(async () => {
-      result = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          state: -1,
-        },
-        {
-          access: 'moderator',
-          returnPayload: true,
-        },
-      );
-    });
-
-    describe('response', () => {
-      it('success bool is provided in response', () => {
-        expect(result.success).toBe(true);
+        expect(patchedEvent.location.uid).toBe(73780602);
       });
-
-      it('updated event is provided in event response key', () => {
-        expect(result.event.description.fr).toBe('Une description');
-      });
-
-      it('patched data is in event', () => {
-        expect(result.event.state).toBe(-1);
-      });
-    });
-  });
-
-  describe('patch one language only', () => {
-    let result;
-    let titleBefore;
-
-    beforeAll(async () => {
-      titleBefore = await core
-        .agendas(17026855)
-        .events.get(19201989)
-        .then((e) => e.title);
-      result = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          title: { fr: 'Le français est modifié' },
-        },
-        {
-          access: 'moderator',
-        },
-      );
-    });
-
-    it('translates one language', () => {
-      expect(result.title.fr).toBe('Le français est modifié');
-      expect(result.title.en).toBe(titleBefore.en);
-    });
-  });
-
-  describe('patch one language only with languages field', () => {
-    let result;
-
-    beforeAll(async () => {
-      result = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          title: { fr: 'Le français est modifié' },
-          languages: ['fr'],
-        },
-        {
-          access: 'moderator',
-        },
-      );
-    });
-
-    it('translates one language', () => {
-      expect(result.title.fr).toBe('Le français est modifié');
-      expect(result.title.en).toBeUndefined();
-    });
-  });
-
-  describe('other', () => {
-    it('if state is not specified in provided data, state is not updated', async () => {
-      const { state: currentState } = await core.services
-        .agendaEvents(17026855)
-        .get(19201989);
-
-      await core.agendas(17026855).events.update(
-        19201989,
-        {
-          featured: true,
-          title: {
-            fr: 'Un événement remis à jour',
-            en: 'An updated event',
-          },
-          description: {
-            fr: 'Une description',
-            en: 'A desc',
-          },
-          location: {
-            uid: 123,
-          },
-          timings: [
-            {
-              begin: new Date('2019-05-06T10:00:00'),
-              end: new Date('2019-05-06T11:00:00'),
-            },
-            {
-              begin: new Date('2019-05-06T12:00:00'),
-              end: new Date('2019-05-06T13:00:00'),
-            },
-          ],
-          'categories-agenda-metropolitain': 43,
-          'thematiques-bordeaux-metropole': [3],
-        },
-        {
-          access: 'administrator',
-        },
-      );
-
-      const { state: updatedState } = await core.services
-        .agendaEvents(17026855)
-        .get(19201989);
-
-      expect(currentState).toBe(updatedState);
-    });
-
-    it('event can be updated with timings specifying begin&end as { date, hours, minutes } objects', async () => {
-      const event = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          timings: [
-            {
-              begin: {
-                date: '2019-12-14',
-                hours: 18,
-                minutes: 28,
-              },
-              end: {
-                date: '2019-12-14',
-                hours: 18,
-                minutes: 40,
-              },
-            },
-          ],
-        },
-        { access: 'administrator' },
-      );
-
-      expect(new Date(event.timings[0].begin).getUTCHours()).toBe(17);
-      expect(new Date(event.timings[0].begin).getMinutes()).toBe(28);
-    });
-
-    it('online event location can be removed through patch', async () => {
-      const event = await core.agendas(17026855).events.patch(
-        19201989,
-        {
-          attendanceMode: 2,
-          onlineAccessLink: 'https://openagenda.com',
-          location: null,
-        },
-        { access: 'administrator' },
-      );
-
-      expect(event.locationUid).toBeUndefined();
-    });
-
-    it('internal patch patches', async () => {
-      const patchedEvent = await core.agendas(37026800).events.patch(
-        88888888,
-        {
-          location: { uid: 73780602 },
-        },
-        {
-          access: 'internal',
-        },
-      );
-
-      expect(patchedEvent.location.uid).toBe(73780602);
     });
   });
 
@@ -1164,159 +906,6 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           'Un événement reremis à jour',
         );
       });
-    });
-  });
-
-  describe('access by member authorization', () => {
-    it('change state as admin member', async () => {
-      const event = await core.agendas(64260763).events.patch(
-        3969008,
-        {
-          state: 1,
-        },
-        {
-          userUid: 10866730, // helene
-        },
-      );
-
-      expect(event.state).toBe(1);
-    });
-
-    it('contributor cannot publish event if agenda default state is to be moderated', async () => {
-      let errorMessage;
-      try {
-        await core.agendas(64260763).events.patch(
-          3969008,
-          {
-            state: 2,
-          },
-          {
-            userUid: 24372732, // chrissie
-          },
-        );
-      } catch (e) {
-        errorMessage = e.message;
-      }
-
-      expect(errorMessage).toBe('not authorized to publish events');
-    });
-
-    it('administrator of agenda without edit rights over event cannot edit event', async () => {
-      let errorMessage;
-      try {
-        await core.agendas(89904399).events.patch(
-          3969008,
-          {
-            title: 'Un titre mis à jour',
-          },
-          {
-            userUid: 82253124, // Admin of MEL
-          },
-        );
-      } catch (e) {
-        errorMessage = e.message;
-      }
-
-      expect(errorMessage).toBe('not authorized to edit event');
-    });
-
-    it('administrator of agenda without edit rights can change featured value of event', async () => {
-      const event = await core.agendas(89904399).events.patch(
-        3969008,
-        {
-          featured: true,
-        },
-        {
-          userUid: 82253124, // Admin of MEL
-        },
-      );
-
-      expect(event.featured).toBe(true);
-    });
-
-    it('creator of event which is contributor in non-origin agenda without edit rights can edit event from non-origin agenda', async () => {
-      const event = await core.agendas(89904399).events.patch(
-        3969008,
-        {
-          title: { fr: 'Patché' },
-        },
-        {
-          userUid: 10866730,
-        },
-      );
-
-      expect(event.title.fr).toBe('Patché');
-    });
-
-    it('additional field value is not dropped from index on patch', async () => {
-      const {
-        events: [event],
-      } = await core.agendas(92983929).events.search(
-        {
-          state: null,
-          uid: 19390294,
-        },
-        {},
-        {
-          detailed: true,
-          access: 'administrator',
-        },
-      );
-
-      expect(event.categories).toBe(2);
-
-      await core
-        .agendas(92983929)
-        .events.patch(
-          19390294,
-          {
-            title: { fr: 'Et bim' },
-          },
-          {
-            access: 'administrator',
-          },
-        )
-        .then(
-          () => {},
-          (e) => console.log(e),
-        );
-
-      const {
-        events: [patchedEvent],
-      } = await core.agendas(92983929).events.search(
-        {
-          state: null,
-          uid: 19390294,
-        },
-        {},
-        {
-          detailed: true,
-          access: 'administrator',
-        },
-      );
-
-      expect(patchedEvent.categories).toBe(2);
-    });
-  });
-  describe('patch error', () => {
-    it('not found event', async () => {
-      let err;
-
-      try {
-        await core.agendas(89904399).events.patch(
-          3,
-          {
-            title: { fr: 'Patché' },
-          },
-          {
-            userUid: 10866730,
-          },
-        );
-      } catch (error) {
-        err = error;
-      }
-
-      expect(err.message).toBe('Not found');
     });
   });
 });
