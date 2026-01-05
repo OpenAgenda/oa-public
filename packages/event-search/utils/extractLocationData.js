@@ -1,4 +1,6 @@
 import countries from '@openagenda/labels/agenda-locations/countries.js';
+import cleanTextForSearch from './cleanTextForSearch.js';
+import removeDiacritics from './removeDiacritics.js';
 import * as aggObjects from './aggregatorObjects.js';
 
 const locationFields = [
@@ -14,11 +16,13 @@ const locationFields = [
 ];
 
 const searchFullAddressText = (location, country) =>
-  locationFields
-    .map((f) => location[f])
-    .filter((f) => !!f)
-    .concat(Object.values(country))
-    .join(' ');
+  removeDiacritics(
+    locationFields
+      .map((f) => location[f])
+      .filter((f) => !!f)
+      .concat(Object.values(country))
+      .join(' '),
+  );
 
 const clearEmptyLabels = (labels) =>
   Object.keys(labels)
@@ -53,7 +57,9 @@ function formatLocation(data, options = {}) {
 }
 
 const extractSearchData = (location, country) => ({
-  _search_full_address_text: searchFullAddressText(location, country),
+  _search_full_address_text: cleanTextForSearch(
+    searchFullAddressText(location, country),
+  ),
   _search_location: {
     lat: location.latitude,
     lon: location.longitude,

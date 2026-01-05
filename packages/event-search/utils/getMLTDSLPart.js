@@ -1,5 +1,6 @@
 import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
 import getAdditionalFieldMappedNameAndType from './getAdditionalFieldMappedNameAndType.js';
+import removeDiacritics from './removeDiacritics.js';
 
 const multilingualFieldsMap = {
   keywords: '_search_keywords_text',
@@ -17,17 +18,12 @@ function _addSchemaIdPrefix(field, value) {
 }
 
 function _getMLTLocationValue(location) {
-  return [
-    'address',
-    'city',
-    'department',
-    'region',
-    'adminLevel3',
-    'adminLevel5',
-  ]
-    .filter((f) => !!location[f])
-    .map((f) => location[f])
-    .join(' ');
+  return removeDiacritics(
+    ['address', 'city', 'department', 'region', 'adminLevel3', 'adminLevel5']
+      .filter((f) => !!location[f])
+      .map((f) => location[f])
+      .join(' '),
+  );
 }
 
 export default (MLTQuery, options = {}) => {
