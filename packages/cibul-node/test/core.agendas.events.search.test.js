@@ -234,6 +234,24 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
           expect(result.events[0].uid).toBe(2);
         });
 
+        it('includeSort', async () => {
+          const { sort, events } = await core.agendas(2).events.search(
+            { state: null },
+            { size: 1 },
+            {
+              userUid: 63170200,
+              useAfterKey: true,
+              includeSort: true,
+            },
+          );
+          expect(events[0].sort).toStrictEqual([
+            { key: 'featured', value: false },
+            { key: 'relative', value: 'passed' },
+            { key: 'lastTiming', value: '2019-09-27T10:00:00.000Z' },
+          ]);
+          expect(sort).toBe('timingsWithFeatured.asc');
+        });
+
         it('fix: updatedAt is latest between ae, event and location timestamps', async () => {
           const { events } = await core.agendas(2).events.search(
             {
