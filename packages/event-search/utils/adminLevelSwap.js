@@ -14,6 +14,10 @@ export default {
       const found = map.find((m) => `location.${m.al}` === a);
       return found ? `location.${found.to}` : a;
     }),
+  reverse: (fieldName) => {
+    const found = map.find((m) => `location.${m.to}` === fieldName);
+    return found ? `location.${found.al}` : fieldName;
+  },
   transformToRequested: ({ requestedIncludes, useAdminLevels }, event) => {
     if (!event?.location || (!requestedIncludes && useAdminLevels === null)) {
       return event;
