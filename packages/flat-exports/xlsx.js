@@ -10,6 +10,14 @@ function xlsx(_xlsxOptions, inStream, options = {}) {
 
   const events = [];
 
+  inStream.on('error', (err) => {
+    workbook.stream.destroy(err);
+  });
+
+  transformed.on('error', (err) => {
+    workbook.stream.destroy(err);
+  });
+
   transformed.on('data', (data) => {
     events.push(clean(data));
   });
