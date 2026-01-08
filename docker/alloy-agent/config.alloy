@@ -1,0 +1,100 @@
+otelcol.receiver.otlp "in" {
+  grpc { endpoint = "0.0.0.0:4317" }
+  http { endpoint = "0.0.0.0:4318" }
+
+  output {
+    logs    = [otelcol.processor.batch.main.input]
+    traces  = [otelcol.processor.batch.main.input]
+    metrics = [otelcol.processor.batch.main.input]
+  }
+}
+
+otelcol.processor.batch "main" {
+  output {
+    logs    = [otelcol.exporter.otlp.to_central.input]
+    traces  = [otelcol.exporter.otlp.to_central.input]
+    metrics = [otelcol.exporter.otlp.to_central.input]
+  }
+}
+
+otelcol.exporter.otlp "to_central" {
+  client {
+    endpoint = "host.docker.internal:4317"
+    tls { insecure = true }
+
+    // endpoint = sys.env("OTEL_HOST") + ":443"
+
+    // tls {
+    //   ca_file   = "/etc/alloy/certs/ca.crt"
+    //   cert_file = "/etc/alloy/certs/agent.crt"
+    //   key_file  = "/etc/alloy/certs/agent.key"
+    //   server_name = sys.env("OTEL_HOST")
+    // }
+  }
+}
+
+// -----------------------------
+// MySQL -> Prometheus -> OTLP -> to_central
+// -----------------------------
+
+prometheus.exporter.mysql "integrations_mysqld_exporter" {
+  data_source_name = "alloy_monitor:alloy_password@tcp(mysql:3306)/?tls=skip-verify"
+}
+
+discovery.relabel "integrations_mysqld_exporter" {
+  targets = prometheus.exporter.mysql.integrations_mysqld_exporter.targets
+
+  rule {
+    target_label = "job"
+    replacement  = "integrations/mysql"
+  }
+
+  rule {
+    target_label = "instance"
+    replacement  = constants.hostname
+  }
+}
+
+prometheus.scrape "integrations_mysqld_exporter" {
+  targets    = discovery.relabel.integrations_mysqld_exporter.output
+  forward_to = [otelcol.receiver.prometheus.mysql_bridge.receiver]
+  job_name   = "integrations/mysql"
+}
+
+// -----------------------------
+// Unix -> Prometheus -> OTLP -> to_central
+// -----------------------------
+prometheus.exporter.unix "node" {
+  // optionnel: tu peux activer/désactiver des collectors si besoin
+  // disable_collectors = ["..."]
+}
+
+discovery.relabel "node" {
+  targets = prometheus.exporter.unix.node.targets
+
+  rule {
+    target_label = "job"
+    replacement  = "integrations/node_exporter"
+  }
+
+  // Doit matcher EXACTEMENT l'instance côté MySQL
+  rule {
+    target_label = "instance"
+    replacement  = constants.hostname
+  }
+}
+
+prometheus.scrape "node" {
+  targets    = discovery.relabel.node.output
+  forward_to = [otelcol.receiver.prometheus.mysql_bridge.receiver]
+}
+
+// -----------------------------
+// Bridge Prometheus -> OTLP -> central
+// -----------------------------
+
+otelcol.receiver.prometheus "mysql_bridge" {
+  output {
+    metrics = [otelcol.processor.batch.main.input]
+  }
+}
