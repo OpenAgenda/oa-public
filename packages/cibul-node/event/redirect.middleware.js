@@ -85,7 +85,9 @@ function loadEvent(req, res, next) {
         req.log.error(err);
 
         next({
-          code: !_.get(err, 'message').includes('not found') ? 500 : 404,
+          code:
+            err.statusCode
+            || (!_.get(err, 'message').includes('not found') ? 500 : 404),
         });
       },
     );
