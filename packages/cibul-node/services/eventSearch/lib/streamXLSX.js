@@ -1,3 +1,5 @@
+import { pipeline } from 'node:stream';
+import logs from '@openagenda/logs';
 import * as flatExports from '@openagenda/flat-exports';
 import fieldNameLabels from '@openagenda/labels/event/exportFieldNames.js';
 import memberLabels from '@openagenda/labels/members/index.js';
@@ -5,8 +7,10 @@ import stateLabels from '@openagenda/labels/event/states.js';
 
 const xlsx = flatExports.xlsx();
 
+const log = logs('services/eventSearch/streamXlsx');
+
 export default (req, res) => {
-  xlsx(req.stream, {
+  const out = xlsx(req.stream, {
     agendaUid: req.agenda.uid,
     lang: req.lang,
     languages: req.languages,
@@ -20,7 +24,14 @@ export default (req, res) => {
     includeFields: req.query.includeFields,
     includeLanguages: req.query.includeLanguages,
     spreadFields: req.query.distributeOptionalFields,
-  }).pipe(res);
+  });
+
+  pipeline(out, res, (err) => {
+    if (err) {
+      log.error(err);
+      res.destroy();
+    }
+  });
 
   res.writeHead(200, {
     'Content-Type':
