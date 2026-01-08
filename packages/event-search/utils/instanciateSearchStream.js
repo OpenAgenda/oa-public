@@ -27,11 +27,15 @@ class SearchStream extends Readable {
 
   async _read() {
     log('read');
-    if (!this._bufferedEvents.length) {
-      await this._refillBuffer();
-    }
+    try {
+      if (!this._bufferedEvents.length) {
+        await this._refillBuffer();
+      }
 
-    return this._popBuffer();
+      return this._popBuffer();
+    } catch (err) {
+      this.destroy(err);
+    }
   }
 
   async _popBuffer() {
