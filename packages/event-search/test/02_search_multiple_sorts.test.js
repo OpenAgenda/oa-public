@@ -37,7 +37,7 @@ describe('event search - functional: multiple Sort', () => {
     );
     // console.log(result.events.map((e) => ({ uid: e.uid, region: e.location.region, city: e.location.city })));
     expect(result.events.map((e) => e.uid)).toStrictEqual([
-      81527718, 81527719, 81527720, 81527721,
+      81527718, 81527719, 81527720, 81527721, 81527722,
     ]);
   });
 
@@ -51,7 +51,7 @@ describe('event search - functional: multiple Sort', () => {
     );
     // console.log(result.events.map((e) => ({ uid: e.uid, region: e.location.region, city: e.location.city, timings: e.timings })));
     expect(result.events.map((e) => e.uid)).toStrictEqual([
-      81527718, 81527719, 81527721, 81527720,
+      81527718, 81527719, 81527721, 81527720, 81527722,
     ]);
   });
 
@@ -65,7 +65,7 @@ describe('event search - functional: multiple Sort', () => {
     );
     // console.log(result.events.map((e) => ({ uid: e.uid, region: e.location.region, city: e.location.city })));
     expect(result.events.map((e) => e.uid)).toStrictEqual([
-      81527718, 81527719, 81527720, 81527721,
+      81527718, 81527719, 81527720, 81527721, 81527722,
     ]);
   });
 
@@ -83,9 +83,10 @@ describe('event search - functional: multiple Sort', () => {
         'A',
         'A',
         'B',
+        'C',
       ]);
       expect(result.events.map((e) => e.uid)).toStrictEqual([
-        81527718, 81527719, 81527721, 81527720,
+        81527718, 81527719, 81527721, 81527720, 81527722,
       ]);
     });
   });

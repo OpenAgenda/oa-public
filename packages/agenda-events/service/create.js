@@ -81,6 +81,16 @@ export default async (
 
   if (success) {
     created = await get(clean.agendaUid, clean.eventUid, params);
+
+    // remove any other reference that was there for the same agenda / event pair
+    await client('agenda_event')
+      .delete()
+      .where({
+        agenda_uid: agendaUid,
+        event_uid: eventUid,
+        removed: 1,
+      })
+      .where('id', '<', insertIds[0]);
   }
 
   if (success && clean.aggregated) {

@@ -221,6 +221,16 @@ describe('agendaEvents - 01 - functional (server): list', () => {
     expect(items.length).toBe(0);
   });
 
+  it('list by event uid excludes removed references by default', async () => {
+    const { total } = await svc.list.byEventUid(
+      53117384,
+      { excludeAgendaUid: 123 },
+      0,
+      1000,
+    );
+    expect(total).toBe(0);
+  });
+
   it('list by event uid and filtering by canEdit', async () => {
     const { items } = await svc.list.byEventUid(54434612, { canEdit: true });
     expect(items.length).toBe(0);
@@ -253,8 +263,8 @@ describe('agendaEvents - 01 - functional (server): list', () => {
     const { items, total } = await svc(62792452).list(0, 100, {
       removed: true,
     });
-    expect(items.length).toBe(1);
-    expect(total).toBe(1);
+    expect(items.length).toBe(2);
+    expect(total).toBe(2);
   });
 
   it('list all items', async () => {

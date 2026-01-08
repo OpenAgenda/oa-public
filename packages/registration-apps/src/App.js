@@ -1,4 +1,4 @@
-import { useState, useCallback, useContext } from 'react';
+import { useState, useCallback, useContext, useEffect } from 'react';
 import PassCultureCheckbox from './passCulture/Checkbox.js';
 import ComponentsContext from './components/Context.js';
 import spreadRegistrationValuesByService from './utils/spreadRegistrationValuesByService.js';
@@ -12,11 +12,12 @@ const flattenLabel = (label, lang) => {
 function Registration(props) {
   const {
     onChange: propsOnChange,
-    value = [],
+    value,
     relatedValues = {},
     field: {
       placeholder,
       info,
+      default: defaultValue,
       settings = {
         passCulture: null,
       },
@@ -28,9 +29,9 @@ function Registration(props) {
 
   const { StandardRegistrationField } = useContext(ComponentsContext);
 
-  const { passCulture: passCultureValue, standard: standardValue } = spreadRegistrationValuesByService(value);
-
   const [inputValue, setInputValue] = useState('');
+
+  const { passCulture: passCultureValue, standard: standardValue } = spreadRegistrationValuesByService(value);
 
   const appendValue = useCallback(
     (item) => {
@@ -53,6 +54,15 @@ function Registration(props) {
     },
     [setInputValue, appendValue],
   );
+
+  useEffect(() => {
+    if (value || !defaultValue) {
+      return;
+    }
+    defaultValue.forEach((v) => {
+      appendValue(v);
+    });
+  }, []);
 
   const onStandardChange = useCallback(
     (updatedValue) => {

@@ -1,13 +1,15 @@
 import { BadRequest, GeneralError } from '@openagenda/verror';
 
 import logs from '@openagenda/logs';
+import includeSortValues from './includeSortValues.js';
 
 const log = logs('postDSL');
 
 const hasFailure = (body, type) =>
   !!(body._shards.failures ?? []).find(({ reason }) => reason.type === type);
 
-export default async function postDSL({ client }, index, DSL) {
+export default async function postDSL({ client }, index, DSL, options = {}) {
+  const { includeSort = false } = options;
   const res = await client.search({
     index,
     body: DSL,
@@ -26,9 +28,13 @@ export default async function postDSL({ client }, index, DSL) {
       'Elasticsearch error',
     );
   }
-
   return {
-    events: res.body.hits.hits.map((h) => h._source),
+    events: includeSort
+      ? res.body.hits.hits.map((h) => ({
+        ...h._source,
+        sort: includeSortValues(DSL, h.sort),
+      }))
+      : res.body.hits.hits.map((h) => h._source),
     total: res.body.hits.total.value,
     sort:
       DSL.sort && res.body.hits.hits.length

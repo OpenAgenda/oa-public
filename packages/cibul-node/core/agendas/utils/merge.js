@@ -47,6 +47,11 @@ function mergeEvent(
       compiled[eventField] = event[eventField];
     });
   }
+
+  if (event === null && load.event) {
+    return null;
+  }
+
   if (event && load.event && agendaEvent) {
     compiled.addMethod = getAddMethod(event, agendaEvent);
   }

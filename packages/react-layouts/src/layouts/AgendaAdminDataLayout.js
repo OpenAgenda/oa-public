@@ -43,12 +43,12 @@ function AgendaAdminDataLayout({
 
   const { user } = extraProps;
 
-  const agendaUid = data?.agenda?.uid;
+  const agendaSlug = data?.agenda?.slug;
 
   const verifyLocationCount = useCallback(() => {
-    if (!agendaUid) return;
-    dispatch(agendaAdminActions.verifyLocationCount(agendaUid));
-  }, [dispatch, agendaUid]);
+    if (!agendaSlug) return;
+    dispatch(agendaAdminActions.verifyLocationCount(agendaSlug));
+  }, [dispatch, agendaSlug]);
 
   useEffect(() => {
     verifyLocationCount();

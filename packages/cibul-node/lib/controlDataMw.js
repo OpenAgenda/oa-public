@@ -166,8 +166,12 @@ async function generateControlData(core, agendaUID) {
   );
 }
 
-export default async function controlDataMw(req, res, _next) {
+export default async function controlDataMw(req, res, next) {
   const { simpleCache, core } = req.app.services;
+
+  if (!req.agenda) {
+    return next();
+  }
 
   const cachedData = await simpleCache
     .hash('agendas', req.agenda.uid)

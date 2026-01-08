@@ -21,7 +21,6 @@ export default function updateEvent(req, res) {
     .events[operation](req.event.uid, filteredData, {
       draft: req.draft,
       userUid: req.user.uid,
-      filterUnauthorizedData: true,
       private: null,
     })
     .then(

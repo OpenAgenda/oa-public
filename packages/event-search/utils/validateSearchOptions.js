@@ -85,6 +85,11 @@ const validate = schema({
     default: false,
     allowNull: true,
   },
+  includeSort: {
+    type: 'boolean',
+    optional: true,
+    default: false,
+  },
 });
 
 export default function validateSearchOptions(options = {}) {

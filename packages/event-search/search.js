@@ -148,6 +148,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     aggsSizeLimit,
     removed,
     useAdminLevels,
+    includeSort,
   } = validateOptions(options);
 
   try {
@@ -233,6 +234,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     _.pick(config, ['client']),
     index,
     cleanDSL,
+    { includeSort },
   ).then(
     (r) => ({ result: r }),
     (e) => ({ error: e }),

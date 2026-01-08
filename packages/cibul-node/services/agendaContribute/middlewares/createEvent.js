@@ -17,7 +17,6 @@ export default function createEvent(req, res) {
     .events.create(req.dataWithFiles, {
       draft: req.draft,
       userUid: req.user.uid,
-      filterUnauthorizedData: true,
       fileKey: crypto.randomUUID().replace(/-/g, ''),
       duplicateOrigin: req.query.duplicateOrigin,
       userLang: req.lang,

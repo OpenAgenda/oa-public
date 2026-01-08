@@ -1,5 +1,6 @@
 import listify from './listify';
 import cleanParams from './lib/params';
+import convertToUTFMB3 from './lib/convertToUTFMB3';
 import errors from './lib/errors';
 import { emojiReg } from './lib/emojireg';
 
@@ -15,6 +16,7 @@ export default config => {
     strict: false,
     emptyStringAsUndefined : true,
     rejectEmojis: false,
+    sanitizeEncoding: null,
   }, config || {});
 
   const validate = value => {
@@ -72,6 +74,10 @@ export default config => {
 
     if (clean && params.rejectEmojis && emojiReg.test(clean)) {
       throw errors(params, value, 'string.invalidHasEmojis', 'emojis are not accepted');
+    }
+
+    if (params.sanitizeEncoding === 'utf8mb3') {
+      clean = convertToUTFMB3(clean);
     }
 
     return clean;

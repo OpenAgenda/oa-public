@@ -1,12 +1,8 @@
-"use strict";
+import clean from '../src/schema/clean';
 
-const clean = require( '../src/schema/clean' );
-
-describe( 'schema clean', () => {
-
-  it( 'fields of known types are read as leaves ( not schema validators )', () => {
-
-    expect(clean( {
+describe('schema clean', () => {
+  it('fields of known types are read as leaves ( not schema validators )', () => {
+    expect(clean({
       search: { 
         type: 'text', 
         optional: true, 
@@ -24,7 +20,7 @@ describe( 'schema clean', () => {
         regex: /createdAt\.desc/,
         default: null 
       }
-    } )).toEqual({
+    })).toEqual({
       list: false,
       type: 'schema',
       fields: {
@@ -47,12 +43,10 @@ describe( 'schema clean', () => {
         }
       }
     });
+  });
 
-  } );
-
-  it( 'clean adds fields to fieldless structure', () => {
-
-    expect(clean( {
+  it('clean adds fields to fieldless structure', () => {
+    expect(clean({
       title: {
         type: 'text'
       },
@@ -64,7 +58,7 @@ describe( 'schema clean', () => {
           type: 'text'
         }
       }
-    } )).toEqual({
+    })).toEqual({
       list: false,
       type: 'schema',
       fields: {
@@ -85,7 +79,5 @@ describe( 'schema clean', () => {
         }
       }
     });
-
-  } );
-
-} );
+  });
+});

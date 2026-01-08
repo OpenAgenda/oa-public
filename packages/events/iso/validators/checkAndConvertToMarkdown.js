@@ -1,4 +1,4 @@
-import { isHTML, fromHTMLToMarkdown } from '@openagenda/md';
+import { isHTML, fromHTMLToMarkdown, validateMarkdown } from '@openagenda/md';
 
 export default function checkAndConvertToMarkdown(value, options = {}) {
   const { max } = options;
@@ -15,5 +15,7 @@ export default function checkAndConvertToMarkdown(value, options = {}) {
     );
   }
 
-  return isHTML(value, { length: max }) ? fromHTMLToMarkdown(value) : value;
+  return isHTML(value, { length: max })
+    ? validateMarkdown(fromHTMLToMarkdown(value), 'longDescription')
+    : validateMarkdown(value, 'longDescription');
 }

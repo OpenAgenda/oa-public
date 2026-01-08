@@ -1,4 +1,4 @@
-import { optionedTypes, minMaxedTypes } from './fieldTypes.js';
+import { optionedTypes, minMaxedTypes, textTypes } from './fieldTypes.js';
 
 export default function buildFieldSchema(type, options = {}) {
   const {
@@ -132,12 +132,6 @@ export default function buildFieldSchema(type, options = {}) {
       default: undefined,
     },
 
-    warnAllCaps: {
-      type: 'boolean',
-      optional: true,
-      default: false,
-    },
-
     related: {
       enable: {
         type: 'text',
@@ -243,6 +237,16 @@ export default function buildFieldSchema(type, options = {}) {
             default: true,
           },
         },
+      },
+    });
+  }
+
+  if (textTypes.includes(type)) {
+    Object.assign(structure, {
+      warnAllCaps: {
+        type: 'boolean',
+        optional: true,
+        default: false,
       },
     });
   }

@@ -25,7 +25,6 @@ export default async (core, agendaUid, data, options = {}) => {
   const {
     access = 'public',
     defaultLang = 'en',
-    filterUnauthorizedData = false,
     returnPayload = false,
     fileKey,
     duplicateOrigin,
@@ -55,7 +54,6 @@ export default async (core, agendaUid, data, options = {}) => {
     const clean = await cleanEvent(services, agenda, data, {
       validateAsDraft: isDraft,
       defaultLang,
-      filterUnauthorizedData,
       member,
       access,
     });

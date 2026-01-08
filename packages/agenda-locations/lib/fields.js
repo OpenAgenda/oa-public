@@ -58,6 +58,7 @@ module.exports = [
     fieldType: 'text',
     max: 100,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.name,
   },
   {
@@ -75,6 +76,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.address,
   },
   {
@@ -93,6 +95,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.countryCode,
   },
   {
@@ -111,6 +114,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.region,
   },
   {
@@ -129,6 +133,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.department,
   },
   {
@@ -147,6 +152,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.adminLevel3,
   },
   {
@@ -165,6 +171,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 100,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.city,
   },
   {
@@ -182,6 +189,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 100,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.city,
   },
   {
@@ -200,6 +208,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.adminLevel5,
   },
   {
@@ -218,6 +227,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.adminLevel6,
   },
   {
@@ -229,6 +239,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.district,
   },
   {
@@ -239,6 +250,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 20,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.postalCode,
   },
   {
@@ -249,6 +261,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 10,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.insee,
   },
   {
@@ -296,6 +309,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.region,
   },
   {
@@ -313,6 +327,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     max: 255,
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     label: labels.department,
   },
   {
@@ -445,6 +460,7 @@ module.exports = [
     fieldType: 'multilingual',
     languages: [],
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
     max: 1000,
   },
   {
@@ -482,6 +498,7 @@ module.exports = [
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     enableWith: 'image',
     rejectEmojis: true,
+    sanitizeEncoding: 'utf8mb3',
   },
   {
     field: 'siret',

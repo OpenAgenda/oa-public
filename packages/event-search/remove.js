@@ -2,6 +2,7 @@ import logs from '@openagenda/logs';
 import update from './update.js';
 import getIndexName from './utils/getIndexName.js';
 import getDocumentId from './utils/getDocumentId.js';
+import validateIdentifiers from './utils/validateIdentifiers.js';
 import ESToVerror from './utils/ESToVerror.js';
 
 const log = logs('remove');
@@ -12,6 +13,7 @@ export default async function remove(config, set, identifiers, options = {}) {
     soft: true,
     ...options,
   };
+  validateIdentifiers(identifiers);
 
   const { client, defaultIndex } = config;
   log('processing', identifiers, { soft });

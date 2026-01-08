@@ -1,0 +1,124 @@
+{
+  "custom": {},
+  "defaultLabelLanguage": null,
+  "nextOptionId": 1,
+  "fields": [
+    {
+      "field": "title",
+      "slug": "title",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "description",
+      "slug": "description",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "location",
+      "slug": "location",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "image",
+      "slug": "image",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "longDescription",
+      "slug": "longDescription",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "registration",
+      "slug": "registration",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "age",
+      "slug": "age",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "jatteste",
+      "allowFalse": false,
+      "write": ["contributor"],
+      "slug": "jatteste",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "contributorOnlyField",
+      "write": ["contributor"],
+      "slug": "contributorOnlyField",
+      "type": "text",
+      "fieldType": "text"
+    },
+    {
+      "field": "conditions",
+      "slug": "conditions",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "keywords",
+      "slug": "keywords",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "accessibility",
+      "slug": "accessibility",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "languages",
+      "slug": "languages",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "attendanceMode",
+      "slug": "attendanceMode",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "imageCredits",
+      "slug": "imageCredits",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "onlineAccessLink",
+      "slug": "onlineAccessLink",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "timings",
+      "slug": "timings",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "status",
+      "slug": "status",
+      "type": "abstract",
+      "fieldType": "abstract"
+    },
+    {
+      "field": "extIds",
+      "slug": "extIds",
+      "type": "abstract",
+      "fieldType": "abstract"
+    }
+  ]
+}

@@ -43,6 +43,7 @@ describe('form-schemas -06- validateField', () => {
         constraints: undefined,
         selfHandled: [],
         enable: true,
+        warnAllCaps: false,
       });
     });
 
@@ -97,6 +98,7 @@ describe('form-schemas -06- validateField', () => {
         constraints: undefined,
         selfHandled: [],
         enable: true,
+        warnAllCaps: false,
       });
     });
 
@@ -244,6 +246,7 @@ describe('form-schemas -06- validateField', () => {
         constraints: undefined,
         selfHandled: [],
         enable: true,
+        warnAllCaps: false,
       });
     });
 

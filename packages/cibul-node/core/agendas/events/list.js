@@ -5,6 +5,7 @@ import * as merge from '../utils/merge.js';
 import eventLoadOptions from '../utils/eventLoadOptions.js';
 import cleanEvent from '../utils/cleanEvent/index.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
+import Stopwatch from '../utils/Stopwatch.js';
 import formatLocationsExtIds from '../locations/formatExtIds.js';
 
 function formatEventLocationsExtIds(events, { detailed }) {
@@ -26,6 +27,8 @@ const log = logs('core/agendas/events/list');
 // this will be slower for bigger sets
 // keep it fast with a last id nav on agendaEvents
 export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
+  const stopwatch = Stopwatch();
+  const times = {};
   const {
     agendaEvents: agendaEventsSvc,
     events: eventsSvc,
@@ -56,6 +59,8 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
 
   const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
 
+  times.agenda = stopwatch();
+
   const formSchema = merge.schemasWithEvent(
     agenda?.network?.formSchema ?? null,
     agenda.formSchema,
@@ -70,6 +75,8 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
     decorate: detailed ? ['sourceAgendas'] : [],
     removed,
   });
+
+  times.agendaEvents = stopwatch();
 
   if (load.agendaEvent) {
     fetched.agendaEvents = agendaEvents;
@@ -91,6 +98,8 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
       },
     );
 
+    times.events = stopwatch();
+
     fetched.events = formatEventLocationsExtIds(
       convertLocationAdditionalFields(formSchema, events),
       { detailed },
@@ -104,6 +113,8 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
         identifier: eventUids,
       })
     ).items;
+
+    times.custom = stopwatch();
   }
 
   if (load.custom && agenda.network && agenda.network.formSchemaId) {
@@ -112,6 +123,8 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
         identifier: eventUids,
       })
     ).items;
+
+    times.networkCustom = stopwatch();
   }
 
   if (detailed && load.event) {
@@ -125,6 +138,8 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
         },
       )
     ).agendas.map((a) => _.omit(a, ['id', 'indexed']));
+
+    times.originAgendas = stopwatch();
   }
 
   const userUids = detailed && agendaEvents.length
@@ -142,6 +157,8 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
       .then(({ items }) =>
         items.map((m) =>
           _.omit(m, ['deletedUser', 'createdAt', 'updatedAt', 'eventCount'])));
+
+    times.members = stopwatch();
   }
 
   if (detailed && load.user && agendaEvents.length) {
@@ -157,6 +174,8 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
       })
       .then(({ data }) =>
         data.map((d) => _.pick(d, ['uid', 'fullName', 'culture'])));
+
+    times.users = stopwatch();
   }
 
   const compiledEvents = eventUids
@@ -209,8 +228,11 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
 
   if (load.valid) {
     for (const event of compiledEvents) {
-      event.valid = await cleanEvent.getIsValid(core, agenda, event);
+      event.valid = await cleanEvent.getIsValid(core, agenda, event, {
+        verifyLocationExists: false,
+      });
     }
+    times.valid = stopwatch();
   }
 
   return returnPayload
@@ -220,6 +242,7 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
       success: true,
       agenda,
       formSchema,
+      times,
     }
     : compiledEvents;
 };

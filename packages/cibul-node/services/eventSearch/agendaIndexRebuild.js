@@ -3,43 +3,12 @@ import getAgendaSearchIndex from './lib/getAgendaSearchIndex.js';
 
 const log = logs('services/eventSearch/agendaIndexRebuild');
 
-function eventsList(core, agenda) {
-  let count = 0;
-  return (lastId, limit) =>
-    core
-      .agendas(agenda.uid)
-      .events.list(
-        {},
-        {
-          lastId,
-          limit,
-        },
-        {
-          returnPayload: true,
-          detailed: true,
-          access: 'internal',
-          removed: null,
-          load: { valid: true },
-        },
-      )
-      .then(({ events, lastId: nextLastId }) => {
-        log(
-          'listed %s events for reindexing in agenda %s (cursor: %s, total done: %s)',
-          events.length,
-          agenda.slug,
-          nextLastId,
-          count += events.length,
-        );
-        return { lastId: nextLastId, events };
-      });
-}
-
 export default async (services, eventSearch, agenda) => {
   const { core } = services;
 
-  const logPrefix = `${agenda.slug} (${agenda.uid}):`;
+  const logBundle = { agenda: { uid: agenda.uid, slug: agenda.slug } };
 
-  log(`${logPrefix} starting`);
+  log.info('starting', logBundle);
 
   const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
@@ -48,22 +17,33 @@ export default async (services, eventSearch, agenda) => {
   });
 
   const result = await searchIndex.rebuild({
-    on: {
-      bulk: ({ lastId, counts }) => {
-        log('info', `${logPrefix} bulked ${counts.indexed} events`, lastId);
-      },
-      error: ({ lastId }) => {
-        log('error', `${logPrefix} bulk failed`, { result, lastId });
+    eventsList: (lastId, limit) =>
+      core.agendas(agenda.uid).events.list(
+        {},
+        { lastId, limit },
+        {
+          returnPayload: true,
+          detailed: true,
+          access: 'internal',
+          removed: null,
+          load: { valid: true },
+        },
+      ),
+    formSchema,
+    ons: {
+      bulk: (data) => {
+        log.info('bulk', { ...logBundle, data });
       },
     },
-    eventsList: eventsList(core, agenda),
-    formSchema,
   });
 
-  log(`${logPrefix} done`, result);
+  log.info('done', logBundle);
 
   if (result.error) {
-    log('error', result.error?.meta);
+    log.error('Failed to complete', {
+      ...logBundle,
+      errorMeta: result.error?.meta,
+    });
   }
 
   return result;

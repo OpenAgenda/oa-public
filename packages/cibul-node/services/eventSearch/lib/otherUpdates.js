@@ -54,7 +54,12 @@ export async function otherUpdate(
     tracker(`eventSearch.otherUpdate:${agendaUid}.${eventUid}`);
   }
 
-  const result = await updateAgendaIndex(eventSearch, {
+  if (!event) {
+    log.warn('    no event was found', { agendaUid, eventUid });
+    return;
+  }
+
+  await updateAgendaIndex(eventSearch, {
     agenda,
     formSchema,
     member,
@@ -64,6 +69,4 @@ export async function otherUpdate(
   if (tracker) {
     tracker(`eventSearch.otherUpdate.done:${agendaUid}.${eventUid}`);
   }
-
-  return result;
 }

@@ -198,4 +198,18 @@ describe('agendaEvents - 03 - functional (server): create', () => {
 
     expect(created.motive).toBe('Hopopop');
   });
+
+  it('creating a reference that matches a removed variant deletes the removed variant', async () => {
+    await svc(62792452).create(5313789, {
+      state: 1,
+    });
+
+    const rows = await knexClient('agenda_event').where({
+      agenda_uid: 62792452,
+      event_uid: 5313789,
+    });
+
+    expect(rows.length).toBe(1);
+    expect(rows[0].removed).toBe(0);
+  });
 });

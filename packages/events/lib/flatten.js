@@ -6,15 +6,18 @@ export default (item, lang, { html, useFallbackLang }) =>
   (html ? [{ field: 'html', default: '' }] : [])
     .concat(fields)
     .reduce((accu, field) => {
-      if (accu[field.field]?.[lang]) {
+      const value = [undefined, null].includes(accu[field.field])
+        ? {}
+        : accu[field.field];
+      if (value?.[lang]) {
         accu[field.field] = accu[field.field]?.[lang];
       } else if (useFallbackLang) {
-        const fallbackLangs = Object.keys(accu[field.field]).filter(
-          (l) => !!(accu[field.field]?.[l] || '').length,
+        const fallbackLangs = Object.keys(value).filter(
+          (l) => !!(value?.[l] || '').length,
         );
 
         accu[field.field] = fallbackLangs.length
-          ? accu[field.field][fallbackLangs[0]]
+          ? value?.[fallbackLangs[0]]
           : field.default;
       } else {
         accu[field.field] = field.default;

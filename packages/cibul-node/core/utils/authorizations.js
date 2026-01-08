@@ -332,14 +332,23 @@ export async function getForUserOnAgenda(
   return fromMember(core, agenda, agendaEvent, event, member, { userUid });
 }
 
-export function filterUnauthorized(clean, data, authorizations) {
+export function filterUnauthorized(
+  agendaUid,
+  eventUid,
+  clean,
+  data,
+  authorizations = {},
+) {
+  const appliedFilters = [];
   if (!authorizations.canEditEvent && clean.event) {
     delete clean.event;
+    appliedFilters.push('not authorized to edit event, removed event data');
   }
 
   if (!authorizations.canChangeState && data?.state !== undefined) {
     delete clean.agendaEvent.state;
     delete data.state;
+    appliedFilters.push('not authorized to change state, removed state data');
   }
 
   if (
@@ -348,5 +357,17 @@ export function filterUnauthorized(clean, data, authorizations) {
   ) {
     delete clean.agendaEvent.state;
     delete data.state;
+    appliedFilters.push('not authorized to publish, removed state data');
+  }
+
+  if (appliedFilters.length > 0) {
+    log.info('filterUnauthorized', {
+      agendaUid,
+      eventUid,
+      appliedFilters,
+      data,
+      clean,
+      authorizations,
+    });
   }
 }

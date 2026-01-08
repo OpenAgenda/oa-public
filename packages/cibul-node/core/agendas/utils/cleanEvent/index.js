@@ -18,7 +18,14 @@ const eventFields = eventSchema.eventFields({
 
 const eventFieldNames = eventFields.map((f) => f.field);
 
-function extractLocationUidFromData({ completeEventData, data }) {
+async function extractLocationFromData(
+  services,
+  { completeEventData, data, verifyLocationExists = true },
+) {
+  const { agendaLocations } = services;
+
+  let locationUid = null;
+
   if (
     !data?.locationUid
     && !data?.location?.uid
@@ -26,14 +33,45 @@ function extractLocationUidFromData({ completeEventData, data }) {
       || data?.location === null
       || data?.location?.uid === null)
   ) {
-    return null;
+    return { location: null, locationUid };
   }
 
   if (data?.location?.uid || data.locationUid) {
-    return data?.location?.uid ?? data.locationUid;
+    locationUid = data?.location?.uid ?? data.locationUid;
+  } else {
+    locationUid = completeEventData?.location?.uid ?? completeEventData?.locationUid;
   }
 
-  return completeEventData?.location?.uid ?? completeEventData?.locationUid;
+  if (
+    !verifyLocationExists
+    && locationUid // has a direct location uid ref
+    && completeEventData?.location?.uid === locationUid // has a location object that is the same as the direct ref
+  ) {
+    return {
+      locationUid,
+      location: completeEventData.location,
+    };
+  }
+
+  const location = locationUid
+    ? await agendaLocations
+      .get(
+        {
+          uid: locationUid,
+        },
+        {
+          returnMergeTarget: true,
+          deleted: null,
+        },
+      )
+      .catch((e) => {
+        if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
+          throw e;
+        }
+      })
+    : null;
+
+  return { location, locationUid };
 }
 
 function containsEventData(data) {
@@ -58,14 +96,20 @@ function isStrictUnpublish(data) {
 }
 
 function getPassCulturePayload(data) {
-  return data?.registration?.find(({ service }) => service === 'passCulture')
+  return []
+    .concat(data?.registration)
+    .find((registrationItem) => registrationItem?.service === 'passCulture')
     ?.data;
 }
 
 async function cleanEvent(services, agenda, data, options = {}) {
   const { agendaEvents, registrations } = services;
 
-  const { isPatch = false, storedData = {} } = options;
+  const {
+    isPatch = false,
+    verifyLocationExists = true,
+    storedData = {},
+  } = options;
 
   const completeEventData = isPatch
     ? {
@@ -74,25 +118,11 @@ async function cleanEvent(services, agenda, data, options = {}) {
     }
     : data;
 
-  const locationUid = extractLocationUidFromData({ data, completeEventData });
-
-  const location = locationUid
-    ? await services.agendaLocations
-      .get(
-        {
-          uid: locationUid,
-        },
-        {
-          returnMergeTarget: true,
-          deleted: null,
-        },
-      )
-      .catch((e) => {
-        if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
-          throw e;
-        }
-      })
-    : null;
+  const { locationUid, location } = await extractLocationFromData(services, {
+    data,
+    completeEventData,
+    verifyLocationExists,
+  });
 
   log('fetched agenda %s and location %s', agenda?.uid, location?.uid);
 
@@ -141,9 +171,11 @@ async function cleanEvent(services, agenda, data, options = {}) {
   return clean;
 }
 
-function getIsValid(core, agenda, event) {
+function getIsValid(core, agenda, event, options = {}) {
+  const { verifyLocationExists = true } = options;
   return cleanEvent(core.services, agenda, event, {
     optionalSecondaryFields: true,
+    verifyLocationExists,
   }).then(
     () => true,
     (error) => {

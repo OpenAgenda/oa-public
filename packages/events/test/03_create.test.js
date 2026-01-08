@@ -676,5 +676,19 @@ describe('events - functional - create', () => {
         { key: 'apidae', value: '2398772398' },
       ]);
     });
+
+    it('unsafe markown in longDesc', async () => {
+      let error;
+      try {
+        await svc.create({
+          ...data,
+          longDescription: '[X](javascript:alert(1))',
+        });
+      } catch (e) {
+        error = e;
+      }
+      expect(error instanceof ValidationError).toBeTruthy();
+      expect(error.detail[0].code).toBe('longDescription.invalid');
+    });
   });
 });

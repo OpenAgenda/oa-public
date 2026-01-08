@@ -40,8 +40,8 @@
     {
       "state": 2,
       "uid": 81527719,
-      "slug": "rochfort-en-bulles",
-      "title": "Roch'Fort en Bulles 2",
+      "slug": "bulle",
+      "title": { "fr": "Bulle" },
       "description": "Festival de BD de Rochefort",
       "timezone": "Europe/Paris",
       "timings": [
@@ -131,6 +131,39 @@
         "department": "A",
         "countryCode": "FR",
         "district": "B",
+        "latitude": 45.939204,
+        "longitude": -0.958117,
+        "state": 1,
+        "timezone": "Europe/Paris"
+      }
+    },
+    {
+      "state": 2,
+      "uid": 81527722,
+      "slug": "upcoming-event",
+      "title": "Upcoming Event",
+      "description": "An event in the future",
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2099-09-07T08:00:00.000Z",
+          "end": "2099-09-07T08:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:07.000Z",
+      "createdAt": "2019-10-17T12:56:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 8590061,
+      "location": {
+        "uid": 8590061,
+        "slug": "C",
+        "name": "C",
+        "address": "some address",
+        "city": "C",
+        "region": "C",
+        "department": "C",
+        "countryCode": "FR",
+        "district": "C",
         "latitude": 45.939204,
         "longitude": -0.958117,
         "state": 1,

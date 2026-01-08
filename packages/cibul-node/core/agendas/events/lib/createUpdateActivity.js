@@ -1,34 +1,10 @@
 import _ from 'lodash';
-import deepDiff from 'deep-diff';
 import VError from '@openagenda/verror';
-import labels from '@openagenda/labels/event/form.js';
 import logs from '@openagenda/logs';
 
-const { diff } = deepDiff;
+import extractEventChanges from './extractEventChanges.js';
 
 const log = logs('events/createUpdateActivity');
-
-function getFieldReadAccess(fieldSchema) {
-  if (!fieldSchema.read || fieldSchema.read.includes('contributor')) {
-    return 'contributor';
-  }
-
-  if (fieldSchema.read.includes('moderator')) {
-    return 'moderator';
-  }
-
-  if (fieldSchema.read.includes('administrator')) {
-    return 'administrator';
-  }
-}
-
-const keepLocationUidOnly = (event) =>
-  (event.location && typeof event.location === 'object'
-    ? {
-      ...event,
-      location: { uid: event.location.uid },
-    }
-    : event);
 
 export default async function createActivity(services, before, after, context) {
   log('processing');
@@ -60,56 +36,12 @@ export default async function createActivity(services, before, after, context) {
     return log('error', new VError(e, 'Error to get user %s', context.userUid));
   }
 
-  const changes = diff(keepLocationUidOnly(before), keepLocationUidOnly(after));
-
-  const allChangedFields = (changes ?? [])
-    .map((v) => v.path[0])
-    .filter((v, i, a) => a.indexOf(v) === i)
-    .filter((field) => field !== 'state');
-
-  const changedFields = allChangedFields.reduce((accu, changedField) => {
-    const fieldSchema = formSchema.fields.find((v) => v.field === changedField);
-
-    if (!fieldSchema) {
-      log.info(
-        `no schema found for field ${changedField} on agenda ${agenda.uid}`,
-      );
-      return accu;
-    }
-
-    // skip internal fields
-    if (
-      fieldSchema.write?.length === 1
-      && fieldSchema.write[0] === 'internal'
-    ) {
-      return accu;
-    }
-
-    const fieldAccess = getFieldReadAccess(fieldSchema);
-
-    if (!fieldAccess) {
-      return accu;
-    }
-
-    if (!accu[fieldAccess]) {
-      accu[fieldAccess] = [];
-    }
-
-    if (
-      labels[fieldSchema.field]
-      && _.isEqual(fieldSchema.label, labels[fieldSchema.field])
-    ) {
-      accu[fieldAccess].push(fieldSchema.field);
-    } else if (fieldSchema.label) {
-      accu[fieldAccess].push({ label: fieldSchema.label });
-    }
-
-    return accu;
-  }, {});
-
-  const hasChanges = changedFields.contributor?.length
-    || changedFields.moderator?.length
-    || changedFields.administrator?.length;
+  const { hasChanges, changes, changedFields } = extractEventChanges({
+    agenda,
+    before,
+    after,
+    formSchema,
+  });
 
   if (hasChanges) {
     await activities.addActivity(

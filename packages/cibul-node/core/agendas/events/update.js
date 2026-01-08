@@ -49,7 +49,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     batched = false,
     aggregated = null,
     access = 'public',
-    filterUnauthorizedData = false,
+    filterUnauthorizedData = true,
     returnPayload = false,
     private: privateOption = false,
     callOrigin = 'ui',
@@ -120,8 +120,13 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       userUid: actingUserUid,
     });
 
+    const { type: stateChangeType } = assignState(agenda, event, clean, data, {
+      authorizations,
+      currentState: agendaEvent?.state,
+    });
+
     if (filterUnauthorizedData) {
-      filterUnauthorized(clean, data, authorizations);
+      filterUnauthorized(agendaUid, eventUid, clean, data, authorizations);
     }
 
     if (!authorizations.canEditEvent && containsEventData(data)) {
@@ -134,11 +139,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         'not authorized to edit event',
       );
     }
-
-    const { type: stateChangeType } = assignState(agenda, event, clean, data, {
-      authorizations,
-      currentState: agendaEvent?.state,
-    });
 
     let updatedRegistration = false;
     if (

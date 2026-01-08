@@ -28,3 +28,12 @@ export const multilingualTypes = [
   'slate',
   'abstract',
 ];
+
+export const textTypes = [
+  'text',
+  'textarea',
+  'html',
+  'markdown',
+  'slate',
+  'abstract',
+];
