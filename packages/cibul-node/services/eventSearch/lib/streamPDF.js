@@ -1,4 +1,4 @@
-export default function streamPDF(config, req, res) {
+export default function streamPDF(config, req, res, next) {
   const {
     services: { pdfExports },
   } = req.app;
@@ -28,5 +28,5 @@ export default function streamPDF(config, req, res) {
         'Content-Type': 'application/pdf',
         'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.pdf"`,
       });
-    });
+    }, next);
 }
