@@ -54,11 +54,9 @@ class OtelTransport extends winston.Transport {
       }
 
       const span = trace.getSpan(context.active());
-      if (span?.attributes) {
-        Object.assign(displayedMeta, span.attributes);
-      }
 
       const attributes = cloneAndReplaceErrors({
+        ...span?.attributes,
         prefix: this.prefix,
         namespace: meta.namespace || this.namespace,
         error,
