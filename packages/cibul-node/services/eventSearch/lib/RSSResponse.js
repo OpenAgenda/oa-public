@@ -1,4 +1,5 @@
 import { rss } from '@openagenda/flat-exports';
+import VError from '@openagenda/verror';
 
 function getDateField(sort) {
   if (sort === 'updatedAt.desc' || sort === 'updatedAt.asc') {
@@ -57,6 +58,13 @@ export default (core) => async (req, res, next) => {
 
     res.send(feed.xml());
   } catch (err) {
+    if (err.name === 'ValidationError') {
+      return next({
+        code: 400,
+        json: { errors: VError.info(err).errors },
+      });
+    }
+
     return next(err);
   }
 };
