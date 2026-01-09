@@ -66,10 +66,6 @@ export default (config) => {
       throw error;
     }
 
-    if (clean.substr(clean.length - 1, 1) === '.') {
-      throw error;
-    }
-
     shouldntMatch.forEach((rgx) => {
       if (rgx.test(clean)) {
         throw error;

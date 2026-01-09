@@ -80,6 +80,7 @@ describe('link validator', () => {
         'https://static.wixstatic.com/media/852505_4e3b455f81d2432d871076b2e796d8f7.png/v1/fill/w_184,h_68,al_c,usm_0.66_1.00_0.01/852505_4e3b455f81d2432d871076b2e796d8f7.png',
         'https://www.google.fr/maps/place/Camosine/@46.9932127,3.1608449,17z/data=!3m1!4b1!4m5!3m4!1s0x47f04595dc4cf785:0x5db86960965bd73a!8m2!3d46.9932127!4d3.1630336?hl=fr&shorturl=1',
         'http://url_d_inscription.fr/',
+        'https://openagenda.com/agendas/52550077/events.v2.rss?detailed=1&search=CO%E2%82%82.',
       ];
 
       const notLinks = links.filter((l) => {
@@ -97,7 +98,6 @@ describe('link validator', () => {
     it('are not links', () => {
       const links = [
         'fdsqfdssfds',
-        'openagenda.com.',
         'http://www/:a-url.com',
         'http://www.bourg-en-gironde.fr;www.remut.fr/actualite/4477',
         '42',
