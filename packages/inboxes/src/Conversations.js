@@ -2,7 +2,7 @@ import _ from 'lodash';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import ajvKeywords from 'ajv-keywords';
-import VError from '@openagenda/verror';
+import { NotFound } from '@openagenda/verror';
 import parseListArguments from '@openagenda/service-utils/parseListArguments.js';
 import mapper from './utils/mapper.js';
 import validate from './utils/validate.js';
@@ -245,7 +245,7 @@ export default class Conversations {
     }
 
     if (!this.inbox.data) {
-      throw new VError('Inbox %j not found', this.inbox.identifiers);
+      throw new NotFound('Inbox %j not found', this.inbox.identifiers);
     }
   }
 

@@ -3,7 +3,7 @@ import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import ajvKeywords from 'ajv-keywords';
 import uuid from 'uuid/v4.js';
-import VError from '@openagenda/verror';
+import VError, { NotFound } from '@openagenda/verror';
 import logger from '@openagenda/logs';
 import mapper from './utils/mapper.js';
 import conversationFieldsMap from './db/conversationFieldsMap.js';
@@ -94,7 +94,7 @@ export default class Conversation {
     );
 
     if (!inboxUser.data) {
-      throw new VError('Inbox user %j not found', inboxUser.identifiers);
+      throw new NotFound('Inbox user %j not found', inboxUser.identifiers);
     }
 
     const destinationInboxes = await Promise.all(
@@ -103,7 +103,7 @@ export default class Conversation {
     const destinationNotFound = destinationInboxes.filter((v) => !v.data);
 
     if (destinationNotFound && destinationNotFound.length) {
-      throw new VError(
+      throw new NotFound(
         'Destination Inbox(es) %j not found',
         destinationNotFound,
       );
@@ -339,7 +339,7 @@ export default class Conversation {
     );
 
     if (!_inboxUser.data) {
-      throw new VError('Inbox user %j not found', _inboxUser.identifiers);
+      throw new NotFound('Inbox user %j not found', _inboxUser.identifiers);
     }
 
     if (data.resolvedAt) {
@@ -399,7 +399,7 @@ export default class Conversation {
     );
 
     if (!_inboxUser.data) {
-      throw new VError('Inbox user %j not found', _inboxUser.identifiers);
+      throw new NotFound('Inbox user %j not found', _inboxUser.identifiers);
     }
 
     const actions = await this.getAvailableActions(this.data);
@@ -484,7 +484,7 @@ export default class Conversation {
     }
 
     if (!this.inbox.data) {
-      throw new VError('Inbox %j not found', this.inbox.identifiers);
+      throw new NotFound('Inbox %j not found', this.inbox.identifiers);
     }
   }
 
@@ -494,7 +494,7 @@ export default class Conversation {
     }
 
     if (!this.data) {
-      throw new VError('Conversation %j not found', this.identifiers);
+      throw new NotFound('Conversation %j not found', this.identifiers);
     }
   }
 
@@ -506,7 +506,7 @@ export default class Conversation {
     });
 
     if (!inboxUser.data) {
-      throw new VError(
+      throw new NotFound(
         'InboxUser %j not found in Inbox %j',
         identifiers,
         this.inbox.identifiers,
