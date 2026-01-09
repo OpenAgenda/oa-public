@@ -108,6 +108,22 @@ describe('text validator', () => {
       throw new Error('should not be here');
     });
 
+    it('reject emoji does not throw on ©', () => {
+      const validate = validators.text({
+        field: 'text',
+        rejectEmojis: true,
+      });
+
+      let errors = [];
+
+      try {
+        validate('credits ©');
+      } catch (e) {
+        errors = e;
+      }
+      expect(errors.length).toBe(0);
+    });    
+
     describe('sanitizeEncoding: utf8mb3', () => {
       const validate = validators.text({
         field: 'text',

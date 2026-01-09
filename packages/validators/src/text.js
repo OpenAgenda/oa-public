@@ -72,12 +72,12 @@ export default config => {
       );
     }
 
-    if (clean && params.rejectEmojis && emojiReg.test(clean)) {
-      throw errors(params, value, 'string.invalidHasEmojis', 'emojis are not accepted');
-    }
-
     if (params.sanitizeEncoding === 'utf8mb3') {
       clean = convertToUTFMB3(clean);
+    }
+
+    if (clean && params.rejectEmojis && emojiReg.test(clean)) {
+      throw errors(params, value, 'string.invalidHasEmojis', 'emojis are not accepted');
     }
 
     return clean;
