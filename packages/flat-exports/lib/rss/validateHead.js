@@ -3,6 +3,7 @@ import schema from '@openagenda/validators/schema/index.js';
 import integer from '@openagenda/validators/integer.js';
 import text from '@openagenda/validators/text.js';
 import link from '@openagenda/validators/link.js';
+import VError from '@openagenda/verror';
 
 schema.register({
   integer,
@@ -44,9 +45,22 @@ const validate = schema({
   },
 });
 
-export default (head) =>
-  _.extend(validate(head), {
-    custom_namespaces: {
-      ev: 'http://purl.org/rss/1.0/modules/event/',
-    },
-  });
+export default (head) => {
+  try {
+    return _.extend(validate(head), {
+      custom_namespaces: {
+        ev: 'http://purl.org/rss/1.0/modules/event/',
+      },
+    });
+  } catch (e) {
+    throw new VError(
+      {
+        name: 'ValidationError',
+        info: {
+          errors: e,
+        },
+      },
+      'Validation failed',
+    );
+  }
+};
