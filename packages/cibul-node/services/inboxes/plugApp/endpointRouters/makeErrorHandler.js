@@ -10,6 +10,6 @@ export default (services) => (err, req, res, next) => {
 
     services.errors('middleware', err);
 
-    res.status(res.code === 200 ? 500 : res.code).json(err);
+    res.status(res.statusCode === 200 ? 500 : res.statusCode).json(err);
   }
 };
