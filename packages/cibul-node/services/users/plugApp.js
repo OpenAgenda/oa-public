@@ -104,17 +104,41 @@ export default function plugApp(app) {
   // set flash & redirect message after account deletion
   app.delete('/users/:__feathersId', setFlashAccountRemoved());
 
-  app.use(
-    '/users',
-    express.errorHandler({
-      html: (err, req, res) => {
-        if (req.originalUrl.includes('confirmChangeEmail')) {
-          changeEmailMw.onError(err, req, res);
-          return;
-        }
-        cmn.catchError(req, res)(err);
-      },
-      logger: null,
-    }),
-  );
+  app.use('/users', (error, req, res, _next) => {
+    error.code = !Number.isNaN(parseInt(error.code, 10))
+      ? parseInt(error.code, 10)
+      : 500;
+
+    res.status(error.code);
+
+    const contentType = req.headers['content-type'] || '';
+    const accepts = req.headers.accept || '';
+
+    const jsonFormatter = () => {
+      const output = { ...error.toJSON() };
+
+      if (process.env.NODE_ENV === 'production') {
+        delete output.stack;
+      }
+
+      res.set('Content-Type', 'application/json');
+      res.json(output);
+    };
+
+    // by default just send back json
+    if (contentType.indexOf('json') !== -1 || accepts.indexOf('json') !== -1) {
+      jsonFormatter();
+    } else if (
+      contentType.indexOf('html') !== -1
+      || accepts.indexOf('html') !== -1
+    ) {
+      if (req.originalUrl.includes('confirmChangeEmail')) {
+        changeEmailMw.onError(error, req, res);
+        return;
+      }
+      cmn.catchError(req, res)(error);
+    } else {
+      jsonFormatter();
+    }
+  });
 }
