@@ -176,6 +176,7 @@ function getIsValid(core, agenda, event, options = {}) {
   return cleanEvent(core.services, agenda, event, {
     optionalSecondaryFields: true,
     verifyLocationExists,
+    access: 'internal',
   }).then(
     () => true,
     (error) => {

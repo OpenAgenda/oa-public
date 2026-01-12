@@ -68,6 +68,7 @@ describe('core - functional (server): core.events.search', () => {
       core.agendas(17026855).events.patch(
         99999999,
         {
+          'categories-agenda-metropolitain': 42,
           title: {
             fr: 'test',
           },

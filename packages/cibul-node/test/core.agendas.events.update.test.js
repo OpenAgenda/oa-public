@@ -239,6 +239,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
               },
             ],
             draft: false,
+            'categories-agenda-metropolitain': 42,
           },
           {
             access: 'administrator',
@@ -277,6 +278,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           { key: 'test', value: '123' },
         ]);
       });
+
       it('updating extIds replaces existing when mergeExtIds is false', async () => {
         const event = await core.agendas(17026855).events.update(
           19201989,
@@ -289,7 +291,12 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             mergeExtIds: false,
           },
         );
-        expect(event.extIds).toEqual([{ key: 'test3', value: '423' }]);
+        expect(event.extIds).toEqual([
+          {
+            key: 'test3',
+            value: '423',
+          },
+        ]);
       });
     });
 
@@ -555,7 +562,34 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         expect(event.locationUid).toBeUndefined();
       });
 
-      it('internal patch patches', async () => {
+      it('internal patch does not patch if event is invalid', async () => {
+        let errors;
+        try {
+          await core.agendas(37026800).events.patch(
+            88888888,
+            {
+              location: { uid: 73780602 },
+            },
+            {
+              access: 'internal',
+            },
+          );
+        } catch (e) {
+          errors = e.info.errors;
+        }
+
+        expect(errors).toStrictEqual([
+          {
+            origin: undefined,
+            code: 'choice.required',
+            message: 'a (known) value must be chosen',
+            field: 'categories-agenda-metropolitain',
+            step: 'validation',
+          },
+        ]);
+      });
+
+      it('internal patch patches if systemValidatePatchDataOnly option is true', async () => {
         const patchedEvent = await core.agendas(37026800).events.patch(
           88888888,
           {
@@ -563,6 +597,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           },
           {
             access: 'internal',
+            systemValidatePatchDataOnly: true,
           },
         );
 

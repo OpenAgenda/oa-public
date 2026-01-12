@@ -13,7 +13,7 @@
       "optional": true,
       "origin": "custom",
       "read": null,
-      "write": "contributor"
+      "write": ["contributor", "administrator"]
     },
     {
       "field": "title",
@@ -582,7 +582,7 @@
       ],
       "origin": "categories",
       "read": null,
-      "write": "contributor"
+      "write": ["contributor", "administrator"]
     }
   ],
   "nextOptionId": 61

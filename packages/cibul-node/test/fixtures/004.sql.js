@@ -614,6 +614,36 @@ raw.push(
       created_at: new Date(),
       updated_at: new Date(),
     },
+    {
+      id: 12,
+      form_schema_id: 2,
+      identifier: 19201989,
+      store: JSON.stringify({
+        'categories-agenda-metropolitain': 42,
+      }),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      id: 13,
+      form_schema_id: 6,
+      identifier: 99999999,
+      store: JSON.stringify({
+        categories: 1,
+      }),
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      id: 14,
+      form_schema_id: 5,
+      identifier: 99999999,
+      store: JSON.stringify({
+        'organisation-interne': 'Il faut que Thérèse y soit',
+      }),
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+    },
   ]),
 );
 

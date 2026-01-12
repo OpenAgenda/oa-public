@@ -1,14 +1,10 @@
 import _ from 'lodash';
 import { VError } from '@openagenda/verror';
-import logs from '@openagenda/logs';
 import errors from '../services/errors.js';
-
-const log = logs('api/errorHandler');
 
 const handleError = errors.bind(null, 'api');
 
 export default function apiErrorHandler(err, req, res, _next) {
-  log(err);
   if (
     ['BadRequestError', 'NotFoundError', 'ValidationError'].includes(err.name)
   ) {

@@ -55,6 +55,7 @@ export default async function updateEventLocationReferences(
           },
         },
         {
+          systemValidatePatchDataOnly: true,
           access: 'internal',
         },
       );
