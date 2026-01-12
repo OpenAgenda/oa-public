@@ -18,9 +18,10 @@ export default async function getAgendaUserContext(
   }
 
   const { isValid, member } = includes.includes('me.member') || includes.includes('events')
-    ? await core
-      .agendas(agendaUid)
-      .members.get(identifier, { ...options, returnIsValid: true })
+    ? await core.agendas(agendaUid).members.get(identifier, {
+      ...options,
+      returnIsValid: true,
+    })
     : undefined;
 
   if (includes.includes('me.member')) {

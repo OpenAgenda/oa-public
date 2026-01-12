@@ -26,6 +26,7 @@ export default (options = {}) => {
     interfaceLanguage,
     languages,
     schemaExtensions,
+    excludeSystemFields,
     excludeNonDataFields,
     access,
   } = {
@@ -46,6 +47,7 @@ export default (options = {}) => {
 
   eventSchema.fields = eventFields({
     labels,
+    excludeSystemFields,
   });
 
   const hasExtensions = Array.isArray(schemaExtensions);
