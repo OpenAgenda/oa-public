@@ -97,7 +97,16 @@ export default async function addImage(doc, parentCursor, params) {
     firstOfColumn,
     availableHeight: availableHeight - creditsHeight,
     availableWidth,
+  }).catch((e) => {
+    if (e.message === 'Input Buffer is empty') {
+      return null;
+    }
+    throw e;
   });
+
+  if (adjustedSize === null) {
+    return { height: 0, width: 0 };
+  }
 
   if (adjustedSize.height > availableHeight) {
     return {
