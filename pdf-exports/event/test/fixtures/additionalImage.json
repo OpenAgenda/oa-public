@@ -1,0 +1,2445 @@
+{
+  "agenda": {
+    "uid": 76126842,
+    "title": "Cité des sciences et de l'industrie",
+    "description": "Agenda de la culture scientifique technique et industrielle",
+    "slug": "cite-des-sciences",
+    "url": "http://www.cite-sciences.fr",
+    "official": 1,
+    "officializedAt": "2018-10-03T17:21:42.000Z",
+    "image": "https://cdn.openagenda.com/main/agenda76126842.jpg",
+    "schema": {
+      "custom": {},
+      "fields": [
+        {
+          "languages": [],
+          "field": "title",
+          "fieldType": "text",
+          "optional": false,
+          "max": 150,
+          "label": {
+            "fr": "Titre"
+          },
+          "schemaType": "event"
+        },
+
+        {
+          "languages": [],
+          "field": "description",
+          "fieldType": "text",
+          "optional": false,
+          "max": 200,
+          "label": {
+            "fr": "Description"
+          },
+          "schemaId": null,
+          "schemaType": "event",
+          "display": true,
+          "enable": true
+        },
+        {
+          "languages": [],
+          "field": "longDescription",
+          "fieldType": "longDescription",
+          "label": {
+            "fr": "Description longue"
+          },
+          "max": 1000,
+          "sub": {
+            "fr": "1000 caractères maximum"
+          },
+          "placeholder": {
+            "fr": "Saisissez une description détaillée de votre événement."
+          },
+          "schemaId": null,
+          "schemaType": "event",
+          "info": {
+            "fr": "possibilité de rentrer les urls des vidéos, sons"
+          }
+        },
+        {
+          "field": "image",
+          "fieldType": "image",
+          "optional": true,
+          "label": {
+            "fr": "Image paysage"
+          },
+          "info": {
+            "fr": "Chargez une image d'au moins 300 pixels de large"
+          },
+          "allowURL": true,
+          "allowPath": true,
+          "imageWithSizeAndVariants": true,
+          "extensions": ["jpg", "bmp", "png", "jpeg", "webp"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "image-de-levenement-format-portrait",
+          "label": {
+            "fr": "Image portrait"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "Chargez une image d'au moins 300 pixels de large"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "warnAllCaps": false,
+          "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+          },
+          "selfHandled": [],
+          "extensions": ["jpg", "bmp", "png", "jpeg"],
+          "store": {
+            "type": "s3",
+            "bucket": "main"
+          },
+          "allowURL": false,
+          "allowPath": false,
+          "imageWithSizeAndVariants": false,
+          "fieldType": "image",
+          "schemaId": 48,
+          "schemaType": "agenda"
+        },
+        {
+          "field": "image-format-carre",
+          "label": {
+            "fr": "Image format carré"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "Chargez une image d'au moins 300 pixels de large"
+          },
+          "sub": {
+            "fr": "Utilisée pour l'application MyCité"
+          },
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "warnAllCaps": false,
+          "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+          },
+          "selfHandled": [],
+          "extensions": ["jpg", "bmp", "png", "jpeg"],
+          "store": {
+            "type": "s3",
+            "bucket": "main"
+          },
+          "allowURL": false,
+          "allowPath": false,
+          "imageWithSizeAndVariants": false,
+          "fieldType": "image",
+          "schemaId": 48,
+          "schemaType": "agenda"
+        },
+        {
+          "field": "image-paysage-169e",
+          "label": {
+            "fr": "Image sans titraille"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": {
+            "fr": "Chargez une image d'au moins 300 pixels de large"
+          },
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "optional": true,
+          "display": true,
+          "enable": true,
+          "origin": "custom",
+          "enableWith": null,
+          "optionalWith": null,
+          "warnAllCaps": false,
+          "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+          },
+          "selfHandled": [],
+          "extensions": ["jpg", "bmp", "png", "jpeg"],
+          "store": {
+            "type": "s3",
+            "bucket": "main"
+          },
+          "allowURL": false,
+          "allowPath": false,
+          "imageWithSizeAndVariants": false,
+          "fieldType": "image",
+          "schemaId": 48,
+          "schemaType": "agenda"
+        },
+        {
+          "field": "imageCredits",
+          "fieldType": "text",
+          "optional": true,
+          "label": {
+            "fr": "Crédits de l'image",
+            "en": "Image credits",
+            "it": "Crediti immagine",
+            "de": "Bildnachweis",
+            "es": "Créditos del imágen",
+            "br": "Perc'henn ar skeudenn",
+            "io": "crwdns14300:0crwdne14300:0",
+            "oc": "Crèdits de l'imatge"
+          },
+          "enableWith": "image",
+          "max": 255,
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "label": {
+            "fr": "Interne"
+          },
+          "type": "section",
+          "slug": "interne",
+          "display": true,
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "age",
+          "fieldType": "age",
+          "optional": true,
+          "label": {
+            "fr": "Âge du public ciblé"
+          },
+          "schemaId": null,
+          "schemaType": "event",
+          "info": {
+            "fr": "Champ obligatoire"
+          }
+        },
+        {
+          "field": "accessibility",
+          "fieldType": "accessibility",
+          "optional": true,
+          "label": {
+            "fr": "Accessibilité particulière",
+            "en": "Accessibility conditions",
+            "it": "Accessibilità speciale",
+            "de": "Bedingungen für die Zugänglichkeit",
+            "es": "Accesibilidad especial",
+            "br": "Monedusted",
+            "io": "crwdns14322:0crwdne14322:0",
+            "oc": "Condicions d'accès"
+          },
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "timings",
+          "fieldType": "timings",
+          "max": 800,
+          "optional": false,
+          "label": {
+            "fr": "Horaires",
+            "en": "Timings",
+            "it": "Orari",
+            "de": "Timings",
+            "es": "Horarios",
+            "br": "Eurioù",
+            "io": "crwdns14328:0crwdne14328:0",
+            "oc": "Oraris"
+          },
+          "info": {
+            "fr": "Définissez les horaires de votre événement",
+            "en": "Specify timings for your event",
+            "it": "Definire gli orari dell'evento",
+            "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
+            "es": "Indicar los horarios de su evento",
+            "br": "Lakait eurioù ho tarvoud",
+            "io": "crwdns14330:0crwdne14330:0",
+            "oc": "Indicar d'oraris per vòstre eveniment"
+          },
+          "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+          "related": {
+            "other": ["timezone"]
+          },
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "display": true,
+          "field": "attendanceMode",
+          "fieldType": "radio",
+          "label": {
+            "fr": "Mode de participation",
+            "en": "Attendance mode",
+            "it": "Modalità di partecipazione",
+            "es": "Modo de asistencia",
+            "de": "Anwesenheitsmodus",
+            "br": "Doare perzhiañ",
+            "io": "crwdns14264:0crwdne14264:0",
+            "oc": "Mòde de participacion"
+          },
+          "optional": false,
+          "default": 1,
+          "options": [
+            {
+              "id": 1,
+              "value": "offline",
+              "label": {
+                "fr": "Sur place",
+                "en": "In situ",
+                "it": "In presenza",
+                "es": "Desconnectad",
+                "de": "Offline",
+                "br": "War al lec’h",
+                "io": "crwdns14266:0crwdne14266:0",
+                "oc": "Sus plaça"
+              }
+            },
+            {
+              "id": 2,
+              "value": "online",
+              "label": {
+                "fr": "En ligne",
+                "en": "Online",
+                "it": "Online",
+                "es": "En linea",
+                "de": "Online",
+                "br": "Enlinenn",
+                "io": "crwdns14268:0crwdne14268:0",
+                "oc": "En linha"
+              }
+            },
+            {
+              "id": 3,
+              "value": "mixed",
+              "label": {
+                "fr": "Mixte",
+                "en": "Mixed",
+                "it": "Mista",
+                "es": "Mezclado",
+                "de": "Gemischt",
+                "br": "Kemmesk",
+                "io": "crwdns14270:0crwdne14270:0",
+                "oc": "Mesclat"
+              }
+            }
+          ],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "display": true,
+          "field": "onlineAccessLink",
+          "fieldType": "link",
+          "label": {
+            "fr": "Lien d'accès à un événement en ligne"
+          },
+          "optional": false,
+          "enableWith": {
+            "field": "attendanceMode",
+            "value": [2, 3]
+          },
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "conditions",
+          "fieldType": "text",
+          "label": {
+            "fr": "Informations tarifaires"
+          },
+          "max": 255,
+          "placeholder": {
+            "fr": "Entrée libre, sur inscription, autre..."
+          },
+          "sub": "",
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "registration",
+          "fieldType": "registration",
+          "label": {
+            "fr": "Outils d'inscription",
+            "en": "Registration",
+            "it": "Registrazione",
+            "de": "Registrierung",
+            "es": "Herramientas de registro",
+            "br": "En em enskrivañ",
+            "io": "crwdns14316:0crwdne14316:0",
+            "oc": "Inscripcion"
+          },
+          "info": {
+            "fr": "Liens, emails ou numéros de téléphone",
+            "en": "Links, emails or phone numbers",
+            "it": "Link, e-mail o numeri di telefono",
+            "de": "Links, E-Mails oder Telefonnummern",
+            "es": "Enlaces, números de teléfono o correo electrónico",
+            "br": "Liammoù, chomlec'hioù postel pe niverennoù pellgomz",
+            "io": "crwdns14320:0crwdne14320:0",
+            "oc": "Ligams, emails o numèros de telefòne"
+          },
+          "sub": {
+            "fr": "Séparez les items par des tabulations ou des virgules",
+            "en": "Separate each item with tabs or commas",
+            "it": "Separare le voci per tabulazione o virgole",
+            "de": "Trenne jedes Element mit Tabs oder Kommas.",
+            "es": "artículos por separado con tabulaciones o comas",
+            "br": "Dispartiit an elfennoù gant arouezennoù taolennata pe virgulennoù",
+            "io": "crwdns14318:0crwdne14318:0",
+            "oc": "Desseparatz cada element per de tabulacion o de virgulas"
+          },
+          "related": {
+            "other": [
+              "timings",
+              "location",
+              "longDescription",
+              "title",
+              "conditions"
+            ]
+          },
+          "selfHandled": ["info"],
+          "schemaId": null,
+          "schemaType": "event",
+          "settings": {
+            "passCulture": {
+              "siren": ["519587851"],
+              "bookingEmail": null,
+              "defaultVenueId": 231,
+              "access": null,
+              "res": {
+                "context": "/api/me/agendas/76126842",
+                "settings": "/api/agendas/76126842/settings/passCulture",
+                "offerLink": "https://passculture.app/offre/:id",
+                "offerEditLink": "https://passculture.pro/offre/individuelle/:id/recapitulatif"
+              }
+            }
+          }
+        },
+        {
+          "label": {
+            "fr": "Lieux"
+          },
+          "type": "section",
+          "slug": "lieux",
+          "display": true,
+          "schemaId": null,
+          "schemaType": null
+        },
+        {
+          "field": "location",
+          "fieldType": "location",
+          "label": {
+            "fr": "Lieu",
+            "en": "Location",
+            "it": "Luogo",
+            "de": "Ort",
+            "es": "Lugar",
+            "br": "Lec'h",
+            "io": "crwdns14274:0crwdne14274:0",
+            "oc": "Lòc"
+          },
+          "sub": "",
+          "optionalWith": {
+            "field": "attendanceMode",
+            "value": 2
+          },
+          "disableChange": false,
+          "selfHandled": ["sub"],
+          "schemaId": null,
+          "schemaType": "event",
+          "default": {
+            "uid": 81793998
+          },
+          "info": "",
+          "display": true,
+          "detailed": true,
+          "schema": {
+            "fields": [
+              {
+                "field": "uid",
+                "fieldType": "integer",
+                "optional": false,
+                "read": ["internal", "public", "list"],
+                "write": ["internal"],
+                "label": {
+                  "en": "Id",
+                  "fr": "Identifiant",
+                  "io": "crwdns12102:0crwdne12102:0",
+                  "it": "ID",
+                  "oc": "Identificant",
+                  "es": "Id"
+                }
+              },
+              {
+                "field": "setUid",
+                "fieldType": "integer",
+                "optional": true,
+                "default": null,
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              },
+              {
+                "field": "slug",
+                "fieldType": "text",
+                "optional": false,
+                "read": ["internal", "public"],
+                "write": ["internal"],
+                "max": 100
+              },
+              {
+                "field": "name",
+                "optional": false,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "text",
+                "max": 100,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "Name",
+                  "fr": "Nom",
+                  "io": "crwdns12104:0crwdne12104:0",
+                  "it": "Nome",
+                  "oc": "Nom",
+                  "es": "Nombre"
+                }
+              },
+              {
+                "field": "address",
+                "optional": false,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "Address",
+                  "fr": "Adresse",
+                  "io": "crwdns12106:0crwdne12106:0",
+                  "it": "Indirizzo",
+                  "oc": "Adreiça",
+                  "es": "Dirección"
+                }
+              },
+              {
+                "field": "countryCode",
+                "optional": false,
+                "fieldType": "text",
+                "max": 2,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "Country code",
+                  "fr": "Code pays",
+                  "io": "crwdns12120:0crwdne12120:0",
+                  "it": "Codice del paese",
+                  "oc": "Còdi país",
+                  "es": "Código de país"
+                }
+              },
+              {
+                "field": "adminLevel1",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "Region",
+                  "fr": "Région",
+                  "io": "crwdns12124:0crwdne12124:0",
+                  "it": "Regione",
+                  "oc": "Region",
+                  "es": "Región"
+                }
+              },
+              {
+                "field": "adminLevel2",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "Department",
+                  "fr": "Département",
+                  "br": "Departamant",
+                  "io": "crwdns12110:0crwdne12110:0",
+                  "it": "Provincia",
+                  "oc": "Departament",
+                  "es": "Departamento"
+                }
+              },
+              {
+                "field": "adminLevel3",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3"
+              },
+              {
+                "field": "adminLevel4",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 100,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "City",
+                  "fr": "Ville",
+                  "br": "Kêr",
+                  "io": "crwdns12108:0crwdne12108:0",
+                  "it": "Città",
+                  "oc": "Vila",
+                  "es": "Ciudad"
+                }
+              },
+              {
+                "field": "city",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 100,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "City",
+                  "fr": "Ville",
+                  "br": "Kêr",
+                  "io": "crwdns12108:0crwdne12108:0",
+                  "it": "Città",
+                  "oc": "Vila",
+                  "es": "Ciudad"
+                }
+              },
+              {
+                "field": "adminLevel5",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "Borough",
+                  "fr": "Arrondissement"
+                }
+              },
+              {
+                "field": "adminLevel6",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "City district",
+                  "fr": "Quartier"
+                }
+              },
+              {
+                "field": "district",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "District",
+                  "fr": "Quartier",
+                  "io": "crwdns12122:0crwdne12122:0",
+                  "it": "Quartiere",
+                  "oc": "Districte",
+                  "es": "Distrito"
+                }
+              },
+              {
+                "field": "postalCode",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 20,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "Postal code",
+                  "fr": "Code postal",
+                  "io": "crwdns12116:0crwdne12116:0",
+                  "it": "Codice postale",
+                  "oc": "Còdi postal",
+                  "es": "Código postal"
+                }
+              },
+              {
+                "field": "insee",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 10,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "INSEE Code",
+                  "fr": "Code INSEE",
+                  "io": "crwdns12118:0crwdne12118:0",
+                  "it": "Codice INSEE (Francia)",
+                  "oc": "Còdi INSEE",
+                  "es": "Código INSEE"
+                }
+              },
+              {
+                "field": "latitude",
+                "optional": false,
+                "fieldType": "latitude",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "label": {
+                  "en": "Latitude",
+                  "fr": "Latitude",
+                  "io": "crwdns12112:0crwdne12112:0",
+                  "it": "Latitudine",
+                  "oc": "Latitud",
+                  "es": "Latitud"
+                }
+              },
+              {
+                "field": "longitude",
+                "optional": false,
+                "fieldType": "longitude",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "label": {
+                  "en": "Longitude",
+                  "fr": "Longitude",
+                  "io": "crwdns12114:0crwdne12114:0",
+                  "it": "Longitudine",
+                  "oc": "Longitud",
+                  "es": "Longitud"
+                }
+              },
+              {
+                "field": "region",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "Region",
+                  "fr": "Région",
+                  "io": "crwdns12124:0crwdne12124:0",
+                  "it": "Regione",
+                  "oc": "Region",
+                  "es": "Región"
+                }
+              },
+              {
+                "field": "department",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "max": 255,
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "label": {
+                  "en": "Department",
+                  "fr": "Département",
+                  "br": "Departamant",
+                  "io": "crwdns12110:0crwdne12110:0",
+                  "it": "Provincia",
+                  "oc": "Departament",
+                  "es": "Departamento"
+                }
+              },
+              {
+                "field": "timezone",
+                "optional": true,
+                "fieldType": "timezone",
+                "read": ["internal", "public"],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "updatedAt",
+                "optional": false,
+                "fieldType": "date",
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              },
+              {
+                "field": "createdAt",
+                "optional": false,
+                "fieldfieldType": "date",
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              },
+              {
+                "field": "image",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "stream",
+                "allowNull": true
+              },
+              {
+                "field": "description",
+                "label": {
+                  "en": "Description",
+                  "fr": "Description",
+                  "de": "Beschreibung",
+                  "es": "Descripción",
+                  "it": "Descrizione",
+                  "oc": "Descripcion",
+                  "io": "crwdns32875:0crwdne32875:0"
+                },
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "multilingual",
+                "languages": [],
+                "max": 5000
+              },
+              {
+                "field": "tags",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "pass"
+              },
+              {
+                "field": "website",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "link",
+                "label": {
+                  "en": "Website",
+                  "fr": "Site internet",
+                  "es": "Sitio web",
+                  "oc": "Site web",
+                  "io": "crwdns32871:0crwdne32871:0",
+                  "it": "Sito web"
+                }
+              },
+              {
+                "field": "email",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "email"
+              },
+              {
+                "field": "phone",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "phone"
+              },
+              {
+                "field": "links",
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "list": true,
+                "fieldType": "link"
+              },
+              {
+                "field": "access",
+                "label": {
+                  "en": "Access",
+                  "fr": "Accès",
+                  "it": "Accesso",
+                  "de": "Zugang",
+                  "pl": "Dostęp",
+                  "es": "Acceso",
+                  "br": "Moned",
+                  "oc": "Accès",
+                  "io": "crwdns32873:0crwdne32873:0"
+                },
+                "optional": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "multilingual",
+                "languages": [],
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3",
+                "max": 1000
+              },
+              {
+                "field": "state",
+                "optional": true,
+                "fieldType": "choice",
+                "unique": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "default": 0,
+                "options": [0, 1]
+              },
+              {
+                "field": "imageCredits",
+                "optional": true,
+                "fieldType": "text",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "enableWith": "image",
+                "rejectEmojis": true,
+                "sanitizeEncoding": "utf8mb3"
+              },
+              {
+                "field": "siret",
+                "optional": true,
+                "fieldType": "regex",
+                "error": {
+                  "code": "invalidSIRET",
+                  "message": "siret must be 14 digits"
+                },
+                "max": 14,
+                "min": 14,
+                "regex": {},
+                "read": ["internal", "public"],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "imageRightsAreHeld",
+                "optional": true,
+                "fieldType": "boolean",
+                "read": ["internal", "public"],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "enableWith": "image"
+              },
+              {
+                "field": "extIds",
+                "fieldType": "extIds",
+                "optional": true,
+                "max": 200,
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "read": ["internal", "public"]
+              },
+              {
+                "field": "duplicateCandidates",
+                "fieldType": "integer",
+                "list": {
+                  "max": 100,
+                  "default": null
+                },
+                "optional": true,
+                "read": ["internal", "public"],
+                "write": ["internal", "contributor"]
+              },
+              {
+                "field": "disqualifiedDuplicates",
+                "fieldType": "integer",
+                "list": {
+                  "max": 100,
+                  "default": null
+                },
+                "optional": true,
+                "read": ["internal", "public"],
+                "write": ["internal", "contributor"]
+              },
+              {
+                "field": "mergedIn",
+                "fieldType": "integer",
+                "optional": true,
+                "default": null,
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              }
+            ],
+            "schemaId": "location"
+          },
+          "settings": {}
+        },
+        {
+          "field": "status",
+          "fieldType": "select",
+          "default": 1,
+          "display": false,
+          "label": {
+            "fr": "État",
+            "en": "Status",
+            "io": "crwdns16110:0crwdne16110:0",
+            "oc": "Estatut",
+            "es": "Estado"
+          },
+          "options": [
+            {
+              "id": 1,
+              "value": "scheduled",
+              "label": {
+                "fr": "Programmé",
+                "en": "Scheduled",
+                "io": "crwdns16100:0crwdne16100:0",
+                "es": "Programado",
+                "oc": "Programat"
+              }
+            },
+            {
+              "id": 2,
+              "value": "rescheduled",
+              "label": {
+                "fr": "Re-programmé",
+                "en": "Re-scheduled",
+                "io": "crwdns16102:0crwdne16102:0",
+                "es": "Reprogramado",
+                "oc": "Tornat programar"
+              }
+            },
+            {
+              "id": 3,
+              "value": "movedOnline",
+              "label": {
+                "fr": "Déplacé en ligne",
+                "en": "Moved online",
+                "it": "Oramai online",
+                "oc": "Transferit en linha",
+                "io": "crwdns16104:0crwdne16104:0",
+                "es": "Trasladado en línea"
+              }
+            },
+            {
+              "id": 4,
+              "value": "postponed",
+              "label": {
+                "fr": "Reporté",
+                "en": "Postponed",
+                "it": "Riprogrammato",
+                "io": "crwdns16108:0crwdne16108:0",
+                "oc": "Remandat",
+                "es": "Aplazado"
+              }
+            },
+            {
+              "id": 5,
+              "value": "full",
+              "label": {
+                "fr": "Complet",
+                "en": "Full",
+                "io": "crwdns16448:0crwdne16448:0",
+                "es": "Completo",
+                "oc": "Complèt"
+              }
+            },
+            {
+              "id": 6,
+              "value": "cancelled",
+              "label": {
+                "fr": "Annulé",
+                "en": "Canceled",
+                "it": "Cancellato",
+                "io": "crwdns16106:0crwdne16106:0",
+                "es": "Cancelado",
+                "oc": "Anullat"
+              }
+            }
+          ],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "keywords",
+          "fieldType": "keywords",
+          "optional": true,
+          "max": 255,
+          "label": {
+            "fr": "Mots-clés"
+          },
+          "placeholder": {
+            "fr": "Séparez les mots clés par des tabulations ou des virgules"
+          },
+          "sub": {
+            "fr": "Les mots clés sont utiles pour les fonctions de recherche",
+            "en": "Keywords are useful for search features",
+            "it": "Le parole chiave sono utili per le funzioni di ricerca",
+            "de": "Keywords sind nützlich für Suchfunktionen.",
+            "es": "Las palabras llave son útiles para las funciones de búsqueda",
+            "br": "Talvoudus eo ar gerioù-alc'hwez evit an arc'hwelioù enklask",
+            "io": "crwdns14310:0crwdne14310:0",
+            "oc": "Los mots claus son utiles per las recèrcas futuras"
+          },
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "references",
+          "label": {
+            "fr": "Événements parents"
+          },
+          "help": null,
+          "helpLink": null,
+          "helpContent": null,
+          "info": null,
+          "sub": null,
+          "placeholder": null,
+          "write": null,
+          "read": null,
+          "display": true,
+          "enable": true,
+          "origin": null,
+          "enableWith": null,
+          "optionalWith": null,
+          "warnAllCaps": false,
+          "related": {
+            "enable": [],
+            "optional": [],
+            "other": []
+          },
+          "selfHandled": [],
+          "min": null,
+          "max": null,
+          "fieldType": "events",
+          "schemaId": 48,
+          "schemaType": "agenda",
+          "res": "/api/agendas/76126842/events"
+        },
+        {
+          "field": "uid",
+          "fieldType": "integer",
+          "optional": false,
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "slug",
+          "fieldType": "text",
+          "optional": false,
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "private",
+          "fieldType": "boolean",
+          "default": false,
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "timezone",
+          "fieldType": "text",
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "draft",
+          "fieldType": "boolean",
+          "default": false,
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "createdAt",
+          "fieldType": "date",
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "creatorUid",
+          "fieldType": "integer",
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "ownerUid",
+          "fieldType": "integer",
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "updatedAt",
+          "fieldType": "date",
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "agendaUid",
+          "fieldType": "integer",
+          "optional": false,
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "fileKey",
+          "fieldType": "text",
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "locationUid",
+          "fieldType": "integer",
+          "optional": false,
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "links",
+          "fieldType": "enrichedLinks",
+          "optional": true,
+          "write": ["internal"],
+          "schemaId": null,
+          "schemaType": "event"
+        },
+        {
+          "field": "extIds",
+          "fieldType": "extIds",
+          "optional": true,
+          "display": false,
+          "label": {
+            "fr": "Identifiants externe",
+            "en": "External identifiers",
+            "io": "crwdns34156:0crwdne34156:0",
+            "oc": "Identificants extèrnes",
+            "es": "Identificadores externos"
+          },
+          "schemaId": null,
+          "schemaType": "event"
+        }
+      ]
+    }
+  },
+  "event": {
+    "firstTiming": {
+      "end": "2023-12-09T11:30:00.000+01:00",
+      "begin": "2023-12-09T11:00:00.000+01:00"
+    },
+    "nextTiming": {
+      "begin": "2026-02-10T13:00:00+01:00",
+      "end": "2026-02-10T13:30:00+01:00"
+    },
+    "lastTiming": {
+      "end": "2026-05-03T13:30:00.000+02:00",
+      "begin": "2026-05-03T13:00:00.000+02:00"
+    },
+    "dateRange": {
+      "ar": "٩ ديسمبر ٢٠٢٣ - ٣ مايو ٢٠٢٦",
+      "de": "9 Dezember 2023 - 3 Mai 2026",
+      "en": "9 December 2023 - 3 May 2026",
+      "it": "9 dicembre 2023 - 3 maggio 2026",
+      "fr": "9 décembre 2023 - 3 mai 2026",
+      "es": "9 diciembre 2023 - 3 mayo 2026"
+    },
+    "state": 2,
+    "featured": true,
+    "motive": null,
+    "originAgenda": {
+      "image": "agenda76126842.jpg",
+      "private": 0,
+      "locationSetUid": 87367536,
+      "official": true,
+      "description": "Agenda de la culture scientifique technique et industrielle",
+      "title": "Cité des sciences et de l'industrie",
+      "url": "http://www.cite-sciences.fr",
+      "_agg": "eyJ1aWQiOjc2MTI2ODQyLCJ0aXRsZSI6IkNpdMOpIGRlcyBzY2llbmNlcyBldCBkZSBsJ2luZHVzdHJpZSIsImltYWdlIjoiYWdlbmRhNzYxMjY4NDIuanBnIiwidXJsIjoiaHR0cDovL3d3dy5jaXRlLXNjaWVuY2VzLmZyIiwic2x1ZyI6ImNpdGUtZGVzLXNjaWVuY2VzIn0=",
+      "uid": 76126842,
+      "createdAt": "2018-09-08T14:08:03.000Z",
+      "officializedAt": "2018-10-03T17:21:42.000Z",
+      "slug": "cite-des-sciences",
+      "updatedAt": "2025-12-31T10:43:13.000Z"
+    },
+    "sourceAgendas": [],
+    "title": {
+      "fr": "Noisettes"
+    },
+    "description": {
+      "fr": "Noisettes raconte l’histoire de Nino et Lili, deux écureuils fans de noisettes, au point de décider un jour d’aller dans l’espace voir s’il n’y en aurait pas de meilleures ..."
+    },
+    "longDescription": {
+      "fr": "Maître hibou, sur un arbre perché, regardait les écureuils d’un œil morne... Vous l’aurez peut-être compris, cette histoire pose une question plus large. Trouvera-t-on mieux sur les autres planètes ? Ou autrement dit : l’herbe est-elle plus verte ailleurs ?"
+    },
+    "image": {
+      "filename": "8278dc4898134204b1892009993e9b2e.base.image.jpg",
+      "size": {
+        "width": 700,
+        "height": 525
+      },
+      "variants": [
+        {
+          "filename": "8278dc4898134204b1892009993e9b2e.full.image.jpg",
+          "size": {
+            "width": 560,
+            "height": 420
+          },
+          "type": "full"
+        },
+        {
+          "filename": "8278dc4898134204b1892009993e9b2e.thumb.image.jpg",
+          "size": {
+            "width": 200,
+            "height": 200
+          },
+          "type": "thumbnail"
+        }
+      ],
+      "base": "https://cdn.openagenda.com/main/"
+    },
+    "image-de-levenement-format-portrait": {
+      "originalName": "Planet _ Noisettes ecran OA 495x880.jpg",
+      "extension": "jpg",
+      "filename": "c960401fbb764077bda59a36cfdb3fe8.image-de-levenement-format-portrait.jpg"
+    },
+    "image-format-carre": {
+      "originalName": "Planet _ Noisettes ecran OA 300x300.jpg",
+      "extension": "jpg",
+      "filename": "2d02808eadb04c788707e75cc742898c.image-format-carre.jpg"
+    },
+    "image-paysage-169e": {
+      "originalName": "Planet _ Noisettes ecran OA 300x300 img.jpg",
+      "extension": "jpg",
+      "filename": "2473ccddeece46eda2d10856b3ddeae3.image-paysage-169e.jpg"
+    },
+    "imageCredits": "© 3Demotion - Universcience",
+    "age": {
+      "min": 5,
+      "max": 12
+    },
+    "accessibility": {
+      "ii": false,
+      "hi": false,
+      "vi": false,
+      "pi": false,
+      "mi": true
+    },
+    "timings": [
+      {
+        "begin": "2025-07-23T13:00:00+02:00",
+        "end": "2025-07-23T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-24T11:00:00+02:00",
+        "end": "2025-07-24T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-24T13:00:00+02:00",
+        "end": "2025-07-24T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-25T11:00:00+02:00",
+        "end": "2025-07-25T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-25T13:00:00+02:00",
+        "end": "2025-07-25T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-26T11:00:00+02:00",
+        "end": "2025-07-26T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-26T13:00:00+02:00",
+        "end": "2025-07-26T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-27T11:00:00+02:00",
+        "end": "2025-07-27T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-27T13:00:00+02:00",
+        "end": "2025-07-27T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-29T11:00:00+02:00",
+        "end": "2025-07-29T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-29T13:00:00+02:00",
+        "end": "2025-07-29T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-30T11:00:00+02:00",
+        "end": "2025-07-30T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-30T13:00:00+02:00",
+        "end": "2025-07-30T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-31T11:00:00+02:00",
+        "end": "2025-07-31T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-07-31T13:00:00+02:00",
+        "end": "2025-07-31T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-01T11:00:00+02:00",
+        "end": "2025-08-01T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-01T13:00:00+02:00",
+        "end": "2025-08-01T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-02T11:00:00+02:00",
+        "end": "2025-08-02T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-02T13:00:00+02:00",
+        "end": "2025-08-02T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-03T11:00:00+02:00",
+        "end": "2025-08-03T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-03T13:00:00+02:00",
+        "end": "2025-08-03T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-05T11:00:00+02:00",
+        "end": "2025-08-05T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-05T13:00:00+02:00",
+        "end": "2025-08-05T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-06T11:00:00+02:00",
+        "end": "2025-08-06T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-06T13:00:00+02:00",
+        "end": "2025-08-06T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-07T11:00:00+02:00",
+        "end": "2025-08-07T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-07T13:00:00+02:00",
+        "end": "2025-08-07T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-08T11:00:00+02:00",
+        "end": "2025-08-08T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-08T13:00:00+02:00",
+        "end": "2025-08-08T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-09T11:00:00+02:00",
+        "end": "2025-08-09T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-09T13:00:00+02:00",
+        "end": "2025-08-09T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-10T11:00:00+02:00",
+        "end": "2025-08-10T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-10T13:00:00+02:00",
+        "end": "2025-08-10T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-12T11:00:00+02:00",
+        "end": "2025-08-12T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-12T13:00:00+02:00",
+        "end": "2025-08-12T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-13T11:00:00+02:00",
+        "end": "2025-08-13T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-13T13:00:00+02:00",
+        "end": "2025-08-13T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-14T11:00:00+02:00",
+        "end": "2025-08-14T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-14T13:00:00+02:00",
+        "end": "2025-08-14T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-15T11:00:00+02:00",
+        "end": "2025-08-15T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-15T13:00:00+02:00",
+        "end": "2025-08-15T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-16T11:00:00+02:00",
+        "end": "2025-08-16T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-16T13:00:00+02:00",
+        "end": "2025-08-16T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-17T11:00:00+02:00",
+        "end": "2025-08-17T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-17T13:00:00+02:00",
+        "end": "2025-08-17T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-19T11:00:00+02:00",
+        "end": "2025-08-19T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-19T13:00:00+02:00",
+        "end": "2025-08-19T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-20T11:00:00+02:00",
+        "end": "2025-08-20T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-20T13:00:00+02:00",
+        "end": "2025-08-20T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-21T11:00:00+02:00",
+        "end": "2025-08-21T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-21T13:00:00+02:00",
+        "end": "2025-08-21T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-22T11:00:00+02:00",
+        "end": "2025-08-22T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-22T13:00:00+02:00",
+        "end": "2025-08-22T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-23T11:00:00+02:00",
+        "end": "2025-08-23T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-23T13:00:00+02:00",
+        "end": "2025-08-23T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-24T11:00:00+02:00",
+        "end": "2025-08-24T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-24T13:00:00+02:00",
+        "end": "2025-08-24T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-26T11:00:00+02:00",
+        "end": "2025-08-26T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-26T13:00:00+02:00",
+        "end": "2025-08-26T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-27T11:00:00+02:00",
+        "end": "2025-08-27T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-27T13:00:00+02:00",
+        "end": "2025-08-27T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-28T11:00:00+02:00",
+        "end": "2025-08-28T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-28T13:00:00+02:00",
+        "end": "2025-08-28T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-29T11:00:00+02:00",
+        "end": "2025-08-29T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-29T13:00:00+02:00",
+        "end": "2025-08-29T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-30T11:00:00+02:00",
+        "end": "2025-08-30T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-30T13:00:00+02:00",
+        "end": "2025-08-30T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-31T11:00:00+02:00",
+        "end": "2025-08-31T11:30:00+02:00"
+      },
+      {
+        "begin": "2025-08-31T13:00:00+02:00",
+        "end": "2025-08-31T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-09-06T11:15:00+02:00",
+        "end": "2025-09-06T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-09-06T12:00:00+02:00",
+        "end": "2025-09-06T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-09-07T11:15:00+02:00",
+        "end": "2025-09-07T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-09-07T12:00:00+02:00",
+        "end": "2025-09-07T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-09-13T11:15:00+02:00",
+        "end": "2025-09-13T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-09-13T12:00:00+02:00",
+        "end": "2025-09-13T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-09-14T11:15:00+02:00",
+        "end": "2025-09-14T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-09-14T12:00:00+02:00",
+        "end": "2025-09-14T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-09-20T11:15:00+02:00",
+        "end": "2025-09-20T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-09-20T12:00:00+02:00",
+        "end": "2025-09-20T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-09-21T11:15:00+02:00",
+        "end": "2025-09-21T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-09-21T12:00:00+02:00",
+        "end": "2025-09-21T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-09-27T11:15:00+02:00",
+        "end": "2025-09-27T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-09-27T12:00:00+02:00",
+        "end": "2025-09-27T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-09-28T11:15:00+02:00",
+        "end": "2025-09-28T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-09-28T12:00:00+02:00",
+        "end": "2025-09-28T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-11T11:15:00+02:00",
+        "end": "2025-10-11T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-10-11T12:00:00+02:00",
+        "end": "2025-10-11T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-12T11:15:00+02:00",
+        "end": "2025-10-12T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-10-12T12:00:00+02:00",
+        "end": "2025-10-12T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-18T11:15:00+02:00",
+        "end": "2025-10-18T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-10-18T12:00:00+02:00",
+        "end": "2025-10-18T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-19T11:15:00+02:00",
+        "end": "2025-10-19T11:45:00+02:00"
+      },
+      {
+        "begin": "2025-10-19T12:00:00+02:00",
+        "end": "2025-10-19T12:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-20T13:00:00+02:00",
+        "end": "2025-10-20T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-21T13:00:00+02:00",
+        "end": "2025-10-21T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-22T13:00:00+02:00",
+        "end": "2025-10-22T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-23T13:00:00+02:00",
+        "end": "2025-10-23T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-24T13:00:00+02:00",
+        "end": "2025-10-24T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-25T13:00:00+02:00",
+        "end": "2025-10-25T13:30:00+02:00"
+      },
+      {
+        "begin": "2025-10-26T13:00:00+01:00",
+        "end": "2025-10-26T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-10-27T13:00:00+01:00",
+        "end": "2025-10-27T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-10-28T13:00:00+01:00",
+        "end": "2025-10-28T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-10-29T13:00:00+01:00",
+        "end": "2025-10-29T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-10-30T13:00:00+01:00",
+        "end": "2025-10-30T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-10-31T13:00:00+01:00",
+        "end": "2025-10-31T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-11-01T13:00:00+01:00",
+        "end": "2025-11-01T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-11-02T13:00:00+01:00",
+        "end": "2025-11-02T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-12-22T13:00:00+01:00",
+        "end": "2025-12-22T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-12-23T13:00:00+01:00",
+        "end": "2025-12-23T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-12-24T13:00:00+01:00",
+        "end": "2025-12-24T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-12-26T13:00:00+01:00",
+        "end": "2025-12-26T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-12-27T13:00:00+01:00",
+        "end": "2025-12-27T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-12-28T13:00:00+01:00",
+        "end": "2025-12-28T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-12-29T13:00:00+01:00",
+        "end": "2025-12-29T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-12-30T13:00:00+01:00",
+        "end": "2025-12-30T13:30:00+01:00"
+      },
+      {
+        "begin": "2025-12-31T13:00:00+01:00",
+        "end": "2025-12-31T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-01-02T13:00:00+01:00",
+        "end": "2026-01-02T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-01-03T13:00:00+01:00",
+        "end": "2026-01-03T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-01-04T13:00:00+01:00",
+        "end": "2026-01-04T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-10T13:00:00+01:00",
+        "end": "2026-02-10T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-11T13:00:00+01:00",
+        "end": "2026-02-11T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-12T13:00:00+01:00",
+        "end": "2026-02-12T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-13T13:00:00+01:00",
+        "end": "2026-02-13T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-14T13:00:00+01:00",
+        "end": "2026-02-14T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-15T13:00:00+01:00",
+        "end": "2026-02-15T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-17T13:00:00+01:00",
+        "end": "2026-02-17T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-18T13:00:00+01:00",
+        "end": "2026-02-18T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-19T13:00:00+01:00",
+        "end": "2026-02-19T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-20T13:00:00+01:00",
+        "end": "2026-02-20T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-21T13:00:00+01:00",
+        "end": "2026-02-21T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-22T13:00:00+01:00",
+        "end": "2026-02-22T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-24T13:00:00+01:00",
+        "end": "2026-02-24T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-25T13:00:00+01:00",
+        "end": "2026-02-25T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-26T13:00:00+01:00",
+        "end": "2026-02-26T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-27T13:00:00+01:00",
+        "end": "2026-02-27T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-02-28T13:00:00+01:00",
+        "end": "2026-02-28T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-03-01T13:00:00+01:00",
+        "end": "2026-03-01T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-03-03T13:00:00+01:00",
+        "end": "2026-03-03T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-03-04T13:00:00+01:00",
+        "end": "2026-03-04T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-03-05T13:00:00+01:00",
+        "end": "2026-03-05T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-03-06T13:00:00+01:00",
+        "end": "2026-03-06T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-03-07T13:00:00+01:00",
+        "end": "2026-03-07T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-03-08T13:00:00+01:00",
+        "end": "2026-03-08T13:30:00+01:00"
+      },
+      {
+        "begin": "2026-04-07T13:00:00+02:00",
+        "end": "2026-04-07T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-08T13:00:00+02:00",
+        "end": "2026-04-08T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-09T13:00:00+02:00",
+        "end": "2026-04-09T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-10T13:00:00+02:00",
+        "end": "2026-04-10T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-11T13:00:00+02:00",
+        "end": "2026-04-11T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-12T13:00:00+02:00",
+        "end": "2026-04-12T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-14T13:00:00+02:00",
+        "end": "2026-04-14T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-15T13:00:00+02:00",
+        "end": "2026-04-15T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-16T13:00:00+02:00",
+        "end": "2026-04-16T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-17T13:00:00+02:00",
+        "end": "2026-04-17T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-18T13:00:00+02:00",
+        "end": "2026-04-18T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-19T13:00:00+02:00",
+        "end": "2026-04-19T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-21T13:00:00+02:00",
+        "end": "2026-04-21T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-22T13:00:00+02:00",
+        "end": "2026-04-22T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-23T13:00:00+02:00",
+        "end": "2026-04-23T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-24T13:00:00+02:00",
+        "end": "2026-04-24T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-25T13:00:00+02:00",
+        "end": "2026-04-25T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-26T13:00:00+02:00",
+        "end": "2026-04-26T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-28T13:00:00+02:00",
+        "end": "2026-04-28T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-29T13:00:00+02:00",
+        "end": "2026-04-29T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-04-30T13:00:00+02:00",
+        "end": "2026-04-30T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-05-01T13:00:00+02:00",
+        "end": "2026-05-01T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-05-02T13:00:00+02:00",
+        "end": "2026-05-02T13:30:00+02:00"
+      },
+      {
+        "begin": "2026-05-03T13:00:00+02:00",
+        "end": "2026-05-03T13:30:00+02:00"
+      }
+    ],
+    "attendanceMode": 1,
+    "onlineAccessLink": null,
+    "conditions": {
+      "fr": "Dans la limite des places disponibles"
+    },
+    "registration": [
+      {
+        "type": "link",
+        "value": "https://billetterie.cite-sciences.fr/"
+      }
+    ],
+    "location": {
+      "disqualifiedDuplicates": null,
+      "access": {
+        "fr": "Paris périphérique nord, sortie Porte de la Villette. Métro ligne 7, station Porte de la Villette. Plus de renseignements : http://www.cite-sciences.fr/fr/infos-pratiques/acces/"
+      },
+      "city": "Paris",
+      "timezone": "Europe/Paris",
+      "postalCode": "75019",
+      "latitude": 48.895752,
+      "imageCredits": "(c) N. Krief/EPPDCSI",
+      "description": {
+        "fr": "La Cité des sciences et de l'industrie est un établissement public de diffusion de la culture scientifique, technique et industrielle située à Paris, La Villette. La Cité propose expositions, films, conférences et animations pour les enfants et leurs familles.\n\nscience, culture scientifique et technique et industrielle, recherche, expositions, médiation, musée"
+      },
+      "setUid": 87367536,
+      "uid": 81793998,
+      "createdAt": "2018-09-08T14:29:35.000Z",
+      "duplicateCandidates": null,
+      "countryCode": "FR",
+      "adminLevel5": "Paris 19e Arrondissement",
+      "links": [
+        "https://www.facebook.com/Cite.des.sciences/",
+        "https://twitter.com/citedessciences"
+      ],
+      "state": 1,
+      "extId": "1",
+      "department": "Paris",
+      "slug": "cit-des-sciences-et-de-l-industrie*66",
+      "email": null,
+      "longitude": 2.387976,
+      "updatedAt": "2024-11-28T14:11:48.000Z",
+      "image": "location81793998.jpg",
+      "website": "http://www.cite-sciences.fr",
+      "address": "30 avenue Corentin Cariou, 75019 Paris",
+      "adminLevel3": "Métropole du Grand Paris",
+      "agendaUid": 76126842,
+      "adminLevel4": "Paris",
+      "adminLevel1": "Île-de-France",
+      "adminLevel2": "Paris",
+      "mergedIn": null,
+      "_agg": "eyJ1aWQiOjgxNzkzOTk4LCJuYW1lIjoiQ2l0w6kgZGVzIHNjaWVuY2VzIGV0IGRlIGwnSW5kdXN0cmllIn0=",
+      "tags": null,
+      "insee": "75056",
+      "phone": "0185539974",
+      "district": "Quartier du Pont-de-Flandre",
+      "name": "Cité des sciences et de l'Industrie",
+      "region": "Île-de-France",
+      "extIds": [
+        {
+          "value": "1",
+          "key": "default"
+        }
+      ]
+    },
+    "keywords": {
+      "fr": ["séance", "planétarium", "enfants", "Grande fête des enfants"]
+    },
+    "references": [66438055, 69848150, 14141188],
+    "uid": 32236363,
+    "slug": "noisettes",
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "draft": 0,
+    "createdAt": "2023-12-05T13:54:51.000Z",
+    "creatorUid": 60445321,
+    "ownerUid": 60445321,
+    "updatedAt": "2025-12-09T13:15:46.000Z",
+    "links": [],
+    "extIds": null,
+    "valid": true
+  }
+}
