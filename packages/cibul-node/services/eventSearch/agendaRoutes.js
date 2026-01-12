@@ -32,6 +32,16 @@ export default (config, services) => {
         mergeParams: true,
       }).get(
         '',
+        (req, res, next) => {
+          if (
+            ['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf', 'rss', 'json'].includes(
+              req.params.format,
+            )
+          ) {
+            return next();
+          }
+          res.status(400).send('Unknown format');
+        },
         ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'], limiter),
         ifFormat(
           ['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf'],
@@ -71,6 +81,16 @@ export default (config, services) => {
         mergeParams: true,
       }).get(
         '',
+        (req, res, next) => {
+          if (
+            ['csv', 'xlsx', 'ics', 'txt', 'md', 'pdf', 'rss', 'json'].includes(
+              req.params.format,
+            )
+          ) {
+            return next();
+          }
+          res.status(400).send('Unknown format');
+        },
         ifFormat(['csv', 'xlsx', 'ics', 'txt', 'md'], limiter),
         services.members.mw.authorizeAdminModOrKey({
           agendaUidPath: 'params.agendaUid',
