@@ -39,7 +39,7 @@ function Head({ total, network, locationSet }) {
         <Text mb="8">
           {total >= 10000
             ? intl.formatMessage(messages.bigTotal, { limit: 10000 })
-            : intl.formatMessage(messages.total, { total })}
+            : intl.formatMessage(messages.total, { count: total })}
         </Text>
       </>
     );
