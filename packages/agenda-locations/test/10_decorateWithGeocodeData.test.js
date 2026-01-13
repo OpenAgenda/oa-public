@@ -71,6 +71,20 @@ describe('decorateWithGeocodeData', () => {
     });
   });
 
+  describe('URL validation', () => {
+    it('should reject http:// URLs', async () => {
+      await expect(
+        decorate(
+          {
+            address: 'http://example.com/some-location',
+            countryCode: 'FR',
+          },
+          null,
+        ),
+      ).rejects.toThrow('address should not be a URL');
+    });
+  });
+
   describe('decorate on create', () => {
     it('should return the same data if no data', async () => {
       const data = await decorate({}, null);
