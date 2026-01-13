@@ -393,89 +393,78 @@ describe('agenda-locations - functional - create', () => {
     });
 
     describe('emoji handling', () => {
-      it('emoji as name should trigger validation error', async () => {
-        let error;
-        try {
-          await svc(7196947).create({
-            name: '🎭',
-            address: '114 Rue de Turenne, 75003 Paris',
-            latitude: 48.8632801,
-            longitude: 2.3622204,
-            countryCode: 'FR',
-          });
-        } catch (e) {
-          error = e;
-        }
+      it('emoji as name should be sanitized and create empty string', async () => {
+        const location = await svc(7196947).create({
+          name: '🎭 Theatre',
+          address: '114 Rue de Turenne, 75003 Paris',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+        });
 
-        expect(error).toBeDefined();
-        expect(error.info.errors[0].field).toBe('name');
-        expect(error.info.errors[0].code).toBe('string.invalidHasEmojis');
-        expect(error.info.errors[0].message).toBe('emojis are not accepted');
+        // Surrogate pair emoji is removed by utf8mb3 sanitization
+        expect(location.name).toBe(' Theatre');
       });
 
-      it('emoji in address should trigger validation error', async () => {
-        let error;
-        try {
-          await svc(7196947).create({
-            name: 'Test Location',
-            address: '123 Main St 🏠, Paris',
-            latitude: 48.8632801,
-            longitude: 2.3622204,
-            countryCode: 'FR',
-          });
-        } catch (e) {
-          error = e;
-        }
+      it('emoji in address should be sanitized (removed)', async () => {
+        const location = await svc(7196947).create({
+          name: 'Test Location',
+          address: '123 Main St 🏠, Paris',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+        });
 
-        expect(error).toBeDefined();
-        expect(error.info.errors[0].field).toBe('address');
-        expect(error.info.errors[0].code).toBe('string.invalidHasEmojis');
-        expect(error.info.errors[0].message).toBe('emojis are not accepted');
+        // Surrogate pair emoji is removed by utf8mb3 sanitization
+        expect(location.address).toBe('123 Main St , Paris');
       });
 
-      it('emoji in city should trigger validation error', async () => {
-        let error;
-        try {
-          await svc(7196947).create({
-            name: 'Test Location',
-            address: '114 Rue de Turenne',
-            city: 'Paris 🗼',
-            latitude: 48.8632801,
-            longitude: 2.3622204,
-            countryCode: 'FR',
-          });
-        } catch (e) {
-          error = e;
-        }
+      it('emoji in city should be sanitized (removed)', async () => {
+        const location = await svc(7196947).create({
+          name: 'Test Location',
+          address: '114 Rue de Turenne',
+          city: 'Paris 🗼',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+        });
 
-        expect(error).toBeDefined();
-        expect(error.info.errors[0].field).toBe('city');
-        expect(error.info.errors[0].code).toBe('string.invalidHasEmojis');
-        expect(error.info.errors[0].message).toBe('emojis are not accepted');
+        // Surrogate pair emoji is removed by utf8mb3 sanitization
+        // leaving a trailing space
+        expect(location.city).toBe('Paris ');
       });
 
-      it('emoji in imageCredits should trigger validation error', async () => {
-        let error;
-        try {
-          await svc(7196947).create({
-            name: 'Test Location',
-            address: '114 Rue de Turenne, 75003 Paris',
-            latitude: 48.8632801,
-            longitude: 2.3622204,
-            countryCode: 'FR',
-            image: fs.createReadStream(
-              `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
-            ),
-            imageCredits: 'Photo by 📷 John',
-          });
-        } catch (e) {
-          error = e;
-        }
+      it('emoji in imageCredits should be sanitized (removed)', async () => {
+        const location = await svc(7196947).create({
+          name: 'Test Location',
+          address: '114 Rue de Turenne, 75003 Paris',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+          image: fs.createReadStream(
+            `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+          ),
+          imageCredits: 'Photo by 📷 John',
+        });
 
-        expect(error).toBeDefined();
-        expect(error.info.errors[0].field).toBe('imageCredits');
-        expect(error.info.errors[0].code).toBe('string.invalidHasEmojis');
-        expect(error.info.errors[0].message).toBe('emojis are not accepted');
+        // Surrogate pair emoji is removed by utf8mb3 sanitization
+        expect(location.imageCredits).toBe('Photo by  John');
+      });
+
+      it('copyright Emoji in imageCredits should be sanitized', async () => {
+        const location = await svc(7196947).create({
+          name: 'Test Location',
+          address: '114 Rue de Turenne, 75003 Paris',
+          latitude: 48.8632801,
+          longitude: 2.3622204,
+          countryCode: 'FR',
+          image: fs.createReadStream(
+            `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+          ),
+          imageCredits: 'Photo ©️ John Doe',
+        });
+
+        expect(location.imageCredits).toBe('Photo © John Doe');
       });
 
       it('emoji in access field should trigger validation error', async () => {

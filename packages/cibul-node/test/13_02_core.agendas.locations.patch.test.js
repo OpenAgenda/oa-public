@@ -286,4 +286,22 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
       );
     });
   });
+
+  it('patching with too long access string throws validation error', async () => {
+    let error;
+
+    try {
+      await core.agendas(64260763).locations.patch(37923057, {
+        access: 'a'.repeat(5001), // Create a string longer than typical text field limit
+      });
+    } catch (e) {
+      error = e;
+    }
+
+    expect(error).toBeDefined();
+    expect(error.message).toBe('data is invalid');
+    expect(error.info).toBeDefined();
+    expect(error.info.errors).toBeDefined();
+    expect(error.info.errors[0].code).toBe('string.toolong');
+  });
 });
