@@ -1,0 +1,839 @@
+{
+  "agenda": {
+    "uid": 21657878,
+    "title": "Centre d'Information touristique de Saint-Pierre-et-Miquelon",
+    "description": "Actualité des Centres d'Information Touristique de Saint-Pierre et de Miquelon // Visitor Information Centers of Saint-Pierre and Miquelon News.",
+    "slug": "citspm",
+    "url": "http://www.spm-tourisme.fr",
+    "image": "https://cdn.openagenda.com/main/agenda21657878.jpg",
+    "schema": {
+      "custom": {},
+      "fields": [
+        {
+          "field": "uid",
+          "fieldType": "integer",
+          "optional": false,
+          "schemaType": "event"
+        },
+        {
+          "field": "slug",
+          "fieldType": "text",
+          "optional": false,
+          "schemaType": "event"
+        },
+        {
+          "field": "private",
+          "fieldType": "boolean",
+          "default": false,
+          "schemaType": "event"
+        },
+        {
+          "field": "timezone",
+          "fieldType": "text",
+          "schemaType": "event"
+        },
+        {
+          "field": "draft",
+          "fieldType": "boolean",
+          "default": false,
+          "schemaType": "event"
+        },
+        {
+          "field": "createdAt",
+          "fieldType": "date",
+          "schemaType": "event"
+        },
+        {
+          "field": "creatorUid",
+          "fieldType": "integer",
+          "schemaType": "event"
+        },
+        {
+          "field": "ownerUid",
+          "fieldType": "integer",
+          "schemaType": "event"
+        },
+        {
+          "field": "updatedAt",
+          "fieldType": "date",
+          "schemaType": "event"
+        },
+        {
+          "field": "agendaUid",
+          "fieldType": "integer",
+          "optional": false,
+          "schemaType": "event"
+        },
+        {
+          "field": "fileKey",
+          "fieldType": "text",
+          "schemaType": "event"
+        },
+        {
+          "field": "locationUid",
+          "fieldType": "integer",
+          "optional": false,
+          "schemaType": "event"
+        },
+        {
+          "field": "image",
+          "fieldType": "image",
+          "optional": true,
+          "allowURL": true,
+          "allowPath": true,
+          "imageWithSizeAndVariants": true,
+          "extensions": ["jpg", "bmp", "png", "jpeg", "webp"],
+          "schemaType": "event"
+        },
+        {
+          "field": "imageCredits",
+          "fieldType": "text",
+          "optional": true,
+          "enableWith": "image",
+          "max": 255,
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "title",
+          "fieldType": "text",
+          "optional": false,
+          "max": 150,
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "description",
+          "fieldType": "text",
+          "optional": false,
+          "max": 200,
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "keywords",
+          "fieldType": "keywords",
+          "optional": true,
+          "max": 255,
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "longDescription",
+          "fieldType": "longDescription",
+          "schemaType": "event"
+        },
+        {
+          "languages": [],
+          "field": "conditions",
+          "fieldType": "text",
+          "schemaType": "event"
+        },
+        {
+          "field": "age",
+          "fieldType": "age",
+          "optional": true,
+          "schemaType": "event"
+        },
+        {
+          "field": "accessibility",
+          "fieldType": "accessibility",
+          "optional": true,
+          "schemaType": "event"
+        },
+        {
+          "display": false,
+          "field": "attendanceMode",
+          "fieldType": "radio",
+          "optional": false,
+          "default": 1,
+          "options": [
+            {
+              "id": 1,
+              "value": "offline",
+              "label": "Sur place"
+            },
+            {
+              "id": 2,
+              "value": "online",
+              "label": "En ligne"
+            },
+            {
+              "id": 3,
+              "value": "mixed",
+              "label": "Mixte"
+            }
+          ],
+          "schemaType": "event"
+        },
+        {
+          "field": "location",
+          "fieldType": "location",
+          "label": {
+            "fr": "Lieu",
+            "en": "Location",
+            "it": "Luogo",
+            "de": "Ort",
+            "es": "Lugar",
+            "br": "Lec'h",
+            "io": "crwdns14274:0crwdne14274:0",
+            "oc": "Lòc"
+          },
+          "optionalWith": {
+            "field": "attendanceMode",
+            "value": 2
+          },
+          "disableChange": false,
+          "selfHandled": ["sub"],
+          "schemaId": null,
+          "schemaType": "event",
+          "schema": {
+            "fields": [
+              {
+                "field": "uid",
+                "fieldType": "integer",
+                "optional": false,
+                "read": ["internal", "public", "list"],
+                "write": ["internal"],
+                "label": {
+                  "en": "Id",
+                  "fr": "Identifiant",
+                  "io": "crwdns12102:0crwdne12102:0",
+                  "it": "ID",
+                  "oc": "Identificant"
+                }
+              },
+              {
+                "field": "setUid",
+                "fieldType": "integer",
+                "optional": true,
+                "default": null,
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              },
+              {
+                "field": "slug",
+                "fieldType": "text",
+                "optional": false,
+                "read": ["internal", "public"],
+                "write": ["internal"],
+                "max": 100
+              },
+              {
+                "field": "name",
+                "optional": false,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list",
+                  "terms"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "fieldType": "text",
+                "max": 100,
+                "label": {
+                  "en": "Name",
+                  "fr": "Nom",
+                  "io": "crwdns12104:0crwdne12104:0",
+                  "it": "Nome",
+                  "oc": "Nom"
+                }
+              },
+              {
+                "field": "address",
+                "optional": false,
+                "fieldType": "text"
+              },
+              {
+                "field": "countryCode",
+                "optional": false,
+                "fieldType": "text"
+              },
+              {
+                "field": "adminLevel1",
+                "optional": true,
+                "fieldType": "text"
+              },
+              {
+                "field": "adminLevel2",
+                "optional": true,
+                "fieldType": "text"
+              },
+              {
+                "field": "adminLevel3",
+                "optional": true,
+                "fieldType": "text"
+              },
+              {
+                "field": "adminLevel4",
+                "optional": true,
+                "fieldType": "text",
+                "max": 100,
+                "label": {
+                  "en": "City",
+                  "fr": "Ville",
+                  "br": "Kêr",
+                  "io": "crwdns12108:0crwdne12108:0",
+                  "it": "Città",
+                  "oc": "Vila"
+                }
+              },
+              {
+                "field": "city",
+                "optional": true,
+                "fieldType": "text"
+              },
+              {
+                "field": "adminLevel5",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255
+              },
+              {
+                "field": "adminLevel6",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255
+              },
+              {
+                "field": "district",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "District",
+                  "fr": "Quartier",
+                  "io": "crwdns12122:0crwdne12122:0",
+                  "it": "Quartiere",
+                  "oc": "Districte"
+                }
+              },
+              {
+                "field": "postalCode",
+                "optional": true,
+                "fieldType": "text",
+                "max": 20,
+                "label": {
+                  "en": "Postal code",
+                  "fr": "Code postal",
+                  "io": "crwdns12116:0crwdne12116:0",
+                  "it": "Codice postale",
+                  "oc": "Còdi postal"
+                }
+              },
+              {
+                "field": "insee",
+                "optional": true,
+                "fieldType": "text",
+                "max": 10,
+                "label": {
+                  "en": "INSEE Code",
+                  "fr": "Code INSEE",
+                  "io": "crwdns12118:0crwdne12118:0",
+                  "it": "Codice INSEE (Francia)",
+                  "oc": "Còdi INSEE"
+                }
+              },
+              {
+                "field": "latitude",
+                "optional": false,
+                "fieldType": "latitude",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "label": {
+                  "en": "Latitude",
+                  "fr": "Latitude",
+                  "io": "crwdns12112:0crwdne12112:0",
+                  "it": "Latitudine",
+                  "oc": "Latitud"
+                }
+              },
+              {
+                "field": "longitude",
+                "optional": false,
+                "fieldType": "longitude",
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "label": {
+                  "en": "Longitude",
+                  "fr": "Longitude",
+                  "io": "crwdns12114:0crwdne12114:0",
+                  "it": "Longitudine",
+                  "oc": "Longitud"
+                }
+              },
+              {
+                "field": "region",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "Region",
+                  "fr": "Région",
+                  "io": "crwdns12124:0crwdne12124:0",
+                  "it": "Regione",
+                  "oc": "Region"
+                }
+              },
+              {
+                "field": "department",
+                "optional": true,
+                "fieldType": "text",
+                "max": 255,
+                "label": {
+                  "en": "Department",
+                  "fr": "Département",
+                  "br": "Departamant",
+                  "io": "crwdns12110:0crwdne12110:0",
+                  "it": "Provincia",
+                  "oc": "Departament"
+                }
+              },
+              {
+                "field": "timezone",
+                "optional": true,
+                "fieldType": "timezone",
+                "read": ["internal", "public"],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "updatedAt",
+                "optional": false,
+                "fieldType": "date",
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              },
+              {
+                "field": "createdAt",
+                "optional": false,
+                "fieldfieldType": "date",
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              },
+              {
+                "field": "image",
+                "optional": true,
+                "fieldType": "stream",
+                "allowNull": true
+              },
+              {
+                "field": "description",
+                "label": {
+                  "en": "Description",
+                  "fr": "Description",
+                  "de": "Beschreibung",
+                  "es": "descripción",
+                  "it": "Descrizione",
+                  "oc": "Descripcion",
+                  "io": "crwdns32875:0crwdne32875:0"
+                },
+                "optional": true,
+                "fieldType": "multilingual",
+                "languages": [],
+                "max": 5000
+              },
+              {
+                "field": "tags",
+                "optional": true,
+                "fieldType": "pass"
+              },
+              {
+                "field": "website",
+                "optional": true,
+                "fieldType": "link",
+                "label": {
+                  "en": "Website",
+                  "fr": "Site internet",
+                  "es": "Sitio web",
+                  "oc": "Site web",
+                  "io": "crwdns32871:0crwdne32871:0"
+                }
+              },
+              {
+                "field": "email",
+                "optional": true,
+                "fieldType": "email"
+              },
+              {
+                "field": "phone",
+                "optional": true,
+                "fieldType": "phone"
+              },
+              {
+                "field": "links",
+                "optional": true,
+                "list": true,
+                "fieldType": "link"
+              },
+              {
+                "field": "access",
+                "label": {
+                  "en": "Access",
+                  "fr": "Accès",
+                  "it": "Accesso",
+                  "de": "Zugang",
+                  "pl": "Dostęp",
+                  "es": "Acceso",
+                  "br": "Moned",
+                  "oc": "Accès",
+                  "io": "crwdns32873:0crwdne32873:0"
+                },
+                "optional": true,
+                "fieldType": "multilingual",
+                "languages": [],
+                "max": 1000
+              },
+              {
+                "field": "state",
+                "optional": true,
+                "fieldType": "choice",
+                "unique": true,
+                "read": [
+                  "internal",
+                  "public",
+                  "administrator",
+                  "moderator",
+                  "contributor",
+                  "list"
+                ],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "default": 0,
+                "options": [0, 1]
+              },
+              {
+                "field": "imageCredits",
+                "optional": true,
+                "fieldType": "text",
+                "enableWith": "image"
+              },
+              {
+                "field": "siret",
+                "optional": true,
+                "fieldType": "regex",
+                "error": {
+                  "code": "invalidSIRET",
+                  "message": "siret must be 14 digits"
+                },
+                "max": 14,
+                "min": 14,
+                "regex": {},
+                "read": ["internal", "public"],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ]
+              },
+              {
+                "field": "imageRightsAreHeld",
+                "optional": true,
+                "fieldType": "boolean",
+                "read": ["internal", "public"],
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "enableWith": "image"
+              },
+              {
+                "field": "extIds",
+                "fieldType": "extIds",
+                "optional": true,
+                "max": 200,
+                "write": [
+                  "internal",
+                  "administrator",
+                  "moderator",
+                  "contributor"
+                ],
+                "read": ["internal", "public"]
+              },
+              {
+                "field": "duplicateCandidates",
+                "fieldType": "integer",
+                "list": {
+                  "max": 100,
+                  "default": null
+                },
+                "optional": true,
+                "read": ["internal", "public"],
+                "write": ["internal", "contributor"]
+              },
+              {
+                "field": "disqualifiedDuplicates",
+                "fieldType": "integer",
+                "list": {
+                  "max": 100,
+                  "default": null
+                },
+                "optional": true,
+                "read": ["internal", "public"],
+                "write": ["internal", "contributor"]
+              },
+              {
+                "field": "mergedIn",
+                "fieldType": "integer",
+                "optional": true,
+                "default": null,
+                "read": ["internal", "public"],
+                "write": ["internal"]
+              }
+            ],
+            "schemaId": "location"
+          },
+          "settings": {}
+        },
+        {
+          "display": false,
+          "field": "onlineAccessLink",
+          "fieldType": "link",
+          "label": {
+            "fr": "Lien d'accès",
+            "en": "Access link",
+            "de": "Zugangslink",
+            "es": "Enlace de acceso",
+            "it": "Collegamento di accesso",
+            "br": "Liamm moned",
+            "io": "crwdns14272:0crwdne14272:0",
+            "oc": "Ligam d'accès"
+          },
+          "optional": false,
+          "enableWith": {
+            "field": "attendanceMode",
+            "value": [2, 3]
+          },
+          "schemaType": "event"
+        },
+        {
+          "field": "status",
+          "fieldType": "select",
+          "default": 1,
+          "display": false,
+          "label": {
+            "fr": "État",
+            "en": "Status",
+            "io": "crwdns16110:0crwdne16110:0",
+            "oc": "Estatut",
+            "es": "Estado"
+          },
+          "options": [
+            {
+              "id": 1,
+              "value": "scheduled",
+              "label": {
+                "fr": "Programmé",
+                "en": "Scheduled",
+                "io": "crwdns16100:0crwdne16100:0",
+                "es": "Programado",
+                "oc": "Programat"
+              }
+            },
+            {
+              "id": 2,
+              "value": "rescheduled",
+              "label": {
+                "fr": "Re-programmé",
+                "en": "Re-scheduled",
+                "io": "crwdns16102:0crwdne16102:0",
+                "es": "Reprogramado",
+                "oc": "Tornat programar"
+              }
+            },
+            {
+              "id": 3,
+              "value": "movedOnline",
+              "label": {
+                "fr": "Déplacé en ligne",
+                "en": "Moved online",
+                "it": "Oramai online",
+                "oc": "Transferit en linha",
+                "io": "crwdns16104:0crwdne16104:0",
+                "es": "Trasladado en línea"
+              }
+            },
+            {
+              "id": 4,
+              "value": "postponed",
+              "label": {
+                "fr": "Reporté",
+                "en": "Postponed",
+                "it": "Riprogrammato",
+                "io": "crwdns16108:0crwdne16108:0",
+                "oc": "Remandat",
+                "es": "Aplazado"
+              }
+            },
+            {
+              "id": 5,
+              "value": "full",
+              "label": {
+                "fr": "Complet",
+                "en": "Full",
+                "io": "crwdns16448:0crwdne16448:0",
+                "es": "Completo",
+                "oc": "Complèt"
+              }
+            },
+            {
+              "id": 6,
+              "value": "cancelled",
+              "label": {
+                "fr": "Annulé",
+                "en": "Canceled",
+                "it": "Cancellato",
+                "io": "crwdns16106:0crwdne16106:0",
+                "es": "Cancelado",
+                "oc": "Anullat"
+              }
+            }
+          ],
+          "schemaType": "event"
+        },
+        {
+          "field": "timings",
+          "fieldType": "timings",
+          "max": 800,
+          "optional": false,
+          "label": {
+            "fr": "Horaires",
+            "en": "Timings",
+            "it": "Orari",
+            "de": "Timings",
+            "es": "Horarios",
+            "br": "Eurioù",
+            "io": "crwdns14328:0crwdne14328:0",
+            "oc": "Oraris"
+          },
+          "info": {
+            "fr": "Définissez les horaires de votre événement",
+            "en": "Specify timings for your event",
+            "it": "Definire gli orari dell'evento",
+            "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
+            "es": "Indicar los horarios de su evento",
+            "br": "Lakait eurioù ho tarvoud",
+            "io": "crwdns14330:0crwdne14330:0",
+            "oc": "Indicar d'oraris per vòstre eveniment"
+          },
+          "helpLink": "https://doc.openagenda.com/saisir-les-horaires-de-votre-evenement/",
+          "schemaType": "event"
+        }
+      ]
+    }
+  },
+  "event": {
+    "firstTiming": {
+      "end": "2020-08-15T17:00:00.000Z",
+      "begin": "2020-08-15T15:30:00.000Z"
+    },
+    "lastTiming": {
+      "end": "2020-08-15T17:00:00.000Z",
+      "begin": "2020-08-15T15:30:00.000Z"
+    },
+    "dateRange": {
+      "ar": "السبت ١٥ أغسطس ٢٠٢٠, 13:30",
+      "de": "Samstag 15 August 2020, 13:30",
+      "en": "Saturday 15 August 2020, 13:30",
+      "it": "Sabato 15 agosto 2020, 13:30",
+      "fr": "Samedi 15 août 2020, 13h30",
+      "es": "Sábado 15 agosto 2020, 13:30"
+    },
+    "state": 2,
+    "uid": 82341339,
+    "slug": "cap-perce",
+    "private": 0,
+    "timezone": "America/Miquelon",
+    "draft": 0,
+    "createdAt": "2020-07-30T12:50:59.000Z",
+    "creatorUid": 53253652,
+    "updatedAt": "2023-01-11T19:42:06.000Z",
+    "title": {
+      "fr": "Cap Percé"
+    },
+    "description": {
+      "fr": "avec SPM Ferries"
+    },
+    "keywords": {},
+    "longDescription": {
+      "fr": "Embarquez à bord du Navire \"Jeune France\" pour une balade en mer !"
+    },
+    "attendanceMode": 1,
+    "location": {
+      "disqualifiedDuplicates": null,
+      "city": "Saint-Pierre",
+      "timezone": "America/Miquelon",
+      "postalCode": "97500",
+      "latitude": 46.778824,
+      "uid": 90541366,
+      "createdAt": "2019-07-30T12:33:52.000Z",
+      "countryCode": "FR",
+      "links": ["https://www.facebook.com/regietransport"],
+      "state": 1,
+      "slug": "spm-ferries",
+      "email": "info@spm-ferries.fr",
+      "longitude": -56.171766,
+      "updatedAt": "2023-01-11T19:42:06.000Z",
+      "image": "location90541366.jpg?_ts=1625147102244",
+      "website": "https://www.spm-ferries.fr/",
+      "address": "SPM Ferries, Saint-Pierre et Miquelon",
+      "agendaUid": 21657878,
+      "adminLevel4": "Saint-Pierre",
+      "adminLevel1": "Saint-Pierre-et-Miquelon",
+      "insee": "97502",
+      "name": "SPM Ferries",
+      "region": "Saint-Pierre-et-Miquelon"
+    },
+    "status": 1,
+    "timings": [
+      {
+        "begin": "2020-08-15T13:30:00-02:00",
+        "end": "2020-08-15T15:00:00-02:00"
+      }
+    ],
+    "registration": []
+  }
+}

@@ -47,7 +47,7 @@ module.exports = [
     field: 'url',
     type: 'link',
     read: ['internal', 'public', 'administrator', 'moderator'],
-    max: 255,
+    max: 2000,
   },
   {
     field: 'official',
