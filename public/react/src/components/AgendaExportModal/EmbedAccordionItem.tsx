@@ -160,7 +160,7 @@ export default function EmbedAccordionItem({ dialogRef, res, agenda }) {
         ) : null}
 
         <Checkbox
-          checked={!contributionButton}
+          checked={contributionButton}
           onCheckedChange={() => setContributionButton(!contributionButton)}
           w="fit-content"
         >
