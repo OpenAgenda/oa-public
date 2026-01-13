@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import VError from '@openagenda/verror';
+import { NotFound } from '@openagenda/verror';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
 import logger from '@openagenda/logs';
@@ -171,7 +171,7 @@ export default class Message {
     await this.get();
 
     if (!this.data) {
-      throw new VError('Message cannot found');
+      throw new NotFound('Message cannot found');
     }
 
     /*
@@ -199,7 +199,7 @@ export default class Message {
     }
 
     if (!this.conversation.data) {
-      throw new VError(
+      throw new NotFound(
         'Conversation %j not found',
         this.conversation.identifiers,
       );
@@ -211,7 +211,7 @@ export default class Message {
     // const inboxUser = await new InboxUser( identifiers, { inbox } ).get( { createOnNull } );
 
     if (!inboxUser.data) {
-      throw new VError(
+      throw new NotFound(
         'InboxUser %j not found in Inbox %j',
         identifiers,
         this.inbox.identifiers,

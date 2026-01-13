@@ -59,75 +59,83 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
   describe('core', () => {
     describe('access option', () => {
-      beforeAll(() =>
-        core.agendas(92983929).events.update(
-          19390293,
+      const data = {
+        title: {
+          fr: 'Un autre événement mis à jour',
+        },
+        description: {
+          fr: 'Une description',
+        },
+        image: {
+          filename: 'fdqfsdq.jpg',
+        },
+        locationUid: 123,
+        timings: [
           {
-            title: {
-              fr: 'Un autre événement mis à jour',
-            },
-            description: {
-              fr: 'Une description',
-            },
-            image: {
-              filename: 'fdqfsdq.jpg',
-            },
-            locationUid: 123,
-            timings: [
-              {
-                begin: new Date('2019-12-18T14:30:00'),
-                end: new Date('2019-12-18T15:30:00'),
-              },
-            ],
-            'organisation-interne': 'Il faut que René y aille',
-            categories: 2,
+            begin: new Date('2019-12-18T14:30:00'),
+            end: new Date('2019-12-18T15:30:00'),
           },
-          {
-            access: 'contributor',
-          },
-        ));
-
-      beforeAll(() =>
-        core.agendas(92983929).events.update(
-          19390294,
-          {
-            title: {
-              fr: 'Et un autre événement mis à jour',
-            },
-            description: {
-              fr: 'Une description',
-            },
-            locationUid: 123,
-            timings: [
-              {
-                begin: new Date('2019-12-18T14:30:00'),
-                end: new Date('2019-12-18T15:30:00'),
-              },
-            ],
-            'organisation-interne': 'Il faut que René y aille',
-            categories: 1,
-          },
-          {
-            access: 'administrator',
-          },
-        ));
+        ],
+        'organisation-interne': 'Il faut que René y aille',
+        categories: 2,
+      };
 
       it('a contributor access cannot update an administrator field', async () => {
-        const data = await core.services.custom(5).get(19390293);
-        expect(data).toEqual({
+        let errors;
+        try {
+          await core
+            .agendas(92983929)
+            .events.update(19390293, data, { access: 'contributor' });
+        } catch (e) {
+          errors = e.info.errors;
+        }
+
+        expect(errors).toStrictEqual([
+          {
+            field: 'organisation-interne',
+            code: 'unauthorized',
+            message: 'Not authorized to edit this field',
+            step: 'validation',
+          },
+          {
+            origin: undefined,
+            code: 'required',
+            message: 'a string is required',
+            field: 'organisation-interne',
+            step: 'validation',
+          },
+        ]);
+
+        expect(await core.services.custom(5).get(19390293)).toEqual({
           'organisation-interne': 'Il faut que Thérèse y soit',
         });
       });
 
-      it('an administrator access can update an administrator field', async () => {
-        const data = await core.services.custom(5).get(19390294);
-        expect(data).toEqual({
+      it('an administrator access can patch an administrator field', async () => {
+        await core.agendas(92983929).events.patch(
+          19390294,
+          {
+            'organisation-interne': 'Il faut que René y aille',
+          },
+          {
+            access: 'administrator',
+          },
+        );
+
+        expect(await core.services.custom(5).get(19390294)).toEqual({
           'organisation-interne': 'Il faut que René y aille',
         });
       });
 
       it('a moderator cannot publish if role is not in agenda canPublish list', async () => {
         let error;
+        await core.agendas(37026800).events.patch(
+          88888888,
+          {
+            'categories-agenda-metropolitain': 42,
+          },
+          { access: 'internal' },
+        );
         try {
           await core.agendas(37026800).events.patch(
             88888888,
@@ -173,9 +181,10 @@ describe('core - functional (server): core.agendas().events.update()', () => {
             title: {
               fr: 'Un titre patché',
             },
+            'categories-agenda-metropolitain': 42,
           },
           {
-            access: 'moderator',
+            access: 'administrator',
           },
         );
 
@@ -470,6 +479,36 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         );
 
         expect(patchedEvent.categories).toBe(2);
+      });
+    });
+
+    describe('per-field authorization', () => {
+      it('moderator cannot update contributor-restricted field', async () => {
+        let errors;
+        try {
+          await core.agendas(55555555).events.patch(
+            77777778,
+            {
+              contributorOnlyField: 'attempted by moderator',
+              title: { fr: 'Titre modifié par moderator' },
+            },
+            {
+              userUid: 82253124, // thibaud - moderator
+              filterUnauthorizedData: false, // temporary
+            },
+          );
+        } catch (e) {
+          errors = e.info.errors;
+        }
+
+        expect(errors).toStrictEqual([
+          {
+            field: 'contributorOnlyField',
+            code: 'unauthorized',
+            message: 'Not authorized to edit this field',
+            step: 'validation',
+          },
+        ]);
       });
     });
   });

@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import extractLanguages from '@openagenda/event-form/build/utils/extractLanguages.js';
 import { BadRequest } from '@openagenda/verror';
-import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
+import validateBySchema from '@openagenda/form-schemas/iso/validateBySchema.js';
 import eventSchema from '@openagenda/event-form/src/schema.js';
 import logs from '@openagenda/logs';
 import getWriteAccess from './getWriteAccess.js';
@@ -65,41 +65,6 @@ function asArray(obj) {
     .filter((s) => !!s);
 }
 
-function mergeEventWithPatch(event, patch, { schema, defaultLang }) {
-  return schema.fields
-    .filter((f) => f.languages)
-    .filter(
-      (field) =>
-        event[field.field] !== undefined || patch[field.field] !== undefined,
-    )
-    .map((field) => ({
-      fieldName: field.field,
-      fieldLanguages: field.languages,
-      fieldPatch:
-        typeof patch[field.field] === 'string'
-          ? { [defaultLang]: patch[field.field] }
-          : patch[field.field],
-    }))
-    .reduce(
-      (carry, { fieldName, fieldLanguages, fieldPatch }) => {
-        const merged = { ...event[fieldName], ...fieldPatch };
-        // Filter to only keep languages specified in the field's languages array
-        const filtered = fieldLanguages
-          ? _.pick(merged, fieldLanguages)
-          : merged;
-
-        return {
-          ...carry,
-          [fieldName]: filtered,
-        };
-      },
-      {
-        ...event,
-        ...patch,
-      },
-    );
-}
-
 export default function validateEvent(
   { validateAgendaEvent, formSchema, networkFormSchema, location },
   data,
@@ -115,6 +80,7 @@ export default function validateEvent(
     paths = null,
     member = null,
     access = 'public',
+    systemValidatePatchDataOnly = false,
   } = options;
 
   log('validating event', { isStrictUnpublish });
@@ -179,32 +145,21 @@ export default function validateEvent(
   const consolidatedSchema = eventSchema({
     languages,
     schemaExtensions: asArray(schemaExtensions),
-    access: {
-      write: getWriteAccess(member, access),
-    },
+    access: null,
+    excludeSystemFields: true,
   });
 
   // clean consolidated schemas data
   try {
-    const validate = new FormSchema(consolidatedSchema, {
-      requireLabels: false,
-    }).getValidate({
-      draft: validateAsDraft,
+    const consolidatedClean = validateBySchema(consolidatedSchema, data, {
+      bypassAuthorization: access === 'internal',
+      access: getWriteAccess(member, access),
+      isDraft: validateAsDraft,
+      isPatch,
+      stored: isPatch ? storedData : undefined,
+      defaultLang,
+      validateInputOnly: systemValidatePatchDataOnly,
     });
-
-    // update:
-    //   event data must be complete and evaluated as such. current data must not be added for validation
-    // patch or add:
-    //   event data is partial. current data must be added for validation
-
-    const consolidatedClean = (validateAsDraft ? validate.part : validate)(
-      isPatch
-        ? mergeEventWithPatch(storedData, data, {
-          schema: consolidatedSchema,
-          defaultLang,
-        })
-        : data,
-    );
 
     if (data?.image?.transformAndUpload) {
       consolidatedClean.image = data.image;

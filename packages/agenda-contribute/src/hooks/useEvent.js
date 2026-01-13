@@ -2,6 +2,7 @@ import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
 import omit from 'lodash/omit.js';
 import useEventContext from './useEventContext.js';
+import cleanEditableData from './useCleanEditableData.js';
 
 const validateStatus = (status) => (status >= 200 && status < 300) || 404;
 
@@ -26,7 +27,8 @@ export default function useEvent(agendaUid, eventUid, options = {}) {
           }
           return response.json();
         })
-        .then((data) => (data.event instanceof Object ? data.event : null)),
+        .then((data) =>
+          (data.event instanceof Object ? cleanEditableData(data.event) : null)),
     {
       staleTime: 1000,
     },

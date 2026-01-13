@@ -109,8 +109,6 @@ function _doCreate(v) {
     return v;
   }
 
-  // _.set(v, 'clean.credentials.useAgendaSchema', true);
-
   return knex(schemas.agenda)
     .insert(dbParse.toDb(v.clean))
 

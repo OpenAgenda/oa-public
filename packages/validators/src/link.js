@@ -2,6 +2,7 @@ import isString from 'lodash/isString';
 import listify from './listify';
 import emailValidator from './email';
 import cleanParams from './lib/params';
+import validateLength from './lib/length';
 
 const validateEmail = emailValidator();
 
@@ -66,15 +67,13 @@ export default (config) => {
       throw error;
     }
 
-    if (clean.substr(clean.length - 1, 1) === '.') {
-      throw error;
-    }
-
     shouldntMatch.forEach((rgx) => {
       if (rgx.test(clean)) {
         throw error;
       }
     });
+
+    validateLength(clean, 'link', params);
 
     // Use native URL constructor for validation
     try {

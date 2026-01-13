@@ -10,6 +10,12 @@ const xlsx = flatExports.xlsx();
 const log = logs('services/eventSearch/streamXlsx');
 
 export default (req, res) => {
+  res.writeHead(200, {
+    'Content-Type':
+      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    'Content-Disposition': `attachment; filename="${req.agenda.slug}.agenda.xlsx"`,
+  });
+
   const out = xlsx(req.stream, {
     agendaUid: req.agenda.uid,
     lang: req.lang,
@@ -26,16 +32,18 @@ export default (req, res) => {
     spreadFields: req.query.distributeOptionalFields,
   });
 
-  pipeline(out, res, (err) => {
-    if (err) {
-      log.error(err);
-      res.destroy();
-    }
+  res.once('close', () => {
+    if (!out.destroyed) out.destroy();
   });
 
-  res.writeHead(200, {
-    'Content-Type':
-      'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.xlsx"`,
+  pipeline(out, res, (err) => {
+    if (!err) return;
+
+    if (err.code === 'ERR_STREAM_PREMATURE_CLOSE') {
+      return;
+    }
+
+    log.error(req.method, err);
+    if (!res.destroyed) res.destroy(err);
   });
 };

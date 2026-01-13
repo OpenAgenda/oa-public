@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import Ajv from 'ajv';
 import ajvErrors from 'ajv-errors';
-import VError from '@openagenda/verror';
+import VError, { NotFound } from '@openagenda/verror';
 import logger from '@openagenda/logs';
 import mapper from './utils/mapper.js';
 import fieldsMap from './db/inboxUserFieldsMap.js';
@@ -153,7 +153,7 @@ export default class InboxUser {
     }
 
     if (!this.inbox.data) {
-      throw new VError('Inbox %j not found', this.inbox.identifiers);
+      throw new NotFound('Inbox %j not found', this.inbox.identifiers);
     }
   }
 

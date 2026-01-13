@@ -52,7 +52,7 @@ describe('object validator', () => {
         code: 'string.tooshort',
         message: 'the string is too short',
         values: { min: 3, max: 300 },
-        origin: 1
+        origin: '1'
       }, {
         field: 'code',
         code: 'required',

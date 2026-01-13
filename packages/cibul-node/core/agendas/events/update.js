@@ -56,6 +56,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     userLang = 'en',
     mergeExtIds = true,
     isPatch = false,
+    // useful for updating data through system processes (like post merge location uid patches) even when events are invalid
+    systemValidatePatchDataOnly = false,
   } = options;
 
   let response;
@@ -102,6 +104,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     const clean = await cleanEvent(core.services, agenda, data, {
       // required to validate related fields in case of partial update
       storedData: eventWithAdditionalValues,
+      systemValidatePatchDataOnly,
       validateAsDraft: isDraft,
       isPatch,
       optionalSecondaryFields: true,

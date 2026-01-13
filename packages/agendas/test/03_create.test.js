@@ -119,6 +119,28 @@ describe('agendas - functional (server): set (create)', () => {
     expect(result.agenda.id).toBeUndefined();
   });
 
+  it('set agenda with long URL', async () => {
+    const { agenda } = await svc.set({
+      ownerId: 1,
+      title: 'Long URL',
+      description: 'Un événement avec un URL trop long',
+      url: 'https://www.canva.com/design/DAE2i2QUhu4/-kEbAkNW3Xn499vYjfzYSg/view?utm_content=DAE2i2QUhu4&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h72e9f938b9/?utm_source=ig&utm_medium=social&utm_content=link_in_bio&fbclid=PAc3J0YwZhcHBfaWQMMjU2MjgxMDQwNTU4AAGnxJrLMXSWzQY5TxRZdJfMO0bRvgQYy5ElYoc0Xmy4ccORR8XPiPuimP7KNWk&brid=2Gv9ZDUuV-ZJL5IyNLcENg',
+    });
+
+    expect(agenda.title).toBe('Long URL');
+  });
+
+  it('set agenda with URL too long', async () => {
+    const { errors } = await svc.set({
+      ownerId: 1,
+      description: 'Woopdidoo',
+      title: 'Too long',
+      url: 'https://my.weazelent.com/journee-fenêtres-ouvertes-1991-campus-arts-et-metiers-de-chalons-en-champagne?_gl=1*mlk4lh*_gcl_au*MTU5ODY3OTUzNi4xNzYzMzY1NjY3LjY5MTk5NjQ0OC4xNzY1OTYzNzg4LjE3NjU5NjM5MDQ.*_ga*MTYyMjY5MzQ3Ni4xNzUxOTgzODUx*_ga_39H9VBFX7G*czE3NjU5NjM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzkgzODUx*_ga_39H9VBFX7G*czE3NjU5NjM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JgzODUx*_ga_39H9VBFX7G*czE3NjU5NjM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0J5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0*_ga*MTYyMjY5MzQ3Ni4xNzUxOTgzODUx*_ga_39H9VBFX7G*czE3NjU5NjM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiNjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzkgzODUNjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzkgzODU0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzkgzODUx*_ga_39H9VBFX7G*czE3NjU5NjM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JgzODUx*_ga_39H9VBFX7G*czE3NjU5NjM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0J5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0*_ga*MTYyMjY5MzQ3Ni4xNzUxOTgzODUx*_ga_39H9VBFX7G*czE3NjU5NjM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiNjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzkgzODUNjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzkgzODU0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzk5JGcxJHQxNzY1OTY1MjA0JGo1MiRsMCRoNDk4ODE0NjM0jM3ODYkbzkgzODUx*_ga_39H9VBFX7G*czE3',
+    });
+
+    expect(errors[0].code).toBe('link.toolong');
+  });
+
   it('set in create mode calls onCreate callback with created agenda including internal values', () =>
     new Promise((resolve, reject) => {
       svc.init({

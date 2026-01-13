@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS ${agenda} (
   slug VARCHAR(255) NOT NULL UNIQUE,
   description VARCHAR(400), /* 150 in real world */
   image VARCHAR(255),
-  url VARCHAR(255),
+  url VARCHAR(2000),
   credentials TEXT,
   settings TEXT,
   created_at DATETIME NOT NULL,

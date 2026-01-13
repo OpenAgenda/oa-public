@@ -7,6 +7,7 @@ import { useSelector } from 'react-redux';
 import { useMemo } from 'react';
 
 import utils from '../lib/utils.js';
+import cleanEditableData from './useCleanEditableData.js';
 
 const { removeUnduplicatable } = utils;
 
@@ -53,7 +54,7 @@ export default function useEventDataForDuplicate(
           }
           return response.json();
         })
-        .then((data) => data.event),
+        .then((data) => cleanEditableData(data.event)),
     { enabled: !!hasReferenceForDuplicate },
   );
 
@@ -96,6 +97,7 @@ export default function useEventDataForDuplicate(
       destinationAgenda,
       agendaUid,
       eventUid,
+      memberRole,
     ],
   );
 }

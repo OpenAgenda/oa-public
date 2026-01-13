@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import VError from '@openagenda/verror';
+import { NotFound } from '@openagenda/verror';
 import parseListArguments from '@openagenda/service-utils/parseListArguments.js';
 import mapper from './utils/mapper.js';
 import messageFieldsMap from './db/messageFieldsMap.js';
@@ -125,7 +125,7 @@ export default class Messages {
     }
 
     if (!this.conversation.data) {
-      throw new VError(
+      throw new NotFound(
         'Conversation %j not found',
         this.conversation.identifiers,
       );
