@@ -6,6 +6,10 @@ function isObject(o) {
   return Object.prototype.toString.call(o) === '[object Object]';
 }
 
+function isError(o) {
+  return Object.prototype.toString.call(o) === '[object Error]';
+}
+
 export default function sentryErrorHandler(options) {
   const router = express.Router({ mergeParams: true });
 
@@ -32,7 +36,7 @@ export default function sentryErrorHandler(options) {
 
   Sentry.setupExpressErrorHandler(router, {
     shouldHandleError(error) {
-      if (isObject(error)) {
+      if (isError(error) || isObject(error)) {
         const statusCode = error.statusCode || error.code || 500;
 
         if (Number.isInteger(statusCode) && statusCode < 500) {
