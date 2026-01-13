@@ -3,6 +3,7 @@ import cleanParams from './lib/params';
 import convertToUTFMB3 from './lib/convertToUTFMB3';
 import errors from './lib/errors';
 import { emojiReg } from './lib/emojireg';
+import validateLength from './lib/length';
 
 export default config => {
   const params = cleanParams('text', config, {
@@ -42,35 +43,7 @@ export default config => {
       throw errors(params, value, 'required', 'a string is required');
     }
 
-    if (clean.length < params.min) {
-      throw errors(
-        params,
-        value,
-        'string.tooshort',
-        'the string is too short',
-        {
-          values: {
-            min: params.min,
-            max: params.max
-          }
-        }
-      );
-    }
-
-    if (clean.length > params.max) {
-      throw errors(
-        params,
-        value,
-        'string.toolong',
-        'the string is too long',
-        {
-          values: {
-            min: params.min,
-            max: params.max
-          }
-        }
-      );
-    }
+    validateLength(clean, 'string', params);
 
     if (params.sanitizeEncoding === 'utf8mb3') {
       clean = convertToUTFMB3(clean);

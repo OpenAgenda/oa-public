@@ -1,4 +1,5 @@
 import validators from '../src';
+import linkValidator from '../src/link';
 
 describe('link validator', () => {
   describe('required (default)', () => {
@@ -93,6 +94,26 @@ describe('link validator', () => {
       });
 
       expect(notLinks.length).toBe(0);
+    });
+
+    it('max can be set on link', () => {
+      let errors;
+      try {
+        linkValidator({
+          max: 10,
+        })('https://openagenda.com');
+      } catch (e) {
+        errors = e;
+      }
+
+      expect(errors).toStrictEqual([{
+        code: 'link.toolong',
+        message: 'the link is too long',
+        origin: 'https://openagenda.com',
+        values: {
+          max: 10,
+        },
+      }]);
     });
 
     it('are not links', () => {
