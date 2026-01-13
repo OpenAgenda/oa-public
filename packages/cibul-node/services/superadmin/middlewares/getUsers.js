@@ -54,7 +54,7 @@ export default async function getUsers(req, res, next) {
   }
 
   loadUserFromQuery(req, res, () => {
-    if (!req.loadedUser.id) return next(new Error('User not found'));
+    if (!req.loadedUser?.id) return next(new Error('User not found'));
 
     membersSvc
       .list(
