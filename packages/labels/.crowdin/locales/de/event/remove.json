@@ -1,5 +1,5 @@
 {
-  "eventRemoveTitle": "Entferne ein Veranstaltung aus der Verwaltungskalender",
+  "confirm": "Bestätigen",
   "eventRemoveDetails": "Bist du sicher, dass Sie dies tun? Wenn Sie die Veranstaltung aus dieser Verwaltungskalender entfernen, wird es nicht mehr in dem Ausfuhr aufgeführt wird und von jedem Programm entfernt werden aggregiert deine Veranstaltungen",
-  "confirm": "Bestätigen"
+  "eventRemoveTitle": "Entferne ein Veranstaltung aus der Verwaltungskalender"
 }

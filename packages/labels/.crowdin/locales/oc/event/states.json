@@ -1,15 +1,15 @@
 {
-  "refused": "refusat",
-  "tocontrol": "e cors de moderacion",
-  "tobecontrolled": "e cors de moderacion",
-  "controlled": "prèste a publicar",
-  "published": "publicat",
-  "featured": "en una",
   "all": "véser tot",
+  "controlled": "prèste a publicar",
+  "featured": "en una",
+  "featuredChange": "L'eveniment es ara en una",
+  "published": "publicat",
+  "refused": "refusat",
   "state": "estatut",
   "stateChanged": "L'estatut de l'eveniment a cambiat",
-  "featuredChange": "L'eveniment es ara en una",
-  "unfeaturedChange": "L'eveniment es pas pus en una",
   "stateFieldInfo": "Lo camp es pas accessible als contributors",
-  "stateFieldSub": "Important : l'eveniment se poirà veire e compartir sonque quand serà publicat"
+  "stateFieldSub": "Important : l'eveniment se poirà veire e compartir sonque quand serà publicat",
+  "tobecontrolled": "e cors de moderacion",
+  "tocontrol": "e cors de moderacion",
+  "unfeaturedChange": "L'eveniment es pas pus en una"
 }

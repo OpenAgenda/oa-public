@@ -1,8 +1,8 @@
 {
-  "title": "título",
   "description": "descripción",
+  "image": "imagen",
+  "location": "ubicación",
   "longDescription": "descripción larga",
   "timings": "horarios",
-  "location": "ubicación",
-  "image": "imagen"
+  "title": "título"
 }

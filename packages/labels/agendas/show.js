@@ -223,7 +223,7 @@ module.exports = {
     "en": "There are no results for this search. You can make a site-wide search from the page header, or %page%",
     "fr": "Pas de résultat pour cette recherche. Vous pouvez effectuer une recherche sur l’ensemble du site en haut de page, ou %page%",
     "it": "Nessun risultato per questa ricerca. Puoi effettuare una ricerca sulla globalità del sito nella pagina in alto, a %page%",
-    "de": "Keine Suchergebnisse. du kannst die gesamte Internetseite oben auf der Seite durchsuchen, oder %page%",
+    "de": "Keine Suchergebnisse. Du kannst die gesamte Internetseite oben auf der Seite durchsuchen, oder %page%",
     "pl": "Brak rezultatów wyszukiwania. Możesz przeszukać całą stronę na górze strony, lub %page%",
     "br": "Disoc'h ebet evit an enklask-mañ. Gallout a rit ober un enklask el lec'hienn a-bezh e krec'h ar bajenn, pe %page%",
     "es": "No hay resultados para esta búsqueda. Puede buscar en todo el sitio a la tapa, o la %page%",
@@ -233,7 +233,7 @@ module.exports = {
   "reloadPage": {
     "en": "reload this page",
     "fr": "recharger la page agenda",
-    "it": "Ricarica la pagina Agenda",
+    "it": "ricaricare la pagina",
     "de": "Seite neu laden",
     "pl": "Załaduj ponownie stronę",
     "br": "adkargañ ar bajenn deiziataer",

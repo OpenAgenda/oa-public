@@ -1,10 +1,10 @@
 {
-  "upload": "Subir un archivo",
+  "acceptedExtensions": "Formatos de archivos aceptados",
   "error": "Ocurrió un error durante el cargamento. Por favor inténtelo nuevamente",
-  "tip": "Arrastre y suelte un archivo en la zona gris.",
-  "replace": "Reemplazar archivo",
   "loading": "Cargando",
   "or": "O",
-  "acceptedExtensions": "Formatos de archivos aceptados",
-  "remove": "Eliminar"
+  "remove": "Eliminar",
+  "replace": "Reemplazar archivo",
+  "tip": "Arrastre y suelte un archivo en la zona gris.",
+  "upload": "Subir un archivo"
 }

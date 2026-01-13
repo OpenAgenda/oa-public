@@ -22,7 +22,7 @@
   "next.views.EventShow.ContextBar.editEvent": "Editar evento",
   "next.views.EventShow.ContextBar.editLocation": "Editar lugar",
   "next.views.EventShow.ContextBar.feature": "Destacar",
-  "next.views.EventShow.ContextBar.featured": "",
+  "next.views.EventShow.ContextBar.featured": "Destacado",
   "next.views.EventShow.ContextBar.featuredInfo": "Un evento destacado aparece en la parte superior de la lista",
   "next.views.EventShow.ContextBar.fixEvent": "Corregir evento",
   "next.views.EventShow.ContextBar.invalidEvent": "El evento es inválido",

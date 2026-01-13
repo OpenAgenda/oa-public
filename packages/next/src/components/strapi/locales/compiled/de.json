@@ -56,7 +56,7 @@
   "next.components.Strapi.addEvent": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "Veranstaltung hinzufügen"
     }
   ],
   "next.components.Strapi.bluesky": [

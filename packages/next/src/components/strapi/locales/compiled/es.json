@@ -56,7 +56,7 @@
   "next.components.Strapi.addEvent": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "Añadir un evento"
     }
   ],
   "next.components.Strapi.bluesky": [
@@ -104,7 +104,7 @@
   "next.components.Strapi.submit": [
     {
       "type": 0,
-      "value": "Submit"
+      "value": "Validar"
     }
   ],
   "next.components.Strapi.videoPlayer.accessibility": [

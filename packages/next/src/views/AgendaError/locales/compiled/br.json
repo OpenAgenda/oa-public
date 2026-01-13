@@ -62,7 +62,7 @@
   "next.views.AgendaError.restrictedAccess": [
     {
       "type": 0,
-      "value": "Accés restreint"
+      "value": "Accès restreint"
     }
   ],
   "next.views.AgendaError.searchAgenda": [

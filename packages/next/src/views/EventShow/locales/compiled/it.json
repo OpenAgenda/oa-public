@@ -122,7 +122,7 @@
   "next.views.EventShow.ContextBar.editEvent": [
     {
       "type": 0,
-      "value": "Edit event"
+      "value": "Modificare l'evento"
     }
   ],
   "next.views.EventShow.ContextBar.editLocation": [
@@ -140,7 +140,7 @@
   "next.views.EventShow.ContextBar.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "Fissato"
     }
   ],
   "next.views.EventShow.ContextBar.featuredInfo": [

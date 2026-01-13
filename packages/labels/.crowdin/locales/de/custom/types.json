@@ -1,11 +1,11 @@
 {
-  "radio": "Einzigartige Auswahlliste",
   "checkbox": "Multiple choice list",
-  "select": "Wählen Sie Eingabe",
+  "image": "Bild",
   "integer": "Ganze Zahl",
-  "number": "Nummer",
-  "text": "Einfaches Textfeld",
-  "textarea": "Mehrzeilige Textfeld",
   "markdown": "Rich-Text-Feld",
-  "image": "Bild"
+  "number": "Nummer",
+  "radio": "Einzigartige Auswahlliste",
+  "select": "Wählen Sie Eingabe",
+  "text": "Einfaches Textfeld",
+  "textarea": "Mehrzeilige Textfeld"
 }

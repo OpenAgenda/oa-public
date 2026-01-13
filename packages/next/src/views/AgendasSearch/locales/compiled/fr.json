@@ -85,15 +85,6 @@
   ],
   "next.views.AgendaSearch.total": [
     {
-      "style": null,
-      "type": 2,
-      "value": "total"
-    },
-    {
-      "type": 0,
-      "value": " "
-    },
-    {
       "offset": 0,
       "options": {
         "=0": {
@@ -108,22 +99,25 @@
           "value": [
             {
               "type": 0,
-              "value": "agenda trouvé"
+              "value": "1 agenda trouvé"
             }
           ]
         },
         "other": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "agendas trouvés"
+              "value": " agendas trouvés"
             }
           ]
         }
       },
       "pluralType": "cardinal",
       "type": 6,
-      "value": "total"
+      "value": "count"
     }
   ],
   "next.views.AgendaSearch.upcomingEvents": [

@@ -1673,7 +1673,7 @@ module.exports = {
     "fr": "Votre email",
     "de": "deine Emailadresse",
     "es": "Tu correo electrónico",
-    "it": "Il tuo indirizzo e-mail",
+    "it": "Il suo indirizzo e-mail",
     "io": "crwdns13816:0crwdne13816:0",
     "oc": "Vòstra adreça email"
   },

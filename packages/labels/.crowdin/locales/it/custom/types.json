@@ -1,11 +1,11 @@
 {
-  "radio": "Elenco a scelta singola",
   "checkbox": "Elenco a scelta multipla",
-  "select": "Campo di selezione",
+  "image": "Immagine",
   "integer": "Completo",
-  "number": "Numero",
-  "text": "Campo di testo semplice",
-  "textarea": "Campo di testo a più righe",
   "markdown": "Campo di testo ricco",
-  "image": "Immagine"
+  "number": "Numero",
+  "radio": "Elenco a scelta singola",
+  "select": "Campo di selezione",
+  "text": "Campo di testo semplice",
+  "textarea": "Campo di testo a più righe"
 }

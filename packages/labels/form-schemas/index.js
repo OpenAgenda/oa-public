@@ -81,7 +81,8 @@ module.exports = {
     "es": "Pantalla completa"
   },
   "warnAllCaps": {
-    "fr" : "Évitez les saisies exclusivement en lettres majuscules",
-    "en" : "Avoid typing a text using only capital letters",
+    "fr": "Évitez les saisies exclusivement en lettres majuscules",
+    "en": "Avoid typing a text using only capital letters",
+    "io": "crwdns35283:0crwdne35283:0"
   }
 };

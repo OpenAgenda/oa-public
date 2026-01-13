@@ -134,7 +134,7 @@ module.exports = {
   "extIds": {
     "en": "External ids",
     "fr": "Identifiants externes",
-    "io": "crwdns12132:0crwdne12132:0",
+    "io": "crwdns35271:0crwdne35271:0",
     "it": "Id esternales",
     "oc": "Identificant extèrne"
   },
@@ -176,10 +176,12 @@ module.exports = {
   },
   "adminLevel5": {
     "en": "Borough",
-    "fr": "Arrondissement"
+    "fr": "Arrondissement",
+    "io": "crwdns35273:0crwdne35273:0"
   },
   "adminLevel6": {
     "en": "City district",
-    "fr": "Quartier"
+    "fr": "Quartier",
+    "io": "crwdns35275:0crwdne35275:0"
   }
 };

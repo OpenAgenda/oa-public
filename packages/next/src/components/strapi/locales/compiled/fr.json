@@ -108,7 +108,7 @@
   "next.components.Strapi.submit": [
     {
       "type": 0,
-      "value": "S'inscrire"
+      "value": "Enregistrer"
     }
   ],
   "next.components.Strapi.videoPlayer.accessibility": [

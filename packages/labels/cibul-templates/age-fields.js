@@ -6,7 +6,7 @@ module.exports = {
     "en": "year",
     "de": "Jahr",
     "es": "año",
-    "it": "un",
+    "it": "anno",
     "io": "crwdns13226:0crwdne13226:0",
     "oc": "an"
   },

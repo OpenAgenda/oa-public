@@ -28,7 +28,7 @@ module.exports = {
   "userNotActivated": {
     "en": "User not activated",
     "fr": "Utilisateur non activé",
-    "it": "Conto non attivato",
+    "it": "Account non attivato",
     "io": "crwdns13066:0crwdne13066:0",
     "oc": "Utilizaire·a pas activat·da",
     "es": "Usuario no activado"

@@ -1,6 +1,6 @@
 {
-  "map": "kartenn",
-  "passed": "darvoudoù tremenet",
+  "fromTo": "eus an %start% d'an %end%",
   "location": "lec'h",
-  "fromTo": "eus an %start% d'an %end%"
+  "map": "kartenn",
+  "passed": "darvoudoù tremenet"
 }

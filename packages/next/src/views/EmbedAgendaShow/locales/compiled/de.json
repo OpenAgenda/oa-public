@@ -2,7 +2,7 @@
   "ReactFilters.EmbedAgendaShow.addEvent": [
     {
       "type": 0,
-      "value": "Add event"
+      "value": "Veranstaltung hinzufügen"
     }
   ],
   "ReactFilters.ValueBadge.removeFilter": [

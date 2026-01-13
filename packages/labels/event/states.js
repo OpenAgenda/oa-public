@@ -37,7 +37,7 @@ module.exports = {
     "de": "bereit zu veröffentlichen",
     "es": "listo para publicar",
     "br": "Prest da vezañ embannet",
-    "it": "pronto a pubblicare",
+    "it": "pronto per la pubblicazione",
     "io": "crwdns14608:0crwdne14608:0",
     "oc": "prèste a publicar"
   },

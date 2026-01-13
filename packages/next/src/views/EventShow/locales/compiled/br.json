@@ -374,7 +374,7 @@
   "next.views.EventShow.ContributorSection.edit": [
     {
       "type": 0,
-      "value": "Modifier la fiche contact du membre"
+      "value": "Modifier"
     }
   ],
   "next.views.EventShow.ContributorSection.emptyMember": [

@@ -1,15 +1,15 @@
 {
-  "empty": "der Kategoriename darf nicht leer sein",
-  "duplicate": "Diese Kategorie ist bereits vorhanden",
-  "categories": "Kategorien",
-  "subtitle": "Kategorien bilden eine einzige Auswahlliste",
-  "listName": "Name der Liste",
-  "listInfo": "Informationsfeld",
-  "listSection": "Agenda Kategorien",
   "add": "Hinzufügen",
-  "noCategories": "Du hast noch keine Kategorien definiert für diese agendda",
-  "linkError": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuche es später noch einmal",
   "cancelUpdateTag": "Stornieren",
-  "updateTag": "OK",
-  "required": "Stellen erforderlich. Eine Kategorie muss ausgewählt werden."
+  "categories": "Kategorien",
+  "duplicate": "Diese Kategorie ist bereits vorhanden",
+  "empty": "der Kategoriename darf nicht leer sein",
+  "linkError": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuche es später noch einmal",
+  "listInfo": "Informationsfeld",
+  "listName": "Name der Liste",
+  "listSection": "Agenda Kategorien",
+  "noCategories": "Du hast noch keine Kategorien definiert für diese agendda",
+  "required": "Stellen erforderlich. Eine Kategorie muss ausgewählt werden.",
+  "subtitle": "Kategorien bilden eine einzige Auswahlliste",
+  "updateTag": "OK"
 }

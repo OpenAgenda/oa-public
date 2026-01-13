@@ -2,19 +2,19 @@
   "next.components.Strapi.LoggedUserWelcome.dashboard": [
     {
       "type": 0,
-      "value": "vua kontrol-panelo"
+      "value": "crwdns35209:0crwdne35209:0"
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.defaultUser": [
     {
       "type": 0,
-      "value": "uzanto"
+      "value": "crwdns35211:0crwdne35211:0"
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.loggedIn": [
     {
       "type": 0,
-      "value": "Vu es konektita a vua konto **"
+      "value": "crwdns35213:0"
     },
     {
       "type": 1,
@@ -22,13 +22,13 @@
     },
     {
       "type": 0,
-      "value": "**. Trovez vua agendi, eventi e mesaji sur [vua kontrol-panelo](/home)."
+      "value": "crwdnd35213:0/homecrwdne35213:0"
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.welcome": [
     {
       "type": 0,
-      "value": "Bonvenon "
+      "value": "crwdns35215:0"
     },
     {
       "type": 1,
@@ -36,13 +36,13 @@
     },
     {
       "type": 0,
-      "value": "!"
+      "value": "crwdne35215:0"
     }
   ],
   "next.components.Strapi.ReferenceItem.more": [
     {
       "type": 0,
-      "value": "+ "
+      "value": "crwdns35165:0"
     },
     {
       "type": 1,
@@ -50,19 +50,19 @@
     },
     {
       "type": 0,
-      "value": " more"
+      "value": "crwdne35165:0"
     }
   ],
   "next.components.Strapi.addEvent": [
     {
       "type": 0,
-      "value": "Add an event"
+      "value": "crwdns35181:0crwdne35181:0"
     }
   ],
   "next.components.Strapi.bluesky": [
     {
       "type": 0,
-      "value": "Our Bluesky"
+      "value": "crwdns35173:0crwdne35173:0"
     }
   ],
   "next.components.Strapi.contact": [
@@ -74,13 +74,13 @@
   "next.components.Strapi.contactEmail": [
     {
       "type": 0,
-      "value": "Our email"
+      "value": "crwdns35175:0crwdne35175:0"
     }
   ],
   "next.components.Strapi.dailymotion": [
     {
       "type": 0,
-      "value": "Our Dailymotion"
+      "value": "crwdns35197:0crwdne35197:0"
     }
   ],
   "next.components.Strapi.github": [
@@ -98,13 +98,13 @@
   "next.components.Strapi.newsletter": [
     {
       "type": 0,
-      "value": "Subscribe to the monthly newsletter"
+      "value": "crwdns35169:0crwdne35169:0"
     }
   ],
   "next.components.Strapi.submit": [
     {
       "type": 0,
-      "value": "Submit"
+      "value": "crwdns35171:0crwdne35171:0"
     }
   ],
   "next.components.Strapi.videoPlayer.accessibility": [

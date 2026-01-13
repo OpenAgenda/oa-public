@@ -219,14 +219,20 @@ module.exports = {
   },
   "changeEmailErrorTitle": {
     "en": "The link you clicked on is invalid",
-    "fr": "Ce lien est invalide"
+    "fr": "Ce lien est invalide",
+    "io": "crwdns35277:0crwdne35277:0"
   },
   "changeEmailError": {
     "en": "This can happen for a few reasons:\n1. This link was already used and the email change was already validated.\n2. Several email changes were submitted sequentially. In that case only the last link sent to your inbox can be valid.\n3. You are attempting to open this link from an account different than the one from which the request was initiated.\n\nContact support if this problem persists.",
-    "fr": "Ceci peut avoir plusieurs causes:\n1. Le lien a déjà servi et la demande de changement d'email a abouti.\n2. Plusieurs emails ont été soumis: seul le lien associé à la dernière demande est valide.\n3. Le lien est ouvert depuis une session d'un compte autre que celui à l'origine de la demande.\n\nContactez le support si ce problème persiste."
+    "fr": "Ceci peut avoir plusieurs causes:\n1. Le lien a déjà servi et la demande de changement d'email a abouti.\n2. Plusieurs emails ont été soumis: seul le lien associé à la dernière demande est valide.\n3. Le lien est ouvert depuis une session d'un compte autre que celui à l'origine de la demande.\n\nContactez le support si ce problème persiste.",
+    "io": "crwdns35279:0crwdne35279:0"
   },
   "contactSupport": {
     "en": "Contact support",
-    "fr": "Contacter le support"
+    "fr": "Contacter le support",
+    "it": "Contatta il supporto",
+    "es": "Contactar con el soporte",
+    "oc": "Contactar l'assisténcia",
+    "io": "crwdns35281:0crwdne35281:0"
   }
 }

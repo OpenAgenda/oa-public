@@ -1,9 +1,9 @@
 {
-  "members": "Izili",
-  "events": "kevelet",
-  "noResult": "N'eus bet kavet disoc'h ebet",
+  "close": "Serriñ",
   "email": "Postel",
+  "events": "kevelet",
+  "members": "Izili",
+  "noResult": "N'eus bet kavet disoc'h ebet",
   "organization": "Aozadur",
-  "required": "Rekis",
-  "close": "Serriñ"
+  "required": "Rekis"
 }

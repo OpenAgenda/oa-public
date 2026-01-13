@@ -1,16 +1,16 @@
 {
-  "official": "Agenda oficial",
-  "latestUpdated": "agendas actualizados recientemente",
-  "results": "Resultados de búsqueda para \"%search%\"",
-  "searchTitle": "Buscar una agenda",
-  "genericSearchTitle": "Resultados de búsqueda",
-  "found": "Encontrado %count% agendas",
+  "addEvent": "Añadir un evento",
   "empty": "Lo sentimos, ninguna agenda coincide con esta búsqueda",
+  "found": "Encontrado %count% agendas",
+  "genericSearchTitle": "Resultados de búsqueda",
+  "latestUpdated": "agendas actualizados recientemente",
+  "loadNext": "Cargar más resultados",
+  "loadPrevious": "Cargar los resultados anteriores",
+  "official": "Agenda oficial",
   "publishedEvent": "1 evento pasado",
   "publishedEvents": "%count% eventos pasados",
+  "results": "Resultados de búsqueda para \"%search%\"",
+  "searchTitle": "Buscar una agenda",
   "upcomingEvent": "1 próximo evento",
-  "upcomingEvents": "%count% próximos eventos",
-  "loadPrevious": "Cargar los resultados anteriores",
-  "loadNext": "Cargar más resultados",
-  "addEvent": "Añadir un evento"
+  "upcomingEvents": "%count% próximos eventos"
 }

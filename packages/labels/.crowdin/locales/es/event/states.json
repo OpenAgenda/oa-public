@@ -1,15 +1,15 @@
 {
-  "refused": "rechazado",
-  "tocontrol": "a controlar",
-  "tobecontrolled": "a controlar",
-  "controlled": "listo para publicar",
-  "published": "publicado",
-  "featured": "en una",
   "all": "ver todas",
+  "controlled": "listo para publicar",
+  "featured": "en una",
+  "featuredChange": "El evento esta destacado",
+  "published": "publicado",
+  "refused": "rechazado",
   "state": "estatus",
   "stateChanged": "El estado del evento fue cambiado",
-  "featuredChange": "El evento esta destacado",
-  "unfeaturedChange": "El evento ya no es más destacada",
   "stateFieldInfo": "El acceso a este campo está limitado a los administradores y moderadores de la agenda",
-  "stateFieldSub": "Importante: el evento será visible y compartible solo cuando sea publicado"
+  "stateFieldSub": "Importante: el evento será visible y compartible solo cuando sea publicado",
+  "tobecontrolled": "a controlar",
+  "tocontrol": "a controlar",
+  "unfeaturedChange": "El evento ya no es más destacada"
 }

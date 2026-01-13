@@ -140,7 +140,7 @@
   "next.views.EventShow.ContextBar.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "ausgewählt"
     }
   ],
   "next.views.EventShow.ContextBar.featuredInfo": [

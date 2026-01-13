@@ -140,7 +140,7 @@
   "next.views.EventShow.ContextBar.featured": [
     {
       "type": 0,
-      "value": "Featured"
+      "value": "crwdns35217:0crwdne35217:0"
     }
   ],
   "next.views.EventShow.ContextBar.featuredInfo": [
@@ -380,13 +380,13 @@
   "next.views.EventShow.ContributorSection.emptyMember": [
     {
       "type": 0,
-      "value": "Contact sheet not informed"
+      "value": "crwdns35219:0crwdne35219:0"
     }
   ],
   "next.views.EventShow.ContributorSection.meEdit": [
     {
       "type": 0,
-      "value": "Edit my information"
+      "value": "crwdns35287:0crwdne35287:0"
     }
   ],
   "next.views.EventShow.ContributorSection.privateInformation": [
@@ -650,7 +650,7 @@
   "next.views.EventShow.Sidebar.passPublishedErrors": [
     {
       "type": 0,
-      "value": "The creation of the offer encountered errors"
+      "value": "crwdns35167:0crwdne35167:0"
     }
   ],
   "next.views.EventShow.Sidebar.passUnpublished": [
@@ -748,7 +748,7 @@
   "next.views.EventShow.additionalFieldsSectionTitle": [
     {
       "type": 0,
-      "value": "Additionnal information"
+      "value": "crwdns35289:0crwdne35289:0"
     }
   ],
   "next.views.EventShow.backToList": [
@@ -856,13 +856,13 @@
   "views.EventShow.contextBar.invalidEventInfo": [
     {
       "type": 0,
-      "value": "This event does not meet the criteria defined by the agenda form. This can happen if the form configuration has changed. To correct the event, edit it."
+      "value": "crwdns35267:0crwdne35267:0"
     }
   ],
   "views.EventShow.contextBar.nonCompliant": [
     {
       "type": 0,
-      "value": "Non-compliant"
+      "value": "crwdns35269:0crwdne35269:0"
     }
   ]
 }

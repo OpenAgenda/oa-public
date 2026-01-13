@@ -1,5 +1,5 @@
 {
-  "ReactFilters.EmbedAgendaShow.addEvent": "",
+  "ReactFilters.EmbedAgendaShow.addEvent": "Veranstaltung hinzufügen",
   "ReactFilters.ValueBadge.removeFilter": "",
   "ReactFilters.ValueBadge.removeFilterWithTitle": "Filter entfernen ({title})",
   "next.views.EmbedAgendaShow.export": "",

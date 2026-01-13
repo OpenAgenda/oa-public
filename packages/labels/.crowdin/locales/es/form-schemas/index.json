@@ -1,11 +1,11 @@
 {
-  "required": "Campo obligatorio",
+  "cancel": "Anular",
+  "fullscreen": "Pantalla completa",
   "groupErrorHeader": "Algunas entradas deben ser corregidas",
-  "submit": "Validar",
   "help": "Ayuda",
   "noChoice": "Ninguna opción",
   "noOption": "Sin correspondencias",
+  "required": "Campo obligatorio",
   "selectPlaceholder": "Seleccionar...",
-  "cancel": "Anular",
-  "fullscreen": "Pantalla completa"
+  "submit": "Validar"
 }

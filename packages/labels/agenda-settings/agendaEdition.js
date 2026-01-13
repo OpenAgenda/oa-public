@@ -129,13 +129,13 @@ module.exports = {
     "oc": "podètz modificar los eveniments mai tard"
   },
   "contribDefaultStateUnpublished": {
-    'fr': 'À modérer',
-    'en': 'To moderate',
-    'de': 'Zu moderieren',
-    'es': 'A moderar',
-    'it': 'Da moderare',
-    'io': 'crwdns12526:0crwdne12526:0',
-    'oc': 'A moderar'
+    "fr": "À modérer",
+    "en": "To moderate",
+    "de": "Zu moderieren",
+    "es": "Para moderar",
+    "it": "Inedito",
+    "io": "crwdns12526:0crwdne12526:0",
+    "oc": "De revisar"
   },
   "contribDefaultStateUnpublishedText": {
     "fr": "Les événements ne deviennent publics qu'après votre validation.",
@@ -919,7 +919,7 @@ module.exports = {
     "en": "Set up your tracking information",
     "de": "Richten Sie Ihre Tracking-Informationen ein",
     "es": "Configura tu información de tracking",
-    "it": "Imposta le tue informazioni di tracciamento",
+    "it": "Impostare le informazioni di tracciamento",
     "io": "crwdns12676:0crwdne12676:0",
     "oc": "Definissètz vòstre identificant de seguit Google Analytics"
   },

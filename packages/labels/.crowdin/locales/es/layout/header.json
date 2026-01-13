@@ -1,9 +1,9 @@
 {
-  "signin": "Conectarse",
-  "search": "Buscar",
-  "help": "Ayuda",
-  "en": "Inglés",
   "de": "Alemán",
+  "en": "Inglés",
+  "es": "Español",
   "fr": "Francés",
-  "es": "Español"
+  "help": "Ayuda",
+  "search": "Buscar",
+  "signin": "Conectarse"
 }

@@ -1,6 +1,6 @@
 {
-  "title": "Accès pas autorizat",
-  "content": "L'accès a aqueste calendièr es restrench, contactatz l'adminsitrator del calendièr per mai d'informacions.",
+  "back": "Tornar a l'agenda",
   "contact": "Contactar l'administrator·a",
-  "back": "Tornar a l'agenda"
+  "content": "L'accès a aqueste calendièr es restrench, contactatz l'adminsitrator del calendièr per mai d'informacions.",
+  "title": "Accès pas autorizat"
 }

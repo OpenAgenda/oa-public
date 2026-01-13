@@ -5,6 +5,6 @@
   "next.views.AgendaSearch.passedEvents": "{count, plural, =0 {Aucun événement passé} one {1 événement passé} other {# événements passés}}",
   "next.views.AgendaSearch.searchResultHead": "Résultats de la recherche \"{search}\"",
   "next.views.AgendaSearch.seeMore": "Voir plus",
-  "next.views.AgendaSearch.total": "{total, number} {total, plural, =0 {Aucun agenda trouvé} one {agenda trouvé} other {agendas trouvés}}",
+  "next.views.AgendaSearch.total": "{count, plural, =0 {Aucun agenda trouvé} one {1 agenda trouvé} other {# agendas trouvés}}",
   "next.views.AgendaSearch.upcomingEvents": "{count, plural, =0 {Aucun événement} one {1 événement} other {# événements}} à venir"
 }

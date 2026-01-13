@@ -157,13 +157,13 @@ module.exports = {
     "oc": "Podètz modificar los eveniments mai tard."
   },
   "contribDefaultStateUnpublished": {
-    fr: 'À modérer',
-    en: 'To moderate',
-    de: 'Zu moderieren',
-    es: 'A moderar',
-    it: 'Da moderare',
-    io: 'crwdns12474:0crwdne12474:0',
-    oc: 'A moderar',
+    "fr": "À modérer",
+    "en": "To moderate",
+    "de": "Zu moderieren",
+    "es": "Para moderar",
+    "it": "Inedito",
+    "io": "crwdns12474:0crwdne12474:0",
+    "oc": "De revisar"
   },
   "contribDefaultStateUnpublishedText": {
     "fr": "Les événements ne deviennent publics qu'après votre validation.",

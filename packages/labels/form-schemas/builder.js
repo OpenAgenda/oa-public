@@ -687,7 +687,8 @@ module.exports = {
     "en": "Allow this field to be unchecked",
     "de": "Falschen Wert zulassen",
     "es": "Permitir valor falso",
-    "it": "Consenti valore falso"
+    "it": "Consenti valore falso",
+    "io": "crwdns35203:0crwdne35203:0"
   },
   "requiredField": {
     "fr": "Obligatoire",
