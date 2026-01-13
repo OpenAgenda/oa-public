@@ -101,10 +101,18 @@
   },
   {
     "matchAny": {
-      "adminLevel1": ["Provence-Alpes-Côte-d'Azur"]
+      "adminLevel1": ["Bourgogne – Franche-Comté"]
     },
     "update": {
-      "adminLevel1": "Provence-Alpes-Côte d'Azur"
+      "adminLevel1": "Bourgogne-Franche-Comté"
+    }
+  },
+  {
+    "matchAny": {
+      "adminLevel1": ["Brittany"]
+    },
+    "update": {
+      "adminLevel1": "Bretagne"
     }
   },
   {
@@ -113,6 +121,38 @@
     },
     "update": {
       "adminLevel1": "Grand Est"
+    }
+  },
+  {
+    "matchAny": {
+      "adminLevel1": ["Normandy"]
+    },
+    "update": {
+      "adminLevel1": "Normandie"
+    }
+  },
+  {
+    "matchAny": {
+      "adminLevel1": ["Occitania"]
+    },
+    "update": {
+      "adminLevel1": "Occitanie"
+    }
+  },
+  {
+    "matchAny": {
+      "adminLevel1": ["Corsica"]
+    },
+    "update": {
+      "adminLevel1": "Corse"
+    }
+  },
+  {
+    "matchAny": {
+      "adminLevel1": ["Provence-Alpes-Côte-d'Azur", "PACA"]
+    },
+    "update": {
+      "adminLevel1": "Provence-Alpes-Côte d'Azur"
     }
   }
 ]
