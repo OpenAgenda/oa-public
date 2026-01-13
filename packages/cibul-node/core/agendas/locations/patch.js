@@ -33,7 +33,7 @@ export default (core, agendaOrUid) =>
 
       return result;
     } catch (e) {
-      log('error', 'failed to patch location: %j', e.info);
-      throw new Error(e);
+      log('info', 'failed to patch location: %j', e.info);
+      throw e;
     }
   };
