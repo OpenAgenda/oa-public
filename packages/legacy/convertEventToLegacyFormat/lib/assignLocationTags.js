@@ -7,7 +7,7 @@ export default function assignLocationTags(location, locationTagLang) {
     tags: location.tags.map(({ id, label }) => ({
       id,
       label:
-        typeof label === 'string' || !locationTagLang
+        !label || typeof label === 'string' || !locationTagLang
           ? label
           : label[locationTagLang] ?? label[Object.keys(label)[0]],
     })),
