@@ -17,8 +17,8 @@
 }
 
 .oa-timeline {
-  --swiper-theme-color: #41acdd;
-  // --swiper-navigation-color: #41acdd;
+  --swiper-theme-color: #1d77ce;
+  // --swiper-navigation-color: #1d77ce;
 
   .oa-timeline-swiper-days,
   .oa-timeline-swiper-months {
@@ -40,7 +40,7 @@
         cursor: pointer;
 
         &[aria-selected='true'] {
-          background: #41acdd;
+          background: #1d77ce;
         }
       }
     }

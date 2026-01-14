@@ -35,7 +35,7 @@ function escapeHTML(text: string) {
 
 const SCRIPT_URL = 'https://cdn.openagenda.com/js/widgets.js';
 
-const DEFAULT_COLOR = '#41acdd';
+const DEFAULT_COLOR = '#1d77ce';
 
 function getEmbedCode({
   intl,
