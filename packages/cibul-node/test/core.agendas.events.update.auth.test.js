@@ -94,7 +94,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           {
             field: 'organisation-interne',
             code: 'unauthorized',
-            message: 'Not authorized to edit this field',
+            message: 'not authorized to edit this field',
             step: 'validation',
           },
           {
@@ -505,7 +505,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
           {
             field: 'contributorOnlyField',
             code: 'unauthorized',
-            message: 'Not authorized to edit this field',
+            message: 'not authorized to edit this field',
             step: 'validation',
           },
         ]);
