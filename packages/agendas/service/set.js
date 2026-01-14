@@ -1,7 +1,6 @@
 'use strict';
 
 const _ = require('lodash');
-const slugify = require('slugify');
 
 const logs = require('@openagenda/logs');
 
@@ -14,9 +13,17 @@ const dbParse = dbMapper(map);
 const log = logs('set');
 
 let knex;
+let slugUnicity;
 let schemas;
 let interfaces;
 let upload;
+
+const duplicateSlugError = (slug) => ({
+  field: 'slug',
+  code: 'duplicate',
+  message: 'duplicate value found',
+  origin: slug,
+});
 
 function _validate(target) {
   return (v) => {
@@ -161,64 +168,39 @@ async function _createUid(v) {
   );
 }
 
-async function _createSlugIfNotSet(v) {
-  if (v.data.slug) return v;
-
-  const MAX_TRIES = 100;
-  const baseSlug = slugify(v.data.title || '', { lower: true, strict: true });
-
-  for (let i = 0; i < MAX_TRIES; i++) {
-    const candidateSlug = i === 0 ? baseSlug : `${baseSlug}-${Math.ceil(Math.random() * 1000)}`;
-
-    const existing = await knex(schemas.agenda)
-      .where('slug', candidateSlug)
-      .first();
-
-    if (!existing) {
-      log('created slug %s', candidateSlug);
-      v.data.slug = candidateSlug;
-      return v;
-    }
+async function _verifyIfDifferent(v) {
+  if (v.data.slug === undefined) {
+    return v;
   }
 
-  throw new Error(
-    `Unable to generate a unique slug for "${baseSlug}" after ${MAX_TRIES} attempts.`,
-  );
+  if (v.data.slug === v.current.slug) {
+    return v;
+  }
+
+  if (v.data.slug && !await v.slugUnicity.holdIfAvailable(v.data.slug)) {
+    log('provided slug is not unique', { slug: v.data.slug });
+    v.errors.push(duplicateSlugError(v.data.slug));
+    return v;
+  }
+
+  return v;
 }
 
-function _verifyUnique(field) {
-  return async (v) => {
-    log('verifying unique %s', field);
-
-    const dataToParse = v.id ? v.merged : v.data;
-    const value = dbParse.toDb(dataToParse)[field];
-
-    if (value === undefined || value === null) {
-      return v;
-    }
-
-    const query = knex(schemas.agenda).where(field, value);
-
-    if (v.id) {
-      query.whereNot('id', v.id);
-    }
-
-    const existing = await query.first();
-
-    if (existing) {
-      log('%s is not unique', field);
-      v.errors.push({
-        field,
-        code: 'duplicate',
-        message: 'duplicate value found',
-        origin: value,
-      });
-    } else {
-      log('%s is unique', field);
-    }
-
+async function _createOrVerifySlug(v) {
+  if (v.data.slug && !await v.slugUnicity.holdIfAvailable(v.data.slug)) {
+    log('provided slug is not unique', { slug: v.data.slug });
+    v.errors.push(duplicateSlugError(v.data.slug));
     return v;
-  };
+  }
+
+  if (!v.data.slug) {
+    log('did not provide slug, generating from title', { title: v.data.title });
+    v.data.slug = await v.slugUnicity.generateAndHold(v.data.title);
+  } else {
+    log('going with provided slug');
+  }
+
+  return v;
 }
 
 /**
@@ -345,6 +327,7 @@ function _update(identifiers, data, o, c) {
           clean: null, // after validation
           updated: null,
           errors: [], // validation errors
+          slugUnicity: slugUnicity.clone(),
         }),
       ))
 
@@ -364,7 +347,7 @@ function _update(identifiers, data, o, c) {
       // incomplete data validation errors
       .then(_filterProtected.bind(null, 'clean'))
 
-      .then(_verifyUnique('slug'))
+      .then(_verifyIfDifferent)
 
       .then(_profileImage)
 
@@ -381,7 +364,7 @@ function _update(identifiers, data, o, c) {
       )
 
       .then(
-        (v) => {
+        async (v) => {
           if (v.success && interfaces) {
             interfaces.onUpdate(v.current, v.updated, v.context);
           }
@@ -394,6 +377,8 @@ function _update(identifiers, data, o, c) {
             success: v.success,
             errors: v.errors,
           };
+
+          await v.slugUnicity.destroy();
 
           if (cb) {
             cb(null, result);
@@ -433,14 +418,13 @@ function _create(data, o, c) {
         errors: [],
         identifiers: null,
         success: false,
+        slugUnicity: slugUnicity.clone(),
       }),
     ))
 
     .then(_createUid)
 
-    .then(_createSlugIfNotSet)
-
-    .then(_verifyUnique('slug'))
+    .then(_createOrVerifySlug)
 
     .then(_setToNow('data', 'updatedAt'))
 
@@ -480,6 +464,8 @@ function _create(data, o, c) {
           }
         }
 
+        await v.slugUnicity.destroy();
+
         if (cb) {
           cb(null, response);
         } else {
@@ -495,10 +481,12 @@ function _create(data, o, c) {
     );
 }
 
-function init(s, k) {
+function init(s, k, u) {
   schemas = s.getConfig().schemas;
 
   knex = k;
+
+  slugUnicity = u;
 
   interfaces = s.getConfig().interfaces;
 

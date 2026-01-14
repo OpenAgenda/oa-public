@@ -30,6 +30,11 @@ module.exports = {
   },
 
   dependencies: {
+    redis: {
+      port: process.env.REDIS_PORT ?? 6379,
+      host: process.env.REDIS_HOST ?? 'localhost',
+      maxRetriesPerRequest: null,
+    },
     files: {
       s3: {
         endpoint: process.env.S3_DEV_ENDPOINT,

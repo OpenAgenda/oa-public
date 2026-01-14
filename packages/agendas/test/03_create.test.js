@@ -2,12 +2,14 @@
 
 const _ = require('lodash');
 const Files = require('@openagenda/files');
+const IORedis = require('ioredis');
 
 const { service: config, dependencies: dConfig } = require('../testconfig');
 const svc = require('../service/index');
 const loadFixtures = require('./fixtures/load');
 
 describe('agendas - functional (server): set (create)', () => {
+  let redisClient;
   beforeAll(
     loadFixtures.bind(null, {
       mysql: config.mysql,
@@ -25,17 +27,30 @@ describe('agendas - functional (server): set (create)', () => {
     }),
   );
 
-  beforeAll(() =>
+  beforeAll(async () => {
+    redisClient = new IORedis(dConfig.redis);
+
+    await redisClient.del('agendaSlugUnicity');
+    await redisClient.del('agendaSlugUnicity:lock');
+  });
+
+  beforeAll(async () =>
     svc.init({
       ...config,
       Files: Files(dConfig.files),
+      redis: redisClient,
     }));
 
   afterEach(() =>
     svc.init({
       ...config,
       Files: Files(dConfig.files),
+      redis: redisClient,
     }));
+
+  afterAll(async () => {
+    await redisClient.quit();
+  });
 
   it('simplest create is with a title, a description and an owner', async () => {
     const result = await svc.set({
@@ -155,6 +170,7 @@ describe('agendas - functional (server): set (create)', () => {
             resolve();
           },
         },
+        redis: redisClient,
       });
 
       svc
@@ -180,5 +196,30 @@ describe('agendas - functional (server): set (create)', () => {
     );
 
     expect(_.isObject(_.get(result, 'agenda.credentials'))).toBe(true);
+  });
+
+  it('slug is checked for unicity', async () => {
+    const results = await Promise.all(
+      ['Triplet 1', 'Triplet 2', 'Triplet 3'].map((title) =>
+        svc.set({
+          ownerId: 1,
+          title,
+          description: 'One of the triplets',
+          slug: 'triplet',
+        })),
+    );
+
+    expect(results.filter((r) => r.agenda === null).length).toBe(2);
+    expect(results.filter(({ success }) => success === false).length).toBe(2);
+    expect(
+      results.find(({ success }) => success === false).errors,
+    ).toStrictEqual([
+      {
+        field: 'slug',
+        code: 'duplicate',
+        message: 'duplicate value found',
+        origin: 'triplet',
+      },
+    ]);
   });
 });

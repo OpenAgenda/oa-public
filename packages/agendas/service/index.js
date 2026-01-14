@@ -3,6 +3,7 @@
 const crypto = require('node:crypto');
 const _ = require('lodash');
 const knexLib = require('knex');
+const slugify = require('slugify');
 const logger = require('@openagenda/logs');
 const middleware = require('../middleware');
 const Agenda = require('./Agenda');
@@ -10,31 +11,28 @@ const get = require('./get');
 const list = require('./list');
 const remove = require('./remove');
 const set = require('./set');
-const slugs = require('./slugs');
 const omitInternals = require('./lib/omitInternals');
 const filterByAccess = require('./validate/fields/filterByAccess');
 const contributionTypes = require('./validate/contributionTypes');
 const credentials = require('./validate/fields/credentials');
+const Unicity = require('./lib/Unicity');
 
 let knex;
 let config;
 let schemas;
 
+let slugUnicity;
+
 const service = {
-  // init,
   list,
   get,
+  isSlugAvailable: (slug) => slugUnicity.isAvailable(slug),
   findOne: get.findOne,
   Agenda,
   instanciate: (data) => new Agenda(data),
   middleware, // deprecated
   set,
   remove,
-  // count,
-  slugs: {
-    isTaken: slugs.isTaken,
-    generate: slugs.generate,
-  },
   getConfig: () => config,
   contributionTypes,
   utils: {
@@ -58,6 +56,17 @@ function init(c) {
   if (c.logger) {
     logger.setModuleConfig(c.logger);
   }
+
+  slugUnicity = Unicity(`${schemas.agenda}.slug`, {
+    setName: 'agendaSlugUnicity',
+    expiry: 1000,
+    client: knex,
+    redis: c.redis,
+    generate: (seed, randomize = false) => {
+      const slug = slugify(seed || '', { lower: true, strict: true });
+      return randomize ? `${slug}-${Math.ceil(Math.random() * 1000)}` : slug;
+    },
+  });
 
   const { gm } = c.Files;
 
@@ -111,15 +120,13 @@ function init(c) {
 
   get.init(service, knex);
 
-  set.init(service, knex);
+  set.init(service, knex, slugUnicity);
 
   remove.init(service, knex);
 
   list.init(service, knex);
 
   Agenda.init(service);
-
-  slugs.init(schemas, knex);
 
   middleware.init(c, service);
 }
