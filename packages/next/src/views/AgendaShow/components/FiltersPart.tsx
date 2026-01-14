@@ -118,7 +118,7 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
         <Filters
           filters={filters}
           // disabled={isFetching || filtersQuery.isFetching}
-          mapComponent={MapFilter as any}
+          mapComponent={open ? (MapFilter as any) : undefined}
           dateRangeComponent={DateRangeFilter as any}
           choiceComponent={ChoiceFilter as any}
           getTotal={getTotal}
