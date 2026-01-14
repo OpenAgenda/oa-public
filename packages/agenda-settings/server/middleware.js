@@ -112,35 +112,9 @@ function set(req, res, next) {
   );
 }
 
-function slugAvailable(req, res, next) {
-  agendasSvc.slugs.isTaken(
-    req.body.slug,
-    { excludeUid: req.body.excludeUid || false },
-    (err, result) => {
-      if (err) return next(err);
-
-      if (result.taken) {
-        result.errors.push({
-          field: 'slug',
-          code: 'duplicate',
-          message: 'duplicate value found',
-          origin: req.body.slug,
-        });
-      }
-
-      if (result.errors.length) res.status(400);
-
-      return res.json(result);
-    },
-  );
-}
-
 export default {
   init,
   create,
   get,
   set,
-  slugs: {
-    available: slugAvailable,
-  },
 };

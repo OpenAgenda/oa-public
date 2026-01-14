@@ -30,9 +30,10 @@ function SlugField() {
       const slugBlurred = prevActive === 'slug' && formState.active !== 'slug';
 
       if (formState.touched.slug && (titleBlurred || slugBlurred)) {
-        const newError = await checkSlug(apiClient, checkSlugRes, value);
-        error.current = newError;
-        return newError;
+        const available = await checkSlug(apiClient, checkSlugRes, value);
+
+        error.current = available ? null : 'duplicate';
+        return available ? null : 'duplicate';
       }
 
       return error.current || slugFieldState.error;
