@@ -156,7 +156,7 @@ export const ConfirmMode = () => {
           suggestChange:
             '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
           staticTiles:
-            'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+            'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%231d77ce;size:small&apiKey=9f8da49724b645f486f281abbe690750',
         }}
         confirmRequired
         location={location}
@@ -212,7 +212,7 @@ export const ConfirmModeExternalActions = () => {
           suggestChange:
             '/:agendaSlug/locations/:agendaUid.:locationUid/suggest-change/conversation/create',
           staticTiles:
-            'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=9f8da49724b645f486f281abbe690750',
+            'https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%231d77ce;size:small&apiKey=9f8da49724b645f486f281abbe690750',
         }}
         confirmRequired
         location={location}

@@ -697,7 +697,7 @@ function Dashboard() {
           <div
             className="margin-v-md"
             style={{
-              borderLeft: '3px solid #41acdd',
+              borderLeft: '3px solid #1d77ce',
               padding: '5px 5px 5px 12px',
             }}
           >

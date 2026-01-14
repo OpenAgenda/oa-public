@@ -31,7 +31,7 @@
         <mj-column>
           <mj-button
             align="<%= typeof contactLink !== 'undefined' ? 'right' : 'center' %>"
-            background-color="#41acdd"
+            background-color="#1d77ce"
             color="white"
             align="center"
             href="<%= link %>"
@@ -44,7 +44,7 @@
           <mj-column>
             <mj-button
               align="left"
-              background-color="#41acdd"
+              background-color="#1d77ce"
               color="white"
               align="center"
               href="<%= contactLink %>"

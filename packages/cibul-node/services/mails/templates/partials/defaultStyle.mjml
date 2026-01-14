@@ -69,10 +69,10 @@
   }
 
   .grey-link:hover {
-    color: #41ACDD;
+    color: #1d77ce;
   }
 
   .black-link:hover {
-    color: #41ACDD;
+    color: #1d77ce;
   }
 </mj-style>

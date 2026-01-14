@@ -340,7 +340,7 @@ function Dashboard() {
           style={{
             backgroundColor: '#fafafa',
             borderRadius: '0',
-            border: '#41acdd 1px solid',
+            border: '#1d77ce 1px solid',
           }}
         >
           {intl.formatMessage(messages.aggregationCountWarning, {

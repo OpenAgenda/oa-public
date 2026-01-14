@@ -24,7 +24,7 @@ export const BasicCase = () => (
     location={locationFixture}
     lang="fr"
     settings={settingsFixture}
-    staticTiles={`https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=${geoapifyKey}`}
+    staticTiles={`https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%231d77ce;size:small&apiKey=${geoapifyKey}`}
   />
 );
 
@@ -37,6 +37,6 @@ export const WithSIRET = () => (
     })}
     lang="fr"
     settings={settingsFixture}
-    staticTiles={`https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%2341acdd;size:small&apiKey=${geoapifyKey}`}
+    staticTiles={`https://maps.geoapify.com/v1/staticmap?style=klokantech-basic&width={w}&height={h}&center=lonlat:{lon},{lat}&zoom=14&marker=lonlat:{lon},{lat};color:%231d77ce;size:small&apiKey=${geoapifyKey}`}
   />
 );

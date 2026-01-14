@@ -15,7 +15,7 @@
           <%- __('content') %>
         </mj-text>
         <mj-button
-          background-color="#41acdd"
+          background-color="#1d77ce"
           color="white"
           align="center"
           href="<%= link %>"

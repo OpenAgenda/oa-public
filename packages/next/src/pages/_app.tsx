@@ -78,7 +78,7 @@ function MyApp({
           name="keywords"
           content={getLocaleValue(metas.keywords, router.locale)}
         />
-        <meta name="theme-color" content="#41ACDD" />
+        <meta name="theme-color" content="#1D77CE" />
         <title>OpenAgenda</title>
       </Head>
       <Providers

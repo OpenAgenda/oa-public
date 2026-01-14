@@ -18,7 +18,7 @@ export default function getAdditionalFieldStats(agendaSchema) {
           dataKey: 'eventCount',
           labelKey: 'label',
           restItem: isCheckbox,
-          dataColors: isCheckbox ? ['#41acdd', '#c6c6c6'] : null,
+          dataColors: isCheckbox ? ['#1d77ce', '#c6c6c6'] : null,
           loadMore: !isCheckbox,
         },
       };
