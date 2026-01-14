@@ -91,6 +91,7 @@ function plugApp(app) {
 export function init(config, services) {
   agendasSvc.init({
     knex: config.knex,
+    redis: services.redis.ioRedis,
     schemas: config.schemas,
     Files: services.files,
     imagePath: config.s3.mainBucketPath,
