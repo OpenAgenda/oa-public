@@ -29,7 +29,7 @@
   "devDependencies": {
     "@openagenda/files": "^3.1.0",
     "@openagenda/fixtures": "^2.0.2",
-    "jest": "^29.7.0",
-    "ioredis": "^5.3.2"
+    "ioredis": "^5.3.2",
+    "jest": "^29.7.0"
   }
 }
