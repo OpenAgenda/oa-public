@@ -1,8 +1,15 @@
-export default class ValidationError extends Error {
+import { BadRequest } from '@openagenda/verror';
+
+export default class ValidationError extends BadRequest {
   constructor(errors) {
-    super('Invalid data');
-    this.name = 'ValidationError';
-    this.detail = [].concat(errors);
-    this.statusCode = 400;
+    super(
+      {
+        name: 'ValidationError',
+        info: {
+          errors: [].concat(errors),
+        },
+      },
+      'Invalid data',
+    );
   }
 }

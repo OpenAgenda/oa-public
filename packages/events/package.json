@@ -23,6 +23,7 @@
     "@openagenda/md": "^1.0.1",
     "@openagenda/utils": "^1.3.0",
     "@openagenda/validators": "^2.4.0",
+    "@openagenda/verror": "^3.1.4",
     "immutability-helper": "^3.0.0",
     "knex": "^2.4.2",
     "lodash": "^4.17.15",

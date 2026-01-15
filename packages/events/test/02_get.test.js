@@ -90,7 +90,7 @@ describe('events - functional - get', () => {
       expect(event.uid).toBe(44822046);
     });
 
-    it('identifier matching no event with throwOnNotFound option set throws NotFoundError', async () => {
+    it('identifier matching no event with throwOnNotFound option set throws NotFound', async () => {
       let error;
       try {
         await svc.get(6789679673, { throwOnNotFound: true });

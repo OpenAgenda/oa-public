@@ -590,7 +590,7 @@ describe('events - functional - create', () => {
         .catch((e) => e);
 
       expect(error instanceof ValidationError).toBeTruthy();
-      expect(error.detail[0].code).toBe('timezone.invalid');
+      expect(error.info.errors[0].code).toBe('timezone.invalid');
     });
 
     it('provided context is passed to interface call', () =>
@@ -688,7 +688,7 @@ describe('events - functional - create', () => {
         error = e;
       }
       expect(error instanceof ValidationError).toBeTruthy();
-      expect(error.detail[0].code).toBe('longDescription.invalid');
+      expect(error.info.errors[0].code).toBe('longDescription.invalid');
     });
   });
 });

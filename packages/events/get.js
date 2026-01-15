@@ -1,8 +1,8 @@
 import logs from '@openagenda/logs';
+import { NotFound } from '@openagenda/verror';
 import { getName as getDatabaseFieldName } from '@openagenda/utils/fields/databaseField.js';
 import cleanGetIdentifiers from './lib/cleanGetIdentifiers.js';
 import cleanGetOptions from './lib/cleanGetOptions.js';
-import NotFoundError from './lib/NotFoundError.js';
 import handleInterface from './lib/handleInterface.js';
 import lastClean from './lib/lastEventClean.js';
 
@@ -46,7 +46,15 @@ export default async (service, identifiers, o = {}) => {
   const entry = await query;
 
   if (!entry && options.throwOnNotFound) {
-    throw new NotFoundError('event', identifiers);
+    throw new NotFound(
+      {
+        info: {
+          objectName: 'event',
+          identifier: identifiers,
+        },
+      },
+      'Not found',
+    );
   } else if (!entry) {
     return null;
   }

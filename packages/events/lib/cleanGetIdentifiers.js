@@ -1,7 +1,7 @@
 import schema from '@openagenda/validators/schema/index.js';
 import integerValidator from '@openagenda/validators/integer.js';
 import textValidator from '@openagenda/validators/text.js';
-import BadRequestError from './BadRequestError.js';
+import { BadRequest } from '@openagenda/verror';
 
 schema.register({
   integer: integerValidator,
@@ -37,6 +37,6 @@ export default (identifiers) => {
       [getFieldName]: clean[getFieldName],
     };
   } catch (e) {
-    throw new BadRequestError(e, 'Invalid identifiers');
+    throw new BadRequest({ info: { errors: e } }, 'Invalid identifiers');
   }
 };

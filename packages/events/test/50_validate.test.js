@@ -15,7 +15,7 @@ describe('validate', () => {
         error = e;
       }
       expect(
-        error.detail.filter((e) => e.field === 'locationUid').pop().code,
+        error.info.errors.filter((e) => e.field === 'locationUid').pop().code,
       ).toBe('required');
     });
 
@@ -76,7 +76,7 @@ describe('validate', () => {
       }
 
       expect(
-        error.detail.filter((e) => e.field === 'locationUid').pop().code,
+        error.info.errors.filter((e) => e.field === 'locationUid').pop().code,
       ).toBe('required');
     });
 
@@ -90,9 +90,9 @@ describe('validate', () => {
         error = e;
       }
 
-      expect(error.detail.filter((e) => e.field === 'locationUid').length).toBe(
-        0,
-      );
+      expect(
+        error.info.errors.filter((e) => e.field === 'locationUid').length,
+      ).toBe(0);
     });
 
     it('status is converted when provided as a slug', async () => {
@@ -194,7 +194,7 @@ describe('validate', () => {
       } catch (e) {
         error = e;
       }
-      expect(error.detail.map((e) => e.field)).toEqual([
+      expect(error.info.errors.map((e) => e.field)).toEqual([
         'onlineAccessLink',
         'locationUid',
       ]);
@@ -267,9 +267,9 @@ describe('validate', () => {
         error = e;
       }
       expect(error.name).toBe('ValidationError');
-      expect(error.detail.find((e) => e.field === 'registration').code).toBe(
-        'registration.invalid',
-      );
+      expect(
+        error.info.errors.find((e) => e.field === 'registration').code,
+      ).toBe('registration.invalid');
     });
 
     it('registration data can be provided as list of objects', async () => {
@@ -322,7 +322,7 @@ describe('validate', () => {
           title: 'A title',
         });
       } catch (error) {
-        titleErrors = error.detail.filter((e) => e.field === 'title');
+        titleErrors = error.info.errors.filter((e) => e.field === 'title');
       }
 
       expect(titleErrors.length).toBe(0);
@@ -340,7 +340,7 @@ describe('validate', () => {
       } catch (e) {
         error = e;
       }
-      expect(error.detail[0].code).toEqual('lang.invalid');
+      expect(error.info.errors[0].code).toEqual('lang.invalid');
     });
   });
 
