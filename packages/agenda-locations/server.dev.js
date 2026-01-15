@@ -294,7 +294,7 @@ const Service = require('.');
   app.use('', (err, req, res, _next) => {
     if (err.name === 'ValidationError') {
       res.status(400).json({
-        errors: err.detail,
+        errors: err.info.errors,
         success: false,
       });
     } else {
