@@ -1,53 +1,25 @@
-'use strict';
+import crypto from 'node:crypto';
+import _ from 'lodash';
+import knexLib from 'knex';
+import slugify from 'slugify';
+import logger from '@openagenda/logs';
+import Middleware from '../middleware.js';
+import Agenda from './Agenda/index.js';
+import get, { findOne } from './get.js';
+import list from './list.js';
+import remove from './remove.js';
+import set from './set.js';
+import omitInternals from './lib/omitInternals.js';
+import filterByAccess from './validate/fields/filterByAccess.js';
+import contributionTypes from './validate/contributionTypes.js';
+import credentials from './validate/fields/credentials.js';
+import Unicity from './lib/Unicity/index.js';
 
-const crypto = require('node:crypto');
-const _ = require('lodash');
-const knexLib = require('knex');
-const slugify = require('slugify');
-const logger = require('@openagenda/logs');
-const middleware = require('../middleware');
-const Agenda = require('./Agenda');
-const get = require('./get');
-const list = require('./list');
-const remove = require('./remove');
-const set = require('./set');
-const omitInternals = require('./lib/omitInternals');
-const filterByAccess = require('./validate/fields/filterByAccess');
-const contributionTypes = require('./validate/contributionTypes');
-const credentials = require('./validate/fields/credentials');
-const Unicity = require('./lib/Unicity');
+function Agendas(c) {
+  const { schemas } = c;
+  const config = c;
 
-let knex;
-let config;
-let schemas;
-
-let slugUnicity;
-
-const service = {
-  list,
-  get,
-  isSlugAvailable: (slug) => slugUnicity.isAvailable(slug),
-  findOne: get.findOne,
-  Agenda,
-  instanciate: (data) => new Agenda(data),
-  middleware, // deprecated
-  set,
-  remove,
-  getConfig: () => config,
-  contributionTypes,
-  utils: {
-    omitInternals,
-    filterByAccess,
-    credentials,
-  },
-};
-
-function init(c) {
-  schemas = c.schemas;
-
-  config = c;
-
-  knex = _.get(c, 'knex')
+  const knex = _.get(c, 'knex')
     || knexLib({
       client: 'mysql2',
       connection: { ...c.mysql },
@@ -57,7 +29,7 @@ function init(c) {
     logger.setModuleConfig(c.logger);
   }
 
-  slugUnicity = Unicity(`${schemas.agenda}.slug`, {
+  const slugUnicity = Unicity(`${schemas.agenda}.slug`, {
     setName: 'agendaSlugUnicity',
     expiry: 1000,
     client: knex,
@@ -118,28 +90,75 @@ function init(c) {
     ],
   });
 
-  get.init(service, knex);
+  // Create service object with all methods
+  const service = {
+    list,
+    get,
+    isSlugAvailable: (slug) => slugUnicity.isAvailable(slug),
+    findOne: get.findOne,
+    Agenda,
+    instanciate: (data) => new Agenda(data, service),
+    set,
+    remove,
+    getConfig: () => config,
+    contributionTypes,
+    utils: {
+      omitInternals,
+      filterByAccess,
+      credentials,
+    },
+  };
 
-  set.init(service, knex, slugUnicity);
+  // Create a single comprehensive internals object for all service functions
+  const internals = {
+    knex,
+    schemas: config.schemas,
+    slugUnicity,
+    interfaces: config.interfaces,
+    upload: config.upload,
+    service,
+    imagePath: config.imagePath,
+  };
 
-  remove.init(service, knex);
+  // Bind dependencies to all service functions using lodash pick for clean dependency loading
+  service.list = list.bind(
+    null,
+    _.pick(internals, ['service', 'schemas', 'imagePath', 'knex']),
+  );
+  service.set = set.bind(
+    null,
+    _.pick(internals, [
+      'knex',
+      'schemas',
+      'slugUnicity',
+      'interfaces',
+      'upload',
+      'service',
+      'imagePath',
+    ]),
+  );
+  service.remove = remove.bind(
+    null,
+    _.pick(internals, ['knex', 'schemas', 'service', 'interfaces']),
+  );
+  service.get = get.bind(
+    null,
+    _.pick(internals, ['knex', 'schemas', 'service', 'imagePath']),
+  );
+  service.findOne = findOne.bind(
+    null,
+    _.pick(internals, ['knex', 'schemas', 'service', 'imagePath']),
+  );
 
-  list.init(service, knex);
+  service.middleware = Middleware(service);
 
-  Agenda.init(service);
+  // Add count method to the service
+  service.count = async function count() {
+    const { total } = await list({}, null, null, { total: true });
+    return total;
+  };
 
-  middleware.init(c, service);
+  return service;
 }
 
-function count(cb) {
-  list({}, null, null, { total: true }, (err, agendas, total) => {
-    if (err) cb(err);
-
-    cb(null, total);
-  });
-}
-
-service.init = init;
-service.count = count;
-
-module.exports = service;
+export default Agendas;

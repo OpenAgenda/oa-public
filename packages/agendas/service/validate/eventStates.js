@@ -1,8 +1,6 @@
 // why is this here
 
-'use strict';
-
-module.exports = {
+export default {
   REFUSED: -1,
   NOT_VALIDATED: 0,
   VALIDATED: 1,

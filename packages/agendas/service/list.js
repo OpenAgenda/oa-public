@@ -1,22 +1,15 @@
-'use strict';
+import _ from 'lodash';
+import parseListArguments from '@openagenda/service-utils/parseListArguments.js';
+import map from './databaseFieldMap.js';
+import mapper from './lib/dbMapper.js';
 
-const _ = require('lodash');
-const parseListArguments = require('@openagenda/service-utils/parseListArguments');
-const map = require('./databaseFieldMap');
-const mapper = require('./lib/dbMapper');
+import validateQuery from './validate/listQuery.js';
+import validateOptions from './validate/listOptions.js';
+import fields from './validate/fields/index.js';
 
 const dbParse = mapper(map);
 
-const validateQuery = require('./validate/listQuery');
-const validateOptions = require('./validate/listOptions');
-const fields = require('./validate/fields');
-
 const credentialFields = fields.find((f) => f.field === 'credentials').fields;
-
-let service;
-let schemas;
-let imagePath;
-let knex;
 
 function _includeLegacyQuery(clean, options, query) {
   _.keys(clean).forEach((k) => {
@@ -30,7 +23,9 @@ function _includeLegacyQuery(clean, options, query) {
   return options;
 }
 
-function _search(k, query, options) {
+function _search(k, query, options, internals) {
+  const { schemas, knex } = internals;
+
   if (options.private !== null) {
     k.where('private', options.private);
   }
@@ -114,7 +109,8 @@ function _search(k, query, options) {
   return k;
 }
 
-async function _total(k) {
+async function _total(k, internals) {
+  const { knex } = internals;
   return knex
     .transaction((trx) => k.clone().count('id as total').transacting(trx))
     .then((r) => _.get(r, '0.total'));
@@ -128,7 +124,8 @@ function _listFields(options) {
       }
 
       if (
-        options.onlyIncludeFields.length
+        options.onlyIncludeFields
+        && options.onlyIncludeFields.length
         && !options.onlyIncludeFields.includes(field.obj || field)
       ) {
         return false;
@@ -138,7 +135,7 @@ function _listFields(options) {
         return true;
       }
 
-      if (options.includeFields.includes(field.obj)) {
+      if (options.includeFields && options.includeFields.includes(field.obj)) {
         return true;
       }
 
@@ -155,7 +152,8 @@ function _listFields(options) {
     .map((f) => (typeof f === 'string' ? f : f.db));
 }
 
-function _parseDbEntry(options, config, row) {
+function _parseDbEntry(options, config, row, internals) {
+  const { imagePath } = internals;
   const agenda = dbParse.toObj(row);
 
   if (options.includeImagePath && agenda.image) {
@@ -167,7 +165,10 @@ function _parseDbEntry(options, config, row) {
   return agenda;
 }
 
-async function promise(query, offset, limit, options = {}) {
+async function list(internals, ...args) {
+  const { service, knex, schemas } = internals;
+  const { query, offset, limit, options } = parseListArguments(...args);
+
   const config = service.getConfig();
 
   const cleanOptions = validateOptions(options);
@@ -178,9 +179,9 @@ async function promise(query, offset, limit, options = {}) {
 
   if (!knex) throw new Error('service is not initialized');
 
-  const k = _search(knex(schemas.agenda), cleanQuery, cleanOptions);
+  const k = _search(knex(schemas.agenda), cleanQuery, cleanOptions, internals);
 
-  const total = cleanOptions.total ? await _total(k) : null;
+  const total = cleanOptions.total ? await _total(k, internals) : null;
 
   if (cleanQuery.order) {
     k.orderBy(...cleanQuery.order.split('.').map(_.snakeCase)).orderBy(
@@ -205,7 +206,8 @@ async function promise(query, offset, limit, options = {}) {
 
   const agendas = await k
     .select(_listFields(cleanOptions))
-    .then((r) => r.map(_parseDbEntry.bind(null, cleanOptions, config)));
+    .then((r) =>
+      r.map((row) => _parseDbEntry(cleanOptions, config, row, internals)));
 
   const lastId = _.get(_.last(agendas), 'id', -1);
 
@@ -222,28 +224,4 @@ async function promise(query, offset, limit, options = {}) {
   };
 }
 
-function list(...args) {
-  const { query, offset, limit, options, cb } = parseListArguments(...args);
-
-  const p = promise(query, offset, limit, options);
-
-  if (cb) {
-    return p.then(({ agendas, total }) => cb(null, agendas, total), cb);
-  }
-
-  return p;
-}
-
-function init(svc, k) {
-  service = svc;
-
-  schemas = service.getConfig().schemas;
-
-  imagePath = service.getConfig().imagePath;
-
-  knex = k;
-}
-
-module.exports = Object.assign(list, {
-  init,
-});
+export default list;

@@ -1,18 +1,16 @@
-'use strict';
-
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-const text = require('@openagenda/validators/text');
-const boolean = require('@openagenda/validators/boolean');
-const link = require('@openagenda/validators/link');
-const integer = require('@openagenda/validators/integer');
-const date = require('@openagenda/validators/date');
-const choice = require('@openagenda/validators/choice');
-const email = require('@openagenda/validators/email');
-const ip = require('@openagenda/validators/ip');
-const pass = require('@openagenda/validators/pass');
-const slug = require('./slug');
-const fieldsByAccess = require('./fields/flattenedByFieldAccess');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema/index.js';
+import text from '@openagenda/validators/text.js';
+import boolean from '@openagenda/validators/boolean.js';
+import link from '@openagenda/validators/link.js';
+import integer from '@openagenda/validators/integer.js';
+import date from '@openagenda/validators/date.js';
+import choice from '@openagenda/validators/choice.js';
+import email from '@openagenda/validators/email.js';
+import ip from '@openagenda/validators/ip.js';
+import pass from '@openagenda/validators/pass.js';
+import slug from './slug.js';
+import fieldsByAccess from './fields/flattenedByFieldAccess.js';
 
 schema.register({
   text,
@@ -46,4 +44,4 @@ function objectify(fields) {
     }, {});
 }
 
-module.exports = schema(objectify(fieldsByAccess.read.internal));
+export default schema(objectify(fieldsByAccess.read.internal));

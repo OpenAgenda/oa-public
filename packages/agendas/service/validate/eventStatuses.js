@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   RESCHEDULED: 2,
   MOVED_ONLINE: 3,
   POSTPONED: 4,

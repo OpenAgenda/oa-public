@@ -1,44 +1,25 @@
-'use strict';
+import * as sUtils from './lib/utils.js';
 
-const sUtils = require('./lib/utils');
-
-let knex;
-let interfaces;
-let service;
-let schemas;
-
-function _get(v) {
-  return new Promise((rs, rj) => {
-    service.get(
-      v.identifiers,
-      { internal: true, private: null },
-      (err, agenda) => {
-        if (err) return rj(err);
-        v.agenda = agenda;
-        rs(v);
-      },
-    );
+async function _get({ service }, v) {
+  v.agenda = await service.get(v.identifiers, {
+    internal: true,
+    private: null,
   });
+  return v;
 }
 
-function _doRemove(v) {
+async function _doRemove({ knex, schemas }, v) {
   if (!v.agenda) {
     return v;
   }
 
-  return knex(schemas.agenda)
-    .where('id', v.agenda.id)
+  const removedRows = await knex(schemas.agenda).where('id', v.agenda.id).del();
 
-    .del()
-
-    .then((removedRows) => {
-      v.success = !!removedRows;
-
-      return v;
-    });
+  v.success = !!removedRows;
+  return v;
 }
 
-function _before(v) {
+async function _before({ interfaces }, v) {
   if (!interfaces || !interfaces.beforeRemove || !v.agenda) {
     return v;
   }
@@ -51,43 +32,25 @@ function _before(v) {
   });
 }
 
-function init(s, k) {
-  const config = s.getConfig();
+async function remove({ knex, schemas, service, interfaces }, identifiers) {
+  const v = {
+    identifiers: sUtils.identifiers.clean(identifiers),
+    agenda: null,
+    success: null,
+  };
 
-  service = s;
+  await sUtils.identifiers.check(v);
+  await _get({ service }, v);
+  await _before({ interfaces }, v);
+  await _doRemove({ knex, schemas }, v);
 
-  knex = k;
+  if (v.success && interfaces && interfaces.onRemove) {
+    interfaces.onRemove(v.agenda);
+  }
 
-  schemas = config.schemas;
-
-  interfaces = config.interfaces;
+  return {
+    success: v.success,
+  };
 }
 
-module.exports = Object.assign(
-  (identifiers, cb) => {
-    new Promise((rs) =>
-      rs({
-        identifiers: sUtils.identifiers.clean(identifiers),
-        agenda: null,
-        success: null,
-      }))
-      .then(sUtils.identifiers.check)
-
-      .then(_get)
-
-      .then(_before)
-
-      .then(_doRemove)
-
-      .then((v) => {
-        if (v.success && interfaces && interfaces.onRemove) {
-          interfaces.onRemove(v.agenda);
-        }
-
-        cb(null, {
-          success: v.success,
-        });
-      }, cb);
-  },
-  { init },
-);
+export default remove;

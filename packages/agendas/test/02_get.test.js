@@ -1,12 +1,17 @@
-'use strict';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
+import _ from 'lodash';
+import Files from '@openagenda/files';
+import testConfig from '../testconfig.js';
+
+import Agendas from '../service/index.js';
+import loadFixtures from './fixtures/load.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 process.env.NODE_ENV = 'test';
-
-const _ = require('lodash');
-const Files = require('@openagenda/files');
-const svc = require('../service/index');
-const { service: config, dependencies: dConfig } = require('../testconfig');
-const loadFixtures = require('./fixtures/load');
+const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): get', () => {
   beforeAll(
@@ -26,8 +31,10 @@ describe('agendas - functional (server): get', () => {
     }),
   );
 
+  let svc;
+
   beforeAll(() => {
-    svc.init({
+    svc = Agendas({
       ...config,
       Files: Files(dConfig.files),
     });

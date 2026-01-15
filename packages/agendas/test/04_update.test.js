@@ -1,14 +1,20 @@
-'use strict';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
+import IORedis from 'ioredis';
+import Files from '@openagenda/files';
+import testConfig from '../testconfig.js';
 
-const IORedis = require('ioredis');
-const Files = require('@openagenda/files');
-const { service: config, dependencies: dConfig } = require('../testconfig');
+import Agendas from '../service/index.js';
+import loadFixtures from './fixtures/load.js';
 
-const svc = require('../service/index');
-const loadFixtures = require('./fixtures/load');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): set (update)', () => {
   let redisClient;
+  let svc;
 
   beforeAll(
     loadFixtures.bind(null, {
@@ -34,19 +40,21 @@ describe('agendas - functional (server): set (update)', () => {
     await redisClient.del('agendaSlugUnicity:lock');
   });
 
-  beforeAll(() =>
-    svc.init({
+  beforeAll(() => {
+    svc = Agendas({
       ...config,
       Files: Files(dConfig.files),
       redis: redisClient,
-    }));
+    });
+  });
 
-  afterEach(() =>
-    svc.init({
+  afterEach(() => {
+    svc = Agendas({
       ...config,
       Files: Files(dConfig.files),
       redis: redisClient,
-    }));
+    });
+  });
 
   afterAll(async () => {
     await redisClient.quit();
@@ -287,57 +295,43 @@ describe('agendas - functional (server): set (update)', () => {
     expect(agenda.settings.locations).not.toBeUndefined();
   });
 
-  it('onUpdate callbacks with agenda data before and after update', () =>
-    new Promise((rs) => {
-      svc.init({
-        ...config,
-        Files: Files(dConfig.files),
-        redis: redisClient,
-        interfaces: {
-          onUpdate: (before, after) => {
-            expect(before.settings.contribution.useFields).toBe(false);
-            expect(after.settings.contribution.useFields).toBe(true);
-
-            rs();
-          },
+  it('onUpdate callbacks with agenda data before and after update', async () => {
+    svc = Agendas({
+      ...config,
+      Files: Files(dConfig.files),
+      redis: redisClient,
+      interfaces: {
+        onUpdate: (before, after) => {
+          expect(before.settings.contribution.useFields).toBe(false);
+          expect(after.settings.contribution.useFields).toBe(true);
         },
-      });
+      },
+    });
 
-      svc.set(
-        4830,
-        {
-          settings: {
-            contribution: {
-              useFields: true,
-            },
-          },
+    await svc.set(4830, {
+      settings: {
+        contribution: {
+          useFields: true,
         },
-        () => {},
-      );
-    }));
+      },
+    });
+  });
 
-  it('onUpdate callbacks with agenda data that includes internal fields', () =>
-    new Promise((rs) => {
-      svc.init({
-        ...config,
-        Files: Files(dConfig.files),
-        redis: redisClient,
-        interfaces: {
-          onUpdate: (before, after) => {
-            expect(before.id).toBe(4830);
-            expect(after.id).toBe(4830);
-
-            rs();
-          },
+  it('onUpdate callbacks with agenda data that includes internal fields', async () => {
+    svc = Agendas({
+      ...config,
+      Files: Files(dConfig.files),
+      redis: redisClient,
+      interfaces: {
+        onUpdate: (before, after) => {
+          expect(before.id).toBe(4830);
+          expect(after.id).toBe(4830);
         },
-      });
+      },
+    });
 
-      svc.set(
-        4830,
-        {
-          title: 'Blaaargh',
-        },
-        () => {},
-      );
-    }));
+    await svc.set(4830, {
+      title: 'Blaaargh',
+    });
+  });
 });

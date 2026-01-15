@@ -1,6 +1,9 @@
-'use strict';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
+import fixtures from '@openagenda/fixtures';
 
-const fixtures = require('@openagenda/fixtures');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 let config;
 
@@ -29,10 +32,10 @@ function build(files, options, cb) {
   );
 }
 
-module.exports = build;
+export default build;
 
-module.exports.init = (c) => {
+export function init(c) {
   config = c;
 
   fixtures.init({ mysql: config.mysql });
-};
+}

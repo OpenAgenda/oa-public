@@ -1,8 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import fields from './index.js';
 
-const _ = require('lodash');
-
-module.exports = require('.')
+export default fields
   .find((f) => f.field === 'credentials')
   .fields.reduce(
     (credentials, field) => ({

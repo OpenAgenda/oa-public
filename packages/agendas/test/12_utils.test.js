@@ -1,6 +1,15 @@
-'use strict';
+import Files from '@openagenda/files';
+import Agendas from '../service/index.js';
+import testConfig from '../testconfig.js';
 
-const { utils } = require('../service');
+const { service: config, dependencies: dConfig } = testConfig;
+
+const svc = Agendas({
+  ...config,
+  Files: Files(dConfig.files),
+});
+
+const { utils } = svc;
 
 describe('agendas - utils', () => {
   describe('filterByAccess', () => {

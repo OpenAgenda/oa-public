@@ -1,7 +1,5 @@
-'use strict';
-
-const validate = require('../service/validate');
-const publicValidate = require('../service/validate/public');
+import validate from '../service/validate/index.js';
+import publicValidate from '../service/validate/public.js';
 
 describe('agendas - unit (server): validate', () => {
   describe('public validator', () => {

@@ -1,11 +1,9 @@
-'use strict';
-
-const VError = require('@openagenda/verror');
+import VError from '@openagenda/verror';
 
 const normalizeRule = (rule) =>
   (typeof rule === 'string' ? { db: rule, obj: rule } : rule);
 
-module.exports = (map) => {
+export default (map) => {
   const toObj = (entry, ignoreParseError = true) =>
     map.reduce((acc, currentRule) => {
       const rule = normalizeRule(currentRule);
