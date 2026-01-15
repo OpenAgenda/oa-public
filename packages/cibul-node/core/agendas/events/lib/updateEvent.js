@@ -58,20 +58,26 @@ export default async function updateEvent(
 
     log('updated event %s', event.uid);
   } catch (e) {
-    const error = e.toString() === 'ValidationError: Invalid data'
-      ? new BadRequest(
+    let error = e;
+    if (e.toString() === 'ValidationError: Invalid data') {
+      error = new BadRequest(
         {
           info: { errors: formatEventErrors(e.detail, userLang) },
         },
         'invalid data',
-      )
-      : e;
-
-    log('error', 'failed to update event', {
-      agendaUid,
-      eventUid,
-      error,
-    });
+      );
+      log.warn('failed to update event', {
+        agendaUid,
+        eventUid,
+        error,
+      });
+    } else {
+      log.error('failed to update event', {
+        agendaUid,
+        eventUid,
+        error,
+      });
+    }
     throw error;
   }
 }

@@ -3,22 +3,26 @@ import logs from '@openagenda/logs';
 const log = logs('services/eventSearch/handleError');
 
 export default (err, req, res, next) => {
-  log('error', err);
   if (err?.name === 'NotAuthenticated') {
-    return res.status(err.code).json({
+    log.warn(err);
+    return res.status(err.statusCode).json({
       message: err.message,
     });
   }
   if (err?.name === 'NotFound') {
-    return res.status(err.code).send(null);
+    log.warn(err);
+    return res.status(err.statusCode).send(null);
   }
 
   if (err?.name === 'BadRequest') {
-    return res.status(err.code).json({
+    log.warn(err);
+    return res.status(err.statusCode).json({
       error: err.info,
       requested: req.query.aggregations,
     });
   }
+
+  log.error(err);
 
   if (err) {
     return res.status(500).send();

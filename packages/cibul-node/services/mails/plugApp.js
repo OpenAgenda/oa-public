@@ -29,7 +29,7 @@ export default function plugApp(app) {
           .parse(token)
           .catch((e) => {
             const error = new BadRequest(e, 'Malformed JWT token');
-            log.error(error);
+            log.warn(error);
             throw error;
           });
 
