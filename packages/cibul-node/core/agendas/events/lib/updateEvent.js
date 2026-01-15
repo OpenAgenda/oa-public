@@ -62,7 +62,7 @@ export default async function updateEvent(
     if (e.toString() === 'ValidationError: Invalid data') {
       error = new BadRequest(
         {
-          info: { errors: formatEventErrors(e.detail, userLang) },
+          info: { errors: formatEventErrors(e.info.errors, userLang) },
         },
         'invalid data',
       );

@@ -1,4 +1,4 @@
-import { VError } from '@openagenda/verror';
+import { BadRequest, Forbidden, GeneralError } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 
 const log = logs('services/registrations/utils/passCulture/listBookings');
@@ -42,9 +42,7 @@ export default async function listBookings(
       if (!event) missingParams.push('event');
       if (!actingUserUid) missingParams.push('actingUserUid');
 
-      throw new VError({
-        name: 'BadRequestError',
-        statusCode: 400,
+      throw new BadRequest({
         message: 'Missing required parameters',
         info: {
           missingParams,
@@ -57,9 +55,7 @@ export default async function listBookings(
 
     // Check if agenda has registration settings
     if (!agenda.settings?.registration) {
-      throw new VError({
-        name: 'BadRequestError',
-        statusCode: 400,
+      throw new BadRequest({
         message: 'No pass configuration for this agenda',
         info: { agenda: agenda.uid, event: event.uid, actingUserUid },
       });
@@ -74,9 +70,7 @@ export default async function listBookings(
     const passId = passData?.[0]?.response?.passId;
 
     if (!passId) {
-      throw new VError({
-        name: 'BadRequestError',
-        statusCode: 400,
+      throw new BadRequest({
         message: 'No pass data linked to this event',
         info: { agenda: agenda.uid, event: event.uid, actingUserUid },
       });
@@ -93,19 +87,15 @@ export default async function listBookings(
           userUid: actingUserUid,
         });
     } catch (error) {
-      throw new VError({
+      throw new GeneralError({
         cause: error,
-        name: 'InternalServerError',
-        statusCode: 500,
         message: 'Failed to get user context',
         info: { agenda: agenda.uid, event: event.uid, actingUserUid },
       });
     }
 
     if (!context.me.authorizations.canEditEvent) {
-      throw new VError({
-        name: 'ForbiddenError',
-        statusCode: 403,
+      throw new Forbidden({
         message: 'Not authorized to access this information',
         info: { agenda: agenda.uid, event: event.uid, actingUserUid },
       });
@@ -123,19 +113,15 @@ export default async function listBookings(
         detailed: true,
       });
     } catch (error) {
-      throw new VError({
+      throw new GeneralError({
         cause: error,
-        name: 'InternalServerError',
-        statusCode: 500,
         message: 'Failed to fetch bookings from passCulture service',
         info: { agenda: agenda.uid, event: event.uid, actingUserUid, passId },
       });
     }
 
     if (!bookings || !Array.isArray(bookings)) {
-      throw new VError({
-        name: 'InternalServerError',
-        statusCode: 500,
+      throw new GeneralError({
         message: 'Invalid response from passCulture service',
         info: { agenda: agenda.uid, event: event.uid, actingUserUid, passId },
       });

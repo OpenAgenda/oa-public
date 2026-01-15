@@ -65,7 +65,7 @@ async function extractLocationFromData(
         },
       )
       .catch((e) => {
-        if (!['BadRequest', 'BadRequestError'].includes(e.name)) {
+        if (e.name !== 'BadRequest') {
           throw e;
         }
       })

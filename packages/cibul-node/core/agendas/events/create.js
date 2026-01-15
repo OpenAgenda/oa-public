@@ -169,7 +169,7 @@ export default async (core, agendaUid, data, options = {}) => {
       const error = e.toString() === 'ValidationError: Invalid data'
         ? new BadRequest(
           {
-            info: { errors: formatEventErrors(e.detail, userLang) },
+            info: { errors: formatEventErrors(e.info.errors, userLang) },
           },
           'invalid data',
         )
