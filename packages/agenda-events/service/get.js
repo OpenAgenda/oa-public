@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import { NotFound } from '@openagenda/verror';
-import NotFoundError from '@openagenda/utils/errors/NotFoundError.js';
 
 import validate from '../iso/validate.js';
 import * as utils from './lib/utils.js';
@@ -63,7 +62,12 @@ export default async function get(service, agendaUid, eventUid, options = {}) {
   }
 
   if (!ae) {
-    throw new NotFoundError('agendaEvent', [agendaUid, eventUid].join('.'));
+    throw new NotFound({
+      info: {
+        objectName: 'agendaEvent',
+        identifier: `${agendaUid}.${eventUid}`,
+      },
+    });
   }
 
   if (decorate.includes('member') && config.interfaces.getMembers) {

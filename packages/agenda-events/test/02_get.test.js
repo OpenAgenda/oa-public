@@ -169,7 +169,7 @@ describe('agendaEvents - 02 - functional (server): get', () => {
     } catch (e) {
       error = e;
     }
-    expect(error.name).toBe('NotFoundError');
+    expect(error.name).toBe('NotFound');
   });
 
   it('an item contains agenda & event references, state, featured bool and custom data', async () => {
