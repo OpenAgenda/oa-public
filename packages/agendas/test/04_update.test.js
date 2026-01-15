@@ -1,5 +1,6 @@
 'use strict';
 
+const IORedis = require('ioredis');
 const Files = require('@openagenda/files');
 const { service: config, dependencies: dConfig } = require('../testconfig');
 
@@ -7,6 +8,8 @@ const svc = require('../service/index');
 const loadFixtures = require('./fixtures/load');
 
 describe('agendas - functional (server): set (update)', () => {
+  let redisClient;
+
   beforeAll(
     loadFixtures.bind(null, {
       mysql: config.mysql,
@@ -24,17 +27,30 @@ describe('agendas - functional (server): set (update)', () => {
     }),
   );
 
+  beforeAll(async () => {
+    redisClient = new IORedis(dConfig.redis);
+
+    await redisClient.del('agendaSlugUnicity');
+    await redisClient.del('agendaSlugUnicity:lock');
+  });
+
   beforeAll(() =>
     svc.init({
       ...config,
       Files: Files(dConfig.files),
+      redis: redisClient,
     }));
 
   afterEach(() =>
     svc.init({
       ...config,
       Files: Files(dConfig.files),
+      redis: redisClient,
     }));
+
+  afterAll(async () => {
+    await redisClient.quit();
+  });
 
   it('set returns a promise', async () => {
     const { agenda } = await svc.set(4875, {
@@ -276,6 +292,7 @@ describe('agendas - functional (server): set (update)', () => {
       svc.init({
         ...config,
         Files: Files(dConfig.files),
+        redis: redisClient,
         interfaces: {
           onUpdate: (before, after) => {
             expect(before.settings.contribution.useFields).toBe(false);
@@ -304,6 +321,7 @@ describe('agendas - functional (server): set (update)', () => {
       svc.init({
         ...config,
         Files: Files(dConfig.files),
+        redis: redisClient,
         interfaces: {
           onUpdate: (before, after) => {
             expect(before.id).toBe(4830);

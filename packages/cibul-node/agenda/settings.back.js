@@ -15,7 +15,12 @@ export default (app) => {
   app.post(
     '/agendas/slugs/available',
     sessions.mw.loadOrRedirect(),
-    mw.slugs.available,
+    (req, res, next) => {
+      agendas
+        .isSlugAvailable(req.body.slug)
+        .then((available) => res.json({ available }))
+        .catch(next);
+    },
   );
 
   app.get(

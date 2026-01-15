@@ -12,7 +12,7 @@ const choice = require('@openagenda/validators/choice');
 const email = require('@openagenda/validators/email');
 const ip = require('@openagenda/validators/ip');
 const pass = require('@openagenda/validators/pass');
-const slug = require('../slugs/validator');
+const slug = require('./slug');
 const fieldsByAccess = require('./fields/flattenedByFieldAccess');
 
 schema.register({

@@ -95,7 +95,7 @@ describe('core - functional (server): core.agendas().events.create api authentic
         {
           field: 'custom_description',
           code: 'unauthorized',
-          message: 'Not authorized to edit this field',
+          message: 'not authorized to edit this field',
           step: 'validation',
         },
       ]);

@@ -269,7 +269,7 @@ describe('opencage', () => {
           },
         );
 
-        expect(result.adminLevel4).toBe('Île de Hong Kong');
+        expect(result.adminLevel4).toBe('Hong Kong');
       });
     });
 
