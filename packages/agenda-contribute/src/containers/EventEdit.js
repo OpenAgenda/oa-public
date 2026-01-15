@@ -47,12 +47,13 @@ export default function EventEdit({ agenda, history }) {
 
   const dispatch = useDispatch();
 
+  const { config, isLoading, agendaContext, schema } = useEventFormConfig(agenda);
+
   const { eventIsLoading, event, eventContext } = useEvent(
     agenda.uid,
     eventUid,
+    { schema },
   );
-
-  const { config, isLoading, agendaContext, schema } = useEventFormConfig(agenda);
 
   useEffect(() => {
     if (!eventIsLoading && event.draft) {
