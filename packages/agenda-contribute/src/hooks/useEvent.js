@@ -1,13 +1,12 @@
 import { useQuery } from 'react-query';
 import { useSelector } from 'react-redux';
-import omit from 'lodash/omit.js';
 import useEventContext from './useEventContext.js';
-import cleanEditableData from './useCleanEditableData.js';
+import cleanFetchedEvent from './cleanFetchedEvent.js';
 
 const validateStatus = (status) => (status >= 200 && status < 300) || 404;
 
 export default function useEvent(agendaUid, eventUid, options = {}) {
-  const { omitState = false } = options;
+  const { omitState = false, schema = null } = options;
 
   const res = useSelector(
     (state) =>
@@ -27,8 +26,7 @@ export default function useEvent(agendaUid, eventUid, options = {}) {
           }
           return response.json();
         })
-        .then((data) =>
-          (data.event instanceof Object ? cleanEditableData(data.event) : null)),
+        .then((data) => data.event),
     {
       staleTime: 1000,
     },
@@ -54,7 +52,11 @@ export default function useEvent(agendaUid, eventUid, options = {}) {
 
   return {
     eventIsLoading: false,
-    event: omitState ? omit(event, ['state']) : event,
+    event: cleanFetchedEvent(event, {
+      schema,
+      omitState,
+      context: eventContext,
+    }),
     eventContext,
   };
 }
