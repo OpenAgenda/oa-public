@@ -27,22 +27,29 @@ const renderDialog = _.template(
 );
 
 function _showJSONIfRequested(req, res, next) {
-  if (req.accepts(['html', 'json']) === 'json') {
-    return res.json({
-      ..._.pick(req.agenda, [
-        'uid',
-        'title',
-        'description',
-        'slug',
-        'url',
-        'official',
-      ]),
-      image: req.agenda.image
-        ? config.s3.mainBucketPath + req.agenda.image
-        : null,
+  if (req.accepts(['html', 'json']) !== 'json') {
+    return next();
+  }
+
+  if (!req.agenda) {
+    return res.status(400).json({
+      error: 'agenda not found',
     });
   }
-  next();
+
+  return res.json({
+    ..._.pick(req.agenda, [
+      'uid',
+      'title',
+      'description',
+      'slug',
+      'url',
+      'official',
+    ]),
+    image: req.agenda.image
+      ? config.s3.mainBucketPath + req.agenda.image
+      : null,
+  });
 }
 
 function redirect(req, res, next) {
