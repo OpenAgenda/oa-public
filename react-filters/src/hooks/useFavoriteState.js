@@ -1,10 +1,8 @@
 import { useCallback } from 'react';
-import { createLocalStorageStateHook } from 'use-local-storage-state';
-
-const useFavoriteLocalStorageState = createLocalStorageStateHook('favorite-events');
+import useLocalStorageState from 'use-local-storage-state';
 
 export default function useFavoriteState(agendaUid) {
-  const [value, setValue] = useFavoriteLocalStorageState();
+  const [value, setValue] = useLocalStorageState('favorite-events');
 
   const setAgendaValue = useCallback(
     (fnOrValue) => {
