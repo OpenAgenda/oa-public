@@ -92,6 +92,10 @@ export default async function addImage(doc, parentCursor, params) {
 
   const buffer = await urlToBuffer(`${base}${filename}`);
 
+  if (!buffer) {
+    return { height: 0, width: 0 };
+  }
+
   const adjustedSize = await getAdjustedSize(buffer, {
     size,
     firstOfColumn,
