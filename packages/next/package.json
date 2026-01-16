@@ -96,8 +96,8 @@
     "swr": "^2.1.1",
     "tlds": "^1.247.0",
     "universal-cookie": "^7.2.0",
-    "use-local-storage-state": "^18.1.2",
-    "use-session-storage-state": "^18.2.0"
+    "use-local-storage-state": "^19.5.0",
+    "use-session-storage-state": "^19.0.1"
   },
   "devDependencies": {
     "@aws-sdk/client-s3": "^3.705.0",
