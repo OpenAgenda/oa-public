@@ -19,7 +19,7 @@ export default (core, agendaOrUid) =>
         includeImagePath: true,
         agendaUid: agenda.uid,
         context: {
-          userUid: options.userUid,
+          userUid: options.context?.userUid || options.userUid,
           agendaUid: agenda.uid,
           setUid: agenda.locationSetUid,
         },

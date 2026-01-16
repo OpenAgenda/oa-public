@@ -37,17 +37,13 @@ export default (config, core, services, tasksList) => {
 
     services.supervisor.elasticsearch.task();
 
-    tfy(
-      services.agendaLocations.task.bind(null, {
-        duplicationDetection: config.locationDuplicationDetection,
-        reset: false,
-      }),
-      {
-        period: 'weekly',
-        day: 'sunday',
-        time: '15:00',
-      },
-    );
+    tfy(services.agendaLocations.task.detectDuplicateCandidates, {
+      period: 'weekly',
+      day: 'sunday',
+      time: '15:00',
+    });
+
+    services.agendaLocations.task();
 
     // services.eventSearch.rebuild();
     // services.eventSearch.transverse.rebuild();

@@ -95,23 +95,29 @@ export async function init(config, services) {
 
       log('task stopped');
     },
-    task: async (options = {}) => {
-      const { duplicationDetection, reset = false } = options;
+    task: Object.assign(
+      async (options = {}) => {
+        const { reset = false } = options;
 
-      log('task');
+        log('task');
 
-      if (duplicationDetection?.enabled) {
-        detectDuplicateCandidates(services, duplicationDetection);
-      }
-      // clearAllDuplicateCandidates(services);
+        // clearAllDuplicateCandidates(services);
 
-      if (reset) {
-        await queue.drain();
-      }
+        if (reset) {
+          await queue.drain();
+        }
 
-      if (!worker.isRunning()) {
-        worker.run();
-      }
-    },
+        if (!worker.isRunning()) {
+          worker.run();
+        }
+      },
+      {
+        detectDuplicateCandidates: detectDuplicateCandidates.bind(
+          null,
+          services,
+          config.locationDuplicationDetection,
+        ),
+      },
+    ),
   });
 }

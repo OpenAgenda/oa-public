@@ -9,7 +9,7 @@ export default function cleanFetchedEvent(event, options = {}) {
     omitList.push('state');
   }
 
-  (schema.fields ?? [])
+  (schema?.fields ?? [])
     .filter((f) =>
       (f.write ? !f.write.includes(context.me.member?.role) : false))
     .forEach((f) => {
