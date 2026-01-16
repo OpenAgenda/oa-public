@@ -76,7 +76,7 @@ async function geocode(interfaces, data, current) {
     return results[0];
   } catch (e) {
     if (e.name === 'BadRequest') throw e;
-    log.error(e);
+    log.warn(e);
     return {};
   }
 }
@@ -108,7 +108,7 @@ async function reverseGeocode(interfaces, data, current) {
     return results[0];
   } catch (e) {
     if (e.name === 'BadRequest') throw e;
-    log.error(e);
+    log.warn(e);
     return {};
   }
 }
