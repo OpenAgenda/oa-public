@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { useIntl } from 'react-intl';
 import {
@@ -83,22 +83,26 @@ function EventShow({ preload }: EventShowProps) {
   const { user } = useUser();
   const session = useSession();
 
-  const { event } = useEvent();
+  const { event, status } = useEvent();
   const { me, member } = useMember();
 
-  const languages = Object.keys(event.title);
+  const languages = useMemo(() => Object.keys(event?.title ?? {}), [event]);
 
   const searchParams = useSearchParams() as {
     cl?: string;
     sharemodal?: string;
   };
-  const contentLocale = getContentLocale(
-    languages,
-    searchParams.cl,
-    intl.locale,
+  const contentLocale = useMemo(
+    () => getContentLocale(languages, searchParams.cl, intl.locale),
+    [languages, intl.locale, searchParams.cl],
   );
 
   const [tabValue, setTabValue] = useState(() => contentLocale);
+
+  useEffect(() => {
+    setTabValue(contentLocale);
+  }, [contentLocale]);
+
   const handleTabsChange = (value) => {
     setTabValue(value);
 
@@ -149,7 +153,7 @@ function EventShow({ preload }: EventShowProps) {
   });
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  useNcEffect({ agendaUid: agenda.uid, eventUid: event.uid });
+  useNcEffect({ agendaUid: agenda.uid, eventUid: event?.uid });
 
   const isEventContributor = member && member.userUid === me?.member?.userUid;
 
@@ -159,6 +163,10 @@ function EventShow({ preload }: EventShowProps) {
   const isExtraLarge = useBreakpointValue({ base: false, xl: true });
 
   const { canEditEvent = false } = me?.authorizations ?? {};
+
+  if (status === 'FETCHING') {
+    return <>...</>;
+  }
 
   return (
     <>

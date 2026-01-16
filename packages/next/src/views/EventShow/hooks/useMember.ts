@@ -4,11 +4,13 @@ import useEvent from './useEvent';
 
 export default function useMember() {
   const agenda = useAgenda();
-  const { event } = useEvent();
+  const { event, status } = useEvent();
 
   const { data, ...rest } = useSWR(
-    `/api/me/agendas/${agenda.uid}/events/${event.uid}`,
-  ); // ?includes[]=me.member&includes[]=me.authorizations
+    status !== 'FETCHING'
+      ? `/api/me/agendas/${agenda.uid}/events/${event.uid}`
+      : null,
+  );
 
   return {
     me: data?.me,
