@@ -5,8 +5,6 @@ export default async function urlToBuffer(url, replacementImage) {
     const image = await ky.get(url.replace('dev', 'main')).arrayBuffer();
     return Buffer.from(image);
   } catch (error) {
-    console.error('Error fetching image:', error);
-
     return replacementImage;
   }
 }
