@@ -1,5 +1,7 @@
 {
   "next.components.ErrorDisplay.backToHome": "Tornar a l'acuèlh",
+  "next.components.ErrorDisplay.chunkError": "",
+  "next.components.ErrorDisplay.chunkErrorMsg": "",
   "next.components.ErrorDisplay.contactSupport": "Contactar l'assisténcia",
   "next.components.ErrorDisplay.errorTrackingId": "Identificant de seguit de las errors",
   "next.components.ErrorDisplay.internalError": "Error intèrna",

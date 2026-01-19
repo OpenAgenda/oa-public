@@ -1,5 +1,7 @@
 {
   "next.components.ErrorDisplay.backToHome": "",
+  "next.components.ErrorDisplay.chunkError": "",
+  "next.components.ErrorDisplay.chunkErrorMsg": "",
   "next.components.ErrorDisplay.contactSupport": "",
   "next.components.ErrorDisplay.errorTrackingId": "",
   "next.components.ErrorDisplay.internalError": "",
