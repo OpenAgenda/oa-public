@@ -522,7 +522,12 @@ describe('agenda-locations - functional - list', () => {
     it('if detailed option is provided, all public fields are given at the exception of the siret which is not provided when null', () => {
       expect(Object.keys(items[0])).toStrictEqual(
         fields
-          .filter((fi) => fi.read.includes('public') && fi.field !== 'siret')
+          .filter(
+            (fi) =>
+              fi.read.includes('public')
+              && fi.field !== 'siret'
+              && fi.field !== 'deleted',
+          )
           .map((fi) => fi.field),
       );
     });

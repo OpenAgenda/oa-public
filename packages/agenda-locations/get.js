@@ -45,6 +45,24 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
       access: 'public',
     })
     : null;
+
+  if (location) {
+    if (location.deleted === 1) {
+      const deletedLocation = {
+        uid: location.uid,
+        deleted: location.deleted,
+      };
+      if (location.mergedIn !== null && location.mergedIn !== undefined) {
+        deletedLocation.mergedIn = location.mergedIn;
+      }
+      return deletedLocation;
+    }
+
+    if (deleted === false) {
+      delete location.deleted;
+    }
+  }
+
   if (returnMergeTarget) {
     return getMergedLocation(endpoints, identifiers, location, options);
   }

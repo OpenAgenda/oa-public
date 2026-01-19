@@ -590,4 +590,12 @@ module.exports = [
     read: ['internal', 'public'],
     write: ['internal'],
   },
+  {
+    field: 'deleted',
+    fieldType: 'boolean',
+    optional: false,
+    default: 0,
+    read: ['internal', 'public'],
+    write: ['internal'],
+  },
 ];
