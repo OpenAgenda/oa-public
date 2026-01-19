@@ -1,5 +1,7 @@
 {
   "next.components.ErrorDisplay.backToHome": "Volver al inicio",
+  "next.components.ErrorDisplay.chunkError": "",
+  "next.components.ErrorDisplay.chunkErrorMsg": "",
   "next.components.ErrorDisplay.contactSupport": "Contactar con el soporte",
   "next.components.ErrorDisplay.errorTrackingId": "Error del ID de seguimiento",
   "next.components.ErrorDisplay.internalError": "Error interno",

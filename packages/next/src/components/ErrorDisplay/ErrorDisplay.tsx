@@ -41,6 +41,23 @@ export function ErrorDisplay({
 
   const errorStack = error ? getFullStack(error) : null;
 
+  const isChunkLoadError = error?.message?.startsWith('Failed to load chunk');
+
+  if (isChunkLoadError) {
+    return (
+      <ErrorContainer>
+        <Text fontSize="2xl" fontWeight="bold">
+          {intl.formatMessage(messages.chunkError)}
+        </Text>
+        <Text textAlign="center" mt="4">
+          {intl.formatMessage(messages.chunkErrorMsg)}
+        </Text>
+
+        <ActionsComponent resetError={resetError} />
+      </ErrorContainer>
+    );
+  }
+
   return (
     <ErrorContainer>
       <Text fontSize="2xl" fontWeight="bold">
