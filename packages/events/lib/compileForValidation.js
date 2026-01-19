@@ -116,7 +116,7 @@ export default async function compileForValidation(
     try {
       compiled.image = await fetchImageAsStream(cleanURL, maxImageSize);
     } catch (error) {
-      log.error({
+      log.warn({
         message: 'failed to parse image URL',
         error,
       });
