@@ -776,6 +776,7 @@ export default (core, { useRouter = true } = {}) => {
             access: req.access,
             throwOnNotFound: req.method === 'HEAD',
             includeFields: req.method === 'HEAD' ? ['uid'] : [],
+            deleted: boolQuery(req.query.deleted, { nullable: true }),
           })
           .then(
             (location) =>
