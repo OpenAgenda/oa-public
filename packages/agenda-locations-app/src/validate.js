@@ -108,9 +108,12 @@ function validateImageCredits(value, otherValues = {}, options = {}) {
     })(value);
   }
 
-  return validators.text({ field: 'imageCredits', max: 255, optional: true })(
-    value,
-  );
+  return validators.text({
+    field: 'imageCredits',
+    max: 255,
+    optional: true,
+    rejectEmojis: true,
+  })(value);
 }
 
 function validateImageRights(value, otherValues = {}, options = {}) {
