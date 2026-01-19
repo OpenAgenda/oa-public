@@ -73,6 +73,9 @@ export function formatAdditionalFieldData({
   defaultLocale,
   dateFnsLocale,
 }) {
+  if (!event) {
+    return [];
+  }
   const additionalFields = schema.fields.filter(
     (f) =>
       !(

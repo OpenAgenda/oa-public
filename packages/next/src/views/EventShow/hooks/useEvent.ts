@@ -96,9 +96,11 @@ export default function useEvent() {
   const agenda = useAgenda();
   const { eventSlug } = router.query;
 
-  const { data, ...rest } = useSWRImmutable<{ success: boolean; event: Event }>(
+  const response = useSWRImmutable<{ success: boolean; event: Event }>(
     `/api/agendas/slug/${agenda.slug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`,
   );
 
-  return { event: data.event, ...rest };
+  const { data, ...rest } = response;
+
+  return { event: data?.event, ...rest };
 }

@@ -57,7 +57,7 @@ export default async (core, payload, clean, options = {}) => {
             userUid: actingUserUid,
             duplicateOrigin,
           },
-          decorate: ['sourceAgendas', 'user'],
+          decorate: ['sourceAgendas', 'user', 'member'],
         },
       );
 
