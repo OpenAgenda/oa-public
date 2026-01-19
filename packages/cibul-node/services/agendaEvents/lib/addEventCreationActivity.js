@@ -7,7 +7,7 @@ const log = logs('agendaEvents/addEventCreationActivity');
 export default async function addEventCreationActivity(
   services,
   eventFeed,
-  { ae, agenda, event, user },
+  { _ae, agenda, event, user },
   context,
 ) {
   log('processing');
@@ -50,7 +50,7 @@ export default async function addEventCreationActivity(
       target: `agenda:${agenda.uid}`,
       store: {
         labels: {
-          actor: getMemberName(ae.member, user),
+          actor: getMemberName(context.member, user),
           object: event.title,
           target: agenda.title,
           duplicateOriginAgenda: duplicateOriginAgenda.title,
@@ -67,7 +67,7 @@ export default async function addEventCreationActivity(
       target: `agenda:${agenda.uid}`,
       store: {
         labels: {
-          actor: getMemberName(ae.member, user),
+          actor: getMemberName(context.member, user),
           object: event.title,
           target: agenda.title,
         },
