@@ -152,6 +152,10 @@ describe('text validator', () => {
       it('handles mixed content', () => {
         expect(validate('𝗧𝗲𝘀𝘁𝗶𝗻𝗴 𝟭𝟮𝟯')).toBe('Testing 123');
       });
+
+      it('handles mixed content', () => {
+        expect(validate('©️')).toBe('©');
+      });
   
       it('preserves regular characters', () => {
         expect(validate('Regular text 123')).toBe('Regular text 123');
