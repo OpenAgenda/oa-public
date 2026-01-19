@@ -64,7 +64,7 @@ module.exports = [
   {
     field: 'address',
     optional: false,
-    fieldType: 'text',
+    fieldType: 'address',
     read: [
       'internal',
       'public',
