@@ -429,10 +429,10 @@ describe('timings', () => {
       expect(validate(null)).toEqual(defaultValue);
     });
 
-    it('throws error if provided items count exceeds specified max', () => {
+    it('throws error if provided items count exceeds specified low-key max', () => {
       const values = [];
       const cursor = new Date();
-      for (let i = 0; i <= 800; i++) {
+      for (let i = 0; i <= 2000; i++) {
         cursor.setHours(8);
         const begin = new Date(cursor);
         cursor.setHours(18);
