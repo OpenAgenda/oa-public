@@ -153,6 +153,11 @@ const config = async () => {
               locale: false,
             },
             {
+              source: '/:locale',
+              destination: `/:locale/strapi/home`,
+              locale: false,
+            },
+            {
               // fallback for /, will redirect to good locale
               source: '/',
               destination: `/strapi/accueil`,
