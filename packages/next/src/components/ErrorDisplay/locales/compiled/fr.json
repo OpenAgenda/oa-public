@@ -41,6 +41,18 @@
       "value": "Si le problème persiste, veuillez contacter le support."
     }
   ],
+  "next.components.ErrorDisplay.pageNotFound": [
+    {
+      "type": 0,
+      "value": "Page introuvable"
+    }
+  ],
+  "next.components.ErrorDisplay.pageNotFoundMsg": [
+    {
+      "type": 0,
+      "value": "La page demandée n'existe pas ou plus."
+    }
+  ],
   "next.components.ErrorDisplay.retry": [
     {
       "type": 0,

@@ -34,4 +34,13 @@ export default defineMessages({
     defaultMessage:
       'The app could not be loaded due to network issues. Check your internet connection and try again. If the issue persists, contact support.',
   },
+  pageNotFound: {
+    id: 'next.components.ErrorDisplay.pageNotFound',
+    defaultMessage: 'Page not found',
+  },
+  pageNotFoundMsg: {
+    id: 'next.components.ErrorDisplay.pageNotFoundMsg',
+    defaultMessage:
+      'The page you requested doesn’t exist or is no longer available.',
+  },
 });

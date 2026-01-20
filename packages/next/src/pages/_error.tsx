@@ -21,12 +21,12 @@ import { NextPageContext } from 'next';
 import { captureUnderscoreErrorException } from '@sentry/nextjs';
 import { ErrorDisplay } from 'components/ErrorDisplay';
 
-function CustomErrorComponent(_props: ErrorProps) {
+function CustomErrorComponent({ statusCode }: ErrorProps) {
   // If you're using a Nextjs version prior to 12.2.1, uncomment this to
   // compensate for https://github.com/vercel/next.js/issues/8592
   // Sentry.captureUnderscoreErrorException(props);
 
-  return <ErrorDisplay />;
+  return <ErrorDisplay statusCode={statusCode} />;
 }
 
 CustomErrorComponent.getInitialProps = async (contextData: NextPageContext) => {

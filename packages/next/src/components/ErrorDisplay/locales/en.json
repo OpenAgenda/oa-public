@@ -6,5 +6,7 @@
   "next.components.ErrorDisplay.errorTrackingId": "Error tracking id",
   "next.components.ErrorDisplay.internalError": "Internal error",
   "next.components.ErrorDisplay.internalErrorMsg": "If the problem persists, please contact support.",
+  "next.components.ErrorDisplay.pageNotFound": "Page not found",
+  "next.components.ErrorDisplay.pageNotFoundMsg": "The page you requested doesn’t exist or is no longer available.",
   "next.components.ErrorDisplay.retry": "Retry"
 }

@@ -1,5 +1,5 @@
 import { useIntl } from 'react-intl';
-import { chakra, Flex, Text } from '@openagenda/uikit';
+import { Button, chakra, Flex, Link, Text } from '@openagenda/uikit';
 import ErrorContainer from './ErrorContainer';
 import messages from './messages';
 import ErrorActions from './ErrorActions';
@@ -14,6 +14,7 @@ export interface JsonError {
 }
 
 interface ErrorProps {
+  statusCode?: number;
   error?: Error | JsonError;
   errorTrackingId?: string;
   resetError?: () => void;
@@ -32,6 +33,7 @@ function getFullStack(error) {
 }
 
 export function ErrorDisplay({
+  statusCode,
   error,
   errorTrackingId,
   resetError,
@@ -54,6 +56,25 @@ export function ErrorDisplay({
         </Text>
 
         <ActionsComponent resetError={resetError} />
+      </ErrorContainer>
+    );
+  }
+
+  if (statusCode === 404) {
+    return (
+      <ErrorContainer>
+        <Text fontSize="2xl" fontWeight="bold">
+          {intl.formatMessage(messages.pageNotFound)}
+        </Text>
+        <Text textAlign="center" mt="4">
+          {intl.formatMessage(messages.pageNotFoundMsg)}
+        </Text>
+
+        <Button asChild variant="outline" mt="8">
+          <Link unstyled href="/">
+            {intl.formatMessage(messages.backToHome)}
+          </Link>
+        </Button>
       </ErrorContainer>
     );
   }
