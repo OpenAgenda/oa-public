@@ -1,6 +1,11 @@
 {
+  "changeEmailSettings": "Change my email sending settings",
+  "part1": "Hello,\n\nWe see that your account has been inactive for more than 7 days.\n\n\uD83D\uDC4D Need a helping hand?\n\n**Are you organizing events and would like to create an agenda?**\nLog in to your account and create an agenda dedicated to your organization.\nDefine the contribution settings for your agenda (**who** can publish events and whether you would like to enable **moderation** for event proposals).\nDon’t worry, you can always come back and change your settings if you change your mind.\n\nFind all the useful information on [our website](https://openagenda.com/fr/p/offres-organisateurs).",
+  "part2": "**Would you like to contribute to an existing agenda?**\nOpenAgenda is **used by many organizations** to list and share event announcements from a wide range of organizers. **Identify the agenda of the initiative you would like to contribute to**:",
+  "part3": "**Not sure?** Check out our documentation articles or contact our support team.",
+  "createButton": "Create an agenda",
+  "contributeButton": "Contribute to an agenda",
+  "docButton": "View documentation",
   "subject": "We miss you on OpenAgenda!",
-  "content": "Hello dear user,\n\nWe see that your account has been inactive for more than 7 days, as you have not created an agenda or contributed an event since it was created. Do you need a helping hand?\n\n**Are you organizing events and would like to create an agenda?**\nLog in to your account and [create an agenda](https://openagenda.com/agendas/new) dedicated to your organization.\nSet up the contribution modes for your agenda (who can publish events and whether you would like to enable **moderation** for event submissions). \nDon’t worry, you can always come back and change your settings if you change your mind.\n\nFind all the useful information on [our website](https://openagenda.com/fr/p/offres-organisateurs).\n\n**Would you like to contribute to an existing agenda?**\nOpenAgenda is **used by many organizations** to list and share event announcements from a wide range of organizers. **Identify the agenda of the initiative you would like to contribute to** using the [agenda search](https://openagenda.com/agendas).",
-  "unsubscribe": "Stop receiving these emails",
-  "changeEmailSettings": "Change my email sending settings"
+  "unsubscribe": "Stop receiving these emails"
 }

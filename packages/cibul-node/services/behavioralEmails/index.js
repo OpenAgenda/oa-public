@@ -4,7 +4,7 @@ import isInactiveUser from './lib/isInactiveUser.js';
 const log = logs('services/behavioralEmails');
 
 export async function init(config, services) {
-  const { bull /* , users, mails */ } = services;
+  const { bull, users, mails } = services;
 
   const queue = new bull.Queue('behavioralEmails', {
     prefix: '{behavioralEmails}',
@@ -15,30 +15,41 @@ export async function init(config, services) {
     async (job) => {
       switch (job.name) {
         case 'inactiveUser': {
-          const { userUid } = job.data;
-          if (!await isInactiveUser(services, userUid)) {
-            log.info('User is active in the last 7d', { userUid });
-            return;
+          try {
+            const { userUid } = job.data;
+            const user = await users.findOne({
+              query: {
+                uid: userUid,
+                isActivated: true,
+                isBlacklisted: false,
+              },
+            });
+
+            if (!user || !await isInactiveUser(services, userUid)) {
+              log.info('User is active in the last 7d', { userUid });
+              return;
+            }
+
+            log.info('Send email to inactive user +7d', { userUid });
+
+            const lang = user.culture || 'fr';
+
+            await mails.send({
+              template: 'inactiveNewUser',
+              to: {
+                address: user.email,
+                unsubscriptions: [
+                  {
+                    rule: ['receive', 'behavioralEmails'],
+                    dataPath: 'unsubscribeLink',
+                  },
+                ],
+              },
+              lang,
+            });
+          } catch (e) {
+            log.error('Error on sending inactiveNewUser', e);
           }
-
-          log.info('Send email to inactive user +7d', { userUid });
-
-          // const user = await users.get(userUid);
-          // const lang = user.culture || 'fr';
-          //
-          // await mails.send({
-          //   template: 'inactiveNewUser',
-          //   to: {
-          //     address: user.email,
-          //     unsubscriptions: [
-          //       {
-          //         rule: ['receive', 'behavioralEmails'],
-          //         dataPath: 'unsubscribeLink',
-          //       },
-          //     ],
-          //   },
-          //   lang,
-          // });
 
           break;
         }
