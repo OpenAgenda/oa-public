@@ -55,7 +55,10 @@ export default (params = {}) =>
     }
 
     // relunctantly tolerate 2000 timings
-    if (params.max && timings.length > Math.max(params.max, 2000)) {
+    if (
+      params.max
+      && timings.length > (params.max === 800 ? 2000 : params.max)
+    ) {
       // eslint-disable-next-line no-throw-literal
       throw [
         {
