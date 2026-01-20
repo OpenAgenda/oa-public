@@ -94,6 +94,11 @@ const base = {
         type: 'pass',
         default: null,
       },
+      member: {
+        type: 'pass',
+        optional: true,
+        default: null,
+      },
     },
   },
 };
