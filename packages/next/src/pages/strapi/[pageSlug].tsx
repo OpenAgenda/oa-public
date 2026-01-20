@@ -100,25 +100,25 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
     STRAPI_FALLBACK_LOCALE,
   ).filter(isSupportedStrapiLocale);
 
-  // 1) Essayer de résoudre directement dans la locale canonique
+  // 1) Chercher si le slug existe dans la locale préférée (première de la chaîne)
+  const preferredLocale = strapiLocaleChain[0];
   let canonicalHit = await fetchPageBySlug(
     APIBase!,
     authToken!,
-    strapiLocaleChain[0],
+    preferredLocale,
     pageSlug,
   );
-  let documentId = canonicalHit?.documentId ?? null;
-  let usedStrapiLocale: StrapiLocale = strapiLocaleChain[0];
+  let usedStrapiLocale: StrapiLocale = preferredLocale;
 
-  // 2) Si pas trouvé (slug dans une autre langue), tenter de mapper via n’importe quelle langue
-  if (!documentId) {
-    documentId = await resolveDocumentIdFromAnyLocale(
+  // 2) Si le slug n'existe pas dans la locale préférée, chercher le documentId ailleurs
+  if (!canonicalHit) {
+    const documentId = await resolveDocumentIdFromAnyLocale(
       APIBase!,
       authToken!,
       pageSlug,
     );
     if (!documentId) {
-      // slug inconnu dans toutes les langues -> 404 (c'est ce que tu demandes)
+      // slug inconnu dans toutes les langues -> 404
       return { notFound: true };
     }
     for (const l of strapiLocaleChain) {
@@ -134,16 +134,18 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
         break;
       }
     }
-
-    // Si la page n’existe pas dans la locale canonique :
-    // - si locale supportée => 404 (tu veux 404 si la traduction n’existe pas)
-    // - si locale non supportée => on veut en, donc si même en n’existe pas => 404
-    if (!canonicalHit) return { notFound: true };
   }
 
-  // 3) Canonicaliser le slug : redirect uniquement si on a un slug canonique différent
+  // 3) Rediriger vers le slug canonique si différent (et locale supportée par Strapi)
+  if (!canonicalHit) return { notFound: true };
+
   const canonicalSlug = canonicalHit.slug;
-  if (canonicalSlug && canonicalSlug !== pageSlug) {
+  const needsSlugRedirect =
+    canonicalSlug &&
+    canonicalSlug !== pageSlug &&
+    isSupportedStrapiLocale(locale);
+
+  if (needsSlugRedirect) {
     const qs = resolvedUrl.includes('?')
       ? resolvedUrl.slice(resolvedUrl.indexOf('?'))
       : '';

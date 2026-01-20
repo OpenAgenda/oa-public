@@ -124,6 +124,7 @@ export const config = {
     '/embed/agendas/([^/]+)',
     '/embed/agendas/([^/]+)/events/([^/]+)',
     '/agendas',
+    '/p/([^/]+)',
     '/strapi/([^/]+)',
   ],
 };
