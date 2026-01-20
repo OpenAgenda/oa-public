@@ -7,6 +7,7 @@ import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
 import AccessModal from '../components/AccessModal.js';
 import ErrorModal from '../components/ErrorModal.js';
+import DeletedLocationModal from '../components/DeletedLocationModal.js';
 import LocationForm from '../components/form-components/LocationForm.js';
 import useRes from '../hooks/useRes.js';
 import useSettings from '../hooks/useSettings.js';
@@ -65,6 +66,7 @@ const UpdateForm = ({ detailedInfo = true }) => {
   const [errorModal, setErrorModal] = useState(false);
   const [pageSpin, setPageSpin] = useState(false);
   const [unfoundLocation, setUnfoundLocation] = useState(false);
+  const [deletedLocation, setDeletedLocation] = useState(null);
   const history = useHistory();
   const res = useRes(agenda);
   const { settings } = useSettings(agenda);
@@ -78,18 +80,28 @@ const UpdateForm = ({ detailedInfo = true }) => {
     || (historyLocation.search ? `${prefix}${historyLocation.search}` : null);
   const { isLoading, data: location } = useQuery(
     ['location', locationUid],
-    () =>
-      fetch(res.get.replace(':locationUid', locationUid))
+    () => {
+      const url = `${res.get.replace(':locationUid', locationUid)}${res.get.includes('?') ? '&' : '?'}deleted=null`;
+      return fetch(url)
         .then((response) => {
           if (!response.ok) {
             throw new Error(`Invalid status (${response.status})`);
           }
           return response.json();
         })
-        .then((data) => data.location)
+        .then((data) => {
+          const loc = data.location;
+          // Check if location is deleted
+          if (loc && loc.deleted === 1) {
+            setDeletedLocation(loc);
+            return null;
+          }
+          return loc;
+        })
         .catch((_err) => {
           setUnfoundLocation(true);
-        }),
+        });
+    },
     { cacheTime: 0 },
   );
   const intl = useIntl();
@@ -163,10 +175,17 @@ const UpdateForm = ({ detailedInfo = true }) => {
 
   return (
     <>
+      {deletedLocation ? (
+        <DeletedLocationModal
+          close={() => history.push(nq || prefix)}
+          mergedIn={deletedLocation.mergedIn}
+          prefix={prefix}
+        />
+      ) : null}
       {errorModal || unfoundLocation ? (
         <ErrorModal close={() => setErrorModal(false)} error={errorModal} />
       ) : null}
-      {!unfoundLocation ? (
+      {!unfoundLocation && !deletedLocation ? (
         <LocationForm
           Header={UpdateFormHeader({ nq, history })}
           showToggler

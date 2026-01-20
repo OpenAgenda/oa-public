@@ -64,7 +64,7 @@ module.exports = [
   {
     field: 'address',
     optional: false,
-    fieldType: 'text',
+    fieldType: 'address',
     read: [
       'internal',
       'public',
@@ -587,6 +587,14 @@ module.exports = [
     fieldType: 'integer',
     optional: true,
     default: null,
+    read: ['internal', 'public'],
+    write: ['internal'],
+  },
+  {
+    field: 'deleted',
+    fieldType: 'boolean',
+    optional: false,
+    default: 0,
     read: ['internal', 'public'],
     write: ['internal'],
   },

@@ -5,7 +5,7 @@ export default (core, agendaOrUid) =>
   async (data, options = {}) => {
     const { agendaLocations } = core.services;
 
-    const { autocomplete = true } = options;
+    const { context = {}, autocomplete = true } = options;
 
     const agenda = await getAgenda(core.services, agendaOrUid);
 
@@ -19,7 +19,7 @@ export default (core, agendaOrUid) =>
         includeImagePath: true,
         agendaUid: agenda.uid,
         context: {
-          userUid: options.context?.userUid || options.userUid,
+          ...context,
           agendaUid: agenda.uid,
           setUid: agenda.locationSetUid,
         },

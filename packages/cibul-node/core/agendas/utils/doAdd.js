@@ -43,6 +43,12 @@ export default async (core, payload, clean, options = {}) => {
 
   if (!draft) {
     try {
+      actingMember = actingUserUid
+        ? await core.agendas(agenda).members.get(actingUserUid, {
+          access: 'internal',
+          roleAsSlug: false,
+        })
+        : undefined;
       const { created, before } = await agendaEvents(agenda.uid).create(
         event.uid,
         clean.agendaEvent,
@@ -55,18 +61,12 @@ export default async (core, payload, clean, options = {}) => {
             aggregated,
             sourceAgenda,
             userUid: actingUserUid,
+            member: actingMember,
             duplicateOrigin,
           },
-          decorate: ['sourceAgendas', 'user', 'member'],
+          decorate: ['sourceAgendas', 'user'],
         },
       );
-
-      actingMember = actingUserUid
-        ? await core.agendas(agenda).members.get(actingUserUid, {
-          access: 'internal',
-          roleAsSlug: false,
-        })
-        : undefined;
 
       if (actingUserUid) {
         created.member = actingMember;

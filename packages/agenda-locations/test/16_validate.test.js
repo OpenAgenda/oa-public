@@ -18,6 +18,21 @@ const fixture = {
 };
 
 describe('validate', () => {
+  describe('address', () => {
+    test('url', () => {
+      let errors = [];
+      try {
+        validate({
+          ...fixture,
+          address: 'http://example.com/some-location',
+        });
+      } catch (e) {
+        errors = e.info.errors;
+      }
+      expect(errors[0].code).toBe('address.invalid');
+      expect(errors[0].message).toBe('address should not be a URL');
+    });
+  });
   describe('imageRightsAreHeld', () => {
     test('is set and cleaned as true', () => {
       const { imageRightsAreHeld } = validate({

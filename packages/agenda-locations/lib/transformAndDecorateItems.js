@@ -13,6 +13,7 @@ module.exports = async (service, items, options = {}) => {
     detailed,
     includeFields,
     includeImagePath,
+    deleted,
   } = options;
 
   const transformed = items.map((entry) => {
@@ -22,8 +23,23 @@ module.exports = async (service, items, options = {}) => {
       nullifyUndefined: true,
     });
 
+    if (location.deleted === 1) {
+      const deletedLocation = {
+        uid: location.uid,
+        deleted: location.deleted,
+      };
+      if (location.mergedIn !== null && location.mergedIn !== undefined) {
+        deletedLocation.mergedIn = location.mergedIn;
+      }
+      return deletedLocation;
+    }
+
     if (location.siret === null) {
       delete location.siret;
+    }
+
+    if (deleted === false) {
+      delete location.deleted;
     }
 
     return legacy.load(location, entry);

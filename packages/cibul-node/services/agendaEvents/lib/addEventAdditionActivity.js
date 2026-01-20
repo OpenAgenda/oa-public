@@ -21,7 +21,7 @@ export default async (
       originAgendaUid: event.agendaUid,
       sourceAgendaUid: sourceAgenda.uid,
       labels: {
-        actor: getMemberName(ae.member, user),
+        actor: getMemberName(context.member, user),
         object: event.title,
         target: agenda.title,
         sourceAgenda: sourceAgenda.title,

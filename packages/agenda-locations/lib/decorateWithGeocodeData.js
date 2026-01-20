@@ -58,12 +58,6 @@ async function geocode(interfaces, data, current) {
       throw new Error('countryCode is unspecified');
     }
 
-    const urlPattern = /^(https?:\/\/|www\.)/i;
-
-    if (urlPattern.test(geocodeData.address)) {
-      throw new BadRequest('address should not be a URL');
-    }
-
     const results = await interfaces.geocode(geocodeData.address, {
       language: deduceLanguageFromCountry(geocodeData.countryCode),
       countryCode: geocodeData.countryCode,
