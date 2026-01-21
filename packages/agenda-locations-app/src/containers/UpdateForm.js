@@ -133,7 +133,7 @@ const UpdateForm = ({ detailedInfo = true }) => {
     })
       .then((response) => {
         if (!response.ok) {
-          throw new Error('Network response was not ok');
+          throw new Error(`Invalid status (${response.status})`);
         }
         return response.json();
       })

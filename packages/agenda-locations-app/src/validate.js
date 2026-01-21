@@ -95,6 +95,22 @@ const STATES = {
   validated: 1,
 };
 
+function validateImage(value) {
+  const maxSize = 20 * 1024 * 1024;
+
+  if (value && value.fileSize > maxSize) {
+    // eslint-disable-next-line no-throw-literal
+    throw [
+      {
+        code: 'file.tooBig',
+        message: 'File is too big',
+        field: 'image',
+        maxSize,
+      },
+    ];
+  }
+}
+
 function validateImageCredits(value, otherValues = {}, options = {}) {
   const { isEnabled = false } = options;
 
@@ -165,6 +181,7 @@ function validateExtId(value, _otherValues = {}, _options = {}) {
 }
 
 validateExtId.field = 'extId';
+validateImage.field = 'image';
 validateImageRights.field = 'imageRightsAreHeld';
 validateImageCredits.field = 'imageCredits';
 validateSIRET.field = 'siret';
@@ -180,6 +197,7 @@ const baseValidators = [
     rejectEmojis: true,
   }),
   validators.pass({ field: 'image' }),
+  validateImage,
   validateImageCredits,
   validateImageRights,
   validateSIRET,

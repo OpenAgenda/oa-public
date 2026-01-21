@@ -62,6 +62,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.string.invalidHasEmojis',
     defaultMessage: 'Emojis are not accepted',
   },
+  'file.tooBig': {
+    id: 'AgendaLocations.LocationForm.file.tooBig',
+    defaultMessage: 'This file is too big (> 20 MB)',
+  },
   tooshort: {
     id: 'AgendaLocations.LocationForm.tooshort',
     defaultMessage: 'String is too short',

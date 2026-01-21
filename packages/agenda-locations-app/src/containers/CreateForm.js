@@ -98,7 +98,10 @@ const CreateForm = ({ detailedInfo = true }) => {
       method: 'POST',
       body: form,
     })
-      .then(() => {
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
         setPageSpin(false);
         dispatch(onGoingActions.initiate('create'));
         if (nq) history.push(nq);

@@ -115,6 +115,7 @@
   "AgendaLocations.LocationForm.extId": "External Identifier",
   "AgendaLocations.LocationForm.extIdInfo": "Optionnally, specify a unique identifier for this location",
   "AgendaLocations.LocationForm.extIdLink": "Define a unique identifier for this location",
+  "AgendaLocations.LocationForm.file.tooBig": "This file is too big (> 20 MB)",
   "AgendaLocations.LocationForm.findOutMore": "Learn more about the license",
   "AgendaLocations.LocationForm.geocodeFieldCancel": "Cancel",
   "AgendaLocations.LocationForm.geocodeFieldSave": "Ok",
