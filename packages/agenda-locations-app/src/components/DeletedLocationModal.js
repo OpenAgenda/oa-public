@@ -12,9 +12,13 @@ const messages = defineMessages({
     id: 'AgendaLocations.DeletedLocationModal.locationMerged',
     defaultMessage: 'This location has been merged into another location',
   },
-  goToMergedLocation: {
-    id: 'AgendaLocations.DeletedLocationModal.goToMergedLocation',
+  goToMergedLocationEdit: {
+    id: 'AgendaLocations.DeletedLocationModal.goToMergedLocationEdit',
     defaultMessage: 'Go to the merged location',
+  },
+  goToMergedLocationDetail: {
+    id: 'AgendaLocations.DeletedLocationModal.goToMergedLocationDetail',
+    defaultMessage: 'View the merged location',
   },
   goBackToList: {
     id: 'AgendaLocations.DeletedLocationModal.goBackToList',
@@ -22,14 +26,19 @@ const messages = defineMessages({
   },
 });
 
-const DeletedLocationModal = ({ close, mergedIn, prefix }) => {
+const DeletedLocationModal = ({ close, mergedIn, prefix, mode = 'edit' }) => {
   const intl = useIntl();
   const history = useHistory();
   const isMerged = mergedIn !== null && mergedIn !== undefined;
 
   const goToMergedLocation = () => {
-    history.push(`${prefix}${mergedIn}/edit`);
+    const path = mode === 'edit' ? `${prefix}${mergedIn}/edit` : `${prefix}${mergedIn}`;
+    history.push(path);
   };
+
+  const buttonMessage = mode === 'edit'
+    ? messages.goToMergedLocationEdit
+    : messages.goToMergedLocationDetail;
 
   return (
     <Modal onClose={close}>
@@ -46,7 +55,7 @@ const DeletedLocationModal = ({ close, mergedIn, prefix }) => {
               className="btn btn-primary margin-right-xs"
               onClick={goToMergedLocation}
             >
-              <FormattedMessage {...messages.goToMergedLocation} />
+              <FormattedMessage {...buttonMessage} />
             </button>
           )}
           <button type="button" className="btn btn-default" onClick={close}>
