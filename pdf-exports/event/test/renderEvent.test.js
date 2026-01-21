@@ -103,6 +103,11 @@ const fixturePairs = [
     agenda: await readFx('404LocationImage').then((d) => d.agenda),
     event: await readFx('404LocationImage').then((d) => d.event),
   },
+  {
+    name: 'nullValuedRegistrationItem',
+    agenda: await readFx('nullValuedRegistrationItem').then((d) => d.agenda),
+    event: await readFx('nullValuedRegistrationItem').then((d) => d.event),
+  },
 ].filter(({ name }) => (selectedPDF ? selectedPDF === name : true));
 
 // Generate PDFs for each fixture pair
