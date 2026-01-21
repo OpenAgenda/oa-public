@@ -204,6 +204,11 @@ export default function buildFieldSchema(type, options = {}) {
         optional: true,
         default: false,
       },
+      maxSize: {
+        type: 'integer',
+        optional: true,
+        default: 20 * 1024 * 1024,
+      },
     });
   }
 

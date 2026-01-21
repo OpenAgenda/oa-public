@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Dropzone from '@openagenda/react-dropzone';
+import Dropzone from 'react-dropzone';
 import { Component } from 'react';
 
 import multilingualLabels from '@openagenda/labels/form-schemas/imageUpload.js';
@@ -51,6 +51,7 @@ export default class ImageField extends Component {
     onChange(
       {
         originalName: _.get(files, '0.name'),
+        fileSize: _.get(files, '0.size'),
       },
       files,
     );

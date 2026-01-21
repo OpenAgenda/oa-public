@@ -171,7 +171,7 @@ export default class FormSchemaComponent extends Component {
     this.set({
       globalError: _.get(this, globalErrorPath).replace(
         '%max%',
-        maxFileSize || 22,
+        maxFileSize ? maxFileSize / 1024 / 1024 : 22,
       ),
       loading: false,
     });

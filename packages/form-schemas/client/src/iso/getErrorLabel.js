@@ -6,10 +6,16 @@ export default (labels, field, error) => {
   if (!matchingLabel) return message;
 
   return Object.keys(field)
-    .filter((fieldKey) => ['min', 'max'].includes(fieldKey))
-    .reduce(
-      (rendered, fieldKey) =>
-        rendered.replace(`%${fieldKey}%`, field[fieldKey]),
-      matchingLabel,
-    );
+    .filter((fieldKey) => ['min', 'max', 'maxSize'].includes(fieldKey))
+    .reduce((rendered, fieldKey) => {
+      if (fieldKey === 'maxSize') {
+        return rendered.replace(
+          `%${fieldKey}%`,
+          typeof field[fieldKey] === 'number'
+            ? parseFloat((field[fieldKey] / 1024 / 1024).toFixed(2))
+            : field[fieldKey],
+        );
+      }
+      return rendered.replace(`%${fieldKey}%`, field[fieldKey]);
+    }, matchingLabel);
 };

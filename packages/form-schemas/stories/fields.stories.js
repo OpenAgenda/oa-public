@@ -894,7 +894,7 @@ export function ImageUploadField() {
       post: '',
       redirect: '/',
     },
-    maxFileSize: 20,
+    maxFileSize: 20 * 1024 * 1024,
     lang: 'fr',
     fileKey: 'uniquefilekey',
     values: {

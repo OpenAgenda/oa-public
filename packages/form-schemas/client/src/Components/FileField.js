@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Dropzone from '@openagenda/react-dropzone';
+import Dropzone from 'react-dropzone';
 import { Component } from 'react';
 
 import multilingualLabels from '@openagenda/labels/form-schemas/fileUpload.js';

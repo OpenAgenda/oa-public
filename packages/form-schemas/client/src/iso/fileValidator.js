@@ -10,6 +10,15 @@ const requiredError = (field = null) => [
   },
 ];
 
+const tooBigError = (field = null, maxSize = 20 * 1024 * 1024) => [
+  {
+    code: 'file.tooBig',
+    message: 'File is too big',
+    field,
+    maxSize,
+  },
+];
+
 schema.register({
   text: textValidator,
   link: linkValidator,
@@ -24,6 +33,9 @@ const baseFields = {
   },
   filename: {
     type: 'text',
+  },
+  fileSize: {
+    type: 'integer',
   },
 };
 
@@ -71,6 +83,12 @@ export default (validatorOptions = {}) =>
 
     if (!v) {
       return null;
+    }
+
+    const maxSize = validatorOptions?.maxSize === undefined ? 20 * 1024 * 1024 : null;
+
+    if (maxSize && v.fileSize > maxSize) {
+      throw tooBigError(validatorOptions?.field, maxSize);
     }
 
     const fields = {
