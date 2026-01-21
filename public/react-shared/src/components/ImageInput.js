@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useDropzone } from '@openagenda/react-dropzone';
+import { useDropzone } from 'react-dropzone';
 import { IntlProvider, useIntl, FormattedMessage } from 'react-intl';
 import bytes from 'bytes';
 import { getSupportedLocale } from '@openagenda/intl';
@@ -100,6 +100,7 @@ function ImageInput({
 
         Object.assign(file, {
           preview: URL.createObjectURL(file),
+          fileSize: file.size,
         });
 
         input.onChange(file);
