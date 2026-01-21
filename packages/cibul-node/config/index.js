@@ -436,8 +436,7 @@ const config = {
   twitter: {
     name: prod.twitter && prod.twitter.name,
   },
-  maxFileSize: 20000000,
-  imageSizeLimits: [2000, 30000000],
+  maxFileSize: 20 * 1024 * 1024,
   translators: prod?.translators ?? [],
   routes: {
     globals: {

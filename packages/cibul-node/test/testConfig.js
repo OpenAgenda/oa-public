@@ -22,7 +22,6 @@ const testConfig = {
   },
   schemas: schemaNames,
   tmpFolderPath: '/var/tmp/',
-  imageSizeLimits: [2000, 30000000],
   s3: {
     endpoint: process.env.S3_DEV_ENDPOINT,
     accessKeyId: process.env.S3_DEV_ACCESS_KEY_ID,
