@@ -13,13 +13,15 @@ const doc = new PDFDocument({
 
 doc.pipe(fs.createWriteStream(`${__dirname}/renders/addText.pdf`));
 
-const cursor = Cursor({ x: 10, y: 10 });
-const availableWidth = 120;
+const initPosition = { x: 10, y: 10 };
+const firstColWidth = 120;
+
+const cursor = Cursor(initPosition);
 
 cursor.moveY(
   addText(doc, cursor, {
     value: 'Steampunk elephant',
-    availableWidth,
+    availableWidth: firstColWidth,
   }).height,
 );
 
@@ -27,21 +29,21 @@ cursor.moveY(
   addText(doc, cursor, {
     value: 'This is a bold dancing guy emoji: 🕺, here is a bold smiley: 😃',
     bold: true,
-    availableWidth,
+    availableWidth: firstColWidth,
   }).height,
 );
 
 cursor.moveY(
   addText(doc, cursor, {
     value: 'aVeryLongWordThatMustBe',
-    availableWidth,
+    availableWidth: firstColWidth,
   }).height,
 );
 
 cursor.moveY(
   addText(doc, cursor, {
     value: 'This is a dancing guy emoji: 🕺, here is a smiley: 😃',
-    availableWidth,
+    availableWidth: firstColWidth,
   }).height,
 );
 
@@ -65,12 +67,24 @@ cursor.moveY(
   }).height,
 );
 
-cursor.moveY(
-  addText(doc, cursor, {
-    value: fs.readFileSync(`${__dirname}/fixtures/intrepides.txt`, 'utf8'),
-    availableWidth,
-    segmentable: true,
-  }).height,
-);
+addText(doc, cursor, {
+  value: fs.readFileSync(`${__dirname}/fixtures/intrepides.txt`, 'utf8'),
+  availableWidth: firstColWidth,
+  segmentable: true,
+});
+
+doc.addPage();
+
+cursor.reset();
+
+// this should display text. Otherwise there is a line height eval mismatch
+addText(doc, cursor, {
+  value: fs.readFileSync(`${__dirname}/fixtures/fantaisie.txt`, 'utf8'),
+  availableWidth: 357.29999999999995,
+  availableHeight: 15.7,
+  segmentable: true,
+  paragraphAvailableWidth: 357.29999999999995,
+  underline: false,
+});
 
 doc.end();

@@ -1,0 +1,15 @@
+{
+  "agenda": {
+    "schema": {
+      "fields": []
+    }
+  },
+  "event": {
+    "longDescription": {
+      "fr": "d'un masque ou d'un éventail, laissez-vous entraîner dans cette fantaisie"
+    },
+    "timings": [],
+    "attendanceMode": 2,
+    "onlineAccessLink": "https://oa.com"
+  }
+}

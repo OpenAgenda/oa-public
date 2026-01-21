@@ -55,7 +55,10 @@ function splitWord(doc, word, availableWidth, separator = '-') {
 }
 
 function doesWordFitInLine(doc, line, width, word) {
-  return doc.widthOfString(`${line}${line.length ? ' ' : ''}${word}`) <= width;
+  return (
+    Math.ceil(doc.widthOfString(`${line}${line.length ? ' ' : ''}${word}`))
+    < width
+  );
 }
 
 function appendWord(line, word) {
