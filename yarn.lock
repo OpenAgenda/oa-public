@@ -10387,7 +10387,6 @@ __metadata:
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/md": "npm:^1.0.1"
-    "@openagenda/react-dropzone": "npm:^14.3.5"
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -10417,6 +10416,7 @@ __metadata:
     react: "npm:^19.2.2"
     react-date-range: "npm:^1.1.3"
     react-dom: "npm:^19.2.2"
+    react-dropzone: "npm:^14.3.8"
     react-intl: "npm:^6.8.4"
     react-markdown: "npm:^6.0.0"
     react-router-dom: "npm:^5.1.2"
@@ -11458,6 +11458,7 @@ __metadata:
     react-cookie-consent: "npm:^7.2.1"
     react-date-range: "npm:^1.4.0"
     react-dom: "npm:^19.2.2"
+    react-dropzone: "npm:^14.3.8"
     react-final-form: "npm:^6.5.3"
     react-intl: "npm:^6.8.4"
     react-markdown: "npm:^6.0.0"
@@ -48733,7 +48734,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dropzone@npm:14.3.8":
+"react-dropzone@npm:14.3.8, react-dropzone@npm:^14.3.8":
   version: 14.3.8
   resolution: "react-dropzone@npm:14.3.8"
   dependencies:
