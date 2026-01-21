@@ -69,7 +69,7 @@ const eventFormConfig = {
   },
   locationRes: '/locations',
   lang: 'fr',
-  maxFileSize: 200000000,
+  maxFileSize: 20 * 1024 * 1024,
   authorizations: {
     canEditEvent: true,
   },

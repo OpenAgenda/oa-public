@@ -39,7 +39,7 @@ export default function loadInitialState() {
     },
     memberFreshness,
     files: {
-      maxSize: 200000000,
+      maxSize: 20 * 1024 * 1024,
       store: {
         type: 's3',
         bucket: 'main', // 'dev'
