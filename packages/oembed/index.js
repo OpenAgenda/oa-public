@@ -126,7 +126,7 @@ export default class OEmbed {
           });
           return item;
         } catch (e) {
-          log('error', 'could not retrieve code for %s', url, e);
+          log.warn('could not retrieve code for %s', url, e);
           return null;
         }
       }),
