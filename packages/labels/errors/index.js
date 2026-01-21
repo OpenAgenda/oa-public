@@ -165,6 +165,10 @@ module.exports = {
     "io": "crwdns14062:0crwdne14062:0",
     "oc": "I a agut un problèma a l'enregistrament, tornatz ensajar dins un momenton"
   },
+  "file.tooBig": {
+    "fr": "Ce fichier est trop lourd (> %maxSize% MB)",
+    "en": "This file is too big (> %maxSize% MB)",
+  },
   "serverErrorTooLargeFile": {
     "fr": "L'enregistrement a échoué: une image ou un fichier trop volumineux a été chargé dans le formulaire. La taille maximale autorisée est de %max% mégaoctets",
     "en": "The submission failed: a too large image or file was loaded in the form. Maximum allowed size is %max% megabytes",
