@@ -46,11 +46,14 @@ export default function loadEventPDF(req, res, next) {
     services: { pdfExports },
   } = req.app;
 
+  const { s3 } = req.app.services.core.getConfig();
+
   const { agenda, event } = cleanImages(req);
 
   try {
     pdfExports.event.render(res, agenda, event, {
       lang: req.lang,
+      imagePath: s3.mainBucketPath,
     });
     res.writeHead(200, {
       'Content-Type': 'application/pdf',
