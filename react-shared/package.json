@@ -52,6 +52,7 @@
     "qs": "^6.9.1",
     "react-cookie-consent": "^7.2.1",
     "react-date-range": "^1.4.0",
+    "react-dropzone": "^14.3.8",
     "react-intl": "^6.8.4",
     "react-markdown": "^6.0.0",
     "react-redux": "^7.1.3",
