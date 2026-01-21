@@ -1,20 +1,10 @@
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { useIntl, defineMessages } from 'react-intl';
 
 import { Spinner, Modal } from '@openagenda/react-shared';
 import LocationDetails from './LocationDetails.js';
-
-const messages = defineMessages({
-  removedMessage: {
-    id: 'AgendaLocations.LocationDetailModal.removedMessage',
-    defaultMessage: 'The location you are looking for has been removed',
-  },
-  removedModalTitle: {
-    id: 'AgendaLocations.LocationDetailModal.removedModalTitle',
-    defaultMessage: 'Removed Location',
-  },
-});
+import NotFoundLocationModal from './NotFoundLocationModal.js';
+import DeletedLocationModal from './DeletedLocationModal.js';
 
 const LocationDetailModal = ({
   locationUid,
@@ -24,22 +14,54 @@ const LocationDetailModal = ({
   closeDetail,
   lang,
   onEdit,
+  prefix,
 }) => {
-  const intl = useIntl();
   const staticTiles = useSelector((state) => state.settings.staticTiles);
   const [detailedLocation, setDetailedLocation] = useState();
-  const [removedLocation, setRemovedLocation] = useState(false);
+  const [deletedLocation, setDeletedLocation] = useState(null);
+  const [unfoundLocation, setUnfoundLocation] = useState(false);
 
   useEffect(() => {
-    fetch(
-      `${res.get.replace(':locationUid', locationUid)}${res.get.includes('?') ? '&' : '?'}includeLinkedAgendas=true`,
-    ).then(async (response) => {
-      if (!response.ok) return;
-      const data = await response.json();
-      if (data.location) setDetailedLocation(data.location);
-      else setRemovedLocation(true);
-    });
+    const url = `${res.get.replace(':locationUid', locationUid)}${res.get.includes('?') ? '&' : '?'}includeLinkedAgendas=true&deleted=null`;
+    fetch(url)
+      .then(async (response) => {
+        if (!response.ok) {
+          throw new Error(`Invalid status (${response.status})`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        const loc = data.location;
+        // Check if location is deleted
+        if (loc && loc.deleted === 1) {
+          setDeletedLocation(loc);
+          return;
+        }
+        if (loc) {
+          setDetailedLocation(loc);
+        } else {
+          setUnfoundLocation(true);
+        }
+      })
+      .catch((_err) => {
+        setUnfoundLocation(true);
+      });
   }, [res.get, locationUid]);
+
+  if (deletedLocation) {
+    return (
+      <DeletedLocationModal
+        close={closeDetail}
+        mergedIn={deletedLocation.mergedIn}
+        prefix={prefix}
+        mode="detail"
+      />
+    );
+  }
+
+  if (unfoundLocation) {
+    return <NotFoundLocationModal close={closeDetail} />;
+  }
 
   if (detailedLocation) {
     return (
@@ -61,17 +83,7 @@ const LocationDetailModal = ({
       </Modal>
     );
   }
-  if (removedLocation) {
-    return (
-      <Modal
-        title={intl.formatMessage(messages.removedModalTitle)}
-        classNames={{ overlay: 'popup-overlay big' }}
-        onClose={closeDetail}
-      >
-        <div>{intl.formatMessage(messages.removedMessage)}</div>
-      </Modal>
-    );
-  }
+
   return <Spinner page />;
 };
 

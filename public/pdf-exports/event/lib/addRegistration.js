@@ -86,13 +86,17 @@ async function addContent(doc, parentCursor, params) {
 export default async function addRegistration(doc, parentCursor, params = {}) {
   const { value, availableHeight } = params;
 
-  if (!value.length) {
+  const strippedOfNulls = (value ?? []).filter(
+    (registrationItem) => registrationItem.value !== null,
+  );
+
+  if (!strippedOfNulls.length) {
     return { height: 0, width: 0 };
   }
 
-  log('simulating', { availableHeight });
   const { height } = await addContent(doc, parentCursor, {
     ...params,
+    value: strippedOfNulls,
     simulate: true,
   });
 
@@ -104,5 +108,5 @@ export default async function addRegistration(doc, parentCursor, params = {}) {
     };
   }
 
-  return addContent(doc, parentCursor, params);
+  return addContent(doc, parentCursor, { ...params, value: strippedOfNulls });
 }

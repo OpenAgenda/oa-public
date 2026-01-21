@@ -8,6 +8,7 @@ import { Spinner, useLayoutData } from '@openagenda/react-shared';
 import AccessModal from '../components/AccessModal.js';
 import ErrorModal from '../components/ErrorModal.js';
 import DeletedLocationModal from '../components/DeletedLocationModal.js';
+import NotFoundLocationModal from '../components/NotFoundLocationModal.js';
 import LocationForm from '../components/form-components/LocationForm.js';
 import useRes from '../hooks/useRes.js';
 import useSettings from '../hooks/useSettings.js';
@@ -182,7 +183,10 @@ const UpdateForm = ({ detailedInfo = true }) => {
           prefix={prefix}
         />
       ) : null}
-      {errorModal || unfoundLocation ? (
+      {unfoundLocation ? (
+        <NotFoundLocationModal close={() => history.push(nq || prefix)} />
+      ) : null}
+      {errorModal ? (
         <ErrorModal close={() => setErrorModal(false)} error={errorModal} />
       ) : null}
       {!unfoundLocation && !deletedLocation ? (
