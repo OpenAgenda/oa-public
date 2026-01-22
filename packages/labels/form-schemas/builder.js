@@ -748,6 +748,20 @@ module.exports = {
     "it": "Il titolo di questo campo è già occupato da un altro del modulo. Modificarlo prima di provare ad aggiungerlo di nuovo.",
     "es": "El título de este campo ya está siendo usado por otro campo del formulario. Modifícalo antes de intentar agregarlo nuevamente."
   },
+  "isSulgDuplicateError": {
+    "fr": "Le slug associé est déjà pris par un autre champ. Veuillez le modifier le titre avant de retenter l'ajout.",
+    "en": "The associated slug is already taken by another field. Please modify the title before trying to add it again.",
+    "de": "Der zugehörige Slug wird bereits von einem anderen Feld verwendet. Bitte ändern Sie den Titel, bevor Sie versuchen, ihn erneut hinzuzufügen.",
+    "es": "El slug asociado ya está siendo usado por otro campo. Por favor, modifica el título antes de intentar agregarlo nuevamente.",
+    "it": "Lo slug associato è già utilizzato da un altro campo. Si prega di modificare il titolo prima di riprovare ad aggiungerlo.",
+  },
+  "isReservedError": {
+    "fr": "Le slug associé est reservé. Veuillez le modifier le titre avant de retenter l'ajout.",
+    "en": "The associated slug is reserved. Please modify the title before trying to add it again.",
+    "de": "Der zugehörige Slug ist reserviert. Bitte ändern Sie den Titel, bevor Sie versuchen, ihn erneut hinzuzufügen.",
+    "es": "El slug asociado está reservado. Por favor, modifica el título antes de intentar agregarlo nuevamente.",
+    "it": "Lo slug associato è riservato. Si prega di modificare il titolo prima di riprovare ad aggiungerlo.",
+  },
   "confirmFieldType": {
     "fr": "Configurer le champ",
     "en": "Configure the field",
