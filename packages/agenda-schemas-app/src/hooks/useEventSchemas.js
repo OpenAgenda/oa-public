@@ -31,5 +31,6 @@ export default (agenda, memberMode) => {
           }
           : parent.schema,
       })) || [],
+    reservedFields: data?.reservedFields,
   };
 };

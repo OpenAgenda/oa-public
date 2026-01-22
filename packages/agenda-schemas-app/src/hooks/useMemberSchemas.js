@@ -16,5 +16,6 @@ export default (agenda, memberMode) => {
     refetch,
     memberSchema: data?.schema || null,
     memberParents: data?.parents,
+    memberReservedFields: data?.reservedFields,
   };
 };
