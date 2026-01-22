@@ -241,6 +241,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
             context: {
               aggregated,
               userUid: actingUserUid,
+              member: actingMember,
               event: payload.getEvent('after'),
               agenda,
               stateChangeType,
