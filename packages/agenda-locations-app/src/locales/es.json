@@ -72,8 +72,6 @@
   "AgendaLocations.LocationConfirmation.guideDetail": "Si se deben realizar algunos cambios, haz clic en el botón a continuación para proporcionar detalles sobre el cambio a los administradores de la agenda",
   "AgendaLocations.LocationConfirmation.suggest": "Sugerir un cambio",
   "AgendaLocations.LocationConfirmation.suggestChangeMessage": "Se abrió una nueva pestaña en su navegador. Proporcione los detalles del cambio en el encarte de diálogo antes de confirmar su selección",
-  "AgendaLocations.LocationDetailModal.removedMessage": "El lugar que estás buscando ha sido eliminado",
-  "AgendaLocations.LocationDetailModal.removedModalTitle": "Borrar un luego",
   "AgendaLocations.LocationDetails.access": "Acceso",
   "AgendaLocations.LocationDetails.address": "Dirección",
   "AgendaLocations.LocationDetails.andOn": "y en",
