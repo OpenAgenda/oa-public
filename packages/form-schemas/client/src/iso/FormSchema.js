@@ -13,9 +13,10 @@ const getItemSlug = (f) => f.slug ?? f.field;
 const getItemType = (f) => f.type ?? 'field';
 
 function validate(data, options = {}) {
-  const { client, requireLabels } = {
+  const { client, requireLabels, restrictedFields } = {
     client: false,
     requireLabels: true,
+    restrictedFields: [],
     ...typeof options === 'boolean'
       ? {
         client: options,
@@ -42,6 +43,8 @@ function validate(data, options = {}) {
 
   clean.fields = [];
 
+  const usedSlugs = new Set();
+
   // clean each field
   dirty.fields.forEach((f) => {
     try {
@@ -56,6 +59,24 @@ function validate(data, options = {}) {
         defaultLabelLanguage: clean.defaultLabelLanguage,
         nextOptionId: clean.nextOptionId,
       });
+
+      const fieldSlug = cleanField.field;
+
+      // Check if slug is restricted
+      if (restrictedFields.includes(fieldSlug)) {
+        throw new Error(
+          `Field slug "${fieldSlug}" is restricted and cannot be used`,
+        );
+      }
+
+      // Check if slug is duplicate
+      if (usedSlugs.has(fieldSlug)) {
+        throw new Error(
+          `Field slug "${fieldSlug}" is already used in the schema`,
+        );
+      }
+
+      usedSlugs.add(fieldSlug);
 
       clean.nextOptionId = updatedNextOptionId;
 
@@ -87,6 +108,7 @@ class FormSchema {
       client: true,
       ...typeof options === 'boolean' ? { client: options } : options,
     });
+    this.restrictedFields = options.restrictedFields || [];
   }
 
   // get clean data
@@ -105,9 +127,18 @@ class FormSchema {
       _.pick(this.data, ['custom', 'defaultLabelLanguage', 'nextOptionId']),
     );
 
+    const itemSlug = getItemSlug(clean);
+
+    // Check if slug is restricted
+    if (this.restrictedFields.includes(itemSlug)) {
+      const error = `Field slug "${itemSlug}" is restricted and cannot be used`;
+      throw new Error(error);
+    }
+
+    // Check if slug is already used
     if (!this.isItemSlugAvailable(clean)) {
-      const error = `This slug is taken! : ${clean.field}`;
-      throw error;
+      const error = `Field slug "${itemSlug}" is already used in the schema`;
+      throw new Error(error);
     }
 
     this.data.nextOptionId = nextOptionId;
@@ -129,6 +160,14 @@ class FormSchema {
     );
 
     const fieldIndex = this._getFieldIndex(getItemSlug(clean));
+    const itemSlug = getItemSlug(clean);
+    const oldSlug = getItemSlug(this.data.fields[fieldIndex]);
+
+    // Check if slug is being changed to a restricted one
+    if (itemSlug !== oldSlug && this.restrictedFields.includes(itemSlug)) {
+      const error = `Field slug "${itemSlug}" is restricted and cannot be used`;
+      throw new Error(error);
+    }
 
     this.data.nextOptionId = nextOptionId;
 
