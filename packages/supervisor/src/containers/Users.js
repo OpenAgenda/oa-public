@@ -8,8 +8,11 @@ import {
   HStack,
   Text,
   Table,
+  VStack,
+  SimpleGrid,
+  Link,
 } from '@openagenda/uikit';
-import { Alert } from '@openagenda/uikit/snippets';
+import { Alert, Checkbox } from '@openagenda/uikit/snippets';
 import { useQuery, useQueryClient } from 'react-query';
 import { useIntl } from 'react-intl';
 import { useHistory, useLocation } from 'react-router-dom';
@@ -202,6 +205,158 @@ export default function Users() {
     enabled: !!userUid,
   });
 
+  // Extract unique session IDs and user UIDs
+  const { uniqueSessionIds, uniqueUserUids, hasNullSessionId, hasNullUserUid } = useMemo(() => {
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      return {
+        uniqueSessionIds: [],
+        uniqueUserUids: [],
+        hasNullSessionId: false,
+        hasNullUserUid: false,
+      };
+    }
+
+    const sessionIdsSet = new Set();
+    const userUidsSet = new Set();
+    let foundNullSessionId = false;
+    let foundNullUserUid = false;
+
+    data.forEach((item) => {
+      const sessionId = item.message?.meta?.['session.id'];
+      const uid = item.message?.meta?.['user.uid'];
+
+      if (sessionId) {
+        sessionIdsSet.add(sessionId);
+      } else {
+        foundNullSessionId = true;
+      }
+
+      if (uid) {
+        userUidsSet.add(uid);
+      } else {
+        foundNullUserUid = true;
+      }
+    });
+
+    return {
+      uniqueSessionIds: Array.from(sessionIdsSet).sort(),
+      uniqueUserUids: Array.from(userUidsSet).sort(),
+      hasNullSessionId: foundNullSessionId,
+      hasNullUserUid: foundNullUserUid,
+    };
+  }, [data]);
+
+  // State for selected filters (all checked by default)
+  const [selectedSessionIds, setSelectedSessionIds] = useState(new Set());
+  const [selectedUserUids, setSelectedUserUids] = useState(new Set());
+  const [includeNullSessionId, setIncludeNullSessionId] = useState(true);
+  const [includeNullUserUid, setIncludeNullUserUid] = useState(true);
+
+  // Initialize selected filters when unique values change
+  useEffect(() => {
+    setSelectedSessionIds(new Set(uniqueSessionIds));
+    setIncludeNullSessionId(true);
+  }, [uniqueSessionIds]);
+
+  useEffect(() => {
+    setSelectedUserUids(new Set(uniqueUserUids));
+    setIncludeNullUserUid(true);
+  }, [uniqueUserUids]);
+
+  // Filter data based on selected filters
+  const filteredData = useMemo(() => {
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      return data;
+    }
+
+    return data.filter((item) => {
+      const sessionId = item.message?.meta?.['session.id'];
+      const uid = item.message?.meta?.['user.uid'];
+
+      // Session ID filter
+      let sessionMatch;
+      if (sessionId) {
+        // If item has a session ID, check if it's selected
+        sessionMatch = selectedSessionIds.has(sessionId);
+      } else {
+        // If item has no session ID, check if null option is selected
+        sessionMatch = includeNullSessionId;
+      }
+
+      // User UID filter
+      let userMatch;
+      if (uid) {
+        // If item has a user UID, check if it's selected
+        userMatch = selectedUserUids.has(uid);
+      } else {
+        // If item has no user UID, check if null option is selected
+        userMatch = includeNullUserUid;
+      }
+
+      return sessionMatch && userMatch;
+    });
+  }, [
+    data,
+    selectedSessionIds,
+    selectedUserUids,
+    includeNullSessionId,
+    includeNullUserUid,
+  ]);
+
+  // Toggle individual session ID
+  const toggleSessionId = (sessionId) => {
+    setSelectedSessionIds((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(sessionId)) {
+        newSet.delete(sessionId);
+      } else {
+        newSet.add(sessionId);
+      }
+      return newSet;
+    });
+  };
+
+  // Toggle individual user UID
+  const toggleUserUid = (uid) => {
+    setSelectedUserUids((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(uid)) {
+        newSet.delete(uid);
+      } else {
+        newSet.add(uid);
+      }
+      return newSet;
+    });
+  };
+
+  // Toggle all session IDs
+  const toggleAllSessionIds = () => {
+    const allSelected = selectedSessionIds.size === uniqueSessionIds.length
+      && (!hasNullSessionId || includeNullSessionId);
+
+    if (allSelected) {
+      setSelectedSessionIds(new Set());
+      setIncludeNullSessionId(false);
+    } else {
+      setSelectedSessionIds(new Set(uniqueSessionIds));
+      setIncludeNullSessionId(true);
+    }
+  };
+
+  // Toggle all user UIDs
+  const toggleAllUserUids = () => {
+    const allSelected = selectedUserUids.size === uniqueUserUids.length
+      && (!hasNullUserUid || includeNullUserUid);
+
+    if (allSelected) {
+      setSelectedUserUids(new Set());
+      setIncludeNullUserUid(false);
+    } else {
+      setSelectedUserUids(new Set(uniqueUserUids));
+      setIncludeNullUserUid(true);
+    }
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     if (inputValue.trim()) {
@@ -230,7 +385,7 @@ export default function Users() {
         </Heading>
 
         <Box as="form" onSubmit={handleSubmit} mb={6}>
-          <HStack spacing={4} align="end" wrap="wrap">
+          <HStack gap={4} align="end" wrap="wrap">
             <Box>
               <div>User UID:</div>
               <Input
@@ -328,19 +483,143 @@ export default function Users() {
                   <Text mb={4}>
                     Logs trouvés pour l&apos;utilisateur{' '}
                     <strong>{userUid}</strong>: {data.length} entrées
+                    {filteredData.length !== data.length && (
+                      <> ({filteredData.length} après filtrage)</>
+                    )}
                   </Text>
+
+                  {/* Filters Section */}
+                  {(uniqueSessionIds.length > 0
+                    || uniqueUserUids.length > 0
+                    || hasNullSessionId
+                    || hasNullUserUid) && (
+                    <Box
+                      mb={6}
+                      p={4}
+                      border="1px solid"
+                      borderColor="gray.200"
+                      borderRadius="md"
+                    >
+                      <Heading size="md" mb={4}>
+                        Filtres
+                      </Heading>
+
+                      <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
+                        {/* Session IDs Filter */}
+                        {(uniqueSessionIds.length > 0 || hasNullSessionId) && (
+                          <Box>
+                            <HStack mb={3}>
+                              <Heading size="sm">ID Session</Heading>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={toggleAllSessionIds}
+                              >
+                                {selectedSessionIds.size
+                                  === uniqueSessionIds.length
+                                && (!hasNullSessionId || includeNullSessionId)
+                                  ? 'Tout désélectionner'
+                                  : 'Tout sélectionner'}
+                              </Button>
+                            </HStack>
+                            <VStack
+                              align="start"
+                              gap={2}
+                              maxH="300px"
+                              overflowY="auto"
+                            >
+                              {hasNullSessionId && (
+                                <Checkbox
+                                  key="null-session-id"
+                                  checked={includeNullSessionId}
+                                  onCheckedChange={() =>
+                                    setIncludeNullSessionId(
+                                      !includeNullSessionId,
+                                    )}
+                                >
+                                  <Text fontStyle="italic" color="gray.600">
+                                    (sans session ID)
+                                  </Text>
+                                </Checkbox>
+                              )}
+                              {uniqueSessionIds.map((sessionId) => (
+                                <Checkbox
+                                  key={sessionId}
+                                  checked={selectedSessionIds.has(sessionId)}
+                                  onCheckedChange={() =>
+                                    toggleSessionId(sessionId)}
+                                >
+                                  {sessionId}
+                                </Checkbox>
+                              ))}
+                            </VStack>
+                          </Box>
+                        )}
+
+                        {/* User UIDs Filter */}
+                        {(uniqueUserUids.length > 0 || hasNullUserUid) && (
+                          <Box>
+                            <HStack mb={3}>
+                              <Heading size="sm">User UID</Heading>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={toggleAllUserUids}
+                              >
+                                {selectedUserUids.size
+                                  === uniqueUserUids.length
+                                && (!hasNullUserUid || includeNullUserUid)
+                                  ? 'Tout désélectionner'
+                                  : 'Tout sélectionner'}
+                              </Button>
+                            </HStack>
+                            <VStack
+                              align="start"
+                              gap={2}
+                              maxH="300px"
+                              overflowY="auto"
+                            >
+                              {hasNullUserUid && (
+                                <Checkbox
+                                  key="null-user-uid"
+                                  checked={includeNullUserUid}
+                                  onCheckedChange={() =>
+                                    setIncludeNullUserUid(!includeNullUserUid)}
+                                >
+                                  <Text fontStyle="italic" color="gray.600">
+                                    (sans user UID)
+                                  </Text>
+                                </Checkbox>
+                              )}
+                              {uniqueUserUids.map((uid) => (
+                                <Checkbox
+                                  key={uid}
+                                  checked={selectedUserUids.has(uid)}
+                                  onCheckedChange={() => toggleUserUid(uid)}
+                                >
+                                  {uid}
+                                </Checkbox>
+                              ))}
+                            </VStack>
+                          </Box>
+                        )}
+                      </SimpleGrid>
+                    </Box>
+                  )}
 
                   <Table.Root size="sm" display="block" overflowX="auto">
                     <Table.Header>
                       <Table.Row>
                         <Table.ColumnHeader>Date</Table.ColumnHeader>
+                        <Table.ColumnHeader>ID Session</Table.ColumnHeader>
+                        <Table.ColumnHeader>ID User</Table.ColumnHeader>
                         <Table.ColumnHeader>Statut</Table.ColumnHeader>
                         <Table.ColumnHeader>Méthode</Table.ColumnHeader>
                         <Table.ColumnHeader>URL</Table.ColumnHeader>
                       </Table.Row>
                     </Table.Header>
                     <Table.Body>
-                      {data.map((item) => (
+                      {filteredData.map((item) => (
                         <Table.Row
                           key={`${item.timestamp}-${item.sequence_number_str}`}
                         >
@@ -353,6 +632,22 @@ export default function Users() {
                               minute: '2-digit',
                               hour12: false,
                             })}
+                          </Table.Cell>
+                          <Table.Cell>
+                            {item.message.meta['session.id']}
+                          </Table.Cell>
+                          <Table.Cell>
+                            <Link
+                              href={`/admin/users?userUid=${item.message.meta['user.uid']}`}
+                              target="_blank"
+                              rel="noreferrer noopener"
+                              color="primary.500 !important"
+                              _hover={{
+                                color: 'primary.600 !important',
+                              }}
+                            >
+                              {item.message.meta['user.uid']}
+                            </Link>
                           </Table.Cell>
                           <Table.Cell>{item.message.meta.status}</Table.Cell>
                           <Table.Cell>{item.message.meta.method}</Table.Cell>
