@@ -3,6 +3,7 @@ import { createIntlByLocale } from '@openagenda/intl';
 import * as locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
 import logs from '@openagenda/logs';
 import _ from 'lodash';
+import memberReservedFields from '../settings/memberReservedFields.js';
 import getAgenda from './getAgenda.js';
 
 const log = logs('core/agendas/utils/getMemberSchema');
@@ -158,5 +159,6 @@ export const andParents = async function getMemberSchemaAndParents(
       ...aditionalFields,
     },
     parents,
+    reservedFields: memberReservedFields,
   };
 };

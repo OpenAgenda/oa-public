@@ -3,6 +3,7 @@ import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 import eventsValidator from '@openagenda/event-form/src/validators/events.js';
 import logs from '@openagenda/logs';
 import getAgenda from '../utils/getAgenda.js';
+import eventReservedFields from './eventReservedFields.js';
 import getSchema from './getSchema.js';
 
 const log = logs('core/agendas/settings/updateFields');
@@ -21,12 +22,15 @@ export default async function updateSchemaFields(
     : await getAgenda(services, agendaOrUid);
   const agendaSchema = await getSchema(services, agenda);
 
-  const fs = new FormSchema({
-    ...agendaSchema,
-    custom: {
-      events: eventsValidator,
+  const fs = new FormSchema(
+    {
+      ...agendaSchema,
+      custom: {
+        events: eventsValidator,
+      },
     },
-  });
+    { restrictedFields: eventReservedFields },
+  );
 
   fs.updateFields(updatedFields);
 

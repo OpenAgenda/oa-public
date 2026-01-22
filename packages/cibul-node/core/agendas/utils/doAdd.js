@@ -49,6 +49,7 @@ export default async (core, payload, clean, options = {}) => {
           roleAsSlug: false,
         })
         : undefined;
+
       const { created, before } = await agendaEvents(agenda.uid).create(
         event.uid,
         clean.agendaEvent,
