@@ -82,6 +82,7 @@ const FormSchemaBuilder = ({
   settingsEnabled,
   editableExtensions,
   extendedFrom = [],
+  reservedFields = [],
   lang,
   customFieldConfigurationSchemas,
   components,
@@ -443,6 +444,7 @@ const FormSchemaBuilder = ({
           {mode === modes.ADDFIELD ? (
             <FieldAdd
               schema={mergedSchema}
+              reservedFields={reservedFields}
               labelLanguages={labelLanguages}
               lang={lang}
               onAdd={handleFieldAdd}

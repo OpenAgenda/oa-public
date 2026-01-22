@@ -109,6 +109,7 @@ function Dashboard() {
   const {
     schema,
     parents,
+    reservedFields,
     isLoading,
     refetch: refetchEventSchema,
   } = useEventSchemas(agenda, memberMode);
@@ -116,6 +117,7 @@ function Dashboard() {
   const {
     memberSchema,
     memberParents,
+    memberReservedFields,
     isLoadingMember,
     refetch: refetchMemberSchema,
   } = useMemberSchemas(agenda, memberMode);
@@ -194,6 +196,7 @@ function Dashboard() {
           }
           schema={memberMode ? memberSchema : schema}
           extendedFrom={memberMode ? memberParents : parents}
+          reservedFields={memberMode ? memberReservedFields : reservedFields}
           onUpdate={onUpdate}
           onSuccess={onSuccess}
           components={{

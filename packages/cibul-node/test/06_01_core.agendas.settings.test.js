@@ -108,6 +108,30 @@ describe('core - functional (server): core.agendas().settings.get()', () => {
     ).toBeFalsy();
   });
 
+  it('should reject field with restricted slug', async () => {
+    await expect(
+      core.agendas(60935574).settings.schema.updateFields([
+        {
+          field: 'uid',
+          label: 'Custom UID Field',
+          fieldType: 'text',
+        },
+      ]),
+    ).rejects.toThrow('Field slug "uid" is restricted and cannot be used');
+  });
+
+  it('should reject field with another restricted slug', async () => {
+    await expect(
+      core.agendas(60935574).settings.schema.updateFields([
+        {
+          field: 'slug',
+          label: 'Custom Slug Field',
+          fieldType: 'text',
+        },
+      ]),
+    ).rejects.toThrow('Field slug "slug" is restricted and cannot be used');
+  });
+
   describe('api', () => {
     let server;
     const administratorKey = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';

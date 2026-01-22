@@ -129,5 +129,13 @@ export default (validatorOptions = {}) =>
       return null;
     }
 
-    return clean;
+    // Remove undefined fields from the result
+    const filteredClean = Object.keys(clean).reduce((acc, key) => {
+      if (clean[key] !== undefined) {
+        acc[key] = clean[key];
+      }
+      return acc;
+    }, {});
+
+    return filteredClean;
   };

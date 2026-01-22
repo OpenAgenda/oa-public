@@ -1,0 +1,15 @@
+export default [
+  'id',
+  'uid',
+  'slug',
+  'private',
+  'timezone',
+  'draft',
+  'createdAt',
+  'creatorUid',
+  'ownerUid',
+  'updatedAt',
+  'agendaUid',
+  'fileKey',
+  'locationUid',
+];

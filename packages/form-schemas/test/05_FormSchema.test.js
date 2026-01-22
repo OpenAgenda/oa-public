@@ -29,7 +29,7 @@ describe('form-schemas -05- FormSchema', () => {
 
     it("but you can't add two fields with the same name", () => {
       const s = new FormSchema();
-      let error = [];
+      let error = null;
 
       s.addField({
         field: 'atextfield',
@@ -47,7 +47,10 @@ describe('form-schemas -05- FormSchema', () => {
         error = e;
       }
 
-      expect(error).toBe('This slug is taken! : atextfield');
+      expect(error).toBeInstanceOf(Error);
+      expect(error.message).toBe(
+        'Field slug "atextfield" is already used in the schema',
+      );
     });
 
     it('a FormSchema can be initialized with preset fields', () => {

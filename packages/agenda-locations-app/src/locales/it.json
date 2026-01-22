@@ -58,8 +58,6 @@
   "AgendaLocations.LocationConfirmation.guideDetail": "Se è necessario apportare alcune modifiche, si prega di specificarle utilizzando il pulsante qui sotto prima di confermare la selezione",
   "AgendaLocations.LocationConfirmation.suggest": "Suggerisci un cambiamento",
   "AgendaLocations.LocationConfirmation.suggestChangeMessage": "Nel browser si è aperta una nuova scheda. Dettagliare le modifiche che si desidera apportare prima di selezionare la località",
-  "AgendaLocations.LocationDetailModal.removedMessage": "Questo luogo è stato rimosso",
-  "AgendaLocations.LocationDetailModal.removedModalTitle": "Rimuovere il luogo",
   "AgendaLocations.LocationDetails.access": "Accesso",
   "AgendaLocations.LocationDetails.address": "Indirizzo",
   "AgendaLocations.LocationDetails.andOn": "i su",

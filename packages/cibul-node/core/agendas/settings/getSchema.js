@@ -4,6 +4,7 @@ import { createIntlByLocale } from '@openagenda/intl';
 import * as locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
 import getAgenda from '../utils/getAgenda.js';
 import getNetwork from '../utils/getNetwork.js';
+import eventReservedFields from './eventReservedFields.js';
 
 const intlByLocale = createIntlByLocale(locales);
 
@@ -93,5 +94,6 @@ export const andParents = async function getSchemaAndParents(
   return {
     schema,
     parents,
+    reservedFields: eventReservedFields,
   };
 };

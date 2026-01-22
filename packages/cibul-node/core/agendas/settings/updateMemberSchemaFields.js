@@ -3,6 +3,7 @@ import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 import logs from '@openagenda/logs';
 import getAgenda from '../utils/getAgenda.js';
 import getMemberSchema from '../utils/getMemberSchema.js';
+import memberReservedFields from './memberReservedFields.js';
 
 const log = logs('core/agendas/settings/updateMemberFields');
 
@@ -24,7 +25,9 @@ export default async function updateSchemaFields(
     agenda,
     options,
   );
-  const fs = new FormSchema(agendaMemberSchema);
+  const fs = new FormSchema(agendaMemberSchema, {
+    restrictedFields: memberReservedFields,
+  });
 
   if (updatedFields) fs.updateFields(updatedFields);
 

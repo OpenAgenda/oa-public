@@ -32,7 +32,7 @@ const DeletedLocationModal = ({ close, mergedIn, prefix, mode = 'edit' }) => {
   const isMerged = mergedIn !== null && mergedIn !== undefined;
 
   const goToMergedLocation = () => {
-    const path = mode === 'edit' ? `${prefix}${mergedIn}/edit` : `${prefix}${mergedIn}`;
+    const path = mode === 'edit' ? `${prefix}/${mergedIn}/edit` : `${prefix}/${mergedIn}`;
     history.push(path);
   };
 

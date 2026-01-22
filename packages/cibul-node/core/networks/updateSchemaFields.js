@@ -1,6 +1,7 @@
 import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
+import eventReservedFields from '../agendas/settings/eventReservedFields.js';
 import patchNetwork from './patch.js';
 import getAgendas from './getAgendas.js';
 
@@ -31,7 +32,9 @@ export default (core) => {
       throw new Error('network form schema not found');
     }
 
-    const fs = new FormSchema(networkSchema);
+    const fs = new FormSchema(networkSchema, {
+      restrictedFields: eventReservedFields,
+    });
 
     try {
       fs.updateFields(updatedFields);

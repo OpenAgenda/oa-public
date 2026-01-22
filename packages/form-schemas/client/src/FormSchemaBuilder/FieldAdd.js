@@ -44,6 +44,37 @@ const isDuplicateLabel = (schema, field) => {
     .filter((label) => fieldLabels.includes(label)).length;
 };
 
+const isReservedSlug = (field, reservedFields = []) => {
+  if (field.type === 'section') {
+    return false;
+  }
+  const fieldSlug = field.field;
+
+  if (!fieldSlug) {
+    return false;
+  }
+
+  return reservedFields.includes(fieldSlug);
+};
+
+const isDuplicateSlug = (schema, field) => {
+  if (field.type === 'section') {
+    return false;
+  }
+  const fieldSlug = field.field;
+
+  if (!fieldSlug) {
+    return false;
+  }
+
+  // Check if the slug already exists in the schema
+  return schema.fields.some(
+    (schemaField) =>
+      (schemaField.field && schemaField.field === fieldSlug)
+      || (schemaField.slug && schemaField.slug === fieldSlug),
+  );
+};
+
 const ErrorSummary = ({ errors }) => (
   <div className="error-summary boxed margin-top-sm padding-h-sm padding-v-xs">
     {errors.map((e) => e.label).join(', ')}
@@ -64,6 +95,7 @@ const DisabledFieldForm = ({ lang }) => (
 export default function FieldAdd({
   onAdd: propsOnAdd,
   schema,
+  reservedFields = [],
   onClose,
   lang,
   modal = true,
@@ -74,7 +106,6 @@ export default function FieldAdd({
 
   const onAdd = useCallback(
     (field) => {
-      // slug is not defined here: it cannot be used as a basis for duplicate detection
       if (isDuplicateLabel(schema, field)) {
         setErrors([
           {
@@ -83,10 +114,29 @@ export default function FieldAdd({
         ]);
         return;
       }
+
+      if (isReservedSlug(field, reservedFields)) {
+        setErrors([
+          {
+            label: getLabel('isRestrictedError', lang),
+          },
+        ]);
+        return;
+      }
+
+      if (isDuplicateSlug(schema, field)) {
+        setErrors([
+          {
+            label: getLabel('isSlugDuplicateError', lang),
+          },
+        ]);
+        return;
+      }
+
       setErrors([]);
       propsOnAdd(field);
     },
-    [schema, propsOnAdd, setErrors, lang],
+    [schema, propsOnAdd, setErrors, lang, reservedFields],
   );
 
   return (
