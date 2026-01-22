@@ -12,6 +12,28 @@ function getHeaderValue(req, key) {
   return req.headers[key];
 }
 
+function extractAndMergeParams(url, searchParams) {
+  let existingParams = {};
+  let cleanUrl = url;
+
+  if (url instanceof URL) {
+    existingParams = qs.parse(url.search.slice(1));
+    cleanUrl = new URL(url.origin + url.pathname);
+  } else if (typeof url === 'string' && url.includes('?')) {
+    const [base, query] = url.split('?');
+    existingParams = qs.parse(query);
+    cleanUrl = base;
+  }
+
+  if (!searchParams) return { url: cleanUrl, params: existingParams };
+
+  const newParams = typeof searchParams === 'string' ? qs.parse(searchParams) : searchParams;
+  return {
+    url: cleanUrl,
+    params: { ...existingParams, ...newParams },
+  };
+}
+
 export default function apiClient(baseURL = null, req = null) {
   const isServer = typeof window === 'undefined';
   let token;
@@ -49,18 +71,20 @@ export default function apiClient(baseURL = null, req = null) {
 
     const { searchParams, ...rest } = options;
 
+    const { url: cleanUrl, params } = extractAndMergeParams(
+      finalUrl,
+      searchParams,
+    );
+
     const finalOptions = {
       ...rest,
       method,
+      ...Object.keys(params).length > 0 && {
+        searchParams: qs.stringify(params),
+      },
     };
 
-    if (searchParams) {
-      finalOptions.searchParams = typeof searchParams === 'string'
-        ? searchParams
-        : qs.stringify(searchParams);
-    }
-
-    return client(finalUrl, finalOptions);
+    return client(cleanUrl, finalOptions);
   };
 
   const instance = (url, options = {}) => {
