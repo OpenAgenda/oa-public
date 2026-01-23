@@ -1027,6 +1027,35 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           .json();
         expect(geoResults.total).toBeLessThan(noFilterResults.total);
       });
+
+      it('hasNull malformed filter with detailed and eventCounts options', async () => {
+        const { locations, total } = await ky
+          .get('http://localhost:4000/agendas/17026855/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+              detailed: 1,
+              eventCounts: 1,
+              page: 1,
+              from: 0,
+              size: 20,
+              hasNull: 'adminLevel1,adminLevel2',
+            },
+          })
+          .json();
+
+        expect(Array.isArray(locations)).toBeTruthy();
+        expect(typeof total).toBe('number');
+
+        locations.forEach((location) => {
+          expect(location.adminLevel1).toBeNull();
+          expect(location.adminLevel2).toBeNull();
+
+          expect(Object.keys(location).length).toBeGreaterThan(6);
+          expect(location).toHaveProperty('countryCode');
+          expect(location).toHaveProperty('timezone');
+          expect(location).toHaveProperty('eventCount');
+        });
+      });
     });
 
     describe('head', () => {
