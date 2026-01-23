@@ -1,13 +1,13 @@
-import { join, dirname } from 'node:path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-webpack5';
 
 /**
  * This function is used to resolve the absolute path of a package.
  * It is needed in projects that use Yarn PnP or are set up within a monorepo.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')));
+function getAbsolutePath(pkg: string): string {
+  return dirname(fileURLToPath(import.meta.resolve(`${pkg}/package.json`)));
 }
 
 const config: StorybookConfig = {

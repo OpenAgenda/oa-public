@@ -1,6 +1,6 @@
-const detailedLocations = require('./mel-locations.json');
-const agenda = require('./mel.json');
-const settings = require('./slslf-2022.json');
+import detailedLocations from './mel-locations.json' with { type: 'json' };
+import agenda from './mel.json' with { type: 'json' };
+import settings from './slslf-2022.json' with { type: 'json' };
 
 const defaultAccess = {
   authorized: true,
@@ -103,7 +103,7 @@ const sets = {
   ErrorLocations,
 };
 
-module.exports = Object.assign(function getFixtures(agendaUid) {
+export default Object.assign(function getFixtures(agendaUid) {
   return Object.keys(sets)
     .map((key) => sets[key])
     .find((set) => set.extraProps.agenda.uid === parseInt(agendaUid, 10));

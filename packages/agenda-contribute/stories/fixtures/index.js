@@ -1,18 +1,17 @@
-const { produce } = require('immer');
-
-const detailedAgenda = require('./mdb.detailed.agenda.json');
-const agenda = require('./mdb.agenda.json');
-const basicAgenda = require('./basic.agenda.json');
-const basicDetailedAgenda = require('./basic.detailed.agenda.json');
-const detailedAgendaWithAdditionalFields = require('./detailed.withAdditionalFields.json');
-const detailedAgendaWithMoreConstraints = require('./detailed.withMoreConstraints.json');
-const eventContributorContext = require('./contributor.context.json');
-const agendaContributorContext = require('./agendaContributor.context.json');
-const agendaNotAMemberContext = require('./agendaNotAMember.context.json');
-const agendaIncompleteContributorContext = require('./agendaContributor.incomplete.context.json');
-const basicEventResponse = require('./event.json');
-const bareboneEventResponse = require('./barebone.event.json');
-const agendaWithMemberSchema = require('./agenda.withMemberSchema.json');
+import { produce } from 'immer';
+import detailedAgenda from './mdb.detailed.agenda.json' with { type: 'json' };
+import agenda from './mdb.agenda.json' with { type: 'json' };
+import basicAgenda from './basic.agenda.json' with { type: 'json' };
+import basicDetailedAgenda from './basic.detailed.agenda.json' with { type: 'json' };
+import detailedAgendaWithAdditionalFields from './detailed.withAdditionalFields.json' with { type: 'json' };
+import detailedAgendaWithMoreConstraints from './detailed.withMoreConstraints.json' with { type: 'json' };
+import eventContributorContext from './contributor.context.json' with { type: 'json' };
+import agendaContributorContext from './agendaContributor.context.json' with { type: 'json' };
+import agendaNotAMemberContext from './agendaNotAMember.context.json' with { type: 'json' };
+import agendaIncompleteContributorContext from './agendaContributor.incomplete.context.json' with { type: 'json' };
+import basicEventResponse from './event.json' with { type: 'json' };
+import bareboneEventResponse from './barebone.event.json' with { type: 'json' };
+import agendaWithMemberSchema from './agenda.withMemberSchema.json' with { type: 'json' };
 
 function getLocation(uid) {
   return [basicEventResponse.event.location]
@@ -710,7 +709,7 @@ storySets.ShareWhenNotAMemberFromAgenda = {
   }),
 };
 
-module.exports = Object.assign(
+export default Object.assign(
   function getFixtures(agendaUidOrSlug) {
     return Object.keys(storySets)
       .map((key) => storySets[key])

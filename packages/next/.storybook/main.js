@@ -1,26 +1,27 @@
 import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-function getAbsolutePath(value) {
-  return dirname(require.resolve(join(value, 'package.json')));
+function getAbsolutePath(pkg) {
+  return dirname(fileURLToPath(import.meta.resolve(`${pkg}/package.json`)));
 }
 
 const main = {
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
     options: {
-      nextConfigPath: join(__dirname, '../next.config.mjs'),
+      nextConfigPath: join(import.meta.dirname, '../next.config.mjs'),
     },
   },
 
   stories: ['../stories/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
 
   core: {
-    builder: getAbsolutePath('@storybook/builder-webpack5'),
+    builder: import.meta.resolve('@storybook/builder-webpack5'),
   },
 
   staticDirs: ['../public', './public', '../stories/static'],
 
-  addons: ['@storybook/addon-a11y'],
+  addons: [getAbsolutePath('@storybook/addon-a11y')],
 
   webpackFinal: async (config) => {
     // https://github.com/vidstack/player/pull/1655

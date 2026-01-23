@@ -11,6 +11,7 @@ const getDefaultState = () => ({
   },
   res: {
     jsonExport: '/events',
+    search: '/api/agendas/:uid/events/search',
   },
   stats: {},
 });

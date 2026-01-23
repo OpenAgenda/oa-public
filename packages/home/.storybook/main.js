@@ -1,7 +1,8 @@
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-function getAbsolutePath(value) {
-  return dirname(require.resolve(join(value, 'package.json')));
+function getAbsolutePath(pkg) {
+  return dirname(fileURLToPath(import.meta.resolve(`${pkg}/package.json`)));
 }
 
 export default {

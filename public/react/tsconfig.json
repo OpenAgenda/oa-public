@@ -15,5 +15,5 @@
     }
   },
   "exclude": ["node_modules"],
-  "include": ["src/types/*.d.ts", "src", "stories"]
+  "include": ["src/types/*.d.ts", "src", "stories", ".storybook/**/*"]
 }

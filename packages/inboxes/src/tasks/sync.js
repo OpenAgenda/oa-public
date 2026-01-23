@@ -73,11 +73,10 @@ export async function syncAgenda(svc, agenda, stats) {
     membersSvc.list(
       {
         agendaUid: agenda.uid,
-        // credentials: [ 'administrator', 'moderator' ],
         deletedUser: false,
+        withUser: true,
       },
       { offset: pos, limit },
-      // { detailed: true }
     );
 
   while ((result = await shList())) {
@@ -112,39 +111,41 @@ export async function syncAgenda(svc, agenda, stats) {
   for (const member of members) {
     const inboxUserIdentifiers = { userUid: member.userUid };
 
-    if (!member.deletedUser && member.userUid) {
-      const inboxUser = await inbox.users.get(inboxUserIdentifiers);
-      const isAdminMod = [2, 3].includes(parseInt(member.role, 10));
+    if (member.deletedUser || !member.userUid) {
+      continue;
+    }
 
-      if (isAdminMod && !inboxUser.data) {
-        await inbox.users.add(inboxUserIdentifiers);
-        upStats(stats, 'inboxUsersAdded');
-        log(
-          'info',
-          'InboxUser %j is added to inbox %j',
-          inboxUserIdentifiers,
-          inboxIdentifiers,
-        );
-      } else if (isAdminMod && inboxUser.data && inboxUser.data.leftAt) {
-        await inbox.users.remove(inboxUserIdentifiers);
-        await inbox.users.add(inboxUserIdentifiers);
-        upStats(stats, 'inboxUsersUpdated');
-        log(
-          'info',
-          'InboxUser %j is updated in inbox %j',
-          inboxUserIdentifiers,
-          inboxIdentifiers,
-        );
-      } else if (!isAdminMod && inboxUser.data && !inboxUser.data.leftAt) {
-        await inbox.users.remove(inboxUserIdentifiers);
-        upStats(stats, 'inboxUsersRemoved');
-        log(
-          'info',
-          'InboxUser %j is removed from inbox %j',
-          inboxUserIdentifiers,
-          inboxIdentifiers,
-        );
-      }
+    const inboxUser = await inbox.users.get(inboxUserIdentifiers);
+    const isAdminMod = [2, 3].includes(parseInt(member.role, 10));
+
+    if (isAdminMod && !inboxUser.data) {
+      await inbox.users.add(inboxUserIdentifiers);
+      upStats(stats, 'inboxUsersAdded');
+      log(
+        'info',
+        'InboxUser %j is added to inbox %j',
+        inboxUserIdentifiers,
+        inboxIdentifiers,
+      );
+    } else if (isAdminMod && inboxUser.data && inboxUser.data.leftAt) {
+      await inbox.users.remove(inboxUserIdentifiers);
+      await inbox.users.add(inboxUserIdentifiers);
+      upStats(stats, 'inboxUsersUpdated');
+      log(
+        'info',
+        'InboxUser %j is updated in inbox %j',
+        inboxUserIdentifiers,
+        inboxIdentifiers,
+      );
+    } else if (!isAdminMod && inboxUser.data && !inboxUser.data.leftAt) {
+      await inbox.users.remove(inboxUserIdentifiers);
+      upStats(stats, 'inboxUsersRemoved');
+      log(
+        'info',
+        'InboxUser %j is removed from inbox %j',
+        inboxUserIdentifiers,
+        inboxIdentifiers,
+      );
     }
   }
 
