@@ -263,6 +263,62 @@ export default function Users() {
     setIncludeNullUserUid(true);
   }, [uniqueUserUids]);
 
+  // Calculate counts for session IDs (respecting user UID filters)
+  const sessionIdCounts = useMemo(() => {
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      return { counts: new Map(), nullCount: 0 };
+    }
+
+    const counts = new Map();
+    let nullCount = 0;
+
+    data.forEach((item) => {
+      const sessionId = item.message?.meta?.['session.id'];
+      const uid = item.message?.meta?.['user.uid'];
+
+      // Apply user UID filter
+      const userMatch = uid ? selectedUserUids.has(uid) : includeNullUserUid;
+      if (!userMatch) return;
+
+      if (sessionId) {
+        counts.set(sessionId, (counts.get(sessionId) || 0) + 1);
+      } else {
+        nullCount += 1;
+      }
+    });
+
+    return { counts, nullCount };
+  }, [data, selectedUserUids, includeNullUserUid]);
+
+  // Calculate counts for user UIDs (respecting session ID filters)
+  const userUidCounts = useMemo(() => {
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      return { counts: new Map(), nullCount: 0 };
+    }
+
+    const counts = new Map();
+    let nullCount = 0;
+
+    data.forEach((item) => {
+      const sessionId = item.message?.meta?.['session.id'];
+      const uid = item.message?.meta?.['user.uid'];
+
+      // Apply session ID filter
+      const sessionMatch = sessionId
+        ? selectedSessionIds.has(sessionId)
+        : includeNullSessionId;
+      if (!sessionMatch) return;
+
+      if (uid) {
+        counts.set(uid, (counts.get(uid) || 0) + 1);
+      } else {
+        nullCount += 1;
+      }
+    });
+
+    return { counts, nullCount };
+  }, [data, selectedSessionIds, includeNullSessionId]);
+
   // Filter data based on selected filters
   const filteredData = useMemo(() => {
     if (!data || !Array.isArray(data) || data.length === 0) {
@@ -538,7 +594,8 @@ export default function Users() {
                                     )}
                                 >
                                   <Text fontStyle="italic" color="gray.600">
-                                    (sans session ID)
+                                    (sans session ID) (
+                                    {sessionIdCounts.nullCount})
                                   </Text>
                                 </Checkbox>
                               )}
@@ -549,7 +606,8 @@ export default function Users() {
                                   onCheckedChange={() =>
                                     toggleSessionId(sessionId)}
                                 >
-                                  {sessionId}
+                                  {sessionId} (
+                                  {sessionIdCounts.counts.get(sessionId) || 0})
                                 </Checkbox>
                               ))}
                             </VStack>
@@ -587,7 +645,7 @@ export default function Users() {
                                     setIncludeNullUserUid(!includeNullUserUid)}
                                 >
                                   <Text fontStyle="italic" color="gray.600">
-                                    (sans user UID)
+                                    (sans user UID) ({userUidCounts.nullCount})
                                   </Text>
                                 </Checkbox>
                               )}
@@ -597,7 +655,7 @@ export default function Users() {
                                   checked={selectedUserUids.has(uid)}
                                   onCheckedChange={() => toggleUserUid(uid)}
                                 >
-                                  {uid}
+                                  {uid} ({userUidCounts.counts.get(uid) || 0})
                                 </Checkbox>
                               ))}
                             </VStack>
