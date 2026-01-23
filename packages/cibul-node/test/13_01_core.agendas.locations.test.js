@@ -1056,6 +1056,37 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
           expect(location).toHaveProperty('eventCount');
         });
       });
+
+      it('search text exceeding 255 characters should return 400 error', async () => {
+        const longSearchText = "Cette manifestation s'inscrit dans une démarche de continuité et de responsabilité. Elle n'enlève rien à la dimension collective de notre marche, qui demeure avant tout un mouvement ouvert, porté par celles et ceux qui, année après année, ont choisi de marcher ensemble.";
+
+        let error;
+
+        try {
+          await ky.get('http://localhost:4000/agendas/17026855/locations', {
+            searchParams: {
+              key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
+              itemsKey: 'items',
+              from: 0,
+              page: 1,
+              size: 10,
+              search: longSearchText,
+            },
+          });
+        } catch (e) {
+          error = e;
+        }
+
+        expect(error).toBeDefined();
+        expect(error.response.status).toBe(400);
+
+        const errorData = await error.response.json();
+        expect(errorData.message).toBe('invalid parameters');
+        expect(errorData.errors).toBeDefined();
+        expect(errorData.errors.length).toBeGreaterThan(0);
+        expect(errorData.errors[0].code).toBe('string.toolong');
+        expect(errorData.errors[0].field).toBe('search');
+      });
     });
 
     describe('head', () => {
