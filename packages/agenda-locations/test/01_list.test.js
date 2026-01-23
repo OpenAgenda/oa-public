@@ -204,6 +204,27 @@ describe('agenda-locations - functional - list', () => {
       expect(errors).toBeUndefined();
     });
 
+    it('search text exceeding 255 characters should throw validation error', async () => {
+      const longSearchText = "Cette manifestation s'inscrit dans une démarche de continuité et de responsabilité. Elle n'enlève rien à la dimension collective de notre marche, qui demeure avant tout un mouvement ouvert, porté par celles et ceux qui, année après année, ont choisi de marcher ensemble.";
+
+      let error;
+
+      try {
+        await svc(7196947).list({
+          search: longSearchText,
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error).toBeDefined();
+      expect(error.statusCode).toBe(400);
+      expect(error.message).toBe('invalid parameters');
+      expect(error.info.errors).toBeDefined();
+      expect(error.info.errors.length).toBeGreaterThan(0);
+      expect(error.info.errors[0].code).toBe('string.toolong');
+    });
+
     it('"search" queries department field', async () => {
       const items = await svc(7196947).list({ search: 'nom de département' });
 
