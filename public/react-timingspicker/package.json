@@ -13,8 +13,7 @@
   "type": "module",
   "main": "dist/index.js",
   "scripts": {
-    "sb": "yarn start",
-    "start": "storybook dev",
+    "sb": "storybook dev",
     "test": "TZ=Europe/Paris NODE_OPTIONS=\"--experimental-vm-modules\" jest --forceExit --detectOpenHandles",
     "build": "tsup",
     "extract-messages": "oa-intl --esm",
@@ -40,15 +39,14 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/addon-viewport": "^9.0.8",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
-    "@storybook/react-webpack5": "^9.0.8",
+    "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
+    "@storybook/react-webpack5": "^10.2.0",
     "bootstrap": "3.3.5",
     "jest": "^29.7.0",
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
     "rimraf": "^3.0.1",
-    "storybook": "^9.0.8",
+    "storybook": "^10.2.0",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {

@@ -1,8 +1,9 @@
-import { dirname, join, resolve } from 'node:path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import * as sass from 'sass';
 
-function getAbsolutePath(value) {
-  return dirname(require.resolve(join(value, 'package.json')));
+function getAbsolutePath(pkg) {
+  return dirname(fileURLToPath(import.meta.resolve(`${pkg}/package.json`)));
 }
 
 export default {
@@ -23,18 +24,18 @@ export default {
         'style-loader',
         'css-loader',
         {
-          loader: require.resolve('sass-loader'),
+          loader: 'sass-loader',
           options: {
             implementation: sass,
           },
         },
       ],
-      include: resolve(__dirname, '..'),
+      include: resolve(import.meta.dirname, '..'),
     });
     config.module.rules.push({
       test: /\.ejs$/,
       use: ['raw-loader'],
-      include: resolve(__dirname, '../stories'),
+      include: resolve(import.meta.dirname, '../stories'),
     });
     return config;
   },

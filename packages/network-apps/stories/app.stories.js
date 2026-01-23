@@ -3,7 +3,9 @@ import { http, HttpResponse } from 'msw';
 import { createMemoryHistory } from 'history';
 import App from '../client/src/App.js';
 
-import { networks } from './fixtures.json';
+import fixtures from './fixtures.json' with { type: 'json' };
+
+const { networks } = fixtures;
 
 export default { title: 'App' };
 

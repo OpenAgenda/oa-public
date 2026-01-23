@@ -4,7 +4,7 @@ import express from 'express';
 import multer from 'multer';
 import { makeMiddleware as makeFilesMw } from '@openagenda/files';
 import getFixtures from '../fixtures/index.js';
-import locationJson from '../fixtures/location.json';
+import locationJson from '../fixtures/location.json' with { type: 'json' };
 
 const filesMw = makeFilesMw(multer());
 const dev = express();

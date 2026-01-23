@@ -1,7 +1,8 @@
-import { dirname, join } from 'node:path';
+import { dirname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-function getAbsolutePath(value) {
-  return dirname(require.resolve(join(value, 'package.json')));
+function getAbsolutePath(pkg) {
+  return dirname(fileURLToPath(import.meta.resolve(`${pkg}/package.json`)));
 }
 
 export default {
@@ -11,8 +12,8 @@ export default {
     options: {},
   },
   addons: [
-    getAbsolutePath('@storybook/preset-scss'),
     getAbsolutePath('@storybook/addon-webpack5-compiler-babel'),
+    import.meta.resolve('@storybook/preset-scss'),
   ],
   staticDirs: ['./public'],
   babel: (config) => {

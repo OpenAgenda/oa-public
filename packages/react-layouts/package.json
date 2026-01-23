@@ -9,8 +9,7 @@
     "dist"
   ],
   "scripts": {
-    "sb": "storybook dev -p 9001 --ci",
-    "start": "yarn sb",
+    "sb": "storybook dev",
     "prepack": "yarn clean && oa-intl compile --esm && yarn build",
     "build": "tsup",
     "extract-messages": "oa-intl --esm",
@@ -46,16 +45,16 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
-    "@storybook/react-webpack5": "^9.0.8",
+    "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
+    "@storybook/react-webpack5": "^10.2.0",
     "history": "^4.10.1",
     "msw": "^2.3.0",
-    "msw-storybook-addon": "^2.0.5",
+    "msw-storybook-addon": "^2.0.6",
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
     "react-helmet-async": "^1.0.3",
     "rimraf": "^3.0.1",
-    "storybook": "^9.0.8",
+    "storybook": "^10.2.0",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {

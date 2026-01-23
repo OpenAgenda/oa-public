@@ -12,8 +12,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "sb": "yarn start",
-    "start": "storybook dev -p 9001 --ci",
+    "sb": "storybook dev",
     "build": "babel --copy-files src -d dist -s --env-name esm --root-mode upward",
     "clean": "rimraf dist",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --coverage --forceExit",
@@ -54,8 +53,8 @@
     "@babel/cli": "^7.28.3",
     "@cfaester/enzyme-adapter-react-18": "^0.6.0",
     "@openagenda/bs-templates": "^2.5.1",
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
-    "@storybook/react-webpack5": "^9.0.8",
+    "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
+    "@storybook/react-webpack5": "^10.2.0",
     "babel-jest": "^29.7.0",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
@@ -67,7 +66,7 @@
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
     "msw": "^2.3.0",
-    "msw-storybook-addon": "^2.0.5",
+    "msw-storybook-addon": "^2.0.6",
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
     "react-router": "^5.1.2",
@@ -76,7 +75,7 @@
     "redux-mock-store": "^1.5.4",
     "reload": "^3.2.1",
     "rimraf": "^3.0.1",
-    "storybook": "^9.0.8"
+    "storybook": "^10.2.0"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

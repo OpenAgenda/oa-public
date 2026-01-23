@@ -1,12 +1,11 @@
-const _ = require('lodash');
-const cors = require('cors');
-const logs = require('@openagenda/logs');
-const express = require('express');
+import _ from 'lodash';
+import cors from 'cors';
+import logs from '@openagenda/logs';
+import express from 'express';
+import getFixtures from './fixtures/index.js';
+import locationsAPIResponse from './fixtures/locations.json' with { type: 'json' };
 
 const log = logs('stories/server');
-
-const getFixtures = require('./fixtures/index.js');
-const locationsAPIResponse = require('./fixtures/locations.json');
 
 const { getLocation } = getFixtures;
 const dev = express();
@@ -112,4 +111,4 @@ dev.post(
   },
 );
 
-module.exports = dev;
+export default dev;

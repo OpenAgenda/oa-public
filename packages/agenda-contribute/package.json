@@ -7,8 +7,7 @@
   "scripts": {
     "prepack": "oa-intl compile --esm && yarn build",
     "build": "tsup",
-    "storybook": "storybook dev -p 9001 --ci",
-    "sb": "yarn storybook",
+    "sb": "storybook dev",
     "extract-messages": "oa-intl --esm",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
@@ -45,16 +44,16 @@
     "regenerator-runtime": "^0.13.7"
   },
   "devDependencies": {
-    "@storybook/addon-webpack5-compiler-babel": "^3.0.6",
-    "@storybook/react-webpack5": "^9.0.8",
+    "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
+    "@storybook/react-webpack5": "^10.2.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "jest": "^29.7.0",
     "msw": "^2.3.0",
-    "msw-storybook-addon": "^2.0.5",
+    "msw-storybook-addon": "^2.0.6",
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
-    "storybook": "^9.0.8",
+    "storybook": "^10.2.0",
     "tsup": "^8.3.5"
   },
   "peerDependencies": {

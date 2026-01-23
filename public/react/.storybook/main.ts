@@ -1,4 +1,5 @@
-import { join, dirname } from 'node:path';
+import { dirname, join } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import type { StorybookConfig } from '@storybook/react-webpack5';
 import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
 
@@ -6,9 +7,8 @@ import TsconfigPathsPlugin from 'tsconfig-paths-webpack-plugin';
  * This function is used to resolve the absolute path of a package.
  * It is needed in projects that use Yarn PnP or are set up within a monorepo.
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, 'package.json')));
+function getAbsolutePath(pkg: string): any {
+  return dirname(fileURLToPath(import.meta.resolve(`${pkg}/package.json`)));
 }
 
 const config: StorybookConfig = {
@@ -31,7 +31,7 @@ const config: StorybookConfig = {
 
     config.resolve.plugins.push(
       new TsconfigPathsPlugin({
-        configFile: join(__dirname, '../tsconfig.json'),
+        configFile: join(import.meta.dirname, '../tsconfig.json'),
       }),
     );
 
