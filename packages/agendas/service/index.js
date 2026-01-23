@@ -1,5 +1,4 @@
 import crypto from 'node:crypto';
-import _ from 'lodash';
 import knexLib from 'knex';
 import slugify from 'slugify';
 import logger from '@openagenda/logs';
@@ -19,7 +18,7 @@ function Agendas(c) {
   const { schemas } = c;
   const config = c;
 
-  const knex = _.get(c, 'knex')
+  const knex = c?.knex
     || knexLib({
       client: 'mysql2',
       connection: { ...c.mysql },
@@ -38,6 +37,14 @@ function Agendas(c) {
       const slug = slugify(seed || '', { lower: true, strict: true });
       return randomize ? `${slug}-${Math.ceil(Math.random() * 1000)}` : slug;
     },
+  });
+
+  const uidUnicity = Unicity(`${schemas.agenda}.uid`, {
+    setName: 'agendaUidUnicity',
+    expiry: 1000,
+    client: knex,
+    redis: c.redis,
+    generate: () => Math.floor(Math.random() * 10000000),
   });
 
   const { gm } = c.Files;
@@ -114,6 +121,7 @@ function Agendas(c) {
     knex,
     schemas: config.schemas,
     slugUnicity,
+    uidUnicity,
     interfaces: config.interfaces,
     upload: config.upload,
     service,
@@ -121,34 +129,40 @@ function Agendas(c) {
   };
 
   // Bind dependencies to all service functions using lodash pick for clean dependency loading
-  service.list = list.bind(
-    null,
-    _.pick(internals, ['service', 'schemas', 'imagePath', 'knex']),
-  );
-  service.set = set.bind(
-    null,
-    _.pick(internals, [
-      'knex',
-      'schemas',
-      'slugUnicity',
-      'interfaces',
-      'upload',
-      'service',
-      'imagePath',
-    ]),
-  );
-  service.remove = remove.bind(
-    null,
-    _.pick(internals, ['knex', 'schemas', 'service', 'interfaces']),
-  );
-  service.get = get.bind(
-    null,
-    _.pick(internals, ['knex', 'schemas', 'service', 'imagePath']),
-  );
-  service.findOne = findOne.bind(
-    null,
-    _.pick(internals, ['knex', 'schemas', 'service', 'imagePath']),
-  );
+  service.list = list.bind(null, {
+    service: internals.service,
+    schemas: internals.schemas,
+    imagePath: internals.imagePath,
+    knex: internals.knex,
+  });
+  service.set = set.bind(null, {
+    knex: internals.knex,
+    schemas: internals.schemas,
+    slugUnicity: internals.slugUnicity,
+    uidUnicity: internals.uidUnicity,
+    interfaces: internals.interfaces,
+    upload: internals.upload,
+    service: internals.service,
+    imagePath: internals.imagePath,
+  });
+  service.remove = remove.bind(null, {
+    knex: internals.knex,
+    schemas: internals.schemas,
+    service: internals.service,
+    interfaces: internals.interfaces,
+  });
+  service.get = get.bind(null, {
+    knex: internals.knex,
+    schemas: internals.schemas,
+    service: internals.service,
+    imagePath: internals.imagePath,
+  });
+  service.findOne = findOne.bind(null, {
+    knex: internals.knex,
+    schemas: internals.schemas,
+    service: internals.service,
+    imagePath: internals.imagePath,
+  });
 
   service.middleware = Middleware(service);
 

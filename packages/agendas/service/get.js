@@ -77,31 +77,18 @@ async function get({ knex, schemas, service, imagePath }, i, o) {
   return options.instanciate ? new service.Agenda(agenda, service) : agenda;
 }
 
-async function findOne({ knex, schemas, service, imagePath }, ...args) {
-  let search;
-  let options = {};
-  let cb;
-
-  if (arguments.length === 2) {
-    [search, cb] = args;
-  } else {
-    [search, options, cb] = args;
-  }
-
-  const query = knex(schemas.agenda)
+async function findOne(
+  { knex, schemas, service, imagePath },
+  search,
+  options = {},
+) {
+  const rows = await knex(schemas.agenda)
     .select('id')
     .where('title', 'like', `%${search}%`)
-    .limit(1)
-    .then((rows) => {
-      if (!rows.length) return null;
-      return get({ knex, schemas, service, imagePath }, rows[0].id, options);
-    });
+    .limit(1);
 
-  if (typeof cb === 'function') {
-    query.then((result) => cb(null, result)).catch(cb);
-  } else {
-    return query;
-  }
+  if (!rows.length) return null;
+  return get({ knex, schemas, service, imagePath }, rows[0].id, options);
 }
 
 export default get;

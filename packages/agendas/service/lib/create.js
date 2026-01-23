@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import get from '../get.js';
 import map from '../databaseFieldMap.js';
@@ -7,7 +6,6 @@ import dbMapper from './dbMapper.js';
 import profileImage from './profileImage.js';
 import doCreate from './doCreate.js';
 import createOrVerifySlug from './createOrVerifySlug.js';
-import createUid from './createUid.js';
 
 const dbParse = dbMapper(map);
 const log = logs('set');
@@ -28,23 +26,27 @@ function _setToNow(targetObj, field) {
 }
 
 async function create(
-  { knex, schemas, slugUnicity, interfaces, upload, service, imagePath },
+  {
+    knex,
+    schemas,
+    slugUnicity,
+    uidUnicity,
+    interfaces,
+    upload,
+    service,
+    imagePath,
+  },
   data,
-  o,
-  c,
+  options = {},
 ) {
-  const options = o instanceof Function ? {} : o;
-  const cb = o instanceof Function ? o : c;
-
-  const params = _.extend(
-    {
-      internal: false,
-      includeImagePath: false,
-    },
-    options,
-  );
+  const params = {
+    internal: false,
+    includeImagePath: false,
+    ...options,
+  };
 
   const slugUnicityInstance = slugUnicity.clone();
+  const uidUnicityInstance = uidUnicity.clone();
 
   try {
     // Initialize data object
@@ -57,10 +59,11 @@ async function create(
       identifiers: null,
       success: false,
       slugUnicity: slugUnicityInstance,
+      uidUnicity: uidUnicityInstance,
     };
 
     // Process creation steps
-    await createUid(knex, schemas, createData);
+    createData.data.uid = await uidUnicityInstance.generateAndHold();
     await createOrVerifySlug(slugUnicityInstance, createData);
 
     // Check for errors after slug verification
@@ -102,7 +105,7 @@ async function create(
       errors: createData.errors,
     };
 
-    if (createData.success && _.get(interfaces, 'onCreate')) {
+    if (createData.success && interfaces?.onCreate) {
       try {
         await interfaces.onCreate(createData.created);
       } catch (e) {
@@ -111,17 +114,12 @@ async function create(
     }
 
     await slugUnicityInstance.destroy();
+    await uidUnicityInstance.destroy();
 
-    if (cb) {
-      cb(null, response);
-    } else {
-      return response;
-    }
+    return response;
   } catch (error) {
     await slugUnicityInstance.destroy();
-    if (cb) {
-      return cb(error);
-    }
+    await uidUnicityInstance.destroy();
     throw error;
   }
 }

@@ -10,13 +10,23 @@ function _areIdentifiers(identifiers) {
 }
 
 function set(
-  { knex, schemas, slugUnicity, interfaces, upload, service, imagePath },
+  {
+    knex,
+    schemas,
+    slugUnicity,
+    uidUnicity,
+    interfaces,
+    upload,
+    service,
+    imagePath,
+  },
   ...args
 ) {
   const dependencies = {
     knex,
     schemas,
     slugUnicity,
+    uidUnicity,
     interfaces,
     upload,
     service,

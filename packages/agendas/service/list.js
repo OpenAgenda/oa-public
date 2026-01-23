@@ -14,7 +14,6 @@ const credentialFields = fields.find((f) => f.field === 'credentials').fields;
 function _includeLegacyQuery(clean, options, query) {
   _.keys(clean).forEach((k) => {
     if (options[k] === undefined && query[k] !== undefined) {
-      console.log('%s in query is DEPRECATED. set in options instead', k);
       clean[k] = query[k];
       query[k] = undefined;
     }

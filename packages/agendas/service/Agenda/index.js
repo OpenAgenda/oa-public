@@ -32,12 +32,10 @@ async function _loadInternals() {
 }
 
 function getData(options) {
-  const params = _.extend(
-    {
-      internal: false,
-    },
-    options || {},
-  );
+  const params = {
+    internal: false,
+    ...options || {},
+  };
 
   return params.internal ? this.data : publicValidate(this.data);
 }

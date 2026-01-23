@@ -11,16 +11,6 @@ import verifyIfDifferent from './verifyIfDifferent.js';
 const dbParse = dbMapper(map);
 const log = logs('set');
 
-async function _validate(targetData, errors = []) {
-  try {
-    const clean = validate(targetData);
-    return { clean, errors };
-  } catch (e) {
-    log('validation failed with %s errors: %s', e.length, e);
-    return { clean: null, errors: errors.concat(e) };
-  }
-}
-
 function _filterProtected(protectedFlag, namespace, data) {
   if (!protectedFlag) return data;
 
@@ -47,39 +37,21 @@ function _merge(current, data) {
   });
 }
 
-function _setToNow(targetObj, field) {
-  targetObj[field] = new Date();
-  return targetObj;
-}
-
-function _timestampOfficial(current, merged) {
-  if (!current.official && merged.official) {
-    merged.officializedAt = new Date();
-  }
-  return merged;
-}
-
 async function update(
   { knex, schemas, slugUnicity, interfaces, upload, service, imagePath },
   identifiers,
   data,
-  o,
-  c,
+  options = {},
 ) {
-  const options = o instanceof Function ? {} : o;
-  const cb = o instanceof Function ? o : c;
-
-  const params = _.extend(
-    {
-      // option defaults
-      protected: true, // protected fields cannot be tampered with
-      internal: false, // retrieve internal fields when update is done
-      private: false,
-      includeImagePath: false,
-      context: null,
-    },
-    options,
-  );
+  const params = {
+    // option defaults
+    protected: true, // protected fields cannot be tampered with
+    internal: false, // retrieve internal fields when update is done
+    private: false,
+    includeImagePath: false,
+    context: null,
+    ...options,
+  };
 
   const slugUnicityInstance = slugUnicity.clone();
 
@@ -104,11 +76,28 @@ async function update(
     const { id } = current;
 
     // Merge and process
-    let merged = _merge(current, data);
-    merged = _setToNow(merged, 'updatedAt');
-    merged = _timestampOfficial(current, merged);
+    const merged = Object.assign(_merge(current, data), {
+      updatedAt: new Date(),
+    });
 
-    const { clean, errors } = await _validate(merged, []);
+    // Set officializedAt timestamp if becoming official
+    if (!current.official && merged.official) {
+      merged.officializedAt = new Date();
+    }
+
+    // Validate the merged data
+    let clean;
+    let errors = [];
+    try {
+      clean = validate(merged);
+    } catch (validationErrors) {
+      log(
+        'validation failed with %s errors: %s',
+        validationErrors.length,
+        validationErrors,
+      );
+      errors = errors.concat(validationErrors);
+    }
 
     const filteredClean = clean
       ? _filterProtected(params.protected, 'clean', clean)
@@ -147,7 +136,7 @@ async function update(
     }
 
     // Final processing
-    if (success && interfaces) {
+    if (success && interfaces?.onUpdate) {
       interfaces.onUpdate(current, updated, params.context);
     }
 
@@ -160,16 +149,9 @@ async function update(
 
     await slugUnicityInstance.destroy();
 
-    if (cb) {
-      cb(null, result);
-    } else {
-      return result;
-    }
+    return result;
   } catch (error) {
     await slugUnicityInstance.destroy();
-    if (cb) {
-      return cb(error);
-    }
     throw error;
   }
 }

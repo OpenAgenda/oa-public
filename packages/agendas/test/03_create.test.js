@@ -37,6 +37,8 @@ describe('agendas - functional (server): set (create)', () => {
 
     await redisClient.del('agendaSlugUnicity');
     await redisClient.del('agendaSlugUnicity:lock');
+    await redisClient.del('agendaUidUnicity');
+    await redisClient.del('agendaUidUnicity:lock');
   });
 
   beforeAll(() => {
@@ -220,5 +222,34 @@ describe('agendas - functional (server): set (create)', () => {
         origin: 'triplet',
       },
     ]);
+  });
+
+  it('uid is generated and unique for created agendas', async () => {
+    const result1 = await svc.set({
+      ownerId: 1,
+      title: 'Test UID 1',
+      description: 'Testing UID generation',
+    });
+
+    const result2 = await svc.set({
+      ownerId: 1,
+      title: 'Test UID 2',
+      description: 'Testing UID generation',
+    });
+
+    // Both should have UIDs
+    expect(result1.agenda.uid).toBeTruthy();
+    expect(result2.agenda.uid).toBeTruthy();
+
+    // UIDs should be different
+    expect(result1.agenda.uid).not.toBe(result2.agenda.uid);
+
+    // UIDs should be numbers inferior to 10000000
+    const uid1 = parseInt(result1.agenda.uid, 10);
+    const uid2 = parseInt(result2.agenda.uid, 10);
+    expect(uid1).toBeGreaterThanOrEqual(0);
+    expect(uid1).toBeLessThan(10000000);
+    expect(uid2).toBeGreaterThanOrEqual(0);
+    expect(uid2).toBeLessThan(10000000);
   });
 });
