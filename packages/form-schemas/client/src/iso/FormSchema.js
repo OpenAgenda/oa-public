@@ -13,10 +13,10 @@ const getItemSlug = (f) => f.slug ?? f.field;
 const getItemType = (f) => f.type ?? 'field';
 
 function validate(data, options = {}) {
-  const { client, requireLabels, restrictedFields } = {
+  const { client, requireLabels, reservedFields } = {
     client: false,
     requireLabels: true,
-    restrictedFields: [],
+    reservedFields: [],
     ...typeof options === 'boolean'
       ? {
         client: options,
@@ -62,10 +62,10 @@ function validate(data, options = {}) {
 
       const fieldSlug = cleanField.field;
 
-      // Check if slug is restricted
-      if (restrictedFields.includes(fieldSlug)) {
+      // Check if slug is reserved
+      if (reservedFields.includes(fieldSlug)) {
         throw new Error(
-          `Field slug "${fieldSlug}" is restricted and cannot be used`,
+          `Field slug "${fieldSlug}" is reserved and cannot be used`,
         );
       }
 
@@ -108,7 +108,7 @@ class FormSchema {
       client: true,
       ...typeof options === 'boolean' ? { client: options } : options,
     });
-    this.restrictedFields = options.restrictedFields || [];
+    this.reservedFields = options.reservedFields || [];
   }
 
   // get clean data
@@ -129,9 +129,9 @@ class FormSchema {
 
     const itemSlug = getItemSlug(clean);
 
-    // Check if slug is restricted
-    if (this.restrictedFields.includes(itemSlug)) {
-      const error = `Field slug "${itemSlug}" is restricted and cannot be used`;
+    // Check if slug is reserved
+    if (this.reservedFields.includes(itemSlug)) {
+      const error = `Field slug "${itemSlug}" is reserved and cannot be used`;
       throw new Error(error);
     }
 
@@ -163,9 +163,9 @@ class FormSchema {
     const itemSlug = getItemSlug(clean);
     const oldSlug = getItemSlug(this.data.fields[fieldIndex]);
 
-    // Check if slug is being changed to a restricted one
-    if (itemSlug !== oldSlug && this.restrictedFields.includes(itemSlug)) {
-      const error = `Field slug "${itemSlug}" is restricted and cannot be used`;
+    // Check if slug is being changed to a reserved one
+    if (itemSlug !== oldSlug && this.reservedFields.includes(itemSlug)) {
+      const error = `Field slug "${itemSlug}" is reserved and cannot be used`;
       throw new Error(error);
     }
 
