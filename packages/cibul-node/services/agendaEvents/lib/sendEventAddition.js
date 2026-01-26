@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import agendasSvc from '@openagenda/agendas';
 import logs from '@openagenda/logs';
 import getStateSlug from './utils/getStateSlug.js';
 import getMemberName from './utils/getMemberName.js';
@@ -9,7 +8,7 @@ const log = logs('agendaEvents/sendEventAddition');
 export default async ({ config, services }, { agendaEvent, user, context }) => {
   const { root } = config;
 
-  const { mails, users, members: membersSvc } = services;
+  const { mails, users, members: membersSvc, agendas: agendasSvc } = services;
 
   log('processing');
 

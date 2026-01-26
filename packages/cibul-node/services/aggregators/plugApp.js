@@ -4,7 +4,12 @@ import validators from '@openagenda/validators';
 import _ from 'lodash';
 
 export default (config, parentApp) => {
-  const { sessions, agendas, members, aggregators } = parentApp.services;
+  const {
+    sessions,
+    agendas: agendasSvc,
+    members,
+    aggregators,
+  } = parentApp.services;
 
   // this stays
   parentApp.all(
@@ -15,8 +20,8 @@ export default (config, parentApp) => {
     ],
     [
       sessions.mw.loadOrRedirect(),
-      agendas.mw.load,
-      agendas.mw.authorizeByIPAddress(),
+      agendasSvc.mw.load,
+      agendasSvc.mw.authorizeByIPAddress(),
       members.mw.loadAndAuthorize('administrator'),
     ],
   );
@@ -24,7 +29,7 @@ export default (config, parentApp) => {
   parentApp.post(
     '/:agendaSlug/admin/sources',
     bodyParser.json(),
-    agendas.mw.loadBy({
+    agendasSvc.mw.loadBy({
       path: 'body.agendaUid',
       field: 'uid',
       target: 'sourceAgenda',
@@ -88,18 +93,12 @@ export default (config, parentApp) => {
         query.search = req.query.search;
       }
 
-      agendas.list(
-        query,
-        (validatePage(req.query.searchPage) - 1) * limit,
-        limit,
-        { total: true, includeImagePath: true },
-        (err, agendasResp, total) => {
-          if (err) {
-            return next(err);
-          }
-          res.json({ agendas: agendasResp, total });
-        },
-      );
+      agendasSvc
+        .list(query, (validatePage(req.query.searchPage) - 1) * limit, limit, {
+          total: true,
+          includeImagePath: true,
+        })
+        .then(({ agendas, total }) => res.json({ agendas, total }), next);
     },
   );
 
@@ -127,7 +126,7 @@ export default (config, parentApp) => {
 
   parentApp.get(
     '/agendas/:uid/sources.json',
-    agendas.mw.loadBy({ path: 'params.uid', field: 'uid' }),
+    agendasSvc.mw.loadBy({ path: 'params.uid', field: 'uid' }),
     (req, res, next) =>
       aggregators.sources.list(req.agenda, {}, { detailed: true }).then(
         (result) =>

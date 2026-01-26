@@ -1,4 +1,4 @@
-import agendasSvc from '@openagenda/agendas';
+import Agendas from '@openagenda/agendas';
 import cmn from '../../lib/commons-app.js';
 import agendaAdminLayout from '../lib/layouts/agendaAdmin/index.js';
 import middleware from './middleware.js';
@@ -89,7 +89,7 @@ function plugApp(app) {
 }
 
 export function init(config, services) {
-  agendasSvc.init({
+  const agendasSvc = Agendas({
     knex: config.knex,
     redis: services.redis.ioRedis,
     schemas: config.schemas,

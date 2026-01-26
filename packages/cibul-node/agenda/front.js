@@ -1,6 +1,5 @@
 import fs from 'node:fs';
 import _ from 'lodash';
-import agendas from '@openagenda/agendas';
 import makeLabelGetter from '@openagenda/labels';
 import forbiddenLabels from '@openagenda/labels/agendas/forbidden.js';
 import { fromMarkdownToHTML } from '@openagenda/md';
@@ -129,7 +128,7 @@ export default (app) => {
     '/agendas/:uid',
     preMw,
     cmn.redirectLegacySearch,
-    agendas.middleware.load({
+    agendasSvc.middleware.load({
       private: null,
       namespaces: { identifiers: { uid: 'params.uid' } },
     }),
@@ -139,7 +138,7 @@ export default (app) => {
 
   app.get(
     '/agendas/:uid/contribute',
-    agendas.middleware.load({
+    agendasSvc.middleware.load({
       private: null,
       namespaces: { identifiers: { uid: 'params.uid' } },
     }),

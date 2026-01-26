@@ -21,7 +21,7 @@ export default (core) => {
     const endpoints = {
       get: get.bind(null, core, agendaUid),
       update: update.bind(null, core, agendaUid),
-      remove: remove.bind(null, agendaUid),
+      remove: remove.bind(null, core, agendaUid),
       events: events(agendaUid),
       locations: locations(core, agendaUid),
       members: members(core, agendaUid),

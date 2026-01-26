@@ -45,6 +45,7 @@ export default async (core, agendaUid, data, options = {}) => {
 
   try {
     const member = userUid ? await members.get({ agendaUid, userUid }) : null;
+
     const agenda = await getAgenda(core.services, agendaUid, {
       detailed: true,
       includeMemberSchema: true,

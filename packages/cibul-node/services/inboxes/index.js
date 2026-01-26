@@ -21,7 +21,7 @@ export async function init(config, services) {
   const interfaces = {
     getUsersDetails: getUsersDetails.bind(null, services),
     onMessageCreate: onMessageCreate.bind(null, { services, mailsDomain }),
-    getInboxesDetails: getInboxesDetails.bind(null, services),
+    getInboxesDetails: getInboxesDetails.bind(null, config, services),
     onAction: onAction.bind(null, services),
     onInboxCreate: onInboxCreate.bind(null, services),
     filterAction: filterAction.bind(null, services),
