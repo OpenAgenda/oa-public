@@ -26,7 +26,7 @@ export default async function updateSchemaFields(
     options,
   );
   const fs = new FormSchema(agendaMemberSchema, {
-    restrictedFields: memberReservedFields,
+    reservedFields: memberReservedFields,
   });
 
   if (updatedFields) fs.updateFields(updatedFields);

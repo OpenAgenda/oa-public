@@ -33,7 +33,7 @@ export default (core) => {
     }
 
     const fs = new FormSchema(networkSchema, {
-      restrictedFields: eventReservedFields,
+      reservedFields: eventReservedFields,
     });
 
     try {
