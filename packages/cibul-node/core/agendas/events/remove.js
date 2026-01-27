@@ -209,7 +209,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     );
   }
 
-  await refreshAgenda(agenda.uid);
+  await refreshAgenda(core.services, agenda.uid);
 
   const result = await payload.getResponse('removed', access);
 

@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import agendas from '@openagenda/agendas';
 import * as invitations from '@openagenda/invitations';
 import logs from '@openagenda/logs';
 import clearCache from './lib/clearCache.js';
@@ -85,6 +84,7 @@ export default async function onPatch(
 
   const {
     inboxes,
+    agendas,
     users: usersSvc,
     members: {
       utils: {

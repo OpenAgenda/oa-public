@@ -1,7 +1,8 @@
 import * as agendaSettings from '@openagenda/agenda-settings';
-import agendas from '@openagenda/agendas';
 
-export async function init(config) {
+export async function init(config, services) {
+  const { agendas } = services;
+
   await agendaSettings.init({
     services: {
       agendas,

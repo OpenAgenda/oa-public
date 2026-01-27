@@ -171,7 +171,7 @@ export default async (core, payload, clean, options = {}) => {
     batched,
   });
 
-  await refreshAgenda(agenda.uid);
+  await refreshAgenda(core.services, agenda.uid);
 
   return response;
 };
