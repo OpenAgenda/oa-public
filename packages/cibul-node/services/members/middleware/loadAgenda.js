@@ -1,10 +1,11 @@
-import agendasSvc from '@openagenda/agendas';
 import membersSvc from '@openagenda/members';
 
 const { getRoleCode } = membersSvc.utils;
 
 export default (req, res, next) => {
-  agendasSvc
+  const { agendas } = req.app.services;
+
+  agendas
     .get(
       { slug: req.params.agendaSlug },
       {
