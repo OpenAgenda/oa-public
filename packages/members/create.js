@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import validate from './iso/validate.js';
 import toRoleCode from './iso/toRoleCode.js';
@@ -29,14 +28,11 @@ export default async ({ knex, schema, interfaces }, data, options = {}) => {
   }
 
   if (clean.agendaUid && interfaces.getAgendasByUid) {
-    clean.agendaId = _.get(
-      await interfaces.getAgendasByUid(clean.agendaUid),
-      '0.id',
-    );
+    clean.agendaId = (await interfaces.getAgendasByUid(clean.agendaUid))[0]?.id;
   }
 
   if (clean.userUid && interfaces.getUsersByUid) {
-    clean.userId = _.get(await interfaces.getUsersByUid(clean.userUid), '0.id');
+    clean.userId = (await interfaces.getUsersByUid(clean.userUid))[0]?.id;
   }
 
   clean.invited = !clean.userUid;
@@ -54,9 +50,9 @@ export default async ({ knex, schema, interfaces }, data, options = {}) => {
 
   log('inserting member', clean);
 
-  clean.id = _.first(await knex(schema).insert(toDB(clean)));
+  [clean.id] = await knex(schema).insert(toDB(clean));
 
-  if (_.get(interfaces, 'onCreate')) {
+  if (interfaces?.onCreate) {
     try {
       await interfaces.onCreate(clean, context);
     } catch (e) {

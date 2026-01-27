@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import cleanRemoveOptions from './lib/cleanRemoveOptions.js';
 import get from './get.js';
@@ -16,7 +15,7 @@ export default async (config, identifiers, options = {}) => {
 
   await knex(schema).delete().where('id', member.id);
 
-  if (_.get(interfaces, 'onRemove')) {
+  if (interfaces?.onRemove) {
     try {
       await interfaces.onRemove(member, context);
     } catch (e) {

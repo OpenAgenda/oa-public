@@ -1,49 +1,23 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import addListFilters from './lib/addListFilters.js';
-import getRoleSlug from './iso/getRoleSlug.js';
 import { fromDB } from './lib/transformDBEntry.js';
 import cleanListOptions from './lib/cleanListOptions.js';
 import addPaginationAndOrder from './lib/addPaginationAndOrder.js';
+import getTotal from './lib/getTotal.js';
+import decorateMembersWithUsers from './lib/decorateMembersWithUsers.js';
+import decorateMembersWithAgendas from './lib/decorateMembersWithAgendas.js';
+import decorateMembersWithEventCounts from './lib/decorateMembersWithEventCounts.js';
 
 const log = logs('list');
 
-async function _getTotal(knex, k, includeTotal = false, detailed = false) {
-  if (!includeTotal) {
-    return {
-      total: null,
-      totalPerRole: null,
-    };
-  }
-
-  const query = k.clone();
-
-  if (!detailed) {
-    return query.count('id as total').then((r) => ({
-      total: _.get(r, '0.total'),
-      totalPerRole: null,
-    }));
-  }
-  return query
-    .select(knex.raw('credential as role, count( id ) as total'))
-    .groupBy('role')
-    .then((rows) =>
-      rows.reduce(
-        ({ total, totalPerRole }, row) => ({
-          totalPerRole: _.set(
-            totalPerRole,
-            getRoleSlug(row.role),
-            _.get(totalPerRole, getRoleSlug(row.role), 0) + row.total,
-          ),
-          total: total + row.total,
-        }),
-        {
-          total: 0,
-          totalPerRole: {},
-        },
-      ));
-}
-
+/**
+ * List members with optional filtering, pagination, and decoration
+ * @param {Object} config - Configuration object with knex, schema, and interfaces
+ * @param {Object} query - Query parameters
+ * @param {Object} nav - Navigation parameters (pagination, ordering)
+ * @param {Object} options - Additional options
+ * @returns {Promise<Object|Array>} Members list with optional metadata
+ */
 export default async (
   { knex, schema, interfaces },
   query,
@@ -60,20 +34,20 @@ export default async (
     customDataAtRoot,
   } = cleanListOptions(options);
 
-  const k = knex(schema);
+  const queryBuilder = knex(schema);
 
-  addListFilters(k, query);
+  addListFilters(queryBuilder, query);
 
-  const { total, totalPerRole } = await _getTotal(
+  const { total, totalPerRole } = await getTotal(
     knex,
-    k,
+    queryBuilder,
     includeTotal,
     detailed,
   );
 
-  const { orderField } = addPaginationAndOrder(k, nav);
+  const { orderField } = addPaginationAndOrder(queryBuilder, nav);
 
-  const members = await k.then((rows) =>
+  const members = await queryBuilder.then((rows) =>
     rows.map(
       fromDB.bind(null, {
         includeLegacyFields: legacy,
@@ -82,49 +56,44 @@ export default async (
       }),
     ));
 
+  // Initialize event counts for detailed mode
   if (detailed) {
-    members.forEach((m) => Object.assign(m, { eventCount: 0 }));
-  }
-
-  if (detailed && _.get(interfaces, 'getUsersByUid')) {
-    const userUids = _.uniq(members.map((m) => m.userUid).filter((m) => !!m));
-    const users = userUids.length
-      ? await interfaces.getUsersByUid(userUids, userOptions)
-      : [];
-    members.forEach((m) => {
-      m.user = _.find(users, { uid: m.userUid });
+    members.forEach((member) => {
+      member.eventCount = 0;
     });
   }
 
-  if (detailed && _.get(interfaces, 'getAgendasByUid') && members.length) {
-    const agendas = await interfaces.getAgendasByUid(
-      members.map((m) => m.agendaUid).filter((m) => !!m),
-    );
-    members.forEach((m) => {
-      m.agenda = _.find(agendas, { uid: m.agendaUid });
-    });
+  // Decorate members with additional data if in detailed mode
+  const shouldDecorateMembers = detailed && members.length;
+
+  if (shouldDecorateMembers && interfaces?.getUsersByUid) {
+    await decorateMembersWithUsers(interfaces, members, userOptions);
   }
 
-  if (
-    detailed
-    && members.length
-    && _.get(interfaces, 'getEventCountByUserUid')
-  ) {
-    (
-      await interfaces.getEventCountByUserUid(
-        query.agendaUid,
-        members.map((m) => m.userUid),
-      )
-    ).forEach((stat) => {
-      _.find(members, { userUid: stat.userUid }).eventCount = stat.count;
-    });
+  if (shouldDecorateMembers && interfaces?.getAgendasByUid) {
+    await decorateMembersWithAgendas(interfaces, members);
   }
 
-  return includeTotal || legacy
-    ? {
+  if (shouldDecorateMembers && interfaces?.getEventCountByUserUid) {
+    await decorateMembersWithEventCounts(interfaces, members, query.agendaUid);
+  }
+
+  // Build and return the result
+  if (includeTotal || legacy) {
+    const result = {
       [legacy ? 'stakeholders' : 'members']: members,
-      ...total !== undefined ? { total } : {},
-      ...totalPerRole ? { totalPerRole } : {},
+    };
+
+    if (total !== undefined) {
+      result.total = total;
     }
-    : members;
+
+    if (totalPerRole) {
+      result.totalPerRole = totalPerRole;
+    }
+
+    return result;
+  }
+
+  return members;
 };
