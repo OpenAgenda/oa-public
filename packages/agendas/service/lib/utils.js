@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * do not proceed if clean identifiers amount to nothing
  */
@@ -34,9 +32,7 @@ function cleanIdentifiers(identifiers) {
   return clean;
 }
 
-module.exports = {
-  identifiers: {
-    check: checkIdentifiers,
-    clean: cleanIdentifiers,
-  },
+export const identifiers = {
+  check: checkIdentifiers,
+  clean: cleanIdentifiers,
 };

@@ -1,8 +1,6 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
-const map = require('../databaseFieldMap');
-const dbMapper = require('./dbMapper');
+import logs from '@openagenda/logs';
+import map from '../databaseFieldMap.js';
+import dbMapper from './dbMapper.js';
 
 const dbParse = dbMapper(map);
 const log = logs('verifyUnique');
@@ -42,4 +40,4 @@ function verifyUnique(knex, schemas, field) {
   };
 }
 
-module.exports = verifyUnique;
+export default verifyUnique;

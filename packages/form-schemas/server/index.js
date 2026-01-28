@@ -56,10 +56,10 @@ async function getValidator({ client, schemas }, id, options = {}) {
   return data ? new FormSchema(data).getValidate(options) : null;
 }
 
-async function create({ client, schemas, restrictedFields }, data) {
+async function create({ client, schemas, reservedFields }, data) {
   let clean;
   try {
-    clean = FormSchema.validate(data, { restrictedFields });
+    clean = FormSchema.validate(data, { reservedFields });
   } catch (errors) {
     log('failed creating form-schema', JSON.stringify(data));
 
@@ -84,10 +84,10 @@ async function create({ client, schemas, restrictedFields }, data) {
   };
 }
 
-async function update({ client, schemas, restrictedFields }, id, data) {
+async function update({ client, schemas, reservedFields }, id, data) {
   let clean;
   try {
-    clean = FormSchema.validate(data, { restrictedFields });
+    clean = FormSchema.validate(data, { reservedFields });
   } catch (errors) {
     log('failed updating form-schema %s', id, JSON.stringify(data));
 
@@ -138,7 +138,7 @@ export default Object.assign(
           connection: { ...config.mysql },
         }),
       schemas: config.schemas,
-      restrictedFields: config.restrictedFields || [],
+      reservedFields: config.reservedFields || [],
     };
 
     filesMw.init({

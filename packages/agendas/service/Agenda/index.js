@@ -1,53 +1,41 @@
-'use strict';
+import _ from 'lodash';
+import logger from '@openagenda/logs';
+import publicValidate from '../validate/public.js';
 
-const _ = require('lodash');
-
-const logger = require('@openagenda/logs');
-
-const publicValidate = require('../validate/public');
-
-let service;
-let { log } = console;
-
-function Agenda(data) {
+function Agenda(data, service) {
   if (!service) {
-    return new Error('instanciation service was not initialized');
+    return new Error('service parameter is required');
   }
 
   if (!data.uid) {
     return new Error('identifier uid is not set');
   }
 
+  const log = logger('agendas/instanciate');
+
   Object.assign(this, { data, service, log });
 }
 
-function _loadInternals(cb) {
-  service.get(
+async function _loadInternals() {
+  const agenda = await this.service.get(
     { uid: this.data.uid },
     { internal: true, private: null },
-    (err, agenda) => {
-      if (err) return cb(err);
-
-      if (!agenda) return cb();
-
-      _.forIn(agenda, (value, field) => {
-        if (this.data[field] !== undefined) return;
-
-        this.data[field] = value;
-      });
-
-      cb();
-    },
   );
+
+  if (!agenda) return;
+
+  _.forIn(agenda, (value, field) => {
+    if (this.data[field] !== undefined) return;
+
+    this.data[field] = value;
+  });
 }
 
 function getData(options) {
-  const params = _.extend(
-    {
-      internal: false,
-    },
-    options || {},
-  );
+  const params = {
+    internal: false,
+    ...options || {},
+  };
 
   return params.internal ? this.data : publicValidate(this.data);
 }
@@ -62,15 +50,10 @@ function getImage(includePath = false, useDefaultImage = false) {
   return (includePath ? path : '') + image;
 }
 
-function init(svc) {
-  log = logger('agendas/instanciate');
-  service = svc;
-}
-
 Object.assign(Agenda.prototype, {
   getData,
   getImage,
   _loadInternals,
 });
 
-module.exports = Object.assign(Agenda, { init });
+export default Agenda;

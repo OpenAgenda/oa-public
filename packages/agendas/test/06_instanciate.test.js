@@ -1,19 +1,23 @@
-'use strict';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
+import fs from 'node:fs';
+import mysql from 'mysql2';
+import Files from '@openagenda/files';
+
+import testConfig from '../testconfig.js';
+import Agendas from '../service/index.js';
+import loadFixtures from './fixtures/load.js';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 process.env.NODE_ENV = 'test';
-
-const fs = require('node:fs');
-const mysql = require('mysql2');
-
-const Files = require('@openagenda/files');
-
-const { service: config, dependencies: dConfig } = require('../testconfig');
-const svc = require('../service/index');
-const loadFixtures = require('./fixtures/load');
+const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): instanciate', () => {
+  let svc;
   beforeAll(() => {
-    svc.init({
+    svc = Agendas({
       ...config,
       Files: Files(dConfig.files),
     });
@@ -69,43 +73,39 @@ describe('agendas - functional (server): instanciate', () => {
     expect(agenda.getData({ internal: true }).id).toBe(4826);
   });
 
-  it('setImage - successful set saves image name in db', () => {
+  it('setImage - successful set saves image name in db', async () => {
     const con = mysql.createConnection(config.mysql);
 
     const aId = 4922;
 
-    return new Promise((resolve, reject) => {
-      con.query('select * from agenda where id = ?', aId, (err, rows) => {
-        if (err) return reject(err);
-        expect(rows[0].image).toBeNull();
-
-        svc.get(aId, { instanciate: true }, (err1) => {
-          if (err1) return reject(err1);
-
-          svc.set(
-            aId,
-            { image: { path: `${__dirname}/files/tmp.jpg` } },
-            (err2) => {
-              if (err2) return reject(err2);
-
-              // Étape 3 : vérifier que l'image a été mise à jour correctement
-              con.query(
-                'select * from agenda where id = ?',
-                aId,
-                (err3, rows1) => {
-                  if (err3) return reject(err3);
-                  expect(rows1[0].image.split('?')[0]).toMatch(
-                    new RegExp(`agenda${rows[0].uid}\\.[a-f0-9]{32}\\.jpg`),
-                  );
-
-                  resolve();
-                },
-              );
-            },
-          );
+    try {
+      const rows = await new Promise((resolve, reject) => {
+        con.query('select * from agenda where id = ?', aId, (err, result) => {
+          if (err) return reject(err);
+          resolve(result);
         });
       });
-    }).finally(() => con.end());
+
+      expect(rows[0].image).toBeNull();
+
+      await svc.get(aId, { instanciate: true });
+
+      await svc.set(aId, { image: { path: `${__dirname}/files/tmp.jpg` } });
+
+      // Check that the image was updated correctly
+      const rows1 = await new Promise((resolve, reject) => {
+        con.query('select * from agenda where id = ?', aId, (err, result) => {
+          if (err) return reject(err);
+          resolve(result);
+        });
+      });
+
+      expect(rows1[0].image.split('?')[0]).toMatch(
+        new RegExp(`agenda${rows[0].uid}.[a-f0-9]{32}.jpg`),
+      );
+    } finally {
+      con.end();
+    }
   });
 
   it('getImage - default get is without path', async () => {
@@ -132,7 +132,11 @@ describe('agendas - functional (server): instanciate', () => {
   });
 
   it('getImage - no image returns default path if config allows this', async () => {
-    svc.init({ ...config, useDefaultImage: true, Files: Files(dConfig.files) });
+    svc = Agendas({
+      ...config,
+      useDefaultImage: true,
+      Files: Files(dConfig.files),
+    });
 
     const a = await svc.get(4832, { instanciate: true });
 
@@ -140,7 +144,7 @@ describe('agendas - functional (server): instanciate', () => {
 
     expect(a.getImage(true, true)).toBe(config.defaultImagePath);
 
-    svc.init({
+    svc = Agendas({
       ...config,
       Files: Files(dConfig.files),
     });

@@ -1,10 +1,8 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-const date = require('@openagenda/validators/date');
-const choice = require('@openagenda/validators/choice');
-const fields = require('./fields');
+import schema from '@openagenda/validators/schema/index.js';
+import integer from '@openagenda/validators/integer.js';
+import date from '@openagenda/validators/date.js';
+import choice from '@openagenda/validators/choice.js';
+import fields from './fields/index.js';
 
 const credentialFields = fields
   .find((f) => f.field === 'credentials')
@@ -25,7 +23,7 @@ schema.register({
   choice,
 });
 
-module.exports = schema({
+export default schema({
   ids: {
     // DEPRECATED
     type: 'integer',

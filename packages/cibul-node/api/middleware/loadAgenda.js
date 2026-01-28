@@ -29,29 +29,25 @@ export default async (req, res, next) => {
     return next();
   }
 
-  agendas.get(
-    identifier,
-    {
+  try {
+    const agenda = await agendas.get(identifier, {
       private: null,
       internal: true,
-    },
-    (err, agenda) => {
-      if (err) {
-        return next(err);
-      }
+    });
 
-      if (!agenda) {
-        return res.status(404).json({
-          error: 'agenda not found',
-          agendaUid: req.params.agendaUid,
-        });
-      }
+    if (!agenda) {
+      return res.status(404).json({
+        error: 'agenda not found',
+        agendaUid: req.params.agendaUid,
+      });
+    }
 
-      simpleCache.hash('agendas', agendaUid || agendaSlug).set('api', agenda);
+    simpleCache.hash('agendas', agendaUid || agendaSlug).set('api', agenda);
 
-      req.agenda = agenda;
+    req.agenda = agenda;
 
-      next();
-    },
-  );
+    next();
+  } catch (err) {
+    return next(err);
+  }
 };

@@ -1,11 +1,14 @@
-'use strict';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
+import fs from 'node:fs';
+import IORedis from 'ioredis';
+import knex from 'knex';
+import slugify from 'slugify';
+import Unicity from '../service/lib/Unicity/index.js';
+import loadFixtures from './fixtures/load.js';
 
-const fs = require('node:fs');
-const IORedis = require('ioredis');
-const knex = require('knex');
-const slugify = require('slugify');
-const Unicity = require('../service/lib/Unicity');
-const loadFixtures = require('./fixtures/load');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // need to throw an exception after max retries on slug generation
 

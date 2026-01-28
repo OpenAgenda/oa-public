@@ -1,9 +1,12 @@
-import wn from 'when/node.js';
-import agendasSvc from '@openagenda/agendas';
-import config from '../../config/index.js';
 import getUsersDetails from './getUsersDetails.js';
 
-export default async function getInboxesDetails(services, inboxesToBeDetailed) {
+export default async function getInboxesDetails(
+  config,
+  services,
+  inboxesToBeDetailed,
+) {
+  const { agendas: agendasSvc } = services;
+
   const usersToBeDetailed = inboxesToBeDetailed
     .filter((v) => v.type === 'user')
     .map((v) => ({ userUid: v.identifier }));
@@ -15,19 +18,21 @@ export default async function getInboxesDetails(services, inboxesToBeDetailed) {
   );
 
   const users = await getUsersDetails(services, usersToBeDetailed);
+
   const agendas = agendasToBeDetailed.length === 0
     ? []
     : (
-      await wn.call(
-        agendasSvc.list,
-        { uid: agendasToBeDetailed.map((v) => v.identifier) },
-        {
-          private: null,
-          includeImagePath: true,
-          useDefaultImage: true,
-        },
-      )
-    )[0].map((v) => ({
+      await agendasSvc
+        .list(
+          { uid: agendasToBeDetailed.map((v) => v.identifier) },
+          {
+            private: null,
+            includeImagePath: true,
+            useDefaultImage: true,
+          },
+        )
+        .then((r) => r.agendas)
+    ).map((v) => ({
       uid: v.uid,
       name: v.title,
       avatar: v.image || config.s3.defaultImagePath,

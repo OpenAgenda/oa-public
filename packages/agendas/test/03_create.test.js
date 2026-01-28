@@ -1,15 +1,20 @@
-'use strict';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
+import _ from 'lodash';
+import Files from '@openagenda/files';
+import IORedis from 'ioredis';
+import testConfig from '../testconfig.js';
+import Agendas from '../service/index.js';
+import loadFixtures from './fixtures/load.js';
 
-const _ = require('lodash');
-const Files = require('@openagenda/files');
-const IORedis = require('ioredis');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
-const { service: config, dependencies: dConfig } = require('../testconfig');
-const svc = require('../service/index');
-const loadFixtures = require('./fixtures/load');
+const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): set (create)', () => {
   let redisClient;
+  let svc;
   beforeAll(
     loadFixtures.bind(null, {
       mysql: config.mysql,
@@ -32,21 +37,25 @@ describe('agendas - functional (server): set (create)', () => {
 
     await redisClient.del('agendaSlugUnicity');
     await redisClient.del('agendaSlugUnicity:lock');
+    await redisClient.del('agendaUidUnicity');
+    await redisClient.del('agendaUidUnicity:lock');
   });
 
-  beforeAll(async () =>
-    svc.init({
+  beforeAll(() => {
+    svc = Agendas({
       ...config,
       Files: Files(dConfig.files),
       redis: redisClient,
-    }));
+    });
+  });
 
-  afterEach(() =>
-    svc.init({
+  afterEach(() => {
+    svc = Agendas({
       ...config,
       Files: Files(dConfig.files),
       redis: redisClient,
-    }));
+    });
+  });
 
   afterAll(async () => {
     await redisClient.quit();
@@ -156,34 +165,26 @@ describe('agendas - functional (server): set (create)', () => {
     expect(errors[0].code).toBe('link.toolong');
   });
 
-  it('set in create mode calls onCreate callback with created agenda including internal values', () =>
-    new Promise((resolve, reject) => {
-      svc.init({
-        ...config,
-        Files: Files(dConfig.files),
-        interfaces: {
-          onCreate: (agenda) => {
-            expect(agenda.title).toBe('Niargl');
+  it('set in create mode calls onCreate callback with created agenda including internal values', async () => {
+    svc = Agendas({
+      ...config,
+      Files: Files(dConfig.files),
+      interfaces: {
+        onCreate: (agenda) => {
+          expect(agenda.title).toBe('Niargl');
 
-            expect(agenda.id).not.toBeUndefined();
-
-            resolve();
-          },
+          expect(agenda.id).not.toBeUndefined();
         },
-        redis: redisClient,
-      });
+      },
+      redis: redisClient,
+    });
 
-      svc
-        .set(
-          {
-            ownerId: 1,
-            title: 'Niargl',
-            description: 'Blotock',
-          },
-          () => {},
-        )
-        .catch(reject);
-    }));
+    await svc.set({
+      ownerId: 1,
+      title: 'Niargl',
+      description: 'Blotock',
+    });
+  });
 
   it('set in create mode returns internal values if internal option is true', async () => {
     const result = await svc.set(
@@ -221,5 +222,34 @@ describe('agendas - functional (server): set (create)', () => {
         origin: 'triplet',
       },
     ]);
+  });
+
+  it('uid is generated and unique for created agendas', async () => {
+    const result1 = await svc.set({
+      ownerId: 1,
+      title: 'Test UID 1',
+      description: 'Testing UID generation',
+    });
+
+    const result2 = await svc.set({
+      ownerId: 1,
+      title: 'Test UID 2',
+      description: 'Testing UID generation',
+    });
+
+    // Both should have UIDs
+    expect(result1.agenda.uid).toBeTruthy();
+    expect(result2.agenda.uid).toBeTruthy();
+
+    // UIDs should be different
+    expect(result1.agenda.uid).not.toBe(result2.agenda.uid);
+
+    // UIDs should be numbers inferior to 10000000
+    const uid1 = parseInt(result1.agenda.uid, 10);
+    const uid2 = parseInt(result2.agenda.uid, 10);
+    expect(uid1).toBeGreaterThanOrEqual(0);
+    expect(uid1).toBeLessThan(10000000);
+    expect(uid2).toBeGreaterThanOrEqual(0);
+    expect(uid2).toBeLessThan(10000000);
   });
 });

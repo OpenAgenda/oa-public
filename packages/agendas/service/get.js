@@ -1,20 +1,13 @@
-'use strict';
-
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const utils = require('@openagenda/utils');
-const map = require('./databaseFieldMap');
-const validate = require('./validate');
-const validateOptions = require('./validate/getOptions');
-const mapper = require('./lib/dbMapper');
-const sUtils = require('./lib/utils');
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import utils from '@openagenda/utils';
+import map from './databaseFieldMap.js';
+import validate from './validate/index.js';
+import validateOptions from './validate/getOptions.js';
+import mapper from './lib/dbMapper.js';
+import * as sUtils from './lib/utils.js';
 
 const dbParse = mapper(map);
-
-let knex;
-let service;
-let schemas;
-let imagePath;
 
 /**
  * in db, values are null when they are not defined.
@@ -33,7 +26,16 @@ function _applyDefaults(data) {
   return defaulted;
 }
 
-async function promise(identifiers, options = {}) {
+function _parseGetArguments(identifiers, options) {
+  return {
+    identifiers: sUtils.identifiers.clean(identifiers),
+    options: validateOptions(options),
+  };
+}
+
+async function get({ knex, schemas, service, imagePath }, i, o) {
+  const { identifiers, options } = _parseGetArguments(i, o);
+
   if (!_.keys(identifiers).length) {
     throw new Error(
       `No known identifiers specified for get: ${JSON.stringify(identifiers)}`,
@@ -72,80 +74,22 @@ async function promise(identifiers, options = {}) {
     agenda.image = service.getConfig().defaultImagePath;
   }
 
-  return options.instanciate ? new service.Agenda(agenda) : agenda;
+  return options.instanciate ? new service.Agenda(agenda, service) : agenda;
 }
 
-function _parseGetArguments(identifiers, options, cb) {
-  if (typeof cb === 'function') {
-    return {
-      identifiers: sUtils.identifiers.clean(identifiers),
-      options: validateOptions(options),
-      cb,
-    };
-  }
-
-  if (typeof options === 'function') {
-    return {
-      identifiers: sUtils.identifiers.clean(identifiers),
-      options: validateOptions(),
-      cb: options,
-    };
-  }
-
-  return {
-    identifiers: sUtils.identifiers.clean(identifiers),
-    options: validateOptions(options),
-    cb: null,
-  };
-}
-
-function get(i, o, c) {
-  const { identifiers, options, cb } = _parseGetArguments(i, o, c);
-
-  const p = promise(identifiers, options);
-
-  if (cb) return p.then((agenda) => cb(null, agenda), cb);
-
-  return p;
-}
-
-function findOne(...args) {
-  let search;
-  let options = {};
-  let cb;
-
-  if (arguments.length === 2) {
-    [search, cb] = args;
-  } else {
-    [search, options, cb] = args;
-  }
-
-  const query = knex(schemas.agenda)
+async function findOne(
+  { knex, schemas, service, imagePath },
+  search,
+  options = {},
+) {
+  const rows = await knex(schemas.agenda)
     .select('id')
     .where('title', 'like', `%${search}%`)
-    .limit(1)
-    .then((rows) => {
-      if (!rows.length) return null;
-      return get(rows[0].id, options);
-    });
+    .limit(1);
 
-  if (typeof cb === 'function') {
-    query.then((result) => cb(null, result)).catch(cb);
-  } else {
-    return query;
-  }
+  if (!rows.length) return null;
+  return get({ knex, schemas, service, imagePath }, rows[0].id, options);
 }
 
-function init(svc, k) {
-  service = svc;
-
-  schemas = service.getConfig().schemas;
-
-  imagePath = service.getConfig().imagePath;
-
-  knex = k;
-}
-
-module.exports = get;
-module.exports.init = init;
-module.exports.findOne = findOne;
+export default get;
+export { findOne };

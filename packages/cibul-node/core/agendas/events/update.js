@@ -366,7 +366,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       },
     );
 
-    await refreshAgenda(agenda.uid);
+    await refreshAgenda(core.services, agenda.uid);
 
     log.info('update successful', {
       agendaUid,

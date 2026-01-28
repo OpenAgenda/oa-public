@@ -1,10 +1,7 @@
-'use strict';
+import utils from '@openagenda/utils';
+import rgx from '@openagenda/validators/regex.js';
 
-const utils = require('@openagenda/utils');
-
-const rgx = require('@openagenda/validators/regex');
-
-module.exports = function (config) {
+export default function (config) {
   return rgx(
     utils.extend(
       {
@@ -20,4 +17,4 @@ module.exports = function (config) {
       config || {},
     ),
   );
-};
+}

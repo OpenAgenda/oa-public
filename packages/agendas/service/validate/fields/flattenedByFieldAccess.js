@@ -1,8 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-
-const fields = require('.');
+import _ from 'lodash';
+import fields from './index.js';
 
 function flatten(flattened, field, accessType = 'read', defaultAccesses = []) {
   const flattenedField = {
@@ -58,7 +55,7 @@ const defaultAccesses = {
   ]),
 };
 
-module.exports = ['read', 'write'].reduce(
+export default ['read', 'write'].reduce(
   (result, accessType) => ({
     ...result,
     [accessType]: flattened[accessType]

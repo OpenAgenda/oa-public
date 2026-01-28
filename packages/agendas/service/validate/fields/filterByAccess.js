@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import fieldsByAccess from './flattenedByFieldAccess.js';
 
-const _ = require('lodash');
-const fieldsByAccess = require('./flattenedByFieldAccess');
-
-module.exports = (agenda, type = 'read', access = 'public') =>
+export default (agenda, type = 'read', access = 'public') =>
   (fieldsByAccess[type][access] ?? fieldsByAccess[type].public).reduce(
     (filtered, field) => {
       const value = _.get(agenda, field.field);

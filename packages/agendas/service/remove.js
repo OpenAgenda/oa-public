@@ -1,93 +1,46 @@
-'use strict';
+import * as sUtils from './lib/utils.js';
 
-const sUtils = require('./lib/utils');
+async function remove({ knex, schemas, service, interfaces }, identifiers) {
+  const v = {
+    identifiers: sUtils.identifiers.clean(identifiers),
+    agenda: null,
+    success: null,
+  };
 
-let knex;
-let interfaces;
-let service;
-let schemas;
+  await sUtils.identifiers.check(v);
 
-function _get(v) {
-  return new Promise((rs, rj) => {
-    service.get(
-      v.identifiers,
-      { internal: true, private: null },
-      (err, agenda) => {
-        if (err) return rj(err);
-        v.agenda = agenda;
-        rs(v);
-      },
-    );
+  // Get the agenda
+  v.agenda = await service.get(v.identifiers, {
+    internal: true,
+    private: null,
   });
-}
 
-function _doRemove(v) {
-  if (!v.agenda) {
-    return v;
+  // Call beforeRemove hook if it exists
+  if (interfaces?.beforeRemove && v.agenda) {
+    await new Promise((resolve, reject) => {
+      interfaces.beforeRemove(v.agenda, (err) => {
+        if (err) return reject(err);
+        resolve();
+      });
+    });
   }
 
-  return knex(schemas.agenda)
-    .where('id', v.agenda.id)
-
-    .del()
-
-    .then((removedRows) => {
-      v.success = !!removedRows;
-
-      return v;
-    });
-}
-
-function _before(v) {
-  if (!interfaces || !interfaces.beforeRemove || !v.agenda) {
-    return v;
+  // Perform the actual removal
+  if (v.agenda) {
+    const removedRows = await knex(schemas.agenda)
+      .where('id', v.agenda.id)
+      .del();
+    v.success = !!removedRows;
   }
 
-  return new Promise((rs, rj) => {
-    interfaces.beforeRemove(v.agenda, (err) => {
-      if (err) return rj(err);
-      rs(v);
-    });
-  });
+  // Call onRemove hook if removal was successful
+  if (v.success && interfaces?.onRemove) {
+    interfaces.onRemove(v.agenda);
+  }
+
+  return {
+    success: v.success,
+  };
 }
 
-function init(s, k) {
-  const config = s.getConfig();
-
-  service = s;
-
-  knex = k;
-
-  schemas = config.schemas;
-
-  interfaces = config.interfaces;
-}
-
-module.exports = Object.assign(
-  (identifiers, cb) => {
-    new Promise((rs) =>
-      rs({
-        identifiers: sUtils.identifiers.clean(identifiers),
-        agenda: null,
-        success: null,
-      }))
-      .then(sUtils.identifiers.check)
-
-      .then(_get)
-
-      .then(_before)
-
-      .then(_doRemove)
-
-      .then((v) => {
-        if (v.success && interfaces && interfaces.onRemove) {
-          interfaces.onRemove(v.agenda);
-        }
-
-        cb(null, {
-          success: v.success,
-        });
-      }, cb);
-  },
-  { init },
-);
+export default remove;

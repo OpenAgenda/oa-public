@@ -1,49 +1,12 @@
-import _ from 'lodash';
 import { NotFound } from '@openagenda/verror';
-import cleanGetOptions from './lib/cleanGetOptions.js';
 import { fromDB } from './lib/transformDBEntry.js';
+import decorateWithDetailed from './lib/decorateWithDetailed.js';
+import getQueryAndOptions from './lib/getQueryAndOptions.js';
 
 const cleanEmail = (email) => email.replace(/‐/g, '-');
 
-async function _decorateWithDetailed({ interfaces }, member) {
-  if (!member.userUid) {
-    return;
-  }
-
-  if (interfaces.getUsersByUid) {
-    member.user = _.first(await interfaces.getUsersByUid([member.userUid]));
-  }
-}
-
-function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
-  const cleanOptions = cleanGetOptions(options);
-
-  const where = _.isObject(identifier)
-    ? _.mapKeys(_.pick(identifier, ['userUid', 'agendaUid', 'id']), (v, k) =>
-      _.snakeCase(k))
-    : { id: identifier };
-
-  return {
-    query: knex(schema)
-      .first(
-        [
-          'id',
-          'agenda_uid',
-          'credential',
-          'user_uid',
-          'store',
-          'deleted_user',
-          'actions_counter',
-          'updated_at',
-        ].concat(cleanOptions.legacy ? ['user_id', 'review_id'] : []),
-      )
-      .where(where),
-    options: cleanOptions,
-  };
-}
-
 async function get(config, identifier, options = {}) {
-  const { query, options: cleanOptions } = _getQueryAndOptions(
+  const { query, options: cleanOptions } = getQueryAndOptions(
     config,
     identifier,
     options,
@@ -62,14 +25,18 @@ async function get(config, identifier, options = {}) {
   }
 
   if (member && cleanOptions.detailed) {
-    await _decorateWithDetailed(config, member);
+    await decorateWithDetailed(config, member);
   }
 
   return member;
 }
 
 async function getByEmail(config, identifier, options = {}) {
-  if (!_.isObject(identifier)) {
+  if (
+    typeof identifier !== 'object'
+    || identifier === null
+    || Array.isArray(identifier)
+  ) {
     throw new Error(
       'Bad request: identifier must be an object containing at least an email and another identifier',
     );
@@ -77,7 +44,7 @@ async function getByEmail(config, identifier, options = {}) {
     throw new Error('Bad request: email is missing in identifier');
   }
 
-  const { query, options: cleanOptions } = await _getQueryAndOptions(
+  const { query, options: cleanOptions } = await getQueryAndOptions(
     config,
     identifier,
     options,
@@ -90,7 +57,7 @@ async function getByEmail(config, identifier, options = {}) {
     await query.where('store', 'like', `%${cleanEmail(identifier.email)}%`),
   );
 
-  if (!member && _.get(config, 'interfaces.getUserByEmail')) {
+  if (!member && config?.interfaces?.getUserByEmail) {
     const userUid = await config.interfaces
       .getUserByEmail(identifier.email)
       .then((u) => (u ? u.uid : null));
@@ -105,7 +72,7 @@ async function getByEmail(config, identifier, options = {}) {
   }
 
   if (member && cleanOptions.detailed) {
-    await _decorateWithDetailed(config, member);
+    await decorateWithDetailed(config, member);
   }
 
   return member;

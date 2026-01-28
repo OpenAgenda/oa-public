@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import { byEmail as getByEmail } from './get.js';
 import patch from './patch.js';
@@ -8,13 +7,16 @@ import { isSuperiorTo } from './iso/compareRoles.js';
 const log = logs('setByEmail');
 
 async function setByEmail(config, data, options = {}) {
-  if (!_.get(data, 'agendaUid')) {
+  if (!data?.agendaUid) {
     throw new Error('Bad payload: agendaUid is missing');
   }
 
-  const member = await getByEmail(config, _.pick(data, ['agendaUid', 'email']));
+  const member = await getByEmail(config, {
+    agendaUid: data.agendaUid,
+    email: data.email,
+  });
 
-  const userUid = _.get(member, 'userUid')
+  const userUid = member?.userUid
     || (config.interfaces
       && config.interfaces.getUserByEmail
       && await config.interfaces
@@ -23,11 +25,11 @@ async function setByEmail(config, data, options = {}) {
 
   const clean = {};
 
-  if (!_.get(member, 'userUid') && userUid) {
+  if (!member?.userUid && userUid) {
     clean.userUid = userUid;
   }
 
-  if (!member || isSuperiorTo(_.get(data, 'role'), member.role)) {
+  if (!member || isSuperiorTo(data?.role, member.role)) {
     clean.role = data.role;
   }
 

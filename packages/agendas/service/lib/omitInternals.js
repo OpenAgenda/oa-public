@@ -1,10 +1,10 @@
-'use strict';
+import databaseFieldMap from '../databaseFieldMap.js';
 
-const internalFields = require('../databaseFieldMap')
+const internalFields = databaseFieldMap
   .filter((field) => typeof field !== 'string' && field.internal)
   .map((f) => f.obj);
 
-module.exports = (agenda) =>
+export default (agenda) =>
   Object.keys(agenda).reduce((stripped, field) => {
     if (internalFields.includes(field)) {
       return stripped;

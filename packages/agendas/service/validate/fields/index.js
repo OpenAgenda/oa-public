@@ -1,10 +1,8 @@
-'use strict';
+import c from '../contributionTypes.js';
+import s from '../eventStates.js';
+import statuses from '../eventStatuses.js';
 
-const c = require('../contributionTypes');
-const s = require('../eventStates');
-const statuses = require('../eventStatuses');
-
-module.exports = [
+export default [
   {
     field: 'id',
     type: 'integer',

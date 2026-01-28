@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 import get from './get.js';
@@ -24,7 +23,7 @@ async function patch(config, identifiers, data, options = {}) {
   try {
     Object.assign(
       clean,
-      validate.withCustom(requireCustom).part(_.keys(data), data),
+      validate.withCustom(requireCustom).part(Object.keys(data), data),
       { updatedAt: new Date() },
     );
   } catch (errors) {
@@ -38,14 +37,11 @@ async function patch(config, identifiers, data, options = {}) {
   }
 
   if (clean.userUid !== undefined && interfaces.getUsersByUid) {
-    clean.userId = _.get(await interfaces.getUsersByUid(clean.userUid), '0.id');
+    clean.userId = (await interfaces.getUsersByUid(clean.userUid))[0]?.id;
   }
 
   if (clean.agendaUid !== undefined && interfaces.getAgendasByUid) {
-    clean.agendaId = _.get(
-      await interfaces.getAgendasByUid(clean.agendaUid),
-      '0.id',
-    );
+    clean.agendaId = (await interfaces.getAgendasByUid(clean.agendaUid))[0]?.id;
   }
 
   log('patching', clean);
@@ -54,7 +50,7 @@ async function patch(config, identifiers, data, options = {}) {
 
   const patched = await get(config, member.id, { legacy: true });
 
-  if (_.get(interfaces, 'onPatch')) {
+  if (interfaces?.onPatch) {
     try {
       await interfaces.onPatch(member, patched, context);
     } catch (e) {
@@ -73,7 +69,7 @@ async function actionsIncrement(config, identifiers) {
   const member = await get(config, identifiers);
 
   return patch(config, identifiers, {
-    actionsCounter: _.get(member, 'actionsCounter', 0) + 1,
+    actionsCounter: (member?.actionsCounter ?? 0) + 1,
   });
 }
 

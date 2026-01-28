@@ -1,10 +1,8 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
+import logs from '@openagenda/logs';
 
 const log = logs('unicity');
 
-module.exports = function Unicity(tableColumn, config) {
+export default function Unicity(tableColumn, config) {
   // Initialize with provided configuration
   const {
     setName,
@@ -30,7 +28,7 @@ module.exports = function Unicity(tableColumn, config) {
       lockTimeout,
       'NX',
     );
-    return acquired ? lockValue : null;
+    return acquired === 'OK' ? lockValue : null;
   }
 
   // Private method to release Redis lock
@@ -197,4 +195,4 @@ module.exports = function Unicity(tableColumn, config) {
     holdIfAvailable,
     destroy,
   };
-};
+}

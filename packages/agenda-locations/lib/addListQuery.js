@@ -1,5 +1,6 @@
 'use strict';
 
+const { BadRequest } = require('@openagenda/verror');
 const date = require('@openagenda/validators/date');
 const schema = require('@openagenda/validators/schema');
 const integer = require('@openagenda/validators/integer');
@@ -102,10 +103,23 @@ const validate = schema({
 
 const preCleanAndValidate = (query) => {
   const cleanQuery = { ...query };
-  if (query.uids && typeof query.uids === 'string') {
-    cleanQuery.uids = query.uids.split(',');
+
+  ['uids', 'excludeUid', 'hasNull'].forEach((param) => {
+    if (query[param] && typeof query[param] === 'string') {
+      cleanQuery[param] = query[param]
+        .split(',')
+        .map((s) => s.trim())
+        .filter(Boolean);
+    }
+  });
+
+  try {
+    return validate(cleanQuery);
+  } catch (errors) {
+    const badRequest = new BadRequest('invalid parameters');
+    badRequest.info = { errors };
+    throw badRequest;
   }
-  return validate(cleanQuery);
 };
 
 module.exports = async (service, k, deleted, query) => {

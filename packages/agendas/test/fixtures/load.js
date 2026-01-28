@@ -1,10 +1,8 @@
-'use strict';
+import fs from 'node:fs';
+import _ from 'lodash';
+import knex from 'knex';
 
-const fs = require('node:fs');
-const _ = require('lodash');
-const knex = require('knex');
-
-module.exports = async ({ mysql, files, map }) => {
+export default async ({ mysql, files, map }) => {
   const k = knex({
     client: 'mysql2',
     connection: _.extend(_.omit(mysql, ['database']), {

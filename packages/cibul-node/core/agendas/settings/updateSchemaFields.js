@@ -29,7 +29,7 @@ export default async function updateSchemaFields(
         events: eventsValidator,
       },
     },
-    { restrictedFields: eventReservedFields },
+    { reservedFields: eventReservedFields },
   );
 
   fs.updateFields(updatedFields);

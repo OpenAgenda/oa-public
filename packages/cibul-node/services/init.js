@@ -113,10 +113,10 @@ export default async function initServices(config = null, options = {}) {
   await init('agendaEvents', () => import('./agendaEvents/index.js'));
   await init('geocoder', () => import('./geocoder.js'));
   await init('agendaLocations', () => import('./agendaLocations/index.js'));
+  await init('agendas', () => import('./agendas/index.js'));
   await init('agendaSettings', () => import('./agendaSettings.js'));
   await init('inboxes', () => import('./inboxes/index.js'));
   await init('agendaStatistics', () => import('./agendaStatistics/index.js'));
-  await init('agendas', () => import('./agendas/index.js'));
   await init('agendaSearch', () => import('./agendaSearch/index.js'));
   await init('aggregators', () => import('./aggregators/index.js'));
   await init('cache', () => import('./cache/index.js')); // required directly

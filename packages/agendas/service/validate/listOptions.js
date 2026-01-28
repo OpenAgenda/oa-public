@@ -1,15 +1,13 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const boolean = require('@openagenda/validators/boolean');
-const text = require('@openagenda/validators/text');
+import schema from '@openagenda/validators/schema/index.js';
+import boolean from '@openagenda/validators/boolean.js';
+import text from '@openagenda/validators/text.js';
 
 schema.register({
   boolean,
   text,
 });
 
-module.exports = schema({
+export default schema({
   private: {
     type: 'boolean',
     default: false,

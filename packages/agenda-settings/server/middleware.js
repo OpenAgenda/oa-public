@@ -35,12 +35,9 @@ function init(s, c) {
 }
 
 function create(req, res, next) {
-  agendasSvc.set(
-    Object.assign(req.body, { ownerId: req.user.id }),
-    { private: null },
-    async (err, result) => {
-      if (err) return next(err);
-
+  agendasSvc
+    .set(Object.assign(req.body, { ownerId: req.user.id }), { private: null })
+    .then(async (result) => {
       if (result.errors.length) res.status(400);
 
       const { core } = req.app.services;
@@ -72,44 +69,32 @@ function create(req, res, next) {
       }
 
       return res.json(result);
-    },
-  );
+    }, next);
 }
 
 function get(req, res, next) {
-  agendasSvc.get(
-    { uid: req.params.uid },
-    { includeImagePath: true, private: null, internal: true },
-    (err, result) => {
-      if (err) return next(err);
-
-      return res.json(result);
-    },
-  );
+  agendasSvc
+    .get(
+      { uid: req.params.uid },
+      { includeImagePath: true, private: null, internal: true },
+    )
+    .then((result) => res.json(result), next);
 }
 
 // only fo storybook, to remove one day
 function set(req, res, next) {
-  agendasSvc.set(
-    { slug: req.params.slug },
-    req.body,
-    {
+  agendasSvc
+    .set({ slug: req.params.slug }, req.body, {
       includeImagePath: true,
       private: null,
       context: req.context || null,
       internal: true,
-    },
-    (err, result) => {
-      console.log('ERR', err);
-      console.log(result);
-
-      if (err) return next(err);
-
+    })
+    .then((result) => {
       if (result.errors.length) res.status(400);
 
       return res.json(result);
-    },
-  );
+    }, next);
 }
 
 export default {
