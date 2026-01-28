@@ -25,17 +25,26 @@ export function init(config) {
     plugApp(app) {
       app.post(
         '/reports',
-        bodyParser.json({ type: 'application/reports+json', limit: '5mb' }),
-        bodyParser.json({ type: 'application/csp-report', limit: '5mb' }),
-        (req, res) => {
-          if (Array.isArray(req.body)) {
-            for (const row of req.body) {
-              logReport({ headers: req.headers, ...row });
+        bodyParser.json({
+          type: ['application/reports+json', 'application/csp-report'],
+          limit: '5mb',
+        }),
+        (req, res, next) => {
+          try {
+            if (Array.isArray(req.body)) {
+              for (const row of req.body) {
+                logReport({ headers: req.headers, ...row });
+              }
+            } else if (req.body) {
+              logReport({ headers: req.headers, ...req.body });
             }
-          } else if (req.body) {
-            logReport({ headers: req.headers, ...req.body });
+            res.status(200).send('OK');
+          } catch (e) {
+            next(e);
           }
-          res.status(200).send('OK');
+        },
+        (err, req, res, _next) => {
+          res.status(400).send('Bad Request');
         },
       );
     },
