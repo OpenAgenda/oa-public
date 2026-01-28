@@ -53,54 +53,46 @@ export default async function getUsers(req, res, next) {
     return _searchUsers(req, res);
   }
 
-  loadUserFromQuery(req, res, () => {
-    if (!req.loadedUser?.id) return next(new Error('User not found'));
+  loadUserFromQuery(req, res, async () => {
+    try {
+      if (!req.loadedUser?.id) return next(new Error('User not found'));
 
-    membersSvc
-      .list(
+      let members = await membersSvc.list(
         { userUid: req.loadedUser.uid },
         { limit: 1000, order: 'id.desc' },
         { userOptions: { detailed: true } },
-      )
-      .then((members) => {
-        agendasSvc.list(
-          {
-            uid: members.map(({ agendaUid }) => agendaUid),
-          },
-          0,
-          1000,
-          { private: null },
-          (err, agendas) => {
-            knex('agenda_event')
-              .select(
-                knex.raw('count(*) as nbrEvents'),
-                'agenda_uid as agendaUid',
-              )
-              .where('user_uid', req.loadedUser.uid)
-              .where('removed', 0)
-              .groupBy('agenda_uid')
-              .then((counters) => {
-                // eslint-disable-next-line no-param-reassign
-                members = members.map((member) => {
-                  [member.agenda] = agendas.filter(
-                    ({ uid }) => uid === member.agendaUid,
-                  );
+      );
 
-                  const counter = counters.filter(
-                    ({ agendaUid }) => agendaUid === member.agendaUid,
-                  )[0];
-                  member.nbrEvents = counter && counter.nbrEvents;
+      const { agendas } = await agendasSvc.list(
+        { uid: members.map(({ agendaUid }) => agendaUid) },
+        0,
+        1000,
+        { private: null },
+      );
 
-                  return member;
-                });
+      const counters = await knex('agenda_event')
+        .select(knex.raw('count(*) as nbrEvents'), 'agenda_uid as agendaUid')
+        .where('user_uid', req.loadedUser.uid)
+        .where('removed', 0)
+        .groupBy('agenda_uid');
 
-                cmn.renderJson(req, res, {
-                  user: req.loadedUser,
-                  members,
-                });
-              });
-          },
-        );
+      members = members.map((member) => {
+        [member.agenda] = agendas.filter(({ uid }) => uid === member.agendaUid);
+
+        const counter = counters.filter(
+          ({ agendaUid }) => agendaUid === member.agendaUid,
+        )[0];
+        member.nbrEvents = counter && counter.nbrEvents;
+
+        return member;
       });
+
+      return cmn.renderJson(req, res, {
+        user: req.loadedUser,
+        members,
+      });
+    } catch (err) {
+      return next(err);
+    }
   });
 }
