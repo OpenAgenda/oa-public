@@ -166,20 +166,26 @@ export default async (core, agendaUid, data, options = {}) => {
 
       log('created event', event.uid);
     } catch (e) {
-      const error = e.toString() === 'ValidationError: Invalid data'
-        ? new BadRequest(
+      let error = e;
+      if (e.toString() === 'ValidationError: Invalid data') {
+        error = new BadRequest(
           {
             info: { errors: formatEventErrors(e.info.errors, userLang) },
           },
           'invalid data',
-        )
-        : e;
-
-      log('error', 'failed to create event', {
-        agendaUid: agenda.uid,
-        event: clean.event,
-        error,
-      });
+        );
+        log.warn('failed to create event', {
+          agendaUid: agenda.uid,
+          event: clean.event,
+          error,
+        });
+      } else {
+        log.error('failed to create event', {
+          agendaUid: agenda.uid,
+          event: clean.event,
+          error,
+        });
+      }
       throw error;
     }
 
