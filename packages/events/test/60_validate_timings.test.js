@@ -448,7 +448,7 @@ describe('timings', () => {
         errors = e;
       }
 
-      expect(errors[0].code).toBe('timings.max.800');
+      expect(errors[0].code).toBe('timings.max');
     });
   });
 

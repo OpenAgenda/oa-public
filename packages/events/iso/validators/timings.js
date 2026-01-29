@@ -63,7 +63,7 @@ export default (params = {}) =>
       throw [
         {
           ...baseError,
-          code: `timings.max.${params.max}`,
+          code: 'timings.max',
           message: `maximum authorized number of timings (${params.max}) exceeded: ${timings.length}`,
         },
       ];
