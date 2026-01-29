@@ -8,7 +8,6 @@
   "license": "ISC",
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/agenda-settings",
   "type": "module",
-  "main": "server/service.js",
   "scripts": {
     "sb": "storybook dev",
     "build": "tsup",
