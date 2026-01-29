@@ -465,7 +465,11 @@ async function activateResend(req, res) {
         token: token.token,
       });
     } catch (error) {
-      log('error', error);
+      if (error.statusCode === 400) {
+        log.warn(error);
+      } else {
+        log.error(error);
+      }
 
       auth.renderEmail({
         req,
