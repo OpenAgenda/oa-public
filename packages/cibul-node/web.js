@@ -11,7 +11,6 @@ import facebookFront from './auth/facebook.front.js';
 import googleFront from './auth/google.front.js';
 import localFront from './auth/local.front.js';
 import resetFront from './auth/reset.front.js';
-import settingsBack from './agenda/settings.back.js';
 import webapp from './webapp/index.js';
 import sentry from './services/sentry.js';
 import sharesFront from './agenda/shares.front.js';
@@ -67,7 +66,7 @@ export default (app) => {
   localFront(app);
   resetFront(app);
   app.services.aggregators.plugApp(app);
-  settingsBack(app);
+  app.services.keys.plugApp(app);
   app.services.members.plugApp(app);
   app.services.stats.plugApp(app);
   app.services.supervisor.plugApp(app, '/supervisor');

@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import keys from '@openagenda/keys';
 
+import plugApp from './plugApp.js';
+
 export async function init(config, { redis }) {
   await keys.init({
     knex: config.knex,
@@ -17,5 +19,5 @@ export async function init(config, { redis }) {
     },
   });
 
-  return keys;
+  return Object.assign(keys, { plugApp });
 }
