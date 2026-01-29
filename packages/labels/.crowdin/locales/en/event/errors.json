@@ -4,5 +4,6 @@
   "timings.toolong": "There cannot be more than 800 timings for a single event",
   "timings.min.1": "At least one timing must be defined",
   "timings.invalid": "At least one timing must be defined",
+  "timings.max": "The number of defined timings exceeds the authorized maximum: %max%",
   "format.unknown": "The format of the image is unknown"
 }
