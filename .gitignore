@@ -29,3 +29,9 @@ yarn-error.log
 /secrets.tar
 
 .turbo
+
+# MCP server configuration (contains machine-specific paths)
+.mcp.json
+
+# TypeScript incremental compilation cache
+*.tsbuildinfo
