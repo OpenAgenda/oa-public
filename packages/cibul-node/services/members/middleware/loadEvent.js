@@ -1,3 +1,5 @@
+import { NotFound, BadRequest } from '@openagenda/verror';
+
 function loadBy({ agenda }) {
   return (req, res, next) => {
     const { events, agendaEvents } = req.app.services;
@@ -7,12 +9,14 @@ function loadBy({ agenda }) {
         { private: null, access: 'internal' },
       )
       .then((event) => {
-        if (!event) return next(new Error('Event not found'));
+        if (!event) return next(new NotFound('Event not found'));
         agendaEvents(req[agenda].uid)
           .get(event.uid)
           .then((ae) => {
             if (!ae) {
-              return next(new Error('Event is not associated with agenda'));
+              return next(
+                new BadRequest('Event is not associated with agenda'),
+              );
             }
             req.event = event;
             next();
