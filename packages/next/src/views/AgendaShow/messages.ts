@@ -43,4 +43,21 @@ export default defineMessages({
     id: 'next.views.AgendaShow.termsOfUse',
     defaultMessage: 'Terms of use',
   },
+  networkErrorTitle: {
+    id: 'next.views.AgendaShow.networkErrorTitle',
+    defaultMessage: 'Connection error',
+  },
+  networkErrorMessage: {
+    id: 'next.views.AgendaShow.networkErrorMessage',
+    defaultMessage:
+      'Unable to load events. Please check your internet connection and try again.',
+  },
+  retryButton: {
+    id: 'next.views.AgendaShow.retryButton',
+    defaultMessage: 'Retry',
+  },
+  closeButton: {
+    id: 'next.views.AgendaShow.closeButton',
+    defaultMessage: 'Close',
+  },
 });

@@ -1,8 +1,12 @@
 {
+  "next.views.AgendaShow.closeButton": "",
   "next.views.AgendaShow.filter": "",
   "next.views.AgendaShow.filters": "",
   "next.views.AgendaShow.help": "",
   "next.views.AgendaShow.includePassedEvents": "Diskouez an darvoudoù tremenet",
+  "next.views.AgendaShow.networkErrorMessage": "",
+  "next.views.AgendaShow.networkErrorTitle": "",
+  "next.views.AgendaShow.retryButton": "",
   "next.views.AgendaShow.seeEvents": "",
   "next.views.AgendaShow.seeMore": "",
   "next.views.AgendaShow.showUpcomingEventsOnly": "Kuzhat an darvoudoù tremenet",

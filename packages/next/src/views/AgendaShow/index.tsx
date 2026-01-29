@@ -41,6 +41,7 @@ import {
   TotalSkeleton,
 } from './components/LoadingPage';
 import ContentGrid from './components/ContentGrid';
+import NetworkErrorBoundary from './components/NetworkErrorBoundary';
 import includeFields from './includeFields';
 import fetchLocale from './locales';
 
@@ -193,44 +194,54 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
           filters={filters}
           res={`/api/agendas/slug/${agenda.slug}/events`}
         >
-          <ContentGrid
-            total={
-              isMounted ? (
-                <Suspense fallback={<TotalSkeleton />}>
-                  <DynamicTotalPart
-                    agenda={agenda}
-                    filters={filters}
-                    query={query}
-                    includeFields={includeFields}
-                  />
-                </Suspense>
-              ) : null
+          <NetworkErrorBoundary
+            fallback={
+              <ContentGrid
+                total={<TotalSkeleton />}
+                events={<EventsSkeleton />}
+                filters={<FiltersSkeleton />}
+              />
             }
-            events={
-              isMounted ? (
-                <Suspense fallback={<EventsSkeleton />}>
-                  <DynamicEventsPart
-                    agenda={agenda}
-                    filters={filters}
-                    query={query}
-                    includeFields={includeFields}
-                  />
-                </Suspense>
-              ) : null
-            }
-            filters={
-              isMounted ? (
-                <Suspense fallback={<FiltersSkeleton />}>
-                  <DynamicFiltersPart
-                    agenda={agenda}
-                    filters={filters}
-                    query={query}
-                    includeFields={includeFields}
-                  />
-                </Suspense>
-              ) : null
-            }
-          />
+          >
+            <ContentGrid
+              total={
+                isMounted ? (
+                  <Suspense fallback={<TotalSkeleton />}>
+                    <DynamicTotalPart
+                      agenda={agenda}
+                      filters={filters}
+                      query={query}
+                      includeFields={includeFields}
+                    />
+                  </Suspense>
+                ) : null
+              }
+              events={
+                isMounted ? (
+                  <Suspense fallback={<EventsSkeleton />}>
+                    <DynamicEventsPart
+                      agenda={agenda}
+                      filters={filters}
+                      query={query}
+                      includeFields={includeFields}
+                    />
+                  </Suspense>
+                ) : null
+              }
+              filters={
+                isMounted ? (
+                  <Suspense fallback={<FiltersSkeleton />}>
+                    <DynamicFiltersPart
+                      agenda={agenda}
+                      filters={filters}
+                      query={query}
+                      includeFields={includeFields}
+                    />
+                  </Suspense>
+                ) : null
+              }
+            />
+          </NetworkErrorBoundary>
         </FiltersProvider>
       </main>
 

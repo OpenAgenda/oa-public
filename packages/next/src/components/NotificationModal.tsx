@@ -14,6 +14,7 @@ export default function NotificationModal({
   message,
   action,
   onAction,
+  showCloseButton = true,
 }) {
   return (
     <DialogRoot role="alertdialog" open onOpenChange={onClose}>
@@ -23,7 +24,7 @@ export default function NotificationModal({
             {title}
           </DialogHeader>
         ) : null}
-        <DialogCloseTrigger />
+        {showCloseButton ? <DialogCloseTrigger /> : null}
         <DialogBody>
           <Text>{message}</Text>
         </DialogBody>

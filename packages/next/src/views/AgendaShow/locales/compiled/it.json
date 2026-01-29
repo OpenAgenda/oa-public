@@ -1,4 +1,10 @@
 {
+  "next.views.AgendaShow.closeButton": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
   "next.views.AgendaShow.filter": [
     {
       "type": 0,
@@ -21,6 +27,24 @@
     {
       "type": 0,
       "value": "Includere eventi passati"
+    }
+  ],
+  "next.views.AgendaShow.networkErrorMessage": [
+    {
+      "type": 0,
+      "value": "Unable to load events. Please check your internet connection and try again."
+    }
+  ],
+  "next.views.AgendaShow.networkErrorTitle": [
+    {
+      "type": 0,
+      "value": "Connection error"
+    }
+  ],
+  "next.views.AgendaShow.retryButton": [
+    {
+      "type": 0,
+      "value": "Retry"
     }
   ],
   "next.views.AgendaShow.seeEvents": [

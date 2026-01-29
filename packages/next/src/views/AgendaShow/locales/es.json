@@ -1,8 +1,12 @@
 {
+  "next.views.AgendaShow.closeButton": "",
   "next.views.AgendaShow.filter": "Filtros",
   "next.views.AgendaShow.filters": "Filtros",
   "next.views.AgendaShow.help": "Ayuda",
   "next.views.AgendaShow.includePassedEvents": "Incluir eventos pasados",
+  "next.views.AgendaShow.networkErrorMessage": "",
+  "next.views.AgendaShow.networkErrorTitle": "",
+  "next.views.AgendaShow.retryButton": "",
   "next.views.AgendaShow.seeEvents": "Mostrar {count, plural, one {# evento} other {# eventos}}",
   "next.views.AgendaShow.seeMore": "Ver más",
   "next.views.AgendaShow.showUpcomingEventsOnly": "Mostrar sólo los próximos eventos",

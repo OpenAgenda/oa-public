@@ -1,8 +1,12 @@
 {
+  "next.views.AgendaShow.closeButton": "",
   "next.views.AgendaShow.filter": "crwdns32951:0crwdne32951:0",
   "next.views.AgendaShow.filters": "crwdns32953:0crwdne32953:0",
   "next.views.AgendaShow.help": "crwdns32955:0crwdne32955:0",
   "next.views.AgendaShow.includePassedEvents": "crwdns32957:0crwdne32957:0",
+  "next.views.AgendaShow.networkErrorMessage": "",
+  "next.views.AgendaShow.networkErrorTitle": "",
+  "next.views.AgendaShow.retryButton": "",
   "next.views.AgendaShow.seeEvents": "crwdns32959:0count={count}crwdne32959:0",
   "next.views.AgendaShow.seeMore": "crwdns32961:0crwdne32961:0",
   "next.views.AgendaShow.showUpcomingEventsOnly": "crwdns32963:0crwdne32963:0",
