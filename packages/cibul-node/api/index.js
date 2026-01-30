@@ -651,7 +651,9 @@ export default (core, { useRouter = true } = {}) => {
       core
         .agendas(req.agenda.uid)
         .locations.create(req.parsedData, {
-          userUid: req.user.uid,
+          context: {
+            userUid: req.user.uid,
+          },
           autocomplete: (req.query.autocomplete ?? '1') === '1',
         })
         .then(
