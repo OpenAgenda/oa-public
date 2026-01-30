@@ -11,6 +11,7 @@ import pass from '@openagenda/validators/pass.js';
 import multilingual from '@openagenda/validators/multilingual.js';
 import regex from '@openagenda/validators/regex.js';
 import choice from '@openagenda/validators/choice.js';
+import address from '@openagenda/agenda-locations/validators/address.js';
 // TODO use `groupTagsValidator`
 // import groupTagsValidator from './groupTagsValidator';
 
@@ -88,6 +89,7 @@ const validators = {
   multilingual,
   regex,
   choice,
+  address,
 };
 
 const STATES = {
@@ -202,7 +204,7 @@ const baseValidators = [
   validateImageRights,
   validateSIRET,
   validateExtId,
-  validators.text({
+  validators.address({
     field: 'address',
     min: 3,
     max: 255,

@@ -131,24 +131,28 @@ const UpdateForm = ({ detailedInfo = true }) => {
     return fetch(res.update.replace(':locationUid', locationUid), {
       method: 'POST',
       body: form,
-    })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`Invalid status (${response.status})`);
+    }).then(async (response) => {
+      setPageSpin(false);
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+
+        if (response.status === 400 && errorData.errors) {
+          setErrors(errorData.errors);
+        } else {
+          setErrorModal(
+            errorData.message
+              || `Request failed with status ${response.status}`,
+          );
         }
-        return response.json();
-      })
-      .then(() => {
-        setPageSpin(false);
-        if (nq) history.push(nq);
-        else history.push(prefix);
-        dispatch(onGoingActions.initiate('update'));
-        setErrors(false);
-      })
-      .catch((err) => {
-        setPageSpin(false);
-        setErrorModal(err);
-      });
+        return;
+      }
+
+      if (nq) history.push(nq);
+      else history.push(prefix);
+      dispatch(onGoingActions.initiate('update'));
+      setErrors(false);
+    });
   };
 
   if (

@@ -66,6 +66,10 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.file.tooBig',
     defaultMessage: 'This file is too big (> 20 MB)',
   },
+  'address.invalid': {
+    id: 'AgendaLocations.LocationForm.address.invalid',
+    defaultMessage: 'Invalid address',
+  },
   tooshort: {
     id: 'AgendaLocations.LocationForm.tooshort',
     defaultMessage: 'String is too short',
