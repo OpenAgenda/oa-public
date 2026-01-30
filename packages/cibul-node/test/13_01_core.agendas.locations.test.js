@@ -419,6 +419,33 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
       });
     });
 
+    describe('unsuccessful create cause url', () => {
+      let error;
+      beforeAll(async () => {
+        error = await ky
+          .post('http://localhost:4000/agendas/17026855/locations', {
+            headers: {
+              'access-token': accessToken,
+            },
+            json: {
+              name: 'Error on address',
+              address: 'www.google.com/',
+              countryCode: 'fr',
+            },
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err,
+          );
+      });
+      it('test error message', async () => {
+        const errorData = await error.response.json();
+        expect(errorData.message).toBe('data is invalid');
+        expect(errorData.errors[0].message).toBe('address should not be a URL');
+      });
+    });
+
     describe('unsuccessful create cause extId too long', () => {
       let error;
       beforeAll(async () => {
