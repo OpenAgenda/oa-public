@@ -2,6 +2,7 @@
 
 const log = require('@openagenda/logs')('lib/decorateWithGeocodeData');
 const { BadRequest } = require('@openagenda/verror');
+const addressValidator = require('../validators/address');
 const deduceLanguageFromCountry = require('./deduceLanguageFromCountry');
 
 const hasCityAndDept = (g = {}) =>
@@ -57,6 +58,9 @@ async function geocode(interfaces, data, current) {
     if (!geocodeData.countryCode) {
       throw new Error('countryCode is unspecified');
     }
+
+    const validateAddress = addressValidator({ field: 'address' });
+    validateAddress(geocodeData.address);
 
     const results = await interfaces.geocode(geocodeData.address, {
       language: deduceLanguageFromCountry(geocodeData.countryCode),

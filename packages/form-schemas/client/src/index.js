@@ -329,7 +329,11 @@ export default class FormSchemaComponent extends Component {
               $set: getErrorLabel(labels.errors, field, e),
             },
             fieldLabel: {
-              $set: _.get(field.label, lang),
+              $set:
+                typeof field.label === 'string'
+                  ? field.label
+                  : field.label?.[lang]
+                    ?? field.label?.[Object.keys(field.label)?.[0]],
             },
           });
         }),

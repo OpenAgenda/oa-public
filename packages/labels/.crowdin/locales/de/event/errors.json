@@ -1,4 +1,5 @@
 {
   "location.required": "Die Lage muss angegeben werden",
-  "timings.toolong": "Es kann nicht mehr als 800 Timings für ein einzelnes Veranstaltung sein"
+  "timings.toolong": "Es kann nicht mehr als 800 Timings für ein einzelnes Veranstaltung sein",
+  "timings.max": "Die Anzahl der definierten Zeiträume überschreitet das zulässige Maximum: %max%"
 }

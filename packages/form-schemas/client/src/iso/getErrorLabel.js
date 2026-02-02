@@ -10,7 +10,7 @@ export default (labels, field, error) => {
     .reduce((rendered, fieldKey) => {
       if (fieldKey === 'maxSize') {
         return rendered.replace(
-          `%${fieldKey}%`,
+          '%maxSize%',
           typeof field[fieldKey] === 'number'
             ? parseFloat((field[fieldKey] / 1024 / 1024).toFixed(2))
             : field[fieldKey],

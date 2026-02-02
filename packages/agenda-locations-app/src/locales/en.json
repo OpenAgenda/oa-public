@@ -102,6 +102,7 @@
   "AgendaLocations.LocationForm.access": "Access",
   "AgendaLocations.LocationForm.addLanguage": "Add a language",
   "AgendaLocations.LocationForm.address": "Address",
+  "AgendaLocations.LocationForm.address.invalid": "Invalid address",
   "AgendaLocations.LocationForm.addressPlaceholder": "Number Street, City ( example : 82 Boulevard de Clichy, Paris )",
   "AgendaLocations.LocationForm.cancel": "Cancel",
   "AgendaLocations.LocationForm.createSubmit": "Create",

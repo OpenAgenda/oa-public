@@ -46,8 +46,13 @@ module.exports = {
     "io": "crwdns16428:0crwdne16428:0",
     "oc": "Cal indicar al mens un orari"
   },
-  "timings.max.1": {
-    "fr": "Sur cette opération, la saisie de plage horaire est limitée à 1. Utilisez l'option 'Dupliquer l'événement' après la création afin de renseigner d'autres horaires."
+  "timings.max": {
+    "fr": "Le nombre de plages horaires saisies excède le nombre autorisé: %max%",
+    "en": "The number of defined timings exceeds the authorized maximum: %max%",
+    "de": "Die Anzahl der definierten Zeiträume überschreitet das zulässige Maximum: %max%",
+    "es": "El número de franjas horarias definidas excede el máximo autorizado: %max%",
+    "it": "Il numero di fasce orarie definite supera il massimo consentito: %max%",
+    "oc": "Lo nombre d'oraris indicats excedís lo maximum autorizat: %max%"
   },
   "overlap": {
     "fr": "les horaires ne peuvent pas se chevaucher",

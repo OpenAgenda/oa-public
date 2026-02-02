@@ -102,6 +102,7 @@
   "AgendaLocations.LocationForm.access": "Conditions d'accès",
   "AgendaLocations.LocationForm.addLanguage": "Ajouter une langue",
   "AgendaLocations.LocationForm.address": "Adresse",
+  "AgendaLocations.LocationForm.address.invalid": "un address valide doit être renseigné",
   "AgendaLocations.LocationForm.addressPlaceholder": "Numéro Voie, Ville (exemple : 82 Boulevard de Clichy, Paris)",
   "AgendaLocations.LocationForm.cancel": "Annuler",
   "AgendaLocations.LocationForm.createSubmit": "Créer",

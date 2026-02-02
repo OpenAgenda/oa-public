@@ -537,30 +537,6 @@ function favoriteLinkHTML(uid) {
   return `<span class="fav js_fav_item" data-event-uid="${uid}"></span>`;
 }
 
-function loadAgendaBy(param) {
-  return (req, res, next) => {
-    const { agendas } = req.app.services;
-
-    const identifier = _.isString(param)
-      ? _.pick(req.params, [param])
-      : _.set({}, _.keys(param)[0], req.params[param[_.keys(param)[0]]]);
-
-    agendas
-      .get(identifier, {
-        private: null,
-        internal: true,
-        includeImagePath: true,
-      })
-      .then((agenda) => {
-        if (!agenda) return next({ code: 404 });
-
-        _.assign(req, { agenda });
-
-        next();
-      }, next);
-  };
-}
-
 function _saveCookie(req, res, cookieValues) {
   const encodedCookieValues = Buffer.from(
     JSON.stringify(cookieValues),
@@ -664,8 +640,6 @@ export default {
   catchError, // the heir of standard error handling
 
   loadBaseData, // middleware.
-  loadAgenda: loadAgendaBy('slug'),
-  loadAgendaBy,
 
   useEmbedGoogleAnalytics,
 

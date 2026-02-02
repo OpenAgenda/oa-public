@@ -153,10 +153,10 @@ export default function plugApp(app) {
   ];
 
   app.get(
-    '/:slug/admin/activities/list',
+    '/:agendaSlug/admin/activities/list',
     cmn.loadLogger('agendaActivities'),
     sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
-    cmn.loadAgenda,
+    agendas.mw.load,
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
     (req, res) =>

@@ -21,7 +21,7 @@ export default class InviteMembersForm extends Component {
             }}
             schema={schema({
               getLabel,
-              areModeratorsEnabled: agenda.credentials.moderators,
+              areModeratorsEnabled: agenda.credentials?.moderators,
               isAgendaPrivate: agenda.private,
               isInvitationMessageEnabled: agenda.credentials.invitationMessage,
               modoCanInviteModo: agenda.settings.contribution.modoCanInviteModo,

@@ -1,3 +1,3 @@
 export default function isMemberRoleEnabled(agenda) {
-  return !!agenda.credentials.moderators;
+  return !!agenda.credentials?.moderators;
 }

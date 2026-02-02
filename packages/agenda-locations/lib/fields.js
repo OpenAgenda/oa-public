@@ -56,6 +56,7 @@ module.exports = [
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
     fieldType: 'text',
+    min: 3,
     max: 100,
     rejectEmojis: true,
     sanitizeEncoding: 'utf8mb3',

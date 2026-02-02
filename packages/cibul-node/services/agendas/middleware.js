@@ -23,7 +23,7 @@ function loadBy(agendasSvc, { path, field, target }) {
       )
       .then((agenda) => {
         if (!agenda) return next({ code: 404 });
-        req[target || 'agenda'] = agenda;
+        req[target || 'agenda'] = _.omit(agenda, ['id', 'ownerId']);
         next();
       }, next);
   };

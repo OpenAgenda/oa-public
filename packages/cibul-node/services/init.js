@@ -103,7 +103,7 @@ export default async function initServices(config = null, options = {}) {
   await init('discord', () => import('./discord.js'));
   await init('files', () => import('./files.js'));
   await init('abilities', () => import('./abilities/index.js'));
-  await init('keys', () => import('./keys.js'));
+  await init('keys', () => import('./keys/index.js'));
   await init('users', () => import('./users/index.js'));
   await init('accessTokens', () => import('./accessTokens/index.js'));
   await init('activities', () => import('./activities/index.js')); // required directly
@@ -114,7 +114,6 @@ export default async function initServices(config = null, options = {}) {
   await init('geocoder', () => import('./geocoder.js'));
   await init('agendaLocations', () => import('./agendaLocations/index.js'));
   await init('agendas', () => import('./agendas/index.js'));
-  await init('agendaSettings', () => import('./agendaSettings.js'));
   await init('inboxes', () => import('./inboxes/index.js'));
   await init('agendaStatistics', () => import('./agendaStatistics/index.js'));
   await init('agendaSearch', () => import('./agendaSearch/index.js'));
