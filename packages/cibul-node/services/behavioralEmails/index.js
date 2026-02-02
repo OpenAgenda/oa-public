@@ -21,7 +21,9 @@ export async function init(config, services) {
               query: {
                 uid: userUid,
                 isActivated: true,
-                isBlacklisted: false,
+                isBlacklisted: {
+                  $or: [null, false], // isBlacklisted is not always defined
+                },
               },
             });
 
