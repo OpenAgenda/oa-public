@@ -136,6 +136,8 @@
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "Ownership of the event has been transferred.",
   "next.views.EventShow.transferOwnershipModal.transfer": "Transfer",
   "next.views.EventShow.transferOwnershipModal.transferOwnership": "Transfer ownership",
+  "views.EventShow.contextBar.editMember": "Edit the contributor's information",
+  "views.EventShow.contextBar.editMemberMe": "Edit my information",
   "views.EventShow.contextBar.invalidEventInfo": "This event does not meet the criteria defined by the agenda form. This can happen if the form configuration has changed. To correct the event, edit it.",
   "views.EventShow.contextBar.nonCompliant": "Non-compliant"
 }

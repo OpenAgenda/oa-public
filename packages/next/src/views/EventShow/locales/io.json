@@ -136,6 +136,8 @@
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "crwdns33870:0crwdne33870:0",
   "next.views.EventShow.transferOwnershipModal.transfer": "crwdns33872:0crwdne33872:0",
   "next.views.EventShow.transferOwnershipModal.transferOwnership": "crwdns33874:0crwdne33874:0",
+  "views.EventShow.contextBar.editMember": "",
+  "views.EventShow.contextBar.editMemberMe": "",
   "views.EventShow.contextBar.invalidEventInfo": "crwdns35267:0crwdne35267:0",
   "views.EventShow.contextBar.nonCompliant": "crwdns35269:0crwdne35269:0"
 }

@@ -136,6 +136,8 @@
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "La propriété de l'événement a été transférée.",
   "next.views.EventShow.transferOwnershipModal.transfer": "Transférer",
   "next.views.EventShow.transferOwnershipModal.transferOwnership": "Transférer la propriété",
+  "views.EventShow.contextBar.editMember": "Modifier la fiche du contributeur",
+  "views.EventShow.contextBar.editMemberMe": "Modifier ma fiche contributeur",
   "views.EventShow.contextBar.invalidEventInfo": "Cet événement ne répond pas aux critères définis par le formulaire de l'agenda. Cela peut se produire si la configuration du formulaire a été modifiée. Pour corriger l'événement, modifiez-le.",
   "views.EventShow.contextBar.nonCompliant": "À corriger/compléter"
 }

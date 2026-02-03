@@ -136,6 +136,8 @@
   "next.views.EventShow.transferOwnershipModal.ownershipTransfered": "La propiedad del evento ha sido transferida.",
   "next.views.EventShow.transferOwnershipModal.transfer": "Transferir",
   "next.views.EventShow.transferOwnershipModal.transferOwnership": "Transferir la propiedad",
+  "views.EventShow.contextBar.editMember": "",
+  "views.EventShow.contextBar.editMemberMe": "",
   "views.EventShow.contextBar.invalidEventInfo": "",
   "views.EventShow.contextBar.nonCompliant": ""
 }

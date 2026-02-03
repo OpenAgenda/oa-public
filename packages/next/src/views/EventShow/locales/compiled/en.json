@@ -875,6 +875,18 @@
       "value": "Transfer ownership"
     }
   ],
+  "views.EventShow.contextBar.editMember": [
+    {
+      "type": 0,
+      "value": "Edit the contributor's information"
+    }
+  ],
+  "views.EventShow.contextBar.editMemberMe": [
+    {
+      "type": 0,
+      "value": "Edit my information"
+    }
+  ],
   "views.EventShow.contextBar.invalidEventInfo": [
     {
       "type": 0,
