@@ -21,6 +21,7 @@ describe('06 - addSource', () => {
       await addSource(
         {
           getAgendaSourceId: () => false,
+          getAgendasByUids: () => [],
           addSourceEntry: () => {
             addSourceEntryWasCalled = true;
             return _async('fixtures/addSource/addSourceEntry')();

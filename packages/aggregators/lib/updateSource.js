@@ -31,7 +31,7 @@ export default async (
     throw new Error('No source was found');
   }
 
-  const { aggregator /* , source: updatedSource */ } = await updateSourceEntry(
+  const { aggregator } = await updateSourceEntry(
     aggregatorAgenda,
     source,
     sourceRules,

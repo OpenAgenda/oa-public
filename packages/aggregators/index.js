@@ -106,7 +106,7 @@ export default ({ knex, queue, createWorker, interfaces, logger }) => {
       }),
       add: addSource.bind(null, {
         knex,
-        interfaces,
+        getAgendasByUids: interfaces.getAgendasByUids,
         enqueueLoadSourceEvaluates: queue.add.bind(
           queue,
           'loadSourceEvaluates',
@@ -117,7 +117,6 @@ export default ({ knex, queue, createWorker, interfaces, logger }) => {
         onAddSource: interfaces.onAddSource,
       }),
       update: updateSource.bind(null, {
-        interfaces,
         enqueueLoadSourceEvaluates: queue.add.bind(
           queue,
           'loadSourceEvaluates',
@@ -131,7 +130,6 @@ export default ({ knex, queue, createWorker, interfaces, logger }) => {
         }),
       }),
       remove: removeSource.bind(null, {
-        interfaces,
         enqueueLoadSourceRemoves: queue.add.bind(queue, 'loadSourceRemoves'),
         getSourceEntry: getSourceEntry.bind(null, {
           knex,
@@ -140,6 +138,7 @@ export default ({ knex, queue, createWorker, interfaces, logger }) => {
         removeSourceEntry: removeSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex),
         onRemoveSource: interfaces.onRemoveSource,
+        getAgendasByUids: interfaces.getAgendasByUids,
       }),
     },
     notify: notify.bind(null, {

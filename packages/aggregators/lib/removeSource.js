@@ -10,6 +10,7 @@ export default async (
     enqueueLoadSourceRemoves,
     getAgendaSourceId,
     onRemoveSource,
+    getAgendasByUids,
   },
   aggregatorAgenda,
   sourceIdOrAgenda,
@@ -22,8 +23,15 @@ export default async (
     sourceIdOrAgenda,
   };
 
+  const aggregatorAgendaWithId = {
+    ...aggregatorAgenda,
+    id:
+      aggregatorAgenda.id
+      ?? _.first(await getAgendasByUids(aggregatorAgenda.uid))?.id,
+  };
+
   const sourceId = typeof sourceIdOrAgenda === 'object'
-    ? await getAgendaSourceId(sourceIdOrAgenda, aggregatorAgenda)
+    ? await getAgendaSourceId(sourceIdOrAgenda, aggregatorAgendaWithId)
     : sourceIdOrAgenda;
 
   log.info('removing source from aggregator', logBundle);
@@ -35,7 +43,7 @@ export default async (
     throw new Error('No source was found');
   }
 
-  await removeSourceEntry(aggregatorAgenda, source.agenda);
+  await removeSourceEntry(aggregatorAgendaWithId, source.agenda);
 
   try {
     if (typeof onRemoveSource === 'function') {

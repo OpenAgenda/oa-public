@@ -12,7 +12,6 @@ export default async (
   if (!aggregator) {
     throw new Error('Aggregator not found');
   }
-
   const cleanSourceRules = sourceRules.map((r) => cleanRule(r));
 
   const insertIds = await knex('aggregator_source').insert({

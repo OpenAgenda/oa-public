@@ -8,6 +8,7 @@ const log = logs('addSource');
 export default async (
   {
     getAgendaSourceId,
+    getAgendasByUids,
     addSourceEntry,
     getMergedSchema,
     enqueueLoadSourceEvaluates,
@@ -25,14 +26,26 @@ export default async (
   log.info('adding source', logBundle);
   const { query = null, context = {} } = options;
 
-  if (await getAgendaSourceId(sourceAgenda, aggregatorAgenda)) {
+  const sourceAgendaWithId = {
+    ...sourceAgenda,
+    id:
+      sourceAgenda.id ?? _.first(await getAgendasByUids(sourceAgenda.uid))?.id,
+  };
+  const aggregatorAgendaWithId = {
+    ...aggregatorAgenda,
+    id:
+      aggregatorAgenda.id
+      ?? _.first(await getAgendasByUids(aggregatorAgenda.uid))?.id,
+  };
+
+  if (await getAgendaSourceId(sourceAgendaWithId, aggregatorAgendaWithId)) {
     log('already source', logBundle);
     throw new BadRequest('Agenda is already source');
   }
 
   const { aggregator, source } = await addSourceEntry(
-    aggregatorAgenda,
-    sourceAgenda,
+    aggregatorAgendaWithId,
+    sourceAgendaWithId,
     sourceRules,
   );
 
@@ -51,7 +64,7 @@ export default async (
       aggregatorAgendaUid: aggregatorAgenda.uid,
       aggregatorRules: aggregator.rules,
       aggregatorLimit: limit.get(aggregator),
-      sourceAgenda,
+      sourceAgenda: sourceAgendaWithId,
       sourceRules,
       formSchema: await getMergedSchema(sourceAgenda.uid),
       query,
