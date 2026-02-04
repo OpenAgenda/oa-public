@@ -1,4 +1,4 @@
-export default (services, networkUid) =>
+export default (services, networkUid, options = {}) =>
   services.agendas
     .list(
       {
@@ -6,5 +6,6 @@ export default (services, networkUid) =>
       },
       0,
       1000,
+      options,
     )
     .then((r) => r.agendas);

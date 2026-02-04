@@ -30,4 +30,16 @@ raw.push(
 
 raw.push(knex('network').insert([load('sql/networks/01.json')]));
 
+raw.push(
+  knex('form_schema').insert([
+    {
+      id: 1,
+      store: `{
+        "nextOptionId": 1,
+        "fields": []
+      }`,
+    },
+  ]),
+);
+
 export default `${raw.join(';\n')};`;

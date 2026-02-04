@@ -132,6 +132,77 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     });
   });
 
+  describe('core.networks.schema.updateFields - cascade to children', () => {
+    it('removes abstract placeholders from child when network field is removed', async () => {
+      const networkFieldKey = 'networkInheritanceTest';
+      const customFieldKey = 'customChildField';
+      const { formSchemas } = core.services;
+
+      // Step 1: Add a custom field to child agenda so it has its own schema
+      await core.agendas(1).settings.schema.updateFields([
+        {
+          field: customFieldKey,
+          fieldType: 'text',
+          label: { fr: 'Custom Field', en: 'Custom Field' },
+        },
+      ]);
+
+      // Step 2: Add a field to network schema
+      await core.networks(1).schema.updateFields([
+        {
+          field: networkFieldKey,
+          fieldType: 'text',
+          label: { fr: 'Test Inheritance', en: 'Test Inheritance' },
+        },
+      ]);
+
+      // Step 3: Add abstract placeholder to child schema (simulates reordering)
+      const agenda = await core.agendas(1).get({
+        access: 'internal',
+        detailed: true,
+      });
+
+      const agendaSchema = await formSchemas.get(agenda.formSchemaId);
+      await formSchemas.update(agenda.formSchemaId, {
+        ...agendaSchema,
+        fields: [
+          ...agendaSchema.fields,
+          {
+            field: networkFieldKey,
+            fieldType: 'abstract',
+            label: { fr: 'Test Inheritance', en: 'Test Inheritance' },
+          },
+        ],
+      });
+
+      // Step 4: Verify abstract placeholder exists in child schema
+      const schemaBeforeRemoval = await formSchemas.get(agenda.formSchemaId);
+      const abstractField = schemaBeforeRemoval.fields.find(
+        (f) => f.field === networkFieldKey && f.fieldType === 'abstract',
+      );
+      expect(abstractField).toBeDefined();
+
+      // Step 5: Remove field from network schema (cascade should remove abstract placeholder)
+      await core.networks(1).schema.updateFields([]);
+
+      // Wait for cascade to complete
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Step 6: Verify abstract placeholder was removed from child schema
+      const schemaAfterRemoval = await formSchemas.get(agenda.formSchemaId);
+      const abstractFieldAfter = schemaAfterRemoval.fields.find(
+        (f) => f.field === networkFieldKey,
+      );
+      expect(abstractFieldAfter).toBeUndefined();
+
+      // Verify custom field still exists (cascade only removes abstract placeholders)
+      const customFieldAfter = schemaAfterRemoval.fields.find(
+        (f) => f.field === customFieldKey,
+      );
+      expect(customFieldAfter).toBeDefined();
+    });
+  });
+
   describe('api', () => {
     let server;
     let accessToken;
