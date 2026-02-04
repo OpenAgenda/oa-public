@@ -116,9 +116,7 @@ const preCleanAndValidate = (query) => {
   try {
     return validate(cleanQuery);
   } catch (errors) {
-    const badRequest = new BadRequest('invalid parameters');
-    badRequest.info = { errors };
-    throw badRequest;
+    throw new BadRequest({ info: { errors } }, 'invalid parameters');
   }
 };
 
