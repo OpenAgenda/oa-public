@@ -76,6 +76,14 @@ const CreateForm = ({ detailedInfo = true }) => {
   const dispatch = useDispatch();
   const intl = useIntl();
 
+  const getDefaultLocationValues = (settingsParam) => {
+    const locationFieldDefaults = settingsParam?.locationField?.default || {};
+    return {
+      countryCode: 'FR',
+      ...locationFieldDefaults,
+    };
+  };
+
   const onSubmit = (location) => {
     setPageSpin(true);
     let clean;
@@ -132,7 +140,7 @@ const CreateForm = ({ detailedInfo = true }) => {
           showToggler={false}
           res={res}
           lang={lang}
-          location={null}
+          locationProp={getDefaultLocationValues(settings)}
           detailedInfo={detailedInfo}
           settings={settings}
           onCancel={() => {
