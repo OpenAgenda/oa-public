@@ -111,6 +111,8 @@ function validateImage(value) {
       },
     ];
   }
+
+  return value;
 }
 
 function validateImageCredits(value, otherValues = {}, options = {}) {
