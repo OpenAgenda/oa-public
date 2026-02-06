@@ -381,6 +381,27 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
             .updatedAt.getTime(),
         ).toBe(new Date('2022-06-30T09:00:00.000Z').getTime());
       });
+
+      it('location tags are filtered according to schema legacy tagSet in list', async () => {
+        const events = await core
+          .agendas(2)
+          .events.list(
+            {},
+            { limit: 1 },
+            { detailed: true, access: 'internal' },
+          );
+
+        const event = events[0];
+        expect(event.location.tags).toBeDefined();
+        expect(Array.isArray(event.location.tags)).toBe(true);
+
+        const validTag = event.location.tags.find((tag) => tag.id === 33);
+        expect(validTag).toBeDefined();
+        expect(validTag.label).toBe('Première participation');
+
+        const invalidTag = event.location.tags.find((tag) => tag.id === 999);
+        expect(invalidTag).toBeUndefined();
+      });
     });
   });
 });
