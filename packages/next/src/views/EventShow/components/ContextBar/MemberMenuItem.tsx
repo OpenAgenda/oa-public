@@ -1,4 +1,4 @@
-import { contributorSection as messages } from '../../messages';
+import { contextBar as messages } from '../../messages';
 import LinkMenuItem from './LinkMenuItem';
 
 export default function MemberMenuItem({ agenda, me, member, intl }) {
@@ -10,7 +10,9 @@ export default function MemberMenuItem({ agenda, me, member, intl }) {
 
   return (
     <LinkMenuItem value="edit-member" href={href}>
-      {intl.formatMessage(isEventContributor ? messages.meEdit : messages.edit)}
+      {intl.formatMessage(
+        messages[isEventContributor ? 'editMemberMe' : 'editMember'],
+      )}
     </LinkMenuItem>
   );
 }

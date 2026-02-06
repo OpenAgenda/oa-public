@@ -879,6 +879,18 @@
       "value": "Transférer la propriété"
     }
   ],
+  "views.EventShow.contextBar.editMember": [
+    {
+      "type": 0,
+      "value": "Modifier la fiche du contributeur"
+    }
+  ],
+  "views.EventShow.contextBar.editMemberMe": [
+    {
+      "type": 0,
+      "value": "Modifier ma fiche contributeur"
+    }
+  ],
   "views.EventShow.contextBar.invalidEventInfo": [
     {
       "type": 0,

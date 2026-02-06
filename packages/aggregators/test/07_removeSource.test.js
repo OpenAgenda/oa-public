@@ -13,6 +13,7 @@ describe('07 - removeSource', () => {
       await removeSource(
         {
           removeSourceEntry: tracker('removeSourceEntry'),
+          getAgendasByUids: async () => [{ id: 3 }],
           getSourceEntry: tracker('getSourceEntry', {
             id: 1,
             aggregatorId: 2,
@@ -32,7 +33,7 @@ describe('07 - removeSource', () => {
 
     test('if agenda is source, calls fn to remove source, providing aggregator and source agendas', () => {
       expect(tracker.calls[1].name).toBe('removeSourceEntry');
-      expect(tracker.calls[1].args[0]).toBe(aggregatorAgenda);
+      expect(tracker.calls[1].args[0]).toEqual(aggregatorAgenda);
       expect(tracker.calls[1].args[1]).toBe(sourceAgenda);
     });
 

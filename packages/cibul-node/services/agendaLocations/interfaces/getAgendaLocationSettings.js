@@ -22,8 +22,8 @@ export default (services) => async (uid) => {
     .get({ access: 'internal', private: null });
 
   if (!legacy) {
-    return { locations: agenda.settings?.locations };
+    return { locations: agenda.settings?.locations, locationField };
   }
 
-  return { ...legacy, locations: agenda.settings?.locations };
+  return { ...legacy, locations: agenda.settings?.locations, locationField };
 };

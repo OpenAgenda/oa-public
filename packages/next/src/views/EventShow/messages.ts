@@ -297,6 +297,14 @@ export const contextBar = defineMessages({
     defaultMessage:
       'This event does not meet the criteria defined by the agenda form. This can happen if the form configuration has changed. To correct the event, edit it.',
   },
+  editMember: {
+    id: 'views.EventShow.contextBar.editMember',
+    defaultMessage: "Edit the contributor's information",
+  },
+  editMemberMe: {
+    id: 'views.EventShow.contextBar.editMemberMe',
+    defaultMessage: 'Edit my information',
+  },
 });
 
 export const duplicateModal = defineMessages({
