@@ -1,11 +1,11 @@
 {
   "next.components.ErrorDisplay.backToHome": "",
-  "next.components.ErrorDisplay.chunkError": "",
-  "next.components.ErrorDisplay.chunkErrorMsg": "",
   "next.components.ErrorDisplay.contactSupport": "",
   "next.components.ErrorDisplay.errorTrackingId": "",
   "next.components.ErrorDisplay.internalError": "",
   "next.components.ErrorDisplay.internalErrorMsg": "",
+  "next.components.ErrorDisplay.networkError": "",
+  "next.components.ErrorDisplay.networkErrorMsg": "",
   "next.components.ErrorDisplay.pageNotFound": "",
   "next.components.ErrorDisplay.pageNotFoundMsg": "",
   "next.components.ErrorDisplay.retry": ""

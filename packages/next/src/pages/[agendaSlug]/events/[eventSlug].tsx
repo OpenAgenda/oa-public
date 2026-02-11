@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next';
 import { SWRConfig } from 'swr';
-import VError from '@openagenda/verror';
+import ky from 'ky';
 import { NextPageWithLayout } from 'pages/_app';
 import Layout from 'components/Layout';
 import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
@@ -9,6 +9,7 @@ import EventError, { EventErrorProps } from 'views/EventError';
 import { AgendaProvider } from 'views/EventShow/contexts/agenda';
 import type { Agenda } from 'types';
 import { errorToJSON } from 'utils/errorToJSON';
+import kyErrorToVError from 'utils/kyErrorToVError';
 import { logError } from 'utils/sentry';
 import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
 import generateNonce from 'utils/generateNonce';
@@ -39,34 +40,25 @@ export const getServerSideProps: GetServerSideProps = async ({
   const agendaSlug = queryWithParams.agendaSlug as string;
   const eventSlug = queryWithParams.eventSlug as string;
 
-  const eventUrl = `/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
+  const api = ky.create({
+    prefixUrl: process.env.NEXT_API_INTERNAL_BASE_URL,
+    headers: {
+      Cookie: req.headers.cookie,
+      Authorization: req.headers.authorization,
+    },
+  });
+
+  const eventUrl = `api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
 
   let agenda = null;
 
   try {
     const results = await Promise.allSettled([
       EventShow.fetchLocale(locale),
-      fetch(
-        `${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1&includeMemberSchema=1`,
-        {
-          headers: {
-            Authorization: req.headers.authorization,
-            Cookie: req.headers.cookie,
-          },
-        },
-      ).then((r) => {
-        if (r.ok) return r.json();
-        throw new VError[r.status](r.statusText);
-      }),
-      fetch(`${process.env.NEXT_API_INTERNAL_BASE_URL}${eventUrl}`, {
-        headers: {
-          Authorization: req.headers.authorization,
-          Cookie: req.headers.cookie,
-        },
-      }).then((r) => {
-        if (r.ok) return r.json();
-        throw new VError[r.status](r.statusText);
-      }),
+      api(
+        `api/agendas/slug/${agendaSlug}?detailed=1&includeMemberSchema=1`,
+      ).json<any>(),
+      api(eventUrl).json<any>(),
     ]);
 
     if (results[0].status === 'rejected') throw results[0].reason;
@@ -134,15 +126,17 @@ export const getServerSideProps: GetServerSideProps = async ({
         `/api/agendas/${agenda.uid}/events/${event.uid}/references`,
       ],
       fallback: {
-        [eventUrl]: eventResponse,
+        [`/${eventUrl}`]: eventResponse,
       },
     };
 
     return { props };
   } catch (e: any) {
+    const error = await kyErrorToVError(e);
+
     const intlMessages = await EventError.fetchLocale(locale).catch(() => ({}));
 
-    const statusCode = Number.isInteger(e.code) ? e.code : 500;
+    const statusCode = error.statusCode ?? 500;
     res.statusCode = statusCode;
 
     const props: ErrorPageProps = {
@@ -153,10 +147,10 @@ export const getServerSideProps: GetServerSideProps = async ({
       agenda,
     };
 
-    props.error = errorToJSON(e);
+    props.error = errorToJSON(error);
 
     if (statusCode !== 401 && statusCode !== 403 && statusCode !== 404) {
-      logError(e);
+      logError(error);
     }
 
     return { props };

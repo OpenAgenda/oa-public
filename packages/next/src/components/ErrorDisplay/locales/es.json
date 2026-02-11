@@ -1,11 +1,11 @@
 {
   "next.components.ErrorDisplay.backToHome": "Volver al inicio",
-  "next.components.ErrorDisplay.chunkError": "",
-  "next.components.ErrorDisplay.chunkErrorMsg": "",
   "next.components.ErrorDisplay.contactSupport": "Contactar con el soporte",
   "next.components.ErrorDisplay.errorTrackingId": "Error del ID de seguimiento",
   "next.components.ErrorDisplay.internalError": "Error interno",
   "next.components.ErrorDisplay.internalErrorMsg": "Si el problema persiste, por favor contacte con el soporte.",
+  "next.components.ErrorDisplay.networkError": "",
+  "next.components.ErrorDisplay.networkErrorMsg": "",
   "next.components.ErrorDisplay.pageNotFound": "",
   "next.components.ErrorDisplay.pageNotFoundMsg": "",
   "next.components.ErrorDisplay.retry": "Reintentar"

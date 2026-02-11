@@ -24,7 +24,9 @@ import useDateFnsLocale from 'hooks/useDateFnsLocale';
 import useLocationQuery from 'hooks/useLocationQuery';
 import useUser from 'hooks/useUser';
 import fetchErrorLocale from 'components/ErrorDisplay/locales';
+import NotificationModal from 'components/NotificationModal';
 import ConsentBanner from 'components/ConsentBanner';
+import NetworkErrorBoundary from 'components/NetworkErrorBoundary';
 import useIsMounted from 'hooks/useIsMounted';
 import useClientAnalytics from 'hooks/useClientAnalytics';
 import type { Agenda } from 'types';
@@ -41,9 +43,9 @@ import {
   TotalSkeleton,
 } from './components/LoadingPage';
 import ContentGrid from './components/ContentGrid';
-import NetworkErrorBoundary from './components/NetworkErrorBoundary';
 import includeFields from './includeFields';
 import fetchLocale from './locales';
+import messages from './messages';
 
 import 'leaflet/dist/leaflet.css';
 
@@ -169,7 +171,25 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
   }, [pages, previousPages, filters, latestQuery, latestRouter, urlQuery]);
 
   return (
-    <>
+    <NetworkErrorBoundary
+      fallback={() => (
+        <>
+          <ContentGrid
+            total={<TotalSkeleton />}
+            events={<EventsSkeleton />}
+            filters={<FiltersSkeleton />}
+          />
+          <NotificationModal
+            onClose={() => {}}
+            title={intl.formatMessage(messages.networkErrorTitle)}
+            message={intl.formatMessage(messages.networkErrorMessage)}
+            action={intl.formatMessage(messages.retryButton)}
+            onAction={() => window.location.reload()}
+            showCloseButton={false}
+          />
+        </>
+      )}
+    >
       <main>
         <Metas agenda={agenda} query={query} preload={preload} />
 
@@ -194,54 +214,44 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
           filters={filters}
           res={`/api/agendas/slug/${agenda.slug}/events`}
         >
-          <NetworkErrorBoundary
-            fallback={
-              <ContentGrid
-                total={<TotalSkeleton />}
-                events={<EventsSkeleton />}
-                filters={<FiltersSkeleton />}
-              />
+          <ContentGrid
+            total={
+              isMounted ? (
+                <Suspense fallback={<TotalSkeleton />}>
+                  <DynamicTotalPart
+                    agenda={agenda}
+                    filters={filters}
+                    query={query}
+                    includeFields={includeFields}
+                  />
+                </Suspense>
+              ) : null
             }
-          >
-            <ContentGrid
-              total={
-                isMounted ? (
-                  <Suspense fallback={<TotalSkeleton />}>
-                    <DynamicTotalPart
-                      agenda={agenda}
-                      filters={filters}
-                      query={query}
-                      includeFields={includeFields}
-                    />
-                  </Suspense>
-                ) : null
-              }
-              events={
-                isMounted ? (
-                  <Suspense fallback={<EventsSkeleton />}>
-                    <DynamicEventsPart
-                      agenda={agenda}
-                      filters={filters}
-                      query={query}
-                      includeFields={includeFields}
-                    />
-                  </Suspense>
-                ) : null
-              }
-              filters={
-                isMounted ? (
-                  <Suspense fallback={<FiltersSkeleton />}>
-                    <DynamicFiltersPart
-                      agenda={agenda}
-                      filters={filters}
-                      query={query}
-                      includeFields={includeFields}
-                    />
-                  </Suspense>
-                ) : null
-              }
-            />
-          </NetworkErrorBoundary>
+            events={
+              isMounted ? (
+                <Suspense fallback={<EventsSkeleton />}>
+                  <DynamicEventsPart
+                    agenda={agenda}
+                    filters={filters}
+                    query={query}
+                    includeFields={includeFields}
+                  />
+                </Suspense>
+              ) : null
+            }
+            filters={
+              isMounted ? (
+                <Suspense fallback={<FiltersSkeleton />}>
+                  <DynamicFiltersPart
+                    agenda={agenda}
+                    filters={filters}
+                    query={query}
+                    includeFields={includeFields}
+                  />
+                </Suspense>
+              ) : null
+            }
+          />
         </FiltersProvider>
       </main>
 
@@ -257,7 +267,7 @@ function AgendaShow({ agenda, preload }: AgendaShowProps) {
           />
         </Suspense>
       ) : null}
-    </>
+    </NetworkErrorBoundary>
   );
 }
 

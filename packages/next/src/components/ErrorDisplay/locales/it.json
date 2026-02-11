@@ -1,11 +1,11 @@
 {
   "next.components.ErrorDisplay.backToHome": "Tornare alla pagina iniziale",
-  "next.components.ErrorDisplay.chunkError": "",
-  "next.components.ErrorDisplay.chunkErrorMsg": "",
   "next.components.ErrorDisplay.contactSupport": "Contatta il supporto",
   "next.components.ErrorDisplay.errorTrackingId": "Identificazione dell'errore",
   "next.components.ErrorDisplay.internalError": "Errore interno",
   "next.components.ErrorDisplay.internalErrorMsg": "Se il problema persiste, contattare l'assistenza.",
+  "next.components.ErrorDisplay.networkError": "",
+  "next.components.ErrorDisplay.networkErrorMsg": "",
   "next.components.ErrorDisplay.pageNotFound": "",
   "next.components.ErrorDisplay.pageNotFoundMsg": "",
   "next.components.ErrorDisplay.retry": "Riprovare"

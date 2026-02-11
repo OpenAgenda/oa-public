@@ -25,14 +25,14 @@ export default defineMessages({
     id: 'next.components.ErrorDisplay.backToHome',
     defaultMessage: 'Back to home',
   },
-  chunkError: {
-    id: 'next.components.ErrorDisplay.chunkError',
-    defaultMessage: 'Network issue',
+  networkError: {
+    id: 'next.components.ErrorDisplay.networkError',
+    defaultMessage: 'Connection error',
   },
-  chunkErrorMsg: {
-    id: 'next.components.ErrorDisplay.chunkErrorMsg',
+  networkErrorMsg: {
+    id: 'next.components.ErrorDisplay.networkErrorMsg',
     defaultMessage:
-      'The app could not be loaded due to network issues. Check your internet connection and try again. If the issue persists, contact support.',
+      'Unable to load the page. Please check your internet connection and try again.',
   },
   pageNotFound: {
     id: 'next.components.ErrorDisplay.pageNotFound',

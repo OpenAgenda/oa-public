@@ -5,18 +5,6 @@
       "value": "Tornare alla pagina iniziale"
     }
   ],
-  "next.components.ErrorDisplay.chunkError": [
-    {
-      "type": 0,
-      "value": "Network issue"
-    }
-  ],
-  "next.components.ErrorDisplay.chunkErrorMsg": [
-    {
-      "type": 0,
-      "value": "The app could not be loaded due to network issue. Check your internet connection and try again. If the issue persists, contact support."
-    }
-  ],
   "next.components.ErrorDisplay.contactSupport": [
     {
       "type": 0,
@@ -39,6 +27,18 @@
     {
       "type": 0,
       "value": "Se il problema persiste, contattare l'assistenza."
+    }
+  ],
+  "next.components.ErrorDisplay.networkError": [
+    {
+      "type": 0,
+      "value": "Connection error"
+    }
+  ],
+  "next.components.ErrorDisplay.networkErrorMsg": [
+    {
+      "type": 0,
+      "value": "Unable to load the page. Please check your internet connection and try again."
     }
   ],
   "next.components.ErrorDisplay.pageNotFound": [

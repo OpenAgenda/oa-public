@@ -5,18 +5,6 @@
       "value": "Tornar a l'acuèlh"
     }
   ],
-  "next.components.ErrorDisplay.chunkError": [
-    {
-      "type": 0,
-      "value": "Problème de réseau"
-    }
-  ],
-  "next.components.ErrorDisplay.chunkErrorMsg": [
-    {
-      "type": 0,
-      "value": "L'application n'a pas pu être chargée en raison d'un problème de réseau. Vérifiez votre connexion internet et retentez de charger la page. Si le problème persiste, contactez le support."
-    }
-  ],
   "next.components.ErrorDisplay.contactSupport": [
     {
       "type": 0,
@@ -39,6 +27,18 @@
     {
       "type": 0,
       "value": "Se lo problèma dura, vos pregarem de contactar lo servici d'assiténcia."
+    }
+  ],
+  "next.components.ErrorDisplay.networkError": [
+    {
+      "type": 0,
+      "value": "Erreur de connexion"
+    }
+  ],
+  "next.components.ErrorDisplay.networkErrorMsg": [
+    {
+      "type": 0,
+      "value": "Impossible de charger la page. Vérifiez votre connexion internet et réessayez."
     }
   ],
   "next.components.ErrorDisplay.pageNotFound": [
