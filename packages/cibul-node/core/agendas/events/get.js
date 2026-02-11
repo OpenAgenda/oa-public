@@ -1,6 +1,7 @@
 import logs from '@openagenda/logs';
 import createPayload from '../utils/createPayload.js';
 import formatLocationExtIds from '../locations/formatExtIds.js';
+import formatLegacyTags from '../locations/formatLegacyTags.js';
 import getAgenda from '../utils/getAgenda.js';
 import eventLoadOptions from '../utils/eventLoadOptions.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
@@ -84,6 +85,10 @@ export default async (core, agendaUid, eventUid, options = {}) => {
 
     if (event?.location && detailed) {
       event.location = formatLocationExtIds.afterRead(event.location);
+      event.location = formatLegacyTags.filterLegacyTags(
+        event.location,
+        await payload.getFormSchema(),
+      );
     }
 
     log('event fetched');

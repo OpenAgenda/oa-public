@@ -184,6 +184,7 @@ export function init(config, services) {
             internal: true,
             includeImagePath: true,
             useDefaultImage: true,
+            private: null,
           })
           .then(({ agendas }) =>
             agendas.map((a) =>

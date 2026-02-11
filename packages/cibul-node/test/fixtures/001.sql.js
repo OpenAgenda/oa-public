@@ -67,6 +67,10 @@ raw.push(
             id: 33,
             label: 'Première participation',
           },
+          {
+            id: 999,
+            label: 'Invalid Tag - Should be filtered',
+          },
         ],
         description: { fr: "Les locaux d'OpenAgenda jusqu'en 2020" },
         timezone: 'Europe/Paris',

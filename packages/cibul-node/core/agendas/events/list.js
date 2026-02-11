@@ -7,8 +7,9 @@ import cleanEvent from '../utils/cleanEvent/index.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
 import Stopwatch from '../utils/Stopwatch.js';
 import formatLocationsExtIds from '../locations/formatExtIds.js';
+import formatLegacyTags from '../locations/formatLegacyTags.js';
 
-function formatEventLocationsExtIds(events, { detailed }) {
+function formatEventLocationsTagsAndExtIds(events, { detailed, formSchema }) {
   if (!detailed) {
     return events;
   }
@@ -18,6 +19,10 @@ function formatEventLocationsExtIds(events, { detailed }) {
       return event;
     }
     event.location = formatLocationsExtIds.afterRead(event.location);
+    event.location = formatLegacyTags.filterLegacyTags(
+      event.location,
+      formSchema,
+    );
     return event;
   });
 }
@@ -100,9 +105,9 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
 
     times.events = stopwatch();
 
-    fetched.events = formatEventLocationsExtIds(
+    fetched.events = formatEventLocationsTagsAndExtIds(
       convertLocationAdditionalFields(formSchema, events),
-      { detailed },
+      { detailed, formSchema },
     );
   }
 

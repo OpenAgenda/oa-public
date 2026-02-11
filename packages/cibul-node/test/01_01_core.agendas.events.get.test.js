@@ -124,6 +124,18 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         'extId',
       ]);
     });
+
+    it('location tags are filtered according to schema legacy tagSet', () => {
+      expect(event.location.tags).toBeDefined();
+      expect(Array.isArray(event.location.tags)).toBe(true);
+
+      const validTag = event.location.tags.find((tag) => tag.id === 33);
+      expect(validTag).toBeDefined();
+      expect(validTag.label).toBe('Première participation');
+
+      const invalidTag = event.location.tags.find((tag) => tag.id === 999);
+      expect(invalidTag).toBeUndefined();
+    });
   });
 
   describe('authorization', () => {
