@@ -20,14 +20,12 @@ export default async function kyErrorToVError(error: unknown): Promise<any> {
     // ignore parse errors
   }
 
-  return new HttpError(
-    {
-      info: {
-        url: response.url,
-        statusText: response.statusText,
-        body,
-      },
+  return new HttpError({
+    message: error.message,
+    info: {
+      url: response.url,
+      statusText: response.statusText,
+      body,
     },
-    error.message,
-  );
+  });
 }
