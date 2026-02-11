@@ -1,4 +1,6 @@
 import * as Sentry from '@sentry/nextjs';
+import { captureReactException } from '@sentry/react';
+import type { ErrorInfo } from 'react';
 
 type LogLevel = 'fatal' | 'error' | 'warning' | 'info' | 'debug';
 
@@ -6,8 +8,9 @@ type LogBaseOptions = {
   extra?: Record<string, unknown>;
   tags?: Record<string, string>;
   fingerprint?: string[];
+  errorInfo?: ErrorInfo;
   console?: boolean;
-  skipOriginal?: boolean; // petit plus, optionnel
+  skipOriginal?: boolean;
 };
 
 type LogOptions = LogBaseOptions & {
@@ -70,11 +73,10 @@ export const logException = (error: unknown, opts?: LogOptions) => {
     extra,
     tags,
     fingerprint,
+    errorInfo,
     console: consoleLog = true,
     skipOriginal = false,
   } = opts ?? {};
-
-  const err = toError(error);
 
   Sentry.withScope((scope) => {
     scope.setLevel(level);
@@ -87,7 +89,11 @@ export const logException = (error: unknown, opts?: LogOptions) => {
       scope.setExtra('original', error);
     }
 
-    Sentry.captureException(err);
+    if (errorInfo) {
+      captureReactException(error, errorInfo);
+    } else {
+      Sentry.captureException(toError(error));
+    }
   });
 
   if (consoleLog) {

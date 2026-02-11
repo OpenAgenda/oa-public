@@ -1,6 +1,6 @@
-import { Component, ReactNode } from 'react';
+import { Component, ErrorInfo, ReactNode } from 'react';
 import checkIsNetworkError from 'utils/checkIsNetworkError';
-import { logWarning } from 'utils/sentry';
+import { logError, logWarning } from 'utils/sentry';
 
 interface NetworkErrorBoundaryProps {
   children: ReactNode;
@@ -30,10 +30,11 @@ class NetworkErrorBoundary extends Component<
     };
   }
 
-  componentDidCatch(error: Error, _errorInfo: any) {
+  componentDidCatch(error: Error, errorInfo: ErrorInfo) {
     if (checkIsNetworkError(error)) {
-      logWarning(error);
+      logWarning(error, { errorInfo });
     } else {
+      logError(error, { errorInfo });
       throw error;
     }
   }
