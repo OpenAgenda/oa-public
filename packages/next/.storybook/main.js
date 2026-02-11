@@ -1,5 +1,9 @@
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import nextEnv from '@next/env';
+
+const { loadEnvConfig } = nextEnv;
+const loadedEnv = loadEnvConfig(process.cwd());
 
 function getAbsolutePath(pkg) {
   return dirname(fileURLToPath(import.meta.resolve(`${pkg}/package.json`)));
@@ -35,6 +39,11 @@ const main = {
 
     return config;
   },
+
+  env: (baseEnv) => ({
+    ...baseEnv,
+    ...loadedEnv.parsedEnv,
+  }),
 };
 
 export default main;
