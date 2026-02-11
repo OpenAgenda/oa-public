@@ -13,7 +13,7 @@ export default async function kyErrorToVError(error: unknown): Promise<any> {
   const { response } = error;
   const HttpError = VError[response.status] || VError.GeneralError;
 
-  let body;
+  let body = null;
   try {
     body = await response.json();
   } catch {
