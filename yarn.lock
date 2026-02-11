@@ -9770,6 +9770,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@next/env@npm:^16.1.6":
+  version: 16.1.6
+  resolution: "@next/env@npm:16.1.6"
+  checksum: 10c0/ed7023edb94b9b2e5da3f9c99d08b614da9757c1edd0ecec792fce4d336b4f0c64db1a84955e07cfbd848b9e61c4118fff28f4098cd7b0a7f97814a90565ebe6
+  languageName: node
+  linkType: hard
+
 "@next/eslint-plugin-next@npm:15.5.6":
   version: 15.5.6
   resolution: "@next/eslint-plugin-next@npm:15.5.6"
@@ -10011,7 +10018,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
@@ -10169,7 +10176,7 @@ __metadata:
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
     angular-expressions: "npm:^0.3.0"
@@ -10205,7 +10212,7 @@ __metadata:
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     immutability-helper: "npm:^2.2.2"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
@@ -10284,7 +10291,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     babel-loader: "npm:^9.1.3"
     body-parser: "npm:^1.19.0"
     core-js: "npm:^3.29.1"
@@ -10430,7 +10437,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     cors: "npm:^2.8.5"
     errorhandler: "npm:^1.5.0"
     express: "npm:^4.17.1"
@@ -10557,7 +10564,7 @@ __metadata:
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     ioredis: "npm:^5.3.2"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
@@ -10634,7 +10641,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     deep-diff: "npm:^1.0.2"
     immutability-helper: "npm:^3.0.0"
     jest: "npm:^29.7.0"
@@ -10832,7 +10839,7 @@ __metadata:
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     immutability-helper: "npm:^3.0.0"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
@@ -11033,7 +11040,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     debug: "npm:^4.1.1"
     deep-diff: "npm:^1.0.2"
     immer: "npm:^10.0.3"
@@ -11075,7 +11082,7 @@ __metadata:
     "@aws-sdk/client-s3": "npm:^3.705.0"
     "@aws-sdk/lib-storage": "npm:^3.705.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     express: "npm:^4.17.1"
     file-type: "npm:^15.0.0"
     gm: "npm:^1.25.0"
@@ -11109,7 +11116,7 @@ __metadata:
     "@openagenda/stream-utils": "npm:^1.1.0"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     exceljs: "npm:^4.3.0"
     fast-csv: "npm:^2.4.1"
     global: "npm:^4.3.2"
@@ -11321,7 +11328,7 @@ __metadata:
     "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     "@uppy/companion": "npm:^4.12.3"
     ajv: "npm:^5.2.2"
     ajv-errors: "npm:^1.0.0"
@@ -11388,7 +11395,7 @@ __metadata:
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
@@ -11440,7 +11447,7 @@ __metadata:
     "@openagenda/react-shared": "npm:^2.4.6"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
     debug: "npm:^4.1.1"
@@ -11494,7 +11501,7 @@ __metadata:
   resolution: "@openagenda/mails-editor@workspace:public/mails-editor"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     express: "npm:^4.17.1"
     html-to-text: "npm:^6.0.0"
     lodash: "npm:^4.17.20"
@@ -11538,7 +11545,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     bullmq: "npm:^5.65.1"
     ejs: "npm:^3.1.9"
     emoji-regex: "npm:^10.3.0"
@@ -11626,7 +11633,7 @@ __metadata:
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     immutability-helper: "npm:^3.0.1"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
@@ -11706,7 +11713,7 @@ __metadata:
   dependencies:
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
@@ -11735,6 +11742,7 @@ __metadata:
     "@iframe-resizer/child": "npm:^5.4.6"
     "@iframe-resizer/react": "npm:^5.4.6"
     "@next/bundle-analyzer": "npm:16.0.0"
+    "@next/env": "npm:^16.1.6"
     "@openagenda/activity-apps": "npm:^1.2.3"
     "@openagenda/browserslist-config": "npm:^1.0.0"
     "@openagenda/common-labels": "npm:^1.2.4"
@@ -11754,7 +11762,7 @@ __metadata:
     "@openagenda/sessions": "npm:^4.1.1"
     "@openagenda/tsconfig": "npm:^0.0.0"
     "@openagenda/uikit": "npm:^0.0.4"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/exporter-logs-otlp-proto": "npm:^0.208.0"
     "@opentelemetry/exporter-metrics-otlp-proto": "npm:^0.208.0"
@@ -11791,7 +11799,7 @@ __metadata:
     file-type: "npm:^21.0.0"
     globby: "npm:^13.1.3"
     hls.js: "npm:^1.6.5"
-    ky: "npm:^1.1.3"
+    ky: "npm:^1.14.3"
     leaflet: "npm:^1.9.4"
     lodash: "npm:^4.17.21"
     morgan: "npm:^1.10.0"
@@ -11862,7 +11870,7 @@ __metadata:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     date-fns: "npm:^2.29.3"
     date-fns-tz: "npm:^1.3.7"
     ky: "npm:^1.14.0"
@@ -11976,6 +11984,7 @@ __metadata:
     "@openagenda/react-date-range": "npm:^2.0.2"
     "@openagenda/react-portal-ssr": "npm:^1.0.3"
     "@openagenda/react-shared": "npm:^2.4.6"
+    "@openagenda/verror": "npm:^3.2.0"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
     babel-loader: "npm:^9.1.3"
@@ -12362,7 +12371,7 @@ __metadata:
     "@inquirer/prompts": "npm:^7.5.3"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     chalk: "npm:^5.4.1"
     date-fns: "npm:^2.11.1"
     date-fns-tz: "npm:2.0.0"
@@ -12405,7 +12414,7 @@ __metadata:
   resolution: "@openagenda/security@workspace:packages/security"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     dotenv: "npm:^16.3.1"
     jest: "npm:^29.7.0"
     zxcvbn: "npm:^4.4.2"
@@ -12431,7 +12440,7 @@ __metadata:
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     cookie-parser: "npm:^1.4.3"
     cookie-session: "npm:^2.0.0-alpha.2"
     express: "npm:^4.17.1"
@@ -12458,7 +12467,7 @@ __metadata:
   resolution: "@openagenda/simple-cache@workspace:packages/simple-cache"
   dependencies:
     "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     jest: "npm:^29.7.0"
     redis: "npm:^4.6.6"
   languageName: unknown
@@ -12584,7 +12593,7 @@ __metadata:
   resolution: "@openagenda/unsubscriptions@workspace:packages/unsubscriptions"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     dotenv: "npm:^16.3.1"
     jest: "npm:^29.7.0"
     jsonwebtoken: "npm:^9.0.2"
@@ -12718,6 +12727,18 @@ __metadata:
     inherits: "npm:^2.0.4"
     sprintf-js: "npm:^1.1.2"
   checksum: 10c0/3052358963675e4591df518ed34e2cf48ec78e7fb527ca1ef6e15a53a5f5e8d18af1db6de4500f9d19e3447380fe6561d0d386ff3db0fd54457bd90f26c583af
+  languageName: node
+  linkType: hard
+
+"@openagenda/verror@npm:^3.2.0":
+  version: 3.2.0
+  resolution: "@openagenda/verror@npm:3.2.0"
+  dependencies:
+    assertion-error: "npm:^1.1.0"
+    depd: "npm:^2.0.0"
+    inherits: "npm:^2.0.4"
+    sprintf-js: "npm:^1.1.2"
+  checksum: 10c0/c89e62a28954dc098b154229b49f5afd4a6bf091ccd9ea64733f0c9a90b8990ba5d8d14cc841e7058de6173fd06d61353a2a670932b3c8afee426bf9e091ddfe
   languageName: node
   linkType: hard
 
@@ -27410,7 +27431,7 @@ __metadata:
     "@openagenda/users": "npm:^3.1.1"
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.1.0"
+    "@openagenda/verror": "npm:^3.2.0"
     "@opentelemetry/api": "npm:^1.9.0"
     "@opentelemetry/api-logs": "npm:^0.208.0"
     "@opentelemetry/exporter-logs-otlp-proto": "npm:^0.208.0"
@@ -41194,6 +41215,13 @@ __metadata:
   version: 1.14.0
   resolution: "ky@npm:1.14.0"
   checksum: 10c0/ae30950feaa863fd95854bc0f528a04a36fa04828c119b098c5a0933a46126ccaee829ec0d6d6fc968faa4d0a23501c3203534d024d60540541d322d9772983d
+  languageName: node
+  linkType: hard
+
+"ky@npm:^1.14.3":
+  version: 1.14.3
+  resolution: "ky@npm:1.14.3"
+  checksum: 10c0/8e91c9512c8f1501201108ad58ed437eaf3f5b0a0da842bd846d785932426e84a31cf51d0fffce1921d4e70e26465a9b2b89ed2477822975568258a1fa68a740
   languageName: node
   linkType: hard
 
