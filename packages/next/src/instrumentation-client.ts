@@ -12,8 +12,18 @@ const ENV = process.env.NODE_ENV;
 
 init({
   dsn: SENTRY_DSN,
-  beforeSend(event, _hint) {
-    return ENV === 'production' ? event : null;
+  beforeSend(event, hint) {
+    if (ENV !== 'production') return null;
+
+    const error = hint?.originalException;
+    if (
+      error instanceof Error &&
+      error.message.toLowerCase().startsWith('failed to load chunk')
+    ) {
+      event.level = 'warning';
+    }
+
+    return event;
   },
   beforeSendTransaction(transaction) {
     return ENV === 'production' ? transaction : null;
