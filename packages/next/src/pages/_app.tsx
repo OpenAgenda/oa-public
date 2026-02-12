@@ -11,6 +11,7 @@ import { getLocaleValue } from '@openagenda/intl';
 import { EmotionCache } from '@openagenda/uikit';
 import Providers from 'Providers';
 import SentryErrorBoundary from 'components/SentryErrorBoundary';
+import ChunkErrorListener from 'components/ChunkErrorListener';
 import useMatomoTracker from 'hooks/useMatomoTracker';
 import useMatomoPageTracker from 'hooks/useMatomoPageTracker';
 import base64 from 'utils/base64';
@@ -88,13 +89,15 @@ function MyApp({
         cache={cache}
         cookies={universalCookies}
       >
-        <SentryErrorBoundary>
-          <Layout {...layoutProps}>
-            <SentryErrorBoundary>
-              <Component {...pageProps} />
-            </SentryErrorBoundary>
-          </Layout>
-        </SentryErrorBoundary>
+        <ChunkErrorListener>
+          <SentryErrorBoundary>
+            <Layout {...layoutProps}>
+              <SentryErrorBoundary>
+                <Component {...pageProps} />
+              </SentryErrorBoundary>
+            </Layout>
+          </SentryErrorBoundary>
+        </ChunkErrorListener>
       </Providers>
     </>
   );
