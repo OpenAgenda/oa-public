@@ -22,7 +22,7 @@
   "dependencies": {
     "@openagenda/logs": "^1.1.10",
     "@openagenda/service-utils": "^2.0.0",
-    "@openagenda/verror": "^3.1.0",
+    "@openagenda/verror": "^3.2.0",
     "@uppy/companion": "^4.12.3",
     "ajv": "^5.2.2",
     "ajv-errors": "^1.0.0",

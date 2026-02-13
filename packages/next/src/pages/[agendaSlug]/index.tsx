@@ -1,10 +1,10 @@
 import { GetServerSideProps } from 'next';
 import { SWRConfig } from 'swr';
 import qs from 'qs';
+import ky from 'ky';
 import { createIntlCache, createIntl } from 'react-intl';
 import { getFilters, filtersToAggregations } from '@openagenda/react-filters';
 import { getSupportedLocale } from '@openagenda/intl';
-import VError from '@openagenda/verror';
 import { NextPageWithLayout } from 'pages/_app';
 import Layout from 'components/Layout';
 import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
@@ -14,11 +14,13 @@ import AgendaError, { AgendaErrorProps } from 'views/AgendaError';
 import getDateFnsLocale from 'utils/getDateFnsLocale';
 import parseLocationQuery from 'utils/parseLocationQuery';
 import { errorToJSON } from 'utils/errorToJSON';
+import kyErrorToVError from 'utils/kyErrorToVError';
 import { logError } from 'utils/sentry';
 import generateNonce from 'utils/generateNonce';
 import listFiltersToInclude from 'utils/listFiltersToInclude';
 import CSP, { DEFAULT_DIRECTIVES } from 'utils/contentSecurityPolicy';
 import { normalizeUrl as normalizeMatomoUrl } from 'utils/addMatomoTracker';
+import { Agenda } from 'types';
 
 type CommonProps = {
   intlMessages?: Record<string, string>;
@@ -41,26 +43,19 @@ export const getServerSideProps: GetServerSideProps = async ({
 
   const query = parseLocationQuery(resolvedUrl);
 
+  const api = ky.create({
+    prefixUrl: process.env.NEXT_API_INTERNAL_BASE_URL,
+    headers: {
+      Cookie: req.headers.cookie,
+      Authorization: req.headers.authorization,
+    },
+  });
+
   try {
     const [intlMessages, dateFnsLocale, agenda] = await Promise.all([
       AgendaShow.fetchLocale(locale),
       getDateFnsLocale(locale),
-      fetch(
-        `${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1`,
-        {
-          headers: {
-            Cookie: req.headers.cookie,
-            ...req.headers.authorization
-              ? {
-                  Authorization: req.headers.authorization,
-                }
-              : undefined,
-          },
-        },
-      ).then((r) => {
-        if (r.ok) return r.json();
-        throw new VError[r.status](r.statusText);
-      }),
+      api(`api/agendas/slug/${agendaSlug}?detailed=1`).json<Agenda>(),
     ]);
 
     const googleAnalytics = agenda.settings?.tracking?.googleAnalytics;
@@ -166,11 +161,13 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return { props };
   } catch (e: any) {
+    const error = await kyErrorToVError(e);
+
     const intlMessages = await AgendaError.fetchLocale(locale).catch(
       () => ({}),
     );
 
-    const statusCode = Number.isInteger(e.code) ? e.code : 500;
+    const statusCode = error.statusCode ?? 500;
     res.statusCode = statusCode;
 
     const props: ErrorPageProps = {
@@ -179,10 +176,10 @@ export const getServerSideProps: GetServerSideProps = async ({
       intlMessages,
     };
 
-    props.error = errorToJSON(e);
+    props.error = errorToJSON(error);
 
     if (statusCode !== 401 && statusCode !== 403 && statusCode !== 404) {
-      logError(e);
+      logError(error);
     }
 
     return { props };

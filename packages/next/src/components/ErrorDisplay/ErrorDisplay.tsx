@@ -1,4 +1,5 @@
 import { useIntl } from 'react-intl';
+import { isHTTPError } from 'ky';
 import { Button, chakra, Flex, Link, Text } from '@openagenda/uikit';
 import ErrorContainer from './ErrorContainer';
 import messages from './messages';
@@ -20,6 +21,27 @@ interface ErrorProps {
   resetError?: () => void;
   actionsComponent?: typeof ErrorActions;
 }
+
+const httpErrorNames = new Set([
+  'HTTPError',
+  'BadRequest',
+  'NotAuthenticated',
+  'PaymentError',
+  'Forbidden',
+  'NotFound',
+  'MethodNotAllowed',
+  'NotAcceptable',
+  'Timeout',
+  'Conflict',
+  'Gone',
+  'LengthRequired',
+  'Unprocessable',
+  'TooManyRequests',
+  'GeneralError',
+  'NotImplemented',
+  'BadGateway',
+  'Unavailable',
+]);
 
 // enhanced VError.fullStack working with JsonError
 function getFullStack(error) {
@@ -43,16 +65,23 @@ export function ErrorDisplay({
 
   const errorStack = error ? getFullStack(error) : null;
 
-  const isChunkLoadError = error?.message?.startsWith('Failed to load chunk');
+  const message = error?.message;
+  const isChunkLoadError =
+    typeof message === 'string' &&
+    message.toLowerCase().startsWith('failed to load chunk');
+  const isNetworkError =
+    error?.name === 'NetworkError' ||
+    httpErrorNames.has(error?.name) ||
+    isHTTPError(error);
 
-  if (isChunkLoadError) {
+  if (isChunkLoadError || isNetworkError) {
     return (
       <ErrorContainer>
         <Text fontSize="2xl" fontWeight="bold">
-          {intl.formatMessage(messages.chunkError)}
+          {intl.formatMessage(messages.networkError)}
         </Text>
         <Text textAlign="center" mt="4">
-          {intl.formatMessage(messages.chunkErrorMsg)}
+          {intl.formatMessage(messages.networkErrorMsg)}
         </Text>
 
         <ActionsComponent resetError={resetError} />

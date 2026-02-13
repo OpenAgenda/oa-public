@@ -1,11 +1,11 @@
 {
   "next.components.ErrorDisplay.backToHome": "Tornar a l'acuèlh",
-  "next.components.ErrorDisplay.chunkError": "",
-  "next.components.ErrorDisplay.chunkErrorMsg": "",
   "next.components.ErrorDisplay.contactSupport": "Contactar l'assisténcia",
   "next.components.ErrorDisplay.errorTrackingId": "Identificant de seguit de las errors",
   "next.components.ErrorDisplay.internalError": "Error intèrna",
   "next.components.ErrorDisplay.internalErrorMsg": "Se lo problèma dura, vos pregarem de contactar lo servici d'assiténcia.",
+  "next.components.ErrorDisplay.networkError": "",
+  "next.components.ErrorDisplay.networkErrorMsg": "",
   "next.components.ErrorDisplay.pageNotFound": "",
   "next.components.ErrorDisplay.pageNotFoundMsg": "",
   "next.components.ErrorDisplay.retry": "Tornar ensajar"

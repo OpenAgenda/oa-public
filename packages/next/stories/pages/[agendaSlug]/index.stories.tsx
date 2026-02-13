@@ -27,7 +27,28 @@ export const Sample = {
     msw: {
       handlers: [
         http.get('/api/agendas/slug/metropole-europeenne-de-lille/events', () =>
-          HttpResponse.json(eventsFixtures)),
+          HttpResponse.json(eventsFixtures),
+        ),
+      ],
+    },
+  },
+};
+
+export const NetworkError = {
+  render: (_args, { loaded: { intlMessages } }) => (
+    <AgendaShow.Layout>
+      <AgendaShow
+        intlMessages={intlMessages}
+        agenda={agendaFixtures as Agenda}
+      />
+    </AgendaShow.Layout>
+  ),
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/api/agendas/slug/metropole-europeenne-de-lille/events', () =>
+          HttpResponse.error(),
+        ),
       ],
     },
   },
@@ -58,7 +79,8 @@ export const CustomFilterSelection = {
     msw: {
       handlers: [
         http.get('/api/agendas/slug/metropole-europeenne-de-lille/events', () =>
-          HttpResponse.json(eventsFixtures)),
+          HttpResponse.json(eventsFixtures),
+        ),
       ],
     },
   },

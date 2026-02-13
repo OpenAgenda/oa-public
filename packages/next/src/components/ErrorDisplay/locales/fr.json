@@ -1,11 +1,11 @@
 {
   "next.components.ErrorDisplay.backToHome": "Revenir à l'accueil",
-  "next.components.ErrorDisplay.chunkError": "Problème de réseau",
-  "next.components.ErrorDisplay.chunkErrorMsg": "L'application n'a pas pu être chargée en raison d'un problème de réseau. Vérifiez votre connexion internet et retentez de charger la page. Si le problème persiste, contactez le support.",
   "next.components.ErrorDisplay.contactSupport": "Contacter le support",
   "next.components.ErrorDisplay.errorTrackingId": "Id de suivi d'erreur",
   "next.components.ErrorDisplay.internalError": "Erreur interne",
   "next.components.ErrorDisplay.internalErrorMsg": "Si le problème persiste, veuillez contacter le support.",
+  "next.components.ErrorDisplay.networkError": "Erreur de connexion",
+  "next.components.ErrorDisplay.networkErrorMsg": "Impossible de charger la page. Vérifiez votre connexion internet et réessayez.",
   "next.components.ErrorDisplay.pageNotFound": "Page introuvable",
   "next.components.ErrorDisplay.pageNotFoundMsg": "La page demandée n'existe pas ou plus.",
   "next.components.ErrorDisplay.retry": "Réessayer"

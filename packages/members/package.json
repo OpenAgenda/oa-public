@@ -11,7 +11,7 @@
     "@openagenda/labels": "^2.3.0",
     "@openagenda/logs": "^1.1.10",
     "@openagenda/validators": "^2.4.0",
-    "@openagenda/verror": "^3.1.0",
+    "@openagenda/verror": "^3.2.0",
     "immutability-helper": "^3.0.1",
     "lodash": "^4.17.15",
     "slugify": "^1.4.5"

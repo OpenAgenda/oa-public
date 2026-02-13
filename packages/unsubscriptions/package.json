@@ -14,7 +14,7 @@
     }
   },
   "dependencies": {
-    "@openagenda/verror": "^3.1.0",
+    "@openagenda/verror": "^3.2.0",
     "jsonwebtoken": "^9.0.2",
     "lodash": "^4.17.15"
   },

@@ -1,11 +1,11 @@
 {
   "next.components.ErrorDisplay.backToHome": "Back to home",
-  "next.components.ErrorDisplay.chunkError": "Network issue",
-  "next.components.ErrorDisplay.chunkErrorMsg": "The app could not be loaded due to network issue. Check your internet connection and try again. If the issue persists, contact support.",
   "next.components.ErrorDisplay.contactSupport": "Contact support",
   "next.components.ErrorDisplay.errorTrackingId": "Error tracking id",
   "next.components.ErrorDisplay.internalError": "Internal error",
   "next.components.ErrorDisplay.internalErrorMsg": "If the problem persists, please contact support.",
+  "next.components.ErrorDisplay.networkError": "Connection error",
+  "next.components.ErrorDisplay.networkErrorMsg": "Unable to load the page. Please check your internet connection and try again.",
   "next.components.ErrorDisplay.pageNotFound": "Page not found",
   "next.components.ErrorDisplay.pageNotFoundMsg": "The page you requested doesn’t exist or is no longer available.",
   "next.components.ErrorDisplay.retry": "Retry"

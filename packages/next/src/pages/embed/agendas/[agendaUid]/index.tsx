@@ -26,6 +26,7 @@ import CSP, { DEFAULT_DIRECTIVES } from 'utils/contentSecurityPolicy';
 import { omitParams, validateSort } from 'utils/embedParams';
 import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import { errorToJSON } from 'utils/errorToJSON';
+import kyErrorToVError from 'utils/kyErrorToVError';
 import { logError } from 'utils/sentry';
 import { Agenda } from 'types';
 
@@ -205,11 +206,13 @@ export const getServerSideProps: GetServerSideProps = async ({
 
     return { props };
   } catch (e: any) {
+    const error = await kyErrorToVError(e);
+
     const intlMessages = await EmbedAgendaError.fetchLocale(locale).catch(
       () => ({}),
     );
 
-    const statusCode = Number.isInteger(e.code) ? e.code : 500;
+    const statusCode = error.statusCode ?? 500;
     res.statusCode = statusCode;
 
     const props: ErrorPageProps = {
@@ -217,10 +220,10 @@ export const getServerSideProps: GetServerSideProps = async ({
       intlMessages,
     };
 
-    props.error = errorToJSON(e);
+    props.error = errorToJSON(error);
 
     if (statusCode !== 401 && statusCode !== 403 && statusCode !== 404) {
-      logError(e);
+      logError(error);
     }
 
     return { props };

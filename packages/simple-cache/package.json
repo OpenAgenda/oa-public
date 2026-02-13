@@ -13,7 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "@openagenda/logs": "^1.1.10",
-    "@openagenda/verror": "^3.1.0",
+    "@openagenda/verror": "^3.2.0",
     "redis": "^4.6.6"
   },
   "devDependencies": {
