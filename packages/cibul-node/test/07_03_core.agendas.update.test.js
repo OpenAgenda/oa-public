@@ -61,5 +61,63 @@ describe('07 - core - functional (server): core.agendas().update', () => {
       );
       expect(title).toBe(unchangedTitle);
     });
+
+    it('update agenda is in fact a patch', async () => {
+      const { settings, description, title } = await core
+        .agendas(17026800)
+        .get({
+          detailed: true,
+          access: 'administrator',
+        });
+
+      expect(settings.contribution.allowLocationCreate).toBe(true);
+      expect(description).toBe('Une description petite');
+      expect(title).toBe('Le Fennec');
+
+      await core.agendas(17026800).update({
+        settings: { contribution: { allowLocationCreate: false } },
+      });
+
+      await core.agendas(17026800).update({
+        description: 'Petit mammifère des sables',
+        settings: {
+          contribution: {
+            messages: {
+              instructions: 'Quelques instructions',
+            },
+          },
+        },
+      });
+
+      await core.agendas(17026800).update({
+        title: 'Fennec le',
+        settings: {
+          contribution: {
+            messages: {
+              publication: 'Votre événement est publié!',
+            },
+          },
+        },
+      });
+
+      const {
+        settings: updatedSettings,
+        title: updatedTitle,
+        description: updatedDescription,
+      } = await core.agendas(17026800).get({
+        detailed: true,
+        access: 'administrator',
+      });
+
+      expect(updatedTitle).toBe('Fennec le');
+      expect(updatedDescription).toBe('Petit mammifère des sables');
+      expect(updatedSettings.contribution.allowLocationCreate).toBe(false);
+      expect(updatedSettings.contribution.messages.instructions).toBe(
+        'Quelques instructions',
+      );
+      expect(updatedSettings.contribution.messages.publication).toBe(
+        'Votre événement est publié!',
+      );
+    });
   });
 });
