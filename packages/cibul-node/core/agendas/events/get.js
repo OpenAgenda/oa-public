@@ -85,7 +85,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
 
     if (event?.location && detailed) {
       event.location = formatLocationExtIds.afterRead(event.location);
-      event.location = formatLegacyTags.filterLegacyTags(
+      event.location = formatLegacyTags(
         event.location,
         await payload.getFormSchema(),
       );

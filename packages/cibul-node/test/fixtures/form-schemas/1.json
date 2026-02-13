@@ -21,7 +21,26 @@
     },
     {
       "field": "location",
-      "fieldType": "abstract"
+      "fieldType": "abstract",
+      "legacy": {
+        "tagSet": {
+          "groups": [
+            {
+              "name": "Spécificité",
+              "tags": [
+                {
+                  "id": 33,
+                  "label": "Première participation"
+                },
+                {
+                  "id": 32,
+                  "label": "Ouverture exceptionnelle"
+                }
+              ]
+            }
+          ]
+        }
+      }
     },
     {
       "field": "intermunicipal_interest",

@@ -580,6 +580,56 @@ describe('core - functional (server): core.agendas().events.create()', () => {
         });
       });
 
+      describe('location tag filtering', () => {
+        let event;
+
+        const memberUserUid = 63170200;
+        const agendaUid = 17026855;
+
+        beforeAll(async () => {
+          event = await core.agendas(agendaUid).events.create(
+            {
+              title: {
+                fr: 'Un événement avec filtrage de tags',
+              },
+              description: {
+                fr: 'Test du filtrage des tags de localisation',
+              },
+              timings: [
+                {
+                  begin: new Date('2021-05-28T12:00:00+0100'),
+                  end: new Date('2021-05-28T14:00:00+0100'),
+                },
+              ],
+              location: {
+                uid: 123,
+              },
+              'categories-agenda-metropolitain': 42,
+            },
+            {
+              context: {
+                userUid: memberUserUid,
+              },
+              detailed: true,
+              access: 'moderator',
+            },
+          );
+        });
+
+        it('location tags are filtered according to schema legacy tagSet', () => {
+          expect(event.location).toBeDefined();
+          expect(event.location.tags).toBeDefined();
+          expect(Array.isArray(event.location.tags)).toBe(true);
+
+          const validTag = event.location.tags.find((tag) => tag.id === 33);
+          expect(validTag).toBeDefined();
+          expect(validTag.label).toBe('Première participation');
+
+          const invalidTag = event.location.tags.find((tag) => tag.id === 999);
+          expect(invalidTag).toBeUndefined();
+        });
+      });
+
       describe('duplicate', () => {
         let originEvent;
         let duplicateEvent;
