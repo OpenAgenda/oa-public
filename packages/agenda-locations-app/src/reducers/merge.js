@@ -21,6 +21,7 @@ export default function reducer(state = initialState, action = {}) {
         step: 1,
         locationUids: action.locationUids,
         entryPoint: action.entryPoint,
+        originalPage: action.originalPage,
       };
     case SELECT_LOCATIONS:
       return {
@@ -51,11 +52,16 @@ export function initiate() {
   };
 }
 
-export function initiateFromDuplicates(locationUids, entryPoint) {
+export function initiateFromDuplicates(
+  locationUids,
+  entryPoint,
+  originalPage = 1,
+) {
   return {
     type: INITIATE_FROM_DUPLICATES,
     locationUids,
     entryPoint,
+    originalPage,
   };
 }
 
@@ -136,7 +142,14 @@ export function launchMerge(merge, res, nextLocation, setErrorModal, setSpin) {
       })
       .then(() => {
         setSpin(false);
-        history.push(nextLocation);
+        // Use the stored originalPage from merge state if available
+        const finalLocation = merge.originalPage
+          ? {
+            pathname: nextLocation.pathname,
+            search: `?page=${merge.originalPage}`,
+          }
+          : nextLocation;
+        history.push(finalLocation);
         dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
         dispatch(onGoingActions.initiate('merge'));
       })
