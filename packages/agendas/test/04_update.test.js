@@ -281,6 +281,21 @@ describe('agendas - functional (server): set (update)', () => {
     ]);
   });
 
+  it('default language can be set to albanese (sq)', async () => {
+    const { agenda } = await svc.set(
+      { uid: 65903437 },
+      {
+        settings: {
+          contribution: {
+            defaultLang: 'sq',
+          },
+        },
+      },
+    );
+
+    expect(agenda.settings.contribution.defaultLang).toBe('sq');
+  });
+
   it('admin settings are not lost with update', async () => {
     const { agenda } = await svc.set({ uid: 35338076 }, { title: 'Bah quoi' });
 
