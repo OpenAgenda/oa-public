@@ -1,4 +1,5 @@
 import getSchema from './getSchema.js';
+import getSchemaAndParents from './getSchemaAndParents.js';
 import UpdateSchemaFields from './updateSchemaFields.js';
 import getAgendas from './getAgendas.js';
 import addAgenda from './addAgenda.js';
@@ -13,6 +14,7 @@ export default (core) => {
       get: get.bind(null, core, networkUid),
       schema: {
         get: getSchema.bind(null, core, networkUid),
+        getAndParents: getSchemaAndParents.bind(null, core, networkUid),
         updateFields: updateSchemaFields.bind(null, networkUid),
       },
       agendas: Object.assign(getAgendas.bind(null, core.services, networkUid), {

@@ -1135,6 +1135,26 @@ export default (core, { useRouter = true } = {}) => {
         .then((agenda) => res.json(agenda), next),
   ]);
 
+  app.get('/networks/:uid/settings/eventSchema/configure', [
+    allowSuperAdmin({ jsonRespone: true }),
+    (req, res, next) =>
+      core
+        .networks(req.params.uid)
+        .schema.getAndParents({
+          lang: req.lang || req.query.lang || 'fr',
+        })
+        .then((data) => res.json({ ...data }), next),
+  ]);
+
+  app.post('/networks/:uid/settings/eventSchema/configure', [
+    allowSuperAdmin({ jsonRespone: true }),
+    (req, res, next) =>
+      core
+        .networks(req.params.uid)
+        .schema.updateFields(req.parsedData.fields)
+        .then((updatedSchema) => res.json(updatedSchema), next),
+  ]);
+
   app.get('/locationSets/:uid', (req, res, next) => {
     core
       .locationSets(req.params.uid)

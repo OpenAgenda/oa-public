@@ -220,6 +220,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     });
 
     afterAll(() => server.close());
+
     it('agenda creation', async () => {
       const resp = await ky
         .post('http://localhost:4000/networks/1/agendas', {
@@ -234,6 +235,100 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         .json();
 
       expect(resp.title).toBe('new agenda');
+    });
+
+    it('GET network eventSchema configure - returns schema with parents', async () => {
+      const res = await ky
+        .get(
+          'http://localhost:4000/networks/1/settings/eventSchema/configure',
+          {
+            headers: {
+              'access-token': accessToken,
+            },
+            searchParams: { lang: 'en' },
+          },
+        )
+        .json();
+
+      // Networks should have only 1 parent (base event schema)
+      // Unlike agendas which can have 2 (base + network)
+      expect(res.parents.length).toBe(1);
+      expect(res.parents[0].schema.id).toBe(-1); // Base event schema
+      expect(res.reservedFields).toBeDefined();
+      // Network schema may be null if not yet configured
+      expect(res.schema === null || typeof res.schema === 'object').toBe(true);
+    });
+
+    it('POST network eventSchema configure - adds custom field', async () => {
+      const customField = {
+        field: 'network-test-field',
+        fieldType: 'text',
+        label: { fr: 'Test Network Field', en: 'Test Network Field' },
+      };
+
+      const result = await ky
+        .post(
+          'http://localhost:4000/networks/1/settings/eventSchema/configure',
+          {
+            headers: {
+              'access-token': accessToken,
+            },
+            json: {
+              fields: [customField],
+            },
+          },
+        )
+        .json();
+
+      expect(result).toBeTruthy();
+      expect(result.fields).toBeDefined();
+      const addedField = result.fields.find(
+        (f) => f.field === 'network-test-field',
+      );
+      expect(addedField).toBeDefined();
+      expect(addedField.fieldType).toBe('text');
+    });
+
+    it('POST network eventSchema configure - updates cascade to child agendas', async () => {
+      // Add a field to network
+      await ky
+        .post(
+          'http://localhost:4000/networks/1/settings/eventSchema/configure',
+          {
+            headers: {
+              'access-token': accessToken,
+            },
+            json: {
+              fields: [
+                {
+                  field: 'network-cascade-test',
+                  fieldType: 'text',
+                  label: { fr: 'Cascade Test', en: 'Cascade Test' },
+                },
+              ],
+            },
+          },
+        )
+        .json();
+
+      // Wait for cascade to complete
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Verify child agenda (agenda 1) can see the network field
+      const agenda = await core.agendas(1).get({
+        access: 'internal',
+        detailed: true,
+      });
+      expect(agenda.networkUid).toBe(1);
+
+      const mergedSchema = await core
+        .agendas(1)
+        .settings.schema.getMerged({ lang: 'en' });
+
+      const networkField = mergedSchema.fields.find(
+        (f) => f.field === 'network-cascade-test',
+      );
+      expect(networkField).toBeDefined();
     });
   });
 });
