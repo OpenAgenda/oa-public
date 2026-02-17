@@ -15,15 +15,16 @@ export default async (core, agendaOrUid, data, options = {}) => {
 
   const agendaBefore = await agendas.get({ uid: agendaUid }, options);
 
-  const { success, errors } = await agendas.set({ uid: agendaUid }, data, {
-    ...options,
-  });
-
-  if (errors?.length) {
-    throw new BadRequest({ info: { errors } }, 'invalid data');
+  try {
+    await agendas.set({ uid: agendaUid }, data, {
+      ...options,
+    });
+  } catch (errors) {
+    if (Array.isArray(errors)) {
+      throw new BadRequest({ info: { errors } }, 'invalid data');
+    }
+    throw new Error('could not update agenda');
   }
-
-  if (!success) throw new Error('could not update agenda');
 
   const updatedAgenda = await get(core, agendaUid, {
     ...options,

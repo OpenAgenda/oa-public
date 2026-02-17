@@ -1124,7 +1124,7 @@ export default (core, { useRouter = true } = {}) => {
   });
 
   app.post('/networks/:uid/agendas', [
-    allowSuperAdmin({ jsonRespone: true }),
+    allowSuperAdmin({ jsonResponse: true }),
     (req, res, next) =>
       core
         .networks(req.params.uid)
@@ -1198,7 +1198,7 @@ export default (core, { useRouter = true } = {}) => {
   ]);
 
   app.get('/supervisor/users/:uid', [
-    allowSuperAdmin({ jsonRespone: true }),
+    allowSuperAdmin({ jsonResponse: true }),
     (req, res) =>
       core.users
         .get(req.params.uid, {

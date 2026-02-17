@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import { BadRequest } from '@openagenda/verror';
 import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 import eventsValidator from '@openagenda/event-form/src/validators/events.js';
 import logs from '@openagenda/logs';
@@ -13,7 +14,7 @@ export default async function updateSchemaFields(
   agendaOrUid,
   updatedFields,
 ) {
-  log('updating');
+  log('updating', { updatedFields });
   const { services, tasks } = core;
   const { formSchemas, agendas } = services;
 
@@ -32,7 +33,18 @@ export default async function updateSchemaFields(
     { reservedFields: eventReservedFields },
   );
 
-  fs.updateFields(updatedFields);
+  try {
+    fs.updateFields(updatedFields);
+  } catch (e) {
+    throw Array.isArray(e)
+      ? new BadRequest(
+        {
+          info: { errors: e },
+        },
+        'invalid data',
+      )
+      : e;
+  }
 
   if (!agendaSchema) {
     log('no schema is associated with agenda, creating');
