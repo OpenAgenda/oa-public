@@ -29,6 +29,10 @@ const hasExplicitTimezone = (d) => {
 function localizeDateString(d, options = {}) {
   const { timezone = 'Europe/Paris' } = options;
 
+  if (d == null) {
+    return d;
+  }
+
   if (d instanceof Date) {
     return d;
   }

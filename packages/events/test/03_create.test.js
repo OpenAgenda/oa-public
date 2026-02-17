@@ -415,6 +415,26 @@ describe('events - functional - create', () => {
       );
     });
 
+    it('timings are provided without begin timing', async () => {
+      const error = await svc
+        .create({
+          title: 'Event create given a text stream instead of image',
+          description: 'Nope',
+          attendanceMode: 2,
+          onlineAccessLink: 'https://openagenda.com',
+          timezone: 'Europe/Paris',
+          timings: [
+            {
+              begin: null,
+              end: new Date('2025-10-23T15:11:00.000Z'),
+            },
+          ],
+        })
+        .catch((e) => e);
+
+      expect(error instanceof ValidationError).toBe(true);
+    });
+
     it('timings are written down in db in event timezone when in YMHThms format', async () => {
       const event = await svc.create({
         title: 'Event create given a text stream instead of image',
