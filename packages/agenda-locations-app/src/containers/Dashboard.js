@@ -623,6 +623,7 @@ function Dashboard() {
                       mergeActions.initiateFromDuplicates(
                         locationUids,
                         location.uid,
+                        page,
                       ),
                     );
                     history.push({

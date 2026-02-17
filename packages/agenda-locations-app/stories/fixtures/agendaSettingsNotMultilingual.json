@@ -1,0 +1,74 @@
+{
+  "eventForm": {
+    "detailed": false,
+    "confirm": false
+  },
+  "labels": {
+    "name": "Name of the location (Required)",
+    "nameInfo": "Enter the name of the location where the event takes place",
+    "namePlaceholder": "Example: Moulin Rouge",
+    "address": "Address (Required field)",
+    "addressInfo": "Indicate the street number, street name, postal code and city name",
+    "addressPlaceholder": "82 Boulevard de Clichy, 75018 Paris",
+    "description": "Description",
+    "descriptionInfo": "Describe your location (its history, features, activities offered, etc.)",
+    "access": "Access",
+    "accessInfo": "Indicate access conditions to your location",
+    "phone": "Phone number",
+    "phoneInfo": "Indicate a contact phone number for the public",
+    "phonePlaceholder": "+33 1 23 45 67 89",
+    "website": "Website",
+    "websiteInfo": "Indicate the website of the location (include http:// or https://)",
+    "websitePlaceholder": "https://www.example.com",
+    "email": "Contact email",
+    "emailInfo": "Provide a contact email for inquiries",
+    "image": "Image",
+    "imageInfo": "Only upload images you have the right to use",
+    "imageCredits": "Image credits",
+    "imageCreditsInfo": "Indicate the owner of the image",
+    "links": "Additional links",
+    "linksInfo": "Add social media pages or other relevant links"
+  },
+  "tagSet": {
+    "groups": [
+      {
+        "name": "Label",
+        "info": null,
+        "tags": [
+          {
+            "id": 42,
+            "label": "Historical Monument"
+          },
+          {
+            "id": 40,
+            "label": "Museum of France"
+          },
+          {
+            "id": 37,
+            "label": "UNESCO World Heritage"
+          }
+        ]
+      },
+      {
+        "name": "Type of place",
+        "info": null,
+        "unique": true,
+        "tags": [
+          {
+            "id": 2,
+            "label": "Castle, palace, manor"
+          },
+          {
+            "id": 17,
+            "label": "Fine Arts Museum"
+          },
+          {
+            "id": 18,
+            "label": "Contemporary Art"
+          }
+        ],
+        "required": true
+      }
+    ]
+  }
+}

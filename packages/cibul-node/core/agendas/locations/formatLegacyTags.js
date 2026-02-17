@@ -38,6 +38,4 @@ const filterLegacyTags = (location, schema) => {
   };
 };
 
-export default {
-  filterLegacyTags,
-};
+export default filterLegacyTags;

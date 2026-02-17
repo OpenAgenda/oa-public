@@ -13,6 +13,7 @@ import ComponentCanvas from './decorators/ComponentCanvas.js';
 import location from './fixtures/location.json';
 import locationWithEmotes from './fixtures/locationWithEmotes.json';
 import agendaSettings from './fixtures/agendaTestSettings.json';
+import agendaSettingsNotMultilingual from './fixtures/agendaSettingsNotMultilingual.json';
 
 export default {
   title: 'LocationFormComponents',
@@ -29,6 +30,15 @@ export const BasicForm = () => (
   <LocationForm
     locationProp={location}
     settings={agendaSettings}
+    mode="update"
+    res={res}
+  />
+);
+
+export const BasicFormNotMultiling = () => (
+  <LocationForm
+    locationProp={location}
+    settings={agendaSettingsNotMultilingual}
     mode="update"
     res={res}
   />

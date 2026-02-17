@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import formatLegacyTags from '../locations/formatLegacyTags.js';
 import * as merge from './merge.js';
 import eventLoadOptions from './eventLoadOptions.js';
 import getMemberSchema from './getMemberSchema.js';
@@ -83,6 +84,10 @@ async function getCompiledEvent(
       data.agendas.current,
       merged,
     );
+  }
+
+  if (merged?.location?.tags && formSchema) {
+    merged.location = formatLegacyTags(merged.location, formSchema);
   }
 
   return merged;

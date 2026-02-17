@@ -85,6 +85,25 @@ raw.push(
   ]),
 );
 
-raw.push(knex('location').insert([load('sql/locations/1.json')]));
+raw.push(
+  knex('location').insert([
+    {
+      ...load('sql/locations/1.json'),
+      store: JSON.stringify({
+        ...JSON.parse(load('sql/locations/1.json').store),
+        tags: [
+          {
+            id: 33,
+            label: 'Première participation',
+          },
+          {
+            id: 999,
+            label: 'Invalid Tag - Should be filtered',
+          },
+        ],
+      }),
+    },
+  ]),
+);
 
 export default `${raw.join(';\n')};`;

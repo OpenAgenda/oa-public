@@ -276,7 +276,15 @@ const LocationForm = ({
     // see if label is defined in agenda settings
     if (settings?.labels?.[name]) {
       const l = settings.labels[name];
-      str = get(l, lang, l[first(keys(l))]);
+
+      // Check if l is a string (not multilingual)
+      if (typeof l === 'string') {
+        str = l;
+      } else {
+        // Handle multilingual object
+        str = get(l, lang, l[first(keys(l))]);
+      }
+
       if (!str) {
         return null;
       }

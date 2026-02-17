@@ -19,10 +19,7 @@ function formatEventLocationsTagsAndExtIds(events, { detailed, formSchema }) {
       return event;
     }
     event.location = formatLocationsExtIds.afterRead(event.location);
-    event.location = formatLegacyTags.filterLegacyTags(
-      event.location,
-      formSchema,
-    );
+    event.location = formatLegacyTags(event.location, formSchema);
     return event;
   });
 }
