@@ -50,6 +50,8 @@ export default function useEventFormConfig(agenda) {
         page: true,
       },
       lang: locale,
+      defaultLang:
+        detailedAgenda?.settings?.contribution?.defaultLang || locale,
       schema: detailedAgenda.schema,
       locationRes: injectAgendaUIDAndSlug(res.locations, apiRoot, agenda),
       maxFileSize: files.maxSize,

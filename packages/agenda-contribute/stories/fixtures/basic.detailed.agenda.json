@@ -30,7 +30,7 @@
       "defaultState": 0,
       "canPublish": ["administrators", "moderators"],
       "moderateOnChangeBy": [],
-      "defaultLang": null,
+      "defaultLang": "en",
       "allowLocationCreate": true,
       "messages": {
         "instructions": null,
@@ -585,7 +585,10 @@
           "value": 2
         },
         "disableChange": false,
-        "related": ["attendanceMode"],
+        "related": {
+          "enable": [],
+          "optional": ["attendanceMode"]
+        },
         "schemaId": null,
         "schemaType": "event"
       },
