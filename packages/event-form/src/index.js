@@ -52,7 +52,7 @@ class EventForm extends Component {
     this.onChange = this.onChange.bind(this);
 
     const languages = extractLanguages(props.schema, propsValues, {
-      defaultLanguage: props.lang,
+      defaultLanguage: props.defaultLang || props.lang,
     });
 
     const { schema, hash } = this.buildEventSchema(languages, props);

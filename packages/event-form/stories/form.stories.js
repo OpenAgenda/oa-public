@@ -38,6 +38,7 @@ export const StandardForm = () => {
       schema={null}
       locationRes="/locations"
       lang="fr"
+      defaultLang="en"
       classNames={{
         fieldsCanvas: 'padding-all-md wsq',
         bottomErrorsCanvas: 'error-summary padding-all-md',
