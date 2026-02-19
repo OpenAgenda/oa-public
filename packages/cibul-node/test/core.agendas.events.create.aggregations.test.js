@@ -220,4 +220,17 @@ describe('core - functional (server): core.agendas().events.create() - aggregati
       expect(after).toBeNull();
     });
   });
+
+  describe('create source', () => {
+    it('adds a new source to an agenda', async () => {
+      await core.agendas(55268170).sources.create(58025176, []);
+
+      const { sources } = await core
+        .agendas(55268170)
+        .sources.list({}, { size: 20, after: null }, { detailed: true });
+
+      expect(sources.length).toBe(2);
+      expect(sources.some((s) => s.agenda.uid === 58025176)).toBe(true);
+    });
+  });
 });

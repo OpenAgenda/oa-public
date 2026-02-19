@@ -172,18 +172,17 @@ export default (core, { useRouter = true } = {}) => {
   );
 
   app.post(
-    ['/agendas/:agendaUid/sources', '/agendas/slug/:agendaSlug/sources'],
+    [
+      '/agendas/:agendaUid/sources/:sourceAgendaUid',
+      '/agendas/slug/:agendaSlug/sources/:sourceAgendaUid',
+    ],
     mw.member.load,
     mw.member.allow(['administrator']),
     (req, res, next) =>
       core
         .agendas(req.agenda)
-        .sources.create(req.body.sourceAgendaUid, req.body.rules, {
+        .sources.create(req.params.sourceAgendaUid, req.body.rules, {
           query: req.body.query,
-          context: {
-            user: req.user,
-            member: req.member,
-          },
         })
         .then((r) => {
           res.json(r);
