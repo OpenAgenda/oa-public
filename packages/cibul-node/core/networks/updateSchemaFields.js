@@ -21,23 +21,32 @@ function detectRemovedFields(oldSchema, newSchema) {
   return oldFieldKeys.filter((key) => !newFieldKeys.includes(key));
 }
 
-async function updateChildAgendaSchema(services, agenda, fieldsToRemove) {
+async function updateChildAgendaSchema(core, { agendaUid, fieldsToRemove }) {
+  const { services } = core;
   const { formSchemas } = services;
 
-  log('checking agenda for abstract placeholders', {
-    agendaUid: agenda.uid,
-    hasSchema: !!agenda.formSchemaId,
+  log('processing child agenda schema update', {
+    agendaUid,
     fieldsToRemove,
   });
 
-  if (!agenda.formSchemaId || fieldsToRemove.length === 0) {
+  if (fieldsToRemove.length === 0) {
+    return;
+  }
+
+  const agenda = await core.agendas(agendaUid).get({
+    access: 'internal',
+  });
+
+  if (!agenda || !agenda.formSchemaId) {
+    log('agenda not found or has no formSchemaId', { agendaUid });
     return;
   }
 
   const agendaSchema = await formSchemas.get(agenda.formSchemaId);
 
   if (!agendaSchema || !agendaSchema.fields) {
-    log('agenda schema not found or has no fields', { agendaUid: agenda.uid });
+    log('agenda schema not found or has no fields', { agendaUid });
     return;
   }
 
@@ -46,7 +55,7 @@ async function updateChildAgendaSchema(services, agenda, fieldsToRemove) {
     : [];
 
   log('agenda schema fields', {
-    agendaUid: agenda.uid,
+    agendaUid,
     fieldCount: agendaFields.length,
     fields: agendaFields.map((f) => ({
       field: f.field,
@@ -63,13 +72,13 @@ async function updateChildAgendaSchema(services, agenda, fieldsToRemove) {
 
   if (fieldsToRemoveFromAgenda.length === 0) {
     log('no abstract placeholders to remove from agenda', {
-      agendaUid: agenda.uid,
+      agendaUid,
     });
     return;
   }
 
   log('removing abstract placeholders from child agenda schema', {
-    agendaUid: agenda.uid,
+    agendaUid,
     fields: fieldsToRemoveFromAgenda,
   });
 
@@ -77,10 +86,7 @@ async function updateChildAgendaSchema(services, agenda, fieldsToRemove) {
     (f) => !fieldsToRemoveFromAgenda.includes(f.field),
   );
 
-  await formSchemas.update(agenda.formSchemaId, {
-    ...agendaSchema,
-    fields: updatedFields,
-  });
+  await core.agendas(agendaUid).settings.schema.updateFields(updatedFields);
 }
 
 export default (core) => {
@@ -88,6 +94,7 @@ export default (core) => {
 
   tasks.register({
     agendaRebuild: (agendaUid) => core.agendas(agendaUid).rebuild(),
+    networkSchemaUpdateChild: (data) => updateChildAgendaSchema(core, data),
   });
 
   const { formSchemas } = services;
@@ -150,22 +157,19 @@ export default (core) => {
     });
 
     if (removedFields.length > 0) {
-      log('updating child agenda schemas', { count: agendas.length });
+      log('enqueuing child agenda schema updates', { count: agendas.length });
 
       for (const agenda of agendas) {
-        try {
-          await updateChildAgendaSchema(services, agenda, removedFields);
-        } catch (error) {
-          log('error updating child agenda schema', {
-            agendaUid: agenda.uid,
-            error: error.message,
-          });
-        }
+        tasks.enqueue(
+          'networkSchemaUpdateChild',
+          { agendaUid: agenda.uid, fieldsToRemove: removedFields },
+          true,
+        );
       }
-    }
-
-    for (const agenda of agendas) {
-      tasks.enqueue('agendaRebuild', agenda.uid, true);
+    } else {
+      for (const agenda of agendas) {
+        tasks.enqueue('agendaRebuild', agenda.uid, true);
+      }
     }
 
     return newSchemaData;
