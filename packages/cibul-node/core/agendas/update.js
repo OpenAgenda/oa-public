@@ -15,8 +15,9 @@ export default async (core, agendaOrUid, data, options = {}) => {
 
   const agendaBefore = await agendas.get({ uid: agendaUid }, options);
 
+  let updateResult;
   try {
-    await agendas.set({ uid: agendaUid }, data, {
+    updateResult = await agendas.set({ uid: agendaUid }, data, {
       ...options,
     });
   } catch (errors) {
@@ -26,10 +27,13 @@ export default async (core, agendaOrUid, data, options = {}) => {
     throw new Error('could not update agenda');
   }
 
-  const updatedAgenda = await get(core, agendaUid, {
-    ...options,
-    detailed: true,
-  });
+  // Use the agenda from the update result if available, otherwise fetch it
+  const updatedAgenda = updateResult.agenda
+    ? updateResult.agenda
+    : await get(core, agendaUid, {
+      ...options,
+      detailed: true,
+    });
 
   try {
     if (!agendaBefore.private && updatedAgenda.private) {

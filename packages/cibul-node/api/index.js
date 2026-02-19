@@ -112,11 +112,17 @@ export default (core, { useRouter = true } = {}) => {
     '/agendas/:agendaUid',
     mw.member.load,
     mw.member.allow(['administrator']),
-    (req, res, next) =>
+    (req, res, next) => {
+      const config = core.getConfig();
+      const isSuperAdmin = req.user?.isSuperAdmin || config.superAdminUids.includes(req.user.uid);
+
       core
         .agendas(req.agenda.uid)
-        .update(req.parsedData)
-        .then((agenda) => res.json(agenda), next),
+        .update(req.parsedData, {
+          protected: !isSuperAdmin, // false for superadmins, true for others
+        })
+        .then((agenda) => res.json(agenda), next);
+    },
   );
 
   app.get(

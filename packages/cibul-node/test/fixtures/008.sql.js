@@ -50,6 +50,12 @@ raw.push(
     load('./sql/users/50304.json'),
     load('./sql/users/50300.json'),
     load('./sql/users/helene.json', { uid: 789789 }),
+    load('./sql/users/helene.json', {
+      id: 99999998,
+      uid: 838438477721,
+      username: 'superadmin-dev',
+      email: 'superadmin@rbxto.com',
+    }), // Superadmin
   ]),
 );
 
@@ -72,6 +78,11 @@ raw.push(
       id: 4845649789,
       agenda_uid: 12345,
       user_uid: 789789,
+    }),
+    load('./sql/members/71386687.json', {
+      id: 99999999,
+      agenda_uid: 92983929,
+      user_uid: 838438477721, // Superadmin member
     }),
   ]),
 );
