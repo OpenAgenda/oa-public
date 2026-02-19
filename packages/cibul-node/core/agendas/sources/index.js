@@ -30,7 +30,18 @@ const patch = (core, agendaUid) =>
     return aggregators.sources.update(agenda, sourceId, data, options);
   };
 
+const create = (core, agendaUid) =>
+  async (agendaSourceUid, data, options = {}) => {
+    const { aggregators } = core.services;
+
+    const agenda = await getAgenda(core.services, agendaUid);
+    const agendaSource = await getAgenda(core.services, agendaSourceUid);
+
+    return aggregators.sources.add(agenda, agendaSource, data, options);
+  };
+
 export default (core, agendaUid) => ({
   list: list(core, agendaUid),
   patch: patch(core, agendaUid),
+  create: create(core, agendaUid),
 });
