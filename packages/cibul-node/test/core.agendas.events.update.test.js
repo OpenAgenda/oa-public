@@ -54,6 +54,7 @@ describe('core - functional (server): core.agendas().events.update()', () => {
 
     await core.agendas(17026855).events.search.rebuild();
     await core.agendas(9491431).events.search.rebuild();
+    await core.agendas(89904399).events.search.rebuild();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -473,6 +474,30 @@ describe('core - functional (server): core.agendas().events.update()', () => {
         }
 
         expect(err.message).toBe('Not found');
+      });
+
+      it('ghost event is removed from index at patch attempt', async () => {
+        await core.services.agendaEvents(89904399).remove(9876543);
+        // event is ghost now.
+        const { total: totalBeforePatch } = await core
+          .agendas(89904399)
+          .events.search({ uid: 9876543 });
+
+        expect(totalBeforePatch).toBe(1);
+
+        try {
+          await core
+            .agendas(89904399)
+            .events.patch(9876543, { title: { fr: 'Patch' } });
+        } catch (e) {
+          /**/
+        }
+
+        const { total: totalAfterPatch } = await core
+          .agendas(89904399)
+          .events.search({ uid: 9876543 });
+
+        expect(totalAfterPatch).toBe(0);
       });
     });
 

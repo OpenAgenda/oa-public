@@ -180,7 +180,7 @@ export async function init(config, services) {
       updateDynamicSettings: eventSearch.updateDynamicSettings,
     }),
     update: update(services, queue, eventSearch),
-    remove: remove(services, queue, eventSearch),
+    remove: remove(queue, eventSearch),
     add: add(services, queue, eventSearch),
     rebuild: rebuild.bind(null, services, rebuildQueue),
     agendas: (agenda) => ({

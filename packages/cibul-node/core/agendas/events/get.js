@@ -1,4 +1,5 @@
 import logs from '@openagenda/logs';
+import { NotFound } from '@openagenda/verror';
 import createPayload from '../utils/createPayload.js';
 import formatLocationExtIds from '../locations/formatExtIds.js';
 import formatLegacyTags from '../locations/formatLegacyTags.js';
@@ -100,6 +101,9 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     && !payload.hasItem('agendaEvent')
     && !payload.getItem('event').draft
   ) {
+    if (throwOnNotFound) {
+      throw NotFound('event is not referenced on agenda');
+    }
     payload.setItem('event', null);
     return returnPayload ? payload.getResponse('event', access) : null;
   }

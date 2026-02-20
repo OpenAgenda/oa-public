@@ -386,6 +386,31 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
     },
+    {
+      id: 21,
+      uid: 9876543,
+      draft: 0,
+      slug: 'ghost-event-1',
+      owner_uid: 10866730,
+      creator_uid: 10866730,
+      agenda_uid: 89904399,
+      title: JSON.stringify({
+        fr: 'Événement Fantôme',
+      }),
+      timings: JSON.stringify([
+        {
+          begin: new Date('2026-06-15T14:00:00'),
+          end: new Date('2026-06-15T16:00:00'),
+        },
+      ]),
+      location_uid: 123,
+      description: JSON.stringify({
+        fr: "Un événement qui n'est plus dans l'agenda mais toujours dans l'index",
+      }),
+      timezone: 'Europe/Paris',
+      created_at: new Date('2019-05-06T10:00:00'),
+      updated_at: new Date('2019-05-06T10:00:00'),
+    },
   ]),
 );
 
@@ -499,6 +524,14 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
       can_edit: 1,
+    },
+    {
+      id: 11,
+      event_uid: 9876543,
+      agenda_uid: 89904399,
+      state: 2,
+      created_at: new Date(),
+      updated_at: new Date(),
     },
   ]),
 );

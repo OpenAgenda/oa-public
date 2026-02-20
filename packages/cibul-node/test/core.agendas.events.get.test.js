@@ -31,6 +31,15 @@ describe('core - functional (server): core.agendas().events.get()', () => {
     });
 
     core = Core(services, testConfig);
+
+    await core.services.eventSearch
+      .getConfig()
+      .client.indices.delete({
+        index: 'test',
+      })
+      .catch(() => null);
+
+    await core.agendas(2).events.search.rebuild();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -427,6 +436,21 @@ describe('core - functional (server): core.agendas().events.get()', () => {
         thematique: 2,
         note: 'Une note interne pour les administrateurs',
       });
+    });
+
+    it('option throwOnNotFound throw s not found if event is no longer referenced on agenda', async () => {
+      let error;
+
+      try {
+        await core.agendas(1).events.get(5, {
+          returnPayload: true,
+          throwOnNotFound: true,
+        });
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error?.code).toBe(404);
     });
   });
 });
