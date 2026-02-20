@@ -77,8 +77,6 @@ raw.push(
   knex('reviewer').insert([
     {
       id: 1,
-      user_id: 1,
-      review_id: 1,
       credential: 2,
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
@@ -87,8 +85,6 @@ raw.push(
     },
     {
       id: 2,
-      user_id: 2,
-      review_id: 1,
       credential: 1,
       created_at: '2018-01-11 13:07:08',
       updated_at: '2018-01-18 16:14:06',

@@ -60,8 +60,6 @@ raw.push(
     load('sql/members/01.json'), // user 1: contributor on agenda 2
     {
       id: 2,
-      user_id: 1,
-      review_id: 3,
       user_uid: 1,
       agenda_uid: 3,
       credential: 1,
@@ -73,8 +71,6 @@ raw.push(
     },
     {
       id: 3,
-      user_id: 82253124,
-      review_id: 3,
       user_uid: 82253124,
       agenda_uid: 3,
       credential: 1,

@@ -62,8 +62,6 @@ raw.push(
   knex('reviewer').insert([
     {
       id: 1,
-      user_id: 1,
-      review_id: 1001,
       user_uid: 1,
       agenda_uid: 1001,
       credential: 2, // administrator
@@ -76,8 +74,6 @@ raw.push(
     },
     {
       id: 2,
-      user_id: 2,
-      review_id: 1001,
       user_uid: 2,
       agenda_uid: 1001,
       credential: 1, // contributor

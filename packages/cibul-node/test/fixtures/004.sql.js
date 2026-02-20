@@ -132,8 +132,6 @@ raw.push(
     }),
     {
       id: 999001,
-      user_id: 41303,
-      review_id: 222,
       user_uid: 10866730,
       agenda_uid: 55555555,
       credential: 2,
@@ -146,8 +144,6 @@ raw.push(
     },
     {
       id: 999002,
-      user_id: 73289,
-      review_id: 222,
       user_uid: 24372732,
       agenda_uid: 55555555,
       credential: 1,
@@ -160,8 +156,6 @@ raw.push(
     },
     {
       id: 999003,
-      user_id: 63460,
-      review_id: 222,
       user_uid: 82253124,
       agenda_uid: 55555555,
       credential: 3,
