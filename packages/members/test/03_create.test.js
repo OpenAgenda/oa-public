@@ -43,8 +43,6 @@ describe('members - functional - create', () => {
     expect(_.omit(member, ['id', 'createdAt', 'updatedAt'])).toEqual({
       agendaUid: 31,
       userUid: 12,
-      userId: 10293,
-      agendaId: 919002,
       custom: {
         organization: 'OpenAgenda',
         contactName: 'Gaetan',

@@ -140,7 +140,7 @@ const CreateForm = ({ detailedInfo = true }) => {
           showToggler={false}
           res={res}
           lang={lang}
-          locationProp={getDefaultLocationValues(settings)}
+          location={getDefaultLocationValues(settings)}
           detailedInfo={detailedInfo}
           settings={settings}
           onCancel={() => {

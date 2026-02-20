@@ -9,7 +9,7 @@
           <h2><%= __( 'The activation link is not valid' ) %></h2>
           <p><%- __( 'This can be because it has already been used. If that is the case, your account should be activated.' ) %></p>
           <div class="form-group">
-            <a class="btn btn-success" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', agenda ? { slug: agenda.slug } : {} ) %>"><%= __( 'Try signing in!' ) %></a>
+            <a class="btn btn-primary" href="<%= genUrl( agenda ? 'agendaSignin' : 'signin', agenda ? { slug: agenda.slug } : {} ) %>"><%= __( 'Try signing in!' ) %></a>
           </div>
         </div>
       </div>

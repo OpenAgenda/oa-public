@@ -78,8 +78,6 @@ raw.push(
   knex('reviewer').insert([
     {
       id: 71385,
-      user_id: 50304,
-      review_id: 218,
       user_uid: 63170203,
       agenda_uid: 17026855,
       credential: 1,
@@ -100,8 +98,6 @@ raw.push(
     },
     {
       id: 71386,
-      user_id: 50304,
-      review_id: 219,
       user_uid: 63170203,
       agenda_uid: 17026800,
       credential: 1,

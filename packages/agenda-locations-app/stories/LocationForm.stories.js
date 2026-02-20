@@ -28,7 +28,7 @@ const res = {
 
 export const BasicForm = () => (
   <LocationForm
-    locationProp={location}
+    location={location}
     settings={agendaSettings}
     mode="update"
     res={res}
@@ -37,7 +37,7 @@ export const BasicForm = () => (
 
 export const BasicFormNotMultiling = () => (
   <LocationForm
-    locationProp={location}
+    location={location}
     settings={agendaSettingsNotMultilingual}
     mode="update"
     res={res}
@@ -46,7 +46,7 @@ export const BasicFormNotMultiling = () => (
 
 export const BasicFormWithEmotes = () => (
   <LocationForm
-    locationProp={locationWithEmotes}
+    location={locationWithEmotes}
     settings={agendaSettings}
     mode="update"
     res={res}
@@ -55,7 +55,7 @@ export const BasicFormWithEmotes = () => (
 
 export const FormWithImageRightsCheckbox = () => (
   <LocationForm
-    locationProp={location}
+    location={location}
     settings={produce(agendaSettings, (draft) => {
       draft.displayImageRightsConfirmCheckbox = true;
     })}
@@ -66,7 +66,7 @@ export const FormWithImageRightsCheckbox = () => (
 
 export const FormWithSIRETInput = () => (
   <LocationForm
-    locationProp={location}
+    location={location}
     settings={produce(agendaSettings, (draft) => {
       draft.displaySIRETInput = true;
     })}
@@ -80,7 +80,7 @@ export const FormWithSIRETInput = () => (
 
 export const FormWithAllCapsWarning = () => (
   <LocationForm
-    locationProp={produce(location, (draft) => {
+    location={produce(location, (draft) => {
       draft.name = 'MOULIN ROUGE';
     })}
     settings={produce(agendaSettings, (draft) => {
