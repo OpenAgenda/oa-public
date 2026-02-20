@@ -27,14 +27,6 @@ export default async ({ knex, schema, interfaces }, data, options = {}) => {
     };
   }
 
-  if (clean.agendaUid && interfaces.getAgendasByUid) {
-    clean.agendaId = (await interfaces.getAgendasByUid(clean.agendaUid))[0]?.id;
-  }
-
-  if (clean.userUid && interfaces.getUsersByUid) {
-    clean.userId = (await interfaces.getUsersByUid(clean.userUid))[0]?.id;
-  }
-
   clean.invited = !clean.userUid;
 
   if (clean.userUid && clean.agendaUid) {

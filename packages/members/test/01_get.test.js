@@ -92,16 +92,6 @@ describe('members - functional - get', () => {
       expect(otherMember.id).toBe(3);
     });
 
-    test('legacy fields are provided if legacy option is set to true', async () => {
-      const otherMember = await svc.get(
-        { agendaUid: 1, userUid: 2 },
-        { legacy: true },
-      );
-
-      expect(otherMember.userId).toBe(81290);
-      expect(otherMember.agendaId).toBe(923);
-    });
-
     test('user detail is provided when detailed option is set to true', async () => {
       const otherMember = await svc.get(
         { agendaUid: 1, userUid: 2 },

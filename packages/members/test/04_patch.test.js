@@ -30,10 +30,8 @@ describe('members - functional - patch', () => {
   afterAll(f.destroyClient);
 
   describe('simple patch', () => {
-    let result;
-
     beforeAll(async () => {
-      result = await svc.patch(
+      await svc.patch(
         { userUid: 2, agendaUid: 1 },
         {
           custom: {
@@ -62,10 +60,6 @@ describe('members - functional - patch', () => {
         contactPosition: 'Support',
         email: 'kaore@openagenda.com',
       });
-    });
-
-    test('legacy fields are provided in result', () => {
-      expect(result.member.userId).toBe(81290);
     });
 
     test('interface provides member before and after patch', () => {
@@ -126,26 +120,6 @@ describe('members - functional - patch', () => {
       );
 
       expect(result.success).toBe(true);
-    });
-  });
-
-  describe('legacy', () => {
-    test('if user identifier is specified in patch, legacy is updated', async () => {
-      const { member } = await svc.patch(
-        { userUid: 1, agendaUid: 2 },
-        { userUid: 3 },
-      );
-
-      expect(member.userId).toBe(10293);
-    });
-
-    test('if agenda identifier is specified in patch, legacy is updated', async () => {
-      const { member } = await svc.patch(
-        { userUid: 1, agendaUid: 1 },
-        { agendaUid: 12 },
-      );
-
-      expect(member.agendaId).toBe(919002);
     });
   });
 

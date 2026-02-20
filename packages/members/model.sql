@@ -2,9 +2,7 @@ create table if not exists `${schema}` (
   id bigint(20) not null auto_increment,
   slug varchar(20),
   user_uid bigint(20),
-  user_id bigint(20), # legacy field
   agenda_uid bigint(20),
-  review_id bigint(20), # legacy field
   credential bigint(20),
   deleted_user tinyint(1) default 0,
   actions_counter smallint(6) default 0, #legacy field
