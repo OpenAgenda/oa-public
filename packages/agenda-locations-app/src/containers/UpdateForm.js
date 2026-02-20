@@ -199,7 +199,7 @@ const UpdateForm = ({ detailedInfo = true }) => {
           showToggler
           res={res}
           lang={lang}
-          locationProp={location}
+          location={location}
           detailedInfo={detailedInfo}
           settings={settings}
           onCancel={() => {
