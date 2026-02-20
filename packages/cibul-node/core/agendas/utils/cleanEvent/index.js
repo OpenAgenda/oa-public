@@ -3,7 +3,7 @@ import deepDiff from 'deep-diff';
 import logs from '@openagenda/logs';
 import * as eventSchema from '@openagenda/event-form/src/schema.js';
 import labels from '@openagenda/labels/event/form.js';
-import formatLegacyTags from '../../locations/formatLegacyTags.js';
+import extractLocationFromData from './extractLocationFromData.js';
 import validateEvent from './validateEvent.js';
 import getWriteAccess from './getWriteAccess.js';
 import moveLegacyImageCredits from './moveLegacyImageCredits.js';
@@ -18,70 +18,6 @@ const eventFields = eventSchema.eventFields({
 });
 
 const eventFieldNames = eventFields.map((f) => f.field);
-
-async function extractLocationFromData(
-  services,
-  { completeEventData, data, verifyLocationExists = true, formSchema = null },
-) {
-  const { agendaLocations } = services;
-
-  let locationUid = null;
-
-  if (
-    !data?.locationUid
-    && !data?.location?.uid
-    && (data?.locationUid === null
-      || data?.location === null
-      || data?.location?.uid === null)
-  ) {
-    return { location: null, locationUid };
-  }
-
-  if (data?.location?.uid || data.locationUid) {
-    locationUid = data?.location?.uid ?? data.locationUid;
-  } else {
-    locationUid = completeEventData?.location?.uid ?? completeEventData?.locationUid;
-  }
-
-  if (
-    !verifyLocationExists
-    && locationUid // has a direct location uid ref
-    && completeEventData?.location?.uid === locationUid // has a location object that is the same as the direct ref
-  ) {
-    const { location } = completeEventData;
-    return {
-      locationUid,
-      location:
-        formSchema && location?.tags
-          ? formatLegacyTags(location, formSchema)
-          : location,
-    };
-  }
-
-  const location = locationUid
-    ? await agendaLocations
-      .get(
-        {
-          uid: locationUid,
-        },
-        {
-          returnMergeTarget: true,
-          deleted: null,
-        },
-      )
-      .catch((e) => {
-        if (e.name !== 'BadRequest') {
-          throw e;
-        }
-      })
-    : null;
-
-  const filteredLocation = formSchema && location?.tags
-    ? formatLegacyTags(location, formSchema)
-    : location;
-
-  return { location: filteredLocation, locationUid };
-}
 
 function containsEventData(data) {
   const fields = eventFieldNames.filter((f) => f !== 'languages');
@@ -126,7 +62,7 @@ async function cleanEvent(services, agenda, data, options = {}) {
       ...data,
     }
     : data;
-  // console.log('agenda', agenda);
+
   const { locationUid, location } = await extractLocationFromData(services, {
     data,
     completeEventData,
