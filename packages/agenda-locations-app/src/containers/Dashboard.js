@@ -162,19 +162,6 @@ function Dashboard() {
   const historyLocation = useLocation();
   const { pathname } = historyLocation;
 
-  const { mergeMode } = useMemo(() => {
-    if (pathname.includes('merge') && settings?.access.merge.authorized) {
-      dispatch(mergeActions.initiate());
-      return { mergeMode: true };
-    }
-    dispatch(mergeActions.closeMerge());
-    return { mergeMode: false };
-  }, [pathname, dispatch, settings?.access.merge.authorized]);
-
-  useEffect(() => {
-    if (!mergeMode && detailLocationUid) setOpenDetails(detailLocationUid);
-  }, [mergeMode, detailLocationUid]);
-
   const { search, page } = useMemo(() => {
     const parsed = betterQsParse(historyLocation.search);
     const { page: retrivedPage, ...searchObj } = parsed;
@@ -183,6 +170,19 @@ function Dashboard() {
       page: parseInt(retrivedPage || '1', 10),
     };
   }, [historyLocation.search]);
+
+  const { mergeMode } = useMemo(() => {
+    if (pathname.includes('merge') && settings?.access.merge.authorized) {
+      dispatch(mergeActions.initiate(page, search));
+      return { mergeMode: true };
+    }
+    dispatch(mergeActions.closeMerge());
+    return { mergeMode: false };
+  }, [pathname, dispatch, settings?.access.merge.authorized, page, search]);
+
+  useEffect(() => {
+    if (!mergeMode && detailLocationUid) setOpenDetails(detailLocationUid);
+  }, [mergeMode, detailLocationUid]);
 
   const { isLoading, error, locations, total, size } = useLocations(
     agenda,
@@ -624,6 +624,7 @@ function Dashboard() {
                         locationUids,
                         location.uid,
                         page,
+                        search,
                       ),
                     );
                     history.push({

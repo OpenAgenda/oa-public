@@ -14,6 +14,8 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         step: 1,
+        originalPage: action.originalPage,
+        originalSearch: action.originalSearch,
       };
     case INITIATE_FROM_DUPLICATES:
       return {
@@ -22,6 +24,7 @@ export default function reducer(state = initialState, action = {}) {
         locationUids: action.locationUids,
         entryPoint: action.entryPoint,
         originalPage: action.originalPage,
+        originalSearch: action.originalSearch,
       };
     case SELECT_LOCATIONS:
       return {
@@ -46,9 +49,11 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function initiate() {
+export function initiate(originalPage = 1, originalSearch = {}) {
   return {
     type: INITIATE,
+    originalPage,
+    originalSearch,
   };
 }
 
@@ -56,12 +61,14 @@ export function initiateFromDuplicates(
   locationUids,
   entryPoint,
   originalPage = 1,
+  originalSearch = {},
 ) {
   return {
     type: INITIATE_FROM_DUPLICATES,
     locationUids,
     entryPoint,
     originalPage,
+    originalSearch,
   };
 }
 
@@ -142,11 +149,14 @@ export function launchMerge(merge, res, nextLocation, setErrorModal, setSpin) {
       })
       .then(() => {
         setSpin(false);
-        // Use the stored originalPage from merge state if available
-        const finalLocation = merge.originalPage
+        // Use the stored originalPage and originalSearch from merge state if available
+        const finalLocation = merge.originalPage || merge.originalSearch
           ? {
             pathname: nextLocation.pathname,
-            search: `?page=${merge.originalPage}`,
+            search: `?${new URLSearchParams({
+              ...merge.originalSearch,
+              page: merge.originalPage || 1,
+            }).toString()}`,
           }
           : nextLocation;
         history.push(finalLocation);
