@@ -233,7 +233,7 @@ const messages = defineMessages({
 
 const LocationForm = ({
   lang = 'fr',
-  locationProp = null,
+  location: locationFromProps = null,
   settings = {},
   Header = null,
   enableGeocode = true,
@@ -252,7 +252,7 @@ const LocationForm = ({
   tiles,
 }) => {
   const intl = useIntl();
-  const [location, setLocation] = useState(locationProp || {});
+  const [location, setLocation] = useState(locationFromProps || {});
   const [showExtId, setShowExtId] = useState(showExtIdInput);
   const [awaitPost, setAwaitPost] = useState(false);
 

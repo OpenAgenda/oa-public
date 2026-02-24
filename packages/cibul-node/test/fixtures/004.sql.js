@@ -132,8 +132,6 @@ raw.push(
     }),
     {
       id: 999001,
-      user_id: 41303,
-      review_id: 222,
       user_uid: 10866730,
       agenda_uid: 55555555,
       credential: 2,
@@ -146,8 +144,6 @@ raw.push(
     },
     {
       id: 999002,
-      user_id: 73289,
-      review_id: 222,
       user_uid: 24372732,
       agenda_uid: 55555555,
       credential: 1,
@@ -160,8 +156,6 @@ raw.push(
     },
     {
       id: 999003,
-      user_id: 63460,
-      review_id: 222,
       user_uid: 82253124,
       agenda_uid: 55555555,
       credential: 3,
@@ -392,6 +386,31 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
     },
+    {
+      id: 21,
+      uid: 9876543,
+      draft: 0,
+      slug: 'ghost-event-1',
+      owner_uid: 10866730,
+      creator_uid: 10866730,
+      agenda_uid: 89904399,
+      title: JSON.stringify({
+        fr: 'Événement Fantôme',
+      }),
+      timings: JSON.stringify([
+        {
+          begin: new Date('2026-06-15T14:00:00'),
+          end: new Date('2026-06-15T16:00:00'),
+        },
+      ]),
+      location_uid: 123,
+      description: JSON.stringify({
+        fr: "Un événement qui n'est plus dans l'agenda mais toujours dans l'index",
+      }),
+      timezone: 'Europe/Paris',
+      created_at: new Date('2019-05-06T10:00:00'),
+      updated_at: new Date('2019-05-06T10:00:00'),
+    },
   ]),
 );
 
@@ -505,6 +524,14 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
       can_edit: 1,
+    },
+    {
+      id: 11,
+      event_uid: 9876543,
+      agenda_uid: 89904399,
+      state: 2,
+      created_at: new Date(),
+      updated_at: new Date(),
     },
   ]),
 );

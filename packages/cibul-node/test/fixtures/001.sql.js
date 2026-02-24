@@ -291,6 +291,33 @@ raw.push(
       updated_at: new Date(),
       file_key: '31a7df7098744844b6c6ce0d2cdba0f4',
     },
+    {
+      id: 8,
+      owner_uid: 1,
+      agenda_uid: 2,
+      creator_uid: 1,
+      slug: 'event-8',
+      uid: 8,
+      draft: 0,
+      title: JSON.stringify({
+        fr: 'Evénement désynchro',
+      }),
+      description: JSON.stringify({ fr: 'Ptite desc 8 ' }),
+      long_description: JSON.stringify({
+        fr: 'Description longue 8',
+      }),
+      timings: JSON.stringify([
+        {
+          begin: new Date('2019-09-27T10:00:00+0200'),
+          end: new Date('2019-09-27T12:00:00+0200'),
+        },
+      ]),
+      location_uid: 1,
+      timezone: 'Europe/Paris',
+      created_at: new Date(),
+      updated_at: new Date(),
+      file_key: '31a7df7098744844b6c6ce0d2cdba0f4',
+    },
   ]),
 );
 
@@ -359,6 +386,15 @@ raw.push(
       user_uid: 1,
       agenda_uid: 2,
       event_uid: 7,
+      state: 2,
+      created_at: new Date(),
+      updated_at: new Date(),
+    },
+    {
+      id: 8,
+      user_uid: 1,
+      agenda_uid: 2,
+      event_uid: 8,
       state: 2,
       created_at: new Date(),
       updated_at: new Date(),

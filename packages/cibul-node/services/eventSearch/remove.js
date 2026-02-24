@@ -14,8 +14,8 @@ export async function removeFromAgendaIndex(
   return searchIndex.remove({ uid: eventUid }, { refresh });
 }
 
-export default (services, queue, eventSearch) =>
-  async ({ event, agenda, deletion, otherAgendaReferences }) => {
+export default (queue, eventSearch) =>
+  async ({ event, agenda, deletion, otherAgendaReferences = [] }) => {
     log('remove');
 
     try {

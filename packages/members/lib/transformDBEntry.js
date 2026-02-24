@@ -15,8 +15,6 @@ const map = {
 };
 
 const legacyFieldsMap = {
-  review_id: 'agendaId',
-  user_id: 'userId',
   credential: 'credential',
 };
 
@@ -89,7 +87,7 @@ export function fromDB(
 
       return Object.assign(mapped, {
         deletedUser: !!mapped.deletedUser,
-        invited: !mapped.deletedUser && !mapped.userId && !mapped.userUid,
+        invited: !mapped.deletedUser && !mapped.userUid,
       });
     }, {});
 }

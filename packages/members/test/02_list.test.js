@@ -158,19 +158,12 @@ describe('members - functional - list', () => {
         { legacy: true },
       );
 
-      expect(
-        _.pick(stakeholders[0], [
-          'agendaId',
-          'credential',
-          'userId',
-          'actionsCounter',
-        ]),
-      ).toEqual({
-        agendaId: 923,
-        userId: 81289,
-        credential: 2,
-        actionsCounter: 12,
-      });
+      expect(_.pick(stakeholders[0], ['credential', 'actionsCounter'])).toEqual(
+        {
+          credential: 2,
+          actionsCounter: 12,
+        },
+      );
     });
 
     test('if organization is stored as slug/label, only label is given in listed result', async () => {

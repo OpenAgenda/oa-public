@@ -228,7 +228,7 @@ const LocationSelector = ({
       Header={renderHeader()}
       res={res}
       lang={lang}
-      locationProp={location}
+      location={location}
       detailedInfo={
         (settings.eventForm && settings.eventForm.detailed) || detailedInfo
       }

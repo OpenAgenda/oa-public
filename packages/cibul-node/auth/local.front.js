@@ -483,7 +483,7 @@ async function activateResend(req, res) {
   }
 }
 
-async function activate(req, res) {
+async function activate(req, res, next) {
   const { users, agendas, tokens, redis } = req.app.services;
 
   const optionals = _.pickBy(
@@ -542,31 +542,34 @@ async function activate(req, res) {
       { token: req.query.invitation },
       { includeProcessed: true },
       (err, { invitation }) => {
+        if (err) {
+          log.error('error received while getting invitation', err);
+        } else if (!invitation) {
+          log('no invitation was found', { token: req.query.invitation });
+        }
         if (err || !invitation) return auth.signin({ req, res, user });
 
         const actions = invitation.data.actions.filter(
           (v) => v.name === 'linkMember',
         );
 
-        if (actions.length === 1) {
-          const { agendaId } = actions[0].params[0];
-
-          agendas.get({ id: agendaId }, (e, agenda) => {
-            if (e) {
-              req.log.error(e);
-            } else {
-              req.agenda = agenda;
-            }
-
-            auth.signin({ req, res, user });
-          });
-          return;
+        if (actions.length !== 1) {
+          return auth.signin({ req, res, user });
         }
 
-        return auth.signin({ req, res, user });
+        log('extracted one linkMember invitation', { actions });
+        const { agendaUid } = actions[0].params[0];
+
+        agendas.get({ uid: agendaUid }).then((agenda) => {
+          log('loaded agenda', { uid: agenda.uid, slug: agenda.slug });
+          req.agenda = agenda;
+          log('signing user in', { user });
+          auth.signin({ req, res, user });
+        }, next);
       },
     );
   } catch (err) {
+    log.error(err);
     if (err.message.includes('not found')) {
       return auth.renderInvalidActivation(req, res);
     }

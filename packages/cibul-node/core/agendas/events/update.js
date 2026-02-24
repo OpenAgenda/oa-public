@@ -77,10 +77,29 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       private: privateOption,
     };
 
-    const { standardEvent: event, event: eventWithAdditionalValues } = await core.agendas(agendaUid).events.get(eventUid, {
-      ...internalGetOptions,
-      returnPayload: true,
-    });
+    const { standardEvent: event, event: eventWithAdditionalValues } = await core
+      .agendas(agendaUid)
+      .events.get(eventUid, {
+        ...internalGetOptions,
+        returnPayload: true,
+      })
+      .catch(async (error) => {
+        if (error.name === 'NotFound') {
+          // resync
+          await eventSearch.remove({ event: { uid: eventUid }, agenda }).then(
+            () => {
+              log.info('removed ghost from index', { eventUid, agendaUid });
+            },
+            (e) =>
+              log.warn('failed to remove ghost from index', {
+                eventUid,
+                agendaUid,
+                error: e,
+              }),
+          );
+        }
+        throw error;
+      });
 
     const wasDraft = event.draft;
     const isDraft = wasDraft ? data?.draft : false;

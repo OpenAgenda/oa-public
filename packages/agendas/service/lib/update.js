@@ -130,7 +130,7 @@ async function update(
         {
           internal: true,
           includeImagePath: params.includeImagePath,
-          private: params.protected ? merged.private : params.private,
+          private: params.private,
         },
       );
     }

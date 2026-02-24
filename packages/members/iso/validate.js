@@ -55,12 +55,6 @@ const fields = {
     },
   },
   legacy: {
-    userId: {
-      type: 'integer',
-    },
-    agendaId: {
-      type: 'integer',
-    },
     credential: {
       type: 'choice',
       unique: true,

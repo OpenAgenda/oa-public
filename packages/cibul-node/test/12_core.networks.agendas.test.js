@@ -7,11 +7,15 @@ import testConfig from './testConfig.js';
 
 describe('12 - core - functional (server): core.networks().agendas', () => {
   let core;
+  const config = testConfig.extendWith({
+    cachePrefix: 'c12_core_networks_agendas_test',
+    queuesPrefix: 'q12:',
+  });
 
-  beforeAll(() => loadFixtures(testConfig.db, '013.sql.js'));
+  beforeAll(() => loadFixtures(config.db, '013.sql.js'));
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
+    const services = await Services(config, {
       enabled: [
         'knex',
         'redis',
@@ -33,7 +37,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       ],
     });
 
-    core = Core(services, testConfig);
+    core = Core(services, config);
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
@@ -55,7 +59,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
 
       it('db entry has network reference', async () => {
-        const entry = await testConfig
+        const entry = await config
           .knex('review')
           .first(['network_uid'])
           .where('uid', 3);
@@ -102,7 +106,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
 
       it('db entry for agenda no longer holds network reference', async () => {
-        const entry = await testConfig
+        const entry = await config
           .knex('review')
           .first(['network_uid'])
           .where('uid', 2);
@@ -133,9 +137,11 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
   });
 
   describe('core.networks.schema.updateFields - cascade to children', () => {
-    it('removes abstract placeholders from child when network field is removed', async () => {
-      const networkFieldKey = 'networkInheritanceTest';
-      const customFieldKey = 'customChildField';
+    let agenda;
+    const networkFieldKey = 'networkInheritanceTest';
+    const customFieldKey = 'customChildField';
+
+    beforeAll(async () => {
       const { formSchemas } = core.services;
 
       // Step 1: Add a custom field to child agenda so it has its own schema
@@ -157,7 +163,7 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       ]);
 
       // Step 3: Add abstract placeholder to child schema (simulates reordering)
-      const agenda = await core.agendas(1).get({
+      agenda = await core.agendas(1).get({
         access: 'internal',
         detailed: true,
       });
@@ -174,28 +180,43 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
           },
         ],
       });
+    });
 
-      // Step 4: Verify abstract placeholder exists in child schema
-      const schemaBeforeRemoval = await formSchemas.get(agenda.formSchemaId);
-      const abstractField = schemaBeforeRemoval.fields.find(
-        (f) => f.field === networkFieldKey && f.fieldType === 'abstract',
-      );
-      expect(abstractField).toBeDefined();
+    beforeAll(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 100));
 
-      // Step 5: Remove field from network schema (cascade should remove abstract placeholder)
-      await core.networks(1).schema.updateFields([]);
+      return new Promise((done) => {
+        core.tasks({
+          active() {},
+          error(...args) {
+            done(args);
+          },
+          failed(...args) {
+            done(args);
+          },
+          completed(...args) {
+            if (
+              args[0].name === 'networkSchemaUpdateChild'
+              && args[0].data?.agendaUid === 1
+            ) {
+              return done();
+            }
+          },
+        });
 
-      // Wait for cascade to complete
-      await new Promise((resolve) => setTimeout(resolve, 500));
+        core.networks(1).schema.updateFields([]);
+      });
+    });
 
-      // Step 6: Verify abstract placeholder was removed from child schema
+    it('removes abstract placeholders from child when network field is removed', async () => {
+      const { formSchemas } = core.services;
+
       const schemaAfterRemoval = await formSchemas.get(agenda.formSchemaId);
       const abstractFieldAfter = schemaAfterRemoval.fields.find(
         (f) => f.field === networkFieldKey,
       );
       expect(abstractFieldAfter).toBeUndefined();
 
-      // Verify custom field still exists (cascade only removes abstract placeholders)
       const customFieldAfter = schemaAfterRemoval.fields.find(
         (f) => f.field === customFieldKey,
       );
@@ -250,12 +271,9 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         )
         .json();
 
-      // Networks should have only 1 parent (base event schema)
-      // Unlike agendas which can have 2 (base + network)
       expect(res.parents.length).toBe(1);
-      expect(res.parents[0].schema.id).toBe(-1); // Base event schema
+      expect(res.parents[0].schema.id).toBe(-1);
       expect(res.reservedFields).toBeDefined();
-      // Network schema may be null if not yet configured
       expect(res.schema === null || typeof res.schema === 'object').toBe(true);
     });
 

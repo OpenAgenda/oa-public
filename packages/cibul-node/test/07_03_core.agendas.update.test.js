@@ -140,6 +140,7 @@ describe('07 - core - functional (server): core.agendas().update', () => {
         {
           protected: false, // Only superadmins can do this
           internal: true, // Need to see internal/protected fields
+          private: null, // Don't filter by private status when fetching
           userUid: 838438477721, // Superadmin UID
           context: {
             user: superAdminUser,

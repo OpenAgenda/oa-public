@@ -29,18 +29,16 @@ export default function getQueryAndOptions(
 
   return {
     query: knex(schema)
-      .first(
-        [
-          'id',
-          'agenda_uid',
-          'credential',
-          'user_uid',
-          'store',
-          'deleted_user',
-          'actions_counter',
-          'updated_at',
-        ].concat(cleanOptions.legacy ? ['user_id', 'review_id'] : []),
-      )
+      .first([
+        'id',
+        'agenda_uid',
+        'credential',
+        'user_uid',
+        'store',
+        'deleted_user',
+        'actions_counter',
+        'updated_at',
+      ])
       .where(where),
     options: cleanOptions,
   };

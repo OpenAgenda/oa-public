@@ -36,14 +36,6 @@ async function patch(config, identifiers, data, options = {}) {
     };
   }
 
-  if (clean.userUid !== undefined && interfaces.getUsersByUid) {
-    clean.userId = (await interfaces.getUsersByUid(clean.userUid))[0]?.id;
-  }
-
-  if (clean.agendaUid !== undefined && interfaces.getAgendasByUid) {
-    clean.agendaId = (await interfaces.getAgendasByUid(clean.agendaUid))[0]?.id;
-  }
-
   log('patching', clean);
 
   await knex(schema).update(toDB(clean)).where('id', member.id);

@@ -6,7 +6,7 @@ import eventLoadOptions from '../utils/eventLoadOptions.js';
 import cleanEvent from '../utils/cleanEvent/index.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
 import Stopwatch from '../utils/Stopwatch.js';
-import formatLocationsExtIds from '../locations/formatExtIds.js';
+import formatLocationExtIds from '../locations/formatExtIds.js';
 import formatLegacyTags from '../locations/formatLegacyTags.js';
 
 function formatEventLocationsTagsAndExtIds(events, { detailed, formSchema }) {
@@ -18,7 +18,7 @@ function formatEventLocationsTagsAndExtIds(events, { detailed, formSchema }) {
     if (!event.location) {
       return event;
     }
-    event.location = formatLocationsExtIds.afterRead(event.location);
+    event.location = formatLocationExtIds.afterRead(event.location);
     event.location = formatLegacyTags(event.location, formSchema);
     return event;
   });
