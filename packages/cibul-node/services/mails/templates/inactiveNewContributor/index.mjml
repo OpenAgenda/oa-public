@@ -1,7 +1,7 @@
 <mjml>
   <mj-head>
-    <mj-title><%= __('subject') %></mj-title>
-    <mj-prev><%= __('subject') %></mj-prev>
+    <mj-title><%= __('subject', { agenda: agenda.title }) %></mj-title>
+    <mj-prev><%= __('subject', { agenda: agenda.title }) %></mj-prev>
 
     <%- include('../partials/defaultStyle.mjml') %>
   </mj-head>
@@ -11,30 +11,30 @@
 
     <mj-content>
       <mj-column>
-        <mj-markdown><%- __('part1') %></mj-markdown>
+        <mj-markdown><%- __('part1', { agenda: escapeMd(agenda.title) }) %></mj-markdown>
         <mj-button
           background-color="#1d77ce"
           color="white"
           align="center"
-          href="https://openagenda.com/agendas/new?mtm_source=inactiveNewUser&mtm_medium=email&mtm_campaign=create_agenda"
+          href="https://openagenda.com/home?mtm_source=inactiveNewContributor&mtm_medium=email&mtm_campaign=my_agendas"
         >
-          <%= __('createButton') %>
+          <%= __('agendasButton') %>
         </mj-button>
         <mj-markdown><%- __('part2') %></mj-markdown>
         <mj-button
           background-color="#1d77ce"
           color="white"
           align="center"
-          href="https://openagenda.com/agendas?mtm_source=inactiveNewUser&mtm_medium=email&mtm_campaign=search_agenda"
+          href="https://openagenda.com/home/events?mtm_source=inactiveNewContributor&mtm_medium=email&mtm_campaign=my_events"
         >
-          <%= __('contributeButton') %>
+          <%= __('eventsButton') %>
         </mj-button>
         <mj-markdown><%- __('part3') %></mj-markdown>
         <mj-button
           background-color="#1d77ce"
           color="white"
           align="center"
-          href="https://doc.openagenda.com?mtm_source=inactiveNewUser&mtm_medium=email&mtm_campaign=doc"
+          href="https://doc.openagenda.com?mtm_source=inactiveNewContributor&mtm_medium=email&mtm_campaign=doc"
         >
           <%= __('docButton') %>
         </mj-button>

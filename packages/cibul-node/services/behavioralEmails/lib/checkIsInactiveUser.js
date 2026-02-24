@@ -2,7 +2,7 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/behavioralEmails/isInactiveUser');
 
-export default async function isInactiveUser(services, userUid) {
+export default async function checkIsInactiveUser(services, userUid) {
   try {
     const { items: agendas } = await services.core
       .users({ uid: userUid })

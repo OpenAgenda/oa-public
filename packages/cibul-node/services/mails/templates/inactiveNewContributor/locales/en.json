@@ -1,0 +1,11 @@
+{
+  "changeEmailSettings": "Change my email sending settings",
+  "part1": "Hello,\n\nYou have been invited to contribute to the **{agenda}** agenda!\n\nIt seems you haven't entered any events yet — do you need a hand getting started? 👍\n\nTo find all the agendas you are a member of, go to your \"**my agendas**\" page and click \"add an event\" under the name of the agenda you wish to contribute to:",
+  "part2": "Enter all your event information in the form. You can save a draft to complete the information later or \"create the event\".\n\nOnce the event form is submitted, your event will go through a moderation step by the agenda administrators. You will be notified by email as soon as your listing is published.\n\nTo find all the events you have entered, go to the \"**my events**\" page:",
+  "part3": "**Not sure about something?** Check out our documentation articles or contact our support team.",
+  "agendasButton": "My agendas",
+  "eventsButton": "My events",
+  "docButton": "View documentation",
+  "subject": "{agenda} ➡️ Start entering your events today!",
+  "unsubscribe": "Unsubscribe from this type of emails"
+}

@@ -1,5 +1,6 @@
 import logs from '@openagenda/logs';
-import isInactiveUser from './lib/isInactiveUser.js';
+import checkIsInactiveUser from './lib/checkIsInactiveUser.js';
+import checkIsInactiveContributor from './lib/checkIsInactiveContributor.js';
 
 const log = logs('services/behavioralEmails');
 
@@ -27,28 +28,60 @@ export async function init(config, services) {
               },
             });
 
-            if (!user || !await isInactiveUser(services, userUid)) {
-              log.info('User is active in the last 7d', { userUid });
+            if (!user) {
+              log.info('User not found', { userUid });
               return;
             }
 
-            log.info('Send email to inactive user +7d', { userUid });
+            if (await checkIsInactiveUser(services, userUid)) {
+              log.info('Send email to inactive user +7d', { userUid });
 
-            const lang = user.culture || 'fr';
+              const lang = user.culture || 'fr';
 
-            await mails.send({
-              template: 'inactiveNewUser',
-              to: {
-                address: user.email,
-                unsubscriptions: [
-                  {
-                    rule: ['receive', 'behavioralEmails'],
-                    dataPath: 'unsubscribeLink',
-                  },
-                ],
-              },
-              lang,
-            });
+              await mails.send({
+                template: 'inactiveNewUser',
+                to: {
+                  address: user.email,
+                  unsubscriptions: [
+                    {
+                      rule: ['receive', 'behavioralEmails'],
+                      dataPath: 'unsubscribeLink',
+                    },
+                  ],
+                },
+                lang,
+              });
+
+              return;
+            }
+
+            const { result: isInactiveContributor, lastAgenda } = await checkIsInactiveContributor(services, userUid);
+            if (isInactiveContributor) {
+              log.info('Send email to inactive contributor +7d', { userUid });
+
+              const lang = user.culture || 'fr';
+
+              await mails.send({
+                template: 'inactiveNewContributor',
+                to: {
+                  address: user.email,
+                  unsubscriptions: [
+                    {
+                      rule: ['receive', 'behavioralEmails'],
+                      dataPath: 'unsubscribeLink',
+                    },
+                  ],
+                },
+                data: {
+                  agenda: lastAgenda,
+                },
+                lang,
+              });
+
+              return;
+            }
+
+            log.info('User is active in the last 7d', { userUid });
           } catch (e) {
             log.error('Error on sending inactiveNewUser', e);
           }

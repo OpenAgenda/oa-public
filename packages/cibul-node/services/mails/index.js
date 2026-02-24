@@ -10,6 +10,7 @@ import plugApp from './plugApp.js';
 import MjMarkdown from './components/MjMarkdown.js';
 import MjContent from './components/MjContent.js';
 import MjPrev from './components/MjPrev.js';
+import escapeMd from './lib/escapeMd.js';
 
 const mjmlComponents = [MjMarkdown, MjContent, MjPrev];
 
@@ -53,6 +54,7 @@ export async function init(config, services) {
       data: {
         _,
         stripHtml,
+        escapeMd,
         root: config.root,
         emailSettingsLink: `https://${config.domain}/settings/emails`,
       },
