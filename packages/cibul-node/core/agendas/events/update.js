@@ -86,7 +86,17 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       .catch(async (error) => {
         if (error.name === 'NotFound') {
           // resync
-          await eventSearch.remove({ event: { uid: eventUid }, agenda });
+          await eventSearch.remove({ event: { uid: eventUid }, agenda }).then(
+            () => {
+              log.info('removed ghost from index', { eventUid, agendaUid });
+            },
+            (e) =>
+              log.warn('failed to remove ghost from index', {
+                eventUid,
+                agendaUid,
+                error: e,
+              }),
+          );
         }
         throw error;
       });

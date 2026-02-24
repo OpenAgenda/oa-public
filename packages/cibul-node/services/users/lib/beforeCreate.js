@@ -18,9 +18,12 @@ async function isInvitedFromAnOfficialAgenda(services, invitation) {
   let result = false;
 
   for (const action of linkMemberActions) {
-    const agenda = await agendasSvc.get(action.params[0].agendaId, {
-      private: null,
-    });
+    const agenda = await agendasSvc.get(
+      { uid: action.params[0].agendaUid },
+      {
+        private: null,
+      },
+    );
 
     if (agenda && agenda.official) {
       result = true;
