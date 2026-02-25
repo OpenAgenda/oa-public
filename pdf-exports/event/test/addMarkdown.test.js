@@ -19,6 +19,7 @@ if (segments.length === 0) {
     'modalites',
     'lienlong',
     'lienEncorePlusLong',
+    'unhandledCharacters',
   ];
 }
 
@@ -30,6 +31,7 @@ const validSegments = [
   'modalites',
   'lienlong',
   'lienEncorePlusLong',
+  'unhandledCharacters',
 ];
 for (const segment of segments) {
   if (!validSegments.includes(segment)) {
@@ -90,6 +92,13 @@ for (const segment of segments) {
       ),
       // availableWidth: 357.29999999999995, NOK
       availableWidth: 357, // OK
+    });
+  } else if (segment === 'unhandledCharacters') {
+    await addMarkdown(doc, cursor, {
+      value: await readFile(
+        `${__dirname}/fixtures/unhandledCharacters.md`,
+        'utf-8',
+      ),
     });
   }
 
