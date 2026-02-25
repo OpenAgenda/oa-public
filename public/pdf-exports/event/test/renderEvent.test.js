@@ -118,6 +118,11 @@ const fixturePairs = [
     agenda: await readFx('lineSeparator2028').then((d) => d.agenda),
     event: await readFx('lineSeparator2028').then((d) => d.event),
   },
+  {
+    name: 'longerLink',
+    agenda: await readFx('longerLink').then((d) => d.agenda),
+    event: await readFx('longerLink').then((d) => d.event),
+  },
 ].filter(({ name }) => (selectedPDF ? selectedPDF === name : true));
 
 // Generate PDFs for each fixture pair
