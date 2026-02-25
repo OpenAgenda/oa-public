@@ -5,7 +5,7 @@
  */
 export default function cleanText(text) {
   return text
-    ? text
+    ? `${text}`
       .replace(/É/g, 'É')
       .replace(/\u2028/g, '\n')
       .replace(/Î/g, 'Î')
