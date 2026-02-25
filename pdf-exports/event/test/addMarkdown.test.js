@@ -12,11 +12,25 @@ let segments = process.argv.slice(2);
 
 // If no arguments provided, render all segments
 if (segments.length === 0) {
-  segments = ['tiny', 'emojis', 'girls', 'modalites', 'lienlong'];
+  segments = [
+    'tiny',
+    'emojis',
+    'girls',
+    'modalites',
+    'lienlong',
+    'lienEncorePlusLong',
+  ];
 }
 
 // Validate all segments
-const validSegments = ['tiny', 'emojis', 'girls', 'modalites', 'lienlong'];
+const validSegments = [
+  'tiny',
+  'emojis',
+  'girls',
+  'modalites',
+  'lienlong',
+  'lienEncorePlusLong',
+];
 for (const segment of segments) {
   if (!validSegments.includes(segment)) {
     console.error(`Invalid segment: ${segment}`);
@@ -67,6 +81,15 @@ for (const segment of segments) {
   } else if (segment === 'lienlong') {
     await addMarkdown(doc, cursor, {
       value: await readFile(`${__dirname}/fixtures/lien-long.md`, 'utf-8'),
+    });
+  } else if (segment === 'lienEncorePlusLong') {
+    await addMarkdown(doc, cursor, {
+      value: await readFile(
+        `${__dirname}/fixtures/lien-encore-plus-long.md`,
+        'utf-8',
+      ),
+      // availableWidth: 357.29999999999995, NOK
+      availableWidth: 357, // OK
     });
   }
 

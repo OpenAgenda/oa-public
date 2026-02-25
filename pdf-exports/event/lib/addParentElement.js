@@ -43,13 +43,14 @@ export default async function addParentElement(
     if (!availableHeight) {
       return { overflow: true };
     }
-
     const result = await addMarkdownElement(doc, state, child, {
       ...params,
       bold: params.bold || child.type === 'strong',
       depth,
       paragraphAvailableWidth: cursor.availableWidth,
-      availableWidth: cursor.availableWidth - (cursor.x - cursor.init.x),
+      availableWidth: Math.floor(
+        cursor.availableWidth - (cursor.x - cursor.init.x),
+      ),
       availableHeight,
     });
 
