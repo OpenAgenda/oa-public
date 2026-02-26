@@ -295,6 +295,7 @@ default:
   retention:
     before-backup: false
     after-backup: true
+    prune: true
     keep-last: 7
     keep-daily: 7
     keep-weekly: 4

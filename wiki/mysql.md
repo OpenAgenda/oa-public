@@ -457,6 +457,7 @@ default:
   retention:
     before-backup: false
     after-backup: true
+    prune: true
     group-by: [host]
     keep-last: 7
     keep-daily: 7
