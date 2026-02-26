@@ -1,10 +1,13 @@
 import _ from 'lodash';
 import bodyParser from 'body-parser';
+import multer from 'multer';
 import qs from 'qs';
 import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 
 const log = logs('api/middleware/parseBodyData');
+
+const multerNone = multer().none();
 
 function parseTalendBody(req, res, next) {
   let rawBody = '';
@@ -35,6 +38,9 @@ export default [
     if (req.headers['content-type'] === 'raw') {
       log('applying talend body parser');
       parser = parseTalendBody;
+    } else if (req.is('multipart/form-data') && req.body === undefined) {
+      log('applying multer body parser');
+      parser = multerNone;
     } else if (
       req.headers['content-type'] !== 'application/json'
       && req.method !== 'PATCH'

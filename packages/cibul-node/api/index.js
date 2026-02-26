@@ -28,24 +28,28 @@ export default (core, { useRouter = true } = {}) => {
 
   const { allowSuperAdmin, verifyTransverseApiAccess } = app.services.users.mw;
 
-  const postMw = [
-    app.services.events.middleware.imageTransformAndUpload([
-      {
-        name: 'image',
-        unique: true,
-      },
-    ]),
-    mw.parseBodyData,
-  ];
-
   app.use((req, res, next) => {
     res.setHeader('Content-Type', 'application/json');
     next();
   });
 
-  app.post('*', postMw);
-  app.put('*', postMw);
-  app.patch('*', postMw);
+  const imageMw = app.services.events.middleware.imageTransformAndUpload([
+    {
+      name: 'image',
+      unique: true,
+    },
+  ]);
+
+  app.post('/agendas/:agendaUid/events(/*)?', imageMw);
+  app.put('/agendas/:agendaUid/events(/*)?', imageMw);
+  app.patch('/agendas/:agendaUid/events(/*)?', imageMw);
+  app.post('/agendas/:agendaUid/locations(/*)?', imageMw);
+  app.put('/agendas/:agendaUid/locations(/*)?', imageMw);
+  app.patch('/agendas/:agendaUid/locations(/*)?', imageMw);
+
+  app.post('*', mw.parseBodyData);
+  app.put('*', mw.parseBodyData);
+  app.patch('*', mw.parseBodyData);
 
   app.post('/requestAccessToken', mw.requestAccessToken);
 

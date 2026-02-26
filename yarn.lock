@@ -27559,6 +27559,7 @@ __metadata:
     moment-timezone: "npm:^0.5.31"
     morgan: "npm:^1.10.0"
     msw: "npm:^2.3.0"
+    multer: "npm:^2.0.2"
     mysql2: "npm:^3.15.1"
     nodemon: "npm:^2.0.4"
     oauth: "npm:^0.9.15"

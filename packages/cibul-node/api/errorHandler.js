@@ -26,6 +26,14 @@ export default function apiErrorHandler(err, req, res, _next) {
     });
   }
 
+  if (err.name === 'MulterError') {
+    return res.status(400).json({
+      message: err.message,
+      code: err.code,
+      field: err.field,
+    });
+  }
+
   handleError(
     new VError({
       cause: err,
