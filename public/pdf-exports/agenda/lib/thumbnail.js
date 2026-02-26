@@ -2,28 +2,18 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import urlToBuffer from '../../utils/urlToBuffer.js';
 
+const OALogoPath = `${dirname(fileURLToPath(import.meta.url))}/../../images/oaLogo.png`;
+
 export default async function thumbnail(event, options = {}) {
-  const __filename = fileURLToPath(import.meta.url);
-  const __dirname = dirname(__filename);
+  const { defaultImagePath = OALogoPath } = options;
 
-  const { defaultImagePath = `${__dirname}/../../images/oaLogo.png` } = options;
+  const size = 200;
+  const thumb = event.image.variants.find((el) => el.type === 'thumbnail');
 
-  const imageWidth = 200;
-  const imageHeight = 200;
-
-  const thumbnailFilename = event.image?.variants.find(
-    (el) => el.type === 'thumbnail',
-  )?.filename;
-
-  const newVersionThumbnail = thumbnailFilename?.includes('.thumb.image.jpg');
-
-  if (!thumbnailFilename) {
-    return defaultImagePath;
-  }
-
-  if (thumbnailFilename && newVersionThumbnail) {
-    const baseImageUrl = `https://img.openagenda.com/u/${imageWidth}x${imageHeight}/cibul/`;
-    return urlToBuffer(baseImageUrl + thumbnailFilename, defaultImagePath);
-  }
-  return urlToBuffer(event.image.base + thumbnailFilename, defaultImagePath);
+  return thumb
+    ? urlToBuffer(
+      `https://img.openagenda.com/u/${size}x${size}/${thumb.filename?.includes('.thumb.image.jpg') ? '' : 'smart/'}cibul/${thumb.filename}`,
+      defaultImagePath,
+    )
+    : defaultImagePath;
 }
