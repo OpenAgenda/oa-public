@@ -19,12 +19,9 @@ function agendaAdminRedirect(req, res, next) {
 
   const { agendas } = req.app.services;
 
-  agendas.get(
-    { uid: req.params.agendaUid },
-    { private: null },
-    (err, agenda) => {
-      if (err) return next(err);
-
+  agendas
+    .get({ uid: req.params.agendaUid }, { private: null })
+    .then((agenda) => {
       if (!agenda) {
         return next(
           new Error(`agenda not found ( uid ): ${req.params.agendaUid}`),
@@ -34,8 +31,7 @@ function agendaAdminRedirect(req, res, next) {
       res.redirect(
         req.originalUrl.replace(`/agendas/${agenda.uid}`, `/${agenda.slug}`),
       );
-    },
-  );
+    }, next);
 }
 
 export default (app) => {
