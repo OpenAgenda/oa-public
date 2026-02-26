@@ -74,4 +74,66 @@ describe('isFieldEnabled', () => {
 
     expect(enabled).toBe(false);
   });
+
+  describe('enableWith targets a field that is an object with multiple sub keys, only the specified key is evaluated', () => {
+    describe('single', () => {
+      const field = {
+        field: 'castleDescription',
+        enableWith: {
+          field: 'location',
+          value: { uid: 123 },
+        },
+      };
+      it('not enabled if related value is different', () => {
+        expect(
+          isFieldEnabled(field, {
+            location: { uid: 456 },
+          }),
+        ).toBe(false);
+      });
+
+      it('not enabled if related value is not defined', () => {
+        expect(isFieldEnabled(field, {})).toBe(false);
+        expect(isFieldEnabled(field, { location: null })).toBe(false);
+      });
+
+      it('enabled if targetted sub-value is the same', () => {
+        expect(
+          isFieldEnabled(field, {
+            location: { uid: 123, name: 'The right place' },
+          }),
+        ).toBe(true);
+      });
+    });
+
+    describe('multi', () => {
+      const field = {
+        field: 'castleDescription',
+        enableWith: {
+          field: 'location',
+          value: [{ uid: 123 }, { uid: 789 }],
+        },
+      };
+      it('not enabled if related value is different', () => {
+        expect(
+          isFieldEnabled(field, {
+            location: { uid: 456 },
+          }),
+        ).toBe(false);
+      });
+
+      it('not enabled if related value is not defined', () => {
+        expect(isFieldEnabled(field, {})).toBe(false);
+        expect(isFieldEnabled(field, { location: null })).toBe(false);
+      });
+
+      it('enabled if targetted sub-value matches one of the defined values of the evaluated field', () => {
+        expect(
+          isFieldEnabled(field, {
+            location: { name: 'The right place', uid: 123 },
+          }),
+        ).toBe(true);
+      });
+    });
+  });
 });

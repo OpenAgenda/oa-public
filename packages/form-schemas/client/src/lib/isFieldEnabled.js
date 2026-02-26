@@ -20,7 +20,9 @@ export default function isFieldEnabled(field, values, disabledForm = false) {
     const relatedFieldValues = [].concat(relatedFieldValue);
     return !![]
       .concat(field.enableWith.value)
-      .filter((v) => relatedFieldValues.includes(v)).length;
+      .filter((v) =>
+        relatedFieldValues.some((rv) =>
+          (isObject(v) ? _.isMatch(rv, v) : rv === v))).length;
   }
 
   if (Array.isArray(relatedFieldValue)) {
