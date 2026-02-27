@@ -25,9 +25,15 @@ export default function withFieldValueMatches(fieldOptions, withKey, values, fie
     }, value).length;
   }
 
+  const withValues = [].concat(withParams.value);
+
+  if (withValues.some(v => _.isPlainObject(v))) {
+    return withValues.some(v => _.isMatch(value, v));
+  }
+
   if (value instanceof Array) {
     return value.includes(withParams.value);
   }
 
-  return [].concat(value).filter(v => [].concat(withParams.value).includes(v)).length;
+  return [].concat(value).filter(v => withValues.includes(v)).length;
 }

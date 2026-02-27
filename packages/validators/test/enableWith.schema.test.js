@@ -240,6 +240,73 @@ describe('schema - enableWith', () => {
     });
   });
 
+  describe('subkeys', () => {
+    const validate = schema({
+      location: {
+        uid: {
+          type: 'integer'
+        },
+        name: {
+          type: 'text'
+        }
+      },
+      room: {
+        type: 'text',
+        enableWith: {
+          field: 'location',
+          value: [{ uid: 123 }]
+        }
+      },
+      entranceCode: {
+        type: 'text',
+        enableWith: {
+          field: 'location',
+          value: { uid: 123 }
+        },
+      }
+    });
+
+    it('enables the field when the subkey is associated to the right value', () => {
+      const { location, room, entranceCode } = validate({
+        location: {
+          name: 'Here',
+          uid: 123,
+        },
+        room: 'Office 427',
+        entranceCode: 'ABC123',
+      });
+
+      expect(location).toEqual({
+        name: 'Here',
+        uid: 123
+      });
+
+      expect(room).toBe('Office 427');
+
+      expect(entranceCode).toBe('ABC123');
+    });
+
+    it('does not enable the field when the subkey is not associated to the right value', () => {
+      const { location, room, entranceCode } = validate({
+        location: {
+          name: 'There',
+          uid: 456,
+        },
+        room: 'Office 427',
+        entranceCode: 'DEF456',
+      });
+
+      expect(location).toEqual({
+        name: 'There',
+        uid: 456
+      });
+
+      expect(room).toBeNull();
+
+      expect(entranceCode).toBeNull();
+    });
+  });
+
   it('when enableWith with value is different, field is not evaluated', () => {
     const validate = schema({
       selection: {
