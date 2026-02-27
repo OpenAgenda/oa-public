@@ -187,6 +187,11 @@ export async function init(config, services) {
       search: agendaIndexSearch(eventSearch, agenda),
       rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),
       clear: getAgendaSearchIndex(eventSearch, agenda.uid).clear,
+      remove: (eventUid, options = {}) =>
+        getAgendaSearchIndex(eventSearch, agenda.uid).remove(
+          { uid: eventUid },
+          options,
+        ),
     }),
     transverse: {
       rebuild: (options) => queue.add('transverseIndexRebuild', options),

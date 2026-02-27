@@ -439,6 +439,28 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
 
       expect(event.valid).toBeDefined();
     });
+
+    it('ghost event is removed from index at resyc attempt', async () => {
+      await core.services.agendaEvents(2).remove(8);
+      // event is ghost now.
+      const { total: totalBeforeResync } = await core
+        .agendas(2)
+        .events.search({ uid: 8 });
+
+      expect(totalBeforeResync).toBe(1);
+
+      try {
+        await core.agendas(2).events.search.resyncEvent(8);
+      } catch (e) {
+        /**/
+      }
+
+      const { total: totalAfterResync } = await core
+        .agendas(2)
+        .events.search({ uid: 8 });
+
+      expect(totalAfterResync).toBe(0);
+    });
   });
 
   describe('api', () => {

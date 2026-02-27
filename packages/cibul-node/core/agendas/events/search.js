@@ -219,15 +219,6 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
       returnPayload: true,
     });
 
-    if (!eventPayload.event && throwOnError) {
-      throw new NotFound(
-        {
-          info: { uid: eventUid },
-        },
-        'event not found',
-      );
-    }
-
     if (!eventPayload) {
       log(
         'warn',
@@ -235,6 +226,46 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
         eventUid,
         agendaUid,
       );
+      return;
+    }
+
+    if (!eventPayload?.event) {
+      log(
+        'warn',
+        'Ghost event detected %s in agenda %s, removing from index',
+        eventUid,
+        agendaUid,
+      );
+      try {
+        await core.services.eventSearch
+          .agendas({ uid: agendaUid })
+          .remove(eventUid, { refresh: true });
+        log(
+          'info',
+          'Successfully removed ghost event %s from index of agenda %s',
+          eventUid,
+          agendaUid,
+        );
+      } catch (err) {
+        if (err.statusCode === 404 || err.meta?.statusCode === 404) {
+          log(
+            'warn',
+            'Event %s already removed from index or index not found',
+            eventUid,
+          );
+        } else {
+          log('error', 'Failed to remove ghost event from index', err);
+        }
+      }
+
+      if (throwOnError) {
+        throw new NotFound(
+          {
+            info: { uid: eventUid },
+          },
+          'event not found',
+        );
+      }
       return;
     }
 
