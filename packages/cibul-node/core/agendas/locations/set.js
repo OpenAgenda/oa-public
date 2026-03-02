@@ -1,7 +1,6 @@
 import { BadRequest } from '@openagenda/verror';
 
 import getAgenda from '../utils/getAgenda.js';
-import formatExtIds from './formatExtIds.js';
 
 export default (core, agendaOrUid) =>
   async (identifiers, data, options = {}) => {
@@ -23,16 +22,20 @@ export default (core, agendaOrUid) =>
     });
 
     if (!location) {
+      // Extract the actual value from the identifier object
+      const extIdValue = typeof identifiers.extId === 'object'
+        ? identifiers.extId.value
+        : identifiers.extId;
+
       return core.agendas(agenda).locations.create(
         {
           ...data,
-          extIds: identifiers.extId,
+          extIds: [{ key: 'default', value: extIdValue }], // Pass as extIds array (validate allows this field)
         },
         options,
       );
     }
 
-    return formatExtIds.afterRead(
-      await core.agendas(agenda).locations.update(identifiers, data, options),
-    );
+    // agenda-locations now handles formatExtIds internally
+    return core.agendas(agenda).locations.update(identifiers, data, options);
   };

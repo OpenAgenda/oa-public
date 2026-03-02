@@ -125,8 +125,8 @@ describe('01 - core - functional (server): core.agendas().events.list()', () => 
           'disqualifiedDuplicates',
           'mergedIn',
           'agendaUid',
+          'extId', // Legacy compatibility field added after formatting
           'specificite',
-          'extId',
         ]);
       });
 

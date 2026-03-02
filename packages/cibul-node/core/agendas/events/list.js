@@ -6,23 +6,6 @@ import eventLoadOptions from '../utils/eventLoadOptions.js';
 import cleanEvent from '../utils/cleanEvent/index.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
 import Stopwatch from '../utils/Stopwatch.js';
-import formatLocationExtIds from '../locations/formatExtIds.js';
-import formatLegacyTags from '../locations/formatLegacyTags.js';
-
-function formatEventLocationsTagsAndExtIds(events, { detailed, formSchema }) {
-  if (!detailed) {
-    return events;
-  }
-
-  return events.map((event) => {
-    if (!event.location) {
-      return event;
-    }
-    event.location = formatLocationExtIds.afterRead(event.location);
-    event.location = formatLegacyTags(event.location, formSchema);
-    return event;
-  });
-}
 
 const log = logs('core/agendas/events/list');
 
@@ -97,15 +80,13 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
         detailed,
         private: null, // needed to reindex private agendas
         access: access === 'internal' ? 'internal' : 'public',
+        formSchema, // Pass formSchema so Events service can pass it to getLocations for tag filtering
       },
     );
 
     times.events = stopwatch();
 
-    fetched.events = formatEventLocationsTagsAndExtIds(
-      convertLocationAdditionalFields(formSchema, events),
-      { detailed, formSchema },
-    );
+    fetched.events = convertLocationAdditionalFields(formSchema, events);
   }
 
   if (load.custom && agenda.formSchemaId) {

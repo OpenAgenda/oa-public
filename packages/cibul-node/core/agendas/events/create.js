@@ -161,6 +161,7 @@ export default async (core, agendaUid, data, options = {}) => {
         private: !!agenda.private,
         draft: isDraft,
         fileKey,
+        formSchema: await payload.getFormSchema({ access }), // Pass formSchema for location tag filtering
       });
 
       payload.setItem('event', event);

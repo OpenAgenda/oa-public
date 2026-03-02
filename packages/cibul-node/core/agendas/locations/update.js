@@ -1,5 +1,4 @@
 import getAgenda from '../utils/getAgenda.js';
-import formatExtIds from './formatExtIds.js';
 
 export default (core, agendaOrUid) =>
   async (identifiers, data, options = {}) => {
@@ -13,17 +12,16 @@ export default (core, agendaOrUid) =>
       ? agendaLocations.sets(agenda.locationSetUid).locations
       : agendaLocations(agenda.uid);
 
-    return formatExtIds.afterRead(
-      await endpoints.update(identifiers, formatExtIds.beforeInsert(data), {
-        autocomplete,
-        includeImagePath: true,
+    // agenda-locations now handles formatExtIds internally
+    return endpoints.update(identifiers, data, {
+      autocomplete,
+      includeImagePath: true,
+      agendaUid: agenda.uid,
+      mergeExtIds,
+      context: {
+        ...context,
         agendaUid: agenda.uid,
-        mergeExtIds,
-        context: {
-          ...context,
-          agendaUid: agenda.uid,
-          setUid: agenda.setUid,
-        },
-      }),
-    );
+        setUid: agenda.setUid,
+      },
+    });
   };

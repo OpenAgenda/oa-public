@@ -1,10 +1,3 @@
-import formatLegacyTags from '../../locations/formatLegacyTags.js';
-
-const applyLegacyTagFilter = (location, formSchema) =>
-  (formSchema && location?.tags
-    ? formatLegacyTags(location, formSchema)
-    : location);
-
 async function extractLocationFromData(
   services,
   { completeEventData, data, verifyLocationExists = true, formSchema = null },
@@ -37,7 +30,7 @@ async function extractLocationFromData(
     const { location } = completeEventData;
     return {
       locationUid,
-      location: applyLegacyTagFilter(location, formSchema),
+      location, // Already formatted by agenda-locations
     };
   }
 
@@ -50,6 +43,7 @@ async function extractLocationFromData(
         {
           returnMergeTarget: true,
           deleted: null,
+          formSchema, // Pass formSchema for tag filtering
         },
       )
       .catch((e) => {
@@ -59,7 +53,7 @@ async function extractLocationFromData(
       })
     : null;
 
-  return { location: applyLegacyTagFilter(location, formSchema), locationUid };
+  return { location, locationUid }; // Already formatted by agenda-locations
 }
 
 export default extractLocationFromData;

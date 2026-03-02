@@ -39,18 +39,26 @@ const includeFields = [
   'extIds',
 ];
 
-const getLocations = (services, uids) => {
+const getLocations = async (services, uids, options = {}) => {
   if (!uids) return [];
 
-  return services.agendaLocations.list(
-    { uids },
-    { limit: uids.length },
+  const { formSchema } = options;
+
+  // Normalize to array if single UID passed
+  const uidsArray = Array.isArray(uids) ? uids : [uids];
+
+  const result = await services.agendaLocations.list(
+    { uids: uidsArray },
+    { limit: uidsArray.length },
     {
       detailed: true,
       includeFields,
       deleted: null,
+      formSchema, // Pass formSchema for tag filtering
     },
   );
+
+  return result;
 };
 
 export default {

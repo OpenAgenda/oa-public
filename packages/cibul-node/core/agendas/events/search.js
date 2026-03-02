@@ -1,7 +1,6 @@
 import logs from '@openagenda/logs';
 import { NotFound, Forbidden } from '@openagenda/verror';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
-import formatExtIds from '../locations/formatExtIds.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 import convertToDateHoursMinutesTimings from './lib/convertToDateHoursMinutesFormat.js';
 import loadSearchAccess from './lib/loadSearchAccess.js';
@@ -56,13 +55,22 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     options.userUid,
   );
 
+  // Normalize locationExtId query format for search
   if (authorizedQuery.locationExtId) {
-    authorizedQuery.locationExtId = formatExtIds.searchQuery(authorizedQuery);
+    if (
+      !(
+        authorizedQuery.locationExtId?.key
+        && authorizedQuery.locationExtId?.value
+      )
+    ) {
+      authorizedQuery.locationExtId = {
+        key: 'default',
+        value: authorizedQuery.locationExtId,
+      };
+    }
   }
 
-  const parsers = [
-    (e) => ({ ...e, location: formatExtIds.afterRead(e.location) }),
-  ];
+  const parsers = [];
 
   log(
     'search with access "%s" on %s events with query %s, nav %s and options %s',

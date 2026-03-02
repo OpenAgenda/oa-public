@@ -1,6 +1,6 @@
 import getAgenda from '../utils/getAgenda.js';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
-import formatExtIds from './formatExtIds.js';
+import { schemasWithEvent } from '../utils/merge.js';
 
 export default (core, agendaOrUid) =>
   async (query, nav, options = {}) => {
@@ -16,7 +16,16 @@ export default (core, agendaOrUid) =>
       ? agendaLocations.sets(agenda.locationSetUid).locations
       : agendaLocations(agenda.uid);
 
-    const result = await endpoints.list(
+    // Get merged form schema for location tag filtering (only needed when detailed)
+    const formSchema = detailed
+      ? schemasWithEvent(
+        agenda?.network?.formSchema ?? null,
+        agenda.formSchema,
+        { access: 'public' },
+      )
+      : null;
+
+    return endpoints.list(
       preCleanSearchQuery(query, { targetKey: 'uids' }),
       {
         ...nav,
@@ -30,13 +39,7 @@ export default (core, agendaOrUid) =>
         detailed,
         eventCounts,
         context: { agendaUid: agenda.uid },
+        formSchema,
       },
     );
-
-    return {
-      ...result,
-      items: detailed
-        ? result.items.map((i) => formatExtIds.afterRead(i))
-        : result.items,
-    };
   };

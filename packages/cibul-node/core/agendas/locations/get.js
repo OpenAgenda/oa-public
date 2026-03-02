@@ -1,5 +1,5 @@
 import getAgenda from '../utils/getAgenda.js';
-import formatExtIds from './formatExtIds.js';
+import { schemasWithEvent } from '../utils/merge.js';
 
 export default (core, agendaOrUid) =>
   async (identifiers, options = {}) => {
@@ -11,12 +11,18 @@ export default (core, agendaOrUid) =>
       ? agendaLocations.sets(agenda.locationSetUid).locations
       : agendaLocations(agenda.uid);
 
-    return formatExtIds.afterRead(
-      await endpoints.get(identifiers, {
-        ...options,
-        throwOnNotFound: true,
-        includeImagePath: true,
-        context: { agendaUid: agenda.uid },
-      }),
+    // Get merged form schema for location tag filtering
+    const formSchema = schemasWithEvent(
+      agenda?.network?.formSchema ?? null,
+      agenda.formSchema,
+      { access: 'public' },
     );
+
+    return endpoints.get(identifiers, {
+      ...options,
+      throwOnNotFound: true,
+      includeImagePath: true,
+      context: { agendaUid: agenda.uid },
+      formSchema,
+    });
   };
