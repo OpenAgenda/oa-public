@@ -150,6 +150,34 @@
       "description": {
         "fr": "Pas la bonne orthographe"
       }
+    },
+    {
+      "uid": 18,
+      "state": 2,
+      "keywords": { "fr": ["cmpst"] },
+      "title": {
+        "fr": "Café-Compost"
+      },
+      "description": {
+        "fr": "Dans le cadre du « printemps du compostage et du jardinage 0 déchet » de « Tous au Compost »"
+      },
+      "longDescription": {
+        "fr": "Lors du Café-Compost pour faire du compost, avec du compost !"
+      }
+    },
+    {
+      "uid": 19,
+      "state": 2,
+      "keywords": { "fr": ["cmpst"] },
+      "title": {
+        "fr": "Café-Compost"
+      },
+      "description": {
+        "fr": "Dans le cadre du printemps du compostage"
+      },
+      "longDescription": {
+        "fr": "Lors du Café-Compost venez faire du compost, avec du compost !"
+      }
     }
   ]
 }
