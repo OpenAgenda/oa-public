@@ -10,6 +10,7 @@ const decorateWithCounts = require('./lib/decorateWithCounts');
 const pickContextIdentifiers = require('./lib/pickAndCleanContextIdentifiers');
 const getMergedLocation = require('./lib/getMergedLocation');
 const formatExtIds = require('./lib/formatExtIds');
+const formatLegacyTags = require('./lib/formatLegacyTags');
 
 const log = logs('get');
 
@@ -26,6 +27,7 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
     includeLinkedAgendas,
     deleted,
     returnMergeTarget,
+    formSchema,
   } = cleanGetOptions(options);
 
   await addGetQuery(internals, k, deleted, {
@@ -99,7 +101,11 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
     location.image = internals.config.imagePath + location.image;
   }
 
-  return formatExtIds.afterRead(location);
+  let result = formatExtIds.afterRead(location);
+  if (formSchema) {
+    result = formatLegacyTags(result, formSchema);
+  }
+  return result;
 }
 
 module.exports = get;

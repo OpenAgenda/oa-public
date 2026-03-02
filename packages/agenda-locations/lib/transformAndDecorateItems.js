@@ -5,6 +5,7 @@ const decorateWithAgendaUids = require('./decorateWithAgendaUids');
 const injectImagePath = require('./injectImagePath');
 const legacy = require('./legacy');
 const { afterRead } = require('./formatExtIds');
+const formatLegacyTags = require('./formatLegacyTags');
 
 module.exports = async (service, items, options = {}) => {
   const {
@@ -14,6 +15,7 @@ module.exports = async (service, items, options = {}) => {
     includeFields,
     includeImagePath,
     deleted,
+    formSchema,
   } = options;
 
   const transformed = items.map((entry) => {
@@ -72,5 +74,11 @@ module.exports = async (service, items, options = {}) => {
     injectImagePath(transformed, service.config.imagePath);
   }
 
-  return transformed.map((item) => afterRead(item));
+  return transformed.map((item) => {
+    let result = afterRead(item);
+    if (formSchema) {
+      result = formatLegacyTags(result, formSchema);
+    }
+    return result;
+  });
 };

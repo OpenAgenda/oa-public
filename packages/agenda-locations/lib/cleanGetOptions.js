@@ -4,12 +4,14 @@ const schema = require('@openagenda/validators/schema');
 const boolean = require('@openagenda/validators/boolean');
 const integer = require('@openagenda/validators/integer');
 const choice = require('@openagenda/validators/choice');
+const pass = require('@openagenda/validators/pass');
 const fields = require('./fields');
 
 schema.register({
   boolean,
   integer,
   choice,
+  pass,
 });
 
 module.exports = schema({
@@ -61,5 +63,9 @@ module.exports = schema({
   returnMergeTarget: {
     type: 'boolean',
     default: false,
+  },
+  formSchema: {
+    type: 'pass',
+    default: null,
   },
 });

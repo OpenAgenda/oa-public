@@ -549,7 +549,8 @@ describe('agenda-locations - functional - list', () => {
               && fi.field !== 'siret'
               && fi.field !== 'deleted',
           )
-          .map((fi) => fi.field),
+          .map((fi) => fi.field)
+          .concat(['extId']), // Legacy compatibility field added by formatExtIds
       );
     });
 

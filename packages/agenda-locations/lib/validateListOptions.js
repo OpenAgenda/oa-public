@@ -60,6 +60,10 @@ const validate = schema({
     default: false,
     type: 'pass',
   },
+  formSchema: {
+    type: 'pass',
+    default: null,
+  },
 });
 
 const validateStreamOptions = schema({
