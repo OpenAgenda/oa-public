@@ -21,7 +21,7 @@ export default async (service, identifiers, o = {}) => {
 
   const options = cleanGetOptions(o);
 
-  const { private: privateOption, includeFields } = options;
+  const { private: privateOption, includeFields, formSchema } = options;
 
   const query = k
     .first(
@@ -64,7 +64,9 @@ export default async (service, identifiers, o = {}) => {
   return lastClean(item, {
     ...options,
     locations: options.detailed
-      ? await handleInterface(service, 'getLocations', item.locationUid)
+      ? await handleInterface(service, 'getLocations', item.locationUid, {
+        formSchema,
+      })
       : null,
     agendas: options.detailed
       ? await handleInterface(service, 'getOriginAgendas', item.agendaUid, {

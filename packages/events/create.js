@@ -75,7 +75,9 @@ export default async (service, data, o = {}) => {
   return lastClean(clean, {
     ...options,
     locations: options.detailed
-      ? await handleInterface(service, 'getLocations', clean.locationUid)
+      ? await handleInterface(service, 'getLocations', clean.locationUid, {
+        formSchema: options.formSchema,
+      })
       : null,
     agendas: options.detailed
       ? await handleInterface(service, 'getOriginAgendas', clean.agendaUid, {

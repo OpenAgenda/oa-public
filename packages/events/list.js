@@ -65,6 +65,7 @@ export default async (service, query = {}, n = {}, o = {}) => {
       service,
       'getLocations',
       _.uniq(result.items.map((i) => i.locationUid)),
+      { formSchema: options.formSchema },
     );
   }
 

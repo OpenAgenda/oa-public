@@ -3,6 +3,7 @@ import boolean from '@openagenda/validators/boolean.js';
 import integer from '@openagenda/validators/integer.js';
 import choice from '@openagenda/validators/choice.js';
 import text from '@openagenda/validators/text.js';
+import pass from '@openagenda/validators/pass.js';
 
 import fields from './fields.js';
 
@@ -11,6 +12,7 @@ schema.register({
   integer,
   choice,
   text,
+  pass,
 });
 
 const base = {
@@ -70,6 +72,10 @@ const base = {
   useLocationObjectFormat: {
     type: 'boolean',
     default: false,
+  },
+  formSchema: {
+    type: 'pass',
+    optional: true,
   },
 };
 

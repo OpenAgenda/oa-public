@@ -11,7 +11,7 @@ schema.register({
   pass,
 });
 
-export default schema({
+const validator = schema({
   access: {
     type: 'text',
     default: 'public',
@@ -52,4 +52,10 @@ export default schema({
   fileKey: {
     type: 'text',
   },
+  formSchema: {
+    type: 'pass',
+    optional: true,
+  },
 });
+
+export default validator;
