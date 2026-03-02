@@ -1144,6 +1144,14 @@ export default (core, { useRouter = true } = {}) => {
       .then((data) => res.json({ ...data, success: true }), next);
   });
 
+  app.post('/networks', [
+    allowSuperAdmin({ jsonResponse: true }),
+    (req, res, next) =>
+      core.networks
+        .create(req.parsedData, { userUid: req.user.uid })
+        .then((network) => res.json(network), next),
+  ]);
+
   app.get('/networks/:uid', (req, res, next) => {
     core
       .networks(req.params.uid)
