@@ -250,7 +250,8 @@ const LocationDetails = ({
             className="btn btn-link padding-all-z"
             disabled={
               (externalActions
-                && externalActions.filter((a) => a.action === 'edit'))
+                && externalActions.filter((a) => a.action === 'edit').length
+                  > 0)
               || false
             }
             onClick={onEdit}

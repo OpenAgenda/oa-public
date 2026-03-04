@@ -191,7 +191,7 @@ const LocationItem = ({
       }
       disabled={
         (externalActions
-          && externalActions.filter((a) => a.action === 'edit'))
+          && externalActions.filter((a) => a.action === 'edit').length > 0)
         || false
       }
       onClick={myEdit.bind(this)}
