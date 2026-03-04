@@ -7,14 +7,16 @@ const completeExternalActions = (externalActions, extIds) => {
 
   for (const actionsByExtId of externalActions) {
     if (extIds.map((id) => id.key).includes(actionsByExtId.key)) {
-      if (
-        !usedExtIds.find(
-          (e) =>
-            e.key === extIds.find((id) => id.key === actionsByExtId.key).key,
-        )
-      ) {
+      const matchingExtId = extIds.find((id) => id.key === actionsByExtId.key);
+
+      // Skip if the extId value is null or undefined
+      if (matchingExtId.value == null) {
+        continue;
+      }
+
+      if (!usedExtIds.find((e) => e.key === matchingExtId.key)) {
         usedExtIds.push({
-          ...extIds.find((id) => id.key === actionsByExtId.key),
+          ...matchingExtId,
           label: actionsByExtId.label,
         });
       }
@@ -27,9 +29,9 @@ const completeExternalActions = (externalActions, extIds) => {
           key: actionsByExtId.key,
           link: actionsByExtId.actions[action].link.replace(
             '{value}',
-            extIds.find((id) => id.key === actionsByExtId.key).value,
+            matchingExtId.value,
           ),
-          extId: extIds.find((id) => id.key === actionsByExtId.key),
+          extId: matchingExtId,
           label: actionsByExtId.actions[action].label,
         });
       }
