@@ -892,7 +892,8 @@ function cleanText(lang, text) {
 
   return removeDiacritics(
     text
-      .replace(/"|-/g, '')
+      .replace(/"/g, '')
+      .replace(/-/g, ' ')
       .split(' ')
       .filter(
         (term) =>

@@ -131,4 +131,19 @@ describe('02 - event search - functional: synthaxic', () => {
 
     expect(nonAccentedSearchResult).toEqual(accentedSearchResult);
   });
+
+  it('café-compost vs "café-compost"', async () => {
+    const quoted = await service('synthaxic').search({
+      keyword: 'cmpst',
+      search: '"café-compost"',
+    });
+
+    const unquoted = await service('synthaxic').search({
+      keyword: 'cmpst',
+      search: 'café-compost',
+    });
+
+    expect(quoted.total).toBe(2);
+    expect(unquoted.total).toBe(2);
+  });
 });

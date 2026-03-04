@@ -8,7 +8,7 @@ export default async function thumbnail(event, options = {}) {
   const { defaultImagePath = OALogoPath } = options;
 
   const size = 200;
-  const thumb = event.image.variants.find((el) => el.type === 'thumbnail');
+  const thumb = event.image?.variants.find((el) => el.type === 'thumbnail');
 
   return thumb
     ? urlToBuffer(
