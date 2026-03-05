@@ -84,6 +84,8 @@ async function _memberIsExistingUser(
         message: context.message,
       },
     );
+  } else {
+    log('info', 'mailing bypassed by silent option for member', member.id);
   }
 
   try {
@@ -137,6 +139,12 @@ async function _memberIsInvitedNonUser(
       },
     );
   }
+
+  log(
+    'info',
+    'invitation mailing bypassed by silent option for member',
+    member.id,
+  );
 }
 
 export default async ({ services, config }, member, context) => {
