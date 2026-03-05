@@ -578,7 +578,7 @@ export default (core, { useRouter = true } = {}) => {
         {
           userUid: req.user.uid,
           context: {
-            silent: req.body.silent,
+            silent: boolQuery(req.query.silent),
           },
         },
       )
@@ -716,6 +716,13 @@ export default (core, { useRouter = true } = {}) => {
     next();
   });
 
+  app.param('targetAgendaUid', (req, res, next) => {
+    req.targetAgendaUid = {
+      uid: req.params.targetAgendaUid,
+    };
+    next();
+  });
+
   app.param('locationSlug', (req, res, next) => {
     req.locationIdentifier = {
       slug: req.params.locationSlug,
@@ -821,6 +828,33 @@ export default (core, { useRouter = true } = {}) => {
                   success: true,
                   location,
                 })),
+            next,
+          ),
+    ],
+  );
+
+  app.post(
+    '/agendas/:agendaUid/locations/:locationUid/transfer/:targetAgendaUid',
+    [
+      mw.member.allow(['administrator', 'moderator']),
+      (req, res, next) =>
+        core
+          .agendas(req.agenda.uid)
+          .locations.transfer(
+            parseInt(req.params.locationUid, 10),
+            parseInt(req.params.targetAgendaUid, 10),
+            {
+              context: {
+                userUid: req.user.uid,
+              },
+            },
+          )
+          .then(
+            (location) =>
+              res.json({
+                success: true,
+                location,
+              }),
             next,
           ),
     ],
