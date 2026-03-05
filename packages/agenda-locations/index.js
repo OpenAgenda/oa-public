@@ -15,6 +15,7 @@ const list = require('./list');
 const merge = require('./merge');
 const remove = require('./remove');
 const update = require('./update');
+const transfer = require('./transfer');
 const getINSEECode = require('./utils/getINSEECode');
 const geoFields = require('./utils/geoFields');
 const decorateWithGeocodeData = require('./lib/decorateWithGeocodeData');
@@ -201,6 +202,7 @@ module.exports = Object.assign(
           { internals: svc, endpoints },
           agendaUid,
         ),
+        transfer: transfer.byAgendaUid.bind(null, svc, agendaUid),
         settings: {
           get: settings.get.byAgendaUid.bind(null, svc, agendaUid),
         },
