@@ -74,15 +74,17 @@ async function _memberIsExistingUser(
 
   if (!senderUser) throw new VError('Sender user %j not found', { uid: senderUserUid });
 
-  await send(
-    { config, services },
-    {
-      member,
-      agenda,
-      context,
-      message: context.message,
-    },
-  );
+  if (!context.silent) {
+    await send(
+      { config, services },
+      {
+        member,
+        agenda,
+        context,
+        message: context.message,
+      },
+    );
+  }
 
   try {
     await addMemberCreate(services, {
@@ -124,15 +126,17 @@ async function _memberIsInvitedNonUser(
     [member, context],
   );
 
-  return sendInvitation(
-    { services, config },
-    {
-      invitation,
-      member,
-      context,
-      agenda,
-    },
-  );
+  if (!context.silent) {
+    return sendInvitation(
+      { services, config },
+      {
+        invitation,
+        member,
+        context,
+        agenda,
+      },
+    );
+  }
 }
 
 export default async ({ services, config }, member, context) => {

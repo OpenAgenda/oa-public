@@ -131,6 +131,42 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
         memberName: member.custom.contactName,
       }).toStrictEqual({ customValue: '30org', memberName: 'JayBee' });
     });
+
+    it('can create member with silent option', async () => {
+      const member = await core.agendas(2).members.create(
+        82253125,
+        'contributor',
+        {
+          name: 'Silent Fred',
+          phone: '07',
+        },
+        {
+          userUid: 50073466,
+          context: {
+            silent: true,
+          },
+        },
+      );
+
+      expect(_.omit(member, 'updatedAt')).toEqual({
+        deletedUser: false,
+        name: 'Silent Fred',
+        phone: '07',
+        email: null,
+        position: null,
+        organization: null,
+        role: 'contributor',
+        userUid: 82253125,
+      });
+
+      // Verify the member was actually created in the database
+      const dbMember = await services.members.get({
+        agendaUid: 2,
+        userUid: 82253125,
+      });
+      expect(dbMember).toBeTruthy();
+      expect(dbMember.custom.contactName).toBe('Silent Fred');
+    });
   });
 
   describe('unsuccessful creates', () => {
@@ -324,6 +360,41 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
         expect(stillExistingMember.id).toBeTruthy();
         expect(stillExistingMember.id).toBe(existingMember.id);
+      });
+
+      it('can create member with silent option through API', async () => {
+        await ky
+          .post('http://localhost:4000/agendas/2/members', {
+            headers: {
+              'access-token': adminAccessToken,
+            },
+            json: {
+              name: 'Silent Marie',
+              position: 'Developer',
+              role: 'contributor',
+              userUid: 82253126,
+              silent: true,
+            },
+          })
+          .json();
+
+        const entry = await core.services
+          .knex('reviewer')
+          .first()
+          .where({ user_uid: 82253126, agenda_uid: 2 });
+
+        expect(entry.credential).toBe(1);
+        expect(JSON.parse(entry.store).custom_fields.contact_name).toBe(
+          'Silent Marie',
+        );
+
+        // Verify the member was created in the service as well
+        const member = await services.members.get({
+          agendaUid: 2,
+          userUid: 82253126,
+        });
+        expect(member).toBeTruthy();
+        expect(member.custom.contactName).toBe('Silent Marie');
       });
     });
 

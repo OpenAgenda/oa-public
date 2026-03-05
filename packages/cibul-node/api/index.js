@@ -575,7 +575,12 @@ export default (core, { useRouter = true } = {}) => {
         req.body.userUid ?? req.user.uid,
         req.body.role,
         req.parsedData,
-        { userUid: req.user.uid },
+        {
+          userUid: req.user.uid,
+          context: {
+            silent: req.body.silent,
+          },
+        },
       )
       .then((member) => res.json(member), next));
 

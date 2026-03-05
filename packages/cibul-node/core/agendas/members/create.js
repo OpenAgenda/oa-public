@@ -92,7 +92,10 @@ export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
         role: members.utils.getRoleCode(role ?? 'contributor'),
         custom: format.custom(memberData, {}),
       },
-      { requireCustom: false },
+      {
+        requireCustom: false,
+        context: options.context,
+      },
     );
   } catch (error) {
     throw new GeneralError(error, 'something went wrong');
