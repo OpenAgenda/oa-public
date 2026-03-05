@@ -42,5 +42,9 @@ export default schema({
       type: 'text',
       default: null,
     },
+    silent: {
+      type: 'boolean',
+      default: false,
+    },
   },
 });

@@ -80,6 +80,7 @@ describe('members - functional - patch', () => {
           userUid: null,
         },
         message: null,
+        silent: false,
       });
     });
   });
