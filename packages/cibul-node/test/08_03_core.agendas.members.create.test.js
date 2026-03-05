@@ -364,7 +364,7 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
 
       it('can create member with silent option through API', async () => {
         await ky
-          .post('http://localhost:4000/agendas/2/members', {
+          .post('http://localhost:4000/agendas/2/members?silent=1', {
             headers: {
               'access-token': adminAccessToken,
             },
@@ -373,7 +373,6 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
               position: 'Developer',
               role: 'contributor',
               userUid: 82253126,
-              silent: true,
             },
           })
           .json();
