@@ -1,4 +1,3 @@
-import { promisify } from 'node:util';
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
@@ -183,7 +182,7 @@ export async function defineJob(config, queue, stats) {
 
   const agendasSvc = services.agendas();
   const usersSvc = services.users();
-  const agendasList = promisify(agendasSvc.list);
+  const agendasList = agendasSvc.list;
 
   const limit = 200;
   let pos = 0;

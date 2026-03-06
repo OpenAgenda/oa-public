@@ -1,4 +1,3 @@
-import { promisify } from 'node:util';
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
@@ -42,7 +41,7 @@ async function getSenderName(services, { inboxUser, conversation, message }) {
 
   if (msg.data.inbox.type === 'agenda') {
     return (
-      await promisify(agendasSvc.get)(
+      await agendasSvc.get(
         { uid: msg.data.inbox.identifier },
         {
           private: null,
@@ -70,8 +69,6 @@ async function sendMail(
 ) {
   const { agendas: agendasSvc, members: membersSvc, mails, genUrl } = services;
 
-  const getAgenda = promisify(agendasSvc.get);
-
   const { user, inbox } = inboxUser;
   const { culture: lang = 'fr' } = user;
 
@@ -82,7 +79,7 @@ async function sendMail(
   log.info('sending mail', logBundle);
 
   const agenda = conversation.store.params && conversation.store.params.agendaUid
-    ? await getAgenda(
+    ? await agendasSvc.get(
       { uid: conversation.store.params.agendaUid },
       { private: null, includeImagePath: true, internal: true },
     )
