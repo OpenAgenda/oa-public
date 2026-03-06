@@ -10,6 +10,7 @@ Table of contents:
 
 - [General principles](#principles)
 - [Available filters](#filters)
+- [Accessibility](#accessibility)
 
 ## Principles
 
@@ -112,7 +113,7 @@ The map filter displays a map at the location of the container div that will all
 The timings filter displays a calendar or range links that allow the user to filter the event selection to those occuring during the selected time range.
 
 - **name**: 'timings'
-- **type**: 'dateRange' for the calendar, 'definedRange' for predefined range links (today, tomorrow, this weekend)
+- **type**: 'dateRange' for the calendar, 'simpleDateRange' for native date inputs (see [Accessibility](#accessibility)), 'definedRange' for predefined range links (today, tomorrow, this weekend)
 - **staticRanges**: when the type is 'definedRange', specifies which ranges to be displayed. Possible values are `['today', 'tomorrow', 'thisWeekend', 'currentWeek', 'currentMonth']`
 - **dateFormat**: Change the formatting of dates displayed in the from and to input fields. By default, uses [date-fns synthax](https://date-fns.org/docs/format) by default .
 - **dateFormatStyle**: date-fns by default. When the value is set to "php", reads the 'dateFormat' configuration in a [php formatting style](https://www.php.net/manual/datetime.format.php)
@@ -148,4 +149,40 @@ The HTML equivalent:
         data-oa-filter="evenement-jeune-public"
         data-oa-filter-params="{&quot;type&quot;:&quot;choice&quot;,&quot;name&quot;:&quot;evenement-jeune-public&quot;,&quot;options&quot;:[{&quot;label&quot;:&quot;Jeune public&quot;,&quot;value&quot;:&quot;true&quot;},{&quot;label&quot;:&quot;Vieux public&quot;,&quot;value&quot;:&quot;false&quot;}],&quot;aggregation&quot;:{&quot;type&quot;:&quot;additionalFields&quot;,&quot;field&quot;:&quot;audience-type&quot;}}"
       ></div>
+```
+
+## Accessibility
+
+### Total widget: `role="status"`
+
+Add `role="status"` on the container `div` of the `total` widget so that screen readers announce the updated count when filters change:
+
+```html
+<div role="status" data-oa-widget="total" data-oa-widget-params="..."></div>
+```
+
+This makes the element a live region (`aria-live="polite"` is implicit), so assistive technologies will announce the new total without interrupting the user.
+
+### Timings: `simpleDateRange` type
+
+Use `simpleDateRange` instead of `dateRange` for an accessible date filter. It renders native `<input type="date">` elements with proper `<label>` associations instead of the custom calendar picker:
+
+```html
+<div
+  data-oa-filter="date-range"
+  data-oa-filter-params='{"type":"simpleDateRange","name":"timings"}'
+></div>
+```
+
+Native date inputs provide built-in keyboard navigation and screen reader support from the browser.
+
+### Choice filters: `tag` parameter
+
+By default, each choice option is wrapped in a `<div>`. Set `tag` to `"label"` to wrap each option in a `<label>` element, creating a proper semantic association between the text and the checkbox/radio input:
+
+```html
+<div
+  data-oa-filter="city"
+  data-oa-filter-params='{"name":"city","tag":"label"}'
+></div>
 ```
