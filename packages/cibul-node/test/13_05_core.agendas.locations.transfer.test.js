@@ -71,7 +71,7 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
     beforeAll(async () => {
       transferResult = await core
         .agendas(17026855)
-        .locations.transfer(95455142, 48353388);
+        .locations.transfer(95455142, 48353388, { context: { userUid: 1 } });
 
       dbEntry = await config.knex('location').first().where('uid', 95455142);
     });
@@ -99,7 +99,9 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
 
   describe('transfer with event sync', () => {
     beforeAll(async () => {
-      core.agendas(17026855).locations.transfer(24505639, 93399464);
+      core
+        .agendas(17026855)
+        .locations.transfer(24505639, 93399464, { context: { userUid: 1 } });
 
       return new Promise((rs) => {
         core.services.tracker.on(
@@ -134,7 +136,9 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
 
     beforeAll(async () => {
       try {
-        await core.agendas(17026855).locations.transfer(18927679, 99999999);
+        await core
+          .agendas(17026855)
+          .locations.transfer(18927679, 99999999, { context: { userUid: 1 } });
       } catch (e) {
         error = e;
       }
@@ -152,7 +156,9 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
 
     beforeAll(async () => {
       try {
-        await core.agendas(17026855).locations.transfer(99999999, 93399464);
+        await core
+          .agendas(17026855)
+          .locations.transfer(99999999, 93399464, { context: { userUid: 1 } });
       } catch (e) {
         error = e;
       }
@@ -174,7 +180,7 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
 
       afterTransfer = await core
         .agendas(17026855)
-        .locations.transfer(42197191, 48353388);
+        .locations.transfer(42197191, 48353388, { context: { userUid: 1 } });
     });
 
     it('preserves name', () => {
@@ -199,7 +205,7 @@ describe('13 - core - functional(server): core.agendas().locations.transfer', ()
       // Use a location that hasn't been removed/modified in other tests
       const transferPromise = core
         .agendas(17026855)
-        .locations.transfer(18927679, 48353388);
+        .locations.transfer(18927679, 48353388, { context: { userUid: 1 } });
 
       const syncPromise = new Promise((rs) => {
         core.services.tracker.on(
