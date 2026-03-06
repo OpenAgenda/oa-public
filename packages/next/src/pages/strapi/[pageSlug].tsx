@@ -137,7 +137,11 @@ export const getServerSideProps: GetServerSideProps<PageProps> = async (
   }
 
   // 3) Rediriger vers le slug canonique si différent (et locale supportée par Strapi)
-  if (!canonicalHit) return { notFound: true };
+  if (!canonicalHit) {
+    return {
+      redirect: { destination: `/${locale}`, permanent: false },
+    };
+  }
 
   const canonicalSlug = canonicalHit.slug;
   const needsSlugRedirect =
