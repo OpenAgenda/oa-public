@@ -1254,6 +1254,7 @@ export default (core, { useRouter = true } = {}) => {
           includeLocationImagePath: req.query.includeLocationImagePath,
           useAfterKey: true,
           removed: boolQuery(req.query.removed, { nullable: true }),
+          aggregations: req.query.aggs ?? req.query.aggregations,
         })
         .then((data) => {
           const response = JSON.stringify({ ...data, success: true });

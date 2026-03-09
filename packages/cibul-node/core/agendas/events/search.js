@@ -225,6 +225,7 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
       access: 'internal',
       detailed: true,
       returnPayload: true,
+      private: null,
     });
 
     if (!eventPayload) {
