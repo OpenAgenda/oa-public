@@ -215,8 +215,9 @@ export async function rebuild(core, agendaUid) {
 }
 
 export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
-  const { throwOnError } = {
+  const { throwOnError, batch } = {
     throwOnError: true,
+    batch: false,
     ...options,
   };
 
@@ -248,7 +249,7 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
       try {
         await core.services.eventSearch
           .agendas({ uid: agendaUid })
-          .remove(eventUid, { refresh: true });
+          .remove(eventUid, { refresh: !batch });
         log(
           'info',
           'Successfully removed ghost event %s from index of agenda %s',
@@ -282,6 +283,7 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
 
     const result = await core.services.eventSearch.update(eventPayload, {
       updateOtherIndices: false,
+      batch,
     });
 
     return result;
@@ -298,7 +300,10 @@ async function batchResyncEvents(core, { agendaUid, query, options = {} }) {
   });
 
   for await (const event of stream) {
-    await resyncEvent(core, agendaUid, event.uid, { throwOnError: false });
+    await resyncEvent(core, agendaUid, event.uid, {
+      throwOnError: false,
+      batch: true,
+    });
   }
 }
 

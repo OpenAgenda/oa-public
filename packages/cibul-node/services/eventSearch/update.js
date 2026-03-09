@@ -18,13 +18,14 @@ export default (services, queue, eventSearch) => {
       tracker(`eventSearch.update:${agenda.uid}.${event.uid}`);
     }
 
-    const { updateOtherIndices = true } = options;
+    const { updateOtherIndices = true, batch = false } = options;
 
     await updateAgendaIndex(eventSearch, {
       agenda,
       formSchema,
       member,
       event,
+      batch,
     });
 
     await transverseUpdateEvaluateUpdateEnqueue(services, queue, agenda, event);

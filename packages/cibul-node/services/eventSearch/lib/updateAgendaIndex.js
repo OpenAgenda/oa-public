@@ -5,7 +5,7 @@ const log = logs('services/eventSearch/updateAgendaIndex');
 
 export default async function updateAgendaIndex(
   eventSearch,
-  { agenda, formSchema, member, event },
+  { agenda, formSchema, member, event, batch = false },
 ) {
   log('  updateAgendaIndex');
 
@@ -24,7 +24,7 @@ export default async function updateAgendaIndex(
     },
     data,
     {
-      refresh: true,
+      refresh: !batch,
       operation: 'index',
       formSchema,
       agenda,
