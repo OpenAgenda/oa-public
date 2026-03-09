@@ -11,10 +11,10 @@ async function transfer(service, current, targetAgendaUid, options = {}) {
   // Authorize the transfer (using 'update' action)
   await authorize(service, 'update', current.uid, options);
 
-  // Get target agenda details (id and locationSetUid)
+  // Get target agenda details (id, locationSetUid, and title for onTransfer)
   const targetAgenda = await service.interfaces.getAgendaDetailsByUid(
     targetAgendaUid,
-    ['id', 'locationSetUid'],
+    ['id', 'locationSetUid', 'title'],
   );
 
   if (!targetAgenda || !targetAgenda.id) {
@@ -44,9 +44,37 @@ async function transfer(service, current, targetAgendaUid, options = {}) {
     updatedAt: new Date(),
   };
 
-  // Call onUpdate to handle linkedEvents resync
-  if (service.interfaces.onUpdate) {
-    await service.interfaces.onUpdate(current, updated, options.context);
+  // Get source agenda details for onTransfer
+  // Note: location has agendaId (numeric), not agendaUid
+  // The source agenda UID should be in options.agendaUid
+  const sourceAgendaUid = options.agendaUid;
+  const sourceAgenda = sourceAgendaUid
+    ? await service.interfaces.getAgendaDetailsByUid(sourceAgendaUid, [
+      'id',
+      'uid',
+      'locationSetUid',
+      'title',
+    ])
+    : null;
+
+  // Call onTransfer to handle activities and event resync
+  if (service.interfaces.onTransfer && sourceAgenda) {
+    await service.interfaces.onTransfer(
+      updated,
+      {
+        id: sourceAgenda.id,
+        uid: sourceAgenda.uid,
+        locationSetUid: sourceAgenda.locationSetUid,
+        title: sourceAgenda.title,
+      },
+      {
+        id: targetAgenda.id,
+        uid: targetAgendaUid,
+        locationSetUid: targetAgenda.locationSetUid,
+        title: targetAgenda.title,
+      },
+      options.context || {},
+    );
   }
 
   return updated;
@@ -94,5 +122,9 @@ module.exports.byAgendaUid = async (
     );
   }
 
-  return transfer(service, current, targetAgendaUid, options);
+  // Pass sourceAgendaUid in options for onTransfer
+  return transfer(service, current, targetAgendaUid, {
+    ...options,
+    agendaUid: sourceAgendaUid,
+  });
 };

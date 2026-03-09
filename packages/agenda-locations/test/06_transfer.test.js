@@ -41,8 +41,8 @@ describe('agenda-locations - functional - transfer', () => {
   const f = fixtures(config.mysql);
 
   let svc;
-  let onUpdateCalled = false;
-  let onUpdateContext = null;
+  let onTransferCalled = false;
+  let onTransferContext = null;
 
   beforeAll(async () => {
     await f.load();
@@ -50,22 +50,42 @@ describe('agenda-locations - functional - transfer', () => {
     svc = Service({
       knex: f.client,
       interfaces: {
-        getAgendaDetailsByUid: async (uid) => ({
-          id: {
-            7196947: 25221,
-            48353388: 30000,
-            17026855: 35000,
-          }[uid],
-          locationSetUid: {
-            7196947: 1903810,
-            48353388: 2000000,
-            17026855: 3000000,
-          }[uid],
-        }),
+        getAgendaDetailsByUid: async (uid, fields) => {
+          const agendaData = {
+            7196947: {
+              id: 25221,
+              uid: 7196947,
+              locationSetUid: 1903810,
+              title: 'Source Agenda',
+            },
+            48353388: {
+              id: 30000,
+              uid: 48353388,
+              locationSetUid: 2000000,
+              title: 'Target Agenda',
+            },
+            17026855: {
+              id: 35000,
+              uid: 17026855,
+              locationSetUid: 3000000,
+              title: 'Another Agenda',
+            },
+          }[uid];
+
+          if (!agendaData) return null;
+
+          if (!fields) return agendaData;
+
+          // Return only requested fields
+          return fields.reduce((acc, field) => {
+            acc[field] = agendaData[field];
+            return acc;
+          }, {});
+        },
         getAgendaLocationSettings: async (_uid) => initSettingsDA,
-        onUpdate: async (current, updated, context) => {
-          onUpdateCalled = true;
-          onUpdateContext = { current, updated, context };
+        onTransfer: async (location, sourceAgenda, targetAgenda, context) => {
+          onTransferCalled = true;
+          onTransferContext = { location, sourceAgenda, targetAgenda, context };
         },
       },
       Files: Files(dConfig.files),
@@ -77,8 +97,8 @@ describe('agenda-locations - functional - transfer', () => {
     let dbEntry;
 
     beforeAll(async () => {
-      onUpdateCalled = false;
-      onUpdateContext = null;
+      onTransferCalled = false;
+      onTransferContext = null;
 
       transferResult = await svc(7196947).transfer(95301591, 48353388);
 
@@ -103,15 +123,28 @@ describe('agenda-locations - functional - transfer', () => {
       expect(dbEntry.updated_at).toBeDefined();
     });
 
-    it('calls onUpdate interface', () => {
-      expect(onUpdateCalled).toBe(true);
+    it('calls onTransfer interface', () => {
+      expect(onTransferCalled).toBe(true);
     });
 
-    it('onUpdate receives correct parameters', () => {
-      expect(onUpdateContext.current.uid).toBe(95301591);
-      expect(onUpdateContext.updated.uid).toBe(95301591);
-      expect(onUpdateContext.updated.agendaId).toBe(30000);
-      expect(onUpdateContext.updated.setUid).toBe(2000000);
+    it('onTransfer receives correct location', () => {
+      expect(onTransferContext.location.uid).toBe(95301591);
+      expect(onTransferContext.location.agendaId).toBe(30000);
+      expect(onTransferContext.location.setUid).toBe(2000000);
+    });
+
+    it('onTransfer receives correct source agenda', () => {
+      expect(onTransferContext.sourceAgenda.uid).toBe(7196947);
+      expect(onTransferContext.sourceAgenda.id).toBe(25221);
+      expect(onTransferContext.sourceAgenda.locationSetUid).toBe(1903810);
+      expect(onTransferContext.sourceAgenda.title).toBe('Source Agenda');
+    });
+
+    it('onTransfer receives correct target agenda', () => {
+      expect(onTransferContext.targetAgenda.uid).toBe(48353388);
+      expect(onTransferContext.targetAgenda.id).toBe(30000);
+      expect(onTransferContext.targetAgenda.locationSetUid).toBe(2000000);
+      expect(onTransferContext.targetAgenda.title).toBe('Target Agenda');
     });
   });
 

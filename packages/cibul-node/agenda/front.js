@@ -1,14 +1,7 @@
-import fs from 'node:fs';
 import _ from 'lodash';
-import makeLabelGetter from '@openagenda/labels';
-import forbiddenLabels from '@openagenda/labels/agendas/forbidden.js';
-import { fromMarkdownToHTML } from '@openagenda/md';
 import cmn from '../lib/commons-app.js';
 import config from '../config/index.js';
 import controlDataMw from '../lib/controlDataMw.js';
-import layouts from '../services/lib/layouts/index.js';
-
-const forbiddenLabel = makeLabelGetter(forbiddenLabels);
 
 function removeCsp(req, res, next) {
   res.removeHeader('Content-Security-Policy');
@@ -17,13 +10,6 @@ function removeCsp(req, res, next) {
 }
 
 const preMw = [cmn.loadLogger('agenda front')];
-
-const renderDialog = _.template(
-  fs.readFileSync(
-    `${import.meta.dirname}/../services/lib/templates/dialog.tpl`,
-    'utf-8',
-  ),
-);
 
 function _showJSONIfRequested(req, res, next) {
   if (req.accepts(['html', 'json']) !== 'json') {
@@ -65,36 +51,6 @@ function redirect(req, res, next) {
   req.log.info('redirecting to %s', redirectUrl);
 
   return res.redirect(302, redirectUrl);
-}
-
-function unauthorizedIP(req, res) {
-  const layoutData = {
-    lang: req.lang,
-    cspNonce: res.locals.cspNonce,
-    agenda: req.agenda,
-  };
-
-  res.send(
-    layouts.agenda(
-      renderDialog({
-        title: forbiddenLabel('title', req.lang),
-        content: fromMarkdownToHTML(forbiddenLabel('content', req.lang)),
-        actions: [
-          {
-            type: 'primary',
-            href: `/${req.agenda.slug}/contact`,
-            label: forbiddenLabel('contact', req.lang),
-          },
-          {
-            type: 'default',
-            href: `/${req.agenda.slug}`,
-            label: forbiddenLabel('back', req.lang),
-          },
-        ],
-      }),
-      layoutData,
-    ),
-  );
 }
 
 export default (app) => {
@@ -148,22 +104,6 @@ export default (app) => {
       }
       res.redirect(301, `/${req.agenda.slug}/contribute`);
     },
-  );
-
-  app.get(
-    '/:slug/unauthorized',
-    preMw,
-    cmn.loadBaseData('oa-main.css'),
-    agendasSvc.middleware.load({
-      internal: true,
-      namespaces: {
-        identifiers: {
-          slug: 'params.slug',
-        },
-      },
-      includeImagePath: true,
-    }),
-    unauthorizedIP,
   );
 
   app.get('/:slug/actions', (req, res) => {

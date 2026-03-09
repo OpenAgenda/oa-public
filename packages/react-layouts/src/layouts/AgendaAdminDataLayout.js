@@ -57,7 +57,7 @@ function AgendaAdminDataLayout({
   useIsomorphicLayoutEffect(() => {
     if (error) {
       if (error?.response?.status === 403) {
-        window.location.href = `/${params.slug}/unauthorized`;
+        window.location.href = `/${params.slug}`;
       } else if (user) {
         history.replace('/home');
       } else {

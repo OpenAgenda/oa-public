@@ -49,7 +49,9 @@ raw.push(
     load('sql/members/71386.json'), // agenda 17026855
     load('sql/members/71387.json'), // agenda 17026855
     load('sql/members/71388.json'),
-    load('sql/members/janine.admin.albigeois.json'),
+    load('sql/members/janine.admin.albigeois.json'), // janine admin on 93399464
+    load('sql/members/janine.admin.lagargouille.json'), // janine admin on 17026855
+    load('sql/members/janine.admin.albi.json'), // janine admin on 48353388
     load('sql/members/lise.contributor.albi.json'), // 93399464 (albigeois), 50073466 (lise)
     load('sql/members/margaux.administrator.albi.json'),
   ]),

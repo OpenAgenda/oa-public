@@ -7,6 +7,7 @@ import beforeMerge from './interfaces/beforeMerge.js';
 import beforeRemove from './interfaces/beforeRemove.js';
 import getAgendaUidsByIds from './interfaces/getAgendaUidsByIds.js';
 import onUpdate from './interfaces/onUpdate.js';
+import onTransfer from './interfaces/onTransfer.js';
 import getAgendaLocationSettings from './interfaces/getAgendaLocationSettings.js';
 import getLinkedAgendas from './interfaces/getLinkedAgendas.js';
 import onLocationCreate from './interfaces/onLocationCreate.js';
@@ -63,6 +64,7 @@ export async function init(config, services) {
       beforeRemove: beforeRemove(services),
       onLocationCreate: onLocationCreate(services),
       onUpdate: onUpdate(queue, services),
+      onTransfer: onTransfer({ ...services, queue }),
       getAgendaDetailsByUid: getAgendaDetailsByUid(config, services),
       getEventCounts: getEventCounts(config, services),
       getSetAgendasCount: getSetAgendasCount(services),
