@@ -22,25 +22,32 @@ export default (config, services) => {
 
     const stream = knex('api_key_set').select('id').stream();
 
-    for await (const row of stream) {
-      try {
-        const count = await redis.hGet(
-          config.api.redis.prefix + row.id,
-          config.api.redis.publishCount,
-        );
-
-        log.info({ message: 'api counter', keySetId: row.id, count });
-
-        if (count) {
-          await redis.hSet(
+    try {
+      for await (const row of stream) {
+        try {
+          const count = await redis.hGet(
             config.api.redis.prefix + row.id,
             config.api.redis.publishCount,
-            0,
           );
+
+          log.info({ message: 'api counter', keySetId: row.id, count });
+
+          if (count) {
+            await redis.hSet(
+              config.api.redis.prefix + row.id,
+              config.api.redis.publishCount,
+              0,
+            );
+          }
+        } catch (e) {
+          log.error(e);
         }
-      } catch (e) {
-        log.error(e);
       }
+    } catch (e) {
+      log.error('stream error', e);
+    } finally {
+      if (!stream.destroyed) stream.destroy();
+      running = false;
     }
   };
 };
