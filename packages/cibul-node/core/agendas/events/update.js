@@ -354,11 +354,18 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
     if (eventHasChanged) {
       try {
-        await sendUpdateEmail(core, {
+        const { times: sendUpdateEmailTimes } = await sendUpdateEmail(core, {
           batched,
           event: fullEvent.after,
           agenda,
         });
+        Object.assign(
+          times,
+          Object.keys(sendUpdateEmailTimes).reduce((t, k) => ({
+            ...t,
+            [`sendUpdateEmail.${k}`]: sendUpdateEmailTimes[k],
+          })),
+        );
       } catch (e) {
         log('error', 'failed to send update notification email', e);
       }

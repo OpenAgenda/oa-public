@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
+import Stopwatch from '../../utils/Stopwatch.js';
 
 const log = logs('core/events/sendUpdateEmail');
 
@@ -21,6 +22,8 @@ export default async function sendUpdateEmail(
   core,
   { batched, agenda, event },
 ) {
+  const stopwatch = Stopwatch();
+  const times = {};
   const { root } = core.getConfig();
 
   const { mails, members: membersSvc, users: usersSvc } = core.services;
@@ -33,13 +36,15 @@ export default async function sendUpdateEmail(
   log('processing');
   if (batched) {
     log('part of batch, not sending event update emails');
-    return;
+    return { times };
   }
 
   const link = eventLink(root, agenda, event);
   const logo = agendaLogo(agenda);
 
   const members = await membersSvc.listAllAdminMods(agenda.uid);
+
+  times.members = stopwatch();
 
   if (!event.ownerUid) {
     throw new Error(
@@ -51,12 +56,16 @@ export default async function sendUpdateEmail(
     query: { uid: event.ownerUid },
   });
 
+  times.ownerUser = stopwatch();
+
   const ownerMember = ownerUser
     ? await membersSvc.get({
       agendaUid: agenda.uid,
       userUid: ownerUser.uid,
     })
     : null;
+
+  times.ownerMember = stopwatch();
 
   if (!ownerMember) {
     log(
@@ -91,6 +100,8 @@ export default async function sendUpdateEmail(
       },
       lang: ownerLang,
     });
+
+    times.myEventUpdateSend = stopwatch();
   }
 
   const adminModMembers = members
@@ -129,4 +140,7 @@ export default async function sendUpdateEmail(
       link,
     },
   });
+
+  times.eventUpdateSend = stopwatch();
+  return { times };
 }
