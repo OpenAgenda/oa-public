@@ -173,12 +173,18 @@ function Dashboard() {
 
   const { mergeMode } = useMemo(() => {
     if (pathname.includes('merge') && settings?.access.merge.authorized) {
-      dispatch(mergeActions.initiate(page, search));
       return { mergeMode: true };
     }
     dispatch(mergeActions.closeMerge());
     return { mergeMode: false };
-  }, [pathname, dispatch, settings?.access.merge.authorized, page, search]);
+  }, [pathname, dispatch, settings?.access.merge.authorized]);
+
+  // Initialize merge state once when entering merge mode
+  useEffect(() => {
+    if (mergeMode && !merge) {
+      dispatch(mergeActions.initiate(page, search));
+    }
+  }, [mergeMode, merge, dispatch, page, search]);
 
   useEffect(() => {
     if (!mergeMode && detailLocationUid) setOpenDetails(detailLocationUid);
@@ -307,6 +313,17 @@ function Dashboard() {
     [dispatch, merge, mergeMode],
   );
 
+  // Helper to navigate back to original page/search after merge operations
+  const navigateToOriginalState = useCallback(() => {
+    history.push({
+      pathname: prefix,
+      search: `?${new URLSearchParams({
+        ...merge.originalSearch,
+        page: merge.originalPage || 1,
+      }).toString()}`,
+    });
+  }, [history, prefix, merge]);
+
   const renderMergeAction = useCallback(() => {
     if (mergeMode) {
       return (
@@ -315,10 +332,7 @@ function Dashboard() {
           className="btn btn-danger"
           onClick={() => {
             dispatch(mergeActions.closeMerge());
-            history.push({
-              pathname: `${prefix}`,
-              search: betterQsStringify({ ...search, page }),
-            });
+            navigateToOriginalState();
           }}
         >
           <FormattedMessage {...messages.cancelMerge} />
@@ -350,20 +364,21 @@ function Dashboard() {
         <FormattedMessage {...messages.merge} />
       </button>
     );
-  }, [mergeMode, settings, search, page, prefix, history, dispatch]);
+  }, [
+    mergeMode,
+    settings,
+    search,
+    page,
+    prefix,
+    history,
+    dispatch,
+    navigateToOriginalState,
+    merge,
+  ]);
 
   const launchMerge = () => {
     dispatch(
-      mergeActions.launchMerge(
-        merge,
-        res,
-        {
-          pathname: prefix,
-          search: betterQsStringify({ ...search, page, uids: null }),
-        },
-        setErrorModal,
-        setSpinMerge,
-      ),
+      mergeActions.launchMerge(merge, res, prefix, setErrorModal, setSpinMerge),
     );
   };
 
@@ -374,7 +389,7 @@ function Dashboard() {
         data,
         res,
         agenda.slug,
-        { pathname: prefix, search: betterQsStringify({ ...search, page }) },
+        prefix,
         setErrorModal,
       ),
     );
@@ -444,10 +459,7 @@ function Dashboard() {
             })}
           closeMerge={() => {
             dispatch(mergeActions.closeMerge());
-            history.push({
-              pathname: prefix,
-              search: betterQsStringify({ ...search, page }),
-            });
+            navigateToOriginalState();
           }}
           disqualifyDuplicates={disqualifyMergeCandidates}
           launchMerge={launchMerge}
