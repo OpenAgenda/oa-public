@@ -11,11 +11,6 @@ export default async (services, before, after, context) => {
 
   // settings.{tracking,lab,inbox,contribution}
 
-  // If after is null, the update failed (validation errors), skip processing
-  if (!after) {
-    return;
-  }
-
   await resetCache(services, after, { before });
 
   if (activities && context) {
