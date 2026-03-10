@@ -118,7 +118,7 @@ export default (core, { useRouter = true } = {}) => {
     mw.member.allow(['administrator']),
     (req, res, next) => {
       const config = core.getConfig();
-      const isSuperAdmin = req.user?.isSuperAdmin || config.superAdminUids.includes(req.user.uid);
+      const isSuperAdmin = req.user.isSuperAdmin || config.superAdminUids.includes(req.user.uid);
 
       core
         .agendas(req.agenda.uid)
