@@ -5,6 +5,15 @@ export default (req, res, _next) => {
   const worksheet = workbook.addWorksheet('Members');
   const members = [];
   const columns = [];
+
+  req.stream.on('error', (err) => {
+    if (!res.destroyed) res.destroy(err);
+  });
+
+  res.once('close', () => {
+    if (!req.stream.destroyed) req.stream.destroy();
+  });
+
   req.stream.on('data', (data) => {
     members.push(data);
 

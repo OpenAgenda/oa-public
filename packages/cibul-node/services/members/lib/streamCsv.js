@@ -1,3 +1,4 @@
+import { pipeline } from 'node:stream';
 import csv from 'fast-csv';
 
 export default (req, res, _next) => {
@@ -8,7 +9,11 @@ export default (req, res, _next) => {
     escape: '"',
   });
 
-  req.stream.pipe(csvFormatterStream).pipe(res);
+  res.once('close', () => {
+    if (!req.stream.destroyed) req.stream.destroy();
+  });
+
+  pipeline(req.stream, csvFormatterStream, res, () => {});
 
   res.writeHead(200, {
     'Content-Type': 'text/csv',
