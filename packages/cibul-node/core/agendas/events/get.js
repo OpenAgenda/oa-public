@@ -11,7 +11,6 @@ const log = logs('core/agendas/events/get');
 export default async (core, agendaUid, eventUid, options = {}) => {
   log('info', 'getting', { agendaUid, eventUid });
   const stopwatch = Stopwatch();
-  const times = {};
 
   const { services } = core;
 
@@ -46,14 +45,14 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   const load = eventLoadOptions.get(options);
 
   const agenda = await getAgenda(services, agendaUid, { detailed: true });
-  times.agenda = stopwatch();
+  stopwatch('agenda');
 
   const payload = createPayload(core, agenda);
 
   const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
     decorate: ['member'].concat(detailed ? ['sourceAgendas'] : []),
   });
-  times.agendaEvent = stopwatch();
+  stopwatch('agendaEvent');
 
   payload.setItem('agendaEvent', agendaEvent);
 
@@ -72,7 +71,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     throwOnNotFound,
     formSchema: await payload.getFormSchema({ access }), // Pass formSchema for proper location tag filtering
   });
-  times.event = stopwatch();
+  stopwatch('event');
 
   if (load.event) {
     if (
@@ -102,7 +101,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     }
     payload.setItem('event', null);
     return returnPayload
-      ? payload.getResponse('event', { access, times })
+      ? payload.getResponse('event', { access, times: stopwatch.getTimes() })
       : null;
   }
 
@@ -114,13 +113,13 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     log('event is draft and update attempt is not from origin agenda');
     payload.setItem('event', null);
     return returnPayload
-      ? payload.getResponse('event', { access, times })
+      ? payload.getResponse('event', { access, times: stopwatch.getTimes() })
       : null;
   }
 
   if (!payload.hasItem('event') && load.event) {
     return returnPayload
-      ? payload.getResponse('event', { access, times })
+      ? payload.getResponse('event', { access, times: stopwatch.getTimes() })
       : null;
   }
 
@@ -137,9 +136,13 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       await custom(agenda.network.formSchemaId).get(eventUid),
     );
   }
-  times.custom = stopwatch();
+  stopwatch('custom');
 
-  const result = await payload.getResponse('event', { access, load, times });
+  const result = await payload.getResponse('event', {
+    access,
+    load,
+    times: stopwatch.getTimes(),
+  });
 
   return returnPayload ? result : result.event;
 };

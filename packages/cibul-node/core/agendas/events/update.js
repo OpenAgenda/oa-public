@@ -36,7 +36,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   } = core.services;
 
   const stopwatch = Stopwatch();
-  const times = {};
 
   const actingUserUid = options.userUid ?? options.context?.userUid;
 
@@ -72,7 +71,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       includeMemberSchema: true,
     });
 
-    times.agenda = stopwatch();
+    stopwatch('agenda');
 
     log('  loaded agenda %s', agenda?.slug);
 
@@ -107,7 +106,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         throw error;
       });
 
-    times.getEvent = stopwatch();
+    stopwatch('getEvent');
 
     const wasDraft = event.draft;
     const isDraft = wasDraft ? data?.draft : false;
@@ -118,7 +117,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       ? await agendaEvents(agenda.uid).get(event.uid, { throwOnNotFound: true })
       : null;
 
-    times.agendaEvent = stopwatch();
+    stopwatch('agendaEvent');
 
     const actingMember = actingUserUid
       ? await members.get(
@@ -143,7 +142,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       aggregated,
     });
 
-    times.cleanEvent = stopwatch();
+    stopwatch('cleanEvent');
 
     const authorizations = await loadAuthorizations(core, 'update', {
       agenda,
@@ -154,7 +153,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       userUid: actingUserUid,
     });
 
-    times.loadAuthorizations = stopwatch();
+    stopwatch('loadAuthorizations');
 
     const { type: stateChangeType } = assignState(agenda, event, clean, data, {
       authorizations,
@@ -197,7 +196,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       }
     }
 
-    times.passCultureProcess = stopwatch();
+    stopwatch('passCultureProcess');
 
     if (updatedRegistration) clean.event.registration = updatedRegistration;
 
@@ -217,7 +216,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         userLang,
         mergeExtIds,
       });
-      times.updateEvent = stopwatch();
+      stopwatch('updateEvent');
     } else {
       payload.setItem('event', event, event);
     }
@@ -233,7 +232,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     } else if (agenda.formSchemaId) {
       const agendaData = await custom(agenda.formSchemaId).get(eventUid);
       payload.setItem('custom.agenda', agendaData, agendaData);
-      times.customAgenda = stopwatch();
+      stopwatch('customAgenda');
     }
 
     if (agenda.network?.formSchemaId && clean.networkCustom) {
@@ -248,7 +247,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         eventUid,
       );
       payload.setItem('custom.network', result.before, result.custom);
-      times.customNetwork = stopwatch();
+      stopwatch('customNetwork');
     } else if (agenda.network?.formSchemaId) {
       const networkData = await custom(agenda.network?.formSchemaId).get(
         eventUid,
@@ -289,7 +288,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           },
         );
 
-        times.agendaEventsSet = stopwatch();
+        stopwatch('agendaEventsSet');
 
         if (result.set.userUid) {
           log(
@@ -305,7 +304,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
               throwOnNotFound: false,
               roleAsSlug: false,
             });
-          times.memberSet = stopwatch();
+          stopwatch('memberSet');
         }
 
         log('updated agendaEvent reference %s.%s', agendaUid, eventUid);
@@ -339,7 +338,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           : fullEvent.after,
       });
       log('updated search for event %s', eventUid);
-      times.eventSearchUpdate = stopwatch();
+      stopwatch('eventSearchUpdate');
     } catch (e) {
       log(
         'error',
@@ -359,17 +358,10 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           event: fullEvent.after,
           agenda,
         });
-        Object.assign(
-          times,
-          Object.keys(sendUpdateEmailTimes).reduce((t, k) => ({
-            ...t,
-            [`sendUpdateEmail.${k}`]: sendUpdateEmailTimes[k],
-          })),
-        );
+        stopwatch('sendUpdateEmail', sendUpdateEmailTimes);
       } catch (e) {
         log('error', 'failed to send update notification email', e);
       }
-      times.sendUpdateEmail = stopwatch();
     }
 
     if (eventHasChanged && !event.draft) {
@@ -386,7 +378,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
             agendaEvent,
           },
         );
-        times.activity = stopwatch();
+        stopwatch('activity');
       } catch (e) {
         log('error', 'failed to create activity', e);
       }
@@ -444,7 +436,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     throw e;
   }
 
-  response.times = times;
+  response.times = stopwatch.getTimes();
 
   return returnPayload ? response : response.event;
 }

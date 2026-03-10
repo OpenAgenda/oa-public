@@ -23,7 +23,6 @@ export default async function sendUpdateEmail(
   { batched, agenda, event },
 ) {
   const stopwatch = Stopwatch();
-  const times = {};
   const { root } = core.getConfig();
 
   const { mails, members: membersSvc, users: usersSvc } = core.services;
@@ -36,7 +35,7 @@ export default async function sendUpdateEmail(
   log('processing');
   if (batched) {
     log('part of batch, not sending event update emails');
-    return { times };
+    return { times: stopwatch.getTimes() };
   }
 
   const link = eventLink(root, agenda, event);
@@ -44,7 +43,7 @@ export default async function sendUpdateEmail(
 
   const members = await membersSvc.listAllAdminMods(agenda.uid);
 
-  times.members = stopwatch();
+  stopwatch('members');
 
   if (!event.ownerUid) {
     throw new Error(
@@ -56,7 +55,7 @@ export default async function sendUpdateEmail(
     query: { uid: event.ownerUid },
   });
 
-  times.ownerUser = stopwatch();
+  stopwatch('ownerUser');
 
   const ownerMember = ownerUser
     ? await membersSvc.get({
@@ -65,7 +64,7 @@ export default async function sendUpdateEmail(
     })
     : null;
 
-  times.ownerMember = stopwatch();
+  stopwatch('ownerMember');
 
   if (!ownerMember) {
     log(
@@ -101,7 +100,7 @@ export default async function sendUpdateEmail(
       lang: ownerLang,
     });
 
-    times.myEventUpdateSend = stopwatch();
+    stopwatch('myEventUpdateSend');
   }
 
   const adminModMembers = members
@@ -141,6 +140,6 @@ export default async function sendUpdateEmail(
     },
   });
 
-  times.eventUpdateSend = stopwatch();
-  return { times };
+  stopwatch('eventUpdateSend');
+  return { times: stopwatch.getTimes() };
 }

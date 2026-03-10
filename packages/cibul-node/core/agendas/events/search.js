@@ -12,7 +12,6 @@ const log = logs('core/agendas/events/search');
 
 async function doSearch(core, agendaUid, query, nav, options = {}) {
   const stopwatch = Stopwatch();
-  const times = {};
 
   const {
     returnAgenda = false,
@@ -41,7 +40,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     includeLocationLegacyAdminLevels,
   });
 
-  times.agenda = stopwatch();
+  stopwatch('agenda');
 
   if (!agenda) {
     throw new NotFound(
@@ -54,7 +53,7 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
 
   const access = await loadSearchAccess(core, agendaUid, options);
 
-  times.searchAccess = stopwatch();
+  stopwatch('searchAccess');
 
   const authorizedQuery = filterAuthorizedSearchFields(
     core,
@@ -125,15 +124,22 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
       access,
     });
 
-  times.eventSearch = stopwatch();
+  stopwatch('eventSearch');
 
-  return returnAgenda ? { agenda, result, times } : result;
+  return returnAgenda
+    ? { agenda, result, times: stopwatch.getTimes() }
+    : result;
 }
 
 export async function get(core, agendaUid, identifier, options = {}) {
   const { userUid, payload = false } = options;
+  const stopwatch = Stopwatch();
 
-  const { agenda, result, times } = await doSearch(
+  const {
+    agenda,
+    result,
+    times: doSearchTimes,
+  } = await doSearch(
     core,
     agendaUid,
     {
@@ -147,6 +153,8 @@ export async function get(core, agendaUid, identifier, options = {}) {
       returnAgenda: true,
     },
   );
+
+  stopwatch('doSearch', doSearchTimes);
 
   if (!agenda) {
     throw new NotFound(
@@ -184,6 +192,8 @@ export async function get(core, agendaUid, identifier, options = {}) {
         includes: ['me.authorizations', 'me.member'],
       });
 
+  stopwatch('getContext');
+
   if (context?.me && !context.me.authorizations.canRead) {
     throw new Forbidden('not authorized to read event');
   } else if (!context?.me && !isPublished) {
@@ -192,9 +202,13 @@ export async function get(core, agendaUid, identifier, options = {}) {
 
   const filtered = await filterEventByRole(agenda, event, context);
 
+  stopwatch('filterEventByRole');
+
   const responseEvent = { ...filtered, valid: event?.valid };
 
-  return payload ? { event: responseEvent, times } : responseEvent;
+  return payload
+    ? { event: responseEvent, times: stopwatch.getTimes() }
+    : responseEvent;
 }
 
 export default async function search(
