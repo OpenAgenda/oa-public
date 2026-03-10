@@ -3,12 +3,15 @@ import { NotFound } from '@openagenda/verror';
 import createPayload from '../utils/createPayload.js';
 import getAgenda from '../utils/getAgenda.js';
 import eventLoadOptions from '../utils/eventLoadOptions.js';
+import Stopwatch from '../utils/Stopwatch.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 
 const log = logs('core/agendas/events/get');
 
 export default async (core, agendaUid, eventUid, options = {}) => {
   log('info', 'getting', { agendaUid, eventUid });
+  const stopwatch = Stopwatch();
+  const times = {};
 
   const { services } = core;
 
@@ -43,12 +46,14 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   const load = eventLoadOptions.get(options);
 
   const agenda = await getAgenda(services, agendaUid, { detailed: true });
+  times.agenda = stopwatch();
 
   const payload = createPayload(core, agenda);
 
   const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
     decorate: ['member'].concat(detailed ? ['sourceAgendas'] : []),
   });
+  times.agendaEvent = stopwatch();
 
   payload.setItem('agendaEvent', agendaEvent);
 
@@ -67,6 +72,7 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     throwOnNotFound,
     formSchema: await payload.getFormSchema({ access }), // Pass formSchema for proper location tag filtering
   });
+  times.event = stopwatch();
 
   if (load.event) {
     if (
@@ -86,7 +92,6 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     log('event fetched');
     payload.setItem('event', event);
   }
-
   if (
     payload.hasItem('event')
     && !payload.hasItem('agendaEvent')
@@ -96,7 +101,9 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       throw NotFound('event is not referenced on agenda');
     }
     payload.setItem('event', null);
-    return returnPayload ? payload.getResponse('event', access) : null;
+    return returnPayload
+      ? payload.getResponse('event', { access, times })
+      : null;
   }
 
   if (
@@ -106,11 +113,15 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   ) {
     log('event is draft and update attempt is not from origin agenda');
     payload.setItem('event', null);
-    return returnPayload ? payload.getResponse('event', access) : null;
+    return returnPayload
+      ? payload.getResponse('event', { access, times })
+      : null;
   }
 
   if (!payload.hasItem('event') && load.event) {
-    return returnPayload ? payload.getResponse('event', access) : null;
+    return returnPayload
+      ? payload.getResponse('event', { access, times })
+      : null;
   }
 
   if (load.custom && agenda.formSchemaId) {
@@ -126,8 +137,9 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       await custom(agenda.network.formSchemaId).get(eventUid),
     );
   }
+  times.custom = stopwatch();
 
-  const result = await payload.getResponse('event', { access, load });
+  const result = await payload.getResponse('event', { access, load, times });
 
   return returnPayload ? result : result.event;
 };

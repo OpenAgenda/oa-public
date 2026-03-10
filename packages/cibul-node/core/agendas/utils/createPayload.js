@@ -157,6 +157,7 @@ function makeGetResponse(core, data) {
       before: data.services.before.agendaEvent
         ? merge.eventFromObject(data.services.before)
         : null,
+      ...options.times ? { times: options.times } : undefined,
     };
   };
 }

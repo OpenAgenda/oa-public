@@ -20,9 +20,10 @@ export default async function getEventFromSearchOrAsDraft(req, res, next) {
   log('getting event matching identifier %j', identifier);
 
   try {
-    req.event = await core
+    const { event, times } = await core
       .agendas(req.agenda.uid)
       .events.search.get(identifier, {
+        payload: true,
         detailed: true,
         load: {
           valid: true,
@@ -36,6 +37,8 @@ export default async function getEventFromSearchOrAsDraft(req, res, next) {
           defaultValue: true,
         }),
       });
+    req.event = event;
+    req.times = times;
     return next();
   } catch (err) {
     if (err.name !== 'NotFound') {
@@ -45,9 +48,10 @@ export default async function getEventFromSearchOrAsDraft(req, res, next) {
     log('event not found in index, getting draft');
 
     try {
-      const event = await core
+      const { event, times } = await core
         .agendas(req.agenda.uid)
         .events.get(req.params.eventUid, {
+          returnPayload: true,
           useDateHoursMinutesFormat: req.query.useDateHoursMinutesFormat,
           useLocationObjectFormat: true,
           access: 'internal',
@@ -71,6 +75,7 @@ export default async function getEventFromSearchOrAsDraft(req, res, next) {
       }
 
       req.event = event;
+      req.times = times;
 
       return next();
     } catch (err2) {
