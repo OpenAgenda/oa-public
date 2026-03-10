@@ -210,7 +210,7 @@ const messages = defineMessages({
   imageRightsCguUrl: {
     id: 'AgendaLocations.LocationForm.imageRightsCguUrl',
     defaultMessage:
-      'https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/?bust=1753360775422',
+      'https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4',
   },
   siret: {
     id: 'AgendaLocations.LocationForm.siret',
@@ -496,11 +496,7 @@ const LocationForm = ({
               className="margin-right-xs"
               target="_blank"
               rel="noreferrer"
-              href={
-                lang === 'fr'
-                  ? 'https://creativecommons.org/licenses/by-sa/4.0/deed.fr'
-                  : 'https://creativecommons.org/licenses/by-sa/4.0/'
-              }
+              href="https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4"
             >
               {intl.formatMessage(messages.findOutMore)}
             </a>
