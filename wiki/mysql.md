@@ -255,6 +255,7 @@ innodb_io_capacity_max        = 800
 
 # --- Connexions & buffers ---
 max_connections          = 300
+wait_timeout             = 600
 max_allowed_packet       = 1024M
 tmp_table_size           = 256M
 max_heap_table_size      = 256M
@@ -678,6 +679,7 @@ innodb_io_capacity_max        = 800
 
 # --- Connexions & buffers ---
 max_connections          = 300
+wait_timeout             = 600
 max_allowed_packet       = 1024M
 tmp_table_size           = 256M
 max_heap_table_size      = 256M
@@ -759,6 +761,7 @@ innodb_io_capacity_max        = 1000
 
 # --- Connexions & buffers ---
 max_connections          = 300
+wait_timeout             = 600
 max_allowed_packet       = 256M
 tmp_table_size           = 256M
 max_heap_table_size      = 256M
