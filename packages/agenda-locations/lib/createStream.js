@@ -40,7 +40,10 @@ module.exports = (service, knexQuery, options = {}) => {
 
   knexStream.on('error', (e) => stream.emit('error', e));
 
-  stream.on('end', () => knexStream.destroy());
+  stream._destroy = (err, cb) => {
+    knexStream.destroy();
+    cb(err);
+  };
 
   return knexStream.pipe(stream);
 };
