@@ -1,3 +1,4 @@
+import { pipeline } from 'node:stream';
 import * as flatExports from '@openagenda/flat-exports';
 import fieldNameLabels from '@openagenda/labels/event/exportFieldNames.js';
 import memberLabels from '@openagenda/labels/members/index.js';
@@ -6,7 +7,12 @@ import stateLabels from '@openagenda/labels/event/states.js';
 const csv = flatExports.csv();
 
 export default (req, res) => {
-  csv(req.stream, {
+  res.writeHead(200, {
+    'Content-Type': 'text/csv',
+    'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.csv"`,
+  });
+
+  const out = csv(req.stream, {
     agendaUid: req.agenda.uid,
     lang: req.lang,
     languages: req.languages,
@@ -20,10 +26,11 @@ export default (req, res) => {
     includeFields: req.query.includeFields,
     includeLanguages: req.query.includeLanguages,
     spreadFields: req.query.distributeOptionalFields,
-  }).pipe(res);
-
-  return res.writeHead(200, {
-    'Content-Type': 'text/csv',
-    'Content-disposition': `attachment; filename="${req.agenda.slug}.agenda.csv"`,
   });
+
+  res.once('close', () => {
+    if (!out.destroyed) out.destroy();
+  });
+
+  pipeline(out, res, () => {});
 };

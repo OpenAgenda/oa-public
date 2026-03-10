@@ -1,3 +1,4 @@
+import { pipeline } from 'node:stream';
 import { MarkdownStream } from '@openagenda/flat-exports';
 
 function getFirstSortField(query) {
@@ -30,5 +31,9 @@ export default (req, res) => {
     genUrl: (e) => `https://openagenda.com/${req.agenda.slug}/events/${e.slug}`,
   });
 
-  req.stream.pipe(stream).pipe(res);
+  res.once('close', () => {
+    if (!req.stream.destroyed) req.stream.destroy();
+  });
+
+  pipeline(req.stream, stream, res, () => {});
 };

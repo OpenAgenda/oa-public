@@ -12,6 +12,10 @@ export default function streamPDF(config, req, res, next) {
     .map((s) => s.replace(/\.asc|\.desc/, ''))
     .filter((s) => !['lastTimingWithFeatured', 'timings'].includes(s));
 
+  res.once('close', () => {
+    if (!req.stream.destroyed) req.stream.destroy();
+  });
+
   req
     .search(req.searchQuery, { size: 0 }, req.searchOptions)
     .then(({ total }) => {

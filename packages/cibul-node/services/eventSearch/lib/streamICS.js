@@ -1,3 +1,4 @@
+import { pipeline } from 'node:stream';
 import { ICSStream } from '@openagenda/flat-exports';
 
 export default (req, res) => {
@@ -13,5 +14,9 @@ export default (req, res) => {
     description: req.agenda.description,
   });
 
-  req.stream.pipe(stream).pipe(res);
+  res.once('close', () => {
+    if (!req.stream.destroyed) req.stream.destroy();
+  });
+
+  pipeline(req.stream, stream, res, () => {});
 };
