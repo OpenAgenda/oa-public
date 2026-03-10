@@ -81,7 +81,7 @@ export default async (core, agendaOrUid, identifiers, data, options = {}) => {
   }
 
   try {
-    if (schemas.agendaSchema) {
+    if (schemas.agendaSchema && member.userUid) {
       const dispatchedData = dispatchDataPerSchemas(cleanMemberData, [
         schemas.schema,
         schemas.agendaSchema,

@@ -26,12 +26,16 @@ function eventUpdate(req, res, next) {
       req.event.uid,
       _.omit(req.parsedData, ['ownerUid', 'creatorUid']),
       getOptions(req, {
+        returnPayload: true,
         mergeExtIds: boolQuery(req.query.mergeExtIds, {
           defaultValue: true,
         }),
       }),
     )
-    .then((event) => res.json({ success: true, event }), next);
+    .then(({ event, times }) => {
+      req.times = times;
+      res.json({ success: true, event });
+    }, next);
 }
 
 function eventUpdateByExtId(req, res, next) {

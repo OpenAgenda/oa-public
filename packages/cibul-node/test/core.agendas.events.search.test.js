@@ -440,7 +440,7 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
       expect(event.valid).toBeDefined();
     });
 
-    it('ghost event is removed from index at resyc attempt', async () => {
+    it('ghost event is removed from index at resync attempt', async () => {
       await core.services.agendaEvents(2).remove(8);
       // event is ghost now.
       const { total: totalBeforeResync } = await core

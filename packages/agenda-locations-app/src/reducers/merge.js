@@ -76,10 +76,11 @@ export function disqualifyDuplicates(
   locationUids,
   res,
   agendaSlug,
-  nextLocation,
+  prefix,
   setErrorModal,
 ) {
-  return ({ history }, { dispatch }) => {
+  return ({ history }, { dispatch, getState }) => {
+    const { merge } = getState();
     fetch(res.disqualifyDuplicates.replace(':agendaSlug', agendaSlug), {
       method: 'POST',
       headers: {
@@ -95,7 +96,13 @@ export function disqualifyDuplicates(
       })
       .then(() => {
         dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
-        history.push(nextLocation);
+        history.push({
+          pathname: prefix,
+          search: `?${new URLSearchParams({
+            ...merge.originalSearch,
+            page: merge.originalPage || 1,
+          }).toString()}`,
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -124,7 +131,7 @@ export function selectTarget(target) {
   };
 }
 
-export function launchMerge(merge, res, nextLocation, setErrorModal, setSpin) {
+export function launchMerge(merge, res, prefix, setErrorModal, setSpin) {
   return ({ history }, { dispatch }) => {
     const merged = merge.locationUids.filter((uid) => uid !== merge.target.uid);
     if (!merge.target) console.log('no target for merge!!');
@@ -149,17 +156,14 @@ export function launchMerge(merge, res, nextLocation, setErrorModal, setSpin) {
       })
       .then(() => {
         setSpin(false);
-        // Use the stored originalPage and originalSearch from merge state if available
-        const finalLocation = merge.originalPage || merge.originalSearch
-          ? {
-            pathname: nextLocation.pathname,
-            search: `?${new URLSearchParams({
-              ...merge.originalSearch,
-              page: merge.originalPage || 1,
-            }).toString()}`,
-          }
-          : nextLocation;
-        history.push(finalLocation);
+        // Use the stored originalPage and originalSearch from merge state
+        history.push({
+          pathname: prefix,
+          search: `?${new URLSearchParams({
+            ...merge.originalSearch,
+            page: merge.originalPage || 1,
+          }).toString()}`,
+        });
         dispatch({ type: 'agenda-location/merge/CLOSE_MERGE' });
         dispatch(onGoingActions.initiate('merge'));
       })

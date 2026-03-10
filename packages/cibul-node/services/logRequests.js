@@ -99,6 +99,10 @@ const logMw = morgan(
       secure: req.secure,
     };
 
+    if (req.times) {
+      data.times = req.times;
+    }
+
     // trace in finished here, we need to force context for logs
     const finalSpan = req[Symbol.for('oa.otel.span')];
 

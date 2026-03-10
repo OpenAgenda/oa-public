@@ -1,6 +1,7 @@
 import logs from '@openagenda/logs';
 import { NotFound, Forbidden } from '@openagenda/verror';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
+import Stopwatch from '../utils/Stopwatch.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 import convertToDateHoursMinutesTimings from './lib/convertToDateHoursMinutesFormat.js';
 import loadSearchAccess from './lib/loadSearchAccess.js';
@@ -10,6 +11,9 @@ import filterAuthorizedSearchFields from './lib/filterAuthorizedSearchFields.js'
 const log = logs('core/agendas/events/search');
 
 async function doSearch(core, agendaUid, query, nav, options = {}) {
+  const stopwatch = Stopwatch();
+  const times = {};
+
   const {
     returnAgenda = false,
     stream = false,
@@ -37,6 +41,8 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
     includeLocationLegacyAdminLevels,
   });
 
+  times.agenda = stopwatch();
+
   if (!agenda) {
     throw new NotFound(
       {
@@ -47,6 +53,8 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
   }
 
   const access = await loadSearchAccess(core, agendaUid, options);
+
+  times.searchAccess = stopwatch();
 
   const authorizedQuery = filterAuthorizedSearchFields(
     core,
@@ -117,13 +125,15 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
       access,
     });
 
-  return returnAgenda ? { agenda, result } : result;
+  times.eventSearch = stopwatch();
+
+  return returnAgenda ? { agenda, result, times } : result;
 }
 
 export async function get(core, agendaUid, identifier, options = {}) {
-  const { userUid } = options;
+  const { userUid, payload = false } = options;
 
-  const { agenda, result } = await doSearch(
+  const { agenda, result, times } = await doSearch(
     core,
     agendaUid,
     {
@@ -182,7 +192,9 @@ export async function get(core, agendaUid, identifier, options = {}) {
 
   const filtered = await filterEventByRole(agenda, event, context);
 
-  return { ...filtered, valid: event?.valid };
+  const responseEvent = { ...filtered, valid: event?.valid };
+
+  return payload ? { event: responseEvent, times } : responseEvent;
 }
 
 export default async function search(
@@ -215,8 +227,9 @@ export async function rebuild(core, agendaUid) {
 }
 
 export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
-  const { throwOnError } = {
+  const { throwOnError, batch } = {
     throwOnError: true,
+    batch: false,
     ...options,
   };
 
@@ -248,7 +261,7 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
       try {
         await core.services.eventSearch
           .agendas({ uid: agendaUid })
-          .remove(eventUid, { refresh: true });
+          .remove(eventUid, { refresh: !batch });
         log(
           'info',
           'Successfully removed ghost event %s from index of agenda %s',
@@ -282,6 +295,7 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
 
     const result = await core.services.eventSearch.update(eventPayload, {
       updateOtherIndices: false,
+      batch,
     });
 
     return result;
@@ -298,7 +312,10 @@ async function batchResyncEvents(core, { agendaUid, query, options = {} }) {
   });
 
   for await (const event of stream) {
-    await resyncEvent(core, agendaUid, event.uid, { throwOnError: false });
+    await resyncEvent(core, agendaUid, event.uid, {
+      throwOnError: false,
+      batch: true,
+    });
   }
 }
 
