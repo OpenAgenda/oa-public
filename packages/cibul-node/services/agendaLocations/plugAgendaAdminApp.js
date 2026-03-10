@@ -1,3 +1,4 @@
+import { pipeline } from 'node:stream';
 import csv from 'fast-csv';
 import ExcelJS from 'exceljs';
 import loadLocationEndpoints from './lib/loadLocationEndpoints.js';
@@ -86,16 +87,18 @@ export default (services, instance, app, base) => {
   });
 
   app.get(`${base}.csv`, (req, res) => {
-    req.stream
-      .pipe(
-        csv.format({
-          headers: true,
-          delimiter: ';',
-          quote: '"',
-          escape: '"',
-        }),
-      )
-      .pipe(res);
+    const csvStream = csv.format({
+      headers: true,
+      delimiter: ';',
+      quote: '"',
+      escape: '"',
+    });
+
+    res.once('close', () => {
+      if (!req.stream.destroyed) req.stream.destroy();
+    });
+
+    pipeline(req.stream, csvStream, res, () => {});
 
     res.writeHead(200, {
       'Content-Type': 'text/csv',
@@ -107,6 +110,15 @@ export default (services, instance, app, base) => {
     const workbook = new ExcelJS.stream.xlsx.WorkbookWriter();
     const worksheet = workbook.addWorksheet('Locations');
     const locations = [];
+
+    req.stream.on('error', (err) => {
+      if (!res.destroyed) res.destroy(err);
+    });
+
+    res.once('close', () => {
+      if (!req.stream.destroyed) req.stream.destroy();
+    });
+
     req.stream.on('data', (data) => {
       locations.push(data);
     });
