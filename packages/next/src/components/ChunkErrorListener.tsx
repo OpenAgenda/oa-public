@@ -1,7 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useIntl } from 'react-intl';
 import NotificationModal from 'components/NotificationModal';
-import { logWarning } from 'utils/sentry';
 import messages from 'components/ErrorDisplay/messages';
 
 function isChunkLoadError(error: unknown): boolean {
@@ -24,7 +23,6 @@ export default function ChunkErrorListener({
     if (!isChunkLoadError(event.reason)) return;
 
     event.preventDefault();
-    logWarning(event.reason);
     setHasError(true);
   }, []);
 

@@ -20,7 +20,7 @@ init({
       error instanceof Error &&
       error.message.toLowerCase().startsWith('failed to load chunk')
     ) {
-      event.level = 'warning';
+      return null;
     }
 
     return event;
