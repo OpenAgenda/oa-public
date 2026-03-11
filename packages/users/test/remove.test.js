@@ -20,4 +20,13 @@ describe('remove', () => {
     expect(removedUser.store.email).toBe('vincentac@gmail.com');
     expect(removedUser.isRemoved).toBe(true);
   });
+
+  it('remove an inexistent user', async () => {
+    const result = await getService().remove(86861664, {
+      removed: null,
+      detailed: true,
+    });
+
+    expect(result).toBeNull();
+  });
 });

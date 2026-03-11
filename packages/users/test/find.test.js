@@ -86,4 +86,15 @@ describe('find', () => {
 
     expect(total).toBe(27);
   });
+
+  it('find inexistent uid', async () => {
+    const { total, data: users } = await getService().find({
+      query: {
+        uid: 86861664,
+      },
+    });
+
+    expect(total).toBe(0);
+    expect(users).toEqual([]);
+  });
 });

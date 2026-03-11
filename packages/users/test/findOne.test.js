@@ -26,4 +26,14 @@ describe('findOne', () => {
     });
     expect(user.apiKey).toBe(key);
   });
+
+  it('findOne inexistent email', async () => {
+    const user = await getService().findOne({
+      query: {
+        email: 'inexistent@example.com',
+      },
+    });
+
+    expect(user).toBeUndefined();
+  });
 });

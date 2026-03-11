@@ -11,4 +11,10 @@ describe('activate', () => {
     );
     expect(user.isActivated).toBe(true);
   });
+
+  it('activate an inexistent user', async () => {
+    await expect(
+      getService().activate(86861664, {}, { ignoreToken: true }),
+    ).rejects.toThrow('not found');
+  });
 });
