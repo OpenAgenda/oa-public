@@ -38,6 +38,10 @@ export function init(config) {
 
   knex.on('query', (query) => {
     queryStartTimes.set(query.__knexQueryUid, Date.now());
+    const { numUsed, numFree, numPendingAcquires } = knex.client?.pool ?? {};
+    if (numPendingAcquires > 0) {
+      log.warn('pool pressure', { numUsed, numFree, numPendingAcquires });
+    }
   });
 
   knex.on('query-response', (_, query) => {
