@@ -34,6 +34,7 @@ export default function searchAgendaEvents(core, options = {}) {
       })
       .then(
         (result) => {
+          req.times = result.times;
           if (!sendResponse) {
             req.result = result;
             return next();

@@ -227,15 +227,15 @@ export default (core, { useRouter = true } = {}) => {
         access: req.access,
         defaultLang: req.headers.lang,
         callOrigin: 'api',
+        returnPayload: true,
       })
-      .then(
-        (event) =>
-          res.json({
-            success: true,
-            event,
-          }),
-        next,
-      ));
+      .then(({ event, times }) => {
+        req.times = times;
+        res.json({
+          success: true,
+          event,
+        });
+      }, next));
 
   app.post('/agendas/:agendaUid/events/search', [
     track.mw('api', 'list', 'events'),
@@ -264,8 +264,12 @@ export default (core, { useRouter = true } = {}) => {
           member: req.member,
         },
         private: null,
+        returnPayload: true,
       })
-      .then((event) => res.json({ success: true, event }), next));
+      .then(({ removed, times }) => {
+        req.times = times;
+        res.json({ success: true, event: removed });
+      }, next));
 
   app.get('/agendas/:agendaUid/events/:eventUid/references', (req, res, next) =>
     core

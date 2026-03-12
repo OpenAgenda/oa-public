@@ -126,9 +126,15 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
 
   stopwatch('eventSearch');
 
-  return returnAgenda
-    ? { agenda, result, times: stopwatch.getTimes() }
-    : result;
+  const times = stopwatch.getTimes();
+
+  if (returnAgenda) {
+    return { agenda, result, times };
+  }
+
+  result.times = times;
+
+  return result;
 }
 
 export async function get(core, agendaUid, identifier, options = {}) {
