@@ -42,13 +42,9 @@ function getEditableRules(ability, entity) {
 function batchUpdate({ table, column }, collection) {
   return config.knex.transaction((trx) => {
     const queries = collection.map((item) =>
-      config
-        .knex(table)
-        .where(column, item[column])
-        .update(item)
-        .transacting(trx));
+      trx(table).where(column, item[column]).update(item));
 
-    return Promise.all(queries).then(trx.commit).catch(trx.rollback);
+    return Promise.all(queries);
   });
 }
 
