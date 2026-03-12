@@ -9,7 +9,15 @@ export function init(config) {
   const knex = knexLib({
     client: 'mysql2',
     connection: { ...config.db },
-    pool: { min: 0, max: 20 },
+    pool: {
+      min: 2,
+      max: 20,
+      idleTimeoutMillis: 5 * 60 * 1000,
+      acquireTimeoutMillis: 30_000,
+      afterCreate(conn, done) {
+        conn.query('SELECT 1', (err) => done(err, conn));
+      },
+    },
     schemas: config.schemas,
   });
 
