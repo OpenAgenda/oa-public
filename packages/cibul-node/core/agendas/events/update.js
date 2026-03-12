@@ -328,6 +328,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         valid: true,
       }), // full access for internal use
     };
+    stopwatch('getCompiledEvent');
 
     try {
       await eventSearch.update({
