@@ -3,7 +3,7 @@ import { NotFound } from '@openagenda/verror';
 import createPayload from '../utils/createPayload.js';
 import getAgenda from '../utils/getAgenda.js';
 import eventLoadOptions from '../utils/eventLoadOptions.js';
-import Stopwatch from '../utils/Stopwatch.js';
+import Stopwatch from '../../../lib/Stopwatch.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 
 const log = logs('core/agendas/events/get');

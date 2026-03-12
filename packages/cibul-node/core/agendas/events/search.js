@@ -1,7 +1,7 @@
 import logs from '@openagenda/logs';
 import { NotFound, Forbidden } from '@openagenda/verror';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
-import Stopwatch from '../utils/Stopwatch.js';
+import Stopwatch from '../../../lib/Stopwatch.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 import convertToDateHoursMinutesTimings from './lib/convertToDateHoursMinutesFormat.js';
 import loadSearchAccess from './lib/loadSearchAccess.js';

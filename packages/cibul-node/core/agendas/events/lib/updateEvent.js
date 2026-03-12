@@ -2,7 +2,7 @@ import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import processOEmbed from '../../utils/processOEmbed.js';
 import formatEventErrors from '../../utils/formatEventErrors.js';
-import Stopwatch from '../../utils/Stopwatch.js';
+import Stopwatch from '../../../../lib/Stopwatch.js';
 
 const log = logs('core/agendas/events/lib/updateEvent');
 

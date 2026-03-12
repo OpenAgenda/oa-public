@@ -6,7 +6,7 @@ import createPayload from '../utils/createPayload.js';
 import refreshAgenda from '../utils/refreshAgenda.js';
 import cleanEvent from '../utils/cleanEvent/index.js';
 import getAgenda from '../utils/getAgenda.js';
-import Stopwatch from '../utils/Stopwatch.js';
+import Stopwatch from '../../../lib/Stopwatch.js';
 import formatError from '../utils/formatError.js';
 import loadAuthorizations, {
   filterUnauthorized,
@@ -337,7 +337,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     stopwatch('getCompiledEvent');
 
     try {
-      await eventSearch.update({
+      const { times: eventSearchUpdateTimes } = await eventSearch.update({
         ...response,
         formSchema,
         event: fullEvent.after.location
@@ -345,7 +345,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
           : fullEvent.after,
       });
       log('updated search for event %s', eventUid);
-      stopwatch('eventSearchUpdate');
+      stopwatch('eventSearchUpdate', eventSearchUpdateTimes);
     } catch (e) {
       log(
         'error',

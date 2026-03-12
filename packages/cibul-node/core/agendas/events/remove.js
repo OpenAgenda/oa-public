@@ -5,7 +5,7 @@ import getAgenda from '../utils/getAgenda.js';
 import loadAuthorizations from '../../utils/authorizations.js';
 import * as merge from '../utils/merge.js';
 import refreshAgenda from '../utils/refreshAgenda.js';
-import Stopwatch from '../utils/Stopwatch.js';
+import Stopwatch from '../../../lib/Stopwatch.js';
 import extractActingFromContext from './lib/extractActingFromContext.js';
 import createRemoveActivity from './lib/createRemoveActivity.js';
 

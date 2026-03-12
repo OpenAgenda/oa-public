@@ -14,7 +14,7 @@ import cleanEvent from '../utils/cleanEvent/index.js';
 import getAgenda from '../utils/getAgenda.js';
 import assignState from '../utils/assignState.js';
 import formatEventErrors from '../utils/formatEventErrors.js';
-import Stopwatch from '../utils/Stopwatch.js';
+import Stopwatch from '../../../lib/Stopwatch.js';
 
 const log = logs('core/agendas/events/create');
 
