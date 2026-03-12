@@ -8,6 +8,7 @@ export default function apiErrorHandler(err, req, res, _next) {
   if (['ValidationError'].includes(err.name)) {
     return res.status(err.statusCode).json({
       errors: err.info.errors,
+      times: req.times,
     });
   }
 
@@ -16,6 +17,7 @@ export default function apiErrorHandler(err, req, res, _next) {
       message: err.message,
       errors: err.info.errors,
       info: _.omit(err.info, ['errors']),
+      times: req.times,
     });
   }
 
@@ -23,6 +25,7 @@ export default function apiErrorHandler(err, req, res, _next) {
     return res.status(err.statusCode || err.code).json({
       message: err.message,
       info: err.info,
+      times: req.times,
     });
   }
 

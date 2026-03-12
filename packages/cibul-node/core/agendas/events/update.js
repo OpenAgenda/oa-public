@@ -82,7 +82,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       private: privateOption,
     };
 
-    const { standardEvent: event, event: eventWithAdditionalValues } = await core
+    const {
+      standardEvent: event,
+      event: eventWithAdditionalValues,
+      times: getEventTimes,
+    } = await core
       .agendas(agendaUid)
       .events.get(eventUid, {
         ...internalGetOptions,
@@ -106,7 +110,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         throw error;
       });
 
-    stopwatch('getEvent');
+    stopwatch('getEvent', getEventTimes);
 
     const wasDraft = event.draft;
     const isDraft = wasDraft ? data?.draft : false;
@@ -203,7 +207,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     const payload = createPayload(core, agenda);
 
     if (containsEventData(data) || updatedRegistration) {
-      await updateEvent(core.services, {
+      const { times: updateEventTimes } = await updateEvent(core.services, {
         clean,
         payload,
         draft: isDraft,
@@ -216,7 +220,7 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         userLang,
         mergeExtIds,
       });
-      stopwatch('updateEvent');
+      stopwatch('updateEvent', updateEventTimes);
     } else {
       payload.setItem('event', event, event);
     }
@@ -262,6 +266,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     const formSchema = await payload.getFormSchema({ access: 'internal' });
+
+    stopwatch('formSchema');
 
     // if event is not draft or was just undrafted, agendaEvent ref must be set
     if (clean.agendaEvent) {
@@ -438,6 +444,8 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
   }
 
   response.times = stopwatch.getTimes();
+
+  log('times', response.times);
 
   return returnPayload ? response : response.event;
 }

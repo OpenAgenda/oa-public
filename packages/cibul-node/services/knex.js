@@ -37,7 +37,7 @@ export function init(config) {
     queryStartTimes.delete(query.__knexQueryUid);
     if (startTime !== undefined) {
       const duration = Date.now() - startTime;
-      if (duration > 2000) {
+      if (duration > 1000) {
         log.warn('slow query (ms)', {
           sql: query.sql,
           bindings: query.bindings,
