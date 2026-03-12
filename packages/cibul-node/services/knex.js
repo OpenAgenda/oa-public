@@ -36,27 +36,41 @@ export function init(config) {
   }, QUERY_TTL);
   sweepInterval.unref();
 
+  const POOL_LOG_INTERVAL = 10_000;
+  let lastPoolLog = 0;
+
   knex.on('query', (query) => {
     queryStartTimes.set(query.__knexQueryUid, Date.now());
-    const { numUsed, numFree, numPendingAcquires } = knex.client?.pool ?? {};
-    if (numPendingAcquires > 0) {
-      log.warn('pool pressure', { numUsed, numFree, numPendingAcquires });
+    const numPendingAcquires = knex.client.pool?.numPendingAcquires();
+    const now = Date.now();
+    if (!numPendingAcquires && now - lastPoolLog <= POOL_LOG_INTERVAL) {
+      return;
     }
+    lastPoolLog = now;
+    const numUsed = knex.client.pool?.numUsed();
+    const numFree = knex.client.pool?.numFree();
+    log.info(numPendingAcquires > 0 ? 'pool pressure' : 'pool state', {
+      numUsed,
+      numFree,
+      numPendingAcquires,
+    });
   });
 
   knex.on('query-response', (_, query) => {
     const startTime = queryStartTimes.get(query.__knexQueryUid);
     queryStartTimes.delete(query.__knexQueryUid);
-    if (startTime !== undefined) {
-      const duration = Date.now() - startTime;
-      if (duration > 1000) {
-        log.warn('slow query (ms)', {
-          sql: query.sql,
-          bindings: query.bindings,
-          duration,
-        });
-      }
+    if (startTime === undefined) {
+      return;
     }
+    const duration = Date.now() - startTime;
+    if (duration <= 1000) {
+      return;
+    }
+    log.warn('slow query (ms)', {
+      sql: query.sql,
+      bindings: query.bindings,
+      duration,
+    });
   });
 
   knex.on('query-error', (error, query) => {
