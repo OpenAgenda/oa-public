@@ -47,12 +47,11 @@ export function init(config) {
       return;
     }
     lastPoolLog = now;
-    const numUsed = knex.client.pool?.numUsed();
-    const numFree = knex.client.pool?.numFree();
     log.info(numPendingAcquires > 0 ? 'pool pressure' : 'pool state', {
-      numUsed,
-      numFree,
+      numUsed: knex.client.pool?.numUsed(),
+      numFree: knex.client.pool?.numFree(),
       numPendingAcquires,
+      numPendingCreates: knex.client.pool?.numPendingCreates(),
     });
   });
 
