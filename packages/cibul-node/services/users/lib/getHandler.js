@@ -1,5 +1,5 @@
 import { HookContext } from '@feathersjs/hooks';
-import errors from '@feathersjs/errors';
+import { MethodNotAllowed } from '@openagenda/verror';
 import commons from '@feathersjs/commons';
 import logs from '@openagenda/logs';
 
@@ -79,7 +79,7 @@ export default function getHandler(method, argsOrder) {
         res.status(statusCodes.methodNotAllowed);
 
         return next(
-          new errors.MethodNotAllowed(
+          new MethodNotAllowed(
             `Method \`${method}\` is not supported by this endpoint.`,
           ),
         );
