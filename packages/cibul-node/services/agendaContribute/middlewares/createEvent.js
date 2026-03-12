@@ -20,9 +20,13 @@ export default function createEvent(req, res) {
       fileKey: crypto.randomUUID().replace(/-/g, ''),
       duplicateOrigin: req.query.duplicateOrigin,
       userLang: req.lang,
+      returnPayload: true,
     })
     .then(
-      (event) => res.json({ success: true, event }),
+      ({ event, times }) => {
+        req.times = times;
+        res.json({ success: true, event });
+      },
       (error) => handleError({ res, log }, error),
     );
 }
