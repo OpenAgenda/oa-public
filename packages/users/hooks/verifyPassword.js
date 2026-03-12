@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import errors from '@feathersjs/errors';
+import { BadRequest } from '@openagenda/verror';
 
 export default function verifyPassword(field = 'password') {
   return async (context) => {
@@ -11,14 +11,19 @@ export default function verifyPassword(field = 'password') {
     );
 
     if (!validPassword) {
-      throw new errors.BadRequest('Bad password', {
-        errors: [
-          {
-            field,
-            code: 'password.badpassword',
+      throw new BadRequest(
+        {
+          info: {
+            errors: [
+              {
+                field,
+                code: 'password.badpassword',
+              },
+            ],
           },
-        ],
-      });
+        },
+        'Bad password',
+      );
     }
   };
 }

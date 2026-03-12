@@ -13,12 +13,14 @@ describe('patch', () => {
     await expect(
       getService().patch(kaoreUid, { culture: 'francaisDeFrânce' }),
     ).rejects.toMatchObject({
-      errors: [
-        {
-          field: 'culture',
-          code: 'string.toolong',
-        },
-      ],
+      info: {
+        errors: [
+          {
+            field: 'culture',
+            code: 'string.toolong',
+          },
+        ],
+      },
     });
   });
 

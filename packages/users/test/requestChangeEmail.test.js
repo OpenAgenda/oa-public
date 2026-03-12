@@ -28,12 +28,14 @@ describe('requestChangeEmail', () => {
         newEmail: 'romain.langegmail.com',
       }),
     ).rejects.toMatchObject({
-      errors: [
-        {
-          field: 'newEmail',
-          code: 'email.invalid',
-        },
-      ],
+      info: {
+        errors: [
+          {
+            field: 'newEmail',
+            code: 'email.invalid',
+          },
+        ],
+      },
     });
   });
 
@@ -43,12 +45,14 @@ describe('requestChangeEmail', () => {
         newEmail: 'romain.lange@gmail.com;',
       }),
     ).rejects.toMatchObject({
-      errors: [
-        {
-          field: 'newEmail',
-          code: 'email.invalid',
-        },
-      ],
+      info: {
+        errors: [
+          {
+            field: 'newEmail',
+            code: 'email.invalid',
+          },
+        ],
+      },
     });
   });
 });

@@ -25,12 +25,14 @@ describe('changePassword', () => {
         password: null,
       }),
     ).rejects.toMatchObject({
-      errors: [
-        {
-          field: 'password',
-          code: 'required',
-        },
-      ],
+      info: {
+        errors: [
+          {
+            field: 'password',
+            code: 'required',
+          },
+        ],
+      },
     });
   });
 

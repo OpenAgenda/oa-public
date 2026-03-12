@@ -2,7 +2,7 @@ import _ from 'lodash';
 import feathersKnex from 'feathers-knex';
 import hooksCommon from 'feathers-hooks-common';
 import { hooks, withParams } from '@feathersjs/hooks';
-import errors from '@feathersjs/errors';
+import { BadRequest, NotFound } from '@openagenda/verror';
 import schema from '@openagenda/validators/schema/index.js';
 import validators from '@openagenda/validators';
 import * as crypto from '../utils/crypto.js';
@@ -217,13 +217,13 @@ class Users extends Service {
 
   async verifyPassword(data, params = {}) {
     if (!params.query) {
-      throw new errors.BadRequest('Query is needed for `verifyPassword`');
+      throw new BadRequest('Query is needed for `verifyPassword`');
     }
 
     const user = await this.findOne({ query: params.query, internal: true });
 
     if (!user) {
-      throw new errors.NotFound('User not found for `verifyPassword`');
+      throw new NotFound('User not found for `verifyPassword`');
     }
 
     const password = typeof data === 'string' ? data : data.password;
@@ -257,7 +257,7 @@ class Users extends Service {
       user = await this.get(uid);
 
       if (!user) {
-        throw new errors.NotFound('User not found for `activate`');
+        throw new NotFound('User not found for `activate`');
       }
     }
 
@@ -271,7 +271,7 @@ class Users extends Service {
       : null;
 
     if (!token && !ignoreToken) {
-      throw new errors.NotFound('Token not found for `activate`');
+      throw new NotFound('Token not found for `activate`');
     }
 
     if (!user) {
@@ -280,7 +280,7 @@ class Users extends Service {
       });
 
       if (!user) {
-        throw new errors.NotFound('User not found for `activate`');
+        throw new NotFound('User not found for `activate`');
       }
     }
 
