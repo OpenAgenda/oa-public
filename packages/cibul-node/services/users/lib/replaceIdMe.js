@@ -1,4 +1,4 @@
-import errors from '@feathersjs/errors';
+import { NotAuthenticated } from '@openagenda/verror';
 
 export default function replaceIdMe() {
   return async (context, next) => {
@@ -7,7 +7,7 @@ export default function replaceIdMe() {
     }
 
     if (!context.params.user || !context.params.user.uid) {
-      throw new errors.NotAuthenticated('You should be logged');
+      throw new NotAuthenticated('You should be logged');
     }
 
     context.id = context.params.user.uid;

@@ -55,7 +55,12 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
     describe('basic cases', () => {
       it('response object contains total, events and sort keys', async () => {
         const response = await core.agendas(2).events.search({});
-        expect(Object.keys(response)).toEqual(['total', 'events', 'sort']);
+        expect(Object.keys(response)).toEqual([
+          'total',
+          'events',
+          'sort',
+          'times',
+        ]);
       });
 
       it('event item contains description field by default', async () => {

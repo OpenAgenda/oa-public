@@ -2,6 +2,7 @@ import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import processOEmbed from '../../utils/processOEmbed.js';
 import formatEventErrors from '../../utils/formatEventErrors.js';
+import Stopwatch from '../../../../lib/Stopwatch.js';
 
 const log = logs('core/agendas/events/lib/updateEvent');
 
@@ -22,6 +23,7 @@ export default async function updateEvent(
   },
 ) {
   const { oembed, events } = services;
+  const stopwatch = Stopwatch();
 
   if (clean.event.longDescription) {
     try {
@@ -36,6 +38,7 @@ export default async function updateEvent(
     } catch (e) {
       log('error', 'could not retrieve oembeds', e);
     }
+    stopwatch('oembed');
   }
 
   try {
@@ -55,6 +58,8 @@ export default async function updateEvent(
         mergeExtIds,
       }),
     );
+
+    stopwatch('save');
 
     log('updated event %s', event.uid);
   } catch (e) {
@@ -80,4 +85,6 @@ export default async function updateEvent(
     }
     throw error;
   }
+
+  return { times: stopwatch.getTimes() };
 }

@@ -5,12 +5,15 @@ import getAgenda from '../utils/getAgenda.js';
 import loadAuthorizations from '../../utils/authorizations.js';
 import * as merge from '../utils/merge.js';
 import refreshAgenda from '../utils/refreshAgenda.js';
+import Stopwatch from '../../../lib/Stopwatch.js';
 import extractActingFromContext from './lib/extractActingFromContext.js';
 import createRemoveActivity from './lib/createRemoveActivity.js';
 
 const log = logs('core/agendas/events/remove');
 
 export default async (core, agendaUid, eventUid, options = {}) => {
+  const stopwatch = Stopwatch();
+
   log('removing event %s from agenda %s', eventUid, agendaUid);
 
   const { agendaEvents, aggregators, custom, events, eventSearch } = core.services;
@@ -19,6 +22,8 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   log('  loaded agenda %s', agenda.slug);
 
   const { user: actingUser, member: actingMember } = await extractActingFromContext(core.services, agendaUid, options.context);
+
+  stopwatch('agenda');
 
   const {
     access,
@@ -50,6 +55,8 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     private: null,
     access: 'internal',
   });
+
+  stopwatch('getEvent');
 
   if (!event) {
     log('error', '  event not found');
@@ -85,6 +92,8 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       access,
     },
   );
+
+  stopwatch('loadAuthorizations');
 
   if (isDelete && !canDeleteEvent) {
     throw new Forbidden(
@@ -123,6 +132,8 @@ export default async (core, agendaUid, eventUid, options = {}) => {
       },
     });
 
+    stopwatch('agendaEventsRemove');
+
     if (result.success) {
       log('  removed from agenda events');
       payload.setItem('agendaEvent', result.removed);
@@ -143,6 +154,8 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     }
   }
 
+  stopwatch('customRemove');
+
   const remaining = await agendaEvents.list.byEventUid(eventUid);
 
   log('  there are %s remaining agenda references', remaining.total);
@@ -162,6 +175,8 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     });
     log('  removed from event service');
   }
+
+  stopwatch('eventsRemove');
 
   if (!event.draft && aggregators) {
     try {
@@ -209,9 +224,13 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     );
   }
 
+  stopwatch('eventSearchRemove');
+
   await refreshAgenda(core.services, agenda.uid);
 
   const result = await payload.getResponse('removed', access);
+
+  result.times = stopwatch.getTimes();
 
   return returnPayload
     ? {

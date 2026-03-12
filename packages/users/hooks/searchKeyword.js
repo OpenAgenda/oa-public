@@ -1,4 +1,4 @@
-import errors from '@feathersjs/errors';
+import { BadRequest } from '@openagenda/verror';
 
 export default function searchKeyword() {
   return (context) => {
@@ -6,7 +6,7 @@ export default function searchKeyword() {
       const search = context.params.query.$search;
 
       if (typeof search !== 'string') {
-        throw new errors.BadRequest('$search query keyword should be a string');
+        throw new BadRequest('$search query keyword should be a string');
       }
 
       delete context.params.query.$search;

@@ -1,5 +1,5 @@
 import schema from '@openagenda/validators/schema/index.js';
-import errors from '@feathersjs/errors';
+import { BadRequest } from '@openagenda/verror';
 import hooksCommon from 'feathers-hooks-common';
 
 const { validate: validateHook } = hooksCommon;
@@ -11,7 +11,7 @@ export default function validate(_schema) {
     try {
       context.data = _validate(values);
     } catch (errs) {
-      throw new errors.BadRequest({ errors: errs });
+      throw new BadRequest({ info: { errors: errs } });
     }
   });
 }

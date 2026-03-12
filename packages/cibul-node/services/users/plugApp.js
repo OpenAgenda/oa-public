@@ -105,20 +105,26 @@ export default function plugApp(app) {
   app.delete('/users/:__feathersId', setFlashAccountRemoved());
 
   app.use('/users', (error, req, res, _next) => {
-    error.code = !Number.isNaN(parseInt(error.code, 10))
-      ? parseInt(error.code, 10)
-      : 500;
+    const statusCode = error.statusCode
+      || (!Number.isNaN(parseInt(error.code, 10))
+        ? parseInt(error.code, 10)
+        : 500);
 
-    res.status(error.code);
+    res.status(statusCode);
 
     const contentType = req.headers['content-type'] || '';
     const accepts = req.headers.accept || '';
 
     const jsonFormatter = () => {
-      const output = { ...error.toJSON() };
+      const output = {
+        name: error.name,
+        message: error.message,
+        code: statusCode,
+        ...error.info?.errors ? { errors: error.info.errors } : {},
+      };
 
-      if (process.env.NODE_ENV === 'production') {
-        delete output.stack;
+      if (process.env.NODE_ENV !== 'production') {
+        output.stack = error.stack;
       }
 
       res.set('Content-Type', 'application/json');

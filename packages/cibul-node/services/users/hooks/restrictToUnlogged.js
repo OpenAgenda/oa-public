@@ -1,9 +1,9 @@
-import errors from '@feathersjs/errors';
+import { Forbidden } from '@openagenda/verror';
 
 export default function restrictToUnlogged() {
   return (context) => {
     if (context.params.user) {
-      throw new errors.Forbidden('You must not be logged in.');
+      throw new Forbidden('You must not be logged in.');
     }
   };
 }

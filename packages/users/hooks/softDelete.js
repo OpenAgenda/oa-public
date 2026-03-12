@@ -1,4 +1,4 @@
-import errors from '@feathersjs/errors';
+import { NotFound } from '@openagenda/verror';
 import hooksCommon from 'feathers-hooks-common';
 import setInStore from './setInStore.js';
 
@@ -38,7 +38,7 @@ export default function softDelete(field, additionalParams = {}) {
           delete params.query.$disableSoftDelete;
 
           if (!data || data[deleteField]) {
-            throw new errors.NotFound('No record found');
+            throw new NotFound('No record found');
           }
 
           return data;

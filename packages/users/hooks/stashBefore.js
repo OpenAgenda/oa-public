@@ -1,4 +1,4 @@
-import errors from '@feathersjs/errors';
+import { BadRequest } from '@openagenda/verror';
 import hooksCommon from 'feathers-hooks-common';
 
 const { checkContext } = hooksCommon;
@@ -23,7 +23,7 @@ export default function stashBefore(prop, additionalParams = {}) {
       (context.id === null || context.id === undefined)
       && !context.params.query
     ) {
-      throw new errors.BadRequest('Id is required. (stashBefore)');
+      throw new BadRequest('Id is required. (stashBefore)');
     }
 
     const params = {

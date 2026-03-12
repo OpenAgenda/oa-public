@@ -1,5 +1,5 @@
 import logs from '@openagenda/logs';
-import errors from '@feathersjs/errors';
+import { BadRequest } from '@openagenda/verror';
 
 const log = logs('users/hooks/profileImage');
 
@@ -25,14 +25,16 @@ export default function profileImage() {
 
         context.data.image = before.image;
 
-        throw new errors.BadRequest({
-          errors: [
-            {
-              field: 'image',
-              code: 'image.invalid',
-              message: 'invalid image',
-            },
-          ],
+        throw new BadRequest({
+          info: {
+            errors: [
+              {
+                field: 'image',
+                code: 'image.invalid',
+                message: 'invalid image',
+              },
+            ],
+          },
         });
       }
     } else if (image === null && before.image) {
@@ -43,14 +45,16 @@ export default function profileImage() {
       } catch (e) {
         log.error('error deleting the profile image:', e);
 
-        throw new errors.BadRequest({
-          errors: [
-            {
-              field: 'image',
-              code: 'image.remove',
-              message: 'invalid image',
-            },
-          ],
+        throw new BadRequest({
+          info: {
+            errors: [
+              {
+                field: 'image',
+                code: 'image.remove',
+                message: 'invalid image',
+              },
+            ],
+          },
         });
       }
     } else {

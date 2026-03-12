@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import errors from '@feathersjs/errors';
+import { BadRequest } from '@openagenda/verror';
 
 export default function compareFields(
   field1,
@@ -8,14 +8,19 @@ export default function compareFields(
 ) {
   return (context) => {
     if (_.get(context.data, field1) !== _.get(context.data, field2)) {
-      throw new errors.BadRequest('Bad password', {
-        errors: [
-          {
-            field: field2,
-            code: errorCode,
+      throw new BadRequest(
+        {
+          info: {
+            errors: [
+              {
+                field: field2,
+                code: errorCode,
+              },
+            ],
           },
-        ],
-      });
+        },
+        'Bad password',
+      );
     }
   };
 }

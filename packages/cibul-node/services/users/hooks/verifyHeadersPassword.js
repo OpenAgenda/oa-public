@@ -1,4 +1,4 @@
-import errors from '@feathersjs/errors';
+import { Forbidden } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 
 const log = logs('services/users/hooks/verifyHeadersPassword');
@@ -12,7 +12,7 @@ export default function verifyHeadersPassword() {
         { query: { email: context.params.user.email } },
       )
     ) {
-      throw new errors.Forbidden('Password is invalid.');
+      throw new Forbidden('Password is invalid.');
     }
   };
 }

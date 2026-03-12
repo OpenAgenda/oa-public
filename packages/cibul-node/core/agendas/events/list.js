@@ -5,7 +5,7 @@ import * as merge from '../utils/merge.js';
 import eventLoadOptions from '../utils/eventLoadOptions.js';
 import cleanEvent from '../utils/cleanEvent/index.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
-import Stopwatch from '../utils/Stopwatch.js';
+import Stopwatch from '../../../lib/Stopwatch.js';
 
 const log = logs('core/agendas/events/list');
 
