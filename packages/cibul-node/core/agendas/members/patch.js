@@ -20,10 +20,13 @@ export default async (core, agendaOrUid, identifiers, data, options = {}) => {
 
   const patchData = {};
 
-  const member = await members.get({
-    agendaUid,
-    ...identifiers,
-  });
+  const member = await members.get(
+    {
+      agendaUid,
+      ...identifiers,
+    },
+    { throwOnNotFound: true },
+  );
 
   if (
     data.role !== undefined

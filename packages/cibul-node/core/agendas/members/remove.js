@@ -13,10 +13,13 @@ export default async (core, agendaOrUid, identifiers, options = {}) => {
 
   const agendaUid = agendaOrUid?.constructor.name === 'Object' ? agendaOrUid.uid : agendaOrUid;
 
-  const member = await members.get({
-    agendaUid,
-    ...identifiers,
-  });
+  const member = await members.get(
+    {
+      agendaUid,
+      ...identifiers,
+    },
+    { throwOnNotFound: true },
+  );
 
   const actingMember = await members.get({
     agendaUid,
