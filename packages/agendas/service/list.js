@@ -108,11 +108,9 @@ function _search(k, query, options, internals) {
   return k;
 }
 
-async function _total(k, internals) {
-  const { knex } = internals;
-  return knex
-    .transaction((trx) => k.clone().count('id as total').transacting(trx))
-    .then((r) => _.get(r, '0.total'));
+async function _total(k) {
+  const rows = await k.clone().count('id as total');
+  return _.get(rows, '0.total');
 }
 
 function _listFields(options) {
@@ -180,7 +178,7 @@ async function list(internals, ...args) {
 
   const k = _search(knex(schemas.agenda), cleanQuery, cleanOptions, internals);
 
-  const total = cleanOptions.total ? await _total(k, internals) : null;
+  const total = cleanOptions.total ? await _total(k) : null;
 
   if (cleanQuery.order) {
     k.orderBy(...cleanQuery.order.split('.').map(_.snakeCase)).orderBy(

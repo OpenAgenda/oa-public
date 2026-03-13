@@ -22,9 +22,13 @@ export default function updateEvent(req, res) {
       draft: req.draft,
       userUid: req.user.uid,
       private: null,
+      returnPayload: true,
     })
     .then(
-      (event) => res.json({ success: true, event }),
+      ({ event, times }) => {
+        req.times = times;
+        res.json({ success: true, event });
+      },
       (error) => handleError({ res, log }, error),
     );
 }

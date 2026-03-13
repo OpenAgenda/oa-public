@@ -66,6 +66,7 @@ function plugApp(services, app, base = '/admin') {
         .agendas(req.agenda.uid)
         .update(req.body, {
           access: 'internal',
+          internal: true,
           protected: false,
           private: null,
           context: { user: req.user },

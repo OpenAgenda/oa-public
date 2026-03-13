@@ -23,8 +23,20 @@ const reverseURL = (latitude, longitude, { key, pretty, language }) =>
 /**
  * DOMTOM, HONG KONG... country codes are not known by OpenCage
  */
+const MAX_QUERY_LENGTH = 200;
+
+function isInvalidQuery(query) {
+  if (query.length > MAX_QUERY_LENGTH) return true;
+  if (/^https?:\/\//i.test(query)) return true;
+  return false;
+}
+
 function cleanGeocodeQuery(query, countryCode) {
   const cleanQuery = (query || '').trim();
+
+  if (isInvalidQuery(cleanQuery)) {
+    return { countryCode, query: '' };
+  }
 
   for (const transform of [
     {

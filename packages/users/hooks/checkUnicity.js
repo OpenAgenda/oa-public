@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import errors from '@feathersjs/errors';
+import { BadRequest } from '@openagenda/verror';
 
 export default function checkUnicity(field, dataKey = `data.${field}`) {
   return async (context) => {
@@ -15,7 +15,7 @@ export default function checkUnicity(field, dataKey = `data.${field}`) {
     });
 
     if (result.total !== 0) {
-      throw new errors.BadRequest('Already exist');
+      throw new BadRequest('Already exist');
     }
   };
 }

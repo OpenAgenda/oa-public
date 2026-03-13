@@ -14,6 +14,7 @@ import cleanEvent from '../utils/cleanEvent/index.js';
 import getAgenda from '../utils/getAgenda.js';
 import assignState from '../utils/assignState.js';
 import formatEventErrors from '../utils/formatEventErrors.js';
+import Stopwatch from '../../../lib/Stopwatch.js';
 
 const log = logs('core/agendas/events/create');
 
@@ -31,6 +32,8 @@ export default async (core, agendaUid, data, options = {}) => {
     callOrigin = 'ui',
     userLang = 'en',
   } = options;
+
+  const stopwatch = Stopwatch();
 
   const isDraft = data.draft || false;
   const userUid = extractUserUid(data, options);
@@ -52,6 +55,8 @@ export default async (core, agendaUid, data, options = {}) => {
     });
     log('  loaded agenda %s', agenda.slug);
 
+    stopwatch('agenda');
+
     const clean = await cleanEvent(services, agenda, data, {
       validateAsDraft: isDraft,
       defaultLang,
@@ -60,6 +65,8 @@ export default async (core, agendaUid, data, options = {}) => {
     });
 
     log('  cleaned data');
+
+    stopwatch('cleanEvent');
 
     const authorizations = await loadAuthorizations(core, 'create', {
       agenda,
@@ -75,6 +82,8 @@ export default async (core, agendaUid, data, options = {}) => {
       authorizations,
     });
     log('  associated state');
+
+    stopwatch('loadAuthorizations');
 
     if (!isDraft && clean.passCulture) {
       log('  There is a pass culture payload');
@@ -129,6 +138,8 @@ export default async (core, agendaUid, data, options = {}) => {
       }
     }
 
+    stopwatch('passCulture');
+
     const payload = createPayload(core, agenda);
 
     try {
@@ -143,6 +154,8 @@ export default async (core, agendaUid, data, options = {}) => {
     } catch (e) {
       log('error', '  could not retrieve oembeds', e);
     }
+
+    stopwatch('processOEmbed');
 
     log('  pre-validation done', { agendaUid });
 
@@ -165,6 +178,8 @@ export default async (core, agendaUid, data, options = {}) => {
       });
 
       payload.setItem('event', event);
+
+      stopwatch('createEvent');
 
       log('created event', event.uid);
     } catch (e) {
@@ -208,6 +223,8 @@ export default async (core, agendaUid, data, options = {}) => {
         duplicateOrigin,
       },
     );
+    stopwatch('doAdd');
+
     log.info('create successful', {
       agendaUid,
       eventUid: response.event.uid,
@@ -240,6 +257,8 @@ export default async (core, agendaUid, data, options = {}) => {
       eventUid: response.event.uid,
     });
   }
+
+  response.times = stopwatch.getTimes();
 
   return returnPayload ? response : response.event;
 };

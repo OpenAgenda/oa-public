@@ -303,6 +303,7 @@ class Dashboard extends Component {
       patch,
       invite,
       remove,
+      list,
       sendMessage,
       credFilters,
       showInviteResult,
@@ -655,7 +656,11 @@ class Dashboard extends Component {
                     className="btn btn-danger"
                     onClick={() =>
                       remove(agenda, removeModal.member.id)
-                        .then(() => closeModal('removeMember'))
+                        .then(async () => {
+                          closeModal('removeMember');
+                          await list(agenda, query);
+                          await getStats(agenda);
+                        })
                         .catch(() => setModal('removeMember', { error: true }))}
                   >
                     {getLabel('removeMember')}

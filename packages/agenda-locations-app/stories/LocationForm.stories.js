@@ -78,6 +78,20 @@ export const FormWithSIRETInput = () => (
   />
 );
 
+export const FormWithMultilingualTagInfo = () => (
+  <LocationForm
+    location={location}
+    settings={produce(agendaSettings, (draft) => {
+      draft.tagSet.groups[1].info = {
+        fr: 'Sélectionnez une spécificité',
+        en: 'Select a specificity',
+      };
+    })}
+    mode="update"
+    res={res}
+  />
+);
+
 export const FormWithAllCapsWarning = () => (
   <LocationForm
     location={produce(location, (draft) => {

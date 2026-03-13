@@ -1,7 +1,7 @@
 import logs from '@openagenda/logs';
 import { NotFound, Forbidden } from '@openagenda/verror';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
-import Stopwatch from '../utils/Stopwatch.js';
+import Stopwatch from '../../../lib/Stopwatch.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 import convertToDateHoursMinutesTimings from './lib/convertToDateHoursMinutesFormat.js';
 import loadSearchAccess from './lib/loadSearchAccess.js';
@@ -126,9 +126,15 @@ async function doSearch(core, agendaUid, query, nav, options = {}) {
 
   stopwatch('eventSearch');
 
-  return returnAgenda
-    ? { agenda, result, times: stopwatch.getTimes() }
-    : result;
+  const times = stopwatch.getTimes();
+
+  if (returnAgenda) {
+    return { agenda, result, times };
+  }
+
+  result.times = times;
+
+  return result;
 }
 
 export async function get(core, agendaUid, identifier, options = {}) {

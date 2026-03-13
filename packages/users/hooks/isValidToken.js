@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import errors from '@feathersjs/errors';
+import { BadRequest } from '@openagenda/verror';
 
 export default function isValidToken(localKey, foreignKey) {
   return (context) => {
@@ -7,7 +7,7 @@ export default function isValidToken(localKey, foreignKey) {
     const foreignValue = _.get(context, foreignKey);
 
     if (typeof foreignValue === 'undefined' || localValue !== foreignValue) {
-      throw new errors.BadRequest('Bad token');
+      throw new BadRequest('Bad token');
     }
   };
 }
