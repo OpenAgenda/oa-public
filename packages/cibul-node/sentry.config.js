@@ -80,8 +80,19 @@ function extractPath(url, hostHeader) {
 const sentryClient = Sentry.init({
   dsn: SENTRY_DSN,
   environment: ENV === 'production' ? 'production' : 'development',
-  beforeSend(event, _hint) {
-    return ENV === 'production' ? event : null;
+  beforeSend(event, hint) {
+    if (ENV !== 'production') return null;
+
+    const error = hint?.originalException;
+    if (
+      error?.statusCode
+      && Number.isInteger(error.statusCode)
+      && error.statusCode < 500
+    ) {
+      return null;
+    }
+
+    return event;
   },
   beforeSendTransaction(transaction) {
     return ENV === 'production' ? transaction : null;
