@@ -22,3 +22,17 @@ RUN corepack enable \
     && yarn -v
 
 RUN npm install -g pm2
+
+# Grafana Alloy
+RUN mkdir -p /etc/apt/keyrings \
+    && curl -fsSL https://apt.grafana.com/gpg-full.key -o /etc/apt/keyrings/grafana.asc \
+    && chmod 644 /etc/apt/keyrings/grafana.asc \
+    && echo "deb [signed-by=/etc/apt/keyrings/grafana.asc] https://apt.grafana.com stable main" \
+    | tee /etc/apt/sources.list.d/grafana.list \
+    && apt-get update -y \
+    && apt-get install -y alloy
+
+COPY entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
