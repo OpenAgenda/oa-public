@@ -36,6 +36,7 @@ const {
   RUN_ALL: runAll,
   WEB_ENV_NAME: webEnvName,
   TASK_ENV_NAME: taskEnvName,
+  TASK_ENV_FILE_PATH: taskEnvFilePath,
 } = process.env;
 
 const remoteNginxDir = '/var/lib/nginx/config';
@@ -49,6 +50,10 @@ const envVars = Object.assign(
   await fs.promises.readFile(envFilePath, 'utf8').then((data) => JSON.parse(data)),
   await fs.promises.readFile(localEnvFilePath, 'utf8').then((data) => JSON.parse(data)),
 );
+
+const taskEnvVars = taskEnvFilePath
+  ? { ...envVars, ...JSON.parse(await fs.promises.readFile(taskEnvFilePath, 'utf8')) }
+  : envVars;
 
 const nodes = await getNodes(webEnvName, jelasticAccessToken);
 const taskNodes = await getNodes(taskEnvName, jelasticAccessToken);
@@ -150,7 +155,7 @@ if (runUpdateTask || runAll) {
   runs.push(async () => {
     await buildAndUploadEcosystemFile(taskNodes.all(), ['task:critical', 'task:search', 'task:aggregation', 'task:maintenance', 'task:notifications'], {
       SSHKeyPath,
-      envVars,
+      envVars: taskEnvVars,
       nodeArgs: '--max-old-space-size=4096',
       dir,
       instances: 1,
