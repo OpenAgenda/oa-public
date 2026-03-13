@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
-import Stopwatch from '../../../../lib/Stopwatch.js';
+import Stopwatch from '@openagenda/utils/Stopwatch.js';
 
 const log = logs('core/events/sendUpdateEmail');
 

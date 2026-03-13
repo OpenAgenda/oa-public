@@ -2,11 +2,11 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import logs from '@openagenda/logs';
 import { Forbidden } from '@openagenda/verror';
+import Stopwatch from '@openagenda/utils/Stopwatch.js';
 import createPayload from '../utils/createPayload.js';
 import refreshAgenda from '../utils/refreshAgenda.js';
 import cleanEvent from '../utils/cleanEvent/index.js';
 import getAgenda from '../utils/getAgenda.js';
-import Stopwatch from '../../../lib/Stopwatch.js';
 import formatError from '../utils/formatError.js';
 import loadAuthorizations, {
   filterUnauthorized,

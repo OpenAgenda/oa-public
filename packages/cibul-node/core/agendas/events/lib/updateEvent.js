@@ -1,8 +1,8 @@
 import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
+import Stopwatch from '@openagenda/utils/Stopwatch.js';
 import processOEmbed from '../../utils/processOEmbed.js';
 import formatEventErrors from '../../utils/formatEventErrors.js';
-import Stopwatch from '../../../../lib/Stopwatch.js';
 
 const log = logs('core/agendas/events/lib/updateEvent');
 
@@ -42,10 +42,10 @@ export default async function updateEvent(
   }
 
   try {
-    payload.setItem(
-      'event',
-      event,
-      await events[isPatch ? 'patch' : 'update'](eventUid, clean.event, {
+    const updatedEvent = await events[isPatch ? 'patch' : 'update'](
+      eventUid,
+      clean.event,
+      {
         context: {
           agendaUid,
           userUid,
@@ -56,10 +56,13 @@ export default async function updateEvent(
         draft,
         private: privateOption,
         mergeExtIds,
-      }),
+        returnTimes: true,
+      },
     );
 
-    stopwatch('save');
+    payload.setItem('event', event, updatedEvent);
+
+    stopwatch('save', updatedEvent.times);
 
     log('updated event %s', event.uid);
   } catch (e) {

@@ -1,9 +1,9 @@
 import logs from '@openagenda/logs';
 import { NotFound } from '@openagenda/verror';
+import Stopwatch from '@openagenda/utils/Stopwatch.js';
 import createPayload from '../utils/createPayload.js';
 import getAgenda from '../utils/getAgenda.js';
 import eventLoadOptions from '../utils/eventLoadOptions.js';
-import Stopwatch from '../../../lib/Stopwatch.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 
 const log = logs('core/agendas/events/get');
@@ -69,9 +69,10 @@ export default async (core, agendaUid, eventUid, options = {}) => {
     useLocationObjectFormat,
     private: loadPrivate,
     throwOnNotFound,
+    returnTimes: true,
     formSchema: await payload.getFormSchema({ access }), // Pass formSchema for proper location tag filtering
   });
-  stopwatch('event');
+  stopwatch('event', event?.times);
 
   if (load.event) {
     if (

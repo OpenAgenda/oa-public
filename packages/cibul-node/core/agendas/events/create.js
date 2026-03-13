@@ -2,6 +2,7 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import logs from '@openagenda/logs';
 import { BadRequest, Forbidden } from '@openagenda/verror';
+import Stopwatch from '@openagenda/utils/Stopwatch.js';
 import createPayload from '../utils/createPayload.js';
 import cleanDuplicateImage, {
   isImageToDuplicate,
@@ -14,7 +15,6 @@ import cleanEvent from '../utils/cleanEvent/index.js';
 import getAgenda from '../utils/getAgenda.js';
 import assignState from '../utils/assignState.js';
 import formatEventErrors from '../utils/formatEventErrors.js';
-import Stopwatch from '../../../lib/Stopwatch.js';
 
 const log = logs('core/agendas/events/create');
 

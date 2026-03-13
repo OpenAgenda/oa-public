@@ -1,5 +1,5 @@
 import logs from '@openagenda/logs';
-import Stopwatch from '../../lib/Stopwatch.js';
+import Stopwatch from '@openagenda/utils/Stopwatch.js';
 import updateAgendaIndex from './lib/updateAgendaIndex.js';
 import { transverseUpdateEvaluateUpdateEnqueue } from './transverseIndex.js';
 
