@@ -1,6 +1,7 @@
 import logs from '@openagenda/logs';
 import { NotFound } from '@openagenda/verror';
 import { getName as getDatabaseFieldName } from '@openagenda/utils/fields/databaseField.js';
+import Stopwatch from '@openagenda/utils/Stopwatch.js';
 import cleanGetIdentifiers from './lib/cleanGetIdentifiers.js';
 import cleanGetOptions from './lib/cleanGetOptions.js';
 import handleInterface from './lib/handleInterface.js';
@@ -10,6 +11,7 @@ const log = logs('get');
 
 export default async (service, identifiers, o = {}) => {
   log('called %s with options %j', identifiers, o);
+  const stopwatch = Stopwatch();
 
   const {
     clients: { knex },
@@ -45,6 +47,8 @@ export default async (service, identifiers, o = {}) => {
 
   const entry = await query;
 
+  stopwatch('query');
+
   if (!entry && options.throwOnNotFound) {
     throw new NotFound(
       {
@@ -61,19 +65,35 @@ export default async (service, identifiers, o = {}) => {
 
   const item = fieldUtils.fromEntryToItem(entry, options);
 
-  return lastClean(item, {
+  stopwatch('fromEntryToItem');
+
+  const locations = options.detailed
+    ? await handleInterface(service, 'getLocations', item.locationUid, {
+      formSchema,
+    })
+    : null;
+
+  stopwatch('locations');
+
+  const agendas = options.detailed
+    ? await handleInterface(service, 'getOriginAgendas', item.agendaUid, {
+      private: privateOption,
+    })
+    : null;
+
+  stopwatch('agendas');
+
+  const result = lastClean(item, {
     ...options,
-    locations: options.detailed
-      ? await handleInterface(service, 'getLocations', item.locationUid, {
-        formSchema,
-      })
-      : null,
-    agendas: options.detailed
-      ? await handleInterface(service, 'getOriginAgendas', item.agendaUid, {
-        private: privateOption,
-      })
-      : null,
+    locations,
+    agendas,
     imagePath,
     defaultImage,
   });
+
+  if (o.returnTimes) {
+    result.times = stopwatch.getTimes();
+  }
+
+  return result;
 };
