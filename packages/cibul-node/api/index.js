@@ -217,6 +217,8 @@ export default (core, { useRouter = true } = {}) => {
         }, next),
   );
 
+  app.post('/agendas/:agendaUid/events/validate', mw.eventValidate);
+
   app.post('/agendas/:agendaUid/events', (req, res, next) =>
     core
       .agendas(req.agenda.uid)

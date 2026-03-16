@@ -3,6 +3,7 @@ export { default as verifyAndLoadAccessTokenUser } from './verifyAndLoadAccessTo
 export * as member from './member.js';
 export { default as loadAgenda } from './loadAgenda.js';
 export { default as eventUpdate } from './eventUpdate.js';
+export { default as eventValidate } from './eventValidate.js';
 export { default as redirectIfPrivate } from './redirectIfPrivate.js';
 export { default as loadEvent } from './loadEvent.js';
 export { default as parseBodyData } from './parseBodyData.js';
