@@ -12,8 +12,8 @@ export function init(config) {
     pool: {
       min: 2,
       max: 20,
-      idleTimeoutMillis: 5 * 60 * 1000,
-      acquireTimeoutMillis: 30_000,
+      idleTimeoutMillis: 30000,
+      acquireTimeoutMillis: 30000,
       afterCreate(conn, done) {
         conn.query('SELECT 1', (err) => done(err, conn));
       },
