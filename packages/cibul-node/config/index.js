@@ -99,6 +99,13 @@ const config = {
   opencage: {
     key: prod.opencage?.key ?? process.env.OPENCAGE_KEY,
   },
+  knexService: {
+    slowLogThreshold: parseInt(
+      process.env.MYSQL_SLOW_LOG_THRESHOLD ?? '1000',
+      10,
+    ),
+    connectionPoolMax: parseInt(process.env.MYSQL_POOL_MAX ?? '20', 10),
+  },
   db: {
     database: process.env.MYSQL_DATABASE ?? prod.db?.name,
     host: process.env.MYSQL_HOST ?? prod.db?.host,
@@ -109,10 +116,6 @@ const config = {
     charset: 'utf8mb4',
     jsonStrings: true,
     decimalNumbers: true,
-    slowLogThreshold: parseInt(
-      process.env.MYSQL_SLOW_LOG_THRESHOLD ?? '1000',
-      10,
-    ),
     ssl: parseInt(process.env.MYSQL_SSL_VERIFY, 10)
       ? {
         verifyIdentity: !!parseInt(process.env.MYSQL_SSL_VERIFY_IDENTITY, 10),

@@ -11,7 +11,7 @@ export function init(config, services) {
     connection: { ...config.db },
     pool: {
       min: 2,
-      max: 20,
+      max: config.knexService.connectionPoolMax,
       idleTimeoutMillis: 30000,
       acquireTimeoutMillis: 30000,
       afterCreate(conn, done) {
@@ -94,7 +94,7 @@ export function init(config, services) {
       return;
     }
     const duration = Date.now() - entry.startTime;
-    if (duration <= config.db.slowLogThreshold) {
+    if (duration <= config.knexService.slowLogThreshold) {
       return;
     }
     log.warn('slow query (ms)', {
