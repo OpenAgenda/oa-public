@@ -11,10 +11,12 @@ import removeByExtId from './removeByExtId.js';
 import references from './references.js';
 import conversations from './conversations.js';
 import validate, { eventFields as validateEventFields } from './validate.js';
+import { register as registerUpdateSideEffects } from './lib/eventUpdateSideEffects.js';
 
 export default (core) => {
   const batch = Batch(core);
   const resyncEvents = search.resyncEvents(core);
+  registerUpdateSideEffects(core);
 
   return (agendaUid) =>
     Object.assign(

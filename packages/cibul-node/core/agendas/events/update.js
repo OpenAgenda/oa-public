@@ -4,7 +4,6 @@ import logs from '@openagenda/logs';
 import { Forbidden } from '@openagenda/verror';
 import Stopwatch from '@openagenda/utils/Stopwatch.js';
 import createPayload from '../utils/createPayload.js';
-import refreshAgenda from '../utils/refreshAgenda.js';
 import cleanEvent from '../utils/cleanEvent/index.js';
 import getAgenda from '../utils/getAgenda.js';
 import formatError from '../utils/formatError.js';
@@ -15,8 +14,6 @@ import loadAuthorizations, {
 import assignState from '../utils/assignState.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
 import updateEvent from './lib/updateEvent.js';
-import createUpdateActivity from './lib/createUpdateActivity.js';
-import sendUpdateEmail from './lib/sendUpdateEmail.js';
 
 const { containsEventData, isDifferent: isEventDifferent } = cleanEvent;
 
@@ -133,31 +130,30 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       )
       : null;
 
-    const clean = await cleanEvent(core.services, agenda, data, {
-      // required to validate related fields in case of partial update
-      storedData: eventWithAdditionalValues,
-      systemValidatePatchDataOnly,
-      validateAsDraft: isDraft,
-      isPatch,
-      optionalSecondaryFields: true,
-      access,
-      member: actingMember,
-      defaultLang,
-      aggregated,
-    });
+    const [clean, authorizations] = await Promise.all([
+      cleanEvent(core.services, agenda, data, {
+        // required to validate related fields in case of partial update
+        storedData: eventWithAdditionalValues,
+        systemValidatePatchDataOnly,
+        validateAsDraft: isDraft,
+        isPatch,
+        optionalSecondaryFields: true,
+        access,
+        member: actingMember,
+        defaultLang,
+        aggregated,
+      }),
+      loadAuthorizations(core, 'update', {
+        agenda,
+        event,
+        agendaEvent,
+        member: actingMember,
+        access,
+        userUid: actingUserUid,
+      }),
+    ]);
 
-    stopwatch('cleanEvent');
-
-    const authorizations = await loadAuthorizations(core, 'update', {
-      agenda,
-      event,
-      agendaEvent,
-      member: actingMember,
-      access,
-      userUid: actingUserUid,
-    });
-
-    stopwatch('loadAuthorizations');
+    stopwatch('cleanEvent+loadAuthorizations');
 
     const { type: stateChangeType } = assignState(agenda, event, clean, data, {
       authorizations,
@@ -326,14 +322,11 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
       load: { valid: true },
     });
 
-    const fullEvent = {
-      before: await payload.getCompiledEvent('before', null, null, {
-        valid: true,
-      }), // full access for internal use
-      after: await payload.getCompiledEvent('after', null, null, {
-        valid: true,
-      }), // full access for internal use
-    };
+    const [compiledBefore, compiledAfter] = await Promise.all([
+      payload.getCompiledEvent('before', null, null, { valid: true }),
+      payload.getCompiledEvent('after', null, null, { valid: true }),
+    ]);
+    const fullEvent = { before: compiledBefore, after: compiledAfter };
     stopwatch('getCompiledEvent');
 
     try {
@@ -358,43 +351,25 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
 
     const eventHasChanged = isEventDifferent(fullEvent.before, fullEvent.after);
 
-    if (eventHasChanged) {
-      try {
-        const { times: sendUpdateEmailTimes } = await sendUpdateEmail(core, {
-          batched,
-          event: fullEvent.after,
-          agenda,
-        });
-        stopwatch('sendUpdateEmail', sendUpdateEmailTimes);
-      } catch (e) {
-        log('error', 'failed to send update notification email', e);
-      }
-    }
+    // enqueue email, activity, and refresh to BullMQ (non-blocking)
+    core.tasks.enqueue('eventUpdateSideEffects', {
+      eventHasChanged,
+      batched,
+      event: fullEvent.after,
+      agenda,
+      before: fullEvent.before,
+      after: fullEvent.after,
+      userUid: actingUserUid,
+      formSchema,
+      member: actingMember,
+      agendaEvent,
+    });
 
-    if (eventHasChanged && !event.draft) {
-      try {
-        await createUpdateActivity(
-          core.services,
-          fullEvent.before,
-          fullEvent.after,
-          {
-            userUid: actingUserUid,
-            agenda,
-            formSchema,
-            member: actingMember,
-            agendaEvent,
-          },
-        );
-        stopwatch('activity');
-      } catch (e) {
-        log('error', 'failed to create activity', e);
-      }
-    }
-
+    // passCulture and aggregators must stay in-process
     if (
       !isDraft
       && updatedRegistration
-      && registrations.utils.passCulture.isMarkedAsPending(
+      && registrations?.utils.passCulture.isMarkedAsPending(
         response.event.registration.find((r) => r.service === 'passCulture')
           ?.data,
       )
@@ -415,8 +390,6 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
         batched,
       },
     );
-
-    await refreshAgenda(core.services, agenda.uid);
 
     log.info('update successful', {
       agendaUid,
