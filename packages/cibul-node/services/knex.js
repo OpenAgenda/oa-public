@@ -110,6 +110,20 @@ export function init(config) {
     log.error('Knex query error:', { error });
   });
 
+  // Dans knex.js, après l'init du pool
+  const LAG_INTERVAL = 1000;
+  let lastLagCheck = Date.now();
+
+  const lagInterval = setInterval(() => {
+    const now = Date.now();
+    const lag = now - lastLagCheck - LAG_INTERVAL;
+    lastLagCheck = now;
+    if (lag > 100) {
+      log.warn('event loop lag', { lagMs: lag });
+    }
+  }, LAG_INTERVAL);
+  lagInterval.unref();
+
   return Object.assign(knex, {
     shutdown: async () => {
       clearInterval(sweepInterval);
