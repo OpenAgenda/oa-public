@@ -115,5 +115,23 @@ export function init(config) {
       clearInterval(sweepInterval);
       await knex.destroy();
     },
+    monitorRTT: () => {
+      const networkPingInterval = setInterval(async () => {
+        const start = Date.now();
+        try {
+          await knex.raw('SELECT 1');
+          const rtt = Date.now() - start;
+          if (rtt > 50) {
+            // seuil d'alerte en ms
+            log.warn('high network RTT', { rtt });
+          } else {
+            log.info('network RTT', { rtt });
+          }
+        } catch (err) {
+          log.error('ping failed', { error: err });
+        }
+      }, 10_000);
+      networkPingInterval.unref();
+    },
   });
 }

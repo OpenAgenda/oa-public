@@ -33,6 +33,8 @@ export default (config, core, services, tasksList) => {
       period: 'hourly',
     });
 
+    services.knex.monitorRTT();
+
     services.eventSearch.task();
 
     services.supervisor.elasticsearch.task();
