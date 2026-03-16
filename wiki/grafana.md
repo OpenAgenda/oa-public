@@ -17,9 +17,19 @@ Pour installer des agents Alloy:
 
 https://grafana.com/docs/alloy/latest/set-up/install/linux/
 
-Modifier le `/etc/alloyconfig.alloy`.
+L'installation via apt crée le user et le groupe `alloy`. Vérifier avec :
 
-Ajouter les certificats dans `/etc/alloy/certs` (`ca.crt`, `agent.key` et `agent.crt`).
+```bash
+getent group alloy
+```
+
+Modifier le `/etc/alloy/config.alloy`.
+
+Créer le dossier et ajouter les certificats (`ca.crt`, `agent.key` et `agent.crt`) :
+
+```bash
+sudo mkdir -p /etc/alloy/certs
+```
 
 Corriger les droits des certificats :
 
@@ -35,23 +45,20 @@ sudo chmod 0644 /etc/alloy/certs/ca.crt /etc/alloy/certs/agent.crt
 sudo chmod 0640 /etc/alloy/certs/agent.key
 ```
 
-Relancer Alloy : `sudo systemctl reload alloy`
+Démarrer et activer Alloy :
 
-### Agent MySQL
-
-Il faut d'abord créer un utilisateur mysql:
-
-```
-CREATE USER 'alloy_monitor'@'127.0.0.1' IDENTIFIED BY '<PASSWORD>';
-
-GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'alloy_monitor'@'127.0.0.1';
-GRANT SELECT ON performance_schema.* TO 'alloy_monitor'@'127.0.0.1';
-GRANT SHOW DATABASES ON *.* TO 'alloy_monitor'@'127.0.0.1';
-
-FLUSH PRIVILEGES;
+```bash
+sudo systemctl enable alloy
+sudo systemctl start alloy
 ```
 
-Et la config Alloy de l'instance MySQL doit ressembler à ça :
+Relancer après un changement de config :
+
+```bash
+sudo systemctl reload alloy
+```
+
+### Config de base (tout serveur)
 
 ```
 logging {
@@ -82,8 +89,8 @@ otelcol.exporter.otlp "to_central" {
     endpoint = "telemetry.oagenda.com:443"
     tls {
       // ca_file   = "/etc/alloy/certs/ca.crt"
-      cert_file = "/etc/alloy/certs/agent.crt"
-      key_file  = "/etc/alloy/certs/agent.key"
+      cert_file   = "/etc/alloy/certs/agent.crt"
+      key_file    = "/etc/alloy/certs/agent.key"
       server_name = "telemetry.oagenda.com"
     }
   }
@@ -93,43 +100,16 @@ otelcol.exporter.otlp "to_central" {
 // Bridge Prometheus -> OTLP -> central
 // -----------------------------
 
-otelcol.receiver.prometheus "mysql_bridge" {
+otelcol.receiver.prometheus "prom_bridge" {
   output {
     metrics = [otelcol.processor.batch.main.input]
   }
 }
 
 // -----------------------------
-// MySQL -> Prometheus -> OTLP -> to_central
-// -----------------------------
-
-prometheus.exporter.mysql "integrations_mysqld_exporter" {
-  data_source_name = "alloy_monitor:MOT_DE_PASSE@tcp(127.0.0.1:3306)/?tls=skip-verify"
-}
-
-discovery.relabel "integrations_mysqld_exporter" {
-  targets = prometheus.exporter.mysql.integrations_mysqld_exporter.targets
-
-  rule {
-    target_label = "job"
-    replacement  = "integrations/mysql"
-  }
-
-  rule {
-    target_label = "instance"
-    replacement  = constants.hostname
-  }
-}
-
-prometheus.scrape "integrations_mysqld_exporter" {
-  targets    = discovery.relabel.integrations_mysqld_exporter.output
-  forward_to = [otelcol.receiver.prometheus.mysql_bridge.receiver]
-  job_name   = "integrations/mysql"
-}
-
-// -----------------------------
 // Unix -> Prometheus -> OTLP -> to_central
 // -----------------------------
+
 prometheus.exporter.unix "node" {
   include_exporter_metrics = true
   disable_collectors       = ["mdadm"]
@@ -162,6 +142,52 @@ prometheus.scrape "node" {
       __address__ = "127.0.0.1:12345",
     }],
   )
-  forward_to = [otelcol.receiver.prometheus.mysql_bridge.receiver]
+  forward_to = [otelcol.receiver.prometheus.prom_bridge.receiver]
+}
+```
+
+### Agent MySQL
+
+Il faut d'abord créer un utilisateur mysql:
+
+```
+CREATE USER 'alloy_monitor'@'127.0.0.1' IDENTIFIED BY '<PASSWORD>';
+
+GRANT PROCESS, REPLICATION CLIENT, SELECT ON *.* TO 'alloy_monitor'@'127.0.0.1';
+GRANT SELECT ON performance_schema.* TO 'alloy_monitor'@'127.0.0.1';
+GRANT SHOW DATABASES ON *.* TO 'alloy_monitor'@'127.0.0.1';
+
+FLUSH PRIVILEGES;
+```
+
+Ajouter les blocs suivants à la config Alloy de base :
+
+```
+// -----------------------------
+// MySQL -> Prometheus -> OTLP -> to_central
+// -----------------------------
+
+prometheus.exporter.mysql "integrations_mysqld_exporter" {
+  data_source_name = "alloy_monitor:<PASSWORD>@tcp(127.0.0.1:3306)/?tls=skip-verify"
+}
+
+discovery.relabel "integrations_mysqld_exporter" {
+  targets = prometheus.exporter.mysql.integrations_mysqld_exporter.targets
+
+  rule {
+    target_label = "job"
+    replacement  = "integrations/mysql"
+  }
+
+  rule {
+    target_label = "instance"
+    replacement  = constants.hostname
+  }
+}
+
+prometheus.scrape "integrations_mysqld_exporter" {
+  targets    = discovery.relabel.integrations_mysqld_exporter.output
+  forward_to = [otelcol.receiver.prometheus.prom_bridge.receiver]
+  job_name   = "integrations/mysql"
 }
 ```
