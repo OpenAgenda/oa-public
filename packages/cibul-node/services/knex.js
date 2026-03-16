@@ -23,14 +23,41 @@ export function init(config) {
 
   config.knex = knex;
 
+  const acquireStartTimes = new Map();
+  const connectionAcquireDurations = new Map();
+
+  knex.client.pool.on('acquireRequest', (eventId) => {
+    acquireStartTimes.set(eventId, Date.now());
+  });
+
+  knex.client.pool.on('acquireSuccess', (eventId, resource) => {
+    const startTime = acquireStartTimes.get(eventId);
+    acquireStartTimes.delete(eventId);
+    if (startTime !== undefined) {
+      connectionAcquireDurations.set(
+        resource.__knexUid,
+        Date.now() - startTime,
+      );
+    }
+  });
+
+  knex.client.pool.on('acquireFail', (eventId) => {
+    acquireStartTimes.delete(eventId);
+  });
+
   const QUERY_TTL = 60_000;
   const queryStartTimes = new Map();
 
   const sweepInterval = setInterval(() => {
     const now = Date.now();
-    for (const [uid, startTime] of queryStartTimes) {
-      if (now - startTime > QUERY_TTL) {
+    for (const [uid, entry] of queryStartTimes) {
+      if (now - entry.startTime > QUERY_TTL) {
         queryStartTimes.delete(uid);
+      }
+    }
+    for (const [eventId, startTime] of acquireStartTimes) {
+      if (now - startTime > QUERY_TTL) {
+        acquireStartTimes.delete(eventId);
       }
     }
   }, QUERY_TTL);
@@ -40,7 +67,12 @@ export function init(config) {
   let lastPoolLog = 0;
 
   knex.on('query', (query) => {
-    queryStartTimes.set(query.__knexQueryUid, Date.now());
+    const acquireDuration = connectionAcquireDurations.get(query.__knexUid);
+    connectionAcquireDurations.delete(query.__knexUid);
+    queryStartTimes.set(query.__knexQueryUid, {
+      startTime: Date.now(),
+      acquireDuration,
+    });
     const numPendingAcquires = knex.client.pool?.numPendingAcquires();
     const now = Date.now();
     if (!numPendingAcquires && now - lastPoolLog <= POOL_LOG_INTERVAL) {
@@ -56,19 +88,20 @@ export function init(config) {
   });
 
   knex.on('query-response', (_, query) => {
-    const startTime = queryStartTimes.get(query.__knexQueryUid);
+    const entry = queryStartTimes.get(query.__knexQueryUid);
     queryStartTimes.delete(query.__knexQueryUid);
-    if (startTime === undefined) {
+    if (entry === undefined) {
       return;
     }
-    const duration = Date.now() - startTime;
-    if (duration <= 1000) {
+    const duration = Date.now() - entry.startTime;
+    if (duration <= config.db.slowLogThreshold) {
       return;
     }
     log.warn('slow query (ms)', {
       sql: query.sql,
       bindings: query.bindings,
       duration,
+      acquireDuration: entry.acquireDuration,
     });
   });
 

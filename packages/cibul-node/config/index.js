@@ -109,6 +109,10 @@ const config = {
     charset: 'utf8mb4',
     jsonStrings: true,
     decimalNumbers: true,
+    slowLogThreshold: parseInt(
+      process.env.MYSQL_SLOW_LOG_THRESHOLD ?? '1000',
+      10,
+    ),
     ssl: parseInt(process.env.MYSQL_SSL_VERIFY, 10)
       ? {
         verifyIdentity: !!parseInt(process.env.MYSQL_SSL_VERIFY_IDENTITY, 10),
