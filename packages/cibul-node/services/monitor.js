@@ -1,4 +1,5 @@
 import os from 'node:os';
+import { monitorEventLoopDelay } from 'node:perf_hooks';
 import logs from '@openagenda/logs';
 
 const divideBy = 1024 * 1024;
@@ -33,13 +34,15 @@ function getCPUUsage() {
   }
 
   return {
+    CPUCount: cpus.length,
     idle: totalIdle / cpus.length,
     total: totalTick / cpus.length,
   };
 }
 
+const log = logs('monitor');
+
 export async function init() {
-  const log = logs('monitor');
   const processInfo = getProcessInfo();
 
   let lastMeasure = getCPUUsage();
@@ -51,18 +54,36 @@ export async function init() {
     const totalDiff = nextMeasure.total - lastMeasure.total;
     const idleDiff = nextMeasure.idle - lastMeasure.idle;
 
-    log.info({
+    log.info('resources', {
       ...processInfo,
       rss: Math.ceil(memoryUsage.rss / divideBy),
       heapTotal: Math.ceil(memoryUsage.heapTotal / divideBy),
       heapUsed: Math.ceil(memoryUsage.heapUsed / divideBy),
       external: Math.ceil(memoryUsage.external / divideBy),
+      CPUCount: nextMeasure.CPUCount,
       CPUPercentage:
         totalDiff > 0 ? 100 - Math.floor(100 * (idleDiff / totalDiff)) : 0,
     });
 
     lastMeasure = nextMeasure;
   }, period);
+
+  const lagPeriod = 1000;
+  const histogram = monitorEventLoopDelay({
+    resolution: 20,
+  });
+  histogram.enable();
+
+  setInterval(() => {
+    const p99 = histogram.percentile(99) / 1e6;
+    log.info('event loop', {
+      ...processInfo,
+      p99,
+      p50: histogram.percentile(50) / 1e6,
+      max: histogram.max / 1e6,
+    });
+    histogram.reset();
+  }, lagPeriod);
 
   return {
     processInfo,

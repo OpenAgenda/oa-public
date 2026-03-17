@@ -3,7 +3,7 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/knex');
 
-export function init(config, services) {
+export function init(config) {
   log.setConfig(config.getLogConfig('oa', 'knexErrors'));
 
   const knex = knexLib({
@@ -109,24 +109,6 @@ export function init(config, services) {
     queryStartTimes.delete(query.__knexQueryUid);
     log.error('Knex query error:', { error });
   });
-
-  // Dans knex.js, après l'init du pool
-  const LAG_INTERVAL = 1000;
-  let lastLagCheck = Date.now();
-
-  const lagInterval = setInterval(() => {
-    const now = Date.now();
-    const lag = now - lastLagCheck - LAG_INTERVAL;
-    lastLagCheck = now;
-    if (lag > 100) {
-      log.warn('event loop lag', {
-        lag,
-        host: services.monitor?.processInfo?.hostname,
-        processName: services.monitor?.processInfo?.processName,
-      });
-    }
-  }, LAG_INTERVAL);
-  lagInterval.unref();
 
   return Object.assign(knex, {
     shutdown: async () => {
