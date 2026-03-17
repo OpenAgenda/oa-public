@@ -116,7 +116,7 @@ if (runUpdateWeb || runAll) {
       SSHKeyPath,
       envVars,
       dir,
-      instances: 8,
+      instances: 4,
     });
     await rexec(webNodes, pm2Commands, { SSHKeyPath });
   });
