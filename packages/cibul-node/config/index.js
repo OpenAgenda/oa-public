@@ -115,6 +115,7 @@ const config = {
     port: process.env.MYSQL_PORT ?? prod.db?.port,
     user: process.env.MYSQL_USER ?? prod.db?.user,
     password: process.env.MYSQL_PASSWORD ?? prod.db?.password,
+    enableKeepAlive: true,
     keepAliveInitialDelay: 30_000,
     timezone: 'Z',
     charset: 'utf8mb4',
