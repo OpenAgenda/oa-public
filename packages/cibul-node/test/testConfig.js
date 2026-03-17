@@ -4,6 +4,13 @@ import schemaNames from './mock/schemaNames.js';
 const testConfig = {
   domain: 'openagenda.com',
   track: true,
+  knexService: {
+    slowLogThreshold: parseInt(
+      process.env.MYSQL_SLOW_LOG_THRESHOLD ?? '1000',
+      10,
+    ),
+    connectionPoolMax: parseInt(process.env.MYSQL_POOL_MAX ?? '20', 10),
+  },
   db: {
     host: process.env.OA_MYSQL_TEST_HOST,
     user: process.env.OA_MYSQL_TEST_USER,
