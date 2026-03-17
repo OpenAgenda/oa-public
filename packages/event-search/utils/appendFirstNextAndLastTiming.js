@@ -1,33 +1,28 @@
-import { produce } from 'immer';
-
-export default produce((event) => {
+export default function appendFirstNextAndLastTiming(event) {
   if (!event.timings || !event.timings.length) {
     return event;
   }
 
   const now = new Date();
 
-  if (!event.firstTiming) {
-    [event.firstTiming] = event.timings;
-  }
+  const firstTiming = event.firstTiming || event.timings[0];
+  const lastTiming = event.lastTiming || event.timings[event.timings.length - 1];
 
-  if (!event.lastTiming) {
-    event.lastTiming = event.timings.slice(-1).shift();
-  }
+  let nextTiming = null;
 
-  event.nextTiming = null;
-
-  if (event.lastTiming && new Date(event.lastTiming) < now) {
-    return event;
-  }
-
-  for (const timing of event.timings) {
-    if (new Date(timing.end) < now) {
-      continue;
+  if (!(lastTiming && new Date(lastTiming.end || lastTiming) < now)) {
+    for (const timing of event.timings) {
+      if (new Date(timing.end) >= now) {
+        nextTiming = timing;
+        break;
+      }
     }
-    event.nextTiming = timing;
-    break;
   }
 
-  return event;
-});
+  return {
+    ...event,
+    firstTiming,
+    lastTiming,
+    nextTiming,
+  };
+}

@@ -30,6 +30,8 @@
     "deep-diff": "^1.0.2",
     "immer": "^10.0.3",
     "lodash": "^4.17.15",
+    "date-fns": "^2.30.0",
+    "date-fns-tz": "^2.0.0",
     "moment-timezone": "^0.5.31"
   },
   "devDependencies": {

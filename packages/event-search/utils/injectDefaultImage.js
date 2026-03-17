@@ -1,11 +1,10 @@
-import { produce } from 'immer';
-
 export default function injectDefaultImage({ defaultImage }, event) {
   if (event?.image?.filename) {
     return event;
   }
 
-  return produce(event, (draft) => {
-    draft.image = defaultImage;
-  });
+  return {
+    ...event,
+    image: defaultImage,
+  };
 }

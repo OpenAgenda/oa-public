@@ -1,13 +1,17 @@
-import moment from 'moment-timezone';
-import { produce } from 'immer';
+import { formatInTimeZone } from 'date-fns-tz';
 
-export default produce((event) => {
+const FMT = "yyyy-MM-dd'T'HH:mm:ssXXX";
+
+export default function convertToLocalTimezone(event) {
   if (!event.timezone || !event.timings) {
     return event;
   }
 
-  event.timings = event.timings.map((t) => ({
-    begin: moment.tz(t.begin, event.timezone).format(),
-    end: moment.tz(t.end, event.timezone).format(),
-  }));
-});
+  return {
+    ...event,
+    timings: event.timings.map((t) => ({
+      begin: formatInTimeZone(new Date(t.begin), event.timezone, FMT),
+      end: formatInTimeZone(new Date(t.end), event.timezone, FMT),
+    })),
+  };
+}

@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { produce } from 'immer';
 import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import aggregations from './aggregations/index.js';
@@ -53,14 +52,17 @@ function buildEventParsers({
   }
 
   if (!detailed) {
-    parsers.push((e) =>
-      produce(e, (draft) => {
-        ['timings', 'timezone'].forEach((f) => {
-          if (!(requestedIncludes || []).includes(f)) {
-            delete draft[f];
-          }
-        });
-      }));
+    parsers.push((e) => {
+      const fieldsToRemove = ['timings', 'timezone'].filter(
+        (f) => !(requestedIncludes || []).includes(f),
+      );
+      if (!fieldsToRemove.length) return e;
+      const result = { ...e };
+      for (const f of fieldsToRemove) {
+        delete result[f];
+      }
+      return result;
+    });
   }
 
   if (monolingual) {

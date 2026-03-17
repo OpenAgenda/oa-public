@@ -1,25 +1,35 @@
-import { produce } from 'immer';
+function stripTimestamp(filename) {
+  const idx = filename.indexOf('?');
+  return idx !== -1 ? filename.slice(0, idx) : filename;
+}
 
 export default function filterImageTimestamps(event) {
   if (!event?.image?.filename) {
     return event;
   }
 
-  return produce(event, (draft) => {
-    if (draft.image.filename.includes('?')) {
-      draft.image.filename = draft.image.filename.split('?').shift();
-    }
+  const cleanFilename = stripTimestamp(event.image.filename);
 
-    if (!draft.image.variants) {
-      return draft;
-    }
+  const variants = event.image.variants
+    ? event.image.variants.map((v) => {
+      const clean = stripTimestamp(v.filename);
+      return clean !== v.filename ? { ...v, filename: clean } : v;
+    })
+    : event.image.variants;
 
-    for (const variant of draft.image.variants) {
-      if (variant.filename.includes('?')) {
-        variant.filename = variant.filename.split('?').shift();
-      }
-    }
+  if (
+    cleanFilename === event.image.filename
+    && variants === event.image.variants
+  ) {
+    return event;
+  }
 
-    return draft;
-  });
+  return {
+    ...event,
+    image: {
+      ...event.image,
+      filename: cleanFilename,
+      ...variants !== undefined ? { variants } : {},
+    },
+  };
 }
