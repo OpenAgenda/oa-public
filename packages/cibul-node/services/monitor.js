@@ -68,9 +68,9 @@ export async function init() {
     lastMeasure = nextMeasure;
   }, period);
 
-  const lagPeriod = 1000;
+  const lagPeriod = 10_000;
   const histogram = monitorEventLoopDelay({
-    resolution: 20,
+    resolution: 10,
   });
   histogram.enable();
 
