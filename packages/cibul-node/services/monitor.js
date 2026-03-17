@@ -1,5 +1,5 @@
 import os from 'node:os';
-import { monitorEventLoopDelay } from 'node:perf_hooks';
+import { monitorEventLoopDelay, PerformanceObserver } from 'node:perf_hooks';
 import logs from '@openagenda/logs';
 
 const divideBy = 1024 * 1024;
@@ -84,6 +84,28 @@ export async function init() {
     });
     histogram.reset();
   }, lagPeriod);
+
+  const gcTypes = {
+    1: 'Scavenge',
+    2: 'Mark-Sweep',
+    4: 'Incremental',
+    8: 'Weak-Phantom',
+    15: 'All',
+  };
+
+  const obs = new PerformanceObserver((list) => {
+    for (const entry of list.getEntries()) {
+      const { duration } = entry;
+      if (duration > 50) {
+        log.warn('gc pause', {
+          ...processInfo,
+          type: gcTypes[entry.detail?.kind] ?? entry.detail?.kind,
+          duration,
+        });
+      }
+    }
+  });
+  obs.observe({ entryTypes: ['gc'] });
 
   return {
     processInfo,
