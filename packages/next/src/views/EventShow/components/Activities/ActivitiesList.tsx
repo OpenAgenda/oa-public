@@ -70,7 +70,7 @@ function ActivityDetail({ activity, config }) {
               // TODO markdown is not stylized here
               <div
                 dangerouslySetInnerHTML={{
-                  __html: fromMarkdownToHTML(activityDetail?.text),
+                  __html: fromMarkdownToHTML(activityDetail.text) as string,
                 }}
               />
             ) : (
