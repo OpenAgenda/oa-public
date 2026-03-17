@@ -104,7 +104,10 @@ const config = {
       process.env.MYSQL_SLOW_LOG_THRESHOLD ?? '1000',
       10,
     ),
-    connectionPoolMax: parseInt(process.env.MYSQL_POOL_MAX ?? '20', 10),
+    pool: {
+      max: parseInt(process.env.MYSQL_POOL_MAX ?? '10', 10),
+      min: parseInt(process.env.MYSQL_POOL_MIN ?? '10', 10),
+    },
   },
   db: {
     database: process.env.MYSQL_DATABASE ?? prod.db?.name,
@@ -112,6 +115,7 @@ const config = {
     port: process.env.MYSQL_PORT ?? prod.db?.port,
     user: process.env.MYSQL_USER ?? prod.db?.user,
     password: process.env.MYSQL_PASSWORD ?? prod.db?.password,
+    keepAliveInitialDelay: 30_000,
     timezone: 'Z',
     charset: 'utf8mb4',
     jsonStrings: true,

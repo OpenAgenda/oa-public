@@ -10,9 +10,8 @@ export function init(config) {
     client: 'mysql2',
     connection: { ...config.db },
     pool: {
-      min: 2,
-      max: config.knexService.connectionPoolMax,
-      idleTimeoutMillis: 30000,
+      min: config.knexService.pool.min,
+      max: config.knexService.pool.max,
       acquireTimeoutMillis: 30000,
       afterCreate(conn, done) {
         conn.query('SELECT 1', (err) => done(err, conn));
