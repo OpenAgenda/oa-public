@@ -19,7 +19,7 @@ function isSelfDomain(domain, link) {
 }
 
 export default function fromMarkdownToHTML(md, options = {}) {
-  const { selfDomain = null } = options;
+  const { selfDomain = null, sanitize = true } = options;
 
   const markedWithRenderer = selfDomain
     ? new Marked({
@@ -35,7 +35,9 @@ export default function fromMarkdownToHTML(md, options = {}) {
     ? markedWithRenderer.parse(md || '', { breaks: true })
     : marked(md || '', { breaks: true });
 
-  return DOMPurify.sanitize(HTML, {
-    ADD_ATTR: ['target'],
-  });
+  return sanitize
+    ? DOMPurify.sanitize(HTML, {
+      ADD_ATTR: ['target'],
+    })
+    : HTML;
 }
