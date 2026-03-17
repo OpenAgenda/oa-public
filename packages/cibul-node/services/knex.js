@@ -14,7 +14,13 @@ export function init(config) {
       max: config.knexService.pool.max,
       acquireTimeoutMillis: 30000,
       afterCreate(conn, done) {
-        conn.query('SELECT 1', (err) => done(err, conn));
+        log.info('afterCreate');
+        conn.query('SELECT 1', (err) => {
+          if (err) {
+            log.error('afterCreate validation failed', { error: err });
+          }
+          done(err, conn);
+        });
       },
     },
     schemas: config.schemas,
