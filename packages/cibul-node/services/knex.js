@@ -14,7 +14,26 @@ export function init(config) {
       max: config.knexService.pool.max,
       acquireTimeoutMillis: 30000,
       afterCreate(conn, done) {
-        conn.query('SELECT 1', (err) => done(err, conn));
+        log.info('new connection', { threadId: conn.threadId });
+        conn.query('SELECT 1', (err) => {
+          if (err) return done(err, conn);
+
+          // Ping MySQL toutes les 60s pour empêcher wait_timeout de tuer la connexion
+          const pingInterval = setInterval(() => {
+            conn.ping((pingErr) => {
+              if (pingErr) {
+                log.warn('pool ping failed', { threadId: conn.threadId });
+                clearInterval(pingInterval);
+              }
+            });
+          }, 60_000);
+          pingInterval.unref();
+
+          // Cleanup quand la connexion est détruite
+          conn.on('end', () => clearInterval(pingInterval));
+
+          done(null, conn);
+        });
       },
     },
     schemas: config.schemas,
