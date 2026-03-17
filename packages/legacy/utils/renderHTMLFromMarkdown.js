@@ -5,7 +5,7 @@ export default (services, options = {}, links = null, md = '') => {
 
   const { includeEmbedded = false } = options;
 
-  const html = fromMarkdownToHTML(md);
+  const html = fromMarkdownToHTML(md, { sanitize: false });
 
   if (!links || !includeEmbedded) {
     return html;
