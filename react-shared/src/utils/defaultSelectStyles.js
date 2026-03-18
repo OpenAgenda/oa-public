@@ -45,7 +45,10 @@ export default {
       ? {
         display: 'none',
       }
-      : base),
+      : {
+        ...base,
+        zIndex: 10,
+      }),
   multiValue: (provided) => ({
     ...provided,
     margin: '1px',
