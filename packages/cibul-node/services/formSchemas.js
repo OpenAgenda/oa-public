@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import formSchemas from '@openagenda/form-schemas';
 
-export function init(config) {
+export function init(config, services) {
   return formSchemas({
     knex: config.knex,
     tmpFolder: config.tmpFolderPath,
@@ -18,5 +18,7 @@ export function init(config) {
       network: 'network',
     },
     logger: config.getLogConfig('svc', 'form-schemas'),
+    redis: services.redis,
+    cacheTTL: 60_000,
   });
 }
