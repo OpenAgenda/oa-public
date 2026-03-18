@@ -46,9 +46,12 @@ async function get(
 
   const store = await fetchFromDB({ client, schemas }, id);
   if (store) {
-    await redis.set(cacheKey, JSON.stringify(store), {
-      EX: Math.ceil(cacheTTL / 1000),
-    });
+    await redis.set(
+      cacheKey,
+      JSON.stringify(store),
+      'EX',
+      Math.ceil(cacheTTL / 1000),
+    );
   }
   return store;
 }
@@ -150,6 +153,12 @@ async function remove({ client, schemas, redis, cachePrefix }, id) {
   };
 }
 
+async function clearCache({ redis, cachePrefix }) {
+  if (!redis) return;
+  const keys = await redis.keys(`${cachePrefix}:*`);
+  if (keys.length) await redis.del(...keys);
+}
+
 export default Object.assign(
   (config) => {
     if (config.logger) {
@@ -185,6 +194,10 @@ export default Object.assign(
       create: create.bind(null, c),
       update: update.bind(null, c),
       remove: remove.bind(null, c),
+      clearCache: clearCache.bind(null, c),
+      shutdown: async (options = {}) => {
+        if (options.clear) await clearCache(c);
+      },
       internals: {
         client: c.client,
       },
