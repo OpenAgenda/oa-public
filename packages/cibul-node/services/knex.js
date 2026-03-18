@@ -30,7 +30,10 @@ export async function init(config) {
           pingInterval.unref();
 
           // Cleanup quand la connexion est détruite
-          conn.on('end', () => clearInterval(pingInterval));
+          conn.on('end', () => {
+            log.warn('connection closed', { threadId: conn.threadId });
+            clearInterval(pingInterval);
+          });
 
           done(null, conn);
         });
