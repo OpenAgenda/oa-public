@@ -721,6 +721,15 @@ module.exports = {
     "io": "crwdns11768:0crwdne11768:0",
     "oc": "Georgia"
   },
+  "GG": {
+    "en": "Guernsey",
+    "fr": "Guernesey",
+    "de": "Guernsey",
+    "es": "Guernsey",
+    "it": "Guernsey",
+    "io": "Guernsey",
+    "oc": "Guernsey"
+  },
   "GF": {
     "en": "French Guiana",
     "fr": "Guyane Française",
@@ -981,6 +990,15 @@ module.exports = {
     "it": "Italia",
     "io": "crwdns11826:0crwdne11826:0",
     "oc": "Itàlia"
+  },
+  "JE": {
+    "en": "Jersey",
+    "fr": "Jersey",
+    "de": "Jersey",
+    "es": "Jersey",
+    "it": "Jersey",
+    "io": "Jersey",
+    "oc": "Jersey"
   },
   "JM": {
     "en": "Jamaica",
