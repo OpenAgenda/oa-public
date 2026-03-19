@@ -33,6 +33,8 @@ describe('services - functional (server): core agendas() events.clearOldSoftRemo
 
     core = Core(services, testConfig);
 
+    await services.formSchemas.clearCache();
+
     await core.services.eventSearch
       .getConfig()
       .client.indices.delete({

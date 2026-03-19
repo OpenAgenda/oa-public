@@ -59,6 +59,7 @@ describe('core - functional: core.agendas().events.update() - Pass Culture', () 
   });
 
   afterAll(() => core.services.simpleCache.clearAll());
+  afterAll(() => core.services.formSchemas.clearCache());
 
   afterAll(() => core.services.shutdown({ clear: true }));
 

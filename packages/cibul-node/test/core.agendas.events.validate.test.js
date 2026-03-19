@@ -48,6 +48,8 @@ describe('core - functional (server): POST /agendas/:agendaUid/events/validate',
     });
 
     core = Core(services, config);
+
+    await services.formSchemas.clearCache();
   });
 
   beforeAll(async () => {

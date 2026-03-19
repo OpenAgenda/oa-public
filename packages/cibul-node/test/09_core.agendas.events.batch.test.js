@@ -37,6 +37,8 @@ describe('09 - core - fuctional (server): core.agendas().events.batch()', () => 
 
     core = Core(services, config);
 
+    await services.formSchemas.clearCache();
+
     await core.services.eventSearch
       .getConfig()
       .client.indices.delete({

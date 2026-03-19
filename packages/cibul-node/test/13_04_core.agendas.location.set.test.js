@@ -40,6 +40,7 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
     core = Core(services, config);
 
     await services.simpleCache.clearAll();
+    await services.formSchemas.clearCache();
   });
 
   describe('core', () => {

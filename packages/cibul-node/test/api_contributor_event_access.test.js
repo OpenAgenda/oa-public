@@ -42,6 +42,8 @@ describe('api: contributor access to their own events based on state', () => {
 
     core = Core(services, config);
 
+    await services.formSchemas.clearCache();
+
     // Delete and rebuild search index - only agenda 1 (with state: 2) will be indexed
     await core.services.eventSearch
       .getConfig()

@@ -46,6 +46,7 @@ describe('11 - core - functional (server): core.users().agendas.list()', () => {
     core = Core(services, config);
 
     await services.simpleCache.clearAll();
+    await services.formSchemas.clearCache();
     await core.agendas(1).events.search.rebuild();
     await core.agendas.rebuildIndex();
   });

@@ -48,6 +48,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     Core(services, testConfig);
 
     await services.simpleCache.clearAll();
+    await services.formSchemas.clearCache();
   });
 
   beforeAll(() => clearRedis(services));

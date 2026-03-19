@@ -38,6 +38,8 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     });
 
     core = Core(services, config);
+
+    await services.formSchemas.clearCache();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

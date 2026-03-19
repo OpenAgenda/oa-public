@@ -37,6 +37,8 @@ describe('07 - core - functional (server): core.agendas().update', () => {
     });
 
     core = Core(services, testConfig);
+
+    await services.formSchemas.clearCache();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

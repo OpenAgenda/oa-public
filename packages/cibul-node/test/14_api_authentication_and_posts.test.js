@@ -41,6 +41,8 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
     core = Core(services, config);
 
+    await services.formSchemas.clearCache();
+
     await core.services.eventSearch
       .getConfig()
       .client.indices.delete({

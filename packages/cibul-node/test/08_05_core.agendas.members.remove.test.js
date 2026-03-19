@@ -35,6 +35,8 @@ describe('08 - core - functional (server): core.agendas().members.remove', () =>
     });
 
     core = Core(services, testConfig);
+
+    await services.formSchemas.clearCache();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

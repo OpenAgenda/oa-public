@@ -47,6 +47,7 @@ describe('07 - core - functional (server): core.agendas().get', () => {
 
     await core.agendas(92983929).events.search.rebuild();
     await services.simpleCache.clearAll();
+    await services.formSchemas.clearCache();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

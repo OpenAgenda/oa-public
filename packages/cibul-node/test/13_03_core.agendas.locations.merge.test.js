@@ -34,6 +34,8 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
 
     core = Core(services, testConfig);
 
+    await services.formSchemas.clearCache();
+
     services.agendaLocations.task({ reset: true, detectDuplicates: false });
   });
 
