@@ -3,12 +3,29 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/members/getEventCountByUserUid');
 
-export default (services, agendaUid, userUids = []) => {
-  const { agendaEvents } = services;
+export default async (services, agendaUid, userUids = []) => {
+  const { eventSearch } = services;
 
   if (!agendaUid) return [];
 
-  log('processing %d %j', agendaUid, _.uniq(userUids));
+  const uniqueUids = _.uniq(userUids);
 
-  return agendaEvents(agendaUid).stats.countByUserUid(_.uniq(userUids));
+  if (!uniqueUids.length) return [];
+
+  log('processing %d %j', agendaUid, uniqueUids);
+
+  const { search } = eventSearch.agendas({ uid: agendaUid });
+
+  const { aggregations } = await search(
+    {},
+    { size: 0 },
+    { aggregations: ['members'] },
+  );
+
+  return (aggregations?.members ?? [])
+    .filter((bucket) => uniqueUids.includes(bucket.member.uid))
+    .map((bucket) => ({
+      count: bucket.eventCount,
+      userUid: bucket.member.uid,
+    }));
 };
