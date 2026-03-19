@@ -112,3 +112,58 @@ export function SimpleCaseWithRadios() {
     </div>
   );
 }
+
+export function EnableWithAndDefaultValue() {
+  return (
+    <div className="col col-sm-6 wsq padding-v-sm">
+      <FormSchemaComponent
+        lang="fr"
+        withErrors
+        values={{ attendanceMode: 2 }}
+        onSubmit={({ values, clean }) => {
+          console.log('submitted values', values);
+          console.log('submitted clean', clean);
+        }}
+        schema={{
+          fields: [
+            {
+              field: 'attendanceMode',
+              fieldType: 'radio',
+              label: 'Mode de participation',
+              optional: false,
+              default: 1,
+              options: [
+                {
+                  id: 1,
+                  value: 'offline',
+                  label: 'Sur place',
+                },
+                {
+                  id: 2,
+                  value: 'online',
+                  label: 'En ligne',
+                },
+                {
+                  id: 3,
+                  value: 'mixed',
+                  label: 'Mixte',
+                },
+              ],
+            },
+            {
+              field: 'onlineAccessLink',
+              fieldType: 'link',
+              label: "Lien d'accès en ligne",
+              optional: false,
+              default: 'https://meet.example.com/room',
+              enableWith: {
+                field: 'attendanceMode',
+                value: [2, 3],
+              },
+            },
+          ],
+        }}
+      />
+    </div>
+  );
+}

@@ -42,18 +42,22 @@ export default class FormSchemaComponent extends Component {
       defaultLabelLanguage: lang,
     };
 
-    if (!stateless) {
-      init.values = values;
-      init.errors = [];
-      init.loading = false;
-    }
-
     this.state = init;
 
     this.onSubmit = this.onSubmit.bind(this);
     this.onSubmitConfirm = this.onSubmitConfirm.bind(this);
 
-    const sanitized = this.sanitize(values);
+    const formSchema = this._getFormSchema();
+    const schemaDefaults = formSchema.getValidate({ draft: true }).default || {};
+    const mergedValues = { ...schemaDefaults, ...values };
+
+    if (!stateless) {
+      init.values = mergedValues;
+      init.errors = [];
+      init.loading = false;
+    }
+
+    const sanitized = this.sanitize(mergedValues);
 
     // display of errors at load
     const { errors } = withErrors ? sanitized : { errors: [] };
