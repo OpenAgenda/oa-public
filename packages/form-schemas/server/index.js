@@ -195,9 +195,6 @@ export default Object.assign(
       update: update.bind(null, c),
       remove: remove.bind(null, c),
       clearCache: clearCache.bind(null, c),
-      shutdown: async (options = {}) => {
-        if (options.clear) await clearCache(c);
-      },
       internals: {
         client: c.client,
       },
