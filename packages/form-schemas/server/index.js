@@ -14,8 +14,8 @@ const utils = {
   flattenSchema,
 };
 
-async function get({ client, schemas }, id, options = {}) {
-  const store = await client(schemas.formSchema)
+async function fetchFromDB({ client, schemas }, id) {
+  return client(schemas.formSchema)
     .first(['id', 'store'])
     .where({ id })
     .then((r) =>
@@ -25,15 +25,38 @@ async function get({ client, schemas }, id, options = {}) {
           id,
         }
         : null));
-
-  if (!store) {
-    return null;
-  }
-
-  return options.instanciate ? new FormSchema(store) : store;
 }
 
-async function getMerged({ client, schemas }, ids, options = {}) {
+async function get(
+  { client, schemas, redis, cachePrefix, cacheTTL },
+  id,
+  options = {},
+) {
+  if (!id || options?.instanciate || !redis) {
+    const store = await fetchFromDB({ client, schemas }, id);
+    if (!store) return null;
+    return options?.instanciate ? new FormSchema(store) : store;
+  }
+
+  const cacheKey = `${cachePrefix}:${id}`;
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    return JSON.parse(cached);
+  }
+
+  const store = await fetchFromDB({ client, schemas }, id);
+  if (store) {
+    await redis.set(
+      cacheKey,
+      JSON.stringify(store),
+      'EX',
+      Math.ceil(cacheTTL / 1000),
+    );
+  }
+  return store;
+}
+
+async function getMerged(ctx, ids, options = {}) {
   const { instanciate } = {
     instanciate: false,
     ...options,
@@ -42,7 +65,7 @@ async function getMerged({ client, schemas }, ids, options = {}) {
   const toBeMerged = [];
 
   for (const id of [].concat(ids)) {
-    toBeMerged.push(await get({ client, schemas }, id));
+    toBeMerged.push(await get(ctx, id));
   }
 
   const merged = merge(...toBeMerged);
@@ -50,8 +73,8 @@ async function getMerged({ client, schemas }, ids, options = {}) {
   return instanciate ? new FormSchema(merged) : merged;
 }
 
-async function getValidator({ client, schemas }, id, options = {}) {
-  const data = await get({ client, schemas }, id);
+async function getValidator(ctx, id, options = {}) {
+  const data = await get(ctx, id);
 
   return data ? new FormSchema(data).getValidate(options) : null;
 }
@@ -84,7 +107,11 @@ async function create({ client, schemas, reservedFields }, data) {
   };
 }
 
-async function update({ client, schemas, reservedFields }, id, data) {
+async function update(
+  { client, schemas, reservedFields, redis, cachePrefix },
+  id,
+  data,
+) {
   let clean;
   try {
     clean = FormSchema.validate(data, { reservedFields });
@@ -104,6 +131,8 @@ async function update({ client, schemas, reservedFields }, id, data) {
     })
     .where({ id });
 
+  if (redis) await redis.del(`${cachePrefix}:${id}`);
+
   log('updated form-schema %s', id);
 
   return {
@@ -113,13 +142,21 @@ async function update({ client, schemas, reservedFields }, id, data) {
   };
 }
 
-async function remove({ client, schemas }, id) {
+async function remove({ client, schemas, redis, cachePrefix }, id) {
   const removedId = await client(schemas.formSchema).delete({ id });
+
+  if (redis) await redis.del(`${cachePrefix}:${id}`);
 
   return {
     success: true,
     id: removedId,
   };
+}
+
+async function clearCache({ redis, cachePrefix }) {
+  if (!redis) return;
+  const keys = await redis.keys(`${cachePrefix}:*`);
+  if (keys.length) await redis.del(...keys);
 }
 
 export default Object.assign(
@@ -139,6 +176,9 @@ export default Object.assign(
         }),
       schemas: config.schemas,
       reservedFields: config.reservedFields || [],
+      redis: config.redis || null,
+      cachePrefix: config.cachePrefix || 'formschema',
+      cacheTTL: config.cacheTTL || 60_000,
     };
 
     filesMw.init({
@@ -154,6 +194,7 @@ export default Object.assign(
       create: create.bind(null, c),
       update: update.bind(null, c),
       remove: remove.bind(null, c),
+      clearCache: clearCache.bind(null, c),
       internals: {
         client: c.client,
       },

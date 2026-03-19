@@ -68,6 +68,7 @@ describe('13 - core - functional(server): core.agendas().locations.list', () => 
     });
     core.services.eventSearch.task({ reset: true });
     await services.simpleCache.clearAll();
+    await services.formSchemas.clearCache();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

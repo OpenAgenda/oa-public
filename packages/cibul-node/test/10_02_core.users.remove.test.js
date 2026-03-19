@@ -46,6 +46,7 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
     await core.agendas(6184770).events.search.rebuild();
     await services.simpleCache.clearAll();
+    await services.formSchemas.clearCache();
 
     core.services.users.tasks.processQueue();
   });

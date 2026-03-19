@@ -9,7 +9,10 @@ const testConfig = {
       process.env.MYSQL_SLOW_LOG_THRESHOLD ?? '1000',
       10,
     ),
-    connectionPoolMax: parseInt(process.env.MYSQL_POOL_MAX ?? '20', 10),
+    pool: {
+      max: parseInt(process.env.MYSQL_POOL_MAX ?? '10', 10),
+      min: parseInt(process.env.MYSQL_POOL_MIN ?? '10', 10),
+    },
   },
   db: {
     host: process.env.OA_MYSQL_TEST_HOST,

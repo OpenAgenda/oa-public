@@ -84,6 +84,7 @@ describe('core - functional (server): core.agendas().events.create()', () => {
   });
 
   afterAll(() => core.services.simpleCache.clearAll());
+  afterAll(() => core.services.formSchemas.clearCache());
 
   afterAll(() => core.services.shutdown({ clear: true }));
 

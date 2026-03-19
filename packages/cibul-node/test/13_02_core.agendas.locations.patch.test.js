@@ -49,6 +49,7 @@ describe('13 - core - functional(server): core.agendas().locations.patch', () =>
     core.services.agendaLocations.task({ reset: true });
     services.aggregators.task();
     await services.simpleCache.clearAll();
+    await services.formSchemas.clearCache();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

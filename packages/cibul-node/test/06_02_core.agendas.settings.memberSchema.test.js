@@ -39,6 +39,8 @@ describe('core - functional (server): core.agendas().settings.schema.memberSchem
     });
 
     core = Core(services, config);
+
+    await services.formSchemas.clearCache();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));

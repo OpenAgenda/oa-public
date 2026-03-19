@@ -55,6 +55,7 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
     await core.agendas(123).events.search.rebuild();
     await services.simpleCache.clearAll();
+    await services.formSchemas.clearCache();
   });
 
   beforeAll(async () => {

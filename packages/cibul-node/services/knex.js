@@ -3,7 +3,7 @@ import logs from '@openagenda/logs';
 
 const log = logs('services/knex');
 
-export function init(config) {
+export async function init(config) {
   log.setConfig(config.getLogConfig('oa', 'knexErrors'));
 
   const knex = knexLib({
@@ -30,7 +30,10 @@ export function init(config) {
           pingInterval.unref();
 
           // Cleanup quand la connexion est détruite
-          conn.on('end', () => clearInterval(pingInterval));
+          conn.on('end', () => {
+            log.warn('connection closed', { threadId: conn.threadId });
+            clearInterval(pingInterval);
+          });
 
           done(null, conn);
         });
@@ -38,6 +41,19 @@ export function init(config) {
     },
     schemas: config.schemas,
   });
+
+  // Pré-remplir le pool pour forcer la création de min connexions
+  const { pool } = knex.client;
+  const acquired = await Promise.all(
+    Array.from(
+      { length: config.knexService.pool.min },
+      () => pool.acquire().promise,
+    ),
+  );
+  for (const conn of acquired) {
+    pool.release(conn);
+  }
+  log.info('pool warmed', { connections: acquired.length });
 
   config.knex = knex;
 

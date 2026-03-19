@@ -258,6 +258,74 @@ describe('opencage', () => {
       });
     });
 
+    describe('Jersey', () => {
+      it('forward geocode with JE country code', async () => {
+        const res = await geocode('Saint Helier, Jersey', {
+          countryCode: 'JE',
+          language: 'fr',
+          first: true,
+          raw: true,
+        });
+        console.log('Jersey forward (JE):', JSON.stringify(res, null, 2));
+        expect(res).not.toBeNull();
+      });
+
+      it('forward geocode with GB country code', async () => {
+        const res = await geocode('Saint Helier, Jersey', {
+          countryCode: 'GB',
+          language: 'fr',
+          first: true,
+          raw: true,
+        });
+        console.log('Jersey forward (GB):', JSON.stringify(res, null, 2));
+        expect(res).not.toBeNull();
+      });
+
+      it('forward geocode without country code', async () => {
+        const res = await geocode('Saint Helier, Jersey', {
+          language: 'fr',
+          first: true,
+          raw: true,
+        });
+        console.log('Jersey forward (no CC):', JSON.stringify(res, null, 2));
+        expect(res).not.toBeNull();
+      });
+
+      it('reverse geocode on Jersey', async () => {
+        // coordinates in Saint Helier
+        const res = await geocode.reverse(49.188, -2.1069, {
+          first: true,
+          language: 'fr',
+          raw: true,
+        });
+        console.log('Jersey reverse:', JSON.stringify(res, null, 2));
+        expect(res).not.toBeNull();
+      });
+    });
+
+    describe('Guernsey', () => {
+      it('forward geocode with GG country code', async () => {
+        const res = await geocode('Saint Peter Port, Guernsey', {
+          countryCode: 'GG',
+          language: 'fr',
+          first: true,
+          raw: true,
+        });
+        console.log('Guernsey forward (GG):', JSON.stringify(res, null, 2));
+        expect(res).not.toBeNull();
+      });
+
+      it('reverse geocode on Guernsey', async () => {
+        const res = await geocode.reverse(49.4548, -2.5377, {
+          first: true,
+          language: 'fr',
+          raw: true,
+        });
+        console.log('Guernsey reverse:', JSON.stringify(res, null, 2));
+        expect(res).not.toBeNull();
+      });
+    });
+
     describe('Hong Kong', () => {
       it('Finds an address in Hong Kong', async () => {
         const result = await geocode(

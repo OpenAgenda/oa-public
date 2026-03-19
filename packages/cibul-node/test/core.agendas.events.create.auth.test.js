@@ -39,6 +39,8 @@ describe('core - functional (server): core.agendas().events.create api authentic
     });
 
     core = Core(services, testConfig);
+
+    await services.formSchemas.clearCache();
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
