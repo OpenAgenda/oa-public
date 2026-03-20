@@ -1,4 +1,4 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ENV HOME /root
 
@@ -7,7 +7,7 @@ RUN apt-get update -y \
 
 RUN apt-get install -y imagemagick libmagick++-dev libmagic-dev webp
 
-ENV NODE_MAJOR=22
+ENV NODE_MAJOR=24
 
 RUN mkdir -p /etc/apt/keyrings \
     && curl -fsSL https://deb.nodesource.com/gpgkey/nodesource-repo.gpg.key \
