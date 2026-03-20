@@ -17,7 +17,7 @@ export default async (services, agendaUid, userUids = []) => {
   const { search } = eventSearch.agendas({ uid: agendaUid });
 
   const { aggregations } = await search(
-    { state: null },
+    { memberUid: uniqueUids, state: null },
     { size: 0 },
     { aggregations: [{ type: 'members', size: uniqueUids.length }] },
   );
