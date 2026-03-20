@@ -38,6 +38,7 @@ describe('core.agendas.members.sendGroupMail', () => {
     core = Core(services, testConfig);
 
     await services.formSchemas.clearCache();
+    await services.members.clearCache();
 
     services.members.sendGroupMail.task();
   });

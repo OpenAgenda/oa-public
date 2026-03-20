@@ -1277,7 +1277,9 @@ describe('core - functional (server): core.agendas().events.create()', () => {
               },
             },
           ).then((res) => res.json());
+          console.log('oneLanguageResponse', oneLanguageResponse);
         } catch (e) {
+          console.log(e);
           /* console.log(JSON.stringify(e.      let oneLanguageResponse
             .data, null, 2)); */
         }

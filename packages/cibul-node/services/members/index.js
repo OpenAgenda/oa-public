@@ -39,6 +39,8 @@ export function init(config, services) {
     createWorker,
     bulkThreshold: 10,
     logger: config.getLogConfig('svc', 'members'),
+    redis: services.redis,
+    cacheTTL: 30_000,
     interfaces: {
       getEventCountByUserUid: getEventCountByUserUid.bind(null, services),
       getUsersByUid: getUsersByUid.bind(null, services),
