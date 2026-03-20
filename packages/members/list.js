@@ -10,22 +10,16 @@ import decorateMembersWithEventCounts from './lib/decorateMembersWithEventCounts
 
 const log = logs('list');
 
-/**
- * List members with optional filtering, pagination, and decoration
- * @param {Object} config - Configuration object with knex, schema, and interfaces
- * @param {Object} query - Query parameters
- * @param {Object} nav - Navigation parameters (pagination, ordering)
- * @param {Object} options - Additional options
- * @returns {Promise<Object|Array>} Members list with optional metadata
- */
-export default async (
-  { knex, schema, interfaces },
-  query,
-  nav = {},
-  options = {},
-) => {
-  log('processing', { query, nav, options });
+function buildCacheKey(cachePrefix, query, nav, options) {
+  const parts = [
+    cachePrefix,
+    query.agendaUid || query.userUid || 'nokey',
+    JSON.stringify({ query, nav, options }),
+  ];
+  return parts.join(':');
+}
 
+async function fetchList({ knex, schema, interfaces }, query, nav, options) {
   const {
     detailed,
     total: includeTotal,
@@ -96,4 +90,33 @@ export default async (
   }
 
   return members;
+}
+
+export default async (config, query, nav = {}, options = {}) => {
+  log('processing', { query, nav, options });
+
+  const { redis, cachePrefix, cacheTTL } = config;
+
+  if (!redis) {
+    return fetchList(config, query, nav, options);
+  }
+
+  const cacheKey = buildCacheKey(cachePrefix, query, nav, options);
+
+  const cached = await redis.get(cacheKey);
+  if (cached) {
+    log('cache hit', cacheKey);
+    return JSON.parse(cached);
+  }
+
+  const result = await fetchList(config, query, nav, options);
+
+  await redis.set(
+    cacheKey,
+    JSON.stringify(result),
+    'EX',
+    Math.ceil(cacheTTL / 1000),
+  );
+
+  return result;
 };

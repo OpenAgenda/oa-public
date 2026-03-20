@@ -1,6 +1,7 @@
 import logs from '@openagenda/logs';
 import cleanRemoveOptions from './lib/cleanRemoveOptions.js';
 import get from './get.js';
+import invalidateListCache from './lib/invalidateListCache.js';
 
 const log = logs('remove');
 
@@ -14,6 +15,8 @@ export default async (config, identifiers, options = {}) => {
   if (!member) throw new Error('Not found');
 
   await knex(schema).delete().where('id', member.id);
+
+  await invalidateListCache(config, member.agendaUid);
 
   if (interfaces?.onRemove) {
     try {

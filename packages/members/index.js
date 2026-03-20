@@ -7,6 +7,7 @@ import patch from './patch.js';
 import remove from './remove.js';
 import setByEmail from './setByEmail.js';
 import * as utils from './utils.js';
+import invalidateListCache from './lib/invalidateListCache.js';
 
 function Service(options = {}) {
   const config = {
@@ -14,6 +15,9 @@ function Service(options = {}) {
     schema: 'member',
     interfaces: {},
     bulkThreshold: 10,
+    redis: null,
+    cachePrefix: 'members:list',
+    cacheTTL: 30_000,
     ...options,
   };
 
@@ -38,6 +42,12 @@ function Service(options = {}) {
       byEmail: Object.assign(setByEmail.bind(null, config), {
         bulk: setByEmail.bulk.bind(null, config),
       }),
+    },
+    invalidateListCache: invalidateListCache.bind(null, config),
+    clearCache: async () => {
+      if (!config.redis) return;
+      const keys = await config.redis.keys(`${config.cachePrefix}:*`);
+      if (keys.length) await config.redis.del(...keys);
     },
     utils,
   };

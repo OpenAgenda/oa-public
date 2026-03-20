@@ -4,6 +4,7 @@ import get from './get.js';
 import validate from './iso/validate.js';
 import cleanPatchOptions from './lib/cleanPatchOptions.js';
 import { toDB } from './lib/transformDBEntry.js';
+import invalidateListCache from './lib/invalidateListCache.js';
 
 const log = logs('patch');
 
@@ -39,6 +40,8 @@ async function patch(config, identifiers, data, options = {}) {
   log('patching', clean);
 
   await knex(schema).update(toDB(clean)).where('id', member.id);
+
+  await invalidateListCache(config, member.agendaUid);
 
   const patched = await get(config, member.id, { legacy: true });
 
