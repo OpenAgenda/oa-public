@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 
 import clearDir from './lib/clearDir.mjs';
 import prepareConfig from './lib/prepareConfig.mjs';
@@ -50,6 +51,14 @@ const envVars = Object.assign(
   await fs.promises.readFile(envFilePath, 'utf8').then((data) => JSON.parse(data)),
   await fs.promises.readFile(localEnvFilePath, 'utf8').then((data) => JSON.parse(data)),
 );
+
+const webEnvConfigPath = path.join(path.dirname(envFilePath), `${webEnvName}-config.json`);
+try {
+  Object.assign(envVars, JSON.parse(await fs.promises.readFile(webEnvConfigPath, 'utf8')));
+  console.log(`loaded env-specific config from ${webEnvConfigPath}`);
+} catch (e) {
+  if (e.code !== 'ENOENT') throw e;
+}
 
 const taskEnvVars = taskEnvFilePath
   ? { ...envVars, ...JSON.parse(await fs.promises.readFile(taskEnvFilePath, 'utf8')) }
