@@ -14,4 +14,4 @@ create table if not exists `${schema}` (
   index agenda_uid_idx (agenda_uid),
   index slug_idx (slug),
   primary key (id)
-) engine=InnoDB default character set utf8 collate utf8_general_ci;
+) engine=InnoDB default character set utf8mb4 collate utf8mb4_general_ci;
