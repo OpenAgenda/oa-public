@@ -57,12 +57,16 @@ export default (services) =>
             agendaUid: sourceAgenda.uid,
             userUid,
           };
-          log.warn(
-            Array.isArray(e)
-              ? { info: { ...info, errors: e } }
-              : new VError({ info, cause: e }),
-            'Could not get source member',
-          );
+          try {
+            log.warn(
+              Array.isArray(e)
+                ? { info: { ...info, errors: e } }
+                : new VError({ info, cause: e }),
+              'Could not get source member',
+            );
+          } catch (_) {
+            log.info('transfer error', { error: e });
+          }
         }
 
         if (sourceMember) {
