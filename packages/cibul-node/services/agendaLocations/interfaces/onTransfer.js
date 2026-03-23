@@ -8,7 +8,10 @@ function safeLogError(message, error, info = {}) {
   try {
     log.error(new VError({ cause: error, info }, message));
   } catch (_) {
-    log.warn(message, { error: String(error), info });
+    log.warn(message, {
+      error: JSON.stringify(error, Object.getOwnPropertyNames(error)),
+      info,
+    });
   }
 }
 
