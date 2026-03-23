@@ -11,9 +11,10 @@ import decorateMembersWithEventCounts from './lib/decorateMembersWithEventCounts
 const log = logs('list');
 
 function buildCacheKey(cachePrefix, query, nav, options) {
+  const id = query.agendaUid || query.userUid || 'nokey';
   const parts = [
     cachePrefix,
-    query.agendaUid || query.userUid || 'nokey',
+    `{${id}}`,
     JSON.stringify({ query, nav, options }),
   ];
   return parts.join(':');
@@ -111,12 +112,9 @@ export default async (config, query, nav = {}, options = {}) => {
 
   const result = await fetchList(config, query, nav, options);
 
-  await redis.set(
-    cacheKey,
-    JSON.stringify(result),
-    'EX',
-    Math.ceil(cacheTTL / 1000),
-  );
+  await redis.set(cacheKey, JSON.stringify(result), {
+    EX: Math.ceil(cacheTTL / 1000),
+  });
 
   return result;
 };
