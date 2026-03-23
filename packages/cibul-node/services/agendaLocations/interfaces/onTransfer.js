@@ -53,12 +53,15 @@ export default (services) =>
             { detailed: true },
           );
         } catch (e) {
-          log(
-            'warn',
-            new VError(e, 'Could not get source member', {
-              agendaUid: sourceAgenda.uid,
-              userUid,
-            }),
+          const info = {
+            agendaUid: sourceAgenda.uid,
+            userUid,
+          };
+          log.warn(
+            Array.isArray(e)
+              ? { info: { ...info, errors: e } }
+              : new VError({ info, cause: e }),
+            'Could not get source member',
           );
         }
 
