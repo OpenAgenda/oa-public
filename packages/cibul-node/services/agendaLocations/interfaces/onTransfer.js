@@ -122,12 +122,15 @@ export default (services) =>
             { detailed: true },
           );
         } catch (e) {
-          log(
-            'warn',
-            new VError(e, 'Could not get target member', {
-              agendaUid: targetAgenda.uid,
-              userUid,
-            }),
+          const info = {
+            agendaUid: targetAgenda.uid,
+            userUid,
+          };
+          log.warn(
+            Array.isArray(e)
+              ? { info: { ...info, errors: e } }
+              : new VError({ info, cause: e }),
+            'Could not get target member',
           );
         }
 
