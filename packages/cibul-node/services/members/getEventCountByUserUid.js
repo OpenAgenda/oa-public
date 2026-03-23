@@ -8,7 +8,7 @@ export default async (services, agendaUid, userUids = []) => {
 
   if (!agendaUid) return [];
 
-  const uniqueUids = _.uniq(userUids);
+  const uniqueUids = _.uniq(userUids).filter((uid) => uid != null);
 
   if (!uniqueUids.length) return [];
 
@@ -19,13 +19,18 @@ export default async (services, agendaUid, userUids = []) => {
   const { aggregations } = await search(
     { memberUid: uniqueUids, state: null },
     { size: 0 },
-    { aggregations: [{ type: 'members', size: uniqueUids.length }] },
+    { aggregations: [{ type: 'members', size: uniqueUids.length * 2 }] },
   );
 
-  return (aggregations?.members ?? [])
-    .filter((bucket) => uniqueUids.includes(bucket.member.uid))
-    .map((bucket) => ({
-      count: bucket.eventCount,
-      userUid: bucket.member.uid,
-    }));
+  const countsByUid = {};
+  for (const bucket of aggregations?.members ?? []) {
+    if (uniqueUids.includes(bucket.member.uid)) {
+      countsByUid[bucket.member.uid] = (countsByUid[bucket.member.uid] || 0) + bucket.eventCount;
+    }
+  }
+
+  return Object.entries(countsByUid).map(([uid, count]) => ({
+    count,
+    userUid: parseInt(uid, 10),
+  }));
 };
