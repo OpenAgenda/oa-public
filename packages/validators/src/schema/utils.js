@@ -73,7 +73,7 @@ function mapValuesToValidators(fields, values, defaults) {
         valuesWithDefaults,
         fields
       ),
-      value: values && fieldName in values
+      value: values && typeof values === 'object' && fieldName in values
         ? values[fieldName]
         : ('default' in validatorOptions ? validatorOptions.default : undefined),
       related: Object.keys(validatorOptions.related ?? {}).reduce((rootCarry, relatedKey) => ({

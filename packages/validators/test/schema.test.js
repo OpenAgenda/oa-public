@@ -1023,6 +1023,27 @@ describe('schema validator', () => {
       }]);
     });
 
+    it('a non-object value for a sub-schema falls back to defaults', () => {
+      const validate = schema({
+        size: {
+          width: {
+            type: 'integer',
+            default: null,
+          },
+          height: {
+            type: 'integer',
+            default: null,
+          },
+        },
+      });
+
+      const clean = validate({ size: 205890 });
+
+      expect(clean).toEqual({
+        size: { width: null, height: null },
+      });
+    });
+
     it('An number in place of a text should give an error (with strict option)', () => {
       let errors = [];
 
