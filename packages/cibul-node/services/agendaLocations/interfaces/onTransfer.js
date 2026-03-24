@@ -4,6 +4,17 @@ import createLocationFeeds from '../lib/createLocationFeeds.js';
 
 const log = logs('services/agendaLocations/onTransfer');
 
+function safeLogError(message, error, info = {}) {
+  try {
+    log.error(new VError({ cause: error, info }, message));
+  } catch (_) {
+    log.warn(message, {
+      error: JSON.stringify(error, Object.getOwnPropertyNames(error)),
+      info,
+    });
+  }
+}
+
 export default (services) =>
   async (location, sourceAgenda, targetAgenda, context = {}) => {
     const { activities, members } = services;
@@ -13,6 +24,8 @@ export default (services) =>
       log.warn('no userUid in context, not registering activities');
       return;
     }
+
+    log.info('transfering location', { sourceAgenda, location, targetAgenda });
 
     // Queue event sync for both source and target agendas
     try {
@@ -53,13 +66,10 @@ export default (services) =>
             { detailed: true },
           );
         } catch (e) {
-          log(
-            'warn',
-            new VError(e, 'Could not get source member', {
-              agendaUid: sourceAgenda.uid,
-              userUid,
-            }),
-          );
+          safeLogError('Could not get source member', e, {
+            agendaUid: sourceAgenda.uid,
+            userUid,
+          });
         }
 
         if (sourceMember) {
@@ -89,18 +99,10 @@ export default (services) =>
         }
       }
     } catch (e) {
-      log.error(
-        new VError(
-          {
-            cause: e,
-            info: {
-              agendaUid: sourceAgenda.uid,
-              locationUid: location.uid,
-            },
-          },
-          'Failed to register remove activity on source agenda',
-        ),
-      );
+      safeLogError('Failed to register remove activity on source agenda', e, {
+        agendaUid: sourceAgenda.uid,
+        locationUid: location.uid,
+      });
     }
 
     // Register "create" activity on TARGET agenda
@@ -119,13 +121,10 @@ export default (services) =>
             { detailed: true },
           );
         } catch (e) {
-          log(
-            'warn',
-            new VError(e, 'Could not get target member', {
-              agendaUid: targetAgenda.uid,
-              userUid,
-            }),
-          );
+          safeLogError('Could not get target member', e, {
+            agendaUid: targetAgenda.uid,
+            userUid,
+          });
         }
 
         if (targetMember) {
@@ -158,17 +157,9 @@ export default (services) =>
         log('activities service is not initialized');
       }
     } catch (e) {
-      log.error(
-        new VError(
-          {
-            cause: e,
-            info: {
-              agendaUid: targetAgenda.uid,
-              locationUid: location.uid,
-            },
-          },
-          'Failed to register create activity on target agenda',
-        ),
-      );
+      safeLogError('Failed to register create activity on target agenda', e, {
+        agendaUid: targetAgenda.uid,
+        locationUid: location.uid,
+      });
     }
   };
