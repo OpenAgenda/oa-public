@@ -109,8 +109,10 @@ const GroupTagSelector = ({
       >
         {renderGroupHead(group, i)}
         <div className="list-unstyled gt-selector-items">
-          {group.tags.map((t, ti) =>
-            (group?.unique ? renderUniqueItem(t, i, ti) : renderItem(t, i, ti)))}
+          {[...group.tags]
+            .sort((a, b) => (a.label || '').localeCompare(b.label || ''))
+            .map((t, ti) =>
+              (group?.unique ? renderUniqueItem(t, i, ti) : renderItem(t, i, ti)))}
         </div>
       </div>
     );
