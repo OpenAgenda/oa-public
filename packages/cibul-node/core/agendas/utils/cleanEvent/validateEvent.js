@@ -150,19 +150,29 @@ export default function validateEvent(
   });
 
   // clean consolidated schemas data
-  try {
-    const consolidatedClean = validateBySchema(consolidatedSchema, data, {
-      bypassAuthorization: access === 'internal',
-      access: getWriteAccess(member, access),
-      isDraft: validateAsDraft,
-      isPatch,
-      stored: isPatch ? storedData : undefined,
-      defaultLang,
-      validateInputOnly: systemValidatePatchDataOnly,
-    });
+  // Raw multer uploads have a transformAndUpload function and must be
+  // excluded from schema validation (size is bytes, not {width,height}).
+  // The image will be processed later by processImage.
+  const rawImage = data?.image?.transformAndUpload ? data.image : null;
+  const dataForValidation = rawImage ? _.omit(data, ['image']) : data;
 
-    if (data?.image?.transformAndUpload) {
-      consolidatedClean.image = data.image;
+  try {
+    const consolidatedClean = validateBySchema(
+      consolidatedSchema,
+      dataForValidation,
+      {
+        bypassAuthorization: access === 'internal',
+        access: getWriteAccess(member, access),
+        isDraft: validateAsDraft,
+        isPatch,
+        stored: isPatch ? storedData : undefined,
+        defaultLang,
+        validateInputOnly: systemValidatePatchDataOnly,
+      },
+    );
+
+    if (rawImage) {
+      consolidatedClean.image = rawImage;
     }
 
     Object.assign(
