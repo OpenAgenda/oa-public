@@ -10,14 +10,18 @@ export default async function invalidateListCache(
 
   try {
     const pattern = `${cachePrefix}:{${agendaUid}}:*`;
-    const keys = [];
-
-    for await (const key of redis.scanIterator({
-      MATCH: pattern,
-      COUNT: 200,
-    })) {
-      keys.push(key);
-    }
+    const keys = await new Promise((resolve, reject) => {
+      const found = [];
+      const stream = redis.scanStream({
+        match: pattern,
+        count: 200,
+      });
+      stream.on('data', (batch) => {
+        found.push(...batch);
+      });
+      stream.on('end', () => resolve(found));
+      stream.on('error', reject);
+    });
 
     if (keys.length) {
       await Promise.all(keys.map((key) => redis.del(key)));
