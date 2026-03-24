@@ -62,6 +62,26 @@ describe('file validator', () => {
     });
   });
 
+  it('image with raw multer object (size as number) should not crash', () => {
+    const validate = fileValidator({
+      imageWithSizeAndVariants: true,
+      allowPath: true,
+    });
+
+    const multerFile = {
+      fieldname: 'image',
+      originalname: 'photo.png',
+      encoding: '7bit',
+      mimetype: 'image/png',
+      destination: '/tmp',
+      filename: '2da1b557c22edf06a9c322c8f4d7de6c',
+      path: '/tmp/2da1b557c22edf06a9c322c8f4d7de6c',
+      size: 205890,
+    };
+
+    expect(() => validate(multerFile)).not.toThrow();
+  });
+
   it('image with size and variants option but unspecified in value', () => {
     const validate = fileValidator({
       imageWithSizeAndVariants: true,
