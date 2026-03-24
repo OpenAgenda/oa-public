@@ -9,11 +9,14 @@ export default async (services, userUids, userOptions = {}) => {
     userOptions,
   });
 
+  const uids = [].concat(userUids);
+
   const { data } = await services.users.find({
     query: {
       uid: {
-        $in: [].concat(userUids),
+        $in: uids,
       },
+      $limit: uids.length,
     },
     ...userOptions,
   });
