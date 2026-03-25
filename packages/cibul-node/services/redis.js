@@ -1,5 +1,8 @@
 import redis from 'redis';
 import IORedis from 'ioredis';
+import logs from '@openagenda/logs';
+
+const log = logs('services/redis');
 
 function createIORedisConnection(config) {
   if (config.redis.clusterMode) {
@@ -44,9 +47,26 @@ export async function init(config) {
   const redisClient = createRedisConnection(config);
   await redisClient.connect();
 
-  config.redisClient = redisClient;
+  const traced = new Proxy(redisClient, {
+    get(target, prop, receiver) {
+      const value = Reflect.get(target, prop, receiver);
+      if (typeof value === 'function' && typeof prop === 'string') {
+        return (...args) => {
+          log.warn(
+            'node-redis .%s() called from %s',
+            prop,
+            new Error().stack.split('\n')[2]?.trim(),
+          );
+          return value.apply(target, args);
+        };
+      }
+      return value;
+    },
+  });
 
-  return Object.assign(redisClient, {
+  config.redisClient = traced;
+
+  return Object.assign(traced, {
     ioRedis: ioRedisClient,
     shutdown: async () => {
       await ioRedisClient.quit();
