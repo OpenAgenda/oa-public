@@ -1,13 +1,13 @@
 {
-  "days": "dias",
-  "months": "mes",
+  "today": "Hoy",
+  "yesterday": "Ayer",
+  "tomorrow": "Mañana",
+  "thisWeekend": "Este fin de semana",
+  "thisWeek": "Esta semana",
+  "thisMonth": "Este mes",
   "relativeToNowPast": "hace %count% %units%",
   "relativeToNowUpcoming": "en %count% %units%",
-  "thisMonth": "Este mes",
-  "thisWeek": "Esta semana",
-  "thisWeekend": "Este fin de semana",
-  "today": "Hoy",
-  "tomorrow": "Mañana",
-  "years": "años",
-  "yesterday": "Ayer"
+  "days": "dias",
+  "months": "mes",
+  "years": "años"
 }

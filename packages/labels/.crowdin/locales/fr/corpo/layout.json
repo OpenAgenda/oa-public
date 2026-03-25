@@ -1,7 +1,7 @@
 {
   "layoutFeatures": "Fonctions",
+  "layoutTestimonials": "Références",
   "layoutPricing": "Tarifs",
-  "layoutSignin": "Se connecter",
   "layoutSignup": "Créer un compte",
-  "layoutTestimonials": "Références"
+  "layoutSignin": "Se connecter"
 }

@@ -84,6 +84,8 @@
   "chooseFieldTypePlaceholder": "Choose a field type",
   "chooseOtherType": "Choose another type",
   "isLabelDuplicateError": "The title for this field is already taken by another of the form. Modify it before trying to add it again.",
+  "isSulgDuplicateError": "The associated slug is already taken by another field. Please modify the title before trying to add it again.",
+  "isReservedError": "The associated slug is reserved. Please modify the title before trying to add it again.",
   "confirmFieldType": "Configure the field",
   "confirmFieldCreate": "Create the field",
   "confirmFieldUpdate": "Update",

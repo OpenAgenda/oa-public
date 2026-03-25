@@ -1,7 +1,7 @@
 {
-  "guestUnsubscriptionSucceed": "Sètz ara plan desmarcat·da.",
+  "tokenNotFound": "Se pòt pas trapar lo geton de desabonament.",
   "tokenAlreadyUsed": "Lo geton de desabonament es ja estat utilizat.",
   "tokenMalformed": "Lo ligam es pas pus valable. Es segurament ja estat utilizat.",
-  "tokenNotFound": "Se pòt pas trapar lo geton de desabonament.",
-  "unsubscriptionSucceed": "Vòstres reglatges son estats salvats."
+  "unsubscriptionSucceed": "Vòstres reglatges son estats salvats.",
+  "guestUnsubscriptionSucceed": "Sètz ara plan desmarcat·da."
 }

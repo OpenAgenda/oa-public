@@ -1,9 +1,9 @@
 {
-  "emailSubmitted": "Ihre %count% eingereichten E-Mails werden verarbeitet.",
   "invitationError": "Bei der Bearbeitung der Einladungen ist ein Fehler aufgetreten. Bitte versuche es in Kürze noch einmal.",
   "invitationNotSent": "Die Einladung konnte nicht gesendet werden.",
+  "emailSubmitted": "Ihre %count% eingereichten E-Mails werden verarbeitet.",
   "noNewInvite": "Es wurde keine neue Einladung versendet.",
-  "resentInvite": "Die Einladung wird erneut versendet.",
+  "sentInvites": "Gesendete Einladungen: %count%.",
   "resentInvites": "%count% Einladungen werden erneut versendet.<br/><br/><br/> Beachten Sie, dass Einladungen nicht mehr als einmal alle 24 Stunden in großen Mengen versendet werden können.",
-  "sentInvites": "Gesendete Einladungen: %count%."
+  "resentInvite": "Die Einladung wird erneut versendet."
 }

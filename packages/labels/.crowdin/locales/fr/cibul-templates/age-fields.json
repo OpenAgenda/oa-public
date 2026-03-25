@@ -1,7 +1,7 @@
 {
-  "max": "à",
-  "min": "De",
-  "select": "Sélectionner",
   "year": "an",
-  "years": "ans"
+  "years": "ans",
+  "min": "De",
+  "max": "à",
+  "select": "Sélectionner"
 }

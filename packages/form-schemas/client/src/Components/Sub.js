@@ -14,7 +14,16 @@ export default function Sub({ error, label, warning }) {
     >
       {text
         || (label ? (
-          <ReactMarkdown disallowedElements={['p']} unwrapDisallowed>
+          <ReactMarkdown
+            components={{
+              p: ({ children }) => (
+                <>
+                  {children}
+                  <br />
+                </>
+              ),
+            }}
+          >
             {label}
           </ReactMarkdown>
         ) : null)}

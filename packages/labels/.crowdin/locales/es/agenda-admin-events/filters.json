@@ -1,8 +1,8 @@
 {
-  "contributor": "Contribuyente",
   "filterList": "Filtros",
-  "loading": "Cargando",
+  "title": "título",
   "locationName": "Lugar Nombre",
   "region": "Región",
-  "title": "título"
+  "contributor": "Contribuyente",
+  "loading": "Cargando"
 }

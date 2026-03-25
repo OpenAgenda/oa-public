@@ -201,6 +201,10 @@ module.exports = {
     "io": "crwdns14298:0crwdne14298:0",
     "oc": "Cargatz un image d'al mens 300 pixèls de largor"
   },
+  "imageSub": {
+    "fr": "**Droit des images**\n\nEn insérant un visuel dans OpenAgenda, vous certifiez détenir les droits nécessaires à la publication de celui-ci sous le régime de la licence ouverte. [En savoir plus](https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/)",
+    "en": "**Image rights**\n\nBy inserting an image in OpenAgenda, you certify that you hold the necessary rights to publish it under the open licence. [Learn more](https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/)"
+  },
   "imageCredits": {
     "fr": "Crédits de l'image",
     "en": "Image credits",

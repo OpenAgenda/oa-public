@@ -1,9 +1,9 @@
 {
+  "mi": "Discapacidad motriz",
   "hi": "Discapacidad auditiva",
   "ii": "Discapacidad intelectual",
-  "input": "Este evento facilita un acceso a las discapacidades",
-  "mi": "Discapacidad motriz",
   "pi": "Discapacidad psicológica",
+  "vi": "Discapacidad visual",
   "sl": "Lenguaje de señas",
-  "vi": "Discapacidad visual"
+  "input": "Este evento facilita un acceso a las discapacidades"
 }

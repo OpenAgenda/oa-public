@@ -1,11 +1,11 @@
 {
-  "checkbox": "Lista de opción múltiple",
-  "image": "Imagen",
-  "integer": "Número entero",
-  "markdown": "Campo de texto enriquecido",
-  "number": "Número",
   "radio": "Lista de opción única",
+  "checkbox": "Lista de opción múltiple",
   "select": "Campo de selección",
+  "integer": "Número entero",
+  "number": "Número",
   "text": "Campo de texto sencillo",
-  "textarea": "Campo de varias líneas de texto "
+  "textarea": "Campo de varias líneas de texto ",
+  "markdown": "Campo de texto enriquecido",
+  "image": "Imagen"
 }

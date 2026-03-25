@@ -1,11 +1,11 @@
 {
   "connection": "Connexion",
-  "createAccount": "Ne far un !",
-  "email": "Email",
   "incorrectPassword": "L'email o lo senhal son pas corrèctes.",
+  "resetPassword": "Reïnicializatz vòstre senhal",
+  "email": "Email",
+  "password": "Senhal",
+  "signin": "Se connectar",
   "lostPassword": "Ai perdut mon senhal",
   "noAccount": "Avètz pas encara de compte ?",
-  "password": "Senhal",
-  "resetPassword": "Reïnicializatz vòstre senhal",
-  "signin": "Se connectar"
+  "createAccount": "Ne far un !"
 }

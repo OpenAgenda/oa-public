@@ -65,7 +65,7 @@ export function SubWithMarkdown() {
             fr: "Chargez une image d'au moins 300 pixels de large",
           },
           sub: {
-            fr: "Formats acceptés : jpg, png. Voir les [conditions d'utilisation](https://example.com)",
+            fr: '**Droit des images**\n\nEn insérant un visuel dans OpenAgenda, vous certifiez détenir les droits nécessaires à la publication de celui-ci sous le régime de la licence ouverte. [En savoir plus](https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/)',
           },
           allowURL: true,
           extensions: ['jpg', 'png', 'jpeg', 'webp'],

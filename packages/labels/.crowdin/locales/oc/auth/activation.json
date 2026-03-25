@@ -1,15 +1,15 @@
 {
+  "sendAgain": "L'email d'activacion es a se tornar mandar",
+  "sendActivateOnSigninAttempt": "Vòstre compte es pas activat. Clicatz sul ligam enclaus dins lo mail d'activacion que vos ven d'èsser mandat.",
   "checkEmail": "Gaitatz lo ligam de validacion dins vòstres emails",
   "checkEmailInstruction": "Un email vos serà mandat lèu amb lo ligam d'activacion pel vòstre compte. Gaitatz dins vòstre boita per acabar lo procèssus de creacion de compte.",
   "didNotReceive": "Avètz pas recebut cap email ? %resend% o escrivètz-nos a %support%",
-  "followUs": "Seguissètz-nos",
-  "followUsOnBlueSky": "Seguissètz-nos sus Bluesky",
-  "followUsOnLinkedIn": "Seguissètz-nos sus LinkedIn",
-  "getOurNewsletter": "Recebètz nòstra letra d'informacions",
   "resend": "Clicatz aicí per tornar mandar",
-  "sendActivateOnSigninAttempt": "Vòstre compte es pas activat. Clicatz sul ligam enclaus dins lo mail d'activacion que vos ven d'èsser mandat.",
-  "sendAgain": "L'email d'activacion es a se tornar mandar",
   "stayUpToDate": "Demoratz al fial de çò que se passa amb OpenAgenda !",
-  "subscribe": "S'abonar",
-  "yourEmail": "Vòstre email"
+  "followUs": "Seguissètz-nos",
+  "followUsOnLinkedIn": "Seguissètz-nos sus LinkedIn",
+  "followUsOnBlueSky": "Seguissètz-nos sus Bluesky",
+  "getOurNewsletter": "Recebètz nòstra letra d'informacions",
+  "yourEmail": "Vòstre email",
+  "subscribe": "S'abonar"
 }
