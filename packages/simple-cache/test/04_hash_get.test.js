@@ -1,4 +1,4 @@
-import redis from 'redis';
+import Redis from 'ioredis';
 import sCache from '../index.js';
 import config from './config.js';
 
@@ -7,14 +7,10 @@ describe('simple-cache - functional (service): hash get', () => {
   let cli;
 
   beforeAll(async () => {
-    cli = redis.createClient({
-      socket: {
-        host: config.redis.host,
-        port: config.redis.port,
-      },
+    cli = new Redis({
+      host: config.redis.host,
+      port: config.redis.port,
     });
-
-    await cli.connect();
   });
 
   beforeAll(() => {
@@ -31,65 +27,48 @@ describe('simple-cache - functional (service): hash get', () => {
 
   describe('promise', () => {
     it('hash get without specifying a key', async () => {
-      await cli.hSet(`${config.prefix}:blob:456`, '', 'Bim');
+      await cli.hset(`${config.prefix}:blob:456`, '', 'Bim');
 
       const value = await cache.hash('blob', 456).get();
       expect(value).toBe('Bim');
     });
 
     it('hash get without specifying an identifier', async () => {
-      await cli.hSet(`${config.prefix}:blab`, '456', 'Biim');
+      await cli.hset(`${config.prefix}:blab`, '456', 'Biim');
 
       const value = await cache.hash('blab').get(456);
       expect(value).toBe('Biim');
     });
 
-    it('hash get fetches value stored specific namespace, id, key redis key', () =>
-      new Promise((rs) => {
-        cli
-          .hSet(
-            `${config.prefix}:agenda:123`,
-            'http://lepassageduponceau.fr',
-            '<html>Les lundi</html>',
-          )
-          .then(() => {
-            cache
-              .hash('agenda', 123)
-              .get('http://lepassageduponceau.fr')
-              .then((value) => {
-                expect(value).toBe('<html>Les lundi</html>');
-                rs();
-              });
-          });
-      }));
+    it('hash get fetches value stored specific namespace, id, key redis key', async () => {
+      await cli.hset(
+        `${config.prefix}:agenda:123`,
+        'http://lepassageduponceau.fr',
+        '<html>Les lundi</html>',
+      );
 
-    it('hash get parses json if json option is set', () =>
-      new Promise((rs) => {
-        cli
-          .hSet(
-            `${config.prefix}:agenda:123`,
-            'tinykingkong',
-            '{"iam": "json"}',
-          )
-          .then(() => {
-            cache
-              .hash('agenda', 123)
-              .get('tinykingkong', { json: true })
-              .then((value) => {
-                expect(value).toEqual({ iam: 'json' });
-                rs();
-              });
-          });
-      }));
+      const value = await cache
+        .hash('agenda', 123)
+        .get('http://lepassageduponceau.fr');
+      expect(value).toBe('<html>Les lundi</html>');
+    });
 
-    it('hash get returns null if no value was found', () =>
-      new Promise((rs) => {
-        cache('agenda', 456)
-          .get('bloublou')
-          .then((value) => {
-            expect(value).toBeNull();
-            rs();
-          });
-      }));
+    it('hash get parses json if json option is set', async () => {
+      await cli.hset(
+        `${config.prefix}:agenda:123`,
+        'tinykingkong',
+        '{"iam": "json"}',
+      );
+
+      const value = await cache
+        .hash('agenda', 123)
+        .get('tinykingkong', { json: true });
+      expect(value).toEqual({ iam: 'json' });
+    });
+
+    it('hash get returns null if no value was found', async () => {
+      const value = await cache('agenda', 456).get('bloublou');
+      expect(value).toBeNull();
+    });
   });
 });

@@ -1,4 +1,3 @@
-import redis from 'redis';
 import logger from '@openagenda/logs';
 import VError from '@openagenda/verror';
 
@@ -13,29 +12,6 @@ const stringifyKey = (keyObj) =>
         {},
       ),
   );
-
-const resolve = (v, cb) => {
-  if (cb) {
-    cb(null, v);
-  } else {
-    return v;
-  }
-};
-
-const reject = (e, cb) => {
-  if (cb) {
-    cb(e);
-  } else {
-    throw e;
-  }
-};
-
-function rejectOrResolve(rs, rj, cb, err, value) {
-  if (err) {
-    return reject(rj, cb, err);
-  }
-  resolve(rs, cb, value);
-}
 
 const getHashKey = (prefix, namespace, identifier = null) => {
   const parts = [prefix, namespace];
@@ -64,61 +40,47 @@ const getRedisKey = (prefix, namespace, identifier = null, key = null) => {
 const getValueKey = (key = '') =>
   (key instanceof Object ? stringifyKey(key) : key);
 
-function get(...args) {
-  const cb = typeof args[args.length - 1] === 'function' ? args.pop() : null;
-  const [svc, namespace, identifier, key] = args;
+async function get(svc, namespace, identifier, key) {
   const { client, prefix } = svc;
-
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
   log('getting on %s', redisKey);
 
-  return client.get(redisKey).then(
-    (v) => resolve(v, cb),
-    (e) => reject(e, cb),
-  );
+  return client.get(redisKey);
 }
 
-function set(...args) {
-  const cb = typeof args[args.length - 1] === 'function' ? args.pop() : null;
-  const [svc, namespace, identifier] = args;
-
-  const key = args.length === 6 ? args[3] : '';
-  const ttlValue = args.pop();
-  const value = args.pop();
-
+async function set(svc, namespace, identifier, ...args) {
   const { client, prefix } = svc;
+
+  const key = args.length === 3 ? args.shift() : '';
+  const [value, ttlValue] = args;
 
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
-  return client
-    .set(redisKey, value instanceof Object ? JSON.stringify(value) : value, {
-      EX: `${ttlValue}`,
-    })
-    .then(
-      () => resolve(value, cb),
-      (e) =>
-        reject(
-          new VError({
-            cause: e,
-            info: {
-              namespace,
-              identifier,
-              key,
-              ttlValue,
-              value,
-            },
-          }),
-          cb,
-        ),
+  try {
+    await client.set(
+      redisKey,
+      value instanceof Object ? JSON.stringify(value) : value,
+      'EX',
+      ttlValue,
     );
+    return value;
+  } catch (e) {
+    throw new VError({
+      cause: e,
+      info: {
+        namespace,
+        identifier,
+        key,
+        ttlValue,
+        value,
+      },
+    });
+  }
 }
 
-async function hget(...args) {
-  const options = typeof args[args.length - 1] === 'object' ? args.pop() : {};
-  const [svc, namespace, identifier, key] = args;
+async function hget(svc, namespace, identifier, key, options = {}) {
   const { client, prefix } = svc;
-
   const { json = false } = options;
 
   const hash = getHashKey(prefix, namespace, identifier);
@@ -126,7 +88,7 @@ async function hget(...args) {
 
   log('getting on hash %s, key %s', hash, valueKey);
 
-  const value = await client.hGet(hash, `${valueKey}`);
+  const value = await client.hget(hash, `${valueKey}`);
   log('got %s', value ? 'something' : 'nothing');
 
   if (!json) return value;
@@ -140,101 +102,71 @@ async function hget(...args) {
   return null;
 }
 
-function hset(...args) {
-  const cb = typeof args[args.length - 1] === 'function' ? args.pop() : null;
-  const [svc, namespace, identifier] = args;
-
-  const key = args.length === 5 ? args[3] : '';
-  const value = args.pop();
-
+async function hset(svc, namespace, identifier, ...args) {
   const { client, prefix } = svc;
+
+  const key = args.length === 2 ? args.shift() : '';
+  const value = args[0];
 
   const hash = getHashKey(prefix, namespace, identifier);
   const valueKey = getValueKey(key);
 
   log('setting on hash %s, key %s', hash, valueKey);
 
-  return client
-    .hSet(
+  try {
+    await client.hset(
       hash,
       valueKey,
       value instanceof Object ? JSON.stringify(value) : value,
-    )
-    .then(
-      () => resolve(value, cb),
-      (e) =>
-        reject(
-          new VError({
-            cause: e,
-            info: {
-              prefix,
-              namespace,
-              identifier,
-              key,
-              value,
-            },
-          }),
-          cb,
-        ),
     );
+    return value;
+  } catch (e) {
+    throw new VError({
+      cause: e,
+      info: {
+        prefix,
+        namespace,
+        identifier,
+        key,
+        value,
+      },
+    });
+  }
 }
 
-function ttl(svc, namespace, identifier, key, cb) {
+async function ttl(svc, namespace, identifier, key) {
   const { client, prefix } = svc;
-
   const redisKey = getRedisKey(prefix, namespace, identifier, key);
 
-  return new Promise((rs, rj) => {
-    client.ttl(redisKey, (err, value) => {
-      rejectOrResolve(rs, rj, cb, err, value);
-    });
-  });
+  return client.ttl(redisKey);
 }
 
-function del(svc, namespace, identifier, cb) {
+async function del(svc, namespace, identifier) {
   const { client, prefix } = svc;
-
   const hashKey = getHashKey(prefix, namespace, identifier);
 
-  return client.del(hashKey).then(
-    () => resolve(null, cb),
-    (e) => reject(e, cb),
-  );
+  await client.del(hashKey);
 }
 
-async function expire(svc, namespace, identifier, expireInSeconds, cb) {
+async function expire(svc, namespace, identifier, expireInSeconds) {
   const { client, prefix } = svc;
-
   const hash = getHashKey(prefix, namespace, identifier);
 
   log('setting expire on hash %s', hash);
 
-  try {
-    await client.hSet(hash, '', '');
-    await client.expire(hash, expireInSeconds);
-  } catch (e) {
-    return reject(e, cb);
-  }
-
-  return resolve(null, cb);
+  await client.hset(hash, '', '');
+  await client.expire(hash, expireInSeconds);
 }
 
-async function hashReset(svc, namespace, identifier, expireInSeconds, cb) {
+async function hashReset(svc, namespace, identifier, expireInSeconds) {
   const { client, prefix } = svc;
-
   const hash = getHashKey(prefix, namespace, identifier);
 
   log('resetting on hash %s', hash);
 
-  try {
-    await client.del(hash);
-    await client.hSet(hash, '', '');
-    await client.expire(hash, expireInSeconds);
-  } catch (e) {
-    return reject(e, cb);
-  }
-
-  return resolve(null, cb);
+  await client.del(hash);
+  await client.hset(hash, '', '');
+  await client.expire(hash, expireInSeconds);
 }
 
 async function clearAll(svc) {
@@ -254,12 +186,12 @@ async function clearAll(svc) {
 }
 
 export default (c) => {
-  if (!c.redis && !c.client) {
-    throw new Error('redis configuration is missing');
+  if (!c.client) {
+    throw new Error('redis client is missing');
   }
 
   const prefix = c.prefix || 'simplecache:';
-  const client = c.client || redis.createClient(c.redis.port, c.redis.host);
+  const { client } = c;
 
   if (c.logger) {
     logger.setModuleConfig(c.logger);

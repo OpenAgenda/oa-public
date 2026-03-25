@@ -1,4 +1,4 @@
-import redis from 'redis';
+import Redis from 'ioredis';
 import sCache from '../index.js';
 import config from './config.js';
 
@@ -7,14 +7,10 @@ describe('simple-cache - functional (service): clear all', () => {
   let cli;
 
   beforeAll(async () => {
-    cli = redis.createClient({
-      socket: {
-        host: config.redis.host,
-        port: config.redis.port,
-      },
+    cli = new Redis({
+      host: config.redis.host,
+      port: config.redis.port,
     });
-
-    await cli.connect();
   });
 
   beforeAll(() => {

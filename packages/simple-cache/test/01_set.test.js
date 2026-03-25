@@ -1,4 +1,4 @@
-import redis from 'redis';
+import Redis from 'ioredis';
 import sCache from '../index.js';
 import config from './config.js';
 
@@ -7,14 +7,10 @@ describe('simple-cache - functional (service): set', () => {
   let cli;
 
   beforeAll(async () => {
-    cli = redis.createClient({
-      socket: {
-        host: config.redis.host,
-        port: config.redis.port,
-      },
+    cli = new Redis({
+      host: config.redis.host,
+      port: config.redis.port,
     });
-
-    await cli.connect();
   });
 
   beforeAll(() => {
@@ -73,58 +69,21 @@ describe('simple-cache - functional (service): set', () => {
 
       expect(updatedValue).toBe('<html>Chiiriie!</html>');
     });
-  });
 
-  describe('callback', () => {
-    it('set stores value in specific namespace, id, key redis key', () =>
-      new Promise((rs) => {
-        cli.get(`${config.prefix}:agenda:123`).then((value) => {
-          expect(value).toBeNull();
+    it('set stores value with defined ttl', async () => {
+      await cache('agenda', 123).set(
+        'http://ponceau.paris',
+        '<html>Blob</html>',
+        1,
+      );
 
-          cache('agenda', 123).set(
-            'http://ponceau.paris',
-            '<html>Chiiriie!</html>',
-            1,
-            (_err) => {
-              cli
-                .get(`${config.prefix}:agenda:123:http://ponceau.paris`)
-                .then((value2) => {
-                  expect(value2).toBe('<html>Chiiriie!</html>');
-                  rs();
-                });
-            },
-          );
-        });
-      }));
+      await new Promise((rs) => setTimeout(rs, 1500));
 
-    it('set stores value with defined ttl', () =>
-      new Promise((rs) => {
-        cache('agenda', 123).set(
-          'http://ponceau.paris',
-          '<html>Blob</html>',
-          1,
-          (_err) => {
-            setTimeout(() => {
-              cli
-                .get(`${config.prefix}:agenda:123:http://ponceau.paris`)
-                .then((value) => {
-                  expect(value).toBe(null);
-                  rs();
-                });
-            }, 2000);
-          },
-        );
-      }));
-
-    it('set converts object to JSON', () =>
-      new Promise((rs) => {
-        cache('blaaaa').set('rgh', { thisIsJSON: true }, 10, (_err) => {
-          cli.get(`${config.prefix}:blaaaa:rgh`).then((value) => {
-            expect(value).toBe('{"thisIsJSON":true}');
-            rs();
-          });
-        });
-      }));
+      const value = await cli.get(
+        `${config.prefix}:agenda:123:http://ponceau.paris`,
+      );
+      expect(value).toBe(null);
+    }, 10000);
   });
 
   describe('error handling', () => {
@@ -137,8 +96,8 @@ describe('simple-cache - functional (service): set', () => {
         namespace: 'blob',
         identifier: null,
         key: '',
-        ttlValue: 'value',
-        value: null,
+        ttlValue: undefined,
+        value: 'value',
       });
     });
   });
