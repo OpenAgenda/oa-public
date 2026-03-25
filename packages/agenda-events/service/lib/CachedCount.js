@@ -28,13 +28,13 @@ export default function CachedCount(redisClient, namespace, fn, lifetime) {
       log('inc');
       const count = args.pop();
       await getCurrentCount(args);
-      return redisClient.incrBy(getKey(args), count);
+      return redisClient.incrby(getKey(args), count);
     },
     dec: async (...args) => {
       log('dec');
       const count = args.pop();
       await getCurrentCount(args);
-      return redisClient.decrBy(getKey(args), count);
+      return redisClient.decrby(getKey(args), count);
     },
   });
 }
