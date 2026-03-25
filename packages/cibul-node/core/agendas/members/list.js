@@ -76,9 +76,11 @@ export default async (core, agendaOrUid, query, nav, options = {}) => {
   const membersUids = members.map((e) => e.userUid);
   const customs = agenda.memberSchemaId
     ? (
-      await custom(agenda.memberSchemaId).list({
-        identifier: membersUids,
-      })
+      await custom(agenda.memberSchemaId).list(
+        { identifier: membersUids },
+        0,
+        membersUids.length || 20,
+      )
     ).items
     : [];
 

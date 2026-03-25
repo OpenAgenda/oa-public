@@ -8,19 +8,28 @@ export default async function invalidateListCache(
 ) {
   if (!redis) return;
 
+  const { ioRedis } = redis;
+  if (!ioRedis) return;
+
   try {
     const pattern = `${cachePrefix}:{${agendaUid}}:*`;
     const keys = [];
+    let cursor = '0';
 
-    for await (const key of redis.scanIterator({
-      MATCH: pattern,
-      COUNT: 200,
-    })) {
-      keys.push(key);
-    }
+    do {
+      const [nextCursor, batch] = await ioRedis.scan(
+        cursor,
+        'MATCH',
+        pattern,
+        'COUNT',
+        200,
+      );
+      cursor = nextCursor;
+      keys.push(...batch);
+    } while (cursor !== '0');
 
     if (keys.length) {
-      await Promise.all(keys.map((key) => redis.del(key)));
+      await Promise.all(keys.map((key) => ioRedis.del(key)));
       log('invalidated %d cache entries for agenda %s', keys.length, agendaUid);
     }
   } catch (e) {
