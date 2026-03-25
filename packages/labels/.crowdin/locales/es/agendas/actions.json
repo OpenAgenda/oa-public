@@ -1,7 +1,7 @@
 {
   "actionsInProcess": "Su acción se está procesando. Los eventos con el estado %oldstate% passaran en breve a %newstate%.",
-  "allLanguages": "todos los idiomas",
   "ownershipTransfered": "La propiedad del evento fue transferido con éxito",
-  "spreadsheetDescription": "Limitar datos descargados algunos idiomas",
-  "spreadsheetTitle": "Descargar"
+  "spreadsheetTitle": "Descargar",
+  "allLanguages": "todos los idiomas",
+  "spreadsheetDescription": "Limitar datos descargados algunos idiomas"
 }

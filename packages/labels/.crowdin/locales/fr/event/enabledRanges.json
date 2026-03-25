@@ -1,11 +1,11 @@
 {
+  "from": "Du ",
+  "to": "Au ",
   "at": " à ",
   "checkboxInfo": " Restreindre les périodes autorisées pour les dates saisies",
   "constraintError": "La nouvelle limite doit être comprise dans celle existante",
   "constraintInfo": "Le champ déjà contraint à un niveau supérieur",
   "dateError": "La date de début doit être avant la date de fin",
-  "from": "Du ",
   "timeError": "L'heure définie n'est pas valide",
-  "to": "Au ",
   "usefulFor": "Utile pour les agendas référençant des événements qui ont lieu sur une période limitée. Par exemple : les agendas de salons, de festivals ou de grands événements"
 }

@@ -1,8 +1,8 @@
 {
-  "excludePassed": "Lezel an darvoudoù tremenet a-gostez",
-  "includePassed": "Lakaat an darvoudoù tremenet e-barzh",
-  "totalEvent": "1 darvoud",
-  "totalEvents": "%count% a zarvoudoù",
+  "upcomingEvents": "%count% darvoud o tont",
   "upcomingEvent": "1 darvoud da zont",
-  "upcomingEvents": "%count% darvoud o tont"
+  "totalEvents": "%count% a zarvoudoù",
+  "totalEvent": "1 darvoud",
+  "includePassed": "Lakaat an darvoudoù tremenet e-barzh",
+  "excludePassed": "Lezel an darvoudoù tremenet a-gostez"
 }

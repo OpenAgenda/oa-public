@@ -18,6 +18,7 @@
   "descriptionPlaceholder": "A short description of your event",
   "image": "Image of the event",
   "imageInfo": "Load an image of at least 300 pixels width",
+  "imageSub": "**Image rights**\n\nBy inserting an image in OpenAgenda, you certify that you hold the necessary rights to publish it under the open licence. [Learn more](https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/)",
   "imageCredits": "Image credits",
   "longDescription": "Long description",
   "longDescriptionPlaceholder": "Type in a detailed description of your event.",

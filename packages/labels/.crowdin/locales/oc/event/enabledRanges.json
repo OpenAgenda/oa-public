@@ -1,11 +1,11 @@
 {
+  "from": "Del ",
+  "to": "Al ",
   "at": " a ",
   "checkboxInfo": " Restrénher los periòdes autorizats per las datas entradas",
   "constraintError": "Lo limit novèl deuriá èsser dins la constrinta",
   "constraintInfo": "Lo camp es ja constrint a un nivèl superior",
   "dateError": "La data de debut deu èsser avant la data de fin",
-  "from": "Del ",
   "timeError": "L'ora definida es pas valida",
-  "to": "Al ",
   "usefulFor": "Utile per las agendas que referéncian d'eveniments que se debanan sus un periòde de temps limitat. Per exemple : los salons, las fièras, los eveniments bèls"
 }

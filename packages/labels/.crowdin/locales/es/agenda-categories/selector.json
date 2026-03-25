@@ -1,6 +1,6 @@
 {
+  "categoriesTitle": "Categorías",
   "categoriesInfo": "Estos se utilizan para la indexación en el agenda. Puede elegir uno.",
   "categoriesRequired": "Requerido.",
-  "categoriesTitle": "Categorías",
   "requiredCategoryError": "Usted debe hacer una selección"
 }

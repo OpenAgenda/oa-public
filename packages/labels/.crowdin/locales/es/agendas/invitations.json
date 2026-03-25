@@ -1,9 +1,9 @@
 {
-  "emailSubmitted": "Se están procesando los %count% correos enviados ",
   "invitationError": "Ocurrió un error al procesar las invitaciones. Por favor, inténtalo nuevamente ",
   "invitationNotSent": "La invitación no se pudo enviar",
+  "emailSubmitted": "Se están procesando los %count% correos enviados ",
   "noNewInvite": "No hay nueva invitación enviada",
-  "resentInvite": "La invitación está siendo reenviada",
+  "sentInvites": "Invitaciones enviadas: %count%",
   "resentInvites": "%count% invitaciones están siendo enviadas. <br/> Tenga en cuenta que las invitaciones no se pueden reiniciar más de una vez cada 24 horas.",
-  "sentInvites": "Invitaciones enviadas: %count%"
+  "resentInvite": "La invitación está siendo reenviada"
 }

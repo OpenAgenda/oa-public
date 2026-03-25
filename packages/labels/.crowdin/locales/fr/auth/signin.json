@@ -1,11 +1,11 @@
 {
   "connection": "Connexion",
-  "createAccount": "Créez-en un!",
-  "email": "Email",
   "incorrectPassword": "L'email ou le mot de passe est incorrect.",
+  "resetPassword": "Réinitialiser le mot de passe",
+  "email": "Email",
+  "password": "Mot de passe",
+  "signin": "Se connecter",
   "lostPassword": "J'ai perdu mon mot de passe",
   "noAccount": "Vous n'avez pas encore de compte?",
-  "password": "Mot de passe",
-  "resetPassword": "Réinitialiser le mot de passe",
-  "signin": "Se connecter"
+  "createAccount": "Créez-en un!"
 }
