@@ -1,1 +1,14 @@
-{}
+{
+  "common.event.statuses.cancelled": "Geannuleerd",
+  "common.event.statuses.cancelledInfo": "Het evenement is permanent geannuleerd",
+  "common.event.statuses.full": "Volzet",
+  "common.event.statuses.fullInfo": "Het evenement accepteert geen nieuwe deelnemers meer",
+  "common.event.statuses.movedOnline": "Online verplaatst",
+  "common.event.statuses.movedOnlineInfo": "Het evenement kan niet langer fysiek worden bijgewoond",
+  "common.event.statuses.postponed": "Uitgesteld",
+  "common.event.statuses.postponedInfo": "Het evenement is uitgesteld naar nog onbekende data",
+  "common.event.statuses.rescheduled": "Opnieuw gepland",
+  "common.event.statuses.rescheduledInfo": "De tijden en/of data van het evenement zijn gewijzigd",
+  "common.event.statuses.scheduled": "Gepland",
+  "common.event.statuses.scheduledInfo": "Het evenement is gepland op de aangegeven locatie en tijd"
+}
