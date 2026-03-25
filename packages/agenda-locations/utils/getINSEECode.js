@@ -18,7 +18,7 @@ const format = (body) => _.get(_.first(body), 'code');
 
 module.exports = (redisClient) =>
   async ({ city, department, latitude, longitude }) => {
-    const cached = await redisClient.hGet(NS, getKey({ city, department }));
+    const cached = await redisClient.hget(NS, getKey({ city, department }));
 
     if (cached) {
       return format(JSON.parse(cached));
@@ -30,7 +30,7 @@ module.exports = (redisClient) =>
     }
     const body = await response.json();
 
-    redisClient.hSet(NS, getKey({ city, department }), JSON.stringify(body));
+    redisClient.hset(NS, getKey({ city, department }), JSON.stringify(body));
 
     return format(body);
   };
