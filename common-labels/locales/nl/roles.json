@@ -1,1 +1,6 @@
-{}
+{
+  "common.roles.administrator": "Beheerder",
+  "common.roles.contributor": "Bijdrager",
+  "common.roles.moderator": "Moderator",
+  "common.roles.reader": "Lezer"
+}
