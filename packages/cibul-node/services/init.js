@@ -118,7 +118,6 @@ export default async function initServices(config = null, options = {}) {
   await init('agendaStatistics', () => import('./agendaStatistics/index.js'));
   await init('agendaSearch', () => import('./agendaSearch/index.js'));
   await init('aggregators', () => import('./aggregators/index.js'));
-  await init('cache', () => import('./cache/index.js')); // required directly
   await init('eventSearch', () => import('./eventSearch/index.js'));
   await init('events', () => import('./events/index.js'));
   await init('formSchemas', () => import('./formSchemas.js'));
