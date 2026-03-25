@@ -47,7 +47,7 @@ function Service(options = {}) {
     clearCache: async () => {
       if (!config.redis) return;
       const keys = await config.redis.keys(`${config.cachePrefix}:*`);
-      if (keys.length) await config.redis.del(...keys);
+      if (keys.length) await Promise.all(keys.map((key) => config.redis.del(key)));
     },
     utils,
   };
