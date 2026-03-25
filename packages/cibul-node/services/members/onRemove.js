@@ -81,19 +81,23 @@ export default function onRemove({ services }) {
           userUid: user.uid,
         });
 
-      try {
-        await addMemberRemove(services, {
-          user, // user removing
-          member, // member removed
-          agenda,
-          userMember, // member removing
-          memberUser, // user removed
-        });
-      } catch (e) {
-        log('error', 'failed adding activity of type agenda.removeMember', {
-          member,
-          exception: e,
-        });
+      if (!context.silent) {
+        try {
+          await addMemberRemove(services, {
+            user, // user removing
+            member, // member removed
+            agenda,
+            userMember, // member removing
+            memberUser, // user removed
+          });
+        } catch (e) {
+          log('error', 'failed adding activity of type agenda.removeMember', {
+            member,
+            exception: e,
+          });
+        }
+      } else {
+        log('info', 'activity bypassed by silent option for member', member.id);
       }
 
       try {

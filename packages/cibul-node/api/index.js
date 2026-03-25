@@ -658,6 +658,7 @@ export default (core, { useRouter = true } = {}) => {
               : { userUid: req.params.userUid },
             {
               userUid: req.user.uid,
+              silent: boolQuery(req.query.silent),
             },
           )
           .then(

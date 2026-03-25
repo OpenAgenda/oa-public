@@ -5,7 +5,7 @@ export default async (core, agendaOrUid, identifiers, options = {}) => {
   const { services } = core;
   const { members, users, custom, agendas } = services;
 
-  const { userUid: actingUserUid } = options;
+  const { userUid: actingUserUid, silent } = options;
 
   if (!actingUserUid) {
     throw new BadRequest('userUid option is required');
@@ -40,6 +40,7 @@ export default async (core, agendaOrUid, identifiers, options = {}) => {
   const memberRes = await members.remove(member.id, {
     context: {
       user: actingUser,
+      silent,
     },
   });
 
