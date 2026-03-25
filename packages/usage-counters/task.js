@@ -7,7 +7,7 @@ export default async function task(internals) {
   const { redisClient, setKey, clearAndDumpBucket } = internals;
 
   const now = new Date();
-  const allKeys = await redisClient.sMembers(setKey);
+  const allKeys = await redisClient.smembers(setKey);
   log('allKeys length ', allKeys.length);
   for (const key of allKeys) {
     const rawValue = await redisClient.get(key);

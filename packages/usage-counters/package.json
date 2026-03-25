@@ -25,9 +25,9 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
+    "ioredis": "^5.6.1",
     "jest": "^29.7.0",
     "knex": "^2.4.2",
-    "mysql2": "^3.15.1",
-    "redis": "^4.6.6"
+    "mysql2": "^3.15.1"
   }
 }
