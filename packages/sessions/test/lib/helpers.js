@@ -1,4 +1,4 @@
-import redis from 'redis';
+import Redis from 'ioredis';
 import express from 'express';
 
 export function launchTestApp(routes) {
@@ -29,15 +29,9 @@ export async function clearRedis(redisConfig, client) {
   }
 }
 
-export async function createClient(redisConfig) {
-  const client = await redis.createClient({
-    socket: {
-      port: redisConfig.port,
-      host: redisConfig.host,
-    },
+export function createClient(redisConfig) {
+  return new Redis({
+    port: redisConfig.port,
+    host: redisConfig.host,
   });
-
-  await client.connect();
-
-  return client;
 }

@@ -9,14 +9,13 @@ async function scan(config, cursor, limit) {
       updatedCursor = cursor;
     }
 
-    const result = await config.redisClient.sendCommand([
-      'SCAN',
-      `${updatedCursor}`,
-      'match',
+    const result = await config.redisClient.scan(
+      updatedCursor,
+      'MATCH',
       `${config.redis.prefix}*`,
-      'count',
-      `${limit}`,
-    ]);
+      'COUNT',
+      limit,
+    );
 
     updatedCursor = parseInt(result[0], 10);
 

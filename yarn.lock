@@ -12454,6 +12454,7 @@ __metadata:
     cookie-parser: "npm:^1.4.3"
     cookie-session: "npm:^2.0.0-alpha.2"
     express: "npm:^4.17.1"
+    ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
     js-cookie: "npm:^3.0.5"
     lodash: "npm:^4.17.15"
@@ -12480,7 +12481,6 @@ __metadata:
     "@openagenda/verror": "npm:^3.2.0"
     ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
-    redis: "npm:^4.6.6"
   languageName: unknown
   linkType: soft
 
