@@ -5,16 +5,16 @@ import addFieldSchema from './addFieldSchema.js';
 import pulseSvg from './pulseSvg.js';
 
 class Stats {
-  constructor(config) {
-    this.redisClient = config.redisClient;
+  constructor({ redis }) {
+    this.redis = redis;
   }
 
   async set(agendaUid, data) {
-    return this.redisClient.set(`oa:stats:${agendaUid}`, JSON.stringify(data));
+    return this.redis.set(`oa:stats:${agendaUid}`, JSON.stringify(data));
   }
 
   async get(agendaUid, agendaSchema) {
-    const stats = await this.redisClient.get(`oa:stats:${agendaUid}`);
+    const stats = await this.redis.get(`oa:stats:${agendaUid}`);
 
     if (stats) {
       return JSON.parse(stats).reduce(addFieldSchema(agendaSchema), []);
@@ -50,10 +50,6 @@ class Stats {
       .concat(getAdditionalFieldStats(agendaSchema))
       .reduce(addFieldSchema(agendaSchema), []);
   }
-
-  // async remove() {
-  //   return this.redisClient.del(ANNOUNCEMENT_KEY);
-  // }
 }
 
 function pulseSvgHeaders(req, res, next) {
@@ -115,10 +111,7 @@ export function plugApp(app) {
 }
 
 export function init(config, services) {
-  return Object.assign(
-    new Stats({
-      redisClient: services.redis,
-    }),
-    { plugApp },
-  );
+  return Object.assign(new Stats({ redis: services.redis.ioRedis }), {
+    plugApp,
+  });
 }
