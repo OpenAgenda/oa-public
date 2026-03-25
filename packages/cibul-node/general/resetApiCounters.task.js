@@ -18,14 +18,15 @@ export default (config, services) => {
     log('running');
     running = true;
 
-    const { knex, redis } = services;
+    const { knex } = services;
+    const redis = services.redis.ioRedis;
 
     const stream = knex('api_key_set').select('id').stream();
 
     try {
       for await (const row of stream) {
         try {
-          const count = await redis.hGet(
+          const count = await redis.hget(
             config.api.redis.prefix + row.id,
             config.api.redis.publishCount,
           );
@@ -33,7 +34,7 @@ export default (config, services) => {
           log.info({ message: 'api counter', keySetId: row.id, count });
 
           if (count) {
-            await redis.hSet(
+            await redis.hset(
               config.api.redis.prefix + row.id,
               config.api.redis.publishCount,
               0,

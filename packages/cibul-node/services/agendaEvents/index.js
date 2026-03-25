@@ -8,7 +8,7 @@ export function init(config, services) {
   return Object.assign(
     AgendaEvents({
       knex: config.knex,
-      redisClient: services.redis,
+      redisClient: services.redis.ioRedis,
       logger: config.getLogConfig('svc', 'agendaEvents'),
       schemas: {
         agendaEvent: config.schemas.agendaEventService,
