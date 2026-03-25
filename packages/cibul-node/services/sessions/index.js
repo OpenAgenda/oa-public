@@ -4,7 +4,7 @@ import load, { loadOrRedirect } from './lib/load.js';
 
 export function init(config, services) {
   const sessions = Sessions({
-    redisClient: services.redis,
+    redisClient: services.redis.ioRedis,
     redis: {
       prefix: config.session.namespace,
     },
