@@ -79,6 +79,7 @@ export default ({ labels, excludeSystemFields }) =>
       optional: true,
       label: labels?.image,
       info: labels?.imageInfo,
+      sub: labels?.imageSub,
       allowURL: true,
       allowPath: true,
       imageWithSizeAndVariants: true,
