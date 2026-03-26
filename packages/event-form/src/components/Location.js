@@ -146,7 +146,7 @@ class LocationComponent extends Component {
           allowRemove={allowRemove}
           onRemove={() => this.onChange('search', null)}
           location={_.assign({}, defaultValue || {}, value)}
-          lang={lang}
+          lang={field.defaultLang || lang}
           settings={this.getSettings()}
           res={res}
           onChange={this.onChange}

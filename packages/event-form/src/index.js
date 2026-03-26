@@ -165,6 +165,7 @@ class EventForm extends Component {
       locationRes: p.locationRes,
       tiles: p.tiles,
       fileStore: p.fileStore,
+      defaultLang: p.defaultLang || p.lang,
     });
 
     injectValidators(schema);
