@@ -9022,6 +9022,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@ioredis/commands@npm:1.5.1":
+  version: 1.5.1
+  resolution: "@ioredis/commands@npm:1.5.1"
+  checksum: 10c0/cb8f6d13cff0753e3e7ef001fb895491985d9a623248192538f13bc2fd9bfdfde3c18cf2ba6f20ec8ceaa681b0771070d3a09b82eed044c798bcfef5e3ae54b3
+  languageName: node
+  linkType: hard
+
 "@isaacs/cliui@npm:^8.0.2":
   version: 8.0.2
   resolution: "@isaacs/cliui@npm:8.0.2"
@@ -10214,11 +10221,11 @@ __metadata:
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
     immutability-helper: "npm:^2.2.2"
+    ioredis: "npm:^5.4.1"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
     mysql2: "npm:^3.15.1"
-    redis: "npm:^4.6.6"
   languageName: unknown
   linkType: soft
 
@@ -10565,7 +10572,7 @@ __metadata:
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
-    ioredis: "npm:^5.3.2"
+    ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
@@ -12447,11 +12454,11 @@ __metadata:
     cookie-parser: "npm:^1.4.3"
     cookie-session: "npm:^2.0.0-alpha.2"
     express: "npm:^4.17.1"
+    ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
     js-cookie: "npm:^3.0.5"
     lodash: "npm:^4.17.15"
     on-headers: "npm:^1.0.2"
-    redis: "npm:^4.6.6"
     rimraf: "npm:^3.0.1"
   languageName: unknown
   linkType: soft
@@ -12471,8 +12478,8 @@ __metadata:
   dependencies:
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/verror": "npm:^3.2.0"
+    ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
-    redis: "npm:^4.6.6"
   languageName: unknown
   linkType: soft
 
@@ -12612,11 +12619,11 @@ __metadata:
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/logs": "npm:^1.1.10"
+    ioredis: "npm:^5.6.1"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.21"
     mysql2: "npm:^3.15.1"
-    redis: "npm:^4.6.6"
     why: "npm:^0.6.2"
   languageName: unknown
   linkType: soft
@@ -27546,7 +27553,7 @@ __metadata:
     http-proxy: "npm:^1.18.0"
     immer: "npm:^10.0.3"
     immutability-helper: "npm:^3.0.0"
-    ioredis: "npm:^5.3.2"
+    ioredis: "npm:^5.10.1"
     isemail: "npm:^3.1.2"
     jest: "npm:^29.7.0"
     jsdom: "npm:^23.0.1"
@@ -38047,7 +38054,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^5.3.2, ioredis@npm:^5.8.2":
+"ioredis@npm:^5.10.1, ioredis@npm:^5.4.1, ioredis@npm:^5.6.1":
+  version: 5.10.1
+  resolution: "ioredis@npm:5.10.1"
+  dependencies:
+    "@ioredis/commands": "npm:1.5.1"
+    cluster-key-slot: "npm:^1.1.0"
+    debug: "npm:^4.3.4"
+    denque: "npm:^2.1.0"
+    lodash.defaults: "npm:^4.2.0"
+    lodash.isarguments: "npm:^3.1.0"
+    redis-errors: "npm:^1.2.0"
+    redis-parser: "npm:^3.0.0"
+    standard-as-callback: "npm:^2.1.0"
+  checksum: 10c0/d0507b52520d3bdd5dacaa33aed9dd3133794d8633b43a6b7fc3199a5e73f92cb77409f6904abe68e3221a95a630d97073b8c1c9e2c0c7613124db67e97c0eb0
+  languageName: node
+  linkType: hard
+
+"ioredis@npm:^5.8.2":
   version: 5.8.2
   resolution: "ioredis@npm:5.8.2"
   dependencies:

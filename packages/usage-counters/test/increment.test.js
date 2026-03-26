@@ -1,4 +1,4 @@
-import redis from 'redis';
+import Redis from 'ioredis';
 import increment from '../increment.js';
 import createRedisKey from '../utils/createRedisKey.js';
 import clearRedisKeys from '../clearRedisKeys.js';
@@ -11,13 +11,10 @@ describe('increment', () => {
 
   beforeAll(async () => {
     await f.load();
-    redisCli = redis.createClient({
-      socket: {
-        host: config.redis.host,
-        port: config.redis.port,
-      },
+    redisCli = new Redis({
+      host: config.redis.host,
+      port: config.redis.port,
     });
-    await redisCli.connect();
   });
 
   afterAll(f.destroyClient);

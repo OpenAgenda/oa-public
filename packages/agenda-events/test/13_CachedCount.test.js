@@ -1,4 +1,4 @@
-import redis from 'redis';
+import Redis from 'ioredis';
 import CachedCount from '../service/lib/CachedCount.js';
 
 describe('agendaEvents - 13 - unit (server): CachedCount', () => {
@@ -6,12 +6,10 @@ describe('agendaEvents - 13 - unit (server): CachedCount', () => {
   let cache;
 
   beforeAll(async () => {
-    redisClient = redis.createClient({
+    redisClient = new Redis({
       host: 'localhost',
       port: 6379,
     });
-
-    await redisClient.connect();
 
     cache = CachedCount(redisClient, 'ns', (_arg) => 123, 1);
   });

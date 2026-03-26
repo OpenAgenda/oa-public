@@ -71,8 +71,6 @@ const config = {
     process.env.GOOGLE_ANALYTICS_EMBED_ID
     || (prod.googleAnalytics && prod.googleAnalytics.embedId),
   matomoCloudId: prod.matomoCloudId ?? process.env.MATOMO_CLOUD_ID,
-  useCache: false,
-  agendaCacheExpire: 30 * 1000,
   shares: {
     agenda: ['twitter', 'facebook', 'googlePlus', 'linkedIn'],
   },

@@ -112,9 +112,12 @@ export default async (config, query, nav = {}, options = {}) => {
 
   const result = await fetchList(config, query, nav, options);
 
-  await redis.set(cacheKey, JSON.stringify(result), {
-    EX: Math.ceil(cacheTTL / 1000),
-  });
+  await redis.set(
+    cacheKey,
+    JSON.stringify(result),
+    'EX',
+    Math.ceil(cacheTTL / 1000),
+  );
 
   return result;
 };

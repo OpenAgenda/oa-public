@@ -156,18 +156,25 @@ ssh <NODE>-2943@infomaniak "timeout 3 bash -c 'echo > /dev/tcp/10.20.0.247/6379'
 
 ## Peers actuels
 
-| Noeud           | SSH                          | wg1 IP     |
-| --------------- | ---------------------------- | ---------- |
-| admin (serveur) | `ssh admin`                  | 10.98.0.1  |
-| scripts 184320  | `ssh 184320-2943@infomaniak` | 10.98.0.2  |
-| web-blue 128244 | `ssh 128244-2943@infomaniak` | 10.98.0.3  |
-| web-blue 143153 | `ssh 143153-2943@infomaniak` | 10.98.0.4  |
-| web-blue 128233 | `ssh 128233-2943@infomaniak` | 10.98.0.5  |
-| web-blue 173168 | `ssh 173168-2943@infomaniak` | 10.98.0.6  |
-| web-blue 128237 | `ssh 128237-2943@infomaniak` | 10.98.0.7  |
-| web-blue 133732 | `ssh 133732-2943@infomaniak` | 10.98.0.8  |
-| web-blue 135384 | `ssh 135384-2943@infomaniak` | 10.98.0.9  |
-| tasks 128375    | `ssh 128375-2943@infomaniak` | 10.98.0.10 |
+| Noeud             | SSH                          | wg1 IP     |
+| ----------------- | ---------------------------- | ---------- |
+| admin (serveur)   | `ssh admin`                  | 10.98.0.1  |
+| scripts 184320    | `ssh 184320-2943@infomaniak` | 10.98.0.2  |
+| web-blue 128244   | `ssh 128244-2943@infomaniak` | 10.98.0.3  |
+| web-blue 143153   | `ssh 143153-2943@infomaniak` | 10.98.0.4  |
+| web-blue 128233   | `ssh 128233-2943@infomaniak` | 10.98.0.5  |
+| web-blue 173168   | `ssh 173168-2943@infomaniak` | 10.98.0.6  |
+| web-blue 128237   | `ssh 128237-2943@infomaniak` | 10.98.0.7  |
+| web-blue 133732   | `ssh 133732-2943@infomaniak` | 10.98.0.8  |
+| web-blue 135384   | `ssh 135384-2943@infomaniak` | 10.98.0.9  |
+| tasks 128375      | `ssh 128375-2943@infomaniak` | 10.98.0.10 |
+| web-orange 128379 | `ssh 128379-2943@infomaniak` | 10.98.0.11 |
+| web-orange 143154 | `ssh 143154-2943@infomaniak` | 10.98.0.12 |
+| web-orange 128378 | `ssh 128378-2943@infomaniak` | 10.98.0.13 |
+| web-orange 173166 | `ssh 173166-2943@infomaniak` | 10.98.0.14 |
+| web-orange 128376 | `ssh 128376-2943@infomaniak` | 10.98.0.15 |
+| web-orange 133788 | `ssh 133788-2943@infomaniak` | 10.98.0.16 |
+| web-orange 135360 | `ssh 135360-2943@infomaniak` | 10.98.0.17 |
 
 ## Configuration MySQL via tunnel
 

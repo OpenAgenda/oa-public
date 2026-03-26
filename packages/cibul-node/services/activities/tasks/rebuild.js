@@ -13,8 +13,7 @@ function runRebuild({ since, agendaUid, services }) {
 }
 
 async function rebuildActivities({ config, services }) {
-  const { redis: redisClient } = services;
-
+  const redisClient = services.redis.ioRedis;
   const result = await redisClient.get(sinceKey);
 
   const since = result ? parseInt(result, 10) : null;

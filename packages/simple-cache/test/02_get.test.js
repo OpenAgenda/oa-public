@@ -1,4 +1,4 @@
-import redis from 'redis';
+import Redis from 'ioredis';
 import sCache from '../index.js';
 import config from './config.js';
 
@@ -7,14 +7,10 @@ describe('simple-cache - functional (service): get', () => {
   let cli;
 
   beforeAll(async () => {
-    cli = redis.createClient({
-      socket: {
-        host: config.redis.host,
-        port: config.redis.port,
-      },
+    cli = new Redis({
+      host: config.redis.host,
+      port: config.redis.port,
     });
-
-    await cli.connect();
   });
 
   beforeAll(() => {
@@ -61,34 +57,5 @@ describe('simple-cache - functional (service): get', () => {
       const value = await cache('agenda', 456).get('bloublou');
       expect(value).toBeNull();
     });
-  });
-
-  describe('callback', () => {
-    it('get fetches value stored specific namespace, id, key redis key', () =>
-      new Promise((rs) => {
-        cli
-          .set(
-            `${config.prefix}:agenda:123:http://lepassageduponceau.fr`,
-            '<html>Les lundi</html>',
-          )
-          .then(() => {
-            cache('agenda', 123).get(
-              'http://lepassageduponceau.fr',
-              (_err2, value) => {
-                expect(value).toBe('<html>Les lundi</html>');
-                rs();
-              },
-            );
-          });
-      }));
-
-    it('get returns null if no value was found', () =>
-      new Promise((rs) => {
-        cache('agenda', 456).get('bloublou', (err, value) => {
-          expect(err).toBeNull();
-          expect(value).toBeNull();
-          rs();
-        });
-      }));
   });
 });

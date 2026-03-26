@@ -33,7 +33,7 @@ export default async function clearAndDumpBucket(internals, key, value) {
     value,
   });
 
-  redisClient.sRem(setKey, key);
+  redisClient.srem(setKey, key);
   redisClient.del(key);
 
   await knexClient('usage_counter').insert({

@@ -30,7 +30,7 @@ export default async function increment(
   );
   log('called', { key, volume, items });
   // sadd to redis set
-  await redisClient.sAdd(setKey, key);
+  await redisClient.sadd(setKey, key);
 
   // get redis key
   const value = JSON.parse(await redisClient.get(key)) || initValue(lifespan);
