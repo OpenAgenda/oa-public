@@ -1,73 +1,67 @@
-'use strict';
+import { Stream } from 'stream';
+import fs from 'fs';
+import validators from '../src';
 
-const { Stream } = require('stream');
-
-const assert = require('assert');
-const fs = require('fs');
-
-const validators = require('../src');
-
-const stream = fs.createReadStream(__dirname + '/../src/stream.js');
+const stream = fs.createReadStream(`${__dirname}/../src/stream.js`);
 
 describe('stream validator', () => {
-
   it('validates a stream', () => {
     const validate = validators.stream();
 
     const value = validate(stream);
 
-    assert.equal(value instanceof Stream, true);
+    expect(value instanceof Stream).toBe(true);
   });
 
   it('throws error if not a stream', () => {
     const validate = validators.stream();
 
+    let errors;
+
     try {
       validate('Ceci est un stream');
-    } catch (errors) {
-      assert.deepEqual(errors, [{
-        origin: 'Ceci est un stream',
-        code: 'invalid',
-        message: 'value is not a stream'
-      }]);
-      return;
+    } catch (e) {
+      errors = e;
     }
 
-    throw new Error('validate did not throw error');
+    expect(errors).toEqual([{
+      origin: 'Ceci est un stream',
+      code: 'invalid',
+      message: 'value is not a stream',
+    }]);
   });
 
   it('type and field name are accessible on validate', () => {
     const validate = validators.stream({
-      field: 'image'
+      field: 'image',
     });
 
-    assert.equal(validate.field, 'image');
-    assert.equal(validate.type, 'stream');
+    expect(validate.field).toBe('image');
+    expect(validate.type).toBe('stream');
   });
 
   it('default', () => {
     const validate = validators.stream({
       field: 'image',
-      default: null
+      default: null,
     });
 
-    assert.equal(validate(), null);
+    expect(validate()).toBeNull();
   });
 
   it('allowNull', () => {
     const validate = validators.stream({
-      allowNull: true
+      allowNull: true,
     });
 
-    assert.equal(validate(null), null);
+    expect(validate(null)).toBeNull();
   });
 
   it('allowObject', () => {
     const validate = validators.stream({
-      allowObject: true
+      allowObject: true,
     });
 
-    assert.deepEqual(validate({}), {});
-  })
-
+    expect(validate({})).toEqual({});
+  });
 });
