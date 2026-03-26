@@ -9015,13 +9015,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@ioredis/commands@npm:1.4.0":
-  version: 1.4.0
-  resolution: "@ioredis/commands@npm:1.4.0"
-  checksum: 10c0/99afe21fba794f84a2b84cceabcc370a7622e7b8b97a6589456c07c9fa62a15d54c5546f6f7214fb9a2458b1fa87579d5c531aaf48e06cc9be156d5923892c8d
-  languageName: node
-  linkType: hard
-
 "@ioredis/commands@npm:1.5.1":
   version: 1.5.1
   resolution: "@ioredis/commands@npm:1.5.1"
@@ -10221,7 +10214,7 @@ __metadata:
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
     immutability-helper: "npm:^2.2.2"
-    ioredis: "npm:^5.4.1"
+    ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
@@ -11405,11 +11398,11 @@ __metadata:
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
+    ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
     mysql2: "npm:^3.15.1"
-    redis: "npm:^4.6.6"
     sinon: "npm:^8.1.1"
     uuid: "npm:^3.4.0"
   languageName: unknown
@@ -12619,7 +12612,7 @@ __metadata:
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/logs": "npm:^1.1.10"
-    ioredis: "npm:^5.6.1"
+    ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.21"
@@ -38054,7 +38047,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ioredis@npm:^5.10.1, ioredis@npm:^5.4.1, ioredis@npm:^5.6.1":
+"ioredis@npm:^5.10.1, ioredis@npm:^5.8.2":
   version: 5.10.1
   resolution: "ioredis@npm:5.10.1"
   dependencies:
@@ -38068,23 +38061,6 @@ __metadata:
     redis-parser: "npm:^3.0.0"
     standard-as-callback: "npm:^2.1.0"
   checksum: 10c0/d0507b52520d3bdd5dacaa33aed9dd3133794d8633b43a6b7fc3199a5e73f92cb77409f6904abe68e3221a95a630d97073b8c1c9e2c0c7613124db67e97c0eb0
-  languageName: node
-  linkType: hard
-
-"ioredis@npm:^5.8.2":
-  version: 5.8.2
-  resolution: "ioredis@npm:5.8.2"
-  dependencies:
-    "@ioredis/commands": "npm:1.4.0"
-    cluster-key-slot: "npm:^1.1.0"
-    debug: "npm:^4.3.4"
-    denque: "npm:^2.1.0"
-    lodash.defaults: "npm:^4.2.0"
-    lodash.isarguments: "npm:^3.1.0"
-    redis-errors: "npm:^1.2.0"
-    redis-parser: "npm:^3.0.0"
-    standard-as-callback: "npm:^2.1.0"
-  checksum: 10c0/305e385f811d49908899e32c2de69616cd059f909afd9e0a53e54f596b1a5835ee3449bfc6a3c49afbc5a2fd27990059e316cc78f449c94024957bd34c826d88
   languageName: node
   linkType: hard
 
