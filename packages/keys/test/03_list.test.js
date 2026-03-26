@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import knexLib from 'knex';
-import redis from 'redis';
+import Redis from 'ioredis';
 import testconfig from '../testconfig.js';
 import service from './service/index.js';
 
@@ -14,18 +14,16 @@ describe('keys - list', () => {
       connection: { ...testconfig.mysql },
     });
 
-    redisClient = redis.createClient(testconfig.redis.connection);
-    await redisClient.connect();
+    redisClient = new Redis(testconfig.redis.connection);
 
     await service.initAndLoad({
       ...testconfig,
-      redis: {
-        ...testconfig.redis,
-        client: redisClient,
-      },
+      redis: { ...testconfig.redis, client: redisClient },
       knex,
     });
   });
+
+  afterAll(() => redisClient.disconnect());
 
   it('simple list', async () => {
     const result = await service({

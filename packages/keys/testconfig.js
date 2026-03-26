@@ -19,10 +19,8 @@ export default {
   redis: {
     prefix: 'keys',
     connection: {
-      socket: {
-        host: 'localhost',
-        port: 6379,
-      },
+      host: 'localhost',
+      port: 6379,
     },
   },
   cache: {

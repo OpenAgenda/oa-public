@@ -1,5 +1,5 @@
 import knexLib from 'knex';
-import redis from 'redis';
+import Redis from 'ioredis';
 import testconfig from '../testconfig.js';
 import service from './service/index.js';
 
@@ -13,18 +13,16 @@ describe('keys - remove', () => {
       connection: { ...testconfig.mysql },
     });
 
-    redisClient = redis.createClient(testconfig.redis.connection);
-    await redisClient.connect();
+    redisClient = new Redis(testconfig.redis.connection);
 
     await service.initAndLoad({
       ...testconfig,
-      redis: {
-        ...testconfig.redis,
-        client: redisClient,
-      },
+      redis: { ...testconfig.redis, client: redisClient },
       knex,
     });
   });
+
+  afterAll(() => redisClient.disconnect());
 
   it('remove a key by his id', async () => {
     expect(await service(1).remove()).toBe(1);

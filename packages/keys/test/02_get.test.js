@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import sinon from 'sinon';
 import knexLib from 'knex';
-import redis from 'redis';
+import Redis from 'ioredis';
 import testconfig from '../testconfig.js';
 import config from '../service/config.js';
 import service from './service/index.js';
@@ -16,20 +16,17 @@ describe('keys - get', () => {
       connection: { ...testconfig.mysql },
     });
 
-    redisClient = redis.createClient(config.redis.connection);
-    await redisClient.connect();
+    redisClient = new Redis(config.redis.connection);
 
     await service.initAndLoad({
       ...testconfig,
-      redis: {
-        ...testconfig.redis,
-        client: redisClient,
-      },
+      redis: { ...testconfig.redis, client: redisClient },
       knex,
     });
   });
 
   afterAll(() => knex.destroy());
+  afterAll(() => redisClient.disconnect());
 
   afterEach(async () => {
     const { prefix } = testconfig.redis;

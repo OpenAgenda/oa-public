@@ -21,11 +21,11 @@
     "@openagenda/validators": "^2.4.0",
     "@openagenda/verror": "^3.2.0",
     "lodash": "^4.17.15",
-    "redis": "^4.6.6",
     "uuid": "^3.4.0"
   },
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.2",
+    "ioredis": "^5.10.1",
     "jest": "^29.7.0",
     "knex": "^2.4.2",
     "mysql2": "^3.15.1",

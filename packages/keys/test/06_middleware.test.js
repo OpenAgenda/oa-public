@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import knexLib from 'knex';
-import redis from 'redis';
+import Redis from 'ioredis';
 import * as mw from '../middleware.js';
 import testconfig from '../testconfig.js';
 import service from './service/index.js';
@@ -15,20 +15,17 @@ describe('keys - middleware', () => {
       connection: { ...testconfig.mysql },
     });
 
-    redisClient = redis.createClient(testconfig.redis.connection);
-    await redisClient.connect();
+    redisClient = new Redis(testconfig.redis.connection);
 
     await service.initAndLoad({
       ...testconfig,
-      redis: {
-        ...testconfig.redis,
-        client: redisClient,
-      },
+      redis: { ...testconfig.redis, client: redisClient },
       knex,
     });
   });
 
   afterAll(() => knex.destroy());
+  afterAll(() => redisClient.disconnect());
 
   afterEach(async () => {
     const { prefix } = testconfig.redis;

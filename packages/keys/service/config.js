@@ -1,6 +1,5 @@
 import path from 'node:path';
 import _ from 'lodash';
-import * as redis from 'redis';
 import logs from '@openagenda/logs';
 
 const log = logs('config');
@@ -41,13 +40,10 @@ async function init(c) {
     });
   }
 
-  if (c.redis.client) {
-    config.redis.client = c.redis.client;
-  } else {
-    config.redis.client = redis.createClient(c.redis.connection);
-
-    await config.redis.client.connect();
+  if (!c.redis.client) {
+    throw new Error('redis client is missing');
   }
+  config.redis.client = c.redis.client;
 
   if (config.knex.client.config.migrations) {
     try {

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import knexLib from 'knex';
-import redis from 'redis';
+import Redis from 'ioredis';
 import config from '../testconfig.js';
 import service from './service/index.js';
 
@@ -14,11 +14,11 @@ describe('keys - create', () => {
       connection: { ...config.mysql },
     });
 
-    redisClient = redis.createClient(config.redis.connection);
-    await redisClient.connect();
+    redisClient = new Redis(config.redis.connection);
 
     await service.initAndLoad({
       ...config,
+      redis: { ...config.redis, client: redisClient },
       knex,
     });
   });
@@ -30,6 +30,7 @@ describe('keys - create', () => {
     for (const key of await redisClient.keys(`${prefix}*`)) {
       await redisClient.del(key);
     }
+    redisClient.disconnect();
   });
 
   it('create an user key', async () => {
