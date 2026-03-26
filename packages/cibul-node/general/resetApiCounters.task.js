@@ -18,8 +18,7 @@ export default (config, services) => {
     log('running');
     running = true;
 
-    const { knex } = services;
-    const redis = services.redis.ioRedis;
+    const { knex, redis } = services;
 
     const stream = knex('api_key_set').select('id').stream();
 

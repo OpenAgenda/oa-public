@@ -19,7 +19,7 @@ import handleError from './lib/handleError.js';
 export default (config, services) => {
   const { redis } = services;
 
-  const limiter = rateLimiter(redis.ioRedis, {
+  const limiter = rateLimiter(redis, {
     keyGenerator: (req) =>
       [req.ip, `export-${req.params.format}`]
         .concat(req.params.format === 'pdf' ? [] : req.params.agendaUid)

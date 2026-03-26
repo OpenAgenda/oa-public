@@ -5,7 +5,7 @@ export function init(config, services) {
   return {
     ...usageCounters({
       logger: config.getLogConfig('svc', 'usage-counters'),
-      redisClient: services.redis.ioRedis,
+      redisClient: services.redis,
       knexClient: config.knex,
       lifespan: 1000 * 60 * 60,
       redisPrefix: null,

@@ -18,7 +18,7 @@ export function init(config, services) {
       network: 'network',
     },
     logger: config.getLogConfig('svc', 'form-schemas'),
-    redis: services.redis.ioRedis,
+    redis: services.redis,
     cacheTTL: 60_000,
   });
 }

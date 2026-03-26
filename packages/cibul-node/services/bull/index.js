@@ -25,7 +25,7 @@ function normalizeOpts(opts, { connection, queuesPrefix }) {
 export function init(config, services) {
   log('init');
 
-  const connection = services.redis.ioRedis;
+  const connection = services.redis;
   const { queuesPrefix } = config;
 
   class Queue extends bullmq.Queue {

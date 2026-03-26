@@ -111,7 +111,7 @@ export function plugApp(app) {
 }
 
 export function init(config, services) {
-  return Object.assign(new Stats({ redis: services.redis.ioRedis }), {
+  return Object.assign(new Stats({ redis: services.redis }), {
     plugApp,
   });
 }

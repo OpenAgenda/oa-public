@@ -9,7 +9,7 @@ import plugApp from './plugApp.js';
 export function init(config, services) {
   const agendasSvc = Agendas({
     knex: config.knex,
-    redis: services.redis.ioRedis,
+    redis: services.redis,
     schemas: config.schemas,
     Files: services.files,
     imagePath: config.s3.mainBucketPath,

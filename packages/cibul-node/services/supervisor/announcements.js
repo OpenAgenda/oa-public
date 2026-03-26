@@ -30,7 +30,7 @@ class Announcements {
 
 export function init(config, services) {
   return new Announcements({
-    redisClient: services.redis.ioRedis,
+    redisClient: services.redis,
   });
 }
 
