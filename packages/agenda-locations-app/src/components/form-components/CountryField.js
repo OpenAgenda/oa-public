@@ -16,7 +16,7 @@ const CountryField = ({ lang, enabled = true, onChange, pValue }) => {
   const extractCountryNames = () =>
     countries.map((c) => ({
       value: c.code,
-      label: c[lang],
+      label: c[lang] || c.en,
     }));
 
   const selectStyles = {
