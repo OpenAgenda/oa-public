@@ -194,6 +194,27 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
       expect(error.name).toBe('Forbidden');
     });
 
+    it('creating a member that already exists throws BadRequest', async () => {
+      let error;
+
+      try {
+        await core.agendas(2).members.create(
+          82253124,
+          'contributor',
+          {
+            name: 'Fred',
+          },
+          {
+            userUid: 50073466,
+          },
+        );
+      } catch (e) {
+        error = e;
+      }
+
+      expect(error.name).toBe('BadRequest');
+    });
+
     it('user cannot add himself on members only agenda', async () => {
       let error;
 
@@ -449,6 +470,27 @@ describe('08 - core - functional (server): core.agendas().members.create', () =>
           );
 
         expect(response.status).toBe(403);
+      });
+
+      it('creating a member that already exists returns 400', async () => {
+        const response = await ky
+          .post('http://localhost:4000/agendas/2/members', {
+            headers: {
+              'access-token': adminAccessToken,
+            },
+            json: {
+              name: 'Hélène',
+              role: 'administrator',
+              userUid: 10866730,
+            },
+          })
+          .json()
+          .then(
+            () => {},
+            (err) => err.response,
+          );
+
+        expect(response.status).toBe(400);
       });
 
       it('contributor cannot create member', async () => {
