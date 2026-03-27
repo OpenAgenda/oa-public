@@ -40,12 +40,21 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
+  const agendaImageMw = app.services.agendas.getConfig().upload.middleware([
+    {
+      name: 'image',
+      unique: true,
+    },
+  ]);
+
   app.post('/agendas/:agendaUid/events(/*)?', imageMw);
   app.put('/agendas/:agendaUid/events(/*)?', imageMw);
   app.patch('/agendas/:agendaUid/events(/*)?', imageMw);
   app.post('/agendas/:agendaUid/locations(/*)?', imageMw);
   app.put('/agendas/:agendaUid/locations(/*)?', imageMw);
   app.patch('/agendas/:agendaUid/locations(/*)?', imageMw);
+  app.post('/agendas', agendaImageMw);
+  app.patch('/agendas/:agendaUid', agendaImageMw);
 
   app.post('*', mw.parseBodyData);
   app.put('*', mw.parseBodyData);
@@ -109,7 +118,7 @@ export default (core, { useRouter = true } = {}) => {
 
   app.post('/agendas', (req, res, next) =>
     core.agendas
-      .create(req.parsedData, { userUid: req.user.uid })
+      .create(req.parsedData, { userUid: req.user.uid, includeImagePath: true })
       .then((agenda) => res.json(agenda), next));
 
   app.patch(
@@ -124,6 +133,8 @@ export default (core, { useRouter = true } = {}) => {
         .agendas(req.agenda.uid)
         .update(req.parsedData, {
           protected: !isSuperAdmin, // false for superadmins, true for others
+          includeImagePath: true,
+          private: null,
         })
         .then((agenda) => res.json(agenda), next);
     },
