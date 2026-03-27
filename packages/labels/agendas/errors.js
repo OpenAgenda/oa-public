@@ -9,7 +9,8 @@ module.exports = {
     "pl": "wydarzenie jest już częścią porządku dziennego",
     "es": "el evento se ha añadido a la agenda",
     "io": "crwdns12842:0crwdne12842:0",
-    "oc": "l'eveniment fa ja partida de l'agenda"
+    "oc": "l'eveniment fa ja partida de l'agenda",
+    "nl": "het evenement is al toegevoegd aan de agenda"
   },
   "selectActionBefore": {
     "en": "Select an action to execute before pressing the button",
@@ -19,7 +20,8 @@ module.exports = {
     "pl": "Wybierz czynność do wykonania przed naciśnięciem przycisku",
     "es": "Seleccione una acción a ejecutar antes de hacer clic en el botón",
     "io": "crwdns12844:0crwdne12844:0",
-    "oc": "Causissètz una accion de menar abans de quichar sul boton"
+    "oc": "Causissètz una accion de menar abans de quichar sul boton",
+    "nl": "Selecteer een actie om uit te voeren voordat u op de knop klikt"
   },
   "unknownAction": {
     "en": "The action you requested is unknown",
@@ -29,6 +31,7 @@ module.exports = {
     "pl": "Działanie, o które wnioskowałeś, jest nieznane",
     "es": "La acción solicitada es desconocida",
     "io": "crwdns12846:0crwdne12846:0",
-    "oc": "L'accion demandada nos es desconeguda"
+    "oc": "L'accion demandada nos es desconeguda",
+    "nl": "De actie die u heeft aangevraagd is onbekend"
   }
 }

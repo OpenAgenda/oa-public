@@ -1,0 +1,16 @@
+{
+  "addEvent": "Een evenement toevoegen",
+  "empty": "Sorry, geen agenda's komen overeen met deze zoekopdracht",
+  "found": "%count% agenda's gevonden",
+  "genericSearchTitle": "Agenda zoekresultaten",
+  "latestUpdated": "Recent bijgewerkte agenda's",
+  "loadNext": "Volgende resultaten laden",
+  "loadPrevious": "Vorige resultaten laden",
+  "official": "Officiële agenda",
+  "publishedEvent": "1 afgelopen evenement",
+  "publishedEvents": "%count% afgelopen evenementen",
+  "results": "Zoekresultaten voor \"%search%\"",
+  "searchTitle": "Agenda's zoeken",
+  "upcomingEvent": "1 aankomend evenement",
+  "upcomingEvents": "%count% aankomende evenementen"
+}

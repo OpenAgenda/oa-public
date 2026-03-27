@@ -8,7 +8,8 @@ module.exports = {
     "es": "Acceso no autorizado",
     "it": "Accesso non autorizzato",
     "io": "crwdns12848:0crwdne12848:0",
-    "oc": "Accès pas autorizat"
+    "oc": "Accès pas autorizat",
+    "nl": "Ongeautoriseerde toegang"
   },
   "content": {
     "fr": "L'accès à cet agenda est restreint, contactez l'administrateur de l'agenda pour plus d'informations.",
@@ -17,7 +18,8 @@ module.exports = {
     "es": "El acceso a esta agenda está restringida, póngase en contacto con el administrador de la agenda para obtener más información.",
     "it": "L'accesso a questo calendario è limitato, contatta l'amministratore del calendario per ulteriori informazioni.",
     "io": "crwdns12850:0crwdne12850:0",
-    "oc": "L'accès a aqueste calendièr es restrench, contactatz l'adminsitrator del calendièr per mai d'informacions."
+    "oc": "L'accès a aqueste calendièr es restrench, contactatz l'adminsitrator del calendièr per mai d'informacions.",
+    "nl": "Toegang tot deze agenda is beperkt, neem contact op met de beheerder van de agenda voor meer informatie."
   },
   "contact": {
     "fr": "Contacter l'administrateur",
@@ -26,7 +28,8 @@ module.exports = {
     "es": "Póngase en contacto con el administrador",
     "it": "Contattare l'amministratore",
     "io": "crwdns12852:0crwdne12852:0",
-    "oc": "Contactar l'administrator·a"
+    "oc": "Contactar l'administrator·a",
+    "nl": "Neem contact op met de beheerder"
   },
   "back": {
     "fr": "Retour à l'agenda",
@@ -35,6 +38,7 @@ module.exports = {
     "es": "Volver a la agenda",
     "it": "Tornare all'agenda",
     "io": "crwdns12854:0crwdne12854:0",
-    "oc": "Tornar a l'agenda"
+    "oc": "Tornar a l'agenda",
+    "nl": "Terug naar de agenda"
   }
 }

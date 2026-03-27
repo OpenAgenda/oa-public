@@ -1,7 +1,7 @@
 {
-  "update": "Enregistrar",
-  "updating": "Mesa a jorn",
-  "updated": "Enregistrat",
+  "cancel": "Anullar",
   "syncError": "Se poguèt pas enregistrar. Tornatz ensajar.",
-  "cancel": "Anullar"
+  "update": "Enregistrar",
+  "updated": "Enregistrat",
+  "updating": "Mesa a jorn"
 }

@@ -8,7 +8,8 @@ module.exports = {
     "io": "crwdns11266:0{user}crwdnd11266:0{email}crwdnd11266:0{credential}crwdnd11266:0{agenda}crwdne11266:0",
     "it": "{user} ha invitato {email} come {credential} su {agenda}.",
     "oc": "{user} a convidat {email} coma {credential} sus {agenda}.",
-    "es": "{user} invitó a {email} como {credential} en {agenda}."
+    "es": "{user} invitó a {email} como {credential} en {agenda}.",
+    "nl": "{user} heeft {email} uitgenodigd als {credential} op {agenda}."
   },
   "agenda.acceptInvitation": {
     "en": "{user} has accepted the invitation of {originMember} to become {credential} on {agenda}.",
@@ -18,7 +19,8 @@ module.exports = {
     "br": "{user} en/he deus asantet da bedadenn {originMember} da vezañ {credential} war {agenda}.",
     "it": "{user} ha accettato l'invito de {originMember} ha diventare {credential} su {agenda}.",
     "io": "crwdns11268:0{user}crwdnd11268:0{originMember}crwdnd11268:0{credential}crwdnd11268:0{agenda}crwdne11268:0",
-    "oc": "{user} a acceptat lo convit de {originMember} per venir {credential} sus {agenda}."
+    "oc": "{user} a acceptat lo convit de {originMember} per venir {credential} sus {agenda}.",
+    "nl": "{user} heeft de uitnodiging van {originMember} geaccepteerd om {credential} te worden op {agenda}."
   },
   "agenda.addMember": {
     "en": "{originMember} added {user} as {credential} on {agenda}.",
@@ -28,7 +30,8 @@ module.exports = {
     "br": "{originMember} en/he deus ouzhpennet  {user} evel {credential} war {agenda}.",
     "it": "{originMember} ha aggiunto {user} come {credential} su {agenda}.",
     "io": "crwdns11270:0{originMember}crwdnd11270:0{user}crwdnd11270:0{credential}crwdnd11270:0{agenda}crwdne11270:0",
-    "oc": "{originMember} a apondut {user} coma {credential} sus {agenda}."
+    "oc": "{originMember} a apondut {user} coma {credential} sus {agenda}.",
+    "nl": "{originMember} heeft {user} toegevoegd als {credential} op {agenda}."
   },
   "agenda.removeMember": {
     "en": "{originMember} removed {user} ({credential}) from {agenda}.",
@@ -36,7 +39,8 @@ module.exports = {
     "it": "{originMember} ha rimosso {user} ({credential}) de {agenda}.",
     "io": "crwdns11272:0{originMember}crwdnd11272:0{user}crwdnd11272:0{credential}crwdnd11272:0{agenda}crwdne11272:0",
     "oc": "{originMember} a tirat {user} ({credential}) de {agenda}.",
-    "es": "{originMember} ha eliminado {user} ({credential}) de {agenda}."
+    "es": "{originMember} ha eliminado {user} ({credential}) de {agenda}.",
+    "nl": "{originMember} heeft {user} ({credential}) verwijderd van {agenda}."
   },
   "agenda.setMemberRole": {
     "en": "{user} appointed {originMember} as {credential} on {agenda}.",
@@ -46,7 +50,8 @@ module.exports = {
     "br": "{user} en/he deus anvet {originMember} da {credential} war {agenda}.",
     "it": "{user} ha nominato {originMember} {credential} su {agenda}.",
     "io": "crwdns11274:0{user}crwdnd11274:0{originMember}crwdnd11274:0{credential}crwdnd11274:0{agenda}crwdne11274:0",
-    "oc": "{user} a nomenat {originMember} {credential} sus {agenda}."
+    "oc": "{user} a nomenat {originMember} {credential} sus {agenda}.",
+    "nl": "{user} heeft {originMember} benoemd tot {credential} op {agenda}."
   },
   "agenda.addSource": {
     "en": "{user} added {sourceAgenda} as a source to {agenda}.",
@@ -54,7 +59,8 @@ module.exports = {
     "it": "{user} ha aggiunto {sourceAgenda} alle fonti di {agenda}.",
     "io": "crwdns11276:0{user}crwdnd11276:0{sourceAgenda}crwdnd11276:0{agenda}crwdne11276:0",
     "oc": "{user} a apondut {sourceAgenda} coma sorsa sus {agenda}.",
-    "es": "{user} agregó {sourceAgenda} como fuente a {agenda}."
+    "es": "{user} agregó {sourceAgenda} como fuente a {agenda}.",
+    "nl": "{user} heeft {sourceAgenda} toegevoegd aan de bronnen van {agenda}."
   },
   "agenda.removeSource": {
     "en": "{user} removed {sourceAgenda} from the sources of {agenda}.",
@@ -62,7 +68,8 @@ module.exports = {
     "it": "{user} ha rimosso {sourceAgenda} dalle fonti di {agenda}.",
     "io": "crwdns11278:0{user}crwdnd11278:0{sourceAgenda}crwdnd11278:0{agenda}crwdne11278:0",
     "oc": "{user} a tirat {sourceAgenda} de las sorsas de {agenda}.",
-    "es": "{user} eliminó {sourceAgenda} de las fuentes de {agenda}."
+    "es": "{user} eliminó {sourceAgenda} de las fuentes de {agenda}.",
+    "nl": "{user} heeft {sourceAgenda} verwijderd uit de bronnen van {agenda}."
   },
   "agenda.create": {
     "en": "{user} created the agenda {agenda}.",
@@ -72,7 +79,8 @@ module.exports = {
     "br": "{user} en/he deus krouet an deiziataer {agenda}.",
     "it": "{user} ha creato l'agenda {agenda}.",
     "io": "crwdns11280:0{user}crwdnd11280:0{agenda}crwdne11280:0",
-    "oc": "{user} a creat l'agenda {agenda}."
+    "oc": "{user} a creat l'agenda {agenda}.",
+    "nl": "{user} heeft de agenda {agenda} aangemaakt."
   },
   "agenda.updateContribution": {
     "en": "{user} updated contribution settings on {agenda}.",
@@ -82,7 +90,8 @@ module.exports = {
     "br": "{user} en/he deus hizivaet an arventennoù kendeurel war {agenda}.",
     "it": "{user} ha aggiornato le impostazioni dei contributi su {agenda}.",
     "io": "crwdns11282:0{user}crwdnd11282:0{agenda}crwdne11282:0",
-    "oc": "{user} a metut a jorn los reglatges de contribucion sus {agenda}."
+    "oc": "{user} a metut a jorn los reglatges de contribucion sus {agenda}.",
+    "nl": "{user} heeft de bijdrage-instellingen bijgewerkt op {agenda}."
   },
   "agenda.updateProfile": {
     "en": "{user} updated profile on {agenda}.",
@@ -92,7 +101,8 @@ module.exports = {
     "br": "{user} en/he deus hizivaet ar profil war {agenda}.",
     "it": "{user} ha aggiornato il profilo su {agenda}.",
     "io": "crwdns11284:0{user}crwdnd11284:0{agenda}crwdne11284:0",
-    "oc": "{user} a metut lo perfil a jorn sus {agenda}."
+    "oc": "{user} a metut lo perfil a jorn sus {agenda}.",
+    "nl": "{user} heeft het profiel bijgewerkt op {agenda}."
   },
   "agenda.rename": {
     "en": "{user} renamed the agenda {before} to {after}.",
@@ -102,7 +112,8 @@ module.exports = {
     "br": "{user} en/he deus adanvet an deiziataer  {before} e {after}.",
     "it": "{user} ha rinominato l'agenda {before} en {after}.",
     "io": "crwdns11286:0{user}crwdnd11286:0{before}crwdnd11286:0{after}crwdne11286:0",
-    "oc": "{user} tornèt nomenar l'agenda {before} en {after}."
+    "oc": "{user} tornèt nomenar l'agenda {before} en {after}.",
+    "nl": "{user} heeft de agenda {before} hernoemd naar {after}."
   },
   "agenda.setOfficial": {
     "en": "The agenda {agenda} became official.",
@@ -112,7 +123,8 @@ module.exports = {
     "br": "Deuet eo an deiziataer {agenda} da vezañ ofisiel.",
     "it": "L'agenda {agenda} è diventato ufficiale.",
     "io": "crwdns11288:0{agenda}crwdne11288:0",
-    "oc": "L'agenda {agenda} es venguda oficiala."
+    "oc": "L'agenda {agenda} es venguda oficiala.",
+    "nl": "De agenda {agenda} is officieel geworden."
   },
   "agenda.setUnofficial": {
     "en": "The agenda {agenda} became unofficial.",
@@ -122,7 +134,8 @@ module.exports = {
     "br": "Deuet eo an deiziataer {agenda} da vezañ diofisiel.",
     "it": "L'agenda {agenda} è diventato ufficioso.",
     "io": "crwdns11290:0{agenda}crwdne11290:0",
-    "oc": "L'agenda {agenda} es venguda non-oficiala."
+    "oc": "L'agenda {agenda} es venguda non-oficiala.",
+    "nl": "De agenda {agenda} is niet-officieel geworden."
   },
   "agenda.changeEventState": {
     "en": "{user} passed {event} as \"{after}\" on {agenda}.",
@@ -132,7 +145,8 @@ module.exports = {
     "br": "{user} en deus lakaet {event} da \"{after}\" war {agenda}.",
     "it": "{user} ha cambiato {event} en \"{after}\" su {agenda}.",
     "io": "crwdns11292:0{user}crwdnd11292:0{event}crwdnd11292:0{after}crwdnd11292:0{agenda}crwdne11292:0",
-    "oc": "{user} a passat {event} a \"{after}\" sus {agenda}."
+    "oc": "{user} a passat {event} a \"{after}\" sus {agenda}.",
+    "nl": "{user} heeft {event} doorgegeven als \"{after}\" op {agenda}."
   },
   "agenda.publishEvent": {
     "en": "{user} published {event} on {agenda}.",
@@ -142,7 +156,8 @@ module.exports = {
     "br": "{user} en/he deus embannet {event} war {agenda}.",
     "it": "{user} ha pubblicato {event} su {agenda}.",
     "io": "crwdns11294:0{user}crwdnd11294:0{event}crwdnd11294:0{agenda}crwdne11294:0",
-    "oc": "{user} a publicat {event} sus {agenda}."
+    "oc": "{user} a publicat {event} sus {agenda}.",
+    "nl": "{user} heeft {event} gepubliceerd op {agenda}."
   },
   "agenda.unpublishEvent": {
     "en": "{user} unpublished {event} on {agenda}.",
@@ -152,14 +167,16 @@ module.exports = {
     "br": "{user} en/he deus diembannet {event} diwar {agenda}.",
     "it": "{user} ha inedito {event} su {agenda}.",
     "io": "crwdns11296:0{user}crwdnd11296:0{event}crwdnd11296:0{agenda}crwdne11296:0",
-    "oc": "{user} a despublicat {event} sus {agenda}."
+    "oc": "{user} a despublicat {event} sus {agenda}.",
+    "nl": "{user} heeft de publicatie van {event} op {agenda} ongedaan gemaakt."
   },
   "agenda.systemUnpublishEvent": {
     "en": "{event} has been automatically unpublished on {agenda} for moderation",
     "fr": "{event} a été dépublié automatiquement sur {agenda} pour nouveau contrôle",
     "io": "crwdns16412:0{event}crwdnd16412:0{agenda}crwdne16412:0",
     "oc": "{event} es estat automaticament despublicat de {agenda} per moderacion",
-    "es": "{event} ha sido despublicado automáticamente en {agenda} para moderación"
+    "es": "{event} ha sido despublicado automáticamente en {agenda} para moderación",
+    "nl": "{event} is automatisch gedepubliceerd op {agenda} voor controle"
   },
   "agenda.removeEvent": {
     "en": "{user} removed {event} from {agenda}.",
@@ -169,7 +186,8 @@ module.exports = {
     "br": "{user} en/he deus lamet {event} eus {agenda}.",
     "it": "{user} ha rimosso {event} de {agenda}.",
     "io": "crwdns11298:0{user}crwdnd11298:0{event}crwdnd11298:0{agenda}crwdne11298:0",
-    "oc": "{user} a tirat {event} de {agenda}."
+    "oc": "{user} a tirat {event} de {agenda}.",
+    "nl": "{user} heeft {event} verwijderd van {agenda}."
   },
   "agenda.aggregateEvent": {
     "en": "{agenda} aggregated {event} from {sourceAgenda}.",
@@ -178,7 +196,8 @@ module.exports = {
     "es": "{agenda} ha importado {event} de {sourceAgenda}.",
     "it": "{agenda} ha aggregato {event} da {sourceAgenda}.",
     "io": "crwdns11300:0{agenda}crwdnd11300:0{event}crwdnd11300:0{sourceAgenda}crwdne11300:0",
-    "oc": "{agenda} a agregat {event} de {sourceAgenda}."
+    "oc": "{agenda} a agregat {event} de {sourceAgenda}.",
+    "nl": "{agenda} heeft {event} geaggregeerd van {sourceAgenda}."
   },
   "agenda.addEvent": {
     "en": "{user} added {event} on {agenda} from {sourceAgenda}.",
@@ -186,7 +205,8 @@ module.exports = {
     "it": "{user} ha aggiunto {event} su {agenda} da {sourceAgenda}.",
     "io": "crwdns11302:0{user}crwdnd11302:0{event}crwdnd11302:0{agenda}crwdnd11302:0{sourceAgenda}crwdne11302:0",
     "oc": "{user} a apondut {event} sus {agenda} a partir de {sourceAgenda}.",
-    "es": "{user} agregó {event} en {agenda} desde {sourceAgenda}."
+    "es": "{user} agregó {event} en {agenda} desde {sourceAgenda}.",
+    "nl": "{user} heeft {event} toegevoegd op {agenda} vanuit {sourceAgenda}."
   },
   "event.create": {
     "en": "{user} created {event} in the agenda {agenda}.",
@@ -196,7 +216,8 @@ module.exports = {
     "br": "{user} en/he deus krouet {event} en deiziataer {agenda}.",
     "it": "{user} ha creato {event} nell'agenda {agenda}.",
     "io": "crwdns11304:0{user}crwdnd11304:0{event}crwdnd11304:0{agenda}crwdne11304:0",
-    "oc": "{user} a creat {event} dins l'agenda {agenda}."
+    "oc": "{user} a creat {event} dins l'agenda {agenda}.",
+    "nl": "{user} heeft {event} aangemaakt in de agenda {agenda}."
   },
   "event.update": {
     "en": "{user} updated {event} on {agenda}.",
@@ -206,7 +227,8 @@ module.exports = {
     "br": "{user} en/he deus hizivaet {event} war {agenda}.",
     "it": "{user} ha aggiornato {event} su {agenda}.",
     "io": "crwdns11306:0{user}crwdnd11306:0{event}crwdnd11306:0{agenda}crwdne11306:0",
-    "oc": "{user} a metut {event} a jorn sus {agenda}."
+    "oc": "{user} a metut {event} a jorn sus {agenda}.",
+    "nl": "{user} heeft {event} bijgewerkt op {agenda}."
   },
   "event.updateWithOneChange": {
     "en": "{user} updated the field {fields} of {event} on {agenda}.",
@@ -214,7 +236,8 @@ module.exports = {
     "it": "{user} ha aggiornato il campo {fields} de {event} su {agenda}.",
     "io": "crwdns11308:0{user}crwdnd11308:0{fields}crwdnd11308:0{event}crwdnd11308:0{agenda}crwdne11308:0",
     "oc": "{user} a metut a jorn lo camp {fields} de {event} sus {agenda}.",
-    "es": "{user} actualizó el campo {fields} de {event} en {agenda}."
+    "es": "{user} actualizó el campo {fields} de {event} en {agenda}.",
+    "nl": "{user} heeft het veld {fields} van {event} bijgewerkt op {agenda}."
   },
   "event.updateWithSomeChanges": {
     "en": "{user} updated {event} on {agenda}: {fields} have been changed.",
@@ -222,7 +245,8 @@ module.exports = {
     "it": "{user} ha aggiornato {event} su {agenda}: {fields} sono stati modificati.",
     "io": "crwdns11310:0{user}crwdnd11310:0{event}crwdnd11310:0{agenda}crwdnd11310:0{fields}crwdne11310:0",
     "oc": "{user} a metut a jorn {event} sus {agenda} : {fields} son estats cambiats.",
-    "es": "{user} actualizó {event} en {agenda}: {fields} han sido editados."
+    "es": "{user} actualizó {event} en {agenda}: {fields} han sido editados.",
+    "nl": "{user} heeft {event} bijgewerkt op {agenda}: {fields} zijn gewijzigd."
   },
   "event.updateWithLotOfChanges": {
     "en": "{user} updated {event} on {agenda} ({fieldsCount} fields).",
@@ -230,7 +254,8 @@ module.exports = {
     "it": "{user} ha aggiornato {event} su {agenda} ({fieldsCount} champs).",
     "io": "crwdns11312:0{user}crwdnd11312:0{event}crwdnd11312:0{agenda}crwdnd11312:0{fieldsCount}crwdne11312:0",
     "oc": "{user} a metut a jorn {event} sus {agenda} ({fieldsCount} camps).",
-    "es": "{user} actualizó {event} en {agenda} ({fieldsCount} campos)."
+    "es": "{user} actualizó {event} en {agenda} ({fieldsCount} campos).",
+    "nl": "{user} heeft {event} bijgewerkt op {agenda} ({fieldsCount} velden)."
   },
   "event.delete": {
     "en": "{user} deleted {event} on {agenda}.",
@@ -240,7 +265,8 @@ module.exports = {
     "br": "{user} en/he deus dilamet {event} eus {agenda}.",
     "it": "{user} ha cancellato {event} su {agenda}.",
     "io": "crwdns11314:0{user}crwdnd11314:0{event}crwdnd11314:0{agenda}crwdne11314:0",
-    "oc": "{user} a suprimit {event} sus {agenda}."
+    "oc": "{user} a suprimit {event} sus {agenda}.",
+    "nl": "{user} heeft {event} verwijderd op {agenda}."
   },
   "activities": {
     "en": "Activities",
@@ -250,7 +276,8 @@ module.exports = {
     "br": "Obererezhioù",
     "it": "Attività",
     "io": "crwdns11316:0crwdne11316:0",
-    "oc": "Activitats"
+    "oc": "Activitats",
+    "nl": "Activiteiten"
   },
   "history": {
     "en": "History",
@@ -258,7 +285,8 @@ module.exports = {
     "io": "crwdns32760:0crwdne32760:0",
     "oc": "Istoric",
     "es": "Histórico",
-    "it": "Storia"
+    "it": "Storia",
+    "nl": "Geschiedenis"
   },
   "next": {
     "en": "Next",
@@ -268,7 +296,8 @@ module.exports = {
     "br": "War-lerc'h",
     "it": "Prossimo",
     "io": "crwdns11318:0crwdne11318:0",
-    "oc": "Seguent"
+    "oc": "Seguent",
+    "nl": "Volgende"
   },
   "noActivity": {
     "en": "Your activities will be displayed here.",
@@ -278,7 +307,8 @@ module.exports = {
     "br": "Diskwelet e vo hoc'h obererezhioù amañ.",
     "it": "Le vostre attività saranno visualizzate qui.",
     "io": "crwdns11320:0crwdne11320:0",
-    "oc": "Vòstras activitats seràn afichadas aquí."
+    "oc": "Vòstras activitats seràn afichadas aquí.",
+    "nl": "Uw activiteiten worden hier weergegeven."
   },
   "unknownActivity": {
     "en": "Activity label missing for {verb}",
@@ -286,6 +316,7 @@ module.exports = {
     "it": "Etichetta di attività mancante per {verb}",
     "io": "crwdns11322:0{verb}crwdne11322:0",
     "oc": "Etiqueta d'activitat de manca per {verb}",
-    "es": "Etiqueta de actividad faltante para {verb}"
+    "es": "Etiqueta de actividad faltante para {verb}",
+    "nl": "Activiteitslabel ontbreekt voor {verb}"
   }
 }

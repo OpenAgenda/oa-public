@@ -9,7 +9,8 @@ module.exports = {
     "br": "Dalc'het en o c'heflusk",
     "it": "Disabilità motoria",
     "io": "crwdns14076:0crwdne14076:0",
-    "oc": "Handicap motor"
+    "oc": "Handicap motor",
+    "nl": "Motorische beperking"
   },
   "hi": {
     "en": "Hearing impairment",
@@ -19,7 +20,8 @@ module.exports = {
     "br": "Pounnerglev",
     "it": "Disabilità uditiva",
     "io": "crwdns14078:0crwdne14078:0",
-    "oc": "Handicap auditiu"
+    "oc": "Handicap auditiu",
+    "nl": "Gehoorbeperking"
   },
   "ii": {
     "en": "Intellectual impairment",
@@ -29,7 +31,8 @@ module.exports = {
     "br": "Dalc'het en o spered",
     "it": "Disabilità cognitiva",
     "io": "crwdns14080:0crwdne14080:0",
-    "oc": "Handicap intellectual"
+    "oc": "Handicap intellectual",
+    "nl": "Verstandelijke beperking"
   },
   "pi": {
     "en": "Psychic impairment",
@@ -38,7 +41,8 @@ module.exports = {
     "es": "Discapacidad psicológica",
     "it": "Disabilità psichica",
     "io": "crwdns14082:0crwdne14082:0",
-    "oc": "Handicap psiquic"
+    "oc": "Handicap psiquic",
+    "nl": "Psychische beperking"
   },
   "vi": {
     "en": "Visual impairment",
@@ -48,7 +52,8 @@ module.exports = {
     "br": "Na wel ket mat",
     "it": "Disabilità visiva",
     "io": "crwdns14084:0crwdne14084:0",
-    "oc": "Handicap visual"
+    "oc": "Handicap visual",
+    "nl": "Visuele beperking"
   },
   "sl": {
     "en": "Sign language",
@@ -58,7 +63,8 @@ module.exports = {
     "br": "Yezh ar sinoù",
     "it": "Lingua dei segni",
     "io": "crwdns14086:0crwdne14086:0",
-    "oc": "Lenga dels signes"
+    "oc": "Lenga dels signes",
+    "nl": "Gebarentaal"
   },
   "input": {
     "en": "This event has amenities to facilitate accessibility",
@@ -68,6 +74,7 @@ module.exports = {
     "br": "En darvoud-mañ ez eus aveadurioù da aesaat ar vonedusted",
     "it": "Questo evento prevede dispositivi o soluzioni adeguate per:",
     "io": "crwdns14088:0crwdne14088:0",
-    "oc": "Aqueste eveniment enclaus d'aisinas per l'accessibilitat"
+    "oc": "Aqueste eveniment enclaus d'aisinas per l'accessibilitat",
+    "nl": "Dit evenement heeft voorzieningen om de toegankelijkheid te vergemakkelijken"
   }
 }

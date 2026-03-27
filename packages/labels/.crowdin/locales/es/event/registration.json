@@ -1,8 +1,8 @@
 {
-  "info": "Herramientas de registro",
-  "placeholder": "Enlaces, números de teléfono o correo electrónico. Separar cada valor de un tabulador o una coma.",
+  "accessPassOffer": "Acceder a la oferta del pass Culture",
   "error": "Separar cada valor de un tabulador o una coma. No se guardarán las entradas no válidas.",
+  "info": "Herramientas de registro",
   "invalid": "Sólo se aceptan enlaces, correos electrónicos o números de teléfono",
-  "registerBook": "Registrarse / Reservar",
-  "accessPassOffer": "Acceder a la oferta del pass Culture"
+  "placeholder": "Enlaces, números de teléfono o correo electrónico. Separar cada valor de un tabulador o una coma.",
+  "registerBook": "Registrarse / Reservar"
 }

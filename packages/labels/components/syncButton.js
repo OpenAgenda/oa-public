@@ -9,7 +9,8 @@ module.exports = {
     "it": "Salva",
     "br": "Enrollañ",
     "io": "crwdns13238:0crwdne13238:0",
-    "oc": "Enregistrar"
+    "oc": "Enregistrar",
+    "nl": "Opslaan"
   },
   "updating": {
     "en": "Updating",
@@ -18,7 +19,8 @@ module.exports = {
     "es": "Actualización",
     "it": "Aggiornando",
     "io": "crwdns13240:0crwdne13240:0",
-    "oc": "Mesa a jorn"
+    "oc": "Mesa a jorn",
+    "nl": "Bijwerken"
   },
   "updated": {
     "en": "Saved",
@@ -27,7 +29,8 @@ module.exports = {
     "es": "Guardar",
     "it": "Registrato",
     "io": "crwdns13242:0crwdne13242:0",
-    "oc": "Enregistrat"
+    "oc": "Enregistrat",
+    "nl": "Opgeslagen"
   },
   "syncError": {
     "en": "Could not save. Please try again.",
@@ -36,7 +39,8 @@ module.exports = {
     "es": "La copia de seguridad falló. Por favor, inténtelo de nuevo.",
     "it": "Il backup non ha avuto successo. La preghiamo di riprovare.",
     "io": "crwdns13244:0crwdne13244:0",
-    "oc": "Se poguèt pas enregistrar. Tornatz ensajar."
+    "oc": "Se poguèt pas enregistrar. Tornatz ensajar.",
+    "nl": "Opslaan is mislukt. Probeer het opnieuw."
   },
   "cancel": {
     "en": "Cancel",
@@ -46,6 +50,7 @@ module.exports = {
     "it": "Annulla",
     "br": "Nullañ",
     "io": "crwdns13246:0crwdne13246:0",
-    "oc": "Anullar"
+    "oc": "Anullar",
+    "nl": "Annuleren"
   }
 }

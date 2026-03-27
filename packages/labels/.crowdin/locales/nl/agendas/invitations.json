@@ -1,0 +1,9 @@
+{
+  "emailSubmitted": "Uw %count% ingediende e-mails worden verwerkt",
+  "invitationError": "Er is een fout opgetreden bij het verwerken van de uitnodigingen. Probeer het over enkele ogenblikken opnieuw.",
+  "invitationNotSent": "De uitnodiging kon niet worden verzonden",
+  "noNewInvite": "Er is geen nieuwe uitnodiging verzonden",
+  "resentInvite": "De uitnodiging wordt opnieuw verzonden",
+  "resentInvites": "%count% uitnodigingen worden verzonden. <br/><br/>Let op: uitnodigingen kunnen slechts eenmaal per 24 uur worden verzonden",
+  "sentInvites": "Verzonden uitnodigingen: %count%"
+}

@@ -1,0 +1,15 @@
+{
+  "add": "Toevoegen",
+  "cancelUpdateTag": "Annuleren",
+  "categories": "Categorieën",
+  "duplicate": "deze categorie bestaat al",
+  "empty": "de categorienaam mag niet leeg zijn",
+  "linkError": "Er is een fout opgetreden bij het opslaan van uw gegevens. Probeer het later opnieuw",
+  "listInfo": "Informatieveld",
+  "listName": "Naam van de lijst",
+  "listSection": "Agendacategorieën",
+  "noCategories": "U heeft nog geen categorieën gedefinieerd voor deze agenda",
+  "required": "Verplicht maken. Er moet een categorie worden geselecteerd.",
+  "subtitle": "Categorieën vormen een lijst met enkele keuze",
+  "updateTag": "Oké"
+}

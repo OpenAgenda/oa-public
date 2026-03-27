@@ -8,7 +8,8 @@ module.exports = {
     "es": "Apellido",
     "it": "Nome",
     "io": "crwdns13256:0crwdne13256:0",
-    "oc": "Nom"
+    "oc": "Nom",
+    "nl": "Naam"
   },
   "email": {
     "en": "Email",
@@ -18,7 +19,8 @@ module.exports = {
     "it": "Invia un'e-mail a",
     "br": "Postel",
     "io": "crwdns13258:0crwdne13258:0",
-    "oc": "Email"
+    "oc": "Email",
+    "nl": "E-mail"
   },
   "organization": {
     "en": "Organization",
@@ -28,7 +30,8 @@ module.exports = {
     "it": "Ragione sociale",
     "br": "Aozadur",
     "io": "crwdns13260:0crwdne13260:0",
-    "oc": "Organizacion"
+    "oc": "Organizacion",
+    "nl": "Organisatie"
   },
   "phone": {
     "en": "Phone",
@@ -37,7 +40,8 @@ module.exports = {
     "es": "Teléfono",
     "it": "Telefono",
     "io": "crwdns13262:0crwdne13262:0",
-    "oc": "Telefòne"
+    "oc": "Telefòne",
+    "nl": "Telefoon"
   },
   "position": {
     "en": "Position",
@@ -46,7 +50,8 @@ module.exports = {
     "es": "Función",
     "it": "Ruolo",
     "io": "crwdns13264:0crwdne13264:0",
-    "oc": "Foncion"
+    "oc": "Foncion",
+    "nl": "Functie"
   },
   "contributions": {
     "en": "Contributed events",
@@ -55,7 +60,8 @@ module.exports = {
     "es": "Eventos contribuidos",
     "it": "Eventi contribuitati",
     "io": "crwdns13266:0crwdne13266:0",
-    "oc": "Eveniments contribuits"
+    "oc": "Eveniments contribuits",
+    "nl": "Bijgedragen evenementen"
   },
   "credential": {
     "en": "Role",
@@ -64,7 +70,8 @@ module.exports = {
     "es": "Role",
     "it": "Ruolo",
     "io": "crwdns13268:0crwdne13268:0",
-    "oc": "Ròtle"
+    "oc": "Ròtle",
+    "nl": "Rol"
   },
   "role": {
     "en": "Role",
@@ -73,7 +80,8 @@ module.exports = {
     "es": "Role",
     "it": "Ruolo",
     "io": "crwdns13270:0crwdne13270:0",
-    "oc": "Ròtle"
+    "oc": "Ròtle",
+    "nl": "Rol"
   },
   "state": {
     "en": "State",
@@ -81,6 +89,7 @@ module.exports = {
     "fr": "Statut",
     "it": "Stato",
     "io": "crwdns13272:0crwdne13272:0",
-    "oc": "Estat"
+    "oc": "Estat",
+    "nl": "Status"
   }
 }

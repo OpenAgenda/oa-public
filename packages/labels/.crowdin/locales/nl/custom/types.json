@@ -1,0 +1,11 @@
+{
+  "checkbox": "Lijst met meerdere keuzes",
+  "image": "Afbeelding",
+  "integer": "Geheel getal",
+  "markdown": "Tekstveld met opmaak",
+  "number": "Nummer",
+  "radio": "Lijst met enkele keuze",
+  "select": "Selectieveld",
+  "text": "Eenvoudig tekstveld",
+  "textarea": "Tekstveld met meerdere regels"
+}

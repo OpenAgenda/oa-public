@@ -1,0 +1,11 @@
+{
+  "connection": "Verbinding",
+  "createAccount": "Maak er een aan!",
+  "email": "E-mail",
+  "incorrectPassword": "Het e-mailadres of wachtwoord is onjuist.",
+  "lostPassword": "Ik ben mijn wachtwoord vergeten",
+  "noAccount": "Heb je nog geen account?",
+  "password": "Wachtwoord",
+  "resetPassword": "Wachtwoord resetten",
+  "signin": "Inloggen"
+}

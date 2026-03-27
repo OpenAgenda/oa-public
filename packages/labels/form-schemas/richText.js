@@ -8,7 +8,8 @@ module.exports = {
     "es": "Título",
     "it": "Titolo",
     "io": "crwdns14896:0crwdne14896:0",
-    "oc": "Títol"
+    "oc": "Títol",
+    "nl": "Titel"
   },
   "subHeading": {
     "fr": "Sous-titre",
@@ -17,6 +18,7 @@ module.exports = {
     "es": "Subtítulos",
     "it": "Sottotitolo",
     "io": "crwdns14898:0crwdne14898:0",
-    "oc": "Sostítol"
+    "oc": "Sostítol",
+    "nl": "Ondertitel"
   }
 }

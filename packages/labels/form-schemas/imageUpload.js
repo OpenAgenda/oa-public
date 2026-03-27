@@ -8,7 +8,8 @@ module.exports = {
     "es": "Cargar imagen",
     "it": "Carica un'immagine",
     "io": "crwdns14864:0crwdne14864:0",
-    "oc": "Cargar un imatge"
+    "oc": "Cargar un imatge",
+    "nl": "Lade ein Bild hoch"
   },
   "update": {
     "en": "Update the image",
@@ -17,7 +18,8 @@ module.exports = {
     "es": "Cambiar imagen",
     "it": "Aggiornare l'immagine",
     "io": "crwdns14866:0crwdne14866:0",
-    "oc": "Metre l'imatge a jorn"
+    "oc": "Metre l'imatge a jorn",
+    "nl": "Aktualisieren Sie das Bild"
   },
   "error": {
     "en": "A problem occurred during the upload. Please try again",
@@ -26,7 +28,8 @@ module.exports = {
     "es": "Ocurrió un error durante el cargamento. Por favor, inténtalo nuevamente",
     "it": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
     "io": "crwdns14868:0crwdne14868:0",
-    "oc": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar"
+    "oc": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar",
+    "nl": "Er is een probleem opgetreden tijdens het uploaden. Probeer het opnieuw"
   },
   "tip": {
     "en": "Drag and drop an image in the grayed area.",
@@ -35,7 +38,8 @@ module.exports = {
     "es": "Arrastre una imagen en el área sombreada.",
     "it": "Trascinare un'immagine nella zona d'ombra.",
     "io": "crwdns14870:0crwdne14870:0",
-    "oc": "Depausatz un imatge dins la zòna grisada."
+    "oc": "Depausatz un imatge dins la zòna grisada.",
+    "nl": "Sleep een afbeelding naar het grijze gebied."
   },
   "replace": {
     "en": "Replace the file",
@@ -44,7 +48,8 @@ module.exports = {
     "es": "Reemplazar archivo",
     "it": "Sostituire il file",
     "io": "crwdns14872:0crwdne14872:0",
-    "oc": "Remplaçar lo fichièr"
+    "oc": "Remplaçar lo fichièr",
+    "nl": "Het bestand vervangen"
   },
   "loading": {
     "en": "Upload ongoing",
@@ -53,7 +58,8 @@ module.exports = {
     "es": "Cargando",
     "it": "Caricamento in corso",
     "io": "crwdns14874:0crwdne14874:0",
-    "oc": "Cargament en cors"
+    "oc": "Cargament en cors",
+    "nl": "Bezig met uploaden"
   },
   "remove": {
     "en": "Remove",
@@ -63,7 +69,8 @@ module.exports = {
     "it": "Rimuovere",
     "br": "Lemel",
     "io": "crwdns14876:0crwdne14876:0",
-    "oc": "Suprimir"
+    "oc": "Suprimir",
+    "nl": "Verwijderen"
   },
   "or": {
     "en": "OR",
@@ -72,7 +79,8 @@ module.exports = {
     "es": "O",
     "it": "OPPURE",
     "io": "crwdns14878:0crwdne14878:0",
-    "oc": "O"
+    "oc": "O",
+    "nl": "OF"
   },
   "acceptedExtensions": {
     "fr": "Fichiers acceptés",
@@ -81,6 +89,7 @@ module.exports = {
     "es": "Formatos de archivos aceptados",
     "it": "File accettati",
     "io": "crwdns14880:0crwdne14880:0",
-    "oc": "Fichièrs acceptats"
+    "oc": "Fichièrs acceptats",
+    "nl": "akzeptiert Dateien"
   }
 }

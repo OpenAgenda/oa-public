@@ -1,0 +1,17 @@
+{
+  "association": "vereniging",
+  "church": "bisdom",
+  "city": "stad",
+  "company": "bedrijf",
+  "conventionCenter": "congrescentrum",
+  "coworkingSpace": "coworkingruimte",
+  "fair": "beurs",
+  "federation": "federatie",
+  "festival": "festival",
+  "fireStation": "kazerne",
+  "hospital": "ziekenhuis",
+  "incubator": "fablab",
+  "ministry": "ministerie",
+  "theatre": "theater",
+  "university": "universiteit"
+}

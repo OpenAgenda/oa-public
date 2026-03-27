@@ -7,7 +7,8 @@ module.exports = {
     "io": "crwdns13086:0crwdne13086:0",
     "it": "Verifica della tua richiesta di creazione dell'account",
     "oc": "Verificacion de vòstra demanda de creacion de compte",
-    "es": "Verificación de su solicitud de creación de cuenta"
+    "es": "Verificación de su solicitud de creación de cuenta",
+    "nl": "Verificatie van uw accountaanmaakverzoek"
   },
   "context": {
     "fr": "En raison d'une quantité importante et récente de création de contenus publicitaires automatisés sur la plateforme, une étape temporaire de vérification des nouveaux comptes est nécessaire.",
@@ -15,7 +16,8 @@ module.exports = {
     "io": "crwdns13088:0crwdne13088:0",
     "it": "A causa di un recente aumento di creazioni di account al solo scopo di pubblicare contenuti pubblicitari, è stata istituita una misura temporanea per verificare gli account prima della loro creazione.",
     "oc": "En causa d'una recenta aumentacion de creacions de comptes amb per sola tòca de publicar de contengut publicitari, una mesura temporària es estada installada per tal de verificar los comptes abans lor creacion.",
-    "es": "Debido a un aumento reciente de creaciones de cuentas con el único propósito de publicar contenido publicitario, se ha establecido una medida temporal para verificar las cuentas antes de su creación."
+    "es": "Debido a un aumento reciente de creaciones de cuentas con el único propósito de publicar contenido publicitario, se ha establecido una medida temporal para verificar las cuentas antes de su creación.",
+    "nl": "Vanwege een recente en aanzienlijke toename van geautomatiseerde advertentie-inhoud op het platform, is een tijdelijke verificatiestap voor nieuwe accounts noodzakelijk."
   },
   "instruction": {
     "fr": "**Vous serez notifié rapidement de l'activation de votre compte par email (quelques minutes pendant les heures de bureau).**",
@@ -23,7 +25,8 @@ module.exports = {
     "io": "crwdns13090:0crwdne13090:0",
     "it": "**L'attivazione del tuo account ti sarà notificata rapidamente via e-mail (pochi minuti durante l'orario d'ufficio di Parigi).**",
     "oc": "**Seretz lèu notificat·da de l'activacion de vòstre compte per email (qualques minutas s'es pendent las oras de burèu).**",
-    "es": "**Recibirá une notificación en breve de la activación de su cuenta por correo electrónico (unos minutos durante el horario de oficina de París).**"
+    "es": "**Recibirá une notificación en breve de la activación de su cuenta por correo electrónico (unos minutos durante el horario de oficina de París).**",
+    "nl": "**U wordt snel per e-mail op de hoogte gebracht van de activering van uw account (binnen enkele minuten tijdens kantooruren).**"
   },
   "complaint": {
     "fr": "Dans l'éventualité où nous tarderions à traiter votre demande, adressez-nous un message via l'outil de clavadarge disponible sur [notre page d'accueil](/). Alternativement, écrivez-nous à [verif@openagenda.com](mailto:verif@openagenda.com) en précisant l'adresse email que vous avez utilisée pour créer votre compte.",
@@ -31,6 +34,7 @@ module.exports = {
     "io": "crwdns13092:0/crwdnd13092:0mailto:verif@openagenda.comcrwdne13092:0",
     "it": "Nel caso in cui ci sia un ritardo nell'elaborazione della tua richiesta, inviaci un messaggio tramite lo strumento di chat sulla nostra [homepage](/) o inviaci una mail a [verif@openagenda.com](mailto:verif@openagenda.com) con l'email utilizzata durante la creazione dell'account.",
     "oc": "En cas que trigossèssem a tractar vòstra demanda, mandatz-nos un messatge amb l'aisina de clavardatge sus nòstra [homepage](/) o mandatz-nos un email a [verif@openagenda.com](mailto:verif@openagenda.com) amb l'email utilizat pendent la creacion del compte.",
-    "es": "En caso de que haya un retraso en el procesamiento de su solicitud, envíenos un mensaje a través de la herramienta de chat en nuestra [página de inicio](/) o envíenos un correo electrónico a [verif@openagenda.com](mailto:verif@openagenda.com) con el correo electrónico utilizado durante la creación de la cuenta."
+    "es": "En caso de que haya un retraso en el procesamiento de su solicitud, envíenos un mensaje a través de la herramienta de chat en nuestra [página de inicio](/) o envíenos un correo electrónico a [verif@openagenda.com](mailto:verif@openagenda.com) con el correo electrónico utilizado durante la creación de la cuenta.",
+    "nl": "In het geval dat we vertraging hebben bij het verwerken van uw verzoek, stuur ons een bericht via de chat-tool die beschikbaar is op [onze homepage](/). U kunt ook een e-mail sturen naar [verif@openagenda.com](mailto:verif@openagenda.com) met vermelding van het e-mailadres dat u heeft gebruikt om uw account aan te maken."
   }
 }

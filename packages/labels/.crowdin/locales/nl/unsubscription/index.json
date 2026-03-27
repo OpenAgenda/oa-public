@@ -1,0 +1,7 @@
+{
+  "guestUnsubscriptionSucceed": "U bent nu afgemeld.",
+  "tokenAlreadyUsed": "De link is niet meer geldig. Hij is waarschijnlijk al gebruikt.",
+  "tokenMalformed": "Het afmeldtoken is onjuist geformatteerd.",
+  "tokenNotFound": "Het afmeldtoken is niet gevonden.",
+  "unsubscriptionSucceed": "Uw instellingen zijn bijgewerkt."
+}

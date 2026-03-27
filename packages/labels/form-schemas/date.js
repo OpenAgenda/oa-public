@@ -6,6 +6,7 @@ module.exports = {
     "en": "Select a date",
     "es": "Selecciona una fecha",
     "io": "crwdns16402:0crwdne16402:0",
-    "oc": "Causir una data"
+    "oc": "Causir una data",
+    "nl": "Selecteer een datum"
   }
 }

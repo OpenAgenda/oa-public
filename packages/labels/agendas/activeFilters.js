@@ -9,7 +9,8 @@ module.exports = {
     "de": "karte",
     "br": "kartenn",
     "io": "crwdns12772:0crwdne12772:0",
-    "oc": "mapa"
+    "oc": "mapa",
+    "nl": "kaart"
   },
   "passed": {
     "en": "past events",
@@ -19,7 +20,8 @@ module.exports = {
     "de": "vergangenheit",
     "br": "darvoudoù tremenet",
     "io": "crwdns12774:0crwdne12774:0",
-    "oc": "eveniments passats"
+    "oc": "eveniments passats",
+    "nl": "voorbije evenementen"
   },
   "location": {
     "en": "place",
@@ -29,7 +31,8 @@ module.exports = {
     "de": "platz",
     "br": "lec'h",
     "io": "crwdns12776:0crwdne12776:0",
-    "oc": "lòc"
+    "oc": "lòc",
+    "nl": "locatie"
   },
   "fromTo": {
     "en": "from %start% to %end%",
@@ -39,13 +42,15 @@ module.exports = {
     "de": "von %start% bis %end%",
     "br": "eus an %start% d'an %end%",
     "io": "crwdns12778:0%start%crwdnd12778:0%end%crwdne12778:0",
-    "oc": "de %start% a %end%"
+    "oc": "de %start% a %end%",
+    "nl": "van %start% tot %end%"
   },
   "selection": {
     "en": "events selection",
     "fr": "sélection d'événements",
     "io": "crwdns32504:0crwdne32504:0",
     "oc": "seleccion d'eveniments",
-    "es": "selección de eventos"
+    "es": "selección de eventos",
+    "nl": "selectie van evenementen"
   }
 }

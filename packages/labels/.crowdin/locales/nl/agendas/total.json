@@ -1,0 +1,8 @@
+{
+  "excludePassed": "Voorbije evenementen uitsluiten",
+  "includePassed": "Voorbije evenementen opnemen",
+  "totalEvent": "1 evenement",
+  "totalEvents": "{count, plural, one {%count% evenement} other {%count% evenementen}}",
+  "upcomingEvent": "1 aankomend evenement",
+  "upcomingEvents": "%count% aankomende evenementen"
+}

@@ -6,7 +6,8 @@ module.exports = {
     "en": "The number must be equal to or higher than %min%",
     "io": "crwdns14032:0%min%crwdne14032:0",
     "oc": "Lo nombre deu èsser superior o egal a %min%",
-    "es": "El número debe ser igual o mayor a %min%"
+    "es": "El número debe ser igual o mayor a %min%",
+    "nl": "Het getal moet gelijk zijn aan of groter zijn dan %min%"
   },
   "number.toobig": {
     "fr": "Le nombre doit être inférieur ou égal à %max%",
@@ -16,7 +17,8 @@ module.exports = {
     "br": "Arabat d'an niver bezañ ouzhpenn %max%",
     "it": "Il numero deve essere inferiore o uguale a %max%",
     "io": "crwdns14034:0%max%crwdne14034:0",
-    "oc": "Lo nombre deu èsser egal o inferior a %max%"
+    "oc": "Lo nombre deu èsser egal o inferior a %max%",
+    "nl": "Het getal moet gelijk zijn aan of kleiner zijn dan %max%"
   },
   "multi-input.info": {
     "fr": "Saisissez une ou plusieurs valeurs",
@@ -26,7 +28,8 @@ module.exports = {
     "br": "Skrivit un talvoud pe meur a hini",
     "it": "Inserire uno o più valori",
     "io": "crwdns14036:0crwdne14036:0",
-    "oc": "Dintratz una o mai d'una valor"
+    "oc": "Dintratz una o mai d'una valor",
+    "nl": "Voer één of meerdere waarden in"
   },
   "multi-input.error": {
     "fr": "Les saisies non valides ne seront pas sauvegardées",
@@ -36,7 +39,8 @@ module.exports = {
     "br": "Ne vo ket enrollet an traoù direizh",
     "it": "Le informazioni non valide non verranno salvate",
     "io": "crwdns14038:0crwdne14038:0",
-    "oc": "Las entradas invalidas seràn pas enregistradas"
+    "oc": "Las entradas invalidas seràn pas enregistradas",
+    "nl": "Ongeldige invoer wordt niet opgeslagen"
   },
   "string.tooshort": {
     "fr": "Le champ doit comporter au moins %min% caractères",
@@ -46,7 +50,8 @@ module.exports = {
     "br": "Er vaezienn e rank bezañ %min% arouezenn d'an nebeutañ",
     "it": "Il campo deve contenere almeno %min% di caratteri",
     "io": "crwdns14040:0%min%crwdne14040:0",
-    "oc": "Lo camp deu aver al mens %min% caractèrs"
+    "oc": "Lo camp deu aver al mens %min% caractèrs",
+    "nl": "Het veld moet minstens %min% tekens bevatten"
   },
   "string.toolong": {
     "fr": "Le champ doit comporter au plus %max% caractères",
@@ -56,7 +61,8 @@ module.exports = {
     "br": "Er vaezienn e rank bezañ %max% arouezenn d'ar muiañ",
     "it": "Il campo non deve contenere più di %max% di caratteri",
     "io": "crwdns14042:0%max%crwdne14042:0",
-    "oc": "Lo camp deu aver al mai %max% caractèrs"
+    "oc": "Lo camp deu aver al mai %max% caractèrs",
+    "nl": "Het veld mag maximaal %max% tekens bevatten"
   },
   "email.invalid": {
     "fr": "Un email valide doit être renseigné",
@@ -66,7 +72,8 @@ module.exports = {
     "br": "Ret eo lakaat ur chomlec'h postel reizh",
     "it": "Deve essere compilata un'e-mail valida",
     "io": "crwdns14044:0crwdne14044:0",
-    "oc": "Se deu dintrar un email valide"
+    "oc": "Se deu dintrar un email valide",
+    "nl": "Een geldig e-mailadres moet worden ingevoerd"
   },
   "phone.invalid": {
     "fr": "Un numéro de télephone valide doit être renseigné",
@@ -76,7 +83,8 @@ module.exports = {
     "br": "Ret eo lakaat un niverenn bellgomz reizh",
     "it": "È necessario inserire un numero di telefono valido",
     "io": "crwdns14046:0crwdne14046:0",
-    "oc": "Se deu dintrar un numèro de telefòne valide"
+    "oc": "Se deu dintrar un numèro de telefòne valide",
+    "nl": "Een geldig telefoonnummer moet worden ingevoerd"
   },
   "link.invalid": {
     "fr": "Un lien valide doit être renseigné",
@@ -86,7 +94,8 @@ module.exports = {
     "br": "Ret eo lakaat ul liamm reizh",
     "it": "Un link valido deve essere compilato",
     "io": "crwdns14048:0crwdne14048:0",
-    "oc": "Se deu dintrar un ligam valide"
+    "oc": "Se deu dintrar un ligam valide",
+    "nl": "Een geldige link moet worden ingevoerd"
   },
   "number.invalid": {
     "fr": "Un nombre valide doit être renseigné",
@@ -96,7 +105,8 @@ module.exports = {
     "br": "Ret eo lakaat un niver reizh",
     "it": "Deve essere inserito un numero valido",
     "io": "crwdns14050:0crwdne14050:0",
-    "oc": "Se deu dintrar un nombre valide"
+    "oc": "Se deu dintrar un nombre valide",
+    "nl": "Een geldig getal moet worden ingevoerd"
   },
   "integer.invalid": {
     "fr": "Un entier valide doit être renseigné",
@@ -106,7 +116,8 @@ module.exports = {
     "br": "Ret eo lakaat un niver anterin reizh",
     "it": "Deve essere inserito un numero intero valido",
     "io": "crwdns14052:0crwdne14052:0",
-    "oc": "Se deu dintrar un nombre entièr valide"
+    "oc": "Se deu dintrar un nombre entièr valide",
+    "nl": "Een geldig geheel getal moet worden ingevoerd"
   },
   "integer.toobig": {
     "fr": "Cette valeur est trop grande",
@@ -116,7 +127,8 @@ module.exports = {
     "br": "Re vras eo an talvoud-mañ",
     "it": "Questo valore è troppo alto",
     "io": "crwdns14054:0crwdne14054:0",
-    "oc": "Aquesta valor es tròp nauta"
+    "oc": "Aquesta valor es tròp nauta",
+    "nl": "Deze waarde is te groot"
   },
   "groupTags.required": {
     "fr": "Au moins un élément doit être sélectionné",
@@ -126,7 +138,8 @@ module.exports = {
     "br": "Ret eo diuzañ un elfenn da vihanañ",
     "it": "Almeno un'opzione deve essere selezionata",
     "io": "crwdns14056:0crwdne14056:0",
-    "oc": "Cal seleccionar al mens un element"
+    "oc": "Cal seleccionar al mens un element",
+    "nl": "Er moet minstens één item worden geselecteerd"
   },
   "required": {
     "fr": "Obligatoire",
@@ -136,7 +149,8 @@ module.exports = {
     "br": "Rekis",
     "it": "Obbligatorio",
     "io": "crwdns14058:0crwdne14058:0",
-    "oc": "Requesit"
+    "oc": "Requesit",
+    "nl": "Verplicht"
   },
   "choice.required": {
     "fr": "Obligatoire",
@@ -146,14 +160,16 @@ module.exports = {
     "br": "Rekis",
     "it": "Obbligatorio",
     "io": "crwdns14060:0crwdne14060:0",
-    "oc": "Requesit"
+    "oc": "Requesit",
+    "nl": "Verplicht"
   },
   "choice.required.max": {
     "fr": "La sélection ne peut excéder %max% choix",
     "en": "The selection must not exceed %max% choices",
     "io": "crwdns16098:0%max%crwdne16098:0",
     "oc": "La seleccion pòt pas aculhir mai de %max% causidas",
-    "es": "La selección no debe exceder %max% opciones"
+    "es": "La selección no debe exceder %max% opciones",
+    "nl": "De selectie mag niet meer dan %max% keuzes bevatten"
   },
   "serverException": {
     "fr": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
@@ -163,11 +179,13 @@ module.exports = {
     "br": "Un dra bennak a-dreuz zo bet pa enrolled ar roadennoù. Esaeit adarre diwezhatoc'h",
     "it": "C'è stato un problema durante il backup, riprovare tra un attimo",
     "io": "crwdns14062:0crwdne14062:0",
-    "oc": "I a agut un problèma a l'enregistrament, tornatz ensajar dins un momenton"
+    "oc": "I a agut un problèma a l'enregistrament, tornatz ensajar dins un momenton",
+    "nl": "Er is een probleem opgetreden bij het opslaan, probeer het over een moment opnieuw"
   },
   "file.tooBig": {
     "fr": "Ce fichier est trop lourd (> %maxSize% MB)",
     "en": "This file is too big (> %maxSize% MB)",
+    "io": "crwdns35393:0%maxSize%crwdne35393:0"
   },
   "serverErrorTooLargeFile": {
     "fr": "L'enregistrement a échoué: une image ou un fichier trop volumineux a été chargé dans le formulaire. La taille maximale autorisée est de %max% mégaoctets",
@@ -175,7 +193,8 @@ module.exports = {
     "io": "crwdns14064:0%max%crwdne14064:0",
     "it": "L'invio non è riuscito: un'immagine o un file troppo grande è stato caricato nel modulo. La dimensione massima consentita è %max% megabyte",
     "oc": "L'enregistrament a pas capitat : un imatge o un fichièr tròp bèl es estat cargat dins lo formulari. La talha maximum autorizada es de %max% megaoctets",
-    "es": "El registro falló: se cargó una imagen o archivo demasiado grande en el formulario. El tamaño máximo permitido es %max% megabytes"
+    "es": "El registro falló: se cargó una imagen o archivo demasiado grande en el formulario. El tamaño máximo permitido es %max% megabytes",
+    "nl": "De verzending is mislukt: een te grote afbeelding of bestand werd geladen in het formulier. De maximaal toegestane grootte is %max% megabytes"
   },
   "noOrigin": {
     "fr": "Cet événement est indisponible car il n'est associé a aucun agenda",
@@ -185,7 +204,8 @@ module.exports = {
     "br": "Ne c'haller ober netra gant an darvoud-mañ rak n'eo ket stag ouzh deiziataer ebet",
     "it": "Questo evento non è disponibile perché non è associato ad alcun agenda.",
     "io": "crwdns14066:0crwdne14066:0",
-    "oc": "Aqueste eveniment es pas disponible coma es pas associat a quala agenda que siá."
+    "oc": "Aqueste eveniment es pas disponible coma es pas associat a quala agenda que siá.",
+    "nl": "Dit evenement is niet beschikbaar omdat het niet aan een agenda is gekoppeld."
   },
   "defaultBack": {
     "fr": "Revenir à l'accueil",
@@ -194,7 +214,8 @@ module.exports = {
     "es": "Volver a la página de inicio",
     "it": "Torna alla home page",
     "io": "crwdns14068:0crwdne14068:0",
-    "oc": "Tornar a l'acuèlh"
+    "oc": "Tornar a l'acuèlh",
+    "nl": "Terug naar de startpagina"
   },
   "defaultAgendaBack": {
     "fr": "Revenir à l'agenda",
@@ -203,7 +224,8 @@ module.exports = {
     "es": "Volver a la página de la agenda",
     "it": "Tornare all'agenda",
     "io": "crwdns14070:0crwdne14070:0",
-    "oc": "Tornar a la pagina d'agenda"
+    "oc": "Tornar a la pagina d'agenda",
+    "nl": "Terug naar de agenda"
   },
   "pageDoesNotExist": {
     "fr": "La page que vous avez demandé n'existe pas",
@@ -212,14 +234,16 @@ module.exports = {
     "es": "La página solicitada no existe",
     "it": "La pagina richiesta non esiste",
     "io": "crwdns14072:0crwdne14072:0",
-    "oc": "La pagina demandada existís pas"
+    "oc": "La pagina demandada existís pas",
+    "nl": "De door u opgevraagde pagina bestaat niet"
   },
   "invalidOrIncompleteEvent": {
     "fr": "L'opération n'a pas pu aboutir, l'événement est soit incomplet, soit invalide. Corrigez la fiche avant de retenter l'opération.",
     "en": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again",
     "io": "crwdns16424:0crwdne16424:0",
     "oc": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar",
-    "es": "No se pudo realizar la accion. El evento está incompleto o inválido. Actualízalo antes de intentarlo nuevamente"
+    "es": "No se pudo realizar la accion. El evento está incompleto o inválido. Actualízalo antes de intentarlo nuevamente",
+    "nl": "De handeling is niet gelukt. Het evenement is ofwel onvolledig of ongeldig. Corrigeer het voordat u het opnieuw probeert"
   },
   "changeEmailErrorTitle": {
     "en": "The link you clicked on is invalid",
@@ -237,6 +261,7 @@ module.exports = {
     "it": "Contatta il supporto",
     "es": "Contactar con el soporte",
     "oc": "Contactar l'assisténcia",
-    "io": "crwdns35281:0crwdne35281:0"
+    "io": "crwdns35281:0crwdne35281:0",
+    "nl": "Contact opnemen met support"
   }
 }

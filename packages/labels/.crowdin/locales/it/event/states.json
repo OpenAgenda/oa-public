@@ -1,15 +1,15 @@
 {
-  "refused": "rifiutato",
-  "tocontrol": "da moderare",
-  "tobecontrolled": "da moderare",
-  "controlled": "pronto per la pubblicazione",
-  "published": "pubblicato",
-  "featured": "fissato",
   "all": "vedi tutti",
+  "controlled": "pronto per la pubblicazione",
+  "featured": "fissato",
+  "featuredChange": "L'evento è ora fissato in alto",
+  "published": "pubblicato",
+  "refused": "rifiutato",
   "state": "stato",
   "stateChanged": "Lo stato dell'evento è stato modificato",
-  "featuredChange": "L'evento è ora fissato in alto",
-  "unfeaturedChange": "L'evento non è più fissato",
   "stateFieldInfo": "L'accesso a questo campo è limitato agli amministratori e ai moderatori dell'agenda",
-  "stateFieldSub": "Importante: l'evento sarà visibile e condivisibile solo quando sarà pubblicato"
+  "stateFieldSub": "Importante: l'evento sarà visibile e condivisibile solo quando sarà pubblicato",
+  "tobecontrolled": "da moderare",
+  "tocontrol": "da moderare",
+  "unfeaturedChange": "L'evento non è più fissato"
 }

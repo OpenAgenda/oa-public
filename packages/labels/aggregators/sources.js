@@ -8,7 +8,8 @@ module.exports = {
     "es": "Esta función permite recuperar automáticamente los eventos de la agenda que ha elegido.",
     "it": "Colla funzione di aggregazione, importa automaticamente gli eventi di altri agende.",
     "io": "crwdns13004:0crwdne13004:0",
-    "oc": "Aquesta foncionalitat vos permet de recuperar de biais automatic los eveniments aponduts a las agendas que causiguèretz."
+    "oc": "Aquesta foncionalitat vos permet de recuperar de biais automatic los eveniments aponduts a las agendas que causiguèretz.",
+    "nl": "Deze functie stelt u in staat om automatisch de evenementen op te halen van de agenda's die u heeft gekozen."
   },
   "createAggregator": {
     "fr": "Activer l'agrégation d'agendas",
@@ -17,7 +18,8 @@ module.exports = {
     "es": "Habilitar la agregación de las agendas",
     "it": "Attiva la funzione di aggregazione",
     "io": "crwdns13006:0crwdne13006:0",
-    "oc": "Activar l'agregacion d'agendas"
+    "oc": "Activar l'agregacion d'agendas",
+    "nl": "Agenda-aggregatie activeren"
   },
   "sourceAgendas": {
     "fr": "Agendas sources",
@@ -26,7 +28,8 @@ module.exports = {
     "es": "Agendas fuentes",
     "it": "Agende fonti",
     "io": "crwdns13008:0crwdne13008:0",
-    "oc": "Agendas sorsas"
+    "oc": "Agendas sorsas",
+    "nl": "Bronagenda's"
   },
   "sourcesExplanation": {
     "fr": "Les événements publiés par les agendas listés ici sont automatiquement ajoutés à l'agenda [%title%](%link%).",
@@ -35,7 +38,8 @@ module.exports = {
     "es": "Eventos publicados por los organizadores figuran en esta lista se añaden automáticamente al agenda [%title%](%link%).",
     "it": "Gli eventi pubblicati dai calendari qui elencati vengono aggiunti automaticamente al agenda [%title%](%link%).",
     "io": "crwdns13010:0%title%crwdnd13010:0%link%crwdne13010:0",
-    "oc": "Los eveniments publicats per las agendas listadas aquí son automaticament aponduts a l'agenda [%title%](%link%)."
+    "oc": "Los eveniments publicats per las agendas listadas aquí son automaticament aponduts a l'agenda [%title%](%link%).",
+    "nl": "De evenementen die door de hier vermelde agenda's worden gepubliceerd, worden automatisch toegevoegd aan de agenda [%title%](%link%)."
   },
   "addSources": {
     "fr": "Pour agréger de nouveaux agendas, [allez sur un agenda que vous souhaitez agréger](%searchLink%), puis cliquez sur Exporter > Agréger dans > **%agenda%**.",
@@ -44,7 +48,8 @@ module.exports = {
     "es": "Para añadir nuevos calendarios, [abre la pagina del calendario](%searchLink%) que desea y pulsa sobre Exportar > Importar en > **%agenda%**",
     "it": "Per aggregare nuovi agende, [vai a un agenda che vuoi aggregare](%searchLink%), quindi clicca su Aggrega in > **%agenda%**",
     "io": "crwdns13012:0%searchLink%crwdnd13012:0%agenda%crwdne13012:0",
-    "oc": "Per agregar d'agendas novèlas, [anatz sus la pagina de l'agenda](%searchLink%) que volètz apondre e clicatz sus Expòrt > Agregar dins > **%agenda%**"
+    "oc": "Per agregar d'agendas novèlas, [anatz sus la pagina de l'agenda](%searchLink%) que volètz apondre e clicatz sus Expòrt > Agregar dins > **%agenda%**",
+    "nl": "Om nieuwe agenda's te aggregeren, [ga naar een agenda die u wilt aggregeren](%searchLink%) en klik vervolgens op Exporteren > Aggregeren in > **%agenda%**"
   },
   "sourcesHelp": {
     "fr": "Cliquez ici pour en savoir plus",
@@ -53,7 +58,8 @@ module.exports = {
     "es": "Más información sobre la agregación",
     "it": "Clicca qui per maggiori informazioni",
     "io": "crwdns13014:0crwdne13014:0",
-    "oc": "Clicatz aquí per ne saber mai a perpaus de las agregacions"
+    "oc": "Clicatz aquí per ne saber mai a perpaus de las agregacions",
+    "nl": "Klik hier voor meer informatie"
   },
   "aggregationLoop": {
     "fr": "Cet agenda agrège des événements de l'agenda auquel vous voulez l'ajouter. Les boucles d'agrégation ne sont pas permises.",
@@ -62,7 +68,8 @@ module.exports = {
     "es": "Este agenda agrupa los eventos del agenda que desee importar. Los bucles de importación no están permitidos.",
     "it": "Questo agenda aggrega gli eventi dell'agenda a cui si desidera aggiungerli. I cicli di aggregazione non sono ammessi.",
     "io": "crwdns13016:0crwdne13016:0",
-    "oc": "Aquela agenda agrega d'eveniments de l'agenda a la quala la volètz apondre. Las boclas d'agregacion son enebidas."
+    "oc": "Aquela agenda agrega d'eveniments de l'agenda a la quala la volètz apondre. Las boclas d'agregacion son enebidas.",
+    "nl": "Deze agenda aggregeert evenementen van de agenda waaraan u deze wilt toevoegen. Aggregatielussen zijn niet toegestaan."
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
@@ -72,7 +79,8 @@ module.exports = {
     "it": "Cerca un'agenda",
     "br": "Klask un deiziataer",
     "io": "crwdns13018:0crwdne13018:0",
-    "oc": "Cercar una agenda"
+    "oc": "Cercar una agenda",
+    "nl": "Een agenda zoeken"
   },
   "officialAgenda": {
     "fr": "Agenda officiel",
@@ -82,7 +90,8 @@ module.exports = {
     "it": "Agenda ufficiale",
     "br": "Deiziataer ofisiel",
     "io": "crwdns13020:0crwdne13020:0",
-    "oc": "Agenda oficiala"
+    "oc": "Agenda oficiala",
+    "nl": "Officiële agenda"
   },
   "noResult": {
     "fr": "Aucun résultat trouvé",
@@ -92,7 +101,8 @@ module.exports = {
     "it": "Nessun risultato trovato",
     "br": "N'eus bet kavet disoc'h ebet",
     "io": "crwdns13022:0crwdne13022:0",
-    "oc": "Pas cap resultat trobat"
+    "oc": "Pas cap resultat trobat",
+    "nl": "Geen resultaat gevonden"
   },
   "removeSource": {
     "fr": "Retirer la source",
@@ -101,7 +111,8 @@ module.exports = {
     "es": "Eliminar una agenda fuente",
     "it": "Rimozione dalle fonti",
     "io": "crwdns13024:0crwdne13024:0",
-    "oc": "Tirar la sorsa"
+    "oc": "Tirar la sorsa",
+    "nl": "Bron verwijderen"
   },
   "removeConfirmMessage": {
     "fr": "Êtes-vous sûr de vouloir retirer cet agenda de la liste des sources ?",
@@ -110,7 +121,8 @@ module.exports = {
     "es": "¿Estás seguro de que desea eliminar esta agenda de las fuentes?",
     "it": "Siete sicuri di voler eliminare questa agenda dalle fonti?",
     "io": "crwdns13026:0crwdne13026:0",
-    "oc": "Sètz segur·a que volètz tirar aquela agenda de las sorsas ?"
+    "oc": "Sètz segur·a que volètz tirar aquela agenda de las sorsas ?",
+    "nl": "Weet u zeker dat u deze agenda uit de bronnenlijst wilt verwijderen?"
   },
   "sourceAdded": {
     "en": "%source% was added to the sources of %agg%. Its upcoming events will be added shortly.",
@@ -119,7 +131,8 @@ module.exports = {
     "es": "%source% se añadió a las fuentes de agg %. Próximos eventos se añadirán en breve.",
     "it": "%source% è stato aggiunto alle fonti di %agg%. I prossimi eventi si aggiungeranno tra un attimo.",
     "io": "crwdns13028:0%source%crwdnd13028:0%agg%crwdne13028:0",
-    "oc": "%source% es estat apondut a las sorsas de %agg%. Sos eveniments venents seràn aponduts dins gaire."
+    "oc": "%source% es estat apondut a las sorsas de %agg%. Sos eveniments venents seràn aponduts dins gaire.",
+    "nl": "%source% is toegevoegd aan de bronnen van %agg%. De komende evenementen worden zo dadelijk toegevoegd."
   },
   "sourceRemoved": {
     "en": "%source% was removed from the sources of %agg%.",
@@ -128,7 +141,8 @@ module.exports = {
     "es": "%source% ha sido retirado de las fuentes de %agg%",
     "it": "%source% è stata rimossa dalle fonti di %agg%.",
     "io": "crwdns13030:0%source%crwdnd13030:0%agg%crwdne13030:0",
-    "oc": "%source% es estat tirat de las sorsas de %agg%."
+    "oc": "%source% es estat tirat de las sorsas de %agg%.",
+    "nl": "%source% is verwijderd uit de bronnen van %agg%."
   },
   "numberOfResults": {
     "fr": "Nombre de résultats",
@@ -137,7 +151,8 @@ module.exports = {
     "es": "Número de resultados",
     "it": "Numero di risultati",
     "io": "crwdns13032:0crwdne13032:0",
-    "oc": "Nombre de resultats"
+    "oc": "Nombre de resultats",
+    "nl": "Aantal resultaten"
   },
   "totalSources": {
     "fr": "Total des sources",
@@ -146,6 +161,7 @@ module.exports = {
     "es": "Total agendas fuentes",
     "it": "Totale fonti",
     "io": "crwdns13034:0crwdne13034:0",
-    "oc": "Sorsas totalas"
+    "oc": "Sorsas totalas",
+    "nl": "Totaal aantal bronnen"
   }
 }

@@ -8,7 +8,8 @@ module.exports = {
     "es": "Administración",
     "it": "Gestione",
     "io": "crwdns11386:0crwdne11386:0",
-    "oc": "Administracion"
+    "oc": "Administracion",
+    "nl": "Verwaltung"
   },
   "back": {
     "fr": "Aller à l'accueil de l'agenda",
@@ -17,7 +18,8 @@ module.exports = {
     "es": "Ir al inicio del Agenda",
     "it": "Vedere la pagina pubblica",
     "io": "crwdns11388:0crwdne11388:0",
-    "oc": "Anar a l'acuèlh de l'agenda"
+    "oc": "Anar a l'acuèlh de l'agenda",
+    "nl": "Kalender Startseite"
   },
   "manage": {
     "fr": "Gérer",
@@ -26,7 +28,8 @@ module.exports = {
     "es": "Gestionar",
     "it": "Gestire",
     "io": "crwdns11390:0crwdne11390:0",
-    "oc": "Gerir"
+    "oc": "Gerir",
+    "nl": "Beheren"
   },
   "export": {
     "fr": "Exporter",
@@ -35,7 +38,8 @@ module.exports = {
     "es": "Exportar",
     "it": "Esportazione",
     "io": "crwdns11392:0crwdne11392:0",
-    "oc": "Exportar"
+    "oc": "Exportar",
+    "nl": "Exporteren"
   },
   "settings": {
     "fr": "Paramètres",
@@ -44,6 +48,7 @@ module.exports = {
     "es": "Configuración",
     "it": "Impostazione",
     "io": "crwdns11394:0crwdne11394:0",
-    "oc": "Reglatges"
+    "oc": "Reglatges",
+    "nl": "Einstellungen"
   }
 }

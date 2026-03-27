@@ -8,7 +8,8 @@ module.exports = {
     "es": "Subir un archivo",
     "it": "Caricare un file",
     "io": "crwdns14848:0crwdne14848:0",
-    "oc": "Cargar un fichièr"
+    "oc": "Cargar un fichièr",
+    "nl": "Een bestand uploaden"
   },
   "error": {
     "en": "A problem occurred during the upload. Please try again",
@@ -17,7 +18,8 @@ module.exports = {
     "es": "Ocurrió un error durante el cargamento. Por favor inténtelo nuevamente",
     "it": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
     "io": "crwdns14850:0crwdne14850:0",
-    "oc": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar"
+    "oc": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar",
+    "nl": "Er is een probleem opgetreden tijdens het uploaden. Probeer het opnieuw"
   },
   "tip": {
     "en": "Drag and drop a file in the grayed area.",
@@ -26,7 +28,8 @@ module.exports = {
     "es": "Arrastre y suelte un archivo en la zona gris.",
     "it": "Trascinare un file nell'area ombreggiata.",
     "io": "crwdns14852:0crwdne14852:0",
-    "oc": "Depausatz un fichièr dins la zòna grisada."
+    "oc": "Depausatz un fichièr dins la zòna grisada.",
+    "nl": "Sleep een bestand naar het grijze gebied."
   },
   "replace": {
     "en": "Replace the file",
@@ -35,7 +38,8 @@ module.exports = {
     "es": "Reemplazar archivo",
     "it": "Sostituire il file",
     "io": "crwdns14854:0crwdne14854:0",
-    "oc": "Remplaçar lo fichièr"
+    "oc": "Remplaçar lo fichièr",
+    "nl": "Het bestand vervangen"
   },
   "loading": {
     "en": "Upload ongoing",
@@ -44,7 +48,8 @@ module.exports = {
     "es": "Cargando",
     "it": "Caricamento in corso",
     "io": "crwdns14856:0crwdne14856:0",
-    "oc": "Cargament en cors"
+    "oc": "Cargament en cors",
+    "nl": "Bezig met uploaden"
   },
   "or": {
     "en": "OR",
@@ -53,7 +58,8 @@ module.exports = {
     "es": "O",
     "it": "OPPURE",
     "io": "crwdns14858:0crwdne14858:0",
-    "oc": "O"
+    "oc": "O",
+    "nl": "OF"
   },
   "acceptedExtensions": {
     "fr": "Fichiers acceptés",
@@ -62,7 +68,8 @@ module.exports = {
     "es": "Formatos de archivos aceptados",
     "it": "File accettati",
     "io": "crwdns14860:0crwdne14860:0",
-    "oc": "Fichièrs acceptats"
+    "oc": "Fichièrs acceptats",
+    "nl": "akzeptiert Dateien"
   },
   "remove": {
     "fr": "Supprimer",
@@ -71,6 +78,7 @@ module.exports = {
     "es": "Eliminar",
     "it": "Cancellare",
     "io": "crwdns14862:0crwdne14862:0",
-    "oc": "Suprimir"
+    "oc": "Suprimir",
+    "nl": "Verwijderen"
   }
 }

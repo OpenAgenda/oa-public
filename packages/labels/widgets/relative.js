@@ -10,7 +10,8 @@ module.exports = {
     "br": "Hiziv",
     "es": "Hoy",
     "io": "crwdns15928:0crwdne15928:0",
-    "oc": "Uèi"
+    "oc": "Uèi",
+    "nl": "Vandaag"
   },
   "yesterday": {
     "en": "Yesterday",
@@ -20,7 +21,8 @@ module.exports = {
     "it": "ieri",
     "de": "gestern",
     "io": "crwdns15930:0crwdne15930:0",
-    "oc": "ièr"
+    "oc": "ièr",
+    "nl": "Gisteren"
   },
   "tomorrow": {
     "fr": "Demain",
@@ -31,7 +33,8 @@ module.exports = {
     "es": "Mañana",
     "br": "Warc'hoazh",
     "io": "crwdns15932:0crwdne15932:0",
-    "oc": "Deman"
+    "oc": "Deman",
+    "nl": "Morgen"
   },
   "thisWeekend": {
     "fr": "Ce week-end",
@@ -42,7 +45,8 @@ module.exports = {
     "es": "Este fin de semana",
     "br": "An dibenn-sizhun-mañ",
     "io": "crwdns15934:0crwdne15934:0",
-    "oc": "Aquesta dimenjada"
+    "oc": "Aquesta dimenjada",
+    "nl": "Dit weekend"
   },
   "thisWeek": {
     "fr": "Cette semaine",
@@ -53,7 +57,8 @@ module.exports = {
     "es": "Esta semana",
     "br": "Ar sizhun-mañ",
     "io": "crwdns15936:0crwdne15936:0",
-    "oc": "Aquesta setmana"
+    "oc": "Aquesta setmana",
+    "nl": "Deze week"
   },
   "thisMonth": {
     "fr": "Ce mois",
@@ -64,7 +69,8 @@ module.exports = {
     "es": "Este mes",
     "br": "Ar miz-mañ",
     "io": "crwdns15938:0crwdne15938:0",
-    "oc": "Aqueste mes"
+    "oc": "Aqueste mes",
+    "nl": "Deze maand"
   },
   "relativeToNowPast": {
     "en": "%count% %units% ago",
@@ -74,7 +80,8 @@ module.exports = {
     "it": "%count% %units% fa",
     "de": "vor %count% %units%",
     "io": "crwdns15940:0%count%crwdnd15940:0%units%crwdne15940:0",
-    "oc": "fa %count% %units%"
+    "oc": "fa %count% %units%",
+    "nl": "%count% %units% geleden"
   },
   "relativeToNowUpcoming": {
     "en": "in %count% %units%",
@@ -84,7 +91,8 @@ module.exports = {
     "it": "tra %count% %units%",
     "br": "%count% %units%",
     "io": "crwdns15942:0%count%crwdnd15942:0%units%crwdne15942:0",
-    "oc": "dins %count% %units%"
+    "oc": "dins %count% %units%",
+    "nl": "over %count% %units%"
   },
   "days": {
     "en": "days",
@@ -94,7 +102,8 @@ module.exports = {
     "es": "dias",
     "br": "deizioù",
     "io": "crwdns15944:0crwdne15944:0",
-    "oc": "jorns"
+    "oc": "jorns",
+    "nl": "dagen"
   },
   "months": {
     "en": "months",
@@ -104,7 +113,8 @@ module.exports = {
     "es": "mes",
     "br": "miz",
     "io": "crwdns15946:0crwdne15946:0",
-    "oc": "meses"
+    "oc": "meses",
+    "nl": "maanden"
   },
   "years": {
     "en": "years",
@@ -114,6 +124,7 @@ module.exports = {
     "it": "anni",
     "br": "bloaz",
     "io": "crwdns15948:0crwdne15948:0",
-    "oc": "ans"
+    "oc": "ans",
+    "nl": "jaren"
   }
 }

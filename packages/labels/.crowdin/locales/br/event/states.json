@@ -1,13 +1,13 @@
 {
-  "refused": "nac'het",
-  "tocontrol": "da habaskaat",
-  "tobecontrolled": "da habaskaat",
-  "controlled": "Prest da vezañ embannet",
-  "published": "embannet",
-  "featured": "keleier pennañ",
   "all": "gwelet pep tra",
+  "controlled": "Prest da vezañ embannet",
+  "featured": "keleier pennañ",
+  "featuredChange": "E-mesk ar c'heleier pennañ emañ an darvoud bremañ",
+  "published": "embannet",
+  "refused": "nac'het",
   "state": "Statud",
   "stateChanged": "Cheñchet eo stad an darvoud",
-  "featuredChange": "E-mesk ar c'heleier pennañ emañ an darvoud bremañ",
+  "tobecontrolled": "da habaskaat",
+  "tocontrol": "da habaskaat",
   "unfeaturedChange": "N'emañ ket ken an darvoud e-mesk ar c'heleier pennañ"
 }

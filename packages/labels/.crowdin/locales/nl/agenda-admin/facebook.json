@@ -1,0 +1,8 @@
+{
+  "add": "Kies een Facebook-pagina",
+  "conditions": "gebruiksvoorwaarden",
+  "description": "Voeg je agenda toe aan een Facebook-pagina",
+  "facebookTabAdded": "Het agendatabblad is toegevoegd aan je Facebook-pagina",
+  "footnote": "Omdat Facebook zijn %link% heeft bijgewerkt, is deze functie alleen beschikbaar voor pagina's met meer dan 2000 likes.",
+  "title": "Facebook"
+}

@@ -7,7 +7,8 @@ module.exports = {
     "it": "titolo",
     "io": "crwdns11180:0crwdne11180:0",
     "oc": "títol",
-    "es": "título"
+    "es": "título",
+    "nl": "titel"
   },
   "description": {
     "fr": "description",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "descrizione",
     "io": "crwdns11182:0crwdne11182:0",
     "oc": "descripcion",
-    "es": "descripción"
+    "es": "descripción",
+    "nl": "beschrijving"
   },
   "longDescription": {
     "fr": "description longue",
@@ -23,7 +25,8 @@ module.exports = {
     "it": "descrizione lunga",
     "io": "crwdns11184:0crwdne11184:0",
     "oc": "descripcion longa",
-    "es": "descripción larga"
+    "es": "descripción larga",
+    "nl": "lange beschrijving"
   },
   "timings": {
     "fr": "horaires",
@@ -31,7 +34,8 @@ module.exports = {
     "it": "orari",
     "io": "crwdns11186:0crwdne11186:0",
     "oc": "oraris",
-    "es": "horarios"
+    "es": "horarios",
+    "nl": "tijdschema"
   },
   "location": {
     "fr": "lieu",
@@ -39,7 +43,8 @@ module.exports = {
     "it": "luogo",
     "io": "crwdns11188:0crwdne11188:0",
     "oc": "lòc",
-    "es": "ubicación"
+    "es": "ubicación",
+    "nl": "locatie"
   },
   "image": {
     "fr": "image",
@@ -47,6 +52,7 @@ module.exports = {
     "it": "immagine",
     "io": "crwdns11190:0crwdne11190:0",
     "oc": "imatge",
-    "es": "imagen"
+    "es": "imagen",
+    "nl": "afbeelding"
   }
 }

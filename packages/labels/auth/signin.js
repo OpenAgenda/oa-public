@@ -10,7 +10,8 @@ module.exports = {
     "es": "Conexión",
     "br": "Kevreañ",
     "io": "crwdns13112:0crwdne13112:0",
-    "oc": "Connexion"
+    "oc": "Connexion",
+    "nl": "Verbinding"
   },
   "incorrectPassword": {
     "fr": "L'email ou le mot de passe est incorrect.",
@@ -21,7 +22,8 @@ module.exports = {
     "es": "El correo electrónico o la contraseña son incorrectos.",
     "br": "Direizh eo ar chomlec'h postel pe ar ger-tremen",
     "io": "crwdns13114:0crwdne13114:0",
-    "oc": "L'email o lo senhal son pas corrèctes."
+    "oc": "L'email o lo senhal son pas corrèctes.",
+    "nl": "Het e-mailadres of wachtwoord is onjuist."
   },
   "resetPassword": {
     "fr": "Réinitialiser le mot de passe",
@@ -32,7 +34,8 @@ module.exports = {
     "es": "Restablecimiento de contraseña",
     "br": "Adderaouekaat ho ker-tremen",
     "io": "crwdns13116:0crwdne13116:0",
-    "oc": "Reïnicializatz vòstre senhal"
+    "oc": "Reïnicializatz vòstre senhal",
+    "nl": "Wachtwoord resetten"
   },
   "email": {
     "fr": "Email",
@@ -43,7 +46,8 @@ module.exports = {
     "es": "Dirección de correo electrónico",
     "br": "Postel",
     "io": "crwdns13118:0crwdne13118:0",
-    "oc": "Email"
+    "oc": "Email",
+    "nl": "E-mail"
   },
   "password": {
     "fr": "Mot de passe",
@@ -54,7 +58,8 @@ module.exports = {
     "es": "Contraseña",
     "br": "Ger-tremen",
     "io": "crwdns13120:0crwdne13120:0",
-    "oc": "Senhal"
+    "oc": "Senhal",
+    "nl": "Wachtwoord"
   },
   "signin": {
     "fr": "Se connecter",
@@ -65,7 +70,8 @@ module.exports = {
     "es": "Conectarse",
     "br": "Kevreañ",
     "io": "crwdns13122:0crwdne13122:0",
-    "oc": "Se connectar"
+    "oc": "Se connectar",
+    "nl": "Inloggen"
   },
   "lostPassword": {
     "fr": "J'ai perdu mon mot de passe",
@@ -76,7 +82,8 @@ module.exports = {
     "es": "He perdido mi contraseña",
     "br": "Kollet em eus ma ger-tremen",
     "io": "crwdns13124:0crwdne13124:0",
-    "oc": "Ai perdut mon senhal"
+    "oc": "Ai perdut mon senhal",
+    "nl": "Ik ben mijn wachtwoord vergeten"
   },
   "noAccount": {
     "fr": "Vous n'avez pas encore de compte?",
@@ -87,7 +94,8 @@ module.exports = {
     "es": "¿Aún no tienes cuenta?",
     "br": "N'ho peus kont ebet c'hoazh ?",
     "io": "crwdns13126:0crwdne13126:0",
-    "oc": "Avètz pas encara de compte ?"
+    "oc": "Avètz pas encara de compte ?",
+    "nl": "Heb je nog geen account?"
   },
   "createAccount": {
     "fr": "Créez-en un!",
@@ -98,6 +106,7 @@ module.exports = {
     "es": "¡Crea una!",
     "br": "Krouit unan !",
     "io": "crwdns13128:0crwdne13128:0",
-    "oc": "Ne far un !"
+    "oc": "Ne far un !",
+    "nl": "Maak er een aan!"
   }
 }

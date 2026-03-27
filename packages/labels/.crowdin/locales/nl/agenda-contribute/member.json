@@ -1,0 +1,12 @@
+{
+  "description": "Je persoonlijke gegevens zijn alleen zichtbaar voor het agendateam. Alleen de naam van je organisatie wordt openbaar weergegeven.",
+  "email": "E-mail",
+  "name": "Voornaam Achternaam",
+  "organisation": "Organisatie",
+  "phone": "Telefoon",
+  "phoneSub": "Toegestane tekens: cijfers, spatie, -, + of ()",
+  "position": "Functie",
+  "submit": "Opslaan",
+  "subtitle": "Stel jezelf voor voordat je je evenementen invoert",
+  "title": "Welkom!"
+}

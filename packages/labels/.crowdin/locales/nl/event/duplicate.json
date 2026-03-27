@@ -1,0 +1,13 @@
+{
+  "createAgenda": "Agenda Anlegen",
+  "createNewEventIn": "Maak het nieuwe evenement aan in",
+  "modalBigSentence": "U staat op het punt een nieuw evenement aan te maken op basis van een voorgaand evenement.",
+  "modalReminder": "Herinnering: een enkel evenement kan gedeeld worden over meerdere agenda's. Maak geen duplicaat! Dupliceren maakt een andere aankondiging, meestal voor een nieuwe editie elders in tijd of ruimte, zonder kopiëren en plakken.",
+  "noResult": "Geen resultaat gevonden",
+  "officialAgenda": "Officiële agenda",
+  "or": "Of",
+  "privateAgenda": "Privéagenda",
+  "searchAgenda": "Een agenda zoeken",
+  "searchEvent": "Zoek een evenement",
+  "selectAgenda": "Selecteer de agenda waarin u het evenement wilt aanmaken"
+}

@@ -1,11 +1,11 @@
 {
-  "name": "Nom",
+  "contributions": "Eveniments contribuits",
+  "credential": "Ròtle",
   "email": "Email",
+  "name": "Nom",
   "organization": "Organizacion",
   "phone": "Telefòne",
   "position": "Foncion",
-  "contributions": "Eveniments contribuits",
-  "credential": "Ròtle",
   "role": "Ròtle",
   "state": "Estat"
 }

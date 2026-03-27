@@ -1,10 +1,10 @@
 {
-  "timings.empty": "Au moins un horaire doit être renseigné",
+  "format.unknown": "Le format de l'image est inconnu",
   "location.required": "Le lieu doit être spécifié",
-  "timings.toolong": "Il ne peut y avoir plus de 800 plages horaires pour un même événement",
-  "timings.min.1": "Au moins un horaire doit être défini",
+  "overlap": "les horaires ne peuvent pas se chevaucher",
+  "timings.empty": "Au moins un horaire doit être renseigné",
   "timings.invalid": "Au moins un horaire doit être défini",
   "timings.max": "Le nombre de plages horaires saisies excède le nombre autorisé: %max%",
-  "overlap": "les horaires ne peuvent pas se chevaucher",
-  "format.unknown": "Le format de l'image est inconnu"
+  "timings.min.1": "Au moins un horaire doit être défini",
+  "timings.toolong": "Il ne peut y avoir plus de 800 plages horaires pour un même événement"
 }

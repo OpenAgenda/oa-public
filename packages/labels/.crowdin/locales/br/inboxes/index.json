@@ -1,6 +1,6 @@
 {
-  "submit": "Kemmañ",
-  "required": "Rekis",
+  "cancel": "Nullañ",
   "close": "Serriñ",
-  "cancel": "Nullañ"
+  "required": "Rekis",
+  "submit": "Kemmañ"
 }

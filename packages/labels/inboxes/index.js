@@ -8,7 +8,8 @@ module.exports = {
     "es": "Mensajería",
     "it": "Messaggi",
     "io": "crwdns14998:0crwdne14998:0",
-    "oc": "Messatjariá"
+    "oc": "Messatjariá",
+    "nl": "Postvak IN"
   },
   "conversation": {
     "fr": "Conversation",
@@ -16,7 +17,8 @@ module.exports = {
     "de": "Konversation",
     "es": "Conversación",
     "it": "Conversazione",
-    "io": "crwdns15000:0crwdne15000:0"
+    "io": "crwdns15000:0crwdne15000:0",
+    "nl": "Gesprek"
   },
   "conversations": {
     "fr": "Conversations",
@@ -24,7 +26,8 @@ module.exports = {
     "de": "Gespräche",
     "es": "Conversaciones",
     "it": "Conversazioni",
-    "io": "crwdns15002:0crwdne15002:0"
+    "io": "crwdns15002:0crwdne15002:0",
+    "nl": "Gesprekken"
   },
   "ongoingConversations": {
     "fr": "conversations en cours",
@@ -32,7 +35,8 @@ module.exports = {
     "de": "laufende Gespräche",
     "es": "Conversaciones en curso",
     "it": "conversazioni in corso",
-    "io": "crwdns15004:0crwdne15004:0"
+    "io": "crwdns15004:0crwdne15004:0",
+    "nl": "lopende gesprekken"
   },
   "ongoingConversation": {
     "fr": "conversation en cours",
@@ -40,7 +44,8 @@ module.exports = {
     "de": "laufendes Gespräch",
     "es": "Conversación en curso",
     "it": "conversazione in corso",
-    "io": "crwdns15006:0crwdne15006:0"
+    "io": "crwdns15006:0crwdne15006:0",
+    "nl": "lopend gesprek"
   },
   "pastConversations": {
     "fr": "conversations fermées",
@@ -48,7 +53,8 @@ module.exports = {
     "de": "geschlossene Gespräche",
     "es": "Conversaciones cerradas",
     "it": "conversazioni chiuse",
-    "io": "crwdns15008:0crwdne15008:0"
+    "io": "crwdns15008:0crwdne15008:0",
+    "nl": "gesloten gesprekken"
   },
   "pastConversation": {
     "fr": "conversation fermée",
@@ -56,7 +62,8 @@ module.exports = {
     "de": "geschlossenes Gespräch",
     "es": "Conversación cerrada",
     "it": "conversazione chiusa",
-    "io": "crwdns15010:0crwdne15010:0"
+    "io": "crwdns15010:0crwdne15010:0",
+    "nl": "gesloten gesprek"
   },
   "newConversation": {
     "fr": "Nouvelle conversation",
@@ -64,7 +71,8 @@ module.exports = {
     "de": "neues Gespräch",
     "es": "Nueva conversación",
     "it": "Nuova conversazione",
-    "io": "crwdns15012:0crwdne15012:0"
+    "io": "crwdns15012:0crwdne15012:0",
+    "nl": "Nieuw gesprek"
   },
   "createConversation": {
     "fr": "Créer une conversation",
@@ -72,7 +80,8 @@ module.exports = {
     "de": "Erstellen Sie ein Gespräch",
     "es": "Crear una conversación",
     "it": "Creare una conversazione",
-    "io": "crwdns15014:0crwdne15014:0"
+    "io": "crwdns15014:0crwdne15014:0",
+    "nl": "Een gesprek maken"
   },
   "noResult": {
     "fr": "Aucun résultat",
@@ -81,7 +90,8 @@ module.exports = {
     "es": "Ningún resultado",
     "it": "Nessun risultato",
     "io": "crwdns15016:0crwdne15016:0",
-    "oc": "Pas cap resultat"
+    "oc": "Pas cap resultat",
+    "nl": "Geen resultaat"
   },
   "back": {
     "fr": "Retour",
@@ -90,7 +100,8 @@ module.exports = {
     "es": "Regresar",
     "it": "Indietro",
     "io": "crwdns15018:0crwdne15018:0",
-    "oc": "Tornar"
+    "oc": "Tornar",
+    "nl": "Terug"
   },
   "showAllConversations": {
     "fr": "Voir toutes les conversations",
@@ -98,7 +109,8 @@ module.exports = {
     "de": "Alle Gespräche",
     "es": "Ver todas las conversaciones",
     "it": "Vedere tutte le conversazioni",
-    "io": "crwdns15020:0crwdne15020:0"
+    "io": "crwdns15020:0crwdne15020:0",
+    "nl": "Alle gesprekken tonen"
   },
   "actions": {
     "fr": "Actions",
@@ -107,7 +119,8 @@ module.exports = {
     "es": "Acciones",
     "it": "Azioni",
     "io": "crwdns15022:0crwdne15022:0",
-    "oc": "Accions"
+    "oc": "Accions",
+    "nl": "Acties"
   },
   "resolvedConversation": {
     "fr": "Conversation résolue",
@@ -115,7 +128,8 @@ module.exports = {
     "de": "Resoved Gespräch",
     "es": "Conversación resuelta",
     "it": "Conversazione risoluta",
-    "io": "crwdns15024:0crwdne15024:0"
+    "io": "crwdns15024:0crwdne15024:0",
+    "nl": "Opgelost gesprek"
   },
   "conversationAreClosed": {
     "fr": "La conversation est fermée.",
@@ -123,7 +137,8 @@ module.exports = {
     "de": "Das Gespräch wird geschlossen.",
     "es": "La conversación esta cerrada.",
     "it": "La conversazione è chiusa.",
-    "io": "crwdns15026:0crwdne15026:0"
+    "io": "crwdns15026:0crwdne15026:0",
+    "nl": "Het gesprek is gesloten."
   },
   "conversationAreResolved": {
     "fr": "La conversation est résolue.",
@@ -131,7 +146,8 @@ module.exports = {
     "de": "Das Gespräch ist gelöst.",
     "es": "La conversación está resuelta.",
     "it": "La conversazione è risolta.",
-    "io": "crwdns15028:0crwdne15028:0"
+    "io": "crwdns15028:0crwdne15028:0",
+    "nl": "Het gesprek is opgelost."
   },
   "resumeConversation": {
     "fr": "Reprendre la conversation",
@@ -139,7 +155,8 @@ module.exports = {
     "de": "Fortsetzen des Gesprächs",
     "es": "Retomar la conversación",
     "it": "Riprendere la conversazione",
-    "io": "crwdns15030:0crwdne15030:0"
+    "io": "crwdns15030:0crwdne15030:0",
+    "nl": "Het gesprek hervatten"
   },
   "messagePostedRelativeDate": {
     "fr": "Message posté il y a %date%",
@@ -147,7 +164,8 @@ module.exports = {
     "de": "Nachricht geschrieben %date% vor",
     "es": "Mensaje enviado hace %date%",
     "it": "Messaggio inviato %date% fa",
-    "io": "crwdns15032:0%date%crwdne15032:0"
+    "io": "crwdns15032:0%date%crwdne15032:0",
+    "nl": "Bericht geplaatst %date% geleden"
   },
   "lastMessagePostedRelativeDate": {
     "fr": "Dernier message posté il y a %date%",
@@ -155,7 +173,8 @@ module.exports = {
     "de": "Letzte Nachricht %date% vor",
     "es": "Último mensaje puesto allí %date%",
     "it": "Ultimo messaggio inviato %date% fa",
-    "io": "crwdns15034:0%date%crwdne15034:0"
+    "io": "crwdns15034:0%date%crwdne15034:0",
+    "nl": "Laatste bericht geplaatst %date% geleden"
   },
   "viewConversation": {
     "fr": "Voir la conversation",
@@ -163,7 +182,8 @@ module.exports = {
     "de": "Zeige das Gespräch",
     "es": "Ver la conversación",
     "it": "Vedi la conversazione",
-    "io": "crwdns15036:0crwdne15036:0"
+    "io": "crwdns15036:0crwdne15036:0",
+    "nl": "Gesprek bekijken"
   },
   "submit": {
     "fr": "Enregistrer",
@@ -173,7 +193,8 @@ module.exports = {
     "it": "Convalidare",
     "br": "Kemmañ",
     "io": "crwdns15038:0crwdne15038:0",
-    "oc": "Sometre"
+    "oc": "Sometre",
+    "nl": "Opslaan"
   },
   "required": {
     "fr": "Obligatoire",
@@ -183,7 +204,8 @@ module.exports = {
     "it": "Obbligatorio",
     "br": "Rekis",
     "io": "crwdns15040:0crwdne15040:0",
-    "oc": "Requesit"
+    "oc": "Requesit",
+    "nl": "Verplicht"
   },
   "message": {
     "fr": "Message",
@@ -191,7 +213,8 @@ module.exports = {
     "de": "Botschaft",
     "es": "Mensaje",
     "it": "Messaggio",
-    "io": "crwdns15042:0crwdne15042:0"
+    "io": "crwdns15042:0crwdne15042:0",
+    "nl": "Bericht"
   },
   "yourMessage": {
     "fr": "Votre message",
@@ -199,7 +222,8 @@ module.exports = {
     "de": "Deine Nachricht",
     "es": "Tu mensaje",
     "it": "Il vostro messaggio",
-    "io": "crwdns15044:0crwdne15044:0"
+    "io": "crwdns15044:0crwdne15044:0",
+    "nl": "Uw bericht"
   },
   "send": {
     "fr": "Envoyer",
@@ -207,7 +231,8 @@ module.exports = {
     "de": "Senden",
     "es": "Enviar",
     "it": "Inviare",
-    "io": "crwdns15046:0crwdne15046:0"
+    "io": "crwdns15046:0crwdne15046:0",
+    "nl": "Verzenden"
   },
   "reply": {
     "fr": "Répondre",
@@ -215,7 +240,8 @@ module.exports = {
     "de": "Antworten",
     "es": "Responder",
     "it": "Rispondi a",
-    "io": "crwdns15048:0crwdne15048:0"
+    "io": "crwdns15048:0crwdne15048:0",
+    "nl": "Antwoorden"
   },
   "creationSuccess": {
     "fr": "La conversation a bien été créée, vous pourrez voir les réponses dans votre messagerie personnelle.",
@@ -223,7 +249,8 @@ module.exports = {
     "de": "Das Gespräch wurde erstellt, du wirst die Antworten in Deinem persönlichen Posteingang sehen.",
     "es": "La conversación ha sido creada, verás las respuestas en tu buzón personal.",
     "it": "La conversazione è stata creata, potrete vedere le risposte nella vostra cassetta postale personale.",
-    "io": "crwdns15050:0crwdne15050:0"
+    "io": "crwdns15050:0crwdne15050:0",
+    "nl": "Het gesprek is aangemaakt, u zult de antwoorden in uw persoonlijke inbox zien."
   },
   "creationFail": {
     "fr": "Il y a eu une erreur lors de la création de la conversation, veuillez réessayer ultérieurement.",
@@ -231,7 +258,8 @@ module.exports = {
     "de": "Es gab einen Fehler, das Gespräch zu schaffen, versuchen Sie es später noch einmal.",
     "es": "Ocurrió un error durante la creación de la conversación, por favor inténtalo nuevamente",
     "it": "C'è stato un errore durante la creazione della conversazione, si prega di riprovare più tardi.",
-    "io": "crwdns15052:0crwdne15052:0"
+    "io": "crwdns15052:0crwdne15052:0",
+    "nl": "Er is een fout opgetreden bij het maken van het gesprek, probeer het later opnieuw."
   },
   "titleContributionRequest": {
     "fr": "Demande de contribution",
@@ -239,7 +267,8 @@ module.exports = {
     "de": "Beitrag Anfrage",
     "es": "Solicitud de contribución",
     "it": "Richiesta di contributo",
-    "io": "crwdns15054:0crwdne15054:0"
+    "io": "crwdns15054:0crwdne15054:0",
+    "nl": "Bijdrageverzoek"
   },
   "titleSuggestLocationChange": {
     "fr": "Suggérer une modification sur le lieu",
@@ -247,7 +276,8 @@ module.exports = {
     "de": "Schlagen Sie eine Änderung an der Stelle",
     "es": "Sugerir un cambio en el lugar",
     "it": "Suggerisci una modifica della posizione",
-    "io": "crwdns15056:0crwdne15056:0"
+    "io": "crwdns15056:0crwdne15056:0",
+    "nl": "Een wijziging op de locatie voorstellen"
   },
   "aboutEvent": {
     "fr": "sur",
@@ -255,7 +285,8 @@ module.exports = {
     "de": "Über",
     "es": "en",
     "it": "su",
-    "io": "crwdns15058:0crwdne15058:0"
+    "io": "crwdns15058:0crwdne15058:0",
+    "nl": "over"
   },
   "conversationInitiatedOn": {
     "fr": "Conversation ouverte sur",
@@ -263,7 +294,8 @@ module.exports = {
     "de": "Gespräch initiiert auf",
     "es": "Conversación abierta sobre",
     "it": "Conversazione aperta su",
-    "io": "crwdns15060:0crwdne15060:0"
+    "io": "crwdns15060:0crwdne15060:0",
+    "nl": "Gesprek geopend op"
   },
   "youreAdminOrModerator": {
     "fr": "Vous êtes administrateur ou modérateur de cet agenda",
@@ -271,7 +303,8 @@ module.exports = {
     "de": "Du bist ein Administrator oder Moderator dieser Verwaltungskalender.",
     "es": "Eres un administrador o moderador de esta agenda",
     "it": "Lei è l'amministratore o il moderatore di questo agenda",
-    "io": "crwdns15062:0crwdne15062:0"
+    "io": "crwdns15062:0crwdne15062:0",
+    "nl": "U bent beheerder of moderator van deze agenda"
   },
   "youreNotAdminOrModerator": {
     "fr": "Vous n'êtes pas administrateur ou modérateur de cet agenda.",
@@ -279,7 +312,8 @@ module.exports = {
     "de": "Du bist kein Administrator oder Moderator dieser Verwaltungskalender.",
     "es": "No eres un administrador o moderador de esta agenda.",
     "it": "Non sei amministratore o moderatore di questo calendario.",
-    "io": "crwdns15064:0crwdne15064:0"
+    "io": "crwdns15064:0crwdne15064:0",
+    "nl": "U bent geen beheerder of moderator van deze agenda."
   },
   "youCannotWriteToThisMember": {
     "fr": "Vous ne pouvez pas écrire à ce membre.",
@@ -287,7 +321,8 @@ module.exports = {
     "de": "Du kannst diesem Mitglied keine Nachricht schreiben.",
     "es": "No puedes escribir a este miembro.",
     "it": "Non puoi scrivere a questo membro.",
-    "io": "crwdns15066:0crwdne15066:0"
+    "io": "crwdns15066:0crwdne15066:0",
+    "nl": "U kunt dit lid geen bericht sturen."
   },
   "youreAlreadyContributor": {
     "fr": "Vous êtes déjà contributeur de cet agenda",
@@ -295,7 +330,8 @@ module.exports = {
     "de": "Du bist bereits ein Teilnehmer dieser Verwaltungskalender.",
     "es": "Ya eres contribuyente de esta agenda",
     "it": "Lei è già un collaboratore di questo programma",
-    "io": "crwdns15068:0crwdne15068:0"
+    "io": "crwdns15068:0crwdne15068:0",
+    "nl": "U bent al een bijdrager van deze agenda"
   },
   "youWantToContribute": {
     "fr": "Vous désirez contribuer ? Faites-en la demande aux administrateurs de l'agenda.",
@@ -303,7 +339,8 @@ module.exports = {
     "de": "Du willst daran teilnehmen? Frage die Verwaltungskalender-Administratoren.",
     "es": "¿Quieres contribuir? Contacta los administradores de la agenda.",
     "it": "Volete contribuire? Chiedete agli amministratori dell'agenda.",
-    "io": "crwdns15070:0crwdne15070:0"
+    "io": "crwdns15070:0crwdne15070:0",
+    "nl": "Wilt u bijdragen? Vraag het aan de beheerders van de agenda."
   },
   "wantContributeMakeRequest": {
     "fr": "Vous désirez contribuer ? Faites-en la demande aux administrateurs.",
@@ -311,7 +348,8 @@ module.exports = {
     "de": "Du willst daran teilnehmen? Stelle eine Anfragen an Administratoren.",
     "es": "¿Quieres contribuir? Haz la petición a los administradores de la agenda.",
     "it": "Volete contribuire? Chiedete agli amministratori.",
-    "io": "crwdns15072:0crwdne15072:0"
+    "io": "crwdns15072:0crwdne15072:0",
+    "nl": "Wilt u bijdragen? Dien een verzoek in bij de beheerders."
   },
   "eventConvDescAdminContributor": {
     "fr": "La conversation que vous allez créer est destinée aux administrateurs et modérateurs de l'agenda.",
@@ -319,7 +357,8 @@ module.exports = {
     "de": "Das Gespräch, das du erstellst, ist für die Administratoren und Moderatoren der Verwaltungskalender.",
     "es": "La conversación que vas a crear es para los administradores y moderadores de la agenda.",
     "it": "La conversazione che state per creare è destinata agli amministratori e ai moderatori dell'agenda.",
-    "io": "crwdns15074:0crwdne15074:0"
+    "io": "crwdns15074:0crwdne15074:0",
+    "nl": "Het gesprek dat u gaat maken is voor beheerders en moderators van de agenda."
   },
   "eventConvDescAdminmod": {
     "fr": "La conversation que vous allez créer est destinée au contributeur de l'événement.",
@@ -327,7 +366,8 @@ module.exports = {
     "de": "Das Gespräch, das du erstellst, ist für Teilnehmer der Veranstaltung.",
     "es": "La conversación que vas a crear es para los contribuidores del evento.",
     "it": "La conversazione che state per creare è destinata al collaboratore dell'evento.",
-    "io": "crwdns15076:0crwdne15076:0"
+    "io": "crwdns15076:0crwdne15076:0",
+    "nl": "Het gesprek dat u gaat maken is voor de bijdrager van het evenement."
   },
   "eventConvDescContributor": {
     "fr": "La conversation que vous allez créer est destinée aux administrateurs et modérateurs de l'agenda.",
@@ -335,7 +375,8 @@ module.exports = {
     "de": "Das Gespräch, das du erstellst, ist für die Administratoren und Moderatoren der Verwaltungskalender.",
     "es": "La conversación que vas a crear es para los administradores y moderadores de la agenda.",
     "it": "La conversazione che state per creare è destinata agli amministratori e ai moderatori dell'agenda.",
-    "io": "crwdns15078:0crwdne15078:0"
+    "io": "crwdns15078:0crwdne15078:0",
+    "nl": "Het gesprek dat u gaat maken is voor beheerders en moderators van de agenda."
   },
   "eventConvDescSimpleUser": {
     "fr": "La conversation que vous allez créer est destinée aux administrateurs et modérateurs de l'agenda, ainsi qu'au contributeur de l'événement.",
@@ -343,7 +384,8 @@ module.exports = {
     "de": "Das Gespräch, das du erstellst, ist für die Administratoren und Moderatoren derVerwaltungskalender als auch die Teilnehmer der Veranstaltung.",
     "es": "La conversación que vas a crear es para los administradores y moderadores de la agenda así como para los contribuyentes del evento.",
     "it": "La conversazione che state per creare è destinata agli amministratori e ai moderatori del calendario, nonché al collaboratore dell'evento.",
-    "io": "crwdns15080:0crwdne15080:0"
+    "io": "crwdns15080:0crwdne15080:0",
+    "nl": "Het gesprek dat u gaat maken is voor beheerders en moderators van de agenda, evenals de bijdrager van het evenement."
   },
   "agendaInboxDesc": {
     "fr": "Retrouvez ici les messages adressés à votre agenda.",
@@ -351,7 +393,8 @@ module.exports = {
     "de": "Hier findest du die Nachrichten Deiner Verwaltungskalender.",
     "es": "Encuentra aquí los mensajes destinados a tu agenda.",
     "it": "Trovate qui i messaggi indirizzati alla vostra agenda.",
-    "io": "crwdns15082:0crwdne15082:0"
+    "io": "crwdns15082:0crwdne15082:0",
+    "nl": "Vind hier de berichten gericht aan uw agenda."
   },
   "homeInboxDesc": {
     "fr": "Vous n'avez pas encore reçu de messages!\nVous retrouverez ici les messages qui vous sont adressés.",
@@ -359,7 +402,8 @@ module.exports = {
     "de": "Du hast noch keine Nachrichten erhalten! Wenn du Nachrichten erhälst, sind diese hier aufgeführt.",
     "es": "¡No has recibido ningún mensaje!\nAquí encontrarás los mensajes que le enviaran.",
     "it": "Non avete ancora ricevuto alcun messaggio! Troverete qui i messaggi a voi indirizzati.",
-    "io": "crwdns15084:0crwdne15084:0"
+    "io": "crwdns15084:0crwdne15084:0",
+    "nl": "U heeft nog geen berichten ontvangen!\nU vindt hier de berichten die aan u zijn gericht."
   },
   "suggestLocationChangeDesc": {
     "fr": "Saisissez les modifications que vous désirez suggérer. Celles-ci seront ensuite traitées par un administrateur.",
@@ -367,7 +411,8 @@ module.exports = {
     "de": "Gib hier die Änderungen ein, die du vorschlägst. Diese werden dann von einem Administrator bearbeitet.",
     "es": "Introduzca los cambios que desea sugerir. Estos serán procesados luego por un administrador.",
     "it": "Inserite le modifiche che volete suggerire. Essi saranno poi elaborati da un amministratore.",
-    "io": "crwdns15086:0crwdne15086:0"
+    "io": "crwdns15086:0crwdne15086:0",
+    "nl": "Voer de wijzigingen in die u wilt voorstellen. Deze worden vervolgens door een beheerder verwerkt."
   },
   "supportInboxDesc": {
     "fr": "<p>Vous avez une question technique sur l'usage d'OpenAgenda ? La réponse est certainement dans la documentation.</p><p class=\"text-center margin-bottom-md \"><a class=\"btn btn-primary\" target=\"_blank\" href=\"https://doc.openagenda.com\">Voir la documentation</a></p><p>Si votre question concerne plutôt les administrateurs d'un agenda, vous pouvez les joindre via la messagerie en bas de chacune de vos fiches événements ou bien directement sur l'agenda en cliquant sur \"contacter\".</p><p><a href=\"/home\">Voir mes agendas</a> ou <a href=\"/home/events\">voir mes événements</a></p><p>Pour tout autre question, vous pouvez nous joindre directement :</p>",
@@ -375,7 +420,8 @@ module.exports = {
     "de": "<p>Haben Sie eine technische Frage zur Verwendung von OpenAgenda? Die Antwort finden Sie sicherlich in der Dokumentation.</p><p class=\"text-center margin-bottom-md \"><a class=\"btn btn-primary\" target=\"_blank\" href=\"https://doc.openagenda.com\">Siehe Dokumentation</a></p><p>Wenn Ihre Frage Administratoren eines Kalenders betrifft, können Sie diese über den Nachrichtendienst am Ende jeder Ihrer Ereignisdateien oder direkt im Kalender erreichen, indem Sie auf \"Kontakt\" klicken.</p><p><a href=\"/home\">Meine Kalender anzeigen</a> oder <a href=\"/home/events\">meine Veranstaltungen anzeigen</a></p><p>Bei allen anderen Fragen wenden Sie sich an Sie kann sich uns direkt anschließen:</p>",
     "es": "<p>¿Tiene alguna pregunta técnica sobre el uso de OpenAgenda? La respuesta está ciertamente en la documentación.</p><p class=\"text-center margin-bottom-md \"><a class=\"btn btn-primary\" target=\"_blank\" href=\"https://doc.openagenda.com\">Consulte la documentación</a></p><p>Si tu pregunta se relaciona más con los administradores de una agenda, puedes comunicarte con ellos a través del cuadro de mensajeria en la parte inferior de la pagina de evento o directamente desde la pagina inicial de la agenda haciendo clic en \"contactar\".</p><p><a href=\"/home\">Ver mis agendas</a> o <a href=\"/home/events\">vea mis eventos</a></p><p>Para cualquier otra pregunta, usted puede unirse a nosotros directamente:</p>",
     "it": "<p>Hai una domanda tecnica sull'uso di OpenAgenda? La risposta è sicuramente nella documentazione.</p><p><a target=\"_blank\" href=\"https://openagenda.zendesk.com/hc/fr\">Vedi la documentazione</a></p><p>Se la tua domanda riguarda maggiormente gli amministratori di un calendario, puoi raggiungerli tramite la messaggistica in fondo a ciascuno dei tuoi file di eventi o direttamente sul calendario facendo clic su \"contatta\".</p><p><a href=\"/home\">Vedi i miei calendari</a> o <a href=\"/home/events\">vedi i miei eventi</a></p><p>Per qualsiasi altra domanda, tu puoi unirti direttamente a noi:</p>",
-    "io": "crwdns15088:0crwdne15088:0"
+    "io": "crwdns15088:0crwdne15088:0",
+    "nl": "<p>Heeft u een technische vraag over het gebruik van OpenAgenda? Het antwoord staat zeker in de documentatie.</p><p class=\"text-center margin-bottom-md \"><a class=\"btn btn-primary\" target=\"_blank\" href=\"https://doc.openagenda.com\">Zie de documentatie</a></p><p>Als uw vraag meer betrekking heeft op de beheerders van een agenda, kunt u ze bereiken via de berichtenservice onderaan elk van uw evenementbestanden of direct op de agenda door op \"contact\" te klikken.</p><p><a href=\"/home\">Mijn agenda's bekijken</a> of <a href=\"/home/events\">mijn evenementen bekijken</a></p><p>Voor elke andere vraag kunt u rechtstreeks contact met ons opnemen:</p>"
   },
   "agendaSchemaTitle": {
     "fr": "Demande de champs personnalisés additionnels",
@@ -383,7 +429,8 @@ module.exports = {
     "de": "Antrag auf zusätzliche benutzerdefinierte Felder",
     "es": "Solicitar campos adicionales",
     "it": "Richiesta di campi aggiuntivi personalizzati",
-    "io": "crwdns16478:0crwdne16478:0"
+    "io": "crwdns16478:0crwdne16478:0",
+    "nl": "Aanvraag voor aanvullende aangepaste velden"
   },
   "agendaSchemaDesc": {
     "fr": "Vous voulez ajouter plus de champs à votre formulaire, en adapter l'ordre ou les instructions? Ecrivez nous un rapide message",
@@ -391,7 +438,8 @@ module.exports = {
     "de": "Mehrere Felder zum Formular hinzufügen ? Reihenfolge oder Etiketten ändern? Sende uns eine kurze Nachricht",
     "es": "¿Deseas añadir más campos a tu formulario, o ajustar el orden de las instrucciones? Escríbanos un mensaje",
     "it": "Volete aggiungere altri campi al vostro modulo, adattare l'agenda le istruzioni? Scrivici un messaggio veloce",
-    "io": "crwdns16480:0crwdne16480:0"
+    "io": "crwdns16480:0crwdne16480:0",
+    "nl": "U moet meerdere velden aan uw formulier toevoegen, hun volgorde of labels aanpassen? Stuur ons een kort bericht"
   },
   "privateAgendaTitle": {
     "fr": "Demande d'activation d'un agenda privé",
@@ -399,7 +447,8 @@ module.exports = {
     "de": "Ein private Veranstaltungskalender aktivieren",
     "es": "Solicitar la activación de una agenda privada",
     "it": "Richiesta di attivazione di un agenda privato",
-    "io": "crwdns16482:0crwdne16482:0"
+    "io": "crwdns16482:0crwdne16482:0",
+    "nl": "Verzoek om een privé-agenda te activeren"
   },
   "privateAgendaDesc": {
     "fr": "Vous souhaitez un agenda privé ? Seuls les membres que vous aurez invité via l'onglet Membre pourront en consulter le contenu. Donnez-nous quelques détails sur votre besoin et nous vous ferons un retour",
@@ -407,7 +456,8 @@ module.exports = {
     "de": "Dies ist eine neue Funktion, lasse uns mehr über Deine Anforderung wissen:",
     "es": "Infórmanos sobre tus necesidades:",
     "it": "Fateci sapere di più sul vostro requisito:",
-    "io": "crwdns16484:0crwdne16484:0"
+    "io": "crwdns16484:0crwdne16484:0",
+    "nl": "Laat ons meer weten over uw behoefte:"
   },
   "publicAgendaTitle": {
     "fr": "Demande d'activation d'un agenda public",
@@ -415,7 +465,8 @@ module.exports = {
     "de": "Fordern Sie eine öffentlicheVerwaltungskalender zu aktivieren",
     "es": "Solicitar la activación de una agenda pública",
     "it": "Richiesta di attivazione di un agenda pubblico",
-    "io": "crwdns16486:0crwdne16486:0"
+    "io": "crwdns16486:0crwdne16486:0",
+    "nl": "Verzoek om een publieke agenda te activeren"
   },
   "officialAgendaTitle": {
     "fr": "Demande d'activation d'un agenda officiel",
@@ -423,7 +474,8 @@ module.exports = {
     "de": "Fordern Sie eine offizielle Kalender zu aktivieren",
     "es": "Solicitar la activación de una agenda oficial",
     "it": "Richiesta di attivazione di un agenda ufficiale",
-    "io": "crwdns16488:0crwdne16488:0"
+    "io": "crwdns16488:0crwdne16488:0",
+    "nl": "Verzoek om een officiële agenda te activeren"
   },
   "officialAgendaDesc": {
     "fr": "Merci de publier au moins un événement sur votre agenda avant votre demande d'officialisation.",
@@ -431,7 +483,8 @@ module.exports = {
     "de": "Bitte sende mindestens eine Veranstaltung auf der Kalender, bevor Sie Deine Anfrage für officialization.",
     "es": "Por favor, pública al menos un evento en tu agenda antes de pedir pasarlo a oficial.",
     "it": "Si prega di pubblicare almeno un evento in agenda prima della richiesta di ufficializzazione.",
-    "io": "crwdns16490:0crwdne16490:0"
+    "io": "crwdns16490:0crwdne16490:0",
+    "nl": "Plaats ten minste één evenement op uw agenda voordat u een verzoek tot officialisering indient."
   },
   "limitDatesTitle": {
     "fr": "Bornez les dates des événements contribués",
@@ -439,7 +492,8 @@ module.exports = {
     "de": "In Grenzen zu den Terminen von beigetragen Veranstaltungen",
     "es": "Añade límites a las fechas de los eventos contribuidos",
     "it": "Segnare le date degli eventi contributivi",
-    "io": "crwdns16492:0crwdne16492:0"
+    "io": "crwdns16492:0crwdne16492:0",
+    "nl": "Beperkingen toevoegen aan de datums van bijgedragen evenementen"
   },
   "limitDatesDesc": {
     "fr": "Bornez le sélecteur de dates du formulaire de saisie de votre agenda.\n\nInteressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !",
@@ -447,7 +501,8 @@ module.exports = {
     "de": "Begrenze Beiträge zu vordefinierten Veranstaltungdaten.\n\nGünstiger dieses Feature? Gebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
     "es": "Limita el selector de fechas del formulario de eventos de tu agenda. \n\n¿Te interesa esta funcionalidad? ¡Escribanos un mensaje con tus necesidades y te contestaremos en breve!",
     "it": "Limita i contributi a date di eventi predefinite. \n\nSei interessato a questa funzione? Dacci i dettagli delle tue esigenze e ti risponderemo a breve!",
-    "io": "crwdns16494:0crwdne16494:0"
+    "io": "crwdns16494:0crwdne16494:0",
+    "nl": "Beperk bijdragen tot vooraf gedefinieerde evenementdatums.\n\nGeïnteresseerd in deze functie? Geef ons details over uw vereisten en we nemen snel contact met u op!"
   },
   "moderatorsTitle": {
     "fr": "Membres modérateurs",
@@ -455,7 +510,8 @@ module.exports = {
     "de": "Moderator Mitglieder",
     "es": "Miembros moderadores",
     "it": "Moderatori membri",
-    "io": "crwdns16496:0crwdne16496:0"
+    "io": "crwdns16496:0crwdne16496:0",
+    "nl": "Moderator leden"
   },
   "moderatorsDesc": {
     "fr": "Les modérateurs sont des membres pouvant éditer tous les événements d'un agenda, sans pour autant avoir les accès de paramétrages.\n\nDétaillez-nous votre besoin et nous traiterons votre demande dans les plus brefs délais !",
@@ -463,20 +519,23 @@ module.exports = {
     "de": "Moderatoren sind Mitglieder, die die Veranstaltungen eines Verwaltungskalenders bearbeiten und Veranstaltungszustände ändern, ohne Einstellungen Zugriff auf Verwaltungskalenders zu haben.\n\nGebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
     "es": "Los moderadores son miembros que pueden editar todas agenda de eventos, sin tener la configuración de acceso.\n\n¡Explicar sus necesidades y vamos a procesar su solicitud tan pronto como sea posible!",
     "it": "I moderatori sono membri che possono modificare tutti gli eventi di un calendario, senza avere accesso alle impostazioni. Diteci di cosa avete bisogno e noi elaboreremo la vostra richiesta il prima possibile!",
-    "io": "crwdns16498:0crwdne16498:0"
+    "io": "crwdns16498:0crwdne16498:0",
+    "nl": "Moderators zijn leden die de evenementen van een agenda kunnen bewerken en evenementstatussen kunnen wijzigen, zonder toegang te hebben tot agenda-instellingen.\n\nGeef ons details over uw vereisten en we nemen snel contact met u op!"
   },
   "memberSchemaTitle": {
     "fr": "Demande de champs membre personnalisés",
     "en": "Request custom member fields",
     "io": "crwdns32919:0crwdne32919:0",
     "it": "Richiesta di campi membri personalizzati",
-    "es": "Solicitar campos personalizados para el formulario de miembro"
+    "es": "Solicitar campos personalizados para el formulario de miembro",
+    "nl": "Aanvraag aangepaste ledenvelden"
   },
   "memberSchemaDesc": {
     "fr": "Vous voulez modifier le formulaire d'identification des membres?",
     "en": "Want to modify the member identification form?",
     "io": "crwdns32921:0crwdne32921:0",
-    "es": "¿Deseas modificar el formulario de identificación de miembro?"
+    "es": "¿Deseas modificar el formulario de identificación de miembro?",
+    "nl": "Wilt u het identificatieformulier voor leden wijzigen?"
   },
   "writeToAllTitle": {
     "fr": "Demande d'activation de la fonction \"Leur écrire\"",
@@ -484,7 +543,8 @@ module.exports = {
     "de": "Anfrage zur Aktivierung des „Schreibe sie“ -Funktion",
     "es": "Solicita la activación de la función \"Escribirles\"",
     "it": "Richiesta di attivazione della funzione \"Scrivi a loro\"",
-    "io": "crwdns16500:0crwdne16500:0"
+    "io": "crwdns16500:0crwdne16500:0",
+    "nl": "Verzoek om de functie \"Schrijf ze\" te activeren"
   },
   "writeToAllDesc": {
     "fr": "Envoyez un message à tous les membres de votre agenda ou envoyez une relance personnalisée à tous les membres n'ayant pas encore contribué.\n\nInterressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !",
@@ -492,7 +552,8 @@ module.exports = {
     "de": "Schicke eine Nachricht an alle Mitglieder deinerVerwaltungskalender oder diejenigen zielen, die noch nicht beigetragen haben.\n\nGebe uns Details über Deine Anforderungen und werden uns in Kürze bei Ihnen melden!",
     "es": "Envía un mensaje a todos los miembros de tu agenda o selecciona los que aún no han contribuido.\n\n¿Te interesa esta funcionalidad? ¡Escribanos un mensaje con tus necesidades y te contestaremos en breve!",
     "it": "Invia un messaggio a tutti i membri del tuo agenda o invia un promemoria personalizzato a tutti i membri che non hanno ancora contribuito. Sei interessato? Lasciateci un messaggio e provvederemo ad elaborare la vostra richiesta il prima possibile!",
-    "io": "crwdns16502:0crwdne16502:0"
+    "io": "crwdns16502:0crwdne16502:0",
+    "nl": "Stuur een bericht naar alle leden van uw agenda of richt u op degenen die nog niet hebben bijgedragen.\n\nGeef ons details over uw vereisten en we nemen snel contact met u op!"
   },
   "contactContributor": {
     "fr": "Contacter le contributeur",
@@ -500,7 +561,8 @@ module.exports = {
     "de": "Kontaktieren Sie den Beitrag",
     "es": "Contacta el contribuyente",
     "it": "Contatta il collaboratore",
-    "io": "crwdns15090:0crwdne15090:0"
+    "io": "crwdns15090:0crwdne15090:0",
+    "nl": "Contact opnemen met de bijdrager"
   },
   "contactContributorOf": {
     "fr": "Contacter le contributeur de <a href=\"%link%\">%title%</a>",
@@ -508,7 +570,8 @@ module.exports = {
     "de": "Kontaktieren Sie den Beitrag von <a href=\"%link%\"> %title% </a>",
     "es": "Contacta el contribuyente de <a href=\"%link%\">",
     "it": "Contattare il collaboratore di <a href=\"%link%\">%title%</a>",
-    "io": "crwdns15092:0%link%crwdnd15092:0%title%crwdne15092:0"
+    "io": "crwdns15092:0%link%crwdnd15092:0%title%crwdne15092:0",
+    "nl": "Contact opnemen met de bijdrager van <a href=\"%link%\">%title%</a>"
   },
   "contactAdministratorsOf": {
     "fr": "Contacter les administrateurs de <a href=\"%link%\">%title%</a>",
@@ -516,7 +579,8 @@ module.exports = {
     "de": "Kontaktieren Sie die Administratoren von <a href=\"%link%\"> %title% </a>",
     "es": "Contacta los administradores de <a href=\"%link%\"> %title% </a>",
     "it": "Contatta gli amministratori di <a href=\"%link%\">%title%</a>",
-    "io": "crwdns15094:0%link%crwdnd15094:0%title%crwdne15094:0"
+    "io": "crwdns15094:0%link%crwdnd15094:0%title%crwdne15094:0",
+    "nl": "Contact opnemen met de beheerders van <a href=\"%link%\">%title%</a>"
   },
   "contactAdministrators": {
     "fr": "Contacter les administrateurs",
@@ -524,7 +588,8 @@ module.exports = {
     "de": "Kontaktieren Sie die Administratoren",
     "es": "Contacta los administradores",
     "it": "Contattare gli amministratori",
-    "io": "crwdns15096:0crwdne15096:0"
+    "io": "crwdns15096:0crwdne15096:0",
+    "nl": "Contact opnemen met de beheerders"
   },
   "contactAdministrator": {
     "fr": "Contacter l'administrateur",
@@ -533,7 +598,8 @@ module.exports = {
     "es": "Contacta los administradores",
     "it": "Contattare l'amministratore",
     "io": "crwdns15098:0crwdne15098:0",
-    "oc": "Contactar l'administrator·a"
+    "oc": "Contactar l'administrator·a",
+    "nl": "Neem contact op met de beheerder"
   },
   "contactName": {
     "fr": "Contacter %name%",
@@ -541,7 +607,8 @@ module.exports = {
     "de": "Schicke eine Nachricht an %name%.",
     "es": "Contacta %name%",
     "it": "Contatto %nome",
-    "io": "crwdns15100:0%name%crwdne15100:0"
+    "io": "crwdns15100:0%name%crwdne15100:0",
+    "nl": "Contact opnemen met %name%"
   },
   "by": {
     "fr": "par",
@@ -549,7 +616,8 @@ module.exports = {
     "de": "durch",
     "es": "por",
     "it": "da",
-    "io": "crwdns15102:0crwdne15102:0"
+    "io": "crwdns15102:0crwdne15102:0",
+    "nl": "door"
   },
   "conversationInitiatedBy": {
     "fr": "Conversation ouverte par",
@@ -557,7 +625,8 @@ module.exports = {
     "de": "Gespräch initiiert durch",
     "es": "Conversación abierta por",
     "it": "Conversazione aperta da",
-    "io": "crwdns15104:0crwdne15104:0"
+    "io": "crwdns15104:0crwdne15104:0",
+    "nl": "Gesprek gestart door"
   },
   "contactConversationInitiated": {
     "fr": "Conversation ouverte sur le formulaire de contact",
@@ -565,7 +634,8 @@ module.exports = {
     "de": "Gespräch initiiert auf dem Kontaktformular",
     "es": "Conversación abierta en el formulario de contacto",
     "it": "Conversazione aperta sul modulo di contatto",
-    "io": "crwdns15106:0crwdne15106:0"
+    "io": "crwdns15106:0crwdne15106:0",
+    "nl": "Gesprek gestart op het contactformulier"
   },
   "createdBy": {
     "fr": "Créé par",
@@ -573,7 +643,8 @@ module.exports = {
     "de": "Erstellt von",
     "es": "Creado por",
     "it": "Creato da",
-    "io": "crwdns15108:0crwdne15108:0"
+    "io": "crwdns15108:0crwdne15108:0",
+    "nl": "Gemaakt door"
   },
   "sendMessageToAdmin": {
     "fr": "Envoyez un message aux administrateurs de l'agenda.",
@@ -581,7 +652,8 @@ module.exports = {
     "de": "Schicke eine Nachricht an Agenda-Administratoren.",
     "es": "Envía un mensaje a los administradores de la agenda.",
     "it": "Inviare un messaggio agli amministratori del calendario.",
-    "io": "crwdns15110:0crwdne15110:0"
+    "io": "crwdns15110:0crwdne15110:0",
+    "nl": "Stuur een bericht naar de agenda-beheerders."
   },
   "sendMessageToContributor": {
     "fr": "Envoyez un message au contributeur de l'événement.",
@@ -589,7 +661,8 @@ module.exports = {
     "de": "Schicke eine Nachricht an Veranstaltungen Beiträger.",
     "es": "Envía un mensaje al contribuidor del evento.",
     "it": "Invia un messaggio al collaboratore dell'evento.",
-    "io": "crwdns15112:0crwdne15112:0"
+    "io": "crwdns15112:0crwdne15112:0",
+    "nl": "Stuur een bericht naar de bijdrager van het evenement."
   },
   "sendMessageToMember": {
     "fr": "Envoyez un message au membre",
@@ -597,7 +670,8 @@ module.exports = {
     "de": "Schicke eine Nachricht an Veranstaltungen Beiträger.",
     "es": "Envía un mensaje al contribuidor del evento.",
     "it": "Invia un messaggio al membro",
-    "io": "crwdns15114:0crwdne15114:0"
+    "io": "crwdns15114:0crwdne15114:0",
+    "nl": "Stuur een bericht naar de bijdrager van het evenement."
   },
   "sendMessageToName": {
     "fr": "Envoyez un message à %name%",
@@ -605,7 +679,8 @@ module.exports = {
     "de": "Schicke eine Nachricht an %name%.",
     "es": "Enviar un mensaje a %name%",
     "it": "Invia un messaggio a %name%",
-    "io": "crwdns15116:0%name%crwdne15116:0"
+    "io": "crwdns15116:0%name%crwdne15116:0",
+    "nl": "Stuur een bericht naar %name%."
   },
   "retrieveConversationsOnHome": {
     "fr": "Retrouvez toutes vos conversations sur <a href=\"%url%\">votre messagerie OA</a>.",
@@ -613,7 +688,8 @@ module.exports = {
     "de": "Finde Deine Gespräche im <a href=\"%url%\">Posteingang</a>.",
     "es": "Encuentra todas tus conversaciones en <a href=\"%url%\"> tu buzón OA </a>.",
     "it": "Trova tutte le tue conversazioni su <a href=\"%url%\">la tua casella di posta elettronica OA</a>.",
-    "io": "crwdns15118:0%url%crwdne15118:0"
+    "io": "crwdns15118:0%url%crwdne15118:0",
+    "nl": "Vind al uw gesprekken op <a href=\"%url%\">uw OA-berichten</a>."
   },
   "yourMessageWillBeSigned": {
     "fr": "Votre message sera signé",
@@ -621,7 +697,8 @@ module.exports = {
     "de": "Ihre Nachricht wird unterzeichnet",
     "es": "Tu mensaje será firmado",
     "it": "Il tuo messaggio sarà firmato",
-    "io": "crwdns15120:0crwdne15120:0"
+    "io": "crwdns15120:0crwdne15120:0",
+    "nl": "Uw bericht wordt ondertekend"
   },
   "messageSent": {
     "fr": "Message envoyé",
@@ -629,7 +706,8 @@ module.exports = {
     "de": "Nachricht gesendet",
     "es": "Mensaje enviado",
     "it": "Messaggio inviato",
-    "io": "crwdns15122:0crwdne15122:0"
+    "io": "crwdns15122:0crwdne15122:0",
+    "nl": "Bericht verzonden"
   },
   "yourMessageHasBeenSent": {
     "fr": "Votre message a bien été envoyé.",
@@ -637,7 +715,8 @@ module.exports = {
     "de": "Ihre Nachricht wurde gesendet.",
     "es": "Tu mensaje ha sido enviado correctamente.",
     "it": "Il vostro messaggio è stato inviato con successo.",
-    "io": "crwdns15124:0crwdne15124:0"
+    "io": "crwdns15124:0crwdne15124:0",
+    "nl": "Uw bericht is verzonden."
   },
   "close": {
     "fr": "Fermer",
@@ -647,7 +726,8 @@ module.exports = {
     "it": "Chiudere",
     "br": "Serriñ",
     "io": "crwdns15126:0crwdne15126:0",
-    "oc": "Tampar"
+    "oc": "Tampar",
+    "nl": "Schließen"
   },
   "cancel": {
     "fr": "Annuler",
@@ -657,7 +737,8 @@ module.exports = {
     "it": "Annullare",
     "br": "Nullañ",
     "io": "crwdns15128:0crwdne15128:0",
-    "oc": "Anullar"
+    "oc": "Anullar",
+    "nl": "Annuleren"
   },
   "confirm": {
     "fr": "Confirmer",
@@ -666,7 +747,8 @@ module.exports = {
     "es": "Confirmar",
     "it": "Confermare",
     "io": "crwdns15130:0crwdne15130:0",
-    "oc": "Confirmar"
+    "oc": "Confirmar",
+    "nl": "Bevestigen"
   },
   "closeConversation": {
     "fr": "Fermer la conversation",
@@ -674,7 +756,8 @@ module.exports = {
     "de": "Schließ das Gespräch",
     "es": "Cerrar conversación",
     "it": "Chiudere la conversazione",
-    "io": "crwdns15132:0crwdne15132:0"
+    "io": "crwdns15132:0crwdne15132:0",
+    "nl": "Het gesprek sluiten"
   },
   "closeConversationDesc": {
     "fr": "Etes-vous sûr de vouloir fermer cette conversation? Elle n'apparaitra plus ni dans vos conversations actives ni dans celles de vos interlocuteurs.",
@@ -682,7 +765,8 @@ module.exports = {
     "de": "Bist du sicher, dass du dieses Gespräch schließen willst? Es wird dann nicht mehr in Deinen aktiven Gesprächen oder in denen Deiner Gesprächspartner erscheinen.",
     "es": "¿Estás seguro de que desea cerrar esta conversación? No aparecerá ni en tus conversaciones activas o en las de tus destinatarios.",
     "it": "Sei sicuro di voler terminare questa conversazione? Non apparirà più nelle vostre conversazioni attive o in quelle dei vostri partner di conversazione.",
-    "io": "crwdns15134:0crwdne15134:0"
+    "io": "crwdns15134:0crwdne15134:0",
+    "nl": "Weet u zeker dat u dit gesprek wilt sluiten? Het verschijnt niet meer in uw actieve gesprekken of in die van uw gesprekspartners."
   },
   "closeConfirmation": {
     "fr": "Êtes-vous sûr de vouloir fermer cette conversation ?",
@@ -690,7 +774,8 @@ module.exports = {
     "de": "Bist du sicher, dass du dieses Gespräch schließen willst?",
     "es": "¿Estás seguro de que desea cerrar esta conversación?",
     "it": "Sei sicuro di voler chiudere questa conversazione?",
-    "io": "crwdns15136:0crwdne15136:0"
+    "io": "crwdns15136:0crwdne15136:0",
+    "nl": "Weet u zeker dat u dit gesprek wilt sluiten?"
   },
   "wouldLikeToContribute": {
     "fr": "voudrait contribuer",
@@ -698,7 +783,8 @@ module.exports = {
     "de": "möchte beitragen",
     "es": "quisiera contribuir",
     "it": "desidera contribuire",
-    "io": "crwdns15138:0crwdne15138:0"
+    "io": "crwdns15138:0crwdne15138:0",
+    "nl": "wil graag bijdragen"
   },
   "requestForContribution": {
     "fr": "Demande de contribution à",
@@ -706,7 +792,8 @@ module.exports = {
     "de": "Antrag auf Beitrag",
     "es": "Solicitud de contribución a",
     "it": "Richiesta di contributo a",
-    "io": "crwdns15140:0crwdne15140:0"
+    "io": "crwdns15140:0crwdne15140:0",
+    "nl": "Verzoek om bijdrage aan"
   },
   "postedAgo": {
     "fr": "Posté il y a %date%",
@@ -714,7 +801,8 @@ module.exports = {
     "de": "Geschrieben %date% vor",
     "es": "Publicado el %date%",
     "it": "Inviato %date% fa",
-    "io": "crwdns15142:0%date%crwdne15142:0"
+    "io": "crwdns15142:0%date%crwdne15142:0",
+    "nl": "Geplaatst %date% geleden"
   },
   "repliedAgo": {
     "fr": "a répondu il y a %date%",
@@ -722,7 +810,8 @@ module.exports = {
     "de": "Vor antwortete %date%",
     "es": "respondido el %date%",
     "it": "risposto %date% fa",
-    "io": "crwdns15144:0%date%crwdne15144:0"
+    "io": "crwdns15144:0%date%crwdne15144:0",
+    "nl": "heeft %date% geleden geantwoord"
   },
   "youRepliedAgo": {
     "fr": "Vous avez répondu il y a %date%",
@@ -730,7 +819,8 @@ module.exports = {
     "de": "Du hast vor %date% geantwortet",
     "es": "Has respondido %date%",
     "it": "Hai risposto %date% fa",
-    "io": "crwdns15146:0%date%crwdne15146:0"
+    "io": "crwdns15146:0%date%crwdne15146:0",
+    "nl": "U heeft %date% geleden geantwoord"
   },
   "contactForm": {
     "fr": "Formulaire de contact",
@@ -739,7 +829,8 @@ module.exports = {
     "es": "Formulario de contacto",
     "it": "Modulo di contatto",
     "io": "crwdns15148:0crwdne15148:0",
-    "oc": "Formulari de contacte"
+    "oc": "Formulari de contacte",
+    "nl": "Contactformulier"
   },
   "needHelp": {
     "fr": "Besoin d'aide ?",
@@ -747,7 +838,8 @@ module.exports = {
     "de": "Brauchst du Hilfe ?",
     "es": "Necesidad de ayuda ?",
     "it": "Hai bisogno di aiuto?",
-    "io": "crwdns15150:0crwdne15150:0"
+    "io": "crwdns15150:0crwdne15150:0",
+    "nl": "Hulp nodig?"
   },
   "sendMessageError": {
     "fr": "Nous avons rencontré une erreur, veuillez réessayer ultérieurement.",
@@ -755,7 +847,8 @@ module.exports = {
     "de": "Wir haben einen Fehler festgestellt, bitte versuchen Sie es später noch einmal.",
     "es": "Ocurrió un error, por favor inténtalo nuevamente",
     "it": "Abbiamo riscontrato un errore, riprovare più tardi.",
-    "io": "crwdns15152:0crwdne15152:0"
+    "io": "crwdns15152:0crwdne15152:0",
+    "nl": "We hebben een fout aangetroffen, probeer het later opnieuw."
   },
   "youContactedTheAgenda": {
     "fr": "Vous avez contacté l'agenda",
@@ -763,7 +856,8 @@ module.exports = {
     "de": "Du hast den Veranstaltungskalender kontaktiert ",
     "es": "Has contactado la agenda",
     "it": "Avete contattato il calendario",
-    "io": "crwdns15154:0crwdne15154:0"
+    "io": "crwdns15154:0crwdne15154:0",
+    "nl": "U heeft contact opgenomen met de agenda"
   },
   "contactedTheAgenda": {
     "fr": "a contacté l'agenda",
@@ -771,7 +865,8 @@ module.exports = {
     "de": "den Veranstaltungskalender kontaktiert",
     "es": "ha contactado la agenda",
     "it": "contattato il calendario",
-    "io": "crwdns15156:0crwdne15156:0"
+    "io": "crwdns15156:0crwdne15156:0",
+    "nl": "heeft contact opgenomen met de agenda"
   },
   "youContactedTheContributor": {
     "fr": "Vous avez contacté le contributeur",
@@ -779,7 +874,8 @@ module.exports = {
     "de": "Du hast den Teilnehmer kontaktiert",
     "es": "Has contactado el contribuidor",
     "it": "Avete contattato il collaboratore",
-    "io": "crwdns15158:0crwdne15158:0"
+    "io": "crwdns15158:0crwdne15158:0",
+    "nl": "U heeft contact opgenomen met de bijdrager"
   },
   "youContactedTheContributorOf": {
     "fr": "Vous avez contacté le contributeur de",
@@ -787,7 +883,8 @@ module.exports = {
     "de": "Du hast den Teilnehmer von kontaktiert",
     "es": "Has conatctado el contribuidor de ",
     "it": "Avete contattato il collaboratore di",
-    "io": "crwdns15160:0crwdne15160:0"
+    "io": "crwdns15160:0crwdne15160:0",
+    "nl": "U heeft contact opgenomen met de bijdrager van"
   },
   "contactedTheContributor": {
     "fr": "a contacté le contributeur",
@@ -795,7 +892,8 @@ module.exports = {
     "de": "den Beitrag in Kontakt gebracht",
     "es": "ha contactado el contribuidor",
     "it": "ha contattato il collaboratore",
-    "io": "crwdns15162:0crwdne15162:0"
+    "io": "crwdns15162:0crwdne15162:0",
+    "nl": "heeft contact opgenomen met de bijdrager"
   },
   "contactedYou": {
     "fr": "vous a contacté",
@@ -803,7 +901,8 @@ module.exports = {
     "de": "kontaktiert Sie",
     "es": "te ha contactado",
     "it": "contattato",
-    "io": "crwdns15164:0crwdne15164:0"
+    "io": "crwdns15164:0crwdne15164:0",
+    "nl": "heeft contact met u opgenomen"
   },
   "youContacted": {
     "fr": "Vous avez contacté",
@@ -811,7 +910,8 @@ module.exports = {
     "de": "Sie kontaktiert",
     "es": "Has contactado",
     "it": "Avete contattato",
-    "io": "crwdns15166:0crwdne15166:0"
+    "io": "crwdns15166:0crwdne15166:0",
+    "nl": "U heeft contact opgenomen met"
   },
   "contacted": {
     "fr": "a contacté",
@@ -819,7 +919,8 @@ module.exports = {
     "de": "kontaktiert",
     "es": "ha contactado",
     "it": "contattato",
-    "io": "crwdns15168:0crwdne15168:0"
+    "io": "crwdns15168:0crwdne15168:0",
+    "nl": "heeft contact opgenomen met"
   },
   "on": {
     "fr": "sur",
@@ -828,7 +929,8 @@ module.exports = {
     "es": "en",
     "it": "su",
     "io": "crwdns15170:0crwdne15170:0",
-    "oc": "los"
+    "oc": "los",
+    "nl": "op"
   },
   "of": {
     "fr": "de",
@@ -836,7 +938,8 @@ module.exports = {
     "de": "von",
     "es": "de",
     "it": "da",
-    "io": "crwdns15172:0crwdne15172:0"
+    "io": "crwdns15172:0crwdne15172:0",
+    "nl": "van"
   },
   "or": {
     "fr": "ou",
@@ -845,7 +948,8 @@ module.exports = {
     "es": "o",
     "it": "oppure",
     "io": "crwdns15174:0crwdne15174:0",
-    "oc": "o"
+    "oc": "o",
+    "nl": "of"
   },
   "ofTheAgenda": {
     "fr": "de l'agenda",
@@ -853,7 +957,8 @@ module.exports = {
     "de": "des Veranstaltungskalenders",
     "es": "de la agenda",
     "it": "dell'agenda",
-    "io": "crwdns15176:0crwdne15176:0"
+    "io": "crwdns15176:0crwdne15176:0",
+    "nl": "van de agenda"
   },
   "onTheAgenda": {
     "fr": "sur l'agenda",
@@ -861,7 +966,8 @@ module.exports = {
     "de": "im Veranstaltungskalender",
     "es": "en la agenda",
     "it": "sull'agenda",
-    "io": "crwdns15178:0crwdne15178:0"
+    "io": "crwdns15178:0crwdne15178:0",
+    "nl": "op de agenda"
   },
   "youWantToContributeToTheAgenda": {
     "fr": "Vous souhaitez contribuer à l'agenda",
@@ -869,7 +975,8 @@ module.exports = {
     "de": "Du willst am Veranstaltungskalender teilnehmen",
     "es": "Quieres contribuir a la agenda",
     "it": "Volete contribuire all'agenda",
-    "io": "crwdns15180:0crwdne15180:0"
+    "io": "crwdns15180:0crwdne15180:0",
+    "nl": "U wilt bijdragen aan de agenda"
   },
   "wantsToContributeToTheAgenda": {
     "fr": "souhaite contribuer à l'agenda",
@@ -877,7 +984,8 @@ module.exports = {
     "de": "will am Veranstaltungskalender teilnehmen",
     "es": "desea contribuir a la agenda",
     "it": "desidera contribuire all'agenda",
-    "io": "crwdns15182:0crwdne15182:0"
+    "io": "crwdns15182:0crwdne15182:0",
+    "nl": "wil bijdragen aan de agenda"
   },
   "youRequestedEditingRights": {
     "fr": "Vous avez demandé les droits d'édition",
@@ -885,7 +993,8 @@ module.exports = {
     "de": "Du hast Bearbeitungsrechte angefordert",
     "es": "Has pedido derechos de edición",
     "it": "Hai richiesto i diritti di pubblicazione",
-    "io": "crwdns15184:0crwdne15184:0"
+    "io": "crwdns15184:0crwdne15184:0",
+    "nl": "U heeft bewerkingsrechten aangevraagd"
   },
   "requestedEditingRights": {
     "fr": "a demandé les droits d'édition",
@@ -893,7 +1002,8 @@ module.exports = {
     "de": "angeforderte Bearbeitungsrechte",
     "es": "ha pedido derechos de edición",
     "it": "ha richiesto i diritti di pubblicazione",
-    "io": "crwdns15186:0crwdne15186:0"
+    "io": "crwdns15186:0crwdne15186:0",
+    "nl": "heeft bewerkingsrechten aangevraagd"
   },
   "youSuggestedALocationChange": {
     "fr": "Vous avez suggeré une modification sur le lieu",
@@ -901,7 +1011,8 @@ module.exports = {
     "de": "Du hast eine Änderung der Örtlichkeit vorgeschlagen",
     "es": "Has sugerido una edición en el lugar",
     "it": "Lei ha suggerito una modifica della posizione",
-    "io": "crwdns15188:0crwdne15188:0"
+    "io": "crwdns15188:0crwdne15188:0",
+    "nl": "U heeft een wijziging op de locatie voorgesteld"
   },
   "suggestedALocationChange": {
     "fr": "a suggeré une modification sur le lieu",
@@ -909,7 +1020,8 @@ module.exports = {
     "de": "eine Änderung an der Stelle vorgeschlagen",
     "es": "ha sugerido una edición en el lugar",
     "it": "ha suggerito un cambiamento nella posizione",
-    "io": "crwdns15190:0crwdne15190:0"
+    "io": "crwdns15190:0crwdne15190:0",
+    "nl": "heeft een wijziging op de locatie voorgesteld"
   },
   "youContactedSupport": {
     "fr": "Vous avez contacté le support OpenAgenda",
@@ -917,7 +1029,8 @@ module.exports = {
     "de": "Du hast den Hilfebereich von OpenAgenda kontaktiert.",
     "es": "Te has comunicado con el soporte OpenAgenda",
     "it": "Ha contattato il supporto di OpenAgenda",
-    "io": "crwdns15192:0crwdne15192:0"
+    "io": "crwdns15192:0crwdne15192:0",
+    "nl": "U heeft contact opgenomen met de OpenAgenda support"
   },
   "contactedSupport": {
     "fr": "a contacté le support OpenAgenda",
@@ -925,7 +1038,8 @@ module.exports = {
     "de": "kontaktiert die Stütz OpenAgenda",
     "es": "ha contactado el soporte OpenAgenda",
     "it": "contattare il supporto di OpenAgenda",
-    "io": "crwdns15194:0crwdne15194:0"
+    "io": "crwdns15194:0crwdne15194:0",
+    "nl": "heeft contact opgenomen met de OpenAgenda support"
   },
   "conversationCreationSuccess": {
     "fr": "Votre message a bien été envoyé, vous pourrez voir les réponses dans votre messagerie personnelle.",
@@ -933,7 +1047,8 @@ module.exports = {
     "de": "Deine Nachricht wurde versendet, du wirst die Antworten in Deinem persönlichen Posteingang sehen.",
     "es": "Tu mensaje ha sido enviado, verás las respuestas en tu buzón personal.",
     "it": "Il vostro messaggio è stato inviato con successo, potrete vedere le risposte nella vostra casella di posta personale.",
-    "io": "crwdns15196:0crwdne15196:0"
+    "io": "crwdns15196:0crwdne15196:0",
+    "nl": "Uw bericht is verzonden, u zult de antwoorden in uw persoonlijke inbox zien."
   },
   "requestEditionCreationTitle": {
     "fr": "Demande de droits d'édition sur <a href=\"%link%\">%title%</a>",
@@ -941,7 +1056,8 @@ module.exports = {
     "de": "Antrag auf Editierrechte de",
     "es": "Petición para los derechos de edición de <a href=\\\"%link%\\\">",
     "it": "Richiesta di diritti di modifica su <a href=\\\"%link%\\\">%title%</a>",
-    "io": "crwdns15198:0%link%crwdnd15198:0%title%crwdne15198:0"
+    "io": "crwdns15198:0%link%crwdnd15198:0%title%crwdne15198:0",
+    "nl": "Aanvraag voor bewerkingsrechten van <a href=\"%link%\">%title%</a>"
   },
   "requestContributeAcceptModalTitle": {
     "fr": "Accepter le contributeur",
@@ -949,7 +1065,8 @@ module.exports = {
     "de": "Übernehmen Sie den Beitrag",
     "es": "Aceptar el contribuyente",
     "it": "Accettare il collaboratore",
-    "io": "crwdns15200:0crwdne15200:0"
+    "io": "crwdns15200:0crwdne15200:0",
+    "nl": "De bijdrager accepteren"
   },
   "requestContributeAcceptModal": {
     "fr": "Êtes-vous sûr de vouloir accepter ce contributeur ?",
@@ -957,7 +1074,8 @@ module.exports = {
     "de": "Bist du sicher, dass du diesen Beitrag akzeptieren willst?",
     "es": "¿Estás seguro de que deseas aceptar este contribuyente?",
     "it": "Sei sicuro di voler accettare questo contributo?",
-    "io": "crwdns15202:0crwdne15202:0"
+    "io": "crwdns15202:0crwdne15202:0",
+    "nl": "Weet u zeker dat u deze bijdrager wilt accepteren?"
   },
   "requestContributeRefuseModalTitle": {
     "fr": "Refuser le contributeur",
@@ -965,7 +1083,8 @@ module.exports = {
     "de": "Weigern, den Beitrag",
     "es": "Rechazar el contribuyente",
     "it": "Rifiuta il contribuente",
-    "io": "crwdns15204:0crwdne15204:0"
+    "io": "crwdns15204:0crwdne15204:0",
+    "nl": "De bijdrager weigeren"
   },
   "requestContributeRefuseModal": {
     "fr": "Êtes-vous sûr de vouloir refuser ce contributeur ?",
@@ -973,7 +1092,8 @@ module.exports = {
     "de": "Bist du sicher, dass du diesen Beitrag ablehnen willst?",
     "es": "¿Estás seguro de que deseas rechazar el contribuyente?",
     "it": "Sei sicuro di voler rifiutare questo collaboratore?",
-    "io": "crwdns15206:0crwdne15206:0"
+    "io": "crwdns15206:0crwdne15206:0",
+    "nl": "Weet u zeker dat u deze bijdrager wilt weigeren?"
   },
   "requestContributeAccepted": {
     "fr": "La demande a été acceptée.",
@@ -981,7 +1101,8 @@ module.exports = {
     "de": "Der Antrag wird angenommen.",
     "es": "La solicitud ha sido aceptada. ",
     "it": "La domanda è stata accettata.",
-    "io": "crwdns15208:0crwdne15208:0"
+    "io": "crwdns15208:0crwdne15208:0",
+    "nl": "Het verzoek is geaccepteerd."
   },
   "requestContributeRefused": {
     "fr": "La demande a été refusée.",
@@ -989,7 +1110,8 @@ module.exports = {
     "de": "Der Antrag wurde abgelehnt.",
     "es": "La solicitud ha sido rechazada.",
     "it": "La domanda è stata respinta.",
-    "io": "crwdns15210:0crwdne15210:0"
+    "io": "crwdns15210:0crwdne15210:0",
+    "nl": "Het verzoek is geweigerd."
   },
   "editionRequestAcceptModalTitle": {
     "fr": "Donner les droits d'édition",
@@ -997,7 +1119,8 @@ module.exports = {
     "de": "Die Bearbeitungsrechte geben",
     "es": "Dar los derechos de edición",
     "it": "Dare i diritti di pubblicazione",
-    "io": "crwdns15212:0crwdne15212:0"
+    "io": "crwdns15212:0crwdne15212:0",
+    "nl": "Bewerkingsrechten geven"
   },
   "editionRequestAcceptModal": {
     "fr": "Êtes-vous sûr de vouloir donner les droits d'édition sur cet événement ?",
@@ -1005,7 +1128,8 @@ module.exports = {
     "de": "Bist du sicher, dass du Bearbeitungsrechte zu dieser Veranstaltung vergeben wilsst?",
     "es": "¿Estás seguro de que deseas dar los derechos de edición para este evento?",
     "it": "Siete sicuri di voler dare i diritti di pubblicazione di questo evento?",
-    "io": "crwdns15214:0crwdne15214:0"
+    "io": "crwdns15214:0crwdne15214:0",
+    "nl": "Weet u zeker dat u bewerkingsrechten op dit evenement wilt geven?"
   },
   "editionRequestRefuseModalTitle": {
     "fr": "Refuser la demande",
@@ -1013,7 +1137,8 @@ module.exports = {
     "de": "Refuse die Anfrage",
     "es": "Rechazar la solicitud",
     "it": "Rifiuta la richiesta",
-    "io": "crwdns15216:0crwdne15216:0"
+    "io": "crwdns15216:0crwdne15216:0",
+    "nl": "Het verzoek weigeren"
   },
   "editionRequestRefuseModal": {
     "fr": "Êtes-vous sûr de vouloir refuser de donner les droits d'édition sur cet événement ?",
@@ -1021,7 +1146,8 @@ module.exports = {
     "de": "Bist du sicher, dass du die Vergabe der Bearbeitungsrechte zu dieser Veranstaltung vergeben willst?",
     "es": "¿Estás seguro de que deseas rechazar los derechos de publicación de este evento?",
     "it": "Siete sicuri di voler rifiutare di concedere i diritti di pubblicazione di questo evento?",
-    "io": "crwdns15218:0crwdne15218:0"
+    "io": "crwdns15218:0crwdne15218:0",
+    "nl": "Weet u zeker dat u wilt weigeren om bewerkingsrechten op dit evenement te geven?"
   },
   "editionRequestAccepted": {
     "fr": "La demande a été acceptée.",
@@ -1029,7 +1155,8 @@ module.exports = {
     "de": "Der Antrag wird angenommen.",
     "es": "Se aceptó la petición.",
     "it": "La richiesta è stata accettata.",
-    "io": "crwdns15220:0crwdne15220:0"
+    "io": "crwdns15220:0crwdne15220:0",
+    "nl": "Het verzoek is geaccepteerd."
   },
   "editionRequestRefused": {
     "fr": "La demande a été refusée.",
@@ -1037,7 +1164,8 @@ module.exports = {
     "de": "Der Antrag wurde abgelehnt.",
     "es": "La solicitud fue denegada.",
     "it": "La richiesta è stata respinta.",
-    "io": "crwdns15222:0crwdne15222:0"
+    "io": "crwdns15222:0crwdne15222:0",
+    "nl": "Het verzoek is geweigerd."
   },
   "uppyNote": {
     "fr": "Vous pouvez télécharger une image ou un fichier de type pdf, doc ou docx.",
@@ -1045,7 +1173,8 @@ module.exports = {
     "de": "Du kannst ein Bild oder eine Dokument vom Typ .pdf, .doc oder .docx hochladen.",
     "es": "Puede descargar una imagen o archivo PDF tipo, doc o docx.",
     "it": "È possibile scaricare un'immagine o un file pdf, doc o docx.",
-    "io": "crwdns15224:0crwdne15224:0"
+    "io": "crwdns15224:0crwdne15224:0",
+    "nl": "U kunt een afbeelding of een bestand van het type pdf, doc of docx uploaden."
   },
   "uppyModalTitle": {
     "fr": "Ajouter une pièce jointe",
@@ -1053,7 +1182,8 @@ module.exports = {
     "de": "Anhang hinzufügen",
     "es": "Añadir archivo adjunto",
     "it": "Aggiungere un allegato",
-    "io": "crwdns15226:0crwdne15226:0"
+    "io": "crwdns15226:0crwdne15226:0",
+    "nl": "Bijlage toevoegen"
   },
   "attachFile": {
     "fr": "Ajouter une pièce jointe",
@@ -1061,7 +1191,8 @@ module.exports = {
     "de": "Anhang hinzufügen",
     "es": "Añadir archivo adjunto",
     "it": "Aggiungere un allegato",
-    "io": "crwdns15228:0crwdne15228:0"
+    "io": "crwdns15228:0crwdne15228:0",
+    "nl": "Bijlage toevoegen"
   },
   "attachment": {
     "fr": "Pièce jointe",
@@ -1069,7 +1200,8 @@ module.exports = {
     "de": "Befestigung",
     "es": "Archivo adjunto",
     "it": "Allegato",
-    "io": "crwdns15230:0crwdne15230:0"
+    "io": "crwdns15230:0crwdne15230:0",
+    "nl": "Bijlage"
   },
   "attachments": {
     "fr": "Pièces jointes",
@@ -1077,7 +1209,8 @@ module.exports = {
     "de": "Anlagen",
     "es": "Archivos adjuntos",
     "it": "Allegati",
-    "io": "crwdns15232:0crwdne15232:0"
+    "io": "crwdns15232:0crwdne15232:0",
+    "nl": "Bijlagen"
   },
   "oneAttachment": {
     "fr": "1 pièce jointe",
@@ -1085,7 +1218,8 @@ module.exports = {
     "de": "1 attachment",
     "es": "1 archivo adjunto",
     "it": "1 allegato",
-    "io": "crwdns15234:0crwdne15234:0"
+    "io": "crwdns15234:0crwdne15234:0",
+    "nl": "1 bijlage"
   },
   "nAttachments": {
     "fr": "%number% pièces jointes",
@@ -1093,7 +1227,8 @@ module.exports = {
     "de": "%number% Attachments",
     "es": "%number% archivos adjuntos",
     "it": "%numero% allegati",
-    "io": "crwdns15236:0%number%crwdne15236:0"
+    "io": "crwdns15236:0%number%crwdne15236:0",
+    "nl": "%number% bijlagen"
   },
   "uploadError": {
     "fr": "Erreur de téléchargement",
@@ -1101,7 +1236,8 @@ module.exports = {
     "de": "Fehler beim hochladen",
     "es": "Error de descarga",
     "it": "Scarica l'errore",
-    "io": "crwdns15238:0crwdne15238:0"
+    "io": "crwdns15238:0crwdne15238:0",
+    "nl": "Upload fout"
   },
   "from": {
     "fr": "Depuis",
@@ -1110,7 +1246,8 @@ module.exports = {
     "es": "De",
     "it": "Da",
     "io": "crwdns15240:0crwdne15240:0",
-    "oc": "De"
+    "oc": "De",
+    "nl": "Van"
   },
   "validate": {
     "fr": "Valider",
@@ -1119,7 +1256,8 @@ module.exports = {
     "es": "Validar",
     "it": "Convalida",
     "io": "crwdns15242:0crwdne15242:0",
-    "oc": "Validar"
+    "oc": "Validar",
+    "nl": "Valideren"
   },
   "supportPlaceholder": {
     "fr": "Bonjour,\n\nJ'ai un problème lorsque j'utilise OpenAgenda avec ...",
@@ -1127,39 +1265,45 @@ module.exports = {
     "de": "Hallo,\n\nIch habe ein Problem, wenn ich OpenAgenda verwenden, um mit ...",
     "es": "Buenos dias,\n\nTengo un problema en OpenAgenda cuando ...",
     "it": "Ciao, ho un problema quando uso OpenAgenda con ...",
-    "io": "crwdns15244:0crwdne15244:0"
+    "io": "crwdns15244:0crwdne15244:0",
+    "nl": "Hallo,\n\nIk heb een probleem wanneer ik OpenAgenda gebruik met ..."
   },
   "locationName": {
     "fr": "**Nom du lieu**: %name%",
     "en": "**Location name**: %name%",
     "it": "**Nome del luogo**: %name%",
     "io": "crwdns33175:0%name%crwdne33175:0",
-    "es": "**Nombre del lugar**: %name%"
+    "es": "**Nombre del lugar**: %name%",
+    "nl": "**Naam locatie**: %name%"
   },
   "eventTitle": {
     "fr": "**Titre de l'événement**: %name%",
     "en": "**Event Title**: %name%",
     "it": "**Titolo dell'evento**: %name%",
     "io": "crwdns33476:0%name%crwdne33476:0",
-    "es": "**Título del evento**: %name%"
+    "es": "**Título del evento**: %name%",
+    "nl": "**Titel evenement**: %name%"
   },
   "titleSuggestEventChange": {
     "fr": "Suggérer une modification sur l'événement",
     "en": "Suggest a change on the event",
     "io": "crwdns33478:0crwdne33478:0",
-    "es": "Sugerir un cambio en el evento"
+    "es": "Sugerir un cambio en el evento",
+    "nl": "Een wijziging op het evenement voorstellen"
   },
   "youSuggestedAEventChange": {
     "fr": "Vous avez suggeré une modification sur l'événement",
     "en": "You suggested a change on the event",
     "io": "crwdns33480:0crwdne33480:0",
-    "es": "Has sugerido un cambio en el evento"
+    "es": "Has sugerido un cambio en el evento",
+    "nl": "U heeft een wijziging op het evenement voorgesteld"
   },
   "suggestedAEventChange": {
     "fr": "a suggeré une modification sur l'événement",
     "en": "suggested a change on the event",
     "io": "crwdns33482:0crwdne33482:0",
-    "es": "ha sugerido un cambio en el evento"
+    "es": "ha sugerido un cambio en el evento",
+    "nl": "heeft een wijziging op het evenement voorgesteld"
   },
   "displaySenderDetails": {
     "en": "Display sender details",

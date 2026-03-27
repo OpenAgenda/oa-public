@@ -1,15 +1,15 @@
 {
-  "empty": "la categoria non può essere vuota",
-  "duplicate": "questa categoria esiste già",
-  "categories": "Categorie",
-  "subtitle": "Le categorie formano un elenco a scelta unica",
-  "listName": "Nome della lista",
-  "listInfo": "Campo indicativo",
-  "listSection": "Categorie del diario",
   "add": "Aggiungere",
-  "noCategories": "Non avete ancora definito alcuna categoria per questo agenda",
-  "linkError": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve",
   "cancelUpdateTag": "Annullare",
-  "updateTag": "Ok",
-  "required": "Rendetelo obbligatorio. Deve essere selezionata una categoria."
+  "categories": "Categorie",
+  "duplicate": "questa categoria esiste già",
+  "empty": "la categoria non può essere vuota",
+  "linkError": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve",
+  "listInfo": "Campo indicativo",
+  "listName": "Nome della lista",
+  "listSection": "Categorie del diario",
+  "noCategories": "Non avete ancora definito alcuna categoria per questo agenda",
+  "required": "Rendetelo obbligatorio. Deve essere selezionata una categoria.",
+  "subtitle": "Le categorie formano un elenco a scelta unica",
+  "updateTag": "Ok"
 }

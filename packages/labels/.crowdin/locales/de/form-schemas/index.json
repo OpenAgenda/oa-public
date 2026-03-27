@@ -1,8 +1,8 @@
 {
-  "required": "Pflichtfeld",
+  "cancel": "Annulieren",
   "groupErrorHeader": "Einige Werte müssen korrigiert werden",
-  "submit": "Rekord",
   "help": "Hilfe",
   "noChoice": "Keine Wahl",
-  "cancel": "Annulieren"
+  "required": "Pflichtfeld",
+  "submit": "Rekord"
 }

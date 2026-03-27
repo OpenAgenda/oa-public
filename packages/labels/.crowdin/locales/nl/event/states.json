@@ -1,0 +1,15 @@
+{
+  "all": "alles bekijken",
+  "controlled": "klaar om te publiceren",
+  "featured": "uitgelicht",
+  "featuredChange": "Het evenement wordt nu uitgelicht",
+  "published": "gepubliceerd",
+  "refused": "Erhalte Ablehnungsstatus",
+  "state": "status",
+  "stateChanged": "De status van het evenement is gewijzigd",
+  "stateFieldInfo": "Toegang tot dit veld is beperkt tot beheerders en moderators van de agenda",
+  "stateFieldSub": "Belangrijk: het evenement zal alleen zichtbaar en deelbaar zijn wanneer het is gepubliceerd",
+  "tobecontrolled": "met mate",
+  "tocontrol": "met mate",
+  "unfeaturedChange": "Het evenement wordt niet meer uitgelicht"
+}

@@ -9,7 +9,8 @@ module.exports = {
     "pl": "Twoja akcja jest przetwarzana. Wydarzenia w stanie %oldstate% zostaną wkrótce zmienione na %newstate%.",
     "es": "Su acción se está procesando. Los eventos con el estado %oldstate% passaran en breve a %newstate%.",
     "io": "crwdns12762:0%oldstate%crwdnd12762:0%newstate%crwdne12762:0",
-    "oc": "Vòstra accion es en cors de tractament. Los eveniments jos l'estat %oldstate% se cambiaràn lèu per %newstate%."
+    "oc": "Vòstra accion es en cors de tractament. Los eveniments jos l'estat %oldstate% se cambiaràn lèu per %newstate%.",
+    "nl": "Uw aanvraag wordt verwerkt. Evenementen met de status %oldstate% zullen binnenkort worden gewijzigd naar %newstate%."
   },
   "ownershipTransfered": {
     "en": "The ownership of the event has successfully been transferred",
@@ -19,7 +20,8 @@ module.exports = {
     "pl": "Własność wydarzenia została pomyślnie przeniesiona",
     "es": "La propiedad del evento fue transferido con éxito",
     "io": "crwdns12764:0crwdne12764:0",
-    "oc": "La proprietat de l'eveniment es plan estada transferida"
+    "oc": "La proprietat de l'eveniment es plan estada transferida",
+    "nl": "Het eigendom van het evenement is succesvol overgedragen"
   },
   "spreadsheetTitle": {
     "en": "Download",
@@ -29,7 +31,8 @@ module.exports = {
     "pl": "Pobieranie",
     "es": "Descargar",
     "io": "crwdns12766:0crwdne12766:0",
-    "oc": "Descargar"
+    "oc": "Descargar",
+    "nl": "Downloaden"
   },
   "allLanguages": {
     "en": "All languages",
@@ -39,7 +42,8 @@ module.exports = {
     "pl": "Wszystkie języki",
     "es": "todos los idiomas",
     "io": "crwdns12768:0crwdne12768:0",
-    "oc": "Totas las lengas"
+    "oc": "Totas las lengas",
+    "nl": "Alle talen"
   },
   "spreadsheetDescription": {
     "en": "Limit downloaded content to specified languages",
@@ -49,6 +53,7 @@ module.exports = {
     "pl": "Ogranicz pobraną zawartość do określonych języków",
     "es": "Limitar datos descargados algunos idiomas",
     "io": "crwdns12770:0crwdne12770:0",
-    "oc": "Limitar lo contengut descargat a las lengas indicadas"
+    "oc": "Limitar lo contengut descargat a las lengas indicadas",
+    "nl": "Gedownloade inhoud beperken tot bepaalde talen"
   }
 }

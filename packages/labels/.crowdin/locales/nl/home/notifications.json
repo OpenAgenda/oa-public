@@ -1,0 +1,19 @@
+{
+  "agendaEventPublished": "%user% heeft %event% gepubliceerd.",
+  "agendaEventUpdate": "%agenda%: het evenement %event% is bijgewerkt door %user%.",
+  "agendaNewAdministrator": "%user% is nu beheerder van de agenda %agenda%.",
+  "agendaNewAggregator": "%aggregator% importeert nu de evenementen van je agenda %agenda%.",
+  "agendaNewContributor": "%user% is nu een bijdrager van de agenda %agenda%.",
+  "agendaNewModerator": "%user% is nu moderator van de agenda %agenda%.",
+  "notificationTitle": "Melding",
+  "seeAgenda": "Bekijk de agenda",
+  "seeEvent": "Bekijk het evenement",
+  "unsubscribeFromAllNotifications": "Schrijf me uit voor meldingen van deze agenda",
+  "unsubscribeFromNotification": "Schrijf me uit voor meldingen van dit type",
+  "unsubscribedFail": "Er is een probleem opgetreden. Probeer het binnenkort opnieuw of neem contact op met support",
+  "unsubscribedSuccess": "Je bent nu uitgeschreven",
+  "userEventUpdate": "%user% heeft wijzigingen aangebracht in %event%.",
+  "userNewAdministrator": "Je bent nu een beheerder van de agenda %agenda%.",
+  "userNewContributor": "Je bent nu een bijdrager van de agenda %agenda%.",
+  "userNewModerator": "Je bent nu een moderator van de agenda %agenda%."
+}

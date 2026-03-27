@@ -1,0 +1,7 @@
+{
+  "eventNotLinkedToAgenda": "Het evenement staat niet vermeld in de agenda",
+  "noAccessToClosedAgenda": "Deze agenda staat niet open voor bijdragen",
+  "noAccessToCreate": "U heeft geen rechten om evenementen aan te maken op deze agenda",
+  "noAccessToDraft": "U heeft geen bewerkingsrechten voor dit concept",
+  "noAccessToEdit": "U heeft geen bewerkingsrechten voor dit evenement"
+}

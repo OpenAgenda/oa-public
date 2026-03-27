@@ -1,0 +1,7 @@
+{
+  "location.required": "De locatie moet worden opgegeven",
+  "timings.empty": "Er moet minstens één tijdstip worden opgegeven",
+  "timings.invalid": "Er moet minstens één tijdstip worden opgegeven",
+  "timings.min.1": "Er moet minstens één tijdstip worden opgegeven",
+  "timings.toolong": "Er kunnen niet meer dan 800 tijdstippen zijn voor één evenement"
+}

@@ -1,9 +1,9 @@
 {
-  "mi": "Handicap motor",
   "hi": "Handicap auditiu",
   "ii": "Handicap intellectual",
+  "input": "Aqueste eveniment enclaus d'aisinas per l'accessibilitat",
+  "mi": "Handicap motor",
   "pi": "Handicap psiquic",
-  "vi": "Handicap visual",
   "sl": "Lenga dels signes",
-  "input": "Aqueste eveniment enclaus d'aisinas per l'accessibilitat"
+  "vi": "Handicap visual"
 }

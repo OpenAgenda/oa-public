@@ -1,8 +1,8 @@
 {
-  "facebookTabAdded": "L'onglet agenda es estat apondut a vòstra pagina Facebook",
-  "title": "Facebook",
-  "description": "Apondètz vòstra agenda sus una pagina Facebook",
-  "footnote": "Coma Facebook a metut a jorn sas %link%, aquela foncionalitat es disponibla sonque per las paginas amb mai de 2000 \"m'agrada\".",
   "add": "Causir una pagina Facebook",
-  "conditions": "condicions d'utilizacion"
+  "conditions": "condicions d'utilizacion",
+  "description": "Apondètz vòstra agenda sus una pagina Facebook",
+  "facebookTabAdded": "L'onglet agenda es estat apondut a vòstra pagina Facebook",
+  "footnote": "Coma Facebook a metut a jorn sas %link%, aquela foncionalitat es disponibla sonque per las paginas amb mai de 2000 \"m'agrada\".",
+  "title": "Facebook"
 }

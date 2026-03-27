@@ -9,7 +9,8 @@ module.exports = {
     "pl": "Cały dzień",
     "es": "Todo el día",
     "io": "crwdns12780:0crwdne12780:0",
-    "oc": "Tota la jornada"
+    "oc": "Tota la jornada",
+    "nl": "De hele dag"
   },
   "previous": {
     "en": "Previous",
@@ -19,7 +20,8 @@ module.exports = {
     "pl": "Poprzedni",
     "es": "Anterior",
     "io": "crwdns12782:0crwdne12782:0",
-    "oc": "Precedent"
+    "oc": "Precedent",
+    "nl": "Bisherige"
   },
   "next": {
     "en": "Next",
@@ -30,7 +32,8 @@ module.exports = {
     "es": "Próximo",
     "br": "War-lerc'h",
     "io": "crwdns12784:0crwdne12784:0",
-    "oc": "Seguent"
+    "oc": "Seguent",
+    "nl": "Volgende"
   },
   "today": {
     "en": "Today",
@@ -40,7 +43,8 @@ module.exports = {
     "pl": "Dziś",
     "es": "Hoy",
     "io": "crwdns12786:0crwdne12786:0",
-    "oc": "Uèi"
+    "oc": "Uèi",
+    "nl": "Vandaag"
   },
   "month": {
     "en": "Month",
@@ -50,7 +54,8 @@ module.exports = {
     "pl": "Miesiąc",
     "es": "Mes",
     "io": "crwdns12788:0crwdne12788:0",
-    "oc": "Mes"
+    "oc": "Mes",
+    "nl": "Maand"
   },
   "week": {
     "en": "Week",
@@ -60,7 +65,8 @@ module.exports = {
     "pl": "Tydzień",
     "es": "Semana",
     "io": "crwdns12790:0crwdne12790:0",
-    "oc": "Setmana"
+    "oc": "Setmana",
+    "nl": "Week"
   },
   "day": {
     "en": "Day",
@@ -70,7 +76,8 @@ module.exports = {
     "pl": "Dzień",
     "es": "Día",
     "io": "crwdns12792:0crwdne12792:0",
-    "oc": "Jorn"
+    "oc": "Jorn",
+    "nl": "Dag"
   },
   "agenda": {
     "en": "Agenda",
@@ -81,7 +88,8 @@ module.exports = {
     "es": "Agenda",
     "br": "Deiziataer",
     "io": "crwdns12794:0crwdne12794:0",
-    "oc": "Agenda"
+    "oc": "Agenda",
+    "nl": "Kalender"
   },
   "date": {
     "en": "Date",
@@ -91,7 +99,8 @@ module.exports = {
     "pl": "Data",
     "es": "Fecha",
     "io": "crwdns12796:0crwdne12796:0",
-    "oc": "Data"
+    "oc": "Data",
+    "nl": "Datum"
   },
   "time": {
     "en": "Time",
@@ -101,7 +110,8 @@ module.exports = {
     "pl": "Czas",
     "es": "Horario",
     "io": "crwdns12798:0crwdne12798:0",
-    "oc": "Ora"
+    "oc": "Ora",
+    "nl": "Tijd"
   },
   "event": {
     "en": "Event",
@@ -111,7 +121,8 @@ module.exports = {
     "pl": "Wydarzenie",
     "es": "Evento",
     "io": "crwdns12800:0crwdne12800:0",
-    "oc": "Eveniment"
+    "oc": "Eveniment",
+    "nl": "Evenement"
   },
   "more": {
     "en": "See all events",
@@ -121,6 +132,7 @@ module.exports = {
     "pl": "Zobacz wszystkie wydarzenia",
     "es": "Ver todos los eventos",
     "io": "crwdns12802:0crwdne12802:0",
-    "oc": "Veire totes los eveniments"
+    "oc": "Veire totes los eveniments",
+    "nl": "Alle evenementen bekijken"
   }
 }

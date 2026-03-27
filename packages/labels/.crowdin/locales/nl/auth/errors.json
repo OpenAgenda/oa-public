@@ -1,0 +1,12 @@
+{
+  "fieldCannotBeEmpty": "Het veld mag niet leeg zijn",
+  "incorrectPassword": "Het wachtwoord is onjuist",
+  "invalidToken": "Ongeldig token",
+  "passwordCouldNotBeModified": "Het wachtwoord kon niet worden gewijzigd",
+  "passwordResetSent": "Een wachtwoordreset wordt naar uw e-mailadres gestuurd",
+  "passwordUpdated": "Uw wachtwoord is bijgewerkt.",
+  "passwordsMustMatch": "Het wachtwoord komt niet overeen.",
+  "resetLinkOutdated": "De link is verouderd. Probeer het opnieuw.",
+  "userNotActivated": "Gebruiker niet geactiveerd",
+  "userNotFound": "Gebruiker niet gevonden"
+}

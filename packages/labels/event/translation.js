@@ -8,7 +8,8 @@ module.exports = {
     "es": "Traducción automática",
     "it": "Traduzione automatica",
     "io": "crwdns14650:0crwdne14650:0",
-    "oc": "Traduccion automatica"
+    "oc": "Traduccion automatica",
+    "nl": "Automatische vertaling"
   },
   "translationInfo": {
     "fr": "",
@@ -23,7 +24,8 @@ module.exports = {
     "es": "Idioma original",
     "it": "Riferimenti linguistici",
     "io": "crwdns14652:0crwdne14652:0",
-    "oc": "Lenga de referéncia"
+    "oc": "Lenga de referéncia",
+    "nl": "Brontaal"
   },
   "targetLanguages": {
     "fr": "Langues de destination",
@@ -32,7 +34,8 @@ module.exports = {
     "es": "Idiomas de destino",
     "it": "Lingue di destinazione",
     "io": "crwdns14654:0crwdne14654:0",
-    "oc": "Lengas de destinacion"
+    "oc": "Lengas de destinacion",
+    "nl": "Doeltalen"
   },
   "translationHelp": {
     "fr": "En savoir plus",
@@ -41,7 +44,8 @@ module.exports = {
     "es": "Más información",
     "it": "Per saperne di più",
     "io": "crwdns14656:0crwdne14656:0",
-    "oc": "Ne saber mai"
+    "oc": "Ne saber mai",
+    "nl": "Meer informatie"
   },
   "processingTranslation": {
     "fr": "Traduction en cours",
@@ -50,7 +54,8 @@ module.exports = {
     "es": "Traducción en curso",
     "it": "Traduzione in corso",
     "io": "crwdns14658:0crwdne14658:0",
-    "oc": "Traduccion en cors"
+    "oc": "Traduccion en cors",
+    "nl": "Vertaling wordt verwerkt"
   },
   "savingPartialTranslation": {
     "en": "Translations were retrieved partially only. Saving anyways",
@@ -59,7 +64,8 @@ module.exports = {
     "es": "Las traducciones no pudieron recuperarse parcialmente. ahorro",
     "it": "Le traduzioni hanno potuto essere recuperate solo in parte. Backup in corso",
     "io": "crwdns14660:0crwdne14660:0",
-    "oc": "Las traduccions son estadas recuperadas pas que parcialament. Enregistram pasmens"
+    "oc": "Las traduccions son estadas recuperadas pas que parcialament. Enregistram pasmens",
+    "nl": "Vertalingen zijn slechts gedeeltelijk opgehaald. Toch opslaan"
   },
   "sourceChange": {
     "en": "Change",
@@ -68,7 +74,8 @@ module.exports = {
     "es": "Cambiar",
     "it": "Modificare",
     "io": "crwdns14662:0crwdne14662:0",
-    "oc": "Cambiar"
+    "oc": "Cambiar",
+    "nl": "Wijzigen"
   },
   "deactivatedTranslation": {
     "en": "The automated translation is deactivated",
@@ -77,6 +84,7 @@ module.exports = {
     "es": "El módulo de traducción automática se desactiva",
     "it": "Il modulo di traduzione automatica è disabilitato",
     "io": "crwdns14664:0crwdne14664:0",
-    "oc": "La traduccion automatica es desactivada"
+    "oc": "La traduccion automatica es desactivada",
+    "nl": "De automatische vertaling is gedeactiveerd"
   }
 }

@@ -8,7 +8,8 @@ module.exports = {
     "es": "Etiquetas",
     "it": "Tags",
     "io": "crwdns12750:0crwdne12750:0",
-    "oc": "Mots-claus"
+    "oc": "Mots-claus",
+    "nl": "Tags"
   },
   "defaultTagGroupName": {
     "en": "Tag Group",
@@ -17,7 +18,8 @@ module.exports = {
     "es": "Lista de etiquetas",
     "it": "Gruppo di tag",
     "io": "crwdns12752:0crwdne12752:0",
-    "oc": "Grop de mots-claus"
+    "oc": "Grop de mots-claus",
+    "nl": "Taggroep"
   },
   "defaultTagGroupInfo": {
     "en": "Select one or several tags",
@@ -26,7 +28,8 @@ module.exports = {
     "es": "Seleccione una o más etiquetas",
     "it": "Selezionare uno o più tag",
     "io": "crwdns12754:0crwdne12754:0",
-    "oc": "Causissètz un o mai d'un mot-clau"
+    "oc": "Causissètz un o mai d'un mot-clau",
+    "nl": "Selecteer een of meerdere tags"
   },
   "required": {
     "en": "Required.",
@@ -35,7 +38,8 @@ module.exports = {
     "es": "Requerido.",
     "it": "Necessario.",
     "io": "crwdns12756:0crwdne12756:0",
-    "oc": "Requesit."
+    "oc": "Requesit.",
+    "nl": "Verplicht."
   },
   "requiredTagError": {
     "en": "You must select at least one item",
@@ -44,7 +48,8 @@ module.exports = {
     "es": "Usted debe hacer al menos una selección",
     "it": "È necessario effettuare almeno una selezione",
     "io": "crwdns12758:0crwdne12758:0",
-    "oc": "Vos cal causir al mens un element"
+    "oc": "Vos cal causir al mens un element",
+    "nl": "U moet minstens één item selecteren"
   },
   "noSelection": {
     "fr": "Aucun choix",
@@ -53,6 +58,7 @@ module.exports = {
     "es": "Ninguna de las anteriores",
     "it": "Nessuna scelta",
     "io": "crwdns12760:0crwdne12760:0",
-    "oc": "Pas res"
+    "oc": "Pas res",
+    "nl": "Geen van bovenstaande"
   }
 }

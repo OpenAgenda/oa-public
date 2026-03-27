@@ -10,7 +10,8 @@ module.exports = {
     "es": "Oficial",
     "br": "Ofisiel",
     "io": "crwdns12856:0crwdne12856:0",
-    "oc": "Oficial"
+    "oc": "Oficial",
+    "nl": "Officieel"
   },
   "privateAgenda": {
     "en": "Private agenda",
@@ -21,7 +22,8 @@ module.exports = {
     "es": "Agenda privada",
     "br": "Deiziataer prevez",
     "io": "crwdns12858:0crwdne12858:0",
-    "oc": "Agenda privada"
+    "oc": "Agenda privada",
+    "nl": "Privéagenda"
   },
   "contact": {
     "en": "Contact",
@@ -32,7 +34,8 @@ module.exports = {
     "es": "Contactar",
     "br": "Mont e darempred",
     "io": "crwdns12860:0crwdne12860:0",
-    "oc": "Contactar"
+    "oc": "Contactar",
+    "nl": "Contact opnemen"
   },
   "export": {
     "en": "Export",
@@ -43,7 +46,8 @@ module.exports = {
     "es": "exportación",
     "br": "Ezporzhiañ",
     "io": "crwdns12862:0crwdne12862:0",
-    "oc": "Exportar"
+    "oc": "Exportar",
+    "nl": "Exporteren"
   },
   "addEvent": {
     "en": "Add an event",
@@ -54,7 +58,8 @@ module.exports = {
     "es": "Añadir un evento",
     "br": "Ouzhpennañ un darvoud",
     "io": "crwdns12864:0crwdne12864:0",
-    "oc": "Apondre un eveniment"
+    "oc": "Apondre un eveniment",
+    "nl": "Een evenement toevoegen"
   },
   "showCalendar": {
     "en": "Display calendar view",
@@ -65,7 +70,8 @@ module.exports = {
     "es": "Mostrar vista del calendario",
     "br": "Diskwel ar gwel deiziadur",
     "io": "crwdns12866:0crwdne12866:0",
-    "oc": "Afichar la vista calendièr"
+    "oc": "Afichar la vista calendièr",
+    "nl": "Kalenderweergave tonen"
   },
   "manage": {
     "en": "Manage",
@@ -76,6 +82,7 @@ module.exports = {
     "es": "Gestionar",
     "br": "Merañ",
     "io": "crwdns12868:0crwdne12868:0",
-    "oc": "Gerir"
+    "oc": "Gerir",
+    "nl": "Beheren"
   }
 }

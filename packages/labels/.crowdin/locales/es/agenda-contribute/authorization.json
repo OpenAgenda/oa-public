@@ -1,7 +1,7 @@
 {
+  "eventNotLinkedToAgenda": "Este evento no está incluido en la agenda",
   "noAccessToClosedAgenda": "Este agenda está cerrado a la contribución",
-  "noAccessToEdit": "No tienes los derechos de edición para este evento",
   "noAccessToCreate": "No tienes los derechos para crear este evento",
   "noAccessToDraft": "No tienes los derechos de edición para este borrador",
-  "eventNotLinkedToAgenda": "Este evento no está incluido en la agenda"
+  "noAccessToEdit": "No tienes los derechos de edición para este evento"
 }

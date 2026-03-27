@@ -1,0 +1,14 @@
+{
+  "cancel": "Annuleren",
+  "description": "Dit evenement komt uit een andere agenda. U kunt de onderstaande informatie bewerken, specifiek voor uw agenda",
+  "invalidCategories": "De geselecteerde categorie is niet geldig",
+  "invalidError": "Sommige velden bevatten ongeldige waarden. Corrigeer deze voordat u opnieuw probeert in te dienen.",
+  "invalidTags": "Sommige ingediende tags zijn niet geldig",
+  "loadingError": "Er is een probleem opgetreden bij het laden van de gegevens. Vernieuw de pagina over een moment.",
+  "saveError": "Er is een probleem opgetreden bij het opslaan. Probeer het opnieuw of herlaad de pagina.",
+  "saveErrorTitle": "Opslagfout",
+  "saveSuccess": "De gegevens zijn bijgewerkt",
+  "submit": "Opslaan",
+  "submitted": "Ingediend",
+  "uploadButton": "Selecteren"
+}
