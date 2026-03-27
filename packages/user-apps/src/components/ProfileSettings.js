@@ -31,6 +31,7 @@ class ProfileSettings extends Component {
         <option value="es">Español</option>
         <option value="it">Italiano</option>
         <option value="br">Brezhoneg</option>
+        <option value="nl">Nederlands</option>
         <option value="oc">Occitan</option>
       </select>
       {field.meta.touched && field.meta.error && (
