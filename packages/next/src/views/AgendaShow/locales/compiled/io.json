@@ -2,7 +2,7 @@
   "next.views.AgendaShow.closeButton": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "crwdns35353:0crwdne35353:0"
     }
   ],
   "next.views.AgendaShow.filter": [
@@ -32,19 +32,19 @@
   "next.views.AgendaShow.networkErrorMessage": [
     {
       "type": 0,
-      "value": "Unable to load events. Please check your internet connection and try again."
+      "value": "crwdns35355:0crwdne35355:0"
     }
   ],
   "next.views.AgendaShow.networkErrorTitle": [
     {
       "type": 0,
-      "value": "Connection error"
+      "value": "crwdns35357:0crwdne35357:0"
     }
   ],
   "next.views.AgendaShow.retryButton": [
     {
       "type": 0,
-      "value": "Retry"
+      "value": "crwdns35359:0crwdne35359:0"
     }
   ],
   "next.views.AgendaShow.seeEvents": [

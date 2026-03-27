@@ -2,61 +2,61 @@
   "next.components.ErrorDisplay.backToHome": [
     {
       "type": 0,
-      "value": "crwdns33161:0crwdne33161:0"
+      "value": "Terug naar home"
     }
   ],
   "next.components.ErrorDisplay.contactSupport": [
     {
       "type": 0,
-      "value": "crwdns33163:0crwdne33163:0"
+      "value": "Contact opnemen met support"
     }
   ],
   "next.components.ErrorDisplay.errorTrackingId": [
     {
       "type": 0,
-      "value": "crwdns33165:0crwdne33165:0"
+      "value": "Foutopvolgings-id"
     }
   ],
   "next.components.ErrorDisplay.internalError": [
     {
       "type": 0,
-      "value": "crwdns33167:0crwdne33167:0"
+      "value": "Interne fout"
     }
   ],
   "next.components.ErrorDisplay.internalErrorMsg": [
     {
       "type": 0,
-      "value": "crwdns33169:0crwdne33169:0"
+      "value": "Als het probleem aanhoudt, neem dan contact op met de support."
     }
   ],
   "next.components.ErrorDisplay.networkError": [
     {
       "type": 0,
-      "value": "crwdns35365:0crwdne35365:0"
+      "value": "Connection error"
     }
   ],
   "next.components.ErrorDisplay.networkErrorMsg": [
     {
       "type": 0,
-      "value": "crwdns35367:0crwdne35367:0"
+      "value": "Unable to load the page. Please check your internet connection and try again."
     }
   ],
   "next.components.ErrorDisplay.pageNotFound": [
     {
       "type": 0,
-      "value": "crwdns35321:0crwdne35321:0"
+      "value": "Page not found"
     }
   ],
   "next.components.ErrorDisplay.pageNotFoundMsg": [
     {
       "type": 0,
-      "value": "crwdns35323:0crwdne35323:0"
+      "value": "The page you requested doesn’t exist or is no longer available."
     }
   ],
   "next.components.ErrorDisplay.retry": [
     {
       "type": 0,
-      "value": "crwdns33171:0crwdne33171:0"
+      "value": "Opnieuw proberen"
     }
   ]
 }

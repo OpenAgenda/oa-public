@@ -1,0 +1,46 @@
+{
+  "ReactFilters.EmbedAgendaShow.addEvent": [
+    {
+      "type": 0,
+      "value": "Add event"
+    }
+  ],
+  "ReactFilters.ValueBadge.removeFilter": [
+    {
+      "type": 0,
+      "value": "Filter verwijderen"
+    }
+  ],
+  "ReactFilters.ValueBadge.removeFilterWithTitle": [
+    {
+      "type": 0,
+      "value": "Filter verwijderen ("
+    },
+    {
+      "type": 1,
+      "value": "title"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "next.views.EmbedAgendaShow.export": [
+    {
+      "type": 0,
+      "value": "Exporteren"
+    }
+  ],
+  "next.views.EmbedAgendaShow.search": [
+    {
+      "type": 0,
+      "value": "Zoeken"
+    }
+  ],
+  "next.views.EmbedAgendaShow.seeMore": [
+    {
+      "type": 0,
+      "value": "Meer zien"
+    }
+  ]
+}

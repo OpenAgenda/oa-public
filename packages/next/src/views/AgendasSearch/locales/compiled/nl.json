@@ -1,68 +1,48 @@
 {
-  "next.views.AgendaShow.closeButton": [
+  "next.views.AgendaSearch.bigTotal": [
     {
       "type": 0,
-      "value": "Tampar"
-    }
-  ],
-  "next.views.AgendaShow.filter": [
-    {
-      "type": 0,
-      "value": "Filtre"
-    }
-  ],
-  "next.views.AgendaShow.filters": [
-    {
-      "type": 0,
-      "value": "Filtres"
-    }
-  ],
-  "next.views.AgendaShow.help": [
-    {
-      "type": 0,
-      "value": "Ajuda"
-    }
-  ],
-  "next.views.AgendaShow.includePassedEvents": [
-    {
-      "type": 0,
-      "value": "Inclure los eveniments passats"
-    }
-  ],
-  "next.views.AgendaShow.networkErrorMessage": [
-    {
-      "type": 0,
-      "value": "Impossible de charger les événements. Veuillez vérifier votre connexion internet et réessayer."
-    }
-  ],
-  "next.views.AgendaShow.networkErrorTitle": [
-    {
-      "type": 0,
-      "value": "Erreur de connexion"
-    }
-  ],
-  "next.views.AgendaShow.retryButton": [
-    {
-      "type": 0,
-      "value": "Tornar ensajar"
-    }
-  ],
-  "next.views.AgendaShow.seeEvents": [
-    {
-      "type": 0,
-      "value": "Mostrar "
+      "value": "Meer dan "
     },
     {
+      "style": null,
+      "type": 2,
+      "value": "limit"
+    },
+    {
+      "type": 0,
+      "value": " agenda's gevonden"
+    }
+  ],
+  "next.views.AgendaSearch.latestUpdated": [
+    {
+      "type": 0,
+      "value": "Recent bijgewerkte agenda's"
+    }
+  ],
+  "next.views.AgendaSearch.pageTitle": [
+    {
+      "type": 0,
+      "value": "Agenda's zoeken"
+    }
+  ],
+  "next.views.AgendaSearch.passedEvents": [
+    {
       "offset": 0,
       "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Geen afgelopen evenementen"
+            }
+          ]
+        },
         "one": {
           "value": [
             {
-              "type": 7
-            },
-            {
               "type": 0,
-              "value": " eveniment"
+              "value": "1 afgelopen evenement"
             }
           ]
         },
@@ -73,7 +53,7 @@
             },
             {
               "type": 0,
-              "value": " eveniments"
+              "value": " afgelopen evenementen"
             }
           ]
         }
@@ -83,25 +63,27 @@
       "value": "count"
     }
   ],
-  "next.views.AgendaShow.seeMore": [
+  "next.views.AgendaSearch.searchResultHead": [
     {
       "type": 0,
-      "value": "Ne véser mai"
-    }
-  ],
-  "next.views.AgendaShow.showUpcomingEventsOnly": [
+      "value": "Zoekresultaten voor \""
+    },
+    {
+      "type": 1,
+      "value": "search"
+    },
     {
       "type": 0,
-      "value": "Mostrar pas que los eveniments venents"
+      "value": "\""
     }
   ],
-  "next.views.AgendaShow.termsOfUse": [
+  "next.views.AgendaSearch.seeMore": [
     {
       "type": 0,
-      "value": "Condicions d'utilizacion"
+      "value": "Meer zien"
     }
   ],
-  "next.views.AgendaShow.totalEvents": [
+  "next.views.AgendaSearch.total": [
     {
       "offset": 0,
       "options": {
@@ -109,7 +91,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Pas d'eveniment"
+              "value": "Geen agenda gevonden"
             }
           ]
         },
@@ -117,7 +99,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 eveniment"
+              "value": "1 agenda gevonden"
             }
           ]
         },
@@ -128,7 +110,7 @@
             },
             {
               "type": 0,
-              "value": " eveniments"
+              "value": " agenda's gevonden"
             }
           ]
         }
@@ -138,7 +120,7 @@
       "value": "count"
     }
   ],
-  "next.views.AgendaShow.totalUpcomingEvents": [
+  "next.views.AgendaSearch.upcomingEvents": [
     {
       "offset": 0,
       "options": {
@@ -146,7 +128,7 @@
           "value": [
             {
               "type": 0,
-              "value": "Pas d'eveniment venent"
+              "value": "Geen toekomstige evenementen"
             }
           ]
         },
@@ -154,7 +136,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 eveniment a venir"
+              "value": "1 toekomstig evenement"
             }
           ]
         },
@@ -165,7 +147,7 @@
             },
             {
               "type": 0,
-              "value": " eveniments a venir"
+              "value": " toekomstige evenementen"
             }
           ]
         }

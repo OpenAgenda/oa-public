@@ -1,0 +1,50 @@
+{
+  "next.components.Navbar.help": [
+    {
+      "type": 0,
+      "value": "Hilfe"
+    }
+  ],
+  "next.components.Navbar.myAgendas": [
+    {
+      "type": 0,
+      "value": "Meine Agendas"
+    }
+  ],
+  "next.components.Navbar.myEvents": [
+    {
+      "type": 0,
+      "value": "Meine Veranstaltungen"
+    }
+  ],
+  "next.components.Navbar.profileMenu": [
+    {
+      "type": 0,
+      "value": "Profielmenu"
+    }
+  ],
+  "next.components.Navbar.settings": [
+    {
+      "type": 0,
+      "value": "Einstellungen"
+    }
+  ],
+  "next.components.Navbar.signIn": [
+    {
+      "type": 0,
+      "value": "Inloggen"
+    }
+  ],
+  "next.components.Navbar.signOut": [
+    {
+      "type": 0,
+      "value": "Uitloggen"
+    }
+  ],
+  "next.components.Navbar.signUp": [
+    {
+      "type": 0,
+      "value": "Account aanmaken"
+    }
+  ]
+}

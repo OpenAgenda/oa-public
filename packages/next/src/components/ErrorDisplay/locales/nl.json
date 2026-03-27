@@ -1,0 +1,12 @@
+{
+  "next.components.ErrorDisplay.backToHome": "Terug naar home",
+  "next.components.ErrorDisplay.contactSupport": "Contact opnemen met support",
+  "next.components.ErrorDisplay.errorTrackingId": "Foutopvolgings-id",
+  "next.components.ErrorDisplay.internalError": "Interne fout",
+  "next.components.ErrorDisplay.internalErrorMsg": "Als het probleem aanhoudt, neem dan contact op met de support.",
+  "next.components.ErrorDisplay.networkError": "",
+  "next.components.ErrorDisplay.networkErrorMsg": "",
+  "next.components.ErrorDisplay.pageNotFound": "",
+  "next.components.ErrorDisplay.pageNotFoundMsg": "",
+  "next.components.ErrorDisplay.retry": "Opnieuw proberen"
+}

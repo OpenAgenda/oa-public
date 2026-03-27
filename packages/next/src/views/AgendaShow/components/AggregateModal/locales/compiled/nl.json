@@ -1,0 +1,54 @@
+{
+  "next.views.AgendaShow.AggregateModal.createAgenda": [
+    {
+      "type": 0,
+      "value": "Agenda Anlegen"
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.noAgenda": [
+    {
+      "type": 0,
+      "value": "Let op: U beheert momenteel geen agenda. U moet er een aanmaken voordat u "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " kunt aggregeren."
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.shouldConnect": [
+    {
+      "type": 0,
+      "value": "U moet inloggen om deze agenda te aggregeren."
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.signin": [
+    {
+      "type": 0,
+      "value": "Inloggen"
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.subtitle": [
+    {
+      "type": 0,
+      "value": "Evenementen gepubliceerd door "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " worden automatisch toegevoegd aan de geselecteerde agenda."
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.title": [
+    {
+      "type": 0,
+      "value": "Aggregeren aan een agenda"
+    }
+  ]
+}

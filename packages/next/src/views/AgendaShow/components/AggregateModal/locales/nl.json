@@ -1,0 +1,8 @@
+{
+  "next.views.AgendaShow.AggregateModal.createAgenda": "Agenda Anlegen",
+  "next.views.AgendaShow.AggregateModal.noAgenda": "Let op: U beheert momenteel geen agenda. U moet er een aanmaken voordat u {agenda} kunt aggregeren.",
+  "next.views.AgendaShow.AggregateModal.shouldConnect": "U moet inloggen om deze agenda te aggregeren.",
+  "next.views.AgendaShow.AggregateModal.signin": "Inloggen",
+  "next.views.AgendaShow.AggregateModal.subtitle": "Evenementen gepubliceerd door {agenda} worden automatisch toegevoegd aan de geselecteerde agenda.",
+  "next.views.AgendaShow.AggregateModal.title": "Aggregeren aan een agenda"
+}
