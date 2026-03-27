@@ -1,0 +1,4 @@
+{
+  "common.errors.endLessThanBegin": "Ten minste één schema is ongeldig met een eindtijd die vóór de begintijd ligt",
+  "common.errors.required": "Verplicht"
+}

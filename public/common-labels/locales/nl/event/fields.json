@@ -1,0 +1,19 @@
+{
+  "common.event.fields.accessibility": "Bijzondere toegankelijkheid",
+  "common.event.fields.age": "Leeftijd van het doelpubliek",
+  "common.event.fields.attendanceMode": "Anwesenheitsmodus",
+  "common.event.fields.conditions": "Voorwaarden",
+  "common.event.fields.description": "Korte beschrijving",
+  "common.event.fields.extIds": "Externe identificatoren",
+  "common.event.fields.image": "Afbeelding",
+  "common.event.fields.imageCredits": "Afbeeldingscredits",
+  "common.event.fields.keywords": "Trefwoorden",
+  "common.event.fields.location": "Locatie",
+  "common.event.fields.longDescription": "Lange beschrijving",
+  "common.event.fields.onlineAccessLink": "Toegangslink",
+  "common.event.fields.registration": "Inschrijvingstools",
+  "common.event.fields.slug": "Slug",
+  "common.event.fields.status": "Status",
+  "common.event.fields.timings": "Tijdschema's",
+  "common.event.fields.title": "Titel"
+}
