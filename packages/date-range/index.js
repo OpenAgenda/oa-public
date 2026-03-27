@@ -73,7 +73,7 @@ function _getTimes(timings, lang, timezone) {
 }
 
 module.exports = (timings, lang, timezone) => {
-  if (!['fr', 'en', 'ar', 'de', 'it', 'es'].includes(lang)) {
+  if (!['fr', 'en', 'ar', 'de', 'it', 'es', 'nl'].includes(lang)) {
     // eslint-disable-next-line no-param-reassign
     lang = 'en';
   }
