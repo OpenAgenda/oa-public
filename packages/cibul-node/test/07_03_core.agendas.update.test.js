@@ -1,7 +1,9 @@
+import fs from 'node:fs';
 import { produce } from 'immer';
 
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import api from '../api/index.js';
 
 import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
@@ -183,6 +185,61 @@ describe('07 - core - functional (server): core.agendas().update', () => {
       expect(attemptedUpdate.private).toBe(beforeAttempt.private);
       expect(attemptedUpdate.official).toBe(beforeAttempt.official);
       expect(attemptedUpdate.title).toBe('New title');
+    });
+  });
+
+  describe('api', () => {
+    let server;
+    let accessToken;
+
+    beforeAll(async () => {
+      server = await api(core, { useRouter: false }).listen(4000);
+    });
+
+    afterAll(() => server.close());
+
+    beforeAll(async () => {
+      const tokenResponse = await fetch(
+        'http://localhost:4000/requestAccessToken',
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            code: 'STt5KTzxPJHUG6N0ty3poxN896UseQhM',
+          }),
+        },
+      ).then((r) => r.json());
+      accessToken = tokenResponse.access_token;
+    });
+
+    beforeAll(
+      () =>
+        new Promise((rs) => {
+          fs.createReadStream(`${import.meta.dirname}/fixtures/pirates.jpg`)
+            .pipe(fs.createWriteStream('/tmp/pirates.jpg'))
+            .on('close', rs);
+        }),
+    );
+
+    it('update agenda with image', async () => {
+      const form = new FormData();
+
+      form.append(
+        'image',
+        await fs.openAsBlob('/tmp/pirates.jpg'),
+        'pirates.jpg',
+      );
+      form.append('access_token', accessToken);
+      form.append('data', JSON.stringify({ title: 'Agenda avec image' }));
+
+      const response = await fetch('http://localhost:4000/agendas/92983929', {
+        method: 'PATCH',
+        body: form,
+      }).then((r) => r.json());
+
+      expect(response.title).toBe('Agenda avec image');
+      expect(response.image).toBeDefined();
+      expect(response.image).toMatch(/^https?:\/\//);
     });
   });
 });
