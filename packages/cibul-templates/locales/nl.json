@@ -1,0 +1,20 @@
+{
+  "ReactShared.ImageInput.fileTooLarge": "Het bestand {fileName} is {fileSize}, de maximale limiet is {maxSize}",
+  "ReactShared.ImageInput.fileTooSmall": "Het bestand {fileName} is {fileSize}, de minimale limiet is {minSize}",
+  "ReactShared.ImageInput.notSupported": "Het bestand {fileName} wordt niet geaccepteerd",
+  "ReactShared.ImageInput.remove": "Verwijderen",
+  "ReactShared.ImageInput.tooManyFiles": "Te veel bestanden, slechts één bestand toegestaan",
+  "ReactShared.ImageInput.update": "Aktualisieren Sie das Bild",
+  "cibulTemplates.passwordField.good": "Voldoende veilig 🙂",
+  "cibulTemplates.passwordField.great": "Zeer veilig 🥳",
+  "cibulTemplates.passwordField.isSameAs": "Moet verschillen van gebruikersnaam en e-mail 🙄",
+  "cibulTemplates.passwordField.required": "Er moet een wachtwoord worden ingesteld",
+  "cibulTemplates.passwordField.tooWeak": "Niet veilig genoeg 😑",
+  "cibulTemplates.passwordField.usual": "Te gewoon 🤖",
+  "cibulTemplates.passwordField.weak": "Weinig veilig 😐",
+  "cibulTemplates.passwordField.weakish": "Beter, maar niet top 😬",
+  "common.event.states.published": "Gepubliceerd",
+  "common.event.states.readyToPublish": "Klaar om te publiceren",
+  "common.event.states.refused": "Geweigerd",
+  "common.event.states.toModerate": "Te modereren"
+}
