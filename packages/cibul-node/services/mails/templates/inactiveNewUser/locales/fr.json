@@ -1,11 +1,11 @@
 {
   "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails",
-  "part1": "Bonjour,\n\nNous voyons que votre compte est inactif depuis plus de 7 jours.\n\n\uD83D\uDC4D Besoin d'un coup de pouce ?\n\n**Vous organisez des évènements et souhaitez créer un agenda ?**\nConnectez-vous à votre compte et créez un agenda dédié à votre structure.\nDéfinissez les modes de contribution à votre agenda (**qui** peut y publier des événements et si vous souhaitez mettre en place **une modération** des propositions d'événements). \nPas de panique, vous pourrez toujours revenir sur vos paramètres si vous changez d'avis.\n\nRetrouvez toutes les informations utiles sur [notre site](https://openagenda.com/fr/p/offres-organisateurs).",
+  "contributeButton": "Contribuer à un agenda",
+  "createButton": "Créer un agenda",
+  "docButton": "Voir la documentation",
+  "part1": "Bonjour,\n\nNous voyons que votre compte est inactif depuis plus de 7 jours.\n\n👍 Besoin d'un coup de pouce ?\n\n**Vous organisez des évènements et souhaitez créer un agenda ?**\nConnectez-vous à votre compte et créez un agenda dédié à votre structure.\nDéfinissez les modes de contribution à votre agenda (**qui** peut y publier des événements et si vous souhaitez mettre en place **une modération** des propositions d'événements). \nPas de panique, vous pourrez toujours revenir sur vos paramètres si vous changez d'avis.\n\nRetrouvez toutes les informations utiles sur [notre site](https://openagenda.com/fr/p/offres-organisateurs).",
   "part2": "**Vous souhaitez contribuer à un agenda existant ?**\n OpenAgenda est **utilisé par de nombreuses structures** afin de recenser et diffuser des annonces d'événements, émises par une multitude d'organisateurs. **Identifiez l'agenda de l’opération à laquelle vous souhaitez contribuer** :",
   "part3": "**Un doute ?** Retrouvez nos articles de doc ou contactez notre équipe support.",
-  "createButton": "Créer un agenda",
-  "contributeButton": "Contribuer à un agenda",
-  "docButton": "Voir la documentation",
   "subject": "Vous nous manquez sur OpenAgenda !",
   "unsubscribe": "Ne plus recevoir ce type d'emails"
 }

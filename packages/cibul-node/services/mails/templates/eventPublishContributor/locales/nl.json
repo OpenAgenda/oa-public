@@ -1,0 +1,7 @@
+{
+  "actionDescription": "Evenement bekijken",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "memberUnsubscribe": "Geen statuswijzigingen van mijn evenementen op deze agenda meer ontvangen",
+  "title": "De agenda {agenda} heeft je evenement {event} gepubliceerd",
+  "unsubscribe": "Geen statuswijzigingen van mijn evenementen meer ontvangen"
+}

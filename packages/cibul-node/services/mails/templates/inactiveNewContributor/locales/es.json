@@ -1,1 +1,5 @@
-{}
+{
+  "agendasButton": "Mis agendas",
+  "changeEmailSettings": "Cambiar mi configuración para enviar mensajes de correo electrónico",
+  "eventsButton": "Mis eventos"
+}

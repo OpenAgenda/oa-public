@@ -1,0 +1,8 @@
+{
+  "actionDescription": "Agenda bekijken",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "memberUnsubscribe": "Geen berichten meer ontvangen van de functie \"Schrijf naar hen\" van deze agenda",
+  "title": "De agenda {agenda} heeft u een bericht gestuurd",
+  "unsubscribe": "Geen berichten meer ontvangen van de functie \"Schrijf naar hen\"",
+  "unsubscribeGuest": "Geen e-mails meer ontvangen van OpenAgenda"
+}

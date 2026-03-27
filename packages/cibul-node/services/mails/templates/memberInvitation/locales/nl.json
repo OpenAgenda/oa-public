@@ -1,0 +1,16 @@
+{
+  "administrator": "beheerder",
+  "administratorVerb": "beheren",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "contributor": "bijdrager",
+  "contributorVerb": "bijdragen aan",
+  "memberAction": "{role, select, administrator {De agenda beheren} moderator {Evenementen modereren} contributor {Bijdragen aan de agenda} reader {De agenda bekijken} other {}}",
+  "moderator": "moderator",
+  "moderatorVerb": "modereren",
+  "reader": "lezer",
+  "signup": "Account aanmaken",
+  "subject": "Je bent uitgenodigd om de agenda \"{agenda}\" te {roleVerb}",
+  "subjectForExistingMember": "Je bent {role} geworden van de agenda \"{agenda}\"",
+  "unsubscribe": "Stop met het ontvangen van uitnodigingen",
+  "unsubscribeGuest": "Geen e-mails meer ontvangen van OpenAgenda"
+}

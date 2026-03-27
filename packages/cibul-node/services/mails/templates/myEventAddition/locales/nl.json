@@ -1,0 +1,12 @@
+{
+  "actionDescription": "Bekijk het evenement",
+  "body": "<b>{event}</b> van de agenda <b>{sourceAgenda}</b> is toegevoegd met de status <b>{state}</b> door <b>{user}</b>.",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "controlled": "klaar om te publiceren",
+  "memberUnsubscribe": "Stop met het ontvangen van evenementtoevoegingen op deze agenda",
+  "published": "gepubliceerd",
+  "refused": "Erhalte Ablehnungsstatus",
+  "title": "Uw evenement is toegevoegd aan {agenda}: {event}",
+  "tocontrol": "te controleren",
+  "unsubscribe": "Stop met het ontvangen van evenementtoevoegingen"
+}
