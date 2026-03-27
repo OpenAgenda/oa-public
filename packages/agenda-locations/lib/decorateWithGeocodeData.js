@@ -103,7 +103,8 @@ async function reverseGeocode(interfaces, data, current) {
       throw new BadRequest("geocoder didn't find address");
     }
 
-    return results[0];
+    const { latitude, longitude, ...rest } = results[0];
+    return rest;
   } catch (e) {
     if (e.name === 'BadRequest') throw e;
     log.warn(e);
