@@ -1,0 +1,22 @@
+{
+  "AgendaSchema.AfterRedirectModal.body": "De configuratie van het ledenformulier is niet geactiveerd op uw agenda",
+  "AgendaSchema.AfterRedirectModal.title": "Informatie",
+  "AgendaSchema.EmbedSelection.eventInfo": "Voeg thema's, categorieën, tekstvelden of andere elementen toe aan het evenementformulier van uw agenda",
+  "AgendaSchema.EmbedSelection.events": "Evenementen",
+  "AgendaSchema.EmbedSelection.memberInfo": "Voeg velden toe aan of verwijder velden uit het identificatieformulier voor bijdragers aan uw agenda",
+  "AgendaSchema.EmbedSelection.memberInfoAsk": "Activering aanvragen",
+  "AgendaSchema.EmbedSelection.members": "Leden",
+  "AgendaSchema.EmbedSelection.notActivated": "Deze functionaliteit is niet geactiveerd op uw agenda",
+  "AgendaSchema.adaptForm": "Pas de configuratie van het evenementformulier aan",
+  "AgendaSchema.adaptMemberForm": "Configureer het ledenformulier",
+  "AgendaSchema.canAddField": "U kunt het veld van uw keuze toevoegen aan het evenementformulier",
+  "AgendaSchema.event": "Standaard",
+  "AgendaSchema.eventDetail": "Standaard evenementveld",
+  "AgendaSchema.goToContrib": "Ga naar de bijdrage-instellingen",
+  "AgendaSchema.member": "Standaard",
+  "AgendaSchema.memberDetail": "Standaard ledenveld",
+  "AgendaSchema.needMoreFields": "Meer velden nodig?",
+  "AgendaSchema.network": "Netwerk",
+  "AgendaSchema.networkDetail": "Veld vereist door het agendanetwerk",
+  "AgendaSchema.warning": "De bijdrage-instellingen van uw agenda vereisen niet dat uw leden een identificatiefiche invullen."
+}
