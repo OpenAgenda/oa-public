@@ -1,0 +1,9 @@
+{
+  "common.event.accessibilities.accessibleEvent": "Toegankelijkheidsvoorzieningen",
+  "common.event.accessibilities.detail": "Dit evenement heeft toegankelijkheidsvoorzieningen",
+  "common.event.accessibilities.hi": "Gehoorbeperking",
+  "common.event.accessibilities.ii": "Verstandelijke beperking",
+  "common.event.accessibilities.mi": "Motorische beperking",
+  "common.event.accessibilities.pi": "Psychische beperking",
+  "common.event.accessibilities.vi": "Visuele beperking"
+}

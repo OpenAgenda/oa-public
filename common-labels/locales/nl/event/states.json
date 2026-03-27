@@ -1,0 +1,6 @@
+{
+  "common.event.states.published": "Gepubliceerd",
+  "common.event.states.readyToPublish": "Klaar om te publiceren",
+  "common.event.states.refused": "Geweigerd",
+  "common.event.states.toModerate": "Te modereren"
+}
