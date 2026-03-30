@@ -129,6 +129,7 @@ export default (data, options = {}) => {
           'de',
           'es',
           'it',
+          'nl',
         ]),
         firstTiming,
         lastTiming,
