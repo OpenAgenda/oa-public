@@ -9,6 +9,7 @@ export const SUPPORTED_LOCALES = [
   'eu',
   'oc',
   'io',
+  'nl',
 ];
 
 // Used when no locale is detected
