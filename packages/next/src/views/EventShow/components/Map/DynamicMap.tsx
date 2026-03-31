@@ -69,16 +69,15 @@ export default function Map(props: MapProps) {
     const map = mapRef.current;
     if (!map) return;
 
-    const container = map.getContainer();
-    const ro = new ResizeObserver(() => {
-      const { clientWidth, clientHeight } = container;
-      if (clientWidth > 0 && clientHeight > 0) {
-        map.invalidateSize();
-      }
-    });
-    ro.observe(container);
-
-    return () => ro.disconnect();
+    // Patch _animMoveEnd to skip when container has zero dimensions,
+    // which causes Leaflet to compute NaN coordinates during resize
+    // (e.g. phone rotation). This is a known Leaflet issue (#9632).
+    const original = map._animMoveEnd;
+    map._animMoveEnd = function () {
+      const container = this.getContainer();
+      if (container.clientWidth === 0 || container.clientHeight === 0) return;
+      original.call(this);
+    };
   }, []);
 
   return (
