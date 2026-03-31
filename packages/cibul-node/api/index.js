@@ -734,13 +734,6 @@ export default (core, { useRouter = true } = {}) => {
     next();
   });
 
-  app.param('targetAgendaUid', (req, res, next) => {
-    req.targetAgendaUid = {
-      uid: req.params.targetAgendaUid,
-    };
-    next();
-  });
-
   app.param('locationSlug', (req, res, next) => {
     req.locationIdentifier = {
       slug: req.params.locationSlug,
