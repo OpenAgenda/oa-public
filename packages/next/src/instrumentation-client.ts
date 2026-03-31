@@ -23,6 +23,16 @@ init({
       return null;
     }
 
+    // Filter Leaflet NaN LatLng errors (triggered by phone rotation)
+    const exceptionValues = event.exception?.values;
+    if (
+      exceptionValues?.some((ex) =>
+        ex.value?.startsWith('Invalid LatLng object'),
+      )
+    ) {
+      return null;
+    }
+
     return event;
   },
   beforeSendTransaction(transaction) {

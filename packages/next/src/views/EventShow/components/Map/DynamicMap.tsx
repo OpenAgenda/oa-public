@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useCallback, useRef } from 'react';
 import { MapContainer, TileLayer, Marker } from 'react-leaflet';
 import type { MapContainerProps } from 'react-leaflet';
 import { useIntl } from 'react-intl';
@@ -63,21 +63,6 @@ export default function Map(props: MapProps) {
     map.attributionControl.setPrefix(
       '<a href="https://leafletjs.com" title="A JavaScript library for interactive maps">Leaflet</a>',
     );
-  }, []);
-
-  useEffect(() => {
-    const map = mapRef.current;
-    if (!map) return;
-
-    // Patch _animMoveEnd to skip when container has zero dimensions,
-    // which causes Leaflet to compute NaN coordinates during resize
-    // (e.g. phone rotation). This is a known Leaflet issue (#9632).
-    const original = map._animMoveEnd;
-    map._animMoveEnd = function () {
-      const container = this.getContainer();
-      if (container.clientWidth === 0 || container.clientHeight === 0) return;
-      original.call(this);
-    };
   }, []);
 
   return (
