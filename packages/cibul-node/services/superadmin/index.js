@@ -17,7 +17,7 @@ function plugApp(services, app, base = '/admin') {
 
   const pre = [
     cmn.loadBaseData('oa-admin.css'),
-    sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
+    sessions.mw.ifUnlogged(cmn.redirectToSignin),
     users.mw.allowSuperAdmin(),
   ];
 
