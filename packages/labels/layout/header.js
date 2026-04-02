@@ -31,7 +31,7 @@ module.exports = {
     "br": "Skoazell",
     "io": "crwdns15250:0crwdne15250:0",
     "oc": "Ajuda",
-    "nl": "Hilfe"
+    "nl": "Hulp"
   },
   "en": {
     "fr": "Anglais",

@@ -2,19 +2,19 @@
   "next.components.Strapi.LoggedUserWelcome.dashboard": [
     {
       "type": 0,
-      "value": "your dashboard"
+      "value": "je dashboard"
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.defaultUser": [
     {
       "type": 0,
-      "value": "user"
+      "value": "gebruiker"
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.loggedIn": [
     {
       "type": 0,
-      "value": "You are logged in to your account **"
+      "value": "Je bent aangemeld bij je account **"
     },
     {
       "type": 1,
@@ -22,13 +22,13 @@
     },
     {
       "type": 0,
-      "value": "**. Find your agendas, events, and messages on [your dashboard](/home)."
+      "value": "**. Bekijk je agenda’s, evenementen en berichten op [je dashboard](/home)."
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.welcome": [
     {
       "type": 0,
-      "value": "Welcome "
+      "value": "Welkom "
     },
     {
       "type": 1,

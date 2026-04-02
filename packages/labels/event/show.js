@@ -227,7 +227,7 @@ module.exports = {
     "br": "Skoazell",
     "io": "crwdns14460:0crwdne14460:0",
     "oc": "Ajuda",
-    "nl": "Hilfe"
+    "nl": "Hulp"
   },
   "termsOfUse": {
     "en": "Terms of use",

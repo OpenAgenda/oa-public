@@ -2,19 +2,19 @@
   "next.components.Navbar.help": [
     {
       "type": 0,
-      "value": "Hilfe"
+      "value": "Hulp"
     }
   ],
   "next.components.Navbar.myAgendas": [
     {
       "type": 0,
-      "value": "Meine Agendas"
+      "value": "Mijn Agenda's"
     }
   ],
   "next.components.Navbar.myEvents": [
     {
       "type": 0,
-      "value": "Meine Veranstaltungen"
+      "value": "Mijn evenementen"
     }
   ],
   "next.components.Navbar.profileMenu": [

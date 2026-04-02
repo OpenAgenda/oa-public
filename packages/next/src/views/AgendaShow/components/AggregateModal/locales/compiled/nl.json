@@ -2,7 +2,7 @@
   "next.views.AgendaShow.AggregateModal.createAgenda": [
     {
       "type": 0,
-      "value": "Agenda Anlegen"
+      "value": "Een agenda aanmaken"
     }
   ],
   "next.views.AgendaShow.AggregateModal.noAgenda": [

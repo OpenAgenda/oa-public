@@ -74,7 +74,7 @@
   "next.views.EventShow.EmailConfirmationAlert.close": "Schließen",
   "next.views.EventShow.EmailConfirmationAlert.shareEvent": "Evenement delen",
   "next.views.EventShow.EmailConfirmationAlert.shareEventInfo": "Het evenement is verzonden naar {count, plural, one {# e-mailadres} other {# e-mailadressen}}.",
-  "next.views.EventShow.Footer.help": "Hilfe",
+  "next.views.EventShow.Footer.help": "Hulp",
   "next.views.EventShow.Footer.termsOfUse": "Gebruiksvoorwaarden",
   "next.views.EventShow.Inbox.inbox": "Postvak IN",
   "next.views.EventShow.LocationHistory.locationHistory": "Locatiegeschiedenis",

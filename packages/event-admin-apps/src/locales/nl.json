@@ -1,5 +1,5 @@
 {
-  "EventAdminApp.Actions.createAnEvent": "Neue Veranstaltung erstellen",
+  "EventAdminApp.Actions.createAnEvent": "Evenement aanmaken",
   "EventAdminApp.Actions.select": "Selecteren",
   "EventAdminApp.BatchedStateSelector.confirmation": "De statuswijziging is bezig en kan enige tijd duren.",
   "EventAdminApp.BatchedStateSelector.ok": "Schließen",

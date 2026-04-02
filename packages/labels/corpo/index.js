@@ -684,7 +684,7 @@ module.exports = {
     "br": "Skoazell",
     "io": "crwdns13408:0crwdne13408:0",
     "oc": "Ajuda",
-    "nl": "Hilfe"
+    "nl": "Hulp"
   },
   "documentationAndApi": {
     "en": "Documentation + API",

@@ -10,7 +10,7 @@ module.exports = {
     "it": "Creare un'agenda",
     "io": "crwdns14118:0crwdne14118:0",
     "oc": "Crear una agenda",
-    "nl": "Agenda Anlegen"
+    "nl": "Een agenda aanmaken"
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",

@@ -10,7 +10,7 @@ module.exports = {
     "it": "Le mie agende",
     "io": "crwdns14900:0crwdne14900:0",
     "oc": "Mas agendas",
-    "nl": "Meine Agendas"
+    "nl": "Mijn Agenda's"
   },
   "createAgenda": {
     "fr": "Créer un agenda",
@@ -21,7 +21,7 @@ module.exports = {
     "it": "Creare un'agenda",
     "io": "crwdns14902:0crwdne14902:0",
     "oc": "Crear una agenda",
-    "nl": "Agenda Anlegen"
+    "nl": "Een agenda aanmaken"
   },
   "editMember": {
     "fr": "Voir ma fiche contact",
@@ -88,7 +88,7 @@ module.exports = {
     "it": "I miei eventi",
     "io": "crwdns14906:0crwdne14906:0",
     "oc": "Mos eveniments",
-    "nl": "Meine Veranstaltungen"
+    "nl": "Mijn evenementen"
   },
   "messages": {
     "fr": "Messages",
@@ -231,7 +231,7 @@ module.exports = {
     "it": "Creare un evento",
     "io": "crwdns14932:0crwdne14932:0",
     "oc": "Crear un eveniment",
-    "nl": "Neue Veranstaltung erstellen"
+    "nl": "Evenement aanmaken"
   },
   "searchEvent": {
     "fr": "Rechercher un événement",

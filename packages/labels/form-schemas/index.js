@@ -41,7 +41,7 @@ module.exports = {
     "br": "Skoazell",
     "io": "crwdns14888:0crwdne14888:0",
     "oc": "Ajuda",
-    "nl": "Hilfe"
+    "nl": "Hulp"
   },
   "noChoice": {
     "fr": "Aucun choix",

@@ -23,7 +23,7 @@ module.exports = {
     "br": "Ma darvoudoù",
     "io": "crwdns15804:0crwdne15804:0",
     "oc": "Mos eveniments",
-    "nl": "Meine Veranstaltungen"
+    "nl": "Mijn evenementen"
   },
   "settings": {
     "en": "Settings",
@@ -83,7 +83,7 @@ module.exports = {
     "br": "Krouiñ un deiziataer",
     "io": "crwdns15814:0crwdne15814:0",
     "oc": "Crear una agenda",
-    "nl": "Agenda Anlegen"
+    "nl": "Een agenda aanmaken"
   },
   "general": {
     "en": "General",
@@ -95,7 +95,7 @@ module.exports = {
     "br": "Dre vras",
     "io": "crwdns15816:0crwdne15816:0",
     "oc": "General",
-    "nl": "Allgemein"
+    "nl": "Genereren"
   },
   "agendasTitle": {
     "en": "Agendas",

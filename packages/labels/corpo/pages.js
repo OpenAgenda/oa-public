@@ -79,7 +79,7 @@ module.exports = {
     "it": "Creare un'agenda",
     "io": "crwdns13460:0crwdne13460:0",
     "oc": "Crear una agenda",
-    "nl": "Agenda Anlegen"
+    "nl": "Een agenda aanmaken"
   },
   "mainDescription": {
     "fr": "OpenAgenda est un outil d’agenda puissant, utilisé par des acteurs aussi divers que le Centre Pompidou, le Ministère de la Culture, Nuit Debout ou la Région Ile de France.",
@@ -480,7 +480,7 @@ module.exports = {
     "it": "Creare un'agenda",
     "io": "crwdns13540:0crwdne13540:0",
     "oc": "Crear una agenda",
-    "nl": "Agenda Anlegen"
+    "nl": "Een agenda aanmaken"
   },
   "agendaPricingFreePrice": {
     "fr": "Gratuit",

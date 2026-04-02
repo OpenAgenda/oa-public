@@ -153,7 +153,7 @@ module.exports = {
     "es": "Ayuda",
     "io": "crwdns12924:0crwdne12924:0",
     "oc": "Ajuda",
-    "nl": "Hilfe"
+    "nl": "Hulp"
   },
   "termsOfUse": {
     "en": "Terms of use",
