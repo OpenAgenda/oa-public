@@ -9,7 +9,8 @@ module.exports = {
     "it": "Creare un'agenda pubblica efficace",
     "io": "crwdns13274:0crwdne13274:0",
     "oc": "Obtenètz una agenda publica eficaça ara",
-    "nl": "Creëer een efficiënte publieke agenda"
+    "nl": "Creëer een efficiënte publieke agenda",
+    "br": "Krouiñ un deiziataer publik efedus"
   },
   "forYour": {
     "en": "For your",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Per il suo",
     "io": "crwdns13276:0crwdne13276:0",
     "oc": "Per vòstra",
-    "nl": "Voor uw"
+    "nl": "Voor uw",
+    "br": "Evit ho"
   },
   "initialName": {
     "en": "organization",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "ragione sociale",
     "io": "crwdns13278:0crwdne13278:0",
     "oc": "organizacion",
-    "nl": "organisatie"
+    "nl": "organisatie",
+    "br": "aozadur"
   },
   "createAnAgenda": {
     "en": "Create a calendar",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Creare un'agenda",
     "io": "crwdns13280:0crwdne13280:0",
     "oc": "Crear un calendièr",
-    "nl": "Een agenda maken"
+    "nl": "Een agenda maken",
+    "br": "Krouiñ un deiziataer"
   },
   "searchAnAgenda": {
     "en": "Search a calendar",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "Cercare un'agenda",
     "io": "crwdns13282:0crwdne13282:0",
     "oc": "Cercar un calendièr",
-    "nl": "Een agenda zoeken"
+    "nl": "Een agenda zoeken",
+    "br": "Klask un deiziataer"
   },
   "canCustomize": {
     "en": "Customize",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "Personnalizare",
     "io": "crwdns13284:0crwdne13284:0",
     "oc": "Personalizar",
-    "nl": "Aanpassen"
+    "nl": "Aanpassen",
+    "br": "Personelaat"
   },
   "canCollaborate": {
     "en": "Collaborate",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "Collaborare",
     "io": "crwdns13286:0crwdne13286:0",
     "oc": "Collaborar",
-    "nl": "Samenwerken"
+    "nl": "Samenwerken",
+    "br": "Kenlabouriñ"
   },
   "canBroadcast": {
     "en": "Broadcast",
@@ -79,7 +86,8 @@ module.exports = {
     "it": "Trasmettere",
     "io": "crwdns13288:0crwdne13288:0",
     "oc": "Difusar",
-    "nl": "Verspreiden"
+    "nl": "Verspreiden",
+    "br": "Skignañ"
   },
   "function1Head": {
     "en": "Your calendar, <em>organized</em> and <em>comprehensive</em>",
@@ -89,7 +97,8 @@ module.exports = {
     "it": "Un agenda completo e un agenda strutturato",
     "io": "crwdns13290:0crwdne13290:0",
     "oc": "Vòstra agenda, <em>organizada</em> e <em>complèta</em>",
-    "nl": "Een <em>complete</em> en <em>gestructureerde</em> agenda"
+    "nl": "Een <em>complete</em> en <em>gestructureerde</em> agenda",
+    "br": "Un deiziataer <em>klok</em> ha <em>frammet</em>"
   },
   "function1Description": {
     "en": "Your event pages are detailed and you can organize your calendar with multiple criteria.",
@@ -99,7 +108,8 @@ module.exports = {
     "it": "I suoi eventi sono dettagliati e potete organizzare la sua agenda secondo diversi criteri.",
     "io": "crwdns13292:0crwdne13292:0",
     "oc": "Vòstres eveniments son detalhats e podètz organizar vòstra agenda amb mai d'un critèri.",
-    "nl": "Uw evenementen zijn gedetailleerd en u kunt uw agenda organiseren met meerdere criteria."
+    "nl": "Uw evenementen zijn gedetailleerd en u kunt uw agenda organiseren met meerdere criteria.",
+    "br": "Munudoù a zo en ho tegouezhioù hag aozañ a c'hallit ho teiziataer dre lies kriterioù."
   },
   "function2Head": {
     "en": "For small, medium and large <em>collaborative</em> calendars",
@@ -109,7 +119,8 @@ module.exports = {
     "it": "Per piccole, medie e grandi agende <em>partecipanti</em>",
     "io": "crwdns13294:0crwdne13294:0",
     "oc": "Per de calendièrs <em>collaboratius</em> pichòts, mejans e bèls",
-    "nl": "Voor kleine, middelgrote en grote <em>participatieve</em> agenda's"
+    "nl": "Voor kleine, middelgrote en grote <em>participatieve</em> agenda's",
+    "br": "Evit deiziataerioù bihan, krenn ha bras <em>perzhiadel</em>"
   },
   "function2Description": {
     "en": "Regardless of your staff size, your calendar fits your context !",
@@ -119,7 +130,8 @@ module.exports = {
     "it": "Da solo? In una squadra di poche decine? Decine di migliaia ?<br> La tua agenda si adatta al tuo contesto!",
     "io": "crwdns13296:0crwdne13296:0",
     "oc": "Que vòstra equipa siá bèla o pichona, vòstra agenda s'adapta al vòstre contèxte !",
-    "nl": "Alleen? In een team van enkele tientallen? Van tienduizenden?<br>Uw agenda past zich aan uw context aan!"
+    "nl": "Alleen? In een team van enkele tientallen? Van tienduizenden?<br>Uw agenda past zich aan uw context aan!",
+    "br": "Hoc'h-unan? Gant ur skipailh a zek bennak? A zek mil bennak?<br>Ho teiziataer a glot gant ho kenarroud!"
   },
   "function3Head": {
     "en": "Deploy <em>your own network</em> of calendars",
@@ -129,7 +141,8 @@ module.exports = {
     "it": "Distribuire <em> la sua rete</em> di agende",
     "io": "crwdns13298:0crwdne13298:0",
     "oc": "Desplegatz <em>vòstra pròpria ret</em> de calendièrs",
-    "nl": "Implementeer <em>uw netwerk</em> van agenda's"
+    "nl": "Implementeer <em>uw netwerk</em> van agenda's",
+    "br": "Diorren <em>ho rouedad</em> deiziataerioù"
   },
   "function3Description": {
     "en": "Are you in charge of a federation ? territory ?<br>Equip each local organization with a calendar and get an aggregated view of the event activity of your network !",
@@ -139,7 +152,8 @@ module.exports = {
     "it": "Sei a capo di una federazione? Un territorio? Dispiega una rete di calendari e aggrega in tempo reale tutti gli eventi!",
     "io": "crwdns13300:0crwdne13300:0",
     "oc": "Avètz la carga d'una federacion ? D'un territòri?<br> Desplegatz una agenda dins cada organisme local e agregatz en dirècte totes los eveniments de la vòstra ret !",
-    "nl": "Beheert u een federatie? Een gebied?<br>Implementeer een netwerk van agenda's en aggregeer alle evenementen in realtime!"
+    "nl": "Beheert u een federatie? Een gebied?<br>Implementeer een netwerk van agenda's en aggregeer alle evenementen in realtime!",
+    "br": "Bevañ a rit ur gevread? Un tiriad?<br>Diorroit ur rouedad deiziataerioù ha bodañ en amzer real an holl zegouezhioù!"
   },
   "function4Head": {
     "en": "Broadcast <em>your events</em>",
@@ -149,7 +163,8 @@ module.exports = {
     "it": "Condividi <em>i tuoi eventi</em>",
     "io": "crwdns13302:0crwdne13302:0",
     "oc": "Compartissètz <em>vòstres eveniments</em>",
-    "nl": "Deel <em>uw evenementen</em>"
+    "nl": "Deel <em>uw evenementen</em>",
+    "br": "Rannañ <em>ho tegouezhioù</em>"
   },
   "function4Description": {
     "en": "Sync your calendar with your mediums and share it with the whole world as #OpenData.",
@@ -159,7 +174,8 @@ module.exports = {
     "it": "La sua agenda è sincronizzabile con tutti i suoi media e può essere trasmessa a tutti come dati aperti #OpenData.",
     "io": "crwdns13304:0crwdne13304:0",
     "oc": "Sincronizatz vòstra agenda amb vòstres mèdias e partejatz-la amb lo monde entièr coma #OpenData.",
-    "nl": "Uw agenda is synchroniseerbaar met al uw media en door iedereen te verspreiden!<br>#OpenData #OpenData."
+    "nl": "Uw agenda is synchroniseerbaar met al uw media en door iedereen te verspreiden!<br>#OpenData #OpenData.",
+    "br": "Ho teiziataer a c'hall bezañ sinkronelaet gant ho holl skorioù ha skignet gant an holl!<br>#RoadoùDigor #OpenData."
   },
   "ourReferences": {
     "en": "Latest references",
@@ -169,7 +185,8 @@ module.exports = {
     "it": "I nostri riferimenti",
     "io": "crwdns13306:0crwdne13306:0",
     "oc": "Darrièras referéncias",
-    "nl": "Onze referenties"
+    "nl": "Onze referenties",
+    "br": "Hor menegerioù"
   },
   "previous": {
     "en": "Previous",
@@ -179,7 +196,8 @@ module.exports = {
     "it": "Precedente",
     "io": "crwdns13308:0crwdne13308:0",
     "oc": "Precedent",
-    "nl": "Bisherige"
+    "nl": "Bisherige",
+    "br": "Kent"
   },
   "next": {
     "en": "Next",
@@ -200,7 +218,8 @@ module.exports = {
     "it": "Prossimo",
     "io": "crwdns13312:0crwdne13312:0",
     "oc": "Çò que ne ditz nòstra practica",
-    "nl": "Wat onze klanten zeggen"
+    "nl": "Wat onze klanten zeggen",
+    "br": "Petra a lavar hor c'hlianted"
   },
   "pricing": {
     "en": "Pricing",
@@ -210,7 +229,8 @@ module.exports = {
     "it": "Tariffe",
     "io": "crwdns13314:0crwdne13314:0",
     "oc": "Tarifas",
-    "nl": "Tarieven"
+    "nl": "Tarieven",
+    "br": "Prizioù"
   },
   "free": {
     "en": "Free",
@@ -220,7 +240,8 @@ module.exports = {
     "it": "Gratuito",
     "io": "crwdns13316:0crwdne13316:0",
     "oc": "Gratuit",
-    "nl": "Gratis"
+    "nl": "Gratis",
+    "br": "Digoust"
   },
   "standardCalendar": {
     "en": "Basic agenda",
@@ -230,7 +251,8 @@ module.exports = {
     "it": "Agenda di base",
     "io": "crwdns13318:0crwdne13318:0",
     "oc": "Agenda basica",
-    "nl": "Basis agenda"
+    "nl": "Basis agenda",
+    "br": "Deiziataer diazez"
   },
   "unlimitedEvents": {
     "en": "Unlimited number of events",
@@ -240,7 +262,8 @@ module.exports = {
     "it": "Numero illimitato di eventi",
     "io": "crwdns13320:0crwdne13320:0",
     "oc": "Nombre d'eveniments illimitat",
-    "nl": "Onbeperkt aantal evenementen"
+    "nl": "Onbeperkt aantal evenementen",
+    "br": "Niver a zegouezhioù didermen"
   },
   "unlimitedMembers": {
     "en": "Unlimited number of members",
@@ -250,7 +273,8 @@ module.exports = {
     "it": "Numero illimitato di membri",
     "io": "crwdns13322:0crwdne13322:0",
     "oc": "Nombre de membres illimitat",
-    "nl": "Onbeperkt aantal leden"
+    "nl": "Onbeperkt aantal leden",
+    "br": "Niver a izili didermen"
   },
   "unlimitedDownloads": {
     "en": "Unlimited number of downloads",
@@ -260,7 +284,8 @@ module.exports = {
     "it": "Download illimitati",
     "io": "crwdns13324:0crwdne13324:0",
     "oc": "Nombre de telecargaments illimitat",
-    "nl": "Onbeperkte downloads"
+    "nl": "Onbeperkte downloads",
+    "br": "Pellgargadurioù didermen"
   },
   "opendata": {
     "en": "OpenData",
@@ -270,7 +295,8 @@ module.exports = {
     "it": "Dati Aperti",
     "io": "crwdns13326:0crwdne13326:0",
     "oc": "OpenData",
-    "nl": "OpenData"
+    "nl": "OpenData",
+    "br": "RoadoùDigor"
   },
   "multilingualAndMedia": {
     "en": "Multilingual and multimedia",
@@ -280,7 +306,8 @@ module.exports = {
     "it": "Multilingue e multimedia",
     "io": "crwdns13328:0crwdne13328:0",
     "oc": "Multilingüe e multimèdia",
-    "nl": "Meertalig en multimedia"
+    "nl": "Meertalig en multimedia",
+    "br": "Liesyezhek ha liesvedia"
   },
   "moderation": {
     "en": "Moderation",
@@ -290,7 +317,8 @@ module.exports = {
     "it": "Pre e post moderazione",
     "io": "crwdns13330:0crwdne13330:0",
     "oc": "Moderacion",
-    "nl": "Pre & post moderatie"
+    "nl": "Pre & post moderatie",
+    "br": "Habaskaat"
   },
   "aggregation": {
     "en": "Agendas aggregation",
@@ -300,7 +328,8 @@ module.exports = {
     "it": "Aggregazione degli ordini del giorno",
     "io": "crwdns13332:0crwdne13332:0",
     "oc": "Agregacion d'agendas",
-    "nl": "Aggregatie van agenda's"
+    "nl": "Aggregatie van agenda's",
+    "br": "Bodañ deiziataerioù"
   },
   "year": {
     "en": "year",
@@ -310,7 +339,8 @@ module.exports = {
     "it": "anno",
     "io": "crwdns13334:0crwdne13334:0",
     "oc": "an",
-    "nl": "jaar"
+    "nl": "jaar",
+    "br": "bloaz"
   },
   "month": {
     "en": "month",
@@ -331,7 +361,8 @@ module.exports = {
     "it": "Funzioni di base del calendario",
     "io": "crwdns13338:0crwdne13338:0",
     "oc": "Foncions de basa de l'agenda",
-    "nl": "Functies van de basis agenda"
+    "nl": "Functies van de basis agenda",
+    "br": "Arc'hwelioù an deiziataer diazez"
   },
   "premiumSupport": {
     "en": "Premium support",
@@ -341,7 +372,8 @@ module.exports = {
     "it": "Supporto Premium",
     "io": "crwdns13340:0crwdne13340:0",
     "oc": "Supòrt premium",
-    "nl": "Premium ondersteuning"
+    "nl": "Premium ondersteuning",
+    "br": "Skoazell premium"
   },
   "customFields": {
     "en": "Extra event fields",
@@ -351,7 +383,8 @@ module.exports = {
     "it": "Campi aggiuntivi",
     "io": "crwdns13342:0crwdne13342:0",
     "oc": "Camps d'eveniment suplementaris",
-    "nl": "Extra velden"
+    "nl": "Extra velden",
+    "br": "Maeziennoù ouzhpenn"
   },
   "customEmbed": {
     "en": "Custom embed",
@@ -361,7 +394,8 @@ module.exports = {
     "it": "Incorporazione personalizzabile",
     "io": "crwdns13344:0crwdne13344:0",
     "oc": "Integracion pesonalizabla",
-    "nl": "Aanpasbare embed"
+    "nl": "Aanpasbare embed",
+    "br": "Enframmañ personelaat"
   },
   "dateLimitation": {
     "en": "Limitation of dates, venues and <br>contributors",
@@ -371,7 +405,8 @@ module.exports = {
     "it": "Limitazione di date, luoghi e collaboratori",
     "io": "crwdns13346:0crwdne13346:0",
     "oc": "Limitacion de las datas, dels lòcs e dels <br>contributors",
-    "nl": "Beperking van data, locaties en <br>bijdragers"
+    "nl": "Beperking van data, locaties en <br>bijdragers",
+    "br": "Bevennadur an deiziadoù, lec'hioù ha<br>kenlabourerien"
   },
   "contactUs": {
     "en": "Contact us",
@@ -381,7 +416,8 @@ module.exports = {
     "it": "Contattateci",
     "io": "crwdns13348:0crwdne13348:0",
     "oc": "Nos contactar",
-    "nl": "Neem contact met ons op"
+    "nl": "Neem contact met ons op",
+    "br": "Mont e darempred"
   },
   "premiumCalendar": {
     "en": "Premium agenda",
@@ -391,7 +427,8 @@ module.exports = {
     "it": "Agenda Premium",
     "io": "crwdns13350:0crwdne13350:0",
     "oc": "Agenda premium",
-    "nl": "Premium agenda"
+    "nl": "Premium agenda",
+    "br": "Deiziataer premium"
   },
   "premiumCalendars": {
     "en": "20 premium agendas",
@@ -401,7 +438,8 @@ module.exports = {
     "it": "20 agende premio",
     "io": "crwdns13352:0crwdne13352:0",
     "oc": "20 agendas premium",
-    "nl": "20 premium agenda's"
+    "nl": "20 premium agenda's",
+    "br": "20 deiziataer premium"
   },
   "basicCalendars": {
     "en": "Unlimited basic agendas",
@@ -411,7 +449,8 @@ module.exports = {
     "it": "Agende di base illimitate",
     "io": "crwdns13354:0crwdne13354:0",
     "oc": "Agendas basicas illimitadas",
-    "nl": "Onbeperkte basis agenda's"
+    "nl": "Onbeperkte basis agenda's",
+    "br": "Deiziataerioù diazez didermen"
   },
   "networkCalendar": {
     "en": "Network Offer",
@@ -421,7 +460,8 @@ module.exports = {
     "it": "Offerta di rete",
     "io": "crwdns13356:0crwdne13356:0",
     "oc": "Ofèrta ret",
-    "nl": "Netwerk Aanbod"
+    "nl": "Netwerk Aanbod",
+    "br": "Kinnig Rouedad"
   },
   "support": {
     "en": "Dedicated support",
@@ -431,7 +471,8 @@ module.exports = {
     "it": "Consulenza personalizzata",
     "io": "crwdns13358:0crwdne13358:0",
     "oc": "Ajuda personalizada",
-    "nl": "Persoonlijk advies"
+    "nl": "Persoonlijk advies",
+    "br": "Kuzul personelaat"
   },
   "customFeatures": {
     "en": "Custom features",
@@ -441,7 +482,8 @@ module.exports = {
     "it": "Funzioni personalizzate",
     "io": "crwdns13360:0crwdne13360:0",
     "oc": "Foncionalitats personalizadas",
-    "nl": "Aangepaste functies"
+    "nl": "Aangepaste functies",
+    "br": "Arc'hwelioù personelaat"
   },
   "workflowManagement": {
     "en": "Workflow management",
@@ -451,7 +493,8 @@ module.exports = {
     "it": "Circuito di convalida",
     "io": "crwdns13362:0crwdne13362:0",
     "oc": "Gestion dels flusses de trabalh",
-    "nl": "Uitgebreid validatiecircuit"
+    "nl": "Uitgebreid validatiecircuit",
+    "br": "Kadarnaat ledan"
   },
   "membersHierarchy": {
     "en": "Moderators",
@@ -461,7 +504,8 @@ module.exports = {
     "it": "Moderatori",
     "io": "crwdns13364:0crwdne13364:0",
     "oc": "Moderator·a·s",
-    "nl": "Moderatoren"
+    "nl": "Moderatoren",
+    "br": "Habaskaerien"
   },
   "customNotifications": {
     "en": "Custom notifications",
@@ -471,7 +515,8 @@ module.exports = {
     "it": "Personalizzazione delle notifiche",
     "io": "crwdns13366:0crwdne13366:0",
     "oc": "Notificacions personalizadas",
-    "nl": "Aanpassing van meldingen"
+    "nl": "Aanpassing van meldingen",
+    "br": "Personelaat ar c'hemennoù"
   },
   "tailored": {
     "en": "Tailored",
@@ -481,7 +526,8 @@ module.exports = {
     "it": "Su misura",
     "io": "crwdns13368:0crwdne13368:0",
     "oc": "A faiçon",
-    "nl": "Op maat"
+    "nl": "Op maat",
+    "br": "War-vuzul"
   },
   "portal": {
     "en": "Event portal",
@@ -491,7 +537,8 @@ module.exports = {
     "it": "Portale",
     "io": "crwdns13370:0crwdne13370:0",
     "oc": "Portal d'eveniment",
-    "nl": "Portaal"
+    "nl": "Portaal",
+    "br": "Porched"
   },
   "premiumFeatures": {
     "en": "Premium features",
@@ -501,7 +548,8 @@ module.exports = {
     "it": "Caratteristiche Premium",
     "io": "crwdns13372:0crwdne13372:0",
     "oc": "Foncionalitats premium",
-    "nl": "Premium functies"
+    "nl": "Premium functies",
+    "br": "Arc'hwelioù Premium"
   },
   "editorialControl": {
     "en": "Editorial control",
@@ -511,7 +559,8 @@ module.exports = {
     "it": "Definizione dell'asse editoriale",
     "io": "crwdns13374:0crwdne13374:0",
     "oc": "Contròle editorial",
-    "nl": "Definitie van de redactionele as"
+    "nl": "Definitie van de redactionele as",
+    "br": "Termeniñ ar sturiadur embann"
   },
   "communityManagement": {
     "en": "Community management",
@@ -521,7 +570,8 @@ module.exports = {
     "it": "Animazione per la comunità",
     "io": "crwdns13376:0crwdne13376:0",
     "oc": "Animacion de comunautat",
-    "nl": "Community management"
+    "nl": "Community management",
+    "br": "Bevañ ar gumuniezh"
   },
   "networkDeployment": {
     "en": "Network deployment",
@@ -531,7 +581,8 @@ module.exports = {
     "it": "Implementazione della rete",
     "io": "crwdns13378:0crwdne13378:0",
     "oc": "Desplega de la ret",
-    "nl": "Implementatie van netwerken"
+    "nl": "Implementatie van netwerken",
+    "br": "Diorren ar rouedadoù"
   },
   "paperProgram": {
     "en": "Paper program",
@@ -541,7 +592,8 @@ module.exports = {
     "it": "Programma cartaceo",
     "io": "crwdns13380:0crwdne13380:0",
     "oc": "Programa papièr",
-    "nl": "Papieren programma"
+    "nl": "Papieren programma",
+    "br": "Programm war baper"
   },
   "currentlyOnOA": {
     "en": "Currently on OpenAgenda",
@@ -551,7 +603,8 @@ module.exports = {
     "it": "Al momento",
     "io": "crwdns13382:0crwdne13382:0",
     "oc": "D'aquesta passa sus OpenAgenda",
-    "nl": "Op dit moment"
+    "nl": "Op dit moment",
+    "br": "Er mare-mañ"
   },
   "calendars": {
     "en": "calendars",
@@ -561,7 +614,8 @@ module.exports = {
     "it": "agende",
     "io": "crwdns13384:0crwdne13384:0",
     "oc": "agendas",
-    "nl": "agenda's"
+    "nl": "agenda's",
+    "br": "deiziataerioù"
   },
   "contributors": {
     "en": "contributors",
@@ -571,7 +625,8 @@ module.exports = {
     "it": "collaboratori",
     "io": "crwdns13386:0crwdne13386:0",
     "oc": "contributor·a·s",
-    "nl": "bijdragers"
+    "nl": "bijdragers",
+    "br": "kenlabourerien"
   },
   "events": {
     "en": "events",
@@ -592,7 +647,8 @@ module.exports = {
     "it": "Pronti?",
     "io": "crwdns13390:0crwdne13390:0",
     "oc": "Prèste·a ?",
-    "nl": "Klaar?"
+    "nl": "Klaar?",
+    "br": "Prest?"
   },
   "createYourCalendarNow": {
     "en": "Create your calendar now !",
@@ -602,7 +658,8 @@ module.exports = {
     "it": "Crea su agenda!",
     "io": "crwdns13392:0crwdne13392:0",
     "oc": "Fargatz vòstra agenda ara !",
-    "nl": "Maak uw agenda!"
+    "nl": "Maak uw agenda!",
+    "br": "Krouit ho teiziataer!"
   },
   "contact": {
     "en": "Contact",
@@ -612,7 +669,8 @@ module.exports = {
     "it": "Contattare",
     "io": "crwdns13394:0crwdne13394:0",
     "oc": "Contactar",
-    "nl": "Contact opnemen"
+    "nl": "Contact opnemen",
+    "br": "Mont e darempred"
   },
   "email": {
     "en": "Your email address",
@@ -622,7 +680,8 @@ module.exports = {
     "it": "Il suo indirizzo e-mail",
     "io": "crwdns13396:0crwdne13396:0",
     "oc": "Vòstra adreça email",
-    "nl": "Uw e-mailadres"
+    "nl": "Uw e-mailadres",
+    "br": "Ho chomlec'h postel"
   },
   "subscribe": {
     "en": "Subscribe",
@@ -643,7 +702,8 @@ module.exports = {
     "it": "L'azienda",
     "io": "crwdns13400:0crwdne13400:0",
     "oc": "La societat",
-    "nl": "Het bedrijf"
+    "nl": "Het bedrijf",
+    "br": "Hor c'hompagnunezh"
   },
   "jobs": {
     "en": "Jobs",
@@ -653,7 +713,8 @@ module.exports = {
     "it": "Reclutamento",
     "io": "crwdns13402:0crwdne13402:0",
     "oc": "Recrutament",
-    "nl": "Werving"
+    "nl": "Werving",
+    "br": "Embregerezh"
   },
   "ourOA": {
     "en": "Our OpenAgenda !",
@@ -663,7 +724,8 @@ module.exports = {
     "it": "Il nostro OpenAgenda!",
     "io": "crwdns13404:0crwdne13404:0",
     "oc": "Nòstre OpenAgenda !",
-    "nl": "Onze OpenAgenda!"
+    "nl": "Onze OpenAgenda!",
+    "br": "Hor OpenAgenda!"
   },
   "service": {
     "en": "Our service",
@@ -673,7 +735,8 @@ module.exports = {
     "it": "Il servizio",
     "io": "crwdns13406:0crwdne13406:0",
     "oc": "Lo servici",
-    "nl": "De dienst"
+    "nl": "De dienst",
+    "br": "Hor servij"
   },
   "help": {
     "en": "Help",
@@ -694,7 +757,8 @@ module.exports = {
     "it": "Documentazione + API",
     "io": "crwdns13410:0crwdne13410:0",
     "oc": "Documentacion + API",
-    "nl": "Documentatie + API"
+    "nl": "Documentatie + API",
+    "br": "Teuliadur + API"
   },
   "roadmap": {
     "en": "Roadmap",
@@ -704,7 +768,8 @@ module.exports = {
     "it": "Piano di sviluppo",
     "io": "crwdns13412:0crwdne13412:0",
     "oc": "Plan de desvolopament",
-    "nl": "Ontwikkelingsplan"
+    "nl": "Ontwikkelingsplan",
+    "br": "Steuñv diorren"
   },
   "serviceStatus": {
     "en": "Service status",
@@ -714,7 +779,8 @@ module.exports = {
     "it": "Stato del servizio",
     "io": "crwdns13414:0crwdne13414:0",
     "oc": "Estat del servici",
-    "nl": "Status van de dienst"
+    "nl": "Status van de dienst",
+    "br": "Stad ar servij"
   },
   "termsOfUse": {
     "en": "Terms of use",
@@ -735,7 +801,8 @@ module.exports = {
     "it": "Supporto operativo",
     "io": "crwdns13418:0crwdne13418:0",
     "oc": "Supòrt operacional",
-    "nl": "Operationele ondersteuning"
+    "nl": "Operationele ondersteuning",
+    "br": "Skoazellañ oberiadel"
   },
   "contentModeration": {
     "en": "Content moderation",
@@ -745,7 +812,8 @@ module.exports = {
     "it": "Moderazione dei contenuti",
     "io": "crwdns13420:0crwdne13420:0",
     "oc": "Moderacion de contenguts",
-    "nl": "Moderatie van inhoud"
+    "nl": "Moderatie van inhoud",
+    "br": "Habaskaat an endalc'hadoù"
   },
   "reporting": {
     "en": "Reporting",
@@ -755,7 +823,8 @@ module.exports = {
     "it": "Segnalazione",
     "io": "crwdns13422:0crwdne13422:0",
     "oc": "Rapòrts",
-    "nl": "Rapportage"
+    "nl": "Rapportage",
+    "br": "Danevelloù"
   },
   "training": {
     "en": "Training",
@@ -765,7 +834,8 @@ module.exports = {
     "it": "Formazione",
     "io": "crwdns13424:0crwdne13424:0",
     "oc": "Formacion",
-    "nl": "Training"
+    "nl": "Training",
+    "br": "Stummadur"
   },
   "contentPromotion": {
     "en": "Content promotion",
@@ -775,7 +845,8 @@ module.exports = {
     "it": "Promozione dei contenuti",
     "io": "crwdns13426:0crwdne13426:0",
     "oc": "Promocion de contenguts",
-    "nl": "Promotie van inhoud"
+    "nl": "Promotie van inhoud",
+    "br": "Brudañ an endalc'hadoù"
   },
   "seeMoreTestimonies": {
     "en": "See more testimonies",
@@ -785,6 +856,7 @@ module.exports = {
     "it": "Vedi altri riferimenti",
     "io": "crwdns13428:0crwdne13428:0",
     "oc": "Véser mai de referéncias",
-    "nl": "Zie meer referenties"
+    "nl": "Zie meer referenties",
+    "br": "Gwelet muioc'h a venegerioù"
   }
 }

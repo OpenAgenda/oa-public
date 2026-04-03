@@ -1,1 +1,9 @@
-{}
+{
+  "callToAction": "Hizivaat va merdeer bremañ",
+  "close": "Serriñ",
+  "outOfDate": "N'eo ket kenglotus ken ho merdeer!",
+  "updateAppStore": "Hizivait iOS adalek an Arload Arventennoù mar plij",
+  "updateGooglePlay": "Stallit Chrome adalek Google Play mar plij",
+  "updateWeb": "Hizivait ho merdeer evit diskouez al lec'hienn web-mañ ent reizh. ",
+  "url": "https://browser-update.org/update-browser.html"
+}

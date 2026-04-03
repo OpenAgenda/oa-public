@@ -2,6 +2,6 @@
   "next.components.CopyIdentifier.clickToCopyIdentifier": "",
   "next.components.CopyIdentifier.copied": "",
   "next.components.CopyIdentifier.copy": "",
-  "next.components.SearchInput.ariaLabel": "",
-  "next.views.AgendaShow.EventItem.featured": ""
+  "next.components.SearchInput.ariaLabel": "Klask",
+  "next.views.AgendaShow.EventItem.featured": "Keleier pennañ"
 }

@@ -10,6 +10,7 @@ module.exports = {
     "es": "Haga clic y arrastre en la parrilla para crear un nuevo horario.",
     "io": "crwdns14648:0crwdne14648:0",
     "oc": "Clicatz e bloegatz sus la grasilha per definir un novèl orari.",
-    "nl": "Klik en sleep op het raster om een nieuwe timing te maken."
+    "nl": "Klik en sleep op het raster om een nieuwe timing te maken.",
+    "br": "Klikit ha ruzit war ar gael evit krouiñ un euriadur nevez."
   }
 }

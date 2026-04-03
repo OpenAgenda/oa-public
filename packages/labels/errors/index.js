@@ -7,7 +7,8 @@ module.exports = {
     "io": "crwdns14032:0%min%crwdne14032:0",
     "oc": "Lo nombre deu èsser superior o egal a %min%",
     "es": "El número debe ser igual o mayor a %min%",
-    "nl": "Het getal moet gelijk zijn aan of groter zijn dan %min%"
+    "nl": "Het getal moet gelijk zijn aan of groter zijn dan %min%",
+    "br": "Ret eo d'an niver bezañ par da %min% pe uheloc'h"
   },
   "number.toobig": {
     "fr": "Le nombre doit être inférieur ou égal à %max%",
@@ -169,7 +170,8 @@ module.exports = {
     "io": "crwdns16098:0%max%crwdne16098:0",
     "oc": "La seleccion pòt pas aculhir mai de %max% causidas",
     "es": "La selección no debe exceder %max% opciones",
-    "nl": "De selectie mag niet meer dan %max% keuzes bevatten"
+    "nl": "De selectie mag niet meer dan %max% keuzes bevatten",
+    "br": "Arabat d'an diuzadenn mont dreist %max% dibab"
   },
   "serverException": {
     "fr": "Il y a eu un souci lors de la sauvegarde, veuillez retenter dans un instant",
@@ -194,7 +196,8 @@ module.exports = {
     "it": "L'invio non è riuscito: un'immagine o un file troppo grande è stato caricato nel modulo. La dimensione massima consentita è %max% megabyte",
     "oc": "L'enregistrament a pas capitat : un imatge o un fichièr tròp bèl es estat cargat dins lo formulari. La talha maximum autorizada es de %max% megaoctets",
     "es": "El registro falló: se cargó una imagen o archivo demasiado grande en el formulario. El tamaño máximo permitido es %max% megabytes",
-    "nl": "De verzending is mislukt: een te grote afbeelding of bestand werd geladen in het formulier. De maximaal toegestane grootte is %max% megabytes"
+    "nl": "De verzending is mislukt: een te grote afbeelding of bestand werd geladen in het formulier. De maximaal toegestane grootte is %max% megabytes",
+    "br": "C'hwitet eo bet ar c'hasadenn: ur skeudenn pe ur restr re vras a zo bet karget er furmskrid. Ar vent vrasañ aotreet a zo %max% megaokted"
   },
   "noOrigin": {
     "fr": "Cet événement est indisponible car il n'est associé a aucun agenda",
@@ -215,7 +218,8 @@ module.exports = {
     "it": "Torna alla home page",
     "io": "crwdns14068:0crwdne14068:0",
     "oc": "Tornar a l'acuèlh",
-    "nl": "Terug naar de startpagina"
+    "nl": "Terug naar de startpagina",
+    "br": "Distreiñ d'ar bajenn degemer"
   },
   "defaultAgendaBack": {
     "fr": "Revenir à l'agenda",
@@ -225,7 +229,8 @@ module.exports = {
     "it": "Tornare all'agenda",
     "io": "crwdns14070:0crwdne14070:0",
     "oc": "Tornar a la pagina d'agenda",
-    "nl": "Terug naar de agenda"
+    "nl": "Terug naar de agenda",
+    "br": "Distreiñ d'ar bajenn deiziataer"
   },
   "pageDoesNotExist": {
     "fr": "La page que vous avez demandé n'existe pas",
@@ -235,7 +240,8 @@ module.exports = {
     "it": "La pagina richiesta non esiste",
     "io": "crwdns14072:0crwdne14072:0",
     "oc": "La pagina demandada existís pas",
-    "nl": "De door u opgevraagde pagina bestaat niet"
+    "nl": "De door u opgevraagde pagina bestaat niet",
+    "br": "Ar bajenn ho peus goulennet n'eus ket anezhi"
   },
   "invalidOrIncompleteEvent": {
     "fr": "L'opération n'a pas pu aboutir, l'événement est soit incomplet, soit invalide. Corrigez la fiche avant de retenter l'opération.",
@@ -243,7 +249,8 @@ module.exports = {
     "io": "crwdns16424:0crwdne16424:0",
     "oc": "L'accion a pas capitat. L'eveniment es siá incomplèt, siá invalid. Botatz a jorn avant de tornar ensajar",
     "es": "No se pudo realizar la accion. El evento está incompleto o inválido. Actualízalo antes de intentarlo nuevamente",
-    "nl": "De handeling is niet gelukt. Het evenement is ofwel onvolledig of ongeldig. Corrigeer het voordat u het opnieuw probeert"
+    "nl": "De handeling is niet gelukt. Het evenement is ofwel onvolledig of ongeldig. Corrigeer het voordat u het opnieuw probeert",
+    "br": "N'eo ket deuet a-benn an oberiadenn, an darvoud a zo diglok pe direizh. Reizhit ar fichennaoueg a-raok klask en-dro"
   },
   "changeEmailErrorTitle": {
     "en": "The link you clicked on is invalid",
@@ -262,6 +269,7 @@ module.exports = {
     "es": "Contactar con el soporte",
     "oc": "Contactar l'assisténcia",
     "io": "crwdns35281:0crwdne35281:0",
-    "nl": "Contact opnemen met support"
+    "nl": "Contact opnemen met support",
+    "br": "Mont e darempred gant ar skoazell"
   }
 }

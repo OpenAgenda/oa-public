@@ -10,7 +10,8 @@ module.exports = {
     "es": "Su acción se está procesando. Los eventos con el estado %oldstate% passaran en breve a %newstate%.",
     "io": "crwdns12762:0%oldstate%crwdnd12762:0%newstate%crwdne12762:0",
     "oc": "Vòstra accion es en cors de tractament. Los eveniments jos l'estat %oldstate% se cambiaràn lèu per %newstate%.",
-    "nl": "Uw aanvraag wordt verwerkt. Evenementen met de status %oldstate% zullen binnenkort worden gewijzigd naar %newstate%."
+    "nl": "Uw aanvraag wordt verwerkt. Evenementen met de status %oldstate% zullen binnenkort worden gewijzigd naar %newstate%.",
+    "br": "Emañ ho koulenn o vezañ tredet. An darvoudoù gant ar statud %oldstate% a dremo da %newstate% a-benn nebeut."
   },
   "ownershipTransfered": {
     "en": "The ownership of the event has successfully been transferred",
@@ -21,7 +22,8 @@ module.exports = {
     "es": "La propiedad del evento fue transferido con éxito",
     "io": "crwdns12764:0crwdne12764:0",
     "oc": "La proprietat de l'eveniment es plan estada transferida",
-    "nl": "Het eigendom van het evenement is succesvol overgedragen"
+    "nl": "Het eigendom van het evenement is succesvol overgedragen",
+    "br": "Treuzkaset eo bet perc'henniezh an darvoud gant berzh"
   },
   "spreadsheetTitle": {
     "en": "Download",
@@ -32,7 +34,8 @@ module.exports = {
     "es": "Descargar",
     "io": "crwdns12766:0crwdne12766:0",
     "oc": "Descargar",
-    "nl": "Downloaden"
+    "nl": "Downloaden",
+    "br": "Pellgargañ"
   },
   "allLanguages": {
     "en": "All languages",
@@ -43,7 +46,8 @@ module.exports = {
     "es": "todos los idiomas",
     "io": "crwdns12768:0crwdne12768:0",
     "oc": "Totas las lengas",
-    "nl": "Alle talen"
+    "nl": "Alle talen",
+    "br": "An holl yezhoù"
   },
   "spreadsheetDescription": {
     "en": "Limit downloaded content to specified languages",
@@ -54,6 +58,7 @@ module.exports = {
     "es": "Limitar datos descargados algunos idiomas",
     "io": "crwdns12770:0crwdne12770:0",
     "oc": "Limitar lo contengut descargat a las lengas indicadas",
-    "nl": "Gedownloade inhoud beperken tot bepaalde talen"
+    "nl": "Gedownloade inhoud beperken tot bepaalde talen",
+    "br": "Bevenniñ ar roadennoù pellgarget d'ar yezhoù spisaet"
   }
 }

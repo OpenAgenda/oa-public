@@ -9,7 +9,8 @@ module.exports = {
     "it": "anno",
     "io": "crwdns13226:0crwdne13226:0",
     "oc": "an",
-    "nl": "jaar"
+    "nl": "jaar",
+    "br": "bloaz"
   },
   "years": {
     "fr": "ans",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "anni",
     "io": "crwdns13228:0crwdne13228:0",
     "oc": "ans",
-    "nl": "jaren"
+    "nl": "jaren",
+    "br": "bloaz"
   },
   "min": {
     "fr": "De",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Da",
     "io": "crwdns13230:0crwdne13230:0",
     "oc": "De",
-    "nl": "Van"
+    "nl": "Van",
+    "br": "Eus"
   },
   "max": {
     "fr": "à",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "a",
     "io": "crwdns13232:0crwdne13232:0",
     "oc": "a",
-    "nl": "tot"
+    "nl": "tot",
+    "br": "da"
   },
   "select": {
     "fr": "Sélectionner",
@@ -49,6 +53,7 @@ module.exports = {
     "it": "Selezionare",
     "io": "crwdns13234:0crwdne13234:0",
     "oc": "Seleccionar",
-    "nl": "Selecteren"
+    "nl": "Selecteren",
+    "br": "Diuzañ"
   }
 }

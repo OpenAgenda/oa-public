@@ -1,5 +1,10 @@
 {
   "cancel": "Nullañ",
+  "groupErrorHeader": "Talvoudoù 'zo a rank bezañ reizhet",
   "help": "Skoazell",
+  "noChoice": "Dibab ebet",
+  "noOption": "Klotadenn ebet",
+  "required": "Maezienn ret",
+  "selectPlaceholder": "Diuzañ...",
   "submit": "Kemmañ"
 }

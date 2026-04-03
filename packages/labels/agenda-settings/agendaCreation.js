@@ -9,7 +9,8 @@ module.exports = {
     "it": "Immagine",
     "io": "crwdns12440:0crwdne12440:0",
     "oc": "Imatge",
-    "nl": "Afbeelding"
+    "nl": "Afbeelding",
+    "br": "Skeudenn"
   },
   "description": {
     "fr": "Description",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Descrizione",
     "io": "crwdns12442:0crwdne12442:0",
     "oc": "Descripcion",
-    "nl": "Beschrijving"
+    "nl": "Beschrijving",
+    "br": "Deskrivadur"
   },
   "parameters": {
     "fr": "Paramètres",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Impostazioni",
     "io": "crwdns12444:0crwdne12444:0",
     "oc": "Paramètres",
-    "nl": "Parameters"
+    "nl": "Parameters",
+    "br": "Arventennoù"
   },
   "yourAgenda": {
     "fr": "Votre agenda",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "La tua agenda",
     "io": "crwdns12446:0crwdne12446:0",
     "oc": "Vòstra agenda",
-    "nl": "Uw agenda"
+    "nl": "Uw agenda",
+    "br": "Ho teiziataer"
   },
   "subtitle": {
     "fr": "Un agenda est une liste d'événements",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "Un'agenda è un elenco di eventi",
     "io": "crwdns12448:0crwdne12448:0",
     "oc": "Una agenda es una tièra d'eveniments",
-    "nl": "Een agenda is een lijst van evenementen"
+    "nl": "Een agenda is een lijst van evenementen",
+    "br": "Un deiziataer zo ur roll darvoudoù"
   },
   "title": {
     "en": "Title",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "Titolo",
     "io": "crwdns12450:0crwdne12450:0",
     "oc": "Títol",
-    "nl": "Titel"
+    "nl": "Titel",
+    "br": "Titl"
   },
   "titlePlaceholder": {
     "fr": "Mon organisation, mon festival, ma ville, autre",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "La mia ragione sociale, il mio festival, la mia città, altri",
     "io": "crwdns12452:0crwdne12452:0",
     "oc": "Mon organizacion, mon festenal, ma vila, autre",
-    "nl": "Mijn organisatie, mijn festival, mijn stad, andere"
+    "nl": "Mijn organisatie, mijn festival, mijn stad, andere",
+    "br": "Ma aozadur, ma gouel, ma c'hêr, all"
   },
   "website": {
     "fr": "Site web",
@@ -79,7 +86,8 @@ module.exports = {
     "it": "Sito web",
     "io": "crwdns12454:0crwdne12454:0",
     "oc": "Site web",
-    "nl": "Website"
+    "nl": "Website",
+    "br": "Lec'hienn web"
   },
   "websitePlaceholder": {
     "fr": "http://monsite.com",
@@ -89,7 +97,8 @@ module.exports = {
     "it": "http://monsite.com",
     "io": "crwdns12456:0crwdne12456:0",
     "oc": "http://monsite.com",
-    "nl": "http://mijnsite.com"
+    "nl": "http://mijnsite.com",
+    "br": "http://malec'hienn.com"
   },
   "personalizedSlug": {
     "fr": "Adresse web personnalisée",
@@ -99,7 +108,8 @@ module.exports = {
     "it": "Indirizzo web personalizzato",
     "io": "crwdns12458:0crwdne12458:0",
     "oc": "Adreiça web personalizada",
-    "nl": "Gepersonaliseerd webadres"
+    "nl": "Gepersonaliseerd webadres",
+    "br": "Chomlec'h web personelaet"
   },
   "next": {
     "fr": "Suivant",
@@ -120,7 +130,8 @@ module.exports = {
     "it": "Chi può aggiungere eventi a questo calendario ?",
     "io": "crwdns12462:0crwdne12462:0",
     "oc": "Qual·a pòt apondre d'eveniments a aqueste calendièr ?",
-    "nl": "Wie kan evenementen toevoegen aan deze agenda?"
+    "nl": "Wie kan evenementen toevoegen aan deze agenda?",
+    "br": "Piv a c'hall ouzhpennañ darvoudoù d'an deiziataer-mañ ?"
   },
   "contribTypeChoosen": {
     "fr": "Seulement des personnes choisies et moi",
@@ -130,7 +141,8 @@ module.exports = {
     "it": "Solo persone selezionate e io",
     "io": "crwdns12464:0crwdne12464:0",
     "oc": "Sonque las personas seleccionadas e ieu",
-    "nl": "Alleen gekozen personen en ik"
+    "nl": "Alleen gekozen personen en ik",
+    "br": "Tud dibabet hepken ha me"
   },
   "contribTypeAll": {
     "fr": "Tout le monde",
@@ -140,7 +152,8 @@ module.exports = {
     "it": "Tutti",
     "io": "crwdns12466:0crwdne12466:0",
     "oc": "Tot lo monde",
-    "nl": "Iedereen"
+    "nl": "Iedereen",
+    "br": "An holl"
   },
   "contribDefaultState": {
     "fr": "Statut par défaut des événements",
@@ -150,7 +163,8 @@ module.exports = {
     "it": "Stato di default degli eventi",
     "io": "crwdns12468:0crwdne12468:0",
     "oc": "Estatut per defaut dels eveniments",
-    "nl": "Standaardstatus van evenementen"
+    "nl": "Standaardstatus van evenementen",
+    "br": "Statud dre ziouer an darvoudoù"
   },
   "contribDefaultStatePublished": {
     "fr": "Publié",
@@ -171,7 +185,8 @@ module.exports = {
     "it": "È possibile modificare gli eventi in seguito.",
     "io": "crwdns12472:0crwdne12472:0",
     "oc": "Podètz modificar los eveniments mai tard.",
-    "nl": "U kunt de evenementen later wijzigen."
+    "nl": "U kunt de evenementen later wijzigen.",
+    "br": "Gallout a rit kemmañ an darvoudoù diwezhatoc'h."
   },
   "contribDefaultStateUnpublished": {
     "fr": "À modérer",
@@ -181,7 +196,8 @@ module.exports = {
     "it": "Inedito",
     "io": "crwdns12474:0crwdne12474:0",
     "oc": "De revisar",
-    "nl": "Te modereren"
+    "nl": "Te modereren",
+    "br": "Da gontrollañ"
   },
   "contribDefaultStateUnpublishedText": {
     "fr": "Les événements ne deviennent publics qu'après votre validation.",
@@ -191,7 +207,8 @@ module.exports = {
     "it": "Gli eventi diventano pubblici solo dopo la vostra convalida.",
     "io": "crwdns12476:0crwdne12476:0",
     "oc": "Los eveniments venon publics pas qu'aprèp validacion.",
-    "nl": "Evenementen worden pas openbaar na uw validatie."
+    "nl": "Evenementen worden pas openbaar na uw validatie.",
+    "br": "An darvoudoù ne zeuont da vezañ publik nemet goude ho kadarnaat."
   },
   "previous": {
     "fr": "Précédent",
@@ -201,7 +218,8 @@ module.exports = {
     "it": "Precedente",
     "io": "crwdns12478:0crwdne12478:0",
     "oc": "Precedent",
-    "nl": "Bisherige"
+    "nl": "Bisherige",
+    "br": "Kent"
   },
   "createAgenda": {
     "fr": "Créer l'agenda",
@@ -211,7 +229,8 @@ module.exports = {
     "it": "Creare l'agenda",
     "io": "crwdns12480:0crwdne12480:0",
     "oc": "Crear l'agenda",
-    "nl": "Agenda maken"
+    "nl": "Agenda maken",
+    "br": "Krouiñ an deiziataer"
   },
   "required": {
     "fr": "Obligatoire",
@@ -232,7 +251,8 @@ module.exports = {
     "it": "La stringa è troppo corta",
     "io": "crwdns12484:0crwdne12484:0",
     "oc": "La cadena de caractèrs es tròp corteta",
-    "nl": "De tekenreeks is te kort"
+    "nl": "De tekenreeks is te kort",
+    "br": "Re verr eo ar chadenn arouezennoù"
   },
   "string.toolong": {
     "fr": "La chaîne de caractères est trop longue",
@@ -242,7 +262,8 @@ module.exports = {
     "it": "La stringa è troppo lunga",
     "io": "crwdns12486:0crwdne12486:0",
     "oc": "La cadena de caractèrs es tròp longa",
-    "nl": "De tekenreeks is te lang"
+    "nl": "De tekenreeks is te lang",
+    "br": "Re hir eo ar chadenn arouezennoù"
   },
   "link.invalid": {
     "fr": "Lien invalide",
@@ -252,7 +273,8 @@ module.exports = {
     "it": "Collegamento non valido",
     "io": "crwdns12488:0crwdne12488:0",
     "oc": "Ligam invalid",
-    "nl": "Ongeldige link"
+    "nl": "Ongeldige link",
+    "br": "Liamm direizh"
   },
   "duplicate": {
     "fr": "Cette valeur est déjà prise par un autre agenda",
@@ -262,7 +284,8 @@ module.exports = {
     "it": "Informazione duplicata trovata",
     "io": "crwdns12490:0crwdne12490:0",
     "oc": "Valor ja presa per una autra agenda",
-    "nl": "Deze waarde is al in gebruik door een andere agenda"
+    "nl": "Deze waarde is al in gebruik door een andere agenda",
+    "br": "Kemeret eo ar werzh-mañ gant un deiziataer all dija"
   },
   "toosmall": {
     "fr": "La chaîne de caractères est trop courte",
@@ -272,7 +295,8 @@ module.exports = {
     "it": "La stringa è troppo corta",
     "io": "crwdns12492:0crwdne12492:0",
     "oc": "La cadena de caractèrs es tròp corteta",
-    "nl": "De tekenreeks is te kort"
+    "nl": "De tekenreeks is te kort",
+    "br": "Re verr eo ar chadenn arouezennoù"
   },
   "slug.invalid": {
     "fr": "Seuls les lettres minuscules, les chiffres et les tirets (-) sont autorisés",
@@ -282,7 +306,8 @@ module.exports = {
     "it": "Sono ammesse solo lettere minuscole, numeri e trattini (-).",
     "io": "crwdns12494:0crwdne12494:0",
     "oc": "Sols las letras minusculas, las chifras e los jornhents (-) son autorizats",
-    "nl": "Alleen kleine letters, cijfers en streepjes (-) zijn toegestaan"
+    "nl": "Alleen kleine letters, cijfers en streepjes (-) zijn toegestaan",
+    "br": "Lizherennoù bihan, sifroù ha tiredoù (-) hepken zo aotreet"
   },
   "description.tooManyLines": {
     "fr": "La description ne doit pas dépasser 4 lignes",
@@ -292,6 +317,7 @@ module.exports = {
     "it": "La descrizione non deve superare le 4 righe",
     "io": "crwdns12496:0crwdne12496:0",
     "oc": "La descripcion deu pas passar las 4 linhas",
-    "nl": "De beschrijving mag niet meer dan 4 regels bevatten"
+    "nl": "De beschrijving mag niet meer dan 4 regels bevatten",
+    "br": "An deskrivadur ne dle ket tremen 4 linenn"
   }
 }

@@ -9,7 +9,8 @@ module.exports = {
     "it": "Auguri, il suo agenda è pronto!",
     "io": "crwdns11356:0crwdne11356:0",
     "oc": "Òsca, vòstra agenda es prèsta !",
-    "nl": "Gefeliciteerd, uw agenda is klaar!"
+    "nl": "Gefeliciteerd, uw agenda is klaar!",
+    "br": "Gourc'hemennoù, prest eo ho agenda !"
   },
   "someActions": {
     "fr": "Quelques actions simples pour bien débuter avec votre agenda",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Qualchi semplici azioni per iniziare bene la vostra agenda",
     "io": "crwdns11358:0crwdne11358:0",
     "oc": "Aquí qualques accions simplas per plan començar amb vòstra agenda",
-    "nl": "Enkele eenvoudige acties om goed te beginnen met uw agenda"
+    "nl": "Enkele eenvoudige acties om goed te beginnen met uw agenda",
+    "br": "Un nebeud oberoù simpl evit kregiñ gant ho agenda"
   },
   "addYourFirstEvent": {
     "fr": "Ajoutez votre premier événement!",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Aggiungere un primo evento!",
     "io": "crwdns11360:0crwdne11360:0",
     "oc": "Apondètz vòstre primièr eveniment !",
-    "nl": "Voeg uw eerste evenement toe!"
+    "nl": "Voeg uw eerste evenement toe!",
+    "br": "Ouzhpennit ho tarvoud kentañ!"
   },
   "addEvent": {
     "fr": "Ajouter un événement",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Aggiungere un evento",
     "io": "crwdns11362:0crwdne11362:0",
     "oc": "Apondre un eveniment",
-    "nl": "Een evenement toevoegen"
+    "nl": "Een evenement toevoegen",
+    "br": "Ouzhpennañ un darvoud"
   },
   "addProfileImage": {
     "fr": "Ajoutez une image de profil à votre agenda",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "Aggiungere un'immagine del profilo sull'agenda",
     "io": "crwdns11364:0crwdne11364:0",
     "oc": "Apondre un imatge de perfil a vòstra agenda",
-    "nl": "Voeg een profielafbeelding toe aan uw agenda"
+    "nl": "Voeg een profielafbeelding toe aan uw agenda",
+    "br": "Ouzhpennit ur skeudenn profil d'ho agenda"
   },
   "sendLink": {
     "fr": "Envoyez le lien de votre agenda à vos contributeurs !",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "Invia il link dell'agenda ai suoi collaboratori!",
     "io": "crwdns11366:0crwdne11366:0",
     "oc": "Mandar lo ligam de vòstra agenda a vòstres contributors !",
-    "nl": "Stuur de link van uw agenda naar uw medewerkers!"
+    "nl": "Stuur de link van uw agenda naar uw medewerkers!",
+    "br": "Kasit liamm ho agenda d'ho kenlabourerien !"
   },
   "copyLinkAndSend": {
     "fr": "Copiez-collez ce lien et envoyez-le par email ou via vos réseaux sociaux.",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "Copia e incolla questo link e invialo via e-mail o tramite i suoi social network.",
     "io": "crwdns11368:0crwdne11368:0",
     "oc": "Copiatz e pegatz lo ligam çai-jos e mandatz-o per mail o pegatz-o suls rets socials.",
-    "nl": "Kopieer en plak deze link en verstuur hem per e-mail of via uw sociale netwerken."
+    "nl": "Kopieer en plak deze link en verstuur hem per e-mail of via uw sociale netwerken.",
+    "br": "Eilit-pegit al liamm hag e gasit dre bostel pe dre ho rouedadoù sokial."
   },
   "copyLink": {
     "fr": "Copiez le lien",
@@ -79,7 +86,8 @@ module.exports = {
     "it": "Copiare il link",
     "io": "crwdns11370:0crwdne11370:0",
     "oc": "Copiatz lo ligam",
-    "nl": "Kopieer de link"
+    "nl": "Kopieer de link",
+    "br": "Eilañ al liamm"
   },
   "embedYourAgenda": {
     "fr": "Intégrez votre agenda dans votre site web",
@@ -89,7 +97,8 @@ module.exports = {
     "it": "Integrate l'agenda nel suo sito web",
     "io": "crwdns11372:0crwdne11372:0",
     "oc": "Integratz vòstra agenda sus vòstre site web",
-    "nl": "Integreer uw agenda in uw website"
+    "nl": "Integreer uw agenda in uw website",
+    "br": "Enkorfañ ho agenda en ho lec'hienn web"
   },
   "createEmbedded": {
     "fr": "Créez une vue intégrée",
@@ -99,7 +108,8 @@ module.exports = {
     "it": "Creare una vista integrata",
     "io": "crwdns11374:0crwdne11374:0",
     "oc": "Crear una vista integrada",
-    "nl": "Maak een geïntegreerde weergave"
+    "nl": "Maak een geïntegreerde weergave",
+    "br": "Krouiñ ur gwel enkorfet"
   },
   "needPrivate": {
     "fr": "Vous souhaitez un agenda privé ? Seuls les membres que vous aurez invité via l'onglet Membre pourront en consulter le contenu.",
@@ -109,7 +119,8 @@ module.exports = {
     "it": "Lei vuole un agenda privato? Questa è una funzione fatta per casi particolari, spiegateci il suo utilizzo.",
     "io": "crwdns11376:0crwdne11376:0",
     "oc": "Volèta una agenda privada ? Aquò's una foncionalitat novèla, assabentatz-nos de vòstres besonhs.",
-    "nl": "Wilt u een privé-agenda? Alleen de leden die u uitnodigt via het tabblad Leden kunnen de inhoud raadplegen."
+    "nl": "Wilt u een privé-agenda? Alleen de leden die u uitnodigt via het tabblad Leden kunnen de inhoud raadplegen.",
+    "br": "C'hoant ho peus d'un agenda prevez? An izili pedet ganeoc'h dre an ivinell Izili hepken a c'hello gwelet e endalc'had."
   },
   "requestPrivate": {
     "fr": "Demander un agenda privé",
@@ -119,7 +130,8 @@ module.exports = {
     "it": "Richiedi un'agenda privata",
     "io": "crwdns11378:0crwdne11378:0",
     "oc": "Demandar una agenda privada",
-    "nl": "Een privé-agenda aanvragen"
+    "nl": "Een privé-agenda aanvragen",
+    "br": "Goulenn un agenda prevez"
   },
   "needOfficial": {
     "fr": "Vous souhaitez un agenda officiel ?",
@@ -129,7 +141,8 @@ module.exports = {
     "it": "Lei vuole un agenda ufficiale?",
     "io": "crwdns11380:0crwdne11380:0",
     "oc": "Volètz una agenda oficiala ?",
-    "nl": "Wilt u een officiële agenda?"
+    "nl": "Wilt u een officiële agenda?",
+    "br": "C'hoant ho peus d'un agenda ofisiel?"
   },
   "requestOfficial": {
     "fr": "Demander un agenda officiel",
@@ -139,7 +152,8 @@ module.exports = {
     "it": "Richiedere un agenda ufficiale",
     "io": "crwdns11382:0crwdne11382:0",
     "oc": "Demandar una agenda oficiala",
-    "nl": "Een officiële agenda aanvragen"
+    "nl": "Een officiële agenda aanvragen",
+    "br": "Goulenn un agenda ofisiel"
   },
   "or": {
     "fr": "ou",
@@ -148,7 +162,8 @@ module.exports = {
     "io": "crwdns16414:0crwdne16414:0",
     "oc": "o",
     "es": "o",
-    "nl": "of"
+    "nl": "of",
+    "br": "pe"
   },
   "useAPlugin": {
     "fr": "Utilisez un plugin",
@@ -156,7 +171,8 @@ module.exports = {
     "io": "crwdns16416:0crwdne16416:0",
     "oc": "Utilisatz una extension",
     "es": "Usar un plug-in",
-    "nl": "Gebruik een plugin"
+    "nl": "Gebruik een plugin",
+    "br": "Implijit ul lugant"
   },
   "learnMore": {
     "fr": "En savoir plus",
@@ -166,6 +182,7 @@ module.exports = {
     "it": "Per saperne di più",
     "io": "crwdns11384:0crwdne11384:0",
     "oc": "Ne saber mai",
-    "nl": "Meer informatie"
+    "nl": "Meer informatie",
+    "br": "Gouzout hiroc'h"
   }
 }

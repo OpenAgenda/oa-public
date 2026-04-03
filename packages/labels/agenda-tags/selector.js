@@ -9,7 +9,8 @@ module.exports = {
     "it": "Tags",
     "io": "crwdns12750:0crwdne12750:0",
     "oc": "Mots-claus",
-    "nl": "Tags"
+    "nl": "Tags",
+    "br": "Merkoù"
   },
   "defaultTagGroupName": {
     "en": "Tag Group",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Gruppo di tag",
     "io": "crwdns12752:0crwdne12752:0",
     "oc": "Grop de mots-claus",
-    "nl": "Taggroep"
+    "nl": "Taggroep",
+    "br": "Strollad tikedennoù"
   },
   "defaultTagGroupInfo": {
     "en": "Select one or several tags",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Selezionare uno o più tag",
     "io": "crwdns12754:0crwdne12754:0",
     "oc": "Causissètz un o mai d'un mot-clau",
-    "nl": "Selecteer een of meerdere tags"
+    "nl": "Selecteer een of meerdere tags",
+    "br": "Diuzit un dikedenn pe meur a hini"
   },
   "required": {
     "en": "Required.",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Necessario.",
     "io": "crwdns12756:0crwdne12756:0",
     "oc": "Requesit.",
-    "nl": "Verplicht."
+    "nl": "Verplicht.",
+    "br": "Rekis."
   },
   "requiredTagError": {
     "en": "You must select at least one item",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "È necessario effettuare almeno una selezione",
     "io": "crwdns12758:0crwdne12758:0",
     "oc": "Vos cal causir al mens un element",
-    "nl": "U moet minstens één item selecteren"
+    "nl": "U moet minstens één item selecteren",
+    "br": "Ret eo deoc'h diuzañ un elfenn da vihanañ"
   },
   "noSelection": {
     "fr": "Aucun choix",
@@ -59,6 +64,7 @@ module.exports = {
     "it": "Nessuna scelta",
     "io": "crwdns12760:0crwdne12760:0",
     "oc": "Pas res",
-    "nl": "Geen van bovenstaande"
+    "nl": "Geen van bovenstaande",
+    "br": "Hini ebet eus ar re a-us"
   }
 }

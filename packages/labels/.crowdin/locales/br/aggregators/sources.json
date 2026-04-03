@@ -1,5 +1,18 @@
 {
+  "addSources": "Evit bodañ deiziataerioù nevez, [kit war pajenn un deiziataer a fell deoc'h bodañ](%searchLink%), ha klikit war Ezporzhiañ > Bodañ e-barzh > **%agenda%**",
+  "aggregationLoop": "Emañ an deiziataer-mañ o vodañ darvoudoù eus an deiziataer a fell deoc'h e ouzhpennañ dezhañ. N'eo ket aotreet ar c'helc'hioù bodañ.",
+  "aggregatorExplanation": "An arc'hwel-mañ a aotren ac'hanoc'h da dapout ent-emgefre darvoudoù an deiziataerioù ho peus dibabet.",
+  "createAggregator": "Gweredekaat dastum an deiziataerioù",
   "noResult": "N'eus bet kavet disoc'h ebet",
+  "numberOfResults": "Niver a zisoc'hoù",
   "officialAgenda": "Deiziataer ofisiel",
-  "searchAgenda": "Klask un deiziataer"
+  "removeConfirmMessage": "Ha sur oc'h e fell deoc'h lemel an deiziataer-mañ diouzh roll ar mammennoù?",
+  "removeSource": "Lemel ar vammenn",
+  "searchAgenda": "Klask un deiziataer",
+  "sourceAdded": "Ouzhpennet eo bet %source% da vammennoù %agg%. Ouzhpennet e vo an darvoudoù da zont a-benn nebeut.",
+  "sourceAgendas": "Deiziataerioù mammenn",
+  "sourceRemoved": "Lamet eo bet %source% eus mammennoù %agg%.",
+  "sourcesExplanation": "Emañ an darvoudoù embannet gant an deiziataerioù listennet amañ oc'h bezañ ouzhpennet ent-emgefre d'an deiziataer [%title%](%link%).",
+  "sourcesHelp": "Klikit amañ evit gouzout hiroc'h diwar-benn an dastumadoù",
+  "totalSources": "Hollad ar mammennoù"
 }

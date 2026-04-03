@@ -1,3 +1,16 @@
 {
+  "addEvent": "Ouzhpennañ un darvoud",
+  "empty": "Digarezit, n'eus deiziataer ebet hag a glot gant an enklask-mañ",
+  "found": "Kavet %count% deiziataer",
+  "genericSearchTitle": "Disoc'hoù enklask an deiziataerioù",
+  "latestUpdated": "Deiziataerioù nevesaet nevez zo",
+  "loadNext": "Kargañ an disoc'hoù da-heul",
+  "loadPrevious": "Kargañ an disoc'hoù kent",
+  "official": "Deiziataer ofisiel",
+  "publishedEvent": "1 darvoud tremenet",
+  "publishedEvents": "%count% darvoud tremenet",
+  "results": "Disoc'hoù an enklask \"%search%\"",
+  "searchTitle": "Klask deiziataerioù",
+  "upcomingEvent": "1 darvoud da zont",
   "upcomingEvents": "%count% darvoud o tont"
 }

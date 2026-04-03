@@ -9,7 +9,8 @@ module.exports = {
     "it": "Elenco a scelta singola",
     "io": "crwdns14014:0crwdne14014:0",
     "oc": "Lista a causida unica",
-    "nl": "Lijst met enkele keuze"
+    "nl": "Lijst met enkele keuze",
+    "br": "Roll dibab unel"
   },
   "checkbox": {
     "en": "Multiple choice list",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Elenco a scelta multipla",
     "io": "crwdns14016:0crwdne14016:0",
     "oc": "Lista a causida multipla",
-    "nl": "Lijst met meerdere keuzes"
+    "nl": "Lijst met meerdere keuzes",
+    "br": "Roll dibab lies"
   },
   "select": {
     "en": "Select input",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Campo di selezione",
     "io": "crwdns14018:0crwdne14018:0",
     "oc": "Camp de seleccion",
-    "nl": "Selectieveld"
+    "nl": "Selectieveld",
+    "br": "Maezienn dibab"
   },
   "integer": {
     "en": "Integer",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Completo",
     "io": "crwdns14020:0crwdne14020:0",
     "oc": "Entièr",
-    "nl": "Geheel getal"
+    "nl": "Geheel getal",
+    "br": "Niver klok"
   },
   "number": {
     "en": "Number",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "Numero",
     "io": "crwdns14022:0crwdne14022:0",
     "oc": "Nombre",
-    "nl": "Nummer"
+    "nl": "Nummer",
+    "br": "Niver"
   },
   "text": {
     "en": "Simple text field",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "Campo di testo semplice",
     "io": "crwdns14024:0crwdne14024:0",
     "oc": "Camp de tèxte simple",
-    "nl": "Eenvoudig tekstveld"
+    "nl": "Eenvoudig tekstveld",
+    "br": "Maezienn destenn eeun"
   },
   "textarea": {
     "en": "Multiple line text field",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "Campo di testo a più righe",
     "io": "crwdns14026:0crwdne14026:0",
     "oc": "Camp de tèxte a maitas linhas",
-    "nl": "Tekstveld met meerdere regels"
+    "nl": "Tekstveld met meerdere regels",
+    "br": "Maezienn destenn lies linenn"
   },
   "markdown": {
     "en": "Rich text field",
@@ -79,7 +86,8 @@ module.exports = {
     "it": "Campo di testo ricco",
     "io": "crwdns14028:0crwdne14028:0",
     "oc": "Camp de tèxte ric",
-    "nl": "Tekstveld met opmaak"
+    "nl": "Tekstveld met opmaak",
+    "br": "Maezienn destenn pinvidik"
   },
   "image": {
     "en": "Image",
@@ -89,6 +97,7 @@ module.exports = {
     "it": "Immagine",
     "io": "crwdns14030:0crwdne14030:0",
     "oc": "Imatge",
-    "nl": "Afbeelding"
+    "nl": "Afbeelding",
+    "br": "Skeudenn"
   }
 }

@@ -1,1 +1,9 @@
-{}
+{
+  "confirm": "Kadarnaat",
+  "eventDeleteDetails": "Ha sur oc'h e fell deoc'h ober se? Ma lamet an darvoud eus an deiziataer-mañ, e vo lamet diouzh an holl zeiziataerien war OpenAgenda da viken.",
+  "eventDeleteTitle": "Diverkañ un darvoud",
+  "eventDeleted": "Diverket eo bet an darvoud da vat",
+  "eventRemoveDetails": "Ha sur oc'h e fell deoc'h ober se? Ma lamet an darvoud eus an deiziataer-mañ, ne vo ket renablet ken en ezporzhioù hag e vo lamet diouzh an holl zeiziataerien o vodañ ho tarvoudoù",
+  "eventRemoveTitle": "Lemel un darvoud diwar an deiziataer",
+  "eventRemoved": "Lamet eo bet an darvoud diwar an deiziataer"
+}

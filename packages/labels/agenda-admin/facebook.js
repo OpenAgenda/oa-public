@@ -10,7 +10,8 @@ module.exports = {
     "es": "La pestaña de agenda ha sido añadido a su página de Facebook",
     "io": "crwdns11344:0crwdne11344:0",
     "oc": "L'onglet agenda es estat apondut a vòstra pagina Facebook",
-    "nl": "Het agendatabblad is toegevoegd aan je Facebook-pagina"
+    "nl": "Het agendatabblad is toegevoegd aan je Facebook-pagina",
+    "br": "Ouzhpennet eo bet an ivinell deiziataer d'ho pajenn Facebook"
   },
   "title": {
     "fr": "Facebook",
@@ -20,7 +21,8 @@ module.exports = {
     "it": "Facebook",
     "io": "crwdns11346:0crwdne11346:0",
     "oc": "Facebook",
-    "nl": "Facebook"
+    "nl": "Facebook",
+    "br": "Facebook"
   },
   "description": {
     "fr": "Ajoutez votre agenda sur une page Facebook",
@@ -30,7 +32,8 @@ module.exports = {
     "it": "Aggiungi il tuo agenda a una pagina Facebook",
     "io": "crwdns11348:0crwdne11348:0",
     "oc": "Apondètz vòstra agenda sus una pagina Facebook",
-    "nl": "Voeg je agenda toe aan een Facebook-pagina"
+    "nl": "Voeg je agenda toe aan een Facebook-pagina",
+    "br": "Ouzhpennit ho teiziataer war ur bajenn Facebook"
   },
   "footnote": {
     "fr": "Facebook ayant mis à jour ses %link%, cette fonctionnalité n'est proposée que pour les pages ayant plus de 2000 likes.",
@@ -40,7 +43,8 @@ module.exports = {
     "it": "Poiché Facebook ha aggiornato il suo %link%, questa funzione è disponibile solo per le pagine con più di 2000 \"Mi piace\".",
     "io": "crwdns11350:0%link%crwdne11350:0",
     "oc": "Coma Facebook a metut a jorn sas %link%, aquela foncionalitat es disponibla sonque per las paginas amb mai de 2000 \"m'agrada\".",
-    "nl": "Omdat Facebook zijn %link% heeft bijgewerkt, is deze functie alleen beschikbaar voor pagina's met meer dan 2000 likes."
+    "nl": "Omdat Facebook zijn %link% heeft bijgewerkt, is deze functie alleen beschikbaar voor pagina's met meer dan 2000 likes.",
+    "br": "Dre m'en deus Facebook nevesaet e %link%, n'eo kinniget ar c'heweriuster-mañ nemet d'ar pajennoù o deus ouzhpenn 2000 a garoù."
   },
   "add": {
     "fr": "Choisir une page Facebook",
@@ -50,7 +54,8 @@ module.exports = {
     "it": "Scegliere una pagina Facebook",
     "io": "crwdns11352:0crwdne11352:0",
     "oc": "Causir una pagina Facebook",
-    "nl": "Kies een Facebook-pagina"
+    "nl": "Kies een Facebook-pagina",
+    "br": "Dibab ur bajenn Facebook"
   },
   "conditions": {
     "fr": "conditions d'utilisation",
@@ -60,6 +65,7 @@ module.exports = {
     "it": "condizioni operative",
     "io": "crwdns11354:0crwdne11354:0",
     "oc": "condicions d'utilizacion",
-    "nl": "gebruiksvoorwaarden"
+    "nl": "gebruiksvoorwaarden",
+    "br": "penndivizoù implij"
   }
 }

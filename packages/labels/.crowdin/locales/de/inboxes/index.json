@@ -102,7 +102,7 @@
   "sendMessageToMember": "Schicke eine Nachricht an Veranstaltungen Beiträger.",
   "sendMessageToName": "Schicke eine Nachricht an %name%.",
   "showAllConversations": "Alle Gespräche",
-  "submit": "einreichen",
+  "submit": "Speichern",
   "suggestLocationChangeDesc": "Gib hier die Änderungen ein, die du vorschlägst. Diese werden dann von einem Administrator bearbeitet.",
   "suggestedALocationChange": "eine Änderung an der Stelle vorgeschlagen",
   "supportInboxDesc": "<p>Haben Sie eine technische Frage zur Verwendung von OpenAgenda? Die Antwort finden Sie sicherlich in der Dokumentation.</p><p class=\"text-center margin-bottom-md \"><a class=\"btn btn-primary\" target=\"_blank\" href=\"https://doc.openagenda.com\">Siehe Dokumentation</a></p><p>Wenn Ihre Frage Administratoren eines Kalenders betrifft, können Sie diese über den Nachrichtendienst am Ende jeder Ihrer Ereignisdateien oder direkt im Kalender erreichen, indem Sie auf \"Kontakt\" klicken.</p><p><a href=\"/home\">Meine Kalender anzeigen</a> oder <a href=\"/home/events\">meine Veranstaltungen anzeigen</a></p><p>Bei allen anderen Fragen wenden Sie sich an Sie kann sich uns direkt anschließen:</p>",

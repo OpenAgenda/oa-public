@@ -86,7 +86,8 @@ module.exports = {
     "it": "Oppure",
     "io": "crwdns14132:0crwdne14132:0",
     "oc": "O",
-    "nl": "Of"
+    "nl": "Of",
+    "br": "Pe"
   },
   "modalBigSentence": {
     "fr": "Vous êtes sur le point de créer un nouvel événement sur la base d’un précédent.",
@@ -96,7 +97,8 @@ module.exports = {
     "it": "State per creare un nuovo evento basato su un evento precedente.",
     "io": "crwdns14134:0crwdne14134:0",
     "oc": "Sètz a mand de crear un eveniment novèl sus la basa d'un precedent.",
-    "nl": "U staat op het punt een nieuw evenement aan te maken op basis van een voorgaand evenement."
+    "nl": "U staat op het punt een nieuw evenement aan te maken op basis van een voorgaand evenement.",
+    "br": "Emaoc'h o vont da grouiñ un darvoud nevez diazezet war un darvoud kent."
   },
   "modalReminder": {
     "fr": "Rappel: un événement unique peut être partagé sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller.",
@@ -106,7 +108,8 @@ module.exports = {
     "it": "Promemoria: un singolo evento può essere condiviso su più calendari. Non creare duplicati! La duplicazione permette di creare un annuncio diverso, di solito per una nuova edizione altrove nel tempo o nello spazio, evitando il copia e incolla.",
     "io": "crwdns14136:0crwdne14136:0",
     "oc": "Rebrembon : un eveniment se pòt partejar sus maitas agendas. Faguetz pas de doblon ! La duplicacion crèa una anóncia diferenta, en general per una edicion novèla endacòm mai dins lo temps e l'espaci, en evitant los copiar-pegar.",
-    "nl": "Herinnering: een enkel evenement kan gedeeld worden over meerdere agenda's. Maak geen duplicaat! Dupliceren maakt een andere aankondiging, meestal voor een nieuwe editie elders in tijd of ruimte, zonder kopiëren en plakken."
+    "nl": "Herinnering: een enkel evenement kan gedeeld worden over meerdere agenda's. Maak geen duplicaat! Dupliceren maakt een andere aankondiging, meestal voor een nieuwe editie elders in tijd of ruimte, zonder kopiëren en plakken.",
+    "br": "Koun: Un darvoud hepken a c'hall bezañ rannet war meur a deiziataer. Arabat krouiñ un doubladenn! An doubladenn a dalvez da grouiñ ur c'hemenn disheñvel, peurliesañ evit un embannadur nevez e lec'h all en amzer pe el lec'h, en ur chom hep eilañ-pegañ."
   },
   "createNewEventIn": {
     "fr": "Créer le nouvel événement dans",
@@ -116,6 +119,7 @@ module.exports = {
     "it": "Creare il nuovo evento in",
     "io": "crwdns14138:0crwdne14138:0",
     "oc": "Crear l'eveniment novèl dins",
-    "nl": "Maak het nieuwe evenement aan in"
+    "nl": "Maak het nieuwe evenement aan in",
+    "br": "Krouiñ an darvoud nevez e-barzh"
   }
 }

@@ -104,7 +104,7 @@ module.exports = {
     "fr": "Enregistrer",
     "en": "Submit",
     "it": "Validare",
-    "de": "Weiter",
+    "de": "Speichern",
     "br": "Validañ",
     "es": "Validar",
     "io": "crwdns11568:0crwdne11568:0",

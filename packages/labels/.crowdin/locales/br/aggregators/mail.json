@@ -1,3 +1,8 @@
 {
-  "published": "embannet"
+  "newAggregationAction": "Gwelet an darvoud",
+  "newAggregationBody": "**%event%** adalek an agenda **%sourceAgenda%** a zo bet kevrenet gant ar stad **%state%**",
+  "newAggregationSubject": "%agenda% en deus kevrenet un darvoud nevez: %event%",
+  "published": "embannet",
+  "readyToPublish": "prest da vezañ embannet",
+  "toBeControlled": "da gontrollañ"
 }

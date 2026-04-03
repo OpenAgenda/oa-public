@@ -130,7 +130,8 @@ module.exports = {
     "de": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl",
     "oc": "Lo camp es pas accessible als contributors",
     "es": "El acceso a este campo está limitado a los administradores y moderadores de la agenda",
-    "nl": "Toegang tot dit veld is beperkt tot beheerders en moderators van de agenda"
+    "nl": "Toegang tot dit veld is beperkt tot beheerders en moderators van de agenda",
+    "br": "Bevennet eo ar moned d'ar vaezienn-mañ d'ar verourien ha d'ar vodererien eus an deiziataer"
   },
   "stateFieldSub": {
     "fr": "Important: l'événement ne sera visible et diffusable que lorsqu'il aura été publié",
@@ -139,6 +140,7 @@ module.exports = {
     "io": "crwdns33404:0crwdne33404:0",
     "oc": "Important : l'eveniment se poirà veire e compartir sonque quand serà publicat",
     "es": "Importante: el evento será visible y compartible solo cuando sea publicado",
-    "nl": "Belangrijk: het evenement zal alleen zichtbaar en deelbaar zijn wanneer het is gepubliceerd"
+    "nl": "Belangrijk: het evenement zal alleen zichtbaar en deelbaar zijn wanneer het is gepubliceerd",
+    "br": "Pouezus: ne vo gwelus ha rannadus an darvoud nemet pa vo embannet"
   }
 }

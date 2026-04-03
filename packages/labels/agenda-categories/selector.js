@@ -9,7 +9,8 @@ module.exports = {
     "it": "Categorie",
     "io": "crwdns11470:0crwdne11470:0",
     "oc": "Categorias",
-    "nl": "Categorieën"
+    "nl": "Categorieën",
+    "br": "Rummadoù"
   },
   "categoriesInfo": {
     "en": "These are used to index your event in the agenda. Pick one.",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Questi sono utilizzati per l'indicizzazione nel diario. Potete scegliere uno di loro.",
     "io": "crwdns11472:0crwdne11472:0",
     "oc": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una.",
-    "nl": "Deze worden gebruikt om je evenement in de agenda te indexeren. Kies er een."
+    "nl": "Deze worden gebruikt om je evenement in de agenda te indexeren. Kies er een.",
+    "br": "Implijet e vez ar re-mañ da venegeriñ an deiziataer. Gallout a rit choaz unan."
   },
   "categoriesRequired": {
     "en": "Required.",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Necessario.",
     "io": "crwdns11474:0crwdne11474:0",
     "oc": "Requesit.",
-    "nl": "Verplicht."
+    "nl": "Verplicht.",
+    "br": "Rekis."
   },
   "requiredCategoryError": {
     "en": "You must select one item",
@@ -39,6 +42,7 @@ module.exports = {
     "it": "È necessario effettuare una selezione",
     "io": "crwdns11476:0crwdne11476:0",
     "oc": "Vos cal causir un element",
-    "nl": "Je moet één item selecteren"
+    "nl": "Je moet één item selecteren",
+    "br": "Ret eo deoc'h diuzañ un elfenn"
   }
 }

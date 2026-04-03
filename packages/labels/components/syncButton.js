@@ -20,7 +20,8 @@ module.exports = {
     "it": "Aggiornando",
     "io": "crwdns13240:0crwdne13240:0",
     "oc": "Mesa a jorn",
-    "nl": "Bijwerken"
+    "nl": "Bijwerken",
+    "br": "Hizivadur"
   },
   "updated": {
     "en": "Saved",
@@ -30,7 +31,8 @@ module.exports = {
     "it": "Registrato",
     "io": "crwdns13242:0crwdne13242:0",
     "oc": "Enregistrat",
-    "nl": "Opgeslagen"
+    "nl": "Opgeslagen",
+    "br": "Enrollet"
   },
   "syncError": {
     "en": "Could not save. Please try again.",
@@ -40,7 +42,8 @@ module.exports = {
     "it": "Il backup non ha avuto successo. La preghiamo di riprovare.",
     "io": "crwdns13244:0crwdne13244:0",
     "oc": "Se poguèt pas enregistrar. Tornatz ensajar.",
-    "nl": "Opslaan is mislukt. Probeer het opnieuw."
+    "nl": "Opslaan is mislukt. Probeer het opnieuw.",
+    "br": "N'eo ket deuet a-benn an enrolladenn. Klaskit en-dro mar plij."
   },
   "cancel": {
     "en": "Cancel",

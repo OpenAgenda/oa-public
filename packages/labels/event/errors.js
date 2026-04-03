@@ -19,7 +19,8 @@ module.exports = {
     "it": "La posizione deve essere specificata",
     "io": "crwdns14142:0crwdne14142:0",
     "oc": "Cal precisar lo lòc",
-    "nl": "De locatie moet worden opgegeven"
+    "nl": "De locatie moet worden opgegeven",
+    "br": "Ret eo d'al lec'h bezañ spisaet"
   },
   "timings.toolong": {
     "fr": "Il ne peut y avoir plus de 800 plages horaires pour un même événement",
@@ -29,7 +30,8 @@ module.exports = {
     "it": "Non possono esserci più di 800 fasce orarie per un singolo evento.",
     "io": "crwdns14144:0crwdne14144:0",
     "oc": "I pòt pas aver mai de 800 oraris per un sol eveniment",
-    "nl": "Er kunnen niet meer dan 800 tijdstippen zijn voor één evenement"
+    "nl": "Er kunnen niet meer dan 800 tijdstippen zijn voor één evenement",
+    "br": "N'hall ket bezañ ouzhpenn 800 prantad eurioù evit un darvoud hepken"
   },
   "timings.min.1": {
     "fr": "Au moins un horaire doit être défini",

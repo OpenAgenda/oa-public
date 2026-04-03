@@ -9,7 +9,8 @@ module.exports = {
     "it": "Agenda ufficiale",
     "io": "crwdns12412:0crwdne12412:0",
     "oc": "Calendièr oficial",
-    "nl": "Officiële agenda"
+    "nl": "Officiële agenda",
+    "br": "Deiziataer ofisiel"
   },
   "latestUpdated": {
     "en": "Recently updated calendars",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Agende aggiornate di recente",
     "io": "crwdns12414:0crwdne12414:0",
     "oc": "Calendièrs recentament meses a jorn",
-    "nl": "Recent bijgewerkte agenda's"
+    "nl": "Recent bijgewerkte agenda's",
+    "br": "Deiziataerioù nevesaet nevez zo"
   },
   "results": {
     "en": "Search results for \"%search%\"",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Risultati della ricerca per \"%search%\"",
     "io": "crwdns12416:0%search%crwdne12416:0",
     "oc": "Resultats de recèrca per \"%search%\"",
-    "nl": "Zoekresultaten voor \"%search%\""
+    "nl": "Zoekresultaten voor \"%search%\"",
+    "br": "Disoc'hoù an enklask \"%search%\""
   },
   "searchTitle": {
     "en": "Search agendas",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Ricerca del diario",
     "io": "crwdns12418:0crwdne12418:0",
     "oc": "Recèrca d'agendas",
-    "nl": "Agenda's zoeken"
+    "nl": "Agenda's zoeken",
+    "br": "Klask deiziataerioù"
   },
   "genericSearchTitle": {
     "en": "Calendar search results",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "Risultati della ricerca del diario",
     "io": "crwdns12420:0crwdne12420:0",
     "oc": "Resultats de la recèrca d'agendas",
-    "nl": "Agenda zoekresultaten"
+    "nl": "Agenda zoekresultaten",
+    "br": "Disoc'hoù enklask an deiziataerioù"
   },
   "found": {
     "en": "Found %count% agendas",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "Trovati %count% diari",
     "io": "crwdns12422:0%count%crwdne12422:0",
     "oc": "%count% agendas trobadas",
-    "nl": "%count% agenda's gevonden"
+    "nl": "%count% agenda's gevonden",
+    "br": "Kavet %count% deiziataer"
   },
   "empty": {
     "en": "Sorry, no agendas matched this search",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "Spiacenti, nessun agenda corrisponde a questa ricerca",
     "io": "crwdns12424:0crwdne12424:0",
     "oc": "Desolats, pas cap agenda correspond a aquesta recèrca",
-    "nl": "Sorry, geen agenda's komen overeen met deze zoekopdracht"
+    "nl": "Sorry, geen agenda's komen overeen met deze zoekopdracht",
+    "br": "Digarezit, n'eus deiziataer ebet hag a glot gant an enklask-mañ"
   },
   "publishedEvent": {
     "en": "1 past event",
@@ -79,7 +86,8 @@ module.exports = {
     "it": "1 evento passato",
     "io": "crwdns12426:0crwdne12426:0",
     "oc": "1 eveniment passat",
-    "nl": "1 afgelopen evenement"
+    "nl": "1 afgelopen evenement",
+    "br": "1 darvoud tremenet"
   },
   "publishedEvents": {
     "en": "%count% past events",
@@ -89,7 +97,8 @@ module.exports = {
     "it": "%count% eventi passati",
     "io": "crwdns12428:0%count%crwdne12428:0",
     "oc": "%count% eveniments passats",
-    "nl": "%count% afgelopen evenementen"
+    "nl": "%count% afgelopen evenementen",
+    "br": "%count% darvoud tremenet"
   },
   "upcomingEvent": {
     "en": "1 upcoming event",
@@ -99,7 +108,8 @@ module.exports = {
     "it": "1 evento imminente",
     "io": "crwdns12430:0crwdne12430:0",
     "oc": "1 eveniment a venir",
-    "nl": "1 aankomend evenement"
+    "nl": "1 aankomend evenement",
+    "br": "1 darvoud da zont"
   },
   "upcomingEvents": {
     "en": "%count% upcoming events",
@@ -120,7 +130,8 @@ module.exports = {
     "it": "Carica i risultati precedenti",
     "io": "crwdns12434:0crwdne12434:0",
     "oc": "Cargar los resultats precedents",
-    "nl": "Vorige resultaten laden"
+    "nl": "Vorige resultaten laden",
+    "br": "Kargañ an disoc'hoù kent"
   },
   "loadNext": {
     "en": "Load next results",
@@ -130,7 +141,8 @@ module.exports = {
     "it": "Caricare i seguenti risultati",
     "io": "crwdns12436:0crwdne12436:0",
     "oc": "Cargar los resultats seguents",
-    "nl": "Volgende resultaten laden"
+    "nl": "Volgende resultaten laden",
+    "br": "Kargañ an disoc'hoù da-heul"
   },
   "addEvent": {
     "fr": "Ajouter un événement",
@@ -140,6 +152,7 @@ module.exports = {
     "it": "Aggiungi un evento",
     "io": "crwdns12438:0crwdne12438:0",
     "oc": "Apondre un eveniment",
-    "nl": "Een evenement toevoegen"
+    "nl": "Een evenement toevoegen",
+    "br": "Ouzhpennañ un darvoud"
   }
 }

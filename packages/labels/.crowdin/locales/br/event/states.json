@@ -7,6 +7,8 @@
   "refused": "nac'het",
   "state": "Statud",
   "stateChanged": "Cheñchet eo stad an darvoud",
+  "stateFieldInfo": "Bevennet eo ar moned d'ar vaezienn-mañ d'ar verourien ha d'ar vodererien eus an deiziataer",
+  "stateFieldSub": "Pouezus: ne vo gwelus ha rannadus an darvoud nemet pa vo embannet",
   "tobecontrolled": "da habaskaat",
   "tocontrol": "da habaskaat",
   "unfeaturedChange": "N'emañ ket ken an darvoud e-mesk ar c'heleier pennañ"

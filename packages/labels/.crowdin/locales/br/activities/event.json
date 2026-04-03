@@ -1,1 +1,16 @@
-{}
+{
+  "agenda.addEvent": "{user} en deus ouzhpennet {event} diwar {sourceAgenda}.",
+  "agenda.aggregateEvent": "{agenda} en/he deus toueziet {event} diwar {sourceAgenda}.",
+  "agenda.changeEventState": "{user} en deus kemmet {event} eus \"{before}\" da \"{after}\" war {agenda}.",
+  "agenda.publishEvent": "{user} en/he deus embannet {event} war {agenda}.",
+  "agenda.removeEvent": "{user} en/he deus lamet {event} eus {agenda}.",
+  "agenda.systemUnpublishEvent": "Diembannet eo bet {event} ent-emgefre war {agenda} evit ur gwiriañ nevez",
+  "agenda.unpublishEvent": "{user} en/he deus diembannet {event} diwar {agenda}.",
+  "event.create": "{user} en/he deus krouet {event} en deiziataer {agenda}.",
+  "event.delete": "{user} en/he deus dilamet {event} eus {agenda}.",
+  "event.update": "{user} en/he deus hizivaet {event} war {agenda}.",
+  "event.updateWithLotOfChanges": "{user} en/he deus hizivaet {event} war {agenda} ({fieldsCount} maezienn).",
+  "event.updateWithOneChange": "{user} en/he deus hizivaet ar vaezienn {fields} eus {event} war {agenda}.",
+  "event.updateWithSomeChanges": "{user} en/he deus hizivaet {event} war {agenda}: kemmet eo bet {fields}.",
+  "unknownActivity": "Skritellig oberiantiz o vankout evit {verb}"
+}

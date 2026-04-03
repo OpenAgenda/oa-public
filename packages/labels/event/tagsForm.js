@@ -9,7 +9,8 @@ module.exports = {
     "it": "Questo evento viene da un'altra agenda. Potete modificare le informazioni qui sotto, specifiche per la vostra agenda",
     "io": "crwdns14624:0crwdne14624:0",
     "oc": "Aqueste eveniment es estat apondut d'un autra agenda. Podètz modificar las informacions seguentas, especificas a la vòstra agenda",
-    "nl": "Dit evenement komt uit een andere agenda. U kunt de onderstaande informatie bewerken, specifiek voor uw agenda"
+    "nl": "Dit evenement komt uit een andere agenda. U kunt de onderstaande informatie bewerken, specifiek voor uw agenda",
+    "br": "Deus eus an darvoud-mañ eus un deiziataer all. Gallout a rit embann an titouroù amañ dindan, dibar d'ho teiziataer"
   },
   "loadingError": {
     "fr": "Il y a eu un problème lors du chargement des données. Rechargez la page dans un instant.",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "C'è stato un problema nel caricare i dati. Ricaricare la pagina in un attimo.",
     "io": "crwdns14626:0crwdne14626:0",
     "oc": "I a agut un problèma al cargament de las donadas. Mercés de tornar cargar la pagina.",
-    "nl": "Er is een probleem opgetreden bij het laden van de gegevens. Vernieuw de pagina over een moment."
+    "nl": "Er is een probleem opgetreden bij het laden van de gegevens. Vernieuw de pagina over een moment.",
+    "br": "Ur gudenn a zo bet o kargañ ar roadennoù. Adkargit ar bajenn a-benn un nebeud."
   },
   "invalidError": {
     "fr": "Certains champs contiennent des valeurs non valides. Corrigez-les avant de retenter une soumission.",
@@ -29,12 +31,13 @@ module.exports = {
     "it": "Alcuni campi contengono valori non validi. Correggerli prima di riprovare una presentazione.",
     "io": "crwdns14628:0crwdne14628:0",
     "oc": "De camps contenon de donadas invalidas. Mercés de los corregir abans de sometre lo formulari.",
-    "nl": "Sommige velden bevatten ongeldige waarden. Corrigeer deze voordat u opnieuw probeert in te dienen."
+    "nl": "Sommige velden bevatten ongeldige waarden. Corrigeer deze voordat u opnieuw probeert in te dienen.",
+    "br": "Talvoudoù direizh a zo e maeziennoù 'zo. Reizhit anezho a-raok klask adkas."
   },
   "submit": {
     "fr": "Enregistrer",
     "en": "Submit",
-    "de": "einreichen",
+    "de": "Speichern",
     "es": "Validar",
     "it": "Invia",
     "br": "Kemmañ",
@@ -50,7 +53,8 @@ module.exports = {
     "it": "Convalidato",
     "io": "crwdns14632:0crwdne14632:0",
     "oc": "Validat",
-    "nl": "Ingediend"
+    "nl": "Ingediend",
+    "br": "Kaset"
   },
   "saveErrorTitle": {
     "fr": "Erreur de sauvegarde",
@@ -60,7 +64,8 @@ module.exports = {
     "it": "Errore di backup",
     "io": "crwdns14634:0crwdne14634:0",
     "oc": "Error d'enregistrament",
-    "nl": "Opslagfout"
+    "nl": "Opslagfout",
+    "br": "Fazi enrollañ"
   },
   "saveError": {
     "fr": "Il y a eu un problème lors de la sauvegarde. Retentez ou rechargez la page.",
@@ -70,7 +75,8 @@ module.exports = {
     "it": "C'è stato un problema durante il backup. Riprovare o ricaricare la pagina.",
     "io": "crwdns14636:0crwdne14636:0",
     "oc": "I a agut un problèma a l'enregistrament de las donadas. Mercés de tornar ensajar o de tornar cargar la pagina.",
-    "nl": "Er is een probleem opgetreden bij het opslaan. Probeer het opnieuw of herlaad de pagina."
+    "nl": "Er is een probleem opgetreden bij het opslaan. Probeer het opnieuw of herlaad de pagina.",
+    "br": "Ur gudenn a zo bet oc'h enrollañ. Klaskit en-dro pe adkargit ar bajenn."
   },
   "saveSuccess": {
     "fr": "Les données ont été mises à jour",
@@ -80,7 +86,8 @@ module.exports = {
     "it": "I dati sono stati aggiornati",
     "io": "crwdns14638:0crwdne14638:0",
     "oc": "Las donadas son plan estadas enregistradas",
-    "nl": "De gegevens zijn bijgewerkt"
+    "nl": "De gegevens zijn bijgewerkt",
+    "br": "Hizivaet eo bet ar roadennoù"
   },
   "invalidTags": {
     "fr": "Certains tags soumis ne sont pas valides",
@@ -90,7 +97,8 @@ module.exports = {
     "it": "Alcuni tag inviati non sono validi",
     "io": "crwdns14640:0crwdne14640:0",
     "oc": "D'unas etiquetas sometudas son pas validas",
-    "nl": "Sommige ingediende tags zijn niet geldig"
+    "nl": "Sommige ingediende tags zijn niet geldig",
+    "br": "Tikedennoù 'zo kaset n'int ket reizh"
   },
   "invalidCategories": {
     "fr": "La catégorie sélectionnée n'est pas valide",
@@ -100,7 +108,8 @@ module.exports = {
     "it": "La categoria selezionata non è valida",
     "io": "crwdns14642:0crwdne14642:0",
     "oc": "La categoria seleccionada es pas valida",
-    "nl": "De geselecteerde categorie is niet geldig"
+    "nl": "De geselecteerde categorie is niet geldig",
+    "br": "Ar rummad diuzet n'eo ket reizh"
   },
   "cancel": {
     "fr": "Annuler",
@@ -121,6 +130,7 @@ module.exports = {
     "it": "Selezionare",
     "io": "crwdns14646:0crwdne14646:0",
     "oc": "Seleccionar",
-    "nl": "Selecteren"
+    "nl": "Selecteren",
+    "br": "Diuzañ"
   }
 }

@@ -1,1 +1,7 @@
-{}
+{
+  "actionDescription": "Gwelet an darvoud",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "memberUnsubscribe": "Paouez da zegemer kemmoù stad ma darvoudoù war an deiziadur-mañ",
+  "title": "Embannet eo bet ho tarvoud {event} gant an deiziadur {agenda}",
+  "unsubscribe": "Paouez da zegemer kemmoù stad ma darvoudoù"
+}

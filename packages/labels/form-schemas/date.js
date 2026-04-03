@@ -7,6 +7,7 @@ module.exports = {
     "es": "Selecciona una fecha",
     "io": "crwdns16402:0crwdne16402:0",
     "oc": "Causir una data",
-    "nl": "Selecteer een datum"
+    "nl": "Selecteer een datum",
+    "br": "Dibab un deiziad"
   }
 }

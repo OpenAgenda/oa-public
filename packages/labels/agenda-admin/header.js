@@ -9,7 +9,8 @@ module.exports = {
     "it": "Gestione",
     "io": "crwdns11386:0crwdne11386:0",
     "oc": "Administracion",
-    "nl": "Verwaltung"
+    "nl": "Verwaltung",
+    "br": "Melestradurezh"
   },
   "back": {
     "fr": "Aller à l'accueil de l'agenda",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Vedere la pagina pubblica",
     "io": "crwdns11388:0crwdne11388:0",
     "oc": "Anar a l'acuèlh de l'agenda",
-    "nl": "Kalender Startseite"
+    "nl": "Kalender Startseite",
+    "br": "Mont da bajenn degemer an deiziataer"
   },
   "manage": {
     "fr": "Gérer",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Gestire",
     "io": "crwdns11390:0crwdne11390:0",
     "oc": "Gerir",
-    "nl": "Beheren"
+    "nl": "Beheren",
+    "br": "Merañ"
   },
   "export": {
     "fr": "Exporter",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Esportazione",
     "io": "crwdns11392:0crwdne11392:0",
     "oc": "Exportar",
-    "nl": "Exporteren"
+    "nl": "Exporteren",
+    "br": "Ezporzhiañ"
   },
   "settings": {
     "fr": "Paramètres",
@@ -49,6 +53,7 @@ module.exports = {
     "it": "Impostazione",
     "io": "crwdns11394:0crwdne11394:0",
     "oc": "Reglatges",
-    "nl": "Einstellungen"
+    "nl": "Einstellungen",
+    "br": "Arventennoù"
   }
 }

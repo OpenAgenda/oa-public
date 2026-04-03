@@ -9,7 +9,8 @@ module.exports = {
     "it": "Caricare un file",
     "io": "crwdns14848:0crwdne14848:0",
     "oc": "Cargar un fichièr",
-    "nl": "Een bestand uploaden"
+    "nl": "Een bestand uploaden",
+    "br": "Kargañ ur restr"
   },
   "error": {
     "en": "A problem occurred during the upload. Please try again",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Si è verificato un problema durante il caricamento. La preghiamo di riprovare.",
     "io": "crwdns14850:0crwdne14850:0",
     "oc": "I aguèt un problèma del temps del cargament. Mercés de tornar ensajar",
-    "nl": "Er is een probleem opgetreden tijdens het uploaden. Probeer het opnieuw"
+    "nl": "Er is een probleem opgetreden tijdens het uploaden. Probeer het opnieuw",
+    "br": "Ur gudenn a zo bet e-pad ar c'hargañ. Klaskit en-dro mar plij"
   },
   "tip": {
     "en": "Drag and drop a file in the grayed area.",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Trascinare un file nell'area ombreggiata.",
     "io": "crwdns14852:0crwdne14852:0",
     "oc": "Depausatz un fichièr dins la zòna grisada.",
-    "nl": "Sleep een bestand naar het grijze gebied."
+    "nl": "Sleep een bestand naar het grijze gebied.",
+    "br": "Riklañ ur restr er zonenn c'hris."
   },
   "replace": {
     "en": "Replace the file",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Sostituire il file",
     "io": "crwdns14854:0crwdne14854:0",
     "oc": "Remplaçar lo fichièr",
-    "nl": "Het bestand vervangen"
+    "nl": "Het bestand vervangen",
+    "br": "Erlec'hiañ ar restr"
   },
   "loading": {
     "en": "Upload ongoing",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "Caricamento in corso",
     "io": "crwdns14856:0crwdne14856:0",
     "oc": "Cargament en cors",
-    "nl": "Bezig met uploaden"
+    "nl": "Bezig met uploaden",
+    "br": "O kargañ"
   },
   "or": {
     "en": "OR",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "OPPURE",
     "io": "crwdns14858:0crwdne14858:0",
     "oc": "O",
-    "nl": "OF"
+    "nl": "OF",
+    "br": "PE"
   },
   "acceptedExtensions": {
     "fr": "Fichiers acceptés",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "File accettati",
     "io": "crwdns14860:0crwdne14860:0",
     "oc": "Fichièrs acceptats",
-    "nl": "akzeptiert Dateien"
+    "nl": "akzeptiert Dateien",
+    "br": "Restroù degemeret"
   },
   "remove": {
     "fr": "Supprimer",
@@ -79,6 +86,7 @@ module.exports = {
     "it": "Cancellare",
     "io": "crwdns14862:0crwdne14862:0",
     "oc": "Suprimir",
-    "nl": "Verwijderen"
+    "nl": "Verwijderen",
+    "br": "Lemel"
   }
 }

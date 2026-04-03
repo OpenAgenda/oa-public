@@ -8,6 +8,7 @@ module.exports = {
     "oc": "Aqueste camp fa mestièr sus l'agenda cibla mas cap valor es pas definida per ara sus l'eveniment",
     "it": "Questo campo è obbligatorio nell'agenda di destinazione e per il momento non è stato definito alcun valore per l'evento.",
     "es": "Este campo es obligatorio en la agenda de destino y no se ha definido ningún valor por él en el momento para el evento",
-    "nl": "Dit veld is verplicht op de doelkalender en er is momenteel geen waarde gedefinieerd voor het evenement"
+    "nl": "Dit veld is verplicht op de doelkalender en er is momenteel geen waarde gedefinieerd voor het evenement",
+    "br": "Ret eo ar vaezienn-mañ war an deiziataer buket ha n'eus bet termenet talvoud ebet evit an darvoud evit ar mare"
   }
 }

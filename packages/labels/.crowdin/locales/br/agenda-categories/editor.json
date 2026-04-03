@@ -1,3 +1,15 @@
 {
-  "cancelUpdateTag": "Nullañ"
+  "add": "Ouzhpennañ",
+  "cancelUpdateTag": "Nullañ",
+  "categories": "Rummadoù",
+  "duplicate": "ar rummad-mañ a zo anezhañ dija",
+  "empty": "n'hall ket ar rummad bezañ goullo",
+  "linkError": "Ur fazi a zo c'hoarvezet en ur enrollañ ho roadennoù. Klaskit en-dro diwezhatoc'h mar plij",
+  "listInfo": "Maezienn ditouroù",
+  "listName": "Anv al listenn",
+  "listSection": "Rummadoù an deiziadur",
+  "noCategories": "N'ho peus ket c'hoazh termenet rummad ebet evit an deiziadur-mañ",
+  "required": "Lakaat da ret. Ur rummad a ranko bezañ diuzet.",
+  "subtitle": "Ar rummadoù a ra ul listenn gant un dibab hepken",
+  "updateTag": "Mat eo"
 }

@@ -20,7 +20,8 @@ module.exports = {
     "it": "Cerca",
     "io": "crwdns15248:0crwdne15248:0",
     "oc": "Cercar",
-    "nl": "Zoeken"
+    "nl": "Zoeken",
+    "br": "Klask"
   },
   "help": {
     "fr": "Aide",
@@ -40,7 +41,8 @@ module.exports = {
     "it": "Italiano",
     "io": "crwdns15252:0crwdne15252:0",
     "oc": "Anglés",
-    "nl": "Engels"
+    "nl": "Engels",
+    "br": "Saozneg"
   },
   "de": {
     "fr": "Allemand",
@@ -49,7 +51,8 @@ module.exports = {
     "it": "Tedesco",
     "io": "crwdns15254:0crwdne15254:0",
     "oc": "Alemand",
-    "nl": "Duits"
+    "nl": "Duits",
+    "br": "Alamaneg"
   },
   "fr": {
     "fr": "Français",
@@ -58,7 +61,8 @@ module.exports = {
     "it": "Francese",
     "io": "crwdns15256:0crwdne15256:0",
     "oc": "Francés",
-    "nl": "Frans"
+    "nl": "Frans",
+    "br": "Galleg"
   },
   "es": {
     "fr": "Espagnol",
@@ -67,6 +71,7 @@ module.exports = {
     "it": "Spagnolo",
     "io": "crwdns15258:0crwdne15258:0",
     "oc": "Espanhòl",
-    "nl": "Spaans"
+    "nl": "Spaans",
+    "br": "Spagnoleg"
   }
 }

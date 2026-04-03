@@ -1,7 +1,11 @@
 {
   "createAgenda": "Krouiñ un deiziataer",
+  "createNewEventIn": "Krouiñ an darvoud nevez e-barzh",
+  "modalBigSentence": "Emaoc'h o vont da grouiñ un darvoud nevez diazezet war un darvoud kent.",
+  "modalReminder": "Koun: Un darvoud hepken a c'hall bezañ rannet war meur a deiziataer. Arabat krouiñ un doubladenn! An doubladenn a dalvez da grouiñ ur c'hemenn disheñvel, peurliesañ evit un embannadur nevez e lec'h all en amzer pe el lec'h, en ur chom hep eilañ-pegañ.",
   "noResult": "N'eus bet kavet disoc'h ebet",
   "officialAgenda": "Deiziataer ofisiel",
+  "or": "Pe",
   "privateAgenda": "Deiziataer prevez",
   "searchAgenda": "Klask un deiziataer",
   "searchEvent": "Klask un darvoud",

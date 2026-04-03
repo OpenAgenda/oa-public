@@ -1,5 +1,22 @@
 {
   "access": "Moned",
+  "address": "Chomlec'h",
+  "agendaEventCount": "Darvoudoù kevelet en deiziataer",
   "city": "Kêr",
-  "department": "Departamant"
+  "countryCode": "Kod bro",
+  "department": "Departamant",
+  "description": "Deskrivadur",
+  "district": "Karter",
+  "eventCount": "Darvoudoù kevelet",
+  "insee": "Kod EBSSA",
+  "latitude": "Ledred",
+  "longitude": "Hedred",
+  "name": "Anv",
+  "postalCode": "Kod-post",
+  "region": "Rannvro",
+  "siret": "Kod SIRET",
+  "slug": "Kod URL",
+  "state": "Gwiriet",
+  "uid": "Anaouder",
+  "website": "Lec'hienn web"
 }

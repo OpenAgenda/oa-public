@@ -20,7 +20,8 @@ module.exports = {
     "it": "Impostazioni dell'account",
     "io": "crwdns15822:0crwdne15822:0",
     "oc": "Configuracion del compte",
-    "nl": "Accountparameters"
+    "nl": "Accountparameters",
+    "br": "Arventennoù ar gont"
   },
   "userProfile": {
     "en": "User profile",
@@ -30,7 +31,8 @@ module.exports = {
     "it": "Profilo utente",
     "io": "crwdns15824:0crwdne15824:0",
     "oc": "Perfil utilizaire",
-    "nl": "Gebruikersprofiel"
+    "nl": "Gebruikersprofiel",
+    "br": "Profil an implijer"
   },
   "profileImage": {
     "en": "Profile image",
@@ -40,7 +42,8 @@ module.exports = {
     "it": "Immagine del profilo",
     "io": "crwdns15826:0crwdne15826:0",
     "oc": "Imatge de perfil",
-    "nl": "Profielafbeelding"
+    "nl": "Profielafbeelding",
+    "br": "Skeudenn ar profil"
   },
   "email": {
     "en": "Email",
@@ -61,7 +64,8 @@ module.exports = {
     "it": "Nuovo indirizzo e-mail",
     "io": "crwdns15830:0crwdne15830:0",
     "oc": "Novòla adreça email",
-    "nl": "Nieuw e-mailadres"
+    "nl": "Nieuw e-mailadres",
+    "br": "Chomlec'h postel nevez"
   },
   "password": {
     "en": "Password",
@@ -82,7 +86,8 @@ module.exports = {
     "it": "Tasti API",
     "io": "crwdns15834:0crwdne15834:0",
     "oc": "Claus API",
-    "nl": "API-sleutels"
+    "nl": "API-sleutels",
+    "br": "Alc'hwezioù API"
   },
   "fullname": {
     "en": "Fullname",
@@ -92,7 +97,8 @@ module.exports = {
     "it": "Nome e cognome",
     "io": "crwdns15836:0crwdne15836:0",
     "oc": "Nom complèt",
-    "nl": "Volledige naam"
+    "nl": "Volledige naam",
+    "br": "Anv klok"
   },
   "language": {
     "en": "Language",
@@ -102,7 +108,8 @@ module.exports = {
     "it": "Lingua",
     "io": "crwdns15838:0crwdne15838:0",
     "oc": "Lenga",
-    "nl": "Taal"
+    "nl": "Taal",
+    "br": "Yezh"
   },
   "updateProfileSuccess": {
     "en": "Your profile has been updated successfully.",
@@ -112,7 +119,8 @@ module.exports = {
     "it": "Il tuo profilo è stato aggiornato.",
     "io": "crwdns15840:0crwdne15840:0",
     "oc": "Vòstre perfil es plan estat mes a jorn.",
-    "nl": "Je profiel is bijgewerkt."
+    "nl": "Je profiel is bijgewerkt.",
+    "br": "Hizivaet eo bet ho profil gant berzh."
   },
   "updatePasswordSuccess": {
     "en": "Your password has been updated successfully.",
@@ -122,7 +130,8 @@ module.exports = {
     "it": "La tua password è stata aggiornata.",
     "io": "crwdns15842:0crwdne15842:0",
     "oc": "Vòstre senhal es plan estat mes a jorn.",
-    "nl": "Je wachtwoord is bijgewerkt."
+    "nl": "Je wachtwoord is bijgewerkt.",
+    "br": "Hizivaet eo bet ho ker-tremen gant berzh."
   },
   "updateEmailSuccess": {
     "en": "A validation link has been sent to your new email address.",
@@ -132,7 +141,8 @@ module.exports = {
     "it": "Un collegamento di convalida è stato inviato al vostro nuovo indirizzo e-mail.",
     "io": "crwdns15844:0crwdne15844:0",
     "oc": "Un ligam de validacion es estat mandat a vòstra novèla adreça email.",
-    "nl": "Er is een validatielink naar je nieuwe e-mailadres verzonden."
+    "nl": "Er is een validatielink naar je nieuwe e-mailadres verzonden.",
+    "br": "Kaset ez eus bet ul liamm kadarnaat d'ho chomlec'h postel nevez."
   },
   "changeEmailSuccess": {
     "en": "Your email was successfully updated",
@@ -142,7 +152,8 @@ module.exports = {
     "it": "La tua email è stata aggiornata con successo",
     "io": "crwdns15846:0crwdne15846:0",
     "oc": "Vòstre email es plan estat mes a jorn",
-    "nl": "Je e-mailadres is succesvol bijgewerkt"
+    "nl": "Je e-mailadres is succesvol bijgewerkt",
+    "br": "Hizivaet eo bet ho postel gant berzh"
   },
   "changeEmailFail": {
     "en": "The link used for your email change is no longer available",
@@ -152,7 +163,8 @@ module.exports = {
     "it": "Il link utilizzato per la modifica dell'e-mail non è più valido",
     "io": "crwdns15848:0crwdne15848:0",
     "oc": "Lo ligam utilizat per vòstre cambiament d'email es pas pus valide",
-    "nl": "De link die gebruikt is voor je e-mailwijziging is niet langer geldig"
+    "nl": "De link die gebruikt is voor je e-mailwijziging is niet langer geldig",
+    "br": "N'eo ket talvoudek ken al liamm implijet evit cheñch ho postel"
   },
   "deleteMyAccount": {
     "en": "Delete my account",
@@ -162,7 +174,8 @@ module.exports = {
     "it": "Cancellare il mio account",
     "io": "crwdns15850:0crwdne15850:0",
     "oc": "Suprimir mon compte",
-    "nl": "Mijn account verwijderen"
+    "nl": "Mijn account verwijderen",
+    "br": "Dilemel ma c'hont"
   },
   "save": {
     "en": "Save",
@@ -183,7 +196,8 @@ module.exports = {
     "it": "Backup in corso...",
     "io": "crwdns15854:0crwdne15854:0",
     "oc": "Enregistrament...",
-    "nl": "Bezig met opslaan..."
+    "nl": "Bezig met opslaan...",
+    "br": "Oc'h enrollañ..."
   },
   "saved": {
     "fr": "Modifications sauvegardées",
@@ -193,7 +207,8 @@ module.exports = {
     "it": "Modifiche salvate",
     "io": "crwdns15856:0crwdne15856:0",
     "oc": "Cambiaments enregistrats",
-    "nl": "Wijzigingen opgeslagen"
+    "nl": "Wijzigingen opgeslagen",
+    "br": "Kemmoù enrollet"
   },
   "image": {
     "en": "Image",
@@ -203,7 +218,8 @@ module.exports = {
     "it": "Immagine",
     "io": "crwdns15858:0crwdne15858:0",
     "oc": "Imatge",
-    "nl": "Afbeelding"
+    "nl": "Afbeelding",
+    "br": "Skeudenn"
   },
   "actualPassword": {
     "en": "Actual password",
@@ -213,7 +229,8 @@ module.exports = {
     "it": "Password attuale",
     "io": "crwdns15860:0crwdne15860:0",
     "oc": "Senhal actual",
-    "nl": "Huidig wachtwoord"
+    "nl": "Huidig wachtwoord",
+    "br": "Ger-tremen a-vremañ"
   },
   "newPassword": {
     "en": "New password",
@@ -223,7 +240,8 @@ module.exports = {
     "it": "Nuova password",
     "io": "crwdns15862:0crwdne15862:0",
     "oc": "Senhal novèl",
-    "nl": "Nieuw wachtwoord"
+    "nl": "Nieuw wachtwoord",
+    "br": "Ger-tremen nevez"
   },
   "confirmation": {
     "en": "Confirmation",
@@ -244,7 +262,8 @@ module.exports = {
     "it": "Le chiavi API consentono di leggere e scrivere dati su OpenAgenda tramite l'API.",
     "io": "crwdns15866:0crwdne15866:0",
     "oc": "Claus API per legir e escriure de donadas amb l'API OpenAgenda.",
-    "nl": "API-sleutels maken het mogelijk om gegevens te lezen en schrijven op OpenAgenda via de API."
+    "nl": "API-sleutels maken het mogelijk om gegevens te lezen en schrijven op OpenAgenda via de API.",
+    "br": "An alc'hwezioù API a ro an tu da lenn ha skrivañ roadennoù war OpenAgenda dre an API."
   },
   "showDocumentation": {
     "en": "Show documentation",
@@ -254,7 +273,8 @@ module.exports = {
     "it": "Vedi la documentazione",
     "io": "crwdns15868:0crwdne15868:0",
     "oc": "Afichar la documentacion",
-    "nl": "Documentatie bekijken"
+    "nl": "Documentatie bekijken",
+    "br": "Gwelet an teuliadur"
   },
   "publicKey": {
     "en": "Public key",
@@ -264,7 +284,8 @@ module.exports = {
     "it": "Chiave pubblica",
     "io": "crwdns15870:0crwdne15870:0",
     "oc": "Clau publica",
-    "nl": "Publieke sleutel"
+    "nl": "Publieke sleutel",
+    "br": "Alc'hwez foran"
   },
   "secretKey": {
     "en": "Secret key",
@@ -274,7 +295,8 @@ module.exports = {
     "it": "Chiave Segreta",
     "io": "crwdns15872:0crwdne15872:0",
     "oc": "Clau secrèta",
-    "nl": "Geheime sleutel"
+    "nl": "Geheime sleutel",
+    "br": "Alc'hwez kuzh"
   },
   "showApiKeys": {
     "en": "Show api keys",
@@ -284,7 +306,8 @@ module.exports = {
     "it": "Vedi le tue chiavi API",
     "io": "crwdns15874:0crwdne15874:0",
     "oc": "Mostrar las claus API",
-    "nl": "Je API-sleutels bekijken"
+    "nl": "Je API-sleutels bekijken",
+    "br": "Diskouez hoc'h alc'hwezioù API"
   },
   "areYouSure": {
     "en": "Are you sure?",
@@ -294,7 +317,8 @@ module.exports = {
     "it": "Sei sicuro?",
     "io": "crwdns15876:0crwdne15876:0",
     "oc": "Sètz segur·a ?",
-    "nl": "Weet je het zeker?"
+    "nl": "Weet je het zeker?",
+    "br": "Ha sur oc'h?"
   },
   "deleteModalText": {
     "en": "Are you sure you want to delete your account permanently?\n\nYour calendars and events will remain online, you can delete them manually if you do not want to leave them online",
@@ -304,7 +328,8 @@ module.exports = {
     "it": "Sei sicuro di voler cancellare il suo account in modo permanente? Le sue agende e i suoi eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online",
     "io": "crwdns15878:0crwdne15878:0",
     "oc": "Sètz segur·a de voler suprimir vòstre compre de biais definitiu ?\n\n Vòstres agendas e eveniments demoraràn en linha, los poiretz escafar maualament se los volètz pas daissar",
-    "nl": "Weet je zeker dat je je account definitief wilt verwijderen?\n\nJe agenda's en evenementen blijven online, je kunt ze handmatig verwijderen als je ze niet online wilt laten"
+    "nl": "Weet je zeker dat je je account definitief wilt verwijderen?\n\nJe agenda's en evenementen blijven online, je kunt ze handmatig verwijderen als je ze niet online wilt laten",
+    "br": "Ha sur oc'h e fell deoc'h dilemel ho kont da vat?\n\nHo teiziataerioù hag ho tarvoudoù a chomo enlinenn, gallout a rit o dilemel gant an dorn ma ne fell ket deoc'h o lezel enlinenn"
   },
   "deleteModalButton": {
     "en": "Delete",
@@ -314,7 +339,8 @@ module.exports = {
     "it": "Cancellare",
     "io": "crwdns15880:0crwdne15880:0",
     "oc": "Suprimir",
-    "nl": "Verwijderen"
+    "nl": "Verwijderen",
+    "br": "Lemel"
   },
   "string.tooshort": {
     "en": "String is too short",
@@ -324,7 +350,8 @@ module.exports = {
     "it": "La stringa è troppo corta",
     "io": "crwdns15882:0crwdne15882:0",
     "oc": "La cadena de caractèrs es tròp corteta",
-    "nl": "De tekenreeks is te kort"
+    "nl": "De tekenreeks is te kort",
+    "br": "Re verr eo ar chadenn arouezennoù"
   },
   "string.toolong": {
     "en": "String is too long",
@@ -334,7 +361,8 @@ module.exports = {
     "it": "La stringa è troppo lunga",
     "io": "crwdns15884:0crwdne15884:0",
     "oc": "La cadena de caractèrs es tròp longa",
-    "nl": "De tekenreeks is te lang"
+    "nl": "De tekenreeks is te lang",
+    "br": "Re hir eo ar chadenn arouezennoù"
   },
   "password.badpassword": {
     "en": "Bad password",
@@ -344,7 +372,8 @@ module.exports = {
     "it": "Password errata",
     "io": "crwdns15886:0crwdne15886:0",
     "oc": "Marrit senhal",
-    "nl": "Verkeerd wachtwoord"
+    "nl": "Verkeerd wachtwoord",
+    "br": "Ger-tremen fall"
   },
   "confirmation.differentpassword": {
     "en": "Both passwords are not identical",
@@ -354,7 +383,8 @@ module.exports = {
     "it": "Le 2 password non sono identiche",
     "io": "crwdns15888:0crwdne15888:0",
     "oc": "Los dos senhals son pas parièrs",
-    "nl": "Beide wachtwoorden zijn niet identiek"
+    "nl": "Beide wachtwoorden zijn niet identiek",
+    "br": "An div ger-tremen n'int ket heñvel"
   },
   "email.alreadytaken": {
     "en": "This email address is already used",
@@ -364,7 +394,8 @@ module.exports = {
     "it": "Questo indirizzo e-mail è già in uso",
     "io": "crwdns15890:0crwdne15890:0",
     "oc": "Aquela adreça email es ja utilizada",
-    "nl": "Dit e-mailadres is al in gebruik"
+    "nl": "Dit e-mailadres is al in gebruik",
+    "br": "Implijet eo ar chomlec'h postel-mañ dija"
   },
   "email.invalid": {
     "en": "Email address invalid",
@@ -374,7 +405,8 @@ module.exports = {
     "it": "L'indirizzo e-mail non è valido",
     "io": "crwdns15892:0crwdne15892:0",
     "oc": "L'adreça email es invalida",
-    "nl": "Het e-mailadres is ongeldig"
+    "nl": "Het e-mailadres is ongeldig",
+    "br": "Direizh eo ar chomlec'h postel"
   },
   "validationEmailSubject": {
     "en": "Email change",
@@ -417,7 +449,8 @@ module.exports = {
     "it": "Generare una nuova chiave API",
     "io": "crwdns15900:0crwdne15900:0",
     "oc": "Generar una clau API novèla",
-    "nl": "Een nieuwe API-sleutel genereren"
+    "nl": "Een nieuwe API-sleutel genereren",
+    "br": "Genel un alc'hwez API nevez"
   },
   "generateNewApiKeyModalText": {
     "en": "The old key will be invalidated. Are you sure you want to generate a new one?",
@@ -427,7 +460,8 @@ module.exports = {
     "it": "La vecchia chiave sarà invalidata. Siete sicuri di volerne generare uno nuovo?",
     "io": "crwdns15902:0crwdne15902:0",
     "oc": "L'anciana clau serà invalidada. Sètz segur·a que ne volètz generar una novèla ?",
-    "nl": "De oude sleutel wordt ongeldig gemaakt. Weet je zeker dat je een nieuwe wilt genereren?"
+    "nl": "De oude sleutel wordt ongeldig gemaakt. Weet je zeker dat je een nieuwe wilt genereren?",
+    "br": "Direizhket e vo an alc'hwez kozh. Ha sur oc'h e fell deoc'h genel unan nevez?"
   },
   "generateNewApiKeyModalButton": {
     "en": "Generate",
@@ -437,7 +471,8 @@ module.exports = {
     "it": "Genera",
     "io": "crwdns15904:0crwdne15904:0",
     "oc": "Generar",
-    "nl": "Genereren"
+    "nl": "Genereren",
+    "br": "Genel"
   },
   "accountRemoved": {
     "en": "Your account was successfully deleted",
@@ -447,7 +482,8 @@ module.exports = {
     "it": "Il tuo account è stato cancellato",
     "io": "crwdns15906:0crwdne15906:0",
     "oc": "Vòstre compte es plan estat suprimit",
-    "nl": "Je account is succesvol verwijderd"
+    "nl": "Je account is succesvol verwijderd",
+    "br": "Dilamet eo bet ho kont gant berzh"
   },
   "agendaEventUpdate": {
     "en": "Event updated",
@@ -457,7 +493,8 @@ module.exports = {
     "it": "Evento aggiornato",
     "io": "crwdns15908:0crwdne15908:0",
     "oc": "Eveniment mes a jorn",
-    "nl": "Evenement bijgewerkt"
+    "nl": "Evenement bijgewerkt",
+    "br": "Darvoud hizivaet"
   },
   "agendaEventPublished": {
     "en": "Published event",
@@ -467,7 +504,8 @@ module.exports = {
     "it": "Evento pubblicato",
     "io": "crwdns15912:0crwdne15912:0",
     "oc": "Eveniment publicat",
-    "nl": "Evenement gepubliceerd"
+    "nl": "Evenement gepubliceerd",
+    "br": "Darvoud embannet"
   },
   "agendaNewAggregator": {
     "en": "Agenda aggregated",
@@ -477,7 +515,8 @@ module.exports = {
     "it": "agenda aggregato",
     "io": "crwdns15914:0crwdne15914:0",
     "oc": "Agenda agregada",
-    "nl": "Agenda samengevoegd"
+    "nl": "Agenda samengevoegd",
+    "br": "Deiziataer bodet"
   },
   "notificationsSummary": {
     "en": "Daily summary",
@@ -487,7 +526,8 @@ module.exports = {
     "it": "Riepilogo giornaliero",
     "io": "crwdns15916:0crwdne15916:0",
     "oc": "Resumit quotidian",
-    "nl": "Dagelijkse samenvatting"
+    "nl": "Dagelijkse samenvatting",
+    "br": "Diverradenn bemdeziek"
   },
   "emailUnsubscription": {
     "en": "Email unsubscriptions",
@@ -497,7 +537,8 @@ module.exports = {
     "it": "Cancellazioni via e-mail",
     "io": "crwdns15918:0crwdne15918:0",
     "oc": "Desabonaments per email",
-    "nl": "E-mail afmeldingen"
+    "nl": "E-mail afmeldingen",
+    "br": "Digoumanantoù dre bostel"
   },
   "emails": {
     "en": "Emails",
@@ -507,7 +548,8 @@ module.exports = {
     "it": "E-mail",
     "io": "crwdns15920:0crwdne15920:0",
     "oc": "Emails",
-    "nl": "E-mails"
+    "nl": "E-mails",
+    "br": "Postelezhioù"
   },
   "allNotifications": {
     "en": "All notifications",
@@ -517,7 +559,8 @@ module.exports = {
     "it": "Tutte le notifiche",
     "io": "crwdns15922:0crwdne15922:0",
     "oc": "Totas las notificacions",
-    "nl": "Alle meldingen"
+    "nl": "Alle meldingen",
+    "br": "An holl gemennoù"
   },
   "chooseEmailsSent": {
     "en": "Choose the emails that OpenAgenda sends me",
@@ -527,7 +570,8 @@ module.exports = {
     "it": "La scelta delle e-mail che OpenAgenda mi invia",
     "io": "crwdns15924:0crwdne15924:0",
     "oc": "Causir los emails qu'OpenAgenda me manda",
-    "nl": "Kies de e-mails die OpenAgenda me stuurt"
+    "nl": "Kies de e-mails die OpenAgenda me stuurt",
+    "br": "Dibab ar posteloù a gas OpenAgenda din"
   },
   "filterInputPlaceholder": {
     "en": "Search an agenda",
@@ -547,6 +591,7 @@ module.exports = {
     "io": "crwdns34094:0crwdne34094:0",
     "it": "Genera",
     "es": "Generar",
-    "nl": "Genereren"
+    "nl": "Genereren",
+    "br": "Genel"
   }
 }

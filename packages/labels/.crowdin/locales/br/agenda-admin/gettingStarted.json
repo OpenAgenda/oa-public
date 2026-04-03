@@ -1,1 +1,19 @@
-{}
+{
+  "addEvent": "Ouzhpennañ un darvoud",
+  "addProfileImage": "Ouzhpennit ur skeudenn profil d'ho agenda",
+  "addYourFirstEvent": "Ouzhpennit ho tarvoud kentañ!",
+  "copyLink": "Eilañ al liamm",
+  "copyLinkAndSend": "Eilit-pegit al liamm hag e gasit dre bostel pe dre ho rouedadoù sokial.",
+  "createEmbedded": "Krouiñ ur gwel enkorfet",
+  "embedYourAgenda": "Enkorfañ ho agenda en ho lec'hienn web",
+  "learnMore": "Gouzout hiroc'h",
+  "needOfficial": "C'hoant ho peus d'un agenda ofisiel?",
+  "needPrivate": "C'hoant ho peus d'un agenda prevez? An izili pedet ganeoc'h dre an ivinell Izili hepken a c'hello gwelet e endalc'had.",
+  "or": "pe",
+  "requestOfficial": "Goulenn un agenda ofisiel",
+  "requestPrivate": "Goulenn un agenda prevez",
+  "sendLink": "Kasit liamm ho agenda d'ho kenlabourerien !",
+  "someActions": "Un nebeud oberoù simpl evit kregiñ gant ho agenda",
+  "title": "Gourc'hemennoù, prest eo ho agenda !",
+  "useAPlugin": "Implijit ul lugant"
+}

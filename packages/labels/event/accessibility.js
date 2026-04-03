@@ -42,7 +42,8 @@ module.exports = {
     "it": "Disabilità psichica",
     "io": "crwdns14082:0crwdne14082:0",
     "oc": "Handicap psiquic",
-    "nl": "Psychische beperking"
+    "nl": "Psychische beperking",
+    "br": "Namm speredelezh"
   },
   "vi": {
     "en": "Visual impairment",

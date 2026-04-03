@@ -1,11 +1,11 @@
 {
-  "next.views.AgendaError.agendaNotFound": "",
-  "next.views.AgendaError.forbiddenMsg": "",
-  "next.views.AgendaError.notFoundMsg": "",
-  "next.views.AgendaError.orSignup": "",
-  "next.views.AgendaError.requestInvitation": "",
-  "next.views.AgendaError.restrictedAccess": "",
-  "next.views.AgendaError.searchAgenda": "",
-  "next.views.AgendaError.signIn": "",
-  "next.views.AgendaError.unauthorizedMsg": ""
+  "next.views.AgendaError.agendaNotFound": "Deiziataer ebet kavet",
+  "next.views.AgendaError.forbiddenMsg": "N'hoc'h eus ket moned d'an deiziataer-mañ.{br}Gwiriit al liamm zo bet roet deoc'h pe goulennit ar moned.",
+  "next.views.AgendaError.notFoundMsg": "N'eus deiziataer ebet o klotañ gant al liamm-mañ.{br}Pe eo direizh al liamm pe eo bet dilamet an deiziataer.",
+  "next.views.AgendaError.orSignup": "Pe <link>en em enskrivit</link> ma n'hoc'h eus ket a gont c'hoazh.",
+  "next.views.AgendaError.requestInvitation": "Goulenn ur bedadenn",
+  "next.views.AgendaError.restrictedAccess": "Strishaet eo ar moned d'an deiziataer-mañ,<br></br> en em zilesa a-raok gallout mont dezhañ.",
+  "next.views.AgendaError.searchAgenda": "Klask un deiziataer",
+  "next.views.AgendaError.signIn": "Kevreañ",
+  "next.views.AgendaError.unauthorizedMsg": "Strishaet eo ar moned d'an deiziataer-mañ,{br} kevreit a-raok gallout mont dezhañ."
 }

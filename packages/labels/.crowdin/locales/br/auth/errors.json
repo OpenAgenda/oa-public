@@ -1,1 +1,12 @@
-{}
+{
+  "fieldCannotBeEmpty": "Ne c'hall ket ar vaezienn bezañ goullo",
+  "incorrectPassword": "Direizh eo ar ger-tremen",
+  "invalidToken": "Jedouer direizh",
+  "passwordCouldNotBeModified": "N'eus ket bet gallet kemmañ ar ger-tremen",
+  "passwordResetSent": "Emañ ul liamm adderaouekaat ar ger-tremen o vezañ kaset d'ho chomlec'h postel",
+  "passwordUpdated": "Hizivaet eo bet ho ker-tremen.",
+  "passwordsMustMatch": "Ret eo d'ar ger-tremen klotañ.",
+  "resetLinkOutdated": "Diamzeret eo al liamm. Klaskit en-dro.",
+  "userNotActivated": "N'eo ket gweredekaet an implijer",
+  "userNotFound": "N'eo ket bet kavet an implijer"
+}

@@ -9,7 +9,8 @@ module.exports = {
     "it": "L'e-mail inserita non è valida o il servizio di newsletter non è disponibile. La preghiamo di riprovare tra qualche minuto.",
     "io": "crwdns15782:0crwdne15782:0",
     "oc": "Siá l'email entrat es pas valide, siá lo servici de letra d'informacions es pas disponible. Vos pregam de tornar ensajar mai tard.",
-    "nl": "Het ingevoerde e-mailadres is ongeldig of de nieuwsbriefservice is niet beschikbaar. Probeer het over enkele minuten opnieuw."
+    "nl": "Het ingevoerde e-mailadres is ongeldig of de nieuwsbriefservice is niet beschikbaar. Probeer het over enkele minuten opnieuw.",
+    "br": "Pe eo ar postel lakaet direizh, pe eo dihegerz ar servij lizher-kelaouiñ. Klaskit en-dro a-benn un nebeud munutennoù mar plij."
   },
   "subscribed": {
     "fr": "Vous avez été ajouté à notre liste d'envoi de lettre d'information. Merci!",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Siete stati aggiunti alla nostra mailing list della newsletter. Grazie per il vostro interesse!",
     "io": "crwdns15784:0crwdne15784:0",
     "oc": "Sètz estat·da apondut·a a la lista de mandadís de la letra d'informacions. Mercés !",
-    "nl": "U bent toegevoegd aan onze nieuwsbrieflijst. Bedankt!"
+    "nl": "U bent toegevoegd aan onze nieuwsbrieflijst. Bedankt!",
+    "br": "Ouzhpennet oc'h bet d'hor roll lizher-kelaouiñ. Trugarez deoc'h!"
   },
   "unsubscribed": {
     "fr": "Vous ne recevrez désormais plus d'événements à l'adresse %email%",
@@ -29,6 +31,7 @@ module.exports = {
     "it": "Non riceverete più messaggi sopra eventi su l'indirizzo %email%",
     "io": "crwdns15786:0%email%crwdne15786:0",
     "oc": "A comptar d'ara recebretz pas pus d'emails suls eveniments a l'adreiça %email%",
-    "nl": "U ontvangt vanaf nu geen evenementenmails meer op het adres %email%"
+    "nl": "U ontvangt vanaf nu geen evenementenmails meer op het adres %email%",
+    "br": "Ne resevot ket mui posteloù darvoud war ar chomlec'h %email%"
   }
 }

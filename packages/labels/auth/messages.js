@@ -8,7 +8,8 @@ module.exports = {
     "it": "Il suo account è stato aggiunto alla nostra lista di account fraudolenti.",
     "oc": "Vòstre compte es estat ajustat a nòstra tièra de comptes fraudulós.",
     "es": "Su cuenta ha sido añadida a nuestra lista de cuentas fraudulentas.",
-    "nl": "Uw account is toegevoegd aan onze lijst van frauduleuze accounts."
+    "nl": "Uw account is toegevoegd aan onze lijst van frauduleuze accounts.",
+    "br": "Lakaet eo bet ho kont war hor roll kontoù hudek."
   },
   "isBlacklistedInfo": {
     "fr": "En cas d'erreur de notre part, contactez-nous soit via notre robot ou depuis le menu d'Aide.",
@@ -16,7 +17,8 @@ module.exports = {
     "io": "crwdns13096:0crwdne13096:0",
     "oc": "En cas d'error de nòstra part, contactatz-nos siá pel robòt siá pel menut d'ajuda.",
     "es": "En caso de error por nuestra parte, contáctenos a través de nuestra aplicación de chat o el menú de Ayuda.",
-    "nl": "In geval van een fout onzerzijds, neem contact met ons op via onze chatrobot of via het Help-menu."
+    "nl": "In geval van een fout onzerzijds, neem contact met ons op via onze chatrobot of via het Help-menu.",
+    "br": "Ma vez ur fazi eus hon tu, kit e darempred ganeomp dre hor robot-flapiñ pe dre lañser ar Skoazell."
   },
   "authRequired": {
     "en": "You need to be authenticated to access this page.",
@@ -25,7 +27,8 @@ module.exports = {
     "io": "crwdns13098:0crwdne13098:0",
     "oc": "Vos cal èsser autentificat·da per accedir a aquesta pagina.",
     "es": "Necesitas autenticarte para acceder a esta página.",
-    "nl": "Toegang tot de gevraagde pagina is beperkt. Log in om toegang te krijgen."
+    "nl": "Toegang tot de gevraagde pagina is beperkt. Log in om toegang te krijgen.",
+    "br": "Strishaet eo ar moned d'ar bajenn goulennet. Kevreit evit mont dezhi."
   },
   "limitedAccessEvent": {
     "en": "You need to be authenticated to access this event. Please sign in",

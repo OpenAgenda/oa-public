@@ -9,7 +9,8 @@ module.exports = {
     "it": "Grazie per aver partecipato!",
     "io": "crwdns15788:0crwdne15788:0",
     "oc": "Mercés per vòstra contribucion !",
-    "nl": "Bedankt voor uw deelname!"
+    "nl": "Bedankt voor uw deelname!",
+    "br": "Trugarez evit ho kemer-perzh!"
   },
   "done": {
     "fr": "Fermer",

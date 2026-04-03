@@ -8,7 +8,8 @@ module.exports = {
     "it": "ID",
     "oc": "Identificant",
     "es": "Id",
-    "nl": "Identificatie"
+    "nl": "Identificatie",
+    "br": "Anaouder"
   },
   "name": {
     "en": "Name",
@@ -17,7 +18,8 @@ module.exports = {
     "it": "Nome",
     "oc": "Nom",
     "es": "Nombre",
-    "nl": "Naam"
+    "nl": "Naam",
+    "br": "Anv"
   },
   "address": {
     "en": "Address",
@@ -26,7 +28,8 @@ module.exports = {
     "it": "Indirizzo",
     "oc": "Adreiça",
     "es": "Dirección",
-    "nl": "Adres"
+    "nl": "Adres",
+    "br": "Chomlec'h"
   },
   "city": {
     "en": "City",
@@ -55,7 +58,8 @@ module.exports = {
     "it": "Latitudine",
     "oc": "Latitud",
     "es": "Latitud",
-    "nl": "Breedtegraad"
+    "nl": "Breedtegraad",
+    "br": "Ledred"
   },
   "longitude": {
     "en": "Longitude",
@@ -64,7 +68,8 @@ module.exports = {
     "it": "Longitudine",
     "oc": "Longitud",
     "es": "Longitud",
-    "nl": "Lengtegraad"
+    "nl": "Lengtegraad",
+    "br": "Hedred"
   },
   "postalCode": {
     "en": "Postal code",
@@ -73,7 +78,8 @@ module.exports = {
     "it": "Codice postale",
     "oc": "Còdi postal",
     "es": "Código postal",
-    "nl": "Postcode"
+    "nl": "Postcode",
+    "br": "Kod-post"
   },
   "insee": {
     "en": "INSEE Code",
@@ -82,7 +88,8 @@ module.exports = {
     "it": "Codice INSEE (Francia)",
     "oc": "Còdi INSEE",
     "es": "Código INSEE",
-    "nl": "INSEE-code"
+    "nl": "INSEE-code",
+    "br": "Kod EBSSA"
   },
   "siret": {
     "en": "SIRET Code",
@@ -91,7 +98,8 @@ module.exports = {
     "it": "Codice fiscale",
     "oc": "N° SIRET",
     "es": "Código SIRET",
-    "nl": "SIRET-code"
+    "nl": "SIRET-code",
+    "br": "Kod SIRET"
   },
   "countryCode": {
     "en": "Country code",
@@ -100,7 +108,8 @@ module.exports = {
     "it": "Codice del paese",
     "oc": "Còdi país",
     "es": "Código de país",
-    "nl": "Landcode"
+    "nl": "Landcode",
+    "br": "Kod bro"
   },
   "district": {
     "en": "District",
@@ -109,7 +118,8 @@ module.exports = {
     "it": "Quartiere",
     "oc": "Districte",
     "es": "Distrito",
-    "nl": "Wijk"
+    "nl": "Wijk",
+    "br": "Karter"
   },
   "region": {
     "en": "Region",
@@ -118,7 +128,8 @@ module.exports = {
     "it": "Regione",
     "oc": "Region",
     "es": "Región",
-    "nl": "Regio"
+    "nl": "Regio",
+    "br": "Rannvro"
   },
   "eventCount": {
     "en": "Associated events",
@@ -127,7 +138,8 @@ module.exports = {
     "it": "Eventi associati",
     "oc": "Eveniments associats",
     "es": "Eventos asociados",
-    "nl": "Gerelateerde evenementen"
+    "nl": "Gerelateerde evenementen",
+    "br": "Darvoudoù kevelet"
   },
   "agendaEventCount": {
     "en": "Associated events in agenda",
@@ -136,7 +148,8 @@ module.exports = {
     "it": "Eventi associati nell'agenda",
     "oc": "Eveniments associats dins l'agenda",
     "es": "Eventos asociados en la agenda",
-    "nl": "Gerelateerde evenementen in agenda"
+    "nl": "Gerelateerde evenementen in agenda",
+    "br": "Darvoudoù kevelet en deiziataer"
   },
   "state": {
     "en": "Verified",
@@ -145,7 +158,8 @@ module.exports = {
     "it": "Verificato",
     "oc": "Verificat",
     "es": "Verificado",
-    "nl": "Geverifieerd"
+    "nl": "Geverifieerd",
+    "br": "Gwiriet"
   },
   "extIds": {
     "en": "External ids",
@@ -161,7 +175,8 @@ module.exports = {
     "it": "URL",
     "oc": "Còdi URL",
     "es": "Código URL",
-    "nl": "URL-code"
+    "nl": "URL-code",
+    "br": "Kod URL"
   },
   "website": {
     "en": "Website",
@@ -170,7 +185,8 @@ module.exports = {
     "oc": "Site web",
     "io": "crwdns32871:0crwdne32871:0",
     "it": "Sito web",
-    "nl": "Website"
+    "nl": "Website",
+    "br": "Lec'hienn web"
   },
   "access": {
     "en": "Access",
@@ -192,7 +208,8 @@ module.exports = {
     "it": "Descrizione",
     "oc": "Descripcion",
     "io": "crwdns32875:0crwdne32875:0",
-    "nl": "Beschrijving"
+    "nl": "Beschrijving",
+    "br": "Deskrivadur"
   },
   "adminLevel5": {
     "en": "Borough",

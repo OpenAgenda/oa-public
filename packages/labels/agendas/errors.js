@@ -10,7 +10,8 @@ module.exports = {
     "es": "el evento se ha añadido a la agenda",
     "io": "crwdns12842:0crwdne12842:0",
     "oc": "l'eveniment fa ja partida de l'agenda",
-    "nl": "het evenement is al toegevoegd aan de agenda"
+    "nl": "het evenement is al toegevoegd aan de agenda",
+    "br": "ouzhpennet eo bet an darvoud d'an deiziataer dija"
   },
   "selectActionBefore": {
     "en": "Select an action to execute before pressing the button",
@@ -21,7 +22,8 @@ module.exports = {
     "es": "Seleccione una acción a ejecutar antes de hacer clic en el botón",
     "io": "crwdns12844:0crwdne12844:0",
     "oc": "Causissètz una accion de menar abans de quichar sul boton",
-    "nl": "Selecteer een actie om uit te voeren voordat u op de knop klikt"
+    "nl": "Selecteer een actie om uit te voeren voordat u op de knop klikt",
+    "br": "Diuzit un ober da seveniñ a-raok klikañ war ar bouton"
   },
   "unknownAction": {
     "en": "The action you requested is unknown",
@@ -32,6 +34,7 @@ module.exports = {
     "es": "La acción solicitada es desconocida",
     "io": "crwdns12846:0crwdne12846:0",
     "oc": "L'accion demandada nos es desconeguda",
-    "nl": "De actie die u heeft aangevraagd is onbekend"
+    "nl": "De actie die u heeft aangevraagd is onbekend",
+    "br": "Dianav eo an ober hoc'h eus goulennet"
   }
 }

@@ -1,8 +1,8 @@
 {
-  "next.views.AgendaShow.AggregateModal.createAgenda": "",
-  "next.views.AgendaShow.AggregateModal.noAgenda": "",
-  "next.views.AgendaShow.AggregateModal.shouldConnect": "",
-  "next.views.AgendaShow.AggregateModal.signin": "",
-  "next.views.AgendaShow.AggregateModal.subtitle": "",
-  "next.views.AgendaShow.AggregateModal.title": ""
+  "next.views.AgendaShow.AggregateModal.createAgenda": "Krouiñ un deiziataer",
+  "next.views.AgendaShow.AggregateModal.noAgenda": "Diwallit: N'oc'h ket o merañ deiziataer ebet er mare-mañ. Ret eo deoc'h krouiñ unan a-raok gallout bodañ {agenda}.",
+  "next.views.AgendaShow.AggregateModal.shouldConnect": "Ret eo deoc'h kevreañ evit bodañ an deiziataer-mañ.",
+  "next.views.AgendaShow.AggregateModal.signin": "Kevreañ",
+  "next.views.AgendaShow.AggregateModal.subtitle": "Embannet e vo ent emgefre an darvoudoù embannet gant {agenda} d'an deiziataer diuzet.",
+  "next.views.AgendaShow.AggregateModal.title": "Bodañ ouzh un deiziataer"
 }

@@ -1,3 +1,9 @@
 {
-  "ReactShared.ImageInput.remove": "Lemel"
+  "ReactShared.AgendaAdminModContextBar.manage": "Merañ",
+  "ReactShared.AgendaContextBar.addEvent": "Ouzhpennañ un darvoud",
+  "ReactShared.AuthenticateAndConfirm.submit": "Kadarnaat",
+  "ReactShared.ImageInput.acceptedFiles": "Restroù degemeret",
+  "ReactShared.ImageInput.remove": "Lemel",
+  "ReactShared.ImageInput.update": "Cheñch ar skeudenn",
+  "ReactShared.ImageInput.upload": "Kargañ ur skeudenn"
 }

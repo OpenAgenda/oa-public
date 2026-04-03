@@ -9,7 +9,8 @@ module.exports = {
     "it": "OpenAgenda - Creare una potente agenda pubblico",
     "io": "crwdns13440:0crwdne13440:0",
     "oc": "OpenAgenda - Creatz una agenda publica potenta",
-    "nl": "OpenAgenda - Maak een efficiënte publieke agenda"
+    "nl": "OpenAgenda - Maak een efficiënte publieke agenda",
+    "br": "OpenAgenda - Krouit un deiziataer publik efedus"
   },
   "description": {
     "fr": "Diffusez vos événements sur la première plateforme d'agendas collaboratifs, participatifs, contributifs, open data. C'est gratuit!",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Trasmettete i vostri eventi sulla prima piattaforma collaborativa, partecipativa, contributiva e aperta. È gratuito!",
     "io": "crwdns13442:0crwdne13442:0",
     "oc": "Difusatz vòstres eveniments sus la primièra plataforma d'agenda collaborativa en donadas obèrtas. Es gratuit !",
-    "nl": "Verspreid uw evenementen op het eerste open data samenwerkingsagendaplatform. Het is gratis!"
+    "nl": "Verspreid uw evenementen op het eerste open data samenwerkingsagendaplatform. Het is gratis!",
+    "br": "Skignit hoc'h abadennoù war al lec'hienn gentañ a zeiziataerien kenlabourus, perzhiadus, kenobererel, open data. Digoust eo!"
   },
   "keywords": {
     "fr": "agenda collaboratifs, calendrier, événements, outil en ligne, productivité",
@@ -29,6 +31,7 @@ module.exports = {
     "it": "agenda collaborativa, calendario, eventi, strumento online, produttività",
     "io": "crwdns13444:0crwdne13444:0",
     "oc": "agendas collaborativas, agenda, eveniments, aisina en linha, productivitat",
-    "nl": "samenwerkingsagenda's, kalender, evenementen, online tool, productiviteit"
+    "nl": "samenwerkingsagenda's, kalender, evenementen, online tool, productiviteit",
+    "br": "deiziataerien kenlabourus, deiziataer, darvoudoù, ostilh enlinenn, produktivded"
   }
 }

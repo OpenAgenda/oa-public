@@ -9,7 +9,8 @@ module.exports = {
     "it": "%agenda% ha aggregato un nuovo evento: %event%",
     "io": "crwdns12992:0%agenda%crwdnd12992:0%event%crwdne12992:0",
     "oc": "%agenda% a agregat un eveniment novèl : %event%",
-    "nl": "%agenda% heeft een nieuw evenement samengevoegd: %event%"
+    "nl": "%agenda% heeft een nieuw evenement samengevoegd: %event%",
+    "br": "%agenda% en deus kevrenet un darvoud nevez: %event%"
   },
   "newAggregationBody": {
     "fr": "**%event%** provenant de l'agenda **%sourceAgenda%** a été agrégé avec le statut **%state%**",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "**%event%** dal **%sourceAgenda%** è stato aggregato con lo stato **%state%**",
     "io": "crwdns12994:0%event%crwdnd12994:0%sourceAgenda%crwdnd12994:0%state%crwdne12994:0",
     "oc": "**%event%** de l'agenda **%sourceAgenda%** es estat agregat amb l'estatut **%state%**",
-    "nl": "**%event%** van de agenda **%sourceAgenda%** is samengevoegd met de status **%state%**"
+    "nl": "**%event%** van de agenda **%sourceAgenda%** is samengevoegd met de status **%state%**",
+    "br": "**%event%** adalek an agenda **%sourceAgenda%** a zo bet kevrenet gant ar stad **%state%**"
   },
   "newAggregationAction": {
     "fr": "Voir l'événement",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Vedere l'evento",
     "io": "crwdns12996:0crwdne12996:0",
     "oc": "Veire l'eveniment",
-    "nl": "Bekijk het evenement"
+    "nl": "Bekijk het evenement",
+    "br": "Gwelet an darvoud"
   },
   "toBeControlled": {
     "fr": "à contrôler",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "verificabile",
     "io": "crwdns12998:0crwdne12998:0",
     "oc": "de repassar",
-    "nl": "te controleren"
+    "nl": "te controleren",
+    "br": "da gontrollañ"
   },
   "readyToPublish": {
     "fr": "prêt à être publié",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "pronto per la pubblicazione",
     "io": "crwdns13000:0crwdne13000:0",
     "oc": "prèste a publicar",
-    "nl": "klaar om te publiceren"
+    "nl": "klaar om te publiceren",
+    "br": "prest da vezañ embannet"
   },
   "published": {
     "fr": "publié",

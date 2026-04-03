@@ -9,7 +9,8 @@ module.exports = {
     "it": "Funzioni",
     "io": "crwdns13430:0crwdne13430:0",
     "oc": "Foncionalitats",
-    "nl": "Functies"
+    "nl": "Functies",
+    "br": "Kargoù"
   },
   "layoutTestimonials": {
     "en": "Testimonials",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Riferimenti",
     "io": "crwdns13432:0crwdne13432:0",
     "oc": "Referéncias",
-    "nl": "Referenties"
+    "nl": "Referenties",
+    "br": "Testenioù"
   },
   "layoutPricing": {
     "en": "Pricing",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Tariffe",
     "io": "crwdns13434:0crwdne13434:0",
     "oc": "Tarifas",
-    "nl": "Tarieven"
+    "nl": "Tarieven",
+    "br": "Prizioù"
   },
   "layoutSignup": {
     "en": "Sign up",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Crea un account",
     "io": "crwdns13436:0crwdne13436:0",
     "oc": "Crear un compte",
-    "nl": "Account aanmaken"
+    "nl": "Account aanmaken",
+    "br": "Krouiñ ur gont"
   },
   "layoutSignin": {
     "en": "Sign in",

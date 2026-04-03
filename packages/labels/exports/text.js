@@ -9,7 +9,8 @@ module.exports = {
     "it": "Itinerario",
     "io": "crwdns14668:0crwdne14668:0",
     "oc": "Itinerari",
-    "nl": "Route"
+    "nl": "Route",
+    "br": "Hent-bale"
   },
   "register": {
     "fr": "Outils d'inscription",
@@ -30,6 +31,7 @@ module.exports = {
     "it": "Accessibilità",
     "io": "crwdns14672:0crwdne14672:0",
     "oc": "Accessibilitat",
-    "nl": "Toegankelijkheid"
+    "nl": "Toegankelijkheid",
+    "br": "Monedusted"
   }
 };

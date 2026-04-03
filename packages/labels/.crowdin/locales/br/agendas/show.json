@@ -34,6 +34,11 @@
   "showCalendar": "Gwel deiziadur",
   "startTime": "%start%, %time%",
   "startToFinish": "eus an %start% d'an %finish%",
+  "statusCancelled": "Nullet",
+  "statusFull": "Leun",
+  "statusMovedOnline": "Dilec'hiet enlinenn",
+  "statusPostponed": "Diwezataet",
+  "statusRescheduled": "Adreizhet",
   "tags": "Merkoù",
   "termsOfUse": "Penndivizoù implij"
 }

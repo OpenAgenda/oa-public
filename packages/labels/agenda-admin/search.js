@@ -9,6 +9,7 @@ module.exports = {
     "it": "Ricerca",
     "io": "crwdns11396:0crwdne11396:0",
     "oc": "Cercar",
-    "nl": "Zoeken"
+    "nl": "Zoeken",
+    "br": "Klask"
   }
 }

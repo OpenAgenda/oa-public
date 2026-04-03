@@ -9,7 +9,8 @@ module.exports = {
     "it": "festival",
     "io": "crwdns13984:0crwdne13984:0",
     "oc": "festenal",
-    "nl": "festival"
+    "nl": "festival",
+    "br": "gouel"
   },
   "fair": {
     "en": "fair",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "mostra",
     "io": "crwdns13986:0crwdne13986:0",
     "oc": "fièra",
-    "nl": "beurs"
+    "nl": "beurs",
+    "br": "foar"
   },
   "federation": {
     "en": "federation",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "federazione",
     "io": "crwdns13988:0crwdne13988:0",
     "oc": "federacion",
-    "nl": "federatie"
+    "nl": "federatie",
+    "br": "kevread"
   },
   "theatre": {
     "en": "theatre",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "teatro",
     "io": "crwdns13990:0crwdne13990:0",
     "oc": "teatre",
-    "nl": "theater"
+    "nl": "theater",
+    "br": "c'hoariva"
   },
   "city": {
     "en": "city",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "città",
     "io": "crwdns13992:0crwdne13992:0",
     "oc": "vila",
-    "nl": "stad"
+    "nl": "stad",
+    "br": "kêr"
   },
   "association": {
     "en": "association",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "associazione",
     "io": "crwdns13994:0crwdne13994:0",
     "oc": "associacion",
-    "nl": "vereniging"
+    "nl": "vereniging",
+    "br": "kevredigezh"
   },
   "university": {
     "en": "university",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "Università",
     "io": "crwdns13996:0crwdne13996:0",
     "oc": "universitat",
-    "nl": "universiteit"
+    "nl": "universiteit",
+    "br": "skol-veur"
   },
   "company": {
     "en": "company",
@@ -79,7 +86,8 @@ module.exports = {
     "it": "azienda",
     "io": "crwdns13998:0crwdne13998:0",
     "oc": "entrepresa",
-    "nl": "bedrijf"
+    "nl": "bedrijf",
+    "br": "embregerezh"
   },
   "conventionCenter": {
     "en": "convention center",
@@ -89,7 +97,8 @@ module.exports = {
     "it": "centro congressi",
     "io": "crwdns14000:0crwdne14000:0",
     "oc": "centre de congrès",
-    "nl": "congrescentrum"
+    "nl": "congrescentrum",
+    "br": "palez ar c'hendalc'hioù"
   },
   "incubator": {
     "en": "incubator",
@@ -99,7 +108,8 @@ module.exports = {
     "it": "fablab",
     "io": "crwdns14002:0crwdne14002:0",
     "oc": "coador",
-    "nl": "fablab"
+    "nl": "fablab",
+    "br": "fablab"
   },
   "coworkingSpace": {
     "en": "coworking space",
@@ -109,7 +119,8 @@ module.exports = {
     "it": "terza posizione",
     "io": "crwdns14004:0crwdne14004:0",
     "oc": "tèrç-lòc",
-    "nl": "coworkingruimte"
+    "nl": "coworkingruimte",
+    "br": "trede lec'h"
   },
   "fireStation": {
     "en": "fire station",
@@ -119,7 +130,8 @@ module.exports = {
     "it": "caserma",
     "io": "crwdns14006:0crwdne14006:0",
     "oc": "casèrna",
-    "nl": "kazerne"
+    "nl": "kazerne",
+    "br": "kazarn"
   },
   "ministry": {
     "en": "ministry",
@@ -129,7 +141,8 @@ module.exports = {
     "it": "Ministero",
     "io": "crwdns14008:0crwdne14008:0",
     "oc": "ministèri",
-    "nl": "ministerie"
+    "nl": "ministerie",
+    "br": "ministrerezh"
   },
   "church": {
     "en": "church",
@@ -139,7 +152,8 @@ module.exports = {
     "it": "diocesi",
     "io": "crwdns14010:0crwdne14010:0",
     "oc": "diocèsi",
-    "nl": "bisdom"
+    "nl": "bisdom",
+    "br": "eskopti"
   },
   "hospital": {
     "en": "hospital",
@@ -149,6 +163,7 @@ module.exports = {
     "it": "ospedale",
     "io": "crwdns14012:0crwdne14012:0",
     "oc": "espital",
-    "nl": "ziekenhuis"
+    "nl": "ziekenhuis",
+    "br": "ospital"
   }
 }

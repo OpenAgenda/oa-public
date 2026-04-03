@@ -1,4 +1,12 @@
 {
+  "actionDescription": "Gwelet an darvoud",
+  "body": "Ho tarvoud <b>{event}</b> a zo bet krouet mat war ar c'halendrier <b>{agenda}</b> gant ar stad <b>{state}</b>.",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "controlled": "prest da vezañ embannet",
+  "memberUnsubscribe": "Paouez da zegemer kadarnaat krouiñ ho tarvoudoù war ar c'halendrier-mañ",
   "published": "embannet",
-  "refused": "nac'het"
+  "refused": "nac'het",
+  "title": "Kadarnaat krouiñ ho tarvoud war {agenda}: {event}",
+  "tocontrol": "da gontrollañ",
+  "unsubscribe": "Paouez da zegemer kadarnaat krouiñ ho tarvoudoù"
 }

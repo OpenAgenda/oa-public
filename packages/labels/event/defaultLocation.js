@@ -7,7 +7,8 @@ module.exports = {
     "io": "crwdns33335:0crwdne33335:0",
     "oc": "Causissètz un país per defaut",
     "es": "Elegir país predeterminado",
-    "nl": "Kies het standaardland"
+    "nl": "Kies het standaardland",
+    "br": "Dibab ar vro dre ziouer"
   },
   "chooseDefaultLocation": {
     "en": "Choose default location",
@@ -15,6 +16,7 @@ module.exports = {
     "io": "crwdns33339:0crwdne33339:0",
     "oc": "Causissètz un lòc per defaut",
     "es": "Elegir ubicación predeterminada",
-    "nl": "Kies de standaardlocatie"
+    "nl": "Kies de standaardlocatie",
+    "br": "Dibab al lec'h dre ziouer"
   }
 }

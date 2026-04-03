@@ -29,7 +29,7 @@ module.exports = {
     "en": "Contact",
     "fr": "Contacter",
     "it": "Contattare",
-    "de": "kontaktieren",
+    "de": "Kontakt",
     "pl": "Skontaktuj",
     "es": "Contactar",
     "br": "Mont e darempred",

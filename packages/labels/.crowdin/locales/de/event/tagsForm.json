@@ -8,7 +8,7 @@
   "saveError": "Es gab ein Problem, während der Datenspeicherung. Bitte sende wieder oder lade die Seite neu.",
   "saveErrorTitle": "Speichern Fehler",
   "saveSuccess": "Die Daten wurden erfolgreich aktualisiert",
-  "submit": "einreichen",
+  "submit": "Speichern",
   "submitted": "eingereicht",
   "uploadButton": "Wählen"
 }

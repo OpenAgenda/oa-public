@@ -9,7 +9,8 @@ module.exports = {
     "it": "Nome",
     "io": "crwdns13256:0crwdne13256:0",
     "oc": "Nom",
-    "nl": "Naam"
+    "nl": "Naam",
+    "br": "Anv"
   },
   "email": {
     "en": "Email",
@@ -41,7 +42,8 @@ module.exports = {
     "it": "Telefono",
     "io": "crwdns13262:0crwdne13262:0",
     "oc": "Telefòne",
-    "nl": "Telefoon"
+    "nl": "Telefoon",
+    "br": "Pellgomz"
   },
   "position": {
     "en": "Position",
@@ -51,7 +53,8 @@ module.exports = {
     "it": "Ruolo",
     "io": "crwdns13264:0crwdne13264:0",
     "oc": "Foncion",
-    "nl": "Functie"
+    "nl": "Functie",
+    "br": "Karg"
   },
   "contributions": {
     "en": "Contributed events",
@@ -61,7 +64,8 @@ module.exports = {
     "it": "Eventi contribuitati",
     "io": "crwdns13266:0crwdne13266:0",
     "oc": "Eveniments contribuits",
-    "nl": "Bijgedragen evenementen"
+    "nl": "Bijgedragen evenementen",
+    "br": "Darvoudoù kenlabourus"
   },
   "credential": {
     "en": "Role",
@@ -71,7 +75,8 @@ module.exports = {
     "it": "Ruolo",
     "io": "crwdns13268:0crwdne13268:0",
     "oc": "Ròtle",
-    "nl": "Rol"
+    "nl": "Rol",
+    "br": "Rol"
   },
   "role": {
     "en": "Role",
@@ -81,7 +86,8 @@ module.exports = {
     "it": "Ruolo",
     "io": "crwdns13270:0crwdne13270:0",
     "oc": "Ròtle",
-    "nl": "Rol"
+    "nl": "Rol",
+    "br": "Rol"
   },
   "state": {
     "en": "State",
@@ -90,6 +96,7 @@ module.exports = {
     "it": "Stato",
     "io": "crwdns13272:0crwdne13272:0",
     "oc": "Estat",
-    "nl": "Status"
+    "nl": "Status",
+    "br": "Statud"
   }
 }

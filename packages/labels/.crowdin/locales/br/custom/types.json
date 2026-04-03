@@ -1,1 +1,11 @@
-{}
+{
+  "checkbox": "Roll dibab lies",
+  "image": "Skeudenn",
+  "integer": "Niver klok",
+  "markdown": "Maezienn destenn pinvidik",
+  "number": "Niver",
+  "radio": "Roll dibab unel",
+  "select": "Maezienn dibab",
+  "text": "Maezienn destenn eeun",
+  "textarea": "Maezienn destenn lies linenn"
+}

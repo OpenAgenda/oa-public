@@ -9,6 +9,7 @@ module.exports = {
     "it": "Vedere di più",
     "io": "crwdns14666:0crwdne14666:0",
     "oc": "Ne véser mai",
-    "nl": "Meer zien"
+    "nl": "Meer zien",
+    "br": "Gwelet muioc'h"
   }
 }

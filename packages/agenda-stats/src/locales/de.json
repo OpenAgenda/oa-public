@@ -6,6 +6,9 @@
   "AgendaStats.ComposedChart.tooltipContentEvents": "{value, plural, =0 {{value, number} Veranstaltung} one {{value, number} Veranstaltung} other {{value, number} Veranstaltungen}}",
   "AgendaStats.CustomTooltip.events": "{value, number} Veranstaltungen",
   "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {Veranstaltung} one {event} other {Veranstaltungen}}",
+  "AgendaStats.OrderModal.submit": "Speichern",
+  "AgendaStats.RangeModal.submit": "Speichern",
+  "AgendaStats.RangeTypeModal.submit": "Speichern",
   "AgendaStats.StateTooltipItem.toModerate": "Zu moderieren",
   "AgendaStats.messages.chartTitles.states": "Zuständen",
   "AgendaStats.messages.states.toModerate": "Zu moderieren"

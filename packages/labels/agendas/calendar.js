@@ -10,7 +10,8 @@ module.exports = {
     "es": "Todo el día",
     "io": "crwdns12780:0crwdne12780:0",
     "oc": "Tota la jornada",
-    "nl": "De hele dag"
+    "nl": "De hele dag",
+    "br": "A-hed an devezh"
   },
   "previous": {
     "en": "Previous",
@@ -21,7 +22,8 @@ module.exports = {
     "es": "Anterior",
     "io": "crwdns12782:0crwdne12782:0",
     "oc": "Precedent",
-    "nl": "Bisherige"
+    "nl": "Bisherige",
+    "br": "Kent"
   },
   "next": {
     "en": "Next",
@@ -44,7 +46,8 @@ module.exports = {
     "es": "Hoy",
     "io": "crwdns12786:0crwdne12786:0",
     "oc": "Uèi",
-    "nl": "Vandaag"
+    "nl": "Vandaag",
+    "br": "Hiziv"
   },
   "month": {
     "en": "Month",
@@ -55,7 +58,8 @@ module.exports = {
     "es": "Mes",
     "io": "crwdns12788:0crwdne12788:0",
     "oc": "Mes",
-    "nl": "Maand"
+    "nl": "Maand",
+    "br": "Miz"
   },
   "week": {
     "en": "Week",
@@ -66,7 +70,8 @@ module.exports = {
     "es": "Semana",
     "io": "crwdns12790:0crwdne12790:0",
     "oc": "Setmana",
-    "nl": "Week"
+    "nl": "Week",
+    "br": "Sizhun"
   },
   "day": {
     "en": "Day",
@@ -77,7 +82,8 @@ module.exports = {
     "es": "Día",
     "io": "crwdns12792:0crwdne12792:0",
     "oc": "Jorn",
-    "nl": "Dag"
+    "nl": "Dag",
+    "br": "Deiz"
   },
   "agenda": {
     "en": "Agenda",
@@ -100,7 +106,8 @@ module.exports = {
     "es": "Fecha",
     "io": "crwdns12796:0crwdne12796:0",
     "oc": "Data",
-    "nl": "Datum"
+    "nl": "Datum",
+    "br": "Deiziad"
   },
   "time": {
     "en": "Time",
@@ -111,7 +118,8 @@ module.exports = {
     "es": "Horario",
     "io": "crwdns12798:0crwdne12798:0",
     "oc": "Ora",
-    "nl": "Tijd"
+    "nl": "Tijd",
+    "br": "Eur"
   },
   "event": {
     "en": "Event",
@@ -122,7 +130,8 @@ module.exports = {
     "es": "Evento",
     "io": "crwdns12800:0crwdne12800:0",
     "oc": "Eveniment",
-    "nl": "Evenement"
+    "nl": "Evenement",
+    "br": "Darvoud"
   },
   "more": {
     "en": "See all events",
@@ -133,6 +142,7 @@ module.exports = {
     "es": "Ver todos los eventos",
     "io": "crwdns12802:0crwdne12802:0",
     "oc": "Veire totes los eveniments",
-    "nl": "Alle evenementen bekijken"
+    "nl": "Alle evenementen bekijken",
+    "br": "Gwelet an holl darvoudoù"
   }
 }

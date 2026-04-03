@@ -1,1 +1,19 @@
-{}
+{
+  "addEvent": "Ouzhpennañ un darvoud",
+  "addEventOr": "pe",
+  "addEventSuggest": "Kargañ darvoudoù heñvel",
+  "editorInfo": "Liammañ darvoudoù all eus an deiziataer ouzh ho tarvoud",
+  "editorTitle": "Darvoudoù kevelet",
+  "emptyReferences": "N'eus bet termenet darvoud liammet ebet c'hoazh",
+  "emptySearch": "Disoc'h ebet evit an enklask-mañ",
+  "noOtherSuggestions": "N'eus bet kavet darvoud heñvel all ebet",
+  "noOtherSuggestionsTitle": "Darvoudoù heñvel",
+  "noSuggestions": "N'eus bet kavet darvoud heñvel ebet",
+  "noSuggestionsTitle": "Darvoudoù heñvel",
+  "nothingToSuggest": "Ne c'haller kargañ darvoudoù heñvel nemet ma'z eus bet kroget da leuniañ ho tarvoud ganeoc'h",
+  "nothingToSuggestTitle": "Darvoudoù heñvel",
+  "search": "Klask dre ditl pe anv al lec'h",
+  "searchResultTitle": "Disoc'hoù an enklask",
+  "showTitle": "Gwelet ivez",
+  "suggestionResultTitle": "Kinnigoù darvoudoù heñvel"
+}

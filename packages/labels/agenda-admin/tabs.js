@@ -9,7 +9,8 @@ module.exports = {
     "it": "Eventi",
     "io": "crwdns11398:0crwdne11398:0",
     "oc": "Eveniments",
-    "nl": "Evenementen"
+    "nl": "Evenementen",
+    "br": "Darvoudoù"
   },
   "contributors": {
     "en": "Contributors",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Collaboratori",
     "io": "crwdns11400:0crwdne11400:0",
     "oc": "Contributor·a·s",
-    "nl": "Bijdragers"
+    "nl": "Bijdragers",
+    "br": "Kenlabourerien"
   },
   "moderators": {
     "en": "Moderators",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Moderatori",
     "io": "crwdns11402:0crwdne11402:0",
     "oc": "Moderator·a·s",
-    "nl": "Moderatoren"
+    "nl": "Moderatoren",
+    "br": "Habaskaerien"
   },
   "members": {
     "en": "Members",
@@ -49,7 +52,8 @@ module.exports = {
     "oc": "Istoric",
     "es": "Histórico",
     "it": "Storia",
-    "nl": "Geschiedenis"
+    "nl": "Geschiedenis",
+    "br": "Istor"
   },
   "newTab": {
     "en": "New !",
@@ -59,7 +63,8 @@ module.exports = {
     "it": "Nuovo!",
     "io": "crwdns11408:0crwdne11408:0",
     "oc": "Novèl !",
-    "nl": "Neu !"
+    "nl": "Neu !",
+    "br": "Nevez !"
   },
   "locations": {
     "en": "Locations",
@@ -69,7 +74,8 @@ module.exports = {
     "it": "Luoghi",
     "io": "crwdns11410:0crwdne11410:0",
     "oc": "Lòcs",
-    "nl": "Locaties"
+    "nl": "Locaties",
+    "br": "Lec'hioù"
   },
   "categories": {
     "en": "Categories and Tags",
@@ -79,7 +85,8 @@ module.exports = {
     "it": "Categorie e Tag",
     "io": "crwdns11412:0crwdne11412:0",
     "oc": "Categorias e mots-claus",
-    "nl": "Categorieën en Tags"
+    "nl": "Categorieën en Tags",
+    "br": "Rummadoù ha Tikedennoù"
   },
   "inbox": {
     "en": "Inbox",
@@ -89,7 +96,8 @@ module.exports = {
     "it": "Messaggi",
     "io": "crwdns11414:0crwdne11414:0",
     "oc": "Messatjariá",
-    "nl": "Postvak IN"
+    "nl": "Postvak IN",
+    "br": "Postelerezh"
   },
   "customized": {
     "en": "Customized fields",
@@ -99,7 +107,8 @@ module.exports = {
     "it": "Campi personalizzati",
     "io": "crwdns11416:0crwdne11416:0",
     "oc": "Camps personalizats",
-    "nl": "Aangepaste velden"
+    "nl": "Aangepaste velden",
+    "br": "Maeziennoù personelaet"
   },
   "sources": {
     "en": "Sources",
@@ -109,7 +118,8 @@ module.exports = {
     "it": "Fonti",
     "io": "crwdns11418:0crwdne11418:0",
     "oc": "Sorsas",
-    "nl": "Bronnen"
+    "nl": "Bronnen",
+    "br": "Mammennoù"
   },
   "facebook": {
     "en": "Facebook",
@@ -119,7 +129,8 @@ module.exports = {
     "it": "Facebook",
     "io": "crwdns11420:0crwdne11420:0",
     "oc": "Facebook",
-    "nl": "Facebook"
+    "nl": "Facebook",
+    "br": "Facebook"
   },
   "swapcard": {
     "en": "Swapcard",
@@ -129,7 +140,8 @@ module.exports = {
     "it": "Swapcard",
     "io": "crwdns11422:0crwdne11422:0",
     "oc": "Swapcard",
-    "nl": "Swapcard"
+    "nl": "Swapcard",
+    "br": "Swapcard"
   },
   "web": {
     "en": "Web Integration",
@@ -139,7 +151,8 @@ module.exports = {
     "it": "Integrazione web",
     "io": "crwdns11424:0crwdne11424:0",
     "oc": "Integracion web",
-    "nl": "Webintegratie"
+    "nl": "Webintegratie",
+    "br": "Enframmañ Web"
   },
   "embeds": {
     "en": "Web Integration",
@@ -149,7 +162,8 @@ module.exports = {
     "it": "Integrazione web",
     "io": "crwdns16022:0crwdne16022:0",
     "oc": "Integracion web",
-    "nl": "Webintegratie"
+    "nl": "Webintegratie",
+    "br": "Enframmañ Web"
   },
   "indesign": {
     "en": "Indesign - Xml",
@@ -159,7 +173,8 @@ module.exports = {
     "it": "Indesign - Xml",
     "io": "crwdns11426:0crwdne11426:0",
     "oc": "Indesign - Xml",
-    "nl": "Indesign - Xml"
+    "nl": "Indesign - Xml",
+    "br": "Indesign - Xml"
   },
   "administrators": {
     "en": "Administrators",
@@ -169,7 +184,8 @@ module.exports = {
     "it": "Amministratori",
     "io": "crwdns11430:0crwdne11430:0",
     "oc": "Administrator·a·s",
-    "nl": "Beheerders"
+    "nl": "Beheerders",
+    "br": "Merourien"
   },
   "settings": {
     "en": "Settings",
@@ -179,7 +195,8 @@ module.exports = {
     "it": "Impostazioni",
     "io": "crwdns11432:0crwdne11432:0",
     "oc": "Reglatges",
-    "nl": "Einstellungen"
+    "nl": "Einstellungen",
+    "br": "Arventennoù"
   },
   "settings_profile": {
     "en": "Profile",
@@ -189,7 +206,8 @@ module.exports = {
     "it": "Profilo",
     "io": "crwdns11434:0crwdne11434:0",
     "oc": "Perfil",
-    "nl": "Profiel"
+    "nl": "Profiel",
+    "br": "Profil"
   },
   "schema": {
     "en": "Form",
@@ -199,7 +217,8 @@ module.exports = {
     "it": "Modulo",
     "io": "crwdns11436:0crwdne11436:0",
     "oc": "Formulari",
-    "nl": "Formulier"
+    "nl": "Formulier",
+    "br": "Furmskrid"
   },
   "settings_contribution": {
     "en": "Contribution",
@@ -209,7 +228,8 @@ module.exports = {
     "it": "Contribuzione",
     "io": "crwdns11438:0crwdne11438:0",
     "oc": "Contribucion",
-    "nl": "Bijdrage"
+    "nl": "Bijdrage",
+    "br": "Kenlabourerezh"
   },
   "settings_advanced": {
     "en": "Advanced",
@@ -219,7 +239,8 @@ module.exports = {
     "it": "Avanzato",
     "io": "crwdns11440:0crwdne11440:0",
     "oc": "Avançat",
-    "nl": "Geavanceerd"
+    "nl": "Geavanceerd",
+    "br": "Araokaet"
   },
   "statistics": {
     "en": "Statistics",
@@ -229,6 +250,7 @@ module.exports = {
     "it": "Statistiche",
     "io": "crwdns11442:0crwdne11442:0",
     "oc": "Estatisticas",
-    "nl": "Statistieken"
+    "nl": "Statistieken",
+    "br": "Stadegoù"
   }
 }

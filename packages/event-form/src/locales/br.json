@@ -1,1 +1,9 @@
-{}
+{
+  "event-form.components.Events.emptySelection": "Darvoud ebet diuzet",
+  "event-form.components.Events.loadError": "Fazi o kargañ, klaskit en-dro diwezhatoc'h mar plij",
+  "event-form.components.Events.noResult": "N'eus bet kavet darvoud ebet o klotañ",
+  "event-form.components.Events.remove": "Lemel",
+  "event-form.components.Events.search": "Klask",
+  "event-form.components.Events.searchEvents": "Klask un darvoud",
+  "event-form.components.Events.show": "Diskouez"
+}

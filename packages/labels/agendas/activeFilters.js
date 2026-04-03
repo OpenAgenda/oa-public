@@ -51,6 +51,7 @@ module.exports = {
     "io": "crwdns32504:0crwdne32504:0",
     "oc": "seleccion d'eveniments",
     "es": "selección de eventos",
-    "nl": "selectie van evenementen"
+    "nl": "selectie van evenementen",
+    "br": "diuzadenn darvoudoù"
   }
 }

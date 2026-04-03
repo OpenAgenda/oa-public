@@ -1,1 +1,14 @@
-{}
+{
+  "administrator": "merour",
+  "contributor": "kenlabourer",
+  "emailDescription": "Pedet oc'h bet da genlabouriñ d'an deiziataer **%title%** evel **%credential%**",
+  "emailInscription": "Krouiñ ur gont",
+  "emailShowAgenda": "Gwelet an deiziataer",
+  "emailSignup": "Enskrivañ",
+  "emailSubject": "Pedadenn d'un deiziataer",
+  "emailTitle": "Pedet oc'h bet da genlabouriñ d'an deiziataer %title%",
+  "emailTitleForExistantUser": "Deuet oc'h da vezañ %credential% eus an deiziataer %title%",
+  "moderator": "habaskour",
+  "newMessage": "An deiziataer %agenda% en deus skrivet ur gemennadenn deoc'h",
+  "reader": "lenner"
+}

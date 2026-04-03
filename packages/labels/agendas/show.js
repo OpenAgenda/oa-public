@@ -399,7 +399,7 @@ module.exports = {
     "en": "Contact",
     "fr": "Contacter",
     "it": "Contattare",
-    "de": "kontaktieren",
+    "de": "Kontakt",
     "pl": "Skontaktuj",
     "br": "Mont e darempred",
     "es": "Contactar",
@@ -450,7 +450,8 @@ module.exports = {
     "oc": "Tornat planificar",
     "io": "crwdns16088:0crwdne16088:0",
     "es": "Reprogramado",
-    "nl": "Opnieuw gepland"
+    "nl": "Opnieuw gepland",
+    "br": "Adreizhet"
   },
   "statusMovedOnline": {
     "en": "Moved online",
@@ -459,7 +460,8 @@ module.exports = {
     "oc": "Transferit en linha",
     "io": "crwdns16090:0crwdne16090:0",
     "es": "Movido en línea",
-    "nl": "Online verplaatst"
+    "nl": "Online verplaatst",
+    "br": "Dilec'hiet enlinenn"
   },
   "statusPostponed": {
     "en": "Postponed",
@@ -468,7 +470,8 @@ module.exports = {
     "io": "crwdns16092:0crwdne16092:0",
     "oc": "Remandat",
     "es": "Pospuesto",
-    "nl": "Uitgesteld"
+    "nl": "Uitgesteld",
+    "br": "Diwezataet"
   },
   "statusCancelled": {
     "en": "Canceled",
@@ -477,7 +480,8 @@ module.exports = {
     "io": "crwdns16094:0crwdne16094:0",
     "oc": "Anullat",
     "es": "Cancelado",
-    "nl": "Geannuleerd"
+    "nl": "Geannuleerd",
+    "br": "Nullet"
   },
   "statusFull": {
     "en": "Fully booked",
@@ -486,6 +490,7 @@ module.exports = {
     "oc": "Totalament complèt",
     "io": "crwdns16096:0crwdne16096:0",
     "es": "Completo",
-    "nl": "Volzet"
+    "nl": "Volzet",
+    "br": "Leun"
   }
 }

@@ -9,7 +9,8 @@ module.exports = {
     "it": "Aggiungere un campo",
     "io": "crwdns14674:0crwdne14674:0",
     "oc": "Apondre un camp",
-    "nl": "Een veld toevoegen"
+    "nl": "Een veld toevoegen",
+    "br": "Ouzhpennañ ur vaezienn"
   },
   "draggableField": {
     "fr": "Glisser-déposer pour trier",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Trascinare e rilasciare per ordinare",
     "io": "crwdns14676:0crwdne14676:0",
     "oc": "Fasètz lisar per triar",
-    "nl": "Slepen en neerzetten om te sorteren"
+    "nl": "Slepen en neerzetten om te sorteren",
+    "br": "Riklañ-dilec'hiañ evit rummañ"
   },
   "editField": {
     "fr": "Modifier",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Modificare",
     "io": "crwdns14678:0crwdne14678:0",
     "oc": "Modificar",
-    "nl": "Bewerken"
+    "nl": "Bewerken",
+    "br": "Aozañ"
   },
   "hideField": {
     "fr": "Cacher",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Nascondere",
     "io": "crwdns14680:0crwdne14680:0",
     "oc": "Amagar",
-    "nl": "Verbergen"
+    "nl": "Verbergen",
+    "br": "Kuzhat"
   },
   "showField": {
     "fr": "Afficher le champ",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "Visualizzare il campo",
     "io": "crwdns14682:0crwdne14682:0",
     "oc": "Mostrar lo camp",
-    "nl": "Het veld weergeven"
+    "nl": "Het veld weergeven",
+    "br": "Diskouez ar vaezienn"
   },
   "hiddenField": {
     "fr": "Champ caché",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "Campo nascosto",
     "io": "crwdns14684:0crwdne14684:0",
     "oc": "Camp amagat",
-    "nl": "Verborgen veld"
+    "nl": "Verborgen veld",
+    "br": "Maezienn guzhet"
   },
   "removeField": {
     "fr": "Supprimer",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "Cancellare",
     "io": "crwdns14686:0crwdne14686:0",
     "oc": "Suprimir",
-    "nl": "Verwijderen"
+    "nl": "Verwijderen",
+    "br": "Lemel"
   },
   "editFieldLabels": {
     "fr": "Modifier les labels",
@@ -79,7 +86,8 @@ module.exports = {
     "it": "Modifica etichette",
     "io": "crwdns14688:0crwdne14688:0",
     "oc": "Modificar las etiquetas",
-    "nl": "Labels bewerken"
+    "nl": "Labels bewerken",
+    "br": "Embann ar skritelligoù"
   },
   "editFieldSave": {
     "fr": "Sauvegarder",
@@ -111,7 +119,8 @@ module.exports = {
     "it": "Trascina e rilascia",
     "io": "crwdns14694:0crwdne14694:0",
     "oc": "Lisar / pausar",
-    "nl": "Slepen en neerzetten"
+    "nl": "Slepen en neerzetten",
+    "br": "Riklañ / dilec'hiañ"
   },
   "fieldLabel": {
     "fr": "Titre du champ",
@@ -121,7 +130,8 @@ module.exports = {
     "it": "Titolo del campo",
     "io": "crwdns14696:0crwdne14696:0",
     "oc": "Títol del camp",
-    "nl": "Veldtitel"
+    "nl": "Veldtitel",
+    "br": "Titl ar vaezienn"
   },
   "fieldInfo": {
     "fr": "Information complémentaire",
@@ -131,7 +141,8 @@ module.exports = {
     "it": "Ulteriori informazioni",
     "io": "crwdns14698:0crwdne14698:0",
     "oc": "Informacions complementàrias",
-    "nl": "Aanvullende informatie"
+    "nl": "Aanvullende informatie",
+    "br": "Titouroù ouzhpenn"
   },
   "fieldOptions": {
     "fr": "Valeurs possibles",
@@ -141,7 +152,8 @@ module.exports = {
     "it": "Valori possibili",
     "io": "crwdns14700:0crwdne14700:0",
     "oc": "Valors possiblas",
-    "nl": "Mogelijke waarden"
+    "nl": "Mogelijke waarden",
+    "br": "Talvoudoù posupl"
   },
   "fieldInfoInfo": {
     "fr": "S'affiche sous le titre (comme ceci)",
@@ -151,7 +163,8 @@ module.exports = {
     "it": "Visualizza sotto il titolo (così)",
     "io": "crwdns14702:0crwdne14702:0",
     "oc": "Apareis dejol títol (atal)",
-    "nl": "Wordt onder de titel weergegeven (zoals dit)"
+    "nl": "Wordt onder de titel weergegeven (zoals dit)",
+    "br": "Diskouezet dindan an titl (evel-se)"
   },
   "fieldPlaceholder": {
     "fr": "Substitut",
@@ -161,7 +174,8 @@ module.exports = {
     "it": "Sostituire",
     "io": "crwdns14704:0crwdne14704:0",
     "oc": "Tapatrauc",
-    "nl": "Tijdelijke aanduiding"
+    "nl": "Tijdelijke aanduiding",
+    "br": "Erlec'hier"
   },
   "fieldPlaceholderPlaceholder": {
     "fr": "S'affiche à l'intérieur (comme ceci)",
@@ -171,7 +185,8 @@ module.exports = {
     "it": "Display all'interno (come questo)",
     "io": "crwdns14706:0crwdne14706:0",
     "oc": "Apareis dins lo camp (atal)",
-    "nl": "Wordt binnen het veld weergegeven (zoals dit)"
+    "nl": "Wordt binnen het veld weergegeven (zoals dit)",
+    "br": "Diskouezet e-barzh ar vaezienn (evel-se)"
   },
   "fieldSub": {
     "fr": "Label de sous-champ",
@@ -181,7 +196,8 @@ module.exports = {
     "it": "Etichetta del sottocampo",
     "io": "crwdns14708:0crwdne14708:0",
     "oc": "Etiqueta de soscamp",
-    "nl": "Subveld label"
+    "nl": "Subveld label",
+    "br": "Skritellig is-vaezienn"
   },
   "fieldSubSub": {
     "fr": "S'affiche sous le champ (comme ceci)",
@@ -191,7 +207,8 @@ module.exports = {
     "it": "Visualizza sotto il campo (così)",
     "io": "crwdns14710:0crwdne14710:0",
     "oc": "Apareis dejol camp (atal)",
-    "nl": "Wordt onder het veld weergegeven (zoals dit)"
+    "nl": "Wordt onder het veld weergegeven (zoals dit)",
+    "br": "Diskouezet dindan ar vaezienn (evel-se)"
   },
   "addLanguages": {
     "fr": "Ajouter des langues",
@@ -201,7 +218,8 @@ module.exports = {
     "it": "Aggiungere una lingua",
     "io": "crwdns14712:0crwdne14712:0",
     "oc": "Apondre de lengas",
-    "nl": "Talen toevoegen"
+    "nl": "Talen toevoegen",
+    "br": "Ouzhpennañ yezhoù"
   },
   "monolingualLabels": {
     "fr": "Monolingue",
@@ -211,7 +229,8 @@ module.exports = {
     "it": "Monolingue",
     "io": "crwdns14714:0crwdne14714:0",
     "oc": "Monolingüe",
-    "nl": "Eentalig"
+    "nl": "Eentalig",
+    "br": "Unyezhek"
   },
   "multilingualLabels": {
     "fr": "Langues des labels",
@@ -221,7 +240,8 @@ module.exports = {
     "it": "Lingue dell'etichetta",
     "io": "crwdns14716:0crwdne14716:0",
     "oc": "Lengas de las etiquetas",
-    "nl": "Labeltalen"
+    "nl": "Labeltalen",
+    "br": "Yezhoù ar skritelligoù"
   },
   "editLabelLanguages": {
     "fr": "Modifier",
@@ -231,7 +251,8 @@ module.exports = {
     "it": "Modificare",
     "io": "crwdns14718:0crwdne14718:0",
     "oc": "Modificar",
-    "nl": "Bewerken"
+    "nl": "Bewerken",
+    "br": "Aozañ"
   },
   "editLabelLanguagesInfo": {
     "fr": "Listez les langues dans lesquelles devront être déclinées les labels du formulaire",
@@ -241,7 +262,8 @@ module.exports = {
     "it": "Elencare le lingue in cui le etichette sul modulo devono essere disponibili.",
     "io": "crwdns14720:0crwdne14720:0",
     "oc": "Listatz las lengas dins las qualas las etiquetas del formulari seràn disponiblas",
-    "nl": "Geef de talen op waarin de labels van het formulier beschikbaar moeten zijn"
+    "nl": "Geef de talen op waarin de labels van het formulier beschikbaar moeten zijn",
+    "br": "Listennet ar yezhoù ma vo kinniget skritelligoù ar furmskrid enno"
   },
   "uneditableFieldInfo": {
     "fr": "Ce champ ne peut pas être modifié",
@@ -251,7 +273,8 @@ module.exports = {
     "it": "Questo campo non può essere modificato",
     "io": "crwdns14722:0crwdne14722:0",
     "oc": "Aqueste camp se pòt pas modificar",
-    "nl": "Dit veld kan niet worden gewijzigd"
+    "nl": "Dit veld kan niet worden gewijzigd",
+    "br": "N'hall ket ar vaezienn-mañ bezañ kemmet"
   },
   "editFieldInfo": {
     "fr": "Modifier les propriétés de ce champ",
@@ -261,7 +284,8 @@ module.exports = {
     "it": "Modificare le proprietà di questo campo",
     "io": "crwdns14724:0crwdne14724:0",
     "oc": "Metre a jorn las proprietats d'aqueste camp",
-    "nl": "Eigenschappen van dit veld bijwerken"
+    "nl": "Eigenschappen van dit veld bijwerken",
+    "br": "Kemmañ perzhioù ar vaezienn-mañ"
   },
   "addLabelLanguages": {
     "fr": "Définir des langues",
@@ -271,12 +295,13 @@ module.exports = {
     "it": "Definire le lingue",
     "io": "crwdns14726:0crwdne14726:0",
     "oc": "Definir de lengas",
-    "nl": "Talen definiëren"
+    "nl": "Talen definiëren",
+    "br": "Termeniñ yezhoù"
   },
   "submitLabelLanguages": {
     "fr": "Enregistrer",
     "en": "Submit",
-    "de": "Einreichen",
+    "de": "Speichern",
     "es": "Registrar",
     "it": "Convalidare",
     "br": "Kemmañ",
@@ -292,7 +317,8 @@ module.exports = {
     "it": "Rimozione delle lingue",
     "io": "crwdns14730:0crwdne14730:0",
     "oc": "Levar las lengas",
-    "nl": "Talen verwijderen"
+    "nl": "Talen verwijderen",
+    "br": "Lemel ar yezhoù"
   },
   "fieldLabelLanguages": {
     "fr": "Langues des labels",
@@ -302,7 +328,8 @@ module.exports = {
     "it": "Lingue dell'etichetta",
     "io": "crwdns14732:0crwdne14732:0",
     "oc": "Lengas de las etiquetas",
-    "nl": "Labeltalen"
+    "nl": "Labeltalen",
+    "br": "Yezhoù ar skritelligoù"
   },
   "textFieldType": {
     "fr": "Champ texte",
@@ -312,7 +339,8 @@ module.exports = {
     "it": "Campo di testo",
     "io": "crwdns14734:0crwdne14734:0",
     "oc": "Camp de tèxte",
-    "nl": "Tekstveld"
+    "nl": "Tekstveld",
+    "br": "Maezienn destenn"
   },
   "textareaFieldType": {
     "fr": "Champ texte multilignes (Paragraphe)",
@@ -322,7 +350,8 @@ module.exports = {
     "it": "Testo (Paragrafo)",
     "io": "crwdns14736:0crwdne14736:0",
     "oc": "Zòna de tèxte",
-    "nl": "Tekstveld met meerdere regels (Paragraaf)"
+    "nl": "Tekstveld met meerdere regels (Paragraaf)",
+    "br": "Maezienn destenn lieslinenn (Rannbennad)"
   },
   "markdownFieldType": {
     "fr": "Texte enrichi",
@@ -332,7 +361,8 @@ module.exports = {
     "it": "Testo arricchito",
     "io": "crwdns14738:0crwdne14738:0",
     "oc": "Tèxte ric",
-    "nl": "Opgemaakte tekst"
+    "nl": "Opgemaakte tekst",
+    "br": "Testenn pinvidikaet"
   },
   "markdownFieldTypeInfo": {
     "fr": "Champ texte enrichi (markdown)",
@@ -342,7 +372,8 @@ module.exports = {
     "it": "Campo di testo arricchito (markdown)",
     "oc": "Camp de tèxte enriquesit (markdown)",
     "es": "Campo de texto enriquecido (markdown)",
-    "nl": "Opgemaakt tekstveld (markdown)"
+    "nl": "Opgemaakt tekstveld (markdown)",
+    "br": "Maezienn destenn pinvidikaet (markdown)"
   },
   "integerFieldType": {
     "fr": "Nombre entier",
@@ -352,7 +383,8 @@ module.exports = {
     "it": "Numero intero",
     "io": "crwdns14742:0crwdne14742:0",
     "oc": "Nombre entièr",
-    "nl": "Geheel getal"
+    "nl": "Geheel getal",
+    "br": "Niver klok"
   },
   "emailFieldType": {
     "fr": "Email",
@@ -372,7 +404,8 @@ module.exports = {
     "oc": "Numèro de telefòne",
     "io": "crwdns34158:0crwdne34158:0",
     "it": "Telefono",
-    "nl": "Telefoonnummer"
+    "nl": "Telefoonnummer",
+    "br": "Niverenn bellgomz"
   },
   "linkFieldType": {
     "fr": "Hyperlien",
@@ -382,7 +415,8 @@ module.exports = {
     "es": "Enlace",
     "io": "crwdns14746:0crwdne14746:0",
     "oc": "Ligam ipertèxte",
-    "nl": "Hyperlink"
+    "nl": "Hyperlink",
+    "br": "Gourliamm"
   },
   "textMultilingualFieldType": {
     "fr": "Text multilingue",
@@ -392,7 +426,8 @@ module.exports = {
     "it": "Testo multilingue",
     "io": "crwdns14748:0crwdne14748:0",
     "oc": "Tèxte multilingüe",
-    "nl": "Meertalige tekst"
+    "nl": "Meertalige tekst",
+    "br": "Testenn liesyezhek"
   },
   "checkboxFieldType": {
     "fr": "Liste de cases à cocher, à choix multiples",
@@ -402,7 +437,8 @@ module.exports = {
     "it": "Selezione a scelta multipla",
     "io": "crwdns14750:0crwdne14750:0",
     "oc": "Tièra de casas de picar, causida multipla",
-    "nl": "Lijst met selectievakjes, meerdere keuzes"
+    "nl": "Lijst met selectievakjes, meerdere keuzes",
+    "br": "Roll logoù da askañ, dibab liesel"
   },
   "checkboxFieldTypeInfo": {
     "fr": "Séries de cases à cocher permettant la sélection de valeurs multiples",
@@ -412,7 +448,8 @@ module.exports = {
     "it": "Una serie di caselle di controllo che permettono la selezione di più valori",
     "oc": "Una tièra de casas de picar que permet de triar mai d'una valor",
     "es": "Serie de casillas por marcar que permiten la selección de múltiples valores",
-    "nl": "Een reeks selectievakjes die het selecteren van meerdere waarden mogelijk maakt"
+    "nl": "Een reeks selectievakjes die het selecteren van meerdere waarden mogelijk maakt",
+    "br": "Ur steudad logoù da askañ a ro tu da ziuzañ meur a dalvoud"
   },
   "multiselectFieldType": {
     "fr": "Menu déroulant à sélection multiple",
@@ -422,7 +459,8 @@ module.exports = {
     "it": "Selezione a discesa a scelta multipla",
     "oc": "Menut desrotlant a causida multipla",
     "es": "Menú desplegable de selección múltiple",
-    "nl": "Vervolgkeuzemenu met meerdere selecties"
+    "nl": "Vervolgkeuzemenu met meerdere selecties",
+    "br": "Lañser diwar-ziskouez dibab liesel"
   },
   "multiselectFieldTypeInfo": {
     "fr": "Champ de saisie avec menu déroulant et auto-completion permettant la sélection de valeurs multiples",
@@ -432,7 +470,8 @@ module.exports = {
     "it": "Campo di input con dropdown e autocompletamento che permette la selezione di più valori da una lista",
     "oc": "Camp de sasida amb menut desrotlant e autocomplecion que permet de triar mai d'una valor dins una lista",
     "es": "Campo de entrada con menú desplegable y autocompletado que permite la selección de múltiples valores de una lista",
-    "nl": "Invoerveld met vervolgkeuzemenu en automatisch aanvullen voor het selecteren van meerdere waarden uit een lijst"
+    "nl": "Invoerveld met vervolgkeuzemenu en automatisch aanvullen voor het selecteren van meerdere waarden uit een lijst",
+    "br": "Maezienn enankañ gant lañser diwar-ziskouez hag emleuniañ a ro tu da ziuzañ meur a dalvoud diwar ul listenn"
   },
   "radioFieldType": {
     "fr": "Liste de cases à cocher, à choix unique",
@@ -442,7 +481,8 @@ module.exports = {
     "it": "Selezione a scelta singola",
     "io": "crwdns14758:0crwdne14758:0",
     "oc": "Causida simpla",
-    "nl": "Lijst met selectievakjes, enkele keuze"
+    "nl": "Lijst met selectievakjes, enkele keuze",
+    "br": "Roll logoù da askañ, dibab nemetañ"
   },
   "radioFieldTypeInfo": {
     "fr": "Adapté pour la sélection d'une valeur, une seule, parmi plusieurs options",
@@ -452,7 +492,8 @@ module.exports = {
     "it": "Elenco di scelte che permettono la selezione di un valore unico",
     "oc": "Lista de causidas que permet de causir pas qu'una valor",
     "es": "Lista de opciones que permiten la selección de un valor único",
-    "nl": "Keuzelijst voor het selecteren van één unieke waarde"
+    "nl": "Keuzelijst voor het selecteren van één unieke waarde",
+    "br": "Roll dibaboù a ro tu da ziuzañ un dalvoud nemetañ"
   },
   "selectFieldType": {
     "fr": "Menu déroulant à sélection unique",
@@ -462,7 +503,8 @@ module.exports = {
     "it": "Selezione singola a discesa",
     "oc": "Menut desrotlant a causida unica",
     "es": "Menú desplegable de selección única",
-    "nl": "Vervolgkeuzemenu met enkele selectie"
+    "nl": "Vervolgkeuzemenu met enkele selectie",
+    "br": "Lañser diwar-ziskouez dibab nemetañ"
   },
   "selectFieldTypeInfo": {
     "fr": "Adapté à une longue liste de choix. Cela affiche un champ de saisie avec menu déroulant et auto-completion pour trouver et sélectionner rapidement une valeur",
@@ -472,7 +514,8 @@ module.exports = {
     "it": "Campo di input con dropdown e autocompletamento che permette la selezione di più valori da una lista",
     "oc": "Camp de sasida amb menut desrotlant e autocomplecion que permet de triar una sola valor dins una lista",
     "es": "Campo de entrada con menú desplegable y autocompletado que permite la selección de un valor único de una lista",
-    "nl": "Invoerveld met vervolgkeuzemenu en automatisch aanvullen voor het selecteren van één waarde uit een lijst"
+    "nl": "Invoerveld met vervolgkeuzemenu en automatisch aanvullen voor het selecteren van één waarde uit een lijst",
+    "br": "Maezienn enankañ gant lañser diwar-ziskouez hag emleuniañ a ro tu da ziuzañ un dalvoud nemetañ diwar ul listenn"
   },
   "booleanFieldType": {
     "fr": "Case à cocher unique",
@@ -482,7 +525,8 @@ module.exports = {
     "it": "Casella di controllo singola",
     "io": "crwdns14766:0crwdne14766:0",
     "oc": "Casa de picar unica",
-    "nl": "Enkel selectievakje"
+    "nl": "Enkel selectievakje",
+    "br": "Log da askañ nemetañ"
   },
   "booleanFieldTypeInfo": {
     "fr": "Adapté aux choix de type oui/non",
@@ -492,7 +536,8 @@ module.exports = {
     "it": "Scelta sì/no",
     "oc": "Causida òc/non",
     "es": "Opción Si / No",
-    "nl": "Ja/nee keuze"
+    "nl": "Ja/nee keuze",
+    "br": "Dibab a seurt ya/nann"
   },
   "dateFieldType": {
     "fr": "Sélecteur de date",
@@ -502,7 +547,8 @@ module.exports = {
     "io": "crwdns16462:0crwdne16462:0",
     "oc": "Seleccion de data",
     "es": "Selección de fecha",
-    "nl": "Datumselectie"
+    "nl": "Datumselectie",
+    "br": "Dibaber deiziad"
   },
   "dateFieldTypeInfo": {
     "fr": "Un calendrier permet la sélection d'une date",
@@ -512,7 +558,8 @@ module.exports = {
     "io": "crwdns16464:0crwdne16464:0",
     "oc": "Un calendièr per causir una data",
     "es": "Un calendario para seleccionar una fecha",
-    "nl": "Een kalender om een datum te selecteren"
+    "nl": "Een kalender om een datum te selecteren",
+    "br": "Un deiziadur evit diuzañ un deiziad"
   },
   "section": {
     "fr": "Section",
@@ -520,7 +567,8 @@ module.exports = {
     "de": "Abschnitt",
     "io": "crwdns32877:0crwdne32877:0",
     "es": "Sección",
-    "nl": "Sectie"
+    "nl": "Sectie",
+    "br": "Lodenn"
   },
   "sectionType": {
     "fr": "Titre de section / séparateur",
@@ -529,7 +577,8 @@ module.exports = {
     "io": "crwdns32879:0crwdne32879:0",
     "it": "Titolo di sezione",
     "es": "Título de sección / separador",
-    "nl": "Sectietitel / scheidingslijn"
+    "nl": "Sectietitel / scheidingslijn",
+    "br": "Titl lodenn / dispartier"
   },
   "sectionTypeInfo": {
     "fr": "Affiche un titre de section dans le formulaire marquant une séparation visuelle dans l'affichage des champs",
@@ -538,7 +587,8 @@ module.exports = {
     "io": "crwdns32881:0crwdne32881:0",
     "it": "Visualizza una testa di sezione nel modulo, creando una separazione visiva tra i campi sopra e sotto",
     "es": "Muestra un encabezado de sección en el formulario creando una separación visual entre los campos de arriba y abajo",
-    "nl": "Toont een sectiekop in het formulier die een visuele scheiding creëert tussen de velden erboven en eronder"
+    "nl": "Toont een sectiekop in het formulier die een visuele scheiding creëert tussen de velden erboven en eronder",
+    "br": "Diskouez un titl lodenn er furmskrid o krouiñ un dispartiadur gweledel etre ar maeziennoù a-us hag a-zindan"
   },
   "sectionLabel": {
     "fr": "Titre",
@@ -548,7 +598,8 @@ module.exports = {
     "oc": "Títol",
     "io": "crwdns32883:0crwdne32883:0",
     "es": "Título",
-    "nl": "Titel"
+    "nl": "Titel",
+    "br": "Titl"
   },
   "sectionInfo": {
     "fr": "Laissez ce champ vide si vous souhaitez insérer une séparation sans titre",
@@ -557,7 +608,8 @@ module.exports = {
     "io": "crwdns32885:0crwdne32885:0",
     "it": "Lasciare questo campo vuoto se si desidera inserire una separazione senza titolo",
     "es": "Deja este campo vacío si deseas insertar una separación sin título",
-    "nl": "Laat dit veld leeg als u een scheiding zonder titel wilt invoegen"
+    "nl": "Laat dit veld leeg als u een scheiding zonder titel wilt invoegen",
+    "br": "Lezit ar vaezienn-mañ goullo ma fell deoc'h enlakaat un dispartier hep titl"
   },
   "imageFieldType": {
     "fr": "Image",
@@ -567,7 +619,8 @@ module.exports = {
     "it": "Immagine",
     "io": "crwdns14770:0crwdne14770:0",
     "oc": "Imatge",
-    "nl": "Afbeelding"
+    "nl": "Afbeelding",
+    "br": "Skeudenn"
   },
   "unknownFieldType": {
     "fr": "Type inconnu",
@@ -576,7 +629,8 @@ module.exports = {
     "es": "Tipo desconocido",
     "it": "Tipo sconosciuto",
     "io": "crwdns14772:0crwdne14772:0",
-    "nl": "Onbekend type"
+    "nl": "Onbekend type",
+    "br": "Seurt dianav"
   },
   "languagesFieldType": {
     "fr": "Langues de saisie",
@@ -596,7 +650,8 @@ module.exports = {
     "es": "Texto enriquecido multilingüe",
     "it": "Testo ricco multilingue",
     "io": "crwdns14776:0crwdne14776:0",
-    "nl": "Meertalige opgemaakte tekst"
+    "nl": "Meertalige opgemaakte tekst",
+    "br": "Testenn pinvidikaet liesyezhek"
   },
   "registrationFieldType": {
     "fr": "Liens, téléphone, email",
@@ -605,7 +660,8 @@ module.exports = {
     "es": "Enlaces, teléfono, correo electrónico",
     "it": "Link, telefono, e-mail",
     "io": "crwdns14778:0crwdne14778:0",
-    "nl": "Link, telefoon, e-mail"
+    "nl": "Link, telefoon, e-mail",
+    "br": "Liamm, pellgomz, postel"
   },
   "locationFieldType": {
     "fr": "Choix du lieu",
@@ -614,7 +670,8 @@ module.exports = {
     "es": "Selección del sitio",
     "it": "Scelta della posizione",
     "io": "crwdns14780:0crwdne14780:0",
-    "nl": "Locatieselectie"
+    "nl": "Locatieselectie",
+    "br": "Dibab al lec'h"
   },
   "accessibilityFieldType": {
     "fr": "Choix accessibilité",
@@ -623,7 +680,8 @@ module.exports = {
     "es": "Elección de la accesibilidad ",
     "it": "Scelta dell'accessibilità",
     "io": "crwdns14782:0crwdne14782:0",
-    "nl": "Toegankelijkheidsselectie"
+    "nl": "Toegankelijkheidsselectie",
+    "br": "Dibab monedusted"
   },
   "timingsFieldType": {
     "fr": "Sélection des horaires",
@@ -632,7 +690,8 @@ module.exports = {
     "es": "Sección de selección de horarios",
     "it": "Selezione degli orari",
     "io": "crwdns14784:0crwdne14784:0",
-    "nl": "Tijdenselectie"
+    "nl": "Tijdenselectie",
+    "br": "Dibab an eurioù"
   },
   "fileFieldType": {
     "fr": "Fichier",
@@ -641,7 +700,8 @@ module.exports = {
     "es": "Archivo",
     "it": "Documento",
     "io": "crwdns32887:0crwdne32887:0",
-    "nl": "Bestand"
+    "nl": "Bestand",
+    "br": "Restr"
   },
   "ageFieldType": {
     "fr": "Sélection de la tranche d'âge",
@@ -650,7 +710,8 @@ module.exports = {
     "es": "Selección de la franja de edad",
     "it": "Selezione della fascia di età",
     "io": "crwdns32889:0crwdne32889:0",
-    "nl": "Selectie van leeftijdsgroep"
+    "nl": "Selectie van leeftijdsgroep",
+    "br": "Dibab ar rummad oad"
   },
   "longDescriptionFieldType": {
     "fr": "Champ texte",
@@ -660,7 +721,8 @@ module.exports = {
     "it": "Campo di testo",
     "io": "crwdns32891:0crwdne32891:0",
     "oc": "Camp de tèxte",
-    "nl": "Tekstveld"
+    "nl": "Tekstveld",
+    "br": "Maezienn destenn"
   },
   "keywordsFieldType": {
     "fr": "Mots clés",
@@ -670,7 +732,8 @@ module.exports = {
     "it": "Parole Chiave",
     "oc": "Mots claus",
     "io": "crwdns32893:0crwdne32893:0",
-    "nl": "Trefwoorden"
+    "nl": "Trefwoorden",
+    "br": "Gerioù-alc'hwez"
   },
   "buttonSave": {
     "fr": "Sauvegarder",
@@ -691,7 +754,8 @@ module.exports = {
     "de": "Gespeichert",
     "io": "crwdns14788:0crwdne14788:0",
     "oc": "Enregistrat",
-    "nl": "Opgeslagen"
+    "nl": "Opgeslagen",
+    "br": "Enrollet"
   },
   "buttonError": {
     "fr": "Il y a eu un souci lors de la sauvegarde tentez de nouveau dans un instant",
@@ -700,7 +764,8 @@ module.exports = {
     "es": "Ocurrió un error al registrar. Inténtalo nuevamente",
     "it": "C'è stato un problema. Per favore riprovare in un attimo",
     "io": "crwdns14790:0crwdne14790:0",
-    "nl": "Er was een probleem tijdens het opslaan. Probeer het over een moment opnieuw"
+    "nl": "Er was een probleem tijdens het opslaan. Probeer het over een moment opnieuw",
+    "br": "Ur gudenn zo bet pa enrolled. Klaskit en-dro a-benn nebeut"
   },
   "orderCancel": {
     "fr": "Annuler",
@@ -721,7 +786,8 @@ module.exports = {
     "it": "Modificare",
     "io": "crwdns14794:0crwdne14794:0",
     "oc": "Modificar",
-    "nl": "Bewerken"
+    "nl": "Bewerken",
+    "br": "Aozañ"
   },
   "orderInstruction": {
     "fr": "Glissez-déposez chaque champ dans l'emplacement désiré",
@@ -730,7 +796,8 @@ module.exports = {
     "es": "Arrastre y suelte cada campo en el lugar deseado",
     "it": "Trascinare i campi nella posizione desiderata",
     "io": "crwdns14796:0crwdne14796:0",
-    "nl": "Sleep elk veld naar de gewenste positie"
+    "nl": "Sleep elk veld naar de gewenste positie",
+    "br": "Riklit-dilec'hit pep maezienn d'al lec'h a fell deoc'h"
   },
   "orderSave": {
     "fr": "Appliquer le nouvel ordre",
@@ -739,7 +806,8 @@ module.exports = {
     "es": "Aplicar el nuevo orden",
     "it": "Applicare il nuovo ordine",
     "io": "crwdns14798:0crwdne14798:0",
-    "nl": "De nieuwe volgorde toepassen"
+    "nl": "De nieuwe volgorde toepassen",
+    "br": "Arloañ an urzh nevez"
   },
   "orderTitle": {
     "fr": "Ordre des champs",
@@ -748,7 +816,8 @@ module.exports = {
     "es": "Orden de los campos",
     "it": "Ordine dei campi",
     "io": "crwdns14800:0crwdne14800:0",
-    "nl": "Veldvolgorde"
+    "nl": "Veldvolgorde",
+    "br": "Urzh ar maeziennoù"
   },
   "fieldFormOptional": {
     "fr": "Ce champ est facultatif",
@@ -757,7 +826,8 @@ module.exports = {
     "es": "Este campo es opcional",
     "it": "Questo campo è opzionale",
     "io": "crwdns14802:0crwdne14802:0",
-    "nl": "Dit veld is optioneel"
+    "nl": "Dit veld is optioneel",
+    "br": "Diret eo ar vaezienn-mañ"
   },
   "fieldFormAllowFalse": {
     "fr": "Autoriser que ce champ soit non-coché",
@@ -785,7 +855,8 @@ module.exports = {
     "es": "Longitud máxima del texto introducido",
     "it": "Lunghezza massima del testo inserito",
     "io": "crwdns14806:0crwdne14806:0",
-    "nl": "Maximale lengte van de ingevoerde tekst"
+    "nl": "Maximale lengte van de ingevoerde tekst",
+    "br": "Ment vrasañ an destenn enanket"
   },
   "fieldFormMinTextLength": {
     "fr": "Longueur minimal du texte saisi",
@@ -794,7 +865,8 @@ module.exports = {
     "es": "Longitud mínima del texto introducido",
     "it": "Lunghezza minima del testo inserito",
     "io": "crwdns14808:0crwdne14808:0",
-    "nl": "Minimale lengte van de ingevoerde tekst"
+    "nl": "Minimale lengte van de ingevoerde tekst",
+    "br": "Ment vihanañ an destenn enanket"
   },
   "chooseFieldType": {
     "fr": "Type du champ",
@@ -803,7 +875,8 @@ module.exports = {
     "es": "Tipo de campo",
     "it": "Selezione del tipo di campo",
     "io": "crwdns14810:0crwdne14810:0",
-    "nl": "Veldtype"
+    "nl": "Veldtype",
+    "br": "Seurt ar vaezienn"
   },
   "chooseFieldTypePlaceholder": {
     "fr": "Choisissez un type de champ",
@@ -812,7 +885,8 @@ module.exports = {
     "io": "crwdns32764:0crwdne32764:0",
     "it": "Selezionare un tipo di campo",
     "es": "Elige un tipo de campo",
-    "nl": "Kies een veldtype"
+    "nl": "Kies een veldtype",
+    "br": "Dibabit ur seurt maezienn"
   },
   "chooseOtherType": {
     "fr": "Choisir un autre type",
@@ -821,7 +895,8 @@ module.exports = {
     "io": "crwdns32766:0crwdne32766:0",
     "it": "Seleziona un altro tipo",
     "es": "Elige otro tipo",
-    "nl": "Kies een ander type"
+    "nl": "Kies een ander type",
+    "br": "Dibab ur seurt all"
   },
   "isLabelDuplicateError": {
     "fr": "Le titre saisi est déjà pris par un autre champ. Veuillez le modifier avant de retenter l'ajout.",
@@ -830,7 +905,8 @@ module.exports = {
     "io": "crwdns32768:0crwdne32768:0",
     "it": "Il titolo di questo campo è già occupato da un altro del modulo. Modificarlo prima di provare ad aggiungerlo di nuovo.",
     "es": "El título de este campo ya está siendo usado por otro campo del formulario. Modifícalo antes de intentar agregarlo nuevamente.",
-    "nl": "De ingevoerde titel wordt al gebruikt door een ander veld. Wijzig deze voordat u opnieuw probeert toe te voegen."
+    "nl": "De ingevoerde titel wordt al gebruikt door een ander veld. Wijzig deze voordat u opnieuw probeert toe te voegen.",
+    "br": "Kemeret eo an titl enanket gant ur vaezienn all eus ar furmskrid dija. Kemmit anezhañ a-raok klask ouzhpennañ en-dro."
   },
   "isSulgDuplicateError": {
     "fr": "Le slug associé est déjà pris par un autre champ. Veuillez le modifier le titre avant de retenter l'ajout.",
@@ -855,7 +931,8 @@ module.exports = {
     "es": "Configurar el campo",
     "it": "Configurazione del campo",
     "io": "crwdns14812:0crwdne14812:0",
-    "nl": "Het veld configureren"
+    "nl": "Het veld configureren",
+    "br": "Kefluniañ ar vaezienn"
   },
   "confirmFieldCreate": {
     "fr": "Créer le champ",
@@ -864,7 +941,8 @@ module.exports = {
     "es": "Crear el campo",
     "it": "Creare il campo",
     "io": "crwdns14814:0crwdne14814:0",
-    "nl": "Het veld aanmaken"
+    "nl": "Het veld aanmaken",
+    "br": "Krouiñ ar vaezienn"
   },
   "confirmFieldUpdate": {
     "fr": "Modifier",
@@ -884,7 +962,8 @@ module.exports = {
     "es": "Volver a selección",
     "it": "Torna alla selezione del tipo",
     "io": "crwdns14818:0crwdne14818:0",
-    "nl": "Terug naar veldtype"
+    "nl": "Terug naar veldtype",
+    "br": "Distro d'an dibab seurt"
   },
   "cancelFieldEdit": {
     "fr": "Annuler",
@@ -904,7 +983,8 @@ module.exports = {
     "es": "Añadir valores",
     "it": "Aggiungere valori",
     "io": "crwdns14822:0crwdne14822:0",
-    "nl": "Waarden toevoegen"
+    "nl": "Waarden toevoegen",
+    "br": "Ouzhpennañ talvoudoù"
   },
   "optionAddAction": {
     "fr": "Ajouter",
@@ -914,7 +994,8 @@ module.exports = {
     "it": "Aggiungere",
     "io": "crwdns14824:0crwdne14824:0",
     "oc": "Apondre",
-    "nl": "Toevoegen"
+    "nl": "Toevoegen",
+    "br": "Ouzhpennañ"
   },
   "optionUpdateAction": {
     "fr": "Modifier",
@@ -935,7 +1016,8 @@ module.exports = {
     "it": "Modificare",
     "io": "crwdns14828:0crwdne14828:0",
     "oc": "Modificar",
-    "nl": "Bewerken"
+    "nl": "Bewerken",
+    "br": "Aozañ"
   },
   "optionEditCancel": {
     "fr": "Annuler",
@@ -955,7 +1037,8 @@ module.exports = {
     "es": "Clasificar",
     "it": "Ordina",
     "io": "crwdns14832:0crwdne14832:0",
-    "nl": "Sorteren"
+    "nl": "Sorteren",
+    "br": "Rummañ"
   },
   "optionOrder": {
     "fr": "Modifier l'ordre",
@@ -986,7 +1069,8 @@ module.exports = {
     "es": "Finalizar el cambio de orden",
     "it": "Finire la cernita",
     "io": "crwdns14838:0crwdne14838:0",
-    "nl": "Sorteren beëindigen"
+    "nl": "Sorteren beëindigen",
+    "br": "Echuiñ ar rummañ"
   },
   "emptyOptions": {
     "fr": "Aucune valeur n'est encore définie",
@@ -995,7 +1079,8 @@ module.exports = {
     "es": "Ningún valor se ha definido todavía",
     "it": "Nessun valore è ancora definito",
     "io": "crwdns14840:0crwdne14840:0",
-    "nl": "Er is nog geen waarde gedefinieerd"
+    "nl": "Er is nog geen waarde gedefinieerd",
+    "br": "N'eus dibab ebet termenet c'hoazh"
   },
   "optionDuplicateError": {
     "fr": "Cette valeur est déjà existante",
@@ -1004,7 +1089,8 @@ module.exports = {
     "es": "Este valor ya existe",
     "it": "Questo valore esiste già",
     "io": "crwdns14842:0crwdne14842:0",
-    "nl": "Deze waarde bestaat al"
+    "nl": "Deze waarde bestaat al",
+    "br": "An talvoud-mañ zo anezhañ dija"
   },
   "optionEmptyError": {
     "fr": "Les valeurs ne doivent pas être vides",
@@ -1013,7 +1099,8 @@ module.exports = {
     "es": "Los valores no pueden estar vacíos",
     "it": "I valori non devono essere vuoti",
     "io": "crwdns14844:0crwdne14844:0",
-    "nl": "Waarden mogen niet leeg zijn"
+    "nl": "Waarden mogen niet leeg zijn",
+    "br": "Ne c'hall ket an talvoudoù bezañ goullo"
   },
   "requiredError": {
     "fr": "Tous les champs sont obligatoires",
@@ -1022,7 +1109,8 @@ module.exports = {
     "es": "Todos los campos son requeridos",
     "it": "Tutti i campi sono obbligatori",
     "io": "crwdns14846:0crwdne14846:0",
-    "nl": "Alle velden zijn verplicht"
+    "nl": "Alle velden zijn verplicht",
+    "br": "Ret eo leuniañ an holl vaeziennoù"
   },
   "moreOptions": {
     "fr": "choix",
@@ -1031,7 +1119,8 @@ module.exports = {
     "es": "opciones",
     "it": "scelte",
     "io": "crwdns32895:0crwdne32895:0",
-    "nl": "keuzes"
+    "nl": "keuzes",
+    "br": "dibab"
   },
   "isMultilingual": {
     "fr": "Multilingue",
@@ -1040,7 +1129,8 @@ module.exports = {
     "es": "Multilingüe",
     "it": "Multilingue",
     "io": "crwdns32897:0crwdne32897:0",
-    "nl": "Meertalig"
+    "nl": "Meertalig",
+    "br": "Liesyezhek"
   },
   "defaultValue": {
     "fr": "Valeur par défaut",
@@ -1049,7 +1139,8 @@ module.exports = {
     "es": "Valor por defecto",
     "it": "Valore per difetto",
     "io": "crwdns32899:0crwdne32899:0",
-    "nl": "Standaardwaarde"
+    "nl": "Standaardwaarde",
+    "br": "Talvoud dre ziouer"
   },
   "maxLength": {
     "fr": "Longueur max",
@@ -1058,7 +1149,8 @@ module.exports = {
     "es": "Longitud máxima",
     "it": "Lunghezza max",
     "io": "crwdns32901:0crwdne32901:0",
-    "nl": "Max lengte"
+    "nl": "Max lengte",
+    "br": "Ment vrasañ"
   },
   "jsonKey": {
     "fr": "Clé JSON",
@@ -1067,7 +1159,8 @@ module.exports = {
     "es": "Clave JSON",
     "it": "chiave JSON",
     "io": "crwdns32903:0crwdne32903:0",
-    "nl": "JSON-sleutel"
+    "nl": "JSON-sleutel",
+    "br": "Alc'hwez JSON"
   },
   "isSelected": {
     "fr": "Sélectionné",
@@ -1077,7 +1170,8 @@ module.exports = {
     "oc": "Seleccionat",
     "io": "crwdns32905:0crwdne32905:0",
     "de": "Auswählen",
-    "nl": "Geselecteerd"
+    "nl": "Geselecteerd",
+    "br": "Diuzet"
   },
   "notSelected": {
     "fr": "Non sélectionné",
@@ -1087,7 +1181,8 @@ module.exports = {
     "oc": "Pas seleccionat",
     "io": "crwdns32907:0crwdne32907:0",
     "de": "Nicht ausgewählt",
-    "nl": "Niet geselecteerd"
+    "nl": "Niet geselecteerd",
+    "br": "Ket diuzet"
   },
   "enabledWhenLinkedFieldHasValue": {
     "fr": "Actif lorsque le champ %linkedFieldName% est saisi",
@@ -1096,7 +1191,8 @@ module.exports = {
     "es": "Activo cuando el campo %linkedFieldName% está llenado",
     "it": "Attivo quando viene inserito il campo %linkedFieldName%",
     "io": "crwdns32909:0%linkedFieldName%crwdne32909:0",
-    "nl": "Actief wanneer het veld %linkedFieldName% is ingevuld"
+    "nl": "Actief wanneer het veld %linkedFieldName% is ingevuld",
+    "br": "Oberiant pa vez leuniet ar vaezienn %linkedFieldName%"
   },
   "enabledWhenLinkedFieldHasSpecificValue": {
     "fr": "Actif lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
@@ -1105,7 +1201,8 @@ module.exports = {
     "es": "Activo cuando el campo %linkedFieldName% toma el valor %specificValue%",
     "it": "Attivo quando il campo %linkedFieldName% assume il valore %specificValue%",
     "io": "crwdns32911:0%linkedFieldName%crwdnd32911:0%specificValue%crwdne32911:0",
-    "nl": "Actief wanneer het veld %linkedFieldName% is ingesteld op %specificValue%"
+    "nl": "Actief wanneer het veld %linkedFieldName% is ingesteld op %specificValue%",
+    "br": "Oberiant pa vez lakaet ar vaezienn %linkedFieldName% da %specificValue%"
   },
   "optionalWhenLinkedFieldHasValue": {
     "fr": "Optionnel lorsque le champ %linkedFieldName% est saisi",
@@ -1114,7 +1211,8 @@ module.exports = {
     "es": "Opcional cuando el campo %linkedFieldName% está llenado",
     "it": "Opzionale quando viene inserito il campo %linkedFieldName%",
     "io": "crwdns32913:0%linkedFieldName%crwdne32913:0",
-    "nl": "Optioneel wanneer het veld %linkedFieldName% is ingevuld"
+    "nl": "Optioneel wanneer het veld %linkedFieldName% is ingevuld",
+    "br": "Diret pa vez leuniet ar vaezienn %linkedFieldName%"
   },
   "optionalWhenLinkedFieldHasSpecificValue": {
     "fr": "Optionnel lorsque le champ %linkedFieldName% prend la valeur %specificValue%",
@@ -1123,7 +1221,8 @@ module.exports = {
     "es": "Opcional cuando el campo %linkedFieldName% toma el valor %specificValue%",
     "it": "Opzionale quando il campo %linkedFieldName% assume il valore %specificValue%",
     "io": "crwdns32915:0%linkedFieldName%crwdnd32915:0%specificValue%crwdne32915:0",
-    "nl": "Optioneel wanneer het veld %linkedFieldName% is ingesteld op %specificValue%"
+    "nl": "Optioneel wanneer het veld %linkedFieldName% is ingesteld op %specificValue%",
+    "br": "Diret pa vez lakaet ar vaezienn %linkedFieldName% da %specificValue%"
   },
   "linkedTo": {
     "fr": "Lié au champ %fieldName%",
@@ -1132,7 +1231,8 @@ module.exports = {
     "es": "Relacionado con el campo %fieldName%",
     "it": "Relativo al campo %fieldName%",
     "io": "crwdns32917:0%fieldName%crwdne32917:0",
-    "nl": "Gekoppeld aan veld %fieldName%"
+    "nl": "Gekoppeld aan veld %fieldName%",
+    "br": "Liammet ouzh ar vaezienn %fieldName%"
   },
   "readAccess": {
     "fr": "Lecture",
@@ -1141,7 +1241,8 @@ module.exports = {
     "es": "Lectura",
     "it": "Lettura",
     "io": "crwdns33227:0crwdne33227:0",
-    "nl": "Lezen"
+    "nl": "Lezen",
+    "br": "Lenn"
   },
   "writeAccess": {
     "fr": "Écriture",
@@ -1150,7 +1251,8 @@ module.exports = {
     "es": "Escritura",
     "it": "Scrittura",
     "io": "crwdns33229:0crwdne33229:0",
-    "nl": "Schrijven"
+    "nl": "Schrijven",
+    "br": "Skrivañ"
   },
   "adminAccess": {
     "fr": "administrateur",
@@ -1159,7 +1261,8 @@ module.exports = {
     "es": "administrador",
     "it": "administratore",
     "io": "crwdns33231:0crwdne33231:0",
-    "nl": "beheerder"
+    "nl": "beheerder",
+    "br": "merour"
   },
   "moderatorAccess": {
     "fr": "moderateur",
@@ -1169,7 +1272,8 @@ module.exports = {
     "it": "moderatore",
     "io": "crwdns33233:0crwdne33233:0",
     "oc": "moderator·a",
-    "nl": "moderator"
+    "nl": "moderator",
+    "br": "habaskour"
   },
   "contributorAccess": {
     "fr": "contributeur",
@@ -1179,6 +1283,7 @@ module.exports = {
     "it": "contributore",
     "io": "crwdns33235:0crwdne33235:0",
     "oc": "contributor·a",
-    "nl": "bijdrager"
+    "nl": "bijdrager",
+    "br": "kenlabourer"
   }
 }

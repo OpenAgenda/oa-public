@@ -464,7 +464,8 @@ module.exports = {
     "io": "crwdns14340:0crwdne14340:0",
     "oc": "Seleccionar",
     "es": "Seleccionar",
-    "nl": "Selecteren"
+    "nl": "Selecteren",
+    "br": "Diuzañ"
   },
   "cancelLanguageChange": {
     "fr": "Annuler",
@@ -615,7 +616,8 @@ module.exports = {
     "io": "crwdns16100:0crwdne16100:0",
     "es": "Programado",
     "oc": "Programat",
-    "nl": "Gepland"
+    "nl": "Gepland",
+    "br": "Raktreset"
   },
   "rescheduled": {
     "fr": "Re-programmé",
@@ -623,7 +625,8 @@ module.exports = {
     "io": "crwdns16102:0crwdne16102:0",
     "es": "Reprogramado",
     "oc": "Tornat programar",
-    "nl": "Opnieuw gepland"
+    "nl": "Opnieuw gepland",
+    "br": "Adraktreset"
   },
   "movedOnline": {
     "fr": "Déplacé en ligne",
@@ -632,7 +635,8 @@ module.exports = {
     "oc": "Transferit en linha",
     "io": "crwdns16104:0crwdne16104:0",
     "es": "Trasladado en línea",
-    "nl": "Online verplaatst"
+    "nl": "Online verplaatst",
+    "br": "Dilec'hiet enlinenn"
   },
   "cancelled": {
     "fr": "Annulé",
@@ -641,7 +645,8 @@ module.exports = {
     "io": "crwdns16106:0crwdne16106:0",
     "es": "Cancelado",
     "oc": "Anullat",
-    "nl": "Geannuleerd"
+    "nl": "Geannuleerd",
+    "br": "Nullet"
   },
   "full": {
     "fr": "Complet",
@@ -649,7 +654,8 @@ module.exports = {
     "io": "crwdns16448:0crwdne16448:0",
     "es": "Completo",
     "oc": "Complèt",
-    "nl": "Volzet"
+    "nl": "Volzet",
+    "br": "Klok"
   },
   "postponed": {
     "fr": "Reporté",
@@ -658,7 +664,8 @@ module.exports = {
     "io": "crwdns16108:0crwdne16108:0",
     "oc": "Remandat",
     "es": "Aplazado",
-    "nl": "Uitgesteld"
+    "nl": "Uitgesteld",
+    "br": "Diwezataet"
   },
   "status": {
     "fr": "État",
@@ -666,7 +673,8 @@ module.exports = {
     "io": "crwdns16110:0crwdne16110:0",
     "oc": "Estatut",
     "es": "Estado",
-    "nl": "Status"
+    "nl": "Status",
+    "br": "Statud"
   },
   "trueBoolean": {
     "fr": "Sélectionné",
@@ -676,7 +684,8 @@ module.exports = {
     "io": "crwdns33354:0crwdne33354:0",
     "it": "Selezionato",
     "es": "Seleccionado",
-    "nl": "Geselecteerd"
+    "nl": "Geselecteerd",
+    "br": "Diuzet"
   },
   "falseBoolean": {
     "fr": "Non sélectionné",
@@ -686,7 +695,8 @@ module.exports = {
     "io": "crwdns33356:0crwdne33356:0",
     "it": "Non selezionato",
     "es": "No seleccionado",
-    "nl": "Niet geselecteerd"
+    "nl": "Niet geselecteerd",
+    "br": "Ket diuzet"
   },
   "nullBoolean": {
     "fr": "(Sans valeur)",
@@ -694,7 +704,8 @@ module.exports = {
     "io": "crwdns33358:0crwdne33358:0",
     "oc": "(Pas cap valor)",
     "es": "(Sin valor)",
-    "nl": "(Geen waarde)"
+    "nl": "(Geen waarde)",
+    "br": "(Talvoud ebet)"
   },
   "extIds": {
     "fr": "Identifiants externe",

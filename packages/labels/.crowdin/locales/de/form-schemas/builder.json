@@ -112,7 +112,7 @@
   "selectFieldType": "Einzelauswahl-Dropdown-Auswahl",
   "selectFieldTypeInfo": "Eingabefeld mit Dropdown-Liste und automatischer Vervollständigung, die die Auswahl eines einzelnen Werts aus einer Liste ermöglicht",
   "showField": "Zeigen Sie das Feld an",
-  "submitLabelLanguages": "Einreichen",
+  "submitLabelLanguages": "Speichern",
   "textFieldType": "Textfeld",
   "textMultilingualFieldType": "Mehrsprachiger Text",
   "textareaFieldType": "Textbereich",

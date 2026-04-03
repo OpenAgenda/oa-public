@@ -1,6 +1,6 @@
 {
-  "next.components.ConsentBanner.accept": "",
-  "next.components.ConsentBanner.decline": "",
-  "next.components.ConsentBanner.informationText": "",
-  "next.components.ConsentBanner.moreInfoLink": ""
+  "next.components.ConsentBanner.accept": "Asantiñ",
+  "next.components.ConsentBanner.decline": "Nac'hañ",
+  "next.components.ConsentBanner.informationText": "An deiziataer-mañ a implij toupinoù eus ar servij heuliañ sellerien {service}. Sikour a reont merourien an deiziataer, dre zastum ha kelaouiñ titouroù merdeiñ, da gompren penaos e darempreder ar weladennerien gant al lec'hiennoù web. Hag asantiñ a rit dezho?",
+  "next.components.ConsentBanner.moreInfoLink": "Klikit amañ evit gouzout hiroc'h"
 }

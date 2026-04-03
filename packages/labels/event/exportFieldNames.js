@@ -7,7 +7,8 @@ module.exports = {
     "io": "crwdns33352:0crwdne33352:0",
     "oc": "Atge-cibla",
     "es": "Edad del público",
-    "nl": "Doelgroepsleeftijd"
+    "nl": "Doelgroepsleeftijd",
+    "br": "Oad an dud a glasker tizhout"
   },
   "uid": {
     "en": "Identifier",
@@ -17,7 +18,8 @@ module.exports = {
     "it": "Login",
     "io": "crwdns14146:0crwdne14146:0",
     "oc": "Identificant",
-    "nl": "Identificatie"
+    "nl": "Identificatie",
+    "br": "Anaouder"
   },
   "title": {
     "en": "Title",
@@ -27,7 +29,8 @@ module.exports = {
     "it": "Titolo",
     "io": "crwdns14148:0crwdne14148:0",
     "oc": "Títol",
-    "nl": "Titel"
+    "nl": "Titel",
+    "br": "Titl"
   },
   "description": {
     "en": "Description",
@@ -37,7 +40,8 @@ module.exports = {
     "it": "Descrizione",
     "io": "crwdns14150:0crwdne14150:0",
     "oc": "Descripcion",
-    "nl": "Beschrijving"
+    "nl": "Beschrijving",
+    "br": "Deskrivadur"
   },
   "longDescription": {
     "en": "Long description",
@@ -47,7 +51,8 @@ module.exports = {
     "it": "Descrizione lunga",
     "io": "crwdns14152:0crwdne14152:0",
     "oc": "Descripcion longa",
-    "nl": "Lange beschrijving"
+    "nl": "Lange beschrijving",
+    "br": "Deskrivadur hir"
   },
   "conditions": {
     "en": "Condition details",
@@ -57,7 +62,8 @@ module.exports = {
     "it": "Dettagli delle condizioni",
     "io": "crwdns14154:0crwdne14154:0",
     "oc": "Detalh de las condicions",
-    "nl": "Details van de voorwaarden"
+    "nl": "Details van de voorwaarden",
+    "br": "Munudoù ar amplegadoù"
   },
   "keywords": {
     "en": "Keywords",
@@ -78,7 +84,8 @@ module.exports = {
     "it": "Descrizione lunga - HTML",
     "io": "crwdns14158:0crwdne14158:0",
     "oc": "Descripcion longa - HTML",
-    "nl": "Lange beschrijving - HTML"
+    "nl": "Lange beschrijving - HTML",
+    "br": "Deskrivadur hir - HTML"
   },
   "image": {
     "en": "Image",
@@ -88,7 +95,8 @@ module.exports = {
     "it": "Immagine",
     "io": "crwdns14160:0crwdne14160:0",
     "oc": "Imatge",
-    "nl": "Afbeelding"
+    "nl": "Afbeelding",
+    "br": "Skeudenn"
   },
   "imageCredits": {
     "en": "Image credits",
@@ -109,7 +117,8 @@ module.exports = {
     "it": "Panoramica",
     "io": "crwdns14164:0crwdne14164:0",
     "oc": "Vinheta",
-    "nl": "Miniatuur"
+    "nl": "Miniatuur",
+    "br": "Alberz"
   },
   "originalImage": {
     "en": "Source image",
@@ -119,7 +128,8 @@ module.exports = {
     "it": "Immagine sorgente",
     "io": "crwdns14166:0crwdne14166:0",
     "oc": "Image sorsa",
-    "nl": "Bronafbeelding"
+    "nl": "Bronafbeelding",
+    "br": "Skeudenn orin"
   },
   "updatedAt": {
     "en": "Last update",
@@ -129,7 +139,8 @@ module.exports = {
     "it": "Ultimo aggiornamento",
     "io": "crwdns14168:0crwdne14168:0",
     "oc": "Darrièra mesa a jorn",
-    "nl": "Laatste update"
+    "nl": "Laatste update",
+    "br": "Hizivadenn ziwezhañ"
   },
   "createdAt": {
     "en": "Creation date",
@@ -138,7 +149,8 @@ module.exports = {
     "it": "Creazione del record",
     "io": "crwdns14170:0crwdne14170:0",
     "oc": "Data de creacion",
-    "nl": "Aanmaakdatum"
+    "nl": "Aanmaakdatum",
+    "br": "Deiziad krouiñ"
   },
   "range": {
     "en": "Timings overview",
@@ -148,7 +160,8 @@ module.exports = {
     "it": "Riassunto orario",
     "io": "crwdns14172:0crwdne14172:0",
     "oc": "Resumit oraris",
-    "nl": "Tijdenoverzicht"
+    "nl": "Tijdenoverzicht",
+    "br": "Diverradenn eurioù"
   },
   "firstDate": {
     "en": "First date",
@@ -158,7 +171,8 @@ module.exports = {
     "it": "Prima data",
     "io": "crwdns14174:0crwdne14174:0",
     "oc": "Primièra data",
-    "nl": "Eerste datum"
+    "nl": "Eerste datum",
+    "br": "Deiziad kentañ"
   },
   "firstTimeStart": {
     "en": "First start time",
@@ -168,7 +182,8 @@ module.exports = {
     "it": "Prima apertura",
     "io": "crwdns14176:0crwdne14176:0",
     "oc": "Primièra obertura",
-    "nl": "Eerste starttijd"
+    "nl": "Eerste starttijd",
+    "br": "Eur digeriñ kentañ"
   },
   "firstTimeEnd": {
     "en": "First end time",
@@ -178,7 +193,8 @@ module.exports = {
     "it": "Prima chiusura",
     "io": "crwdns14178:0crwdne14178:0",
     "oc": "Primièra tampadura",
-    "nl": "Eerste eindtijd"
+    "nl": "Eerste eindtijd",
+    "br": "Eur serriñ kentañ"
   },
   "lastDate": {
     "en": "Last date",
@@ -188,7 +204,8 @@ module.exports = {
     "it": "Ultima data",
     "io": "crwdns14180:0crwdne14180:0",
     "oc": "Darrièra data",
-    "nl": "Laatste datum"
+    "nl": "Laatste datum",
+    "br": "Deiziad diwezhañ"
   },
   "lastTimeStart": {
     "en": "Last start time",
@@ -198,7 +215,8 @@ module.exports = {
     "it": "Ultima apertura",
     "io": "crwdns14182:0crwdne14182:0",
     "oc": "Darrièra obertura",
-    "nl": "Laatste starttijd"
+    "nl": "Laatste starttijd",
+    "br": "Eur digeriñ diwezhañ"
   },
   "lastTimeEnd": {
     "en": "Last time end",
@@ -208,7 +226,8 @@ module.exports = {
     "it": "Ultima chiusura",
     "io": "crwdns14184:0crwdne14184:0",
     "oc": "Darrièra tampadura",
-    "nl": "Laatste eindtijd"
+    "nl": "Laatste eindtijd",
+    "br": "Eur serriñ diwezhañ"
   },
   "timings": {
     "en": "Detailed timings",
@@ -218,7 +237,8 @@ module.exports = {
     "it": "Orari dettagliati",
     "io": "crwdns14186:0crwdne14186:0",
     "oc": "Oraris detalhats",
-    "nl": "Gedetailleerde tijden"
+    "nl": "Gedetailleerde tijden",
+    "br": "Eurioù dre ar munud"
   },
   "isoTimings": {
     "en": "ISO timings",
@@ -228,7 +248,8 @@ module.exports = {
     "it": "Orari ISO",
     "io": "crwdns14188:0crwdne14188:0",
     "oc": "Oraris ISO",
-    "nl": "ISO-tijden"
+    "nl": "ISO-tijden",
+    "br": "Eurioù ISO"
   },
   "registrationUrl": {
     "en": "Registration link",
@@ -238,7 +259,8 @@ module.exports = {
     "it": "Link di registrazione",
     "io": "crwdns14190:0crwdne14190:0",
     "oc": "Ligam d'inscripcion",
-    "nl": "Registratielink"
+    "nl": "Registratielink",
+    "br": "Liamm en em enskrivañ"
   },
   "registration": {
     "en": "Registration",
@@ -248,7 +270,8 @@ module.exports = {
     "it": "Registrazione",
     "io": "crwdns16430:0crwdne16430:0",
     "oc": "Inscripcion",
-    "nl": "Inschrijvingstools"
+    "nl": "Inschrijvingstools",
+    "br": "En em enskrivañ"
   },
   "accessibility": {
     "en": "Accessibility",
@@ -258,7 +281,8 @@ module.exports = {
     "it": "Accessibilità",
     "io": "crwdns14192:0crwdne14192:0",
     "oc": "Accessibilitat",
-    "nl": "Toegankelijkheid"
+    "nl": "Toegankelijkheid",
+    "br": "Monedusted"
   },
   "featured": {
     "en": "Featured",
@@ -279,7 +303,8 @@ module.exports = {
     "it": "Link",
     "io": "crwdns14196:0crwdne14196:0",
     "oc": "Ligam",
-    "nl": "Link"
+    "nl": "Link",
+    "br": "Liamm"
   },
   "permalink": {
     "en": "Permalink",
@@ -287,7 +312,8 @@ module.exports = {
     "io": "crwdns16432:0crwdne16432:0",
     "oc": "Permaligam",
     "es": "Enlace permanente",
-    "nl": "Permalink"
+    "nl": "Permalink",
+    "br": "Peurliamm"
   },
   "location.uid": {
     "en": "Location identifier",
@@ -297,7 +323,8 @@ module.exports = {
     "it": "Identificatore di posizione",
     "io": "crwdns14198:0crwdne14198:0",
     "oc": "Identificant del lòc",
-    "nl": "Locatie-identificatie"
+    "nl": "Locatie-identificatie",
+    "br": "Anaouder al lec'h"
   },
   "location.latitude": {
     "en": "Latitude",
@@ -307,7 +334,8 @@ module.exports = {
     "it": "Latitudine",
     "io": "crwdns14200:0crwdne14200:0",
     "oc": "Latitud",
-    "nl": "Breedtegraad"
+    "nl": "Breedtegraad",
+    "br": "Ledred"
   },
   "location.longitude": {
     "en": "Longitude",
@@ -317,7 +345,8 @@ module.exports = {
     "it": "Longitudine",
     "io": "crwdns14202:0crwdne14202:0",
     "oc": "Longitud",
-    "nl": "Lengtegraad"
+    "nl": "Lengtegraad",
+    "br": "Hedred"
   },
   "location.name": {
     "en": "Location name",
@@ -327,7 +356,8 @@ module.exports = {
     "it": "Nome del luogo",
     "io": "crwdns14204:0crwdne14204:0",
     "oc": "Nom de lòc",
-    "nl": "Locatienaam"
+    "nl": "Locatienaam",
+    "br": "Anv al lec'h"
   },
   "location.address": {
     "en": "Address",
@@ -337,7 +367,8 @@ module.exports = {
     "it": "Indirizzo",
     "io": "crwdns14206:0crwdne14206:0",
     "oc": "Adreiça",
-    "nl": "Adres"
+    "nl": "Adres",
+    "br": "Chomlec'h"
   },
   "location.postalCode": {
     "en": "Postal code",
@@ -347,7 +378,8 @@ module.exports = {
     "it": "Codice postale",
     "io": "crwdns14208:0crwdne14208:0",
     "oc": "Còdi postal",
-    "nl": "Postcode"
+    "nl": "Postcode",
+    "br": "Kod-post"
   },
   "location.city": {
     "en": "City",
@@ -379,7 +411,8 @@ module.exports = {
     "it": "Regione",
     "io": "crwdns14214:0crwdne14214:0",
     "oc": "Region",
-    "nl": "Regio"
+    "nl": "Regio",
+    "br": "Rannvro"
   },
   "location.countryCode": {
     "en": "Country",
@@ -400,7 +433,8 @@ module.exports = {
     "it": "Immagine del luogo",
     "io": "crwdns14218:0crwdne14218:0",
     "oc": "Image del lòc",
-    "nl": "Locatieafbeelding"
+    "nl": "Locatieafbeelding",
+    "br": "Skeudenn al lec'h"
   },
   "location.imageCredits": {
     "en": "Location image credits",
@@ -410,7 +444,8 @@ module.exports = {
     "it": "Crediti dell'immagine del luogo",
     "io": "crwdns14220:0crwdne14220:0",
     "oc": "Crèdits de l'image del lòc",
-    "nl": "Credits van de locatieafbeelding"
+    "nl": "Credits van de locatieafbeelding",
+    "br": "Kredadoù skeudenn al lec'h"
   },
   "location.phone": {
     "en": "Location phone",
@@ -420,7 +455,8 @@ module.exports = {
     "it": "Numero di telefono del luogo",
     "io": "crwdns14222:0crwdne14222:0",
     "oc": "Telefòne del lòc",
-    "nl": "Telefoon locatie"
+    "nl": "Telefoon locatie",
+    "br": "Pellgomz al lec'h"
   },
   "location.website": {
     "en": "Location website",
@@ -430,7 +466,8 @@ module.exports = {
     "it": "Sito web del luogo",
     "io": "crwdns14224:0crwdne14224:0",
     "oc": "Site web del lòc",
-    "nl": "Website locatie"
+    "nl": "Website locatie",
+    "br": "Lec'hienn web al lec'h"
   },
   "location.links": {
     "en": "Location links",
@@ -440,7 +477,8 @@ module.exports = {
     "it": "Link del luogo",
     "io": "crwdns14226:0crwdne14226:0",
     "oc": "Ligams del lòc",
-    "nl": "Locatielinks"
+    "nl": "Locatielinks",
+    "br": "Liammoù al lec'h"
   },
   "location.tags": {
     "en": "Location tags",
@@ -450,7 +488,8 @@ module.exports = {
     "it": "Tag del posto",
     "io": "crwdns14228:0crwdne14228:0",
     "oc": "Etiquetas del lòc",
-    "nl": "Locatietags"
+    "nl": "Locatietags",
+    "br": "Balizennoù al lec'h"
   },
   "location.description": {
     "en": "Location description",
@@ -460,7 +499,8 @@ module.exports = {
     "it": "Descrizione del luogo",
     "io": "crwdns14230:0crwdne14230:0",
     "oc": "Descripcion del lòc",
-    "nl": "Locatiebeschrijving"
+    "nl": "Locatiebeschrijving",
+    "br": "Deskrivadur al lec'h"
   },
   "location.access": {
     "en": "Location access / directions",
@@ -470,7 +510,8 @@ module.exports = {
     "it": "Accesso / Indicazioni",
     "io": "crwdns14232:0crwdne14232:0",
     "oc": "Accès / Itinerari",
-    "nl": "Toegang / Route"
+    "nl": "Toegang / Route",
+    "br": "Moned / Hentad"
   },
   "tags": {
     "en": "Tags",
@@ -480,7 +521,8 @@ module.exports = {
     "it": "Tags",
     "io": "crwdns14234:0crwdne14234:0",
     "oc": "Etiquetas",
-    "nl": "Tags"
+    "nl": "Tags",
+    "br": "Merkoù"
   },
   "age.min": {
     "en": "Minimum age",
@@ -490,7 +532,8 @@ module.exports = {
     "it": "Età minima",
     "io": "crwdns14236:0crwdne14236:0",
     "oc": "Atge minimum",
-    "nl": "Minimumleeftijd"
+    "nl": "Minimumleeftijd",
+    "br": "Oad izek"
   },
   "age.max": {
     "en": "Maximum age",
@@ -500,7 +543,8 @@ module.exports = {
     "it": "Età massima",
     "io": "crwdns14238:0crwdne14238:0",
     "oc": "Atge maximum",
-    "nl": "Maximumleeftijd"
+    "nl": "Maximumleeftijd",
+    "br": "Oad uhelañ"
   },
   "origin.title": {
     "en": "Origin agenda ( title )",
@@ -510,7 +554,8 @@ module.exports = {
     "it": "Agenda originale ( titolo )",
     "io": "crwdns14240:0crwdne14240:0",
     "oc": "Agenda d'origina (títol)",
-    "nl": "Oorspronkelijke agenda (titel)"
+    "nl": "Oorspronkelijke agenda (titel)",
+    "br": "Deiziadur orin (titl)"
   },
   "origin.uid": {
     "en": "Origin agenda (uid)",
@@ -520,7 +565,8 @@ module.exports = {
     "it": "Agenda originale (UID)",
     "io": "crwdns14242:0crwdne14242:0",
     "oc": "Agenda d'origina (uid)",
-    "nl": "Oorspronkelijke agenda (uid)"
+    "nl": "Oorspronkelijke agenda (uid)",
+    "br": "Deiziadur orin (uid)"
   },
   "contributor.email": {
     "en": "Contributor: Email",
@@ -530,7 +576,8 @@ module.exports = {
     "it": "Collaboratore: Email",
     "io": "crwdns14244:0crwdne14244:0",
     "oc": "Contributor : Email",
-    "nl": "Bijdrager: E-mail"
+    "nl": "Bijdrager: E-mail",
+    "br": "Kenlabourer: Postel"
   },
   "contributor.contactNumber": {
     "en": "Contributor: Phone number",
@@ -540,7 +587,8 @@ module.exports = {
     "it": "Collaboratore: Telefono",
     "io": "crwdns14246:0crwdne14246:0",
     "oc": "Contributor : numèro de telefòne",
-    "nl": "Bijdrager: Telefoon"
+    "nl": "Bijdrager: Telefoon",
+    "br": "Kenlabourer: Pellgomz"
   },
   "contributor.contactName": {
     "en": "Contributor: Name",
@@ -550,7 +598,8 @@ module.exports = {
     "it": "Collaboratore: Nome",
     "io": "crwdns14248:0crwdne14248:0",
     "oc": "Contributor : Nom",
-    "nl": "Bijdrager: Naam"
+    "nl": "Bijdrager: Naam",
+    "br": "Kenlabourer: Anv"
   },
   "contributor.contactPosition": {
     "en": "Contributor: Title",
@@ -560,7 +609,8 @@ module.exports = {
     "it": "Collaboratore: ruolo",
     "io": "crwdns14250:0crwdne14250:0",
     "oc": "Contributor : Foncion",
-    "nl": "Bijdrager: Functie"
+    "nl": "Bijdrager: Functie",
+    "br": "Kenlabourer: Karg"
   },
   "contributor.organization": {
     "en": "Contributor: organization",
@@ -570,7 +620,8 @@ module.exports = {
     "it": "Collaboratore: organizzazione",
     "io": "crwdns14252:0crwdne14252:0",
     "oc": "Contributor : organizacion",
-    "nl": "Bijdrager: organisatie"
+    "nl": "Bijdrager: organisatie",
+    "br": "Kenlabourer: aozadur"
   },
   "category": {
     "en": "Category",
@@ -580,7 +631,8 @@ module.exports = {
     "it": "Categoria",
     "io": "crwdns14254:0crwdne14254:0",
     "oc": "Categoria",
-    "nl": "Categorie"
+    "nl": "Categorie",
+    "br": "Rummad"
   },
   "location.district": {
     "en": "District",
@@ -590,7 +642,8 @@ module.exports = {
     "it": "Quartiere",
     "io": "crwdns14256:0crwdne14256:0",
     "oc": "Districte",
-    "nl": "Wijk"
+    "nl": "Wijk",
+    "br": "Karter"
   },
   "state": {
     "en": "State",
@@ -600,7 +653,8 @@ module.exports = {
     "it": "Stato",
     "io": "crwdns14258:0crwdne14258:0",
     "oc": "Estat",
-    "nl": "Status"
+    "nl": "Status",
+    "br": "Statud"
   },
   "references": {
     "en": "Linked events",
@@ -610,7 +664,8 @@ module.exports = {
     "it": "Eventi correlati",
     "io": "crwdns14260:0crwdne14260:0",
     "oc": "Eveniments ligats",
-    "nl": "Gekoppelde evenementen"
+    "nl": "Gekoppelde evenementen",
+    "br": "Darvoudoù kevelet"
   },
   "attendanceMode": {
     "fr": "Mode de participation",
@@ -640,7 +695,8 @@ module.exports = {
     "io": "crwdns16156:0crwdne16156:0",
     "oc": "Estatut",
     "es": "Estado",
-    "nl": "Status"
+    "nl": "Status",
+    "br": "Statud"
   },
   "member.uid": {
     "fr": "Membre: identifiant",
@@ -648,7 +704,8 @@ module.exports = {
     "io": "crwdns16434:0crwdne16434:0",
     "es": "Member: Identifier",
     "oc": "Membre : identificant",
-    "nl": "Lid: identificatie"
+    "nl": "Lid: identificatie",
+    "br": "Ezel: anaouder"
   },
   "member.role": {
     "fr": "Membre: rôle",
@@ -656,7 +713,8 @@ module.exports = {
     "io": "crwdns16436:0crwdne16436:0",
     "es": "Miembro: función",
     "oc": "Membre : ròtle",
-    "nl": "Lid: rol"
+    "nl": "Lid: rol",
+    "br": "Ezel: roll"
   },
   "member.phone": {
     "fr": "Membre: téléphone",
@@ -664,7 +722,8 @@ module.exports = {
     "io": "crwdns16438:0crwdne16438:0",
     "es": "Miembro: teléfono",
     "oc": "Membre : telefòne",
-    "nl": "Lid: telefoon"
+    "nl": "Lid: telefoon",
+    "br": "Ezel: pellgomz"
   },
   "member.email": {
     "fr": "Membre: email",
@@ -673,7 +732,8 @@ module.exports = {
     "io": "crwdns16440:0crwdne16440:0",
     "es": "Miembro: correo electrónico",
     "oc": "Membre : email",
-    "nl": "Lid: e-mail"
+    "nl": "Lid: e-mail",
+    "br": "Ezel: postel"
   },
   "member.organization": {
     "fr": "Membre: organisme",
@@ -681,7 +741,8 @@ module.exports = {
     "io": "crwdns16442:0crwdne16442:0",
     "es": "Member: organization",
     "oc": "Membre : organizacion",
-    "nl": "Lid: organisatie"
+    "nl": "Lid: organisatie",
+    "br": "Ezel: aozadur"
   },
   "member.name": {
     "fr": "Membre: nom",
@@ -689,7 +750,8 @@ module.exports = {
     "io": "crwdns16444:0crwdne16444:0",
     "es": "Miembro: nombre",
     "oc": "Membre : nom",
-    "nl": "Lid: naam"
+    "nl": "Lid: naam",
+    "br": "Ezel: anv"
   },
   "member.position": {
     "fr": "Membre: fonction",
@@ -698,6 +760,7 @@ module.exports = {
     "it": "Membro: ruolo",
     "es": "Miembro: título",
     "oc": "Membre : foncion",
-    "nl": "Lid: functie"
+    "nl": "Lid: functie",
+    "br": "Ezel: karg"
   }
 };

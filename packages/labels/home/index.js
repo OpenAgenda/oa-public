@@ -30,7 +30,8 @@ module.exports = {
     "io": "crwdns16468:0crwdne16468:0",
     "oc": "Véser ma ficha de contacte",
     "es": "Ver mi información de contacto",
-    "nl": "Mijn contactgegevens bekijken"
+    "nl": "Mijn contactgegevens bekijken",
+    "br": "Gwelet ma fichadenn darempred"
   },
   "editMemberInformation": {
     "fr": "Les administrateurs de l'agenda requierent certaines informations additionnelles pour leur permettre de vous contacter en cas de besoin.",
@@ -39,7 +40,8 @@ module.exports = {
     "io": "crwdns16470:0crwdne16470:0",
     "oc": "Los administrators de l'agenda an mestièr d'informacions suplementàrias per vos poder contactar al besonh",
     "es": "Los administradores de esta agenda requieren información adicional para ponerse en contacto contigo en caso de que lo necesiten",
-    "nl": "De beheerders van de agenda hebben bepaalde aanvullende informatie nodig om contact met u op te kunnen nemen indien nodig"
+    "nl": "De beheerders van de agenda hebben bepaalde aanvullende informatie nodig om contact met u op te kunnen nemen indien nodig",
+    "br": "Merourien an deiziataer o deus ezhomm eus titouroù ouzhpenn evit gallout mont e darempred ganeoc'h ma vez ezhomm"
   },
   "otherActions": {
     "fr": "Autres actions",
@@ -48,7 +50,8 @@ module.exports = {
     "io": "crwdns16472:0crwdne16472:0",
     "oc": "Autras accions",
     "es": "Otras acciones",
-    "nl": "Andere acties"
+    "nl": "Andere acties",
+    "br": "Oberoù"
   },
   "removeMember": {
     "fr": "Me retirer de l'agenda",
@@ -57,7 +60,8 @@ module.exports = {
     "io": "crwdns16474:0crwdne16474:0",
     "oc": "Me tirar de l'agenda",
     "es": "Eliminarme de la agenda",
-    "nl": "Mezelf uit de agenda verwijderen"
+    "nl": "Mezelf uit de agenda verwijderen",
+    "br": "En em dennañ eus an deiziataer"
   },
   "removeMemberInformation": {
     "fr": "Si vous vous retirez de l'agenda, vous cesserez d'être notifié de son activité et ne pourrez plus en éditer les événements ni d'en ajouter de nouveaux. L'agenda n'apparaitra plus dans votre page d'accueil.",
@@ -66,7 +70,8 @@ module.exports = {
     "oc": "Se vos tiratz de l'agenda, recebretz pas mai las notificacions e poiretz pas pus modificar vòstres eveniments o n'apondre de novèls. L'agenda s'aficharà pas pus sus vòstre ecran d'acuèlh.",
     "io": "crwdns16476:0crwdne16476:0",
     "es": "Si te sales de la agenda, dejarás de recibir notificaciones y ya no podrás editar tus eventos ni añadir otros nuevos. La agenda dejará de aparecer en tu pantalla de inicio.",
-    "nl": "Als u zich uit de agenda verwijdert, ontvangt u geen meldingen meer en kunt u geen evenementen meer bewerken of nieuwe toevoegen. De agenda verschijnt niet meer op uw startpagina."
+    "nl": "Als u zich uit de agenda verwijdert, ontvangt u geen meldingen meer en kunt u geen evenementen meer bewerken of nieuwe toevoegen. De agenda verschijnt niet meer op uw startpagina.",
+    "br": "Ma tilammat ac'hanoc'h eus an deiziataer, ne resevot ket kemennoù ken ha ne c'hallot ket kemmañ ho tegouezhioù na ouzhpennañ reoù nevez ken. Ne zeuio ket an deiziataer war ho pajenn degemer ken."
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
@@ -171,7 +176,7 @@ module.exports = {
     "fr": "Vous pouvez rejoindre des agendas ouverts à la contribution ou créer votre propre agenda.",
     "en": "You can join agendas that are open to contribution or create your own agenda.",
     "de": "Sie können Kalendern beitreten, die für Beiträge geöffnet sind, oder Ihren eigenen Kalender erstellen.",
-    "br": "",
+    "br": "Gallout a rit mont e-barzh deiziataerioù digor d'ar c'henlabourat pe krouiñ ho teiziataer deoc'h-c'hwi hoc'h-unan.",
     "es": "Puedes unirte a agendas abiertas a la contribución o crear tu propia agenda.",
     "it": "Puoi iscriverti a calendari aperti al contributo o creare il tuo calendario.",
     "io": "crwdns14922:0crwdne14922:0",
@@ -182,7 +187,7 @@ module.exports = {
     "fr": "Les agendas du moment ouverts à la contribution :",
     "en": "The agendas of the moment open to contributions :",
     "de": "Aktuelle offene Tagebücher :",
-    "br": "",
+    "br": "Deiziataerioù ar mare digor d'ar c'henlabourat :",
     "es": "Agendas actuales abiertas a la contribución:",
     "it": "Agenda aperti attuali :",
     "io": "crwdns14924:0crwdne14924:0",
@@ -291,7 +296,7 @@ module.exports = {
   "contact": {
     "fr": "Contacter",
     "en": "Contact",
-    "de": "Nachricht",
+    "de": "Kontakt",
     "br": "Mont e darempred",
     "es": "Contactar",
     "it": "Contattare",
@@ -373,13 +378,14 @@ module.exports = {
     "io": "crwdns14958:0crwdne14958:0",
     "it": "Aperta",
     "oc": "Dobrir",
-    "nl": "Tonen"
+    "nl": "Tonen",
+    "br": "Diskouez"
   },
   "seeMore": {
     "fr": "Voir plus",
     "en": "See more",
     "de": "Mehr sehen",
-    "br": "",
+    "br": "Gwelet muioc'h",
     "es": "Ver más",
     "it": "Vedere di più",
     "io": "crwdns14960:0crwdne14960:0",

@@ -1,10 +1,10 @@
 {
-  "next.components.Navbar.help": "",
-  "next.components.Navbar.myAgendas": "",
-  "next.components.Navbar.myEvents": "",
-  "next.components.Navbar.profileMenu": "",
-  "next.components.Navbar.settings": "",
-  "next.components.Navbar.signIn": "",
-  "next.components.Navbar.signOut": "",
-  "next.components.Navbar.signUp": ""
+  "next.components.Navbar.help": "Skoazell",
+  "next.components.Navbar.myAgendas": "Ma deiziataerioù",
+  "next.components.Navbar.myEvents": "Ma darvoudoù",
+  "next.components.Navbar.profileMenu": "Lañser ar profil",
+  "next.components.Navbar.settings": "Arventennoù",
+  "next.components.Navbar.signIn": "Kevreañ",
+  "next.components.Navbar.signOut": "Digevreañ",
+  "next.components.Navbar.signUp": "Krouiñ ur gont"
 }

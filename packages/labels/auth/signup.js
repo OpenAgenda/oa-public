@@ -87,7 +87,8 @@ module.exports = {
     "it": "È necessario definire una password",
     "oc": "Se deu definir un senhal",
     "es": "Se debe definir una contraseña",
-    "nl": "Er moet een wachtwoord worden ingesteld"
+    "nl": "Er moet een wachtwoord worden ingesteld",
+    "br": "Ret eo termeniñ ur ger-tremen"
   },
   "createAccount": {
     "fr": "Création d'un nouveau compte",
@@ -156,7 +157,7 @@ module.exports = {
     "de": "Ihr Benutzername wird für die Administratoren der Terminkalender, bei denen Sie Mitglied sind, sichtbar sein..",
     "pl": "Twoja nazwa użytkownika będzie widoczna dla administratorów agend, których jesteś uczestnikiem",
     "es": "Su nombre de usuario será visible por los administradores de las agendas en las que eres miembro",
-    "br": "",
+    "br": "Gwelet e vo hoc'h anv implijer gant merourien an deiziataerioù ma viot ezel anezho",
     "io": "crwdns31272:0crwdne31272:0",
     "oc": "Vòstre nom d'utilizaire·a se poirà veire pels administrators de las agendas ont faretz de contribucions",
     "nl": "Uw gebruikersnaam zal zichtbaar zijn voor de beheerders van de agenda's waaraan u bijdraagt"
@@ -168,7 +169,7 @@ module.exports = {
     "de": "OpenAgenda sendet Ihnen Ihre Benachrichtigungen an diese Adresse. Sie wird nicht an Dritte weitergeleitet.",
     "pl": "OpenAgenda będzie wysyłać powiadomienia na ten adres. Nie będą one przekazywane osobom trzecim.",
     "es": "OpenAgenda enviará sus notificaciones a este correo electrónico. No se transmitirá a ningún tercero.",
-    "br": "",
+    "br": "OpenAgenda a gaso deoc'h ho kemennadennoù d'ar chomlec'h-mañ. Ne vo ket treuzkaset d'an trede den ebet.",
     "io": "crwdns31306:0crwdne31306:0",
     "oc": "OpenAgenda vos mandarà de notificacions a aquesta adreça. Serà pas transmesa a degun mai.",
     "nl": "OpenAgenda stuurt uw notificaties naar dit adres. Het wordt niet aan derden doorgegeven."
@@ -265,7 +266,8 @@ module.exports = {
     "it": "Lingua",
     "io": "crwdns13166:0crwdne13166:0",
     "oc": "Lenga",
-    "nl": "Taal"
+    "nl": "Taal",
+    "br": "Yezh"
   },
   "more": {
     "fr": "En savoir plus",
@@ -274,7 +276,8 @@ module.exports = {
     "io": "crwdns31274:0crwdne31274:0",
     "oc": "Ne legir mai",
     "es": "Leer más",
-    "nl": "Lees meer"
+    "nl": "Lees meer",
+    "br": "Gouzout hiroc'h"
   },
   "orSocial": {
     "fr": "Ou",
@@ -283,7 +286,8 @@ module.exports = {
     "oc": "O",
     "es": "O",
     "it": "Oppure",
-    "nl": "Of"
+    "nl": "Of",
+    "br": "Pe"
   },
   "socialHead": {
     "fr": "Création à partir d'un compte Facebook ou Google",
@@ -292,7 +296,8 @@ module.exports = {
     "oc": "Crear un compte amb Facebook, Twitter o Google",
     "it": "Creare un account con Facebook, Twitter o Google",
     "es": "Crea una cuenta usando Facebook, Twitter o Google",
-    "nl": "Aanmaken met een Facebook- of Google-account"
+    "nl": "Aanmaken met een Facebook- of Google-account",
+    "br": "Krouiñ diwar ur gont Facebook pe Google"
   },
   "socialDescription": {
     "fr": "Votre compte OpenAgenda sera lié au compte de votre choix. L'authentification se fera alors en passant par la plateforme choisie.",
@@ -301,6 +306,7 @@ module.exports = {
     "oc": "Vòstre compte OpenAgenda serà ligat al compte causit. L'autentificacion se farà en passant pel malhum social.",
     "es": "Tu cuenta de OpenAgenda se vinculará a la cuenta elegida. La autenticación se realizará a través de esa red social.",
     "it": "Il vostro account OpenAgenda sarà collegato all'account scelto. L'autenticazione avverrà tramite quel social network.",
-    "nl": "Uw OpenAgenda-account wordt gekoppeld aan het door u gekozen account. De authenticatie zal dan via het gekozen platform plaatsvinden."
+    "nl": "Uw OpenAgenda-account wordt gekoppeld aan het door u gekozen account. De authenticatie zal dan via het gekozen platform plaatsvinden.",
+    "br": "Liammet e vo ho kont OpenAgenda ouzh ar gont a zibabot. An dilesadur a vo graet dre ar savenn dibabet neuze."
   }
 };

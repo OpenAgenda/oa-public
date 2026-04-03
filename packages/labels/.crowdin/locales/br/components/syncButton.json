@@ -1,4 +1,7 @@
 {
   "cancel": "Nullañ",
-  "update": "Enrollañ"
+  "syncError": "N'eo ket deuet a-benn an enrolladenn. Klaskit en-dro mar plij.",
+  "update": "Enrollañ",
+  "updated": "Enrollet",
+  "updating": "Hizivadur"
 }

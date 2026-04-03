@@ -1,4 +1,12 @@
 {
+  "actionDescription": "Gwelet an darvoud",
+  "body": "<b>{event}</b> eus an agenda <b>{sourceAgenda}</b> a zo bet ouzhpennet gant ar stad <b>{state}</b> gant <b>{user}</b>.",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "controlled": "prest da vezañ embannet",
+  "memberUnsubscribe": "Paouez da resev ouzhpennadurioù darvoudoù war an agenda-mañ",
   "published": "embannet",
-  "refused": "nac'het"
+  "refused": "nac'het",
+  "title": "Ouzhpennet eo bet hoc'h darvoud war {agenda}: {event}",
+  "tocontrol": "da gontrollañ",
+  "unsubscribe": "Paouez da resev ouzhpennadurioù darvoudoù"
 }

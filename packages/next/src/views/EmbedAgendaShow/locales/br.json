@@ -1,8 +1,8 @@
 {
   "ReactFilters.EmbedAgendaShow.addEvent": "",
-  "ReactFilters.ValueBadge.removeFilter": "",
-  "ReactFilters.ValueBadge.removeFilterWithTitle": "",
-  "next.views.EmbedAgendaShow.export": "",
-  "next.views.EmbedAgendaShow.search": "",
-  "next.views.EmbedAgendaShow.seeMore": ""
+  "ReactFilters.ValueBadge.removeFilter": "Lemel ar sil",
+  "ReactFilters.ValueBadge.removeFilterWithTitle": "Dilemel ar sil ({title})",
+  "next.views.EmbedAgendaShow.export": "Ezporzhiañ",
+  "next.views.EmbedAgendaShow.search": "Klask",
+  "next.views.EmbedAgendaShow.seeMore": "Gwelet muioc'h"
 }

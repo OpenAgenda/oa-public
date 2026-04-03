@@ -8,7 +8,8 @@ module.exports = {
     "io": "crwdns13060:0crwdne13060:0",
     "oc": "Lo senhal es incorrècte",
     "es": "Esta contraseña es incorrecta",
-    "nl": "Het wachtwoord is onjuist"
+    "nl": "Het wachtwoord is onjuist",
+    "br": "Direizh eo ar ger-tremen"
   },
   "invalidToken": {
     "en": "Invalid token",
@@ -17,7 +18,8 @@ module.exports = {
     "io": "crwdns13062:0crwdne13062:0",
     "oc": "Geton invalid",
     "es": "Token inválido",
-    "nl": "Ongeldig token"
+    "nl": "Ongeldig token",
+    "br": "Jedouer direizh"
   },
   "userNotFound": {
     "en": "User not found",
@@ -26,7 +28,8 @@ module.exports = {
     "io": "crwdns13064:0crwdne13064:0",
     "oc": "Utilizaire·a pas trobat·da",
     "es": "Usuario no encontrado",
-    "nl": "Gebruiker niet gevonden"
+    "nl": "Gebruiker niet gevonden",
+    "br": "N'eo ket bet kavet an implijer"
   },
   "userNotActivated": {
     "en": "User not activated",
@@ -35,7 +38,8 @@ module.exports = {
     "io": "crwdns13066:0crwdne13066:0",
     "oc": "Utilizaire·a pas activat·da",
     "es": "Usuario no activado",
-    "nl": "Gebruiker niet geactiveerd"
+    "nl": "Gebruiker niet geactiveerd",
+    "br": "N'eo ket gweredekaet an implijer"
   },
   "passwordsMustMatch": {
     "en": "Password must match.",
@@ -44,7 +48,8 @@ module.exports = {
     "io": "crwdns13070:0crwdne13070:0",
     "oc": "Lo senhal correspond pas.",
     "es": "La contraseña debe coincidir.",
-    "nl": "Het wachtwoord komt niet overeen."
+    "nl": "Het wachtwoord komt niet overeen.",
+    "br": "Ret eo d'ar ger-tremen klotañ."
   },
   "fieldCannotBeEmpty": {
     "en": "Field cannot be empty",
@@ -53,7 +58,8 @@ module.exports = {
     "io": "crwdns13072:0crwdne13072:0",
     "oc": "Lo camp pòt pas demorar voide",
     "es": "El campo no puede estar vacío",
-    "nl": "Het veld mag niet leeg zijn"
+    "nl": "Het veld mag niet leeg zijn",
+    "br": "Ne c'hall ket ar vaezienn bezañ goullo"
   },
   "passwordCouldNotBeModified": {
     "en": "The password could not be modified",
@@ -62,7 +68,8 @@ module.exports = {
     "io": "crwdns13074:0crwdne13074:0",
     "oc": "Lo senhal se posquèt pas cambiar",
     "es": "No se ha podido modificar la contraseña",
-    "nl": "Het wachtwoord kon niet worden gewijzigd"
+    "nl": "Het wachtwoord kon niet worden gewijzigd",
+    "br": "N'eus ket bet gallet kemmañ ar ger-tremen"
   },
   "passwordResetSent": {
     "en": "A password reset is being sent to your email",
@@ -71,7 +78,8 @@ module.exports = {
     "io": "crwdns13076:0crwdne13076:0",
     "oc": "Una reïnicializacion de senhal es estada mandada a la vòstra adreça email",
     "es": "A password reset is being sent to your email",
-    "nl": "Een wachtwoordreset wordt naar uw e-mailadres gestuurd"
+    "nl": "Een wachtwoordreset wordt naar uw e-mailadres gestuurd",
+    "br": "Emañ ul liamm adderaouekaat ar ger-tremen o vezañ kaset d'ho chomlec'h postel"
   },
   "resetLinkOutdated": {
     "en": "The link is outdated. Try again.",
@@ -80,7 +88,8 @@ module.exports = {
     "io": "crwdns13078:0crwdne13078:0",
     "oc": "Lo ligam es passat. Tornatz ensajar.",
     "es": "El enlace ha caducado. Inténtalo nuevamente.",
-    "nl": "De link is verouderd. Probeer het opnieuw."
+    "nl": "De link is verouderd. Probeer het opnieuw.",
+    "br": "Diamzeret eo al liamm. Klaskit en-dro."
   },
   "passwordUpdated": {
     "en": "Your password has been updated.",
@@ -89,6 +98,7 @@ module.exports = {
     "io": "crwdns13080:0crwdne13080:0",
     "oc": "Vòstre senhal es estat mes a jorn.",
     "es": "Su contraseña ha sido actualizada.",
-    "nl": "Uw wachtwoord is bijgewerkt."
+    "nl": "Uw wachtwoord is bijgewerkt.",
+    "br": "Hizivaet eo bet ho ker-tremen."
   }
 };

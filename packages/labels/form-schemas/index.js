@@ -9,7 +9,8 @@ module.exports = {
     "it": "Campo obbligatorio",
     "io": "crwdns14882:0crwdne14882:0",
     "oc": "Camp obligatòri",
-    "nl": "Verplicht veld"
+    "nl": "Verplicht veld",
+    "br": "Maezienn ret"
   },
   "groupErrorHeader": {
     "fr": "Certaines saisies doivent être corrigées",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Alcune voci devono essere corrette",
     "io": "crwdns14884:0crwdne14884:0",
     "oc": "Cal corregir d'unas valors",
-    "nl": "Sommige waarden moeten worden gecorrigeerd"
+    "nl": "Sommige waarden moeten worden gecorrigeerd",
+    "br": "Talvoudoù 'zo a rank bezañ reizhet"
   },
   "submit": {
     "fr": "Enregistrer",
@@ -51,7 +53,8 @@ module.exports = {
     "it": "Nessuna scelta",
     "io": "crwdns14890:0crwdne14890:0",
     "oc": "Pas cap causida",
-    "nl": "Geen keuze"
+    "nl": "Geen keuze",
+    "br": "Dibab ebet"
   },
   "noOption": {
     "fr": "Pas de correspondance",
@@ -60,7 +63,8 @@ module.exports = {
     "it": "Nessuna corrispondenza",
     "oc": "Pas cap correspondéncia",
     "es": "Sin correspondencias",
-    "nl": "Geen overeenkomst"
+    "nl": "Geen overeenkomst",
+    "br": "Klotadenn ebet"
   },
   "selectPlaceholder": {
     "fr": "Sélectionner...",
@@ -69,7 +73,8 @@ module.exports = {
     "it": "Seleziona...",
     "oc": "Causir...",
     "es": "Seleccionar...",
-    "nl": "Selecteren..."
+    "nl": "Selecteren...",
+    "br": "Diuzañ..."
   },
   "cancel": {
     "en": "Cancel",

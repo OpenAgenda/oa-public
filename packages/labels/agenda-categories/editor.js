@@ -9,7 +9,8 @@ module.exports = {
     "it": "la categoria non può essere vuota",
     "io": "crwdns11444:0crwdne11444:0",
     "oc": "la categoria pòt pas èsser voida",
-    "nl": "de categorienaam mag niet leeg zijn"
+    "nl": "de categorienaam mag niet leeg zijn",
+    "br": "n'hall ket ar rummad bezañ goullo"
   },
   "duplicate": {
     "en": "this category already exists",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "questa categoria esiste già",
     "io": "crwdns11446:0crwdne11446:0",
     "oc": "aquesta categoria existís ja",
-    "nl": "deze categorie bestaat al"
+    "nl": "deze categorie bestaat al",
+    "br": "ar rummad-mañ a zo anezhañ dija"
   },
   "categories": {
     "en": "Categories",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Categorie",
     "io": "crwdns11448:0crwdne11448:0",
     "oc": "Categorias",
-    "nl": "Categorieën"
+    "nl": "Categorieën",
+    "br": "Rummadoù"
   },
   "subtitle": {
     "en": "Categories form a single selection list",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Le categorie formano un elenco a scelta unica",
     "io": "crwdns11450:0crwdne11450:0",
     "oc": "Las categorias fòrman una tièra de causida unica",
-    "nl": "Categorieën vormen een lijst met enkele keuze"
+    "nl": "Categorieën vormen een lijst met enkele keuze",
+    "br": "Ar rummadoù a ra ul listenn gant un dibab hepken"
   },
   "listName": {
     "en": "Name of the list",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "Nome della lista",
     "io": "crwdns11452:0crwdne11452:0",
     "oc": "Nom de la tièra",
-    "nl": "Naam van de lijst"
+    "nl": "Naam van de lijst",
+    "br": "Anv al listenn"
   },
   "listInfo": {
     "en": "Information field",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "Campo indicativo",
     "io": "crwdns11454:0crwdne11454:0",
     "oc": "Camp d'informacion",
-    "nl": "Informatieveld"
+    "nl": "Informatieveld",
+    "br": "Maezienn ditouroù"
   },
   "listSection": {
     "en": "Agenda categories",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "Categorie del diario",
     "io": "crwdns11456:0crwdne11456:0",
     "oc": "Categorias de l'agenda",
-    "nl": "Agendacategorieën"
+    "nl": "Agendacategorieën",
+    "br": "Rummadoù an deiziadur"
   },
   "add": {
     "en": "Add",
@@ -79,7 +86,8 @@ module.exports = {
     "it": "Aggiungere",
     "io": "crwdns11458:0crwdne11458:0",
     "oc": "Apondre",
-    "nl": "Toevoegen"
+    "nl": "Toevoegen",
+    "br": "Ouzhpennañ"
   },
   "noCategories": {
     "en": "You haven't yet defined any category for this agenda",
@@ -89,7 +97,8 @@ module.exports = {
     "it": "Non avete ancora definito alcuna categoria per questo agenda",
     "io": "crwdns11460:0crwdne11460:0",
     "oc": "Avètz pas encara definit cap categoria per aquesta agenda",
-    "nl": "U heeft nog geen categorieën gedefinieerd voor deze agenda"
+    "nl": "U heeft nog geen categorieën gedefinieerd voor deze agenda",
+    "br": "N'ho peus ket c'hoazh termenet rummad ebet evit an deiziadur-mañ"
   },
   "linkError": {
     "en": "An error occurred while saving your data. Please try again later",
@@ -99,7 +108,8 @@ module.exports = {
     "it": "Si è verificato un errore durante il salvataggio dei dati. Si prega di riprovare a breve",
     "io": "crwdns11462:0crwdne11462:0",
     "oc": "I aguèt una error pendent l'enregistrament de vòstras donadas. Mercés de tornar ensajar mai tard",
-    "nl": "Er is een fout opgetreden bij het opslaan van uw gegevens. Probeer het later opnieuw"
+    "nl": "Er is een fout opgetreden bij het opslaan van uw gegevens. Probeer het later opnieuw",
+    "br": "Ur fazi a zo c'hoarvezet en ur enrollañ ho roadennoù. Klaskit en-dro diwezhatoc'h mar plij"
   },
   "cancelUpdateTag": {
     "en": "Cancel",
@@ -120,7 +130,8 @@ module.exports = {
     "it": "Ok",
     "io": "crwdns11466:0crwdne11466:0",
     "oc": "Ok",
-    "nl": "Oké"
+    "nl": "Oké",
+    "br": "Mat eo"
   },
   "required": {
     "en": "Make required. One category must be selected.",
@@ -130,6 +141,7 @@ module.exports = {
     "it": "Rendetelo obbligatorio. Deve essere selezionata una categoria.",
     "io": "crwdns11468:0crwdne11468:0",
     "oc": "Rendre obligatòri. Caldrà seleccionar una categoria.",
-    "nl": "Verplicht maken. Er moet een categorie worden geselecteerd."
+    "nl": "Verplicht maken. Er moet een categorie worden geselecteerd.",
+    "br": "Lakaat da ret. Ur rummad a ranko bezañ diuzet."
   }
 }

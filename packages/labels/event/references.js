@@ -9,7 +9,8 @@ module.exports = {
     "it": "Eventi correlati",
     "io": "crwdns14368:0crwdne14368:0",
     "oc": "Eveniments ligats",
-    "nl": "Gerelateerde evenementen"
+    "nl": "Gerelateerde evenementen",
+    "br": "Darvoudoù kevelet"
   },
   "editorInfo": {
     "fr": "Liez d'autres événements de l'agenda à votre événement",
@@ -19,7 +20,8 @@ module.exports = {
     "it": "Collega altri eventi in agenda al tuo evento",
     "io": "crwdns14370:0crwdne14370:0",
     "oc": "Ligatz d'autres eveniments de l'agenda a vòstre eveniment",
-    "nl": "Koppel andere evenementen van de agenda aan uw evenement"
+    "nl": "Koppel andere evenementen van de agenda aan uw evenement",
+    "br": "Liammañ darvoudoù all eus an deiziataer ouzh ho tarvoud"
   },
   "showTitle": {
     "fr": "Voir aussi",
@@ -29,7 +31,8 @@ module.exports = {
     "it": "Vedere anche",
     "io": "crwdns14372:0crwdne14372:0",
     "oc": "Véser tanben",
-    "nl": "Zie ook"
+    "nl": "Zie ook",
+    "br": "Gwelet ivez"
   },
   "emptyReferences": {
     "fr": "Aucun événement lié n'est encore défini",
@@ -39,7 +42,8 @@ module.exports = {
     "it": "Non sono ancora stati definiti eventi correlati",
     "io": "crwdns14374:0crwdne14374:0",
     "oc": "I a actualament pas d'eveniments ligats",
-    "nl": "Er zijn nog geen gekoppelde evenementen gedefinieerd"
+    "nl": "Er zijn nog geen gekoppelde evenementen gedefinieerd",
+    "br": "N'eus bet termenet darvoud liammet ebet c'hoazh"
   },
   "emptySearch": {
     "fr": "Aucun résultat pour cette recherche",
@@ -49,7 +53,8 @@ module.exports = {
     "it": "Nessun risultato per questa ricerca",
     "io": "crwdns14376:0crwdne14376:0",
     "oc": "Pas de resultat per aquesta recerca",
-    "nl": "Geen resultaat voor deze zoekopdracht"
+    "nl": "Geen resultaat voor deze zoekopdracht",
+    "br": "Disoc'h ebet evit an enklask-mañ"
   },
   "addEvent": {
     "fr": "Ajouter un événement",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "Aggiungere un evento",
     "io": "crwdns14378:0crwdne14378:0",
     "oc": "Apondre un eveniment",
-    "nl": "Een evenement toevoegen"
+    "nl": "Een evenement toevoegen",
+    "br": "Ouzhpennañ un darvoud"
   },
   "addEventOr": {
     "fr": "ou",
@@ -69,7 +75,8 @@ module.exports = {
     "it": "oppure",
     "io": "crwdns14380:0crwdne14380:0",
     "oc": "o",
-    "nl": "of"
+    "nl": "of",
+    "br": "pe"
   },
   "addEventSuggest": {
     "fr": "Charger des événements similaires",
@@ -79,7 +86,8 @@ module.exports = {
     "it": "Caricare eventi simili",
     "io": "crwdns14382:0crwdne14382:0",
     "oc": "Cargar d'eveniments similars",
-    "nl": "Soortgelijke evenementen laden"
+    "nl": "Soortgelijke evenementen laden",
+    "br": "Kargañ darvoudoù heñvel"
   },
   "search": {
     "fr": "Chercher via titre ou lieu",
@@ -89,7 +97,8 @@ module.exports = {
     "it": "Ricerca per titolo o luogo",
     "io": "crwdns14384:0crwdne14384:0",
     "oc": "Cercar per títol o per nom de lòc",
-    "nl": "Zoeken op titel of locatie"
+    "nl": "Zoeken op titel of locatie",
+    "br": "Klask dre ditl pe anv al lec'h"
   },
   "searchResultTitle": {
     "fr": "Résultats de la recherche",
@@ -99,7 +108,8 @@ module.exports = {
     "it": "Risultati della ricerca",
     "io": "crwdns14386:0crwdne14386:0",
     "oc": "Resultats de recerca",
-    "nl": "Zoekresultaten"
+    "nl": "Zoekresultaten",
+    "br": "Disoc'hoù an enklask"
   },
   "suggestionResultTitle": {
     "fr": "Suggestions d'événements similaires",
@@ -109,7 +119,8 @@ module.exports = {
     "it": "Suggerimenti per eventi simili",
     "io": "crwdns14388:0crwdne14388:0",
     "oc": "Suggestions d'eveniments similars",
-    "nl": "Suggesties voor soortgelijke evenementen"
+    "nl": "Suggesties voor soortgelijke evenementen",
+    "br": "Kinnigoù darvoudoù heñvel"
   },
   "nothingToSuggestTitle": {
     "fr": "Événements similaires",
@@ -119,7 +130,8 @@ module.exports = {
     "it": "Eventi simili",
     "io": "crwdns14390:0crwdne14390:0",
     "oc": "Eveniments similars",
-    "nl": "Soortgelijke evenementen"
+    "nl": "Soortgelijke evenementen",
+    "br": "Darvoudoù heñvel"
   },
   "nothingToSuggest": {
     "fr": "Des événements similaires ne peuvent être chargés que si vous avez entamé la saisie de votre événement!",
@@ -129,7 +141,8 @@ module.exports = {
     "it": "Eventi simili possono essere caricati solo se avete iniziato a partecipare al vostro evento!",
     "io": "crwdns14392:0crwdne14392:0",
     "oc": "Los eveniments similars se pòdon cargar pas que s'avètz ja emplit lo formulari d'eveniment",
-    "nl": "Soortgelijke evenementen kunnen alleen worden geladen als u al begonnen bent met het invullen van uw evenement"
+    "nl": "Soortgelijke evenementen kunnen alleen worden geladen als u al begonnen bent met het invullen van uw evenement",
+    "br": "Ne c'haller kargañ darvoudoù heñvel nemet ma'z eus bet kroget da leuniañ ho tarvoud ganeoc'h"
   },
   "noSuggestionsTitle": {
     "fr": "Événements similaires",
@@ -139,7 +152,8 @@ module.exports = {
     "it": "Eventi simili",
     "io": "crwdns14394:0crwdne14394:0",
     "oc": "Eveniments similars",
-    "nl": "Soortgelijke evenementen"
+    "nl": "Soortgelijke evenementen",
+    "br": "Darvoudoù heñvel"
   },
   "noSuggestions": {
     "fr": "Aucun événement similaire n'a été trouvé",
@@ -149,7 +163,8 @@ module.exports = {
     "it": "Non sono stati trovati eventi simili",
     "io": "crwdns14396:0crwdne14396:0",
     "oc": "Pas cap eveniment similar trobat",
-    "nl": "Geen soortgelijk evenement gevonden"
+    "nl": "Geen soortgelijk evenement gevonden",
+    "br": "N'eus bet kavet darvoud heñvel ebet"
   },
   "noOtherSuggestionsTitle": {
     "fr": "Événements similaires",
@@ -159,7 +174,8 @@ module.exports = {
     "it": "Eventi simili",
     "io": "crwdns14398:0crwdne14398:0",
     "oc": "Eveniments similars",
-    "nl": "Soortgelijke evenementen"
+    "nl": "Soortgelijke evenementen",
+    "br": "Darvoudoù heñvel"
   },
   "noOtherSuggestions": {
     "fr": "Aucun autre événement similaire n'a été trouvé",
@@ -169,6 +185,7 @@ module.exports = {
     "it": "Non sono stati trovati altri eventi simili",
     "io": "crwdns14400:0crwdne14400:0",
     "oc": "Pas d'autre eveniment similar trobat",
-    "nl": "Geen ander soortgelijk evenement gevonden"
+    "nl": "Geen ander soortgelijk evenement gevonden",
+    "br": "N'eus bet kavet darvoud heñvel all ebet"
   }
 }

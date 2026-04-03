@@ -1,4 +1,12 @@
 {
+  "actionDescription": "Gwelet an darvoud",
+  "body": "Kemmet eo bet ho tarvoud <b>{event}</b> war an deiziataer <b>{agenda}</b>.",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "controlled": "prest da vezañ embannet",
+  "memberUnsubscribe": "Paouez da zegemer kadarnaat kemmoù ho tarvoudoù war an deiziataer-mañ",
   "published": "embannet",
-  "refused": "nac'het"
+  "refused": "nac'het",
+  "title": "Kemmet eo bet ho tarvoud {event} war {agenda}",
+  "tocontrol": "da gontrollañ",
+  "unsubscribe": "Paouez da zegemer kadarnaat kemmoù ho tarvoudoù"
 }
