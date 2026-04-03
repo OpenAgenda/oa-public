@@ -17,7 +17,9 @@
     "extract-messages": "oa-intl --esm"
   },
   "dependencies": {
-    "@dnd-kit/react": "^0.0.9",
+    "@dnd-kit/core": "^6.3.1",
+    "@dnd-kit/modifiers": "^9.0.0",
+    "@dnd-kit/sortable": "^10.0.0",
     "@openagenda/event-search": "^2.8.2",
     "@openagenda/intl": "^1.1.6",
     "@openagenda/react-filters": "^2.13.5",

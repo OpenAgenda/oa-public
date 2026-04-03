@@ -1,11 +1,26 @@
 import { useCallback, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import useLatestModule from 'react-use/lib/useLatest.js';
-import { DragDropProvider } from '@dnd-kit/react';
-import { useSortable } from '@dnd-kit/react/sortable';
-import { Modal } from '@openagenda/react-shared';
+import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable,
+} from '@dnd-kit/sortable';
+import { restrictToVerticalAxis } from '@dnd-kit/modifiers';
+import { Modal, dragAndDrop } from '@openagenda/react-shared';
 import { useSelector } from 'react-redux';
 import useChartTitle from '../hooks/useChartTitle.js';
+
+const { arrayMove } = dragAndDrop;
 
 const useLatest = useLatestModule.default || useLatestModule;
 
@@ -62,10 +77,32 @@ function Separator() {
   return <em>{intl.formatMessage(messages.separator)}</em>;
 }
 
-function ListItem({ stat, index }) {
-  const { ref } = useSortable({ id: stat.id, index });
+function ListItem({ stat }) {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging,
+  } = useSortable({ id: stat.id });
+
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    transition,
+    zIndex: isDragging ? 100 : 'auto',
+  };
+
   return (
-    <li className="list-group-item draggable" ref={ref}>
+    <li
+      className="list-group-item draggable"
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
       <div className="list-group-item-content draggable">
         {stat.chart ? <Chart stat={stat} /> : null}
         {stat.separator ? <Separator /> : null}
@@ -83,6 +120,17 @@ export default function OrderModal({ onSubmit, onClose }) {
     initialStats.filter((v) => v.chart || v.separator));
   const latestStats = useLatest(stats);
 
+  const sensors = useSensors(
+    useSensor(PointerSensor, {
+      activationConstraint: {
+        distance: 8,
+      },
+    }),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    }),
+  );
+
   const handleSubmit = useCallback(() => {
     onSubmit(latestStats.current.map((stat) => stat.id));
     onClose();
@@ -98,20 +146,29 @@ export default function OrderModal({ onSubmit, onClose }) {
       disableBodyScroll
     >
       <div className="margin-top-sm">
-        <DragDropProvider
+        <DndContext
+          sensors={sensors}
+          collisionDetection={closestCenter}
+          modifiers={[restrictToVerticalAxis]}
           onDragEnd={(event) => {
-            const from = event.operation.source.sortable.initialIndex;
-            const to = event.operation.source.sortable.previousIndex;
-            const tempStats = [...latestStats.current];
-            const [itemToMove] = tempStats.splice(from, 1);
-            tempStats.splice(to, 0, itemToMove);
-            setStats(tempStats);
+            const { active, over } = event;
+            if (active.id !== over?.id) {
+              const ids = latestStats.current.map((s) => s.id);
+              const oldIndex = ids.indexOf(active.id);
+              const newIndex = ids.indexOf(over.id);
+              setStats(arrayMove(latestStats.current, oldIndex, newIndex));
+            }
           }}
         >
-          {stats.map((stat, index) => (
-            <ListItem key={stat.id} stat={stat} index={index} />
-          ))}
-        </DragDropProvider>
+          <SortableContext
+            items={stats.map((s) => s.id)}
+            strategy={verticalListSortingStrategy}
+          >
+            {stats.map((stat) => (
+              <ListItem key={stat.id} stat={stat} />
+            ))}
+          </SortableContext>
+        </DndContext>
       </div>
 
       <div className="text-center margin-top-md">
