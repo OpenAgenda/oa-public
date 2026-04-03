@@ -1,7 +1,7 @@
 {
   "next.components.Strapi.LoggedUserWelcome.dashboard": "je dashboard",
   "next.components.Strapi.LoggedUserWelcome.defaultUser": "gebruiker",
-  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Je bent aangemeld bij je account **{email}**. Bekijk je agenda’s, evenementen en berichten op [je dashboard](/home).",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Je bent aangemeld bij je account {email}. Bekijk je agenda’s, evenementen en berichten op {dashboard}.",
   "next.components.Strapi.LoggedUserWelcome.welcome": "Welkom {firstName}!",
   "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.addEvent": "Een evenement toevoegen",

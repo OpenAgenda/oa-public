@@ -14,7 +14,7 @@
   "next.components.Strapi.LoggedUserWelcome.loggedIn": [
     {
       "type": 0,
-      "value": "Je bent aangemeld bij je account **"
+      "value": "Je bent aangemeld bij je account "
     },
     {
       "type": 1,
@@ -22,7 +22,15 @@
     },
     {
       "type": 0,
-      "value": "**. Bekijk je agenda’s, evenementen en berichten op [je dashboard](/home)."
+      "value": ". Bekijk je agenda’s, evenementen en berichten op "
+    },
+    {
+      "type": 1,
+      "value": "dashboard"
+    },
+    {
+      "type": 0,
+      "value": "."
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.welcome": [

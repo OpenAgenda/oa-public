@@ -14,7 +14,7 @@
   "next.components.Strapi.LoggedUserWelcome.loggedIn": [
     {
       "type": 0,
-      "value": "Sètz connectat a vòstre compte **"
+      "value": "Sètz connectat a vòstre compte "
     },
     {
       "type": 1,
@@ -22,7 +22,15 @@
     },
     {
       "type": 0,
-      "value": "**. Trobatz vòstres agendas, eveniments e messatges sus [vòstre taulèu de bòrd](/home)."
+      "value": ". Trobatz vòstres agendas, eveniments e messatges sus "
+    },
+    {
+      "type": 1,
+      "value": "dashboard"
+    },
+    {
+      "type": 0,
+      "value": "."
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.welcome": [

@@ -14,7 +14,7 @@
   "next.components.Strapi.LoggedUserWelcome.loggedIn": [
     {
       "type": 0,
-      "value": "Zure kontuan saioa hasi duzu **"
+      "value": "Zure kontuan saioa hasi duzu "
     },
     {
       "type": 1,
@@ -22,7 +22,15 @@
     },
     {
       "type": 0,
-      "value": "**. Zure agendak, gertakariak eta mezuak aurkituko dituzu [zure kontrol-panela](/home) orrian."
+      "value": ". Zure agendak, gertakariak eta mezuak aurkituko dituzu "
+    },
+    {
+      "type": 1,
+      "value": "dashboard"
+    },
+    {
+      "type": 0,
+      "value": " orrian."
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.welcome": [
