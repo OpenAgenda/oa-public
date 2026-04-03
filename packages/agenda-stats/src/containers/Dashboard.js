@@ -130,7 +130,25 @@ function Dashboard() {
   const error = useSelector((state) => _.get(state, 'stats.error'));
   const totalEvents = useSelector((state) => state.stats.totalEvents);
   const editing = useSelector((state) => state.stats.editing);
+  const saving = useSelector((state) => state.stats.saving);
   const stats = useSelector((state) => state.stats.data);
+  const hasChanges = useSelector(
+    (state) => !_.isEqual(state.stats.data, state.stats.dataBeforeEdit),
+  );
+
+  const [showSpinner, setShowSpinner] = useState(false);
+  const spinnerTimer = useRef(null);
+
+  useEffect(() => {
+    if (saving) {
+      setShowSpinner(true);
+      clearTimeout(spinnerTimer.current);
+      spinnerTimer.current = setTimeout(() => {
+        setShowSpinner(false);
+        dispatch(statsActions.setEditMode(false));
+      }, 500);
+    }
+  }, [saving, dispatch]);
 
   const latestStats = useLatest(stats);
 
@@ -353,7 +371,12 @@ function Dashboard() {
 
   const editButtons = editing ? (
     <>
-      <button type="button" className="btn btn-primary" onClick={save}>
+      <button
+        type="button"
+        className="btn btn-primary"
+        onClick={save}
+        disabled={saving || showSpinner || !hasChanges}
+      >
         {intl.formatMessage(messages.save)}
       </button>
       <button
@@ -450,6 +473,8 @@ function Dashboard() {
           <div className="margin-top-md text-right hidden-print">
             {editButtons}
           </div>
+
+          {saving || showSpinner ? <Spinner mode="page" /> : null}
 
           {orderModal.isOpen ? (
             <OrderModal onSubmit={onOrderChange} onClose={orderModal.close} />
