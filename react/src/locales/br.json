@@ -1,1 +1,27 @@
-{}
+{
+  "react.components.AgendaExportModal.PDFDownload": "Pellgargañ",
+  "react.components.AgendaExportModal.cancel": "Nullañ",
+  "react.components.AgendaExportModal.close": "Serriñ",
+  "react.components.AgendaExportModal.copied": "Eilet",
+  "react.components.AgendaExportModal.copy": "Kopiañ",
+  "react.components.AgendaExportModal.selectAll": "Diuzañ pep tra",
+  "react.components.AgendaExportModal.title": "Ezporzhiañ",
+  "react.components.EventShareModal.copied": "Eilet",
+  "react.components.EventShareModal.copy": "Kopiañ",
+  "react.components.EventShareModal.downloadButton": "Pellgargañ",
+  "react.components.EventShareModal.import": "Enporzhiañ",
+  "react.components.EventShareModal.mustSignIn": "Ret eo deoc'h kevreañ evit rannañ an darvoud-mañ en un deiziataer all",
+  "react.components.EventShareModal.onOA": "War OpenAgenda",
+  "react.components.EventShareModal.online": "Enlinenn",
+  "react.components.EventShareModal.selectTiming": "Diuzañ un eurvezh",
+  "react.components.EventShareModal.send": "Kas",
+  "react.components.EventShareModal.shareByEmail": "Skignañ dre bostel",
+  "react.components.EventShareModal.shareByEmailPlaceholder": "Lakait ar chomlec'hioù postel ma fell deoc'h kas an darvoud dezho",
+  "react.components.EventShareModal.shareCalendar": "Enporzhiañ en un deiziataer personel",
+  "react.components.EventShareModal.shareLink": "Skignañ al liamm",
+  "react.components.EventShareModal.shareOnSocialNetworks": "War ar rouedadoù sokial",
+  "react.components.EventShareModal.signIn": "Kevreañ",
+  "react.components.LockIcon.privateAgenda": "Deiziataer prevez",
+  "react.components.OfficialAgenda.officialAgenda": "Deiziataer ofisiel",
+  "react.components.SearchInput.ariaLabel": "Klask"
+}

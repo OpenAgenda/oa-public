@@ -1,1 +1,10 @@
-{}
+{
+  "rtp.multiRecurrencerForm.day": "deiz",
+  "rtp.multiRecurrencerForm.month": "miz",
+  "rtp.multiRecurrencerForm.submit": "Hizivaat",
+  "rtp.multiRecurrencerForm.week": "sizhun",
+  "rtp.recurrencerForm.day": "deiz",
+  "rtp.recurrencerForm.month": "miz",
+  "rtp.recurrencerForm.submit": "Hizivaat",
+  "rtp.recurrencerForm.week": "sizhun"
+}

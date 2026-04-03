@@ -1,1 +1,17 @@
-{}
+{
+  "common.event.fields.accessibility": "Monedusted",
+  "common.event.fields.age": "Oad an dud a glasker tizhout",
+  "common.event.fields.attendanceMode": "Doare perzhiañ",
+  "common.event.fields.conditions": "Divizoù",
+  "common.event.fields.description": "Deskrivadur berr",
+  "common.event.fields.image": "Skeudenn",
+  "common.event.fields.imageCredits": "Perc'henn ar skeudenn",
+  "common.event.fields.keywords": "Gerioù-alc'hwez",
+  "common.event.fields.location": "Lec'h",
+  "common.event.fields.longDescription": "Deskrivadur hir",
+  "common.event.fields.onlineAccessLink": "Liamm moned",
+  "common.event.fields.registration": "En em enskrivañ",
+  "common.event.fields.status": "Statud",
+  "common.event.fields.timings": "Eurioù",
+  "common.event.fields.title": "Titl"
+}
