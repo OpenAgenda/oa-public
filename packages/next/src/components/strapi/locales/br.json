@@ -1,7 +1,7 @@
 {
   "next.components.Strapi.LoggedUserWelcome.dashboard": "ho taolenn-stur",
   "next.components.Strapi.LoggedUserWelcome.defaultUser": "implijer",
-  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Kevreet oc'h out ouzh ho kont **{email}**. Kavit hoc'h agendoù, darvoudoù ha kemennadennoù war [ho taolenn-stur](/home).",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "Kevreet oc'h out ouzh ho kont {email}. Kavit hoc'h agendoù, darvoudoù ha kemennadennoù war {dashboard}.",
   "next.components.Strapi.LoggedUserWelcome.welcome": "Degemer mat {firstName}!",
   "next.components.Strapi.ReferenceItem.more": "",
   "next.components.Strapi.addEvent": "",

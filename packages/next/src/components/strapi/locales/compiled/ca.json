@@ -14,7 +14,7 @@
   "next.components.Strapi.LoggedUserWelcome.loggedIn": [
     {
       "type": 0,
-      "value": "Heu iniciat sessió al vostre compte **"
+      "value": "Heu iniciat sessió al vostre compte "
     },
     {
       "type": 1,
@@ -22,7 +22,15 @@
     },
     {
       "type": 0,
-      "value": "**. Trobeu les vostres agendes, esdeveniments i missatges a [el vostre tauler de control](/home)."
+      "value": ". Trobeu les vostres agendes, esdeveniments i missatges a "
+    },
+    {
+      "type": 1,
+      "value": "dashboard"
+    },
+    {
+      "type": 0,
+      "value": "."
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.welcome": [

@@ -210,6 +210,7 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         editing: !!action.editing,
+        saving: false,
         data: !action.editing ? _.clone(state.dataBeforeEdit) : state.data,
         dataBeforeEdit: action.editing
           ? _.clone(state.data)
@@ -264,11 +265,23 @@ export default function reducer(state = initialState, action = {}) {
         ],
       };
     }
+    case SAVE: {
+      return {
+        ...state,
+        saving: true,
+      };
+    }
     case SAVE_SUCCESS: {
       return {
         ...state,
-        editing: false,
-        dataBeforeEdit: null,
+        saving: false,
+        dataBeforeEdit: state.data,
+      };
+    }
+    case SAVE_FAIL: {
+      return {
+        ...state,
+        saving: false,
       };
     }
     case REORDER_STATS: {
