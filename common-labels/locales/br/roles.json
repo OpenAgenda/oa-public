@@ -1,1 +1,6 @@
-{}
+{
+  "common.roles.administrator": "Merour",
+  "common.roles.contributor": "Kenlabourer",
+  "common.roles.moderator": "Habaskour",
+  "common.roles.reader": "Lenner"
+}
