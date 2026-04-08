@@ -101,4 +101,8 @@ export default defineMessages({
     id: 'ReactFilters.messages.filterTitles.valid',
     defaultMessage: 'Compliance',
   },
+  age: {
+    id: 'ReactFilters.messages.filterTitles.age',
+    defaultMessage: 'Age',
+  },
 });

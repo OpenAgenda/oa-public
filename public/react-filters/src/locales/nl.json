@@ -51,6 +51,7 @@
   "ReactFilters.messages.choiceFilter.unrecognizedOption": "Onbekende filterwaarde ({value})",
   "ReactFilters.messages.featured.featured": "Uitgelicht",
   "ReactFilters.messages.filterTitles.accessibility": "Toegankelijkheid",
+  "ReactFilters.messages.filterTitles.age": "Leeftijd",
   "ReactFilters.messages.filterTitles.addMethod": "Herkomst",
   "ReactFilters.messages.filterTitles.adminLevel3": "Administratief niveau 3",
   "ReactFilters.messages.filterTitles.attendanceMode": "Anwesenheitsmodus",

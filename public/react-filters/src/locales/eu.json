@@ -1,5 +1,6 @@
 {
   "ReactFilters.messages.filterTitles.valid": "Betetze-maila",
+  "ReactFilters.messages.filterTitles.age": "Adina",
   "ReactFilters.messages.valid.invalid": "Ez da betetzen",
   "ReactFilters.messages.valid.undefined": "Definitu gabe",
   "ReactFilters.messages.valid.valid": "Betetzen du"

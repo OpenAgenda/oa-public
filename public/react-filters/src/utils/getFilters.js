@@ -37,6 +37,7 @@ export default function getFilters(intl, fields, opts = {}) {
     { name: 'status' },
     { name: 'accessibility' },
     { name: 'valid' },
+    { name: 'age' },
   ];
 
   const defaultSortFilters = standardFilters
