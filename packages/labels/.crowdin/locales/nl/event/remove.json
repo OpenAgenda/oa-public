@@ -1,0 +1,9 @@
+{
+  "confirm": "Bevestigen",
+  "eventDeleteDetails": "Weet u zeker dat u dit evenement wilt verwijderen? Het wordt definitief verwijderd uit alle OpenAgenda agenda's.",
+  "eventDeleteTitle": "Een evenement verwijderen",
+  "eventDeleted": "Het evenement is definitief verwijderd",
+  "eventRemoveDetails": "Weet u zeker dat u dit wilt doen? Als u het evenement uit deze agenda verwijdert, wordt het niet meer vermeld in de exports en wordt het verwijderd uit elke agenda die uw evenementen aggregeert",
+  "eventRemoveTitle": "Een evenement uit de agenda verwijderen",
+  "eventRemoved": "Het evenement is uit de agenda verwijderd"
+}

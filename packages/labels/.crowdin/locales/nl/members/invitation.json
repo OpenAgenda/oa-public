@@ -1,0 +1,14 @@
+{
+  "administrator": "beheerder",
+  "contributor": "bijdrager",
+  "emailDescription": "U bent uitgenodigd om bij te dragen aan de agenda **%title%** als **%credential%**",
+  "emailInscription": "Account aanmaken",
+  "emailShowAgenda": "Agenda bekijken",
+  "emailSignup": "Aanmelden",
+  "emailSubject": "Uitnodiging voor een agenda",
+  "emailTitle": "U bent uitgenodigd om bij te dragen aan de agenda %title%",
+  "emailTitleForExistantUser": "U bent %credential% geworden van de agenda %title%",
+  "moderator": "moderator",
+  "newMessage": "De agenda %agenda% heeft u een bericht gestuurd",
+  "reader": "lezer"
+}

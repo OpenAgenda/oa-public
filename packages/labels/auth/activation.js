@@ -10,7 +10,8 @@ module.exports = {
     "es": "El correo electrónico de activación ha sido reenviado",
     "br": "Emeur o kas ar postel gweredekaat adarre",
     "io": "crwdns13036:0crwdne13036:0",
-    "oc": "L'email d'activacion es a se tornar mandar"
+    "oc": "L'email d'activacion es a se tornar mandar",
+    "nl": "De activeringsmail wordt opnieuw verzonden"
   },
   "sendActivateOnSigninAttempt": {
     "en": "Your account is not activated. Click on the link contained in the activation email that was just sent to you.",
@@ -28,7 +29,8 @@ module.exports = {
     "es": "Averigua sus correos electrónicos para validar el enlace de activación",
     "br": "Klikit war al liamm da validañ en ho poest-lizheroù",
     "io": "crwdns13038:0crwdne13038:0",
-    "oc": "Gaitatz lo ligam de validacion dins vòstres emails"
+    "oc": "Gaitatz lo ligam de validacion dins vòstres emails",
+    "nl": "Klik op de validatielink in je inbox"
   },
   "checkEmailInstruction": {
     "en": "An email is being set containing the activation link for your account to the email address indicated here below. Check your inbox to complete your account creation process.",
@@ -39,7 +41,8 @@ module.exports = {
     "es": "Un correo electrónico con un enlace de activación para su cuenta será enviado en breve. Averigua su bandeja de entrada para completar su registro.",
     "br": "A-benn nebeut e vo kaset deoc'h ur postel gant al liamm da weredekaat ho kont. Sellit e-barzh ho poest-degemer evit echuiñ hoc'h enskrivadur.",
     "io": "crwdns13040:0crwdne13040:0",
-    "oc": "Un email vos serà mandat lèu amb lo ligam d'activacion pel vòstre compte. Gaitatz dins vòstre boita per acabar lo procèssus de creacion de compte."
+    "oc": "Un email vos serà mandat lèu amb lo ligam d'activacion pel vòstre compte. Gaitatz dins vòstre boita per acabar lo procèssus de creacion de compte.",
+    "nl": "Er wordt zo meteen een e-mail met de activeringslink voor je account verzonden. Controleer je inbox om je inschrijving te voltooien."
   },
   "didNotReceive": {
     "en": "<b>Didn't receive any mail?</b><br>1. Double-check the spelling of your email.<br/>2. Check your spam folder<br/> 3. %resend% <br/> 4. write us at %support%",
@@ -50,7 +53,8 @@ module.exports = {
     "es": "<b>¿No ha recibido ningún correo electrónico?</b><br>1. Averigua la ortografía del correo electrónico registrado.<br/>2. Averigua su carpeta de correos no deseados<br/> 3.%resend%<br/> Contacta el soporte a %support% ",
     "br": "N'ho peus resevet postel ebet ? %resend% pe skrivit deomp da %support%",
     "io": "crwdns13042:0%resend%crwdnd13042:0%support%crwdne13042:0",
-    "oc": "Avètz pas recebut cap email ? %resend% o escrivètz-nos a %support%"
+    "oc": "Avètz pas recebut cap email ? %resend% o escrivètz-nos a %support%",
+    "nl": "Geen e-mail ontvangen? %resend% of schrijf ons op %support%"
   },
   "resend": {
     "en": "Click here to resend",
@@ -61,7 +65,8 @@ module.exports = {
     "es": "Haz clic aquí para volver a enviar",
     "br": "Klikit amañ evit adkas",
     "io": "crwdns13044:0crwdne13044:0",
-    "oc": "Clicatz aicí per tornar mandar"
+    "oc": "Clicatz aicí per tornar mandar",
+    "nl": "Klik hier om opnieuw te verzenden"
   },
   "stayUpToDate": {
     "en": "Stay up to date with what is going on with OpenAgenda!",
@@ -72,7 +77,8 @@ module.exports = {
     "es": "¡Mantente al tanto de las novedades OpenAgenda!",
     "br": "Gouezit diouzh ar pezh a c'hoarvez gant OpenAgenda !",
     "io": "crwdns13046:0crwdne13046:0",
-    "oc": "Demoratz al fial de çò que se passa amb OpenAgenda !"
+    "oc": "Demoratz al fial de çò que se passa amb OpenAgenda !",
+    "nl": "Blijf op de hoogte van wat er gebeurt bij OpenAgenda!"
   },
   "followUs": {
     "en": "Follow us",
@@ -83,7 +89,8 @@ module.exports = {
     "es": "Síguenos",
     "br": "Heulhit ac'hanomp",
     "io": "crwdns13048:0crwdne13048:0",
-    "oc": "Seguissètz-nos"
+    "oc": "Seguissètz-nos",
+    "nl": "Volg ons"
   },
   "followUsOnLinkedIn": {
     "en": "Follow us on LinkedIn",
@@ -108,7 +115,8 @@ module.exports = {
     "es": "Recibe nuestro boletín de información",
     "br": "Resevit hol lizher-kelaouiñ",
     "io": "crwdns13050:0crwdne13050:0",
-    "oc": "Recebètz nòstra letra d'informacions"
+    "oc": "Recebètz nòstra letra d'informacions",
+    "nl": "Ontvang onze nieuwsbrief"
   },
   "yourEmail": {
     "en": "Your email",
@@ -119,7 +127,8 @@ module.exports = {
     "es": "Tu correo electrónico",
     "br": "Ho postel",
     "io": "crwdns13052:0crwdne13052:0",
-    "oc": "Vòstre email"
+    "oc": "Vòstre email",
+    "nl": "Je e-mail"
   },
   "subscribe": {
     "en": "Subscribe",
@@ -130,6 +139,7 @@ module.exports = {
     "es": "Suscribirse",
     "br": "Koumanantit",
     "io": "crwdns13054:0crwdne13054:0",
-    "oc": "S'abonar"
+    "oc": "S'abonar",
+    "nl": "Abonneer je"
   }
 };

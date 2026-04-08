@@ -1,0 +1,34 @@
+{
+  "next.components.ConsentBanner.accept": [
+    {
+      "type": 0,
+      "value": "Accepteren"
+    }
+  ],
+  "next.components.ConsentBanner.decline": [
+    {
+      "type": 0,
+      "value": "Weigeren"
+    }
+  ],
+  "next.components.ConsentBanner.informationText": [
+    {
+      "type": 0,
+      "value": "Deze agenda gebruikt cookies van de "
+    },
+    {
+      "type": 1,
+      "value": "service"
+    },
+    {
+      "type": 0,
+      "value": " trackingdienst. Ze helpen de beheerders van de agenda om, door het verzamelen en communiceren van navigatie-informatie, te begrijpen hoe bezoekers interageren met de websites. Accepteert u ze?"
+    }
+  ],
+  "next.components.ConsentBanner.moreInfoLink": [
+    {
+      "type": 0,
+      "value": "Klik hier voor meer informatie"
+    }
+  ]
+}

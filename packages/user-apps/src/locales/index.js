@@ -11,4 +11,5 @@ export { default as eu } from './eu.json' with { type: 'json' };
 export { default as fr } from './fr.json' with { type: 'json' };
 export { default as io } from './io.json' with { type: 'json' };
 export { default as it } from './it.json' with { type: 'json' };
+export { default as nl } from './nl.json' with { type: 'json' };
 export { default as oc } from './oc.json' with { type: 'json' };

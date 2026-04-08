@@ -1,0 +1,8 @@
+{
+  "newAggregationAction": "Bekijk het evenement",
+  "newAggregationBody": "**%event%** van de agenda **%sourceAgenda%** is samengevoegd met de status **%state%**",
+  "newAggregationSubject": "%agenda% heeft een nieuw evenement samengevoegd: %event%",
+  "published": "gepubliceerd",
+  "readyToPublish": "klaar om te publiceren",
+  "toBeControlled": "te controleren"
+}

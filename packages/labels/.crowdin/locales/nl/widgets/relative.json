@@ -1,0 +1,13 @@
+{
+  "days": "dagen",
+  "months": "maanden",
+  "relativeToNowPast": "%count% %units% geleden",
+  "relativeToNowUpcoming": "over %count% %units%",
+  "thisMonth": "Deze maand",
+  "thisWeek": "Deze week",
+  "thisWeekend": "Dit weekend",
+  "today": "Vandaag",
+  "tomorrow": "Morgen",
+  "years": "jaren",
+  "yesterday": "Gisteren"
+}

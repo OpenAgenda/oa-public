@@ -8,7 +8,9 @@ module.exports = {
     "es": "Ruta",
     "it": "Itinerario",
     "io": "crwdns14668:0crwdne14668:0",
-    "oc": "Itinerari"
+    "oc": "Itinerari",
+    "nl": "Route",
+    "br": "Hent-bale"
   },
   "register": {
     "fr": "Outils d'inscription",
@@ -18,7 +20,8 @@ module.exports = {
     "it": "Registrazione",
     "br": "En em enskrivañ",
     "io": "crwdns14670:0crwdne14670:0",
-    "oc": "Reservacion"
+    "oc": "Reservacion",
+    "nl": "Inschrijvingstools"
   },
   "accessibility": {
     "fr": "Accessibilité",
@@ -27,6 +30,8 @@ module.exports = {
     "es": "Accesibilidad",
     "it": "Accessibilità",
     "io": "crwdns14672:0crwdne14672:0",
-    "oc": "Accessibilitat"
+    "oc": "Accessibilitat",
+    "nl": "Toegankelijkheid",
+    "br": "Monedusted"
   }
 };

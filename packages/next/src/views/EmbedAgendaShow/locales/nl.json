@@ -1,0 +1,8 @@
+{
+  "ReactFilters.EmbedAgendaShow.addEvent": "",
+  "ReactFilters.ValueBadge.removeFilter": "Filter verwijderen",
+  "ReactFilters.ValueBadge.removeFilterWithTitle": "Filter verwijderen ({title})",
+  "next.views.EmbedAgendaShow.export": "Exporteren",
+  "next.views.EmbedAgendaShow.search": "Zoeken",
+  "next.views.EmbedAgendaShow.seeMore": "Meer zien"
+}

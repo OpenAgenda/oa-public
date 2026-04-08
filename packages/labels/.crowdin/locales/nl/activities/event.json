@@ -1,0 +1,16 @@
+{
+  "agenda.addEvent": "{user} heeft {event} toegevoegd vanuit {sourceAgenda}.",
+  "agenda.aggregateEvent": "{agenda} heeft {event} geaggregeerd van {sourceAgenda}.",
+  "agenda.changeEventState": "{user} heeft {event} van \"{before}\" naar \"{after}\" verplaatst op {agenda}.",
+  "agenda.publishEvent": "{user} heeft {event} gepubliceerd op {agenda}.",
+  "agenda.removeEvent": "{user} heeft {event} verwijderd van {agenda}.",
+  "agenda.systemUnpublishEvent": "{event} is automatisch gedepubliceerd op {agenda} voor controle",
+  "agenda.unpublishEvent": "{user} heeft de publicatie van {event} op {agenda} ongedaan gemaakt.",
+  "event.create": "{user} heeft {event} aangemaakt in de agenda {agenda}.",
+  "event.delete": "{user} heeft {event} verwijderd op {agenda}.",
+  "event.update": "{user} heeft {event} bijgewerkt op {agenda}.",
+  "event.updateWithLotOfChanges": "{user} heeft {event} bijgewerkt op {agenda} ({fieldsCount} velden).",
+  "event.updateWithOneChange": "{user} heeft het veld {fields} van {event} bijgewerkt op {agenda}.",
+  "event.updateWithSomeChanges": "{user} heeft {event} bijgewerkt op {agenda}: {fields} zijn gewijzigd.",
+  "unknownActivity": "Activiteitslabel ontbreekt voor {verb}"
+}

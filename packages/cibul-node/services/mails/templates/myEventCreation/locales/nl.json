@@ -1,0 +1,12 @@
+{
+  "actionDescription": "Bekijk het evenement",
+  "body": "Uw evenement <b>{event}</b> is succesvol aangemaakt op de agenda <b>{agenda}</b> met de status <b>{state}</b>.",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "controlled": "klaar om te publiceren",
+  "memberUnsubscribe": "Geen bevestigingen meer ontvangen van uw evenementcreaties op deze agenda",
+  "published": "gepubliceerd",
+  "refused": "Erhalte Ablehnungsstatus",
+  "title": "Bevestiging van het aanmaken van uw evenement op {agenda}: {event}",
+  "tocontrol": "te controleren",
+  "unsubscribe": "Geen bevestigingen meer ontvangen van uw evenementcreaties"
+}

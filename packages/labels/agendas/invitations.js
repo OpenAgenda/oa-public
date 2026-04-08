@@ -9,7 +9,9 @@ module.exports = {
     "pl": "Podczas przetwarzania zaproszeń wystąpił błąd. Proszę spróbować ponownie za chwilę.",
     "es": "Ocurrió un error al procesar las invitaciones. Por favor, inténtalo nuevamente ",
     "io": "crwdns12870:0crwdne12870:0",
-    "oc": "I aguèt una error pendent lo tractament dels convits. Mercés de tornar ensajar dins un momentòt."
+    "oc": "I aguèt una error pendent lo tractament dels convits. Mercés de tornar ensajar dins un momentòt.",
+    "nl": "Er is een fout opgetreden bij het verwerken van de uitnodigingen. Probeer het over enkele ogenblikken opnieuw.",
+    "br": "Ur fazi a zo c'hoarvezet en ur dreterezh ar pedadennoù. Klaskit en-dro a-benn un nebeud munutennoù mar plij."
   },
   "invitationNotSent": {
     "fr": "L'invitation n'a pas pu être envoyée",
@@ -19,7 +21,9 @@ module.exports = {
     "pl": "Zaproszenie nie mogło zostać wysłane",
     "es": "La invitación no se pudo enviar",
     "io": "crwdns12872:0crwdne12872:0",
-    "oc": "Lo convit s'es pas poscut mandar"
+    "oc": "Lo convit s'es pas poscut mandar",
+    "nl": "De uitnodiging kon niet worden verzonden",
+    "br": "N'eus ket bet gallet kas ar bedadenn"
   },
   "emailSubmitted": {
     "en": "Your %count% submitted emails are being processed",
@@ -29,7 +33,9 @@ module.exports = {
     "pl": "Twoja %count% przesłanych wiadomości e-mail jest przetwarzana",
     "es": "Se están procesando los %count% correos enviados ",
     "io": "crwdns12874:0%count%crwdne12874:0",
-    "oc": "Vòstres %count% emails sometuts son en cors de tractament"
+    "oc": "Vòstres %count% emails sometuts son en cors de tractament",
+    "nl": "Uw %count% ingediende e-mails worden verwerkt",
+    "br": "Emeur o tretañ ar %count% postel kinniget"
   },
   "noNewInvite": {
     "en": "No new invitation was sent",
@@ -39,7 +45,9 @@ module.exports = {
     "pl": "Nie wysłano nowego zaproszenia",
     "es": "No hay nueva invitación enviada",
     "io": "crwdns12876:0crwdne12876:0",
-    "oc": "Pas cap convit foguèt pas mandat"
+    "oc": "Pas cap convit foguèt pas mandat",
+    "nl": "Er is geen nieuwe uitnodiging verzonden",
+    "br": "N'eus bet kaset pedadenn nevez ebet"
   },
   "sentInvites": {
     "en": "Sent invitations: %count%",
@@ -49,7 +57,9 @@ module.exports = {
     "pl": "Zaproszenia wysłane: %count%",
     "es": "Invitaciones enviadas: %count%",
     "io": "crwdns12878:0%count%crwdne12878:0",
-    "oc": "Mandar de convits : %count%"
+    "oc": "Mandar de convits : %count%",
+    "nl": "Verzonden uitnodigingen: %count%",
+    "br": "Pedadennoù kaset: %count%"
   },
   "resentInvites": {
     "en": "%count% invitations are being resent.<br/><br/>Note that invitations cannot be sent in bulk more than once every 24 hours",
@@ -59,7 +69,9 @@ module.exports = {
     "pl": "%count% zaproszenia są wysyłane ponownie.<br/><br/>Notka, że zaproszenia nie mogą być wysyłane masowo więcej niż raz na 24 godziny",
     "es": "%count% invitaciones están siendo enviadas. <br/> Tenga en cuenta que las invitaciones no se pueden reiniciar más de una vez cada 24 horas.",
     "io": "crwdns12880:0%count%crwdne12880:0",
-    "oc": "%count% convits son a se tornar mandar.<br/><br/>Notatz que los convits se pòdon pas mandar en massa mai d'un còp totas las 24 oras"
+    "oc": "%count% convits son a se tornar mandar.<br/><br/>Notatz que los convits se pòdon pas mandar en massa mai d'un còp totas las 24 oras",
+    "nl": "%count% uitnodigingen worden verzonden. <br/><br/>Let op: uitnodigingen kunnen slechts eenmaal per 24 uur worden verzonden",
+    "br": "Emeur o kas %count% pedadenn en-dro. <br/><br/>Notit ne c'hall ket ar pedadennoù bezañ adkaset nemet ur wech bemdez e-pad 24 eurvezh"
   },
   "resentInvite": {
     "en": "The invitation is being resent",
@@ -69,6 +81,8 @@ module.exports = {
     "pl": "Zaproszenie jest wysyłane ponownie",
     "es": "La invitación está siendo reenviada",
     "io": "crwdns12882:0crwdne12882:0",
-    "oc": "Lo convit es a se tornar mandar"
+    "oc": "Lo convit es a se tornar mandar",
+    "nl": "De uitnodiging wordt opnieuw verzonden",
+    "br": "Emeur o kas ar bedadenn en-dro"
   }
 }

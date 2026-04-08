@@ -1,13 +1,13 @@
 {
-  "next.views.EventError.agendaNotFound": "",
-  "next.views.EventError.contactAdministrators": "",
-  "next.views.EventError.eventNotFound": "",
-  "next.views.EventError.forbiddenMsg": "",
-  "next.views.EventError.notFoundMsg": "",
-  "next.views.EventError.orSignup": "",
-  "next.views.EventError.restrictedAccess": "",
-  "next.views.EventError.searchAgenda": "",
-  "next.views.EventError.seeAgenda": "",
-  "next.views.EventError.signIn": "",
-  "next.views.EventError.unauthorizedMsg": ""
+  "next.views.EventError.agendaNotFound": "Deiziataer ebet kavet",
+  "next.views.EventError.contactAdministrators": "Mont e darempred gant ar verourien",
+  "next.views.EventError.eventNotFound": "Darvoud n'eo ket kavet",
+  "next.views.EventError.forbiddenMsg": "N'hoc'h eus ket moned d'an deiziataer-mañ.{br}Gwiriit al liamm zo bet roet deoc'h pe goulennit ar moned.",
+  "next.views.EventError.notFoundMsg": "N'eus deiziataer ebet o klotañ gant al liamm-mañ.{br}Pe eo direizh al liamm pe eo bet dilamet an deiziataer.",
+  "next.views.EventError.orSignup": "Pe <link>en em enskrivit</link> ma n'hoc'h eus ket a gont c'hoazh.",
+  "next.views.EventError.restrictedAccess": "Moned strishaet",
+  "next.views.EventError.searchAgenda": "Klask un deiziataer",
+  "next.views.EventError.seeAgenda": "Gwelet an deiziataer",
+  "next.views.EventError.signIn": "Kevreañ",
+  "next.views.EventError.unauthorizedMsg": "Strishaet eo ar moned d'an deiziataer-mañ,{br}dilesait ac'hanoc'h a-raok gallout mont dezhañ."
 }

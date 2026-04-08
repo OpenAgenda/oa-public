@@ -1,1 +1,7 @@
-{}
+{
+  "guestUnsubscriptionSucceed": "Digoumanantet oc'h bremañ.",
+  "tokenAlreadyUsed": "N'eo ket talvoudek ken al liamm. Moarvat eo bet implijet dija.",
+  "tokenMalformed": "Fall stummet eo ar jedouer digoumanantiñ.",
+  "tokenNotFound": "N'eo ket bet kavet ar jedouer digoumanantiñ.",
+  "unsubscriptionSucceed": "Hizivaet eo bet hoc'h arventennoù."
+}

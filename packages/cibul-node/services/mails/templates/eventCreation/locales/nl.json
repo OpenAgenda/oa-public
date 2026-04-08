@@ -1,0 +1,12 @@
+{
+  "actionDescription": "Bekijk het evenement",
+  "body": "<b>{event}</b> is aangemaakt op de agenda <b>{agenda}</b> met de status <b>{state}</b>.",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "controlled": "klaar om te publiceren",
+  "memberUnsubscribe": "Stop met het ontvangen van evenementcreaties van deze agenda",
+  "published": "gepubliceerd",
+  "refused": "Erhalte Ablehnungsstatus",
+  "title": "Nieuw evenement op {agenda}: {event}",
+  "tocontrol": "te controleren",
+  "unsubscribe": "Stop met het ontvangen van evenementcreaties"
+}

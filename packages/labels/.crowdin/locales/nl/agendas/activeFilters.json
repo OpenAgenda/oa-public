@@ -1,0 +1,7 @@
+{
+  "fromTo": "van %start% tot %end%",
+  "location": "locatie",
+  "map": "kaart",
+  "passed": "voorbije evenementen",
+  "selection": "selectie van evenementen"
+}

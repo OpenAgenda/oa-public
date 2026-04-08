@@ -1,6 +1,6 @@
 {
-  "title": "Verificación de su solicitud de creación de cuenta",
+  "complaint": "En caso de que haya un retraso en el procesamiento de su solicitud, envíenos un mensaje a través de la herramienta de chat en nuestra [página de inicio](/) o envíenos un correo electrónico a [verif@openagenda.com](mailto:verif@openagenda.com) con el correo electrónico utilizado durante la creación de la cuenta.",
   "context": "Debido a un aumento reciente de creaciones de cuentas con el único propósito de publicar contenido publicitario, se ha establecido una medida temporal para verificar las cuentas antes de su creación.",
   "instruction": "**Recibirá une notificación en breve de la activación de su cuenta por correo electrónico (unos minutos durante el horario de oficina de París).**",
-  "complaint": "En caso de que haya un retraso en el procesamiento de su solicitud, envíenos un mensaje a través de la herramienta de chat en nuestra [página de inicio](/) o envíenos un correo electrónico a [verif@openagenda.com](mailto:verif@openagenda.com) con el correo electrónico utilizado durante la creación de la cuenta."
+  "title": "Verificación de su solicitud de creación de cuenta"
 }

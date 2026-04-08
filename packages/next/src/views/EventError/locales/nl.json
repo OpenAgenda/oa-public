@@ -1,0 +1,13 @@
+{
+  "next.views.EventError.agendaNotFound": "Agenda niet gevonden",
+  "next.views.EventError.contactAdministrators": "Contact met beheerders",
+  "next.views.EventError.eventNotFound": "Evenement niet gevonden",
+  "next.views.EventError.forbiddenMsg": "U heeft geen toegang tot deze agenda.{br}Controleer de link die aan u is verstrekt of vraag toegang aan.",
+  "next.views.EventError.notFoundMsg": "Er is geen agenda die overeenkomt met deze link.{br}De link is ongeldig of de agenda is verwijderd.",
+  "next.views.EventError.orSignup": "Of <link>registreer u</link> als u nog geen account heeft.",
+  "next.views.EventError.restrictedAccess": "Beperkte toegang",
+  "next.views.EventError.searchAgenda": "Een agenda zoeken",
+  "next.views.EventError.seeAgenda": "Agenda bekijken",
+  "next.views.EventError.signIn": "Inloggen",
+  "next.views.EventError.unauthorizedMsg": "De toegang tot deze agenda is beperkt,{br}gelieve u te authenticeren voordat u toegang krijgt."
+}

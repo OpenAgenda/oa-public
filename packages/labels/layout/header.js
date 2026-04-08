@@ -9,7 +9,8 @@ module.exports = {
     "it": "Accedi",
     "br": "Kevreañ",
     "io": "crwdns15246:0crwdne15246:0",
-    "oc": "Se connectar"
+    "oc": "Se connectar",
+    "nl": "Inloggen"
   },
   "search": {
     "fr": "Rechercher",
@@ -18,7 +19,9 @@ module.exports = {
     "es": "Buscar",
     "it": "Cerca",
     "io": "crwdns15248:0crwdne15248:0",
-    "oc": "Cercar"
+    "oc": "Cercar",
+    "nl": "Zoeken",
+    "br": "Klask"
   },
   "help": {
     "fr": "Aide",
@@ -28,7 +31,8 @@ module.exports = {
     "it": "Aiuto",
     "br": "Skoazell",
     "io": "crwdns15250:0crwdne15250:0",
-    "oc": "Ajuda"
+    "oc": "Ajuda",
+    "nl": "Hulp"
   },
   "en": {
     "fr": "Anglais",
@@ -36,7 +40,9 @@ module.exports = {
     "es": "Inglés",
     "it": "Italiano",
     "io": "crwdns15252:0crwdne15252:0",
-    "oc": "Anglés"
+    "oc": "Anglés",
+    "nl": "Engels",
+    "br": "Saozneg"
   },
   "de": {
     "fr": "Allemand",
@@ -44,7 +50,9 @@ module.exports = {
     "es": "Alemán",
     "it": "Tedesco",
     "io": "crwdns15254:0crwdne15254:0",
-    "oc": "Alemand"
+    "oc": "Alemand",
+    "nl": "Duits",
+    "br": "Alamaneg"
   },
   "fr": {
     "fr": "Français",
@@ -52,7 +60,9 @@ module.exports = {
     "es": "Francés",
     "it": "Francese",
     "io": "crwdns15256:0crwdne15256:0",
-    "oc": "Francés"
+    "oc": "Francés",
+    "nl": "Frans",
+    "br": "Galleg"
   },
   "es": {
     "fr": "Espagnol",
@@ -60,6 +70,8 @@ module.exports = {
     "es": "Español",
     "it": "Spagnolo",
     "io": "crwdns15258:0crwdne15258:0",
-    "oc": "Espanhòl"
+    "oc": "Espanhòl",
+    "nl": "Spaans",
+    "br": "Spagnoleg"
   }
 }

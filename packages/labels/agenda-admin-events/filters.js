@@ -8,7 +8,9 @@ module.exports = {
     "es": "Filtros",
     "it": "Filtro",
     "io": "crwdns11324:0crwdne11324:0",
-    "oc": "Filtre"
+    "oc": "Filtre",
+    "nl": "Filteren",
+    "br": "Silañ"
   },
   "title": {
     "fr": "Titre",
@@ -17,7 +19,9 @@ module.exports = {
     "es": "título",
     "it": "Titolo",
     "io": "crwdns11326:0crwdne11326:0",
-    "oc": "Títol"
+    "oc": "Títol",
+    "nl": "Titel",
+    "br": "Titl"
   },
   "locationName": {
     "fr": "Nom du lieu",
@@ -26,7 +30,9 @@ module.exports = {
     "es": "Lugar Nombre",
     "it": "Nome del luogo",
     "io": "crwdns11328:0crwdne11328:0",
-    "oc": "Nom de lòc"
+    "oc": "Nom de lòc",
+    "nl": "Locatienaam",
+    "br": "Anv al lec'h"
   },
   "region": {
     "fr": "Région",
@@ -35,7 +41,9 @@ module.exports = {
     "es": "Región",
     "it": "Regione",
     "io": "crwdns11330:0crwdne11330:0",
-    "oc": "Region"
+    "oc": "Region",
+    "nl": "Regio",
+    "br": "Rannvro"
   },
   "contributor": {
     "fr": "Contributeur",
@@ -44,7 +52,9 @@ module.exports = {
     "es": "Contribuyente",
     "it": "Collaboratore",
     "io": "crwdns11332:0crwdne11332:0",
-    "oc": "Contributor·a"
+    "oc": "Contributor·a",
+    "nl": "Bijdrager",
+    "br": "Kenlabourer"
   },
   "loading": {
     "fr": "Chargement en cours",
@@ -53,6 +63,8 @@ module.exports = {
     "es": "Cargando",
     "it": "Caricamento in corso",
     "io": "crwdns11334:0crwdne11334:0",
-    "oc": "Cargament"
+    "oc": "Cargament",
+    "nl": "Bezig met laden",
+    "br": "O kargañ"
   }
 }

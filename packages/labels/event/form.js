@@ -9,7 +9,8 @@ module.exports = {
     "es": "Descripciones",
     "br": "Maeziennoù deskrivañ",
     "io": "crwdns14262:0crwdne14262:0",
-    "oc": "Camps de descripcion"
+    "oc": "Camps de descripcion",
+    "nl": "Beschrijvingsvelden"
   },
   "attendanceMode": {
     "fr": "Mode de participation",
@@ -19,7 +20,8 @@ module.exports = {
     "de": "Anwesenheitsmodus",
     "br": "Doare perzhiañ",
     "io": "crwdns14264:0crwdne14264:0",
-    "oc": "Mòde de participacion"
+    "oc": "Mòde de participacion",
+    "nl": "Anwesenheitsmodus"
   },
   "offlineAttendanceMode": {
     "fr": "Sur place",
@@ -29,7 +31,8 @@ module.exports = {
     "de": "Offline",
     "br": "War al lec’h",
     "io": "crwdns14266:0crwdne14266:0",
-    "oc": "Sus plaça"
+    "oc": "Sus plaça",
+    "nl": "Ter plaatse"
   },
   "onlineAttendanceMode": {
     "fr": "En ligne",
@@ -39,7 +42,8 @@ module.exports = {
     "de": "Online",
     "br": "Enlinenn",
     "io": "crwdns14268:0crwdne14268:0",
-    "oc": "En linha"
+    "oc": "En linha",
+    "nl": "Online"
   },
   "mixedAttendanceMode": {
     "fr": "Mixte",
@@ -49,7 +53,8 @@ module.exports = {
     "de": "Gemischt",
     "br": "Kemmesk",
     "io": "crwdns14270:0crwdne14270:0",
-    "oc": "Mesclat"
+    "oc": "Mesclat",
+    "nl": "Gemischt"
   },
   "onlineAccessLink": {
     "fr": "Lien d'accès",
@@ -59,7 +64,8 @@ module.exports = {
     "it": "Collegamento di accesso",
     "br": "Liamm moned",
     "io": "crwdns14272:0crwdne14272:0",
-    "oc": "Ligam d'accès"
+    "oc": "Ligam d'accès",
+    "nl": "Toegangslink"
   },
   "location": {
     "fr": "Lieu",
@@ -69,7 +75,8 @@ module.exports = {
     "es": "Lugar",
     "br": "Lec'h",
     "io": "crwdns14274:0crwdne14274:0",
-    "oc": "Lòc"
+    "oc": "Lòc",
+    "nl": "Locatie"
   },
   "locationInfo": {
     "fr": "Saisissez le nom du lieu où se déroule l'événement",
@@ -79,7 +86,8 @@ module.exports = {
     "es": "Introduzca el nombre del lugar donde se realice el evento",
     "br": "Skrivit anv al lec'h ma tremen an darvoud",
     "io": "crwdns14276:0crwdne14276:0",
-    "oc": "Dintratz lo nom del lòc ont los eveniments se debanaràn"
+    "oc": "Dintratz lo nom del lòc ont los eveniments se debanaràn",
+    "nl": "Voer de naam in van de locatie waar het evenement plaatsvindt"
   },
   "locationSub": {
     "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
@@ -89,7 +97,8 @@ module.exports = {
     "es": "Si hay lugar corresponda a su entrada, añadirlo haciendo clic en 'Crear un lugar'",
     "br": "Ma ne glot lec'h ebet gant an hini ho peus skrivet, klikit war \"Krouiñ ul lec'h\" da ouzhpennañ anezhañ",
     "io": "crwdns14278:0crwdne14278:0",
-    "oc": "Se cap lòc correspond pas al nom, apondètz un novèl lòc en clicant sus 'Crear un lòc novèl'"
+    "oc": "Se cap lòc correspond pas al nom, apondètz un novèl lòc en clicant sus 'Crear un lòc novèl'",
+    "nl": "Als geen enkele locatie overeenkomt met uw invoer, voeg deze dan toe door op 'Een locatie maken' te klikken"
   },
   "locationSection": {
     "fr": "Lieu",
@@ -99,7 +108,8 @@ module.exports = {
     "es": "Lugar",
     "br": "Lec'h",
     "io": "crwdns14280:0crwdne14280:0",
-    "oc": "Lòc"
+    "oc": "Lòc",
+    "nl": "Locatie"
   },
   "locationCreate": {
     "fr": "Nouveau lieu",
@@ -109,7 +119,8 @@ module.exports = {
     "es": "Nuevo lugar",
     "br": "Lec'h nevez",
     "io": "crwdns14282:0crwdne14282:0",
-    "oc": "Lòc novèl"
+    "oc": "Lòc novèl",
+    "nl": "Nieuwe locatie"
   },
   "title": {
     "fr": "Titre",
@@ -119,7 +130,8 @@ module.exports = {
     "es": "Título",
     "br": "Titl",
     "io": "crwdns14284:0crwdne14284:0",
-    "oc": "Títol"
+    "oc": "Títol",
+    "nl": "Titel"
   },
   "titlePurpose": {
     "fr": "Titre de l'événement",
@@ -128,7 +140,8 @@ module.exports = {
     "br": "Titl an darvoud",
     "io": "crwdns14286:0crwdne14286:0",
     "it": "Il titolo del tuo evento",
-    "oc": "Títol de l'eveniment"
+    "oc": "Títol de l'eveniment",
+    "nl": "Titel van het evenement"
   },
   "titleSub": {
     "fr": "",
@@ -144,7 +157,8 @@ module.exports = {
     "es": "El título de su evento",
     "br": "Titl ho tarvoud",
     "io": "crwdns14288:0crwdne14288:0",
-    "oc": "Títol de vòstre eveniment"
+    "oc": "Títol de vòstre eveniment",
+    "nl": "De titel van uw evenement"
   },
   "description": {
     "fr": "Description courte",
@@ -154,7 +168,8 @@ module.exports = {
     "es": "Descripción corta",
     "br": "Deskrivadur berr",
     "io": "crwdns14290:0crwdne14290:0",
-    "oc": "Descripcion corta"
+    "oc": "Descripcion corta",
+    "nl": "Korte beschrijving"
   },
   "descriptionPurpose": {
     "fr": "Description pour les affichages réduits ou liste",
@@ -163,7 +178,8 @@ module.exports = {
     "br": "Deskrivadur evit an diskweloù berr pe listenn",
     "io": "crwdns14292:0crwdne14292:0",
     "it": "Utile per la lista degli eventi",
-    "oc": "Descripcion pels afichatges cortets o en lista"
+    "oc": "Descripcion pels afichatges cortets o en lista",
+    "nl": "Beschrijving voor beknopte weergaven of lijsten"
   },
   "descriptionPlaceholder": {
     "fr": "Une courte description de votre événement",
@@ -173,7 +189,8 @@ module.exports = {
     "es": "Una breve descripción de su evento",
     "br": "Un deskrivadur berr eus ho tarvoud",
     "io": "crwdns14294:0crwdne14294:0",
-    "oc": "Una descripcion corteta de vòstre eveniment"
+    "oc": "Una descripcion corteta de vòstre eveniment",
+    "nl": "Een korte beschrijving van uw evenement"
   },
   "descriptionSub": {
     "fr": "",
@@ -189,7 +206,8 @@ module.exports = {
     "es": "Imagen del evento",
     "br": "Skeudenn an darvoud",
     "io": "crwdns14296:0crwdne14296:0",
-    "oc": "Imatge de l'eveniment"
+    "oc": "Imatge de l'eveniment",
+    "nl": "Afbeelding van het evenement"
   },
   "imageInfo": {
     "fr": "Chargez une image d'au moins 300 pixels de large",
@@ -199,11 +217,13 @@ module.exports = {
     "es": "Cargar una imagen de al menos 300 píxeles de ancho",
     "br": "Kargit ur skeudenn gant 300 piksel a ledander d'an nebeutañ",
     "io": "crwdns14298:0crwdne14298:0",
-    "oc": "Cargatz un image d'al mens 300 pixèls de largor"
+    "oc": "Cargatz un image d'al mens 300 pixèls de largor",
+    "nl": "Laad een afbeelding van minstens 300 pixels breed"
   },
   "imageSub": {
     "fr": "En insérant un visuel dans OpenAgenda, vous certifiez détenir les droits nécessaires à la publication de celui-ci sous le régime de la licence ouverte. [En savoir plus](https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/)",
-    "en": "By inserting an image in OpenAgenda, you certify that you hold the necessary rights to publish it under the open licence. [Learn more](https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/)"
+    "en": "By inserting an image in OpenAgenda, you certify that you hold the necessary rights to publish it under the open licence. [Learn more](https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/)",
+    "io": "crwdns35387:0https://doc.openagenda.com/fr/article/guide-dutilisation-des-images-sur-openagenda-1t8zlc4/crwdne35387:0"
   },
   "imageCredits": {
     "fr": "Crédits de l'image",
@@ -213,7 +233,8 @@ module.exports = {
     "es": "Créditos del imágen",
     "br": "Perc'henn ar skeudenn",
     "io": "crwdns14300:0crwdne14300:0",
-    "oc": "Crèdits de l'imatge"
+    "oc": "Crèdits de l'imatge",
+    "nl": "Afbeeldingscredits"
   },
   "longDescription": {
     "fr": "Description longue",
@@ -223,7 +244,8 @@ module.exports = {
     "es": "Descripción larga",
     "br": "Deskrivadur hir",
     "io": "crwdns14302:0crwdne14302:0",
-    "oc": "Descripcion longa"
+    "oc": "Descripcion longa",
+    "nl": "Lange beschrijving"
   },
   "longDescriptionPlaceholder": {
     "fr": "Saisissez une description détaillée de votre événement.",
@@ -233,7 +255,8 @@ module.exports = {
     "es": "Introduzca una descripción detallada de su evento.",
     "br": "Skrivit un deskrivadur dre ar munud eus ho tarvoud.",
     "io": "crwdns14304:0crwdne14304:0",
-    "oc": "Dintratz una descripcion detalhada de vòstre eveniment."
+    "oc": "Dintratz una descripcion detalhada de vòstre eveniment.",
+    "nl": "Voer een gedetailleerde beschrijving van uw evenement in."
   },
   "longDescriptionSub": {
     "fr": "",
@@ -249,7 +272,8 @@ module.exports = {
     "es": "Palabras llave",
     "br": "Gerioù-alc'hwez",
     "io": "crwdns14306:0crwdne14306:0",
-    "oc": "Mots claus"
+    "oc": "Mots claus",
+    "nl": "Trefwoorden"
   },
   "keywordsPlaceholder": {
     "fr": "Séparez les mots clés par des tabulations ou des virgules",
@@ -259,7 +283,8 @@ module.exports = {
     "es": "palabras llave separadas por comas o fichas",
     "br": "Dispartiit ar gerioù-alc'hwez gant arouezennoù taolennata pe virgulennoù",
     "io": "crwdns14308:0crwdne14308:0",
-    "oc": "Desseparatz cada mot clau per de tabulacion o de virgulas"
+    "oc": "Desseparatz cada mot clau per de tabulacion o de virgulas",
+    "nl": "Scheid de trefwoorden met tabs of komma's"
   },
   "keywordsSub": {
     "fr": "Les mots clés sont utiles pour les fonctions de recherche",
@@ -269,7 +294,8 @@ module.exports = {
     "es": "Las palabras llave son útiles para las funciones de búsqueda",
     "br": "Talvoudus eo ar gerioù-alc'hwez evit an arc'hwelioù enklask",
     "io": "crwdns14310:0crwdne14310:0",
-    "oc": "Los mots claus son utiles per las recèrcas futuras"
+    "oc": "Los mots claus son utiles per las recèrcas futuras",
+    "nl": "Trefwoorden zijn nuttig voor zoekfuncties"
   },
   "conditions": {
     "fr": "Conditions de participation, tarifs",
@@ -279,7 +305,8 @@ module.exports = {
     "es": "Condiciones de las tasas de participación",
     "br": "Divizoù evit kemer perzh, prizioù",
     "io": "crwdns14312:0crwdne14312:0",
-    "oc": "Condicions de participacion, tarifas"
+    "oc": "Condicions de participacion, tarifas",
+    "nl": "Deelnamevoorwaarden, tarieven"
   },
   "conditionsPlaceholder": {
     "fr": "Entrée libre, sur inscription, autre...",
@@ -289,7 +316,8 @@ module.exports = {
     "es": "Entrada gratuita para los suscriptores, otra ...",
     "br": "Mont e-barzh digoust, ret eo en em enskrivañ, traoù all...",
     "io": "crwdns14314:0crwdne14314:0",
-    "oc": "Entrada liura, reservacion necessària, autre..."
+    "oc": "Entrada liura, reservacion necessària, autre...",
+    "nl": "Gratis toegang, inschrijving vereist, andere..."
   },
   "conditionsSub": {
     "fr": "",
@@ -305,7 +333,8 @@ module.exports = {
     "es": "Herramientas de registro",
     "br": "En em enskrivañ",
     "io": "crwdns14316:0crwdne14316:0",
-    "oc": "Inscripcion"
+    "oc": "Inscripcion",
+    "nl": "Inschrijvingstools"
   },
   "registrationSub": {
     "fr": "Séparez les items par des tabulations ou des virgules",
@@ -315,7 +344,8 @@ module.exports = {
     "es": "artículos por separado con tabulaciones o comas",
     "br": "Dispartiit an elfennoù gant arouezennoù taolennata pe virgulennoù",
     "io": "crwdns14318:0crwdne14318:0",
-    "oc": "Desseparatz cada element per de tabulacion o de virgulas"
+    "oc": "Desseparatz cada element per de tabulacion o de virgulas",
+    "nl": "Scheid de items met tabs of komma's"
   },
   "registrationInfo": {
     "fr": "Liens, emails ou numéros de téléphone",
@@ -325,7 +355,8 @@ module.exports = {
     "es": "Enlaces, números de teléfono o correo electrónico",
     "br": "Liammoù, chomlec'hioù postel pe niverennoù pellgomz",
     "io": "crwdns14320:0crwdne14320:0",
-    "oc": "Ligams, emails o numèros de telefòne"
+    "oc": "Ligams, emails o numèros de telefòne",
+    "nl": "Links, e-mails of telefoonnummers"
   },
   "accessibility": {
     "fr": "Accessibilité particulière",
@@ -335,7 +366,8 @@ module.exports = {
     "es": "Accesibilidad especial",
     "br": "Monedusted",
     "io": "crwdns14322:0crwdne14322:0",
-    "oc": "Condicions d'accès"
+    "oc": "Condicions d'accès",
+    "nl": "Bijzondere toegankelijkheid"
   },
   "ticketLink": {
     "fr": "Lien de réservation",
@@ -345,7 +377,8 @@ module.exports = {
     "es": "Enlace de registro",
     "br": "Liamm mirout",
     "io": "crwdns14324:0crwdne14324:0",
-    "oc": "Ligam d'inscripcion"
+    "oc": "Ligam d'inscripcion",
+    "nl": "Reserveringslink"
   },
   "age": {
     "fr": "Âge du public ciblé",
@@ -355,7 +388,8 @@ module.exports = {
     "es": "Edad del objetivo",
     "br": "Oad an dud a glasker tizhout",
     "io": "crwdns14326:0crwdne14326:0",
-    "oc": "Atge del public tocat"
+    "oc": "Atge del public tocat",
+    "nl": "Leeftijd van het doelpubliek"
   },
   "timings": {
     "fr": "Horaires",
@@ -365,7 +399,8 @@ module.exports = {
     "es": "Horarios",
     "br": "Eurioù",
     "io": "crwdns14328:0crwdne14328:0",
-    "oc": "Oraris"
+    "oc": "Oraris",
+    "nl": "Tijdschema's"
   },
   "timingsInfo": {
     "fr": "Définissez les horaires de votre événement",
@@ -375,7 +410,8 @@ module.exports = {
     "es": "Indicar los horarios de su evento",
     "br": "Lakait eurioù ho tarvoud",
     "io": "crwdns14330:0crwdne14330:0",
-    "oc": "Indicar d'oraris per vòstre eveniment"
+    "oc": "Indicar d'oraris per vòstre eveniment",
+    "nl": "Bepaal de tijden van uw evenement"
   },
   "timingsHelp": {
     "fr": "Comment ça marche?",
@@ -385,7 +421,8 @@ module.exports = {
     "es": "¿Como funciona?",
     "br": "Penaos ez a en-dro ?",
     "io": "crwdns14332:0crwdne14332:0",
-    "oc": "Cossí marcha aquò ?"
+    "oc": "Cossí marcha aquò ?",
+    "nl": "Hoe werkt het?"
   },
   "uploadButton": {
     "fr": "Sélectionner",
@@ -395,7 +432,8 @@ module.exports = {
     "es": "Seleccionar",
     "br": "Diuzañ",
     "io": "crwdns14334:0crwdne14334:0",
-    "oc": "Seleccionar"
+    "oc": "Seleccionar",
+    "nl": "Selecteren"
   },
   "languages": {
     "fr": "Langues de saisie",
@@ -405,7 +443,8 @@ module.exports = {
     "es": "Idiomas de entrada",
     "br": "Choazit ur yezh",
     "io": "crwdns14336:0crwdne14336:0",
-    "oc": "Lengas de sasida"
+    "oc": "Lengas de sasida",
+    "nl": "Invoertalen"
   },
   "addLanguage": {
     "en": "Add a language",
@@ -415,7 +454,8 @@ module.exports = {
     "es": "Añadir idioma",
     "br": "Ouzhpennañ ur yezh",
     "io": "crwdns14338:0crwdne14338:0",
-    "oc": "Apondre una lenga"
+    "oc": "Apondre una lenga",
+    "nl": "Een taal toevoegen"
   },
   "selectLanguage": {
     "en": "Select",
@@ -423,7 +463,9 @@ module.exports = {
     "it": "Selezionare",
     "io": "crwdns14340:0crwdne14340:0",
     "oc": "Seleccionar",
-    "es": "Seleccionar"
+    "es": "Seleccionar",
+    "nl": "Selecteren",
+    "br": "Diuzañ"
   },
   "cancelLanguageChange": {
     "fr": "Annuler",
@@ -433,7 +475,8 @@ module.exports = {
     "es": "Anular",
     "br": "Nullañ",
     "io": "crwdns14342:0crwdne14342:0",
-    "oc": "Anullar"
+    "oc": "Anullar",
+    "nl": "Annuleren"
   },
   "noDates": {
     "fr": "Au moins un horaire doit être défini",
@@ -443,7 +486,8 @@ module.exports = {
     "es": "Al menos una zona debe definirse",
     "br": "Ret eo lakaat un eur da vihanañ",
     "io": "crwdns14344:0crwdne14344:0",
-    "oc": "Cal indicar al mens un orari"
+    "oc": "Cal indicar al mens un orari",
+    "nl": "Er moet minstens één tijdstip worden opgegeven"
   },
   "categoriesTitle": {
     "en": "Categories",
@@ -453,7 +497,8 @@ module.exports = {
     "es": "Categorías",
     "br": "Rummadoù",
     "io": "crwdns14346:0crwdne14346:0",
-    "oc": "Categorias"
+    "oc": "Categorias",
+    "nl": "Categorieën"
   },
   "tagsTitle": {
     "en": "Tags",
@@ -463,7 +508,8 @@ module.exports = {
     "es": "Etiquetas",
     "br": "Merkoù",
     "io": "crwdns14348:0crwdne14348:0",
-    "oc": "Etiquetas"
+    "oc": "Etiquetas",
+    "nl": "Tags"
   },
   "categoriesInfo": {
     "en": "These are used to index your event in the agenda. Pick one.",
@@ -473,7 +519,8 @@ module.exports = {
     "es": "Estos se utilizan para la indexación en el agenda. Puede elegir uno.",
     "br": "Implijet e vez ar re-mañ da venegeriñ an deiziataer. Gallout a rit choaz unan.",
     "io": "crwdns14350:0crwdne14350:0",
-    "oc": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una."
+    "oc": "Aquelas d'aquí servisson a indexar vòstre eveniment dins l'agenda. Causissètz-ne una.",
+    "nl": "Deze worden gebruikt om je evenement in de agenda te indexeren. Kies er een."
   },
   "defaultTagGroupName": {
     "en": "Tags",
@@ -483,7 +530,8 @@ module.exports = {
     "es": "Etiquetas",
     "br": "Merkoù",
     "io": "crwdns14352:0crwdne14352:0",
-    "oc": "Etiquetas"
+    "oc": "Etiquetas",
+    "nl": "Tags"
   },
   "defaultTagGroupInfo": {
     "en": "These are used to index your event in the agenda. You can select several.",
@@ -493,7 +541,8 @@ module.exports = {
     "es": "Estos se utilizan para la indexación en el agenda. Puede seleccionar más.",
     "br": "Implijet e vezont da venegeriñ an deiziataer. Gallout a rit choaz meur a hini.",
     "io": "crwdns14354:0crwdne14354:0",
-    "oc": "Aqueles d'aquí servisson a indexar vòstre eveniment dins l'agenda. Ne podètz causir mai d'un."
+    "oc": "Aqueles d'aquí servisson a indexar vòstre eveniment dins l'agenda. Ne podètz causir mai d'un.",
+    "nl": "Deze dienen voor de indexering in de agenda. U kunt er meerdere kiezen."
   },
   "required": {
     "en": "Required.",
@@ -503,7 +552,8 @@ module.exports = {
     "es": "Requerido.",
     "br": "Rekis.",
     "io": "crwdns14356:0crwdne14356:0",
-    "oc": "Requesit."
+    "oc": "Requesit.",
+    "nl": "Verplicht."
   },
   "categoriesRequired": {
     "en": "Required.",
@@ -513,7 +563,8 @@ module.exports = {
     "es": "Requerido.",
     "br": "Rekis.",
     "io": "crwdns14358:0crwdne14358:0",
-    "oc": "Requesit."
+    "oc": "Requesit.",
+    "nl": "Verplicht."
   },
   "requiredTagError": {
     "en": "You must select at least one item",
@@ -523,7 +574,8 @@ module.exports = {
     "es": "Usted debe hacer al menos una selección",
     "br": "Ret eo deoc'h diuzañ un elfenn da vihanañ",
     "io": "crwdns14360:0crwdne14360:0",
-    "oc": "Vos cal causir al mens un element"
+    "oc": "Vos cal causir al mens un element",
+    "nl": "U moet minstens één item selecteren"
   },
   "requiredCategoryError": {
     "en": "You must select one item",
@@ -533,7 +585,8 @@ module.exports = {
     "es": "Usted debe hacer una selección",
     "br": "Ret eo deoc'h diuzañ un elfenn",
     "io": "crwdns14362:0crwdne14362:0",
-    "oc": "Vos cal causir un element"
+    "oc": "Vos cal causir un element",
+    "nl": "Je moet één item selecteren"
   },
   "noSelection": {
     "en": "None of the above",
@@ -543,7 +596,8 @@ module.exports = {
     "es": "Ninguna de las anteriores",
     "br": "Hini ebet eus ar re a-us",
     "io": "crwdns14364:0crwdne14364:0",
-    "oc": "Pas res"
+    "oc": "Pas res",
+    "nl": "Geen van bovenstaande"
   },
   "compulsoryNote": {
     "en": "Fields marked with a * must be filled",
@@ -553,21 +607,26 @@ module.exports = {
     "es": "Se requieren los campos marcados con *",
     "br": "Ret eo leuniañ ar maeziennoù merket gant ur *",
     "io": "crwdns14366:0crwdne14366:0",
-    "oc": "Los camps marcats d'una * se devon emplenar"
+    "oc": "Los camps marcats d'una * se devon emplenar",
+    "nl": "De velden gemarkeerd met * zijn verplicht"
   },
   "scheduled": {
     "fr": "Programmé",
     "en": "Scheduled",
     "io": "crwdns16100:0crwdne16100:0",
     "es": "Programado",
-    "oc": "Programat"
+    "oc": "Programat",
+    "nl": "Gepland",
+    "br": "Raktreset"
   },
   "rescheduled": {
     "fr": "Re-programmé",
     "en": "Re-scheduled",
     "io": "crwdns16102:0crwdne16102:0",
     "es": "Reprogramado",
-    "oc": "Tornat programar"
+    "oc": "Tornat programar",
+    "nl": "Opnieuw gepland",
+    "br": "Adraktreset"
   },
   "movedOnline": {
     "fr": "Déplacé en ligne",
@@ -575,7 +634,9 @@ module.exports = {
     "it": "Oramai online",
     "oc": "Transferit en linha",
     "io": "crwdns16104:0crwdne16104:0",
-    "es": "Trasladado en línea"
+    "es": "Trasladado en línea",
+    "nl": "Online verplaatst",
+    "br": "Dilec'hiet enlinenn"
   },
   "cancelled": {
     "fr": "Annulé",
@@ -583,14 +644,18 @@ module.exports = {
     "it": "Cancellato",
     "io": "crwdns16106:0crwdne16106:0",
     "es": "Cancelado",
-    "oc": "Anullat"
+    "oc": "Anullat",
+    "nl": "Geannuleerd",
+    "br": "Nullet"
   },
   "full": {
     "fr": "Complet",
     "en": "Full",
     "io": "crwdns16448:0crwdne16448:0",
     "es": "Completo",
-    "oc": "Complèt"
+    "oc": "Complèt",
+    "nl": "Volzet",
+    "br": "Klok"
   },
   "postponed": {
     "fr": "Reporté",
@@ -598,14 +663,18 @@ module.exports = {
     "it": "Riprogrammato",
     "io": "crwdns16108:0crwdne16108:0",
     "oc": "Remandat",
-    "es": "Aplazado"
+    "es": "Aplazado",
+    "nl": "Uitgesteld",
+    "br": "Diwezataet"
   },
   "status": {
     "fr": "État",
     "en": "Status",
     "io": "crwdns16110:0crwdne16110:0",
     "oc": "Estatut",
-    "es": "Estado"
+    "es": "Estado",
+    "nl": "Status",
+    "br": "Statud"
   },
   "trueBoolean": {
     "fr": "Sélectionné",
@@ -614,7 +683,9 @@ module.exports = {
     "oc": "Seleccionat",
     "io": "crwdns33354:0crwdne33354:0",
     "it": "Selezionato",
-    "es": "Seleccionado"
+    "es": "Seleccionado",
+    "nl": "Geselecteerd",
+    "br": "Diuzet"
   },
   "falseBoolean": {
     "fr": "Non sélectionné",
@@ -623,14 +694,18 @@ module.exports = {
     "oc": "Pas seleccionat",
     "io": "crwdns33356:0crwdne33356:0",
     "it": "Non selezionato",
-    "es": "No seleccionado"
+    "es": "No seleccionado",
+    "nl": "Niet geselecteerd",
+    "br": "Ket diuzet"
   },
   "nullBoolean": {
     "fr": "(Sans valeur)",
     "en": "(No value)",
     "io": "crwdns33358:0crwdne33358:0",
     "oc": "(Pas cap valor)",
-    "es": "(Sin valor)"
+    "es": "(Sin valor)",
+    "nl": "(Geen waarde)",
+    "br": "(Talvoud ebet)"
   },
   "extIds": {
     "fr": "Identifiants externe",

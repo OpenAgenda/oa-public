@@ -2,7 +2,9 @@
   "EventAdminApp.Actions.createAnEvent": "Neue Veranstaltung erstellen",
   "EventAdminApp.BatchedStateSelector.ok": "Schließen",
   "EventAdminApp.Dashboard.previous": "Bisherige",
+  "EventAdminApp.EventItem.contact": "Kontakt",
   "EventAdminApp.EventItem.featured": "ausgewählt",
   "EventAdminApp.SpreadsheetOptions.all-languages": "Alle",
-  "EventAdminApp.messages.attendanceModes.mixed": "Gemischt"
+  "EventAdminApp.messages.attendanceModes.mixed": "Gemischt",
+  "EventAdminApp.messages.exports.PDFDownload": "Herunterladen"
 }

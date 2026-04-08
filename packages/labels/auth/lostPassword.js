@@ -10,7 +10,8 @@ module.exports = {
     "es": "Restablecimiento de la contraseña",
     "br": "Adderaouekaat ho ker-tremen",
     "io": "crwdns13082:0crwdne13082:0",
-    "oc": "Reïnicializatz vòstre senhal"
+    "oc": "Reïnicializatz vòstre senhal",
+    "nl": "Wachtwoord resetten"
   },
   "mailBody": {
     "en": "Follow this link to reset your password: %link%",
@@ -21,6 +22,7 @@ module.exports = {
     "es": "Siga este enlace para restablecer la contraseña:%link%",
     "br": "Klikit war al liamm-mañ evit adderaouekaat ho ker-tremen : %link%",
     "io": "crwdns13084:0%link%crwdne13084:0",
-    "oc": "Seguissètz aquel ligam per tornar inicializar vòstre senhal : %link%"
+    "oc": "Seguissètz aquel ligam per tornar inicializar vòstre senhal : %link%",
+    "nl": "Volg deze link om je wachtwoord te resetten: %link%"
   }
 }

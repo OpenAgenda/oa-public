@@ -1,0 +1,23 @@
+{
+  "AgendaMember.RequestFeatureLink.findOutMore": "meer informatie",
+  "AgendaMember.RequestFeatureLink.link": "Activering van de functie aanvragen",
+  "AgendaMember.RequestFeatureLink.title": "Functie activering",
+  "MemberApps.Dashboard.messageHistory": "Berichtgeschiedenis",
+  "MemberApps.Dashboard.nameModeratorsActivation": "Deze functie wordt op aanvraag geactiveerd. Hiermee kunt u een lid als moderator aanwijzen. Schrijf ons een kort bericht en we zullen uw aanvraag zo snel mogelijk verwerken.",
+  "MemberApps.Dashboard.sendMessageToFilteredMembers": "Het bericht wordt verzonden naar de huidige selectie ({count, plural, one {1 lid} other {# leden}} van {total})",
+  "MemberApps.Dashboard.sendMessageToMembers": "Stuur een bericht naar de leden",
+  "MemberApps.Dashboard.sendMessageToUnfilteredMembers": "Het bericht wordt verzonden naar {total, plural, one {het enige lid} other {alle # leden}} van de agenda ({total})",
+  "MemberApps.Dashboard.writeToMembersActivation": "Deze functie wordt op aanvraag geactiveerd. Hiermee kan een beheerder een groepsbericht naar een selectie van leden sturen. Schrijf ons een kort bericht en we zullen uw aanvraag zo snel mogelijk verwerken.",
+  "MemberApps.Form.GDPRSummary": "Deze informatie is zichtbaar voor de moderatoren van de agenda.",
+  "MemberApps.Form.cancel": "Annuleren",
+  "MemberApps.Form.confirm": "Oké",
+  "MemberApps.Form.confirmRemove": "Verwijder mij uit de agenda",
+  "MemberApps.Form.confirmRemoveInfo": "Als u zich uit de agenda verwijdert, ontvangt u geen meldingen meer en kunt u geen evenementen meer bewerken of nieuwe toevoegen. De agenda verschijnt niet meer op uw startpagina.",
+  "MemberApps.Form.moreInfo": "Lees meer",
+  "MemberApps.Form.remove": "Ik wil uit de agenda verwijderd worden",
+  "MemberApps.Form.removeFail": "De aanvraag is mislukt. Probeer het zo opnieuw. Als dit probleem aanhoudt, stuur ons een bericht op support@openagenda.com",
+  "MemberApps.Form.removeSuccess": "U bent niet langer lid van de agenda",
+  "MemberApps.Form.save": "Opslaan",
+  "MemberApps.Form.success": "De update is succesvol uitgevoerd",
+  "MemberApps.Form.updateTitle": "Contactformulier"
+}

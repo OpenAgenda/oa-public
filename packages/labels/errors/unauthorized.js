@@ -9,6 +9,7 @@ module.exports = {
     "br": "Strishaet eo ar moned d'an darvoud. Pe ez eo prevez pe n'eo ket embannet.",
     "it": "L'accesso a questo evento è limitato. Può essere privato o inedito.",
     "io": "crwdns14074:0crwdne14074:0",
-    "oc": "L'accès a aquel eveniment es limitat. Siá es pas publicat siá es privat."
+    "oc": "L'accès a aquel eveniment es limitat. Siá es pas publicat siá es privat.",
+    "nl": "De toegang tot dit evenement is beperkt. Het is ofwel niet gepubliceerd of privé."
   }
 }

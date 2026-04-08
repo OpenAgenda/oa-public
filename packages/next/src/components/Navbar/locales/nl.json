@@ -1,0 +1,10 @@
+{
+  "next.components.Navbar.help": "Hulp",
+  "next.components.Navbar.myAgendas": "Mijn Agenda's",
+  "next.components.Navbar.myEvents": "Mijn evenementen",
+  "next.components.Navbar.profileMenu": "Profielmenu",
+  "next.components.Navbar.settings": "Einstellungen",
+  "next.components.Navbar.signIn": "Inloggen",
+  "next.components.Navbar.signOut": "Uitloggen",
+  "next.components.Navbar.signUp": "Account aanmaken"
+}

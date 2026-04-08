@@ -1,0 +1,9 @@
+{
+  "actionDescription": "Evenement bekijken",
+  "book": "boeken",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "timing": "{from} tot {to}",
+  "timingsDetails": "Details van de data",
+  "unsubscribe": "Geen evenementen meer per e-mail ontvangen",
+  "unsubscribeGuest": "Geen e-mails meer ontvangen van OpenAgenda"
+}

@@ -1,1 +1,22 @@
-{}
+{
+  "AgendaSchema.AfterRedirectModal.body": "Kefluniañ ar furmskrid ezel n'eo ket gweredekaet war ho teiziadur",
+  "AgendaSchema.AfterRedirectModal.title": "Kelaouadur",
+  "AgendaSchema.EmbedSelection.eventInfo": "Ouzhpennit danvezioù, rummadoù, maeziennoù testenn pe traoù all da furmskrid darvoud ho teiziadur",
+  "AgendaSchema.EmbedSelection.events": "Darvoudoù",
+  "AgendaSchema.EmbedSelection.memberInfo": "Ouzhpennit pe lamit maeziennoù diouzh furmskrid anaoudegezh kenlabourerien ho teiziadur",
+  "AgendaSchema.EmbedSelection.memberInfoAsk": "Goulenn ur gweredekadur",
+  "AgendaSchema.EmbedSelection.members": "Izili",
+  "AgendaSchema.EmbedSelection.notActivated": "N'eo ket gweredekaet ar perzh-mañ war ho teiziadur",
+  "AgendaSchema.adaptForm": "Azasaat kefluniañ ar furmskrid darvoud",
+  "AgendaSchema.adaptMemberForm": "Kefluniañ ar fichennaoueg ezel",
+  "AgendaSchema.canAddField": "Gallout a rit ouzhpennañ ar maez a fell deoc'h d'ar furmskrid darvoud",
+  "AgendaSchema.event": "Skoueriek",
+  "AgendaSchema.eventDetail": "Maez darvoud standard",
+  "AgendaSchema.goToContrib": "Mont d'an arventennoù kenlabourat",
+  "AgendaSchema.member": "Ezel standard",
+  "AgendaSchema.memberDetail": "Maez ezel standard",
+  "AgendaSchema.needMoreFields": "Ezhomm muioc'h a vaeziennoù?",
+  "AgendaSchema.network": "Rouedad",
+  "AgendaSchema.networkDetail": "Maez rekis gant rouedad an deiziadurioù",
+  "AgendaSchema.warning": "Arventennoù kenlabourat ho teiziadur ne c'houlenn ket digant hoc'h izili merkañ ur fichennaoueg anaoudegezh."
+}

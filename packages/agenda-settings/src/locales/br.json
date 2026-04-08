@@ -1,1 +1,25 @@
-{}
+{
+  "AgendaSettings.AdvancedEdition.deleteTitle": "Lemel",
+  "AgendaSettings.AdvancedEdition.filtersMenuTitle": "Siloù",
+  "AgendaSettings.AdvancedEdition.identifier": "Anaouder",
+  "AgendaSettings.Components.DeleteAgenda.closeConfirm": "Serriñ",
+  "AgendaSettings.Components.DeleteAgenda.confirmButton": "Kadarnaat an dilamadenn",
+  "AgendaSettings.Components.FiltersSettings.resetModalConfirm": "Kadarnaat",
+  "AgendaSettings.Components.FiltersSettings.submit": "Kemmañ",
+  "AgendaSettings.Components.PassSettings.cancel": "Nullañ",
+  "AgendaSettings.Components.PassSettings.learnMore": "Gouzout hiroc'h",
+  "AgendaSettings.Components.PassSettings.save": "Enrollañ",
+  "AgendaSettings.Components.PassSettings.saving": "Oc'h enrollañ...",
+  "AgendaSettings.CreationSecondStep.formEvent": "Furmskrid darvoud",
+  "AgendaSettings.CreationSecondStep.onlineEvents": "Aotren an enmont darvoudoù enlinenn",
+  "AgendaSettings.CreationSecondStep.onlineEventsDesc": "Gallout a ra an darvoudoù enlinenn bezañ kevredet ouzh lec'hioù fizikel",
+  "AgendaSettings.contribution.GDPRInformationPlaceholder": "Gwelus e vo an titouroù-mañ evit modererien an deiziadur",
+  "AgendaSettings.contribution.closedContibution": "Serret",
+  "AgendaSettings.contribution.closedContibutionDesc": "Ne zegemer ket an deiziadur perzhiadurioù nevez",
+  "AgendaSettings.contribution.contribUseFields": "Pediñ pep ezel da ginnig e-unan (aozadur, pellgomz, anv, anv-bihan, karg, postel, <a>maeziennoù personelaet</a>)",
+  "AgendaSettings.contribution.contribution": "Kenlabourerezh",
+  "AgendaSettings.contribution.openContribution": "Diskouez",
+  "AgendaSettings.contribution.openContributionDesc": "Pep implijer a c'hall ouzhpennañ darvoudoù, dindan ho modererezh",
+  "AgendaSettings.contribution.reducedContribution": "Bevennet",
+  "AgendaSettings.contribution.reducedContributionDesc": "N'eus nemet an implijerien pedet a c'hall ouzhpennañ darvoudoù"
+}

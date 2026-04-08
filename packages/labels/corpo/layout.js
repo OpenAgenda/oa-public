@@ -8,7 +8,9 @@ module.exports = {
     "es": "Funciones",
     "it": "Funzioni",
     "io": "crwdns13430:0crwdne13430:0",
-    "oc": "Foncionalitats"
+    "oc": "Foncionalitats",
+    "nl": "Functies",
+    "br": "Kargoù"
   },
   "layoutTestimonials": {
     "en": "Testimonials",
@@ -17,7 +19,9 @@ module.exports = {
     "es": "Referencias",
     "it": "Riferimenti",
     "io": "crwdns13432:0crwdne13432:0",
-    "oc": "Referéncias"
+    "oc": "Referéncias",
+    "nl": "Referenties",
+    "br": "Testenioù"
   },
   "layoutPricing": {
     "en": "Pricing",
@@ -26,7 +30,9 @@ module.exports = {
     "es": "Tarifas",
     "it": "Tariffe",
     "io": "crwdns13434:0crwdne13434:0",
-    "oc": "Tarifas"
+    "oc": "Tarifas",
+    "nl": "Tarieven",
+    "br": "Prizioù"
   },
   "layoutSignup": {
     "en": "Sign up",
@@ -35,7 +41,9 @@ module.exports = {
     "es": "Inscribirse",
     "it": "Crea un account",
     "io": "crwdns13436:0crwdne13436:0",
-    "oc": "Crear un compte"
+    "oc": "Crear un compte",
+    "nl": "Account aanmaken",
+    "br": "Krouiñ ur gont"
   },
   "layoutSignin": {
     "en": "Sign in",
@@ -45,6 +53,7 @@ module.exports = {
     "it": "Accedi",
     "br": "Kevreañ",
     "io": "crwdns13438:0crwdne13438:0",
-    "oc": "Se connectar"
+    "oc": "Se connectar",
+    "nl": "Inloggen"
   }
 }

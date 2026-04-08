@@ -1,1 +1,16 @@
-{}
+{
+  "administrator": "merour",
+  "administratorVerb": "merañ",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "contributor": "kenlabourer",
+  "contributorVerb": "kemer perzh e",
+  "memberAction": "{role, select, administrator {Merañ an deiziataer} moderator {Habaskaat an darvoudoù} contributor {Kemer perzh en deiziataer} reader {Gwelet an deiziataer} other {}}",
+  "moderator": "habaskour",
+  "moderatorVerb": "habaskaat",
+  "reader": "lenner",
+  "signup": "Krouiñ ur gont",
+  "subject": "Pedadet oc'h bet da {roleVerb} an deiziataer \"{agenda}\"",
+  "subjectForExistingMember": "Deuet oc'h da vezañ {role} eus an deiziataer \"{agenda}\"",
+  "unsubscribe": "Paouez da zegemer ar pedadennoù",
+  "unsubscribeGuest": "Paouez da zegemer posteloù digant OpenAgenda"
+}

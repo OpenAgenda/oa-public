@@ -66,6 +66,7 @@ const config = async () => {
           'eu',
           'oc',
           'io',
+          'nl',
         ],
         defaultLocale: 'default',
         localeDetection: false,

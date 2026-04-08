@@ -155,7 +155,7 @@ const GeoFieldsAndMap = ({
 
       const obj = data.results[0];
       if (obj.countryCode === 'fr') {
-        fetchINSEE(obj);
+        fetchINSEE({ ...obj, latitude: lat, longitude: long });
       } else {
         onChange({
           ...location,
@@ -168,8 +168,8 @@ const GeoFieldsAndMap = ({
           country: obj.country,
           countryCode: obj.countryCode.toUpperCase(),
           postalCode: obj.postalCode,
-          latitude: obj.latitude,
-          longitude: obj.longitude,
+          latitude: lat,
+          longitude: long,
           timezone: obj.timezone,
         });
       }

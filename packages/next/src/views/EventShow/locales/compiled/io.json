@@ -856,13 +856,13 @@
   "views.EventShow.contextBar.editMember": [
     {
       "type": 0,
-      "value": "Edit the contributor's information"
+      "value": "crwdns35361:0crwdne35361:0"
     }
   ],
   "views.EventShow.contextBar.editMemberMe": [
     {
       "type": 0,
-      "value": "Edit my information"
+      "value": "crwdns35363:0crwdne35363:0"
     }
   ],
   "views.EventShow.contextBar.invalidEventInfo": [

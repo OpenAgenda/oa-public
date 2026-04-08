@@ -11,6 +11,7 @@ const eu = require('./eu.json');
 const fr = require('./fr.json');
 const io = require('./io.json');
 const it = require('./it.json');
+const nl = require('./nl.json');
 const oc = require('./oc.json');
 
 module.exports = {
@@ -23,5 +24,6 @@ module.exports = {
   fr,
   io,
   it,
+  nl,
   oc,
 };

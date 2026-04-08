@@ -1,5 +1,10 @@
 {
-  "submit": "Kemmañ",
+  "cancel": "Nullañ",
+  "groupErrorHeader": "Talvoudoù 'zo a rank bezañ reizhet",
   "help": "Skoazell",
-  "cancel": "Nullañ"
+  "noChoice": "Dibab ebet",
+  "noOption": "Klotadenn ebet",
+  "required": "Maezienn ret",
+  "selectPlaceholder": "Diuzañ...",
+  "submit": "Kemmañ"
 }

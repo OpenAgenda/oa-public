@@ -299,6 +299,7 @@ describe('10 - event-search - unit: dsl search', () => {
         en: 'Monday 24 October 2016, 08:00',
         es: 'Lunes 24 octubre 2016, 08:00',
         it: 'Lunedì 24 ottobre 2016, 08:00',
+        nl: 'Maandag 24 oktober 2016, 08u00',
       });
     });
 

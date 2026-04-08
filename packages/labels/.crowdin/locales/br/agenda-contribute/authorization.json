@@ -1,1 +1,7 @@
-{}
+{
+  "eventNotLinkedToAgenda": "N'eo ket renablet an darvoud war an deiziataer",
+  "noAccessToClosedAgenda": "Serret eo an deiziataer-mañ d'ar c'henlabourat",
+  "noAccessToCreate": "N'ho peus ket ar gwir da grouiñ darvoudoù war an deiziataer-mañ",
+  "noAccessToDraft": "N'ho peus ket ar gwir da gemmañ ar brouilhed-mañ",
+  "noAccessToEdit": "N'ho peus ket ar gwir da gemmañ an darvoud-mañ"
+}

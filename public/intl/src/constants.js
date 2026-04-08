@@ -11,6 +11,7 @@ export const DEFAULT_LANGS = [
   'eu',
   'oc',
   'io',
+  'nl',
 ];
 
 export const DEFAULT_FALLBACK_MAP = {

@@ -1,11 +1,11 @@
 {
-  "isBlacklisted": "Su cuenta ha sido añadida a nuestra lista de cuentas fraudulentas.",
-  "isBlacklistedInfo": "En caso de error por nuestra parte, contáctenos a través de nuestra aplicación de chat o el menú de Ayuda.",
-  "authRequired": "Necesitas autenticarte para acceder a esta página.",
-  "limitedAccessEvent": "Necesitas autenticarte para acceder a este evento. Por favor conéctese",
-  "limitedAccessAgenda": "Necesitas autenticarte para acceder a esta agenda. Por favor conéctese",
   "abortedAuth": "Autenticación se interrumpió en %service%",
+  "accountEmailAlreadyExists": "Una cuenta de correo electrónico que utiliza este ya existe. Por favor, inicie sesión con su correo electrónico y contraseña",
+  "authRequired": "Necesitas autenticarte para acceder a esta página.",
   "facebookEmailMissing": "El correo electrónico asociado con su cuenta Facebook no está disponible. Visita Facebook para confirmar.",
   "genericError": "Ocurrió un error. Por favor inténtalo nuevamente en un momento",
-  "accountEmailAlreadyExists": "Una cuenta de correo electrónico que utiliza este ya existe. Por favor, inicie sesión con su correo electrónico y contraseña"
+  "isBlacklisted": "Su cuenta ha sido añadida a nuestra lista de cuentas fraudulentas.",
+  "isBlacklistedInfo": "En caso de error por nuestra parte, contáctenos a través de nuestra aplicación de chat o el menú de Ayuda.",
+  "limitedAccessAgenda": "Necesitas autenticarte para acceder a esta agenda. Por favor conéctese",
+  "limitedAccessEvent": "Necesitas autenticarte para acceder a este evento. Por favor conéctese"
 }

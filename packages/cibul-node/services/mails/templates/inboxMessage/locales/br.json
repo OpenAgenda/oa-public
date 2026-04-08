@@ -1,1 +1,12 @@
-{}
+{
+  "actionDescription": "Gwelet an deiziataer",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "memberUnsubscribe": "Paouez da zegemer kemenadennoù eus postelerezh an deiziataer-mañ",
+  "reply": "Respont",
+  "sentBy": "Kaset gant <b>{senderName}</b>",
+  "subject": "OpenAgenda | Kemennadenn nevez",
+  "subjectWithAgenda": "OpenAgenda | {agenda} | Kemennadenn nevez",
+  "title": "Degemeret ho peus ur gemennadenn nevez.",
+  "titleWithAgenda": "Degemeret ho peus ur gemennadenn nevez war postelerezh an deiziataer {agenda}.",
+  "unsubscribe": "Paouez da zegemer kemenadennoù {agenda, select, null {eus ma fostelerezh} other {eus postelerezhoù an deiziataerioù}}"
+}

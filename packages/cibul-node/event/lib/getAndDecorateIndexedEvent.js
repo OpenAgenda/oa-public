@@ -25,7 +25,7 @@ function pickPreferredLang(value, lang) {
   const existingLangs = Object.keys(value);
 
   return value[
-    ['fr', 'en', 'es', 'it', 'de']
+    ['fr', 'en', 'es', 'it', 'de', 'nl']
       .filter((l) => existingLangs.includes(l))
       .concat(existingLangs)
       .shift()

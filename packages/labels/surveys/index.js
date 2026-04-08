@@ -8,7 +8,9 @@ module.exports = {
     "es": "¡Gracias por su contribución!",
     "it": "Grazie per aver partecipato!",
     "io": "crwdns15788:0crwdne15788:0",
-    "oc": "Mercés per vòstra contribucion !"
+    "oc": "Mercés per vòstra contribucion !",
+    "nl": "Bedankt voor uw deelname!",
+    "br": "Trugarez evit ho kemer-perzh!"
   },
   "done": {
     "fr": "Fermer",
@@ -18,6 +20,7 @@ module.exports = {
     "it": "Chiudere",
     "br": "Serriñ",
     "io": "crwdns15790:0crwdne15790:0",
-    "oc": "Tampar"
+    "oc": "Tampar",
+    "nl": "Schließen"
   }
 }

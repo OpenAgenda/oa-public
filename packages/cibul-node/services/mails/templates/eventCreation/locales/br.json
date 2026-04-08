@@ -1,4 +1,12 @@
 {
+  "actionDescription": "Gwelet an darvoud",
+  "body": "<b>{event}</b> a zo bet krouet war ar c'halendr <b>{agenda}</b> gant ar stad <b>{state}</b>.",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "controlled": "prest da vezañ embannet",
+  "memberUnsubscribe": "Paouez da zegemer krouiñ an darvoudoù eus ar c'halendr-mañ",
   "published": "embannet",
-  "refused": "nac'het"
+  "refused": "nac'het",
+  "title": "Darvoud nevez war {agenda}: {event}",
+  "tocontrol": "da gontrollañ",
+  "unsubscribe": "Paouez da zegemer krouiñ an darvoudoù"
 }

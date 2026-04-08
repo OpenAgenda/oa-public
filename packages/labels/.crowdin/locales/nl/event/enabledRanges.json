@@ -1,0 +1,11 @@
+{
+  "at": " om ",
+  "checkboxInfo": " Beperk de toegestane periodes voor ingevoerde datums",
+  "constraintError": "De nieuwe limiet moet binnen de bestaande beperking vallen",
+  "constraintInfo": "Veld is al beperkt op een hoger niveau",
+  "dateError": "De begindatum moet vóór de einddatum zijn",
+  "from": "Van ",
+  "timeError": "De ingevoerde tijd is ongeldig",
+  "to": "Tot ",
+  "usefulFor": "Nuttig voor agenda's die verwijzen naar evenementen die plaatsvinden gedurende een beperkte periode. Bijvoorbeeld: agenda's van beurzen, festivals of grote evenementen"
+}

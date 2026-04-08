@@ -1,0 +1,9 @@
+{
+  "event-form.components.Events.emptySelection": "Geen gebeurtenis geselecteerd",
+  "event-form.components.Events.loadError": "Fout bij laden, probeer het later opnieuw",
+  "event-form.components.Events.noResult": "Geen overeenkomende gebeurtenis gevonden",
+  "event-form.components.Events.remove": "Verwijderen",
+  "event-form.components.Events.search": "Zoeken",
+  "event-form.components.Events.searchEvents": "Zoek een gebeurtenis",
+  "event-form.components.Events.show": "Tonen"
+}

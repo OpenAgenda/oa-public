@@ -1,0 +1,17 @@
+{
+  "react-layouts.AdminHeader.administration": "Verwaltung",
+  "react-layouts.AdminHeader.return": "Kalender Startseite",
+  "react-layouts.AdminSections.newTab": "Neu !",
+  "react-layouts.Announcement.close": "Schließen",
+  "react-layouts.MainLayout.createAgenda": "Een agenda aanmaken",
+  "react-layouts.MainLayout.general": "Genereren",
+  "react-layouts.MainLayout.help": "Hulp",
+  "react-layouts.MainLayout.myAgendas": "Mijn Agenda's",
+  "react-layouts.MainLayout.myEvents": "Mijn evenementen",
+  "react-layouts.MainLayout.searchAgenda": "Een agenda zoeken",
+  "react-layouts.MainLayout.settings": "Einstellungen",
+  "react-layouts.MainLayout.signin": "Login",
+  "react-layouts.MainLayout.signout": "Abmelden",
+  "react-layouts.MainLayout.translate": "Vertalen",
+  "react-layouts.components.Search.search": "Een agenda zoeken"
+}

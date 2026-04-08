@@ -67,7 +67,7 @@ function getUpdatedTags(changes, schema) {
     .map((tagId) =>
       schema.fields.find((fieldSchema) =>
         fieldSchema.options?.find((option) => option.id === tagId)))
-    .filter((v, i, a) => a.indexOf(v) === i);
+    .filter((v, i, a) => v !== undefined && a.indexOf(v) === i);
 }
 
 export default async function registerUpdateActivity({

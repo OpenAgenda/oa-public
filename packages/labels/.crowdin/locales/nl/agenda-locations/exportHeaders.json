@@ -1,0 +1,22 @@
+{
+  "access": "Toegang",
+  "address": "Adres",
+  "agendaEventCount": "Gerelateerde evenementen in agenda",
+  "city": "Stad",
+  "countryCode": "Landcode",
+  "department": "Departement",
+  "description": "Beschrijving",
+  "district": "Wijk",
+  "eventCount": "Gerelateerde evenementen",
+  "insee": "INSEE-code",
+  "latitude": "Breedtegraad",
+  "longitude": "Lengtegraad",
+  "name": "Naam",
+  "postalCode": "Postcode",
+  "region": "Regio",
+  "siret": "SIRET-code",
+  "slug": "URL-code",
+  "state": "Geverifieerd",
+  "uid": "Identificatie",
+  "website": "Website"
+}

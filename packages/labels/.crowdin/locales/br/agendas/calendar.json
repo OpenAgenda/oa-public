@@ -1,4 +1,14 @@
 {
+  "agenda": "Deiziataer",
+  "allDay": "A-hed an devezh",
+  "date": "Deiziad",
+  "day": "Deiz",
+  "event": "Darvoud",
+  "month": "Miz",
+  "more": "Gwelet an holl darvoudoù",
   "next": "War-lerc'h",
-  "agenda": "Deiziataer"
+  "previous": "Kent",
+  "time": "Eur",
+  "today": "Hiziv",
+  "week": "Sizhun"
 }

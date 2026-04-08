@@ -6,7 +6,9 @@ module.exports = {
     "en": "The event was removed from the agenda",
     "io": "crwdns14412:0crwdne14412:0",
     "oc": "Aqueste eveniment foguèt tirat de l'agenda",
-    "es": "El evento ha sido quitado de la agenda"
+    "es": "El evento ha sido quitado de la agenda",
+    "nl": "Het evenement is uit de agenda verwijderd",
+    "br": "Lamet eo bet an darvoud diwar an deiziataer"
   },
   "eventRemoveTitle": {
     "en": "Remove an event from the agenda",
@@ -14,7 +16,9 @@ module.exports = {
     "de": "Entferne ein Veranstaltung aus der Verwaltungskalender",
     "es": "Eliminar un evento de agenda",
     "io": "crwdns14414:0crwdne14414:0",
-    "oc": "Tirar un eveniment de l'agenda"
+    "oc": "Tirar un eveniment de l'agenda",
+    "nl": "Een evenement uit de agenda verwijderen",
+    "br": "Lemel un darvoud diwar an deiziataer"
   },
   "eventRemoveDetails": {
     "en": "Are you sure you want to do this? If you remove the event from this agenda, it will no longer be listed in the exports and will be removed from any agenda aggregating your events",
@@ -22,21 +26,27 @@ module.exports = {
     "de": "Bist du sicher, dass Sie dies tun? Wenn Sie die Veranstaltung aus dieser Verwaltungskalender entfernen, wird es nicht mehr in dem Ausfuhr aufgeführt wird und von jedem Programm entfernt werden aggregiert deine Veranstaltungen",
     "es": "¿Está seguro de que desea eliminar el evento? Si es así, sino que también será eliminado del agenda de exportación y los agregadores agendas conectados a su contenido.",
     "io": "crwdns14416:0crwdne14416:0",
-    "oc": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments"
+    "oc": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà pas pus listat dins los expòrts e serà tirat de totas las agendas qu'agrègan vòstres eveniments",
+    "nl": "Weet u zeker dat u dit wilt doen? Als u het evenement uit deze agenda verwijdert, wordt het niet meer vermeld in de exports en wordt het verwijderd uit elke agenda die uw evenementen aggregeert",
+    "br": "Ha sur oc'h e fell deoc'h ober se? Ma lamet an darvoud eus an deiziataer-mañ, ne vo ket renablet ken en ezporzhioù hag e vo lamet diouzh an holl zeiziataerien o vodañ ho tarvoudoù"
   },
   "eventDeleteTitle": {
     "en": "Event deletion",
     "fr": "Supprimer un événement",
     "io": "crwdns14418:0crwdne14418:0",
     "oc": "Supression d'eveniment",
-    "es": "Eliminación de evento"
+    "es": "Eliminación de evento",
+    "nl": "Een evenement verwijderen",
+    "br": "Diverkañ un darvoud"
   },
   "eventDeleteDetails": {
     "en": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda.",
     "fr": "Êtes-vous sûr de vouloir supprimer l'événement ? Il sera définitivement retiré de tous les agendas OpenAgenda.",
     "io": "crwdns14420:0crwdne14420:0",
     "oc": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda.",
-    "es": "¿Está seguro de que quieres realizar esta accion? Si eliminas el evento de esta agenda, se eliminará permanentemente de todas las agendas de OpenAgenda."
+    "es": "¿Está seguro de que quieres realizar esta accion? Si eliminas el evento de esta agenda, se eliminará permanentemente de todas las agendas de OpenAgenda.",
+    "nl": "Weet u zeker dat u dit evenement wilt verwijderen? Het wordt definitief verwijderd uit alle OpenAgenda agenda's.",
+    "br": "Ha sur oc'h e fell deoc'h ober se? Ma lamet an darvoud eus an deiziataer-mañ, e vo lamet diouzh an holl zeiziataerien war OpenAgenda da viken."
   },
   "confirm": {
     "en": "Confirm",
@@ -45,7 +55,9 @@ module.exports = {
     "es": "Confirmar",
     "io": "crwdns14422:0crwdne14422:0",
     "oc": "Confirmar",
-    "it": "Confermare"
+    "it": "Confermare",
+    "nl": "Bevestigen",
+    "br": "Kadarnaat"
   },
   "eventDeleted": {
     "fr": "L'événement a été définitivement supprimé",
@@ -53,6 +65,8 @@ module.exports = {
     "io": "crwdns14424:0crwdne14424:0",
     "oc": "L'eveniment es estat definitivament escafat",
     "it": "L'evento è cancellato",
-    "es": "El evento como eliminado permanentemente"
+    "es": "El evento como eliminado permanentemente",
+    "nl": "Het evenement is definitief verwijderd",
+    "br": "Diverket eo bet an darvoud da vat"
   }
 }

@@ -1,0 +1,12 @@
+{
+  "checkEmail": "Klik op de validatielink in je inbox",
+  "checkEmailInstruction": "Er wordt zo meteen een e-mail met de activeringslink voor je account verzonden. Controleer je inbox om je inschrijving te voltooien.",
+  "didNotReceive": "Geen e-mail ontvangen? %resend% of schrijf ons op %support%",
+  "followUs": "Volg ons",
+  "getOurNewsletter": "Ontvang onze nieuwsbrief",
+  "resend": "Klik hier om opnieuw te verzenden",
+  "sendAgain": "De activeringsmail wordt opnieuw verzonden",
+  "stayUpToDate": "Blijf op de hoogte van wat er gebeurt bij OpenAgenda!",
+  "subscribe": "Abonneer je",
+  "yourEmail": "Je e-mail"
+}

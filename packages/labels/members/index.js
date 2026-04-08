@@ -9,7 +9,8 @@ module.exports = {
     "it": "Membri",
     "br": "Izili",
     "io": "crwdns15600:0crwdne15600:0",
-    "oc": "Membres"
+    "oc": "Membres",
+    "nl": "Leden"
   },
   "member": {
     "fr": "Membre",
@@ -18,7 +19,9 @@ module.exports = {
     "es": "Miembro",
     "it": "Membro",
     "io": "crwdns15602:0crwdne15602:0",
-    "oc": "Membre"
+    "oc": "Membre",
+    "nl": "Lid",
+    "br": "Ezel"
   },
   "searchMember": {
     "fr": "Rechercher un membre",
@@ -27,7 +30,9 @@ module.exports = {
     "es": "Buscador un miembro",
     "it": "Ricerca di un membro",
     "io": "crwdns15604:0crwdne15604:0",
-    "oc": "Cercar un membre"
+    "oc": "Cercar un membre",
+    "nl": "Zoek een lid",
+    "br": "Klask un ezel"
   },
   "contributor": {
     "fr": "Contributeur",
@@ -36,7 +41,9 @@ module.exports = {
     "es": "Contribuyente",
     "it": "Collaboratore",
     "io": "crwdns15606:0crwdne15606:0",
-    "oc": "Contributor·a"
+    "oc": "Contributor·a",
+    "nl": "Bijdrager",
+    "br": "Kenlabourer"
   },
   "administrator": {
     "fr": "Administrateur",
@@ -45,7 +52,9 @@ module.exports = {
     "es": "Administrador",
     "it": "Amministratore",
     "io": "crwdns15608:0crwdne15608:0",
-    "oc": "Administrator·a"
+    "oc": "Administrator·a",
+    "nl": "Beheerder",
+    "br": "Merour"
   },
   "moderator": {
     "fr": "Modérateur",
@@ -54,7 +63,9 @@ module.exports = {
     "es": "Moderador",
     "it": "Moderatore",
     "io": "crwdns15610:0crwdne15610:0",
-    "oc": "Moderator·a"
+    "oc": "Moderator·a",
+    "nl": "Moderator",
+    "br": "Habaskour"
   },
   "reader": {
     "fr": "Lecteur",
@@ -63,7 +74,9 @@ module.exports = {
     "es": "Lector",
     "it": "Lettore",
     "io": "crwdns15612:0crwdne15612:0",
-    "oc": "Legeire·a"
+    "oc": "Legeire·a",
+    "nl": "Lezer",
+    "br": "Lenner"
   },
   "contributors": {
     "fr": "Contributeurs",
@@ -72,7 +85,9 @@ module.exports = {
     "es": "Contribuyentes",
     "it": "Collaboratori",
     "io": "crwdns15614:0crwdne15614:0",
-    "oc": "Contributor·a·s"
+    "oc": "Contributor·a·s",
+    "nl": "Bijdragers",
+    "br": "Kenlabourerien"
   },
   "administrators": {
     "fr": "Administrateurs",
@@ -81,7 +96,9 @@ module.exports = {
     "es": "Administradores",
     "it": "Amministratori",
     "io": "crwdns15616:0crwdne15616:0",
-    "oc": "Administrator·a·s"
+    "oc": "Administrator·a·s",
+    "nl": "Beheerders",
+    "br": "Merourien"
   },
   "moderators": {
     "fr": "Modérateurs",
@@ -90,7 +107,9 @@ module.exports = {
     "es": "Moderadores",
     "it": "Moderatori",
     "io": "crwdns15618:0crwdne15618:0",
-    "oc": "Moderator·a·s"
+    "oc": "Moderator·a·s",
+    "nl": "Moderatoren",
+    "br": "Habaskaerien"
   },
   "readers": {
     "fr": "Lecteurs",
@@ -99,7 +118,9 @@ module.exports = {
     "es": "Lectores",
     "it": "Lettori",
     "io": "crwdns15620:0crwdne15620:0",
-    "oc": "Legeire·as"
+    "oc": "Legeire·as",
+    "nl": "Lezers",
+    "br": "Lennerien"
   },
   "events": {
     "fr": "événements",
@@ -109,7 +130,8 @@ module.exports = {
     "it": "eventi",
     "br": "kevelet",
     "io": "crwdns15622:0crwdne15622:0",
-    "oc": "eveniments"
+    "oc": "eveniments",
+    "nl": "evenementen"
   },
   "event": {
     "fr": "événement",
@@ -118,7 +140,9 @@ module.exports = {
     "es": "Evento",
     "it": "evento",
     "io": "crwdns15624:0crwdne15624:0",
-    "oc": "eveniment"
+    "oc": "eveniment",
+    "nl": "evenement",
+    "br": "darvoud"
   },
   "result": {
     "fr": "Résultat",
@@ -127,7 +151,9 @@ module.exports = {
     "es": "Resultado",
     "it": "Risultato",
     "io": "crwdns15626:0crwdne15626:0",
-    "oc": "Resultat"
+    "oc": "Resultat",
+    "nl": "Resultaat",
+    "br": "Disoc'h"
   },
   "searchResult": {
     "fr": "Résultat de la recherche",
@@ -136,7 +162,9 @@ module.exports = {
     "es": "Resultados de la búsqueda",
     "it": "Risultato della ricerca",
     "io": "crwdns15628:0crwdne15628:0",
-    "oc": "Resultat de recerca"
+    "oc": "Resultat de recerca",
+    "nl": "Zoekresultaat",
+    "br": "Disoc'h ar c'hlask"
   },
   "noResult": {
     "fr": "Aucun résultat trouvé",
@@ -146,7 +174,8 @@ module.exports = {
     "it": "Nessun risultato trovato",
     "br": "N'eus bet kavet disoc'h ebet",
     "io": "crwdns15630:0crwdne15630:0",
-    "oc": "Pas cap resultat trobat"
+    "oc": "Pas cap resultat trobat",
+    "nl": "Geen resultaat gevonden"
   },
   "actions": {
     "fr": "Actions",
@@ -155,7 +184,9 @@ module.exports = {
     "es": "Acciones",
     "it": "Azioni",
     "io": "crwdns15632:0crwdne15632:0",
-    "oc": "Accions"
+    "oc": "Accions",
+    "nl": "Acties",
+    "br": "Oberoù"
   },
   "removeMember": {
     "fr": "Retirer le membre",
@@ -164,7 +195,9 @@ module.exports = {
     "es": "Eliminar miembro",
     "it": "Rimozione dei membri",
     "io": "crwdns15634:0crwdne15634:0",
-    "oc": "Tirar un membre"
+    "oc": "Tirar un membre",
+    "nl": "Lid verwijderen",
+    "br": "Lemel an ezel"
   },
   "removeConfirmMessage": {
     "fr": "Êtes-vous sûr de vouloir supprimer cet utilisateur des membres ?",
@@ -173,7 +206,9 @@ module.exports = {
     "es": "¿Estás seguro de que quieres eliminar este usuario de los miembros?",
     "it": "Sei sicuro di voler rimuovere questo utente della lista?",
     "io": "crwdns15636:0crwdne15636:0",
-    "oc": "Sètz segur·a que volètz tirar aqueste utilizaire dels membres ?"
+    "oc": "Sètz segur·a que volètz tirar aqueste utilizaire dels membres ?",
+    "nl": "Weet u zeker dat u deze gebruiker uit de leden wilt verwijderen?",
+    "br": "Ha sur oc'h e fell deoc'h dilemel an implijer-mañ eus an izili?"
   },
   "removeModalError": {
     "fr": "Vous ne pouvez pas supprimer ce membre.",
@@ -182,7 +217,9 @@ module.exports = {
     "es": "No se puede eliminar este miembro.",
     "it": "Non è possibile cancellare questo membro.",
     "io": "crwdns15638:0crwdne15638:0",
-    "oc": "Podètz pas suprimir aqueste membre."
+    "oc": "Podètz pas suprimir aqueste membre.",
+    "nl": "U kunt dit lid niet verwijderen.",
+    "br": "N'hallit ket dilemel an ezel-mañ."
   },
   "editProfile": {
     "fr": "Voir la fiche contact",
@@ -191,7 +228,9 @@ module.exports = {
     "es": "Editar perfil",
     "it": "Modificare il profilo",
     "io": "crwdns15640:0crwdne15640:0",
-    "oc": "Modifiar lo perfil"
+    "oc": "Modifiar lo perfil",
+    "nl": "Contactfiche bekijken",
+    "br": "Gwelet ar fichenn darempred"
   },
   "changeRole": {
     "fr": "Changer le rôle",
@@ -199,7 +238,9 @@ module.exports = {
     "it": "Modificare il ruolo",
     "io": "crwdns16504:0crwdne16504:0",
     "oc": "Cambiar lo ròtle",
-    "es": "Editar el rol"
+    "es": "Editar el rol",
+    "nl": "Rol wijzigen",
+    "br": "Cheñch ar roll"
   },
   "operationSuccessful": {
     "fr": "Operation effectuée",
@@ -207,7 +248,9 @@ module.exports = {
     "it": "Fatto",
     "io": "crwdns16506:0crwdne16506:0",
     "oc": "Fait",
-    "es": "Operación realizada"
+    "es": "Operación realizada",
+    "nl": "Bewerking uitgevoerd",
+    "br": "Oberiadenn sevenet"
   },
   "patchSuccessConfirm": {
     "fr": "Le membre a été mis à jour",
@@ -215,7 +258,9 @@ module.exports = {
     "it": "Il membro è statto aggiornato",
     "io": "crwdns16508:0crwdne16508:0",
     "oc": "Lo membre es estat mes a jorn",
-    "es": "El miembro ha sido actualizado"
+    "es": "El miembro ha sido actualizado",
+    "nl": "Het lid is bijgewerkt",
+    "br": "Hizivaet eo bet an ezel"
   },
   "inviteMembers": {
     "fr": "Inviter des membres",
@@ -224,7 +269,9 @@ module.exports = {
     "es": "Invitar miembros",
     "it": "Invitare i membri",
     "io": "crwdns15642:0crwdne15642:0",
-    "oc": "Convidar de membres"
+    "oc": "Convidar de membres",
+    "nl": "Leden uitnodigen",
+    "br": "Pediñ izili"
   },
   "inviteContributors": {
     "fr": "Inviter des contributeurs",
@@ -239,7 +286,9 @@ module.exports = {
     "es": "Invitar",
     "it": "Invitare",
     "io": "crwdns15644:0crwdne15644:0",
-    "oc": "Convidar"
+    "oc": "Convidar",
+    "nl": "Uitnodigen",
+    "br": "Pediñ"
   },
   "inviteMembersPlaceholder": {
     "fr": "Collez ici les adresses email des nouveaux membres, séparées par des virgules",
@@ -248,7 +297,9 @@ module.exports = {
     "es": "Pegue aquí las direcciones de correo electrónico de nuevos miembros, separados por comas",
     "it": "Incolla qui gli indirizzi e-mail dei nuovi membri, separati da virgole",
     "io": "crwdns15646:0crwdne15646:0",
-    "oc": "Pegatz aquí las adreiças mail dels membres novèls, desseparadas per de virgulas"
+    "oc": "Pegatz aquí las adreiças mail dels membres novèls, desseparadas per de virgulas",
+    "nl": "Plak hier de e-mailadressen van nieuwe leden, gescheiden door komma's",
+    "br": "Pegit amañ chomlec'hioù postel an izili nevez, dispartiet gant skejoù"
   },
   "emails": {
     "fr": "Emails",
@@ -257,7 +308,9 @@ module.exports = {
     "es": "Correos electrónicos",
     "it": "E-mail",
     "io": "crwdns15648:0crwdne15648:0",
-    "oc": "Emails"
+    "oc": "Emails",
+    "nl": "E-mails",
+    "br": "Postelezhioù"
   },
   "role": {
     "fr": "Rôle",
@@ -266,7 +319,9 @@ module.exports = {
     "es": "Rol",
     "it": "Ruolo",
     "io": "crwdns15650:0crwdne15650:0",
-    "oc": "Ròtle"
+    "oc": "Ròtle",
+    "nl": "Rol",
+    "br": "Rol"
   },
   "selectRole": {
     "fr": "Sélectionnez un rôle",
@@ -275,7 +330,9 @@ module.exports = {
     "es": "Seleccione un rol",
     "it": "Seleziona un ruolo",
     "io": "crwdns15652:0crwdne15652:0",
-    "oc": "Causissètz un ròtle"
+    "oc": "Causissètz un ròtle",
+    "nl": "Selecteer een rol",
+    "br": "Diuzit ur roll"
   },
   "name": {
     "fr": "Nom",
@@ -284,7 +341,9 @@ module.exports = {
     "es": "Apellido",
     "it": "Nome",
     "io": "crwdns15654:0crwdne15654:0",
-    "oc": "Nom"
+    "oc": "Nom",
+    "nl": "Naam",
+    "br": "Anv"
   },
   "email": {
     "fr": "Email",
@@ -294,7 +353,8 @@ module.exports = {
     "it": "Email",
     "br": "Postel",
     "io": "crwdns15656:0crwdne15656:0",
-    "oc": "Email"
+    "oc": "Email",
+    "nl": "E-mail"
   },
   "phone": {
     "fr": "Téléphone",
@@ -303,7 +363,9 @@ module.exports = {
     "es": "Teléfono",
     "it": "Telefono",
     "io": "crwdns15658:0crwdne15658:0",
-    "oc": "Telefòne"
+    "oc": "Telefòne",
+    "nl": "Telefoon",
+    "br": "Pellgomz"
   },
   "position": {
     "fr": "Poste",
@@ -312,7 +374,9 @@ module.exports = {
     "es": "Función",
     "it": "Ruolo",
     "io": "crwdns15660:0crwdne15660:0",
-    "oc": "Foncion"
+    "oc": "Foncion",
+    "nl": "Functie",
+    "br": "Karg"
   },
   "organization": {
     "fr": "Organisation",
@@ -322,7 +386,8 @@ module.exports = {
     "it": "Ragione sociale",
     "br": "Aozadur",
     "io": "crwdns15662:0crwdne15662:0",
-    "oc": "Organizacion"
+    "oc": "Organizacion",
+    "nl": "Organisatie"
   },
   "total": {
     "fr": "Total",
@@ -331,7 +396,9 @@ module.exports = {
     "es": "Total",
     "it": "Totale",
     "io": "crwdns15664:0crwdne15664:0",
-    "oc": "Total"
+    "oc": "Total",
+    "nl": "Totaal",
+    "br": "Hollad"
   },
   "required": {
     "fr": "Obligatoire",
@@ -341,7 +408,8 @@ module.exports = {
     "it": "Obbligatorio",
     "br": "Rekis",
     "io": "crwdns15666:0crwdne15666:0",
-    "oc": "Requesit"
+    "oc": "Requesit",
+    "nl": "Verplicht"
   },
   "string.tooshort": {
     "fr": "La chaîne de caractères est trop courte",
@@ -350,7 +418,9 @@ module.exports = {
     "es": "El texto es demasiado corto",
     "it": "La stringa è troppo corta",
     "io": "crwdns15668:0crwdne15668:0",
-    "oc": "La cadena de caractèrs es tròp corteta"
+    "oc": "La cadena de caractèrs es tròp corteta",
+    "nl": "De tekenreeks is te kort",
+    "br": "Re verr eo ar chadenn arouezennoù"
   },
   "phone.invalid": {
     "fr": "Numéro de téléphone invalide",
@@ -359,7 +429,9 @@ module.exports = {
     "es": "El número de teléfono es inválido",
     "it": "Numero di telefono non valido",
     "io": "crwdns15670:0crwdne15670:0",
-    "oc": "Numèro de telefòne invalid"
+    "oc": "Numèro de telefòne invalid",
+    "nl": "Ongeldig telefoonnummer",
+    "br": "Niverenn bellgomz direizh"
   },
   "email.invalid": {
     "fr": "L'adresse email est invalide",
@@ -368,7 +440,9 @@ module.exports = {
     "es": "El correo electrónico es inválido",
     "it": "L'indirizzo e-mail non è valido",
     "io": "crwdns15672:0crwdne15672:0",
-    "oc": "Adreiça email invalida"
+    "oc": "Adreiça email invalida",
+    "nl": "Het e-mailadres is ongeldig",
+    "br": "Chomlec'h postel direizh"
   },
   "emails.invalid": {
     "fr": "Au moins une des adresses email est invalide",
@@ -377,7 +451,9 @@ module.exports = {
     "es": "Al menos una dirección de correo electrónico es inválida",
     "it": "Almeno uno degli indirizzi e-mail non è valido",
     "io": "crwdns15674:0crwdne15674:0",
-    "oc": "Al mens una de las adreiças mail es pas valida"
+    "oc": "Al mens una de las adreiças mail es pas valida",
+    "nl": "Ten minste één van de e-mailadressen is ongeldig",
+    "br": "Unan eus ar chomlec'hioù postel zo direizh da nebeutañ"
   },
   "credential.downgrade": {
     "fr": "Vous ne pouvez pas baisser le niveau d'un membre",
@@ -386,7 +462,9 @@ module.exports = {
     "es": "No se puede bajar el nivel de un miembro",
     "it": "Non puoi abbassare il livello di un membro",
     "io": "crwdns15676:0crwdne15676:0",
-    "oc": "Podètz pas baissar lo nivèl d'un membre"
+    "oc": "Podètz pas baissar lo nivèl d'un membre",
+    "nl": "U kunt het niveau van een lid niet verlagen",
+    "br": "N'hallit ket izelaat live un ezel"
   },
   "exportToXlsx": {
     "fr": "Exporter en xlsx",
@@ -395,7 +473,9 @@ module.exports = {
     "es": "Exportar en XLSX",
     "it": "Esportazione in xlsx",
     "io": "crwdns15678:0crwdne15678:0",
-    "oc": "Exportar en xlsx"
+    "oc": "Exportar en xlsx",
+    "nl": "Exporteren naar xlsx",
+    "br": "Ezporzhiañ e xlsx"
   },
   "exportToCsv": {
     "fr": "Exporter en csv",
@@ -404,7 +484,9 @@ module.exports = {
     "es": "Exportar en CSV",
     "it": "Esportazione in csv",
     "io": "crwdns15680:0crwdne15680:0",
-    "oc": "Exportar en csv"
+    "oc": "Exportar en csv",
+    "nl": "Exporteren naar csv",
+    "br": "Ezporzhiañ e csv"
   },
   "sendAMessage": {
     "fr": "Lui écrire",
@@ -413,7 +495,9 @@ module.exports = {
     "es": "Enviar un mensaje",
     "it": "Scrivetegli",
     "io": "crwdns15682:0crwdne15682:0",
-    "oc": "Mandar un messatge"
+    "oc": "Mandar un messatge",
+    "nl": "Hem/haar schrijven",
+    "br": "Skrivañ dezhañ"
   },
   "emailsCouldNotBeInvited": {
     "fr": "Les emails suivants n'ont pas pu être invités:",
@@ -422,7 +506,9 @@ module.exports = {
     "es": "No se han invitado a los siguientes correos electrónicos:",
     "it": "Le seguenti e-mail non possono essere invitate:",
     "io": "crwdns15684:0crwdne15684:0",
-    "oc": "Poguèrem pas convidar los emails seguents :"
+    "oc": "Poguèrem pas convidar los emails seguents :",
+    "nl": "De volgende e-mails konden niet worden uitgenodigd:",
+    "br": "N'eus ket bet gallet pediñ ar postelezhioù da-heul:"
   },
   "invitationProblem": {
     "fr": "Il y a eu un problème pendant l'invitation des membres, veuillez réessayer ultérieurement.",
@@ -431,7 +517,9 @@ module.exports = {
     "es": "Ocurrió un error al invitar nuevos miembros, por favor inténtelo nuevamente.",
     "it": "C'è stato un problema durante l'invito dei soci, si prega di riprovare più tardi.",
     "io": "crwdns15686:0crwdne15686:0",
-    "oc": "I aguèt un problèma a la convidacion, mercés de tornar ensajar mai tard."
+    "oc": "I aguèt un problèma a la convidacion, mercés de tornar ensajar mai tard.",
+    "nl": "Er was een probleem bij het uitnodigen van de leden, probeer het later opnieuw.",
+    "br": "Ur gudenn zo bet en ur bediñ an izili, klaskit en-dro diwezhatoc'h mar plij."
   },
   "membersInvited": {
     "fr": "Les membres ont été invités avec succès.",
@@ -440,7 +528,9 @@ module.exports = {
     "es": "Los miembros fueron invitados exitosamente.",
     "it": "I membri sono stati invitati con successo.",
     "io": "crwdns15688:0crwdne15688:0",
-    "oc": "Los membres son plan estats convidats."
+    "oc": "Los membres son plan estats convidats.",
+    "nl": "De leden zijn succesvol uitgenodigd.",
+    "br": "Pedet eo bet an izili gant berzh."
   },
   "noName": {
     "fr": "Sans nom",
@@ -449,7 +539,9 @@ module.exports = {
     "es": "Sin nombre",
     "it": "Senza nome",
     "io": "crwdns15690:0crwdne15690:0",
-    "oc": "Sens nom"
+    "oc": "Sens nom",
+    "nl": "Zonder naam",
+    "br": "Hep anv"
   },
   "deletedUser": {
     "fr": "Compte supprimé",
@@ -458,7 +550,9 @@ module.exports = {
     "es": "Usuario eliminado",
     "it": "Account cancellato",
     "io": "crwdns15692:0crwdne15692:0",
-    "oc": "Utilizaire suprimit"
+    "oc": "Utilizaire suprimit",
+    "nl": "Verwijderde gebruiker",
+    "br": "Implijer dilamet"
   },
   "invited": {
     "fr": "Invité",
@@ -467,7 +561,9 @@ module.exports = {
     "es": "Invitado",
     "it": "Ospite",
     "io": "crwdns15694:0crwdne15694:0",
-    "oc": "Convidat"
+    "oc": "Convidat",
+    "nl": "Uitgenodigd",
+    "br": "Pedet"
   },
   "hasAccount": {
     "fr": "Compte existant",
@@ -476,7 +572,9 @@ module.exports = {
     "it": "Account esistente",
     "de": "",
     "io": "crwdns15696:0crwdne15696:0",
-    "oc": "Lo compte existís"
+    "oc": "Lo compte existís",
+    "nl": "Bestaand account",
+    "br": "Kont o vezañ"
   },
   "resendInvitation": {
     "fr": "Relancer l'invitation",
@@ -485,7 +583,9 @@ module.exports = {
     "es": "Reenviar invitación",
     "it": "Rilasciare l'invito",
     "io": "crwdns15698:0crwdne15698:0",
-    "oc": "Tornar mandar la convidacion"
+    "oc": "Tornar mandar la convidacion",
+    "nl": "Uitnodiging opnieuw versturen",
+    "br": "Adkas ar bedadenn"
   },
   "invitationResended": {
     "fr": "L'invitation a été renvoyée.",
@@ -494,7 +594,9 @@ module.exports = {
     "es": "La invitación fue enviada de nuevo.",
     "it": "L'invito è stato restituito.",
     "io": "crwdns15700:0crwdne15700:0",
-    "oc": "La convidacion es estada tornada mandar."
+    "oc": "La convidacion es estada tornada mandar.",
+    "nl": "De uitnodiging is opnieuw verstuurd.",
+    "br": "Adkaset eo bet ar bedadenn."
   },
   "invitationNotResended": {
     "fr": "L'invitation n'a pas pu être renvoyée.",
@@ -503,7 +605,9 @@ module.exports = {
     "es": "No se pudo volver a enviar la invitación.",
     "it": "L'invito non ha potuto essere restituito.",
     "io": "crwdns15702:0crwdne15702:0",
-    "oc": "La convidacion se poguèt pas tornar mandar."
+    "oc": "La convidacion se poguèt pas tornar mandar.",
+    "nl": "De uitnodiging kon niet opnieuw worden verstuurd.",
+    "br": "N'eus ket bet gallet adkas ar bedadenn."
   },
   "roleInsufficient": {
     "en": "You do not have access to the requested page. Contact administrators via the 'Contact' button.",
@@ -511,7 +615,9 @@ module.exports = {
     "it": "Non avete accesso alla pagina richiesta. Contattare gli amministratori tramite il pulsante 'Contatto'.",
     "io": "crwdns15704:0crwdne15704:0",
     "oc": "Avètz pas accès a aquela pagina. Contactatz los adminsitrators amb lo boton 'Contactar'.",
-    "es": "No tienes acceso a la página solicitada. Contacta los administradores a través del botón 'Contacto'."
+    "es": "No tienes acceso a la página solicitada. Contacta los administradores a través del botón 'Contacto'.",
+    "nl": "U heeft geen toegang tot de gevraagde pagina. Neem contact op met de beheerders via de knop 'Contact'.",
+    "br": "N'ho peus ket moned d'ar bajenn goulennet. Kit e darempred gant ar verourien dre ar bouton 'Darempred'."
   },
   "message": {
     "fr": "Message",
@@ -520,7 +626,9 @@ module.exports = {
     "es": "Mensaje",
     "it": "Messaggio",
     "io": "crwdns15706:0crwdne15706:0",
-    "oc": "Messatge"
+    "oc": "Messatge",
+    "nl": "Bericht",
+    "br": "Kemennadenn"
   },
   "replyTo": {
     "fr": "Adresse email de réponse",
@@ -529,7 +637,9 @@ module.exports = {
     "es": "Correo electrónico de respuesta",
     "it": "Indirizzo e-mail di risposta",
     "io": "crwdns15708:0crwdne15708:0",
-    "oc": "Adreiça mail de responsa"
+    "oc": "Adreiça mail de responsa",
+    "nl": "Antwoord e-mailadres",
+    "br": "Chomlec'h postel respont"
   },
   "active": {
     "fr": "Actif",
@@ -538,7 +648,9 @@ module.exports = {
     "es": "Activo",
     "it": "Attivo",
     "io": "crwdns15710:0crwdne15710:0",
-    "oc": "Actiu"
+    "oc": "Actiu",
+    "nl": "Actief",
+    "br": "Oberiant"
   },
   "inactive": {
     "fr": "Inactif",
@@ -547,7 +659,9 @@ module.exports = {
     "es": "Inactivo",
     "it": "Inattivo",
     "io": "crwdns15712:0crwdne15712:0",
-    "oc": "Inactiu"
+    "oc": "Inactiu",
+    "nl": "Inactief",
+    "br": "Dizoberiant"
   },
   "noContrib": {
     "fr": "n'a pas contribué",
@@ -556,7 +670,9 @@ module.exports = {
     "es": "no ha contribuido",
     "it": "non ha contribuito",
     "io": "crwdns15714:0crwdne15714:0",
-    "oc": "a pas contribuït"
+    "oc": "a pas contribuït",
+    "nl": "heeft niet bijgedragen",
+    "br": "n'en deus ket kenlabourat"
   },
   "deleted": {
     "fr": "Supprimé",
@@ -565,7 +681,9 @@ module.exports = {
     "es": "Eliminado",
     "it": "Cancellato",
     "io": "crwdns15716:0crwdne15716:0",
-    "oc": "Escafat"
+    "oc": "Escafat",
+    "nl": "Verwijderd",
+    "br": "Dilamet"
   },
   "sendMessage": {
     "fr": "Envoyer le message",
@@ -574,7 +692,9 @@ module.exports = {
     "es": "Enviar mensaje",
     "it": "Invia il messaggio",
     "io": "crwdns15718:0crwdne15718:0",
-    "oc": "Mandar lo messatge"
+    "oc": "Mandar lo messatge",
+    "nl": "Bericht versturen",
+    "br": "Kas ar gemennadenn"
   },
   "sendMessageToAll": {
     "fr": "Envoyer un message à tous les membres",
@@ -583,7 +703,9 @@ module.exports = {
     "es": "Enviar un mensaje a todos los miembros",
     "it": "Invia un messaggio a tutti i membri",
     "io": "crwdns15722:0crwdne15722:0",
-    "oc": "Mandar un messatge a totes los membres"
+    "oc": "Mandar un messatge a totes los membres",
+    "nl": "Een bericht naar alle leden sturen",
+    "br": "Kas ur gemennadenn d'an holl izili"
   },
   "sendMessageToInactives": {
     "fr": "Envoyer un message aux membres n'ayant pas contribué",
@@ -592,7 +714,9 @@ module.exports = {
     "es": "Enviar un mensaje a los miembros que no han contribuido",
     "it": "Inviare un messaggio ai membri non contribuenti",
     "io": "crwdns15724:0crwdne15724:0",
-    "oc": "Mandar un messatge als membres qu'an pas contribuït"
+    "oc": "Mandar un messatge als membres qu'an pas contribuït",
+    "nl": "Een bericht sturen naar leden die niet hebben bijgedragen",
+    "br": "Kas ur gemennadenn d'an izili n'o deus ket kenlabourat"
   },
   "nameModerators": {
     "fr": "Nommer des modérateurs",
@@ -601,7 +725,9 @@ module.exports = {
     "es": "Nombrar los moderadores",
     "it": "Nominare i moderatori",
     "io": "crwdns15726:0crwdne15726:0",
-    "oc": "Nommar de moderators"
+    "oc": "Nommar de moderators",
+    "nl": "Moderatoren aanwijzen",
+    "br": "Envel habaskaerien"
   },
   "messageSent": {
     "fr": "Le message a été bien envoyé.",
@@ -610,7 +736,9 @@ module.exports = {
     "es": "El mensaje se ha enviado exitosamente.",
     "it": "Il messaggio è stato inviato bene.",
     "io": "crwdns15728:0crwdne15728:0",
-    "oc": "Lo messatge es plan estat mandat."
+    "oc": "Lo messatge es plan estat mandat.",
+    "nl": "Het bericht is succesvol verzonden.",
+    "br": "Kaset eo bet ar gemennadenn ervat."
   },
   "close": {
     "fr": "Fermer",
@@ -620,7 +748,8 @@ module.exports = {
     "it": "Chiudere",
     "br": "Serriñ",
     "io": "crwdns15730:0crwdne15730:0",
-    "oc": "Tampar"
+    "oc": "Tampar",
+    "nl": "Schließen"
   },
   "memberRequired": {
     "en": "You need to be a member of the agenda to access this page. Contact the administrators of the agenda using the 'Contact' button.",
@@ -628,7 +757,9 @@ module.exports = {
     "it": "La pagina che avete tentato di caricare è accessibile solo ai membri del calendario. Contattare gli amministratori tramite il pulsante 'Contatto'.",
     "io": "crwdns15732:0crwdne15732:0",
     "oc": "Vos cal èsser membre de l'agenda per accedir a aquela pagina. Contactatz los administrators de l'agenda amb lo boton 'Contactar'.",
-    "es": "Necesitas ser miembro de la agenda para acceder a esta página. Contacta los administradores de la agenda usando el botón 'Contacto'."
+    "es": "Necesitas ser miembro de la agenda para acceder a esta página. Contacta los administradores de la agenda usando el botón 'Contacto'.",
+    "nl": "De pagina die u probeerde te bereiken is alleen toegankelijk voor leden van de agenda. Neem contact op met de beheerders via de knop 'Contact'.",
+    "br": "Ret eo deoc'h bezañ ezel eus an deiziataer evit mont d'ar bajenn-mañ. Kit e darempred gant merourien an deiziataer dre ar bouton 'Darempred'."
   },
   "moreinfoActive": {
     "fr": "Utilisateur membre de l'agenda ayant contribué des événements",
@@ -637,7 +768,9 @@ module.exports = {
     "es": "Miembro que ha contribuido con un evento",
     "it": "Membro del agenda che ha contribuito agli eventi",
     "io": "crwdns15734:0crwdne15734:0",
-    "oc": "Membre que contribuiguèt a d'eveniments"
+    "oc": "Membre que contribuiguèt a d'eveniments",
+    "nl": "Lid van de agenda dat evenementen heeft bijgedragen",
+    "br": "Ezel eus an deiziataer en deus kenlabourat darvoudoù"
   },
   "moreinfoInactive": {
     "fr": "Utilisateur membre de l'agenda n'ayant pas encore contribué d'événements",
@@ -646,7 +779,9 @@ module.exports = {
     "es": "Miembro que aún no ha contribuido con un evento",
     "it": "Utente membro dell'agenda che non ha ancora contribuito agli eventi",
     "io": "crwdns15736:0crwdne15736:0",
-    "oc": "Membre qu'a pas encara contribuït a cap eveniment"
+    "oc": "Membre qu'a pas encara contribuït a cap eveniment",
+    "nl": "Lid van de agenda dat nog geen evenementen heeft bijgedragen",
+    "br": "Ezel eus an deiziataer n'en deus ket c'hoazh kenlabourat darvoudoù"
   },
   "moreinfoInvited": {
     "fr": "Utilisateur ayant été invité à devenir membre. Cet utilisateur n'a pas encore de compte sur OpenAgenda. Un mail lui a été envoyé pour l'inviter à le créer.",
@@ -655,7 +790,9 @@ module.exports = {
     "es": "El usuario ha sido invitado como miembro. Aún no tiene cuenta OpenAgenda, un correo electrónico ha sido enviado para invitarlo a crear una.",
     "it": "L'utente è stato invitato come membro. Questo utente non ha ancora un conto su OpenAgenda. Gli è stata inviata una e-mail che lo invita a crearne una.",
     "io": "crwdns15738:0crwdne15738:0",
-    "oc": "Utilizaire qu'es estat convidat a venir membre. Aqueste utilizaire a pas encara de compte OpenAgenda. Un mail li es estat mandat per l'invitar a ne crear un."
+    "oc": "Utilizaire qu'es estat convidat a venir membre. Aqueste utilizaire a pas encara de compte OpenAgenda. Un mail li es estat mandat per l'invitar a ne crear un.",
+    "nl": "Gebruiker die is uitgenodigd om lid te worden. Deze gebruiker heeft nog geen account op OpenAgenda. Er is een e-mail gestuurd om hem/haar uit te nodigen er een aan te maken.",
+    "br": "Implijer a zo bet pedet da vezañ ezel. N'en deus ket c'hoazh ur gont war OpenAgenda an implijer-mañ. Kaset ez eus bet ur postel dezhañ evit pediñ anezhañ da grouiñ unan."
   },
   "moreinfoDeleted": {
     "fr": "Membre ayant supprimé son compte utilisateur",
@@ -664,7 +801,9 @@ module.exports = {
     "es": "Miembro que ha borrado su cuenta de usuario",
     "it": "Membro che ha cancellato il suo account utente",
     "io": "crwdns15740:0crwdne15740:0",
-    "oc": "Membre qu'a suprimit son compte d'utilizaire·a"
+    "oc": "Membre qu'a suprimit son compte d'utilizaire·a",
+    "nl": "Lid dat zijn/haar gebruikersaccount heeft verwijderd",
+    "br": "Ezel en deus dilamet e gont implijer"
   },
   "writeToHim": {
     "fr": "Lui écrire",
@@ -673,7 +812,9 @@ module.exports = {
     "es": "Escribir a los miembros",
     "it": "Scrivetegli",
     "io": "crwdns15742:0crwdne15742:0",
-    "oc": "Escriure al membre"
+    "oc": "Escriure al membre",
+    "nl": "Hem/haar schrijven",
+    "br": "Skrivañ dezhañ"
   },
   "writeToThem": {
     "fr": "Leur écrire",
@@ -682,7 +823,9 @@ module.exports = {
     "es": "Escríbales",
     "it": "Scrivi a loro",
     "io": "crwdns15744:0crwdne15744:0",
-    "oc": "Lor escriure"
+    "oc": "Lor escriure",
+    "nl": "Hen schrijven",
+    "br": "Skrivañ dezho"
   },
   "sendOnlyToInactives": {
     "fr": "Envoyer seulement aux utilisateurs inactifs",
@@ -691,7 +834,9 @@ module.exports = {
     "es": "Solamente enviar a los usuarios inactivos",
     "it": "Inviare solo agli utenti inattivi",
     "io": "crwdns15746:0crwdne15746:0",
-    "oc": "Mandar sonque als membres inactius"
+    "oc": "Mandar sonque als membres inactius",
+    "nl": "Alleen naar inactieve gebruikers sturen",
+    "br": "Kas hepken d'an izili dizoberiant"
   },
   "export": {
     "fr": "Exporter",
@@ -700,7 +845,9 @@ module.exports = {
     "es": "Exportar",
     "it": "Esportare",
     "io": "crwdns15748:0crwdne15748:0",
-    "oc": "Exportar"
+    "oc": "Exportar",
+    "nl": "Exporteren",
+    "br": "Ezporzhiañ"
   },
   "order.arrivalDate": {
     "fr": "date d'arrivée",
@@ -708,7 +855,9 @@ module.exports = {
     "it": "data di arrivo",
     "io": "crwdns15750:0crwdne15750:0",
     "oc": "data d'arribada",
-    "es": "fecha de llegada"
+    "es": "fecha de llegada",
+    "nl": "aankomstdatum",
+    "br": "deiziad degouezh"
   },
   "order.name": {
     "fr": "nom",
@@ -716,7 +865,9 @@ module.exports = {
     "it": "nome",
     "io": "crwdns15752:0crwdne15752:0",
     "oc": "nom",
-    "es": "nombre"
+    "es": "nombre",
+    "nl": "naam",
+    "br": "anv"
   },
   "order.activity": {
     "fr": "activité",
@@ -724,7 +875,9 @@ module.exports = {
     "it": "attività",
     "io": "crwdns15754:0crwdne15754:0",
     "oc": "activitat",
-    "es": "actividad"
+    "es": "actividad",
+    "nl": "activiteit",
+    "br": "obererezh"
   },
   "orderSort": {
     "fr": "Ordre de tri",
@@ -732,7 +885,9 @@ module.exports = {
     "it": "Ordinare gli eventi",
     "io": "crwdns15756:0crwdne15756:0",
     "oc": "Òrdre de tria",
-    "es": "Orden de clasificación"
+    "es": "Orden de clasificación",
+    "nl": "Sorteervolgorde",
+    "br": "Urzh rummañ"
   },
   "sortBy": {
     "fr": "Trié par",
@@ -740,7 +895,9 @@ module.exports = {
     "it": "Ordinato per",
     "io": "crwdns16148:0crwdne16148:0",
     "oc": "Triar per",
-    "es": "Ordenar por"
+    "es": "Ordenar por",
+    "nl": "Gesorteerd op",
+    "br": "Rummet dre"
   },
   "removeFilter": {
     "fr": "Supprimer le filtre",
@@ -748,20 +905,26 @@ module.exports = {
     "it": "Rimuovere il filtro",
     "io": "crwdns16150:0crwdne16150:0",
     "oc": "Tirar lo filtre",
-    "es": "Eliminar filtro"
+    "es": "Eliminar filtro",
+    "nl": "Filter verwijderen",
+    "br": "Lemel ar sil"
   },
   "subject": {
     "fr": "Sujet",
     "en": "Subject",
     "io": "crwdns33237:0crwdne33237:0",
     "oc": "Subjècte",
-    "es": "Asunto"
+    "es": "Asunto",
+    "nl": "Onderwerp",
+    "br": "Danvez"
   },
   "sendAlsoToMe": {
     "fr": "M'envoyer ce message",
     "en": "Send me this message",
     "io": "crwdns33239:0crwdne33239:0",
     "oc": "Mandatz-me aqueste messatge",
-    "es": "Enviarme este mensaje"
+    "es": "Enviarme este mensaje",
+    "nl": "Stuur mij dit bericht",
+    "br": "Kas din ar gemennadenn-mañ"
   }
 };

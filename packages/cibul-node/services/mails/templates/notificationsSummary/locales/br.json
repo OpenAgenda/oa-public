@@ -1,4 +1,7 @@
 {
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
   "dailySummary": "Diverradenn bemdeziek eus ho kemennoù",
-  "goToOA": "Mont da OpenAgenda"
+  "goToOA": "Mont da OpenAgenda",
+  "subject": "{nbr} a gemennoù n'int ket bet gwelet abaoe an {date}",
+  "unsubscribe": "Paouez da resev un diverradenn eus ar c'hemennoù bemdez"
 }

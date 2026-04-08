@@ -1,12 +1,12 @@
 {
+  "fieldCannotBeEmpty": "Le champ ne peut être vide",
   "incorrectPassword": "Le mot de passe est incorrect",
   "invalidToken": "Token invalide",
-  "userNotFound": "Utilisateur introuvable",
-  "userNotActivated": "Utilisateur non activé",
-  "passwordsMustMatch": "Le mot de passe ne correspond pas.",
-  "fieldCannotBeEmpty": "Le champ ne peut être vide",
   "passwordCouldNotBeModified": "Le mot de passe n'a pas pu être modifié",
   "passwordResetSent": "Un lien de réinitialisation du mot de passe est envoyé à votre adresse email",
+  "passwordUpdated": "Votre mot de passe a été mis à jour.",
+  "passwordsMustMatch": "Le mot de passe ne correspond pas.",
   "resetLinkOutdated": "Le lien est obsolète. Réessayez.",
-  "passwordUpdated": "Votre mot de passe a été mis à jour."
+  "userNotActivated": "Utilisateur non activé",
+  "userNotFound": "Utilisateur introuvable"
 }

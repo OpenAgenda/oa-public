@@ -14,7 +14,7 @@
   "next.components.Strapi.LoggedUserWelcome.loggedIn": [
     {
       "type": 0,
-      "value": "Sei connesso al tuo account **"
+      "value": "Sei connesso al tuo account "
     },
     {
       "type": 1,
@@ -22,7 +22,15 @@
     },
     {
       "type": 0,
-      "value": "**. Trova i tuoi agende, eventi e messaggi su [la tua bacheca](/home)."
+      "value": ". Trova i tuoi agende, eventi e messaggi su "
+    },
+    {
+      "type": 1,
+      "value": "dashboard"
+    },
+    {
+      "type": 0,
+      "value": "."
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.welcome": [

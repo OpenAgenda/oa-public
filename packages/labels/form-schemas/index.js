@@ -8,7 +8,9 @@ module.exports = {
     "es": "Campo obligatorio",
     "it": "Campo obbligatorio",
     "io": "crwdns14882:0crwdne14882:0",
-    "oc": "Camp obligatòri"
+    "oc": "Camp obligatòri",
+    "nl": "Verplicht veld",
+    "br": "Maezienn ret"
   },
   "groupErrorHeader": {
     "fr": "Certaines saisies doivent être corrigées",
@@ -17,7 +19,9 @@ module.exports = {
     "es": "Algunas entradas deben ser corregidas",
     "it": "Alcune voci devono essere corrette",
     "io": "crwdns14884:0crwdne14884:0",
-    "oc": "Cal corregir d'unas valors"
+    "oc": "Cal corregir d'unas valors",
+    "nl": "Sommige waarden moeten worden gecorrigeerd",
+    "br": "Talvoudoù 'zo a rank bezañ reizhet"
   },
   "submit": {
     "fr": "Enregistrer",
@@ -27,7 +31,8 @@ module.exports = {
     "it": "Convalidare",
     "br": "Kemmañ",
     "io": "crwdns14886:0crwdne14886:0",
-    "oc": "Sometre"
+    "oc": "Sometre",
+    "nl": "Opslaan"
   },
   "help": {
     "fr": "Aide",
@@ -37,7 +42,8 @@ module.exports = {
     "it": "Aiuto",
     "br": "Skoazell",
     "io": "crwdns14888:0crwdne14888:0",
-    "oc": "Ajuda"
+    "oc": "Ajuda",
+    "nl": "Hulp"
   },
   "noChoice": {
     "fr": "Aucun choix",
@@ -46,7 +52,9 @@ module.exports = {
     "es": "Ninguna opción",
     "it": "Nessuna scelta",
     "io": "crwdns14890:0crwdne14890:0",
-    "oc": "Pas cap causida"
+    "oc": "Pas cap causida",
+    "nl": "Geen keuze",
+    "br": "Dibab ebet"
   },
   "noOption": {
     "fr": "Pas de correspondance",
@@ -54,7 +62,9 @@ module.exports = {
     "io": "crwdns14892:0crwdne14892:0",
     "it": "Nessuna corrispondenza",
     "oc": "Pas cap correspondéncia",
-    "es": "Sin correspondencias"
+    "es": "Sin correspondencias",
+    "nl": "Geen overeenkomst",
+    "br": "Klotadenn ebet"
   },
   "selectPlaceholder": {
     "fr": "Sélectionner...",
@@ -62,7 +72,9 @@ module.exports = {
     "io": "crwdns14894:0crwdne14894:0",
     "it": "Seleziona...",
     "oc": "Causir...",
-    "es": "Seleccionar..."
+    "es": "Seleccionar...",
+    "nl": "Selecteren...",
+    "br": "Diuzañ..."
   },
   "cancel": {
     "en": "Cancel",
@@ -73,7 +85,8 @@ module.exports = {
     "es": "Anular",
     "br": "Nullañ",
     "io": "crwdns16466:0crwdne16466:0",
-    "oc": "Anullar"
+    "oc": "Anullar",
+    "nl": "Annuleren"
   },
   "fullscreen": {
     "en": "Fullscreen",

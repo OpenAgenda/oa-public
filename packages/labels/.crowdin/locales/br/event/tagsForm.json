@@ -1,4 +1,14 @@
 {
+  "cancel": "Nullañ",
+  "description": "Deus eus an darvoud-mañ eus un deiziataer all. Gallout a rit embann an titouroù amañ dindan, dibar d'ho teiziataer",
+  "invalidCategories": "Ar rummad diuzet n'eo ket reizh",
+  "invalidError": "Talvoudoù direizh a zo e maeziennoù 'zo. Reizhit anezho a-raok klask adkas.",
+  "invalidTags": "Tikedennoù 'zo kaset n'int ket reizh",
+  "loadingError": "Ur gudenn a zo bet o kargañ ar roadennoù. Adkargit ar bajenn a-benn un nebeud.",
+  "saveError": "Ur gudenn a zo bet oc'h enrollañ. Klaskit en-dro pe adkargit ar bajenn.",
+  "saveErrorTitle": "Fazi enrollañ",
+  "saveSuccess": "Hizivaet eo bet ar roadennoù",
   "submit": "Kemmañ",
-  "cancel": "Nullañ"
+  "submitted": "Kaset",
+  "uploadButton": "Diuzañ"
 }

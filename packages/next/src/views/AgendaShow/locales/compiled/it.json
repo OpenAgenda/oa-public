@@ -2,7 +2,7 @@
   "next.views.AgendaShow.closeButton": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Chiudere"
     }
   ],
   "next.views.AgendaShow.filter": [
@@ -44,7 +44,7 @@
   "next.views.AgendaShow.retryButton": [
     {
       "type": 0,
-      "value": "Retry"
+      "value": "Riprovare"
     }
   ],
   "next.views.AgendaShow.seeEvents": [

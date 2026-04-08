@@ -1,1 +1,11 @@
-{}
+{
+  "agendasButton": "crwdns35377:0crwdne35377:0",
+  "changeEmailSettings": "crwdns35369:0crwdne35369:0",
+  "docButton": "crwdns35381:0crwdne35381:0",
+  "eventsButton": "crwdns35379:0crwdne35379:0",
+  "part1": "crwdns35371:0{agenda}crwdne35371:0",
+  "part2": "crwdns35373:0crwdne35373:0",
+  "part3": "crwdns35375:0crwdne35375:0",
+  "subject": "crwdns35383:0{agenda}crwdne35383:0",
+  "unsubscribe": "crwdns35385:0crwdne35385:0"
+}

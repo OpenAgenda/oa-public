@@ -1,0 +1,32 @@
+{
+  "next.components.CopyIdentifier.clickToCopyIdentifier": [
+    {
+      "type": 0,
+      "value": "Click to copy the event identifier"
+    }
+  ],
+  "next.components.CopyIdentifier.copied": [
+    {
+      "type": 0,
+      "value": "Identifier copied"
+    }
+  ],
+  "next.components.CopyIdentifier.copy": [
+    {
+      "type": 0,
+      "value": "Copy identifier"
+    }
+  ],
+  "next.components.SearchInput.ariaLabel": [
+    {
+      "type": 0,
+      "value": "Zoeken"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "Uitgelicht"
+    }
+  ]
+}

@@ -1,1 +1,9 @@
-{}
+{
+  "actionDescription": "Gwelet an darvoud",
+  "book": "mirout",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "timing": "{from} betek {to}",
+  "timingsDetails": "Munudoù diwar-benn an deiziadoù",
+  "unsubscribe": "Paouez da resev darvoudoù dre bostel",
+  "unsubscribeGuest": "Paouez da zegemer posteloù digant OpenAgenda"
+}

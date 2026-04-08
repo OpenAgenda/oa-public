@@ -1,1 +1,9 @@
-{}
+{
+  "emailSubmitted": "Emeur o tretañ ar %count% postel kinniget",
+  "invitationError": "Ur fazi a zo c'hoarvezet en ur dreterezh ar pedadennoù. Klaskit en-dro a-benn un nebeud munutennoù mar plij.",
+  "invitationNotSent": "N'eus ket bet gallet kas ar bedadenn",
+  "noNewInvite": "N'eus bet kaset pedadenn nevez ebet",
+  "resentInvite": "Emeur o kas ar bedadenn en-dro",
+  "resentInvites": "Emeur o kas %count% pedadenn en-dro. <br/><br/>Notit ne c'hall ket ar pedadennoù bezañ adkaset nemet ur wech bemdez e-pad 24 eurvezh",
+  "sentInvites": "Pedadennoù kaset: %count%"
+}

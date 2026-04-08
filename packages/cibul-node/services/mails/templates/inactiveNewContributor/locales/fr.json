@@ -1,11 +1,11 @@
 {
+  "agendasButton": "Mes agendas",
   "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails",
-  "part1": "Bonjour,\n\nVous avez été invité à contribuer à l'agenda **{agenda}** !\n\nIl semblerait que vous n'avez pas encore saisi d'événement, avez-vous besoin d'un coup de pouce pour la suite ? \uD83D\uDC4D\n\nPour retrouver l'ensemble des agendas dont vous êtes membres, rendez-vous sur votre page « **mes agendas** » et cliquez sur « ajouter un événement » sous le nom de l'agenda où vous souhaitez contribuer :",
+  "docButton": "Voir la documentation",
+  "eventsButton": "Mes événements",
+  "part1": "Bonjour,\n\nVous avez été invité à contribuer à l'agenda **{agenda}** !\n\nIl semblerait que vous n'avez pas encore saisi d'événement, avez-vous besoin d'un coup de pouce pour la suite ? 👍\n\nPour retrouver l'ensemble des agendas dont vous êtes membres, rendez-vous sur votre page « **mes agendas** » et cliquez sur « ajouter un événement » sous le nom de l'agenda où vous souhaitez contribuer :",
   "part2": "Saisissez toutes les informations de votre événement dans le formulaire. Vous avez la possibilité d'enregistrer un brouillon afin de compléter les informations ultérieurement ou bien de « créer l'événement ».\n\nUne fois le formulaire événement validé, votre événement passera une étape de modération par les administrateurs de l'agenda. Vous serez notifié par e-mail dès publication de votre fiche.\n\nPour retrouver l'ensemble des événements que vous avez saisis, rendez-vous sur la page « **mes événements** » :",
   "part3": "**Un doute ?** Retrouvez nos articles de doc ou contactez notre équipe support.",
-  "agendasButton": "Mes agendas",
-  "eventsButton": "Mes événements",
-  "docButton": "Voir la documentation",
-  "subject": "{agenda} ➡\uFE0F Saisissez vos événements dès aujourd'hui!",
+  "subject": "{agenda} ➡️ Saisissez vos événements dès aujourd'hui!",
   "unsubscribe": "Ne plus recevoir ce type d'emails"
 }

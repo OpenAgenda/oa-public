@@ -1,1 +1,23 @@
-{}
+{
+  "AgendaMember.RequestFeatureLink.findOutMore": "gouzout hiroc'h",
+  "AgendaMember.RequestFeatureLink.link": "Goulenn gweredekaat ar c'heweriuster",
+  "AgendaMember.RequestFeatureLink.title": "Gweredekaat ar c'heweriuster",
+  "MemberApps.Dashboard.messageHistory": "Istor ar c'hemennadennoù",
+  "MemberApps.Dashboard.nameModeratorsActivation": "Gweredekaet e vez ar c'heweriuster-mañ war goulenn. Aotreañ a ra kas ur gemennadenn strollet da veur a ezel war un dro. Skrivit ur gemennadenn verr deomp hag e tretemp ho koulenn kerkent ha ma c'hallomp.",
+  "MemberApps.Dashboard.sendMessageToFilteredMembers": "Kaset e vo ar gemennadenn d'an dibab red ({count, plural, one {1 ezel} two {2 ezel} few {# ezel} many {# a izili} other {# ezel}} diwar {total})",
+  "MemberApps.Dashboard.sendMessageToMembers": "Kas ur gemennadenn d'an izili",
+  "MemberApps.Dashboard.sendMessageToUnfilteredMembers": "Kaset e vo ar gemennadenn {total, plural, one {d'an ezel nemetañ} two {d'an 2 ezel} few {d'an # ezel} many {d'an holl # a izili} other {d'an holl # ezel}} ({total})",
+  "MemberApps.Dashboard.writeToMembersActivation": "Gweredekaet e vez ar c'heweriuster-mañ war goulenn. Aotreañ a ra ur merour kas ur gemennadenn strollet d'un dibab izili. Skrivit ur gemennadenn verr deomp hag e tretemp ho koulenn kerkent ha ma c'hallomp.",
+  "MemberApps.Form.GDPRSummary": "Gwelet e vo an titouroù-mañ gant habaskaerien an deiziataer.",
+  "MemberApps.Form.cancel": "Nullañ",
+  "MemberApps.Form.confirm": "Mat eo",
+  "MemberApps.Form.confirmRemove": "Dilammat ac'hanon eus an deiziataer",
+  "MemberApps.Form.confirmRemoveInfo": "Ma tilammat ac'hanoc'h eus an deiziataer, ne resevot ket kemennoù ken ha ne c'hallot ket kemmañ ho tegouezhioù na ouzhpennañ reoù nevez ken. Ne zeuio ket an deiziataer war ho pajenn degemer ken.",
+  "MemberApps.Form.moreInfo": "Gouzout hiroc'h",
+  "MemberApps.Form.remove": "C'hoant am eus dilammat eus an deiziataer",
+  "MemberApps.Form.removeFail": "C'hwitet eo bet an oberiadenn. Klaskit en-dro a-benn nebeut. Ma chom ar gudenn, kasit ur gemennadenn deomp da support@openagenda.com",
+  "MemberApps.Form.removeSuccess": "N'emaoc'h ket mui e-touez izili an deiziataer",
+  "MemberApps.Form.save": "Enrollañ",
+  "MemberApps.Form.success": "An hizivadenn a zo bet graet",
+  "MemberApps.Form.updateTitle": "Furmskrid darempred"
+}

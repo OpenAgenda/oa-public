@@ -21,7 +21,7 @@ interface PageProps {
   footer: any;
 }
 
-const SUPPORTED_STRAPI_LOCALES = ['en', 'fr'] as const;
+const SUPPORTED_STRAPI_LOCALES = ['en', 'fr', 'nl'] as const;
 type StrapiLocale = (typeof SUPPORTED_STRAPI_LOCALES)[number];
 
 const STRAPI_FALLBACK_LOCALE: StrapiLocale = 'en';

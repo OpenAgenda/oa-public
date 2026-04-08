@@ -9,7 +9,8 @@ module.exports = {
     "br": "Digoumanantet oc'h",
     "it": "Ora non sei più iscritto",
     "io": "crwdns14962:0crwdne14962:0",
-    "oc": "Vos sètz plan desinscrit·a"
+    "oc": "Vos sètz plan desinscrit·a",
+    "nl": "Je bent nu uitgeschreven"
   },
   "unsubscribedFail": {
     "en": "A problem occurred. Please retry shortly or contact support",
@@ -19,7 +20,8 @@ module.exports = {
     "br": "Un diaester zo bet. Esaeit adarre a-benn nebeut pe kit e darempred gant ur skoazeller, mar plij.",
     "it": "È sorto un problema. Si prega di riprovare presto o di contattare il supporto.",
     "io": "crwdns14964:0crwdne14964:0",
-    "oc": "I a agut un problèma. Tornatz ensajar dins gaire o contactatz l'assisténcia"
+    "oc": "I a agut un problèma. Tornatz ensajar dins gaire o contactatz l'assisténcia",
+    "nl": "Er is een probleem opgetreden. Probeer het binnenkort opnieuw of neem contact op met support"
   },
   "unsubscribeFromNotification": {
     "en": "Unsubscribe me from notifications of this type",
@@ -29,7 +31,8 @@ module.exports = {
     "br": "Digoumanantiñ ac'hanon diouzh ar c'hemennoù seurt-se",
     "it": "Cancellatemi da tali notifiche",
     "io": "crwdns14966:0crwdne14966:0",
-    "oc": "Me desinscriure de notificacions d'aquela mena"
+    "oc": "Me desinscriure de notificacions d'aquela mena",
+    "nl": "Schrijf me uit voor meldingen van dit type"
   },
   "unsubscribeFromAllNotifications": {
     "en": "Unsubscribe me from this agenda",
@@ -39,7 +42,8 @@ module.exports = {
     "br": "Digoumanantiñ ac'hanon diouzh an deiziataer-mañ",
     "it": "Cancellatemi dalle notifiche di questo calendario",
     "io": "crwdns14968:0crwdne14968:0",
-    "oc": "Me desinscriure d'aquela agenda"
+    "oc": "Me desinscriure d'aquela agenda",
+    "nl": "Schrijf me uit voor meldingen van deze agenda"
   },
   "notificationTitle": {
     "en": "Notification",
@@ -49,7 +53,8 @@ module.exports = {
     "br": "Kemenn",
     "it": "Notifica",
     "io": "crwdns14970:0crwdne14970:0",
-    "oc": "Notificacion"
+    "oc": "Notificacion",
+    "nl": "Melding"
   },
   "seeAgenda": {
     "en": "See the agenda",
@@ -59,7 +64,8 @@ module.exports = {
     "br": "Gwelet an deiziataer",
     "it": "Vedere l'agenda",
     "io": "crwdns14972:0crwdne14972:0",
-    "oc": "Veire l'agenda"
+    "oc": "Veire l'agenda",
+    "nl": "Bekijk de agenda"
   },
   "seeEvent": {
     "en": "See the event",
@@ -69,7 +75,8 @@ module.exports = {
     "br": "Gwelet an darvoud",
     "it": "Vedere l'evento",
     "io": "crwdns14974:0crwdne14974:0",
-    "oc": "Veire l'eveniment"
+    "oc": "Veire l'eveniment",
+    "nl": "Bekijk het evenement"
   },
   "agendaEventPublished": {
     "en": "%user% published %event%.",
@@ -79,7 +86,8 @@ module.exports = {
     "br": "%user% en/he deus embannet %event%.",
     "it": "%user% ha pubblicato %event%.",
     "io": "crwdns14976:0%user%crwdnd14976:0%event%crwdne14976:0",
-    "oc": "%user% a publicat %event%."
+    "oc": "%user% a publicat %event%.",
+    "nl": "%user% heeft %event% gepubliceerd."
   },
   "userNewContributor": {
     "en": "You are now a contributor of the agenda %agenda%.",
@@ -89,7 +97,8 @@ module.exports = {
     "br": "Ur c'hendaoler eus an deiziataer %agenda% oc'h bremañ.",
     "it": "Ora sei un contributore di %agenda%.",
     "io": "crwdns14980:0%agenda%crwdne14980:0",
-    "oc": "Sètz ara contributor·a de l'agenda %agenda%."
+    "oc": "Sètz ara contributor·a de l'agenda %agenda%.",
+    "nl": "Je bent nu een bijdrager van de agenda %agenda%."
   },
   "agendaNewContributor": {
     "en": "%user% is now contributor of the agenda %agenda%.",
@@ -99,7 +108,8 @@ module.exports = {
     "br": "%user% a gendaol d'an deiziataer %agenda% bremañ.",
     "it": "%user% è ora un collaboratore dell'agenda %agenda%.",
     "io": "crwdns14982:0%user%crwdnd14982:0%agenda%crwdne14982:0",
-    "oc": "%user% es ara contributor·a de l'agenda %agenda%."
+    "oc": "%user% es ara contributor·a de l'agenda %agenda%.",
+    "nl": "%user% is nu een bijdrager van de agenda %agenda%."
   },
   "agendaNewAdministrator": {
     "en": "%user% is now administrator of the agenda %agenda%.",
@@ -109,7 +119,8 @@ module.exports = {
     "br": "%user% zo ur merour eus an deiziataer %agenda% bremañ.",
     "it": "%user% è ora amministratore dell'agenda %agenda%.",
     "io": "crwdns14984:0%user%crwdnd14984:0%agenda%crwdne14984:0",
-    "oc": "%user% es ara administrator·a de l'agenda %agenda%."
+    "oc": "%user% es ara administrator·a de l'agenda %agenda%.",
+    "nl": "%user% is nu beheerder van de agenda %agenda%."
   },
   "userEventUpdate": {
     "en": "%user% made changes on %event%.",
@@ -119,7 +130,8 @@ module.exports = {
     "br": "%user% en/he deus graet cheñchamantoù e %event%.",
     "it": "%user% ha apportato modifiche a %event%.",
     "io": "crwdns14986:0%user%crwdnd14986:0%event%crwdne14986:0",
-    "oc": "%user% a fait de cambiaments a %event%."
+    "oc": "%user% a fait de cambiaments a %event%.",
+    "nl": "%user% heeft wijzigingen aangebracht in %event%."
   },
   "userNewAdministrator": {
     "en": "You are now an administrator of the agenda %agenda%.",
@@ -129,7 +141,8 @@ module.exports = {
     "br": "Ur merour eus an deiziataer %agenda% oc'h bremañ.",
     "it": "Lei è ora amministratore dell'agenda %agenda%.",
     "io": "crwdns14988:0%agenda%crwdne14988:0",
-    "oc": "Sètz ara administrator·a de l'agenda %agenda%."
+    "oc": "Sètz ara administrator·a de l'agenda %agenda%.",
+    "nl": "Je bent nu een beheerder van de agenda %agenda%."
   },
   "userNewModerator": {
     "en": "You are now a moderator of the agenda %agenda%.",
@@ -139,7 +152,8 @@ module.exports = {
     "br": "Un habaskaer eus an deiziataer %agenda% oc'h bremañ.",
     "it": "Lei è ora il moderatore dell'agenda %agenda%.",
     "io": "crwdns14990:0%agenda%crwdne14990:0",
-    "oc": "Sètz ara moderator·a de l'agenda %agenda%."
+    "oc": "Sètz ara moderator·a de l'agenda %agenda%.",
+    "nl": "Je bent nu een moderator van de agenda %agenda%."
   },
   "agendaNewModerator": {
     "en": "%user% is now moderator of the agenda %agenda%.",
@@ -149,7 +163,8 @@ module.exports = {
     "br": "%user% zo un habaskaer eus an deiziataer  %agenda% bremañ.",
     "it": "%user% è ora un moderatore dell'agenda %agenda%.",
     "io": "crwdns14992:0%user%crwdnd14992:0%agenda%crwdne14992:0",
-    "oc": "%user% es ara moderator·a de l'agenda %agenda%."
+    "oc": "%user% es ara moderator·a de l'agenda %agenda%.",
+    "nl": "%user% is nu moderator van de agenda %agenda%."
   },
   "agendaNewAggregator": {
     "en": "%aggregator% is now importing the events of your agenda %agenda%.",
@@ -159,7 +174,8 @@ module.exports = {
     "br": "Hiviziken e enporzh %aggregator% an darvoudoù diwar ho teiziataer %agenda%.",
     "it": "%aggregator% ora importa gli eventi dalla vostra agenda %agenda%.",
     "io": "crwdns14994:0%aggregator%crwdnd14994:0%agenda%crwdne14994:0",
-    "oc": "%aggregator% impòrta ara los eveniments de vòstra agenda %agenda%."
+    "oc": "%aggregator% impòrta ara los eveniments de vòstra agenda %agenda%.",
+    "nl": "%aggregator% importeert nu de evenementen van je agenda %agenda%."
   },
   "agendaEventUpdate": {
     "en": "%agenda%: the event %event% has been updated by %user%.",
@@ -169,6 +185,7 @@ module.exports = {
     "br": "%agenda% : Hizivaet eo bet an darvoud  %event% gant %user%.",
     "it": "%agenda%: l'evento %event% è stato aggiornato da %user%.",
     "io": "crwdns14996:0%agenda%crwdnd14996:0%event%crwdnd14996:0%user%crwdne14996:0",
-    "oc": "%agenda% : l'eveniment %event% es estat mes a jorn per %user%."
+    "oc": "%agenda% : l'eveniment %event% es estat mes a jorn per %user%.",
+    "nl": "%agenda%: het evenement %event% is bijgewerkt door %user%."
   }
 }

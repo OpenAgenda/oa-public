@@ -1,1 +1,11 @@
-{}
+{
+  "at": " da ",
+  "checkboxInfo": " Bevenniñ ar mareoù aotreet evit an deiziadoù lakaet",
+  "constraintError": "Ret eo d'ar vevenn nevez bezañ e-barzh an hini zo dija",
+  "constraintInfo": "Maezienn bevennet dija en ul live uheloc'h",
+  "dateError": "Ret eo d'an deiziad kregiñ bezañ a-raok an deiziad echuiñ",
+  "from": "Eus ",
+  "timeError": "Direizh eo an eur termenet",
+  "to": "Betek ",
+  "usefulFor": "Talvoudus evit an deiziataerioù o menegiñ darvoudoù a c'hoarvez e-pad ur maread bevennet. Da skouer: deiziataerioù foarioù, gouelioù pe darvoudoù bras"
+}

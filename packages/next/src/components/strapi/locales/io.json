@@ -1,7 +1,7 @@
 {
   "next.components.Strapi.LoggedUserWelcome.dashboard": "crwdns35209:0crwdne35209:0",
   "next.components.Strapi.LoggedUserWelcome.defaultUser": "crwdns35211:0crwdne35211:0",
-  "next.components.Strapi.LoggedUserWelcome.loggedIn": "crwdns35213:0{email}crwdnd35213:0/homecrwdne35213:0",
+  "next.components.Strapi.LoggedUserWelcome.loggedIn": "crwdns35213:0{email}crwdnd35213:0{dashboard}crwdne35213:0",
   "next.components.Strapi.LoggedUserWelcome.welcome": "crwdns35215:0{firstName}crwdne35215:0",
   "next.components.Strapi.ReferenceItem.more": "crwdns35165:0{count}crwdne35165:0",
   "next.components.Strapi.addEvent": "crwdns35181:0crwdne35181:0",

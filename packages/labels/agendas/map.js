@@ -10,7 +10,8 @@ module.exports = {
     "ar": "إبحت عندما أزيح الخيطة",
     "br": "klask pa zilec'hian ar gartenn",
     "io": "crwdns12884:0crwdne12884:0",
-    "oc": "cercar quand desplaci la mapa"
+    "oc": "cercar quand desplaci la mapa",
+    "nl": "zoeken wanneer ik de kaart verplaats"
   },
   "events": {
     "it": "eventi",
@@ -21,6 +22,7 @@ module.exports = {
     "ar": "أحداث",
     "br": "kevelet",
     "io": "crwdns12886:0crwdne12886:0",
-    "oc": "eveniments"
+    "oc": "eveniments",
+    "nl": "evenementen"
   }
 }

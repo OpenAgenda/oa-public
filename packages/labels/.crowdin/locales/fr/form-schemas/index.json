@@ -1,11 +1,11 @@
 {
-  "required": "Champ obligatoire",
+  "cancel": "Annuler",
   "groupErrorHeader": "Certaines saisies doivent être corrigées",
-  "submit": "Enregistrer",
   "help": "Aide",
   "noChoice": "Aucun choix",
   "noOption": "Pas de correspondance",
+  "required": "Champ obligatoire",
   "selectPlaceholder": "Sélectionner...",
-  "cancel": "Annuler",
+  "submit": "Enregistrer",
   "warnAllCaps": "Évitez les saisies exclusivement en lettres majuscules"
 }

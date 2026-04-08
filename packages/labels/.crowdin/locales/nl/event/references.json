@@ -1,0 +1,19 @@
+{
+  "addEvent": "Een evenement toevoegen",
+  "addEventOr": "of",
+  "addEventSuggest": "Soortgelijke evenementen laden",
+  "editorInfo": "Koppel andere evenementen van de agenda aan uw evenement",
+  "editorTitle": "Gerelateerde evenementen",
+  "emptyReferences": "Er zijn nog geen gekoppelde evenementen gedefinieerd",
+  "emptySearch": "Geen resultaat voor deze zoekopdracht",
+  "noOtherSuggestions": "Geen ander soortgelijk evenement gevonden",
+  "noOtherSuggestionsTitle": "Soortgelijke evenementen",
+  "noSuggestions": "Geen soortgelijk evenement gevonden",
+  "noSuggestionsTitle": "Soortgelijke evenementen",
+  "nothingToSuggest": "Soortgelijke evenementen kunnen alleen worden geladen als u al begonnen bent met het invullen van uw evenement",
+  "nothingToSuggestTitle": "Soortgelijke evenementen",
+  "search": "Zoeken op titel of locatie",
+  "searchResultTitle": "Zoekresultaten",
+  "showTitle": "Zie ook",
+  "suggestionResultTitle": "Suggesties voor soortgelijke evenementen"
+}

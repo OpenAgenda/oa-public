@@ -8,6 +8,8 @@ module.exports = {
     "es": "ne-pas-repondre@openagenda.com",
     "it": "no-reply@openagenda.com",
     "io": "crwdns13236:0crwdne13236:0",
-    "oc": "pas-respondre@openagenda.com"
+    "oc": "pas-respondre@openagenda.com",
+    "nl": "niet-antwoorden@openagenda.com",
+    "br": "ne-pas-respont@openagenda.com"
   }
 }

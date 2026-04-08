@@ -1,0 +1,11 @@
+{
+  "abortedAuth": "De authenticatie is afgebroken op %service%",
+  "accountEmailAlreadyExists": "Er bestaat al een account met dit e-mailadres. Meld u aan met uw e-mailadres en wachtwoord",
+  "authRequired": "Toegang tot de gevraagde pagina is beperkt. Log in om toegang te krijgen.",
+  "facebookEmailMissing": "Het e-mailadres dat aan uw Facebook-account is gekoppeld, is niet beschikbaar. Ga naar Facebook om het te valideren.",
+  "genericError": "Er is een probleem opgetreden. Probeer het later opnieuw",
+  "isBlacklisted": "Uw account is toegevoegd aan onze lijst van frauduleuze accounts.",
+  "isBlacklistedInfo": "In geval van een fout onzerzijds, neem contact met ons op via onze chatrobot of via het Help-menu.",
+  "limitedAccessAgenda": "De toegang tot deze agenda is beperkt. Meld u aan om toegang te krijgen",
+  "limitedAccessEvent": "De toegang tot dit evenement is beperkt. Meld u aan om toegang te krijgen"
+}

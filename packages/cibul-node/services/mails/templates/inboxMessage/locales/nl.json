@@ -1,0 +1,12 @@
+{
+  "actionDescription": "Agenda bekijken",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "memberUnsubscribe": "Geen berichten meer ontvangen uit de inbox van deze agenda",
+  "reply": "Antwoorden",
+  "sentBy": "Verzonden door <b>{senderName}</b>",
+  "subject": "OpenAgenda | Nieuw bericht",
+  "subjectWithAgenda": "OpenAgenda | {agenda} | Nieuw bericht",
+  "title": "U heeft een nieuw bericht ontvangen.",
+  "titleWithAgenda": "U heeft een nieuw bericht ontvangen in de inbox van {agenda}.",
+  "unsubscribe": "Geen berichten meer ontvangen {agenda, select, null {uit mijn inbox} other {uit de inboxen van agenda's}}"
+}

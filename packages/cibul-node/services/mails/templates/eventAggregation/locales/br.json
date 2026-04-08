@@ -1,4 +1,12 @@
 {
+  "actionDescription": "Gwelet an darvoud",
+  "body": "<b>{event}</b> o tont eus an deiziataer <b>{sourceAgenda}</b> a zo bet adkemeret gant ar stad <b>{state}</b>.",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "controlled": "prest da vezañ embannet",
+  "memberUnsubscribe": "Paouez da resev kevelstrolladurioù darvoudoù an deiziataer-mañ",
   "published": "embannet",
-  "refused": "nac'het"
+  "refused": "nac'het",
+  "title": "{agenda} en deus adkemeret un darvoud nevez: {event}",
+  "tocontrol": "da gontrollañ",
+  "unsubscribe": "Paouez da resev kevelstrolladurioù darvoudoù"
 }

@@ -10,7 +10,8 @@ module.exports = {
     "es": "Añadir a mi agenda",
     "br": "Ouzhpennañ da'm deiziataer",
     "io": "crwdns14426:0crwdne14426:0",
-    "oc": "Apondre a mon agenda"
+    "oc": "Apondre a mon agenda",
+    "nl": "Toevoegen aan mijn agenda"
   },
   "export": {
     "en": "Export",
@@ -21,21 +22,26 @@ module.exports = {
     "es": "Exportar",
     "br": "Ezporzhiañ",
     "io": "crwdns14428:0crwdne14428:0",
-    "oc": "Exportar"
+    "oc": "Exportar",
+    "nl": "Exporteren"
   },
   "cannotShareInfo": {
     "en": "This share is not available for private or unpublished events",
     "fr": "Ce partage n'est pas disponible pour les événements privés ou non-publiés",
     "io": "crwdns16450:0crwdne16450:0",
     "oc": "Aquel partatge es pas disponible pels eveniments privats o pas publicats",
-    "es": "No se pueden compartir los eventos privados o no publicados"
+    "es": "No se pueden compartir los eventos privados o no publicados",
+    "nl": "Deze deling is niet beschikbaar voor privé of niet-gepubliceerde evenementen",
+    "br": "N'eo ket hegerz ar rannadenn-mañ evit darvoudoù prevez pe anembann"
   },
   "copyInClipboard": {
     "en": "Click to copy link to clipboard",
     "fr": "Cliquer pour copier le lien dans le presse-papier",
     "io": "crwdns16452:0crwdne16452:0",
     "oc": "Clicatz per copiar lo ligam dins lo quichapapièrs",
-    "es": "Haga clic para copiar el enlace al portapapeles"
+    "es": "Haga clic para copiar el enlace al portapapeles",
+    "nl": "Klik om de link naar het klembord te kopiëren",
+    "br": "Klikañ evit eilañ al liamm er golver"
   },
   "printPermalink": {
     "en": "Online version",
@@ -43,7 +49,9 @@ module.exports = {
     "io": "crwdns16454:0crwdne16454:0",
     "it": "Versione online",
     "oc": "Version en linha",
-    "es": "Versión en línea"
+    "es": "Versión en línea",
+    "nl": "Online versie",
+    "br": "Stumm enlinenn"
   },
   "otherShares": {
     "en": "Other shares",
@@ -54,7 +62,8 @@ module.exports = {
     "es": "Otros",
     "br": "Skignañ",
     "io": "crwdns14430:0crwdne14430:0",
-    "oc": "Autres partatges"
+    "oc": "Autres partatges",
+    "nl": "Andere delingen"
   },
   "allShares": {
     "en": "more",
@@ -65,7 +74,8 @@ module.exports = {
     "es": "mas",
     "br": "Skignañ",
     "io": "crwdns14432:0crwdne14432:0",
-    "oc": "mai"
+    "oc": "mai",
+    "nl": "meer"
   },
   "shareOnOA": {
     "en": "Share on OpenAgenda",
@@ -73,7 +83,9 @@ module.exports = {
     "io": "crwdns14434:0crwdne14434:0",
     "it": "Condividere su un altro OpenAgenda",
     "es": "Compartir su OpenAgenda",
-    "oc": "Partejar sus OpenAgenda"
+    "oc": "Partejar sus OpenAgenda",
+    "nl": "Delen op OpenAgenda",
+    "br": "Rannañ war OpenAgenda"
   },
   "back": {
     "en": "Back",
@@ -84,7 +96,8 @@ module.exports = {
     "es": "Volver",
     "br": "Distreiñ",
     "io": "crwdns14436:0crwdne14436:0",
-    "oc": "Tornar"
+    "oc": "Tornar",
+    "nl": "Terug"
   },
   "ticketingLink": {
     "en": "Ticketing link",
@@ -95,7 +108,8 @@ module.exports = {
     "es": "Enlace de registro",
     "br": "Liamm en em enskrivañ",
     "io": "crwdns14438:0crwdne14438:0",
-    "oc": "Ligam cap a la bilhetariá"
+    "oc": "Ligam cap a la bilhetariá",
+    "nl": "Inschrijvingslink"
   },
   "startToFinish": {
     "en": "%start% to %finish%",
@@ -106,7 +120,8 @@ module.exports = {
     "es": "%start% a %finish%",
     "br": "eus an %start% d'an %finish%",
     "io": "crwdns14440:0%start%crwdnd14440:0%finish%crwdne14440:0",
-    "oc": "%start% a %finish%"
+    "oc": "%start% a %finish%",
+    "nl": "van %start% tot %finish%"
   },
   "onAt": {
     "en": "on %start% @ %time%",
@@ -117,7 +132,8 @@ module.exports = {
     "es": "el %start% @ %time%",
     "br": "da %start% @ %time%",
     "io": "crwdns14442:0%start%crwdnd14442:0%time%crwdne14442:0",
-    "oc": "lo %start% a %time%"
+    "oc": "lo %start% a %time%",
+    "nl": "op %start% @ %time%"
   },
   "draft": {
     "en": "Draft",
@@ -128,7 +144,8 @@ module.exports = {
     "es": "Borrador",
     "br": "Brouilhed",
     "io": "crwdns14444:0crwdne14444:0",
-    "oc": "Borrolhon"
+    "oc": "Borrolhon",
+    "nl": "Concept"
   },
   "private": {
     "en": "Private",
@@ -139,7 +156,8 @@ module.exports = {
     "es": "Privado",
     "br": "Prevez",
     "io": "crwdns14446:0crwdne14446:0",
-    "oc": "Privat"
+    "oc": "Privat",
+    "nl": "Privé"
   },
   "edit": {
     "en": "Edit",
@@ -150,7 +168,8 @@ module.exports = {
     "es": "Editar",
     "br": "Kemmañ",
     "io": "crwdns14448:0crwdne14448:0",
-    "oc": "Modificar"
+    "oc": "Modificar",
+    "nl": "Bewerken"
   },
   "delete": {
     "en": "Delete",
@@ -161,7 +180,8 @@ module.exports = {
     "es": "Eliminar",
     "br": "Dilemel",
     "io": "crwdns14450:0crwdne14450:0",
-    "oc": "Suprimir"
+    "oc": "Suprimir",
+    "nl": "Verwijderen"
   },
   "deleteInfo": {
     "en": "Permanently remove this event from OpenAgenda",
@@ -169,7 +189,9 @@ module.exports = {
     "fr": "Supprimer de manière permanente l'événement d'OpenAgenda",
     "io": "crwdns14452:0crwdne14452:0",
     "oc": "Suprimir de biais permanent aqueste eveniment d'OpenAgenda",
-    "es": "Eliminar permanentemente este evento de OpenAgenda"
+    "es": "Eliminar permanentemente este evento de OpenAgenda",
+    "nl": "Verwijder dit evenement permanent van OpenAgenda",
+    "br": "Diverkañ an darvoud eus OpenAgenda da vat"
   },
   "remove": {
     "en": "Remove from agenda",
@@ -177,14 +199,18 @@ module.exports = {
     "io": "crwdns14454:0crwdne14454:0",
     "it": "Rimuovere dall'agenda",
     "oc": "Tirat de l'agenda",
-    "es": "Eliminar de la agenda"
+    "es": "Eliminar de la agenda",
+    "nl": "Verwijderen uit agenda",
+    "br": "Lemel eus an deiziataer"
   },
   "removeInfo": {
     "fr": "L'événement ne sera plus référencé sur l'agenda",
     "en": "The event will no longer be referenced on the agenda",
     "io": "crwdns14456:0crwdne14456:0",
     "oc": "L'veniment serà pas pus referenciat sus l'agenda",
-    "es": "El evento ya no será referenciado en la agenda"
+    "es": "El evento ya no será referenciado en la agenda",
+    "nl": "Het evenement wordt niet langer vermeld op de agenda",
+    "br": "Ne vo ket meneget ken an darvoud war an deiziataer"
   },
   "about": {
     "en": "About",
@@ -195,7 +221,8 @@ module.exports = {
     "es": "A propósito",
     "br": "Diwar-benn",
     "io": "crwdns14458:0crwdne14458:0",
-    "oc": "A prepaus"
+    "oc": "A prepaus",
+    "nl": "Over"
   },
   "help": {
     "en": "Help",
@@ -206,7 +233,8 @@ module.exports = {
     "es": "Ayuda",
     "br": "Skoazell",
     "io": "crwdns14460:0crwdne14460:0",
-    "oc": "Ajuda"
+    "oc": "Ajuda",
+    "nl": "Hulp"
   },
   "termsOfUse": {
     "en": "Terms of use",
@@ -217,7 +245,8 @@ module.exports = {
     "es": "Condiciones de uso",
     "br": "Penndivizoù implij",
     "io": "crwdns14462:0crwdne14462:0",
-    "oc": "Condicions d'utilizacion"
+    "oc": "Condicions d'utilizacion",
+    "nl": "Gebruiksvoorwaarden"
   },
   "descriptionAvailableIn": {
     "en": "Description available in",
@@ -228,7 +257,8 @@ module.exports = {
     "es": "Descripción Disponible",
     "br": "Deskrivadur da gaout e",
     "io": "crwdns14464:0crwdne14464:0",
-    "oc": "Descripcion disponibla en"
+    "oc": "Descripcion disponibla en",
+    "nl": "Beschrijving beschikbaar in"
   },
   "dateDetails": {
     "en": "Date details",
@@ -239,7 +269,8 @@ module.exports = {
     "es": "Los detalles de fechas",
     "br": "Munudoù diwar-benn an deiziadoù",
     "io": "crwdns14466:0crwdne14466:0",
-    "oc": "Detalhs de las datas"
+    "oc": "Detalhs de las datas",
+    "nl": "Datumdetails"
   },
   "createdBy": {
     "en": "Created by %owner%",
@@ -250,7 +281,8 @@ module.exports = {
     "es": "Creado por el %owner%",
     "br": "Krouet gant %owner%",
     "io": "crwdns14468:0%owner%crwdne14468:0",
-    "oc": "Creat per %owner%"
+    "oc": "Creat per %owner%",
+    "nl": "Gemaakt door %owner%"
   },
   "pastEvent": {
     "en": "Past",
@@ -261,7 +293,8 @@ module.exports = {
     "es": "pasado",
     "br": "Darvoud tremenet",
     "io": "crwdns14470:0crwdne14470:0",
-    "oc": "Passat"
+    "oc": "Passat",
+    "nl": "Voorbij"
   },
   "onlineAccess": {
     "en": "Access the event online",
@@ -269,7 +302,9 @@ module.exports = {
     "io": "crwdns14472:0crwdne14472:0",
     "it": "Accedere all'evento online",
     "oc": "Accedir a l'eveniment en linha",
-    "es": "Acceder al evento en línea"
+    "es": "Acceder al evento en línea",
+    "nl": "Online toegang tot het evenement",
+    "br": "Mont d'an darvoud enlinenn"
   },
   "seeAllEvents": {
     "en": "see all the events",
@@ -280,7 +315,8 @@ module.exports = {
     "es": "ver todos los eventos",
     "br": "gwelet an holl darvoudoù",
     "io": "crwdns14474:0crwdne14474:0",
-    "oc": "veire totes los eveniments"
+    "oc": "veire totes los eveniments",
+    "nl": "bekijk alle evenementen"
   },
   "areYouSureToDelete": {
     "en": "Are you sure you want to delete this event?",
@@ -291,7 +327,8 @@ module.exports = {
     "es": "¿Está seguro de que desea eliminar este evento?",
     "br": "Ha sur oc'h e fell deoc'h dilemel an darvoud-mañ ?",
     "io": "crwdns14476:0crwdne14476:0",
-    "oc": "Sètz segur·a de voler suprimir aqueste eveniment ?"
+    "oc": "Sètz segur·a de voler suprimir aqueste eveniment ?",
+    "nl": "Weet je zeker dat je dit evenement wilt verwijderen?"
   },
   "confirm": {
     "en": "Confirm",
@@ -302,21 +339,26 @@ module.exports = {
     "es": "Confirmar",
     "br": "Kadarnaat",
     "io": "crwdns14478:0crwdne14478:0",
-    "oc": "Confirmar"
+    "oc": "Confirmar",
+    "nl": "Bevestigen"
   },
   "cannotChangeStatus": {
     "en": "Cancel / Full / Postponed...",
     "fr": "Annuler / Complet / Reporté...",
     "io": "crwdns16456:0crwdne16456:0",
     "oc": "Anullar / Complèt / Remandar...",
-    "es": "Cancelar / Completo / Pospuesto..."
+    "es": "Cancelar / Completo / Pospuesto...",
+    "nl": "Annuleren / Volgeboekt / Uitgesteld...",
+    "br": "Nullañ / Leun / Dilezet..."
   },
   "cannotChangeStatusInfo": {
     "en": "You do not have edition rights over this event",
     "fr": "Vous n'avez pas les droits d'édition sur cet événement",
     "io": "crwdns16458:0crwdne16458:0",
     "oc": "Avètz pas de dreits d'edicion sus aqueste eveniment",
-    "es": "No tienes los derechos de edición para este evento"
+    "es": "No tienes los derechos de edición para este evento",
+    "nl": "Je hebt geen bewerkingsrechten voor dit evenement",
+    "br": "N'ho peus ket gwirioù embann war an darvoud-mañ"
   },
   "cancel": {
     "en": "Cancel",
@@ -327,7 +369,8 @@ module.exports = {
     "es": "Anular",
     "br": "Nullañ",
     "io": "crwdns14482:0crwdne14482:0",
-    "oc": "Anullar"
+    "oc": "Anullar",
+    "nl": "Annuleren"
   },
   "cancelled": {
     "en": "Canceled",
@@ -336,7 +379,9 @@ module.exports = {
     "it": "Cancellato",
     "es": "Cancelado",
     "io": "crwdns14484:0crwdne14484:0",
-    "oc": "Anullat"
+    "oc": "Anullat",
+    "nl": "Geannuleerd",
+    "br": "Nullet"
   },
   "cancelEvent": {
     "en": "Mark event as canceled",
@@ -344,14 +389,18 @@ module.exports = {
     "es": "Marcar el evento como Cancelado",
     "de": "Veranstaltung als abgesagt kennzeichnen",
     "io": "crwdns14486:0crwdne14486:0",
-    "oc": "Marcar l'eveniment coma anullat"
+    "oc": "Marcar l'eveniment coma anullat",
+    "nl": "Markeer evenement als geannuleerd",
+    "br": "Merkañ an darvoud evel nullet"
   },
   "uncancelEvent": {
     "en": "Uncancel event",
     "fr": "L'événement n'est plus annulé",
     "es": "El evento no está cancelado",
     "io": "crwdns14488:0crwdne14488:0",
-    "oc": "L'eveniment es pas pus anullat"
+    "oc": "L'eveniment es pas pus anullat",
+    "nl": "Evenement niet meer geannuleerd",
+    "br": "Dinullañ an darvoud"
   },
   "cancelInfo": {
     "fr": "Votre événement reste en ligne, avec son titre précédé par 'Annulé'",
@@ -360,14 +409,18 @@ module.exports = {
     "es": "Su evento permanecera en línea, con su título precedido por 'Cancelado'.",
     "en": "Your event will remain online, with its title preceded by 'Canceled'.",
     "io": "crwdns14490:0crwdne14490:0",
-    "oc": "Vòstre eveniment demorarà en linha, amb son títol precedit de 'Anullat'."
+    "oc": "Vòstre eveniment demorarà en linha, amb son títol precedit de 'Anullat'.",
+    "nl": "Je evenement blijft online, met de titel voorafgegaan door 'Geannuleerd'.",
+    "br": "Chom a raio ho tarvoud enlinenn, gant e ditl rakwelet gant 'Nullet'."
   },
   "uncancelInfo": {
     "fr": "Retire la mention d'annulation du titre",
     "en": "Removes the cancellation mention in the title",
     "io": "crwdns14492:0crwdne14492:0",
     "oc": "Tira la mencion d'anullacion del títol",
-    "es": "Elimina la mención de cancelación en el título"
+    "es": "Elimina la mención de cancelación en el título",
+    "nl": "Verwijdert de annuleringsvermelding uit de titel",
+    "br": "Dilemel ar meneg nulladur eus an titl"
   },
   "requestEditionRights": {
     "fr": "Demander les droits d'édition",
@@ -375,7 +428,9 @@ module.exports = {
     "io": "crwdns14494:0crwdne14494:0",
     "it": "Chiedere il diritto di modificare",
     "oc": "Demandar los dreits d'edicion",
-    "es": "Solicitar derechos de edición"
+    "es": "Solicitar derechos de edición",
+    "nl": "Bewerkingsrechten aanvragen",
+    "br": "Goulenn gwirioù embann"
   },
   "requestEditionRightsInfo": {
     "fr": "Cet événement provient d'un autre agenda. Les droits d'édition sont nécessaires pour accéder à la modification des champs principaux (ex: titre, description, horaires...)",
@@ -383,7 +438,9 @@ module.exports = {
     "io": "crwdns14496:0crwdne14496:0",
     "it": "Questo evento proviene da un'altra agenda. I diritti di edizione sono necessari per cambiare i suoi campi principali (es: titolo, descrizione, orari...)",
     "oc": "Aqueste eveniment ven d'una autra agenda. Los dreits d'edicion son requesits per cambiar sos camps principals (ex : títol, descripcion, oraris...)",
-    "es": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej.: título, descripción, horarios...)"
+    "es": "Este evento proviene de otra agenda. Se requieren derechos de edición para cambiar sus campos principales (ej.: título, descripción, horarios...)",
+    "nl": "Dit evenement komt uit een andere agenda. Bewerkingsrechten zijn nodig om de hoofdvelden te kunnen wijzigen (bijv: titel, beschrijving, tijden...)",
+    "br": "Dont a ra an darvoud-mañ eus un deiziataer all. Ret eo kaout gwirioù embann evit kemmañ ar maeziennoù pennañ (da skouer: titl, deskrivadur, eurioù...)"
   },
   "eventState": {
     "en": "Event state",
@@ -394,7 +451,8 @@ module.exports = {
     "es": "Estado de eventos",
     "br": "Stad an darvoud",
     "io": "crwdns14498:0crwdne14498:0",
-    "oc": "Estat de l'eveniment"
+    "oc": "Estat de l'eveniment",
+    "nl": "Evenementstatus"
   },
   "published": {
     "en": "Published",
@@ -405,7 +463,8 @@ module.exports = {
     "es": "Publicado",
     "br": "Embannet",
     "io": "crwdns14500:0crwdne14500:0",
-    "oc": "Publicat"
+    "oc": "Publicat",
+    "nl": "Gepubliceerd"
   },
   "publishedInfo": {
     "en": "Publish this event to make it visible on the agenda main page",
@@ -416,7 +475,8 @@ module.exports = {
     "es": "Publicar este caso para que sea visible en la agenda",
     "br": "Embannit an darvoud-mañ dezhañ da vezañ gwelet en deiziataer",
     "io": "crwdns14502:0crwdne14502:0",
-    "oc": "Publicar aqueste eveniment per lo rendre visible sus la pagina principala de l'agenda"
+    "oc": "Publicar aqueste eveniment per lo rendre visible sus la pagina principala de l'agenda",
+    "nl": "Publiceer dit evenement om het zichtbaar te maken op de agenda"
   },
   "publishedContributorInfo": {
     "en": "The event is published and displayed on the agenda",
@@ -427,7 +487,8 @@ module.exports = {
     "es": "El evento se publica y accesible en la agenda",
     "br": "Embannet eo an darvoud ha diskwelet en deiziataer.",
     "io": "crwdns14504:0crwdne14504:0",
-    "oc": "L'eveniment es publicat e afichat sus l'agenda"
+    "oc": "L'eveniment es publicat e afichat sus l'agenda",
+    "nl": "Het evenement is gepubliceerd en is toegankelijk op de agenda"
   },
   "readyForPublishingContributorInfo": {
     "en": "The event has been validated by moderators. It will be published without further changes",
@@ -438,7 +499,8 @@ module.exports = {
     "es": "El evento ha sido aprobado por los moderadores. Será publicado sin más cambios",
     "br": "Gwiriekaet eo bet an darvoud gant an habaskaerien. Embannet e vo hep kemmoù ouzhpenn",
     "io": "crwdns14506:0crwdne14506:0",
-    "oc": "L'eveniment es estat validat pels moderators. Serà publicat sens cambiaments mai"
+    "oc": "L'eveniment es estat validat pels moderators. Serà publicat sens cambiaments mai",
+    "nl": "Het evenement is gevalideerd door moderators. Het wordt gepubliceerd zonder verdere wijzigingen"
   },
   "refused": {
     "en": "Refused",
@@ -449,7 +511,8 @@ module.exports = {
     "es": "Rechazado",
     "br": "Nac'het",
     "io": "crwdns14508:0crwdne14508:0",
-    "oc": "Refusat"
+    "oc": "Refusat",
+    "nl": "Geweigerd"
   },
   "refusedInfo": {
     "en": "This event is not compatible with the agenda and should not be published",
@@ -460,7 +523,8 @@ module.exports = {
     "es": "Este evento no es compatible con el agenda y no será publicada",
     "br": "Ne glot ket an darvoud-mañ gant an deiziataer ha ne vo ket embannet",
     "io": "crwdns14510:0crwdne14510:0",
-    "oc": "Aqueste eveniment es pas compatible amb l'agenda e se deuriá pas publicar"
+    "oc": "Aqueste eveniment es pas compatible amb l'agenda e se deuriá pas publicar",
+    "nl": "Dit evenement is niet compatibel met de agenda en wordt niet gepubliceerd"
   },
   "refusedContributorInfo": {
     "en": "This event is not compatible with the agenda and has been refused by administrators",
@@ -471,7 +535,8 @@ module.exports = {
     "es": "Este evento ha sido rechazado por los directores de la agenda y no será publicada",
     "br": "Nac'het eo bet an darvoud-mañ gant merourien an deiziataer ha ne vo ket embannet",
     "io": "crwdns14512:0crwdne14512:0",
-    "oc": "Aqueste eveniment es pas compatible amb l'agenda e es estat refusat pels administrators"
+    "oc": "Aqueste eveniment es pas compatible amb l'agenda e es estat refusat pels administrators",
+    "nl": "Dit evenement is geweigerd door de beheerders van de agenda en wordt niet gepubliceerd"
   },
   "toComplete": {
     "en": "To be verified",
@@ -482,7 +547,8 @@ module.exports = {
     "es": "A controlar",
     "br": "Da habaskaat",
     "io": "crwdns14514:0crwdne14514:0",
-    "oc": "De verificar"
+    "oc": "De verificar",
+    "nl": "Te controleren"
   },
   "toCompleteInfo": {
     "en": "This event needs to be verified and is not ready for publication",
@@ -493,7 +559,8 @@ module.exports = {
     "es": "Este evento debe ser moderado y no está listo para ser publicado",
     "br": "Ret eo d'an darvoud-mañ bezañ gwiriet ha n'eo ket prest da vezañ embannet",
     "io": "crwdns14516:0crwdne14516:0",
-    "oc": "Aqueste eveniment se deu verificar e es pas prèste per èsser publicat"
+    "oc": "Aqueste eveniment se deu verificar e es pas prèste per èsser publicat",
+    "nl": "Dit evenement moet worden geverifieerd en is niet klaar voor publicatie"
   },
   "toCompleteContributorInfo": {
     "en": "The event will be verified by administrators prior to its publication",
@@ -504,7 +571,8 @@ module.exports = {
     "es": "El evento será moderado por el administrador antes de su publicación",
     "br": "Gwiriet e vo an darvoud gant merourien a-raok embann anezhañ",
     "io": "crwdns14518:0crwdne14518:0",
-    "oc": "Aqueste eveniment serà verificat pels administrators abans sa publicacion"
+    "oc": "Aqueste eveniment serà verificat pels administrators abans sa publicacion",
+    "nl": "Het evenement moet door een beheerder worden geverifieerd voordat het wordt gepubliceerd"
   },
   "readyForPublishing": {
     "en": "Ready for publishing",
@@ -515,7 +583,8 @@ module.exports = {
     "es": "Listo para publicar",
     "br": "Prest da vezañ embannet",
     "io": "crwdns14520:0crwdne14520:0",
-    "oc": "Prèste per èsser publicat"
+    "oc": "Prèste per èsser publicat",
+    "nl": "Klaar voor publicatie"
   },
   "readyForPublishingInfo": {
     "en": "This event has been verified and is ready to be published",
@@ -526,7 +595,8 @@ module.exports = {
     "es": "El evento fue moderado y se fija para ser publicado",
     "br": "Gwiriet eo bet an darvoud-mañ ha prest eo da vezañ embannet.",
     "io": "crwdns14522:0crwdne14522:0",
-    "oc": "Aqueste eveniment es estat verificat e es prèste a èsser publicat"
+    "oc": "Aqueste eveniment es estat verificat e es prèste a èsser publicat",
+    "nl": "Dit evenement is gemodereerd en is klaar om te worden gepubliceerd"
   },
   "unpublished": {
     "en": "Unpublished",
@@ -537,7 +607,8 @@ module.exports = {
     "es": "Inédito",
     "br": "N'eo ket embannet",
     "io": "crwdns14524:0crwdne14524:0",
-    "oc": "Pas publicat"
+    "oc": "Pas publicat",
+    "nl": "Niet gepubliceerd"
   },
   "backToDashboard": {
     "en": "Back to the dashboard",
@@ -548,7 +619,8 @@ module.exports = {
     "es": "Volver a la gestión",
     "br": "Distreiñ d'ar merañ darvoudoù",
     "io": "crwdns14526:0crwdne14526:0",
-    "oc": "Tornar al tablèu de bòrd"
+    "oc": "Tornar al tablèu de bòrd",
+    "nl": "Terug naar het dashboard"
   },
   "changeFeaturedState": {
     "en": "Click here to change the featured state",
@@ -559,7 +631,8 @@ module.exports = {
     "es": "Haga clic aquí para cambiar el estado 'en un'",
     "br": "Klikit amañ evit cheñch ar stad \"Keleier pennañ\"",
     "io": "crwdns14528:0crwdne14528:0",
-    "oc": "Clicatz aquí per cambiar l'estat de mesa en vedeta"
+    "oc": "Clicatz aquí per cambiar l'estat de mesa en vedeta",
+    "nl": "Klik hier om de uitgelichte status te wijzigen"
   },
   "addToFeatured": {
     "en": "Add to featured",
@@ -570,7 +643,8 @@ module.exports = {
     "es": "Destacar",
     "br": "Lakaat e-mesk ar c'heleier pennañ",
     "io": "crwdns14530:0crwdne14530:0",
-    "oc": "Metre en avant"
+    "oc": "Metre en avant",
+    "nl": "Toevoegen aan uitgelicht"
   },
   "removeFromFeatured": {
     "en": "Remove from featured",
@@ -581,7 +655,8 @@ module.exports = {
     "es": "Eliminar de los eventos destacados",
     "br": "Lemel eus ar c'heleier pennañ",
     "io": "crwdns14532:0crwdne14532:0",
-    "oc": "Tirar de çò mes en avant"
+    "oc": "Tirar de çò mes en avant",
+    "nl": "Verwijderen uit uitgelicht"
   },
   "featured": {
     "en": "Featured",
@@ -592,14 +667,17 @@ module.exports = {
     "es": "Destacado",
     "br": "E-mesk ar c'heleier pennañ",
     "io": "crwdns14534:0crwdne14534:0",
-    "oc": "Meses en avant"
+    "oc": "Meses en avant",
+    "nl": "Uitgelicht"
   },
   "featuredInfo": {
     "en": "The event will appear on top of the agenda's event list",
     "fr": "Un événement en une apparait en tête de liste",
     "io": "crwdns14536:0crwdne14536:0",
     "oc": "L'eveniment mes en avant apareisserà en naut de la lista dels eveniments",
-    "es": "El evento aparecerá en la parte superior de la lista de eventos de la agenda"
+    "es": "El evento aparecerá en la parte superior de la lista de eventos de la agenda",
+    "nl": "Een uitgelicht evenement verschijnt bovenaan de lijst",
+    "br": "Dont a ra an darvoud e penn ar roll"
   },
   "fromTo": {
     "en": "from %from% to %to%",
@@ -610,7 +688,8 @@ module.exports = {
     "es": "de %from% a %to%",
     "br": "eus %from% da %to%",
     "io": "crwdns14538:0%from%crwdnd14538:0%tocrwdne14538:0",
-    "oc": "de %from% a %to%"
+    "oc": "de %from% a %to%",
+    "nl": "van %from% tot %to%"
   },
   "duplicate": {
     "en": "Duplicate",
@@ -621,7 +700,8 @@ module.exports = {
     "es": "Duplicar",
     "br": "Eilañ",
     "io": "crwdns14540:0crwdne14540:0",
-    "oc": "Duplicar"
+    "oc": "Duplicar",
+    "nl": "Dupliceren"
   },
   "duplicateInfo": {
     "de": "Dubliziere Deine Veranstaltung und übertrage alle Angaben auf einen weiteren Event.",
@@ -630,7 +710,9 @@ module.exports = {
     "io": "crwdns14542:0crwdne14542:0",
     "it": "Carica un nuovo modulo di evento precompilato con i dettagli di questo evento",
     "oc": "Cargar un novèl formulari de sasida preemplenat amb las informacions d'aqueste eveniment",
-    "es": "Cargar un nuevo formulario de evento pre llenado con los detalles de este evento"
+    "es": "Cargar un nuevo formulario de evento pre llenado con los detalles de este evento",
+    "nl": "Laad een nieuw evenementformulier dat vooraf is ingevuld met de gegevens van dit evenement",
+    "br": "Kargañ ur furmskrid darvoud nevez rakleuniet gant titouroù an darvoud-mañ"
   },
   "startingAt": {
     "en": "Starting at %min% years old",
@@ -641,7 +723,8 @@ module.exports = {
     "es": "De %min% años",
     "br": "Adalek an oad a %min% vloaz",
     "io": "crwdns14544:0%min%crwdne14544:0",
-    "oc": "A comptar de %min% ans"
+    "oc": "A comptar de %min% ans",
+    "nl": "Vanaf %min% jaar"
   },
   "minToMaxYearsOld": {
     "en": "%min% to %max% years old",
@@ -652,7 +735,8 @@ module.exports = {
     "es": "De %min% a %max% años",
     "br": "Eus %min% da %max% vloaz",
     "io": "crwdns14546:0%min%crwdnd14546:0%max%crwdne14546:0",
-    "oc": "De %min% a %max% ans"
+    "oc": "De %min% a %max% ans",
+    "nl": "%min% tot %max% jaar"
   },
   "accessibleToHearing": {
     "en": "Accessible to the hearing impaired",
@@ -663,7 +747,8 @@ module.exports = {
     "es": "Accesible para personas con discapacidad auditiva",
     "br": "En aezamant d'an dud pounnerglev",
     "io": "crwdns14548:0crwdne14548:0",
-    "oc": "Accessible a las personas amb un handicap auditiu"
+    "oc": "Accessible a las personas amb un handicap auditiu",
+    "nl": "Toegankelijk voor slechthorenden"
   },
   "accessibleToPsychic": {
     "en": "Accessible to the psychic impaired",
@@ -674,7 +759,8 @@ module.exports = {
     "es": "Acceso discapacitados mentales",
     "br": "En aezamant d'an dud dalc'het en o spered",
     "io": "crwdns14550:0crwdne14550:0",
-    "oc": "Accessible a las personas amb un handicap psiquic"
+    "oc": "Accessible a las personas amb un handicap psiquic",
+    "nl": "Toegankelijk voor mensen met psychische beperking"
   },
   "accessibleToMotor": {
     "en": "Accessible to the motor impaired",
@@ -685,7 +771,8 @@ module.exports = {
     "es": "Los motores de acceso para minusválidos",
     "br": "En aezamant d'an dud dalc'het en o c'heflusk",
     "io": "crwdns14552:0crwdne14552:0",
-    "oc": "Accessible a las personas amb un handicap motor"
+    "oc": "Accessible a las personas amb un handicap motor",
+    "nl": "Toegankelijk voor mensen met motorische beperking"
   },
   "accessibleToVisually": {
     "en": "Accessible to the visually impaired",
@@ -696,7 +783,8 @@ module.exports = {
     "es": "Accesible para discapacitados visuales",
     "br": "En aezamant d'an dud na welont ket mat",
     "io": "crwdns14554:0crwdne14554:0",
-    "oc": "Accessible a las personas amb un handicap visual"
+    "oc": "Accessible a las personas amb un handicap visual",
+    "nl": "Toegankelijk voor slechtzienden"
   },
   "accessibleToIntellectually": {
     "en": "Accessible to the intellectually impaired",
@@ -706,7 +794,8 @@ module.exports = {
     "br": "Dalc'het en o spered",
     "it": "Accessibile ai disabili cognitivi",
     "io": "crwdns14556:0crwdne14556:0",
-    "oc": "Accessible a las personas amb un handicap intellectual"
+    "oc": "Accessible a las personas amb un handicap intellectual",
+    "nl": "Toegankelijk voor mensen met verstandelijke beperking"
   },
   "signLanguageAvailable": {
     "en": "Sign language available",
@@ -717,7 +806,8 @@ module.exports = {
     "es": "El lenguaje de signos de Acceso",
     "br": "Ober a reer gant yezh ar sinoù",
     "io": "crwdns14558:0crwdne14558:0",
-    "oc": "Disponible en lenga dels signes"
+    "oc": "Disponible en lenga dels signes",
+    "nl": "Gebarentaal beschikbaar"
   },
   "accessibilityImpairments": {
     "en": "Accessibility: %impairments%",
@@ -728,7 +818,8 @@ module.exports = {
     "es": "%impairments%: Accesibilidad",
     "br": "Monedusted : %impairments%",
     "io": "crwdns14560:0%impairments%crwdne14560:0",
-    "oc": "Accessibilitat : %impairments%"
+    "oc": "Accessibilitat : %impairments%",
+    "nl": "Toegankelijkheid: %impairments%"
   },
   "transferOwnership": {
     "en": "Transfer ownership",
@@ -739,7 +830,8 @@ module.exports = {
     "es": "Transferir la propiedad",
     "br": "Treuzkas ar berc'henniezh",
     "io": "crwdns14562:0crwdne14562:0",
-    "oc": "Transferir la proprietat"
+    "oc": "Transferir la proprietat",
+    "nl": "Eigendom overdragen"
   },
   "access": {
     "en": "Access",
@@ -750,7 +842,8 @@ module.exports = {
     "es": "Acceso",
     "br": "Moned",
     "io": "crwdns14564:0crwdne14564:0",
-    "oc": "Accès"
+    "oc": "Accès",
+    "nl": "Toegang"
   },
   "aboutTheVenue": {
     "en": "About the venue",
@@ -761,7 +854,8 @@ module.exports = {
     "es": "Sobre el lugar",
     "br": "Diwar-benn al lec'h",
     "io": "crwdns14566:0crwdne14566:0",
-    "oc": "A prepaus del lòc"
+    "oc": "A prepaus del lòc",
+    "nl": "Over de locatie"
   },
   "tags": {
     "en": "Tags",
@@ -772,7 +866,8 @@ module.exports = {
     "es": "Etiquetas",
     "br": "Merkoù",
     "io": "crwdns14568:0crwdne14568:0",
-    "oc": "Etiquetas"
+    "oc": "Etiquetas",
+    "nl": "Tags"
   },
   "category": {
     "en": "Category",
@@ -783,18 +878,20 @@ module.exports = {
     "es": "Categoría",
     "br": "Rummad",
     "io": "crwdns14570:0crwdne14570:0",
-    "oc": "Categoria"
+    "oc": "Categoria",
+    "nl": "Categorie"
   },
   "contact": {
     "en": "Contact",
     "fr": "Contacter",
     "it": "Contattare",
-    "de": "kontaktieren",
+    "de": "Kontakt",
     "pl": "Skontaktuj",
     "es": "Contactar",
     "br": "Mont e darempred",
     "io": "crwdns14572:0crwdne14572:0",
-    "oc": "Contactar"
+    "oc": "Contactar",
+    "nl": "Contact opnemen"
   },
   "contactAdministrators": {
     "en": "Contact administrators",
@@ -805,7 +902,8 @@ module.exports = {
     "es": "Contactar los administradores",
     "br": "Mont e darempred gant ar verourien",
     "io": "crwdns14574:0crwdne14574:0",
-    "oc": "Contactar los administrators"
+    "oc": "Contactar los administrators",
+    "nl": "Contact met beheerders"
   },
   "requestChangeLocation": {
     "en": "Request a change in the location information",
@@ -816,7 +914,8 @@ module.exports = {
     "es": "Solicitar una modificación del lugar",
     "br": "Goulenn cheñch al lec'h",
     "io": "crwdns14576:0crwdne14576:0",
-    "oc": "Far una demanda de cambiament dins las informacions del lòc"
+    "oc": "Far una demanda de cambiament dins las informacions del lòc",
+    "nl": "Vraag een wijziging van de locatie-informatie aan"
   },
   "locationChangeRequest": {
     "en": "Location information change request: %name%",
@@ -827,7 +926,8 @@ module.exports = {
     "es": "Solicitud de modificación del lugar: %name%",
     "br": "Goulenn da cheñch al lec'h : %name%",
     "io": "crwdns14578:0%name%crwdne14578:0",
-    "oc": "Demanda de modificacion del lòc : %name%"
+    "oc": "Demanda de modificacion del lòc : %name%",
+    "nl": "Verzoek tot wijziging locatie-informatie: %name%"
   },
   "couldYouBringFollowingChanges": {
     "en": "Hi, could you bring the following changes to the location named '%name%'? reference: %uid% - (add details of the change here)",
@@ -838,7 +938,8 @@ module.exports = {
     "es": "¿Hola, podría hacer los siguientes cambios en el lugar llamado ' %name%'? Referencia:%uid% - (especificar los cambios aquí)",
     "br": "Demat deoc'h, ha gallout a rafec'h ober ar cheñchamantoù-mañ el lec'h anvet '%name%' ? Dave : %uid% - (Skrivit ar cheñchamantoù amañ )",
     "io": "crwdns14580:0%name%crwdnd14580:0%uid%crwdne14580:0",
-    "oc": "Bonjorn, poiriatz portar las modificacions seguentas al lòc sonat '%name%' ? Referéncia : %uid% - (apondètz los detalhs del cambiament aquí)"
+    "oc": "Bonjorn, poiriatz portar las modificacions seguentas al lòc sonat '%name%' ? Referéncia : %uid% - (apondètz los detalhs del cambiament aquí)",
+    "nl": "Hallo, kunt u de volgende wijzigingen aanbrengen aan de locatie met naam '%name%'? referentie: %uid% - (voeg hier details van de wijziging toe)"
   },
   "moreLinks": {
     "en": "More links",
@@ -849,7 +950,8 @@ module.exports = {
     "es": "Enlaces adicionales",
     "br": "Liammoù ouzhpenn",
     "io": "crwdns14582:0crwdne14582:0",
-    "oc": "Mai de ligams"
+    "oc": "Mai de ligams",
+    "nl": "Meer links"
   },
   "state": {
     "en": "State",
@@ -860,7 +962,8 @@ module.exports = {
     "es": "Estados",
     "br": "Statud",
     "io": "crwdns14584:0crwdne14584:0",
-    "oc": "Estat"
+    "oc": "Estat",
+    "nl": "Status"
   },
   "editLocation": {
     "en": "Edit location",
@@ -871,7 +974,8 @@ module.exports = {
     "es": "Editar lugar",
     "br": "Aozañ al lec'h",
     "io": "crwdns14586:0crwdne14586:0",
-    "oc": "Modificar lo lòc"
+    "oc": "Modificar lo lòc",
+    "nl": "Locatie bewerken"
   },
   "actions": {
     "en": "Other actions",
@@ -882,14 +986,17 @@ module.exports = {
     "es": "Otras acciones",
     "br": "Oberoù",
     "io": "crwdns14588:0crwdne14588:0",
-    "oc": "Autras accions"
+    "oc": "Autras accions",
+    "nl": "Andere acties"
   },
   "actionsInfo": {
     "en": "Featured, cancellation, rescheduled, duplication...",
     "fr": "Mise en une, annulation, report, duplication...",
     "io": "crwdns32382:0crwdne32382:0",
     "oc": "Mesa en vedeta, anullacion, reprogramacion, duplicacion...",
-    "es": "Destacado, cancelación, reprogramado, duplicación..."
+    "es": "Destacado, cancelación, reprogramado, duplicación...",
+    "nl": "Uitgelicht, annulering, verplaatst, duplicatie...",
+    "br": "Lakaat da geleier pennañ, nulladur, dilezel, eilañ..."
   },
   "activity": {
     "en": "Activity",
@@ -900,7 +1007,8 @@ module.exports = {
     "es": "Actividades",
     "br": "Obererezh",
     "io": "crwdns14590:0crwdne14590:0",
-    "oc": "Activitat"
+    "oc": "Activitat",
+    "nl": "Activiteit"
   },
   "history": {
     "en": "History",
@@ -908,7 +1016,9 @@ module.exports = {
     "io": "crwdns32758:0crwdne32758:0",
     "es": "Historia",
     "oc": "Istòria",
-    "it": "Storia"
+    "it": "Storia",
+    "nl": "Geschiedenis",
+    "br": "Istor"
   },
   "inbox": {
     "en": "Inbox",
@@ -919,7 +1029,8 @@ module.exports = {
     "es": "Mensajería",
     "br": "Postelerezh",
     "io": "crwdns14592:0crwdne14592:0",
-    "oc": "Messatjariá"
+    "oc": "Messatjariá",
+    "nl": "Postvak IN"
   },
   "contactForm": {
     "en": "Contact form",
@@ -930,7 +1041,8 @@ module.exports = {
     "es": "Formulario de contacto",
     "br": "Furmskrid darempred",
     "io": "crwdns14594:0crwdne14594:0",
-    "oc": "Formulari de contacte"
+    "oc": "Formulari de contacte",
+    "nl": "Contactformulier"
   },
   "contactEmail": {
     "en": "Contact agenda administrators",
@@ -941,7 +1053,8 @@ module.exports = {
     "es": "Contactar los administradores",
     "br": "Mont e darempred gant merourien an deiziataer",
     "io": "crwdns14596:0crwdne14596:0",
-    "oc": "Contactar los administrators de l'agenda"
+    "oc": "Contactar los administrators de l'agenda",
+    "nl": "Contact met agendabeheerders"
   },
   "contactEmailButton": {
     "en": "Send an email",
@@ -952,7 +1065,8 @@ module.exports = {
     "es": "Enviar un email",
     "br": "Kas ur postel",
     "io": "crwdns14598:0crwdne14598:0",
-    "oc": "Mandar un email"
+    "oc": "Mandar un email",
+    "nl": "Stuur een e-mail"
   },
   "contributionRestricted": {
     "en": "The contribution to this agenda is restricted",
@@ -963,28 +1077,35 @@ module.exports = {
     "es": "La contribución a este agenda está restringido",
     "br": "Strishaet eo ar c'hendeurel d'an deiziataer-mañ",
     "io": "crwdns14600:0crwdne14600:0",
-    "oc": "La contribucion a aquesta agenda es limitada"
+    "oc": "La contribucion a aquesta agenda es limitada",
+    "nl": "De bijdrage aan deze agenda is beperkt"
   },
   "statusScheduled": {
     "en": "Scheduled",
     "fr": "Programmé",
     "io": "crwdns16112:0crwdne16112:0",
     "es": "Programado",
-    "oc": "Programat"
+    "oc": "Programat",
+    "nl": "Gepland",
+    "br": "Raktreset"
   },
   "markAsScheduled": {
     "en": "Clear the status of the event",
     "fr": "Réinitialiser l'état de l'événement",
     "io": "crwdns16114:0crwdne16114:0",
     "oc": "Escafar l'estatut de l'eveniment",
-    "es": "Borrar el estado del evento"
+    "es": "Borrar el estado del evento",
+    "nl": "Wis de status van het evenement",
+    "br": "Adderaouiñ stad an darvoud"
   },
   "statusScheduledInfo": {
     "en": "The event is not cancelled, nor rescheduled, etc..",
     "fr": "L'événement n'est pas annulé, ni reprogrammé, etc..",
     "io": "crwdns16116:0crwdne16116:0",
     "oc": "L'eveniment es pas anullat, nimai remandat, etc...",
-    "es": "El evento no está cancelado, ni reprogramado, etc."
+    "es": "El evento no está cancelado, ni reprogramado, etc.",
+    "nl": "Het evenement is niet geannuleerd, noch verplaatst, etc..",
+    "br": "N'eo ket nullet an darvoud, na adsteuñvaet, hag all.."
   },
   "statusRescheduled": {
     "en": "Rescheduled",
@@ -992,14 +1113,18 @@ module.exports = {
     "it": "Riprogrammato",
     "oc": "Tornat planificar",
     "io": "crwdns16118:0crwdne16118:0",
-    "es": "Reprogramado"
+    "es": "Reprogramado",
+    "nl": "Opnieuw gepland",
+    "br": "Adreizhet"
   },
   "markAsRescheduled": {
     "en": "The event was rescheduled",
     "fr": "L'événement a été reprogrammé",
     "io": "crwdns16120:0crwdne16120:0",
     "oc": "L'eveniment es estat reportat",
-    "es": "El evento fue reprogramado"
+    "es": "El evento fue reprogramado",
+    "nl": "Het evenement is verplaatst",
+    "br": "Adsteuñvaet eo bet an darvoud"
   },
   "statusRescheduledInfo": {
     "en": "The timings and dates of the event have been modified",
@@ -1007,7 +1132,9 @@ module.exports = {
     "io": "crwdns16122:0crwdne16122:0",
     "it": "Le date e gli orari dell' evento sono stati modificati",
     "oc": "Las oras e datas de l'eveniment son estadas modificadas",
-    "es": "Los horarios y fechas del evento han sido editados"
+    "es": "Los horarios y fechas del evento han sido editados",
+    "nl": "De data en/of tijden van het evenement zijn gewijzigd",
+    "br": "Kemmet eo bet deiziadoù hag/pe eurioù an darvoud"
   },
   "statusMovedOnline": {
     "en": "Moved online",
@@ -1015,7 +1142,9 @@ module.exports = {
     "it": "Oramai online",
     "oc": "Transferit en linha",
     "io": "crwdns16124:0crwdne16124:0",
-    "es": "Movido en línea"
+    "es": "Movido en línea",
+    "nl": "Online verplaatst",
+    "br": "Dilec'hiet enlinenn"
   },
   "markAsMovedOnline": {
     "en": "The event is moved online",
@@ -1023,7 +1152,9 @@ module.exports = {
     "io": "crwdns16126:0crwdne16126:0",
     "it": "L'evento non è più proposto in presenza, ma oramai online",
     "oc": "L'eveniment se farà finalament en linha",
-    "es": "El evento se traslada en línea"
+    "es": "El evento se traslada en línea",
+    "nl": "Het evenement vindt online plaats",
+    "br": "C'hoarvezout a ra an darvoud enlinenn"
   },
   "statusMovedOnlineInfo": {
     "en": "The event will no longer be attended to at a physical location",
@@ -1031,7 +1162,9 @@ module.exports = {
     "io": "crwdns16128:0crwdne16128:0",
     "it": "L'evento non è più proposto in presenza, ma oramai online",
     "oc": "L'eveniment se debanarà pas mai en un lòc fisic",
-    "es": "Ya no se asistirá al evento en una ubicación física"
+    "es": "Ya no se asistirá al evento en una ubicación física",
+    "nl": "Het evenement kan niet langer fysiek worden bijgewoond",
+    "br": "N'eo ket ken posupl kemer perzh en darvoud e plas lec'hel"
   },
   "statusPostponed": {
     "en": "Postponed",
@@ -1039,7 +1172,9 @@ module.exports = {
     "it": "Riprogrammato",
     "io": "crwdns16130:0crwdne16130:0",
     "oc": "Remandat",
-    "es": "Pospuesto"
+    "es": "Pospuesto",
+    "nl": "Uitgesteld",
+    "br": "Diwezataet"
   },
   "markAsPostponed": {
     "en": "The event is postponed",
@@ -1047,7 +1182,9 @@ module.exports = {
     "it": "L'evento è rimandato",
     "io": "crwdns16132:0crwdne16132:0",
     "oc": "L'eveniment es remandat",
-    "es": "El evento está pospuesto"
+    "es": "El evento está pospuesto",
+    "nl": "Het evenement is uitgesteld",
+    "br": "Dilezet eo an darvoud"
   },
   "statusPostponedInfo": {
     "en": "The event dates are no longer valid. New dates are not yet known",
@@ -1055,7 +1192,9 @@ module.exports = {
     "it": "Le date dell'evento non sono più valide. Le nuove date non sono ancora note",
     "io": "crwdns16134:0crwdne16134:0",
     "oc": "Las datas d'eveniment son pas pus validas. Las datas novèlas son pas encara conegudas",
-    "es": "Las fechas del evento ya no son válidas. Las nuevas fechas aún no se conocen"
+    "es": "Las fechas del evento ya no son válidas. Las nuevas fechas aún no se conocen",
+    "nl": "Het evenement is uitgesteld naar nog onbekende data",
+    "br": "Dilezet eo bet an darvoud da zeiziadoù n'int ket anavezet c'hoazh"
   },
   "statusCancelled": {
     "en": "Canceled",
@@ -1063,7 +1202,9 @@ module.exports = {
     "it": "Cancellato",
     "io": "crwdns16136:0crwdne16136:0",
     "es": "Cancelado",
-    "oc": "Anullat"
+    "oc": "Anullat",
+    "nl": "Geannuleerd",
+    "br": "Nullet"
   },
   "markAsCancelled": {
     "en": "The event is cancelled",
@@ -1071,7 +1212,9 @@ module.exports = {
     "it": "L'evento è annullato",
     "io": "crwdns16138:0crwdne16138:0",
     "oc": "L'eveniment es anullat",
-    "es": "El evento está cancelado"
+    "es": "El evento está cancelado",
+    "nl": "Het evenement is geannuleerd",
+    "br": "Nullet eo an darvoud"
   },
   "statusCancelledInfo": {
     "en": "The event has been permanently cancelled",
@@ -1079,7 +1222,9 @@ module.exports = {
     "it": "L'evento è annullato",
     "io": "crwdns16140:0crwdne16140:0",
     "oc": "L'eveniment es estat definitivament anullat",
-    "es": "El evento ha sido cancelado permanentemente"
+    "es": "El evento ha sido cancelado permanentemente",
+    "nl": "Het evenement is permanent geannuleerd",
+    "br": "Nullet eo bet an darvoud da vat"
   },
   "statusFull": {
     "en": "Fully booked",
@@ -1087,7 +1232,9 @@ module.exports = {
     "it": "Completo",
     "oc": "Totalament complèt",
     "io": "crwdns16142:0crwdne16142:0",
-    "es": "Completo"
+    "es": "Completo",
+    "nl": "Volzet",
+    "br": "Leun"
   },
   "markAsFull": {
     "en": "The event is fully booked",
@@ -1095,7 +1242,9 @@ module.exports = {
     "it": "L'evento è esaurito",
     "io": "crwdns16144:0crwdne16144:0",
     "oc": "L'eveniment es complèt",
-    "es": "El evento está completo"
+    "es": "El evento está completo",
+    "nl": "Het evenement is volgeboekt",
+    "br": "Leun eo an darvoud"
   },
   "statusFullInfo": {
     "en": "New participants are no longer accepted to the event",
@@ -1103,7 +1252,9 @@ module.exports = {
     "it": "I nuovi partecipanti non sono più accettati all'evento",
     "io": "crwdns16146:0crwdne16146:0",
     "oc": "Los participants novèls son pas pus acceptats a l'eveniment",
-    "es": "Ya no se aceptan nuevos participantes al evento"
+    "es": "Ya no se aceptan nuevos participantes al evento",
+    "nl": "Het evenement accepteert geen nieuwe deelnemers meer",
+    "br": "Ne vez ket degemeret perzhidi nevez ken d'an darvoud"
   },
   "seeHistory": {
     "en": "See history",
@@ -1111,7 +1262,9 @@ module.exports = {
     "io": "crwdns33253:0crwdne33253:0",
     "oc": "Véser l'istoric",
     "it": "Vedere la storia",
-    "es": "Ver historial"
+    "es": "Ver historial",
+    "nl": "Bekijk geschiedenis",
+    "br": "Gwelet an istor"
   },
   "locationHistory": {
     "en": "Location history",
@@ -1119,6 +1272,8 @@ module.exports = {
     "oc": "Istoric dels lòcs",
     "io": "crwdns33255:0crwdne33255:0",
     "it": "Storia del luogo",
-    "es": "Histórico del lugar"
+    "es": "Histórico del lugar",
+    "nl": "Locatiegeschiedenis",
+    "br": "Istor al lec'h"
   }
 }

@@ -8,6 +8,8 @@ module.exports = {
     "es": "Buscar",
     "it": "Ricerca",
     "io": "crwdns11396:0crwdne11396:0",
-    "oc": "Cercar"
+    "oc": "Cercar",
+    "nl": "Zoeken",
+    "br": "Klask"
   }
 }

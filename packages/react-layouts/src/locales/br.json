@@ -1,4 +1,17 @@
 {
+  "react-layouts.AdminHeader.administration": "Melestradurezh",
+  "react-layouts.AdminHeader.return": "Mont da bajenn degemer an deiziataer",
+  "react-layouts.AdminSections.newTab": "Nevez !",
+  "react-layouts.Announcement.close": "Serriñ",
+  "react-layouts.MainLayout.createAgenda": "Krouiñ un deiziataer",
+  "react-layouts.MainLayout.general": "Dre vras",
   "react-layouts.MainLayout.help": "Skoazell",
-  "react-layouts.MainLayout.searchAgenda": "Klask un deiziataer"
+  "react-layouts.MainLayout.myAgendas": "Ma deiziataerioù",
+  "react-layouts.MainLayout.myEvents": "Ma darvoudoù",
+  "react-layouts.MainLayout.searchAgenda": "Klask un deiziataer",
+  "react-layouts.MainLayout.settings": "Arventennoù",
+  "react-layouts.MainLayout.signin": "Kevreañ",
+  "react-layouts.MainLayout.signout": "Digevreañ",
+  "react-layouts.MainLayout.translate": "Treiñ",
+  "react-layouts.components.Search.search": "Klask un deiziataer"
 }

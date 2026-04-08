@@ -1,0 +1,12 @@
+{
+  "actionDescription": "Bekijk het evenement",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "controlled": "klaar om te publiceren",
+  "memberUnsubscribe": "Stop met het ontvangen van statuswijzigingen van evenementen naar \"{afterState}\" op deze agenda",
+  "published": "gepubliceerd",
+  "refused": "Erhalte Ablehnungsstatus",
+  "subject": "{agenda}: {event} heeft van status veranderd",
+  "title": "Het evenement <b>{event}</b> is veranderd van status <b>{beforeState}</b> naar status <b>{afterState}</b> op de agenda <b>{agenda}</b>.",
+  "tocontrol": "te controleren",
+  "unsubscribe": "Stop met het ontvangen van statuswijzigingen van evenementen naar \"{afterState}\""
+}

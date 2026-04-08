@@ -1,5 +1,7 @@
 {
+  "location.required": "Ret eo d'al lec'h bezañ spisaet",
   "timings.empty": "Ret eo lakaat un eur da vihanañ",
+  "timings.invalid": "Ret eo lakaat un eur da vihanañ",
   "timings.min.1": "Ret eo lakaat un eur da vihanañ",
-  "timings.invalid": "Ret eo lakaat un eur da vihanañ"
+  "timings.toolong": "N'hall ket bezañ ouzhpenn 800 prantad eurioù evit un darvoud hepken"
 }

@@ -1,0 +1,14 @@
+{
+  "next.views.AgendaShow.ContextBar.emptySelection": [
+    {
+      "type": 0,
+      "value": "Geen evenement"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.undefinedTitle": [
+    {
+      "type": 0,
+      "value": "Concept evenement zonder titel"
+    }
+  ]
+}

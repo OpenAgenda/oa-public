@@ -1,1 +1,10 @@
-{}
+{
+  "common.event.statuses.cancelledInfo": "Nullet eo bet an darvoud da vat",
+  "common.event.statuses.full": "Leun",
+  "common.event.statuses.fullInfo": "Ne vez ket degemeret perzhidi nevez ken d'an darvoud",
+  "common.event.statuses.movedOnline": "Dilec'hiet enlinenn",
+  "common.event.statuses.movedOnlineInfo": "N'eo ket ken posupl kemer perzh en darvoud e plas lec'hel",
+  "common.event.statuses.postponed": "Diwezataet",
+  "common.event.statuses.rescheduled": "Adreizhet",
+  "common.event.statuses.scheduled": "Raktreset"
+}

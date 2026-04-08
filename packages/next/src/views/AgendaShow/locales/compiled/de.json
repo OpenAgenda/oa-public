@@ -2,7 +2,7 @@
   "next.views.AgendaShow.closeButton": [
     {
       "type": 0,
-      "value": "Close"
+      "value": "Schließen"
     }
   ],
   "next.views.AgendaShow.filter": [

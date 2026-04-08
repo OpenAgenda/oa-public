@@ -9,7 +9,8 @@ module.exports = {
     "br": "nac'het",
     "it": "rifiutato",
     "io": "crwdns14602:0crwdne14602:0",
-    "oc": "refusat"
+    "oc": "refusat",
+    "nl": "Erhalte Ablehnungsstatus"
   },
   "tocontrol": {
     "fr": "en modération",
@@ -19,7 +20,8 @@ module.exports = {
     "br": "da habaskaat",
     "it": "da moderare",
     "io": "crwdns14604:0crwdne14604:0",
-    "oc": "e cors de moderacion"
+    "oc": "e cors de moderacion",
+    "nl": "met mate"
   },
   "tobecontrolled": {
     "fr": "en modération",
@@ -29,7 +31,8 @@ module.exports = {
     "br": "da habaskaat",
     "it": "da moderare",
     "io": "crwdns14606:0crwdne14606:0",
-    "oc": "e cors de moderacion"
+    "oc": "e cors de moderacion",
+    "nl": "met mate"
   },
   "controlled": {
     "fr": "prêt à publier",
@@ -39,7 +42,8 @@ module.exports = {
     "br": "Prest da vezañ embannet",
     "it": "pronto per la pubblicazione",
     "io": "crwdns14608:0crwdne14608:0",
-    "oc": "prèste a publicar"
+    "oc": "prèste a publicar",
+    "nl": "klaar om te publiceren"
   },
   "published": {
     "fr": "publié",
@@ -49,7 +53,8 @@ module.exports = {
     "br": "embannet",
     "it": "pubblicato",
     "io": "crwdns14610:0crwdne14610:0",
-    "oc": "publicat"
+    "oc": "publicat",
+    "nl": "gepubliceerd"
   },
   "featured": {
     "fr": "en une",
@@ -59,7 +64,8 @@ module.exports = {
     "br": "keleier pennañ",
     "it": "fissato",
     "io": "crwdns14612:0crwdne14612:0",
-    "oc": "en una"
+    "oc": "en una",
+    "nl": "uitgelicht"
   },
   "all": {
     "fr": "voir tous",
@@ -69,7 +75,8 @@ module.exports = {
     "br": "gwelet pep tra",
     "it": "vedi tutti",
     "io": "crwdns14614:0crwdne14614:0",
-    "oc": "véser tot"
+    "oc": "véser tot",
+    "nl": "alles bekijken"
   },
   "state": {
     "fr": "statut",
@@ -79,7 +86,8 @@ module.exports = {
     "br": "Statud",
     "it": "stato",
     "io": "crwdns14616:0crwdne14616:0",
-    "oc": "estatut"
+    "oc": "estatut",
+    "nl": "status"
   },
   "stateChanged": {
     "fr": "Le statut de l'événement a été modifié",
@@ -89,7 +97,8 @@ module.exports = {
     "br": "Cheñchet eo stad an darvoud",
     "it": "Lo stato dell'evento è stato modificato",
     "io": "crwdns14618:0crwdne14618:0",
-    "oc": "L'estatut de l'eveniment a cambiat"
+    "oc": "L'estatut de l'eveniment a cambiat",
+    "nl": "De status van het evenement is gewijzigd"
   },
   "featuredChange": {
     "fr": "L'événement est désormais en une",
@@ -99,7 +108,8 @@ module.exports = {
     "br": "E-mesk ar c'heleier pennañ emañ an darvoud bremañ",
     "it": "L'evento è ora fissato in alto",
     "io": "crwdns14620:0crwdne14620:0",
-    "oc": "L'eveniment es ara en una"
+    "oc": "L'eveniment es ara en una",
+    "nl": "Het evenement wordt nu uitgelicht"
   },
   "unfeaturedChange": {
     "fr": "L'événement n'est plus en une",
@@ -109,7 +119,8 @@ module.exports = {
     "br": "N'emañ ket ken an darvoud e-mesk ar c'heleier pennañ",
     "it": "L'evento non è più fissato",
     "io": "crwdns14622:0crwdne14622:0",
-    "oc": "L'eveniment es pas pus en una"
+    "oc": "L'eveniment es pas pus en una",
+    "nl": "Het evenement wordt niet meer uitgelicht"
   },
   "stateFieldInfo": {
     "fr": "L'accès à ce champ est restreint aux administrateurs et modérateurs de l'agenda",
@@ -118,7 +129,9 @@ module.exports = {
     "io": "crwdns16460:0crwdne16460:0",
     "de": "Nur Administratoren und Moderatoren haben Zugriff auf diese Auswahl",
     "oc": "Lo camp es pas accessible als contributors",
-    "es": "El acceso a este campo está limitado a los administradores y moderadores de la agenda"
+    "es": "El acceso a este campo está limitado a los administradores y moderadores de la agenda",
+    "nl": "Toegang tot dit veld is beperkt tot beheerders en moderators van de agenda",
+    "br": "Bevennet eo ar moned d'ar vaezienn-mañ d'ar verourien ha d'ar vodererien eus an deiziataer"
   },
   "stateFieldSub": {
     "fr": "Important: l'événement ne sera visible et diffusable que lorsqu'il aura été publié",
@@ -126,6 +139,8 @@ module.exports = {
     "it": "Importante: l'evento sarà visibile e condivisibile solo quando sarà pubblicato",
     "io": "crwdns33404:0crwdne33404:0",
     "oc": "Important : l'eveniment se poirà veire e compartir sonque quand serà publicat",
-    "es": "Importante: el evento será visible y compartible solo cuando sea publicado"
+    "es": "Importante: el evento será visible y compartible solo cuando sea publicado",
+    "nl": "Belangrijk: het evenement zal alleen zichtbaar en deelbaar zijn wanneer het is gepubliceerd",
+    "br": "Pouezus: ne vo gwelus ha rannadus an darvoud nemet pa vo embannet"
   }
 }

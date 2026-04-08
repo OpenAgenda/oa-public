@@ -8,7 +8,9 @@ module.exports = {
     "es": "Este agenda está cerrado a la contribución",
     "it": "Questo agenda è chiuso ai contributi",
     "io": "crwdns11478:0crwdne11478:0",
-    "oc": "Aquesta agenda es pas obèrta a las contribucions"
+    "oc": "Aquesta agenda es pas obèrta a las contribucions",
+    "nl": "Deze agenda staat niet open voor bijdragen",
+    "br": "Serret eo an deiziataer-mañ d'ar c'henlabourat"
   },
   "noAccessToEdit": {
     "fr": "Vous n'avez pas accès à l'édition de cet événement",
@@ -16,14 +18,18 @@ module.exports = {
     "it": "Non avete accesso all'edizione di questo evento",
     "io": "crwdns11480:0crwdne11480:0",
     "oc": "Avètz pas los dreits d'edicion per aqueste eveniment",
-    "es": "No tienes los derechos de edición para este evento"
+    "es": "No tienes los derechos de edición para este evento",
+    "nl": "U heeft geen bewerkingsrechten voor dit evenement",
+    "br": "N'ho peus ket ar gwir da gemmañ an darvoud-mañ"
   },
   "noAccessToCreate": {
     "fr": "Vous n'avez pas accès à la création d'événements sur cet agenda",
     "en": "You do not have the right to create this event",
     "io": "crwdns11482:0crwdne11482:0",
     "oc": "Avètz pas lo dreit de crear aqueste eveniment",
-    "es": "No tienes los derechos para crear este evento"
+    "es": "No tienes los derechos para crear este evento",
+    "nl": "U heeft geen rechten om evenementen aan te maken op deze agenda",
+    "br": "N'ho peus ket ar gwir da grouiñ darvoudoù war an deiziataer-mañ"
   },
   "noAccessToDraft": {
     "fr": "Vous n'avez pas accès à l'édition de ce brouillon",
@@ -31,7 +37,9 @@ module.exports = {
     "it": "Non puoi modificare questa bozza",
     "io": "crwdns11484:0crwdne11484:0",
     "oc": "Avètz pas los dreits d'edicion per aqueste borrolhon",
-    "es": "No tienes los derechos de edición para este borrador"
+    "es": "No tienes los derechos de edición para este borrador",
+    "nl": "U heeft geen bewerkingsrechten voor dit concept",
+    "br": "N'ho peus ket ar gwir da gemmañ ar brouilhed-mañ"
   },
   "eventNotLinkedToAgenda": {
     "fr": "L'événement n'est pas réferencé sur l'agenda",
@@ -39,6 +47,8 @@ module.exports = {
     "it": "L'evento non è presente nell'agenda",
     "io": "crwdns11486:0crwdne11486:0",
     "oc": "Aqueste eveniment es pas referenciat sus l'agenda",
-    "es": "Este evento no está incluido en la agenda"
+    "es": "Este evento no está incluido en la agenda",
+    "nl": "Het evenement staat niet vermeld in de agenda",
+    "br": "N'eo ket renablet an darvoud war an deiziataer"
   }
 }

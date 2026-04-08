@@ -18,10 +18,10 @@ import Icon from './Icon';
 type Reference = {
   id: string;
   link?: string;
-  image: {
+  image?: {
     url: string;
     alternativeText?: string;
-  };
+  } | null;
   title?: string;
   tags?: string;
 };
@@ -95,49 +95,51 @@ export default function ReferenceItem({
           )}
         </Flex>
 
-        <Box
-          position="relative"
-          display="inline-block"
-          _hover={{
-            '& .hover-overlay': {
-              opacity: 1,
-            },
-          }}
-        >
-          <LinkOverlay href={link} target="_blank" rel="noopener noreferrer">
-            <Image
-              src={`${image.url}`}
-              alt={image.alternativeText}
-              height={size.image}
-              maxW={size.image}
-              objectFit="cover"
-            />
-          </LinkOverlay>
-
-          {/* Hover overlay */}
+        {image && (
           <Box
-            className="hover-overlay"
-            position="absolute"
-            top="0"
-            left="0"
-            right="0"
-            bottom="0"
-            bg="blackAlpha.500"
-            display="flex"
-            alignItems="center"
-            justifyContent="center"
-            opacity="0"
-            transition="opacity 0.2s ease-in-out"
-            pointerEvents="none"
+            position="relative"
+            display="inline-block"
+            _hover={{
+              '& .hover-overlay': {
+                opacity: 1,
+              },
+            }}
           >
-            <Icon
-              name="up-right-from-square"
-              size="fa-2x"
-              style="regular"
-              color="white"
-            />
+            <LinkOverlay href={link} target="_blank" rel="noopener noreferrer">
+              <Image
+                src={`${image.url}`}
+                alt={image.alternativeText}
+                height={size.image}
+                maxW={size.image}
+                objectFit="cover"
+              />
+            </LinkOverlay>
+
+            {/* Hover overlay */}
+            <Box
+              className="hover-overlay"
+              position="absolute"
+              top="0"
+              left="0"
+              right="0"
+              bottom="0"
+              bg="blackAlpha.500"
+              display="flex"
+              alignItems="center"
+              justifyContent="center"
+              opacity="0"
+              transition="opacity 0.2s ease-in-out"
+              pointerEvents="none"
+            >
+              <Icon
+                name="up-right-from-square"
+                size="fa-2x"
+                style="regular"
+                color="white"
+              />
+            </Box>
           </Box>
-        </Box>
+        )}
 
         <Wrap
           flex="1"

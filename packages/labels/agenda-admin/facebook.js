@@ -9,7 +9,9 @@ module.exports = {
     "pl": "Zakładka agenda została dodana do Twojej strony na Facebooku",
     "es": "La pestaña de agenda ha sido añadido a su página de Facebook",
     "io": "crwdns11344:0crwdne11344:0",
-    "oc": "L'onglet agenda es estat apondut a vòstra pagina Facebook"
+    "oc": "L'onglet agenda es estat apondut a vòstra pagina Facebook",
+    "nl": "Het agendatabblad is toegevoegd aan je Facebook-pagina",
+    "br": "Ouzhpennet eo bet an ivinell deiziataer d'ho pajenn Facebook"
   },
   "title": {
     "fr": "Facebook",
@@ -18,7 +20,9 @@ module.exports = {
     "es": "Facebook",
     "it": "Facebook",
     "io": "crwdns11346:0crwdne11346:0",
-    "oc": "Facebook"
+    "oc": "Facebook",
+    "nl": "Facebook",
+    "br": "Facebook"
   },
   "description": {
     "fr": "Ajoutez votre agenda sur une page Facebook",
@@ -27,7 +31,9 @@ module.exports = {
     "es": "Añadir su agenda en una página de Facebook",
     "it": "Aggiungi il tuo agenda a una pagina Facebook",
     "io": "crwdns11348:0crwdne11348:0",
-    "oc": "Apondètz vòstra agenda sus una pagina Facebook"
+    "oc": "Apondètz vòstra agenda sus una pagina Facebook",
+    "nl": "Voeg je agenda toe aan een Facebook-pagina",
+    "br": "Ouzhpennit ho teiziataer war ur bajenn Facebook"
   },
   "footnote": {
     "fr": "Facebook ayant mis à jour ses %link%, cette fonctionnalité n'est proposée que pour les pages ayant plus de 2000 likes.",
@@ -36,7 +42,9 @@ module.exports = {
     "es": "Facebook ha actualizado su %link%, esta función sólo está disponible para páginas con más de 2.000 gustos.",
     "it": "Poiché Facebook ha aggiornato il suo %link%, questa funzione è disponibile solo per le pagine con più di 2000 \"Mi piace\".",
     "io": "crwdns11350:0%link%crwdne11350:0",
-    "oc": "Coma Facebook a metut a jorn sas %link%, aquela foncionalitat es disponibla sonque per las paginas amb mai de 2000 \"m'agrada\"."
+    "oc": "Coma Facebook a metut a jorn sas %link%, aquela foncionalitat es disponibla sonque per las paginas amb mai de 2000 \"m'agrada\".",
+    "nl": "Omdat Facebook zijn %link% heeft bijgewerkt, is deze functie alleen beschikbaar voor pagina's met meer dan 2000 likes.",
+    "br": "Dre m'en deus Facebook nevesaet e %link%, n'eo kinniget ar c'heweriuster-mañ nemet d'ar pajennoù o deus ouzhpenn 2000 a garoù."
   },
   "add": {
     "fr": "Choisir une page Facebook",
@@ -45,7 +53,9 @@ module.exports = {
     "es": "Seleccione una página de Facebook",
     "it": "Scegliere una pagina Facebook",
     "io": "crwdns11352:0crwdne11352:0",
-    "oc": "Causir una pagina Facebook"
+    "oc": "Causir una pagina Facebook",
+    "nl": "Kies een Facebook-pagina",
+    "br": "Dibab ur bajenn Facebook"
   },
   "conditions": {
     "fr": "conditions d'utilisation",
@@ -54,6 +64,8 @@ module.exports = {
     "es": "condiciones de uso",
     "it": "condizioni operative",
     "io": "crwdns11354:0crwdne11354:0",
-    "oc": "condicions d'utilizacion"
+    "oc": "condicions d'utilizacion",
+    "nl": "gebruiksvoorwaarden",
+    "br": "penndivizoù implij"
   }
 }

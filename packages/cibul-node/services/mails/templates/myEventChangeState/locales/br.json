@@ -1,4 +1,12 @@
 {
+  "actionDescription": "Gwelet an darvoud",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "controlled": "prest da vezañ embannet",
+  "memberUnsubscribe": "Chom hep degemer kemmoù stad ho tarvoudoù war an deiziataer-mañ",
   "published": "embannet",
-  "refused": "nac'het"
+  "refused": "nac'het",
+  "subject": "{agenda}: {event} a cheñchet statud",
+  "title": "An darvoud <b>{event}</b> a zo tremenet eus ar statud <b>{beforeState}</b> d'ar statud <b>{afterState}</b> war an deiziadur <b>{agenda}</b>.",
+  "tocontrol": "da gontrollañ",
+  "unsubscribe": "Chom hep degemer kemmoù stad ho tarvoudoù"
 }

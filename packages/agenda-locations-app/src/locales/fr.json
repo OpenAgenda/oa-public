@@ -188,7 +188,7 @@
   "AgendaLocations.RemoveModal.notRemove": "{count, plural, =0 {nothing} one {Ne pas supprimer l'événement.} other {Ne pas supprimer les # événements.}}",
   "AgendaLocations.RemoveModal.notRemoveInfo": "{count, plural, =0 {nothing} one {Celui-ci continuera d'afficher les données du lieu supprimé jusqu'à sa prochaine mise à jour.} other {Ceux-cis continueront d'afficher les données du lieu supprimé jusqu'à leur prochaine mise à jour.}}",
   "AgendaLocations.RemoveModal.removeComplete": "Le lieu a été supprimé",
-  "AgendaLocations.RemoveModal.removeEvents": "{count, plural, =0 {nothing} one {Supprimer l'événement.} other {Supprimer les # événements.}}",
+  "AgendaLocations.RemoveModal.removeEvents": "{count, plural, =0 {nothing} one {Supprimer l'événements.} other {Supprimer les # événements.}}",
   "AgendaLocations.RemoveModal.removeTitle": "Supprimer un lieu",
   "AgendaLocations.SearchInput.search": "Rechercher",
   "AgendaLocations.StateToggler.toverify": "Ce lieu est à vérifier",

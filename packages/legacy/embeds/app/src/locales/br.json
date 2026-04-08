@@ -1,1 +1,22 @@
-{}
+{
+  "LegacyEmbed.Presentation.contactUs": "Mont e darempred",
+  "LegacyEmbed.Presentation.create": "Krouiñ ur gweled enframmet eus an deiziataer-mañ",
+  "LegacyEmbed.Presentation.legacyEmbedPresentation": "Krouit ur c'hod enframmet da vezañ implijet diouzhtu",
+  "LegacyEmbed.Presentation.legacyEmbedSummary": "Tapout ur c'hod prest da vezañ implijet",
+  "LegacyEmbed.Presentation.legacyEmbedTitle": "Kod enframmet kozh",
+  "LegacyEmbed.Presentation.legacyEmbedWarning": "Diwallit",
+  "LegacyEmbed.Presentation.legacyEmbedWarningDetail": "Un adaozadur eus ar c'heweriuster-mañ a zo war ar stern; gwell eo implijout ar c'hod enframmet personelaus evit un enframmadur nevez",
+  "LegacyEmbed.Presentation.moreInfo": "Gouzout hiroc'h",
+  "LegacyEmbed.Presentation.pluginsAction": "Dizoloit al lugantoù",
+  "LegacyEmbed.Presentation.pluginsPresentation": "Implijit ul lugant azas d'ho CMS, a aotre ur personelaat araokaet: azasaat ar patromoù, dibab ar siloù merdeiñ...",
+  "LegacyEmbed.Presentation.pluginsSummary": "Ho lec'hienn a zo lusket gant Wordpress, Drupal pe Typo3",
+  "LegacyEmbed.Presentation.pluginsTitle": "Astennoù",
+  "LegacyEmbed.Presentation.portalPresentation": "Staliit ur porched gouestlet gant merk gwenn war hoc'h domani. Gallout a ra bezañ graet gant hoc'h ajañs web pe gant OpenAgenda.",
+  "LegacyEmbed.Presentation.portalSummary": "C'hoant ho peus da gaout ur porched darvoudoù gouestlet evit diskouez ho programm",
+  "LegacyEmbed.Presentation.portalTitle": "Porched gant merk gwenn",
+  "LegacyEmbed.Presentation.standardEmbedGetBack": "Respont a raimp deoc'h a-benn nebeut gant ur c'hod prest da vezañ implijet",
+  "LegacyEmbed.Presentation.standardEmbedPresentation": "Tapout ur c'hod da lakaat war ur bajenn eus ho lec'hienn evit diskouez ho programm gant siloù enklask. Gallout a reer dibab ar siloù ha cheñchamantoù gwelet zo kinniget. Ar c'hefluniadur eus ar c'hod-mañ hag e implij a zo digoust.",
+  "LegacyEmbed.Presentation.standardEmbedSummary": "C'hoant ho peus da gaout un enframmadur efedus ha digoust",
+  "LegacyEmbed.Presentation.standardEmbedTitle": "Kod enframmet personelaus",
+  "LegacyEmbed.Presentation.title": "Enframmit an deiziataer en ho lec'hienn web"
+}

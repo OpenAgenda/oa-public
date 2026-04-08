@@ -25,6 +25,7 @@ const byLangs = {
   ca: dynamic(() => import('date-fns/locale/ca/index').then(createProvider)),
   eu: dynamic(() => import('date-fns/locale/eu/index').then(createProvider)),
   oc: dynamic(() => import('date-fns/locale/oc/index').then(createProvider)),
+  nl: dynamic(() => import('date-fns/locale/nl/index').then(createProvider)),
 };
 
 const DateFnsLocaleProvider = ({ children }) => {

@@ -1,6 +1,6 @@
 import moment from 'moment-timezone';
 
-const possibleLanguages = ['fr', 'en', 'it', 'es', 'de'];
+const possibleLanguages = ['fr', 'en', 'it', 'es', 'de', 'nl'];
 
 export default ({ languages, includeLanguages }, { target, isoTarget }) => {
   const source = 'timings';

@@ -10,7 +10,8 @@ module.exports = {
     "es": "Mi perfil",
     "br": "Ma frofil",
     "io": "crwdns15802:0crwdne15802:0",
-    "oc": "Mon perfil"
+    "oc": "Mon perfil",
+    "nl": "Mijn profiel"
   },
   "myEvents": {
     "en": "My events",
@@ -21,7 +22,8 @@ module.exports = {
     "es": "Mis eventos",
     "br": "Ma darvoudoù",
     "io": "crwdns15804:0crwdne15804:0",
-    "oc": "Mos eveniments"
+    "oc": "Mos eveniments",
+    "nl": "Mijn evenementen"
   },
   "settings": {
     "en": "Settings",
@@ -32,7 +34,8 @@ module.exports = {
     "es": "Configuración",
     "br": "Arventennoù",
     "io": "crwdns15806:0crwdne15806:0",
-    "oc": "Reglatges"
+    "oc": "Reglatges",
+    "nl": "Einstellungen"
   },
   "signout": {
     "en": "Sign out",
@@ -43,7 +46,8 @@ module.exports = {
     "es": "Cerrar sesión",
     "br": "Digevreañ",
     "io": "crwdns15808:0crwdne15808:0",
-    "oc": "Desconnexion"
+    "oc": "Desconnexion",
+    "nl": "Uitloggen"
   },
   "myAgendas": {
     "en": "My Agendas",
@@ -54,7 +58,8 @@ module.exports = {
     "es": "Mis agendas",
     "br": "Ma Deiziataerioù",
     "io": "crwdns15810:0crwdne15810:0",
-    "oc": "Mas agendas"
+    "oc": "Mas agendas",
+    "nl": "Mijn Agenda's"
   },
   "searchAgendas": {
     "en": "Search agenda",
@@ -65,7 +70,8 @@ module.exports = {
     "es": "Buscar una agenda",
     "br": "Klask un deiziataer",
     "io": "crwdns15812:0crwdne15812:0",
-    "oc": "Cercar una agenda"
+    "oc": "Cercar una agenda",
+    "nl": "Zoek een agenda"
   },
   "createAgenda": {
     "en": "Create an agenda",
@@ -76,7 +82,8 @@ module.exports = {
     "es": "Crear una agenda",
     "br": "Krouiñ un deiziataer",
     "io": "crwdns15814:0crwdne15814:0",
-    "oc": "Crear una agenda"
+    "oc": "Crear una agenda",
+    "nl": "Een agenda aanmaken"
   },
   "general": {
     "en": "General",
@@ -87,7 +94,8 @@ module.exports = {
     "es": "General",
     "br": "Dre vras",
     "io": "crwdns15816:0crwdne15816:0",
-    "oc": "General"
+    "oc": "General",
+    "nl": "Genereren"
   },
   "agendasTitle": {
     "en": "Agendas",
@@ -98,6 +106,7 @@ module.exports = {
     "es": "Agendas",
     "br": "Deiziataerioù",
     "io": "crwdns15818:0crwdne15818:0",
-    "oc": "Agendas"
+    "oc": "Agendas",
+    "nl": "Agenda's"
   }
 }

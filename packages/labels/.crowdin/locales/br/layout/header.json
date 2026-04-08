@@ -1,4 +1,9 @@
 {
-  "signin": "Kevreañ",
-  "help": "Skoazell"
+  "de": "Alamaneg",
+  "en": "Saozneg",
+  "es": "Spagnoleg",
+  "fr": "Galleg",
+  "help": "Skoazell",
+  "search": "Klask",
+  "signin": "Kevreañ"
 }

@@ -1,0 +1,12 @@
+{
+  "actionDescription": "Bekijk het evenement",
+  "body": "<b>{event}</b> van de agenda <b>{sourceAgenda}</b> is overgenomen met de status <b>{state}</b>.",
+  "changeEmailSettings": "Wijzig mijn e-mailinstellingen",
+  "controlled": "klaar om te publiceren",
+  "memberUnsubscribe": "Stop met het ontvangen van evenementaggregaties van deze agenda",
+  "published": "gepubliceerd",
+  "refused": "Erhalte Ablehnungsstatus",
+  "title": "{agenda} heeft een nieuw evenement overgenomen: {event}",
+  "tocontrol": "te controleren",
+  "unsubscribe": "Stop met het ontvangen van evenementaggregaties"
+}

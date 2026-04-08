@@ -8,7 +8,8 @@ module.exports = {
     "br": "Ret eo lakaat un eur da vihanañ",
     "io": "crwdns14140:0crwdne14140:0",
     "it": "Per favore indicare almeno un orario",
-    "oc": "Cal indicar al mens un orari"
+    "oc": "Cal indicar al mens un orari",
+    "nl": "Er moet minstens één tijdstip worden opgegeven"
   },
   "location.required": {
     "fr": "Le lieu doit être spécifié",
@@ -17,7 +18,9 @@ module.exports = {
     "es": "El lugar debe especificarse",
     "it": "La posizione deve essere specificata",
     "io": "crwdns14142:0crwdne14142:0",
-    "oc": "Cal precisar lo lòc"
+    "oc": "Cal precisar lo lòc",
+    "nl": "De locatie moet worden opgegeven",
+    "br": "Ret eo d'al lec'h bezañ spisaet"
   },
   "timings.toolong": {
     "fr": "Il ne peut y avoir plus de 800 plages horaires pour un même événement",
@@ -26,7 +29,9 @@ module.exports = {
     "es": "No puede haber más de 800 franjas horarias para el mismo evento",
     "it": "Non possono esserci più di 800 fasce orarie per un singolo evento.",
     "io": "crwdns14144:0crwdne14144:0",
-    "oc": "I pòt pas aver mai de 800 oraris per un sol eveniment"
+    "oc": "I pòt pas aver mai de 800 oraris per un sol eveniment",
+    "nl": "Er kunnen niet meer dan 800 tijdstippen zijn voor één evenement",
+    "br": "N'hall ket bezañ ouzhpenn 800 prantad eurioù evit un darvoud hepken"
   },
   "timings.min.1": {
     "fr": "Au moins un horaire doit être défini",
@@ -35,7 +40,8 @@ module.exports = {
     "br": "Ret eo lakaat un eur da vihanañ",
     "it": "Per favore indicare almeno un orario",
     "io": "crwdns16426:0crwdne16426:0",
-    "oc": "Cal indicar al mens un orari"
+    "oc": "Cal indicar al mens un orari",
+    "nl": "Er moet minstens één tijdstip worden opgegeven"
   },
   "timings.invalid": {
     "fr": "Au moins un horaire doit être défini",
@@ -44,7 +50,8 @@ module.exports = {
     "br": "Ret eo lakaat un eur da vihanañ",
     "it": "Per favore indicare almeno un orario",
     "io": "crwdns16428:0crwdne16428:0",
-    "oc": "Cal indicar al mens un orari"
+    "oc": "Cal indicar al mens un orari",
+    "nl": "Er moet minstens één tijdstip worden opgegeven"
   },
   "timings.max": {
     "fr": "Le nombre de plages horaires saisies excède le nombre autorisé: %max%",
@@ -52,10 +59,11 @@ module.exports = {
     "de": "Die Anzahl der definierten Zeiträume überschreitet das zulässige Maximum: %max%",
     "es": "El número de franjas horarias definidas excede el máximo autorizado: %max%",
     "it": "Il numero di fasce orarie definite supera il massimo consentito: %max%",
-    "oc": "Lo nombre d'oraris indicats excedís lo maximum autorizat: %max%"
+    "oc": "Lo nombre d'oraris indicats excedís lo maximum autorizat: %max%",
+    "io": "crwdns35349:0%max%crwdne35349:0"
   },
   "overlap": {
-    "fr": "les horaires ne peuvent pas se chevaucher",
+    "fr": "les horaires ne peuvent pas se chevaucher"
   },
   "format.unknown": {
     "fr": "Le format de l'image est inconnu",

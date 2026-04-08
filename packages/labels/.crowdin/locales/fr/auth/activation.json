@@ -1,15 +1,15 @@
 {
-  "sendAgain": "Le mail d'activation est en cours de ré-envoi",
-  "sendActivateOnSigninAttempt": "Votre compte n'est pas activé. Cliquez sur le lien contenu dans le mail d'activation qui vient de vous être envoyé.",
   "checkEmail": "Cliquez sur le lien de validation dans votre boîte de réception",
   "checkEmailInstruction": "Un email contenant le lien d'activation de votre compte est en cours d'envoi vers le courriel indiqué ci-dessous. Vérifiez votre boîte de réception pour terminer votre inscription.",
   "didNotReceive": "<b>Vous n'avez pas reçu de mail?</b> <br/>1. Vérifiez l'orthographe du courriel indiqué ci-dessus <br/>2. Vérifiez votre dossier de courriers indésirables ou autres dossiers similaires (dossiers d'outils de type \"Mailinblack\") <br /> 3. %resend% <br/> 4. Écrivez-nous à %support%",
-  "resend": "Cliquez ici pour relancer l'envoi",
-  "stayUpToDate": "Restez au courant de ce qui se passe chez OpenAgenda!",
   "followUs": "Suivez nous",
-  "followUsOnLinkedIn": "Suivez-nous sur LinkedIn",
   "followUsOnBlueSky": "Suivez-nous sur Bluesky",
+  "followUsOnLinkedIn": "Suivez-nous sur LinkedIn",
   "getOurNewsletter": "Recevez notre lettre d'information",
-  "yourEmail": "Votre email",
-  "subscribe": "Abonnez-vous"
+  "resend": "Cliquez ici pour relancer l'envoi",
+  "sendActivateOnSigninAttempt": "Votre compte n'est pas activé. Cliquez sur le lien contenu dans le mail d'activation qui vient de vous être envoyé.",
+  "sendAgain": "Le mail d'activation est en cours de ré-envoi",
+  "stayUpToDate": "Restez au courant de ce qui se passe chez OpenAgenda!",
+  "subscribe": "Abonnez-vous",
+  "yourEmail": "Votre email"
 }

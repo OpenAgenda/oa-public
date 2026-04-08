@@ -32,25 +32,25 @@
   "next.components.ErrorDisplay.networkError": [
     {
       "type": 0,
-      "value": "Connection error"
+      "value": "crwdns35365:0crwdne35365:0"
     }
   ],
   "next.components.ErrorDisplay.networkErrorMsg": [
     {
       "type": 0,
-      "value": "Unable to load the page. Please check your internet connection and try again."
+      "value": "crwdns35367:0crwdne35367:0"
     }
   ],
   "next.components.ErrorDisplay.pageNotFound": [
     {
       "type": 0,
-      "value": "Page not found"
+      "value": "crwdns35321:0crwdne35321:0"
     }
   ],
   "next.components.ErrorDisplay.pageNotFoundMsg": [
     {
       "type": 0,
-      "value": "The page you requested doesn’t exist or is no longer available."
+      "value": "crwdns35323:0crwdne35323:0"
     }
   ],
   "next.components.ErrorDisplay.retry": [

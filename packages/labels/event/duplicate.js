@@ -9,7 +9,8 @@ module.exports = {
     "es": "Crear una agenda",
     "it": "Creare un'agenda",
     "io": "crwdns14118:0crwdne14118:0",
-    "oc": "Crear una agenda"
+    "oc": "Crear una agenda",
+    "nl": "Een agenda aanmaken"
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
@@ -19,7 +20,8 @@ module.exports = {
     "es": "Buscar una agenda",
     "it": "Cerca un'agenda",
     "io": "crwdns14120:0crwdne14120:0",
-    "oc": "Cercar una agenda"
+    "oc": "Cercar una agenda",
+    "nl": "Een agenda zoeken"
   },
   "officialAgenda": {
     "fr": "Agenda officiel",
@@ -29,7 +31,8 @@ module.exports = {
     "es": "Agenda oficial",
     "it": "Agenda ufficiale",
     "io": "crwdns14122:0crwdne14122:0",
-    "oc": "Agenda oficiala"
+    "oc": "Agenda oficiala",
+    "nl": "Officiële agenda"
   },
   "noResult": {
     "fr": "Aucun résultat trouvé",
@@ -39,7 +42,8 @@ module.exports = {
     "es": "Ningún resultado encontrado",
     "it": "Nessun risultato trovato",
     "io": "crwdns14124:0crwdne14124:0",
-    "oc": "Pas cap resultat trobat"
+    "oc": "Pas cap resultat trobat",
+    "nl": "Geen resultaat gevonden"
   },
   "searchEvent": {
     "fr": "Rechercher un événement",
@@ -49,7 +53,8 @@ module.exports = {
     "es": "Buscar un evento",
     "it": "Ricerca di un evento",
     "io": "crwdns14126:0crwdne14126:0",
-    "oc": "Cercar un eveniment"
+    "oc": "Cercar un eveniment",
+    "nl": "Zoek een evenement"
   },
   "selectAgenda": {
     "fr": "Sélectionner l'agenda dans lequel créer l'événement",
@@ -59,7 +64,8 @@ module.exports = {
     "es": "Seleccione el agenda en el que crear el evento",
     "it": "Selezionare il agenda in cui creare l'evento",
     "io": "crwdns14128:0crwdne14128:0",
-    "oc": "Causir una agenda per i crear l'eveniment"
+    "oc": "Causir una agenda per i crear l'eveniment",
+    "nl": "Selecteer de agenda waarin u het evenement wilt aanmaken"
   },
   "privateAgenda": {
     "fr": "Agenda privé",
@@ -69,7 +75,8 @@ module.exports = {
     "es": "Agenda privado",
     "it": "Agenda privato",
     "io": "crwdns14130:0crwdne14130:0",
-    "oc": "Agenda privada"
+    "oc": "Agenda privada",
+    "nl": "Privéagenda"
   },
   "or": {
     "fr": "Ou",
@@ -78,7 +85,9 @@ module.exports = {
     "es": "O",
     "it": "Oppure",
     "io": "crwdns14132:0crwdne14132:0",
-    "oc": "O"
+    "oc": "O",
+    "nl": "Of",
+    "br": "Pe"
   },
   "modalBigSentence": {
     "fr": "Vous êtes sur le point de créer un nouvel événement sur la base d’un précédent.",
@@ -87,7 +96,9 @@ module.exports = {
     "es": "Vas a crear un nuevo evento en la base de un precedente.",
     "it": "State per creare un nuovo evento basato su un evento precedente.",
     "io": "crwdns14134:0crwdne14134:0",
-    "oc": "Sètz a mand de crear un eveniment novèl sus la basa d'un precedent."
+    "oc": "Sètz a mand de crear un eveniment novèl sus la basa d'un precedent.",
+    "nl": "U staat op het punt een nieuw evenement aan te maken op basis van een voorgaand evenement.",
+    "br": "Emaoc'h o vont da grouiñ un darvoud nevez diazezet war un darvoud kent."
   },
   "modalReminder": {
     "fr": "Rappel: un événement unique peut être partagé sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller.",
@@ -96,7 +107,9 @@ module.exports = {
     "es": "Recordatorio: un solo evento puede ser compartida en múltiples agendas. ¡No crear un duplicado! Duplicar crea un anuncio diferente, por lo general para una nueva edición en todo el tiempo o el espacio, evitando copiar y pegar.",
     "it": "Promemoria: un singolo evento può essere condiviso su più calendari. Non creare duplicati! La duplicazione permette di creare un annuncio diverso, di solito per una nuova edizione altrove nel tempo o nello spazio, evitando il copia e incolla.",
     "io": "crwdns14136:0crwdne14136:0",
-    "oc": "Rebrembon : un eveniment se pòt partejar sus maitas agendas. Faguetz pas de doblon ! La duplicacion crèa una anóncia diferenta, en general per una edicion novèla endacòm mai dins lo temps e l'espaci, en evitant los copiar-pegar."
+    "oc": "Rebrembon : un eveniment se pòt partejar sus maitas agendas. Faguetz pas de doblon ! La duplicacion crèa una anóncia diferenta, en general per una edicion novèla endacòm mai dins lo temps e l'espaci, en evitant los copiar-pegar.",
+    "nl": "Herinnering: een enkel evenement kan gedeeld worden over meerdere agenda's. Maak geen duplicaat! Dupliceren maakt een andere aankondiging, meestal voor een nieuwe editie elders in tijd of ruimte, zonder kopiëren en plakken.",
+    "br": "Koun: Un darvoud hepken a c'hall bezañ rannet war meur a deiziataer. Arabat krouiñ un doubladenn! An doubladenn a dalvez da grouiñ ur c'hemenn disheñvel, peurliesañ evit un embannadur nevez e lec'h all en amzer pe el lec'h, en ur chom hep eilañ-pegañ."
   },
   "createNewEventIn": {
     "fr": "Créer le nouvel événement dans",
@@ -105,6 +118,8 @@ module.exports = {
     "es": "Crear un nuevo evento en",
     "it": "Creare il nuovo evento in",
     "io": "crwdns14138:0crwdne14138:0",
-    "oc": "Crear l'eveniment novèl dins"
+    "oc": "Crear l'eveniment novèl dins",
+    "nl": "Maak het nieuwe evenement aan in",
+    "br": "Krouiñ an darvoud nevez e-barzh"
   }
 }

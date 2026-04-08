@@ -1,9 +1,9 @@
 {
-  "officialAgenda": "Oficial",
-  "privateAgenda": "Agenda privada",
+  "addEvent": "Apondre un eveniment",
   "contact": "Contactar",
   "export": "Exportar",
-  "addEvent": "Apondre un eveniment",
-  "showCalendar": "Afichar la vista calendièr",
-  "manage": "Gerir"
+  "manage": "Gerir",
+  "officialAgenda": "Oficial",
+  "privateAgenda": "Agenda privada",
+  "showCalendar": "Afichar la vista calendièr"
 }

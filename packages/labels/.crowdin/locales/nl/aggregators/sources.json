@@ -1,0 +1,18 @@
+{
+  "addSources": "Om nieuwe agenda's te aggregeren, [ga naar een agenda die u wilt aggregeren](%searchLink%) en klik vervolgens op Exporteren > Aggregeren in > **%agenda%**",
+  "aggregationLoop": "Deze agenda aggregeert evenementen van de agenda waaraan u deze wilt toevoegen. Aggregatielussen zijn niet toegestaan.",
+  "aggregatorExplanation": "Deze functie stelt u in staat om automatisch de evenementen op te halen van de agenda's die u heeft gekozen.",
+  "createAggregator": "Agenda-aggregatie activeren",
+  "noResult": "Geen resultaat gevonden",
+  "numberOfResults": "Aantal resultaten",
+  "officialAgenda": "Officiële agenda",
+  "removeConfirmMessage": "Weet u zeker dat u deze agenda uit de bronnenlijst wilt verwijderen?",
+  "removeSource": "Bron verwijderen",
+  "searchAgenda": "Een agenda zoeken",
+  "sourceAdded": "%source% is toegevoegd aan de bronnen van %agg%. De komende evenementen worden zo dadelijk toegevoegd.",
+  "sourceAgendas": "Bronagenda's",
+  "sourceRemoved": "%source% is verwijderd uit de bronnen van %agg%.",
+  "sourcesExplanation": "De evenementen die door de hier vermelde agenda's worden gepubliceerd, worden automatisch toegevoegd aan de agenda [%title%](%link%).",
+  "sourcesHelp": "Klik hier voor meer informatie",
+  "totalSources": "Totaal aantal bronnen"
+}

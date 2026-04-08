@@ -8,6 +8,8 @@ module.exports = {
     "es": "Ver más",
     "it": "Vedere di più",
     "io": "crwdns14666:0crwdne14666:0",
-    "oc": "Ne véser mai"
+    "oc": "Ne véser mai",
+    "nl": "Meer zien",
+    "br": "Gwelet muioc'h"
   }
 }

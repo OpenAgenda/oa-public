@@ -1,1 +1,8 @@
-{}
+{
+  "actionDescription": "Gwelet an deiziataer",
+  "changeEmailSettings": "Cheñch ma arventennoù kas posteloù",
+  "memberUnsubscribe": "Paouez da zegemer posteloù eus an arc'hweladur \"Skrivañ dezho\" eus ar c'halvezenn-mañ",
+  "title": "Ar c'halvezenn {agenda} he deus skrivet ur gemennadenn deoc'h",
+  "unsubscribe": "Paouez da zegemer posteloù eus an arc'hweladur \"Skrivañ dezho\"",
+  "unsubscribeGuest": "Paouez da zegemer posteloù digant OpenAgenda"
+}

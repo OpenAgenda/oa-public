@@ -1,8 +1,8 @@
 {
+  "contributor": "Beiträger",
   "filterList": "Filtrer",
-  "title": "Titel",
+  "loading": "Wird geladen",
   "locationName": "Standortnamen",
   "region": "Region",
-  "contributor": "Beiträger",
-  "loading": "Wird geladen"
+  "title": "Titel"
 }

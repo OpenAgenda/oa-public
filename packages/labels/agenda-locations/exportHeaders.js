@@ -7,7 +7,9 @@ module.exports = {
     "io": "crwdns12102:0crwdne12102:0",
     "it": "ID",
     "oc": "Identificant",
-    "es": "Id"
+    "es": "Id",
+    "nl": "Identificatie",
+    "br": "Anaouder"
   },
   "name": {
     "en": "Name",
@@ -15,7 +17,9 @@ module.exports = {
     "io": "crwdns12104:0crwdne12104:0",
     "it": "Nome",
     "oc": "Nom",
-    "es": "Nombre"
+    "es": "Nombre",
+    "nl": "Naam",
+    "br": "Anv"
   },
   "address": {
     "en": "Address",
@@ -23,7 +27,9 @@ module.exports = {
     "io": "crwdns12106:0crwdne12106:0",
     "it": "Indirizzo",
     "oc": "Adreiça",
-    "es": "Dirección"
+    "es": "Dirección",
+    "nl": "Adres",
+    "br": "Chomlec'h"
   },
   "city": {
     "en": "City",
@@ -32,7 +38,8 @@ module.exports = {
     "io": "crwdns12108:0crwdne12108:0",
     "it": "Città",
     "oc": "Vila",
-    "es": "Ciudad"
+    "es": "Ciudad",
+    "nl": "Stad"
   },
   "department": {
     "en": "Department",
@@ -41,7 +48,8 @@ module.exports = {
     "io": "crwdns12110:0crwdne12110:0",
     "it": "Provincia",
     "oc": "Departament",
-    "es": "Departamento"
+    "es": "Departamento",
+    "nl": "Departement"
   },
   "latitude": {
     "en": "Latitude",
@@ -49,7 +57,9 @@ module.exports = {
     "io": "crwdns12112:0crwdne12112:0",
     "it": "Latitudine",
     "oc": "Latitud",
-    "es": "Latitud"
+    "es": "Latitud",
+    "nl": "Breedtegraad",
+    "br": "Ledred"
   },
   "longitude": {
     "en": "Longitude",
@@ -57,7 +67,9 @@ module.exports = {
     "io": "crwdns12114:0crwdne12114:0",
     "it": "Longitudine",
     "oc": "Longitud",
-    "es": "Longitud"
+    "es": "Longitud",
+    "nl": "Lengtegraad",
+    "br": "Hedred"
   },
   "postalCode": {
     "en": "Postal code",
@@ -65,7 +77,9 @@ module.exports = {
     "io": "crwdns12116:0crwdne12116:0",
     "it": "Codice postale",
     "oc": "Còdi postal",
-    "es": "Código postal"
+    "es": "Código postal",
+    "nl": "Postcode",
+    "br": "Kod-post"
   },
   "insee": {
     "en": "INSEE Code",
@@ -73,7 +87,9 @@ module.exports = {
     "io": "crwdns12118:0crwdne12118:0",
     "it": "Codice INSEE (Francia)",
     "oc": "Còdi INSEE",
-    "es": "Código INSEE"
+    "es": "Código INSEE",
+    "nl": "INSEE-code",
+    "br": "Kod EBSSA"
   },
   "siret": {
     "en": "SIRET Code",
@@ -81,7 +97,9 @@ module.exports = {
     "io": "crwdns33876:0crwdne33876:0",
     "it": "Codice fiscale",
     "oc": "N° SIRET",
-    "es": "Código SIRET"
+    "es": "Código SIRET",
+    "nl": "SIRET-code",
+    "br": "Kod SIRET"
   },
   "countryCode": {
     "en": "Country code",
@@ -89,7 +107,9 @@ module.exports = {
     "io": "crwdns12120:0crwdne12120:0",
     "it": "Codice del paese",
     "oc": "Còdi país",
-    "es": "Código de país"
+    "es": "Código de país",
+    "nl": "Landcode",
+    "br": "Kod bro"
   },
   "district": {
     "en": "District",
@@ -97,7 +117,9 @@ module.exports = {
     "io": "crwdns12122:0crwdne12122:0",
     "it": "Quartiere",
     "oc": "Districte",
-    "es": "Distrito"
+    "es": "Distrito",
+    "nl": "Wijk",
+    "br": "Karter"
   },
   "region": {
     "en": "Region",
@@ -105,7 +127,9 @@ module.exports = {
     "io": "crwdns12124:0crwdne12124:0",
     "it": "Regione",
     "oc": "Region",
-    "es": "Región"
+    "es": "Región",
+    "nl": "Regio",
+    "br": "Rannvro"
   },
   "eventCount": {
     "en": "Associated events",
@@ -113,7 +137,9 @@ module.exports = {
     "io": "crwdns12126:0crwdne12126:0",
     "it": "Eventi associati",
     "oc": "Eveniments associats",
-    "es": "Eventos asociados"
+    "es": "Eventos asociados",
+    "nl": "Gerelateerde evenementen",
+    "br": "Darvoudoù kevelet"
   },
   "agendaEventCount": {
     "en": "Associated events in agenda",
@@ -121,7 +147,9 @@ module.exports = {
     "io": "crwdns12128:0crwdne12128:0",
     "it": "Eventi associati nell'agenda",
     "oc": "Eveniments associats dins l'agenda",
-    "es": "Eventos asociados en la agenda"
+    "es": "Eventos asociados en la agenda",
+    "nl": "Gerelateerde evenementen in agenda",
+    "br": "Darvoudoù kevelet en deiziataer"
   },
   "state": {
     "en": "Verified",
@@ -129,7 +157,9 @@ module.exports = {
     "io": "crwdns12130:0crwdne12130:0",
     "it": "Verificato",
     "oc": "Verificat",
-    "es": "Verificado"
+    "es": "Verificado",
+    "nl": "Geverifieerd",
+    "br": "Gwiriet"
   },
   "extIds": {
     "en": "External ids",
@@ -144,7 +174,9 @@ module.exports = {
     "io": "crwdns12134:0crwdne12134:0",
     "it": "URL",
     "oc": "Còdi URL",
-    "es": "Código URL"
+    "es": "Código URL",
+    "nl": "URL-code",
+    "br": "Kod URL"
   },
   "website": {
     "en": "Website",
@@ -152,7 +184,9 @@ module.exports = {
     "es": "Sitio web",
     "oc": "Site web",
     "io": "crwdns32871:0crwdne32871:0",
-    "it": "Sito web"
+    "it": "Sito web",
+    "nl": "Website",
+    "br": "Lec'hienn web"
   },
   "access": {
     "en": "Access",
@@ -163,7 +197,8 @@ module.exports = {
     "es": "Acceso",
     "br": "Moned",
     "oc": "Accès",
-    "io": "crwdns32873:0crwdne32873:0"
+    "io": "crwdns32873:0crwdne32873:0",
+    "nl": "Toegang"
   },
   "description": {
     "en": "Description",
@@ -172,7 +207,9 @@ module.exports = {
     "es": "Descripción",
     "it": "Descrizione",
     "oc": "Descripcion",
-    "io": "crwdns32875:0crwdne32875:0"
+    "io": "crwdns32875:0crwdne32875:0",
+    "nl": "Beschrijving",
+    "br": "Deskrivadur"
   },
   "adminLevel5": {
     "en": "Borough",

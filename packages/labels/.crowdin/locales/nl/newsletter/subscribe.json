@@ -1,0 +1,5 @@
+{
+  "invalidEmail": "Het ingevoerde e-mailadres is ongeldig of de nieuwsbriefservice is niet beschikbaar. Probeer het over enkele minuten opnieuw.",
+  "subscribed": "U bent toegevoegd aan onze nieuwsbrieflijst. Bedankt!",
+  "unsubscribed": "U ontvangt vanaf nu geen evenementenmails meer op het adres %email%"
+}

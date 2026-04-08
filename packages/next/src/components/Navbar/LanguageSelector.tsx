@@ -19,6 +19,7 @@ const languages = [
   { code: 'de', label: 'Deutsch' },
   { code: 'es', label: 'Español' },
   { code: 'oc', label: 'Occitan' },
+  { code: 'nl', label: 'Nederlands' },
 ];
 
 export default function LanguageSelector() {

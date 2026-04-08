@@ -1,0 +1,8 @@
+{
+  "defaultTagGroupInfo": "Selecteer een of meerdere tags",
+  "defaultTagGroupName": "Taggroep",
+  "noSelection": "Geen van bovenstaande",
+  "required": "Verplicht.",
+  "requiredTagError": "U moet minstens één item selecteren",
+  "tagsTitle": "Tags"
+}
