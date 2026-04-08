@@ -447,6 +447,15 @@ function _getQueryFilterParts(
     parts.push({ term: { _set: cleanQuery.set } });
   }
 
+  if (_.get(cleanQuery, 'age.gte') || _.get(cleanQuery, 'age.lte')) {
+    if (cleanQuery.age.gte) {
+      parts.push({ range: { 'age.max': { gte: cleanQuery.age.gte } } });
+    }
+    if (cleanQuery.age.lte) {
+      parts.push({ range: { 'age.min': { lte: cleanQuery.age.lte } } });
+    }
+  }
+
   if (
     _.get(cleanQuery, 'localTime.gte')
     || _.get(cleanQuery, 'localTime.lte')

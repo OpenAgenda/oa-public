@@ -163,6 +163,16 @@
   "valid": {
     "type": "boolean"
   },
+  "age": {
+    "properties": {
+      "min": {
+        "type": "integer"
+      },
+      "max": {
+        "type": "integer"
+      }
+    }
+  },
   "_exclusiveUpdatedAt": {
     "type": "date"
   },

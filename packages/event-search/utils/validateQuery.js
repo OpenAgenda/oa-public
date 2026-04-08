@@ -212,6 +212,16 @@ const validate = schema({
       },
     },
   },
+  age: {
+    fields: {
+      gte: {
+        type: 'integer',
+      },
+      lte: {
+        type: 'integer',
+      },
+    },
+  },
   localTime: {
     fields: {
       gte: {
