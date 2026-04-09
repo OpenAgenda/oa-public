@@ -20,6 +20,7 @@ if (segments.length === 0) {
     'lienlong',
     'lienEncorePlusLong',
     'unhandledCharacters',
+    'kropotkineLink',
   ];
 }
 
@@ -32,6 +33,7 @@ const validSegments = [
   'lienlong',
   'lienEncorePlusLong',
   'unhandledCharacters',
+  'kropotkineLink',
 ];
 for (const segment of segments) {
   if (!validSegments.includes(segment)) {
@@ -92,6 +94,20 @@ for (const segment of segments) {
       ),
       // availableWidth: 357.29999999999995, NOK
       availableWidth: 357, // OK
+    });
+  } else if (segment === 'kropotkineLink') {
+    // Reproduces "Infinite loop detected: remaining unchanged" thrown from
+    // addParentElement when rendering a very long inline URL used as link text.
+    // Extracted from event 73878368 (agenda 97144113).
+    await addMarkdown(doc, cursor, {
+      value: await readFile(
+        `${__dirname}/fixtures/kropotkine-link.md`,
+        'utf-8',
+      ),
+      // Width used by renderEvent's longDescription column — triggers
+      // "Infinite loop detected: remaining unchanged (73 length)" in
+      // addParentElement on the long inline URL.
+      availableWidth: 357.29999999999995,
     });
   } else if (segment === 'unhandledCharacters') {
     await addMarkdown(doc, cursor, {
