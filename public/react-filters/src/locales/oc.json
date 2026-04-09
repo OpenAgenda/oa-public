@@ -68,6 +68,7 @@
   "ReactFilters.messages.filterTitles.timings": "Data",
   "ReactFilters.messages.filterTitles.updatedAt": "Data de mesa a jorn",
   "ReactFilters.messages.filterTitles.valid": "Conformitat",
+  "ReactFilters.messages.filterTitles.age": "Edat",
   "ReactFilters.messages.provenance.aggregation": "Agregacion",
   "ReactFilters.messages.provenance.contribution": "Contribucion",
   "ReactFilters.messages.provenance.share": "Partatjar",

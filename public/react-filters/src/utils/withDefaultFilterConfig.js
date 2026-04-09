@@ -375,6 +375,12 @@ export default function withDefaultFilterConfig(filter, intl, opts = {}) {
         },
       });
       break;
+    case 'age':
+      defaults(filter, {
+        type: 'numberRange',
+        aggregation: null,
+      });
+      break;
     default:
       break;
   }
