@@ -22,7 +22,7 @@
     border-bottom: 1px solid $oa-gray-lightish;
   }
 
-  @media print and (min-width: $screen-sm-min) {
+  @media print {
     .col-print-sm-12 {
       float: left;
       width: percentage(math.div(12, $grid-columns));
