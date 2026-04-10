@@ -43,15 +43,25 @@ function splitWord(doc, word, availableWidth, separator = '-') {
   log('splitting %s', word, rtd({ availableWidth }));
   let overflowingAtIndex = 0;
   while (
-    doc.widthOfString(`${word.substr(0, overflowingAtIndex)}${separator}`)
-    < availableWidth
+    overflowingAtIndex <= word.length
+    && doc.widthOfString(`${word.substr(0, overflowingAtIndex)}${separator}`)
+      < availableWidth
   ) {
     overflowingAtIndex += 1;
   }
-  return [
-    word.substr(0, overflowingAtIndex - 1) + separator,
-    separator + word.substr(overflowingAtIndex - 1),
-  ];
+  let splitAt = overflowingAtIndex - 1;
+  let a = word.substr(0, splitAt) + separator;
+  let b = separator + word.substr(splitAt);
+  // Guard against degenerate splits that fail to shrink the word — happens
+  // when the word already ends in the separator and an extra separator still
+  // measures within availableWidth, causing the rebuilt `a` to equal `word`.
+  // In that case, force-shrink by one character so progress is guaranteed.
+  if (a.length >= word.length && splitAt > 0) {
+    splitAt -= 1;
+    a = word.substr(0, splitAt) + separator;
+    b = separator + word.substr(splitAt);
+  }
+  return [a, b];
 }
 
 function doesWordFitInLine(doc, line, width, word) {

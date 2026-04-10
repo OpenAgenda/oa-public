@@ -1,6 +1,7 @@
 import { useMemo, useCallback } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { ReactSelectInput } from '@openagenda/react-shared';
+import useIsPrinting from '../../hooks/useIsPrinting.js';
 
 const messages = defineMessages({
   day: {
@@ -48,9 +49,16 @@ export default function IntervalSelect({ value, onChange }) {
     [intervalOptions, value],
   );
   const handleChange = useCallback((opt) => onChange(opt.value), [onChange]);
+  const isPrinting = useIsPrinting();
+
+  if (isPrinting) {
+    return <span>{valueOption?.label}</span>;
+  }
 
   return (
     <ReactSelectInput
+      className="oa-interval-select"
+      classNamePrefix="oa-interval-select"
       options={intervalOptions}
       value={valueOption}
       onChange={handleChange}

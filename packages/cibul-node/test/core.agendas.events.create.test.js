@@ -73,6 +73,8 @@ describe('core - functional (server): core.agendas().events.create()', () => {
 
     core = Core(services, config);
 
+    await services.formSchemas.clearCache();
+
     await core.services.eventSearch
       .getConfig()
       .client.indices.delete({

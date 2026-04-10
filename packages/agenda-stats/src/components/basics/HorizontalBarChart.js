@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 import defaultDataColors from '../../common/defaultDataColors.js';
+import useIsPrinting from '../../hooks/useIsPrinting.js';
 import CustomTooltip from './CustomTooltip.js';
 import EllipsisAxisTick from './EllipsisAxisTick.js';
 
@@ -21,9 +22,14 @@ export default function HorizontalBarChart({
   renderTooltipItem,
   categoryTick,
 }) {
+  const isPrinting = useIsPrinting();
+  const chartMargin = isPrinting
+    ? { top: 0, right: 5, left: 0, bottom: 0 }
+    : undefined;
+
   return (
-    <ResponsiveContainer width="100%" height={300}>
-      <BarChart data={data} barGap={0}>
+    <ResponsiveContainer width="100%" height={isPrinting ? 150 : 300}>
+      <BarChart data={data} barGap={0} margin={chartMargin}>
         <CartesianGrid stroke="#f5f5f5" />
         <XAxis
           dataKey={labelKey}
@@ -47,6 +53,7 @@ export default function HorizontalBarChart({
             key={k}
             type="monotone"
             dataKey={k}
+            barSize={isPrinting ? 10 : undefined}
             stroke={
               defaultDataColors[i]
               || defaultDataColors[defaultDataColors.length - 1]

@@ -97,6 +97,12 @@ function _search(k, query, options, internals) {
     });
   }
 
+  if (options.deleted === true) {
+    k.whereNotNull('deleted_at');
+  } else if (options.deleted === false) {
+    k.whereNull('deleted_at');
+  }
+
   if (!query.search) return k;
 
   k[query.ids || query.id ? 'andWhere' : 'where'](function () {

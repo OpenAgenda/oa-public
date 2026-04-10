@@ -1,5 +1,7 @@
 import _ from 'lodash';
 import ky from 'ky';
+import textValidator from '@openagenda/validators/text.js';
+import linkValidator from '@openagenda/validators/link.js';
 import ParseAndTransform from './lib/parseAndTransform.js';
 import buildGeoTree from './lib/buildGeoTree.js';
 
@@ -23,20 +25,37 @@ const reverseURL = (latitude, longitude, { key, pretty, language }) =>
 /**
  * DOMTOM, HONG KONG... country codes are not known by OpenCage
  */
-const MAX_QUERY_LENGTH = 200;
+const validateText = textValidator({
+  field: 'query',
+  max: 200,
+  optional: true,
+});
+const validateLink = linkValidator({ optional: true });
 
-function isInvalidQuery(query) {
-  if (query.length > MAX_QUERY_LENGTH) return true;
-  if (/^https?:\/\//i.test(query)) return true;
-  return false;
+function isLink(value) {
+  if (!value) return false;
+  try {
+    validateLink(value);
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function cleanGeocodeQuery(query, countryCode) {
-  const cleanQuery = (query || '').trim();
-
-  if (isInvalidQuery(cleanQuery)) {
-    return { countryCode, query: '' };
+  if (isLink(query)) {
+    const errors = [
+      {
+        origin: query,
+        field: 'query',
+        code: 'query.invalid',
+        message: 'query should not be a URL',
+      },
+    ];
+    throw errors;
   }
+
+  const cleanQuery = validateText(query) || '';
 
   for (const transform of [
     {
@@ -105,6 +124,8 @@ async function geocode(
   const transformed = await parseAndTransform(results, { raw });
   return first ? _.first(transformed) : transformed;
 }
+
+export { cleanGeocodeQuery };
 
 export default ({ key }) => {
   const geoTree = buildGeoTree(geoTreePath);

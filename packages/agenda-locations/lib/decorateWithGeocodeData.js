@@ -74,6 +74,9 @@ async function geocode(interfaces, data, current) {
     return results[0];
   } catch (e) {
     if (e.name === 'BadRequest') throw e;
+    if (Array.isArray(e)) {
+      throw new BadRequest({ info: { errors: e } }, 'data is invalid');
+    }
     log.warn(e);
     return {};
   }

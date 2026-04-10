@@ -71,6 +71,7 @@ describe('members - functional - remove', () => {
       },
       {
         user: { uid: 1920 },
+        silent: false,
       },
     ]);
   });

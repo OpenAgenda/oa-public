@@ -9,6 +9,7 @@
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit --testTimeout=40000 --env=node --verbose=false"
   },
   "dependencies": {
+    "@openagenda/validators": "^2.4.0",
     "ky": "^1.14.0",
     "lodash": "^4.17.15",
     "point-in-polygon": "^1.0.1"

@@ -62,6 +62,13 @@ export default [
     obj: 'createdAt',
   },
   {
+    db: 'deleted_at',
+    obj: 'deletedAt',
+    internal: true,
+    protected: true,
+    list: false,
+  },
+  {
     db: 'officialized_at',
     obj: 'officializedAt',
     internal: true,
