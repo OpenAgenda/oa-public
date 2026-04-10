@@ -48,6 +48,12 @@ async function get({ knex, schemas, service, imagePath }, i, o) {
 
   if (options.private !== null) k.andWhere('private', options.private);
 
+  if (options.deleted === true) {
+    k.whereNotNull('deleted_at');
+  } else if (options.deleted === false) {
+    k.whereNull('deleted_at');
+  }
+
   let rawAgenda;
 
   try {
@@ -85,6 +91,7 @@ async function findOne(
   const rows = await knex(schemas.agenda)
     .select('id')
     .where('title', 'like', `%${search}%`)
+    .whereNull('deleted_at')
     .limit(1);
 
   if (!rows.length) return null;

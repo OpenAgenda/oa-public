@@ -29,7 +29,10 @@ async function remove({ knex, schemas, service, interfaces }, identifiers) {
   if (v.agenda) {
     const removedRows = await knex(schemas.agenda)
       .where('id', v.agenda.id)
-      .del();
+      .update({
+        deleted_at: new Date(),
+        updated_at: new Date(),
+      });
     v.success = !!removedRows;
   }
 

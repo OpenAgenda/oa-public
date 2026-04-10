@@ -13,6 +13,11 @@ export default schema({
     default: false,
     allowNull: true,
   },
+  deleted: {
+    type: 'boolean',
+    default: false,
+    allowNull: true,
+  },
   indexed: {
     type: 'boolean',
     default: null,

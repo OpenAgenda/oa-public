@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS ${agenda} (
   settings TEXT,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
+  deleted_at DATETIME,
   INDEX owner_id_idx (owner_id),
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

@@ -44,45 +44,86 @@ describe('agendas - functional (server): remove', () => {
     });
   });
 
-  it('agenda remove removes db entry', async () => {
+  it('agenda remove is a soft delete', async () => {
     const con = mysql.createConnection(config.mysql);
 
     try {
       const [rows] = await con
         .promise()
-        .query(`select id from ${config.schemas.agenda} where id = ?`, 4875);
+        .query(
+          `select id, deleted_at from ${config.schemas.agenda} where id = ?`,
+          4875,
+        );
 
       expect(rows.length).toBe(1);
+      expect(rows[0].deleted_at).toBeNull();
 
       await svc.remove(4875);
 
       const [rows1] = await con
         .promise()
-        .query(`select id from ${config.schemas.agenda} where id = ?`, 4875);
+        .query(
+          `select id, deleted_at from ${config.schemas.agenda} where id = ?`,
+          4875,
+        );
 
-      expect(rows1.length).toBe(0);
+      expect(rows1.length).toBe(1);
+      expect(rows1[0].deleted_at).toBeInstanceOf(Date);
     } finally {
       await con.end();
     }
   });
 
-  it('agenda remove with private option set removes private db entry', async () => {
+  it('soft-deleted agenda is not returned by get with default options', async () => {
+    const agenda = await svc.get(4875, { internal: true, private: null });
+    expect(agenda).toBeNull();
+  });
+
+  it('soft-deleted agenda is returned by get with deleted: true', async () => {
+    const agenda = await svc.get(4875, {
+      deleted: true,
+      internal: true,
+      private: null,
+    });
+    expect(agenda).not.toBeNull();
+    expect(agenda.id).toBe(4875);
+  });
+
+  it('soft-deleted agenda is returned by get with deleted: null', async () => {
+    const agenda = await svc.get(4875, {
+      deleted: null,
+      internal: true,
+      private: null,
+    });
+    expect(agenda).not.toBeNull();
+    expect(agenda.id).toBe(4875);
+  });
+
+  it('agenda remove with private option soft deletes private db entry', async () => {
     const con = mysql.createConnection(config.mysql);
 
     try {
       const [rows] = await con
         .promise()
-        .query(`select id from ${config.schemas.agenda} where id = ?`, 4826);
+        .query(
+          `select id, deleted_at from ${config.schemas.agenda} where id = ?`,
+          4826,
+        );
 
       expect(rows.length).toBe(1);
+      expect(rows[0].deleted_at).toBeNull();
 
       await svc.remove(4826);
 
       const [rows1] = await con
         .promise()
-        .query(`select id from ${config.schemas.agenda} where id = ?`, 4826);
+        .query(
+          `select id, deleted_at from ${config.schemas.agenda} where id = ?`,
+          4826,
+        );
 
-      expect(rows1.length).toBe(0);
+      expect(rows1.length).toBe(1);
+      expect(rows1[0].deleted_at).toBeInstanceOf(Date);
     } finally {
       await con.end();
     }
