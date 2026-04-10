@@ -5,7 +5,7 @@ import HelpButtonComponent from 'components/Navbar/HelpButton';
 import LanguageSelectorComponent from 'components/Navbar/LanguageSelector';
 import NavbarSearchInputComponent from 'components/NavbarSearchInput';
 import { color } from 'utils/strapi';
-import fetchAllLocales from '../utils/fetchAllLocales';
+import fetchLocale from 'app/locales';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import userFixtures from './fixtures/user.json';
 
@@ -14,7 +14,7 @@ export default {
   component: Navbar,
   loaders: [
     async () => ({
-      intlMessages: await fetchAllLocales('fr'),
+      intlMessages: await fetchLocale('fr'),
     }),
   ],
   decorators: [ProvidersDecorator],

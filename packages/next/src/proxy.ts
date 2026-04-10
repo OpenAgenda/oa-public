@@ -92,6 +92,9 @@ export async function proxy(req: NextRequest) {
       headers: responseHeaders,
     });
   } else {
+    // Forward locale to App Router server components via header
+    requestHeaders.set('x-locale', nextLocale);
+
     response = NextResponse.next({
       request: {
         headers: requestHeaders,

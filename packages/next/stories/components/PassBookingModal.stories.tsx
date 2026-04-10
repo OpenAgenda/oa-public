@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { http, HttpResponse } from 'msw';
 import { Box, Button, Text, VStack } from '@openagenda/uikit';
+import fetchLocale from 'app/locales';
 import PassBookingModal from '../../src/views/EventShow/components/PassBookingModal';
-import fetchAllLocales from '../utils/fetchAllLocales';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import passBookings from './fixtures/passBookings.json';
 
@@ -11,7 +11,7 @@ export default {
   component: PassBookingModal,
   loaders: [
     async () => ({
-      intlMessages: await fetchAllLocales('fr'),
+      intlMessages: await fetchLocale('fr'),
     }),
   ],
   decorators: [ProvidersDecorator],

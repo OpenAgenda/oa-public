@@ -381,3 +381,51 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
     await createViewIndex(directory, depsLocalesDirs, hasLocales);
   }
 }
+
+/* Global fetchLocale for App Router */
+
+const allCompiledDirs = [];
+
+for (const [directory] of sourceFilesByDir) {
+  const localesDir = path.join(directory, 'locales');
+  if (await fileExists(path.join(localesDir, `${DEFAULT_LANG}.json`))) {
+    allCompiledDirs.push(path.relative(path.join(root, 'src'), localesDir));
+  }
+}
+
+if (allCompiledDirs.length) {
+  const appLocalesDir = path.join(root, 'src/app/locales');
+  const indexPath = path.join(appLocalesDir, 'index.ts');
+
+  /* eslint-disable no-template-curly-in-string */
+  const content = `${dedent`
+    // DOES NOT EDIT, generated file by 'oa-intl'
+
+    /* eslint-disable */
+
+    export default async function fetchLocale(locale) {
+      return Promise.all([
+        ${allCompiledDirs
+          .sort()
+          .map(
+            (dir) =>
+              `import(\`${dir}/compiled/${'${locale}'}.json\`).then((mod) => mod.default),`,
+          )
+          .join('\n        ')}
+      ])
+        .then((results) => Object.assign({}, ...results))
+        .catch((e) => {
+          console.error(\`Failed to fetch locale ${'${locale}'}\`, e);
+          return null;
+        });
+    }
+    `}\n`;
+  /* eslint-enable no-template-curly-in-string */
+
+  await fs.mkdir(appLocalesDir, { recursive: true });
+  await fs.writeFile(indexPath, content);
+
+  console.log(
+    `✔️ Create ${relativeToCwd(indexPath)} (global, ${allCompiledDirs.length} sources)`,
+  );
+}

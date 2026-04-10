@@ -2,8 +2,8 @@ import { http, HttpResponse } from 'msw';
 import { Box } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
 import { LoggedUserWelcome } from 'components/strapi/LoggedUserWelcome';
+import fetchLocale from 'app/locales';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
-import fetchAllLocales from '../utils/fetchAllLocales';
 
 import userFixtures from './fixtures/user.json';
 
@@ -13,7 +13,7 @@ export default {
   component: LoggedUserWelcome,
   loaders: [
     async () => ({
-      intlMessages: await fetchAllLocales('fr'),
+      intlMessages: await fetchLocale('fr'),
     }),
   ],
 };

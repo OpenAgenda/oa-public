@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import Layout from 'components/Layout';
-import fetchAllLocales from '../utils/fetchAllLocales';
+import fetchLocale from 'app/locales';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import userFixtures from './fixtures/user.json';
 
@@ -9,7 +9,7 @@ export default {
   component: Layout,
   loaders: [
     async () => ({
-      intlMessages: await fetchAllLocales('fr'),
+      intlMessages: await fetchLocale('fr'),
     }),
   ],
   decorators: [ProvidersDecorator],

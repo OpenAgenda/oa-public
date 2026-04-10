@@ -141,7 +141,16 @@ const config = async () => {
         }
 
         return {
-          beforeFiles: [], // empty array needed because https://github.com/getsentry/sentry-javascript/pull/7649
+          beforeFiles: [
+            // App Router routes: strip locale prefix so app/ routing can match.
+            // The i18n config only strips locales for Pages Router; App Router
+            // needs an explicit rewrite. Add an entry here for each app/ route.
+            {
+              source: '/:locale(en|fr|de|it|es|br|ca|eu|oc|nl|io)/example',
+              destination: '/example',
+              locale: false,
+            },
+          ],
           afterFiles: [
             {
               source: '/fr',

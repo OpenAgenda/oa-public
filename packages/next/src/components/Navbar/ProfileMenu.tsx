@@ -22,16 +22,31 @@ import { thumborLoader } from 'utils/imageLoader';
 import hrefWithLang from 'utils/hrefWithLang';
 import { FaIcon } from 'icons';
 import { faBars } from 'icons/solid';
-import useSearch from './useSearch';
 import messages from './messages';
 
-export default function ProfileMenu({ user, portalRef, background = 'white' }) {
+type SearchProps = {
+  inputValue: string;
+  setInputValue: (value: string) => void;
+  onSearch: (e: React.FormEvent) => void;
+};
+
+export default function ProfileMenu({
+  user,
+  portalRef,
+  background = 'white',
+  search,
+}: {
+  user: any;
+  portalRef: React.RefObject<any>;
+  background?: string;
+  search: SearchProps;
+}) {
   const intl = useIntl();
 
   const collapseId = 'header-menu-collapse';
   const { open, onToggle } = useDisclosure();
 
-  const { inputValue, setInputValue, onSearch } = useSearch();
+  const { inputValue, setInputValue, onSearch } = search;
 
   return (
     <>

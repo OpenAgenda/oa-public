@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useCookies } from 'react-cookie';
 import { Button } from '@openagenda/uikit';
 import ConsentBanner from 'components/ConsentBanner';
-import fetchAllLocales from '../utils/fetchAllLocales';
+import fetchLocale from 'app/locales';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 
 export default {
@@ -10,7 +10,7 @@ export default {
   component: ConsentBanner,
   loaders: [
     async () => ({
-      intlMessages: await fetchAllLocales('fr'),
+      intlMessages: await fetchLocale('fr'),
     }),
   ],
   decorators: [ProvidersDecorator],

@@ -1,6 +1,6 @@
 import Footer from 'components/strapi/Footer';
+import fetchLocale from 'app/locales';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
-import fetchAllLocales from '../utils/fetchAllLocales';
 
 export default {
   title: 'strapi/Footer',
@@ -8,7 +8,7 @@ export default {
   component: Footer,
   loaders: [
     async () => ({
-      intlMessages: await fetchAllLocales('fr'),
+      intlMessages: await fetchLocale('fr'),
     }),
   ],
 };
