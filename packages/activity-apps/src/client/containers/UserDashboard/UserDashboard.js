@@ -5,7 +5,7 @@ import redial from 'redial';
 import { connect } from 'react-redux';
 import { reducer as formReducer } from 'redux-form';
 import { Waypoint } from 'react-waypoint';
-import { injectIntl } from 'react-intl';
+import injectIntl from '@openagenda/intl/injectIntl';
 import qs from 'qs';
 import { Spinner } from '@openagenda/react-shared';
 import activitiesReducer, * as activitiesActions from '../../redux/modules/activities.js';

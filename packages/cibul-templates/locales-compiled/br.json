@@ -2,7 +2,7 @@
   "ReactShared.ImageInput.fileTooLarge": [
     {
       "type": 0,
-      "value": "File "
+      "value": "Ar restr "
     },
     {
       "type": 1,
@@ -10,7 +10,7 @@
     },
     {
       "type": 0,
-      "value": " is "
+      "value": " a zo "
     },
     {
       "type": 1,
@@ -18,7 +18,7 @@
     },
     {
       "type": 0,
-      "value": ", the upper limit for file size is "
+      "value": ", ar vevenn uhelañ zo "
     },
     {
       "type": 1,
@@ -28,7 +28,7 @@
   "ReactShared.ImageInput.fileTooSmall": [
     {
       "type": 0,
-      "value": "File "
+      "value": "Ar restr "
     },
     {
       "type": 1,
@@ -36,7 +36,7 @@
     },
     {
       "type": 0,
-      "value": " is "
+      "value": " a zo "
     },
     {
       "type": 1,
@@ -44,7 +44,7 @@
     },
     {
       "type": 0,
-      "value": ", the lower limit for file size is "
+      "value": ", ar vevenn izelañ zo "
     },
     {
       "type": 1,
@@ -54,7 +54,7 @@
   "ReactShared.ImageInput.notSupported": [
     {
       "type": 0,
-      "value": "File "
+      "value": "Ar restr "
     },
     {
       "type": 1,
@@ -62,97 +62,253 @@
     },
     {
       "type": 0,
-      "value": " is not supported"
+      "value": " n'eo ket degemeret"
     }
   ],
   "ReactShared.ImageInput.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "Lemel"
     }
   ],
   "ReactShared.ImageInput.tooManyFiles": [
     {
       "type": 0,
-      "value": "Too many files, only accepts a single file"
+      "value": "Re a restroù, ur restr hepken a vez degemeret"
     }
   ],
   "ReactShared.ImageInput.update": [
     {
       "type": 0,
-      "value": "Update the image"
+      "value": "Cheñch ar skeudenn"
     }
   ],
   "cibulTemplates.passwordField.good": [
     {
       "type": 0,
-      "value": "Suffisamment sécurisé 🙂"
+      "value": "Surentez a-walc'h 🙂"
     }
   ],
   "cibulTemplates.passwordField.great": [
     {
       "type": 0,
-      "value": "Très sécurisé 🥳"
+      "value": "Surentez vras 🥳"
     }
   ],
   "cibulTemplates.passwordField.isSameAs": [
     {
       "type": 0,
-      "value": "Doit être différent du nom d'utilisateur et de l'email 🙄"
+      "value": "Ret eo bezañ disheñvel diouzh an anv implijer hag ar postel 🙄"
     }
   ],
   "cibulTemplates.passwordField.required": [
     {
       "type": 0,
-      "value": "Un mot de passe doit être défini"
+      "value": "Ret eo termeniñ ur ger-tremen"
     }
   ],
   "cibulTemplates.passwordField.tooWeak": [
     {
       "type": 0,
-      "value": "Pas assez sûr 😑"
+      "value": "Re wan 😑"
     }
   ],
   "cibulTemplates.passwordField.usual": [
     {
       "type": 0,
-      "value": "Trop commun 🤖"
+      "value": "Re voutin 🤖"
     }
   ],
   "cibulTemplates.passwordField.weak": [
     {
       "type": 0,
-      "value": "Peu sécurisé 😐"
+      "value": "N'eo ket surawalc'h 😐"
     }
   ],
   "cibulTemplates.passwordField.weakish": [
     {
       "type": 0,
-      "value": "Mieux, pas top 😬"
+      "value": "Gwelloc'h, met ket top 😬"
+    }
+  ],
+  "common.event.fields.accessibility": [
+    {
+      "type": 0,
+      "value": "Accessibility conditions"
+    }
+  ],
+  "common.event.fields.age": [
+    {
+      "type": 0,
+      "value": "Targeted public age"
+    }
+  ],
+  "common.event.fields.attendanceMode": [
+    {
+      "type": 0,
+      "value": "Attendance mode"
+    }
+  ],
+  "common.event.fields.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "common.event.fields.description": [
+    {
+      "type": 0,
+      "value": "Short description"
+    }
+  ],
+  "common.event.fields.extIds": [
+    {
+      "type": 0,
+      "value": "External identifiers"
+    }
+  ],
+  "common.event.fields.image": [
+    {
+      "type": 0,
+      "value": "Image"
+    }
+  ],
+  "common.event.fields.imageCredits": [
+    {
+      "type": 0,
+      "value": "Image credits"
+    }
+  ],
+  "common.event.fields.keywords": [
+    {
+      "type": 0,
+      "value": "Keywords"
+    }
+  ],
+  "common.event.fields.location": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "common.event.fields.longDescription": [
+    {
+      "type": 0,
+      "value": "Long description"
+    }
+  ],
+  "common.event.fields.onlineAccessLink": [
+    {
+      "type": 0,
+      "value": "Access link"
+    }
+  ],
+  "common.event.fields.registration": [
+    {
+      "type": 0,
+      "value": "Registration"
+    }
+  ],
+  "common.event.fields.slug": [
+    {
+      "type": 0,
+      "value": "Slug"
+    }
+  ],
+  "common.event.fields.status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "common.event.fields.timings": [
+    {
+      "type": 0,
+      "value": "Timings"
+    }
+  ],
+  "common.event.fields.title": [
+    {
+      "type": 0,
+      "value": "Title"
     }
   ],
   "common.event.states.published": [
     {
       "type": 0,
-      "value": "Publié"
+      "value": "Embannet"
     }
   ],
   "common.event.states.readyToPublish": [
     {
       "type": 0,
-      "value": "Prêt à publier"
+      "value": "Prest da vezañ embannet"
     }
   ],
   "common.event.states.refused": [
     {
       "type": 0,
-      "value": "Refusé"
+      "value": "Nac'het"
     }
   ],
   "common.event.states.toModerate": [
     {
       "type": 0,
-      "value": "À modérer"
+      "value": "Da gontrollañ"
+    }
+  ],
+  "common.geo.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Inter-city"
+    }
+  ],
+  "common.geo.city": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "common.geo.department": [
+    {
+      "type": 0,
+      "value": "Department"
+    }
+  ],
+  "common.geo.location": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "common.geo.region": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "common.roles.administrator": [
+    {
+      "type": 0,
+      "value": "Administrator"
+    }
+  ],
+  "common.roles.contributor": [
+    {
+      "type": 0,
+      "value": "Contributor"
+    }
+  ],
+  "common.roles.moderator": [
+    {
+      "type": 0,
+      "value": "Moderator"
+    }
+  ],
+  "common.roles.reader": [
+    {
+      "type": 0,
+      "value": "Reader"
     }
   ]
 }

@@ -4,7 +4,7 @@ import { Component } from 'react';
 import redial from 'redial';
 import { connect } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
-import { injectIntl } from 'react-intl';
+import injectIntl from '@openagenda/intl/injectIntl';
 import qs from 'qs';
 import { Spinner, withLayoutData } from '@openagenda/react-shared';
 import * as activitiesActions from '../../redux/modules/activities.js';

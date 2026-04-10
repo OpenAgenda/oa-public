@@ -2,7 +2,7 @@
   "ReactShared.ImageInput.fileTooLarge": [
     {
       "type": 0,
-      "value": "File "
+      "value": "Datei "
     },
     {
       "type": 1,
@@ -10,7 +10,7 @@
     },
     {
       "type": 0,
-      "value": " is "
+      "value": " ist "
     },
     {
       "type": 1,
@@ -18,7 +18,7 @@
     },
     {
       "type": 0,
-      "value": ", the upper limit for file size is "
+      "value": ", die Obergrenze für die Dateigröße ist "
     },
     {
       "type": 1,
@@ -28,7 +28,7 @@
   "ReactShared.ImageInput.fileTooSmall": [
     {
       "type": 0,
-      "value": "File "
+      "value": "Datei "
     },
     {
       "type": 1,
@@ -36,7 +36,7 @@
     },
     {
       "type": 0,
-      "value": " is "
+      "value": " ist "
     },
     {
       "type": 1,
@@ -44,7 +44,7 @@
     },
     {
       "type": 0,
-      "value": ", the lower limit for file size is "
+      "value": ", die Untergrenze für die Dateigröße ist "
     },
     {
       "type": 1,
@@ -54,7 +54,7 @@
   "ReactShared.ImageInput.notSupported": [
     {
       "type": 0,
-      "value": "File "
+      "value": "Datei "
     },
     {
       "type": 1,
@@ -62,7 +62,7 @@
     },
     {
       "type": 0,
-      "value": " is not supported"
+      "value": " wird nicht unterstützt"
     }
   ],
   "ReactShared.ImageInput.remove": [
@@ -74,7 +74,7 @@
   "ReactShared.ImageInput.tooManyFiles": [
     {
       "type": 0,
-      "value": "Too many files, only accepts a single file"
+      "value": "Zu viele Dateien, akzeptiert nur eine einzige Datei"
     }
   ],
   "ReactShared.ImageInput.update": [
@@ -131,6 +131,108 @@
       "value": "A bit better 😬"
     }
   ],
+  "common.event.fields.accessibility": [
+    {
+      "type": 0,
+      "value": "Accessibility conditions"
+    }
+  ],
+  "common.event.fields.age": [
+    {
+      "type": 0,
+      "value": "Targeted public age"
+    }
+  ],
+  "common.event.fields.attendanceMode": [
+    {
+      "type": 0,
+      "value": "Attendance mode"
+    }
+  ],
+  "common.event.fields.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "common.event.fields.description": [
+    {
+      "type": 0,
+      "value": "Short description"
+    }
+  ],
+  "common.event.fields.extIds": [
+    {
+      "type": 0,
+      "value": "External identifiers"
+    }
+  ],
+  "common.event.fields.image": [
+    {
+      "type": 0,
+      "value": "Image"
+    }
+  ],
+  "common.event.fields.imageCredits": [
+    {
+      "type": 0,
+      "value": "Image credits"
+    }
+  ],
+  "common.event.fields.keywords": [
+    {
+      "type": 0,
+      "value": "Keywords"
+    }
+  ],
+  "common.event.fields.location": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "common.event.fields.longDescription": [
+    {
+      "type": 0,
+      "value": "Long description"
+    }
+  ],
+  "common.event.fields.onlineAccessLink": [
+    {
+      "type": 0,
+      "value": "Access link"
+    }
+  ],
+  "common.event.fields.registration": [
+    {
+      "type": 0,
+      "value": "Registration"
+    }
+  ],
+  "common.event.fields.slug": [
+    {
+      "type": 0,
+      "value": "Slug"
+    }
+  ],
+  "common.event.fields.status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "common.event.fields.timings": [
+    {
+      "type": 0,
+      "value": "Timings"
+    }
+  ],
+  "common.event.fields.title": [
+    {
+      "type": 0,
+      "value": "Title"
+    }
+  ],
   "common.event.states.published": [
     {
       "type": 0,
@@ -153,6 +255,60 @@
     {
       "type": 0,
       "value": "Zu moderieren"
+    }
+  ],
+  "common.geo.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Inter-city"
+    }
+  ],
+  "common.geo.city": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "common.geo.department": [
+    {
+      "type": 0,
+      "value": "Department"
+    }
+  ],
+  "common.geo.location": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "common.geo.region": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "common.roles.administrator": [
+    {
+      "type": 0,
+      "value": "Administrator"
+    }
+  ],
+  "common.roles.contributor": [
+    {
+      "type": 0,
+      "value": "Contributor"
+    }
+  ],
+  "common.roles.moderator": [
+    {
+      "type": 0,
+      "value": "Moderator"
+    }
+  ],
+  "common.roles.reader": [
+    {
+      "type": 0,
+      "value": "Reader"
     }
   ]
 }

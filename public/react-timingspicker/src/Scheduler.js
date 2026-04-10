@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { injectIntl, FormattedMessage } from 'react-intl';
+import { FormattedMessage } from 'react-intl';
+import injectIntl from '@openagenda/intl/injectIntl';
 import ReactModal from 'react-modal';
 import { FORM_ERROR } from 'final-form';
 import * as dateFns from 'date-fns';

@@ -2,7 +2,7 @@
   "ReactShared.ImageInput.fileTooLarge": [
     {
       "type": 0,
-      "value": "File "
+      "value": "crwdns34361:0"
     },
     {
       "type": 1,
@@ -10,7 +10,7 @@
     },
     {
       "type": 0,
-      "value": " is "
+      "value": "crwdnd34361:0"
     },
     {
       "type": 1,
@@ -18,17 +18,21 @@
     },
     {
       "type": 0,
-      "value": ", the upper limit for file size is "
+      "value": "crwdnd34361:0"
     },
     {
       "type": 1,
       "value": "maxSize"
+    },
+    {
+      "type": 0,
+      "value": "crwdne34361:0"
     }
   ],
   "ReactShared.ImageInput.fileTooSmall": [
     {
       "type": 0,
-      "value": "File "
+      "value": "crwdns34363:0"
     },
     {
       "type": 1,
@@ -36,7 +40,7 @@
     },
     {
       "type": 0,
-      "value": " is "
+      "value": "crwdnd34363:0"
     },
     {
       "type": 1,
@@ -44,17 +48,21 @@
     },
     {
       "type": 0,
-      "value": ", the lower limit for file size is "
+      "value": "crwdnd34363:0"
     },
     {
       "type": 1,
       "value": "minSize"
+    },
+    {
+      "type": 0,
+      "value": "crwdne34363:0"
     }
   ],
   "ReactShared.ImageInput.notSupported": [
     {
       "type": 0,
-      "value": "File "
+      "value": "crwdns34365:0"
     },
     {
       "type": 1,
@@ -62,25 +70,25 @@
     },
     {
       "type": 0,
-      "value": " is not supported"
+      "value": "crwdne34365:0"
     }
   ],
   "ReactShared.ImageInput.remove": [
     {
       "type": 0,
-      "value": "Remove"
+      "value": "crwdns34367:0crwdne34367:0"
     }
   ],
   "ReactShared.ImageInput.tooManyFiles": [
     {
       "type": 0,
-      "value": "Too many files, only accepts a single file"
+      "value": "crwdns34369:0crwdne34369:0"
     }
   ],
   "ReactShared.ImageInput.update": [
     {
       "type": 0,
-      "value": "Update the image"
+      "value": "crwdns34371:0crwdne34371:0"
     }
   ],
   "cibulTemplates.passwordField.good": [
@@ -131,6 +139,108 @@
       "value": "crwdns33500:0crwdne33500:0"
     }
   ],
+  "common.event.fields.accessibility": [
+    {
+      "type": 0,
+      "value": "Accessibility conditions"
+    }
+  ],
+  "common.event.fields.age": [
+    {
+      "type": 0,
+      "value": "Targeted public age"
+    }
+  ],
+  "common.event.fields.attendanceMode": [
+    {
+      "type": 0,
+      "value": "Attendance mode"
+    }
+  ],
+  "common.event.fields.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "common.event.fields.description": [
+    {
+      "type": 0,
+      "value": "Short description"
+    }
+  ],
+  "common.event.fields.extIds": [
+    {
+      "type": 0,
+      "value": "External identifiers"
+    }
+  ],
+  "common.event.fields.image": [
+    {
+      "type": 0,
+      "value": "Image"
+    }
+  ],
+  "common.event.fields.imageCredits": [
+    {
+      "type": 0,
+      "value": "Image credits"
+    }
+  ],
+  "common.event.fields.keywords": [
+    {
+      "type": 0,
+      "value": "Keywords"
+    }
+  ],
+  "common.event.fields.location": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "common.event.fields.longDescription": [
+    {
+      "type": 0,
+      "value": "Long description"
+    }
+  ],
+  "common.event.fields.onlineAccessLink": [
+    {
+      "type": 0,
+      "value": "Access link"
+    }
+  ],
+  "common.event.fields.registration": [
+    {
+      "type": 0,
+      "value": "Registration"
+    }
+  ],
+  "common.event.fields.slug": [
+    {
+      "type": 0,
+      "value": "Slug"
+    }
+  ],
+  "common.event.fields.status": [
+    {
+      "type": 0,
+      "value": "Status"
+    }
+  ],
+  "common.event.fields.timings": [
+    {
+      "type": 0,
+      "value": "Timings"
+    }
+  ],
+  "common.event.fields.title": [
+    {
+      "type": 0,
+      "value": "Title"
+    }
+  ],
   "common.event.states.published": [
     {
       "type": 0,
@@ -153,6 +263,60 @@
     {
       "type": 0,
       "value": "crwdns33540:0crwdne33540:0"
+    }
+  ],
+  "common.geo.adminLevel3": [
+    {
+      "type": 0,
+      "value": "Inter-city"
+    }
+  ],
+  "common.geo.city": [
+    {
+      "type": 0,
+      "value": "City"
+    }
+  ],
+  "common.geo.department": [
+    {
+      "type": 0,
+      "value": "Department"
+    }
+  ],
+  "common.geo.location": [
+    {
+      "type": 0,
+      "value": "Location"
+    }
+  ],
+  "common.geo.region": [
+    {
+      "type": 0,
+      "value": "Region"
+    }
+  ],
+  "common.roles.administrator": [
+    {
+      "type": 0,
+      "value": "Administrator"
+    }
+  ],
+  "common.roles.contributor": [
+    {
+      "type": 0,
+      "value": "Contributor"
+    }
+  ],
+  "common.roles.moderator": [
+    {
+      "type": 0,
+      "value": "Moderator"
+    }
+  ],
+  "common.roles.reader": [
+    {
+      "type": 0,
+      "value": "Reader"
     }
   ]
 }

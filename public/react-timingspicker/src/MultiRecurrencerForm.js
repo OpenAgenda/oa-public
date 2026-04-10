@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import { defineMessages, injectIntl } from 'react-intl';
+import { defineMessages } from 'react-intl';
+import injectIntl from '@openagenda/intl/injectIntl';
 import { Field, Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import createNumberMaskModule from 'text-mask-addons/dist/createNumberMask.js';
