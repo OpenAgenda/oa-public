@@ -7,6 +7,6 @@ export default async function fetchLocale(locale) {
     .then((mod) => mod.default)
     .catch((e) => {
       console.error(`API: Failed to fetch locale ${locale}`, e);
-      return null;
+      return {};
     });
 }

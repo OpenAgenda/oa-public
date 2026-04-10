@@ -150,6 +150,11 @@ const config = async () => {
               destination: '/example',
               locale: false,
             },
+            {
+              source: '/:locale(en|fr|de|it|es|br|ca|eu|oc|nl|io)/agendas',
+              destination: '/agendas',
+              locale: false,
+            },
           ],
           afterFiles: [
             {

@@ -15,8 +15,8 @@ import Image from 'components/Image';
 import { thumborLoader } from 'utils/imageLoader';
 import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
-import graylogo140 from '../../../../public/images/graylogo140.png';
-import messages from '../messages';
+import graylogo140 from '../../../public/images/graylogo140.png';
+import messages from './messages';
 
 const isDev = process.env.NODE_ENV === 'development';
 

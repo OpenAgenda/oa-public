@@ -1,11 +1,21 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import useLocalePath from 'app/utils/useLocalePath';
 
 export default function useSearch() {
   const router = useRouter();
-  const [inputValue, setInputValue] = useState('');
+  const searchParams = useSearchParams();
+  const localePath = useLocalePath();
+
+  const urlSearch = searchParams.get('search') ?? '';
+  const [inputValue, setInputValue] = useState(urlSearch);
+
+  // Sync input when URL changes (back/forward, external navigation)
+  useEffect(() => {
+    setInputValue(urlSearch);
+  }, [urlSearch]);
 
   const onSearch = useCallback(
     (e: React.FormEvent) => {
@@ -15,14 +25,13 @@ export default function useSearch() {
         search: { value: string };
       };
 
-      const qsSearch =
-        target.search.value !== ''
-          ? `?search=${encodeURIComponent(target.search.value)}`
-          : '';
+      const searchValue = target.search.value;
+      const params = new URLSearchParams();
+      if (searchValue) params.set('search', searchValue);
 
-      router.push(`/agendas${qsSearch}`);
+      router.push(localePath(`/agendas${params.size ? `?${params}` : ''}`));
     },
-    [router],
+    [router, localePath],
   );
 
   return useMemo(

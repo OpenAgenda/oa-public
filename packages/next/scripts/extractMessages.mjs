@@ -185,7 +185,7 @@ async function createIndex(localesRoot) {
         .then((mod) => mod.default)
         .catch((e) => {
           console.error(\`API: Failed to fetch locale ${'${locale}'}\`, e);
-          return null;
+          return {};
         });
     }
     `}\n`;
@@ -234,7 +234,7 @@ async function createViewIndex(viewDir, deps, hasLocales) {
         .then((results) => Object.assign({}, ...results))
         .catch((e) => {
           console.error(\`API: Failed to fetch locale ${'${locale}'}\`, e);
-          return null;
+          return {};
         });
     }
     `}\n`;
@@ -407,16 +407,16 @@ if (allCompiledDirs.length) {
       return Promise.all([
         ${allCompiledDirs
           .sort()
-          .map(
-            (dir) =>
-              `import(\`${dir}/compiled/${'${locale}'}.json\`).then((mod) => mod.default),`,
-          )
+          .map((dir) => {
+            const rel = path.relative('src/app/locales', path.join('src', dir));
+            return `import(\`${rel}/compiled/${'${locale}'}.json\`).then((mod) => mod.default),`;
+          })
           .join('\n        ')}
       ])
         .then((results) => Object.assign({}, ...results))
         .catch((e) => {
           console.error(\`Failed to fetch locale ${'${locale}'}\`, e);
-          return null;
+          return {};
         });
     }
     `}\n`;

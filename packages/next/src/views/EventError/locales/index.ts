@@ -26,6 +26,6 @@ export default async function fetchLocale(locale) {
     .then((results) => Object.assign({}, ...results))
     .catch((e) => {
       console.error(`API: Failed to fetch locale ${locale}`, e);
-      return null;
+      return {};
     });
 }
