@@ -11,6 +11,7 @@ type SearchParams = Promise<{
   search?: string;
   network?: string;
   locationSet?: string;
+  after?: string;
 }>;
 
 async function getPageTitle(
@@ -78,7 +79,7 @@ export async function generateMetadata({
   }
   alternates['x-default'] = `${rootUrl}/en/agendas`;
 
-  const hasSearchQuery = !!params.search;
+  const hasSearchQuery = !!params.search || !!params.after;
 
   return {
     title,
