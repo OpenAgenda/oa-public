@@ -2,19 +2,19 @@
   "next.components.ConsentBanner.accept": [
     {
       "type": 0,
-      "value": "Accepter"
+      "value": "Asantiñ"
     }
   ],
   "next.components.ConsentBanner.decline": [
     {
       "type": 0,
-      "value": "Refuser"
+      "value": "Nac'hañ"
     }
   ],
   "next.components.ConsentBanner.informationText": [
     {
       "type": 0,
-      "value": "Cet agenda utilise des cookies du service de suivi d'audience "
+      "value": "An deiziataer-mañ a implij toupinoù eus ar servij heuliañ sellerien "
     },
     {
       "type": 1,
@@ -22,13 +22,13 @@
     },
     {
       "type": 0,
-      "value": ". Ils aident les administrateurs de l'agenda, par la collecte et la communication d'informations de navigation, à comprendre comment les visiteurs interagissent avec les sites web. Les acceptez-vous ?"
+      "value": ". Sikour a reont merourien an deiziataer, dre zastum ha kelaouiñ titouroù merdeiñ, da gompren penaos e darempreder ar weladennerien gant al lec'hiennoù web. Hag asantiñ a rit dezho?"
     }
   ],
   "next.components.ConsentBanner.moreInfoLink": [
     {
       "type": 0,
-      "value": "Cliquez ici pour en savoir plus"
+      "value": "Klikit amañ evit gouzout hiroc'h"
     }
   ]
 }

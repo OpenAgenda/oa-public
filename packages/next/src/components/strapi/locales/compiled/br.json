@@ -64,7 +64,7 @@
   "next.components.Strapi.addEvent": [
     {
       "type": 0,
-      "value": "Ajouter un événement"
+      "value": "Ouzhpennañ un darvoud"
     }
   ],
   "next.components.Strapi.bluesky": [
@@ -76,7 +76,7 @@
   "next.components.Strapi.contact": [
     {
       "type": 0,
-      "value": "Contacter"
+      "value": "Mont e darempred"
     }
   ],
   "next.components.Strapi.contactEmail": [
@@ -112,13 +112,13 @@
   "next.components.Strapi.submit": [
     {
       "type": 0,
-      "value": "Enregistrer"
+      "value": "Kemmañ"
     }
   ],
   "next.components.Strapi.videoPlayer.accessibility": [
     {
       "type": 0,
-      "value": "Accessibilité"
+      "value": "Monedusted"
     }
   ],
   "next.components.Strapi.videoPlayer.airPlay": [
@@ -142,7 +142,7 @@
   "next.components.Strapi.videoPlayer.auto": [
     {
       "type": 0,
-      "value": "Auto"
+      "value": "Emgefre"
     }
   ],
   "next.components.Strapi.videoPlayer.boost": [
@@ -238,7 +238,7 @@
   "next.components.Strapi.videoPlayer.download": [
     {
       "type": 0,
-      "value": "Télécharger"
+      "value": "Pellgargañ"
     }
   ],
   "next.components.Strapi.videoPlayer.enterFullscreen": [
@@ -394,7 +394,7 @@
   "next.components.Strapi.videoPlayer.settings": [
     {
       "type": 0,
-      "value": "Paramètres"
+      "value": "Arventennoù"
     }
   ],
   "next.components.Strapi.videoPlayer.shadow": [

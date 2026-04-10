@@ -2,49 +2,49 @@
   "next.components.Navbar.help": [
     {
       "type": 0,
-      "value": "Aide"
+      "value": "Skoazell"
     }
   ],
   "next.components.Navbar.myAgendas": [
     {
       "type": 0,
-      "value": "Mes agendas"
+      "value": "Ma deiziataerioù"
     }
   ],
   "next.components.Navbar.myEvents": [
     {
       "type": 0,
-      "value": "Mes événements"
+      "value": "Ma darvoudoù"
     }
   ],
   "next.components.Navbar.profileMenu": [
     {
       "type": 0,
-      "value": "Menu profil"
+      "value": "Lañser ar profil"
     }
   ],
   "next.components.Navbar.settings": [
     {
       "type": 0,
-      "value": "Paramètres"
+      "value": "Arventennoù"
     }
   ],
   "next.components.Navbar.signIn": [
     {
       "type": 0,
-      "value": "Se connecter"
+      "value": "Kevreañ"
     }
   ],
   "next.components.Navbar.signOut": [
     {
       "type": 0,
-      "value": "Se déconnecter"
+      "value": "Digevreañ"
     }
   ],
   "next.components.Navbar.signUp": [
     {
       "type": 0,
-      "value": "S'inscrire"
+      "value": "Krouiñ ur gont"
     }
   ]
 }

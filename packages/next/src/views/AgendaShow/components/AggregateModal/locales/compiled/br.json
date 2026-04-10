@@ -2,13 +2,13 @@
   "next.views.AgendaShow.AggregateModal.createAgenda": [
     {
       "type": 0,
-      "value": "Créer un agenda"
+      "value": "Krouiñ un deiziataer"
     }
   ],
   "next.views.AgendaShow.AggregateModal.noAgenda": [
     {
       "type": 0,
-      "value": "Attention: Vous n'administrez actuellement aucun agenda. Vous devez en créer un avant de pouvoir agréger "
+      "value": "Diwallit: N'oc'h ket o merañ deiziataer ebet er mare-mañ. Ret eo deoc'h krouiñ unan a-raok gallout bodañ "
     },
     {
       "type": 1,
@@ -22,19 +22,19 @@
   "next.views.AgendaShow.AggregateModal.shouldConnect": [
     {
       "type": 0,
-      "value": "Vous devez vous connecter pour agréger cet agenda."
+      "value": "Ret eo deoc'h kevreañ evit bodañ an deiziataer-mañ."
     }
   ],
   "next.views.AgendaShow.AggregateModal.signin": [
     {
       "type": 0,
-      "value": "Se connecter"
+      "value": "Kevreañ"
     }
   ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,
-      "value": "Les événements publiés par "
+      "value": "Embannet e vo ent emgefre an darvoudoù embannet gant "
     },
     {
       "type": 1,
@@ -42,13 +42,13 @@
     },
     {
       "type": 0,
-      "value": " seront automatiquement ajoutés à l'agenda sélectionné."
+      "value": " d'an deiziataer diuzet."
     }
   ],
   "next.views.AgendaShow.AggregateModal.title": [
     {
       "type": 0,
-      "value": "Agréger à un agenda"
+      "value": "Bodañ ouzh un deiziataer"
     }
   ]
 }

@@ -76,7 +76,7 @@
   "next.components.Strapi.contact": [
     {
       "type": 0,
-      "value": "Contact"
+      "value": "Kontakt"
     }
   ],
   "next.components.Strapi.contactEmail": [
@@ -112,7 +112,7 @@
   "next.components.Strapi.submit": [
     {
       "type": 0,
-      "value": "Submit"
+      "value": "Speichern"
     }
   ],
   "next.components.Strapi.videoPlayer.accessibility": [
@@ -142,7 +142,7 @@
   "next.components.Strapi.videoPlayer.auto": [
     {
       "type": 0,
-      "value": "Auto"
+      "value": "Automatisch"
     }
   ],
   "next.components.Strapi.videoPlayer.boost": [
@@ -238,7 +238,7 @@
   "next.components.Strapi.videoPlayer.download": [
     {
       "type": 0,
-      "value": "Download"
+      "value": "Herunterladen"
     }
   ],
   "next.components.Strapi.videoPlayer.enterFullscreen": [

@@ -8,13 +8,13 @@
   "ReactFilters.ValueBadge.removeFilter": [
     {
       "type": 0,
-      "value": "Supprimer le filtre"
+      "value": "Lemel ar sil"
     }
   ],
   "ReactFilters.ValueBadge.removeFilterWithTitle": [
     {
       "type": 0,
-      "value": "Supprimer le filtre ("
+      "value": "Dilemel ar sil ("
     },
     {
       "type": 1,
@@ -28,19 +28,19 @@
   "next.views.EmbedAgendaShow.export": [
     {
       "type": 0,
-      "value": "Exporter"
+      "value": "Ezporzhiañ"
     }
   ],
   "next.views.EmbedAgendaShow.search": [
     {
       "type": 0,
-      "value": "Rechercher"
+      "value": "Klask"
     }
   ],
   "next.views.EmbedAgendaShow.seeMore": [
     {
       "type": 0,
-      "value": "Voir plus"
+      "value": "Gwelet muioc'h"
     }
   ]
 }

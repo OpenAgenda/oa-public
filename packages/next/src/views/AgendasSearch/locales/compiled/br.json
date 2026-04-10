@@ -2,7 +2,7 @@
   "next.views.AgendaSearch.bigTotal": [
     {
       "type": 0,
-      "value": "Plus de "
+      "value": "Muioc'h eget "
     },
     {
       "style": null,
@@ -11,19 +11,19 @@
     },
     {
       "type": 0,
-      "value": " agendas trouvés"
+      "value": " deiziataer kavet"
     }
   ],
   "next.views.AgendaSearch.latestUpdated": [
     {
       "type": 0,
-      "value": "Agendas récemment mis à jour"
+      "value": "Deiziataerioù nevesaet nevez zo"
     }
   ],
   "next.views.AgendaSearch.pageTitle": [
     {
       "type": 0,
-      "value": "Recherche d'agendas"
+      "value": "Klask deiziataerioù"
     }
   ],
   "next.views.AgendaSearch.passedEvents": [
@@ -72,7 +72,7 @@
   "next.views.AgendaSearch.searchResultHead": [
     {
       "type": 0,
-      "value": "Résultats de la recherche \""
+      "value": "Disoc'hoù ar c'hlask evit \""
     },
     {
       "type": 1,
@@ -86,7 +86,7 @@
   "next.views.AgendaSearch.seeMore": [
     {
       "type": 0,
-      "value": "Voir plus"
+      "value": "Gwelet muioc'h"
     }
   ],
   "next.views.AgendaSearch.total": [
@@ -97,15 +97,40 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun agenda trouvé"
+              "value": "Deiziataer ebet kavet"
+            }
+          ]
+        },
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " deiziataer kavet"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " deiziataer kavet"
             }
           ]
         },
         "one": {
           "value": [
             {
+              "type": 7
+            },
+            {
               "type": 0,
-              "value": "1 agenda trouvé"
+              "value": " deiziataer kavet"
             }
           ]
         },
@@ -116,7 +141,18 @@
             },
             {
               "type": 0,
-              "value": " agendas trouvés"
+              "value": " deiziataer kavet"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " deiziataer kavet"
             }
           ]
         }

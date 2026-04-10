@@ -20,13 +20,13 @@
   "next.components.SearchInput.ariaLabel": [
     {
       "type": 0,
-      "value": "Rechercher"
+      "value": "Klask"
     }
   ],
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "En une"
+      "value": "Keleier pennañ"
     }
   ]
 }

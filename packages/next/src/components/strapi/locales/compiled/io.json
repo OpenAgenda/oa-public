@@ -22,7 +22,15 @@
     },
     {
       "type": 0,
-      "value": "crwdnd35213:0/homecrwdne35213:0"
+      "value": "crwdnd35213:0"
+    },
+    {
+      "type": 1,
+      "value": "dashboard"
+    },
+    {
+      "type": 0,
+      "value": "crwdne35213:0"
     }
   ],
   "next.components.Strapi.LoggedUserWelcome.welcome": [

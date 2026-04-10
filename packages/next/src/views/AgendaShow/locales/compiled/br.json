@@ -2,25 +2,25 @@
   "next.views.AgendaShow.closeButton": [
     {
       "type": 0,
-      "value": "Fermer"
+      "value": "Serriñ"
     }
   ],
   "next.views.AgendaShow.filter": [
     {
       "type": 0,
-      "value": "Filtrer"
+      "value": "Silañ"
     }
   ],
   "next.views.AgendaShow.filters": [
     {
       "type": 0,
-      "value": "Filtres"
+      "value": "Siloù"
     }
   ],
   "next.views.AgendaShow.help": [
     {
       "type": 0,
-      "value": "Aide"
+      "value": "Skoazell"
     }
   ],
   "next.views.AgendaShow.includePassedEvents": [
@@ -44,17 +44,39 @@
   "next.views.AgendaShow.retryButton": [
     {
       "type": 0,
-      "value": "Réessayer"
+      "value": "Klask en-dro"
     }
   ],
   "next.views.AgendaShow.seeEvents": [
     {
       "type": 0,
-      "value": "Afficher "
+      "value": "Diskouez "
     },
     {
       "offset": 0,
       "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
         "one": {
           "value": [
             {
@@ -62,7 +84,7 @@
             },
             {
               "type": 0,
-              "value": " événement"
+              "value": " darvoud"
             }
           ]
         },
@@ -73,7 +95,18 @@
             },
             {
               "type": 0,
-              "value": " événements"
+              "value": " darvoud"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " zarvoud"
             }
           ]
         }
@@ -86,7 +119,7 @@
   "next.views.AgendaShow.seeMore": [
     {
       "type": 0,
-      "value": "Voir plus"
+      "value": "Gwelet muioc'h"
     }
   ],
   "next.views.AgendaShow.showUpcomingEventsOnly": [
@@ -98,7 +131,7 @@
   "next.views.AgendaShow.termsOfUse": [
     {
       "type": 0,
-      "value": "Conditions d'utilisation"
+      "value": "Penndivizoù implij"
     }
   ],
   "next.views.AgendaShow.totalEvents": [
@@ -109,7 +142,29 @@
           "value": [
             {
               "type": 0,
-              "value": "Aucun événement"
+              "value": "Darvoud ebet"
+            }
+          ]
+        },
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
             }
           ]
         },
@@ -117,7 +172,7 @@
           "value": [
             {
               "type": 0,
-              "value": "1 événement"
+              "value": "1 darvoud"
             }
           ]
         },
@@ -128,7 +183,15 @@
             },
             {
               "type": 0,
-              "value": " événements"
+              "value": " darvoud"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 0,
+              "value": "2 zarvoud"
             }
           ]
         }

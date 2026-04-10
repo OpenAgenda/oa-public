@@ -2,25 +2,25 @@
   "next.views.EventError.agendaNotFound": [
     {
       "type": 0,
-      "value": "Agenda introuvable"
+      "value": "Deiziataer ebet kavet"
     }
   ],
   "next.views.EventError.contactAdministrators": [
     {
       "type": 0,
-      "value": "Contacter les administrateurs"
+      "value": "Mont e darempred gant ar verourien"
     }
   ],
   "next.views.EventError.eventNotFound": [
     {
       "type": 0,
-      "value": "Événement introuvable"
+      "value": "Darvoud n'eo ket kavet"
     }
   ],
   "next.views.EventError.forbiddenMsg": [
     {
       "type": 0,
-      "value": "Vous n’avez pas accès à cet événement."
+      "value": "N'hoc'h eus ket moned d'an deiziataer-mañ."
     },
     {
       "type": 1,
@@ -28,13 +28,13 @@
     },
     {
       "type": 0,
-      "value": "Vérifiez le lien qui vous a été fourni ou faites une demande d’accès."
+      "value": "Gwiriit al liamm zo bet roet deoc'h pe goulennit ar moned."
     }
   ],
   "next.views.EventError.notFoundMsg": [
     {
       "type": 0,
-      "value": "Il n’y a pas d’agenda correspondant à ce lien."
+      "value": "N'eus deiziataer ebet o klotañ gant al liamm-mañ."
     },
     {
       "type": 1,
@@ -42,19 +42,19 @@
     },
     {
       "type": 0,
-      "value": "Soit le lien est invalide, soit l’agenda a été supprimé."
+      "value": "Pe eo direizh al liamm pe eo bet dilamet an deiziataer."
     }
   ],
   "next.views.EventError.orSignup": [
     {
       "type": 0,
-      "value": "Ou "
+      "value": "Pe "
     },
     {
       "children": [
         {
           "type": 0,
-          "value": "inscrivez-vous"
+          "value": "en em enskrivit"
         }
       ],
       "type": 8,
@@ -62,37 +62,37 @@
     },
     {
       "type": 0,
-      "value": " si vous n'avez pas encore de compte."
+      "value": " ma n'hoc'h eus ket a gont c'hoazh."
     }
   ],
   "next.views.EventError.restrictedAccess": [
     {
       "type": 0,
-      "value": "Accès restreint"
+      "value": "Moned strishaet"
     }
   ],
   "next.views.EventError.searchAgenda": [
     {
       "type": 0,
-      "value": "Rechercher un agenda"
+      "value": "Klask un deiziataer"
     }
   ],
   "next.views.EventError.seeAgenda": [
     {
       "type": 0,
-      "value": "Voir l'agenda"
+      "value": "Gwelet an deiziataer"
     }
   ],
   "next.views.EventError.signIn": [
     {
       "type": 0,
-      "value": "Se connecter"
+      "value": "Kevreañ"
     }
   ],
   "next.views.EventError.unauthorizedMsg": [
     {
       "type": 0,
-      "value": "L'accès à cet agenda est restreint,"
+      "value": "Strishaet eo ar moned d'an deiziataer-mañ,"
     },
     {
       "type": 1,
@@ -100,7 +100,7 @@
     },
     {
       "type": 0,
-      "value": "veuillez vous authentifier avant de pouvoir y accéder."
+      "value": "dilesait ac'hanoc'h a-raok gallout mont dezhañ."
     }
   ]
 }

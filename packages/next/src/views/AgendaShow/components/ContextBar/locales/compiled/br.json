@@ -2,24 +2,46 @@
   "next.views.AgendaShow.ContextBar.complete": [
     {
       "type": 0,
-      "value": "Compléter"
+      "value": "Klokaat"
     }
   ],
   "next.views.AgendaShow.ContextBar.contribute": [
     {
       "type": 0,
-      "value": "Ajouter un événement"
+      "value": "Ouzhpennañ un darvoud"
     }
   ],
   "next.views.AgendaShow.ContextBar.drafts": [
     {
       "offset": 0,
       "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " vrouilhed"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " vrouilhed"
+            }
+          ]
+        },
         "one": {
           "value": [
             {
               "type": 0,
-              "value": "1 brouillon"
+              "value": "1 vrouilhed"
             }
           ]
         },
@@ -30,7 +52,18 @@
             },
             {
               "type": 0,
-              "value": " brouillons"
+              "value": " vrouilhed"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " vrouilhed"
             }
           ]
         }
@@ -43,31 +76,31 @@
   "next.views.AgendaShow.ContextBar.draftsModalInfo": [
     {
       "type": 0,
-      "value": "Voici les brouillons que vous avez enregistré sur cet agenda. Ils ne sont pas visibles pour les modérateurs de l'agenda. Ils doivent êtres complétés avant de pouvoir être modérés et publiés."
+      "value": "Setu ar brouilhedoù ho peus enrollet war ar c'halendrier-mañ. N'int ket gwelus evit habaskaerien ar c'halendrier. Ret eo dezho bezañ klokaat a-raok gallout bezañ habaskaet hag embannet."
     }
   ],
   "next.views.AgendaShow.ContextBar.draftsModalTitle": [
     {
       "type": 0,
-      "value": "Brouillons"
+      "value": "Brouilhedoù"
     }
   ],
   "next.views.AgendaShow.ContextBar.edit": [
     {
       "type": 0,
-      "value": "Modifier"
+      "value": "Aozañ"
     }
   ],
   "next.views.AgendaShow.ContextBar.empty": [
     {
       "type": 0,
-      "value": "Cet agenda est vide"
+      "value": "Goullo eo ar c'halendrier-mañ"
     }
   ],
   "next.views.AgendaShow.ContextBar.events": [
     {
       "type": 0,
-      "value": "Événements:"
+      "value": "Darvoudoù:"
     }
   ],
   "next.views.AgendaShow.ContextBar.inModeration": [
@@ -83,54 +116,76 @@
   "next.views.AgendaShow.ContextBar.inModerationModalInfo": [
     {
       "type": 0,
-      "value": "Les événements suivants doivent être revus par les modérateurs de l'agenda avant leur publication."
+      "value": "An darvoudoù da-heul a rank bezañ adwelet gant habaskaerien ar c'halendrier a-raok bezañ embannet."
     }
   ],
   "next.views.AgendaShow.ContextBar.inModerationModalTitle": [
     {
       "type": 0,
-      "value": "Événements en modération"
+      "value": "Darvoudoù o vezañ moderet"
     }
   ],
   "next.views.AgendaShow.ContextBar.indexed": [
     {
       "type": 0,
-      "value": "Indexé"
+      "value": "Menegeret"
     }
   ],
   "next.views.AgendaShow.ContextBar.manage": [
     {
       "type": 0,
-      "value": "Gérer"
+      "value": "Merañ"
     }
   ],
   "next.views.AgendaShow.ContextBar.myEvents": [
     {
       "type": 0,
-      "value": "Mes événements:"
+      "value": "Ma darvoudoù:"
     }
   ],
   "next.views.AgendaShow.ContextBar.notContributed": [
     {
       "type": 0,
-      "value": "Vous n'avez complété encore aucun événement sur cet agenda."
+      "value": "N'ho peus klokaat darvoud ebet war ar c'halendrier-mañ c'hoazh."
     }
   ],
   "next.views.AgendaShow.ContextBar.private": [
     {
       "type": 0,
-      "value": "Privé"
+      "value": "Prevez"
     }
   ],
   "next.views.AgendaShow.ContextBar.published": [
     {
       "offset": 0,
       "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " embannet"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " embannet"
+            }
+          ]
+        },
         "one": {
           "value": [
             {
               "type": 0,
-              "value": "1 publié"
+              "value": "1 embannet"
             }
           ]
         },
@@ -141,7 +196,18 @@
             },
             {
               "type": 0,
-              "value": " publiés"
+              "value": " embannet"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " embannet"
             }
           ]
         }
@@ -154,24 +220,46 @@
   "next.views.AgendaShow.ContextBar.publishedModalInfo": [
     {
       "type": 0,
-      "value": "Ces événements ont été publiés et sont visibles par les visiteurs de l'agenda."
+      "value": "Embannet eo bet an darvoudoù-mañ hag int gwelus gant gweladennerien ar c'halendrier."
     }
   ],
   "next.views.AgendaShow.ContextBar.publishedModalTitle": [
     {
       "type": 0,
-      "value": "Événements publiés"
+      "value": "Darvoudoù embannet"
     }
   ],
   "next.views.AgendaShow.ContextBar.readyToPublish": [
     {
       "offset": 0,
       "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " frest da embann"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " prest da embann"
+            }
+          ]
+        },
         "one": {
           "value": [
             {
               "type": 0,
-              "value": "1 prêt à publier"
+              "value": "1 prest da embann"
             }
           ]
         },
@@ -182,7 +270,18 @@
             },
             {
               "type": 0,
-              "value": " prêts à publier"
+              "value": " prest da embann"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " brest da embann"
             }
           ]
         }
@@ -196,11 +295,33 @@
     {
       "offset": 0,
       "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " nac'het"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " nac'het"
+            }
+          ]
+        },
         "one": {
           "value": [
             {
               "type": 0,
-              "value": "1 refusé"
+              "value": "1 nac'het"
             }
           ]
         },
@@ -211,7 +332,18 @@
             },
             {
               "type": 0,
-              "value": " refusés"
+              "value": " nac'het"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " nac'het"
             }
           ]
         }
@@ -224,19 +356,19 @@
   "next.views.AgendaShow.ContextBar.refusedModalInfo": [
     {
       "type": 0,
-      "value": "Les événements suivants ont été revus par les modérateurs de l'agenda et ont été refusés. Ils ne seront pas publiés."
+      "value": "An darvoudoù da-heul a zo bet adwelet gant habaskaerien ar c'halendrier hag a zo bet nac'het. Ne vint ket embannet."
     }
   ],
   "next.views.AgendaShow.ContextBar.refusedModalTitle": [
     {
       "type": 0,
-      "value": "Événements refusés"
+      "value": "Darvoudoù nac'het"
     }
   ],
   "next.views.AgendaShow.ContextBar.show": [
     {
       "type": 0,
-      "value": "Afficher"
+      "value": "Diskouez"
     }
   ],
   "next.views.AgendaShow.ContextBar.toBeModerated": [
@@ -252,25 +384,25 @@
   "next.views.AgendaShow.ContextBar.undefinedDescription": [
     {
       "type": 0,
-      "value": "Description non saisie"
+      "value": "Deskrivadur ebet"
     }
   ],
   "next.views.AgendaShow.ContextBar.undefinedTitle": [
     {
       "type": 0,
-      "value": "Événement brouillon sans titre"
+      "value": "Darvoud brouilhed hep titl"
     }
   ],
   "next.views.AgendaShow.ContextBar.unindexed": [
     {
       "type": 0,
-      "value": "Désindexé"
+      "value": "Dimenegeret"
     }
   ],
   "next.views.AgendaShow.ContextBar.visibility": [
     {
       "type": 0,
-      "value": "Visibilité:"
+      "value": "Gwelusted:"
     }
   ]
 }

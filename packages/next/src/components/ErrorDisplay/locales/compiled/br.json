@@ -2,31 +2,31 @@
   "next.components.ErrorDisplay.backToHome": [
     {
       "type": 0,
-      "value": "Revenir à l'accueil"
+      "value": "Distreiñ d'ar bennbajenn"
     }
   ],
   "next.components.ErrorDisplay.contactSupport": [
     {
       "type": 0,
-      "value": "Contacter le support"
+      "value": "Mont e darempred gant ar skoazell"
     }
   ],
   "next.components.ErrorDisplay.errorTrackingId": [
     {
       "type": 0,
-      "value": "Id de suivi d'erreur"
+      "value": "Id heuliañ fazi"
     }
   ],
   "next.components.ErrorDisplay.internalError": [
     {
       "type": 0,
-      "value": "Erreur interne"
+      "value": "Fazi diabarzh"
     }
   ],
   "next.components.ErrorDisplay.internalErrorMsg": [
     {
       "type": 0,
-      "value": "Si le problème persiste, veuillez contacter le support."
+      "value": "Ma chom ar gudenn, kit e darempred gant ar skoazell mar plij."
     }
   ],
   "next.components.ErrorDisplay.networkError": [
@@ -56,7 +56,7 @@
   "next.components.ErrorDisplay.retry": [
     {
       "type": 0,
-      "value": "Réessayer"
+      "value": "Klask en-dro"
     }
   ]
 }

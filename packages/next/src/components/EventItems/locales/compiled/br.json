@@ -2,13 +2,13 @@
   "next.views.AgendaShow.ContextBar.emptySelection": [
     {
       "type": 0,
-      "value": "Aucun événement"
+      "value": "Darvoud ebet"
     }
   ],
   "next.views.AgendaShow.ContextBar.undefinedTitle": [
     {
       "type": 0,
-      "value": "Événement brouillon sans titre"
+      "value": "Darvoud brouilh hep titl"
     }
   ]
 }
