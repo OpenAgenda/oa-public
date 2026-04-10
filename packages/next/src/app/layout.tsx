@@ -8,7 +8,7 @@ import type { Metadata, Viewport } from 'next';
 import { getLocaleValue } from '@openagenda/intl';
 import * as metas from 'config/metas';
 import AppLayout from 'components/app/Layout';
-import getLocale from './utils/getLocale';
+import getLocale from 'utils/getLocale';
 import fetchLocale from './locales';
 import AppProviders from './AppProviders';
 

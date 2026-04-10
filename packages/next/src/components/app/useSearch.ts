@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import useLocalePath from 'app/utils/useLocalePath';
+import useLocalePath from 'utils/useLocalePath';
 
 export default function useSearch() {
   const router = useRouter();

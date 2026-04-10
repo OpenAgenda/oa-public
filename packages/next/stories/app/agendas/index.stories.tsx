@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import AgendasSearch from 'app/agendas/AgendasSearch';
+import AgendasSearch from 'app/agendas/_components/AgendasSearch';
 import AppLayout from 'components/app/Layout';
 import fetchLocale from 'app/locales';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';

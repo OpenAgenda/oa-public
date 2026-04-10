@@ -6,8 +6,8 @@ import useSWRInfinite from 'swr/infinite';
 import { useInView } from 'react-intersection-observer';
 import qs from 'qs';
 import { VStack, Container, H1, Text, Button, Flex } from '@openagenda/uikit';
+import messages from '../messages';
 import AgendaItem from './AgendaItem';
-import messages from './messages';
 
 const PAGE_SIZE = 20;
 

@@ -1,5 +1,5 @@
-import getLocale from 'app/utils/getLocale';
-import { fetchAgendas, fetchNetwork, fetchLocationSet } from './api';
+import getLocale from 'utils/getLocale';
+import { fetchAgendas, fetchNetwork, fetchLocationSet } from '../_api';
 import AgendasSearch from './AgendasSearch';
 
 type AgendasContentProps = {

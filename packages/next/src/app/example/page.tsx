@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
 import { getLocaleValue } from '@openagenda/intl';
 import * as metas from 'config/metas';
-import getLocale from 'app/utils/getLocale';
-import ExampleContent from './ExampleContent';
+import getLocale from 'utils/getLocale';
+import ExampleContent from './_components/ExampleContent';
 
 export async function generateMetadata(): Promise<Metadata> {
   const locale = await getLocale();

@@ -1,11 +1,11 @@
 import { Suspense } from 'react';
 import type { Metadata } from 'next';
 import { SUPPORTED_LOCALES } from 'config/constants';
-import getIntl from 'app/utils/getIntl';
-import { fetchNetwork, fetchLocationSet } from './api';
+import getIntl from 'utils/getIntl';
+import { fetchNetwork, fetchLocationSet } from './_api';
 import messages from './messages';
-import AgendasContent from './AgendasContent';
-import AgendasSkeleton from './AgendasSkeleton';
+import AgendasContent from './_components/AgendasContent';
+import AgendasSkeleton from './_components/AgendasSkeleton';
 
 type SearchParams = Promise<{
   search?: string;
