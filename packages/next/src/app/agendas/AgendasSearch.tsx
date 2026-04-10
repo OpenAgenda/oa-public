@@ -133,8 +133,7 @@ export default function AgendasSearch({
   });
 
   const seeMoreUrl = useMemo(() => {
-    const localePrefix = locale === 'default' ? '' : `/${locale}`;
-    const url = new URL(`${localePrefix}/agendas`, 'https://n');
+    const url = new URL(`/${locale}/agendas`, 'https://n');
     url.search = qs.stringify({
       ...query,
       after: pages?.[pages.length - 1]?.after?.map(String),
