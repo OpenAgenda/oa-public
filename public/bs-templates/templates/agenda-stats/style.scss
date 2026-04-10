@@ -22,7 +22,7 @@
     border-bottom: 1px solid $oa-gray-lightish;
   }
 
-  @media print and (min-width: $screen-sm-min) {
+  @media print {
     .col-print-sm-12 {
       float: left;
       width: percentage(math.div(12, $grid-columns));
@@ -35,5 +35,115 @@
 
   @media print {
     .print-break-inside-avoid { break-inside: avoid; }
+  }
+
+  .agenda-stats-print-header {
+    display: none;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+
+    img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 24px;
+      line-height: 1.2;
+    }
+  }
+
+  @media print {
+    .agenda-stats-print-header {
+      display: flex;
+    }
+
+    .badge.badge-pill .fa-times {
+      display: none;
+    }
+
+    h3 {
+      margin-top: 10px !important;
+      margin-bottom: 0 !important;
+      padding: 0 !important;
+      font-size: 13px;
+      line-height: 1;
+      font-weight: bold;
+    }
+
+    .recharts-wrapper,
+    .recharts-responsive-container {
+      margin-top: -8px !important;
+      margin-bottom: -16px !important;
+    }
+
+    .recharts-tooltip-wrapper {
+      display: none !important;
+    }
+
+    .margin-top-md {
+      margin-top: 6px !important;
+    }
+
+    .row.margin-top-xs {
+      margin-bottom: 28px;
+    }
+
+    // Collapse bottom whitespace of the last chart row so the page doesn't
+    // overflow into a blank second page.
+    .padding-bottom-sm {
+      padding-bottom: 0 !important;
+    }
+
+    .print-break-inside-avoid:last-child,
+    .print-break-inside-avoid:nth-last-child(2) {
+      margin-bottom: 0 !important;
+      padding-bottom: 0 !important;
+    }
+
+    .oa-interval-select {
+      width: auto !important;
+      max-width: none !important;
+      margin-left: 0 !important;
+      padding-left: 0 !important;
+
+      .oa-interval-select__control {
+        border: none !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        min-height: 0 !important;
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .oa-interval-select__indicators {
+        display: none !important;
+      }
+      .oa-interval-select__value-container {
+        padding: 0 !important;
+        margin: 0 !important;
+      }
+      .oa-interval-select__single-value {
+        margin: 0 !important;
+      }
+    }
+  }
+}
+
+@media print {
+  body:has(.agenda-stats) {
+    .oa-page-header,
+    .agenda-admin .row.header {
+      display: none !important;
+    }
+
+    .agenda-admin {
+      margin: 0 !important;
+      padding-bottom: 0 !important;
+    }
   }
 }

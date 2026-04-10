@@ -16,6 +16,7 @@
   "AgendaStats.Dashboard.changeOrder": "Modifier l'ordre",
   "AgendaStats.Dashboard.edit": "Modifier le rapport",
   "AgendaStats.Dashboard.filters": "Filtres",
+  "AgendaStats.Dashboard.print": "Imprimer",
   "AgendaStats.Dashboard.pulseDesc": "Activité de l'année passée",
   "AgendaStats.Dashboard.save": "Sauvegarder",
   "AgendaStats.Dashboard.totalEvents": "{total, number} {total, plural, =0 {événement} one {événement} other {événements}}",

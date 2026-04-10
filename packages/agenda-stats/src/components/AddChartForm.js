@@ -19,9 +19,14 @@ export default function AddChartForm({
   const chartOptions = useMemo(() => {
     const additionalFieldOpts = agendaSchema.fields
       .filter((fieldSchema) =>
-        ['radio', 'checkbox', 'integer', 'boolean'].includes(
-          fieldSchema.fieldType,
-        ))
+        [
+          'radio',
+          'checkbox',
+          'select',
+          'multiselect',
+          'integer',
+          'boolean',
+        ].includes(fieldSchema.fieldType))
       .map((fieldSchema) => ({
         label: getLocaleValue(fieldSchema.label, intl.locale),
         value: {

@@ -98,6 +98,9 @@ export default async (core, agendaOrUid, userUid, role, data, options = {}) => {
       },
     );
   } catch (error) {
+    if (error.message === 'Already exists') {
+      throw new BadRequest(error, 'Already exists');
+    }
     throw new GeneralError(error, 'something went wrong');
   }
 

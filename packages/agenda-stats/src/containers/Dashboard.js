@@ -18,6 +18,7 @@ import {
   useApiClient,
   useLayoutData,
   useModal,
+  Image,
   MoreInfo,
   Spinner,
 } from '@openagenda/react-shared';
@@ -51,6 +52,10 @@ const messages = defineMessages({
   changeOrder: {
     id: 'AgendaStats.Dashboard.changeOrder',
     defaultMessage: 'Change ordrer',
+  },
+  print: {
+    id: 'AgendaStats.Dashboard.print',
+    defaultMessage: 'Print',
   },
   pulseDesc: {
     id: 'AgendaStats.Dashboard.pulseDesc',
@@ -403,12 +408,26 @@ function Dashboard() {
       filters={filters}
       dateFnsLocale={dateFnsLocales[intl.locale]}
     >
+      <div className="agenda-stats-print-header">
+        {agenda.image ? (
+          <Image
+            src={agenda.image}
+            fallbackSrc={
+              process.env.NODE_ENV === 'development'
+                ? agenda.image.replace('dev', 'main')
+                : null
+            }
+            alt={agenda.title}
+          />
+        ) : null}
+        <h1>{agenda.title}</h1>
+      </div>
       {agenda?.credentials?.showTotals ? (
         <SummarySection agendaUid={agenda.uid} />
       ) : null}
       {filtersQuery.data.total > 0 ? (
         <>
-          <div className="row margin-top-sm">
+          <div className="row margin-top-sm hidden-print">
             <div className="col-sm-6">
               <MoreInfo
                 content={intl.formatMessage(messages.pulseDesc)}
@@ -428,7 +447,26 @@ function Dashboard() {
             </div>
 
             <div className="col-sm-6 text-right hidden-print">
-              <div>{editButtons}</div>
+              <div>
+                {editButtons}
+                <button
+                  type="button"
+                  className="btn btn-default margin-left-sm"
+                  onClick={() => {
+                    // Manually fire beforeprint so React re-renders charts
+                    // in print mode before the dialog opens.
+                    window.dispatchEvent(new Event('beforeprint'));
+                    requestAnimationFrame(() => {
+                      requestAnimationFrame(() => {
+                        window.print();
+                      });
+                    });
+                  }}
+                >
+                  <i className="fa fa-print" />{' '}
+                  {intl.formatMessage(messages.print)}
+                </button>
+              </div>
               {editing ? (
                 <button
                   type="button"
