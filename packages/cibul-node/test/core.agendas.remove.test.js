@@ -59,11 +59,12 @@ describe('core - functional (server): core.agendas().remove()', () => {
       expect(agenda).toBeTruthy();
       expect(agenda.uid).toBe(agendaUid);
 
-      const members = await core.services
-        .knex('reviewer')
-        .select()
-        .where({ agenda_uid: agendaUid });
-      expect(members.length).toBeGreaterThan(0);
+      const { total } = await core.services.members.list(
+        { agendaUid },
+        {},
+        { total: true },
+      );
+      expect(total).toBeGreaterThan(0);
     });
 
     it('removes agenda and cleans up members via background task', async () => {
@@ -85,19 +86,28 @@ describe('core - functional (server): core.agendas().remove()', () => {
         core.agendas(agendaUid).remove().catch(reject);
       });
 
-      // agenda is removed from the database
-      const agendaRows = await core.services
-        .knex('review')
-        .select()
-        .where({ uid: agendaUid });
-      expect(agendaRows.length).toBe(0);
+      // agenda is soft-deleted (not returned by default)
+      const liveAgenda = await core.services.agendas.get(
+        { uid: agendaUid },
+        { internal: true, private: null },
+      );
+      expect(liveAgenda).toBeNull();
+
+      // still retrievable with deleted: true, and deletedAt is set
+      const softDeleted = await core.services.agendas.get(
+        { uid: agendaUid },
+        { internal: true, private: null, deleted: true },
+      );
+      expect(softDeleted).toBeTruthy();
+      expect(softDeleted.deletedAt).toBeInstanceOf(Date);
 
       // members are removed by the background task
-      const membersAfter = await core.services
-        .knex('reviewer')
-        .select()
-        .where({ agenda_uid: agendaUid });
-      expect(membersAfter.length).toBe(0);
+      const { total: membersAfter } = await core.services.members.list(
+        { agendaUid },
+        {},
+        { total: true },
+      );
+      expect(membersAfter).toBe(0);
     });
 
     afterAll(async () => {
