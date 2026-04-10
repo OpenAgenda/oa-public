@@ -12,7 +12,8 @@
   "overrides": [
     {
       "files": [
-        "src/**/*.js"
+        "src/**/*.js",
+        "src/**/*.jsx"
       ],
 
       "parserOptions": {
