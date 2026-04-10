@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import injectIntl from '@openagenda/intl/injectIntl';
 import classNames from 'classnames';
 import * as dateFns from 'date-fns';
 

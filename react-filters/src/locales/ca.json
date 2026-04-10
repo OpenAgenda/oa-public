@@ -1,6 +1,6 @@
 {
-  "ReactFilters.messages.filterTitles.valid": "Conformitat",
   "ReactFilters.messages.filterTitles.age": "Edat",
+  "ReactFilters.messages.filterTitles.valid": "Conformitat",
   "ReactFilters.messages.valid.invalid": "No conforme",
   "ReactFilters.messages.valid.undefined": "Indefinit",
   "ReactFilters.messages.valid.valid": "Conforme"

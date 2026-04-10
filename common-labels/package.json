@@ -39,6 +39,6 @@
   },
   "dependencies": {
     "dedent": "^0.7.0",
-    "react-intl": "^6.8.4"
+    "react-intl": "^10.1.1"
   }
 }

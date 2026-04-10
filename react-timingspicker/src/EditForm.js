@@ -1,5 +1,6 @@
 import { Component } from 'react';
-import { injectIntl, defineMessages } from 'react-intl';
+import { defineMessages } from 'react-intl';
+import injectIntl from '@openagenda/intl/injectIntl';
 import { Form, Field } from 'react-final-form';
 import MaskedInputModule from 'react-text-mask';
 import * as dateFns from 'date-fns';
