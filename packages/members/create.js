@@ -3,7 +3,6 @@ import validate from './iso/validate.js';
 import toRoleCode from './iso/toRoleCode.js';
 import cleanCreateOptions from './lib/cleanCreateOptions.js';
 import { toDB } from './lib/transformDBEntry.js';
-import invalidateListCache from './lib/invalidateListCache.js';
 
 const log = logs('create');
 
@@ -45,8 +44,6 @@ export default async (config, data, options = {}) => {
   log('inserting member', clean);
 
   [clean.id] = await knex(schema).insert(toDB(clean));
-
-  await invalidateListCache(config, clean.agendaUid);
 
   if (interfaces?.onCreate) {
     try {

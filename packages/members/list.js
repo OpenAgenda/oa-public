@@ -10,16 +10,6 @@ import decorateMembersWithEventCounts from './lib/decorateMembersWithEventCounts
 
 const log = logs('list');
 
-function buildCacheKey(cachePrefix, query, nav, options) {
-  const id = query.agendaUid || query.userUid || 'nokey';
-  const parts = [
-    cachePrefix,
-    `{${id}}`,
-    JSON.stringify({ query, nav, options }),
-  ];
-  return parts.join(':');
-}
-
 async function fetchList({ knex, schema, interfaces }, query, nav, options) {
   const {
     detailed,
@@ -96,28 +86,5 @@ async function fetchList({ knex, schema, interfaces }, query, nav, options) {
 export default async (config, query, nav = {}, options = {}) => {
   log('processing', { query, nav, options });
 
-  const { redis, cachePrefix, cacheTTL } = config;
-
-  if (!redis) {
-    return fetchList(config, query, nav, options);
-  }
-
-  const cacheKey = buildCacheKey(cachePrefix, query, nav, options);
-
-  const cached = await redis.get(cacheKey);
-  if (cached) {
-    log('cache hit', cacheKey);
-    return JSON.parse(cached);
-  }
-
-  const result = await fetchList(config, query, nav, options);
-
-  await redis.set(
-    cacheKey,
-    JSON.stringify(result),
-    'EX',
-    Math.ceil(cacheTTL / 1000),
-  );
-
-  return result;
+  return fetchList(config, query, nav, options);
 };
