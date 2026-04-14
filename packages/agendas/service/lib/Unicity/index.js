@@ -9,6 +9,7 @@ export default function Unicity(tableColumn, config) {
     client,
     redis,
     generate,
+    filter,
     lockRetryDelay = 10,
     lockMaxRetries = 100,
     generateMaxRetries = 1000,
@@ -75,7 +76,9 @@ export default function Unicity(tableColumn, config) {
   // Private method to check if value is available in database
   async function checkDatabaseAvailability(value) {
     const [table, column] = tableColumn.split('.');
-    const result = await client(table).where(column, value).first();
+    const query = client(table).where(column, value);
+    if (filter) filter(query);
+    const result = await query.first();
     return !result;
   }
 
