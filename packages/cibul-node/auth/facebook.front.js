@@ -24,12 +24,6 @@ function signin(req, res, next) {
   passport.authenticate('facebook-signin')(req, res, next);
 }
 
-function signup(req, res, next) {
-  auth.saveOptionals(req, res, req.agenda ? { agenda: req.agenda.slug } : {});
-
-  passport.authenticate('facebook-signup')(req, res, next);
-}
-
 function _loadFacebookProfile(accessToken, refreshToken, profile, done) {
   const extracted = {
     id: profile.id,
@@ -62,17 +56,6 @@ export default (app) => {
         _loadFacebookProfile,
       ),
     );
-
-    passport.use(
-      'facebook-signup',
-      new FacebookStrategy(
-        {
-          callbackURL: genUrl.abs('facebookSignupCallback'),
-          ...facebookOptions,
-        },
-        _loadFacebookProfile,
-      ),
-    );
   }
 
   app.get('/facebook/signin', preMw, signin);
@@ -83,15 +66,5 @@ export default (app) => {
     '/facebook/signin/callback',
     preMw,
     auth.process('facebook', 'signin'),
-  );
-
-  app.post('/facebook/signup', preMw, signup);
-
-  app.post('/:agendaSlug/facebook/signup', agendas.mw.load, preMw, signup);
-
-  app.get(
-    '/facebook/signup/callback',
-    preMw,
-    auth.process('facebook', 'signup'),
   );
 };

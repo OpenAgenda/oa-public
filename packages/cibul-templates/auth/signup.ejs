@@ -124,30 +124,6 @@
                 <div class="margin-top-sm"><%= __('socialDescription') %></div>
               </div>
               <div class="margin-all-md">
-                <% if ( enabledServices.includes( 'facebook' ) ) { %>
-                  <div class="margin-bottom-md">
-                    <form
-                      id="signup-facebook"
-                      action="<%= genUrl(
-                        agenda ? 'agendaFacebookSignup' : 'facebookSignup',
-                        [ optionals, agenda ? { slug: agenda.slug } : {} ]
-                      ) %>"
-                      method="POST"
-                    >
-                      <button
-                        id="signup-facebook-button"
-                        class="btn btn-facebook btn-block"
-                        type="submit"
-                      >
-                        <i class="fa fa-facebook"></i>
-                        Facebook
-                      </button>
-                    </form>
-                    <% if ( errors.facebookUid ) { %>
-                      <span class="text-danger"><%= __( errors.facebookUid ) %></span>
-                    <% } %>
-                  </div>
-                <% } %>
                 <% if ( enabledServices.includes( 'google' ) ) { %>
                   <div class="margin-bottom-md">
                     <form

@@ -95,6 +95,12 @@
       "value": "Mostrar pas que los eveniments venents"
     }
   ],
+  "next.views.AgendaShow.signin": [
+    {
+      "type": 0,
+      "value": "Se connecter"
+    }
+  ],
   "next.views.AgendaShow.termsOfUse": [
     {
       "type": 0,
