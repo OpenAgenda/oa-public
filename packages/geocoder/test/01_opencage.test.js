@@ -124,6 +124,37 @@ describe('opencage', () => {
       });
     });
 
+    describe("Métropole d'Aix-Marseille-Provence", () => {
+      it("Marseille is in Métropole d'Aix-Marseille-Provence", async () => {
+        const res = await geocode('Marseille', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true,
+        });
+        expect(res.adminLevel3).toBe("Métropole d'Aix-Marseille-Provence");
+      });
+
+      it("Pertuis (Vaucluse) is in Métropole d'Aix-Marseille-Provence", async () => {
+        const res = await geocode('Pertuis', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true,
+        });
+        expect(res.adminLevel2).toBe('Vaucluse');
+        expect(res.adminLevel3).toBe("Métropole d'Aix-Marseille-Provence");
+      });
+
+      it("Saint-Zacharie (Var) is in Métropole d'Aix-Marseille-Provence", async () => {
+        const res = await geocode('Saint-Zacharie', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true,
+        });
+        expect(res.adminLevel2).toBe('Var');
+        expect(res.adminLevel3).toBe("Métropole d'Aix-Marseille-Provence");
+      });
+    });
+
     describe('Métropole européenne de Lille', () => {
       it('Lille Centre is in Métropole européenne de Lille', async () => {
         const res = await geocode('Lille centre', {
