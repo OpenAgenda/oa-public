@@ -4,6 +4,8 @@ import labels from '@openagenda/labels/auth/messages.js';
 import cmn from '../../lib/commons-app.js';
 import config from '../../config/index.js';
 
+export const wantsJson = (req) => req.get('Accept') === 'application/json';
+
 export const loadOptionals = (req) =>
   ['iToken', 'invitation', 'redirect', 'defaults', 'agenda', 'lang'].reduce(
     (optionals, key) =>
@@ -81,6 +83,16 @@ export function render(template, defaults) {
     }
 
     _.set(data, 'scriptParams.lang', req.lang);
+
+    if (wantsJson(req)) {
+      const status = data.errors && Object.keys(data.errors).length > 0 ? 400 : 200;
+      res.status(status).json({
+        success: false,
+        errors: data.errors || {},
+        message: data.message || null,
+      });
+      return values;
+    }
 
     cmn.render(req, res, template, data);
 
