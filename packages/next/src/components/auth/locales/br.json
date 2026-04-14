@@ -1,0 +1,19 @@
+{
+  "next.components.auth.AuthDialog.dialogTitle": "",
+  "next.components.auth.AuthDialog.triggerLabel": "",
+  "next.components.auth.Signin.createAccount": "",
+  "next.components.auth.Signin.emailLabel": "",
+  "next.components.auth.Signin.emailPlaceholder": "",
+  "next.components.auth.Signin.forgotPassword": "",
+  "next.components.auth.Signin.formTitle": "",
+  "next.components.auth.Signin.genericError": "",
+  "next.components.auth.Signin.googleLabel": "",
+  "next.components.auth.Signin.invalidCredentials": "",
+  "next.components.auth.Signin.noAccount": "",
+  "next.components.auth.Signin.or": "",
+  "next.components.auth.Signin.passwordLabel": "",
+  "next.components.auth.Signin.resetPassword": "",
+  "next.components.auth.Signin.signinSuccess": "",
+  "next.components.auth.Signin.submitLabel": "",
+  "next.components.auth.Signin.whereIsFacebook": ""
+}

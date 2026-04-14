@@ -1,0 +1,19 @@
+{
+  "next.components.auth.AuthDialog.dialogTitle": "Sign in",
+  "next.components.auth.AuthDialog.triggerLabel": "Sign in",
+  "next.components.auth.Signin.createAccount": "Create one!",
+  "next.components.auth.Signin.emailLabel": "Email",
+  "next.components.auth.Signin.emailPlaceholder": "you@example.com",
+  "next.components.auth.Signin.forgotPassword": "I forgot my password",
+  "next.components.auth.Signin.formTitle": "Sign in form",
+  "next.components.auth.Signin.genericError": "An error occurred. Please try again.",
+  "next.components.auth.Signin.googleLabel": "Sign in with Google",
+  "next.components.auth.Signin.invalidCredentials": "The email or the password are incorrect.",
+  "next.components.auth.Signin.noAccount": "Don't have an account yet?",
+  "next.components.auth.Signin.or": "or",
+  "next.components.auth.Signin.passwordLabel": "Password",
+  "next.components.auth.Signin.resetPassword": "Reset my password",
+  "next.components.auth.Signin.signinSuccess": "Authentication successful. Redirecting…",
+  "next.components.auth.Signin.submitLabel": "Sign in",
+  "next.components.auth.Signin.whereIsFacebook": "Where did my Facebook connect button go?"
+}

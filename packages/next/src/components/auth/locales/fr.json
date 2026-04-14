@@ -1,0 +1,19 @@
+{
+  "next.components.auth.AuthDialog.dialogTitle": "Connexion",
+  "next.components.auth.AuthDialog.triggerLabel": "Se connecter",
+  "next.components.auth.Signin.createAccount": "Créez-en un !",
+  "next.components.auth.Signin.emailLabel": "Adresse e-mail",
+  "next.components.auth.Signin.emailPlaceholder": "vous@exemple.com",
+  "next.components.auth.Signin.forgotPassword": "J'ai perdu mon mot de passe",
+  "next.components.auth.Signin.formTitle": "Formulaire de connexion",
+  "next.components.auth.Signin.genericError": "Une erreur est survenue. Veuillez réessayer.",
+  "next.components.auth.Signin.googleLabel": "Se connecter avec Google",
+  "next.components.auth.Signin.invalidCredentials": "L'email ou le mot de passe est incorrect.",
+  "next.components.auth.Signin.noAccount": "Vous n'avez pas encore de compte ?",
+  "next.components.auth.Signin.or": "ou",
+  "next.components.auth.Signin.passwordLabel": "Mot de passe",
+  "next.components.auth.Signin.resetPassword": "Réinitialiser le mot de passe",
+  "next.components.auth.Signin.signinSuccess": "Connexion réussie. Redirection en cours…",
+  "next.components.auth.Signin.submitLabel": "Se connecter",
+  "next.components.auth.Signin.whereIsFacebook": "Où est passé mon bouton se connecter avec Facebook ?"
+}

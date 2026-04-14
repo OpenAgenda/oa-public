@@ -21,6 +21,8 @@ import {
 } from '@openagenda/react-filters';
 import isUpcomingOnlyQuery from 'utils/isUpcomingOnlyQuery';
 import CopyIdentifier from 'components/CopyIdentifier';
+import AuthDialog from 'components/auth/AuthDialog';
+import useUser from 'hooks/useUser';
 import useFiltersBaseQuery from '../hooks/useFiltersBaseQuery';
 import useEventsQuery from '../hooks/useEventsQuery';
 import messages from '../messages';
@@ -34,6 +36,7 @@ import { FiltersSkeleton } from './LoadingPage';
 
 export default function FiltersPart({ agenda, filters, query, includeFields }) {
   const intl = useIntl();
+  const { user } = useUser();
 
   const { data: filtersBaseData } = useFiltersBaseQuery({
     suspense: true,
@@ -160,6 +163,19 @@ export default function FiltersPart({ agenda, filters, query, includeFields }) {
         >
           {intl.formatMessage(messages.termsOfUse)}
         </Link>
+        {!user && (
+          <>
+            <NoBreak>&nbsp;·</NoBreak>{' '}
+            <AuthDialog
+              agenda={{ slug: agenda.slug, uid: agenda.uid }}
+              reloadOnSuccess
+            >
+              <Link as="button" color="primary.500">
+                {intl.formatMessage(messages.signin)}
+              </Link>
+            </AuthDialog>
+          </>
+        )}
       </Box>
     </>
   );

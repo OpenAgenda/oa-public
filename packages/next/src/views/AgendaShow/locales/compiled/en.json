@@ -95,6 +95,12 @@
       "value": "Show upcoming events only"
     }
   ],
+  "next.views.AgendaShow.signin": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
   "next.views.AgendaShow.termsOfUse": [
     {
       "type": 0,

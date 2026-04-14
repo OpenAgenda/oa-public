@@ -28,6 +28,9 @@ export default async function fetchLocale(locale) {
     import(
       `../../components/OfficialAgenda/locales/compiled/${locale}.json`
     ).then((mod) => mod.default),
+    import(`../../components/auth/locales/compiled/${locale}.json`).then(
+      (mod) => mod.default,
+    ),
     import(`../../components/locales/compiled/${locale}.json`).then(
       (mod) => mod.default,
     ),
