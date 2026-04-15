@@ -29,23 +29,19 @@ import {
   SentryPropagator,
   SentrySampler,
 } from '@sentry/opentelemetry';
+import { SESSION_COOKIE_NAME } from './config/constants';
+import { parseSessionCookie } from './utils/getSession';
 import { RequestLogSpanProcessor } from './utils/requestLogSpanProcessor';
-import { SessionAttributesSpanProcessor } from './utils/sessionAttributesSpanProcessor';
+
+const SESSION_COOKIE_ATTR = `http.request.header.cookie.${SESSION_COOKIE_NAME}`;
 
 /**
  * Copies a whitelist of attributes from parent span → child span at onStart.
- * General-purpose propagator kept around because it is cheap and future-
- * proofs any attribute that a parent sets at/before its own onStart (e.g.
- * a future tenant.id, feature-flag variant, …).
- *
- * NOTE: it does NOT propagate `session.id` / `user.uid` today. Those are
- * populated by `SessionAttributesSpanProcessor` at the root span's `onEnd`
- * (the `oa.user` cookie attribute only lands after onStart, see that
- * processor's JSDoc), by which time all children have already started and
- * most have ended — too late to inherit. Child spans therefore do not
- * receive user context in Sentry/OTLP traces; only the root span (and the
- * request log) does. Accepted trade-off: the request log is the primary
- * consumer and it reads from the root span directly.
+ * Combined with the `spanStart` hook below (which sets `session.id` /
+ * `user.uid` on every root request span synchronously at creation), this
+ * propagates user context to every descendant span in the same trace —
+ * DB queries, outgoing fetches, etc. — so traces in Sentry / OTLP carry
+ * the request's user and session identifiers end-to-end.
  */
 class InheritedAttributesSpanProcessor implements SpanProcessor {
   private _attributeKeys: string[];
@@ -149,24 +145,13 @@ const sdk = new NodeSDK({
   }),
   sampler: new SentrySampler(sentryClient),
   spanProcessors: [
-    // General-purpose parent→child attribute propagator. Does NOT carry
-    // session.id / user.uid today (those are set at root-span onEnd, after
-    // children are already underway — see SessionAttributesSpanProcessor and
-    // InheritedAttributesSpanProcessor JSDoc). Kept in place as a no-cost
-    // hook for any future attribute that lands on the parent at/before
-    // onStart.
+    // Propagates session.id / user.uid (set on every root span by the
+    // `spanStart` hook below) from parent → child at span creation so all
+    // descendants in the trace carry the user context.
     new InheritedAttributesSpanProcessor(INHERITED_ATTRIBUTES),
-    // Must run before RequestLogSpanProcessor: it decodes the `oa.user`
-    // cookie from the root span's `http.request.header.cookie.oa.user`
-    // attribute (set by Sentry's HTTP integration) and writes session.id /
-    // user.uid onto the same span so the log processor can read them.
-    // This is the only path that works for RSC soft navigations, where
-    // RootLayout is cached and cannot enrich the span.
-    new SessionAttributesSpanProcessor(),
     new SentrySpanProcessor(),
     // Morgan-style per-request log → @openagenda/logs → InsightOps,
-    // enriched with user.uid + session.id populated by
-    // SessionAttributesSpanProcessor above.
+    // enriched with user.uid + session.id by the `spanStart` hook below.
     new RequestLogSpanProcessor(),
     process.env.NEXT_OTEL_EXPORTER_OTLP_ENDPOINT
       ? new BatchSpanProcessor(
@@ -208,6 +193,41 @@ await sdk['_resource']?.waitForAsyncAttributes?.();
 // @ts-ignore
 // eslint-disable-next-line dot-notation
 sentryClient.traceProvider = sdk['_tracerProvider'];
+
+/**
+ * Enrich every root HTTP request span with `session.id` / `user.uid` at
+ * span creation so downstream processors — including the
+ * `InheritedAttributesSpanProcessor` above — see the attrs before any
+ * child span is started.
+ *
+ * Why via Sentry's `spanStart` event and not an OTel `SpanProcessor.onStart`?
+ * The cookie attribute we decode (`http.request.header.cookie.oa.user`) is
+ * populated on the span by Sentry's HTTP integration inside *its own*
+ * `spanStart` listener, registered during `init()`. Running after it in the
+ * same synchronous event emission is the only way to see the cookie before
+ * children are spawned — any OTel `SpanProcessor.onStart` fires earlier,
+ * when the attribute is not yet set.
+ *
+ * Ordering guarantee: event listeners on Sentry's client run in registration
+ * order; since `init()` registers the cookie-capture handler before we
+ * attach ours, this listener always runs after the attribute is present.
+ */
+sentryClient?.on('spanStart', (span) => {
+  const attrs = (span as unknown as { attributes: Record<string, unknown> })
+    .attributes;
+  if (attrs['next.span_type'] !== 'BaseServer.handleRequest') return;
+  if (attrs['next.bubble'] === true) return;
+  if (attrs['session.id'] && attrs['user.uid']) return;
+
+  const cookieValue = attrs[SESSION_COOKIE_ATTR];
+  if (typeof cookieValue !== 'string') return;
+
+  const session = parseSessionCookie(cookieValue);
+  if (!session) return;
+
+  if (session.sessionId) span.setAttribute('session.id', session.sessionId);
+  if (session.user?.uid) span.setAttribute('user.uid', session.user.uid);
+});
 
 process.on('SIGTERM', () => {
   sdk
