@@ -1,3 +1,5 @@
+import { randomBytes } from 'node:crypto';
+
 export default function generateNonce(): string {
-  return `${Math.ceil(Math.random() * 10 ** 16)}`;
+  return randomBytes(16).toString('base64');
 }

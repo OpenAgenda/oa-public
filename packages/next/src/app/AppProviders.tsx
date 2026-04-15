@@ -64,7 +64,9 @@ export default function AppProviders({
   const cookies = useMemo(() => new Cookies(cookieHeader), [cookieHeader]);
 
   useMatomoTracker();
-  useAppMatomoPageTracker();
+  useAppMatomoPageTracker({
+    debug: process.env.NODE_ENV === 'development',
+  });
 
   return (
     <Providers

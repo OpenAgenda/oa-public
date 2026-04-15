@@ -4,7 +4,25 @@
 
 export default async function fetchLocale(locale) {
   return Promise.all([
-    import(`../agendas/locales/compiled/${locale}.json`).then(
+    import(
+      `../[locale]/[agendaSlug]/_components/AggregateModal/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/[agendaSlug]/_components/ContextBar/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/[agendaSlug]/_components/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(`../[locale]/[agendaSlug]/locales/compiled/${locale}.json`).then(
+      (mod) => mod.default,
+    ),
+    import(
+      `../[locale]/[agendaSlug]/events/[eventSlug]/_components/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/[agendaSlug]/events/[eventSlug]/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(`../[locale]/agendas/locales/compiled/${locale}.json`).then(
       (mod) => mod.default,
     ),
     import(

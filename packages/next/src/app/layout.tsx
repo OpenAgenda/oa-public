@@ -4,13 +4,19 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import '@openagenda/react-shared/css/react-date-range.css';
 
 import { cookies } from 'next/headers';
+import { trace } from '@opentelemetry/api';
 import type { Metadata, Viewport } from 'next';
 import { getLocaleValue } from '@openagenda/intl';
 import * as metas from 'config/metas';
 import AppLayout from 'components/app/Layout';
 import getLocale from 'utils/getLocale';
+import getNonce from 'utils/getNonce';
+import getSession from 'utils/getSession';
 import fetchLocale from './locales';
+import fetchExternalLocale from './locales/external';
 import AppProviders from './AppProviders';
+import { NonceProvider } from './NonceProvider';
+import OutdatedBrowser from './OutdatedBrowser';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -38,8 +44,25 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const locale = await getLocale();
-  const intlMessages = await fetchLocale(locale);
-  const cookieHeader = (await cookies()).toString();
+  const nonce = await getNonce();
+  const [appMessages, externalMessages] = await Promise.all([
+    fetchLocale(locale),
+    fetchExternalLocale(locale),
+  ]);
+  // App messages win on key conflict so project overrides take precedence.
+  const intlMessages = { ...externalMessages, ...appMessages };
+  const cookieStore = await cookies();
+  const cookieHeader = cookieStore.toString();
+
+  // Enrich the active request span with session info so request logs and
+  // downstream child spans carry `user.uid` / `session.id` (matches the
+  // equivalent setup that lived in Pages Router's `_app.tsx:getInitialProps`).
+  const session = getSession(cookieStore);
+  const span = trace.getActiveSpan();
+  if (span) {
+    if (session?.sessionId) span.setAttribute('session.id', session.sessionId);
+    if (session?.user?.uid) span.setAttribute('user.uid', session.user.uid);
+  }
 
   return (
     <html lang={locale} style={{ colorScheme: 'light' }} data-theme="light">
@@ -72,13 +95,19 @@ export default async function RootLayout({
         ) : null}
       </head>
       <body className="chakra-ui-light">
-        <AppProviders
-          locale={locale}
-          intlMessages={intlMessages}
-          cookieHeader={cookieHeader}
-        >
-          <AppLayout>{children}</AppLayout>
-        </AppProviders>
+        {/* <div id="outdated"> must be the first child of <body> — the
+            outdated-browser CSS lays it out in document flow, so later
+            placement would push it mid-page. */}
+        <OutdatedBrowser />
+        <NonceProvider nonce={nonce}>
+          <AppProviders
+            locale={locale}
+            intlMessages={intlMessages}
+            cookieHeader={cookieHeader}
+          >
+            <AppLayout>{children}</AppLayout>
+          </AppProviders>
+        </NonceProvider>
       </body>
     </html>
   );

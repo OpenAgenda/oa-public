@@ -4,8 +4,8 @@ import EmbedLayout from 'components/EmbedLayout';
 import { Agenda } from 'types';
 import intlMessagesLoader from '@/stories/loaders/intlMessagesLoader';
 import ProvidersDecorator from '@/stories/decorators/ProvidersDecorator';
-import agendaJEPFixtures from '@/stories/pages/[agendaSlug]/[eventSlug]/fixtures/agenda.jep-2023-grand-est.json';
-import eventJEPFixtures from '@/stories/pages/[agendaSlug]/[eventSlug]/fixtures/event.jep-2023-grand-est.json';
+import agendaJEPFixtures from '@/stories/app/[agendaSlug]/events/[eventSlug]/fixtures/agenda.jep-2023-grand-est.json';
+import eventJEPFixtures from '@/stories/app/[agendaSlug]/events/[eventSlug]/fixtures/event.jep-2023-grand-est.json';
 
 export default {
   title: 'pages/embed/agendas/[agendaUid]/events/[eventSlug]',

@@ -1,0 +1,32 @@
+{
+  "next.views.AgendaShow.AdditionalFields.noFile": [
+    {
+      "type": 0,
+      "value": "No se ha cargado ningún archivo"
+    }
+  ],
+  "next.views.AgendaShow.AdditionalFields.noImage": [
+    {
+      "type": 0,
+      "value": "No se ha cargado ninguna imagen"
+    }
+  ],
+  "next.views.AgendaShow.AdditionalFields.noInput": [
+    {
+      "type": 0,
+      "value": "Sin entrada"
+    }
+  ],
+  "next.views.AgendaShow.AdditionalFields.noSelection": [
+    {
+      "type": 0,
+      "value": "Sin selección"
+    }
+  ],
+  "next.views.AgendaShow.AdditionalFields.restrictedInformation": [
+    {
+      "type": 0,
+      "value": "Información restringida"
+    }
+  ]
+}

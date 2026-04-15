@@ -29,6 +29,7 @@ import {
   SentryPropagator,
   SentrySampler,
 } from '@sentry/opentelemetry';
+import { RequestLogSpanProcessor } from './utils/requestLogSpanProcessor';
 
 const SENTRY_DSN =
   process.env.SENTRY_DSN ||
@@ -134,6 +135,9 @@ const sdk = new NodeSDK({
   spanProcessors: [
     new InheritedAttributesSpanProcessor(INHERITED_ATTRIBUTES),
     new SentrySpanProcessor(),
+    // Morgan-style per-request log → @openagenda/logs → InsightOps, enriched
+    // with user.uid + session.id propagated from the proxy.
+    new RequestLogSpanProcessor(),
     process.env.NEXT_OTEL_EXPORTER_OTLP_ENDPOINT
       ? new BatchSpanProcessor(
           new OTLPTraceExporter({

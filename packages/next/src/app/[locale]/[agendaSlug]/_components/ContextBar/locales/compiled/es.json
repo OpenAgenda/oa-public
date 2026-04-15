@@ -1,0 +1,206 @@
+{
+  "next.views.AgendaShow.ContextBar.complete": [
+    {
+      "type": 0,
+      "value": "Completar"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.contribute": [
+    {
+      "type": 0,
+      "value": "Añadir un evento"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.drafts": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " borradores"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.draftsModalInfo": [
+    {
+      "type": 0,
+      "value": "Estos son los borradores que guardaste. No son visibles para los moderadores de la agenda. Deben completarse antes de que puedan ser moderados y publicados."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.draftsModalTitle": [
+    {
+      "type": 0,
+      "value": "Borradores"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.edit": [
+    {
+      "type": 0,
+      "value": "Editar"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.empty": [
+    {
+      "type": 0,
+      "value": "Esta agenda está vacía"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.events": [
+    {
+      "type": 0,
+      "value": "Eventos:"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.inModeration": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " en moderación"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.inModerationModalInfo": [
+    {
+      "type": 0,
+      "value": "Los siguientes eventos deben ser revisados por los moderadores de la agenda antes de ser publicados."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.inModerationModalTitle": [
+    {
+      "type": 0,
+      "value": "Eventos en moderación"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.indexed": [
+    {
+      "type": 0,
+      "value": "Indexado"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.manage": [
+    {
+      "type": 0,
+      "value": "Gestionar"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.myEvents": [
+    {
+      "type": 0,
+      "value": "Mis eventos en esta agenda:"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.notContributed": [
+    {
+      "type": 0,
+      "value": "Aún no has enviado ningún evento a esta agenda."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.private": [
+    {
+      "type": 0,
+      "value": "Privada"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.published": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " publicados"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.publishedModalInfo": [
+    {
+      "type": 0,
+      "value": "Estos eventos han sido publicados y son accesibles para los visitantes de la agenda."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.publishedModalTitle": [
+    {
+      "type": 0,
+      "value": "Eventos publicados"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.readyToPublish": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " listo para publicar"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.refused": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " rechazados"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.refusedModalInfo": [
+    {
+      "type": 0,
+      "value": "Los siguientes eventos han sido revisados por los moderadores de la agenda y han sido rechazados. No serán publicados."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.refusedModalTitle": [
+    {
+      "type": 0,
+      "value": "Eventos rechazados"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.show": [
+    {
+      "type": 0,
+      "value": "Mostrar"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.toBeModerated": [
+    {
+      "style": null,
+      "type": 2,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " para moderar"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.undefinedDescription": [
+    {
+      "type": 0,
+      "value": "Descripción indefinida"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.undefinedTitle": [
+    {
+      "type": 0,
+      "value": "Borrador de evento sin título"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.unindexed": [
+    {
+      "type": 0,
+      "value": "No indexado"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.visibility": [
+    {
+      "type": 0,
+      "value": "Visibilidad:"
+    }
+  ]
+}

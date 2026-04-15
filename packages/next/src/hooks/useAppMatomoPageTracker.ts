@@ -31,7 +31,13 @@ function getPageCategory(url: string): string {
   return segments.length > 0 ? segments[0] : 'unknown';
 }
 
-export default function useAppMatomoPageTracker() {
+export type PageTrackingOptions = {
+  debug?: boolean;
+};
+
+export default function useAppMatomoPageTracker({
+  debug = false,
+}: PageTrackingOptions = {}) {
   const pathname = usePathname();
   const isInitialPageTracked = useRef(false);
 
@@ -39,10 +45,15 @@ export default function useAppMatomoPageTracker() {
     const trackPage = () => {
       try {
         const tracker = getOpenAgendaTracker();
-        if (!tracker) return;
+        if (!tracker) {
+          if (debug) console.warn('Matomo tracker not available');
+          return;
+        }
 
         const category = getPageCategory(pathname);
         tracker.trackEvent('Navigation', 'Page View', category, 1);
+
+        if (debug) console.log('Page tracked:', { url: pathname, category });
       } catch (error) {
         console.error('Matomo page tracking error:', error);
       }
@@ -56,5 +67,5 @@ export default function useAppMatomoPageTracker() {
     } else {
       trackPage();
     }
-  }, [pathname]);
+  }, [pathname, debug]);
 }

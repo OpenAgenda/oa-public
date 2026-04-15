@@ -1,9 +1,9 @@
 import { http, HttpResponse } from 'msw';
-import AgendasSearch from 'app/agendas/_components/AgendasSearch';
+import AgendasSearch from '@/src/app/[locale]/agendas/_components/AgendasSearch';
 import AppLayout from 'components/app/Layout';
-import fetchLocale from 'app/locales';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
+import fetchLocale from '../../utils/fetchLocale';
 import searchFixtures from '../../pages/agendas/fixtures/search.json';
 import networkFixtures from '../../pages/agendas/fixtures/network.json';
 import locationSetFixtures from '../../pages/agendas/fixtures/locationSet.json';

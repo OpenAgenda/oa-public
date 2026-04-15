@@ -1,0 +1,8 @@
+{
+  "next.views.AgendaShow.AggregateModal.createAgenda": "Create an agenda",
+  "next.views.AgendaShow.AggregateModal.noAgenda": "Warning: You are not currently administering any agenda. You need to create one before you can aggregate {agenda}.",
+  "next.views.AgendaShow.AggregateModal.shouldConnect": "You need to sign in to your account to aggregate this agenda.",
+  "next.views.AgendaShow.AggregateModal.signin": "Sign in",
+  "next.views.AgendaShow.AggregateModal.subtitle": "Events published by {agenda} will be automatically added to the selected agenda.",
+  "next.views.AgendaShow.AggregateModal.title": "Aggregate to an agenda"
+}

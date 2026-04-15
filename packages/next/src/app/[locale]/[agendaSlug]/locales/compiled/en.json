@@ -1,0 +1,178 @@
+{
+  "next.views.AgendaShow.closeButton": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "next.views.AgendaShow.filter": [
+    {
+      "type": 0,
+      "value": "Filter"
+    }
+  ],
+  "next.views.AgendaShow.filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
+  "next.views.AgendaShow.help": [
+    {
+      "type": 0,
+      "value": "Help"
+    }
+  ],
+  "next.views.AgendaShow.includePassedEvents": [
+    {
+      "type": 0,
+      "value": "Include past events"
+    }
+  ],
+  "next.views.AgendaShow.networkErrorMessage": [
+    {
+      "type": 0,
+      "value": "Unable to load events. Please check your internet connection and try again."
+    }
+  ],
+  "next.views.AgendaShow.networkErrorTitle": [
+    {
+      "type": 0,
+      "value": "Connection error"
+    }
+  ],
+  "next.views.AgendaShow.retryButton": [
+    {
+      "type": 0,
+      "value": "Retry"
+    }
+  ],
+  "next.views.AgendaShow.seeEvents": [
+    {
+      "type": 0,
+      "value": "Show "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.seeMore": [
+    {
+      "type": 0,
+      "value": "See more"
+    }
+  ],
+  "next.views.AgendaShow.showUpcomingEventsOnly": [
+    {
+      "type": 0,
+      "value": "Show upcoming events only"
+    }
+  ],
+  "next.views.AgendaShow.termsOfUse": [
+    {
+      "type": 0,
+      "value": "Terms of use"
+    }
+  ],
+  "next.views.AgendaShow.totalEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.totalUpcomingEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No upcoming event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 upcoming event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " upcoming events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ]
+}

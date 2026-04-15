@@ -1,0 +1,939 @@
+{
+  "next.views.EventShow.Activities.seeMore": [
+    {
+      "type": 0,
+      "value": "Gwelet muioc'h"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noFile": [
+    {
+      "type": 0,
+      "value": "Restr ebet karget"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noImage": [
+    {
+      "type": 0,
+      "value": "Skeudenn ebet karget"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noInput": [
+    {
+      "type": 0,
+      "value": "Enmont ebet"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noSelection": [
+    {
+      "type": 0,
+      "value": "Diuzadenn ebet"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.restrictedInformation": [
+    {
+      "type": 0,
+      "value": "Titouroù prevez"
+    }
+  ],
+  "next.views.EventShow.AgendaHeader.showAllEvents": [
+    {
+      "type": 0,
+      "value": "Gwelet an holl darvoudoù"
+    }
+  ],
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": [
+    {
+      "type": 0,
+      "value": "View network agendas"
+    }
+  ],
+  "next.views.EventShow.ContextBar.backToDashboard": [
+    {
+      "type": 0,
+      "value": "Distreiñ d'ar merañ darvoudoù"
+    }
+  ],
+  "next.views.EventShow.ContextBar.cancel": [
+    {
+      "type": 0,
+      "value": "Nullañ"
+    }
+  ],
+  "next.views.EventShow.ContextBar.clearStatus": [
+    {
+      "type": 0,
+      "value": "Adderaouiñ stad an darvoud"
+    }
+  ],
+  "next.views.EventShow.ContextBar.clearStatusInfo": [
+    {
+      "type": 0,
+      "value": "N'eo ket nullet an darvoud, na adplanifiet, hag all…"
+    }
+  ],
+  "next.views.EventShow.ContextBar.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Mont e darempred gant ar verourien"
+    }
+  ],
+  "next.views.EventShow.ContextBar.delete": [
+    {
+      "type": 0,
+      "value": "Lemel"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteConfirmation": [
+    {
+      "type": 0,
+      "value": "Ha sur oc'h e fell deoc'h dilemel an darvoud-mañ ?"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteEvent": [
+    {
+      "type": 0,
+      "value": "Dilemel an darvoud"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteEventInfo": [
+    {
+      "type": 0,
+      "value": "Dilemel an darvoud-mañ eus OpenAgenda da viken"
+    }
+  ],
+  "next.views.EventShow.ContextBar.duplicate": [
+    {
+      "type": 0,
+      "value": "Eilañ"
+    }
+  ],
+  "next.views.EventShow.ContextBar.duplicateInfo": [
+    {
+      "type": 0,
+      "value": "Kargañ ur furmskrid darvoud nevez rakleuniet gant titouroù an darvoud-mañ"
+    }
+  ],
+  "next.views.EventShow.ContextBar.edit": [
+    {
+      "type": 0,
+      "value": "Aozañ"
+    }
+  ],
+  "next.views.EventShow.ContextBar.editEvent": [
+    {
+      "type": 0,
+      "value": "Kemmañ an darvoud"
+    }
+  ],
+  "next.views.EventShow.ContextBar.editLocation": [
+    {
+      "type": 0,
+      "value": "Aozañ al lec'h"
+    }
+  ],
+  "next.views.EventShow.ContextBar.feature": [
+    {
+      "type": 0,
+      "value": "Lakaat e-mesk ar c'heleier pennañ"
+    }
+  ],
+  "next.views.EventShow.ContextBar.featured": [
+    {
+      "type": 0,
+      "value": "Keleier pennañ"
+    }
+  ],
+  "next.views.EventShow.ContextBar.featuredInfo": [
+    {
+      "type": 0,
+      "value": "Un darvoud e-mesk ar c'heleier pennañ a zeu war penn ar roll"
+    }
+  ],
+  "next.views.EventShow.ContextBar.fixEvent": [
+    {
+      "type": 0,
+      "value": "Corriger l'événement"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEvent": [
+    {
+      "type": 0,
+      "value": "Cet évènement n'est pas valide"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEventMessage": [
+    {
+      "type": 0,
+      "value": "Kemmit an darvoud evit renkañ ar gudenn a-raok klask cheñch e stad en-dro. Gallout a rit ivez e zilemel krenn eus an deiziataer."
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsCancelled": [
+    {
+      "type": 0,
+      "value": "Nullet eo an darvoud"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsCancelledStatus": [
+    {
+      "type": 0,
+      "value": "Nullet eo bet an darvoud da vat"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsFull": [
+    {
+      "type": 0,
+      "value": "Leun eo an darvoud"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsFullStatus": [
+    {
+      "type": 0,
+      "value": "Ne vez ket degemeret perzhidi nevez ken d'an darvoud"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsMovedOnline": [
+    {
+      "type": 0,
+      "value": "An darvoud a c'hoarvez enlinenn"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsMovedOnlineStatus": [
+    {
+      "type": 0,
+      "value": "N'eo ket ken posupl kemer perzh en darvoud e plas lec'hel"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsPostponed": [
+    {
+      "type": 0,
+      "value": "Dilezet eo an darvoud"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsPostponedStatus": [
+    {
+      "type": 0,
+      "value": "Dilezet eo bet an darvoud da zeiziadoù n'int ket anavezet c'hoazh"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsRescheduled": [
+    {
+      "type": 0,
+      "value": "Adsteuñvaet eo bet an darvoud"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsRescheduledInfo": [
+    {
+      "type": 0,
+      "value": "Kemmet eo bet eurioù an darvoud"
+    }
+  ],
+  "next.views.EventShow.ContextBar.motive": [
+    {
+      "type": 0,
+      "value": "Abeg"
+    }
+  ],
+  "next.views.EventShow.ContextBar.otherActions": [
+    {
+      "type": 0,
+      "value": "Oberoù"
+    }
+  ],
+  "next.views.EventShow.ContextBar.otherActionsInfo": [
+    {
+      "type": 0,
+      "value": "Lakaat e-mesk ar c'heleier pennañ, nullañ, daleañ, eilañ..."
+    }
+  ],
+  "next.views.EventShow.ContextBar.publishedContributorInfo": [
+    {
+      "type": 0,
+      "value": "Embannet eo an darvoud-mañ ha diskwelet en deiziataer."
+    }
+  ],
+  "next.views.EventShow.ContextBar.publishedInfo": [
+    {
+      "type": 0,
+      "value": "Gwelet e vez an darvoud-mañ en deiziataer"
+    }
+  ],
+  "next.views.EventShow.ContextBar.readyToPublishContributorInfo": [
+    {
+      "type": 0,
+      "value": "Gwiriekaet eo bet an darvoud gant an habaskaerien. Embannet e vo hep kemmoù ouzhpenn."
+    }
+  ],
+  "next.views.EventShow.ContextBar.readyToPublishInfo": [
+    {
+      "type": 0,
+      "value": "Gwiriet eo bet an darvoud-mañ ha prest eo da vezañ embannet."
+    }
+  ],
+  "next.views.EventShow.ContextBar.refusedContributorInfo": [
+    {
+      "type": 0,
+      "value": "Nac'het eo bet an darvoud-mañ gant merourien an deiziataer ha ne vo ket embannet."
+    }
+  ],
+  "next.views.EventShow.ContextBar.refusedInfo": [
+    {
+      "type": 0,
+      "value": "Ne glot ket an darvoud-mañ gant an deiziataer ha ne vo ket embannet"
+    }
+  ],
+  "next.views.EventShow.ContextBar.remove": [
+    {
+      "type": 0,
+      "value": "Lemel"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeConfirmation": [
+    {
+      "type": 0,
+      "value": "Ha sur oc'h e fell deoc'h tennañ kuit an darvoud-mañ?"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeEvent": [
+    {
+      "type": 0,
+      "value": "Lemel eus an deiziataer"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeEventInfo": [
+    {
+      "type": 0,
+      "value": "Ne vo ket meneget ken an darvoud war an deiziataer"
+    }
+  ],
+  "next.views.EventShow.ContextBar.requestEditionRights": [
+    {
+      "type": 0,
+      "value": "Goulenn gwirioù embann"
+    }
+  ],
+  "next.views.EventShow.ContextBar.requestEditionRightsInfo": [
+    {
+      "type": 0,
+      "value": "Dont a ra an darvoud-mañ eus un deiziataer all. Ret eo kaout gwirioù embann evit kemmañ ar maeziennoù pennañ (da skouer: titl, deskrivadur, eurioù...)"
+    }
+  ],
+  "next.views.EventShow.ContextBar.state": [
+    {
+      "type": 0,
+      "value": "Statud:"
+    }
+  ],
+  "next.views.EventShow.ContextBar.suggestLocationChange": [
+    {
+      "type": 0,
+      "value": "Kinnig ur c'hemm war al lec'h"
+    }
+  ],
+  "next.views.EventShow.ContextBar.toModerateContributorInfo": [
+    {
+      "type": 0,
+      "value": "Gwiriet e vo an darvoud gant ar verourien a-raok embann anezhañ."
+    }
+  ],
+  "next.views.EventShow.ContextBar.toModerateInfo": [
+    {
+      "type": 0,
+      "value": "Ret eo d'an darvoud-mañ bezañ gwiriet ha n'eo ket prest da vezañ embannet"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnership": [
+    {
+      "type": 0,
+      "value": "Treuzkas ar berc'henniezh"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": [
+    {
+      "type": 0,
+      "value": "Treuzkas perc'henniezh an darvoud d'un ezel all eus an deiziataer"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": [
+    {
+      "type": 0,
+      "value": "Ne c'haller treuzkas ar berc'henniezh nemet ma'z eus gwirioù aozañ an darvoud ganeoc'h"
+    }
+  ],
+  "next.views.EventShow.ContextBar.unfeature": [
+    {
+      "type": 0,
+      "value": "Lemel eus ar c'heleier pennañ"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.contributor": [
+    {
+      "type": 0,
+      "value": "Kenlabourer"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.edit": [
+    {
+      "type": 0,
+      "value": "Aozañ"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.emptyMember": [
+    {
+      "type": 0,
+      "value": "Fiche contact non informée"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.meEdit": [
+    {
+      "type": 0,
+      "value": "Modifier ma fiche contact"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.privateInformation": [
+    {
+      "type": 0,
+      "value": "Titouroù prevez"
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.bigSentence": [
+    {
+      "type": 0,
+      "value": "Emaoc'h o vont da grouiñ un darvoud nevez diazezet war un darvoud kent."
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.createNewEventIn": [
+    {
+      "type": 0,
+      "value": "Krouiñ an darvoud nevez e-barzh"
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.or": [
+    {
+      "type": 0,
+      "value": "Pe"
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.reminder": [
+    {
+      "type": 0,
+      "value": "Koun: Un darvoud hepken a c'hall bezañ rannet war meur a deiziataer. Arabat krouiñ un doubladenn! An doubladenn a dalvez da grouiñ ur c'hemenn disheñvel, peurliesañ evit un embannadur nevez e lec'h all en amzer pe el lec'h, en ur chom hep eilañ-pegañ."
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.selectAnAgenda": [
+    {
+      "type": 0,
+      "value": "Diuzañ un deiziataer"
+    }
+  ],
+  "next.views.EventShow.EditLocationButton.editLocation": [
+    {
+      "type": 0,
+      "value": "Aozañ al lec'h"
+    }
+  ],
+  "next.views.EventShow.EmailConfirmationAlert.close": [
+    {
+      "type": 0,
+      "value": "Serriñ"
+    }
+  ],
+  "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
+    {
+      "type": 0,
+      "value": "Skignañ an darvoud"
+    }
+  ],
+  "next.views.EventShow.EmailConfirmationAlert.shareEventInfo": [
+    {
+      "type": 0,
+      "value": "Kaset eo bet an darvoud da "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " chomlec'h postel"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " a chomlec'hioù postel"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " chomlec'h postel"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " chomlec'h postel"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " chomlec'h postel"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.views.EventShow.Footer.help": [
+    {
+      "type": 0,
+      "value": "Skoazell"
+    }
+  ],
+  "next.views.EventShow.Footer.termsOfUse": [
+    {
+      "type": 0,
+      "value": "Penndivizoù implij"
+    }
+  ],
+  "next.views.EventShow.Inbox.inbox": [
+    {
+      "type": 0,
+      "value": "Postelerezh"
+    }
+  ],
+  "next.views.EventShow.LocationHistory.locationHistory": [
+    {
+      "type": 0,
+      "value": "Istor al lec'h"
+    }
+  ],
+  "next.views.EventShow.LocationHistory.noActivity": [
+    {
+      "type": 0,
+      "value": "oberiantiz ebet"
+    }
+  ],
+  "next.views.EventShow.LocationHistory.showHistory": [
+    {
+      "type": 0,
+      "value": "Gwelet an istor"
+    }
+  ],
+  "next.views.EventShow.NavigationButton.nextEvent": [
+    {
+      "type": 0,
+      "value": "Darvoud da-heul"
+    }
+  ],
+  "next.views.EventShow.NavigationButton.previousEvent": [
+    {
+      "type": 0,
+      "value": "Darvoud kent"
+    }
+  ],
+  "next.views.EventShow.ShareModal.byEmailSub": [
+    {
+      "type": 0,
+      "value": "L'événement ne sera pas envoyé à plus de 50 destinataires"
+    }
+  ],
+  "next.views.EventShow.ShareModal.copied": [
+    {
+      "type": 0,
+      "value": "Eilet"
+    }
+  ],
+  "next.views.EventShow.ShareModal.copy": [
+    {
+      "type": 0,
+      "value": "Kopiañ"
+    }
+  ],
+  "next.views.EventShow.ShareModal.import": [
+    {
+      "type": 0,
+      "value": "Enporzhiañ"
+    }
+  ],
+  "next.views.EventShow.ShareModal.mustSignIn": [
+    {
+      "type": 0,
+      "value": "Ret eo deoc'h kevreañ evit rannañ an darvoud-mañ en un deiziataer all"
+    }
+  ],
+  "next.views.EventShow.ShareModal.onOA": [
+    {
+      "type": 0,
+      "value": "War OpenAgenda"
+    }
+  ],
+  "next.views.EventShow.ShareModal.online": [
+    {
+      "type": 0,
+      "value": "Enlinenn"
+    }
+  ],
+  "next.views.EventShow.ShareModal.selectTiming": [
+    {
+      "type": 0,
+      "value": "Diuzañ un eurvezh"
+    }
+  ],
+  "next.views.EventShow.ShareModal.send": [
+    {
+      "type": 0,
+      "value": "Kas"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareByEmail": [
+    {
+      "type": 0,
+      "value": "Skignañ dre bostel"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareByEmailPlaceholder": [
+    {
+      "type": 0,
+      "value": "Lakait ar chomlec'hioù postel ma fell deoc'h kas an darvoud dezho"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareCalendar": [
+    {
+      "type": 0,
+      "value": "Enporzhiañ en un deiziataer personel"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareEvent": [
+    {
+      "type": 0,
+      "value": "Partager / Exporter l'événement"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareLink": [
+    {
+      "type": 0,
+      "value": "Skignañ al liamm"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareOnSocialNetworks": [
+    {
+      "type": 0,
+      "value": "War ar rouedadoù sokial"
+    }
+  ],
+  "next.views.EventShow.ShareModal.signIn": [
+    {
+      "type": 0,
+      "value": "Kevreañ"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessEventOnline": [
+    {
+      "type": 0,
+      "value": "Mont d'an darvoud enlinenn"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessPassOffer": [
+    {
+      "type": 0,
+      "value": "Mont d'ar c'hinnig pass Culture"
+    }
+  ],
+  "next.views.EventShow.Sidebar.completeLink": [
+    {
+      "type": 0,
+      "value": "Liamm klok"
+    }
+  ],
+  "next.views.EventShow.Sidebar.conditions": [
+    {
+      "type": 0,
+      "value": "Divizoù"
+    }
+  ],
+  "next.views.EventShow.Sidebar.minToMaxYearsOld": [
+    {
+      "type": 0,
+      "value": "Eus "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " da "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " vloaz"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passPublishedErrors": [
+    {
+      "type": 0,
+      "value": "la creation de l'offre a rencontré des erreurs"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passUnpublished": [
+    {
+      "type": 0,
+      "value": "L'offre sera créée à la publication"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passed": [
+    {
+      "type": 0,
+      "value": "Tremenet"
+    }
+  ],
+  "next.views.EventShow.Sidebar.registerBook": [
+    {
+      "type": 0,
+      "value": "Enskrivañ / Mirout:"
+    }
+  ],
+  "next.views.EventShow.Sidebar.registration": [
+    {
+      "type": 0,
+      "value": "En em enskrivañ"
+    }
+  ],
+  "next.views.EventShow.Sidebar.share": [
+    {
+      "type": 0,
+      "value": "Skignañ / Ezporzhiañ"
+    }
+  ],
+  "next.views.EventShow.Sidebar.startingAt": [
+    {
+      "type": 0,
+      "value": "Adalek "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " vloaz"
+    }
+  ],
+  "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
+    {
+      "type": 0,
+      "value": "Kinnig ur c'hemm war al lec'h"
+    }
+  ],
+  "next.views.EventShow.Timings.calendarNavigation": [
+    {
+      "type": 0,
+      "value": "Calendar navigation for selecting month"
+    }
+  ],
+  "next.views.EventShow.Timings.navigationByMonth": [
+    {
+      "type": 0,
+      "value": "Navigation by month"
+    }
+  ],
+  "next.views.EventShow.Timings.nextMonth": [
+    {
+      "type": 0,
+      "value": "Miz da-heul"
+    }
+  ],
+  "next.views.EventShow.Timings.previousMonth": [
+    {
+      "type": 0,
+      "value": "Miz kent"
+    }
+  ],
+  "next.views.EventShow.aboutLocation": [
+    {
+      "type": 0,
+      "value": "Diwar-benn al lec'h"
+    }
+  ],
+  "next.views.EventShow.access": [
+    {
+      "type": 0,
+      "value": "Moned"
+    }
+  ],
+  "next.views.EventShow.actions": [
+    {
+      "type": 0,
+      "value": "Oberoù"
+    }
+  ],
+  "next.views.EventShow.additionalFieldsSectionTitle": [
+    {
+      "type": 0,
+      "value": "Informations additionnelles"
+    }
+  ],
+  "next.views.EventShow.backToList": [
+    {
+      "type": 0,
+      "value": "Distreiñ d'ar roll"
+    }
+  ],
+  "next.views.EventShow.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Mont e darempred gant ar verourien"
+    }
+  ],
+  "next.views.EventShow.eventNavigation": [
+    {
+      "type": 0,
+      "value": "Event navigation"
+    }
+  ],
+  "next.views.EventShow.history": [
+    {
+      "type": 0,
+      "value": "Istor"
+    }
+  ],
+  "next.views.EventShow.moreLinks": [
+    {
+      "type": 0,
+      "value": "Liammoù ouzhpenn"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirm": [
+    {
+      "type": 0,
+      "value": "Kadarnaat"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirmRejection": [
+    {
+      "type": 0,
+      "value": "Kadarnaat an nac'h"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motive": [
+    {
+      "type": 0,
+      "value": "Abeg"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motiveInfo": [
+    {
+      "type": 0,
+      "value": "Diskouezet e vo an abeg d'ar c'henlabourer er c'hemenn a vo kaset dezhañ dre bostel hag e vo gwelet war fichennaoueg an darvoud."
+    }
+  ],
+  "next.views.EventShow.rejectModal.motivePlaceholder": [
+    {
+      "type": 0,
+      "value": "Abeg an nac'h"
+    }
+  ],
+  "next.views.EventShow.sendAnEmail": [
+    {
+      "type": 0,
+      "value": "Kas ur postel"
+    }
+  ],
+  "next.views.EventShow.tags": [
+    {
+      "type": 0,
+      "value": "Merkoù"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.close": [
+    {
+      "type": 0,
+      "value": "Serriñ"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.nameless": [
+    {
+      "type": 0,
+      "value": "Hep anv"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.ownershipTransfered": [
+    {
+      "type": 0,
+      "value": "Treuzkaset eo bet perc'henniezh an darvoud."
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.transfer": [
+    {
+      "type": 0,
+      "value": "Treuzkas"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": [
+    {
+      "type": 0,
+      "value": "Treuzkas ar berc'henniezh"
+    }
+  ],
+  "views.EventShow.contextBar.editMember": [
+    {
+      "type": 0,
+      "value": "Modifier la fiche du contributeur"
+    }
+  ],
+  "views.EventShow.contextBar.editMemberMe": [
+    {
+      "type": 0,
+      "value": "Modifier ma fiche contributeur"
+    }
+  ],
+  "views.EventShow.contextBar.invalidEventInfo": [
+    {
+      "type": 0,
+      "value": "Cet événement ne répond pas aux critères définis par le formulaire de l'agenda. Cela peut se produire si la configuration du formulaire a été modifiée. Pour corriger l'événement, modifiez-le."
+    }
+  ],
+  "views.EventShow.contextBar.nonCompliant": [
+    {
+      "type": 0,
+      "value": "Digemfurm"
+    }
+  ]
+}
