@@ -230,7 +230,7 @@ function handleSigninRequest(req, email, password, cb) {
           password,
           user: null,
           errors: {
-            password: getErrorLabel('incorrectPassword', req.lang),
+            password: getErrorLabel('incorrectCredentials', req.lang),
           },
         });
       }
@@ -240,6 +240,16 @@ function handleSigninRequest(req, email, password, cb) {
       cb(null, user, { email, password, user });
     })
     .catch((err) => {
+      if (err.name === 'NotFound') {
+        return cb(null, null, {
+          email,
+          password,
+          user: null,
+          errors: {
+            password: getErrorLabel('incorrectCredentials', req.lang),
+          },
+        });
+      }
       cb(err);
     });
 }
