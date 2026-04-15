@@ -16,6 +16,7 @@ import {
   MenuItem,
   MenuSeparator,
 } from '@openagenda/uikit/snippets';
+import AuthDialog from 'components/auth/AuthDialog';
 import Image from 'components/Image';
 import SearchInput from 'components/NavbarSearchInput';
 import { thumborLoader } from 'utils/imageLoader';
@@ -114,18 +115,17 @@ export default function ProfileMenu({
         </MenuRoot>
       ) : (
         <>
-          <Button
-            asChild
-            variant="link"
-            display={{ base: 'none', lg: 'flex' }}
-            px="4"
-            alignItems="center"
-            alignSelf="stretch"
-          >
-            <Link unstyled href={hrefWithLang('/signin', intl.locale)}>
+          <AuthDialog reloadOnSuccess>
+            <Button
+              variant="link"
+              display={{ base: 'none', lg: 'flex' }}
+              px="4"
+              alignItems="center"
+              alignSelf="stretch"
+            >
               {intl.formatMessage(messages.signIn)}
-            </Link>
-          </Button>
+            </Button>
+          </AuthDialog>
           <Button
             asChild
             variant="link"
@@ -227,18 +227,22 @@ export default function ProfileMenu({
                   </>
                 ) : (
                   <>
-                    <Link
-                      href={hrefWithLang('/signin', intl.locale)}
-                      display="block"
-                      px="6"
-                      py="3"
-                      _hover={{
-                        bg: 'primary.subtle/30',
-                        textDecoration: 'underline',
-                      }}
-                    >
-                      {intl.formatMessage(messages.signIn)}
-                    </Link>
+                    <AuthDialog reloadOnSuccess>
+                      <Link
+                        as="button"
+                        display="block"
+                        width="full"
+                        textAlign="left"
+                        px="6"
+                        py="3"
+                        _hover={{
+                          bg: 'primary.subtle/30',
+                          textDecoration: 'underline',
+                        }}
+                      >
+                        {intl.formatMessage(messages.signIn)}
+                      </Link>
+                    </AuthDialog>
                     <Link
                       href={hrefWithLang('/signup', intl.locale)}
                       display="block"

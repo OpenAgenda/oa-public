@@ -30,7 +30,7 @@ export default function AuthDialog({
   const intl = useIntl();
 
   return (
-    <Dialog.Root placement="center">
+    <Dialog.Root placement="center" size="sm">
       <Dialog.Trigger asChild>
         {children ?? (
           <Button variant="outline">
