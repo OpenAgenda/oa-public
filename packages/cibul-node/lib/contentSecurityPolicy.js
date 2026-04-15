@@ -4,11 +4,7 @@ export const defaultDirectives = {
   baseUri: ["'none'"],
   defaultSrc: ["'none'"],
   frameAncestors: ["'self'"],
-  fontSrc: [
-    "'self'",
-    'https://cdn.openagenda.com/static/',
-    'https://cdn.openagenda.com/static/',
-  ],
+  fontSrc: ["'self'", 'https://cdn.openagenda.com/static/'],
   imgSrc: [
     "'self'",
     'https:',
