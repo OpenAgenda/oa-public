@@ -4,14 +4,12 @@ import '@fortawesome/fontawesome-svg-core/styles.css';
 import '@openagenda/react-shared/css/react-date-range.css';
 
 import { cookies } from 'next/headers';
-import { trace } from '@opentelemetry/api';
 import type { Metadata, Viewport } from 'next';
 import { getLocaleValue } from '@openagenda/intl';
 import * as metas from 'config/metas';
 import AppLayout from 'components/app/Layout';
 import getLocale from 'utils/getLocale';
 import getNonce from 'utils/getNonce';
-import getSession from 'utils/getSession';
 import fetchLocale from './locales';
 import fetchExternalLocale from './locales/external';
 import AppProviders from './AppProviders';
@@ -53,16 +51,6 @@ export default async function RootLayout({
   const intlMessages = { ...externalMessages, ...appMessages };
   const cookieStore = await cookies();
   const cookieHeader = cookieStore.toString();
-
-  // Enrich the active request span with session info so request logs and
-  // downstream child spans carry `user.uid` / `session.id` (matches the
-  // equivalent setup that lived in Pages Router's `_app.tsx:getInitialProps`).
-  const session = getSession(cookieStore);
-  const span = trace.getActiveSpan();
-  if (span) {
-    if (session?.sessionId) span.setAttribute('session.id', session.sessionId);
-    if (session?.user?.uid) span.setAttribute('user.uid', session.user.uid);
-  }
 
   return (
     <html lang={locale} style={{ colorScheme: 'light' }} data-theme="light">

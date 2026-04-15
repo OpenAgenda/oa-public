@@ -128,8 +128,15 @@ export async function proxy(req: NextRequest) {
   const acceptLanguage = parseAcceptLanguage(
     req.headers.get('Accept-Language'),
   );
-  const userLocale = getSession(req.cookies)?.user?.culture;
+  const session = getSession(req.cookies);
+  const userLocale = session?.user?.culture;
   const qsLocale = req.nextUrl.searchParams.get('lang');
+
+  // Note: no span enrichment here. The middleware runs in its own root
+  // trace (`BaseServer.handleRequest` with `next.bubble: true`) which the
+  // request-log processor filters out. Session enrichment for the logged
+  // page render span is done by `SessionAttributesSpanProcessor` from the
+  // captured `oa.user` cookie header attribute.
 
   // Extract locale from URL path (first segment) — i18n config is disabled so
   // we handle locale detection manually here.

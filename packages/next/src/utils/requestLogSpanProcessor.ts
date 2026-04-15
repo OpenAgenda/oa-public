@@ -62,9 +62,9 @@ function humanSize(bytes: number, precision: number) {
  * Replaces the old `logRequest` middleware (morgan on a custom server),
  * which no longer has a place in App Router where Next owns the HTTP server.
  *
- * `user.uid` and `session.id` attributes are set upstream in proxy.ts via
- * `trace.getActiveSpan()?.setAttribute(...)` and propagated across children
- * by InheritedAttributesSpanProcessor.
+ * `session.id` and `user.uid` are set on the same root span by
+ * `SessionAttributesSpanProcessor` (registered before this one so its
+ * `onEnd` runs first in registration order). We simply read them here.
  */
 export class RequestLogSpanProcessor implements SpanProcessor {
   // eslint-disable-next-line class-methods-use-this
@@ -80,6 +80,14 @@ export class RequestLogSpanProcessor implements SpanProcessor {
     // independent of the `next.span_type` internal attribute.
     if (span.kind !== SpanKind.SERVER) return;
     if (span.parentSpanContext && !span.parentSpanContext.isRemote) return;
+    // Skip the middleware-only root span. Next.js creates a separate root
+    // `BaseServer.handleRequest` trace for the middleware (proxy.ts) pass,
+    // which throws a BubbledError to signal "continue"; the tracer tags that
+    // span with `next.bubble: true`. The subsequent page render creates its
+    // own root span that we do want to log. Without this filter we emit two
+    // request log lines per page view (one for the middleware trace, one for
+    // the page route).
+    if (span.attributes['next.bubble'] === true) return;
 
     // OTel HTTP semconv was renamed in v1.27 (stable 2024). Read both names
     // so logs survive whenever Next's instrumentation migrates.

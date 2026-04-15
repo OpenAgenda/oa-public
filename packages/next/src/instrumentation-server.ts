@@ -30,18 +30,23 @@ import {
   SentrySampler,
 } from '@sentry/opentelemetry';
 import { RequestLogSpanProcessor } from './utils/requestLogSpanProcessor';
+import { SessionAttributesSpanProcessor } from './utils/sessionAttributesSpanProcessor';
 
-const SENTRY_DSN =
-  process.env.SENTRY_DSN ||
-  process.env.NEXT_PUBLIC_SENTRY_DSN ||
-  'https://5fe9d785fe8c43d2aac6372740474a4d@o60122.ingest.sentry.io/128991';
-const ENV = process.env.NODE_ENV;
-
-if (process.env.NODE_ENV !== 'production') {
-  // Optional: For internal OpenTelemetry debugging
-  diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
-}
-
+/**
+ * Copies a whitelist of attributes from parent span → child span at onStart.
+ * General-purpose propagator kept around because it is cheap and future-
+ * proofs any attribute that a parent sets at/before its own onStart (e.g.
+ * a future tenant.id, feature-flag variant, …).
+ *
+ * NOTE: it does NOT propagate `session.id` / `user.uid` today. Those are
+ * populated by `SessionAttributesSpanProcessor` at the root span's `onEnd`
+ * (the `oa.user` cookie attribute only lands after onStart, see that
+ * processor's JSDoc), by which time all children have already started and
+ * most have ended — too late to inherit. Child spans therefore do not
+ * receive user context in Sentry/OTLP traces; only the root span (and the
+ * request log) does. Accepted trade-off: the request log is the primary
+ * consumer and it reads from the root span directly.
+ */
 class InheritedAttributesSpanProcessor implements SpanProcessor {
   private _attributeKeys: string[];
 
@@ -51,7 +56,6 @@ class InheritedAttributesSpanProcessor implements SpanProcessor {
 
   // eslint-disable-next-line class-methods-use-this
   forceFlush(): Promise<void> {
-    // no-op
     return Promise.resolve();
   }
 
@@ -60,10 +64,12 @@ class InheritedAttributesSpanProcessor implements SpanProcessor {
 
     if (parentSpan && 'attributes' in parentSpan) {
       for (const key of this._attributeKeys) {
-        const value = parentSpan.attributes[key];
+        const value = (
+          parentSpan as unknown as { attributes: Record<string, unknown> }
+        ).attributes[key];
 
         if (value !== undefined && value !== null) {
-          span.setAttribute(key, value);
+          span.setAttribute(key, value as string | number | boolean);
         }
       }
     }
@@ -75,13 +81,23 @@ class InheritedAttributesSpanProcessor implements SpanProcessor {
   }
 
   // eslint-disable-next-line class-methods-use-this
-
   shutdown(): Promise<void> {
     return Promise.resolve();
   }
 }
 
 const INHERITED_ATTRIBUTES = ['session.id', 'user.uid'];
+
+const SENTRY_DSN =
+  process.env.SENTRY_DSN ||
+  process.env.NEXT_PUBLIC_SENTRY_DSN ||
+  'https://5fe9d785fe8c43d2aac6372740474a4d@o60122.ingest.sentry.io/128991';
+const ENV = process.env.NODE_ENV;
+
+if (process.env.NODE_ENV !== 'production') {
+  // Optional: For internal OpenTelemetry debugging
+  diag.setLogger(new DiagConsoleLogger(), DiagLogLevel.INFO);
+}
 
 const sentryClient = init({
   dsn: SENTRY_DSN,
@@ -133,10 +149,24 @@ const sdk = new NodeSDK({
   }),
   sampler: new SentrySampler(sentryClient),
   spanProcessors: [
+    // General-purpose parent→child attribute propagator. Does NOT carry
+    // session.id / user.uid today (those are set at root-span onEnd, after
+    // children are already underway — see SessionAttributesSpanProcessor and
+    // InheritedAttributesSpanProcessor JSDoc). Kept in place as a no-cost
+    // hook for any future attribute that lands on the parent at/before
+    // onStart.
     new InheritedAttributesSpanProcessor(INHERITED_ATTRIBUTES),
+    // Must run before RequestLogSpanProcessor: it decodes the `oa.user`
+    // cookie from the root span's `http.request.header.cookie.oa.user`
+    // attribute (set by Sentry's HTTP integration) and writes session.id /
+    // user.uid onto the same span so the log processor can read them.
+    // This is the only path that works for RSC soft navigations, where
+    // RootLayout is cached and cannot enrich the span.
+    new SessionAttributesSpanProcessor(),
     new SentrySpanProcessor(),
-    // Morgan-style per-request log → @openagenda/logs → InsightOps, enriched
-    // with user.uid + session.id propagated from the proxy.
+    // Morgan-style per-request log → @openagenda/logs → InsightOps,
+    // enriched with user.uid + session.id populated by
+    // SessionAttributesSpanProcessor above.
     new RequestLogSpanProcessor(),
     process.env.NEXT_OTEL_EXPORTER_OTLP_ENDPOINT
       ? new BatchSpanProcessor(
