@@ -1,0 +1,12 @@
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": "Ouzhpennañ un darvoud",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "Bodañ",
+  "next.views.AgendaShow.AgendaHeader.contact": "Mont e darempred",
+  "next.views.AgendaShow.AgendaHeader.export": "Ezporzhiañ",
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "Deiziataer ofisiel",
+  "next.views.AgendaShow.EventItem.addToFavorites": "Ouzhpennañ d'ar pennrolloù",
+  "next.views.AgendaShow.EventItem.featured": "Keleier pennañ",
+  "next.views.AgendaShow.EventItem.removeFromFavorites": "Lemel eus ar pennrolloù",
+  "next.views.AgendaShow.EventItem.share": "Skignañ",
+  "next.views.AgendaShow.Favorites.favorites": "Pennrolloù"
+}

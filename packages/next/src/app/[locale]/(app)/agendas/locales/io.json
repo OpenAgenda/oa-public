@@ -1,0 +1,10 @@
+{
+  "next.views.AgendaSearch.bigTotal": "crwdns33452:0limit={limit}crwdne33452:0",
+  "next.views.AgendaSearch.latestUpdated": "crwdns33454:0crwdne33454:0",
+  "next.views.AgendaSearch.pageTitle": "crwdns33456:0crwdne33456:0",
+  "next.views.AgendaSearch.passedEvents": "crwdns33458:0count={count}crwdne33458:0",
+  "next.views.AgendaSearch.searchResultHead": "crwdns33460:0{search}crwdne33460:0",
+  "next.views.AgendaSearch.seeMore": "crwdns33462:0crwdne33462:0",
+  "next.views.AgendaSearch.total": "crwdns33464:0count={count}crwdne33464:0",
+  "next.views.AgendaSearch.upcomingEvents": "crwdns33466:0count={count}crwdne33466:0"
+}

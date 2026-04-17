@@ -3,15 +3,21 @@
 import { Suspense } from 'react';
 import Announcement from 'components/Announcement';
 import SentryErrorBoundary from 'components/SentryErrorBoundary';
-import Navbar from './Navbar';
+import DefaultNavbar from './Navbar';
 import FlashAlert from './FlashAlert';
 
-export default function AppLayout({ children }: { children: React.ReactNode }) {
+interface AppLayoutProps {
+  children: React.ReactNode;
+  navbar?: React.ReactNode;
+}
+
+export default function AppLayout({
+  children,
+  navbar = <DefaultNavbar />,
+}: AppLayoutProps) {
   return (
     <>
-      <Suspense>
-        <Navbar />
-      </Suspense>
+      <Suspense>{navbar}</Suspense>
       <Announcement />
       <FlashAlert />
       <SentryErrorBoundary>{children}</SentryErrorBoundary>

@@ -1,0 +1,54 @@
+{
+  "next.views.AgendaShow.AggregateModal.createAgenda": [
+    {
+      "type": 0,
+      "value": "Creare un'agenda"
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.noAgenda": [
+    {
+      "type": 0,
+      "value": "Attenzione: Al momento non si sta amministrando alcuna agenda. È necessario crearne una prima di poter aggregare "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.shouldConnect": [
+    {
+      "type": 0,
+      "value": "È necessario accedere al proprio account per aggregare questa agenda."
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.signin": [
+    {
+      "type": 0,
+      "value": "Accedi"
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.subtitle": [
+    {
+      "type": 0,
+      "value": "Gli eventi pubblicati da "
+    },
+    {
+      "type": 1,
+      "value": "agenda"
+    },
+    {
+      "type": 0,
+      "value": " saranno aggiunti automaticamente all'agenda selezionata."
+    }
+  ],
+  "next.views.AgendaShow.AggregateModal.title": [
+    {
+      "type": 0,
+      "value": "Aggregare in un altro agenda"
+    }
+  ]
+}

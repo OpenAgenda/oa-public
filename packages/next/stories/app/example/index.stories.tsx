@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import ExamplePage from '@/src/app/[locale]/example/page';
+import ExamplePage from '@/src/app/[locale]/(app)/example/page';
 import AppLayout from 'components/app/Layout';
 import fetchLocale from 'app/locales';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';

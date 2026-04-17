@@ -1,0 +1,408 @@
+{
+  "next.views.AgendaShow.ContextBar.complete": [
+    {
+      "type": 0,
+      "value": "Klokaat"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.contribute": [
+    {
+      "type": 0,
+      "value": "Ouzhpennañ un darvoud"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.drafts": [
+    {
+      "offset": 0,
+      "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " vrouilhed"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " vrouilhed"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 vrouilhed"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " vrouilhed"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " vrouilhed"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.draftsModalInfo": [
+    {
+      "type": 0,
+      "value": "Setu ar brouilhedoù ho peus enrollet war ar c'halendrier-mañ. N'int ket gwelus evit habaskaerien ar c'halendrier. Ret eo dezho bezañ klokaat a-raok gallout bezañ habaskaet hag embannet."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.draftsModalTitle": [
+    {
+      "type": 0,
+      "value": "Brouilhedoù"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.edit": [
+    {
+      "type": 0,
+      "value": "Aozañ"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.empty": [
+    {
+      "type": 0,
+      "value": "Goullo eo ar c'halendrier-mañ"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.events": [
+    {
+      "type": 0,
+      "value": "Darvoudoù:"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.inModeration": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " en modération"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.inModerationModalInfo": [
+    {
+      "type": 0,
+      "value": "An darvoudoù da-heul a rank bezañ adwelet gant habaskaerien ar c'halendrier a-raok bezañ embannet."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.inModerationModalTitle": [
+    {
+      "type": 0,
+      "value": "Darvoudoù o vezañ moderet"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.indexed": [
+    {
+      "type": 0,
+      "value": "Menegeret"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.manage": [
+    {
+      "type": 0,
+      "value": "Merañ"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.myEvents": [
+    {
+      "type": 0,
+      "value": "Ma darvoudoù:"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.notContributed": [
+    {
+      "type": 0,
+      "value": "N'ho peus klokaat darvoud ebet war ar c'halendrier-mañ c'hoazh."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.private": [
+    {
+      "type": 0,
+      "value": "Prevez"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.published": [
+    {
+      "offset": 0,
+      "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " embannet"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " embannet"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 embannet"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " embannet"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " embannet"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.publishedModalInfo": [
+    {
+      "type": 0,
+      "value": "Embannet eo bet an darvoudoù-mañ hag int gwelus gant gweladennerien ar c'halendrier."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.publishedModalTitle": [
+    {
+      "type": 0,
+      "value": "Darvoudoù embannet"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.readyToPublish": [
+    {
+      "offset": 0,
+      "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " frest da embann"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " prest da embann"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 prest da embann"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " prest da embann"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " brest da embann"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.refused": [
+    {
+      "offset": 0,
+      "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " nac'het"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " nac'het"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 nac'het"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " nac'het"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " nac'het"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.refusedModalInfo": [
+    {
+      "type": 0,
+      "value": "An darvoudoù da-heul a zo bet adwelet gant habaskaerien ar c'halendrier hag a zo bet nac'het. Ne vint ket embannet."
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.refusedModalTitle": [
+    {
+      "type": 0,
+      "value": "Darvoudoù nac'het"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.show": [
+    {
+      "type": 0,
+      "value": "Diskouez"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.toBeModerated": [
+    {
+      "type": 1,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": " en modération"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.undefinedDescription": [
+    {
+      "type": 0,
+      "value": "Deskrivadur ebet"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.undefinedTitle": [
+    {
+      "type": 0,
+      "value": "Darvoud brouilhed hep titl"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.unindexed": [
+    {
+      "type": 0,
+      "value": "Dimenegeret"
+    }
+  ],
+  "next.views.AgendaShow.ContextBar.visibility": [
+    {
+      "type": 0,
+      "value": "Gwelusted:"
+    }
+  ]
+}

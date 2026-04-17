@@ -7,7 +7,6 @@ import { cookies } from 'next/headers';
 import type { Metadata, Viewport } from 'next';
 import { getLocaleValue } from '@openagenda/intl';
 import * as metas from 'config/metas';
-import AppLayout from 'components/app/Layout';
 import getLocale from 'utils/getLocale';
 import getNonce from 'utils/getNonce';
 import fetchLocale from './locales';
@@ -93,7 +92,7 @@ export default async function RootLayout({
             intlMessages={intlMessages}
             cookieHeader={cookieHeader}
           >
-            <AppLayout>{children}</AppLayout>
+            {children}
           </AppProviders>
         </NonceProvider>
       </body>

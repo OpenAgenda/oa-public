@@ -1,0 +1,62 @@
+{
+  "next.views.AgendaShow.AgendaHeader.addEvent": [
+    {
+      "type": 0,
+      "value": "Apondre un eveniment"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.aggregate": [
+    {
+      "type": 0,
+      "value": "Agregar"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.contact": [
+    {
+      "type": 0,
+      "value": "Contactar"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.export": [
+    {
+      "type": 0,
+      "value": "Exportar"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": [
+    {
+      "type": 0,
+      "value": "Agenda oficiala"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.addToFavorites": [
+    {
+      "type": 0,
+      "value": "Apondre als favorits"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "Meses en avant"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.removeFromFavorites": [
+    {
+      "type": 0,
+      "value": "Tirar dels favorits"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.share": [
+    {
+      "type": 0,
+      "value": "Partatjar"
+    }
+  ],
+  "next.views.AgendaShow.Favorites.favorites": [
+    {
+      "type": 0,
+      "value": "Favorits"
+    }
+  ]
+}

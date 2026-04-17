@@ -1,4 +1,4 @@
-import AgendaError from '@/src/app/[locale]/[agendaSlug]/_components/AgendaError';
+import AgendaError from '@/src/app/[locale]/(app)/[agendaSlug]/_components/AgendaError';
 import AppLayout from 'components/app/Layout';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';

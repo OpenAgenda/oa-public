@@ -1,0 +1,10 @@
+{
+  "next.views.AgendaSearch.bigTotal": "Plus de {limit, number} agendas trouvés",
+  "next.views.AgendaSearch.latestUpdated": "Agendas récemment mis à jour",
+  "next.views.AgendaSearch.pageTitle": "Recherche d'agendas",
+  "next.views.AgendaSearch.passedEvents": "{count, plural, =0 {Aucun événement passé} one {1 événement passé} other {# événements passés}}",
+  "next.views.AgendaSearch.searchResultHead": "Résultats de la recherche \"{search}\"",
+  "next.views.AgendaSearch.seeMore": "Voir plus",
+  "next.views.AgendaSearch.total": "{count, plural, =0 {Aucun agenda trouvé} one {1 agenda trouvé} other {# agendas trouvés}}",
+  "next.views.AgendaSearch.upcomingEvents": "{count, plural, =0 {Aucun événement} one {1 événement} other {# événements}} à venir"
+}

@@ -1,0 +1,10 @@
+{
+  "next.views.AgendaSearch.bigTotal": "Mai de {limit, number} agendas trobadas",
+  "next.views.AgendaSearch.latestUpdated": "Agendas mesas a jorn recentament",
+  "next.views.AgendaSearch.pageTitle": "Recerca dins las agendas",
+  "next.views.AgendaSearch.passedEvents": "{count, plural, =0 {Pas cap eveniment passat} one {1 eveniment passat} other {# eveniments passats}}",
+  "next.views.AgendaSearch.searchResultHead": "Resultats de recerca per \"{search}\"",
+  "next.views.AgendaSearch.seeMore": "Ne véser mai",
+  "next.views.AgendaSearch.total": "{total, number} {total, plural, one {agenda} other {agendas}} trobada(s)",
+  "next.views.AgendaSearch.upcomingEvents": "{count, plural, =0 {Pas d'eveniment venent} one {1 eveniment a venir} other {# eveniments a venir}}"
+}

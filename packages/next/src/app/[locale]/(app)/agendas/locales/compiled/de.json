@@ -1,0 +1,160 @@
+{
+  "next.views.AgendaSearch.bigTotal": [
+    {
+      "type": 0,
+      "value": "More than "
+    },
+    {
+      "style": null,
+      "type": 2,
+      "value": "limit"
+    },
+    {
+      "type": 0,
+      "value": " agendas found"
+    }
+  ],
+  "next.views.AgendaSearch.latestUpdated": [
+    {
+      "type": 0,
+      "value": "Recently updated agendas"
+    }
+  ],
+  "next.views.AgendaSearch.pageTitle": [
+    {
+      "type": 0,
+      "value": "Agendas search"
+    }
+  ],
+  "next.views.AgendaSearch.passedEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No passed event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 passed event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " passed events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaSearch.searchResultHead": [
+    {
+      "type": 0,
+      "value": "Search results for \""
+    },
+    {
+      "type": 1,
+      "value": "search"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "next.views.AgendaSearch.seeMore": [
+    {
+      "type": 0,
+      "value": "Mehr sehen"
+    }
+  ],
+  "next.views.AgendaSearch.total": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No agenda found"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 agenda found"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " agendas found"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaSearch.upcomingEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Keine bevorstehende veranstaltung"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 bevorstehende veranstaltung"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " bevorstehende veranstaltungen"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ]
+}

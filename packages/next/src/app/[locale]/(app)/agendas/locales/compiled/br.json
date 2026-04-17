@@ -1,0 +1,208 @@
+{
+  "next.views.AgendaSearch.bigTotal": [
+    {
+      "type": 0,
+      "value": "Muioc'h eget "
+    },
+    {
+      "style": null,
+      "type": 2,
+      "value": "limit"
+    },
+    {
+      "type": 0,
+      "value": " deiziataer kavet"
+    }
+  ],
+  "next.views.AgendaSearch.latestUpdated": [
+    {
+      "type": 0,
+      "value": "Deiziataerioù nevesaet nevez zo"
+    }
+  ],
+  "next.views.AgendaSearch.pageTitle": [
+    {
+      "type": 0,
+      "value": "Klask deiziataerioù"
+    }
+  ],
+  "next.views.AgendaSearch.passedEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " Darvoud tremenet"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud tremenet"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud tremenet"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaSearch.searchResultHead": [
+    {
+      "type": 0,
+      "value": "Disoc'hoù ar c'hlask evit \""
+    },
+    {
+      "type": 1,
+      "value": "search"
+    },
+    {
+      "type": 0,
+      "value": "\""
+    }
+  ],
+  "next.views.AgendaSearch.seeMore": [
+    {
+      "type": 0,
+      "value": "Gwelet muioc'h"
+    }
+  ],
+  "next.views.AgendaSearch.total": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Deiziataer ebet kavet"
+            }
+          ]
+        },
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " deiziataer kavet"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " deiziataer kavet"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " deiziataer kavet"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " deiziataer kavet"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " deiziataer kavet"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaSearch.upcomingEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " Darvoud ebet o tont"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud o tont"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud o tont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ]
+}

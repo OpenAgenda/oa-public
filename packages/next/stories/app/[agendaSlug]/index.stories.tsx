@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw';
-import AgendaShow from '@/src/app/[locale]/[agendaSlug]/_components/AgendaShow';
+import AgendaShow from '@/src/app/[locale]/(app)/[agendaSlug]/_components/AgendaShow';
 import AppLayout from 'components/app/Layout';
 import { Agenda } from 'types';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';

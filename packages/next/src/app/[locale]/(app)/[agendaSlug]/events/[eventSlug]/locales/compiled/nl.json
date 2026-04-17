@@ -1,0 +1,906 @@
+{
+  "next.views.EventShow.Activities.seeMore": [
+    {
+      "type": 0,
+      "value": "Meer zien"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noFile": [
+    {
+      "type": 0,
+      "value": "Bestand niet geladen"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noImage": [
+    {
+      "type": 0,
+      "value": "Afbeelding niet geladen"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noInput": [
+    {
+      "type": 0,
+      "value": "Geen invoer"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noSelection": [
+    {
+      "type": 0,
+      "value": "Geen selectie"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.restrictedInformation": [
+    {
+      "type": 0,
+      "value": "Beperkte informatie"
+    }
+  ],
+  "next.views.EventShow.AgendaHeader.showAllEvents": [
+    {
+      "type": 0,
+      "value": "Bekijk alle evenementen"
+    }
+  ],
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": [
+    {
+      "type": 0,
+      "value": "View network agendas"
+    }
+  ],
+  "next.views.EventShow.ContextBar.backToDashboard": [
+    {
+      "type": 0,
+      "value": "Terug naar het dashboard"
+    }
+  ],
+  "next.views.EventShow.ContextBar.cancel": [
+    {
+      "type": 0,
+      "value": "Annuleren"
+    }
+  ],
+  "next.views.EventShow.ContextBar.clearStatus": [
+    {
+      "type": 0,
+      "value": "Wis de status van het evenement"
+    }
+  ],
+  "next.views.EventShow.ContextBar.clearStatusInfo": [
+    {
+      "type": 0,
+      "value": "Het evenement is niet geannuleerd, noch verplaatst, enz…"
+    }
+  ],
+  "next.views.EventShow.ContextBar.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact met beheerders"
+    }
+  ],
+  "next.views.EventShow.ContextBar.delete": [
+    {
+      "type": 0,
+      "value": "Verwijderen"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteConfirmation": [
+    {
+      "type": 0,
+      "value": "Weet je zeker dat je dit evenement wilt verwijderen?"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteEvent": [
+    {
+      "type": 0,
+      "value": "Evenement verwijderen"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteEventInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement permanent verwijderen uit OpenAgenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.duplicate": [
+    {
+      "type": 0,
+      "value": "Dupliceren"
+    }
+  ],
+  "next.views.EventShow.ContextBar.duplicateInfo": [
+    {
+      "type": 0,
+      "value": "Laad een nieuw evenementformulier dat vooraf is ingevuld met de gegevens van dit evenement"
+    }
+  ],
+  "next.views.EventShow.ContextBar.edit": [
+    {
+      "type": 0,
+      "value": "Bewerken"
+    }
+  ],
+  "next.views.EventShow.ContextBar.editEvent": [
+    {
+      "type": 0,
+      "value": "Evenement bewerken"
+    }
+  ],
+  "next.views.EventShow.ContextBar.editLocation": [
+    {
+      "type": 0,
+      "value": "Locatie bewerken"
+    }
+  ],
+  "next.views.EventShow.ContextBar.feature": [
+    {
+      "type": 0,
+      "value": "Uitgelicht maken"
+    }
+  ],
+  "next.views.EventShow.ContextBar.featured": [
+    {
+      "type": 0,
+      "value": "Uitgelicht"
+    }
+  ],
+  "next.views.EventShow.ContextBar.featuredInfo": [
+    {
+      "type": 0,
+      "value": "Een uitgelicht evenement verschijnt bovenaan de lijst"
+    }
+  ],
+  "next.views.EventShow.ContextBar.fixEvent": [
+    {
+      "type": 0,
+      "value": "Fix event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEvent": [
+    {
+      "type": 0,
+      "value": "The event is invalid"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEventMessage": [
+    {
+      "type": 0,
+      "value": "Bewerk het evenement om het probleem op te lossen voordat u opnieuw probeert de status te wijzigen. U kunt het ook volledig uit de agenda verwijderen."
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsCancelled": [
+    {
+      "type": 0,
+      "value": "Het evenement is geannuleerd"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsCancelledStatus": [
+    {
+      "type": 0,
+      "value": "Het evenement is permanent geannuleerd"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsFull": [
+    {
+      "type": 0,
+      "value": "Het evenement is volgeboekt"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsFullStatus": [
+    {
+      "type": 0,
+      "value": "Het evenement accepteert geen nieuwe deelnemers meer"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsMovedOnline": [
+    {
+      "type": 0,
+      "value": "Het evenement vindt online plaats"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsMovedOnlineStatus": [
+    {
+      "type": 0,
+      "value": "Het evenement kan niet langer fysiek worden bijgewoond"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsPostponed": [
+    {
+      "type": 0,
+      "value": "Het evenement is uitgesteld"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsPostponedStatus": [
+    {
+      "type": 0,
+      "value": "Het evenement is uitgesteld naar nog onbekende data"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsRescheduled": [
+    {
+      "type": 0,
+      "value": "Het evenement is verplaatst"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsRescheduledInfo": [
+    {
+      "type": 0,
+      "value": "De tijden van het evenement zijn gewijzigd"
+    }
+  ],
+  "next.views.EventShow.ContextBar.motive": [
+    {
+      "type": 0,
+      "value": "Reden"
+    }
+  ],
+  "next.views.EventShow.ContextBar.otherActions": [
+    {
+      "type": 0,
+      "value": "Andere acties"
+    }
+  ],
+  "next.views.EventShow.ContextBar.otherActionsInfo": [
+    {
+      "type": 0,
+      "value": "Uitlichten, annuleren, uitstellen, dupliceren..."
+    }
+  ],
+  "next.views.EventShow.ContextBar.publishedContributorInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement is gepubliceerd en wordt weergegeven op de agenda."
+    }
+  ],
+  "next.views.EventShow.ContextBar.publishedInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement is zichtbaar op de agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.readyToPublishContributorInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement is gevalideerd door moderatoren. Het wordt gepubliceerd zonder verdere wijzigingen."
+    }
+  ],
+  "next.views.EventShow.ContextBar.readyToPublishInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement is gemodereerd en is klaar om te worden gepubliceerd"
+    }
+  ],
+  "next.views.EventShow.ContextBar.refusedContributorInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement is afgewezen door de agendabeheerders en wordt niet gepubliceerd."
+    }
+  ],
+  "next.views.EventShow.ContextBar.refusedInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement is niet compatibel met de agenda en wordt niet gepubliceerd"
+    }
+  ],
+  "next.views.EventShow.ContextBar.remove": [
+    {
+      "type": 0,
+      "value": "Verwijderen"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeConfirmation": [
+    {
+      "type": 0,
+      "value": "Weet u zeker dat u dit evenement wilt verwijderen?"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeEvent": [
+    {
+      "type": 0,
+      "value": "Verwijderen uit agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeEventInfo": [
+    {
+      "type": 0,
+      "value": "Het evenement wordt niet langer vermeld op de agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.requestEditionRights": [
+    {
+      "type": 0,
+      "value": "Bewerkingsrechten aanvragen"
+    }
+  ],
+  "next.views.EventShow.ContextBar.requestEditionRightsInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement komt uit een andere agenda. Bewerkingsrechten zijn nodig om de hoofdvelden te kunnen wijzigen (bijv: titel, beschrijving, tijden...)"
+    }
+  ],
+  "next.views.EventShow.ContextBar.state": [
+    {
+      "type": 0,
+      "value": "Status:"
+    }
+  ],
+  "next.views.EventShow.ContextBar.suggestLocationChange": [
+    {
+      "type": 0,
+      "value": "Een wijziging op de locatie voorstellen"
+    }
+  ],
+  "next.views.EventShow.ContextBar.toModerateContributorInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement wordt geverifieerd door beheerders voordat het wordt gepubliceerd."
+    }
+  ],
+  "next.views.EventShow.ContextBar.toModerateInfo": [
+    {
+      "type": 0,
+      "value": "Dit evenement moet worden geverifieerd en is niet klaar voor publicatie"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnership": [
+    {
+      "type": 0,
+      "value": "Eigendom overdragen"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": [
+    {
+      "type": 0,
+      "value": "Draag het eigendom van het evenement over aan een ander lid van de agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": [
+    {
+      "type": 0,
+      "value": "Eigendom overdragen is alleen mogelijk als u bewerkingsrechten heeft voor het evenement"
+    }
+  ],
+  "next.views.EventShow.ContextBar.unfeature": [
+    {
+      "type": 0,
+      "value": "Uitlichten ongedaan maken"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.contributor": [
+    {
+      "type": 0,
+      "value": "Bijdrager"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.edit": [
+    {
+      "type": 0,
+      "value": "Bewerken"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.emptyMember": [
+    {
+      "type": 0,
+      "value": "Contact sheet not informed"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.meEdit": [
+    {
+      "type": 0,
+      "value": "Edit my information"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.privateInformation": [
+    {
+      "type": 0,
+      "value": "Privé-informatie"
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.bigSentence": [
+    {
+      "type": 0,
+      "value": "U staat op het punt een nieuw evenement aan te maken op basis van een voorgaand evenement."
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.createNewEventIn": [
+    {
+      "type": 0,
+      "value": "Maak het nieuwe evenement aan in"
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.or": [
+    {
+      "type": 0,
+      "value": "Of"
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.reminder": [
+    {
+      "type": 0,
+      "value": "Herinnering: een enkel evenement kan gedeeld worden over meerdere agenda's. Maak geen duplicaat! Dupliceren maakt een andere aankondiging, meestal voor een nieuwe editie elders in tijd of ruimte, zonder kopiëren en plakken."
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.selectAnAgenda": [
+    {
+      "type": 0,
+      "value": "Een agenda selecteren"
+    }
+  ],
+  "next.views.EventShow.EditLocationButton.editLocation": [
+    {
+      "type": 0,
+      "value": "Locatie bewerken"
+    }
+  ],
+  "next.views.EventShow.EmailConfirmationAlert.close": [
+    {
+      "type": 0,
+      "value": "Schließen"
+    }
+  ],
+  "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
+    {
+      "type": 0,
+      "value": "Evenement delen"
+    }
+  ],
+  "next.views.EventShow.EmailConfirmationAlert.shareEventInfo": [
+    {
+      "type": 0,
+      "value": "Het evenement is verzonden naar "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " e-mailadres"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " e-mailadressen"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.views.EventShow.Footer.help": [
+    {
+      "type": 0,
+      "value": "Hulp"
+    }
+  ],
+  "next.views.EventShow.Footer.termsOfUse": [
+    {
+      "type": 0,
+      "value": "Gebruiksvoorwaarden"
+    }
+  ],
+  "next.views.EventShow.Inbox.inbox": [
+    {
+      "type": 0,
+      "value": "Postvak IN"
+    }
+  ],
+  "next.views.EventShow.LocationHistory.locationHistory": [
+    {
+      "type": 0,
+      "value": "Locatiegeschiedenis"
+    }
+  ],
+  "next.views.EventShow.LocationHistory.noActivity": [
+    {
+      "type": 0,
+      "value": "geen activiteit"
+    }
+  ],
+  "next.views.EventShow.LocationHistory.showHistory": [
+    {
+      "type": 0,
+      "value": "Geschiedenis bekijken"
+    }
+  ],
+  "next.views.EventShow.NavigationButton.nextEvent": [
+    {
+      "type": 0,
+      "value": "Volgend evenement"
+    }
+  ],
+  "next.views.EventShow.NavigationButton.previousEvent": [
+    {
+      "type": 0,
+      "value": "Vorig evenement"
+    }
+  ],
+  "next.views.EventShow.ShareModal.byEmailSub": [
+    {
+      "type": 0,
+      "value": "The event will not be sent to more than 50 recipients"
+    }
+  ],
+  "next.views.EventShow.ShareModal.copied": [
+    {
+      "type": 0,
+      "value": "Gekopieerd"
+    }
+  ],
+  "next.views.EventShow.ShareModal.copy": [
+    {
+      "type": 0,
+      "value": "Kopiëren"
+    }
+  ],
+  "next.views.EventShow.ShareModal.import": [
+    {
+      "type": 0,
+      "value": "Importeren"
+    }
+  ],
+  "next.views.EventShow.ShareModal.mustSignIn": [
+    {
+      "type": 0,
+      "value": "U moet inloggen om dit evenement in een andere agenda te delen"
+    }
+  ],
+  "next.views.EventShow.ShareModal.onOA": [
+    {
+      "type": 0,
+      "value": "Op OpenAgenda"
+    }
+  ],
+  "next.views.EventShow.ShareModal.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ],
+  "next.views.EventShow.ShareModal.selectTiming": [
+    {
+      "type": 0,
+      "value": "Selecteer een tijdstip"
+    }
+  ],
+  "next.views.EventShow.ShareModal.send": [
+    {
+      "type": 0,
+      "value": "Verzenden"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareByEmail": [
+    {
+      "type": 0,
+      "value": "Via e-mail delen"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareByEmailPlaceholder": [
+    {
+      "type": 0,
+      "value": "Typ de e-mailadressen waarnaar u het evenement wilt verzenden"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareCalendar": [
+    {
+      "type": 0,
+      "value": "Importeren in een persoonlijke kalender"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share / Export the event"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareLink": [
+    {
+      "type": 0,
+      "value": "Link delen"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareOnSocialNetworks": [
+    {
+      "type": 0,
+      "value": "Delen op sociale netwerken"
+    }
+  ],
+  "next.views.EventShow.ShareModal.signIn": [
+    {
+      "type": 0,
+      "value": "Inloggen"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessEventOnline": [
+    {
+      "type": 0,
+      "value": "Online toegang tot het evenement"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessPassOffer": [
+    {
+      "type": 0,
+      "value": "Toegang tot het pass Culture aanbod"
+    }
+  ],
+  "next.views.EventShow.Sidebar.completeLink": [
+    {
+      "type": 0,
+      "value": "Volledige link"
+    }
+  ],
+  "next.views.EventShow.Sidebar.conditions": [
+    {
+      "type": 0,
+      "value": "Voorwaarden"
+    }
+  ],
+  "next.views.EventShow.Sidebar.minToMaxYearsOld": [
+    {
+      "type": 0,
+      "value": "Van "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " tot "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " jaar"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passPublishedErrors": [
+    {
+      "type": 0,
+      "value": "The creation of the offer encountered errors"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passUnpublished": [
+    {
+      "type": 0,
+      "value": "The offer will be created upon publication of the event"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passed": [
+    {
+      "type": 0,
+      "value": "Verlopen"
+    }
+  ],
+  "next.views.EventShow.Sidebar.registerBook": [
+    {
+      "type": 0,
+      "value": "Registreren / Reserveren:"
+    }
+  ],
+  "next.views.EventShow.Sidebar.registration": [
+    {
+      "type": 0,
+      "value": "Inschrijvingstools"
+    }
+  ],
+  "next.views.EventShow.Sidebar.share": [
+    {
+      "type": 0,
+      "value": "Delen"
+    }
+  ],
+  "next.views.EventShow.Sidebar.startingAt": [
+    {
+      "type": 0,
+      "value": "Vanaf "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " jaar"
+    }
+  ],
+  "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
+    {
+      "type": 0,
+      "value": "Een wijziging op de locatie voorstellen"
+    }
+  ],
+  "next.views.EventShow.Timings.calendarNavigation": [
+    {
+      "type": 0,
+      "value": "Calendar navigation for selecting month"
+    }
+  ],
+  "next.views.EventShow.Timings.navigationByMonth": [
+    {
+      "type": 0,
+      "value": "Navigation by month"
+    }
+  ],
+  "next.views.EventShow.Timings.nextMonth": [
+    {
+      "type": 0,
+      "value": "Volgende maand"
+    }
+  ],
+  "next.views.EventShow.Timings.previousMonth": [
+    {
+      "type": 0,
+      "value": "Vorige maand"
+    }
+  ],
+  "next.views.EventShow.aboutLocation": [
+    {
+      "type": 0,
+      "value": "Over de locatie"
+    }
+  ],
+  "next.views.EventShow.access": [
+    {
+      "type": 0,
+      "value": "Toegang"
+    }
+  ],
+  "next.views.EventShow.actions": [
+    {
+      "type": 0,
+      "value": "Acties"
+    }
+  ],
+  "next.views.EventShow.additionalFieldsSectionTitle": [
+    {
+      "type": 0,
+      "value": "Additionnal information"
+    }
+  ],
+  "next.views.EventShow.backToList": [
+    {
+      "type": 0,
+      "value": "Terug naar lijst"
+    }
+  ],
+  "next.views.EventShow.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact met beheerders"
+    }
+  ],
+  "next.views.EventShow.eventNavigation": [
+    {
+      "type": 0,
+      "value": "Event navigation"
+    }
+  ],
+  "next.views.EventShow.history": [
+    {
+      "type": 0,
+      "value": "Geschiedenis"
+    }
+  ],
+  "next.views.EventShow.moreLinks": [
+    {
+      "type": 0,
+      "value": "Meer links"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirm": [
+    {
+      "type": 0,
+      "value": "Bevestigen"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirmRejection": [
+    {
+      "type": 0,
+      "value": "Afwijzing bevestigen"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motive": [
+    {
+      "type": 0,
+      "value": "Reden"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motiveInfo": [
+    {
+      "type": 0,
+      "value": "De reden wordt gepresenteerd aan de bijdrager in de notificatie die per e-mail naar hem wordt verzonden en is zichtbaar op de evenementenpagina."
+    }
+  ],
+  "next.views.EventShow.rejectModal.motivePlaceholder": [
+    {
+      "type": 0,
+      "value": "Reden voor afwijzing"
+    }
+  ],
+  "next.views.EventShow.sendAnEmail": [
+    {
+      "type": 0,
+      "value": "Stuur een e-mail"
+    }
+  ],
+  "next.views.EventShow.tags": [
+    {
+      "type": 0,
+      "value": "Tags"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.close": [
+    {
+      "type": 0,
+      "value": "Schließen"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.nameless": [
+    {
+      "type": 0,
+      "value": "Zonder naam"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.ownershipTransfered": [
+    {
+      "type": 0,
+      "value": "Het eigendom van het evenement is overgedragen."
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.transfer": [
+    {
+      "type": 0,
+      "value": "Overdragen"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": [
+    {
+      "type": 0,
+      "value": "Eigendom overdragen"
+    }
+  ],
+  "views.EventShow.contextBar.editMember": [
+    {
+      "type": 0,
+      "value": "Edit the contributor's information"
+    }
+  ],
+  "views.EventShow.contextBar.editMemberMe": [
+    {
+      "type": 0,
+      "value": "Edit my information"
+    }
+  ],
+  "views.EventShow.contextBar.invalidEventInfo": [
+    {
+      "type": 0,
+      "value": "This event does not meet the criteria defined by the agenda form. This can happen if the form configuration has changed. To correct the event, edit it."
+    }
+  ],
+  "views.EventShow.contextBar.nonCompliant": [
+    {
+      "type": 0,
+      "value": "Non-compliant"
+    }
+  ]
+}

@@ -1,0 +1,902 @@
+{
+  "next.views.EventShow.Activities.seeMore": [
+    {
+      "type": 0,
+      "value": "See more"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noFile": [
+    {
+      "type": 0,
+      "value": "No file is loaded"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noImage": [
+    {
+      "type": 0,
+      "value": "No image is loaded"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noInput": [
+    {
+      "type": 0,
+      "value": "No input"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.noSelection": [
+    {
+      "type": 0,
+      "value": "No selection"
+    }
+  ],
+  "next.views.EventShow.AdditionalFields.restrictedInformation": [
+    {
+      "type": 0,
+      "value": "Restricted information"
+    }
+  ],
+  "next.views.EventShow.AgendaHeader.showAllEvents": [
+    {
+      "type": 0,
+      "value": "Show all events"
+    }
+  ],
+  "next.views.EventShow.AgendaHeader.viewNetworkAgendas": [
+    {
+      "type": 0,
+      "value": "View network agendas"
+    }
+  ],
+  "next.views.EventShow.ContextBar.backToDashboard": [
+    {
+      "type": 0,
+      "value": "Back to dashboard"
+    }
+  ],
+  "next.views.EventShow.ContextBar.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "next.views.EventShow.ContextBar.clearStatus": [
+    {
+      "type": 0,
+      "value": "Clear the status of the event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.clearStatusInfo": [
+    {
+      "type": 0,
+      "value": "The event is not cancelled, nor rescheduled, etc…"
+    }
+  ],
+  "next.views.EventShow.ContextBar.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact administrators"
+    }
+  ],
+  "next.views.EventShow.ContextBar.delete": [
+    {
+      "type": 0,
+      "value": "Delete"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteConfirmation": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to delete this event?"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteEvent": [
+    {
+      "type": 0,
+      "value": "Delete event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteEventInfo": [
+    {
+      "type": 0,
+      "value": "Permanently delete this event from OpenAgenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.duplicate": [
+    {
+      "type": 0,
+      "value": "Duplicate"
+    }
+  ],
+  "next.views.EventShow.ContextBar.duplicateInfo": [
+    {
+      "type": 0,
+      "value": "Load a new event form pre-filled with the details from this event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.edit": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
+  "next.views.EventShow.ContextBar.editEvent": [
+    {
+      "type": 0,
+      "value": "Edit event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.editLocation": [
+    {
+      "type": 0,
+      "value": "Edit location"
+    }
+  ],
+  "next.views.EventShow.ContextBar.feature": [
+    {
+      "type": 0,
+      "value": "Feature"
+    }
+  ],
+  "next.views.EventShow.ContextBar.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
+  ],
+  "next.views.EventShow.ContextBar.featuredInfo": [
+    {
+      "type": 0,
+      "value": "A featured event appears at the top of the list"
+    }
+  ],
+  "next.views.EventShow.ContextBar.fixEvent": [
+    {
+      "type": 0,
+      "value": "Fix event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEvent": [
+    {
+      "type": 0,
+      "value": "The event is invalid"
+    }
+  ],
+  "next.views.EventShow.ContextBar.invalidEventMessage": [
+    {
+      "type": 0,
+      "value": "Edit the event to fix the problem before attempting to change its state again. Alternatively, remove it altogether from the agenda."
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsCancelled": [
+    {
+      "type": 0,
+      "value": "The event is cancelled"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsCancelledStatus": [
+    {
+      "type": 0,
+      "value": "The event has been permanently cancelled"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsFull": [
+    {
+      "type": 0,
+      "value": "The event is fully booked"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsFullStatus": [
+    {
+      "type": 0,
+      "value": "New participants are no longer accepted to the event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsMovedOnline": [
+    {
+      "type": 0,
+      "value": "The event was moved online"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsMovedOnlineStatus": [
+    {
+      "type": 0,
+      "value": "The event will no longer be attended to at a physical location"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsPostponed": [
+    {
+      "type": 0,
+      "value": "The event is postponed"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsPostponedStatus": [
+    {
+      "type": 0,
+      "value": "The event has been postponed to dates not yet known"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsRescheduled": [
+    {
+      "type": 0,
+      "value": "The event was rescheduled"
+    }
+  ],
+  "next.views.EventShow.ContextBar.markAsRescheduledInfo": [
+    {
+      "type": 0,
+      "value": "The timings of the event have been modified"
+    }
+  ],
+  "next.views.EventShow.ContextBar.motive": [
+    {
+      "type": 0,
+      "value": "Motive"
+    }
+  ],
+  "next.views.EventShow.ContextBar.otherActions": [
+    {
+      "type": 0,
+      "value": "Other actions"
+    }
+  ],
+  "next.views.EventShow.ContextBar.otherActionsInfo": [
+    {
+      "type": 0,
+      "value": "Feature, cancel, postpone, duplicate..."
+    }
+  ],
+  "next.views.EventShow.ContextBar.publishedContributorInfo": [
+    {
+      "type": 0,
+      "value": "This event is published and displayed on the agenda."
+    }
+  ],
+  "next.views.EventShow.ContextBar.publishedInfo": [
+    {
+      "type": 0,
+      "value": "This event is visible on the agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.readyToPublishContributorInfo": [
+    {
+      "type": 0,
+      "value": "This event has been validated by moderators. It will be published without further changes."
+    }
+  ],
+  "next.views.EventShow.ContextBar.readyToPublishInfo": [
+    {
+      "type": 0,
+      "value": "This event has been verified and is ready to be published"
+    }
+  ],
+  "next.views.EventShow.ContextBar.refusedContributorInfo": [
+    {
+      "type": 0,
+      "value": "This event has been rejected by agenda administrators and will not be published."
+    }
+  ],
+  "next.views.EventShow.ContextBar.refusedInfo": [
+    {
+      "type": 0,
+      "value": "This event is not compatible with the agenda and should not be published"
+    }
+  ],
+  "next.views.EventShow.ContextBar.remove": [
+    {
+      "type": 0,
+      "value": "Remove"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeConfirmation": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to remove this event?"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeEvent": [
+    {
+      "type": 0,
+      "value": "Remove from agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeEventInfo": [
+    {
+      "type": 0,
+      "value": "The event will no longer be referenced on the agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.requestEditionRights": [
+    {
+      "type": 0,
+      "value": "Request edition rights"
+    }
+  ],
+  "next.views.EventShow.ContextBar.requestEditionRightsInfo": [
+    {
+      "type": 0,
+      "value": "This event comes from another agenda. Edition rights are required to change its main fields (ex: title, description, timings...)"
+    }
+  ],
+  "next.views.EventShow.ContextBar.state": [
+    {
+      "type": 0,
+      "value": "State:"
+    }
+  ],
+  "next.views.EventShow.ContextBar.suggestLocationChange": [
+    {
+      "type": 0,
+      "value": "Suggest a change on the location"
+    }
+  ],
+  "next.views.EventShow.ContextBar.toModerateContributorInfo": [
+    {
+      "type": 0,
+      "value": "This event will be verified by administrators prior to its publication."
+    }
+  ],
+  "next.views.EventShow.ContextBar.toModerateInfo": [
+    {
+      "type": 0,
+      "value": "This event needs to be verified and is not ready for publication"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnership": [
+    {
+      "type": 0,
+      "value": "Transfer ownership"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescription": [
+    {
+      "type": 0,
+      "value": "Hand over ownership of the event to another member of the agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.transferOwnershipDescriptionDisabled": [
+    {
+      "type": 0,
+      "value": "Transferring ownership is only possible if you have edition rights over the event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.unfeature": [
+    {
+      "type": 0,
+      "value": "Unfeature"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.contributor": [
+    {
+      "type": 0,
+      "value": "Contributor"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.edit": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.emptyMember": [
+    {
+      "type": 0,
+      "value": "Contact sheet not informed"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.meEdit": [
+    {
+      "type": 0,
+      "value": "Edit my information"
+    }
+  ],
+  "next.views.EventShow.ContributorSection.privateInformation": [
+    {
+      "type": 0,
+      "value": "Private information"
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.bigSentence": [
+    {
+      "type": 0,
+      "value": "You are about to create a new event based on a precedent."
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.createNewEventIn": [
+    {
+      "type": 0,
+      "value": "Create the new event in"
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.or": [
+    {
+      "type": 0,
+      "value": "Or"
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.reminder": [
+    {
+      "type": 0,
+      "value": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting."
+    }
+  ],
+  "next.views.EventShow.DuplicateModal.selectAnAgenda": [
+    {
+      "type": 0,
+      "value": "Select an agenda"
+    }
+  ],
+  "next.views.EventShow.EditLocationButton.editLocation": [
+    {
+      "type": 0,
+      "value": "Edit location"
+    }
+  ],
+  "next.views.EventShow.EmailConfirmationAlert.close": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share event"
+    }
+  ],
+  "next.views.EventShow.EmailConfirmationAlert.shareEventInfo": [
+    {
+      "type": 0,
+      "value": "The event was sent to "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " email address"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " email addresses"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.views.EventShow.Footer.help": [
+    {
+      "type": 0,
+      "value": "Help"
+    }
+  ],
+  "next.views.EventShow.Footer.termsOfUse": [
+    {
+      "type": 0,
+      "value": "Terms of use"
+    }
+  ],
+  "next.views.EventShow.Inbox.inbox": [
+    {
+      "type": 0,
+      "value": "Inbox"
+    }
+  ],
+  "next.views.EventShow.LocationHistory.locationHistory": [
+    {
+      "type": 0,
+      "value": "Location history"
+    }
+  ],
+  "next.views.EventShow.LocationHistory.noActivity": [
+    {
+      "type": 0,
+      "value": "no activity"
+    }
+  ],
+  "next.views.EventShow.LocationHistory.showHistory": [
+    {
+      "type": 0,
+      "value": "Show history"
+    }
+  ],
+  "next.views.EventShow.NavigationButton.nextEvent": [
+    {
+      "type": 0,
+      "value": "Next event"
+    }
+  ],
+  "next.views.EventShow.NavigationButton.previousEvent": [
+    {
+      "type": 0,
+      "value": "Previous event"
+    }
+  ],
+  "next.views.EventShow.ShareModal.byEmailSub": [
+    {
+      "type": 0,
+      "value": "The event will not be sent to more than 50 recipients"
+    }
+  ],
+  "next.views.EventShow.ShareModal.copied": [
+    {
+      "type": 0,
+      "value": "Copied"
+    }
+  ],
+  "next.views.EventShow.ShareModal.copy": [
+    {
+      "type": 0,
+      "value": "Copy"
+    }
+  ],
+  "next.views.EventShow.ShareModal.import": [
+    {
+      "type": 0,
+      "value": "Import"
+    }
+  ],
+  "next.views.EventShow.ShareModal.mustSignIn": [
+    {
+      "type": 0,
+      "value": "You must sign in to share this event on another agenda"
+    }
+  ],
+  "next.views.EventShow.ShareModal.onOA": [
+    {
+      "type": 0,
+      "value": "On OpenAgenda"
+    }
+  ],
+  "next.views.EventShow.ShareModal.online": [
+    {
+      "type": 0,
+      "value": "Online"
+    }
+  ],
+  "next.views.EventShow.ShareModal.selectTiming": [
+    {
+      "type": 0,
+      "value": "Select a timing"
+    }
+  ],
+  "next.views.EventShow.ShareModal.send": [
+    {
+      "type": 0,
+      "value": "Send"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareByEmail": [
+    {
+      "type": 0,
+      "value": "By email"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareByEmailPlaceholder": [
+    {
+      "type": 0,
+      "value": "Type the email addresses you want to send the event"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareCalendar": [
+    {
+      "type": 0,
+      "value": "Import in a personal calendar"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareEvent": [
+    {
+      "type": 0,
+      "value": "Share / Export the event"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareLink": [
+    {
+      "type": 0,
+      "value": "Share link"
+    }
+  ],
+  "next.views.EventShow.ShareModal.shareOnSocialNetworks": [
+    {
+      "type": 0,
+      "value": "On social networks"
+    }
+  ],
+  "next.views.EventShow.ShareModal.signIn": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessEventOnline": [
+    {
+      "type": 0,
+      "value": "Access the event online"
+    }
+  ],
+  "next.views.EventShow.Sidebar.accessPassOffer": [
+    {
+      "type": 0,
+      "value": "Access the pass Culture offer"
+    }
+  ],
+  "next.views.EventShow.Sidebar.completeLink": [
+    {
+      "type": 0,
+      "value": "Complete link"
+    }
+  ],
+  "next.views.EventShow.Sidebar.conditions": [
+    {
+      "type": 0,
+      "value": "Conditions"
+    }
+  ],
+  "next.views.EventShow.Sidebar.minToMaxYearsOld": [
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " to "
+    },
+    {
+      "type": 1,
+      "value": "max"
+    },
+    {
+      "type": 0,
+      "value": " years old"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passPublishedErrors": [
+    {
+      "type": 0,
+      "value": "The creation of the offer encountered errors"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passUnpublished": [
+    {
+      "type": 0,
+      "value": "The offer will be created upon publication of the event"
+    }
+  ],
+  "next.views.EventShow.Sidebar.passed": [
+    {
+      "type": 0,
+      "value": "Passed"
+    }
+  ],
+  "next.views.EventShow.Sidebar.registerBook": [
+    {
+      "type": 0,
+      "value": "Register / book:"
+    }
+  ],
+  "next.views.EventShow.Sidebar.registration": [
+    {
+      "type": 0,
+      "value": "Registration"
+    }
+  ],
+  "next.views.EventShow.Sidebar.share": [
+    {
+      "type": 0,
+      "value": "Share / Export"
+    }
+  ],
+  "next.views.EventShow.Sidebar.startingAt": [
+    {
+      "type": 0,
+      "value": "Starting at "
+    },
+    {
+      "type": 1,
+      "value": "min"
+    },
+    {
+      "type": 0,
+      "value": " years old"
+    }
+  ],
+  "next.views.EventShow.SuggestLocationChangeButton.suggestLocationChange": [
+    {
+      "type": 0,
+      "value": "Suggest a change on the location"
+    }
+  ],
+  "next.views.EventShow.Timings.calendarNavigation": [
+    {
+      "type": 0,
+      "value": "Calendar navigation for selecting month"
+    }
+  ],
+  "next.views.EventShow.Timings.navigationByMonth": [
+    {
+      "type": 0,
+      "value": "Navigation by month"
+    }
+  ],
+  "next.views.EventShow.Timings.nextMonth": [
+    {
+      "type": 0,
+      "value": "Next month"
+    }
+  ],
+  "next.views.EventShow.Timings.previousMonth": [
+    {
+      "type": 0,
+      "value": "Previous month"
+    }
+  ],
+  "next.views.EventShow.aboutLocation": [
+    {
+      "type": 0,
+      "value": "About the location"
+    }
+  ],
+  "next.views.EventShow.access": [
+    {
+      "type": 0,
+      "value": "Access"
+    }
+  ],
+  "next.views.EventShow.actions": [
+    {
+      "type": 0,
+      "value": "Actions"
+    }
+  ],
+  "next.views.EventShow.additionalFieldsSectionTitle": [
+    {
+      "type": 0,
+      "value": "Additionnal information"
+    }
+  ],
+  "next.views.EventShow.backToList": [
+    {
+      "type": 0,
+      "value": "Back to list"
+    }
+  ],
+  "next.views.EventShow.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact administrators"
+    }
+  ],
+  "next.views.EventShow.eventNavigation": [
+    {
+      "type": 0,
+      "value": "Event navigation"
+    }
+  ],
+  "next.views.EventShow.history": [
+    {
+      "type": 0,
+      "value": "History"
+    }
+  ],
+  "next.views.EventShow.moreLinks": [
+    {
+      "type": 0,
+      "value": "More links"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirm": [
+    {
+      "type": 0,
+      "value": "Confirm"
+    }
+  ],
+  "next.views.EventShow.rejectModal.confirmRejection": [
+    {
+      "type": 0,
+      "value": "Confirm rejection"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motive": [
+    {
+      "type": 0,
+      "value": "Motive"
+    }
+  ],
+  "next.views.EventShow.rejectModal.motiveInfo": [
+    {
+      "type": 0,
+      "value": "The motive will be presented to the contributor in the notification sent to him by email as well as directly associated with the status on the event page."
+    }
+  ],
+  "next.views.EventShow.rejectModal.motivePlaceholder": [
+    {
+      "type": 0,
+      "value": "Motive for rejection"
+    }
+  ],
+  "next.views.EventShow.sendAnEmail": [
+    {
+      "type": 0,
+      "value": "Send an email"
+    }
+  ],
+  "next.views.EventShow.tags": [
+    {
+      "type": 0,
+      "value": "Tags"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.close": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.nameless": [
+    {
+      "type": 0,
+      "value": "Nameless"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.ownershipTransfered": [
+    {
+      "type": 0,
+      "value": "Ownership of the event has been transferred."
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.transfer": [
+    {
+      "type": 0,
+      "value": "Transfer"
+    }
+  ],
+  "next.views.EventShow.transferOwnershipModal.transferOwnership": [
+    {
+      "type": 0,
+      "value": "Transfer ownership"
+    }
+  ],
+  "views.EventShow.contextBar.editMember": [
+    {
+      "type": 0,
+      "value": "Edit the contributor's information"
+    }
+  ],
+  "views.EventShow.contextBar.editMemberMe": [
+    {
+      "type": 0,
+      "value": "Edit my information"
+    }
+  ],
+  "views.EventShow.contextBar.invalidEventInfo": [
+    {
+      "type": 0,
+      "value": "This event does not meet the criteria defined by the agenda form. This can happen if the form configuration has changed. To correct the event, edit it."
+    }
+  ],
+  "views.EventShow.contextBar.nonCompliant": [
+    {
+      "type": 0,
+      "value": "Non-compliant"
+    }
+  ]
+}
