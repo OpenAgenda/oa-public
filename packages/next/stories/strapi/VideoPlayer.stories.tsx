@@ -1,16 +1,16 @@
 import type { StoryObj } from '@storybook/react';
 import { Container } from '@openagenda/uikit';
 import VideoPlayer from 'components/strapi/VideoPlayer';
-import StrapiPage from 'views/StrapiPage';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import FullScreenDecorator from '../decorators/FullScreenDecorator';
 import intlMessagesLoader from '../loaders/intlMessagesLoader';
+import fetchLocale from '../utils/fetchLocale';
 
 export default {
   title: 'strapi/VideoPlayer',
   component: VideoPlayer,
   decorators: [FullScreenDecorator, ProvidersDecorator],
-  loaders: [intlMessagesLoader(StrapiPage.fetchLocale)],
+  loaders: [intlMessagesLoader(fetchLocale)],
 };
 
 type Story = StoryObj<typeof VideoPlayer>;

@@ -1,4 +1,4 @@
-import { chakra, Link } from '@openagenda/uikit';
+import { Box, Link } from '@openagenda/uikit';
 import breaks from 'remark-breaks';
 import rehypeExternalLinks from 'rehype-external-links';
 import ReactMarkdown from 'react-markdown';
@@ -44,7 +44,7 @@ export default function StrapiMarkdown({
   const processedContent = children.replace(/\n/g, '\n\n');
 
   return (
-    <chakra.div
+    <Box
       flex={flex}
       css={mdStyle}
       color={color}
@@ -59,6 +59,6 @@ export default function StrapiMarkdown({
       >
         {processedContent}
       </ReactMarkdown>
-    </chakra.div>
+    </Box>
   );
 }

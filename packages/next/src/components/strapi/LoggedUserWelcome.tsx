@@ -1,3 +1,5 @@
+'use client';
+
 import { useCallback, useLayoutEffect, useState } from 'react';
 import { Box, Container, Flex, Link, CloseButton } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';

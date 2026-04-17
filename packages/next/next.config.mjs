@@ -140,17 +140,8 @@ const config = async () => {
               locale: false,
             },
             {
-              // fallback for /, will redirect to good locale
-              source: '/',
-              destination: `/strapi/accueil`,
-            },
-            {
-              source: '/p/:path*',
-              destination: `/strapi/:path*`,
-            },
-            {
-              source: '/:lang/p/:path*',
-              destination: `/strapi/:path*`,
+              source: '/:locale/p/:path*',
+              destination: `/:locale/strapi/:path*`,
             },
           ],
         };

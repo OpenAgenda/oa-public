@@ -1,3 +1,5 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import NextImage, { type ImageProps as NextImageProps } from 'next/image';
 

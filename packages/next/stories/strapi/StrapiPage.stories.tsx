@@ -1,15 +1,32 @@
 import { http, HttpResponse } from 'msw';
-import StrapiPage from 'views/StrapiPage/index';
+import StrapiPage from '@/src/app/[locale]/strapi/[pageSlug]/_components/StrapiPage';
+import StrapiPageClient from '@/src/app/[locale]/strapi/[pageSlug]/_components/StrapiPageClient';
 import intlMessagesLoader from '../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
+import fetchLocale from '../utils/fetchLocale';
 
 import userFixtures from './fixtures/user.json';
 
+const Template = ({ page, footer }: any) => (
+  <StrapiPageClient page={page}>
+    <StrapiPage page={page} footer={footer} />
+  </StrapiPageClient>
+);
+
 export default {
   title: 'strapi/StrapiPage',
-  loaders: [intlMessagesLoader(StrapiPage.fetchLocale)],
   component: StrapiPage,
+  loaders: [intlMessagesLoader(fetchLocale)],
   decorators: [ProvidersDecorator],
+  parameters: {
+    nextjs: {
+      appDirectory: true,
+      navigation: {
+        pathname: '/fr/p/accueil',
+      },
+    },
+  },
+  render: Template,
 };
 
 const page = {

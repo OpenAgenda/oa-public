@@ -31,6 +31,7 @@ const fetchSchema = async (
 
   const res = await ky(endpoint, {
     headers: { Authorization: `Bearer ${authToken}` },
+    next: { revalidate: 300 },
   }).json<SchemaResponse>();
 
   return res.data.schema.attributes;
