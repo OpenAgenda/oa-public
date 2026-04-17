@@ -53,6 +53,17 @@ describe('form-schemas -05- FormSchema', () => {
       );
     });
 
+    it('preset abstract items can be identified by slug instead of field', () => {
+      const s = new FormSchema({
+        fields: [
+          { slug: 'image', type: 'abstract', fieldType: 'abstract' },
+          { slug: 'imageCredits', type: 'abstract', fieldType: 'abstract' },
+        ],
+      });
+
+      expect(s.getFieldCount()).toBe(2);
+    });
+
     it('a FormSchema can be initialized with preset fields', () => {
       const s = new FormSchema({
         fields: [

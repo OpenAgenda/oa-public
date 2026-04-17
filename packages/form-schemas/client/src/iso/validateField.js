@@ -161,6 +161,10 @@ function validate(value, options = {}) {
 
   if (errors.length) throw errors;
 
+  if (clean.slug === undefined) {
+    clean.slug = clean.field;
+  }
+
   clean.fieldType = type;
 
   return clean;
