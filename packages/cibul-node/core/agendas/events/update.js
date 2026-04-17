@@ -256,9 +256,9 @@ async function update(core, agendaUid, eventUid, data, options = {}) {
     }
 
     if (isDraft) {
-      response = await payload.getResponse('updated', access);
+      response = await payload.getResponse('event', access);
       log('sending response for draft update');
-      return returnPayload ? response : response.updated;
+      return returnPayload ? response : response.event;
     }
 
     const formSchema = await payload.getFormSchema({ access: 'internal' });

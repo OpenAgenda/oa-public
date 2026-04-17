@@ -25,9 +25,9 @@ export default function updateEvent(req, res) {
       returnPayload: true,
     })
     .then(
-      ({ updated, times }) => {
+      ({ event, times }) => {
         req.times = times;
-        res.json({ success: true, event: updated });
+        res.json({ success: true, event });
       },
       (error) => handleError({ res, log }, error),
     );
