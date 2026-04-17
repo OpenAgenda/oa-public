@@ -10,6 +10,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "sideEffects": false,
   "main": "dist/index.js",
   "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
@@ -45,11 +46,16 @@
       "types": "./dist/snippets/*.d.ts",
       "import": "./dist/snippets/*.mjs",
       "require": "./dist/snippets/*.js"
+    },
+    "./*": {
+      "types": "./dist/*.d.ts",
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.js"
     }
   },
   "dependencies": {
-    "@chakra-ui/cli": "^3.28.0",
-    "@chakra-ui/react": "^3.28.0",
+    "@chakra-ui/cli": "^3.34.0",
+    "@chakra-ui/react": "^3.34.0",
     "@emotion/cache": "^11.14.0",
     "@emotion/react": "^11.14.0",
     "react-icons": "^5.5.0",

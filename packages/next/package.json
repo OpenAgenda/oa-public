@@ -79,7 +79,7 @@
     "leaflet": "^1.9.4",
     "lodash": "^4.17.21",
     "morgan": "^1.10.0",
-    "next": "16.2.3",
+    "next": "16.2.4",
     "qs": "^6.11.0",
     "react": "19.2.2",
     "react-content-loader": "^7.0.2",
