@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import ky, { HTTPError } from 'ky';
+import { BadRequest } from '@openagenda/verror';
 import textValidator from '@openagenda/validators/text.js';
 import linkValidator from '@openagenda/validators/link.js';
 import ParseAndTransform from './lib/parseAndTransform.js';
@@ -123,15 +124,21 @@ async function geocode(
     ).json();
   } catch (err) {
     if (err instanceof HTTPError && err.response.status === 400) {
-      const errors = [
+      throw new BadRequest(
         {
-          origin: query,
-          field: 'query',
-          code: 'query.invalid',
-          message: 'query could not be geocoded',
+          info: {
+            errors: [
+              {
+                origin: query,
+                field: 'query',
+                code: 'query.invalid',
+                message: 'query could not be geocoded',
+              },
+            ],
+          },
         },
-      ];
-      throw errors;
+        'invalid query',
+      );
     }
     throw err;
   }

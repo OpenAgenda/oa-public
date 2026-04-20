@@ -612,14 +612,20 @@ describe('opencage', () => {
 
       await expect(
         geocode(query, { countryCode: 'FR', first: true }),
-      ).rejects.toEqual([
-        {
-          origin: query,
-          field: 'query',
-          code: 'query.invalid',
-          message: 'query could not be geocoded',
+      ).rejects.toMatchObject({
+        name: 'BadRequest',
+        message: 'invalid query',
+        info: {
+          errors: [
+            {
+              origin: query,
+              field: 'query',
+              code: 'query.invalid',
+              message: 'query could not be geocoded',
+            },
+          ],
         },
-      ]);
+      });
     });
   });
 });

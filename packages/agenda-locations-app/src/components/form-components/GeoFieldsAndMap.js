@@ -91,10 +91,17 @@ const GeoFieldsAndMap = ({
 
       try {
         const response = await fetch(`${res.geocode}?${params}`);
+        const data = await response.json();
+
         if (!response.ok) {
+          if (data?.errors?.[0]?.code === 'query.invalid') {
+            setGeocodeNoResults(true);
+            setGeocodeLoading(false);
+            if (setDisabled) setDisabled(true);
+            return;
+          }
           throw new Error('Network response was not ok');
         }
-        const data = await response.json();
 
         if (!data.results[0]) {
           setGeocodeNoResults(true);

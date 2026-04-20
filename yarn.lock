@@ -11055,6 +11055,7 @@ __metadata:
     "@babel/core": "npm:^7.28.4"
     "@babel/preset-env": "npm:^7.28.3"
     "@openagenda/validators": "npm:^2.4.0"
+    "@openagenda/verror": "npm:^3.2.0"
     babel-jest: "npm:^29.7.0"
     expect: "npm:^27.0.6"
     jest: "npm:^29.7.0"
