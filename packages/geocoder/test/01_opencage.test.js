@@ -605,4 +605,21 @@ describe('opencage', () => {
       });
     });
   });
+
+  describe('error handling', () => {
+    it('throws query.invalid errors on HTTP 400 response', async () => {
+      const query = '\x00';
+
+      await expect(
+        geocode(query, { countryCode: 'FR', first: true }),
+      ).rejects.toEqual([
+        {
+          origin: query,
+          field: 'query',
+          code: 'query.invalid',
+          message: 'query could not be geocoded',
+        },
+      ]);
+    });
+  });
 });
