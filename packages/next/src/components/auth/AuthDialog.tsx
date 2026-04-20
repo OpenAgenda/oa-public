@@ -1,6 +1,6 @@
 'use client';
 
-import type { ReactNode } from 'react';
+import { useState, type ReactNode } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Button, CloseButton, Dialog, Portal } from '@openagenda/uikit';
 import Signin from './Signin';
@@ -9,6 +9,10 @@ const messages = defineMessages({
   dialogTitle: {
     id: 'next.components.auth.AuthDialog.dialogTitle',
     defaultMessage: 'Sign in',
+  },
+  dialogTitleLostPassword: {
+    id: 'next.components.auth.AuthDialog.dialogTitleLostPassword',
+    defaultMessage: 'Lost password',
   },
   triggerLabel: {
     id: 'next.components.auth.AuthDialog.triggerLabel',
@@ -28,6 +32,7 @@ export default function AuthDialog({
   reloadOnSuccess,
 }: AuthDialogProps) {
   const intl = useIntl();
+  const [view, setView] = useState<'signin' | 'lost'>('signin');
 
   return (
     <Dialog.Root placement="center" size="sm">
@@ -44,11 +49,19 @@ export default function AuthDialog({
           <Dialog.Content>
             <Dialog.Header>
               <Dialog.Title>
-                {intl.formatMessage(messages.dialogTitle)}
+                {intl.formatMessage(
+                  view === 'lost'
+                    ? messages.dialogTitleLostPassword
+                    : messages.dialogTitle,
+                )}
               </Dialog.Title>
             </Dialog.Header>
             <Dialog.Body>
-              <Signin agenda={agenda} reloadOnSuccess={reloadOnSuccess} />
+              <Signin
+                agenda={agenda}
+                reloadOnSuccess={reloadOnSuccess}
+                onViewChange={setView}
+              />
             </Dialog.Body>
             <Dialog.CloseTrigger asChild>
               <CloseButton size="sm" />

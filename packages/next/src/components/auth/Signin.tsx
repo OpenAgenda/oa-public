@@ -15,6 +15,7 @@ import {
   chakra,
   Input,
 } from '@openagenda/uikit';
+import LostPassword from './LostPassword';
 
 const messages = defineMessages({
   emailLabel: {
@@ -83,16 +84,20 @@ interface SigninProps {
   defaultLoading?: boolean;
   defaultSuccess?: boolean;
   defaultInvalidCredentials?: boolean;
+  defaultLostPassword?: boolean;
   agenda?: { slug: string; uid: string };
   reloadOnSuccess?: boolean;
+  onViewChange?: (view: 'signin' | 'lost') => void;
 }
 
 export default function Signin({
   defaultLoading = false,
   defaultSuccess = false,
   defaultInvalidCredentials = false,
+  defaultLostPassword = false,
   agenda,
   reloadOnSuccess = false,
+  onViewChange,
 }: SigninProps) {
   const intl = useIntl();
   const [email, setEmail] = useState('');
@@ -104,13 +109,29 @@ export default function Signin({
   );
   const [loading, setLoading] = useState(defaultLoading);
   const [success, setSuccess] = useState(defaultSuccess);
+  const [view, setView] = useState<'signin' | 'lost'>(
+    defaultLostPassword ? 'lost' : 'signin',
+  );
   const invalidCredentialsAlertRef = useRef<HTMLDivElement>(null);
+  const emailInputRef = useRef<HTMLInputElement>(null);
+  const prevViewRef = useRef(view);
 
   useEffect(() => {
     if (invalidCredentials) {
       invalidCredentialsAlertRef.current?.focus();
     }
   }, [invalidCredentials]);
+
+  useEffect(() => {
+    if (prevViewRef.current === 'lost' && view === 'signin') {
+      emailInputRef.current?.focus();
+    }
+    prevViewRef.current = view;
+  }, [view]);
+
+  useEffect(() => {
+    onViewChange?.(view);
+  }, [view, onViewChange]);
 
   const handleSubmit = useCallback(
     async (e: React.FormEvent<HTMLFormElement>) => {
@@ -178,6 +199,12 @@ export default function Signin({
     );
   }
 
+  if (view === 'lost') {
+    return (
+      <LostPassword defaultEmail={email} onCancel={() => setView('signin')} />
+    );
+  }
+
   return (
     <chakra.form
       onSubmit={handleSubmit}
@@ -204,7 +231,12 @@ export default function Signin({
               {intl.formatMessage(messages.invalidCredentials)}
             </Alert.Title>
             <Alert.Description>
-              <Link href="/password/lost" color="primary.500">
+              <Link
+                as="button"
+                type="button"
+                onClick={() => setView('lost')}
+                color="primary.500"
+              >
                 {intl.formatMessage(messages.resetPassword)}
               </Link>
             </Alert.Description>
@@ -223,6 +255,7 @@ export default function Signin({
           <Field.RequiredIndicator />
         </Field.Label>
         <Input
+          ref={emailInputRef}
           id="signin-email"
           name="email"
           type="email"
@@ -266,7 +299,12 @@ export default function Signin({
           <Field.ErrorText>{errors.password}</Field.ErrorText>
         )}
         <Field.HelperText>
-          <Link href="/password/lost" color="primary.500">
+          <Link
+            as="button"
+            type="button"
+            onClick={() => setView('lost')}
+            color="primary.500"
+          >
             {intl.formatMessage(messages.forgotPassword)}
           </Link>
         </Field.HelperText>

@@ -5,10 +5,64 @@
       "value": "Connexion"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleLostPassword": [
+    {
+      "type": 0,
+      "value": "Mot de passe perdu"
+    }
+  ],
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
       "value": "Se connecter"
+    }
+  ],
+  "next.components.auth.LostPassword.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Annuler"
+    }
+  ],
+  "next.components.auth.LostPassword.emailLabel": [
+    {
+      "type": 0,
+      "value": "Adresse e-mail"
+    }
+  ],
+  "next.components.auth.LostPassword.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "vous@exemple.com"
+    }
+  ],
+  "next.components.auth.LostPassword.formTitle": [
+    {
+      "type": 0,
+      "value": "Formulaire de mot de passe perdu"
+    }
+  ],
+  "next.components.auth.LostPassword.genericError": [
+    {
+      "type": 0,
+      "value": "Une erreur est survenue. Veuillez réessayer."
+    }
+  ],
+  "next.components.auth.LostPassword.intro": [
+    {
+      "type": 0,
+      "value": "Vous avez un compte OpenAgenda mais n'avez plus le mot de passe associé. Saisissez votre email pour recevoir un lien de réinitialisation dans votre boîte de réception."
+    }
+  ],
+  "next.components.auth.LostPassword.submitLabel": [
+    {
+      "type": 0,
+      "value": "Envoyer le lien"
+    }
+  ],
+  "next.components.auth.LostPassword.successMessage": [
+    {
+      "type": 0,
+      "value": "Le lien de réinitialisation a été envoyé à l'email saisi. La réception peut parfois prendre quelques minutes : vérifiez votre boîte de réception et votre dossier de courriers indésirables. Si vous ne recevez pas le lien, contactez-nous au support."
     }
   ],
   "next.components.auth.Signin.createAccount": [

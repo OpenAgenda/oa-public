@@ -5,10 +5,64 @@
       "value": "Sign in"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleLostPassword": [
+    {
+      "type": 0,
+      "value": "Lost password"
+    }
+  ],
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
       "value": "Sign in"
+    }
+  ],
+  "next.components.auth.LostPassword.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "next.components.auth.LostPassword.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.auth.LostPassword.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "you@example.com"
+    }
+  ],
+  "next.components.auth.LostPassword.formTitle": [
+    {
+      "type": 0,
+      "value": "Lost password form"
+    }
+  ],
+  "next.components.auth.LostPassword.genericError": [
+    {
+      "type": 0,
+      "value": "An error occurred. Please try again."
+    }
+  ],
+  "next.components.auth.LostPassword.intro": [
+    {
+      "type": 0,
+      "value": "You have an OpenAgenda account but no longer have the associated password. Enter your email to receive a reset link in your inbox."
+    }
+  ],
+  "next.components.auth.LostPassword.submitLabel": [
+    {
+      "type": 0,
+      "value": "Send the link"
+    }
+  ],
+  "next.components.auth.LostPassword.successMessage": [
+    {
+      "type": 0,
+      "value": "The reset link has been sent to the email you entered. Delivery may take a few minutes — check your inbox and your spam folder. If you don't receive the link, contact our support team."
     }
   ],
   "next.components.auth.Signin.createAccount": [
