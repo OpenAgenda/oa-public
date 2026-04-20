@@ -136,6 +136,11 @@ const messages = defineMessages({
     id: 'AgendaLocations.LocationForm.imageInfo',
     defaultMessage: 'Only upload images you have the right to re-use',
   },
+  imageSub: {
+    id: 'AgendaLocations.LocationForm.imageSub',
+    defaultMessage:
+      'By inserting an image in OpenAgenda, you certify that you hold the necessary rights to publish it under the open licence. <learnMoreLink>Learn more</learnMoreLink>',
+  },
   imageCredits: {
     id: 'AgendaLocations.LocationForm.imageCredits',
     defaultMessage: 'Image credits',
@@ -447,6 +452,24 @@ const LocationForm = ({
           info={getLabel('imageInfo')}
           label={getLabel('image')}
         />
+        {!settings?.displayImageRightsConfirmCheckbox ? (
+          <div className="sub margin-bottom-sm">
+            <FormattedMessage
+              {...messages.imageSub}
+              values={{
+                learnMoreLink: (chunks) => (
+                  <a
+                    href={intl.formatMessage(messages.imageRightsCguUrl)}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {chunks}
+                  </a>
+                ),
+              }}
+            />
+          </div>
+        ) : null}
       </div>
 
       <InputField
