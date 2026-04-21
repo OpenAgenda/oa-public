@@ -9,7 +9,7 @@ import {
   isSameDay,
   getISODay,
 } from 'date-fns';
-import { defineMessages } from 'react-intl';
+import { defineMessages } from 'react-intl/server';
 
 const messages = defineMessages({
   today: {
