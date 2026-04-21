@@ -1,7 +1,7 @@
 'use client';
 
 import qs from 'qs';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import NextLink from 'next/link';
 import { defineMessages, useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
@@ -73,7 +73,6 @@ export default function AgendaHeader({ agenda }) {
 
   const intl = useIntl();
 
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
   const urlQuery = useAppLocationQuery();
@@ -98,9 +97,11 @@ export default function AgendaHeader({ agenda }) {
       const params = new URLSearchParams(searchParams.toString());
       params.delete('displayExportModal');
       const search = params.toString();
-      router.replace(search ? `${pathname}?${search}` : pathname, {
-        scroll: false,
-      });
+      window.history.replaceState(
+        null,
+        '',
+        search ? `${pathname}?${search}` : pathname,
+      );
     },
   });
 

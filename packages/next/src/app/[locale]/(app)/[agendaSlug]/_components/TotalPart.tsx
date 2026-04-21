@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo } from 'react';
 import { useIntl } from 'react-intl';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { chakra, Button, Text } from '@openagenda/uikit';
 import { useGetFilterOptions } from '@openagenda/react-filters';
 import isUpcomingOnlyQuery from '@/src/utils/isUpcomingOnlyQuery';
@@ -14,7 +14,6 @@ import { TotalSkeleton } from './LoadingPage';
 
 function Total({ total, upcomingOnly, passed, disabled }) {
   const intl = useIntl();
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -34,9 +33,9 @@ function Total({ total, upcomingOnly, passed, disabled }) {
       e.preventDefault();
       if (disabled) return;
 
-      router.push(passedUrl, { scroll: false });
+      window.history.pushState(null, '', passedUrl);
     },
-    [disabled, passedUrl, router],
+    [disabled, passedUrl],
   );
 
   return (

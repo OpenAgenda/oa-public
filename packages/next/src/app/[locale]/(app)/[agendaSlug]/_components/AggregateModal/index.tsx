@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useRef } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useIntl } from 'react-intl';
 import {
   DialogRoot,
@@ -36,7 +36,6 @@ export default function AggregateModal({
   agenda,
 }: AggregateModalProps) {
   const intl = useIntl();
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -49,11 +48,13 @@ export default function AggregateModal({
     const params = new URLSearchParams(searchParams.toString());
     params.delete('displayAggregatorModal');
     const search = params.toString();
-    router.replace(search ? `${pathname}?${search}` : pathname, {
-      scroll: false,
-    });
+    window.history.replaceState(
+      null,
+      '',
+      search ? `${pathname}?${search}` : pathname,
+    );
     originalOnClose();
-  }, [originalOnClose, pathname, router, searchParams]);
+  }, [originalOnClose, pathname, searchParams]);
 
   return (
     <DialogRoot

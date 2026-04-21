@@ -1,7 +1,7 @@
 'use client';
 
 import { useMemo, useState, useEffect } from 'react';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useIntl } from 'react-intl';
 import {
   chakra,
@@ -67,7 +67,6 @@ import LongDescription from './LongDescription';
 
 function EventShow() {
   const intl = useIntl();
-  const router = useRouter();
   const pathname = usePathname();
   const nextSearchParams = useSearchParams();
   const urlQuery = useAppLocationQuery();
@@ -103,7 +102,7 @@ function EventShow() {
 
     const params = new URLSearchParams(nextSearchParams.toString());
     params.set('cl', value);
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false });
+    window.history.replaceState(null, '', `${pathname}?${params.toString()}`);
   };
 
   const hasAdditionalFields = useMemo(
@@ -139,9 +138,11 @@ function EventShow() {
       const params = new URLSearchParams(nextSearchParams.toString());
       params.delete('sharemodal');
       const search = params.toString();
-      router.replace(search ? `${pathname}?${search}` : pathname, {
-        scroll: false,
-      });
+      window.history.replaceState(
+        null,
+        '',
+        search ? `${pathname}?${search}` : pathname,
+      );
     },
   });
 

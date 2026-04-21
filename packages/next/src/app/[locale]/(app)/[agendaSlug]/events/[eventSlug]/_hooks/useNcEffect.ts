@@ -1,12 +1,11 @@
 'use client';
 
 import { useEffect, useRef } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import qs from 'qs';
 import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
 
 export default function useNcEffect({ agendaUid, eventUid }) {
-  const router = useRouter();
   const pathname = usePathname();
   const query = useAppLocationQuery() as any;
   // Guard against React StrictMode's double-invoke of effects in dev: without
@@ -38,7 +37,10 @@ export default function useNcEffect({ agendaUid, eventUid }) {
       { ...query, nc: undefined },
       { addQueryPrefix: true },
     );
-    router.replace(pathname + search, { scroll: false });
+    // history.replaceState vs router.replace: avoids an RSC refetch just
+    // after sibling navigation. useSearchParams observes history changes
+    // since Next 14.1.
+    window.history.replaceState(null, '', pathname + search);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 }
