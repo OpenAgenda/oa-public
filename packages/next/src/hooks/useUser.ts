@@ -1,6 +1,6 @@
 // import session from '@openagenda/sessions/client';
 import { useEffect } from 'react';
-import Router from 'next/router';
+import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
 import ky from 'ky';
 import { FetchStatus } from 'config/types';
@@ -47,6 +47,7 @@ export default function useUser({
   //   ? session.getUser()
   //   : null;
 
+  const router = useRouter();
   const { data: user, status, error } = useSWR<User>('/users/me', fetcher);
 
   const finished = status !== FetchStatus.Fetching;
@@ -58,9 +59,9 @@ export default function useUser({
     // If redirectTo is set, redirect if the user was not found.
     // If redirectIfFound is also set, redirect if the user was found
     if ((!redirectIfFound && !hasUser) || (redirectIfFound && hasUser)) {
-      Router.push(redirectTo);
+      router.push(redirectTo);
     }
-  }, [redirectTo, redirectIfFound, finished, hasUser]);
+  }, [redirectTo, redirectIfFound, finished, hasUser, router]);
 
   return {
     user,

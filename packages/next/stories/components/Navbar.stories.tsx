@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw';
 import { Box } from '@openagenda/uikit';
 import Navbar from 'components/Navbar';
 import HelpButtonComponent from 'components/Navbar/HelpButton';
-import LanguageSelectorComponent from 'components/Navbar/LanguageSelector';
+import LanguageSelectorComponent from 'components/LanguageSelector';
 import NavbarSearchInputComponent from 'components/NavbarSearchInput';
 import { color } from 'utils/strapi';
 import fetchLocale from 'app/locales';

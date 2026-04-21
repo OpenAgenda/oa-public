@@ -8,7 +8,7 @@ import Providers from 'Providers';
 import SentryErrorBoundary from 'components/SentryErrorBoundary';
 import ChunkErrorListener from 'components/ChunkErrorListener';
 import useMatomoTracker from 'hooks/useMatomoTracker';
-import useAppMatomoPageTracker from 'hooks/useAppMatomoPageTracker';
+import useMatomoPageTracker from 'hooks/useMatomoPageTracker';
 
 function useEmotionCache(): EmotionCache {
   const [cache] = useState(() => {
@@ -64,7 +64,7 @@ export default function AppProviders({
   const cookies = useMemo(() => new Cookies(cookieHeader), [cookieHeader]);
 
   useMatomoTracker();
-  useAppMatomoPageTracker({
+  useMatomoPageTracker({
     debug: process.env.NODE_ENV === 'development',
   });
 

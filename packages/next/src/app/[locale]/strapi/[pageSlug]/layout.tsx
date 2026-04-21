@@ -1,5 +1,5 @@
-import AppLayout from '@/src/components/app/Layout';
-import Navbar from '@/src/components/app/Navbar';
+import AppLayout from '@/src/components/Layout';
+import Navbar from '@/src/components/Navbar';
 import { color } from '@/src/utils/strapi';
 import getLocale from '@/src/utils/getLocale';
 import { resolveStrapiPage } from './_api';

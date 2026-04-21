@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import AgendaShow from '@/src/app/[locale]/(app)/[agendaSlug]/_components/AgendaShow';
-import AppLayout from 'components/app/Layout';
+import AppLayout from 'components/Layout';
 import { Agenda } from 'types';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';

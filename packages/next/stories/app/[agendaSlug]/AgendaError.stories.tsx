@@ -1,5 +1,5 @@
 import AgendaError from '@/src/app/[locale]/(app)/[agendaSlug]/_components/AgendaError';
-import AppLayout from 'components/app/Layout';
+import AppLayout from 'components/Layout';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 import fetchLocale from '../../utils/fetchLocale';

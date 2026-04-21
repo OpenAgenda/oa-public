@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useState, useCallback, useEffect } from 'react';
 import { Button, useDisclosure } from '@openagenda/uikit';
 import {
@@ -7,23 +9,22 @@ import {
   DialogFooter,
 } from '@openagenda/uikit/snippets';
 import session from '@openagenda/sessions/client';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 
-export default function FlashAlert() {
+export default function AppFlashAlert() {
   const cancelRef = useRef<HTMLButtonElement>(null);
   const [flashMessage, setFlashMessage] = useState(null);
-  const router = useRouter();
+  const pathname = usePathname();
 
   const removeMessage = useCallback(
     () => setFlashMessage(null),
     [setFlashMessage],
   );
 
-  // On location change
   useEffect(() => {
     const newMessage = session.flash();
     if (newMessage !== flashMessage) setFlashMessage(newMessage);
-  }, [router.asPath]);
+  }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const { open, onClose } = useDisclosure({ open: !!flashMessage });
 

@@ -1,4 +1,4 @@
-import AppLayout from '@/src/components/app/Layout';
+import AppLayout from '@/src/components/Layout';
 
 export default function AppGroupLayout({
   children,

@@ -1,5 +1,5 @@
 import EventShowWrapper from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSlug]/_components/EventShowWrapper';
-import AppLayout from 'components/app/Layout';
+import AppLayout from 'components/Layout';
 import { Agenda } from 'types';
 import intlMessagesLoader from '../../../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../../../decorators/ProvidersDecorator';
