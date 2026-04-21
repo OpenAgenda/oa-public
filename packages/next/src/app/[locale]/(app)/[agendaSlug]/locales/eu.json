@@ -12,5 +12,14 @@
   "next.views.AgendaShow.showUpcomingEventsOnly": "",
   "next.views.AgendaShow.termsOfUse": "",
   "next.views.AgendaShow.totalEvents": "",
-  "next.views.AgendaShow.totalUpcomingEvents": ""
+  "next.views.AgendaShow.totalUpcomingEvents": "",
+  "next.views.AgendaError.agendaNotFound": "",
+  "next.views.AgendaError.forbiddenMsg": "",
+  "next.views.AgendaError.notFoundMsg": "",
+  "next.views.AgendaError.orSignup": "",
+  "next.views.AgendaError.requestInvitation": "",
+  "next.views.AgendaError.restrictedAccess": "",
+  "next.views.AgendaError.searchAgenda": "",
+  "next.views.AgendaError.signIn": "",
+  "next.views.AgendaError.unauthorizedMsg": ""
 }

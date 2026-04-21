@@ -12,5 +12,14 @@
   "next.views.AgendaShow.showUpcomingEventsOnly": "Zeige nur bevorstehende Veranstaltungen",
   "next.views.AgendaShow.termsOfUse": "Nutzungbestimmungen",
   "next.views.AgendaShow.totalEvents": "{count, plural, =0 {Keine Veranstaltung} one {1 Veranstaltung} other {# Veranstaltungen}}",
-  "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {Keine bevorstehende veranstaltung} one {1 bevorstehende veranstaltung} other {# bevorstehende veranstaltungen}}"
+  "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {Keine bevorstehende veranstaltung} one {1 bevorstehende veranstaltung} other {# bevorstehende veranstaltungen}}",
+  "next.views.AgendaError.agendaNotFound": "",
+  "next.views.AgendaError.forbiddenMsg": "",
+  "next.views.AgendaError.notFoundMsg": "",
+  "next.views.AgendaError.orSignup": "",
+  "next.views.AgendaError.requestInvitation": "",
+  "next.views.AgendaError.restrictedAccess": "",
+  "next.views.AgendaError.searchAgenda": "",
+  "next.views.AgendaError.signIn": "Anmelden",
+  "next.views.AgendaError.unauthorizedMsg": ""
 }

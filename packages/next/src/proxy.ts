@@ -27,11 +27,11 @@ const RESERVED_FIRST_SEGMENTS = new Set([
   'strapi',
 ]);
 
-type MatchedRoute = { slug: string };
+type MatchedRoute = { identifier: string; byUid: boolean };
 
 // Routes that should pre-fetch their agenda in the proxy (for per-agenda CSP
 // + downstream RSC dedup). Add new ones here. Each regex captures the agenda
-// slug as group 1.
+// identifier as group 1.
 const AGENDA_ROUTES: RegExp[] = [
   // /:locale/:agendaSlug
   /^\/[a-z]{2,3}\/([^/]+)\/?$/,
@@ -39,21 +39,40 @@ const AGENDA_ROUTES: RegExp[] = [
   /^\/[a-z]{2,3}\/([^/]+)\/events\/[^/]+\/?$/,
 ];
 
+// Embed routes use the agenda *uid* in the URL, so we look them up via a
+// different endpoint. Both shapes share the same CSP handling.
+const EMBED_AGENDA_ROUTES: RegExp[] = [
+  // /:locale/embed/agendas/:agendaUid
+  /^\/[a-z]{2,3}\/embed\/agendas\/([^/]+)\/?$/,
+  // /:locale/embed/agendas/:agendaUid/events/:eventSlug
+  /^\/[a-z]{2,3}\/embed\/agendas\/([^/]+)\/events\/[^/]+\/?$/,
+];
+
 function matchAgendaPageRoute(pathname: string): MatchedRoute | null {
+  for (const regex of EMBED_AGENDA_ROUTES) {
+    const m = pathname.match(regex);
+    if (m) return { identifier: m[1], byUid: true };
+  }
   for (const regex of AGENDA_ROUTES) {
     const m = pathname.match(regex);
-    if (m && !RESERVED_FIRST_SEGMENTS.has(m[1])) return { slug: m[1] };
+    if (m && !RESERVED_FIRST_SEGMENTS.has(m[1])) {
+      return { identifier: m[1], byUid: false };
+    }
   }
   return null;
 }
 
 async function fetchAgendaForProxy(
-  agendaSlug: string,
+  identifier: string,
   cookie: string,
+  { byUid = false }: { byUid?: boolean } = {},
 ): Promise<Agenda | null> {
+  const path = byUid
+    ? `api/agendas/${identifier}?detailed=1&includeMemberSchema=1`
+    : `api/agendas/slug/${identifier}?detailed=1&includeMemberSchema=1`;
   try {
     const res = await fetch(
-      `${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas/slug/${agendaSlug}?detailed=1&includeMemberSchema=1`,
+      `${process.env.NEXT_API_INTERNAL_BASE_URL}/${path}`,
       { headers: { Cookie: cookie } },
     );
     if (!res.ok) return null;
@@ -196,8 +215,9 @@ export async function proxy(req: NextRequest) {
         // it so the downstream Server Component consumes it instead of
         // issuing a duplicate HTTP fetch (request-scoped dedup, no TTL).
         const agenda = await fetchAgendaForProxy(
-          agendaRoute.slug,
+          agendaRoute.identifier,
           requestHeaders.get('Cookie') ?? '',
+          { byUid: agendaRoute.byUid },
         );
         if (agenda) {
           const reqId = crypto.randomUUID();

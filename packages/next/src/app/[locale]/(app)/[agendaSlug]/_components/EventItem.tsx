@@ -32,8 +32,8 @@ import {
   faShare,
   faStar as fasStar,
 } from '@fortawesome/pro-solid-svg-icons';
-import useShareModal from '@/src/views/EventShow/hooks/useShareModal';
-import EmailConfirmationAlert from '@/src/views/EventShow/components/EmailConfirmationAlert';
+import useShareModal from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSlug]/_hooks/useShareModal';
+import EmailConfirmationAlert from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSlug]/_components/EmailConfirmationAlert';
 import useDateFnsLocale from '@/src/hooks/useDateFnsLocale';
 import useIsMounted from '@/src/hooks/useIsMounted';
 import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
@@ -92,7 +92,7 @@ function FavoriteButton({ agenda, event }) {
       return {
         // add favorite
         ...prev,
-        [agenda.uid]: [...(prev?.[agenda.uid] || []), event.uid],
+        [agenda.uid]: [...prev?.[agenda.uid] || [], event.uid],
       };
     });
   }, [agenda.uid, event.uid, isFavorite, setFavorites]);
@@ -304,11 +304,11 @@ export default function EventItem({
                           ? 'score'
                           : 'lastTimingWithFeatured.asc',
                         passed: undefined,
-                        ...(upcomingOnly && !query.relative
+                        ...upcomingOnly && !query.relative
                           ? {
                               relative: ['current', 'upcoming'],
                             }
-                          : null),
+                          : null,
                         from,
                         first: first || undefined,
                         last: last || undefined,
@@ -326,7 +326,7 @@ export default function EventItem({
           </Flex>
 
           {/* eslint-disable-next-line no-nested-ternary */}
-          {event.image ? (
+          {event.image ? 
             event.image?.size?.width && event.image?.size?.height ? (
               <Box asChild m="auto" w="full">
                 <Image
@@ -381,7 +381,7 @@ export default function EventItem({
                 />
               </Box>
             )
-          ) : null}
+           : null}
 
           {/* TODO: add a title with a precise date */}
           <Text px="6">{getLocaleValue(event.description, intl.locale)}</Text>

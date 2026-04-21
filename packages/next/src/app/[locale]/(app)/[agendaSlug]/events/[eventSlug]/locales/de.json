@@ -139,5 +139,16 @@
   "views.EventShow.contextBar.editMember": "",
   "views.EventShow.contextBar.editMemberMe": "",
   "views.EventShow.contextBar.invalidEventInfo": "",
-  "views.EventShow.contextBar.nonCompliant": ""
+  "views.EventShow.contextBar.nonCompliant": "",
+  "next.views.EventError.agendaNotFound": "",
+  "next.views.EventError.contactAdministrators": "",
+  "next.views.EventError.eventNotFound": "",
+  "next.views.EventError.forbiddenMsg": "",
+  "next.views.EventError.notFoundMsg": "",
+  "next.views.EventError.orSignup": "",
+  "next.views.EventError.restrictedAccess": "",
+  "next.views.EventError.searchAgenda": "",
+  "next.views.EventError.seeAgenda": "",
+  "next.views.EventError.signIn": "Anmelden",
+  "next.views.EventError.unauthorizedMsg": ""
 }

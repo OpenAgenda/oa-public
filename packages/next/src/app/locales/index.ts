@@ -26,6 +26,9 @@ export default async function fetchLocale(locale) {
       (mod) => mod.default,
     ),
     import(
+      `../[locale]/embed/agendas/[agendaUid]/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
       `../../components/ConsentBanner/locales/compiled/${locale}.json`
     ).then((mod) => mod.default),
     import(
@@ -50,33 +53,6 @@ export default async function fetchLocale(locale) {
       (mod) => mod.default,
     ),
     import(`../../components/strapi/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(`../../views/AgendaError/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(
-      `../../views/AgendaShow/components/AggregateModal/locales/compiled/${locale}.json`
-    ).then((mod) => mod.default),
-    import(
-      `../../views/AgendaShow/components/ContextBar/locales/compiled/${locale}.json`
-    ).then((mod) => mod.default),
-    import(
-      `../../views/AgendaShow/components/locales/compiled/${locale}.json`
-    ).then((mod) => mod.default),
-    import(`../../views/AgendaShow/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(`../../views/EmbedAgendaShow/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(`../../views/EventError/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(
-      `../../views/EventShow/components/locales/compiled/${locale}.json`
-    ).then((mod) => mod.default),
-    import(`../../views/EventShow/locales/compiled/${locale}.json`).then(
       (mod) => mod.default,
     ),
   ])

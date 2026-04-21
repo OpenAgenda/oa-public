@@ -1,30 +1,7 @@
 import useSWRInfinite from 'swr/infinite';
 import { getEvents } from '@openagenda/react-filters';
 import isUpcomingOnlyQuery from '@/src/utils/isUpcomingOnlyQuery';
-
-const includeFields = [
-  'uid',
-  'slug',
-  'title',
-  'image',
-  'featured',
-  'description',
-  'dateRange',
-  'timings',
-  'nextTiming',
-  'lastTiming',
-  'onlineAccessLink',
-  'attendanceMode',
-  'status',
-  'location.name',
-  'location.address',
-  'location.city',
-  'location.region',
-  'location.postalCode',
-  'location.countryCode',
-  'location.latitude',
-  'location.longitude',
-];
+import { includeFields } from '../_utils/includeFields';
 
 export default function useEventsQuery({
   agenda,
@@ -57,11 +34,11 @@ export default function useEventsQuery({
             ? 'score'
             : sort || 'lastTimingWithFeatured.asc',
           size: pageSize,
-          ...(isUpcomingOnlyQuery(query)
+          ...isUpcomingOnlyQuery(query)
             ? {
                 relative: ['current', 'upcoming'],
               }
-            : null),
+            : null,
           ...query,
           from: pageIndex * pageSize,
           passed: undefined, // omit passed

@@ -11,7 +11,7 @@ import {
 import base64 from '@/src/utils/base64';
 import useLocalePath from '@/src/utils/useLocalePath';
 import type { Agenda } from '@/src/types';
-import messages from '@/src/views/EventError/messages';
+import { eventError as messages } from '../messages';
 import { AgendaProvider, useAgenda } from '../_context/agenda';
 import AgendaHeader from './AgendaHeader';
 

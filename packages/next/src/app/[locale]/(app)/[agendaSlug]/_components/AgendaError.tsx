@@ -10,7 +10,7 @@ import {
 } from '@/src/components/ErrorDisplay';
 import base64 from '@/src/utils/base64';
 import useLocalePath from '@/src/utils/useLocalePath';
-import messages from '@/src/views/AgendaError/messages';
+import { agendaError as messages } from '../messages';
 
 export type AgendaErrorProps = {
   statusCode: number;

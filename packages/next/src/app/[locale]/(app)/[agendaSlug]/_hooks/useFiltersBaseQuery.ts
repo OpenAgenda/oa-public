@@ -1,7 +1,7 @@
 import useSWRImmutable from 'swr/immutable';
 import { getEvents } from '@openagenda/react-filters';
 import isUpcomingOnlyQuery from '@/src/utils/isUpcomingOnlyQuery';
-import getPrefilteredQuery from '@/src/views/EmbedAgendaShow/utils/getPrefilteredQuery';
+import applyPrefilterToEventsQuery from '@/src/utils/applyPrefilterToEventsQuery';
 
 export default function useFiltersBaseQuery({
   agenda,
@@ -10,7 +10,11 @@ export default function useFiltersBaseQuery({
   suspense = false,
   prefilter = null,
 }) {
-  const prefilteredQuery = getPrefilteredQuery({ prefilter, query, filters });
+  const prefilteredQuery = applyPrefilterToEventsQuery({
+    prefilter,
+    query,
+    filters,
+  });
   const upcomingOnly = isUpcomingOnlyQuery(prefilteredQuery);
 
   return useSWRImmutable(

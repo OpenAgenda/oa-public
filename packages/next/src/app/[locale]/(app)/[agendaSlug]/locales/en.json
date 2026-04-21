@@ -12,5 +12,14 @@
   "next.views.AgendaShow.showUpcomingEventsOnly": "Show upcoming events only",
   "next.views.AgendaShow.termsOfUse": "Terms of use",
   "next.views.AgendaShow.totalEvents": "{count, plural, =0 {No event} one {1 event} other {# events}}",
-  "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {No upcoming event} one {1 upcoming event} other {# upcoming events}}"
+  "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {No upcoming event} one {1 upcoming event} other {# upcoming events}}",
+  "next.views.AgendaError.agendaNotFound": "Agenda not found",
+  "next.views.AgendaError.forbiddenMsg": "You do not have access to this agenda.{br}Check the link provided to you or request access.",
+  "next.views.AgendaError.notFoundMsg": "There is no calendar corresponding to this link.{br}Either the link is invalid or the calendar has been deleted.",
+  "next.views.AgendaError.orSignup": "Or <link>sign up</link> if you don't have an account yet.",
+  "next.views.AgendaError.requestInvitation": "Request an invitation",
+  "next.views.AgendaError.restrictedAccess": "Access to this agenda is restricted,<br></br> authenticate yourself before you can access it.",
+  "next.views.AgendaError.searchAgenda": "Search an agenda",
+  "next.views.AgendaError.signIn": "Sign in",
+  "next.views.AgendaError.unauthorizedMsg": "Access to this agenda is restricted,{br} authenticate yourself before you can access it."
 }
