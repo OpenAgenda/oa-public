@@ -43,7 +43,6 @@ export function useGoToSiblingEvent({
   direction,
   agenda,
   eventNc,
-  setNc,
   query,
   urlPrefix = undefined,
   sort = null,
@@ -81,17 +80,23 @@ export function useGoToSiblingEvent({
       (input) => ky(input).json(),
     ).catch(() => null);
 
-    setNc({
-      [`${agenda.uid}.${response.event.uid}`]: {
-        ...eventNc,
-        from: direction === 'previous' ? eventNc.from - 1 : eventNc.from + 1,
-        first: response.isFirst ? 'true' : undefined,
-        last: response.isLast ? 'true' : undefined,
-      },
-    });
+    const nextNc = {
+      ...eventNc,
+      from: direction === 'previous' ? eventNc.from - 1 : eventNc.from + 1,
+      first: response.isFirst ? 'true' : undefined,
+      last: response.isLast ? 'true' : undefined,
+    };
 
+    // NC travels via the URL only. The new page's `useNcEffect` writes it to
+    // sessionStorage after mount. Writing here would replace the current
+    // event's entry and make the still-mounted old tree flash during the
+    // transition. Server render also needs it in the URL so the nav bar is
+    // in the SSR HTML.
     router.push(
-      `${effectiveUrlPrefix}/events/${response.event.slug}${qs.stringify(query, { addQueryPrefix: true })}`,
+      `${effectiveUrlPrefix}/events/${response.event.slug}${qs.stringify(
+        { ...query, nc: nextNc },
+        { addQueryPrefix: true },
+      )}`,
     );
   }, [
     agenda.slug,
@@ -101,7 +106,6 @@ export function useGoToSiblingEvent({
     eventNc,
     query,
     router,
-    setNc,
     sort,
   ]);
 }
@@ -154,14 +158,13 @@ export default function NavigateButton({
   const agenda = useAgenda();
   const { event } = useEvent();
 
-  const [nc, setNc] = useSessionStorageState('EventShow:nc');
+  const [nc] = useSessionStorageState('EventShow:nc');
   const eventNc = nc?.[`${agenda.uid}.${event.uid}`] || query.nc;
 
   const goToSiblingEvent = useGoToSiblingEvent({
     direction,
     agenda,
     eventNc,
-    setNc,
     query,
   });
 
