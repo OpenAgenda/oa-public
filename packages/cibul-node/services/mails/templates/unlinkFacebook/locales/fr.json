@@ -1,0 +1,5 @@
+{
+  "title": "Confirmer la migration de votre compte OpenAgenda",
+  "description": "Bonjour,\n\nVous avez demandé à configurer la connexion par email et mot de passe sur votre compte OpenAgenda, afin de pouvoir dissocier Facebook.\n\nCliquez sur le bouton ci-dessous pour confirmer. Une fois confirmée, vous pourrez vous connecter avec l'email et le mot de passe que vous venez de choisir, et Facebook ne sera plus lié à votre compte.\n\nSi vous n'êtes pas à l'origine de cette demande, ignorez ce message : rien ne changera.",
+  "actionDescription": "Confirmer la migration"
+}

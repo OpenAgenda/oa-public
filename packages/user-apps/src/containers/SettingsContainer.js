@@ -19,6 +19,7 @@ import {
   EmailSettings,
   PasswordSettings,
   ApiKeySettings,
+  UnlinkFacebookSettings,
   UnsubscribedSettings,
 } from '../components/index.js';
 
@@ -93,6 +94,14 @@ function SettingsContainer({
                       lang={lang}
                     />
                   </>
+                ) : null}
+
+                {user.facebookUid ? (
+                  <UnlinkFacebookSettings
+                    activeTab={route.activeTab === 'unlinkFacebook'}
+                    user={user}
+                    lang={lang}
+                  />
                 ) : null}
 
                 <ApiKeySettings

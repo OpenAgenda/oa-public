@@ -155,6 +155,62 @@ module.exports = {
     "nl": "Je e-mailadres is succesvol bijgewerkt",
     "br": "Hizivaet eo bet ho postel gant berzh"
   },
+  "unlinkFacebookSuccess": {
+    "en": "Your account was migrated: Facebook is no longer linked, and you can now sign in with your email and password.",
+    "fr": "Votre compte a été migré : Facebook n'est plus lié, vous pouvez désormais vous connecter avec votre email et votre mot de passe."
+  },
+  "unlinkFacebook": {
+    "en": "Unlink Facebook",
+    "fr": "Dissocier Facebook"
+  },
+  "unlinkFacebookIntro": {
+    "en": "Facebook sign-in is being phased out. Choose an email and password to keep using your account, and we'll send a confirmation link to that address. Clicking the link will unlink Facebook for good.",
+    "fr": "La connexion via Facebook va être retirée. Choisissez un email et un mot de passe pour continuer à utiliser votre compte. Nous enverrons un lien de confirmation à cette adresse et, en le suivant, Facebook sera définitivement dissocié."
+  },
+  "unlinkFacebookSubmit": {
+    "en": "Send confirmation email",
+    "fr": "Envoyer l'email de confirmation"
+  },
+  "unlinkFacebookSent": {
+    "en": "Check your inbox",
+    "fr": "Vérifiez votre boîte de réception"
+  },
+  "unlinkFacebookSentInstructions": {
+    "en": "We sent a confirmation link to %email%. Click it to complete the migration.",
+    "fr": "Un lien de confirmation a été envoyé à %email%. Cliquez dessus pour finaliser la migration."
+  },
+  "unlinkFacebookResendHint": {
+    "en": "Didn't receive it? Submit the form again to resend.",
+    "fr": "Rien reçu ? Soumettez à nouveau le formulaire pour renvoyer."
+  },
+  "unlinkFacebookUseAccountEmail": {
+    "en": "Use my account email (%email%)",
+    "fr": "Utiliser l'email de mon compte (%email%)"
+  },
+  "repeatPassword": {
+    "en": "Repeat password",
+    "fr": "Répéter le mot de passe"
+  },
+  "passwordRequired": {
+    "en": "A password must be defined",
+    "fr": "Un mot de passe doit être défini"
+  },
+  "passwordNotEqual": {
+    "en": "The passwords are not identical",
+    "fr": "Les mots de passe ne sont pas identiques"
+  },
+  "passwordTooWeak": {
+    "en": "Password is not strong enough",
+    "fr": "Le mot de passe n'est pas assez sûr"
+  },
+  "passwordSameAsIdentifier": {
+    "en": "Password must be different from your name and email",
+    "fr": "Le mot de passe doit être différent de votre nom et de votre email"
+  },
+  "notFacebookAccount": {
+    "en": "This account is not linked to Facebook.",
+    "fr": "Ce compte n'est pas lié à Facebook."
+  },
   "changeEmailFail": {
     "en": "The link used for your email change is no longer available",
     "fr": "Le lien utilisé pour votre changement d'email n'est plus valide",

@@ -10,6 +10,7 @@ import { loadOptionals, render, wantsJson } from './utils.js';
 import loadCaptcha from './captcha.js';
 
 const log = logs('auth/lib/auth');
+const unlinkFacebookLog = logs('auth/unlinkFacebook');
 const getLabel = makeLabelGetter(labels);
 const emailValidator = EmailValidator();
 
@@ -177,6 +178,19 @@ export function signin(values) {
       } else if (req.query.iToken && agendaSlug) {
         // this is a invitation signin / signup, redirect to form.
         redirectUrl = `/${agendaSlug}/contribute`;
+      }
+
+      if (user.facebookUid) {
+        // Phase-out: always funnel Facebook-linked sessions through the
+        // account migration screen, regardless of any ?redirect= target.
+        unlinkFacebookLog.info(
+          'facebook signin detected, redirecting user to migration page',
+          {
+            userUid: user.uid,
+            facebookUid: user.facebookUid,
+          },
+        );
+        redirectUrl = '/settings/unlinkFacebook';
       }
 
       const defaultRedirect = agendaSlug

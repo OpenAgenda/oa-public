@@ -54,6 +54,18 @@ export default (config, services) => async (context) => {
         },
         queue: false,
       });
+    } else if (token.type === 'uf') {
+      const link = `${config.root}/unlinkFacebook/${token.token}`;
+
+      log(`sending unlink facebook token - ${link}`);
+
+      await mails.send({
+        template: 'unlinkFacebook',
+        to: token.email,
+        lang: user.culture,
+        data: { link, emailSettingsLink: null },
+        queue: false,
+      });
     }
   } catch (e) {
     log.error('Unable to send token', e);
