@@ -10,7 +10,7 @@ import {
 } from '@openagenda/react-shared';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
-import commonLocales from '@openagenda/common-labels';
+import * as commonLocales from '@openagenda/common-labels';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-settings/agendaEdition.js';
 import * as appLocales from '../../locales-compiled/index.js';
