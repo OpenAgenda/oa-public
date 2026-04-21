@@ -1,7 +1,7 @@
 import { renderRoutes } from 'react-router-config';
 import { IntlProvider } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
-import commonLocales from '@openagenda/common-labels';
+import * as commonLocales from '@openagenda/common-labels';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 import * as appLocales from '../../../locales-compiled/index.js';
 

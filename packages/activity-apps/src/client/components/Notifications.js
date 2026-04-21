@@ -6,7 +6,7 @@ import moment from 'moment';
 import sessions from '@openagenda/sessions/client';
 import { Spinner } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
-import commonLocales from '@openagenda/common-labels';
+import * as commonLocales from '@openagenda/common-labels';
 import notificationsConfig from '../../notifications.js';
 import * as appLocales from '../../locales-compiled/index.js';
 
