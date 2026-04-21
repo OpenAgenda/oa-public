@@ -2,7 +2,7 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import { Component } from 'react';
 import { IntlProvider } from 'react-intl';
-import commonLocales from '@openagenda/common-labels';
+import * as commonLocales from '@openagenda/common-labels';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
 import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.js';

@@ -262,6 +262,14 @@ module.exports = {
     "fr": "Ceci peut avoir plusieurs causes:\n1. Le lien a déjà servi et la demande de changement d'email a abouti.\n2. Plusieurs emails ont été soumis: seul le lien associé à la dernière demande est valide.\n3. Le lien est ouvert depuis une session d'un compte autre que celui à l'origine de la demande.\n\nContactez le support si ce problème persiste.",
     "io": "crwdns35279:0crwdne35279:0"
   },
+  "unlinkFacebookErrorTitle": {
+    "en": "The link you clicked on is invalid",
+    "fr": "Ce lien est invalide"
+  },
+  "unlinkFacebookError": {
+    "en": "This can happen for a few reasons:\n1. This link was already used and the account migration was already completed.\n2. You submitted the form several times and only the link from the last email is still valid.\n3. You are opening the link from a session of a different account than the one that initiated the request.\n\nContact support if this problem persists.",
+    "fr": "Ceci peut avoir plusieurs causes:\n1. Le lien a déjà servi et la migration du compte a déjà été effectuée.\n2. Vous avez soumis le formulaire plusieurs fois: seul le lien du dernier email envoyé est valide.\n3. Le lien est ouvert depuis une session d'un compte différent de celui à l'origine de la demande.\n\nContactez le support si ce problème persiste."
+  },
   "contactSupport": {
     "en": "Contact support",
     "fr": "Contacter le support",

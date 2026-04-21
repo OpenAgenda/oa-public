@@ -198,6 +198,10 @@ export const contextBar = defineMessages({
     id: 'next.views.EventShow.ContextBar.deleteEvent',
     defaultMessage: 'Delete event',
   },
+  deleteEventTitle: {
+    id: 'next.views.EventShow.ContextBar.deleteEventTitle',
+    defaultMessage: 'Delete the event',
+  },
   deleteEventInfo: {
     id: 'next.views.EventShow.ContextBar.deleteEventInfo',
     defaultMessage: 'Permanently delete this event from OpenAgenda',
@@ -205,6 +209,10 @@ export const contextBar = defineMessages({
   removeEvent: {
     id: 'next.views.EventShow.ContextBar.removeEvent',
     defaultMessage: 'Remove from agenda',
+  },
+  removeEventTitle: {
+    id: 'next.views.EventShow.ContextBar.removeEventTitle',
+    defaultMessage: 'Remove the event from the agenda',
   },
   removeEventInfo: {
     id: 'next.views.EventShow.ContextBar.removeEventInfo',
@@ -229,6 +237,46 @@ export const contextBar = defineMessages({
   cancel: {
     id: 'next.views.EventShow.ContextBar.cancel',
     defaultMessage: 'Cancel',
+  },
+  removing: {
+    id: 'next.views.EventShow.ContextBar.removing',
+    defaultMessage: 'Removing…',
+  },
+  retry: {
+    id: 'next.views.EventShow.ContextBar.retry',
+    defaultMessage: 'Retry',
+  },
+  deleting: {
+    id: 'next.views.EventShow.ContextBar.deleting',
+    defaultMessage: 'Deleting…',
+  },
+  removeSuccess: {
+    id: 'next.views.EventShow.ContextBar.removeSuccess',
+    defaultMessage:
+      'The event was successfully removed. You will now be redirected to the agenda home page.',
+  },
+  deleteSuccess: {
+    id: 'next.views.EventShow.ContextBar.deleteSuccess',
+    defaultMessage:
+      'The event was successfully deleted. You will now be redirected to the agenda home page.',
+  },
+  eventNotFound: {
+    id: 'next.views.EventShow.ContextBar.eventNotFound',
+    defaultMessage:
+      'The event could not be found. It may have already been removed.',
+  },
+  reloadPage: {
+    id: 'next.views.EventShow.ContextBar.reloadPage',
+    defaultMessage: 'Reload the page',
+  },
+  removeGenericError: {
+    id: 'next.views.EventShow.ContextBar.removeGenericError',
+    defaultMessage:
+      'An error occurred. Please try again and contact support if the problem persists.',
+  },
+  contactSupport: {
+    id: 'next.views.EventShow.ContextBar.contactSupport',
+    defaultMessage: 'Contact support',
   },
   state: {
     id: 'next.views.EventShow.ContextBar.state',

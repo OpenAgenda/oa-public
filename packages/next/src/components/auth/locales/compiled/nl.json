@@ -1,0 +1,158 @@
+{
+  "next.components.auth.AuthDialog.dialogTitle": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "next.components.auth.AuthDialog.dialogTitleLostPassword": [
+    {
+      "type": 0,
+      "value": "Lost password"
+    }
+  ],
+  "next.components.auth.AuthDialog.triggerLabel": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "next.components.auth.LostPassword.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "next.components.auth.LostPassword.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.auth.LostPassword.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "you@example.com"
+    }
+  ],
+  "next.components.auth.LostPassword.formTitle": [
+    {
+      "type": 0,
+      "value": "Lost password form"
+    }
+  ],
+  "next.components.auth.LostPassword.genericError": [
+    {
+      "type": 0,
+      "value": "An error occurred. Please try again."
+    }
+  ],
+  "next.components.auth.LostPassword.intro": [
+    {
+      "type": 0,
+      "value": "You have an OpenAgenda account but no longer have the associated password. Enter your email to receive a reset link in your inbox."
+    }
+  ],
+  "next.components.auth.LostPassword.submitLabel": [
+    {
+      "type": 0,
+      "value": "Send the link"
+    }
+  ],
+  "next.components.auth.LostPassword.successMessage": [
+    {
+      "type": 0,
+      "value": "The reset link has been sent to the email you entered. Delivery may take a few minutes — check your inbox and your spam folder. If you don't receive the link, contact our support team."
+    }
+  ],
+  "next.components.auth.Signin.createAccount": [
+    {
+      "type": 0,
+      "value": "Create one!"
+    }
+  ],
+  "next.components.auth.Signin.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.auth.Signin.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "you@example.com"
+    }
+  ],
+  "next.components.auth.Signin.forgotPassword": [
+    {
+      "type": 0,
+      "value": "I forgot my password"
+    }
+  ],
+  "next.components.auth.Signin.formTitle": [
+    {
+      "type": 0,
+      "value": "Sign in form"
+    }
+  ],
+  "next.components.auth.Signin.genericError": [
+    {
+      "type": 0,
+      "value": "An error occurred. Please try again."
+    }
+  ],
+  "next.components.auth.Signin.googleLabel": [
+    {
+      "type": 0,
+      "value": "Sign in with Google"
+    }
+  ],
+  "next.components.auth.Signin.invalidCredentials": [
+    {
+      "type": 0,
+      "value": "The email or the password are incorrect."
+    }
+  ],
+  "next.components.auth.Signin.noAccount": [
+    {
+      "type": 0,
+      "value": "Don't have an account yet?"
+    }
+  ],
+  "next.components.auth.Signin.or": [
+    {
+      "type": 0,
+      "value": "or"
+    }
+  ],
+  "next.components.auth.Signin.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Password"
+    }
+  ],
+  "next.components.auth.Signin.resetPassword": [
+    {
+      "type": 0,
+      "value": "Reset my password"
+    }
+  ],
+  "next.components.auth.Signin.signinSuccess": [
+    {
+      "type": 0,
+      "value": "Authentication successful. Redirecting…"
+    }
+  ],
+  "next.components.auth.Signin.submitLabel": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "next.components.auth.Signin.whereIsFacebook": [
+    {
+      "type": 0,
+      "value": "Where did my Facebook connect button go?"
+    }
+  ]
+}

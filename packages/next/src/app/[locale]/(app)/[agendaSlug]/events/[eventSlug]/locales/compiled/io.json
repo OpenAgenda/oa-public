@@ -77,6 +77,12 @@
       "value": "crwdns33822:0crwdne33822:0"
     }
   ],
+  "next.views.EventShow.ContextBar.contactSupport": [
+    {
+      "type": 0,
+      "value": "Contact support"
+    }
+  ],
   "next.views.EventShow.ContextBar.delete": [
     {
       "type": 0,
@@ -99,6 +105,24 @@
     {
       "type": 0,
       "value": "crwdns33614:0crwdne33614:0"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteEventTitle": [
+    {
+      "type": 0,
+      "value": "Delete the event"
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleteSuccess": [
+    {
+      "type": 0,
+      "value": "The event was successfully deleted. You will now be redirected to the agenda home page."
+    }
+  ],
+  "next.views.EventShow.ContextBar.deleting": [
+    {
+      "type": 0,
+      "value": "Deleting…"
     }
   ],
   "next.views.EventShow.ContextBar.duplicate": [
@@ -129,6 +153,12 @@
     {
       "type": 0,
       "value": "crwdns34006:0crwdne34006:0"
+    }
+  ],
+  "next.views.EventShow.ContextBar.eventNotFound": [
+    {
+      "type": 0,
+      "value": "The event could not be found. It may have already been removed."
     }
   ],
   "next.views.EventShow.ContextBar.feature": [
@@ -281,6 +311,12 @@
       "value": "crwdns33654:0crwdne33654:0"
     }
   ],
+  "next.views.EventShow.ContextBar.reloadPage": [
+    {
+      "type": 0,
+      "value": "Reload the page"
+    }
+  ],
   "next.views.EventShow.ContextBar.remove": [
     {
       "type": 0,
@@ -305,6 +341,30 @@
       "value": "crwdns33662:0crwdne33662:0"
     }
   ],
+  "next.views.EventShow.ContextBar.removeEventTitle": [
+    {
+      "type": 0,
+      "value": "Remove the event from the agenda"
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeGenericError": [
+    {
+      "type": 0,
+      "value": "An error occurred. Please try again and contact support if the problem persists."
+    }
+  ],
+  "next.views.EventShow.ContextBar.removeSuccess": [
+    {
+      "type": 0,
+      "value": "The event was successfully removed. You will now be redirected to the agenda home page."
+    }
+  ],
+  "next.views.EventShow.ContextBar.removing": [
+    {
+      "type": 0,
+      "value": "Removing…"
+    }
+  ],
   "next.views.EventShow.ContextBar.requestEditionRights": [
     {
       "type": 0,
@@ -315,6 +375,12 @@
     {
       "type": 0,
       "value": "crwdns33792:0crwdne33792:0"
+    }
+  ],
+  "next.views.EventShow.ContextBar.retry": [
+    {
+      "type": 0,
+      "value": "Retry"
     }
   ],
   "next.views.EventShow.ContextBar.state": [

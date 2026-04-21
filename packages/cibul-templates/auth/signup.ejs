@@ -5,7 +5,7 @@
   <div class="top-margined bottom-margined">
     <%- include('_headMessage.ejs') %>
     <div class="row">
-      <section class="col-sm-8 col-sm-offset-2 wsq padding-all-md">
+      <section class="col-sm-6 col-sm-offset-3 wsq padding-all-md padding-bottom-lg">
         <div class="row">
           <div class="col-sm-12 margin-h-md">
             <h2><%= __( 'createAccount' ) %></h2>
@@ -27,7 +27,7 @@
           </div>
         <% } %>
         <div class="row margin-top-md">
-          <div class="col-md-<%= enabledServices.length ? 6 : 12 %>">
+          <div class="col-md-10 col-md-offset-1">
             <form id="signup-form" class="margin-h-md" method="post">
               <div class="form-group<%= errors.fullName ? ' has-error' : '' %>">
                 <label for="full_name" class="control-label"><%= __( 'pseudonym' ) %></label>
@@ -113,68 +113,36 @@
                 <button id="signup-submit" class="btn btn-primary btn-block" type="submit"><%= __( 'signup' ) %></button>
               </div>
             </form>
+            <% if ( enabledServices.includes( 'google' ) ) { %>
+              <div class="margin-h-md margin-v-lg" style="display: flex; align-items: center; gap: 12px;">
+                <div style="flex: 1; border-top: 1px solid #ddd;"></div>
+                <strong class="gray"><%= __('orSocial') %></strong>
+                <div style="flex: 1; border-top: 1px solid #ddd;"></div>
+              </div>
+              <div class="margin-h-md margin-bottom-lg">
+                <form
+                  id="signup-google"
+                  action="<%= genUrl(
+                    agenda ? 'agendaGoogleSignup' : 'googleSignup',
+                    [ optionals, agenda ? { slug: agenda.slug } : {} ]
+                  ) %>"
+                  method="POST"
+                >
+                  <button
+                    id="signup-google-button"
+                    class="btn btn-google btn-block"
+                    type="submit"
+                  >
+                    <i class="fa fa-google"></i>
+                    Google
+                  </button>
+                </form>
+                <% if ( errors.googleUid ) { %>
+                  <span class="text-danger"><%= __( errors.googleUid ) %></span>
+                <% } %>
+              </div>
+            <% } %>
           </div>
-          <% if ( enabledServices.length ) { %>
-            <div class="col-md-6 light-border-left">
-              <div class="margin-all-md">
-                <div class="text-center margin-bottom-sm"><strong class="gray"><%= __('orSocial') %></strong></div>
-                <div class="text-center">
-                  <strong><%= __('socialHead') %></strong>
-                </div>
-                <div class="margin-top-sm"><%= __('socialDescription') %></div>
-              </div>
-              <div class="margin-all-md">
-                <% if ( enabledServices.includes( 'facebook' ) ) { %>
-                  <div class="margin-bottom-md">
-                    <form
-                      id="signup-facebook"
-                      action="<%= genUrl(
-                        agenda ? 'agendaFacebookSignup' : 'facebookSignup',
-                        [ optionals, agenda ? { slug: agenda.slug } : {} ]
-                      ) %>"
-                      method="POST"
-                    >
-                      <button
-                        id="signup-facebook-button"
-                        class="btn btn-facebook btn-block"
-                        type="submit"
-                      >
-                        <i class="fa fa-facebook"></i>
-                        Facebook
-                      </button>
-                    </form>
-                    <% if ( errors.facebookUid ) { %>
-                      <span class="text-danger"><%= __( errors.facebookUid ) %></span>
-                    <% } %>
-                  </div>
-                <% } %>
-                <% if ( enabledServices.includes( 'google' ) ) { %>
-                  <div class="margin-bottom-md">
-                    <form
-                      id="signup-google"
-                      action="<%= genUrl(
-                        agenda ? 'agendaGoogleSignup' : 'googleSignup',
-                        [ optionals, agenda ? { slug: agenda.slug } : {} ]
-                      ) %>"
-                      method="POST"
-                    >
-                      <button
-                        id="signup-google-button"
-                        class="btn btn-google btn-block"
-                        type="submit"
-                      >
-                        <i class="fa fa-google"></i>
-                        Google
-                      </button>
-                    </form>
-                    <% if ( errors.googleUid ) { %>
-                      <span class="text-danger"><%= __( errors.googleUid ) %></span>
-                    <% } %>
-                  </div>
-                <% } %>
-              </div>
-            </div>
-          <% } %>
         </div>
       </section>
     </div>

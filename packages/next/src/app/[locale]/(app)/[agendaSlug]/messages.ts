@@ -60,6 +60,10 @@ export default defineMessages({
     id: 'next.views.AgendaShow.closeButton',
     defaultMessage: 'Close',
   },
+  signin: {
+    id: 'next.views.AgendaShow.signin',
+    defaultMessage: 'Sign in',
+  },
 });
 
 export const agendaError = defineMessages({

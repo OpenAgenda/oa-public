@@ -81,6 +81,7 @@ export default {
     verifyHeadersPasswordIfExternal(),
   ],
   confirmChangeEmail: [],
+  requestUnlinkFacebook: [restrictToCurrentUserIfExternal()],
   changePassword: [restrictToCurrentUserIfExternal()],
   generateApiKey: [restrictToCurrentUserIfExternal()],
   setNewFlag: [restrictToCurrentUserIfExternal()],

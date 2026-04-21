@@ -6,16 +6,10 @@ import { useIntl } from 'react-intl';
 import {
   Text,
   Flex,
-  Button,
   useDisclosure,
   useBreakpointValue,
 } from '@openagenda/uikit';
 import {
-  DialogRoot,
-  DialogContent,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
   MenuRoot,
   MenuTrigger,
   MenuContent,
@@ -23,7 +17,6 @@ import {
   MenuSeparator,
   Tooltip,
 } from '@openagenda/uikit/snippets';
-import useLocalePath from '@/src/utils/useLocalePath';
 import { FaIcon } from '@/src/icons';
 import { faChevronDown, faEllipsisVertical } from '@/src/icons/solid';
 import base64 from '@/src/utils/base64';
@@ -35,6 +28,7 @@ import DuplicateModal from '../DuplicateModal';
 import TransferOwnershipModal from '../TransferOwnershipModal';
 import { useInvalidEventModal } from './InvalidEventModal';
 import ContextBarButton from './ContextBarButton';
+import RemoveEventModal from './RemoveEventModal';
 
 function ButtonMenuItem({
   value,
@@ -78,7 +72,6 @@ export default function OtherActions({ agenda, editLink, contextBarRef }) {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const localePath = useLocalePath();
 
   const { event, mutate } = useEvent();
   const { me, member } = useMember();
@@ -150,25 +143,6 @@ export default function OtherActions({ agenda, editLink, contextBarRef }) {
       );
     } catch (e) {
       console.log('PATCH EVENT ERROR', e);
-    }
-  };
-
-  const onRemove = async () => {
-    try {
-      const response = await fetch(
-        `/api/agendas/${agenda.uid}/events/${event.uid}`,
-        {
-          method: 'DELETE',
-        },
-      );
-
-      if (response.ok) {
-        router.push(localePath(`/${agenda.slug}`));
-        return;
-      }
-      throw new Error('Error');
-    } catch (e) {
-      console.log('REMOVE EVENT ERROR', e);
     }
   };
 
@@ -361,30 +335,14 @@ export default function OtherActions({ agenda, editLink, contextBarRef }) {
         </MenuContent>
       </MenuRoot>
 
-      <DialogRoot
-        open={removeIsOpen}
-        onOpenChange={removeOnClose}
-        placement="center"
-      >
-        <DialogContent>
-          <DialogHeader />
-          <DialogBody m="auto">
-            {isOriginAgenda
-              ? intl.formatMessage(messages.deleteConfirmation)
-              : intl.formatMessage(messages.removeConfirmation)}
-          </DialogBody>
-          <DialogFooter justifyContent="center">
-            <Button colorPalette="danger" mr={3} onClick={onRemove}>
-              {isOriginAgenda
-                ? intl.formatMessage(messages.delete)
-                : intl.formatMessage(messages.remove)}
-            </Button>
-            <Button variant="ghost" onClick={removeOnClose}>
-              {intl.formatMessage(messages.cancel)}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </DialogRoot>
+      <RemoveEventModal
+        isOpen={removeIsOpen}
+        onClose={removeOnClose}
+        agendaUid={agenda.uid}
+        eventUid={event.uid}
+        isOriginAgenda={isOriginAgenda}
+        onCompleted={() => router.push(`/${agenda.slug}`)}
+      />
 
       {duplicateIsOpen ? (
         <DuplicateModal

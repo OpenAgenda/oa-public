@@ -9,7 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { locales as sharedLocales } from '@openagenda/react-shared';
 import { locales as memberLocales } from '@openagenda/member-apps';
-import commonLocales from '@openagenda/common-labels';
+import * as commonLocales from '@openagenda/common-labels';
 
 import * as locales from '../locales-compiled/index.js';
 import usePrefix from '../hooks/usePrefix.js';

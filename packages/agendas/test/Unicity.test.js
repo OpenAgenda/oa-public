@@ -178,4 +178,64 @@ describe('Unicity', () => {
       ).toBe(2);
     });
   });
+
+  describe('filter option', () => {
+    let filteredUnicity;
+
+    beforeAll(async () => {
+      await knexClient('agenda')
+        .where('slug', 'la-forge-campus')
+        .update({ deleted_at: new Date() });
+
+      filteredUnicity = Unicity('agenda.slug', {
+        setName: 'unicity-filtered',
+        expiry: 1000,
+        client: knexClient,
+        redis: redisClient,
+        generate: (seed, randomize = false) => {
+          const slug = slugify(seed || '', { lower: true, strict: true });
+          return randomize
+            ? `${slug}-${Math.ceil(Math.random() * 1000)}`
+            : slug;
+        },
+        filter: (q) => q.whereNull('deleted_at'),
+      });
+
+      await redisClient.del('unicity-filtered');
+    });
+
+    afterAll(async () => {
+      await filteredUnicity.destroy();
+      await knexClient('agenda')
+        .where('slug', 'la-forge-campus')
+        .update({ deleted_at: null });
+    });
+
+    test('isAvailable ignores soft-deleted rows', async () => {
+      expect(await filteredUnicity.isAvailable('la-forge-campus')).toBe(true);
+    });
+
+    test('holdIfAvailable holds a slug used only by soft-deleted rows', async () => {
+      const held = filteredUnicity.clone();
+      try {
+        expect(await held.holdIfAvailable('la-forge-campus')).toBe(true);
+      } finally {
+        await held.destroy();
+      }
+    });
+
+    test('generateAndHold returns the natural slug when only a soft-deleted row exists', async () => {
+      const held = filteredUnicity.clone();
+      try {
+        const slug = await held.generateAndHold('La Forge Campus');
+        expect(slug).toBe('la-forge-campus');
+      } finally {
+        await held.destroy();
+      }
+    });
+
+    test('without filter, the same value is unavailable', async () => {
+      expect(await unicity.isAvailable('la-forge-campus')).toBe(false);
+    });
+  });
 });

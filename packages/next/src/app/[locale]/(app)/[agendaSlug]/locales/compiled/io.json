@@ -73,6 +73,12 @@
       "value": "crwdns32963:0crwdne32963:0"
     }
   ],
+  "next.views.AgendaShow.signin": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
   "next.views.AgendaShow.termsOfUse": [
     {
       "type": 0,

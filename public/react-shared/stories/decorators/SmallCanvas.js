@@ -1,7 +1,7 @@
 import { IntlProvider } from 'react-intl';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
-import commonLabels from '@openagenda/common-labels';
+import * as commonLabels from '@openagenda/common-labels';
 import * as locales from '../../src/locales-compiled/index.js';
 
 const lang = 'fr';

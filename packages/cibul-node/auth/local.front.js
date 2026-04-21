@@ -17,6 +17,7 @@ import cmn from '../lib/commons-app.js';
 import config from '../config/index.js';
 import layouts from '../services/lib/layouts/index.js';
 import * as auth from './lib/auth.js';
+import { wantsJson } from './lib/utils.js';
 import loadCaptcha from './lib/captcha.js';
 
 const log = logs('auth/local');
@@ -128,7 +129,7 @@ function signinSubmit(req, res, next) {
           );
           return v;
         })
-        .then(auth.done, cmn.catchError(req, res));
+        .then(auth.done, cmn.catchError(req, res, wantsJson(req)));
     },
   )(req, res, next);
 }
@@ -229,7 +230,7 @@ function handleSigninRequest(req, email, password, cb) {
           password,
           user: null,
           errors: {
-            password: getErrorLabel('incorrectPassword', req.lang),
+            password: getErrorLabel('incorrectCredentials', req.lang),
           },
         });
       }
@@ -239,6 +240,16 @@ function handleSigninRequest(req, email, password, cb) {
       cb(null, user, { email, password, user });
     })
     .catch((err) => {
+      if (err.name === 'NotFound') {
+        return cb(null, null, {
+          email,
+          password,
+          user: null,
+          errors: {
+            password: getErrorLabel('incorrectCredentials', req.lang),
+          },
+        });
+      }
       cb(err);
     });
 }

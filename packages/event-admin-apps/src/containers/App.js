@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import { useConstant, useLayoutData } from '@openagenda/react-shared';
 import { locales as reactFiltersLocales } from '@openagenda/react-filters';
-import commonLocales from '@openagenda/common-labels';
+import * as commonLocales from '@openagenda/common-labels';
 import eventsReducer from '../reducers/events.js';
 import * as appLocales from '../locales-compiled/index.js';
 

@@ -11,6 +11,15 @@ module.exports = {
     "nl": "Het wachtwoord is onjuist",
     "br": "Direizh eo ar ger-tremen"
   },
+  "incorrectCredentials": {
+    "en": "Your email or password is incorrect.",
+    "fr": "L'email ou le mot de passe est incorrect.",
+    "it": "L'e-mail o la password non è corretta.",
+    "oc": "L'email o lo senhal son pas corrèctes.",
+    "es": "El correo electrónico o la contraseña son incorrectos.",
+    "nl": "Het e-mailadres of wachtwoord is onjuist.",
+    "br": "Direizh eo ar chomlec'h postel pe ar ger-tremen"
+  },
   "invalidToken": {
     "en": "Invalid token",
     "fr": "Token invalide",

@@ -37,6 +37,7 @@ function Agendas(c) {
       const slug = slugify(seed || '', { lower: true, strict: true });
       return randomize ? `${slug}-${Math.ceil(Math.random() * 1000)}` : slug;
     },
+    filter: (q) => q.whereNull('deleted_at'),
   });
 
   const uidUnicity = Unicity(`${schemas.agenda}.uid`, {

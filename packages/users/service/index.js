@@ -193,6 +193,12 @@ class Users extends Service {
     return { email: data.email };
   }
 
+  async requestUnlinkFacebook(uid, data, params = {}) {
+    await this._patch(uid, data);
+
+    return this.get(uid, params);
+  }
+
   async changePassword(uid, data, params = {}) {
     await this._patch(uid, data);
 
@@ -450,6 +456,34 @@ hooks(Users.prototype, {
         keep(),
       ],
       after: [...afterAll],
+    }),
+  },
+  requestUnlinkFacebook: {
+    context: withParams('id', 'data', ['params', {}]),
+    middleware: wrap({
+      before: [
+        stashBefore('before', { internal: true, provider: undefined }),
+        softDelete(),
+        validate({
+          email: { optional: false, type: 'email' },
+          password: { optional: false, type: 'text' },
+        }),
+        (context) => {
+          if (!context.params.before.facebookUid) {
+            throw new BadRequest('notFacebookAccount');
+          }
+        },
+        iff(
+          (context) => context.data.email !== context.params.before.email,
+          checkUnicity('email', 'data.email'),
+        ),
+        setInStore('unlinkFacebookEmail', 'data.email'),
+        hashPassword('data.password', 'params.before.salt'),
+        setInStore('unlinkFacebookPasswordHash', 'data.password'),
+        keep('store'),
+        formatStore(),
+      ],
+      after: [...afterAll, populateAccountTypes()],
     }),
   },
   changePassword: {

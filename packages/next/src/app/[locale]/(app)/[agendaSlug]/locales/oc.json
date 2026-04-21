@@ -10,6 +10,7 @@
   "next.views.AgendaShow.seeEvents": "Mostrar {count, plural, one {# eveniment} other {# eveniments}}",
   "next.views.AgendaShow.seeMore": "Ne véser mai",
   "next.views.AgendaShow.showUpcomingEventsOnly": "Mostrar pas que los eveniments venents",
+  "next.views.AgendaShow.signin": "",
   "next.views.AgendaShow.termsOfUse": "Condicions d'utilizacion",
   "next.views.AgendaShow.totalEvents": "{count, plural, =0 {Pas d'eveniment} one {1 eveniment} other {# eveniments}}",
   "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {Pas d'eveniment venent} one {1 eveniment a venir} other {# eveniments a venir}}",

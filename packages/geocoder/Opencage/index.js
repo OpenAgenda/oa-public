@@ -1,5 +1,6 @@
 import _ from 'lodash';
-import ky from 'ky';
+import ky, { HTTPError } from 'ky';
+import { BadRequest } from '@openagenda/verror';
 import textValidator from '@openagenda/validators/text.js';
 import linkValidator from '@openagenda/validators/link.js';
 import ParseAndTransform from './lib/parseAndTransform.js';
@@ -112,13 +113,35 @@ async function geocode(
     return first ? null : [];
   }
 
-  const data = await ky(
-    forwardURL(cleanQuery, {
-      key,
-      countryCode: cleanCountryCode,
-      language,
-    }),
-  ).json();
+  let data;
+  try {
+    data = await ky(
+      forwardURL(cleanQuery, {
+        key,
+        countryCode: cleanCountryCode,
+        language,
+      }),
+    ).json();
+  } catch (err) {
+    if (err instanceof HTTPError && err.response.status === 400) {
+      throw new BadRequest(
+        {
+          info: {
+            errors: [
+              {
+                origin: query,
+                field: 'query',
+                code: 'query.invalid',
+                message: 'query could not be geocoded',
+              },
+            ],
+          },
+        },
+        'invalid query',
+      );
+    }
+    throw err;
+  }
 
   const results = _.get(data, 'results', []);
   const transformed = await parseAndTransform(results, { raw });

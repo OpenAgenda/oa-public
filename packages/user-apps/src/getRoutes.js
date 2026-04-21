@@ -93,6 +93,11 @@ export default function getRoutes(prefix = '') {
           component: SettingsContainer,
           activeTab: 'emails',
         },
+        {
+          path: `${prefix}/unlinkFacebook`,
+          component: SettingsContainer,
+          activeTab: 'unlinkFacebook',
+        },
       ],
     },
   ];

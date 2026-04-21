@@ -13,6 +13,7 @@ Unicity is initialized with a configuration object that includes the following p
 - `client`: The Knex client for interacting with the MySQL database.
 - `redis`: The IORedis client for interacting with Redis.
 - `generate`: A function that generates a unique value based on a seed.
+- `filter`: (optional) A function that receives the knex query builder used to check database availability and can add additional predicates (e.g. `(q) => q.whereNull('deleted_at')` to ignore soft-deleted rows).
 - `lockRetryDelay`: (optional) The delay in milliseconds between lock acquisition attempts. Default: 10ms.
 - `lockMaxRetries`: (optional) The maximum number of lock acquisition attempts before throwing an error. Default: 100.
 

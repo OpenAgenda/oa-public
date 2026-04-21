@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@openagenda/validators": "^2.4.0",
+    "@openagenda/verror": "^3.2.0",
     "ky": "^1.14.0",
     "lodash": "^4.17.15",
     "point-in-polygon": "^1.0.1"

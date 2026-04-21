@@ -1,6 +1,7 @@
 {
   "name": "@openagenda/common-labels",
   "version": "1.2.4",
+  "type": "module",
   "author": "Kévin Berthommier <kevin.bertho@gmail.com>",
   "homepage": "https://github.com/OpenAgenda/oa-public",
   "license": "ISC",
@@ -38,7 +39,6 @@
     "yargs": "^17.4.1"
   },
   "dependencies": {
-    "dedent": "^0.7.0",
     "react-intl": "^10.1.1"
   }
 }

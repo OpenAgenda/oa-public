@@ -1,5 +1,6 @@
 {
   "incorrectPassword": "This password is incorrect",
+  "incorrectCredentials": "Your email or password is incorrect.",
   "invalidToken": "Invalid token",
   "userNotFound": "User not found",
   "userNotActivated": "User not activated",

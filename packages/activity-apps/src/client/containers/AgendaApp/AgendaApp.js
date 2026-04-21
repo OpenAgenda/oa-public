@@ -4,7 +4,7 @@ import { reducer as formReducer } from 'redux-form';
 import { IntlProvider } from 'react-intl';
 import { useLayoutData } from '@openagenda/react-shared';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
-import commonLocales from '@openagenda/common-labels';
+import * as commonLocales from '@openagenda/common-labels';
 import modalsReducer from '../../redux/modules/modals.js';
 import activitiesReducer from '../../redux/modules/activities.js';
 import * as appLocales from '../../../locales-compiled/index.js';

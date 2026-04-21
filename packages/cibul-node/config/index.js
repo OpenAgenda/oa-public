@@ -515,18 +515,6 @@ const config = {
         method: 'get',
         uri: '/facebook/signin/callback',
       },
-      facebookSignup: {
-        method: 'get',
-        uri: '/facebook/signup',
-      },
-      agendaFacebookSignup: {
-        method: 'post',
-        uri: '/:slug/facebook/signup',
-      },
-      facebookSignupCallback: {
-        method: 'get',
-        uri: '/facebook/signup/callback',
-      },
       googleSignin: {
         method: 'get',
         uri: '/google/signin',
