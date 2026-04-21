@@ -93,7 +93,7 @@
     "rehype-external-links": "^3.0.0",
     "remark-breaks": "^4.0.0",
     "sharp": "^0.31.1",
-    "swr": "^2.1.1",
+    "swr": "^2.4.1",
     "tlds": "^1.247.0",
     "universal-cookie": "^7.2.0",
     "use-local-storage-state": "^19.5.0",
