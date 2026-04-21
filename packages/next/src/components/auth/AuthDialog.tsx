@@ -24,12 +24,14 @@ interface AuthDialogProps {
   children?: ReactNode;
   agenda?: { slug: string; uid: string };
   reloadOnSuccess?: boolean;
+  redirectOnSuccess?: string;
 }
 
 export default function AuthDialog({
   children,
   agenda,
   reloadOnSuccess,
+  redirectOnSuccess,
 }: AuthDialogProps) {
   const intl = useIntl();
   const [view, setView] = useState<'signin' | 'lost'>('signin');
@@ -60,6 +62,7 @@ export default function AuthDialog({
               <Signin
                 agenda={agenda}
                 reloadOnSuccess={reloadOnSuccess}
+                redirectOnSuccess={redirectOnSuccess}
                 onViewChange={setView}
               />
             </Dialog.Body>

@@ -1,8 +1,6 @@
-import qs from 'qs';
 import { useRouter } from 'next/router';
 import NextLink from 'next/link';
 import { defineMessages, useIntl } from 'react-intl';
-import { useCookies } from 'react-cookie';
 import {
   Box,
   Stack,
@@ -18,7 +16,6 @@ import {
 } from '@openagenda/uikit';
 import { AgendaExportModal } from '@openagenda/react';
 import { nl2br } from '@openagenda/react-shared';
-import { faEnvelope, faPlus } from 'icons/solid';
 import { faShareNodes } from 'icons/regular';
 import { FaIcon } from 'icons';
 import Image from 'components/Image';
@@ -27,22 +24,14 @@ import OfficialAgenda from 'components/OfficialAgenda';
 import LockIcon from 'components/LockIcon';
 import useLocationQuery from 'hooks/useLocationQuery';
 import { thumborLoader } from 'utils/imageLoader';
-import hrefWithLang from 'utils/hrefWithLang';
-import getSession from 'utils/getSession';
 import AggregateModal from './AggregateModal';
+import ContactButton from './ContactButton';
+import ContributeButton from './ContributeButton';
 
 const messages = defineMessages({
-  contact: {
-    id: 'next.views.AgendaShow.AgendaHeader.contact',
-    defaultMessage: 'Contact',
-  },
   officialAgenda: {
     id: 'next.views.AgendaShow.AgendaHeader.officialAgenda',
     defaultMessage: 'Official agenda',
-  },
-  addEvent: {
-    id: 'next.views.AgendaShow.AgendaHeader.addEvent',
-    defaultMessage: 'Add an event',
   },
   aggregate: {
     id: 'next.views.AgendaShow.AgendaHeader.aggregate',
@@ -54,18 +43,6 @@ const messages = defineMessages({
   },
 });
 
-function getMailtoUrl(mailtoSettings) {
-  if (!mailtoSettings?.enabled || !mailtoSettings.email) return null;
-
-  return `mailto:${mailtoSettings.email}${qs.stringify(
-    {
-      subject: mailtoSettings.subject,
-      body: mailtoSettings.body,
-    },
-    { addQueryPrefix: true, skipNulls: true },
-  )}`;
-}
-
 export default function AgendaHeader({ agenda }) {
   const isDev = process.env.NODE_ENV === 'development';
 
@@ -73,8 +50,6 @@ export default function AgendaHeader({ agenda }) {
 
   const router = useRouter();
   const urlQuery = useLocationQuery();
-
-  const mailtoUrl = getMailtoUrl(agenda.settings.inbox?.mailto);
 
   const {
     open: aggregateIsOpen,
@@ -96,17 +71,6 @@ export default function AgendaHeader({ agenda }) {
       router.replace(url.pathname + url.search, null, { shallow: true });
     },
   });
-
-  const [cookies] = useCookies();
-  const sessionUser = getSession(cookies)?.user;
-  const contactHref = hrefWithLang(
-    `/${agenda.slug}/contact`,
-    sessionUser ? null : intl.locale,
-  );
-  const contributeHref = hrefWithLang(
-    `/${agenda.slug}/contribute`,
-    sessionUser ? null : intl.locale,
-  );
 
   const imageSrc = agenda.image
     ? new URL(agenda.image).pathname.replace(/^\//, '')
@@ -178,23 +142,7 @@ export default function AgendaHeader({ agenda }) {
         ) : null}
 
         <Wrap mt="3" justify="center">
-          <Button
-            asChild
-            variant="outline"
-            color="white"
-            borderColor="white"
-            _hover={{
-              bg: 'white',
-              borderColor: 'white',
-              color: 'primary.500',
-              textDecoration: 'none',
-            }}
-          >
-            <Link unstyled href={mailtoUrl || contactHref}>
-              <FaIcon icon={faEnvelope} />
-              {intl.formatMessage(messages.contact)}
-            </Link>
-          </Button>
+          <ContactButton agenda={agenda} />
           <Button
             onClick={exportOnOpen}
             variant="outline"
@@ -223,12 +171,7 @@ export default function AgendaHeader({ agenda }) {
             <OAIcon size="sm" />
             {intl.formatMessage(messages.aggregate)}
           </Button>
-          <Button asChild>
-            <Link unstyled href={contributeHref}>
-              <FaIcon icon={faPlus} />
-              {intl.formatMessage(messages.addEvent)}
-            </Link>
-          </Button>
+          <ContributeButton agenda={agenda} />
         </Wrap>
       </VStack>
 
