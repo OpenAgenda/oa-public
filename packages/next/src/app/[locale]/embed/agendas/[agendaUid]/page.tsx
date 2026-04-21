@@ -1,7 +1,8 @@
 import type { Metadata } from 'next';
 import { headers } from 'next/headers';
 import { createIntl, createIntlCache } from 'react-intl/server';
-import qs from 'qs';
+import { unstable_serialize } from 'swr';
+import { unstable_serialize as unstable_serialize_infinite } from 'swr/infinite';
 import { getSupportedLocale } from '@openagenda/intl';
 import {
   filtersToAggregations,
@@ -12,16 +13,20 @@ import getLocale from '@/src/utils/getLocale';
 import getDateFnsLocale from '@/src/utils/getDateFnsLocale';
 import parseLocationQuery from '@/src/utils/parseLocationQuery';
 import parseServerSearchParams from '@/src/utils/parseServerSearchParams';
-import { omitParams, validateSort } from '@/src/utils/embedParams';
+import { extractParams, omitParams } from '@/src/utils/embedParams';
 import isUpcomingOnlyQuery from '@/src/utils/isUpcomingOnlyQuery';
 import { errorToJSON } from '@/src/utils/errorToJSON';
 import kyErrorToVError from '@/src/utils/kyErrorToVError';
 import { logError } from '@/src/utils/sentry';
 import applyPrefilterToEventsQuery from '@/src/utils/applyPrefilterToEventsQuery';
 import { includeFields } from '@/src/app/[locale]/(app)/[agendaSlug]/_utils/includeFields';
+import {
+  eventsKey,
+  filtersBaseKey,
+} from '@/src/app/[locale]/(app)/[agendaSlug]/_utils/swrKeys';
 import fetchAppLocale from '@/src/app/locales';
 import fetchExternalLocale from '@/src/app/locales/external';
-import { fetchEmbedAgenda } from './_api';
+import { fetchEmbedAgenda, fetchEmbedAgendaEvents } from './_api';
 import EmbedAgendaShowClient from './_components/EmbedAgendaShowClient';
 import EmbedAgendaError from './_components/EmbedAgendaError';
 
@@ -103,9 +108,10 @@ export default async function EmbedAgendaPage({
     ({ fieldSchema }: any) => fieldSchema.field,
   );
 
-  const prefilter = query.initPath
+  const initQuery = query.initPath
     ? parseLocationQuery(query.initPath as string)
-    : query;
+    : null;
+  const prefilter = initQuery ?? query;
 
   const requiredFilters = (prefilter.filters as string)?.split(',') ?? [];
 
@@ -125,62 +131,99 @@ export default async function EmbedAgendaPage({
     include: filtersToInclude,
   });
 
-  const prefilteredQuery = applyPrefilterToEventsQuery({
-    query,
-    prefilter,
-    filters,
-  });
-  const timingsPrefilter = isUpcomingOnlyQuery(prefilteredQuery)
-    ? { relative: ['current', 'upcoming'] }
-    : null;
+  // `EmbedAgendaShowClient` normalizes its `referrer` prop via `referrer ?? undefined`
+  // before forwarding to `EmbedAgendaShow`. Use `undefined` here so the
+  // `host: referrer` entry in the prefilter object hashes the same on server
+  // and client first-render (where the state is still `undefined`).
+  const referrer =
+    (query.host as string) || headersList.get('referer') || undefined;
 
-  const referrer = (query.host as string) || headersList.get('referer') || null;
+  // Mirror the client `EmbedLayoutShell` → `EmbedAgendaShow` wiring so the
+  // SWR keys computed here match the ones the hooks will serialize on mount.
+  // `embedParams.sort` / `pageSize` come from the same source (initPath or
+  // current query) the client uses via `extractParams`.
+  const embedParams = extractParams(
+    (initQuery ?? query) as Record<string, string>,
+  );
+  const pageSize = embedParams.pageSize ?? 12;
+  const sort = embedParams.sort;
 
-  const paramsBase = omitParams({
-    aggsSizeLimit: 1500,
-    aggs: filtersToAggregations(filters, true),
-    size: 0,
-    ...timingsPrefilter,
+  // Embed `TotalPart` passes an augmented prefilter (with cms/host) to
+  // `useFiltersBaseQuery`, not a raw null. So the filtersBase SWR key and its
+  // URL params both carry the embedPrefilter.
+  const embedPrefilter = omitParams({
     ...prefilter,
     cms: 'embed',
     host: referrer,
-    passed: undefined,
   });
 
-  const paramsFull = {
-    aggsSizeLimit: 1500,
-    aggs: filtersToAggregations(filters, false),
-    from: 0,
-    sort: (query.search as string)?.length
-      ? 'score'
-      : validateSort(prefilteredQuery.sort) || 'lastTimingWithFeatured.asc',
-    size: 12,
-    ...timingsPrefilter,
-    ...omitParams(prefilteredQuery),
+  const clientQuery = omitParams({
+    ...applyPrefilterToEventsQuery({ query, prefilter, filters }),
     cms: 'embed',
     host: referrer,
+  });
+
+  const baseUpcomingOnly = isUpcomingOnlyQuery(
+    applyPrefilterToEventsQuery({
+      prefilter: embedPrefilter,
+      query,
+      filters,
+    }),
+  );
+  const eventsUpcomingOnly = isUpcomingOnlyQuery(clientQuery);
+
+  const filtersBaseFetchParams = {
+    aggsSizeLimit: 1500,
+    aggs: filtersToAggregations(filters, true),
+    size: 0,
+    relative: baseUpcomingOnly ? ['current', 'upcoming'] : undefined,
+    ...embedPrefilter,
+    passed: undefined,
+  };
+
+  const eventsFetchParams = {
+    aggsSizeLimit: 1500,
+    aggs: filtersToAggregations(filters, false),
+    sort: (clientQuery.search as string)?.length
+      ? 'score'
+      : sort || 'lastTimingWithFeatured.asc',
+    size: pageSize,
+    ...eventsUpcomingOnly ? { relative: ['current', 'upcoming'] } : {},
+    ...clientQuery,
+    from: 0,
     passed: undefined,
     includeFields,
     includeImageTimestamps: true,
   };
 
-  const preload = [
-    `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsBase, { skipNulls: true })}`,
-    `/api/agendas/slug/${agenda.slug}/events?${qs.stringify(paramsFull, { skipNulls: true })}`,
-  ];
+  const [filtersBaseRes, eventsRes] = await Promise.allSettled([
+    fetchEmbedAgendaEvents(agenda.slug, filtersBaseFetchParams),
+    fetchEmbedAgendaEvents(agenda.slug, eventsFetchParams),
+  ]);
+
+  const fallback: Record<string, any> = {};
+
+  if (filtersBaseRes.status === 'fulfilled') {
+    fallback[
+      unstable_serialize(
+        filtersBaseKey(agenda.slug, {
+          upcomingOnly: baseUpcomingOnly,
+          ...embedPrefilter,
+        }),
+      )
+    ] = filtersBaseRes.value;
+  }
+
+  if (eventsRes.status === 'fulfilled') {
+    fallback[unstable_serialize_infinite(eventsKey(agenda.slug, clientQuery))] =
+      [eventsRes.value];
+  }
 
   return (
-    <>
-      {preload.map((href) => (
-        <link
-          key={href}
-          rel="preload"
-          href={href}
-          as="fetch"
-          crossOrigin="anonymous"
-        />
-      ))}
-      <EmbedAgendaShowClient agenda={agenda} referrer={referrer} />
-    </>
+    <EmbedAgendaShowClient
+      agenda={agenda}
+      fallback={fallback}
+      referrer={referrer}
+    />
   );
 }

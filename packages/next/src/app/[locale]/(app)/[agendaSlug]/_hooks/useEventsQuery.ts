@@ -2,6 +2,7 @@ import useSWRInfinite from 'swr/infinite';
 import { getEvents } from '@openagenda/react-filters';
 import isUpcomingOnlyQuery from '@/src/utils/isUpcomingOnlyQuery';
 import { includeFields } from '../_utils/includeFields';
+import { eventsKey } from '../_utils/swrKeys';
 
 export default function useEventsQuery({
   agenda,
@@ -11,17 +12,11 @@ export default function useEventsQuery({
   suspense = false,
   pageSize = 10,
 }) {
+  const getKey = eventsKey(agenda.slug, query);
   const result = useSWRInfinite(
     (pageIndex, previousPageData) => {
-      // reached the end
       if (previousPageData && !previousPageData.events) return null;
-
-      // first page, we don't have `previousPageData`
-      if (pageIndex === 0)
-        return ['AgendaShow', 'events', agenda.slug, query, pageIndex];
-
-      // add the cursor to the API endpoint
-      return ['AgendaShow', 'events', agenda.slug, query, pageIndex];
+      return getKey(pageIndex);
     },
     ([_page, _requestId, _slug, _query, pageIndex]) =>
       getEvents(

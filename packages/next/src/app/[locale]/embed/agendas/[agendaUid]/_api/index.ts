@@ -1,6 +1,7 @@
 import { cache } from 'react';
 import { headers } from 'next/headers';
 import ky from 'ky';
+import qs from 'qs';
 import type { Agenda } from '@/src/types';
 import { REQUEST_AGENDA_HEADER, peekAgenda } from '@/src/utils/requestAgenda';
 
@@ -33,3 +34,12 @@ export const fetchEmbedAgenda = cache(
     return api.get(`api/agendas/${agendaUid}?detailed=1`).json<Agenda>();
   },
 );
+
+export async function fetchEmbedAgendaEvents(
+  agendaSlug: string,
+  params: Record<string, any>,
+): Promise<any> {
+  const api = await getApi();
+  const search = qs.stringify(params, { skipNulls: true });
+  return api.get(`api/agendas/slug/${agendaSlug}/events?${search}`).json();
+}
