@@ -1,3 +1,5 @@
+'use client';
+
 import { createContext } from '@/src/utils/createContext';
 
 const [ActivitiesProvider, useActivitiesContext] = createContext({
