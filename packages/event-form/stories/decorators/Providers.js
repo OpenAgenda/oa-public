@@ -1,6 +1,6 @@
 import { IntlProvider } from 'react-intl';
 import { locales as sharedLocales } from '@openagenda/react-shared';
-import commonLocales from '@openagenda/common-labels';
+import * as commonLocales from '@openagenda/common-labels';
 import { mergeLocales, getSupportedLocale } from '@openagenda/intl';
 import * as eventFormLocales from '../../src/locales/index.js';
 
