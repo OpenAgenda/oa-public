@@ -1,18 +1,15 @@
 #!/usr/bin/env node
 
-'use strict';
-
-const fs = require('node:fs');
-const path = require('node:path');
-const _ = require('lodash');
-const yargs = require('yargs');
-const glob = require('glob');
-const { mkdirp } = require('mkdirp');
-const dedent = require('dedent');
-const extract = require('@openagenda/intl/scripts/extract');
-const compile = require('@openagenda/intl/scripts/compile');
-const inputToOuputPath = require('@openagenda/intl/scripts/utils/inputToOuputPath');
-const getMessages = require('@openagenda/intl/scripts/utils/getMessages');
+import fs from 'node:fs';
+import path from 'node:path';
+import _ from 'lodash';
+import yargs from 'yargs';
+import glob from 'glob';
+import { mkdirp } from 'mkdirp';
+import extract from '@openagenda/intl/scripts/extract';
+import compile from '@openagenda/intl/scripts/compile';
+import inputToOuputPath from '@openagenda/intl/scripts/utils/inputToOuputPath';
+import getMessages from '@openagenda/intl/scripts/utils/getMessages';
 
 async function duplicateLangs({ locales, langs, defaultLang, definedDefault }) {
   const defaultLocalesGlobPath = locales.replace('%lang%', defaultLang);
@@ -50,7 +47,7 @@ async function duplicateLangs({ locales, langs, defaultLang, definedDefault }) {
 }
 
 async function createIndex(langs, locales) {
-  const indexPath = path.join(__dirname, '../build/index.js');
+  const indexPath = path.join(import.meta.dirname, '../build/index.js');
 
   const filesPerLang = {};
 
@@ -67,35 +64,44 @@ async function createIndex(langs, locales) {
     }
   }
 
-  await mkdirp(path.join(__dirname, '../build'));
+  await mkdirp(path.join(import.meta.dirname, '../build'));
 
-  fs.writeFileSync(
-    indexPath,
-    `${dedent`
-    // DOES NOT EDIT
+  const importName = (lang, file) =>
+    _.camelCase(`${lang}_${path.basename(file, '.json')}`);
 
-    /* eslint-disable */
+  const importLines = langs
+    .sort()
+    .flatMap((lang) =>
+      filesPerLang[lang].map(
+        (file) =>
+          `import ${importName(lang, file)} from '../${file}' with { type: 'json' };`,
+      ))
+    .join('\n');
 
-    'use strict';
-    
-    const { mergeLocales } = require('@openagenda/intl');
+  const mergeLines = langs
+    .sort()
+    .map(
+      (lang) =>
+        `const ${lang} = mergeLocales(\n${filesPerLang[lang]
+          .map((file) => `  ${importName(lang, file)},`)
+          .join('\n')}\n);`,
+    )
+    .join('\n');
 
-    ${dedent(
-    langs
-      .sort()
-      .map(
-        (lang) => `const ${lang} = mergeLocales(
-      ${filesPerLang[lang].map((file) => `    require('../${file}')`).join(`,\n${' '.repeat(6)}`)}
-    );`,
-      )
-      .join(`\n${' '.repeat(4)}`),
-  )}
+  const content = `// DOES NOT EDIT
 
-    module.exports = {
-      ${langs.sort().join(`,\n${' '.repeat(6)}`)},
-    };
-    `}\n`,
-  );
+/* eslint-disable */
+
+import { mergeLocales } from '@openagenda/intl';
+
+${importLines}
+
+${mergeLines}
+
+export { ${langs.sort().join(', ')} };
+`;
+
+  fs.writeFileSync(indexPath, content);
 }
 
 (async () => {
@@ -107,7 +113,7 @@ async function createIndex(langs, locales) {
   const locales = 'locales/%lang%/**/*.json';
 
   // 1. Extract messages
-  await yargs
+  await yargs()
     .command(extract)
     .parse(`extract ${messages} -o locales/%lang%/**/%original_file_name%`);
 
@@ -115,7 +121,7 @@ async function createIndex(langs, locales) {
   await duplicateLangs({ locales, langs, defaultLang, definedDefault });
 
   // 3. Compile all
-  await yargs
+  await yargs()
     .command(compile)
     .parse(
       `compile ${locales} -o locales-compiled/%lang%/**/%original_file_name%`,

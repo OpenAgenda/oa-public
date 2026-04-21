@@ -11,7 +11,7 @@ yarn add @openagenda/common-labels
 For the react-intl Provider:
 
 ```js
-import commonLocales from '@openagenda/common-locales';
+import * as commonLocales from '@openagenda/common-labels';
 
 // to merge with others locales
 import { mergeLocales } from '@openagenda/intl';
@@ -25,7 +25,7 @@ const locales = mergeLocales(commonLocales, appLocales);
 Usage with react-intl formatter:
 
 ```js
-import stateMessages from '@openagenda/common-locales/event/states';
+import stateMessages from '@openagenda/common-labels/event/states';
 
 intl.formatMessage(stateMessages.published);
 ```

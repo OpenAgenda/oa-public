@@ -10667,7 +10667,6 @@ __metadata:
   resolution: "@openagenda/common-labels@workspace:public/common-labels"
   dependencies:
     "@openagenda/intl": "npm:^1.1.6"
-    dedent: "npm:^0.7.0"
     glob: "npm:^8.0.1"
     lodash: "npm:^4.17.21"
     mkdirp: "npm:^3.0.1"

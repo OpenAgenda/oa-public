@@ -3,6 +3,10 @@
 module.exports = {
   extends: '../.eslintrc',
 
+  parserOptions: {
+    sourceType: 'module',
+  },
+
   ignorePatterns: ['/build'],
 
   rules: {
@@ -16,10 +20,9 @@ module.exports = {
 
   overrides: [
     {
-      files: ['fetchLocale.js'],
-
+      files: ['.eslintrc.cjs'],
       parserOptions: {
-        sourceType: 'module',
+        sourceType: 'script',
       },
     },
   ],
