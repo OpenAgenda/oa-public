@@ -1,8 +1,6 @@
-'use strict';
+import { defineMessages } from 'react-intl';
 
-const { defineMessages } = require('react-intl');
-
-module.exports = defineMessages({
+export default defineMessages({
   endLessThanBegin: {
     id: 'common.errors.endLessThanBegin',
     defaultMessage:
