@@ -3,6 +3,7 @@ import feathers from '@feathersjs/feathers';
 import express from '@feathersjs/express';
 import cmn from '../../lib/commons-app.js';
 import changeEmailMw from './middleware/changeEmail.js';
+import unlinkFacebookMw from './middleware/unlinkFacebook.js';
 import setFlashAccountRemoved from './middleware/setFlashAccountRemoved.js';
 import getHandler from './lib/getHandler.js';
 
@@ -67,6 +68,11 @@ export default function plugApp(app) {
     getHandler('confirmChangeEmail', ['id', 'params'])(service),
   );
   app.patch(
+    '/users/:__feathersId/requestUnlinkFacebook',
+    unlinkFacebookMw.validatePassword,
+    getHandler('requestUnlinkFacebook', ['id', 'data', 'params'])(service),
+  );
+  app.patch(
     '/users/:__feathersId/changePassword',
     getHandler('changePassword', ['id', 'data', 'params'])(service),
   );
@@ -100,6 +106,12 @@ export default function plugApp(app) {
   app.patch('/users/:__feathersId/requestChangeEmail', changeEmailMw.send);
 
   app.get('/users/:__feathersId/confirmChangeEmail', changeEmailMw.onSuccess);
+
+  // send activation email after requestUnlinkFacebook
+  app.patch(
+    '/users/:__feathersId/requestUnlinkFacebook',
+    unlinkFacebookMw.send,
+  );
 
   // set flash & redirect message after account deletion
   app.delete('/users/:__feathersId', setFlashAccountRemoved());

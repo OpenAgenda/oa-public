@@ -2,6 +2,7 @@ import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 import mysql from 'mysql2';
 import Files from '@openagenda/files';
+import IORedis from 'ioredis';
 import Agendas from '../service/index.js';
 import testConfig from '../testconfig.js';
 import loadFixtures from './fixtures/load.js';
@@ -14,6 +15,7 @@ const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): remove', () => {
   let svc;
+  let redisClient;
 
   beforeAll(
     loadFixtures.bind(null, {
@@ -31,17 +33,29 @@ describe('agendas - functional (server): remove', () => {
       },
     }),
   );
+  beforeAll(async () => {
+    redisClient = new IORedis(dConfig.redis);
+    await redisClient.del('agendaSlugUnicity');
+    await redisClient.del('agendaSlugUnicity:lock');
+    await redisClient.del('agendaUidUnicity');
+    await redisClient.del('agendaUidUnicity:lock');
+  });
   beforeAll(() => {
     svc = Agendas({
       ...config,
       Files: Files(dConfig.files),
+      redis: redisClient,
     });
   });
   afterEach(() => {
     svc = Agendas({
       ...config,
       Files: Files(dConfig.files),
+      redis: redisClient,
     });
+  });
+  afterAll(async () => {
+    await redisClient.quit();
   });
 
   it('agenda remove is a soft delete', async () => {
@@ -124,6 +138,32 @@ describe('agendas - functional (server): remove', () => {
 
       expect(rows1.length).toBe(1);
       expect(rows1[0].deleted_at).toBeInstanceOf(Date);
+    } finally {
+      await con.end();
+    }
+  });
+
+  it('slug of a soft-deleted agenda can be reused on a new create', async () => {
+    const con = mysql.createConnection(config.mysql);
+
+    try {
+      const [rows] = await con
+        .promise()
+        .query(`select slug from ${config.schemas.agenda} where id = ?`, 4818);
+      const { slug: reusedSlug } = rows[0];
+
+      await svc.remove(4818);
+
+      const result = await svc.set({
+        ownerId: 12,
+        title: 'Reuse slug',
+        description: 'Reusing a soft-deleted slug',
+        slug: reusedSlug,
+      });
+
+      expect(result.errors).toEqual([]);
+      expect(result.success).toBe(true);
+      expect(result.agenda.slug).toBe(reusedSlug);
     } finally {
       await con.end();
     }

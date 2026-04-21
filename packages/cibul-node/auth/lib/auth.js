@@ -6,10 +6,11 @@ import EmailValidator from '@openagenda/validators/email.js';
 import makeLabelGetter from '@openagenda/labels';
 import logs from '@openagenda/logs';
 import cmn from '../../lib/commons-app.js';
-import { loadOptionals, render } from './utils.js';
+import { loadOptionals, render, wantsJson } from './utils.js';
 import loadCaptcha from './captcha.js';
 
 const log = logs('auth/lib/auth');
+const unlinkFacebookLog = logs('auth/unlinkFacebook');
 const getLabel = makeLabelGetter(labels);
 const emailValidator = EmailValidator();
 
@@ -179,6 +180,28 @@ export function signin(values) {
         redirectUrl = `/${agendaSlug}/contribute`;
       }
 
+      if (user.facebookUid) {
+        // Phase-out: always funnel Facebook-linked sessions through the
+        // account migration screen, regardless of any ?redirect= target.
+        unlinkFacebookLog.info(
+          'facebook signin detected, redirecting user to migration page',
+          {
+            userUid: user.uid,
+            facebookUid: user.facebookUid,
+          },
+        );
+        redirectUrl = '/settings/unlinkFacebook';
+      }
+
+      const defaultRedirect = agendaSlug
+        ? `/${agendaSlug}/contribute`
+        : '/home';
+
+      if (wantsJson(req)) {
+        res.json({ success: true, redirect: redirectUrl || defaultRedirect });
+        return rs(values);
+      }
+
       if (redirectUrl) {
         req.log.info('signin in successful, redirecting to %s', redirectUrl);
 
@@ -187,7 +210,7 @@ export function signin(values) {
         return rs(values);
       }
 
-      res.redirect(302, agendaSlug ? `/${agendaSlug}/contribute` : '/home');
+      res.redirect(302, defaultRedirect);
 
       rs(values);
     });
@@ -267,17 +290,26 @@ export function redirectToComplete(values) {
     res = '/signup/complete';
   }
 
-  values.res.redirect(
-    302,
-    `${res}?${qs.stringify({
-      ...loadOptionals(values.req),
-      email: values.user.email,
-      ...values.req.agenda ? { slug: values.req.agenda.slug } : {},
-      ...values.req.originalUrl.indexOf('signin') !== -1
-        ? { origin: 'signin' }
-        : undefined,
-    })}`,
-  );
+  const url = `${res}?${qs.stringify({
+    ...loadOptionals(values.req),
+    email: values.user.email,
+    ...values.req.agenda ? { slug: values.req.agenda.slug } : {},
+    ...values.req.originalUrl.indexOf('signin') !== -1
+      ? { origin: 'signin' }
+      : undefined,
+  })}`;
+
+  if (wantsJson(values.req)) {
+    values.res.json({
+      success: false,
+      redirect: url,
+      reason: 'activation_required',
+    });
+    values.resolved = true;
+    return values;
+  }
+
+  values.res.redirect(302, url);
 
   values.resolved = true;
 

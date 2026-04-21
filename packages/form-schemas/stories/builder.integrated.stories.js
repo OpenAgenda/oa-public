@@ -821,6 +821,125 @@ export function ExtendedChoiceField() {
   );
 }
 
+export function CheckboxCategoriesField() {
+  const schema = {
+    fields: [
+      {
+        field: 'categories',
+        label: 'Catégories',
+        help: null,
+        helpLink: null,
+        helpContent: null,
+        info: 'Indiquez dans quelle(s) catégories se classe votre évènement.',
+        sub: null,
+        placeholder: 'Informations utiles pour la recherche.',
+        write: null,
+        read: null,
+        optional: true,
+        display: true,
+        enable: true,
+        origin: 'custom',
+        enableWith: null,
+        optionalWith: null,
+        related: {
+          enable: [],
+          optional: [],
+          other: [],
+        },
+        selfHandled: [],
+        min: null,
+        max: null,
+        options: [
+          {
+            id: 2,
+            value: 'culture',
+            label: 'Culture',
+            info: null,
+            display: true,
+          },
+          {
+            id: 3,
+            value: 'nature',
+            label: 'Nature',
+            info: null,
+            display: true,
+          },
+          {
+            id: 4,
+            value: 'seniors',
+            label: 'Séniors',
+            info: null,
+            display: true,
+          },
+          { id: 5, value: 'sport', label: 'Sport', info: null, display: true },
+          {
+            id: 6,
+            value: 'solidarites',
+            label: 'Solidarités',
+            info: null,
+            display: true,
+          },
+          {
+            id: 7,
+            value: 'festivites',
+            label: 'Festivités',
+            info: null,
+            display: true,
+          },
+          {
+            id: 10,
+            value: 'solidarite-citoyennete',
+            label: 'Solidarité, citoyenneté…',
+            info: null,
+            display: true,
+          },
+          {
+            id: 8,
+            value: 'mediatheques',
+            label: 'Médiathèques',
+            info: null,
+            display: true,
+          },
+          {
+            id: 9,
+            value: 'le-rize',
+            label: 'Le Rize',
+            info: null,
+            display: true,
+          },
+          {
+            id: 11,
+            value: 'saison-culturelle-2024-2025',
+            label: 'Saison culturelle 2024-2025',
+            info: null,
+            display: true,
+          },
+          {
+            id: 12,
+            value: 'universite-populaire-de-villeurbanne',
+            label: 'Université populaire de Villeurbanne',
+            info: null,
+            display: true,
+          },
+        ],
+        fieldType: 'checkbox',
+        schemaId: 30408,
+        schemaType: 'agenda',
+      },
+    ],
+  };
+
+  return (
+    <div className="container top-margined">
+      <div className="row margin-v-md">
+        <div className="col-sm-9">
+          <FormSchemaBuilder lang="fr" schema={schema} onUpdate={logSchema} />
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function HidingAFieldOnAnUndefinedSchema() {
   const extensions = [
     {

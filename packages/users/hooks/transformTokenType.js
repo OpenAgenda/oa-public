@@ -11,6 +11,9 @@ export default function transformTokenType(key) {
       case 'lostPassword':
         obj.type = 'lp';
         break;
+      case 'unlinkFacebook':
+        obj.type = 'uf';
+        break;
       default:
         break;
     }

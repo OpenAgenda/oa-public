@@ -190,6 +190,47 @@ export const EmptyState: Story = {
   ),
 };
 
+export const WithNullImages: Story = {
+  render: () => (
+    <Container maxWidth="5xl">
+      <ReferenceSet
+        title="Références avec images manquantes"
+        description="Certaines références n'ont pas d'image (image: null)"
+        References={[
+          {
+            id: '1',
+            link: 'https://www.openagenda.com',
+            image: null,
+            title: 'Référence sans image',
+            tags: 'Technologie, SaaS',
+          },
+          {
+            id: '2',
+            link: 'https://www.example.com',
+            image: {
+              url: '/thumbnail_Main_Image_A3_0cc920c64c.jpg',
+              alternativeText: 'Avec image',
+            },
+            title: 'Référence avec image',
+            tags: 'Culture, Art',
+          },
+          {
+            id: '3',
+            image: null,
+            title: 'Sans image ni lien',
+            tags: 'Divers',
+          },
+          {
+            id: '4',
+            image: null,
+            tags: 'Sans titre, Sans image',
+          },
+        ]}
+      />
+    </Container>
+  ),
+};
+
 export const WithFilter: Story = {
   render: () => (
     <Container maxWidth="5xl">

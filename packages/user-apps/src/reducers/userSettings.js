@@ -15,6 +15,9 @@ const UPDATE_USER_FAIL = 'user-apps/userSettings/UPDATE_USER_FAIL';
 const CHANGE_PASSWORD = 'user-apps/userSettings/CHANGE_PASSWORD';
 const CHANGE_PASSWORD_SUCCESS = 'user-apps/userSettings/CHANGE_PASSWORD_SUCCESS';
 const CHANGE_PASSWORD_FAIL = 'user-apps/userSettings/CHANGE_PASSWORD_FAIL';
+const UNLINK_FACEBOOK = 'user-apps/userSettings/UNLINK_FACEBOOK';
+const UNLINK_FACEBOOK_SUCCESS = 'user-apps/userSettings/UNLINK_FACEBOOK_SUCCESS';
+const UNLINK_FACEBOOK_FAIL = 'user-apps/userSettings/UNLINK_FACEBOOK_FAIL';
 const GENERATE_APIKEY = 'user-apps/userSettings/GENERATE_APIKEY';
 const GENERATE_APIKEY_SUCCESS = 'user-apps/userSettings/GENERATE_APIKEY_SUCCESS';
 const GENERATE_APIKEY_FAIL = 'user-apps/userSettings/GENERATE_APIKEY_FAIL';
@@ -237,6 +240,42 @@ export function changePassword(data) {
         dispatch(resetForm('passwordSettings'));
 
         return result;
+      } catch (error) {
+        if (!isHTTPError(error)) {
+          throw new SubmissionError({ _error: error.message });
+        }
+
+        const responseError = await error.response.json();
+        const errors = getFormFirstErrors(responseError.errors);
+
+        if (Object.keys(errors).length) {
+          throw new SubmissionError(errors);
+        } else if (responseError.message) {
+          throw new SubmissionError({ _error: responseError.message });
+        }
+      }
+    },
+  };
+}
+
+export function requestUnlinkFacebook(data) {
+  return {
+    types: [UNLINK_FACEBOOK, UNLINK_FACEBOOK_SUCCESS, UNLINK_FACEBOOK_FAIL],
+    promise: async ({ client }, { getState }) => {
+      const { res } = getState();
+
+      try {
+        return await client
+          .patch(res.unlinkFacebook, {
+            searchParams: {
+              $client: {
+                includeImagePath: true,
+                detailed: true,
+              },
+            },
+            json: data,
+          })
+          .json();
       } catch (error) {
         if (!isHTTPError(error)) {
           throw new SubmissionError({ _error: error.message });

@@ -60,7 +60,7 @@ function validate(data, options = {}) {
         nextOptionId: clean.nextOptionId,
       });
 
-      const fieldSlug = cleanField.field;
+      const fieldSlug = getItemSlug(cleanField);
 
       // Check if slug is reserved
       if (reservedFields.includes(fieldSlug)) {

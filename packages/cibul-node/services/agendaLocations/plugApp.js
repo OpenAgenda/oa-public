@@ -61,18 +61,18 @@ export default (config, services, instance, app, base) => {
     },
   );
 
-  app.get(`${base}/geocode`, (req, res, _next) =>
+  app.get(`${base}/geocode`, (req, res, next) =>
     geocoder(req.query.address, {
       countryCode: req.query.countryCode,
       language: req.lang || 'fr',
-    }).then((results) => res.send({ results })));
+    }).then((results) => res.send({ results }), next));
 
-  app.get(`${base}/geocode/reverse`, (req, res, _next) =>
+  app.get(`${base}/geocode/reverse`, (req, res, next) =>
     geocoder
       .reverse(req.query.latitude, req.query.longitude, {
         language: req.lang || 'fr',
       })
-      .then((results) => res.send({ results })));
+      .then((results) => res.send({ results }), next));
 
   app.get(`${base}/insee`, (req, res, next) =>
     instance.utils

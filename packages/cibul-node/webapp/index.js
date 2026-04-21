@@ -189,6 +189,7 @@ const initialState = async (req) => {
         changeEmail: '/users/me/requestChangeEmail',
         changePassword: '/users/me/changePassword',
         generateApiKey: '/users/me/generateApiKey',
+        unlinkFacebook: '/users/me/requestUnlinkFacebook',
       },
     },
     agendaSettingsNew: {

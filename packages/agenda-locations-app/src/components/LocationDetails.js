@@ -64,6 +64,10 @@ const messages = {
       id: 'AgendaLocations.LocationDetails.noImage',
       defaultMessage: 'No image is defined',
     },
+    imageCredits: {
+      id: 'AgendaLocations.LocationDetails.imageCredits',
+      defaultMessage: 'Image credits',
+    },
     noValue: {
       id: 'AgendaLocations.LocationDetails.noValue',
       defaultMessage: 'Not specified',
@@ -410,6 +414,14 @@ const LocationDetails = ({
             <i>{intl.formatMessage(messages.noImage)}</i>
           </p>
         )}
+        {location.imageCredits ? (
+          <p>
+            <label htmlFor="imageCredits">
+              {intl.formatMessage(messages.imageCredits)}
+            </label>
+            : <span>{location.imageCredits}</span>
+          </p>
+        ) : null}
       </div>
       <div>
         <ul className="nav nav-pills pull-right">

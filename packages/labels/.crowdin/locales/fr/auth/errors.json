@@ -1,5 +1,6 @@
 {
   "fieldCannotBeEmpty": "Le champ ne peut être vide",
+  "incorrectCredentials": "L'email ou le mot de passe est incorrect.",
   "incorrectPassword": "Le mot de passe est incorrect",
   "invalidToken": "Token invalide",
   "passwordCouldNotBeModified": "Le mot de passe n'a pas pu être modifié",

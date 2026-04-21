@@ -4,6 +4,7 @@ import labels from '@openagenda/labels/auth/errors.js';
 import makeLabelGetter from '@openagenda/labels';
 import cmn from '../lib/commons-app.js';
 import config from '../config/index.js';
+import { wantsJson } from './lib/utils.js';
 
 const log = logs('auth/reset.front');
 
@@ -137,6 +138,27 @@ function lostPassword(req, res) {
 
 function lostPasswordSubmit(req, res) {
   const { services } = req.app;
+
+  if (wantsJson(req)) {
+    // Constant-time response so timing doesn't leak whether the email
+    // matches a user. The work runs in parallel with a floor delay chosen
+    // to exceed typical _createAndSend latency (db lookup + token
+    // create/refresh + mailer call), so the floor — not the work — is
+    // effectively what gates the response. Errors are logged, never
+    // surfaced, so both success and failure paths resolve identically.
+    const work = _createAndSend(services, {
+      email: req.body.email,
+      req,
+    }).catch((err) => {
+      log('error', 'lost password background failure', err);
+    });
+    const floor = new Promise((resolve) => setTimeout(resolve, 5000));
+
+    Promise.all([work, floor]).then(() => {
+      res.status(200).json({ success: true });
+    });
+    return;
+  }
 
   _createAndSend(services, { email: req.body.email, req })
     .then(
