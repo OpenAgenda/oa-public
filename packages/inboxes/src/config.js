@@ -28,18 +28,10 @@ export default async function makeConfig(c) {
   ]);
 
   if (c.migrations) {
-    try {
-      await knex.migrate.latest({
-        tableName: 'inbox_migrations',
-        ...c.migrations,
-        directory: path.resolve(
-          path.dirname(import.meta.dirname),
-          'migrations',
-        ),
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    await knex.migrate.latest({
+      ...c.migrations,
+      directory: path.resolve(path.dirname(import.meta.dirname), 'migrations'),
+    });
   }
 
   return config;
