@@ -1,12 +1,11 @@
 import qs from 'qs';
 import { defineMessages, useIntl } from 'react-intl';
-import { useCookies } from 'react-cookie';
 import { Button, Link } from '@openagenda/uikit';
 import { faEnvelope } from 'icons/solid';
 import { FaIcon } from 'icons';
 import AuthDialog from 'components/auth/AuthDialog';
 import hrefWithLang from 'utils/hrefWithLang';
-import getSession from 'utils/getSession';
+import useUser from 'hooks/useUser';
 
 const messages = defineMessages({
   contact: {
@@ -48,16 +47,15 @@ const outlineStyle = {
 
 export default function ContactButton({ agenda }: ContactButtonProps) {
   const intl = useIntl();
-  const [cookies] = useCookies();
-  const sessionUser = getSession(cookies)?.user;
+  const { user } = useUser();
 
   const mailtoUrl = getMailtoUrl(agenda.settings.inbox?.mailto);
   const contactHref = hrefWithLang(
     `/${agenda.slug}/contact`,
-    sessionUser ? null : intl.locale,
+    user ? null : intl.locale,
   );
 
-  if (sessionUser || mailtoUrl) {
+  if (user || mailtoUrl) {
     return (
       <Button asChild variant="outline" {...outlineStyle}>
         <Link unstyled href={mailtoUrl || contactHref}>

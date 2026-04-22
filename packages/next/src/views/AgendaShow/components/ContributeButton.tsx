@@ -1,11 +1,10 @@
 import { defineMessages, useIntl } from 'react-intl';
-import { useCookies } from 'react-cookie';
 import { Button, Link } from '@openagenda/uikit';
 import { faPlus } from 'icons/solid';
 import { FaIcon } from 'icons';
 import AuthDialog from 'components/auth/AuthDialog';
 import hrefWithLang from 'utils/hrefWithLang';
-import getSession from 'utils/getSession';
+import useUser from 'hooks/useUser';
 
 const messages = defineMessages({
   addEvent: {
@@ -20,15 +19,14 @@ interface ContributeButtonProps {
 
 export default function ContributeButton({ agenda }: ContributeButtonProps) {
   const intl = useIntl();
-  const [cookies] = useCookies();
-  const sessionUser = getSession(cookies)?.user;
+  const { user } = useUser();
 
   const contributeHref = hrefWithLang(
     `/${agenda.slug}/contribute`,
-    sessionUser ? null : intl.locale,
+    user ? null : intl.locale,
   );
 
-  if (sessionUser) {
+  if (user) {
     return (
       <Button asChild>
         <Link unstyled href={contributeHref}>
