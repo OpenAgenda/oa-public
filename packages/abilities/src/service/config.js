@@ -24,15 +24,10 @@ export async function init(c = {}) {
   const { knex } = config;
 
   if (c.migrations) {
-    try {
-      await knex.migrate.latest({
-        tableName: 'inbox_migrations',
-        ...c.migrations,
-        directory: path.join(import.meta.dirname, '..', '..', 'migrations'),
-      });
-    } catch (e) {
-      console.log(e);
-    }
+    await knex.migrate.latest({
+      ...c.migrations,
+      directory: path.join(import.meta.dirname, '..', '..', 'migrations'),
+    });
   }
 }
 
