@@ -30,7 +30,6 @@ const config = {
   nextPort: process.env.OA_NEXT_PORT || 8901,
   port: process.env.OA_SERVER_PORT || 8903,
   apiPort: process.env.OA_API_PORT || 8902,
-  enableMigrations: true,
   agendaSearchRecentThreshold: parseInt(
     process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14,
     10,

@@ -15,11 +15,7 @@ export async function init(config, services) {
   const service = await Service({
     knex: config.knex,
     schemas: config.schemas,
-    migrations: config.enableMigrations
-      ? {
-        tableName: 'activity_migrations',
-      }
-      : null,
+    migrations: null,
     interfaces: {
       getUser: (uid) => services.users.get(uid, { detailed: true }),
       isUnsubscribed: () => false,

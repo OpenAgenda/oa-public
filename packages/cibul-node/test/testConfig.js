@@ -88,7 +88,7 @@ const testConfig = {
       replyTo: '"OpenAgenda" <test@openagenda.com>',
     },
   },
-  enableMigrations: false,
+  disableMigrationsCheck: true,
   passCulture: {
     key: process.env.PASS_CULTURE_KEY,
     api: process.env.PASS_CULTURE_API,

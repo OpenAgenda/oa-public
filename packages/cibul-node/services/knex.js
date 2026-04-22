@@ -1,5 +1,6 @@
 import knexLib from 'knex';
 import logs from '@openagenda/logs';
+import getMigrationDirectories from '../lib/migrationDirectories.js';
 
 const log = logs('services/knex');
 
@@ -54,6 +55,19 @@ export async function init(config) {
     pool.release(conn);
   }
   log.info('pool warmed', { connections: acquired.length });
+
+  if (!config.disableMigrationsCheck) {
+    const directories = getMigrationDirectories(config);
+    if (directories.length > 0) {
+      const [, pending] = await knex.migrate.list({ directory: directories });
+      if (pending.length > 0) {
+        log.error('migrations pending, refusing to start', {
+          pending: pending.map((p) => p.file ?? p),
+        });
+        process.exit(1);
+      }
+    }
+  }
 
   config.knex = knex;
 

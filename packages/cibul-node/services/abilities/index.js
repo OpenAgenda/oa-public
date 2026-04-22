@@ -221,7 +221,5 @@ export async function init(config, services) {
     },
   });
 
-  await abilitiesSvc.config.migrate();
-
   return abilitiesSvc;
 }
