@@ -29,6 +29,7 @@ const {
   RUN_BUILD: runBuild,
   RUN_UPLOAD_TO_WEB: runUploadToWeb,
   RUN_UPLOAD_TO_TASK: runUploadToTask,
+  RUN_MIGRATIONS: runMigrations,
   RUN_UPDATE_WEB: runUpdateWeb,
   RUN_UPDATE_API: runUpdateAPI,
   RUN_UPDATE_NEXT: runUpdateNext,
@@ -115,6 +116,14 @@ if (runUploadToTask || runAll) {
 }
 
 await Promise.all(uploads.map((run) => run()));
+
+if (runMigrations || runAll) {
+  const [migratorNode] = taskNodes.all();
+  console.log(`running migrations on ${migratorNode.address}`);
+  await rexec([migratorNode], [
+    'cd /root/oa && yarn workspace cibul-node migrate',
+  ], { SSHKeyPath });
+}
 
 const runs = [];
 
