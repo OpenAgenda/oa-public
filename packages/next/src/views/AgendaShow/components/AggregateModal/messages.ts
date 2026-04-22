@@ -10,6 +10,10 @@ export default defineMessages({
     defaultMessage:
       'Events published by {agenda} will be automatically added to the selected calendar.',
   },
+  signedIn: {
+    id: 'next.views.AgendaShow.AggregateModal.signedIn',
+    defaultMessage: 'Signed in.',
+  },
   noAgenda: {
     id: 'next.views.AgendaShow.AggregateModal.noAgenda',
     defaultMessage:

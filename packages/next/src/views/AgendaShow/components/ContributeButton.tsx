@@ -42,7 +42,7 @@ export default function ContributeButton({ agenda }: ContributeButtonProps) {
       agenda={{ slug: agenda.slug, uid: agenda.uid }}
       redirectOnSuccess={contributeHref}
     >
-      <Button>
+      <Button aria-haspopup="dialog">
         <FaIcon icon={faPlus} />
         {intl.formatMessage(messages.addEvent)}
       </Button>

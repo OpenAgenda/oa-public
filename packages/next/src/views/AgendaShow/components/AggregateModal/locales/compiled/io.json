@@ -19,6 +19,12 @@
       "value": "crwdne33027:0"
     }
   ],
+  "next.views.AgendaShow.AggregateModal.signedIn": [
+    {
+      "type": 0,
+      "value": "Signed in."
+    }
+  ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,

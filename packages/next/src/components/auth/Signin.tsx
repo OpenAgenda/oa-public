@@ -46,6 +46,10 @@ const messages = defineMessages({
     id: 'next.components.auth.Signin.formTitle',
     defaultMessage: 'Sign in form',
   },
+  lostPasswordTitle: {
+    id: 'next.components.auth.Signin.lostPasswordTitle',
+    defaultMessage: 'Lost password form',
+  },
   genericError: {
     id: 'next.components.auth.Signin.genericError',
     defaultMessage: 'An error occurred. Please try again.',
@@ -119,6 +123,7 @@ export default function Signin({
   const invalidCredentialsAlertRef = useRef<HTMLDivElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const prevViewRef = useRef(view);
+  const [viewAnnouncement, setViewAnnouncement] = useState<string | null>(null);
 
   useEffect(() => {
     if (invalidCredentials) {
@@ -127,11 +132,18 @@ export default function Signin({
   }, [invalidCredentials]);
 
   useEffect(() => {
-    if (prevViewRef.current === 'lost' && view === 'signin') {
-      emailInputRef.current?.focus();
+    if (prevViewRef.current !== view) {
+      setViewAnnouncement(
+        intl.formatMessage(
+          view === 'lost' ? messages.lostPasswordTitle : messages.formTitle,
+        ),
+      );
+      if (prevViewRef.current === 'lost' && view === 'signin') {
+        emailInputRef.current?.focus();
+      }
     }
     prevViewRef.current = view;
-  }, [view]);
+  }, [view, intl]);
 
   useEffect(() => {
     onViewChange?.(view);
@@ -159,12 +171,10 @@ export default function Signin({
 
         if (data.success) {
           setSuccess(true);
-          if (onSuccess) {
-            onSuccess();
-            return;
-          }
           setTimeout(() => {
-            if (redirectOnSuccess) {
+            if (onSuccess) {
+              onSuccess();
+            } else if (redirectOnSuccess) {
               window.location.href = redirectOnSuccess;
             } else if (reloadOnSuccess || !data.redirect) {
               window.location.reload();
@@ -198,20 +208,32 @@ export default function Signin({
     [email, password, intl, reloadOnSuccess, redirectOnSuccess, onSuccess],
   );
 
+  const liveAnnouncement = (
+    <chakra.span srOnly role="status" aria-live="polite">
+      {viewAnnouncement}
+    </chakra.span>
+  );
+
   if (success) {
     return (
-      <VStack py="8" gap="4" role="status" aria-live="polite">
-        <Text textAlign="center">
-          {intl.formatMessage(messages.signinSuccess)}
-        </Text>
-        <Spinner size="md" />
-      </VStack>
+      <>
+        {liveAnnouncement}
+        <VStack py="8" gap="4" role="status" aria-live="polite">
+          <Text textAlign="center">
+            {intl.formatMessage(messages.signinSuccess)}
+          </Text>
+          <Spinner size="md" />
+        </VStack>
+      </>
     );
   }
 
   if (view === 'lost') {
     return (
-      <LostPassword defaultEmail={email} onCancel={() => setView('signin')} />
+      <>
+        {liveAnnouncement}
+        <LostPassword defaultEmail={email} onCancel={() => setView('signin')} />
+      </>
     );
   }
 
@@ -220,6 +242,7 @@ export default function Signin({
       onSubmit={handleSubmit}
       aria-label={intl.formatMessage(messages.formTitle)}
     >
+      {liveAnnouncement}
       {message && (
         <Alert.Root status="error" mb="4">
           <Alert.Indicator />

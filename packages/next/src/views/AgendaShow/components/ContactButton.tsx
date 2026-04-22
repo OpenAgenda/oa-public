@@ -71,7 +71,7 @@ export default function ContactButton({ agenda }: ContactButtonProps) {
       agenda={{ slug: agenda.slug, uid: agenda.uid }}
       redirectOnSuccess={contactHref}
     >
-      <Button variant="outline" {...outlineStyle}>
+      <Button variant="outline" aria-haspopup="dialog" {...outlineStyle}>
         <FaIcon icon={faEnvelope} />
         {intl.formatMessage(messages.contact)}
       </Button>

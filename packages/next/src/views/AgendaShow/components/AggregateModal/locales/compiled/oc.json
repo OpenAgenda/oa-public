@@ -19,6 +19,12 @@
       "value": "."
     }
   ],
+  "next.views.AgendaShow.AggregateModal.signedIn": [
+    {
+      "type": 0,
+      "value": "Vous êtes connecté·e."
+    }
+  ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,
