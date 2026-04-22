@@ -35,7 +35,8 @@ async function runCommand(conn, command) {
       );
 
       stream.on('close', (code, signal) => {
-        resolve();
+        if (code === 0) return resolve();
+        reject(new Error(`remote command exited with code ${code}${signal ? ` (signal ${signal})` : ''}: ${command}`));
       });
     });
   });
@@ -55,12 +56,16 @@ export default async function rexec(
 
         conn
           .on('ready', async () => {
-            for (const command of commands) {
-              await runCommand(conn, command);
+            try {
+              for (const command of commands) {
+                await runCommand(conn, command);
+              }
+              conn.end();
+              rs();
+            } catch (err) {
+              conn.end();
+              rj(err);
             }
-
-            conn.end();
-            rs();
           })
           .connect({
             host: node.address,
@@ -69,7 +74,7 @@ export default async function rexec(
           });
 
         conn.on('error', (err) => {
-          console.log(err);
+          rj(err);
         });
       });
     }),
