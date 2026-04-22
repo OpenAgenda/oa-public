@@ -287,7 +287,7 @@ const config = {
     userCookieName: 'oa.user',
     keys: prod.session
       ? prod.session.keys
-      : process.env.OA_SESSION_KEYS.split(','),
+      : (process.env.OA_SESSION_KEYS ?? '').split(','),
     secret: prod.session ? prod.session.secret : process.env.OA_SESSION_SECRET,
     maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,
