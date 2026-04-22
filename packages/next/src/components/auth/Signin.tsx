@@ -88,6 +88,7 @@ interface SigninProps {
   agenda?: { slug: string; uid: string };
   reloadOnSuccess?: boolean;
   redirectOnSuccess?: string;
+  onSuccess?: () => void;
   onViewChange?: (view: 'signin' | 'lost') => void;
 }
 
@@ -99,6 +100,7 @@ export default function Signin({
   agenda,
   reloadOnSuccess = false,
   redirectOnSuccess,
+  onSuccess,
   onViewChange,
 }: SigninProps) {
   const intl = useIntl();
@@ -157,6 +159,10 @@ export default function Signin({
 
         if (data.success) {
           setSuccess(true);
+          if (onSuccess) {
+            onSuccess();
+            return;
+          }
           setTimeout(() => {
             if (redirectOnSuccess) {
               window.location.href = redirectOnSuccess;
@@ -189,7 +195,7 @@ export default function Signin({
         setLoading(false);
       }
     },
-    [email, password, intl, reloadOnSuccess, redirectOnSuccess],
+    [email, password, intl, reloadOnSuccess, redirectOnSuccess, onSuccess],
   );
 
   if (success) {

@@ -15,10 +15,6 @@ export default defineMessages({
     defaultMessage:
       'You need to sign in to your account to aggregate this agenda.',
   },
-  signin: {
-    id: 'next.views.AgendaShow.AggregateModal.signin',
-    defaultMessage: 'Sign in',
-  },
   noAgenda: {
     id: 'next.views.AgendaShow.AggregateModal.noAgenda',
     defaultMessage:

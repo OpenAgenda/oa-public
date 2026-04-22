@@ -25,12 +25,6 @@
       "value": "Vous devez vous connecter pour agréger cet agenda."
     }
   ],
-  "next.views.AgendaShow.AggregateModal.signin": [
-    {
-      "type": 0,
-      "value": "Se connecter"
-    }
-  ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,
