@@ -2,8 +2,6 @@ import path from 'node:path';
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
-const log = logs('config');
-
 const config = {
   knex: null,
   redis: {
@@ -46,11 +44,7 @@ async function init(c) {
   config.redis.client = c.redis.client;
 
   if (config.knex.client.config.migrations) {
-    try {
-      await config.knex.migrate.latest();
-    } catch (e) {
-      log('error', 'failed to migrate to latest', e);
-    }
+    await config.knex.migrate.latest();
   }
 }
 
