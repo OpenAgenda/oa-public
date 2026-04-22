@@ -38,7 +38,7 @@ export default function AggregateModal({
   const router = useRouter();
 
   const dialogRef = useRef<HTMLDivElement>(null);
-  const loggedBodyRef = useRef<HTMLDivElement>(null);
+  const [loggedBodyEl, setLoggedBodyEl] = useState<HTMLDivElement | null>(null);
 
   const { user, status } = useUser();
 
@@ -57,14 +57,14 @@ export default function AggregateModal({
       justSignedIn &&
       user &&
       status === FetchStatus.Fetched &&
-      loggedBodyRef.current
+      loggedBodyEl
     ) {
-      loggedBodyRef.current.focus();
+      loggedBodyEl.focus();
       const timeout = setTimeout(() => setJustSignedIn(false), 2000);
       return () => clearTimeout(timeout);
     }
     return undefined;
-  }, [justSignedIn, user, status]);
+  }, [justSignedIn, user, status, loggedBodyEl]);
 
   // Remove displayAggregatorModal=1 from url
   const onClose = useCallback(() => {
@@ -100,7 +100,7 @@ export default function AggregateModal({
           <AggregateModalBody
             agenda={agenda}
             user={user}
-            loggedBodyRef={loggedBodyRef}
+            loggedBodyRef={setLoggedBodyEl}
           />
         )}
       </DialogContent>

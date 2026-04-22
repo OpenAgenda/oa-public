@@ -101,7 +101,7 @@ const LoggedBody = forwardRef<HTMLDivElement, LoggedBodyProps>(
 
     return (
       <>
-        <DialogBody ref={ref} tabIndex={-1} outline="none">
+        <DialogBody ref={ref} tabIndex={-1}>
           <Description agenda={agenda} />
 
           {!noAgendas ? (

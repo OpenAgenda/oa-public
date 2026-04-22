@@ -216,15 +216,12 @@ export default function Signin({
 
   if (success) {
     return (
-      <>
-        {liveAnnouncement}
-        <VStack py="8" gap="4" role="status" aria-live="polite">
-          <Text textAlign="center">
-            {intl.formatMessage(messages.signinSuccess)}
-          </Text>
-          <Spinner size="md" />
-        </VStack>
-      </>
+      <VStack py="8" gap="4" role="status" aria-live="polite">
+        <Text textAlign="center">
+          {intl.formatMessage(messages.signinSuccess)}
+        </Text>
+        <Spinner size="md" />
+      </VStack>
     );
   }
 
