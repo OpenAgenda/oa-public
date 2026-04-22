@@ -19,12 +19,6 @@
       "value": "."
     }
   ],
-  "next.views.AgendaShow.AggregateModal.shouldConnect": [
-    {
-      "type": 0,
-      "value": "You need to sign in to your account to aggregate this agenda."
-    }
-  ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,

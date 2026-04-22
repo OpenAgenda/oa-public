@@ -19,12 +19,6 @@
       "value": "."
     }
   ],
-  "next.views.AgendaShow.AggregateModal.shouldConnect": [
-    {
-      "type": 0,
-      "value": "Vos cal connectar a vòstre compte per agregar aquesta agenda."
-    }
-  ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,

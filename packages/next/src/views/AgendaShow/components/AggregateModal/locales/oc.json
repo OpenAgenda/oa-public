@@ -1,7 +1,6 @@
 {
   "next.views.AgendaShow.AggregateModal.createAgenda": "Crear una agenda",
   "next.views.AgendaShow.AggregateModal.noAgenda": "Atencion : Actualament administratz pas cap agenda. Ne vos cal crear una abans de poder agregar {agenda}.",
-  "next.views.AgendaShow.AggregateModal.shouldConnect": "Vos cal connectar a vòstre compte per agregar aquesta agenda.",
   "next.views.AgendaShow.AggregateModal.subtitle": "Los eveniments publicats per {agenda} seràn automaticament aponduts a l'agenda seleccionada.",
   "next.views.AgendaShow.AggregateModal.title": "Agregar a una agenda"
 }

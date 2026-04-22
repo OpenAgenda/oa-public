@@ -19,12 +19,6 @@
       "value": "."
     }
   ],
-  "next.views.AgendaShow.AggregateModal.shouldConnect": [
-    {
-      "type": 0,
-      "value": "Debe iniciar sesión en su cuenta para importar esta agenda."
-    }
-  ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,

@@ -19,12 +19,6 @@
       "value": "."
     }
   ],
-  "next.views.AgendaShow.AggregateModal.shouldConnect": [
-    {
-      "type": 0,
-      "value": "È necessario accedere al proprio account per aggregare questa agenda."
-    }
-  ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,

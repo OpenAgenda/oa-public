@@ -19,12 +19,6 @@
       "value": "crwdne33027:0"
     }
   ],
-  "next.views.AgendaShow.AggregateModal.shouldConnect": [
-    {
-      "type": 0,
-      "value": "crwdns33029:0crwdne33029:0"
-    }
-  ],
   "next.views.AgendaShow.AggregateModal.subtitle": [
     {
       "type": 0,
