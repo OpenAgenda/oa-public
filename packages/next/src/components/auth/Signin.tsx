@@ -261,14 +261,14 @@ export default function Signin({
               {intl.formatMessage(messages.invalidCredentials)}
             </Alert.Title>
             <Alert.Description>
-              <Link
-                as="button"
+              <Button
+                variant="link"
                 type="button"
                 onClick={() => setView('lost')}
                 color="primary.500"
               >
                 {intl.formatMessage(messages.resetPassword)}
-              </Link>
+              </Button>
             </Alert.Description>
           </Alert.Content>
         </Alert.Root>
@@ -329,14 +329,14 @@ export default function Signin({
           <Field.ErrorText>{errors.password}</Field.ErrorText>
         )}
         <Field.HelperText>
-          <Link
-            as="button"
+          <Button
+            variant="link"
             type="button"
             onClick={() => setView('lost')}
             color="primary.500"
           >
             {intl.formatMessage(messages.forgotPassword)}
-          </Link>
+          </Button>
         </Field.HelperText>
       </Field.Root>
 
