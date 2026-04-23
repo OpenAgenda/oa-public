@@ -1,14 +1,24 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import config from '../testconfig.js';
-import * as service from './service/index.js';
+import * as service from '../service/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('invitations - functional (server): remove an action from an invitation', () => {
+  let knex;
+
   beforeAll(async () => {
-    await new Promise((resolve, reject) =>
-      service.initAndLoad(config, (err) => {
-        if (err) return reject(err);
-        resolve();
-      }));
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/invitation.data.sql`],
+    });
+    service.init(config);
   });
+
+  afterAll(() => knex?.destroy());
 
   it('remove an action from an invitation that not exists', async () => {
     const result = await service.removeAction(
