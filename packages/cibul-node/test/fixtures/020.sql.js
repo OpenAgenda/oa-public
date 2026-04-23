@@ -1,14 +1,11 @@
 import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex } from './sql/index.js';
 
 const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 const settingsWithConfiguredPass = load('passCulture/settings.json');
 
-const raw = [];
-
-raw.push(
-  knex('review').insert([
+export default async (knex) => {
+  await knex('review').insert([
     load('sql/agendas/218.json', {
       uid: 2010,
       settings: JSON.stringify(settingsWithConfiguredPass),
@@ -29,20 +26,16 @@ raw.push(
         },
       }),
     }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('location').insert([
+  await knex('location').insert([
     load('sql/locations/1.json', {
       uid: 1234,
     }),
-  ]),
-);
+  ]);
 
-// Add users for testing
-raw.push(
-  knex('user').insert([
+  // Add users for testing
+  await knex('user').insert([
     load('sql/users/01.json'), // userUid: 1
     {
       id: 82253124,
@@ -71,12 +64,10 @@ raw.push(
       password: 'xxx',
       salt: 'xxx',
     },
-  ]),
-);
+  ]);
 
-// Add members for agenda 2010
-raw.push(
-  knex('reviewer').insert([
+  // Add members for agenda 2010
+  await knex('reviewer').insert([
     {
       id: 1001,
       user_uid: 82253124,
@@ -97,7 +88,5 @@ raw.push(
       deleted_user: 0,
       actions_counter: 0,
     },
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

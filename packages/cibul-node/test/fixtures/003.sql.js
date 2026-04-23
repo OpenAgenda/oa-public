@@ -1,12 +1,9 @@
 import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex } from './sql/index.js';
 
 const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
-const raw = [];
-
-raw.push(
-  knex('review').insert([
+export default async (knex) => {
+  await knex('review').insert([
     load('sql/agendas/218.json'), // 17026855
     load('sql/agendas/219.json', {
       // 55268170
@@ -20,26 +17,20 @@ raw.push(
     load('sql/agendas/220.json'), // 58025176
     load('sql/agendas/221.json'), // 17026800
     load('sql/agendas/222.json'), // 55278973
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('user').insert([
+  await knex('user').insert([
     load('sql/users/janine.json'), // uid 1 / janine
     load('sql/users/50304.json'), // uid 63170203 / steve
     load('sql/users/50300.json'), // uid 63170200 / janine
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('api_key_set').insert([
+  await knex('api_key_set').insert([
     load('sql/apiKeySets/01.json', { user_id: 50304 }),
     load('sql/apiKeySets/02.json', { user_id: 50300 }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('form_schema').insert([
+  await knex('form_schema').insert([
     load('form-schemas/1.json', (fs) => ({ id: 2, store: JSON.stringify(fs) })),
     {
       id: 3,
@@ -49,11 +40,9 @@ raw.push(
       }),
     },
     load('form-schemas/7.json', (fs) => ({ id: 7, store: JSON.stringify(fs) })),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     load('sql/members/71385.json'), // user: 63170203 (steve) | agenda 17026855
     load('sql/members/71386.json'), // user: 63170200 (janine 2) | agenda 17026855
     load('sql/members/71388.json'), // user: 1 (janine 1) | agenda 55268170
@@ -62,23 +51,17 @@ raw.push(
       agenda_uid: 58025176,
     }),
     load('sql/members/71389.json'), // user: 63170200 (janine 2) | agenda 17026800
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('aggregator').insert([
+  await knex('aggregator').insert([
     load('sql/aggregators/1.json'),
     load('sql/aggregators/2.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('aggregator_source').insert([
+  await knex('aggregator_source').insert([
     load('sql/aggregatorSources/1.json'),
     load('sql/aggregatorSources/2.json'), // 17026800 -> 55278973
-  ]),
-);
+  ]);
 
-raw.push(knex('location').insert([load('sql/locations/1.json')]));
-
-export default `${raw.join(';\n')};`;
+  await knex('location').insert([load('sql/locations/1.json')]);
+};

@@ -1,12 +1,9 @@
 import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex } from './sql/index.js';
 
 const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
-const raw = [];
-
-raw.push(
-  knex('user').insert([
+export default async (knex) => {
+  await knex('user').insert([
     load('sql/users/jean-benoit.json', {
       id: 1,
       uid: 1,
@@ -37,7 +34,5 @@ raw.push(
       last_signin: new Date('2019-01-01'),
       email: 'lise@openagenda.com',
     }),
-  ]),
-);
-
-export default `${raw.join(';\n')}`;
+  ]);
+};

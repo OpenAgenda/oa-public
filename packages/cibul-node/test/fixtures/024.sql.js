@@ -1,12 +1,9 @@
 import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex } from './sql/index.js';
 
 const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
-const raw = [];
-
-raw.push(
-  knex('inboxes_inbox').insert([
+export default async (knex) => {
+  await knex('inboxes_inbox').insert([
     {
       id: 2,
       type: 'agenda',
@@ -17,11 +14,9 @@ raw.push(
       type: 'user',
       identifier: 1,
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('inboxes_inbox_user').insert([
+  await knex('inboxes_inbox_user').insert([
     {
       id: 10,
       inbox_id: 2,
@@ -34,11 +29,9 @@ raw.push(
       user_uid: 1,
       left_at: null,
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('user').insert([
+  await knex('user').insert([
     load('sql/users/thibaud.json', {
       id: 1,
       uid: 1,
@@ -47,19 +40,15 @@ raw.push(
       id: 2,
       uid: 2,
     }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('review').insert([
+  await knex('review').insert([
     load('sql/agendas/01.json', {
       uid: 1001,
     }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     {
       id: 1,
       user_uid: 1,
@@ -84,11 +73,9 @@ raw.push(
       deleted_user: 0,
       actions_counter: 1,
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('event_2').insert([
+  await knex('event_2').insert([
     {
       id: 1,
       owner_uid: 1,
@@ -118,11 +105,9 @@ raw.push(
       updated_at: new Date('2022-06-10T09:00:00.000Z'),
       file_key: '31a7df7098744844b6c6ce0d2cdba0f4',
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('agenda_event').insert([
+  await knex('agenda_event').insert([
     {
       id: 1,
       user_uid: 2, // Changed from 1 to 2 so admin (uid: 1) can create conversation with contributor (uid: 2)
@@ -132,12 +117,10 @@ raw.push(
       created_at: new Date(),
       updated_at: new Date('2022-06-22T09:00:00.000Z'),
     },
-  ]),
-);
+  ]);
 
-// Add API key sets for the test users
-raw.push(
-  knex('api_key_set').insert([
+  // Add API key sets for the test users
+  await knex('api_key_set').insert([
     {
       id: 1,
       api_key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
@@ -156,12 +139,10 @@ raw.push(
       created_at: new Date('2019-12-22T18:14:00'),
       updated_at: new Date('2019-12-22T18:14:00'),
     },
-  ]),
-);
+  ]);
 
-// Add access tokens
-raw.push(
-  knex('access_token').insert([
+  // Add access tokens
+  await knex('access_token').insert([
     {
       id: 1,
       token: '11a79182cddd2466c768867ac3f25ba0',
@@ -178,7 +159,5 @@ raw.push(
       created_at: new Date('2019-01-01T00:00:00'),
       updated_at: new Date('2019-01-01T00:00:00'),
     },
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

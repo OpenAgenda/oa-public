@@ -1,31 +1,24 @@
 import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex } from './sql/index.js';
 
 const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
-const raw = [];
-
-raw.push(
-  knex('review').insert([
+export default async (knex) => {
+  await knex('review').insert([
     load('sql/agendas/218.json', {
       uid: 1904,
       form_schema_id: null,
       credentials: JSON.stringify({ invitationMessage: true }),
     }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('user').insert([
+  await knex('user').insert([
     load('./sql/users/helene.json', { uid: 111, email: 'helene@testoa.com' }), // admin
     load('./sql/users/thibaud.json', { uid: 222, email: 'thibaud@testoa.com' }), // mod
     load('./sql/users/50304.json', { uid: 331, email: 'steve@testoa.com' }), // contributor with actions
     load('./sql/users/50300.json', { uid: 332, email: 'nestor@testoa.com' }), // contributor with no actions
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     load('./sql/members/71386687.json', {
       id: 1,
       agenda_uid: 1904,
@@ -62,7 +55,5 @@ raw.push(
       actions_counter: 0,
       store: JSON.stringify({}),
     }),
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

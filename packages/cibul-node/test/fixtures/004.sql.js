@@ -1,13 +1,10 @@
 import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex } from './sql/index.js';
 import insertEventSet from './sql/eventSets/index.js';
 
 const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
-const raw = [];
-
-raw.push(
-  knex('review').insert([
+export default async (knex) => {
+  await knex('review').insert([
     load('sql/agendas/218.json', {
       settings: JSON.stringify({
         contribution: {
@@ -63,33 +60,25 @@ raw.push(
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('user').insert([
+  await knex('user').insert([
     load('sql/users/50304.json'),
     load('sql/users/helene.json'),
     load('sql/users/chrissie.json'),
     load('sql/users/thibaud.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('api_key_set').insert([
+  await knex('api_key_set').insert([
     load('sql/apiKeySets/01.json', { user_id: 50304 }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('network').insert([
+  await knex('network').insert([
     load('sql/networks/withadminfield.json'),
     load('sql/networks/mel.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('form_schema').insert(
+  await knex('form_schema').insert(
     [2, 5, 6, 41]
       .map((id) =>
         load(`form-schemas/${id}.json`, (fs) => ({
@@ -110,11 +99,9 @@ raw.push(
           store: JSON.stringify(fs),
         })),
       ]),
-  ),
-);
+  );
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     load('sql/members/lechat.json', {
       store: JSON.stringify({
         custom_fields: {
@@ -166,18 +153,14 @@ raw.push(
       deleted_user: 0,
       actions_counter: 1,
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('location').insert([
+  await knex('location').insert([
     load('sql/locations/boutique.json'),
     load('sql/locations/bobine.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('event_2').insert([
+  await knex('event_2').insert([
     {
       id: 12,
       uid: 19201989,
@@ -411,11 +394,9 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('agenda_event').insert([
+  await knex('agenda_event').insert([
     {
       id: 1,
       event_uid: 19201989,
@@ -533,11 +514,9 @@ raw.push(
       created_at: new Date(),
       updated_at: new Date(),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('custom').insert([
+  await knex('custom').insert([
     {
       id: 1,
       form_schema_id: 5,
@@ -671,9 +650,7 @@ raw.push(
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
     },
-  ]),
-);
+  ]);
 
-insertEventSet(knex, raw, 'lesUnsLesAutres');
-
-export default `${raw.join(';\n')};`;
+  await insertEventSet(knex, 'lesUnsLesAutres');
+};
