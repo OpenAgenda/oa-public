@@ -1,27 +1,25 @@
 import _ from 'lodash';
-import knex from 'knex';
+import knexLib from 'knex';
 import Service from '../index.js';
 import config from '../testconfig.js';
 
 describe('agendaEvents - functional (server): validation', () => {
+  let knex;
   let svc;
-  let knexClient;
 
-  beforeAll(async () => {
-    knexClient = knex({
+  beforeAll(() => {
+    knex = knexLib({
       client: 'mysql2',
       connection: { ...config.mysql },
     });
-  });
 
-  beforeAll(() => {
     svc = Service({
       ...config,
-      knex: knexClient,
+      knex,
     });
   });
 
-  afterAll(() => knexClient.destroy());
+  afterAll(() => knex?.destroy());
 
   it('base validate endpoint validates data part of an agendaEvent reference', () => {
     expect(

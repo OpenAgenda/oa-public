@@ -1,37 +1,34 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import knex from 'knex';
 import Service from '../index.js';
 import config from '../testconfig.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('agendaEvents - 05 - functional (server): remove', () => {
+  let knex;
   let svc;
-  let knexClient;
 
   beforeEach(async () => {
-    await fixtures(config.mysql, [
-      'reset.sql',
-      '../../model.sql',
-      'agenda_event.data.sql',
-    ]);
-  });
-
-  beforeAll(async () => {
-    knexClient = knex({
-      client: 'mysql2',
-      connection: { ...config.mysql },
+    if (knex) {
+      await knex.destroy().catch(() => {});
+    }
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/agenda_event.data.sql`],
     });
-  });
 
-  beforeEach(() => {
     svc = Service({
       ...config,
-      knex: knexClient,
+      knex,
     });
   });
 
-  afterAll(() => knexClient.destroy());
+  afterAll(() => knex?.destroy());
 
   it('simple remove', async () => {
     const before = await svc(62792452).get(10974548);

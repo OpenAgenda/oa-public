@@ -1,34 +1,29 @@
-import knex from 'knex';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import Service from '../index.js';
 import config from '../testconfig.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('agendaEvents - functional (server): utils', () => {
+  let knex;
   let svc;
-  let knexClient;
 
   beforeAll(async () => {
-    await fixtures(config.mysql, [
-      'reset.sql',
-      '../../model.sql',
-      'agenda_event.data.sql',
-    ]);
-  });
-  beforeAll(async () => {
-    knexClient = knex({
-      client: 'mysql2',
-      connection: { ...config.mysql },
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/agenda_event.data.sql`],
     });
-  });
 
-  beforeAll(() => {
     svc = Service({
       ...config,
-      knex: knexClient,
+      knex,
     });
   });
 
-  afterAll(() => knexClient.destroy());
+  afterAll(() => knex?.destroy());
 
   describe('setSourcePaths', () => {
     let result;
