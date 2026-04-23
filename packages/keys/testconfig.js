@@ -15,6 +15,7 @@ export default {
   },
   schemas: {
     key: 'key',
+    apiKeySet: 'api_key_set',
   },
   redis: {
     prefix: 'keys',
