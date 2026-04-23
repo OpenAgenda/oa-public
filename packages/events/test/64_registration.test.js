@@ -63,6 +63,44 @@ describe('registration', () => {
       ]);
     });
 
+    it('throws required when given an empty array', () => {
+      const validate = registrationValidator({ optional: false });
+      let errors;
+
+      try {
+        validate([]);
+      } catch (e) {
+        errors = e;
+      }
+
+      expect(errors).toEqual([
+        {
+          origin: [],
+          code: 'required',
+          message: 'value must not be empty',
+        },
+      ]);
+    });
+
+    it('throws required when given an array of only null/undefined values', () => {
+      const validate = registrationValidator({ optional: false });
+      let errors;
+
+      try {
+        validate([null, undefined]);
+      } catch (e) {
+        errors = e;
+      }
+
+      expect(errors).toEqual([
+        {
+          origin: [null, undefined],
+          code: 'required',
+          message: 'value must not be empty',
+        },
+      ]);
+    });
+
     it('field is specified in provided validation error if was provided to validator', () => {
       const validate = registrationValidator({
         optional: false,

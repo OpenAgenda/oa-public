@@ -48,7 +48,9 @@ export default Object.assign(
     const { field, optional = true } = options;
 
     return (v) => {
-      if (!optional && [null, undefined].includes(v)) {
+      const items = toListOfObjects(v);
+
+      if (!optional && items.length === 0) {
         throw validationErrors({
           code: 'required',
           message: 'value must not be empty',
@@ -56,7 +58,7 @@ export default Object.assign(
           ...field ? { field } : undefined,
         });
       }
-      const result = toListOfObjects(v).reduce(
+      const result = items.reduce(
         ({ clean, errors }, item, index) => {
           const { type, value } = item;
 
