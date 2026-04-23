@@ -3,22 +3,27 @@ import clearAndDumbBucket from '../clearAndDumpBucket.js';
 import createRedisKey from '../utils/createRedisKey.js';
 import clearRedisKeys from '../clearRedisKeys.js';
 import config from '../testconfig.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
 
 describe('clearAndDumpBucket', () => {
-  const f = fixtures(config.mysql);
+  let knex;
   let redisCli;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { usageCounter: config.schema },
+    });
     redisCli = new Redis({
       host: config.redis.host,
       port: config.redis.port,
     });
   });
 
-  afterAll(f.destroyClient);
-  afterAll(() => redisCli.quit());
+  afterAll(async () => {
+    await knex?.destroy();
+    await redisCli?.quit();
+  });
 
   describe('basic', () => {
     beforeAll(async () => {
@@ -44,17 +49,17 @@ describe('clearAndDumpBucket', () => {
       await redisCli.set(key, JSON.stringify(value));
       await clearAndDumbBucket(
         {
-          knexClient: f.client,
+          knex,
           redisClient: redisCli,
           lifespan: 7000,
           setKey: 'existingKeys',
           redisPrefix: 'usageCounter',
+          schema: config.schema,
         },
         key,
         value,
       );
-      const row = await f
-        .client('usage_counter')
+      const row = await knex(config.schema)
         .select('*')
         .where('actor_identifier', 1);
 

@@ -22,7 +22,7 @@ const splitKey = (key) => {
 };
 
 export default async function clearAndDumpBucket(internals, key, value) {
-  const { knexClient, redisClient, setKey } = internals;
+  const { knex, redisClient, setKey, schema } = internals;
 
   const { actorNamespace, actorIdentifier, targetNamespace } = splitKey(key);
   log.info('clearAndDumpBucket', {
@@ -36,7 +36,7 @@ export default async function clearAndDumpBucket(internals, key, value) {
   redisClient.srem(setKey, key);
   redisClient.del(key);
 
-  await knexClient('usage_counter').insert({
+  await knex(schema).insert({
     store: value.store,
     begin: new Date(value.begin),
     end: new Date(value.end),
