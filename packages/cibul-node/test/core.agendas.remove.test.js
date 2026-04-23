@@ -1,7 +1,31 @@
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
+import setup from './fixtures/setup.js';
+
+const enabled = [
+  'knex',
+  'redis',
+  'simpleCache',
+  'accessTokens',
+  'bull',
+  'files',
+  'events',
+  'agendas',
+  'agendaEvents',
+  'agendaLocations',
+  'formSchemas',
+  'custom',
+  'eventSearch',
+  'members',
+  'networks',
+  'users',
+  'keys',
+  'trackers',
+  'activities',
+  'inboxes',
+  'agendaSearch',
+];
 
 describe('core - functional (server): core.agendas().remove()', () => {
   let core;
@@ -11,34 +35,17 @@ describe('core - functional (server): core.agendas().remove()', () => {
     queuesPrefix: 'qagendasremove:',
   });
 
-  beforeAll(() => loadFixtures(config.db, '009.sql.js'));
+  beforeAll(async () => {
+    await setup({
+      mysql: config.db,
+      schemas: config.schemas,
+      enabled,
+      data: ['009.sql.js'],
+    });
+  });
 
   beforeAll(async () => {
-    const services = await Services(config, {
-      enabled: [
-        'knex',
-        'redis',
-        'simpleCache',
-        'accessTokens',
-        'bull',
-        'files',
-        'events',
-        'agendas',
-        'agendaEvents',
-        'agendaLocations',
-        'formSchemas',
-        'custom',
-        'eventSearch',
-        'members',
-        'networks',
-        'users',
-        'keys',
-        'trackers',
-        'activities',
-        'inboxes',
-        'agendaSearch',
-      ],
-    });
+    const services = await Services(config, { enabled });
 
     core = Core(services, config);
 

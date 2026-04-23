@@ -1,35 +1,42 @@
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
+
+const enabled = [
+  'knex',
+  'redis',
+  'simpleCache',
+  'bull',
+  'files',
+  'events',
+  'agendas',
+  'agendaEvents',
+  'aggregators',
+  'agendaLocations',
+  'formSchemas',
+  'custom',
+  'eventSearch',
+  'members',
+  'networks',
+  'users',
+  'keys',
+];
 
 describe('services - functional (server): core agendas() events.clearOldSoftRemoved()', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '022.sql.js'));
+  beforeAll(async () => {
+    await setup({
+      mysql: testConfig.db,
+      schemas: testConfig.schemas,
+      enabled,
+      data: ['022.sql.js'],
+    });
+  });
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
-      enabled: [
-        'knex',
-        'redis',
-        'simpleCache',
-        'bull',
-        'files',
-        'events',
-        'agendas',
-        'agendaEvents',
-        'aggregators',
-        'agendaLocations',
-        'formSchemas',
-        'custom',
-        'eventSearch',
-        'members',
-        'networks',
-        'users',
-        'keys',
-      ],
-    });
+    const services = await Services(testConfig, { enabled });
 
     core = Core(services, testConfig);
 

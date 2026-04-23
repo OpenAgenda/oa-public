@@ -3,38 +3,45 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
+import setup from './fixtures/setup.js';
+
+const enabled = [
+  'knex',
+  'redis',
+  'simpleCache',
+  'accessTokens',
+  'files',
+  'bull',
+  'events',
+  'agendas',
+  'agendaEvents',
+  'agendaLocations',
+  'formSchemas',
+  'custom',
+  'eventSearch',
+  'members',
+  'networks',
+  'users',
+  'keys',
+  'trackers',
+];
 
 describe('08 - core - functional (server): core.agendas().members.create', () => {
   let core;
   let services;
 
-  beforeAll(() => loadFixtures(testConfig.db, '009.sql.js'));
+  beforeAll(async () => {
+    await setup({
+      mysql: testConfig.db,
+      schemas: testConfig.schemas,
+      enabled,
+      data: ['009.sql.js'],
+    });
+  });
 
   beforeAll(async () => {
-    services = await Services(testConfig, {
-      enabled: [
-        'knex',
-        'redis',
-        'simpleCache',
-        'accessTokens',
-        'files',
-        'bull',
-        'events',
-        'agendas',
-        'agendaEvents',
-        'agendaLocations',
-        'formSchemas',
-        'custom',
-        'eventSearch',
-        'members',
-        'networks',
-        'users',
-        'keys',
-        'trackers',
-      ],
-    });
+    services = await Services(testConfig, { enabled });
 
     core = Core(services, testConfig);
 

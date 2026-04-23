@@ -1,8 +1,8 @@
 import fs from 'node:fs';
-import { knex, resetAndCreateTables } from './sql/index.js';
+import { knex } from './sql/index.js';
 import insertEventSet from './sql/eventSets/index.js';
 
-const raw = resetAndCreateTables();
+const raw = [];
 
 raw.push(
   knex('review').insert([

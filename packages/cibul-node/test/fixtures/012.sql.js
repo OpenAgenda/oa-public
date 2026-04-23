@@ -1,9 +1,9 @@
 import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
+import { knex } from './sql/index.js';
 
 const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
-const raw = resetAndCreateTables();
+const raw = [];
 
 raw.push(knex('user').insert([load('sql/users/01.json')]));
 

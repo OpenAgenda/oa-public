@@ -4,11 +4,37 @@ import { produce } from 'immer';
 
 import Core from '../core/index.js';
 import Services from '../services/init.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 import testConfig from './testConfig.js';
 
 import passAPIFixtures from './fixtures/passAPI.js';
 import freshEventWithPassData from './fixtures/freshEventWithPassData.js';
+
+const enabled = [
+  'knex',
+  'redis',
+  'simpleCache',
+  'bull',
+  'files',
+  'events',
+  'agendas',
+  'aggregators',
+  'agendaEvents',
+  'agendaLocations',
+  'registrations',
+  'formSchemas',
+  'custom',
+  'eventSearch',
+  'members',
+  'networks',
+  'users',
+  'keys',
+  'accessTokens',
+  'tracker',
+  'images',
+  'files',
+  'imageFiles',
+];
 
 const mockSuccessfullAddressPostResponse = async ({ request }) => {
   const r = await request.json();
@@ -22,36 +48,17 @@ const mockSuccessfullAddressPostResponse = async ({ request }) => {
 describe('core - functional: core.agendas().events.update() - Pass Culture', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '020.sql.js'));
+  beforeAll(async () => {
+    await setup({
+      mysql: testConfig.db,
+      schemas: testConfig.schemas,
+      enabled,
+      data: ['020.sql.js'],
+    });
+  });
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
-      enabled: [
-        'knex',
-        'redis',
-        'simpleCache',
-        'bull',
-        'files',
-        'events',
-        'agendas',
-        'aggregators',
-        'agendaEvents',
-        'agendaLocations',
-        'registrations',
-        'formSchemas',
-        'custom',
-        'eventSearch',
-        'members',
-        'networks',
-        'users',
-        'keys',
-        'accessTokens',
-        'tracker',
-        'images',
-        'files',
-        'imageFiles',
-      ],
-    });
+    const services = await Services(testConfig, { enabled });
 
     core = Core(services, testConfig);
 

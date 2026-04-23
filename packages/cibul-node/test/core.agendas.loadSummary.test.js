@@ -2,8 +2,29 @@ import ky from 'ky';
 import api from '../api/index.js';
 import Core from '../core/index.js';
 import Services from '../services/init.js';
-import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
+import setup from './fixtures/setup.js';
+
+const enabled = [
+  'knex',
+  'redis',
+  'simpleCache',
+  'bull',
+  'files',
+  'events',
+  'agendas',
+  'agendaEvents',
+  'agendaLocations',
+  'formSchemas',
+  'custom',
+  'eventSearch',
+  'members',
+  'networks',
+  'oembed',
+  'users',
+  'keys',
+  'accessTokens',
+];
 
 describe('core.agendas.loadSummary - Core and API tests', () => {
   let core;
@@ -18,31 +39,17 @@ describe('core.agendas.loadSummary - Core and API tests', () => {
 
   const baseUrl = 'http://localhost:4002';
 
-  beforeAll(() => loadFixtures(config.db, '015.sql.js'));
+  beforeAll(async () => {
+    await setup({
+      mysql: config.db,
+      schemas: config.schemas,
+      enabled,
+      data: ['015.sql.js'],
+    });
+  });
 
   beforeAll(async () => {
-    const services = await Services(config, {
-      enabled: [
-        'knex',
-        'redis',
-        'simpleCache',
-        'bull',
-        'files',
-        'events',
-        'agendas',
-        'agendaEvents',
-        'agendaLocations',
-        'formSchemas',
-        'custom',
-        'eventSearch',
-        'members',
-        'networks',
-        'oembed',
-        'users',
-        'keys',
-        'accessTokens',
-      ],
-    });
+    const services = await Services(config, { enabled });
 
     core = Core(services, config);
 

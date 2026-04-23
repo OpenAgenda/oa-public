@@ -1,11 +1,11 @@
 import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
+import { knex } from './sql/index.js';
 
 const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 const embeddedContent = load('./embeddedContent.json');
 
-const raw = resetAndCreateTables();
+const raw = [];
 
 raw.push(
   knex('review').insert([
