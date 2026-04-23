@@ -1,6 +1,4 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
+import load from './loadObjectFromFile.js';
 
 const embeddedContent = load('./embeddedContent.json');
 

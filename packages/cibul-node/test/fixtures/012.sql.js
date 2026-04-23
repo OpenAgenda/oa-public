@@ -1,6 +1,4 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
+import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
   await knex('user').insert([load('sql/users/01.json')]);

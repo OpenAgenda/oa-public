@@ -1,7 +1,5 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
+import load from './loadObjectFromFile.js';
 import insertEventSet from './sql/eventSets/index.js';
-
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
 
 export default async (knex) => {
   await knex('review').insert([
