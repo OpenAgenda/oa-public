@@ -192,6 +192,12 @@ const config = {
     emailUtilsMessageIds: 'inboxes_email_message_ids',
     emailUtilsReplyTos: 'inboxes_email_reply_tos',
     rule: 'rule',
+    unsubscription: 'unsubscription',
+    unsubscriptionLink: 'unsubscription_link',
+    custom: 'custom',
+    network: 'network',
+    formSchema: 'form_schema',
+    usageCounter: 'usage_counter',
   },
   mtCaptcha: {
     enabled: !!(process.env.OA_MT_CAPTCHA_ENABLED
