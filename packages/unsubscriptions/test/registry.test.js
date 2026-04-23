@@ -1,21 +1,25 @@
-import 'dotenv/config';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 
 import Unsubscriptions from '../index.js';
-import fixtures from './fixtures/index.js';
+import config from '../testconfig.js';
+import setup from './fixtures/setup.js';
 
-const dbConfig = {
-  host: process.env.MYSQL_HOST,
-  password: process.env.MYSQL_PASSWORD,
-  user: process.env.MYSQL_USER,
-  ssl: { rejectUnauthorized: false },
-};
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('registry', () => {
   let client;
   let service;
 
   beforeAll(async () => {
-    client = await fixtures(dbConfig);
+    client = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [
+        `${__dirname}/fixtures/unsubscriptionLink.data.sql`,
+        `${__dirname}/fixtures/unsubscribed.data.sql`,
+      ],
+    });
     service = Unsubscriptions({
       secret: 'secret',
       knex: client,
@@ -65,6 +69,6 @@ describe('registry', () => {
   });
 
   afterAll(async () => {
-    client.destroy();
+    await client?.destroy();
   });
 });
