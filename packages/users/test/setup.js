@@ -2,6 +2,7 @@ import path from 'node:path';
 
 import tmp from 'tmp';
 import knexLib from 'knex';
+import IORedis from 'ioredis';
 import keysSvc from '@openagenda/keys/test/service/index.js';
 import keysConfig from '@openagenda/keys/service/config.js';
 import Files from '@openagenda/files';
@@ -12,9 +13,15 @@ const { service: config, dependencies: dConfig } = testconfig;
 
 const database = `${config.mysql.database}_service`;
 
+const migrationDirectories = [
+  path.resolve(import.meta.dirname, '../../keys/migrations'),
+  path.resolve(import.meta.dirname, '../migrations'),
+];
+
 export const kaoreUid = 75052324;
 
 let knex;
+let redisClient;
 
 export const getConfig = (options) => ({
   Model: knex,
@@ -34,32 +41,37 @@ export { config, Service };
 
 export function setupDatabase() {
   beforeEach(async () => {
-    knex = knexLib({
+    const bootstrap = knexLib({
       client: 'mysql2',
       connection: { ...config.mysql, database: null },
+    });
+    try {
+      await bootstrap.raw(`DROP DATABASE IF EXISTS \`${database}\``);
+      await bootstrap.raw(`CREATE DATABASE \`${database}\``);
+    } finally {
+      await bootstrap.destroy();
+    }
+
+    knex = knexLib({
+      client: 'mysql2',
+      connection: { ...config.mysql, database },
       schemas: config.schemas,
     });
 
-    await knex.raw(`DROP DATABASE IF EXISTS ${database};`);
-    await knex.raw(`CREATE DATABASE ${database};`);
-    await knex.raw(`USE ${database};`);
-
-    knex.client.connectionSettings.database = database;
+    redisClient = new IORedis({
+      host: config.redis.connection.host,
+      port: config.redis.connection.port,
+      maxRetriesPerRequest: null,
+    });
 
     await keysSvc.init({
       ...config,
       knex,
-      mysql: { ...config.mysql, database },
+      redis: { client: redisClient },
       migrations: null,
     });
 
-    await knex.migrate.latest({
-      directory: path.join(import.meta.dirname, '../../keys/migrations'),
-      tableName: 'knex_migrations_keys',
-    });
-    await knex.migrate.latest({
-      directory: path.join(import.meta.dirname, '../migrations'),
-    });
+    await knex.migrate.latest({ directory: migrationDirectories });
     await knex.seed.run({
       directory: path.join(import.meta.dirname, '../seeds'),
     });
@@ -69,6 +81,7 @@ export function setupDatabase() {
     await knex.raw(`DROP DATABASE IF EXISTS \`${database}\`;`);
     await keysConfig.knex.destroy();
     await knex.destroy();
+    await redisClient?.quit();
   });
 
   afterAll(() => tmp.setGracefulCleanup());

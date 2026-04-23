@@ -9,7 +9,7 @@ export async function up(knex) {
   }
 
   return knex.schema.table(schemas.user, (t) => {
-    t.string(columnName).nullable().unique();
+    t.string(columnName).nullable().after('api_key').unique();
   });
 }
 
