@@ -1,21 +1,29 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import config from '../testconfig.js';
 import Service from '../index.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
 import getUsersByUid from './fixtures/getUsersByUid.js';
 import getEventCountByUserUid from './fixtures/getEventCountByUserUid.js';
 import getUserByEmail from './fixtures/getUserByEmail.js';
 
-describe('members - functional - setByEmail', () => {
-  const f = fixtures(config.mysql);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
+describe('members - functional - setByEmail', () => {
+  let knex;
   let svc;
   const queueCalls = [];
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { stakeholder: config.schema },
+      data: [`${__dirname}/fixtures/member.data.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
+      schema: config.schema,
       interfaces: {
         getUsersByUid,
         getEventCountByUserUid,
@@ -35,7 +43,7 @@ describe('members - functional - setByEmail', () => {
     });
   });
 
-  afterAll(f.destroyClient);
+  afterAll(() => knex?.destroy());
 
   describe('setByEmail', () => {
     describe('creates', () => {
