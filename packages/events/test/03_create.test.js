@@ -14,7 +14,7 @@ import ValidationError from '../lib/ValidationError.js';
 import { service as config, dependencies as dConfig } from '../testconfig.js';
 
 import Service from '../index.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -36,18 +36,23 @@ const data = {
 };
 
 describe('events - functional - create', () => {
-  const f = fixtures(config.mysql, config.schema);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { eventService: config.schema },
+      data: [`${__dirname}/fixtures/event.data.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       imagePath: config.imagePath,
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('simple create', () => {
     let created;
@@ -65,8 +70,7 @@ describe('events - functional - create', () => {
     });
 
     it('entry is added in table', async () => {
-      const title = await f
-        .client('event_2')
+      const title = await knex('event_2')
         .first(['title'])
         .where('uid', created.uid)
         .then((r) => r.title);
@@ -110,7 +114,7 @@ describe('events - functional - create', () => {
 
     beforeAll(() => {
       imageTestsSvc = Service({
-        knex: f.client,
+        knex,
         Files: Files(dConfig.files),
         imagePath: config.imagePath,
       });
@@ -463,8 +467,7 @@ describe('events - functional - create', () => {
     it('create with private option results in private event', async () => {
       const event = await svc.create(data, { private: true });
 
-      const isPrivate = await f
-        .client('event_2')
+      const isPrivate = await knex('event_2')
         .first(['private'])
         .where('uid', event.uid)
         .then((r) => r.private);
@@ -475,8 +478,7 @@ describe('events - functional - create', () => {
     it('fileKey is defined at create', async () => {
       const event = await svc.create(data);
 
-      const fileKey = await f
-        .client('event_2')
+      const fileKey = await knex('event_2')
         .first(['file_key'])
         .where('uid', event.uid)
         .then((r) => r.file_key);
@@ -487,8 +489,7 @@ describe('events - functional - create', () => {
     it('fileKey can be passed through options at create', async () => {
       const event = await svc.create(data, { fileKey: 'blaireau' });
 
-      const fileKey = await f
-        .client('event_2')
+      const fileKey = await knex('event_2')
         .first(['file_key'])
         .where('uid', event.uid)
         .then((r) => r.file_key);
@@ -534,8 +535,7 @@ describe('events - functional - create', () => {
         { draft: true },
       );
 
-      const parsedRegistrationColValue = await f
-        .client('event_2')
+      const parsedRegistrationColValue = await knex('event_2')
         .first('registration')
         .where('uid', event.uid)
         .then((r) => JSON.parse(r.registration));
@@ -557,8 +557,7 @@ describe('events - functional - create', () => {
       );
 
       expect(
-        await f
-          .client('event_2')
+        await knex('event_2')
           .first('long_description')
           .where('uid', event.uid)
           .then((r) => JSON.parse(r.long_description).en),
@@ -574,8 +573,7 @@ describe('events - functional - create', () => {
       );
 
       expect(
-        await f
-          .client('event_2')
+        await knex('event_2')
           .first('description')
           .where('uid', event.uid)
           .then((r) => JSON.parse(r.description).en),
@@ -591,8 +589,7 @@ describe('events - functional - create', () => {
       );
 
       expect(
-        await f
-          .client('event_2')
+        await knex('event_2')
           .first('description')
           .where('uid', event.uid)
           .then((r) => JSON.parse(r.description).en),
@@ -621,7 +618,7 @@ describe('events - functional - create', () => {
         };
 
         const svcForContextTest = Service({
-          knex: f.client,
+          knex,
           interfaces: {
             onCreate,
           },
@@ -672,7 +669,7 @@ describe('events - functional - create', () => {
       let calledOnCreate = false;
 
       const interfaceTestSvc = Service({
-        knex: f.client,
+        knex,
         interfaces: {
           onCreate: async () => {
             await new Promise((rs) => setTimeout(rs, 10));
