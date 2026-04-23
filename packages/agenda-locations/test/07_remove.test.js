@@ -5,7 +5,7 @@ const Files = require('@openagenda/files');
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
 
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 
 const initSettings = require('./fixtures/agendaTestSettings');
 
@@ -37,17 +37,20 @@ const initSettingsCantRemove = {
 };
 
 describe('agenda-locations - functional - remove', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
 
   let passedToInterface;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       Files: Files(dConfig.files),
       interfaces: {
         getAgendaDetailsByUid: async (uid) => ({
@@ -63,6 +66,8 @@ describe('agenda-locations - functional - remove', () => {
     });
   });
 
+  afterAll(() => knex?.destroy());
+
   describe('basic', () => {
     let removed;
 
@@ -75,10 +80,7 @@ describe('agenda-locations - functional - remove', () => {
     });
 
     it('removed location is still present in db with deleted = 1', async () => {
-      const entry = await f
-        .client('location')
-        .first()
-        .where('uid', removed.uid);
+      const entry = await knex('location').first().where('uid', removed.uid);
 
       expect(entry.deleted).toEqual(1);
     });
@@ -112,10 +114,7 @@ describe('agenda-locations - functional - remove', () => {
     });
 
     it('removed location is still present in db with deleted = 1', async () => {
-      const entry = await f
-        .client('location')
-        .first()
-        .where('uid', removed.uid);
+      const entry = await knex('location').first().where('uid', removed.uid);
 
       expect(entry.deleted).toEqual(1);
     });
@@ -123,15 +122,18 @@ describe('agenda-locations - functional - remove', () => {
 });
 
 describe('agenda-locations - functional - remove - no rights', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       Files: Files(dConfig.files),
       interfaces: {
         getAgendaDetailsByUid: async (uid) => ({
@@ -147,6 +149,8 @@ describe('agenda-locations - functional - remove - no rights', () => {
       },
     });
   });
+
+  afterAll(() => knex?.destroy());
   describe('test allow byAgendaUid', () => {
     let thrownError;
 

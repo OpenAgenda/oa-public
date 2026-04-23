@@ -8,7 +8,7 @@ const Files = require('@openagenda/files');
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
 
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 
 const payload = require('./fixtures/updateData.json');
 
@@ -42,15 +42,18 @@ const initSettingsCantUpdate = {
 };
 
 describe('agenda-locations - functional - patch & update', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       interfaces: {
         getAgendaDetailsByUid: async (uid) => ({
           id: {
@@ -63,6 +66,8 @@ describe('agenda-locations - functional - patch & update', () => {
       Files: Files(dConfig.files),
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('default update', () => {
     let updated;
@@ -80,12 +85,12 @@ describe('agenda-locations - functional - patch & update', () => {
     const entry = {};
 
     beforeAll(async () => {
-      entry.before = await f.client('location').first().where('uid', 89634707);
+      entry.before = await knex('location').first().where('uid', 89634707);
 
       await svc(7196947).patch(89634707, {
         name: 'Patched name',
       });
-      entry.after = await f.client('location').first().where('uid', 89634707);
+      entry.after = await knex('location').first().where('uid', 89634707);
     });
 
     it('basic patch only affects provided fields', () => {
@@ -110,7 +115,7 @@ describe('agenda-locations - functional - patch & update', () => {
         ),
       });
 
-      entry = await f.client('location').first().where('uid', 94482437);
+      entry = await knex('location').first().where('uid', 94482437);
     });
 
     it('saves uploaded image name in db', () => {
@@ -132,7 +137,7 @@ describe('agenda-locations - functional - patch & update', () => {
         duplicateCandidates: [30],
       });
 
-      entry = await f.client('location').first().where('uid', 51665987);
+      entry = await knex('location').first().where('uid', 51665987);
     });
 
     it('saves uploaded candidates in db', () => {
@@ -148,8 +153,7 @@ describe('agenda-locations - functional - patch & update', () => {
     it('updates', async () => {
       await svc.sets(1903810).locations.update(30433085, payload);
       expect(
-        await f
-          .client('location')
+        await knex('location')
           .first()
           .where('uid', 30433085)
           .then((r) => r.placename),
@@ -161,8 +165,7 @@ describe('agenda-locations - functional - patch & update', () => {
         name: 'Patched',
       });
       expect(
-        await f
-          .client('location')
+        await knex('location')
           .first()
           .where('uid', 30433085)
           .then((r) => r.placename),
@@ -172,8 +175,7 @@ describe('agenda-locations - functional - patch & update', () => {
     it('update through agendas endpoint does not clear set uid of location', async () => {
       await svc(7196947).update(30433085, payload);
       expect(
-        await f
-          .client('location')
+        await knex('location')
           .first()
           .where('uid', 30433085)
           .then((r) => r.set_uid),
@@ -221,14 +223,14 @@ describe('agenda-locations - functional - patch & update', () => {
 
     it('extIds are set by patch and protected', async () => {
       const entry = {};
-      entry.before = await f.client('location').first().where('uid', 7630653);
+      entry.before = await knex('location').first().where('uid', 7630653);
       const updated = await svc(25221).patch(7630653, {
         extIds: [
           { key: 'default', value: 'ard_leg_1200' },
           { key: 'test', value: 'ard_leg_1201' },
         ],
       });
-      entry.after = await f.client('location').first().where('uid', 7630653);
+      entry.after = await knex('location').first().where('uid', 7630653);
       expect(entry.after.ext_ids).toEqual(
         '{"identifiers": ["default->ard_leg_1200", "test->ard_leg_1201"]}',
       );
@@ -240,7 +242,7 @@ describe('agenda-locations - functional - patch & update', () => {
 
     it('extIds a set by update', async () => {
       const entry = {};
-      entry.before = await f.client('location').first().where('uid', 60763722);
+      entry.before = await knex('location').first().where('uid', 60763722);
       const updated = await svc(25221).update(
         60763722,
         {
@@ -249,7 +251,7 @@ describe('agenda-locations - functional - patch & update', () => {
         },
         { mergeExtIds: false },
       );
-      entry.after = await f.client('location').first().where('uid', 60763722);
+      entry.after = await knex('location').first().where('uid', 60763722);
 
       expect(entry.after.ext_ids).toEqual(
         '{"identifiers": ["default->ard_leg_1200"]}',
@@ -280,8 +282,7 @@ describe('agenda-locations - functional - patch & update', () => {
         { includeImagePath: true },
       );
 
-      const image = await f
-        .client('location')
+      const image = await knex('location')
         .first()
         .where('uid', 86591143)
         .then((e) => JSON.parse(e.store).image);
@@ -339,15 +340,18 @@ describe('agenda-locations - functional - patch & update', () => {
 });
 
 describe('agenda-locations - functional - patch & update - no rights', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       interfaces: {
         getAgendaDetailsByUid: async (uid) => ({
           id: {
@@ -360,6 +364,8 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
       Files: Files(dConfig.files),
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('test allow byAgendaUid', () => {
     let thrownError;

@@ -7,7 +7,7 @@ const Files = require('@openagenda/files');
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
 
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 
 async function getAgendaDetailsByUid(uid, fields = []) {
   return _.pick(
@@ -20,17 +20,18 @@ async function getAgendaDetailsByUid(uid, fields = []) {
 }
 
 describe('agenda-locations - functional - Duplicates functions', () => {
-  const f = fixtures(config.mysql, 'hauteSavoie.sql');
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
-  });
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/hauteSavoie.sql`],
+    });
 
-  beforeAll(() => {
     svc = Service({
-      knex: f.client,
+      knex,
       Files: Files(dConfig.files),
       imagePath: '//cdn.openagenda.com/dev/',
       interfaces: {
@@ -42,6 +43,8 @@ describe('agenda-locations - functional - Duplicates functions', () => {
       },
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('detectDuplicateCandidates with sample', () => {
     const location = {
@@ -80,8 +83,8 @@ describe('agenda-locations - functional - Duplicates functions', () => {
   describe('detectDuplicateCandidates with uid && save option', () => {
     it('save candidates in both location`s field', async () => {
       await svc(7196947).duplicates.detect(77635822, { saveCandidates: true });
-      const entry1 = await f.client('location').first().where('uid', 77635822);
-      const entry2 = await f.client('location').first().where('uid', 77635823);
+      const entry1 = await knex('location').first().where('uid', 77635822);
+      const entry2 = await knex('location').first().where('uid', 77635823);
       expect(JSON.parse(entry1.duplicate_candidates)).toStrictEqual([77635823]);
       expect(JSON.parse(entry2.duplicate_candidates)).toStrictEqual([77635822]);
     });
@@ -93,8 +96,8 @@ describe('agenda-locations - functional - Duplicates functions', () => {
 
     beforeAll(async () => {
       await svc(7196947).duplicates.disqualifyCandidate([77164958, 90760072]);
-      entry1 = await f.client('location').first().where('uid', 90760072);
-      entry2 = await f.client('location').first().where('uid', 77164958);
+      entry1 = await knex('location').first().where('uid', 90760072);
+      entry2 = await knex('location').first().where('uid', 77164958);
     });
 
     it('both location uid are not in each other candidates anymore', () => {
@@ -118,8 +121,8 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     });
 
     it('duplicates are found and saved', async () => {
-      const entry1 = await f.client('location').first().where('uid', 48681219);
-      const entry2 = await f.client('location').first().where('uid', 62705984);
+      const entry1 = await knex('location').first().where('uid', 48681219);
+      const entry2 = await knex('location').first().where('uid', 62705984);
       expect(JSON.parse(entry1.duplicate_candidates)).toStrictEqual([62705984]);
       expect(JSON.parse(entry2.duplicate_candidates)).toStrictEqual([48681219]);
     });
@@ -130,8 +133,8 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     let entry2;
     beforeAll(async () => {
       await svc(7196947).duplicates.clearCandidates();
-      entry1 = await f.client('location').first().where('uid', 49975881);
-      entry2 = await f.client('location').first().where('uid', 49975880);
+      entry1 = await knex('location').first().where('uid', 49975881);
+      entry2 = await knex('location').first().where('uid', 49975880);
     });
 
     it('clear all candidates', () => {

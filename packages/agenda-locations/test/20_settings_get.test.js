@@ -6,7 +6,7 @@ const Files = require('@openagenda/files');
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
 
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 const initSettings = require('./fixtures/agendaTestSettings');
 
 const defaultAccess = {
@@ -27,16 +27,22 @@ const initSettingsP = {
 };
 
 describe('agenda-locations - functional - settings get', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
+
+  afterAll(() => knex?.destroy());
 
   describe('location set without settings', () => {
     beforeAll(async () => {
-      await f.load();
+      if (knex) await knex.destroy();
+      knex = await setup({
+        mysql: config.mysql,
+        schemas: config.schemas,
+        data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      });
 
       svc = Service({
-        knex: f.client,
+        knex,
         Files: Files(dConfig.files),
         interfaces: {
           getAgendaLocationSettings: async (uid) =>
@@ -98,10 +104,14 @@ describe('agenda-locations - functional - settings get', () => {
 
   describe('location set with settings', () => {
     beforeAll(async () => {
-      await f.load();
+      if (knex) await knex.destroy();
+      knex = await setup({
+        mysql: config.mysql,
+        schemas: config.schemas,
+        data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      });
 
-      await f
-        .client('location_set')
+      await knex('location_set')
         .where('uid', 1903810)
         .update({
           settings: JSON.stringify({
@@ -118,7 +128,7 @@ describe('agenda-locations - functional - settings get', () => {
         });
 
       svc = Service({
-        knex: f.client,
+        knex,
         Files: Files(dConfig.files),
         interfaces: {
           getAgendaLocationSettings: async (uid) =>
@@ -203,10 +213,15 @@ describe('agenda-locations - functional - settings get', () => {
 
   describe('fromDbEntryToSettings', () => {
     beforeAll(async () => {
-      await f.load();
+      if (knex) await knex.destroy();
+      knex = await setup({
+        mysql: config.mysql,
+        schemas: config.schemas,
+        data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      });
 
       svc = Service({
-        knex: f.client,
+        knex,
         Files: Files(dConfig.files),
         interfaces: {
           getAgendaLocationSettings: async (_uid) => ({

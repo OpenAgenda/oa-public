@@ -4,23 +4,28 @@ const Files = require('@openagenda/files');
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
 
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 
 describe('agenda-locations - functional - sets create', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
   let created;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       interfaces: {},
       Files: Files(dConfig.files),
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   beforeAll(async () => {
     created = await svc.sets.create({
@@ -39,14 +44,13 @@ describe('agenda-locations - functional - sets create', () => {
 
   it('entry is added', async () => {
     expect(
-      await f.client('location_set').first().where('uid', created.uid),
+      await knex('location_set').first().where('uid', created.uid),
     ).toBeDefined();
   });
 
   it('title is in entry', async () => {
     expect(
-      await f
-        .client('location_set')
+      await knex('location_set')
         .first()
         .where('uid', created.uid)
         .then((r) => r.title),

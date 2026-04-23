@@ -1,27 +1,19 @@
 'use strict';
 
-const fs = require('node:fs');
-
 module.exports = {
   service: {
     mysql: {
-      host: process.env.OA_MYSQL_DEV_HOST,
-      user: process.env.OA_MYSQL_DEV_USER,
-      password: process.env.OA_MYSQL_DEV_PASSWORD,
+      host: '127.0.0.1',
+      user: 'root',
+      password: 'grut',
       database: 'location_test',
-      ssl: parseInt(process.env.OA_MYSQL_DEV_SSL_VERIFY, 10)
-        ? {
-          ca: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CA),
-          cert: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CERT),
-          key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY),
-        }
-        : { rejectUnauthorized: false },
       jsonStrings: true,
       decimalNumbers: true,
+      ssl: { rejectUnauthorized: false },
     },
     schemas: {
       location: 'location',
-      agendaSettings: 'location_agenda_settings',
+      locationSet: 'location_set',
     },
     redis: {
       host: 'localhost',

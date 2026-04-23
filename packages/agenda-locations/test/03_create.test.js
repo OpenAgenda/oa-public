@@ -8,7 +8,7 @@ const Files = require('@openagenda/files');
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
 
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 
 const payload = require('./fixtures/createData.json');
 const initSettings = require('./fixtures/agendaTestSettings');
@@ -41,14 +41,18 @@ const initSettingsCantCreate = {
 };
 
 describe('agenda-locations - functional - create', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
+  let redisClient;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
-    const redisClient = await redis.createClient({
+    redisClient = await redis.createClient({
       host: 'localhost',
       port: 6379,
     });
@@ -56,7 +60,7 @@ describe('agenda-locations - functional - create', () => {
     await redisClient.connect();
 
     svc = Service({
-      knex: f.client,
+      knex,
       redis: redisClient,
       interfaces: {
         getAgendaDetailsByUid: async (uid, fields = []) =>
@@ -95,6 +99,11 @@ describe('agenda-locations - functional - create', () => {
     });
   });
 
+  afterAll(async () => {
+    await redisClient?.quit().catch(() => {});
+    await knex?.destroy();
+  });
+
   describe('defaults', () => {
     let created;
 
@@ -119,8 +128,7 @@ describe('agenda-locations - functional - create', () => {
     });
 
     it('new entry is in db', async () => {
-      const entry = await f
-        .client('location')
+      const entry = await knex('location')
         .first('placename')
         .where('uid', created.uid);
 
@@ -135,8 +143,7 @@ describe('agenda-locations - functional - create', () => {
       const newPayload = { ...payload, adminLevel1: payload.region };
       delete newPayload.region;
       const createdItem = await svc(7196947).create(newPayload);
-      const entry = await f
-        .client('location')
+      const entry = await knex('location')
         .first()
         .where('uid', createdItem.uid);
       expect(entry.region).toEqual(newPayload.adminLevel1);
@@ -146,8 +153,7 @@ describe('agenda-locations - functional - create', () => {
       const newPayload = { ...payload, adminLevel2: payload.department };
       delete newPayload.department;
       const createdItem = await svc(7196947).create(newPayload);
-      const entry = await f
-        .client('location')
+      const entry = await knex('location')
         .first()
         .where('uid', createdItem.uid);
 
@@ -156,8 +162,7 @@ describe('agenda-locations - functional - create', () => {
 
     it('extIds are set', async () => {
       expect(created.extIds).toEqual([{ key: 'default', value: '123456' }]);
-      const entry = await f
-        .client('location')
+      const entry = await knex('location')
         .first('ext_ids')
         .where('uid', created.uid);
       expect(entry.ext_ids).toBe('{"identifiers": ["default->123456"]}');
@@ -183,8 +188,7 @@ describe('agenda-locations - functional - create', () => {
     });
 
     it('entry has set uid', async () => {
-      const entrySetUid = await f
-        .client('location')
+      const entrySetUid = await knex('location')
         .first('set_uid')
         .where('uid', created.uid)
         .then((r) => r.set_uid);
@@ -227,8 +231,7 @@ describe('agenda-locations - functional - create', () => {
         // console.log(e);
       }
 
-      const entry = await f
-        .client('location')
+      const entry = await knex('location')
         .first('store')
         .where('uid', created.uid);
 
@@ -255,8 +258,7 @@ describe('agenda-locations - functional - create', () => {
         // console.log(e);
       }
 
-      const entry = await f
-        .client('location')
+      const entry = await knex('location')
         .first('store')
         .where('uid', created.uid);
 
@@ -511,15 +513,18 @@ describe('agenda-locations - functional - create', () => {
 });
 
 describe('agenda-locations - functional - create - no rights', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       redis: redis.createClient(),
       interfaces: {
         getAgendaDetailsByUid: async (uid, fields = []) =>
@@ -548,6 +553,8 @@ describe('agenda-locations - functional - create - no rights', () => {
       Files: Files(dConfig.files),
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('test allow byAgendaUid', () => {
     let thrownError;
