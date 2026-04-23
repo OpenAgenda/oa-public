@@ -448,28 +448,24 @@ export default function EventItem({
         </LinkBox>
       </EventStatusTooltip>
 
-      {shareIsOpen ? (
-        <EventShareModal
-          isOpen
-          onClose={shareOnClose}
-          user={user}
-          agenda={agenda}
-          event={event}
-          contentLocale={intl.locale}
-          onEmailSent={onEmailSent}
-          rootUrl={process.env.NEXT_PUBLIC_ROOT}
-        >
-          <ShareEventItem event={event} />
-        </EventShareModal>
-      ) : null}
+      <EventShareModal
+        isOpen={shareIsOpen}
+        onClose={shareOnClose}
+        user={user}
+        agenda={agenda}
+        event={event}
+        contentLocale={intl.locale}
+        onEmailSent={onEmailSent}
+        rootUrl={process.env.NEXT_PUBLIC_ROOT}
+      >
+        <ShareEventItem event={event} />
+      </EventShareModal>
 
-      {emailSentIsOpen ? (
-        <EmailConfirmationAlert
-          isOpen
-          onClose={emailSentOnClose}
-          count={emailSent}
-        />
-      ) : null}
+      <EmailConfirmationAlert
+        isOpen={emailSentIsOpen}
+        onClose={emailSentOnClose}
+        count={emailSent}
+      />
     </Flex>
   );
 }

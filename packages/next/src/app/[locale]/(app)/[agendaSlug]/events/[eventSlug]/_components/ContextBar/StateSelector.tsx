@@ -250,12 +250,11 @@ export default function StateSelector({
 
       {invalidEventModal.modal}
 
-      {refuseModal ? (
-        <RejectModal
-          setRefuseModal={setRefuseModal}
-          changeState={(r) => changeState(-1, r)}
-        />
-      ) : null}
+      <RejectModal
+        isOpen={refuseModal}
+        onClose={() => setRefuseModal(false)}
+        changeState={(r) => changeState(-1, r)}
+      />
     </MenuRoot>
   );
 }

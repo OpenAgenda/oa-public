@@ -11,12 +11,12 @@ import {
 } from '@openagenda/uikit/snippets';
 import { rejectModal as messages } from '../../messages';
 
-export default function RejectModal({ setRefuseModal, changeState }) {
+export default function RejectModal({ isOpen, onClose, changeState }) {
   const intl = useIntl();
   const [motive, setMotive] = useState('');
 
   return (
-    <DialogRoot open onOpenChange={() => setRefuseModal(false)}>
+    <DialogRoot open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         <DialogHeader fontSize="xl" fontWeight="semibold">
           {intl.formatMessage(messages.confirmRejection)}
@@ -34,7 +34,7 @@ export default function RejectModal({ setRefuseModal, changeState }) {
             <Button
               onClick={() => {
                 changeState(motive);
-                setRefuseModal(false);
+                onClose();
               }}
             >
               {intl.formatMessage(messages.confirm)}

@@ -241,20 +241,20 @@ export default function AgendaHeader({ agenda }) {
       </VStack>
 
       <ClientOnly>
-        {exportIsOpen ? (
-          <AgendaExportModal
-            isOpen
-            onClose={exportOnClose}
-            agenda={agenda}
-            query={urlQuery}
-            defaultValue={displayExportModalValue}
-            rootUrl={process.env.NEXT_PUBLIC_ROOT}
-            apiRootUrl={process.env.NEXT_PUBLIC_API_ROOT}
-          />
-        ) : null}
-        {aggregateIsOpen ? (
-          <AggregateModal isOpen onClose={aggregateOnClose} agenda={agenda} />
-        ) : null}
+        <AgendaExportModal
+          isOpen={exportIsOpen}
+          onClose={exportOnClose}
+          agenda={agenda}
+          query={urlQuery}
+          defaultValue={displayExportModalValue}
+          rootUrl={process.env.NEXT_PUBLIC_ROOT}
+          apiRootUrl={process.env.NEXT_PUBLIC_API_ROOT}
+        />
+        <AggregateModal
+          isOpen={aggregateIsOpen}
+          onClose={aggregateOnClose}
+          agenda={agenda}
+        />
       </ClientOnly>
     </Stack>
   );

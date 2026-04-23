@@ -15,9 +15,13 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
 
   const isEmpty = !drafts && !states.length;
 
+  const [isOpen, setIsOpen] = useState(false);
   const [modalState, setModalState] = useState(null);
-  const onOpen = useCallback((state) => setModalState(state), []);
-  const onClose = useCallback(() => setModalState(null), []);
+  const onOpen = useCallback((state) => {
+    setModalState(state);
+    setIsOpen(true);
+  }, []);
+  const onClose = useCallback(() => setIsOpen(false), []);
 
   const bundleStates = useMemo(
     () =>
@@ -57,9 +61,9 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
 
   return (
     <>
-      {isEmpty ? (
+      {isEmpty ? 
         intl.formatMessage(messages.notContributed)
-      ) : (
+       : (
         <>
           <chakra.span display={{ base: 'none', md: 'inline-flex' }}>
             {intl.formatMessage(messages.myEvents)}
@@ -181,7 +185,7 @@ export default function ContributorContextBar({ agenda, drafts, states }) {
 
       {modalState !== null ? (
         <EventsModal
-          isOpen
+          isOpen={isOpen}
           onClose={onClose}
           agenda={agenda}
           bundleState={modalState}

@@ -156,6 +156,7 @@ function AgendaShow({ agenda, initialQuery = {} }: AgendaShowProps) {
             filters={<FiltersSkeleton />}
           />
           <NotificationModal
+            isOpen
             onClose={() => {}}
             title={intl.formatMessage(messages.networkErrorTitle)}
             message={intl.formatMessage(messages.networkErrorMessage)}

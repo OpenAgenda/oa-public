@@ -502,15 +502,13 @@ export function PassCultureSection({
           </Link>
         </Fragment>
       )}
-      {bookingIsOpen && (
-        <PassBookingModal
-          isOpen={bookingIsOpen}
-          onClose={bookingOnClose}
-          agendaUid={agenda.uid}
-          eventUid={event.uid}
-          timezone={event.timezone}
-        />
-      )}
+      <PassBookingModal
+        isOpen={bookingIsOpen}
+        onClose={bookingOnClose}
+        agendaUid={agenda.uid}
+        eventUid={event.uid}
+        timezone={event.timezone}
+      />
     </Grid>
   );
 }

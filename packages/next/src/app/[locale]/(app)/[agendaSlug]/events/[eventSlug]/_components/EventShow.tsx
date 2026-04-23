@@ -467,29 +467,24 @@ function EventShow() {
       {needConsentFor ? <ConsentBanner consentFor={needConsentFor} /> : null}
 
       <ClientOnly>
-        {shareIsOpen ? (
-          <EventShareModal
-            key="sharemodal"
-            isOpen
-            onClose={shareOnClose}
-            user={user}
-            agenda={agenda}
-            event={event}
-            contentLocale={contentLocale}
-            onEmailSent={onEmailSent}
-            defaultValue={shareModal}
-            rootUrl={process.env.NEXT_PUBLIC_ROOT}
-          />
-        ) : null}
+        <EventShareModal
+          isOpen={shareIsOpen}
+          onClose={shareOnClose}
+          user={user}
+          agenda={agenda}
+          event={event}
+          contentLocale={contentLocale}
+          onEmailSent={onEmailSent}
+          defaultValue={shareModal}
+          rootUrl={process.env.NEXT_PUBLIC_ROOT}
+        />
       </ClientOnly>
 
-      {emailSentIsOpen ? (
-        <EmailConfirmationAlert
-          isOpen
-          onClose={emailSentOnClose}
-          count={emailSent}
-        />
-      ) : null}
+      <EmailConfirmationAlert
+        isOpen={emailSentIsOpen}
+        onClose={emailSentOnClose}
+        count={emailSent}
+      />
 
       <LdJson />
 

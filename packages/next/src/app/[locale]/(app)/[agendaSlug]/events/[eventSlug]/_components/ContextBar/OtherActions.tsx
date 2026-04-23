@@ -344,18 +344,17 @@ export default function OtherActions({ agenda, editLink, contextBarRef }) {
         onCompleted={() => router.push(`/${agenda.slug}`)}
       />
 
-      {duplicateIsOpen ? (
-        <DuplicateModal
-          isOpen
-          onClose={duplicateOnClose}
-          agenda={agenda}
-          event={event}
-        />
-      ) : null}
+      <DuplicateModal
+        isOpen={duplicateIsOpen}
+        onClose={duplicateOnClose}
+        agenda={agenda}
+        event={event}
+      />
 
-      {transferOwnershipIsOpen ? (
-        <TransferOwnershipModal isOpen onClose={transferOwnershipOnClose} />
-      ) : null}
+      <TransferOwnershipModal
+        isOpen={transferOwnershipIsOpen}
+        onClose={transferOwnershipOnClose}
+      />
       {invalidEventModal.modal}
     </>
   );

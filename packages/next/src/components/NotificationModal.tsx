@@ -9,6 +9,7 @@ import {
 } from '@openagenda/uikit/snippets';
 
 export default function NotificationModal({
+  isOpen,
   onClose,
   title,
   message,
@@ -17,7 +18,7 @@ export default function NotificationModal({
   showCloseButton = true,
 }) {
   return (
-    <DialogRoot role="alertdialog" open onOpenChange={onClose}>
+    <DialogRoot role="alertdialog" open={isOpen} onOpenChange={onClose}>
       <DialogContent>
         {title ? (
           <DialogHeader fontSize="xl" fontWeight="semibold">

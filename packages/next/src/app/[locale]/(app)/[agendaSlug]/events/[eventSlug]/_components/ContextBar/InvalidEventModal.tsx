@@ -16,8 +16,9 @@ export function InvalidEventModal({
 }: InvalidEventModalProps) {
   const intl = useIntl();
 
-  return isOpen ? (
+  return (
     <NotificationModal
+      isOpen={isOpen}
       title={intl.formatMessage(messages.invalidEvent)}
       message={intl.formatMessage(messages.invalidEventMessage)}
       onClose={onClose}
@@ -26,7 +27,7 @@ export function InvalidEventModal({
         window.location.href = editLink;
       }}
     />
-  ) : null;
+  );
 }
 
 export function useInvalidEventModal(editLink: string = '#edit') {
