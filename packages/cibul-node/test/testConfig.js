@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import schemaNames from './mock/schemaNames.js';
+import appConfig from '../config/index.js';
 
 const testConfig = {
   domain: 'openagenda.com',
@@ -30,7 +30,7 @@ const testConfig = {
     host: 'localhost',
     port: 6379,
   },
-  schemas: schemaNames,
+  schemas: appConfig.schemas,
   tmpFolderPath: '/var/tmp/',
   s3: {
     endpoint: process.env.S3_DEV_ENDPOINT,
