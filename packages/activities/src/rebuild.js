@@ -105,14 +105,14 @@ function getLocationsStream(config, options, agenda) {
 function getAgendaEventsStream(config, options, agenda) {
   const { knex, schemas } = config;
 
-  const q = knex(schemas.agendaEventService)
+  const q = knex(schemas.agendaEvent)
     .select([
-      `${schemas.agendaEventService}.*`,
+      `${schemas.agendaEvent}.*`,
       `${schemas.location}.uid as locationUid`,
     ])
     .leftJoin(
       schemas.eventService,
-      `${schemas.agendaEventService}.event_uid`,
+      `${schemas.agendaEvent}.event_uid`,
       `${schemas.eventService}.uid`,
     )
     .leftJoin(
@@ -120,11 +120,11 @@ function getAgendaEventsStream(config, options, agenda) {
       `${schemas.eventService}.location_uid`,
       `${schemas.location}.uid`,
     )
-    .where(`${schemas.agendaEventService}.agenda_uid`, agenda.uid);
+    .where(`${schemas.agendaEvent}.agenda_uid`, agenda.uid);
 
   if (options.since) {
     q.where(
-      `${schemas.agendaEventService}.updated_at`,
+      `${schemas.agendaEvent}.updated_at`,
       '>=',
       new Date(options.since * 1000),
     );
@@ -313,12 +313,10 @@ async function checkAgendaFollow(config, report, originFeed, targetFeed) {
       const eventUid = originFeed.entityUid;
 
       try {
-        const agendaEvent = await knex(schemas.agendaEventService)
-          .first()
-          .where({
-            agenda_uid: agendaUid,
-            event_uid: eventUid,
-          });
+        const agendaEvent = await knex(schemas.agendaEvent).first().where({
+          agenda_uid: agendaUid,
+          event_uid: eventUid,
+        });
         if (!agendaEvent) {
           log.debug(`Feed agenda ${agendaUid} unfollow feed event ${eventUid}`);
           await service.feed(targetFeed).unfollow(originFeed);
