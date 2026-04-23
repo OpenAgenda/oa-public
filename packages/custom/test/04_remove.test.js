@@ -1,10 +1,10 @@
 import ih from 'immutability-helper';
-import mysql from 'mysql2';
 import schema from '@openagenda/validators/schema/index.js';
 import integer from '@openagenda/validators/integer.js';
 import text from '@openagenda/validators/text.js';
 import config from '../testconfig.js';
-import svc, { initAndLoad } from './service/index.js';
+import svc from '../index.js';
+import setup from './fixtures/setup.js';
 
 schema.register({
   integer,
@@ -12,32 +12,42 @@ schema.register({
 });
 
 describe('extended events - functional (server): remove', () => {
-  beforeEach(async () => {
-    await initAndLoad(
-      ih(config, {
-        interfaces: {
-          getValidator: {
-            $set: (_formSchemaId) =>
-              schema({
-                edition: {
-                  type: 'integer',
-                },
-                contender: {
-                  type: 'text',
-                },
-              }),
-          },
-        },
-      }),
-    );
-  });
+  let knex;
 
   beforeEach(async () => {
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+    });
+
+    svc.init(
+      ih(
+        { ...config, knex },
+        {
+          interfaces: {
+            getValidator: {
+              $set: (_formSchemaId) =>
+                schema({
+                  edition: {
+                    type: 'integer',
+                  },
+                  contender: {
+                    type: 'text',
+                  },
+                }),
+            },
+          },
+        },
+      ),
+    );
+
     await svc(12).create(123, {
       edition: 12,
       contender: 'Phteve',
     });
   });
+
+  afterEach(() => knex?.destroy());
 
   it('remove custom data by form schema id and identifier', async () => {
     expect(await svc(12).remove(123)).toEqual({
@@ -52,19 +62,10 @@ describe('extended events - functional (server): remove', () => {
   it('remove effectively removes', async () => {
     await svc(12).remove(123);
 
-    const con = mysql.createConnection(config.mysql);
+    const rows = await knex(config.schemas.custom)
+      .select('*')
+      .where({ form_schema_id: 12, identifier: 123 });
 
-    return new Promise((resolve, reject) => {
-      con.query(
-        `select * from ${config.schemas.custom} where form_schema_id = ? and identifier = ?`,
-        [12, 123],
-        (err, rows) => {
-          if (err) return reject(err);
-
-          expect(rows.length).toBe(0);
-          resolve();
-        },
-      );
-    }).finally(() => con.end());
+    expect(rows.length).toBe(0);
   });
 });

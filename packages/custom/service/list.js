@@ -27,6 +27,7 @@ export default async (formSchemaId, query = {}, offset = 0, limit = 20) => {
     items: (
       await _base(formSchemaId, query)
         .select(['id', 'identifier', 'store'])
+        .orderBy('id')
         .limit(limit)
         .offset(offset)
     ).map((r) => {

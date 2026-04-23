@@ -3,7 +3,8 @@ import schema from '@openagenda/validators/schema/index.js';
 import integer from '@openagenda/validators/integer.js';
 import text from '@openagenda/validators/text.js';
 import config from '../testconfig.js';
-import svc, { initAndLoad } from './service/index.js';
+import svc from '../index.js';
+import setup from './fixtures/setup.js';
 
 schema.register({
   integer,
@@ -11,25 +12,37 @@ schema.register({
 });
 
 describe('extended events - functional (server): set', () => {
+  let knex;
+
   beforeEach(async () => {
-    await initAndLoad(
-      ih(config, {
-        interfaces: {
-          getValidator: {
-            $set: (_formSchemaId) =>
-              schema({
-                edition: {
-                  type: 'integer',
-                },
-                contender: {
-                  type: 'text',
-                },
-              }),
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+    });
+
+    svc.init(
+      ih(
+        { ...config, knex },
+        {
+          interfaces: {
+            getValidator: {
+              $set: (_formSchemaId) =>
+                schema({
+                  edition: {
+                    type: 'integer',
+                  },
+                  contender: {
+                    type: 'text',
+                  },
+                }),
+            },
           },
         },
-      }),
+      ),
     );
   });
+
+  afterEach(() => knex?.destroy());
 
   it('set the simplest extended event gives a success response and the type of operation made', async () => {
     const result = await svc(3819893).set(123, {
