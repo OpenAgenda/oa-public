@@ -3,7 +3,7 @@ import { dirname } from 'node:path';
 import Files from '@openagenda/files';
 import Agendas from '../service/index.js';
 import testConfig from '../testconfig.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -12,30 +12,26 @@ process.env.NODE_ENV = 'test';
 const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): middleware', () => {
+  let knex;
   let svc;
-  beforeAll(() => {
+
+  beforeAll(async () => {
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [
+        `${__dirname}/fixtures/agenda.data.sql`,
+        `${__dirname}/fixtures/agendaEvent.data.sql`,
+      ],
+    });
     svc = Agendas({
       ...config,
+      knex,
       Files: Files(dConfig.files),
     });
   });
 
-  beforeAll(
-    loadFixtures.bind(null, {
-      mysql: config.mysql,
-      files: [
-        `${__dirname}/fixtures/resetDb.sql`,
-        `${__dirname}/../model.sql`,
-        `${__dirname}/fixtures/agenda.data.sql`,
-        `${__dirname}/fixtures/agendaEvent.data.sql`,
-      ],
-      map: {
-        database: config.mysql.database,
-        agenda: 'agenda',
-        agendaEvent: 'agenda_event',
-      },
-    }),
-  );
+  afterAll(() => knex?.destroy());
 
   describe('.load', () => {
     it('.load loads agenda data in req', () => {

@@ -5,7 +5,7 @@ import Files from '@openagenda/files';
 import IORedis from 'ioredis';
 import testConfig from '../testconfig.js';
 import Agendas from '../service/index.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -13,45 +13,30 @@ const __dirname = dirname(__filename);
 const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): set (create)', () => {
+  let knex;
   let redisClient;
   let svc;
-  beforeAll(
-    loadFixtures.bind(null, {
+
+  beforeAll(async () => {
+    knex = await setup({
       mysql: config.mysql,
-      files: [
-        `${__dirname}/fixtures/resetDb.sql`,
-        `${__dirname}/../model.sql`,
+      schemas: config.schemas,
+      data: [
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
       ],
-      map: {
-        database: config.mysql.database,
-        agenda: 'agenda',
-        agendaEvent: 'agenda_event',
-      },
-    }),
-  );
+    });
 
-  beforeAll(async () => {
     redisClient = new IORedis(dConfig.redis);
 
     await redisClient.del('agendaSlugUnicity');
     await redisClient.del('agendaSlugUnicity:lock');
     await redisClient.del('agendaUidUnicity');
     await redisClient.del('agendaUidUnicity:lock');
-  });
 
-  beforeAll(() => {
     svc = Agendas({
       ...config,
-      Files: Files(dConfig.files),
-      redis: redisClient,
-    });
-  });
-
-  afterEach(() => {
-    svc = Agendas({
-      ...config,
+      knex,
       Files: Files(dConfig.files),
       redis: redisClient,
     });
@@ -59,6 +44,7 @@ describe('agendas - functional (server): set (create)', () => {
 
   afterAll(async () => {
     await redisClient.quit();
+    await knex?.destroy();
   });
 
   it('simplest create is with a title, a description and an owner', async () => {

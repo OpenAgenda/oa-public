@@ -5,7 +5,7 @@ import testConfig from '../testconfig.js';
 
 import Agendas from '../service/index.js';
 
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -15,33 +15,27 @@ process.env.NODE_ENV = 'test';
 const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): list', () => {
-  beforeAll(
-    loadFixtures.bind(null, {
+  let knex;
+  let svc;
+
+  beforeAll(async () => {
+    knex = await setup({
       mysql: config.mysql,
-      files: [
-        `${__dirname}/fixtures/resetDb.sql`,
-        `${__dirname}/../model.sql`,
+      schemas: config.schemas,
+      data: [
         `${__dirname}/fixtures/agenda.data.sql`,
         `${__dirname}/fixtures/agendaEvent.data.sql`,
         `${__dirname}/fixtures/stakeholder.data.sql`,
       ],
-      map: {
-        database: config.mysql.database,
-        agenda: 'agenda',
-        agendaEvent: 'agenda_event',
-        stakeholder: 'stakeholder',
-      },
-    }),
-  );
-
-  let svc;
-
-  beforeAll(() => {
+    });
     svc = Agendas({
       ...config,
+      knex,
       Files: Files(dConfig.files),
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   it('list as a promise', async () => {
     const { agendas } = await svc.list(0, 10);
