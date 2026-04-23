@@ -1,24 +1,29 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import config from '../testconfig.js';
 import createInstance from '../index.js';
 import { Tracker } from './utils.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('10 - remove', () => {
-  const f = fixtures(config.mysql);
+  let knex;
   let svc;
   const tracker = Tracker();
 
   beforeAll(async () => {
-    await f.load([
-      'reset.sql',
-      '../../model.sql',
-      'aggregator.data.json',
-      'review.create.sql',
-      'review.data.json',
-    ]);
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [
+        `${__dirname}/fixtures/review.data.sql`,
+        `${__dirname}/fixtures/aggregator.data.sql`,
+      ],
+    });
 
     svc = createInstance({
-      knex: f.client,
+      knex,
       queue: {
         add: tracker('register'),
       },
@@ -29,7 +34,7 @@ describe('10 - remove', () => {
     });
   });
 
-  afterAll(f.destroyClient);
+  afterAll(() => knex?.destroy());
 
   test('remove is successful', async () => {
     const result = await svc.remove(999);
