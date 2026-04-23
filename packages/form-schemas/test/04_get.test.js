@@ -1,8 +1,12 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import Service from '../server/index.js';
 import config from '../testconfig.js';
-import fixtures from './service/fixtures.js';
+import setup from './fixtures/setup.js';
 import integer from './parse/integer.schema.json';
 import number from './parse/number.schema.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const fx = {
   schemas: {
@@ -12,27 +16,24 @@ const fx = {
 };
 
 describe('form-schemas -04- functional (server): get', () => {
+  let knex;
   let svc;
   let id;
   let secondId;
 
   beforeAll(async () => {
-    await fixtures(config.mysql, ['reset.sql', 'form_schema.data.sql']);
-  });
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/formSchema.data.sql`],
+    });
+    svc = Service({ ...config, knex });
 
-  beforeAll(() => {
-    config.mysql.database = 'oatest_fs';
-    svc = Service(config);
-  });
-
-  beforeAll(async () => {
     id = (await svc.create(fx.schemas.integer)).id;
     secondId = (await svc.create(fx.schemas.number)).id;
   });
 
-  afterAll(() => {
-    svc.internals.client.destroy();
-  });
+  afterAll(() => knex?.destroy());
 
   it('simple get', async () => {
     const result = await svc.get(id);

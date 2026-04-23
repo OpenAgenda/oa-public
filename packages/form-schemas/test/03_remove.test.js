@@ -1,22 +1,25 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import Service from '../server/index.js';
 import config from '../testconfig.js';
-import fixtures from './service/fixtures.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('form-schemas -03- functional (server): remove', () => {
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await fixtures(config.mysql, ['reset.sql', 'form_schema.data.sql']);
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/formSchema.data.sql`],
+    });
+    svc = Service({ ...config, knex });
   });
 
-  beforeAll(() => {
-    config.mysql.database = 'oatest_fs';
-    svc = Service(config);
-  });
-
-  afterAll(() => {
-    svc.internals.client.destroy();
-  });
+  afterAll(() => knex?.destroy());
 
   it('simple remove', async () => {
     const { client } = svc.internals;
@@ -25,9 +28,13 @@ describe('form-schemas -03- functional (server): remove', () => {
       data: true,
     });
 
-    const lenBeforeRemove = (await client('form_schema').where({ id })).length;
+    const lenBeforeRemove = (
+      await client(config.schemas.formSchema).where({ id })
+    ).length;
     const removeRet = await svc.remove(id);
-    const lenAfterRemove = (await client('form_schema').where({ id })).length;
+    const lenAfterRemove = (
+      await client(config.schemas.formSchema).where({ id })
+    ).length;
     expect([lenBeforeRemove, lenAfterRemove, removeRet]).toStrictEqual([
       1,
       0,
