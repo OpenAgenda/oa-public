@@ -7,7 +7,7 @@ const Files = require('@openagenda/files');
 const fields = require('../lib/fields');
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 
 async function getAgendaDetailsByUid(uid, _fields = []) {
   return _.pick(
@@ -35,17 +35,18 @@ async function getEventCounts(_locationUids, { _agendaUid }) {
 }
 
 describe('agenda-locations - functional - list', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
-  });
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
-  beforeAll(() => {
     svc = Service({
-      knex: f.client,
+      knex,
       Files: Files(dConfig.files),
       imagePath: '//cdn.openagenda.com/dev/',
       interfaces: {
@@ -59,6 +60,8 @@ describe('agenda-locations - functional - list', () => {
       },
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('defaults', () => {
     let items;
@@ -483,7 +486,7 @@ describe('agenda-locations - functional - list', () => {
     it('emit an error', () =>
       new Promise((done) => {
         const throwingErrorSvc = Service({
-          knex: f.client,
+          knex,
           Files: Files(dConfig.files),
           imagePath: '//cdn.openagenda.com/dev/',
           interfaces: {

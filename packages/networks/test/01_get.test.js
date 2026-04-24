@@ -1,47 +1,26 @@
-import { promisify } from 'node:util';
-import knex from 'knex';
-import _ from 'lodash';
-import mysql from 'mysql2';
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import Service from '../index.js';
 import config from '../testconfig.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('network - functional ( server ): get', () => {
-  let k;
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    const con = mysql.createConnection(
-      _.extend(_.pick(config.mysql, ['user', 'password']), {
-        multipleStatements: true,
-        ssl: { rejectUnauthorized: false },
-      }),
-    );
-
-    const query = promisify(con.query.bind(con));
-
-    await query(fixtures);
-
-    con.end();
-  });
-
-  beforeAll(() => {
-    k = knex({
-      client: 'mysql2',
-      connection: _.assign(
-        {
-          database: 'networktest',
-        },
-        config.mysql,
-      ),
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { network: config.schema },
+      data: [`${__dirname}/fixtures/network.data.sql`],
     });
 
-    svc = Service({ knex: k });
+    svc = Service({ knex, schema: config.schema });
   });
 
-  afterAll(() => {
-    k.destroy();
-  });
+  afterAll(() => knex?.destroy());
 
   it('get gets', async () => {
     expect(await svc.get(1)).toEqual({

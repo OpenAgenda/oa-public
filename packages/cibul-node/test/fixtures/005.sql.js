@@ -1,11 +1,21 @@
 import fs from 'node:fs';
-import { knex, resetAndCreateTables } from './sql/index.js';
 import insertEventSet from './sql/eventSets/index.js';
 
-const raw = resetAndCreateTables();
+export default async (knex) => {
+  await knex('user').insert([
+    {
+      id: 50304,
+      uid: 63170203,
+      full_name: 'steve',
+      email: 'steve@oa.com',
+      password: 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65',
+      salt: '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3',
+      created_at: '2017-11-15 15:50:11',
+      updated_at: '2017-11-15 15:50:30',
+    },
+  ]);
 
-raw.push(
-  knex('review').insert([
+  await knex('review').insert([
     {
       id: 218,
       uid: 17026855,
@@ -43,26 +53,9 @@ raw.push(
         },
       }),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('user').insert([
-    {
-      id: 50304,
-      uid: 63170203,
-      full_name: 'steve',
-      email: 'steve@oa.com',
-      password: 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65',
-      salt: '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3',
-      created_at: '2017-11-15 15:50:11',
-      updated_at: '2017-11-15 15:50:30',
-    },
-  ]),
-);
-
-raw.push(
-  knex('form_schema').insert([
+  await knex('form_schema').insert([
     {
       id: 2,
       store: fs.readFileSync(`${import.meta.dirname}/form-schemas/2.json`),
@@ -71,11 +64,9 @@ raw.push(
       id: 4,
       store: fs.readFileSync(`${import.meta.dirname}/form-schemas/4.json`),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     {
       id: 71385,
       user_uid: 63170203,
@@ -116,11 +107,9 @@ raw.push(
       deleted_user: 0,
       actions_counter: 0,
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('location').insert([
+  await knex('location').insert([
     {
       id: 1,
       uid: 123,
@@ -138,11 +127,9 @@ raw.push(
       created_at: '2017-10-30 14:21:07',
       updated_at: '2017-10-30 14:21:07',
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('event_2').insert([
+  await knex('event_2').insert([
     {
       id: 12,
       uid: 19201989,
@@ -192,11 +179,9 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('agenda_event').insert([
+  await knex('agenda_event').insert([
     {
       event_uid: 19201989,
       agenda_uid: 17026855,
@@ -215,14 +200,12 @@ raw.push(
       updated_at: new Date('2019-05-06T10:00:00'),
       can_edit: 1,
     },
-  ]),
-);
+  ]);
 
-insertEventSet(knex, raw, 1);
-insertEventSet(knex, raw, 2);
+  await insertEventSet(knex, 1);
+  await insertEventSet(knex, 2);
 
-raw.push(
-  knex('custom').insert([
+  await knex('custom').insert([
     {
       id: 9090,
       form_schema_id: 2,
@@ -233,7 +216,5 @@ raw.push(
       created_at: '2017-10-30 14:21:07',
       updated_at: '2017-10-30 14:21:07',
     },
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

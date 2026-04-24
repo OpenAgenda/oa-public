@@ -8,4 +8,8 @@ export default {
     jsonStrings: true,
     ssl: { rejectUnauthorized: false },
   },
+  schemas: {
+    aggregator: 'aggregator',
+    aggregatorSource: 'aggregator_source',
+  },
 };

@@ -1,12 +1,15 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
+import load from './loadObjectFromFile.js';
 
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
+export default async (knex) => {
+  await knex('user').insert([
+    load('sql/users/50304.json'), // steve id 50304, uid 63170203,
+    load('sql/users/50300.json'),
+    load('sql/users/01.json'), // janine id 1, uid 1,
+    load('sql/users/kevin.json'),
+    load('sql/users/margaux.json'),
+  ]);
 
-const raw = resetAndCreateTables();
-
-raw.push(
-  knex('review').insert([
+  await knex('review').insert([
     load('sql/agendas/218.json'),
     load('sql/agendas/219.json'),
     load('sql/agendas/220.json'),
@@ -15,28 +18,14 @@ raw.push(
       network_uid: null,
       form_schema_id: 4,
     }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('user').insert([
-    load('sql/users/50304.json'), // steve id 50304, uid 63170203,
-    load('sql/users/50300.json'),
-    load('sql/users/01.json'), // janine id 1, uid 1,
-    load('sql/users/kevin.json'),
-    load('sql/users/margaux.json'),
-  ]),
-);
-
-raw.push(
-  knex('api_key_set').insert([
+  await knex('api_key_set').insert([
     load('sql/apiKeySets/01.json', { user_id: 50304 }),
     load('sql/apiKeySets/02.json', { user_id: 1 }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('form_schema').insert([
+  await knex('form_schema').insert([
     load('form-schemas/1.json', (fxSchema) => ({
       id: 2,
       store: JSON.stringify(fxSchema),
@@ -52,11 +41,9 @@ raw.push(
       id: 4,
       store: JSON.stringify(fxSchema),
     })),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     load('sql/members/71385.json', {
       // steve, contributor on agenda 218 (17026855)
       store: JSON.stringify({
@@ -82,11 +69,9 @@ raw.push(
       id: 84578645,
       agenda_uid: 89904399, // MEL
     }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('location').insert([
+  await knex('location').insert([
     {
       ...load('sql/locations/1.json'),
       store: JSON.stringify({
@@ -103,7 +88,5 @@ raw.push(
         ],
       }),
     },
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

@@ -5,7 +5,7 @@ import Files from '@openagenda/files';
 import testConfig from '../testconfig.js';
 
 import Agendas from '../service/index.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,31 +14,23 @@ process.env.NODE_ENV = 'test';
 const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): get', () => {
-  beforeAll(
-    loadFixtures.bind(null, {
-      mysql: config.mysql,
-      files: [
-        `${__dirname}/fixtures/resetDb.sql`,
-        `${__dirname}/../model.sql`,
-        `${__dirname}/fixtures/agenda.data.sql`,
-        `${__dirname}/fixtures/agendaEvent.data.sql`,
-      ],
-      map: {
-        database: config.mysql.database,
-        agenda: 'agenda',
-        agendaEvent: 'agenda_event',
-      },
-    }),
-  );
-
+  let knex;
   let svc;
 
-  beforeAll(() => {
+  beforeAll(async () => {
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/agenda.data.sql`],
+    });
     svc = Agendas({
       ...config,
+      knex,
       Files: Files(dConfig.files),
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   it('get works on promise', async () => {
     const agenda = await svc.get(4875);

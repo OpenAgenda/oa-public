@@ -1,13 +1,15 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
+import load from './loadObjectFromFile.js';
 import insertEventSet from './sql/eventSets/index.js';
 
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
+export default async (knex) => {
+  await knex('user').insert([
+    load('sql/users/50304.json'),
+    load('sql/users/helene.json'),
+    load('sql/users/chrissie.json'),
+    load('sql/users/thibaud.json'),
+  ]);
 
-const raw = resetAndCreateTables();
-
-raw.push(
-  knex('review').insert([
+  await knex('review').insert([
     load('sql/agendas/218.json', {
       settings: JSON.stringify({
         contribution: {
@@ -40,61 +42,40 @@ raw.push(
     }),
     load('sql/agendas/officedutourismeroubaix.json'),
     load('sql/agendas/metropole-europeenne-de-lille.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('user').insert([
-    load('sql/users/50304.json'),
-    load('sql/users/helene.json'),
-    load('sql/users/chrissie.json'),
-    load('sql/users/thibaud.json'),
-  ]),
-);
-
-raw.push(
-  knex('api_key_set').insert([
+  await knex('api_key_set').insert([
     { ...load('sql/apiKeySets/01.json'), user_id: 50304 },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('network').insert([
+  await knex('network').insert([
     load('sql/networks/withadminfield.json'),
     load('sql/networks/mel.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('form_schema').insert(
+  await knex('form_schema').insert(
     [2, 5, 6, 41].map((id) =>
       load(`form-schemas/${id}.json`, (fs) => ({
         id,
         store: JSON.stringify(fs),
       }))),
-  ),
-);
+  );
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     load('sql/members/lechat.json'), // user 63170203 contributor of 17026855
     load('sql/members/ln-adm-rbx.json'), // user 10866730 admin of 64260763
     load('sql/members/chr-ctb-rbx.json'),
     load('sql/members/tb-adm-mel.json'), // user 82253124 admin of 89904399
     load('sql/members/ln-ctb-mel.json'),
     load('sql/members/71387.json'), // user 1 admin of agenda 17026855
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('location').insert([
+  await knex('location').insert([
     load('sql/locations/boutique.json'),
     load('sql/locations/bobine.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('event_2').insert([
+  await knex('event_2').insert([
     {
       id: 12,
       uid: 19201989,
@@ -237,11 +218,9 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('agenda_event').insert([
+  await knex('agenda_event').insert([
     {
       id: 1,
       event_uid: 19201989,
@@ -312,11 +291,9 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('custom').insert([
+  await knex('custom').insert([
     {
       id: 1,
       form_schema_id: 5,
@@ -357,18 +334,14 @@ raw.push(
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('form_schema').insert([
+  await knex('form_schema').insert([
     load('form-schemas/374.json', (fs) => ({
       id: 374,
       store: JSON.stringify(fs),
     })),
-  ]),
-);
+  ]);
 
-insertEventSet(knex, raw, 'lesUnsLesAutres');
-
-export default `${raw.join(';\n')};`;
+  await insertEventSet(knex, 'lesUnsLesAutres');
+};

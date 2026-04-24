@@ -18,6 +18,7 @@
   "next.components.auth.Signin.genericError": "An error occurred. Please try again.",
   "next.components.auth.Signin.googleLabel": "Sign in with Google",
   "next.components.auth.Signin.invalidCredentials": "The email or the password are incorrect.",
+  "next.components.auth.Signin.lostPasswordTitle": "Lost password form",
   "next.components.auth.Signin.noAccount": "Don't have an account yet?",
   "next.components.auth.Signin.or": "or",
   "next.components.auth.Signin.passwordLabel": "Password",

@@ -1,21 +1,29 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import config from '../testconfig.js';
 import Service from '../index.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
 import getUsersByUid from './fixtures/getUsersByUid.js';
 import getEventCountByUserUid from './fixtures/getEventCountByUserUid.js';
 
-describe('members - functional - remove', () => {
-  const f = fixtures(config.mysql);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
+describe('members - functional - remove', () => {
+  let knex;
   let svc;
   let result;
   let onRemoveArguments;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { stakeholder: config.schema },
+      data: [`${__dirname}/fixtures/member.data.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
+      schema: config.schema,
       interfaces: {
         getUsersByUid,
         getEventCountByUserUid,
@@ -37,13 +45,12 @@ describe('members - functional - remove', () => {
     );
   });
 
-  afterAll(f.destroyClient);
+  afterAll(() => knex?.destroy());
 
   test('simple remove removes', async () => {
     expect(result.success).toBe(true);
 
-    const rows = await f
-      .client('member')
+    const rows = await knex(config.schema)
       .select('*')
       .where({ user_uid: 2, agenda_uid: 1 });
 

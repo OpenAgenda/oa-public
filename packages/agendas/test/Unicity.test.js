@@ -2,10 +2,9 @@ import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
 import fs from 'node:fs';
 import IORedis from 'ioredis';
-import knex from 'knex';
 import slugify from 'slugify';
 import Unicity from '../service/lib/Unicity/index.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -32,42 +31,20 @@ describe('Unicity', () => {
   let redisClient;
   let unicity;
 
-  beforeAll(
-    loadFixtures.bind(null, {
-      mysql: { ...mysqlConnection },
-      files: [
-        `${__dirname}/fixtures/resetDb.sql`,
-        `${__dirname}/../model.sql`,
-        `${__dirname}/fixtures/agenda.data.sql`,
-      ],
-      map: {
-        database: 'unicity_test',
-        agenda: 'agenda',
-      },
-    }),
-  );
-
   beforeAll(async () => {
-    knexClient = knex({
-      client: 'mysql2',
-      connection: {
-        ...mysqlConnection,
-        database: 'unicity_test',
-      },
+    knexClient = await setup({
+      mysql: { ...mysqlConnection, database: 'unicity_test' },
+      schemas: { agenda: 'agenda' },
+      data: [`${__dirname}/fixtures/agenda.data.sql`],
     });
-  });
 
-  beforeAll(async () => {
     redisClient = new IORedis({
       port: process.env.REDIS_PORT ?? 6379,
       host: process.env.REDIS_HOST ?? 'localhost',
       maxRetriesPerRequest: null,
     });
-
     await redisClient.del('unicity');
-  });
 
-  beforeAll(async () => {
     unicity = Unicity('agenda.slug', {
       setName: 'unicity',
       expiry: 1000,

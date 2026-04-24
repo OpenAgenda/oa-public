@@ -1,18 +1,28 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import config from '../testconfig.js';
-import * as service from './service/index.js';
+import * as service from '../service/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const actions = {
   setToEnglish: (cb) => cb(true),
 };
 
 describe('invitations - functional (server): assign an action to an invitation', () => {
+  let knex;
+
   beforeAll(async () => {
-    await new Promise((resolve, reject) =>
-      service.initAndLoad({ ...config, actions }, (err) => {
-        if (err) return reject(err);
-        resolve();
-      }));
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/invitation.data.sql`],
+    });
+    service.init({ ...config, actions });
   });
+
+  afterAll(() => knex?.destroy());
 
   it('assigning an action to an inexistent invitation creates it', async () => {
     const result = await service.assign(
@@ -89,11 +99,13 @@ describe('invitations - functional (server): assign an action to an invitation',
       cb();
     };
 
-    await new Promise((resolve, reject) =>
-      service.initAndLoad(conf, (err) => {
-        if (err) return reject(err);
-        resolve();
-      }));
+    await knex.destroy();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/invitation.data.sql`],
+    });
+    service.init(conf);
 
     const result = await service.assign(
       { email: 'kaore.olafsson@gmail.com' },

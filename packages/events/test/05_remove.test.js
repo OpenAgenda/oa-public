@@ -1,19 +1,28 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import { service as config } from '../testconfig.js';
 import Service from '../index.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('events - functional - remove', () => {
-  const f = fixtures(config.mysql, config.schema);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { eventService: config.schema },
+      data: [`${__dirname}/fixtures/event.data.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('simple remove', () => {
     let removed;
@@ -27,8 +36,7 @@ describe('events - functional - remove', () => {
     });
 
     it('remove is a soft delete', async () => {
-      const deletedAt = await f
-        .client('event_2')
+      const deletedAt = await knex('event_2')
         .first(['deleted_at'])
         .where('uid', removed.uid)
         .then((r) => r.deleted_at);
@@ -41,10 +49,8 @@ describe('events - functional - remove', () => {
     const calls = [];
 
     beforeAll(async () => {
-      await f.load();
-
       svc = Service({
-        knex: f.client,
+        knex,
         interfaces: {
           beforeRemove: Object.assign(
             (removed, context, cb) => {

@@ -22,9 +22,9 @@ export default function ModeratorContextBar({ agenda, states }) {
 
   return (
     <>
-      {!states.length ? (
+      {!states.length ? 
         intl.formatMessage(messages.empty)
-      ) : (
+       : (
         <>
           <chakra.span display={{ base: 'none', md: 'inline-flex' }}>
             {intl.formatMessage(messages.events)}&nbsp;

@@ -1,9 +1,7 @@
 import extractEventChanges from '../core/agendas/events/lib/extractEventChanges.js';
-import loadObjectFromFile from './fixtures/loadObjectFromFile.js';
+import load from './fixtures/loadObjectFromFile.js';
 
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
-
-const changedEvent = load('fixtures/events/changed.json');
+const changedEvent = load('events/changed.json');
 
 describe('extractEventChanges', () => {
   it('should indicate no change when there are no changes', () => {

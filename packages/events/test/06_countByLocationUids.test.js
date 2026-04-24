@@ -1,22 +1,31 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import { service as config } from '../testconfig.js';
 
 import Service from '../index.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('events - functional - countByLocationUids', () => {
-  const f = fixtures(config.mysql, config.schema);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { eventService: config.schema },
+      data: [`${__dirname}/fixtures/event.data.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       imagePath: config.imagePath,
       defaultImage: '//default/image/path.png',
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('simple count', () => {
     let counts;

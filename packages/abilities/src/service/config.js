@@ -1,4 +1,3 @@
-import path from 'node:path';
 import _ from 'lodash';
 import logs from '@openagenda/logs';
 
@@ -11,59 +10,12 @@ export async function init(c = {}) {
 
   Object.assign(
     config,
-    _.pick(c, [
-      'mysql',
-      'schemas',
-      'migrations',
-      'interfaces',
-      'entityMapping',
-      'knex',
-    ]),
+    _.pick(c, ['mysql', 'schemas', 'interfaces', 'entityMapping', 'knex']),
   );
-
-  const { knex } = config;
-
-  if (c.migrations) {
-    try {
-      await knex.migrate.latest({
-        tableName: 'inbox_migrations',
-        ...c.migrations,
-        directory: path.join(import.meta.dirname, '..', '..', 'migrations'),
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-}
-
-export function migrate(options) {
-  return config.knex.migrate.latest({
-    directory: path.join(import.meta.dirname, '..', '..', 'migrations'),
-    ...options,
-  });
-}
-
-export function seed(options) {
-  const directory = typeof options === 'string'
-    ? path.join(import.meta.dirname, '..', '..', 'seeds', options)
-    : path.join(
-      import.meta.dirname,
-      '..',
-      '..',
-      'seeds',
-      options && options.scenarioName ? options.scenarioName : '',
-    );
-
-  return config.knex.seed.run({
-    directory,
-    ...options,
-  });
 }
 
 _.extend(config, {
   init,
-  migrate,
-  seed,
   getConfig: () => config,
 });
 

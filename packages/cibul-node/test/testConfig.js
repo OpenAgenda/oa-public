@@ -1,5 +1,5 @@
 import fs from 'node:fs';
-import schemaNames from './mock/schemaNames.js';
+import appConfig from '../config/index.js';
 
 const testConfig = {
   domain: 'openagenda.com',
@@ -10,8 +10,8 @@ const testConfig = {
       10,
     ),
     pool: {
+      min: parseInt(process.env.MYSQL_POOL_MIN ?? '2', 10),
       max: parseInt(process.env.MYSQL_POOL_MAX ?? '10', 10),
-      min: parseInt(process.env.MYSQL_POOL_MIN ?? '10', 10),
     },
   },
   db: {
@@ -30,7 +30,7 @@ const testConfig = {
     host: 'localhost',
     port: 6379,
   },
-  schemas: schemaNames,
+  schemas: appConfig.schemas,
   tmpFolderPath: '/var/tmp/',
   s3: {
     endpoint: process.env.S3_DEV_ENDPOINT,
@@ -88,7 +88,7 @@ const testConfig = {
       replyTo: '"OpenAgenda" <test@openagenda.com>',
     },
   },
-  enableMigrations: false,
+  disableMigrationsCheck: true,
   passCulture: {
     key: process.env.PASS_CULTURE_KEY,
     api: process.env.PASS_CULTURE_API,

@@ -13,12 +13,13 @@ export default function UsageCounters(config) {
   const internals = {};
 
   Object.assign(internals, {
-    knexClient: config.knexClient,
+    knex: config.knex,
     redisClient: config.redisClient,
     lifespan: config.lifespan ?? 1000 * 60 * 60,
     clearAndDumpBucket: clearAndDumpBucket.bind(null, internals),
     setKey: config.redisSetKey ?? 'existingKeys',
     redisPrefix: config.redisPrefix ?? 'usageCounter',
+    schema: config.schema ?? 'usage_counter',
   });
 
   return {

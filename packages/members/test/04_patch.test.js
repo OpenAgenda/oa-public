@@ -1,21 +1,29 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import config from '../testconfig.js';
 import Service from '../index.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
 import getUsersByUid from './fixtures/getUsersByUid.js';
 import getEventCountByUserUid from './fixtures/getEventCountByUserUid.js';
 import getAgendasByUid from './fixtures/getAgendasByUid.js';
 
-describe('members - functional - patch', () => {
-  const f = fixtures(config.mysql);
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
+describe('members - functional - patch', () => {
+  let knex;
   let svc;
   let onPatchArguments;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { stakeholder: config.schema },
+      data: [`${__dirname}/fixtures/member.data.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
+      schema: config.schema,
       interfaces: {
         getUsersByUid,
         getAgendasByUid,
@@ -27,7 +35,7 @@ describe('members - functional - patch', () => {
     });
   });
 
-  afterAll(f.destroyClient);
+  afterAll(() => knex?.destroy());
 
   describe('simple patch', () => {
     beforeAll(async () => {

@@ -1,7 +1,29 @@
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 import testConfig from './testConfig.js';
+
+const enabled = [
+  'knex',
+  'redis',
+  'simpleCache',
+  'accessTokens',
+  'files',
+  'bull',
+  'events',
+  'agendas',
+  'agendaEvents',
+  'agendaLocations',
+  'formSchemas',
+  'custom',
+  'eventSearch',
+  'members',
+  'networks',
+  'users',
+  'keys',
+  'trackers',
+  'activities',
+];
 
 async function clearRedis(services) {
   const { redis } = services;
@@ -18,32 +40,17 @@ describe('10 - core - functional (server): core.users().remove()', () => {
   const stateUpdates = [];
   let result;
 
-  beforeAll(() => loadFixtures(testConfig.db, '019.sql.js'));
+  beforeAll(async () => {
+    await setup({
+      mysql: testConfig.db,
+      schemas: testConfig.schemas,
+      enabled,
+      data: ['019.sql.js'],
+    });
+  });
 
   beforeAll(async () => {
-    services = await Services(testConfig, {
-      enabled: [
-        'knex',
-        'redis',
-        'simpleCache',
-        'accessTokens',
-        'files',
-        'bull',
-        'events',
-        'agendas',
-        'agendaEvents',
-        'agendaLocations',
-        'formSchemas',
-        'custom',
-        'eventSearch',
-        'members',
-        'networks',
-        'users',
-        'keys',
-        'trackers',
-        'activities',
-      ],
-    });
+    services = await Services(testConfig, { enabled });
 
     Core(services, testConfig);
 
@@ -52,6 +59,8 @@ describe('10 - core - functional (server): core.users().remove()', () => {
   });
 
   beforeAll(() => clearRedis(services));
+
+  afterAll(() => services.shutdown({ clear: true }));
 
   beforeAll(async () => {
     const { redis } = services;

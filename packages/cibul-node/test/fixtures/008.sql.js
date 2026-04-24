@@ -1,12 +1,19 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
+import load from './loadObjectFromFile.js';
 
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
+export default async (knex) => {
+  await knex('user').insert([
+    load('./sql/users/50304.json'),
+    load('./sql/users/50300.json'),
+    load('./sql/users/helene.json', { uid: 789789 }),
+    load('./sql/users/helene.json', {
+      id: 99999998,
+      uid: 838438477721,
+      username: 'superadmin-dev',
+      email: 'superadmin@rbxto.com',
+    }), // Superadmin
+  ]);
 
-const raw = resetAndCreateTables();
-
-raw.push(
-  knex('review').insert([
+  await knex('review').insert([
     load('sql/agendas/218.json', {
       indexed: 0,
     }),
@@ -42,32 +49,14 @@ raw.push(
         '{"tracking":{"googleAnalytics":null,"matomoUrl":null,"matomoSiteId":null,"matomoCustom":[]},"lab":{"status":true},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null,"GDPRInformation":null},"useFields":false,"authorizedIPAddresses":[]},"registration":{"passCulture":{"siren":["809346158"]}}}',
       network_uid: null,
     }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('user').insert([
-    load('./sql/users/50304.json'),
-    load('./sql/users/50300.json'),
-    load('./sql/users/helene.json', { uid: 789789 }),
-    load('./sql/users/helene.json', {
-      id: 99999998,
-      uid: 838438477721,
-      username: 'superadmin-dev',
-      email: 'superadmin@rbxto.com',
-    }), // Superadmin
-  ]),
-);
-
-raw.push(
-  knex('api_key_set').insert([
+  await knex('api_key_set').insert([
     load('./sql/apiKeySets/01.json', { user_id: 50304 }),
     load('./sql/apiKeySets/02.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     load('./sql/members/71386687.json'),
     load('./sql/members/71386687.json', {
       id: 713866872,
@@ -84,11 +73,9 @@ raw.push(
       agenda_uid: 92983929,
       user_uid: 838438477721, // Superadmin member
     }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('network').insert([
+  await knex('network').insert([
     {
       id: 1,
       uid: 1234,
@@ -97,29 +84,23 @@ raw.push(
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('location_set').insert([
+  await knex('location_set').insert([
     {
       uid: 4321,
       title: 'Un jeu de lieux de test',
       created_at: new Date(),
       updated_at: new Date(),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('form_schema').insert(
+  await knex('form_schema').insert(
     [2, 5, 6, { file: 'memberFormSchema', id: 8 }]
       .map((item) => (item instanceof Object ? item : { id: item, file: item }))
       .map(({ id, file }) => ({
         id,
         store: JSON.stringify(load(`./form-schemas/${file}.json`)),
       })),
-  ),
-);
-
-export default `${raw.join(';\n')};`;
+  );
+};

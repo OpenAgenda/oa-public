@@ -85,7 +85,7 @@ export default function LocationDetails({
               </FloatingButton>
             </MenuTrigger>
             <MenuContent minW="3xs">
-              {externalEditActions.length > 0 ? (
+              {externalEditActions.length > 0 ? 
                 externalEditActions.map((action, index) => (
                   <MenuItem
                     asChild
@@ -107,7 +107,7 @@ export default function LocationDetails({
                     </Link>
                   </MenuItem>
                 ))
-              ) : (
+               : (
                 <MenuItem asChild value="edit-location">
                   {canEdit ? (
                     <Link

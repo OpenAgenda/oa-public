@@ -11,7 +11,7 @@ export function init(config, services) {
       redisClient: services.redis,
       logger: config.getLogConfig('svc', 'agendaEvents'),
       schemas: {
-        agendaEvent: config.schemas.agendaEventService,
+        agendaEvent: config.schemas.agendaEvent,
       },
       eventStates,
       interfaces: interfaces({ config, services }),

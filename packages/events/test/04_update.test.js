@@ -7,7 +7,9 @@ import Files from '@openagenda/files';
 import { service as config, dependencies as dConfig } from '../testconfig.js';
 
 import Service from '../index.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
+import creditsEventCreate from './fixtures/creditsEventCreate.json' with { type: 'json' };
+import creditsEventUpdate from './fixtures/creditsEventUpdate.json' with { type: 'json' };
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -27,17 +29,22 @@ const data = {
 };
 
 describe('events - functional - update', () => {
-  const f = fixtures(config.mysql, config.schema);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { eventService: config.schema },
+      data: [`${__dirname}/fixtures/event.data.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('simple update', () => {
     let updated;
@@ -45,7 +52,7 @@ describe('events - functional - update', () => {
 
     beforeAll(async () => {
       updated = await svc.update(41414062, data);
-      entry = await f.client('event_2').first().where('uid', updated.uid);
+      entry = await knex('event_2').first().where('uid', updated.uid);
     });
 
     it('result is updated event', () => {
@@ -103,7 +110,7 @@ describe('events - functional - update', () => {
     });
     it('update extIds', async () => {
       const ev = await svc.create({
-        ...fixtures.creditsEventCreate,
+        ...creditsEventCreate,
         extIds: [{ key: 'oa', value: '123' }],
       });
 
@@ -120,7 +127,7 @@ describe('events - functional - update', () => {
 
     it('update extIds with mergeExtIds', async () => {
       const ev = await svc.create({
-        ...fixtures.creditsEventCreate,
+        ...creditsEventCreate,
         extIds: [{ key: 'oa', value: '123' }],
       });
 
@@ -136,7 +143,7 @@ describe('events - functional - update', () => {
 
     it('patch extIds', async () => {
       const ev = await svc.create({
-        ...fixtures.creditsEventCreate,
+        ...creditsEventCreate,
         extIds: [
           { key: 'oa', value: '123' },
           { key: 'oa2', value: '123' },
@@ -168,7 +175,7 @@ describe('events - functional - update', () => {
 
     beforeAll(() => {
       svc2 = Service({
-        knex: f.client,
+        knex,
         Files: Files(dConfig.files),
       });
     });
@@ -194,14 +201,14 @@ describe('events - functional - update', () => {
     });
 
     it('image credits are updated', async () => {
-      const event = await svc2.create(fixtures.creditsEventCreate);
-      const updated = await svc2.update(event.uid, fixtures.creditsEventUpdate);
+      const event = await svc2.create(creditsEventCreate);
+      const updated = await svc2.update(event.uid, creditsEventUpdate);
 
       expect(updated.imageCredits).toBe('Crédits à jour');
     });
 
     it('image credits are removed from image data when patch clears them from main field', async () => {
-      const event = await svc2.create(fixtures.creditsEventCreate);
+      const event = await svc2.create(creditsEventCreate);
 
       await svc2.update(
         event.uid,
@@ -224,8 +231,7 @@ describe('events - functional - update', () => {
       );
 
       expect(
-        await f
-          .client('event_2')
+        await knex('event_2')
           .first('image')
           .where('uid', event.uid)
           .then((r) => JSON.parse(r.image).credits),
@@ -238,7 +244,7 @@ describe('events - functional - update', () => {
 
     beforeAll(async () => {
       svc = Service({
-        knex: f.client,
+        knex,
         interfaces: {
           beforeUpdate: async (before, after, context) => {
             calls.push(['beforeUpdate', before, after, context]);
@@ -325,8 +331,7 @@ describe('events - functional - update', () => {
 
       expect(undraftedEvent.draft).toBe(false);
 
-      const entry = await f
-        .client('event_2')
+      const entry = await knex('event_2')
         .first('draft')
         .where('uid', draftEvent.uid);
 
@@ -354,8 +359,7 @@ describe('events - functional - update', () => {
         },
       );
 
-      const entry = await f
-        .client('event_2')
+      const entry = await knex('event_2')
         .first('timings')
         .where('slug', 'exposition-legypte-ancienne');
 

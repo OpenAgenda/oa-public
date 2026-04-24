@@ -1,12 +1,28 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
+import load from './loadObjectFromFile.js';
 
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
+export default async (knex) => {
+  await knex('user').insert([
+    {
+      id: 1,
+      full_name: 'Kevin B.',
+      uid: 92,
+      password: 'xxx',
+      salt: 'xxx',
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+    },
+    {
+      id: 2,
+      full_name: 'Clement L.',
+      uid: 93,
+      password: 'xxxx',
+      salt: 'xxxx',
+      created_at: '2018-01-11 13:07:08',
+      updated_at: '2018-01-18 16:14:06',
+    },
+  ]);
 
-const raw = resetAndCreateTables();
-
-raw.push(
-  knex('agenda').insert([
+  await knex('review').insert([
     {
       id: 13901,
       title: 'Custom fielded agenda',
@@ -29,52 +45,23 @@ raw.push(
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('network').insert({
+  await knex('network').insert({
     id: 1,
     uid: 1,
     title: 'My very second network',
     form_schema_id: 27,
     created_at: '2016-01-11 13:07:08',
     updated_at: '2016-01-18 16:14:06',
-  }),
-);
+  });
 
-raw.push(
-  knex('user').insert([
-    {
-      id: 1,
-      full_name: 'Kevin B.',
-      uid: 92,
-      password: 'xxx',
-      salt: 'xxx',
-      created_at: '2016-01-11 13:07:08',
-      updated_at: '2016-01-18 16:14:06',
-    },
-    {
-      id: 2,
-      full_name: 'Clement L.',
-      uid: 93,
-      password: 'xxxx',
-      salt: 'xxxx',
-      created_at: '2018-01-11 13:07:08',
-      updated_at: '2018-01-18 16:14:06',
-    },
-  ]),
-);
-
-raw.push(
-  knex('api_key_set').insert([
+  await knex('api_key_set').insert([
     load('./sql/apiKeySets/01.json', { user_id: 1 }),
     load('./sql/apiKeySets/02.json', { user_id: 2 }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     {
       id: 1,
       credential: 2,
@@ -91,11 +78,9 @@ raw.push(
       agenda_uid: 60935574,
       user_uid: 93,
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('location').insert({
+  await knex('location').insert({
     id: 1,
     slug: 'la-boutique',
     placename: 'La boutique',
@@ -105,11 +90,9 @@ raw.push(
     uid: 65208887,
     created_at: '2016-01-11 13:07:08',
     updated_at: '2016-01-18 16:14:06',
-  }),
-);
+  });
 
-raw.push(
-  knex('form_schema').insert([
+  await knex('form_schema').insert([
     {
       id: 8,
       store: JSON.stringify(load('./form-schemas/memberFormSchema.json')),
@@ -555,9 +538,7 @@ raw.push(
       "fieldType": "radio"
     }
   ]
-}`,
+  }`,
     },
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

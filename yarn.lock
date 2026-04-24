@@ -10280,7 +10280,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-events@workspace:packages/agenda-events"
   dependencies:
-    "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
@@ -10632,7 +10631,6 @@ __metadata:
   resolution: "@openagenda/agendas@workspace:packages/agendas"
   dependencies:
     "@openagenda/files": "npm:^3.1.0"
-    "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/utils": "npm:^1.3.0"
@@ -10908,7 +10906,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/custom@workspace:packages/custom"
   dependencies:
-    "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
@@ -11169,17 +11166,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/fixtures@npm:^2.0.1, @openagenda/fixtures@npm:^2.0.2":
-  version: 2.0.2
-  resolution: "@openagenda/fixtures@npm:2.0.2"
-  dependencies:
-    "@openagenda/utils": "npm:^1.2.2"
-    mysql: "npm:^2.10.2"
-    when: "npm:^3.7.7"
-  checksum: 10c0/28387a0955d2f84e11c27bc0f9f9df5eb48eb1cc08d8f795344ed06a13859dc329321b7a4f8c08e77ca031c1e2b6b96d6d06077df4713aa2743388af8d6a1014
-  languageName: node
-  linkType: hard
-
 "@openagenda/flat-exports@npm:^1.4.2, @openagenda/flat-exports@workspace:packages/flat-exports":
   version: 0.0.0-use.local
   resolution: "@openagenda/flat-exports@workspace:packages/flat-exports"
@@ -11214,7 +11200,6 @@ __metadata:
     "@dnd-kit/sortable": "npm:^10.0.0"
     "@dnd-kit/utilities": "npm:^3.2.2"
     "@openagenda/bs-templates": "npm:^2.5.1"
-    "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/logs": "npm:^1.1.10"
@@ -11401,7 +11386,6 @@ __metadata:
   resolution: "@openagenda/inboxes@workspace:packages/inboxes"
   dependencies:
     "@openagenda/eslint-config": "npm:^1.4.0"
-    "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/verror": "npm:^3.2.0"
@@ -11455,7 +11439,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/invitations@workspace:packages/invitations"
   dependencies:
-    "@openagenda/fixtures": "npm:^2.0.1"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.0.1"
@@ -11471,7 +11454,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/keys@workspace:packages/keys"
   dependencies:
-    "@openagenda/fixtures": "npm:^2.0.2"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -12755,6 +12737,7 @@ __metadata:
     "@openagenda/verror": "npm:^3.2.0"
     feathers-hooks-common: "npm:^5.0.2"
     feathers-knex: "npm:^7.1.0"
+    ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
     knex: "npm:^2.4.2"
     lodash: "npm:^4.17.15"
@@ -25925,13 +25908,6 @@ __metadata:
   version: 5.2.2
   resolution: "big.js@npm:5.2.2"
   checksum: 10c0/230520f1ff920b2d2ce3e372d77a33faa4fa60d802fe01ca4ffbc321ee06023fe9a741ac02793ee778040a16b7e497f7d60c504d1c402b8fdab6f03bb785a25f
-  languageName: node
-  linkType: hard
-
-"bignumber.js@npm:9.0.0":
-  version: 9.0.0
-  resolution: "bignumber.js@npm:9.0.0"
-  checksum: 10c0/a760979ca822533ad7a437a45bcac66c191554a407092baa4991e068fd4af7344ff52d9e82e0574946c831690de706cf86fbc80775b5ebc6e59c2eef7325172c
   languageName: node
   linkType: hard
 
@@ -45153,18 +45129,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mysql@npm:^2.10.2":
-  version: 2.18.1
-  resolution: "mysql@npm:2.18.1"
-  dependencies:
-    bignumber.js: "npm:9.0.0"
-    readable-stream: "npm:2.3.7"
-    safe-buffer: "npm:5.1.2"
-    sqlstring: "npm:2.3.1"
-  checksum: 10c0/146aee0fde379e222b0a66194f61e5761123123f48729785c862e18b46531fe29bf96174ee991216f8fb49bbd278defec79bd5e6265c30af7a65a60a5e53321d
-  languageName: node
-  linkType: hard
-
 "mz@npm:^2.7.0":
   version: 2.7.0
   resolution: "mz@npm:2.7.0"
@@ -50932,7 +50896,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"readable-stream@npm:2.3.7, readable-stream@npm:^2.0.0, readable-stream@npm:^2.0.1, readable-stream@npm:^2.0.2, readable-stream@npm:^2.0.5, readable-stream@npm:^2.2.2, readable-stream@npm:^2.3.0, readable-stream@npm:^2.3.5, readable-stream@npm:~2.3.6":
+"readable-stream@npm:3, readable-stream@npm:^3.0.0, readable-stream@npm:^3.0.2, readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.5.0, readable-stream@npm:^3.6.0, readable-stream@npm:^3.6.2":
+  version: 3.6.2
+  resolution: "readable-stream@npm:3.6.2"
+  dependencies:
+    inherits: "npm:^2.0.3"
+    string_decoder: "npm:^1.1.1"
+    util-deprecate: "npm:^1.0.1"
+  checksum: 10c0/e37be5c79c376fdd088a45fa31ea2e423e5d48854be7a22a58869b4e84d25047b193f6acb54f1012331e1bcd667ffb569c01b99d36b0bd59658fb33f513511b7
+  languageName: node
+  linkType: hard
+
+"readable-stream@npm:^2.0.0, readable-stream@npm:^2.0.1, readable-stream@npm:^2.0.2, readable-stream@npm:^2.0.5, readable-stream@npm:^2.2.2, readable-stream@npm:^2.3.0, readable-stream@npm:^2.3.5, readable-stream@npm:~2.3.6":
   version: 2.3.7
   resolution: "readable-stream@npm:2.3.7"
   dependencies:
@@ -50944,17 +50919,6 @@ __metadata:
     string_decoder: "npm:~1.1.1"
     util-deprecate: "npm:~1.0.1"
   checksum: 10c0/1708755e6cf9daff6ff60fa5b4575636472289c5b95d38058a91f94732b8d024a940a0d4d955639195ce42c22cab16973ee8fea8deedd24b5fec3dd596465f86
-  languageName: node
-  linkType: hard
-
-"readable-stream@npm:3, readable-stream@npm:^3.0.0, readable-stream@npm:^3.0.2, readable-stream@npm:^3.0.6, readable-stream@npm:^3.1.1, readable-stream@npm:^3.4.0, readable-stream@npm:^3.5.0, readable-stream@npm:^3.6.0, readable-stream@npm:^3.6.2":
-  version: 3.6.2
-  resolution: "readable-stream@npm:3.6.2"
-  dependencies:
-    inherits: "npm:^2.0.3"
-    string_decoder: "npm:^1.1.1"
-    util-deprecate: "npm:^1.0.1"
-  checksum: 10c0/e37be5c79c376fdd088a45fa31ea2e423e5d48854be7a22a58869b4e84d25047b193f6acb54f1012331e1bcd667ffb569c01b99d36b0bd59658fb33f513511b7
   languageName: node
   linkType: hard
 
@@ -54690,13 +54654,6 @@ __metadata:
   version: 1.0.3
   resolution: "sprintf-js@npm:1.0.3"
   checksum: 10c0/ecadcfe4c771890140da5023d43e190b7566d9cf8b2d238600f31bec0fc653f328da4450eb04bd59a431771a8e9cc0e118f0aa3974b683a4981b4e07abc2a5bb
-  languageName: node
-  linkType: hard
-
-"sqlstring@npm:2.3.1":
-  version: 2.3.1
-  resolution: "sqlstring@npm:2.3.1"
-  checksum: 10c0/8c188effb480ca810f5a2c74deb034b99f5831aa1acfb372fab7029172e0e1f5add19195ad82416d3fd88a0646317a4d15a31e012d7b02da20f5e7e173deee24
   languageName: node
   linkType: hard
 

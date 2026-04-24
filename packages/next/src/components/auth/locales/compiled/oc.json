@@ -113,6 +113,12 @@
       "value": "L'email ou le mot de passe est incorrect."
     }
   ],
+  "next.components.auth.Signin.lostPasswordTitle": [
+    {
+      "type": 0,
+      "value": "Formulaire de mot de passe perdu"
+    }
+  ],
   "next.components.auth.Signin.noAccount": [
     {
       "type": 0,

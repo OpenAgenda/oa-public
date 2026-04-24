@@ -23,6 +23,67 @@ const validateOptions = schema({
 
 const color = (nbr, str) => `\x1b[3${nbr}m${str}\x1b[0m`;
 
+const registry = [
+  { name: 'knex', load: () => import('./knex.js') },
+  { name: 'redis', load: () => import('./redis.js') },
+  { name: 'bull', load: () => import('./bull/index.js') },
+  { name: 'errors', load: () => import('./errors.js') },
+  { name: 'tracker', load: () => import('./tracker.js') },
+  { name: 'genUrl', load: () => import('./genUrl.js') },
+  { name: 'discord', load: () => import('./discord.js') },
+  { name: 'files', load: () => import('./files.js') },
+  { name: 'abilities', load: () => import('./abilities/index.js') },
+  { name: 'keys', load: () => import('./keys/index.js') },
+  { name: 'users', load: () => import('./users/index.js') },
+  { name: 'accessTokens', load: () => import('./accessTokens/index.js') },
+  { name: 'activities', load: () => import('./activities/index.js') },
+  { name: 'members', load: () => import('./members/index.js') },
+  {
+    name: 'agendaContribute',
+    load: () => import('./agendaContribute/index.js'),
+  },
+  { name: 'agendaDocx', load: () => import('./agendaDocx.js') },
+  { name: 'agendaEvents', load: () => import('./agendaEvents/index.js') },
+  { name: 'geocoder', load: () => import('./geocoder.js') },
+  { name: 'agendaLocations', load: () => import('./agendaLocations/index.js') },
+  { name: 'agendas', load: () => import('./agendas/index.js') },
+  { name: 'inboxes', load: () => import('./inboxes/index.js') },
+  {
+    name: 'agendaStatistics',
+    load: () => import('./agendaStatistics/index.js'),
+  },
+  { name: 'agendaSearch', load: () => import('./agendaSearch/index.js') },
+  { name: 'aggregators', load: () => import('./aggregators/index.js') },
+  { name: 'eventSearch', load: () => import('./eventSearch/index.js') },
+  { name: 'events', load: () => import('./events/index.js') },
+  { name: 'formSchemas', load: () => import('./formSchemas.js') },
+  { name: 'registrations', load: () => import('./registrations/index.js') },
+  { name: 'pdfExports', load: () => import('./pdfExports.js') },
+  { name: 'custom', load: () => import('./custom/index.js') },
+  { name: 'invitations', load: () => import('./invitations.js') },
+  { name: 'logRequests', load: () => import('./logRequests.js') },
+  { name: 'unsubscriptions', load: () => import('./unsubscriptions.js') },
+  { name: 'security', load: () => import('./security.js') },
+  { name: 'mails', load: () => import('./mails/index.js') },
+  {
+    name: 'behavioralEmails',
+    load: () => import('./behavioralEmails/index.js'),
+  },
+  { name: 'sessions', load: () => import('./sessions/index.js') },
+  { name: 'networkApps', load: () => import('./networkApps.js') },
+  { name: 'networks', load: () => import('./networks.js') },
+  { name: 'newsletter', load: () => import('./newsletter.js') },
+  { name: 'oembed', load: () => import('./oembed.js') },
+  { name: 'simpleCache', load: () => import('./simpleCache.js') },
+  { name: 'supervisor', load: () => import('./supervisor/index.js') },
+  { name: 'superadmin', load: () => import('./superadmin/index.js') },
+  { name: 'stats', load: () => import('./stats/index.js') },
+  { name: 'reports', load: () => import('./reports.js') },
+  { name: 'dynamicScripts', load: () => import('./dynamicScripts.js') },
+  { name: 'usageCounters', load: () => import('./usageCounters/index.js') },
+  { name: 'monitor', load: () => import('./monitor.js') },
+];
+
 function isServiceEnabled(options, name) {
   if (!options.enabled.length) {
     return true;
@@ -37,36 +98,12 @@ function isServiceDisabled(options, name) {
   return options.disabled.includes(name);
 }
 
-function createInitier(config, options) {
-  const services = {};
-  return Object.assign(
-    async (name, serviceImporter) => {
-      if (options.enabled && !isServiceEnabled(options, name)) {
-        return;
-      }
-      if (options.disabled && isServiceDisabled(options, name)) {
-        return;
-      }
-
-      const service = await serviceImporter();
-
-      if (typeof service.init !== 'function') {
-        log('warn', '%s: missing init', name);
-        return;
-      }
-
-      try {
-        const svc = await service.init(config, services);
-        if (svc) services[name] = svc;
-        log('info', name);
-      } catch (err) {
-        throw new VError(
-          err,
-          `service '${name}' initialization did not go well`,
-        );
-      }
-    },
-    { services },
+function filterServices(config, options = {}) {
+  const cleanOptions = validateOptions({ ...config, ...options });
+  return registry.filter(
+    (entry) =>
+      isServiceEnabled(cleanOptions, entry.name)
+      && !isServiceDisabled(cleanOptions, entry.name),
   );
 }
 
@@ -86,67 +123,34 @@ function applyShutdown(services) {
 export default async function initServices(config = null, options = {}) {
   const t = new Date();
 
-  const cleanOptions = validateOptions({ ...config, ...options });
-
   log('-- initialization started --');
 
-  const init = createInitier(config, cleanOptions);
+  const services = {};
+  const retained = filterServices(config, options);
 
-  // init services
+  for (const entry of retained) {
+    const service = await entry.load();
 
-  await init('knex', () => import('./knex.js'));
-  await init('redis', () => import('./redis.js'));
-  await init('bull', () => import('./bull/index.js'));
-  await init('errors', () => import('./errors.js'));
-  await init('tracker', () => import('./tracker.js'));
-  await init('genUrl', () => import('./genUrl.js'));
-  await init('discord', () => import('./discord.js'));
-  await init('files', () => import('./files.js'));
-  await init('abilities', () => import('./abilities/index.js'));
-  await init('keys', () => import('./keys/index.js'));
-  await init('users', () => import('./users/index.js'));
-  await init('accessTokens', () => import('./accessTokens/index.js'));
-  await init('activities', () => import('./activities/index.js')); // required directly
-  await init('members', () => import('./members/index.js')); // required directly
-  await init('agendaContribute', () => import('./agendaContribute/index.js'));
-  await init('agendaDocx', () => import('./agendaDocx.js'));
-  await init('agendaEvents', () => import('./agendaEvents/index.js'));
-  await init('geocoder', () => import('./geocoder.js'));
-  await init('agendaLocations', () => import('./agendaLocations/index.js'));
-  await init('agendas', () => import('./agendas/index.js'));
-  await init('inboxes', () => import('./inboxes/index.js'));
-  await init('agendaStatistics', () => import('./agendaStatistics/index.js'));
-  await init('agendaSearch', () => import('./agendaSearch/index.js'));
-  await init('aggregators', () => import('./aggregators/index.js'));
-  await init('eventSearch', () => import('./eventSearch/index.js'));
-  await init('events', () => import('./events/index.js'));
-  await init('formSchemas', () => import('./formSchemas.js'));
-  await init('registrations', () => import('./registrations/index.js'));
-  await init('pdfExports', () => import('./pdfExports.js'));
-  await init('custom', () => import('./custom/index.js'));
-  await init('invitations', () => import('./invitations.js'));
-  await init('logRequests', () => import('./logRequests.js'));
-  await init('unsubscriptions', () => import('./unsubscriptions.js'));
-  await init('security', () => import('./security.js'));
-  await init('mails', () => import('./mails/index.js'));
-  await init('behavioralEmails', () => import('./behavioralEmails/index.js'));
-  await init('sessions', () => import('./sessions/index.js'));
-  await init('networkApps', () => import('./networkApps.js'));
-  await init('networks', () => import('./networks.js'));
-  await init('newsletter', () => import('./newsletter.js'));
-  await init('oembed', () => import('./oembed.js'));
-  await init('simpleCache', () => import('./simpleCache.js'));
-  await init('supervisor', () => import('./supervisor/index.js'));
-  await init('superadmin', () => import('./superadmin/index.js'));
-  await init('stats', () => import('./stats/index.js'));
-  await init('reports', () => import('./reports.js'));
-  await init('dynamicScripts', () => import('./dynamicScripts.js'));
-  await init('usageCounters', () => import('./usageCounters/index.js'));
-  await init('monitor', () => import('./monitor.js'));
+    if (typeof service.init !== 'function') {
+      log('warn', '%s: missing init', entry.name);
+      continue;
+    }
+
+    try {
+      const svc = await service.init(config, services);
+      if (svc) services[entry.name] = svc;
+      log('info', entry.name);
+    } catch (err) {
+      throw new VError(
+        err,
+        `service '${entry.name}' initialization did not go well`,
+      );
+    }
+  }
 
   const timeDiff = new Date().getTime() - t.getTime();
 
   log(`initialized in ${debug.useColors() ? color(3, timeDiff) : timeDiff}ms`);
 
-  return applyShutdown(init.services);
+  return applyShutdown(services);
 }

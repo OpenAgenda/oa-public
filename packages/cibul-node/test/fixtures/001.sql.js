@@ -1,43 +1,32 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
-
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
+import load from './loadObjectFromFile.js';
 
 const embeddedContent = load('./embeddedContent.json');
 
-const raw = resetAndCreateTables();
-
-raw.push(
-  knex('review').insert([
-    load('sql/agendas/01.json'),
-    load('sql/agendas/02.json'),
-  ]),
-);
-
-raw.push(knex('network').insert([load('sql/networks/01.json')]));
-
-raw.push(
-  knex('user').insert([
+export default async (knex) => {
+  await knex('user').insert([
     load('sql/users/01.json'),
     load('sql/users/50300.json'),
     load('sql/users/jean-benoit.json'),
     load('sql/users/lise.json'),
     load('sql/users/thibaud.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('api_key_set').insert([
+  await knex('review').insert([
+    load('sql/agendas/01.json'),
+    load('sql/agendas/02.json'),
+  ]);
+
+  await knex('network').insert([load('sql/networks/01.json')]);
+
+  await knex('api_key_set').insert([
     load('sql/apiKeySets/50300.json'),
     load('sql/apiKeySets/0101.json'),
     load('sql/apiKeySets/jean-benoit.keys.json'),
     load('sql/apiKeySets/lise.keys.json'),
     load('sql/apiKeySets/thibaud.keys.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     load('sql/members/01.json'), // contributor
     load('sql/members/50300.admin.02.json'), // agenda uid 2
     {
@@ -45,11 +34,9 @@ raw.push(
       agenda_uid: 2,
     },
     load('sql/members/thibaud.admin.json'), // agenda uid 1
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('location').insert([
+  await knex('location').insert([
     {
       id: 1,
       slug: 'la-boutique',
@@ -91,11 +78,9 @@ raw.push(
       agenda_id: 2,
       ext_ids: '{"identifiers": ["default->32"]}',
     }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('event_2').insert([
+  await knex('event_2').insert([
     {
       id: 1,
       owner_uid: 1,
@@ -318,11 +303,9 @@ raw.push(
       updated_at: new Date(),
       file_key: '31a7df7098744844b6c6ce0d2cdba0f4',
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('agenda_event').insert([
+  await knex('agenda_event').insert([
     {
       id: 1,
       user_uid: 1,
@@ -399,11 +382,9 @@ raw.push(
       created_at: new Date(),
       updated_at: new Date(),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('form_schema').insert([
+  await knex('form_schema').insert([
     {
       id: 1,
       store: JSON.stringify({
@@ -457,11 +438,9 @@ raw.push(
         ],
       }),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('custom').insert([
+  await knex('custom').insert([
     {
       id: 1,
       form_schema_id: 1,
@@ -484,7 +463,5 @@ raw.push(
       created_at: new Date(),
       updated_at: new Date(),
     },
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

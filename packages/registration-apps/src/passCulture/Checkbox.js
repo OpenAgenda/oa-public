@@ -78,13 +78,13 @@ function checkboxText({
   if (patchMode) {
     return (
       <div className="text-muted">
-        Je souhaite mettre à jour mon offre pass culture pour cet événement
+        Je souhaite mettre à jour mon offre pass Culture pour cet événement
       </div>
     );
   }
   return (
     <div className="text-muted">
-      Je souhaite créer une offre pass culture pour cet événement
+      Je souhaite créer une offre pass Culture pour cet événement
     </div>
   );
 }

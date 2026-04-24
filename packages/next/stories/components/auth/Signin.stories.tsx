@@ -125,6 +125,23 @@ ServerError.parameters = {
   },
 };
 
+export function RedirectOnSuccess() {
+  return <Signin redirectOnSuccess="/example-agenda/contribute" />;
+}
+
+RedirectOnSuccess.parameters = {
+  msw: {
+    handlers: [
+      http.post('/signin', () =>
+        HttpResponse.json({
+          success: true,
+          redirect: '/home',
+        }),
+      ),
+    ],
+  },
+};
+
 export function InDialog() {
   return <AuthDialog />;
 }

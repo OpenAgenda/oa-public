@@ -1,48 +1,33 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
+import load from './loadObjectFromFile.js';
 
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
+export default async (knex) => {
+  await knex('user').insert([
+    load('sql/users/50304.json'),
+    load('sql/users/thibaud.json'),
+  ]);
 
-const raw = resetAndCreateTables();
-
-raw.push(
-  knex('review').insert([
+  await knex('review').insert([
     load('sql/agendas/218.json'),
     load('sql/agendas/219.json'),
     load('sql/agendas/221.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('user').insert([
-    load('sql/users/50304.json'),
-    load('sql/users/thibaud.json'),
-  ]),
-);
-
-raw.push(
-  knex('api_key_set').insert([
+  await knex('api_key_set').insert([
     load('sql/apiKeySets/01.json', { user_id: 50304 }),
     load('sql/apiKeySets/02.json', { user_id: 63460 }),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('form_schema').insert([
+  await knex('form_schema').insert([
     load('form-schemas/2.json', (fs) => ({ id: 2, store: JSON.stringify(fs) })),
     load('form-schemas/4.json', (fs) => ({ id: 4, store: JSON.stringify(fs) })),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     load('sql/members/71385.json'),
     load('sql/members/71386.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('location').insert([
+  await knex('location').insert([
     {
       id: 1,
       uid: 123,
@@ -60,11 +45,9 @@ raw.push(
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('event_2').insert([
+  await knex('event_2').insert([
     {
       id: 12,
       uid: 19201989,
@@ -190,11 +173,9 @@ raw.push(
       created_at: new Date('2020-02-18T10:00:00'),
       updated_at: new Date('2020-02-18T10:00:00'),
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('agenda_event').insert([
+  await knex('agenda_event').insert([
     {
       id: 1,
       event_uid: 19201989,
@@ -252,11 +233,9 @@ raw.push(
       updated_at: new Date('2024-08-22T10:00:00'),
       can_edit: 1,
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('custom').insert([
+  await knex('custom').insert([
     {
       id: 9090,
       form_schema_id: 2,
@@ -277,7 +256,5 @@ raw.push(
       created_at: new Date('2019-05-06T10:00:00'),
       updated_at: new Date('2019-05-06T10:00:00'),
     },
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

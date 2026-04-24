@@ -1,12 +1,7 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
+import load from './loadObjectFromFile.js';
 
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
-
-const raw = resetAndCreateTables();
-
-raw.push(
-  knex('user').insert([
+export default async (knex) => {
+  await knex('user').insert([
     load('sql/users/01.json'), // user id 1, uid 1
     load('sql/users/50300.json'), // new for test on custom
     load('sql/users/thibaud.json'),
@@ -15,21 +10,17 @@ raw.push(
     load('sql/users/helene.json'),
     load('sql/users/jean-benoit.json'),
     load('sql/users/steevie.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('api_key_set').insert([
+  await knex('api_key_set').insert([
     load('sql/apiKeySets/01.json'), // user id 1
     load('sql/apiKeySets/lise.keys.json'),
     load('sql/apiKeySets/chrissie.keys.json'),
-  ]),
-);
+  ]);
 
-const albiAgenda = load('./sql/agendas/albi.json'); // uid 48353388
+  const albiAgenda = load('./sql/agendas/albi.json'); // uid 48353388
 
-raw.push(
-  knex('review').insert([
+  await knex('review').insert([
     load('sql/agendas/01.json'), // uid 1
     load('sql/agendas/02.json'), // uid 2
     load('sql/agendas/03.json'), // uid 3 with custom member schema
@@ -39,19 +30,15 @@ raw.push(
       settings:
         '{"tracking":{"googleAnalytics":null},"lab":{"eventAdmin":true,"status":false},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null},"useFields":false,"authorizedIPAddresses":[]}}',
     },
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('network').insert([
+  await knex('network').insert([
     load('sql/networks/01.json'),
     load('sql/networks/albigeois.json'),
     load('sql/networks/albi.json'),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('form_schema').insert([
+  await knex('form_schema').insert([
     {
       id: 1,
       store: JSON.stringify({ fields: [] }),
@@ -76,11 +63,9 @@ raw.push(
       id: 8,
       store: JSON.stringify(fs),
     })),
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('reviewer').insert([
+  await knex('reviewer').insert([
     load('sql/members/01.json'), // user id 1, user uid 1, agenda uid 2, contributor
     load('sql/members/02.json'), // user uid 1, agenda uid 3, moderator
     load('sql/members/03.json'), // uid 1, id 1, agenda uid 9, administrator
@@ -91,13 +76,9 @@ raw.push(
     load('sql/members/08.json'),
     load('sql/members/09.json'), // uid 6887, agenda uid 3, contributor
     load('sql/members/lise.administrator.json'), // uid 50073466, agenda 2, admin
-  ]),
-);
+  ]);
 
-raw.push(
-  knex('custom').insert([
+  await knex('custom').insert([
     load('sql/custom/01.json'), // id 1, identifier 6887,
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

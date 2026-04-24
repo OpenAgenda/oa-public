@@ -1,26 +1,29 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import config from '../testconfig.js';
 import createInstance from '../index.js';
 import { Tracker } from './utils.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('09 - set and get', () => {
+  let knex;
   let svc;
   const tracker = Tracker();
-  const f = fixtures(config.mysql);
 
   beforeAll(async () => {
-    await f.load([
-      'reset.sql',
-      '../../model.sql',
-      'aggregator.data.json',
-      'review.create.sql',
-      'review.data.json',
-    ]);
-  });
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [
+        `${__dirname}/fixtures/review.data.sql`,
+        `${__dirname}/fixtures/aggregator.data.sql`,
+      ],
+    });
 
-  beforeAll(async () => {
     svc = createInstance({
-      knex: f.client,
+      knex,
       queue: {
         add: tracker('register'),
       },
@@ -33,7 +36,7 @@ describe('09 - set and get', () => {
     });
   });
 
-  afterAll(f.destroyClient);
+  afterAll(() => knex?.destroy());
 
   test('get provides clean rules', async () => {
     const result = await svc.get(999);
@@ -75,7 +78,7 @@ describe('09 - set and get', () => {
       },
     );
 
-    const entry = await f.client('aggregator').first('*').where('review_id', 3);
+    const entry = await knex('aggregator').first('*').where('review_id', 3);
 
     expect(entry.limit).toBe(1);
   });
@@ -90,16 +93,13 @@ describe('09 - set and get', () => {
       },
     );
 
-    const entry = await f.client('aggregator').first('*').where('review_id', 4);
+    const entry = await knex('aggregator').first('*').where('review_id', 4);
 
     expect(entry.limit).toBe(2);
   });
 
   test('aggregator entry references review id', async () => {
-    const entry = await f
-      .client('aggregator')
-      .first('*')
-      .where('review_id', 218);
+    const entry = await knex('aggregator').first('*').where('review_id', 218);
 
     expect(entry.store).toBe(
       '{"rules":[{"value":{"state":2}, "required":false}]}',

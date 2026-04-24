@@ -24,7 +24,6 @@
     "uuid": "^3.4.0"
   },
   "devDependencies": {
-    "@openagenda/fixtures": "^2.0.2",
     "ioredis": "^5.10.1",
     "jest": "^29.7.0",
     "knex": "^2.4.2",

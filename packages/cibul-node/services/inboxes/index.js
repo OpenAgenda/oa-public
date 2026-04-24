@@ -62,11 +62,6 @@ export async function init(config, services) {
       {
         mailsDomain: config.mails.domain,
         logger: config.getLogConfig('oa', 'inboxes'),
-        migrations: config.enableMigrations
-          ? {
-            tableName: 'inboxes_migrations',
-          }
-          : false,
         services: {
           agendas: () => services.agendas,
           members: () => services.members,

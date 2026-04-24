@@ -5,7 +5,7 @@ import Files from '@openagenda/files';
 import IORedis from 'ioredis';
 import Agendas from '../service/index.js';
 import testConfig from '../testconfig.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -14,48 +14,34 @@ process.env.NODE_ENV = 'test';
 const { service: config, dependencies: dConfig } = testConfig;
 
 describe('agendas - functional (server): remove', () => {
+  let knex;
   let svc;
   let redisClient;
 
-  beforeAll(
-    loadFixtures.bind(null, {
-      mysql: config.mysql,
-      files: [
-        `${__dirname}/fixtures/resetDb.sql`,
-        `${__dirname}/../model.sql`,
-        `${__dirname}/fixtures/agenda.data.sql`,
-        `${__dirname}/fixtures/agendaEvent.data.sql`,
-      ],
-      map: {
-        database: config.mysql.database,
-        agenda: 'agenda',
-        agendaEvent: 'agenda_event',
-      },
-    }),
-  );
   beforeAll(async () => {
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/agenda.data.sql`],
+    });
+
     redisClient = new IORedis(dConfig.redis);
     await redisClient.del('agendaSlugUnicity');
     await redisClient.del('agendaSlugUnicity:lock');
     await redisClient.del('agendaUidUnicity');
     await redisClient.del('agendaUidUnicity:lock');
-  });
-  beforeAll(() => {
+
     svc = Agendas({
       ...config,
+      knex,
       Files: Files(dConfig.files),
       redis: redisClient,
     });
   });
-  afterEach(() => {
-    svc = Agendas({
-      ...config,
-      Files: Files(dConfig.files),
-      redis: redisClient,
-    });
-  });
+
   afterAll(async () => {
     await redisClient.quit();
+    await knex?.destroy();
   });
 
   it('agenda remove is a soft delete', async () => {

@@ -6,7 +6,7 @@ const Files = require('@openagenda/files');
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
 
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 
 const initSettings = require('./fixtures/agendaTestSettings');
 
@@ -38,17 +38,20 @@ const initSettingsCantUpdate = {
 };
 
 describe('agenda-locations - functional - transfer', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
   let onTransferCalled = false;
   let onTransferContext = null;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       interfaces: {
         getAgendaDetailsByUid: async (uid, fields) => {
           const agendaData = {
@@ -92,6 +95,8 @@ describe('agenda-locations - functional - transfer', () => {
     });
   });
 
+  afterAll(() => knex?.destroy());
+
   describe('successful transfer', () => {
     let transferResult;
     let dbEntry;
@@ -102,7 +107,7 @@ describe('agenda-locations - functional - transfer', () => {
 
       transferResult = await svc(7196947).transfer(95301591, 48353388);
 
-      dbEntry = await f.client('location').first().where('uid', 95301591);
+      dbEntry = await knex('location').first().where('uid', 95301591);
     });
 
     it('returns transferred location', () => {
@@ -221,15 +226,18 @@ describe('agenda-locations - functional - transfer', () => {
 });
 
 describe('agenda-locations - functional - transfer - no rights', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       interfaces: {
         getAgendaDetailsByUid: async (uid) => ({
           id: {
@@ -246,6 +254,8 @@ describe('agenda-locations - functional - transfer - no rights', () => {
       Files: Files(dConfig.files),
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   describe('unauthorized transfer', () => {
     let thrownError;

@@ -4,24 +4,29 @@ const Files = require('@openagenda/files');
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
 
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 
 describe('agenda-locations - functional - sets get', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       interfaces: {
         getSetAgendasCount: async (_setUid) => 14,
       },
       Files: Files(dConfig.files),
     });
   });
+
+  afterAll(() => knex?.destroy());
 
   it('basic get gets uid and title', async () => {
     const set = await svc.sets.get(1903810);

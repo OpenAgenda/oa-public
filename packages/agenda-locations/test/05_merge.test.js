@@ -4,7 +4,7 @@ const Files = require('@openagenda/files');
 
 const Service = require('..');
 const { service: config, dependencies: dConfig } = require('./testconfig');
-const fixtures = require('./fixtures');
+const setup = require('./fixtures/setup');
 
 // const payload = require('./fixtures/mergeData.json');
 const initSettings = require('./fixtures/agendaTestSettings');
@@ -37,17 +37,20 @@ const initSettingsCantMerge = {
 };
 
 describe('agenda-locations - functional - merge', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
   let location;
   let beforeCount;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       Files: Files(dConfig.files),
       interfaces: {
         getAgendaDetailsByUid: async (uid) => ({
@@ -61,10 +64,11 @@ describe('agenda-locations - functional - merge', () => {
     });
   });
 
+  afterAll(() => knex?.destroy());
+
   describe('basic', () => {
     beforeAll(async () => {
-      beforeCount = await f
-        .client('location')
+      beforeCount = await knex('location')
         .count()
         .where('deleted', 0)
         .then((r) => r[0]['count(*)']);
@@ -83,8 +87,7 @@ describe('agenda-locations - functional - merge', () => {
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
-      const afterCount = await f
-        .client('location')
+      const afterCount = await knex('location')
         .count()
         .where('deleted', 0)
         .then((r) => r[0]['count(*)']);
@@ -93,8 +96,7 @@ describe('agenda-locations - functional - merge', () => {
     });
 
     it('updatedAt is not updated when merging', async () => {
-      const beforeMerge = await f
-        .client('location')
+      const beforeMerge = await knex('location')
         .first('updated_at')
         .where('uid', 95301591);
 
@@ -106,8 +108,7 @@ describe('agenda-locations - functional - merge', () => {
         { name: 'merged again' },
       );
 
-      const afterMerge = await f
-        .client('location')
+      const afterMerge = await knex('location')
         .first('updated_at')
         .where('uid', 95301591);
 
@@ -117,8 +118,7 @@ describe('agenda-locations - functional - merge', () => {
 
   describe('no data', () => {
     beforeAll(async () => {
-      beforeCount = await f
-        .client('location')
+      beforeCount = await knex('location')
         .count()
         .where('deleted', 0)
         .then((r) => r[0]['count(*)']);
@@ -137,8 +137,7 @@ describe('agenda-locations - functional - merge', () => {
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
-      const afterCount = await f
-        .client('location')
+      const afterCount = await knex('location')
         .count()
         .where('deleted', 0)
         .then((r) => r[0]['count(*)']);
@@ -147,8 +146,7 @@ describe('agenda-locations - functional - merge', () => {
     });
 
     it('deleted location as merged_in field', async () => {
-      const mergedInObj = await f
-        .client('location')
+      const mergedInObj = await knex('location')
         .first('merged_in')
         .where('uid', 13470871)
         .then((r) => r);
@@ -158,8 +156,7 @@ describe('agenda-locations - functional - merge', () => {
 
   describe('set', () => {
     beforeAll(async () => {
-      beforeCount = await f
-        .client('location')
+      beforeCount = await knex('location')
         .count()
         .where('deleted', 0)
         .then((r) => r[0]['count(*)']);
@@ -182,8 +179,7 @@ describe('agenda-locations - functional - merge', () => {
     });
 
     it('count after merge is total - (merge count + 1)', async () => {
-      const afterCount = await f
-        .client('location')
+      const afterCount = await knex('location')
         .count()
         .where('deleted', 0)
         .then((r) => r[0]['count(*)']);
@@ -194,15 +190,18 @@ describe('agenda-locations - functional - merge', () => {
 });
 
 describe('agenda-locations - functional - merge - no rights', () => {
-  const f = fixtures(config.mysql);
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       Files: Files(dConfig.files),
       interfaces: {
         getAgendaDetailsByUid: async (uid) => ({
@@ -215,6 +214,8 @@ describe('agenda-locations - functional - merge - no rights', () => {
       },
     });
   });
+
+  afterAll(() => knex?.destroy());
   describe('test allow byAgendaUid', () => {
     let thrownError;
 
@@ -261,15 +262,18 @@ describe('agenda-locations - functional - merge - no rights', () => {
 });
 
 describe('agenda-locations - functional - merge - duplicates', () => {
-  const f = fixtures(config.mysql, 'hauteSavoie.sql');
-
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/hauteSavoie.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
       Files: Files(dConfig.files),
       interfaces: {
         getAgendaDetailsByUid: async (uid) => ({
@@ -282,6 +286,8 @@ describe('agenda-locations - functional - merge - duplicates', () => {
       },
     });
   });
+
+  afterAll(() => knex?.destroy());
   describe('duplicates handling', () => {
     beforeAll(async () => {
       await svc(7196947).merge(
@@ -292,7 +298,7 @@ describe('agenda-locations - functional - merge - duplicates', () => {
     });
 
     it('clean duplicates candidata of merge Target', async () => {
-      const target = await f.client('location').first().where('uid', 52174054);
+      const target = await knex('location').first().where('uid', 52174054);
       expect(target.duplicate_candidates).toBeNull();
       expect(target.duplicate_disqualified).toBeNull();
     });

@@ -1,38 +1,38 @@
 import _ from 'lodash';
 import sinon from 'sinon';
-import knexLib from 'knex';
 import Redis from 'ioredis';
 import testconfig from '../testconfig.js';
 import config from '../service/config.js';
-import service from './service/index.js';
+import service from '../service/index.js';
+import setup from './fixtures/setup.js';
 
 describe('keys - get', () => {
   let knex;
   let redisClient;
 
   beforeAll(async () => {
-    knex = knexLib({
-      client: 'mysql2',
-      connection: { ...testconfig.mysql },
+    knex = await setup({
+      mysql: testconfig.mysql,
+      schemas: testconfig.schemas,
+      data: [`${import.meta.dirname}/fixtures/key.data.sql`],
     });
 
-    redisClient = new Redis(config.redis.connection);
+    redisClient = new Redis(testconfig.redis.connection);
 
-    await service.initAndLoad({
+    await service.init({
       ...testconfig,
       redis: { ...testconfig.redis, client: redisClient },
       knex,
     });
   });
 
-  afterAll(() => knex.destroy());
-  afterAll(() => redisClient.disconnect());
-
-  afterEach(async () => {
+  afterAll(async () => {
     const { prefix } = testconfig.redis;
     for (const key of await redisClient.keys(`${prefix}*`)) {
       await redisClient.del(key);
     }
+    redisClient.disconnect();
+    await knex.destroy();
   });
 
   it('get a key by his id', async () => {

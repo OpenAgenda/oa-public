@@ -1,20 +1,29 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import _ from 'lodash';
 import config from '../testconfig.js';
 import Service from '../index.js';
-import fixtures from './fixtures/index.js';
+import setup from './fixtures/setup.js';
 import getUsersByUid from './fixtures/getUsersByUid.js';
 import getEventCountByUserUid from './fixtures/getEventCountByUserUid.js';
 import getAgendasByUid from './fixtures/getAgendasByUid.js';
 
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 describe('members - functional - list', () => {
-  const f = fixtures(config.mysql);
+  let knex;
   let svc;
 
   beforeAll(async () => {
-    await f.load();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: { stakeholder: config.schema },
+      data: [`${__dirname}/fixtures/member.data.sql`],
+    });
 
     svc = Service({
-      knex: f.client,
+      knex,
+      schema: config.schema,
       interfaces: {
         getUsersByUid,
         getAgendasByUid,
@@ -23,7 +32,7 @@ describe('members - functional - list', () => {
     });
   });
 
-  afterAll(f.destroyClient);
+  afterAll(() => knex?.destroy());
 
   describe('basic', () => {
     let members;

@@ -1,35 +1,29 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import _ from 'lodash';
-import knex from 'knex';
 import Service from '../index.js';
 import config from '../testconfig.js';
 import states from '../iso/states.js';
-import fixtures from './fixtures/index.js';
-import membersFixtures from './fixtures/members.json';
-import sourceAgendasFixtures from './fixtures/sourceAgendas.json';
+import setup from './fixtures/setup.js';
+import membersFixtures from './fixtures/members.json' with { type: 'json' };
+import sourceAgendasFixtures from './fixtures/sourceAgendas.json' with { type: 'json' };
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('agendaEvents - 01 - functional (server): list', () => {
+  let knex;
   let svc;
-  let knexClient;
 
   beforeAll(async () => {
-    await fixtures(config.mysql, [
-      'reset.sql',
-      '../../model.sql',
-      'agenda_event.data.sql',
-    ]);
-  });
-
-  beforeAll(async () => {
-    knexClient = knex({
-      client: 'mysql2',
-      connection: { ...config.mysql },
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/agenda_event.data.sql`],
     });
-  });
 
-  beforeAll(() => {
     svc = Service({
       ...config,
-      knex: knexClient,
+      knex,
       interfaces: {
         ...config.interfaces,
         getMembers: async (aes) =>
@@ -47,7 +41,7 @@ describe('agendaEvents - 01 - functional (server): list', () => {
     });
   });
 
-  afterAll(() => knexClient.destroy());
+  afterAll(() => knex?.destroy());
 
   it('simple list', async () => {
     const result = await svc(62792452).list(100, 10);

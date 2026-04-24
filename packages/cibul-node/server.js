@@ -155,4 +155,5 @@ try {
   );
 } catch (e) {
   log('error', 'could not init app:', e);
+  process.exit(1);
 }

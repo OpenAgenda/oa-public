@@ -30,7 +30,6 @@ const config = {
   nextPort: process.env.OA_NEXT_PORT || 8901,
   port: process.env.OA_SERVER_PORT || 8903,
   apiPort: process.env.OA_API_PORT || 8902,
-  enableMigrations: true,
   agendaSearchRecentThreshold: parseInt(
     process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14,
     10,
@@ -170,8 +169,9 @@ const config = {
     aggregator: 'aggregator',
     aggregatorSource: 'aggregator_source',
     apiKeySet: 'api_key_set',
+    accessToken: 'access_token',
     eventService: 'event_2',
-    agendaEventService: 'agenda_event',
+    agendaEvent: 'agenda_event',
     location: 'location',
     locationSet: 'location_set',
     stakeholder: 'reviewer',
@@ -192,6 +192,12 @@ const config = {
     emailUtilsMessageIds: 'inboxes_email_message_ids',
     emailUtilsReplyTos: 'inboxes_email_reply_tos',
     rule: 'rule',
+    unsubscription: 'unsubscription',
+    unsubscriptionLink: 'unsubscription_link',
+    custom: 'custom',
+    network: 'network',
+    formSchema: 'form_schema',
+    usageCounter: 'usage_counter',
   },
   mtCaptcha: {
     enabled: !!(process.env.OA_MT_CAPTCHA_ENABLED
@@ -287,7 +293,7 @@ const config = {
     userCookieName: 'oa.user',
     keys: prod.session
       ? prod.session.keys
-      : process.env.OA_SESSION_KEYS.split(','),
+      : (process.env.OA_SESSION_KEYS ?? '').split(','),
     secret: prod.session ? prod.session.secret : process.env.OA_SESSION_SECRET,
     maxAge: 1000 * 60 * 60 * 24,
     httpOnly: true,

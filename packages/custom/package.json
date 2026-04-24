@@ -24,7 +24,6 @@
     "mysql2": "^3.15.1"
   },
   "devDependencies": {
-    "@openagenda/fixtures": "^2.0.2",
     "jest": "^29.7.0"
   },
   "jest": {

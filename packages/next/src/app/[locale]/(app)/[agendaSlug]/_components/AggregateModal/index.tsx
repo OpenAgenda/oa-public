@@ -1,8 +1,9 @@
 'use client';
 
-import { useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useIntl } from 'react-intl';
+import { chakra } from '@openagenda/uikit';
 import {
   DialogRoot,
   DialogContent,
@@ -22,12 +23,12 @@ interface AggregateModalProps {
   agenda: Record<string, any>;
 }
 
-function AggregateModalBody({ agenda, user }) {
+function AggregateModalBody({ agenda, user, loggedBodyRef }) {
   if (!user) {
     return <UnloggedBody agenda={agenda} />;
   }
 
-  return <LoggedBody agenda={agenda} />;
+  return <LoggedBody ref={loggedBodyRef} agenda={agenda} />;
 }
 
 export default function AggregateModal({
@@ -40,8 +41,33 @@ export default function AggregateModal({
   const searchParams = useSearchParams();
 
   const dialogRef = useRef<HTMLDivElement>(null);
+  const [loggedBodyEl, setLoggedBodyEl] = useState<HTMLDivElement | null>(null);
 
   const { user, status } = useUser();
+
+  const prevUserRef = useRef(user);
+  const [justSignedIn, setJustSignedIn] = useState(false);
+
+  useEffect(() => {
+    if (!prevUserRef.current && user && isOpen) {
+      setJustSignedIn(true);
+    }
+    prevUserRef.current = user;
+  }, [user, isOpen]);
+
+  useEffect(() => {
+    if (
+      justSignedIn &&
+      user &&
+      status === FetchStatus.Fetched &&
+      loggedBodyEl
+    ) {
+      loggedBodyEl.focus();
+      const timeout = setTimeout(() => setJustSignedIn(false), 2000);
+      return () => clearTimeout(timeout);
+    }
+    return undefined;
+  }, [justSignedIn, user, status, loggedBodyEl]);
 
   // Remove displayAggregatorModal=1 from url
   const onClose = useCallback(() => {
@@ -69,10 +95,19 @@ export default function AggregateModal({
         </DialogHeader>
         <DialogCloseTrigger />
 
+        {justSignedIn ? (
+          <chakra.span srOnly role="status" aria-live="polite">
+            {intl.formatMessage(messages.signedIn)}
+          </chakra.span>
+        ) : null}
         {status === FetchStatus.Fetching ? (
           <ModalLoadingBody />
         ) : (
-          <AggregateModalBody agenda={agenda} user={user} />
+          <AggregateModalBody
+            agenda={agenda}
+            user={user}
+            loggedBodyRef={setLoggedBodyEl}
+          />
         )}
       </DialogContent>
     </DialogRoot>

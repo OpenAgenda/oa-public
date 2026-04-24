@@ -1,8 +1,7 @@
 {
   "next.views.AgendaShow.AggregateModal.createAgenda": "",
   "next.views.AgendaShow.AggregateModal.noAgenda": "",
-  "next.views.AgendaShow.AggregateModal.shouldConnect": "",
-  "next.views.AgendaShow.AggregateModal.signin": "",
+  "next.views.AgendaShow.AggregateModal.signedIn": "",
   "next.views.AgendaShow.AggregateModal.subtitle": "",
   "next.views.AgendaShow.AggregateModal.title": ""
 }

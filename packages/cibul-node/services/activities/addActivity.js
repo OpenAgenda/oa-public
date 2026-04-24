@@ -5,6 +5,45 @@ const log = logs('services/activities/addActivity');
 export default ({ bull, activities }) => {
   const queue = new bull.Queue('addActivity', { prefix: '{addActivity}' });
 
+  const worker = new bull.Worker(
+    queue.name,
+    async (job) => {
+      switch (job.name) {
+        case 'addActivity': {
+          const { feedIdentifiers, activity, options } = job.data;
+          await activities.feed(feedIdentifiers).activities.add(activity);
+
+          if (options.removeFeed) {
+            await activities.feed(feedIdentifiers).remove();
+          }
+
+          break;
+        }
+        default:
+          log.warn(`Unknown job ${job.name}`);
+      }
+    },
+    {
+      prefix: queue.opts.prefix,
+      autorun: false,
+      removeOnComplete: {
+        age: 3600, // keep up to 1 hour
+        count: 1000, // keep up to 1000 jobs
+      },
+      removeOnFail: {
+        age: 7 * 24 * 3600, // keep up to 7 days
+        count: 1000, // keep up to 1000 jobs
+      },
+    },
+  );
+
+  worker.on('error', (failedReason) => log.error('error', failedReason));
+  worker.on('failed', (job, error) =>
+    log.error(job.name, 'failed', job.data, error));
+  // worker.on('active', job => {});
+  worker.on('completed', (job, result, prev) =>
+    log.debug(job.name, 'completed', prev));
+
   return Object.assign(
     function addActivity(feedIdentifiers, activity, options = {}) {
       return queue.add('addActivity', {
@@ -15,44 +54,9 @@ export default ({ bull, activities }) => {
     },
     {
       task() {
-        const worker = new bull.Worker(
-          queue.name,
-          async (job) => {
-            switch (job.name) {
-              case 'addActivity': {
-                const { feedIdentifiers, activity, options } = job.data;
-                await activities.feed(feedIdentifiers).activities.add(activity);
-
-                if (options.removeFeed) {
-                  await activities.feed(feedIdentifiers).remove();
-                }
-
-                break;
-              }
-              default:
-                log.warn(`Unknown job ${job.name}`);
-            }
-          },
-          {
-            prefix: queue.opts.prefix,
-            removeOnComplete: {
-              age: 3600, // keep up to 1 hour
-              count: 1000, // keep up to 1000 jobs
-            },
-            removeOnFail: {
-              age: 7 * 24 * 3600, // keep up to 7 days
-              count: 1000, // keep up to 1000 jobs
-            },
-          },
-        );
-
-        worker.on('error', (failedReason) => log.error('error', failedReason));
-        worker.on('failed', (job, error) =>
-          log.error(job.name, 'failed', job.data, error));
-        // worker.on('active', job => {});
-        worker.on('completed', (job, result, prev) =>
-          log.debug(job.name, 'completed', prev));
+        worker.run();
       },
+      shutdown: async () => worker.close(),
     },
   );
 };

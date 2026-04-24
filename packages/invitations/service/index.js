@@ -60,7 +60,10 @@ function _create(toPath, prerequisite = () => true) {
   return async (v) => {
     if (!prerequisite(v)) return v;
 
-    const validateEmail = validators.email({ field: 'userEmail' });
+    const validateEmail = validators.email({
+      field: 'userEmail',
+      optional: false,
+    });
 
     try {
       validateEmail(v.query.email);

@@ -1,9 +1,11 @@
 'use strict';
 
 const _ = require('lodash');
-const knexLib = require('knex');
-const config = require('../testconfig');
-const Service = require('./service');
+const testconfig = require('../testconfig');
+const Service = require('../src');
+const setup = require('./fixtures/setup');
+
+const { reset } = setup;
 
 describe('activities - activities', () => {
   jest.setTimeout(60000);
@@ -11,22 +13,17 @@ describe('activities - activities', () => {
   let service;
   let knex;
 
-  beforeEach(async () => {
-    knex = knexLib({
-      client: 'mysql2',
-      connection: config.mysql,
+  beforeAll(async () => {
+    knex = await setup({
+      mysql: testconfig.mysql,
+      schemas: testconfig.schemas,
     });
-
-    service = await Service.initAndLoad({
-      ...config,
-      knex,
-    });
+    service = await Service({ ...testconfig, knex });
   });
 
-  afterEach(async () => {
-    await knex.destroy();
-    // await service.shutdown();
-  });
+  beforeEach(() => reset(knex));
+
+  afterAll(() => knex.destroy());
 
   describe('list', () => {
     it('simple list of activities of a feed', () =>
@@ -338,7 +335,7 @@ describe('activities - activities', () => {
             return _.omit(activity, 'createdAt', 'updatedAt');
           })
           .then((activity) =>
-            knex(config.schemas.feed_activity)
+            knex(testconfig.schemas.feed_activity)
               .select()
               .where({ activity_id: activity.id })
               .then((rows) => {
@@ -383,7 +380,7 @@ describe('activities - activities', () => {
             return _.omit(activity, 'createdAt', 'updatedAt');
           })
           .then((activity) =>
-            knex(config.schemas.feed_activity)
+            knex(testconfig.schemas.feed_activity)
               .select()
               .where({ activity_id: activity.id })
               .then((rows) => {
@@ -423,7 +420,7 @@ describe('activities - activities', () => {
             createdAt: new Date(2025, 1, 1),
           })
           .then((activity) =>
-            knex(config.schemas.feed_activity)
+            knex(testconfig.schemas.feed_activity)
               .select()
               .where({ activity_id: activity.id })
               .then((rows) => {
@@ -496,7 +493,7 @@ describe('activities - activities', () => {
             return _.omit(activity, 'createdAt', 'updatedAt');
           })
           .then((activity) =>
-            knex(config.schemas.feed_activity)
+            knex(testconfig.schemas.feed_activity)
               .select()
               .where({ activity_id: activity.id })
               .then((rows) => {
@@ -542,7 +539,7 @@ describe('activities - activities', () => {
             return _.omit(activity, 'createdAt', 'updatedAt');
           })
           .then((activity) =>
-            knex(config.schemas.feed_activity)
+            knex(testconfig.schemas.feed_activity)
               .select()
               .where({ activity_id: activity.id })
               .then((rows) => {
@@ -568,11 +565,8 @@ describe('activities - activities', () => {
 
     it('add an activity that passes through the followFilters', async () => {
       service = await Service({
-        ...config,
-        knex: knexLib({
-          client: 'mysql2',
-          connection: config.mysql,
-        }),
+        ...testconfig,
+        knex,
         activities: {
           'event.publish': {
             filterFollows: [
@@ -603,7 +597,7 @@ describe('activities - activities', () => {
           return _.omit(activity, 'createdAt', 'updatedAt');
         })
         .then((activity) =>
-          knex(config.schemas.feed_activity)
+          knex(testconfig.schemas.feed_activity)
             .select()
             .where({ activity_id: activity.id })
             .then((rows) => {

@@ -19,12 +19,19 @@ export default function SendGroupMail(config, services) {
     ? new bull.Queue(queueName, { prefix: `{${queueName}}` })
     : null;
 
+  let taskHandle = null;
+
   return Object.assign(
     (agenda, senderMember, query, data, options) =>
       launchSend(queue, agenda, senderMember, query, data, options),
     {
-      task: () => task({ config, queue, services }),
+      task: () => {
+        taskHandle = task({ config, queue, services });
+      },
       clear: () => queue.obliterate(),
+      shutdown: async () => {
+        await taskHandle?.shutdown();
+      },
     },
   );
 }

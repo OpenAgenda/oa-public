@@ -161,7 +161,7 @@ export default {
   mysql,
   knex: knexLib({
     client: 'mysql2',
-    connection: mysql,
+    connection: { ...mysql },
   }),
   schemas: {
     rule: 'rule',

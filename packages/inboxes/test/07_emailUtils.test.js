@@ -1,64 +1,30 @@
-import knexLib from 'knex';
-import fixtures from '@openagenda/fixtures';
 import testconfig from '../testconfig.js';
-import { initAndLoad, seed } from './service/index.js';
+import createService from '../src/index.js';
+import setup, { reset } from './fixtures/setup.js';
 
 const database = `${testconfig.mysql.database}_email_utils`;
+const mysql = { ...testconfig.mysql, database };
+const data = [
+  `${import.meta.dirname}/fixtures/emailUtilsMessageIds.data.sql`,
+  `${import.meta.dirname}/fixtures/emailUtilsReplyTos.data.sql`,
+];
 
 describe('Inbox', () => {
   let emailUtils;
-  let service;
   let knex;
 
-  const tables = ['emailUtilsMessageIds', 'emailUtilsReplyTos'];
-
-  beforeAll(() => {
-    knex = knexLib({
-      schemas: testconfig.schemas,
-      client: 'mysql2',
-      connection: {
-        ...testconfig.mysql,
-        database,
-      },
-    });
-  });
-
   beforeAll(async () => {
-    service = await initAndLoad(
-      {
-        ...testconfig,
-        knex,
-        mysql: { ...testconfig.mysql, database },
-      },
-      [],
-    );
-
+    knex = await setup({ mysql, schemas: testconfig.schemas, data });
+    const service = await createService({ ...testconfig, knex });
     ({ emailUtils } = service);
   });
 
-  afterAll(async () => fixtures.getConnection().destroy());
-
   beforeEach(async () => {
-    await service.config.knex.transaction(async (trx) => {
-      await trx.raw('SET foreign_key_checks = 0');
-      for (const table of tables) {
-        await trx(service.config.schemas[table]).truncate();
-      }
-      await trx.raw('SET foreign_key_checks = 1');
-    });
-
-    await seed(
-      {
-        ...testconfig,
-        mysql: { ...testconfig.mysql, database },
-      },
-      tables,
-    );
+    await reset(knex, { schemas: testconfig.schemas, data });
   });
 
   afterAll(async () => {
-    // await service.config.knex.raw(`DROP DATABASE IF EXISTS ${database}`);
-    await service.config.knex.destroy();
+    await knex.destroy();
   });
 
   test('list message ids', async () => {

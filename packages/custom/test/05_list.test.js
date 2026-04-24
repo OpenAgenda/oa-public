@@ -3,7 +3,8 @@ import schema from '@openagenda/validators/schema/index.js';
 import integer from '@openagenda/validators/integer.js';
 import text from '@openagenda/validators/text.js';
 import config from '../testconfig.js';
-import svc, { initAndLoad } from './service/index.js';
+import svc from '../index.js';
+import setup from './fixtures/setup.js';
 
 schema.register({
   integer,
@@ -11,27 +12,35 @@ schema.register({
 });
 
 describe('extended events - functional (server): list', () => {
-  beforeEach(async () => {
-    await initAndLoad(
-      ih(config, {
-        interfaces: {
-          getValidator: {
-            $set: (_formSchemaId) =>
-              schema({
-                edition: {
-                  type: 'integer',
-                },
-                contender: {
-                  type: 'text',
-                },
-              }),
-          },
-        },
-      }),
-    );
-  });
+  let knex;
 
   beforeEach(async () => {
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+    });
+
+    svc.init(
+      ih(
+        { ...config, knex },
+        {
+          interfaces: {
+            getValidator: {
+              $set: (_formSchemaId) =>
+                schema({
+                  edition: {
+                    type: 'integer',
+                  },
+                  contender: {
+                    type: 'text',
+                  },
+                }),
+            },
+          },
+        },
+      ),
+    );
+
     const fixtures = [
       [111, 0, 'steve'],
       [222, 1, 'jeff'],
@@ -56,6 +65,8 @@ describe('extended events - functional (server): list', () => {
       });
     }
   });
+
+  afterEach(() => knex?.destroy());
 
   it('list custom data by form schema id', async () => {
     expect((await svc(29).list({}, 3, 5)).items).toEqual([

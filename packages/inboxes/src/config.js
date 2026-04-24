@@ -1,15 +1,12 @@
-import path from 'node:path';
 import _ from 'lodash';
 import logger from '@openagenda/logs';
 
 export default async function makeConfig(c) {
-  const { knex } = c;
-
   if (c.logger) {
     logger.setModuleConfig(c.logger);
   }
 
-  const config = _.pick(c, [
+  return _.pick(c, [
     'knex',
     'schemas',
     'cache',
@@ -26,21 +23,4 @@ export default async function makeConfig(c) {
     'mw',
     'uppyCompanion',
   ]);
-
-  if (c.migrations) {
-    try {
-      await knex.migrate.latest({
-        tableName: 'inbox_migrations',
-        ...c.migrations,
-        directory: path.resolve(
-          path.dirname(import.meta.dirname),
-          'migrations',
-        ),
-      });
-    } catch (e) {
-      console.log(e);
-    }
-  }
-
-  return config;
 }

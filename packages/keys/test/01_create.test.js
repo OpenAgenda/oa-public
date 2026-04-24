@@ -1,36 +1,36 @@
 import _ from 'lodash';
-import knexLib from 'knex';
 import Redis from 'ioredis';
-import config from '../testconfig.js';
-import service from './service/index.js';
+import testconfig from '../testconfig.js';
+import service from '../service/index.js';
+import setup from './fixtures/setup.js';
 
 describe('keys - create', () => {
   let knex;
   let redisClient;
 
   beforeAll(async () => {
-    knex = knexLib({
-      client: 'mysql2',
-      connection: { ...config.mysql },
+    knex = await setup({
+      mysql: testconfig.mysql,
+      schemas: testconfig.schemas,
+      data: [`${import.meta.dirname}/fixtures/key.data.sql`],
     });
 
-    redisClient = new Redis(config.redis.connection);
+    redisClient = new Redis(testconfig.redis.connection);
 
-    await service.initAndLoad({
-      ...config,
-      redis: { ...config.redis, client: redisClient },
+    await service.init({
+      ...testconfig,
+      redis: { ...testconfig.redis, client: redisClient },
       knex,
     });
   });
 
-  afterAll(() => knex.destroy());
-
   afterAll(async () => {
-    const { prefix } = config.redis;
+    const { prefix } = testconfig.redis;
     for (const key of await redisClient.keys(`${prefix}*`)) {
       await redisClient.del(key);
     }
     redisClient.disconnect();
+    await knex.destroy();
   });
 
   it('create an user key', async () => {

@@ -1,29 +1,33 @@
 import _ from 'lodash';
-import knexLib from 'knex';
 import Redis from 'ioredis';
 import testconfig from '../testconfig.js';
-import service from './service/index.js';
+import service from '../service/index.js';
+import setup from './fixtures/setup.js';
 
 describe('keys - update', () => {
   let knex;
   let redisClient;
 
   beforeAll(async () => {
-    knex = knexLib({
-      client: 'mysql2',
-      connection: { ...testconfig.mysql },
+    knex = await setup({
+      mysql: testconfig.mysql,
+      schemas: testconfig.schemas,
+      data: [`${import.meta.dirname}/fixtures/key.data.sql`],
     });
 
     redisClient = new Redis(testconfig.redis.connection);
 
-    await service.initAndLoad({
+    await service.init({
       ...testconfig,
       redis: { ...testconfig.redis, client: redisClient },
       knex,
     });
   });
 
-  afterAll(() => redisClient.disconnect());
+  afterAll(async () => {
+    redisClient.disconnect();
+    await knex.destroy();
+  });
 
   it('update a key by his id', async () => {
     const result = await service(1).update({ label: 'The key of dead' });

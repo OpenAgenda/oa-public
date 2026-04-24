@@ -1,7 +1,16 @@
+import { fileURLToPath } from 'node:url';
+import { dirname } from 'node:path';
 import config from '../testconfig.js';
-import * as service from './service/index.js';
+import * as service from '../service/index.js';
+import setup from './fixtures/setup.js';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
 
 describe('invitations - functional (server): initialization', () => {
+  let knex;
+
+  afterAll(() => knex?.destroy());
+
   it('if the service is not initialized, endpoints will throw an error', () =>
     expect(
       service.assign(
@@ -15,23 +24,21 @@ describe('invitations - functional (server): initialization', () => {
     expect(() => service.init(config)).not.toThrow();
   });
 
-  it('when testing use .initAndLoad to load fixtures at init', async () => {
-    await expect(
-      new Promise((resolve, reject) =>
-        service.initAndLoad(config, (err) => {
-          if (err) return reject(err);
-          resolve();
-        })),
-    ).resolves.not.toThrow();
+  it('setup loads fixtures via migrations and SQL data files', async () => {
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+      data: [`${__dirname}/fixtures/invitation.data.sql`],
+    });
+    service.init(config);
   });
 
-  it('.initAndLoad can take the names of the fixture files to load', async () => {
-    await expect(
-      new Promise((resolve, reject) =>
-        service.initAndLoad(config, ['invitation'], (err) => {
-          if (err) return reject(err);
-          resolve();
-        })),
-    ).resolves.not.toThrow();
+  it('setup can be called with no data files', async () => {
+    await knex.destroy();
+    knex = await setup({
+      mysql: config.mysql,
+      schemas: config.schemas,
+    });
+    service.init(config);
   });
 });

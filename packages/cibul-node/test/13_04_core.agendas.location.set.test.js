@@ -2,46 +2,55 @@ import ky from 'ky';
 import Services from '../services/init.js';
 import api from '../api/index.js';
 import Core from '../core/index.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 import testConfig from './testConfig.js';
+
+const enabled = [
+  'knex',
+  'redis',
+  'simpleCache',
+  'tracker',
+  'accessTokens',
+  'files',
+  'bull',
+  'events',
+  'agendas',
+  'agendaEvents',
+  'geocoder',
+  'agendaLocations',
+  'formSchemas',
+  'custom',
+  'eventSearch',
+  'members',
+  'networks',
+  'users',
+  'keys',
+];
 
 describe('13 - 03 - core - functional(server): core.agendas().locations.set', () => {
   let core;
 
   const config = testConfig.extendWith({ queuesPrefix: 'q13_03:' });
 
-  beforeAll(() => loadFixtures(config.db, '023.sql.js'));
+  beforeAll(async () => {
+    await setup({
+      mysql: config.db,
+      schemas: config.schemas,
+      enabled,
+      data: ['023.sql.js'],
+    });
+  });
 
   beforeAll(async () => {
-    const services = await Services(config, {
-      enabled: [
-        'knex',
-        'redis',
-        'simpleCache',
-        'tracker',
-        'accessTokens',
-        'files',
-        'bull',
-        'events',
-        'agendas',
-        'agendaEvents',
-        'geocoder',
-        'agendaLocations',
-        'formSchemas',
-        'custom',
-        'eventSearch',
-        'members',
-        'networks',
-        'users',
-        'keys',
-      ],
-    });
+    const services = await Services(config, { enabled });
 
     core = Core(services, config);
 
     await services.simpleCache.clearAll();
     await services.formSchemas.clearCache();
   });
+
+  afterAll(() => core.services.shutdown({ clear: true }));
 
   describe('core', () => {
     describe('set new location', () => {

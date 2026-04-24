@@ -120,5 +120,6 @@ export async function init(config, services) {
     task() {
       worker.run();
     },
+    shutdown: async () => worker.close(),
   };
 }

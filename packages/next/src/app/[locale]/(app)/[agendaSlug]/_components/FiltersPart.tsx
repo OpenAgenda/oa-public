@@ -62,11 +62,11 @@ export default function FiltersPart({ agenda, filters, query }) {
 
   const getQuery = useCallback(
     () => ({
-      ...(isUpcomingOnlyQuery(query)
+      ...isUpcomingOnlyQuery(query)
         ? {
             relative: ['current', 'upcoming'],
           }
-        : null),
+        : null,
       ...query,
       passed: undefined, // omit passed
     }),
@@ -77,11 +77,11 @@ export default function FiltersPart({ agenda, filters, query }) {
     null, // apiClient
     `/api/agendas/slug/${agenda.slug}/events`,
     {
-      ...(isUpcomingOnlyQuery(query)
+      ...isUpcomingOnlyQuery(query)
         ? {
             relative: ['current', 'upcoming'],
           }
-        : null),
+        : null,
       ...query,
       passed: undefined, // omit passed
     },

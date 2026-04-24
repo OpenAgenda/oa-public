@@ -1,7 +1,30 @@
 import Core from '../core/index.js';
 import Services from '../services/init.js';
-import loadFixtures from './fixtures/load.js';
 import testConfig from './testConfig.js';
+import setup from './fixtures/setup.js';
+
+const enabled = [
+  'knex',
+  'redis',
+  'simpleCache',
+  'bull',
+  'files',
+  'events',
+  'agendas',
+  'agendaEvents',
+  'agendaLocations',
+  'aggregators',
+  'formSchemas',
+  'custom',
+  'eventSearch',
+  'members',
+  'networks',
+  'oembed',
+  'users',
+  'keys',
+  'accessTokens',
+  'tracker',
+];
 
 describe('core - functional (server): core.events.search', () => {
   let core;
@@ -10,33 +33,17 @@ describe('core - functional (server): core.events.search', () => {
     queuesPrefix: 'trsvrsupdtest:',
   });
 
-  beforeAll(() => loadFixtures(config.db, '004.sql.js'));
+  beforeAll(async () => {
+    await setup({
+      mysql: config.db,
+      schemas: config.schemas,
+      enabled,
+      data: ['004.sql.js'],
+    });
+  });
 
   beforeAll(async () => {
-    const services = await Services(config, {
-      enabled: [
-        'knex',
-        'redis',
-        'simpleCache',
-        'bull',
-        'files',
-        'events',
-        'agendas',
-        'agendaEvents',
-        'agendaLocations',
-        'aggregators',
-        'formSchemas',
-        'custom',
-        'eventSearch',
-        'members',
-        'networks',
-        'oembed',
-        'users',
-        'keys',
-        'accessTokens',
-        'tracker',
-      ],
-    });
+    const services = await Services(config, { enabled });
 
     core = Core(services, config);
 

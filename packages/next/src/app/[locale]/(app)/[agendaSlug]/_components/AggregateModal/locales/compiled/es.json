@@ -19,16 +19,10 @@
       "value": "."
     }
   ],
-  "next.views.AgendaShow.AggregateModal.shouldConnect": [
+  "next.views.AgendaShow.AggregateModal.signedIn": [
     {
       "type": 0,
-      "value": "Debe iniciar sesión en su cuenta para importar esta agenda."
-    }
-  ],
-  "next.views.AgendaShow.AggregateModal.signin": [
-    {
-      "type": 0,
-      "value": "Conectarse"
+      "value": "Signed in."
     }
   ],
   "next.views.AgendaShow.AggregateModal.subtitle": [

@@ -37,7 +37,7 @@ export const fetchAgenda = cache(
     const api = await getApi();
     const search = qs.stringify({
       detailed: 1,
-      ...(includeMemberSchema ? { includeMemberSchema: 1 } : {}),
+      ...includeMemberSchema ? { includeMemberSchema: 1 } : {},
     });
     return api.get(`api/agendas/slug/${agendaSlug}?${search}`).json<Agenda>();
   },

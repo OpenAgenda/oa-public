@@ -1,48 +1,10 @@
-import loadObjectFromFile from './loadObjectFromFile.js';
-import { knex, resetAndCreateTables } from './sql/index.js';
-
-const load = loadObjectFromFile({ cwd: import.meta.dirname });
+import load from './loadObjectFromFile.js';
 
 const settingsWithConfiguredPass = load('passCulture/settings.json');
 
-const raw = resetAndCreateTables();
-
-raw.push(
-  knex('review').insert([
-    load('sql/agendas/218.json', {
-      uid: 2010,
-      settings: JSON.stringify(settingsWithConfiguredPass),
-      form_schema_id: null,
-    }),
-    load('sql/agendas/albi.json', {
-      uid: 2017,
-      form_schema_id: null,
-      network_uid: null,
-      settings: JSON.stringify({
-        registration: {
-          passCulture: {
-            siren: null,
-            bookingEmail: null,
-            defaultVenueId: null,
-            access: null,
-          },
-        },
-      }),
-    }),
-  ]),
-);
-
-raw.push(
-  knex('location').insert([
-    load('sql/locations/1.json', {
-      uid: 1234,
-    }),
-  ]),
-);
-
-// Add users for testing
-raw.push(
-  knex('user').insert([
+export default async (knex) => {
+  // Add users for testing
+  await knex('user').insert([
     load('sql/users/01.json'), // userUid: 1
     {
       id: 82253124,
@@ -71,12 +33,39 @@ raw.push(
       password: 'xxx',
       salt: 'xxx',
     },
-  ]),
-);
+  ]);
 
-// Add members for agenda 2010
-raw.push(
-  knex('reviewer').insert([
+  await knex('review').insert([
+    load('sql/agendas/218.json', {
+      uid: 2010,
+      settings: JSON.stringify(settingsWithConfiguredPass),
+      form_schema_id: null,
+    }),
+    load('sql/agendas/albi.json', {
+      uid: 2017,
+      form_schema_id: null,
+      network_uid: null,
+      settings: JSON.stringify({
+        registration: {
+          passCulture: {
+            siren: null,
+            bookingEmail: null,
+            defaultVenueId: null,
+            access: null,
+          },
+        },
+      }),
+    }),
+  ]);
+
+  await knex('location').insert([
+    load('sql/locations/1.json', {
+      uid: 1234,
+    }),
+  ]);
+
+  // Add members for agenda 2010
+  await knex('reviewer').insert([
     {
       id: 1001,
       user_uid: 82253124,
@@ -97,7 +86,5 @@ raw.push(
       deleted_user: 0,
       actions_counter: 0,
     },
-  ]),
-);
-
-export default `${raw.join(';\n')};`;
+  ]);
+};

@@ -9,7 +9,7 @@ export async function up(knex) {
         \`id\` bigint(20) NOT NULL,
         \`token\` varchar(40) NOT NULL,
         \`type\` varchar(2) NOT NULL,
-        \`email\` varchar(50) DEFAULT NULL,
+        \`email\` varchar(255) DEFAULT NULL,
         \`user_id\` bigint(20) DEFAULT NULL,
         \`password\` varchar(50) DEFAULT NULL,
         \`salt\` varchar(32) DEFAULT NULL,

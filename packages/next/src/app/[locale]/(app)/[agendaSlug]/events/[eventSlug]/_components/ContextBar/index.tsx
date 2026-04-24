@@ -126,9 +126,9 @@ export default function ContextBar() {
                   >
                     {isMobile ? (
                       <FaIcon icon={faTurnLeft} size="lg" />
-                    ) : (
+                    ) : 
                       intl.formatMessage(messages.backToDashboard)
-                    )}
+                    }
                   </Link>
                 </ContextBarButton>
               </Tooltip>

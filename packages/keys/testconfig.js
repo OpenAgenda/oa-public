@@ -1,5 +1,3 @@
-import path from 'node:path';
-
 export default {
   mysql: {
     host: '127.0.0.1',
@@ -9,12 +7,9 @@ export default {
     jsonStrings: true,
     ssl: { rejectUnauthorized: false },
   },
-  migrations: {
-    tableName: 'key_migrations',
-    directory: path.resolve(import.meta.dirname, 'migrations'),
-  },
   schemas: {
     key: 'key',
+    apiKeySet: 'api_key_set',
   },
   redis: {
     prefix: 'keys',

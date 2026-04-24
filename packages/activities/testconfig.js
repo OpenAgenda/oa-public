@@ -1,7 +1,5 @@
 'use strict';
 
-const path = require('node:path');
-
 module.exports = {
   root: 'http://localhost:3000/',
   mysql: {
@@ -12,23 +10,19 @@ module.exports = {
     jsonStrings: true,
     ssl: { rejectUnauthorized: false },
   },
-  migrations: {
-    tableName: 'activity_migrations',
-    directory: path.resolve(__dirname, 'migrations'),
-  },
   schemas: {
     activity: 'activity',
     feed: 'activity_feed',
     feed_activity: 'activity_feed_activity',
     feed_follow: 'activity_feed_follow',
     feed_notification: 'activity_feed_notification',
-    // The following schemas ar used only for rebuild tests
-    rebuild_agenda: 'rebuild_agenda',
-    rebuild_event: 'rebuild_event',
-    rebuild_review_article: 'rebuild_review_article',
-    rebuild_reviewer: 'rebuild_reviewer',
-    rebuild_user: 'rebuild_user',
-    rebuild_aggregator: 'rebuild_aggregator',
+    // neighbor tables, used by the rebuild test via their migrations
+    agenda: 'agenda',
+    agendaEvent: 'agenda_event',
+    aggregator: 'aggregator',
+    eventService: 'event',
+    stakeholder: 'stakeholder',
+    user: 'user',
   },
   interfaces: {
     sendSummary: (/* { user, notifications } */) => {},

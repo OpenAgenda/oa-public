@@ -1,38 +1,45 @@
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import loadFixtures from './fixtures/load.js';
+import setup from './fixtures/setup.js';
 import testConfig from './testConfig.js';
+
+const enabled = [
+  'knex',
+  'redis',
+  'simpleCache',
+  'bull',
+  'files',
+  'events',
+  'agendas',
+  'agendaEvents',
+  'aggregators',
+  'agendaLocations',
+  'registrations',
+  'formSchemas',
+  'custom',
+  'eventSearch',
+  'members',
+  'networks',
+  'users',
+  'keys',
+  'accessTokens',
+  'tracker',
+];
 
 describe('13 - core - functional(server): core.agendas().locations.patch', () => {
   let core;
 
-  beforeAll(() => loadFixtures(testConfig.db, '016.sql.js'));
+  beforeAll(async () => {
+    await setup({
+      mysql: testConfig.db,
+      schemas: testConfig.schemas,
+      enabled,
+      data: ['016.sql.js'],
+    });
+  });
 
   beforeAll(async () => {
-    const services = await Services(testConfig, {
-      enabled: [
-        'knex',
-        'redis',
-        'simpleCache',
-        'bull',
-        'files',
-        'events',
-        'agendas',
-        'agendaEvents',
-        'aggregators',
-        'agendaLocations',
-        'registrations',
-        'formSchemas',
-        'custom',
-        'eventSearch',
-        'members',
-        'networks',
-        'users',
-        'keys',
-        'accessTokens',
-        'tracker',
-      ],
-    });
+    const services = await Services(testConfig, { enabled });
 
     core = Core(services, testConfig);
 

@@ -15,11 +15,6 @@ export async function init(config, services) {
   const service = await Service({
     knex: config.knex,
     schemas: config.schemas,
-    migrations: config.enableMigrations
-      ? {
-        tableName: 'activity_migrations',
-      }
-      : null,
     interfaces: {
       getUser: (uid) => services.users.get(uid, { detailed: true }),
       isUnsubscribed: () => false,
@@ -67,6 +62,13 @@ export async function init(config, services) {
 
   service.addActivity = addActivity({ bull, activities: service });
   service.prepareSummary = prepareSummary;
+
+  const previousShutdown = service.shutdown;
+  service.shutdown = async () => {
+    await service.addActivity.shutdown();
+    await prepareSummary.shutdown();
+    await previousShutdown?.();
+  };
 
   // setTimeout(() => {
   //   service.addActivity(
