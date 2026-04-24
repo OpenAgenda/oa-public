@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('node:path');
 const logger = require('@openagenda/logs');
 const feed = require('./feed');
 const feeds = require('./feeds');
@@ -25,19 +24,6 @@ module.exports = async function Service(c) {
       ...config.schemas,
     },
   });
-
-  if (c.migrations !== null) {
-    Object.assign(config.knex.client.config, {
-      migrations: {
-        ...c.migrations,
-        directory: path.resolve(path.dirname(__dirname), 'migrations'),
-      },
-    });
-  }
-
-  if (config.knex.client.config.migrations) {
-    await config.knex.migrate.latest();
-  }
 
   return Object.assign(config.service, {
     feed: feed.bind(null, config),

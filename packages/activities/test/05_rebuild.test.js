@@ -1,78 +1,65 @@
 'use strict';
 
-const knexLib = require('knex');
-const { rebuild } = require('../src/rebuild');
-const config = require('../testconfig');
-const Service = require('./service');
+const path = require('node:path');
+const rebuild = require('../src/rebuild');
+const testconfig = require('../testconfig');
+const Service = require('../src');
+const setup = require('./fixtures/setup');
 
-describe.skip('activities - rebuid', () => {
+const { reset } = setup;
+
+const migrations = [
+  path.resolve(__dirname, '../migrations'),
+  path.resolve(__dirname, '../../agendas/migrations'),
+  path.resolve(__dirname, '../../agenda-events/migrations'),
+  path.resolve(__dirname, '../../aggregators/migrations'),
+  path.resolve(__dirname, '../../events/migrations'),
+  path.resolve(__dirname, '../../members/migrations'),
+  path.resolve(__dirname, '../../users/migrations'),
+];
+
+const data = [
+  `${__dirname}/fixtures/user.data.sql`,
+  `${__dirname}/fixtures/agenda.data.sql`,
+  `${__dirname}/fixtures/aggregator.data.sql`,
+  `${__dirname}/fixtures/stakeholder.data.sql`,
+  `${__dirname}/fixtures/eventService.data.sql`,
+  `${__dirname}/fixtures/agendaEvent.data.sql`,
+  `${__dirname}/fixtures/activity.data.sql`,
+  `${__dirname}/fixtures/feed.data.sql`,
+  `${__dirname}/fixtures/feed_activity.data.sql`,
+  `${__dirname}/fixtures/feed_follow.data.sql`,
+  `${__dirname}/fixtures/feed_notification.data.sql`,
+];
+
+describe.skip('activities - rebuild', () => {
   jest.setTimeout(600000);
 
   let service;
   let knex;
 
   beforeAll(async () => {
-    knex = knexLib({
-      client: 'mysql2',
-      connection: { ...config.mysql },
+    knex = await setup({
+      mysql: testconfig.mysql,
+      schemas: testconfig.schemas,
+      migrations,
+      data,
     });
-
-    service = await Service.initAndLoad(
-      {
-        ...config,
-        knex,
-      },
-      [
-        'activity',
-        'feed',
-        'feed_activity',
-        'feed_follow',
-        'feed_notification',
-        'rebuild_agenda',
-        'rebuild_event',
-        'rebuild_review_article',
-        'rebuild_reviewer',
-        'rebuild_user',
-        'rebuild_aggregator',
-      ],
-    );
+    service = await Service({ ...testconfig, knex });
   });
+
+  beforeEach(() => reset(knex, { data }));
+
+  afterAll(() => knex.destroy());
 
   it('rebuild', () =>
     expect(
-      rebuild(
-        {},
-        {
-          ...config.mysql,
-          userTable: config.schemas.rebuild_user,
-          reviewTable: config.schemas.rebuild_agenda,
-          reviewArticleTable: config.schemas.rebuild_review_article,
-          eventTable: config.schemas.rebuild_event,
-          reviewerTable: config.schemas.rebuild_reviewer,
-          aggregatorTable: config.schemas.rebuild_aggregator,
-
-          activityTable: config.schemas.activity,
-          feedTable: config.schemas.feed,
-          feedActivityTable: config.schemas.feed_activity,
-          feedFollowTable: config.schemas.feed_follow,
-          feedNotificationTable: config.schemas.feed_notification,
-
-          migrationTable: config.migrations.tableName,
-
-          service,
-        },
-        {
-          info: console.log,
-          error: console.error,
-        },
-      )
-        .then((result) => {
+      rebuild({ service, knex, schemas: testconfig.schemas }, {}).then(
+        (result) => {
           console.log(result);
           return result;
-        })
-        .catch((err) => {
-          console.error(err);
-        }),
+        },
+      ),
     ).resolves.toMatchObject({
       agendasAffected: 3,
       usersAffected: 108,

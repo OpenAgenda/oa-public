@@ -1,10 +1,14 @@
 'use strict';
 
-const knexLib = require('knex');
-const config = require('../testconfig');
-const Service = require('./service');
+const testconfig = require('../testconfig');
+const Service = require('../src');
+const setup = require('./fixtures/setup');
 
-let service;
+const { reset } = setup;
+const data = [
+  `${__dirname}/fixtures/feed.data.sql`,
+  `${__dirname}/fixtures/feed_follow.data.sql`,
+];
 
 describe('activities - feed', () => {
   jest.setTimeout(30000);
@@ -15,20 +19,21 @@ describe('activities - feed', () => {
   });
 
   describe('with config', () => {
-    beforeEach(async () => {
-      service = await Service.initAndLoad(
-        {
-          ...config,
-          knex: knexLib({
-            client: 'mysql2',
-            connection: config.mysql,
-          }),
-        },
-        ['feed', 'feed_follow'],
-      );
+    let knex;
+    let service;
+
+    beforeAll(async () => {
+      knex = await setup({
+        mysql: testconfig.mysql,
+        schemas: testconfig.schemas,
+        data,
+      });
+      service = await Service({ ...testconfig, knex });
     });
 
-    // afterAll(() => service.shutdown());
+    beforeEach(() => reset(knex, { data }));
+
+    afterAll(() => knex.destroy());
 
     it('call feed method with bad entity type', () => {
       expect(() => {

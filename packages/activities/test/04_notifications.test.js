@@ -1,24 +1,27 @@
 'use strict';
 
 const _ = require('lodash');
-const knexLib = require('knex');
-const config = require('../testconfig');
-const Service = require('./service');
+const testconfig = require('../testconfig');
+const Service = require('../src');
+const setup = require('./fixtures/setup');
 
-let service;
+const { reset } = setup;
 
 describe('activities - notifications', () => {
-  beforeEach(async () => {
-    service = await Service.initAndLoad({
-      ...config,
-      knex: knexLib({
-        client: 'mysql2',
-        connection: config.mysql,
-      }),
+  let service;
+  let knex;
+
+  beforeAll(async () => {
+    knex = await setup({
+      mysql: testconfig.mysql,
+      schemas: testconfig.schemas,
     });
+    service = await Service({ ...testconfig, knex });
   });
 
-  // afterEach(() => service.shutdown);
+  beforeEach(() => reset(knex));
+
+  afterAll(() => knex.destroy());
 
   describe('get', () => {
     it('get a notification with a bad query', async () => {
