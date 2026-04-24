@@ -3,7 +3,7 @@ import path from 'node:path';
 import tmp from 'tmp';
 import knexLib from 'knex';
 import IORedis from 'ioredis';
-import keysSvc from '@openagenda/keys/test/service/index.js';
+import keysSvc from '@openagenda/keys';
 import keysConfig from '@openagenda/keys/service/config.js';
 import Files from '@openagenda/files';
 import testconfig from '../testconfig.js';
@@ -68,7 +68,6 @@ export function setupDatabase() {
       ...config,
       knex,
       redis: { client: redisClient },
-      migrations: null,
     });
 
     await knex.migrate.latest({ directory: migrationDirectories });
