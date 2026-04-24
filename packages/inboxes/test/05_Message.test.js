@@ -1,70 +1,35 @@
 import _ from 'lodash';
-import knexLib from 'knex';
-import fixtures from '@openagenda/fixtures';
 import testconfig from '../testconfig.js';
-import { initAndLoad, seed } from './service/index.js';
+import createService from '../src/index.js';
+import setup, { reset } from './fixtures/setup.js';
 
 const database = `${testconfig.mysql.database}_Message`;
-const tables = [
-  'inbox',
-  'inboxUser',
-  'conversation',
-  'inboxConversation',
-  'message',
+const mysql = { ...testconfig.mysql, database };
+const data = [
+  `${import.meta.dirname}/fixtures/inbox.data.sql`,
+  `${import.meta.dirname}/fixtures/inboxUser.data.sql`,
+  `${import.meta.dirname}/fixtures/conversation.data.sql`,
+  `${import.meta.dirname}/fixtures/inboxConversation.data.sql`,
+  `${import.meta.dirname}/fixtures/message.data.sql`,
 ];
 
 describe('Message', () => {
   let service;
   let Inbox;
-
   let knex;
 
-  beforeAll(() => {
-    knex = knexLib({
-      schemas: testconfig.schemas,
-      client: 'mysql2',
-      connection: {
-        ...testconfig.mysql,
-        database,
-      },
-    });
-  });
-
   beforeAll(async () => {
-    service = await initAndLoad(
-      {
-        ...testconfig,
-        knex,
-        mysql: { ...testconfig.mysql, database },
-      },
-      [],
-    );
-
+    knex = await setup({ mysql, schemas: testconfig.schemas, data });
+    service = await createService({ ...testconfig, knex });
     ({ Inbox } = service);
   });
 
   beforeEach(async () => {
-    await service.config.knex.transaction(async (trx) => {
-      await trx.raw('SET foreign_key_checks = 0');
-      for (const table of tables) {
-        await trx(service.config.schemas[table]).truncate();
-      }
-      await trx.raw('SET foreign_key_checks = 1');
-    });
-
-    await seed(
-      {
-        ...testconfig,
-        mysql: { ...testconfig.mysql, database },
-      },
-      tables,
-    );
+    await reset(knex, { schemas: testconfig.schemas, data });
   });
 
   afterAll(async () => {
-    await knex.raw(`DROP DATABASE IF EXISTS ${database}`);
     await knex.destroy();
-    await fixtures.getConnection().destroy();
   });
 
   describe('create', () => {

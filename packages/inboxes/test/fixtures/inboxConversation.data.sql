@@ -1,4 +1,4 @@
-INSERT INTO `${schema}` (`inbox_id`, `conversation_id`) VALUES
+INSERT INTO `${inboxConversation}` (`inbox_id`, `conversation_id`) VALUES
   (1, 1),
   (2, 1),
   (2, 2),

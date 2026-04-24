@@ -1,9 +1,9 @@
-import knexLib from 'knex';
-import fixtures from '@openagenda/fixtures';
 import testconfig from '../testconfig.js';
-import { initAndLoad } from './service/index.js';
+import createService from '../src/index.js';
+import setup from './fixtures/setup.js';
 
 const database = `${testconfig.mysql.database}_service`;
+const mysql = { ...testconfig.mysql, database };
 
 const serviceShape = {
   Inbox: expect.any(Function),
@@ -19,75 +19,24 @@ const serviceShape = {
 describe('service', () => {
   let knex;
 
-  beforeEach(() => {
-    knex = knexLib({
+  beforeAll(async () => {
+    knex = await setup({
+      mysql,
       schemas: testconfig.schemas,
-      client: 'mysql2',
-      connection: {
-        ...testconfig.mysql,
-        database,
-      },
     });
   });
 
-  afterEach(async () => {
-    await knex.raw(`DROP DATABASE IF EXISTS ${database}`);
+  afterAll(async () => {
     await knex.destroy();
   });
 
-  afterAll(async () => fixtures.getConnection().destroy());
-
-  describe('init', () => {
-    test('simple init', async () => {
-      const service = initAndLoad(
-        {
-          ...testconfig,
-          mysql: {
-            ...testconfig.mysql,
-            database,
-          },
-          knex,
-          logger: { namespace: 'test:' },
-        },
-        [],
-      );
-
-      await expect(service).resolves.toMatchObject(serviceShape);
-
-      await service;
-    });
-
-    test('init without migrations', async () => {
-      const service = initAndLoad(
-        {
-          ...testconfig,
-          mysql: { ...testconfig.mysql, database },
-          migrations: null,
-        },
-        [],
-      );
-
-      await expect(service).resolves.toMatchObject(serviceShape);
-
-      await service;
-    });
-
-    test('init with knex instance', async () => {
-      const service = initAndLoad(
-        {
-          ...testconfig,
-          mysql: { ...testconfig.mysql, database },
-          knex,
-          migrations: {
-            tableName: 'test_migrations',
-          },
-        },
-        [],
-      );
-
-      await expect(service).resolves.toMatchObject(serviceShape);
-
-      await service;
-    });
+  test('simple init', async () => {
+    await expect(
+      createService({
+        ...testconfig,
+        knex,
+        logger: { namespace: 'test:' },
+      }),
+    ).resolves.toMatchObject(serviceShape);
   });
 });

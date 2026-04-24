@@ -37,7 +37,6 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "@openagenda/fixtures": "^2.0.2",
     "jest": "^29.7.0",
     "rimraf": "^3.0.1"
   }

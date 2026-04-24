@@ -1,4 +1,4 @@
-INSERT INTO `${schema}` (`id`, `type`, `identifier`) VALUES
+INSERT INTO `${inbox}` (`id`, `type`, `identifier`) VALUES
   (NULL, 'agenda', '48959239'),
   (NULL, 'user', '99999999'),
   (NULL, 'user', '45645678'),

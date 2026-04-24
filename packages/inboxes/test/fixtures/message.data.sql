@@ -1,4 +1,4 @@
-INSERT INTO `${schema}` (`id`, `conversation_id`, `inbox_user_id`, `body`, `created_at`) VALUES
+INSERT INTO `${message}` (`id`, `conversation_id`, `inbox_user_id`, `body`, `created_at`) VALUES
   (NULL, 1, 1, 'Salut, ca marche pas ! comment qu\'on fé ?', '2017-09-28 10:35:16'),
   (NULL, 1, 2, 'Si tu ne sais pas tu ne fais pas, tampis pour toi ! 🙌', '2017-09-28 11:38:16'),
   (NULL, 2, 2, 'J\'aimerais modifier ce truc !', '2017-09-28 12:41:16'),
