@@ -415,7 +415,7 @@ const LocationDetails = ({
           </p>
         )}
         {location.imageCredits ? (
-          <p>
+          <p className="mb-0">
             <label htmlFor="imageCredits">
               {intl.formatMessage(messages.imageCredits)}
             </label>
