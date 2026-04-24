@@ -46,6 +46,10 @@ const messages = defineMessages({
     id: 'next.components.auth.Signin.formTitle',
     defaultMessage: 'Sign in form',
   },
+  lostPasswordTitle: {
+    id: 'next.components.auth.Signin.lostPasswordTitle',
+    defaultMessage: 'Lost password form',
+  },
   genericError: {
     id: 'next.components.auth.Signin.genericError',
     defaultMessage: 'An error occurred. Please try again.',
@@ -87,6 +91,8 @@ interface SigninProps {
   defaultLostPassword?: boolean;
   agenda?: { slug: string; uid: string };
   reloadOnSuccess?: boolean;
+  redirectOnSuccess?: string;
+  onSuccess?: () => void;
   onViewChange?: (view: 'signin' | 'lost') => void;
 }
 
@@ -97,6 +103,8 @@ export default function Signin({
   defaultLostPassword = false,
   agenda,
   reloadOnSuccess = false,
+  redirectOnSuccess,
+  onSuccess,
   onViewChange,
 }: SigninProps) {
   const intl = useIntl();
@@ -115,6 +123,7 @@ export default function Signin({
   const invalidCredentialsAlertRef = useRef<HTMLDivElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const prevViewRef = useRef(view);
+  const [viewAnnouncement, setViewAnnouncement] = useState<string | null>(null);
 
   useEffect(() => {
     if (invalidCredentials) {
@@ -123,11 +132,18 @@ export default function Signin({
   }, [invalidCredentials]);
 
   useEffect(() => {
-    if (prevViewRef.current === 'lost' && view === 'signin') {
-      emailInputRef.current?.focus();
+    if (prevViewRef.current !== view) {
+      setViewAnnouncement(
+        intl.formatMessage(
+          view === 'lost' ? messages.lostPasswordTitle : messages.formTitle,
+        ),
+      );
+      if (prevViewRef.current === 'lost' && view === 'signin') {
+        emailInputRef.current?.focus();
+      }
     }
     prevViewRef.current = view;
-  }, [view]);
+  }, [view, intl]);
 
   useEffect(() => {
     onViewChange?.(view);
@@ -156,7 +172,11 @@ export default function Signin({
         if (data.success) {
           setSuccess(true);
           setTimeout(() => {
-            if (reloadOnSuccess || !data.redirect) {
+            if (onSuccess) {
+              onSuccess();
+            } else if (redirectOnSuccess) {
+              window.location.href = redirectOnSuccess;
+            } else if (reloadOnSuccess || !data.redirect) {
               window.location.reload();
             } else {
               window.location.href = data.redirect;
@@ -185,7 +205,13 @@ export default function Signin({
         setLoading(false);
       }
     },
-    [email, password, intl, reloadOnSuccess],
+    [email, password, intl, reloadOnSuccess, redirectOnSuccess, onSuccess],
+  );
+
+  const liveAnnouncement = (
+    <chakra.span srOnly role="status" aria-live="polite">
+      {viewAnnouncement}
+    </chakra.span>
   );
 
   if (success) {
@@ -201,7 +227,10 @@ export default function Signin({
 
   if (view === 'lost') {
     return (
-      <LostPassword defaultEmail={email} onCancel={() => setView('signin')} />
+      <>
+        {liveAnnouncement}
+        <LostPassword defaultEmail={email} onCancel={() => setView('signin')} />
+      </>
     );
   }
 
@@ -210,6 +239,7 @@ export default function Signin({
       onSubmit={handleSubmit}
       aria-label={intl.formatMessage(messages.formTitle)}
     >
+      {liveAnnouncement}
       {message && (
         <Alert.Root status="error" mb="4">
           <Alert.Indicator />
@@ -231,14 +261,14 @@ export default function Signin({
               {intl.formatMessage(messages.invalidCredentials)}
             </Alert.Title>
             <Alert.Description>
-              <Link
-                as="button"
+              <Button
+                variant="link"
                 type="button"
                 onClick={() => setView('lost')}
                 color="primary.500"
               >
                 {intl.formatMessage(messages.resetPassword)}
-              </Link>
+              </Button>
             </Alert.Description>
           </Alert.Content>
         </Alert.Root>
@@ -299,14 +329,14 @@ export default function Signin({
           <Field.ErrorText>{errors.password}</Field.ErrorText>
         )}
         <Field.HelperText>
-          <Link
-            as="button"
+          <Button
+            variant="link"
             type="button"
             onClick={() => setView('lost')}
             color="primary.500"
           >
             {intl.formatMessage(messages.forgotPassword)}
-          </Link>
+          </Button>
         </Field.HelperText>
       </Field.Root>
 

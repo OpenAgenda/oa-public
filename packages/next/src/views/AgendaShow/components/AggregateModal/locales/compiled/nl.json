@@ -19,16 +19,10 @@
       "value": " kunt aggregeren."
     }
   ],
-  "next.views.AgendaShow.AggregateModal.shouldConnect": [
+  "next.views.AgendaShow.AggregateModal.signedIn": [
     {
       "type": 0,
-      "value": "U moet inloggen om deze agenda te aggregeren."
-    }
-  ],
-  "next.views.AgendaShow.AggregateModal.signin": [
-    {
-      "type": 0,
-      "value": "Inloggen"
+      "value": "Signed in."
     }
   ],
   "next.views.AgendaShow.AggregateModal.subtitle": [

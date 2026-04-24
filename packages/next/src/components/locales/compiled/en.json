@@ -17,6 +17,12 @@
       "value": "Copy identifier"
     }
   ],
+  "next.components.ModalLoadingBody.loading": [
+    {
+      "type": 0,
+      "value": "Loading"
+    }
+  ],
   "next.components.SearchInput.ariaLabel": [
     {
       "type": 0,

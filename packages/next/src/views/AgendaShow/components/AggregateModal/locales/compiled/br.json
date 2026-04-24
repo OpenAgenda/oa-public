@@ -19,16 +19,10 @@
       "value": "."
     }
   ],
-  "next.views.AgendaShow.AggregateModal.shouldConnect": [
+  "next.views.AgendaShow.AggregateModal.signedIn": [
     {
       "type": 0,
-      "value": "Ret eo deoc'h kevreañ evit bodañ an deiziataer-mañ."
-    }
-  ],
-  "next.views.AgendaShow.AggregateModal.signin": [
-    {
-      "type": 0,
-      "value": "Kevreañ"
+      "value": "Vous êtes connecté·e."
     }
   ],
   "next.views.AgendaShow.AggregateModal.subtitle": [

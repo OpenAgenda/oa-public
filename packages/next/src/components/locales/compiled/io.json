@@ -17,6 +17,12 @@
       "value": "crwdns35019:0crwdne35019:0"
     }
   ],
+  "next.components.ModalLoadingBody.loading": [
+    {
+      "type": 0,
+      "value": "Loading"
+    }
+  ],
   "next.components.SearchInput.ariaLabel": [
     {
       "type": 0,

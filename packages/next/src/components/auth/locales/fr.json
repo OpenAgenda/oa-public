@@ -18,6 +18,7 @@
   "next.components.auth.Signin.genericError": "Une erreur est survenue. Veuillez réessayer.",
   "next.components.auth.Signin.googleLabel": "Se connecter avec Google",
   "next.components.auth.Signin.invalidCredentials": "L'email ou le mot de passe est incorrect.",
+  "next.components.auth.Signin.lostPasswordTitle": "Formulaire de mot de passe perdu",
   "next.components.auth.Signin.noAccount": "Vous n'avez pas encore de compte ?",
   "next.components.auth.Signin.or": "ou",
   "next.components.auth.Signin.passwordLabel": "Mot de passe",

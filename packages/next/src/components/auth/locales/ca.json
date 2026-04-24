@@ -18,6 +18,7 @@
   "next.components.auth.Signin.genericError": "",
   "next.components.auth.Signin.googleLabel": "",
   "next.components.auth.Signin.invalidCredentials": "",
+  "next.components.auth.Signin.lostPasswordTitle": "",
   "next.components.auth.Signin.noAccount": "",
   "next.components.auth.Signin.or": "",
   "next.components.auth.Signin.passwordLabel": "",
