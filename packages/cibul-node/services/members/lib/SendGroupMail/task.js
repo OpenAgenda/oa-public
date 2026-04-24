@@ -3,7 +3,7 @@ import sendMessageChain from './sendMessageChain.js';
 
 const log = logs('services/members/sendGroupMail/task');
 
-export default async function task({ config, queue, services }) {
+export default function task({ config, queue, services }) {
   log('task');
   const { bull } = services;
 
@@ -37,4 +37,8 @@ export default async function task({ config, queue, services }) {
   // worker.on('active', job => {});
   worker.on('completed', (job, result, prev) =>
     log.debug(job.name, 'completed', prev));
+
+  return {
+    shutdown: async () => worker.close(),
+  };
 }

@@ -51,6 +51,7 @@ export function init(config, services) {
   });
 
   const membersTask = service.task; // will be overridden
+  const membersShutdown = service.shutdown; // extend to also stop sendGroupMail
   const sendGroupMail = SendGroupMail(config, services);
 
   return Object.assign(service, {
@@ -58,6 +59,10 @@ export function init(config, services) {
       log('running tasks');
       membersTask();
       sendGroupMail.task();
+    },
+    shutdown: async () => {
+      await sendGroupMail.shutdown();
+      await membersShutdown?.();
     },
     plugApp,
     sendGroupMail,

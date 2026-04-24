@@ -64,6 +64,13 @@ export async function init(config, services) {
   service.addActivity = addActivity({ bull, activities: service });
   service.prepareSummary = prepareSummary;
 
+  const previousShutdown = service.shutdown;
+  service.shutdown = async () => {
+    await service.addActivity.shutdown();
+    await prepareSummary.shutdown();
+    await previousShutdown?.();
+  };
+
   // setTimeout(() => {
   //   service.addActivity(
   //     {
