@@ -19,15 +19,16 @@ function processStream(stream, prefix, writer) {
   });
 }
 
-function buildEnvPrefix(env) {
-  return Object.entries(env)
+function buildExport(env) {
+  const assignments = Object.entries(env)
     .map(([key, value]) => `${key}='${String(value).replace(/'/g, "'\\''")}'`)
     .join(' ');
+  return `export ${assignments};`;
 }
 
 async function runCommand(conn, command, env) {
   return new Promise((resolve, reject) => {
-    const fullCommand = env ? `${buildEnvPrefix(env)} ${command}` : command;
+    const fullCommand = env ? `${buildExport(env)} ${command}` : command;
     console.log(' %s', command);
 
     conn.exec(fullCommand, (err, stream) => {
