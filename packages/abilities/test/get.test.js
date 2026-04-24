@@ -1,45 +1,24 @@
 import _ from 'lodash';
-import knexLib from 'knex';
 
 import abilities from '../src/service/index.js';
 import testconfig from '../testconfig.js';
-import * as db from './utils/db.js';
+import setup, { reset } from './fixtures/setup.js';
 
 const database = `${testconfig.mysql.database}_get`;
+
 let knex;
 
 beforeAll(async () => {
-  await db.create({
-    ...testconfig.mysql,
-    database,
-  });
-
-  knex = knexLib({
+  knex = await setup({
+    mysql: { ...testconfig.mysql, database },
     schemas: testconfig.schemas,
-    client: 'mysql2',
-    connection: { ...testconfig.mysql },
   });
-
-  abilities.init({
-    ...testconfig,
-    knex,
-  });
-
-  await abilities.config.migrate();
+  abilities.init({ ...testconfig, knex });
 });
 
-beforeEach(async () => {
-  await abilities.config.seed('firstTest');
-});
+beforeEach(() => reset(knex));
 
-afterAll(async () => {
-  try {
-    await knex.raw(`DROP DATABASE IF EXISTS ${database}`);
-  } catch (e) {
-    // console.log(e);
-  }
-  await knex.destroy();
-});
+afterAll(() => knex.destroy());
 
 describe('get', () => {
   test('simple get for a user', async () => {
