@@ -22,11 +22,10 @@ interface StrapiPageProps {
   footer: any;
 }
 
-// Spacer consumed by SegmentContainer's `additionalTopPadding`. The CSS var
-// is set by StrapiPageClient when the logged-user welcome banner is visible,
-// so the first segment leaves room for it without leaking client state into
-// the server tree.
-const FIRST_SEGMENT_SPACER = 'var(--oa-welcome-spacer, 0px)';
+// Spacer consumed by SegmentContainer's `additionalTopPadding`. Set by
+// StrapiPageClient to compensate for a navbar overlay (discreet/sticky). The
+// welcome banner takes its own height in flow, so no banner-specific spacer.
+const FIRST_SEGMENT_SPACER = 'var(--oa-nav-spacer, 0px)';
 
 export default function StrapiPage({ page, footer }: StrapiPageProps) {
   const segments: any[] = page.Segments ?? [];

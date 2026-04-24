@@ -155,7 +155,15 @@ export default function ProfileMenu({
         <FaIcon icon={faBars} />
       </IconButton>
       <Portal container={portalRef}>
-        <Collapsible.Root id={collapseId} open={open} background={background}>
+        <Collapsible.Root
+          id={collapseId}
+          open={open}
+          background={background}
+          position="absolute"
+          top="100%"
+          left={0}
+          right={0}
+        >
           <Collapsible.Content>
             <Box display={{ base: 'block', lg: 'none' }}>
               <form onSubmit={onSearch}>
