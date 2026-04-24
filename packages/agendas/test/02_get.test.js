@@ -21,10 +21,7 @@ describe('agendas - functional (server): get', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [
-        `${__dirname}/fixtures/agenda.data.sql`,
-        `${__dirname}/fixtures/agendaEvent.data.sql`,
-      ],
+      data: [`${__dirname}/fixtures/agenda.data.sql`],
     });
     svc = Agendas({
       ...config,

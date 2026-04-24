@@ -22,10 +22,7 @@ describe('agendas - functional (server): remove', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [
-        `${__dirname}/fixtures/agenda.data.sql`,
-        `${__dirname}/fixtures/agendaEvent.data.sql`,
-      ],
+      data: [`${__dirname}/fixtures/agenda.data.sql`],
     });
 
     redisClient = new IORedis(dConfig.redis);

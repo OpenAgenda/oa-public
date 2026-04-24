@@ -24,7 +24,6 @@ describe('agendas - functional (server): list', () => {
       schemas: config.schemas,
       data: [
         `${__dirname}/fixtures/agenda.data.sql`,
-        `${__dirname}/fixtures/agendaEvent.data.sql`,
         `${__dirname}/fixtures/stakeholder.data.sql`,
       ],
     });
