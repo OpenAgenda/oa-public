@@ -19,11 +19,19 @@ function processStream(stream, prefix, writer) {
   });
 }
 
-async function runCommand(conn, command) {
+function buildExport(env) {
+  const assignments = Object.entries(env)
+    .map(([key, value]) => `${key}='${String(value).replace(/'/g, "'\\''")}'`)
+    .join(' ');
+  return `export ${assignments};`;
+}
+
+async function runCommand(conn, command, env) {
   return new Promise((resolve, reject) => {
+    const fullCommand = env ? `${buildExport(env)} ${command}` : command;
     console.log(' %s', command);
 
-    conn.exec(command, (err, stream) => {
+    conn.exec(fullCommand, (err, stream) => {
       if (err) return reject(err);
 
       processStream(stream, '  > ', process.stdout.write.bind(process.stdout));
@@ -46,7 +54,7 @@ async function runCommand(conn, command) {
 export default async function rexec(
   nodes,
   commands,
-  { SSHKeyPath, user = 'root' },
+  { SSHKeyPath, user = 'root', env },
 ) {
   const privateKey = await fs.promises.readFile(SSHKeyPath, 'utf-8');
   return Promise.all(
@@ -58,7 +66,7 @@ export default async function rexec(
           .on('ready', async () => {
             try {
               for (const command of commands) {
-                await runCommand(conn, command);
+                await runCommand(conn, command, env);
               }
               conn.end();
               rs();
