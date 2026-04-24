@@ -1,15 +1,15 @@
 import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
+  await knex('user').insert([
+    load('sql/users/50304.json'),
+    load('sql/users/thibaud.json'),
+  ]);
+
   await knex('review').insert([
     load('sql/agendas/218.json'),
     load('sql/agendas/219.json'),
     load('sql/agendas/221.json'),
-  ]);
-
-  await knex('user').insert([
-    load('sql/users/50304.json'),
-    load('sql/users/thibaud.json'),
   ]);
 
   await knex('api_key_set').insert([

@@ -1,19 +1,19 @@
 import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
+  await knex('user').insert([
+    load('./sql/users/helene.json', { uid: 111, email: 'helene@testoa.com' }), // admin
+    load('./sql/users/thibaud.json', { uid: 222, email: 'thibaud@testoa.com' }), // mod
+    load('./sql/users/50304.json', { uid: 331, email: 'steve@testoa.com' }), // contributor with actions
+    load('./sql/users/50300.json', { uid: 332, email: 'nestor@testoa.com' }), // contributor with no actions
+  ]);
+
   await knex('review').insert([
     load('sql/agendas/218.json', {
       uid: 1904,
       form_schema_id: null,
       credentials: JSON.stringify({ invitationMessage: true }),
     }),
-  ]);
-
-  await knex('user').insert([
-    load('./sql/users/helene.json', { uid: 111, email: 'helene@testoa.com' }), // admin
-    load('./sql/users/thibaud.json', { uid: 222, email: 'thibaud@testoa.com' }), // mod
-    load('./sql/users/50304.json', { uid: 331, email: 'steve@testoa.com' }), // contributor with actions
-    load('./sql/users/50300.json', { uid: 332, email: 'nestor@testoa.com' }), // contributor with no actions
   ]);
 
   await knex('reviewer').insert([

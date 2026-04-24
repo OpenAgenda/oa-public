@@ -2,6 +2,8 @@ import load from './loadObjectFromFile.js';
 import insertEventSet from './sql/eventSets/index.js';
 
 export default async (knex) => {
+  await knex('user').insert([load('sql/users/janine.json')]);
+
   await knex('form_schema').insert([
     {
       id: 10428,
@@ -20,8 +22,6 @@ export default async (knex) => {
       title: 'Un réseau',
     },
   ]);
-
-  await knex('user').insert([load('sql/users/janine.json')]);
 
   await knex('reviewer').insert([load('sql/members/janine-adm-arles.json')]);
 

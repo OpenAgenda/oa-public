@@ -2,6 +2,13 @@ import load from './loadObjectFromFile.js';
 import insertEventSet from './sql/eventSets/index.js';
 
 export default async (knex) => {
+  await knex('user').insert([
+    load('sql/users/50304.json'),
+    load('sql/users/helene.json'),
+    load('sql/users/chrissie.json'),
+    load('sql/users/thibaud.json'),
+  ]);
+
   await knex('review').insert([
     load('sql/agendas/218.json', {
       settings: JSON.stringify({
@@ -58,13 +65,6 @@ export default async (knex) => {
       created_at: '2016-01-11 13:07:08',
       updated_at: '2016-01-18 16:14:06',
     },
-  ]);
-
-  await knex('user').insert([
-    load('sql/users/50304.json'),
-    load('sql/users/helene.json'),
-    load('sql/users/chrissie.json'),
-    load('sql/users/thibaud.json'),
   ]);
 
   await knex('api_key_set').insert([

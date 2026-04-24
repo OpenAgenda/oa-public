@@ -1,6 +1,14 @@
 import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
+  await knex('user').insert([
+    load('sql/users/50304.json'), // steve id 50304, uid 63170203,
+    load('sql/users/50300.json'),
+    load('sql/users/01.json'), // janine id 1, uid 1,
+    load('sql/users/kevin.json'),
+    load('sql/users/margaux.json'),
+  ]);
+
   await knex('review').insert([
     load('sql/agendas/218.json'),
     load('sql/agendas/219.json'),
@@ -10,14 +18,6 @@ export default async (knex) => {
       network_uid: null,
       form_schema_id: 4,
     }),
-  ]);
-
-  await knex('user').insert([
-    load('sql/users/50304.json'), // steve id 50304, uid 63170203,
-    load('sql/users/50300.json'),
-    load('sql/users/01.json'), // janine id 1, uid 1,
-    load('sql/users/kevin.json'),
-    load('sql/users/margaux.json'),
   ]);
 
   await knex('api_key_set').insert([

@@ -1,6 +1,18 @@
 import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
+  await knex('user').insert([
+    load('./sql/users/50304.json'),
+    load('./sql/users/50300.json'),
+    load('./sql/users/helene.json', { uid: 789789 }),
+    load('./sql/users/helene.json', {
+      id: 99999998,
+      uid: 838438477721,
+      username: 'superadmin-dev',
+      email: 'superadmin@rbxto.com',
+    }), // Superadmin
+  ]);
+
   await knex('review').insert([
     load('sql/agendas/218.json', {
       indexed: 0,
@@ -37,18 +49,6 @@ export default async (knex) => {
         '{"tracking":{"googleAnalytics":null,"matomoUrl":null,"matomoSiteId":null,"matomoCustom":[]},"lab":{"status":true},"inbox":{"mailto":{"enabled":false,"email":null,"subject":null,"body":null}},"contribution":{"type":1,"defaultState":2,"canPublish":["administrators","moderators"],"moderateOnChangeBy":[],"defaultLang":null,"allowLocationCreate":true,"messages":{"instructions":null,"complete":null,"publication":null,"GDPRInformation":null},"useFields":false,"authorizedIPAddresses":[]},"registration":{"passCulture":{"siren":["809346158"]}}}',
       network_uid: null,
     }),
-  ]);
-
-  await knex('user').insert([
-    load('./sql/users/50304.json'),
-    load('./sql/users/50300.json'),
-    load('./sql/users/helene.json', { uid: 789789 }),
-    load('./sql/users/helene.json', {
-      id: 99999998,
-      uid: 838438477721,
-      username: 'superadmin-dev',
-      email: 'superadmin@rbxto.com',
-    }), // Superadmin
   ]);
 
   await knex('api_key_set').insert([

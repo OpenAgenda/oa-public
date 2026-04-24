@@ -3,13 +3,6 @@ import load from './loadObjectFromFile.js';
 const embeddedContent = load('./embeddedContent.json');
 
 export default async (knex) => {
-  await knex('review').insert([
-    load('sql/agendas/01.json'),
-    load('sql/agendas/02.json'),
-  ]);
-
-  await knex('network').insert([load('sql/networks/01.json')]);
-
   await knex('user').insert([
     load('sql/users/01.json'),
     load('sql/users/50300.json'),
@@ -17,6 +10,13 @@ export default async (knex) => {
     load('sql/users/lise.json'),
     load('sql/users/thibaud.json'),
   ]);
+
+  await knex('review').insert([
+    load('sql/agendas/01.json'),
+    load('sql/agendas/02.json'),
+  ]);
+
+  await knex('network').insert([load('sql/networks/01.json')]);
 
   await knex('api_key_set').insert([
     load('sql/apiKeySets/50300.json'),

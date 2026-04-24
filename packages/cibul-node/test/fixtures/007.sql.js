@@ -1,6 +1,27 @@
 import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
+  await knex('user').insert([
+    {
+      id: 1,
+      full_name: 'Kevin B.',
+      uid: 92,
+      password: 'xxx',
+      salt: 'xxx',
+      created_at: '2016-01-11 13:07:08',
+      updated_at: '2016-01-18 16:14:06',
+    },
+    {
+      id: 2,
+      full_name: 'Clement L.',
+      uid: 93,
+      password: 'xxxx',
+      salt: 'xxxx',
+      created_at: '2018-01-11 13:07:08',
+      updated_at: '2018-01-18 16:14:06',
+    },
+  ]);
+
   await knex('review').insert([
     {
       id: 13901,
@@ -34,27 +55,6 @@ export default async (knex) => {
     created_at: '2016-01-11 13:07:08',
     updated_at: '2016-01-18 16:14:06',
   });
-
-  await knex('user').insert([
-    {
-      id: 1,
-      full_name: 'Kevin B.',
-      uid: 92,
-      password: 'xxx',
-      salt: 'xxx',
-      created_at: '2016-01-11 13:07:08',
-      updated_at: '2016-01-18 16:14:06',
-    },
-    {
-      id: 2,
-      full_name: 'Clement L.',
-      uid: 93,
-      password: 'xxxx',
-      salt: 'xxxx',
-      created_at: '2018-01-11 13:07:08',
-      updated_at: '2018-01-18 16:14:06',
-    },
-  ]);
 
   await knex('api_key_set').insert([
     load('./sql/apiKeySets/01.json', { user_id: 1 }),

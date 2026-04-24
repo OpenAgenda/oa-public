@@ -2,6 +2,19 @@ import fs from 'node:fs';
 import insertEventSet from './sql/eventSets/index.js';
 
 export default async (knex) => {
+  await knex('user').insert([
+    {
+      id: 50304,
+      uid: 63170203,
+      full_name: 'steve',
+      email: 'steve@oa.com',
+      password: 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65',
+      salt: '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3',
+      created_at: '2017-11-15 15:50:11',
+      updated_at: '2017-11-15 15:50:30',
+    },
+  ]);
+
   await knex('review').insert([
     {
       id: 218,
@@ -39,19 +52,6 @@ export default async (knex) => {
           defaultState: 0,
         },
       }),
-    },
-  ]);
-
-  await knex('user').insert([
-    {
-      id: 50304,
-      uid: 63170203,
-      full_name: 'steve',
-      email: 'steve@oa.com',
-      password: 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65',
-      salt: '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3',
-      created_at: '2017-11-15 15:50:11',
-      updated_at: '2017-11-15 15:50:30',
     },
   ]);
 

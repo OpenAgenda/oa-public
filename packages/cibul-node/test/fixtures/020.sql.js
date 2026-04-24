@@ -3,35 +3,6 @@ import load from './loadObjectFromFile.js';
 const settingsWithConfiguredPass = load('passCulture/settings.json');
 
 export default async (knex) => {
-  await knex('review').insert([
-    load('sql/agendas/218.json', {
-      uid: 2010,
-      settings: JSON.stringify(settingsWithConfiguredPass),
-      form_schema_id: null,
-    }),
-    load('sql/agendas/albi.json', {
-      uid: 2017,
-      form_schema_id: null,
-      network_uid: null,
-      settings: JSON.stringify({
-        registration: {
-          passCulture: {
-            siren: null,
-            bookingEmail: null,
-            defaultVenueId: null,
-            access: null,
-          },
-        },
-      }),
-    }),
-  ]);
-
-  await knex('location').insert([
-    load('sql/locations/1.json', {
-      uid: 1234,
-    }),
-  ]);
-
   // Add users for testing
   await knex('user').insert([
     load('sql/users/01.json'), // userUid: 1
@@ -62,6 +33,35 @@ export default async (knex) => {
       password: 'xxx',
       salt: 'xxx',
     },
+  ]);
+
+  await knex('review').insert([
+    load('sql/agendas/218.json', {
+      uid: 2010,
+      settings: JSON.stringify(settingsWithConfiguredPass),
+      form_schema_id: null,
+    }),
+    load('sql/agendas/albi.json', {
+      uid: 2017,
+      form_schema_id: null,
+      network_uid: null,
+      settings: JSON.stringify({
+        registration: {
+          passCulture: {
+            siren: null,
+            bookingEmail: null,
+            defaultVenueId: null,
+            access: null,
+          },
+        },
+      }),
+    }),
+  ]);
+
+  await knex('location').insert([
+    load('sql/locations/1.json', {
+      uid: 1234,
+    }),
   ]);
 
   // Add members for agenda 2010

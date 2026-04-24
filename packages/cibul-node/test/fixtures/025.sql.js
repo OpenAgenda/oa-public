@@ -1,6 +1,11 @@
 import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
+  await knex('user').insert([
+    load('sql/users/01.json'), // user 1, uid 1 - creator
+    load('sql/users/50300.json'), // user 2, uid 82253124 - other contributor
+  ]);
+
   await knex('review').insert([
     load('sql/agendas/01.json', {
       network_uid: null,
@@ -18,11 +23,6 @@ export default async (knex) => {
       created_at: new Date(),
       updated_at: new Date(),
     },
-  ]);
-
-  await knex('user').insert([
-    load('sql/users/01.json'), // user 1, uid 1 - creator
-    load('sql/users/50300.json'), // user 2, uid 82253124 - other contributor
   ]);
 
   await knex('api_key_set').insert([
