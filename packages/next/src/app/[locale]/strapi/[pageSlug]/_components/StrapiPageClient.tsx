@@ -2,7 +2,6 @@
 
 import { useCallback, useEffect, useState, type CSSProperties } from 'react';
 import { Noto_Sans, Ubuntu_Sans } from 'next/font/google';
-import { Global } from '@openagenda/uikit';
 import useUser from '@/src/hooks/useUser';
 import useCrispClient from '@/src/hooks/useCrispClient';
 import {
@@ -20,6 +19,8 @@ const ubuntuSans = Ubuntu_Sans({
   variable: '--font-ubuntu',
   subsets: ['latin'],
 });
+
+const STRAPI_ROOT_CSS = `:root{--font-noto-sans:${notoSans.style.fontFamily};--font-ubuntu-sans:${ubuntuSans.style.fontFamily};background:white;}`;
 
 interface StrapiPageClientProps {
   page: Pick<StrapiPageData, 'navFontColor' | 'navSticky'>;
@@ -51,17 +52,7 @@ export default function StrapiPageClient({
 
   return (
     <div style={welcomeSpacerStyle}>
-      <Global
-        styles={{
-          html: {
-            ':root': {
-              '--font-noto-sans': notoSans.style.fontFamily,
-              '--font-ubuntu-sans': ubuntuSans.style.fontFamily,
-              background: 'white',
-            },
-          },
-        }}
-      />
+      <style>{STRAPI_ROOT_CSS}</style>
       {displayWelcome ? (
         <LoggedUserWelcome
           compressibleTop={!navSticky && !!navFontColor ? 50 : 0}
