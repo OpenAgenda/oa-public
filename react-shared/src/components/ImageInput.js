@@ -150,10 +150,10 @@ function ImageInput({
         <div
           style={{
             textAlign: 'center',
+            position: 'relative',
             ...preview
               ? {
                 height: 'auto',
-                position: 'relative',
                 minHeight: '140px',
               }
               : {},
@@ -259,10 +259,27 @@ function ImageInput({
               </div>
             </div>
           )}
+
+          {extensions?.length && !rounded ? (
+            <span
+              style={{
+                position: 'absolute',
+                bottom: 0,
+                right: 12,
+                pointerEvents: 'none',
+              }}
+            >
+              <FormattedMessage
+                id="ReactShared.ImageInput.acceptedFiles"
+                defaultMessage="Accepted files"
+              />
+              : .{[].concat(extensions).join(', .')}
+            </span>
+          ) : null}
         </div>
       </div>
 
-      {extensions?.length ? (
+      {extensions?.length && rounded ? (
         <div className="text-right margin-top-xs">
           <FormattedMessage
             id="ReactShared.ImageInput.acceptedFiles"
