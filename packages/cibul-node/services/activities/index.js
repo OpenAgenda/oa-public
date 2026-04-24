@@ -15,7 +15,6 @@ export async function init(config, services) {
   const service = await Service({
     knex: config.knex,
     schemas: config.schemas,
-    migrations: null,
     interfaces: {
       getUser: (uid) => services.users.get(uid, { detailed: true }),
       isUnsubscribed: () => false,

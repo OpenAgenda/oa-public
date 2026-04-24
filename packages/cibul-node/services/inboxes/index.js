@@ -62,7 +62,6 @@ export async function init(config, services) {
       {
         mailsDomain: config.mails.domain,
         logger: config.getLogConfig('oa', 'inboxes'),
-        migrations: false,
         services: {
           agendas: () => services.agendas,
           members: () => services.members,

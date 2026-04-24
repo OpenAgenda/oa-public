@@ -7,7 +7,6 @@ export async function init(config, { redis }) {
   await keys.init({
     knex: config.knex,
     schemas: _.pick(config.schemas, 'key', 'user', 'apiKeySet'),
-    migrations: null,
     redis: {
       client: redis,
       prefix: 'keys',
