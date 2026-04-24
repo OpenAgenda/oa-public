@@ -50,6 +50,8 @@ describe('13 - 03 - core - functional(server): core.agendas().locations.set', ()
     await services.formSchemas.clearCache();
   });
 
+  afterAll(() => core.services.shutdown({ clear: true }));
+
   describe('core', () => {
     describe('set new location', () => {
       let createdLocation;

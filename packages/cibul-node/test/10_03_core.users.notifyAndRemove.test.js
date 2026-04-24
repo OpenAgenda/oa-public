@@ -60,6 +60,8 @@ describe('10 - core - functional (server): core.users().remove()', () => {
 
   beforeAll(() => clearRedis(services));
 
+  afterAll(() => services.shutdown({ clear: true }));
+
   beforeAll(async () => {
     const { redis } = services;
 
