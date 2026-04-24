@@ -15,7 +15,7 @@ import Image from '@/src/components/Image';
 import ModalLoadingBody from '@/src/components/ModalLoadingBody';
 // import swrLaggyMiddleware from 'utils/swrLaggyMiddleware';
 import { thumborLoader } from '@/src/utils/imageLoader';
-import useLocalePath from '@/src/utils/useLocalePath';
+import useLocalePath from '@/src/hooks/useLocalePath';
 const graylogo140 = '/images/graylogo140.png';
 import messages from './messages';
 

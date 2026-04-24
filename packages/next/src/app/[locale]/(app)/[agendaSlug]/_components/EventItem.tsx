@@ -36,8 +36,8 @@ import useShareModal from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSl
 import EmailConfirmationAlert from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSlug]/_components/EmailConfirmationAlert';
 import useDateFnsLocale from '@/src/hooks/useDateFnsLocale';
 import useIsMounted from '@/src/hooks/useIsMounted';
-import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
-import useLocalePath from '@/src/utils/useLocalePath';
+import useLocationQuery from '@/src/hooks/useLocationQuery';
+import useLocalePath from '@/src/hooks/useLocalePath';
 import useUser from '@/src/hooks/useUser';
 import isUpcomingOnlyQuery from '@/src/utils/isUpcomingOnlyQuery';
 import upperFirst from '@/src/utils/upperFirst';
@@ -219,7 +219,7 @@ export default function EventItem({
   const intl = useIntl();
   const localePath = useLocalePath();
 
-  const query = useAppLocationQuery();
+  const query = useLocationQuery();
 
   const { user } = useUser();
 

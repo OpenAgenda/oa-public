@@ -5,7 +5,7 @@ import { chakra, Box, SimpleGrid, Link } from '@openagenda/uikit';
 import useSWRImmutable from 'swr/immutable';
 import { FetchStatus } from '@/src/config/types';
 import { thumborLoader } from '@/src/utils/imageLoader';
-import useLocalePath from '@/src/utils/useLocalePath';
+import useLocalePath from '@/src/hooks/useLocalePath';
 import Image from '@/src/components/Image';
 const graylogo140 = '/images/graylogo140.png';
 

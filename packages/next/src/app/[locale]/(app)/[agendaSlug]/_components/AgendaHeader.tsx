@@ -24,7 +24,7 @@ import Image from '@/src/components/Image';
 import OAIcon from '@/src/components/OAIcon';
 import OfficialAgenda from '@/src/components/OfficialAgenda';
 import LockIcon from '@/src/components/LockIcon';
-import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
+import useLocationQuery from '@/src/hooks/useLocationQuery';
 import { thumborLoader } from '@/src/utils/imageLoader';
 import AggregateModal from './AggregateModal';
 import ContactButton from './ContactButton';
@@ -52,7 +52,7 @@ export default function AgendaHeader({ agenda }) {
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const urlQuery = useAppLocationQuery();
+  const urlQuery = useLocationQuery();
 
   const {
     open: aggregateIsOpen,

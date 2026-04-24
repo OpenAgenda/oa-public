@@ -17,7 +17,7 @@ import { FaIcon } from '@/src/icons';
 import { faTurnLeft } from '@/src/icons/solid';
 import base64 from '@/src/utils/base64';
 import { FetchStatus } from '@/src/config/types';
-import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
+import useLocationQuery from '@/src/hooks/useLocationQuery';
 import isAdminMod from '@/src/utils/isAdminMod';
 import { useAgenda } from '../../_context/agenda';
 import useEvent from '../../_hooks/useEvent';
@@ -76,7 +76,7 @@ function getAdminNav(eventNc) {
 export default function ContextBar() {
   const intl = useIntl();
 
-  const query = useAppLocationQuery();
+  const query = useLocationQuery();
 
   const pathname = usePathname();
   const searchParams = useSearchParams();

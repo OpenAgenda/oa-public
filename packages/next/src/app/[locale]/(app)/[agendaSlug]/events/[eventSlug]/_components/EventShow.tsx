@@ -27,7 +27,7 @@ import useDateFnsLocale from '@/src/hooks/useDateFnsLocale';
 import useClientAnalytics from '@/src/hooks/useClientAnalytics';
 import useSession from '@/src/hooks/useSession';
 import useUser from '@/src/hooks/useUser';
-import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
+import useLocationQuery from '@/src/hooks/useLocationQuery';
 import Featured from '@/src/components/Featured';
 import isAdminMod from '@/src/utils/isAdminMod';
 import { useAgenda } from '../_context/agenda';
@@ -69,7 +69,7 @@ function EventShow() {
   const intl = useIntl();
   const pathname = usePathname();
   const nextSearchParams = useSearchParams();
-  const urlQuery = useAppLocationQuery();
+  const urlQuery = useLocationQuery();
   const dateFnsLocale = useDateFnsLocale();
   const agenda = useAgenda();
 

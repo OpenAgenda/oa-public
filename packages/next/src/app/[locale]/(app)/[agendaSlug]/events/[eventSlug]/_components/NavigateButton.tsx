@@ -10,8 +10,8 @@ import useSessionStorageState from 'use-session-storage-state';
 import { IconButton } from '@openagenda/uikit';
 import { FaIcon } from '@/src/icons';
 import { faChevronLeft, faChevronRight } from '@/src/icons/regular';
-import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
-import useLocalePath from '@/src/utils/useLocalePath';
+import useLocationQuery from '@/src/hooks/useLocationQuery';
+import useLocalePath from '@/src/hooks/useLocalePath';
 import useEvent from '../_hooks/useEvent';
 import { useAgenda } from '../_context/agenda';
 import { navigationButton as messages } from '../messages';
@@ -154,7 +154,7 @@ export default function NavigateButton({
   overlapping = false,
 }: NavigateButtonProps) {
   const intl = useIntl();
-  const query = useAppLocationQuery() as any;
+  const query = useLocationQuery() as any;
   const agenda = useAgenda();
   const { event } = useEvent();
 

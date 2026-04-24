@@ -9,7 +9,7 @@ import {
   JsonError,
 } from '@/src/components/ErrorDisplay';
 import base64 from '@/src/utils/base64';
-import useLocalePath from '@/src/utils/useLocalePath';
+import useLocalePath from '@/src/hooks/useLocalePath';
 import { agendaError as messages } from '../messages';
 
 export type AgendaErrorProps = {

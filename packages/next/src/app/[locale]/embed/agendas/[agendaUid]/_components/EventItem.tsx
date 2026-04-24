@@ -17,7 +17,7 @@ import { getLocaleValue, DEFAULT_LANG } from '@openagenda/intl';
 import attendanceModesMessages from '@openagenda/common-labels/event/attendanceModes';
 import Image from '@/src/components/Image';
 import { useEmbedLayoutData } from '@/src/app/[locale]/embed/_components/EmbedLayoutShell';
-import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
+import useLocationQuery from '@/src/hooks/useLocationQuery';
 import { thumborLoader } from '@/src/utils/imageLoader';
 import { sidebar as messages } from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSlug]/messages';
 import getContentLocale from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSlug]/_utils/getContentLocale';
@@ -86,7 +86,7 @@ export default function EventItem({
 }) {
   const intl = useIntl();
 
-  const query = useAppLocationQuery();
+  const query = useLocationQuery();
 
   const { baseUrl, baseUrlTarget, primaryColor, imageList, sort, prefilter } =
     useEmbedLayoutData();

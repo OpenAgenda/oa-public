@@ -3,7 +3,7 @@
 import { useIntl } from 'react-intl';
 import useSessionStorageState from 'use-session-storage-state';
 import { IconButton } from '@openagenda/uikit';
-import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
+import useLocationQuery from '@/src/hooks/useLocationQuery';
 import { FaIcon } from '@/src/icons';
 import { faChevronLeft, faChevronRight } from '@/src/icons/regular';
 import { navigationButton as messages } from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSlug]/messages';
@@ -25,7 +25,7 @@ export default function NavigateButton({
   referrer,
 }: NavigateButtonProps) {
   const intl = useIntl();
-  const query = useAppLocationQuery() as any;
+  const query = useLocationQuery() as any;
   const agenda = useAgenda();
   const { event } = useEvent({ referrer });
 

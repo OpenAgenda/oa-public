@@ -6,7 +6,7 @@ import { useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
 import { chakra, Box, Container, Flex } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
-import useLocalePath from 'utils/useLocalePath';
+import useLocalePath from '@/src/hooks/useLocalePath';
 import defaultSize from 'utils/defaultSize';
 import getHomeHref from 'utils/getHomeHref';
 import { FetchStatus } from 'config/types';

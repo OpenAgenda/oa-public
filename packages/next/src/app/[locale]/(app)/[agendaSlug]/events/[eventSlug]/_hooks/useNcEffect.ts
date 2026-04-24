@@ -3,11 +3,11 @@
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 import qs from 'qs';
-import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
+import useLocationQuery from '@/src/hooks/useLocationQuery';
 
 export default function useNcEffect({ agendaUid, eventUid }) {
   const pathname = usePathname();
-  const query = useAppLocationQuery() as any;
+  const query = useLocationQuery() as any;
   // Guard against React StrictMode's double-invoke of effects in dev: without
   // it, the NC stored in sessionStorage would be re-written and `from` could
   // drift. Only the first mount should consume the `?nc=...` URL param.

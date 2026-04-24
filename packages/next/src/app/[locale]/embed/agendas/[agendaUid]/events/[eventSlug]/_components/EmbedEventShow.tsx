@@ -25,7 +25,7 @@ import qs from 'qs';
 import useSessionStorageState from 'use-session-storage-state';
 import useClientAnalytics from '@/src/hooks/useClientAnalytics';
 import useDateFnsLocale from '@/src/hooks/useDateFnsLocale';
-import useAppLocationQuery from '@/src/utils/useAppLocationQuery';
+import useLocationQuery from '@/src/hooks/useLocationQuery';
 import Image from '@/src/components/Image';
 import ConsentBanner from '@/src/components/ConsentBanner';
 import { useEmbedLayoutData } from '@/src/app/[locale]/embed/_components/EmbedLayoutShell';
@@ -93,7 +93,7 @@ export default function EmbedEventShow({
   const agenda = useAgenda();
   const { event } = useEvent({ referrer });
 
-  const query = useAppLocationQuery() as any;
+  const query = useLocationQuery() as any;
 
   const isViewedInAgendaContext = useMemo(
     () => embedAgendaUrlRegex.test(initPath),
