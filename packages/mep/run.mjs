@@ -122,7 +122,7 @@ if (runMigrations || runAll) {
   console.log(`running migrations on ${migratorNode.address}`);
   await rexec([migratorNode], [
     'cd /root/oa && yarn workspace cibul-node migrate',
-  ], { SSHKeyPath });
+  ], { SSHKeyPath, env: taskEnvVars });
 }
 
 const runs = [];
