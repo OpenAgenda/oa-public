@@ -47,11 +47,17 @@ function getDefaults({ extractedMessages, lang, defaultLang, definedDefault }) {
   return {};
 }
 
-async function extractMessages({ files, idInterpolationPattern, format }) {
-  const filesToExtract = files.reduce((accu, globFiles) => {
-    accu.push(...glob.sync(globFiles, { ignore: ['**/*.d.ts'] }));
-    return accu;
-  }, []);
+async function extractMessages({
+  files,
+  filesPaths,
+  idInterpolationPattern,
+  format,
+}) {
+  const filesToExtract = filesPaths
+    || files.reduce((accu, globFiles) => {
+      accu.push(...glob.sync(globFiles, { ignore: ['**/*.d.ts'] }));
+      return accu;
+    }, []);
   const result = {};
 
   for (const file of filesToExtract) {
@@ -69,6 +75,7 @@ async function extractMessages({ files, idInterpolationPattern, format }) {
 
 async function extractLang({
   files,
+  filesPaths,
   output,
   lang,
   defaultLang,
@@ -78,44 +85,56 @@ async function extractLang({
 }) {
   const result = {};
 
-  for (const globFiles of files) {
-    for (const file of glob.sync(globFiles, { ignore: ['**/*.d.ts'] })) {
-      if (skipEmpty && Object.keys(extractedMessages[file]).length === 0) {
-        continue;
-      }
-
-      const { result: outPath } = inputToOuputPath(
-        globFiles,
-        file,
-        output,
-        lang,
-      );
-
-      const localesPath = path.join(
+  const entries = filesPaths
+    ? filesPaths.map((file) => ({
+      file,
+      localesPath: path.join(
         process.cwd(),
-        outPath.replace(/\.js$/, '.json'),
-      );
-      const existingMessages = getMessages(localesPath);
+        output.replace('%lang%', lang).replace(/\.js$/, '.json'),
+      ),
+    }))
+    : files.flatMap((globFiles) =>
+      glob.sync(globFiles, { ignore: ['**/*.d.ts'] }).map((file) => {
+        const { result: outPath } = inputToOuputPath(
+          globFiles,
+          file,
+          output,
+          lang,
+        );
+        return {
+          file,
+          localesPath: path.join(
+            process.cwd(),
+            outPath.replace(/\.js$/, '.json'),
+          ),
+        };
+      }));
 
-      const defaultMessages = getDefaults({
-        extractedMessages: extractedMessages[file],
-        lang,
-        defaultLang,
-        definedDefault,
-      });
-
-      const messages = _.pickBy(
-        existingMessages,
-        (value, key) => key in extractedMessages[file] && value,
-      );
-
-      const messagesWithDefaults = _.merge(defaultMessages, messages);
-
-      result[localesPath] = {
-        ...result[localesPath],
-        ...messagesWithDefaults,
-      };
+  for (const { file, localesPath } of entries) {
+    if (skipEmpty && Object.keys(extractedMessages[file]).length === 0) {
+      continue;
     }
+
+    const existingMessages = getMessages(localesPath);
+
+    const defaultMessages = getDefaults({
+      extractedMessages: extractedMessages[file],
+      lang,
+      defaultLang,
+      definedDefault,
+    });
+
+    const messages = _.pickBy(
+      existingMessages,
+      (value, key) => key in extractedMessages[file] && value,
+    );
+
+    const messagesWithDefaults = _.merge(defaultMessages, messages);
+
+    result[localesPath] = {
+      ...result[localesPath],
+      ...messagesWithDefaults,
+    };
   }
 
   const createdFiles = [];
@@ -231,6 +250,7 @@ module.exports.builder = (yargs) => {
 module.exports.handler = async (argv) => {
   const {
     files = defaults.files,
+    filesPaths,
     output = defaults.output,
     idInterpolationPattern = defaults.idInterpolationPattern,
     defaultLang = defaults.defaultLang,
@@ -245,6 +265,7 @@ module.exports.handler = async (argv) => {
 
   const extractedMessages = await extractMessages({
     files,
+    filesPaths,
     idInterpolationPattern,
     format,
   });
@@ -253,6 +274,7 @@ module.exports.handler = async (argv) => {
     langs.map((lang) =>
       extractLang({
         files,
+        filesPaths,
         output,
         lang,
         defaultLang,
