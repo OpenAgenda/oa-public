@@ -1,4 +1,15 @@
 {
+  "next.views.EventError.agendaNotFound": "Agenda pas trobada",
+  "next.views.EventError.contactAdministrators": "Contactar los administrators",
+  "next.views.EventError.eventNotFound": "",
+  "next.views.EventError.forbiddenMsg": "Avètz pas accès a aquela agenda.{br}Verificatz lo ligam que vos es estat donat o demandatz l'accès.",
+  "next.views.EventError.notFoundMsg": "I a pas de calendièr que corresponda a aqueste ligam.{br}Siá lo ligam es invalide siá lo calendièr es estat suprimit.",
+  "next.views.EventError.orSignup": "O <link>marcatz-vos</link> s'avètz pas encara de compte.",
+  "next.views.EventError.restrictedAccess": "",
+  "next.views.EventError.searchAgenda": "Cercar una agenda",
+  "next.views.EventError.seeAgenda": "Veire l'agenda",
+  "next.views.EventError.signIn": "Se connectar",
+  "next.views.EventError.unauthorizedMsg": "",
   "next.views.EventShow.Activities.seeMore": "Ne véser mai",
   "next.views.EventShow.AdditionalFields.noFile": "Pas cap fichièr cargat",
   "next.views.EventShow.AdditionalFields.noImage": "Pas cap imatge cargat",
@@ -150,16 +161,5 @@
   "views.EventShow.contextBar.editMember": "",
   "views.EventShow.contextBar.editMemberMe": "",
   "views.EventShow.contextBar.invalidEventInfo": "",
-  "views.EventShow.contextBar.nonCompliant": "",
-  "next.views.EventError.agendaNotFound": "Agenda pas trobada",
-  "next.views.EventError.contactAdministrators": "Contactar los administrators",
-  "next.views.EventError.eventNotFound": "",
-  "next.views.EventError.forbiddenMsg": "Avètz pas accès a aquela agenda.{br}Verificatz lo ligam que vos es estat donat o demandatz l'accès.",
-  "next.views.EventError.notFoundMsg": "I a pas de calendièr que corresponda a aqueste ligam.{br}Siá lo ligam es invalide siá lo calendièr es estat suprimit.",
-  "next.views.EventError.orSignup": "O <link>marcatz-vos</link> s'avètz pas encara de compte.",
-  "next.views.EventError.restrictedAccess": "",
-  "next.views.EventError.searchAgenda": "Cercar una agenda",
-  "next.views.EventError.seeAgenda": "Veire l'agenda",
-  "next.views.EventError.signIn": "Se connectar",
-  "next.views.EventError.unauthorizedMsg": ""
+  "views.EventShow.contextBar.nonCompliant": ""
 }

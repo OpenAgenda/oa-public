@@ -306,7 +306,7 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
 
   // Extract
   await extract.handler({
-    files: sourceFilesInDir.map(relativeToCwd),
+    filesPaths: sourceFilesInDir.map(relativeToCwd),
     output: relativeToCwd(path.join(localesDir, '%lang%.json')),
     langs: DEFAULT_LANGS,
     definedDefault: DEFAULT_LANGS, // define empty locales for all langs
@@ -328,7 +328,7 @@ for (const [directory, sourceFilesInDir] of sourceFilesByDir) {
     );
 
     await compile.handler({
-      locales: relativeToCwd(path.join(localesDir, '%lang%.json')),
+      localesPaths: [relativeToCwd(path.join(localesDir, '%lang%.json'))],
       output: relativeToCwd(path.join(localesDir, 'compiled/%lang%.json')),
       langs: DEFAULT_LANGS,
       skipIndex: true,

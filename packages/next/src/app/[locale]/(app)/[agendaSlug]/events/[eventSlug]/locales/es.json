@@ -1,4 +1,15 @@
 {
+  "next.views.EventError.agendaNotFound": "Agenda no encontrada",
+  "next.views.EventError.contactAdministrators": "Contactar los administradores",
+  "next.views.EventError.eventNotFound": "Evento no encontrado",
+  "next.views.EventError.forbiddenMsg": "No tienes acceso a esta agenda.{br}Verifica el enlace que te proporcionaron o solicita acceso.",
+  "next.views.EventError.notFoundMsg": "No hay ninguna agenda correspondiente a este enlace.{br}El enlace es inválido o el calendario ha sido eliminado.",
+  "next.views.EventError.orSignup": "O <link>regístrate</link> si aún no tienes una cuenta.",
+  "next.views.EventError.restrictedAccess": "Acceso restringido",
+  "next.views.EventError.searchAgenda": "Buscar una agenda",
+  "next.views.EventError.seeAgenda": "Ver agenda",
+  "next.views.EventError.signIn": "Conectarse",
+  "next.views.EventError.unauthorizedMsg": "El acceso a esta agenda está restringido,{br}autentíquate antes de poder acceder a ella.",
   "next.views.EventShow.Activities.seeMore": "Ver más",
   "next.views.EventShow.AdditionalFields.noFile": "No se ha cargado ningún archivo",
   "next.views.EventShow.AdditionalFields.noImage": "No se ha cargado ninguna imagen",
@@ -150,16 +161,5 @@
   "views.EventShow.contextBar.editMember": "",
   "views.EventShow.contextBar.editMemberMe": "",
   "views.EventShow.contextBar.invalidEventInfo": "",
-  "views.EventShow.contextBar.nonCompliant": "",
-  "next.views.EventError.agendaNotFound": "Agenda no encontrada",
-  "next.views.EventError.contactAdministrators": "Contactar los administradores",
-  "next.views.EventError.eventNotFound": "Evento no encontrado",
-  "next.views.EventError.forbiddenMsg": "No tienes acceso a esta agenda.{br}Verifica el enlace que te proporcionaron o solicita acceso.",
-  "next.views.EventError.notFoundMsg": "No hay ninguna agenda correspondiente a este enlace.{br}El enlace es inválido o el calendario ha sido eliminado.",
-  "next.views.EventError.orSignup": "O <link>regístrate</link> si aún no tienes una cuenta.",
-  "next.views.EventError.restrictedAccess": "Acceso restringido",
-  "next.views.EventError.searchAgenda": "Buscar una agenda",
-  "next.views.EventError.seeAgenda": "Ver agenda",
-  "next.views.EventError.signIn": "Conectarse",
-  "next.views.EventError.unauthorizedMsg": "El acceso a esta agenda está restringido,{br}autentíquate antes de poder acceder a ella."
+  "views.EventShow.contextBar.nonCompliant": ""
 }

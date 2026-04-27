@@ -1,4 +1,13 @@
 {
+  "next.views.AgendaError.agendaNotFound": "Agenda introuvable",
+  "next.views.AgendaError.forbiddenMsg": "Vous n’avez pas accès à cet agenda.{br}Vérifiez le lien qui vous a été fourni ou faites une demande d’accès.",
+  "next.views.AgendaError.notFoundMsg": "Il n’y a pas d’agenda correspondant à ce lien.{br}Soit le lien est invalide, soit l’agenda a été supprimé.",
+  "next.views.AgendaError.orSignup": "Ou <link>inscrivez-vous</link> si vous n'avez pas encore de compte.",
+  "next.views.AgendaError.requestInvitation": "Demander une invitation",
+  "next.views.AgendaError.restrictedAccess": "Accès restreint",
+  "next.views.AgendaError.searchAgenda": "Rechercher un agenda",
+  "next.views.AgendaError.signIn": "Se connecter",
+  "next.views.AgendaError.unauthorizedMsg": "L'accès à cet agenda est restreint,{br} connectez-vous avant de pouvoir y accéder.",
   "next.views.AgendaShow.closeButton": "Fermer",
   "next.views.AgendaShow.filter": "Filtrer",
   "next.views.AgendaShow.filters": "Filtres",
@@ -13,14 +22,5 @@
   "next.views.AgendaShow.signin": "Se connecter",
   "next.views.AgendaShow.termsOfUse": "Conditions d'utilisation",
   "next.views.AgendaShow.totalEvents": "{count, plural, =0 {Aucun événement} one {1 événement} other {# événements}}",
-  "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {Aucun événement à venir} one {1 événement à venir} other {# événements à venir}}",
-  "next.views.AgendaError.agendaNotFound": "Agenda introuvable",
-  "next.views.AgendaError.forbiddenMsg": "Vous n’avez pas accès à cet agenda.{br}Vérifiez le lien qui vous a été fourni ou faites une demande d’accès.",
-  "next.views.AgendaError.notFoundMsg": "Il n’y a pas d’agenda correspondant à ce lien.{br}Soit le lien est invalide, soit l’agenda a été supprimé.",
-  "next.views.AgendaError.orSignup": "Ou <link>inscrivez-vous</link> si vous n'avez pas encore de compte.",
-  "next.views.AgendaError.requestInvitation": "Demander une invitation",
-  "next.views.AgendaError.restrictedAccess": "Accès restreint",
-  "next.views.AgendaError.searchAgenda": "Rechercher un agenda",
-  "next.views.AgendaError.signIn": "Se connecter",
-  "next.views.AgendaError.unauthorizedMsg": "L'accès à cet agenda est restreint,{br} connectez-vous avant de pouvoir y accéder."
+  "next.views.AgendaShow.totalUpcomingEvents": "{count, plural, =0 {Aucun événement à venir} one {1 événement à venir} other {# événements à venir}}"
 }

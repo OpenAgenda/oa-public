@@ -1,4 +1,105 @@
 {
+  "next.views.AgendaError.agendaNotFound": [
+    {
+      "type": 0,
+      "value": "Deiziataer ebet kavet"
+    }
+  ],
+  "next.views.AgendaError.forbiddenMsg": [
+    {
+      "type": 0,
+      "value": "N'hoc'h eus ket moned d'an deiziataer-mañ."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Gwiriit al liamm zo bet roet deoc'h pe goulennit ar moned."
+    }
+  ],
+  "next.views.AgendaError.notFoundMsg": [
+    {
+      "type": 0,
+      "value": "N'eus deiziataer ebet o klotañ gant al liamm-mañ."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Pe eo direizh al liamm pe eo bet dilamet an deiziataer."
+    }
+  ],
+  "next.views.AgendaError.orSignup": [
+    {
+      "type": 0,
+      "value": "Pe "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "en em enskrivit"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " ma n'hoc'h eus ket a gont c'hoazh."
+    }
+  ],
+  "next.views.AgendaError.requestInvitation": [
+    {
+      "type": 0,
+      "value": "Goulenn ur bedadenn"
+    }
+  ],
+  "next.views.AgendaError.restrictedAccess": [
+    {
+      "type": 0,
+      "value": "Strishaet eo ar moned d'an deiziataer-mañ,"
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " en em zilesa a-raok gallout mont dezhañ."
+    }
+  ],
+  "next.views.AgendaError.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Klask un deiziataer"
+    }
+  ],
+  "next.views.AgendaError.signIn": [
+    {
+      "type": 0,
+      "value": "Kevreañ"
+    }
+  ],
+  "next.views.AgendaError.unauthorizedMsg": [
+    {
+      "type": 0,
+      "value": "Strishaet eo ar moned d'an deiziataer-mañ,"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " kevreit a-raok gallout mont dezhañ."
+    }
+  ],
   "next.views.AgendaShow.closeButton": [
     {
       "type": 0,

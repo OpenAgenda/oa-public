@@ -1,4 +1,82 @@
 {
+  "next.views.AgendaError.agendaNotFound": [
+    {
+      "type": 0,
+      "value": "crwdns32973:0crwdne32973:0"
+    }
+  ],
+  "next.views.AgendaError.forbiddenMsg": [
+    {
+      "type": 0,
+      "value": "crwdns32977:0"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32977:0"
+    }
+  ],
+  "next.views.AgendaError.notFoundMsg": [
+    {
+      "type": 0,
+      "value": "crwdns32983:0"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32983:0"
+    }
+  ],
+  "next.views.AgendaError.orSignup": [
+    {
+      "type": 0,
+      "value": "crwdns32985:0crwdne32985:0"
+    }
+  ],
+  "next.views.AgendaError.requestInvitation": [
+    {
+      "type": 0,
+      "value": "crwdns32987:0crwdne32987:0"
+    }
+  ],
+  "next.views.AgendaError.restrictedAccess": [
+    {
+      "type": 0,
+      "value": "crwdns32989:0crwdne32989:0"
+    }
+  ],
+  "next.views.AgendaError.searchAgenda": [
+    {
+      "type": 0,
+      "value": "crwdns32991:0crwdne32991:0"
+    }
+  ],
+  "next.views.AgendaError.signIn": [
+    {
+      "type": 0,
+      "value": "crwdns32993:0crwdne32993:0"
+    }
+  ],
+  "next.views.AgendaError.unauthorizedMsg": [
+    {
+      "type": 0,
+      "value": "crwdns32995:0"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "crwdne32995:0"
+    }
+  ],
   "next.views.AgendaShow.closeButton": [
     {
       "type": 0,

@@ -1,4 +1,105 @@
 {
+  "next.views.AgendaError.agendaNotFound": [
+    {
+      "type": 0,
+      "value": "Agenda non trovata"
+    }
+  ],
+  "next.views.AgendaError.forbiddenMsg": [
+    {
+      "type": 0,
+      "value": "Non avete accesso a questa agenda."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Verificate il link che vi è stato fornito o richiedete l'accesso."
+    }
+  ],
+  "next.views.AgendaError.notFoundMsg": [
+    {
+      "type": 0,
+      "value": "Non esiste un calendario corrispondente a questo link."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "O il link non è valido o il calendario è stato cancellato."
+    }
+  ],
+  "next.views.AgendaError.orSignup": [
+    {
+      "type": 0,
+      "value": "Oppure "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "iscriviti"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " se non hai ancora un account."
+    }
+  ],
+  "next.views.AgendaError.requestInvitation": [
+    {
+      "type": 0,
+      "value": "Richiedere un invito"
+    }
+  ],
+  "next.views.AgendaError.restrictedAccess": [
+    {
+      "type": 0,
+      "value": "L'accesso a questa agenda è limitato,"
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " autenticarsi prima di potere accedere."
+    }
+  ],
+  "next.views.AgendaError.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Cercare un'agenda"
+    }
+  ],
+  "next.views.AgendaError.signIn": [
+    {
+      "type": 0,
+      "value": "Accedi"
+    }
+  ],
+  "next.views.AgendaError.unauthorizedMsg": [
+    {
+      "type": 0,
+      "value": "L'accesso a questa agenda è limitato,"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " autenticarsi prima di potere accedere."
+    }
+  ],
   "next.views.AgendaShow.closeButton": [
     {
       "type": 0,

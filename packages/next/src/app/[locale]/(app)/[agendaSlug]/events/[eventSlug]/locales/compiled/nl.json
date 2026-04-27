@@ -1,4 +1,108 @@
 {
+  "next.views.EventError.agendaNotFound": [
+    {
+      "type": 0,
+      "value": "Agenda niet gevonden"
+    }
+  ],
+  "next.views.EventError.contactAdministrators": [
+    {
+      "type": 0,
+      "value": "Contact met beheerders"
+    }
+  ],
+  "next.views.EventError.eventNotFound": [
+    {
+      "type": 0,
+      "value": "Evenement niet gevonden"
+    }
+  ],
+  "next.views.EventError.forbiddenMsg": [
+    {
+      "type": 0,
+      "value": "U heeft geen toegang tot deze agenda."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Controleer de link die aan u is verstrekt of vraag toegang aan."
+    }
+  ],
+  "next.views.EventError.notFoundMsg": [
+    {
+      "type": 0,
+      "value": "Er is geen agenda die overeenkomt met deze link."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "De link is ongeldig of de agenda is verwijderd."
+    }
+  ],
+  "next.views.EventError.orSignup": [
+    {
+      "type": 0,
+      "value": "Of "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "registreer u"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " als u nog geen account heeft."
+    }
+  ],
+  "next.views.EventError.restrictedAccess": [
+    {
+      "type": 0,
+      "value": "Beperkte toegang"
+    }
+  ],
+  "next.views.EventError.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Een agenda zoeken"
+    }
+  ],
+  "next.views.EventError.seeAgenda": [
+    {
+      "type": 0,
+      "value": "Agenda bekijken"
+    }
+  ],
+  "next.views.EventError.signIn": [
+    {
+      "type": 0,
+      "value": "Inloggen"
+    }
+  ],
+  "next.views.EventError.unauthorizedMsg": [
+    {
+      "type": 0,
+      "value": "De toegang tot deze agenda is beperkt,"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "gelieve u te authenticeren voordat u toegang krijgt."
+    }
+  ],
   "next.views.EventShow.Activities.seeMore": [
     {
       "type": 0,

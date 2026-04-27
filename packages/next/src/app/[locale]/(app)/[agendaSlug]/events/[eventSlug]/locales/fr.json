@@ -1,4 +1,15 @@
 {
+  "next.views.EventError.agendaNotFound": "Agenda introuvable",
+  "next.views.EventError.contactAdministrators": "Contacter les administrateurs",
+  "next.views.EventError.eventNotFound": "Événement introuvable",
+  "next.views.EventError.forbiddenMsg": "Vous n’avez pas accès à cet événement.{br}Vérifiez le lien qui vous a été fourni ou faites une demande d’accès.",
+  "next.views.EventError.notFoundMsg": "Il n’y a pas d’agenda correspondant à ce lien.{br}Soit le lien est invalide, soit l’agenda a été supprimé.",
+  "next.views.EventError.orSignup": "Ou <link>inscrivez-vous</link> si vous n'avez pas encore de compte.",
+  "next.views.EventError.restrictedAccess": "Accès restreint",
+  "next.views.EventError.searchAgenda": "Rechercher un agenda",
+  "next.views.EventError.seeAgenda": "Voir l'agenda",
+  "next.views.EventError.signIn": "Se connecter",
+  "next.views.EventError.unauthorizedMsg": "L'accès à cet agenda est restreint,{br}veuillez vous authentifier avant de pouvoir y accéder.",
   "next.views.EventShow.Activities.seeMore": "Voir plus",
   "next.views.EventShow.AdditionalFields.noFile": "Fichier non chargé",
   "next.views.EventShow.AdditionalFields.noImage": "Image non chargée",
@@ -150,16 +161,5 @@
   "views.EventShow.contextBar.editMember": "Modifier la fiche du contributeur",
   "views.EventShow.contextBar.editMemberMe": "Modifier ma fiche contributeur",
   "views.EventShow.contextBar.invalidEventInfo": "Cet événement ne répond pas aux critères définis par le formulaire de l'agenda. Cela peut se produire si la configuration du formulaire a été modifiée. Pour corriger l'événement, modifiez-le.",
-  "views.EventShow.contextBar.nonCompliant": "À corriger/compléter",
-  "next.views.EventError.agendaNotFound": "Agenda introuvable",
-  "next.views.EventError.contactAdministrators": "Contacter les administrateurs",
-  "next.views.EventError.eventNotFound": "Événement introuvable",
-  "next.views.EventError.forbiddenMsg": "Vous n’avez pas accès à cet événement.{br}Vérifiez le lien qui vous a été fourni ou faites une demande d’accès.",
-  "next.views.EventError.notFoundMsg": "Il n’y a pas d’agenda correspondant à ce lien.{br}Soit le lien est invalide, soit l’agenda a été supprimé.",
-  "next.views.EventError.orSignup": "Ou <link>inscrivez-vous</link> si vous n'avez pas encore de compte.",
-  "next.views.EventError.restrictedAccess": "Accès restreint",
-  "next.views.EventError.searchAgenda": "Rechercher un agenda",
-  "next.views.EventError.seeAgenda": "Voir l'agenda",
-  "next.views.EventError.signIn": "Se connecter",
-  "next.views.EventError.unauthorizedMsg": "L'accès à cet agenda est restreint,{br}veuillez vous authentifier avant de pouvoir y accéder."
+  "views.EventShow.contextBar.nonCompliant": "À corriger/compléter"
 }
