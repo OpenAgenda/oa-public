@@ -31,71 +31,6 @@ const compilerOptions = ts.parseJsonConfigFileContent(
   root,
 );
 
-function getSourceFiles(program) {
-  const emitResult = program.emit();
-
-  const allDiagnostics = ts
-    .getPreEmitDiagnostics(program)
-    .concat(emitResult.diagnostics);
-
-  allDiagnostics.forEach((diagnostic) => {
-    const message = ts.flattenDiagnosticMessageText(
-      diagnostic.messageText,
-      '\n',
-    );
-
-    if (diagnostic.file) {
-      const { line, character } = ts.getLineAndCharacterOfPosition(
-        diagnostic.file,
-        diagnostic.start,
-      );
-      console.log(
-        `❌ Error TS${diagnostic.code}: ${diagnostic.file.fileName} (${line + 1},${character + 1}): ${message}`,
-      );
-    } else {
-      console.log(`❌ Error TS${diagnostic.code}: ${message}`);
-    }
-  });
-
-  if (allDiagnostics.length) {
-    return null;
-  }
-
-  return program
-    .getSourceFiles()
-    .filter((sourceFile) => !sourceFile.isDeclarationFile);
-}
-
-function getDepModules(
-  compilerHost,
-  options,
-  sourceFile,
-  moduleResolutionCache,
-) {
-  const depModules = [];
-
-  ts.forEachChild(sourceFile, (node) => {
-    if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
-      const moduleSpecifier = node.moduleSpecifier;
-      if (moduleSpecifier && ts.isStringLiteral(moduleSpecifier)) {
-        const resolved = ts.resolveModuleName(
-          moduleSpecifier.text,
-          sourceFile.fileName,
-          options,
-          compilerHost,
-          moduleResolutionCache,
-        ).resolvedModule;
-
-        if (resolved?.resolvedFileName && !resolved.isExternalLibraryImport) {
-          depModules.push(path.resolve(resolved.resolvedFileName));
-        }
-      }
-    }
-  });
-
-  return depModules;
-}
-
 function isInDir(from, to) {
   return !path.relative(from, to).startsWith('..');
 }
@@ -250,46 +185,86 @@ async function createViewIndex(viewDir, deps, hasLocales) {
 const options = {
   ...compilerOptions.options,
   incremental: false,
-  noEmitOnError: true,
+  noEmit: true,
 };
-const program = ts.createProgram(sources, options);
 const compilerHost = ts.createCompilerHost(options);
-
-const sourceFiles = getSourceFiles(program);
-
-if (!sourceFiles) {
-  process.exit(1);
-}
-
-const dependenciesMap = new Map();
-const dependentsMap = new Map();
-
-const packageSourceFiles = sourceFiles
-  .filter((sourceFile) => isInPackage(sourceFile.path))
-  .filter((sourceFile) => !sourceFile.path.endsWith('/locales/index.ts'));
-
 const moduleResolutionCache = ts.createModuleResolutionCache(
   root,
   (fileName) => fileName,
   options,
 );
 
-for (const sourceFile of packageSourceFiles) {
-  const deps = getDepModules(
-    compilerHost,
-    options,
-    sourceFile,
-    moduleResolutionCache,
-  )
-    .filter(isInPackage)
-    .filter((dep) => !dep.endsWith('/locales/index.ts'));
-  dependenciesMap.set(sourceFile.path, deps);
+// BFS through the package's import graph from the seed `sources`. We only
+// need top-level imports/exports to find `defineMessages` files and their
+// deps — so parsing each file with `ts.createSourceFile` (no binding, no
+// type checker) is enough and avoids the multi-second cost of
+// `ts.createProgram` for this codebase.
+function discoverPackageFiles(roots) {
+  const dependenciesMap = new Map();
+  const dependentsMap = new Map();
+  const visited = new Set();
+  const queue = roots.map((r) => path.resolve(r));
 
-  for (const dep of deps) {
-    const dependents = dependentsMap.get(dep) || [];
-    dependentsMap.set(dep, [...dependents, sourceFile.path]);
+  function isPackageNonLocaleSource(filePath) {
+    return (
+      isInPackage(filePath) &&
+      !filePath.endsWith('.d.ts') &&
+      !filePath.endsWith('/locales/index.ts')
+    );
   }
+
+  while (queue.length > 0) {
+    const filePath = queue.shift();
+    if (visited.has(filePath)) continue;
+    visited.add(filePath);
+    if (!isPackageNonLocaleSource(filePath)) continue;
+
+    const text = ts.sys.readFile(filePath);
+    if (text === undefined) continue;
+
+    const sourceFile = ts.createSourceFile(
+      filePath,
+      text,
+      ts.ScriptTarget.Latest,
+      /* setParentNodes */ false,
+    );
+
+    const deps = [];
+    ts.forEachChild(sourceFile, (node) => {
+      if (!ts.isImportDeclaration(node) && !ts.isExportDeclaration(node)) {
+        return;
+      }
+      const moduleSpecifier = node.moduleSpecifier;
+      if (!moduleSpecifier || !ts.isStringLiteral(moduleSpecifier)) return;
+
+      const resolved = ts.resolveModuleName(
+        moduleSpecifier.text,
+        filePath,
+        options,
+        compilerHost,
+        moduleResolutionCache,
+      ).resolvedModule;
+      if (!resolved?.resolvedFileName || resolved.isExternalLibraryImport) {
+        return;
+      }
+      const depPath = path.resolve(resolved.resolvedFileName);
+      if (!isPackageNonLocaleSource(depPath)) return;
+
+      deps.push(depPath);
+      queue.push(depPath);
+    });
+
+    dependenciesMap.set(filePath, deps);
+    for (const dep of deps) {
+      const dependents = dependentsMap.get(dep) || [];
+      dependentsMap.set(dep, [...dependents, filePath]);
+    }
+  }
+
+  return { dependenciesMap, dependentsMap };
 }
+
+const { dependenciesMap, dependentsMap } = discoverPackageFiles(sources);
 
 const sourceFilesByDir = groupByDir(dependenciesMap);
 
