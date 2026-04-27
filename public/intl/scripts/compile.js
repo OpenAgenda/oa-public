@@ -50,6 +50,7 @@ function getFallbackedMessages({ inputPath, fallbackMap, lang, defaultLang }) {
 
 async function compileLang({
   locales,
+  localesPaths,
   output,
   lang,
   fallbackMap,
@@ -57,17 +58,24 @@ async function compileLang({
   format,
   ast,
 }) {
-  const localesGlobPath = locales.replace('%lang%', lang);
-  const localesPaths = glob.sync(localesGlobPath);
+  const entries = localesPaths
+    ? localesPaths
+      .filter((p) => fs.existsSync(p.replace('%lang%', lang)))
+      .map((inputPath) => ({
+        inputPath,
+        compiledLocalesPath: output.replace('%lang%', lang),
+      }))
+    : glob.sync(locales.replace('%lang%', lang)).map((localesPath) => {
+      const { result, inputPath } = inputToOuputPath(
+        locales,
+        localesPath,
+        output,
+        lang,
+      );
+      return { inputPath, compiledLocalesPath: result };
+    });
 
-  for (const localesPath of localesPaths) {
-    const { result: compiledLocalesPath, inputPath } = inputToOuputPath(
-      locales,
-      localesPath,
-      output,
-      lang,
-    );
-
+  for (const { inputPath, compiledLocalesPath } of entries) {
     const messages = getFallbackedMessages({
       inputPath,
       fallbackMap,
@@ -161,6 +169,7 @@ module.exports.builder = (yargs) => {
 module.exports.handler = async (argv) => {
   const {
     locales = defaults.locales,
+    localesPaths,
     output = defaults.output,
     defaultLang = defaults.defaultLang,
     langs = defaults.langs,
@@ -177,6 +186,7 @@ module.exports.handler = async (argv) => {
     langs.map((lang) =>
       compileLang({
         locales,
+        localesPaths,
         output,
         lang,
         fallbackMap,
