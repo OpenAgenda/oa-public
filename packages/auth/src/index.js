@@ -1,4 +1,5 @@
 import { betterAuth } from 'better-auth';
+import { toNodeHandler } from 'better-auth/node';
 import { redisStorage } from '@better-auth/redis-storage';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
@@ -85,7 +86,8 @@ export default function Auth(options = {}) {
 
   return {
     instance,
-    handler: instance.handler,
+    // Express-compatible handler — mount with `app.all('/api/auth/*', auth.nodeHandler)`.
+    nodeHandler: toNodeHandler(instance),
     api: instance.api,
   };
 }
