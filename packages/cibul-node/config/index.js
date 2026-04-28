@@ -102,8 +102,8 @@ const config = {
       10,
     ),
     pool: {
+      min: parseInt(process.env.MYSQL_POOL_MIN ?? '2', 10),
       max: parseInt(process.env.MYSQL_POOL_MAX ?? '10', 10),
-      min: parseInt(process.env.MYSQL_POOL_MIN ?? '10', 10),
     },
   },
   db: {
