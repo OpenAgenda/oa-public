@@ -2,6 +2,7 @@ import logs from '@openagenda/logs';
 import { NotFound, Forbidden } from '@openagenda/verror';
 import Stopwatch from '@openagenda/utils/Stopwatch.js';
 import preCleanSearchQuery from '../utils/preCleanSearchQuery.js';
+import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
 import * as convertLongDescription from './lib/convertLongDescription.js';
 import convertToDateHoursMinutesTimings from './lib/convertToDateHoursMinutesFormat.js';
 import loadSearchAccess from './lib/loadSearchAccess.js';
@@ -313,10 +314,21 @@ export async function resyncEvent(core, agendaUid, eventUid, options = {}) {
 
     log('resyncing event %s on index of agenda %s', eventUid, agendaUid);
 
-    const result = await core.services.eventSearch.update(eventPayload, {
-      updateOtherIndices: false,
-      batch,
-    });
+    const result = await core.services.eventSearch.update(
+      {
+        ...eventPayload,
+        event: eventPayload.event.location
+          ? convertLocationAdditionalFields(
+            eventPayload.formSchema,
+            eventPayload.event,
+          )
+          : eventPayload.event,
+      },
+      {
+        updateOtherIndices: false,
+        batch,
+      },
+    );
 
     return result;
   } catch (err) {
