@@ -10,6 +10,7 @@ import './lib/initLog.js';
 import { randomBytes } from 'node:crypto';
 import logs from '@openagenda/logs';
 import express from 'express';
+import bodyParser from 'body-parser';
 import helmet from 'helmet';
 import { NotFound } from '@openagenda/verror';
 import config from './config/index.js';
@@ -53,6 +54,10 @@ const secureHeaders = [
   helmet.xContentTypeOptions(),
 ];
 
+function rawBodySaver(req, res, buf) {
+  req.rawBody = buf;
+}
+
 try {
   const services = await initServices(config);
   const core = Core(services, config);
@@ -67,7 +72,18 @@ try {
   app.core = core;
   app.services = services;
 
+  // better-auth handler must run BEFORE body-parser (it reads its own body).
+  if (services.auth) {
+    app.all('/api/auth/*', services.auth.nodeHandler);
+  }
+
   app.use(
+    bodyParser.json({ limit: '5mb', verify: rawBodySaver }),
+    bodyParser.urlencoded({
+      limit: '500kb',
+      extended: true,
+      verify: rawBodySaver,
+    }),
     secureHeaders,
     sessions.mw,
     sessions.mw.load({ detailed: true }),

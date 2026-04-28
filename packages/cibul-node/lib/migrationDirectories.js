@@ -4,6 +4,7 @@ const packages = path.resolve(import.meta.dirname, '../..');
 
 const byService = {
   abilities: path.join(packages, 'abilities/migrations'),
+  auth: path.join(packages, 'auth/migrations'),
   keys: path.join(packages, 'keys/migrations'),
   users: path.join(packages, 'users/migrations'),
   activities: path.join(packages, 'activities/migrations'),
