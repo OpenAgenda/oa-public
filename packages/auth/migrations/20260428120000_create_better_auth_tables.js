@@ -1,6 +1,11 @@
 // No FK to user — keeps services decoupled and tests independent.
 // Sessions live in Redis (better-auth secondaryStorage), not in the DB.
 // All ids are BIGINT AUTO_INCREMENT (better-auth `generateId: 'serial'`).
+//
+// Column types follow better-auth's reference schema (TEXT for free-form
+// fields, DATETIME(3) for ms precision matching `timestamp(3)`). Indexed
+// columns (account_id, provider_id, identifier) stay VARCHAR(255) because
+// MySQL can't index TEXT without an explicit prefix length.
 
 export async function up(knex) {
   const { schemas } = knex.client.config;
@@ -12,15 +17,15 @@ export async function up(knex) {
       t.bigint('user_id').notNullable();
       t.string('account_id', 255).notNullable();
       t.string('provider_id', 255).notNullable();
-      t.string('password', 255).nullable();
+      t.text('password').nullable();
       t.text('access_token').nullable();
       t.text('refresh_token').nullable();
-      t.dateTime('access_token_expires_at').nullable();
-      t.dateTime('refresh_token_expires_at').nullable();
-      t.string('scope', 255).nullable();
+      t.dateTime('access_token_expires_at', { precision: 3 }).nullable();
+      t.dateTime('refresh_token_expires_at', { precision: 3 }).nullable();
+      t.text('scope').nullable();
       t.text('id_token').nullable();
-      t.dateTime('created_at').notNullable();
-      t.dateTime('updated_at').notNullable();
+      t.dateTime('created_at', { precision: 3 }).notNullable();
+      t.dateTime('updated_at', { precision: 3 }).notNullable();
       t.index('user_id', 'idx_account_user_id');
       t.unique(['provider_id', 'account_id'], {
         indexName: 'idx_account_provider_account',
@@ -33,9 +38,9 @@ export async function up(knex) {
       t.bigIncrements('id').primary();
       t.string('identifier', 255).notNullable();
       t.text('value').notNullable();
-      t.dateTime('expires_at').notNullable();
-      t.dateTime('created_at').notNullable();
-      t.dateTime('updated_at').notNullable();
+      t.dateTime('expires_at', { precision: 3 }).notNullable();
+      t.dateTime('created_at', { precision: 3 }).notNullable();
+      t.dateTime('updated_at', { precision: 3 }).notNullable();
       t.index('identifier', 'idx_verification_identifier');
       t.index('expires_at', 'idx_verification_expires_at');
     });
