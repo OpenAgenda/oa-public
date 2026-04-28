@@ -5,11 +5,24 @@ import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 
 export default function Auth(options = {}) {
-  const { mysqlPool, redis, trustedOrigins, secret, baseURL } = options;
+  const {
+    mysqlPool,
+    redis,
+    trustedOrigins,
+    secret,
+    baseURL,
+    schemas = {},
+  } = options;
 
   if (!mysqlPool) {
     throw new Error('@openagenda/auth: mysqlPool is required');
   }
+
+  const tables = {
+    user: schemas.user ?? 'user',
+    account: schemas.account ?? 'account',
+    verification: schemas.verification ?? 'verification',
+  };
 
   const instance = betterAuth({
     database: { dialect: new MysqlDialect({ pool: mysqlPool }), type: 'mysql' },
@@ -36,6 +49,7 @@ export default function Auth(options = {}) {
       },
     },
     account: {
+      modelName: tables.account,
       fields: {
         userId: 'user_id',
         accountId: 'account_id',
@@ -50,6 +64,7 @@ export default function Auth(options = {}) {
       },
     },
     verification: {
+      modelName: tables.verification,
       fields: {
         expiresAt: 'expires_at',
         createdAt: 'created_at',
@@ -60,6 +75,7 @@ export default function Auth(options = {}) {
       ? redisStorage({ client: redis, keyPrefix: '{better-auth}:' })
       : undefined,
     user: {
+      modelName: tables.user,
       fields: {
         name: 'full_name',
         emailVerified: 'is_activated',

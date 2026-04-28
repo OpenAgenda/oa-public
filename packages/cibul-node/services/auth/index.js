@@ -2,6 +2,8 @@ import mysql from 'mysql2';
 import Auth from '@openagenda/auth';
 
 export async function init(config, services) {
+  const { schemas } = config;
+
   const mysqlPool = mysql.createPool({
     ...config.db,
     waitForConnections: true,
@@ -13,6 +15,11 @@ export async function init(config, services) {
     redis: services.redis,
     secret: config.auth.secret,
     baseURL: config.root,
+    schemas: {
+      user: schemas.user,
+      account: schemas.account,
+      verification: schemas.verification,
+    },
   });
 
   return Object.assign(auth, {
