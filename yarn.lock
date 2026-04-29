@@ -10661,6 +10661,7 @@ __metadata:
   resolution: "@openagenda/auth@workspace:packages/auth"
   dependencies:
     "@better-auth/redis-storage": "npm:^1.6.9"
+    "@jest/globals": "npm:^29.7.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     argon2: "npm:^0.44.0"
     better-auth: "npm:^1.6.9"

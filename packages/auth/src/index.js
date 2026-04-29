@@ -3,6 +3,8 @@ import { toNodeHandler } from 'better-auth/node';
 import { redisStorage } from '@better-auth/redis-storage';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
+import createCredentialHelpers from './internalAccount.js';
+import { encodeLegacy } from './password.js';
 
 export default function Auth(options = {}) {
   const {
@@ -100,10 +102,16 @@ export default function Auth(options = {}) {
     },
   });
 
+  const { upsertCredentialAccount, updateCredentialPassword } = createCredentialHelpers(instance);
+
   return {
     instance,
     // Express-compatible handler — mount with `app.all('/api/auth/*', auth.nodeHandler)`.
     nodeHandler: toNodeHandler(instance),
     api: instance.api,
+    // Mirror legacy OA password writes into `account.password` (phase 2a).
+    encodeLegacyPassword: encodeLegacy,
+    upsertCredentialAccount,
+    updateCredentialPassword,
   };
 }
