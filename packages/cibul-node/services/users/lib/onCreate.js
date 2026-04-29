@@ -13,7 +13,7 @@ export default function onCreate(config, services) {
       return context;
     }
 
-    if (optionals.invitation) {
+    if (optionals?.invitation) {
       const { invitation } = await invitationsSvc.get({
         token: optionals.invitation,
       });

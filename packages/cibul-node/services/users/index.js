@@ -17,6 +17,7 @@ import allowSuperAdmin from './middleware/allowSuperAdmin.js';
 import verifyTransverseApiAccess from './middleware/verifyTransverseApiAccess.js';
 import verifyHeadersPassword from './middleware/verifyHeadersPassword.js';
 import svcHooks from './hooks/index.js';
+import dualWriteLegacyPasswordHooks from './hooks/dualWriteLegacyPassword.js';
 import notifyAndRemove from './tasks/notifyAndRemove.js';
 import anonymizeDeletedUser from './tasks/anonymizeDeletedUser.js';
 import plugApp from './plugApp.js';
@@ -112,6 +113,9 @@ export async function init(config, services) {
 
   hooks(service, [replaceIdMe()]);
   hooks(service, svcHooks);
+  if (services.auth) {
+    hooks(service, dualWriteLegacyPasswordHooks());
+  }
 
   service.mw = {
     loadBySessionOrKey,
