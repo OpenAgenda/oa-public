@@ -104,10 +104,6 @@ export default function Auth(options = {}) {
       // defaults to false when secondaryStorage is provided — no DB writes.
       expiresIn: 60 * 60 * 24 * 7,
       updateAge: 60 * 60 * 24,
-      cookieCache: {
-        enabled: true,
-        maxAge: 300,
-      },
     },
     account: {
       modelName: tables.account,
