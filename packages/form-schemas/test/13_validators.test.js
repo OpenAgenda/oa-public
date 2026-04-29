@@ -99,6 +99,36 @@ describe('file validator', () => {
       variants: [],
     });
   });
+
+  it('rejects a file whose extension is not in the allowed extensions', () => {
+    const validate = fileValidator({
+      field: 'questions-ouvertes',
+      optional: false,
+      extensions: ['doc', 'docx'],
+    });
+
+    expect(() =>
+      validate({
+        originalName: 'sneaky.pdf',
+        extension: 'pdf',
+        filename: 'uniquefilekey.questions-ouvertes.pdf',
+      })).toThrow();
+  });
+
+  it('accepts a file whose extension is in the allowed extensions', () => {
+    const validate = fileValidator({
+      field: 'questions-ouvertes',
+      optional: false,
+      extensions: ['doc', 'docx'],
+    });
+
+    expect(() =>
+      validate({
+        originalName: 'project.docx',
+        extension: 'docx',
+        filename: 'uniquefilekey.questions-ouvertes.docx',
+      })).not.toThrow();
+  });
 });
 
 describe('deriving validators', () => {

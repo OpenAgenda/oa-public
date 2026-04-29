@@ -19,6 +19,15 @@ const tooBigError = (field = null, maxSize = 20 * 1024 * 1024) => [
   },
 ];
 
+const invalidExtensionError = (field = null, extensions = []) => [
+  {
+    code: 'file.invalidExtension',
+    message: 'File extension is not allowed',
+    field,
+    extensions,
+  },
+];
+
 schema.register({
   text: textValidator,
   link: linkValidator,
@@ -89,6 +98,16 @@ export default (validatorOptions = {}) =>
 
     if (maxSize && v.fileSize > maxSize) {
       throw tooBigError(validatorOptions?.field, maxSize);
+    }
+
+    const allowedExtensions = validatorOptions?.extensions;
+    if (allowedExtensions?.length && v.extension) {
+      const normalized = String(v.extension).toLowerCase();
+      const normalizedAllowed = allowedExtensions.map((e) =>
+        String(e).toLowerCase());
+      if (!normalizedAllowed.includes(normalized)) {
+        throw invalidExtensionError(validatorOptions?.field, allowedExtensions);
+      }
     }
 
     const fields = {

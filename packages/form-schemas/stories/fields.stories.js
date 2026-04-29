@@ -888,6 +888,58 @@ export function FileUploadField() {
   );
 }
 
+export function FileUploadFieldRestrictedExtensions() {
+  // Bug repro: schema restricts the field to .doc/.docx but fileValidator
+  // (client/src/iso/fileValidator.js) never reads `extensions`. A pre-existing
+  // .pdf value passes sanitize/submit, so the event/form is accepted.
+  const props = {
+    lang: 'fr',
+    fileKey: 'uniquefilekey123',
+    values: {
+      'questions-ouvertes': {
+        originalName: 'sneaky.pdf',
+        extension: 'pdf',
+        filename: 'uniquefilekey123.questions-ouvertes.pdf',
+      },
+    },
+    onSubmit: ({ values }) =>
+      alert(`Submission accepted:\n${JSON.stringify(values, null, 2)}`),
+    schema: {
+      fields: [
+        {
+          field: 'questions-ouvertes',
+          fieldType: 'file',
+          optional: false,
+          extensions: ['doc', 'docx'],
+          store: {
+            type: 's3',
+            bucket: 'dev',
+          },
+          label: 'Questions ouvertes',
+          info: 'Charger un document au format Word (.doc)',
+        },
+      ],
+    },
+  };
+
+  return (
+    <div className="container top-margined">
+      <div className="row">
+        <div className="wsq col-lg-5 col-lg-offset-1">
+          <div className="margin-v-md margin-h-sm">
+            <p>
+              Field restricted to <code>.doc</code> / <code>.docx</code>, but
+              the form is pre-loaded with a <code>.pdf</code> value. Click
+              submit: it goes through despite the schema constraint.
+            </p>
+            <FormSchemaComponent {...props} onChange={() => {}} />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function ImageUploadField() {
   const props = {
     res: {
