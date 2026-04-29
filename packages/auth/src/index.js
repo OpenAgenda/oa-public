@@ -102,7 +102,12 @@ export default function Auth(options = {}) {
     },
   });
 
-  const { upsertCredentialAccount, updateCredentialPassword } = createCredentialHelpers(instance);
+  const {
+    upsertCredentialAccount,
+    updateCredentialPassword,
+    deleteCredentialAccount,
+    revokeUserSessions,
+  } = createCredentialHelpers(instance);
 
   return {
     instance,
@@ -113,5 +118,7 @@ export default function Auth(options = {}) {
     encodeLegacyPassword: encodeLegacy,
     upsertCredentialAccount,
     updateCredentialPassword,
+    deleteCredentialAccount,
+    revokeUserSessions,
   };
 }

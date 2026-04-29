@@ -75,4 +75,49 @@ describe('auth - unit: credential helpers', () => {
 
     expect(adapter.updatePassword).toHaveBeenCalledWith(7, 'enc');
   });
+
+  it('deleteCredentialAccount only deletes credential rows', async () => {
+    const adapter = {
+      findAccountByUserId: jest.fn().mockResolvedValue([
+        { id: 'cred-1', providerId: 'credential' },
+        { id: 'goog-1', providerId: 'google' },
+      ]),
+      deleteAccount: jest.fn().mockResolvedValue(undefined),
+    };
+    const { deleteCredentialAccount } = createCredentialHelpers(
+      fakeInstance(adapter),
+    );
+
+    await deleteCredentialAccount(42);
+
+    expect(adapter.deleteAccount).toHaveBeenCalledTimes(1);
+    expect(adapter.deleteAccount).toHaveBeenCalledWith('cred-1');
+  });
+
+  it('deleteCredentialAccount is a no-op when no credential row exists', async () => {
+    const adapter = {
+      findAccountByUserId: jest
+        .fn()
+        .mockResolvedValue([{ id: 'goog-1', providerId: 'google' }]),
+      deleteAccount: jest.fn(),
+    };
+    const { deleteCredentialAccount } = createCredentialHelpers(
+      fakeInstance(adapter),
+    );
+
+    await deleteCredentialAccount(42);
+
+    expect(adapter.deleteAccount).not.toHaveBeenCalled();
+  });
+
+  it('revokeUserSessions delegates to deleteSessions with the userId as string', async () => {
+    const adapter = { deleteSessions: jest.fn().mockResolvedValue(undefined) };
+    const { revokeUserSessions } = createCredentialHelpers(
+      fakeInstance(adapter),
+    );
+
+    await revokeUserSessions(99);
+
+    expect(adapter.deleteSessions).toHaveBeenCalledWith('99');
+  });
 });
