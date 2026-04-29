@@ -1,8 +1,8 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
 ARG DOCKER_USER_ID
 ARG DOCKER_USER_GROUP_ID
-ENV HOME /root
+ENV HOME=/root
 
 RUN apt-get update -y \
     && apt-get install -y apt-utils apt-transport-https ca-certificates curl gnupg ssh
@@ -25,11 +25,16 @@ WORKDIR /root
 
 RUN chmod -R a+rwX /root
 
+# SQLite writes WAL/journal/shm files alongside the DB. The compose
+# bind-mounts the DB at /home/strapiuser/db.sqlite — pre-create the parent
+# dir owned by the build-time UID so the unprivileged container user can
+# create those side files (otherwise the dir is root:root 755 and SQLite
+# reports the misleading "readonly database" error).
+RUN mkdir -p /home/strapiuser \
+    && chown ${DOCKER_USER_ID}:${DOCKER_USER_GROUP_ID} /home/strapiuser
+
 COPY packages/strapi/yarn.lock-workspace yarn.lock
 COPY packages/strapi/package.json package.json
-
-RUN groupadd -g ${DOCKER_USER_GROUP_ID} strapigroup
-RUN useradd -m -u ${DOCKER_USER_ID} -g ${DOCKER_USER_GROUP_ID} strapiuser
 
 USER ${DOCKER_USER_ID}:${DOCKER_USER_GROUP_ID}
 
