@@ -88,5 +88,9 @@ module.exports = {
     "oc": "Suprimir",
     "nl": "Verwijderen",
     "br": "Lemel"
+  },
+  "invalidExtension": {
+    "en": "This file type is not allowed",
+    "fr": "Ce type de fichier n'est pas autorisé"
   }
 }
