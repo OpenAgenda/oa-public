@@ -7,14 +7,9 @@ function closeByUid(config, uid) {
 async function close(config, request) {
   const { user: cookieUser, sessionId } = cleanSession(request.session);
 
-  if (!cookieUser) {
-    return {
-      success: false,
-      errors: [{ code: 'user.notfound' }],
-    };
+  if (cookieUser) {
+    await closeByUid(config, cookieUser.uid);
   }
-
-  await closeByUid(config, cookieUser.uid);
 
   request.session = sessionId ? { sessionId } : null;
 
