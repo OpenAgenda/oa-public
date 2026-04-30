@@ -86,11 +86,13 @@ export default (validatorOptions = {}) =>
       ? true
       : validatorOptions?.optional;
 
-    if (!optional && !v) {
+    const isEmpty = !v || isEmptyObject(v);
+
+    if (!optional && isEmpty) {
       throw requiredError(validatorOptions?.field);
     }
 
-    if (!v) {
+    if (isEmpty) {
       return null;
     }
 
