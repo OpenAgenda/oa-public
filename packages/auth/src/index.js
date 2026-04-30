@@ -15,15 +15,10 @@ import {
 export function toHeaders(req, prevResponse) {
   const headers = fromNodeHeaders(req.headers);
   if (prevResponse) {
-    const setCookies = typeof prevResponse.headers.getSetCookie === 'function'
-      ? prevResponse.headers.getSetCookie()
-      : [prevResponse.headers.get('set-cookie')].filter(Boolean);
+    const setCookies = prevResponse.headers.getSetCookie();
     if (setCookies.length) {
       const incoming = headers.get('cookie') || '';
-      const fromSet = setCookies
-        .map((sc) => sc.split(';')[0])
-        .filter(Boolean)
-        .join('; ');
+      const fromSet = setCookies.map((sc) => sc.split(';')[0]).join('; ');
       headers.set('cookie', incoming ? `${incoming}; ${fromSet}` : fromSet);
     }
   }
@@ -31,14 +26,10 @@ export function toHeaders(req, prevResponse) {
 }
 
 export function forwardSetCookieHeaders(response, res) {
-  if (!response || !response.headers) return;
-  const cookies = typeof response.headers.getSetCookie === 'function'
-    ? response.headers.getSetCookie()
-    : [response.headers.get('set-cookie')].filter(Boolean);
+  const cookies = response.headers.getSetCookie();
   if (!cookies.length) return;
   const existing = res.getHeader('Set-Cookie');
-  const merged = [].concat(existing || []).concat(cookies);
-  res.setHeader('Set-Cookie', merged);
+  res.setHeader('Set-Cookie', [].concat(existing ?? []).concat(cookies));
 }
 
 export default function Auth(options = {}) {
