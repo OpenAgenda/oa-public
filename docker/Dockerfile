@@ -1,6 +1,6 @@
-FROM ubuntu:20.04
+FROM ubuntu:24.04
 
-ENV HOME /root
+ENV HOME=/root
 
 RUN apt-get update -y \
     && apt-get install -y apt-utils apt-transport-https ca-certificates curl gnupg ssh
@@ -23,7 +23,7 @@ RUN corepack enable \
 
 RUN mkdir -p /root/.ssh \
     && touch /root/.ssh/known_hosts \
-    && ssh-keyscan github.com >> /root/.ssh/known_hosts
+    && ssh-keyscan -4 github.com >> /root/.ssh/known_hosts
 
 ENV NPM_TOKEN=""
 

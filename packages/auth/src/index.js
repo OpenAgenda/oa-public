@@ -1,10 +1,16 @@
 import { betterAuth } from 'better-auth';
 import { toNodeHandler } from 'better-auth/node';
+import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { redisStorage } from '@better-auth/redis-storage';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createCredentialHelpers from './internalAccount.js';
-import { encodeLegacy } from './password.js';
+import {
+  encodeLegacy,
+  hash as hashPassword,
+  verify as verifyPassword,
+  isLegacy,
+} from './password.js';
 
 export default function Auth(options = {}) {
   const {
@@ -39,16 +45,65 @@ export default function Auth(options = {}) {
     },
     emailAndPassword: {
       enabled: true,
+      // Custom argon2id hash for new credentials, multi-format verify that
+      // also accepts the legacy sentinel formats written by phase 2a + the
+      // backfill migration. New writes go to argon2id; existing legacy rows
+      // stay readable until the lazy-rehash hook below rotates them.
+      password: {
+        hash: hashPassword,
+        verify: verifyPassword,
+      },
+    },
+    hooks: {
+      // Block sign-in for soft-removed or blacklisted users. Phase 2.5 deletes
+      // the credential row on remove (so removed users fail naturally) and
+      // revokes sessions on blacklist (but keeps the row, since blacklist is
+      // reversible). Without this guard, a blacklisted user could re-signin.
+      // TODO(phase 4): when OAuth lands, also enforce this on the OAuth
+      // callback (`/callback/:provider`) — `/sign-in/social` only triggers
+      // a redirect, the user is loaded/linked on the callback.
+      before: createAuthMiddleware(async (ctx) => {
+        if (ctx.path !== '/sign-in/email') return;
+        const email = ctx.body?.email;
+        if (typeof email !== 'string') return;
+        const found = await ctx.context.internalAdapter.findUserByEmail(email);
+        const user = found?.user;
+        if (user && (user.isRemoved || user.isBlacklisted)) {
+          throw new APIError('UNAUTHORIZED', {
+            code: 'INVALID_EMAIL_OR_PASSWORD',
+            message: 'Invalid email or password',
+          });
+        }
+      }),
+      // Lazy-rehash: on a successful sign-in, if the stored hash is one of
+      // the legacy sentinel formats, rewrite it to argon2id. Errors are
+      // swallowed — the user is already signed in, the rehash will retry on
+      // the next sign-in, and the backfill migration is the source of truth.
+      after: createAuthMiddleware(async (ctx) => {
+        if (ctx.path !== '/sign-in/email') return;
+        const { newSession } = ctx.context;
+        if (!newSession) return;
+        const userId = newSession.user.id;
+        try {
+          const accounts = await ctx.context.internalAdapter.findAccountByUserId(userId);
+          const credential = accounts.find(
+            (a) => a.providerId === 'credential',
+          );
+          if (!credential?.password || !isLegacy(credential.password)) return;
+          // internalAdapter.updatePassword writes the value directly; we must
+          // hash here. ctx.context.password.hash mirrors our custom hash.
+          const newHash = await ctx.context.password.hash(ctx.body.password);
+          await ctx.context.internalAdapter.updatePassword(userId, newHash);
+        } catch (err) {
+          ctx.context.logger?.error?.('lazy rehash failed', { userId, err });
+        }
+      }),
     },
     session: {
       // Sessions live in Redis (secondaryStorage). storeSessionInDatabase
       // defaults to false when secondaryStorage is provided — no DB writes.
       expiresIn: 60 * 60 * 24 * 7,
       updateAge: 60 * 60 * 24,
-      cookieCache: {
-        enabled: true,
-        maxAge: 300,
-      },
     },
     account: {
       modelName: tables.account,
@@ -97,6 +152,22 @@ export default function Auth(options = {}) {
           input: false,
           returned: false,
           defaultValue: '',
+        },
+        // Surfaced so the sign-in guard (hooks.before) can read them off the
+        // user object returned by `internalAdapter.findUserByEmail`.
+        isRemoved: {
+          type: 'boolean',
+          fieldName: 'is_removed',
+          input: false,
+          returned: false,
+          defaultValue: false,
+        },
+        isBlacklisted: {
+          type: 'boolean',
+          fieldName: 'is_blacklisted',
+          input: false,
+          returned: false,
+          defaultValue: false,
         },
       },
     },
