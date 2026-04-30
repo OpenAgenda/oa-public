@@ -1,5 +1,5 @@
 import { betterAuth } from 'better-auth';
-import { toNodeHandler } from 'better-auth/node';
+import { toNodeHandler, fromNodeHeaders } from 'better-auth/node';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { redisStorage } from '@better-auth/redis-storage';
 import { MysqlDialect } from 'kysely';
@@ -12,6 +12,26 @@ import {
   isLegacy,
 } from './password.js';
 
+export function toHeaders(req, prevResponse) {
+  const headers = fromNodeHeaders(req.headers);
+  if (prevResponse) {
+    const setCookies = prevResponse.headers.getSetCookie();
+    if (setCookies.length) {
+      const incoming = headers.get('cookie') || '';
+      const fromSet = setCookies.map((sc) => sc.split(';')[0]).join('; ');
+      headers.set('cookie', incoming ? `${incoming}; ${fromSet}` : fromSet);
+    }
+  }
+  return headers;
+}
+
+export function forwardSetCookieHeaders(response, res) {
+  const cookies = response.headers.getSetCookie();
+  if (!cookies.length) return;
+  const existing = res.getHeader('Set-Cookie');
+  res.setHeader('Set-Cookie', [].concat(existing ?? []).concat(cookies));
+}
+
 export default function Auth(options = {}) {
   const {
     mysqlPool,
@@ -20,6 +40,7 @@ export default function Auth(options = {}) {
     secret,
     baseURL,
     schemas = {},
+    onEmailVerified,
   } = options;
 
   if (!mysqlPool) {
@@ -105,6 +126,13 @@ export default function Auth(options = {}) {
       expiresIn: 60 * 60 * 24 * 7,
       updateAge: 60 * 60 * 24,
     },
+    emailVerification: {
+      afterEmailVerification: async (user, request) => {
+        if (typeof onEmailVerified === 'function') {
+          await onEmailVerified(user, request);
+        }
+      },
+    },
     account: {
       modelName: tables.account,
       fields: {
@@ -180,6 +208,10 @@ export default function Auth(options = {}) {
     revokeUserSessions,
   } = createCredentialHelpers(instance);
 
+  async function getSessionFromRequest(req) {
+    return instance.api.getSession({ headers: toHeaders(req) });
+  }
+
   return {
     instance,
     // Express-compatible handler — mount with `app.all('/api/auth/*', auth.nodeHandler)`.
@@ -191,5 +223,11 @@ export default function Auth(options = {}) {
     updateCredentialPassword,
     deleteCredentialAccount,
     revokeUserSessions,
+    // Helpers exposed for Express integration (phase 3).
+    toHeaders,
+    forwardSetCookieHeaders,
+    getSessionFromRequest,
   };
 }
+
+export { toNodeHandler, fromNodeHeaders };

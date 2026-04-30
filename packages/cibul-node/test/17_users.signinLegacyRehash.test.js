@@ -2,6 +2,7 @@ import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
+import { getCredentialAccount } from './helpers/account.js';
 
 const enabled = [
   'knex',
@@ -34,15 +35,6 @@ const enabled = [
   'genUrl',
   'errors',
 ];
-
-async function getCredentialAccount(knex, userId) {
-  return knex(testConfig.schemas.account)
-    .where({
-      provider_id: 'credential',
-      account_id: String(userId),
-    })
-    .first();
-}
 
 describe('17 - services.users sign-in legacy rehash + guard (phase 2b)', () => {
   let core;
@@ -84,20 +76,32 @@ describe('17 - services.users sign-in legacy rehash + guard (phase 2b)', () => {
         { internal: true, detailed: true },
       );
 
-      const before = await getCredentialAccount(knex, user.id);
+      const before = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(before.password.startsWith('legacy-sha256$')).toBe(true);
 
       const res = await auth.api.signInEmail({ body: { email, password } });
       expect(res.token).toBeTruthy();
 
-      const after = await getCredentialAccount(knex, user.id);
+      const after = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(after.password.startsWith('$argon2id$')).toBe(true);
 
       // A second sign-in still works (verify accepts argon2id) and the hash
       // is not rotated again.
       const res2 = await auth.api.signInEmail({ body: { email, password } });
       expect(res2.token).toBeTruthy();
-      const after2 = await getCredentialAccount(knex, user.id);
+      const after2 = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(after2.password).toBe(after.password);
     });
 
@@ -116,7 +120,7 @@ describe('17 - services.users sign-in legacy rehash + guard (phase 2b)', () => {
 
       await expect(
         auth.api.signInEmail({ body: { email, password: 'nope' } }),
-      ).rejects.toThrow();
+      ).rejects.toThrow(/INVALID_EMAIL_OR_PASSWORD|Invalid email or password/i);
     });
 
     it('rejects sign-in for a blacklisted user even with the right password', async () => {
@@ -143,7 +147,11 @@ describe('17 - services.users sign-in legacy rehash + guard (phase 2b)', () => {
 
       // The guard ran before sign-in completed, so no rehash should have
       // happened.
-      const account = await getCredentialAccount(knex, user.id);
+      const account = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(account.password.startsWith('legacy-sha256$')).toBe(true);
     });
 
@@ -166,7 +174,7 @@ describe('17 - services.users sign-in legacy rehash + guard (phase 2b)', () => {
 
       await expect(
         auth.api.signInEmail({ body: { email, password } }),
-      ).rejects.toThrow();
+      ).rejects.toThrow(/INVALID_EMAIL_OR_PASSWORD|Invalid email or password/i);
     });
   });
 });

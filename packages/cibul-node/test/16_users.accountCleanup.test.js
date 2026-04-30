@@ -2,6 +2,7 @@ import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
+import { getCredentialAccount } from './helpers/account.js';
 
 const enabled = [
   'knex',
@@ -36,15 +37,6 @@ const enabled = [
 ];
 
 const KEY_PREFIX = '{better-auth}:';
-
-async function getCredentialAccount(knex, userId) {
-  return knex(testConfig.schemas.account)
-    .where({
-      provider_id: 'credential',
-      account_id: String(userId),
-    })
-    .first();
-}
 
 async function seedFakeSession(redis, userId, token = 'fake-token') {
   const expiresAt = Date.now() + 60_000;
@@ -98,12 +90,20 @@ describe('16 - services.users account cleanup (phase 2.5)', () => {
       );
 
       // Sanity: phase 2a wrote the row.
-      const beforeRow = await getCredentialAccount(knex, user.id);
+      const beforeRow = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(beforeRow).toBeTruthy();
 
       await usersSvc.remove(user.uid);
 
-      const afterRow = await getCredentialAccount(knex, user.id);
+      const afterRow = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(afterRow).toBeUndefined();
 
       // Sanity: the user is soft-removed (the actual user row stays).
@@ -146,7 +146,9 @@ describe('16 - services.users account cleanup (phase 2.5)', () => {
       );
 
       // Pre-condition: phase 2a never wrote a credential row.
-      expect(await getCredentialAccount(knex, user.id)).toBeUndefined();
+      expect(
+        await getCredentialAccount(knex, user.id, testConfig.schemas),
+      ).toBeUndefined();
 
       await expect(usersSvc.remove(user.uid)).resolves.toBeDefined();
 
@@ -177,7 +179,11 @@ describe('16 - services.users account cleanup (phase 2.5)', () => {
       );
 
       // Account row preserved (blacklist is reversible).
-      const account = await getCredentialAccount(knex, user.id);
+      const account = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(account).toBeTruthy();
 
       // Sessions purged.
@@ -242,7 +248,11 @@ describe('16 - services.users account cleanup (phase 2.5)', () => {
         { internal: true },
       );
 
-      const account = await getCredentialAccount(knex, user.id);
+      const account = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(account).toBeTruthy();
 
       expect(
