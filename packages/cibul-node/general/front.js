@@ -62,18 +62,32 @@ function start(req, res) {
 }
 
 export default (app) => {
-  const { sessions } = app.services;
+  const { sessions, auth } = app.services;
 
   app.get(
     '/signout',
     preMw,
-    sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
     (req, res, next) => {
       if (req.cookies.loggedAs) {
         const sessionId = req.session?.sessionId;
         req.session = sessionId ? { sessionId } : null;
         res.clearCookie('loggedAs');
         return res.redirect(302, '/');
+      }
+      next();
+    },
+    async (req, res, next) => {
+      if (auth) {
+        try {
+          const out = await auth.api.signOut({
+            headers: auth.toHeaders(req),
+            asResponse: true,
+          });
+          auth.forwardSetCookieHeaders(out, res);
+        } catch (_err) {
+          // log+swallow: legacy cookie-session close below is the source of
+          // truth and a missed better-auth signOut never blocks the redirect.
+        }
       }
       next();
     },

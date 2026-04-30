@@ -3,6 +3,7 @@ import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
+import { getCredentialAccount } from './helpers/account.js';
 
 const enabled = [
   'knex',
@@ -41,15 +42,6 @@ function sha256Hex(salt, password) {
     .createHash('sha256')
     .update((salt ?? '') + password, 'utf-8')
     .digest('hex');
-}
-
-async function getCredentialAccount(knex, userId) {
-  return knex(testConfig.schemas.account)
-    .where({
-      provider_id: 'credential',
-      account_id: String(userId),
-    })
-    .first();
 }
 
 describe('15 - services.users dual-write legacy password (phase 2a)', () => {
@@ -95,7 +87,11 @@ describe('15 - services.users dual-write legacy password (phase 2a)', () => {
     });
 
     it('writes the matching credential account row', async () => {
-      const account = await getCredentialAccount(knex, user.id);
+      const account = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(account).toBeTruthy();
       expect(account.provider_id).toBe('credential');
       expect(account.account_id).toBe(String(user.id));
@@ -104,7 +100,11 @@ describe('15 - services.users dual-write legacy password (phase 2a)', () => {
     });
 
     it('encodes the password as `legacy-sha256$salt$sha256(salt+pwd)`', async () => {
-      const account = await getCredentialAccount(knex, user.id);
+      const account = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       const expectedHex = sha256Hex(user.salt, 'plainPwd-create');
       expect(account.password).toBe(
         services.auth.encodeLegacyPassword('sha256', user.salt, expectedHex),
@@ -139,13 +139,12 @@ describe('15 - services.users dual-write legacy password (phase 2a)', () => {
       );
     });
 
-    it('seeds an initial credential row from create', async () => {
-      const account = await getCredentialAccount(knex, user.id);
-      expect(account).toBeTruthy();
-    });
-
     it('updates the existing credential row in place (no duplicates)', async () => {
-      const before = await getCredentialAccount(knex, user.id);
+      const before = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
 
       await usersSvc.changePassword(user.uid, {
         password: 'newPwd-change',
@@ -190,7 +189,11 @@ describe('15 - services.users dual-write legacy password (phase 2a)', () => {
 
       await usersSvc.patch(user.uid, { password: hex }, { internal: true });
 
-      const account = await getCredentialAccount(knex, user.id);
+      const account = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(account).toBeTruthy();
       expect(account.password).toBe(`legacy-sha256$${user.salt}$${hex}`);
     });
@@ -213,7 +216,7 @@ describe('15 - services.users dual-write legacy password (phase 2a)', () => {
           detailed: true,
         },
       );
-      beforeRow = await getCredentialAccount(knex, user.id);
+      beforeRow = await getCredentialAccount(knex, user.id, testConfig.schemas);
     });
 
     it('does not touch the credential row when patch has no password', async () => {
@@ -223,7 +226,11 @@ describe('15 - services.users dual-write legacy password (phase 2a)', () => {
         { internal: true },
       );
 
-      const after = await getCredentialAccount(knex, user.id);
+      const after = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(after).toBeTruthy();
       expect(after.password).toBe(beforeRow.password);
       expect(String(after.id)).toBe(String(beforeRow.id));
@@ -253,7 +260,11 @@ describe('15 - services.users dual-write legacy password (phase 2a)', () => {
         .first();
       expect(dbUser.salt).toBeTruthy();
 
-      const account = await getCredentialAccount(knex, result.id);
+      const account = await getCredentialAccount(
+        knex,
+        result.id,
+        testConfig.schemas,
+      );
       expect(account).toBeTruthy();
       const expectedHex = sha256Hex(dbUser.salt, 'externalPwd');
       expect(account.password).toBe(
@@ -278,7 +289,11 @@ describe('15 - services.users dual-write legacy password (phase 2a)', () => {
       );
 
       expect(user).toBeTruthy();
-      const account = await getCredentialAccount(knex, user.id);
+      const account = await getCredentialAccount(
+        knex,
+        user.id,
+        testConfig.schemas,
+      );
       expect(account).toBeUndefined();
     });
   });

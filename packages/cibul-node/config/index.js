@@ -216,6 +216,7 @@ const config = {
       prod.auth?.secret
       ?? process.env.OA_AUTH_SECRET
       ?? (prod.session ? prod.session.secret : process.env.OA_SESSION_SECRET),
+    trustedOrigins: prod.auth?.trustedOrigins ?? [],
     facebook:
       prod.facebook?.appId ?? process.env.OA_FACEBOOK_ID
         ? {
