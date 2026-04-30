@@ -84,8 +84,7 @@ module.exports = [
     field: 'countryCode',
     db: 'country',
     optional: false,
-    fieldType: 'text',
-    max: 2,
+    fieldType: 'countryCode',
     read: [
       'internal',
       'public',
@@ -95,8 +94,6 @@ module.exports = [
       'terms',
     ],
     write: ['internal', 'administrator', 'moderator', 'contributor'],
-    rejectEmojis: true,
-    sanitizeEncoding: 'utf8mb3',
     label: labels.countryCode,
   },
   {

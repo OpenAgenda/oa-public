@@ -9,6 +9,7 @@ import extensionsToAccept from '../lib/extensionsToAccept.js';
 export default class FileField extends Component {
   constructor(props) {
     super(props);
+    this.state = { rejected: false };
     this.onRemove = this.onRemove.bind(this);
     this.onDrop = this.onDrop.bind(this);
     this.hasValue = this.hasValue.bind(this);
@@ -16,11 +17,19 @@ export default class FileField extends Component {
 
   onRemove() {
     const { onChange } = this.props;
+    this.setState({ rejected: false });
     onChange(null);
   }
 
-  onDrop(acceptedFiles, _rejectedFiles) {
+  onDrop(acceptedFiles, rejectedFiles) {
     const { onChange } = this.props;
+    if (!acceptedFiles.length) {
+      if (rejectedFiles.length) {
+        this.setState({ rejected: true });
+      }
+      return;
+    }
+    this.setState({ rejected: false });
     onChange(
       {
         originalName: _.get(acceptedFiles, '0.name'),
@@ -35,6 +44,7 @@ export default class FileField extends Component {
 
   render() {
     const { field, lang, value } = this.props;
+    const { rejected } = this.state;
 
     const labels = flattenLabels(multilingualLabels, lang);
 
@@ -74,6 +84,11 @@ export default class FileField extends Component {
                 {labels.acceptedExtensions}:&nbsp; .
                 {[].concat(extensions).join(', .')}
               </span>
+              {rejected && (
+                <div className="text-danger margin-top-xs" role="alert">
+                  {labels.invalidExtension}
+                </div>
+              )}
             </div>
           )}
         </Dropzone>

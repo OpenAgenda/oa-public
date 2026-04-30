@@ -102,8 +102,8 @@ const config = {
       10,
     ),
     pool: {
+      min: parseInt(process.env.MYSQL_POOL_MIN ?? '2', 10),
       max: parseInt(process.env.MYSQL_POOL_MAX ?? '10', 10),
-      min: parseInt(process.env.MYSQL_POOL_MIN ?? '10', 10),
     },
   },
   db: {
@@ -177,6 +177,8 @@ const config = {
     stakeholder: 'reviewer',
     user: 'user',
     userToken: 'user_token',
+    account: 'account',
+    verification: 'verification',
     invitation: 'invitation_2', // new invitation
     feed: 'activity_feed',
     feed_activity: 'activity_feed_activity',
@@ -210,6 +212,11 @@ const config = {
       process.env.OA_MT_CAPTCHA_PRIVATE_KEY ?? prod.mtCaptcha?.privateKey,
   },
   auth: {
+    secret:
+      prod.auth?.secret
+      ?? process.env.OA_AUTH_SECRET
+      ?? (prod.session ? prod.session.secret : process.env.OA_SESSION_SECRET),
+    trustedOrigins: prod.auth?.trustedOrigins ?? [],
     facebook:
       prod.facebook?.appId ?? process.env.OA_FACEBOOK_ID
         ? {

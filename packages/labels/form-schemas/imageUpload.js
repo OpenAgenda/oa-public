@@ -99,5 +99,9 @@ module.exports = {
     "oc": "Fichièrs acceptats",
     "nl": "akzeptiert Dateien",
     "br": "Restroù degemeret"
+  },
+  "invalidExtension": {
+    "en": "This file type is not allowed",
+    "fr": "Ce type de fichier n'est pas autorisé"
   }
 }

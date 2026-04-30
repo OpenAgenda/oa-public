@@ -20,6 +20,7 @@ import rateLimiter from '../lib/rateLimiter.js';
 import * as auth from './lib/auth.js';
 import { wantsJson } from './lib/utils.js';
 import loadCaptcha from './lib/captcha.js';
+import betterAuthSignin from './lib/betterAuthSignin.js';
 
 const log = logs('auth/local');
 
@@ -61,65 +62,106 @@ function redirectToContribute(req, res) {
   res.redirect(302, `/${req.agenda.slug}/contribute`);
 }
 
-function signinSubmit(req, res, next) {
+function signinError(req, res, err, logBundle) {
+  log.info('signin attempt failed', { ...logBundle, error: err });
+
+  const passwordMsg = getErrorLabel('incorrectCredentials', req.lang)
+    || getLabel('incorrectPassword', req.lang);
+
+  const values = {
+    req,
+    res,
+    err,
+    user: null,
+    data: {
+      ...req.body,
+      errors: { password: passwordMsg },
+    },
+  };
+
+  return auth.renderSignin(values);
+}
+
+async function signinSubmit(req, res) {
   const logBundle = {
     ip: req.ip,
     agenda: _.pick(req.agenda, ['slug', 'title', 'uid']),
     email: req.body.email,
   };
   log.info('signin attempt', logBundle);
-  passport.authenticate(
-    'local-signin',
-    {
-      badRequestMessage: getLabel('incorrectPassword', req.lang),
-    },
-    (err, user, data) => {
-      if (err) {
-        log.info('signin attempt failed', {
-          ...logBundle,
-          error: err,
-        });
-      }
 
-      new Promise((rs) => rs({ err, req, res, data, user }))
-        .then(
-          auth.ifUserLoaded(false, async (v) => {
-            if (v.err && v.err.name !== 'NotFound') {
-              log.info('signin attempt failed', {
-                ...logBundle,
-                error: v.err,
-              });
-            }
+  const { services } = req.app;
+  const { auth: authSvc, users } = services;
 
-            _.merge(v.data, v.req.body);
+  let result;
+  try {
+    result = await authSvc.api.signInEmail({
+      body: { email: req.body.email, password: req.body.password },
+      asResponse: true,
+    });
+  } catch (err) {
+    return signinError(req, res, err, logBundle);
+  }
 
-            // slow down a bruteforce
-            await new Promise((resolve) => setTimeout(resolve, 1000));
+  let session;
+  try {
+    session = await authSvc.api.getSession({
+      headers: authSvc.toHeaders(req, result),
+    });
+  } catch (err) {
+    log.warn('failed to read better-auth session after signin', { err });
+  }
 
-            return auth.renderSignin(v);
-          }),
-        )
-        .then(
-          auth.ifUserLoaded(
-            true,
-            auth.ifUserActivated(false, auth.redirectToResend),
-          ),
-        )
-        .then(auth.ifUserLoaded(true, auth.signin))
-        .then((v) => {
-          log.info(
-            'signin attempt %s',
-            v.data?.errors ? 'failed' : 'successful',
-            {
-              ...logBundle,
-              errors: v.data?.errors,
-            },
-          );
-          return v;
-        })
-        .then(auth.done, cmn.catchError(req, res, wantsJson(req)));
-    },
-  )(req, res, next);
+  if (!session?.user) {
+    return signinError(
+      req,
+      res,
+      new Error('session not established'),
+      logBundle,
+    );
+  }
+
+  let oaUser;
+  try {
+    oaUser = await users.findOne({
+      query: { id: session.user.id },
+      detailed: true,
+    });
+  } catch (err) {
+    log.error('failed to load OA user after signin', { err });
+    return cmn.catchError(req, res, wantsJson(req))(err);
+  }
+
+  if (!oaUser) {
+    return signinError(req, res, new Error('OA user not found'), logBundle);
+  }
+
+  if (!oaUser.isActivated) {
+    try {
+      const out = await authSvc.api.signOut({
+        headers: authSvc.toHeaders(req, result),
+        asResponse: true,
+      });
+      authSvc.forwardSetCookieHeaders(out, res);
+    } catch (err) {
+      log.warn('signOut after !isActivated failed', { err });
+    }
+    return auth.redirectToResend({ req, res, user: oaUser });
+  }
+
+  log.info('signin attempt successful', logBundle);
+
+  authSvc.forwardSetCookieHeaders(result, res);
+
+  return betterAuthSignin({
+    services,
+    req,
+    res,
+    email: req.body.email,
+    password: req.body.password,
+    oaUser,
+    result,
+  });
 }
 
 function passwordComplexity(values) {
@@ -263,6 +305,11 @@ function signupSubmit(req, res) {
     agenda: _.pick(req.agenda, ['slug', 'title', 'uid']),
   };
 
+  // Capture plaintext password locally before any downstream middleware can
+  // mutate req.body (Fix 2). Used to open a better-auth session after
+  // users.create when the resulting user is already activated.
+  const plaintextPassword = req.body.password;
+
   log.info('signup attempt', logBundle);
 
   new Promise((rs) => rs({ req, res, data: req.body }))
@@ -300,7 +347,7 @@ function signupSubmit(req, res) {
           {
             fullName: req.body.full_name,
             email: req.body.email,
-            password: req.body.password,
+            password: plaintextPassword,
             culture: req.body.culture || req.lang,
           },
           {
@@ -366,7 +413,24 @@ function signupSubmit(req, res) {
       auth.ifUserLoaded(true, auth.ifUserActivated(false, auth.signupSuccess)),
     )
 
-    .then(auth.ifUserLoaded(true, auth.ifUserActivated(true, auth.signin)))
+    .then(
+      auth.ifUserLoaded(
+        true,
+        auth.ifUserActivated(true, async (values) => {
+          if (values.resolved) return values;
+          values.resolved = true;
+          await betterAuthSignin({
+            services: values.req.app.services,
+            req: values.req,
+            res: values.res,
+            email: values.user.email,
+            password: plaintextPassword,
+            oaUser: values.user,
+          });
+          return values;
+        }),
+      ),
+    )
 
     .then(auth.ifUnresolved(pLoadCaptcha))
 

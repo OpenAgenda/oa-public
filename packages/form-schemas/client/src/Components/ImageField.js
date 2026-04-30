@@ -20,6 +20,7 @@ export default class ImageField extends Component {
 
     this.state = {
       preview: filename ? [storePaths(store), filename].join('/') : null,
+      rejected: false,
     };
 
     this.onDrop = this.onDrop.bind(this);
@@ -31,13 +32,21 @@ export default class ImageField extends Component {
 
     this.setState({
       preview: null,
+      rejected: false,
     });
 
     onChange(null);
   }
 
-  onDrop(acceptedFiles) {
+  onDrop(acceptedFiles, rejectedFiles = []) {
     const { onChange } = this.props;
+
+    if (!acceptedFiles.length) {
+      if (rejectedFiles.length) {
+        this.setState({ rejected: true });
+      }
+      return;
+    }
 
     const files = acceptedFiles.map((file) =>
       Object.assign(file, {
@@ -46,6 +55,7 @@ export default class ImageField extends Component {
 
     this.setState({
       preview: _.get(files, '0.preview'),
+      rejected: false,
     });
 
     onChange(
@@ -64,7 +74,7 @@ export default class ImageField extends Component {
 
     const { field: name, extensions } = field;
 
-    const { preview } = this.state;
+    const { preview, rejected } = this.state;
 
     return (
       <div className="file-upload">
@@ -107,6 +117,11 @@ export default class ImageField extends Component {
                 {labels.acceptedExtensions}:&nbsp; .
                 {[].concat(extensions).join(', .')}
               </span>
+              {rejected && (
+                <div className="text-danger margin-top-xs" role="alert">
+                  {labels.invalidExtension}
+                </div>
+              )}
             </div>
           )}
         </Dropzone>

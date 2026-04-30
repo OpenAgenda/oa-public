@@ -101,6 +101,25 @@ const testConfig = {
   },
   unsubscriptionsSecret: 'supersecretstring',
   superAdminUids: [838438477721],
+  auth: {
+    secret: 'test-auth-secret-do-not-use-in-prod',
+  },
+  root: 'http://localhost:8903',
+  session: {
+    name: 'oa',
+    writableName: 'oa.rw',
+    userCookieName: 'oa.user',
+    keys: ['testkey'],
+    secret: 'testsecret',
+    maxAge: 1000 * 60 * 60 * 24,
+    httpOnly: true,
+    namespace: 'sessions',
+    signed: true,
+    secure: false,
+    sameSite: 'Lax',
+  },
+  interfaceLanguages: ['fr', 'en'],
+  blacklistedDomains: [],
 };
 
 if (process.env.DEBUG) {
