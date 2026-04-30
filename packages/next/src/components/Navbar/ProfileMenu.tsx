@@ -1,3 +1,4 @@
+import { usePathname } from 'next/navigation';
 import { useIntl } from 'react-intl';
 import {
   Box,
@@ -20,7 +21,6 @@ import AuthDialog from 'components/auth/AuthDialog';
 import Image from 'components/Image';
 import SearchInput from 'components/NavbarSearchInput';
 import { thumborLoader } from 'utils/imageLoader';
-import hrefWithLang from 'utils/hrefWithLang';
 import { FaIcon } from 'icons';
 import { faBars } from 'icons/solid';
 import messages from './messages';
@@ -43,6 +43,8 @@ export default function ProfileMenu({
   search: SearchProps;
 }) {
   const intl = useIntl();
+  const pathname = usePathname();
+  const onSignupPage = /\/auth\/signup(\/|$)/.test(pathname ?? '');
 
   const collapseId = 'header-menu-collapse';
   const { open, onToggle } = useDisclosure();
@@ -126,18 +128,19 @@ export default function ProfileMenu({
               {intl.formatMessage(messages.signIn)}
             </Button>
           </AuthDialog>
-          <Button
-            asChild
-            variant="link"
-            display={{ base: 'none', lg: 'flex' }}
-            px="4"
-            alignItems="center"
-            alignSelf="stretch"
-          >
-            <Link unstyled href={hrefWithLang('/signup', intl.locale)}>
-              {intl.formatMessage(messages.signUp)}
-            </Link>
-          </Button>
+          {onSignupPage ? null : (
+            <AuthDialog reloadOnSuccess defaultView="signup">
+              <Button
+                variant="link"
+                display={{ base: 'none', lg: 'flex' }}
+                px="4"
+                alignItems="center"
+                alignSelf="stretch"
+              >
+                {intl.formatMessage(messages.signUp)}
+              </Button>
+            </AuthDialog>
+          )}
         </>
       )}
 
@@ -251,18 +254,24 @@ export default function ProfileMenu({
                         {intl.formatMessage(messages.signIn)}
                       </Link>
                     </AuthDialog>
-                    <Link
-                      href={hrefWithLang('/signup', intl.locale)}
-                      display="block"
-                      px="6"
-                      py="3"
-                      _hover={{
-                        bg: 'primary.subtle/30',
-                        textDecoration: 'underline',
-                      }}
-                    >
-                      {intl.formatMessage(messages.signUp)}
-                    </Link>
+                    {onSignupPage ? null : (
+                      <AuthDialog reloadOnSuccess defaultView="signup">
+                        <Link
+                          as="button"
+                          display="block"
+                          width="full"
+                          textAlign="left"
+                          px="6"
+                          py="3"
+                          _hover={{
+                            bg: 'primary.subtle/30',
+                            textDecoration: 'underline',
+                          }}
+                        >
+                          {intl.formatMessage(messages.signUp)}
+                        </Link>
+                      </AuthDialog>
+                    )}
                   </>
                 )}
               </Box>

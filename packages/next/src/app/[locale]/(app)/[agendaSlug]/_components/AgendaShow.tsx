@@ -31,6 +31,7 @@ import useEventsQuery from '../_hooks/useEventsQuery';
 import messages from '../messages';
 import AgendaHeader from './AgendaHeader';
 import ContextBar from './ContextBar';
+import InvitationAuthDialog from './InvitationAuthDialog';
 import { EventsSkeleton, FiltersSkeleton, TotalSkeleton } from './LoadingPage';
 import ContentGrid from './ContentGrid';
 
@@ -226,6 +227,10 @@ function AgendaShow({ agenda, initialQuery = {} }: AgendaShowProps) {
           />
         </FiltersProvider>
       </main>
+
+      <InvitationAuthDialog
+        agenda={{ slug: agenda.slug, uid: String(agenda.uid) }}
+      />
 
       {needConsentFor ? <ConsentBanner consentFor={needConsentFor} /> : null}
 

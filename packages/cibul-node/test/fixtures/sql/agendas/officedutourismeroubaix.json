@@ -10,7 +10,7 @@
   "updated_at": "2021-02-08 09:18:02",
   "uid": 64260763,
   "official": 1,
-  "credentials": "{\"premiumCustomFields\":true,\"moderators\":true,\"tags\":false,\"activatingInvitations\":false,\"aggregator\":true,\"invitationMessage\":false,\"docxExport\":false,\"eventOwnershipTransfer\":false}",
+  "credentials": "{\"premiumCustomFields\":true,\"moderators\":true,\"tags\":false,\"aggregator\":true,\"invitationMessage\":false,\"docxExport\":false,\"eventOwnershipTransfer\":false}",
   "settings": "{\"tracking\":{\"googleAnalytics\":null},\"lab\":{\"eventAdmin\":false},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":2,\"defaultState\":2,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":null,\"complete\":null,\"publication\":null},\"useFields\":false,\"authorizedIPAddresses\":[]}}",
   "private": 0,
   "form_schema_id": 374,

@@ -18,3 +18,7 @@ In the `packages/next` package, every time a label is added to a component's loc
 2. Run `yarn extract-messages`
 3. Add the French translation in `fr.json`
 4. Run `yarn extract-messages` again
+
+## UI
+
+When working on UI in `packages/next`, consult [`packages/next/docs/UI-GUIDELINES.md`](packages/next/docs/UI-GUIDELINES.md) for shared design principles (dialog dismissal, etc.) and add new conventions there as they emerge.

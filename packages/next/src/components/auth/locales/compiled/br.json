@@ -11,6 +11,18 @@
       "value": "Mot de passe perdu"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleSignup": [
+    {
+      "type": 0,
+      "value": "Création d'un nouveau compte"
+    }
+  ],
+  "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
+    {
+      "type": 0,
+      "value": "Confirmez votre adresse email"
+    }
+  ],
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
@@ -65,6 +77,54 @@
       "value": "Le lien de réinitialisation a été envoyé à l'email saisi. La réception peut parfois prendre quelques minutes : vérifiez votre boîte de réception et votre dossier de courriers indésirables. Si vous ne recevez pas le lien, contactez-nous au support."
     }
   ],
+  "next.components.auth.PasswordField.good": [
+    {
+      "type": 0,
+      "value": "Suffisamment sécurisé 🙂"
+    }
+  ],
+  "next.components.auth.PasswordField.great": [
+    {
+      "type": 0,
+      "value": "Très sécurisé 🥳"
+    }
+  ],
+  "next.components.auth.PasswordField.isSameAs": [
+    {
+      "type": 0,
+      "value": "Doit être différent du nom d'utilisateur et de l'email 🙄"
+    }
+  ],
+  "next.components.auth.PasswordField.required": [
+    {
+      "type": 0,
+      "value": "Un mot de passe doit être défini"
+    }
+  ],
+  "next.components.auth.PasswordField.tooWeak": [
+    {
+      "type": 0,
+      "value": "Pas assez sûr 😑"
+    }
+  ],
+  "next.components.auth.PasswordField.usual": [
+    {
+      "type": 0,
+      "value": "Trop commun 🤖"
+    }
+  ],
+  "next.components.auth.PasswordField.weak": [
+    {
+      "type": 0,
+      "value": "Peu sécurisé 😐"
+    }
+  ],
+  "next.components.auth.PasswordField.weakish": [
+    {
+      "type": 0,
+      "value": "Mieux, pas top 😬"
+    }
+  ],
   "next.components.auth.Signin.createAccount": [
     {
       "type": 0,
@@ -81,6 +141,12 @@
     {
       "type": 0,
       "value": "vous@exemple.com"
+    }
+  ],
+  "next.components.auth.Signin.facebookLabel": [
+    {
+      "type": 0,
+      "value": "Se connecter avec Facebook"
     }
   ],
   "next.components.auth.Signin.forgotPassword": [
@@ -111,12 +177,6 @@
     {
       "type": 0,
       "value": "L'email ou le mot de passe est incorrect."
-    }
-  ],
-  "next.components.auth.Signin.lostPasswordTitle": [
-    {
-      "type": 0,
-      "value": "Formulaire de mot de passe perdu"
     }
   ],
   "next.components.auth.Signin.noAccount": [
@@ -155,10 +215,318 @@
       "value": "Se connecter"
     }
   ],
-  "next.components.auth.Signin.whereIsFacebook": [
+  "next.components.auth.Signup.agree": [
     {
       "type": 0,
-      "value": "Où est passé mon bouton se connecter avec Facebook ?"
+      "value": "En créant un compte vous acceptez les "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Conditions d'Utilisation"
+        }
+      ],
+      "type": 8,
+      "value": "terms"
+    },
+    {
+      "type": 0,
+      "value": " ainsi que la "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "Politique de confidentialité"
+        }
+      ],
+      "type": 8,
+      "value": "policy"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.components.auth.Signup.alreadyHaveAccount": [
+    {
+      "type": 0,
+      "value": "Vous avez déjà un compte ?"
+    }
+  ],
+  "next.components.auth.Signup.cultureLabel": [
+    {
+      "type": 0,
+      "value": "Langue"
+    }
+  ],
+  "next.components.auth.Signup.emailLabel": [
+    {
+      "type": 0,
+      "value": "Adresse e-mail"
+    }
+  ],
+  "next.components.auth.Signup.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "vous@exemple.com"
+    }
+  ],
+  "next.components.auth.Signup.errors.captchaExpired": [
+    {
+      "type": 0,
+      "value": "Le captcha a expiré. Veuillez le compléter à nouveau."
+    }
+  ],
+  "next.components.auth.Signup.errors.captchaRequired": [
+    {
+      "type": 0,
+      "value": "Le captcha doit être saisi"
+    }
+  ],
+  "next.components.auth.Signup.errors.captchaTryAgain": [
+    {
+      "type": 0,
+      "value": "Veuillez ré-essayer."
+    }
+  ],
+  "next.components.auth.Signup.errors.emailInvalid": [
+    {
+      "type": 0,
+      "value": "Cet email n'est pas valide"
+    }
+  ],
+  "next.components.auth.Signup.errors.emailUsed": [
+    {
+      "type": 0,
+      "value": "Cet email est déjà utilisé"
+    }
+  ],
+  "next.components.auth.Signup.errors.fullNameRequired": [
+    {
+      "type": 0,
+      "value": "Ce champ ne doit pas être vide"
+    }
+  ],
+  "next.components.auth.Signup.errors.fullNameTooLong": [
+    {
+      "type": 0,
+      "value": "Le nom d'utilisateur ne doit pas excéder 50 caractères"
+    }
+  ],
+  "next.components.auth.Signup.errors.passwordIsSameAs": [
+    {
+      "type": 0,
+      "value": "Le mot de passe doit être différent du nom d'utilisateur et de l'adresse email"
+    }
+  ],
+  "next.components.auth.Signup.errors.passwordRequired": [
+    {
+      "type": 0,
+      "value": "Un mot de passe doit être défini"
+    }
+  ],
+  "next.components.auth.Signup.errors.passwordTooShort": [
+    {
+      "type": 0,
+      "value": "Le mot de passe est trop court"
+    }
+  ],
+  "next.components.auth.Signup.errors.passwordTooWeak": [
+    {
+      "type": 0,
+      "value": "Le mot de passe est trop faible"
+    }
+  ],
+  "next.components.auth.Signup.errors.repeatNotEqual": [
+    {
+      "type": 0,
+      "value": "Les mots de passe ne sont pas identiques"
+    }
+  ],
+  "next.components.auth.Signup.formTitle": [
+    {
+      "type": 0,
+      "value": "Formulaire de création de compte"
+    }
+  ],
+  "next.components.auth.Signup.fullNameHelp": [
+    {
+      "type": 0,
+      "value": "Votre nom d'utilisateur sera visible des administrateurs des agendas dont vous serez membre."
+    }
+  ],
+  "next.components.auth.Signup.fullNameLabel": [
+    {
+      "type": 0,
+      "value": "Nom d'utilisateur"
+    }
+  ],
+  "next.components.auth.Signup.fullNameLearnMore": [
+    {
+      "type": 0,
+      "value": "En savoir plus"
+    }
+  ],
+  "next.components.auth.Signup.genericError": [
+    {
+      "type": 0,
+      "value": "Une erreur est survenue. Veuillez réessayer."
+    }
+  ],
+  "next.components.auth.Signup.googleLabel": [
+    {
+      "type": 0,
+      "value": "S'inscrire avec Google"
+    }
+  ],
+  "next.components.auth.Signup.hasAccount": [
+    {
+      "type": 0,
+      "value": "Vous avez déjà utilisé OpenAgenda ?"
+    }
+  ],
+  "next.components.auth.Signup.opensNewWindow": [
+    {
+      "type": 0,
+      "value": "(s'ouvre dans une nouvelle fenêtre)"
+    }
+  ],
+  "next.components.auth.Signup.or": [
+    {
+      "type": 0,
+      "value": "Ou"
+    }
+  ],
+  "next.components.auth.Signup.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Mot de passe"
+    }
+  ],
+  "next.components.auth.Signup.repeatLabel": [
+    {
+      "type": 0,
+      "value": "Répéter le mot de passe"
+    }
+  ],
+  "next.components.auth.Signup.signinLink": [
+    {
+      "type": 0,
+      "value": "Connectez-vous"
+    }
+  ],
+  "next.components.auth.Signup.signupSuccess": [
+    {
+      "type": 0,
+      "value": "Compte créé. Vérifiez votre boîte de réception pour valider votre adresse email."
+    }
+  ],
+  "next.components.auth.Signup.submitLabel": [
+    {
+      "type": 0,
+      "value": "Accepter et créer le compte"
+    }
+  ],
+  "next.components.auth.SignupComplete.cooldownMessage": [
+    {
+      "type": 0,
+      "value": "Vous pourrez renvoyer dans "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " seconde"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " secondes"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "seconds"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.components.auth.SignupComplete.didNotReceiveHeading": [
+    {
+      "type": 0,
+      "value": "Vous n'avez pas reçu de mail ?"
+    }
+  ],
+  "next.components.auth.SignupComplete.heading": [
+    {
+      "type": 0,
+      "value": "Cliquez sur le lien de validation dans votre boîte de réception"
+    }
+  ],
+  "next.components.auth.SignupComplete.instruction": [
+    {
+      "type": 0,
+      "value": "Un email contenant le lien d'activation de votre compte est en cours d'envoi vers le courriel indiqué ci-dessous. Vérifiez votre boîte de réception pour terminer votre inscription."
+    }
+  ],
+  "next.components.auth.SignupComplete.resendFailed": [
+    {
+      "type": 0,
+      "value": "Le renvoi de l'email a échoué. Veuillez réessayer."
+    }
+  ],
+  "next.components.auth.SignupComplete.resending": [
+    {
+      "type": 0,
+      "value": "Renvoi en cours…"
+    }
+  ],
+  "next.components.auth.SignupComplete.resent": [
+    {
+      "type": 0,
+      "value": "L'email d'activation a été renvoyé."
+    }
+  ],
+  "next.components.auth.SignupComplete.step1": [
+    {
+      "type": 0,
+      "value": "Vérifiez l'orthographe du courriel indiqué ci-dessus."
+    }
+  ],
+  "next.components.auth.SignupComplete.step2": [
+    {
+      "type": 0,
+      "value": "Vérifiez votre dossier de courriers indésirables ou autres dossiers similaires (dossiers d'outils de type \"Mailinblack\")."
+    }
+  ],
+  "next.components.auth.SignupComplete.step3": [
+    {
+      "type": 0,
+      "value": "Renvoyer l'e-mail d'activation"
+    }
+  ],
+  "next.components.auth.SignupComplete.step4Prefix": [
+    {
+      "type": 0,
+      "value": "Écrivez-nous à "
     }
   ]
 }

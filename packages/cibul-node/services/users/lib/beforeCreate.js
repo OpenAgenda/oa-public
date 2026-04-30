@@ -64,6 +64,7 @@ export default (config, services) => async (context) => {
 
   if (
     invitation
+    && invitation.email === data.email
     && await isInvitedFromAnOfficialAgenda(services, invitation)
   ) {
     data.isActivated = true;

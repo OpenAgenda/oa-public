@@ -16,6 +16,7 @@ import { BadRequest } from '@openagenda/verror';
 import cmn from '../lib/commons-app.js';
 import config from '../config/index.js';
 import layouts from '../services/lib/layouts/index.js';
+import rateLimiter from '../lib/rateLimiter.js';
 import * as auth from './lib/auth.js';
 import { wantsJson } from './lib/utils.js';
 import loadCaptcha from './lib/captcha.js';
@@ -58,19 +59,6 @@ const renderManualPage = ((labels, lang) =>
 
 function redirectToContribute(req, res) {
   res.redirect(302, `/${req.agenda.slug}/contribute`);
-}
-
-function guessFullName(req, res, next) {
-  if (!req.query.email) return next();
-
-  const fullName = auth.fullNameFromEmail(req.query.email);
-
-  if (!fullName) return next();
-
-  auth.renderSignup(req, res, {
-    full_name: fullName,
-    email: req.query.email,
-  });
 }
 
 function signinSubmit(req, res, next) {
@@ -175,7 +163,11 @@ async function captchaCheck(values) {
 
   if (!captchaToken) {
     log.info('mtCaptcha token is missing');
-    throw new BadRequest('MissingCaptcha');
+    values.data.errors = {
+      ...values.data.errors,
+      captcha: 'captchaRequired',
+    };
+    return values;
   }
 
   const { verifyUrl, privateKey } = config.mtCaptcha;
@@ -290,7 +282,13 @@ function signupSubmit(req, res) {
       }
 
       const optionals = _.pickBy(
-        _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda'),
+        _.pick(
+          { ...req.query, ...req.body },
+          'iToken',
+          'invitation',
+          'redirect',
+          'agenda',
+        ),
       );
 
       if (req.agenda) {
@@ -365,10 +363,7 @@ function signupSubmit(req, res) {
     })
 
     .then(
-      auth.ifUserLoaded(
-        true,
-        auth.ifUserActivated(false, auth.redirectToComplete),
-      ),
+      auth.ifUserLoaded(true, auth.ifUserActivated(false, auth.signupSuccess)),
     )
 
     .then(auth.ifUserLoaded(true, auth.ifUserActivated(true, auth.signin)))
@@ -377,7 +372,7 @@ function signupSubmit(req, res) {
 
     .then(auth.ifUnresolved(auth.renderSignup))
 
-    .then(auth.done, cmn.catchError(req, res));
+    .then(auth.done, cmn.catchError(req, res, wantsJson(req)));
 }
 
 function presetEmail(req, res, next) {
@@ -405,92 +400,135 @@ function signupComplete(req, res) {
   });
 }
 
+// Floor the JSON-path response time so all branches (account exists, already
+// activated, no account) complete in roughly the same time. This neutralizes
+// the timing-based account-enumeration oracle on /activate/resend. The HTML
+// path is unchanged because its UX needs to differentiate.
+const RESEND_JSON_MIN_MS = 1500;
+
 async function activateResend(req, res) {
   const { users, tokens, sessions } = req.app.services;
+  const isJson = wantsJson(req);
+  const startedAt = Date.now();
+  const padJsonDelay = async () => {
+    if (!isJson) return;
+    const remaining = RESEND_JSON_MIN_MS - (Date.now() - startedAt);
+    if (remaining > 0) {
+      await new Promise((r) => setTimeout(r, remaining));
+    }
+  };
 
   if (!req.query.email) {
+    if (isJson) {
+      await padJsonDelay();
+      return res.status(400).json({ success: false, message: 'emailRequired' });
+    }
     auth.renderEmail({ req, res, title: 'Resend activation mail' });
-  } else {
-    let user;
-    let token;
+    return;
+  }
 
-    const optionals = _.pickBy(
-      _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda'),
+  let user;
+  let token;
+
+  const optionals = _.pickBy(
+    _.pick(req.query, 'iToken', 'invitation', 'redirect', 'agenda'),
+  );
+
+  try {
+    user = await users.findOne({
+      query: { email: req.query.email },
+      detailed: true,
+    });
+
+    if (!user) {
+      throw new BadRequest(
+        { info: { email: req.query.email } },
+        'No matching account found for activation resend',
+      );
+    }
+
+    if (user && user.isActivated) {
+      throw new BadRequest(
+        { info: { email: req.query.email } },
+        'User is already activated, no need to activate',
+      );
+    }
+
+    token = await tokens.findOne({
+      query: { userId: user.id, email: user.email, type: 'aa' },
+    });
+
+    if (token) {
+      await users.config.interfaces.sendToken(
+        config,
+        req.app.services,
+      )({
+        result: token,
+        params: { user, optionals },
+      });
+    } else {
+      token = await tokens.create(
+        { userId: user.id, email: user.email, type: 'aa' },
+        { user, optionals },
+      );
+    }
+
+    if (isJson) {
+      // Always respond with a generic success on the JSON path so the
+      // response cannot be used as an account-enumeration oracle (no
+      // distinction between "no account", "already activated", and
+      // "email re-sent"). The legacy HTML path keeps its existing flash
+      // semantics for now.
+      await padJsonDelay();
+      return res.status(200).json({ success: true });
+    }
+
+    sessions.setFlash(
+      req,
+      res,
+      __(
+        req.query.origin === 'signin'
+          ? 'sendActivateOnSigninAttempt'
+          : 'sendAgain',
+        req.lang,
+      ),
     );
 
-    try {
-      user = await users.findOne({
-        query: { email: req.query.email },
-        detailed: true,
-      });
-
-      if (!user) {
-        throw new BadRequest(
-          { info: { email: req.query.email } },
-          'No matching account found for activation resend',
-        );
-      }
-
-      if (user && user.isActivated) {
-        throw new BadRequest(
-          { info: { email: req.query.email } },
-          'User is already activated, no need to activate',
-        );
-      }
-
-      token = await tokens.findOne({
-        query: { userId: user.id, email: user.email, type: 'aa' },
-      });
-
-      if (token) {
-        await users.config.interfaces.sendToken(
-          config,
-          req.app.services,
-        )({
-          result: token,
-          params: { user, optionals },
-        });
-      } else {
-        token = await tokens.create(
-          { userId: user.id, email: user.email, type: 'aa' },
-          { user, optionals },
-        );
-      }
-
-      sessions.setFlash(
-        req,
-        res,
-        __(
-          req.query.origin === 'signin'
-            ? 'sendActivateOnSigninAttempt'
-            : 'sendAgain',
-          req.lang,
-        ),
-      );
-
-      auth.redirectToComplete({
-        ...optionals,
-        req,
-        res,
-        user,
-        token: token.token,
-      });
-    } catch (error) {
-      if (error.statusCode === 400) {
-        log.warn(error);
-      } else {
-        log.error(error);
-      }
-
-      auth.renderEmail({
-        req,
-        res,
-        data: {
-          errors: { email: error ? error.message || error : error },
-          email: req.query.email,
-        },
-      });
+    auth.redirectToComplete({
+      ...optionals,
+      req,
+      res,
+      user,
+      token: token.token,
+    });
+  } catch (error) {
+    if (error.statusCode === 400) {
+      log.warn(error);
+    } else {
+      log.error(error);
     }
+
+    if (isJson) {
+      // See note above: do not differentiate user-not-found vs
+      // already-activated; respond with the same shape as success so an
+      // attacker can't enumerate accounts via the JSON endpoint. Genuine
+      // server errors (statusCode !== 400) still fall through to the
+      // generic catchError handler below via cmn.catchError on the route.
+      if (error.statusCode === 400) {
+        await padJsonDelay();
+        return res.status(200).json({ success: true });
+      }
+      return res.status(500).json({ success: false, message: 'genericError' });
+    }
+
+    auth.renderEmail({
+      req,
+      res,
+      data: {
+        errors: { email: error ? error.message || error : error },
+        email: req.query.email,
+      },
+    });
   }
 }
 
@@ -590,9 +628,27 @@ async function activate(req, res, next) {
 }
 
 export default (app) => {
-  const { sessions, agendas } = app.services;
+  const { sessions, agendas, redis } = app.services;
 
   log('initing');
+
+  // Per-IP throttle on signup. Caps automated account-enumeration probing
+  // against the JSON `usedEmail` response while staying generous enough for
+  // legitimate retries (typos, captcha failures).
+  const signupLimiter = rateLimiter(redis, {
+    windowMs: 15 * 60 * 1000,
+    max: 10,
+    keyGenerator: (req) => `signup|${req.ip}`,
+  });
+
+  // Throttle on /activate/resend, primarily keyed by email so a single
+  // address can't be mailbombed; falls back to IP when no email is provided.
+  const resendLimiter = rateLimiter(redis, {
+    windowMs: 60 * 60 * 1000,
+    max: 5,
+    keyGenerator: (req) =>
+      `activate-resend|${(req.query.email || '').toLowerCase() || req.ip}`,
+  });
 
   passport.use(
     'local-signin',
@@ -631,29 +687,31 @@ export default (app) => {
     signinSubmit,
   );
 
-  app.get(
-    '/signup',
-    preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    loadCaptcha,
-    guessFullName,
-    auth.renderSignup,
-  );
+  app.get('/signup', (req, res) => {
+    const search = qs.stringify(req.query, { addQueryPrefix: true });
+    res.redirect(301, `/auth/signup${search}`);
+  });
 
-  app.get(
-    '/:agendaSlug/signup',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(redirectToContribute),
-    loadCaptcha,
-    guessFullName,
-    auth.renderSignup,
-  );
+  app.get('/:agendaSlug/signup', (req, res) => {
+    const fullName = req.query.email
+      ? auth.fullNameFromEmail(req.query.email) || undefined
+      : undefined;
+    const search = qs.stringify(
+      {
+        auth: 'signup',
+        ...req.query,
+        ...fullName ? { fullName } : {},
+      },
+      { addQueryPrefix: true },
+    );
+    res.redirect(301, `/${req.params.agendaSlug}${search}`);
+  });
 
   app.post(
     '/signup',
     preMw,
     sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
+    signupLimiter,
     signupSubmit,
   );
 
@@ -662,6 +720,7 @@ export default (app) => {
     agendas.mw.load,
     preMw,
     sessions.mw.ifLogged(redirectToContribute),
+    signupLimiter,
     signupSubmit,
   );
 
@@ -684,6 +743,7 @@ export default (app) => {
     '/activate/resend',
     preMw,
     sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
+    resendLimiter,
     activateResend,
   );
 
@@ -692,6 +752,7 @@ export default (app) => {
     agendas.mw.load,
     preMw,
     sessions.mw.ifLogged(redirectToContribute),
+    resendLimiter,
     activateResend,
   );
 

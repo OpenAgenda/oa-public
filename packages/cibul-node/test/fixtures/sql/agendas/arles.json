@@ -10,7 +10,7 @@
   "updated_at": "2021-02-24 12:54:47",
   "uid": 99501607,
   "official": 1,
-  "credentials": "{\"premiumCustomFields\":true,\"moderators\":true,\"tags\":false,\"activatingInvitations\":false,\"aggregator\":true,\"invitationMessage\":true,\"docxExport\":false,\"eventOwnershipTransfer\":false}",
+  "credentials": "{\"premiumCustomFields\":true,\"moderators\":true,\"tags\":false,\"aggregator\":true,\"invitationMessage\":true,\"docxExport\":false,\"eventOwnershipTransfer\":false}",
   "settings": "{\"tracking\":{\"googleAnalytics\":null},\"lab\":{\"eventAdmin\":false},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":1,\"defaultState\":0,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":\"Vous souhaitez annoncer un événement dans l'agenda de la Ville : c'est très simple! Il suffit de remplir les champs qui se présentent, en veillant à être le plus précis possible sur la nature de l'événement. Vous disposez de deux champs pour cela : la \\\"description courte\\\" et la \\\"description longue\\\". Celle-ci vous permet, éventuellement, de présenter votre structure (association, galerie, etc). L'agenda ne concerne que des événements ponctuels : merci de ne pas indiquer des cours ou des stages qui se déroulent sur une année. Et bien sûr, nous ne pouvons annoncer que des événements qui se déroulent à Arles.\",\"complete\":\"Merci d'avoir choisi l'agenda de la ville d'Arles pour annoncer votre manifestation.\",\"publication\":\"Votre événement est publié sur l'agenda de la ville d'Arles.\"},\"useFields\":true,\"authorizedIPAddresses\":[]}}",
   "private": 0,
   "form_schema_id": 10428,

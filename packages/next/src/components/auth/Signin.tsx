@@ -42,13 +42,13 @@ const messages = defineMessages({
     id: 'next.components.auth.Signin.googleLabel',
     defaultMessage: 'Sign in with Google',
   },
+  facebookLabel: {
+    id: 'next.components.auth.Signin.facebookLabel',
+    defaultMessage: 'Sign in with Facebook',
+  },
   formTitle: {
     id: 'next.components.auth.Signin.formTitle',
     defaultMessage: 'Sign in form',
-  },
-  lostPasswordTitle: {
-    id: 'next.components.auth.Signin.lostPasswordTitle',
-    defaultMessage: 'Lost password form',
   },
   genericError: {
     id: 'next.components.auth.Signin.genericError',
@@ -78,10 +78,6 @@ const messages = defineMessages({
     id: 'next.components.auth.Signin.resetPassword',
     defaultMessage: 'Reset my password',
   },
-  whereIsFacebook: {
-    id: 'next.components.auth.Signin.whereIsFacebook',
-    defaultMessage: 'Where did my Facebook connect button go?',
-  },
 });
 
 interface SigninProps {
@@ -93,7 +89,7 @@ interface SigninProps {
   reloadOnSuccess?: boolean;
   redirectOnSuccess?: string;
   onSuccess?: () => void;
-  onViewChange?: (view: 'signin' | 'lost') => void;
+  onViewChange?: (view: 'signin' | 'lost' | 'signup') => void;
 }
 
 export default function Signin({
@@ -123,7 +119,10 @@ export default function Signin({
   const invalidCredentialsAlertRef = useRef<HTMLDivElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const prevViewRef = useRef(view);
-  const [viewAnnouncement, setViewAnnouncement] = useState<string | null>(null);
+
+  useEffect(() => {
+    emailInputRef.current?.focus();
+  }, []);
 
   useEffect(() => {
     if (invalidCredentials) {
@@ -132,18 +131,11 @@ export default function Signin({
   }, [invalidCredentials]);
 
   useEffect(() => {
-    if (prevViewRef.current !== view) {
-      setViewAnnouncement(
-        intl.formatMessage(
-          view === 'lost' ? messages.lostPasswordTitle : messages.formTitle,
-        ),
-      );
-      if (prevViewRef.current === 'lost' && view === 'signin') {
-        emailInputRef.current?.focus();
-      }
+    if (prevViewRef.current === 'lost' && view === 'signin') {
+      emailInputRef.current?.focus();
     }
     prevViewRef.current = view;
-  }, [view, intl]);
+  }, [view]);
 
   useEffect(() => {
     onViewChange?.(view);
@@ -208,12 +200,6 @@ export default function Signin({
     [email, password, intl, reloadOnSuccess, redirectOnSuccess, onSuccess],
   );
 
-  const liveAnnouncement = (
-    <chakra.span srOnly role="status" aria-live="polite">
-      {viewAnnouncement}
-    </chakra.span>
-  );
-
   if (success) {
     return (
       <VStack py="8" gap="4" role="status" aria-live="polite">
@@ -227,10 +213,7 @@ export default function Signin({
 
   if (view === 'lost') {
     return (
-      <>
-        {liveAnnouncement}
-        <LostPassword defaultEmail={email} onCancel={() => setView('signin')} />
-      </>
+      <LostPassword defaultEmail={email} onCancel={() => setView('signin')} />
     );
   }
 
@@ -239,9 +222,8 @@ export default function Signin({
       onSubmit={handleSubmit}
       aria-label={intl.formatMessage(messages.formTitle)}
     >
-      {liveAnnouncement}
       {message && (
-        <Alert.Root status="error" mb="4">
+        <Alert.Root role="alert" status="error" mb="4">
           <Alert.Indicator />
           <Alert.Title>{message}</Alert.Title>
         </Alert.Root>
@@ -252,6 +234,7 @@ export default function Signin({
           ref={invalidCredentialsAlertRef}
           id="signin-invalid-credentials"
           tabIndex={-1}
+          role="alert"
           status="error"
           mb="4"
         >
@@ -356,23 +339,33 @@ export default function Signin({
           {intl.formatMessage(messages.googleLabel)}
         </a>
       </Button>
-      <Text mt="2" textAlign="center" fontSize="sm">
-        <Link
-          href={agenda ? `/${agenda.slug}/signin` : '/signin'}
-          color="primary.500"
+      <Button asChild variant="outline" w="full" mt="2">
+        <a
+          href={agenda ? `/${agenda.slug}/facebook/signin` : '/facebook/signin'}
         >
-          {intl.formatMessage(messages.whereIsFacebook)}
-        </Link>
-      </Text>
+          {intl.formatMessage(messages.facebookLabel)}
+        </a>
+      </Button>
 
       <Text mt="4" textAlign="center">
         {intl.formatMessage(messages.noAccount)}{' '}
-        <Link
-          href={agenda ? `/${agenda.slug}/signup` : '/signup'}
-          color="primary.500"
-        >
-          {intl.formatMessage(messages.createAccount)}
-        </Link>
+        {onViewChange ? (
+          <Button
+            variant="link"
+            type="button"
+            onClick={() => onViewChange('signup')}
+            color="primary.500"
+          >
+            {intl.formatMessage(messages.createAccount)}
+          </Button>
+        ) : (
+          <Link
+            href={agenda ? `/${agenda.slug}/signup` : '/signup'}
+            color="primary.500"
+          >
+            {intl.formatMessage(messages.createAccount)}
+          </Link>
+        )}
       </Text>
     </chakra.form>
   );

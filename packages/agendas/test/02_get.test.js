@@ -121,7 +121,6 @@ describe('agendas - functional (server): get', () => {
 
     expect(_.get(agenda, 'credentials')).toEqual({
       premiumCustomFields: false,
-      activatingInvitations: false,
       moderators: false,
       aggregator: false,
       invitationMessage: false,

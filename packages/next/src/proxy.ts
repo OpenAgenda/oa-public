@@ -264,5 +264,8 @@ export const config = {
     '/embed/agendas/:path*',
     '/p/:slug',
     '/strapi/:slug',
+    // Catches the cibul-node /signup → /auth/signup 301 (no locale prefix) so
+    // the no-locale branch above can 307 it to /:locale/auth/signup.
+    '/auth/:path*',
   ],
 };

@@ -458,13 +458,6 @@ export default [
         default: false,
       },
       {
-        field: 'activatingInvitations',
-        description:
-          'When the user with no account is invited to the agenda, no activation mail is required to complete signup',
-        type: 'boolean',
-        default: false,
-      },
-      {
         field: 'aggregator',
         description:
           'Agenda aggregation. Do not forget to initialize the tab on the agenda admin menu',

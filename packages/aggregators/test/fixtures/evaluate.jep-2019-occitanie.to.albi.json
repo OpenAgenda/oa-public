@@ -110,7 +110,6 @@
         "premiumCustomFields": true,
         "moderators": true,
         "tags": false,
-        "activatingInvitations": false,
         "aggregator": true,
         "invitationMessage": true,
         "docxExport": true,

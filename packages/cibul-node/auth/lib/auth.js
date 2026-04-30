@@ -198,7 +198,11 @@ export function signin(values) {
         : '/home';
 
       if (wantsJson(req)) {
-        res.json({ success: true, redirect: redirectUrl || defaultRedirect });
+        res.json({
+          success: true,
+          redirect: redirectUrl || defaultRedirect,
+          verificationEmailSent: !user.isActivated,
+        });
         return rs(values);
       }
 
@@ -322,6 +326,41 @@ export function redirectToResend(values) {
   return redirectToComplete(values);
 }
 
+export function signupSuccess(values) {
+  const { req, res, user } = values;
+
+  const completeUrl = `${req.agenda ? `/${req.agenda.slug}` : ''}/signup/complete?${qs.stringify(
+    {
+      ...loadOptionals(req),
+      email: user.email,
+      ...req.agenda ? { slug: req.agenda.slug } : {},
+    },
+  )}`;
+
+  const resendUrl = `${req.agenda ? `/${req.agenda.slug}` : ''}/activate/resend?${qs.stringify(
+    {
+      ...loadOptionals(req),
+      email: user.email,
+    },
+  )}`;
+
+  if (wantsJson(req)) {
+    res.json({
+      success: true,
+      email: user.email,
+      redirect: completeUrl,
+      resendUrl,
+      verificationEmailSent: !user.isActivated,
+    });
+    values.resolved = true;
+    return values;
+  }
+
+  res.redirect(302, completeUrl);
+  values.resolved = true;
+  return values;
+}
+
 export function layoutData(req) {
   return {
     optionals: loadOptionals(req),
@@ -418,6 +457,7 @@ const exposed = {
   ifUnresolved,
   redirectToComplete,
   redirectToResend,
+  signupSuccess,
   loadOptionals,
   saveOptionals,
   restoreOptionals,
