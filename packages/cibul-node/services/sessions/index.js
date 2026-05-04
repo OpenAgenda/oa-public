@@ -52,5 +52,11 @@ export function init(config, services) {
     return next();
   };
 
+  const legacyGetCulture = sessions.getCulture;
+  sessions.getCulture = (req) => {
+    if (req?.user?.culture) return req.user.culture;
+    return legacyGetCulture(req);
+  };
+
   return sessions;
 }
