@@ -5,6 +5,7 @@ import { redisStorage } from '@better-auth/redis-storage';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createCredentialHelpers from './internalAccount.js';
+import oaImpersonationPlugin from './impersonationPlugin.js';
 import {
   encodeLegacy,
   hash as hashPassword,
@@ -41,6 +42,8 @@ export default function Auth(options = {}) {
     baseURL,
     schemas = {},
     onEmailVerified,
+    onSendVerificationEmail,
+    onSendPasswordResetEmail,
   } = options;
 
   if (!mysqlPool) {
@@ -58,6 +61,7 @@ export default function Auth(options = {}) {
     secret,
     baseURL,
     trustedOrigins,
+    plugins: [oaImpersonationPlugin()],
     advanced: {
       cookiePrefix: 'oa',
       database: {
@@ -66,6 +70,10 @@ export default function Auth(options = {}) {
     },
     emailAndPassword: {
       enabled: true,
+      // No active session before the email is verified. Aligns with the
+      // legacy OA contract (`is_activated=0` users cannot sign-in).
+      requireEmailVerification: true,
+      autoSignIn: false,
       // Custom argon2id hash for new credentials, multi-format verify that
       // also accepts the legacy sentinel formats written by phase 2a + the
       // backfill migration. New writes go to argon2id; existing legacy rows
@@ -73,6 +81,11 @@ export default function Auth(options = {}) {
       password: {
         hash: hashPassword,
         verify: verifyPassword,
+      },
+      sendResetPassword: async ({ user, url, token }, request) => {
+        if (typeof onSendPasswordResetEmail === 'function') {
+          await onSendPasswordResetEmail({ user, url, token }, request);
+        }
       },
     },
     hooks: {
@@ -84,16 +97,40 @@ export default function Auth(options = {}) {
       // callback (`/callback/:provider`) — `/sign-in/social` only triggers
       // a redirect, the user is loaded/linked on the callback.
       before: createAuthMiddleware(async (ctx) => {
-        if (ctx.path !== '/sign-in/email') return;
-        const email = ctx.body?.email;
-        if (typeof email !== 'string') return;
-        const found = await ctx.context.internalAdapter.findUserByEmail(email);
-        const user = found?.user;
-        if (user && (user.isRemoved || user.isBlacklisted)) {
-          throw new APIError('UNAUTHORIZED', {
-            code: 'INVALID_EMAIL_OR_PASSWORD',
-            message: 'Invalid email or password',
-          });
+        if (ctx.path === '/sign-in/email') {
+          const email = ctx.body?.email;
+          if (typeof email !== 'string') return;
+          const found = await ctx.context.internalAdapter.findUserByEmail(email);
+          const user = found?.user;
+          if (user && (user.isRemoved || user.isBlacklisted)) {
+            throw new APIError('UNAUTHORIZED', {
+              code: 'INVALID_EMAIL_OR_PASSWORD',
+              message: 'Invalid email or password',
+            });
+          }
+          return;
+        }
+
+        // /reset-password consumes the verification record (deleteVerificationByIdentifier)
+        // before returning, so the after-hook can no longer recover the userId from BA's
+        // ctx. Stash it here while the verification is still resolvable. The shared
+        // `ctx.context` object survives into the after-hook (see to-auth-endpoints.mjs:
+        // internalContext.context is the same reference for before/handler/after).
+        if (ctx.path === '/reset-password') {
+          const token = ctx.body?.token || ctx.query?.token;
+          if (typeof token !== 'string') return;
+          try {
+            const verification = await ctx.context.internalAdapter.findVerificationValue(
+              `reset-password:${token}`,
+            );
+            if (verification && verification.expiresAt >= new Date()) {
+              ctx.context.oaResetUserId = verification.value;
+            }
+          } catch (err) {
+            ctx.context.logger?.error?.('reset-password lookup failed', {
+              err,
+            });
+          }
         }
       }),
       // Lazy-rehash: on a successful sign-in, if the stored hash is one of
@@ -101,22 +138,62 @@ export default function Auth(options = {}) {
       // swallowed — the user is already signed in, the rehash will retry on
       // the next sign-in, and the backfill migration is the source of truth.
       after: createAuthMiddleware(async (ctx) => {
-        if (ctx.path !== '/sign-in/email') return;
-        const { newSession } = ctx.context;
-        if (!newSession) return;
-        const userId = newSession.user.id;
-        try {
-          const accounts = await ctx.context.internalAdapter.findAccountByUserId(userId);
-          const credential = accounts.find(
-            (a) => a.providerId === 'credential',
-          );
-          if (!credential?.password || !isLegacy(credential.password)) return;
-          // internalAdapter.updatePassword writes the value directly; we must
-          // hash here. ctx.context.password.hash mirrors our custom hash.
-          const newHash = await ctx.context.password.hash(ctx.body.password);
-          await ctx.context.internalAdapter.updatePassword(userId, newHash);
-        } catch (err) {
-          ctx.context.logger?.error?.('lazy rehash failed', { userId, err });
+        if (ctx.path === '/sign-in/email') {
+          const { newSession } = ctx.context;
+          if (!newSession) return;
+          const userId = newSession.user.id;
+          try {
+            const accounts = await ctx.context.internalAdapter.findAccountByUserId(userId);
+            const credential = accounts.find(
+              (a) => a.providerId === 'credential',
+            );
+            if (!credential?.password || !isLegacy(credential.password)) return;
+            // Guard against future BA versions reshaping the request body:
+            // argon2.hash(undefined) throws, the surrounding try/catch
+            // swallows it, and the legacy hash would never rotate.
+            if (typeof ctx.body?.password !== 'string') return;
+            // internalAdapter.updatePassword writes the value directly; we must
+            // hash here. ctx.context.password.hash mirrors our custom hash.
+            const newHash = await ctx.context.password.hash(ctx.body.password);
+            await ctx.context.internalAdapter.updatePassword(userId, newHash);
+          } catch (err) {
+            ctx.context.logger?.error?.('lazy rehash failed', { userId, err });
+          }
+          return;
+        }
+
+        // After a successful /reset-password, mirror the legacy OA behaviour:
+        // receiving the reset email == proof of access to the inbox == implicit
+        // activation. BA does not flip emailVerified on reset by default.
+        // The userId was stashed in `before` (the verification record is
+        // already consumed by the time we get here).
+        if (ctx.path === '/reset-password') {
+          const userId = ctx.context.oaResetUserId;
+          if (!userId) return;
+          // ctx.context.returned holds the route's response. An APIError instance
+          // here means the reset failed (bad password length, invalid token mid-route, etc.).
+          if (ctx.context.returned instanceof APIError) return;
+          try {
+            const user = await ctx.context.internalAdapter.findUserById(userId);
+            if (user && !user.emailVerified) {
+              await ctx.context.internalAdapter.updateUser(userId, {
+                emailVerified: true,
+              });
+              // afterEmailVerification fires off the /verify-email path, not on
+              // a direct updateUser. Invoke onEmailVerified manually so
+              // runOnActivation (idempotent) runs exactly once, regardless of
+              // whether the user was activated via verify-email or via reset.
+              if (typeof onEmailVerified === 'function') {
+                const refreshed = { ...user, emailVerified: true };
+                await onEmailVerified(refreshed, ctx.request);
+              }
+            }
+          } catch (err) {
+            ctx.context.logger?.error?.('reset-password activation failed', {
+              userId,
+              err,
+            });
+          }
         }
       }),
     },
@@ -127,10 +204,33 @@ export default function Auth(options = {}) {
       updateAge: 60 * 60 * 24,
     },
     emailVerification: {
+      sendOnSignUp: true,
+      autoSignInAfterVerification: true,
       afterEmailVerification: async (user, request) => {
         if (typeof onEmailVerified === 'function') {
           await onEmailVerified(user, request);
         }
+      },
+      sendVerificationEmail: async ({ user, url, token }, request) => {
+        if (typeof onSendVerificationEmail === 'function') {
+          await onSendVerificationEmail({ user, url, token }, request);
+        }
+      },
+    },
+    rateLimit: {
+      // Force-enabled regardless of NODE_ENV. BA defaults `enabled` to
+      // `isProduction` so dev runs have rate-limit OFF — but the email-spam
+      // protection on these two endpoints is just as relevant in staging
+      // and integration tests, and the customRules below cap at 1/min so
+      // ordinary smoke testing won't trip them.
+      enabled: true,
+      // Tighter than BA defaults (60s/3) on the two endpoints that fan-out
+      // to a real email send, to mitigate email-spam abuse on a known address.
+      // Note: BA 1.6.x exposes `/request-password-reset` (alias for the
+      // legacy "forget-password"); the rule key tracks the actual route.
+      customRules: {
+        '/send-verification-email': { window: 60, max: 1 },
+        '/request-password-reset': { window: 60, max: 1 },
       },
     },
     account: {
@@ -197,6 +297,13 @@ export default function Auth(options = {}) {
           returned: false,
           defaultValue: false,
         },
+        culture: {
+          type: 'string',
+          fieldName: 'culture',
+          input: true,
+          returned: true,
+          defaultValue: 'fr',
+        },
       },
     },
   });
@@ -208,8 +315,96 @@ export default function Auth(options = {}) {
     revokeUserSessions,
   } = createCredentialHelpers(instance);
 
-  async function getSessionFromRequest(req) {
-    return instance.api.getSession({ headers: toHeaders(req) });
+  async function getSessionFromRequest(req, prevResponse) {
+    return instance.api.getSession({ headers: toHeaders(req, prevResponse) });
+  }
+
+  // Low-level primitive: open a BA session for an arbitrary user and emit
+  // the corresponding signed `session_token` cookie on `res`. Delegates to
+  // the `oaImpersonationPlugin` `openSession` endpoint, which calls BA's own
+  // `setSessionCookie` (dist/cookies/index.mjs:122-135) — i.e. canonical
+  // signing scheme + canonical attribute set + cookie-cache handling, with
+  // zero homemade serialisation.
+  //
+  // Invoked in-process (`asResponse: true`) — bypasses Express, the
+  // origin-check middleware, the public router, and the rate limiter. The
+  // matching HTTP path (`/api/auth/oa/open-session`) is denied by an
+  // Express middleware mounted before `auth.nodeHandler` (see
+  // server.js / test/helpers/buildApp.js).
+  async function openSession({ userId, req: _req, res }) {
+    if (!res) throw new Error('openSession: res is required');
+    if (userId === undefined || userId === null) {
+      throw new Error('openSession: userId is required');
+    }
+    const baResponse = await instance.api.openSession({
+      body: { userId: String(userId) },
+      asResponse: true,
+    });
+    forwardSetCookieHeaders(baResponse, res);
+    if (!baResponse.ok) {
+      const body = await baResponse
+        .clone()
+        .json()
+        .catch(() => ({}));
+      throw new Error(
+        body?.message || `openSession failed (${baResponse.status})`,
+      );
+    }
+  }
+
+  // Superadmin "sign as" — delegates entirely to BA's signed-cookie pattern.
+  // The plugin endpoint:
+  //   1. resolves the impersonator's session via `getSessionFromCtx`;
+  //   2. opens a BA session for the target user (with `impersonatedBy`
+  //      stamped on the session row so /signout can detect the state);
+  //   3. stashes the impersonator's session token in the BA-signed
+  //      `oa.admin_session` cookie;
+  //   4. swaps the `oa.session_token` cookie to the impersonated user.
+  // Authorization is the consumer's responsibility — cibul-node gates this
+  // via the `allowSuperAdmin` Express middleware before calling
+  // `auth.impersonateUser`.
+  async function impersonateUser({ targetUserId, req, res }) {
+    if (!res) throw new Error('impersonateUser: res is required');
+    if (targetUserId === undefined || targetUserId === null) {
+      throw new Error('impersonateUser: targetUserId is required');
+    }
+    const baResponse = await instance.api.impersonateUser({
+      body: { userId: String(targetUserId) },
+      headers: toHeaders(req),
+      asResponse: true,
+    });
+    forwardSetCookieHeaders(baResponse, res);
+    if (!baResponse.ok) {
+      const body = await baResponse
+        .clone()
+        .json()
+        .catch(() => ({}));
+      throw new Error(
+        body?.message || `impersonateUser failed (${baResponse.status})`,
+      );
+    }
+  }
+
+  // Restore the impersonator's session and drop the impersonated one. Reads
+  // the signed `oa.admin_session` cookie (written by `impersonateUser`),
+  // validates the corresponding BA session, deletes the impersonated session,
+  // re-emits the impersonator's session_token, and clears the marker.
+  async function stopImpersonating({ req, res }) {
+    if (!res) throw new Error('stopImpersonating: res is required');
+    const baResponse = await instance.api.stopImpersonating({
+      headers: toHeaders(req),
+      asResponse: true,
+    });
+    forwardSetCookieHeaders(baResponse, res);
+    if (!baResponse.ok) {
+      const body = await baResponse
+        .clone()
+        .json()
+        .catch(() => ({}));
+      throw new Error(
+        body?.message || `stopImpersonating failed (${baResponse.status})`,
+      );
+    }
   }
 
   return {
@@ -227,6 +422,10 @@ export default function Auth(options = {}) {
     toHeaders,
     forwardSetCookieHeaders,
     getSessionFromRequest,
+    // Session-opening primitives (phase 3 sign-as fix).
+    openSession,
+    impersonateUser,
+    stopImpersonating,
   };
 }
 

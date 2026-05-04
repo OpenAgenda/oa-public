@@ -18,7 +18,8 @@
     "@better-auth/redis-storage": "^1.6.9",
     "argon2": "^0.44.0",
     "better-auth": "^1.6.9",
-    "kysely": "^0.28.16"
+    "kysely": "^0.28.16",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
