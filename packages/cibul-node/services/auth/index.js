@@ -37,6 +37,41 @@ export async function init(config, services) {
         log('error', 'onEmailVerified failed', { userId: user?.id, err });
       }
     },
+    onSendVerificationEmail: async ({ user, url }) => {
+      try {
+        await services.mails.send({
+          template: 'activateAccount',
+          to: user.email,
+          lang: user.culture,
+          data: {
+            activateLink: url,
+            emailSettingsLink: null,
+          },
+          queue: false,
+        });
+      } catch (err) {
+        log('error', 'sendVerificationEmail failed', { userId: user?.id, err });
+      }
+    },
+    onSendPasswordResetEmail: async ({ user, url }) => {
+      try {
+        await services.mails.send({
+          template: 'resetPassword',
+          to: user.email,
+          lang: user.culture,
+          data: {
+            resetLink: url,
+            emailSettingsLink: null,
+          },
+          queue: false,
+        });
+      } catch (err) {
+        log('error', 'sendPasswordResetEmail failed', {
+          userId: user?.id,
+          err,
+        });
+      }
+    },
   });
 
   return Object.assign(auth, {

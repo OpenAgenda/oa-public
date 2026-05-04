@@ -1,4 +1,15 @@
-import _ from 'lodash';
+// Reset password flow on top of better-auth.
+//
+// Legacy `/password/reset/:token` URLs (path-param token, lp TTL 1h) are
+// 307-redirected to the new `/password/reset?token=…` query-param shape.
+// Tokens issued by the pre-3b deploy are not in BA's `verification` table,
+// so the form submission ultimately fails with `resetLinkOutdated` — the
+// user sees the generic "lien périmé" message. We accept this minor UX
+// degradation: the legacy `lp` TTL is 1h, so the window is small and adding
+// a heuristic to detect "looks like a legacy token" would be brittle.
+// TODO(phase 6): drop the legacy /password/reset/:token route once the
+// legacy lp TTL has elapsed.
+
 import logs from '@openagenda/logs';
 import labels from '@openagenda/labels/auth/errors.js';
 import makeLabelGetter from '@openagenda/labels';
@@ -14,267 +25,75 @@ const getLabel = makeLabelGetter(labels);
  * controllers
  */
 
-function _ifValueIs(name, expected, func) {
-  return (values) => {
-    if (expected === values[name]) return func(values);
-
-    return values;
-  };
-}
-
-function _ifValueIsNot(name, expected, func) {
-  return (values) => {
-    if (expected !== values[name]) return func(values);
-
-    return values;
-  };
-}
-
-function _render(req, res, uri, _data) {
-  return (values) => {
-    cmn.render(req, res, uri, values);
-
-    values.resolved = true;
-
-    return values;
-  };
-}
-
-function _redirectToSignin(req, res, message) {
-  const { sessions } = req.app.services;
-
-  return (values) => {
-    sessions.setFlash(req, res, message);
-
-    res.redirect(302, '/signin');
-
-    values.resolved = true;
-
-    return values;
-  };
-}
-
-async function _createAndSend(services, values) {
-  log('creating activation token');
-
-  const { users: usersSvc, tokens: tokensSvc } = services;
-
-  const user = values.user
-    ? _.pick(values.user, 'id', 'uid', 'email')
-    : { email: values.email };
-
-  if (user.id && user.email && user.isActivated) {
-    log('user is already loaded: %s', JSON.stringify(user));
-
-    return values;
-  }
-
-  log('loading user based on values %s', JSON.stringify(user));
-
-  const result = await usersSvc.findOne({ query: user, detailed: true });
-
-  log('loaded user %s', JSON.stringify(result));
-
-  if (!result) throw new Error(getLabel('userNotFound', values.req.lang));
-
-  values.user = result;
-
-  let token = await tokensSvc.findOne({
-    query: {
-      userId: values.user.id,
-      email: values.user.email,
-      type: 'lp',
-    },
-  });
-
-  if (token) {
-    await tokensSvc.config.interfaces.sendToken(
-      config,
-      services,
-    )({ result: token, params: { user: values.user } });
-  } else {
-    token = await tokensSvc.create(
-      {
-        userId: values.user.id,
-        email: values.user.email,
-        type: 'lp',
-      },
-      { user: values.user },
-    );
-  }
-
-  values.token = token.token;
-  values.sent = true;
-
-  log('info', 'lost password token created for %s', values.user.email);
-
-  return values;
-}
-
-async function _verifyToken(services, values) {
-  const { tokens: tokensSvc } = services;
-
-  const token = await tokensSvc.findOne({
-    query: {
-      token: values.token,
-      type: 'lp',
-    },
-  });
-
-  values.valid = !!token;
-
-  values.loadedToken = token;
-
-  if (!values.valid) {
-    values.message = getLabel('invalidToken', values.req.lang);
-  }
-
-  return values;
-}
-
 function lostPassword(req, res) {
   cmn.render(req, res, 'auth/lostPassword');
 }
 
 function lostPasswordSubmit(req, res) {
-  const { services } = req.app;
+  const { auth, sessions } = req.app.services;
+
+  // Instant response — zero timing leak by construction (the response does
+  // not depend on the lookup result). The work runs in the background.
+  // BA route: /api/auth/request-password-reset (not /forget-password). BA
+  // builds the email URL to its /api/auth/reset-password/:token endpoint,
+  // which 302s to `${redirectTo}?token=…` once the token is validated.
+  auth.api
+    .requestPasswordReset({
+      body: {
+        email: req.body.email,
+        redirectTo: `${config.root}/password/reset`,
+      },
+    })
+    .catch((err) => {
+      log('error', 'requestPasswordReset failed', err); // never surfaced
+    });
 
   if (wantsJson(req)) {
-    // Constant-time response so timing doesn't leak whether the email
-    // matches a user. The work runs in parallel with a floor delay chosen
-    // to exceed typical _createAndSend latency (db lookup + token
-    // create/refresh + mailer call), so the floor — not the work — is
-    // effectively what gates the response. Errors are logged, never
-    // surfaced, so both success and failure paths resolve identically.
-    const work = _createAndSend(services, {
-      email: req.body.email,
-      req,
-    }).catch((err) => {
-      log('error', 'lost password background failure', err);
-    });
-    const floor = new Promise((resolve) => setTimeout(resolve, 5000));
+    res.status(200).json({ success: true });
+    return;
+  }
+  sessions.setFlash(req, res, getLabel('passwordResetSent', req.lang));
+  res.redirect(302, '/signin');
+}
 
-    Promise.all([work, floor]).then(() => {
-      res.status(200).json({ success: true });
+function resetPassword(req, res) {
+  cmn.render(req, res, 'auth/resetPassword');
+}
+
+async function resetPasswordSubmit(req, res) {
+  const { auth, sessions } = req.app.services;
+
+  if (req.body.password !== req.body.repeat) {
+    cmn.render(req, res, 'auth/resetPassword', {
+      message: getLabel('passwordsMustMatch', req.lang),
+    });
+    return;
+  }
+  if (!req.body.password?.length) {
+    cmn.render(req, res, 'auth/resetPassword', {
+      message: getLabel('fieldCannotBeEmpty', req.lang),
     });
     return;
   }
 
-  _createAndSend(services, { email: req.body.email, req })
-    .then(
-      _ifValueIs(
-        'sent',
-        true,
-        _redirectToSignin(req, res, getLabel('passwordResetSent', req.lang)),
-      ),
-    )
-
-    .then(_ifValueIsNot('sent', true, _render(req, res, 'auth/lostPassword')))
-
-    .then(
-      () => log('done'),
-      (err) => {
-        services.sessions.setFlash(req, res, err.message);
-
-        res.redirect('/');
-      },
-    );
-}
-
-function resetPassword(req, res) {
-  const { services } = req.app;
-
-  _verifyToken(services, { token: req.params.token, req })
-    .then(_ifValueIs('valid', true, _render(req, res, 'auth/resetPassword')))
-
-    .then(
-      _ifValueIsNot(
-        'resolved',
-        true,
-        _redirectToSignin(req, res, getLabel('resetLinkOutdated', req.lang)),
-      ),
-    )
-
-    .then(() => log('done'), cmn.catchError(req, res));
-}
-
-async function updatePassword(services, values) {
-  const { users: usersSvc, tokens: tokensSvc } = services;
-
-  await _verifyToken(services, values);
-
-  if (values.valid) {
-    const result = await usersSvc.findOne({
-      query: { id: values.loadedToken.userId },
-      detailed: true,
+  try {
+    // Token comes from the query string (BA does `${redirectTo}?token=…`
+    // after validation). The form has `method="post"` without an explicit
+    // action, so it posts to the same URL preserving the query —
+    // req.query.token is therefore also available on POST.
+    await auth.api.resetPassword({
+      body: { newPassword: req.body.password, token: req.query.token },
     });
-
-    if (!result) {
-      values.message = getLabel('userNotFound', values.req.lang);
-    } else {
-      values.user = result;
-    }
-
-    if (values.user) {
-      if (values.password !== values.repeat) {
-        values.message = getLabel('passwordsMustMatch', values.req.lang);
-
-        return values;
-      }
-      if (!values.password.length) {
-        values.message = getLabel('fieldCannotBeEmpty', values.req.lang);
-
-        return values;
-      }
-
-      try {
-        await usersSvc.changePassword(values.user.uid, {
-          password: values.password,
-        });
-
-        if (!values.user.isActivated) {
-          log('activated user on password reset', { userUid: values.user.uid });
-          await usersSvc.activate(values.user.uid, {}, { ignoreToken: true });
-        }
-
-        values.success = true;
-      } catch (e) {
-        throw getLabel('passwordCouldNotBeModified', values.req.lang);
-      }
-
-      if (values.success) {
-        await tokensSvc.remove(values.loadedToken.id);
-
-        log('token was successfully removed');
-      }
-    }
+    // BA has revoked sessions; password written as argon2id; user activated
+    // if is_activated=0 (after-hook in Lot 1).
+    sessions.setFlash(req, res, getLabel('passwordUpdated', req.lang));
+    res.redirect(302, '/signin');
+  } catch (err) {
+    log('warn', 'resetPassword failed', err);
+    cmn.render(req, res, 'auth/resetPassword', {
+      message: getLabel('resetLinkOutdated', req.lang),
+    });
   }
-
-  return values;
-}
-
-function resetPasswordSubmit(req, res) {
-  const { services } = req.app;
-
-  updatePassword(services, {
-    req,
-    token: req.params.token,
-    password: req.body.password,
-    repeat: req.body.repeat,
-  })
-    .then(
-      _ifValueIs(
-        'success',
-        true,
-        _redirectToSignin(req, res, getLabel('passwordUpdated', req.lang)),
-      ),
-    )
-
-    .then(
-      _ifValueIsNot('resolved', true, _render(req, res, 'auth/resetPassword')),
-    )
-
-    .then(() => log('done'), cmn.catchError(req, res));
 }
 
 export default (app) => {
@@ -287,6 +106,24 @@ export default (app) => {
 
   app.get('/password/lost', preMw, lostPassword);
   app.post('/password/lost', preMw, lostPasswordSubmit);
-  app.get('/password/reset/:token', preMw, resetPassword);
-  app.post('/password/reset/:token', preMw, resetPasswordSubmit);
+  // Token as query string (`?token=…`) — BA delivers the user here after
+  // validating its /api/auth/reset-password/:token endpoint. The form posts
+  // without an action, preserving the query, so POST also has access to the
+  // token.
+  app.get('/password/reset', preMw, resetPassword);
+  app.post('/password/reset', preMw, resetPasswordSubmit);
+
+  // Redirect in-flight legacy reset password links (legacy `lp` TTL: 1h) to
+  // the new URL while preserving method (307) and body. The legacy token is
+  // not recognized by BA, so the submission will fail with
+  // "resetLinkOutdated" — degraded UX accepted on the short window. To be
+  // removed in phase 6 once the legacy TTL has elapsed.
+  const legacyResetRedirect = (req, res) => {
+    res.redirect(
+      307,
+      `/password/reset?token=${encodeURIComponent(req.params.token)}`,
+    );
+  };
+  app.get('/password/reset/:token', legacyResetRedirect);
+  app.post('/password/reset/:token', legacyResetRedirect);
 };

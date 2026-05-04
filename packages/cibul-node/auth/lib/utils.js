@@ -7,7 +7,7 @@ import config from '../../config/index.js';
 export const wantsJson = (req) => req.get('Accept') === 'application/json';
 
 export const loadOptionals = (req) =>
-  ['iToken', 'invitation', 'redirect', 'defaults', 'agenda', 'lang'].reduce(
+  ['invitation', 'redirect', 'defaults', 'agenda', 'lang'].reduce(
     (optionals, key) =>
       (req.query[key]
         ? {

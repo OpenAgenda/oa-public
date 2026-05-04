@@ -18,8 +18,6 @@ export default function computeRedirect(req, user) {
     } catch (e) {
       req.log?.error?.('could not decode redirect %s', req.query.redirect);
     }
-  } else if (req.query?.iToken && agendaSlug) {
-    redirectUrl = `/${agendaSlug}/contribute`;
   }
 
   if (user?.facebookUid) {

@@ -131,90 +131,91 @@ function serviceAuthenticate(fieldName) {
   };
 }
 
-export function signin(values) {
-  return new Promise((rs) => {
-    const { req, res, user } = values ?? {};
+export async function signin(values) {
+  const { req, res, user } = values ?? {};
 
-    let agendaSlug;
+  let agendaSlug;
 
-    if (values.resolved) {
-      return values;
-    }
+  if (values.resolved) {
+    return values;
+  }
 
-    if (req.query.agenda) {
-      agendaSlug = req.query.agenda;
-    } else if (req.agenda) {
-      agendaSlug = req.agenda.slug;
-    }
+  if (req.query.agenda) {
+    agendaSlug = req.query.agenda;
+  } else if (req.agenda) {
+    agendaSlug = req.agenda.slug;
+  }
 
-    values.resolved = true;
+  values.resolved = true;
 
-    values.req.log.info('signing in user %s', user.email);
+  values.req.log.info('signing in user %s', user.email);
 
-    const { services } = req.app;
+  const { services } = req.app;
 
-    services.sessions.open(req, res, user, async (err, _session) => {
-      if (err) req.log.error({ message: 'could not open session', error: err });
+  // Open a better-auth session for `user`. Phase 3 retired the legacy
+  // services.sessions.open() write here for the same reason as in the
+  // superadmin sign-as middleware: the hybrid loader reads BA first, so
+  // any flow that lands here with a stale BA cookie (e.g. social signin
+  // callback or legacy `aa` activation token fallback) would otherwise
+  // silently keep the previous identity.
+  try {
+    await services.auth.openSession({ userId: user.id, req, res });
+  } catch (err) {
+    req.log.error({ message: 'could not open session', error: err });
+  }
 
-      let redirectUrl;
+  let redirectUrl;
 
-      services.users
-        .refresh(user.uid, {
-          lastSignin: true,
-        })
-        .catch((err2) => {
-          req.log.error({
-            message: 'could not refresh lastSignin',
-            error: err2,
-          });
-        });
-
-      if (req.query.redirect) {
-        try {
-          redirectUrl = Buffer.from(req.query.redirect, 'base64').toString();
-        } catch (e) {
-          req.log.error('could not decode redirect %s', req.query.redirect);
-        }
-      } else if (req.query.iToken && agendaSlug) {
-        // this is a invitation signin / signup, redirect to form.
-        redirectUrl = `/${agendaSlug}/contribute`;
-      }
-
-      if (user.facebookUid) {
-        // Phase-out: always funnel Facebook-linked sessions through the
-        // account migration screen, regardless of any ?redirect= target.
-        unlinkFacebookLog.info(
-          'facebook signin detected, redirecting user to migration page',
-          {
-            userUid: user.uid,
-            facebookUid: user.facebookUid,
-          },
-        );
-        redirectUrl = '/settings/unlinkFacebook';
-      }
-
-      const defaultRedirect = agendaSlug
-        ? `/${agendaSlug}/contribute`
-        : '/home';
-
-      if (wantsJson(req)) {
-        res.json({ success: true, redirect: redirectUrl || defaultRedirect });
-        return rs(values);
-      }
-
-      if (redirectUrl) {
-        req.log.info('signin in successful, redirecting to %s', redirectUrl);
-
-        res.redirect(redirectUrl);
-
-        return rs(values);
-      }
-
-      res.redirect(302, defaultRedirect);
-
-      rs(values);
+  services.users
+    .refresh(user.uid, {
+      lastSignin: true,
+    })
+    .catch((err2) => {
+      req.log.error({
+        message: 'could not refresh lastSignin',
+        error: err2,
+      });
     });
-  });
+
+  if (req.query.redirect) {
+    try {
+      redirectUrl = Buffer.from(req.query.redirect, 'base64').toString();
+    } catch (e) {
+      req.log.error('could not decode redirect %s', req.query.redirect);
+    }
+  }
+
+  if (user.facebookUid) {
+    // Phase-out: always funnel Facebook-linked sessions through the
+    // account migration screen, regardless of any ?redirect= target.
+    unlinkFacebookLog.info(
+      'facebook signin detected, redirecting user to migration page',
+      {
+        userUid: user.uid,
+        facebookUid: user.facebookUid,
+      },
+    );
+    redirectUrl = '/settings/unlinkFacebook';
+  }
+
+  const defaultRedirect = agendaSlug ? `/${agendaSlug}/contribute` : '/home';
+
+  if (wantsJson(req)) {
+    res.json({ success: true, redirect: redirectUrl || defaultRedirect });
+    return values;
+  }
+
+  if (redirectUrl) {
+    req.log.info('signin in successful, redirecting to %s', redirectUrl);
+
+    res.redirect(redirectUrl);
+
+    return values;
+  }
+
+  res.redirect(302, defaultRedirect);
+
+  return values;
 }
 
 export function ifUnresolved(cb) {
