@@ -74,6 +74,11 @@ try {
 
   // better-auth handler must run BEFORE body-parser (it reads its own body).
   if (services.auth) {
+    // Deny public access to OA-internal BA plugin endpoints (oa-impersonation:
+    // POST /api/auth/oa/open-session). They are server-to-server only —
+    // `auth.api.*` calls bypass Express entirely. This guard MUST run before
+    // the catch-all `/api/auth/*` handler so the precedence works.
+    app.all('/api/auth/oa/*', (req, res) => res.sendStatus(404));
     app.all('/api/auth/*', services.auth.nodeHandler);
   }
 

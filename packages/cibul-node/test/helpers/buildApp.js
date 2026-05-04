@@ -17,6 +17,9 @@ export default function buildApp(services, config, { extend } = {}) {
   app.services = services;
   app.core = Core(services, config);
 
+  // Deny public access to OA-internal BA plugin endpoints (oa-impersonation).
+  // Must precede the catch-all `/api/auth/*` handler. Mirrors server.js.
+  app.all('/api/auth/oa/*', (req, res) => res.sendStatus(404));
   app.all('/api/auth/*', services.auth.nodeHandler);
   app.use(
     bodyParser.json({ limit: '5mb' }),
