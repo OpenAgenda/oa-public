@@ -197,6 +197,13 @@ export default function Auth(options = {}) {
           returned: false,
           defaultValue: false,
         },
+        culture: {
+          type: 'string',
+          fieldName: 'culture',
+          input: true,
+          returned: true,
+          defaultValue: 'fr',
+        },
       },
     },
   });
