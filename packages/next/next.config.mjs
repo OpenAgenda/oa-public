@@ -144,6 +144,13 @@ const config = async () => {
               destination: `/:locale/strapi/:path*`,
             },
           ],
+          fallback: [
+            {
+              source: '/:path*',
+              destination: `${NEXT_API_INTERNAL_BASE_URL}/:path*`,
+              locale: false,
+            },
+          ],
         };
       },
       transpilePackages: [
