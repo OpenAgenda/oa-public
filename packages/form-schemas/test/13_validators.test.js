@@ -99,6 +99,61 @@ describe('file validator', () => {
       variants: [],
     });
   });
+
+  it('rejects a file whose extension is not in the allowed extensions', () => {
+    const validate = fileValidator({
+      field: 'questions-ouvertes',
+      optional: false,
+      extensions: ['doc', 'docx'],
+    });
+
+    expect(() =>
+      validate({
+        originalName: 'sneaky.pdf',
+        extension: 'pdf',
+        filename: 'uniquefilekey.questions-ouvertes.pdf',
+      })).toThrow();
+  });
+
+  it('accepts a file whose extension is in the allowed extensions', () => {
+    const validate = fileValidator({
+      field: 'questions-ouvertes',
+      optional: false,
+      extensions: ['doc', 'docx'],
+    });
+
+    expect(() =>
+      validate({
+        originalName: 'project.docx',
+        extension: 'docx',
+        filename: 'uniquefilekey.questions-ouvertes.docx',
+      })).not.toThrow();
+  });
+
+  it('rejects an empty object on a required file field', () => {
+    const validate = fileValidator({
+      field: 'questions-ouvertes',
+      optional: false,
+    });
+
+    expect(() => validate({})).toThrow(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: 'required',
+          field: 'questions-ouvertes',
+        }),
+      ]),
+    );
+  });
+
+  it('accepts an empty object on an optional file field', () => {
+    const validate = fileValidator({
+      field: 'questions-ouvertes',
+      optional: true,
+    });
+
+    expect(validate({})).toBeNull();
+  });
 });
 
 describe('deriving validators', () => {

@@ -21,6 +21,7 @@ const regex = require('@openagenda/validators/regex');
 const timezone = require('@openagenda/validators/timezone');
 const extIdsValidator = require('@openagenda/utils/validators/extIdsValidator');
 const addressValidator = require('../validators/address');
+const countryCodeValidator = require('../validators/countryCode');
 
 schema.register({
   email,
@@ -39,6 +40,7 @@ schema.register({
   timezone,
   extIds: extIdsValidator,
   address: addressValidator,
+  countryCode: countryCodeValidator,
 });
 
 const validateStream = stream({ optional: false });

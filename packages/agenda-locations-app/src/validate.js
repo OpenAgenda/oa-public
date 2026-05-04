@@ -12,6 +12,7 @@ import multilingual from '@openagenda/validators/multilingual.js';
 import regex from '@openagenda/validators/regex.js';
 import choice from '@openagenda/validators/choice.js';
 import address from '@openagenda/agenda-locations/validators/address.js';
+import countryCode from '@openagenda/agenda-locations/validators/countryCode.js';
 // TODO use `groupTagsValidator`
 // import groupTagsValidator from './groupTagsValidator';
 
@@ -90,6 +91,7 @@ const validators = {
   regex,
   choice,
   address,
+  countryCode,
 };
 
 const STATES = {
@@ -279,10 +281,8 @@ const baseValidators = [
     rejectEmojis: true,
     optional: true,
   }),
-  validators.text({
+  validators.countryCode({
     field: 'countryCode',
-    min: 2,
-    max: 2,
     optional: false,
   }),
   validators.text({

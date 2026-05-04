@@ -155,6 +155,46 @@ describe('agendas - functional (server): remove', () => {
     }
   });
 
+  it('two soft-deleted agendas can share the same slug', async () => {
+    const con = mysql.createConnection(config.mysql);
+
+    try {
+      const [rows] = await con
+        .promise()
+        .query(`select slug from ${config.schemas.agenda} where id = ?`, 4819);
+      const { slug: sharedSlug } = rows[0];
+
+      await svc.remove(4819);
+
+      const created = await svc.set(
+        {
+          ownerId: 12,
+          title: 'Reuse slug then delete',
+          description: 'Second agenda that will share the slug after deletion',
+          slug: sharedSlug,
+        },
+        { internal: true },
+      );
+      expect(created.success).toBe(true);
+
+      await svc.remove(created.agenda.id);
+
+      const [sharedRows] = await con
+        .promise()
+        .query(
+          `select id, deleted_at from ${config.schemas.agenda} where slug = ?`,
+          sharedSlug,
+        );
+
+      expect(sharedRows.length).toBe(2);
+      for (const row of sharedRows) {
+        expect(row.deleted_at).toBeInstanceOf(Date);
+      }
+    } finally {
+      await con.end();
+    }
+  });
+
   it('agenda remove calls interface callback beforeRemove and onRemove', async () => {
     // do this as part of unique init
     // do this as part of unique init

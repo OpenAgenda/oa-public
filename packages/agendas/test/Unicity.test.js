@@ -1,9 +1,9 @@
 import { fileURLToPath } from 'node:url';
 import { dirname } from 'node:path';
-import fs from 'node:fs';
 import IORedis from 'ioredis';
 import slugify from 'slugify';
 import Unicity from '../service/lib/Unicity/index.js';
+import testConfig from '../testconfig.js';
 import setup from './fixtures/setup.js';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -11,20 +11,7 @@ const __dirname = dirname(__filename);
 
 // need to throw an exception after max retries on slug generation
 
-const mysqlConnection = {
-  host: process.env.OA_MYSQL_DEV_HOST,
-  user: process.env.OA_MYSQL_DEV_USER,
-  password: process.env.OA_MYSQL_DEV_PASSWORD,
-  charset: 'utf8mb4',
-  jsonStrings: true,
-  ssl: parseInt(process.env.OA_MYSQL_DEV_SSL_VERIFY, 10)
-    ? {
-      ca: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CA),
-      cert: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_CERT),
-      key: fs.readFileSync(process.env.OA_MYSQL_DEV_SSL_KEY),
-    }
-    : { rejectUnauthorized: false },
-};
+const mysqlConnection = testConfig.service.mysql;
 
 describe('Unicity', () => {
   let knexClient;

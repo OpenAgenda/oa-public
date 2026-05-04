@@ -1143,6 +1143,14 @@ module.exports = {
     "nl": "Israël",
     "br": "Israel"
   },
+  "IM": {
+    "en": "Isle of Man",
+    "fr": "Île de Man",
+    "de": "Isle of Man",
+    "es": "Isla de Man",
+    "it": "Isola di Man",
+    "oc": "Isle of Man"
+  },
   "IN": {
     "en": "India",
     "fr": "Inde",

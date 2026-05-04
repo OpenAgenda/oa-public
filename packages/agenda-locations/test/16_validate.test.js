@@ -98,6 +98,53 @@ describe('validate', () => {
     });
   });
 
+  describe('countryCode', () => {
+    test('accepts a valid ISO 3166-1 alpha-2 code', () => {
+      const { countryCode } = validate({ ...fixture, countryCode: 'FR' });
+      expect(countryCode).toBe('FR');
+    });
+
+    test('uppercases lowercase input', () => {
+      const { countryCode } = validate({ ...fixture, countryCode: 'fr' });
+      expect(countryCode).toBe('FR');
+    });
+
+    test('trims surrounding whitespace', () => {
+      const { countryCode } = validate({ ...fixture, countryCode: ' fr ' });
+      expect(countryCode).toBe('FR');
+    });
+
+    test('rejects an unknown code', () => {
+      let error;
+      try {
+        validate({ ...fixture, countryCode: 'ZZ' });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.info.errors[0].code).toBe('countryCode.invalid');
+    });
+
+    test('rejects garbage strings', () => {
+      let error;
+      try {
+        validate({ ...fixture, countryCode: 'XX' });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.info.errors[0].code).toBe('countryCode.invalid');
+    });
+
+    test('rejects when missing', () => {
+      let error;
+      try {
+        validate({ ...fixture, countryCode: undefined });
+      } catch (e) {
+        error = e;
+      }
+      expect(error.info.errors[0].code).toBe('required');
+    });
+  });
+
   describe('extIds', () => {
     test('too long', () => {
       let error;
