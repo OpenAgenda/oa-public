@@ -259,6 +259,10 @@ location ~ ^/activate(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
+location ~ ^/post-activate(|/.+)$ {
+  include conf.d/nodejs_params;
+}
+
 location ~ ^/password(|/.+)$ {
   include conf.d/nodejs_params;
 }
