@@ -1,6 +1,7 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import localFront from '../auth/local.front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
@@ -59,7 +60,7 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     usersSvc = services.users;
-    app = buildApp(services, testConfig);
+    app = buildApp(services, testConfig, { extend: (a) => localFront(a) });
 
     // Spy on services.mails.send by replacing the method with a recording
     // wrapper. We do not actually want to send mail in tests; the wrapper
@@ -95,7 +96,10 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
         repeat: password,
       });
 
-    expect([200, 302]).toContain(res.status);
+    // Accept: application/json on the signup form → wantsJson() in
+    // signupSuccess returns true → 200 with `success:true` payload (no
+    // redirect emitted).
+    expect(res.status).toBe(200);
 
     const created = await usersSvc.findOne({
       query: { email },
@@ -141,9 +145,10 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
 
     const verifyRes = await request(app).get(pathAndQuery);
 
-    // BA either returns 200 with a redirect, or follows the callbackURL with
-    // a 302. Either way the user must end up activated.
-    expect([200, 302, 303]).toContain(verifyRes.status);
+    // The activation link always carries a callbackURL → BA returns 302 on
+    // both success and known errors (verify-email handler `throw c.redirect`
+    // is the single exit path when callbackURL is present).
+    expect(verifyRes.status).toBe(302);
 
     const dbUser = await services
       .knex(testConfig.schemas.user)
@@ -179,7 +184,7 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
     const pathAndQuery = `${url.pathname}${url.search}`;
 
     const first = await request(app).get(pathAndQuery);
-    expect([200, 302, 303]).toContain(first.status);
+    expect(first.status).toBe(302);
 
     const dbUser = await services
       .knex(testConfig.schemas.user)
@@ -192,12 +197,11 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
     expect(firstKey).toBeTruthy();
 
     const second = await request(app).get(pathAndQuery);
-    // Second attempt: the JWT itself stays valid (it carries no nonce), but
-    // the user is already verified — BA returns 200 with status:true
-    // without re-firing afterEmailVerification, OR redirects with a status.
-    // The contract that matters is that the userPublic api key is unchanged
-    // (idempotency held).
-    expect([200, 302, 303, 400, 401]).toContain(second.status);
+    // Second attempt: the JWT stays valid (no nonce). Because the link
+    // carries a callbackURL, the already-verified branch still throws
+    // c.redirect(callbackURL) → 302. The contract that matters is that the
+    // userPublic api key is unchanged (idempotency).
+    expect(second.status).toBe(302);
 
     const secondKey = await services
       .keys({ type: 'userPublic', identifier: dbUser.uid })

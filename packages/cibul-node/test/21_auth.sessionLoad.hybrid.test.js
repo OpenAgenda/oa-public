@@ -1,6 +1,8 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import localFront from '../auth/local.front.js';
+import generalFront from '../general/front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
@@ -40,6 +42,9 @@ const enabled = [
 
 function extendApp(services) {
   return (app) => {
+    localFront(app);
+    generalFront(app);
+
     app.get('/whoami', (req, res) =>
       res.json({
         user: req.user

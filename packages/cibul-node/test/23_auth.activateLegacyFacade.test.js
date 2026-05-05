@@ -1,6 +1,7 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import localFront from '../auth/local.front.js';
 import runOnActivation from '../services/users/lib/runOnActivation.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
@@ -60,7 +61,7 @@ describe('23 - auth /activate/:token legacy facade fallback (phase 3b)', () => {
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     usersSvc = services.users;
-    app = buildApp(services, testConfig);
+    app = buildApp(services, testConfig, { extend: (a) => localFront(a) });
 
     originalSend = services.mails.send.bind(services.mails);
   });
@@ -110,7 +111,9 @@ describe('23 - auth /activate/:token legacy facade fallback (phase 3b)', () => {
     expect(tokenRow.token).toBeTruthy();
 
     const res = await request(app).get(`/activate/${tokenRow.token}`);
-    expect([200, 302]).toContain(res.status);
+    // The /activate/:token façade redirects via res.redirect(302, …) on the
+    // BA path success branch (auth/local.front.js:850).
+    expect(res.status).toBe(302);
 
     const refreshed = await services
       .knex(testConfig.schemas.user)

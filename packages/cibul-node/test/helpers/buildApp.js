@@ -1,15 +1,15 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import Core from '../../core/index.js';
-import localFront from '../../auth/local.front.js';
-import generalFront from '../../general/front.js';
 
 // Mounts a base Express app for integration tests: trust proxy, view engine,
 // services + core attached, the /api/auth/* better-auth handler before the
 // body parsers, sessions middleware (with detailed load), and a generic
-// json-error handler. The optional `extend` callback runs after the auth/general
-// fronts are mounted but before the error handler, so callers can register
-// extra routes (e.g. /whoami, /protected) without duplicating the boilerplate.
+// json-error handler. The optional `extend` callback registers route fronts
+// (localFront, googleFront, facebookFront, generalFront, custom test routes,
+// …). Each test mounts only what it needs — keeps `buildApp` small and
+// avoids cross-test surprises (e.g. localFront's `/:agendaSlug/signin`
+// catch-all hijacking `/google/signin` when google.front isn't mounted).
 export default function buildApp(services, config, { extend } = {}) {
   const app = express();
   app.set('trust proxy', ['loopback', 'uniquelocal']);
@@ -44,9 +44,6 @@ export default function buildApp(services, config, { extend } = {}) {
       next();
     },
   );
-
-  localFront(app);
-  generalFront(app);
 
   if (typeof extend === 'function') extend(app);
 

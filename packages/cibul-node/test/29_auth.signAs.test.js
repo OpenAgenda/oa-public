@@ -1,6 +1,8 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import localFront from '../auth/local.front.js';
+import generalFront from '../general/front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
@@ -88,6 +90,8 @@ describe('29 - superadmin sign-as (better-auth admin-style impersonation)', () =
 
     app = buildApp(services, liveConfig, {
       extend: (a) => {
+        localFront(a);
+        generalFront(a);
         // Mount the superadmin routes (production: server.js calls
         // app.services.superadmin.plugApp(app, '/admin')).
         services.superadmin.plugApp(a, '/admin');

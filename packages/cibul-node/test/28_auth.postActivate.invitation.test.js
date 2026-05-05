@@ -1,6 +1,7 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import localFront from '../auth/local.front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
@@ -58,7 +59,7 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     usersSvc = services.users;
-    app = buildApp(services, testConfig);
+    app = buildApp(services, testConfig, { extend: (a) => localFront(a) });
 
     // Don't actually send mail in tests — invitations created via members
     // create flow trigger an invitation mail.

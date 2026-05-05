@@ -1,6 +1,7 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
+import localFront from '../auth/local.front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
@@ -57,7 +58,7 @@ describe('20 - auth signup UI via better-auth (phase 3)', () => {
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     usersSvc = services.users;
-    app = buildApp(services, testConfig);
+    app = buildApp(services, testConfig, { extend: (a) => localFront(a) });
   });
 
   afterAll(() => core.services.shutdown({ clear: true }));
