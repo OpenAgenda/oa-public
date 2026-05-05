@@ -17,7 +17,12 @@ function redirectInvalid(req, res, label) {
 }
 
 async function confirmUnlinkFacebook(req, res) {
-  const { users: usersSvc, tokens: tokensSvc, sessions } = req.app.services;
+  const {
+    users: usersSvc,
+    tokens: tokensSvc,
+    sessions,
+    auth,
+  } = req.app.services;
 
   const token = await tokensSvc.findOne({
     query: { token: req.params.token, type: 'uf' },
@@ -69,6 +74,21 @@ async function confirmUnlinkFacebook(req, res) {
   );
 
   await tokensSvc.remove(token.id);
+
+  // Drop the BA `account` row so the next /sign-in/social facebook attempt
+  // hits the `disableImplicitSignUp` guard instead of silently re-linking
+  // by `(provider_id, account_id)` lookup. Best-effort: any failure leaves
+  // the row in place but the legacy `users.facebook_uid` is already null,
+  // so the user is functionally unlinked; `accountCleanup` will pick the
+  // row up on a subsequent `users.remove` if any.
+  try {
+    await auth?.deleteOAuthAccount?.(user.id, 'facebook');
+  } catch (err) {
+    log.error('failed to drop facebook account row', {
+      userUid: user.uid,
+      err,
+    });
+  }
 
   log.info(
     'migration complete, facebook unlinked and email/password persisted',
