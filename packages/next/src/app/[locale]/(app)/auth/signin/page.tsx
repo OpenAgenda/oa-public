@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
 import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import getLocale from '@/src/utils/getLocale';
 import getSession from '@/src/utils/getSession';
 import SigninPageClient from './_components/SigninPageClient';
 
@@ -22,12 +21,15 @@ export default async function SigninPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const locale = await getLocale();
   const cookieStore = await cookies();
   const session = getSession(cookieStore);
 
   if (session?.user) {
-    redirect(`/${locale}/home`);
+    // /home is a cibul-node legacy route, not a Next.js route — redirect
+    // without the locale prefix so nginx routes it to cibul-node. The
+    // localized variant (/fr/home) would fall through to Next's [agendaSlug]
+    // page and render `home` as if it were an agenda slug.
+    redirect('/home');
   }
 
   const params = await searchParams;
