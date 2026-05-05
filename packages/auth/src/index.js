@@ -266,14 +266,18 @@ export default function Auth(options = {}) {
                 },
               );
             }
-            const target = `${ctx.context.baseURL || ''}/signin?msg=accountUnavailable`;
-            ctx.context.responseHeaders?.set('location', target);
+            ctx.context.responseHeaders?.set(
+              'location',
+              '/auth/signin?msg=accountUnavailable',
+            );
             return;
           }
 
           if (user.facebookUid) {
-            const target = `${ctx.context.baseURL || ''}/settings/unlinkFacebook`;
-            ctx.context.responseHeaders?.set('location', target);
+            ctx.context.responseHeaders?.set(
+              'location',
+              '/settings/unlinkFacebook',
+            );
           }
           return;
         }
