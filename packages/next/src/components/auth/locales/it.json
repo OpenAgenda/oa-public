@@ -29,6 +29,8 @@
   "next.components.auth.Signin.genericError": "",
   "next.components.auth.Signin.googleLabel": "",
   "next.components.auth.Signin.invalidCredentials": "",
+  "next.components.auth.Signin.linkProviderError": "",
+  "next.components.auth.Signin.linkProviderGoogleNotice": "",
   "next.components.auth.Signin.noAccount": "",
   "next.components.auth.Signin.or": "",
   "next.components.auth.Signin.passwordLabel": "",

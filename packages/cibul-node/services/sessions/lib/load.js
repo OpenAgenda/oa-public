@@ -51,9 +51,7 @@ function load(sessions, baseOptions, { detailed, redirect, msg } = {}) {
 
     if (auth) {
       try {
-        const ba = await auth.api.getSession({
-          headers: auth.toHeaders(req),
-        });
+        const ba = await auth.getSessionFromRequest(req);
 
         if (ba?.user) {
           let oaUser;

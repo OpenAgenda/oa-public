@@ -13,9 +13,17 @@ const messages = defineMessages({
 
 interface SigninPageClientProps {
   redirect?: string;
+  linkProvider?: 'google';
+  linkError?: boolean;
+  defaultEmail?: string;
 }
 
-export default function SigninPageClient({ redirect }: SigninPageClientProps) {
+export default function SigninPageClient({
+  redirect,
+  linkProvider,
+  linkError,
+  defaultEmail,
+}: SigninPageClientProps) {
   const intl = useIntl();
 
   return (
@@ -23,7 +31,12 @@ export default function SigninPageClient({ redirect }: SigninPageClientProps) {
       <Heading as="h1" size="xl" mb="6">
         {intl.formatMessage(messages.heading)}
       </Heading>
-      <Signin redirect={redirect} />
+      <Signin
+        redirect={redirect}
+        linkProvider={linkProvider}
+        linkError={linkError}
+        defaultEmail={defaultEmail}
+      />
     </>
   );
 }

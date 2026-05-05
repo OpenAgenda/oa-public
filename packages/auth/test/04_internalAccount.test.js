@@ -110,6 +110,62 @@ describe('auth - unit: credential helpers', () => {
     expect(adapter.deleteAccount).not.toHaveBeenCalled();
   });
 
+  it('deleteOAuthAccount only deletes rows for the requested provider', async () => {
+    const adapter = {
+      findAccountByUserId: jest.fn().mockResolvedValue([
+        { id: 'cred-1', providerId: 'credential' },
+        { id: 'goog-1', providerId: 'google' },
+        { id: 'fb-1', providerId: 'facebook' },
+      ]),
+      deleteAccount: jest.fn().mockResolvedValue(undefined),
+    };
+    const { deleteOAuthAccount } = createCredentialHelpers(
+      fakeInstance(adapter),
+    );
+
+    await deleteOAuthAccount(42, 'facebook');
+
+    expect(adapter.deleteAccount).toHaveBeenCalledTimes(1);
+    expect(adapter.deleteAccount).toHaveBeenCalledWith('fb-1');
+  });
+
+  it('deleteOAuthAccount is a no-op when no row matches the provider', async () => {
+    const adapter = {
+      findAccountByUserId: jest.fn().mockResolvedValue([
+        { id: 'cred-1', providerId: 'credential' },
+        { id: 'goog-1', providerId: 'google' },
+      ]),
+      deleteAccount: jest.fn(),
+    };
+    const { deleteOAuthAccount } = createCredentialHelpers(
+      fakeInstance(adapter),
+    );
+
+    await deleteOAuthAccount(42, 'facebook');
+
+    expect(adapter.deleteAccount).not.toHaveBeenCalled();
+  });
+
+  it('deleteAllOAuthAccounts removes google and facebook rows but keeps credential', async () => {
+    const adapter = {
+      findAccountByUserId: jest.fn().mockResolvedValue([
+        { id: 'cred-1', providerId: 'credential' },
+        { id: 'goog-1', providerId: 'google' },
+        { id: 'fb-1', providerId: 'facebook' },
+      ]),
+      deleteAccount: jest.fn().mockResolvedValue(undefined),
+    };
+    const { deleteAllOAuthAccounts } = createCredentialHelpers(
+      fakeInstance(adapter),
+    );
+
+    await deleteAllOAuthAccounts(42);
+
+    expect(adapter.deleteAccount).toHaveBeenCalledTimes(2);
+    expect(adapter.deleteAccount).toHaveBeenCalledWith('goog-1');
+    expect(adapter.deleteAccount).toHaveBeenCalledWith('fb-1');
+  });
+
   it('revokeUserSessions delegates to deleteSessions with the userId as string', async () => {
     const adapter = { deleteSessions: jest.fn().mockResolvedValue(undefined) };
     const { revokeUserSessions } = createCredentialHelpers(

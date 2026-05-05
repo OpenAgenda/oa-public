@@ -179,6 +179,18 @@
       "value": "L'email ou le mot de passe est incorrect."
     }
   ],
+  "next.components.auth.Signin.linkProviderError": [
+    {
+      "type": 0,
+      "value": "La liaison a échoué. Connectez-vous à nouveau avec Google."
+    }
+  ],
+  "next.components.auth.Signin.linkProviderGoogleNotice": [
+    {
+      "type": 0,
+      "value": "Un compte OpenAgenda existe déjà avec cet email. Confirmez votre mot de passe pour lier votre compte Google."
+    }
+  ],
   "next.components.auth.Signin.noAccount": [
     {
       "type": 0,

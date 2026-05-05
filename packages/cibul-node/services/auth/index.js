@@ -25,6 +25,23 @@ export async function init(config, services) {
       account: schemas.account,
       verification: schemas.verification,
     },
+    google: config.auth?.google?.id ? config.auth.google : undefined,
+    facebook: config.auth?.facebook?.id ? config.auth.facebook : undefined,
+    onAfterOAuthSignUp: async (user) => {
+      try {
+        const oaUser = await services.users.findOne({
+          query: { id: user.id },
+          detailed: true,
+        });
+        if (!oaUser) return;
+        await runOnActivation(services, oaUser);
+        services.users
+          .refresh(oaUser.uid, { lastSignin: true })
+          .catch((err) => log('warn', 'lastSignin refresh failed', { err }));
+      } catch (err) {
+        log('error', 'onAfterOAuthSignUp failed', { userId: user?.id, err });
+      }
+    },
     onEmailVerified: async (user) => {
       try {
         const oaUser = await services.users.findOne({
@@ -35,6 +52,41 @@ export async function init(config, services) {
         await runOnActivation(services, oaUser);
       } catch (err) {
         log('error', 'onEmailVerified failed', { userId: user?.id, err });
+      }
+    },
+    onSendVerificationEmail: async ({ user, url }) => {
+      try {
+        await services.mails.send({
+          template: 'activateAccount',
+          to: user.email,
+          lang: user.culture,
+          data: {
+            activateLink: url,
+            emailSettingsLink: null,
+          },
+          queue: false,
+        });
+      } catch (err) {
+        log('error', 'sendVerificationEmail failed', { userId: user?.id, err });
+      }
+    },
+    onSendPasswordResetEmail: async ({ user, url }) => {
+      try {
+        await services.mails.send({
+          template: 'resetPassword',
+          to: user.email,
+          lang: user.culture,
+          data: {
+            resetLink: url,
+            emailSettingsLink: null,
+          },
+          queue: false,
+        });
+      } catch (err) {
+        log('error', 'sendPasswordResetEmail failed', {
+          userId: user?.id,
+          err,
+        });
       }
     },
   });

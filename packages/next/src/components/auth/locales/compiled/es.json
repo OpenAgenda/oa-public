@@ -179,6 +179,18 @@
       "value": "The email or the password are incorrect."
     }
   ],
+  "next.components.auth.Signin.linkProviderError": [
+    {
+      "type": 0,
+      "value": "Linking failed. Please sign in with Google again."
+    }
+  ],
+  "next.components.auth.Signin.linkProviderGoogleNotice": [
+    {
+      "type": 0,
+      "value": "An OpenAgenda account already exists with this email. Confirm your password to link your Google account."
+    }
+  ],
   "next.components.auth.Signin.noAccount": [
     {
       "type": 0,

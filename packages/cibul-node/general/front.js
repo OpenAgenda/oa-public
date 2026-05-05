@@ -67,12 +67,37 @@ export default (app) => {
   app.get(
     '/signout',
     preMw,
-    (req, res, next) => {
-      if (req.cookies.loggedAs) {
-        const sessionId = req.session?.sessionId;
-        req.session = sessionId ? { sessionId } : null;
-        res.clearCookie('loggedAs');
-        return res.redirect(302, '/');
+    async (req, res, next) => {
+      // Sign-as flow: detect impersonation by inspecting BA's session row.
+      // When a superadmin used "sign as <user>", `auth.impersonateUser`
+      // stamped `impersonatedBy` on the BA session row and stashed the
+      // superadmin's token in the signed `oa.admin_session` cookie.
+      // /signout in this state means "stop impersonating" — call the BA
+      // endpoint, which atomically deletes the impersonated session, restores
+      // the superadmin's session_token, and clears the marker cookie.
+      if (auth) {
+        let baSession = null;
+        try {
+          baSession = await auth.getSessionFromRequest(req);
+        } catch (err) {
+          req.log?.warn?.({
+            message: 'getSession during /signout failed',
+            error: err,
+          });
+        }
+
+        if (baSession?.session?.impersonatedBy) {
+          try {
+            await auth.stopImpersonating({ req, res });
+            return res.redirect(302, '/');
+          } catch (err) {
+            req.log?.error?.({
+              message:
+                'stopImpersonating failed, falling back to clean signout',
+              error: err,
+            });
+          }
+        }
       }
       next();
     },

@@ -524,10 +524,6 @@ const config = {
         method: 'post',
         uri: '/:slug/facebook/signin',
       },
-      facebookSigninCallback: {
-        method: 'get',
-        uri: '/facebook/signin/callback',
-      },
       googleSignin: {
         method: 'get',
         uri: '/google/signin',
@@ -536,10 +532,6 @@ const config = {
         method: 'post',
         uri: '/:slug/google/signin',
       },
-      googleSigninCallback: {
-        method: 'get',
-        uri: '/google/signin/callback',
-      },
       googleSignup: {
         method: 'get',
         uri: '/google/signup',
@@ -547,10 +539,6 @@ const config = {
       agendaGoogleSignup: {
         method: 'post',
         uri: '/:slug/google/signup',
-      },
-      googleSignupCallback: {
-        method: 'get',
-        uri: '/google/signup/callback',
       },
       lostPassword: {
         method: 'get',
