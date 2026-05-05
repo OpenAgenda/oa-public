@@ -18,7 +18,7 @@ export function LoggedUserWelcome({
   stuckTop = 0,
   user,
   onClose = null,
-  onHeightChange,
+  onHeightChange = null,
 }) {
   const intl = useIntl();
 
