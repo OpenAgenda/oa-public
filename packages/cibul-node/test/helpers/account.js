@@ -6,4 +6,10 @@ export async function getCredentialAccount(knex, userId, schemas) {
     .first();
 }
 
-export default { getCredentialAccount };
+// Returns all better-auth `account` rows for a user, regardless of provider.
+// Used by phase 4 OAuth tests.
+export async function getAllAccounts(knex, userId, schemas) {
+  return knex(schemas.account).where({ user_id: userId });
+}
+
+export default { getCredentialAccount, getAllAccounts };

@@ -23,6 +23,7 @@ const afterRemove = () => async (context, next) => {
     // the user logged in until session TTL.
     await auth.revokeUserSessions(userId);
     await auth.deleteCredentialAccount(userId);
+    await auth.deleteAllOAuthAccounts(userId);
   } catch (err) {
     log.error('account cleanup on remove failed', { userId, err });
   }

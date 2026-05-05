@@ -2,7 +2,7 @@ import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
-import { getCredentialAccount } from './helpers/account.js';
+import { getAllAccounts, getCredentialAccount } from './helpers/account.js';
 
 const enabled = [
   'knex',
@@ -132,6 +132,49 @@ describe('16 - services.users account cleanup (phase 2.5)', () => {
         await redis.get(`${KEY_PREFIX}active-sessions-${user.id}`),
       ).toBeNull();
       expect(await redis.get(`${KEY_PREFIX}${token}`)).toBeNull();
+    });
+
+    it('cascades to OAuth account rows (google + facebook)', async () => {
+      const user = await usersSvc.create(
+        {
+          fullName: 'Cleanup OAuth Cascade',
+          email: 'cleanup-oauth-cascade@oa.test',
+          password: 'plainPwd-oauth',
+          isActivated: true,
+        },
+        { internal: true, detailed: true },
+      );
+
+      // Mimic phase 4 backfill: insert OAuth account rows alongside the
+      // credential row written by phase 2a.
+      const now = new Date();
+      await knex(testConfig.schemas.account).insert([
+        {
+          user_id: user.id,
+          account_id: 'google-uid-cascade',
+          provider_id: 'google',
+          password: null,
+          created_at: now,
+          updated_at: now,
+        },
+        {
+          user_id: user.id,
+          account_id: 'facebook-uid-cascade',
+          provider_id: 'facebook',
+          password: null,
+          created_at: now,
+          updated_at: now,
+        },
+      ]);
+      expect(
+        await getAllAccounts(knex, user.id, testConfig.schemas),
+      ).toHaveLength(3);
+
+      await usersSvc.remove(user.uid);
+
+      expect(
+        await getAllAccounts(knex, user.id, testConfig.schemas),
+      ).toHaveLength(0);
     });
 
     it('does not throw when the user has no credential row (oauth-only)', async () => {
