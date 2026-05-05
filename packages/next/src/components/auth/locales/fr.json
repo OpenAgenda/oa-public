@@ -29,6 +29,8 @@
   "next.components.auth.Signin.genericError": "Une erreur est survenue. Veuillez réessayer.",
   "next.components.auth.Signin.googleLabel": "Se connecter avec Google",
   "next.components.auth.Signin.invalidCredentials": "L'email ou le mot de passe est incorrect.",
+  "next.components.auth.Signin.linkProviderError": "La liaison a échoué. Connectez-vous à nouveau avec Google.",
+  "next.components.auth.Signin.linkProviderGoogleNotice": "Un compte OpenAgenda existe déjà avec cet email. Confirmez votre mot de passe pour lier votre compte Google.",
   "next.components.auth.Signin.noAccount": "Vous n'avez pas encore de compte ?",
   "next.components.auth.Signin.or": "ou",
   "next.components.auth.Signin.passwordLabel": "Mot de passe",

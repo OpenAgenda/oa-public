@@ -29,6 +29,8 @@
   "next.components.auth.Signin.genericError": "An error occurred. Please try again.",
   "next.components.auth.Signin.googleLabel": "Sign in with Google",
   "next.components.auth.Signin.invalidCredentials": "The email or the password are incorrect.",
+  "next.components.auth.Signin.linkProviderError": "Linking failed. Please sign in with Google again.",
+  "next.components.auth.Signin.linkProviderGoogleNotice": "An OpenAgenda account already exists with this email. Confirm your password to link your Google account.",
   "next.components.auth.Signin.noAccount": "Don't have an account yet?",
   "next.components.auth.Signin.or": "or",
   "next.components.auth.Signin.passwordLabel": "Password",

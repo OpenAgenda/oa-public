@@ -78,6 +78,15 @@ const messages = defineMessages({
     id: 'next.components.auth.Signin.resetPassword',
     defaultMessage: 'Reset my password',
   },
+  linkProviderGoogleNotice: {
+    id: 'next.components.auth.Signin.linkProviderGoogleNotice',
+    defaultMessage:
+      'An OpenAgenda account already exists with this email. Confirm your password to link your Google account.',
+  },
+  linkProviderError: {
+    id: 'next.components.auth.Signin.linkProviderError',
+    defaultMessage: 'Linking failed. Please sign in with Google again.',
+  },
 });
 
 interface SigninProps {
@@ -89,6 +98,16 @@ interface SigninProps {
   redirect?: string;
   reloadOnSuccess?: boolean;
   redirectOnSuccess?: string;
+  // Verified-linking flow (phase 4): when set, the user just came back from
+  // an OAuth callback that hit BA's `account_not_linked` (existing OA user
+  // matched by email but no `account` row for the provider). Showing a
+  // banner + posting `linkProvider` along with the credentials lets the
+  // /signin handler trigger /api/auth/link-social right after signin to
+  // finalise the linking. Only `'google'` is supported (Facebook stays
+  // strict — no verified linking, phase-out policy).
+  linkProvider?: 'google';
+  linkError?: boolean;
+  defaultEmail?: string;
   onSuccess?: () => void;
   onViewChange?: (view: 'signin' | 'lost' | 'signup') => void;
 }
@@ -102,11 +121,14 @@ export default function Signin({
   redirect,
   reloadOnSuccess = false,
   redirectOnSuccess,
+  linkProvider,
+  linkError = false,
+  defaultEmail = '',
   onSuccess,
   onViewChange,
 }: SigninProps) {
   const intl = useIntl();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState(defaultEmail);
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [message, setMessage] = useState<string | null>(null);
@@ -155,13 +177,15 @@ export default function Signin({
         const url = redirect
           ? `/signin?${new URLSearchParams({ redirect }).toString()}`
           : '/signin';
+        const body: Record<string, string> = { email, password };
+        if (linkProvider) body.linkProvider = linkProvider;
         const res = await fetch(url, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
             'Content-Type': 'application/x-www-form-urlencoded',
           },
-          body: new URLSearchParams({ email, password }),
+          body: new URLSearchParams(body),
         });
 
         const data = await res.json();
@@ -210,6 +234,7 @@ export default function Signin({
       reloadOnSuccess,
       redirectOnSuccess,
       onSuccess,
+      linkProvider,
     ],
   );
 
@@ -235,6 +260,19 @@ export default function Signin({
       onSubmit={handleSubmit}
       aria-label={intl.formatMessage(messages.formTitle)}
     >
+      {linkProvider === 'google' && (
+        <Alert.Root role="alert" status={linkError ? 'error' : 'info'} mb="4">
+          <Alert.Indicator />
+          <Alert.Title>
+            {intl.formatMessage(
+              linkError
+                ? messages.linkProviderError
+                : messages.linkProviderGoogleNotice,
+            )}
+          </Alert.Title>
+        </Alert.Root>
+      )}
+
       {message && (
         <Alert.Root role="alert" status="error" mb="4">
           <Alert.Indicator />
@@ -340,25 +378,33 @@ export default function Signin({
         {intl.formatMessage(messages.submitLabel)}
       </Button>
 
-      <HStack my="4">
-        <Separator flex="1" aria-hidden="true" />
-        <Text flexShrink="0" fontSize="sm" color="fg.muted">
-          {intl.formatMessage(messages.or)}
-        </Text>
-        <Separator flex="1" aria-hidden="true" />
-      </HStack>
-      <Button asChild variant="outline" w="full">
-        <a href={agenda ? `/${agenda.slug}/google/signin` : '/google/signin'}>
-          {intl.formatMessage(messages.googleLabel)}
-        </a>
-      </Button>
-      <Button asChild variant="outline" w="full" mt="2">
-        <a
-          href={agenda ? `/${agenda.slug}/facebook/signin` : '/facebook/signin'}
-        >
-          {intl.formatMessage(messages.facebookLabel)}
-        </a>
-      </Button>
+      {(!linkProvider || linkError) && (
+        <>
+          <HStack my="4">
+            <Separator flex="1" aria-hidden="true" />
+            <Text flexShrink="0" fontSize="sm" color="fg.muted">
+              {intl.formatMessage(messages.or)}
+            </Text>
+            <Separator flex="1" aria-hidden="true" />
+          </HStack>
+          <Button asChild variant="outline" w="full">
+            <a
+              href={agenda ? `/${agenda.slug}/google/signin` : '/google/signin'}
+            >
+              {intl.formatMessage(messages.googleLabel)}
+            </a>
+          </Button>
+          <Button asChild variant="outline" w="full" mt="2">
+            <a
+              href={
+                agenda ? `/${agenda.slug}/facebook/signin` : '/facebook/signin'
+              }
+            >
+              {intl.formatMessage(messages.facebookLabel)}
+            </a>
+          </Button>
+        </>
+      )}
 
       <Text mt="4" textAlign="center">
         {intl.formatMessage(messages.noAccount)}{' '}
