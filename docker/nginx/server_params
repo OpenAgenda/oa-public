@@ -254,6 +254,10 @@ location ~ ^/facebook(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
+location ~ ^/unlinkFacebook(|/.+)$ {
+  include conf.d/nodejs_params;
+}
+
 location ~ ^/twitter(|/.+)$ {
   include conf.d/nodejs_params;
 }
