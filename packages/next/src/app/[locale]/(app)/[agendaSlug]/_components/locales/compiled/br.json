@@ -1,0 +1,80 @@
+{
+  "next.components.auth.AuthDialog.msg.authRequired": [
+    {
+      "type": 0,
+      "value": "L'accès à la page demandée est restreint. Connectez-vous pour y accéder."
+    }
+  ],
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": [
+    {
+      "type": 0,
+      "value": "L'accès à cet agenda est restreint. Connectez-vous pour y accéder."
+    }
+  ],
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": [
+    {
+      "type": 0,
+      "value": "L'accès à cet événement est restreint. Connectez-vous pour y accéder."
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.addEvent": [
+    {
+      "type": 0,
+      "value": "Ouzhpennañ un darvoud"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.aggregate": [
+    {
+      "type": 0,
+      "value": "Bodañ"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.contact": [
+    {
+      "type": 0,
+      "value": "Mont e darempred"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.export": [
+    {
+      "type": 0,
+      "value": "Ezporzhiañ"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": [
+    {
+      "type": 0,
+      "value": "Deiziataer ofisiel"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.addToFavorites": [
+    {
+      "type": 0,
+      "value": "Ouzhpennañ d'ar pennrolloù"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "Keleier pennañ"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.removeFromFavorites": [
+    {
+      "type": 0,
+      "value": "Lemel eus ar pennrolloù"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.share": [
+    {
+      "type": 0,
+      "value": "Skignañ"
+    }
+  ],
+  "next.views.AgendaShow.Favorites.favorites": [
+    {
+      "type": 0,
+      "value": "Pennrolloù"
+    }
+  ]
+}

@@ -1,0 +1,285 @@
+{
+  "next.views.AgendaError.agendaNotFound": [
+    {
+      "type": 0,
+      "value": "Agenda not found"
+    }
+  ],
+  "next.views.AgendaError.forbiddenMsg": [
+    {
+      "type": 0,
+      "value": "You do not have access to this agenda."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Check the link provided to you or request access."
+    }
+  ],
+  "next.views.AgendaError.notFoundMsg": [
+    {
+      "type": 0,
+      "value": "There is no calendar corresponding to this link."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Either the link is invalid or the calendar has been deleted."
+    }
+  ],
+  "next.views.AgendaError.orSignup": [
+    {
+      "type": 0,
+      "value": "Or "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "sign up"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " if you don't have an account yet."
+    }
+  ],
+  "next.views.AgendaError.requestInvitation": [
+    {
+      "type": 0,
+      "value": "Request an invitation"
+    }
+  ],
+  "next.views.AgendaError.restrictedAccess": [
+    {
+      "type": 0,
+      "value": "Access to this agenda is restricted,"
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " authenticate yourself before you can access it."
+    }
+  ],
+  "next.views.AgendaError.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Search an agenda"
+    }
+  ],
+  "next.views.AgendaError.signIn": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "next.views.AgendaError.unauthorizedMsg": [
+    {
+      "type": 0,
+      "value": "Access to this agenda is restricted,"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " authenticate yourself before you can access it."
+    }
+  ],
+  "next.views.AgendaShow.closeButton": [
+    {
+      "type": 0,
+      "value": "Close"
+    }
+  ],
+  "next.views.AgendaShow.filter": [
+    {
+      "type": 0,
+      "value": "Filter"
+    }
+  ],
+  "next.views.AgendaShow.filters": [
+    {
+      "type": 0,
+      "value": "Filters"
+    }
+  ],
+  "next.views.AgendaShow.help": [
+    {
+      "type": 0,
+      "value": "Help"
+    }
+  ],
+  "next.views.AgendaShow.includePassedEvents": [
+    {
+      "type": 0,
+      "value": "Include past events"
+    }
+  ],
+  "next.views.AgendaShow.networkErrorMessage": [
+    {
+      "type": 0,
+      "value": "Unable to load events. Please check your internet connection and try again."
+    }
+  ],
+  "next.views.AgendaShow.networkErrorTitle": [
+    {
+      "type": 0,
+      "value": "Connection error"
+    }
+  ],
+  "next.views.AgendaShow.retryButton": [
+    {
+      "type": 0,
+      "value": "Retry"
+    }
+  ],
+  "next.views.AgendaShow.seeEvents": [
+    {
+      "type": 0,
+      "value": "Show "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.seeMore": [
+    {
+      "type": 0,
+      "value": "See more"
+    }
+  ],
+  "next.views.AgendaShow.showUpcomingEventsOnly": [
+    {
+      "type": 0,
+      "value": "Show upcoming events only"
+    }
+  ],
+  "next.views.AgendaShow.signin": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ],
+  "next.views.AgendaShow.termsOfUse": [
+    {
+      "type": 0,
+      "value": "Terms of use"
+    }
+  ],
+  "next.views.AgendaShow.totalEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.totalUpcomingEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "No upcoming event"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 upcoming event"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " upcoming events"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ]
+}

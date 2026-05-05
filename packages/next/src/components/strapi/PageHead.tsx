@@ -4,8 +4,9 @@ import {
   HeadingProps,
   Image,
   Flex,
-  useBreakpointValue,
+  Grid,
   ButtonProps,
+  type HTMLChakraProps,
 } from '@openagenda/uikit';
 
 import { color } from 'utils/strapi';
@@ -74,7 +75,7 @@ interface TitleProps {
   fontSize?: HeadingProps['size'];
   fontColor?: Color;
   title: string;
-  textAlign?: string;
+  textAlign?: HTMLChakraProps<'div'>['textAlign'];
 }
 
 const Title = ({
@@ -132,7 +133,7 @@ interface ContentProps {
   video?: string;
 }
 
-const Description = ({ mt, fontColor, description }) =>
+const Description = ({ mt = undefined, fontColor, description }) =>
   description ? (
     <StrapiMarkdown
       mt={mt}
@@ -142,6 +143,92 @@ const Description = ({ mt, fontColor, description }) =>
       {description}
     </StrapiMarkdown>
   ) : null;
+
+// CSS Grid layout for the video case: single column (stacked) below 2xl,
+// multi-column (row) at 2xl+.  Reproduces the original two-branch JS layout
+// (`useBreakpointValue`) without hydration layout shift.
+const VideoContent = ({
+  title,
+  coloredTitle,
+  description,
+  CTAs = [],
+  fontColor,
+  fontSize,
+  image,
+  video,
+}: ContentProps) => {
+  const hasImage = !!image;
+
+  return (
+    <Grid
+      height="100%"
+      gridTemplateAreas={{
+        base: '"title" "desc" "video" "ctas"',
+        '2xl': hasImage
+          ? '"title video image" "desc video image" "ctas video image"'
+          : '"title video" "desc video" "ctas video"',
+      }}
+      gridTemplateColumns={{
+        base: '1fr',
+        '2xl': hasImage ? '1fr 1fr 1fr' : '1fr 1fr',
+      }}
+      maxW={{ base: '5xl', '2xl': 'none' }}
+      mx={{ base: 'auto', '2xl': 0 }}
+      px={{ base: 8, '2xl': 36 }}
+      py={{ base: 14, '2xl': 36 }}
+      rowGap={{ base: 2, '2xl': 0 }}
+      columnGap={{ base: 0, '2xl': 36 }}
+      alignContent="center"
+      alignItems="center"
+      justifyItems={{ base: 'center', '2xl': 'stretch' }}
+    >
+      <Box gridArea="title" justifySelf={{ base: 'center', '2xl': 'stretch' }}>
+        <Title
+          coloredTitle={coloredTitle}
+          fontSize={{ base: fontSize || '5xl', '2xl': '5xl' }}
+          fontColor={fontColor}
+          title={title}
+          textAlign={{ base: 'center', '2xl': 'left' }}
+        />
+      </Box>
+      <Box gridArea="desc" mt={{ base: 12, '2xl': 7 }}>
+        <Description fontColor={fontColor} description={description} />
+      </Box>
+      <Flex
+        gridArea="video"
+        w={{ base: '70%', '2xl': 'auto' }}
+        justifyContent="center"
+        alignSelf="center"
+      >
+        <VideoPlayer video={video} />
+      </Flex>
+      <Box gridArea="ctas" mt={{ base: 2, '2xl': 9 }}>
+        <CTAButtons
+          CTAs={CTAs}
+          justify={{ base: 'center', '2xl': 'flex-start' }}
+        />
+      </Box>
+      {hasImage ? (
+        <Flex
+          gridArea="image"
+          display={{ base: 'none', '2xl': 'flex' }}
+          justifyContent="center"
+          alignSelf="center"
+        >
+          <Image
+            src={image.url}
+            alt={image.alternativeText}
+            maxW={{ lg: 'full' }}
+            maxH={{ base: 'full', lg: undefined }}
+            w={{ lg: image.width }}
+            h={{ base: image.height, lg: undefined }}
+            objectFit="contain"
+          />
+        </Flex>
+      ) : null}
+    </Grid>
+  );
+};
 
 const Content = ({
   title,
@@ -155,39 +242,18 @@ const Content = ({
 }: ContentProps) => {
   const itemsCount = 1 + (image ? 1 : 0) + (video ? 1 : 0);
 
-  const isSmall = useBreakpointValue({ base: true, lg: false });
-  const isRegular = useBreakpointValue({ lg: true, '2xl': false });
-
-  if ((isSmall || isRegular) && video) {
+  if (video) {
     return (
-      <Box maxW="5xl" m="auto" height="100%" p={8}>
-        <Flex
-          py={5}
-          height="100%"
-          gap={2}
-          direction="column"
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Title
-            coloredTitle={coloredTitle}
-            fontSize={fontSize}
-            fontColor={fontColor}
-            title={title}
-            textAlign="center"
-          />
-
-          <Description
-            mt={12}
-            fontColor={fontColor}
-            description={description}
-          />
-          <Box w="70%">
-            <VideoPlayer video={video} />
-          </Box>
-          <CTAButtons CTAs={CTAs} justify="center" mt={2} />
-        </Flex>
-      </Box>
+      <VideoContent
+        title={title}
+        coloredTitle={coloredTitle}
+        description={description}
+        CTAs={CTAs}
+        fontColor={fontColor}
+        fontSize={fontSize}
+        image={image}
+        video={video}
+      />
     );
   }
 
@@ -216,11 +282,6 @@ const Content = ({
         <Description mt={7} fontColor={fontColor} description={description} />
         {CTAs && CTAs.length > 0 ? <CTAButtons CTAs={CTAs} mt={9} /> : null}
       </Flex>
-      {video ? (
-        <Flex flex="1">
-          <VideoPlayer video={video} />
-        </Flex>
-      ) : null}
       {image ? (
         <Flex flex="1" justifyContent="center">
           <Image

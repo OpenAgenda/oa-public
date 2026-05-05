@@ -10,7 +10,7 @@
   "updated_at": "2020-07-13 09:03:56",
   "uid": "6184770",
   "official": "1",
-  "credentials": "{\"moderators\":true,\"tags\":false,\"activatingInvitations\":false,\"aggregator\":true,\"invitationMessage\":true,\"docxExport\":true,\"eventOwnershipTransfer\":false}",
+  "credentials": "{\"moderators\":true,\"tags\":false,\"aggregator\":true,\"invitationMessage\":true,\"docxExport\":true,\"eventOwnershipTransfer\":false}",
   "settings": "{\"tracking\":{\"googleAnalytics\":null},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":2,\"defaultState\":0,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":\"Bonjour,\\n\\nles événements saisis le 21 juin après midi ne seront plus modérés ni publiés.\\n\\nSi vous avez déjà saisis des événements, vous gardez la possibilité des les modifier si besoin.\\n\\nBonne fête de la musique 2019 !\",\"complete\":\"Votre événement est bien enregistré.\\n\\nIl est en cours de modération\",\"publication\":\"Bonjour,\\n\\nVotre événement vient d'être publié.\\n\\nIl sera bientôt visible sur [le site internet de l'événement](http://fetedelamusique.fr).\\n\\nPour toute information, contactez-nous à l'aide du [formulaire en ligne](https://fetedelamusique.culturecommunication.gouv.fr/Contactez-nous).\\n\\nNous vous remercions pour votre participation.\\n\\nL'équipe de la Fête de la Musique\"},\"useFields\":true,\"authorizedIPAddresses\":[]}}",
   "private": "0",
   "officialized_at": null,

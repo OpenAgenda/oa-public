@@ -1,0 +1,354 @@
+{
+  "next.views.AgendaError.agendaNotFound": [
+    {
+      "type": 0,
+      "value": "Deiziataer ebet kavet"
+    }
+  ],
+  "next.views.AgendaError.forbiddenMsg": [
+    {
+      "type": 0,
+      "value": "N'hoc'h eus ket moned d'an deiziataer-mañ."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Gwiriit al liamm zo bet roet deoc'h pe goulennit ar moned."
+    }
+  ],
+  "next.views.AgendaError.notFoundMsg": [
+    {
+      "type": 0,
+      "value": "N'eus deiziataer ebet o klotañ gant al liamm-mañ."
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": "Pe eo direizh al liamm pe eo bet dilamet an deiziataer."
+    }
+  ],
+  "next.views.AgendaError.orSignup": [
+    {
+      "type": 0,
+      "value": "Pe "
+    },
+    {
+      "children": [
+        {
+          "type": 0,
+          "value": "en em enskrivit"
+        }
+      ],
+      "type": 8,
+      "value": "link"
+    },
+    {
+      "type": 0,
+      "value": " ma n'hoc'h eus ket a gont c'hoazh."
+    }
+  ],
+  "next.views.AgendaError.requestInvitation": [
+    {
+      "type": 0,
+      "value": "Goulenn ur bedadenn"
+    }
+  ],
+  "next.views.AgendaError.restrictedAccess": [
+    {
+      "type": 0,
+      "value": "Strishaet eo ar moned d'an deiziataer-mañ,"
+    },
+    {
+      "children": [],
+      "type": 8,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " en em zilesa a-raok gallout mont dezhañ."
+    }
+  ],
+  "next.views.AgendaError.searchAgenda": [
+    {
+      "type": 0,
+      "value": "Klask un deiziataer"
+    }
+  ],
+  "next.views.AgendaError.signIn": [
+    {
+      "type": 0,
+      "value": "Kevreañ"
+    }
+  ],
+  "next.views.AgendaError.unauthorizedMsg": [
+    {
+      "type": 0,
+      "value": "Strishaet eo ar moned d'an deiziataer-mañ,"
+    },
+    {
+      "type": 1,
+      "value": "br"
+    },
+    {
+      "type": 0,
+      "value": " kevreit a-raok gallout mont dezhañ."
+    }
+  ],
+  "next.views.AgendaShow.closeButton": [
+    {
+      "type": 0,
+      "value": "Serriñ"
+    }
+  ],
+  "next.views.AgendaShow.filter": [
+    {
+      "type": 0,
+      "value": "Silañ"
+    }
+  ],
+  "next.views.AgendaShow.filters": [
+    {
+      "type": 0,
+      "value": "Siloù"
+    }
+  ],
+  "next.views.AgendaShow.help": [
+    {
+      "type": 0,
+      "value": "Skoazell"
+    }
+  ],
+  "next.views.AgendaShow.includePassedEvents": [
+    {
+      "type": 0,
+      "value": "Diskouez an darvoudoù tremenet"
+    }
+  ],
+  "next.views.AgendaShow.networkErrorMessage": [
+    {
+      "type": 0,
+      "value": "Impossible de charger les événements. Veuillez vérifier votre connexion internet et réessayer."
+    }
+  ],
+  "next.views.AgendaShow.networkErrorTitle": [
+    {
+      "type": 0,
+      "value": "Erreur de connexion"
+    }
+  ],
+  "next.views.AgendaShow.retryButton": [
+    {
+      "type": 0,
+      "value": "Klask en-dro"
+    }
+  ],
+  "next.views.AgendaShow.seeEvents": [
+    {
+      "type": 0,
+      "value": "Diskouez "
+    },
+    {
+      "offset": 0,
+      "options": {
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " zarvoud"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.seeMore": [
+    {
+      "type": 0,
+      "value": "Gwelet muioc'h"
+    }
+  ],
+  "next.views.AgendaShow.showUpcomingEventsOnly": [
+    {
+      "type": 0,
+      "value": "Kuzhat an darvoudoù tremenet"
+    }
+  ],
+  "next.views.AgendaShow.signin": [
+    {
+      "type": 0,
+      "value": "Se connecter"
+    }
+  ],
+  "next.views.AgendaShow.termsOfUse": [
+    {
+      "type": 0,
+      "value": "Penndivizoù implij"
+    }
+  ],
+  "next.views.AgendaShow.totalEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 0,
+              "value": "Darvoud ebet"
+            }
+          ]
+        },
+        "few": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
+        "many": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 0,
+              "value": "1 darvoud"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud"
+            }
+          ]
+        },
+        "two": {
+          "value": [
+            {
+              "type": 0,
+              "value": "2 zarvoud"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ],
+  "next.views.AgendaShow.totalUpcomingEvents": [
+    {
+      "offset": 0,
+      "options": {
+        "=0": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " Darvoud ebet o tont"
+            }
+          ]
+        },
+        "one": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud o tont"
+            }
+          ]
+        },
+        "other": {
+          "value": [
+            {
+              "type": 7
+            },
+            {
+              "type": 0,
+              "value": " darvoud o tont"
+            }
+          ]
+        }
+      },
+      "pluralType": "cardinal",
+      "type": 6,
+      "value": "count"
+    }
+  ]
+}

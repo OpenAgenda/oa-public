@@ -53,24 +53,6 @@ const config = async () => {
   return withSentry(
     withBundleAnalyzer({
       assetPrefix: NEXT_PUBLIC_ASSET_PREFIX || undefined,
-      i18n: {
-        locales: [
-          'default',
-          'en',
-          'fr',
-          'de',
-          'it',
-          'es',
-          'br',
-          'ca',
-          'eu',
-          'oc',
-          'io',
-          'nl',
-        ],
-        defaultLocale: 'default',
-        localeDetection: false,
-      },
       images: {
         qualities: [75, 100],
         remotePatterns: [
@@ -141,21 +123,6 @@ const config = async () => {
         }
 
         return {
-          beforeFiles: [
-            // App Router routes: strip locale prefix so app/ routing can match.
-            // The i18n config only strips locales for Pages Router; App Router
-            // needs an explicit rewrite. Add an entry here for each app/ route.
-            {
-              source: '/:locale(en|fr|de|it|es|br|ca|eu|oc|nl|io)/example',
-              destination: '/example',
-              locale: false,
-            },
-            {
-              source: '/:locale(en|fr|de|it|es|br|ca|eu|oc|nl|io)/agendas',
-              destination: '/agendas',
-              locale: false,
-            },
-          ],
           afterFiles: [
             {
               source: '/fr',
@@ -173,25 +140,11 @@ const config = async () => {
               locale: false,
             },
             {
-              // fallback for /, will redirect to good locale
-              source: '/',
-              destination: `/strapi/accueil`,
-            },
-            {
-              source: '/p/:path*',
-              destination: `/strapi/:path*`,
-            },
-            {
-              source: '/:lang/p/:path*',
-              destination: `/strapi/:path*`,
+              source: '/:locale/p/:path*',
+              destination: `/:locale/strapi/:path*`,
             },
           ],
           fallback: [
-            {
-              source: '/default/:path*',
-              destination: `${NEXT_API_INTERNAL_BASE_URL}/:path*`,
-              locale: false,
-            },
             {
               source: '/:path*',
               destination: `${NEXT_API_INTERNAL_BASE_URL}/:path*`,

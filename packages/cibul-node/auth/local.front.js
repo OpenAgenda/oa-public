@@ -62,19 +62,6 @@ function redirectToContribute(req, res) {
   res.redirect(302, `/${req.agenda.slug}/contribute`);
 }
 
-function guessFullName(req, res, next) {
-  if (!req.query.email) return next();
-
-  const fullName = auth.fullNameFromEmail(req.query.email);
-
-  if (!fullName) return next();
-
-  auth.renderSignup(req, res, {
-    full_name: fullName,
-    email: req.query.email,
-  });
-}
-
 function signinError(req, res, err, logBundle) {
   log.info('signin attempt failed', { ...logBundle, error: err });
 
@@ -245,7 +232,11 @@ async function captchaCheck(values) {
 
   if (!captchaToken) {
     log.info('mtCaptcha token is missing');
-    throw new BadRequest('MissingCaptcha');
+    values.data.errors = {
+      ...values.data.errors,
+      captcha: 'captchaRequired',
+    };
+    return values;
   }
 
   const { verifyUrl, privateKey } = config.mtCaptcha;
@@ -365,7 +356,12 @@ function signupSubmit(req, res) {
       }
 
       const optionals = _.pickBy(
-        _.pick(req.query, 'invitation', 'redirect', 'agenda'),
+        _.pick(
+          { ...req.query, ...req.body },
+          'invitation',
+          'redirect',
+          'agenda',
+        ),
       );
 
       if (req.agenda) {
@@ -440,10 +436,7 @@ function signupSubmit(req, res) {
     })
 
     .then(
-      auth.ifUserLoaded(
-        true,
-        auth.ifUserActivated(false, auth.redirectToComplete),
-      ),
+      auth.ifUserLoaded(true, auth.ifUserActivated(false, auth.signupSuccess)),
     )
 
     // dead since phase 3b — requireEmailVerification:true gates signup, so
@@ -473,15 +466,7 @@ function signupSubmit(req, res) {
 
     .then(auth.ifUnresolved(auth.renderSignup))
 
-    .then(auth.done, cmn.catchError(req, res));
-}
-
-function presetEmail(req, res, next) {
-  if (!req.query.email) return next();
-
-  auth.renderSignin(req, res, {
-    email: req.query.email,
-  });
+    .then(auth.done, cmn.catchError(req, res, wantsJson(req)));
 }
 
 function signupComplete(req, res) {
@@ -503,8 +488,12 @@ function signupComplete(req, res) {
 
 async function activateResend(req, res) {
   const { auth: authSvc, users, sessions } = req.app.services;
+  const isJson = wantsJson(req);
 
   if (!req.query.email) {
+    if (isJson) {
+      return res.status(400).json({ success: false, message: 'emailRequired' });
+    }
     auth.renderEmail({ req, res, title: 'Resend activation mail' });
     return;
   }
@@ -543,6 +532,15 @@ async function activateResend(req, res) {
       body: { email: user.email, callbackURL },
     });
 
+    if (isJson) {
+      // Always respond with a generic success on the JSON path so the
+      // response cannot be used as an account-enumeration oracle (no
+      // distinction between "no account", "already activated", and
+      // "email re-sent"). The legacy HTML path keeps its existing flash
+      // semantics for now.
+      return res.status(200).json({ success: true });
+    }
+
     sessions.setFlash(
       req,
       res,
@@ -565,6 +563,18 @@ async function activateResend(req, res) {
       log.warn(error);
     } else {
       log.error(error);
+    }
+
+    if (isJson) {
+      // See note above: do not differentiate user-not-found vs
+      // already-activated; respond with the same shape as success so an
+      // attacker can't enumerate accounts via the JSON endpoint. Genuine
+      // server errors (statusCode !== 400) still fall through to the
+      // generic catchError handler below via cmn.catchError on the route.
+      if (error.statusCode === 400) {
+        return res.status(200).json({ success: true });
+      }
+      return res.status(500).json({ success: false, message: 'genericError' });
     }
 
     auth.renderEmail({
@@ -892,22 +902,74 @@ export default (app) => {
     new LocalStrategy(useOptions, handleSigninRequest),
   );
 
-  app.get(
-    '/signin',
-    preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    presetEmail,
-    auth.renderSignin,
-  );
+  // First path segments that are NOT agenda slugs. Used to decide whether
+  // an unauthed `/signin?redirect=…` should reroute to the agenda page
+  // (so the AuthDialog opens on top of it) or to the standalone signin.
+  const RESERVED_TOP_LEVEL = new Set([
+    'admin',
+    'agendas',
+    'api',
+    'auth',
+    'home',
+    'settings',
+    'support',
+    'signin',
+    'signup',
+    'activate',
+    'signout',
+    'newsletter',
+    'flash',
+    'start',
+    'discover',
+    'decouvrir',
+    'entdecken',
+    'reports',
+    'static',
+    'embed',
+    'public',
+    'favicon.ico',
+    'robots.txt',
+  ]);
 
-  app.get(
-    '/:agendaSlug/signin',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(redirectToContribute),
-    presetEmail,
-    auth.renderSignin,
-  );
+  function agendaSlugFromRedirect(redirectParam) {
+    if (typeof redirectParam !== 'string' || !redirectParam) return null;
+    let decoded;
+    try {
+      decoded = Buffer.from(redirectParam, 'base64').toString('utf-8');
+    } catch {
+      return null;
+    }
+    const match = decoded.match(/^\/([^/?#]+)\//);
+    if (!match) return null;
+    const candidate = match[1];
+    if (RESERVED_TOP_LEVEL.has(candidate)) return null;
+    return candidate;
+  }
+
+  app.get('/signin', (req, res) => {
+    const slug = agendaSlugFromRedirect(req.query.redirect);
+    if (slug) {
+      const search = qs.stringify(
+        {
+          msg: 'authRequired',
+          ...req.query,
+          auth: 'signin',
+        },
+        { addQueryPrefix: true },
+      );
+      return res.redirect(301, `/${slug}${search}`);
+    }
+    const search = qs.stringify(req.query, { addQueryPrefix: true });
+    res.redirect(301, `/auth/signin${search}`);
+  });
+
+  app.get('/:agendaSlug/signin', (req, res) => {
+    const search = qs.stringify(
+      { auth: 'signin', ...req.query },
+      { addQueryPrefix: true },
+    );
+    res.redirect(301, `/${req.params.agendaSlug}${search}`);
+  });
 
   app.post(
     '/signin',
@@ -924,24 +986,25 @@ export default (app) => {
     signinSubmit,
   );
 
-  app.get(
-    '/signup',
-    preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    loadCaptcha,
-    guessFullName,
-    auth.renderSignup,
-  );
+  app.get('/signup', (req, res) => {
+    const search = qs.stringify(req.query, { addQueryPrefix: true });
+    res.redirect(301, `/auth/signup${search}`);
+  });
 
-  app.get(
-    '/:agendaSlug/signup',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(redirectToContribute),
-    loadCaptcha,
-    guessFullName,
-    auth.renderSignup,
-  );
+  app.get('/:agendaSlug/signup', (req, res) => {
+    const fullName = req.query.email
+      ? auth.fullNameFromEmail(req.query.email) || undefined
+      : undefined;
+    const search = qs.stringify(
+      {
+        auth: 'signup',
+        ...req.query,
+        ...fullName ? { fullName } : {},
+      },
+      { addQueryPrefix: true },
+    );
+    res.redirect(301, `/${req.params.agendaSlug}${search}`);
+  });
 
   app.post(
     '/signup',

@@ -1,7 +1,7 @@
 import { http, HttpResponse, delay } from 'msw';
 import { screen, userEvent } from 'storybook/test';
 import fetchLocale from 'app/locales';
-import RemoveEventModal from 'views/EventShow/components/ContextBar/RemoveEventModal';
+import RemoveEventModal from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSlug]/_components/ContextBar/RemoveEventModal';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';
 
 const AGENDA_UID = 123;

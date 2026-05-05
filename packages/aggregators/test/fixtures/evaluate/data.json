@@ -118,7 +118,6 @@
     "credentials": {
       "premiumCustomFields": true,
       "moderators": true,
-      "activatingInvitations": false,
       "aggregator": true,
       "invitationMessage": false,
       "docxExport": false,

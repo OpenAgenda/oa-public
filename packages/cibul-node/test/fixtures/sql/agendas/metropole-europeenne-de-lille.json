@@ -10,7 +10,7 @@
   "created_at": "2017-07-12 08:30:28",
   "updated_at": "2021-02-04 15:35:31",
   "official": "1",
-  "credentials": "{\"premiumCustomFields\":false,\"moderators\":true,\"tags\":false,\"activatingInvitations\":false,\"aggregator\":true,\"invitationMessage\":false,\"docxExport\":false,\"eventOwnershipTransfer\":false}",
+  "credentials": "{\"premiumCustomFields\":false,\"moderators\":true,\"tags\":false,\"aggregator\":true,\"invitationMessage\":false,\"docxExport\":false,\"eventOwnershipTransfer\":false}",
   "settings": "{\"tracking\":{\"googleAnalytics\":\"UA-133158521-3\"},\"lab\":{\"eventAdmin\":true},\"inbox\":{\"mailto\":{\"enabled\":false,\"email\":null,\"subject\":null,\"body\":null}},\"contribution\":{\"type\":2,\"defaultState\":0,\"canPublish\":[\"administrators\",\"moderators\"],\"moderateOnChangeBy\":[],\"defaultLang\":null,\"allowLocationCreate\":true,\"messages\":{\"instructions\":null,\"complete\":null,\"publication\":null},\"useFields\":false,\"authorizedIPAddresses\":[]}}",
   "private": "0",
   "form_schema_id": null,

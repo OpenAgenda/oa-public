@@ -1,9 +1,11 @@
+'use client';
+
 import { useMemo } from 'react';
-import { useRouter } from 'next/router';
-import { ParsedQs } from 'qs';
-import parseLocationQuery from 'utils/parseLocationQuery';
+import { useSearchParams } from 'next/navigation';
+import qs, { ParsedQs } from 'qs';
 
 export default function useLocationQuery(): ParsedQs {
-  const router = useRouter();
-  return useMemo(() => parseLocationQuery(router.asPath), [router.asPath]);
+  const searchParams = useSearchParams();
+  const search = searchParams.toString();
+  return useMemo(() => qs.parse(search), [search]);
 }

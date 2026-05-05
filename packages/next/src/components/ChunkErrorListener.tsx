@@ -35,16 +35,15 @@ export default function ChunkErrorListener({
   return (
     <>
       {children}
-      {hasError ? (
-        <NotificationModal
-          onClose={() => {}}
-          title={intl.formatMessage(messages.networkError)}
-          message={intl.formatMessage(messages.networkErrorMsg)}
-          action={intl.formatMessage(messages.retry)}
-          onAction={() => window.location.reload()}
-          showCloseButton={false}
-        />
-      ) : null}
+      <NotificationModal
+        isOpen={hasError}
+        onClose={() => {}}
+        title={intl.formatMessage(messages.networkError)}
+        message={intl.formatMessage(messages.networkErrorMsg)}
+        action={intl.formatMessage(messages.retry)}
+        onAction={() => window.location.reload()}
+        showCloseButton={false}
+      />
     </>
   );
 }

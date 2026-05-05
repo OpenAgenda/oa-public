@@ -1,3 +1,5 @@
+'use client';
+
 import { useIntl } from 'react-intl';
 import { Icon, Link, HStack, VStack } from '@openagenda/uikit';
 import { faGithub, faBluesky, faLinkedin, faDailymotion } from 'icons/brands';

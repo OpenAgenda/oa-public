@@ -2,6 +2,9 @@ import { useLayoutEffect } from 'react';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { SWRConfig } from 'swr';
 
+import '@fortawesome/fontawesome-svg-core/styles.css';
+import '@openagenda/react-shared/css/react-date-range.css';
+
 // Initialize MSW
 initialize({
   onUnhandledRequest(request, print) {

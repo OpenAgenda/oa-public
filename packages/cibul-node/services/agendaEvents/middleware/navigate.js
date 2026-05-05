@@ -28,7 +28,7 @@ export default async function navigate(req, res, next) {
       query,
       {
         from,
-        size: nav === 'next' ? 2 : 1, // need 2 for isLast
+        size: 1,
       },
       {
         ...query,
@@ -45,8 +45,11 @@ export default async function navigate(req, res, next) {
     if (req.accepts(['html', 'json']) === 'json') {
       res.json({
         event: events[0],
-        isLast: nav === 'next' && events.length < 2,
-        isFirst: from === 0,
+        // Compute from the target index relative to `total` so both flags
+        // are symmetric across nav directions and robust to edge cases
+        // (negative `from`, off-by-one, repeated round-trips).
+        isFirst: from <= 0,
+        isLast: from >= total - 1,
       });
       return;
     }

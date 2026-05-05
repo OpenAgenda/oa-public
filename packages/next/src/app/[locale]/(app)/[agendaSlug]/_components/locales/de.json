@@ -1,0 +1,15 @@
+{
+  "next.components.auth.AuthDialog.msg.authRequired": "",
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": "",
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": "",
+  "next.views.AgendaShow.AgendaHeader.addEvent": "Veranstaltung hinzufügen",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "Aggregate",
+  "next.views.AgendaShow.AgendaHeader.contact": "Kontakt",
+  "next.views.AgendaShow.AgendaHeader.export": "Exportieren",
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "Offizielle Kalender",
+  "next.views.AgendaShow.EventItem.addToFavorites": "Favoriten Auswahl",
+  "next.views.AgendaShow.EventItem.featured": "Ausgewählt",
+  "next.views.AgendaShow.EventItem.removeFromFavorites": "Aus Favoriten entfernen",
+  "next.views.AgendaShow.EventItem.share": "teilen",
+  "next.views.AgendaShow.Favorites.favorites": "Favoriten"
+}

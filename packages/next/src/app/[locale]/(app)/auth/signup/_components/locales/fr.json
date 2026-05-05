@@ -1,0 +1,4 @@
+{
+  "next.components.auth.AuthDialog.dialogTitleSignup": "Création d'un nouveau compte",
+  "next.components.auth.AuthDialog.dialogTitleSignupComplete": "Confirmez votre adresse email"
+}

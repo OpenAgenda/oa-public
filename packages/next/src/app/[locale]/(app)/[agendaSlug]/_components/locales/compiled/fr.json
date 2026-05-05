@@ -1,0 +1,80 @@
+{
+  "next.components.auth.AuthDialog.msg.authRequired": [
+    {
+      "type": 0,
+      "value": "L'accès à la page demandée est restreint. Connectez-vous pour y accéder."
+    }
+  ],
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": [
+    {
+      "type": 0,
+      "value": "L'accès à cet agenda est restreint. Connectez-vous pour y accéder."
+    }
+  ],
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": [
+    {
+      "type": 0,
+      "value": "L'accès à cet événement est restreint. Connectez-vous pour y accéder."
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.addEvent": [
+    {
+      "type": 0,
+      "value": "Ajouter un événement"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.aggregate": [
+    {
+      "type": 0,
+      "value": "Agréger"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.contact": [
+    {
+      "type": 0,
+      "value": "Contacter"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.export": [
+    {
+      "type": 0,
+      "value": "Exporter"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": [
+    {
+      "type": 0,
+      "value": "Agenda officiel"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.addToFavorites": [
+    {
+      "type": 0,
+      "value": "Ajouter aux favoris"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "En une"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.removeFromFavorites": [
+    {
+      "type": 0,
+      "value": "Retirer des favoris"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.share": [
+    {
+      "type": 0,
+      "value": "Partager"
+    }
+  ],
+  "next.views.AgendaShow.Favorites.favorites": [
+    {
+      "type": 0,
+      "value": "Favoris"
+    }
+  ]
+}

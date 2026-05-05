@@ -1,9 +1,9 @@
-import { useIntl } from 'react-intl';
-import useSWR from 'swr';
+import ky from 'ky';
+import { cookies, headers } from 'next/headers';
 import type { ButtonProps } from '@openagenda/uikit';
 import { HStack } from '@openagenda/uikit';
-import { FetchStatus } from 'config/types';
-import { FeaturedCard, SkeletonFeaturedCard } from './FeaturedCard';
+import getIntl from '@/src/utils/getIntl';
+import { FeaturedCard } from './FeaturedCard';
 import SegmentContainer from './SegmentContainer';
 import type { Color } from './types';
 
@@ -30,7 +30,7 @@ interface CardWrapper {
   displayUntil?: string | null;
 }
 
-interface FeaturedAgendasProps {
+interface AutoFeaturedCardSetProps {
   title?: string;
   description?: string;
   background?: React.ReactNode;
@@ -40,6 +40,14 @@ interface FeaturedAgendasProps {
   count?: number;
   agendaSearch?: string;
   additionalTopPadding?: any;
+}
+
+interface AgendaSummary {
+  image: string | null;
+  title: string;
+  description: string;
+  uid: string;
+  slug: string;
 }
 
 function defineDisplayedCards(
@@ -65,34 +73,55 @@ function defineDisplayedCards(
 
       // If both exist, check if current time is between displayFrom and displayUntil
       return (
-        new Date(card.displayFrom) <= now && new Date(card.displayUntil) >= now
+        new Date(card.displayFrom!) <= now &&
+        new Date(card.displayUntil!) >= now
       );
     })
     .slice(0, count);
 }
 
-export default function AutoFeaturedCardSet({
+async function fetchLoadedAgendas(
+  loadingItemCount: number,
+  agendaSearch: string,
+): Promise<AgendaSummary[]> {
+  if (loadingItemCount <= 0 || !agendaSearch) return [];
+
+  const trailingSearch = agendaSearch.split('?').pop() ?? '';
+  const url = `${process.env.NEXT_API_INTERNAL_BASE_URL}/api/agendas?size=${loadingItemCount}&useDefaultImage=1&${trailingSearch}`;
+  const cookieStore = await cookies();
+  const headersList = await headers();
+
+  try {
+    const { agendas } = await ky(url, {
+      headers: {
+        Cookie: cookieStore.toString(),
+        Authorization: headersList.get('authorization') || '',
+      },
+    }).json<{ agendas: AgendaSummary[] }>();
+    return agendas ?? [];
+  } catch {
+    return [];
+  }
+}
+
+export default async function AutoFeaturedCardSet({
   title: segmentTitle = null,
   description: segmentDescription,
   Cards,
   count = 3,
-  agendaSearch,
+  agendaSearch = '',
   background,
   fontColor,
   descriptionColor,
   additionalTopPadding,
-}: FeaturedAgendasProps) {
-  const intl = useIntl();
+}: AutoFeaturedCardSetProps) {
+  const intl = await getIntl();
   const displayedCards = defineDisplayedCards(Cards, count);
   const loadingItemCount = agendaSearch?.length
     ? count - displayedCards.length
     : 0;
 
-  const { data: { agendas } = { agendas: [] }, status } = useSWR(
-    loadingItemCount > 0
-      ? `/api/agendas?size=${loadingItemCount}&useDefaultImage=1&${agendaSearch.split('?').pop()}`
-      : null,
-  );
+  const agendas = await fetchLoadedAgendas(loadingItemCount, agendaSearch);
 
   return (
     <SegmentContainer
@@ -107,26 +136,22 @@ export default function AutoFeaturedCardSet({
         {displayedCards.map((card, index) => (
           <FeaturedCard key={index} card={card.Card} />
         ))}
-        {status === FetchStatus.Fetched
-          ? agendas.map(({ image, title, description, uid, slug }) => (
-              <FeaturedCard
-                key={uid}
-                card={{
-                  image: image ? { url: image } : null,
-                  title,
-                  description,
-                  CTAs: [
-                    {
-                      link: `/${slug}/contribute`,
-                      label: intl.formatMessage(messages.addEvent),
-                    },
-                  ],
-                }}
-              />
-            ))
-          : Array.from({ length: loadingItemCount }).map((_, index) => (
-              <SkeletonFeaturedCard key={`skeleton-${index}`} />
-            ))}
+        {agendas.map(({ image, title, description, uid, slug }) => (
+          <FeaturedCard
+            key={uid}
+            card={{
+              image: image ? { url: image } : null,
+              title,
+              description,
+              CTAs: [
+                {
+                  link: `/${slug}/contribute`,
+                  label: intl.formatMessage(messages.addEvent),
+                },
+              ],
+            }}
+          />
+        ))}
       </HStack>
     </SegmentContainer>
   );

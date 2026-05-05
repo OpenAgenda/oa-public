@@ -1,0 +1,25 @@
+'use client';
+
+import ReactFiltersMap from '@openagenda/react-filters/components/fields/MapField/Map.js';
+import {
+  gestureHandlingStyle,
+  markerClusterStyle,
+} from '@openagenda/react-filters/components/fields/MapField/mapStyle';
+import wrapFilter from '../../_utils/wrapFilter';
+
+const StyledMap = wrapFilter(ReactFiltersMap);
+
+export default function Map({ innerRef, filter, ...props }) {
+  return (
+    <StyledMap
+      ref={innerRef}
+      forwardedFilter={filter} // filter is a valid CSS prop, it breaks chakra :'(
+      {...props}
+      css={{
+        h: 'full',
+        ...markerClusterStyle,
+        ...gestureHandlingStyle,
+      }}
+    />
+  );
+}

@@ -14,7 +14,11 @@ type Options = {
 export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
   defaultSrc: ["'none'"],
   baseUri: ["'none'"],
-  fontSrc: ["'self'", 'https://client.crisp.chat'],
+  fontSrc: [
+    "'self'",
+    'https://cdn.openagenda.com',
+    'https://client.crisp.chat',
+  ],
   formAction: ["'self'"],
   frameAncestors: ["'self'"],
   imgSrc: [
@@ -69,7 +73,6 @@ export const DEFAULT_DIRECTIVES: Record<string, Iterable<DirectiveValue>> = {
     'wss://stream.relay.crisp.chat',
   ],
   upgradeInsecureRequests: [],
-  blockAllMixedContent: [],
   reportTo: ['default'],
   reportUri: [`${process.env.NEXT_PUBLIC_ROOT}/reports`],
 };

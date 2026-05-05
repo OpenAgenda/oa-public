@@ -1,3 +1,5 @@
+'use client';
+
 import { useState, useMemo } from 'react';
 import { Wrap, WrapItem } from '@openagenda/uikit';
 import { allowedItemColors } from 'utils/strapi';

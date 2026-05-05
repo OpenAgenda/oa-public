@@ -560,7 +560,6 @@
       "moderators": true,
       "embedsHead": true,
       "embedsTemplates": true,
-      "activatingInvitations": false,
       "aggregator": false,
       "invitationMessage": false,
       "prioritizedAggregator": false,

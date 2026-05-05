@@ -4,9 +4,36 @@
 
 export default async function fetchLocale(locale) {
   return Promise.all([
-    import(`../agendas/locales/compiled/${locale}.json`).then(
+    import(
+      `../[locale]/(app)/[agendaSlug]/_components/AggregateModal/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/(app)/[agendaSlug]/_components/ContextBar/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/(app)/[agendaSlug]/_components/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/(app)/[agendaSlug]/events/[eventSlug]/_components/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/(app)/[agendaSlug]/events/[eventSlug]/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/(app)/[agendaSlug]/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(`../[locale]/(app)/agendas/locales/compiled/${locale}.json`).then(
       (mod) => mod.default,
     ),
+    import(
+      `../[locale]/(app)/auth/signin/_components/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/(app)/auth/signup/_components/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
+      `../[locale]/embed/agendas/[agendaUid]/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
     import(
       `../../components/ConsentBanner/locales/compiled/${locale}.json`
     ).then((mod) => mod.default),
@@ -35,33 +62,6 @@ export default async function fetchLocale(locale) {
       (mod) => mod.default,
     ),
     import(`../../components/strapi/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(`../../views/AgendaError/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(
-      `../../views/AgendaShow/components/AggregateModal/locales/compiled/${locale}.json`
-    ).then((mod) => mod.default),
-    import(
-      `../../views/AgendaShow/components/ContextBar/locales/compiled/${locale}.json`
-    ).then((mod) => mod.default),
-    import(
-      `../../views/AgendaShow/components/locales/compiled/${locale}.json`
-    ).then((mod) => mod.default),
-    import(`../../views/AgendaShow/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(`../../views/EmbedAgendaShow/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(`../../views/EventError/locales/compiled/${locale}.json`).then(
-      (mod) => mod.default,
-    ),
-    import(
-      `../../views/EventShow/components/locales/compiled/${locale}.json`
-    ).then((mod) => mod.default),
-    import(`../../views/EventShow/locales/compiled/${locale}.json`).then(
       (mod) => mod.default,
     ),
   ])

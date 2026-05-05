@@ -1,0 +1,15 @@
+{
+  "next.components.auth.AuthDialog.msg.authRequired": "",
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": "",
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": "",
+  "next.views.AgendaShow.AgendaHeader.addEvent": "Een evenement toevoegen",
+  "next.views.AgendaShow.AgendaHeader.aggregate": "Aggregeren",
+  "next.views.AgendaShow.AgendaHeader.contact": "Contact opnemen",
+  "next.views.AgendaShow.AgendaHeader.export": "Exporteren",
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": "Officiële agenda",
+  "next.views.AgendaShow.EventItem.addToFavorites": "Toevoegen aan favorieten",
+  "next.views.AgendaShow.EventItem.featured": "Uitgelicht",
+  "next.views.AgendaShow.EventItem.removeFromFavorites": "Verwijderen uit favorieten",
+  "next.views.AgendaShow.EventItem.share": "Delen",
+  "next.views.AgendaShow.Favorites.favorites": "Favorieten"
+}

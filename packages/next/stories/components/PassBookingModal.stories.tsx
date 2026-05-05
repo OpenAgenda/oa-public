@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { http, HttpResponse } from 'msw';
 import { Box, Button, Text, VStack } from '@openagenda/uikit';
 import fetchLocale from 'app/locales';
-import PassBookingModal from '../../src/views/EventShow/components/PassBookingModal';
+import PassBookingModal from '@/src/app/[locale]/(app)/[agendaSlug]/events/[eventSlug]/_components/PassBookingModal';
 import ProvidersDecorator from '../decorators/ProvidersDecorator';
 import passBookings from './fixtures/passBookings.json';
 

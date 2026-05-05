@@ -1,18 +1,26 @@
-import Navbar from './Navbar';
-import Announcement from './Announcement';
+'use client';
+
+import { Suspense } from 'react';
+import Announcement from 'components/Announcement';
+import SentryErrorBoundary from 'components/SentryErrorBoundary';
+import DefaultNavbar from './Navbar';
 import FlashAlert from './FlashAlert';
 
-type LayoutProps = {
+interface AppLayoutProps {
   children: React.ReactNode;
-};
+  navbar?: React.ReactNode;
+}
 
-export default function Layout({ children }: LayoutProps) {
+export default function AppLayout({
+  children,
+  navbar = <DefaultNavbar />,
+}: AppLayoutProps) {
   return (
     <>
-      <Navbar />
+      <Suspense>{navbar}</Suspense>
       <Announcement />
       <FlashAlert />
-      {children}
+      <SentryErrorBoundary>{children}</SentryErrorBoundary>
     </>
   );
 }

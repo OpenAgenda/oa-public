@@ -1,5 +1,7 @@
+'use client';
+
 import { useEffect, useRef } from 'react';
-import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
 import {
   getOpenAgendaTracker,
   executeWhenMatomoReady,
@@ -29,77 +31,41 @@ function getPageCategory(url: string): string {
   return segments.length > 0 ? segments[0] : 'unknown';
 }
 
-export interface PageTrackingOptions {
+export type PageTrackingOptions = {
   debug?: boolean;
-}
+};
 
-export default function useMatomoPageTracker(
-  options: PageTrackingOptions = {},
-) {
-  const router = useRouter();
-  const { debug = false } = options;
+export default function useMatomoPageTracker({
+  debug = false,
+}: PageTrackingOptions = {}) {
+  const pathname = usePathname();
   const isInitialPageTracked = useRef(false);
 
-  const trackPage = (url: string) => {
-    try {
-      const tracker = getOpenAgendaTracker();
-      if (!tracker) {
-        if (debug) {
-          console.warn('Matomo tracker not available');
-        }
-        return;
-      }
-
-      const category = getPageCategory(url);
-      tracker.trackEvent('Navigation', 'Page View', category, 1);
-
-      if (debug) {
-        console.log('Page tracked:', {
-          url,
-          category,
-        });
-      }
-    } catch (error) {
-      console.error('Erreur lors du tracking de page Matomo:', error);
-    }
-  };
-
   useEffect(() => {
-    const handleRouteChange = () => {
-      trackPage(router.asPath);
-    };
-
-    const trackInitialPage = () => {
-      if (!isInitialPageTracked.current && router.isReady) {
-        trackPage(router.asPath);
-        isInitialPageTracked.current = true;
-      }
-    };
-
-    executeWhenMatomoReady(trackInitialPage);
-
-    router.events.on('routeChangeComplete', handleRouteChange);
-
-    return () => {
-      router.events.off('routeChangeComplete', handleRouteChange);
-    };
-  }, [router, debug]);
-
-  return {
-    trackCustomEvent: (action: string, value?: number) => {
+    const trackPage = () => {
       try {
         const tracker = getOpenAgendaTracker();
-        if (tracker) {
-          const category = getPageCategory(router.asPath);
-          tracker.trackEvent('Page Interaction', action, category, value);
+        if (!tracker) {
+          if (debug) console.warn('Matomo tracker not available');
+          return;
         }
+
+        const category = getPageCategory(pathname);
+        tracker.trackEvent('Navigation', 'Page View', category, 1);
+
+        if (debug) console.log('Page tracked:', { url: pathname, category });
       } catch (error) {
-        console.error(
-          "Erreur lors du tracking d'événement personnalisé:",
-          error,
-        );
+        console.error('Matomo page tracking error:', error);
       }
-    },
-    getCurrentPageCategory: () => getPageCategory(router.asPath),
-  };
+    };
+
+    if (!isInitialPageTracked.current) {
+      executeWhenMatomoReady(() => {
+        trackPage();
+        isInitialPageTracked.current = true;
+      });
+    } else {
+      trackPage();
+    }
+  }, [pathname, debug]);
 }

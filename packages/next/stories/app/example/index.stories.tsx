@@ -1,6 +1,6 @@
 import { http, HttpResponse } from 'msw';
-import ExamplePage from 'app/example/page';
-import AppLayout from 'components/app/Layout';
+import ExamplePage from '@/src/app/[locale]/(app)/example/page';
+import AppLayout from 'components/Layout';
 import fetchLocale from 'app/locales';
 import intlMessagesLoader from '../../loaders/intlMessagesLoader';
 import ProvidersDecorator from '../../decorators/ProvidersDecorator';

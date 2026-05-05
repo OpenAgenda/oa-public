@@ -20,7 +20,7 @@ interface MultiColorTextProps {
   as?: React.ElementType;
   fontWeight?: number;
   size?: HeadingProps['size'];
-  textAlign?: string;
+  textAlign?: HeadingProps['textAlign'];
 }
 
 export default function MultiColorText({

@@ -1,4 +1,6 @@
-import { useCallback, useLayoutEffect, useState } from 'react';
+'use client';
+
+import { useCallback, useLayoutEffect, useRef } from 'react';
 import { Box, Container, Flex, Link, CloseButton } from '@openagenda/uikit';
 import { useIntl } from 'react-intl';
 
@@ -7,15 +9,32 @@ import messages from './messages';
 const STORAGE_WELCOME_KEY = 'oa:hideLoggedWelcomeUntil';
 const KEY_EXPIRY_DELAY = 1000 * 60 * 60 * 48;
 
+// `initialTop` and `stuckTop` are both viewport-y px values. The banner
+// appears at `initialTop` initially and sticks at `stuckTop` once scrolled
+// past — pure-CSS slide. Set them equal for a fixed sticky position (no
+// slide).
 export function LoggedUserWelcome({
-  top = 0,
+  initialTop = 0,
+  stuckTop = 0,
   user,
   onClose = null,
-  compressibleTop = 0,
+  onHeightChange,
 }) {
   const intl = useIntl();
 
-  const [windowScroll, setWindowScroll] = useState(0);
+  const flexRef = useRef(null);
+
+  useLayoutEffect(() => {
+    if (!flexRef.current || typeof ResizeObserver === 'undefined') return;
+    const measure = () => {
+      const flex = flexRef.current;
+      if (!flex) return;
+      onHeightChange?.(flex.offsetHeight);
+    };
+    const ro = new ResizeObserver(measure);
+    ro.observe(flexRef.current);
+    return () => ro.disconnect();
+  }, [onHeightChange]);
 
   // Extract first name from fullName
   const firstName =
@@ -34,34 +53,30 @@ export function LoggedUserWelcome({
     if (onClose) {
       onClose();
     }
-  }, []);
-
-  useLayoutEffect(() => {
-    if (typeof window === 'undefined') {
-      return;
-    }
-
-    const handleScroll = () => {
-      setWindowScroll(window.scrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-
-  const topMargin = Math.max(compressibleTop - windowScroll, 0);
+  }, [onClose]);
 
   return (
     <Container
       maxW="7xl"
       px={0}
+      // Overlay pattern, applied uniformly so layout is the same whether the
+      // banner slides or stays put: `height: 0` + `mb` cancels `mt` → Container
+      // takes 0 flow space. Hero segments below stay anchored at y=0 and their
+      // bg can extend behind the navbar. The Flex inside overflows visibly —
+      // do NOT add `overflow: hidden` here or the banner disappears.
+      // Pure-CSS slide: `mt={initialTop}` sets the sticky natural position to
+      // viewport y=initialTop. Sticky then engages at y=stuckTop once scrolled
+      // past, following the navbar leaving the screen.
+      mt={`${initialTop}px`}
+      mb={`-${initialTop}px`}
+      height="0"
       position="sticky"
-      top={compressibleTop ? `${topMargin}px` : top}
+      top={`${stuckTop}px`}
       animation="slide-from-top 0.5s ease-out, fade-in 0.5s ease-in"
-      height={0}
       zIndex="docked"
     >
       <Flex
+        ref={flexRef}
         bg="strapi.frenchBlue.500"
         color="white"
         mx={4}
@@ -69,8 +84,6 @@ export function LoggedUserWelcome({
         px={6}
         borderRadius={8}
         justifyContent="space-between"
-        position="relative"
-        top={4}
       >
         <Flex direction="column">
           <Box fontWeight="bold">

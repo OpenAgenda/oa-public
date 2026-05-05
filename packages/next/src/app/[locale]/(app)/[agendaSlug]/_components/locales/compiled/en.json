@@ -1,0 +1,80 @@
+{
+  "next.components.auth.AuthDialog.msg.authRequired": [
+    {
+      "type": 0,
+      "value": "You need to be authenticated to access this page."
+    }
+  ],
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": [
+    {
+      "type": 0,
+      "value": "You need to be authenticated to access this agenda. Please sign in"
+    }
+  ],
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": [
+    {
+      "type": 0,
+      "value": "You need to be authenticated to access this event. Please sign in"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.addEvent": [
+    {
+      "type": 0,
+      "value": "Add an event"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.aggregate": [
+    {
+      "type": 0,
+      "value": "Aggregate"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.contact": [
+    {
+      "type": 0,
+      "value": "Contact"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.export": [
+    {
+      "type": 0,
+      "value": "Export"
+    }
+  ],
+  "next.views.AgendaShow.AgendaHeader.officialAgenda": [
+    {
+      "type": 0,
+      "value": "Official agenda"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.addToFavorites": [
+    {
+      "type": 0,
+      "value": "Add to favorites"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.featured": [
+    {
+      "type": 0,
+      "value": "Featured"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.removeFromFavorites": [
+    {
+      "type": 0,
+      "value": "Remove from favorites"
+    }
+  ],
+  "next.views.AgendaShow.EventItem.share": [
+    {
+      "type": 0,
+      "value": "Share"
+    }
+  ],
+  "next.views.AgendaShow.Favorites.favorites": [
+    {
+      "type": 0,
+      "value": "Favorites"
+    }
+  ]
+}

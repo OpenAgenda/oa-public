@@ -178,6 +178,13 @@ location ~ ^/signup(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
+# /auth/* is the new App Router auth tree. Must come before the
+# agenda-scoped catch-all below (which would otherwise treat "auth"
+# as an agenda slug and route /auth/signup to cibul-node).
+location ~ ^/auth(|/.+)$ {
+  include conf.d/nextjs_params;
+}
+
 location ~ ^/signout(|/.+)$ {
   include conf.d/nodejs_params;
 }

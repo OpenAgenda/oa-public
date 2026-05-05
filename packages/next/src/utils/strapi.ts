@@ -1,17 +1,24 @@
 import ky from 'ky';
-import { system } from '@openagenda/uikit';
+import { colors } from '@openagenda/uikit/theme/tokens/colors';
 import type { Color } from '../components/strapi/types';
 import buildPopulateStrapiQuery from './buildPopulateStrapiQuery';
+
+// Names under the `strapi.*` color namespace (e.g. `strapi.frenchBlue`).
+// We import the raw tokens object — a static JS object produced by
+// `defineTokens` (a @__PURE__ proxy in Chakra). Unlike `system` from the
+// UIKit barrel, this import path does NOT evaluate `createSystem` / the
+// Chakra preset chain, so it is safe to use from Server Components where
+// Turbopack otherwise hits `anatomy.extendWith is not a function`.
+const STRAPI_COLOR_NAMES = new Set(Object.keys(colors.strapi ?? {}));
+
 interface FetchStrapiPageDataParams {
   APIBase: string;
   authToken: string;
   documentId: string;
   locale: string;
-  fetchLocale: (locale: string) => Promise<Record<string, string>>;
 }
 
 interface FetchStrapiPageDataResult {
-  intlMessages: Record<string, string>;
   page: any;
   footer: any;
 }
@@ -30,7 +37,17 @@ interface StrapiResponse {
 export const videoPoster =
   'https://cdn.openagenda.com/main/poster-pres-oa-video-4.svg';
 
-export function color(c: string | Color, swatch?: any): string {
+/**
+ * Resolve a color name coming from Strapi content to a Chakra colorPalette
+ * reference. Strapi stores short names (e.g. `frenchBlue`); if that name is
+ * part of our `strapi.*` palette namespace we prefix it, otherwise we pass
+ * it through untouched so Chakra resolves standard tokens (primary, oaBlue,
+ * red, …) directly.
+ */
+export function color(
+  c: string | Color,
+  swatch?: number | string,
+): string | undefined {
   if (!c) {
     return;
   }
@@ -40,7 +57,11 @@ export function color(c: string | Color, swatch?: any): string {
     colorName = 'oaWhite';
   }
 
-  return `${system.tokens.colorPaletteMap.has(colorName) ? colorName : `strapi.${colorName}`}${swatch ? `.${swatch}` : ''}`;
+  const resolved = STRAPI_COLOR_NAMES.has(colorName)
+    ? `strapi.${colorName}`
+    : colorName;
+
+  return swatch ? `${resolved}.${swatch}` : resolved;
 }
 
 function mapStrapiColorsFromCSSRule(css) {
@@ -57,11 +78,7 @@ function mapStrapiColorsFromCSSRule(css) {
       .substr(start + 1, end - start - 1)
       .split(',')
       .map((c) => c.trim())
-      .map((c) =>
-        system.tokens.colorPaletteMap.has(`strapi.${c}`)
-          ? `{colors.${color(c, 500)}}`
-          : c,
-      )
+      .map((c) => (STRAPI_COLOR_NAMES.has(c) ? `{colors.${color(c, 500)}}` : c))
       .join(','),
     css.substr(end),
   ].join('');
@@ -92,7 +109,6 @@ export async function fetchPageData({
   authToken,
   documentId,
   locale,
-  fetchLocale,
 }: FetchStrapiPageDataParams): Promise<FetchStrapiPageDataResult> {
   const populateList = await buildPopulateStrapiQuery('page');
   const populateParams = populateList.map((v) => `populate[]=${v}`).join('&');
@@ -104,8 +120,7 @@ export async function fetchPageData({
     .join('&');
   const footerRes = `${APIBase}/footer?${footerPopulateParams}&locale=${locale}`;
 
-  const [intlMessages, { data: page }, { data: footer }] = await Promise.all([
-    fetchLocale(locale),
+  const [{ data: page }, { data: footer }] = await Promise.all([
     ky(pageRes, {
       headers: {
         Authorization: `Bearer ${authToken}`,
@@ -121,12 +136,11 @@ export async function fetchPageData({
   ]);
 
   return {
-    intlMessages,
     page,
     footer,
   };
 }
 
-export const allowedItemColors = Array.from(
-  system.tokens.colorPaletteMap.keys(),
-).filter((k) => k.match(/^strapi\./));
+export const allowedItemColors = Array.from(STRAPI_COLOR_NAMES).map(
+  (k) => `strapi.${k}`,
+);

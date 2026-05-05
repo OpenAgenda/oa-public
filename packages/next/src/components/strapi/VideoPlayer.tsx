@@ -1,3 +1,5 @@
+'use client';
+
 import { useRef, useState, useEffect } from 'react';
 import { useIntl } from 'react-intl';
 import { chakra } from '@openagenda/uikit';
