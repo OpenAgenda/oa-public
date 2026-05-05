@@ -1,0 +1,8 @@
+{
+  "next.components.auth.AuthDialog.dialogTitle": [
+    {
+      "type": 0,
+      "value": "Sign in"
+    }
+  ]
+}

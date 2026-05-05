@@ -1,4 +1,7 @@
 {
+  "next.components.auth.AuthDialog.msg.authRequired": "You need to be authenticated to access this page.",
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": "You need to be authenticated to access this agenda. Please sign in",
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": "You need to be authenticated to access this event. Please sign in",
   "next.views.AgendaShow.AgendaHeader.addEvent": "Add an event",
   "next.views.AgendaShow.AgendaHeader.aggregate": "Aggregate",
   "next.views.AgendaShow.AgendaHeader.contact": "Contact",

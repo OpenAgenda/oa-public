@@ -1,4 +1,7 @@
 {
+  "next.components.auth.AuthDialog.msg.authRequired": "",
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": "",
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": "",
   "next.views.AgendaShow.AgendaHeader.addEvent": "Apondre un eveniment",
   "next.views.AgendaShow.AgendaHeader.aggregate": "Agregar",
   "next.views.AgendaShow.AgendaHeader.contact": "Contactar",

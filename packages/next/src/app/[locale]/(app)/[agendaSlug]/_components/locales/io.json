@@ -1,4 +1,7 @@
 {
+  "next.components.auth.AuthDialog.msg.authRequired": "",
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": "",
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": "",
   "next.views.AgendaShow.AgendaHeader.addEvent": "crwdns32999:0crwdne32999:0",
   "next.views.AgendaShow.AgendaHeader.aggregate": "crwdns33001:0crwdne33001:0",
   "next.views.AgendaShow.AgendaHeader.contact": "crwdns33003:0crwdne33003:0",

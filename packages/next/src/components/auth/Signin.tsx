@@ -86,6 +86,7 @@ interface SigninProps {
   defaultInvalidCredentials?: boolean;
   defaultLostPassword?: boolean;
   agenda?: { slug: string; uid: string };
+  redirect?: string;
   reloadOnSuccess?: boolean;
   redirectOnSuccess?: string;
   onSuccess?: () => void;
@@ -98,6 +99,7 @@ export default function Signin({
   defaultInvalidCredentials = false,
   defaultLostPassword = false,
   agenda,
+  redirect,
   reloadOnSuccess = false,
   redirectOnSuccess,
   onSuccess,
@@ -150,7 +152,10 @@ export default function Signin({
       setLoading(true);
 
       try {
-        const res = await fetch('/signin', {
+        const url = redirect
+          ? `/signin?${new URLSearchParams({ redirect }).toString()}`
+          : '/signin';
+        const res = await fetch(url, {
           method: 'POST',
           headers: {
             Accept: 'application/json',
@@ -197,7 +202,15 @@ export default function Signin({
         setLoading(false);
       }
     },
-    [email, password, intl, reloadOnSuccess, redirectOnSuccess, onSuccess],
+    [
+      email,
+      password,
+      redirect,
+      intl,
+      reloadOnSuccess,
+      redirectOnSuccess,
+      onSuccess,
+    ],
   );
 
   if (success) {

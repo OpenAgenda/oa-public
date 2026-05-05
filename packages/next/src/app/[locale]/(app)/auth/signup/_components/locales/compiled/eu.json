@@ -1,0 +1,14 @@
+{
+  "next.components.auth.AuthDialog.dialogTitleSignup": [
+    {
+      "type": 0,
+      "value": "Create an account"
+    }
+  ],
+  "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
+    {
+      "type": 0,
+      "value": "Confirm your email address"
+    }
+  ]
+}

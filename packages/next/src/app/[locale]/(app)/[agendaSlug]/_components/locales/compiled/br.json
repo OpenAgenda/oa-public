@@ -1,4 +1,22 @@
 {
+  "next.components.auth.AuthDialog.msg.authRequired": [
+    {
+      "type": 0,
+      "value": "L'accès à la page demandée est restreint. Connectez-vous pour y accéder."
+    }
+  ],
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": [
+    {
+      "type": 0,
+      "value": "L'accès à cet agenda est restreint. Connectez-vous pour y accéder."
+    }
+  ],
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": [
+    {
+      "type": 0,
+      "value": "L'accès à cet événement est restreint. Connectez-vous pour y accéder."
+    }
+  ],
   "next.views.AgendaShow.AgendaHeader.addEvent": [
     {
       "type": 0,

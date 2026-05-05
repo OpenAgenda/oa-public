@@ -1,8 +1,15 @@
 'use client';
 
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import { Button, CloseButton, Dialog, Portal, chakra } from '@openagenda/uikit';
+import {
+  Alert,
+  Button,
+  CloseButton,
+  Dialog,
+  Portal,
+  chakra,
+} from '@openagenda/uikit';
 import Signin from './Signin';
 import Signup from './Signup';
 import SignupComplete from './SignupComplete';
@@ -53,6 +60,7 @@ interface AuthDialogProps {
   iToken?: string;
   invitation?: string;
   redirect?: string;
+  message?: string;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
@@ -70,6 +78,7 @@ export default function AuthDialog({
   iToken,
   invitation,
   redirect,
+  message,
   open,
   onOpenChange,
 }: AuthDialogProps) {
@@ -92,6 +101,7 @@ export default function AuthDialog({
 
   const closeOnInteractOutside = view !== 'signup' && view !== 'signupComplete';
   const isControlled = open !== undefined;
+  const messageId = useId();
 
   return (
     <Dialog.Root
@@ -113,7 +123,7 @@ export default function AuthDialog({
       <Portal>
         <Dialog.Backdrop />
         <Dialog.Positioner>
-          <Dialog.Content>
+          <Dialog.Content aria-describedby={message ? messageId : undefined}>
             <Dialog.Header>
               <Dialog.Title>
                 {intl.formatMessage(TITLE_BY_VIEW[view])}
@@ -123,6 +133,12 @@ export default function AuthDialog({
               <chakra.span srOnly role="status" aria-live="polite">
                 {viewAnnouncement}
               </chakra.span>
+              {message && (
+                <Alert.Root id={messageId} role="status" status="info" mb="4">
+                  <Alert.Indicator />
+                  <Alert.Title>{message}</Alert.Title>
+                </Alert.Root>
+              )}
               {view === 'signupComplete' && completeData ? (
                 <SignupComplete
                   email={completeData.email}
@@ -150,6 +166,7 @@ export default function AuthDialog({
               ) : (
                 <Signin
                   agenda={agenda}
+                  redirect={redirect}
                   reloadOnSuccess={reloadOnSuccess}
                   redirectOnSuccess={redirectOnSuccess}
                   onViewChange={setView}
