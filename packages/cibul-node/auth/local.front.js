@@ -180,6 +180,48 @@ async function signinSubmit(req, res) {
 
   authSvc.forwardSetCookieHeaders(result, res);
 
+  // Verified-linking step 2: password challenge succeeded, finalise the link
+  // by handing the user back to Google. The browser still has an active
+  // Google session from step 1, so the round-trip is effectively silent —
+  // Google redirects without re-prompting consent. BA's /link-social
+  // validates the BA session we just opened, posts a `state` carrying
+  // `link.userId`, then on Google's callback it hits the `if (link)` branch
+  // in callback.mjs (trustedProviders includes google → linking is allowed)
+  // and finalises with a row in `account`.
+  if (req.body.linkProvider === 'google') {
+    const linkErrorRedirect = '/auth/signin?linkProvider=google&linkError=1';
+    try {
+      const linkResp = await authSvc.api.linkSocialAccount({
+        body: {
+          provider: 'google',
+          callbackURL: '/home',
+          errorCallbackURL: linkErrorRedirect,
+          disableRedirect: true,
+        },
+        headers: authSvc.toHeaders(req, result),
+        asResponse: true,
+      });
+      authSvc.forwardSetCookieHeaders(linkResp, res);
+      const linkBody = await linkResp.json().catch(() => null);
+      if (linkResp.ok && linkBody?.url) {
+        if (wantsJson(req)) {
+          return res.json({ success: true, redirect: linkBody.url });
+        }
+        return res.redirect(302, linkBody.url);
+      }
+      log.warn('linkSocial returned no URL', { status: linkResp.status });
+    } catch (err) {
+      log.error('verified linking failed', { err });
+    }
+    // The BA session is already open from `signInEmail` above. Sending the
+    // user back to /signin?linkError=1 lets them either retry the Google
+    // flow (button reappears in error mode) or proceed without linking.
+    if (wantsJson(req)) {
+      return res.json({ success: false, redirect: linkErrorRedirect });
+    }
+    return res.redirect(302, linkErrorRedirect);
+  }
+
   return betterAuthSignin({
     services,
     req,

@@ -25,6 +25,23 @@ export async function init(config, services) {
       account: schemas.account,
       verification: schemas.verification,
     },
+    google: config.auth?.google?.id ? config.auth.google : undefined,
+    facebook: config.auth?.facebook?.id ? config.auth.facebook : undefined,
+    onAfterOAuthSignUp: async (user) => {
+      try {
+        const oaUser = await services.users.findOne({
+          query: { id: user.id },
+          detailed: true,
+        });
+        if (!oaUser) return;
+        await runOnActivation(services, oaUser);
+        services.users
+          .refresh(oaUser.uid, { lastSignin: true })
+          .catch((err) => log('warn', 'lastSignin refresh failed', { err }));
+      } catch (err) {
+        log('error', 'onAfterOAuthSignUp failed', { userId: user?.id, err });
+      }
+    },
     onEmailVerified: async (user) => {
       try {
         const oaUser = await services.users.findOne({

@@ -39,7 +39,10 @@ const testConfig = {
     region: process.env.S3_DEV_REGION,
     bucket: process.env.S3_TEST_BUCKET,
     mainBucketPath: process.env.S3_TEST_MAIN_PATH,
-    defaultImagePath: process.env.OA_DEFAULT_IMAGE_PATH,
+    defaultImagePath:
+      process.env.OA_DEFAULT_IMAGE_PATH
+      ?? 'https://cdn.openagenda.com/static/graylogo140.png',
+    defaultImageSize: { width: 140, height: 140 },
   },
   logger: {
     prefix: 'oa:',
@@ -103,6 +106,14 @@ const testConfig = {
   superAdminUids: [838438477721],
   auth: {
     secret: 'test-auth-secret-do-not-use-in-prod',
+    google: {
+      id: 'test-google-client-id',
+      secret: 'test-google-client-secret',
+    },
+    facebook: {
+      id: 'test-facebook-app-id',
+      secret: 'test-facebook-app-secret',
+    },
   },
   root: 'http://localhost:8903',
   session: {
