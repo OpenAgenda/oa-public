@@ -439,14 +439,6 @@ function signupSubmit(req, res) {
     .then(auth.done, cmn.catchError(req, res, wantsJson(req)));
 }
 
-function presetEmail(req, res, next) {
-  if (!req.query.email) return next();
-
-  auth.renderSignin(req, res, {
-    email: req.query.email,
-  });
-}
-
 function signupComplete(req, res) {
   const resendQuery = Object.assign(auth.loadOptionals(req), {
     email: req.query.email,
@@ -719,22 +711,74 @@ export default (app) => {
     new LocalStrategy(useOptions, handleSigninRequest),
   );
 
-  app.get(
-    '/signin',
-    preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    presetEmail,
-    auth.renderSignin,
-  );
+  // First path segments that are NOT agenda slugs. Used to decide whether
+  // an unauthed `/signin?redirect=…` should reroute to the agenda page
+  // (so the AuthDialog opens on top of it) or to the standalone signin.
+  const RESERVED_TOP_LEVEL = new Set([
+    'admin',
+    'agendas',
+    'api',
+    'auth',
+    'home',
+    'settings',
+    'support',
+    'signin',
+    'signup',
+    'activate',
+    'signout',
+    'newsletter',
+    'flash',
+    'start',
+    'discover',
+    'decouvrir',
+    'entdecken',
+    'reports',
+    'static',
+    'embed',
+    'public',
+    'favicon.ico',
+    'robots.txt',
+  ]);
 
-  app.get(
-    '/:agendaSlug/signin',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(redirectToContribute),
-    presetEmail,
-    auth.renderSignin,
-  );
+  function agendaSlugFromRedirect(redirectParam) {
+    if (typeof redirectParam !== 'string' || !redirectParam) return null;
+    let decoded;
+    try {
+      decoded = Buffer.from(redirectParam, 'base64').toString('utf-8');
+    } catch {
+      return null;
+    }
+    const match = decoded.match(/^\/([^/?#]+)\//);
+    if (!match) return null;
+    const candidate = match[1];
+    if (RESERVED_TOP_LEVEL.has(candidate)) return null;
+    return candidate;
+  }
+
+  app.get('/signin', (req, res) => {
+    const slug = agendaSlugFromRedirect(req.query.redirect);
+    if (slug) {
+      const search = qs.stringify(
+        {
+          msg: 'authRequired',
+          ...req.query,
+          auth: 'signin',
+        },
+        { addQueryPrefix: true },
+      );
+      return res.redirect(301, `/${slug}${search}`);
+    }
+    const search = qs.stringify(req.query, { addQueryPrefix: true });
+    res.redirect(301, `/auth/signin${search}`);
+  });
+
+  app.get('/:agendaSlug/signin', (req, res) => {
+    const search = qs.stringify(
+      { auth: 'signin', ...req.query },
+      { addQueryPrefix: true },
+    );
+    res.redirect(301, `/${req.params.agendaSlug}${search}`);
+  });
 
   app.post(
     '/signin',
