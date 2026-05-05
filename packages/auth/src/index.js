@@ -1,6 +1,7 @@
 import { betterAuth } from 'better-auth';
 import { toNodeHandler, fromNodeHeaders } from 'better-auth/node';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
+import { getCurrentAuthContext } from '@better-auth/core/context';
 import { redisStorage } from '@better-auth/redis-storage';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
@@ -41,9 +42,12 @@ export default function Auth(options = {}) {
     secret,
     baseURL,
     schemas = {},
+    google,
+    facebook,
     onEmailVerified,
     onSendVerificationEmail,
     onSendPasswordResetEmail,
+    onAfterOAuthSignUp,
   } = options;
 
   if (!mysqlPool) {
@@ -66,6 +70,45 @@ export default function Auth(options = {}) {
       cookiePrefix: 'oa',
       database: {
         generateId: 'serial',
+      },
+    },
+    socialProviders: {
+      ...google?.id && {
+        google: {
+          clientId: google.id,
+          clientSecret: google.secret,
+          // BA invokes `mapProfileToUser` on every OAuth callback, after the
+          // id_token is decoded but before `handleOAuthUserInfo` runs. Its
+          // documented role is profile→user field mapping; we exploit its
+          // unconditional invocation as a side-effect window to stash the
+          // provider email on the request-scoped async-context, where the
+          // `after` hook below picks it up to enrich the error redirect with
+          // `&email=<encoded>` (verified-linking flow pre-fills the form).
+          // Returning `{}` means no user-field overrides.
+          mapProfileToUser: async (profile) => {
+            try {
+              const ctx = await getCurrentAuthContext();
+              if (ctx && profile?.email) {
+                ctx.context.oaCallbackEmail = profile.email;
+              }
+            } catch {
+              // Best-effort: outside an endpoint scope `getCurrentAuthContext`
+              // throws, the email pre-fill silently no-ops.
+            }
+            return {};
+          },
+        },
+      },
+      ...facebook?.id && {
+        facebook: {
+          clientId: facebook.id,
+          clientSecret: facebook.secret,
+          fields: ['id', 'name', 'email'],
+          // Phase-out: signin only, no signup. Users without a backfilled
+          // `account` row see `?error=signup_disabled` rather than getting
+          // silently auto-created.
+          disableImplicitSignUp: true,
+        },
       },
     },
     emailAndPassword: {
@@ -93,9 +136,8 @@ export default function Auth(options = {}) {
       // the credential row on remove (so removed users fail naturally) and
       // revokes sessions on blacklist (but keeps the row, since blacklist is
       // reversible). Without this guard, a blacklisted user could re-signin.
-      // TODO(phase 4): when OAuth lands, also enforce this on the OAuth
-      // callback (`/callback/:provider`) — `/sign-in/social` only triggers
-      // a redirect, the user is loaded/linked on the callback.
+      // For OAuth, the equivalent guard runs in the after-hook on
+      // `/callback/:id` (the email is unknown until the provider replies).
       before: createAuthMiddleware(async (ctx) => {
         if (ctx.path === '/sign-in/email') {
           const email = ctx.body?.email;
@@ -158,6 +200,80 @@ export default function Auth(options = {}) {
             await ctx.context.internalAdapter.updatePassword(userId, newHash);
           } catch (err) {
             ctx.context.logger?.error?.('lazy rehash failed', { userId, err });
+          }
+          return;
+        }
+
+        // OAuth callback post-processing (phase 4):
+        //   1. guard isRemoved/isBlacklisted — purge the just-created session
+        //      and redirect to /signin with an error param;
+        //   2. preserve the legacy Facebook phase-out: any user landing with
+        //      `facebookUid !== null` is forced to /settings/unlinkFacebook
+        //      regardless of the originating provider.
+        // The endpoint path is the BA pattern `/callback/:id`; provider name
+        // is in `ctx.params.id`. setSessionCookie ran inside the route handler
+        // so `ctx.context.newSession` is populated and the Set-Cookie is
+        // already in `responseHeaders`.
+        if (ctx.path === '/callback/:id') {
+          const provider = ctx.params?.id;
+          if (provider !== 'google' && provider !== 'facebook') return;
+          const { newSession } = ctx.context;
+
+          // Error path: BA threw a redirect to `errorCallbackURL?error=...`
+          // (account_not_linked, signup_disabled, …). The verified-linking
+          // flow needs the provider email to pre-fill the signin form;
+          // `mapProfileToUser` stashed it on the async-context just before
+          // BA's `handleOAuthUserInfo` decided to refuse the link.
+          if (!newSession) {
+            const location = ctx.context.responseHeaders?.get('location');
+            const email = ctx.context.oaCallbackEmail;
+            if (
+              location
+              && email
+              && location.includes('error=account_not_linked')
+              && !location.includes('email=')
+            ) {
+              const sep = location.includes('?') ? '&' : '?';
+              ctx.context.responseHeaders.set(
+                'location',
+                `${location}${sep}email=${encodeURIComponent(email)}`,
+              );
+            }
+            return;
+          }
+          const userId = newSession.user.id;
+          let user;
+          try {
+            user = await ctx.context.internalAdapter.findUserById(userId);
+          } catch (err) {
+            ctx.context.logger?.error?.('oauth callback findUserById failed', {
+              userId,
+              err,
+            });
+            return;
+          }
+          if (!user) return;
+
+          if (user.isRemoved || user.isBlacklisted) {
+            try {
+              await ctx.context.internalAdapter.deleteSessions(String(userId));
+            } catch (err) {
+              ctx.context.logger?.error?.(
+                'oauth callback deleteSessions failed',
+                {
+                  userId,
+                  err,
+                },
+              );
+            }
+            const target = `${ctx.context.baseURL || ''}/signin?msg=accountUnavailable`;
+            ctx.context.responseHeaders?.set('location', target);
+            return;
+          }
+
+          if (user.facebookUid) {
+            const target = `${ctx.context.baseURL || ''}/settings/unlinkFacebook`;
+            ctx.context.responseHeaders?.set('location', target);
           }
           return;
         }
@@ -235,6 +351,20 @@ export default function Auth(options = {}) {
     },
     account: {
       modelName: tables.account,
+      // Verified linking: at OAuth callback time, BA never silently links an
+      // existing user — `disableImplicitLinking` forces an explicit
+      // password challenge step (the `linkProvider` flow in cibul-node's
+      // /signin handler, which calls `/link-social` post-signin).
+      //
+      // `trustedProviders: ['google']` whitelists Google for the explicit
+      // `/link-social` path (which itself rejects untrusted-and-not-verified
+      // providers). Facebook stays out of the trusted list — its
+      // `email_verified` is always false BA-side, so `/link-social` would
+      // refuse it anyway, which matches the FB phase-out policy.
+      accountLinking: {
+        disableImplicitLinking: true,
+        trustedProviders: ['google'],
+      },
       fields: {
         userId: 'user_id',
         accountId: 'account_id',
@@ -304,6 +434,39 @@ export default function Auth(options = {}) {
           returned: true,
           defaultValue: 'fr',
         },
+        // Surfaced so the OAuth callback after-hook can detect users still
+        // carrying a Facebook link (phase-out → force /settings/unlinkFacebook).
+        facebookUid: {
+          type: 'string',
+          fieldName: 'facebook_uid',
+          input: false,
+          returned: false,
+          defaultValue: null,
+        },
+      },
+    },
+    databaseHooks: {
+      user: {
+        create: {
+          after: async (createdUser, context) => {
+            // Only fire for OAuth signups. The endpoint path (`/callback/:id`)
+            // is propagated to the async-context — email/pwd signups go via
+            // `/sign-up/email` and are not concerned by `runOnActivation`
+            // (they go through the existing Feathers `sendVerificationEmailOnCreate`
+            // hook → email verify → `onEmailVerified`).
+            const path = context?.path;
+            if (typeof path !== 'string' || !path.startsWith('/callback/')) return;
+            if (typeof onAfterOAuthSignUp !== 'function') return;
+            try {
+              await onAfterOAuthSignUp(createdUser, context?.request);
+            } catch (err) {
+              context?.logger?.error?.('onAfterOAuthSignUp failed', {
+                userId: createdUser?.id,
+                err,
+              });
+            }
+          },
+        },
       },
     },
   });
@@ -312,6 +475,8 @@ export default function Auth(options = {}) {
     upsertCredentialAccount,
     updateCredentialPassword,
     deleteCredentialAccount,
+    deleteOAuthAccount,
+    deleteAllOAuthAccounts,
     revokeUserSessions,
   } = createCredentialHelpers(instance);
 
@@ -417,6 +582,9 @@ export default function Auth(options = {}) {
     upsertCredentialAccount,
     updateCredentialPassword,
     deleteCredentialAccount,
+    // OAuth account row helpers (phase 4).
+    deleteOAuthAccount,
+    deleteAllOAuthAccounts,
     revokeUserSessions,
     // Helpers exposed for Express integration (phase 3).
     toHeaders,

@@ -6,6 +6,7 @@
 // API surface.
 
 const CREDENTIAL = 'credential';
+const OAUTH_PROVIDERS = ['google', 'facebook'];
 
 export default function createCredentialHelpers(instance) {
   const getAdapter = async () => (await instance.$context).internalAdapter;
@@ -30,12 +31,31 @@ export default function createCredentialHelpers(instance) {
     await adapter.updatePassword(userId, encodedHash);
   }
 
-  // OAuth rows (providerId !== 'credential') are left untouched; phase 4.
   async function deleteCredentialAccount(userId) {
     const adapter = await getAdapter();
     const accounts = await adapter.findAccountByUserId(userId);
     for (const account of accounts) {
       if (account.providerId === CREDENTIAL) {
+        await adapter.deleteAccount(account.id);
+      }
+    }
+  }
+
+  async function deleteOAuthAccount(userId, providerId) {
+    const adapter = await getAdapter();
+    const accounts = await adapter.findAccountByUserId(userId);
+    for (const account of accounts) {
+      if (account.providerId === providerId) {
+        await adapter.deleteAccount(account.id);
+      }
+    }
+  }
+
+  async function deleteAllOAuthAccounts(userId) {
+    const adapter = await getAdapter();
+    const accounts = await adapter.findAccountByUserId(userId);
+    for (const account of accounts) {
+      if (OAUTH_PROVIDERS.includes(account.providerId)) {
         await adapter.deleteAccount(account.id);
       }
     }
@@ -53,6 +73,8 @@ export default function createCredentialHelpers(instance) {
     upsertCredentialAccount,
     updateCredentialPassword,
     deleteCredentialAccount,
+    deleteOAuthAccount,
+    deleteAllOAuthAccounts,
     revokeUserSessions,
   };
 }
