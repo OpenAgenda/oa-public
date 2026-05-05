@@ -82,7 +82,14 @@ function load(sessions, baseOptions, { detailed, redirect, msg } = {}) {
             // projects unconditionally. Returning the full OA user here would
             // make req.user.name vs req.user.fullName depend on the auth
             // source and silently break downstream consumers.
-            req.user = projectToLegacyShape(oaUser, imageBucketPath);
+            const projected = projectToLegacyShape(oaUser, imageBucketPath);
+            req.user = projected;
+            // Mirror the user onto req.session so @openagenda/sessions writes
+            // it into the `oa.user` cookie. The Next.js layer reads this cookie
+            // (cookies-only, no HTTP) to know whether the visitor is logged in.
+            // Without this, better-auth-only sessions stay invisible to Next
+            // and guards like `/auth/signin` redirect-when-logged-in don't fire.
+            if (req.session) req.session.user = projected;
             return next();
           }
         }
