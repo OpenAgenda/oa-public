@@ -18,7 +18,6 @@ import config from '../config/index.js';
 import layouts from '../services/lib/layouts/index.js';
 import * as auth from './lib/auth.js';
 import { wantsJson } from './lib/utils.js';
-import loadCaptcha from './lib/captcha.js';
 import betterAuthSignin from './lib/betterAuthSignin.js';
 import computePostActivateRedirect from './lib/computePostActivateRedirect.js';
 
@@ -357,12 +356,18 @@ function handleSigninRequest(req, email, password, cb) {
     });
 }
 
-function pLoadCaptcha(v) {
-  return new Promise((rs) => {
-    loadCaptcha(v.req, v.res, () => {
-      rs(v);
-    });
+function respondSignupErrors(values) {
+  if (values.resolved) return values;
+  values.resolved = true;
+  const errors = values.data?.errors || {};
+  const message = values.data?.message || null;
+  const status = Object.keys(errors).length > 0 ? 400 : 200;
+  values.res.status(status).json({
+    success: false,
+    errors,
+    message,
   });
+  return values;
 }
 
 function signupSubmit(req, res) {
@@ -504,9 +509,7 @@ function signupSubmit(req, res) {
       ),
     )
 
-    .then(auth.ifUnresolved(pLoadCaptcha))
-
-    .then(auth.ifUnresolved(auth.renderSignup))
+    .then(respondSignupErrors)
 
     .then(auth.done, cmn.catchError(req, res, wantsJson(req)));
 }

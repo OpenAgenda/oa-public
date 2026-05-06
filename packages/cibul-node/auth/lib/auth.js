@@ -15,16 +15,6 @@ export const renderSignin = render('auth/signin', {
   errors: {},
 });
 
-export const renderSignup = render('auth/signup', {
-  optionals: {},
-  full_name: '',
-  email: '',
-  password: '',
-  repeat: '',
-  message: '',
-  errors: {},
-});
-
 export const renderEmail = render('auth/emailForm', {
   optionals: {},
   email: '',
@@ -250,19 +240,13 @@ export function signupSuccess(values) {
     },
   )}`;
 
-  if (wantsJson(req)) {
-    res.json({
-      success: true,
-      email: user.email,
-      redirect: completeUrl,
-      resendUrl,
-      verificationEmailSent: !user.isActivated,
-    });
-    values.resolved = true;
-    return values;
-  }
-
-  res.redirect(302, completeUrl);
+  res.json({
+    success: true,
+    email: user.email,
+    redirect: completeUrl,
+    resendUrl,
+    verificationEmailSent: !user.isActivated,
+  });
   values.resolved = true;
   return values;
 }

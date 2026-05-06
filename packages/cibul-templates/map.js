@@ -20,7 +20,6 @@ module.exports = [
   'admin/index',
   'admin/users',
   'auth/signin',
-  'auth/signup',
   'auth/emailForm',
   'auth/activation',
   'auth/lostPassword',
