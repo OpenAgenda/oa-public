@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import {
-  Alert,
   Button,
   Field,
   Spinner,
@@ -11,6 +10,7 @@ import {
   VStack,
   chakra,
 } from '@openagenda/uikit';
+import MessageAlert from '@/src/components/MessageAlert';
 import PasswordField from './PasswordField';
 
 const messages = defineMessages({
@@ -157,10 +157,9 @@ export default function ResetPassword({ token }: ResetPasswordProps) {
       <Text mb="4">{intl.formatMessage(messages.intro)}</Text>
 
       {errorMessage && (
-        <Alert.Root status="error" mb="4">
-          <Alert.Indicator />
-          <Alert.Title>{errorMessage}</Alert.Title>
-        </Alert.Root>
+        <MessageAlert role="alert" status="error" mb="4">
+          {errorMessage}
+        </MessageAlert>
       )}
 
       <PasswordField

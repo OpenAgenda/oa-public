@@ -191,12 +191,6 @@
       "value": "Vous pouvez maintenant vous connecter avec votre nouveau mot de passe."
     }
   ],
-  "next.components.auth.Signin.backToSignin": [
-    {
-      "type": 0,
-      "value": "Retour à la connexion"
-    }
-  ],
   "next.components.auth.Signin.createAccount": [
     {
       "type": 0,
@@ -281,38 +275,6 @@
       "value": "Mot de passe"
     }
   ],
-  "next.components.auth.Signin.resendButton": [
-    {
-      "type": 0,
-      "value": "Renvoyer le lien"
-    }
-  ],
-  "next.components.auth.Signin.resendCooldown": [
-    {
-      "type": 0,
-      "value": "Renvoyer dans "
-    },
-    {
-      "type": 1,
-      "value": "seconds"
-    },
-    {
-      "type": 0,
-      "value": "s"
-    }
-  ],
-  "next.components.auth.Signin.resendError": [
-    {
-      "type": 0,
-      "value": "Le renvoi de l'email a échoué. Veuillez réessayer."
-    }
-  ],
-  "next.components.auth.Signin.resendSuccess": [
-    {
-      "type": 0,
-      "value": "Email envoyé !"
-    }
-  ],
   "next.components.auth.Signin.resetPassword": [
     {
       "type": 0,
@@ -329,26 +291,6 @@
     {
       "type": 0,
       "value": "Se connecter"
-    }
-  ],
-  "next.components.auth.Signin.verifyEmailDescription": [
-    {
-      "type": 0,
-      "value": "Cette adresse email n'est pas encore vérifiée. Cliquez sur le lien envoyé à "
-    },
-    {
-      "type": 1,
-      "value": "email"
-    },
-    {
-      "type": 0,
-      "value": " pour activer votre compte."
-    }
-  ],
-  "next.components.auth.Signin.verifyEmailTitle": [
-    {
-      "type": 0,
-      "value": "Vérifiez votre adresse email"
     }
   ],
   "next.components.auth.Signup.agree": [

@@ -90,49 +90,15 @@ const messages = defineMessages({
     id: 'next.components.auth.Signin.linkProviderError',
     defaultMessage: 'Linking failed. Please sign in with Google again.',
   },
-  verifyEmailTitle: {
-    id: 'next.components.auth.Signin.verifyEmailTitle',
-    defaultMessage: 'Verify your email',
-  },
-  verifyEmailDescription: {
-    id: 'next.components.auth.Signin.verifyEmailDescription',
-    defaultMessage:
-      'This email address has not been verified yet. Click the link sent to {email} to activate your account.',
-  },
-  resendButton: {
-    id: 'next.components.auth.Signin.resendButton',
-    defaultMessage: 'Resend link',
-  },
-  resendCooldown: {
-    id: 'next.components.auth.Signin.resendCooldown',
-    defaultMessage: 'Resend in {seconds}s',
-  },
-  resendSuccess: {
-    id: 'next.components.auth.Signin.resendSuccess',
-    defaultMessage: 'Email sent!',
-  },
-  resendError: {
-    id: 'next.components.auth.Signin.resendError',
-    defaultMessage: 'Could not resend the email. Please try again.',
-  },
-  backToSignin: {
-    id: 'next.components.auth.Signin.backToSignin',
-    defaultMessage: 'Back to sign in',
-  },
 });
-
-const RESEND_COOLDOWN_SECONDS = 60;
 
 interface SigninProps {
   defaultLoading?: boolean;
   defaultSuccess?: boolean;
   defaultInvalidCredentials?: boolean;
   defaultLostPassword?: boolean;
-  // Pre-open the email-verification resend panel (legacy
-  // `/activate/resend?email=…` redirects to `/auth/signin?view=resend&email=…`).
-  defaultVerifyEmail?: boolean;
-  // Initial invitation/redirect query forwarded to BA's
-  // /api/auth/send-verification-email so the verification email's callbackURL
+  // Initial invitation token forwarded to <SignupComplete> via the
+  // onActivationRequired callback so the verification email's callbackURL
   // routes through /post-activate when relevant.
   invitation?: string;
   agenda?: { slug: string; uid: string };
@@ -152,9 +118,9 @@ interface SigninProps {
   onSuccess?: () => void;
   onViewChange?: (view: 'signin' | 'lost' | 'signup') => void;
   // Called when BA returns `EMAIL_NOT_VERIFIED` (signin attempt for an
-  // unverified account). The parent can switch to <SignupComplete> inline
-  // instead of letting Signin show its built-in verify panel.
-  onActivationRequired?: (params: {
+  // unverified account). Parent must swap to <SignupComplete> — Signin no
+  // longer ships a built-in verify panel, so this callback is required.
+  onActivationRequired: (params: {
     email: string;
     callbackURL?: string;
   }) => void;
@@ -165,7 +131,6 @@ export default function Signin({
   defaultSuccess = false,
   defaultInvalidCredentials = false,
   defaultLostPassword = false,
-  defaultVerifyEmail = false,
   invitation,
   agenda,
   redirect,
@@ -188,20 +153,9 @@ export default function Signin({
   );
   const [loading, setLoading] = useState(defaultLoading);
   const [success, setSuccess] = useState(defaultSuccess);
-  const initialView: 'signin' | 'lost' | 'verify' = defaultVerifyEmail
-    ? 'verify'
-    : defaultLostPassword
-      ? 'lost'
-      : 'signin';
-  const [view, setView] = useState<'signin' | 'lost' | 'verify'>(initialView);
-  // Email-verification resend cooldown (60s, matches BA's
-  // /send-verification-email rate-limit window in packages/auth/src/index.js).
-  const [resendCooldown, setResendCooldown] = useState(0);
-  const [resendStatus, setResendStatus] = useState<'idle' | 'sent' | 'error'>(
-    'idle',
+  const [view, setView] = useState<'signin' | 'lost'>(
+    defaultLostPassword ? 'lost' : 'signin',
   );
-  const [resendLoading, setResendLoading] = useState(false);
-  const resendIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const invalidCredentialsAlertRef = useRef<HTMLDivElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
   const prevViewRef = useRef(view);
@@ -224,10 +178,6 @@ export default function Signin({
   }, [view]);
 
   useEffect(() => {
-    // The `verify` state is purely a Signin-internal sub-view (the
-    // email-verification resend panel) — do not propagate it through
-    // onViewChange, which only knows about signin/lost/signup.
-    if (view === 'verify') return;
     onViewChange?.(view);
   }, [view, onViewChange]);
 
@@ -263,18 +213,29 @@ export default function Signin({
         if (!signinRes.ok) {
           const code = signinBody?.code;
           // BA's `requireEmailVerification: true` flag rejects unverified
-          // signups with FORBIDDEN/EMAIL_NOT_VERIFIED. Surface the inline
-          // resend panel instead of bouncing through a server-rendered
-          // /activate/resend page (retired in phase 6 lot 4). When the parent
-          // supplied `onActivationRequired`, defer to it so it can swap to
-          // <SignupComplete> at the page/dialog level (AuthDialog flow).
+          // signups with FORBIDDEN/EMAIL_NOT_VERIFIED. Defer to the parent so
+          // it can swap to <SignupComplete> at the page/dialog level — the
+          // built-in inline verify panel was retired in favour of the
+          // parent-driven activation flow.
           if (code === 'EMAIL_NOT_VERIFIED' && email) {
-            if (onActivationRequired) {
-              onActivationRequired({ email });
-              return;
+            // Mirror the post-activate redirect logic from the legacy
+            // computePostActivateRedirect.js: route through
+            // /post-activate?invitation=…&next=… when an invitation token is
+            // present so it can be applied after BA's auto-signin redirect.
+            let baseRedirect = '/home';
+            if (redirect) {
+              const safe = decodeBase64Redirect(redirect);
+              if (safe) baseRedirect = safe;
+            } else if (agenda?.slug) {
+              baseRedirect = `/${agenda.slug}/contribute`;
             }
-            setResendStatus('idle');
-            setView('verify');
+            const callbackURL = invitation
+              ? `/post-activate?${new URLSearchParams({
+                  invitation,
+                  next: baseRedirect,
+                }).toString()}`
+              : baseRedirect;
+            onActivationRequired({ email, callbackURL });
             return;
           }
           if (code === 'INVALID_EMAIL_OR_PASSWORD') {
@@ -355,6 +316,7 @@ export default function Signin({
       email,
       password,
       redirect,
+      invitation,
       intl,
       reloadOnSuccess,
       redirectOnSuccess,
@@ -407,83 +369,6 @@ export default function Signin({
     [redirect, agenda, intl],
   );
 
-  // Cleanup the cooldown interval on unmount.
-  useEffect(
-    () => () => {
-      if (resendIntervalRef.current !== null) {
-        clearInterval(resendIntervalRef.current);
-        resendIntervalRef.current = null;
-      }
-    },
-    [],
-  );
-
-  // Trigger BA's `/api/auth/send-verification-email` (rate-limit 60s/1, see
-  // packages/auth/src/index.js). Mirrors the post-activate redirect logic of
-  // the legacy `computePostActivateRedirect.js`: route through
-  // `/post-activate?invitation=…&next=…` when an invitation token is present
-  // so it can be applied after BA's auto-signin redirect.
-  const handleResend = useCallback(async () => {
-    if (!email || resendCooldown > 0 || resendLoading) return;
-    setResendLoading(true);
-    setResendStatus('idle');
-    try {
-      let baseRedirect = '/home';
-      if (redirect) {
-        const safe = decodeBase64Redirect(redirect);
-        if (safe) baseRedirect = safe;
-      } else if (agenda?.slug) {
-        baseRedirect = `/${agenda.slug}/contribute`;
-      }
-      const callbackURL = invitation
-        ? `/post-activate?${new URLSearchParams({
-            invitation,
-            next: baseRedirect,
-          }).toString()}`
-        : baseRedirect;
-
-      const res = await fetch('/api/auth/send-verification-email', {
-        method: 'POST',
-        headers: {
-          Accept: 'application/json',
-          'Content-Type': 'application/json',
-        },
-        credentials: 'include',
-        body: JSON.stringify({ email, callbackURL }),
-      });
-
-      if (res.ok) {
-        setResendStatus('sent');
-      } else {
-        setResendStatus('error');
-      }
-    } catch {
-      setResendStatus('error');
-    } finally {
-      setResendLoading(false);
-      // Always start the cooldown — both 200 and 429 (rate-limited) consume
-      // the budget BA-side. Avoids letting users spam the button after an
-      // error and getting throttled silently.
-      setResendCooldown(RESEND_COOLDOWN_SECONDS);
-      if (resendIntervalRef.current !== null) {
-        clearInterval(resendIntervalRef.current);
-        resendIntervalRef.current = null;
-      }
-      resendIntervalRef.current = setInterval(() => {
-        setResendCooldown((prev) => {
-          if (prev <= 1) {
-            if (resendIntervalRef.current !== null) {
-              clearInterval(resendIntervalRef.current);
-              resendIntervalRef.current = null;
-            }
-            return 0;
-          }
-          return prev - 1;
-        });
-      }, 1000);
-    }
-  }, [email, invitation, redirect, agenda, resendCooldown, resendLoading]);
-
   if (success) {
     return (
       <VStack py="8" gap="4" role="status" aria-live="polite">
@@ -498,55 +383,6 @@ export default function Signin({
   if (view === 'lost') {
     return (
       <LostPassword defaultEmail={email} onCancel={() => setView('signin')} />
-    );
-  }
-
-  if (view === 'verify') {
-    const resendDisabled = resendLoading || resendCooldown > 0 || !email;
-    return (
-      <VStack align="stretch" gap="4" py="2">
-        <Text fontSize="lg" fontWeight="bold">
-          {intl.formatMessage(messages.verifyEmailTitle)}
-        </Text>
-        <Text>
-          {intl.formatMessage(messages.verifyEmailDescription, {
-            email: <chakra.span fontWeight="bold">{email}</chakra.span>,
-          })}
-        </Text>
-        <Button
-          type="button"
-          colorPalette="blue"
-          onClick={handleResend}
-          disabled={resendDisabled}
-          loading={resendLoading}
-        >
-          {resendCooldown > 0
-            ? intl.formatMessage(messages.resendCooldown, {
-                seconds: resendCooldown,
-              })
-            : intl.formatMessage(messages.resendButton)}
-        </Button>
-        {resendStatus === 'sent' && (
-          <chakra.span role="status" color="green.600" fontSize="sm">
-            {intl.formatMessage(messages.resendSuccess)}
-          </chakra.span>
-        )}
-        {resendStatus === 'error' && (
-          <chakra.span role="status" color="red.600" fontSize="sm">
-            {intl.formatMessage(messages.resendError)}
-          </chakra.span>
-        )}
-        <Button
-          type="button"
-          variant="outline"
-          onClick={() => {
-            setView('signin');
-            setResendStatus('idle');
-          }}
-        >
-          {intl.formatMessage(messages.backToSignin)}
-        </Button>
-      </VStack>
     );
   }
 
