@@ -131,6 +131,10 @@ describe('19 - auth signin UI via better-auth (phase 3)', () => {
 
     expect(res.status).toBe(400);
     expect(res.body?.errors?.password).toBeDefined();
+    // Regression: BA's English error body must not also surface as
+    // `message` — otherwise the UI renders two alerts (the localized
+    // field error AND the raw "Invalid email or password").
+    expect(res.body?.message).toBeFalsy();
   });
 
   it('rejects blacklisted users (guard from phase 2b) and does not leak a session cookie', async () => {

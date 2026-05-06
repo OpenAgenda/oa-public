@@ -229,7 +229,7 @@ describe('35 - verified-linking Google end-to-end (phase 4 lot 4.5)', () => {
 
     // Bad password → signInEmail rejects → no session opened, the linking
     // branch is never entered. We just check the response is the standard
-    // signin failure (renderSignin with the invalid-password flag).
+    // signin failure (400 + errors.password from signinError).
     const linkAgent = request.agent(app);
     const submit = await linkAgent
       .post('/signin')

@@ -8,13 +8,6 @@ import { loadOptionals, render, wantsJson } from './utils.js';
 const unlinkFacebookLog = logs('auth/unlinkFacebook');
 const emailValidator = EmailValidator();
 
-export const renderSignin = render('auth/signin', {
-  optionals: {},
-  email: '',
-  password: '',
-  errors: {},
-});
-
 export const renderEmail = render('auth/emailForm', {
   optionals: {},
   email: '',
@@ -153,27 +146,6 @@ export function errorDefaultMessage(values) {
 
   if (!values.err.message) {
     values.err.message = labels.genericError[values.req.lang];
-  }
-
-  return values;
-}
-
-export async function errorExistingEmail(values) {
-  if (values.resolved) return values;
-
-  values.req.log.debug('checking if account with same email exists');
-
-  if (values?.data?.errors?.email) {
-    values.req.log.debug(
-      'an account exists with email: %s',
-      JSON.stringify(values.profile),
-    );
-
-    delete values.data.errors.email;
-
-    values.data.message = labels.accountEmailAlreadyExists[values.req.lang];
-
-    return renderSignin(values);
   }
 
   return values;

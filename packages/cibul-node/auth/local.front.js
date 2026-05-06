@@ -67,18 +67,11 @@ function signinError(req, res, err, logBundle) {
   const passwordMsg = getErrorLabel('incorrectCredentials', req.lang)
     || getLabel('incorrectPassword', req.lang);
 
-  const values = {
-    req,
-    res,
-    err,
-    user: null,
-    data: {
-      ...req.body,
-      errors: { password: passwordMsg },
-    },
-  };
-
-  return auth.renderSignin(values);
+  res.status(400).json({
+    success: false,
+    errors: { password: passwordMsg },
+    message: null,
+  });
 }
 
 async function signinSubmit(req, res) {
