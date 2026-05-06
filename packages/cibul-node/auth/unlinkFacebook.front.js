@@ -13,7 +13,7 @@ const getErrorLabel = makeLabelGetter(errorLabels);
 function redirectInvalid(req, res, label) {
   const { sessions } = req.app.services;
   sessions.setFlash(req, res, getErrorLabel(label, req.lang));
-  res.redirect(302, '/signin');
+  res.redirect(302, '/auth/signin');
 }
 
 async function confirmUnlinkFacebook(req, res) {
@@ -105,9 +105,9 @@ async function confirmUnlinkFacebook(req, res) {
     return res.redirect(302, '/settings');
   }
 
-  // Different device or expired session: send them to /signin so they can
-  // log in with their new email + password.
-  return res.redirect(302, '/signin');
+  // Different device or expired session: send them to /auth/signin so they
+  // can log in with their new email + password.
+  return res.redirect(302, '/auth/signin');
 }
 
 export default (app) => {
