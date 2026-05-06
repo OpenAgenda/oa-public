@@ -33,15 +33,18 @@ export default async function SignupPage({
   }
 
   const params = await searchParams;
-  const iToken = pickFirst(params.iToken);
   const invitation = pickFirst(params.invitation);
   const redirectParam = pickFirst(params.redirect);
+  // `email` is forwarded by member-invitation mails (services/members/lib/mail.js)
+  // to pre-fill the form. Untrusted, treated as a UI hint only — the user can
+  // edit it; BA still validates the address on /sign-up/email.
+  const email = pickFirst(params.email);
 
   return (
     <SignupPageClient
-      iToken={iToken}
       invitation={invitation}
       redirect={redirectParam}
+      email={email}
     />
   );
 }

@@ -125,6 +125,78 @@
       "value": "A bit better 😬"
     }
   ],
+  "next.components.auth.ResetPassword.formTitle": [
+    {
+      "type": 0,
+      "value": "Reset your password"
+    }
+  ],
+  "next.components.auth.ResetPassword.genericError": [
+    {
+      "type": 0,
+      "value": "An error occurred. Please try again."
+    }
+  ],
+  "next.components.auth.ResetPassword.intro": [
+    {
+      "type": 0,
+      "value": "Choose a new password for your OpenAgenda account."
+    }
+  ],
+  "next.components.auth.ResetPassword.invalidToken": [
+    {
+      "type": 0,
+      "value": "This reset link is invalid or has expired. Please request a new one."
+    }
+  ],
+  "next.components.auth.ResetPassword.passwordLabel": [
+    {
+      "type": 0,
+      "value": "New password"
+    }
+  ],
+  "next.components.auth.ResetPassword.passwordRequired": [
+    {
+      "type": 0,
+      "value": "A password must be defined."
+    }
+  ],
+  "next.components.auth.ResetPassword.passwordsMustMatch": [
+    {
+      "type": 0,
+      "value": "The two passwords do not match."
+    }
+  ],
+  "next.components.auth.ResetPassword.repeatLabel": [
+    {
+      "type": 0,
+      "value": "Repeat password"
+    }
+  ],
+  "next.components.auth.ResetPassword.submitLabel": [
+    {
+      "type": 0,
+      "value": "Update password"
+    }
+  ],
+  "next.components.auth.ResetPassword.successHeading": [
+    {
+      "type": 0,
+      "value": "Password updated"
+    }
+  ],
+  "next.components.auth.ResetPassword.successMessage": [
+    {
+      "type": 0,
+      "value": "You can now sign in with your new password."
+    }
+  ],
+  "next.components.auth.Signin.backToSignin": [
+    {
+      "type": 0,
+      "value": "Back to sign in"
+    }
+  ],
   "next.components.auth.Signin.createAccount": [
     {
       "type": 0,
@@ -209,6 +281,38 @@
       "value": "Password"
     }
   ],
+  "next.components.auth.Signin.resendButton": [
+    {
+      "type": 0,
+      "value": "Resend link"
+    }
+  ],
+  "next.components.auth.Signin.resendCooldown": [
+    {
+      "type": 0,
+      "value": "Resend in "
+    },
+    {
+      "type": 1,
+      "value": "seconds"
+    },
+    {
+      "type": 0,
+      "value": "s"
+    }
+  ],
+  "next.components.auth.Signin.resendError": [
+    {
+      "type": 0,
+      "value": "Could not resend the email. Please try again."
+    }
+  ],
+  "next.components.auth.Signin.resendSuccess": [
+    {
+      "type": 0,
+      "value": "Email sent!"
+    }
+  ],
   "next.components.auth.Signin.resetPassword": [
     {
       "type": 0,
@@ -225,6 +329,26 @@
     {
       "type": 0,
       "value": "Sign in"
+    }
+  ],
+  "next.components.auth.Signin.verifyEmailDescription": [
+    {
+      "type": 0,
+      "value": "This email address has not been verified yet. Click the link sent to "
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": " to activate your account."
+    }
+  ],
+  "next.components.auth.Signin.verifyEmailTitle": [
+    {
+      "type": 0,
+      "value": "Verify your email"
     }
   ],
   "next.components.auth.Signup.agree": [

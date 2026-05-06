@@ -13,16 +13,20 @@ const messages = defineMessages({
 
 interface SigninPageClientProps {
   redirect?: string;
+  invitation?: string;
   linkProvider?: 'google';
   linkError?: boolean;
   defaultEmail?: string;
+  view?: 'signin' | 'lost' | 'resend';
 }
 
 export default function SigninPageClient({
   redirect,
+  invitation,
   linkProvider,
   linkError,
   defaultEmail,
+  view,
 }: SigninPageClientProps) {
   const intl = useIntl();
 
@@ -33,9 +37,12 @@ export default function SigninPageClient({
       </Heading>
       <Signin
         redirect={redirect}
+        invitation={invitation}
         linkProvider={linkProvider}
         linkError={linkError}
         defaultEmail={defaultEmail}
+        defaultLostPassword={view === 'lost'}
+        defaultVerifyEmail={view === 'resend'}
       />
     </>
   );

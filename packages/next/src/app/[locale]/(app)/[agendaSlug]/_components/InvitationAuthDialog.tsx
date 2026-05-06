@@ -9,7 +9,6 @@ const AUTH_PARAM_KEYS = [
   'auth',
   'email',
   'fullName',
-  'iToken',
   'invitation',
   'redirect',
   'msg',
@@ -44,7 +43,6 @@ type Prefill = {
   view: View;
   defaultEmail?: string;
   defaultFullName?: string;
-  iToken?: string;
   invitation?: string;
   redirect?: string;
   message?: string;
@@ -71,7 +69,6 @@ export default function InvitationAuthDialog({
       view: auth,
       defaultEmail: searchParams.get('email') ?? undefined,
       defaultFullName: searchParams.get('fullName') ?? undefined,
-      iToken: searchParams.get('iToken') ?? undefined,
       invitation: searchParams.get('invitation') ?? undefined,
       redirect: searchParams.get('redirect') ?? undefined,
       message: msgDescriptor ? intl.formatMessage(msgDescriptor) : undefined,
@@ -92,7 +89,6 @@ export default function InvitationAuthDialog({
       defaultView={prefill.view}
       defaultEmail={prefill.defaultEmail}
       defaultFullName={prefill.defaultFullName}
-      iToken={prefill.iToken}
       invitation={prefill.invitation}
       redirect={prefill.redirect}
       message={prefill.message}

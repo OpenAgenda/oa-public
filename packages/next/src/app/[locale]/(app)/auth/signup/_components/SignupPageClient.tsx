@@ -18,21 +18,21 @@ const messages = defineMessages({
 });
 
 interface SignupPageClientProps {
-  iToken?: string;
   invitation?: string;
   redirect?: string;
+  email?: string;
 }
 
 export default function SignupPageClient({
-  iToken,
   invitation,
   redirect,
+  email,
 }: SignupPageClientProps) {
   const intl = useIntl();
   const mtCaptchaSiteKey = process.env.NEXT_PUBLIC_MTCAPTCHA_SITEKEY;
   const [completeData, setCompleteData] = useState<{
     email: string;
-    resendUrl: string;
+    callbackURL?: string;
   } | null>(null);
 
   if (completeData) {
@@ -43,7 +43,7 @@ export default function SignupPageClient({
         </Heading>
         <SignupComplete
           email={completeData.email}
-          resendUrl={completeData.resendUrl}
+          callbackURL={completeData.callbackURL}
         />
       </>
     );
@@ -55,9 +55,9 @@ export default function SignupPageClient({
         {intl.formatMessage(messages.heading)}
       </Heading>
       <Signup
-        iToken={iToken}
         invitation={invitation}
         redirect={redirect}
+        defaultEmail={email}
         mtCaptchaEnabled={!!mtCaptchaSiteKey}
         mtCaptchaSiteKey={mtCaptchaSiteKey}
         onSignupComplete={setCompleteData}

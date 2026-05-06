@@ -17,6 +17,7 @@ import {
   VStack,
   chakra,
 } from '@openagenda/uikit';
+import { decodeBase64Redirect } from '@/src/lib/computePostSignInRedirect';
 import PasswordField from './PasswordField';
 import CaptchaWidget, { type CaptchaProvider } from './captcha/CaptchaWidget';
 
@@ -189,7 +190,6 @@ interface SignupProps {
   defaultFullName?: string;
   agenda?: { slug: string; uid: string };
   invitation?: string;
-  iToken?: string;
   redirect?: string;
   mtCaptchaEnabled?: boolean;
   mtCaptchaSiteKey?: string;
@@ -197,7 +197,7 @@ interface SignupProps {
   reloadOnSuccess?: boolean;
   redirectOnSuccess?: string;
   onSuccess?: () => void;
-  onSignupComplete?: (params: { email: string; resendUrl: string }) => void;
+  onSignupComplete?: (params: { email: string; callbackURL?: string }) => void;
   onViewChange?: (view: 'signin' | 'lost' | 'signup') => void;
 }
 
@@ -208,7 +208,6 @@ export default function Signup({
   defaultFullName = '',
   agenda,
   invitation,
-  iToken,
   redirect,
   mtCaptchaEnabled = false,
   mtCaptchaSiteKey,
@@ -302,63 +301,125 @@ export default function Signup({
       setLoading(true);
 
       try {
-        const url = agenda ? `/${agenda.slug}/signup` : '/signup';
-        const body = new URLSearchParams({
+        // Lightweight client-side guard: BA's `validateSignUp` enforces the
+        // same rule server-side, but matching here avoids a roundtrip when
+        // the user simply mistyped the repeat field.
+        if (password !== repeat) {
+          setErrors({
+            repeat: intl.formatMessage(messages.repeatNotEqual),
+          });
+          setLoading(false);
+          return;
+        }
+
+        // BA-native sign-up. The `name` field is BA's. We pass `full_name`
+        // and `repeat` as additional fields so cibul-node's `validateSignUp`
+        // (services/auth/index.js) sees the same body shape the legacy
+        // wrapper used. `mtcaptcha-verifiedtoken` reaches the captcha check
+        // the same way.
+        const body: Record<string, string> = {
+          name: fullName,
           full_name: fullName,
           email,
           password,
           repeat,
           culture,
-          ...captchaToken ? { 'mtcaptcha-verifiedtoken': captchaToken } : {},
-          ...iToken ? { iToken } : {},
-          ...invitation ? { invitation } : {},
-          ...redirect ? { redirect } : {},
-        });
-        const res = await fetch(url, {
+        };
+        if (captchaToken) body['mtcaptcha-verifiedtoken'] = captchaToken;
+        if (invitation) body.invitation = invitation;
+        if (redirect) body.redirect = redirect;
+
+        // BA reads `callbackURL` from the body and embeds it in the
+        // verification email (better-auth/dist/api/routes/sign-up.mjs:241).
+        // Mirror the server-side `computePostActivateRedirect` logic
+        // (cibul-node/auth/lib/computePostActivateRedirect.js) so that an
+        // invitation token is preserved across the verify-email hop and
+        // applied by the cibul-node `/post-activate` handler after BA's
+        // auto-signin redirect. Without this, invitation links from member
+        // mails would lose their token at email-verification time.
+        if (invitation) {
+          let baseRedirect = '/home';
+          if (redirect) {
+            const safe = decodeBase64Redirect(redirect);
+            if (safe) {
+              baseRedirect = safe;
+            } else {
+              // eslint-disable-next-line no-console
+              console.warn('Signup: ignoring unsafe redirect param');
+            }
+          } else if (agenda) {
+            baseRedirect = `/${agenda.slug}/contribute`;
+          }
+          const params = new URLSearchParams({
+            invitation,
+            next: baseRedirect,
+          });
+          body.callbackURL = `/post-activate?${params.toString()}`;
+        } else if (redirect) {
+          const safe = decodeBase64Redirect(redirect);
+          if (safe) {
+            body.callbackURL = safe;
+          } else {
+            // eslint-disable-next-line no-console
+            console.warn('Signup: ignoring unsafe redirect param');
+          }
+        }
+
+        const res = await fetch('/api/auth/sign-up/email', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
           },
-          body,
+          credentials: 'include',
+          body: JSON.stringify(body),
         });
 
-        const data = await res.json();
+        const data = await res.json().catch(() => null);
 
-        if (data.success) {
-          if (data.verificationEmailSent && onSignupComplete && data.email) {
-            onSignupComplete({
-              email: data.email,
-              resendUrl: data.resendUrl,
-            });
+        if (!res.ok) {
+          // validateSignUp returns `{ errors: { field: code } }`; the auth
+          // package re-throws as APIError(BAD_REQUEST) with `details = errors`,
+          // so the BA response body is `{ message, details: { field: code } }`.
+          const details = data?.details;
+          if (details && typeof details === 'object') {
+            setErrors(mapErrors(details as Record<string, string>));
             return;
           }
-          setSuccess(true);
-          setTimeout(() => {
-            if (onSuccess) {
-              onSuccess();
-            } else if (redirectOnSuccess) {
-              window.location.href = redirectOnSuccess;
-            } else if (data.redirect) {
-              window.location.href = data.redirect;
-            } else if (reloadOnSuccess) {
-              window.location.reload();
-            }
-          }, 1000);
+          // BA's user-already-exists case ⇒ 422 + USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL
+          if (
+            data?.code === 'USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL' ||
+            data?.code === 'USER_ALREADY_EXISTS'
+          ) {
+            setErrors(mapErrors({ email: 'usedEmail' }));
+            return;
+          }
+          setMessage(
+            data?.message ?? intl.formatMessage(messages.genericError),
+          );
           return;
         }
 
-        if (data.redirect) {
-          window.location.href = data.redirect;
+        // Success: BA returned { user, token? }. With `requireEmailVerification:
+        // true` and `autoSignIn: false`, no session is opened — the user must
+        // verify the email first. Surface the SignupComplete view.
+        if (onSignupComplete) {
+          // Forward the callbackURL we computed for /sign-up/email so a
+          // resend-verification click rebuilds the same post-activation hop
+          // (invitation + /post-activate, /home, /<slug>/contribute, …).
+          onSignupComplete({ email, callbackURL: body.callbackURL });
           return;
         }
-
-        if (data.errors) {
-          setErrors(mapErrors(data.errors));
-        }
-        if (data.message) {
-          setMessage(data.message);
-        }
+        setSuccess(true);
+        setTimeout(() => {
+          if (onSuccess) {
+            onSuccess();
+          } else if (redirectOnSuccess) {
+            window.location.href = redirectOnSuccess;
+          } else if (reloadOnSuccess) {
+            window.location.reload();
+          }
+        }, 1000);
       } catch {
         setMessage(intl.formatMessage(messages.genericError));
       } finally {
@@ -373,7 +434,6 @@ export default function Signup({
       repeat,
       culture,
       captchaToken,
-      iToken,
       invitation,
       redirect,
       onSuccess,
@@ -383,6 +443,41 @@ export default function Signup({
       mapErrors,
       intl,
     ],
+  );
+
+  // OAuth signup goes through the BA `/sign-in/social` POST endpoint —
+  // identical in shape to signin, the only difference is the optional
+  // `requestSignUp` flag that BA reads when `disableImplicitSignUp` is
+  // enabled. Here we just want the user to land on Google and come back
+  // signed in or auto-signed-up.
+  const startSocial = useCallback(
+    async (provider: 'google') => {
+      setMessage(null);
+      setLoading(true);
+      try {
+        const callbackURL = agenda ? `/${agenda.slug}/contribute` : '/home';
+        const res = await fetch('/api/auth/sign-in/social', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify({ provider, callbackURL, requestSignUp: true }),
+        });
+        const data = await res.json().catch(() => null);
+        if (res.ok && data?.url) {
+          window.location.href = data.url;
+          return;
+        }
+        setMessage(intl.formatMessage(messages.genericError));
+      } catch {
+        setMessage(intl.formatMessage(messages.genericError));
+      } finally {
+        setLoading(false);
+      }
+    },
+    [agenda, intl],
   );
 
   if (success) {
@@ -395,10 +490,6 @@ export default function Signup({
       </VStack>
     );
   }
-
-  const googleSignupHref = agenda
-    ? `/${agenda.slug}/google/signup`
-    : '/google/signup';
 
   return (
     <>
@@ -661,11 +752,15 @@ export default function Signup({
         <Separator flex="1" aria-hidden="true" />
       </HStack>
 
-      <chakra.form action={googleSignupHref} method="POST">
-        <Button type="submit" variant="outline" w="full">
-          {intl.formatMessage(messages.googleLabel)}
-        </Button>
-      </chakra.form>
+      <Button
+        type="button"
+        variant="outline"
+        w="full"
+        onClick={() => startSocial('google')}
+        disabled={loading}
+      >
+        {intl.formatMessage(messages.googleLabel)}
+      </Button>
 
       <Text mt="4" textAlign="center">
         {intl.formatMessage(messages.alreadyHaveAccount)}{' '}

@@ -88,18 +88,23 @@ export default function LostPassword({
       setLoading(true);
 
       try {
-        const res = await fetch('/password/lost', {
+        // BA's anti-enumeration policy: returns 200 regardless of whether the
+        // email matches a user. The success state we render is therefore
+        // intentional even on a typo / unknown address.
+        const res = await fetch('/api/auth/request-password-reset', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
           },
-          body: new URLSearchParams({ email }),
+          credentials: 'include',
+          body: JSON.stringify({
+            email,
+            redirectTo: `${window.location.origin}/auth/reset`,
+          }),
         });
 
-        const data = await res.json();
-
-        if (data.success) {
+        if (res.ok) {
           setSuccess(true);
           return;
         }

@@ -63,18 +63,20 @@ const messages = defineMessages({
 });
 
 const SUPPORT_EMAIL = 'verif@openagenda.com';
-const RESEND_COOLDOWN_MS = 30_000;
+// 60s matches BA's `/send-verification-email` rate-limit window
+// (packages/auth/src/index.js). 30s would let the user trip a 429.
+const RESEND_COOLDOWN_MS = 60_000;
 
 interface SignupCompleteProps {
   email: string;
-  resendUrl: string;
+  callbackURL?: string;
 }
 
 type ResendResult = 'idle' | 'sent' | 'error';
 
 export default function SignupComplete({
   email,
-  resendUrl,
+  callbackURL,
 }: SignupCompleteProps) {
   const intl = useIntl();
   const [loading, setLoading] = useState(false);
@@ -96,30 +98,23 @@ export default function SignupComplete({
     setLoading(true);
     setResult('idle');
     try {
-      const res = await fetch(resendUrl, {
-        method: 'GET',
-        headers: { Accept: 'application/json' },
+      // BA `/api/auth/send-verification-email` accepts `{ email, callbackURL }`
+      // and re-issues a verification token. Rate-limited to 1/60s on the
+      // BA side (packages/auth/src/index.js).
+      const res = await fetch('/api/auth/send-verification-email', {
+        method: 'POST',
+        headers: {
+          Accept: 'application/json',
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include',
+        body: JSON.stringify({
+          email,
+          ...callbackURL ? { callbackURL } : {},
+        }),
       });
-      const data = await res.json().catch(() => null);
-      if (res.ok && data && data.success) {
+      if (res.ok) {
         setResult('sent');
-        setCooldownRemaining(RESEND_COOLDOWN_MS / 1000);
-        if (intervalRef.current !== null) {
-          clearInterval(intervalRef.current);
-          intervalRef.current = null;
-        }
-        intervalRef.current = setInterval(() => {
-          setCooldownRemaining((prev) => {
-            if (prev <= 1) {
-              if (intervalRef.current !== null) {
-                clearInterval(intervalRef.current);
-                intervalRef.current = null;
-              }
-              return 0;
-            }
-            return prev - 1;
-          });
-        }, 1000);
       } else {
         setResult('error');
       }
@@ -127,8 +122,27 @@ export default function SignupComplete({
       setResult('error');
     } finally {
       setLoading(false);
+      // Always start the cooldown — both 200 and 429 (rate-limited) consume
+      // the budget BA-side, so we don't want to let the user spam-retry.
+      setCooldownRemaining(RESEND_COOLDOWN_MS / 1000);
+      if (intervalRef.current !== null) {
+        clearInterval(intervalRef.current);
+        intervalRef.current = null;
+      }
+      intervalRef.current = setInterval(() => {
+        setCooldownRemaining((prev) => {
+          if (prev <= 1) {
+            if (intervalRef.current !== null) {
+              clearInterval(intervalRef.current);
+              intervalRef.current = null;
+            }
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
     }
-  }, [resendUrl]);
+  }, [email, callbackURL]);
 
   const isDisabled = loading || cooldownRemaining > 0;
 

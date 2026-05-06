@@ -57,7 +57,6 @@ interface AuthDialogProps {
   defaultView?: 'signin' | 'signup';
   defaultEmail?: string;
   defaultFullName?: string;
-  iToken?: string;
   invitation?: string;
   redirect?: string;
   message?: string;
@@ -75,7 +74,6 @@ export default function AuthDialog({
   defaultView = 'signin',
   defaultEmail,
   defaultFullName,
-  iToken,
   invitation,
   redirect,
   message,
@@ -87,7 +85,7 @@ export default function AuthDialog({
   const [viewAnnouncement, setViewAnnouncement] = useState<string | null>(null);
   const [completeData, setCompleteData] = useState<{
     email: string;
-    resendUrl: string;
+    callbackURL?: string;
   } | null>(null);
   const isFirstViewRender = useRef(true);
 
@@ -142,14 +140,13 @@ export default function AuthDialog({
               {view === 'signupComplete' && completeData ? (
                 <SignupComplete
                   email={completeData.email}
-                  resendUrl={completeData.resendUrl}
+                  callbackURL={completeData.callbackURL}
                 />
               ) : view === 'signup' ? (
                 <Signup
                   agenda={agenda}
                   defaultEmail={defaultEmail}
                   defaultFullName={defaultFullName}
-                  iToken={iToken}
                   invitation={invitation}
                   redirect={redirect}
                   reloadOnSuccess={reloadOnSuccess}
