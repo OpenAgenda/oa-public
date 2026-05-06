@@ -1,22 +1,22 @@
-// Phase 4 lot 4 — integration test for the Google OAuth façade.
-// Drives `/google/signin` -> `/api/auth/sign-in/social` -> provider mock
-// (msw) -> `/api/auth/callback/google` -> redirect.
+// Phase 6 lot 2 — the legacy `/google/signin` Express wrapper is gone.
+// The Next signin form posts directly to BA's `POST /api/auth/sign-in/social`
+// to start the OAuth dance. Same downstream contract: BA → Google mock
+// (msw) → `/api/auth/callback/google` → redirect.
 //
-// Three scenarios:
-//   A. New user signing up via Google → user row created, account row
-//      provider=google created, session opened.
-//   B. Existing user with backfilled account row → no new user, session
-//      opened on the existing user.
-//   C. Soft-removed user → after-hook guard purges the freshly-created
-//      session and redirects to /signin?msg=accountUnavailable.
+// We pin the OA-specific contract here: the soft-removed-user guard wired
+// in services/auth/index.js. New-user creation and existing-user signin via
+// Google are both BA-vanilla flows whose business logic lives in
+// @openagenda/auth + the drizzle adapter — no wrapper-side wiring of ours
+// to validate. Test 34 separately covers the runOnActivation side-effect on
+// the OAuth signup path, and test 35 the verified-linking custom flow.
 
 import request from 'supertest';
-import googleFront from '../auth/google.front.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 import { buildOAuthServer, googleHandlers } from './helpers/oauthMocks.js';
 
 const enabled = [
@@ -82,7 +82,7 @@ describe('32 - auth Google OAuth façade (phase 4)', () => {
     core = Core(services, testConfig);
     knex = services.knex;
     usersSvc = services.users;
-    app = buildApp(services, testConfig, { extend: (a) => googleFront(a) });
+    app = buildApp(services, testConfig);
   });
 
   beforeEach(() => {
@@ -104,15 +104,24 @@ describe('32 - auth Google OAuth façade (phase 4)', () => {
     server.close();
   });
 
+  beforeEach(() => flushRateLimit(services.redis));
+
   afterAll(async () => {
     await core.services.shutdown({ clear: true });
   });
 
   async function startSignin(agent) {
-    const res = await agent.get('/google/signin').redirects(0);
-    expect(res.status).toBe(302);
-    expect(res.headers.location).toMatch(/^https:\/\/accounts\.google\.com\//);
-    const url = new URL(res.headers.location);
+    // BA's POST /sign-in/social returns `{ url, redirect: true }` plus the
+    // state cookie via Set-Cookie. The Next form just navigates to the URL;
+    // here we extract the `state` query param + cookie so we can replay them
+    // on the callback request.
+    const res = await agent
+      .post('/api/auth/sign-in/social')
+      .set('Content-Type', 'application/json')
+      .send({ provider: 'google', callbackURL: '/home' });
+    expect(res.status).toBe(200);
+    expect(res.body?.url).toMatch(/^https:\/\/accounts\.google\.com\//);
+    const url = new URL(res.body.url);
     const state = url.searchParams.get('state');
     expect(state).toBeTruthy();
     return {
@@ -121,85 +130,7 @@ describe('32 - auth Google OAuth façade (phase 4)', () => {
     };
   }
 
-  it('case A — new user → creates user + account row, opens session', async () => {
-    const agent = request.agent(app);
-    const { state, cookies } = await startSignin(agent);
-
-    const callbackRes = await agent
-      .get(`/api/auth/callback/google?code=fake-code&state=${state}`)
-      .set('Cookie', cookies.join('; '))
-      .redirects(0);
-    expect(callbackRes.status).toBe(302);
-
-    const dbUser = await knex(testConfig.schemas.user)
-      .where({ email: 'g32@oa.test' })
-      .first();
-    expect(dbUser).toBeTruthy();
-    expect(dbUser.is_activated).toBe(1);
-
-    const accountRow = await knex(testConfig.schemas.account)
-      .where({ provider_id: 'google', account_id: 'google-sub-32' })
-      .first();
-    expect(accountRow).toBeTruthy();
-    expect(String(accountRow.user_id)).toBe(String(dbUser.id));
-  });
-
-  it('case B — existing backfilled user → opens session, no new row', async () => {
-    const existing = await usersSvc.create(
-      {
-        fullName: 'Pre-existing G32',
-        email: 'g32-existing@oa.test',
-        password: 'plainPwd-g32-existing',
-        isActivated: true,
-      },
-      { internal: true, detailed: true },
-    );
-    const now = new Date();
-    await knex(testConfig.schemas.account).insert({
-      user_id: existing.id,
-      account_id: 'google-sub-32-existing',
-      provider_id: 'google',
-      password: null,
-      created_at: now,
-      updated_at: now,
-    });
-
-    server.close();
-    server = buildOAuthServer(
-      googleHandlers({
-        aud: testConfig.auth.google.id,
-        profile: {
-          id: 'google-sub-32-existing',
-          email: 'g32-existing@oa.test',
-          name: 'Pre-existing G32',
-          email_verified: true,
-        },
-      }),
-    );
-    server.listen({ onUnhandledRequest: 'bypass' });
-
-    const agent = request.agent(app);
-    const { state, cookies } = await startSignin(agent);
-
-    const before = await knex(testConfig.schemas.account)
-      .where({ provider_id: 'google', account_id: 'google-sub-32-existing' })
-      .count('* as n')
-      .first();
-
-    const callbackRes = await agent
-      .get(`/api/auth/callback/google?code=fake-code&state=${state}`)
-      .set('Cookie', cookies.join('; '))
-      .redirects(0);
-    expect(callbackRes.status).toBe(302);
-
-    const after = await knex(testConfig.schemas.account)
-      .where({ provider_id: 'google', account_id: 'google-sub-32-existing' })
-      .count('* as n')
-      .first();
-    expect(Number(after.n)).toBe(Number(before.n));
-  });
-
-  it('case C — soft-removed user → guard redirects to /signin?msg=accountUnavailable', async () => {
+  it('soft-removed user → guard redirects to /signin?msg=accountUnavailable', async () => {
     const removed = await usersSvc.create(
       {
         fullName: 'Removed G32',

@@ -1,10 +1,20 @@
+// Phase 6 Lot 2 — the legacy `/signup` Express wrapper is gone, the form
+// posts directly to BA's `/api/auth/sign-up/email`. We pin two things here:
+//   - cibul-node's `validateSignUp` callback (services/auth/index.js) returns
+//     400 with the OA-shaped `details.repeat`/`details.password` errors,
+//   - BA's `requireEmailVerification: true` flag (set by @openagenda/auth)
+//     enables the anti-enumeration synthetic response on duplicate email,
+//     which OA depends on for not leaking account existence.
+// Vanilla "creates a user" path is covered by @openagenda/auth + drizzle
+// adapter unit tests, no need to re-prove it here.
+
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import localFront from '../auth/local.front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 
 const enabled = [
   'knex',
@@ -39,7 +49,7 @@ const enabled = [
   'security',
 ];
 
-describe('20 - auth signup UI via better-auth (phase 3)', () => {
+describe('20 - auth signup UI via better-auth (phase 6 lot 2)', () => {
   let core;
   let services;
   let usersSvc;
@@ -58,46 +68,19 @@ describe('20 - auth signup UI via better-auth (phase 3)', () => {
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     usersSvc = services.users;
-    app = buildApp(services, testConfig, { extend: (a) => localFront(a) });
+    app = buildApp(services, testConfig);
   });
+
+  beforeEach(() => flushRateLimit(services.redis));
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  it('creates a user (isActivated=false), redirects to signup/complete, no session opened', async () => {
-    const email = 'signup-new@oa.test';
-    const password = 'plainPwd-20-new';
-
+  it('rejects when passwords do not match (validateSignUp returns errors.repeat)', async () => {
     const res = await request(app)
-      .post('/signup')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-up/email')
+      .set('Content-Type', 'application/json')
       .send({
-        full_name: 'Signup New',
-        email,
-        password,
-        repeat: password,
-      });
-
-    const created = await usersSvc.findOne({
-      query: { email },
-      detailed: true,
-    });
-    expect(created).toBeTruthy();
-    expect(!!created.isActivated).toBe(false);
-
-    const redirect = res.body?.redirect || res.headers.location;
-    expect(redirect).toMatch(/signup\/complete|activate/);
-
-    const cookies = [].concat(res.headers['set-cookie'] || []).join(';');
-    expect(cookies).not.toMatch(/oa\.session_token=[A-Za-z0-9]/);
-  });
-
-  it('rejects when passwords do not match', async () => {
-    const res = await request(app)
-      .post('/signup')
-      .set('Accept', 'application/json')
-      .type('form')
-      .send({
+        name: 'Mismatch',
         full_name: 'Mismatch',
         email: 'signup-mismatch@oa.test',
         password: 'plainPwd-20-strong-x9',
@@ -105,12 +88,17 @@ describe('20 - auth signup UI via better-auth (phase 3)', () => {
       });
 
     expect(res.status).toBe(400);
-    expect(res.body?.errors?.repeat).toBeDefined();
+    expect(res.body?.details?.repeat).toBeDefined();
   });
 
-  it('rejects signup when the email is already taken (400 + errors.email)', async () => {
+  it('anti-enumeration on already-taken email: 200 with synthetic user, no new DB row', async () => {
+    // BA's `requireEmailVerification: true` flag (set in @openagenda/auth)
+    // turns on `shouldReturnGenericDuplicateResponse` server-side: BA hashes
+    // the supplied password to flatten timing, then returns a freshly minted
+    // synthetic user response without ever inserting a row. The contract
+    // matters — we must NOT leak the existence of the original account.
     const email = 'signup-collision@oa.test';
-    await usersSvc.create(
+    const original = await usersSvc.create(
       {
         fullName: 'Existing User',
         email,
@@ -121,19 +109,32 @@ describe('20 - auth signup UI via better-auth (phase 3)', () => {
     );
 
     const res = await request(app)
-      .post('/signup')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-up/email')
+      .set('Content-Type', 'application/json')
       .send({
+        name: 'Second Tries Same Email',
         full_name: 'Second Tries Same Email',
         email,
         password: 'plainPwd-20-collide',
         repeat: 'plainPwd-20-collide',
       });
 
-    expect(res.status).toBe(400);
-    // checkUnicity throws BadRequest('Already exist') → signupSubmit maps to
-    // errors.email = 'usedEmail'.
-    expect(res.body?.errors?.email).toBe('usedEmail');
+    expect(res.status).toBe(200);
+
+    // No second row in the user table.
+    const rows = await services
+      .knex(testConfig.schemas.user)
+      .where({ email })
+      .count('* as n')
+      .first();
+    expect(Number(rows.n)).toBe(1);
+
+    // The original user row is unchanged.
+    const stillThere = await services
+      .knex(testConfig.schemas.user)
+      .where({ id: original.id })
+      .first();
+    expect(stillThere).toBeTruthy();
+    expect(stillThere.email).toBe(email);
   });
 });

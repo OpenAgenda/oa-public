@@ -3,12 +3,12 @@
 // assertion for the email-verification path.
 
 import request from 'supertest';
-import googleFront from '../auth/google.front.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 import { buildOAuthServer, googleHandlers } from './helpers/oauthMocks.js';
 
 const enabled = [
@@ -70,7 +70,7 @@ describe('34 - OAuth Google signup → runOnActivation fired (phase 4)', () => {
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     knex = services.knex;
-    app = buildApp(services, testConfig, { extend: (a) => googleFront(a) });
+    app = buildApp(services, testConfig);
   });
 
   beforeEach(() => {
@@ -92,15 +92,20 @@ describe('34 - OAuth Google signup → runOnActivation fired (phase 4)', () => {
     server.close();
   });
 
+  beforeEach(() => flushRateLimit(services.redis));
+
   afterAll(async () => {
     await core.services.shutdown({ clear: true });
   });
 
   it('provisions a userPublic api key on first sign-in via Google', async () => {
     const agent = request.agent(app);
-    const startRes = await agent.get('/google/signin').redirects(0);
-    expect(startRes.status).toBe(302);
-    const state = new URL(startRes.headers.location).searchParams.get('state');
+    const startRes = await agent
+      .post('/api/auth/sign-in/social')
+      .set('Content-Type', 'application/json')
+      .send({ provider: 'google', callbackURL: '/home' });
+    expect(startRes.status).toBe(200);
+    const state = new URL(startRes.body.url).searchParams.get('state');
     const cookies = extractCookies(startRes.headers['set-cookie']);
 
     const callbackRes = await agent

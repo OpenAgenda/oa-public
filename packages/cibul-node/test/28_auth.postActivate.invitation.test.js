@@ -5,6 +5,7 @@ import localFront from '../auth/local.front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 
 const enabled = [
   'knex',
@@ -45,6 +46,7 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
   let usersSvc;
   let app;
   let originalSend;
+  let sentMails;
 
   beforeAll(async () => {
     await setup({
@@ -59,13 +61,28 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     usersSvc = services.users;
-    app = buildApp(services, testConfig, { extend: (a) => localFront(a) });
+    app = buildApp(services, testConfig, {
+      extend: (a) => {
+        localFront(a);
+      },
+    });
 
     // Don't actually send mail in tests — invitations created via members
-    // create flow trigger an invitation mail.
+    // create flow trigger an invitation mail. We capture the args so the
+    // suite below can assert the generated invitation URL shape.
     originalSend = services.mails.send.bind(services.mails);
-    services.mails.send = async () => ({ status: true });
+    sentMails = [];
+    services.mails.send = async (options) => {
+      sentMails.push(options);
+      return { status: true };
+    };
   });
+
+  beforeEach(() => {
+    sentMails.length = 0;
+  });
+
+  beforeEach(() => flushRateLimit(services.redis));
 
   afterAll(async () => {
     services.mails.send = originalSend;
@@ -76,7 +93,16 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
   // invitation has a `linkMember` action targeting the new agenda. Returns
   // both the invitation token (for the activation URL) and the agenda
   // (for redirect assertions).
-  async function buildInvitationFixture({ adminEmail, inviteeEmail }) {
+  //
+  // By default the underlying `members.create` runs with `context.silent`
+  // so the invitation mail is not dispatched (other suite cases don't need
+  // it). Pass `{ silent: false }` to opt in to the real `sendInvitation`
+  // path and capture the mail in `sentMails`.
+  async function buildInvitationFixture({
+    adminEmail,
+    inviteeEmail,
+    silent = true,
+  }) {
     const admin = await usersSvc.create(
       {
         fullName: 'Admin User',
@@ -108,7 +134,7 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
       },
       {
         userUid: admin.uid,
-        context: { silent: true },
+        context: { silent },
       },
     );
 
@@ -119,6 +145,49 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
 
     return { admin, agenda, invitation };
   }
+
+  it('member invitation mail links to /auth/signup (not the legacy /{slug}/signup)', async () => {
+    // Phase 6 lot 2 — the legacy `/{agendaSlug}/signup` Express handler was
+    // retired, so the invitation mail must point at the App Router signup
+    // page. The Next proxy handles the no-locale → /:locale/auth/signup hop;
+    // this test only asserts the path/query shape produced by the cibul-node
+    // mailer (services/members/lib/mail.js).
+    const inviteeEmail = 'postactivate-mail-link@oa.test';
+
+    const { agenda, invitation } = await buildInvitationFixture({
+      adminEmail: 'postactivate-mail-admin@oa.test',
+      inviteeEmail,
+      // Opt out of the silent flag so onCreate dispatches the invitation
+      // mail through services.members/lib/mail.sendInvitation. The captured
+      // payload is what the rest of the assertions inspect.
+      silent: false,
+    });
+    expect(invitation?.token).toBeTruthy();
+
+    const invitationMail = sentMails.find(
+      (m) => m.template === 'memberInvitation',
+    );
+    expect(invitationMail).toBeTruthy();
+
+    const { link } = invitationMail.data;
+    expect(typeof link).toBe('string');
+
+    // Path must be /auth/signup (Next App Router), not /{slug}/signup.
+    const url = new URL(link);
+    expect(url.pathname).toBe('/auth/signup');
+    expect(url.pathname).not.toMatch(new RegExp(`^/${agenda.slug}/signup`));
+
+    // Query carries the bits the Next signup page reads: invitation token,
+    // pre-filled email, locale, and a base64 redirect that lands the user
+    // on the agenda's contribute page after activation.
+    expect(url.searchParams.get('invitation')).toBe(invitation.token);
+    expect(url.searchParams.get('email')).toBe(inviteeEmail);
+    expect(url.searchParams.get('lang')).toBeTruthy();
+    const encodedRedirect = url.searchParams.get('redirect');
+    expect(encodedRedirect).toBeTruthy();
+    const decodedRedirect = Buffer.from(encodedRedirect, 'base64').toString();
+    expect(decodedRedirect).toBe(`/${agenda.slug}/contribute`);
+  });
 
   it('applies linkMember invitation and redirects to /{slug}/contribute', async () => {
     const inviteeEmail = 'postactivate-link@oa.test';
@@ -145,9 +214,8 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email: inviteeEmail, password: inviteePassword });
 
     const res = await agent.get(
@@ -187,9 +255,8 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email, password });
 
     const res = await agent.get('/post-activate?next=/home');
@@ -197,8 +264,8 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
     expect(res.headers.location).toBe('/home');
   });
 
-  it('rejects malicious next values and falls back to /home', async () => {
-    const email = 'postactivate-mal@oa.test';
+  it('rejects malicious next values (open-redirect / CRLF / whitespace / backslash) and falls back to /home', async () => {
+    const email = 'postactivate-malicious@oa.test';
     const password = 'plainPwd-28-mal';
 
     await usersSvc.create(
@@ -213,81 +280,33 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email, password });
 
-    // Protocol-relative URL.
-    const protoRel = await agent.get(
-      `/post-activate?next=${encodeURIComponent('//evil.com/path')}`,
-    );
-    expect(protoRel.status).toBe(302);
-    expect(protoRel.headers.location).toBe('/home');
+    // Each variant exercises a separate branch of safeNext (auth/local.front.js):
+    //   - protocol-relative URLs ("//host"),
+    //   - absolute URLs ("https://host"),
+    //   - whitespace + protocol-relative (tab, CRLF, plain space) — browsers
+    //     historically tolerate these in Location headers,
+    //   - backslash variants ("/\\…") that some browsers normalise to "//".
+    const malicious = [
+      '//evil.com/path',
+      'https://evil.com/path',
+      '/\t//evil.com',
+      '/\r\n//evil.com',
+      '/ //evil.com',
+      '/\\evil.com',
+      '/\\\\evil.com',
+    ];
 
-    // Absolute URL.
-    const absolute = await agent.get(
-      `/post-activate?next=${encodeURIComponent('https://evil.com/path')}`,
-    );
-    expect(absolute.status).toBe(302);
-    expect(absolute.headers.location).toBe('/home');
-  });
-
-  it('rejects whitespace/backslash injections in next and falls back to /home', async () => {
-    const email = 'postactivate-ws@oa.test';
-    const password = 'plainPwd-28-ws';
-
-    await usersSvc.create(
-      {
-        fullName: 'Whitespace Next',
-        email,
-        password,
-        isActivated: true,
-      },
-      { internal: true, detailed: true },
-    );
-
-    const agent = request.agent(app);
-    await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
-      .send({ email, password });
-
-    // Tab + protocol-relative.
-    const tab = await agent.get(
-      `/post-activate?next=${encodeURIComponent('/\t//evil.com')}`,
-    );
-    expect(tab.status).toBe(302);
-    expect(tab.headers.location).toBe('/home');
-
-    // CRLF + protocol-relative.
-    const crlf = await agent.get(
-      `/post-activate?next=${encodeURIComponent('/\r\n//evil.com')}`,
-    );
-    expect(crlf.status).toBe(302);
-    expect(crlf.headers.location).toBe('/home');
-
-    // Plain space + protocol-relative.
-    const space = await agent.get(
-      `/post-activate?next=${encodeURIComponent('/ //evil.com')}`,
-    );
-    expect(space.status).toBe(302);
-    expect(space.headers.location).toBe('/home');
-
-    // Single backslash variant.
-    const bs = await agent.get(
-      `/post-activate?next=${encodeURIComponent('/\\evil.com')}`,
-    );
-    expect(bs.status).toBe(302);
-    expect(bs.headers.location).toBe('/home');
-
-    // Double backslash (some browsers treat \\ as //).
-    const bs2 = await agent.get(
-      `/post-activate?next=${encodeURIComponent('/\\\\evil.com')}`,
-    );
-    expect(bs2.status).toBe(302);
-    expect(bs2.headers.location).toBe('/home');
+    for (const next of malicious) {
+      const res = await agent.get(
+        `/post-activate?next=${encodeURIComponent(next)}`,
+      );
+      expect(res.status).toBe(302);
+      expect(res.headers.location).toBe('/home');
+    }
   });
 
   it('refuses to apply an invitation when the authenticated user is not the invitee', async () => {
@@ -316,9 +335,8 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email: attackerEmail, password: attackerPassword });
 
     const res = await agent.get(

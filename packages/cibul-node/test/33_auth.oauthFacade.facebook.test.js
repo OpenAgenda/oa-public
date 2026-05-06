@@ -1,23 +1,19 @@
-// Phase 4 lot 4 — integration test for the Facebook OAuth façade.
-//
-// Three scenarios:
-//   A. Existing user with backfilled account row → signin OK.
-//   B. User still carrying `facebook_uid` (legacy phase-out) → callback
-//      redirect rewritten to /settings/unlinkFacebook regardless of where
-//      `callbackURL` points.
-//   C. Unknown user (`disableImplicitSignUp: true`) → BA redirects to
-//      /error?error=signup_disabled (split from "signup disabled").
-//
-// FB does not use id_token by default — we mock the access_token endpoint
-// and the /me?fields=… profile endpoint.
+// Phase 6 lot 2 — the legacy `/facebook/signin` Express wrapper is gone,
+// the Next signin form posts directly to BA's `POST /api/auth/sign-in/social`.
+// We pin the OA-specific Facebook contract: users still carrying a legacy
+// `facebook_uid` column must be force-routed to /settings/unlinkFacebook
+// regardless of the requested callbackURL (`unlinkFacebook` phase-out path
+// in services/auth/index.js). Vanilla "existing user signs in" and BA's
+// disableImplicitSignUp redirect are flows whose logic lives in
+// @openagenda/auth / better-auth — covered by the BA package tests.
 
 import request from 'supertest';
-import facebookFront from '../auth/facebook.front.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 import { buildOAuthServer, facebookHandlers } from './helpers/oauthMocks.js';
 
 const enabled = [
@@ -81,12 +77,14 @@ describe('33 - auth Facebook OAuth façade (phase 4)', () => {
     core = Core(services, testConfig);
     knex = services.knex;
     usersSvc = services.users;
-    app = buildApp(services, testConfig, { extend: (a) => facebookFront(a) });
+    app = buildApp(services, testConfig);
   });
 
   afterEach(() => {
     if (server) server.close();
   });
+
+  beforeEach(() => flushRateLimit(services.redis));
 
   afterAll(async () => {
     await core.services.shutdown({ clear: true });
@@ -98,10 +96,13 @@ describe('33 - auth Facebook OAuth façade (phase 4)', () => {
   }
 
   async function startSignin(agent) {
-    const res = await agent.get('/facebook/signin').redirects(0);
-    expect(res.status).toBe(302);
-    expect(res.headers.location).toMatch(/^https:\/\/www\.facebook\.com\//);
-    const url = new URL(res.headers.location);
+    const res = await agent
+      .post('/api/auth/sign-in/social')
+      .set('Content-Type', 'application/json')
+      .send({ provider: 'facebook', callbackURL: '/home' });
+    expect(res.status).toBe(200);
+    expect(res.body?.url).toMatch(/^https:\/\/www\.facebook\.com\//);
+    const url = new URL(res.body.url);
     const state = url.searchParams.get('state');
     expect(state).toBeTruthy();
     return {
@@ -110,47 +111,7 @@ describe('33 - auth Facebook OAuth façade (phase 4)', () => {
     };
   }
 
-  it('case A — existing backfilled user → opens session', async () => {
-    const existing = await usersSvc.create(
-      {
-        fullName: 'FB Existing 33',
-        email: 'fb33-existing@oa.test',
-        password: 'plainPwd-fb33',
-        isActivated: true,
-      },
-      { internal: true, detailed: true },
-    );
-    const now = new Date();
-    await knex(testConfig.schemas.account).insert({
-      user_id: existing.id,
-      account_id: 'fb-uid-33-existing',
-      provider_id: 'facebook',
-      password: null,
-      created_at: now,
-      updated_at: now,
-    });
-
-    startServer({
-      id: 'fb-uid-33-existing',
-      name: 'FB Existing 33',
-      email: 'fb33-existing@oa.test',
-      picture: { data: { url: 'http://localhost/p.jpg' } },
-    });
-
-    const agent = request.agent(app);
-    const { state, cookies } = await startSignin(agent);
-
-    const callbackRes = await agent
-      .get(`/api/auth/callback/facebook?code=fake-code&state=${state}`)
-      .set('Cookie', cookies.join('; '))
-      .redirects(0);
-    expect(callbackRes.status).toBe(302);
-    // Sanity: the callback resolved to the success branch, not /error.
-    expect(callbackRes.headers.location).not.toMatch(/\/error/);
-    expect(callbackRes.headers.location).not.toMatch(/error=/);
-  });
-
-  it('case B — user with legacy facebook_uid → forced redirect to /settings/unlinkFacebook', async () => {
+  it('user with legacy facebook_uid → forced redirect to /settings/unlinkFacebook', async () => {
     const linked = await usersSvc.create(
       {
         fullName: 'FB Linked 33',
@@ -189,24 +150,5 @@ describe('33 - auth Facebook OAuth façade (phase 4)', () => {
       .redirects(0);
     expect(callbackRes.status).toBe(302);
     expect(callbackRes.headers.location).toMatch(/\/settings\/unlinkFacebook/);
-  });
-
-  it('case C — unknown user with disableImplicitSignUp → redirect with error=signup_disabled', async () => {
-    startServer({
-      id: 'fb-uid-33-unknown',
-      name: 'FB Unknown 33',
-      email: 'fb33-unknown@oa.test',
-      picture: { data: { url: 'http://localhost/p.jpg' } },
-    });
-
-    const agent = request.agent(app);
-    const { state, cookies } = await startSignin(agent);
-
-    const callbackRes = await agent
-      .get(`/api/auth/callback/facebook?code=fake-code&state=${state}`)
-      .set('Cookie', cookies.join('; '))
-      .redirects(0);
-    expect(callbackRes.status).toBe(302);
-    expect(callbackRes.headers.location).toMatch(/error=signup_disabled/);
   });
 });

@@ -1,11 +1,11 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import localFront from '../auth/local.front.js';
 import generalFront from '../general/front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 
 const enabled = [
   'knex',
@@ -42,7 +42,6 @@ const enabled = [
 
 function extendApp(services) {
   return (app) => {
-    localFront(app);
     generalFront(app);
 
     app.get('/whoami', (req, res) =>
@@ -104,6 +103,8 @@ describe('21 - sessions hybrid loader (better-auth + cookie-session)', () => {
     app = buildApp(services, testConfig, { extend: extendApp(services) });
   });
 
+  beforeEach(() => flushRateLimit(services.redis));
+
   afterAll(() => core.services.shutdown({ clear: true }));
 
   it('returns null user when no cookie is present', async () => {
@@ -122,9 +123,8 @@ describe('21 - sessions hybrid loader (better-auth + cookie-session)', () => {
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email, password });
 
     const res = await agent.get('/whoami');
@@ -142,9 +142,8 @@ describe('21 - sessions hybrid loader (better-auth + cookie-session)', () => {
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email, password });
     await agent.get('/signout');
 
@@ -162,9 +161,8 @@ describe('21 - sessions hybrid loader (better-auth + cookie-session)', () => {
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email, password });
 
     const res = await agent.get('/protected');
@@ -188,9 +186,8 @@ describe('21 - sessions hybrid loader (better-auth + cookie-session)', () => {
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email, password });
 
     const res = await agent.get('/loggedonly');
@@ -214,9 +211,8 @@ describe('21 - sessions hybrid loader (better-auth + cookie-session)', () => {
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email, password });
 
     await services
@@ -287,9 +283,8 @@ describe('21 - sessions hybrid loader (better-auth + cookie-session)', () => {
 
     // 1) Open a BA session (writes oa.session_token).
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email: baEmail, password: baPassword });
 
     // 2) Now open a legacy cookie-session for a DIFFERENT user. The agent

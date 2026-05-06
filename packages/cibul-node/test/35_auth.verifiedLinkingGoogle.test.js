@@ -1,15 +1,14 @@
-// Phase 4 lot 4.5 — end-to-end verified-linking flow for Google.
+// Phase 6 lot 2 — end-to-end verified-linking flow for Google, now driven
+// entirely by direct calls to BA endpoints (no cibul-node /signin wrapper):
 //
-// Covers the full path an existing OA user (email/password, no `account`
-// row for Google) takes when clicking "Sign in with Google":
-//   1. /google/signin -> BA sign-in/social -> Google mock -> callback BA
+//   1. POST /api/auth/sign-in/social → Google mock → callback BA
 //   2. BA refuses the auto-link (`disableImplicitLinking`) and redirects
 //      to `errorCallbackURL=/auth/signin?linkProvider=google&error=...`.
 //      `mapProfileToUser` stashed the email on the async-context, so the
 //      after-hook appended `&email=<encoded>` to the redirect.
-//   3. The user submits POST /signin with email + password + linkProvider
-//      → cibul-node opens the BA session, then calls `linkSocialAccount`
-//      which returns a Google authorization URL carrying the link state.
+//   3. The Next form runs two fetchs back-to-back:
+//        a. POST /api/auth/sign-in/email   (opens the BA session)
+//        b. POST /api/auth/link-social     (returns Google authorize URL)
 //   4. The browser hits Google again, gets redirected to /api/auth/callback
 //      → BA's callback finds the link state + the active session, hits the
 //      `if (link)` branch in callback.mjs, and finalises the link.
@@ -17,14 +16,12 @@
 //      with `(provider_id, account_id)` matching the Google sub.
 
 import request from 'supertest';
-import googleFront from '../auth/google.front.js';
-import localFront from '../auth/local.front.js';
-import generalFront from '../general/front.js';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 import { buildOAuthServer, googleHandlers } from './helpers/oauthMocks.js';
 
 const enabled = [
@@ -88,18 +85,14 @@ describe('35 - verified-linking Google end-to-end (phase 4 lot 4.5)', () => {
     core = Core(services, testConfig);
     knex = services.knex;
     usersSvc = services.users;
-    app = buildApp(services, testConfig, {
-      extend: (a) => {
-        googleFront(a);
-        localFront(a);
-        generalFront(a);
-      },
-    });
+    app = buildApp(services, testConfig);
   });
 
   afterEach(() => {
     if (server) server.close();
   });
+
+  beforeEach(() => flushRateLimit(services.redis));
 
   afterAll(async () => {
     await core.services.shutdown({ clear: true });
@@ -112,11 +105,21 @@ describe('35 - verified-linking Google end-to-end (phase 4 lot 4.5)', () => {
     server.listen({ onUnhandledRequest: 'bypass' });
   }
 
-  async function followToGoogle(agent, path) {
-    const res = await agent.get(path).redirects(0);
-    expect(res.status).toBe(302);
-    expect(res.headers.location).toMatch(/^https:\/\/accounts\.google\.com\//);
-    const url = new URL(res.headers.location);
+  async function followToGoogle(agent) {
+    // Mirrors what the Next signin button does: BA returns the authorize
+    // URL + Set-Cookie state — supertest replays the cookie automatically
+    // on subsequent calls with the same agent.
+    const res = await agent
+      .post('/api/auth/sign-in/social')
+      .set('Content-Type', 'application/json')
+      .send({
+        provider: 'google',
+        callbackURL: '/home',
+        errorCallbackURL: '/auth/signin?linkProvider=google',
+      });
+    expect(res.status).toBe(200);
+    expect(res.body?.url).toMatch(/^https:\/\/accounts\.google\.com\//);
+    const url = new URL(res.body.url);
     return {
       state: url.searchParams.get('state'),
       cookies: extractCookies(res.headers['set-cookie']),
@@ -147,7 +150,7 @@ describe('35 - verified-linking Google end-to-end (phase 4 lot 4.5)', () => {
     // Step 1-2: kick off the OAuth flow, then drive the callback. BA
     // matches the user by email but has no `account` row → redirects to
     // errorCallbackURL with email pre-filled by mapProfileToUser.
-    const start = await followToGoogle(agent, '/google/signin');
+    const start = await followToGoogle(agent);
     const callbackRes = await agent
       .get(`/api/auth/callback/google?code=fake-code&state=${start.state}`)
       .set('Cookie', start.cookies.join('; '))
@@ -167,28 +170,34 @@ describe('35 - verified-linking Google end-to-end (phase 4 lot 4.5)', () => {
       .first();
     expect(beforeLink).toBeUndefined();
 
-    // Step 3: password challenge. POSTing to /signin with linkProvider
-    // opens the BA session via signInEmail and chains to /link-social.
-    // We need a fresh agent since BA already set state cookies on the
-    // first one — supertest replays them and BA refuses the new flow.
+    // Step 3: password challenge — option A in the migration plan. The
+    // Next signin form runs the two BA endpoints back-to-back. A fresh
+    // agent is required because BA's previous-flow state cookie on the
+    // initial agent would leak into the new sign-in/social call.
     const linkAgent = request.agent(app);
-    const submit = await linkAgent
-      .post('/signin')
-      .type('form')
-      .set('Accept', 'application/json')
+    const signinRes = await linkAgent
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({
         email: 'vl35@oa.test',
         password: 'plainPwd-vl35',
-        linkProvider: 'google',
       });
-    expect(submit.status).toBe(200);
-    expect(submit.body.success).toBe(true);
-    expect(submit.body.redirect).toMatch(/^https:\/\/accounts\.google\.com\//);
+    expect(signinRes.status).toBe(200);
+    const linkRes = await linkAgent
+      .post('/api/auth/link-social')
+      .set('Content-Type', 'application/json')
+      .send({
+        provider: 'google',
+        callbackURL: '/home',
+        errorCallbackURL: '/auth/signin?linkProvider=google&linkError=1',
+      });
+    expect(linkRes.status).toBe(200);
+    expect(linkRes.body?.url).toMatch(/^https:\/\/accounts\.google\.com\//);
 
     // Step 4: replay the second Google round-trip. The state cookie from
-    // /link-social is on `linkAgent`; we extract `state` from the URL
-    // returned by the password challenge and hit /api/auth/callback again.
-    const linkUrl = new URL(submit.body.redirect);
+    // /link-social is on `linkAgent`; we extract `state` from the URL and
+    // hit /api/auth/callback again.
+    const linkUrl = new URL(linkRes.body.url);
     const linkState = linkUrl.searchParams.get('state');
     expect(linkState).toBeTruthy();
 
@@ -207,46 +216,5 @@ describe('35 - verified-linking Google end-to-end (phase 4 lot 4.5)', () => {
       .first();
     expect(afterLink).toBeTruthy();
     expect(String(afterLink.user_id)).toBe(String(user.id));
-  });
-
-  it('linkError=1 redirect: bad password keeps the user on /signin without linking', async () => {
-    await usersSvc.create(
-      {
-        fullName: 'Verified Link Bad 35',
-        email: 'vl35-bad@oa.test',
-        password: 'plainPwd-vl35-bad',
-        isActivated: true,
-      },
-      { internal: true, detailed: true },
-    );
-
-    startServer({
-      id: 'google-sub-vl35-bad',
-      email: 'vl35-bad@oa.test',
-      name: 'Verified Link Bad 35',
-      email_verified: true,
-    });
-
-    // Bad password → signInEmail rejects → no session opened, the linking
-    // branch is never entered. We just check the response is the standard
-    // signin failure (renderSignin with the invalid-password flag).
-    const linkAgent = request.agent(app);
-    const submit = await linkAgent
-      .post('/signin')
-      .type('form')
-      .set('Accept', 'application/json')
-      .send({
-        email: 'vl35-bad@oa.test',
-        password: 'WRONG',
-        linkProvider: 'google',
-      });
-    expect(submit.status).toBe(400);
-    expect(submit.body.errors?.password).toBeTruthy();
-
-    // No `account` row created.
-    const row = await knex(testConfig.schemas.account)
-      .where({ provider_id: 'google', account_id: 'google-sub-vl35-bad' })
-      .first();
-    expect(row).toBeUndefined();
   });
 });
