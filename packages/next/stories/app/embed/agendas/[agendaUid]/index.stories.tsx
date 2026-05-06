@@ -1,7 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import EmbedAgendaShow from '@/src/app/[locale]/embed/agendas/[agendaUid]/_components/EmbedAgendaShow';
 import EmbedLayoutShell from '@/src/app/[locale]/embed/_components/EmbedLayoutShell';
-import DateFnsLocaleProvider from '@/src/components/DateFnsLocaleProvider';
 import { Agenda } from '@/src/types';
 import intlMessagesLoader from '@/stories/loaders/intlMessagesLoader';
 import ProvidersDecorator from '@/stories/decorators/ProvidersDecorator';
@@ -27,9 +26,7 @@ export default {
 export const Sample = {
   render: () => (
     <EmbedLayoutShell>
-      <DateFnsLocaleProvider>
-        <EmbedAgendaShow agenda={agendaFixtures as Agenda} />
-      </DateFnsLocaleProvider>
+      <EmbedAgendaShow agenda={agendaFixtures as Agenda} />
     </EmbedLayoutShell>
   ),
   parameters: {
