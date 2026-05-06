@@ -56,10 +56,17 @@ function processSend(
   let link = `${config.root}/agendas/${agenda.uid}?lang=${lang}`;
 
   if (invitation) {
-    link = `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${member.custom.email}&invitation=${invitation.token}`;
-    if (redirect) {
-      link = `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${member.custom.email}&invitation=${invitation.token}&redirect=${base64.encode(redirect)}`;
-    }
+    // Phase 6 lot 2 — the legacy `/{agendaSlug}/signup` Express handler was
+    // retired; the Next App Router exposes the signup form under
+    // `/auth/signup`. The Next proxy (packages/next/src/proxy.ts) reads `?lang`
+    // and 307s no-locale URLs to `/{lang}/auth/signup`. The form forwards
+    // `invitation` and `redirect` to BA's `/sign-up/email`, then the
+    // verification email's `redirectTo` hops through `/post-activate` to apply
+    // the invitation token (linkMember etc.). The agenda slug is preserved in
+    // the encoded `redirect` so the user lands on `/{slug}/contribute`
+    // post-activation.
+    const baseRedirect = redirect || `/${agenda.slug}/contribute`;
+    link = `${config.root}/auth/signup?lang=${lang}&email=${encodeURIComponent(member.custom.email)}&invitation=${invitation.token}&redirect=${base64.encode(baseRedirect)}`;
   } else if (isMember) {
     if (role === 'administrator' || role === 'moderator') {
       link = `${config.root}/${agenda.slug}/admin/events`;
