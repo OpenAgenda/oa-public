@@ -8,12 +8,6 @@ import { loadOptionals, render, wantsJson } from './utils.js';
 const unlinkFacebookLog = logs('auth/unlinkFacebook');
 const emailValidator = EmailValidator();
 
-export const renderEmail = render('auth/emailForm', {
-  optionals: {},
-  email: '',
-  errors: {},
-});
-
 export const renderInvalidActivation = render('auth/invalidActivation', {});
 
 // Open a better-auth session for `user` and redirect.
@@ -151,59 +145,8 @@ export function errorDefaultMessage(values) {
   return values;
 }
 
-export function redirectToComplete(values) {
-  let res;
-
-  if (values.resend) {
-    res = '/activate/resend';
-  } else if (values.req.agenda) {
-    res = `/${values.req.agenda.slug}/signup/complete`;
-  } else {
-    res = '/signup/complete';
-  }
-
-  const url = `${res}?${qs.stringify({
-    ...loadOptionals(values.req),
-    email: values.user.email,
-    ...values.req.agenda ? { slug: values.req.agenda.slug } : {},
-    ...values.req.originalUrl.indexOf('signin') !== -1
-      ? { origin: 'signin' }
-      : undefined,
-  })}`;
-
-  if (wantsJson(values.req)) {
-    values.res.json({
-      success: false,
-      redirect: url,
-      reason: 'activation_required',
-    });
-    values.resolved = true;
-    return values;
-  }
-
-  values.res.redirect(302, url);
-
-  values.resolved = true;
-
-  return values;
-}
-
-export function redirectToResend(values) {
-  values.resend = true;
-
-  return redirectToComplete(values);
-}
-
 export function signupSuccess(values) {
   const { req, res, user } = values;
-
-  const completeUrl = `${req.agenda ? `/${req.agenda.slug}` : ''}/signup/complete?${qs.stringify(
-    {
-      ...loadOptionals(req),
-      email: user.email,
-      ...req.agenda ? { slug: req.agenda.slug } : {},
-    },
-  )}`;
 
   const resendUrl = `${req.agenda ? `/${req.agenda.slug}` : ''}/activate/resend?${qs.stringify(
     {
@@ -215,7 +158,6 @@ export function signupSuccess(values) {
   res.json({
     success: true,
     email: user.email,
-    redirect: completeUrl,
     resendUrl,
     verificationEmailSent: !user.isActivated,
   });

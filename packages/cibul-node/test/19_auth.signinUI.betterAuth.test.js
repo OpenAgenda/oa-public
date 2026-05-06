@@ -90,7 +90,7 @@ describe('19 - auth signin UI via better-auth (phase 3)', () => {
     expect(cookies).toMatch(/oa\.session_token/);
   });
 
-  it('redirects to /signup/complete when user is not activated', async () => {
+  it('returns activation_required when the user is not activated', async () => {
     const email = 'signin-inactive@oa.test';
     const password = 'plainPwd-19';
     await usersSvc.create(
@@ -104,11 +104,13 @@ describe('19 - auth signin UI via better-auth (phase 3)', () => {
       .type('form')
       .send({ email, password });
 
-    // signin on a non-activated user calls redirectToResend → redirectToComplete
-    // with resend=true, which routes to /activate/resend?email=… (not the
-    // /signup/complete branch).
-    const redirect = res.body.redirect || res.headers.location;
-    expect(redirect).toMatch(
+    // The React Signin component intercepts `reason: 'activation_required'`
+    // and switches to the inline <SignupComplete> view; no browser redirect.
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(false);
+    expect(res.body.reason).toBe('activation_required');
+    expect(res.body.email).toBe(email);
+    expect(res.body.resendUrl).toMatch(
       new RegExp(
         `^/activate/resend\\?[^\\s]*email=${encodeURIComponent(email)}`,
       ),
@@ -218,7 +220,7 @@ describe('19 - auth signin UI via better-auth (phase 3)', () => {
       expect(sessionCookies).toEqual([]);
     });
 
-    it('OA /signin redirects unverified users to /activate/resend without leaking a session cookie', async () => {
+    it('OA /signin returns activation_required for unverified users without leaking a session cookie', async () => {
       const email = 'signin-email-not-verified-oa@oa.test';
       const password = 'plainPwd-19-oa';
       await usersSvc.create(
@@ -232,13 +234,12 @@ describe('19 - auth signin UI via better-auth (phase 3)', () => {
         .type('form')
         .send({ email, password });
 
-      // The OA handler turns the BA 403 into the legacy redirect-to-resend
-      // UX. With Accept: application/json, redirectToComplete returns a
-      // 200 JSON envelope carrying the redirect URL; without JSON it's a
-      // 302 Location. We accept either, but the redirect target must be
-      // /activate/resend?email=…
-      const redirect = res.body?.redirect || res.headers.location;
-      expect(redirect).toMatch(
+      // The OA handler turns the BA 403 into an inline-friendly response:
+      // it (re)sends the verification email and returns the resendUrl so
+      // the React UI can switch to <SignupComplete> without a navigation.
+      expect(res.body?.reason).toBe('activation_required');
+      expect(res.body?.email).toBe(email);
+      expect(res.body?.resendUrl).toMatch(
         new RegExp(
           `^/activate/resend\\?[^\\s]*email=${encodeURIComponent(email)}`,
         ),

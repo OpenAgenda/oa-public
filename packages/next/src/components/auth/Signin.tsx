@@ -16,6 +16,7 @@ import {
   Input,
 } from '@openagenda/uikit';
 import LostPassword from './LostPassword';
+import SignupComplete from './SignupComplete';
 
 const messages = defineMessages({
   emailLabel: {
@@ -110,6 +111,11 @@ interface SigninProps {
   defaultEmail?: string;
   onSuccess?: () => void;
   onViewChange?: (view: 'signin' | 'lost' | 'signup') => void;
+  // Called when /signin returns `reason: 'activation_required'` (signin
+  // attempt for an unverified account). The server has just resent the
+  // verification email; the parent can switch to <SignupComplete> inline
+  // instead of navigating to a separate page.
+  onActivationRequired?: (params: { email: string; resendUrl: string }) => void;
 }
 
 export default function Signin({
@@ -126,12 +132,19 @@ export default function Signin({
   defaultEmail = '',
   onSuccess,
   onViewChange,
+  onActivationRequired,
 }: SigninProps) {
   const intl = useIntl();
   const [email, setEmail] = useState(defaultEmail);
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [message, setMessage] = useState<string | null>(null);
+  // Fallback when no parent supplied `onActivationRequired`: render
+  // <SignupComplete> inline in place of the form.
+  const [activationData, setActivationData] = useState<{
+    email: string;
+    resendUrl: string;
+  } | null>(null);
   const [invalidCredentials, setInvalidCredentials] = useState(
     defaultInvalidCredentials,
   );
@@ -190,6 +203,16 @@ export default function Signin({
 
         const data = await res.json();
 
+        if (data.reason === 'activation_required' && data.email) {
+          const params = { email: data.email, resendUrl: data.resendUrl };
+          if (onActivationRequired) {
+            onActivationRequired(params);
+          } else {
+            setActivationData(params);
+          }
+          return;
+        }
+
         if (data.success) {
           setSuccess(true);
           setTimeout(() => {
@@ -234,6 +257,7 @@ export default function Signin({
       reloadOnSuccess,
       redirectOnSuccess,
       onSuccess,
+      onActivationRequired,
       linkProvider,
     ],
   );
@@ -246,6 +270,15 @@ export default function Signin({
         </Text>
         <Spinner size="md" />
       </VStack>
+    );
+  }
+
+  if (activationData) {
+    return (
+      <SignupComplete
+        email={activationData.email}
+        resendUrl={activationData.resendUrl}
+      />
     );
   }
 

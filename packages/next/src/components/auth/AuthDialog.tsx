@@ -170,6 +170,10 @@ export default function AuthDialog({
                   reloadOnSuccess={reloadOnSuccess}
                   redirectOnSuccess={redirectOnSuccess}
                   onViewChange={setView}
+                  onActivationRequired={(data) => {
+                    setCompleteData(data);
+                    setView('signupComplete');
+                  }}
                 />
               )}
             </Dialog.Body>

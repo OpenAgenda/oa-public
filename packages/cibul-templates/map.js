@@ -19,8 +19,6 @@ module.exports = [
   'admin/agendas',
   'admin/index',
   'admin/users',
-  'auth/emailForm',
-  'auth/activation',
   'auth/lostPassword',
   'auth/resetPassword',
   'event/embedInbox',

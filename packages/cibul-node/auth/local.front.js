@@ -7,7 +7,6 @@ import * as invitationsSvc from '@openagenda/invitations';
 import makeLabelGetter from '@openagenda/labels';
 import authSigninLabels from '@openagenda/labels/auth/signin.js';
 import authErrorsLabels from '@openagenda/labels/auth/errors.js';
-import authActivationLabels from '@openagenda/labels/auth/activation.js';
 import logs from '@openagenda/logs';
 import flattenLabels from '@openagenda/labels/flatten.js';
 import manualLabels from '@openagenda/labels/auth/manual.js';
@@ -25,7 +24,6 @@ const log = logs('auth/local');
 
 const getLabel = makeLabelGetter(authSigninLabels);
 const getErrorLabel = makeLabelGetter(authErrorsLabels);
-const __ = makeLabelGetter(authActivationLabels);
 
 const manualTemplate = _.template(
   fs.readFileSync(`${import.meta.dirname}/manual.tpl`, 'utf-8'),
@@ -74,6 +72,45 @@ function signinError(req, res, err, logBundle) {
   });
 }
 
+// Reached when signin succeeds against better-auth but the OA user record
+// is not yet activated (or BA itself rejects with EMAIL_NOT_VERIFIED).
+// Eagerly fires a fresh verification email, then hands the React UI the
+// data it needs to render the inline `<SignupComplete>` view (the resend
+// URL is the same /activate/resend endpoint, hit later from the resend
+// button).
+async function respondActivationRequired(req, res, oaUser) {
+  const optionals = _.pickBy(
+    _.pick(req.query, 'invitation', 'redirect', 'agenda'),
+  );
+  const callbackURL = computePostActivateRedirect({ req, optionals });
+
+  try {
+    const { auth: authSvc } = req.app.services;
+    await authSvc.api.sendVerificationEmail({
+      body: { email: oaUser.email, callbackURL },
+    });
+  } catch (err) {
+    log.warn('failed to (re)send verification email on signin attempt', {
+      err,
+    });
+  }
+
+  const resendUrl = `${req.agenda ? `/${req.agenda.slug}` : ''}/activate/resend?${qs.stringify(
+    {
+      ...auth.loadOptionals(req),
+      email: oaUser.email,
+      origin: 'signin',
+    },
+  )}`;
+
+  res.json({
+    success: false,
+    reason: 'activation_required',
+    email: oaUser.email,
+    resendUrl,
+  });
+}
+
 async function signinSubmit(req, res) {
   const logBundle = {
     ip: req.ip,
@@ -117,7 +154,7 @@ async function signinSubmit(req, res) {
         .findOne({ query: { email: req.body.email }, detailed: true })
         .catch(() => null);
       if (oaUser) {
-        return auth.redirectToResend({ req, res, user: oaUser });
+        return respondActivationRequired(req, res, oaUser);
       }
     }
 
@@ -165,7 +202,7 @@ async function signinSubmit(req, res) {
     } catch (err) {
       log.warn('signOut after !isActivated failed', { err });
     }
-    return auth.redirectToResend({ req, res, user: oaUser });
+    return respondActivationRequired(req, res, oaUser);
   }
 
   log.info('signin attempt successful', logBundle);
@@ -507,33 +544,11 @@ function signupSubmit(req, res) {
     .then(auth.done, cmn.catchError(req, res, wantsJson(req)));
 }
 
-function signupComplete(req, res) {
-  const resendQuery = Object.assign(auth.loadOptionals(req), {
-    email: req.query.email,
-  });
-
-  cmn.render(req, res, 'auth/activation', {
-    indexed: false,
-    agenda: req.agenda,
-    email: req.query.email,
-    resend:
-      (req.agenda
-        ? `/${req.agenda.slug}/activate/resend`
-        : '/activate/resend')
-      + qs.stringify(resendQuery, { addQueryPrefix: true }),
-  });
-}
-
 async function activateResend(req, res) {
-  const { auth: authSvc, users, sessions } = req.app.services;
-  const isJson = wantsJson(req);
+  const { auth: authSvc, users } = req.app.services;
 
   if (!req.query.email) {
-    if (isJson) {
-      return res.status(400).json({ success: false, message: 'emailRequired' });
-    }
-    auth.renderEmail({ req, res, title: 'Resend activation mail' });
-    return;
+    return res.status(400).json({ success: false, message: 'emailRequired' });
   }
 
   const optionals = _.pickBy(
@@ -570,59 +585,17 @@ async function activateResend(req, res) {
       body: { email: user.email, callbackURL },
     });
 
-    if (isJson) {
-      // Always respond with a generic success on the JSON path so the
-      // response cannot be used as an account-enumeration oracle (no
-      // distinction between "no account", "already activated", and
-      // "email re-sent"). The legacy HTML path keeps its existing flash
-      // semantics for now.
-      return res.status(200).json({ success: true });
-    }
-
-    sessions.setFlash(
-      req,
-      res,
-      __(
-        req.query.origin === 'signin'
-          ? 'sendActivateOnSigninAttempt'
-          : 'sendAgain',
-        req.lang,
-      ),
-    );
-
-    auth.redirectToComplete({
-      ...optionals,
-      req,
-      res,
-      user,
-    });
+    // Always respond with a generic success so the response can't be used
+    // as an account-enumeration oracle (no distinction between "no account",
+    // "already activated", and "email re-sent").
+    return res.status(200).json({ success: true });
   } catch (error) {
     if (error.statusCode === 400) {
       log.warn(error);
-    } else {
-      log.error(error);
+      return res.status(200).json({ success: true });
     }
-
-    if (isJson) {
-      // See note above: do not differentiate user-not-found vs
-      // already-activated; respond with the same shape as success so an
-      // attacker can't enumerate accounts via the JSON endpoint. Genuine
-      // server errors (statusCode !== 400) still fall through to the
-      // generic catchError handler below via cmn.catchError on the route.
-      if (error.statusCode === 400) {
-        return res.status(200).json({ success: true });
-      }
-      return res.status(500).json({ success: false, message: 'genericError' });
-    }
-
-    auth.renderEmail({
-      req,
-      res,
-      data: {
-        errors: { email: error ? error.message || error : error },
-        email: req.query.email,
-      },
-    });
+    log.error(error);
+    return res.status(500).json({ success: false, message: 'genericError' });
   }
 }
 
@@ -1057,21 +1030,6 @@ export default (app) => {
     preMw,
     sessions.mw.ifLogged(redirectToContribute),
     signupSubmit,
-  );
-
-  app.get(
-    '/signup/complete',
-    preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    signupComplete,
-  );
-
-  app.get(
-    '/:agendaSlug/signup/complete',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(redirectToContribute),
-    signupComplete,
   );
 
   app.get(

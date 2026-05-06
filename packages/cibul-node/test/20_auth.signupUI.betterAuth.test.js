@@ -63,7 +63,7 @@ describe('20 - auth signup UI via better-auth (phase 3)', () => {
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  it('creates a user (isActivated=false), redirects to signup/complete, no session opened', async () => {
+  it('creates a user (isActivated=false), returns resendUrl, no session opened', async () => {
     const email = 'signup-new@oa.test';
     const password = 'plainPwd-20-new';
 
@@ -85,8 +85,14 @@ describe('20 - auth signup UI via better-auth (phase 3)', () => {
     expect(created).toBeTruthy();
     expect(!!created.isActivated).toBe(false);
 
-    const redirect = res.body?.redirect || res.headers.location;
-    expect(redirect).toMatch(/signup\/complete|activate/);
+    expect(res.body?.success).toBe(true);
+    expect(res.body?.email).toBe(email);
+    expect(res.body?.verificationEmailSent).toBe(true);
+    expect(res.body?.resendUrl).toMatch(
+      new RegExp(
+        `^/activate/resend\\?[^\\s]*email=${encodeURIComponent(email)}`,
+      ),
+    );
 
     const cookies = [].concat(res.headers['set-cookie'] || []).join(';');
     expect(cookies).not.toMatch(/oa\.session_token=[A-Za-z0-9]/);
