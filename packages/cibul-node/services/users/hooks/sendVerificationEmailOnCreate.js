@@ -12,9 +12,10 @@
 // (nobody emails it: `sendToken.js` no longer has an `'aa'` branch); cleanup
 // is deferred to phase 6 along with the rest of the Feathers tokens table.
 //
-// Failure policy: log+swallow. The user can retry via `/activate/resend`,
-// which goes through the same BA path. We never want a transient SMTP /
-// rate-limit error to break account creation itself.
+// Failure policy: log+swallow. The user can retry via the resend panel on
+// /auth/signin?view=resend (BA `/api/auth/send-verification-email`). We
+// never want a transient SMTP / rate-limit error to break account creation
+// itself.
 
 import logs from '@openagenda/logs';
 import computePostActivateRedirect from '../../../auth/lib/computePostActivateRedirect.js';

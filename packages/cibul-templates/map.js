@@ -21,7 +21,6 @@ module.exports = [
   'admin/users',
   'auth/signin',
   'auth/signup',
-  'auth/emailForm',
   'auth/activation',
   'auth/lostPassword',
   'auth/resetPassword',

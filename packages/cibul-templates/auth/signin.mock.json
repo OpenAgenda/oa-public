@@ -14,9 +14,7 @@
     "signup": "/signup"
   },
   "noinvites" : {
-    "optionals" : {
-      "iToken" : false
-    }
+    "optionals" : {}
   },
   "agenda" : {
     "agenda" : {
