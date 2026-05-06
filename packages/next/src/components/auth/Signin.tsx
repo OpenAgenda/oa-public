@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import {
-  Alert,
   Button,
   Field,
   HStack,
@@ -15,6 +14,7 @@ import {
   chakra,
   Input,
 } from '@openagenda/uikit';
+import MessageAlert from '@/src/components/MessageAlert';
 import LostPassword from './LostPassword';
 import SignupComplete from './SignupComplete';
 
@@ -294,51 +294,42 @@ export default function Signin({
       aria-label={intl.formatMessage(messages.formTitle)}
     >
       {linkProvider === 'google' && (
-        <Alert.Root role="alert" status={linkError ? 'error' : 'info'} mb="4">
-          <Alert.Indicator />
-          <Alert.Title>
-            {intl.formatMessage(
-              linkError
-                ? messages.linkProviderError
-                : messages.linkProviderGoogleNotice,
-            )}
-          </Alert.Title>
-        </Alert.Root>
+        <MessageAlert role="alert" status={linkError ? 'error' : 'info'} mb="4">
+          {intl.formatMessage(
+            linkError
+              ? messages.linkProviderError
+              : messages.linkProviderGoogleNotice,
+          )}
+        </MessageAlert>
       )}
 
       {message && (
-        <Alert.Root role="alert" status="error" mb="4">
-          <Alert.Indicator />
-          <Alert.Title>{message}</Alert.Title>
-        </Alert.Root>
+        <MessageAlert role="alert" status="error" mb="4">
+          {message}
+        </MessageAlert>
       )}
 
       {invalidCredentials && (
-        <Alert.Root
+        <MessageAlert
           ref={invalidCredentialsAlertRef}
           id="signin-invalid-credentials"
           tabIndex={-1}
           role="alert"
           status="error"
           mb="4"
+          description={
+            <Button
+              variant="link"
+              type="button"
+              onClick={() => setView('lost')}
+              color="primary.500"
+            >
+              {intl.formatMessage(messages.resetPassword)}
+            </Button>
+          }
         >
-          <Alert.Indicator />
-          <Alert.Content>
-            <Alert.Title>
-              {intl.formatMessage(messages.invalidCredentials)}
-            </Alert.Title>
-            <Alert.Description>
-              <Button
-                variant="link"
-                type="button"
-                onClick={() => setView('lost')}
-                color="primary.500"
-              >
-                {intl.formatMessage(messages.resetPassword)}
-              </Button>
-            </Alert.Description>
-          </Alert.Content>
-        </Alert.Root>
+          {intl.formatMessage(messages.invalidCredentials)}
+        </MessageAlert>
       )}
 
       <Field.Root

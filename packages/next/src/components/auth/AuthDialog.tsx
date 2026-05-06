@@ -2,14 +2,8 @@
 
 import { useEffect, useId, useRef, useState, type ReactNode } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import {
-  Alert,
-  Button,
-  CloseButton,
-  Dialog,
-  Portal,
-  chakra,
-} from '@openagenda/uikit';
+import { Button, CloseButton, Dialog, Portal, chakra } from '@openagenda/uikit';
+import MessageAlert from '@/src/components/MessageAlert';
 import Signin from './Signin';
 import Signup from './Signup';
 import SignupComplete from './SignupComplete';
@@ -134,10 +128,9 @@ export default function AuthDialog({
                 {viewAnnouncement}
               </chakra.span>
               {message && (
-                <Alert.Root id={messageId} role="status" status="info" mb="4">
-                  <Alert.Indicator />
-                  <Alert.Title>{message}</Alert.Title>
-                </Alert.Root>
+                <MessageAlert id={messageId} role="status" status="info" mb="4">
+                  {message}
+                </MessageAlert>
               )}
               {view === 'signupComplete' && completeData ? (
                 <SignupComplete

@@ -3,7 +3,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import {
-  Alert,
   Box,
   Button,
   Field,
@@ -17,6 +16,7 @@ import {
   VStack,
   chakra,
 } from '@openagenda/uikit';
+import MessageAlert from '@/src/components/MessageAlert';
 import PasswordField from './PasswordField';
 import CaptchaWidget, { type CaptchaProvider } from './captcha/CaptchaWidget';
 
@@ -441,16 +441,15 @@ export default function Signup({
         </Box>
 
         {message && (
-          <Alert.Root
+          <MessageAlert
             ref={messageAlertRef}
             tabIndex={-1}
             role="alert"
             status="error"
             mb="4"
           >
-            <Alert.Indicator />
-            <Alert.Title>{message}</Alert.Title>
-          </Alert.Root>
+            {message}
+          </MessageAlert>
         )}
 
         <Field.Root
