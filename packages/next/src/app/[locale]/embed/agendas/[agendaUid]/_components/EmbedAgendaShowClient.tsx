@@ -1,7 +1,6 @@
 'use client';
 
 import { SWRConfig } from 'swr';
-import DateFnsLocaleProvider from '@/src/components/DateFnsLocaleProvider';
 import type { Agenda } from '@/src/types';
 import EmbedAgendaShow from './EmbedAgendaShow';
 
@@ -17,10 +16,8 @@ export default function EmbedAgendaShowClient({
   referrer,
 }: Props) {
   return (
-    <DateFnsLocaleProvider>
-      <SWRConfig value={{ fallback: fallback ?? {} }}>
-        <EmbedAgendaShow agenda={agenda} referrer={referrer ?? undefined} />
-      </SWRConfig>
-    </DateFnsLocaleProvider>
+    <SWRConfig value={{ fallback: fallback ?? {} }}>
+      <EmbedAgendaShow agenda={agenda} referrer={referrer ?? undefined} />
+    </SWRConfig>
   );
 }

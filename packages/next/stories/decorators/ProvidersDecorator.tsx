@@ -1,5 +1,4 @@
 import Providers from 'Providers';
-import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
 
 export default function ProvidersDecorator(
   Story,
@@ -7,9 +6,7 @@ export default function ProvidersDecorator(
 ) {
   return (
     <Providers locale={locale} intlMessages={intlMessages}>
-      <DateFnsLocaleProvider>
-        <Story />
-      </DateFnsLocaleProvider>
+      <Story />
     </Providers>
   );
 }

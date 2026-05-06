@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { useIntl } from 'react-intl';
-import { Alert, Button, Spinner, Text, VStack } from '@openagenda/uikit';
+import { Button, Spinner, Text, VStack } from '@openagenda/uikit';
 import {
   DialogRoot,
   DialogContent,
@@ -10,6 +10,7 @@ import {
 } from '@openagenda/uikit/snippets';
 import ky, { isHTTPError } from 'ky';
 import useSWRMutation from 'swr/mutation';
+import MessageAlert from '@/src/components/MessageAlert';
 import { contextBar as messages } from '../../messages';
 
 const REDIRECT_DELAY_MS = 1500;
@@ -145,12 +146,9 @@ export default function RemoveEventModal({
         ) : phase === 'error' && errorKind === 'notFound' ? (
           <>
             <DialogBody py="4">
-              <Alert.Root status="warning">
-                <Alert.Indicator />
-                <Alert.Title>
-                  {intl.formatMessage(messages.eventNotFound)}
-                </Alert.Title>
-              </Alert.Root>
+              <MessageAlert status="warning">
+                {intl.formatMessage(messages.eventNotFound)}
+              </MessageAlert>
             </DialogBody>
             <DialogFooter justifyContent="center" gap="3" pt="4">
               <Button colorPalette="blue" onClick={handleReload}>
@@ -165,12 +163,9 @@ export default function RemoveEventModal({
           <>
             <DialogBody py="4">
               {phase === 'error' && errorKind === 'other' ? (
-                <Alert.Root status="error">
-                  <Alert.Indicator />
-                  <Alert.Title>
-                    {intl.formatMessage(messages.removeGenericError)}
-                  </Alert.Title>
-                </Alert.Root>
+                <MessageAlert status="error">
+                  {intl.formatMessage(messages.removeGenericError)}
+                </MessageAlert>
               ) : (
                 <Text textAlign="center">
                   {intl.formatMessage(

@@ -42,24 +42,6 @@ function redirectToContribute(req, res) {
   res.redirect(302, `/${req.agenda.slug}/contribute`);
 }
 
-// Phase 6 lot 2/4 — the legacy `signin` / `signup` / `password/*` /
-// `activate/resend` Express wrappers were retired. The Next forms now post
-// directly to BA endpoints (`/api/auth/sign-in/email`, `/api/auth/sign-up/email`,
-// `/api/auth/request-password-reset`, `/api/auth/reset-password`,
-// `/api/auth/sign-in/social`, `/api/auth/send-verification-email`). The
-// handlers below cover the routes that remain OA-specific:
-//   - `/signup/complete`        (post-signup confirmation page, EJS)
-//   - `/activate/:token`        (manual mode + legacy `aa` fallback)
-//   - `/post-activate`          (invitation hop after BA auto-signin)
-
-function signupComplete(req, res) {
-  cmn.render(req, res, 'auth/activation', {
-    indexed: false,
-    agenda: req.agenda,
-    email: req.query.email,
-  });
-}
-
 // Sanitize the `next` query parameter for /post-activate. Only allow
 // same-origin paths starting with a single `/` (so we never redirect to an
 // absolute URL or protocol-relative `//evil.com`).
@@ -304,21 +286,6 @@ export default (app) => {
   const { sessions, agendas } = app.services;
 
   log('initing');
-
-  app.get(
-    '/signup/complete',
-    preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    signupComplete,
-  );
-
-  app.get(
-    '/:agendaSlug/signup/complete',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(redirectToContribute),
-    signupComplete,
-  );
 
   app.get(
     '/activate/:token',

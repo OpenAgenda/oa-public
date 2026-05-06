@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import {
-  Alert,
   Button,
   Field,
   HStack,
@@ -12,6 +11,7 @@ import {
   VStack,
   chakra,
 } from '@openagenda/uikit';
+import MessageAlert from '@/src/components/MessageAlert';
 
 const messages = defineMessages({
   intro: {
@@ -143,10 +143,9 @@ export default function LostPassword({
       <Text mb="4">{intl.formatMessage(messages.intro)}</Text>
 
       {errorMessage && (
-        <Alert.Root status="error" mb="4">
-          <Alert.Indicator />
-          <Alert.Title>{errorMessage}</Alert.Title>
-        </Alert.Root>
+        <MessageAlert status="error" mb="4">
+          {errorMessage}
+        </MessageAlert>
       )}
 
       <Field.Root required disabled={loading} mb="4">

@@ -9,6 +9,7 @@ import {
   EmotionCache,
 } from '@openagenda/uikit';
 import swrStatusMiddleware from 'utils/swrStatusMiddleware';
+import DateFnsLocaleProvider from 'components/DateFnsLocaleProvider';
 
 type ProvidersProps = {
   cookies?: Cookies;
@@ -44,14 +45,16 @@ const Providers = ({
   <CookiesProvider cookies={cookies}>
     <ThemeProvider theme={theme} cache={cache}>
       <IntlProvider key={locale} locale={locale} messages={intlMessages}>
-        <SWRConfig
-          value={{
-            fetcher,
-            use: [swrStatusMiddleware],
-          }}
-        >
-          {children}
-        </SWRConfig>
+        <DateFnsLocaleProvider>
+          <SWRConfig
+            value={{
+              fetcher,
+              use: [swrStatusMiddleware],
+            }}
+          >
+            {children}
+          </SWRConfig>
+        </DateFnsLocaleProvider>
       </IntlProvider>
     </ThemeProvider>
   </CookiesProvider>

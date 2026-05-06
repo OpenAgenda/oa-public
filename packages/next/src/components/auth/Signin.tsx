@@ -3,7 +3,6 @@
 import { useState, useCallback, useEffect, useRef } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import {
-  Alert,
   Button,
   Field,
   HStack,
@@ -18,6 +17,7 @@ import {
 import computePostSignInRedirect, {
   decodeBase64Redirect,
 } from '@/src/lib/computePostSignInRedirect';
+import MessageAlert from '@/src/components/MessageAlert';
 import LostPassword from './LostPassword';
 
 const messages = defineMessages({
@@ -151,6 +151,13 @@ interface SigninProps {
   defaultEmail?: string;
   onSuccess?: () => void;
   onViewChange?: (view: 'signin' | 'lost' | 'signup') => void;
+  // Called when BA returns `EMAIL_NOT_VERIFIED` (signin attempt for an
+  // unverified account). The parent can switch to <SignupComplete> inline
+  // instead of letting Signin show its built-in verify panel.
+  onActivationRequired?: (params: {
+    email: string;
+    callbackURL?: string;
+  }) => void;
 }
 
 export default function Signin({
@@ -169,6 +176,7 @@ export default function Signin({
   defaultEmail = '',
   onSuccess,
   onViewChange,
+  onActivationRequired,
 }: SigninProps) {
   const intl = useIntl();
   const [email, setEmail] = useState(defaultEmail);
@@ -257,8 +265,14 @@ export default function Signin({
           // BA's `requireEmailVerification: true` flag rejects unverified
           // signups with FORBIDDEN/EMAIL_NOT_VERIFIED. Surface the inline
           // resend panel instead of bouncing through a server-rendered
-          // /activate/resend page (retired in phase 6 lot 4).
+          // /activate/resend page (retired in phase 6 lot 4). When the parent
+          // supplied `onActivationRequired`, defer to it so it can swap to
+          // <SignupComplete> at the page/dialog level (AuthDialog flow).
           if (code === 'EMAIL_NOT_VERIFIED' && email) {
+            if (onActivationRequired) {
+              onActivationRequired({ email });
+              return;
+            }
             setResendStatus('idle');
             setView('verify');
             return;
@@ -345,6 +359,7 @@ export default function Signin({
       reloadOnSuccess,
       redirectOnSuccess,
       onSuccess,
+      onActivationRequired,
       linkProvider,
       agenda,
     ],
@@ -541,51 +556,42 @@ export default function Signin({
       aria-label={intl.formatMessage(messages.formTitle)}
     >
       {linkProvider === 'google' && (
-        <Alert.Root role="alert" status={linkError ? 'error' : 'info'} mb="4">
-          <Alert.Indicator />
-          <Alert.Title>
-            {intl.formatMessage(
-              linkError
-                ? messages.linkProviderError
-                : messages.linkProviderGoogleNotice,
-            )}
-          </Alert.Title>
-        </Alert.Root>
+        <MessageAlert role="alert" status={linkError ? 'error' : 'info'} mb="4">
+          {intl.formatMessage(
+            linkError
+              ? messages.linkProviderError
+              : messages.linkProviderGoogleNotice,
+          )}
+        </MessageAlert>
       )}
 
       {message && (
-        <Alert.Root role="alert" status="error" mb="4">
-          <Alert.Indicator />
-          <Alert.Title>{message}</Alert.Title>
-        </Alert.Root>
+        <MessageAlert role="alert" status="error" mb="4">
+          {message}
+        </MessageAlert>
       )}
 
       {invalidCredentials && (
-        <Alert.Root
+        <MessageAlert
           ref={invalidCredentialsAlertRef}
           id="signin-invalid-credentials"
           tabIndex={-1}
           role="alert"
           status="error"
           mb="4"
+          description={
+            <Button
+              variant="link"
+              type="button"
+              onClick={() => setView('lost')}
+              color="primary.500"
+            >
+              {intl.formatMessage(messages.resetPassword)}
+            </Button>
+          }
         >
-          <Alert.Indicator />
-          <Alert.Content>
-            <Alert.Title>
-              {intl.formatMessage(messages.invalidCredentials)}
-            </Alert.Title>
-            <Alert.Description>
-              <Button
-                variant="link"
-                type="button"
-                onClick={() => setView('lost')}
-                color="primary.500"
-              >
-                {intl.formatMessage(messages.resetPassword)}
-              </Button>
-            </Alert.Description>
-          </Alert.Content>
-        </Alert.Root>
+          {intl.formatMessage(messages.invalidCredentials)}
+        </MessageAlert>
       )}
 
       <Field.Root
