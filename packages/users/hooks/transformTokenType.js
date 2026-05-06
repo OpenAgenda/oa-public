@@ -5,9 +5,6 @@ export default function transformTokenType(key) {
     const obj = _.get(context, key, {});
 
     switch (obj.type) {
-      case 'activateAccount':
-        obj.type = 'aa';
-        break;
       case 'lostPassword':
         obj.type = 'lp';
         break;

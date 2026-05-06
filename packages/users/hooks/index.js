@@ -5,7 +5,6 @@ import changeEmailFromStore from './changeEmailFromStore.js';
 import checkUnicity from './checkUnicity.js';
 import coerce from './coerce.js';
 import compareFields from './compareFields.js';
-import createActivationToken from './createActivationToken.js';
 import createTokenIfNotExist from './createTokenIfNotExist.js';
 import detailedParamHook from './detailedParamHook.js';
 import error from './error.js';
@@ -43,7 +42,6 @@ export {
   checkUnicity,
   coerce,
   compareFields,
-  createActivationToken,
   createTokenIfNotExist,
   detailedParamHook,
   error,

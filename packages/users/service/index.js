@@ -15,7 +15,6 @@ import {
   checkUnicity,
   coerce,
   compareFields,
-  createActivationToken,
   detailedParamHook,
   error as errorHook,
   formatStore,
@@ -362,7 +361,6 @@ hooks(Users.prototype, {
       after: [
         ...afterAll,
         populateAccountTypes(),
-        createActivationToken(),
         callInterface('onCreate'),
         iff(
           (context) => context.result && context.result.isActivated,
