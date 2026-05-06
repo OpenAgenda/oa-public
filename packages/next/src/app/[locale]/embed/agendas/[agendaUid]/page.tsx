@@ -4,11 +4,7 @@ import { createIntl, createIntlCache } from 'react-intl/server';
 import { unstable_serialize } from 'swr';
 import { unstable_serialize as unstable_serialize_infinite } from 'swr/infinite';
 import { getSupportedLocale } from '@openagenda/intl';
-import {
-  filtersToAggregations,
-  getAdditionalFilters,
-  getFilters,
-} from '@openagenda/react-filters';
+import { filtersToAggregations, getFilters } from '@openagenda/react-filters';
 import getLocale from '@/src/utils/getLocale';
 import getDateFnsLocale from '@/src/utils/getDateFnsLocale';
 import parseLocationQuery from '@/src/utils/parseLocationQuery';
@@ -104,10 +100,6 @@ export default async function EmbedAgendaPage({
 
   const query = parseServerSearchParams(sp);
 
-  const additionalFilters = getAdditionalFilters(agenda.schema.fields).map(
-    ({ fieldSchema }: any) => fieldSchema.field,
-  );
-
   const initQuery = query.initPath
     ? parseLocationQuery(query.initPath as string)
     : null;
@@ -115,9 +107,10 @@ export default async function EmbedAgendaPage({
 
   const requiredFilters = (prefilter.filters as string)?.split(',') ?? [];
 
-  const filtersToInclude = ['search', 'geo', 'timings', ...additionalFilters]
-    .filter((filter) => requiredFilters.includes(filter))
-    .sort((a, b) => {
+  const filtersToInclude = getFilters(intl, agenda.schema.fields)
+    .map(({ name, fieldSchema }: any) => fieldSchema?.field || name)
+    .filter((filter: string) => requiredFilters.includes(filter))
+    .sort((a: string, b: string) => {
       if (a === 'geo') return 1;
       if (b === 'geo') return -1;
       if (a === 'search') return 1;
