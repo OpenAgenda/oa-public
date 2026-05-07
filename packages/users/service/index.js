@@ -14,7 +14,6 @@ import {
   camelCaseQuery,
   checkUnicity,
   coerce,
-  compareFields,
   detailedParamHook,
   error as errorHook,
   formatStore,
@@ -40,26 +39,16 @@ import {
   stashBefore,
   validate,
   validateCreate,
-  verifyPassword,
 } from '../hooks/index.js';
 
 import resolvers from './resolvers.js';
 import patchSchema from './schemas/patch.js';
-import changePasswordSchema from './schemas/changePassword.js';
 import setNewFlagSchema from './schemas/setNewFlag.js';
 import coerceSchema from './schemas/coerce.js';
 import Tokens from './Tokens.js';
 
 const { Service } = feathersKnex;
-const {
-  iff,
-  keep,
-  discardQuery,
-  fastJoin,
-  paramsFromClient,
-  setNow,
-  isProvider,
-} = hooksCommon;
+const { iff, keep, discardQuery, fastJoin, paramsFromClient, setNow } = hooksCommon;
 
 schema.register({
   text: validators.text,
@@ -198,12 +187,6 @@ class Users extends Service {
     return this.get(uid, params);
   }
 
-  async changePassword(uid, data, params = {}) {
-    await this._patch(uid, data);
-
-    return this.get(uid, params);
-  }
-
   generateApiKey(uid, params = {}) {
     return this.get(uid, params);
   }
@@ -250,19 +233,13 @@ class Users extends Service {
     }
 
     if (user.password.length === 40) {
-      // sha1
-      const isValid = crypto.verifyPassword(
-        user.password,
-        password,
-        user.salt,
-        true,
-      );
-
-      if (isValid) {
-        await this.changePassword(user.uid, { password });
-      }
-
-      return isValid;
+      // sha1 — legacy column. No in-place rehash here: better-auth's
+      // verify accepts the `legacy-sha1` sentinel in `account.password`
+      // and lazy-rehashes to argon2id on the next /sign-in/email (see
+      // `@openagenda/auth` `hooks.after`). This codepath only runs for
+      // non-BA password challenges (delete agenda, change email, …) and
+      // those don't need to migrate the hash.
+      return crypto.verifyPassword(user.password, password, user.salt, true);
     }
 
     return crypto.verifyPassword(user.password, password, user.salt);
@@ -496,24 +473,6 @@ hooks(Users.prototype, {
         setInStore('unlinkFacebookPasswordHash', 'data.password'),
         keep('store'),
         formatStore(),
-      ],
-      after: [...afterAll, populateAccountTypes()],
-    }),
-  },
-  changePassword: {
-    context: withParams('id', 'data', ['params', {}]),
-    middleware: wrap({
-      before: [
-        stashBefore('before', { internal: true, provider: undefined }),
-        softDelete(),
-        validate(changePasswordSchema),
-        iff(
-          isProvider('external'),
-          verifyPassword('oldPassword'),
-          compareFields('password', 'confirmation'),
-        ),
-        hashPassword('data.password', 'params.before.salt'),
-        keep('password'),
       ],
       after: [...afterAll, populateAccountTypes()],
     }),

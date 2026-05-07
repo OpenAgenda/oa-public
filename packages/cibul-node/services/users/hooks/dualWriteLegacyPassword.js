@@ -45,18 +45,6 @@ const afterCreate = () => async (context, next) => {
   await mirror(auth, context.result.id, salt, hex, 'create');
 };
 
-const afterChangePassword = () => async (context, next) => {
-  await next();
-  const auth = context.services?.auth;
-  if (!auth) return;
-
-  const before = context.params?.before;
-  const hex = context.data?.password;
-  if (!before || typeof hex !== 'string' || !HEX64.test(hex)) return;
-
-  await mirror(auth, before.id, before.salt, hex, 'changePassword');
-};
-
 // Gated on `internal: true` because the only callsite that legitimately patches
 // a credential password is `confirmUnlinkFacebook` (cibul-node/auth/unlinkFacebook.front.js).
 // External admin patches with a password (none today) would be silently skipped.
@@ -75,7 +63,6 @@ const afterPatch = () => async (context, next) => {
 export default function dualWriteLegacyPasswordHooks() {
   return {
     create: [afterCreate()],
-    changePassword: [afterChangePassword()],
     patch: [afterPatch()],
   };
 }
