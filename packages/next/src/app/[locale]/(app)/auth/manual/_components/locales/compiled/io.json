@@ -1,0 +1,26 @@
+{
+  "next.auth.manual.complaint": [
+    {
+      "type": 0,
+      "value": "crwdns13092:0/crwdnd13092:0mailto:verif@openagenda.comcrwdne13092:0"
+    }
+  ],
+  "next.auth.manual.context": [
+    {
+      "type": 0,
+      "value": "crwdns13088:0crwdne13088:0"
+    }
+  ],
+  "next.auth.manual.instruction": [
+    {
+      "type": 0,
+      "value": "crwdns13090:0crwdne13090:0"
+    }
+  ],
+  "next.auth.manual.title": [
+    {
+      "type": 0,
+      "value": "crwdns13086:0crwdne13086:0"
+    }
+  ]
+}

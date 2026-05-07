@@ -1,42 +1,12 @@
-import fs from 'node:fs';
 import _ from 'lodash';
+import qs from 'qs';
 import logs from '@openagenda/logs';
-import flattenLabels from '@openagenda/labels/flatten.js';
-import makeLabelGetter from '@openagenda/labels';
-import manualLabels from '@openagenda/labels/auth/manual.js';
-import { fromMarkdownToHTML } from '@openagenda/md';
 import cmn from '../lib/commons-app.js';
-import layouts from '../services/lib/layouts/index.js';
-import * as auth from './lib/auth.js';
 import computePostActivateRedirect from './lib/computePostActivateRedirect.js';
 
 const log = logs('auth/local');
 
-const getLabel = makeLabelGetter(manualLabels);
-
-const manualTemplate = _.template(
-  fs.readFileSync(`${import.meta.dirname}/manual.tpl`, 'utf-8'),
-);
-
-const preMw = [cmn.loadBaseData(auth.layoutData, 'oa-main.css')];
-
-const renderManualPage = ((labels, lang) =>
-  manualTemplate(flattenLabels(labels, lang))).bind(
-  null,
-  Object.keys(manualLabels).reduce(
-    (html, key) => ({
-      ...html,
-      [key]: Object.keys(manualLabels[key]).reduce(
-        (label, lang) => ({
-          ...label,
-          [lang]: fromMarkdownToHTML(manualLabels[key][lang]),
-        }),
-        {},
-      ),
-    }),
-    {},
-  ),
-);
+const preMw = [cmn.loadBaseData('oa-main.css')];
 
 function redirectToContribute(req, res) {
   res.redirect(302, `/${req.agenda.slug}/contribute`);
@@ -61,18 +31,63 @@ function sanitizeNext(value) {
   return value;
 }
 
-// /post-activate is the intermediate hop after better-auth's auto-signin
-// redirect when the original signup / activate-resend request carried an
-// `invitation` token. We apply token-based invitation actions (linkMember,
-// etc.) using the now-authenticated session, then redirect to either the
-// agenda's contribute page (when the invitation linked the user to an
-// agenda member) or the sanitized `next` path. When the user is not
-// authenticated (auto-signin failed for some reason), or when no invitation
-// is provided, we just redirect to `next` cleanly.
+// /post-activate is the intermediate hop after better-auth's verifyEmail
+// redirect. It is the single landing point for the verify-email callbackURL
+// (see auth/lib/computePostActivateRedirect.js for why we route everything
+// through it instead of going straight to /home or /{slug}/contribute).
+//
+// Three cases:
+//   1. BA reported an error (`?error=INVALID_TOKEN|TOKEN_EXPIRED|USER_NOT_FOUND|…`)
+//      — surface the legacy "invalid activation link" page through the
+//      Next signin form (`/auth/signin?msg=invalidActivation[&agenda=<slug>]`).
+//   2. The original signup carried an `invitation` token — apply the
+//      token-based invitation actions (linkMember, etc.) using the
+//      now-authenticated session, then redirect to the agenda's contribute
+//      page (when the invitation linked the user to an agenda member) or
+//      the sanitized `next` path.
+//   3. No error and no invitation — redirect to `next` cleanly.
+//
+// When the user is not authenticated (auto-signin failed for some reason),
+// we still degrade gracefully and redirect to `next`.
 async function postActivate(req, res) {
   const { agendas, invitations, sessions } = req.app.services;
 
   const next = sanitizeNext(req.query?.next) || '/home';
+
+  // BA `verifyEmail` posts `?error=<CODE>` on the callbackURL when the token
+  // is rejected. The exhaustive list (BASE_ERROR_CODES branch in
+  // node_modules/better-auth/dist/api/routes/email-verification.mjs):
+  //   - TOKEN_EXPIRED   (JWT past `expiresIn`)
+  //   - INVALID_TOKEN   (JWT signature / payload invalid)
+  //   - USER_NOT_FOUND  (token's `email` claim has no matching user row)
+  //   - INVALID_USER    (change-email confirmation hits a different session)
+  // All four map to the same UX as the legacy façade did: the signin form
+  // with `?msg=invalidActivation`. We treat any non-empty `?error=` as
+  // invalid-token to keep the matrix forward-compatible (BA could add new
+  // codes; mapping unknowns to the same generic banner is the safer default).
+  if (typeof req.query?.error === 'string' && req.query.error.length > 0) {
+    // Phase 6 lot 6 — when the activation came from an agenda-aware link
+    // (`?agenda=<slug>` carried through the BA verifyEmail callbackURL),
+    // surface the invalidActivation banner inside the agenda-show page
+    // instead of the neutral `/auth/signin`. The agenda-show page mounts
+    // <InvitationAuthDialog> which reads `?auth=signin&msg=invalidActivation`
+    // and opens AuthDialog with the banner already populated.
+    const slug = typeof req.query?.agenda === 'string' && req.query.agenda.length > 0
+      ? req.query.agenda
+      : null;
+    if (slug) {
+      const query = { auth: 'signin', msg: 'invalidActivation' };
+      return res.redirect(
+        302,
+        `/${slug}${qs.stringify(query, { addQueryPrefix: true })}`,
+      );
+    }
+    return res.redirect(
+      302,
+      `/auth/signin${qs.stringify({ msg: 'invalidActivation' }, { addQueryPrefix: true })}`,
+    );
+  }
+
   const invitationToken = req.query?.invitation;
 
   if (!req.user || !invitationToken) {
@@ -185,101 +200,38 @@ async function postActivate(req, res) {
   return res.redirect(302, next);
 }
 
-// Phase 6 lot 3 — the legacy `aa` token fallback was retired. New
-// verification mails carry a better-auth token verified through
-// `auth.api.verifyEmail`. Pre-3b legacy `aa` tokens have a short TTL (a few
-// days/weeks) that has fully expired by the time this lot ships; the
-// activate() façade is now BA-only.
+// Phase 6 lot 5 — the in-process `auth.api.verifyEmail` call was retired.
+// The handler is now a pure 302 proxy to BA's HTTP `/api/auth/verify-email`
+// endpoint, which handles cookie-setting, error redirects (`?error=<CODE>`),
+// and auto-signin natively. The single landing point for the BA callbackURL
+// is `/post-activate`, which intercepts BA errors and surfaces them as
+// `/auth/signin?msg=invalidActivation`.
 //
 // Manual activation mode (custom OA) is preserved: under that flag the
 // token is not consumed and an admin completes activation out-of-band.
+//
+// In practice no new email points to `/activate/:token` anymore — phase 3b
+// switched the verification mail to BA's native URL (`${baseURL}/api/auth/verify-email?…`).
+// This handler keeps the route alive for old-emails-in-flight and external
+// links (CMS, documentation) while we phase the path out entirely.
 async function activate(req, res) {
-  const { auth: authSvc, redis } = req.app.services;
-
-  const optionals = _.pickBy(
-    _.pick(req.query, 'invitation', 'redirect', 'agenda'),
-  );
+  const { redis } = req.app.services;
 
   const accountActivationMode = await redis.get('accountActivationMode') ?? 'manual';
 
   if (accountActivationMode === 'manual') {
-    // Manual mode: do not consume the token at all; an admin completes the
-    // activation out-of-band. The legacy `aa` row cleanup that used to live
-    // here was removed in lot 3 cleanup — the legacy chain is dead and
-    // residual rows are tracked for a dedicated DB cleanup migration.
-    const html = renderManualPage(req.lang);
-
-    if (req.agenda) {
-      return res.send(
-        layouts.agenda(html, {
-          lang: req.lang,
-          agenda: req.agenda,
-          cspNonce: res.locals.cspNonce,
-        }),
-      );
-    }
-
-    return res.send(
-      layouts.main(html, {
-        lang: req.lang,
-        title: getLabel(manualLabels.title, req.lang),
-        cspNonce: res.locals.cspNonce,
-      }),
-    );
+    return res.redirect(302, '/auth/manual');
   }
 
-  // Better-auth path. We deliberately do NOT pass `callbackURL` to
-  // `verifyEmail`: when present, BA swallows errors and 302s to the URL with
-  // `?error=…`, which would mask invalid-token reporting in our UX.
-  //
-  // With `asResponse: true`, BA's better-call wraps APIErrors as Response
-  // objects (4xx) instead of throwing — so we inspect status manually rather
-  // than rely on try/catch. On 2xx, Set-Cookie carries the auto-signin
-  // session (autoSignInAfterVerification: true).
-  let baResponse;
-  try {
-    baResponse = await authSvc.api.verifyEmail({
-      query: { token: req.params.token },
-      asResponse: true,
-    });
-  } catch (err) {
-    log.error('verifyEmail threw unexpectedly', err);
-    return cmn.catchError(req, res)(err);
-  }
-
-  if (baResponse.ok) {
-    authSvc.forwardSetCookieHeaders(baResponse, res);
-    // afterEmailVerification has already triggered runOnActivation
-    // (idempotent). Auto-signin opened a session in the response cookies.
-    return res.redirect(302, computePostActivateRedirect({ req, optionals }));
-  }
-
-  let baBody = {};
-  try {
-    baBody = await baResponse.clone().json();
-  } catch (err) {
-    log.warn('failed to parse BA verifyEmail error body', {
-      status: baResponse.status,
-      err,
-    });
-  }
-  const baCode = baBody?.code;
-  const isInvalidToken = baCode === 'INVALID_TOKEN'
-    || baCode === 'TOKEN_EXPIRED'
-    || baCode === 'USER_NOT_FOUND';
-
-  if (isInvalidToken) {
-    return auth.renderInvalidActivation(req, res);
-  }
-
-  log.error('verifyEmail unexpected response', {
-    status: baResponse.status,
-    body: baBody,
-  });
-  return cmn.catchError(
-    req,
-    res,
-  )(new Error(baBody?.message || 'BA verifyEmail failed'));
+  const optionals = _.pickBy(
+    _.pick(req.query, 'invitation', 'redirect', 'agenda'),
+  );
+  const callbackURL = computePostActivateRedirect({ req, optionals });
+  const verifyURL = `/api/auth/verify-email?${qs.stringify({
+    token: req.params.token,
+    callbackURL,
+  })}`;
+  return res.redirect(302, verifyURL);
 }
 
 export default (app) => {
@@ -302,8 +254,11 @@ export default (app) => {
     activate,
   );
 
-  // Post-activation hop: BA's verify-email redirects here when the original
-  // signup carried an `invitation` token (see computePostActivateRedirect).
+  // Post-activation hop: BA's verify-email always redirects here (see
+  // computePostActivateRedirect for the rationale). Handles three cases:
+  //   - `?error=<CODE>` (BA token rejection) → /auth/signin?msg=invalidActivation
+  //   - `?invitation=<token>` → apply invitation, then redirect
+  //   - otherwise → redirect to sanitized `next` (default /home)
   // We expect the user to be auto-signed-in via BA, but we don't gate on it:
   // the handler degrades gracefully and redirects to `next`.
   app.get('/post-activate', preMw, postActivate);

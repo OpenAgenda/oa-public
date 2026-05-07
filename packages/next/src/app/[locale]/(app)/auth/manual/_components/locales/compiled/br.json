@@ -1,0 +1,26 @@
+{
+  "next.auth.manual.complaint": [
+    {
+      "type": 0,
+      "value": "Ma vez dale o tretañ ho koulenn, kasit deomp ur gemennadenn dre ar benveg flapañ hegerz war [hor pajenn degemer](/). Pe skrivit deomp da [verif@openagenda.com](mailto:verif@openagenda.com) en ur reiñ ar chomlec'h postel hoc'h eus implijet evit krouiñ ho kont."
+    }
+  ],
+  "next.auth.manual.context": [
+    {
+      "type": 0,
+      "value": "Abalamour d'ur c'hresk bras ha nevez a grouidigezhioù danvez bruderezh emgefreek war ar savenn, ur bazenn gwiriañ da c'hortoz evit ar c'hontoù nevez a zo ret."
+    }
+  ],
+  "next.auth.manual.instruction": [
+    {
+      "type": 0,
+      "value": "**Kemenn a vo graet deoc'h buan dre bostel pa vo gweredekaet ho kont (un nebeud munutennoù e-pad eurioù labour).**"
+    }
+  ],
+  "next.auth.manual.title": [
+    {
+      "type": 0,
+      "value": "Gwiriañ ho koulenn krouiñ kont"
+    }
+  ]
+}

@@ -2,16 +2,27 @@
 // `callbackURL` when emitting / consuming a verification email.
 //
 // Two callsites:
-// - Express façade `/activate/:token` (`activate`, `activateResend` in
-//   `auth/local.front.js`) — has a real `req`, mirrors `computeRedirect.js`
-//   logic.
+// - Express façade `/activate/:token` (`activate` in `auth/local.front.js`)
+//   — has a real `req`, mirrors `computeRedirect.js` logic.
 // - Feathers `users.create` after-hook (`hooks/sendVerificationEmailOnCreate.js`)
 //   — runs without a request, only `optionals` are available.
 //
-// When an invitation token is present, we route through `/post-activate` so
-// the invitation can be applied (token-based actions like `linkMember`) after
-// BA's auto-signin redirect. Otherwise, we redirect straight to the agenda's
-// contribute page (if known) or `/home`.
+// We ALWAYS route through `/post-activate`, even when there is no invitation
+// token. Two reasons:
+//
+//   1. When BA's `verifyEmail` is invoked with a `callbackURL` and the token
+//      is invalid/expired/unknown, BA redirects to `<callbackURL>?error=<CODE>`
+//      (see node_modules/better-auth/dist/api/routes/email-verification.mjs:152-157).
+//      Routing every callback through `/post-activate` lets us intercept that
+//      `?error=…` and surface it as `/auth/signin?msg=invalidActivation` —
+//      a `?error=…` landing on `/home` or `/{slug}/contribute` would be
+//      indistinguishable from a normal page load and the user would never
+//      know what failed.
+//
+//   2. Invitations (linkMember, etc.) MUST be applied on the just-signed-in
+//      user, which is what `/post-activate` does. Keeping a single hop
+//      handler simplifies the `cibul-node /activate/:token` façade to a pure
+//      302 proxy to `/api/auth/verify-email`.
 //
 // The returned value is a path (not absolute). better-auth expects callbackURL
 // to be a same-origin path or a `trustedOrigins`-allowed absolute URL; phase 3
@@ -45,15 +56,14 @@ export default function computePostActivateRedirect({ req, optionals } = {}) {
     baseRedirect = agendaSlug ? `/${agendaSlug}/contribute` : '/home';
   }
 
-  // When an invitation token is present, hop through /post-activate so the
-  // invitation actions (linkMember, etc.) can be applied to the just-signed-in
-  // user. Without an invitation, skip the hop entirely.
-  if (merged.invitation) {
-    return `/post-activate${qs.stringify(
-      { invitation: merged.invitation, next: baseRedirect },
-      { addQueryPrefix: true },
-    )}`;
-  }
+  const pickedAgendaSlug = agendaSlug || undefined;
 
-  return baseRedirect;
+  return `/post-activate${qs.stringify(
+    {
+      ...merged.invitation && { invitation: merged.invitation },
+      ...pickedAgendaSlug && { agenda: pickedAgendaSlug },
+      next: baseRedirect,
+    },
+    { addQueryPrefix: true },
+  )}`;
 }

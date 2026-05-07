@@ -2,6 +2,8 @@
   "next.components.auth.AuthDialog.msg.authRequired": "L'accès à la page demandée est restreint. Connectez-vous pour y accéder.",
   "next.components.auth.AuthDialog.msg.limitedAccessAgenda": "L'accès à cet agenda est restreint. Connectez-vous pour y accéder.",
   "next.components.auth.AuthDialog.msg.limitedAccessEvent": "L'accès à cet événement est restreint. Connectez-vous pour y accéder.",
+  "next.components.auth.Signin.invalidActivation.description": "Le lien a peut-être déjà été cliqué. Dans ce cas, votre compte devrait déjà être activé.",
+  "next.components.auth.Signin.invalidActivation.title": "Le lien d'activation n'est pas valide",
   "next.views.AgendaShow.AgendaHeader.addEvent": "Ajouter un événement",
   "next.views.AgendaShow.AgendaHeader.aggregate": "Agréger",
   "next.views.AgendaShow.AgendaHeader.contact": "Contacter",

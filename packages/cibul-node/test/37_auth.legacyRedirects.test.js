@@ -31,10 +31,10 @@ describe('37 - auth legacy URL redirects', () => {
     expect(res.status).toBe(301);
     expect(res.headers.location).toBe('/auth/signin?redirect=foo&lang=fr');
 
-    // /:agendaSlug/signin → /auth/signin?agenda=<slug>&...
+    // /:agendaSlug/signin → /{slug}?auth=signin&... (in-context AuthDialog)
     res = await request(app).get('/lyon/signin?lang=en');
     expect(res.status).toBe(301);
-    expect(res.headers.location).toBe('/auth/signin?agenda=lyon&lang=en');
+    expect(res.headers.location).toBe('/lyon?auth=signin&lang=en');
 
     // /signup → /auth/signup (preserves invitation/email/lang)
     res = await request(app).get(
@@ -45,25 +45,30 @@ describe('37 - auth legacy URL redirects', () => {
       '/auth/signup?invitation=abc&email=a%40b.test&lang=en',
     );
 
-    // /:agendaSlug/signup → /auth/signup with synthesized base64 redirect
+    // /:agendaSlug/signup → /{slug}?auth=signup with synthesized base64 redirect
     res = await request(app).get('/lyon/signup');
     expect(res.status).toBe(301);
     const expectedRedirect = Buffer.from('/lyon/contribute', 'utf8').toString(
       'base64',
     );
     expect(res.headers.location).toBe(
-      `/auth/signup?redirect=${encodeURIComponent(expectedRedirect)}`,
+      `/lyon?auth=signup&redirect=${encodeURIComponent(expectedRedirect)}`,
     );
 
     // /:agendaSlug/signup with explicit redirect → preserved (no override)
     res = await request(app).get('/lyon/signup?redirect=Zm9v');
     expect(res.status).toBe(301);
-    expect(res.headers.location).toBe('/auth/signup?redirect=Zm9v');
+    expect(res.headers.location).toBe('/lyon?auth=signup&redirect=Zm9v');
 
     // /password/lost → /auth/signin?view=lost
     res = await request(app).get('/password/lost');
     expect(res.status).toBe(301);
     expect(res.headers.location).toBe('/auth/signin?view=lost');
+
+    // /:agendaSlug/password/lost → /{slug}?auth=signin&view=lost
+    res = await request(app).get('/lyon/password/lost');
+    expect(res.status).toBe(301);
+    expect(res.headers.location).toBe('/lyon?auth=signin&view=lost');
 
     // /activate/resend → /auth/signin?view=resend (preserves email)
     res = await request(app).get('/activate/resend?email=a%40b.test');
@@ -72,11 +77,11 @@ describe('37 - auth legacy URL redirects', () => {
       '/auth/signin?email=a%40b.test&view=resend',
     );
 
-    // /:agendaSlug/activate/resend → /auth/signin?agenda=<slug>&view=resend
+    // /:agendaSlug/activate/resend → /{slug}?auth=signin&...&view=resend
     res = await request(app).get('/lyon/activate/resend?email=a%40b.test');
     expect(res.status).toBe(301);
     expect(res.headers.location).toBe(
-      '/auth/signin?agenda=lyon&email=a%40b.test&view=resend',
+      '/lyon?auth=signin&email=a%40b.test&view=resend',
     );
 
     // /password/reset?token=… → /auth/reset?token=…
@@ -89,25 +94,27 @@ describe('37 - auth legacy URL redirects', () => {
     expect(res.status).toBe(301);
     expect(res.headers.location).toBe('/auth/reset?token=legacyToken123');
 
-    // /google/signin → /auth/signin?provider=google (BA's social endpoint
-    // is POST-only, so we land on the signin page where the user can click
-    // the Google button). callbackURL is hoisted to redirect=base64.
+    // /google/signin → /auth/signin (BA's social endpoint is POST-only so
+    // we land on the signin page where the user can click the Google
+    // button). callbackURL is hoisted to redirect=base64 so the manual
+    // click still lands at the intended destination.
     const homeRedirect = Buffer.from('/home', 'utf8').toString('base64');
     res = await request(app).get('/google/signin?callbackURL=%2Fhome');
     expect(res.status).toBe(301);
     expect(res.headers.location).toBe(
-      `/auth/signin?provider=google&redirect=${encodeURIComponent(homeRedirect)}`,
+      `/auth/signin?redirect=${encodeURIComponent(homeRedirect)}`,
     );
 
-    // /:agendaSlug/google/signin → /auth/signin?provider=google with
-    // synthesized redirect=base64(/<slug>/contribute)
+    // /:agendaSlug/google/signin → /{slug}?auth=signin with synthesized
+    // redirect=base64(/<slug>/contribute) so the manual social click lands
+    // back on the agenda's contribute page.
     const lyonRedirect = Buffer.from('/lyon/contribute', 'utf8').toString(
       'base64',
     );
     res = await request(app).get('/lyon/google/signin');
     expect(res.status).toBe(301);
     expect(res.headers.location).toBe(
-      `/auth/signin?provider=google&redirect=${encodeURIComponent(lyonRedirect)}`,
+      `/lyon?auth=signin&redirect=${encodeURIComponent(lyonRedirect)}`,
     );
 
     // /:agendaSlug/google/signin with explicit callbackURL → preserved as
@@ -116,20 +123,20 @@ describe('37 - auth legacy URL redirects', () => {
     res = await request(app).get('/lyon/google/signin?callbackURL=%2Fcustom');
     expect(res.status).toBe(301);
     expect(res.headers.location).toBe(
-      `/auth/signin?provider=google&redirect=${encodeURIComponent(customRedirect)}`,
+      `/lyon?auth=signin&redirect=${encodeURIComponent(customRedirect)}`,
     );
 
-    // /facebook/signin → /auth/signin?provider=facebook (no query at all)
+    // /facebook/signin → /auth/signin (no query at all)
     res = await request(app).get('/facebook/signin');
     expect(res.status).toBe(301);
-    expect(res.headers.location).toBe('/auth/signin?provider=facebook');
+    expect(res.headers.location).toBe('/auth/signin');
 
-    // /:agendaSlug/facebook/signin → /auth/signin?provider=facebook with
-    // synthesized redirect.
+    // /:agendaSlug/facebook/signin → /{slug}?auth=signin with synthesized
+    // redirect.
     res = await request(app).get('/lyon/facebook/signin');
     expect(res.status).toBe(301);
     expect(res.headers.location).toBe(
-      `/auth/signin?provider=facebook&redirect=${encodeURIComponent(lyonRedirect)}`,
+      `/lyon?auth=signin&redirect=${encodeURIComponent(lyonRedirect)}`,
     );
   });
 });

@@ -61,6 +61,14 @@ export default async function SigninPage({
   const emailParam = pickFirst(params.email);
   const defaultEmail =
     linkProvider || view === 'resend' ? emailParam : undefined;
+  // `msg=invalidActivation` is set by the cibul-node `/activate/:token`
+  // façade when better-auth rejects the token (INVALID_TOKEN, TOKEN_EXPIRED,
+  // USER_NOT_FOUND). We surface a banner on the signin form so the user
+  // knows what happened — the legacy EJS `auth/invalidActivation` template
+  // was retired with this redirect.
+  const msg = pickFirst(params.msg);
+  const banner: 'invalidActivation' | undefined =
+    msg === 'invalidActivation' ? 'invalidActivation' : undefined;
 
   return (
     <SigninPageClient
@@ -70,6 +78,7 @@ export default async function SigninPage({
       linkError={linkError}
       defaultEmail={defaultEmail}
       view={view}
+      banner={banner}
     />
   );
 }

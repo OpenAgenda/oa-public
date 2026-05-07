@@ -22,56 +22,77 @@
 // `/:agendaSlug/signin` collision is impossible. Other top-level paths that
 // reach cibul-node (`/api`, `/home`, `/admin`, …) have no `/signin` handler
 // of their own — a stray `/api/signin` would 404 today and 301 to
-// `/auth/signin?agenda=api` after this front; the bogus `agenda=api` is
-// harmless on the Next side and not worth a maintenance-prone allowlist.
+// `/{slug}?auth=signin` for `slug=api`; the Next agenda-show page handles
+// the unknown-slug case (404 page) and is not worth a maintenance-prone
+// allowlist.
+//
+// Phase 6 lot 6 — agenda-aware variants land on `/{slug}?auth=signin|signup`
+// rather than `/auth/signin?agenda=<slug>`. The agenda-show page mounts
+// `InvitationAuthDialog`, which reads `?auth=…&email=…&invitation=…&redirect=…`
+// and opens the AuthDialog modal in the right state, preserving the agenda
+// context (header, branding, agenda title) the user expected from the
+// legacy `/{slug}/{signin,signup,…}` URL.
+//
+// The OAuth variants (`/google/signin`, `/facebook/signin`,
+// `/:agendaSlug/{google,facebook}/signin`) drop the user on the signin
+// page/dialog and let them click the Google/Facebook button — BA's social
+// endpoint is POST-only so a 301 to the consent screen is impossible. Any
+// `?callbackURL=` on the legacy URL is preserved as base64 `?redirect=` so
+// the manual click still lands at the intended destination.
 
 import qs from 'qs';
 
 function agendaSigninRedirect(req, res) {
-  // The Next signin page has no per-agenda sub-route, so we hoist the slug
-  // onto the query as `agenda=<slug>`. `req.query` is spread *after* the
-  // synthesized default so an explicit `?agenda=…` from the legacy URL
-  // wins.
-  const query = { agenda: req.params.agendaSlug, ...req.query };
-  res.redirect(
-    301,
-    `/auth/signin${qs.stringify(query, { addQueryPrefix: true })}`,
-  );
+  // Open AuthDialog on the agenda-show page rather than landing on the
+  // neutral `/auth/signin` form. `req.query` is spread *after* the
+  // synthesized `auth=signin` so an explicit `?auth=…` from the legacy
+  // URL would win — but no legacy link is expected to carry `auth=`.
+  const slug = req.params.agendaSlug;
+  const query = { auth: 'signin', ...req.query };
+  res.redirect(301, `/${slug}${qs.stringify(query, { addQueryPrefix: true })}`);
 }
 
 function agendaSignupRedirect(req, res) {
   const slug = req.params.agendaSlug;
-  const query = { ...req.query };
+  const query = { auth: 'signup', ...req.query };
   // The legacy invitation flow on `/:slug/signup` implicitly redirected
-  // contributors to `/${slug}/contribute` after activation. The Next page
-  // expects this in its `redirect` param. Encode as base64 to mirror the
-  // shape used by mailers and links built in the rest of the app.
+  // contributors to `/${slug}/contribute` after activation. The
+  // InvitationAuthDialog reads `redirect` (base64) and forwards it to
+  // BA's verifyEmail callbackURL. Mirror the shape used by mailers and
+  // links built elsewhere in the app.
   if (!query.redirect) {
     query.redirect = Buffer.from(`/${slug}/contribute`, 'utf8').toString(
       'base64',
     );
   }
-  res.redirect(
-    301,
-    `/auth/signup${qs.stringify(query, { addQueryPrefix: true })}`,
-  );
+  res.redirect(301, `/${slug}${qs.stringify(query, { addQueryPrefix: true })}`);
 }
 
-function buildAgendaSocialRedirect(provider) {
+function agendaPasswordLostRedirect(req, res) {
+  // LostPassword is a sub-state of Signin (cf. components/auth/Signin.tsx),
+  // toggled by the `view=lost` query param. The InvitationAuthDialog
+  // forwards it to AuthDialog → Signin via `defaultLostPassword`.
+  const slug = req.params.agendaSlug;
+  const query = { auth: 'signin', view: 'lost', ...req.query };
+  res.redirect(301, `/${slug}${qs.stringify(query, { addQueryPrefix: true })}`);
+}
+
+function buildAgendaSocialRedirect() {
   return (req, res) => {
     const slug = req.params.agendaSlug;
     // Better-auth's `/api/auth/sign-in/social/:provider` is POST-only with
-    // a JSON body — we can't 301 a GET request to it. Land the user on the
-    // signin page instead, where the Google/Facebook button drives the same
-    // flow with one extra click. The `?provider=` hint can be used by the
-    // page to auto-trigger the social signin if desired.
+    // a JSON body — we can't 301 a GET request to it. Land on the agenda
+    // page with the AuthDialog open (`auth=signin`) and let the user click
+    // the Google/Facebook button. Any `?callbackURL=` carried by the legacy
+    // URL is preserved as base64 `?redirect=` so the manual click lands at
+    // the intended destination.
     const callbackURL = req.query.callbackURL ?? `/${slug}/contribute`;
     const redirect = Buffer.from(callbackURL, 'utf8').toString('base64');
-    const query = { provider, redirect, ...req.query };
+    const query = { auth: 'signin', redirect, ...req.query };
     delete query.callbackURL;
     res.redirect(
       301,
-      `/auth/signin${qs.stringify(query, { addQueryPrefix: true })}`,
+      `/${slug}${qs.stringify(query, { addQueryPrefix: true })}`,
     );
   };
 }
@@ -112,18 +133,17 @@ function redirectActivateResend(req, res) {
 }
 
 function redirectAgendaActivateResend(req, res) {
-  // Mirror agendaSigninRedirect: hoist the slug as `agenda=<slug>` so the
-  // Next page can rebuild the post-activate redirect target. Explicit
-  // `?agenda=…` from the legacy URL wins.
+  // Mirror agendaSigninRedirect: open the resend-verification panel from
+  // the agenda-show page so the user keeps their agenda context. The
+  // InvitationAuthDialog reads `?auth=signin&view=resend&email=…` and
+  // boots AuthDialog directly into <SignupComplete>.
+  const slug = req.params.agendaSlug;
   const query = {
-    agenda: req.params.agendaSlug,
+    auth: 'signin',
     ...req.query,
     view: 'resend',
   };
-  res.redirect(
-    301,
-    `/auth/signin${qs.stringify(query, { addQueryPrefix: true })}`,
-  );
+  res.redirect(301, `/${slug}${qs.stringify(query, { addQueryPrefix: true })}`);
 }
 
 function redirectPasswordResetQuery(req, res) {
@@ -144,12 +164,13 @@ function redirectPasswordResetPathToken(req, res) {
   );
 }
 
-function redirectSocial(provider) {
+function redirectSocial() {
   return (req, res) => {
     // Same reasoning as buildAgendaSocialRedirect: BA's social endpoint is
     // POST-only, we can't redirect a GET there. Send the user to signin and
-    // let them click the social button.
-    const query = { provider, ...req.query };
+    // let them click the social button. Any `?callbackURL=` is hoisted to
+    // base64 `?redirect=` so the manual click lands at the intended target.
+    const query = { ...req.query };
     if (req.query.callbackURL) {
       query.redirect = Buffer.from(req.query.callbackURL, 'utf8').toString(
         'base64',
@@ -171,16 +192,14 @@ export default function mountLegacyRedirects(app) {
   app.get('/password/reset', redirectPasswordResetQuery);
   app.get('/password/reset/:token', redirectPasswordResetPathToken);
   app.get('/activate/resend', redirectActivateResend);
-  app.get('/google/signin', redirectSocial('google'));
-  app.get('/facebook/signin', redirectSocial('facebook'));
+  app.get('/google/signin', redirectSocial());
+  app.get('/facebook/signin', redirectSocial());
 
   // Agenda-aware variants.
   app.get('/:agendaSlug/signin', agendaSigninRedirect);
   app.get('/:agendaSlug/signup', agendaSignupRedirect);
+  app.get('/:agendaSlug/password/lost', agendaPasswordLostRedirect);
   app.get('/:agendaSlug/activate/resend', redirectAgendaActivateResend);
-  app.get('/:agendaSlug/google/signin', buildAgendaSocialRedirect('google'));
-  app.get(
-    '/:agendaSlug/facebook/signin',
-    buildAgendaSocialRedirect('facebook'),
-  );
+  app.get('/:agendaSlug/google/signin', buildAgendaSocialRedirect());
+  app.get('/:agendaSlug/facebook/signin', buildAgendaSocialRedirect());
 }

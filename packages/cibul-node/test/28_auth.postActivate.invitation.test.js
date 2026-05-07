@@ -1,4 +1,5 @@
 import request from 'supertest';
+import qs from 'qs';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import localFront from '../auth/local.front.js';
@@ -146,12 +147,11 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
     return { admin, agenda, invitation };
   }
 
-  it('member invitation mail links to /auth/signup (not the legacy /{slug}/signup)', async () => {
-    // Phase 6 lot 2 — the legacy `/{agendaSlug}/signup` Express handler was
-    // retired, so the invitation mail must point at the App Router signup
-    // page. The Next proxy handles the no-locale → /:locale/auth/signup hop;
-    // this test only asserts the path/query shape produced by the cibul-node
-    // mailer (services/members/lib/mail.js).
+  it('member invitation mail links to /{slug}?auth=signup (in-context AuthDialog)', async () => {
+    // Phase 6 lot 6 — invitation mails point at the agenda-show page so the
+    // recipient lands in agenda context (header, branding, agenda title)
+    // and the signup form opens in-modal via <InvitationAuthDialog>. The
+    // Next proxy handles the no-locale → /:locale/{slug} hop.
     const inviteeEmail = 'postactivate-mail-link@oa.test';
 
     const { agenda, invitation } = await buildInvitationFixture({
@@ -172,14 +172,15 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
     const { link } = invitationMail.data;
     expect(typeof link).toBe('string');
 
-    // Path must be /auth/signup (Next App Router), not /{slug}/signup.
+    // Path must be /{slug} (agenda-show page), not /auth/signup nor /{slug}/signup.
     const url = new URL(link);
-    expect(url.pathname).toBe('/auth/signup');
-    expect(url.pathname).not.toMatch(new RegExp(`^/${agenda.slug}/signup`));
+    expect(url.pathname).toBe(`/${agenda.slug}`);
 
-    // Query carries the bits the Next signup page reads: invitation token,
-    // pre-filled email, locale, and a base64 redirect that lands the user
-    // on the agenda's contribute page after activation.
+    // Query carries the bits the InvitationAuthDialog reads to boot
+    // AuthDialog in signup mode: auth=signup, invitation token, pre-filled
+    // email, locale, and a base64 redirect that lands the user on the
+    // agenda's contribute page after activation.
+    expect(url.searchParams.get('auth')).toBe('signup');
     expect(url.searchParams.get('invitation')).toBe(invitation.token);
     expect(url.searchParams.get('email')).toBe(inviteeEmail);
     expect(url.searchParams.get('lang')).toBeTruthy();
@@ -187,6 +188,82 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
     expect(encodedRedirect).toBeTruthy();
     const decodedRedirect = Buffer.from(encodedRedirect, 'base64').toString();
     expect(decodedRedirect).toBe(`/${agenda.slug}/contribute`);
+  });
+
+  // E2E happy path: full signup → verify-email → auto-signin → /post-activate
+  // chain, no stubs. This exercises the `sessions.mw.load` BA path where the
+  // freshly-verified user is loaded for the first time on /post-activate.
+  // Regression cover for the production scenario where `req.user` ended up
+  // null on /post-activate despite BA having an active session.
+  it('signup → verify-email → /post-activate applies linkMember invitation end-to-end', async () => {
+    const inviteeEmail = 'postactivate-e2e@oa.test';
+    const inviteePassword = 'plainPwd-28-e2e-strong';
+
+    const { agenda, invitation } = await buildInvitationFixture({
+      adminEmail: 'postactivate-admin-e2e@oa.test',
+      inviteeEmail,
+    });
+    expect(invitation?.token).toBeTruthy();
+
+    const agent = request.agent(app);
+
+    // 1. Sign up via BA — creates the user with is_activated=0 and triggers
+    //    the activateAccount mail with a /api/auth/verify-email link.
+    const signupRes = await agent
+      .post('/api/auth/sign-up/email')
+      .set('Content-Type', 'application/json')
+      .send({
+        name: 'Invitee E2E',
+        full_name: 'Invitee E2E',
+        email: inviteeEmail,
+        password: inviteePassword,
+        repeat: inviteePassword,
+      });
+    expect(signupRes.status).toBe(200);
+
+    const activate = sentMails.find(
+      (m) => m.template === 'activateAccount' && m.to === inviteeEmail,
+    );
+    expect(activate).toBeTruthy();
+    const verifyURL = new URL(activate.data.activateLink);
+
+    // 2. Hit the verify-email URL with a callbackURL pointing at /post-activate
+    //    carrying the invitation token, mirroring what `auth/local.front.js`
+    //    `activate` builds via computePostActivateRedirect. BA flips
+    //    is_activated=1, opens the auto-signin session and 302s to the
+    //    callback URL.
+    const callbackURL = `/post-activate?${qs.stringify({
+      next: `/${agenda.slug}/contribute`,
+      invitation: invitation.token,
+    })}`;
+    verifyURL.searchParams.set('callbackURL', callbackURL);
+
+    const verifyRes = await agent.get(
+      `${verifyURL.pathname}${verifyURL.search}`,
+    );
+    expect(verifyRes.status).toBe(302);
+    expect(verifyRes.headers.location).toContain('/post-activate');
+
+    // 3. Follow the redirect with the auto-signin cookie now on the agent.
+    //    /post-activate must see req.user populated (no `?error=`) and
+    //    apply the linkMember invitation, ending on /{slug}/contribute.
+    const postActivateRes = await agent.get(verifyRes.headers.location);
+    expect(postActivateRes.status).toBe(302);
+    expect(postActivateRes.headers.location).toBe(`/${agenda.slug}/contribute`);
+
+    // Side-effect: invitations.execute → linkMember linked the freshly
+    // signed-in user to the member row.
+    const invitee = await usersSvc.findOne({
+      query: { email: inviteeEmail },
+      detailed: true,
+    });
+    expect(invitee).toBeTruthy();
+    const member = await services.members.get({
+      agendaUid: agenda.uid,
+      userUid: invitee.uid,
+    });
+    expect(member).toBeTruthy();
+    expect(member.userUid).toBe(invitee.uid);
   });
 
   it('applies linkMember invitation and redirects to /{slug}/contribute', async () => {
@@ -231,6 +308,76 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
       query: { email: inviteeEmail },
       detailed: true,
     });
+    const member = await services.members.get({
+      agendaUid: agenda.uid,
+      userUid: invitee.uid,
+    });
+    expect(member).toBeTruthy();
+    expect(member.userUid).toBe(invitee.uid);
+  });
+
+  // Regression: in production we observed `req.user` being null on
+  // `/post-activate` even though the BA cookie was set (post-verifyEmail
+  // auto-signin). The original `services/sessions/lib/load.js` fell back to
+  // the legacy cookie-session path when `usersSvc.findOne({ id })` returned
+  // null — leaving `req.user` undefined and the invitation never applied.
+  // The loader now projects BA's already-enriched session user when its own
+  // `usersSvc.findOne` lookup misses the row (the `resolveSessionExtras`
+  // wired in services/auth/index.js carries fullName / culture /
+  // transverseApiAccess), so /post-activate sees a populated req.user
+  // regardless of the local-DB miss. This test simulates the failure by
+  // stubbing `usersSvc.findOne` to return null on the BA-by-id lookup and
+  // asserts the linkMember invitation is still applied.
+  it('falls back to BA session when usersSvc.findOne returns null (regression)', async () => {
+    const inviteeEmail = 'postactivate-fallback@oa.test';
+    const inviteePassword = 'plainPwd-28-fallback';
+
+    const { agenda, invitation } = await buildInvitationFixture({
+      adminEmail: 'postactivate-admin-fallback@oa.test',
+      inviteeEmail,
+    });
+    expect(invitation?.token).toBeTruthy();
+
+    const invitee = await usersSvc.create(
+      {
+        fullName: 'Invitee Fallback',
+        email: inviteeEmail,
+        password: inviteePassword,
+        isActivated: true,
+      },
+      { internal: true, detailed: true },
+    );
+
+    const agent = request.agent(app);
+    await agent
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
+      .send({ email: inviteeEmail, password: inviteePassword });
+
+    // Force the global `sessions.mw.load` BA path to miss the user row, so
+    // `req.user` arrives at /post-activate as null. The fallback middleware
+    // (`ensureUserFromBA`) must rehydrate from BA's session.
+    const originalFindOne = services.users.findOne.bind(services.users);
+    services.users.findOne = async (params = {}) => {
+      const isBaIdLookup = params?.query
+        && Object.keys(params.query).length === 1
+        && params.query.id !== undefined;
+      if (isBaIdLookup) return null;
+      return originalFindOne(params);
+    };
+
+    let res;
+    try {
+      res = await agent.get(
+        `/post-activate?invitation=${invitation.token}&next=/home`,
+      );
+    } finally {
+      services.users.findOne = originalFindOne;
+    }
+
+    expect(res.status).toBe(302);
+    expect(res.headers.location).toBe(`/${agenda.slug}/contribute`);
+
     const member = await services.members.get({
       agendaUid: agenda.uid,
       userUid: invitee.uid,

@@ -42,12 +42,14 @@ export default async function sendMessage(
       ? invitationContext.getLang(invitation, agenda.uid, lang)
       : lang;
 
-    // Phase 6 lot 2 — the legacy `/{agendaSlug}/signup` Express handler was
-    // retired; the Next App Router exposes the signup form under
-    // `/auth/signup`. See comment in services/members/lib/mail.js for the
-    // full flow rationale (proxy 307, BA validateSignUp, /post-activate hop).
+    // Phase 6 lot 6 — invitation links land on `/{slug}?auth=signup&…` so
+    // the recipient sees the agenda context (header, branding) and the
+    // signup is offered in-modal via `InvitationAuthDialog` rather than on
+    // the neutral `/auth/signup` page. See services/members/lib/mail.js for
+    // the full flow rationale (post-activate hop, redirect base64).
     const link = invitation
-      ? `${config.root}/auth/signup?${qs.stringify({
+      ? `${config.root}/${agenda.slug}?${qs.stringify({
+        auth: 'signup',
         invitation: invitation.token,
         email,
         lang: appliedLang,
