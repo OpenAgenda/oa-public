@@ -43,6 +43,34 @@ function unauthRedirect(req, res, msg) {
   );
 }
 
+// Project a BA-shaped user (already passed through resolveSessionExtras in
+// services/auth/index.js, so it carries thumbnail/fullName/transverseApiAccess
+// when the OA row was found) into the legacy req.user shape. Used as a
+// fallback when `usersSvc.findOne({ id })` misses the row even though BA has
+// an active session — observed E2E right after BA's `/api/auth/verify-email`
+// auto-signin redirect. The cause has been hard to pin down (timing,
+// connection-pool isolation, transactional visibility); the safe contract is
+// "if BA says the visitor is signed in, trust it" rather than silently
+// dropping req.user and forcing /post-activate-style flows down a no-user
+// path.
+function projectFromBaUser(baUser, imageBucketPath) {
+  if (!baUser) return null;
+  const image = baUser.image ?? null;
+  return {
+    id: baUser.id,
+    uid: baUser.uid,
+    // resolveSessionExtras carries fullName explicitly; fall back to BA's
+    // raw `name` (mapped from full_name) when the OA enrichment missed.
+    name: baUser.fullName ?? baUser.name ?? null,
+    thumbnail: image ? imageBucketPath + image : baUser.thumbnail ?? null,
+    email: baUser.email,
+    culture: baUser.culture,
+    isNew: !!baUser.isNew,
+    isBlacklisted: !!baUser.isBlacklisted,
+    transverseApiAccess: baUser.transverseApiAccess ?? false,
+  };
+}
+
 function load(sessions, baseOptions, { detailed, redirect, msg } = {}) {
   const imageBucketPath = baseOptions?.imageBucketPath ?? '';
   return async (req, res, next) => {
@@ -67,21 +95,25 @@ function load(sessions, baseOptions, { detailed, redirect, msg } = {}) {
             });
           }
 
-          if (oaUser?.isBlacklisted) {
+          // Blacklist guard runs against whichever shape we have. BA's
+          // resolveSessionExtras enrichment already exposes `isBlacklisted`,
+          // so the OA row miss path below is still covered.
+          const blacklisted = oaUser
+            ? oaUser.isBlacklisted
+            : !!ba.user.isBlacklisted;
+          if (blacklisted) {
             try {
               await auth.api.signOut({ headers: auth.toHeaders(req) });
             } catch (err) {
               log('warn', 'signOut failed for blacklisted user', { err });
             }
-            return blacklistRedirect(sessions, req, res, oaUser);
+            return blacklistRedirect(sessions, req, res, oaUser ?? ba.user);
           }
 
+          // Preferred path: full OA row found, project to legacy shape so the
+          // `req.user.name`/`thumbnail` keys stay consistent with the legacy
+          // fallback (services/sessions/interfaces/getUser.js).
           if (oaUser) {
-            // Always project to the legacy shape — the legacy fallback below
-            // also goes through services/sessions/interfaces/getUser.js which
-            // projects unconditionally. Returning the full OA user here would
-            // make req.user.name vs req.user.fullName depend on the auth
-            // source and silently break downstream consumers.
             const projected = projectToLegacyShape(oaUser, imageBucketPath);
             req.user = projected;
             // Mirror the user onto req.session so @openagenda/sessions writes
@@ -90,6 +122,24 @@ function load(sessions, baseOptions, { detailed, redirect, msg } = {}) {
             // Without this, better-auth-only sessions stay invisible to Next
             // and guards like `/auth/signin` redirect-when-logged-in don't fire.
             if (req.session) req.session.user = projected;
+            return next();
+          }
+
+          // Fallback: BA confirms an active session but `usersSvc.findOne`
+          // missed the row. Project the BA user (already enriched by
+          // resolveSessionExtras with fullName/thumbnail/etc when its own
+          // findOne succeeded) so downstream consumers — gates like
+          // sessions.mw.ifLogged, the /post-activate invitation handler, the
+          // `oa.user` cookie consumed by Next — still see the visitor as
+          // signed in. Without this, a transient miss here silently logs the
+          // user out for the duration of the request.
+          const projectedFromBa = projectFromBaUser(ba.user, imageBucketPath);
+          if (projectedFromBa) {
+            log('warn', 'usersSvc.findOne missed; projecting from BA session', {
+              userId: ba.user.id,
+            });
+            req.user = projectedFromBa;
+            if (req.session) req.session.user = projectedFromBa;
             return next();
           }
         }

@@ -15,10 +15,13 @@ const log = logs('services/users/hooks/dualWriteLegacyPassword');
 const HEX64 = /^[a-f0-9]{64}$/i;
 
 async function mirror(auth, userId, salt, hex, op) {
-  if (!salt) {
-    log.warn(`dual-write skipped: missing salt (${op})`, { userId });
-    return;
-  }
+  // Empty salt is valid: BA-created accounts have `user.salt = ''` and the
+  // legacy `hashPassword(data.password, '')` writes SHA-256(password) into
+  // `user.password`. `encodeLegacy('sha256', '', hex)` produces
+  // `legacy-sha256$$<hex>` which the BA verifier resolves with `salt = ''`,
+  // i.e. SHA-256(password) — same input, same digest. Skipping the mirror
+  // here would leave `account.password` stale and lock the user out of BA
+  // sign-in after a legacy password change.
   try {
     const encoded = auth.encodeLegacyPassword('sha256', salt, hex);
     await auth.upsertCredentialAccount(userId, encoded);

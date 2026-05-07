@@ -615,6 +615,8 @@ export default function Auth(options = {}) {
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    verifyCredentialPassword,
+    getAccountTypesByUserId,
   } = createCredentialHelpers(instance);
 
   async function getSessionFromRequest(req, prevResponse) {
@@ -719,10 +721,20 @@ export default function Auth(options = {}) {
     upsertCredentialAccount,
     updateCredentialPassword,
     deleteCredentialAccount,
+    // Verifies a plaintext password against `account.password` (argon2id +
+    // legacy sentinel formats) — same routine BA's `/sign-in/email` uses.
+    // Use from password-challenge endpoints (delete agenda, change email,
+    // delete account) so they don't read the stale legacy `user.password`
+    // column which is `NULL` for users created via better-auth.
+    verifyCredentialPassword,
     // OAuth account row helpers (phase 4).
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    // Source of truth for `hasLocalAccount` / `hasSocialAccount`. Reads the
+    // BA `account` table — the legacy `user.{password, facebook_uid, ...}`
+    // columns are stale for BA-only users.
+    getAccountTypesByUserId,
     // Helpers exposed for Express integration (phase 3).
     toHeaders,
     forwardSetCookieHeaders,

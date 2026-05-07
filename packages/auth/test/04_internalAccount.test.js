@@ -176,4 +176,58 @@ describe('auth - unit: credential helpers', () => {
 
     expect(adapter.deleteSessions).toHaveBeenCalledWith('99');
   });
+
+  describe('getAccountTypesByUserId', () => {
+    it('returns a Map<userId, Set<providerId>> for a single id', async () => {
+      const adapter = {
+        findAccounts: jest.fn().mockResolvedValue([
+          { providerId: 'credential', password: 'enc' },
+          { providerId: 'google', password: null },
+        ]),
+      };
+      const { getAccountTypesByUserId } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      const result = await getAccountTypesByUserId(42);
+
+      expect(adapter.findAccounts).toHaveBeenCalledWith(42);
+      expect(result).toBeInstanceOf(Map);
+      expect(result.get(42)).toEqual(new Set(['credential', 'google']));
+    });
+
+    it('fans out across an array of user ids', async () => {
+      const byId = {
+        1: [{ providerId: 'credential' }],
+        2: [{ providerId: 'google' }],
+        3: [],
+      };
+      const adapter = {
+        findAccounts: jest.fn(async (id) => byId[id]),
+      };
+      const { getAccountTypesByUserId } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      const result = await getAccountTypesByUserId([1, 2, 3]);
+
+      expect(adapter.findAccounts).toHaveBeenCalledTimes(3);
+      expect(result.get(1)).toEqual(new Set(['credential']));
+      expect(result.get(2)).toEqual(new Set(['google']));
+      expect(result.get(3)).toEqual(new Set());
+    });
+
+    it('returns an empty Map for an empty array (no I/O)', async () => {
+      const adapter = { findAccounts: jest.fn() };
+      const { getAccountTypesByUserId } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      const result = await getAccountTypesByUserId([]);
+
+      expect(adapter.findAccounts).not.toHaveBeenCalled();
+      expect(result).toBeInstanceOf(Map);
+      expect(result.size).toBe(0);
+    });
+  });
 });

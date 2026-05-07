@@ -117,6 +117,12 @@ describe('36 - /api/auth/get-session enriched payload', () => {
     expect(
       Object.prototype.hasOwnProperty.call(res.body.user, 'thumbnail'),
     ).toBe(true);
+    // Account-type flags read from the BA `account` table — `usersSvc.create`
+    // hashes the password legacy-side, then the dual-write hook mirrors it
+    // into `account.password (providerId='credential')`. So the credential
+    // row exists and `hasLocalAccount` must be true. No OAuth row → false.
+    expect(res.body.user.hasLocalAccount).toBe(true);
+    expect(res.body.user.hasSocialAccount).toBe(false);
     expect(res.body.lang).toBe('fr');
   });
 });

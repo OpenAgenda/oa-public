@@ -3,6 +3,9 @@ import logs from '@openagenda/logs';
 import Auth, { projectUser } from '@openagenda/auth';
 import runOnActivation from '../users/lib/runOnActivation.js';
 
+const OAUTH_PROVIDERS = new Set(['google', 'facebook', 'twitter']);
+const CREDENTIAL = 'credential';
+
 const log = logs('services/auth');
 
 // Minimum complexity gate, mirrored from the legacy `auth/local.front.js`
@@ -209,6 +212,27 @@ export async function init(config, services) {
           err,
         });
       }
+
+      // Read the BA `account` table to compute hasLocalAccount / hasSocialAccount.
+      // Source of truth since phase 6 — the legacy `user.{password, facebook_uid,
+      // twitter_id, google_id}` columns stay NULL for users created via better-auth.
+      let hasLocalAccount = false;
+      let hasSocialAccount = false;
+      try {
+        const typesById = await services.auth.getAccountTypesByUserId([
+          user.id,
+        ]);
+        const providers = typesById.get(user.id) ?? new Set();
+        hasLocalAccount = providers.has(CREDENTIAL);
+        hasSocialAccount = Array.from(providers).some((p) =>
+          OAUTH_PROVIDERS.has(p));
+      } catch (err) {
+        log('warn', 'resolveSessionExtras: getAccountTypesByUserId failed', {
+          userId: user?.id,
+          err,
+        });
+      }
+
       const projectedBase = projectUser(oaUser ?? user);
       const projected = projectedBase
         ? {
@@ -220,6 +244,8 @@ export async function init(config, services) {
           fullName: oaUser?.fullName ?? projectedBase.name ?? null,
           transverseApiAccess: oaUser?.transverseApiAccess ?? false,
           isNew: !!oaUser?.isNew,
+          hasLocalAccount,
+          hasSocialAccount,
         }
         : null;
 

@@ -233,6 +233,22 @@ class Users extends Service {
 
     const password = typeof data === 'string' ? data : data.password;
 
+    // Users created (or password-reset) via better-auth no longer have a
+    // legacy `user.password` value — BA owns `account.password` instead.
+    // When the legacy column is empty, delegate to the BA-backed verifier
+    // wired by the consumer (see `cibul-node/services/users/index.js` →
+    // `interfaces.verifyPassword`). This restores password challenges
+    // (delete agenda, change email, delete account, change password) for
+    // BA-only users without breaking legacy SHA-256/SHA-1 accounts that
+    // still hold their hash here.
+    if (typeof user.password !== 'string' || user.password.length === 0) {
+      const externalVerify = this.config.interfaces?.verifyPassword;
+      if (typeof externalVerify === 'function') {
+        return externalVerify(user, password);
+      }
+      return false;
+    }
+
     if (user.password.length === 40) {
       // sha1
       const isValid = crypto.verifyPassword(
