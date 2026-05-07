@@ -22,5 +22,6 @@
   "rtp.recurrencerForm.month": "mese",
   "rtp.recurrencerForm.someDisabledValues": "Alcuni orari sono già utilizzati o non sono aperti all'ingresso:",
   "rtp.recurrencerForm.submit": "Aggiornare",
-  "rtp.recurrencerForm.week": "settimana"
+  "rtp.recurrencerForm.week": "settimana",
+  "rtp.reset": "Cancellare tutti"
 }
