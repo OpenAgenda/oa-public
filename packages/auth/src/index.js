@@ -611,6 +611,7 @@ export default function Auth(options = {}) {
   const {
     upsertCredentialAccount,
     updateCredentialPassword,
+    adminSetPassword,
     deleteCredentialAccount,
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
@@ -720,6 +721,11 @@ export default function Auth(options = {}) {
     encodeLegacyPassword: encodeLegacy,
     upsertCredentialAccount,
     updateCredentialPassword,
+    // Superadmin-driven password reset (no `currentPassword` challenge).
+    // Hashes the plaintext with argon2id and upserts the credential row.
+    // Authorization is the consumer's responsibility; gate behind the
+    // existing superAdmin middleware when wiring an HTTP endpoint.
+    adminSetPassword,
     deleteCredentialAccount,
     // Verifies a plaintext password against `account.password` (argon2id +
     // legacy sentinel formats) — same routine BA's `/sign-in/email` uses.

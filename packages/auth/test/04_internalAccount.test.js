@@ -1,5 +1,6 @@
 import { jest } from '@jest/globals';
 import createCredentialHelpers from '../src/internalAccount.js';
+import { ARGON2ID_PREFIX } from '../src/password.js';
 
 function fakeInstance(internalAdapter) {
   return { $context: Promise.resolve({ internalAdapter }) };
@@ -74,6 +75,86 @@ describe('auth - unit: credential helpers', () => {
     await updateCredentialPassword(7, 'enc');
 
     expect(adapter.updatePassword).toHaveBeenCalledWith(7, 'enc');
+  });
+
+  describe('adminSetPassword', () => {
+    it('hashes the plaintext with argon2id and updates the existing credential row', async () => {
+      const adapter = {
+        findAccountByUserId: jest
+          .fn()
+          .mockResolvedValue([{ providerId: 'credential', password: 'old' }]),
+        updatePassword: jest.fn().mockResolvedValue(undefined),
+        createAccount: jest.fn(),
+      };
+      const { adminSetPassword } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      await adminSetPassword(42, 'newPlaintextPwd');
+
+      expect(adapter.updatePassword).toHaveBeenCalledTimes(1);
+      const [userId, encoded] = adapter.updatePassword.mock.calls[0];
+      expect(userId).toBe(42);
+      expect(typeof encoded).toBe('string');
+      expect(encoded.startsWith(ARGON2ID_PREFIX)).toBe(true);
+      expect(adapter.createAccount).not.toHaveBeenCalled();
+    });
+
+    it('inserts a credential row when none exists (oauth-only user)', async () => {
+      const adapter = {
+        findAccountByUserId: jest
+          .fn()
+          .mockResolvedValue([{ providerId: 'google', password: null }]),
+        createAccount: jest.fn().mockResolvedValue(undefined),
+        updatePassword: jest.fn(),
+      };
+      const { adminSetPassword } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      await adminSetPassword(42, 'newPlaintextPwd');
+
+      expect(adapter.createAccount).toHaveBeenCalledTimes(1);
+      const arg = adapter.createAccount.mock.calls[0][0];
+      expect(arg.userId).toBe(42);
+      expect(arg.accountId).toBe('42');
+      expect(arg.providerId).toBe('credential');
+      expect(typeof arg.password).toBe('string');
+      expect(arg.password.startsWith(ARGON2ID_PREFIX)).toBe(true);
+      expect(adapter.updatePassword).not.toHaveBeenCalled();
+    });
+
+    it('rejects an empty password', async () => {
+      const adapter = {
+        findAccountByUserId: jest.fn(),
+        updatePassword: jest.fn(),
+        createAccount: jest.fn(),
+      };
+      const { adminSetPassword } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      await expect(adminSetPassword(42, '')).rejects.toThrow(
+        /password is required/,
+      );
+      expect(adapter.findAccountByUserId).not.toHaveBeenCalled();
+    });
+
+    it('rejects a missing userId', async () => {
+      const adapter = {
+        findAccountByUserId: jest.fn(),
+        updatePassword: jest.fn(),
+        createAccount: jest.fn(),
+      };
+      const { adminSetPassword } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      await expect(adminSetPassword(null, 'pwd')).rejects.toThrow(
+        /userId is required/,
+      );
+      expect(adapter.findAccountByUserId).not.toHaveBeenCalled();
+    });
   });
 
   it('deleteCredentialAccount only deletes credential rows', async () => {

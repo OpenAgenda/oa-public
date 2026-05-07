@@ -5,7 +5,7 @@
 // `deleteAccount` / `deleteSessions` are not part of better-auth's public
 // API surface.
 
-import { verify as verifyHash } from './password.js';
+import { hash as hashPassword, verify as verifyHash } from './password.js';
 
 const CREDENTIAL = 'credential';
 const OAUTH_PROVIDERS = ['google', 'facebook'];
@@ -50,6 +50,24 @@ export default function createCredentialHelpers(instance) {
   async function updateCredentialPassword(userId, encodedHash) {
     const adapter = await getAdapter();
     await adapter.updatePassword(userId, encodedHash);
+  }
+
+  // Admin-driven password reset: hash a plaintext password with argon2id and
+  // upsert the credential account for `userId`. No `currentPassword` check —
+  // this is invoked from a superadmin-gated endpoint, not by the user.
+  //
+  // Hashes via the same routine as new BA credentials (argon2id) so the row
+  // matches whatever a fresh `/sign-up/email` would produce. Upsert covers
+  // the case of an OAuth-only user being given a password by the admin.
+  async function adminSetPassword(userId, password) {
+    if (typeof password !== 'string' || password.length === 0) {
+      throw new Error('adminSetPassword: password is required');
+    }
+    if (userId === undefined || userId === null) {
+      throw new Error('adminSetPassword: userId is required');
+    }
+    const encoded = await hashPassword(password);
+    await upsertCredentialAccount(userId, encoded);
   }
 
   async function deleteCredentialAccount(userId) {
@@ -117,6 +135,7 @@ export default function createCredentialHelpers(instance) {
   return {
     upsertCredentialAccount,
     updateCredentialPassword,
+    adminSetPassword,
     deleteCredentialAccount,
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
