@@ -241,6 +241,19 @@ export default [
         ],
       },
       {
+        field: 'index',
+        type: 'schema',
+        read: ['internal'],
+        write: ['internal'],
+        fields: [
+          {
+            field: 'transverse',
+            type: 'boolean',
+            default: true,
+          },
+        ],
+      },
+      {
         field: 'locations',
         type: 'schema',
         read: ['administrator', 'moderator', 'internal', 'public'],

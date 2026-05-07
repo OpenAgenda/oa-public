@@ -18,6 +18,10 @@ export default (core) => {
   const resyncFn = {
     rebuildSearch: (agendaUid) =>
       core.agendas(agendaUid).events.search.rebuild(),
+    transverseSearch: (agendaUid) =>
+      core
+        .agendas(agendaUid)
+        .events.search.resyncEvents({ state: 2 }, { access: 'internal' }),
     resyncInbox: (agendaUid) => resyncInbox(services, agendaUid),
     rebuildActivities: (agendaUid) =>
       services.activities.tasks.agendaRebuild(agendaUid),

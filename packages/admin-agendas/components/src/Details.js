@@ -299,6 +299,18 @@ export default function Details(props) {
                       checked={!!isPrivate}
                     />
                   </div>
+                  <div>
+                    Indexation transverse{' '}
+                    <Switch
+                      className="rc-switch"
+                      checkedChildren={<i className="fa fa-check" aria-hidden="true"></i>}
+                      unCheckedChildren={<i className="fa fa-times" aria-hidden="true"></i>}
+                      onChange={(checked) =>
+                        setAgenda(_.set({}, ['settings', 'index', 'transverse'], checked))
+                      }
+                      checked={agenda?.settings?.index?.transverse !== false}
+                    />
+                  </div>
                   <div>Création: {createdAt} - Dernière mise à jour: {updatedAt}</div>
                 </>
               )}

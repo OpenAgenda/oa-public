@@ -59,6 +59,12 @@ export default async (services, before, after, context) => {
   }
 
   if (
+    before.settings?.index?.transverse !== after.settings?.index?.transverse
+  ) {
+    await core.agendas(after.uid).settings.batchResync(['transverseSearch']);
+  }
+
+  if (
     before.credentials.memberCustom !== after.credentials.memberCustom
     && after.credentials.memberCustom
     && !before.memberSchemaId

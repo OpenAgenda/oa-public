@@ -12,12 +12,26 @@ async function isEventPublishedOnAnIndexedAgenda(
 
   const { agendaEvents: agendaEventSvc, agendas: agendasSvc } = services;
 
+  // Origin agenda's transverse flag gates inclusion. A shared agenda flipping
+  // its own flag must not affect events whose origin is a different agenda.
+  const originAgenda = await agendasSvc.get(
+    { uid: event.agendaUid },
+    { internal: true, private: null },
+  );
+  if (originAgenda?.settings?.index?.transverse === false) {
+    return false;
+  }
+
   const agendaUidsWhereIsPublished = await agendaEventSvc.list
     .byEventUid(event.uid, {
       state: 2,
       ...excludeAgenda ? { excludeAgendaUid: excludeAgenda.uid } : undefined,
     })
     .then(({ items }) => items.map(({ agendaUid }) => agendaUid));
+
+  if (!agendaUidsWhereIsPublished.length) {
+    return false;
+  }
 
   const { total: indexedAgendasReferencingEventTotal } = await agendasSvc.list(
     {
@@ -68,10 +82,11 @@ export async function transverseUpdateEvaluateUpdateEnqueue(
     return;
   }
 
-  const agendaIsIndexedAndEventPublished = agenda.indexed && event.state === 2;
+  const isOriginAgenda = agenda.uid === event.agendaUid;
 
-  if (agendaIsIndexedAndEventPublished) {
-    // avoid querying db for other agendas if we know that event is published on current indexed agenda
+  if (isOriginAgenda && agenda.settings?.index?.transverse === false) {
+    await queue.add('transverseIndexRemove', event.uid);
+  } else if (isOriginAgenda && agenda.indexed && event.state === 2) {
     await queue.add('transverseIndexUpdate', event);
   } else if (
     await isEventPublishedOnAnIndexedAgenda(services, event, {
