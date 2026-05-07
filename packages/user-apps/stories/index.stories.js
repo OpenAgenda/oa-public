@@ -12,7 +12,6 @@ const getDefaultState = () => ({
     updateProfile: '/users/me',
     deleteAccount: '/users/me',
     changeEmail: '/users/me/requestChangeEmail',
-    changePassword: '/users/me/changePassword',
     generateApiKey: '/users/me/generateApiKey',
   },
 });
