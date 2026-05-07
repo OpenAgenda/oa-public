@@ -4,6 +4,7 @@ import { mergeConfig } from 'vite';
 export default (config: any) =>
   mergeConfig(config, {
     server: {
+      port: Number(process.env.STRAPI_ADMIN_API_PORT) || 5173,
       allowedHosts: true,
     },
   });

@@ -8,7 +8,7 @@ services:
     ports:
       - 80:80
       - 443:443
-      - 5173:5173
+      - ${STRAPI_ADMIN_API_PORT}:${STRAPI_ADMIN_API_PORT}
     env_file: .env
     volumes:
       - ./docker/nginx:/tmp/nginx
@@ -76,6 +76,7 @@ services:
       PORT: ${STRAPI_PORT}
       SSL: ${STRAPI_SSL}
       DOMAIN: ${STRAPI_DOMAIN}
+      STRAPI_ADMIN_API_PORT: ${STRAPI_ADMIN_API_PORT}
       APP_KEYS: ${STRAPI_APP_KEYS}
       API_TOKEN_SALT: ${STRAPI_API_TOKEN_SALT}
       ADMIN_JWT_SECRET: ${STRAPI_ADMIN_JWT_SECRET}
