@@ -111,12 +111,19 @@ export default async function rebuild(config, set, options = {}) {
           })
           .then(({ body }) => body);
 
-        if (r.errors) {
+        const failedItems = r.items.filter((i) => i.index.error);
+        if (failedItems.length) {
           log(
             'error',
-            r.items.map((i) => i.index.error),
+            'bulk indexing rejected %s of %s documents',
+            failedItems.length,
+            r.items.length,
+            failedItems.map((i) => ({
+              _id: i.index._id,
+              error: i.index.error,
+            })),
           );
-          throw new Error('bulk index failed');
+          counts.errored += failedItems.length;
         }
 
         counts.created += r.items.filter(
