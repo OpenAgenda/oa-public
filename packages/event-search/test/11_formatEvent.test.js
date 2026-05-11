@@ -232,6 +232,7 @@ describe('11 - event-search - unit: formatEvent', () => {
         it: 'Francia (continente)',
         nl: 'Frankrijk (Europees)',
         oc: 'França (Metropolitana)',
+        br: 'Frañs (Metropol)',
       });
     });
 
@@ -241,7 +242,7 @@ describe('11 - event-search - unit: formatEvent', () => {
 
     it('_search_full_address_text key contains a strict with address-specific information', () => {
       expect(formatted._search_full_address_text).toBe(
-        'Alice 8 rue Alice, 92400 Courbevoie FR Courbevoie Ile France Hauts Seine France (Metropolitan) France (Metropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente) Franca (Metropolitana) Frankrijk (Europees)',
+        'Alice 8 rue Alice, 92400 Courbevoie FR Courbevoie Ile France Hauts Seine France (Metropolitan) France (Metropole) Frankreich (Metropolitan) Francia (Metropolitana) Francia (continente) Franca (Metropolitana) Frankrijk (Europees) Frans (Metropol)',
       );
     });
 
