@@ -294,6 +294,11 @@ export function changePassword(data) {
         } else if (responseError.message) {
           throw new SubmissionError({ _error: responseError.message });
         }
+
+        // Unknown BA error code with no `errors` array and no `message`:
+        // surface the underlying HTTP error so the form does not silently
+        // resolve as success.
+        throw new SubmissionError({ _error: error.message });
       }
     },
   };

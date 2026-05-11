@@ -1,3 +1,7 @@
+import logs from '@openagenda/logs';
+
+const log = logs('superadmin/userChangePassword');
+
 // Superadmin password reset (no `currentPassword` challenge — admin path).
 // Resolves the user PK from the OA `uid` query param and delegates to the
 // BA-native `auth.adminSetPassword`, which argon2id-hashes the plaintext
@@ -22,7 +26,8 @@ export default async function userChangePassword({ app, query }, res) {
     }
     await auth.adminSetPassword(user.id, password);
     res.json({ success: true });
-  } catch {
+  } catch (err) {
+    log('error', 'superadmin password reset failed', { uid, err });
     res.json({ success: false });
   }
 }
