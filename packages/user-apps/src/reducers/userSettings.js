@@ -249,13 +249,15 @@ export function changePassword(data) {
       }
 
       try {
-        // Direct call to better-auth — no prefixUrl, no $client query
-        // (BA ignores those). `currentPassword` / `newPassword` keys per BA
-        // schema; `revokeOtherSessions: false` keeps the current tab logged
-        // in across devices, matching the legacy users.changePassword
-        // semantics (which never touched sessions).
+        // Direct call to better-auth. Absolute path (leading `/`) so ky
+        // resolves on the current origin; a relative `api/...` would be
+        // resolved against the page URL (`/settings/password` →
+        // `/settings/api/auth/change-password`). `currentPassword` /
+        // `newPassword` keys per BA schema; `revokeOtherSessions: false`
+        // matches the legacy users.changePassword semantics (which never
+        // touched sessions).
         const result = await client
-          .post('api/auth/change-password', {
+          .post('/api/auth/change-password', {
             json: {
               currentPassword: data.oldPassword,
               newPassword: data.password,
