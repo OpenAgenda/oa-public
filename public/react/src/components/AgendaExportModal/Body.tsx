@@ -12,6 +12,7 @@ import {
 } from '@openagenda/uikit/snippets';
 import isUpcomingOnlyQuery from '../../utils/isUpcomingOnlyQuery';
 import ModalLoadingBody from '../ModalLoadingBody';
+import type { Agenda, EventQuery, ExportSettings } from '../../types';
 import SpreadsheetAccordionItem from './SpreadsheetAccordionItem';
 import PdfAccordionItem from './PdfAccordionItem';
 import JsonAccordionItem from './JsonAccordionItem';
@@ -21,9 +22,15 @@ import IcsAccordionItem from './IcsAccordionItem';
 import RssAccordionItem from './RssAccordionItem';
 import EmbedAccordionItem from './EmbedAccordionItem';
 import messages from './messages';
+import type {
+  CompleteUrlsResult,
+  IcsSubmitHandler,
+  PdfSubmitHandler,
+  SpreadsheetSubmitHandler,
+} from './types';
 
-const fetcher = (url) =>
-  ky(url, {
+function fetcher<T>(url: string): Promise<T> {
+  return ky(url, {
     hooks: {
       afterResponse: [
         (_request, _options, response) => {
@@ -31,14 +38,15 @@ const fetcher = (url) =>
         },
       ],
     },
-  }).json();
+  }).json<T>();
+}
 
 function completeUrls(
-  agendaUid,
-  query,
+  agendaUid: string | number,
+  query: EventQuery,
   rootUrl = 'https://openagenda.com',
   apiRootUrl = 'https://api.openagenda.com',
-) {
+): CompleteUrlsResult {
   const apiQuery = {
     ...isUpcomingOnlyQuery(query)
       ? {
@@ -77,62 +85,72 @@ export default function Body({
   apiRootUrl = 'https://api.openagenda.com',
   renderHost = 'local',
   fetchAgendaExportSettings = null,
-}) {
+}: {
+  dialogRef: React.RefObject<HTMLDivElement>;
+  agenda: Agenda;
+  query: EventQuery;
+  onClose: () => void;
+  defaultValue?: string | string[];
+  rootUrl?: string;
+  apiRootUrl?: string;
+  renderHost?: 'local' | 'parent';
+  fetchAgendaExportSettings?:
+    | ((agendaUid: string | number) => Promise<ExportSettings>)
+    | null;
+}): React.JSX.Element {
   const intl = useIntl();
 
-  const [mode, setMode] = useState('selection');
+  const [mode, setMode] = useState<'all' | 'selection'>('selection');
   const res = useMemo(() => {
-    const usedQuery = mode === 'all' ? { relative: ['passed', 'current', 'upcoming'] } : query;
+    const usedQuery: EventQuery = mode === 'all' ? { relative: ['passed', 'current', 'upcoming'] } : query;
     return completeUrls(agenda.uid, usedQuery, rootUrl, apiRootUrl);
   }, [mode, agenda.uid, query, rootUrl, apiRootUrl]);
 
-  const { data: exportSettingsData, isLoading: exportSettingsLoading } = useSWR<any>(res.agendaExportSettings, (url) =>
+  const { data: exportSettingsData, isLoading: exportSettingsLoading } = useSWR<ExportSettings>(res.agendaExportSettings, (url: string) =>
     (fetchAgendaExportSettings
       ? fetchAgendaExportSettings(agenda.uid)
-      : fetcher(url)));
+      : fetcher<ExportSettings>(url)));
 
   const languages = exportSettingsData?.languages;
   const hasMultipleLocations = exportSettingsData?.hasMultipleLocations ?? true;
   const fields = exportSettingsData?.spreadsheetColumns;
 
-  const handleSubmit = (type, options) => async (e) => {
+  const handleSpreadsheetSubmit: SpreadsheetSubmitHandler = (options) => (e) => {
     e.preventDefault();
-
-    let exportUrl = res.export[type];
-
-    if (type === 'spreadsheet') {
-      exportUrl = new URL(
-        options.format === 'xlsx' ? res.export.xlsx : res.export.csv,
-      );
-      if (!options.allLanguages) {
-        options.selectedLanguages.map((l) =>
-          exportUrl.searchParams.append('includeLanguages[]', l));
-      }
-      if (!options.allFields) {
-        options.selectedFields.map((f) =>
-          exportUrl.searchParams.append('includeFields[]', f));
-      }
-      if (options.distributedOptions) {
-        options.distributedFields.map((f) =>
-          exportUrl.searchParams.append('distributeOptionalFields[]', f));
-      }
+    const url = new URL(
+      options.format === 'xlsx' ? res.export.xlsx : res.export.csv,
+    );
+    if (!options.allLanguages) {
+      options.selectedLanguages.forEach((l) =>
+        url.searchParams.append('includeLanguages[]', l));
     }
-
-    if (type === 'pdf') {
-      exportUrl = new URL(res.export.pdf);
-      exportUrl.searchParams.append('lang', intl.locale);
-
-      if (options.locationInHeader) {
-        exportUrl.searchParams.append('locationInHeader', 'true');
-      }
-      if (options.sort?.length) {
-        options.sort.forEach((s) => {
-          exportUrl.searchParams.append('sort[]', s);
-        });
-      }
+    if (!options.allFields) {
+      options.selectedFields.forEach((f) =>
+        url.searchParams.append('includeFields[]', f));
     }
+    if (options.distributedOptions) {
+      options.distributedFields.forEach((f) =>
+        url.searchParams.append('distributeOptionalFields[]', f));
+    }
+    window.open(url, '_blank');
+    onClose();
+  };
 
-    window.open(exportUrl, '_blank');
+  const handlePdfSubmit: PdfSubmitHandler = (options) => (e) => {
+    e.preventDefault();
+    const url = new URL(res.export.pdf);
+    url.searchParams.append('lang', intl.locale);
+    if (options.locationInHeader) {
+      url.searchParams.append('locationInHeader', 'true');
+    }
+    options.sort.forEach((s) => url.searchParams.append('sort[]', s));
+    window.open(url, '_blank');
+    onClose();
+  };
+
+  const handleIcsSubmit: IcsSubmitHandler = (e) => {
+    e.preventDefault();
+    window.open(new URL(res.export.ics), '_blank');
     onClose();
   };
 
@@ -176,7 +194,10 @@ export default function Body({
             ),
           })}
       </Box>
-      <RadioGroup value={mode} onValueChange={(e) => setMode(e.value)}>
+      <RadioGroup
+        value={mode}
+        onValueChange={(e) => setMode(e.value as 'all' | 'selection')}
+      >
         <VStack gap="2" alignItems="start">
           <Radio value="all">{intl.formatMessage(messages.exportAll)}</Radio>
           <Radio value="selection">
@@ -189,22 +210,24 @@ export default function Body({
         <AccordionRoot
           as="form"
           collapsible
-          defaultValue={[defaultValue]}
+          defaultValue={
+            Array.isArray(defaultValue) ? defaultValue : [defaultValue]
+          }
           mt="4"
         >
           <SpreadsheetAccordionItem
-            handleSubmit={handleSubmit}
+            onSubmit={handleSpreadsheetSubmit}
             languages={languages}
             fields={fields}
           />
           <PdfAccordionItem
-            handleSubmit={handleSubmit}
+            onSubmit={handlePdfSubmit}
             hasMultipleLocations={hasMultipleLocations}
           />
           <JsonAccordionItem res={res} />
           <GcalAccordionItem res={res} />
           <OutlookAccordionItem res={res} />
-          <IcsAccordionItem handleSubmit={handleSubmit} />
+          <IcsAccordionItem onSubmit={handleIcsSubmit} />
           <RssAccordionItem dialogRef={dialogRef} res={res} />
           <EmbedAccordionItem dialogRef={dialogRef} res={res} agenda={agenda} />
         </AccordionRoot>

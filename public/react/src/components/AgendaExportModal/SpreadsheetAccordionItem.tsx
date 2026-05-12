@@ -10,9 +10,11 @@ import {
 } from '@openagenda/uikit';
 import { RadioGroup, Radio, Checkbox } from '@openagenda/uikit/snippets';
 import AccordionItem from '../AccordionItem';
+import type { ExportField } from '../../types';
 import messages from './messages';
+import type { SpreadsheetFormat, SpreadsheetSubmitHandler } from './types';
 
-function formatTarget(target: string[] | string) {
+function formatTarget(target: string[] | string): string {
   if (Array.isArray(target)) {
     const cleanedArray = [
       ...new Set(target.map((el) => el.replace(/ - [A-Z]{2}$/, ''))),
@@ -23,25 +25,29 @@ function formatTarget(target: string[] | string) {
 }
 
 export default function SpreadsheetAccordionItem({
-  handleSubmit,
+  onSubmit,
   languages,
   fields = [],
-}) {
+}: {
+  onSubmit: SpreadsheetSubmitHandler;
+  languages?: string[];
+  fields?: ExportField[];
+}): React.JSX.Element {
   const intl = useIntl();
 
-  const [format, setFormat] = useState('xlsx');
+  const [format, setFormat] = useState<SpreadsheetFormat>('xlsx');
   const [allLanguages, setAllLanguages] = useState(true);
   const [allFields, setAllFields] = useState(true);
   const [distributedOptions, setDistributedOptions] = useState(false);
-  const [selectedLanguages, setSelectedLanguages] = useState([]);
-  const [selectedFields, setSelectedFields] = useState([]);
-  const [distributedFields, setDistributedFields] = useState([]);
+  const [selectedLanguages, setSelectedLanguages] = useState<string[]>([]);
+  const [selectedFields, setSelectedFields] = useState<string[]>([]);
+  const [distributedFields, setDistributedFields] = useState<string[]>([]);
 
   const allFieldsChecked = selectedFields.length === fields.length;
   const isFieldsIndeterminate = selectedFields.length > 0 && !allFieldsChecked;
 
-  const handleAllFields = (e) => {
-    setSelectedFields(e.checked ? fields.map((v) => v.source) : []);
+  const handleAllFields = (e: { checked: boolean | 'indeterminate' }): void => {
+    setSelectedFields(e.checked === true ? fields.map((v) => v.source) : []);
   };
 
   return (
@@ -50,7 +56,10 @@ export default function SpreadsheetAccordionItem({
       title={intl.formatMessage(messages.spreadsheetTitle)}
     >
       <Flex gap="4" direction="column">
-        <RadioGroup value={format} onValueChange={(e) => setFormat(e.value)}>
+        <RadioGroup
+          value={format}
+          onValueChange={(e) => setFormat(e.value as SpreadsheetFormat)}
+        >
           <Stack gap="2">
             <Radio value="xlsx" w="fit-content">
               XLSX (MS Excel)
@@ -155,7 +164,7 @@ export default function SpreadsheetAccordionItem({
         <Button
           type="submit"
           alignSelf="center"
-          onClick={handleSubmit('spreadsheet', {
+          onClick={onSubmit({
             format,
             allLanguages,
             allFields,

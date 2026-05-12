@@ -11,7 +11,12 @@ function decode(str: string): string {
   return utf8Decoder.decode(base64.toByteArray(str));
 }
 
-export default {
+const base64Utils: {
+  encode: (str: string) => string;
+  decode: (str: string) => string;
+} = {
   encode,
   decode,
 };
+
+export default base64Utils;

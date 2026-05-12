@@ -33,7 +33,7 @@ const BadgeCheckIcon = createIcon({
 export default function OfficialAgenda({
   tooltipProps,
   ...props
-}: OfficialAgendaProps) {
+}: OfficialAgendaProps): React.JSX.Element {
   const intl = useIntl();
 
   return (

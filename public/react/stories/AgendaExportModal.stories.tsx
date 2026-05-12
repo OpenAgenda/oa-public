@@ -1,5 +1,6 @@
 import { http, HttpResponse } from 'msw';
 import { Button, useDisclosure } from '@openagenda/uikit';
+import type { Meta, StoryObj } from '@storybook/react-webpack5';
 import AgendaExportModal from '../src/components/AgendaExportModal';
 import fetchLocale from '../src/fetchLocale';
 import { Agenda } from '../src/types';
@@ -10,14 +11,18 @@ import userFixtures from './fixtures/user.json';
 import me from './fixtures/me.json';
 import columns from './fixtures/columns.json';
 
-export default {
+const meta: Meta<typeof AgendaExportModal> = {
   component: AgendaExportModal,
   loaders: [intlMessagesLoader(fetchLocale)],
   decorators: [ProvidersDecorator],
 };
 
-export const Basic = {
-  render: function Render() {
+export default meta;
+
+type Story = StoryObj<typeof AgendaExportModal>;
+
+export const Basic: Story = {
+  render: function Render(): React.JSX.Element {
     const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
 
     return (
@@ -45,8 +50,8 @@ export const Basic = {
   },
 };
 
-export const OpenAccordion = {
-  render: function Render() {
+export const OpenAccordion: Story = {
+  render: function Render(): React.JSX.Element {
     const { open, onOpen, onClose } = useDisclosure({ defaultOpen: true });
 
     return (

@@ -19,6 +19,7 @@ export default async function copyText(text: string): Promise<boolean> {
 
     throw new Error('unable to copy');
   } catch (e) {
+    // eslint-disable-next-line no-console
     console.error(e);
     return false;
   }

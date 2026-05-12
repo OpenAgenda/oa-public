@@ -9,12 +9,23 @@ type Options = {
   onError?: (e: React.SyntheticEvent<any>) => void;
 };
 
+export type UseImageWithFallbackReturn = {
+  src: SrcLike;
+  /** Stringified version for <img> / Chakra Image */
+  srcForNative: string;
+  onLoad: (e: React.SyntheticEvent<any>) => void;
+  onError: (e: React.SyntheticEvent<any>) => void;
+  /** Utils */
+  setSrc: React.Dispatch<React.SetStateAction<SrcLike>>;
+  reset: () => void;
+};
+
 export function useImageWithFallback({
   src,
   fallbackSrc,
   onLoad,
   onError,
-}: Options) {
+}: Options): UseImageWithFallbackReturn {
   const [current, setCurrent] = useState<SrcLike>(src);
 
   useEffect(() => {

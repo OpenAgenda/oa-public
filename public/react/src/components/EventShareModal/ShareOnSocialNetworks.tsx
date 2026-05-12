@@ -7,13 +7,18 @@ import {
   faXTwitter,
 } from '@fortawesome/free-brands-svg-icons';
 import AccordionItem from '../AccordionItem';
+import type { Event } from '../../types';
 import messages from './messages';
 
 export default function ShareOnSocialNetworks({
   eventUrl,
   event,
   contentLocale,
-}) {
+}: {
+  eventUrl: URL | string;
+  event: Event;
+  contentLocale: string;
+}): React.JSX.Element {
   const intl = useIntl();
 
   return (

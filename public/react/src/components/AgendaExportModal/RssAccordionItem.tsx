@@ -19,14 +19,21 @@ import {
 import copyText from '../../utils/copyText';
 import AccordionItem from '../AccordionItem';
 import messages from './messages';
+import type { CompleteUrlsResult } from './types';
 
-function getRssUrl(res, sort) {
+function getRssUrl(res: string, sort: string): string {
   const url = new URL(res);
   url.searchParams.set('sort', sort);
   return url.toString();
 }
 
-export default function RssAccordionItem({ dialogRef, res }) {
+export default function RssAccordionItem({
+  dialogRef,
+  res,
+}: {
+  dialogRef: React.RefObject<HTMLDivElement>;
+  res: CompleteUrlsResult;
+}): React.JSX.Element {
   const intl = useIntl();
 
   const [copied, setCopied] = useState(false);
@@ -53,7 +60,7 @@ export default function RssAccordionItem({ dialogRef, res }) {
           },
         ],
       }),
-    [],
+    [intl],
   );
 
   const rssUrl = getRssUrl(res.export.rss, sort);

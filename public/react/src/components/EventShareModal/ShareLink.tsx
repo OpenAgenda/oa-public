@@ -7,7 +7,11 @@ import copyText from '../../utils/copyText';
 import AccordionItem from '../AccordionItem';
 import messages from './messages';
 
-export default function ShareLink({ absUrl }) {
+export default function ShareLink({
+  absUrl,
+}: {
+  absUrl: URL | string;
+}): React.JSX.Element {
   const intl = useIntl();
   const [copied, setCopied] = useState(false);
 

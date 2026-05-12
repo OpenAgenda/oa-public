@@ -6,15 +6,19 @@ import { Checkbox } from '@openagenda/uikit/snippets';
 import { SortableSelect } from '@openagenda/react-shared';
 import AccordionItem from '../AccordionItem';
 import messages from './messages';
+import type { PdfSubmitHandler } from './types';
 
 export default function PdfAccordionItem({
-  handleSubmit,
+  onSubmit,
   hasMultipleLocations = true,
-}) {
+}: {
+  onSubmit: PdfSubmitHandler;
+  hasMultipleLocations?: boolean;
+}): React.JSX.Element {
   const intl = useIntl();
   const [locationInHeader, setLocationInHeader] = useState(!hasMultipleLocations);
   const [useSections, setUseSections] = useState(false);
-  const [sort, setSort] = useState([]);
+  const [sort, setSort] = useState<string[]>([]);
 
   return (
     <AccordionItem value="pdf" title="PDF">
@@ -74,7 +78,7 @@ export default function PdfAccordionItem({
         <Button
           type="submit"
           alignSelf="center"
-          onClick={handleSubmit('pdf', {
+          onClick={onSubmit({
             locationInHeader,
             sort: sort.concat('lastTimingWithFeatured.asc'),
           })}

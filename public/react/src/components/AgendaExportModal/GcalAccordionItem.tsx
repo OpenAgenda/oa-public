@@ -2,8 +2,13 @@ import { useIntl } from 'react-intl';
 import { Flex, H4, Input, Link, List } from '@openagenda/uikit';
 import AccordionItem from '../AccordionItem';
 import messages from './messages';
+import type { CompleteUrlsResult } from './types';
 
-export default function GcalAccordionItem({ res }) {
+export default function GcalAccordionItem({
+  res,
+}: {
+  res: CompleteUrlsResult;
+}): React.JSX.Element {
   const intl = useIntl();
 
   return (
