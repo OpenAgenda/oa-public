@@ -64,7 +64,7 @@ export function createStaticRanges(ranges) {
   return ranges.map((range) => ({ isSelected, ...range }));
 }
 
-export default function dateRanges(intl, opts = {}) {
+export function dateRanges(intl, opts = {}) {
   const { dateFnsLocale } = opts;
 
   const nextSaturday = getClosestDayAfter('Sat');

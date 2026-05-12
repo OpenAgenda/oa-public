@@ -6,7 +6,9 @@ import { getTimezoneOffset, utcToZonedTime } from 'date-fns-tz';
 import Panel from '../Panel.js';
 import Title from '../Title.js';
 import SimpleDateRangeField from '../fields/SimpleDateRangeField.js';
-import { Preview } from './DateRangeFilter.js';
+import DateRangeFilter from './DateRangeFilter.js';
+
+const { Preview } = DateRangeFilter;
 
 const subscription = { value: true };
 
