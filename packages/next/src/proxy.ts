@@ -62,6 +62,134 @@ function matchAgendaPageRoute(pathname: string): MatchedRoute | null {
   return null;
 }
 
+const UID_SLUG_RE = /^(\d+)_(.+)$/;
+
+function matchEventPageRoute(
+  pathname: string,
+): { agendaSlug: string; eventSlug: string } | null {
+  const m = pathname.match(/^\/[a-z]{2,3}\/([^/]+)\/events\/([^/?#]+)\/?$/);
+  if (m && !RESERVED_FIRST_SEGMENTS.has(m[1])) {
+    return { agendaSlug: m[1], eventSlug: m[2] };
+  }
+  return null;
+}
+
+async function isEventGone(
+  agendaSlug: string,
+  eventSlug: string,
+  cookie: string,
+): Promise<boolean> {
+  const uidMatch = eventSlug.match(UID_SLUG_RE);
+  const path = uidMatch
+    ? `api/agendas/slug/${agendaSlug}/events/${uidMatch[1]}`
+    : `api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}`;
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_API_INTERNAL_BASE_URL}/${path}`,
+      {
+        method: 'HEAD',
+        headers: { Cookie: cookie },
+        signal: AbortSignal.timeout(2000),
+      },
+    );
+    return res.status === 404 && res.headers.get('x-resource-gone') === '1';
+  } catch {
+    return false;
+  }
+}
+
+const GONE_COPY: Record<string, { title: string; body: string; cta: string }> =
+  {
+    fr: {
+      title: 'Événement introuvable',
+      body: 'Cet événement a été supprimé et n’est plus disponible.',
+      cta: 'Voir l’agenda',
+    },
+    en: {
+      title: 'Event not found',
+      body: 'This event has been removed and is no longer available.',
+      cta: 'See agenda',
+    },
+  };
+
+function escapeHtml(s: string): string {
+  return s.replace(
+    /[&<>"']/g,
+    (c) =>
+      ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+      })[c]!,
+  );
+}
+
+function goneResponse(locale: string, agendaSlug: string): NextResponse {
+  const copy = GONE_COPY[locale] ?? GONE_COPY.en;
+  const safeAgenda = escapeHtml(agendaSlug);
+  const body = `<!doctype html>
+<html lang="${locale}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>${copy.title} | OpenAgenda</title>
+<style>
+  *,*::before,*::after { box-sizing: border-box; }
+  html,body { height: 100%; margin: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: #1a1a1a;
+    background: #f7f7f8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+  }
+  .card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 2.5rem 2rem;
+    max-width: 28rem;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04), 0 8px 24px rgba(0,0,0,0.06);
+  }
+  .code { font-size: 0.8rem; color: #888; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  h1 { font-size: 1.5rem; margin: 0 0 0.75rem; }
+  p  { margin: 0 0 1.5rem; color: #4a4a4a; line-height: 1.5; }
+  a.btn {
+    display: inline-block;
+    padding: 0.6rem 1.25rem;
+    background: #1a73e8;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 500;
+  }
+  a.btn:hover { background: #155bb5; }
+</style>
+</head>
+<body>
+  <main class="card">
+    <div class="code">410 Gone</div>
+    <h1>${copy.title}</h1>
+    <p>${copy.body}</p>
+    <a class="btn" href="/${locale}/${safeAgenda}">${copy.cta}</a>
+  </main>
+</body>
+</html>`;
+  return new NextResponse(body, {
+    status: 410,
+    headers: {
+      'content-type': 'text/html; charset=utf-8',
+      'cache-control': 'no-store',
+    },
+  });
+}
+
 async function fetchAgendaForProxy(
   identifier: string,
   cookie: string,
@@ -208,6 +336,18 @@ export async function proxy(req: NextRequest) {
     // report-only header doesn't block anything, so it's safe to emit in dev
     // even though Turbopack/extensions inject un-nonced inline code.
     if (APP_ROUTER_PATHS_REGEX.test(req.nextUrl.pathname)) {
+      const eventRoute = matchEventPageRoute(req.nextUrl.pathname);
+      if (eventRoute) {
+        const gone = await isEventGone(
+          eventRoute.agendaSlug,
+          eventRoute.eventSlug,
+          requestHeaders.get('Cookie') ?? '',
+        );
+        if (gone) {
+          return goneResponse(urlLocale, eventRoute.agendaSlug);
+        }
+      }
+
       const agendaRoute = matchAgendaPageRoute(req.nextUrl.pathname);
 
       if (agendaRoute) {

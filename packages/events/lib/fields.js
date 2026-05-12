@@ -56,6 +56,13 @@ export default [
     write: ['internal'],
   },
   {
+    field: 'deletedAt',
+    optional: true,
+    fieldType: 'date',
+    read: ['internal'],
+    write: ['internal'],
+  },
+  {
     field: 'creatorUid',
     fieldType: 'integer',
     read: ['internal'],

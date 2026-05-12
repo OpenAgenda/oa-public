@@ -139,7 +139,12 @@ export default async function EventPage({
     eventResponse = await fetchEvent(agendaSlug, eventSlug);
   } catch (e) {
     const { statusCode } = await parseApiError(e);
-    if (statusCode === 401 || statusCode === 403 || statusCode === 404) {
+    if (
+      statusCode === 401 ||
+      statusCode === 403 ||
+      statusCode === 404 ||
+      statusCode === 410
+    ) {
       return (
         <EventError
           statusCode={statusCode}

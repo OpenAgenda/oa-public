@@ -9,8 +9,10 @@ export type ApiError = { statusCode: number; error: any };
 
 export async function parseApiError(err: unknown): Promise<ApiError> {
   const error = await kyErrorToVError(err);
-  const statusCode: number =
-    error?.statusCode ?? error?.info?.statusCode ?? 500;
+  let statusCode: number = error?.statusCode ?? error?.info?.statusCode ?? 500;
+  if (statusCode === 404 && error?.info?.gone) {
+    statusCode = 410;
+  }
   return { statusCode, error };
 }
 

@@ -1,3 +1,4 @@
+import { NotFound } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 
 const log = logs('api/middleware/loadEvent');
@@ -11,7 +12,7 @@ const extractIdentifier = (req) =>
       slug: req.params.eventSlug,
     });
 
-function loadEvent(req, _res, next) {
+function loadEvent(req, res, next) {
   if (req.event) {
     return next();
   }
@@ -19,9 +20,16 @@ function loadEvent(req, _res, next) {
     .get(extractIdentifier(req), {
       private: null,
       access: 'internal',
+      deleted: null,
       throwOnNotFound: true,
     })
     .then((event) => {
+      if (event?.deletedAt) {
+        res.set('X-Resource-Gone', '1');
+        return next(
+          new NotFound({ info: extractIdentifier(req) }, 'event not found'),
+        );
+      }
       req.event = event;
       log('loaded event', event.slug);
       next();
