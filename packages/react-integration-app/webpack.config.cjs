@@ -198,6 +198,28 @@ module.exports = (env = {}, argv = {}) => {
         buffer: require.resolve('buffer'),
       },
       conditionNames: ['oa', '...'],
+      // Redirect workspace packages built with tsdown to their src/ so the
+      // browser bundle can pick up HMR boundaries through babel-loader.
+      // Node SSR (middleware.js) uses the same bare specifiers but resolves
+      // them via the packages' `exports` field — see each package.json.
+      alias: {
+        '@openagenda/agenda-stats$': path.join(
+          __dirname,
+          '../agenda-stats/src/app.js',
+        ),
+        '@openagenda/event-admin-apps$': path.join(
+          __dirname,
+          '../event-admin-apps/src/app.js',
+        ),
+        '@openagenda/react-layouts$': path.join(
+          __dirname,
+          '../react-layouts/src/index.js',
+        ),
+        '@openagenda/react-layouts/layouts$': path.join(
+          __dirname,
+          '../react-layouts/src/layouts/index.js',
+        ),
+      },
     },
     performance: {
       hints: false,

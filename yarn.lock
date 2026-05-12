@@ -11240,9 +11240,8 @@ __metadata:
     recharts: "npm:^2.15.1"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
-    rimraf: "npm:^3.0.1"
     storybook: "npm:^10.2.0"
-    tsup: "npm:^8.3.5"
+    tsdown: "npm:^0.22.0"
     uuid: "npm:^8.2.0"
   peerDependencies:
     "@loadable/component": ^5.12.0
@@ -11682,9 +11681,8 @@ __metadata:
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
     regenerator-runtime: "npm:^0.13.7"
-    rimraf: "npm:^3.0.1"
     storybook: "npm:^10.2.0"
-    tsup: "npm:^8.3.5"
+    tsdown: "npm:^0.22.0"
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^19.2.2
@@ -12854,10 +12852,9 @@ __metadata:
     react-use: "npm:^17.6.0"
     redux: "npm:^4.0.5"
     remark-breaks: "npm:^2.0.2"
-    rimraf: "npm:^3.0.1"
     shallowequal: "npm:^1.1.0"
     storybook: "npm:^10.2.0"
-    tsup: "npm:^8.3.5"
+    tsdown: "npm:^0.22.0"
   peerDependencies:
     react: ^19.2.2
     react-router: ^5.0.0

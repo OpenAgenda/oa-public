@@ -3,17 +3,21 @@
   "version": "2.2.3",
   "private": true,
   "type": "module",
-  "main": "dist/index.js",
+  "main": "./dist/index.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/index.mjs",
+    "./layouts": "./dist/layouts/index.mjs"
+  },
   "license": "MIT",
   "files": [
     "dist"
   ],
   "scripts": {
     "sb": "storybook dev",
-    "prepack": "yarn clean && oa-intl compile --esm && yarn build",
-    "build": "tsup",
-    "extract-messages": "oa-intl --esm",
-    "clean": "rimraf dist"
+    "prepack": "oa-intl compile --esm && yarn build",
+    "build": "tsdown",
+    "extract-messages": "oa-intl --esm"
   },
   "dependencies": {
     "@openagenda/activity-apps": "^1.2.3",
@@ -53,9 +57,8 @@
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
     "react-helmet-async": "^1.0.3",
-    "rimraf": "^3.0.1",
     "storybook": "^10.2.0",
-    "tsup": "^8.3.5"
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^19.2.2",

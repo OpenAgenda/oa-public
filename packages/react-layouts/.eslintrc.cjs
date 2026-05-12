@@ -17,7 +17,7 @@ module.exports = {
         devDependencies: [
           `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
-          `${__dirname}/tsup.config.js`,
+          `${__dirname}/tsdown.config.ts`,
         ],
       },
     ],
