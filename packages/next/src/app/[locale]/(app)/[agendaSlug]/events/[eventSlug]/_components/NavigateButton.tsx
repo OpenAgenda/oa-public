@@ -87,13 +87,8 @@ export function useGoToSiblingEvent({
       last: response.isLast ? 'true' : undefined,
     };
 
-    // NC travels via the URL only. The new page's `useNcEffect` writes it to
-    // sessionStorage after mount. Writing here would replace the current
-    // event's entry and make the still-mounted old tree flash during the
-    // transition. Server render also needs it in the URL so the nav bar is
-    // in the SSR HTML.
     router.push(
-      `${effectiveUrlPrefix}/events/${response.event.slug}${qs.stringify(
+      `${effectiveUrlPrefix}/events/${response.event.uid}_${response.event.slug}${qs.stringify(
         { ...query, nc: nextNc },
         { addQueryPrefix: true },
       )}`,

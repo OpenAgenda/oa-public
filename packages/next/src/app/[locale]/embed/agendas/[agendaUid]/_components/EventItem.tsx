@@ -53,7 +53,7 @@ function useEventLink({
       return {
         target,
         rel: target === '_blank' ? 'nofollow noopener' : '',
-        url: `${process.env.NEXT_PUBLIC_ROOT}/${locale}/${agenda.slug}/events/${event.slug}${qs.stringify({ nc, cl: contentLocale }, { addQueryPrefix: true })}`,
+        url: `${process.env.NEXT_PUBLIC_ROOT}/${locale}/${agenda.slug}/events/${event.uid}_${event.slug}${qs.stringify({ nc, cl: contentLocale }, { addQueryPrefix: true })}`,
       };
     }
 

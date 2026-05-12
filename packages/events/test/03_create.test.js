@@ -707,5 +707,19 @@ describe('events - functional - create', () => {
       expect(error instanceof ValidationError).toBeTruthy();
       expect(error.info.errors[0].code).toBe('longDescription.invalid');
     });
+
+    it('rejects useProvidedIdentifiers when slug contains underscore', async () => {
+      let error;
+      try {
+        await svc.create(
+          { ...data, uid: 99887766, slug: 'has_underscore' },
+          { useProvidedIdentifiers: true },
+        );
+      } catch (e) {
+        error = e;
+      }
+      expect(error).toBeDefined();
+      expect(error.message).toMatch(/must not contain "_"/);
+    });
   });
 });

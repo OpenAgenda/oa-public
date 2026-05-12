@@ -71,7 +71,9 @@ export default async function navigate(req, res, next) {
       },
     );
 
-    res.redirect(`/${agenda.slug}/events/${events[0].slug}${queryString}`);
+    res.redirect(
+      `/${agenda.slug}/events/${events[0].uid}_${events[0].slug}${queryString}`,
+    );
   } catch (e) {
     next(e);
   }

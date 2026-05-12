@@ -733,6 +733,21 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         expect(response.event.uid).toBe(2);
       });
 
+      it('get by agenda slug and event uid', async () => {
+        const response = await ky
+          .get(
+            'http://localhost:4000/agendas/slug/un-agenda-thematique/events/2',
+            {
+              searchParams: {
+                key: nonAdminModKey,
+              },
+            },
+          )
+          .json();
+
+        expect(response.event.uid).toBe(2);
+      });
+
       it('includeFields: get by slug with additional field labels', async () => {
         const response = await ky
           .get('http://localhost:4000/agendas/2/events/slug/event-1', {

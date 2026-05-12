@@ -438,5 +438,20 @@ describe('events - functional - update', () => {
       );
       expect(age).toEqual({ min: null, max: null });
     });
+
+    it('rejects useProvidedIdentifiers when slug contains underscore', async () => {
+      let error;
+      try {
+        await svc.update(
+          41414062,
+          { ...data, uid: 41414062, slug: 'has_underscore' },
+          { useProvidedIdentifiers: true },
+        );
+      } catch (e) {
+        error = e;
+      }
+      expect(error).toBeDefined();
+      expect(error.message).toMatch(/must not contain "_"/);
+    });
   });
 });

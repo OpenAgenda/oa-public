@@ -93,7 +93,7 @@ async function eventMailSend(req, res, next) {
         width: '300px',
       };
 
-    const link = `${config.root}/${req.agenda.slug}/events/${req.event.slug}`;
+    const link = `${config.root}/${req.agenda.slug}/events/${req.event.uid}_${req.event.slug}`;
 
     log.info('eventMailSend', {
       link,

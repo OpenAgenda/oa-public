@@ -1,4 +1,6 @@
 import type { Metadata } from 'next';
+import { permanentRedirect } from 'next/navigation';
+import qs from 'qs';
 import { SUPPORTED_LOCALES } from '@/src/config/constants';
 import getLocale from '@/src/utils/getLocale';
 import { fetchAgenda, fetchEvent } from '../../_api';
@@ -8,6 +10,7 @@ import EventShowWrapper from './_components/EventShowWrapper';
 import getContentLocale from './_utils/getContentLocale';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
+const UID_SLUG_RE = /^(\d+)_(.+)$/;
 
 type Params = Promise<{
   locale: string;
@@ -58,7 +61,7 @@ export async function generateMetadata({
   const pageTitle = `${title} | ${agenda.title} | OpenAgenda`;
   const rootUrl = process.env.NEXT_PUBLIC_ROOT;
   const canonicalLocale = locale === 'io' ? 'en' : locale;
-  const path = `/${agendaSlug}/events/${eventSlug}`;
+  const path = `/${agenda.slug}/events/${event.uid}_${event.slug}`;
   const canonicalUrl = `${rootUrl}/${canonicalLocale}${path}`;
 
   const languages: Record<string, string> = {};
@@ -104,8 +107,15 @@ export async function generateMetadata({
   };
 }
 
-export default async function EventPage({ params }: { params: Params }) {
-  const { agendaSlug, eventSlug } = await params;
+export default async function EventPage({
+  params,
+  searchParams,
+}: {
+  params: Params;
+  searchParams: SearchParams;
+}) {
+  const { locale, agendaSlug, eventSlug } = await params;
+  const sp = await searchParams;
 
   let agenda;
   try {
@@ -142,7 +152,21 @@ export default async function EventPage({ params }: { params: Params }) {
     await handleApiError(e);
   }
 
-  const eventFallbackKey = `/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
+  const uidMatch = eventSlug.match(UID_SLUG_RE);
+  if (eventResponse?.event) {
+    const { event } = eventResponse;
+    const canonicalSegment = `${event.uid}_${event.slug}`;
+    if (canonicalSegment !== eventSlug || agenda.slug !== agendaSlug) {
+      const search = qs.stringify(sp, { addQueryPrefix: true });
+      permanentRedirect(
+        `/${locale}/${agenda.slug}/events/${canonicalSegment}${search}`,
+      );
+    }
+  }
+
+  const eventFallbackKey = uidMatch
+    ? `/api/agendas/slug/${agendaSlug}/events/${uidMatch[1]}?longDescriptionFormat=HTMLWithEmbeds`
+    : `/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
 
   return (
     <EventShowWrapper

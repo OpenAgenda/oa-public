@@ -15,8 +15,8 @@ export default async function sendJSONLD(req, res) {
         formatDate: (date, tz = 'Europe/Paris') =>
           formatInTimeZone(date, tz, "yyyy-MM-dd'T'HH:mm:ssXXX"),
         url: event.originAgenda
-          ? `${root}/${event.originAgenda.slug}/events/${event.slug}`
-          : `${root}/events/${event.slug}`,
+          ? `${root}/${event.originAgenda.slug}/events/${event.uid}_${event.slug}`
+          : `${root}/events/${event.uid}`,
       }),
     );
   }

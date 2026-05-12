@@ -251,7 +251,7 @@ export default function EventItem({
     >
       <div>
         <a
-          href={`/${agenda.slug}/events/${event.slug}${adminNavStr}`}
+          href={`/${agenda.slug}/events/${event.uid}_${event.slug}${adminNavStr}`}
           style={{ color: 'inherit' }}
         >
           <StatusBadge status={event.status} intl={intl} />

@@ -205,7 +205,10 @@ export default function plugApp(app) {
         if (req.query.json) {
           return res.status(200).json();
         }
-        res.redirect(302, `/${req.agenda.slug}/events/${req.event.slug}`);
+        res.redirect(
+          302,
+          `/${req.agenda.slug}/events/${req.event.uid}_${req.event.slug}`,
+        );
       }, next),
   );
 

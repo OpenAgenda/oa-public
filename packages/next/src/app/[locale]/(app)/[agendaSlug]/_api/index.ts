@@ -46,12 +46,17 @@ export const fetchAgenda = cache(
 export type EventResponse = { success: boolean; event: Event };
 
 export const fetchEvent = cache(
-  async (agendaSlug: string, eventSlug: string): Promise<EventResponse> => {
+  async (
+    agendaSlug: string,
+    eventSlugOrUidSlug: string,
+  ): Promise<EventResponse> => {
     const api = await getApi();
+    const uidMatch = eventSlugOrUidSlug.match(/^(\d+)_(.+)$/);
+    const path = uidMatch
+      ? `api/agendas/slug/${agendaSlug}/events/${uidMatch[1]}`
+      : `api/agendas/slug/${agendaSlug}/events/slug/${eventSlugOrUidSlug}`;
     return api
-      .get(
-        `api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`,
-      )
+      .get(`${path}?longDescriptionFormat=HTMLWithEmbeds`)
       .json<EventResponse>();
   },
 );

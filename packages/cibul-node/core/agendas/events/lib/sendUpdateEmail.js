@@ -5,7 +5,7 @@ import Stopwatch from '@openagenda/utils/Stopwatch.js';
 const log = logs('core/events/sendUpdateEmail');
 
 const eventLink = (root, agenda, event) =>
-  `${root}/${agenda.slug}/events/${event.slug}`;
+  `${root}/${agenda.slug}/events/${event.uid}_${event.slug}`;
 
 const agendaLogo = (agenda) =>
   (agenda?.image

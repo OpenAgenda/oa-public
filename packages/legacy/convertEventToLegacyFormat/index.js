@@ -31,7 +31,7 @@ export default (agendaSettings, event, options = {}) => {
   const legacyFormat = {
     uid: event.uid,
     slug: event.slug,
-    canonicalUrl: `${root}/${agendaSettings.slug}/events/${event.slug}`,
+    canonicalUrl: `${root}/${agendaSettings.slug}/events/${event.uid}_${event.slug}`,
     title: event.title,
     description: event.description
       ? Object.keys(event.description).reduce(

@@ -19,7 +19,7 @@ export default function LdJson() {
           locale: intl.locale,
           formatDate: (date, tz = 'Europe/Paris') =>
             formatInTimeZone(date, tz, "yyyy-MM-dd'T'HH:mm:ssXXX"),
-          url: `${process.env.NEXT_PUBLIC_ROOT}/${intl.locale}/${agenda.slug}/events/${event.slug}`,
+          url: `${process.env.NEXT_PUBLIC_ROOT}/${intl.locale}/${agenda.slug}/events/${event.uid}_${event.slug}`,
         }),
       ),
     [agenda.slug, intl.locale, event],

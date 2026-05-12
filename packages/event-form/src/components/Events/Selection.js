@@ -69,7 +69,7 @@ export default function Selection({ res, value, lang, onChange }) {
         <li className="margin-v-sm" key={`selected-event-${event.uid}`}>
           <EventItem event={event} lang={lang}>
             <a
-              href={`/events/${event.slug}`}
+              href={`/events/${event.uid}`}
               target="_blank"
               rel="noreferrer"
               className="btn btn-link padding-all-z margin-right-sm"

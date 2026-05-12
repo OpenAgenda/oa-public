@@ -295,7 +295,7 @@ export default function EventItem({
                 }}
               >
                 <NextLink
-                  href={`${localePath(`/${agenda.slug}/events/${event.slug}`)}${qs.stringify(
+                  href={`${localePath(`/${agenda.slug}/events/${event.uid}_${event.slug}`)}${qs.stringify(
                     {
                       nc: {
                         ...query,

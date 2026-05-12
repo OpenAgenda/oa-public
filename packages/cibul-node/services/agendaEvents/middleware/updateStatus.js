@@ -30,7 +30,7 @@ export default (req, res, next) => {
         302,
         req.query.redirect
           ? base64.decode(req.query.redirect)
-          : `/${req.agenda.slug}/events/${req.event.slug}`,
+          : `/${req.agenda.slug}/events/${req.event.uid}_${req.event.slug}`,
       );
     }, next);
 };

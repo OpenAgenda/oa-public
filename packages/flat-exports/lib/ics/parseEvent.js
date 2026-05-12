@@ -8,7 +8,7 @@ import foldLine from './foldLine.js';
 const getLabel = makeLabelGetter(labels);
 
 function defaultGenUrl(e) {
-  return `https://openagenda.com/events/${e.slug}`;
+  return `https://openagenda.com/events/${e.uid}`;
 }
 
 function getDescription(attributes, lang) {
