@@ -1,6 +1,7 @@
 import { useLayoutEffect } from 'react';
 import { initialize, mswLoader } from 'msw-storybook-addon';
 import { SWRConfig } from 'swr';
+import type { Decorator, Loader } from '@storybook/react-webpack5';
 
 // Initialize MSW
 initialize({
@@ -25,7 +26,7 @@ initialize({
 
 export const parameters = { layout: 'fullscreen' };
 
-export const decorators = [
+export const decorators: Decorator[] = [
   // Clean the cache at each story change
   (Story) => (
     <SWRConfig value={{ provider: () => new Map() }}>
@@ -47,4 +48,4 @@ export const decorators = [
   },
 ];
 
-export const loaders = [mswLoader];
+export const loaders: Loader[] = [mswLoader];

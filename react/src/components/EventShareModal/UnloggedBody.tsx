@@ -4,7 +4,7 @@ import base64 from '../../utils/base64';
 import AccordionItem from '../AccordionItem';
 import messages from './messages';
 
-export default function UnloggedBody() {
+export default function UnloggedBody(): React.JSX.Element {
   const intl = useIntl();
 
   const asPath = window.location.pathname + window.location.search + window.location.hash;

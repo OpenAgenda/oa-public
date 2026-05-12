@@ -6,12 +6,19 @@ import { useInView } from 'react-intersection-observer';
 import { Center, Spinner, VStack } from '@openagenda/uikit';
 import SearchInput from '../SearchInput';
 import AccordionItem from '../AccordionItem';
+import type { Agenda, Event } from '../../types';
 import messages from './messages';
 import AgendaItem from './AgendaItem';
 
 const PAGE_SIZE = 20;
 
-export default function ShareOnOA({ agenda, event }) {
+export default function ShareOnOA({
+  agenda,
+  event,
+}: {
+  agenda: Agenda;
+  event: Event;
+}): React.JSX.Element {
   const intl = useIntl();
 
   const [searchValue, setSearchValue] = useState('');

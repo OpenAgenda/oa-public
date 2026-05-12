@@ -19,7 +19,7 @@ interface ExportModalProps {
   rootUrl?: string;
   apiRootUrl?: string;
   renderHost?: 'local' | 'parent';
-  fetchAgendaExportSettings?: ({ agendaUid }) => Promise<any>;
+  fetchAgendaExportSettings?: (agendaUid: string | number) => Promise<any>;
   portalRef?: React.RefObject<HTMLElement>;
 }
 
@@ -34,7 +34,7 @@ export default function AgendaExportModal({
   renderHost = 'local',
   fetchAgendaExportSettings = null,
   portalRef,
-}: ExportModalProps) {
+}: ExportModalProps): React.JSX.Element {
   const intl = useIntl();
 
   const dialogRef = useRef<HTMLDivElement>(null);

@@ -6,8 +6,13 @@ import { useTimeoutFn } from 'react-use';
 import AccordionItem from '../AccordionItem';
 import copyText from '../../utils/copyText';
 import messages from './messages';
+import type { CompleteUrlsResult } from './types';
 
-export default function JsonAccordionItem({ res }) {
+export default function JsonAccordionItem({
+  res,
+}: {
+  res: CompleteUrlsResult;
+}): React.JSX.Element {
   const intl = useIntl();
 
   const [copied, setCopied] = useState(false);
