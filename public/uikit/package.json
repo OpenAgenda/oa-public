@@ -11,46 +11,77 @@
     "access": "public"
   },
   "sideEffects": false,
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "scripts": {
     "postinstall": "chakra typegen src/theme/index.ts",
     "sb": "storybook dev",
     "start": "yarn sb",
-    "prepack": "NODE_OPTIONS=\"--max-old-space-size=4096\" tsup src --clean --format esm,cjs --dts"
+    "prepack": "tsdown"
   },
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./theme": {
-      "types": "./dist/theme/index.d.ts",
-      "import": "./dist/theme/index.mjs",
-      "require": "./dist/theme/index.js"
+      "import": {
+        "types": "./dist/theme/index.d.mts",
+        "default": "./dist/theme/index.mjs"
+      },
+      "require": {
+        "types": "./dist/theme/index.d.cts",
+        "default": "./dist/theme/index.cjs"
+      }
     },
     "./components": {
-      "types": "./dist/components/index.d.ts",
-      "import": "./dist/components/index.mjs",
-      "require": "./dist/components/index.js"
+      "import": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      },
+      "require": {
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
+      }
     },
     "./snippets": {
-      "types": "./dist/snippets/index.d.ts",
-      "import": "./dist/snippets/index.mjs",
-      "require": "./dist/snippets/index.js"
+      "import": {
+        "types": "./dist/snippets/index.d.mts",
+        "default": "./dist/snippets/index.mjs"
+      },
+      "require": {
+        "types": "./dist/snippets/index.d.cts",
+        "default": "./dist/snippets/index.cjs"
+      }
     },
     "./snippets/*": {
-      "types": "./dist/snippets/*.d.ts",
-      "import": "./dist/snippets/*.mjs",
-      "require": "./dist/snippets/*.js"
+      "import": {
+        "types": "./dist/snippets/*.d.mts",
+        "default": "./dist/snippets/*.mjs"
+      },
+      "require": {
+        "types": "./dist/snippets/*.d.cts",
+        "default": "./dist/snippets/*.cjs"
+      }
     },
     "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.mjs",
-      "require": "./dist/*.js"
+      "import": {
+        "types": "./dist/*.d.mts",
+        "default": "./dist/*.mjs"
+      },
+      "require": {
+        "types": "./dist/*.d.cts",
+        "default": "./dist/*.cjs"
+      }
     }
   },
   "dependencies": {
@@ -69,7 +100,7 @@
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
     "storybook": "^10.2.0",
-    "tsup": "^8.5.0",
+    "tsdown": "^0.22.0",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {

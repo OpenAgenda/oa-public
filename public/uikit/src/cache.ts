@@ -2,9 +2,9 @@ import createCache, { type EmotionCache } from '@emotion/cache';
 
 export { CacheProvider } from '@emotion/react';
 
-export { createCache, EmotionCache };
+export { createCache, type EmotionCache };
 
-export default function createEmotionCache() {
+export function createEmotionCache() {
   return createCache({ key: 'oa' });
 }
 
