@@ -4,5 +4,11 @@
       "type": 0,
       "value": "Connexion"
     }
+  ],
+  "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
+    {
+      "type": 0,
+      "value": "Confirm your email address"
+    }
   ]
 }

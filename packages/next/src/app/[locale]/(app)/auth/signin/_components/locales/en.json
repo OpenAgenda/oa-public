@@ -1,3 +1,4 @@
 {
-  "next.components.auth.AuthDialog.dialogTitle": "Sign in"
+  "next.components.auth.AuthDialog.dialogTitle": "Sign in",
+  "next.components.auth.AuthDialog.dialogTitleSignupComplete": "Confirm your email address"
 }

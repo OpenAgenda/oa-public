@@ -1,3 +1,4 @@
 {
-  "next.components.auth.AuthDialog.dialogTitle": ""
+  "next.components.auth.AuthDialog.dialogTitle": "",
+  "next.components.auth.AuthDialog.dialogTitleSignupComplete": ""
 }
