@@ -29,5 +29,3 @@ export const themeConfig = mergeConfigs(defaultConfig, {
 export const system = createSystem(themeConfig);
 
 export type System = typeof system;
-
-export default system;

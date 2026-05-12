@@ -78,7 +78,7 @@ export default function createApp(options) {
   });
 
   const Content = React.memo(({ extraProps, switchProps }) => (
-    <UIKitProvider theme={system}>
+    <UIKitProvider system={system}>
       <Provider store={store}>
         <ApiClientContext.Provider value={client}>
           {renderRoutes(routes, extraProps, switchProps)}

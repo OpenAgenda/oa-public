@@ -4,14 +4,14 @@ import type { MapContainerProps } from 'react-leaflet';
 import { useIntl } from 'react-intl';
 import L from 'leaflet';
 import shouldForwardProp from '@emotion/is-prop-valid';
-import { chakra, theme } from '@openagenda/uikit';
+import { chakra, system } from '@openagenda/uikit';
 const markerIconImg = '/images/markerIcon.png';
 import '@openagenda/leaflet-gesture-handling';
 
 import 'leaflet/dist/leaflet.css';
 import '@openagenda/leaflet-gesture-handling/dist/leaflet-gesture-handling.css';
 
-const { isValidProperty } = theme;
+const { isValidProperty } = system;
 
 const MAP_TILES = process.env.NEXT_PUBLIC_MAP_TILES;
 
