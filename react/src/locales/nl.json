@@ -45,6 +45,8 @@
   "react.components.EventShareModal.copied": "Gekopieerd",
   "react.components.EventShareModal.copy": "Kopiëren",
   "react.components.EventShareModal.downloadButton": "Downloaden",
+  "react.components.EventShareModal.feedbackLink": "Laat ons weten hoe we dit kunnen verbeteren!",
+  "react.components.EventShareModal.feedbackQuestion": "Vind je deze export nuttig?",
   "react.components.EventShareModal.import": "Importeren",
   "react.components.EventShareModal.mustSignIn": "U moet inloggen om dit evenement in een andere agenda te delen",
   "react.components.EventShareModal.onOA": "Op OpenAgenda",
