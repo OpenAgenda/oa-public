@@ -18,7 +18,7 @@ module.exports = {
           `${__dirname}/stories/**/*.js`,
           `${__dirname}/example/**/*.js`,
           `${__dirname}/webpack.config.cjs`,
-          `${__dirname}/tsup.config.js`,
+          `${__dirname}/tsdown.config.ts`,
         ],
       },
     ],
