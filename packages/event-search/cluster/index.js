@@ -11,7 +11,7 @@ async function getIndexSettings({ client, defaultIndex }, index) {
     .getSettings({
       index: index || defaultIndex,
     })
-    .then((r) => r.body[index || defaultIndex].settings.index);
+    .then((r) => Object.values(r.body)[0].settings.index);
 }
 
 async function stats(client) {

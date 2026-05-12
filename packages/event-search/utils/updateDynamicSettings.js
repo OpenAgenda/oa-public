@@ -7,13 +7,10 @@ export default async function updateDynamicSettings(
   index,
   settings,
 ) {
+  const { body } = await client.indices.getSettings({ index });
   const {
-    body: {
-      [index]: {
-        settings: { index: current },
-      },
-    },
-  } = await client.indices.getSettings({ index });
+    settings: { index: current },
+  } = Object.values(body)[0];
 
   const modifiedSettings = Object.keys(settings).reduce((changes, key) => {
     if (settings[key] === parseInt(current[key], 10)) {

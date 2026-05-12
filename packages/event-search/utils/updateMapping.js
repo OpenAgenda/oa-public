@@ -6,7 +6,7 @@ const log = logs('utils/updateMapping');
 export default async ({ client }, index, mapping, options = {}) => {
   const currentMapping = await client.indices
     .getMapping({ index })
-    .then(({ body }) => body[index].mappings.properties);
+    .then(({ body }) => Object.values(body)[0].mappings.properties);
 
   const newFields = diff(currentMapping, mapping)
     .filter((d) => d.kind === 'N')
