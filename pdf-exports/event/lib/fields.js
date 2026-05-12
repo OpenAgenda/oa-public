@@ -1,3 +1,5 @@
+import getIntl from '../../utils/intl.js';
+import messages from '../../lib/messages.js';
 import sectionTitle from './sectionTitle.js';
 
 export const headGroup = [
@@ -59,12 +61,12 @@ export const timingsGroup = ({ lang }) => [
   },
 ];
 
-export const locationCoordinates = (location) =>
+export const locationCoordinates = (location, lang) =>
   (['website', 'phone', 'email'].filter((f) => !!location[f]).length
     ? [
       {
         fieldType: 'text',
-        value: 'Coordonnées',
+        value: getIntl(lang).formatMessage(messages.contactDetails),
         bold: true,
       },
       {

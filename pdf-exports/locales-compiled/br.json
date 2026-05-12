@@ -17,6 +17,12 @@
       "value": "Conditions"
     }
   ],
+  "pdf-exports.contactDetails": [
+    {
+      "type": 0,
+      "value": "Coordonnées"
+    }
+  ],
   "pdf-exports.location": [
     {
       "type": 0,
