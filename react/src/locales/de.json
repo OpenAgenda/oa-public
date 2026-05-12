@@ -3,6 +3,7 @@
   "react.components.AgendaExportModal.chronological": "Chronologische reihenfolge",
   "react.components.AgendaExportModal.close": "Schließen",
   "react.components.EventShareModal.downloadButton": "Herunterladen",
+  "react.components.EventShareModal.feedbackLink": "Sag uns, wie wir es verbessern können!",
   "react.components.EventShareModal.feedbackQuestion": "Finden Sie diesen Export nützlich?",
   "react.components.EventShareModal.signIn": "Anmelden"
 }
