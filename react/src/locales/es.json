@@ -22,6 +22,7 @@
   "react.components.EventShareModal.copied": "Copiado",
   "react.components.EventShareModal.copy": "Copiar",
   "react.components.EventShareModal.downloadButton": "Descargar",
+  "react.components.EventShareModal.feedbackLink": "¡Dinos cómo mejorarlo!",
   "react.components.EventShareModal.feedbackQuestion": "¿Encuentras útil esta exportación?",
   "react.components.EventShareModal.import": "Importar",
   "react.components.EventShareModal.mustSignIn": "Debes iniciar sesión para compartir este evento en otra agenda",
