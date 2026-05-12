@@ -1,4 +1,4 @@
-import dateRanges from './dateRanges.js';
+import { dateRanges } from './dateRanges.js';
 import withDefaultFilterConfig from './withDefaultFilterConfig.js';
 import getAdditionalFilters from './getAdditionalFilters.js';
 

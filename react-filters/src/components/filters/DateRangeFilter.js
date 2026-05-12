@@ -42,7 +42,7 @@ function formatDateValue(value) {
 }
 
 // For display (store -> form)
-export function formatValue(value) {
+function formatValue(value) {
   if (value === undefined) {
     return [
       {
@@ -115,7 +115,7 @@ function parseValue(value) {
   return result;
 }
 
-export function Preview({
+function Preview({
   name,
   staticRanges = [],
   component = FilterPreviewer,
@@ -272,5 +272,6 @@ const exported = React.memo(DateRangeFilter);
 // React.memo lose statics
 exported.Preview = Preview;
 exported.Collapsable = Collapsable;
+exported.formatValue = formatValue;
 
 export default exported;
