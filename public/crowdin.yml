@@ -12,7 +12,7 @@ files:
       /common-labels/locales/%two_letters_code%/**/%original_file_name%
     update_option: update_as_unapproved
 
-  - source: /pdf-exports/locales/en/**/*.json
+  - source: /pdf-exports/locales/en.json
     translation: >-
-      /pdf-exports/locales/%two_letters_code%/**/%original_file_name%
+      /pdf-exports/locales/%two_letters_code%.%file_extension%
     update_option: update_as_unapproved
