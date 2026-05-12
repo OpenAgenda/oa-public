@@ -37,6 +37,10 @@ export default defineMessages({
     id: 'pdf-exports.conditions',
     defaultMessage: 'Conditions',
   },
+  contactDetails: {
+    id: 'pdf-exports.contactDetails',
+    defaultMessage: 'Contact details',
+  },
   page: {
     id: 'pdf-exports.page',
     defaultMessage: 'Page',

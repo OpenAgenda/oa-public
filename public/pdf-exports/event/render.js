@@ -120,7 +120,9 @@ export default async function renderEvent(
           : [],
       )
       .concat(
-        displayLocationInSidebar ? locationCoordinates(event.location) : [],
+        displayLocationInSidebar
+          ? locationCoordinates(event.location, lang)
+          : [],
       )
       .concat(displayLocationInSidebar ? locationDescriptions : [])
       .map(loadItem)
@@ -150,7 +152,7 @@ export default async function renderEvent(
         padding: event.location.image ? 10 : 0,
         contentItemMargin: 3,
         content: locationMain({})
-          .concat(locationCoordinates(event.location))
+          .concat(locationCoordinates(event.location, lang))
           .map(loadItem)
           .map(mapToFieldValuePair.bind(null, agendaFlatSchemaFields, event))
           .filter(filterUnset),
