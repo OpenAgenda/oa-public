@@ -12,6 +12,7 @@ module.exports = {
           `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.{tsx,ts,jsx,js}`,
           `${__dirname}/scripts/**/*.mjs`,
+          `${__dirname}/tsdown.config.ts`,
         ],
       },
     ],

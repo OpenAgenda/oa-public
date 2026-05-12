@@ -10,46 +10,77 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "scripts": {
     "sb": "storybook dev",
     "start": "yarn sb",
-    "prepack": "oa-intl compile --esm -o 'src/locales/compiled/%lang%.json' && tsup 'src/**/*.{ts,tsx,mjs}' '!src/types/modules.d.ts' --clean --format esm,cjs --dts",
+    "prepack": "oa-intl compile --esm -o 'src/locales/compiled/%lang%.json' && tsdown",
     "extract-messages": "oa-intl --esm --compiled 'src/locales/compiled/%lang%.json'"
   },
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./components": {
-      "types": "./dist/components/index.d.ts",
-      "import": "./dist/components/index.mjs",
-      "require": "./dist/components/index.js"
+      "import": {
+        "types": "./dist/components/index.d.mts",
+        "default": "./dist/components/index.mjs"
+      },
+      "require": {
+        "types": "./dist/components/index.d.cts",
+        "default": "./dist/components/index.cjs"
+      }
     },
     "./components/*": {
-      "types": "./dist/components/*.d.ts",
-      "import": "./dist/components/*.mjs",
-      "require": "./dist/components/*.js"
+      "import": {
+        "types": "./dist/components/*.d.mts",
+        "default": "./dist/components/*.mjs"
+      },
+      "require": {
+        "types": "./dist/components/*.d.cts",
+        "default": "./dist/components/*.cjs"
+      }
     },
     "./hooks": {
-      "types": "./dist/hooks/index.d.ts",
-      "import": "./dist/hooks/index.mjs",
-      "require": "./dist/hooks/index.js"
+      "import": {
+        "types": "./dist/hooks/index.d.mts",
+        "default": "./dist/hooks/index.mjs"
+      },
+      "require": {
+        "types": "./dist/hooks/index.d.cts",
+        "default": "./dist/hooks/index.cjs"
+      }
     },
     "./hooks/*": {
-      "types": "./dist/hooks/*.d.ts",
-      "import": "./dist/hooks/*.mjs",
-      "require": "./dist/hooks/*.js"
+      "import": {
+        "types": "./dist/hooks/*.d.mts",
+        "default": "./dist/hooks/*.mjs"
+      },
+      "require": {
+        "types": "./dist/hooks/*.d.cts",
+        "default": "./dist/hooks/*.cjs"
+      }
     },
     "./*": {
-      "types": "./dist/*.d.ts",
-      "import": "./dist/*.mjs",
-      "require": "./dist/*.js"
+      "import": {
+        "types": "./dist/*.d.mts",
+        "default": "./dist/*.mjs"
+      },
+      "require": {
+        "types": "./dist/*.d.cts",
+        "default": "./dist/*.cjs"
+      }
     }
   },
   "dependencies": {
@@ -83,7 +114,7 @@
     "react-dom": "^19.2.2",
     "storybook": "^10.2.0",
     "tsconfig-paths-webpack-plugin": "^4.2.0",
-    "tsup": "^8.4.0",
+    "tsdown": "^0.22.0",
     "typescript": "^5.6.3"
   },
   "peerDependencies": {
