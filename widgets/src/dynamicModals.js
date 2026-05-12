@@ -36,7 +36,7 @@ export async function renderAgendaExportModal(message, iframe) {
     <Provider
       intlMessages={intlMessages}
       locale={message.locale}
-      theme={system}
+      system={system}
     >
       <TopLayerPopover open>
         {(containerRef) => (
@@ -85,7 +85,7 @@ export async function renderEventShareModal(message) {
     <Provider
       intlMessages={intlMessages}
       locale={message.locale}
-      theme={system}
+      system={system}
     >
       <TopLayerPopover open>
         {(containerRef) => (

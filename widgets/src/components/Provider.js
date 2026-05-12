@@ -41,7 +41,7 @@ export const themeConfig = defineConfig({
   },
 });
 
-export default function Provider({ locale, intlMessages, theme, children }) {
+export default function Provider({ locale, intlMessages, system, children }) {
   const [shadow, setShadow] = useState(null);
   const [cache, setCache] = useState(null);
 
@@ -58,7 +58,7 @@ export default function Provider({ locale, intlMessages, theme, children }) {
   return (
     <root.div ref={setShadow}>
       {shadow?.shadowRoot && cache && (
-        <UIKitProvider theme={theme} cache={cache}>
+        <UIKitProvider system={system} cache={cache}>
           <EnvironmentProvider value={() => shadow.shadowRoot ?? document}>
             <IntlProvider key={locale} locale={locale} messages={intlMessages}>
               {children}
