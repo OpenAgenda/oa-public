@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import extractLanguages from '@openagenda/event-form/build/utils/extractLanguages.js';
+import extractLanguages from '@openagenda/event-form/utils/extractLanguages';
 import { BadRequest } from '@openagenda/verror';
 import validateBySchema from '@openagenda/form-schemas/iso/validateBySchema.js';
-import eventSchema from '@openagenda/event-form/src/schema.js';
+import eventSchema from '@openagenda/event-form/schema';
 import logs from '@openagenda/logs';
 import getWriteAccess from './getWriteAccess.js';
 

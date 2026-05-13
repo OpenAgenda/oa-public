@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 
 import { Modal } from '@openagenda/react-shared';
-import EventForm from '@openagenda/event-form/build/index.js';
+import EventForm from '@openagenda/event-form';
 import ButtonSpinner from './ButtonSpinner.js';
 
 const messages = defineMessages({

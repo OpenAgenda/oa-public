@@ -8,9 +8,14 @@
   "license": "ISC",
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/agenda-settings",
   "type": "module",
+  "exports": {
+    "./package.json": "./package.json",
+    "./createApp": "./dist/createApp.mjs",
+    "./editApp": "./dist/editApp.mjs"
+  },
   "scripts": {
     "sb": "storybook dev",
-    "build": "tsup",
+    "build": "tsdown",
     "prepack": "oa-intl compile --esm && yarn build",
     "extract-messages": "oa-intl --esm"
   },
@@ -57,7 +62,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "storybook": "^10.2.0",
-    "tsup": "^8.3.5"
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

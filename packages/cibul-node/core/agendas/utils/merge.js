@@ -1,6 +1,6 @@
 import logs from '@openagenda/logs';
 import formSchemas from '@openagenda/form-schemas';
-import eventFormSchema from '@openagenda/event-form/src/schema.js';
+import eventFormSchema from '@openagenda/event-form/schema';
 import tagSetToFormSchema from '@openagenda/legacy/tagSetToFormSchema/index.js';
 import agendaLocations from '@openagenda/agenda-locations';
 import getAddMethod from './getAddMethod.js';

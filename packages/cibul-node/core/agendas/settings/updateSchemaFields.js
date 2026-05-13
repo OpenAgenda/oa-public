@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { BadRequest } from '@openagenda/verror';
 import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
-import eventsValidator from '@openagenda/event-form/src/validators/events.js';
+import eventsValidator from '@openagenda/event-form/validators/events';
 import logs from '@openagenda/logs';
 import getAgenda from '../utils/getAgenda.js';
 import eventReservedFields from './eventReservedFields.js';

@@ -3,10 +3,14 @@
   "version": "1.5.5",
   "private": true,
   "type": "module",
-  "main": "server/index",
+  "main": "./dist/index.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/index.mjs"
+  },
   "scripts": {
     "prepack": "oa-intl compile --esm && yarn build",
-    "build": "tsup",
+    "build": "tsdown",
     "sb": "storybook dev",
     "extract-messages": "oa-intl --esm",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
@@ -54,7 +58,7 @@
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
     "storybook": "^10.2.0",
-    "tsup": "^8.3.5"
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^19.2.2",

@@ -1,6 +1,6 @@
 import { defineMessages, useIntl } from 'react-intl';
 
-import EventForm from '@openagenda/event-form/build/index.js';
+import EventForm from '@openagenda/event-form';
 import URLDefaults from '../lib/URLDefaults.js';
 
 import ButtonSpinner from './ButtonSpinner.js';

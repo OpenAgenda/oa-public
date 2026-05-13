@@ -1,6 +1,6 @@
-import eventFormSchema from '@openagenda/event-form/src/schema.js';
+import eventFormSchema from '@openagenda/event-form/schema';
 import { createIntlByLocale } from '@openagenda/intl';
-import * as locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
+import * as locales from '@openagenda/agenda-schemas-app/locales-compiled';
 import eventReservedFields from '../agendas/settings/eventReservedFields.js';
 
 const intlByLocale = createIntlByLocale(locales);

@@ -1,8 +1,6 @@
-'use strict';
+import path from 'node:path';
 
-const path = require('node:path');
-
-module.exports = function inputToOuputPath(glob, input, dest, lang) {
+export default function inputToOuputPath(glob, input, dest, lang) {
   const originalGlobStarIndex = glob.indexOf('**');
   const globStarIndex = glob.replace('%lang%', lang).indexOf('**');
 
@@ -44,4 +42,4 @@ module.exports = function inputToOuputPath(glob, input, dest, lang) {
     compiledPath,
     originalFileName,
   };
-};
+}

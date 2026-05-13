@@ -2,7 +2,7 @@ import { Component } from 'react';
 import { connect } from 'react-redux';
 
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder/index.js';
-import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges.js';
+import EnabledRanges from '@openagenda/event-form/components/configuration/EnabledRanges';
 
 import * as reducers from '../reducers/index.js';
 
