@@ -9,6 +9,12 @@ module.exports = {
 
   ignorePatterns: ['/dist'],
 
+  settings: {
+    'import/resolver': {
+      typescript: true,
+    },
+  },
+
   rules: {
     'import/no-extraneous-dependencies': [
       'error',

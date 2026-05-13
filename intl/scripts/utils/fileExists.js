@@ -1,12 +1,10 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('node:fs');
-
-module.exports = function fileExists(filepath) {
+export default function fileExists(filepath) {
   try {
     fs.accessSync(filepath);
     return true;
   } catch {
     return false;
   }
-};
+}

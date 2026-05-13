@@ -1,20 +1,18 @@
-'use strict';
-
-const {
+import {
   DEFAULT_LANG,
   DEFAULT_LANGS,
   DEFAULT_FALLBACK_MAP,
-} = require('../dist/constants');
-const extract = require('./extract');
-const compile = require('./compile');
+} from '@openagenda/intl/constants';
+import extract from './extract.js';
+import compile from './compile.js';
 
 // Command
 
-module.exports.command = '$0 [files...]';
+export const command = '$0 [files...]';
 
-module.exports.describe = 'Extract and compile locales.';
+export const describe = 'Extract and compile locales.';
 
-module.exports.builder = (yargsBuilder) => {
+export const builder = (yargsBuilder) => {
   yargsBuilder.positional('files', {
     default: ['src/**/*.{js,jsx,ts,tsx}'],
     desc: 'Glob paths to extract translations from, the source files.',
@@ -83,7 +81,7 @@ module.exports.builder = (yargsBuilder) => {
   });
 };
 
-module.exports.handler = async (argv) => {
+export const handler = async (argv) => {
   if (!argv.compileOnly) {
     await extract.handler({
       files: argv.files,
@@ -108,3 +106,5 @@ module.exports.handler = async (argv) => {
     esm: argv.esm,
   });
 };
+
+export default { command, describe, builder, handler };

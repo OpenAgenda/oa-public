@@ -1,4 +1,4 @@
-import React from 'react';
+import { forwardRef as reactForwardRef } from 'react';
 import { useIntl } from 'react-intl';
 import hoistNonReactStatics from 'hoist-non-react-statics';
 
@@ -21,7 +21,7 @@ export default function injectIntl(WrappedComponent, options = {}) {
 
   if (forwardRef) {
     return hoistNonReactStatics(
-      React.forwardRef((props, ref) => (
+      reactForwardRef((props, ref) => (
         <WithIntl {...props} forwardedRef={ref} />
       )),
       WrappedComponent,

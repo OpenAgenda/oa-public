@@ -2,7 +2,8 @@
   "name": "@openagenda/react-portal-ssr",
   "version": "1.0.3",
   "type": "module",
-  "main": "dist/client.js",
+  "main": "./dist/client.cjs",
+  "module": "./dist/client.mjs",
   "sideEffects": false,
   "license": "MIT",
   "homepage": "https://github.com/OpenAgenda/oa-public",
@@ -13,25 +14,22 @@
     "dist"
   ],
   "exports": {
+    "./package.json": "./package.json",
     ".": {
-      "require": "./dist/client.cjs",
-      "import": "./dist/client.js",
-      "default": "./dist/client.js"
+      "import": "./dist/client.mjs",
+      "require": "./dist/client.cjs"
     },
     "./server": {
-      "require": "./dist/server.cjs",
-      "import": "./dist/server.js",
-      "default": "./dist/server.js"
+      "import": "./dist/server.mjs",
+      "require": "./dist/server.cjs"
     },
     "./common": {
-      "require": "./dist/common.cjs",
-      "import": "./dist/common.js",
-      "default": "./dist/common.js"
-    },
-    "./package.json": "./package.json"
+      "import": "./dist/common.mjs",
+      "require": "./dist/common.cjs"
+    }
   },
   "scripts": {
-    "prepack": "tsup"
+    "prepack": "tsdown"
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.10"
@@ -40,7 +38,7 @@
     "@openagenda/eslint-config": "^1.4.0",
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
-    "tsup": "^8.3.5"
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^19.2.2",

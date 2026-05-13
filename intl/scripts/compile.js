@@ -1,22 +1,20 @@
-'use strict';
-
-const fs = require('node:fs');
-const path = require('node:path');
-const _ = require('lodash');
-const glob = require('glob');
-const { mkdirp } = require('mkdirp');
-const tmp = require('tmp');
-const { compile } = require('@formatjs/cli-lib');
-const {
+import fs from 'node:fs';
+import path from 'node:path';
+import _ from 'lodash';
+import glob from 'glob';
+import { mkdirp } from 'mkdirp';
+import tmp from 'tmp';
+import { compile } from '@formatjs/cli-lib';
+import {
   DEFAULT_LANG,
   DEFAULT_LANGS,
   DEFAULT_FALLBACK_MAP,
-} = require('../dist/constants');
-const getFallbackChain = require('../dist/getFallbackChain').default;
-const completeMessages = require('../dist/utils/completeMessages').default;
-const createIndex = require('./utils/createIndex');
-const getMessages = require('./utils/getMessages');
-const inputToOuputPath = require('./utils/inputToOuputPath');
+} from '@openagenda/intl/constants';
+import getFallbackChain from '@openagenda/intl/getFallbackChain';
+import completeMessages from '@openagenda/intl/utils/completeMessages';
+import createIndex from './utils/createIndex.js';
+import getMessages from './utils/getMessages.js';
+import inputToOuputPath from './utils/inputToOuputPath.js';
 
 const defaults = {
   locales: 'src/locales/%lang%.json',
@@ -116,11 +114,11 @@ async function compileLang({
 
 // Command
 
-module.exports.command = 'compile [locales]';
+export const command = 'compile [locales]';
 
-module.exports.describe = 'Compile locales.';
+export const describe = 'Compile locales.';
 
-module.exports.builder = (yargs) => {
+export const builder = (yargs) => {
   yargs.positional('locales', {
     default: defaults.locales,
     desc: 'Glob path to compile locales from.',
@@ -166,7 +164,7 @@ module.exports.builder = (yargs) => {
   });
 };
 
-module.exports.handler = async (argv) => {
+export const handler = async (argv) => {
   const {
     locales = defaults.locales,
     localesPaths,
@@ -210,3 +208,5 @@ module.exports.handler = async (argv) => {
     await createIndex(output, langs, esm);
   }
 };
+
+export default { command, describe, builder, handler };

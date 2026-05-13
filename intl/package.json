@@ -16,27 +16,26 @@
     "dist",
     "scripts"
   ],
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": "./dist/index.mjs",
-      "require": "./dist/index.js",
-      "default": "./dist/index.js"
+      "require": "./dist/index.cjs"
     },
     "./scripts/*": "./scripts/*.js",
     "./*": {
       "import": "./dist/*.mjs",
-      "require": "./dist/*.js",
-      "default": "./dist/*.js"
-    },
-    "./package.json": "./package.json"
+      "require": "./dist/*.cjs"
+    }
   },
   "bin": {
     "oa-intl": "./scripts/cli.js"
   },
   "scripts": {
-    "prepack": "tsup src --format esm,cjs --clean"
+    "prepack": "tsdown"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.28.4",
@@ -53,7 +52,7 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
-    "tsup": "^8.0.1"
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^19.2.2",
