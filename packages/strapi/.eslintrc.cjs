@@ -7,7 +7,7 @@ module.exports = {
     sourceType: 'module',
   },
 
-  ignorePatterns: ['/types/generated'],
+  ignorePatterns: ['/types/generated', '/dist'],
 
   settings: {
     'import/resolver': {
