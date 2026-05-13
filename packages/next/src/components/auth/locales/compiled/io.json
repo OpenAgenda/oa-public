@@ -125,6 +125,72 @@
       "value": "A bit better 😬"
     }
   ],
+  "next.components.auth.ResetPassword.formTitle": [
+    {
+      "type": 0,
+      "value": "Reset your password"
+    }
+  ],
+  "next.components.auth.ResetPassword.genericError": [
+    {
+      "type": 0,
+      "value": "An error occurred. Please try again."
+    }
+  ],
+  "next.components.auth.ResetPassword.intro": [
+    {
+      "type": 0,
+      "value": "Choose a new password for your OpenAgenda account."
+    }
+  ],
+  "next.components.auth.ResetPassword.invalidToken": [
+    {
+      "type": 0,
+      "value": "This reset link is invalid or has expired. Please request a new one."
+    }
+  ],
+  "next.components.auth.ResetPassword.passwordLabel": [
+    {
+      "type": 0,
+      "value": "New password"
+    }
+  ],
+  "next.components.auth.ResetPassword.passwordRequired": [
+    {
+      "type": 0,
+      "value": "A password must be defined."
+    }
+  ],
+  "next.components.auth.ResetPassword.passwordsMustMatch": [
+    {
+      "type": 0,
+      "value": "The two passwords do not match."
+    }
+  ],
+  "next.components.auth.ResetPassword.repeatLabel": [
+    {
+      "type": 0,
+      "value": "Repeat password"
+    }
+  ],
+  "next.components.auth.ResetPassword.submitLabel": [
+    {
+      "type": 0,
+      "value": "Update password"
+    }
+  ],
+  "next.components.auth.ResetPassword.successHeading": [
+    {
+      "type": 0,
+      "value": "Password updated"
+    }
+  ],
+  "next.components.auth.ResetPassword.successMessage": [
+    {
+      "type": 0,
+      "value": "You can now sign in with your new password."
+    }
+  ],
   "next.components.auth.Signin.createAccount": [
     {
       "type": 0,

@@ -29,24 +29,24 @@ import {
   MainLayout,
   RequiredSuperAdmin,
   RequiredUser,
-} from '@openagenda/react-layouts/dist/layouts/index.js';
+} from '@openagenda/react-layouts/layouts';
 
 import createHomeApp from '@openagenda/home/dist/app.js';
-import createUserSettingsApp from '@openagenda/user-apps/dist/app.js';
-import createAgendaSettingsNewApp from '@openagenda/agenda-settings/dist/createApp.js';
-import createAgendaSettingsEditApp from '@openagenda/agenda-settings/dist/editApp.js';
+import createUserSettingsApp from '@openagenda/user-apps';
+import createAgendaSettingsNewApp from '@openagenda/agenda-settings/createApp';
+import createAgendaSettingsEditApp from '@openagenda/agenda-settings/editApp';
 import createUserActivitiesApp from '@openagenda/activity-apps/dist/client/apps/user/index.js';
 import createAgendaActivitiesApp from '@openagenda/activity-apps/dist/client/apps/agenda/index.js';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/dist/app.js';
-import createAgendaStatsApp from '@openagenda/agenda-stats/dist/app.js';
+import createAgendaStatsApp from '@openagenda/agenda-stats';
 import createInboxApp from '@openagenda/inbox-apps/dist/app.js';
 import createMembersApp from '@openagenda/member-apps/dist/app.js';
 import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/dist/index.js';
-import createAgendaContributeApp from '@openagenda/agenda-contribute/dist/index.js';
-import createEventAdminApp from '@openagenda/event-admin-apps/dist/app.js';
+import createAgendaContributeApp from '@openagenda/agenda-contribute';
+import createEventAdminApp from '@openagenda/event-admin-apps';
 import createAgendaLocationAdminApp from '@openagenda/agenda-locations-app/dist/app.js';
-import createAgendaSchemaAdminApp from '@openagenda/agenda-schemas-app/dist/app.js';
-import createSupervisorApp from '@openagenda/supervisor/dist/app.js';
+import createAgendaSchemaAdminApp from '@openagenda/agenda-schemas-app';
+import createSupervisorApp from '@openagenda/supervisor';
 import RootHelmet from './RootHelmet.js';
 import createReduxMiddleware from './reduxMiddleware.js';
 

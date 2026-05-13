@@ -1,10 +1,10 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import resetFront from '../auth/reset.front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 
 const enabled = [
   'knex',
@@ -39,14 +39,15 @@ const enabled = [
   'security',
 ];
 
-// Generous upper bound. The endpoint replies before BA does any DB lookup
-// (auth/reset.front.js fires the BA call without awaiting), so 1000 ms is a
-// comfortable margin even on slow CI machines while still flagging a real
-// regression where the response would block on the BA roundtrip
-// (≥ several seconds with timing-attack mitigation).
+// Generous upper bound. BA's /api/auth/request-password-reset fans out the
+// real send through `runInBackgroundOrAwait`, so the HTTP response returns
+// in O(ms) and is independent of the email-existence path (anti-timing). On
+// slow CI 1000 ms is comfortable while still flagging a regression where the
+// response would block on the full BA roundtrip (≥ several seconds with the
+// argon2 verify path).
 const FAST_RESPONSE_MS = 1000;
 
-describe('26 - /password/lost replies immediately regardless of email existence (phase 3b)', () => {
+describe('26 - /api/auth/request-password-reset replies immediately regardless of email existence (phase 6 lot 2)', () => {
   let core;
   let services;
   let usersSvc;
@@ -67,7 +68,7 @@ describe('26 - /password/lost replies immediately regardless of email existence 
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     usersSvc = services.users;
-    app = buildApp(services, testConfig, { extend: (a) => resetFront(a) });
+    app = buildApp(services, testConfig);
 
     originalSend = services.mails.send.bind(services.mails);
   });
@@ -80,6 +81,8 @@ describe('26 - /password/lost replies immediately regardless of email existence 
     };
   });
 
+  beforeEach(() => flushRateLimit(services.redis));
+
   afterAll(async () => {
     services.mails.send = originalSend;
     await core.services.shutdown({ clear: true });
@@ -88,14 +91,13 @@ describe('26 - /password/lost replies immediately regardless of email existence 
   it('responds in well under 1s for a non-existent email and does not send any mail', async () => {
     const start = Date.now();
     const res = await request(app)
-      .post('/password/lost')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/request-password-reset')
+      .set('Content-Type', 'application/json')
       .send({ email: 'no-such-user-26@oa.test' });
     const elapsed = Date.now() - start;
 
     expect(res.status).toBe(200);
-    expect(res.body).toMatchObject({ success: true });
+    expect(res.body).toMatchObject({ status: true });
     expect(elapsed).toBeLessThan(FAST_RESPONSE_MS);
 
     // BA itself does not send a reset mail when the user is not found
@@ -122,14 +124,13 @@ describe('26 - /password/lost replies immediately regardless of email existence 
     sentMails.length = 0;
     const start = Date.now();
     const res = await request(app)
-      .post('/password/lost')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/request-password-reset')
+      .set('Content-Type', 'application/json')
       .send({ email });
     const elapsed = Date.now() - start;
 
     expect(res.status).toBe(200);
-    expect(res.body).toMatchObject({ success: true });
+    expect(res.body).toMatchObject({ status: true });
     expect(elapsed).toBeLessThan(FAST_RESPONSE_MS);
 
     // Allow the background BA pipeline to invoke the mail send.

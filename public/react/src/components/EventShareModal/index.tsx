@@ -6,6 +6,7 @@ import {
   DialogHeader,
   DialogCloseTrigger,
 } from '@openagenda/uikit/snippets';
+import type { Agenda, Event, User } from '../../types';
 import messages from './messages';
 import Body from './Body';
 
@@ -22,7 +23,20 @@ export default function EventShareModal({
   rootUrl = 'https://openagenda.com',
   renderHost = 'local',
   portalRef = null,
-}) {
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+  agenda: Agenda;
+  event: Event;
+  user?: User | null;
+  contentLocale: string;
+  onEmailSent: (count: number) => void;
+  defaultValue?: string | string[] | null;
+  children?: React.ReactNode;
+  rootUrl?: string;
+  renderHost?: 'local' | 'parent';
+  portalRef?: React.RefObject<HTMLElement> | null;
+}): React.JSX.Element {
   const intl = useIntl();
 
   const dialogRef = useRef<HTMLDivElement>(null);

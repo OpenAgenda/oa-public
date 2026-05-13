@@ -10,10 +10,14 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "main": "dist/app.js",
+  "main": "./dist/app.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/app.mjs"
+  },
   "scripts": {
     "sb": "storybook dev",
-    "build": "tsup",
+    "build": "tsdown",
     "prepack": "oa-intl compile --esm && yarn build",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
     "extract-messages": "oa-intl --esm"
@@ -51,7 +55,7 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "storybook": "^10.2.0",
-    "tsup": "^8.3.5"
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

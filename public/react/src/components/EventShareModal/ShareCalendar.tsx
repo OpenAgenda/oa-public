@@ -140,7 +140,7 @@ export default function ShareCalendar({
   event,
   eventUrl,
   contentLocale,
-}: ShareCalendarProps) {
+}: ShareCalendarProps): React.JSX.Element {
   const intl = useIntl();
   const now = new Date();
 

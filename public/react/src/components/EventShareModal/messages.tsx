@@ -1,6 +1,6 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages, type MessageDescriptor } from 'react-intl';
 
-export default defineMessages({
+const messages: Record<string, MessageDescriptor> = defineMessages({
   onOA: {
     id: 'react.components.EventShareModal.onOA',
     defaultMessage: 'On OpenAgenda',
@@ -103,3 +103,5 @@ export default defineMessages({
     defaultMessage: 'This event has no upcoming timings',
   },
 });
+
+export default messages;

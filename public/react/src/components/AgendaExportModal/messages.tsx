@@ -1,6 +1,6 @@
-import { defineMessages } from 'react-intl';
+import { defineMessages, type MessageDescriptor } from 'react-intl';
 
-export default defineMessages({
+const messages: Record<string, MessageDescriptor> = defineMessages({
   modalTitle: {
     id: 'react.components.AgendaExportModal.title',
     defaultMessage: 'Export',
@@ -197,3 +197,5 @@ export default defineMessages({
     defaultMessage: 'Show contribution button',
   },
 });
+
+export default messages;

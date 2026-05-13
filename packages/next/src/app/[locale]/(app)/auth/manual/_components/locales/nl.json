@@ -1,0 +1,6 @@
+{
+  "next.auth.manual.complaint": "In het geval dat we vertraging hebben bij het verwerken van uw verzoek, stuur ons een bericht via de chat-tool die beschikbaar is op [onze homepage](/). U kunt ook een e-mail sturen naar [verif@openagenda.com](mailto:verif@openagenda.com) met vermelding van het e-mailadres dat u heeft gebruikt om uw account aan te maken.",
+  "next.auth.manual.context": "Vanwege een recente en aanzienlijke toename van geautomatiseerde advertentie-inhoud op het platform, is een tijdelijke verificatiestap voor nieuwe accounts noodzakelijk.",
+  "next.auth.manual.instruction": "**U wordt snel per e-mail op de hoogte gebracht van de activering van uw account (binnen enkele minuten tijdens kantooruren).**",
+  "next.auth.manual.title": "Verificatie van uw accountaanmaakverzoek"
+}

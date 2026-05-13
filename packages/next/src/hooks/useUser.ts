@@ -6,7 +6,7 @@ import ky from 'ky';
 import { FetchStatus } from 'config/types';
 
 type User = {
-  uid?: number;
+  uid: number;
   fullName?: string;
   username?: string;
   email?: string;
@@ -28,8 +28,8 @@ type User = {
 //   -> add req.session, getServerSideProps add the user to page props
 // TODO layout to getLayout(pageProps) to use user
 
-const fetcher = (url) =>
-  ky(url, {
+function fetcher(url: string): Promise<User> {
+  return ky(url, {
     hooks: {
       afterResponse: [
         (_request, _options, response) => {
@@ -37,7 +37,8 @@ const fetcher = (url) =>
         },
       ],
     },
-  }).json();
+  }).json<User>();
+}
 
 export default function useUser({
   redirectTo = null,

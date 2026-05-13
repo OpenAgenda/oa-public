@@ -5,11 +5,12 @@ import OfficialAgenda from '../OfficialAgenda';
 import LockIcon from '../LockIcon';
 import { useImageWithFallback } from '../../hooks/useImageWithFallback';
 import { THUMBOR_PREFIX, GRAYLOGO140 } from '../../config/constants';
+import type { Agenda, Event } from '../../types';
 import messages from './messages';
 
 const isDev = process.env.NODE_ENV === 'development';
 
-function getImageSrc(image) {
+function getImageSrc(image: string | undefined): string | null {
   if (!image) return null;
 
   return isDev
@@ -17,7 +18,19 @@ function getImageSrc(image) {
     : `${THUMBOR_PREFIX}main/${image}`;
 }
 
-export default function AgendaItem({ agenda, targetAgenda, event }) {
+type TargetAgenda = Agenda & {
+  member?: { role?: number };
+};
+
+export default function AgendaItem({
+  agenda,
+  targetAgenda,
+  event,
+}: {
+  agenda: Agenda;
+  targetAgenda: TargetAgenda;
+  event: Event;
+}): React.JSX.Element {
   const imageSrc = getImageSrc(targetAgenda.image);
 
   const image = useImageWithFallback({

@@ -20,7 +20,7 @@ export default function AccordionItem({
   children,
   disabled = false,
   disabledTooltip,
-}: AccordionItemProps) {
+}: AccordionItemProps): React.JSX.Element {
   const trigger = (
     <AccordionItemTrigger
       px="6"

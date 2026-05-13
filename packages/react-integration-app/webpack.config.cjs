@@ -198,6 +198,78 @@ module.exports = (env = {}, argv = {}) => {
         buffer: require.resolve('buffer'),
       },
       conditionNames: ['oa', '...'],
+      // Redirect workspace packages built with tsdown to their src/ so the
+      // browser bundle can pick up HMR boundaries through babel-loader.
+      // Node SSR (middleware.js) uses the same bare specifiers but resolves
+      // them via the packages' `exports` field — see each package.json.
+      alias: {
+        '@openagenda/agenda-contribute$': path.join(
+          __dirname,
+          '../agenda-contribute/src/index.js',
+        ),
+        '@openagenda/agenda-schemas-app$': path.join(
+          __dirname,
+          '../agenda-schemas-app/src/app.js',
+        ),
+        '@openagenda/agenda-settings/createApp$': path.join(
+          __dirname,
+          '../agenda-settings/src/createApp.js',
+        ),
+        '@openagenda/agenda-settings/editApp$': path.join(
+          __dirname,
+          '../agenda-settings/src/editApp.js',
+        ),
+        '@openagenda/event-form$': path.join(
+          __dirname,
+          '../event-form/src/index.js',
+        ),
+        '@openagenda/event-form/schema$': path.join(
+          __dirname,
+          '../event-form/src/schema.js',
+        ),
+        '@openagenda/event-form/components/configuration/DefaultLocation$':
+          path.join(
+            __dirname,
+            '../event-form/src/components/configuration/DefaultLocation.js',
+          ),
+        '@openagenda/event-form/components/configuration/EnabledRanges$':
+          path.join(
+            __dirname,
+            '../event-form/src/components/configuration/EnabledRanges.js',
+          ),
+        '@openagenda/event-form/utils/extractLanguages$': path.join(
+          __dirname,
+          '../event-form/src/utils/extractLanguages.js',
+        ),
+        '@openagenda/event-form/validators/events$': path.join(
+          __dirname,
+          '../event-form/src/validators/events.js',
+        ),
+        '@openagenda/agenda-stats$': path.join(
+          __dirname,
+          '../agenda-stats/src/app.js',
+        ),
+        '@openagenda/event-admin-apps$': path.join(
+          __dirname,
+          '../event-admin-apps/src/app.js',
+        ),
+        '@openagenda/react-layouts$': path.join(
+          __dirname,
+          '../react-layouts/src/index.js',
+        ),
+        '@openagenda/supervisor$': path.join(
+          __dirname,
+          '../supervisor/src/app.js',
+        ),
+        '@openagenda/user-apps$': path.join(
+          __dirname,
+          '../user-apps/src/app.js',
+        ),
+        '@openagenda/react-layouts/layouts$': path.join(
+          __dirname,
+          '../react-layouts/src/layouts/index.js',
+        ),
+      },
     },
     performance: {
       hints: false,

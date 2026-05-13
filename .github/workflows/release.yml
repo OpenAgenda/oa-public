@@ -48,8 +48,6 @@ jobs:
           font-awesome-npm-token: ${{ secrets.FONTAWESOME_NPM_AUTH_TOKEN }}
 
       - name: Build
-        env:
-          NODE_OPTIONS: --max-old-space-size=6144
         run: yarn turbo prepack
 
       - name: Create release Pull Request or publish to NPM

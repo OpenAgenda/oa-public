@@ -4,5 +4,23 @@
       "type": 0,
       "value": "Sign in"
     }
+  ],
+  "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
+    {
+      "type": 0,
+      "value": "Confirm your email address"
+    }
+  ],
+  "next.components.auth.Signin.invalidActivation.description": [
+    {
+      "type": 0,
+      "value": "This can be because it has already been used. If that is the case, your account should be activated."
+    }
+  ],
+  "next.components.auth.Signin.invalidActivation.title": [
+    {
+      "type": 0,
+      "value": "The activation link is not valid"
+    }
   ]
 }

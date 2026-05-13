@@ -1,10 +1,10 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import localFront from '../auth/local.front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 
 const enabled = [
   'knex',
@@ -60,7 +60,7 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     usersSvc = services.users;
-    app = buildApp(services, testConfig, { extend: (a) => localFront(a) });
+    app = buildApp(services, testConfig);
 
     // Spy on services.mails.send by replacing the method with a recording
     // wrapper. We do not actually want to send mail in tests; the wrapper
@@ -76,6 +76,8 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
     };
   });
 
+  beforeEach(() => flushRateLimit(services.redis));
+
   afterAll(async () => {
     services.mails.send = originalSend;
     await core.services.shutdown({ clear: true });
@@ -86,10 +88,10 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
     const password = 'plainPwd-22-strong';
 
     const res = await request(app)
-      .post('/signup')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-up/email')
+      .set('Content-Type', 'application/json')
       .send({
+        name: 'Verify Signup',
         full_name: 'Verify Signup',
         email,
         password,
@@ -124,10 +126,10 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
     const password = 'plainPwd-22-click';
 
     await request(app)
-      .post('/signup')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-up/email')
+      .set('Content-Type', 'application/json')
       .send({
+        name: 'Verify Click',
         full_name: 'Verify Click',
         email,
         password,
@@ -169,10 +171,10 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
     const password = 'plainPwd-22-replay';
 
     await request(app)
-      .post('/signup')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-up/email')
+      .set('Content-Type', 'application/json')
       .send({
+        name: 'Verify Replay',
         full_name: 'Verify Replay',
         email,
         password,

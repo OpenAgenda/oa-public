@@ -1,5 +1,7 @@
-import { formatValue as formatDateRangeValue } from '../components/filters/DateRangeFilter.js';
+import DateRangeFilter from '../components/filters/DateRangeFilter.js';
 import matchQuery from './matchQuery.js';
+
+const { formatValue: formatDateRangeValue } = DateRangeFilter;
 
 export default function matchFilter(filter, values, entry) {
   const [key, value] = entry;

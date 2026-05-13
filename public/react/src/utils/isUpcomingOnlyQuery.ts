@@ -1,4 +1,6 @@
-export default function isUpcomingOnlyQuery(query) {
+import type { EventQuery } from '../types';
+
+export default function isUpcomingOnlyQuery(query: EventQuery): boolean {
   return (
     !query.timings
     && query.passed !== '1'

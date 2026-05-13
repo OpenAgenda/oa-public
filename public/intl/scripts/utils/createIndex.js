@@ -1,11 +1,9 @@
-'use strict';
-
-const path = require('node:path');
-const fs = require('node:fs');
-const { mkdirp } = require('mkdirp');
-const { dedent } = require('ts-dedent');
-const fileExists = require('./fileExists');
-const isPackageModule = require('./isPackageModule');
+import path from 'node:path';
+import fs from 'node:fs';
+import { mkdirp } from 'mkdirp';
+import { dedent } from 'ts-dedent';
+import fileExists from './fileExists.js';
+import isPackageModule from './isPackageModule.js';
 
 function getCjsIndex(existingLangs, langs) {
   const requires = existingLangs
@@ -68,7 +66,7 @@ function removeIndex(indexPath) {
   }
 }
 
-module.exports = async function createIndex(dest, langs, isEsm) {
+export default async function createIndex(dest, langs, isEsm) {
   const extension = getFileExtension(
     isPackageModule(path.dirname(dest)),
     isEsm,
@@ -100,4 +98,4 @@ module.exports = async function createIndex(dest, langs, isEsm) {
       ? getEsmIndex(existingLangs, langs)
       : getCjsIndex(existingLangs, langs),
   );
-};
+}

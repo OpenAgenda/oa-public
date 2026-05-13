@@ -1,5 +1,5 @@
 import debug from 'debug';
-import { validators } from '@openagenda/event-form/build/index.js';
+import { validators } from '@openagenda/event-form';
 import FormSchema from '@openagenda/form-schemas/iso/FormSchema.js';
 
 const log = debug('getUneditableStandardFieldConstraints');

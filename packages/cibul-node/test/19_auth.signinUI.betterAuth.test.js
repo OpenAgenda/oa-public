@@ -1,11 +1,20 @@
+// Phase 6 Lot 2 — the legacy `/signin` Express wrapper is gone, the form
+// posts directly to BA's `/api/auth/sign-in/email`. These tests pin the OA
+// hooks wired around BA's vanilla path: the EMAIL_NOT_VERIFIED gate
+// (sign-in.before in @openagenda/auth) and the blacklisted-user guard
+// (services/auth/index.js). We don't re-test happy-path BA flows: those
+// belong to the @openagenda/auth unit suite. We keep `generalFront` mounted
+// because /signout is still the OA-side route the form hits after BA tears
+// the cookie down.
+
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import localFront from '../auth/local.front.js';
 import generalFront from '../general/front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 
 const enabled = [
   'knex',
@@ -40,7 +49,7 @@ const enabled = [
   'security',
 ];
 
-describe('19 - auth signin UI via better-auth (phase 3)', () => {
+describe('19 - auth signin UI via better-auth (phase 6 lot 2)', () => {
   let core;
   let services;
   let usersSvc;
@@ -61,36 +70,16 @@ describe('19 - auth signin UI via better-auth (phase 3)', () => {
     usersSvc = services.users;
     app = buildApp(services, testConfig, {
       extend: (a) => {
-        localFront(a);
         generalFront(a);
       },
     });
   });
 
+  beforeEach(() => flushRateLimit(services.redis));
+
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  it('returns JSON success + sets oa session cookie on valid credentials', async () => {
-    const email = 'signin-ok@oa.test';
-    const password = 'plainPwd-19';
-    await usersSvc.create(
-      { fullName: 'Signin Ok', email, password, isActivated: true },
-      { internal: true, detailed: true },
-    );
-
-    const res = await request(app)
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
-      .send({ email, password });
-
-    expect(res.status).toBe(200);
-    expect(res.body).toMatchObject({ success: true });
-    expect(res.body.redirect).toBeDefined();
-    const cookies = [].concat(res.headers['set-cookie'] || []).join(';');
-    expect(cookies).toMatch(/oa\.session_token/);
-  });
-
-  it('returns activation_required when the user is not activated', async () => {
+  it('403 EMAIL_NOT_VERIFIED for an unactivated user (Next surfaces the inline resend panel)', async () => {
     const email = 'signin-inactive@oa.test';
     const password = 'plainPwd-19';
     await usersSvc.create(
@@ -99,47 +88,21 @@ describe('19 - auth signin UI via better-auth (phase 3)', () => {
     );
 
     const res = await request(app)
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email, password });
 
-    // The React Signin component intercepts `reason: 'activation_required'`
-    // and switches to the inline <SignupComplete> view; no browser redirect.
-    expect(res.status).toBe(200);
-    expect(res.body.success).toBe(false);
-    expect(res.body.reason).toBe('activation_required');
-    expect(res.body.email).toBe(email);
-    expect(res.body.resendUrl).toMatch(
-      new RegExp(
-        `^/activate/resend\\?[^\\s]*email=${encodeURIComponent(email)}`,
-      ),
-    );
+    expect(res.status).toBe(403);
+    expect(res.body?.code).toBe('EMAIL_NOT_VERIFIED');
+    // Defence-in-depth: BA must never set the session cookie before the
+    // emailVerified gate.
+    const setCookies = [].concat(res.headers['set-cookie'] || []);
+    const sessionCookies = setCookies.filter((c) =>
+      /oa\.session_token=/.test(c));
+    expect(sessionCookies).toEqual([]);
   });
 
-  it('returns 400 with error label on wrong password', async () => {
-    const email = 'signin-bad@oa.test';
-    const password = 'plainPwd-19';
-    await usersSvc.create(
-      { fullName: 'Signin Bad', email, password, isActivated: true },
-      { internal: true, detailed: true },
-    );
-
-    const res = await request(app)
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
-      .send({ email, password: 'nope-' });
-
-    expect(res.status).toBe(400);
-    expect(res.body?.errors?.password).toBeDefined();
-    // Regression: BA's English error body must not also surface as
-    // `message` — otherwise the UI renders two alerts (the localized
-    // field error AND the raw "Invalid email or password").
-    expect(res.body?.message).toBeFalsy();
-  });
-
-  it('rejects blacklisted users (guard from phase 2b) and does not leak a session cookie', async () => {
+  it('rejects blacklisted users without leaking a session cookie (phase 2b guard)', async () => {
     const email = 'signin-bl@oa.test';
     const password = 'plainPwd-19';
     const user = await usersSvc.create(
@@ -152,130 +115,17 @@ describe('19 - auth signin UI via better-auth (phase 3)', () => {
       .update({ is_blacklisted: 1 });
 
     const res = await request(app)
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email, password });
 
-    expect(res.status).toBe(400);
-
-    // Regression: the better-auth `before` guard rejects before signInEmail
-    // emits any session cookie. No session_token must leak to the response,
-    // even with an empty value — the cookie must simply not be present.
+    // BA's `before` hook in @openagenda/auth throws UNAUTHORIZED with
+    // INVALID_EMAIL_OR_PASSWORD before signInEmail emits any cookie. No
+    // session_token must leak to the response.
+    expect(res.status).toBe(401);
     const setCookies = [].concat(res.headers['set-cookie'] || []);
     const sessionTokenCookies = setCookies.filter((c) =>
       /oa\.session_token=/.test(c));
     expect(sessionTokenCookies).toEqual([]);
-  });
-
-  it('honors a base64 redirect query parameter', async () => {
-    const email = 'signin-redir@oa.test';
-    const password = 'plainPwd-19';
-    await usersSvc.create(
-      { fullName: 'Signin Redir', email, password, isActivated: true },
-      { internal: true, detailed: true },
-    );
-
-    const target = '/some/agenda/page';
-    const encoded = Buffer.from(target).toString('base64');
-
-    const res = await request(app)
-      .post(`/signin?redirect=${encodeURIComponent(encoded)}`)
-      .set('Accept', 'application/json')
-      .type('form')
-      .send({ email, password });
-
-    expect(res.body.redirect).toBe(target);
-  });
-
-  // Coverage for auth/local.front.js:125-139: when BA rejects sign-in with
-  // FORBIDDEN/EMAIL_NOT_VERIFIED (config `requireEmailVerification: true`),
-  // the OA UI handler must redirect to /activate/resend without leaking a
-  // session cookie — even though BA returned a 403 Response, no auto-signin
-  // can have happened, but we pin the regression check explicitly.
-  describe('EMAIL_NOT_VERIFIED branch (phase 3b)', () => {
-    it('BA-side contract: POST /api/auth/sign-in/email returns 403 EMAIL_NOT_VERIFIED for an unverified user', async () => {
-      const email = 'signin-email-not-verified-ba@oa.test';
-      const password = 'plainPwd-19-ba';
-      await usersSvc.create(
-        { fullName: 'BA Not Verified', email, password, isActivated: false },
-        { internal: true, detailed: true },
-      );
-
-      const res = await request(app)
-        .post('/api/auth/sign-in/email')
-        .set('Content-Type', 'application/json')
-        .send({ email, password });
-
-      expect(res.status).toBe(403);
-      expect(res.body?.code).toBe('EMAIL_NOT_VERIFIED');
-
-      // Defence-in-depth: even on a 403, BA must not set the session
-      // cookie. Pinning this here so that any future BA upgrade that
-      // accidentally opens a session before checking emailVerified
-      // is caught at the BA contract level.
-      const setCookies = [].concat(res.headers['set-cookie'] || []);
-      const sessionCookies = setCookies.filter((c) =>
-        /oa\.session_token=/.test(c));
-      expect(sessionCookies).toEqual([]);
-    });
-
-    it('OA /signin returns activation_required for unverified users without leaking a session cookie', async () => {
-      const email = 'signin-email-not-verified-oa@oa.test';
-      const password = 'plainPwd-19-oa';
-      await usersSvc.create(
-        { fullName: 'OA Not Verified', email, password, isActivated: false },
-        { internal: true, detailed: true },
-      );
-
-      const res = await request(app)
-        .post('/signin')
-        .set('Accept', 'application/json')
-        .type('form')
-        .send({ email, password });
-
-      // The OA handler turns the BA 403 into an inline-friendly response:
-      // it (re)sends the verification email and returns the resendUrl so
-      // the React UI can switch to <SignupComplete> without a navigation.
-      expect(res.body?.reason).toBe('activation_required');
-      expect(res.body?.email).toBe(email);
-      expect(res.body?.resendUrl).toMatch(
-        new RegExp(
-          `^/activate/resend\\?[^\\s]*email=${encodeURIComponent(email)}`,
-        ),
-      );
-
-      // Critical regression check: NO session cookie must leak. If the
-      // EMAIL_NOT_VERIFIED detection breaks (e.g. body.code shape
-      // changes), the handler would fall through to signinError but a
-      // future refactor that mistakenly forwards Set-Cookie before the
-      // status check would slip through. Pin it.
-      const setCookies = [].concat(res.headers['set-cookie'] || []);
-      const sessionCookies = setCookies.filter((c) =>
-        /oa\.session_token=/.test(c));
-      expect(sessionCookies).toEqual([]);
-    });
-  });
-
-  it('GET /signout clears the session cookie', async () => {
-    const email = 'signout-19@oa.test';
-    const password = 'plainPwd-19';
-    await usersSvc.create(
-      { fullName: 'Signout 19', email, password, isActivated: true },
-      { internal: true, detailed: true },
-    );
-
-    const agent = request.agent(app);
-    await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
-      .send({ email, password });
-
-    const out = await agent.get('/signout');
-    const cookies = [].concat(out.headers['set-cookie'] || []).join(';');
-    expect(cookies).toMatch(
-      /oa\.session_token=;|oa\.session_token=$|expires=Thu, 01 Jan 1970/i,
-    );
   });
 });

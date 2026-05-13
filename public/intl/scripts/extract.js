@@ -1,16 +1,14 @@
-'use strict';
-
-const fs = require('node:fs');
-const path = require('node:path');
-const _ = require('lodash');
-const glob = require('glob');
-const { mkdirp } = require('mkdirp');
-const { extract } = require('@formatjs/cli-lib');
-const { DEFAULT_LANG, DEFAULT_LANGS } = require('../dist/constants');
-const getMessages = require('./utils/getMessages');
-const createIndex = require('./utils/createIndex');
-const inputToOuputPath = require('./utils/inputToOuputPath');
-const fileExists = require('./utils/fileExists');
+import fs from 'node:fs';
+import path from 'node:path';
+import _ from 'lodash';
+import glob from 'glob';
+import { mkdirp } from 'mkdirp';
+import { extract } from '@formatjs/cli-lib';
+import { DEFAULT_LANG, DEFAULT_LANGS } from '@openagenda/intl/constants';
+import getMessages from './utils/getMessages.js';
+import createIndex from './utils/createIndex.js';
+import inputToOuputPath from './utils/inputToOuputPath.js';
+import fileExists from './utils/fileExists.js';
 
 const defaults = {
   files: ['src/**/*.{js,jsx,ts,tsx}'],
@@ -189,11 +187,11 @@ async function extractLang({
 
 // Command
 
-module.exports.command = 'extract [files...]';
+export const command = 'extract [files...]';
 
-module.exports.describe = 'Extract messages.';
+export const describe = 'Extract messages.';
 
-module.exports.builder = (yargs) => {
+export const builder = (yargs) => {
   yargs.positional('files', {
     default: defaults.files,
     desc: 'Glob paths to extract translations from, the source files.',
@@ -247,7 +245,7 @@ module.exports.builder = (yargs) => {
   });
 };
 
-module.exports.handler = async (argv) => {
+export const handler = async (argv) => {
   const {
     files = defaults.files,
     filesPaths,
@@ -298,3 +296,5 @@ module.exports.handler = async (argv) => {
     await createIndex(output, langs, esm);
   }
 };
+
+export default { command, describe, builder, handler };

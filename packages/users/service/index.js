@@ -14,8 +14,6 @@ import {
   camelCaseQuery,
   checkUnicity,
   coerce,
-  compareFields,
-  createActivationToken,
   detailedParamHook,
   error as errorHook,
   formatStore,
@@ -41,26 +39,16 @@ import {
   stashBefore,
   validate,
   validateCreate,
-  verifyPassword,
 } from '../hooks/index.js';
 
 import resolvers from './resolvers.js';
 import patchSchema from './schemas/patch.js';
-import changePasswordSchema from './schemas/changePassword.js';
 import setNewFlagSchema from './schemas/setNewFlag.js';
 import coerceSchema from './schemas/coerce.js';
 import Tokens from './Tokens.js';
 
 const { Service } = feathersKnex;
-const {
-  iff,
-  keep,
-  discardQuery,
-  fastJoin,
-  paramsFromClient,
-  setNow,
-  isProvider,
-} = hooksCommon;
+const { iff, keep, discardQuery, fastJoin, paramsFromClient, setNow } = hooksCommon;
 
 schema.register({
   text: validators.text,
@@ -199,12 +187,6 @@ class Users extends Service {
     return this.get(uid, params);
   }
 
-  async changePassword(uid, data, params = {}) {
-    await this._patch(uid, data);
-
-    return this.get(uid, params);
-  }
-
   generateApiKey(uid, params = {}) {
     return this.get(uid, params);
   }
@@ -234,20 +216,30 @@ class Users extends Service {
 
     const password = typeof data === 'string' ? data : data.password;
 
-    if (user.password.length === 40) {
-      // sha1
-      const isValid = crypto.verifyPassword(
-        user.password,
-        password,
-        user.salt,
-        true,
-      );
-
-      if (isValid) {
-        await this.changePassword(user.uid, { password });
+    // Users created (or password-reset) via better-auth no longer have a
+    // legacy `user.password` value — BA owns `account.password` instead.
+    // When the legacy column is empty, delegate to the BA-backed verifier
+    // wired by the consumer (see `cibul-node/services/users/index.js` →
+    // `interfaces.verifyPassword`). This restores password challenges
+    // (delete agenda, change email, delete account, change password) for
+    // BA-only users without breaking legacy SHA-256/SHA-1 accounts that
+    // still hold their hash here.
+    if (typeof user.password !== 'string' || user.password.length === 0) {
+      const externalVerify = this.config.interfaces?.verifyPassword;
+      if (typeof externalVerify === 'function') {
+        return externalVerify(user, password);
       }
+      return false;
+    }
 
-      return isValid;
+    if (user.password.length === 40) {
+      // sha1 — legacy column. No in-place rehash here: better-auth's
+      // verify accepts the `legacy-sha1` sentinel in `account.password`
+      // and lazy-rehashes to argon2id on the next /sign-in/email (see
+      // `@openagenda/auth` `hooks.after`). This codepath only runs for
+      // non-BA password challenges (delete agenda, change email, …) and
+      // those don't need to migrate the hash.
+      return crypto.verifyPassword(user.password, password, user.salt, true);
     }
 
     return crypto.verifyPassword(user.password, password, user.salt);
@@ -362,7 +354,6 @@ hooks(Users.prototype, {
       after: [
         ...afterAll,
         populateAccountTypes(),
-        createActivationToken(),
         callInterface('onCreate'),
         iff(
           (context) => context.result && context.result.isActivated,
@@ -482,24 +473,6 @@ hooks(Users.prototype, {
         setInStore('unlinkFacebookPasswordHash', 'data.password'),
         keep('store'),
         formatStore(),
-      ],
-      after: [...afterAll, populateAccountTypes()],
-    }),
-  },
-  changePassword: {
-    context: withParams('id', 'data', ['params', {}]),
-    middleware: wrap({
-      before: [
-        stashBefore('before', { internal: true, provider: undefined }),
-        softDelete(),
-        validate(changePasswordSchema),
-        iff(
-          isProvider('external'),
-          verifyPassword('oldPassword'),
-          compareFields('password', 'confirmation'),
-        ),
-        hashPassword('data.password', 'params.before.salt'),
-        keep('password'),
       ],
       after: [...afterAll, populateAccountTypes()],
     }),

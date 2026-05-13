@@ -5,10 +5,11 @@ import useSWRMutation from 'swr/mutation';
 import extractEmails from '@openagenda/mails/extractEmails';
 import ky from 'ky';
 import AccordionItem from '../AccordionItem';
+import type { Agenda, Event } from '../../types';
 import messages from './messages';
 
 async function sendEmails(
-  url,
+  url: string,
   { arg }: { arg: { email: string }[] },
 ): Promise<{ count: number }> {
   return ky
@@ -20,11 +21,23 @@ async function sendEmails(
     .json();
 }
 
-export default function ShareByEmail({ agenda, event, onClose, onEmailSent }) {
+export default function ShareByEmail({
+  agenda,
+  event,
+  onClose,
+  onEmailSent,
+}: {
+  agenda: Agenda;
+  event: Event;
+  onClose: () => void;
+  onEmailSent: (count: number) => void;
+}): React.JSX.Element {
   const intl = useIntl();
 
   const [emailValue, setEmailValue] = useState('');
-  const handleEmailsChange = (e) => {
+  const handleEmailsChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>,
+  ): void => {
     setEmailValue(e.target.value);
   };
 

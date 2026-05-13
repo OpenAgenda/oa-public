@@ -1,11 +1,11 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import localFront from '../auth/local.front.js';
 import generalFront from '../general/front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 
 const enabled = [
   'knex',
@@ -90,7 +90,6 @@ describe('29 - superadmin sign-as (better-auth admin-style impersonation)', () =
 
     app = buildApp(services, liveConfig, {
       extend: (a) => {
-        localFront(a);
         generalFront(a);
         // Mount the superadmin routes (production: server.js calls
         // app.services.superadmin.plugApp(app, '/admin')).
@@ -110,6 +109,8 @@ describe('29 - superadmin sign-as (better-auth admin-style impersonation)', () =
     });
   });
 
+  beforeEach(() => flushRateLimit(services.redis));
+
   afterAll(() => core.services.shutdown({ clear: true }));
 
   it('superadmin can impersonate a target user, and /signout restores the superadmin session', async () => {
@@ -128,12 +129,11 @@ describe('29 - superadmin sign-as (better-auth admin-style impersonation)', () =
 
     // 1) Sign in as the superadmin via the better-auth /signin handler.
     const signinRes = await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email: superadmin.email, password: superPassword });
     expect(signinRes.status).toBe(200);
-    expect(signinRes.body).toMatchObject({ success: true });
+    expect(signinRes.body?.user?.email).toBe(superadmin.email);
 
     const whoamiSuper = await agent.get('/whoami');
     expect(whoamiSuper.body.user?.uid).toBe(String(superadmin.uid));
@@ -195,9 +195,8 @@ describe('29 - superadmin sign-as (better-auth admin-style impersonation)', () =
 
     const agent = request.agent(app);
     await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email: planeEmail, password: 'PlanePwd-29' });
 
     const target = await usersSvc.create(
@@ -243,9 +242,8 @@ describe('29 - superadmin sign-as (better-auth admin-style impersonation)', () =
 
     // 1) Sign in as the superadmin.
     const signinRes = await agent
-      .post('/signin')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
       .send({ email: superadmin.email, password: superPassword });
     expect(signinRes.status).toBe(200);
 

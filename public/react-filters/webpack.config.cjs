@@ -6,7 +6,6 @@ const path = require('node:path');
 const { mkdirp } = require('mkdirp');
 const webpack = require('webpack');
 const ProgressBar = require('webpackbar');
-const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 
 const modulesToInclude = [
@@ -55,6 +54,7 @@ module.exports = (env = {}, argv = {}) => {
       path: path.join(__dirname, 'dist'),
       // publicPath: `/dist/${serviceName}/`,
       filename: '[name].js',
+      clean: true,
     },
     devtool:
       envName === 'production' ? 'source-map' : 'cheap-module-source-map',
@@ -126,14 +126,13 @@ module.exports = (env = {}, argv = {}) => {
     plugins: [
       // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
       // new WebpackDashboardPlugin(),
-      new ProgressBar({ basic: false }),
+      ...process.stdout.isTTY ? [new ProgressBar({ basic: false })] : [],
       new webpack.DefinePlugin({
         'process.env': JSON.stringify({ NODE_ENV: envName }),
       }),
       new webpack.ProvidePlugin({
         Buffer: ['buffer', 'Buffer'],
       }),
-      new CleanWebpackPlugin(),
       new webpack.optimize.LimitChunkCountPlugin({
         maxChunks: 1,
       }),

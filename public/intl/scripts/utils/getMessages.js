@@ -1,11 +1,9 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('node:fs');
-
-module.exports = function getMessages(localesPath) {
+export default function getMessages(localesPath) {
   try {
     return JSON.parse(fs.readFileSync(localesPath, 'utf8'));
   } catch (e) {
     return {};
   }
-};
+}

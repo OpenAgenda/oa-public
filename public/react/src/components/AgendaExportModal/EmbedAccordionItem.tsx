@@ -21,11 +21,14 @@ import {
 } from '@openagenda/uikit/snippets';
 import { FilterSelect } from '@openagenda/react-shared';
 import { getFilterSelectOptions } from '@openagenda/react-filters';
+import type { IntlShape } from 'react-intl';
 import copyText from '../../utils/copyText';
 import AccordionItem from '../AccordionItem';
+import type { Agenda } from '../../types';
 import messages from './messages';
+import type { CompleteUrlsResult } from './types';
 
-function escapeHTML(text: string) {
+function escapeHTML(text: string): string {
   return text
     .replace(/&/g, '&amp;')
     .replace(/</g, '&lt;')
@@ -47,7 +50,17 @@ function getEmbedCode({
   openEventsOnOA,
   primaryColor,
   lang,
-}) {
+}: {
+  intl: IntlShape;
+  href: string;
+  agenda: Agenda;
+  withFilters: boolean;
+  selectedFilters: string[];
+  contributionButton: boolean;
+  openEventsOnOA: boolean;
+  primaryColor: string;
+  lang: string;
+}): string {
   const attributes: string[] = [];
 
   if (withFilters && selectedFilters.length) {
@@ -81,11 +94,19 @@ function getEmbedCode({
   return `${blockquote}${script}`;
 }
 
-function loadPublicFilters(settings) {
-  return settings.public?.filters?.displayed ?? ['search', 'geo', 'timings'];
+function loadPublicFilters(settings: Agenda['settings']): string[] {
+  return settings?.public?.filters?.displayed ?? ['search', 'geo', 'timings'];
 }
 
-export default function EmbedAccordionItem({ dialogRef, res, agenda }) {
+export default function EmbedAccordionItem({
+  dialogRef,
+  res,
+  agenda,
+}: {
+  dialogRef: React.RefObject<HTMLDivElement>;
+  res: CompleteUrlsResult;
+  agenda: Agenda;
+}): React.JSX.Element {
   const intl = useIntl();
 
   const [copied, setCopied] = useState(false);

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import reactQuery from 'react-query';
 import { subDays } from 'date-fns';
-import PulseChart from '@openagenda/agenda-stats/dist/components/PulseChart.js';
+import PulseChart from '@openagenda/agenda-stats/components/PulseChart';
 
 const { ReactQueryCacheProvider, makeQueryCache } = reactQuery;
 

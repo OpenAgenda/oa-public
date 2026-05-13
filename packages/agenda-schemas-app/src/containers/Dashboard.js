@@ -4,8 +4,8 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useHistory, useLocation } from 'react-router';
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder/index.js';
-import EnabledRanges from '@openagenda/event-form/build/components/configuration/EnabledRanges.js';
-import DefaultLocation from '@openagenda/event-form/build/components/configuration/DefaultLocation.js';
+import EnabledRanges from '@openagenda/event-form/components/configuration/EnabledRanges';
+import DefaultLocation from '@openagenda/event-form/components/configuration/DefaultLocation';
 
 import getSchemaFieldCount from '../lib/getSchemaFieldCount.js';
 import useRes from '../hooks/useRes.js';

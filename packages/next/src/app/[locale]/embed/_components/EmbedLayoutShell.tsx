@@ -8,7 +8,7 @@ import { getContrast } from 'color2k';
 import {
   ChakraProvider,
   createSystem,
-  theme as defaultTheme,
+  system as defaultSystem,
   useConst,
 } from '@openagenda/uikit';
 import ky from 'ky';
@@ -61,7 +61,7 @@ function useEmbedThemeConfig({
   return useConst(() => {
     const primaryColorPalette = primaryColor
       ? createColorPalette({ value: primaryColor })
-      : defaultTheme._config.theme.tokens.colors.primary;
+      : defaultSystem._config.theme.tokens.colors.primary;
     const secondaryColorPalette = secondaryColor
       ? createColorPalette({ value: secondaryColor })
       : undefined;
@@ -96,8 +96,8 @@ function useEmbedThemeConfig({
   });
 }
 
-function useEmbedTheme(config: any) {
-  return useConst(() => createSystem(defaultTheme._config, config));
+function useEmbedSystem(config: any) {
+  return useConst(() => createSystem(defaultSystem._config, config));
 }
 
 function removeHostQuery(urlString: string): string {
@@ -256,7 +256,7 @@ export default function EmbedLayoutShell({ children }: LayoutProps) {
     primaryColor: embedParams.primaryColor,
     secondaryColor: embedParams.secondaryColor,
   });
-  const theme = useEmbedTheme(themeConfig);
+  const system = useEmbedSystem(themeConfig);
 
   const value = useMemo<EmbedLayoutDataValue>(
     () => ({
@@ -292,7 +292,7 @@ export default function EmbedLayoutShell({ children }: LayoutProps) {
           from the root `AppProviders` so SSR styles get flushed via its
           useServerInsertedHTML hook. Wrapping in a nested UIKitProvider
           would open a separate cache whose styles never reach the HTML. */}
-      <ChakraProvider value={theme}>{children}</ChakraProvider>
+      <ChakraProvider value={system}>{children}</ChakraProvider>
     </EmbedLayoutDataProvider>
   );
 }

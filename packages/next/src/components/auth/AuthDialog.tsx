@@ -48,13 +48,28 @@ interface AuthDialogProps {
   redirectOnSuccess?: string;
   mtCaptchaSiteKey?: string;
   captchaProvider?: CaptchaProvider;
-  defaultView?: 'signin' | 'signup';
+  // `'lost'` opens AuthDialog with the lost-password sub-view of <Signin>
+  // already toggled (mirrors the standalone signin page's `?view=lost`).
+  // `'resend'` boots straight into <SignupComplete> with the supplied
+  // `defaultEmail` (mirrors `?view=resend&email=…` on the signin page).
+  // The latter requires `defaultEmail`; without it we fall back to signin.
+  defaultView?: 'signin' | 'signup' | 'lost' | 'resend';
   defaultEmail?: string;
   defaultFullName?: string;
-  iToken?: string;
   invitation?: string;
   redirect?: string;
-  message?: string;
+  // The banner shown above the form. `message` becomes the title (or single
+  // line when no description). `messageDescription` is rendered as the alert
+  // description below — used by `InvitationAuthDialog` to mirror the rich
+  // title+description pattern from the standalone signin page (e.g. the
+  // `invalidActivation` banner).
+  message?: string | ReactNode;
+  messageDescription?: ReactNode;
+  // Visual + a11y variant for the message banner. Defaults to `info` (used by
+  // `authRequired`, `limitedAccess*` which are informational). Callers should
+  // pass `error` for failure semantics like `invalidActivation` to mirror the
+  // standalone signin page banner.
+  messageStatus?: 'info' | 'success' | 'warning' | 'error';
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
 }
@@ -69,20 +84,36 @@ export default function AuthDialog({
   defaultView = 'signin',
   defaultEmail,
   defaultFullName,
-  iToken,
   invitation,
   redirect,
   message,
+  messageDescription,
+  messageStatus = 'info',
   open,
   onOpenChange,
 }: AuthDialogProps) {
   const intl = useIntl();
-  const [view, setView] = useState<View>(defaultView);
+  // Translate the public `defaultView` into the internal `View` union:
+  //   - `'lost'` → start in `signin` and pass `defaultLostPassword` to <Signin>
+  //   - `'resend'` (with email) → start in `signupComplete` directly
+  //   - `'resend'` without email → fall back to `signin` (no usable target)
+  //   - `'signin' | 'signup'` → identity
+  const initialView: View =
+    defaultView === 'lost'
+      ? 'signin'
+      : defaultView === 'resend'
+        ? defaultEmail
+          ? 'signupComplete'
+          : 'signin'
+        : defaultView;
+  const [view, setView] = useState<View>(initialView);
   const [viewAnnouncement, setViewAnnouncement] = useState<string | null>(null);
   const [completeData, setCompleteData] = useState<{
     email: string;
-    resendUrl: string;
-  } | null>(null);
+    callbackURL?: string;
+  } | null>(
+    defaultView === 'resend' && defaultEmail ? { email: defaultEmail } : null,
+  );
   const isFirstViewRender = useRef(true);
 
   useEffect(() => {
@@ -128,21 +159,26 @@ export default function AuthDialog({
                 {viewAnnouncement}
               </chakra.span>
               {message && (
-                <MessageAlert id={messageId} role="status" status="info" mb="4">
+                <MessageAlert
+                  id={messageId}
+                  role={messageStatus === 'error' ? 'alert' : 'status'}
+                  status={messageStatus}
+                  mb="4"
+                  description={messageDescription}
+                >
                   {message}
                 </MessageAlert>
               )}
               {view === 'signupComplete' && completeData ? (
                 <SignupComplete
                   email={completeData.email}
-                  resendUrl={completeData.resendUrl}
+                  callbackURL={completeData.callbackURL}
                 />
               ) : view === 'signup' ? (
                 <Signup
                   agenda={agenda}
                   defaultEmail={defaultEmail}
                   defaultFullName={defaultFullName}
-                  iToken={iToken}
                   invitation={invitation}
                   redirect={redirect}
                   reloadOnSuccess={reloadOnSuccess}
@@ -162,6 +198,8 @@ export default function AuthDialog({
                   redirect={redirect}
                   reloadOnSuccess={reloadOnSuccess}
                   redirectOnSuccess={redirectOnSuccess}
+                  defaultEmail={defaultEmail}
+                  defaultLostPassword={defaultView === 'lost'}
                   onViewChange={setView}
                   onActivationRequired={(data) => {
                     setCompleteData(data);

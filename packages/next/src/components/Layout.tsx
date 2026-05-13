@@ -1,7 +1,6 @@
 'use client';
 
 import { Suspense } from 'react';
-import Announcement from 'components/Announcement';
 import SentryErrorBoundary from 'components/SentryErrorBoundary';
 import DefaultNavbar from './Navbar';
 import FlashAlert from './FlashAlert';
@@ -18,7 +17,6 @@ export default function AppLayout({
   return (
     <>
       <Suspense>{navbar}</Suspense>
-      <Announcement />
       <FlashAlert />
       <SentryErrorBoundary>{children}</SentryErrorBoundary>
     </>

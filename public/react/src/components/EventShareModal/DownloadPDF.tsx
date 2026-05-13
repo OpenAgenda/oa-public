@@ -4,9 +4,18 @@ import { Tag } from '@openagenda/uikit/snippets';
 import { FontAwesomeIcon as FaIcon } from '@fortawesome/react-fontawesome';
 import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
 import AccordionItem from '../AccordionItem';
+import type { Agenda, Event } from '../../types';
 import messages from './messages';
 
-export default function DownloadPDF({ rootUrl, agenda, event }) {
+export default function DownloadPDF({
+  rootUrl,
+  agenda,
+  event,
+}: {
+  rootUrl: string;
+  agenda: Agenda;
+  event: Event;
+}): React.JSX.Element {
   const intl = useIntl();
 
   const pdfUrl = `${rootUrl}/api/agendas/${agenda.uid}/events/${event.uid}.pdf`;

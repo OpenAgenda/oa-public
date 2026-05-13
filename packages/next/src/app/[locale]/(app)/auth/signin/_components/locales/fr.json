@@ -1,3 +1,6 @@
 {
-  "next.components.auth.AuthDialog.dialogTitle": "Connexion"
+  "next.components.auth.AuthDialog.dialogTitle": "Connexion",
+  "next.components.auth.AuthDialog.dialogTitleSignupComplete": "",
+  "next.components.auth.Signin.invalidActivation.description": "Le lien a peut-être déjà été cliqué. Dans ce cas, votre compte devrait déjà être activé.",
+  "next.components.auth.Signin.invalidActivation.title": "Le lien d'activation n'est pas valide"
 }

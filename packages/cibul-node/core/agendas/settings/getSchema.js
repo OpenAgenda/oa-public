@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import eventFormSchema from '@openagenda/event-form/src/schema.js';
+import eventFormSchema from '@openagenda/event-form/schema';
 import { createIntlByLocale } from '@openagenda/intl';
-import * as locales from '@openagenda/agenda-schemas-app/dist/locales-compiled/index.js';
+import * as locales from '@openagenda/agenda-schemas-app/locales-compiled';
 import getAgenda from '../utils/getAgenda.js';
 import getNetwork from '../utils/getNetwork.js';
 import eventReservedFields from './eventReservedFields.js';

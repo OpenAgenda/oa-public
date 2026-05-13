@@ -9,16 +9,27 @@ import messages from './messages';
 const STORAGE_WELCOME_KEY = 'oa:hideLoggedWelcomeUntil';
 const KEY_EXPIRY_DELAY = 1000 * 60 * 60 * 48;
 
-// `initialTop` and `stuckTop` are both viewport-y px values. The banner
-// appears at `initialTop` initially and sticks at `stuckTop` once scrolled
-// past — pure-CSS slide. Set them equal for a fixed sticky position (no
-// slide).
+const toCssLength = (v: number | string) =>
+  typeof v === 'number' ? `${v}px` : v;
+const negateCssLength = (v: number | string) =>
+  typeof v === 'number' ? `-${v}px` : `calc((${v}) * -1)`;
+
+// `initialTop` and `stuckTop` are both viewport-y values (number px or any CSS
+// length, e.g. a calc() referencing custom properties). The banner appears at
+// `initialTop` initially and sticks at `stuckTop` once scrolled past — pure-CSS
+// slide. Set them equal for a fixed sticky position (no slide).
 export function LoggedUserWelcome({
   initialTop = 0,
   stuckTop = 0,
   user,
   onClose = null,
   onHeightChange = null,
+}: {
+  initialTop?: number | string;
+  stuckTop?: number | string;
+  user: any;
+  onClose?: (() => void) | null;
+  onHeightChange?: ((h: number) => void) | null;
 }) {
   const intl = useIntl();
 
@@ -67,11 +78,11 @@ export function LoggedUserWelcome({
       // Pure-CSS slide: `mt={initialTop}` sets the sticky natural position to
       // viewport y=initialTop. Sticky then engages at y=stuckTop once scrolled
       // past, following the navbar leaving the screen.
-      mt={`${initialTop}px`}
-      mb={`-${initialTop}px`}
+      mt={toCssLength(initialTop)}
+      mb={negateCssLength(initialTop)}
       height="0"
       position="sticky"
-      top={`${stuckTop}px`}
+      top={toCssLength(stuckTop)}
       animation="slide-from-top 0.5s ease-out, fade-in 0.5s ease-in"
       zIndex="docked"
     >

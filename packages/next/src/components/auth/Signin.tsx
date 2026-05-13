@@ -14,9 +14,11 @@ import {
   chakra,
   Input,
 } from '@openagenda/uikit';
+import computePostSignInRedirect, {
+  decodeBase64Redirect,
+} from '@/src/lib/computePostSignInRedirect';
 import MessageAlert from '@/src/components/MessageAlert';
 import LostPassword from './LostPassword';
-import SignupComplete from './SignupComplete';
 
 const messages = defineMessages({
   emailLabel: {
@@ -95,6 +97,10 @@ interface SigninProps {
   defaultSuccess?: boolean;
   defaultInvalidCredentials?: boolean;
   defaultLostPassword?: boolean;
+  // Initial invitation token forwarded to <SignupComplete> via the
+  // onActivationRequired callback so the verification email's callbackURL
+  // routes through /post-activate when relevant.
+  invitation?: string;
   agenda?: { slug: string; uid: string };
   redirect?: string;
   reloadOnSuccess?: boolean;
@@ -111,11 +117,13 @@ interface SigninProps {
   defaultEmail?: string;
   onSuccess?: () => void;
   onViewChange?: (view: 'signin' | 'lost' | 'signup') => void;
-  // Called when /signin returns `reason: 'activation_required'` (signin
-  // attempt for an unverified account). The server has just resent the
-  // verification email; the parent can switch to <SignupComplete> inline
-  // instead of navigating to a separate page.
-  onActivationRequired?: (params: { email: string; resendUrl: string }) => void;
+  // Called when BA returns `EMAIL_NOT_VERIFIED` (signin attempt for an
+  // unverified account). Parent must swap to <SignupComplete> — Signin no
+  // longer ships a built-in verify panel, so this callback is required.
+  onActivationRequired: (params: {
+    email: string;
+    callbackURL?: string;
+  }) => void;
 }
 
 export default function Signin({
@@ -123,6 +131,7 @@ export default function Signin({
   defaultSuccess = false,
   defaultInvalidCredentials = false,
   defaultLostPassword = false,
+  invitation,
   agenda,
   redirect,
   reloadOnSuccess = false,
@@ -139,12 +148,6 @@ export default function Signin({
   const [password, setPassword] = useState('');
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [message, setMessage] = useState<string | null>(null);
-  // Fallback when no parent supplied `onActivationRequired`: render
-  // <SignupComplete> inline in place of the form.
-  const [activationData, setActivationData] = useState<{
-    email: string;
-    resendUrl: string;
-  } | null>(null);
   const [invalidCredentials, setInvalidCredentials] = useState(
     defaultInvalidCredentials,
   );
@@ -187,62 +190,122 @@ export default function Signin({
       setLoading(true);
 
       try {
-        const url = redirect
-          ? `/signin?${new URLSearchParams({ redirect }).toString()}`
-          : '/signin';
-        const body: Record<string, string> = { email, password };
-        if (linkProvider) body.linkProvider = linkProvider;
-        const res = await fetch(url, {
+        // Step 1: BA-native sign-in. Returns 200 + Set-Cookie on success;
+        // 401/403 with a `code` field on failure (`INVALID_EMAIL_OR_PASSWORD`,
+        // `EMAIL_NOT_VERIFIED`, …).
+        const signinRes = await fetch('/api/auth/sign-in/email', {
           method: 'POST',
           headers: {
             Accept: 'application/json',
-            'Content-Type': 'application/x-www-form-urlencoded',
+            'Content-Type': 'application/json',
           },
-          body: new URLSearchParams(body),
+          credentials: 'include',
+          body: JSON.stringify({ email, password }),
         });
 
-        const data = await res.json();
+        // Drain the body even on failure so the browser commits Set-Cookie
+        // before the next fetch (verified-linking flow).
+        const signinBody = await signinRes
+          .clone()
+          .json()
+          .catch(() => null);
 
-        if (data.reason === 'activation_required' && data.email) {
-          const params = { email: data.email, resendUrl: data.resendUrl };
-          if (onActivationRequired) {
-            onActivationRequired(params);
-          } else {
-            setActivationData(params);
-          }
-          return;
-        }
-
-        if (data.success) {
-          setSuccess(true);
-          setTimeout(() => {
-            if (onSuccess) {
-              onSuccess();
-            } else if (redirectOnSuccess) {
-              window.location.href = redirectOnSuccess;
-            } else if (reloadOnSuccess || !data.redirect) {
-              window.location.reload();
-            } else {
-              window.location.href = data.redirect;
+        if (!signinRes.ok) {
+          const code = signinBody?.code;
+          // BA's `requireEmailVerification: true` flag rejects unverified
+          // signups with FORBIDDEN/EMAIL_NOT_VERIFIED. Defer to the parent so
+          // it can swap to <SignupComplete> at the page/dialog level — the
+          // built-in inline verify panel was retired in favour of the
+          // parent-driven activation flow.
+          if (code === 'EMAIL_NOT_VERIFIED' && email) {
+            // Mirror the post-activate redirect logic from the legacy
+            // computePostActivateRedirect.js: route through
+            // /post-activate?invitation=…&next=… when an invitation token is
+            // present so it can be applied after BA's auto-signin redirect.
+            let baseRedirect = '/home';
+            if (redirect) {
+              const safe = decodeBase64Redirect(redirect);
+              if (safe) baseRedirect = safe;
+            } else if (agenda?.slug) {
+              baseRedirect = `/${agenda.slug}/contribute`;
             }
-          }, 1000);
+            const callbackURL = invitation
+              ? `/post-activate?${new URLSearchParams({
+                  invitation,
+                  next: baseRedirect,
+                }).toString()}`
+              : baseRedirect;
+            onActivationRequired({ email, callbackURL });
+            return;
+          }
+          if (code === 'INVALID_EMAIL_OR_PASSWORD') {
+            setInvalidCredentials(true);
+            return;
+          }
+          // Other BA error codes (RATE_LIMITED, USER_NOT_FOUND, etc.) — surface
+          // the BA-provided message when available, otherwise fall back to the
+          // generic error. Avoid catch-all `signinBody?.code` truthy checks
+          // that misleadingly show "invalid credentials" for unrelated codes.
+          setMessage(
+            signinBody?.message ?? intl.formatMessage(messages.genericError),
+          );
           return;
         }
 
-        if (data.redirect) {
-          window.location.href = data.redirect;
+        // Step 2 — verified-linking flow (option A in the migration plan).
+        // The first fetch posted Set-Cookie, the BA session is now active in
+        // the browser. Trigger /api/auth/link-social, which validates the
+        // session and returns an authorization URL we follow to Google.
+        if (linkProvider === 'google') {
+          const linkErrorRedirect =
+            '/auth/signin?linkProvider=google&linkError=1';
+          try {
+            const linkRes = await fetch('/api/auth/link-social', {
+              method: 'POST',
+              headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+              },
+              credentials: 'include',
+              body: JSON.stringify({
+                provider: 'google',
+                callbackURL: '/home',
+                errorCallbackURL: linkErrorRedirect,
+              }),
+            });
+            const linkBody = await linkRes.json().catch(() => null);
+            if (linkRes.ok && linkBody?.url) {
+              window.location.href = linkBody.url;
+              return;
+            }
+          } catch {
+            // fall through to error redirect below
+          }
+          window.location.href = linkErrorRedirect;
           return;
         }
 
-        if (data.errors?.password) {
-          setInvalidCredentials(true);
-        } else if (data.errors) {
-          setErrors(data.errors);
-        }
+        // Step 2 — regular signin: compute the same redirect the legacy
+        // server-side handler used to emit, then navigate.
+        const target =
+          redirectOnSuccess ??
+          computePostSignInRedirect({
+            redirectParam: redirect,
+            agendaSlug: agenda?.slug,
+          });
 
-        if (data.message) {
-          setMessage(data.message);
-        }
+        setSuccess(true);
+        setTimeout(() => {
+          if (onSuccess) {
+            onSuccess();
+          } else if (redirectOnSuccess) {
+            window.location.href = redirectOnSuccess;
+          } else if (reloadOnSuccess) {
+            window.location.reload();
+          } else {
+            window.location.href = target;
+          }
+        }, 1000);
       } catch {
         setMessage(intl.formatMessage(messages.genericError));
       } finally {
@@ -253,13 +316,57 @@ export default function Signin({
       email,
       password,
       redirect,
+      invitation,
       intl,
       reloadOnSuccess,
       redirectOnSuccess,
       onSuccess,
       onActivationRequired,
       linkProvider,
+      agenda,
     ],
+  );
+
+  // OAuth flow trigger. BA's POST /api/auth/sign-in/social returns
+  // `{ url, redirect: true }` with the provider authorization URL — we navigate
+  // to it. Errors fall back to a generic message; the verified-linking
+  // (`account_not_linked`) case is handled server-side by the BA after-hook
+  // on `/callback/:id` which redirects to `/auth/signin?linkProvider=google`.
+  const startSocial = useCallback(
+    async (provider: 'google' | 'facebook') => {
+      setMessage(null);
+      setLoading(true);
+      try {
+        const callbackURL = computePostSignInRedirect({
+          redirectParam: redirect,
+          agendaSlug: agenda?.slug,
+        });
+        const body: Record<string, string> = { provider, callbackURL };
+        if (provider === 'google') {
+          body.errorCallbackURL = '/auth/signin?linkProvider=google';
+        }
+        const res = await fetch('/api/auth/sign-in/social', {
+          method: 'POST',
+          headers: {
+            Accept: 'application/json',
+            'Content-Type': 'application/json',
+          },
+          credentials: 'include',
+          body: JSON.stringify(body),
+        });
+        const data = await res.json().catch(() => null);
+        if (res.ok && data?.url) {
+          window.location.href = data.url;
+          return;
+        }
+        setMessage(intl.formatMessage(messages.genericError));
+      } catch {
+        setMessage(intl.formatMessage(messages.genericError));
+      } finally {
+        setLoading(false);
+      }
+    },
+    [redirect, agenda, intl],
   );
 
   if (success) {
@@ -270,15 +377,6 @@ export default function Signin({
         </Text>
         <Spinner size="md" />
       </VStack>
-    );
-  }
-
-  if (activationData) {
-    return (
-      <SignupComplete
-        email={activationData.email}
-        resendUrl={activationData.resendUrl}
-      />
     );
   }
 
@@ -411,21 +509,24 @@ export default function Signin({
             </Text>
             <Separator flex="1" aria-hidden="true" />
           </HStack>
-          <Button asChild variant="outline" w="full">
-            <a
-              href={agenda ? `/${agenda.slug}/google/signin` : '/google/signin'}
-            >
-              {intl.formatMessage(messages.googleLabel)}
-            </a>
+          <Button
+            type="button"
+            variant="outline"
+            w="full"
+            onClick={() => startSocial('google')}
+            disabled={loading}
+          >
+            {intl.formatMessage(messages.googleLabel)}
           </Button>
-          <Button asChild variant="outline" w="full" mt="2">
-            <a
-              href={
-                agenda ? `/${agenda.slug}/facebook/signin` : '/facebook/signin'
-              }
-            >
-              {intl.formatMessage(messages.facebookLabel)}
-            </a>
+          <Button
+            type="button"
+            variant="outline"
+            w="full"
+            mt="2"
+            onClick={() => startSocial('facebook')}
+            disabled={loading}
+          >
+            {intl.formatMessage(messages.facebookLabel)}
           </Button>
         </>
       )}
@@ -443,7 +544,11 @@ export default function Signin({
           </Button>
         ) : (
           <Link
-            href={agenda ? `/${agenda.slug}/signup` : '/signup'}
+            href={
+              agenda
+                ? `/auth/signup?redirect=${btoa(`/${agenda.slug}/contribute`)}`
+                : '/auth/signup'
+            }
             color="primary.500"
           >
             {intl.formatMessage(messages.createAccount)}

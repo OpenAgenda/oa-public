@@ -9,7 +9,7 @@ import statusMessages from '../messages/status.js';
 import booleanMessages from '../messages/boolean.js';
 import validMessages from '../messages/valid.js';
 import accessibilitiesMessages from '../messages/accessibilities.js';
-import dateRanges from './dateRanges.js';
+import { dateRanges } from './dateRanges.js';
 
 function assignDateRanges(filter, intl, dataFnsLocale) {
   if (filter.type === 'definedRange') {

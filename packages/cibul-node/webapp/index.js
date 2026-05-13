@@ -187,7 +187,8 @@ const initialState = async (req) => {
         updateProfile: '/users/me',
         deleteAccount: '/users/me',
         changeEmail: '/users/me/requestChangeEmail',
-        changePassword: '/users/me/changePassword',
+        // changePassword now goes directly to better-auth (`/api/auth/change-password`)
+        // — no legacy Feathers route, no `res` entry needed.
         generateApiKey: '/users/me/generateApiKey',
         unlinkFacebook: '/users/me/requestUnlinkFacebook',
       },

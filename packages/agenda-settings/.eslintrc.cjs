@@ -14,7 +14,7 @@ module.exports = {
       'error',
       {
         devDependencies: [
-          `${__dirname}/tsup.config.js`,
+          `${__dirname}/tsdown.config.ts`,
           `${__dirname}/.storybook/**/*.js`,
           `${__dirname}/stories/**/*.js`,
           `${__dirname}/scripts/**/*.js`,

@@ -1,9 +1,7 @@
-'use strict';
+import fs from 'node:fs';
+import path from 'node:path';
 
-const fs = require('node:fs');
-const path = require('node:path');
-
-module.exports = function isPackageModule(dir = process.cwd()) {
+export default function isPackageModule(dir = process.cwd()) {
   let currentDir = dir;
 
   while (currentDir !== path.parse(currentDir).root) {
@@ -19,4 +17,4 @@ module.exports = function isPackageModule(dir = process.cwd()) {
   }
 
   return false;
-};
+}

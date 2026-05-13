@@ -1,5 +1,6 @@
 import { jest } from '@jest/globals';
 import createCredentialHelpers from '../src/internalAccount.js';
+import { ARGON2ID_PREFIX } from '../src/password.js';
 
 function fakeInstance(internalAdapter) {
   return { $context: Promise.resolve({ internalAdapter }) };
@@ -74,6 +75,86 @@ describe('auth - unit: credential helpers', () => {
     await updateCredentialPassword(7, 'enc');
 
     expect(adapter.updatePassword).toHaveBeenCalledWith(7, 'enc');
+  });
+
+  describe('adminSetPassword', () => {
+    it('hashes the plaintext with argon2id and updates the existing credential row', async () => {
+      const adapter = {
+        findAccountByUserId: jest
+          .fn()
+          .mockResolvedValue([{ providerId: 'credential', password: 'old' }]),
+        updatePassword: jest.fn().mockResolvedValue(undefined),
+        createAccount: jest.fn(),
+      };
+      const { adminSetPassword } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      await adminSetPassword(42, 'newPlaintextPwd');
+
+      expect(adapter.updatePassword).toHaveBeenCalledTimes(1);
+      const [userId, encoded] = adapter.updatePassword.mock.calls[0];
+      expect(userId).toBe(42);
+      expect(typeof encoded).toBe('string');
+      expect(encoded.startsWith(ARGON2ID_PREFIX)).toBe(true);
+      expect(adapter.createAccount).not.toHaveBeenCalled();
+    });
+
+    it('inserts a credential row when none exists (oauth-only user)', async () => {
+      const adapter = {
+        findAccountByUserId: jest
+          .fn()
+          .mockResolvedValue([{ providerId: 'google', password: null }]),
+        createAccount: jest.fn().mockResolvedValue(undefined),
+        updatePassword: jest.fn(),
+      };
+      const { adminSetPassword } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      await adminSetPassword(42, 'newPlaintextPwd');
+
+      expect(adapter.createAccount).toHaveBeenCalledTimes(1);
+      const arg = adapter.createAccount.mock.calls[0][0];
+      expect(arg.userId).toBe(42);
+      expect(arg.accountId).toBe('42');
+      expect(arg.providerId).toBe('credential');
+      expect(typeof arg.password).toBe('string');
+      expect(arg.password.startsWith(ARGON2ID_PREFIX)).toBe(true);
+      expect(adapter.updatePassword).not.toHaveBeenCalled();
+    });
+
+    it('rejects an empty password', async () => {
+      const adapter = {
+        findAccountByUserId: jest.fn(),
+        updatePassword: jest.fn(),
+        createAccount: jest.fn(),
+      };
+      const { adminSetPassword } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      await expect(adminSetPassword(42, '')).rejects.toThrow(
+        /password is required/,
+      );
+      expect(adapter.findAccountByUserId).not.toHaveBeenCalled();
+    });
+
+    it('rejects a missing userId', async () => {
+      const adapter = {
+        findAccountByUserId: jest.fn(),
+        updatePassword: jest.fn(),
+        createAccount: jest.fn(),
+      };
+      const { adminSetPassword } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      await expect(adminSetPassword(null, 'pwd')).rejects.toThrow(
+        /userId is required/,
+      );
+      expect(adapter.findAccountByUserId).not.toHaveBeenCalled();
+    });
   });
 
   it('deleteCredentialAccount only deletes credential rows', async () => {
@@ -175,5 +256,59 @@ describe('auth - unit: credential helpers', () => {
     await revokeUserSessions(99);
 
     expect(adapter.deleteSessions).toHaveBeenCalledWith('99');
+  });
+
+  describe('getAccountTypesByUserId', () => {
+    it('returns a Map<userId, Set<providerId>> for a single id', async () => {
+      const adapter = {
+        findAccounts: jest.fn().mockResolvedValue([
+          { providerId: 'credential', password: 'enc' },
+          { providerId: 'google', password: null },
+        ]),
+      };
+      const { getAccountTypesByUserId } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      const result = await getAccountTypesByUserId(42);
+
+      expect(adapter.findAccounts).toHaveBeenCalledWith(42);
+      expect(result).toBeInstanceOf(Map);
+      expect(result.get(42)).toEqual(new Set(['credential', 'google']));
+    });
+
+    it('fans out across an array of user ids', async () => {
+      const byId = {
+        1: [{ providerId: 'credential' }],
+        2: [{ providerId: 'google' }],
+        3: [],
+      };
+      const adapter = {
+        findAccounts: jest.fn(async (id) => byId[id]),
+      };
+      const { getAccountTypesByUserId } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      const result = await getAccountTypesByUserId([1, 2, 3]);
+
+      expect(adapter.findAccounts).toHaveBeenCalledTimes(3);
+      expect(result.get(1)).toEqual(new Set(['credential']));
+      expect(result.get(2)).toEqual(new Set(['google']));
+      expect(result.get(3)).toEqual(new Set());
+    });
+
+    it('returns an empty Map for an empty array (no I/O)', async () => {
+      const adapter = { findAccounts: jest.fn() };
+      const { getAccountTypesByUserId } = createCredentialHelpers(
+        fakeInstance(adapter),
+      );
+
+      const result = await getAccountTypesByUserId([]);
+
+      expect(adapter.findAccounts).not.toHaveBeenCalled();
+      expect(result).toBeInstanceOf(Map);
+      expect(result.size).toBe(0);
+    });
   });
 });

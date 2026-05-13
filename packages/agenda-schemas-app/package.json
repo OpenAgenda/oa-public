@@ -10,11 +10,17 @@
   "author": "",
   "license": "ISC",
   "type": "module",
+  "main": "./dist/app.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/app.mjs",
+    "./locales-compiled": "./dist/locales-compiled/index.mjs"
+  },
   "scripts": {
     "sb": "storybook dev",
     "start": "yarn sb",
     "extract-messages": "oa-intl --esm",
-    "build": "tsup",
+    "build": "tsdown",
     "prepack": "oa-intl compile --esm && yarn build"
   },
   "dependencies": {
@@ -42,7 +48,7 @@
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
     "storybook": "^10.2.0",
-    "tsup": "^8.3.5"
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^19.2.2",

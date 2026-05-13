@@ -4,7 +4,7 @@ import { CookiesProvider, Cookies } from 'react-cookie';
 import { IntlProvider } from 'react-intl';
 import {
   UIKitProvider,
-  theme as defaultTheme,
+  system as defaultSystem,
   defaultCache,
   EmotionCache,
 } from '@openagenda/uikit';
@@ -15,20 +15,20 @@ type ProvidersProps = {
   cookies?: Cookies;
   locale: string;
   intlMessages: Record<string, string>;
-  theme?: Record<string, any>;
+  system?: Record<string, any>;
   cache?: EmotionCache;
   children: React.ReactNode;
 };
 
 const fetcher = (input: string | URL | Request) => ky(input).json();
 
-const ThemeProvider = ({ cache, theme, children }) => {
-  if (!theme) {
+const SystemProvider = ({ cache, system, children }) => {
+  if (!system) {
     return children;
   }
 
   return (
-    <UIKitProvider theme={theme} cache={cache}>
+    <UIKitProvider system={system} cache={cache}>
       {children}
     </UIKitProvider>
   );
@@ -37,13 +37,13 @@ const ThemeProvider = ({ cache, theme, children }) => {
 const Providers = ({
   locale,
   intlMessages,
-  theme = defaultTheme,
+  system = defaultSystem,
   cache = defaultCache,
   cookies,
   children,
 }: ProvidersProps) => (
   <CookiesProvider cookies={cookies}>
-    <ThemeProvider theme={theme} cache={cache}>
+    <SystemProvider system={system} cache={cache}>
       <IntlProvider key={locale} locale={locale} messages={intlMessages}>
         <DateFnsLocaleProvider>
           <SWRConfig
@@ -56,7 +56,7 @@ const Providers = ({
           </SWRConfig>
         </DateFnsLocaleProvider>
       </IntlProvider>
-    </ThemeProvider>
+    </SystemProvider>
   </CookiesProvider>
 );
 

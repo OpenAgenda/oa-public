@@ -31,7 +31,7 @@ export default function LockIcon({
   type,
   label,
   ...props
-}: LockIconProps) {
+}: LockIconProps): React.JSX.Element {
   const intl = useIntl();
 
   const message = messages[type] ? intl.formatMessage(messages[type]) : label;

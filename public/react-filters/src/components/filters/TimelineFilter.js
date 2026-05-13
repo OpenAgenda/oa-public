@@ -37,7 +37,7 @@ function formatDateValue(value) {
 }
 
 // For display (store -> form)
-export function formatValue(value) {
+function formatValue(value) {
   if (!value) return [];
   if (!Array.isArray(value)) return formatValue([value]);
 
@@ -156,12 +156,7 @@ function parseValue(value) {
   return result.length ? result : undefined;
 }
 
-export function Preview({
-  name,
-  component = FilterPreviewer,
-  disabled,
-  ...rest
-}) {
+function Preview({ name, component = FilterPreviewer, disabled, ...rest }) {
   const intl = useIntl();
   const { input } = useField(name, { subscription });
   const ranges = formatValue(input.value);
@@ -235,5 +230,6 @@ const exported = React.memo(TimelineFilter);
 
 // React.memo lose statics
 exported.Preview = Preview;
+exported.formatValue = formatValue;
 
 export default exported;

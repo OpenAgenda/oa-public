@@ -10,20 +10,26 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "dist/index.js",
-  "module": "dist/index.mjs",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.mts",
   "scripts": {
-    "prepack": "tsup src --clean --format esm,cjs --dts",
+    "prepack": "tsdown",
     "lint": "eslint src/**/*.ts",
     "test": "jest"
   },
   "exports": {
     "./package.json": "./package.json",
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "dependencies": {
@@ -39,7 +45,7 @@
     "babel-jest": "^29.6.3",
     "eslint": "^8.36.0",
     "jest": "^29.6.3",
-    "tsup": "^6.2.3",
+    "tsdown": "^0.22.0",
     "typescript": "^5.6.3"
   }
 }

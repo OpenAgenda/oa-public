@@ -1,0 +1,26 @@
+{
+  "next.auth.manual.complaint": [
+    {
+      "type": 0,
+      "value": "Nel caso in cui ci sia un ritardo nell'elaborazione della tua richiesta, inviaci un messaggio tramite lo strumento di chat sulla nostra [homepage](/) o inviaci una mail a [verif@openagenda.com](mailto:verif@openagenda.com) con l'email utilizzata durante la creazione dell'account."
+    }
+  ],
+  "next.auth.manual.context": [
+    {
+      "type": 0,
+      "value": "A causa di un recente aumento di creazioni di account al solo scopo di pubblicare contenuti pubblicitari, è stata istituita una misura temporanea per verificare gli account prima della loro creazione."
+    }
+  ],
+  "next.auth.manual.instruction": [
+    {
+      "type": 0,
+      "value": "**L'attivazione del tuo account ti sarà notificata rapidamente via e-mail (pochi minuti durante l'orario d'ufficio di Parigi).**"
+    }
+  ],
+  "next.auth.manual.title": [
+    {
+      "type": 0,
+      "value": "Verifica della tua richiesta di creazione dell'account"
+    }
+  ]
+}
