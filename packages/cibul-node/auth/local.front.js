@@ -1,602 +1,15 @@
-import fs from 'node:fs';
 import _ from 'lodash';
 import qs from 'qs';
-import passport from 'passport';
-import LocalStrategy from 'passport-local';
-import * as invitationsSvc from '@openagenda/invitations';
-import makeLabelGetter from '@openagenda/labels';
-import authSigninLabels from '@openagenda/labels/auth/signin.js';
-import authErrorsLabels from '@openagenda/labels/auth/errors.js';
 import logs from '@openagenda/logs';
-import flattenLabels from '@openagenda/labels/flatten.js';
-import manualLabels from '@openagenda/labels/auth/manual.js';
-import { fromMarkdownToHTML } from '@openagenda/md';
-import { BadRequest } from '@openagenda/verror';
 import cmn from '../lib/commons-app.js';
-import config from '../config/index.js';
-import layouts from '../services/lib/layouts/index.js';
-import * as auth from './lib/auth.js';
-import { wantsJson } from './lib/utils.js';
-import betterAuthSignin from './lib/betterAuthSignin.js';
 import computePostActivateRedirect from './lib/computePostActivateRedirect.js';
 
 const log = logs('auth/local');
 
-const getLabel = makeLabelGetter(authSigninLabels);
-const getErrorLabel = makeLabelGetter(authErrorsLabels);
-
-const manualTemplate = _.template(
-  fs.readFileSync(`${import.meta.dirname}/manual.tpl`, 'utf-8'),
-);
-
-const useOptions = {
-  usernameField: 'email',
-  passwordField: 'password',
-  passReqToCallback: true,
-};
-
-const preMw = [cmn.loadBaseData(auth.layoutData, 'oa-main.css')];
-
-const renderManualPage = ((labels, lang) =>
-  manualTemplate(flattenLabels(labels, lang))).bind(
-  null,
-  Object.keys(manualLabels).reduce(
-    (html, key) => ({
-      ...html,
-      [key]: Object.keys(manualLabels[key]).reduce(
-        (label, lang) => ({
-          ...label,
-          [lang]: fromMarkdownToHTML(manualLabels[key][lang]),
-        }),
-        {},
-      ),
-    }),
-    {},
-  ),
-);
+const preMw = [cmn.loadBaseData('oa-main.css')];
 
 function redirectToContribute(req, res) {
   res.redirect(302, `/${req.agenda.slug}/contribute`);
-}
-
-function signinError(req, res, err, logBundle) {
-  log.info('signin attempt failed', { ...logBundle, error: err });
-
-  const passwordMsg = getErrorLabel('incorrectCredentials', req.lang)
-    || getLabel('incorrectPassword', req.lang);
-
-  res.status(400).json({
-    success: false,
-    errors: { password: passwordMsg },
-    message: null,
-  });
-}
-
-// Reached when signin succeeds against better-auth but the OA user record
-// is not yet activated (or BA itself rejects with EMAIL_NOT_VERIFIED).
-// Eagerly fires a fresh verification email, then hands the React UI the
-// data it needs to render the inline `<SignupComplete>` view (the resend
-// URL is the same /activate/resend endpoint, hit later from the resend
-// button).
-async function respondActivationRequired(req, res, oaUser) {
-  const optionals = _.pickBy(
-    _.pick(req.query, 'invitation', 'redirect', 'agenda'),
-  );
-  const callbackURL = computePostActivateRedirect({ req, optionals });
-
-  try {
-    const { auth: authSvc } = req.app.services;
-    await authSvc.api.sendVerificationEmail({
-      body: { email: oaUser.email, callbackURL },
-    });
-  } catch (err) {
-    log.warn('failed to (re)send verification email on signin attempt', {
-      err,
-    });
-  }
-
-  const resendUrl = `${req.agenda ? `/${req.agenda.slug}` : ''}/activate/resend?${qs.stringify(
-    {
-      ...auth.loadOptionals(req),
-      email: oaUser.email,
-      origin: 'signin',
-    },
-  )}`;
-
-  res.json({
-    success: false,
-    reason: 'activation_required',
-    email: oaUser.email,
-    resendUrl,
-  });
-}
-
-async function signinSubmit(req, res) {
-  const logBundle = {
-    ip: req.ip,
-    agenda: _.pick(req.agenda, ['slug', 'title', 'uid']),
-    email: req.body.email,
-  };
-  log.info('signin attempt', logBundle);
-
-  const { services } = req.app;
-  const { auth: authSvc, users } = services;
-
-  let result;
-  try {
-    result = await authSvc.api.signInEmail({
-      body: { email: req.body.email, password: req.body.password },
-      asResponse: true,
-    });
-  } catch (err) {
-    return signinError(req, res, err, logBundle);
-  }
-
-  // With `asResponse:true`, BA wraps APIErrors as 4xx Responses instead of
-  // throwing. Inspect status before attempting to read the session. The
-  // `requireEmailVerification: true` config (phase 3b Lot 1) makes BA reject
-  // signin with FORBIDDEN/EMAIL_NOT_VERIFIED for users who haven't clicked
-  // the activation link — preserve OA legacy UX by redirecting to
-  // /activate/resend in that case.
-  if (!result.ok) {
-    let body = {};
-    try {
-      body = await result.clone().json();
-    } catch (err) {
-      log.warn('failed to parse BA signin error body', {
-        status: result.status,
-        err,
-      });
-    }
-
-    if (body?.code === 'EMAIL_NOT_VERIFIED') {
-      const oaUser = await users
-        .findOne({ query: { email: req.body.email }, detailed: true })
-        .catch(() => null);
-      if (oaUser) {
-        return respondActivationRequired(req, res, oaUser);
-      }
-    }
-
-    return signinError(req, res, body, logBundle);
-  }
-
-  let session;
-  try {
-    session = await authSvc.getSessionFromRequest(req, result);
-  } catch (err) {
-    log.warn('failed to read better-auth session after signin', { err });
-  }
-
-  if (!session?.user) {
-    return signinError(
-      req,
-      res,
-      new Error('session not established'),
-      logBundle,
-    );
-  }
-
-  let oaUser;
-  try {
-    oaUser = await users.findOne({
-      query: { id: session.user.id },
-      detailed: true,
-    });
-  } catch (err) {
-    log.error('failed to load OA user after signin', { err });
-    return cmn.catchError(req, res, wantsJson(req))(err);
-  }
-
-  if (!oaUser) {
-    return signinError(req, res, new Error('OA user not found'), logBundle);
-  }
-
-  if (!oaUser.isActivated) {
-    try {
-      const out = await authSvc.api.signOut({
-        headers: authSvc.toHeaders(req, result),
-        asResponse: true,
-      });
-      authSvc.forwardSetCookieHeaders(out, res);
-    } catch (err) {
-      log.warn('signOut after !isActivated failed', { err });
-    }
-    return respondActivationRequired(req, res, oaUser);
-  }
-
-  log.info('signin attempt successful', logBundle);
-
-  authSvc.forwardSetCookieHeaders(result, res);
-
-  // Verified-linking step 2: password challenge succeeded, finalise the link
-  // by handing the user back to Google. The browser still has an active
-  // Google session from step 1, so the round-trip is effectively silent —
-  // Google redirects without re-prompting consent. BA's /link-social
-  // validates the BA session we just opened, posts a `state` carrying
-  // `link.userId`, then on Google's callback it hits the `if (link)` branch
-  // in callback.mjs (trustedProviders includes google → linking is allowed)
-  // and finalises with a row in `account`.
-  if (req.body.linkProvider === 'google') {
-    const linkErrorRedirect = '/auth/signin?linkProvider=google&linkError=1';
-    try {
-      const linkResp = await authSvc.api.linkSocialAccount({
-        body: {
-          provider: 'google',
-          callbackURL: '/home',
-          errorCallbackURL: linkErrorRedirect,
-          disableRedirect: true,
-        },
-        headers: authSvc.toHeaders(req, result),
-        asResponse: true,
-      });
-      authSvc.forwardSetCookieHeaders(linkResp, res);
-      const linkBody = await linkResp.json().catch(() => null);
-      if (linkResp.ok && linkBody?.url) {
-        if (wantsJson(req)) {
-          return res.json({ success: true, redirect: linkBody.url });
-        }
-        return res.redirect(302, linkBody.url);
-      }
-      log.warn('linkSocial returned no URL', { status: linkResp.status });
-    } catch (err) {
-      log.error('verified linking failed', { err });
-    }
-    // The BA session is already open from `signInEmail` above. Sending the
-    // user back to /signin?linkError=1 lets them either retry the Google
-    // flow (button reappears in error mode) or proceed without linking.
-    if (wantsJson(req)) {
-      return res.json({ success: false, redirect: linkErrorRedirect });
-    }
-    return res.redirect(302, linkErrorRedirect);
-  }
-
-  return betterAuthSignin({
-    services,
-    req,
-    res,
-    email: req.body.email,
-    password: req.body.password,
-    oaUser,
-    result,
-  });
-}
-
-function passwordComplexity(values) {
-  const { security } = values.req.app.services;
-
-  if (!values.req.body.password) {
-    _.set(values, 'data.errors.password', 'passwordRequired');
-    return values;
-  }
-
-  const { score, isSameAs } = security.passwords.evaluate(
-    values.req.body.password,
-    {
-      identifiers: _.pick(values.req.body, ['full_name', 'email']),
-    },
-  );
-
-  if (isSameAs) {
-    _.set(values, 'data.errors.password', 'isSameAs');
-  } else if (score === 0) {
-    _.set(values, 'data.errors.password', 'tooWeak');
-  }
-
-  return values;
-}
-
-function passwordMatchCheck(values) {
-  if (values.req.body.password !== values.req.body.repeat) {
-    if (!values.data.errors) values.data.errors = {};
-
-    values.data.errors.repeat = 'passwordNotEqual';
-  }
-
-  return values;
-}
-
-async function captchaCheck(values) {
-  if (!config.mtCaptcha.enabled) return values;
-
-  const captchaToken = values.req.body['mtcaptcha-verifiedtoken'];
-
-  if (!captchaToken) {
-    log.info('mtCaptcha token is missing');
-    values.data.errors = {
-      ...values.data.errors,
-      captcha: 'captchaRequired',
-    };
-    return values;
-  }
-
-  const { verifyUrl, privateKey } = config.mtCaptcha;
-  let result;
-
-  try {
-    const response = await fetch(
-      `${verifyUrl}?privatekey=${privateKey}&token=${captchaToken}`,
-    );
-    if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
-    }
-    result = await response.json();
-  } catch (e) {
-    log.error('Error with the mtCaptcha service', e);
-    values.data.errors = {
-      ...values.data.errors,
-      captcha: 'captchaTryAgain',
-    };
-    return values;
-  }
-
-  if (!result.success) {
-    values.data.errors = {
-      ...values.data.errors,
-      captcha: 'captchaTryAgain',
-    };
-    return values;
-  }
-
-  const { tokeninfo: tokenInfo } = result;
-
-  log.info('mtCaptcha ip check', {
-    tokenInfoIP: tokenInfo.ip,
-    ip: values.req.ip,
-  });
-
-  return values;
-}
-
-function handleSigninRequest(req, email, password, cb) {
-  const { users } = req.app.services;
-
-  users
-    .verifyPassword(password, {
-      query: { email },
-    })
-    .then(async (validPassword) => {
-      if (!validPassword) {
-        return cb(null, null, {
-          email,
-          password,
-          user: null,
-          errors: {
-            password: getErrorLabel('incorrectCredentials', req.lang),
-          },
-        });
-      }
-
-      const user = await users.findOne({ query: { email }, detailed: true });
-
-      cb(null, user, { email, password, user });
-    })
-    .catch((err) => {
-      if (err.name === 'NotFound') {
-        return cb(null, null, {
-          email,
-          password,
-          user: null,
-          errors: {
-            password: getErrorLabel('incorrectCredentials', req.lang),
-          },
-        });
-      }
-      cb(err);
-    });
-}
-
-function respondSignupErrors(values) {
-  if (values.resolved) return values;
-  values.resolved = true;
-  const errors = values.data?.errors || {};
-  const message = values.data?.message || null;
-  const status = Object.keys(errors).length > 0 ? 400 : 200;
-  values.res.status(status).json({
-    success: false,
-    errors,
-    message,
-  });
-  return values;
-}
-
-function signupSubmit(req, res) {
-  const { users } = req.app.services;
-  const logBundle = {
-    ip: req.ip,
-    email: req.body.email,
-    fullName: req.body.full_name,
-    agenda: _.pick(req.agenda, ['slug', 'title', 'uid']),
-  };
-
-  // Capture plaintext password locally before any downstream middleware can
-  // mutate req.body (Fix 2). Used to open a better-auth session after
-  // users.create when the resulting user is already activated.
-  const plaintextPassword = req.body.password;
-
-  log.info('signup attempt', logBundle);
-
-  new Promise((rs) => rs({ req, res, data: req.body }))
-    .then(passwordComplexity)
-
-    .then(passwordMatchCheck)
-
-    .then(captchaCheck)
-
-    .then(async (values) => {
-      if (values.data.errors) {
-        log.info('signup attempt failed', {
-          ...logBundle,
-          errors: values.data.errors,
-        });
-        return values;
-      }
-
-      const optionals = _.pickBy(
-        _.pick(
-          { ...req.query, ...req.body },
-          'invitation',
-          'redirect',
-          'agenda',
-        ),
-      );
-
-      if (req.agenda) {
-        optionals.agenda = req.agenda;
-      }
-
-      try {
-        const user = await users.create(
-          {
-            fullName: req.body.full_name,
-            email: req.body.email,
-            password: plaintextPassword,
-            culture: req.body.culture || req.lang,
-          },
-          {
-            detailed: true,
-            tokenOptionals: optionals,
-            optionals,
-          },
-        );
-
-        if (user) {
-          log.info('signup attempt successful, created user', logBundle);
-          values.user = user;
-        }
-      } catch (err) {
-        values.data.errors = {};
-
-        if (
-          err
-          && _.find(err.errors, { field: 'fullName', code: 'string.toolong' })
-        ) {
-          values.data.errors.fullName = 'fullNameTooLong';
-        }
-
-        if (
-          err
-          && _.find(err.errors, { field: 'email', code: 'email.invalid' })
-        ) {
-          values.data.errors.email = 'invalidEmail';
-        }
-
-        if (
-          err
-          && _.find(err.errors, { field: 'password', code: 'string.tooshort' })
-        ) {
-          values.data.errors.password = 'passwordTooShort';
-        }
-
-        if (
-          err
-          && _.find(err.errors, { field: 'fullName', code: 'required' })
-        ) {
-          values.data.errors.fullName = 'fieldCannotBeEmpty';
-        }
-
-        if (err && err.message === 'Already exist') {
-          values.data.errors.email = 'usedEmail';
-        }
-
-        if (_.isObject(err.errors) && Object.keys(err.errors) > 0) {
-          values.data.errors = err.errors;
-        }
-
-        log.info('signup attempt failed', {
-          ...logBundle,
-          errors: values.data?.errors,
-        });
-      }
-
-      return values;
-    })
-
-    .then(
-      auth.ifUserLoaded(true, auth.ifUserActivated(false, auth.signupSuccess)),
-    )
-
-    // dead since phase 3b — requireEmailVerification:true gates signup, so
-    // a freshly-created user is never `isActivated`. Kept until phase 6
-    // cleanup so the legacy auto-signin path stays intact in case the BA
-    // verification config is ever loosened.
-    .then(
-      auth.ifUserLoaded(
-        true,
-        auth.ifUserActivated(true, async (values) => {
-          if (values.resolved) return values;
-          values.resolved = true;
-          await betterAuthSignin({
-            services: values.req.app.services,
-            req: values.req,
-            res: values.res,
-            email: values.user.email,
-            password: plaintextPassword,
-            oaUser: values.user,
-          });
-          return values;
-        }),
-      ),
-    )
-
-    .then(respondSignupErrors)
-
-    .then(auth.done, cmn.catchError(req, res, wantsJson(req)));
-}
-
-async function activateResend(req, res) {
-  const { auth: authSvc, users } = req.app.services;
-
-  if (!req.query.email) {
-    return res.status(400).json({ success: false, message: 'emailRequired' });
-  }
-
-  const optionals = _.pickBy(
-    _.pick(req.query, 'invitation', 'redirect', 'agenda'),
-  );
-
-  try {
-    const user = await users.findOne({
-      query: { email: req.query.email },
-      detailed: true,
-    });
-
-    if (!user) {
-      throw new BadRequest(
-        { info: { email: req.query.email } },
-        'No matching account found for activation resend',
-      );
-    }
-
-    if (user.isActivated) {
-      throw new BadRequest(
-        { info: { email: req.query.email } },
-        'User is already activated, no need to activate',
-      );
-    }
-
-    const callbackURL = computePostActivateRedirect({ req, optionals });
-
-    // Issue a fresh better-auth verification token and let the
-    // `onSendVerificationEmail` callback (services/auth/index.js) push the
-    // mail through services.mails. Pre-3b legacy `aa` tokens still in DB
-    // remain valid through the activate() façade fallback below.
-    await authSvc.api.sendVerificationEmail({
-      body: { email: user.email, callbackURL },
-    });
-
-    // Always respond with a generic success so the response can't be used
-    // as an account-enumeration oracle (no distinction between "no account",
-    // "already activated", and "email re-sent").
-    return res.status(200).json({ success: true });
-  } catch (error) {
-    if (error.statusCode === 400) {
-      log.warn(error);
-      return res.status(200).json({ success: true });
-    }
-    log.error(error);
-    return res.status(500).json({ success: false, message: 'genericError' });
-  }
 }
 
 // Sanitize the `next` query parameter for /post-activate. Only allow
@@ -618,18 +31,63 @@ function sanitizeNext(value) {
   return value;
 }
 
-// /post-activate is the intermediate hop after better-auth's auto-signin
-// redirect when the original signup / activate-resend request carried an
-// `invitation` token. We apply token-based invitation actions (linkMember,
-// etc.) using the now-authenticated session, then redirect to either the
-// agenda's contribute page (when the invitation linked the user to an
-// agenda member) or the sanitized `next` path. When the user is not
-// authenticated (auto-signin failed for some reason), or when no invitation
-// is provided, we just redirect to `next` cleanly.
+// /post-activate is the intermediate hop after better-auth's verifyEmail
+// redirect. It is the single landing point for the verify-email callbackURL
+// (see auth/lib/computePostActivateRedirect.js for why we route everything
+// through it instead of going straight to /home or /{slug}/contribute).
+//
+// Three cases:
+//   1. BA reported an error (`?error=INVALID_TOKEN|TOKEN_EXPIRED|USER_NOT_FOUND|…`)
+//      — surface the legacy "invalid activation link" page through the
+//      Next signin form (`/auth/signin?msg=invalidActivation[&agenda=<slug>]`).
+//   2. The original signup carried an `invitation` token — apply the
+//      token-based invitation actions (linkMember, etc.) using the
+//      now-authenticated session, then redirect to the agenda's contribute
+//      page (when the invitation linked the user to an agenda member) or
+//      the sanitized `next` path.
+//   3. No error and no invitation — redirect to `next` cleanly.
+//
+// When the user is not authenticated (auto-signin failed for some reason),
+// we still degrade gracefully and redirect to `next`.
 async function postActivate(req, res) {
   const { agendas, invitations, sessions } = req.app.services;
 
   const next = sanitizeNext(req.query?.next) || '/home';
+
+  // BA `verifyEmail` posts `?error=<CODE>` on the callbackURL when the token
+  // is rejected. The exhaustive list (BASE_ERROR_CODES branch in
+  // node_modules/better-auth/dist/api/routes/email-verification.mjs):
+  //   - TOKEN_EXPIRED   (JWT past `expiresIn`)
+  //   - INVALID_TOKEN   (JWT signature / payload invalid)
+  //   - USER_NOT_FOUND  (token's `email` claim has no matching user row)
+  //   - INVALID_USER    (change-email confirmation hits a different session)
+  // All four map to the same UX as the legacy façade did: the signin form
+  // with `?msg=invalidActivation`. We treat any non-empty `?error=` as
+  // invalid-token to keep the matrix forward-compatible (BA could add new
+  // codes; mapping unknowns to the same generic banner is the safer default).
+  if (typeof req.query?.error === 'string' && req.query.error.length > 0) {
+    // Phase 6 lot 6 — when the activation came from an agenda-aware link
+    // (`?agenda=<slug>` carried through the BA verifyEmail callbackURL),
+    // surface the invalidActivation banner inside the agenda-show page
+    // instead of the neutral `/auth/signin`. The agenda-show page mounts
+    // <InvitationAuthDialog> which reads `?auth=signin&msg=invalidActivation`
+    // and opens AuthDialog with the banner already populated.
+    const slug = typeof req.query?.agenda === 'string' && req.query.agenda.length > 0
+      ? req.query.agenda
+      : null;
+    if (slug) {
+      const query = { auth: 'signin', msg: 'invalidActivation' };
+      return res.redirect(
+        302,
+        `/${slug}${qs.stringify(query, { addQueryPrefix: true })}`,
+      );
+    }
+    return res.redirect(
+      302,
+      `/auth/signin${qs.stringify({ msg: 'invalidActivation' }, { addQueryPrefix: true })}`,
+    );
+  }
+
   const invitationToken = req.query?.invitation;
 
   if (!req.user || !invitationToken) {
@@ -742,310 +200,44 @@ async function postActivate(req, res) {
   return res.redirect(302, next);
 }
 
-// Better-auth /verify-email throws an `APIError` with a body code in
-// {INVALID_TOKEN, TOKEN_EXPIRED, USER_NOT_FOUND} when the JWT is not a
-// genuine BA verification token. In that case we fall through to the
-// legacy `tokens` table lookup. Any other shape (network, internal error)
-// is treated as a real failure and surfaced.
-async function activate(req, res, next) {
-  const { auth: authSvc, users, agendas, tokens, redis } = req.app.services;
-
-  const optionals = _.pickBy(
-    _.pick(req.query, 'invitation', 'redirect', 'agenda'),
-  );
+// Phase 6 lot 5 — the in-process `auth.api.verifyEmail` call was retired.
+// The handler is now a pure 302 proxy to BA's HTTP `/api/auth/verify-email`
+// endpoint, which handles cookie-setting, error redirects (`?error=<CODE>`),
+// and auto-signin natively. The single landing point for the BA callbackURL
+// is `/post-activate`, which intercepts BA errors and surfaces them as
+// `/auth/signin?msg=invalidActivation`.
+//
+// Manual activation mode (custom OA) is preserved: under that flag the
+// token is not consumed and an admin completes activation out-of-band.
+//
+// In practice no new email points to `/activate/:token` anymore — phase 3b
+// switched the verification mail to BA's native URL (`${baseURL}/api/auth/verify-email?…`).
+// This handler keeps the route alive for old-emails-in-flight and external
+// links (CMS, documentation) while we phase the path out entirely.
+async function activate(req, res) {
+  const { redis } = req.app.services;
 
   const accountActivationMode = await redis.get('accountActivationMode') ?? 'manual';
 
   if (accountActivationMode === 'manual') {
-    // Manual mode: do not consume the token at all (neither BA nor legacy);
-    // an admin completes the activation out-of-band. We still try to clean
-    // up a stray legacy `aa` row if one matches, preserving previous UX.
-    const token = await tokens.findOne({
-      query: {
-        token: req.params.token,
-        type: 'aa',
-      },
-    });
-
-    if (token) {
-      await users.findOne({ query: { id: token.userId }, detailed: true });
-
-      await tokens.remove(token.id);
-    }
-
-    const html = renderManualPage(req.lang);
-
-    if (req.agenda) {
-      return res.send(
-        layouts.agenda(html, {
-          lang: req.lang,
-          agenda: req.agenda,
-          cspNonce: res.locals.cspNonce,
-        }),
-      );
-    }
-
-    return res.send(
-      layouts.main(html, {
-        lang: req.lang,
-        title: getLabel(manualLabels.title, req.lang),
-        cspNonce: res.locals.cspNonce,
-      }),
-    );
+    return res.redirect(302, '/auth/manual');
   }
 
-  // 1) Better-auth path. New verification mails (post-3b) carry a token that
-  // BA can verify here. We deliberately do NOT pass `callbackURL` to
-  // `verifyEmail`: when present, BA swallows errors and 302s to the URL with
-  // `?error=…`, blocking our fallback.
-  //
-  // With `asResponse: true`, BA's better-call wraps APIErrors as Response
-  // objects (4xx) instead of throwing — so we inspect status manually rather
-  // than rely on try/catch. On 2xx, Set-Cookie carries the auto-signin
-  // session (autoSignInAfterVerification: true). On 4xx with one of the
-  // invalid-token codes, we fall through to the legacy `aa` path.
-  let baResponse;
-  try {
-    baResponse = await authSvc.api.verifyEmail({
-      query: { token: req.params.token },
-      asResponse: true,
-    });
-  } catch (err) {
-    log.error('verifyEmail threw unexpectedly', err);
-    return cmn.catchError(req, res)(err);
-  }
-
-  if (baResponse.ok) {
-    authSvc.forwardSetCookieHeaders(baResponse, res);
-    // afterEmailVerification has already triggered runOnActivation
-    // (idempotent). Auto-signin opened a session in the response cookies.
-    return res.redirect(302, computePostActivateRedirect({ req, optionals }));
-  }
-
-  let baBody = {};
-  try {
-    baBody = await baResponse.clone().json();
-  } catch (err) {
-    log.warn('failed to parse BA verifyEmail error body', {
-      status: baResponse.status,
-      err,
-    });
-  }
-  const baCode = baBody?.code;
-  const isFallthrough = baCode === 'INVALID_TOKEN'
-    || baCode === 'TOKEN_EXPIRED'
-    || baCode === 'USER_NOT_FOUND';
-  if (!isFallthrough) {
-    log.error('verifyEmail unexpected response', {
-      status: baResponse.status,
-      body: baBody,
-    });
-    return cmn.catchError(
-      req,
-      res,
-    )(new Error(baBody?.message || 'BA verifyEmail failed'));
-  }
-  // fall through to the legacy `aa` token path
-
-  // 2) Legacy path. Mails emitted before 3b deploy carry an opaque token
-  // stored in the Feathers `tokens` table. `users.activate` triggers the
-  // legacy `iff(isActivated, callInterface('onActivation'))` hook which
-  // calls runOnActivation (idempotent). Then we open a legacy session via
-  // the existing `auth.signin` helper.
-  try {
-    const user = await users.activate(
-      0,
-      { token: req.params.token },
-      { optionals, detailed: true },
-    );
-
-    if (!req.query || !req.query.invitation) {
-      return auth.signin({ req, res, user });
-    }
-
-    invitationsSvc.get(
-      { token: req.query.invitation },
-      { includeProcessed: true },
-      (err, { invitation }) => {
-        if (err) {
-          log.error('error received while getting invitation', err);
-        } else if (!invitation) {
-          log('no invitation was found', { token: req.query.invitation });
-        }
-        if (err || !invitation) return auth.signin({ req, res, user });
-
-        const actions = invitation.data.actions.filter(
-          (v) => v.name === 'linkMember',
-        );
-
-        if (actions.length !== 1) {
-          return auth.signin({ req, res, user });
-        }
-
-        log('extracted one linkMember invitation', { actions });
-        const { agendaUid } = actions[0].params[0];
-
-        agendas.get({ uid: agendaUid }).then((agenda) => {
-          log('loaded agenda', { uid: agenda.uid, slug: agenda.slug });
-          req.agenda = agenda;
-          log('signing user in', { user });
-          auth.signin({ req, res, user });
-        }, next);
-      },
-    );
-  } catch (err) {
-    log.error(err);
-    if (err.message.includes('not found')) {
-      return auth.renderInvalidActivation(req, res);
-    }
-
-    return cmn.catchError(req, res)(err);
-  }
+  const optionals = _.pickBy(
+    _.pick(req.query, 'invitation', 'redirect', 'agenda'),
+  );
+  const callbackURL = computePostActivateRedirect({ req, optionals });
+  const verifyURL = `/api/auth/verify-email?${qs.stringify({
+    token: req.params.token,
+    callbackURL,
+  })}`;
+  return res.redirect(302, verifyURL);
 }
 
 export default (app) => {
   const { sessions, agendas } = app.services;
 
   log('initing');
-
-  passport.use(
-    'local-signin',
-    new LocalStrategy(useOptions, handleSigninRequest),
-  );
-
-  // First path segments that are NOT agenda slugs. Used to decide whether
-  // an unauthed `/signin?redirect=…` should reroute to the agenda page
-  // (so the AuthDialog opens on top of it) or to the standalone signin.
-  const RESERVED_TOP_LEVEL = new Set([
-    'admin',
-    'agendas',
-    'api',
-    'auth',
-    'home',
-    'settings',
-    'support',
-    'signin',
-    'signup',
-    'activate',
-    'signout',
-    'newsletter',
-    'flash',
-    'start',
-    'discover',
-    'decouvrir',
-    'entdecken',
-    'reports',
-    'static',
-    'embed',
-    'public',
-    'favicon.ico',
-    'robots.txt',
-  ]);
-
-  function agendaSlugFromRedirect(redirectParam) {
-    if (typeof redirectParam !== 'string' || !redirectParam) return null;
-    let decoded;
-    try {
-      decoded = Buffer.from(redirectParam, 'base64').toString('utf-8');
-    } catch {
-      return null;
-    }
-    const match = decoded.match(/^\/([^/?#]+)\//);
-    if (!match) return null;
-    const candidate = match[1];
-    if (RESERVED_TOP_LEVEL.has(candidate)) return null;
-    return candidate;
-  }
-
-  app.get('/signin', (req, res) => {
-    const slug = agendaSlugFromRedirect(req.query.redirect);
-    if (slug) {
-      const search = qs.stringify(
-        {
-          msg: 'authRequired',
-          ...req.query,
-          auth: 'signin',
-        },
-        { addQueryPrefix: true },
-      );
-      return res.redirect(301, `/${slug}${search}`);
-    }
-    const search = qs.stringify(req.query, { addQueryPrefix: true });
-    res.redirect(301, `/auth/signin${search}`);
-  });
-
-  app.get('/:agendaSlug/signin', (req, res) => {
-    const search = qs.stringify(
-      { auth: 'signin', ...req.query },
-      { addQueryPrefix: true },
-    );
-    res.redirect(301, `/${req.params.agendaSlug}${search}`);
-  });
-
-  app.post(
-    '/signin',
-    preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    signinSubmit,
-  );
-
-  app.post(
-    '/:agendaSlug/signin',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(redirectToContribute),
-    signinSubmit,
-  );
-
-  app.get('/signup', (req, res) => {
-    const search = qs.stringify(req.query, { addQueryPrefix: true });
-    res.redirect(301, `/auth/signup${search}`);
-  });
-
-  app.get('/:agendaSlug/signup', (req, res) => {
-    const fullName = req.query.email
-      ? auth.fullNameFromEmail(req.query.email) || undefined
-      : undefined;
-    const search = qs.stringify(
-      {
-        auth: 'signup',
-        ...req.query,
-        ...fullName ? { fullName } : {},
-      },
-      { addQueryPrefix: true },
-    );
-    res.redirect(301, `/${req.params.agendaSlug}${search}`);
-  });
-
-  app.post(
-    '/signup',
-    preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    signupSubmit,
-  );
-
-  app.post(
-    '/:agendaSlug/signup',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(redirectToContribute),
-    signupSubmit,
-  );
-
-  app.get(
-    '/activate/resend',
-    preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
-    activateResend,
-  );
-
-  app.get(
-    '/:agendaSlug/activate/resend',
-    agendas.mw.load,
-    preMw,
-    sessions.mw.ifLogged(redirectToContribute),
-    activateResend,
-  );
 
   app.get(
     '/activate/:token',
@@ -1062,8 +254,11 @@ export default (app) => {
     activate,
   );
 
-  // Post-activation hop: BA's verify-email redirects here when the original
-  // signup carried an `invitation` token (see computePostActivateRedirect).
+  // Post-activation hop: BA's verify-email always redirects here (see
+  // computePostActivateRedirect for the rationale). Handles three cases:
+  //   - `?error=<CODE>` (BA token rejection) → /auth/signin?msg=invalidActivation
+  //   - `?invitation=<token>` → apply invitation, then redirect
+  //   - otherwise → redirect to sanitized `next` (default /home)
   // We expect the user to be auto-signed-in via BA, but we don't gate on it:
   // the handler degrades gracefully and redirects to `next`.
   app.get('/post-activate', preMw, postActivate);

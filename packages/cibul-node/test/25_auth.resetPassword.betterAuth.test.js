@@ -1,10 +1,10 @@
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
-import resetFront from '../auth/reset.front.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
+import flushRateLimit from './helpers/rateLimit.js';
 import { getCredentialAccount } from './helpers/account.js';
 
 const enabled = [
@@ -72,7 +72,7 @@ describe('25 - reset password via better-auth (phase 3b)', () => {
     services = await Services(testConfig, { enabled });
     core = Core(services, testConfig);
     usersSvc = services.users;
-    app = buildApp(services, testConfig, { extend: (a) => resetFront(a) });
+    app = buildApp(services, testConfig);
 
     originalSend = services.mails.send.bind(services.mails);
   });
@@ -84,6 +84,8 @@ describe('25 - reset password via better-auth (phase 3b)', () => {
       return { status: true };
     };
   });
+
+  beforeEach(() => flushRateLimit(services.redis));
 
   afterAll(async () => {
     services.mails.send = originalSend;
@@ -118,9 +120,8 @@ describe('25 - reset password via better-auth (phase 3b)', () => {
     // backgrounded. Wait briefly for the BA pipeline to invoke
     // onSendPasswordResetEmail → services.mails.send.
     const lostRes = await request(app)
-      .post('/password/lost')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/request-password-reset')
+      .set('Content-Type', 'application/json')
       .send({ email });
 
     expect(lostRes.status).toBe(200);
@@ -188,9 +189,8 @@ describe('25 - reset password via better-auth (phase 3b)', () => {
     sentMails.length = 0;
 
     await request(app)
-      .post('/password/lost')
-      .set('Accept', 'application/json')
-      .type('form')
+      .post('/api/auth/request-password-reset')
+      .set('Content-Type', 'application/json')
       .send({ email });
 
     await new Promise((r) => setTimeout(r, 400));

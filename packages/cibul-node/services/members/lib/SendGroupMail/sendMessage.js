@@ -42,11 +42,20 @@ export default async function sendMessage(
       ? invitationContext.getLang(invitation, agenda.uid, lang)
       : lang;
 
+    // Phase 6 lot 6 — invitation links land on `/{slug}?auth=signup&…` so
+    // the recipient sees the agenda context (header, branding) and the
+    // signup is offered in-modal via `InvitationAuthDialog` rather than on
+    // the neutral `/auth/signup` page. See services/members/lib/mail.js for
+    // the full flow rationale (post-activate hop, redirect base64).
     const link = invitation
-      ? `${config.root}/${agenda.slug}/signup?${qs.stringify({
+      ? `${config.root}/${agenda.slug}?${qs.stringify({
+        auth: 'signup',
         invitation: invitation.token,
         email,
         lang: appliedLang,
+        redirect: Buffer.from(`/${agenda.slug}/contribute`, 'utf-8').toString(
+          'base64',
+        ),
       })}`
       : `${config.root}/${agenda.slug}?lang=${appliedLang}`;
 

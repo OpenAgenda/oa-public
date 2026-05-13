@@ -106,6 +106,23 @@ export async function init(config, services) {
         create: (identifiers, data) => keys(identifiers).create(data),
         remove: (identifiers) => keys(identifiers).remove(),
       },
+      // Fallback used by `Users.verifyPassword` when the legacy
+      // `user.password` column is empty (BA-only users — signup/reset via
+      // better-auth never writes the legacy hash). Verifies against
+      // `account.password` through the same routine BA's `/sign-in/email`
+      // uses (argon2id + legacy sentinel formats).
+      verifyPassword: services.auth
+        ? (user, password) =>
+          services.auth.verifyCredentialPassword(user.id, password)
+        : undefined,
+      // Read from the BA `account` table when present. `populateAccountTypes`
+      // calls this with a single user id (the only multi-user callsite is an
+      // admin members list, where the helper fans out internally). Returns a
+      // `Map<userId, Set<providerId>>`; the hook converts it to the public
+      // `{hasLocalAccount, hasSocialAccount}` shape.
+      getAccountTypes: services.auth
+        ? (userIds) => services.auth.getAccountTypesByUserId(userIds)
+        : undefined,
     },
     logger: config.getLogConfig('svc', 'users', false),
     superAdminUids: config.superAdminUids,

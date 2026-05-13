@@ -72,10 +72,6 @@ export default function plugApp(app) {
     unlinkFacebookMw.validatePassword,
     getHandler('requestUnlinkFacebook', ['id', 'data', 'params'])(service),
   );
-  app.patch(
-    '/users/:__feathersId/changePassword',
-    getHandler('changePassword', ['id', 'data', 'params'])(service),
-  );
   app.get(
     '/users/:__feathersId/generateApiKey',
     getHandler('generateApiKey', ['id', 'params'])(service),

@@ -17,6 +17,18 @@
       "value": "L'accès à cet événement est restreint. Connectez-vous pour y accéder."
     }
   ],
+  "next.components.auth.Signin.invalidActivation.description": [
+    {
+      "type": 0,
+      "value": "Le lien a peut-être déjà été cliqué. Dans ce cas, votre compte devrait déjà être activé."
+    }
+  ],
+  "next.components.auth.Signin.invalidActivation.title": [
+    {
+      "type": 0,
+      "value": "Le lien d'activation n'est pas valide"
+    }
+  ],
   "next.views.AgendaShow.AgendaHeader.addEvent": [
     {
       "type": 0,

@@ -56,10 +56,18 @@ function processSend(
   let link = `${config.root}/agendas/${agenda.uid}?lang=${lang}`;
 
   if (invitation) {
-    link = `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${member.custom.email}&invitation=${invitation.token}`;
-    if (redirect) {
-      link = `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${member.custom.email}&invitation=${invitation.token}&redirect=${base64.encode(redirect)}`;
-    }
+    // Phase 6 lot 6 — point invitations at the agenda show page so the
+    // recipient lands in context (header, branding, agenda title) rather
+    // than on the neutral `/auth/signup` page. `InvitationAuthDialog`
+    // (mounted on `/{slug}` in AgendaShow) reads `?auth=signup&...` and
+    // opens the AuthDialog modal pre-filled with invitation/email/redirect.
+    // The Next proxy (packages/next/src/proxy.ts) honours `?lang` for any
+    // path, so `/{slug}?lang=…` still hops to the right locale segment.
+    // Post-activation, BA verifyEmail → /post-activate applies the
+    // invitation token (linkMember etc.) and lands the user on
+    // `/{slug}/contribute` (or the supplied `redirect`).
+    const baseRedirect = redirect || `/${agenda.slug}/contribute`;
+    link = `${config.root}/${agenda.slug}?auth=signup&lang=${lang}&email=${encodeURIComponent(member.custom.email)}&invitation=${invitation.token}&redirect=${base64.encode(baseRedirect)}`;
   } else if (isMember) {
     if (role === 'administrator' || role === 'moderator') {
       link = `${config.root}/${agenda.slug}/admin/events`;

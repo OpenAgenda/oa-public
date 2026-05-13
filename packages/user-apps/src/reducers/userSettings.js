@@ -40,6 +40,28 @@ function getFormFirstErrors(validatorErrors) {
   return errors;
 }
 
+// Map a better-auth `/change-password` error code to the legacy
+// `{field, code}` shape used by the redux-form fields. Codes are taken
+// straight from BA `BASE_ERROR_CODES` (see
+// node_modules/better-auth/dist/api/routes/update-user.mjs ~167):
+//   - INVALID_PASSWORD               → currentPassword wrong
+//   - PASSWORD_TOO_SHORT/_TOO_LONG   → newPassword length
+//   - CREDENTIAL_ACCOUNT_NOT_FOUND   → user has no credential row (oauth-only)
+function mapChangePasswordError(code) {
+  switch (code) {
+    case 'INVALID_PASSWORD':
+      return [{ field: 'oldPassword', code: 'password.badpassword' }];
+    case 'PASSWORD_TOO_SHORT':
+      return [{ field: 'password', code: 'string.tooshort' }];
+    case 'PASSWORD_TOO_LONG':
+      return [{ field: 'password', code: 'string.toolong' }];
+    case 'CREDENTIAL_ACCOUNT_NOT_FOUND':
+      return [{ field: 'oldPassword', code: 'password.badpassword' }];
+    default:
+      return null;
+  }
+}
+
 const initialState = {
   loading: true,
   loaded: false,
@@ -216,19 +238,32 @@ export function updateUser(data = {}) {
 export function changePassword(data) {
   return {
     types: [CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, CHANGE_PASSWORD_FAIL],
-    promise: async ({ client }, { getState, dispatch }) => {
-      const { res } = getState();
+    promise: async ({ client }, { getState: _getState, dispatch }) => {
+      // Client-side confirmation match — BA does not validate this server-side,
+      // so keep the legacy form behaviour (error tagged on the `confirmation`
+      // field, matches `confirmation.differentpassword` label).
+      if (data.password !== data.confirmation) {
+        throw new SubmissionError({
+          confirmation: 'confirmation.differentpassword',
+        });
+      }
 
       try {
+        // Direct call to better-auth. Absolute path (leading `/`) so ky
+        // resolves on the current origin; a relative `api/...` would be
+        // resolved against the page URL (`/settings/password` →
+        // `/settings/api/auth/change-password`). `currentPassword` /
+        // `newPassword` keys per BA schema; `revokeOtherSessions: false`
+        // matches the legacy users.changePassword semantics (which never
+        // touched sessions).
         const result = await client
-          .patch(res.changePassword, {
-            searchParams: {
-              $client: {
-                includeImagePath: true,
-                detailed: true,
-              },
+          .post('/api/auth/change-password', {
+            json: {
+              currentPassword: data.oldPassword,
+              newPassword: data.password,
+              revokeOtherSessions: false,
             },
-            json: data,
+            credentials: 'include',
           })
           .json();
 
@@ -245,14 +280,27 @@ export function changePassword(data) {
           throw new SubmissionError({ _error: error.message });
         }
 
-        const responseError = await error.response.json();
-        const errors = getFormFirstErrors(responseError.errors);
+        const responseError = await error.response.json().catch(() => ({}));
+
+        // BA returns `{message, code}` (e.g. `code: 'INVALID_PASSWORD'`),
+        // not the legacy `{errors: [{field, code}]}`. Map by `code` first;
+        // fall back to the legacy shape for any future endpoint that still
+        // returns it.
+        const baMapped = mapChangePasswordError(responseError.code);
+        const errors = baMapped
+          ? getFormFirstErrors(baMapped)
+          : getFormFirstErrors(responseError.errors);
 
         if (Object.keys(errors).length) {
           throw new SubmissionError(errors);
         } else if (responseError.message) {
           throw new SubmissionError({ _error: responseError.message });
         }
+
+        // Unknown BA error code with no `errors` array and no `message`:
+        // surface the underlying HTTP error so the form does not silently
+        // resolve as success.
+        throw new SubmissionError({ _error: error.message });
       }
     },
   };

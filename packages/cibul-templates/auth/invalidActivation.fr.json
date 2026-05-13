@@ -1,8 +1,0 @@
-{
-  "The activation link is not valid"
-  : "Le lien d'activation n'est pas valide",
-  "This can be because it has already been used. If that is the case, your account should be activated."
-  : "Le lien a peut-être déjà été cliqué. Dans ce cas, votre compte devrait déjà être activé.",
-  "Try signing in!"
-  : "Essayez de vous connecter!"
-}

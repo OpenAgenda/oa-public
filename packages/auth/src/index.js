@@ -1,12 +1,14 @@
 import { betterAuth } from 'better-auth';
 import { toNodeHandler, fromNodeHeaders } from 'better-auth/node';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
+import { customSession } from 'better-auth/plugins';
 import { getCurrentAuthContext } from '@better-auth/core/context';
 import { redisStorage } from '@better-auth/redis-storage';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
+import projectUser from './projectUser.js';
 import {
   encodeLegacy,
   hash as hashPassword,
@@ -48,6 +50,13 @@ export default function Auth(options = {}) {
     onSendVerificationEmail,
     onSendPasswordResetEmail,
     onAfterOAuthSignUp,
+    // Extension callbacks. All optional, all no-op when absent so consumers
+    // adopt them progressively. The contract (request shape, semantics)
+    // lives in the wiring sites below.
+    onSignInSuccess,
+    onSignUpComplete,
+    validateSignUp,
+    resolveSessionExtras,
   } = options;
 
   if (!mysqlPool) {
@@ -60,7 +69,11 @@ export default function Auth(options = {}) {
     verification: schemas.verification ?? 'verification',
   };
 
-  const instance = betterAuth({
+  // The same `betterAuth({...})` options object is passed to `customSession`
+  // so the plugin can infer `additionalFields` (uid, culture, …) on the
+  // typed `user` argument of `resolveSessionExtras`. Build it once, then
+  // pass to both calls.
+  const baOptions = {
     database: { dialect: new MysqlDialect({ pool: mysqlPool }), type: 'mysql' },
     secret,
     baseURL,
@@ -153,6 +166,36 @@ export default function Auth(options = {}) {
           return;
         }
 
+        // Extension point for sign-up validation (captcha, password
+        // complexity, …). The callback returns either a falsy value (=> let
+        // BA proceed) or an object with `errors` (=> reject with HTTP 400).
+        // Throwing inside the callback is also honoured — APIError
+        // propagates as-is, anything else is rewrapped in BAD_REQUEST.
+        if (
+          ctx.path === '/sign-up/email'
+          && typeof validateSignUp === 'function'
+        ) {
+          let result;
+          try {
+            result = await validateSignUp({
+              body: ctx.body,
+              request: ctx.request,
+            });
+          } catch (err) {
+            if (err instanceof APIError) throw err;
+            throw new APIError('BAD_REQUEST', {
+              message: err?.message || 'Sign-up validation failed',
+            });
+          }
+          if (result && result.errors) {
+            throw new APIError('BAD_REQUEST', {
+              message: 'Sign-up validation failed',
+              details: result.errors,
+            });
+          }
+          return;
+        }
+
         // /reset-password consumes the verification record (deleteVerificationByIdentifier)
         // before returning, so the after-hook can no longer recover the userId from BA's
         // ctx. Stash it here while the verification is still resolvable. The shared
@@ -189,17 +232,44 @@ export default function Auth(options = {}) {
             const credential = accounts.find(
               (a) => a.providerId === 'credential',
             );
-            if (!credential?.password || !isLegacy(credential.password)) return;
-            // Guard against future BA versions reshaping the request body:
-            // argon2.hash(undefined) throws, the surrounding try/catch
-            // swallows it, and the legacy hash would never rotate.
-            if (typeof ctx.body?.password !== 'string') return;
-            // internalAdapter.updatePassword writes the value directly; we must
-            // hash here. ctx.context.password.hash mirrors our custom hash.
-            const newHash = await ctx.context.password.hash(ctx.body.password);
-            await ctx.context.internalAdapter.updatePassword(userId, newHash);
+            if (credential?.password && isLegacy(credential.password)) {
+              // Guard against future BA versions reshaping the request body:
+              // argon2.hash(undefined) throws, the surrounding try/catch
+              // swallows it, and the legacy hash would never rotate.
+              if (typeof ctx.body?.password === 'string') {
+                // internalAdapter.updatePassword writes the value directly; we
+                // must hash here. ctx.context.password.hash mirrors our custom
+                // hash.
+                const newHash = await ctx.context.password.hash(
+                  ctx.body.password,
+                );
+                await ctx.context.internalAdapter.updatePassword(
+                  userId,
+                  newHash,
+                );
+              }
+            }
           } catch (err) {
             ctx.context.logger?.error?.('lazy rehash failed', { userId, err });
+          }
+
+          // Errors are logged but do not propagate — the user is already
+          // signed in, blocking the response on a post-signin side-effect
+          // (lastSignin refresh, FB unlink redirect, …) would degrade UX
+          // with no security benefit.
+          if (typeof onSignInSuccess === 'function') {
+            try {
+              await onSignInSuccess({
+                session: newSession.session,
+                user: newSession.user,
+                request: ctx.request,
+              });
+            } catch (err) {
+              ctx.context.logger?.error?.('onSignInSuccess failed', {
+                userId,
+                err,
+              });
+            }
           }
           return;
         }
@@ -278,6 +348,23 @@ export default function Auth(options = {}) {
               'location',
               '/settings/unlinkFacebook',
             );
+          }
+
+          // Same error policy as /sign-in/email: log and continue. The
+          // OAuth redirect is already in flight via `responseHeaders.location`.
+          if (typeof onSignInSuccess === 'function') {
+            try {
+              await onSignInSuccess({
+                session: newSession.session,
+                user: newSession.user,
+                request: ctx.request,
+              });
+            } catch (err) {
+              ctx.context.logger?.error?.('onSignInSuccess failed', {
+                userId,
+                err,
+              });
+            }
           }
           return;
         }
@@ -453,12 +540,29 @@ export default function Auth(options = {}) {
       user: {
         create: {
           after: async (createdUser, context) => {
+            const path = context?.path;
+
+            // Fires on EVERY user creation (email/pwd signup AND OAuth
+            // signup) — broader than `onAfterOAuthSignUp` so callers can
+            // hook into the /sign-up/email path too. The user is NOT yet
+            // activated for /sign-up/email; the callback must not assume
+            // `isActivated=true`.
+            if (typeof onSignUpComplete === 'function') {
+              try {
+                await onSignUpComplete(createdUser, context?.request);
+              } catch (err) {
+                context?.logger?.error?.('onSignUpComplete failed', {
+                  userId: createdUser?.id,
+                  err,
+                });
+              }
+            }
+
             // Only fire for OAuth signups. The endpoint path (`/callback/:id`)
             // is propagated to the async-context — email/pwd signups go via
             // `/sign-up/email` and are not concerned by `runOnActivation`
             // (they go through the existing Feathers `sendVerificationEmailOnCreate`
             // hook → email verify → `onEmailVerified`).
-            const path = context?.path;
             if (typeof path !== 'string' || !path.startsWith('/callback/')) return;
             if (typeof onAfterOAuthSignUp !== 'function') return;
             try {
@@ -473,15 +577,47 @@ export default function Auth(options = {}) {
         },
       },
     },
-  });
+  };
+
+  // Pass the same options object to `customSession` so its callback's user
+  // and session arguments carry the inferred `additionalFields` typings.
+  // Only register the plugin when the consumer actually wires
+  // `resolveSessionExtras` — otherwise BA's vanilla `/api/auth/get-session`
+  // payload stays unchanged (no behavioural drift on opt-out).
+  if (typeof resolveSessionExtras === 'function') {
+    // Note: `customSession` re-runs the callback on EVERY GET
+    // /api/auth/get-session — there is no per-request cache (verified in
+    // node_modules/better-auth/dist/plugins/custom-session/index.mjs). Keep
+    // the implementation I/O-economical (1 SELECT user max, 1 SELECT
+    // contextual record max).
+    baOptions.plugins = [
+      ...baOptions.plugins,
+      customSession(async ({ user, session }, ctx) => {
+        const extras = await resolveSessionExtras({
+          user,
+          session,
+          request: ctx?.request,
+        });
+        // BA's customSession does NOT merge — it REPLACES. We must explicitly
+        // include `user` and `session` (or their projected equivalents) in
+        // the returned payload, otherwise consumers get an empty payload.
+        return { user, session, ...extras ?? {} };
+      }, baOptions),
+    ];
+  }
+
+  const instance = betterAuth(baOptions);
 
   const {
     upsertCredentialAccount,
     updateCredentialPassword,
+    adminSetPassword,
     deleteCredentialAccount,
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    verifyCredentialPassword,
+    getAccountTypesByUserId,
   } = createCredentialHelpers(instance);
 
   async function getSessionFromRequest(req, prevResponse) {
@@ -585,20 +721,39 @@ export default function Auth(options = {}) {
     encodeLegacyPassword: encodeLegacy,
     upsertCredentialAccount,
     updateCredentialPassword,
+    // Superadmin-driven password reset (no `currentPassword` challenge).
+    // Hashes the plaintext with argon2id and upserts the credential row.
+    // Authorization is the consumer's responsibility; gate behind the
+    // existing superAdmin middleware when wiring an HTTP endpoint.
+    adminSetPassword,
     deleteCredentialAccount,
+    // Verifies a plaintext password against `account.password` (argon2id +
+    // legacy sentinel formats) — same routine BA's `/sign-in/email` uses.
+    // Use from password-challenge endpoints (delete agenda, change email,
+    // delete account) so they don't read the stale legacy `user.password`
+    // column which is `NULL` for users created via better-auth.
+    verifyCredentialPassword,
     // OAuth account row helpers (phase 4).
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    // Source of truth for `hasLocalAccount` / `hasSocialAccount`. Reads the
+    // BA `account` table — the legacy `user.{password, facebook_uid, ...}`
+    // columns are stale for BA-only users.
+    getAccountTypesByUserId,
     // Helpers exposed for Express integration (phase 3).
     toHeaders,
     forwardSetCookieHeaders,
     getSessionFromRequest,
-    // Session-opening primitives (phase 3 sign-as fix).
+    // Session-opening primitives.
     openSession,
     impersonateUser,
     stopImpersonating,
+    // Pure projection helper. Exposed so consumers that build their own
+    // `resolveSessionExtras` can compose with the canonical OA shape, and
+    // so an OIDC userinfo hook can reuse it without I/O.
+    projectUser,
   };
 }
 
-export { toNodeHandler, fromNodeHeaders };
+export { toNodeHandler, fromNodeHeaders, projectUser };

@@ -39,29 +39,10 @@ describe('create', () => {
     expect(user.password).not.toBe(password);
   });
 
-  it('create a user and an activation token', async () => {
+  it('does not create a legacy activation token for a new user', async () => {
     const email = 'jean-eude@oa.com';
     const user = await getService().create(
       { fullName: 'Jean-Eude', email, password: 'pa**word' },
-      { detailed: true },
-    );
-
-    const token = await getService()
-      .config.getTokensService()
-      .findOne({ query: { email } });
-    expect(user.email).toBe(email);
-    expect(token.token).toHaveLength(32);
-  });
-
-  it("doesn't create an activation token for an activated user", async () => {
-    const email = 'jean-eude@oa.com';
-    const user = await getService().create(
-      {
-        fullName: 'Jean-Eude',
-        email,
-        password: 'pa**word',
-        isActivated: true,
-      },
       { detailed: true },
     );
 

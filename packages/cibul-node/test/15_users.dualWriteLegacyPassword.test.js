@@ -121,51 +121,6 @@ describe('15 - services.users dual-write legacy password (phase 2a)', () => {
     });
   });
 
-  describe('users.changePassword', () => {
-    let user;
-
-    beforeAll(async () => {
-      user = await usersSvc.create(
-        {
-          fullName: 'Mirror Change',
-          email: 'mirror-change@oa.test',
-          password: 'initialPwd',
-          isActivated: true,
-        },
-        {
-          internal: true,
-          detailed: true,
-        },
-      );
-    });
-
-    it('updates the existing credential row in place (no duplicates)', async () => {
-      const before = await getCredentialAccount(
-        knex,
-        user.id,
-        testConfig.schemas,
-      );
-
-      await usersSvc.changePassword(user.uid, {
-        password: 'newPwd-change',
-      });
-
-      const accounts = await knex(testConfig.schemas.account).where({
-        provider_id: 'credential',
-        account_id: String(user.id),
-      });
-      expect(accounts).toHaveLength(1);
-
-      const after = accounts[0];
-      // Same row id — it was an update.
-      expect(String(after.id)).toBe(String(before.id));
-
-      const expectedHex = sha256Hex(user.salt, 'newPwd-change');
-      expect(after.password).toBe(`legacy-sha256$${user.salt}$${expectedHex}`);
-      expect(after.password).not.toBe(before.password);
-    });
-  });
-
   describe('users.patch internal with password', () => {
     let user;
 

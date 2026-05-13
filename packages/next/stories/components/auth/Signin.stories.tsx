@@ -25,7 +25,7 @@ export default {
 };
 
 export function Default() {
-  return <Signin />;
+  return <Signin onActivationRequired={() => {}} />;
 }
 
 Default.parameters = {
@@ -42,7 +42,7 @@ Default.parameters = {
 };
 
 export function InvalidCredentials() {
-  return <Signin defaultInvalidCredentials />;
+  return <Signin defaultInvalidCredentials onActivationRequired={() => {}} />;
 }
 
 InvalidCredentials.parameters = {
@@ -63,7 +63,7 @@ InvalidCredentials.parameters = {
 };
 
 export function Success() {
-  return <Signin />;
+  return <Signin onActivationRequired={() => {}} />;
 }
 
 Success.parameters = {
@@ -80,11 +80,11 @@ Success.parameters = {
 };
 
 export function SuccessRedirecting() {
-  return <Signin defaultSuccess />;
+  return <Signin defaultSuccess onActivationRequired={() => {}} />;
 }
 
 export function AccountNotActivated() {
-  return <Signin />;
+  return <Signin onActivationRequired={() => {}} />;
 }
 
 AccountNotActivated.parameters = {
@@ -102,11 +102,11 @@ AccountNotActivated.parameters = {
 };
 
 export function Loading() {
-  return <Signin defaultLoading />;
+  return <Signin defaultLoading onActivationRequired={() => {}} />;
 }
 
 export function ServerError() {
-  return <Signin />;
+  return <Signin onActivationRequired={() => {}} />;
 }
 
 ServerError.parameters = {
@@ -126,7 +126,12 @@ ServerError.parameters = {
 };
 
 export function RedirectOnSuccess() {
-  return <Signin redirectOnSuccess="/example-agenda/contribute" />;
+  return (
+    <Signin
+      redirectOnSuccess="/example-agenda/contribute"
+      onActivationRequired={() => {}}
+    />
+  );
 }
 
 RedirectOnSuccess.parameters = {

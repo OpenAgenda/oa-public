@@ -2,6 +2,8 @@
   "next.components.auth.AuthDialog.msg.authRequired": "",
   "next.components.auth.AuthDialog.msg.limitedAccessAgenda": "",
   "next.components.auth.AuthDialog.msg.limitedAccessEvent": "",
+  "next.components.auth.Signin.invalidActivation.description": "",
+  "next.components.auth.Signin.invalidActivation.title": "",
   "next.views.AgendaShow.AgendaHeader.addEvent": "Veranstaltung hinzufügen",
   "next.views.AgendaShow.AgendaHeader.aggregate": "Aggregate",
   "next.views.AgendaShow.AgendaHeader.contact": "Kontakt",
