@@ -52,19 +52,30 @@ export default function StrapiPageClient({
 
   const { navFontColor, navSticky } = page;
   const navbarOverlays = !!navFontColor || !!navSticky;
-  // Banner sits just below the navbar with a small visible gap initially.
-  // When the navbar overlays (out of flow), the banner offset must include the
-  // navbar's height. When the navbar is `position: relative` (in flow), the
-  // wrapper is already placed below it — only the gap is needed.
-  const bannerInitialTop = navbarOverlays
+  // The announcement is rendered inside the `<header>` (see Navbar), and
+  // publishes its height in `--oa-announcement-h`. How that height affects
+  // the welcome banner's offset depends on the navbar position mode:
+  //
+  // - sticky (navSticky=true): the `<header>` uses `mb: -50px` which exactly
+  //   cancels the nav row in the flow. Siblings start at `y=H_announcement`,
+  //   so the welcome's `mt` only needs `NAVBAR_HEIGHT + GAP` to clear the
+  //   full header (`50 + H_ann + 16`) regardless of the announcement height.
+  // - absolute (navFontColor && !navSticky): the `<header>` is out of flow
+  //   entirely. Siblings start at `y=0`, so the welcome's `mt` must include
+  //   the announcement height to clear the visible navbar+announcement.
+  // - relative (in flow, no overlay): the `<header>` (nav row +
+  //   announcement) already pushes siblings below; the welcome only needs
+  //   the gap.
+  const navIsAbsolute = !!navFontColor && !navSticky;
+  const initialTopBase = navbarOverlays
     ? NAVBAR_HEIGHT_PX + NAVBAR_BANNER_GAP_PX
     : NAVBAR_BANNER_GAP_PX;
-  // The banner sticks at `bannerInitialTop` when the navbar stays put
-  // (`navSticky=true`), or slides up to the small gap once the navbar leaves
-  // the screen (overlay-absolute or relative-scrolling-away). The announcement
-  // is rendered inside the sticky `<header>` (see Navbar), so when navSticky
-  // is on, the stuck offset must clear `nav row + announcement` — the
-  // announcement publishes its height in `--oa-announcement-h`.
+  const bannerInitialTop = navIsAbsolute
+    ? `calc(${initialTopBase}px + var(--oa-announcement-h, 0px))`
+    : initialTopBase;
+  // When the navbar is sticky, the welcome stays stuck below it as the user
+  // scrolls; the stuck offset must clear `nav row + announcement`. Otherwise
+  // the welcome slides up to a small gap once the navbar leaves the screen.
   const bannerStuckTop = navSticky
     ? `calc(${
         NAVBAR_HEIGHT_PX + NAVBAR_BANNER_GAP_PX
@@ -74,16 +85,18 @@ export default function StrapiPageClient({
   // First-segment padding pushes the hero content below the navbar (and the
   // banner when shown), while the segment's own bg extends to y=0 — the
   // banner is an overlay (height:0) so it doesn't push the segment in flow.
-  const navSpacer =
-    bannerInitialTop +
-    (displayWelcome && welcomeHeight > 0 ? welcomeHeight : 0);
+  // When the navbar is absolute we must also clear the announcement height.
+  const welcomePx = displayWelcome && welcomeHeight > 0 ? welcomeHeight : 0;
+  const navSpacer = navIsAbsolute
+    ? `calc(${initialTopBase + welcomePx}px + var(--oa-announcement-h, 0px))`
+    : `${initialTopBase + welcomePx}px`;
 
   // `display: flow-root` establishes a BFC so the banner's `mt` (which gives
   // it its initial flow position before sliding) doesn't margin-collapse out
   // of the wrapper, which would make the banner stick immediately at scroll 0.
   const rootStyle = {
     display: 'flow-root',
-    '--oa-nav-spacer': `${navSpacer}px`,
+    '--oa-nav-spacer': navSpacer,
   } as CSSProperties;
 
   return (
