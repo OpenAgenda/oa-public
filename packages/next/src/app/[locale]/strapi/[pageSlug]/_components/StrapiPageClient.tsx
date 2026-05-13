@@ -61,8 +61,15 @@ export default function StrapiPageClient({
     : NAVBAR_BANNER_GAP_PX;
   // The banner sticks at `bannerInitialTop` when the navbar stays put
   // (`navSticky=true`), or slides up to the small gap once the navbar leaves
-  // the screen (overlay-absolute or relative-scrolling-away).
-  const bannerStuckTop = navSticky ? bannerInitialTop : NAVBAR_BANNER_GAP_PX;
+  // the screen (overlay-absolute or relative-scrolling-away). The announcement
+  // is rendered inside the sticky `<header>` (see Navbar), so when navSticky
+  // is on, the stuck offset must clear `nav row + announcement` — the
+  // announcement publishes its height in `--oa-announcement-h`.
+  const bannerStuckTop = navSticky
+    ? `calc(${
+        NAVBAR_HEIGHT_PX + NAVBAR_BANNER_GAP_PX
+      }px + var(--oa-announcement-h, 0px))`
+    : `${NAVBAR_BANNER_GAP_PX}px`;
 
   // First-segment padding pushes the hero content below the navbar (and the
   // banner when shown), while the segment's own bg extends to y=0 — the

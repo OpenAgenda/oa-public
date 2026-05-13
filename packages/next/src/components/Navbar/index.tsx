@@ -1,6 +1,13 @@
 'use client';
 
-import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntl } from 'react-intl';
 import { useCookies } from 'react-cookie';
@@ -12,6 +19,7 @@ import getHomeHref from 'utils/getHomeHref';
 import { FetchStatus } from 'config/types';
 import SearchInput from 'components/NavbarSearchInput';
 import Image from 'components/Image';
+import Announcement from 'components/Announcement';
 import LanguageSelector from '../LanguageSelector';
 import logoPic from '../../../public/images/oa.svg';
 import whiteLogoPic from '../../../public/images/oa-white.svg';
@@ -121,6 +129,7 @@ export default function Navbar({
   const [atTop, setAtTop] = useState(true);
 
   const navbarRef = useRef(undefined);
+  const announcementRef = useRef<HTMLDivElement>(null);
   const [cookies] = useCookies();
 
   const search = useSearch();
@@ -139,6 +148,30 @@ export default function Navbar({
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Publish the announcement's rendered height as a CSS custom property so
+  // sticky banners further down the page (e.g. the Strapi welcome banner) can
+  // stack underneath the full sticky header. Falls back to 0 when no
+  // announcement is shown.
+  useLayoutEffect(() => {
+    if (typeof ResizeObserver === 'undefined') return undefined;
+    const wrapper = announcementRef.current;
+    if (!wrapper) return undefined;
+    const root = document.documentElement;
+    const measure = () => {
+      root.style.setProperty(
+        '--oa-announcement-h',
+        `${wrapper.offsetHeight}px`,
+      );
+    };
+    const ro = new ResizeObserver(measure);
+    ro.observe(wrapper);
+    measure();
+    return () => {
+      ro.disconnect();
+      root.style.removeProperty('--oa-announcement-h');
+    };
   }, []);
 
   return (
@@ -224,6 +257,10 @@ export default function Navbar({
           </Flex>
         </Flex>
       </Container>
+
+      <div ref={announcementRef}>
+        <Announcement />
+      </div>
 
       {/* Mobile menu here with headerRef + Portal */}
     </chakra.header>
