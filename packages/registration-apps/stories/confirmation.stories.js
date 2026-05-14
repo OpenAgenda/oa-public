@@ -1,5 +1,5 @@
 import Confirmation from '../src/passCulture/Confirmation.js';
-import event from './fixtures/event.json';
+import event from './fixtures/event.json' with { type: 'json' };
 
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';

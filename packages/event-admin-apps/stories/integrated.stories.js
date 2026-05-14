@@ -8,8 +8,8 @@ import AdminPageDecorator from './decorators/AdminPage.js';
 import ProvidersDecorator from './decorators/Providers.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
-import mainData from './fixtures/new.json';
-import exportSettings from './fixtures/exportSettings.json';
+import mainData from './fixtures/new.json' with { type: 'json' };
+import exportSettings from './fixtures/exportSettings.json' with { type: 'json' };
 
 const getDefaultState = () => ({
   settings: {

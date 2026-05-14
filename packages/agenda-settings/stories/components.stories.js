@@ -5,8 +5,8 @@ import DeleteAgendaComponent from '../src/components/DeleteAgenda.js';
 import Decorator from './decorators/Simple.js';
 import IntlProviderDecorator from './decorators/IntlProvider.js';
 
-import agenda from './fixtures/bdm.agenda.json';
-import agendaWithModifiedFilters from './fixtures/jep.agenda.json';
+import agenda from './fixtures/bdm.agenda.json' with { type: 'json' };
+import agendaWithModifiedFilters from './fixtures/jep.agenda.json' with { type: 'json' };
 
 export default {
   title: 'Components',

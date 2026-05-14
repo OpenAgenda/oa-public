@@ -6,10 +6,10 @@ import { HelmetProvider } from 'react-helmet-async';
 
 import createApp from '../src/index.js';
 
-import toulouseEmbed from './fixtures/toulouse.json';
-import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json';
-import toulouseEvents from './fixtures/toulouse.events.json';
-import toulouseDefaultEmbed from './fixtures/toulouse.default.json';
+import toulouseEmbed from './fixtures/toulouse.json' with { type: 'json' };
+import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json' with { type: 'json' };
+import toulouseEvents from './fixtures/toulouse.events.json' with { type: 'json' };
+import toulouseDefaultEmbed from './fixtures/toulouse.default.json' with { type: 'json' };
 
 import AdminCanvas from './decorators/AdminCanvas.js';
 

@@ -6,7 +6,7 @@ import optionsValidator from '../client/src/FormSchemaBuilder/lib/optionsValidat
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder/index.js';
 import SimpleRowDecorator from './decorators/SimpleRow.js';
 
-import schemaWithLinkedFields from './fixtures/schemaWithLinkedFields.json';
+import schemaWithLinkedFields from './fixtures/schemaWithLinkedFields.json' with { type: 'json' };
 
 export default {
   title: 'Form builder components',

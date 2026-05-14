@@ -11,10 +11,10 @@ import ModalDecorator from './decorators/ModalDecorator.js';
 import IntlDecorator from './decorators/IntlDecorator.js';
 import SourcesCanvasDecorator from './decorators/SourcesCanvas.js';
 
-import villeDeLille from './fixtures/RuleForm/villeDeLille.schema.json';
-import MEL from './fixtures/RuleForm/MEL.schema.json';
-import villeDeLilleToMELRules from './fixtures/RuleForm/villeDeLilleToMEL.rules.json';
-import languagesJson from './fixtures/RuleForm/languages.aggreg.json';
+import villeDeLille from './fixtures/RuleForm/villeDeLille.schema.json' with { type: 'json' };
+import MEL from './fixtures/RuleForm/MEL.schema.json' with { type: 'json' };
+import villeDeLilleToMELRules from './fixtures/RuleForm/villeDeLilleToMEL.rules.json' with { type: 'json' };
+import languagesJson from './fixtures/RuleForm/languages.aggreg.json' with { type: 'json' };
 
 import '@openagenda/bs-templates/compiled/main.css';
 

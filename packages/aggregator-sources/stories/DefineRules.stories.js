@@ -6,14 +6,14 @@ import SourcesCanvasDecorator from './decorators/SourcesCanvas.js';
 import ModalDecorator from './decorators/ModalDecorator.js';
 import IntlDecorator from './decorators/IntlDecorator.js';
 
-import aggregatorAgendaSchema from './fixtures/DefineRules/TAM.schema.json';
-import aggregatorAgendaSchemaWithBoolean from './fixtures/DefineRules/TAM.with.boolean.schema.json';
-import aggregatorAgendaSchemaWithEnableWith from './fixtures/DefineRules/eteculturel.schema.json';
-import sourceAgendaSchema from './fixtures/DefineRules/NDM.schema.json';
-import steps from './fixtures/DefineRules/steps.json';
-import rules from './fixtures/DefineRules/rules.json';
+import aggregatorAgendaSchema from './fixtures/DefineRules/TAM.schema.json' with { type: 'json' };
+import aggregatorAgendaSchemaWithBoolean from './fixtures/DefineRules/TAM.with.boolean.schema.json' with { type: 'json' };
+import aggregatorAgendaSchemaWithEnableWith from './fixtures/DefineRules/eteculturel.schema.json' with { type: 'json' };
+import sourceAgendaSchema from './fixtures/DefineRules/NDM.schema.json' with { type: 'json' };
+import steps from './fixtures/DefineRules/steps.json' with { type: 'json' };
+import rules from './fixtures/DefineRules/rules.json' with { type: 'json' };
 
-import manyAddFieldsAggrSchema from './fixtures/DefineRules/manyAdditionalFields.aggregator.schema.json';
+import manyAddFieldsAggrSchema from './fixtures/DefineRules/manyAdditionalFields.aggregator.schema.json' with { type: 'json' };
 
 import '@openagenda/bs-templates/compiled/main.css';
 

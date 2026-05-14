@@ -3,7 +3,7 @@ import { dirname } from 'node:path';
 import Service from '../server/index.js';
 import config from '../testconfig.js';
 import setup from './fixtures/setup.js';
-import formSchemaData from './parse/integer.schema.json';
+import formSchemaData from './parse/integer.schema.json' with { type: 'json' };
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 

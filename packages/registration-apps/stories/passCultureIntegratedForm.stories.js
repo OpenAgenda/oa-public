@@ -4,9 +4,9 @@ import BootstrapComponentsProvider from '../src/components/bootstrap/Provider.js
 
 import PassForm from '../src/passCulture/Form.js';
 
-import passSettings from './fixtures/passSettings.json';
+import passSettings from './fixtures/passSettings.json' with { type: 'json' };
 
-import event from './fixtures/event.json';
+import event from './fixtures/event.json' with { type: 'json' };
 
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';

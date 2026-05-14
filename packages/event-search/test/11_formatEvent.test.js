@@ -2,8 +2,8 @@ import { produce } from 'immer';
 import formatEvent from '../utils/formatEvent.js';
 import extractLocationData from '../utils/extractLocationData.js';
 
-import locationTagSet from './fixtures/formatEvent/locationTagSet.json';
-import location from './fixtures/formatEvent/location.json';
+import locationTagSet from './fixtures/formatEvent/locationTagSet.json' with { type: 'json' };
+import location from './fixtures/formatEvent/location.json' with { type: 'json' };
 
 describe('11 - event-search - unit: formatEvent', () => {
   describe('formatEvent', () => {

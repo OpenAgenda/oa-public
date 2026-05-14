@@ -1,7 +1,7 @@
 import labels from '@openagenda/labels/event/exportFieldNames.js';
 import { getFlattener } from '../lib/transform/index.js';
-import event from './fixtures/sortir-a-boulogne-billancourt.json';
-import formSchema from './fixtures/formSchema.json';
+import event from './fixtures/sortir-a-boulogne-billancourt.json' with { type: 'json' };
+import formSchema from './fixtures/formSchema.json' with { type: 'json' };
 
 const simpleFormSchema = {
   fields: [

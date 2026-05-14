@@ -4,7 +4,7 @@ import createApp from '../src/client/apps/agenda/index.js';
 import PageDecorator from './decorators/PageDecorator.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
-import agenda from './fixtures/agenda.json';
+import agenda from './fixtures/agenda.json' with { type: 'json' };
 
 const getDefaultState = ({ apiRoot } = {}) => ({
   settings: {

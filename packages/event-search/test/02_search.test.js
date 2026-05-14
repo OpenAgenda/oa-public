@@ -22,8 +22,11 @@ describe('02 - event search - functional: search', () => {
     beforeAll(async () => {
       await service('simple_search').rebuild({
         eventsList: async (lastId, limit) =>
-          (await import(`./fixtures/02_events.${lastId}.${limit}.json`))
-            .default,
+          (
+            await import(`./fixtures/02_events.${lastId}.${limit}.json`, {
+              with: { type: 'json' },
+            })
+          ).default,
       });
     });
 
@@ -806,8 +809,11 @@ describe('02 - event search - functional: search', () => {
     beforeAll(async () => {
       await service('simple_search').rebuild({
         eventsList: async (offset, limit) =>
-          (await import(`./fixtures/02_customEvents.${offset}.${limit}.json`))
-            .default,
+          (
+            await import(`./fixtures/02_customEvents.${offset}.${limit}.json`, {
+              with: { type: 'json' },
+            })
+          ).default,
         formSchema,
       });
     });

@@ -1,6 +1,6 @@
 import formatEvent from '../lib/formatEvent.js';
 
-import fixtures from './fixtures/cart.events.json';
+import fixtures from './fixtures/cart.events.json' with { type: 'json' };
 
 const pickEvent = (slug) => fixtures.find((e) => slug === e.slug);
 const isBase64 = (value) =>

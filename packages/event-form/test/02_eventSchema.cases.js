@@ -1,6 +1,6 @@
 import eventSchema from '../src/schema.js';
 import mdbLegacyFixtures from './fixtures/mdb.legacy.json' with { type: 'json' };
-import mdbFixtures from './fixtures/mdb.json';
+import mdbFixtures from './fixtures/mdb.json' with { type: 'json' };
 
 describe('event schema formatting', () => {
   describe('mdb', () => {

@@ -10,10 +10,10 @@ import validate from '../src/validate.js';
 import Providers from './decorators/Providers.js';
 import ComponentCanvas from './decorators/ComponentCanvas.js';
 
-import location from './fixtures/location.json';
-import locationWithEmotes from './fixtures/locationWithEmotes.json';
-import agendaSettings from './fixtures/agendaTestSettings.json';
-import agendaSettingsNotMultilingual from './fixtures/agendaSettingsNotMultilingual.json';
+import location from './fixtures/location.json' with { type: 'json' };
+import locationWithEmotes from './fixtures/locationWithEmotes.json' with { type: 'json' };
+import agendaSettings from './fixtures/agendaTestSettings.json' with { type: 'json' };
+import agendaSettingsNotMultilingual from './fixtures/agendaSettingsNotMultilingual.json' with { type: 'json' };
 
 export default {
   title: 'LocationFormComponents',

@@ -6,7 +6,7 @@ import { Spinner } from '@openagenda/react-shared';
 import { useIntl } from 'react-intl';
 import EventItem from './EventItem.js';
 import messages from './messages.js';
-import includeFields from './includeFields.json';
+import includeFields from './includeFields.json' with { type: 'json' };
 
 export default function Add({ res, value, lang, onChange }) {
   const [searchString, setSearchString] = useState('');

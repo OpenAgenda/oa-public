@@ -2,8 +2,8 @@ import { produce } from 'immer';
 
 import validate from '../src/validate.js';
 
-import settingsFixtures from './fixtures/settings.json';
-import locationFixtures from './fixtures/location.json';
+import settingsFixtures from './fixtures/settings.json' with { type: 'json' };
+import locationFixtures from './fixtures/location.json' with { type: 'json' };
 
 describe('validate', () => {
   describe('siret', () => {

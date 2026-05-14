@@ -6,11 +6,11 @@ import {
 } from '../iso/validate/index.js';
 import { findLastVenueIdFromData } from '../iso/utils.js';
 
-import settings from './fixtures/settings.json';
-import dataWithPendingOffer from './fixtures/data.withPendingOffer.pc.json';
-import dataWithDependedOffer from './fixtures/data.withDependedOffer.pc.json';
-import partiallySpread from './fixtures/partiallySpread.json';
-import bambiEvent from './fixtures/bambi.event.json';
+import settings from './fixtures/settings.json' with { type: 'json' };
+import dataWithPendingOffer from './fixtures/data.withPendingOffer.pc.json' with { type: 'json' };
+import dataWithDependedOffer from './fixtures/data.withDependedOffer.pc.json' with { type: 'json' };
+import partiallySpread from './fixtures/partiallySpread.json' with { type: 'json' };
+import bambiEvent from './fixtures/bambi.event.json' with { type: 'json' };
 
 describe('validate', () => {
   describe('validateDate', () => {

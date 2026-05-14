@@ -6,10 +6,10 @@ import fetchLocale from '../src/fetchLocale';
 import type { Agenda, Event } from '../src/types';
 import intlMessagesLoader from './loaders/intlMessagesLoader';
 import ProvidersDecorator from './decorators/ProvidersDecorator';
-import agendasFixtures from './fixtures/aggregateModalAgendas.json';
-import agendaFixtures from './fixtures/mel.agenda.json';
-import eventFixtures from './fixtures/events/sample.json';
-import userFixtures from './fixtures/user.json';
+import agendasFixtures from './fixtures/aggregateModalAgendas.json' with { type: 'json' };
+import agendaFixtures from './fixtures/mel.agenda.json' with { type: 'json' };
+import eventFixtures from './fixtures/events/sample.json' with { type: 'json' };
+import userFixtures from './fixtures/user.json' with { type: 'json' };
 
 const meta: Meta<typeof EventShareModal> = {
   component: EventShareModal,

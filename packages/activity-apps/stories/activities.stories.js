@@ -1,10 +1,10 @@
 import { http, HttpResponse } from 'msw';
 import { ActivityItem } from '../src/client/components/index.js';
 import Provider from './decorators/Provider.js';
-import refusedEvent from './fixtures/refusedEvent.json';
-import updatedEvent from './fixtures/updatedEvent.json';
-import groupedMessages from './fixtures/historyGroupedMessage.json';
-import config from './fixtures/config.json';
+import refusedEvent from './fixtures/refusedEvent.json' with { type: 'json' };
+import updatedEvent from './fixtures/updatedEvent.json' with { type: 'json' };
+import groupedMessages from './fixtures/historyGroupedMessage.json' with { type: 'json' };
+import config from './fixtures/config.json' with { type: 'json' };
 
 export default {
   title: 'Activities',

@@ -1,5 +1,5 @@
 import * as md from '../lib/markdown/index.js';
-import event from './fixtures/acces-libre.json';
+import event from './fixtures/acces-libre.json' with { type: 'json' };
 
 describe('flat-exports - unit - markdown and text', () => {
   describe('helpers - text', () => {

@@ -1,6 +1,6 @@
 import formatEvent from '../lib/rss/formatEvent.js';
 import rss from '../rss.js';
-import event from './fixtures/sortir-a-boulogne-billancourt.json';
+import event from './fixtures/sortir-a-boulogne-billancourt.json' with { type: 'json' };
 
 describe('flat-exports - unit - rss', () => {
   test('formatEvent', () => {

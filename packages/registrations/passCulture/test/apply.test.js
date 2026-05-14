@@ -11,15 +11,15 @@ import getMatchingPassId from '../iso/getMatchingPassId.js';
 import PassCultureSDK from '../lib/PassCultureSDK.js';
 import apply from '../apply/index.js';
 
-import CArtEvents from './fixtures/cart.events.json';
-import openAPIData from './fixtures/openapi.json';
-import partiallyApplied from './fixtures/data.withUpdate.pc.json';
-import withPriceCategoryUpdate from './fixtures/data.withPriceCategoryUpdate.pc.json';
-import withDateUpdate from './fixtures/data.withDateUpdate.pc.json';
-import withDateDelete from './fixtures/data.withDateDelete.pc.json';
-import getEventResponse from './fixtures/eventGetResponse.json';
-import withPendingOffer from './fixtures/data.withPendingOffer.pc.json';
-import settings from './fixtures/settings.json';
+import CArtEvents from './fixtures/cart.events.json' with { type: 'json' };
+import openAPIData from './fixtures/openapi.json' with { type: 'json' };
+import partiallyApplied from './fixtures/data.withUpdate.pc.json' with { type: 'json' };
+import withPriceCategoryUpdate from './fixtures/data.withPriceCategoryUpdate.pc.json' with { type: 'json' };
+import withDateUpdate from './fixtures/data.withDateUpdate.pc.json' with { type: 'json' };
+import withDateDelete from './fixtures/data.withDateDelete.pc.json' with { type: 'json' };
+import getEventResponse from './fixtures/eventGetResponse.json' with { type: 'json' };
+import withPendingOffer from './fixtures/data.withPendingOffer.pc.json' with { type: 'json' };
+import settings from './fixtures/settings.json' with { type: 'json' };
 
 const applyValidTimingId = (entries, event) => {
   const validTimingIds = event.timings.map((t) => new Date(t.begin).getTime());

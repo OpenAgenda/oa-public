@@ -1,5 +1,5 @@
 import validateSpreadLocalData from '../iso/validate/validateSpreadLocalData.js';
-import fixtures from './fixtures/validateSpreadLocalData.json';
+import fixtures from './fixtures/validateSpreadLocalData.json' with { type: 'json' };
 
 describe('validateSpreadLocalData', () => {
   let entries;
