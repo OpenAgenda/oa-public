@@ -1,4 +1,4 @@
-import validators from '../src';
+import validators from '../src/index.js';
 
 describe('latitude validator', () => {
   const validate = validators.latitude();
@@ -12,11 +12,13 @@ describe('latitude validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      code: 'latitude.toosmall',
-      message: 'latitude cannot be less than -90',
-      origin: -91,
-    }]);
+    expect(errors).toEqual([
+      {
+        code: 'latitude.toosmall',
+        message: 'latitude cannot be less than -90',
+        origin: -91,
+      },
+    ]);
   });
 
   it('throws error if latitude is too big', () => {
@@ -28,11 +30,13 @@ describe('latitude validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      code: 'latitude.toobig',
-      message: 'latitude cannot be more than 90',
-      origin: 91,
-    }]);
+    expect(errors).toEqual([
+      {
+        code: 'latitude.toobig',
+        message: 'latitude cannot be more than 90',
+        origin: 91,
+      },
+    ]);
   });
 
   it('throws error if crap is given', () => {
@@ -44,11 +48,13 @@ describe('latitude validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      code: 'latitude.invalid',
-      message: 'not a number',
-      origin: 'fdsqfdsq',
-    }]);
+    expect(errors).toEqual([
+      {
+        code: 'latitude.invalid',
+        message: 'not a number',
+        origin: 'fdsqfdsq',
+      },
+    ]);
   });
 
   it('validates a latitude', () => {

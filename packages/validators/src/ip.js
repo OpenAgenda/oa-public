@@ -1,18 +1,21 @@
-import isIP from 'validator/lib/isIP';
-import listify from './listify';
-import cleanParams from './lib/params';
-import errors from './lib/errors';
+import isIP from 'validator/lib/isIP.js';
+import listify from './listify.js';
+import cleanParams from './lib/params.js';
+import errors from './lib/errors.js';
 
-export default config => {
+export default (config) => {
   const params = cleanParams('ip', config, {
     field: false,
     optional: true,
     default: undefined,
-    list: false
+    list: false,
   });
 
-  const validate = value => {
-    if (value === undefined && (params.default !== undefined || params.optional)) {
+  const validate = (value) => {
+    if (
+      value === undefined &&
+      (params.default !== undefined || params.optional)
+    ) {
       return params.default;
     }
 
@@ -29,7 +32,7 @@ export default config => {
 
   const validator = Object.assign(validate, {
     type: 'ip',
-    field: params.field
+    field: params.field,
   });
 
   return params.list ? listify(validator, params) : validator;

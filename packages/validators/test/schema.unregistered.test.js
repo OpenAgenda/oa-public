@@ -1,11 +1,11 @@
-import validators from '../src';
-import schema from '../src/schema';
+import validators from '../src/index.js';
+import schema from '../src/schema/index.js';
 
 describe('schema validator', () => {
   describe('schema with few registered validators', () => {
     beforeAll(() => {
       schema.register({
-        link: validators.link
+        link: validators.link,
       });
     });
 
@@ -13,8 +13,8 @@ describe('schema validator', () => {
       let error;
       const validate = schema({
         uid: {
-          type: 'integer'
-        }
+          type: 'integer',
+        },
       });
 
       try {

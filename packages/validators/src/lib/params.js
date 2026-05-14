@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (type, values = {}, defaults = {}) => {
+export default (type, values = {}, defaults = {}) => {
   const params = {
     type,
     list: false,

@@ -1,10 +1,2 @@
-node_modules/*
-.idea/
-yarn.lock
-npm-debug.log
-yarn-error.log
-*.js
-*.js.map
-!src/**/*
-!test/*
-.eslintrc
+node_modules/
+.turbo/

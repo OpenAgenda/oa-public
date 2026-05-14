@@ -1,4 +1,4 @@
-const validators = require('../src');
+import validators from '../src/index.js';
 
 describe('regex validator', () => {
   const validate = validators.regex({ field: 'stars', regex: /\*/g });
@@ -18,7 +18,11 @@ describe('regex validator', () => {
   it('does not match', () => {
     let errors = [];
 
-    try { validate('+++'); } catch (e) { errors = e; }
+    try {
+      validate('+++');
+    } catch (e) {
+      errors = e;
+    }
 
     expect(errors.length).toBe(1);
   });
@@ -26,10 +30,14 @@ describe('regex validator', () => {
   it('cleans using regex', () => {
     const validateAndClean = validators.regex({ regex: /[^/]+$/, clean: true });
 
-    let errors = []; let
-      clean = false;
+    let errors = [];
+    let clean = false;
 
-    try { clean = validateAndClean('/image/path.png'); } catch (e) { errors = e; }
+    try {
+      clean = validateAndClean('/image/path.png');
+    } catch (e) {
+      errors = e;
+    }
 
     expect(errors.length).toBe(0);
 

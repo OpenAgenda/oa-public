@@ -1,9 +1,9 @@
-import booleanValidator from '../src/boolean';
-import choiceValidator from '../src/choice';
-import numberValidator from '../src/number';
-import integerValidator from '../src/integer';
-import textValidator from '../src/text';
-import schema from '../src/schema';
+import booleanValidator from '../src/boolean.js';
+import choiceValidator from '../src/choice.js';
+import numberValidator from '../src/number.js';
+import integerValidator from '../src/integer.js';
+import textValidator from '../src/text.js';
+import schema from '../src/schema/index.js';
 
 schema.register({
   boolean: booleanValidator,
@@ -231,10 +231,12 @@ describe('schema - enableWith', () => {
 
     expect([].concat(errors).pop().code).toBe('required');
 
-    expect(validate({
-      eventAttendanceMode: 1,
-      locationUid: 1,
-    })).toEqual({
+    expect(
+      validate({
+        eventAttendanceMode: 1,
+        locationUid: 1,
+      }),
+    ).toEqual({
       eventAttendanceMode: 1,
       locationUid: 1,
     });
@@ -244,26 +246,26 @@ describe('schema - enableWith', () => {
     const validate = schema({
       location: {
         uid: {
-          type: 'integer'
+          type: 'integer',
         },
         name: {
-          type: 'text'
-        }
+          type: 'text',
+        },
       },
       room: {
         type: 'text',
         enableWith: {
           field: 'location',
-          value: [{ uid: 123 }]
-        }
+          value: [{ uid: 123 }],
+        },
       },
       entranceCode: {
         type: 'text',
         enableWith: {
           field: 'location',
-          value: { uid: 123 }
+          value: { uid: 123 },
         },
-      }
+      },
     });
 
     it('enables the field when the subkey is associated to the right value', () => {
@@ -278,7 +280,7 @@ describe('schema - enableWith', () => {
 
       expect(location).toEqual({
         name: 'Here',
-        uid: 123
+        uid: 123,
       });
 
       expect(room).toBe('Office 427');
@@ -298,7 +300,7 @@ describe('schema - enableWith', () => {
 
       expect(location).toEqual({
         name: 'There',
-        uid: 456
+        uid: 456,
       });
 
       expect(room).toBeNull();

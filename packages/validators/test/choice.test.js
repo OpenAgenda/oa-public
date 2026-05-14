@@ -1,4 +1,4 @@
-const validators = require('../src');
+import validators from '../src/index.js';
 
 describe('choice validator', () => {
   describe('basic usage', () => {
@@ -60,13 +60,18 @@ describe('choice validator', () => {
     });
 
     it('cleans keyed values', () => {
-      expect(validateChoice([{
-        id: 2,
-        label: 'two',
-      }, {
-        id: 12,
-        value: 'twelve',
-      }])).toEqual([2, 12]);
+      expect(
+        validateChoice([
+          {
+            id: 2,
+            label: 'two',
+          },
+          {
+            id: 12,
+            value: 'twelve',
+          },
+        ]),
+      ).toEqual([2, 12]);
     });
 
     it('throws error on empty input if not optional', () => {
@@ -78,11 +83,13 @@ describe('choice validator', () => {
         errors = e;
       }
 
-      expect(errors).toEqual([{
-        code: 'choice.required',
-        message: 'a (known) value must be chosen',
-        origin: 3,
-      }]);
+      expect(errors).toEqual([
+        {
+          code: 'choice.required',
+          message: 'a (known) value must be chosen',
+          origin: 3,
+        },
+      ]);
     });
 
     it('default value can be specified', () => {
@@ -166,7 +173,9 @@ describe('choice validator', () => {
 
       try {
         validate();
-      } catch (e) { errors = e; }
+      } catch (e) {
+        errors = e;
+      }
 
       expect(errors[0].field).toBe('etpaf');
     });
@@ -184,14 +193,18 @@ describe('choice validator', () => {
 
       try {
         validate(2);
-      } catch (e) { errors = e; }
+      } catch (e) {
+        errors = e;
+      }
 
-      expect(errors).toEqual([{
-        code: 'choice.required.min',
-        message: 'between %min% and %max% choices must be made',
-        values: { min: 2, max: 3 },
-        origin: 2,
-      }]);
+      expect(errors).toEqual([
+        {
+          code: 'choice.required.min',
+          message: 'between %min% and %max% choices must be made',
+          values: { min: 2, max: 3 },
+          origin: 2,
+        },
+      ]);
     });
 
     it('being above max throws error', () => {
@@ -199,14 +212,18 @@ describe('choice validator', () => {
 
       try {
         validate([2, 4, 12, 13]);
-      } catch (e) { errors = e; }
+      } catch (e) {
+        errors = e;
+      }
 
-      expect(errors).toEqual([{
-        code: 'choice.required.max',
-        message: 'between %min% and %max% choices must be made',
-        values: { min: 2, max: 3 },
-        origin: [2, 4, 12, 13],
-      }]);
+      expect(errors).toEqual([
+        {
+          code: 'choice.required.max',
+          message: 'between %min% and %max% choices must be made',
+          values: { min: 2, max: 3 },
+          origin: [2, 4, 12, 13],
+        },
+      ]);
     });
 
     it('if provided default is non array and choice is non unique, returned default is array', () => {

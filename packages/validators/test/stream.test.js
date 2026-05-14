@@ -1,8 +1,8 @@
 import { Stream } from 'stream';
 import fs from 'fs';
-import validators from '../src';
+import validators from '../src/index.js';
 
-const stream = fs.createReadStream(`${__dirname}/../src/stream.js`);
+const stream = fs.createReadStream(`${import.meta.dirname}/../src/stream.js`);
 
 describe('stream validator', () => {
   it('validates a stream', () => {
@@ -24,11 +24,13 @@ describe('stream validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      origin: 'Ceci est un stream',
-      code: 'invalid',
-      message: 'value is not a stream',
-    }]);
+    expect(errors).toEqual([
+      {
+        origin: 'Ceci est un stream',
+        code: 'invalid',
+        message: 'value is not a stream',
+      },
+    ]);
   });
 
   it('type and field name are accessible on validate', () => {

@@ -1,15 +1,15 @@
-import errors from './lib/errors';
-import cleanParams from './lib/params';
+import errors from './lib/errors.js';
+import cleanParams from './lib/params.js';
 
-import listify from './listify';
+import listify from './listify.js';
 
-export default config => {
+export default (config) => {
   const params = cleanParams('number', config, {
     min: null,
     max: null,
   });
 
-  const validate = value => {
+  const validate = (value) => {
     let clean;
 
     if (typeof value === 'string' && value.length) {
@@ -18,9 +18,13 @@ export default config => {
       clean = value;
     }
 
-    if (clean === undefined && !params.optional && [undefined, null].includes(params.default)) {
+    if (
+      clean === undefined &&
+      !params.optional &&
+      [undefined, null].includes(params.default)
+    ) {
       throw errors(params, value, 'required', 'a number is required');
-    } else if (clean === undefined && (params.default !== undefined)) {
+    } else if (clean === undefined && params.default !== undefined) {
       return params.default;
     } else if (clean === undefined && params.optional) {
       return;
@@ -31,18 +35,24 @@ export default config => {
     }
 
     if (params.min !== null && clean < params.min) {
-      throw errors(params, value, 'number.toosmall', 'the number is too small', {
-        values: {
-          min: params.min
-        }
-      });
+      throw errors(
+        params,
+        value,
+        'number.toosmall',
+        'the number is too small',
+        {
+          values: {
+            min: params.min,
+          },
+        },
+      );
     }
 
     if (params.max !== null && clean > params.max) {
       throw errors(params, value, 'number.toobig', 'the number is too big', {
         values: {
-          max: params.max
-        }
+          max: params.max,
+        },
       });
     }
 

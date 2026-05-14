@@ -1,24 +1,48 @@
-import text from './text';
-import link from './link';
-import ip from './ip';
-import email from './email';
-import phone from './phone';
-import list from './list';
-import number from './number';
-import integer from './integer';
-import date from './date';
-import boolean from './boolean';
-import labels from './labels';
-import set from './set';
-import stream from './stream';
-import object from './object';
-import latitude from './latitude';
-import longitude from './longitude';
-import pass from './pass';
-import multilingual from './multilingual';
-import regex from './regex';
-import choice from './choice';
-import timezone from './timezone';
+import text from './text.js';
+import link from './link.js';
+import ip from './ip.js';
+import email from './email.js';
+import phone from './phone.js';
+import list from './list.js';
+import number from './number.js';
+import integer from './integer.js';
+import date from './date.js';
+import boolean from './boolean.js';
+import labels from './labels.js';
+import set from './set.js';
+import stream from './stream.js';
+import object from './object.js';
+import latitude from './latitude.js';
+import longitude from './longitude.js';
+import pass from './pass.js';
+import multilingual from './multilingual.js';
+import regex from './regex.js';
+import choice from './choice.js';
+import timezone from './timezone.js';
+
+export {
+  text,
+  link,
+  ip,
+  email,
+  phone,
+  list,
+  number,
+  integer,
+  date,
+  boolean,
+  labels,
+  set,
+  stream,
+  object,
+  latitude,
+  longitude,
+  pass,
+  multilingual,
+  regex,
+  choice,
+  timezone,
+};
 
 export default {
   text,
@@ -43,27 +67,3 @@ export default {
   choice,
   timezone,
 };
-
-module.exports = {
-  text: require( './text' ),
-  link: require( './link' ),
-  ip: require( './ip' ),
-  email: require( './email' ),
-  phone: require( './phone' ),
-  list: require( './list' ),
-  number: require( './number' ),
-  integer: require( './integer' ),
-  date: require( './date' ),
-  boolean: require( './boolean' ),
-  labels: require( './labels' ),
-  set: require( './set' ),
-  stream: require( './stream' ),
-  object: require( './object' ),
-  latitude: require( './latitude' ),
-  longitude: require( './longitude' ),
-  pass: require( './pass' ),
-  multilingual: require( './multilingual' ),
-  regex: require( './regex' ),
-  choice: require( './choice' ),
-  timezone: require( './timezone' ),
-}

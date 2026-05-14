@@ -1,6 +1,4 @@
-'use strict';
-
-const validators = require('../src');
+import validators from '../src/index.js';
 
 describe('list validator', () => {
   describe('basic', () => {
@@ -55,17 +53,26 @@ describe('list validator', () => {
 
       try {
         validate(['name@email.com', 'rereer', '012394']);
-      } catch (e) { errors = e; }
+      } catch (e) {
+        errors = e;
+      }
 
-      errors.forEach(e => {
+      errors.forEach((e) => {
         expect(e.index).toBe(1);
       });
 
       try {
-        validate(['name@email.com', 'anothername@email.com', 'rereer', '012394']);
-      } catch (e) { errors = e; }
+        validate([
+          'name@email.com',
+          'anothername@email.com',
+          'rereer',
+          '012394',
+        ]);
+      } catch (e) {
+        errors = e;
+      }
 
-      errors.forEach(e => {
+      errors.forEach((e) => {
         expect(e.index).toBe(2);
       });
     });
@@ -117,7 +124,11 @@ describe('list validator', () => {
     });
 
     it('includes stuff', () => {
-      expect(validate(['08381', 'email@site.com', 'https://oa.com'])).toEqual(['08381', 'email@site.com', 'https://oa.com']);
+      expect(validate(['08381', 'email@site.com', 'https://oa.com'])).toEqual([
+        '08381',
+        'email@site.com',
+        'https://oa.com',
+      ]);
     });
   });
 
@@ -160,11 +171,13 @@ describe('list validator', () => {
         errors = e;
       }
 
-      expect(errors).toEqual([{
-        code: 'list.wrongtype',
-        message: 'value should be a list',
-        origin: undefined,
-      }]);
+      expect(errors).toEqual([
+        {
+          code: 'list.wrongtype',
+          message: 'value should be a list',
+          origin: undefined,
+        },
+      ]);
     });
 
     it('empty list is not accepted by required validate', () => {
@@ -175,11 +188,13 @@ describe('list validator', () => {
         errors = e;
       }
 
-      expect(errors).toEqual([{
-        code: 'required',
-        message: 'value cannot be empty',
-        origin: [],
-      }]);
+      expect(errors).toEqual([
+        {
+          code: 'required',
+          message: 'value cannot be empty',
+          origin: [],
+        },
+      ]);
     });
   });
 

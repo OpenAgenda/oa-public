@@ -1,6 +1,6 @@
-import schema from '../schema';
+import schema from '../src/schema/index.js';
 
-import textValidator from '../src/text';
+import textValidator from '../src/text.js';
 
 schema.register({
   text: textValidator,
@@ -8,7 +8,6 @@ schema.register({
 
 describe('related', () => {
   test('related.other values are passed on to validate function', () => {
-
     const relatedValues = {};
 
     schema.register({
@@ -20,21 +19,19 @@ describe('related', () => {
 
     const validate = schema({
       timezone: {
-        type: 'text'
+        type: 'text',
       },
       timings: {
         type: 'relatedTimings',
-        related: { other: ['timezone'] }
+        related: { other: ['timezone'] },
       },
     });
 
     validate({
       timezone: 'Europe/Paris',
-      timings: 'not-important-for-the-test'
+      timings: 'not-important-for-the-test',
     });
 
     expect(relatedValues).toEqual({ timezone: 'Europe/Paris' });
   });
-  
-
 });

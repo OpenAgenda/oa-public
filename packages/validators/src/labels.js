@@ -1,120 +1,103 @@
-"use strict";
-
 /**
  * french & english labels matching
  * error codes
  */
 
-var presetLang = 'en';
+let presetLang = 'en';
 
-module.exports = {
-
-  getLabel: getLabel,
-
-  setLang: setLang,
-
-  'number.toosmall' : {
+const labels = {
+  'number.toosmall': {
     fr: 'Le nombre doit être supérieur ou égal à %min%',
-    en: 'The number must be equal to or higher than %min%'
+    en: 'The number must be equal to or higher than %min%',
   },
 
-  'number.toobig' : {
+  'number.toobig': {
     fr: 'Le nombre doit être inférieur ou égal à %max%',
-    en: 'The number must be equal to or lower than %max%'
+    en: 'The number must be equal to or lower than %max%',
   },
 
   'multi-input.info': {
     fr: 'Saisissez une ou plusieurs valeurs',
-    en: 'Type in one or multiple values'
+    en: 'Type in one or multiple values',
   },
 
   'multi-input.error': {
     fr: 'Les saisies non valides ne seront pas sauvegardées',
-    en: 'Invalid entries will not be saved'
+    en: 'Invalid entries will not be saved',
   },
 
-  'string.tooshort' : {
+  'string.tooshort': {
     fr: 'Le champ doit comporter au moins %min% caractères',
-    en: 'The field must contain at least %min% caracters'
+    en: 'The field must contain at least %min% caracters',
   },
 
-  'string.toolong' : {
+  'string.toolong': {
     fr: 'Le champ doit comporter au plus %max% caractères',
-    en: 'The field must contain at must %max% caracters'
+    en: 'The field must contain at must %max% caracters',
   },
 
-  'email.invalid' : {
+  'email.invalid': {
     fr: 'Un email valide doit être renseigné',
-    en: 'A valid email must be input'
+    en: 'A valid email must be input',
   },
 
-  'phone.invalid' : {
+  'phone.invalid': {
     fr: 'Un numéro de télephone valide doit être renseigné',
-    en: 'A valid phone number must be input'
+    en: 'A valid phone number must be input',
   },
 
-  'link.invalid' : {
+  'link.invalid': {
     fr: 'Un lien valide doit être renseigné',
-    en: 'A valid link must be input'
+    en: 'A valid link must be input',
   },
 
-  'number.invalid' : {
+  'number.invalid': {
     fr: 'Un nombre valide doit être renseigné',
-    en: 'A valid number must be input'
+    en: 'A valid number must be input',
   },
 
-  'groupTags.required' : {
+  'groupTags.required': {
     fr: 'Au moins un élément doit être sélectionné',
-    en: 'At least one item must be selected'
+    en: 'At least one item must be selected',
   },
 
-  'required': {
+  required: {
     fr: 'Requis',
-    en: 'Required'
-  }
+    en: 'Required',
+  },
+};
 
-}
-
-function getLabel( name, values, lang ) {
-
-  if ( arguments.length == 2 && typeof values == 'string' ) {
-
+export function getLabel(name, values, lang) {
+  if (arguments.length === 2 && typeof values === 'string') {
     lang = values;
     values = {};
-
   }
 
-  if ( !lang ) {
-
+  if (!lang) {
     lang = presetLang;
-
   }
 
-  if ( !module.exports[ name ] ) { 
-
+  if (!labels[name]) {
     return null;
-
   }
 
-  var str = module.exports[ name ][ lang ], k;
+  let str = labels[name][lang];
 
-  if ( values ) {
-
-    for( k in values ) {
-
-      str = str.replace( '%' + k + '%', values[ k ] );
-
+  if (values) {
+    for (const k in values) {
+      str = str.replace(`%${k}%`, values[k]);
     }
-
   }
 
   return str;
-
 }
 
-
-function setLang( lang ) {
-
+export function setLang(lang) {
   presetLang = lang;
-
 }
+
+export default {
+  ...labels,
+  getLabel,
+  setLang,
+};

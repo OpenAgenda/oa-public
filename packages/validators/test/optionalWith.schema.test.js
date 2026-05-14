@@ -1,7 +1,7 @@
-import schema from '../schema';
-import choiceValidator from '../src/choice';
-import integerValidator from '../src/integer';
-import textValidator from '../src/text';
+import schema from '../src/schema/index.js';
+import choiceValidator from '../src/choice.js';
+import integerValidator from '../src/integer.js';
+import textValidator from '../src/text.js';
 
 schema.register({
   choice: choiceValidator,
@@ -118,8 +118,10 @@ describe('optionalWith', () => {
       },
     });
 
-    expect(schemaValidate({
-      eventAttendanceMode: 2,
-    })).toBeTruthy();
+    expect(
+      schemaValidate({
+        eventAttendanceMode: 2,
+      }),
+    ).toBeTruthy();
   });
 });

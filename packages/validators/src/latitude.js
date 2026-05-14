@@ -1,4 +1,4 @@
-import errors from './lib/errors';
+import errors from './lib/errors.js';
 
 export default function latitude(config = {}) {
   const params = {
@@ -15,12 +15,7 @@ export default function latitude(config = {}) {
     const clean = parseFloat(value);
 
     if (Number.isNaN(clean)) {
-      throw errors(
-        params,
-        value,
-        'latitude.invalid',
-        'not a number',
-      );
+      throw errors(params, value, 'latitude.invalid', 'not a number');
     }
 
     if (clean < -90) {

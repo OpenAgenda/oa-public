@@ -1,5 +1,5 @@
-import validators from '../src/index';
-import phone from '../src/phone';
+import validators from '../src/index.js';
+import phone from '../src/phone.js';
 
 describe('phone validator', () => {
   const validate = validators.phone({ field: 'telephone' });

@@ -1,9 +1,9 @@
-import omit from 'lodash/omit';
-import textValidator from './text';
-import cleanParams from './lib/params';
-import errors from './lib/errors';
+import omit from 'lodash/omit.js';
+import textValidator from './text.js';
+import cleanParams from './lib/params.js';
+import errors from './lib/errors.js';
 
-import listify from './listify';
+import listify from './listify.js';
 
 const timezoneRegex = /^[A-Z][a-zA-Z_]+\/[A-Z][A-Za-z_/]+$/;
 

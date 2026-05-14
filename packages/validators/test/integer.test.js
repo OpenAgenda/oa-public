@@ -1,4 +1,4 @@
-import validators from '../src';
+import validators from '../src/index.js';
 
 describe('integer validator', () => {
   it('validates an integer', () => {
@@ -29,20 +29,24 @@ describe('integer validator', () => {
     expect(errors[0]).toEqual({
       code: 'integer.invalid',
       message: 'not an integer',
-      origin: 'one two three'
+      origin: 'one two three',
     });
   });
 
   it('defaults to default when no value is given', () => {
-    expect(validators.integer({
-      default: 3
-    })()).toBe(3);
+    expect(
+      validators.integer({
+        default: 3,
+      })(),
+    ).toBe(3);
   });
 
   it('...even when default is null', () => {
-    expect(validators.integer({
-      default: null
-    })()).toBeNull();
+    expect(
+      validators.integer({
+        default: null,
+      })(),
+    ).toBeNull();
   });
 
   it('throws an error if is not optional and null default is specified', () => {
@@ -51,7 +55,7 @@ describe('integer validator', () => {
     try {
       validators.integer({
         default: null,
-        optional: false
+        optional: false,
       })();
     } catch (e) {
       errors = e;
@@ -74,15 +78,15 @@ describe('integer validator', () => {
     expect(errors[0]).toEqual({
       code: 'integer.invalid',
       message: 'not an integer',
-      origin: 2.2
+      origin: 2.2,
     });
   });
 
   it('validates a list of integers', () => {
     expect(
       validators.integer({
-        list: true
-      })([1, 2, 3])
+        list: true,
+      })([1, 2, 3]),
     ).toEqual([1, 2, 3]);
   });
 
@@ -91,9 +95,11 @@ describe('integer validator', () => {
   });
 
   it('if no value is provided to list validator with predefined default, default is returned', () => {
-    expect(validators.integer({
-      list: { default: null }
-    })()).toBeNull();
+    expect(
+      validators.integer({
+        list: { default: null },
+      })(),
+    ).toBeNull();
   });
 
   it('if its not optional, its not optional', () => {
@@ -106,18 +112,20 @@ describe('integer validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      code: 'required',
-      message: 'a integer is required',
-      origin: undefined
-    }]);
+    expect(errors).toEqual([
+      {
+        code: 'required',
+        message: 'a integer is required',
+        origin: undefined,
+      },
+    ]);
   });
 
   it('an empty string is read as an empty value', () => {
     let errors;
 
     const validate = validators.integer({
-      optional: false
+      optional: false,
     });
 
     try {
@@ -126,11 +134,13 @@ describe('integer validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      code: 'required',
-      message: 'a integer is required',
-      origin: ''
-    }]);
+    expect(errors).toEqual([
+      {
+        code: 'required',
+        message: 'a integer is required',
+        origin: '',
+      },
+    ]);
   });
 
   it('an empty string converts to undefined', () => {

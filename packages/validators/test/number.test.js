@@ -1,10 +1,10 @@
-import validators from '../src';
+import validators from '../src/index.js';
 
 describe('number validator', () => {
   it('is optional by default', () => {
     const validate = validators.number();
     const validateWithExplicitOptional = validators.number({
-      optional: undefined
+      optional: undefined,
     });
 
     expect(validate()).toBeUndefined();
@@ -13,7 +13,7 @@ describe('number validator', () => {
 
   it('returns undefined if nothing is given on an optional validator', () => {
     const optionalValidate = validators.number({
-      optional: true
+      optional: true,
     });
 
     expect(optionalValidate()).toBeUndefined();
@@ -21,7 +21,7 @@ describe('number validator', () => {
 
   it('puts a default value if and empty string is specified', () => {
     const validate = validators.number({
-      default: 13
+      default: 13,
     });
 
     expect(validate('')).toBe(13);
@@ -29,7 +29,7 @@ describe('number validator', () => {
 
   it('puts a default value if nothing is specified', () => {
     const validate = validators.number({
-      default: 13
+      default: 13,
     });
 
     expect(validate()).toBe(13);
@@ -42,7 +42,7 @@ describe('number validator', () => {
   it('puts a default value if is defined, nothing is specified and is required', () => {
     const requiredValidate = validators.number({
       optional: false,
-      default: 8
+      default: 8,
     });
 
     let clean = 'not clean';
@@ -61,7 +61,7 @@ describe('number validator', () => {
 
   it('throws an error if is not optional and no default is specified', () => {
     const validate = validators.number({
-      optional: false
+      optional: false,
     });
 
     let errors = [];
@@ -83,7 +83,7 @@ describe('number validator', () => {
     try {
       validators.number({
         default: null,
-        optional: false
+        optional: false,
       })();
     } catch (e) {
       errors = e;
@@ -109,7 +109,7 @@ describe('number validator', () => {
 
   it('throws an error if value exceeds a limit', () => {
     const validate = validators.number({
-      max: 10
+      max: 10,
     });
 
     let errors = [];

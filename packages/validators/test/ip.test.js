@@ -1,4 +1,4 @@
-import validators from '../src';
+import validators from '../src/index.js';
 
 describe('ip validator', () => {
   const validate = validators.ip({ field: 'ip' });
@@ -16,24 +16,23 @@ describe('ip validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      origin: 'nimpornawak',
-      field: 'ip',
-      code: 'ip.invalid',
-      message: 'ip address is invalid'
-    }]);
+    expect(errors).toEqual([
+      {
+        origin: 'nimpornawak',
+        field: 'ip',
+        code: 'ip.invalid',
+        message: 'ip address is invalid',
+      },
+    ]);
   });
 
   describe('lists', () => {
     const validateList = validators.ip({ field: 'ip', list: true });
 
     it('is a list of ips', () => {
-      expect(validateList([
+      expect(validateList(['192.3.1.2', '192.12.0.1'])).toEqual([
         '192.3.1.2',
-        '192.12.0.1'
-      ])).toEqual([
-        '192.3.1.2',
-        '192.12.0.1'
+        '192.12.0.1',
       ]);
     });
 

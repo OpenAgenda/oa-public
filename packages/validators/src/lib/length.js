@@ -1,9 +1,9 @@
-import errors from './errors';
+import errors from './errors.js';
 
 export default function validateLength(value, term, params) {
   const values = {
-    ...params.min === undefined ? undefined : { min: params.min },
-    ...params.max === undefined ? undefined : { max: params.max },
+    ...(params.min === undefined ? undefined : { min: params.min }),
+    ...(params.max === undefined ? undefined : { max: params.max }),
   };
 
   if (value.length < params.min) {
@@ -12,17 +12,13 @@ export default function validateLength(value, term, params) {
       value,
       `${term}.tooshort`,
       `the ${term} is too short`,
-      { values }
+      { values },
     );
   }
 
   if (value.length > params.max) {
-    throw errors(
-      params,
-      value,
-      `${term}.toolong`,
-      `the ${term} is too long`,
-      { values }
-    );
+    throw errors(params, value, `${term}.toolong`, `the ${term} is too long`, {
+      values,
+    });
   }
-};
+}
