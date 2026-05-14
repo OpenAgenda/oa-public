@@ -1,11 +1,11 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
-import choiceValidator from '@openagenda/validators/choice.js';
-import integerValidator from '@openagenda/validators/integer.js';
-import textValidator from '@openagenda/validators/text.js';
-import linkValidator from '@openagenda/validators/link.js';
-import dateValidator from '@openagenda/validators/date.js';
-import booleanValidator from '@openagenda/validators/boolean.js';
+import schema from '@openagenda/validators/schema/index';
+import choiceValidator from '@openagenda/validators/choice';
+import integerValidator from '@openagenda/validators/integer';
+import textValidator from '@openagenda/validators/text';
+import linkValidator from '@openagenda/validators/link';
+import dateValidator from '@openagenda/validators/date';
+import booleanValidator from '@openagenda/validators/boolean';
 
 schema.register({
   choice: choiceValidator,

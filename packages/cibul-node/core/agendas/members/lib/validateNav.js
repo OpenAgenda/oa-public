@@ -1,7 +1,7 @@
-import schema from '@openagenda/validators/schema/index.js';
+import schema from '@openagenda/validators/schema/index';
 import { BadRequest } from '@openagenda/verror';
-import integerValidator from '@openagenda/validators/integer.js';
-import textValidator from '@openagenda/validators/text.js';
+import integerValidator from '@openagenda/validators/integer';
+import textValidator from '@openagenda/validators/text';
 
 schema.register({
   integer: integerValidator,

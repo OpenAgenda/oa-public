@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
+import schema from '@openagenda/validators/schema/index';
 
-import integerValidator from '@openagenda/validators/integer.js';
-import choiceValidator from '@openagenda/validators/choice.js';
+import integerValidator from '@openagenda/validators/integer';
+import choiceValidator from '@openagenda/validators/choice';
 import states from '../../iso/states.js';
 
 schema.register({

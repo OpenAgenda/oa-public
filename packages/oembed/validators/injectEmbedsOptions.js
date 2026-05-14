@@ -1,6 +1,6 @@
-import schema from '@openagenda/validators/schema/index.js';
-import text from '@openagenda/validators/text.js';
-import bool from '@openagenda/validators/boolean.js';
+import schema from '@openagenda/validators/schema/index';
+import text from '@openagenda/validators/text';
+import bool from '@openagenda/validators/boolean';
 
 schema.register({
   text,

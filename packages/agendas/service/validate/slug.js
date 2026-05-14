@@ -1,5 +1,5 @@
 import utils from '@openagenda/utils';
-import rgx from '@openagenda/validators/regex.js';
+import rgx from '@openagenda/validators/regex';
 
 export default function (config) {
   return rgx(

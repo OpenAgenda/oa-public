@@ -1,9 +1,9 @@
-import schema from '@openagenda/validators/schema/index.js';
-import boolean from '@openagenda/validators/boolean.js';
-import integer from '@openagenda/validators/integer.js';
-import choice from '@openagenda/validators/choice.js';
-import text from '@openagenda/validators/text.js';
-import pass from '@openagenda/validators/pass.js';
+import schema from '@openagenda/validators/schema/index';
+import boolean from '@openagenda/validators/boolean';
+import integer from '@openagenda/validators/integer';
+import choice from '@openagenda/validators/choice';
+import text from '@openagenda/validators/text';
+import pass from '@openagenda/validators/pass';
 
 import fields from './fields.js';
 

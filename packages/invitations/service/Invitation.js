@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
+import schema from '@openagenda/validators/schema/index';
 import validators from '@openagenda/validators';
 
 const { text, email, pass, number } = validators;

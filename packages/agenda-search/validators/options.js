@@ -1,7 +1,7 @@
-import schemas from '@openagenda/validators/schema/index.js';
-import boolean from '@openagenda/validators/boolean.js';
-import text from '@openagenda/validators/text.js';
-import choice from '@openagenda/validators/choice.js';
+import schemas from '@openagenda/validators/schema/index';
+import boolean from '@openagenda/validators/boolean';
+import text from '@openagenda/validators/text';
+import choice from '@openagenda/validators/choice';
 import { paths } from '../service/lib/fields.js';
 
 schemas.register({

@@ -1,15 +1,15 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
-import choice from '@openagenda/validators/choice.js';
-import text from '@openagenda/validators/text.js';
-import boolean from '@openagenda/validators/boolean.js';
-import link from '@openagenda/validators/link.js';
-import email from '@openagenda/validators/email.js';
-import number from '@openagenda/validators/number.js';
-import date from '@openagenda/validators/date.js';
-import multilingual from '@openagenda/validators/multilingual.js';
-import integer from '@openagenda/validators/integer.js';
-import phone from '@openagenda/validators/phone.js';
+import schema from '@openagenda/validators/schema/index';
+import choice from '@openagenda/validators/choice';
+import text from '@openagenda/validators/text';
+import boolean from '@openagenda/validators/boolean';
+import link from '@openagenda/validators/link';
+import email from '@openagenda/validators/email';
+import number from '@openagenda/validators/number';
+import date from '@openagenda/validators/date';
+import multilingual from '@openagenda/validators/multilingual';
+import integer from '@openagenda/validators/integer';
+import phone from '@openagenda/validators/phone';
 
 schema.register({
   choice,

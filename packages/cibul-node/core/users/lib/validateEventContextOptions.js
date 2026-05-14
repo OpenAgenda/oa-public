@@ -1,5 +1,5 @@
-import schema from '@openagenda/validators/schema/index.js';
-import choiceValidator from '@openagenda/validators/choice.js';
+import schema from '@openagenda/validators/schema/index';
+import choiceValidator from '@openagenda/validators/choice';
 
 schema.register({
   choice: choiceValidator,

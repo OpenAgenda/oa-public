@@ -1,4 +1,4 @@
-import schema from '@openagenda/validators/schema/index.js';
+import schema from '@openagenda/validators/schema/index';
 import { BadRequest } from '@openagenda/verror';
 import hooksCommon from 'feathers-hooks-common';
 

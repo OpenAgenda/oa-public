@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import passValidator from '@openagenda/validators/pass.js';
+import passValidator from '@openagenda/validators/pass';
 import FormSchemaComponent from '../index.js';
 
 import merge from '../iso/merge.js';

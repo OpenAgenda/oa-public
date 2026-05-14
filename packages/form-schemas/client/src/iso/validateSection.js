@@ -1,7 +1,7 @@
-import textValidator from '@openagenda/validators/text.js';
-import choice from '@openagenda/validators/choice.js';
-import schema from '@openagenda/validators/schema/index.js';
-import multilingualValidator from '@openagenda/validators/multilingual.js';
+import textValidator from '@openagenda/validators/text';
+import choice from '@openagenda/validators/choice';
+import schema from '@openagenda/validators/schema/index';
+import multilingualValidator from '@openagenda/validators/multilingual';
 import areLabelsMultilingual from './areLabelsMultilingual.js';
 
 schema.register({

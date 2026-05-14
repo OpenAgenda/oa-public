@@ -1,7 +1,7 @@
-import schema from '@openagenda/validators/schema/index.js';
-import integer from '@openagenda/validators/integer.js';
-import text from '@openagenda/validators/text.js';
-import date from '@openagenda/validators/date.js';
+import schema from '@openagenda/validators/schema/index';
+import integer from '@openagenda/validators/integer';
+import text from '@openagenda/validators/text';
+import date from '@openagenda/validators/date';
 
 schema.register({
   integer,

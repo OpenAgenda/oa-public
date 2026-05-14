@@ -1,5 +1,5 @@
-import boolean from '@openagenda/validators/boolean.js';
-import schema from '@openagenda/validators/schema/index.js';
+import boolean from '@openagenda/validators/boolean';
+import schema from '@openagenda/validators/schema/index';
 
 schema.register({ boolean });
 

@@ -4,7 +4,7 @@ import { Form, Field } from 'react-final-form';
 import cn from 'classnames';
 import { useDispatch } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
-import emailValidator from '@openagenda/validators/email.js';
+import emailValidator from '@openagenda/validators/email';
 import I18nContext from '../contexts/I18nContext.js';
 import { BasicInput } from '../utils/inputs.js';
 import * as agendaActions from '../reducers/agenda.js';

@@ -3,7 +3,7 @@ import ky from 'ky';
 import mdExtractor from 'markdown-link-extractor';
 import * as cheerio from 'cheerio';
 import logger from '@openagenda/logs';
-import linkValidator from '@openagenda/validators/link.js';
+import linkValidator from '@openagenda/validators/link';
 import validateOptions from './validators/options.js';
 import validateFromMarkdownOptions from './validators/fromMarkdownOptions.js';
 import injectEmbeds from './utils/injectEmbeds.js';

@@ -1,8 +1,8 @@
 import debug from 'debug';
 import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
-import schema from '@openagenda/validators/schema/index.js';
-import passValidator from '@openagenda/validators/pass.js';
+import schema from '@openagenda/validators/schema/index';
+import passValidator from '@openagenda/validators/pass';
 
 const log = logs('services/init');
 

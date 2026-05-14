@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import moment from 'moment-timezone';
-import schema from '@openagenda/validators/schema/index.js';
+import schema from '@openagenda/validators/schema/index';
 import { cleanString } from '@openagenda/utils';
-import textValidator from '@openagenda/validators/text.js';
-import passValidator from '@openagenda/validators/pass.js';
+import textValidator from '@openagenda/validators/text';
+import passValidator from '@openagenda/validators/pass';
 
 schema.register({
   text: textValidator,

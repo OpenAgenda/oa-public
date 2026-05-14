@@ -1,7 +1,7 @@
 import moment from 'moment-timezone';
 
-import schema from '@openagenda/validators/schema/index.js';
-import date from '@openagenda/validators/date.js';
+import schema from '@openagenda/validators/schema/index';
+import date from '@openagenda/validators/date';
 
 import compareBeginAndEnd from '../compareBeginAndEnd.js';
 

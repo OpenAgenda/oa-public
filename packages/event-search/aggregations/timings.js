@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import moment from 'moment-timezone';
-import schema from '@openagenda/validators/schema/index.js';
-import choiceValidator from '@openagenda/validators/choice.js';
-import textValidator from '@openagenda/validators/text.js';
+import schema from '@openagenda/validators/schema/index';
+import choiceValidator from '@openagenda/validators/choice';
+import textValidator from '@openagenda/validators/text';
 
 schema.register({
   choice: choiceValidator,

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
+import schema from '@openagenda/validators/schema/index';
 import getValidatorFromField from './getValidatorFromField.js';
 import isObject from './isObject.js';
 
