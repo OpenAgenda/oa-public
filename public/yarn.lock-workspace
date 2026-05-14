@@ -5750,9 +5750,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/react-shared@workspace:react-shared"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@babel/core": "npm:^7.28.4"
-    "@babel/runtime-corejs3": "npm:^7.28.4"
     "@cfaester/enzyme-adapter-react-18": "npm:^0.6.0"
     "@dnd-kit/core": "npm:^6.1.0"
     "@floating-ui/react": "npm:^0.26.13"
@@ -5768,10 +5766,8 @@ __metadata:
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/preset-scss": "npm:^1.0.3"
     "@storybook/react-webpack5": "npm:^10.2.0"
-    babel-jest: "npm:^29.7.0"
     bytes: "npm:^3.1.0"
     classnames: "npm:^2.3.1"
-    core-js: "npm:^3.29.1"
     dedent: "npm:^0.7.0"
     enzyme: "npm:^3.11.0"
     final-form: "npm:^4.20.2"
@@ -5806,6 +5802,7 @@ __metadata:
     sass: "npm:^1.69.5"
     shallowequal: "npm:^1.1.0"
     storybook: "npm:^10.2.0"
+    tsdown: "npm:^0.22.0"
     turndown: "npm:^7.1.2"
   peerDependencies:
     "@loadable/component": ^5.12.0
