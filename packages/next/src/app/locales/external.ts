@@ -12,7 +12,7 @@ import fetchReactLocale from '@openagenda/react/fetchLocale';
 // merged into the global IntlProvider — otherwise react-intl falls back
 // to rendering the bare label id (e.g. "ActivityApps.eventCreate.full").
 const fetchActivityAppsLocale = (locale: string) =>
-  import(`@openagenda/activity-apps/src/locales-compiled/${locale}.json`).then(
+  import(`@openagenda/activity-apps/locales-compiled/${locale}.json`).then(
     (mod) => mod.default,
   );
 

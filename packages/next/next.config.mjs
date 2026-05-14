@@ -157,6 +157,7 @@ const config = async () => {
         '@chakra-ui/react',
         '@emotion/*',
         '@openagenda/activity-apps',
+        '@openagenda/common-labels',
         '@openagenda/intl',
         '@openagenda/react',
         '@openagenda/react-filters',
