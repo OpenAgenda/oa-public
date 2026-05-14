@@ -5,9 +5,9 @@ import AgendaAdminModContextBar from '../src/components/AgendaAdminModContextBar
 import SimpleCanvas from './decorators/SimpleCanvas.js';
 import IntlProvider from './decorators/IntlProvider.js';
 
-import eventsResponse from './fixtures/events.response.json';
-import manyEventsResponse from './fixtures/manyEvents.response.json';
-import draftsResponse from './fixtures/drafts.response.json';
+import eventsResponse from './fixtures/events.response.json' with { type: 'json' };
+import manyEventsResponse from './fixtures/manyEvents.response.json' with { type: 'json' };
+import draftsResponse from './fixtures/drafts.response.json' with { type: 'json' };
 
 const mswHandlers = {
   basicEvents: http.get('/events', () => HttpResponse.json(eventsResponse)),

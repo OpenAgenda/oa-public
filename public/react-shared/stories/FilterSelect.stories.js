@@ -2,7 +2,7 @@ import { useState } from 'react';
 import FilterSelect from '../src/components/FilterSelect.js';
 import IntlProvider from './decorators/IntlProvider.js';
 import SmallCanvas from './decorators/SmallCanvas.js';
-import agenda from './fixtures/bdm.agenda.json';
+import agenda from './fixtures/bdm.agenda.json' with { type: 'json' };
 
 import '@openagenda/bs-templates/compiled/main.css';
 

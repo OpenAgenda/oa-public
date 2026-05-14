@@ -4,8 +4,8 @@ import EventSelection from '../src/components/EventSelection.js';
 import SimpleCanvas from './decorators/SimpleCanvas.js';
 import IntlProvider from './decorators/IntlProvider.js';
 
-import eventsResponse from './fixtures/events.response.json';
-import manyEventsResponse from './fixtures/manyEvents.response.json';
+import eventsResponse from './fixtures/events.response.json' with { type: 'json' };
+import manyEventsResponse from './fixtures/manyEvents.response.json' with { type: 'json' };
 
 const mswHandlers = {
   basicEvents: http.get('/events', () => HttpResponse.json(eventsResponse)),

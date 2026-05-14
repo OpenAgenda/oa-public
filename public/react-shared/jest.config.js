@@ -5,4 +5,5 @@ export default {
   testEnvironmentOptions: {
     url: 'http://localhost/',
   },
+  transform: {},
 };
