@@ -1,5 +1,5 @@
 import { createIntl, createIntlCache } from '@formatjs/intl';
-import getSupportedLocale from './getSupportedLocale';
+import getSupportedLocale from './getSupportedLocale.js';
 
 export default function createIntlByLocale(locales) {
   const cache = createIntlCache();

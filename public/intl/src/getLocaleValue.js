@@ -1,4 +1,4 @@
-import { DEFAULT_LANG, DEFAULT_FALLBACK_MAP } from './constants';
+import { DEFAULT_LANG, DEFAULT_FALLBACK_MAP } from './constants.js';
 
 export default function getLocaleValue(
   labels,
