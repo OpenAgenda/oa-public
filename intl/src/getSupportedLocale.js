@@ -1,5 +1,5 @@
-import { DEFAULT_FALLBACK_MAP, DEFAULT_LANG } from './constants';
-import getFallbackChain from './getFallbackChain';
+import { DEFAULT_FALLBACK_MAP, DEFAULT_LANG } from './constants.js';
+import getFallbackChain from './getFallbackChain.js';
 
 export default function getSupportedLocale(
   lang,
