@@ -203,9 +203,59 @@ module.exports = (env = {}, argv = {}) => {
       // Node SSR (middleware.js) uses the same bare specifiers but resolves
       // them via the packages' `exports` field — see each package.json.
       alias: {
+        '@openagenda/abilities/client/AbilitiesEditor$': path.join(
+          __dirname,
+          '../abilities/src/client/AbilitiesEditor.js',
+        ),
+        '@openagenda/activity-apps/client/apps/user$': path.join(
+          __dirname,
+          '../activity-apps/src/client/apps/user/index.js',
+        ),
+        '@openagenda/activity-apps/client/apps/agenda$': path.join(
+          __dirname,
+          '../activity-apps/src/client/apps/agenda/index.js',
+        ),
+        '@openagenda/aggregator-sources$': path.join(
+          __dirname,
+          '../aggregator-sources/src/app.js',
+        ),
+        '@openagenda/inbox-apps$': path.join(
+          __dirname,
+          '../inbox-apps/src/app.js',
+        ),
+        '@openagenda/legacy/embeds/app$': path.join(
+          __dirname,
+          '../legacy/embeds/app/src/index.js',
+        ),
+        '@openagenda/registration-apps$': path.join(
+          __dirname,
+          '../registration-apps/src/index.js',
+        ),
+        '@openagenda/registration-apps/components/bootstrap/ListVenues$':
+          path.join(
+            __dirname,
+            '../registration-apps/src/components/bootstrap/ListVenues.js',
+          ),
+        '@openagenda/registration-apps/passCulture/Confirmation$': path.join(
+          __dirname,
+          '../registration-apps/src/passCulture/Confirmation.js',
+        ),
         '@openagenda/agenda-contribute$': path.join(
           __dirname,
           '../agenda-contribute/src/index.js',
+        ),
+        '@openagenda/agenda-locations-app$': path.join(
+          __dirname,
+          '../agenda-locations-app/src/app.js',
+        ),
+        '@openagenda/agenda-locations-app/components/LocationSelector$':
+          path.join(
+            __dirname,
+            '../agenda-locations-app/src/components/LocationSelector.js',
+          ),
+        '@openagenda/agenda-locations-app/decorators/Providers$': path.join(
+          __dirname,
+          '../agenda-locations-app/src/decorators/Providers.js',
         ),
         '@openagenda/agenda-schemas-app$': path.join(
           __dirname,
@@ -222,6 +272,19 @@ module.exports = (env = {}, argv = {}) => {
         '@openagenda/event-form$': path.join(
           __dirname,
           '../event-form/src/index.js',
+        ),
+        '@openagenda/home$': path.join(__dirname, '../home/src/app.js'),
+        '@openagenda/member-apps$': path.join(
+          __dirname,
+          '../member-apps/src/index.js',
+        ),
+        '@openagenda/member-apps/app$': path.join(
+          __dirname,
+          '../member-apps/src/app.js',
+        ),
+        '@openagenda/member-apps/components/Form$': path.join(
+          __dirname,
+          '../member-apps/src/components/Form/index.js',
         ),
         '@openagenda/event-form/schema$': path.join(
           __dirname,
