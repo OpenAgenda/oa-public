@@ -42,16 +42,6 @@
         "default": "./dist/components/index.cjs"
       }
     },
-    "./components/*": {
-      "import": {
-        "types": "./dist/components/*.d.mts",
-        "default": "./dist/components/*.mjs"
-      },
-      "require": {
-        "types": "./dist/components/*.d.cts",
-        "default": "./dist/components/*.cjs"
-      }
-    },
     "./hooks": {
       "import": {
         "types": "./dist/hooks/index.d.mts",
@@ -60,16 +50,6 @@
       "require": {
         "types": "./dist/hooks/index.d.cts",
         "default": "./dist/hooks/index.cjs"
-      }
-    },
-    "./hooks/*": {
-      "import": {
-        "types": "./dist/hooks/*.d.mts",
-        "default": "./dist/hooks/*.mjs"
-      },
-      "require": {
-        "types": "./dist/hooks/*.d.cts",
-        "default": "./dist/hooks/*.cjs"
       }
     },
     "./*": {
