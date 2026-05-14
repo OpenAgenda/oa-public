@@ -1,7 +1,7 @@
 import getAdditionalFilters from '../src/utils/getAdditionalFilters.js';
 import minimizeAggregation from '../src/utils/minimizeAggregation.js';
 
-import schemaFieldsFixtures from './fixtures/fields.json';
+import schemaFieldsFixtures from './fixtures/fields.json' with { type: 'json' };
 
 describe('utils', () => {
   describe('getAdditionalFilters', () => {

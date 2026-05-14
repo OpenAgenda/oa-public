@@ -1,9 +1,9 @@
 import _ from 'lodash';
 import spreadPerMonth from '../lib/events/spreadPerMonthPerDay.js';
-import inputTimings from './fixtures/timings.json';
-import inputTimings2 from './fixtures/timings.2.json';
-import spreadTimings from './fixtures/spreadTimings.json';
-import spreadTimingsNYC from './fixtures/spreadTimings.nyc.json';
+import inputTimings from './fixtures/timings.json' with { type: 'json' };
+import inputTimings2 from './fixtures/timings.2.json' with { type: 'json' };
+import spreadTimings from './fixtures/spreadTimings.json' with { type: 'json' };
+import spreadTimingsNYC from './fixtures/spreadTimings.nyc.json' with { type: 'json' };
 
 describe('10 - spreadPerMonthPerDay', () => {
   describe('basics', () => {

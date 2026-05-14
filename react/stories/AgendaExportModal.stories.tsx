@@ -6,10 +6,10 @@ import fetchLocale from '../src/fetchLocale';
 import { Agenda } from '../src/types';
 import intlMessagesLoader from './loaders/intlMessagesLoader';
 import ProvidersDecorator from './decorators/ProvidersDecorator';
-import agendaFixtures from './fixtures/mel.agenda.json';
-import userFixtures from './fixtures/user.json';
-import me from './fixtures/me.json';
-import columns from './fixtures/columns.json';
+import agendaFixtures from './fixtures/mel.agenda.json' with { type: 'json' };
+import userFixtures from './fixtures/user.json' with { type: 'json' };
+import me from './fixtures/me.json' with { type: 'json' };
+import columns from './fixtures/columns.json' with { type: 'json' };
 
 const meta: Meta<typeof AgendaExportModal> = {
   component: AgendaExportModal,
