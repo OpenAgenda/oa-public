@@ -1,18 +1,16 @@
-'use strict';
+import { BadRequest, NotFound } from '@openagenda/verror';
+import logger from '@openagenda/logs';
+import cleanGetIdentifiers from './lib/cleanGetIdentifiers.js';
+import cleanGetOptions from './lib/cleanGetOptions.js';
+import addGetQuery from './lib/addGetQuery.js';
+import addSelect from './lib/addSelect.js';
+import decorateWithCounts from './lib/decorateWithCounts.js';
+import pickContextIdentifiers from './lib/pickAndCleanContextIdentifiers.js';
+import getMergedLocation from './lib/getMergedLocation.js';
+import * as formatExtIds from './lib/formatExtIds.js';
+import formatLegacyTags from './lib/formatLegacyTags.js';
 
-const { BadRequest, NotFound } = require('@openagenda/verror');
-const logs = require('@openagenda/logs');
-const cleanGetIdentifiers = require('./lib/cleanGetIdentifiers');
-const cleanGetOptions = require('./lib/cleanGetOptions');
-const addGetQuery = require('./lib/addGetQuery');
-const addSelect = require('./lib/addSelect');
-const decorateWithCounts = require('./lib/decorateWithCounts');
-const pickContextIdentifiers = require('./lib/pickAndCleanContextIdentifiers');
-const getMergedLocation = require('./lib/getMergedLocation');
-const formatExtIds = require('./lib/formatExtIds');
-const formatLegacyTags = require('./lib/formatLegacyTags');
-
-const log = logs('get');
+const log = logger('get');
 
 async function get({ internals, endpoints }, identifiers, options = {}) {
   log('received %j %j', identifiers, options);
@@ -108,9 +106,7 @@ async function get({ internals, endpoints }, identifiers, options = {}) {
   return result;
 }
 
-module.exports = get;
-
-module.exports.byAgendaUid = async (
+get.byAgendaUid = async (
   { internals, endpoints },
   agendaUid,
   identifiers,
@@ -125,7 +121,7 @@ module.exports.byAgendaUid = async (
   });
 };
 
-module.exports.bySetUid = async (
+get.bySetUid = async (
   { internals, endpoints },
   setUid,
   identifiers,
@@ -139,3 +135,5 @@ module.exports.bySetUid = async (
     endpointId: { setUid },
   });
 };
+
+export default get;

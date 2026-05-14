@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * formatExtIds - Handles two-phase transformation:
  * PHASE 1: DB Format Conversion (identifiers array <-> extIds array)
@@ -65,13 +63,13 @@ function addLegacyExtId(data) {
  * Step 1: Convert DB format to API format
  * Step 2: Add legacy extId property
  */
-module.exports.afterRead = (data) => {
+export const afterRead = (data) => {
   let result = convertDbToApi(data);
   result = addLegacyExtId(result);
   return result;
 };
 
-module.exports.mergeExtIdsFn = (data, current) => {
+export const mergeExtIdsFn = (data, current) => {
   const currentExtIds = current.extIds;
 
   if (currentExtIds && data.extIds) {
@@ -150,7 +148,7 @@ function convertApiToDb(data) {
  * Step 1: Handle legacy extId input (if present)
  * Step 2: Convert API format to DB format
  */
-module.exports.beforeInsert = (data) => {
+export const beforeInsert = (data) => {
   let result = handleLegacyExtId(data);
   result = convertApiToDb(result);
   return result;
@@ -160,7 +158,7 @@ module.exports.beforeInsert = (data) => {
  * searchQuery: Handle locationExtId search queries
  * Ensures search query has proper structure with key and value
  */
-module.exports.searchQuery = (query) => {
+export const searchQuery = (query) => {
   if (!(query.locationExtId?.key && query.locationExtId?.value)) {
     return { key: 'default', value: query.locationExtId };
   }

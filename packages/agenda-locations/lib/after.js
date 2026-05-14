@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports.make = function make(result, nav) {
+export function make(result, nav) {
   if (!result.rows?.length) {
     return null;
   }
@@ -13,9 +11,9 @@ module.exports.make = function make(result, nav) {
   }
 
   return lastRow.id;
-};
+}
 
-module.exports.include = function include(nav) {
+export function include(nav) {
   if (!nav.useAfter) {
     return [];
   }
@@ -25,4 +23,4 @@ module.exports.include = function include(nav) {
   }
 
   return ['id'];
-};
+}

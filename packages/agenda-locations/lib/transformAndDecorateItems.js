@@ -1,13 +1,11 @@
-'use strict';
+import decorateWithCounts from './decorateWithCounts.js';
+import decorateWithAgendaUids from './decorateWithAgendaUids.js';
+import injectImagePath from './injectImagePath.js';
+import * as legacy from './legacy.js';
+import { afterRead } from './formatExtIds.js';
+import formatLegacyTags from './formatLegacyTags.js';
 
-const decorateWithCounts = require('./decorateWithCounts');
-const decorateWithAgendaUids = require('./decorateWithAgendaUids');
-const injectImagePath = require('./injectImagePath');
-const legacy = require('./legacy');
-const { afterRead } = require('./formatExtIds');
-const formatLegacyTags = require('./formatLegacyTags');
-
-module.exports = async (service, items, options = {}) => {
+export default async (service, items, options = {}) => {
   const {
     eventCounts: includeEventCounts,
     context,

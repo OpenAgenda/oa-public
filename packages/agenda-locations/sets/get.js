@@ -1,8 +1,6 @@
-'use strict';
+import cleanGetOptions from './lib/cleanGetOptions.js';
 
-const cleanGetOptions = require('./lib/cleanGetOptions');
-
-module.exports = async (service, uid, options = {}) => {
+export default async (service, uid, options = {}) => {
   const { detailed, includeSettings } = cleanGetOptions(options);
   const { clients, config, interfaces } = service;
 

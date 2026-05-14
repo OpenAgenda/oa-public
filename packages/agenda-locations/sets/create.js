@@ -1,11 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import logger from '@openagenda/logs';
+import defineUnique from '../lib/defineUnique.js';
+import validate from './validate.js';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('sets/create');
-const defineUnique = require('../lib/defineUnique');
-const validate = require('./validate');
+const log = logger('sets/create');
 
-module.exports = async (service, data = {}) => {
+export default async (service, data = {}) => {
   const clean = validate(data);
 
   const entry = {

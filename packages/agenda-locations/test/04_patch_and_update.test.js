@@ -1,18 +1,18 @@
-'use strict';
+import fs from 'node:fs';
+import _ from 'lodash';
 
-const fs = require('node:fs');
-const _ = require('lodash');
+import Files from '@openagenda/files';
 
-const Files = require('@openagenda/files');
+import Service from '../index.js';
+import testconfig from './testconfig.js';
 
-const Service = require('..');
-const { service: config, dependencies: dConfig } = require('./testconfig');
+import setup from './fixtures/setup.js';
 
-const setup = require('./fixtures/setup');
+import payload from './fixtures/updateData.json' with { type: 'json' };
 
-const payload = require('./fixtures/updateData.json');
+import initSettings from './fixtures/agendaTestSettings.js';
 
-const initSettings = require('./fixtures/agendaTestSettings');
+const { service: config, dependencies: dConfig } = testconfig;
 
 const defaultAccess = {
   authorized: true,
@@ -49,7 +49,7 @@ describe('agenda-locations - functional - patch & update', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
     });
 
     svc = Service({
@@ -111,7 +111,7 @@ describe('agenda-locations - functional - patch & update', () => {
     beforeAll(async () => {
       await svc(7196947).patch(94482437, {
         image: fs.createReadStream(
-          `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+          `${import.meta.dirname}/fixtures/images/vieilles_pierres.jpg`,
         ),
       });
 
@@ -347,7 +347,7 @@ describe('agenda-locations - functional - patch & update - no rights', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
     });
 
     svc = Service({

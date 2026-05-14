@@ -1,6 +1,4 @@
-'use strict';
-
-const detectDuplicateCandidates = require('./detectCandidates');
+import detectDuplicateCandidates from './detectCandidates.js';
 
 const sleep = (ms) => new Promise((rs) => setTimeout(rs, ms));
 
@@ -40,4 +38,4 @@ async function detectAllDuplicateCandidates(
   return count;
 }
 
-module.exports = detectAllDuplicateCandidates;
+export default detectAllDuplicateCandidates;

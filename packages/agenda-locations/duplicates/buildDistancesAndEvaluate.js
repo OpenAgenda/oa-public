@@ -1,7 +1,7 @@
-'use strict';
+import logger from '@openagenda/logs';
+import getDistances from './getDistances.js';
 
-const log = require('@openagenda/logs')('duplicates');
-const getDistances = require('./getDistances');
+const log = logger('duplicates');
 
 const isNullIsland = (location) => {
   if (!location.latitude && !location.longitude) {
@@ -10,7 +10,7 @@ const isNullIsland = (location) => {
   return false;
 };
 
-module.exports = (location1, location2, config) => {
+export default (location1, location2, config) => {
   const sameExtId = location1.extId && location2.extId
     ? location1.extId === location2.extId
     : false;

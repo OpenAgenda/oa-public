@@ -1,27 +1,26 @@
-'use strict';
+import _ from 'lodash';
+import ih from 'immutability-helper';
 
-const _ = require('lodash');
-const ih = require('immutability-helper');
-
-const { BadRequest } = require('@openagenda/verror');
-const schema = require('@openagenda/validators/schema');
-const stream = require('@openagenda/validators/stream');
-const email = require('@openagenda/validators/email');
-const integer = require('@openagenda/validators/integer');
-const link = require('@openagenda/validators/link');
-const longitude = require('@openagenda/validators/longitude');
-const latitude = require('@openagenda/validators/latitude');
-const pass = require('@openagenda/validators/pass');
-const phone = require('@openagenda/validators/phone');
-const text = require('@openagenda/validators/text');
-const multilingual = require('@openagenda/validators/multilingual');
-const choice = require('@openagenda/validators/choice');
-const boolean = require('@openagenda/validators/boolean');
-const regex = require('@openagenda/validators/regex');
-const timezone = require('@openagenda/validators/timezone');
-const extIdsValidator = require('@openagenda/utils/validators/extIdsValidator');
-const addressValidator = require('../validators/address');
-const countryCodeValidator = require('../validators/countryCode');
+import { BadRequest } from '@openagenda/verror';
+import schema from '@openagenda/validators/schema';
+import stream from '@openagenda/validators/stream';
+import email from '@openagenda/validators/email';
+import integer from '@openagenda/validators/integer';
+import link from '@openagenda/validators/link';
+import longitude from '@openagenda/validators/longitude';
+import latitude from '@openagenda/validators/latitude';
+import pass from '@openagenda/validators/pass';
+import phone from '@openagenda/validators/phone';
+import text from '@openagenda/validators/text';
+import multilingual from '@openagenda/validators/multilingual';
+import choice from '@openagenda/validators/choice';
+import boolean from '@openagenda/validators/boolean';
+import regex from '@openagenda/validators/regex';
+import timezone from '@openagenda/validators/timezone';
+import extIdsValidator from '@openagenda/utils/validators/extIdsValidator.mjs';
+import addressValidator from '../validators/address.js';
+import countryCodeValidator from '../validators/countryCode.js';
+import allFields from './fields.js';
 
 schema.register({
   email,
@@ -45,7 +44,7 @@ schema.register({
 
 const validateStream = stream({ optional: false });
 
-const fields = require('./fields')
+const fields = allFields
   .filter((field) => field.write.includes('contributor'))
   .reduce(
     (sch, field) => ({
@@ -70,27 +69,27 @@ validate.withoutImageCreditsAndRightsDeps = schema(
   }),
 );
 
-module.exports = (values, options = {}) => {
+const fn = (values, options = {}) => {
   const { isPatch, ignoreImage } = {
     isPatch: false,
     ignoreImage: false,
     ...options,
   };
 
-  const fn = ignoreImage && values.image
+  const validateFn = ignoreImage && values.image
     ? validate.withoutImageCreditsAndRightsDeps
     : validate;
 
   try {
-    return (isPatch ? fn.part.bind(null, Object.keys(values)) : fn)(
-      ignoreImage ? _.omit(values, ['image']) : values,
-    );
+    return (
+      isPatch ? validateFn.part.bind(null, Object.keys(values)) : validateFn
+    )(ignoreImage ? _.omit(values, ['image']) : values);
   } catch (errors) {
     throw new BadRequest({ info: { errors } }, 'data is invalid');
   }
 };
 
-module.exports.isStream = (v) => {
+fn.isStream = (v) => {
   try {
     validateStream(v);
   } catch (e) {
@@ -98,3 +97,5 @@ module.exports.isStream = (v) => {
   }
   return true;
 };
+
+export default fn;

@@ -1,13 +1,11 @@
-'use strict';
+import fs from 'node:fs';
+import validateExtIds from '@openagenda/utils/validators/extIdsValidator.mjs';
 
-const fs = require('node:fs');
-const validateExtIds = require('@openagenda/utils/validators/extIdsValidator');
+import validate from '../lib/validate.js';
 
 const imageStream = fs.createReadStream(
-  `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+  `${import.meta.dirname}/fixtures/images/vieilles_pierres.jpg`,
 );
-
-const validate = require('../lib/validate');
 
 const fixture = {
   name: 'Alice',

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async (service) => {
+export default async (service) => {
   const entry = await service.clients.knex
     .select(['uid', 'title'])
     .from(service.config.setSchema)

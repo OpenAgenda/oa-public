@@ -1,8 +1,6 @@
-'use strict';
+import { produce } from 'immer';
 
-const { produce } = require('immer');
-
-module.exports = produce((draft, options = {}) => {
+export default produce((draft, options = {}) => {
   const { geocodeResult, isPatch } = options;
 
   if (geocodeResult?.latitude && isPatch) {

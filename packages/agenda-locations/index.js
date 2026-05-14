@@ -1,35 +1,33 @@
-'use strict';
+import geolib from 'geolib';
+import knex from 'knex';
+import logger from '@openagenda/logs';
+import countries from '@openagenda/countries';
+import fromItemToEntry from '@openagenda/utils/fields/fromItemToEntry.js';
+import fromEntryToItem from '@openagenda/utils/fields/fromEntryToItem.js';
+import fields from './lib/fields.js';
+import getSchema from './lib/getSchema.js';
 
-const geolib = require('geolib');
-const knex = require('knex');
-const logger = require('@openagenda/logs');
-const countries = require('@openagenda/countries');
-const fromItemToEntry = require('@openagenda/utils/fields/fromItemToEntry');
-const fromEntryToItem = require('@openagenda/utils/fields/fromEntryToItem');
-const fields = require('./lib/fields');
-const getSchema = require('./lib/getSchema');
+import create from './create.js';
+import get from './get.js';
+import list from './list.js';
+import merge from './merge.js';
+import remove from './remove.js';
+import update from './update.js';
+import transfer from './transfer.js';
+import getINSEECode from './utils/getINSEECode.js';
+import geoFields from './utils/geoFields.js';
+import decorateWithGeocodeData from './lib/decorateWithGeocodeData.js';
+import imageVariants from './lib/imageVariants.js';
+import detectCandidates from './duplicates/detectCandidates.js';
+import detectAllCandidates from './duplicates/detectAllCandidates.js';
+import disqualifyCandidate from './duplicates/disqualifyCandidate.js';
+import clearCandidates from './duplicates/clearCandidates.js';
 
-const create = require('./create');
-const get = require('./get');
-const list = require('./list');
-const merge = require('./merge');
-const remove = require('./remove');
-const update = require('./update');
-const transfer = require('./transfer');
-const getINSEECode = require('./utils/getINSEECode');
-const geoFields = require('./utils/geoFields');
-const decorateWithGeocodeData = require('./lib/decorateWithGeocodeData');
-const imageVariants = require('./lib/imageVariants');
-const detectCandidates = require('./duplicates/detectCandidates');
-const detectAllCandidates = require('./duplicates/detectAllCandidates');
-const disqualifyCandidate = require('./duplicates/disqualifyCandidate');
-const clearCandidates = require('./duplicates/clearCandidates');
+import getSet from './sets/get.js';
+import listSet from './sets/list.js';
+import createSet from './sets/create.js';
 
-const getSet = require('./sets/get');
-const listSet = require('./sets/list');
-const createSet = require('./sets/create');
-
-const getSettings = require('./settings/get');
+import getSettings from './settings/get.js';
 
 const sets = {
   get: getSet,
@@ -41,7 +39,7 @@ const settings = {
   get: getSettings,
 };
 
-module.exports = Object.assign(
+const Service = Object.assign(
   (c = {}) => {
     const config = Object.keys(c).reduce(
       (obj, key) =>
@@ -239,3 +237,5 @@ module.exports = Object.assign(
     },
   },
 );
+
+export default Service;

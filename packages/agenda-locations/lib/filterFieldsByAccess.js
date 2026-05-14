@@ -1,8 +1,6 @@
-'use strict';
+import fields from './fields.js';
 
-const fields = require('./fields');
-
-module.exports = (location, access = 'public') => {
+export default (location, access = 'public') => {
   const filtered = fields
     .filter((field) => field.read.includes(access))
     .reduce(

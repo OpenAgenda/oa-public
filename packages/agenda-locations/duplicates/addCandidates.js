@@ -1,7 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import logger from '@openagenda/logs';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')('addCandidates');
+const log = logger('addCandidates');
 
 async function addDuplicateCandidates(endpoints, location, candidates) {
   if (candidates.length === 0) return;
@@ -37,4 +37,4 @@ async function addDuplicateCandidates(endpoints, location, candidates) {
   return true;
 }
 
-module.exports = addDuplicateCandidates;
+export default addDuplicateCandidates;

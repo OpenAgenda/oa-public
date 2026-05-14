@@ -1,13 +1,13 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
+import Files from '@openagenda/files';
+import Service from '../index.js';
+import testconfig from './testconfig.js';
 
-const Files = require('@openagenda/files');
-const Service = require('..');
-const { service: config, dependencies: dConfig } = require('./testconfig');
+import setup from './fixtures/setup.js';
+import initSettings from './fixtures/agendaTestSettings.js';
 
-const setup = require('./fixtures/setup');
-const initSettings = require('./fixtures/agendaTestSettings');
+const { service: config, dependencies: dConfig } = testconfig;
 
 const defaultAccess = {
   authorized: true,
@@ -38,7 +38,7 @@ describe('agenda-locations - functional - settings get', () => {
       knex = await setup({
         mysql: config.mysql,
         schemas: config.schemas,
-        data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+        data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
       });
 
       svc = Service({
@@ -108,7 +108,7 @@ describe('agenda-locations - functional - settings get', () => {
       knex = await setup({
         mysql: config.mysql,
         schemas: config.schemas,
-        data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+        data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
       });
 
       await knex('location_set')
@@ -217,7 +217,7 @@ describe('agenda-locations - functional - settings get', () => {
       knex = await setup({
         mysql: config.mysql,
         schemas: config.schemas,
-        data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+        data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
       });
 
       svc = Service({

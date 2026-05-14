@@ -1,8 +1,6 @@
-'use strict';
+import { produce } from 'immer';
 
-const { produce } = require('immer');
-
-module.exports.patch = produce((entry, currentItem, currentEntry) => {
+export const patch = produce((entry, currentItem, currentEntry) => {
   const entryHasExtId = Object.keys(entry).includes('ext_id');
   const extId = entryHasExtId ? entry.ext_id : currentItem.extId;
 
@@ -15,7 +13,7 @@ module.exports.patch = produce((entry, currentItem, currentEntry) => {
   entry.store = JSON.stringify(store);
 });
 
-module.exports.load = (location, entry) => {
+export const load = (location, entry) => {
   const store = entry?.store ? JSON.parse(entry.store) : {};
   const fields = Object.keys(location);
 

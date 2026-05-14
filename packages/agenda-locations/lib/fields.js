@@ -1,8 +1,6 @@
-'use strict';
+import labels from '@openagenda/labels/agenda-locations/exportHeaders.js';
 
-const labels = require('@openagenda/labels/agenda-locations/exportHeaders');
-
-module.exports = [
+export default [
   {
     field: 'id',
     optional: false,

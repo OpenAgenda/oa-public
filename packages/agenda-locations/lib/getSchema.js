@@ -1,10 +1,8 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
+import fields from './fields.js';
 
-const fields = require('./fields');
-
-module.exports = function getSchema(options = {}) {
+export default function getSchema(options = {}) {
   const { access = 'public', includeLegacyAdminLevels = true } = options;
 
   return {
@@ -18,4 +16,4 @@ module.exports = function getSchema(options = {}) {
       .map((f) => _.omit(f, ['db'])),
     schemaId: 'location',
   };
-};
+}

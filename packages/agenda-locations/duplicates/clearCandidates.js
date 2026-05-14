@@ -1,5 +1,3 @@
-'use strict';
-
 async function clearCandidates(endpoints) {
   let after = 0;
 
@@ -22,4 +20,4 @@ async function clearCandidates(endpoints) {
   }
 }
 
-module.exports = clearCandidates;
+export default clearCandidates;

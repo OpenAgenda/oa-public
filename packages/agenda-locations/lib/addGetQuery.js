@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async (service, k, deleted, query) => {
+export default async (service, k, deleted, query) => {
   const cleanQuery = { ...query };
 
   const { setUid, agendaUid, uid, extId, slug } = cleanQuery;

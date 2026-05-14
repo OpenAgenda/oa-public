@@ -1,9 +1,7 @@
-'use strict';
+import linkValidator from '@openagenda/validators/link';
+import textValidator from '@openagenda/validators/text';
 
-const linkValidator = require('@openagenda/validators/link');
-const textValidator = require('@openagenda/validators/text');
-
-module.exports = (config = {}) => {
+export default (config = {}) => {
   const link = linkValidator();
   const text = textValidator(config);
 

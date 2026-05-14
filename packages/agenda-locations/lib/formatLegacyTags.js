@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * filterLegacyTags - Filters location tags based on form schema validation
  *
@@ -52,4 +50,4 @@ const filterLegacyTags = (location, schema) => {
   };
 };
 
-module.exports = filterLegacyTags;
+export default filterLegacyTags;

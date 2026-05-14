@@ -1,10 +1,9 @@
-'use strict';
+import logger from '@openagenda/logs';
+import integer from '@openagenda/validators/integer';
 
-const logs = require('@openagenda/logs');
+const log = logger('disqualifyCandidates');
 
-const log = logs('disqualifyCandidates');
-
-const validate = require('@openagenda/validators/integer')({
+const validate = integer({
   list: { min: 2 },
 });
 
@@ -43,4 +42,4 @@ async function disqualifyCandidate(endpoints, dirtyUids) {
   log('disqualify went well');
 }
 
-module.exports = disqualifyCandidate;
+export default disqualifyCandidate;

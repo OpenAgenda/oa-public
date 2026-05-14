@@ -1,10 +1,8 @@
-'use strict';
-
-const countriesByCode = require('@openagenda/labels/agenda-locations/countries');
+import countriesByCode from '@openagenda/labels/agenda-locations/countries.js';
 
 const validCodes = new Set(Object.keys(countriesByCode));
 
-module.exports = (config = {}) => {
+export default (config = {}) => {
   const { field, optional = true } = config;
 
   const validate = (value) => {

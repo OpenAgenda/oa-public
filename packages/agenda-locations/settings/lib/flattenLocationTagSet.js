@@ -1,5 +1,3 @@
-'use strict';
-
 const makeFlatten = (lang, defaultLang) => (label) => {
   if (!label || typeof label === 'string') {
     return label;
@@ -16,7 +14,7 @@ const makeFlatten = (lang, defaultLang) => (label) => {
   return label[Object.keys(label).shift()];
 };
 
-module.exports = (tagSet, lang, defaultLang = 'en') => {
+export default (tagSet, lang, defaultLang = 'en') => {
   const flatten = makeFlatten(lang, defaultLang);
 
   return {

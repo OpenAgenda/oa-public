@@ -1,5 +1,3 @@
-'use strict';
-
 async function removeCandidate(endpoints, locationUids, candidate) {
   for (const locationUid of locationUids) {
     const location = await endpoints.get(locationUid, {
@@ -15,4 +13,4 @@ async function removeCandidate(endpoints, locationUids, candidate) {
   }
 }
 
-module.exports = removeCandidate;
+export default removeCandidate;

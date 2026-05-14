@@ -1,9 +1,7 @@
-'use strict';
+import schema from '@openagenda/validators/schema';
+import integer from '@openagenda/validators/integer';
 
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-
-const { BadRequest } = require('@openagenda/verror');
+import { BadRequest } from '@openagenda/verror';
 
 schema.register({ integer });
 
@@ -16,7 +14,7 @@ const validate = schema({
   },
 });
 
-module.exports = (context = {}, fields = []) => {
+export default (context = {}, fields = []) => {
   const ids = fields
     .filter((field) => context[field] !== null)
     .reduce(

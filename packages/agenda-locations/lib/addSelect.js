@@ -1,11 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import databaseField from '@openagenda/utils/fields/databaseField.js';
 
-const _ = require('lodash');
-const getMatchingDatabaseField = require('@openagenda/utils/fields/databaseField').getName;
+import fields from './fields.js';
 
-const fields = require('./fields');
+const getMatchingDatabaseField = databaseField.getName;
 
-module.exports = (k, access, options = {}) => {
+const addSelect = (k, access, options = {}) => {
   const filteredFields = fields.filter((f) => {
     if (options.include && options.include.includes(f.field)) {
       return true;
@@ -23,4 +23,6 @@ module.exports = (k, access, options = {}) => {
   );
 };
 
-module.exports.getMatchingDatabaseField = getMatchingDatabaseField;
+addSelect.getMatchingDatabaseField = getMatchingDatabaseField;
+
+export default addSelect;

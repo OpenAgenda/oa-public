@@ -1,7 +1,5 @@
-'use strict';
+import alba from './alba-la-romaine.json' with { type: 'json' };
 
-const alba = require('./alba-la-romaine.json');
-
-module.exports = {
+export default {
   alba,
 };

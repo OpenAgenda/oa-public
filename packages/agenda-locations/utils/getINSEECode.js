@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const slug = require('slugify');
+import _ from 'lodash';
+import slug from 'slugify';
 
 const NS = 'insee';
 
@@ -16,7 +14,7 @@ const res = ({ latitude, longitude }) =>
 
 const format = (body) => _.get(_.first(body), 'code');
 
-module.exports = (redisClient) =>
+export default (redisClient) =>
   async ({ city, department, latitude, longitude }) => {
     const cached = await redisClient.hget(NS, getKey({ city, department }));
 
