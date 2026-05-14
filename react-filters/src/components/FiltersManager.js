@@ -15,7 +15,7 @@ import { useForm } from 'react-final-form';
 import { useUIDSeed } from 'react-uid';
 import { QueryClient, QueryClientProvider, useQuery } from 'react-query';
 import { Portal } from '@openagenda/react-portal-ssr';
-import useConstant from '@openagenda/react-shared/dist/hooks/useConstant.js';
+import useConstant from '@openagenda/react-shared/hooks/useConstant';
 import { getEvents } from '../api/index.js';
 import {
   filtersToAggregations,
