@@ -51,16 +51,17 @@ module.exports = {
       rootDir: __dirname,
     },
     'import/resolver': {
-      [require.resolve('@openagenda/eslint-config/resolver')]: {},
       typescript: {
         project: [`${__dirname}/tsconfig.json`],
       },
+      [require.resolve('@openagenda/eslint-config/resolver')]: {},
     },
   },
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
     jsxPragma: null,
+    tsconfigRootDir: __dirname,
     babelOptions: {
       configFile: false,
     },
