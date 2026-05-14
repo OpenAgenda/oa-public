@@ -6,7 +6,7 @@ const du = require( '../../js/lib/domUtils' );
 
 const labels = require( '@openagenda/labels/event/show' );
 
-const activitiesEventApp = require( '@openagenda/activity-apps/dist/client/apps/event' );
+const activitiesEventApp = require( '@openagenda/activity-apps/client/apps/event' );
 
 const { getLocaleValue } = require('@openagenda/intl');
 

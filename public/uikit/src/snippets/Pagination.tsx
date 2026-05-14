@@ -55,6 +55,7 @@ export const PaginationRoot = React.forwardRef<
   const { size = 'sm', variant = 'outline', getHref, ...rest } = props;
   return (
     <RootPropsProvider
+      // eslint-disable-next-line react/jsx-no-constructed-context-values
       value={{ size, variantMap: rootVariantMap[variant], getHref }}
     >
       <ChakraPagination.Root

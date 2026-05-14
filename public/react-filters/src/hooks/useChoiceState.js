@@ -3,7 +3,7 @@ import useIsomorphicLayoutEffectModule from 'react-use/lib/useIsomorphicLayoutEf
 import usePreviousModule from 'react-use/lib/usePrevious.js';
 import { useIntl } from 'react-intl';
 import Fuse from 'fuse.js';
-import useConstant from '@openagenda/react-shared/dist/hooks/useConstant.js';
+import useConstant from '@openagenda/react-shared/hooks/useConstant';
 
 const useIsomorphicLayoutEffect = useIsomorphicLayoutEffectModule.default || useIsomorphicLayoutEffectModule;
 const usePrevious = usePreviousModule.default || usePreviousModule;

@@ -1,4 +1,4 @@
-import messages from './messages.js';
+import messages from '../../lib/messages.js';
 import addText from './addText.js';
 
 export default async function truncate(

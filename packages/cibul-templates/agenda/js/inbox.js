@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { createRoot } from 'react-dom/client';
-import createApp from '@openagenda/inbox-apps/src/app';
+import createApp from '@openagenda/inbox-apps';
 import { wrapApp } from '@openagenda/react-shared';
 
 const defaults = {

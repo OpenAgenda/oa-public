@@ -1,7 +1,7 @@
 import { createRoot } from 'react-dom/client';
 import { getCookieConsentValue } from 'react-cookie-consent';
 import { IntlProvider } from 'react-intl';
-import ConsentBanner from '@openagenda/react-shared/dist/components/ConsentBanner.js';
+import ConsentBanner from '@openagenda/react-shared/components/ConsentBanner';
 
 export default (
   { lang, locales, cookieBannerLink },

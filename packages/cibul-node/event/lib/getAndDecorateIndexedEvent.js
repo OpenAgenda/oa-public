@@ -3,15 +3,13 @@ import languages from 'languages';
 import { formatInTimeZone } from 'date-fns-tz';
 import registrationLabels from '@openagenda/labels/event/registration.js';
 import makeLabelGetter from '@openagenda/labels';
-import sdk from '@openagenda/sdk-js';
+import { toEventSchema } from '@openagenda/sdk-js';
 import logs from '@openagenda/logs';
 import { utils as agendaPortalUtils } from '@openagenda/agenda-portal';
 
 const log = logs('event/lib/getAndDecorateIndexedEvent');
 
 const getLabel = makeLabelGetter(registrationLabels);
-
-const { toEventSchema } = sdk;
 
 function pickPreferredLang(value, lang) {
   if (!value) {
