@@ -4,7 +4,5 @@ export default {
     url: 'http://localhost/',
   },
 
-  transform: {
-    '\\.[jt]sx?$': ['babel-jest', { rootMode: 'upward' }],
-  },
+  transform: {},
 };
