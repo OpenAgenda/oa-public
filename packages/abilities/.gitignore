@@ -6,6 +6,6 @@ yarn-error.log
 coverage/
 
 .cache/
-build/
+dist/
 storybook-static/
 src/locales-compiled/

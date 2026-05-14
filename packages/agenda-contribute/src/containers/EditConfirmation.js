@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useParams, useLocation } from 'react-router-dom';
-import PassCultureConfirmation from '@openagenda/registration-apps/dist/passCulture/Confirmation.js';
+import PassCultureConfirmation from '@openagenda/registration-apps/passCulture/Confirmation';
 
 import Canvas from '../components/Canvas.js';
 import usePrefix from '../hooks/usePrefix.js';

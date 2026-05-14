@@ -1,5 +1,5 @@
 import { defineMessages, useIntl } from 'react-intl';
-import MemberFormComponent from '@openagenda/member-apps/dist/components/Form/index.js';
+import MemberFormComponent from '@openagenda/member-apps/components/Form';
 
 const messages = defineMessages({
   title: {

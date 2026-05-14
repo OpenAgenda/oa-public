@@ -10,14 +10,17 @@
   },
   "homepage": "https://github.com/OpenAgenda/oa/tree/main/packages/inbox-apps",
   "type": "module",
-  "main": "index.js",
+  "main": "./dist/app.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/app.mjs"
+  },
   "scripts": {
     "sb": "storybook dev",
-    "build": "babel --copy-files src -d dist -s --env-name esm --root-mode upward",
-    "clean": "rimraf dist",
+    "build": "tsdown",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --coverage --forceExit",
     "cov:watch": "reload -d coverage/lcov-report -p 3300 -b",
-    "prepack": "yarn clean && yarn build"
+    "prepack": "yarn build"
   },
   "dependencies": {
     "@openagenda/eslint-config": "^1.4.0",
@@ -50,12 +53,10 @@
     "redial": "^0.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
     "@cfaester/enzyme-adapter-react-18": "^0.6.0",
     "@openagenda/bs-templates": "^2.5.1",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/react-webpack5": "^10.2.0",
-    "babel-jest": "^29.7.0",
     "chai": "^4.3.7",
     "chai-as-promised": "^7.1.1",
     "chai-jest-diff": "^1.0.2",
@@ -74,8 +75,8 @@
     "redux": "^4.0.5",
     "redux-mock-store": "^1.5.4",
     "reload": "^3.2.1",
-    "rimraf": "^3.0.1",
-    "storybook": "^10.2.0"
+    "storybook": "^10.2.0",
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "@loadable/component": "^5.12.0",

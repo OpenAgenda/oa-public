@@ -17,9 +17,7 @@ export default function Conditions({ value, onChange, conditions }) {
 
   return (
     <Checkbox
-      info={
-        "Par défaut, les conditions de participation de l'événement sont utilisée. Vous pouvez les personnaliser ici."
-      }
+      info="Par défaut, les conditions de participation de l'événement sont utilisée. Vous pouvez les personnaliser ici."
       value={check}
       onChange={() => {
         setCheck(!check);

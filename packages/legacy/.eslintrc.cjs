@@ -19,6 +19,7 @@ module.exports = {
           `${__dirname}/test/**/*.js`,
           `${__dirname}/controlData/test/**/*.js`,
           `${__dirname}/testconfig.js`,
+          `${__dirname}/tsdown.config.ts`,
         ],
       },
     ],

@@ -15,7 +15,7 @@ import {
   Dropdown,
   Spinner,
 } from '@openagenda/react-shared';
-import HistoryModal from '@openagenda/activity-apps/dist/client/apps/modal/index.js';
+import HistoryModal from '@openagenda/activity-apps/client/apps/modal';
 
 import RequestFeatureLink from '../../components/RequestFeatureLink.js';
 import MemberItem from '../../components/MemberItem.js';

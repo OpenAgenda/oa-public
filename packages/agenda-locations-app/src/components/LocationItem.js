@@ -1,6 +1,6 @@
 import { defineMessages, FormattedMessage, useIntl } from 'react-intl';
 import { useMemo } from 'react';
-import ActivitiesModal from '@openagenda/activity-apps/dist/client/apps/modal/index.js';
+import ActivitiesModal from '@openagenda/activity-apps/client/apps/modal';
 import makeLabelGetter from '@openagenda/labels';
 import countries from '@openagenda/labels/agenda-locations/countries.js';
 import { a11yButtonActionHandler } from '@openagenda/react-shared';
