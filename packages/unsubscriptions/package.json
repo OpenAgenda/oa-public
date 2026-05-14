@@ -9,9 +9,7 @@
   },
   "exports": {
     "./package.json": "./package.json",
-    ".": {
-      "import": "./index.js"
-    }
+    ".": "./index.js"
   },
   "dependencies": {
     "@openagenda/verror": "^3.2.0",

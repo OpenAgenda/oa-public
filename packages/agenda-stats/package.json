@@ -12,7 +12,7 @@
   "exports": {
     "./package.json": "./package.json",
     ".": "./dist/app.mjs",
-    "./components/PulseChart": "./dist/components/PulseChart.mjs"
+    "./*": "./dist/*.mjs"
   },
   "scripts": {
     "sb": "storybook dev",

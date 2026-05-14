@@ -63,16 +63,6 @@
         "default": "./dist/snippets/index.cjs"
       }
     },
-    "./snippets/*": {
-      "import": {
-        "types": "./dist/snippets/*.d.mts",
-        "default": "./dist/snippets/*.mjs"
-      },
-      "require": {
-        "types": "./dist/snippets/*.d.cts",
-        "default": "./dist/snippets/*.cjs"
-      }
-    },
     "./*": {
       "import": {
         "types": "./dist/*.d.mts",

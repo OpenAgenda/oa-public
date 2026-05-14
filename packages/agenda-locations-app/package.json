@@ -10,10 +10,15 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "main": "",
+  "main": "./dist/app.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/app.mjs",
+    "./*": "./dist/*.mjs"
+  },
   "scripts": {
     "extract-messages": "oa-intl --esm",
-    "build": "babel --copy-files src -d dist -s --env-name esm",
+    "build": "tsdown",
     "prepack": "oa-intl compile --esm && yarn build",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest",
     "sb": "NODE_OPTIONS=\"--max-old-space-size=5120\" storybook dev"
@@ -50,7 +55,6 @@
     "use-debounce": "^10.0.4"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
     "@emotion/babel-plugin": "^11.11.0",
     "@loadable/component": "^5.14.1",
     "@openagenda/babel-preset": "^1.5.0",
@@ -66,7 +70,8 @@
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.0",
     "source-map-loader": "^2.0.1",
-    "storybook": "^10.2.0"
+    "storybook": "^10.2.0",
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^19.2.2",

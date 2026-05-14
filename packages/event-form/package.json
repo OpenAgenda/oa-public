@@ -7,11 +7,7 @@
   "exports": {
     "./package.json": "./package.json",
     ".": "./build/index.mjs",
-    "./schema": "./build/schema.mjs",
-    "./components/configuration/DefaultLocation": "./build/components/configuration/DefaultLocation.mjs",
-    "./components/configuration/EnabledRanges": "./build/components/configuration/EnabledRanges.mjs",
-    "./utils/extractLanguages": "./build/utils/extractLanguages.mjs",
-    "./validators/events": "./build/validators/events.mjs"
+    "./*": "./build/*.mjs"
   },
   "scripts": {
     "sb": "storybook dev",
