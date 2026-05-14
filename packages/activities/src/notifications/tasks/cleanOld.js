@@ -1,8 +1,6 @@
-'use strict';
+import logger from '@openagenda/logs';
 
-const log = require('@openagenda/logs')(
-  'activities/notifications/tasks/cleanOld',
-);
+const log = logger('activities/notifications/tasks/cleanOld');
 
 const defaultKeepTime = 1000 * 60 * 60 * 24 * 90; // 90 days
 
@@ -10,7 +8,7 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const leadZero = (number, precision = 2) =>
   String(number).padStart(precision, '0');
 
-module.exports = async (config) => {
+export default async (config) => {
   const { knex, keepTime = defaultKeepTime } = config;
 
   const date = new Date(Date.now() - keepTime);

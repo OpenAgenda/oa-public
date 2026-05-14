@@ -1,3 +1,1 @@
-'use strict';
-
-module.exports = ['user', 'agenda', 'event', 'location', 'locationSet'];
+export default ['user', 'agenda', 'event', 'location', 'locationSet'];

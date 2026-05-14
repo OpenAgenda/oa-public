@@ -1,9 +1,7 @@
-'use strict';
+import _ from 'lodash';
+import FEED_TYPES from './feedTypes.js';
 
-const _ = require('lodash');
-const FEED_TYPES = require('./feedTypes');
-
-module.exports = function feed(config, identifiersOrId) {
+export default function feed(config, identifiersOrId) {
   const { feeds, activities, notifications } = config.service;
 
   const identifiers = _.isObject(identifiersOrId)
@@ -34,7 +32,7 @@ module.exports = function feed(config, identifiersOrId) {
       };
     },
   );
-};
+}
 
 _.mixin({
   deeply(map) {

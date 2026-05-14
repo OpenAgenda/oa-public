@@ -1,12 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import add from './add.js';
+import list from './list.js';
+import get from './get.js';
+import anonymize from './anonymize.js';
 
-const _ = require('lodash');
-const add = require('./add');
-const list = require('./list');
-const get = require('./get');
-const anonymize = require('./anonymize');
-
-module.exports = function activities(config, identifiers) {
+export default function activities(config, identifiers) {
   return _.mapValues(
     {
       add,
@@ -16,4 +14,4 @@ module.exports = function activities(config, identifiers) {
     },
     (fn) => fn.bind(null, config, identifiers),
   );
-};
+}

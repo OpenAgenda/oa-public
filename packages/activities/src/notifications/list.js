@@ -1,13 +1,13 @@
-'use strict';
+import _ from 'lodash';
+import parseListArguments from '@openagenda/service-utils/parseListArguments.js';
+import promisePlusCb from '@openagenda/service-utils/promisePlusCb.js';
+import schema from '@openagenda/validators/schema';
+import validators from '@openagenda/validators';
+import logger from '@openagenda/logs';
+import VError from '@openagenda/verror';
+import notificationStates from '../notificationStates.js';
 
-const _ = require('lodash');
-const parseListArguments = require('@openagenda/service-utils/parseListArguments');
-const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');
-const schema = require('@openagenda/validators/schema');
-const validators = require('@openagenda/validators');
-const log = require('@openagenda/logs')('activities/notifications/list');
-const VError = require('@openagenda/verror');
-const notificationStates = require('../notificationStates');
+const log = logger('activities/notifications/list');
 
 schema.register({
   text: validators.text,
@@ -166,4 +166,4 @@ function list(config, identifiers, ...rest) {
   return promisePlusCb(promise, cb);
 }
 
-module.exports = list;
+export default list;

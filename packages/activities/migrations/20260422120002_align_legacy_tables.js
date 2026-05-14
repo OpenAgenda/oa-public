@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export const up = async (knex) => {
   // activity: utf8mb4 / unicode_ci with explicit per-column charset.
   await knex.schema.raw(
     `ALTER TABLE \`activity\`
@@ -38,7 +36,7 @@ exports.up = async (knex) => {
   );
 };
 
-exports.down = async (knex) => {
+export const down = async (knex) => {
   await knex.schema.raw(
     'ALTER TABLE `activity_feed_notification` DROP INDEX `activity_feed_notification_verb_group_by_index`',
   );

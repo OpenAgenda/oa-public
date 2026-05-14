@@ -1,10 +1,8 @@
-'use strict';
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema';
+import validators from '@openagenda/validators';
 
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-const validators = require('@openagenda/validators');
-
-const FEED_TYPES = require('../feedTypes');
+import FEED_TYPES from '../feedTypes.js';
 
 schema.register({
   choice: validators.choice,
@@ -147,4 +145,4 @@ async function get(config, identifiers, options = {}) {
   return isArrayOfIds ? feeds : feeds[0];
 }
 
-module.exports = get;
+export default get;

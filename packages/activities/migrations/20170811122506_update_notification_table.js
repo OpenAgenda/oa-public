@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export const up = async (knex) => {
   const { schemas } = knex.client.config;
 
   await knex.schema.alterTable(schemas.feed_notification, (t) => {
@@ -25,6 +23,6 @@ exports.up = async (knex) => {
   }
 };
 
-exports.down = (_knex) => {
+export const down = (_knex) => {
   //
 };

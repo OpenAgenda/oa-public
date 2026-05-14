@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export const up = async (knex) => {
   const { schemas } = knex.client.config;
 
   const [indexes] = await knex.raw(
@@ -26,6 +24,6 @@ exports.up = async (knex) => {
   );
 };
 
-exports.down = async (_knex) => {
+export const down = async (_knex) => {
   //
 };

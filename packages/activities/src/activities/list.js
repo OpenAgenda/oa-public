@@ -1,9 +1,7 @@
-'use strict';
-
-const _ = require('lodash');
-const schema = require('@openagenda/validators/schema');
-const validators = require('@openagenda/validators');
-const applyMask = require('./utils/applyMask');
+import _ from 'lodash';
+import schema from '@openagenda/validators/schema';
+import validators from '@openagenda/validators';
+import applyMask from './utils/applyMask.js';
 
 schema.register({
   text: validators.text,
@@ -42,7 +40,7 @@ function parseListArguments(...args) {
   return { query, offset, limit, options };
 }
 
-module.exports = async function list(config, feedIdentifiers, ...restArgs) {
+export default async function list(config, feedIdentifiers, ...restArgs) {
   const { service, knex } = config;
 
   const args = parseListArguments(...restArgs);
@@ -124,4 +122,4 @@ module.exports = async function list(config, feedIdentifiers, ...restArgs) {
 
     return applyMask(activity);
   });
-};
+}

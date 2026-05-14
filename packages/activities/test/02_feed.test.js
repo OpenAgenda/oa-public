@@ -1,13 +1,11 @@
-'use strict';
+import { jest } from '@jest/globals';
+import testconfig from '../testconfig.js';
+import Service from '../src/index.js';
+import setup, { reset } from './fixtures/setup.js';
 
-const testconfig = require('../testconfig');
-const Service = require('../src');
-const setup = require('./fixtures/setup');
-
-const { reset } = setup;
 const data = [
-  `${__dirname}/fixtures/feed.data.sql`,
-  `${__dirname}/fixtures/feed_follow.data.sql`,
+  `${import.meta.dirname}/fixtures/feed.data.sql`,
+  `${import.meta.dirname}/fixtures/feed_follow.data.sql`,
 ];
 
 describe('activities - feed', () => {

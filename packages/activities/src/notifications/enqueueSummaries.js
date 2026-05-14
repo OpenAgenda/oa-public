@@ -1,12 +1,10 @@
-'use strict';
+import logger from '@openagenda/logs';
 
-const log = require('@openagenda/logs')(
-  'activities/notifications/tasks/enqueueSummaries',
-);
+const log = logger('activities/notifications/tasks/enqueueSummaries');
 
 // enqueueSummaries -> prepareSummary -> sendSummary
 
-module.exports = async function enqueueSummaries(config) {
+export default async function enqueueSummaries(config) {
   const { knex } = config;
   const { prepareSummary } = config.interfaces;
 
@@ -37,4 +35,4 @@ module.exports = async function enqueueSummaries(config) {
   } catch (e) {
     log('error', "Can't send notifications summary", e);
   }
-};
+}

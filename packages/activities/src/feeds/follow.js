@@ -1,7 +1,7 @@
-'use strict';
+import logger from '@openagenda/logs';
+import promisePlusCb from '@openagenda/service-utils/promisePlusCb.js';
 
-const log = require('@openagenda/logs')('activities/feeds/follow');
-const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');
+const log = logger('activities/feeds/follow');
 
 function parseArguments(identifiers, originFeedId, store, cb) {
   const result = {
@@ -76,4 +76,4 @@ function follow(config, ...rest) {
   return promisePlusCb(promise, cb);
 }
 
-module.exports = follow;
+export default follow;

@@ -1,10 +1,8 @@
-'use strict';
-
-const logs = require('@openagenda/logs');
+import logs from '@openagenda/logs';
 
 const log = logs('activities/anonymize');
 
-module.exports = async function anonymize(config, _, identifier, options = {}) {
+export default async function anonymize(config, _, identifier, options = {}) {
   log('processing %s', identifier);
   const { knex, schemas, anonymizedValue = '$__deleted' } = config;
 
@@ -61,4 +59,4 @@ module.exports = async function anonymize(config, _, identifier, options = {}) {
 
     lastId = activity.id;
   }
-};
+}
