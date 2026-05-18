@@ -79,6 +79,15 @@ export default async function transferOwnership(
     );
   }
 
+  if (event.ownerUid === targetMember.userUid) {
+    log.info('transferOwnership no-op: target is already the current owner', {
+      agendaUid,
+      eventUid,
+      ownerUid: event.ownerUid,
+    });
+    return event;
+  }
+
   log(
     'transferring ownership of event %s from %s to %s on agenda %s',
     eventUid,

@@ -258,4 +258,26 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
       .get(EVENT_UID);
     expect(agendaEvent.userUid).toBe(TARGET_UID);
   });
+
+  it('is a no-op when the target is already the current owner', async () => {
+    const beforeEvent = await core.services.events.get(EVENT_UID, {
+      access: 'internal',
+      private: null,
+    });
+    const before = await core.services.agendaEvents(AGENDA_UID).get(EVENT_UID);
+
+    await core
+      .agendas(AGENDA_UID)
+      .events.transferOwnership(
+        EVENT_UID,
+        { userUid: beforeEvent.ownerUid },
+        { context: { userUid: ADMIN_UID } },
+      );
+
+    const after = await core.services.agendaEvents(AGENDA_UID).get(EVENT_UID);
+
+    const beforeUpdatedAt = before.updatedAt?.toISOString?.() ?? before.updatedAt;
+    const afterUpdatedAt = after.updatedAt?.toISOString?.() ?? after.updatedAt;
+    expect(afterUpdatedAt).toBe(beforeUpdatedAt);
+  });
 });
