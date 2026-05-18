@@ -280,4 +280,29 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
     const afterUpdatedAt = after.updatedAt?.toISOString?.() ?? after.updatedAt;
     expect(afterUpdatedAt).toBe(beforeUpdatedAt);
   });
+
+  it('refreshes the search index with the new ownerUid', async () => {
+    // Reset to a known owner state so we can do a real transfer in this test
+    const currentEvent = await core.services.events.get(EVENT_UID, {
+      access: 'internal',
+      private: null,
+    });
+    const otherUid = currentEvent.ownerUid === TARGET_UID ? CURRENT_OWNER_UID : TARGET_UID;
+
+    await core
+      .agendas(AGENDA_UID)
+      .events.transferOwnership(
+        EVENT_UID,
+        { userUid: otherUid },
+        { context: { userUid: ADMIN_UID } },
+      );
+
+    const indexed = await core
+      .agendas(AGENDA_UID)
+      .events.search.get(
+        { uid: EVENT_UID },
+        { userUid: ADMIN_UID, detailed: true },
+      );
+    expect(indexed.ownerUid).toBe(otherUid);
+  });
 });

@@ -2,6 +2,9 @@ import { Forbidden, NotFound } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import membersSvc from '@openagenda/members';
 import getAgenda from '../utils/getAgenda.js';
+import createPayload from '../utils/createPayload.js';
+import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
+import formatError from '../utils/formatError.js';
 import extractActingFromContext from './lib/extractActingFromContext.js';
 
 const log = logs('core/agendas/events/transferOwnership');
@@ -21,7 +24,7 @@ export default async function transferOwnership(
 
   log('transferring event %s on agenda %s', eventUid, agendaUid);
 
-  const agenda = await getAgenda(core.services, agendaUid, { detailed: true }); // eslint-disable-line no-unused-vars -- used by later tasks
+  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
 
   const event = await events.get(eventUid, {
     access: 'internal',
@@ -32,7 +35,6 @@ export default async function transferOwnership(
     throw new NotFound({ info: { uid: eventUid } }, 'event not found');
   }
 
-  // eslint-disable-next-line no-unused-vars -- used by later tasks
   const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
     throwOnNotFound: true,
   });
@@ -122,5 +124,42 @@ export default async function transferOwnership(
     actingUserUid: actingMember?.userUid,
   });
 
-  return event;
+  const refreshedEvent = await events.get(eventUid, {
+    access: 'internal',
+    private: null,
+  });
+  const refreshedAgendaEvent = await agendaEvents(agendaUid).get(eventUid);
+
+  const payload = createPayload(core, agenda);
+  payload.setItem('event', event, refreshedEvent);
+  payload.setItem('agendaEvent', agendaEvent, refreshedAgendaEvent);
+
+  try {
+    const formSchema = await payload.getFormSchema({ access: 'internal' });
+    const response = await payload.getResponse('event', {
+      access: 'internal',
+      load: { valid: true },
+    });
+    const fullEventAfter = await payload.getCompiledEvent('after', null, null, {
+      valid: true,
+    });
+
+    await core.services.eventSearch.update({
+      ...response,
+      formSchema,
+      event: fullEventAfter.location
+        ? convertLocationAdditionalFields(formSchema, fullEventAfter)
+        : fullEventAfter,
+    });
+  } catch (e) {
+    log(
+      'error',
+      'could not update search indices for event %s.%s: %s',
+      agendaUid,
+      eventUid,
+      formatError(e),
+    );
+  }
+
+  return refreshedEvent;
 }
