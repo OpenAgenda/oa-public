@@ -1,10 +1,9 @@
 "use strict";
 
-import session from '@openagenda/sessions/client';
+const Cookies = require('js-cookie');
+const lightbox = require('../../js/lib/lightbox');
 
-const lightbox = require('../../js/lib/lightbox'),
-
-params = {
+const params = {
   classes: {
     canvas: 'lightbox-canvas',
     frame: 'wsq lightbox-frame text-center-important',
@@ -14,9 +13,16 @@ params = {
   }
 };
 
+function readFlash() {
+  const value = Cookies.get('oa.flash');
+  if (!value) return null;
+  Cookies.remove('oa.flash', { path: '/' });
+  return value;
+}
+
 module.exports = function() {
 
-  let message = session.flash();
+  let message = readFlash();
 
   if ( !message ) return;
 

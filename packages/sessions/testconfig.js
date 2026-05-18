@@ -8,10 +8,6 @@ export default {
     sameSite: 'Lax',
   },
   expire: 60 * 60 * 48,
-  writableCookie: {
-    maxAge: 1000 * 60 * 60 * 48,
-    name: 'oa.rw', // overriden by iso configuration
-  },
   userCookie: {
     name: 'oa.user',
     secure: true,

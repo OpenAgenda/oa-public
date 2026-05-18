@@ -1,5 +1,4 @@
 import Sessions from '../src/service/index.js';
-import expressCookie from '../src/service/expressCookie.js';
 import config from '../testconfig.js';
 import isoConfig from '../src/iso/config.js';
 import * as serviceHelpers from '../src/service/helpers/index.js';
@@ -102,26 +101,6 @@ describe('session - functional (server): isLogged & getCulture', () => {
       };
 
       expect(sessions.getCulture(req)).toBeNull();
-    });
-  });
-
-  describe('.setFlash', () => {
-    it('sets flash message', () => {
-      const req = {
-        session: {},
-        cookies: {},
-      };
-
-      const res = {
-        cookies: {},
-      };
-      res.cookie = (name, values) => {
-        res.cookies[name] = values;
-      };
-
-      sessions.setFlash(req, res, 'Gna gna gna');
-
-      expect(expressCookie(config, req, res).get().flash).toBe('Gna gna gna');
     });
   });
 });

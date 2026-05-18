@@ -1,13 +1,14 @@
 import makeLabelGetter from '@openagenda/labels';
 import statelabels from '@openagenda/labels/event/states.js';
 import base64 from '@openagenda/utils/base64.js';
+import { setFlash } from '../../../lib/flash.js';
 
 const getLabel = makeLabelGetter(statelabels);
 
 export default (req, res, next) => {
   req.log.debug('updating featured to %s', req.params.type);
 
-  const { core, sessions } = req.app.services;
+  const { core } = req.app.services;
 
   core
     .agendas(req.agenda.uid)
@@ -21,8 +22,7 @@ export default (req, res, next) => {
       },
     )
     .then(() => {
-      sessions.setFlash(
-        req,
+      setFlash(
         res,
         getLabel(
           req.params.type === 'featured'

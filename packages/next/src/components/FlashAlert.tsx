@@ -8,12 +8,19 @@ import {
   DialogBody,
   DialogFooter,
 } from '@openagenda/uikit/snippets';
-import session from '@openagenda/sessions/client';
+import Cookies from 'js-cookie';
 import { usePathname } from 'next/navigation';
+
+function readFlash(): string | null {
+  const value = Cookies.get('oa.flash');
+  if (!value) return null;
+  Cookies.remove('oa.flash', { path: '/' });
+  return value;
+}
 
 export default function AppFlashAlert() {
   const cancelRef = useRef<HTMLButtonElement>(null);
-  const [flashMessage, setFlashMessage] = useState(null);
+  const [flashMessage, setFlashMessage] = useState<string | null>(null);
   const pathname = usePathname();
 
   const removeMessage = useCallback(
@@ -22,7 +29,7 @@ export default function AppFlashAlert() {
   );
 
   useEffect(() => {
-    const newMessage = session.flash();
+    const newMessage = readFlash();
     if (newMessage !== flashMessage) setFlashMessage(newMessage);
   }, [pathname]); // eslint-disable-line react-hooks/exhaustive-deps
 

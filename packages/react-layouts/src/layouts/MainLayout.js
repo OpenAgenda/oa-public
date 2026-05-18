@@ -3,7 +3,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import OutsideClickHandlerModule from 'react-outside-click-handler';
 import classNames from 'classnames';
 import useCookieModule from 'react-use/lib/useCookie.js';
@@ -116,7 +116,6 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
   const userLoaded = useSelector((state) => state.main.userLoaded);
   const userLoading = useSelector((state) =>
     _.get(state, 'main.userLoading', true));
-  const inboxLoaded = useSelector((state) => state.main.inboxLoaded);
   const hasInboxNews = useSelector((state) => state.main.hasInboxNews);
   const isTranslator = useSelector((state) => state.main.isTranslator);
   const translateMode = useSelector((state) => state.main.translateMode);
@@ -190,11 +189,13 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
     }
   }, [loadLayoutData, userLoaded]);
 
+  const location = useLocation();
+  const onInboxPage = location.pathname.startsWith('/home/inbox');
+
   useEffect(() => {
-    if (!inboxLoaded) {
-      checkInboxNews().catch(() => null);
-    }
-  }, [inboxLoaded, checkInboxNews]);
+    if (onInboxPage) return;
+    checkInboxNews().catch(() => null);
+  }, [location.pathname, onInboxPage, checkInboxNews]);
 
   const [viewedAnnoucement, setViewedAnnoucement] = useState(true);
 
@@ -258,7 +259,7 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
                   <li className="inbox">
                     <Link to="/home/inbox">
                       <i className="fa fa-envelope" aria-hidden="true" />
-                      {hasInboxNews ? (
+                      {hasInboxNews && !onInboxPage ? (
                         <span className="label label-danger">
                           <b>!</b>
                         </span>

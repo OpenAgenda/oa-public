@@ -1,18 +1,13 @@
 import labels from '@openagenda/labels/inboxes/index.js';
 import makeLabelGetter from '@openagenda/labels';
+import { setFlash } from '../../../../lib/flash.js';
 
 const getLabel = makeLabelGetter(labels);
 
-export default ({ services, config, render }) =>
+export default ({ config, render }) =>
   (req, res, next) => {
-    const { sessions } = services;
-
     if (req.member) {
-      sessions.setFlash(
-        req,
-        res,
-        getLabel('youreAlreadyContributor', req.lang),
-      );
+      setFlash(res, getLabel('youreAlreadyContributor', req.lang));
       return res.redirect(302, `/${req.agenda.slug}`);
     }
 

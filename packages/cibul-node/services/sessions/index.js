@@ -9,10 +9,6 @@ export function init(config, services) {
       prefix: config.session.namespace,
     },
     sessionCookie: config.session,
-    writableCookie: {
-      maxAge: config.session.maxAge,
-      name: config.session.writableName, // overriden by iso configuration
-    },
     userCookie: {
       name: config.session.userCookieName,
       secure: config.session.secure,

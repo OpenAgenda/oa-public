@@ -1,5 +1,6 @@
 import newsletterSubscribe from '../lib/newsletterSubscribe.js';
 import config from '../config/index.js';
+import { setFlash } from '../lib/flash.js';
 import cmn from '../lib/commons-app.js';
 
 const preMw = [cmn.loadLogger('general'), cmn.loadBaseData('oa-main.css')];
@@ -125,11 +126,7 @@ export default (app) => {
   app.get('/services/:service/connect/callback', preMw, serviceConnectCallback);
 
   app.get('/flash', (req, res) => {
-    req.app.services.sessions.setFlash(
-      req,
-      res,
-      req.query.message || 'Flash! Aaanhaaan!',
-    );
+    setFlash(res, req.query.message || 'Flash! Aaanhaaan!');
     res.redirect('/');
   });
 

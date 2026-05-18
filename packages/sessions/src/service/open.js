@@ -2,7 +2,6 @@ import { randomBytes } from 'node:crypto';
 import logger from '@openagenda/logs';
 import VError from '@openagenda/verror';
 import cookieValidate from '../iso/cookie.validate.js';
-import expressCookie from './expressCookie.js';
 import {
   cleanSession,
   callbackify,
@@ -32,7 +31,7 @@ function extractArgs(config, request, response, identifier, cb) {
   };
 }
 
-async function open(config, request, response, identifier) {
+async function open(config, request, _response, identifier) {
   const { interfaces } = config;
 
   log('attempting session open for user %j', identifier);
@@ -87,11 +86,6 @@ async function open(config, request, response, identifier) {
   });
 
   cleanSession(request.session, cookieData);
-
-  // clear writable cookie
-  if (response) {
-    expressCookie(config, request, response).clear();
-  }
 
   log('info', 'session opened', {
     uid: user.uid,

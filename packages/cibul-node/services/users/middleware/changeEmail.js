@@ -6,6 +6,7 @@ import labels from '@openagenda/labels/users/settings.js';
 import errorLabels from '@openagenda/labels/errors/index.js';
 import makeLabelGetter from '@openagenda/labels';
 import cmn from '../../../lib/commons-app.js';
+import { setFlash } from '../../../lib/flash.js';
 import resetCache from '../lib/resetCache.js';
 import layouts from '../../lib/layouts/index.js';
 
@@ -86,13 +87,11 @@ function onError(err, req, res) {
 }
 
 function onSuccess(req, res) {
-  const { sessions } = req.app.services;
-
   log.info('email changed successfully', {
     userUid: req.user.uid,
   });
   resetCache(req.app.services, req.user).then(() => {
-    sessions.setFlash(req, res, getLabel('changeEmailSuccess', req.lang));
+    setFlash(res, getLabel('changeEmailSuccess', req.lang));
     res.redirect('/home');
   });
 }

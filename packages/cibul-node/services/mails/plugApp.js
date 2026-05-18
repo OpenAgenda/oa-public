@@ -3,6 +3,7 @@ import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 import labels from '@openagenda/labels/unsubscription/index.js';
 import makeLabelGetter from '@openagenda/labels';
+import { setFlash } from '../../lib/flash.js';
 import incomingEmailsMw from './lib/incomingEmailsMw.js';
 import { convertRuleArrayToObject, cleanTarget } from './lib/utils.js';
 
@@ -22,7 +23,7 @@ export default function plugApp(app) {
     '/unsubscribe/:token',
     async function unsubscribeEmail(req, res, next) {
       const { token } = req.params;
-      const { unsubscriptions, abilities: abilitiesSvc, sessions } = services;
+      const { unsubscriptions, abilities: abilitiesSvc } = services;
 
       try {
         const { target: dirtyTarget, rule } = await unsubscriptions.tokens
@@ -39,11 +40,7 @@ export default function plugApp(app) {
 
         if (target.type === 'email') {
           await unsubscriptions.registry.add(target.value);
-          sessions.setFlash(
-            req,
-            res,
-            getLabel('guestUnsubscriptionSucceed', req.lang),
-          );
+          setFlash(res, getLabel('guestUnsubscriptionSucceed', req.lang));
         } else {
           const parsedRule = abilitiesSvc.rules.parse(
             convertRuleArrayToObject(rule),
@@ -62,11 +59,7 @@ export default function plugApp(app) {
 
           await ability.updateFormIndex(ruleToUpdate);
 
-          sessions.setFlash(
-            req,
-            res,
-            getLabel('unsubscriptionSucceed', req.lang),
-          );
+          setFlash(res, getLabel('unsubscriptionSucceed', req.lang));
         }
 
         res.redirect(302, req.user ? '/home' : '/');

@@ -1,7 +1,14 @@
 import { useState, useCallback, useEffect } from 'react';
 import { useLocation } from 'react-router';
+import Cookies from 'js-cookie';
 import { Modal } from '@openagenda/react-shared';
-import session from '@openagenda/sessions/client';
+
+function readFlash() {
+  const value = Cookies.get('oa.flash');
+  if (!value) return null;
+  Cookies.remove('oa.flash', { path: '/' });
+  return value;
+}
 
 export default function FlashModal() {
   const [flashMessage, setFlashMessage] = useState(null);
@@ -13,7 +20,7 @@ export default function FlashModal() {
   );
 
   // On location change
-  useEffect(() => setFlashMessage(session.flash()), [location.pathname]);
+  useEffect(() => setFlashMessage(readFlash()), [location.pathname]);
 
   return flashMessage && flashMessage !== '' ? (
     <Modal>

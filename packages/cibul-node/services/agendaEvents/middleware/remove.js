@@ -2,6 +2,7 @@ import logs from '@openagenda/logs';
 import base64 from '@openagenda/utils/base64.js';
 import makeLabelGetter from '@openagenda/labels';
 import removeLabels from '@openagenda/labels/event/remove.js';
+import { setFlash } from '../../../lib/flash.js';
 
 const getLabel = makeLabelGetter(removeLabels);
 const log = logs('services/agendaEvents/middleware/remove');
@@ -40,8 +41,7 @@ export default [
       ? base64.decode(req.query.redirect)
       : null;
 
-    req.app.services.sessions.setFlash(
-      req,
+    setFlash(
       res,
       getLabel(req.result.deletion ? 'eventDeleted' : 'eventRemoved', req.lang),
     );

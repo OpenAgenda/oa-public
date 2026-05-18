@@ -36,7 +36,7 @@ function list(config, identifiers, ...rest) {
       type: 'pass',
     },
     offset: {
-      type: 'number',
+      type: 'pass',
     },
     limit: {
       type: 'number',
@@ -60,7 +60,7 @@ function list(config, identifiers, ...rest) {
     );
   }
 
-  const { offset: fromId, limit, cb } = args;
+  const { offset: cursor, limit, cb } = args;
   let { query } = args;
 
   if (identifiers.entityType && identifiers.entityType !== 'user') {
@@ -146,8 +146,20 @@ function list(config, identifiers, ...rest) {
         request.where('state', '<>', stateNot);
       }
 
-      if (fromId) {
-        request.where('id', '<', fromId);
+      if (cursor) {
+        if (
+          typeof cursor === 'object'
+          && cursor.updatedAt !== undefined
+          && cursor.id !== undefined
+        ) {
+          request.whereRaw('(updated_at, id) < (?, ?)', [
+            cursor.updatedAt,
+            cursor.id,
+          ]);
+        } else {
+          const id = typeof cursor === 'object' ? cursor.id : cursor;
+          if (id !== undefined) request.where('id', '<', id);
+        }
       }
 
       return request.then((rows) =>

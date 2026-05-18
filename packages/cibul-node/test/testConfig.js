@@ -118,7 +118,6 @@ const testConfig = {
   root: 'http://localhost:8903',
   session: {
     name: 'oa',
-    writableName: 'oa.rw',
     userCookieName: 'oa.user',
     keys: ['testkey'],
     secret: 'testsecret',

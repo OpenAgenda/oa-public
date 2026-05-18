@@ -5,6 +5,7 @@ import logs from '@openagenda/logs';
 import { BadRequest } from '@openagenda/verror';
 
 import isEmail from 'validator/lib/isEmail.js';
+import { setFlash } from './flash.js';
 
 const log = logs('newsletter');
 
@@ -14,14 +15,12 @@ const getRedirectURL = (req) =>
   (req.query.origin === 'signup' ? '/signup/complete' : '/');
 
 const respond = (req, res, flashLabel = 'subscribed') => {
-  const { sessions } = req.app.services;
-
   if (req.headers['content-type'] === 'application/json') {
     res.json({});
     return;
   }
 
-  sessions.setFlash(req, res, __(flashLabel, req.lang));
+  setFlash(res, __(flashLabel, req.lang));
 
   res.redirect(302, getRedirectURL(req));
 };

@@ -152,7 +152,7 @@ export default (app, config, services) => {
     }),
     members.mw.load,
     cmn.loadBaseData('oa-main.css'),
-    renderRequestContributeApp({ services, config, render }),
+    renderRequestContributeApp({ config, render }),
   );
 
   app.use(
