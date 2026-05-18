@@ -43,7 +43,6 @@ export default (state = initialState, action = {}) => {
     case CHECK_INBOX_NEWS_SUCCESS:
       return {
         ...state,
-        inboxLoaded: true,
         hasInboxNews: action.result.hasNew,
         inboxNewsError: null,
         inboxNewsLoading: false,
