@@ -5,7 +5,6 @@ import integerValidator from '@openagenda/validators/integer';
 import textValidator from '@openagenda/validators/text';
 import linkValidator from '@openagenda/validators/link';
 import dateValidator from '@openagenda/validators/date';
-import booleanValidator from '@openagenda/validators/boolean';
 
 schema.register({
   choice: choiceValidator,
@@ -13,33 +12,12 @@ schema.register({
   text: textValidator,
   link: linkValidator,
   date: dateValidator,
-  boolean: booleanValidator,
 });
 
 const writableFields = {
   flash: {
     type: 'text',
     max: 1000,
-  },
-  inbox: {
-    lastRequestTime: {
-      type: 'integer',
-      default: 0,
-    },
-    lastKnownState: {
-      type: 'boolean',
-      default: false,
-    },
-  },
-  notifications: {
-    updatedAt: {
-      type: 'date',
-      default: null,
-    },
-    count: {
-      type: 'integer',
-      default: null,
-    },
   },
 };
 
