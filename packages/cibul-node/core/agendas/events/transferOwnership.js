@@ -6,6 +6,7 @@ import createPayload from '../utils/createPayload.js';
 import convertLocationAdditionalFields from '../utils/convertLocationAdditionalFields.js';
 import formatError from '../utils/formatError.js';
 import extractActingFromContext from './lib/extractActingFromContext.js';
+import createTransferOwnershipActivity from './lib/createTransferOwnershipActivity.js';
 
 const log = logs('core/agendas/events/transferOwnership');
 
@@ -62,11 +63,7 @@ export default async function transferOwnership(
     );
   }
 
-  const { member: actingMember } = await extractActingFromContext(
-    core.services,
-    agendaUid,
-    options.context,
-  );
+  const { user: actingUser, member: actingMember } = await extractActingFromContext(core.services, agendaUid, options.context);
 
   const isAdminOrMod = !!actingMember
     && compareRoles.isSuperiorTo(actingMember.role, 'contributor', {
@@ -89,6 +86,8 @@ export default async function transferOwnership(
     });
     return event;
   }
+
+  const previousOwnerUid = event.ownerUid;
 
   log(
     'transferring ownership of event %s from %s to %s on agenda %s',
@@ -119,7 +118,7 @@ export default async function transferOwnership(
   log.info('transferred event ownership', {
     agendaUid,
     eventUid,
-    fromUserUid: event.ownerUid,
+    fromUserUid: previousOwnerUid,
     toUserUid: targetMember.userUid,
     actingUserUid: actingMember?.userUid,
   });
@@ -129,6 +128,19 @@ export default async function transferOwnership(
     private: null,
   });
   const refreshedAgendaEvent = await agendaEvents(agendaUid).get(eventUid);
+
+  try {
+    await createTransferOwnershipActivity(core.services, {
+      agenda,
+      event: refreshedEvent,
+      previousOwnerUid,
+      newOwnerUid: targetMember.userUid,
+      actingUser,
+      actingMember,
+    });
+  } catch (e) {
+    log('error', 'failed to write transferOwnership activity', { error: e });
+  }
 
   const payload = createPayload(core, agenda);
   payload.setItem('event', event, refreshedEvent);
