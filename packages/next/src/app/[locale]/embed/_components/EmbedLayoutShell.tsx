@@ -76,7 +76,7 @@ function useEmbedThemeConfig({
     return {
       globalCss: {
         html: {
-          bg: null,
+          bg: 'unset',
         },
         body: {
           minH: 0,
