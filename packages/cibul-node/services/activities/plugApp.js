@@ -33,12 +33,21 @@ function notificationsCount(activitiesSvc, req, res) {
 function notificationsList(activitiesSvc, req, res) {
   const limit = req.query.justOne ? 1 : 5;
 
+  const cursor = req.query.fromId
+    ? {
+      id: Number(req.query.fromId),
+      ...req.query.fromUpdatedAt
+        ? { updatedAt: new Date(req.query.fromUpdatedAt) }
+        : {},
+    }
+    : undefined;
+
   activitiesSvc
     .feed({
       entityType: 'user',
       entityUid: req.user.uid,
     })
-    .notifications.list(req.query.fromId, limit)
+    .notifications.list({}, cursor, limit)
     .then(async (notifications) => {
       await activitiesSvc
         .feed({
