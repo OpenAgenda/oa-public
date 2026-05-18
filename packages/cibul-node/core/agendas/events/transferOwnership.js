@@ -142,6 +142,28 @@ export default async function transferOwnership(
     log('error', 'failed to write transferOwnership activity', { error: e });
   }
 
+  const { activities } = core.services;
+
+  if (activities) {
+    if (previousOwnerUid && previousOwnerUid !== targetMember.userUid) {
+      try {
+        await activities
+          .feed({ entityType: 'user', entityUid: previousOwnerUid })
+          .unfollow({ entityType: 'event', entityUid: event.uid });
+      } catch (e) {
+        log('error', 'failed to update previous owner feed', { error: e });
+      }
+    }
+
+    try {
+      await activities
+        .feed({ entityType: 'user', entityUid: targetMember.userUid })
+        .follow({ entityType: 'event', entityUid: event.uid });
+    } catch (e) {
+      log('error', 'failed to update new owner feed', { error: e });
+    }
+  }
+
   const payload = createPayload(core, agenda);
   payload.setItem('event', event, refreshedEvent);
   payload.setItem('agendaEvent', agendaEvent, refreshedAgendaEvent);
