@@ -2,6 +2,7 @@ import { Forbidden, NotFound } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import membersSvc from '@openagenda/members';
 import getAgenda from '../utils/getAgenda.js';
+import extractActingFromContext from './lib/extractActingFromContext.js';
 
 const log = logs('core/agendas/events/transferOwnership');
 
@@ -58,10 +59,27 @@ export default async function transferOwnership(
     );
   }
 
+  const { user: actingUser, member: actingMember } = await extractActingFromContext(core.services, agendaUid, options.context);
+
+  const isAdminOrMod = !!actingMember
+    && compareRoles.isSuperiorTo(actingMember.role, 'contributor', {
+      throwIfUnknown: false,
+    });
+  const isCurrentOwner = !!actingMember && actingMember.userUid === event.ownerUid;
+
+  if (!actingMember || (!isAdminOrMod && !isCurrentOwner)) {
+    throw new Forbidden(
+      { info: { agendaUid, eventUid } },
+      'not authorized to transfer ownership',
+    );
+  }
+
   log('after checks', {
     agenda: agenda?.uid,
     agendaEvent: agendaEvent?.eventUid,
     targetMember: targetMember?.userUid,
+    actingUser: actingUser?.uid,
+    actingMember: actingMember?.userUid,
     data,
     options,
   });

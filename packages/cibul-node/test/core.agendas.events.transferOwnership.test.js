@@ -167,6 +167,32 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
     });
   });
 
+  it('throws Forbidden when no acting user is provided in context', async () => {
+    await expect(
+      core
+        .agendas(AGENDA_UID)
+        .events.transferOwnership(EVENT_UID, { userUid: TARGET_UID }, {}),
+    ).rejects.toMatchObject({
+      name: 'Forbidden',
+      message: expect.stringContaining('not authorized to transfer ownership'),
+    });
+  });
+
+  it('throws Forbidden when acting member is contributor but not the current owner', async () => {
+    await expect(
+      core
+        .agendas(AGENDA_UID)
+        .events.transferOwnership(
+          EVENT_UID,
+          { userUid: TARGET_UID },
+          { context: { userUid: SPARE_CONTRIBUTOR_UID } },
+        ),
+    ).rejects.toMatchObject({
+      name: 'Forbidden',
+      message: expect.stringContaining('not authorized to transfer ownership'),
+    });
+  });
+
   // ---- Happy-path cases last ----
 
   it('admin transfers event ownership to another member', async () => {
