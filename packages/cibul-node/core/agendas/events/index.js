@@ -12,6 +12,7 @@ import references from './references.js';
 import conversations from './conversations.js';
 import validate, { eventFields as validateEventFields } from './validate.js';
 import { register as registerUpdateSideEffects } from './lib/eventUpdateSideEffects.js';
+import transferOwnership from './transferOwnership.js';
 
 export default (core) => {
   const batch = Batch(core);
@@ -31,6 +32,7 @@ export default (core) => {
         remove: remove.bind(null, core, agendaUid),
         update: update.bind(null, core, agendaUid),
         patch: update.patch.bind(null, core, agendaUid),
+        transferOwnership: transferOwnership.bind(null, core, agendaUid),
         references: references.bind(null, core, agendaUid),
         setByExtId: setByExtId.bind(null, core, agendaUid),
         removeByExtId: removeByExtId.bind(null, core, agendaUid),
