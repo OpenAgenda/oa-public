@@ -21,7 +21,7 @@ export default async function transferOwnership(
 
   log('transferring event %s on agenda %s', eventUid, agendaUid);
 
-  const agenda = await getAgenda(core.services, agendaUid, { detailed: true });
+  await getAgenda(core.services, agendaUid, { detailed: true });
 
   const event = await events.get(eventUid, {
     access: 'internal',
@@ -32,7 +32,7 @@ export default async function transferOwnership(
     throw new NotFound({ info: { uid: eventUid } }, 'event not found');
   }
 
-  const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
+  await agendaEvents(agendaUid).get(eventUid, {
     throwOnNotFound: true,
   });
 
@@ -59,7 +59,11 @@ export default async function transferOwnership(
     );
   }
 
-  const { user: actingUser, member: actingMember } = await extractActingFromContext(core.services, agendaUid, options.context);
+  const { member: actingMember } = await extractActingFromContext(
+    core.services,
+    agendaUid,
+    options.context,
+  );
 
   const isAdminOrMod = !!actingMember
     && compareRoles.isSuperiorTo(actingMember.role, 'contributor', {
@@ -74,15 +78,33 @@ export default async function transferOwnership(
     );
   }
 
-  log('after checks', {
-    agenda: agenda?.uid,
-    agendaEvent: agendaEvent?.eventUid,
-    targetMember: targetMember?.userUid,
-    actingUser: actingUser?.uid,
-    actingMember: actingMember?.userUid,
-    data,
-    options,
+  log(
+    'transferring ownership of event %s from %s to %s on agenda %s',
+    eventUid,
+    event.ownerUid,
+    targetMember.userUid,
+    agendaUid,
+  );
+
+  await events.patch(
+    { uid: event.uid },
+    { ownerUid: targetMember.userUid },
+    { protected: false, access: 'internal' },
+  );
+
+  await agendaEvents(agendaUid).update(
+    event.uid,
+    { userUid: targetMember.userUid },
+    { protected: false },
+  );
+
+  log.info('transferred event ownership', {
+    agendaUid,
+    eventUid,
+    fromUserUid: event.ownerUid,
+    toUserUid: targetMember.userUid,
+    actingUserUid: actingMember?.userUid,
   });
 
-  throw new Error('not implemented');
+  return event;
 }

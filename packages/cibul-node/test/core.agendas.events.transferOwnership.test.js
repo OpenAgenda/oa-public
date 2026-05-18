@@ -57,6 +57,19 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
     const services = await Services(config, { enabled });
     core = Core(services, config);
 
+    // Fix event timings: fixture has begin == end which fails validation; patch to begin < end
+    await core.services
+      .knex('event_2')
+      .where({ uid: EVENT_UID })
+      .update({
+        timings: JSON.stringify([
+          {
+            begin: '2020-03-14T10:00:00+0200',
+            end: '2020-03-14T12:00:00+0200',
+          },
+        ]),
+      });
+
     // Inline seed: spare reader + spare contributor in AGENDA_UID
     const now = new Date();
     await core.services.knex('reviewer').insert([
@@ -202,6 +215,36 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
         EVENT_UID,
         { userUid: TARGET_UID },
         { context: { userUid: ADMIN_UID } },
+      );
+
+    const event = await core.services.events.get(EVENT_UID, {
+      access: 'internal',
+      private: null,
+    });
+    expect(event.ownerUid).toBe(TARGET_UID);
+
+    const agendaEvent = await core.services
+      .agendaEvents(AGENDA_UID)
+      .get(EVENT_UID);
+    expect(agendaEvent.userUid).toBe(TARGET_UID);
+  });
+
+  it('current owner can transfer ownership to another member', async () => {
+    // Reset ownership to the original contributor so the owner-acting branch can be tested
+    await core
+      .agendas(AGENDA_UID)
+      .events.transferOwnership(
+        EVENT_UID,
+        { userUid: CURRENT_OWNER_UID },
+        { context: { userUid: ADMIN_UID } },
+      );
+
+    await core
+      .agendas(AGENDA_UID)
+      .events.transferOwnership(
+        EVENT_UID,
+        { userUid: TARGET_UID },
+        { context: { userUid: CURRENT_OWNER_UID } },
       );
 
     const event = await core.services.events.get(EVENT_UID, {
