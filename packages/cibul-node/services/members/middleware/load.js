@@ -2,6 +2,7 @@ import _ from 'lodash';
 import makeLabelGetter from '@openagenda/labels';
 import labels from '@openagenda/labels/members/index.js';
 import logs from '@openagenda/logs';
+import { setFlash } from '../../../lib/flash.js';
 
 const log = logs('services/members/middleware/loadMember');
 const getLabel = makeLabelGetter(labels);
@@ -30,13 +31,11 @@ export default (req, res, next) => {
 
 export function andAuthorize(requiredRole, options = {}) {
   const orFn = _.get(options, 'or', (req, res) => {
-    const { sessions } = req.app.services;
-
     if (!req.member) {
-      sessions.setFlash(req, res, getLabel('memberRequired', req.lang));
+      setFlash(res, getLabel('memberRequired', req.lang));
       res.redirect(302, `/${req.agenda.slug}`);
     } else {
-      sessions.setFlash(req, res, getLabel('roleInsufficient', req.lang));
+      setFlash(res, getLabel('roleInsufficient', req.lang));
       res.redirect(302, `/${req.agenda.slug}`);
     }
   });

@@ -1,5 +1,7 @@
+import { setFlash } from '../../../lib/flash.js';
+
 export default (message) => (req, res) => {
-  req.app.services.sessions.setFlash(req, res, message);
+  setFlash(res, message);
   res.redirect(302, '/agendas');
 };
 

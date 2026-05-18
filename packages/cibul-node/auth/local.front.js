@@ -2,6 +2,7 @@ import _ from 'lodash';
 import qs from 'qs';
 import logs from '@openagenda/logs';
 import cmn from '../lib/commons-app.js';
+import { setFlash } from '../lib/flash.js';
 import computePostActivateRedirect from './lib/computePostActivateRedirect.js';
 
 const log = logs('auth/local');
@@ -50,7 +51,7 @@ function sanitizeNext(value) {
 // When the user is not authenticated (auto-signin failed for some reason),
 // we still degrade gracefully and redirect to `next`.
 async function postActivate(req, res) {
-  const { agendas, invitations, sessions } = req.app.services;
+  const { agendas, invitations } = req.app.services;
 
   const next = sanitizeNext(req.query?.next) || '/home';
 
@@ -159,13 +160,7 @@ async function postActivate(req, res) {
   } catch (err) {
     executeFailed = true;
     log.error('post-activate: invitations.execute failed', { err });
-    if (sessions?.setFlash) {
-      sessions.setFlash(
-        req,
-        res,
-        'Invitation could not be processed, please contact support.',
-      );
-    }
+    setFlash(res, 'Invitation could not be processed, please contact support.');
   }
 
   if (executeFailed) {
@@ -182,13 +177,10 @@ async function postActivate(req, res) {
         agenda = await agendas.get({ uid: agendaUid });
       } catch (err) {
         log.error('post-activate: agendas.get failed', { agendaUid, err });
-        if (sessions?.setFlash) {
-          sessions.setFlash(
-            req,
-            res,
-            'Invitation could not be processed, please contact support.',
-          );
-        }
+        setFlash(
+          res,
+          'Invitation could not be processed, please contact support.',
+        );
         return res.redirect(302, next);
       }
       if (agenda?.slug) {

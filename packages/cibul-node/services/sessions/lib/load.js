@@ -1,6 +1,7 @@
 import makeLabelGetter from '@openagenda/labels';
 import labels from '@openagenda/labels/auth/messages.js';
 import logs from '@openagenda/logs';
+import { setFlash } from '../../../lib/flash.js';
 
 const log = logs('services/sessions/load');
 const getAuthMessageLabel = makeLabelGetter(labels);
@@ -21,8 +22,7 @@ function projectToLegacyShape(user, imageBucketPath) {
 }
 
 function blacklistRedirect(sessions, req, res, user) {
-  sessions.setFlash(
-    req,
+  setFlash(
     res,
     `
       <div class="text-center margin-top-sm">

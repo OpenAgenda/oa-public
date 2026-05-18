@@ -12133,6 +12133,7 @@ __metadata:
     "@storybook/nextjs": "npm:^10.2.0"
     "@types/cookies": "npm:^0"
     "@types/eslint": "npm:^8"
+    "@types/js-cookie": "npm:^3.0.6"
     "@types/leaflet": "npm:^1.9.6"
     "@types/morgan": "npm:^1"
     "@vercel/otel": "npm:^1.13.0"
@@ -12151,6 +12152,7 @@ __metadata:
     file-type: "npm:^21.0.0"
     globby: "npm:^13.1.3"
     hls.js: "npm:^1.6.5"
+    js-cookie: "npm:^3.0.5"
     ky: "npm:^1.14.3"
     leaflet: "npm:^1.9.4"
     lodash: "npm:^4.17.21"
@@ -12480,6 +12482,7 @@ __metadata:
     core-js: "npm:^3.29.1"
     history: "npm:^4.10.1"
     immer: "npm:^10.0.3"
+    js-cookie: "npm:^3.0.5"
     ky: "npm:^1.7.2"
     lodash: "npm:^4.17.15"
     msw: "npm:^2.3.0"
@@ -21497,6 +21500,13 @@ __metadata:
   version: 2.2.7
   resolution: "@types/js-cookie@npm:2.2.7"
   checksum: 10c0/29196c6829982b5efa79117122a7d62cf4bc2f6397ce8eac1539319ff5dce3b44b2d86f2ac064f2ed3488fb24439358f24af6914fde5c5c4bab9a85728a13a6f
+  languageName: node
+  linkType: hard
+
+"@types/js-cookie@npm:^3.0.6":
+  version: 3.0.6
+  resolution: "@types/js-cookie@npm:3.0.6"
+  checksum: 10c0/173afaf5ea9d86c22395b9d2a00b6adb0006dcfef165d6dcb0395cdc32f5a5dcf9c3c60f97194119963a15849b8f85121e1ae730b03e40bc0c29b84396ba22f9
   languageName: node
   linkType: hard
 

@@ -5,6 +5,7 @@ import makeLabelGetter from '@openagenda/labels';
 import actionLabels from '@openagenda/labels/agendas/actions.js';
 import errorLabels from '@openagenda/labels/agendas/errors.js';
 import stateLabels from '@openagenda/labels/event/states.js';
+import { setFlash } from '../../../lib/flash.js';
 
 const getActionLabel = makeLabelGetter(actionLabels);
 const getErrorLabel = makeLabelGetter(errorLabels);
@@ -63,11 +64,10 @@ export default (req, res, next) => {
 };
 
 export function batched(req, res, next) {
-  const { sessions } = req.app.services;
   const stateSwitch = switches[req.body.state];
 
   if (!stateSwitch) {
-    sessions.setFlash(req, res, getErrorLabel('unknownAction', req.lang));
+    setFlash(res, getErrorLabel('unknownAction', req.lang));
 
     return doRedirect(req, res);
   }
@@ -96,8 +96,7 @@ export function batched(req, res, next) {
         labels[stateSwitch[1]],
       );
 
-      sessions.setFlash(
-        req,
+      setFlash(
         res,
         getActionLabel(
           'actionsInProcess',

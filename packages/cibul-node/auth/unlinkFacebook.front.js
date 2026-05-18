@@ -3,6 +3,7 @@ import makeLabelGetter from '@openagenda/labels';
 import settingsLabels from '@openagenda/labels/users/settings.js';
 import errorLabels from '@openagenda/labels/errors/index.js';
 import cmn from '../lib/commons-app.js';
+import { setFlash } from '../lib/flash.js';
 import resetCache from '../services/users/lib/resetCache.js';
 
 const log = logs('auth/unlinkFacebook');
@@ -11,18 +12,12 @@ const getLabel = makeLabelGetter(settingsLabels);
 const getErrorLabel = makeLabelGetter(errorLabels);
 
 function redirectInvalid(req, res, label) {
-  const { sessions } = req.app.services;
-  sessions.setFlash(req, res, getErrorLabel(label, req.lang));
+  setFlash(res, getErrorLabel(label, req.lang));
   res.redirect(302, '/auth/signin');
 }
 
 async function confirmUnlinkFacebook(req, res) {
-  const {
-    users: usersSvc,
-    tokens: tokensSvc,
-    sessions,
-    auth,
-  } = req.app.services;
+  const { users: usersSvc, tokens: tokensSvc, auth } = req.app.services;
 
   const token = await tokensSvc.findOne({
     query: { token: req.params.token, type: 'uf' },
@@ -97,7 +92,7 @@ async function confirmUnlinkFacebook(req, res) {
 
   await resetCache(req.app.services, user);
 
-  sessions.setFlash(req, res, getLabel('unlinkFacebookSuccess', req.lang));
+  setFlash(res, getLabel('unlinkFacebookSuccess', req.lang));
 
   if (req.user && req.user.uid === user.uid) {
     // Same-session click: keep the user signed in and drop them back on
