@@ -99,7 +99,11 @@ function EventItem({ agenda, event }) {
             </Text>
             <div>{getLocaleValue(event.dateRange, intl.locale)}</div>
             <Wrap gap="3">
-              <Link href={localePath(`/${agenda.slug}/events/${event.slug}`)}>
+              <Link
+                href={localePath(
+                  `/${agenda.slug}/events/${event.uid}_${event.slug}`,
+                )}
+              >
                 {intl.formatMessage(messages.show)}
               </Link>
               <Link href={`/${agenda.slug}/contribute/event/${event.uid}`}>

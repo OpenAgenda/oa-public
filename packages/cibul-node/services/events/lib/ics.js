@@ -60,7 +60,7 @@ function usedTimings(event, timingIndex = -1) {
 }
 
 function icsBody(agenda, event, lang, timingIndex = -1) {
-  const url = `${config.root}/${agenda.slug}/events/${event.slug}`;
+  const url = `${config.root}/${agenda.slug}/events/${event.uid}_${event.slug}`;
   const description = getLocaleValue(event.description, lang);
   const now = new Date();
 

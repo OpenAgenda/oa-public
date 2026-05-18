@@ -30,7 +30,7 @@ function redirect(req, res, next) {
 
   return res.redirect(
     301,
-    `${root}/${req.agenda.slug}/events/${req.event.slug}${queryString}`,
+    `${root}/${req.agenda.slug}/events/${req.event.uid}_${req.event.slug}${queryString}`,
   );
 }
 
@@ -69,13 +69,15 @@ export default (app) => {
     },
     (req, res, next) => {
       const { events } = req.app.services;
+      const uidMatch = req.params.eventSlug.match(/^(\d+)_(.+)$/);
+      const identifier = uidMatch
+        ? { uid: uidMatch[1] }
+        : { slug: req.params.eventSlug };
 
-      events
-        .get({ slug: req.params.eventSlug }, { detailed: true })
-        .then((event) => {
-          req.event = event;
-          next();
-        });
+      events.get(identifier, { detailed: true }).then((event) => {
+        req.event = event;
+        next();
+      });
     },
     (req, res, next) => {
       if (req.event?.agenda) {

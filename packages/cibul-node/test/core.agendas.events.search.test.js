@@ -733,6 +733,21 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         expect(response.event.uid).toBe(2);
       });
 
+      it('get by agenda slug and event uid', async () => {
+        const response = await ky
+          .get(
+            'http://localhost:4000/agendas/slug/un-agenda-thematique/events/2',
+            {
+              searchParams: {
+                key: nonAdminModKey,
+              },
+            },
+          )
+          .json();
+
+        expect(response.event.uid).toBe(2);
+      });
+
       it('includeFields: get by slug with additional field labels', async () => {
         const response = await ky
           .get('http://localhost:4000/agendas/2/events/slug/event-1', {
@@ -854,6 +869,35 @@ describe('01 - core - functional (server): core.agendas().events.search()', () =
         }
 
         expect(error.response.status).toBe(403);
+      });
+    });
+
+    describe('soft-deleted event signals 410 via X-Resource-Gone header', () => {
+      beforeAll(async () => {
+        await core.services
+          .knex('event_2')
+          .update({ deleted_at: new Date() })
+          .where('uid', 2);
+      });
+
+      afterAll(async () => {
+        await core.services
+          .knex('event_2')
+          .update({ deleted_at: null })
+          .where('uid', 2);
+      });
+
+      it('returns 404 with X-Resource-Gone:1', async () => {
+        const response = await ky.get(
+          'http://localhost:4000/agendas/slug/un-agenda-thematique/events/2',
+          {
+            searchParams: { key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1Nz' },
+            throwHttpErrors: false,
+          },
+        );
+
+        expect(response.status).toBe(404);
+        expect(response.headers.get('x-resource-gone')).toBe('1');
       });
     });
 

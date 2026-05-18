@@ -7,7 +7,7 @@ const getLabel = makeLabelGetter(labels);
 
 export default ({ render, config }) =>
   (req, res, next) => {
-    const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
+    const eventShowLink = `/${req.agenda.slug}/events/${req.event.uid}_${req.event.slug}`;
 
     render({
       template: 'event/inbox',

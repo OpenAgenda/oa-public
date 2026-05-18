@@ -79,6 +79,7 @@ export default function CopyIdentifier({
         type="text"
         bg="white"
         value={identifier}
+        readOnly
         cursor="pointer"
         onClick={copy}
         aria-label={intl.formatMessage(messages.clickToCopyIdentifier)}

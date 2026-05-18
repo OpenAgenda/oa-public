@@ -54,7 +54,9 @@ export default function References({ agenda, event }) {
           _hover={{ color: 'primary.500', textDecoration: 'underline' }}
         >
           <NextLink
-            href={localePath(`/${agendaReference.slug}/events/${event.slug}`)}
+            href={localePath(
+              `/${agendaReference.slug}/events/${event.uid}_${event.slug}`,
+            )}
             title={agendaReference.title}
           >
             <Box

@@ -25,7 +25,7 @@ function loadFacebookMetas(req, res, next) {
 
   req.redirect = req.siteURL
     ? `${req.siteURL}?oaq[uid][]=${req.event.uid}`
-    : `/${req.agenda.slug}/events/${req.event.slug}`;
+    : `/${req.agenda.slug}/events/${req.event.uid}_${req.event.slug}`;
 
   req.metas = [
     {

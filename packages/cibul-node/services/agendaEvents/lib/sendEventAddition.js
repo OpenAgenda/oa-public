@@ -15,7 +15,7 @@ export default async ({ config, services }, { agendaEvent, user, context }) => {
   const { sourceAgenda, agenda, event } = context;
   const stateLabel = getStateSlug(agendaEvent);
 
-  const link = `${root}/${agenda.slug}/events/${event.slug}`;
+  const link = `${root}/${agenda.slug}/events/${event.uid}_${event.slug}`;
 
   const logo = agenda && agenda.image
     ? { src: agenda.image.replace('.com/', '.com/rwtb'), width: '100px' }

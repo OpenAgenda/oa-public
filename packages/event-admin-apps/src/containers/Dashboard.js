@@ -122,6 +122,10 @@ const messages = defineMessages({
     defaultMessage:
       '{count, number} {count, plural, =0 {event} one {event} other {events}}',
   },
+  selectedEventsOnPage: {
+    id: 'EventAdminApp.Dashboard.selectedEventsOnPage',
+    defaultMessage: '{onPage, number} on this page',
+  },
   unselect: {
     id: 'EventAdminApp.Dashboard.unselect',
     defaultMessage: 'Unselect',
@@ -408,10 +412,6 @@ function Dashboard() {
       notifyOnChangeProps: ['data', 'isLoading', 'isFetching', 'error'],
       keepPreviousData: true, // because query and page change
       onSuccess: (newData) => {
-        // Cancel selection
-        setSelectedEvents(new Set());
-        setExtendedAllSelected(false);
-
         const { query: q, rest: queryRest } = removeQueryPrefix(parsedLocationSearch);
 
         // Reset pagination if query has changed
@@ -463,7 +463,12 @@ function Dashboard() {
     data?.aggregations,
   );
 
-  const onFilterChange = useCallback((values) => setQuery(values), [setQuery]);
+  const onFilterChange = useCallback((values) => {
+    // Filter/search changes invalidate the current selection's context.
+    setSelectedEvents(new Set());
+    setExtendedAllSelected(false);
+    setQuery(values);
+  }, []);
 
   // Selection
   const isSelectedEvent = useCallback(
@@ -489,8 +494,19 @@ function Dashboard() {
       return false;
     }
 
-    return selectedEvents.size === data.events.length;
-  }, [data, selectedEvents.size]);
+    return data.events.every((event) => selectedEvents.has(event.uid));
+  }, [data, selectedEvents]);
+
+  const selectedOnPage = useMemo(() => {
+    if (!data?.events?.length) {
+      return 0;
+    }
+
+    return data.events.reduce(
+      (count, event) => (selectedEvents.has(event.uid) ? count + 1 : count),
+      0,
+    );
+  }, [data, selectedEvents]);
 
   const selectAll = useCallback(() => {
     setSelectedEvents((old) => {
@@ -563,8 +579,8 @@ function Dashboard() {
     if (!selectAllRef.current) {
       return;
     }
-    selectAllRef.current.indeterminate = selectedEvents.size && !allSelected;
-  }, [allSelected, selectedEvents.size]);
+    selectAllRef.current.indeterminate = selectedOnPage > 0 && !allSelected;
+  }, [allSelected, selectedOnPage]);
 
   // for FiltersProvider
   const filtersFormRef = useRef();
@@ -707,6 +723,14 @@ function Dashboard() {
               {intl.formatMessage(messages.selectedEvents, {
                 count: extendedAllSelected ? data.total : selectedEvents.size,
               })}
+              {!extendedAllSelected && selectedEvents.size > selectedOnPage ? (
+                <>
+                  {' — '}
+                  {intl.formatMessage(messages.selectedEventsOnPage, {
+                    onPage: selectedOnPage,
+                  })}
+                </>
+              ) : null}
             </span>
 
             <button
@@ -729,46 +753,54 @@ function Dashboard() {
           </div>
         ) : null}
 
-        {allSelected && selectedEvents.size < data.total ? (
+        {extendedAllSelected ? (
           <div className="announcement bg-warning margin-bottom-md">
             <div className="container-fluid text-warning">
               <div className="row padding-top-sm padding-right-sm padding-left-md">
-                {!extendedAllSelected ? (
-                  <p className="text-center">
-                    {intl.formatMessage(messages.allSelected, {
-                      size: selectedEvents.size,
-                      b: (chunks) => <b>{chunks}</b>,
-                    })}{' '}
-                    <button
-                      type="button"
-                      className="btn btn-link btn-link-inline"
-                      onClick={selectExtendedAll}
-                    >
-                      {intl.formatMessage(messages.selectExtendedAll, {
-                        total: data.total,
-                        b: (chunks) => <b>{chunks}</b>,
-                      })}
-                    </button>
-                  </p>
-                ) : (
-                  <p className="text-center">
-                    {intl.formatMessage(messages.extendedAllSelected, {
-                      total: data.total,
-                      b: (chunks) => <b>{chunks}</b>,
-                    })}{' '}
-                    <button
-                      type="button"
-                      className="btn btn-link btn-link-inline"
-                      onClick={selectExtendedAll}
-                    >
-                      {intl.formatMessage(messages.cancelSelection)}
-                    </button>
-                  </p>
-                )}
+                <p className="text-center">
+                  {intl.formatMessage(messages.extendedAllSelected, {
+                    total: data.total,
+                    b: (chunks) => <b>{chunks}</b>,
+                  })}{' '}
+                  <button
+                    type="button"
+                    className="btn btn-link btn-link-inline"
+                    onClick={selectExtendedAll}
+                  >
+                    {intl.formatMessage(messages.cancelSelection)}
+                  </button>
+                </p>
               </div>
             </div>
           </div>
         ) : null}
+
+        {!extendedAllSelected
+        && allSelected
+        && data.events.length < data.total ? (
+          <div className="announcement bg-warning margin-bottom-md">
+            <div className="container-fluid text-warning">
+              <div className="row padding-top-sm padding-right-sm padding-left-md">
+                <p className="text-center">
+                  {intl.formatMessage(messages.allSelected, {
+                    size: data.events.length,
+                    b: (chunks) => <b>{chunks}</b>,
+                  })}{' '}
+                  <button
+                    type="button"
+                    className="btn btn-link btn-link-inline"
+                    onClick={selectExtendedAll}
+                  >
+                    {intl.formatMessage(messages.selectExtendedAll, {
+                      total: data.total,
+                      b: (chunks) => <b>{chunks}</b>,
+                    })}
+                  </button>
+                </p>
+              </div>
+            </div>
+          </div>
+          ) : null}
 
         <div className="margin-top-sm margin-bottom-md">
           <div className="pull-right">

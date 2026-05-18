@@ -11,6 +11,7 @@ export default async function kyErrorToVError(error: unknown): Promise<any> {
   }
 
   const { response } = error;
+  const gone = response.headers.get('x-resource-gone') === '1';
   const HttpError = VError[response.status] || VError.GeneralError;
 
   let body = null;
@@ -26,6 +27,7 @@ export default async function kyErrorToVError(error: unknown): Promise<any> {
       url: response.url,
       statusText: response.statusText,
       body,
+      gone,
     },
   });
 }

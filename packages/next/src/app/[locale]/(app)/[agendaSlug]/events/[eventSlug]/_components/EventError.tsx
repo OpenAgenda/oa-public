@@ -87,7 +87,7 @@ function EventErrorContent({
     );
   }
 
-  if (statusCode === 404) {
+  if (statusCode === 404 || statusCode === 410) {
     // page.tsx renders this without `agenda` when the agenda itself 404s
     // (the event fetch never runs in that case), and with `agenda` when the
     // event 404s under an existing agenda.

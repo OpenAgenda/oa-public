@@ -394,6 +394,7 @@ export default (core, { useRouter = true } = {}) => {
       '/agendas/:agendaUid/events/:eventUid',
       '/agendas/:agendaUid/events/slug/:eventSlug',
       '/agendas/slug/:agendaSlug/events/slug/:eventSlug',
+      '/agendas/slug/:agendaSlug/events/:eventUid',
     ],
     [
       mw.evaluateAnonymousAccess,

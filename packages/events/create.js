@@ -38,6 +38,9 @@ export default async (service, data, o = {}) => {
   });
 
   if (options.useProvidedIdentifiers) {
+    if (typeof data.slug === 'string' && data.slug.includes('_')) {
+      throw new Error('event slug must not contain "_"');
+    }
     Object.assign(clean, {
       uid: data.uid,
       slug: data.slug,

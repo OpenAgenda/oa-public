@@ -16,6 +16,7 @@
   "EventAdminApp.Dashboard.selectAll": "Select all",
   "EventAdminApp.Dashboard.selectExtendedAll": "Select <b>{total}</b> events matching the current filters.",
   "EventAdminApp.Dashboard.selectedEvents": "{count, number} {count, plural, =0 {event} one {event} other {events}}",
+  "EventAdminApp.Dashboard.selectedEventsOnPage": "{onPage, number} on this page",
   "EventAdminApp.Dashboard.sortedBy": "Sorted by:",
   "EventAdminApp.Dashboard.state": "State",
   "EventAdminApp.Dashboard.totalEvents": "<strong>{total, number}</strong> {total, plural, =0 {event} one {event} other {events}}",

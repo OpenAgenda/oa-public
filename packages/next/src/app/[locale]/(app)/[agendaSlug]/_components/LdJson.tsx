@@ -23,7 +23,7 @@ export default function LdJson({ agenda, filters, query }) {
           locale: intl.locale,
           formatDate: (date, tz = 'Europe/Paris') =>
             formatInTimeZone(date, tz, "yyyy-MM-dd'T'HH:mm:ssXXX"),
-          url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.slug}`,
+          url: `${process.env.NEXT_PUBLIC_ROOT}/${agenda.slug}/events/${event.uid}_${event.slug}`,
         }),
       );
     return stringify({
