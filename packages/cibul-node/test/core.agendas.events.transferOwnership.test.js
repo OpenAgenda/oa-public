@@ -89,7 +89,35 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
 
   // ---- Failure cases first (no state mutation) ----
 
-  // (Placeholders — filled in across subsequent tasks)
+  it('throws NotFound when the agenda does not exist', async () => {
+    await expect(
+      core
+        .agendas(99999999)
+        .events.transferOwnership(
+          EVENT_UID,
+          { userUid: TARGET_UID },
+          { context: { userUid: ADMIN_UID } },
+        ),
+    ).rejects.toMatchObject({
+      name: 'NotFound',
+      message: expect.stringContaining('agenda not found'),
+    });
+  });
+
+  it('throws NotFound when the event does not exist', async () => {
+    await expect(
+      core
+        .agendas(AGENDA_UID)
+        .events.transferOwnership(
+          99999999,
+          { userUid: TARGET_UID },
+          { context: { userUid: ADMIN_UID } },
+        ),
+    ).rejects.toMatchObject({
+      name: 'NotFound',
+      message: expect.stringContaining('event not found'),
+    });
+  });
 
   // ---- Happy-path cases last ----
 
