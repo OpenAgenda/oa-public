@@ -11,7 +11,7 @@ export default async function transferOwnership(
   data,
   options = {},
 ) {
-  const { events } = core.services;
+  const { agendaEvents, events } = core.services;
 
   log('transferring event %s on agenda %s', eventUid, agendaUid);
 
@@ -26,7 +26,16 @@ export default async function transferOwnership(
     throw new NotFound({ info: { uid: eventUid } }, 'event not found');
   }
 
-  log('after checks', { agenda: agenda?.uid, data, options });
+  const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
+    throwOnNotFound: true,
+  });
+
+  log('after checks', {
+    agenda: agenda?.uid,
+    agendaEvent: agendaEvent?.eventUid,
+    data,
+    options,
+  });
 
   throw new Error('not implemented');
 }

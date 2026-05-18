@@ -119,6 +119,26 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
     });
   });
 
+  it('throws NotFound when the agenda_event reference row is missing', async () => {
+    // Drop the agenda_event row for event 83829660 (from eventSet 7, agenda 17026855)
+    // so the call must reject before any write happens.
+    const STRAY_EVENT_UID = 83829660;
+    await core.services.knex('agenda_event').delete().where({
+      agenda_uid: AGENDA_UID,
+      event_uid: STRAY_EVENT_UID,
+    });
+
+    await expect(
+      core
+        .agendas(AGENDA_UID)
+        .events.transferOwnership(
+          STRAY_EVENT_UID,
+          { userUid: TARGET_UID },
+          { context: { userUid: ADMIN_UID } },
+        ),
+    ).rejects.toMatchObject({ name: 'NotFound' });
+  });
+
   // ---- Happy-path cases last ----
 
   it('admin transfers event ownership to another member', async () => {
