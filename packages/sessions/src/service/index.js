@@ -2,7 +2,6 @@ import logger from '@openagenda/logs';
 import mw from '../middleware.js';
 import isoConfig from '../iso/config.js';
 import cookieValidate from '../iso/cookie.validate.js';
-import expressCookie from './expressCookie.js';
 import get, { promise as getPromise } from './get.js';
 import refresh from './refresh.js';
 import open from './open.js';
@@ -31,10 +30,6 @@ export default (options = {}) => {
       ...options.sessionCookie ?? null,
       name: isoConfig.cookies.session,
     },
-    writableCookie: {
-      ...options.writableCookie,
-      name: isoConfig.cookies.writable,
-    },
     ...options,
   };
 
@@ -49,8 +44,6 @@ export default (options = {}) => {
     close: close.default.bind(null, config),
     sync: sync.bind(null, config),
     scan: scan.bind(null, config),
-    setFlash: (req, res, message) =>
-      expressCookie(config, req, res).set('flash', message),
     isLogged: async (request) => !!await getPromise(config, request),
     getCulture,
   };

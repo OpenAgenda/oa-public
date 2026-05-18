@@ -7,7 +7,6 @@ import * as h from './lib/helpers.js';
 describe('session - functional (server): open', () => {
   let client;
   let request;
-  let response;
   let sessions;
 
   beforeAll(async () => {
@@ -25,13 +24,6 @@ describe('session - functional (server): open', () => {
 
   beforeEach(() => {
     request = { cookies: {}, session: {} };
-
-    response = {
-      writable: {},
-      cookie(name, value) {
-        this.writable[name] = value;
-      },
-    };
 
     request.cookies[isoConfig.cookies.session] = 'therandomsessioncode';
   });
@@ -149,20 +141,6 @@ describe('session - functional (server): open', () => {
             });
           }, 1500);
         });
-      });
-    }));
-
-  it('if given a response object, open clears writable cookie', () =>
-    new Promise((rs) => {
-      sessions.open(request, response, { uid: 1234 }, () => {
-        expect(
-          Buffer.from(
-            response.writable[config.writableCookie.name],
-            'base64',
-          ).toString('utf-8'),
-        ).toBe('{}');
-
-        rs();
       });
     }));
 });

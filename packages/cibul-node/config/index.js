@@ -296,7 +296,6 @@ const config = {
   },
   session: {
     name: 'oa', // session cookie name
-    writableName: 'oa.rw', // store client-editable data
     userCookieName: 'oa.user',
     keys: prod.session
       ? prod.session.keys

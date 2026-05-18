@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import base64 from '@openagenda/utils/base64.js';
 import cookies from 'js-cookie';
 import config from '../iso/config.js';
@@ -26,25 +25,6 @@ function _getSession() {
   );
 }
 
-function _getWritable() {
-  return _get(config.cookies.writable, validate.writable, true);
-}
-
-function _setWritable(update) {
-  let clean;
-
-  try {
-    clean = validate.writable(update);
-  } catch (e) {
-    clean = {};
-  }
-
-  cookies.set(config.cookies.writable, base64.encode(JSON.stringify(clean)), {
-    secure: true,
-    sameSite: 'Lax',
-  });
-}
-
 function getUser() {
   return _getSession().user || null;
 }
@@ -59,19 +39,8 @@ function isLogged() {
   return !!getUser();
 }
 
-function flash() {
-  const values = _getWritable();
-
-  const flashText = values ? values.flash : null;
-
-  _setWritable(_.extend(values, { flash: null }));
-
-  return flashText;
-}
-
 export default {
   getUser,
   getExpires,
   isLogged,
-  flash,
 };

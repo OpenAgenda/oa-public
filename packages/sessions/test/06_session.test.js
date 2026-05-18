@@ -50,30 +50,4 @@ describe('session - functional (client): session', () => {
       expect(clientSession.isLogged()).toBe(false);
     });
   });
-
-  describe('.flash', () => {
-    it('returns null if no flash message is defined', () => {
-      expect(clientSession.flash()).toBeNull();
-    });
-
-    it('if a flash is set, returns the flash value', () => {
-      cookie.set(
-        isoConfig.cookies.writable,
-        base64.encode(JSON.stringify({ flash: 'grut' })),
-      );
-
-      expect(clientSession.flash()).toBe('grut');
-    });
-
-    it('if a flash is set, clears the value after call', () => {
-      cookie.set(
-        isoConfig.cookies.writable,
-        base64.encode(JSON.stringify({ flash: 'grut' })),
-      );
-
-      clientSession.flash();
-
-      expect(clientSession.flash()).toBeNull();
-    });
-  });
 });

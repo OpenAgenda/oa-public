@@ -14,13 +14,6 @@ schema.register({
   date: dateValidator,
 });
 
-const writableFields = {
-  flash: {
-    type: 'text',
-    max: 1000,
-  },
-};
-
 const fields = {
   user: {
     optional: true,
@@ -67,8 +60,6 @@ function validate(dirty) {
   return validateLogged(dirty);
 }
 
-const validateWritable = schema(writableFields);
-
 export default validate;
 
-export { validateLogged, validateUnlogged, validateWritable as writable };
+export { validateLogged, validateUnlogged };
