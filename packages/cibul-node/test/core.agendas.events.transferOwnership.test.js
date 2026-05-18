@@ -27,7 +27,7 @@ const enabled = [
 
 const AGENDA_UID = 17026855;
 const EVENT_UID = 48564567;
-// const CURRENT_OWNER_UID = 63170203; // contributor, member of AGENDA_UID — used in later tasks
+const CURRENT_OWNER_UID = 63170203; // eslint-disable-line no-unused-vars -- used by later tasks
 const ADMIN_UID = 1; // administrator, member of AGENDA_UID
 const TARGET_UID = 63170200; // janine, moderator, member of AGENDA_UID
 const READER_UID = 99999001; // seeded reader (target for role-too-low test)
@@ -40,7 +40,7 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
     queuesPrefix: 'qTransferOwnership:',
     es75: {
       ...testConfig.es75,
-      agendaEventsIndex: 'test-events-transfer-ownership',
+      agendaEventsIndex: 'test_events_transfer_ownership',
     },
   });
 
