@@ -69,7 +69,7 @@ export default (app) => {
     },
     (req, res, next) => {
       const { events } = req.app.services;
-      const uidMatch = req.params.eventSlug.match(/^(\d+)_(.+)$/);
+      const uidMatch = req.params.eventSlug.match(/^(\d+)(?:_.*)?$/);
       const identifier = uidMatch
         ? { uid: uidMatch[1] }
         : { slug: req.params.eventSlug };

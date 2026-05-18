@@ -97,7 +97,7 @@ export default function useEvent() {
   const params = useParams<{ eventSlug: string }>();
   const agenda = useAgenda();
   const { eventSlug } = params;
-  const uidMatch = eventSlug?.match(/^(\d+)_(.+)$/);
+  const uidMatch = eventSlug?.match(/^(\d+)(?:_.*)?$/);
   const eventUrl = uidMatch
     ? `/api/agendas/slug/${agenda.slug}/events/${uidMatch[1]}?longDescriptionFormat=HTMLWithEmbeds`
     : `/api/agendas/slug/${agenda.slug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;

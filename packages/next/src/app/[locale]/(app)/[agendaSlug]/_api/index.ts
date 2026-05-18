@@ -51,7 +51,7 @@ export const fetchEvent = cache(
     eventSlugOrUidSlug: string,
   ): Promise<EventResponse> => {
     const api = await getApi();
-    const uidMatch = eventSlugOrUidSlug.match(/^(\d+)_(.+)$/);
+    const uidMatch = eventSlugOrUidSlug.match(/^(\d+)(?:_.*)?$/);
     const path = uidMatch
       ? `api/agendas/slug/${agendaSlug}/events/${uidMatch[1]}`
       : `api/agendas/slug/${agendaSlug}/events/slug/${eventSlugOrUidSlug}`;
