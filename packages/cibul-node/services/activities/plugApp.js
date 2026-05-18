@@ -90,42 +90,18 @@ function notificationsMarkRead(activitiesSvc, req, res) {
 }
 
 async function notificationsMarkAllRead(activitiesSvc, req, res) {
-  let rowsCount = 0;
-  let rowsAffected = 0;
-  let fromId;
-
   try {
-    while (rowsCount > 0) {
-      const notifs = await activitiesSvc
-        .feed({
-          entityType: 'user',
-          entityUid: req.user.uid,
-        })
-        .notifications.list({ stateNot: 2 }, fromId, 100);
+    const rowsAffected = await activitiesSvc
+      .feed({
+        entityType: 'user',
+        entityUid: req.user.uid,
+      })
+      .notifications.markAll({ stateNot: 2 }, 2);
 
-      rowsCount = notifs.length;
-      rowsAffected += notifs.length;
-
-      if (!notifs.length) {
-        break;
-      }
-
-      /* fromId = _.last(notifs).id; */
-      fromId = notifs[notifs.length - 1].id;
-
-      await activitiesSvc
-        .feed({
-          entityType: 'user',
-          entityUid: req.user.uid,
-        })
-        .notifications.markAs({ ids: notifs.map((v) => v.id) }, 2);
-    }
+    res.json({ rowsAffected });
   } catch (err) {
     res.status(400).json({ error: err });
-    return;
   }
-
-  res.json({ rowsAffected });
 }
 
 function notificationsRemove(activitiesSvc, req, res) {
