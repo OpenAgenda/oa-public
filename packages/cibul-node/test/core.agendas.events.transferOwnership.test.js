@@ -139,6 +139,34 @@ describe('core - functional (server): core.agendas().events.transferOwnership', 
     ).rejects.toMatchObject({ name: 'NotFound' });
   });
 
+  it('throws NotFound when the target user is not a member of the agenda', async () => {
+    await expect(
+      core.agendas(AGENDA_UID).events.transferOwnership(
+        EVENT_UID,
+        { userUid: 88888888 }, // never seeded
+        { context: { userUid: ADMIN_UID } },
+      ),
+    ).rejects.toMatchObject({
+      name: 'NotFound',
+      message: expect.stringContaining('target member not found'),
+    });
+  });
+
+  it('throws Forbidden when the target member role is below contributor', async () => {
+    await expect(
+      core
+        .agendas(AGENDA_UID)
+        .events.transferOwnership(
+          EVENT_UID,
+          { userUid: READER_UID },
+          { context: { userUid: ADMIN_UID } },
+        ),
+    ).rejects.toMatchObject({
+      name: 'Forbidden',
+      message: expect.stringContaining('target cannot edit events'),
+    });
+  });
+
   // ---- Happy-path cases last ----
 
   it('admin transfers event ownership to another member', async () => {
