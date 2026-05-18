@@ -21,7 +21,7 @@ export default async function transferOwnership(
 
   log('transferring event %s on agenda %s', eventUid, agendaUid);
 
-  await getAgenda(core.services, agendaUid, { detailed: true });
+  const agenda = await getAgenda(core.services, agendaUid, { detailed: true }); // eslint-disable-line no-unused-vars -- used by later tasks
 
   const event = await events.get(eventUid, {
     access: 'internal',
@@ -32,7 +32,8 @@ export default async function transferOwnership(
     throw new NotFound({ info: { uid: eventUid } }, 'event not found');
   }
 
-  await agendaEvents(agendaUid).get(eventUid, {
+  // eslint-disable-next-line no-unused-vars -- used by later tasks
+  const agendaEvent = await agendaEvents(agendaUid).get(eventUid, {
     throwOnNotFound: true,
   });
 
@@ -95,7 +96,13 @@ export default async function transferOwnership(
   await agendaEvents(agendaUid).update(
     event.uid,
     { userUid: targetMember.userUid },
-    { protected: false },
+    {
+      protected: false,
+      context: {
+        userUid: actingMember?.userUid,
+        member: actingMember,
+      },
+    },
   );
 
   log.info('transferred event ownership', {
