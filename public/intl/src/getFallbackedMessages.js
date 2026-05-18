@@ -1,6 +1,6 @@
-import { DEFAULT_LANG, DEFAULT_FALLBACK_MAP } from './constants';
-import getFallbackChain from './getFallbackChain';
-import completeMessages from './utils/completeMessages';
+import { DEFAULT_LANG, DEFAULT_FALLBACK_MAP } from './constants.js';
+import getFallbackChain from './getFallbackChain.js';
+import completeMessages from './utils/completeMessages.js';
 
 export default function getFallbackedMessages(
   messagesMap,

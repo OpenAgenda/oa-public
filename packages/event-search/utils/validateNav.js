@@ -1,8 +1,8 @@
-import schema from '@openagenda/validators/schema/index.js';
-import integerValidator from '@openagenda/validators/integer.js';
-import numberValidator from '@openagenda/validators/number.js';
-import regexValidator from '@openagenda/validators/regex.js';
-import passValidator from '@openagenda/validators/pass.js';
+import schema from '@openagenda/validators/schema/index';
+import integerValidator from '@openagenda/validators/integer';
+import numberValidator from '@openagenda/validators/number';
+import regexValidator from '@openagenda/validators/regex';
+import passValidator from '@openagenda/validators/pass';
 import { BadRequest } from '@openagenda/verror';
 
 schema.register({

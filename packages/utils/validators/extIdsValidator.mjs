@@ -1,7 +1,5 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema/index');
-const text = require('@openagenda/validators/text');
+import schema from '@openagenda/validators/schema';
+import text from '@openagenda/validators/text';
 
 schema.register({ text });
 
@@ -13,7 +11,7 @@ const validate = schema({
   },
 });
 
-module.exports = (options = {}) =>
+export default (options = {}) =>
   (value) => {
     if ([undefined, null].includes(value) && options.optional) {
       return value;

@@ -43,7 +43,11 @@ describe('04 - event search - functional: add', () => {
     service = Service(config);
     await service('04_add').rebuild({
       eventsList: async (lastId, limit) =>
-        (await import(`./fixtures/04_events.${lastId}.${limit}.json`)).default,
+        (
+          await import(`./fixtures/04_events.${lastId}.${limit}.json`, {
+            with: { type: 'json' },
+          })
+        ).default,
     });
   });
 

@@ -9,7 +9,7 @@ import cleanupSchemaForForm from '../src/lib/cleanupSchemaForForm.js';
 import ComponentsCanvasDecorator from './decorators/ComponentsCanvas.js';
 import ProvidersDecorator from './decorators/Providers.js';
 
-import immutableMdbDetailed from './fixtures/mdb.detailed.agenda.json';
+import immutableMdbDetailed from './fixtures/mdb.detailed.agenda.json' with { type: 'json' };
 
 const mdbDetailed = JSON.parse(JSON.stringify(immutableMdbDetailed));
 

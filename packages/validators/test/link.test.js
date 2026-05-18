@@ -1,5 +1,5 @@
-import validators from '../src';
-import linkValidator from '../src/link';
+import validators from '../src/index.js';
+import linkValidator from '../src/link.js';
 
 describe('link validator', () => {
   describe('required (default)', () => {
@@ -106,14 +106,16 @@ describe('link validator', () => {
         errors = e;
       }
 
-      expect(errors).toStrictEqual([{
-        code: 'link.toolong',
-        message: 'the link is too long',
-        origin: 'https://openagenda.com',
-        values: {
-          max: 10,
+      expect(errors).toStrictEqual([
+        {
+          code: 'link.toolong',
+          message: 'the link is too long',
+          origin: 'https://openagenda.com',
+          values: {
+            max: 10,
+          },
         },
-      }]);
+      ]);
     });
 
     it('are not links', () => {
@@ -181,7 +183,11 @@ describe('link validator', () => {
     });
 
     it('if default is provided, default is used', () => {
-      const validateWithDefault = validators.link({ field: 'link', optional: true, default: null });
+      const validateWithDefault = validators.link({
+        field: 'link',
+        optional: true,
+        default: null,
+      });
 
       expect(validateWithDefault()).toBeNull();
     });

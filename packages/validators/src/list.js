@@ -1,5 +1,5 @@
-const _ = require('lodash');
-const formatErrors = require('./lib/errors');
+import _ from 'lodash';
+import formatErrors from './lib/errors.js';
 
 /**
  * processes an array of values of potentially different
@@ -7,8 +7,9 @@ const formatErrors = require('./lib/errors');
  * an index.
  */
 
-module.exports = function list(...args) {
-  const validates = args.length === 1 && Array.isArray(args[0]) ? args[0] : args[1];
+export default function list(...args) {
+  const validates =
+    args.length === 1 && Array.isArray(args[0]) ? args[0] : args[1];
   const config = args.length === 1 && Array.isArray(args[0]) ? {} : args[0];
 
   const params = {
@@ -24,12 +25,16 @@ module.exports = function list(...args) {
     params.validates = validates;
   } else {
     if (!params.types || !params.validators) {
-      throw new Error('if list validators are not given, validators and types must be provided in config');
+      throw new Error(
+        'if list validators are not given, validators and types must be provided in config',
+      );
     }
 
-    params.types.forEach(type => {
+    params.types.forEach((type) => {
       if (params.validators[type] === undefined) {
-        throw new Error(`list validator requires ${type} validator to function`);
+        throw new Error(
+          `list validator requires ${type} validator to function`,
+        );
       }
 
       params.validates.push(params.validators[type]());
@@ -42,7 +47,7 @@ module.exports = function list(...args) {
     let cleanItem;
     let type;
 
-    params.validates.forEach(v => {
+    params.validates.forEach((v) => {
       if (cleanItem) return;
 
       try {
@@ -50,15 +55,17 @@ module.exports = function list(...args) {
 
         cleanItem = v(item);
       } catch (err) {
-        [].concat(err).forEach(e => errors.push(e));
+        [].concat(err).forEach((e) => errors.push(e));
       }
     });
 
     if (cleanItem !== undefined) {
-      return decorated ? {
-        value: cleanItem,
-        type,
-      } : cleanItem;
+      return decorated
+        ? {
+            value: cleanItem,
+            type,
+          }
+        : cleanItem;
     }
 
     if (decorated) {
@@ -72,9 +79,8 @@ module.exports = function list(...args) {
   }
 
   function validate(value, options = {}) {
-    const {
-      cleanOnly = false,
-    } = typeof options === 'boolean' ? { cleanOnly: options } : options;
+    const { cleanOnly = false } =
+      typeof options === 'boolean' ? { cleanOnly: options } : options;
 
     const clean = [];
     const errors = [];
@@ -92,14 +98,21 @@ module.exports = function list(...args) {
     }
 
     if (!_.isArray(value)) {
-      throw formatErrors(params, value, 'list.wrongtype', 'value should be a list');
+      throw formatErrors(
+        params,
+        value,
+        'list.wrongtype',
+        'value should be a list',
+      );
     }
 
     value.forEach((item, i) => {
       try {
         clean.push(validateItem(item));
       } catch (errs) {
-        errs.forEach(e => errors.push(_.extend({}, e, { index: i, field: params.field })));
+        errs.forEach((e) =>
+          errors.push(_.extend({}, e, { index: i, field: params.field })),
+        );
       }
     });
 
@@ -119,9 +132,9 @@ module.exports = function list(...args) {
   return Object.assign(validate, {
     type: 'list',
     field: params.field,
-    clean: v => validate(v, true),
+    clean: (v) => validate(v, true),
     decorate,
     validateItem,
     decorateItem,
   });
-};
+}

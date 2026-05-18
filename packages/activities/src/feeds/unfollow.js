@@ -1,9 +1,9 @@
-'use strict';
+import logger from '@openagenda/logs';
+import promisePlusCb from '@openagenda/service-utils/promisePlusCb.js';
 
-const log = require('@openagenda/logs')('activities/feeds/unfollow');
-const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');
+const log = logger('activities/feeds/unfollow');
 
-module.exports = function unfollow(
+export default function unfollow(
   config,
   identifiers,
   followedFeedIdentifiers,
@@ -43,4 +43,4 @@ module.exports = function unfollow(
     });
 
   return promisePlusCb(promise, cb);
-};
+}

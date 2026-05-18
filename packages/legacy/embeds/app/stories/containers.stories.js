@@ -7,9 +7,9 @@ import Dashboard from '../src/containers/Dashboard.js';
 import AdminCanvas from './decorators/AdminCanvas.js';
 import Providers from './decorators/Providers.js';
 
-import toulouseEmbed from './fixtures/toulouse.json';
-import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json';
-import toulouseEvents from './fixtures/toulouse.events.json';
+import toulouseEmbed from './fixtures/toulouse.json' with { type: 'json' };
+import apiAgendasToulouse from './fixtures/api.agendas.toulouse.get.json' with { type: 'json' };
+import toulouseEvents from './fixtures/toulouse.events.json' with { type: 'json' };
 
 export default {
   title: 'Containers',

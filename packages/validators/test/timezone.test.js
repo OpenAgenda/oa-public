@@ -1,4 +1,4 @@
-import validators from '../src';
+import validators from '../src/index.js';
 
 describe('timezone validator', () => {
   const defaultValidateTimezone = validators.timezone();
@@ -14,7 +14,8 @@ describe('timezone validator', () => {
       {
         origin: 'UTC+1',
         code: 'timezone.invalid',
-        message: 'must be in Continent/City format (e.g., Europe/Paris, America/New_York)',
+        message:
+          'must be in Continent/City format (e.g., Europe/Paris, America/New_York)',
       },
     ]);
   });

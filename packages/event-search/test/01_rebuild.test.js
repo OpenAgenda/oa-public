@@ -6,8 +6,11 @@ describe('01 - event-search - functional: rebuild', () => {
     let service;
 
     async function eventsList(lastId, limit) {
-      return (await import(`./fixtures/01_events.${lastId}.${limit}.json`))
-        .default;
+      return (
+        await import(`./fixtures/01_events.${lastId}.${limit}.json`, {
+          with: { type: 'json' },
+        })
+      ).default;
     }
 
     beforeAll(() => {
@@ -65,7 +68,9 @@ describe('01 - event-search - functional: rebuild', () => {
           result = await service('someagendaidentifier').rebuild({
             eventsList: async (lastId, limit) => {
               const payload = (
-                await import(`./fixtures/01_events.${lastId}.${limit}.json`)
+                await import(`./fixtures/01_events.${lastId}.${limit}.json`, {
+                  with: { type: 'json' },
+                })
               ).default;
               payload.events.pop(); // removing an event
               return payload;

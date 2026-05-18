@@ -8,7 +8,7 @@ import {
   extractSchemaOptions,
   getCurrentValue,
 } from '../lib/utils.js';
-import OpenAPIFixtures from './fixtures/openapi.json';
+import OpenAPIFixtures from './fixtures/openapi.json' with { type: 'json' };
 
 const __dirname = fileURLToPath(new URL('.', import.meta.url));
 

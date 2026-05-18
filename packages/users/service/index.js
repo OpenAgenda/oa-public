@@ -3,7 +3,7 @@ import feathersKnex from 'feathers-knex';
 import hooksCommon from 'feathers-hooks-common';
 import { hooks, withParams } from '@feathersjs/hooks';
 import { BadRequest, NotFound } from '@openagenda/verror';
-import schema from '@openagenda/validators/schema/index.js';
+import schema from '@openagenda/validators/schema/index';
 import validators from '@openagenda/validators';
 import * as crypto from '../utils/crypto.js';
 import { wrap } from '../utils/wrappers.js';

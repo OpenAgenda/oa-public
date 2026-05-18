@@ -22,8 +22,11 @@ describe('02 - event search - functional: bd2020', () => {
   beforeAll(async () => {
     await service('bd2020').rebuild({
       eventsList: async (lastId, limit) =>
-        (await import(`./fixtures/applied/bd2020.${lastId}.${limit}.json`))
-          .default,
+        (
+          await import(`./fixtures/applied/bd2020.${lastId}.${limit}.json`, {
+            with: { type: 'json' },
+          })
+        ).default,
       formSchema,
     });
   });

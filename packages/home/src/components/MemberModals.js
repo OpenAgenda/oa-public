@@ -1,4 +1,4 @@
-import MemberForm from '@openagenda/member-apps/dist/components/Form/index.js';
+import MemberForm from '@openagenda/member-apps/components/Form';
 import { getRoleSlug, getRoleCode } from '@openagenda/members/utils.js';
 import { AgendaItem } from './Welcome.js';
 

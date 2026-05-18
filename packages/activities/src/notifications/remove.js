@@ -1,9 +1,7 @@
-'use strict';
+import VError from '@openagenda/verror';
+import promisePlusCb from '@openagenda/service-utils/promisePlusCb.js';
 
-const VError = require('@openagenda/verror');
-const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');
-
-module.exports = function remove(config, identifiers, query, cb) {
+export default function remove(config, identifiers, query, cb) {
   const { service, knex } = config;
 
   if (identifiers.entityType && identifiers.entityType !== 'user') {
@@ -43,4 +41,4 @@ module.exports = function remove(config, identifiers, query, cb) {
     });
 
   return promisePlusCb(promise, cb);
-};
+}

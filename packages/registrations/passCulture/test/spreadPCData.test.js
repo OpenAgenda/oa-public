@@ -1,8 +1,8 @@
 import spreadPCData from '../iso/spreadPCData.js';
 import { getObjectType } from '../iso/utils.js';
-import unnapplied from './fixtures/data.unnapplied.pc.json';
-import partiallyApplied from './fixtures/data.withUpdate.pc.json';
-import withPriceCategoryUpdate from './fixtures/data.withPriceCategoryUpdate.pc.json';
+import unnapplied from './fixtures/data.unnapplied.pc.json' with { type: 'json' };
+import partiallyApplied from './fixtures/data.withUpdate.pc.json' with { type: 'json' };
+import withPriceCategoryUpdate from './fixtures/data.withPriceCategoryUpdate.pc.json' with { type: 'json' };
 
 describe('spreadPCData', () => {
   test('data is spread according to single item single API call principle', () => {

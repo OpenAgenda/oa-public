@@ -1,6 +1,6 @@
 import { HttpResponse } from 'msw';
 import qs from 'qs';
-import eventSelectionFixtures from './fixtures/events.selection.json';
+import eventSelectionFixtures from './fixtures/events.selection.json' with { type: 'json' };
 
 export default ({ request }) => {
   const url = new URL(request.url);

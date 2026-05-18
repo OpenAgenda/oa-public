@@ -1,13 +1,11 @@
-'use strict';
+import schema from '@openagenda/validators/schema';
+import integer from '@openagenda/validators/integer';
+import text from '@openagenda/validators/text';
+import pass from '@openagenda/validators/pass';
 
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-const text = require('@openagenda/validators/text');
-const pass = require('@openagenda/validators/pass');
+import { BadRequest } from '@openagenda/verror';
 
 schema.register({ integer, text, pass });
-
-const { BadRequest } = require('@openagenda/verror');
 
 const validate = schema({
   slug: {
@@ -26,7 +24,7 @@ const validateExtIds = schema({
   value: { type: 'text', optional: false },
 });
 
-module.exports = (identifiers) => {
+export default (identifiers) => {
   try {
     const clean = validate(
       ['number', 'string'].includes(typeof identifiers)

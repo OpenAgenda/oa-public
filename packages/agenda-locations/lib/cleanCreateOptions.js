@@ -1,13 +1,11 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
+import schema from '@openagenda/validators/schema';
+import integer from '@openagenda/validators/integer';
 
 schema.register({
   integer,
 });
 
-module.exports = schema({
+export default schema({
   context: {
     agendaUid: {
       type: 'integer',

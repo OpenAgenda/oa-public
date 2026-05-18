@@ -1,8 +1,6 @@
-'use strict';
+import crypto from 'node:crypto';
 
-const crypto = require('node:crypto');
-
-module.exports = (Files) => {
+export default (Files) => {
   const { gm } = Files;
 
   return [

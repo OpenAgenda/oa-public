@@ -2,9 +2,9 @@ import { http, HttpResponse } from 'msw';
 import { useState } from 'react';
 
 import Registration from '../src/bootstrap.js';
-import passSettings from './fixtures/passSettings.json';
+import passSettings from './fixtures/passSettings.json' with { type: 'json' };
 
-import event from './fixtures/event.json';
+import event from './fixtures/event.json' with { type: 'json' };
 
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';

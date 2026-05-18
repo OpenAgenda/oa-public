@@ -84,18 +84,6 @@
       "dependsOn": ["^prepack"],
       "outputs": ["css/**", "dist/**", "src/locales-compiled/**"],
       "outputLogs": "new-only"
-    },
-    "@openagenda/validators#prepack": {
-      "dependsOn": ["^prepack"],
-      "outputs": [
-        "lib/*.js",
-        "lib/*.js.map",
-        "schema/*.js",
-        "schema/*.js.map",
-        "*.js",
-        "*.js.map"
-      ],
-      "outputLogs": "new-only"
     }
   }
 }

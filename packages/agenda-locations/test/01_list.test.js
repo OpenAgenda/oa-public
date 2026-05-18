@@ -1,13 +1,13 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
+import Files from '@openagenda/files';
 
-const Files = require('@openagenda/files');
+import fields from '../lib/fields.js';
+import Service from '../index.js';
+import testconfig from './testconfig.js';
+import setup from './fixtures/setup.js';
 
-const fields = require('../lib/fields');
-const Service = require('..');
-const { service: config, dependencies: dConfig } = require('./testconfig');
-const setup = require('./fixtures/setup');
+const { service: config, dependencies: dConfig } = testconfig;
 
 async function getAgendaDetailsByUid(uid, _fields = []) {
   return _.pick(
@@ -42,7 +42,7 @@ describe('agenda-locations - functional - list', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
     });
 
     svc = Service({

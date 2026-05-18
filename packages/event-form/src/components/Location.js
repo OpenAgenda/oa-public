@@ -3,8 +3,8 @@ import ih from 'immutability-helper';
 import { Component } from 'react';
 
 import { Modal, Spinner } from '@openagenda/react-shared';
-import LocationSelector from '@openagenda/agenda-locations-app/dist/components/LocationSelector.js';
-import Provider from '@openagenda/agenda-locations-app/dist/decorators/Providers.js';
+import LocationSelector from '@openagenda/agenda-locations-app/components/LocationSelector';
+import Provider from '@openagenda/agenda-locations-app/decorators/Providers';
 
 import flattenLocationTagSet from '../utils/flattenLocationTagSet.js';
 

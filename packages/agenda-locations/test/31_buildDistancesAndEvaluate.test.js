@@ -1,6 +1,4 @@
-'use strict';
-
-const buildDistancesAndEvaluate = require('../duplicates/buildDistancesAndEvaluate');
+import buildDistancesAndEvaluate from '../duplicates/buildDistancesAndEvaluate.js';
 
 describe('agenda-locations - functional - buildDistancesAndEvaluate', () => {
   const config = {

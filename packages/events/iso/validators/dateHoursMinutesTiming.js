@@ -1,7 +1,7 @@
-import schema from '@openagenda/validators/schema/index.js';
-import date from '@openagenda/validators/date.js';
-import regex from '@openagenda/validators/regex.js';
-import integer from '@openagenda/validators/integer.js';
+import schema from '@openagenda/validators/schema/index';
+import date from '@openagenda/validators/date';
+import regex from '@openagenda/validators/regex';
+import integer from '@openagenda/validators/integer';
 
 import compareBeginAndEnd from '../compareBeginAndEnd.js';
 

@@ -1,6 +1,6 @@
 import monolingualizeSchema from '../client/src/FormSchemaBuilder/lib/monolingualizeSchema.js';
 import extractSchemaLabelLanguages from '../client/src/FormSchemaBuilder/lib/extractSchemaLabelLanguages.js';
-import multilingualSchema from './fixtures/multilingual.schema.json';
+import multilingualSchema from './fixtures/multilingual.schema.json' with { type: 'json' };
 
 describe('monolingualizeSchema', () => {
   let mono;

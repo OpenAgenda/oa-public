@@ -1,14 +1,14 @@
-'use strict';
+import slug from 'slugify';
+import { NotFound } from '@openagenda/verror';
+import logger from '@openagenda/logs';
+import cleanOptions from './lib/cleanSetOptions.js';
+import defineUnique from './lib/defineUnique.js';
+import filterFieldsByAccess from './lib/filterFieldsByAccess.js';
+import validate from './lib/validate.js';
+import authorize from './lib/authorize.js';
+import * as fromatExtIds from './lib/formatExtIds.js';
 
-const slug = require('slugify');
-const { NotFound } = require('@openagenda/verror');
-const log = require('@openagenda/logs')('create');
-const cleanOptions = require('./lib/cleanSetOptions');
-const defineUnique = require('./lib/defineUnique');
-const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
-const validate = require('./lib/validate');
-const authorize = require('./lib/authorize');
-const fromatExtIds = require('./lib/formatExtIds');
+const log = logger('create');
 
 function isDataIncomplete(data) {
   if (!data.address || !data.countryCode || !data.latitude || !data.longitude) {
@@ -105,13 +105,13 @@ async function create(service, data, options = {}) {
   return filterFieldsByAccess(fromatExtIds.afterRead(result));
 }
 
-module.exports.byAgendaUid = async (service, agendaUid, data, options = {}) =>
+export const byAgendaUid = async (service, agendaUid, data, options = {}) =>
   create(service, data, {
     ...options,
     endpointId: { agendaUid },
   });
 
-module.exports.bySetUid = async (service, setUid, data, options = {}) => {
+export const bySetUid = async (service, setUid, data, options = {}) => {
   if (!await service.sets.get(setUid)) {
     throw new NotFound({ info: { setUid } }, 'set not found');
   }
@@ -120,3 +120,8 @@ module.exports.bySetUid = async (service, setUid, data, options = {}) => {
     endpointId: { setUid },
   });
 };
+
+create.byAgendaUid = byAgendaUid;
+create.bySetUid = bySetUid;
+
+export default create;

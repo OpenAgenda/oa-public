@@ -3,17 +3,21 @@
   "version": "0.0.2",
   "private": true,
   "type": "module",
-  "main": "dist/index.js",
+  "main": "./dist/index.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/index.mjs",
+    "./*": "./dist/*.mjs"
+  },
   "description": "Components useful for registration features",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
   "scripts": {
-    "prepack": "yarn clean && yarn build",
+    "prepack": "yarn build",
     "sb": "storybook dev",
-    "build": "babel --copy-files src -d dist -s --env-name esm --root-mode upward",
-    "clean": "rimraf dist",
+    "build": "tsdown",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest"
   },
   "dependencies": {
@@ -30,7 +34,6 @@
     "why": "^0.6.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
     "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/eslint-config": "^1.4.0",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
@@ -40,8 +43,8 @@
     "msw-storybook-addon": "^2.0.6",
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
-    "rimraf": "^3.0.1",
-    "storybook": "^10.2.0"
+    "storybook": "^10.2.0",
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^19.2.2",

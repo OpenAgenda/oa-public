@@ -1,35 +1,32 @@
-'use strict';
-
-const path = require('node:path');
-const rebuild = require('../src/rebuild');
-const testconfig = require('../testconfig');
-const Service = require('../src');
-const setup = require('./fixtures/setup');
-
-const { reset } = setup;
+import path from 'node:path';
+import { jest } from '@jest/globals';
+import rebuild from '../src/rebuild.js';
+import testconfig from '../testconfig.js';
+import Service from '../src/index.js';
+import setup, { reset } from './fixtures/setup.js';
 
 const migrations = [
-  path.resolve(__dirname, '../migrations'),
-  path.resolve(__dirname, '../../agendas/migrations'),
-  path.resolve(__dirname, '../../agenda-events/migrations'),
-  path.resolve(__dirname, '../../aggregators/migrations'),
-  path.resolve(__dirname, '../../events/migrations'),
-  path.resolve(__dirname, '../../members/migrations'),
-  path.resolve(__dirname, '../../users/migrations'),
+  path.resolve(import.meta.dirname, '../migrations'),
+  path.resolve(import.meta.dirname, '../../agendas/migrations'),
+  path.resolve(import.meta.dirname, '../../agenda-events/migrations'),
+  path.resolve(import.meta.dirname, '../../aggregators/migrations'),
+  path.resolve(import.meta.dirname, '../../events/migrations'),
+  path.resolve(import.meta.dirname, '../../members/migrations'),
+  path.resolve(import.meta.dirname, '../../users/migrations'),
 ];
 
 const data = [
-  `${__dirname}/fixtures/user.data.sql`,
-  `${__dirname}/fixtures/agenda.data.sql`,
-  `${__dirname}/fixtures/aggregator.data.sql`,
-  `${__dirname}/fixtures/stakeholder.data.sql`,
-  `${__dirname}/fixtures/eventService.data.sql`,
-  `${__dirname}/fixtures/agendaEvent.data.sql`,
-  `${__dirname}/fixtures/activity.data.sql`,
-  `${__dirname}/fixtures/feed.data.sql`,
-  `${__dirname}/fixtures/feed_activity.data.sql`,
-  `${__dirname}/fixtures/feed_follow.data.sql`,
-  `${__dirname}/fixtures/feed_notification.data.sql`,
+  `${import.meta.dirname}/fixtures/user.data.sql`,
+  `${import.meta.dirname}/fixtures/agenda.data.sql`,
+  `${import.meta.dirname}/fixtures/aggregator.data.sql`,
+  `${import.meta.dirname}/fixtures/stakeholder.data.sql`,
+  `${import.meta.dirname}/fixtures/eventService.data.sql`,
+  `${import.meta.dirname}/fixtures/agendaEvent.data.sql`,
+  `${import.meta.dirname}/fixtures/activity.data.sql`,
+  `${import.meta.dirname}/fixtures/feed.data.sql`,
+  `${import.meta.dirname}/fixtures/feed_activity.data.sql`,
+  `${import.meta.dirname}/fixtures/feed_follow.data.sql`,
+  `${import.meta.dirname}/fixtures/feed_notification.data.sql`,
 ];
 
 describe.skip('activities - rebuild', () => {

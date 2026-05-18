@@ -1,4 +1,4 @@
-import loadableEsm from '@openagenda/react-shared/src/utils/loadableEsm.mjs';
+import loadableEsm from '@openagenda/react-shared/utils/loadableEsm';
 
 // eslint-disable-next-line camelcase
 const contextRequire = typeof __webpack_require__ !== 'undefined'

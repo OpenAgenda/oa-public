@@ -1,8 +1,8 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
-import integer from '@openagenda/validators/integer.js';
-import text from '@openagenda/validators/text.js';
-import link from '@openagenda/validators/link.js';
+import schema from '@openagenda/validators/schema/index';
+import integer from '@openagenda/validators/integer';
+import text from '@openagenda/validators/text';
+import link from '@openagenda/validators/link';
 import VError from '@openagenda/verror';
 
 schema.register({

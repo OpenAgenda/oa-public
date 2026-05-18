@@ -2,7 +2,7 @@ import isEqual from 'lodash/isEqual.js';
 import { useEffect, useRef, useCallback, useMemo } from 'react';
 import useLatestModule from 'react-use/lib/useLatest.js';
 import { useForm } from 'react-final-form';
-import a11yButtonActionHandler from '@openagenda/react-shared/dist/utils/a11yButtonActionHandler.js';
+import a11yButtonActionHandler from '@openagenda/react-shared/utils/a11yButtonActionHandler';
 import updateCustomFilter from '../utils/updateCustomFilter.js';
 import updateFormValues from '../utils/updateFormValues.js';
 import { useFavoriteState } from '../hooks/index.js';

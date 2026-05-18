@@ -1,5 +1,5 @@
 import cleanRule from '../utils/rules/clean.js';
-import dirtyLocationRule from './fixtures/dirtyLocationRule.json';
+import dirtyLocationRule from './fixtures/dirtyLocationRule.json' with { type: 'json' };
 
 describe('05 - utils - rules - clean', () => {
   test('transform object is parsed to list of actions', () => {

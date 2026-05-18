@@ -1,11 +1,9 @@
-'use strict';
-
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');
-const schema = require('@openagenda/validators/schema');
-const validators = require('@openagenda/validators');
-const notificationStates = require('../notificationStates');
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import promisePlusCb from '@openagenda/service-utils/promisePlusCb.js';
+import schema from '@openagenda/validators/schema';
+import validators from '@openagenda/validators';
+import notificationStates from '../notificationStates.js';
 
 schema.register({
   choice: validators.choice,
@@ -99,4 +97,4 @@ function count(config, ...rest) {
   return promisePlusCb(promise, cb);
 }
 
-module.exports = count;
+export default count;

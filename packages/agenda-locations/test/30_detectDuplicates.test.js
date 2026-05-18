@@ -1,13 +1,13 @@
-'use strict';
+import _ from 'lodash';
 
-const _ = require('lodash');
+import Files from '@openagenda/files';
 
-const Files = require('@openagenda/files');
+import Service from '../index.js';
+import testconfig from './testconfig.js';
 
-const Service = require('..');
-const { service: config, dependencies: dConfig } = require('./testconfig');
+import setup from './fixtures/setup.js';
 
-const setup = require('./fixtures/setup');
+const { service: config, dependencies: dConfig } = testconfig;
 
 async function getAgendaDetailsByUid(uid, fields = []) {
   return _.pick(
@@ -27,7 +27,7 @@ describe('agenda-locations - functional - Duplicates functions', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [`${__dirname}/fixtures/hauteSavoie.sql`],
+      data: [`${import.meta.dirname}/fixtures/hauteSavoie.sql`],
     });
 
     svc = Service({

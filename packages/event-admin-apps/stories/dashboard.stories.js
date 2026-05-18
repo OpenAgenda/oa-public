@@ -7,7 +7,7 @@ import SpreadsheetModal from '../src/components/SpreadsheetModal.js';
 import * as locales from '../src/locales-compiled/index.js';
 import SimplePageDecorator from './decorators/SimplePage.js';
 import ProvidersDecorator from './decorators/Providers.js';
-import exportSettings from './fixtures/exportSettings.json';
+import exportSettings from './fixtures/exportSettings.json' with { type: 'json' };
 import '@openagenda/bs-templates/compiled/main.css';
 
 export default {

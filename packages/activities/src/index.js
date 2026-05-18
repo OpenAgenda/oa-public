@@ -1,16 +1,14 @@
-'use strict';
+import logger from '@openagenda/logs';
+import feed from './feed.js';
+import feeds from './feeds/index.js';
+import activities from './activities/index.js';
+import notifications from './notifications/index.js';
+import rebuild from './rebuild.js';
 
-const logger = require('@openagenda/logs');
-const feed = require('./feed');
-const feeds = require('./feeds');
-const activities = require('./activities');
-const notifications = require('./notifications');
-const rebuild = require('./rebuild');
+import cleanOldActivitiesTask from './activities/tasks/cleanOld.js';
+import cleanOldNotificationsTask from './notifications/tasks/cleanOld.js';
 
-const cleanOldActivitiesTask = require('./activities/tasks/cleanOld');
-const cleanOldNotificationsTask = require('./notifications/tasks/cleanOld');
-
-module.exports = async function Service(c) {
+export default async function Service(c) {
   const config = {
     ...c,
     service: {},
@@ -43,4 +41,4 @@ module.exports = async function Service(c) {
     },
     rebuild: rebuild.bind(null, config),
   });
-};
+}

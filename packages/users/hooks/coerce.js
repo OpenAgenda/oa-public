@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
+import schema from '@openagenda/validators/schema/index';
 import hooksCommon from 'feathers-hooks-common';
 // import fields from '../service/fields';
 

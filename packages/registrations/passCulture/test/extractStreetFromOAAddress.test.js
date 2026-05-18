@@ -1,5 +1,5 @@
 import extractStreetFromOAAddress from '../lib/extractStreetFromOAAddress.js';
-import addresses from './fixtures/addresses.grand-est.json';
+import addresses from './fixtures/addresses.grand-est.json' with { type: 'json' };
 
 describe('extractStreetFromOAAddress', () => {
   test('rue du Mont-Aimé, 51130, Val-des-Marais', () => {

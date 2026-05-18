@@ -1,5 +1,5 @@
-import dateValidator from '@openagenda/validators/date.js';
-import schema from '@openagenda/validators/schema/index.js';
+import dateValidator from '@openagenda/validators/date';
+import schema from '@openagenda/validators/schema/index';
 
 schema.register({
   date: dateValidator,

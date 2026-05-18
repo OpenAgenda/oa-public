@@ -1,8 +1,8 @@
 import fs from 'node:fs';
 import moment from 'moment-timezone';
 import * as ics from '../lib/ics/index.js';
-import event from './fixtures/acces-libre.json';
-import foireAuxLivres from './fixtures/foire-aux-livres.json';
+import event from './fixtures/acces-libre.json' with { type: 'json' };
+import foireAuxLivres from './fixtures/foire-aux-livres.json' with { type: 'json' };
 
 const ICSHead = fs.readFileSync(
   `${import.meta.dirname}/fixtures/head.ics`,

@@ -8,7 +8,7 @@ import AgendaDataLayoutComponent from '../src/layouts/AgendaDataLayout.js';
 import AgendaLayoutComponent from '../src/layouts/AgendaLayout.js';
 
 import createLayoutStore from '../src/createLayoutStore.js';
-import agenda from './fixtures/agenda.json';
+import agenda from './fixtures/agenda.json' with { type: 'json' };
 import ProvidersDecorator from './decorators/Providers.js';
 
 export default {

@@ -1,4 +1,4 @@
-import validators from '../src';
+import validators from '../src/index.js';
 
 describe('email validator', () => {
   const validate = validators.email({ field: 'email' });
@@ -27,7 +27,9 @@ describe('email validator', () => {
     let errors;
 
     try {
-      validate('Amandine Plas (chargéés de la com et du spons) contacts: protable 06 33 09 49 72 email: usmelunhand@wanadoo.fr');
+      validate(
+        'Amandine Plas (chargéés de la com et du spons) contacts: protable 06 33 09 49 72 email: usmelunhand@wanadoo.fr',
+      );
     } catch (e) {
       errors = e;
     }
@@ -41,7 +43,7 @@ describe('email validator', () => {
       'in@gmail.com',
       'ber@gmail.com',
       'to@gmail.com',
-      'mmier@gmail.com'
+      'mmier@gmail.com',
     ];
     expect(validators.email({ list: true })(emails)).toEqual(emails);
   });
@@ -51,12 +53,9 @@ describe('email validator', () => {
 
     const validateEmail = validators.email();
 
-    const notEmails = [
-      'momo@bertho@gmail.com',
-      'kevin.bertho@gmail.com;'
-    ];
+    const notEmails = ['momo@bertho@gmail.com', 'kevin.bertho@gmail.com;'];
 
-    notEmails.forEach(notEmail => {
+    notEmails.forEach((notEmail) => {
       try {
         validateEmail(notEmail);
       } catch (e) {
@@ -76,11 +75,13 @@ describe('email validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      field: undefined,
-      code: 'list.required',
-      message: 'list cannot be empty',
-      origin: []
-    }]);
+    expect(errors).toEqual([
+      {
+        field: undefined,
+        code: 'list.required',
+        message: 'list cannot be empty',
+        origin: [],
+      },
+    ]);
   });
 });

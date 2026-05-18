@@ -1,7 +1,7 @@
 import ReactDOM from 'react-dom/server';
 import { parsePath } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
-import createInboxApp from '@openagenda/inbox-apps/dist/app.js';
+import createInboxApp from '@openagenda/inbox-apps';
 import cmn from '../../../lib/commons-app.js';
 
 function endpointToRes(endpoint) {

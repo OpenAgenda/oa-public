@@ -19,13 +19,9 @@
       "import": "./dist/client.mjs",
       "require": "./dist/client.cjs"
     },
-    "./server": {
-      "import": "./dist/server.mjs",
-      "require": "./dist/server.cjs"
-    },
-    "./common": {
-      "import": "./dist/common.mjs",
-      "require": "./dist/common.cjs"
+    "./*": {
+      "import": "./dist/*.mjs",
+      "require": "./dist/*.cjs"
     }
   },
   "scripts": {

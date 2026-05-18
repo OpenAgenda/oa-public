@@ -6,7 +6,7 @@ import PassDates from '../src/passCulture/Dates/index.js';
 
 import { changeDate, removeDate, getNextId } from '../src/passCulture/utils.js';
 
-import event from './fixtures/event.json';
+import event from './fixtures/event.json' with { type: 'json' };
 
 // eslint-disable-next-line
 import '@openagenda/bs-templates/compiled/main.css';

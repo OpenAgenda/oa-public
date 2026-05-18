@@ -2,9 +2,9 @@ import { createMemoryHistory } from 'history';
 import { http, HttpResponse } from 'msw';
 import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app.js';
-import agendasJson from './fixtures/agendas.json';
-import eventsJson from './fixtures/events.json';
-import meJson from './fixtures/me.json';
+import agendasJson from './fixtures/agendas.json' with { type: 'json' };
+import eventsJson from './fixtures/events.json' with { type: 'json' };
+import meJson from './fixtures/me.json' with { type: 'json' };
 
 import '@openagenda/bs-templates/compiled/main.css';
 import ProvidersDecorator from './decorators/Providers.js';

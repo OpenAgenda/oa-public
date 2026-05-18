@@ -1,6 +1,6 @@
 import { produce } from 'immer';
 import eventFormLabels from '@openagenda/labels/event/form.js';
-import merge from '@openagenda/form-schemas/client/build/iso/merge.js';
+import merge from '@openagenda/form-schemas/iso/merge.js';
 import schemaLanguages from './utils/schemaLanguages.js';
 import injectValidators from './utils/injectValidators.js';
 import eventFields from './fields/event.js';

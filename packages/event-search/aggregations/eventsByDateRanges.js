@@ -1,4 +1,4 @@
-import dateValidator from '@openagenda/validators/date.js';
+import dateValidator from '@openagenda/validators/date';
 
 const validateDate = dateValidator({
   default: 'now',

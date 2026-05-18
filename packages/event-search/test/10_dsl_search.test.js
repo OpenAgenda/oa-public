@@ -23,8 +23,11 @@ describe('10 - event-search - unit: dsl search', () => {
 
       await service('simple_search').rebuild({
         eventsList: async (lastId, limit) =>
-          (await import(`./fixtures/10_events.${lastId}.${limit}.json`))
-            .default,
+          (
+            await import(`./fixtures/10_events.${lastId}.${limit}.json`, {
+              with: { type: 'json' },
+            })
+          ).default,
       });
     });
 

@@ -1,4 +1,4 @@
-import validators from '../src';
+import validators from '../src/index.js';
 
 describe('boolean validator', () => {
   it('cleans true to true', () => {
@@ -56,11 +56,11 @@ describe('boolean validator', () => {
     expect(validate('11')).toBe(true);
   });
 
-  it('cleans \'0\' to false', () => {
+  it("cleans '0' to false", () => {
     expect(validators.boolean()('0')).toBe(false);
   });
 
-  it('cleans \'false\' to false', () => {
+  it("cleans 'false' to false", () => {
     expect(validators.boolean()('false')).toBe(false);
   });
 

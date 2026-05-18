@@ -4,16 +4,20 @@
   "private": true,
   "license": "MIT",
   "type": "module",
-  "main": "build/service/index.js",
+  "main": "./dist/service/index.mjs",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": "./dist/service/index.mjs",
+    "./*": "./dist/*.mjs"
+  },
   "scripts": {
     "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn sb --ci\"",
     "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM server.dev.js",
     "sb": "STORYBOOK_API_PORT=3000 storybook dev",
     "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --testEnvironment=node --forceExit --detectOpenHandles",
-    "build": "babel --copy-files -d build src -s --env-name esm --root-mode upward",
+    "build": "tsdown",
     "extract-messages": "oa-intl --esm",
-    "prepack": "yarn clean && oa-intl compile --esm && yarn build",
-    "clean": "rimraf build"
+    "prepack": "oa-intl compile --esm && yarn build"
   },
   "dependencies": {
     "@casl/ability": "^2.4.2",
@@ -36,13 +40,11 @@
     "react-use": "^17.6.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.28.3",
     "@openagenda/agendas": "^1.7.1",
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/users": "^3.1.1",
     "@storybook/addon-webpack5-compiler-babel": "^4.0.0",
     "@storybook/react-webpack5": "^10.2.0",
-    "babel-jest": "^29.7.0",
     "concurrently": "^6.0.2",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",
@@ -52,8 +54,8 @@
     "nodemon": "^3.0.3",
     "react": "^19.2.2",
     "react-dom": "^19.2.2",
-    "rimraf": "^3.0.1",
-    "storybook": "^10.2.0"
+    "storybook": "^10.2.0",
+    "tsdown": "^0.22.0"
   },
   "peerDependencies": {
     "react": "^19.2.2",

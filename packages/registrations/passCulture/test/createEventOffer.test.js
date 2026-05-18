@@ -3,7 +3,7 @@ import createEventOffer from '../createEventOffer.js';
 
 import PassCultureSDK from '../lib/PassCultureSDK.js';
 
-import fixtures from './fixtures/cart.events.json';
+import fixtures from './fixtures/cart.events.json' with { type: 'json' };
 
 const pickEvent = (slug) => fixtures.find((e) => slug === e.slug);
 

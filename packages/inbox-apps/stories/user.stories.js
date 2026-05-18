@@ -5,10 +5,10 @@ import createApp from '../src/app.js';
 
 import StandardDecorator from './decorators/Standard.js';
 
-import conversationFixtures from './fixtures/conversations.json';
-import conversationAuthorFixtures from './fixtures/author.json';
-import conversationMessagesFixtures from './fixtures/messages.json';
-import conversationUserContext from './fixtures/conversationUserContext.json';
+import conversationFixtures from './fixtures/conversations.json' with { type: 'json' };
+import conversationAuthorFixtures from './fixtures/author.json' with { type: 'json' };
+import conversationMessagesFixtures from './fixtures/messages.json' with { type: 'json' };
+import conversationUserContext from './fixtures/conversationUserContext.json' with { type: 'json' };
 
 import '@openagenda/bs-templates/compiled/main.css';
 

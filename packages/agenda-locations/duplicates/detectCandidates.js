@@ -1,10 +1,8 @@
-'use strict';
+import { BadRequest } from '@openagenda/verror';
 
-const { BadRequest } = require('@openagenda/verror');
-
-const buildDistancesAndEvaluate = require('./buildDistancesAndEvaluate');
-const cleanDetectCandidatesOptions = require('./cleanDetectCandidatesOptions');
-const addDuplicateCandidates = require('./addCandidates');
+import buildDistancesAndEvaluate from './buildDistancesAndEvaluate.js';
+import cleanDetectCandidatesOptions from './cleanDetectCandidatesOptions.js';
+import addDuplicateCandidates from './addCandidates.js';
 
 async function getLocation(endpoints, locationOrUid) {
   const location = locationOrUid?.constructor.name === 'Object'
@@ -68,4 +66,4 @@ async function detectDuplicateCandidates(
   return candidates;
 }
 
-module.exports = detectDuplicateCandidates;
+export default detectDuplicateCandidates;

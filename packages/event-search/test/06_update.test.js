@@ -9,7 +9,11 @@ describe('06 - event search - functional: update', () => {
 
     await service('test_index').rebuild({
       eventsList: async (lastId, limit) =>
-        (await import(`./fixtures/06_events.${lastId}.${limit}.json`)).default,
+        (
+          await import(`./fixtures/06_events.${lastId}.${limit}.json`, {
+            with: { type: 'json' },
+          })
+        ).default,
     });
   });
 

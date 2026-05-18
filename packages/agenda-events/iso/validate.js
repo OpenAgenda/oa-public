@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
-import schema from '@openagenda/validators/schema/index.js';
+import schema from '@openagenda/validators/schema/index';
 
-import integerValidator from '@openagenda/validators/integer.js';
-import booleanValidator from '@openagenda/validators/boolean.js';
-import choiceValidator from '@openagenda/validators/choice.js';
-import dateValidator from '@openagenda/validators/date.js';
-import passValidator from '@openagenda/validators/pass.js';
-import textValidator from '@openagenda/validators/text.js';
+import integerValidator from '@openagenda/validators/integer';
+import booleanValidator from '@openagenda/validators/boolean';
+import choiceValidator from '@openagenda/validators/choice';
+import dateValidator from '@openagenda/validators/date';
+import passValidator from '@openagenda/validators/pass';
+import textValidator from '@openagenda/validators/text';
 
 import eventStates from './states.js';
 

@@ -1,4 +1,4 @@
-import integerValidator from '@openagenda/validators/integer.js';
+import integerValidator from '@openagenda/validators/integer';
 
 const validate = integerValidator({ list: true });
 

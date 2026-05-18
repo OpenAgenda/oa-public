@@ -7,7 +7,7 @@ module.exports = {
     sourceType: 'module',
   },
 
-  ignorePatterns: ['/build'],
+  ignorePatterns: ['/dist'],
 
   rules: {
     'import/no-extraneous-dependencies': [
@@ -20,6 +20,7 @@ module.exports = {
           `${__dirname}/server.dev.js`,
           `${__dirname}/test/**/*.js`,
           `${__dirname}/scripts/**/*.js`,
+          `${__dirname}/tsdown.config.ts`,
         ],
       },
     ],

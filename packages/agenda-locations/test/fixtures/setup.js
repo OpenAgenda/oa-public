@@ -1,10 +1,8 @@
-'use strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import knexLib from 'knex';
 
-const fs = require('node:fs');
-const path = require('node:path');
-const knexLib = require('knex');
-
-const migrationsDir = path.resolve(__dirname, '../../migrations');
+const migrationsDir = path.resolve(import.meta.dirname, '../../migrations');
 
 function interpolate(raw, map) {
   let out = raw;
@@ -14,7 +12,7 @@ function interpolate(raw, map) {
   return out;
 }
 
-module.exports = async function setup({ mysql, schemas, data = [] }) {
+export default async function setup({ mysql, schemas, data = [] }) {
   const { database, ...connectionWithoutDb } = mysql;
 
   const bootstrap = knexLib({
@@ -48,4 +46,4 @@ module.exports = async function setup({ mysql, schemas, data = [] }) {
   }
 
   return knex;
-};
+}

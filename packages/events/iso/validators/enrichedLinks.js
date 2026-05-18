@@ -1,6 +1,6 @@
-import schema from '@openagenda/validators/schema/index.js';
-import link from '@openagenda/validators/link.js';
-import pass from '@openagenda/validators/pass.js';
+import schema from '@openagenda/validators/schema/index';
+import link from '@openagenda/validators/link';
+import pass from '@openagenda/validators/pass';
 
 schema.register({
   link,

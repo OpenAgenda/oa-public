@@ -1,9 +1,9 @@
-'use strict';
+import logger from '@openagenda/logs';
+import { BadRequest } from '@openagenda/verror';
+import addressValidator from '../validators/address.js';
+import deduceLanguageFromCountry from './deduceLanguageFromCountry.js';
 
-const log = require('@openagenda/logs')('lib/decorateWithGeocodeData');
-const { BadRequest } = require('@openagenda/verror');
-const addressValidator = require('../validators/address');
-const deduceLanguageFromCountry = require('./deduceLanguageFromCountry');
+const log = logger('lib/decorateWithGeocodeData');
 
 const hasCityAndDept = (g = {}) =>
   (!!g.city && !!g.department) || (!!g.adminLevel4 && !!g.adminLevel2);
@@ -136,7 +136,7 @@ async function getGeocodeData(interfaces, data, current) {
   return {};
 }
 
-module.exports = (service) =>
+export default (service) =>
   Object.assign(
     async (pdata, current = {}) => {
       const data = addAdminLevels(pdata);

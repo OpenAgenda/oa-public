@@ -2,9 +2,9 @@ import { http, HttpResponse } from 'msw';
 import { useState } from 'react';
 import FormSchemaBuilder from '../client/src/FormSchemaBuilder/index.js';
 import SimpleRowDecorator from './decorators/SimpleRow.js';
-import eventLikeSchema from './fixtures/eventLikeSchema.json';
-import schemaWithCategories from './fixtures/schemaWithCategories.json';
-import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas.json';
+import eventLikeSchema from './fixtures/eventLikeSchema.json' with { type: 'json' };
+import schemaWithCategories from './fixtures/schemaWithCategories.json' with { type: 'json' };
+import mixedMonoMultilingualSchemas from './fixtures/mixedMonoMultilingualSchemas.json' with { type: 'json' };
 
 export default {
   title: 'Form builder',

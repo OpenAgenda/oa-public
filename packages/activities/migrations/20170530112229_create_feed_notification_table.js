@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = async (knex) => {
+export const up = async (knex) => {
   const { schemas } = knex.client.config;
   const exists = await knex.schema.hasTable(schemas.feed_notification);
 
@@ -24,7 +22,7 @@ exports.up = async (knex) => {
   });
 };
 
-exports.down = (knex) => {
+export const down = (knex) => {
   const { schemas } = knex.client.config;
 
   return knex.schema.dropTableIfExists(schemas.feed_notification);

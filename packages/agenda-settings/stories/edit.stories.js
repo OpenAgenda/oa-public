@@ -6,7 +6,7 @@ import EditDecorator from './decorators/EditDecorator.js';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-import agenda from './fixtures/bdm.agenda.json';
+import agenda from './fixtures/bdm.agenda.json' with { type: 'json' };
 
 const getDefaultState = () => ({
   settings: {

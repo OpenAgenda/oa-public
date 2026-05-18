@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const flattenLocationTagSet = require('./flattenLocationTagSet');
+import _ from 'lodash';
+import flattenLocationTagSet from './flattenLocationTagSet.js';
 
 const defaultAccess = {
   authorized: true,
@@ -46,4 +44,4 @@ function clean(entrySettings, options) {
   return settings;
 }
 
-module.exports = clean;
+export default clean;

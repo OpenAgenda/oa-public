@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { useIntl, defineMessages } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { useLayoutData } from '@openagenda/react-shared';
-import ListVenues from '@openagenda/registration-apps/dist/components/bootstrap/ListVenues.js';
+import ListVenues from '@openagenda/registration-apps/components/bootstrap/ListVenues';
 import * as agendaActions from '../reducers/agenda.js';
 
 const messages = defineMessages({

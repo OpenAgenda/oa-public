@@ -6,22 +6,45 @@ import sourcesAdd from '../utils/sources/add.js';
 
 const fixtures = {
   jepOToJEP: (
-    await import('./fixtures/evaluate.jep-2019-occitanie.to.albi.json')
+    await import('./fixtures/evaluate.jep-2019-occitanie.to.albi.json', {
+      with: { type: 'json' },
+    })
   ).default,
-  eventBeforePublish: (await import('./fixtures/eventBeforePublish.json'))
-    .default,
-  eventNowPublish: (await import('./fixtures/eventNowPublish.json')).default,
-  eventBeforeUnpublish: (await import('./fixtures/eventBeforeUnpublish.json'))
-    .default,
-  eventNowUnpublish: (await import('./fixtures/eventNowUnpublish.json'))
-    .default,
-  eventBeforeChange: (await import('./fixtures/eventBeforeChange.json'))
-    .default,
-  eventNowChange: (await import('./fixtures/eventNowChange.json')).default,
-  simpleSourceSchema: (await import('./fixtures/simpleSourceSchema.json'))
-    .default,
+  eventBeforePublish: (
+    await import('./fixtures/eventBeforePublish.json', {
+      with: { type: 'json' },
+    })
+  ).default,
+  eventNowPublish: (
+    await import('./fixtures/eventNowPublish.json', { with: { type: 'json' } })
+  ).default,
+  eventBeforeUnpublish: (
+    await import('./fixtures/eventBeforeUnpublish.json', {
+      with: { type: 'json' },
+    })
+  ).default,
+  eventNowUnpublish: (
+    await import('./fixtures/eventNowUnpublish.json', {
+      with: { type: 'json' },
+    })
+  ).default,
+  eventBeforeChange: (
+    await import('./fixtures/eventBeforeChange.json', {
+      with: { type: 'json' },
+    })
+  ).default,
+  eventNowChange: (
+    await import('./fixtures/eventNowChange.json', { with: { type: 'json' } })
+  ).default,
+  simpleSourceSchema: (
+    await import('./fixtures/simpleSourceSchema.json', {
+      with: { type: 'json' },
+    })
+  ).default,
   simpleAggregatorSchema: (
-    await import('./fixtures/simpleAggregatorSchema.json')
+    await import('./fixtures/simpleAggregatorSchema.json', {
+      with: { type: 'json' },
+    })
   ).default,
 };
 

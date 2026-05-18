@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import { createRoot } from 'react-dom/client';
 import { createMemoryHistory } from 'history';
-import createApp from '@openagenda/inbox-apps/src/app';
+import createApp from '@openagenda/inbox-apps';
 import { wrapApp } from '@openagenda/react-shared';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';

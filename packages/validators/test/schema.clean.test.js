@@ -1,83 +1,87 @@
-import clean from '../src/schema/clean';
+import clean from '../src/schema/clean.js';
 
 describe('schema clean', () => {
   it('fields of known types are read as leaves ( not schema validators )', () => {
-    expect(clean({
-      search: { 
-        type: 'text', 
-        optional: true, 
-        default: null 
-      },
-      official: {
-        type: 'boolean',
-        optional: true,
-        default: null 
-      },
-      sort: {
-        type: 'regex',
-        optional: true,
-        error: { code: 'sort.invalid', message: 'sort value is not valid' },
-        regex: /createdAt\.desc/,
-        default: null 
-      }
-    })).toEqual({
-      list: false,
-      type: 'schema',
-      fields: {
+    expect(
+      clean({
         search: {
           type: 'text',
           optional: true,
-          default: null
+          default: null,
         },
         official: {
           type: 'boolean',
           optional: true,
-          default: null 
+          default: null,
         },
         sort: {
           type: 'regex',
           optional: true,
           error: { code: 'sort.invalid', message: 'sort value is not valid' },
           regex: /createdAt\.desc/,
-          default: null 
-        }
-      }
+          default: null,
+        },
+      }),
+    ).toEqual({
+      list: false,
+      type: 'schema',
+      fields: {
+        search: {
+          type: 'text',
+          optional: true,
+          default: null,
+        },
+        official: {
+          type: 'boolean',
+          optional: true,
+          default: null,
+        },
+        sort: {
+          type: 'regex',
+          optional: true,
+          error: { code: 'sort.invalid', message: 'sort value is not valid' },
+          regex: /createdAt\.desc/,
+          default: null,
+        },
+      },
     });
   });
 
   it('clean adds fields to fieldless structure', () => {
-    expect(clean({
-      title: {
-        type: 'text'
-      },
-      settings: {
-        credentials: {
-          type: 'boolean'
+    expect(
+      clean({
+        title: {
+          type: 'text',
         },
-        info: {
-          type: 'text'
-        }
-      }
-    })).toEqual({
+        settings: {
+          credentials: {
+            type: 'boolean',
+          },
+          info: {
+            type: 'text',
+          },
+        },
+      }),
+    ).toEqual({
       list: false,
       type: 'schema',
       fields: {
         title: {
-          type: 'text'
+          type: 'text',
         },
         settings: {
           type: 'schema',
           list: false,
           fields: {
             credentials: {
-              type: 'boolean'
+              type: 'boolean',
             },
             info: {
-              type: 'text'
-            }
-          }
-        }
-      }
+              type: 'text',
+            },
+          },
+        },
+      },
     });
   });
 });

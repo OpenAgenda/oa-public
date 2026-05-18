@@ -1,6 +1,6 @@
-import schema from '@openagenda/validators/schema/index.js';
-import textValidator from '@openagenda/validators/text.js';
-import linkValidator from '@openagenda/validators/link.js';
+import schema from '@openagenda/validators/schema/index';
+import textValidator from '@openagenda/validators/text';
+import linkValidator from '@openagenda/validators/link';
 
 const requiredError = (field = null) => [
   {

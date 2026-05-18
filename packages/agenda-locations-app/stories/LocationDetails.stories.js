@@ -6,9 +6,9 @@ import LocationDetails from '../src/components/LocationDetails.js';
 import Providers from './decorators/Providers.js';
 import ComponentCanvas from './decorators/ComponentCanvas.js';
 
-import agendaFixture from './fixtures/mel.json';
-import locationFixture from './fixtures/location.json';
-import settingsFixture from './fixtures/agendaTestSettings.json';
+import agendaFixture from './fixtures/mel.json' with { type: 'json' };
+import locationFixture from './fixtures/location.json' with { type: 'json' };
+import settingsFixture from './fixtures/agendaTestSettings.json' with { type: 'json' };
 
 export default {
   title: 'LocationDetails',

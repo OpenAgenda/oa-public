@@ -2,7 +2,7 @@ import { http, HttpResponse } from 'msw';
 import { setupServer } from 'msw/node';
 import PassCultureSDK from '../lib/PassCultureSDK.js';
 import eventOffer from '../apply/eventOffer.js';
-import openAPIData from './fixtures/openapi.json';
+import openAPIData from './fixtures/openapi.json' with { type: 'json' };
 
 const api = 'https://pc.local';
 

@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import multilingual from '@openagenda/validators/multilingual.js';
+import multilingual from '@openagenda/validators/multilingual';
 
 const validate = multilingual({
   max: 255,

@@ -1,9 +1,7 @@
-'use strict';
-
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');
-const notificationStates = require('../notificationStates');
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import promisePlusCb from '@openagenda/service-utils/promisePlusCb.js';
+import notificationStates from '../notificationStates.js';
 
 function parseArguments(identifiers, query, newState, options, cb) {
   const result = {
@@ -106,4 +104,4 @@ function markAs(config, ...rest) {
   return promisePlusCb(promise, cb);
 }
 
-module.exports = markAs;
+export default markAs;

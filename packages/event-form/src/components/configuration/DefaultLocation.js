@@ -3,8 +3,8 @@ import { useState, useEffect } from 'react';
 import countries from '@openagenda/countries/labels.js';
 import defaultLocationLabels from '@openagenda/labels/event/defaultLocation.js';
 import flattenLabels from '@openagenda/labels/flatten.js';
-import LocationSelector from '@openagenda/agenda-locations-app/dist/components/LocationSelector.js';
-import Provider from '@openagenda/agenda-locations-app/dist/decorators/Providers.js';
+import LocationSelector from '@openagenda/agenda-locations-app/components/LocationSelector';
+import Provider from '@openagenda/agenda-locations-app/decorators/Providers';
 
 const DefaultLocation = ({
   lang = 'fr',

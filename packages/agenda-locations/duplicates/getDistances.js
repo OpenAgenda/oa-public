@@ -1,8 +1,6 @@
-'use strict';
-
-const _ = require('lodash');
-const { distance } = require('fastest-levenshtein');
-const jaro = require('jaro-winkler');
+import _ from 'lodash';
+import { distance } from 'fastest-levenshtein';
+import jaro from 'jaro-winkler';
 
 function getDistance(l1, l2) {
   const R = 6371e3;
@@ -17,7 +15,7 @@ function getDistance(l1, l2) {
   return R * c;
 }
 
-module.exports = (location1, location2) => {
+export default (location1, location2) => {
   const levenshteinName = distance(location1.name, location2.name);
   const jaroName = 100 - jaro(location1.name, location2.name) * 100;
   const geoDistance = getDistance(

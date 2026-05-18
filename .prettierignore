@@ -13,12 +13,11 @@ packages/cibul-templates
 packages/labels
 packages/mep
 packages/utils
-packages/validators
 # public packages
 public/bs-templates
 public/polyfills
 
-packages/abilities/build
+packages/abilities/dist
 packages/activity-apps/dist
 packages/agenda-contribute/dist
 packages/agenda-locations-app/dist

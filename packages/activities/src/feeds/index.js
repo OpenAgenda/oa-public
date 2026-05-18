@@ -1,13 +1,11 @@
-'use strict';
+import _ from 'lodash';
+import create from './create.js';
+import get from './get.js';
+import follow from './follow.js';
+import unfollow from './unfollow.js';
+import remove from './remove.js';
 
-const _ = require('lodash');
-const create = require('./create');
-const get = require('./get');
-const follow = require('./follow');
-const unfollow = require('./unfollow');
-const remove = require('./remove');
-
-module.exports = function feeds(config, identifiers) {
+export default function feeds(config, identifiers) {
   return _.mapValues(
     {
       create,
@@ -18,4 +16,4 @@ module.exports = function feeds(config, identifiers) {
     },
     (fn) => fn.bind(null, config, identifiers),
   );
-};
+}

@@ -1,11 +1,12 @@
-import errors from './lib/errors';
+import errors from './lib/errors.js';
 
 export default (config = {}) => {
   const params = {
     optional: false,
     field: false, // required
     regex: false, // required
-    error: { // replace with something more specific
+    error: {
+      // replace with something more specific
       code: 'regex.mismatch',
       message: 'regex does not match',
     },
@@ -17,7 +18,7 @@ export default (config = {}) => {
     ...config,
   };
 
-  const validator = value => {
+  const validator = (value) => {
     let clean = value ? `${value}` : value;
 
     if (params.optional && (!clean || !clean.length)) {
@@ -25,12 +26,7 @@ export default (config = {}) => {
     }
 
     if (!params.optional && !clean) {
-      throw errors(
-        params,
-        value,
-        'required',
-        'value must not be empty',
-      );
+      throw errors(params, value, 'required', 'value must not be empty');
     }
 
     if (typeof clean === 'string' && params.trim) {
@@ -38,21 +34,11 @@ export default (config = {}) => {
     }
 
     if (params.min !== null && clean.length < params.min) {
-      throw errors(
-        params,
-        value,
-        'tooshort',
-        'value is too short',
-      );
+      throw errors(params, value, 'tooshort', 'value is too short');
     }
 
     if (params.max !== null && clean.length > params.max) {
-      throw errors(
-        params,
-        value,
-        'toolong',
-        'value is too long',
-      );
+      throw errors(params, value, 'toolong', 'value is too long');
     }
 
     if (!params.regex.test(clean)) {

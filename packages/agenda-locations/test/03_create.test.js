@@ -1,17 +1,17 @@
-'use strict';
+import fs from 'node:fs';
+import _ from 'lodash';
+import redis from 'redis';
 
-const fs = require('node:fs');
-const _ = require('lodash');
-const redis = require('redis');
+import Files from '@openagenda/files';
+import Service from '../index.js';
+import testconfig from './testconfig.js';
 
-const Files = require('@openagenda/files');
-const Service = require('..');
-const { service: config, dependencies: dConfig } = require('./testconfig');
+import setup from './fixtures/setup.js';
 
-const setup = require('./fixtures/setup');
+import payload from './fixtures/createData.json' with { type: 'json' };
+import initSettings from './fixtures/agendaTestSettings.js';
 
-const payload = require('./fixtures/createData.json');
-const initSettings = require('./fixtures/agendaTestSettings');
+const { service: config, dependencies: dConfig } = testconfig;
 
 const defaultAccess = {
   authorized: true,
@@ -49,7 +49,7 @@ describe('agenda-locations - functional - create', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
     });
 
     redisClient = await redis.createClient({
@@ -224,7 +224,7 @@ describe('agenda-locations - functional - create', () => {
         created = await svc(7196947).create({
           ...payload,
           image: fs.createReadStream(
-            `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+            `${import.meta.dirname}/fixtures/images/vieilles_pierres.jpg`,
           ),
         });
       } catch (e) {
@@ -247,7 +247,7 @@ describe('agenda-locations - functional - create', () => {
           {
             ...payload,
             image: fs.createReadStream(
-              `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+              `${import.meta.dirname}/fixtures/images/vieilles_pierres.jpg`,
             ),
           },
           {
@@ -444,7 +444,7 @@ describe('agenda-locations - functional - create', () => {
           longitude: 2.3622204,
           countryCode: 'FR',
           image: fs.createReadStream(
-            `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+            `${import.meta.dirname}/fixtures/images/vieilles_pierres.jpg`,
           ),
           imageCredits: 'Photo by 📷 John',
         });
@@ -461,7 +461,7 @@ describe('agenda-locations - functional - create', () => {
           longitude: 2.3622204,
           countryCode: 'FR',
           image: fs.createReadStream(
-            `${__dirname}/fixtures/images/vieilles_pierres.jpg`,
+            `${import.meta.dirname}/fixtures/images/vieilles_pierres.jpg`,
           ),
           imageCredits: 'Photo ©️ John Doe',
         });
@@ -520,7 +520,7 @@ describe('agenda-locations - functional - create - no rights', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
     });
 
     svc = Service({

@@ -1,4 +1,4 @@
-import integerValidator from '@openagenda/validators/integer.js';
+import integerValidator from '@openagenda/validators/integer';
 
 export default ({ field }) => {
   const validateSingle = integerValidator(field);

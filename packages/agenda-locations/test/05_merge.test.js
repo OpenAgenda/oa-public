@@ -1,13 +1,13 @@
-'use strict';
+import Files from '@openagenda/files';
 
-const Files = require('@openagenda/files');
+import Service from '../index.js';
+import testconfig from './testconfig.js';
+import setup from './fixtures/setup.js';
 
-const Service = require('..');
-const { service: config, dependencies: dConfig } = require('./testconfig');
-const setup = require('./fixtures/setup');
+// import payload from './fixtures/mergeData.json' with { type: 'json' };
+import initSettings from './fixtures/agendaTestSettings.js';
 
-// const payload = require('./fixtures/mergeData.json');
-const initSettings = require('./fixtures/agendaTestSettings');
+const { service: config, dependencies: dConfig } = testconfig;
 
 const defaultAccess = {
   authorized: true,
@@ -46,7 +46,7 @@ describe('agenda-locations - functional - merge', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
     });
 
     svc = Service({
@@ -197,7 +197,7 @@ describe('agenda-locations - functional - merge - no rights', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [`${__dirname}/fixtures/ardeche/rows.sql`],
+      data: [`${import.meta.dirname}/fixtures/ardeche/rows.sql`],
     });
 
     svc = Service({
@@ -269,7 +269,7 @@ describe('agenda-locations - functional - merge - duplicates', () => {
     knex = await setup({
       mysql: config.mysql,
       schemas: config.schemas,
-      data: [`${__dirname}/fixtures/hauteSavoie.sql`],
+      data: [`${import.meta.dirname}/fixtures/hauteSavoie.sql`],
     });
 
     svc = Service({

@@ -1,5 +1,3 @@
-'use strict';
-
 const geoFields = [
   {
     countryCode: null,
@@ -94,7 +92,7 @@ const geoFields = [
   }),
 }));
 
-module.exports = (country, field) => {
+export default (country, field) => {
   if (!field) {
     return (
       geoFields.find((e) => e.countryCode === country)

@@ -7,9 +7,9 @@ import createApp from '../src/index.js';
 import componentFromFixtures from './utils/componentFromFixtures.js';
 import ProvidersDecorator from './decorators/Providers.js';
 import loadInitialState from './utils/loadInitialState.js';
-import agenda from './fixtures/basic.detailed.agenda.json';
-import { event } from './fixtures/event.json';
-import agendaContributorContext from './fixtures/agendaContributor.context.json';
+import agenda from './fixtures/basic.detailed.agenda.json' with { type: 'json' };
+import { event } from './fixtures/event.json' with { type: 'json' };
+import agendaContributorContext from './fixtures/agendaContributor.context.json' with { type: 'json' };
 
 export default {
   title: 'App - Step 3: Confirmation',

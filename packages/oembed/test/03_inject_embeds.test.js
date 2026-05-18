@@ -1,6 +1,6 @@
 import options from '../testconfig.js';
 import OEmbed from '../index.js';
-import links from './fixtures/links.json';
+import links from './fixtures/links.json' with { type: 'json' };
 
 describe('03 - injecting embedded items in html render', () => {
   const oe = new OEmbed(options);

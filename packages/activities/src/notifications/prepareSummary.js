@@ -1,11 +1,9 @@
-'use strict';
+import _ from 'lodash';
+import logger from '@openagenda/logs';
 
-const _ = require('lodash');
-const log = require('@openagenda/logs')(
-  'activities/notifications/prepareSummary',
-);
+const log = logger('activities/notifications/prepareSummary');
 
-module.exports = async function prepareSummary(config, feed) {
+export default async function prepareSummary(config, feed) {
   const { knex, interfaces } = config;
   const { getUser, sendSummary } = interfaces;
 
@@ -53,4 +51,4 @@ module.exports = async function prepareSummary(config, feed) {
       e,
     );
   }
-};
+}

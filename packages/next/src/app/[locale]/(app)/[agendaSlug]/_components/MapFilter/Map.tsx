@@ -1,6 +1,6 @@
 'use client';
 
-import ReactFiltersMap from '@openagenda/react-filters/components/fields/MapField/Map.js';
+import ReactFiltersMap from '@openagenda/react-filters/components/fields/MapField/Map';
 import {
   gestureHandlingStyle,
   markerClusterStyle,

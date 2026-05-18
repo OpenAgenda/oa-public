@@ -1,7 +1,5 @@
-'use strict';
-
-const { Transform } = require('node:stream');
-const transformAndDecorateItems = require('./transformAndDecorateItems');
+import { Transform } from 'node:stream';
+import transformAndDecorateItems from './transformAndDecorateItems.js';
 
 const processBufferedItems = (stream, service, buffer, options, cb) => {
   transformAndDecorateItems(
@@ -16,7 +14,7 @@ const processBufferedItems = (stream, service, buffer, options, cb) => {
   }, cb);
 };
 
-module.exports = (service, knexQuery, options = {}) => {
+export default (service, knexQuery, options = {}) => {
   const knexStream = knexQuery.stream({
     highWaterMark: options.stream.highWaterMark,
   });

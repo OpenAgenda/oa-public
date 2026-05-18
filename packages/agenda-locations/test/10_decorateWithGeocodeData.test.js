@@ -1,6 +1,4 @@
-'use strict';
-
-const decorateWithGeocodeData = require('../lib/decorateWithGeocodeData');
+import decorateWithGeocodeData from '../lib/decorateWithGeocodeData.js';
 
 describe('decorateWithGeocodeData', () => {
   let decorate;

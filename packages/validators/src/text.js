@@ -1,26 +1,31 @@
-import listify from './listify';
-import cleanParams from './lib/params';
-import convertToUTFMB3 from './lib/convertToUTFMB3';
-import errors from './lib/errors';
-import { emojiReg } from './lib/emojireg';
-import validateLength from './lib/length';
+import listify from './listify.js';
+import cleanParams from './lib/params.js';
+import convertToUTFMB3 from './lib/convertToUTFMB3.js';
+import errors from './lib/errors.js';
+import { emojiReg } from './lib/emojireg.js';
+import validateLength from './lib/length.js';
 
-export default config => {
-  const params = cleanParams('text', config, {
-    field: false, // required
-    min: 0,
-    max: 1000000,
-    trim: true,
-    optional: true,
-    default: null,
-    list: false,
-    strict: false,
-    emptyStringAsUndefined : true,
-    rejectEmojis: false,
-    sanitizeEncoding: null,
-  }, config || {});
+export default (config) => {
+  const params = cleanParams(
+    'text',
+    config,
+    {
+      field: false, // required
+      min: 0,
+      max: 1000000,
+      trim: true,
+      optional: true,
+      default: null,
+      list: false,
+      strict: false,
+      emptyStringAsUndefined: true,
+      rejectEmojis: false,
+      sanitizeEncoding: null,
+    },
+    config || {},
+  );
 
-  const validate = value => {
+  const validate = (value) => {
     let clean = [undefined, null].includes(value) ? '' : `${value}`;
 
     if (typeof value === 'object' && clean) {
@@ -35,8 +40,11 @@ export default config => {
       clean = clean.trim();
     }
 
-    if (value === undefined || value === null ||
-      (!clean.length && params.emptyStringAsUndefined )) {
+    if (
+      value === undefined ||
+      value === null ||
+      (!clean.length && params.emptyStringAsUndefined)
+    ) {
       if (params.optional || ![undefined, null].includes(params.default)) {
         return params.default;
       }
@@ -50,7 +58,12 @@ export default config => {
     }
 
     if (clean && params.rejectEmojis && emojiReg.test(clean)) {
-      throw errors(params, value, 'string.invalidHasEmojis', 'emojis are not accepted');
+      throw errors(
+        params,
+        value,
+        'string.invalidHasEmojis',
+        'emojis are not accepted',
+      );
     }
 
     return clean;
@@ -58,7 +71,7 @@ export default config => {
 
   const validator = Object.assign(validate, {
     type: 'text',
-    field: params.field
+    field: params.field,
   });
 
   return params.list ? listify(validator, params) : validator;

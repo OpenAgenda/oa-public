@@ -1,15 +1,13 @@
-'use strict';
+import addActivity from './addActivity.js';
+import count from './count.js';
+import get from './get.js';
+import list from './list.js';
+import markAs from './markAs.js';
+import remove from './remove.js';
+import enqueueSummaries from './enqueueSummaries.js';
+import prepareSummary from './prepareSummary.js';
 
-const addActivity = require('./addActivity');
-const count = require('./count');
-const get = require('./get');
-const list = require('./list');
-const markAs = require('./markAs');
-const remove = require('./remove');
-const enqueueSummaries = require('./enqueueSummaries');
-const prepareSummary = require('./prepareSummary');
-
-module.exports = function notifications(config, identifiers) {
+export default function notifications(config, identifiers) {
   return {
     addActivity: addActivity.bind(null, config, identifiers),
     count: count.bind(null, config, identifiers),
@@ -20,4 +18,4 @@ module.exports = function notifications(config, identifiers) {
     enqueueSummaries: enqueueSummaries.bind(null, config),
     prepareSummary: prepareSummary.bind(null, config),
   };
-};
+}

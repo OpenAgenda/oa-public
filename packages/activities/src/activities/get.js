@@ -1,9 +1,9 @@
-'use strict';
+import schema from '@openagenda/validators/schema';
+import validators from '@openagenda/validators';
+import logger from '@openagenda/logs';
+import applyMask from './utils/applyMask.js';
 
-const schema = require('@openagenda/validators/schema');
-const validators = require('@openagenda/validators');
-const log = require('@openagenda/logs')('activities/get');
-const applyMask = require('./utils/applyMask');
+const log = logger('activities/get');
 
 schema.register({
   number: validators.number,
@@ -45,7 +45,7 @@ const fieldsSchema = [
   },
 ];
 
-module.exports = async function get(config, feedIdentifiers, activityId) {
+export default async function get(config, feedIdentifiers, activityId) {
   const { service, knex } = config;
 
   const dataSchema = fieldsSchema.reduce((prev, field) => {
@@ -109,4 +109,4 @@ module.exports = async function get(config, feedIdentifiers, activityId) {
   activity.store = JSON.parse(activity.store);
 
   return applyMask(activity);
-};
+}

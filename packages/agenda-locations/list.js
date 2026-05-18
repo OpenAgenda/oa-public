@@ -1,20 +1,21 @@
-'use strict';
+import _ from 'lodash';
+import { BadRequest } from '@openagenda/verror';
+import logger from '@openagenda/logs';
 
-const _ = require('lodash');
-const { BadRequest } = require('@openagenda/verror');
-const logs = require('@openagenda/logs');
+import addListQuery from './lib/addListQuery.js';
+import addPaginationAndOrder from './lib/paginationAndOrder.js';
+import {
+  make as makeAfter,
+  include as includeAfterFields,
+} from './lib/after.js';
+import addSelect from './lib/addSelect.js';
+import createStream from './lib/createStream.js';
+import validateNav from './lib/validateNav.js';
+import validateListOptions from './lib/validateListOptions.js';
+import transformAndDecorateItems from './lib/transformAndDecorateItems.js';
+import pickContextIdentifiers from './lib/pickAndCleanContextIdentifiers.js';
 
-const addListQuery = require('./lib/addListQuery');
-const addPaginationAndOrder = require('./lib/paginationAndOrder');
-const { make: makeAfter, include: includeAfterFields } = require('./lib/after');
-const addSelect = require('./lib/addSelect');
-const createStream = require('./lib/createStream');
-const validateNav = require('./lib/validateNav');
-const validateListOptions = require('./lib/validateListOptions');
-const transformAndDecorateItems = require('./lib/transformAndDecorateItems');
-const pickContextIdentifiers = require('./lib/pickAndCleanContextIdentifiers');
-
-const log = logs('list');
+const log = logger('list');
 
 async function list(service, query = {}, nav = {}, options = {}) {
   const inflatedQuery = Object.keys(query || {}).length
@@ -90,9 +91,7 @@ async function list(service, query = {}, nav = {}, options = {}) {
   return _.omit(result, ['rows']);
 }
 
-module.exports = list;
-
-module.exports.byAgendaUid = async (
+list.byAgendaUid = async (
   service,
   agendaUid,
   query = {},
@@ -109,13 +108,7 @@ module.exports.byAgendaUid = async (
   });
 };
 
-module.exports.bySetUid = async (
-  service,
-  setUid,
-  query = {},
-  nav = {},
-  options = {},
-) => {
+list.bySetUid = async (service, setUid, query = {}, nav = {}, options = {}) => {
   if (!setUid) {
     throw new BadRequest('set uid is not specified');
   }
@@ -125,3 +118,5 @@ module.exports.bySetUid = async (
     endpointId: { setUid },
   });
 };
+
+export default list;

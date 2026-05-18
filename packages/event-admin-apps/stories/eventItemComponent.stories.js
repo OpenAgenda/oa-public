@@ -2,11 +2,11 @@ import EventItem from '../src/components/EventItem.js';
 import SimplePageDecorator from './decorators/SimplePage.js';
 import ProvidersDecorator from './decorators/Providers.js';
 
-import aggregatedEvent from './fixtures/aggregated.event.json';
-import contributedEvent from './fixtures/contributed.event.json';
-import sharedEvent from './fixtures/shared.event.json';
-import anonymouslyContributedEvent from './fixtures/anonymouslyContributed.event.json';
-import memberlessSharedEvent from './fixtures/memberlessShared.event.json';
+import aggregatedEvent from './fixtures/aggregated.event.json' with { type: 'json' };
+import contributedEvent from './fixtures/contributed.event.json' with { type: 'json' };
+import sharedEvent from './fixtures/shared.event.json' with { type: 'json' };
+import anonymouslyContributedEvent from './fixtures/anonymouslyContributed.event.json' with { type: 'json' };
+import memberlessSharedEvent from './fixtures/memberlessShared.event.json' with { type: 'json' };
 
 import '@openagenda/bs-templates/compiled/main.css';
 

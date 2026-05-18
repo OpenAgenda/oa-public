@@ -1,11 +1,8 @@
-'use strict';
-
-const _ = require('lodash');
-const testconfig = require('../testconfig');
-const Service = require('../src');
-const setup = require('./fixtures/setup');
-
-const { reset } = setup;
+import { jest } from '@jest/globals';
+import _ from 'lodash';
+import testconfig from '../testconfig.js';
+import Service from '../src/index.js';
+import setup, { reset } from './fixtures/setup.js';
 
 describe('activities - activities', () => {
   jest.setTimeout(60000);

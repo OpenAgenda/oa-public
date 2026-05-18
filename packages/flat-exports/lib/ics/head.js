@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
-import textValidator from '@openagenda/validators/text.js';
+import schema from '@openagenda/validators/schema/index';
+import textValidator from '@openagenda/validators/text';
 import esc from './escape.js';
 import foldLine from './foldLine.js';
 

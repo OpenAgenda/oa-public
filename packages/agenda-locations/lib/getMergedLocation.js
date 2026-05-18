@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = async (endpoints, identifiers, fetchedLocation, options) => {
+export default async (endpoints, identifiers, fetchedLocation, options) => {
   const mergedIn = fetchedLocation?.mergedIn
     || await endpoints
       .get(identifiers, { includeFields: ['mergedIn'], deleted: true })

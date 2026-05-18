@@ -1,22 +1,20 @@
-'use strict';
+import fs from 'node:fs';
+import http from 'node:http';
+import _ from 'lodash';
+import cors from 'cors';
+import redis from 'redis';
+import express from 'express';
+import morgan from 'morgan';
 
-const fs = require('node:fs');
-const http = require('node:http');
-const _ = require('lodash');
-const cors = require('cors');
-const redis = require('redis');
-const express = require('express');
-const morgan = require('morgan');
+import Files from '@openagenda/files';
+import multer from 'multer';
+
+import fixtures from './test/fixtures/setup.js';
+import Service from './index.js';
 
 const log = (...args) => {
   console.log.apply(null, args);
 };
-
-const Files = require('@openagenda/files');
-const multer = require('multer');
-
-const fixtures = require('./test/fixtures');
-const Service = require('.');
 
 (async () => {
   const f = fixtures({

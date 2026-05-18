@@ -1,17 +1,15 @@
-'use strict';
+import { NotFound } from '@openagenda/verror';
+import logger from '@openagenda/logs';
 
-const { NotFound } = require('@openagenda/verror');
-const logs = require('@openagenda/logs');
+import cleanOptions from './lib/cleanSetOptions.js';
+import get from './get.js';
+import validate from './lib/validate.js';
+import authorize from './lib/authorize.js';
+import preCleanBeforeUpdate from './lib/preCleanBeforeUpdate.js';
+import * as formatExtIds from './lib/formatExtIds.js';
+import filterFieldsByAccess from './lib/filterFieldsByAccess.js';
 
-const cleanOptions = require('./lib/cleanSetOptions');
-const get = require('./get');
-const validate = require('./lib/validate');
-const authorize = require('./lib/authorize');
-const preCleanBeforeUpdate = require('./lib/preCleanBeforeUpdate');
-const formatExtIds = require('./lib/formatExtIds');
-const filterFieldsByAccess = require('./lib/filterFieldsByAccess');
-
-const log = logs('update');
+const log = logger('update');
 
 async function update({ service, isPatch }, current, data, options = {}) {
   const {
@@ -129,7 +127,7 @@ async function update({ service, isPatch }, current, data, options = {}) {
   return filterFieldsByAccess(formatExtIds.afterRead(updated));
 }
 
-module.exports = async (
+const updateMain = async (
   { service, isPatch },
   identifiers,
   data,
@@ -151,7 +149,7 @@ module.exports = async (
   return update({ service, isPatch }, current, data, options);
 };
 
-module.exports.byAgendaUid = async (
+updateMain.byAgendaUid = async (
   { service, isPatch },
   agendaUid,
   identifiers,
@@ -180,7 +178,7 @@ module.exports.byAgendaUid = async (
   return update({ service, isPatch }, current, data, options);
 };
 
-module.exports.bySetUid = async (
+updateMain.bySetUid = async (
   { service, isPatch },
   setUid,
   identifiers,
@@ -205,3 +203,5 @@ module.exports.bySetUid = async (
 
   return update({ service, isPatch }, current, data, options);
 };
+
+export default updateMain;

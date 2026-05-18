@@ -1,5 +1,5 @@
-import fr from './fr.json';
-import en from './en.json';
+import fr from './fr.json' with { type: 'json' };
+import en from './en.json' with { type: 'json' };
 
 export default {
   fr,

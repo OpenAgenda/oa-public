@@ -4,8 +4,8 @@ import { wrapApp } from '@openagenda/react-shared';
 import createApp from '../src/app.js';
 import PageDecorator from './decorators/PageDecorator.js';
 import IntlDecorator from './decorators/IntlDecorator.js';
-import sourcesJson from './fixtures/sources.json';
-import agendasJson from './fixtures/agendas.json';
+import sourcesJson from './fixtures/sources.json' with { type: 'json' };
+import agendasJson from './fixtures/agendas.json' with { type: 'json' };
 
 import '@openagenda/bs-templates/compiled/main.css';
 

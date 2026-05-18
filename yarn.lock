@@ -10325,7 +10325,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/abilities@workspace:packages/abilities"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@casl/ability": "npm:^2.4.2"
     "@openagenda/agendas": "npm:^1.7.1"
     "@openagenda/bs-templates": "npm:^2.5.1"
@@ -10336,7 +10335,6 @@ __metadata:
     "@openagenda/users": "npm:^3.1.1"
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
-    babel-jest: "npm:^29.7.0"
     classnames: "npm:^2.3.1"
     concurrently: "npm:^6.0.2"
     cors: "npm:^2.8.5"
@@ -10359,8 +10357,8 @@ __metadata:
     react-final-form: "npm:^4.1.0"
     react-intl: "npm:^10.1.1"
     react-use: "npm:^17.6.0"
-    rimraf: "npm:^3.0.1"
     storybook: "npm:^10.2.0"
+    tsdown: "npm:^0.22.0"
   peerDependencies:
     react: ^19.2.2
     react-dom: ^19.2.2
@@ -10371,6 +10369,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/activities@workspace:packages/activities"
   dependencies:
+    "@jest/globals": "npm:^29.7.0"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/service-utils": "npm:^2.0.0"
     "@openagenda/validators": "npm:^2.4.0"
@@ -10386,7 +10385,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/activity-apps@workspace:packages/activity-apps"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/activities": "npm:^2.3.1"
     "@openagenda/bs-templates": "npm:^2.5.1"
@@ -10423,9 +10421,9 @@ __metadata:
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
     redux-form: "npm:^8.1.0"
-    rimraf: "npm:^3.0.1"
     storybook: "npm:^10.2.0"
     swr: "npm:^2.1.1"
+    tsdown: "npm:^0.22.0"
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^19.2.2
@@ -10581,7 +10579,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/agenda-locations-app@workspace:packages/agenda-locations-app"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@emotion/babel-plugin": "npm:^11.11.0"
     "@emotion/react": "npm:^11.11.1"
     "@loadable/component": "npm:^5.14.1"
@@ -10625,6 +10622,7 @@ __metadata:
     redux: "npm:^4.0.0"
     source-map-loader: "npm:^2.0.1"
     storybook: "npm:^10.2.0"
+    tsdown: "npm:^0.22.0"
     use-debounce: "npm:^10.0.4"
   peerDependencies:
     react: ^19.2.2
@@ -10933,7 +10931,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/aggregator-sources@workspace:packages/aggregator-sources"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@dnd-kit/core": "npm:^6.3.1"
     "@dnd-kit/sortable": "npm:^10.0.0"
     "@dnd-kit/utilities": "npm:^3.2.2"
@@ -10977,9 +10974,9 @@ __metadata:
     react-waypoint: "npm:^9.0.2"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
-    rimraf: "npm:^3.0.1"
     storybook: "npm:^10.2.0"
     toggle-selection: "npm:^1.0.6"
+    tsdown: "npm:^0.22.0"
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^19.2.2
@@ -11492,7 +11489,6 @@ __metadata:
   dependencies:
     "@aws-sdk/client-s3": "npm:^3.705.0"
     "@aws-sdk/lib-storage": "npm:^3.705.0"
-    "@babel/cli": "npm:^7.28.3"
     "@dnd-kit/core": "npm:^6.3.1"
     "@dnd-kit/modifiers": "npm:^9.0.0"
     "@dnd-kit/sortable": "npm:^10.0.0"
@@ -11508,7 +11504,6 @@ __metadata:
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/react-webpack5": "npm:^10.2.0"
     autosize: "npm:^5.0.1"
-    babel-jest: "npm:^29.7.0"
     body-parser: "npm:^1.18.3"
     classnames: "npm:^2.3.1"
     date-fns: "npm:^2.11.1"
@@ -11536,13 +11531,13 @@ __metadata:
     react-markdown: "npm:^6.0.0"
     react-router-dom: "npm:^5.1.2"
     react-select: "npm:^5.8.3"
-    rimraf: "npm:^3.0.1"
     slate: "npm:^0.112.0"
     slate-history: "npm:^0.110.3"
     slate-html-serializer: "npm:^0.8.13"
     slate-react: "npm:^0.112.1"
     slugify: "npm:^1.4.5"
     storybook: "npm:^10.2.0"
+    tsdown: "npm:^0.22.0"
     turndown: "npm:^7.1.2"
     uuid: "npm:^3.4.0"
   languageName: unknown
@@ -11569,7 +11564,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/home@workspace:packages/home"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
@@ -11601,8 +11595,8 @@ __metadata:
     react-waypoint: "npm:^9.0.2"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
-    rimraf: "npm:^3.0.1"
     storybook: "npm:^10.2.0"
+    tsdown: "npm:^0.22.0"
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^19.2.2
@@ -11616,7 +11610,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/inbox-apps@workspace:packages/inbox-apps"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@cfaester/enzyme-adapter-react-18": "npm:^0.6.0"
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
@@ -11636,7 +11629,6 @@ __metadata:
     "@uppy/react": "npm:^3.4.0"
     "@uppy/status-bar": "npm:^3.3.3"
     "@uppy/xhr-upload": "npm:^4.2.3"
-    babel-jest: "npm:^29.7.0"
     chai: "npm:^4.3.7"
     chai-as-promised: "npm:^7.1.1"
     chai-jest-diff: "npm:^1.0.2"
@@ -11668,8 +11660,8 @@ __metadata:
     redux: "npm:^4.0.5"
     redux-mock-store: "npm:^1.5.4"
     reload: "npm:^3.2.1"
-    rimraf: "npm:^3.0.1"
     storybook: "npm:^10.2.0"
+    tsdown: "npm:^0.22.0"
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^19.2.2
@@ -11799,7 +11791,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/legacy@workspace:packages/legacy"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/logs": "npm:^1.1.10"
@@ -11835,6 +11826,7 @@ __metadata:
     redux: "npm:^4.0.5"
     slugify: "npm:^1.4.5"
     storybook: "npm:^10.2.0"
+    tsdown: "npm:^0.22.0"
   peerDependencies:
     react: ^19.2.2
     react-dom: ^19.2.2
@@ -11938,7 +11930,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/member-apps@workspace:packages/member-apps"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@loadable/component": "npm:^5.14.1"
     "@openagenda/activity-apps": "npm:^1.2.3"
     "@openagenda/bs-templates": "npm:^2.5.1"
@@ -11973,9 +11964,9 @@ __metadata:
     react-router-dom: "npm:^5.1.2"
     redial: "npm:^0.5.0"
     redux: "npm:^4.0.5"
-    rimraf: "npm:^3.0.1"
     storybook: "npm:^10.2.0"
     tlds: "npm:^1.236.0"
+    tsdown: "npm:^0.22.0"
   peerDependencies:
     "@loadable/component": ^5.12.0
     react: ^19.2.2
@@ -12537,9 +12528,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/react-shared@workspace:public/react-shared"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@babel/core": "npm:^7.28.4"
-    "@babel/runtime-corejs3": "npm:^7.28.4"
     "@cfaester/enzyme-adapter-react-18": "npm:^0.6.0"
     "@dnd-kit/core": "npm:^6.1.0"
     "@floating-ui/react": "npm:^0.26.13"
@@ -12555,10 +12544,8 @@ __metadata:
     "@storybook/addon-webpack5-compiler-babel": "npm:^4.0.0"
     "@storybook/preset-scss": "npm:^1.0.3"
     "@storybook/react-webpack5": "npm:^10.2.0"
-    babel-jest: "npm:^29.7.0"
     bytes: "npm:^3.1.0"
     classnames: "npm:^2.3.1"
-    core-js: "npm:^3.29.1"
     dedent: "npm:^0.7.0"
     enzyme: "npm:^3.11.0"
     final-form: "npm:^4.20.2"
@@ -12593,6 +12580,7 @@ __metadata:
     sass: "npm:^1.69.5"
     shallowequal: "npm:^1.1.0"
     storybook: "npm:^10.2.0"
+    tsdown: "npm:^0.22.0"
     turndown: "npm:^7.1.2"
   peerDependencies:
     "@loadable/component": ^5.12.0
@@ -12692,7 +12680,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/registration-apps@workspace:packages/registration-apps"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/react-shared": "npm:^2.4.6"
@@ -12710,9 +12697,9 @@ __metadata:
     react-dom: "npm:^19.2.2"
     react-select: "npm:^5.8.3"
     react-tagsinput: "npm:^3.19.0"
-    rimraf: "npm:^3.0.1"
     slugify: "npm:^1.4.6"
     storybook: "npm:^10.2.0"
+    tsdown: "npm:^0.22.0"
     validator: "npm:^12.2.0"
     why: "npm:^0.6.2"
   peerDependencies:
@@ -13063,12 +13050,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@openagenda/validators@workspace:packages/validators"
   dependencies:
-    "@babel/cli": "npm:^7.28.3"
-    "@babel/core": "npm:^7.28.4"
-    "@babel/runtime-corejs3": "npm:^7.28.4"
-    "@openagenda/babel-preset": "npm:^1.5.0"
-    babel-jest: "npm:^29.7.0"
-    core-js: "npm:^3.29.1"
     is-stream: "npm:^2.0.0"
     jest: "npm:^29.7.0"
     lodash: "npm:^4.17.15"

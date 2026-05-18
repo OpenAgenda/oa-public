@@ -1,5 +1,5 @@
 import validateMergedLocalData from '../iso/validate/validateMergedLocalData.js';
-import fixtures from './fixtures/validateMergedLocalData.json';
+import fixtures from './fixtures/validateMergedLocalData.json' with { type: 'json' };
 
 describe('validateMergedLocalData', () => {
   test('if a date does not match a timing, the validation error shows invalid.timingId', () => {

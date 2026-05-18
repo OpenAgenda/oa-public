@@ -1,11 +1,9 @@
-'use strict';
-
-const { BadRequest } = require('@openagenda/verror');
-const date = require('@openagenda/validators/date');
-const schema = require('@openagenda/validators/schema');
-const integer = require('@openagenda/validators/integer');
-const text = require('@openagenda/validators/text');
-const boolean = require('@openagenda/validators/boolean');
+import { BadRequest } from '@openagenda/verror';
+import date from '@openagenda/validators/date';
+import schema from '@openagenda/validators/schema';
+import integer from '@openagenda/validators/integer';
+import text from '@openagenda/validators/text';
+import boolean from '@openagenda/validators/boolean';
 
 schema.register({ integer, text, date, boolean });
 
@@ -120,7 +118,7 @@ const preCleanAndValidate = (query) => {
   }
 };
 
-module.exports = async (service, k, deleted, query) => {
+export default async (service, k, deleted, query) => {
   const {
     agendaUid,
     setUid,

@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   // this can be loaded by loadSettings mw on server side
   eventForm: {
     detailed: true,

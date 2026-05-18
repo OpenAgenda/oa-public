@@ -1,8 +1,6 @@
-'use strict';
-
-const decorateWithCounts = require('../lib/decorateWithCounts');
-const geoFields = require('../utils/geoFields');
-const getSchema = require('../lib/getSchema');
+import decorateWithCounts from '../lib/decorateWithCounts.js';
+import geoFields from '../utils/geoFields.js';
+import getSchema from '../lib/getSchema.js';
 
 describe('utils', () => {
   describe('geoFields', () => {

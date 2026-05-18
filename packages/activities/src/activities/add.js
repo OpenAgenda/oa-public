@@ -1,10 +1,10 @@
-'use strict';
+import _ from 'lodash';
+import VError from '@openagenda/verror';
+import schema from '@openagenda/validators/schema';
+import validators from '@openagenda/validators';
+import logger from '@openagenda/logs';
 
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
-const schema = require('@openagenda/validators/schema');
-const validators = require('@openagenda/validators');
-const log = require('@openagenda/logs')('activities/add');
+const log = logger('activities/add');
 
 schema.register({
   text: validators.text,
@@ -382,4 +382,4 @@ Filtre followers: ${timeSpentInFollowersFilter.toFixed(2)} ms (${((timeSpentInFo
   return activity;
 }
 
-module.exports = add;
+export default add;

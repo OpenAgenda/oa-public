@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
-import textValidator from '@openagenda/validators/text.js';
-import integerValidator from '@openagenda/validators/integer.js';
-import latitudeValidator from '@openagenda/validators/latitude.js';
-import longitudeValidator from '@openagenda/validators/longitude.js';
+import schema from '@openagenda/validators/schema/index';
+import textValidator from '@openagenda/validators/text';
+import integerValidator from '@openagenda/validators/integer';
+import latitudeValidator from '@openagenda/validators/latitude';
+import longitudeValidator from '@openagenda/validators/longitude';
 
 schema.register({
   text: textValidator,

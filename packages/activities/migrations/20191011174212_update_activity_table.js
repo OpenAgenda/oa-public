@@ -1,6 +1,4 @@
-'use strict';
-
-exports.up = (knex) => {
+export const up = (knex) => {
   const { schemas } = knex.client.config;
 
   return knex.schema.alterTable(schemas.activity, (t) => {
@@ -9,6 +7,6 @@ exports.up = (knex) => {
   });
 };
 
-exports.down = (_knex) => {
+export const down = (_knex) => {
   //
 };

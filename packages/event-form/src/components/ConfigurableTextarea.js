@@ -1,5 +1,5 @@
-import TextField from '@openagenda/form-schemas/client/build/Components/TextField.js';
-import MarkdownField from '@openagenda/form-schemas/client/build/Components/MarkdownField.js';
+import TextField from '@openagenda/form-schemas/client/build/Components/TextField.mjs';
+import MarkdownField from '@openagenda/form-schemas/client/build/Components/MarkdownField.mjs';
 
 const ConfigurableTextarea = (props) => {
   const { field } = props;

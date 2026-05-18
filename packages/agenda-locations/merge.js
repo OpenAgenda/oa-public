@@ -1,13 +1,13 @@
-'use strict';
+import logger from '@openagenda/logs';
 
-const log = require('@openagenda/logs')('merge');
+import { BadRequest } from '@openagenda/verror';
+import list from './list.js';
+import get from './get.js';
+import update from './update.js';
+import remove from './remove.js';
+import authorize from './lib/authorize.js';
 
-const { BadRequest } = require('@openagenda/verror');
-const list = require('./list');
-const get = require('./get');
-const update = require('./update');
-const remove = require('./remove');
-const authorize = require('./lib/authorize');
+const log = logger('merge');
 
 async function merge(
   { internals, endpoints },
@@ -65,7 +65,7 @@ async function merge(
   return updatedMerged;
 }
 
-module.exports = async (
+const mergeMain = async (
   { internals, endpoints },
   mergeInUid,
   query,
@@ -84,7 +84,7 @@ module.exports = async (
     data,
   );
 
-module.exports.byAgendaUid = async (
+mergeMain.byAgendaUid = async (
   { internals, endpoints },
   agendaUid,
   mergeInUid,
@@ -106,7 +106,7 @@ module.exports.byAgendaUid = async (
     options,
   );
 
-module.exports.bySetUid = async (
+mergeMain.bySetUid = async (
   { internals, endpoints },
   setUid,
   mergeInUid,
@@ -127,3 +127,5 @@ module.exports.bySetUid = async (
     data,
     options,
   );
+
+export default mergeMain;

@@ -1,7 +1,7 @@
-import schema from '@openagenda/validators/schema/index.js';
-import integer from '@openagenda/validators/integer.js';
-import date from '@openagenda/validators/date.js';
-import choice from '@openagenda/validators/choice.js';
+import schema from '@openagenda/validators/schema/index';
+import integer from '@openagenda/validators/integer';
+import date from '@openagenda/validators/date';
+import choice from '@openagenda/validators/choice';
 import fields from './fields/index.js';
 
 const credentialFields = fields

@@ -1,4 +1,4 @@
-import multilingual from '../src/multilingual';
+import multilingual from '../src/multilingual.js';
 
 describe('multilingual validator', () => {
   describe('non optional', () => {
@@ -114,7 +114,10 @@ describe('multilingual validator', () => {
     it('if no default language is preset and string is given, it is spread throughout languages', () => {
       const clean = validate('Un super validateur');
 
-      expect(clean).toEqual({ fr: 'Un super validateur', en: 'Un super validateur' });
+      expect(clean).toEqual({
+        fr: 'Un super validateur',
+        en: 'Un super validateur',
+      });
     });
 
     it('a non optional validator returns required errors on omitted languages', () => {
@@ -133,12 +136,14 @@ describe('multilingual validator', () => {
         error = e;
       }
 
-      expect(error).toEqual([{
-        lang: 'en',
-        code: 'required',
-        message: 'a string is required',
-        origin: '',
-      }]);
+      expect(error).toEqual([
+        {
+          lang: 'en',
+          code: 'required',
+          message: 'a string is required',
+          origin: '',
+        },
+      ]);
     });
 
     it('a non optional validator returns errors when given null on requested langauges', () => {
@@ -158,17 +163,18 @@ describe('multilingual validator', () => {
         error = e;
       }
 
-      expect(error).toEqual([{
-        lang: 'en',
-        code: 'required',
-        message: 'a string is required',
-        origin: null,
-      }]);
+      expect(error).toEqual([
+        {
+          lang: 'en',
+          code: 'required',
+          message: 'a string is required',
+          origin: null,
+        },
+      ]);
     });
   });
 
   describe('other', () => {
-
     it('list option to true makes validator treat each language as a list of strings', () => {
       const validate = multilingual({
         list: true,
@@ -208,7 +214,7 @@ describe('multilingual validator', () => {
     it('uppercase lang codes are converted to lowercase by default', () => {
       const validate = multilingual();
 
-      const clean = validate({ FR: 'Vous aimez? C\'est français.' });
+      const clean = validate({ FR: "Vous aimez? C'est français." });
 
       expect(Object.keys(clean)[0]).toBe('fr');
     });
@@ -219,7 +225,7 @@ describe('multilingual validator', () => {
       let error;
       try {
         validate({
-          '"fr"': 'Ceci n\'est pas une langue',
+          '"fr"': "Ceci n'est pas une langue",
         });
       } catch (e) {
         error = e?.[0];
@@ -229,7 +235,7 @@ describe('multilingual validator', () => {
         origin: '"fr"',
         code: 'lang.invalid',
         message: 'lang code should be 2 [a-z] characters',
-        values: { min: 2, max: 2 }
+        values: { min: 2, max: 2 },
       });
     });
 

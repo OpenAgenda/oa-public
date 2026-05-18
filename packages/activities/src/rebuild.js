@@ -1,7 +1,7 @@
-'use strict';
+import VError from '@openagenda/verror';
+import logger from '@openagenda/logs';
 
-const VError = require('@openagenda/verror');
-const log = require('@openagenda/logs')('activities/rebuild');
+const log = logger('activities/rebuild');
 
 function getUsersStream(config, options = {}) {
   const { knex, schemas } = config;
@@ -558,11 +558,11 @@ async function checkLocationSetFollow(config, report, originFeed, targetFeed) {
 }
 
 // options: { agendaUid, setUid, since }
-module.exports = async function rebuild(config, options = {}) {
-  const { service, knex, schemas, logger } = config;
+export default async function rebuild(config, options = {}) {
+  const { service, knex, schemas, logger: loggerConfig } = config;
 
-  if (logger) {
-    log.setConfig(logger);
+  if (loggerConfig) {
+    log.setConfig(loggerConfig);
   }
 
   const report = {
@@ -1443,4 +1443,4 @@ module.exports = async function rebuild(config, options = {}) {
   }
 
   log.info('Rebuild finished', report);
-};
+}

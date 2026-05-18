@@ -1,6 +1,4 @@
-'use strict';
-
-const { mergeExtIdsFn } = require('../lib/formatExtIds');
+import { mergeExtIdsFn } from '../lib/formatExtIds.js';
 
 describe('mergeExtIdsFn', () => {
   it('test 1', () => {

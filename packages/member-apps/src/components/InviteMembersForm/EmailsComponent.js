@@ -1,4 +1,4 @@
-import TextFieldComponent from '@openagenda/form-schemas/client/build/Components/TextField.js';
+import TextFieldComponent from '@openagenda/form-schemas/client/build/Components/TextField.mjs';
 
 export default function EmailsComponent(props) {
   const { field } = props;

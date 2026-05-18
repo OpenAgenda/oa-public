@@ -1,9 +1,9 @@
-'use strict';
+import { NotFound } from '@openagenda/verror';
+import logger from '@openagenda/logs';
+import get from './get.js';
+import authorize from './lib/authorize.js';
 
-const { NotFound } = require('@openagenda/verror');
-const log = require('@openagenda/logs')('transfer');
-const get = require('./get');
-const authorize = require('./lib/authorize');
+const log = logger('transfer');
 
 async function transfer(service, current, targetAgendaUid, options = {}) {
   log('transferring location %s to agenda %s', current.uid, targetAgendaUid);
@@ -81,7 +81,7 @@ async function transfer(service, current, targetAgendaUid, options = {}) {
 }
 
 // Main export - accepts identifiers
-module.exports = async (
+const transferMain = async (
   service,
   identifiers,
   targetAgendaUid,
@@ -101,7 +101,7 @@ module.exports = async (
 };
 
 // byAgendaUid variant
-module.exports.byAgendaUid = async (
+transferMain.byAgendaUid = async (
   service,
   sourceAgendaUid,
   identifiers,
@@ -128,3 +128,5 @@ module.exports.byAgendaUid = async (
     agendaUid: sourceAgendaUid,
   });
 };
+
+export default transferMain;

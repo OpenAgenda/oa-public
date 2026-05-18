@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   root: 'http://localhost:3000/',
   mysql: {
     host: '127.0.0.1',

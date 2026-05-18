@@ -507,9 +507,9 @@ EventShow.fetchLocale = (locale: string) =>
     fetchCommonLocale('event/accessibilities', locale),
     fetchCommonLocale('roles', locale),
     fetchReactLocale(locale),
-    import(
-      `@openagenda/activity-apps/src/locales-compiled/${locale}.json`
-    ).then((mod) => mod.default),
+    import(`@openagenda/activity-apps/locales-compiled/${locale}.json`).then(
+      (mod) => mod.default,
+    ),
   ]).then((results) => Object.assign({}, ...results));
 
 export default EventShow;

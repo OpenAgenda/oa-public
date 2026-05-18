@@ -1,9 +1,9 @@
-'use strict';
+import promisePlusCb from '@openagenda/service-utils/promisePlusCb.js';
+import logger from '@openagenda/logs';
 
-const promisePlusCb = require('@openagenda/service-utils/promisePlusCb');
-const log = require('@openagenda/logs')('activities/feeds/remove');
+const log = logger('activities/feeds/remove');
 
-module.exports = function remove(config, identifiers, cb) {
+export default function remove(config, identifiers, cb) {
   const { service, knex } = config;
 
   const promise = service
@@ -29,4 +29,4 @@ module.exports = function remove(config, identifiers, cb) {
     });
 
   return promisePlusCb(promise, cb);
-};
+}

@@ -9,7 +9,11 @@ describe('05 - event search - functional: remove', () => {
 
     await service('05_remove').rebuild({
       eventsList: async (lastId, limit) =>
-        (await import(`./fixtures/05_events.${lastId}.${limit}.json`)).default,
+        (
+          await import(`./fixtures/05_events.${lastId}.${limit}.json`, {
+            with: { type: 'json' },
+          })
+        ).default,
     });
   });
 

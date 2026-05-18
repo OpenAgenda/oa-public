@@ -1,11 +1,9 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const boolean = require('@openagenda/validators/boolean');
-const integer = require('@openagenda/validators/integer');
-const choice = require('@openagenda/validators/choice');
-const pass = require('@openagenda/validators/pass');
-const fields = require('./fields');
+import schema from '@openagenda/validators/schema';
+import boolean from '@openagenda/validators/boolean';
+import integer from '@openagenda/validators/integer';
+import choice from '@openagenda/validators/choice';
+import pass from '@openagenda/validators/pass';
+import fields from './fields.js';
 
 schema.register({
   boolean,
@@ -73,7 +71,7 @@ const validateStreamOptions = schema({
   },
 });
 
-module.exports = (values) => {
+export default (values) => {
   const clean = validate(values);
 
   if (clean.stream) {

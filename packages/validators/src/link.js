@@ -1,8 +1,8 @@
-import isString from 'lodash/isString';
-import listify from './listify';
-import emailValidator from './email';
-import cleanParams from './lib/params';
-import validateLength from './lib/length';
+import isString from 'lodash/isString.js';
+import listify from './listify.js';
+import emailValidator from './email.js';
+import cleanParams from './lib/params.js';
+import validateLength from './lib/length.js';
 
 const validateEmail = emailValidator();
 
@@ -35,10 +35,12 @@ export default (config) => {
 
     let clean = value;
 
-    const error = [{
-      origin: value,
-      ...templateError,
-    }];
+    const error = [
+      {
+        origin: value,
+        ...templateError,
+      },
+    ];
 
     if (isString(value)) {
       clean = value.trim();
@@ -46,7 +48,11 @@ export default (config) => {
       clean = clean.replace(/^(HTTP|HTTPS):/i, (match) => match.toLowerCase());
     }
 
-    if ((!value || !value.length) && !(value instanceof Object) && params.optional) {
+    if (
+      (!value || !value.length) &&
+      !(value instanceof Object) &&
+      params.optional
+    ) {
       return params.default !== undefined ? params.default : clean;
     }
 

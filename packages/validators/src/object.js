@@ -1,4 +1,4 @@
-import listify from './listify';
+import listify from './listify.js';
 
 export default function object(...args) {
   const options = args.length === 1 ? {} : args[0];
@@ -15,12 +15,16 @@ export default function object(...args) {
     const clean = [];
 
     validators.forEach((validator) => {
-      let matchingValue = (values || []).filter((v) => v.field === validator.field);
+      let matchingValue = (values || []).filter(
+        (v) => v.field === validator.field,
+      );
 
-      matchingValue = matchingValue.length ? matchingValue[0] : {
-        field: validator.field,
-        value: validator.type === 'object' ? [] : undefined,
-      };
+      matchingValue = matchingValue.length
+        ? matchingValue[0]
+        : {
+            field: validator.field,
+            value: validator.type === 'object' ? [] : undefined,
+          };
 
       if (validator.type !== 'object') {
         try {
@@ -32,20 +36,24 @@ export default function object(...args) {
           [].concat(caughtErrors).forEach((error) => errors.push(error));
         }
       } else if (typeof matchingValue.value !== 'object') {
-        errors.push([{
-          field: matchingValue.field,
-          origin: matchingValue.value,
-          code: 'object.invalidtype',
-          message: 'not an object',
-        }]);
+        errors.push([
+          {
+            field: matchingValue.field,
+            origin: matchingValue.value,
+            code: 'object.invalidtype',
+            message: 'not an object',
+          },
+        ]);
       } else {
         try {
-          validator(matchingValue.value).map((c) => ({
-            ...c,
-            field: `${matchingValue.field}.${c.field}`,
-          })).forEach((cleanItem) => {
-            clean.push(cleanItem);
-          });
+          validator(matchingValue.value)
+            .map((c) => ({
+              ...c,
+              field: `${matchingValue.field}.${c.field}`,
+            }))
+            .forEach((cleanItem) => {
+              clean.push(cleanItem);
+            });
         } catch (caughtErrors) {
           caughtErrors.forEach((error) => {
             errors.push({

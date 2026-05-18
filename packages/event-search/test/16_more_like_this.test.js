@@ -24,7 +24,11 @@ describe('16 - event search - functional: more like this', () => {
   beforeAll(async () => {
     await service('simple_search').rebuild({
       eventsList: async (lastId, limit) =>
-        (await import(`./fixtures/16_events.${lastId}.${limit}.json`)).default,
+        (
+          await import(`./fixtures/16_events.${lastId}.${limit}.json`, {
+            with: { type: 'json' },
+          })
+        ).default,
     });
   });
 

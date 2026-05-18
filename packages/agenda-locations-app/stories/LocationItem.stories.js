@@ -4,8 +4,8 @@ import LocationItem from '../src/components/LocationItem.js';
 import ComponentCanvas from './decorators/ComponentCanvas.js';
 import Providers from './decorators/Providers.js';
 
-import agendaTestSettings from './fixtures/agendaTestSettings.json';
-import location from './fixtures/location.json';
+import agendaTestSettings from './fixtures/agendaTestSettings.json' with { type: 'json' };
+import location from './fixtures/location.json' with { type: 'json' };
 
 const defaultAccess = {
   authorized: true,

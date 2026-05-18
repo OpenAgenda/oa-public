@@ -4,8 +4,8 @@ import { Modal } from '@openagenda/react-shared';
 
 import LocationSelector from '../src/components/LocationSelector.js';
 
-import agendaSettings from './fixtures/slslf-2022.json';
-import propLocation from './fixtures/location.json';
+import agendaSettings from './fixtures/slslf-2022.json' with { type: 'json' };
+import propLocation from './fixtures/location.json' with { type: 'json' };
 import Providers from './decorators/Providers.js';
 import ComponentCanvas from './decorators/ComponentCanvas.js';
 

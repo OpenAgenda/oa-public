@@ -1,10 +1,10 @@
-'use strict';
+import schema from '@openagenda/validators/schema';
+import validators from '@openagenda/validators';
+import logger from '@openagenda/logs';
 
-const schema = require('@openagenda/validators/schema');
-const validators = require('@openagenda/validators');
-const log = require('@openagenda/logs')('activities/feeds/create');
+import FEED_TYPES from '../feedTypes.js';
 
-const FEED_TYPES = require('../feedTypes');
+const log = logger('activities/feeds/create');
 
 schema.register({
   choice: validators.choice,
@@ -78,4 +78,4 @@ async function create(config, identifiers, options = {}) {
   return feed;
 }
 
-module.exports = create;
+export default create;

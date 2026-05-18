@@ -30,8 +30,11 @@ describe('02 - event search - functional: clear a set', () => {
     });
     await service('bd20202notCleared').rebuild({
       eventsList: async (lastId, limit) =>
-        (await import(`./fixtures/applied/bd2020.${lastId}.${limit}.json`))
-          .default,
+        (
+          await import(`./fixtures/applied/bd2020.${lastId}.${limit}.json`, {
+            with: { type: 'json' },
+          })
+        ).default,
     });
   });
 

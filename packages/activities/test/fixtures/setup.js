@@ -1,17 +1,18 @@
-'use strict';
+import fs from 'node:fs';
+import path from 'node:path';
+import knexLib from 'knex';
 
-const fs = require('node:fs');
-const path = require('node:path');
-const knexLib = require('knex');
-
-const activitiesMigrationsDir = path.resolve(__dirname, '../../migrations');
+const activitiesMigrationsDir = path.resolve(
+  import.meta.dirname,
+  '../../migrations',
+);
 
 const DEFAULT_DATA = [
-  `${__dirname}/activity.data.sql`,
-  `${__dirname}/feed.data.sql`,
-  `${__dirname}/feed_activity.data.sql`,
-  `${__dirname}/feed_follow.data.sql`,
-  `${__dirname}/feed_notification.data.sql`,
+  `${import.meta.dirname}/activity.data.sql`,
+  `${import.meta.dirname}/feed.data.sql`,
+  `${import.meta.dirname}/feed_activity.data.sql`,
+  `${import.meta.dirname}/feed_follow.data.sql`,
+  `${import.meta.dirname}/feed_notification.data.sql`,
 ];
 
 function interpolate(raw, map) {
@@ -29,7 +30,7 @@ async function runData(knex, data, schemas) {
   }
 }
 
-module.exports = async function setup({
+export default async function setup({
   mysql,
   schemas,
   data = DEFAULT_DATA,
@@ -63,12 +64,9 @@ module.exports = async function setup({
   }
 
   return knex;
-};
+}
 
-module.exports.reset = async function reset(
-  knex,
-  { data = DEFAULT_DATA } = {},
-) {
+export async function reset(knex, { data = DEFAULT_DATA } = {}) {
   const { schemas } = knex.client.config;
   const tables = data.map((file) => schemas[path.basename(file).split('.')[0]]);
 
@@ -81,4 +79,4 @@ module.exports.reset = async function reset(
   });
 
   await runData(knex, data, schemas);
-};
+}

@@ -1,12 +1,12 @@
-import schema from '@openagenda/validators/schema/index.js';
-import integer from '@openagenda/validators/integer.js';
-import date from '@openagenda/validators/date.js';
-import choice from '@openagenda/validators/choice.js';
-import pass from '@openagenda/validators/pass.js';
-import boolean from '@openagenda/validators/boolean.js';
-import email from '@openagenda/validators/email.js';
-import phone from '@openagenda/validators/phone.js';
-import text from '@openagenda/validators/text.js';
+import schema from '@openagenda/validators/schema/index';
+import integer from '@openagenda/validators/integer';
+import date from '@openagenda/validators/date';
+import choice from '@openagenda/validators/choice';
+import pass from '@openagenda/validators/pass';
+import boolean from '@openagenda/validators/boolean';
+import email from '@openagenda/validators/email';
+import phone from '@openagenda/validators/phone';
+import text from '@openagenda/validators/text';
 import roles from './roles.js';
 
 schema.register({

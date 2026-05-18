@@ -10,8 +10,7 @@
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
-    "./createApp": "./dist/createApp.mjs",
-    "./editApp": "./dist/editApp.mjs"
+    "./*": "./dist/*.mjs"
   },
   "scripts": {
     "sb": "storybook dev",

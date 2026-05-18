@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback, useEffect, useRef } from 'react';
 import { useForm, FormSpy } from 'react-final-form';
 import useLatestModule from 'react-use/lib/useLatest.js';
-import a11yButtonActionHandler from '@openagenda/react-shared/dist/utils/a11yButtonActionHandler.js';
+import a11yButtonActionHandler from '@openagenda/react-shared/utils/a11yButtonActionHandler';
 import matchQuery from '../../utils/matchQuery.js';
 import updateFormValues from '../../utils/updateFormValues.js';
 import updateCustomFilter from '../../utils/updateCustomFilter.js';

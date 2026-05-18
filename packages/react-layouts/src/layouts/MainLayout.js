@@ -10,7 +10,7 @@ import useCookieModule from 'react-use/lib/useCookie.js';
 import useIntervalModule from 'react-use/lib/useInterval.js';
 import { ErrorBoundary } from '@sentry/react';
 import session from '@openagenda/sessions/client';
-import Notifications from '@openagenda/activity-apps/dist/client/components/Notifications.js';
+import Notifications from '@openagenda/activity-apps/client/components/Notifications';
 import * as mainActions from '../reducers/main.js';
 import ChildLayouts from '../components/ChildLayouts.js';
 import Loading from '../components/Loading.js';

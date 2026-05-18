@@ -28,21 +28,21 @@ import {
   RequiredSuperAdmin,
   RequiredUser,
 } from '@openagenda/react-layouts/layouts';
-import createHomeApp from '@openagenda/home/src/app.js';
+import createHomeApp from '@openagenda/home';
 import createUserSettingsApp from '@openagenda/user-apps';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/createApp';
 import createAgendaSettingsEditApp from '@openagenda/agenda-settings/editApp';
-import createUserActivitiesApp from '@openagenda/activity-apps/src/client/apps/user/index.js';
-import createAgendaActivitiesApp from '@openagenda/activity-apps/src/client/apps/agenda/index.js';
-import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app.js';
+import createUserActivitiesApp from '@openagenda/activity-apps/client/apps/user';
+import createAgendaActivitiesApp from '@openagenda/activity-apps/client/apps/agenda';
+import createAggregatorSourcesApp from '@openagenda/aggregator-sources';
 import createAgendaStatsApp from '@openagenda/agenda-stats';
-import createInboxApp from '@openagenda/inbox-apps/src/app.js';
-import createMembersApp from '@openagenda/member-apps/src/app.js';
-import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app/src/index.js';
+import createInboxApp from '@openagenda/inbox-apps';
+import createMembersApp from '@openagenda/member-apps/app';
+import createLegacyEmbedsApp from '@openagenda/legacy/embeds/app';
 import createAgendaContributeApp from '@openagenda/agenda-contribute';
 import createSupervisorApp from '@openagenda/supervisor';
 import createEventAdminApp from '@openagenda/event-admin-apps';
-import createAgendaLocationAdminApp from '@openagenda/agenda-locations-app/src/app.js';
+import createAgendaLocationAdminApp from '@openagenda/agenda-locations-app';
 import createAgendaSchemaAdminApp from '@openagenda/agenda-schemas-app';
 import createReduxMiddleware from '../reduxMiddleware.js';
 import RootHelmet from '../RootHelmet.js';

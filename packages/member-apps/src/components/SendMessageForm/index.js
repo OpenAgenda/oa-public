@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.js';
+import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.mjs';
 
 import I18nContext from '../../contexts/I18nContext.js';
 import actionComponents from '../../utils/actionComponents.js';

@@ -1,9 +1,9 @@
 import _ from 'lodash';
-import schema from '@openagenda/validators/schema/index.js';
-import integer from '@openagenda/validators/integer.js';
-import choice from '@openagenda/validators/choice.js';
-import text from '@openagenda/validators/text.js';
-import boolean from '@openagenda/validators/boolean.js';
+import schema from '@openagenda/validators/schema/index';
+import integer from '@openagenda/validators/integer';
+import choice from '@openagenda/validators/choice';
+import text from '@openagenda/validators/text';
+import boolean from '@openagenda/validators/boolean';
 import roles from '../iso/roles.js';
 
 schema.register({

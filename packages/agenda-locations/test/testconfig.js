@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = {
+export default {
   service: {
     mysql: {
       host: '127.0.0.1',

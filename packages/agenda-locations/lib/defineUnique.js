@@ -1,8 +1,6 @@
-'use strict';
-
 const MAX_ATTEMPTS = 1000;
 
-module.exports = async (service, field, valueGenerator) => {
+export default async (service, field, valueGenerator) => {
   const { knex } = service.clients;
   const { schema } = service.config;
 

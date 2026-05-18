@@ -5,7 +5,7 @@ import { format } from 'date-fns';
 import enabledRangesLabels from '@openagenda/labels/event/enabledRanges.js';
 import flattenLabels from '@openagenda/labels/flatten.js';
 
-import DateField from '@openagenda/form-schemas/client/build/Components/DateField.js';
+import DateField from '@openagenda/form-schemas/client/build/Components/DateField.mjs';
 
 const MaskedInput = MaskedInputModule.default || MaskedInputModule;
 

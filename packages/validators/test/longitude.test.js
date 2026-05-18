@@ -1,4 +1,4 @@
-import validators from '../src';
+import validators from '../src/index.js';
 
 describe('longitude validator', () => {
   const validate = validators.longitude();
@@ -12,11 +12,13 @@ describe('longitude validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      code: 'longitude.toosmall',
-      message: 'longitude cannot be less than -180',
-      origin: -181
-    }]);
+    expect(errors).toEqual([
+      {
+        code: 'longitude.toosmall',
+        message: 'longitude cannot be less than -180',
+        origin: -181,
+      },
+    ]);
   });
 
   it('throws error if longitude is too big', () => {
@@ -28,11 +30,13 @@ describe('longitude validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      code: 'longitude.toobig',
-      message: 'longitude cannot be more than 180',
-      origin: 181
-    }]);
+    expect(errors).toEqual([
+      {
+        code: 'longitude.toobig',
+        message: 'longitude cannot be more than 180',
+        origin: 181,
+      },
+    ]);
   });
 
   it('throws error if crap is given', () => {
@@ -44,11 +48,13 @@ describe('longitude validator', () => {
       errors = e;
     }
 
-    expect(errors).toEqual([{
-      code: 'longitude.invalid',
-      message: 'not a number',
-      origin: 'fdsqfdsq'
-    }]);
+    expect(errors).toEqual([
+      {
+        code: 'longitude.invalid',
+        message: 'not a number',
+        origin: 'fdsqfdsq',
+      },
+    ]);
   });
 
   it('validates a longitude', () => {

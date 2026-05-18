@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (k, nav, options = {}) => {
+export default (k, nav, options = {}) => {
   const { after, offset, limit, order } = nav;
 
   const { stream: streamOptions } = options;

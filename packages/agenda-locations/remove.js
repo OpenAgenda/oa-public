@@ -1,10 +1,10 @@
-'use strict';
+import { NotFound } from '@openagenda/verror';
+import logger from '@openagenda/logs';
+import removeCandidate from './duplicates/removeCandidate.js';
+import get from './get.js';
+import authorize from './lib/authorize.js';
 
-const { NotFound } = require('@openagenda/verror');
-const log = require('@openagenda/logs')('remove');
-const removeCandidate = require('./duplicates/removeCandidate');
-const get = require('./get');
-const authorize = require('./lib/authorize');
+const log = logger('remove');
 
 async function remove({ endpoints, internals }, current, options = {}) {
   log('received %j payload with options %j', current.uid, options);
@@ -44,9 +44,7 @@ async function remove({ endpoints, internals }, current, options = {}) {
   return current;
 }
 
-module.exports = remove;
-
-module.exports.byAgendaUid = async (
+remove.byAgendaUid = async (
   { endpoints, internals },
   agendaUid,
   identifiers,
@@ -69,7 +67,7 @@ module.exports.byAgendaUid = async (
   return remove({ endpoints, internals }, current, options);
 };
 
-module.exports.bySetUid = async (
+remove.bySetUid = async (
   { endpoints, internals },
   setUid,
   identifiers,
@@ -88,3 +86,5 @@ module.exports.bySetUid = async (
 
   return remove({ endpoints, internals }, current, options);
 };
+
+export default remove;

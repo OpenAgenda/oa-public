@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const VError = require('@openagenda/verror');
+import _ from 'lodash';
+import VError from '@openagenda/verror';
 
 function fnOrValue(fnValue, ...params) {
   return typeof fnValue === 'function' ? fnValue(...params) : fnValue;
@@ -15,7 +13,7 @@ function getGroupBy(groupBy, feed, activity) {
   return groupBy.map((v) => `${v}:${_.get(activity, v)}`).join('|');
 }
 
-module.exports = async function addActivity(
+export default async function addActivity(
   config,
   identifiers,
   activity,
@@ -149,4 +147,4 @@ module.exports = async function addActivity(
     });
 
   return service.feed(feed).notifications.get(notif.id);
-};
+}

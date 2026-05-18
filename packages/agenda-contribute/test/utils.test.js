@@ -1,6 +1,6 @@
 import utils from '../src/lib/utils.js';
-import filterEventDataFixtures from './fixtures/filterEventData.json';
-import filterEventDataFixturesWiths from './fixtures/filterEventDataWiths.json';
+import filterEventDataFixtures from './fixtures/filterEventData.json' with { type: 'json' };
+import filterEventDataFixturesWiths from './fixtures/filterEventDataWiths.json' with { type: 'json' };
 
 const { filterEventData, schemaWithoutEventFields, removeUnduplicatable } = utils;
 

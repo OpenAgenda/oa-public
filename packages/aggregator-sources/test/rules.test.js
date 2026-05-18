@@ -1,6 +1,6 @@
 import { ruleToValues, valuesToRule } from '../src/utils/rules.js';
-import aggregatorAgendaSchema from './fixtures/aggregatorAgendaSchema.json';
-import aggAgendaSchema2 from './fixtures/aggregatorAgendaSchema.2.json';
+import aggregatorAgendaSchema from './fixtures/aggregatorAgendaSchema.json' with { type: 'json' };
+import aggAgendaSchema2 from './fixtures/aggregatorAgendaSchema.2.json' with { type: 'json' };
 
 describe('utils - rules', () => {
   describe('ruleToValues', () => {

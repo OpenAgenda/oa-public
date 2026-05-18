@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import ky, { HTTPError } from 'ky';
 import { BadRequest } from '@openagenda/verror';
-import textValidator from '@openagenda/validators/text.js';
-import linkValidator from '@openagenda/validators/link.js';
+import textValidator from '@openagenda/validators/text';
+import linkValidator from '@openagenda/validators/link';
 import ParseAndTransform from './lib/parseAndTransform.js';
 import buildGeoTree from './lib/buildGeoTree.js';
 

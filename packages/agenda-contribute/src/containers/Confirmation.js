@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
-import PassCultureConfirmation from '@openagenda/registration-apps/dist/passCulture/Confirmation.js';
+import PassCultureConfirmation from '@openagenda/registration-apps/passCulture/Confirmation';
 
 import steps from '../lib/steps.js';
 import CanvasWithStepper from '../components/CanvasWithStepper.js';

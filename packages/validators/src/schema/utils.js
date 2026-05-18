@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import withFieldValueMatches from './withFieldValueMatches';
+import withFieldValueMatches from './withFieldValueMatches.js';
 
 const registeredValidators = {};
 
@@ -18,7 +18,7 @@ function registerValidators(validators) {
 function _makeValidator(type, field, options, values, fields) {
   const validatorOptions = {
     field,
-    ...options
+    ...options,
   };
 
   if (type === 'list') {
@@ -40,10 +40,7 @@ function _makeValidator(type, field, options, values, fields) {
     !withFieldValueMatches(validatorOptions, 'optionalWith', values, fields)
   ) {
     validatorOptions.optional = false;
-  } else if (
-    optionalIsUndefined &&
-    validatorOptions.optionalWith
-  ) {
+  } else if (optionalIsUndefined && validatorOptions.optionalWith) {
     validatorOptions.optional = true;
   }
 
@@ -58,7 +55,7 @@ function _makeValidator(type, field, options, values, fields) {
 
 function mapValuesToValidators(fields, values, defaults) {
   const valuesWithDefaults = {
-    ...defaults || {},
+    ...(defaults || {}),
     ...values,
   };
 
@@ -71,41 +68,55 @@ function mapValuesToValidators(fields, values, defaults) {
         fieldName,
         validatorOptions,
         valuesWithDefaults,
-        fields
+        fields,
       ),
-      value: values && typeof values === 'object' && fieldName in values
-        ? values[fieldName]
-        : ('default' in validatorOptions ? validatorOptions.default : undefined),
-      related: Object.keys(validatorOptions.related ?? {}).reduce((rootCarry, relatedKey) => ({
-        ...rootCarry,
-        ...(validatorOptions.related[relatedKey] ?? []).reduce((carry, relatedField) => ({
-          ...carry,
-          [relatedField]: values?.[relatedField]
-        }), {}),
-      }), {}),
+      value:
+        values && typeof values === 'object' && fieldName in values
+          ? values[fieldName]
+          : 'default' in validatorOptions
+            ? validatorOptions.default
+            : undefined,
+      related: Object.keys(validatorOptions.related ?? {}).reduce(
+        (rootCarry, relatedKey) => ({
+          ...rootCarry,
+          ...(validatorOptions.related[relatedKey] ?? []).reduce(
+            (carry, relatedField) => ({
+              ...carry,
+              [relatedField]: values?.[relatedField],
+            }),
+            {},
+          ),
+        }),
+        {},
+      ),
       isEnabled: _isEnabled(valuesWithDefaults, fields, fields[fieldName]),
     };
   });
 }
-
 
 function _isEnabled(valuesWithDefaults, fields, fieldOptions = {}) {
   if (!fieldOptions?.enableWith) {
     return true;
   }
 
-  if (withFieldValueMatches(fieldOptions, 'enableWith', valuesWithDefaults, fields)) {
+  if (
+    withFieldValueMatches(
+      fieldOptions,
+      'enableWith',
+      valuesWithDefaults,
+      fields,
+    )
+  ) {
     return true;
   }
 
   return false;
 }
 
-
 function getDefault(fields) {
   let clean = {};
 
-  Object.keys(fields).forEach(k => {
+  Object.keys(fields).forEach((k) => {
     if (fields[k].type === 'schema') {
       clean[k] = fields[k].list ? [] : getDefault(fields[k].fields);
     } else {
@@ -119,5 +130,5 @@ function getDefault(fields) {
 export default {
   registerValidators,
   mapValuesToValidators,
-  getDefault
-}
+  getDefault,
+};

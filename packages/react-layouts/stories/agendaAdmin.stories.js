@@ -11,7 +11,7 @@ import AgendaAdminLayoutComponent from '../src/layouts/AgendaAdminLayout.js';
 import createLayoutStore from '../src/createLayoutStore.js';
 import ProvidersDecorator from './decorators/Providers.js';
 
-import sections from './fixtures/sections.json';
+import sections from './fixtures/sections.json' with { type: 'json' };
 
 const getSections = (agendaSlug) =>
   produce(sections, (draft) => {

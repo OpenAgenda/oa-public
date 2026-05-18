@@ -1,7 +1,5 @@
-'use strict';
-
-const _ = require('lodash');
-const fromDbEntryToSettings = require('./lib/fromDbEntryToSettings');
+import _ from 'lodash';
+import fromDbEntryToSettings from './lib/fromDbEntryToSettings.js';
 
 async function get(service, { setUid, agendaUid }, options = {}) {
   const requestedAgendaUid = agendaUid || options.agendaUid;
@@ -64,8 +62,10 @@ async function get(service, { setUid, agendaUid }, options = {}) {
   });
 }
 
-module.exports.byAgendaUid = (service, uid, options) =>
+get.byAgendaUid = (service, uid, options) =>
   get(service, { agendaUid: uid }, options);
 
-module.exports.bySetUid = (service, uid, options) =>
+get.bySetUid = (service, uid, options) =>
   get(service, { setUid: uid }, options);
+
+export default get;

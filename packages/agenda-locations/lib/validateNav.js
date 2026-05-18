@@ -1,9 +1,7 @@
-'use strict';
-
-const schema = require('@openagenda/validators/schema');
-const text = require('@openagenda/validators/text');
-const integer = require('@openagenda/validators/integer');
-const boolean = require('@openagenda/validators/boolean');
+import schema from '@openagenda/validators/schema';
+import text from '@openagenda/validators/text';
+import integer from '@openagenda/validators/integer';
+import boolean from '@openagenda/validators/boolean';
 
 const validateCreatedAtAfter = integer({ default: null });
 const validateNameAfter = (v) => {
@@ -45,7 +43,7 @@ const validate = schema({
   },
 });
 
-module.exports = (nav) => {
+export default (nav) => {
   const clean = validate(nav);
 
   const orderField = clean.order.split('.')[0];
