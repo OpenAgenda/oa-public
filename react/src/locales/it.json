@@ -21,6 +21,7 @@
   "react.components.EventShareModal.feedbackQuestion": "Trovi utile questa esportazione?",
   "react.components.EventShareModal.online": "Online",
   "react.components.EventShareModal.send": "Inviare",
+  "react.components.EventShareModal.shareEvent": "Condividere l'evento",
   "react.components.EventShareModal.signIn": "Accedi",
   "react.components.LockIcon.privateAgenda": "Agenda privato",
   "react.components.OfficialAgenda.officialAgenda": "Agenda ufficiale",
