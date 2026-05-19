@@ -4,10 +4,10 @@
   "private": true,
   "description": "Oh la home",
   "type": "module",
-  "main": "./dist/app.mjs",
+  "main": "./dist/app.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/app.mjs"
+    ".": "./dist/app.js"
   },
   "repository": {
     "type": "git",

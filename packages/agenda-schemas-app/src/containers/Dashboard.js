@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { defineMessages, useIntl } from 'react-intl';
 import { useHistory, useLocation } from 'react-router';
 import { Spinner, useLayoutData } from '@openagenda/react-shared';
-import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder/index.mjs';
+import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder/index.js';
 import EnabledRanges from '@openagenda/event-form/components/configuration/EnabledRanges';
 import DefaultLocation from '@openagenda/event-form/components/configuration/DefaultLocation';
 

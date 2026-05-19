@@ -8,11 +8,11 @@
     "url": "git+ssh://git@github.com/OpenAgenda/oa.git"
   },
   "type": "module",
-  "main": "./dist/app.mjs",
+  "main": "./dist/app.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/app.mjs",
-    "./*": "./dist/*.mjs"
+    ".": "./dist/app.js",
+    "./*": "./dist/*.js"
   },
   "scripts": {
     "sb": "storybook dev",

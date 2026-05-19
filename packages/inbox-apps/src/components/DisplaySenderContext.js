@@ -1,7 +1,7 @@
 import { useContext, useState } from 'react';
 import { Modal } from '@openagenda/react-shared';
 
-import DisplaySchemaData from '@openagenda/form-schemas/client/build/Components/DisplaySchemaData.mjs';
+import DisplaySchemaData from '@openagenda/form-schemas/client/build/Components/DisplaySchemaData.js';
 import I18nContext from '../contexts/I18nContext.js';
 
 export default function DisplaySenderContext({ res, lang }) {

@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useQuery } from 'react-query';
 import { defineMessages, useIntl } from 'react-intl';
 import getRoleSlug from '@openagenda/members/iso/getRoleSlug.js';
-import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.mjs';
+import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.js';
 import { Spinner, Modal } from '@openagenda/react-shared';
 import hardSchema from '@openagenda/members/iso/schema.js';
 import { fromMarkdownToHTML } from '@openagenda/md';

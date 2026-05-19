@@ -3,11 +3,11 @@
   "version": "1.5.4",
   "private": true,
   "type": "module",
-  "main": "./build/index.mjs",
+  "main": "./build/index.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./build/index.mjs",
-    "./*": "./build/*.mjs"
+    ".": "./build/index.js",
+    "./*": "./build/*.js"
   },
   "scripts": {
     "sb": "storybook dev",

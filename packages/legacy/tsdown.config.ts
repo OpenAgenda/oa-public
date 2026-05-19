@@ -4,6 +4,7 @@ const config: UserConfig = defineConfig({
   entry: ['embeds/app/src/**/*.{js,jsx,mjs}'],
   outDir: 'embeds/app/dist',
   format: ['esm'],
+  platform: 'neutral',
   sourcemap: true,
   dts: false,
   loader: {
