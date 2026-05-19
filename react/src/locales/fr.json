@@ -38,6 +38,8 @@
   "react.components.AgendaExportModal.outlookStep3": "Dans le volet de navigation, sélectionnez \"Ajouter un calendrier\"",
   "react.components.AgendaExportModal.outlookStep4": "Sélectionnez \"S'abonner à partir du web\"",
   "react.components.AgendaExportModal.outlookStep5": "Collez le lien et sélectionnez \"Importer\"",
+  "react.components.AgendaExportModal.rssCategoryField": "Champ de catégorie (optionnel)",
+  "react.components.AgendaExportModal.rssCategoryFieldNone": "Aucun",
   "react.components.AgendaExportModal.selectAll": "Tout sélectionner",
   "react.components.AgendaExportModal.showContributionButton": "Afficher le bouton de contribution",
   "react.components.AgendaExportModal.showFilters": "Afficher les filtres",

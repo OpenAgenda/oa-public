@@ -122,6 +122,14 @@ const messages: Record<string, MessageDescriptor> = defineMessages({
     id: 'react.components.AgendaExportModal.chronological',
     defaultMessage: 'Chronological',
   },
+  rssCategoryField: {
+    id: 'react.components.AgendaExportModal.rssCategoryField',
+    defaultMessage: 'Category field (optional)',
+  },
+  rssCategoryFieldNone: {
+    id: 'react.components.AgendaExportModal.rssCategoryFieldNone',
+    defaultMessage: 'None',
+  },
   // Gcal / Outlook
   instructions: {
     id: 'react.components.AgendaExportModal.instructions',

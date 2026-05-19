@@ -114,6 +114,7 @@ export default function Body({
   const languages = exportSettingsData?.languages;
   const hasMultipleLocations = exportSettingsData?.hasMultipleLocations ?? true;
   const fields = exportSettingsData?.spreadsheetColumns;
+  const choiceFields = exportSettingsData?.choiceFields;
 
   const handleSpreadsheetSubmit: SpreadsheetSubmitHandler = (options) => (e) => {
     e.preventDefault();
@@ -228,7 +229,11 @@ export default function Body({
           <GcalAccordionItem res={res} />
           <OutlookAccordionItem res={res} />
           <IcsAccordionItem onSubmit={handleIcsSubmit} />
-          <RssAccordionItem dialogRef={dialogRef} res={res} />
+          <RssAccordionItem
+            dialogRef={dialogRef}
+            res={res}
+            choiceFields={choiceFields}
+          />
           <EmbedAccordionItem dialogRef={dialogRef} res={res} agenda={agenda} />
         </AccordionRoot>
       </Bleed>
