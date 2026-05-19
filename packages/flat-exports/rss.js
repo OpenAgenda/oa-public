@@ -28,6 +28,8 @@ export default (head) => {
 
   if (head.genUrl) eventOptions.genUrl = head.genUrl;
   if (head.dateField) eventOptions.dateField = head.dateField;
+  if (head.categoryFields) eventOptions.categoryFields = head.categoryFields;
+  if (head.formSchema) eventOptions.formSchema = head.formSchema;
 
   return {
     addEvent: (event) => feed.item(formatEvent(event, eventOptions)),
