@@ -1,6 +1,6 @@
 "use strict";
 
-import session from '@openagenda/sessions/client';
+import { authClient } from '@openagenda/auth/client';
 
 const extend = require( 'lodash/extend' );
 
@@ -31,7 +31,7 @@ const params = {
 
 let pClicked = false;
 
-module.exports = options => {
+module.exports = async options => {
 
   extend( params, options );
 
@@ -43,13 +43,13 @@ module.exports = options => {
 
     li;
 
-  if ( !session.isLogged() ) {
+  let user = ( await authClient.getSession() ).data?.user ?? null;
+
+  if ( !user ) {
 
     return;
 
   }
-
-  let user = session.getUser();
 
   if ( languageMenu ) languageMenu.remove();
 

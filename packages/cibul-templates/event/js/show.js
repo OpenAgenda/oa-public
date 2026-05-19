@@ -1,6 +1,6 @@
 "use strict";
 import du from '../../js/lib/domUtils';
-import session from '@openagenda/sessions/client';
+import { authClient } from '@openagenda/auth/client';
 
 const debug = require('debug');
 
@@ -75,7 +75,7 @@ window.asap(async options => {
     member: null,
   }, defaults, options);
 
-  params.user = session.getUser();
+  params.user = (await authClient.getSession()).data?.user ?? null;
 
   log = debug('event');
 
@@ -133,7 +133,7 @@ window.asap(async options => {
 
   log('roles: [%s]', roles.join(','));
 
-  adminControls(session, {
+  adminControls(params.user, {
     lang: params.lang,
     eventUid: params.uid,
     agendaUid: params.agendaUid,

@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import session from '@openagenda/sessions/client';
+import { authClient } from '@openagenda/auth/client';
 
 const controllers = require('../../widgets/controller/main'),
   qs = require('qs'),
@@ -52,7 +52,7 @@ if (_.includes(['tpl', 'development'], window.env)) {
   if (window.env === 'tpl') params.res.role = 'role.txt';
 }
 
-window.asap(options => {
+window.asap(async options => {
   log = debug('agendaPage');
   const exportRef = React.createRef();
 
@@ -88,7 +88,7 @@ window.asap(options => {
     console.log('could not assign language to contribute button', e);
   }
 
-  const sessionUser = session.getUser();
+  const sessionUser = (await authClient.getSession()).data?.user ?? null;
 
   controller.getControlData(ctl => {
     if (!ctl.prv && (parseInt(ctl.c) !== 0)) {

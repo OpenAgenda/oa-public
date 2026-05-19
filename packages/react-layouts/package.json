@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "@openagenda/activity-apps": "^1.2.3",
+    "@openagenda/auth": "^0.1.0",
     "@openagenda/bs-templates": "^2.5.1",
     "@openagenda/intl": "^1.1.6",
     "@openagenda/members": "^1.15.14",
