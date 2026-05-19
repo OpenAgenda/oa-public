@@ -14,10 +14,7 @@ function getDateField(sort) {
 }
 
 export default (core) => async (req, res, next) => {
-  const {
-    root,
-    s3: { mainBucketPath },
-  } = core.getConfig();
+  const { root } = core.getConfig();
 
   try {
     const query = {
@@ -40,7 +37,7 @@ export default (core) => async (req, res, next) => {
       description: agenda.description,
       feedURL: root + req.originalUrl,
       siteURL: root,
-      imageURL: agenda.image ? `${mainBucketPath}${agenda.image}` : null,
+      imageURL: agenda.image ?? null,
       language: req.lang,
       pubDate: agenda.updatedAt,
       dateField: getDateField(query.sort),
