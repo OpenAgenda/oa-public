@@ -9,6 +9,13 @@
   "type": "module",
   "exports": {
     ".": "./src/index.js",
+    "./client": "./src/client.js",
+    "./react": "./src/react.js",
+    "./server": "./src/server.js",
+    "./cookie-decode": "./src/cookie-decode.js",
+    "./session": {
+      "types": "./src/session.d.ts"
+    },
     "./*": "./src/*"
   },
   "scripts": {
@@ -17,6 +24,7 @@
   "dependencies": {
     "@better-auth/core": "^1.6.9",
     "@better-auth/redis-storage": "^1.6.9",
+    "@better-auth/utils": "^0.4.0",
     "argon2": "^0.44.0",
     "better-auth": "^1.6.9",
     "kysely": "^0.28.16",
@@ -26,6 +34,14 @@
     "@jest/globals": "^29.7.0",
     "@openagenda/eslint-config": "^1.4.0",
     "jest": "^29.7.0"
+  },
+  "peerDependencies": {
+    "react": "^19.2.2"
+  },
+  "peerDependenciesMeta": {
+    "react": {
+      "optional": true
+    }
   },
   "jest": {
     "transform": {}

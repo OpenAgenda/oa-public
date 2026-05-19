@@ -11016,6 +11016,11 @@ __metadata:
     jest: "npm:^29.7.0"
     kysely: "npm:^0.28.16"
     zod: "npm:^4.4.3"
+  peerDependencies:
+    react: ^19.2.2
+  peerDependenciesMeta:
+    react:
+      optional: true
   languageName: unknown
   linkType: soft
 
@@ -11098,6 +11103,7 @@ __metadata:
     "@openagenda/activity-apps": "npm:^1.2.3"
     "@openagenda/admin-agendas": "npm:^1.1.19"
     "@openagenda/aggregator-sources": "npm:^1.3.3"
+    "@openagenda/auth": "npm:^0.1.0"
     "@openagenda/babel-preset": "npm:^1.5.0"
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/home": "npm:^2.2.3"
@@ -12469,6 +12475,7 @@ __metadata:
   resolution: "@openagenda/react-layouts@workspace:packages/react-layouts"
   dependencies:
     "@openagenda/activity-apps": "npm:^1.2.3"
+    "@openagenda/auth": "npm:^0.1.0"
     "@openagenda/bs-templates": "npm:^2.5.1"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/intl": "npm:^1.1.6"
