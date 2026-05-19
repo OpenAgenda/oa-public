@@ -7,6 +7,7 @@ import DocxExportModal from '@openagenda/agenda-docx/client/build/ExportModal.js
 import exportsMessages from '../messages/exports.js';
 import SpreadsheetModal from './SpreadsheetModal.js';
 import PdfModal from './PdfModal.js';
+import RssModal from './RssModal.js';
 import ExportsDropdown from './ExportsDropdown.js';
 
 const messages = defineMessages({
@@ -30,6 +31,7 @@ export default function Actions({
   const [displayDocxModal, setDisplayDocxModal] = useState(false);
   const [displaySpreadsheetModal, setDisplaySpreadsheetModal] = useState(false);
   const [displayPdfModal, setDisplayPdfModal] = useState(false);
+  const [displayRssModal, setDisplayRssModal] = useState(false);
 
   const toggleDocxModal = useMemo(
     () =>
@@ -67,6 +69,18 @@ export default function Actions({
     [],
   );
 
+  const toggleRssModal = useMemo(
+    () =>
+      a11yButtonActionHandler((e) => {
+        if (e) {
+          e.preventDefault();
+        }
+
+        setDisplayRssModal((previous) => !previous);
+      }),
+    [],
+  );
+
   const queryString = qs.stringify(
     { size: -1, ...query },
     {
@@ -83,6 +97,7 @@ export default function Actions({
         toggleDocxModal={toggleDocxModal}
         toggleSpreadsheetModal={toggleSpreadsheetModal}
         togglePdfModal={togglePdfModal}
+        toggleRssModal={toggleRssModal}
         className="margin-right-sm"
       >
         {intl.formatMessage(exportsMessages.export)}
@@ -131,6 +146,14 @@ export default function Actions({
       {displayPdfModal ? (
         <PdfModal
           onClose={togglePdfModal}
+          agendaUid={agenda.uid}
+          queryString={queryString}
+        />
+      ) : null}
+
+      {displayRssModal ? (
+        <RssModal
+          onClose={toggleRssModal}
           agendaUid={agenda.uid}
           queryString={queryString}
         />

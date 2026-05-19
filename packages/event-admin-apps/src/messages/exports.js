@@ -70,4 +70,32 @@ export default defineMessages({
     id: 'EventAdminApp.messages.exports.PDFSelectSub',
     defaultMessage: 'Drag and drop options to adjust order',
   },
+  RSSSort: {
+    id: 'EventAdminApp.messages.exports.RSSSort',
+    defaultMessage: 'Sort by',
+  },
+  RSSSortUpdated: {
+    id: 'EventAdminApp.messages.exports.RSSSortUpdated',
+    defaultMessage: 'Updated at',
+  },
+  RSSSortChronological: {
+    id: 'EventAdminApp.messages.exports.RSSSortChronological',
+    defaultMessage: 'Chronological',
+  },
+  RSSCategoryField: {
+    id: 'EventAdminApp.messages.exports.RSSCategoryField',
+    defaultMessage: 'Category field (optional)',
+  },
+  RSSCategoryFieldNone: {
+    id: 'EventAdminApp.messages.exports.RSSCategoryFieldNone',
+    defaultMessage: 'None',
+  },
+  RSSCopy: {
+    id: 'EventAdminApp.messages.exports.RSSCopy',
+    defaultMessage: 'Copy',
+  },
+  RSSCopied: {
+    id: 'EventAdminApp.messages.exports.RSSCopied',
+    defaultMessage: 'Copied',
+  },
 });
