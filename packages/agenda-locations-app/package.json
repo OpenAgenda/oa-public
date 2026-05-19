@@ -10,11 +10,11 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "main": "./dist/app.mjs",
+  "main": "./dist/app.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/app.mjs",
-    "./*": "./dist/*.mjs"
+    ".": "./dist/app.js",
+    "./*": "./dist/*.js"
   },
   "scripts": {
     "extract-messages": "oa-intl --esm",

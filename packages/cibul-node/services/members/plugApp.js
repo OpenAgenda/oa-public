@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import streamCsv from './lib/streamCsv.js';
 import streamXlsx from './lib/streamXlsx.js';
-import transferEvent from './lib/transferEvent.js';
 import * as mw from './middleware/index.js';
 import * as mail from './lib/mail.js';
 
@@ -161,22 +160,7 @@ export default function plugApp(app) {
     mw.loadAgenda.default,
     mw.loadEvent.default,
     mw.load.default,
-    mw.authorize.adminModOrEventOwner,
-    (req, res, next) => {
-      req.app.core
-        .users(req.user.uid)
-        .agendas(req.agenda.uid)
-        .events(req.event.uid)
-        .getContext({
-          userUid: req.user.uid,
-        })
-        .then((context) => {
-          if (context.me?.authorizations?.canEditEvent) {
-            return next();
-          }
-          res.status(401).json();
-        });
-    },
+    // NOTE: mw.authorize.adminModOrEventOwner removed — core endpoint enforces authz
     async (req, res, next) => {
       try {
         if (req.body.userUid) {
@@ -201,15 +185,22 @@ export default function plugApp(app) {
       }
     },
     (req, res, next) =>
-      transferEvent(req.app.services, req.event, req.targetMember).then(() => {
-        if (req.query.json) {
-          return res.status(200).json();
-        }
-        res.redirect(
-          302,
-          `/${req.agenda.slug}/events/${req.event.uid}_${req.event.slug}`,
-        );
-      }, next),
+      req.app.core
+        .agendas(req.agenda.uid)
+        .events.transferOwnership(
+          req.event.uid,
+          { userUid: req.targetMember.userUid },
+          { context: { userUid: req.user.uid } },
+        )
+        .then(() => {
+          if (req.query.json) {
+            return res.status(200).json();
+          }
+          res.redirect(
+            302,
+            `/${req.agenda.slug}/events/${req.event.uid}_${req.event.slug}`,
+          );
+        }, next),
   );
 
   app.get('/:agendaSlug/admin/members.csv', streamCsv);

@@ -4,11 +4,11 @@
   "private": true,
   "license": "MIT",
   "type": "module",
-  "main": "./dist/service/index.mjs",
+  "main": "./dist/service/index.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/service/index.mjs",
-    "./*": "./dist/*.mjs"
+    ".": "./dist/service/index.js",
+    "./*": "./dist/*.js"
   },
   "scripts": {
     "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn sb --ci\"",

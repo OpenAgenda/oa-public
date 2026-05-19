@@ -4,6 +4,7 @@ const config: UserConfig = defineConfig({
   entry: ['client/src/**/*.{js,jsx,mjs}'],
   outDir: 'client/build',
   format: ['esm'],
+  platform: 'neutral',
   sourcemap: true,
   dts: false,
   loader: {

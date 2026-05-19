@@ -11,9 +11,9 @@
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
-    "./client/apps/*": "./dist/client/apps/*/index.mjs",
+    "./client/apps/*": "./dist/client/apps/*/index.js",
     "./locales-compiled/*.json": "./dist/locales-compiled/*.json",
-    "./*": "./dist/*.mjs"
+    "./*": "./dist/*.js"
   },
   "scripts": {
     "sb": "storybook dev",

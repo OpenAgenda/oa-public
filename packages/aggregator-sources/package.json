@@ -10,10 +10,10 @@
   "author": "",
   "license": "ISC",
   "type": "module",
-  "main": "./dist/app.mjs",
+  "main": "./dist/app.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/app.mjs"
+    ".": "./dist/app.js"
   },
   "scripts": {
     "sb": "storybook dev",

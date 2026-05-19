@@ -3,11 +3,11 @@
   "version": "2.2.3",
   "private": true,
   "type": "module",
-  "main": "./dist/index.mjs",
+  "main": "./dist/index.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/index.mjs",
-    "./layouts": "./dist/layouts/index.mjs"
+    ".": "./dist/index.js",
+    "./layouts": "./dist/layouts/index.js"
   },
   "license": "MIT",
   "files": [

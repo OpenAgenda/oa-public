@@ -5,7 +5,7 @@ import { IntlProvider } from 'react-intl';
 import * as commonLocales from '@openagenda/common-labels';
 import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
-import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.mjs';
+import FormSchemaComponent from '@openagenda/form-schemas/client/build/index.js';
 
 import errorLabels from '@openagenda/labels/event/errors.js';
 import Registration from '@openagenda/registration-apps';

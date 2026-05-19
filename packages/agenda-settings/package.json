@@ -10,7 +10,7 @@
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
-    "./*": "./dist/*.mjs"
+    "./*": "./dist/*.js"
   },
   "scripts": {
     "sb": "storybook dev",

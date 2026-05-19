@@ -6,7 +6,7 @@
   "type": "module",
   "exports": {
     "./package.json": "./package.json",
-    "./embeds/app": "./embeds/app/dist/index.mjs",
+    "./embeds/app": "./embeds/app/dist/index.js",
     "./convertEventToLegacyFormat/*": "./convertEventToLegacyFormat/*",
     "./convertLegacyFilter/*": "./convertLegacyFilter/*",
     "./tagSetToFormSchema/*": "./tagSetToFormSchema/*",

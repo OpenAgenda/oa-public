@@ -3,10 +3,10 @@
   "version": "1.2.3",
   "private": true,
   "type": "module",
-  "main": "./dist/app.mjs",
+  "main": "./dist/app.js",
   "exports": {
     "./package.json": "./package.json",
-    ".": "./dist/app.mjs"
+    ".": "./dist/app.js"
   },
   "license": "MIT",
   "scripts": {
