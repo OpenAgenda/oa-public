@@ -62,7 +62,7 @@ function matchAgendaPageRoute(pathname: string): MatchedRoute | null {
   return null;
 }
 
-const UID_SLUG_RE = /^(\d+)_(.+)$/;
+const UID_SLUG_RE = /^(\d+)(?:_.*)?$/;
 
 function matchEventPageRoute(
   pathname: string,

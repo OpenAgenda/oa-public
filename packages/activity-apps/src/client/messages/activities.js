@@ -79,6 +79,22 @@ export default defineMessages({
     defaultMessage:
       '<event>{eventName}</event> was deleted on <agenda>{agendaName}</agenda>.',
   },
+  // event.transferOwnership
+  'eventTransferOwnership.full': {
+    id: 'ActivityApps.eventTransferOwnership.full',
+    defaultMessage:
+      '<user>{userName}</user> transferred ownership of <event>{eventName}</event> to <newOwner>{newOwnerName}</newOwner> on <agenda>{agendaName}</agenda>.',
+  },
+  'eventTransferOwnership.actor': {
+    id: 'ActivityApps.eventTransferOwnership.actor',
+    defaultMessage:
+      '<user>{userName}</user> transferred ownership of <event>{eventName}</event> to <newOwner>{newOwnerName}</newOwner>.',
+  },
+  'eventTransferOwnership.target': {
+    id: 'ActivityApps.eventTransferOwnership.target',
+    defaultMessage:
+      'Ownership of <event>{eventName}</event> was transferred to <newOwner>{newOwnerName}</newOwner> on <agenda>{agendaName}</agenda>.',
+  },
   // agenda.publishEvent
   'publishEvent.full': {
     id: 'ActivityApps.publishEvent.full',

@@ -7,6 +7,10 @@ import listify from './listify.js';
 
 const timezoneRegex = /^[A-Z][a-zA-Z_]+\/[A-Z][A-Za-z_/]+$/;
 
+const timezoneAliases = {
+  UTC: 'Etc/UTC',
+};
+
 export default function timezone(config = {}) {
   const params = cleanParams('timezone', config, {
     error: {
@@ -34,7 +38,9 @@ export default function timezone(config = {}) {
       return clean;
     }
 
-    if (!timezoneRegex.test(value)) {
+    const normalized = timezoneAliases[clean] ?? clean;
+
+    if (!timezoneRegex.test(normalized)) {
       throw errors(
         params,
         value,
@@ -42,7 +48,7 @@ export default function timezone(config = {}) {
         'must be in Continent/City format (e.g., Europe/Paris, America/New_York)',
       );
     }
-    return clean;
+    return normalized;
   };
   validate.type = 'integer';
   validate.field = params.field;

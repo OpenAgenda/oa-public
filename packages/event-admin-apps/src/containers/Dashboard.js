@@ -38,6 +38,8 @@ import removeQueryPrefix from '../utils/removeQueryPrefix.js';
 import addQueryPrefix from '../utils/addQueryPrefix.js';
 import flattenAgendaSchema from '../utils/flattenAgendaSchema.js';
 import ExportsDropdown from '../components/ExportsDropdown.js';
+import SpreadsheetModal from '../components/SpreadsheetModal.js';
+import PdfModal from '../components/PdfModal.js';
 
 const useLatest = useLatestModule.default || useLatestModule;
 const useUpdateEffect = useUpdateEffectModule.default || useUpdateEffectModule;
@@ -188,6 +190,32 @@ function GroupedActions({
   extendedAllSelected,
 }) {
   const intl = useIntl();
+  const [displaySpreadsheetModal, setDisplaySpreadsheetModal] = useState(false);
+  const [displayPdfModal, setDisplayPdfModal] = useState(false);
+
+  const toggleSpreadsheetModal = useMemo(
+    () =>
+      a11yButtonActionHandler((e) => {
+        if (e) {
+          e.preventDefault();
+        }
+
+        setDisplaySpreadsheetModal((previous) => !previous);
+      }),
+    [],
+  );
+
+  const togglePdfModal = useMemo(
+    () =>
+      a11yButtonActionHandler((e) => {
+        if (e) {
+          e.preventDefault();
+        }
+
+        setDisplayPdfModal((previous) => !previous);
+      }),
+    [],
+  );
 
   const usedQuery = extendedAllSelected ? query : { uid: [...selectedEvents] };
   const queryString = qs.stringify(usedQuery, {
@@ -204,6 +232,8 @@ function GroupedActions({
         id="grouped-actions-export"
         agenda={agenda}
         queryString={queryString}
+        toggleSpreadsheetModal={toggleSpreadsheetModal}
+        togglePdfModal={togglePdfModal}
         disabled={!selectedCount}
         className="margin-right-sm"
       >
@@ -216,6 +246,22 @@ function GroupedActions({
         placeholder={intl.formatMessage(messages.changeState)}
         isDisabled={!selectedCount}
       />
+
+      {displaySpreadsheetModal ? (
+        <SpreadsheetModal
+          onClose={toggleSpreadsheetModal}
+          agendaUid={agenda.uid}
+          queryString={queryString}
+        />
+      ) : null}
+
+      {displayPdfModal ? (
+        <PdfModal
+          onClose={togglePdfModal}
+          agendaUid={agenda.uid}
+          queryString={queryString}
+        />
+      ) : null}
     </>
   );
 }

@@ -25,4 +25,10 @@ describe('timezone validator', () => {
 
     expect(clean).toBe('Europe/Paris');
   });
+
+  it('normalizes bare UTC to Etc/UTC', () => {
+    const clean = defaultValidateTimezone('UTC');
+
+    expect(clean).toBe('Etc/UTC');
+  });
 });

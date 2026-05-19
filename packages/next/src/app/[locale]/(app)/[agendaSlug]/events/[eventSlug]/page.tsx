@@ -10,7 +10,7 @@ import EventShowWrapper from './_components/EventShowWrapper';
 import getContentLocale from './_utils/getContentLocale';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
-const UID_SLUG_RE = /^(\d+)_(.+)$/;
+const UID_SLUG_RE = /^(\d+)(?:_.*)?$/;
 
 type Params = Promise<{
   locale: string;

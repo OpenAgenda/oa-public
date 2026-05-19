@@ -15,6 +15,34 @@ const formatDescription = (description, dateRange, html = '') =>
 const pickLanguage = (event, lang) =>
   (event.title[lang] ? lang : Object.keys(event.title)[0]);
 
+const pickOptionLabel = (label, lang, fallback) => {
+  if (!label) return fallback;
+  if (typeof label === 'string') return label;
+  if (label[lang]) return label[lang];
+  const first = Object.keys(label)[0];
+  return first ? label[first] : fallback;
+};
+
+const resolveCategoriesForField = (event, categoryField, formSchema, lang) => {
+  if (!categoryField || !formSchema?.fields) return [];
+  const field = formSchema.fields.find((f) => f.field === categoryField);
+  if (!field || !field.options) return [];
+
+  return []
+    .concat(_.get(event, categoryField) ?? [])
+    .map((id) => {
+      const option = field.options.find((o) => o.id === id);
+      if (!option) return null;
+      return pickOptionLabel(option.label, lang, option.value);
+    })
+    .filter((v) => !!v);
+};
+
+const resolveCategories = (event, categoryFields, formSchema, lang) =>
+  []
+    .concat(categoryFields ?? [])
+    .flatMap((f) => resolveCategoriesForField(event, f, formSchema, lang));
+
 const validateOptions = schema({
   lang: {
     type: 'text',
@@ -28,11 +56,27 @@ const validateOptions = schema({
     type: 'text',
     default: 'updatedAt',
   },
+  categoryFields: {
+    type: 'pass',
+    optional: true,
+    default: null,
+  },
+  formSchema: {
+    type: 'pass',
+    optional: true,
+    default: null,
+  },
 });
 
 export default (event, options = {}) => {
   const cleanOptions = validateOptions(options);
   const lang = pickLanguage(event, cleanOptions.lang);
+  const categories = resolveCategories(
+    event,
+    cleanOptions.categoryFields,
+    cleanOptions.formSchema,
+    lang,
+  );
 
   return {
     title: _.get(event, `title.${lang}`, ''),
@@ -48,6 +92,7 @@ export default (event, options = {}) => {
     date: _.get(event, cleanOptions.dateField, event.updatedAt),
     lat: _.get(event, 'location.latitude', null),
     long: _.get(event, 'location.longitude', null),
+    ...categories.length ? { categories } : {},
     custom_elements: [
       {
         'ev:startdate': moment

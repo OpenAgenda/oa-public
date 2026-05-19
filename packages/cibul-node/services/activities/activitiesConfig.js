@@ -486,6 +486,58 @@ const activitiesConfig = {
       groupBy: ['target'],
     },
   },
+  'event.transferOwnership': {
+    filterFollows: or(
+      fromEventToUser,
+      toAgenda('store.agendaUid'),
+      fromAgendaToAdminMod,
+    ),
+    labelIds: [
+      [
+        'ActivityApps.eventTransferOwnership.full',
+        ['actor', 'store.labels.target', 'store.labels.agenda'],
+      ],
+      [
+        'ActivityApps.eventTransferOwnership.actor',
+        ['actor', 'store.labels.target'],
+      ],
+      [
+        'ActivityApps.eventTransferOwnership.target',
+        ['store.labels.target', 'store.labels.agenda'],
+      ],
+    ],
+    entities: {
+      userUid: 'actor.uid',
+      eventUid: 'object.uid',
+      newOwnerUid: 'target.uid',
+      previousOwnerUid: 'store.previousOwnerUid',
+      agendaUid: 'store.agendaUid',
+      userName: 'store.labels.actor',
+      eventName: 'store.labels.object',
+      newOwnerName: 'store.labels.target',
+      agendaName: 'store.labels.agenda',
+    },
+    tags: {
+      user: {
+        highlight: true,
+        filter: 'actor',
+      },
+      event: {
+        link: '/agendas/:agendaUid/events/:eventUid',
+        filter: 'object',
+      },
+      newOwner: {
+        highlight: true,
+        filter: 'target',
+      },
+      agenda: {
+        link: '/agendas/:agendaUid',
+      },
+    },
+    notifications: {
+      groupBy: ['target'],
+    },
+  },
   /*
    * agenda.publishEvent:
    *   event -> agenda target -> adminMods

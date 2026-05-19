@@ -98,4 +98,12 @@ describe('13 - core - functional(server): core.agendas().locations.merge', () =>
         .then(({ location_uid: locationUID }) => locationUID),
     ).toBe(76464022);
   });
+
+  it('agenda_event user_uid is preserved on the merged event', async () => {
+    const agendaEvent = await core.services
+      .agendaEvents(49405812)
+      .get(83829657);
+
+    expect(agendaEvent?.userUid).toBe(56659395);
+  });
 });

@@ -50,6 +50,12 @@ export default (core) => async (req, res, next) => {
       rssOptions.genUrl = (e) => `${query.embed_url}?oaq[uid]=${e.uid}`;
     }
 
+    const categoryFields = [].concat(req.query.category ?? []).filter(Boolean);
+    if (categoryFields.length) {
+      rssOptions.categoryFields = categoryFields;
+      rssOptions.formSchema = req.formSchema;
+    }
+
     const feed = rss(rssOptions);
 
     events.forEach((e) => feed.addEvent(e));

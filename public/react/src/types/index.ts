@@ -91,8 +91,14 @@ export type ExportField = {
   hasOptions?: boolean;
 };
 
+export type ChoiceField = {
+  field: string;
+  label: Record<string, string>;
+};
+
 export type ExportSettings = {
   languages?: string[];
   hasMultipleLocations?: boolean;
   spreadsheetColumns?: ExportField[];
+  choiceFields?: ChoiceField[];
 };

@@ -36,7 +36,7 @@ export default function SpreadsheetModal({
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const parsedQuery = qs.parse(queryString);
+    const parsedQuery = qs.parse(queryString, { ignoreQueryPrefix: true });
     const newQuery = qs.stringify(
       {
         ...parsedQuery,
