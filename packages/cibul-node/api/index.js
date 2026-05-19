@@ -1060,21 +1060,32 @@ export default (core, { useRouter = true } = {}) => {
     }
   });
 
-  app.delete('/me', (req, res, next) => {
+  app.delete('/me', async (req, res, next) => {
     if (!req.user) {
       return next(new NotAuthenticated('Authentication is required'));
     }
-    core
-      .users(req.user.uid)
-      .remove()
-      .then(() => {
-        if (core.services.sessions) {
-          core.services.sessions.mw.close();
+    try {
+      // accountCleanup hook (services/users/hooks/accountCleanup.js) runs
+      // auth.revokeUserSessions on afterRemove, killing the DB-side session.
+      // We still need to clear the BA cookies on this response so the client
+      // is logged-out immediately, not just after the next request.
+      await core.users(req.user.uid).remove();
+      const auth = core.services?.auth;
+      if (auth) {
+        try {
+          const out = await auth.api.signOut({
+            headers: auth.toHeaders(req),
+            asResponse: true,
+          });
+          auth.forwardSetCookieHeaders(out, res);
+        } catch (_err) {
+          // Cookies stay until natural expiry; not worth failing the delete.
         }
-        res.json({
-          success: true,
-        });
-      });
+      }
+      res.json({ success: true });
+    } catch (err) {
+      next(err);
+    }
   });
 
   app.get('/me/agendas', [

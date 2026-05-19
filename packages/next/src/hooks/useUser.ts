@@ -1,4 +1,3 @@
-// import session from '@openagenda/sessions/client';
 import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr';
@@ -44,10 +43,6 @@ export default function useUser({
   redirectTo = null,
   redirectIfFound = false,
 } = {}) {
-  // return typeof window !== 'undefined'
-  //   ? session.getUser()
-  //   : null;
-
   const router = useRouter();
   const { data: user, status, error } = useSWR<User>('/users/me', fetcher);
 

@@ -1,14 +1,8 @@
-import { useMemo } from 'react';
-import { useCookies } from 'react-cookie';
-import base64 from 'utils/base64';
+'use client';
 
-const COOKIE_NAME = 'oa.user';
+import { authClient } from '@openagenda/auth/react';
 
 export default function useSession() {
-  const [cookies] = useCookies();
-
-  return useMemo(() => {
-    if (!cookies[COOKIE_NAME]) return null;
-    return JSON.parse(base64.decode(cookies[COOKIE_NAME]));
-  }, [cookies[COOKIE_NAME]]);
+  const { data } = authClient.useSession();
+  return data ?? null;
 }

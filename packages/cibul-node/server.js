@@ -11,6 +11,7 @@ import { randomBytes } from 'node:crypto';
 import logs from '@openagenda/logs';
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { NotFound } from '@openagenda/verror';
 import config from './config/index.js';
@@ -90,7 +91,7 @@ try {
       verify: rawBodySaver,
     }),
     secureHeaders,
-    sessions.mw,
+    cookieParser(),
     sessions.mw.load({ detailed: true }),
     otelMw.addUserContext,
     logRequestMw,

@@ -50,7 +50,7 @@ export default (options = {}) => {
 
   service.close.byUid = close.byUid.bind(null, config);
 
-  service.mw = mw(service, config);
+  service.mw = mw(service);
 
   return service;
 };

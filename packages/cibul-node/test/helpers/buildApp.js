@@ -1,11 +1,12 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import Core from '../../core/index.js';
 
 // Mounts a base Express app for integration tests: trust proxy, view engine,
 // services + core attached, the /api/auth/* better-auth handler before the
-// body parsers, sessions middleware (with detailed load), and a generic
-// json-error handler. The optional `extend` callback registers route fronts
+// body parsers, the BA-aware sessions.mw.load (populates req.user), and a
+// generic json-error handler. The optional `extend` callback registers route fronts
 // (localFront, googleFront, facebookFront, generalFront, custom test routes,
 // …). Each test mounts only what it needs — keeps `buildApp` small and
 // avoids cross-test surprises (e.g. localFront's `/:agendaSlug/signin`
@@ -24,12 +25,12 @@ export default function buildApp(services, config, { extend } = {}) {
   app.use(
     bodyParser.json({ limit: '5mb' }),
     bodyParser.urlencoded({ limit: '500kb', extended: true }),
+    cookieParser(),
     (req, res, next) => {
       res.locals = res.locals || {};
       res.locals.cspNonce = 'test';
       next();
     },
-    services.sessions.mw,
     services.sessions.mw.load({ detailed: true }),
     (req, _res, next) => {
       req.lang = req.query.lang || 'fr';

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
+import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import getSession from '@/src/utils/getSession';
+import { getSessionCookie } from '@openagenda/auth/server';
 import SigninPageClient from './_components/SigninPageClient';
 
 type SearchParams = Promise<Record<string, string | string[] | undefined>>;
@@ -21,10 +21,8 @@ export default async function SigninPage({
 }: {
   searchParams: SearchParams;
 }) {
-  const cookieStore = await cookies();
-  const session = getSession(cookieStore);
-
-  if (session?.user) {
+  const h = await headers();
+  if (getSessionCookie(h, { cookiePrefix: 'oa' })) {
     // /home is a cibul-node legacy route, not a Next.js route — redirect
     // without the locale prefix so nginx routes it to cibul-node. The
     // localized variant (/fr/home) would fall through to Next's [agendaSlug]

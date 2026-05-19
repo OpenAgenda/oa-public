@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import browserslistConfig from '@openagenda/browserslist-config';
 import { isOutdatedBrowser } from '@openagenda/outdated-browser/middleware';
+import { getCookieCache } from '@openagenda/auth/server';
 import getPreferredLocale from 'utils/getPreferredLocale';
-import getSession from 'utils/getSession';
 import parseAcceptLanguage from 'utils/parseAcceptLanguage';
 import generateNonce from 'utils/generateNonce';
 import CSP from 'utils/contentSecurityPolicy';
@@ -275,15 +275,21 @@ export async function proxy(req: NextRequest) {
   const acceptLanguage = parseAcceptLanguage(
     req.headers.get('Accept-Language'),
   );
-  const session = getSession(req.cookies);
-  const userLocale = session?.user?.culture;
+  const session = process.env.OA_AUTH_SECRET
+    ? await getCookieCache(req, {
+        secret: process.env.OA_AUTH_SECRET,
+        cookiePrefix: 'oa',
+      })
+    : null;
+  const userLocale = (session?.user as { culture?: string | null } | undefined)
+    ?.culture;
   const qsLocale = req.nextUrl.searchParams.get('lang');
 
   // Note: no span enrichment here. The middleware runs in its own root
   // trace (`BaseServer.handleRequest` with `next.bubble: true`) which the
   // request-log processor filters out. Session enrichment for the logged
-  // page render span is done by `SessionAttributesSpanProcessor` from the
-  // captured `oa.user` cookie header attribute.
+  // page render span is done downstream from the captured
+  // `oa.session_data` cookie header attribute.
 
   // Extract locale from URL path (first segment) — i18n config is disabled so
   // we handle locale detection manually here.

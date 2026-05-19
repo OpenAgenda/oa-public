@@ -34,6 +34,7 @@
     "@iframe-resizer/react": "^5.4.6",
     "@next/bundle-analyzer": "16.0.0",
     "@openagenda/activity-apps": "^1.2.3",
+    "@openagenda/auth": "^0.1.0",
     "@openagenda/browserslist-config": "^1.0.0",
     "@openagenda/common-labels": "^1.2.4",
     "@openagenda/date-utils": "^0.0.1",

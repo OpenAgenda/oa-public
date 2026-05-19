@@ -29,11 +29,15 @@ import {
   SentryPropagator,
   SentrySampler,
 } from '@sentry/opentelemetry';
-import { SESSION_COOKIE_NAME } from './config/constants';
-import { parseSessionCookie } from './utils/getSession';
+import { decodeSessionDataUnsafe } from '@openagenda/auth/cookie-decode';
 import { RequestLogSpanProcessor } from './utils/requestLogSpanProcessor';
 
-const SESSION_COOKIE_ATTR = `http.request.header.cookie.${SESSION_COOKIE_NAME}`;
+// BA writes the session-cache cookie under the `oa` prefix configured by
+// @openagenda/auth. The HTTPS-only `__Secure-` variant is emitted in prod;
+// dev (HTTP) carries the unprefixed name.
+const SESSION_COOKIE_ATTR_SECURE =
+  'http.request.header.cookie.__Secure-oa.session_data';
+const SESSION_COOKIE_ATTR_PLAIN = 'http.request.header.cookie.oa.session_data';
 
 /**
  * Copies a whitelist of attributes from parent span → child span at onStart.
@@ -201,16 +205,21 @@ sentryClient.traceProvider = sdk['_tracerProvider'];
  * child span is started.
  *
  * Why via Sentry's `spanStart` event and not an OTel `SpanProcessor.onStart`?
- * The cookie attribute we decode (`http.request.header.cookie.oa.user`) is
- * populated on the span by Sentry's HTTP integration inside *its own*
- * `spanStart` listener, registered during `init()`. Running after it in the
- * same synchronous event emission is the only way to see the cookie before
- * children are spawned — any OTel `SpanProcessor.onStart` fires earlier,
- * when the attribute is not yet set.
+ * The cookie attribute we decode (`http.request.header.cookie.oa.session_data`
+ * or its `__Secure-` prefix variant) is populated on the span by Sentry's HTTP
+ * integration inside *its own* `spanStart` listener, registered during
+ * `init()`. Running after it in the same synchronous event emission is the
+ * only way to see the cookie before children are spawned — any OTel
+ * `SpanProcessor.onStart` fires earlier, when the attribute is not yet set.
  *
  * Ordering guarantee: event listeners on Sentry's client run in registration
  * order; since `init()` registers the cookie-capture handler before we
  * attach ours, this listener always runs after the attribute is present.
+ *
+ * The cookie value is the BA "compact" session-data payload. We decode it
+ * unverified here (HMAC verify is async; `spanStart` is sync). The result is
+ * used solely for observability attributes — never as an authorization
+ * signal.
  */
 sentryClient?.on('spanStart', (span) => {
   const attrs = (span as unknown as { attributes: Record<string, unknown> })
@@ -219,14 +228,16 @@ sentryClient?.on('spanStart', (span) => {
   if (attrs['next.bubble'] === true) return;
   if (attrs['session.id'] && attrs['user.uid']) return;
 
-  const cookieValue = attrs[SESSION_COOKIE_ATTR];
+  const cookieValue =
+    attrs[SESSION_COOKIE_ATTR_SECURE] ?? attrs[SESSION_COOKIE_ATTR_PLAIN];
   if (typeof cookieValue !== 'string') return;
 
-  const session = parseSessionCookie(cookieValue);
-  if (!session) return;
+  const payload = decodeSessionDataUnsafe(cookieValue);
+  const sessionId = payload?.session?.session?.id;
+  const userUid = payload?.session?.user?.uid;
 
-  if (session.sessionId) span.setAttribute('session.id', session.sessionId);
-  if (session.user?.uid) span.setAttribute('user.uid', session.user.uid);
+  if (sessionId) span.setAttribute('session.id', sessionId);
+  if (userUid) span.setAttribute('user.uid', userUid);
 });
 
 process.on('SIGTERM', () => {
