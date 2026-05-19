@@ -21,7 +21,7 @@ function projectToLegacyShape(user, imageBucketPath) {
   };
 }
 
-function blacklistRedirect(sessions, req, res, user) {
+function blacklistRedirect(req, res, user) {
   setFlash(
     res,
     `
@@ -30,9 +30,7 @@ function blacklistRedirect(sessions, req, res, user) {
         <p>${getAuthMessageLabel('isBlacklistedInfo', user.culture)}</p>
       </div>`,
   );
-  sessions.close(req, () => {
-    res.redirect(302, '/');
-  });
+  res.redirect(302, '/');
 }
 
 function unauthRedirect(req, res, msg) {
@@ -71,104 +69,69 @@ function projectFromBaUser(baUser, imageBucketPath) {
   };
 }
 
-function load(sessions, baseOptions, { detailed, redirect, msg } = {}) {
+function load(sessions, baseOptions, { redirect, msg } = {}) {
   const imageBucketPath = baseOptions?.imageBucketPath ?? '';
   return async (req, res, next) => {
     const auth = req.app?.services?.auth;
     const usersSvc = req.app?.services?.users;
 
-    if (auth) {
+    if (!auth) {
+      return next();
+    }
+
+    try {
+      const ba = await auth.getSessionFromRequest(req);
+
+      if (!ba?.user) {
+        if (redirect) return unauthRedirect(req, res, msg);
+        return next();
+      }
+
+      let oaUser;
       try {
-        const ba = await auth.getSessionFromRequest(req);
-
-        if (ba?.user) {
-          let oaUser;
-          try {
-            oaUser = await usersSvc.findOne({
-              query: { id: ba.user.id },
-              detailed: true,
-            });
-          } catch (err) {
-            log('warn', 'failed to load oa user from better-auth session', {
-              userId: ba.user.id,
-              err,
-            });
-          }
-
-          // Blacklist guard runs against whichever shape we have. BA's
-          // resolveSessionExtras enrichment already exposes `isBlacklisted`,
-          // so the OA row miss path below is still covered.
-          const blacklisted = oaUser
-            ? oaUser.isBlacklisted
-            : !!ba.user.isBlacklisted;
-          if (blacklisted) {
-            try {
-              await auth.api.signOut({ headers: auth.toHeaders(req) });
-            } catch (err) {
-              log('warn', 'signOut failed for blacklisted user', { err });
-            }
-            return blacklistRedirect(sessions, req, res, oaUser ?? ba.user);
-          }
-
-          // Preferred path: full OA row found, project to legacy shape so the
-          // `req.user.name`/`thumbnail` keys stay consistent with the legacy
-          // fallback (services/sessions/interfaces/getUser.js).
-          if (oaUser) {
-            const projected = projectToLegacyShape(oaUser, imageBucketPath);
-            req.user = projected;
-            // Mirror the user onto req.session so @openagenda/sessions writes
-            // it into the `oa.user` cookie. The Next.js layer reads this cookie
-            // (cookies-only, no HTTP) to know whether the visitor is logged in.
-            // Without this, better-auth-only sessions stay invisible to Next
-            // and guards like `/auth/signin` redirect-when-logged-in don't fire.
-            if (req.session) req.session.user = projected;
-            return next();
-          }
-
-          // Fallback: BA confirms an active session but `usersSvc.findOne`
-          // missed the row. Project the BA user (already enriched by
-          // resolveSessionExtras with fullName/thumbnail/etc when its own
-          // findOne succeeded) so downstream consumers — gates like
-          // sessions.mw.ifLogged, the /post-activate invitation handler, the
-          // `oa.user` cookie consumed by Next — still see the visitor as
-          // signed in. Without this, a transient miss here silently logs the
-          // user out for the duration of the request.
-          const projectedFromBa = projectFromBaUser(ba.user, imageBucketPath);
-          if (projectedFromBa) {
-            log('warn', 'usersSvc.findOne missed; projecting from BA session', {
-              userId: ba.user.id,
-            });
-            req.user = projectedFromBa;
-            if (req.session) req.session.user = projectedFromBa;
-            return next();
-          }
-        }
+        oaUser = await usersSvc.findOne({
+          query: { id: ba.user.id },
+          detailed: true,
+        });
       } catch (err) {
-        log('warn', 'better-auth getSession failed; falling back to legacy', {
+        log('warn', 'failed to load oa user from better-auth session', {
+          userId: ba.user.id,
           err,
         });
       }
+
+      const blacklisted = oaUser
+        ? oaUser.isBlacklisted
+        : !!ba.user.isBlacklisted;
+      if (blacklisted) {
+        try {
+          await auth.api.signOut({ headers: auth.toHeaders(req) });
+        } catch (err) {
+          log('warn', 'signOut failed for blacklisted user', { err });
+        }
+        return blacklistRedirect(req, res, oaUser ?? ba.user);
+      }
+
+      const projected = oaUser
+        ? projectToLegacyShape(oaUser, imageBucketPath)
+        : projectFromBaUser(ba.user, imageBucketPath);
+
+      if (!oaUser && projected) {
+        log('warn', 'usersSvc.findOne missed; projecting from BA session', {
+          userId: ba.user.id,
+        });
+      }
+
+      req.user = projected;
+      // The legacy `oa.user` cookie mirror is gone: Next.js now reads the
+      // BA-signed `oa.session_data` cookie cache directly. Nothing to copy
+      // onto req.session here.
+      return next();
+    } catch (err) {
+      log('warn', 'better-auth getSession failed', { err });
+      if (redirect) return unauthRedirect(req, res, msg);
+      return next();
     }
-
-    sessions.get(req, { detailed }, async (err, user) => {
-      if (err) return next(err);
-
-      if (req.session?.user && !user) {
-        const { sessionId } = req.session;
-        req.session = sessionId ? { sessionId } : null;
-      }
-
-      if (!user && redirect) {
-        return unauthRedirect(req, res, msg);
-      }
-
-      if (user && user.isBlacklisted) {
-        return blacklistRedirect(sessions, req, res, user);
-      }
-
-      req.user = user;
-      next();
-    });
   };
 }
 
@@ -176,7 +139,6 @@ export default load;
 
 export function loadOrRedirect(sessions, baseOptions, options) {
   return load(sessions, baseOptions, {
-    detailed: false,
     redirect: true,
     msg: 'authRequired',
     ...options,
