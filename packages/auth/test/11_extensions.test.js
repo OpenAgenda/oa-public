@@ -1,51 +1,13 @@
 import { jest } from '@jest/globals';
 import { getAuthTables } from '@better-auth/core/db';
 import { filterOutputFields } from '@better-auth/core/utils/db';
-import Auth, { projectUser as namedExport } from '../src/index.js';
-import projectUser from '../src/projectUser.js';
+import Auth from '../src/index.js';
 
 const baseOpts = {
   mysqlPool: {},
   secret: 'x'.repeat(32),
   baseURL: 'http://localhost:3000',
 };
-
-describe('projectUser', () => {
-  it('is exported both as named import and as factory output', () => {
-    const auth = Auth(baseOpts);
-    expect(typeof projectUser).toBe('function');
-    expect(typeof namedExport).toBe('function');
-    expect(auth.projectUser).toBe(projectUser);
-  });
-
-  it('returns null for null/undefined input', () => {
-    expect(projectUser(null)).toBeNull();
-    expect(projectUser(undefined)).toBeNull();
-  });
-
-  it('projects the OA-shape from a BA user row', () => {
-    const projected = projectUser({
-      id: '42',
-      uid: 1234567890,
-      email: 'test@oa.test',
-      name: 'Test User',
-      image: 'thumbs/x.png',
-      culture: 'fr',
-      emailVerified: true,
-      isBlacklisted: false,
-    });
-    expect(projected).toEqual({
-      id: '42',
-      uid: 1234567890,
-      email: 'test@oa.test',
-      name: 'Test User',
-      image: 'thumbs/x.png',
-      culture: 'fr',
-      isActivated: true,
-      isBlacklisted: false,
-    });
-  });
-});
 
 describe('validateSignUp before-hook', () => {
   it('rejects sign-up with 400 when validateSignUp returns errors', async () => {
@@ -283,23 +245,6 @@ describe('onSignUpComplete database hook', () => {
     );
     expect(onSignUpComplete).toHaveBeenCalledTimes(1);
     expect(onAfterOAuthSignUp).toHaveBeenCalledTimes(1);
-  });
-});
-
-describe('customSession plugin opt-in', () => {
-  it('is not registered when resolveSessionExtras is absent', () => {
-    const auth = Auth(baseOpts);
-    const plugins = auth.instance.options.plugins ?? [];
-    expect(plugins.find((p) => p?.id === 'custom-session')).toBeUndefined();
-  });
-
-  it('is registered when resolveSessionExtras is provided', () => {
-    const auth = Auth({
-      ...baseOpts,
-      resolveSessionExtras: async () => ({}),
-    });
-    const plugins = auth.instance.options.plugins ?? [];
-    expect(plugins.find((p) => p?.id === 'custom-session')).toBeDefined();
   });
 });
 

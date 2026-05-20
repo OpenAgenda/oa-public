@@ -1,14 +1,12 @@
 import { betterAuth } from 'better-auth';
 import { toNodeHandler, fromNodeHeaders } from 'better-auth/node';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
-import { customSession } from 'better-auth/plugins';
 import { getCurrentAuthContext } from '@better-auth/core/context';
 import { redisStorage } from '@better-auth/redis-storage';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
-import projectUser from './projectUser.js';
 import {
   encodeLegacy,
   hash as hashPassword,
@@ -56,7 +54,6 @@ export default function Auth(options = {}) {
     onSignInSuccess,
     onSignUpComplete,
     validateSignUp,
-    resolveSessionExtras,
   } = options;
 
   if (!mysqlPool) {
@@ -69,10 +66,6 @@ export default function Auth(options = {}) {
     verification: schemas.verification ?? 'verification',
   };
 
-  // The same `betterAuth({...})` options object is passed to `customSession`
-  // so the plugin can infer `additionalFields` (uid, culture, …) on the
-  // typed `user` argument of `resolveSessionExtras`. Build it once, then
-  // pass to both calls.
   const baOptions = {
     database: { dialect: new MysqlDialect({ pool: mysqlPool }), type: 'mysql' },
     secret,
@@ -609,33 +602,6 @@ export default function Auth(options = {}) {
     },
   };
 
-  // Pass the same options object to `customSession` so its callback's user
-  // and session arguments carry the inferred `additionalFields` typings.
-  // Only register the plugin when the consumer actually wires
-  // `resolveSessionExtras` — otherwise BA's vanilla `/api/auth/get-session`
-  // payload stays unchanged (no behavioural drift on opt-out).
-  if (typeof resolveSessionExtras === 'function') {
-    // Note: `customSession` re-runs the callback on EVERY GET
-    // /api/auth/get-session — there is no per-request cache (verified in
-    // node_modules/better-auth/dist/plugins/custom-session/index.mjs). Keep
-    // the implementation I/O-economical (1 SELECT user max, 1 SELECT
-    // contextual record max).
-    baOptions.plugins = [
-      ...baOptions.plugins,
-      customSession(async ({ user, session }, ctx) => {
-        const extras = await resolveSessionExtras({
-          user,
-          session,
-          request: ctx?.request,
-        });
-        // BA's customSession does NOT merge — it REPLACES. We must explicitly
-        // include `user` and `session` (or their projected equivalents) in
-        // the returned payload, otherwise consumers get an empty payload.
-        return { user, session, ...extras ?? {} };
-      }, baOptions),
-    ];
-  }
-
   const instance = betterAuth(baOptions);
 
   const {
@@ -796,11 +762,7 @@ export default function Auth(options = {}) {
     openSession,
     impersonateUser,
     stopImpersonating,
-    // Pure projection helper. Exposed so consumers that build their own
-    // `resolveSessionExtras` can compose with the canonical OA shape, and
-    // so an OIDC userinfo hook can reuse it without I/O.
-    projectUser,
   };
 }
 
-export { toNodeHandler, fromNodeHeaders, projectUser };
+export { toNodeHandler, fromNodeHeaders };
