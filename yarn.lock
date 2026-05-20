@@ -11009,6 +11009,7 @@ __metadata:
   dependencies:
     "@better-auth/core": "npm:^1.6.9"
     "@better-auth/redis-storage": "npm:^1.6.9"
+    "@better-auth/utils": "npm:^0.4.0"
     "@jest/globals": "npm:^29.7.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     argon2: "npm:^0.44.0"
@@ -12101,6 +12102,7 @@ __metadata:
     "@next/bundle-analyzer": "npm:16.0.0"
     "@next/env": "npm:^16.1.6"
     "@openagenda/activity-apps": "npm:^1.2.3"
+    "@openagenda/auth": "npm:^0.1.0"
     "@openagenda/browserslist-config": "npm:^1.0.0"
     "@openagenda/common-labels": "npm:^1.2.4"
     "@openagenda/date-utils": "npm:^0.0.1"
@@ -12795,14 +12797,11 @@ __metadata:
     "@openagenda/utils": "npm:^1.3.0"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
-    cookie-parser: "npm:^1.4.3"
-    cookie-session: "npm:^2.0.0-alpha.2"
     express: "npm:^4.17.1"
     ioredis: "npm:^5.10.1"
     jest: "npm:^29.7.0"
     js-cookie: "npm:^3.0.5"
     lodash: "npm:^4.17.15"
-    on-headers: "npm:^1.0.2"
     rimraf: "npm:^3.0.1"
   languageName: unknown
   linkType: soft
@@ -28107,7 +28106,6 @@ __metadata:
     "@openagenda/registrations": "npm:^0.0.3"
     "@openagenda/sdk-js": "workspace:^"
     "@openagenda/security": "npm:^1.0.0"
-    "@openagenda/sessions": "npm:^4.1.1"
     "@openagenda/shares": "npm:^0.1.1"
     "@openagenda/simple-cache": "npm:^2.1.1"
     "@openagenda/stream-utils": "npm:^1.1.0"
@@ -28141,6 +28139,7 @@ __metadata:
     body-parser: "npm:^1.19.0"
     bullmq: "npm:^5.65.1"
     concurrently: "npm:^7.3.0"
+    cookie-parser: "npm:^1.4.6"
     date-fns: "npm:^2.16.1"
     date-fns-tz: "npm:^2.0.0"
     debug: "npm:^4.1.1"
@@ -29396,25 +29395,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie-parser@npm:^1.4.3":
-  version: 1.4.4
-  resolution: "cookie-parser@npm:1.4.4"
+"cookie-parser@npm:^1.4.6":
+  version: 1.4.7
+  resolution: "cookie-parser@npm:1.4.7"
   dependencies:
-    cookie: "npm:0.3.1"
+    cookie: "npm:0.7.2"
     cookie-signature: "npm:1.0.6"
-  checksum: 10c0/e21acbcfb9ec3b46cfe73f2aadf888729330a1e7bf144550d48e1d9e5a0f41de29587bdca56ec3722d996815f25adfab8fd6c7695d5987798b7b57ace45aa46f
-  languageName: node
-  linkType: hard
-
-"cookie-session@npm:^2.0.0-alpha.2":
-  version: 2.0.0-rc.1
-  resolution: "cookie-session@npm:2.0.0-rc.1"
-  dependencies:
-    cookies: "npm:0.8.0"
-    debug: "npm:3.2.6"
-    on-headers: "npm:~1.0.2"
-    safe-buffer: "npm:5.2.0"
-  checksum: 10c0/8c18d5fe74c9d7fa3a24836daa1859245f9f812303fea6045ea21f4c5d9becddfb4808623c8ddda3ccfda20c3a98005ef81eafc1ed86187d56c9c28428d4a138
+  checksum: 10c0/46bef553de409031b69a6074ce512d131a98e4fa12612669f1a9c3dd98d56897a31db86a3f4338d4a3a895c6f8d5cfd6fa4d99cdf588e0e8eda655efc3f384dc
   languageName: node
   linkType: hard
 
@@ -29436,13 +29423,6 @@ __metadata:
   version: 1.2.2
   resolution: "cookie-signature@npm:1.2.2"
   checksum: 10c0/54e05df1a293b3ce81589b27dddc445f462f6fa6812147c033350cd3561a42bc14481674e05ed14c7bd0ce1e8bb3dc0e40851bad75415733711294ddce0b7bc6
-  languageName: node
-  linkType: hard
-
-"cookie@npm:0.3.1":
-  version: 0.3.1
-  resolution: "cookie@npm:0.3.1"
-  checksum: 10c0/0d73c4d605b234c4d04de335aefa4988157f03265845f4a89ea311e3ba1ce73ab42b52d33652ed1c9671342eb77742a58f61753f3e90f31711284fb6031b2962
   languageName: node
   linkType: hard
 
@@ -29474,7 +29454,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookie@npm:^0.7.1, cookie@npm:^0.7.2":
+"cookie@npm:0.7.2, cookie@npm:^0.7.1, cookie@npm:^0.7.2":
   version: 0.7.2
   resolution: "cookie@npm:0.7.2"
   checksum: 10c0/9596e8ccdbf1a3a88ae02cf5ee80c1c50959423e1022e4e60b91dd87c622af1da309253d8abdb258fb5e3eacb4f08e579dc58b4897b8087574eee0fd35dfa5d2
@@ -29485,16 +29465,6 @@ __metadata:
   version: 2.1.4
   resolution: "cookiejar@npm:2.1.4"
   checksum: 10c0/2dae55611c6e1678f34d93984cbd4bda58f4fe3e5247cc4993f4a305cd19c913bbaf325086ed952e892108115073a747596453d3dc1c34947f47f731818b8ad1
-  languageName: node
-  linkType: hard
-
-"cookies@npm:0.8.0":
-  version: 0.8.0
-  resolution: "cookies@npm:0.8.0"
-  dependencies:
-    depd: "npm:~2.0.0"
-    keygrip: "npm:~1.1.0"
-  checksum: 10c0/0af32f30d1ece0596efc05782c66b9d61659e20c6cc5b695452abf5ceb51883ef43c5c73d86badd7d028a0da7d39f864c95f33640aef04f97fad70f35986bea3
   languageName: node
   linkType: hard
 
@@ -30874,15 +30844,6 @@ __metadata:
   dependencies:
     ms: "npm:2.0.0"
   checksum: 10c0/121908fb839f7801180b69a7e218a40b5a0b718813b886b7d6bdb82001b931c938e2941d1e4450f33a1b1df1da653f5f7a0440c197f29fbf8a6e9d45ff6ef589
-  languageName: node
-  linkType: hard
-
-"debug@npm:3.2.6":
-  version: 3.2.6
-  resolution: "debug@npm:3.2.6"
-  dependencies:
-    ms: "npm:^2.1.1"
-  checksum: 10c0/406ae034424c5570c83bb7f7baf6a2321ace5b94d6f0032ec796c686e277a55bbb575712bb9e6f204e044b1a8c31981ba97fab725a09fcdc7f85cd89daf4de30
   languageName: node
   linkType: hard
 
@@ -47081,7 +47042,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"on-headers@npm:^1.0.2, on-headers@npm:~1.0.2":
+"on-headers@npm:~1.0.2":
   version: 1.0.2
   resolution: "on-headers@npm:1.0.2"
   checksum: 10c0/f649e65c197bf31505a4c0444875db0258e198292f34b884d73c2f751e91792ef96bb5cf89aa0f4fecc2e4dc662461dda606b1274b0e564f539cae5d2f5fc32f
@@ -53212,13 +53173,6 @@ __metadata:
   version: 5.1.2
   resolution: "safe-buffer@npm:5.1.2"
   checksum: 10c0/780ba6b5d99cc9a40f7b951d47152297d0e260f0df01472a1b99d4889679a4b94a13d644f7dbc4f022572f09ae9005fa2fbb93bbbd83643316f365a3e9a45b21
-  languageName: node
-  linkType: hard
-
-"safe-buffer@npm:5.2.0":
-  version: 5.2.0
-  resolution: "safe-buffer@npm:5.2.0"
-  checksum: 10c0/9e1d7f6a162b493b54ecc29e60fcedaf4d0b53aa1636088f8f1f40dc5e7ceeb44885983c0de8148a735369e1ce567abe9465e8086e413673706432d4df8cca07
   languageName: node
   linkType: hard
 
