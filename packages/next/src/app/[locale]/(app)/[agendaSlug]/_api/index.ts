@@ -3,6 +3,7 @@ import { headers } from 'next/headers';
 import ky from 'ky';
 import qs from 'qs';
 import type { Agenda } from '@/src/types';
+import parseEventUid from '@/src/utils/parseEventUid';
 import { REQUEST_AGENDA_HEADER, peekAgenda } from '@/src/utils/requestAgenda';
 import type { Event } from '../events/[eventSlug]/_hooks/useEvent';
 
@@ -51,9 +52,9 @@ export const fetchEvent = cache(
     eventSlugOrUidSlug: string,
   ): Promise<EventResponse> => {
     const api = await getApi();
-    const uidMatch = eventSlugOrUidSlug.match(/^(\d+)(?:_.*)?$/);
-    const path = uidMatch
-      ? `api/agendas/slug/${agendaSlug}/events/${uidMatch[1]}`
+    const uid = parseEventUid(eventSlugOrUidSlug);
+    const path = uid
+      ? `api/agendas/slug/${agendaSlug}/events/${uid}`
       : `api/agendas/slug/${agendaSlug}/events/slug/${eventSlugOrUidSlug}`;
     return api
       .get(`${path}?longDescriptionFormat=HTMLWithEmbeds`)
