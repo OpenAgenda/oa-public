@@ -112,46 +112,46 @@ async function* executeQuery(query, params, config) {
 }
 
 export default async function* getLogs({ userUid, from, to }, config) {
-  const sessionQuery = `where(meta.user.uid = "${userUid}") groupby("meta.session.id")`;
+  const visitorQuery = `where(meta.user.uid = "${userUid}") groupby("meta.visitor.id")`;
 
-  let sessionIds = [];
-  // Yield session data as it arrives
-  for await (const sessionData of executeQuery(
-    sessionQuery,
+  let visitorIds = [];
+  // Yield visitor data as it arrives
+  for await (const visitorData of executeQuery(
+    visitorQuery,
     { from, to },
     config,
   )) {
-    if (sessionData && Array.isArray(sessionData)) {
-      const newSessionIds = sessionData.map((group) => Object.keys(group)[0]);
-      sessionIds = sessionIds.concat(newSessionIds);
+    if (visitorData && Array.isArray(visitorData)) {
+      const newVisitorIds = visitorData.map((group) => Object.keys(group)[0]);
+      visitorIds = visitorIds.concat(newVisitorIds);
 
-      // Yield progress update for sessions
+      // Yield progress update for visitors
       yield {
-        type: 'sessions',
+        type: 'visitors',
         data: {
-          sessionIds: newSessionIds,
-          total: sessionIds.length,
+          visitorIds: newVisitorIds,
+          total: visitorIds.length,
         },
       };
     }
   }
 
-  if (sessionIds.length === 0) {
+  if (visitorIds.length === 0) {
     yield {
       type: 'complete',
       data: {
         logs: [],
-        message: 'No sessions found',
+        message: 'No visitors found',
       },
     };
     return;
   }
 
   // Get actual logs with filtering in the query
-  const sessionConditions = sessionIds
-    .map((id) => `meta.session.id="${id}"`)
+  const visitorConditions = visitorIds
+    .map((id) => `meta.visitor.id="${id}"`)
     .join(' OR ');
-  const logsQuery = `where((${sessionConditions}) AND meta.url != ${IGNORED_HTTP_PATHS.toString()})`;
+  const logsQuery = `where((${visitorConditions}) AND meta.url != ${IGNORED_HTTP_PATHS.toString()})`;
 
   let totalLogs = 0;
   // Yield log data as it arrives

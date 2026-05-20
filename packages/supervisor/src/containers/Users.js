@@ -101,7 +101,7 @@ export default function Users() {
       );
 
       let allLogs = [];
-      let sessionIds = [];
+      let visitorIds = [];
 
       const handleData = (data) => {
         try {
@@ -118,27 +118,27 @@ export default function Users() {
         // Initialize cache with empty state
         queryClient.setQueryData(queryKey, {
           logs: [],
-          sessions: [],
+          visitors: [],
           isStreaming: true,
-          progress: { sessions: 0, logs: 0 },
+          progress: { visitors: 0, logs: 0 },
         });
       });
 
-      eventSource.addEventListener('sessions', (event) => {
+      eventSource.addEventListener('visitors', (event) => {
         const data = handleData(event.data);
         if (data) {
-          sessionIds = sessionIds.concat(data.sessionIds);
+          visitorIds = visitorIds.concat(data.visitorIds);
           console.log(
-            `Found ${data.sessionIds.length} new sessions, total: ${data.total}`,
+            `Found ${data.visitorIds.length} new visitors, total: ${data.total}`,
           );
 
-          // Optimistic update: add sessions to cache
+          // Optimistic update: add visitors to cache
           queryClient.setQueryData(queryKey, (oldData) => ({
             ...oldData,
-            sessions: sessionIds,
+            visitors: visitorIds,
             progress: {
               ...oldData?.progress,
-              sessions: data.total,
+              visitors: data.total,
             },
           }));
         }
@@ -205,30 +205,30 @@ export default function Users() {
     enabled: !!userUid,
   });
 
-  // Extract unique session IDs and user UIDs
-  const { uniqueSessionIds, uniqueUserUids, hasNullSessionId, hasNullUserUid } = useMemo(() => {
+  // Extract unique visitor IDs and user UIDs
+  const { uniqueVisitorIds, uniqueUserUids, hasNullVisitorId, hasNullUserUid } = useMemo(() => {
     if (!data || !Array.isArray(data) || data.length === 0) {
       return {
-        uniqueSessionIds: [],
+        uniqueVisitorIds: [],
         uniqueUserUids: [],
-        hasNullSessionId: false,
+        hasNullVisitorId: false,
         hasNullUserUid: false,
       };
     }
 
-    const sessionIdsSet = new Set();
+    const visitorIdsSet = new Set();
     const userUidsSet = new Set();
-    let foundNullSessionId = false;
+    let foundNullVisitorId = false;
     let foundNullUserUid = false;
 
     data.forEach((item) => {
-      const sessionId = item.message?.meta?.['session.id'];
+      const visitorId = item.message?.meta?.['visitor.id'];
       const uid = item.message?.meta?.['user.uid'];
 
-      if (sessionId) {
-        sessionIdsSet.add(sessionId);
+      if (visitorId) {
+        visitorIdsSet.add(visitorId);
       } else {
-        foundNullSessionId = true;
+        foundNullVisitorId = true;
       }
 
       if (uid) {
@@ -239,32 +239,32 @@ export default function Users() {
     });
 
     return {
-      uniqueSessionIds: Array.from(sessionIdsSet).sort(),
+      uniqueVisitorIds: Array.from(visitorIdsSet).sort(),
       uniqueUserUids: Array.from(userUidsSet).sort(),
-      hasNullSessionId: foundNullSessionId,
+      hasNullVisitorId: foundNullVisitorId,
       hasNullUserUid: foundNullUserUid,
     };
   }, [data]);
 
   // State for selected filters (all checked by default)
-  const [selectedSessionIds, setSelectedSessionIds] = useState(new Set());
+  const [selectedVisitorIds, setSelectedVisitorIds] = useState(new Set());
   const [selectedUserUids, setSelectedUserUids] = useState(new Set());
-  const [includeNullSessionId, setIncludeNullSessionId] = useState(true);
+  const [includeNullVisitorId, setIncludeNullVisitorId] = useState(true);
   const [includeNullUserUid, setIncludeNullUserUid] = useState(true);
 
   // Initialize selected filters when unique values change
   useEffect(() => {
-    setSelectedSessionIds(new Set(uniqueSessionIds));
-    setIncludeNullSessionId(true);
-  }, [uniqueSessionIds]);
+    setSelectedVisitorIds(new Set(uniqueVisitorIds));
+    setIncludeNullVisitorId(true);
+  }, [uniqueVisitorIds]);
 
   useEffect(() => {
     setSelectedUserUids(new Set(uniqueUserUids));
     setIncludeNullUserUid(true);
   }, [uniqueUserUids]);
 
-  // Calculate counts for session IDs (respecting user UID filters)
-  const sessionIdCounts = useMemo(() => {
+  // Calculate counts for visitor IDs (respecting user UID filters)
+  const visitorIdCounts = useMemo(() => {
     if (!data || !Array.isArray(data) || data.length === 0) {
       return { counts: new Map(), nullCount: 0 };
     }
@@ -273,15 +273,15 @@ export default function Users() {
     let nullCount = 0;
 
     data.forEach((item) => {
-      const sessionId = item.message?.meta?.['session.id'];
+      const visitorId = item.message?.meta?.['visitor.id'];
       const uid = item.message?.meta?.['user.uid'];
 
       // Apply user UID filter
       const userMatch = uid ? selectedUserUids.has(uid) : includeNullUserUid;
       if (!userMatch) return;
 
-      if (sessionId) {
-        counts.set(sessionId, (counts.get(sessionId) || 0) + 1);
+      if (visitorId) {
+        counts.set(visitorId, (counts.get(visitorId) || 0) + 1);
       } else {
         nullCount += 1;
       }
@@ -290,7 +290,7 @@ export default function Users() {
     return { counts, nullCount };
   }, [data, selectedUserUids, includeNullUserUid]);
 
-  // Calculate counts for user UIDs (respecting session ID filters)
+  // Calculate counts for user UIDs (respecting visitor ID filters)
   const userUidCounts = useMemo(() => {
     if (!data || !Array.isArray(data) || data.length === 0) {
       return { counts: new Map(), nullCount: 0 };
@@ -300,14 +300,14 @@ export default function Users() {
     let nullCount = 0;
 
     data.forEach((item) => {
-      const sessionId = item.message?.meta?.['session.id'];
+      const visitorId = item.message?.meta?.['visitor.id'];
       const uid = item.message?.meta?.['user.uid'];
 
-      // Apply session ID filter
-      const sessionMatch = sessionId
-        ? selectedSessionIds.has(sessionId)
-        : includeNullSessionId;
-      if (!sessionMatch) return;
+      // Apply visitor ID filter
+      const visitorMatch = visitorId
+        ? selectedVisitorIds.has(visitorId)
+        : includeNullVisitorId;
+      if (!visitorMatch) return;
 
       if (uid) {
         counts.set(uid, (counts.get(uid) || 0) + 1);
@@ -317,7 +317,7 @@ export default function Users() {
     });
 
     return { counts, nullCount };
-  }, [data, selectedSessionIds, includeNullSessionId]);
+  }, [data, selectedVisitorIds, includeNullVisitorId]);
 
   // Filter data based on selected filters
   const filteredData = useMemo(() => {
@@ -326,17 +326,17 @@ export default function Users() {
     }
 
     return data.filter((item) => {
-      const sessionId = item.message?.meta?.['session.id'];
+      const visitorId = item.message?.meta?.['visitor.id'];
       const uid = item.message?.meta?.['user.uid'];
 
-      // Session ID filter
-      let sessionMatch;
-      if (sessionId) {
-        // If item has a session ID, check if it's selected
-        sessionMatch = selectedSessionIds.has(sessionId);
+      // Visitor ID filter
+      let visitorMatch;
+      if (visitorId) {
+        // If item has a visitor ID, check if it's selected
+        visitorMatch = selectedVisitorIds.has(visitorId);
       } else {
-        // If item has no session ID, check if null option is selected
-        sessionMatch = includeNullSessionId;
+        // If item has no visitor ID, check if null option is selected
+        visitorMatch = includeNullVisitorId;
       }
 
       // User UID filter
@@ -349,24 +349,24 @@ export default function Users() {
         userMatch = includeNullUserUid;
       }
 
-      return sessionMatch && userMatch;
+      return visitorMatch && userMatch;
     });
   }, [
     data,
-    selectedSessionIds,
+    selectedVisitorIds,
     selectedUserUids,
-    includeNullSessionId,
+    includeNullVisitorId,
     includeNullUserUid,
   ]);
 
-  // Toggle individual session ID
-  const toggleSessionId = (sessionId) => {
-    setSelectedSessionIds((prev) => {
+  // Toggle individual visitor ID
+  const toggleVisitorId = (visitorId) => {
+    setSelectedVisitorIds((prev) => {
       const newSet = new Set(prev);
-      if (newSet.has(sessionId)) {
-        newSet.delete(sessionId);
+      if (newSet.has(visitorId)) {
+        newSet.delete(visitorId);
       } else {
-        newSet.add(sessionId);
+        newSet.add(visitorId);
       }
       return newSet;
     });
@@ -385,17 +385,17 @@ export default function Users() {
     });
   };
 
-  // Toggle all session IDs
-  const toggleAllSessionIds = () => {
-    const allSelected = selectedSessionIds.size === uniqueSessionIds.length
-      && (!hasNullSessionId || includeNullSessionId);
+  // Toggle all visitor IDs
+  const toggleAllVisitorIds = () => {
+    const allSelected = selectedVisitorIds.size === uniqueVisitorIds.length
+      && (!hasNullVisitorId || includeNullVisitorId);
 
     if (allSelected) {
-      setSelectedSessionIds(new Set());
-      setIncludeNullSessionId(false);
+      setSelectedVisitorIds(new Set());
+      setIncludeNullVisitorId(false);
     } else {
-      setSelectedSessionIds(new Set(uniqueSessionIds));
-      setIncludeNullSessionId(true);
+      setSelectedVisitorIds(new Set(uniqueVisitorIds));
+      setIncludeNullVisitorId(true);
     }
   };
 
@@ -498,7 +498,7 @@ export default function Users() {
                 <div>
                   <Text fontWeight="bold">Streaming en cours...</Text>
                   <Text fontSize="sm">
-                    Sessions trouvées: {data?.progress?.sessions || 0} | Logs
+                    Visiteurs trouvés: {data?.progress?.visitors || 0} | Logs
                     reçus: {data?.progress?.logs || 0}
                   </Text>
                 </div>
@@ -545,9 +545,9 @@ export default function Users() {
                   </Text>
 
                   {/* Filters Section */}
-                  {(uniqueSessionIds.length > 0
+                  {(uniqueVisitorIds.length > 0
                     || uniqueUserUids.length > 0
-                    || hasNullSessionId
+                    || hasNullVisitorId
                     || hasNullUserUid) && (
                     <Box
                       mb={6}
@@ -561,19 +561,19 @@ export default function Users() {
                       </Heading>
 
                       <SimpleGrid columns={{ base: 1, md: 2 }} gap={6}>
-                        {/* Session IDs Filter */}
-                        {(uniqueSessionIds.length > 0 || hasNullSessionId) && (
+                        {/* Visitor IDs Filter */}
+                        {(uniqueVisitorIds.length > 0 || hasNullVisitorId) && (
                           <Box>
                             <HStack mb={3}>
-                              <Heading size="sm">ID Session</Heading>
+                              <Heading size="sm">ID Visiteur</Heading>
                               <Button
                                 size="sm"
                                 variant="ghost"
-                                onClick={toggleAllSessionIds}
+                                onClick={toggleAllVisitorIds}
                               >
-                                {selectedSessionIds.size
-                                  === uniqueSessionIds.length
-                                && (!hasNullSessionId || includeNullSessionId)
+                                {selectedVisitorIds.size
+                                  === uniqueVisitorIds.length
+                                && (!hasNullVisitorId || includeNullVisitorId)
                                   ? 'Tout désélectionner'
                                   : 'Tout sélectionner'}
                               </Button>
@@ -584,30 +584,30 @@ export default function Users() {
                               maxH="300px"
                               overflowY="auto"
                             >
-                              {hasNullSessionId && (
+                              {hasNullVisitorId && (
                                 <Checkbox
-                                  key="null-session-id"
-                                  checked={includeNullSessionId}
+                                  key="null-visitor-id"
+                                  checked={includeNullVisitorId}
                                   onCheckedChange={() =>
-                                    setIncludeNullSessionId(
-                                      !includeNullSessionId,
+                                    setIncludeNullVisitorId(
+                                      !includeNullVisitorId,
                                     )}
                                 >
                                   <Text fontStyle="italic" color="gray.600">
-                                    (sans session ID) (
-                                    {sessionIdCounts.nullCount})
+                                    (sans visitor ID) (
+                                    {visitorIdCounts.nullCount})
                                   </Text>
                                 </Checkbox>
                               )}
-                              {uniqueSessionIds.map((sessionId) => (
+                              {uniqueVisitorIds.map((visitorId) => (
                                 <Checkbox
-                                  key={sessionId}
-                                  checked={selectedSessionIds.has(sessionId)}
+                                  key={visitorId}
+                                  checked={selectedVisitorIds.has(visitorId)}
                                   onCheckedChange={() =>
-                                    toggleSessionId(sessionId)}
+                                    toggleVisitorId(visitorId)}
                                 >
-                                  {sessionId} (
-                                  {sessionIdCounts.counts.get(sessionId) || 0})
+                                  {visitorId} (
+                                  {visitorIdCounts.counts.get(visitorId) || 0})
                                 </Checkbox>
                               ))}
                             </VStack>
@@ -669,7 +669,7 @@ export default function Users() {
                     <Table.Header>
                       <Table.Row>
                         <Table.ColumnHeader>Date</Table.ColumnHeader>
-                        <Table.ColumnHeader>ID Session</Table.ColumnHeader>
+                        <Table.ColumnHeader>ID Visiteur</Table.ColumnHeader>
                         <Table.ColumnHeader>ID User</Table.ColumnHeader>
                         <Table.ColumnHeader>Statut</Table.ColumnHeader>
                         <Table.ColumnHeader>Méthode</Table.ColumnHeader>
@@ -692,7 +692,7 @@ export default function Users() {
                             })}
                           </Table.Cell>
                           <Table.Cell>
-                            {item.message.meta['session.id']}
+                            {item.message.meta['visitor.id']}
                           </Table.Cell>
                           <Table.Cell>
                             <Link
