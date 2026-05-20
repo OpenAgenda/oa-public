@@ -9,6 +9,7 @@ export default function ExportsDropdown({
   toggleDocxModal,
   toggleSpreadsheetModal,
   togglePdfModal,
+  toggleRssModal,
   className,
   disabled,
   children,
@@ -88,13 +89,14 @@ export default function ExportsDropdown({
           </a>
         </li>
         <li key="exports-rss">
-          <a
-            download="events.v2.rss"
-            href={`/agendas/${agenda.uid}/admin/events.v2.rss${queryString}`}
+          <button
+            type="button"
             className="btn btn-link padding-v-xs btn-block"
+            onClick={toggleRssModal}
+            onKeyPress={toggleRssModal}
           >
             {intl.formatMessage(exportsMessages.toRSS)}
-          </a>
+          </button>
         </li>
         {toggleDocxModal ? (
           <li>

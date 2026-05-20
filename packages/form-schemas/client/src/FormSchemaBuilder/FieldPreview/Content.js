@@ -1,3 +1,4 @@
+import { getLocaleValue } from '@openagenda/intl';
 import getFieldTypeLabel from '../lib/getFieldTypeLabel.js';
 
 import {
@@ -148,6 +149,32 @@ export default function Content(props) {
       {field.max ? (
         <div className="margin-top-xs" title={getLabel('maxLength', lang)}>
           {getLabel('maxLength', lang)}: {field.max}
+        </div>
+      ) : null}
+      {field.help ? (
+        <div className="margin-top-xs" title={getLabel('fieldHelp', lang)}>
+          {getLabel('fieldHelp', lang)}: {getLocaleValue(field.help, lang)}
+        </div>
+      ) : null}
+      {field.helpLink ? (
+        <div className="margin-top-xs" title={getLabel('fieldHelpLink', lang)}>
+          {getLabel('fieldHelpLink', lang)}:{' '}
+          <a
+            href={field.helpLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {field.helpLink}
+          </a>
+        </div>
+      ) : null}
+      {field.helpContent ? (
+        <div
+          className="margin-top-xs"
+          title={getLabel('fieldHelpContent', lang)}
+        >
+          {getLabel('fieldHelpContent', lang)}: {field.helpContent}
         </div>
       ) : null}
       {ordering ? (

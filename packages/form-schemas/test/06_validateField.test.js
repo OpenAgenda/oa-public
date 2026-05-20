@@ -15,6 +15,7 @@ describe('form-schemas -06- validateField', () => {
         }),
       ).toStrictEqual({
         field: 'atextfield',
+        slug: 'atextfield',
         label: { fr: 'Un champ texte' },
         info: null,
         placeholder: null,
@@ -69,6 +70,7 @@ describe('form-schemas -06- validateField', () => {
         }),
       ).toStrictEqual({
         field: 'amultilingualtextfield',
+        slug: 'amultilingualtextfield',
         label: { fr: 'Un champ texte multilingue' },
         allowFalse: undefined,
         allowNull: undefined,
@@ -122,6 +124,7 @@ describe('form-schemas -06- validateField', () => {
         }),
       ).toStrictEqual({
         field: 'anoptionlist',
+        slug: 'anoptionlist',
         label: { fr: 'Choix multiples' },
         info: null,
         placeholder: null,
@@ -218,6 +221,7 @@ describe('form-schemas -06- validateField', () => {
         }),
       ).toStrictEqual({
         field: 'atextfield',
+        slug: 'atextfield',
         label: { fr: 'Un champ de texte libre' },
         info: { fr: 'Avec un détail explicatif' },
         placeholder: null,
@@ -268,6 +272,7 @@ describe('form-schemas -06- validateField', () => {
         ),
       ).toStrictEqual({
         field: 'acustomfield',
+        slug: 'acustomfield',
         label: { fr: 'Un champ au type personnalisé' },
         info: null,
         placeholder: null,
@@ -323,6 +328,7 @@ describe('form-schemas -06- validateField', () => {
         }),
       ).toStrictEqual({
         field: 'afield',
+        slug: 'afield',
         optional: false,
         fieldType: 'abstract',
       });

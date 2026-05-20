@@ -210,6 +210,146 @@ module.exports = {
     "nl": "Wordt onder het veld weergegeven (zoals dit)",
     "br": "Diskouezet dindan ar vaezienn (evel-se)"
   },
+  "fieldMinMaxSection": {
+    "fr": "Min et max",
+    "en": "Min and max",
+    "de": "Min und Max",
+    "es": "Mín. y máx.",
+    "it": "Min e max",
+    "oc": "Min e max",
+    "nl": "Min en max",
+    "br": "Min ha max"
+  },
+  "fieldMinMaxSectionInfo": {
+    "fr": "Longueur du texte ou plage de valeurs autorisée",
+    "en": "Text length or allowed value range",
+    "de": "Textlänge oder zulässiger Wertebereich",
+    "es": "Longitud del texto o rango de valores permitido",
+    "it": "Lunghezza del testo o intervallo di valori consentito",
+    "oc": "Longor del tèxte o plaja de valors autorizadas",
+    "nl": "Tekstlengte of toegestaan waardenbereik",
+    "br": "Hirder an destenn pe sourm a dalvoudoù aotreet"
+  },
+  "fieldInfoSection": {
+    "fr": "Information complémentaire",
+    "en": "Additional information",
+    "de": "Weitere Informationen",
+    "es": "Información adicional",
+    "it": "Ulteriori informazioni",
+    "oc": "Informacions complementàrias",
+    "nl": "Aanvullende informatie",
+    "br": "Titouroù ouzhpenn"
+  },
+  "fieldInfoSectionInfo": {
+    "fr": "Texte affiché sous le titre du champ",
+    "en": "Text shown below the field title",
+    "de": "Text, der unter dem Feldtitel angezeigt wird",
+    "es": "Texto mostrado debajo del título del campo",
+    "it": "Testo visualizzato sotto il titolo del campo",
+    "oc": "Tèxte afichat dejol lo títol del camp",
+    "nl": "Tekst die onder de veldtitel wordt weergegeven",
+    "br": "Testenn diskouezet dindan titl ar vaezienn"
+  },
+  "fieldPlaceholderSubSection": {
+    "fr": "Substitut et label de sous-champ",
+    "en": "Placeholder and sub label",
+    "de": "Platzhalter und Unterinfo-Label",
+    "es": "Sustituto y etiqueta de subcampo",
+    "it": "Sostituto ed etichetta del sottocampo",
+    "oc": "Tapatrauc e etiqueta de soscamp",
+    "nl": "Tijdelijke aanduiding en subveldlabel",
+    "br": "Erlec'hier ha skritellig is-vaezienn"
+  },
+  "fieldPlaceholderSubSectionInfo": {
+    "fr": "Textes affichés à l'intérieur et en dessous du champ",
+    "en": "Texts shown inside and below the field",
+    "de": "Texte, die innerhalb und unterhalb des Feldes angezeigt werden",
+    "es": "Textos mostrados dentro y debajo del campo",
+    "it": "Testi visualizzati all'interno e sotto il campo",
+    "oc": "Tèxtes afichats a l'interior e dejol lo camp",
+    "nl": "Teksten die binnen en onder het veld worden weergegeven",
+    "br": "Testennoù diskouezet e-barzh hag dindan ar vaezienn"
+  },
+  "fieldHelpSection": {
+    "fr": "Aide contextuelle",
+    "en": "Contextual help",
+    "de": "Kontextbezogene Hilfe",
+    "es": "Ayuda contextual",
+    "it": "Aiuto contestuale",
+    "oc": "Ajuda contextuala",
+    "nl": "Contextuele hulp",
+    "br": "Skoazell diouzh ar c'hempred"
+  },
+  "fieldHelpSectionInfo": {
+    "fr": "Message d'aide, lien et infobulle au format Markdown",
+    "en": "Help message, link and Markdown tooltip",
+    "de": "Hilfetext, Link und Markdown-Tooltip",
+    "es": "Mensaje de ayuda, enlace e información sobre herramientas en Markdown",
+    "it": "Messaggio di aiuto, collegamento e tooltip in Markdown",
+    "oc": "Messatge d'ajuda, ligam e infobulla al format Markdown",
+    "nl": "Hulptekst, link en Markdown-tooltip",
+    "br": "Kemennadenn skoazell, liamm hag infobullenn er stumm Markdown"
+  },
+  "fieldHelp": {
+    "fr": "Texte d'aide",
+    "en": "Help text",
+    "de": "Hilfetext",
+    "es": "Texto de ayuda",
+    "it": "Testo di aiuto",
+    "oc": "Tèxte d'ajuda",
+    "nl": "Helptekst",
+    "br": "Testenn skoazell"
+  },
+  "fieldHelpInfo": {
+    "fr": "Court message d'aide affiché à côté du champ",
+    "en": "Short help message shown next to the field",
+    "de": "Kurzer Hilfetext, der neben dem Feld angezeigt wird",
+    "es": "Mensaje corto de ayuda mostrado junto al campo",
+    "it": "Breve messaggio di aiuto visualizzato accanto al campo",
+    "oc": "Cort messatge d'ajuda afichat al costat del camp",
+    "nl": "Korte hulptekst die naast het veld wordt weergegeven",
+    "br": "Kemennadenn skoazell verr diskouezet e-kichen ar vaezienn"
+  },
+  "fieldHelpLink": {
+    "fr": "Lien d'aide",
+    "en": "Help link",
+    "de": "Hilfe-Link",
+    "es": "Enlace de ayuda",
+    "it": "Collegamento di aiuto",
+    "oc": "Ligam d'ajuda",
+    "nl": "Hulplink",
+    "br": "Liamm skoazell"
+  },
+  "fieldHelpLinkPlaceholder": {
+    "fr": "https://… ou mailto:…",
+    "en": "https://… or mailto:…",
+    "de": "https://… oder mailto:…",
+    "es": "https://… o mailto:…",
+    "it": "https://… o mailto:…",
+    "oc": "https://… o mailto:…",
+    "nl": "https://… of mailto:…",
+    "br": "https://… pe mailto:…"
+  },
+  "fieldHelpContent": {
+    "fr": "Contenu d'aide (Markdown)",
+    "en": "Help content (Markdown)",
+    "de": "Hilfe-Inhalt (Markdown)",
+    "es": "Contenido de ayuda (Markdown)",
+    "it": "Contenuto di aiuto (Markdown)",
+    "oc": "Contengut d'ajuda (Markdown)",
+    "nl": "Hulpinhoud (Markdown)",
+    "br": "Endalc'had skoazell (Markdown)"
+  },
+  "fieldHelpContentInfo": {
+    "fr": "Texte Markdown affiché au survol d'une icône d'aide",
+    "en": "Markdown text shown when hovering a help icon",
+    "de": "Markdown-Text, der beim Überfahren eines Hilfe-Symbols angezeigt wird",
+    "es": "Texto Markdown mostrado al pasar el cursor sobre un icono de ayuda",
+    "it": "Testo Markdown visualizzato al passaggio del mouse su un'icona di aiuto",
+    "oc": "Tèxte Markdown afichat en passant lo cursor sus una icòna d'ajuda",
+    "nl": "Markdown-tekst die wordt weergegeven bij het zweven over een hulppictogram",
+    "br": "Testenn Markdown diskouezet pa veler dreist ur skeudennig skoazell"
+  },
   "addLanguages": {
     "fr": "Ajouter des langues",
     "en": "Add languages",

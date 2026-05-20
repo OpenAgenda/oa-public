@@ -40,6 +40,7 @@ import flattenAgendaSchema from '../utils/flattenAgendaSchema.js';
 import ExportsDropdown from '../components/ExportsDropdown.js';
 import SpreadsheetModal from '../components/SpreadsheetModal.js';
 import PdfModal from '../components/PdfModal.js';
+import RssModal from '../components/RssModal.js';
 
 const useLatest = useLatestModule.default || useLatestModule;
 const useUpdateEffect = useUpdateEffectModule.default || useUpdateEffectModule;
@@ -192,6 +193,7 @@ function GroupedActions({
   const intl = useIntl();
   const [displaySpreadsheetModal, setDisplaySpreadsheetModal] = useState(false);
   const [displayPdfModal, setDisplayPdfModal] = useState(false);
+  const [displayRssModal, setDisplayRssModal] = useState(false);
 
   const toggleSpreadsheetModal = useMemo(
     () =>
@@ -217,6 +219,18 @@ function GroupedActions({
     [],
   );
 
+  const toggleRssModal = useMemo(
+    () =>
+      a11yButtonActionHandler((e) => {
+        if (e) {
+          e.preventDefault();
+        }
+
+        setDisplayRssModal((previous) => !previous);
+      }),
+    [],
+  );
+
   const usedQuery = extendedAllSelected ? query : { uid: [...selectedEvents] };
   const queryString = qs.stringify(usedQuery, {
     addQueryPrefix: true,
@@ -234,6 +248,7 @@ function GroupedActions({
         queryString={queryString}
         toggleSpreadsheetModal={toggleSpreadsheetModal}
         togglePdfModal={togglePdfModal}
+        toggleRssModal={toggleRssModal}
         disabled={!selectedCount}
         className="margin-right-sm"
       >
@@ -258,6 +273,14 @@ function GroupedActions({
       {displayPdfModal ? (
         <PdfModal
           onClose={togglePdfModal}
+          agendaUid={agenda.uid}
+          queryString={queryString}
+        />
+      ) : null}
+
+      {displayRssModal ? (
+        <RssModal
+          onClose={toggleRssModal}
           agendaUid={agenda.uid}
           queryString={queryString}
         />
