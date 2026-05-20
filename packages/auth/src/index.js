@@ -646,12 +646,24 @@ export default function Auth(options = {}) {
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    refreshUserSessions,
     verifyCredentialPassword,
     getAccountTypesByUserId,
   } = createCredentialHelpers(instance);
 
-  async function getSessionFromRequest(req, prevResponse) {
-    return instance.api.getSession({ headers: toHeaders(req, prevResponse) });
+  async function getSessionFromRequest(
+    req,
+    prevResponse,
+    { disableCookieCache } = {},
+  ) {
+    return instance.api.getSession({
+      headers: toHeaders(req, prevResponse),
+      // When set, bypass BA's signed cookie cache (1h maxAge) and force a
+      // fresh session lookup. The cibul-node load middleware relies on this so
+      // `isBlacklisted` and session revocation are seen on the next request
+      // rather than up to an hour later.
+      ...disableCookieCache ? { query: { disableCookieCache: true } } : {},
+    });
   }
 
   // Low-level primitive: open a BA session for an arbitrary user and emit
@@ -767,6 +779,11 @@ export default function Auth(options = {}) {
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    // Re-snapshot the user into active Redis sessions after an out-of-band
+    // Feathers patch of a session-mirrored field (full_name, image, culture,
+    // transverse_api_access, is_new), without logging the user out — the
+    // BA-aware replacement for the old `@openagenda/sessions` `sessions.refresh`.
+    refreshUserSessions,
     // Source of truth for `hasLocalAccount` / `hasSocialAccount`. Reads the
     // BA `account` table — the legacy `user.{password, facebook_uid, ...}`
     // columns are stale for BA-only users.

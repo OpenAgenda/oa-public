@@ -258,6 +258,20 @@ describe('auth - unit: credential helpers', () => {
     expect(adapter.deleteSessions).toHaveBeenCalledWith('99');
   });
 
+  it('refreshUserSessions delegates to updateUser with an empty patch (BA onUpdate fills updated_at) and the userId as string', async () => {
+    const adapter = { updateUser: jest.fn().mockResolvedValue(undefined) };
+    const { refreshUserSessions } = createCredentialHelpers(
+      fakeInstance(adapter),
+    );
+
+    await refreshUserSessions(99);
+
+    expect(adapter.updateUser).toHaveBeenCalledTimes(1);
+    const [userId, data] = adapter.updateUser.mock.calls[0];
+    expect(userId).toBe('99');
+    expect(data).toEqual({});
+  });
+
   describe('getAccountTypesByUserId', () => {
     it('returns a Map<userId, Set<providerId>> for a single id', async () => {
       const adapter = {
