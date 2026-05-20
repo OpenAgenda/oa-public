@@ -4,6 +4,7 @@ import { isOutdatedBrowser } from '@openagenda/outdated-browser/middleware';
 import { getCookieCache } from '@openagenda/auth/server';
 import getPreferredLocale from 'utils/getPreferredLocale';
 import parseAcceptLanguage from 'utils/parseAcceptLanguage';
+import parseEventUid from 'utils/parseEventUid';
 import generateNonce from 'utils/generateNonce';
 import CSP from 'utils/contentSecurityPolicy';
 import buildAgendaCsp from 'utils/buildAgendaCsp';
@@ -68,8 +69,6 @@ function matchAgendaPageRoute(pathname: string): MatchedRoute | null {
   return null;
 }
 
-const UID_SLUG_RE = /^(\d+)(?:_.*)?$/;
-
 function matchEventPageRoute(
   pathname: string,
 ): { agendaSlug: string; eventSlug: string } | null {
@@ -85,9 +84,9 @@ async function isEventGone(
   eventSlug: string,
   cookie: string,
 ): Promise<boolean> {
-  const uidMatch = eventSlug.match(UID_SLUG_RE);
-  const path = uidMatch
-    ? `api/agendas/slug/${agendaSlug}/events/${uidMatch[1]}`
+  const uid = parseEventUid(eventSlug);
+  const path = uid
+    ? `api/agendas/slug/${agendaSlug}/events/${uid}`
     : `api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}`;
   try {
     const res = await fetch(

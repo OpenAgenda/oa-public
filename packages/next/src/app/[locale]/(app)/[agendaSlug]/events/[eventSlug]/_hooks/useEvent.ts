@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import useSWRImmutable from 'swr/immutable';
+import parseEventUid from '@/src/utils/parseEventUid';
 import { useAgenda } from '../_context/agenda';
 
 type Timing = {
@@ -97,9 +98,9 @@ export default function useEvent() {
   const params = useParams<{ eventSlug: string }>();
   const agenda = useAgenda();
   const { eventSlug } = params;
-  const uidMatch = eventSlug?.match(/^(\d+)(?:_.*)?$/);
-  const eventUrl = uidMatch
-    ? `/api/agendas/slug/${agenda.slug}/events/${uidMatch[1]}?longDescriptionFormat=HTMLWithEmbeds`
+  const uid = parseEventUid(eventSlug);
+  const eventUrl = uid
+    ? `/api/agendas/slug/${agenda.slug}/events/${uid}?longDescriptionFormat=HTMLWithEmbeds`
     : `/api/agendas/slug/${agenda.slug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
 
   const response = useSWRImmutable<{ success: boolean; event: Event }>(
