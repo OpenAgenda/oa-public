@@ -32,20 +32,25 @@ import {
 import { decodeSessionDataUnsafe } from '@openagenda/auth/cookie-decode';
 import { RequestLogSpanProcessor } from './utils/requestLogSpanProcessor';
 
-// BA writes the session-cache cookie under the `oa` prefix configured by
-// @openagenda/auth. The HTTPS-only `__Secure-` variant is emitted in prod;
-// dev (HTTP) carries the unprefixed name.
-const SESSION_COOKIE_ATTR_SECURE =
-  'http.request.header.cookie.__Secure-oa.session_data';
-const SESSION_COOKIE_ATTR_PLAIN = 'http.request.header.cookie.oa.session_data';
+// Visitor id cookie — opaque UUID set by cibul-node visitorId mw / Next.js
+// proxy on first visit; persists across login/logout for end-to-end tracing.
+const VISITOR_COOKIE_ATTR = 'http.request.header.cookie.oa.visitor_id';
+// BA session cache cookie. We renamed it from the default `session_data` to
+// `sess_data` (cf. packages/auth/src/index.js) so its attribute name doesn't
+// match Sentry's sensitive-header snippet `session` and survives unfiltered.
+// `__Secure-` variant emitted by BA over HTTPS in production — Sentry
+// lowercases and replaces `-` with `_` in attribute keys.
+const SESSION_CACHE_ATTR_SECURE =
+  'http.request.header.cookie.__secure_oa.sess_data';
+const SESSION_CACHE_ATTR_PLAIN = 'http.request.header.cookie.oa.sess_data';
 
 /**
  * Copies a whitelist of attributes from parent span → child span at onStart.
- * Combined with the `spanStart` hook below (which sets `session.id` /
+ * Combined with the `spanStart` hook below (which sets `visitor.id` /
  * `user.uid` on every root request span synchronously at creation), this
  * propagates user context to every descendant span in the same trace —
  * DB queries, outgoing fetches, etc. — so traces in Sentry / OTLP carry
- * the request's user and session identifiers end-to-end.
+ * the request's user and visitor identifiers end-to-end.
  */
 class InheritedAttributesSpanProcessor implements SpanProcessor {
   private _attributeKeys: string[];
@@ -86,7 +91,7 @@ class InheritedAttributesSpanProcessor implements SpanProcessor {
   }
 }
 
-const INHERITED_ATTRIBUTES = ['session.id', 'user.uid'];
+const INHERITED_ATTRIBUTES = ['visitor.id', 'user.uid'];
 
 const SENTRY_DSN =
   process.env.SENTRY_DSN ||
@@ -149,13 +154,13 @@ const sdk = new NodeSDK({
   }),
   sampler: new SentrySampler(sentryClient),
   spanProcessors: [
-    // Propagates session.id / user.uid (set on every root span by the
+    // Propagates visitor.id / user.uid (set on every root span by the
     // `spanStart` hook below) from parent → child at span creation so all
     // descendants in the trace carry the user context.
     new InheritedAttributesSpanProcessor(INHERITED_ATTRIBUTES),
     new SentrySpanProcessor(),
     // Morgan-style per-request log → @openagenda/logs → InsightOps,
-    // enriched with user.uid + session.id by the `spanStart` hook below.
+    // enriched with user.uid + visitor.id by the `spanStart` hook below.
     new RequestLogSpanProcessor(),
     process.env.NEXT_OTEL_EXPORTER_OTLP_ENDPOINT
       ? new BatchSpanProcessor(
@@ -199,14 +204,12 @@ await sdk['_resource']?.waitForAsyncAttributes?.();
 sentryClient.traceProvider = sdk['_tracerProvider'];
 
 /**
- * Enrich every root HTTP request span with `session.id` / `user.uid` at
- * span creation so downstream processors — including the
- * `InheritedAttributesSpanProcessor` above — see the attrs before any
- * child span is started.
+ * Enrich every root HTTP request span with `visitor.id` at span creation so
+ * downstream processors — including the `InheritedAttributesSpanProcessor`
+ * above — see the attr before any child span is started.
  *
  * Why via Sentry's `spanStart` event and not an OTel `SpanProcessor.onStart`?
- * The cookie attribute we decode (`http.request.header.cookie.oa.session_data`
- * or its `__Secure-` prefix variant) is populated on the span by Sentry's HTTP
+ * The cookie attribute we read is populated on the span by Sentry's nextjs
  * integration inside *its own* `spanStart` listener, registered during
  * `init()`. Running after it in the same synchronous event emission is the
  * only way to see the cookie before children are spawned — any OTel
@@ -216,28 +219,31 @@ sentryClient.traceProvider = sdk['_tracerProvider'];
  * order; since `init()` registers the cookie-capture handler before we
  * attach ours, this listener always runs after the attribute is present.
  *
- * The cookie value is the BA "compact" session-data payload. We decode it
- * unverified here (HMAC verify is async; `spanStart` is sync). The result is
- * used solely for observability attributes — never as an authorization
- * signal.
+ * Known gap: the very first request from a fresh browser doesn't yet carry
+ * the `oa.visitor_id` cookie, so its span will not carry `visitor.id`. All
+ * subsequent requests will. `user.uid` is decoded from the BA session cache
+ * cookie (`oa.sess_data` — renamed from `session_data` to dodge Sentry's
+ * `session` snippet filter).
  */
 sentryClient?.on('spanStart', (span) => {
   const attrs = (span as unknown as { attributes: Record<string, unknown> })
     .attributes;
   if (attrs['next.span_type'] !== 'BaseServer.handleRequest') return;
   if (attrs['next.bubble'] === true) return;
-  if (attrs['session.id'] && attrs['user.uid']) return;
+  if (attrs['visitor.id'] && attrs['user.uid']) return;
 
-  const cookieValue =
-    attrs[SESSION_COOKIE_ATTR_SECURE] ?? attrs[SESSION_COOKIE_ATTR_PLAIN];
-  if (typeof cookieValue !== 'string') return;
+  const visitorId = attrs[VISITOR_COOKIE_ATTR];
+  if (typeof visitorId === 'string' && visitorId) {
+    span.setAttribute('visitor.id', visitorId);
+  }
 
-  const payload = decodeSessionDataUnsafe(cookieValue);
-  const sessionId = payload?.session?.session?.id;
-  const userUid = payload?.session?.user?.uid;
-
-  if (sessionId) span.setAttribute('session.id', sessionId);
-  if (userUid) span.setAttribute('user.uid', userUid);
+  const cacheCookie =
+    attrs[SESSION_CACHE_ATTR_SECURE] ?? attrs[SESSION_CACHE_ATTR_PLAIN];
+  if (typeof cacheCookie === 'string' && cacheCookie) {
+    const payload = decodeSessionDataUnsafe(cacheCookie);
+    const userUid = payload?.session?.user?.uid;
+    if (userUid) span.setAttribute('user.uid', userUid);
+  }
 });
 
 process.on('SIGTERM', () => {

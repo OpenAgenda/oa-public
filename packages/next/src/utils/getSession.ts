@@ -13,6 +13,9 @@ export async function getSessionFromRequest(
   const cached = await getCookieCache(request, {
     secret,
     cookiePrefix: 'oa',
+    // Match the renamed session-cache cookie in `@openagenda/auth` (avoids
+    // Sentry's sensitive-header filter on `session` snippet).
+    cookieName: 'sess_data',
   });
   if (!cached) return null;
   return {

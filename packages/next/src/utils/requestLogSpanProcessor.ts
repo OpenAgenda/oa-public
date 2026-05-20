@@ -62,9 +62,9 @@ function humanSize(bytes: number, precision: number) {
  * Replaces the old `logRequest` middleware (morgan on a custom server),
  * which no longer has a place in App Router where Next owns the HTTP server.
  *
- * `session.id` and `user.uid` are set on the same root span by
- * `SessionAttributesSpanProcessor` (registered before this one so its
- * `onEnd` runs first in registration order). We simply read them here.
+ * `visitor.id` and `user.uid` are set on the same root span by the
+ * `spanStart` hook in `instrumentation-server.ts` (which runs before this
+ * processor's `onEnd`). We simply read them here.
  */
 export class RequestLogSpanProcessor implements SpanProcessor {
   // eslint-disable-next-line class-methods-use-this
