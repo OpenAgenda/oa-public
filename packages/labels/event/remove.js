@@ -37,7 +37,8 @@ module.exports = {
     "oc": "Supression d'eveniment",
     "es": "Eliminación de evento",
     "nl": "Een evenement verwijderen",
-    "br": "Diverkañ un darvoud"
+    "br": "Diverkañ un darvoud",
+    "it": "Cancellazione dell'evento"
   },
   "eventDeleteDetails": {
     "en": "Are you sure you want to do this? If you delete the event from this agenda, it will be permanently removed from all agendas on OpenAgenda.",
@@ -46,7 +47,8 @@ module.exports = {
     "oc": "Sètz segur·a que volètz far aquò? Se suprimissètz l'eveniment d'aquesta agenda, serà tirat de biais permanent de totas las agendas sus OpenAgenda.",
     "es": "¿Está seguro de que quieres realizar esta accion? Si eliminas el evento de esta agenda, se eliminará permanentemente de todas las agendas de OpenAgenda.",
     "nl": "Weet u zeker dat u dit evenement wilt verwijderen? Het wordt definitief verwijderd uit alle OpenAgenda agenda's.",
-    "br": "Ha sur oc'h e fell deoc'h ober se? Ma lamet an darvoud eus an deiziataer-mañ, e vo lamet diouzh an holl zeiziataerien war OpenAgenda da viken."
+    "br": "Ha sur oc'h e fell deoc'h ober se? Ma lamet an darvoud eus an deiziataer-mañ, e vo lamet diouzh an holl zeiziataerien war OpenAgenda da viken.",
+    "it": "Sei sicuro di voler procedere? Se elimini l'evento da questa agenda, verrà rimosso definitivamente da tutte le agende su OpenAgenda."
   },
   "confirm": {
     "en": "Confirm",

@@ -91,154 +91,106 @@
       "value": "crwdns34371:0crwdne34371:0"
     }
   ],
-  "cibulTemplates.passwordField.good": [
-    {
-      "type": 0,
-      "value": "crwdns33490:0crwdne33490:0"
-    }
-  ],
-  "cibulTemplates.passwordField.great": [
-    {
-      "type": 0,
-      "value": "crwdns33492:0crwdne33492:0"
-    }
-  ],
-  "cibulTemplates.passwordField.isSameAs": [
-    {
-      "type": 0,
-      "value": "crwdns33776:0crwdne33776:0"
-    }
-  ],
-  "cibulTemplates.passwordField.required": [
-    {
-      "type": 0,
-      "value": "crwdns33494:0crwdne33494:0"
-    }
-  ],
-  "cibulTemplates.passwordField.tooWeak": [
-    {
-      "type": 0,
-      "value": "crwdns33496:0crwdne33496:0"
-    }
-  ],
-  "cibulTemplates.passwordField.usual": [
-    {
-      "type": 0,
-      "value": "crwdns33550:0crwdne33550:0"
-    }
-  ],
-  "cibulTemplates.passwordField.weak": [
-    {
-      "type": 0,
-      "value": "crwdns33498:0crwdne33498:0"
-    }
-  ],
-  "cibulTemplates.passwordField.weakish": [
-    {
-      "type": 0,
-      "value": "crwdns33500:0crwdne33500:0"
-    }
-  ],
   "common.event.fields.accessibility": [
     {
       "type": 0,
-      "value": "Accessibility conditions"
+      "value": "crwdns35401:0crwdne35401:0"
     }
   ],
   "common.event.fields.age": [
     {
       "type": 0,
-      "value": "Targeted public age"
+      "value": "crwdns35403:0crwdne35403:0"
     }
   ],
   "common.event.fields.attendanceMode": [
     {
       "type": 0,
-      "value": "Attendance mode"
+      "value": "crwdns35405:0crwdne35405:0"
     }
   ],
   "common.event.fields.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "crwdns35407:0crwdne35407:0"
     }
   ],
   "common.event.fields.description": [
     {
       "type": 0,
-      "value": "Short description"
+      "value": "crwdns35409:0crwdne35409:0"
     }
   ],
   "common.event.fields.extIds": [
     {
       "type": 0,
-      "value": "External identifiers"
+      "value": "crwdns35411:0crwdne35411:0"
     }
   ],
   "common.event.fields.image": [
     {
       "type": 0,
-      "value": "Image"
+      "value": "crwdns35413:0crwdne35413:0"
     }
   ],
   "common.event.fields.imageCredits": [
     {
       "type": 0,
-      "value": "Image credits"
+      "value": "crwdns35415:0crwdne35415:0"
     }
   ],
   "common.event.fields.keywords": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "crwdns35417:0crwdne35417:0"
     }
   ],
   "common.event.fields.location": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "crwdns35419:0crwdne35419:0"
     }
   ],
   "common.event.fields.longDescription": [
     {
       "type": 0,
-      "value": "Long description"
+      "value": "crwdns35421:0crwdne35421:0"
     }
   ],
   "common.event.fields.onlineAccessLink": [
     {
       "type": 0,
-      "value": "Access link"
+      "value": "crwdns35423:0crwdne35423:0"
     }
   ],
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "crwdns35425:0crwdne35425:0"
     }
   ],
   "common.event.fields.slug": [
     {
       "type": 0,
-      "value": "Slug"
+      "value": "crwdns35427:0crwdne35427:0"
     }
   ],
   "common.event.fields.status": [
     {
       "type": 0,
-      "value": "Status"
+      "value": "crwdns35429:0crwdne35429:0"
     }
   ],
   "common.event.fields.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "crwdns35431:0crwdne35431:0"
     }
   ],
   "common.event.fields.title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "crwdns35433:0crwdne35433:0"
     }
   ],
   "common.event.states.published": [
@@ -265,58 +217,28 @@
       "value": "crwdns33540:0crwdne33540:0"
     }
   ],
-  "common.geo.adminLevel3": [
-    {
-      "type": 0,
-      "value": "Inter-city"
-    }
-  ],
-  "common.geo.city": [
-    {
-      "type": 0,
-      "value": "City"
-    }
-  ],
-  "common.geo.department": [
-    {
-      "type": 0,
-      "value": "Department"
-    }
-  ],
-  "common.geo.location": [
-    {
-      "type": 0,
-      "value": "Location"
-    }
-  ],
-  "common.geo.region": [
-    {
-      "type": 0,
-      "value": "Region"
-    }
-  ],
   "common.roles.administrator": [
     {
       "type": 0,
-      "value": "Administrator"
+      "value": "crwdns35445:0crwdne35445:0"
     }
   ],
   "common.roles.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "crwdns35447:0crwdne35447:0"
     }
   ],
   "common.roles.moderator": [
     {
       "type": 0,
-      "value": "Moderator"
+      "value": "crwdns35449:0crwdne35449:0"
     }
   ],
   "common.roles.reader": [
     {
       "type": 0,
-      "value": "Reader"
+      "value": "crwdns35451:0crwdne35451:0"
     }
   ]
 }

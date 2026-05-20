@@ -1,5 +1,6 @@
 {
   "fieldCannotBeEmpty": "Ne c'hall ket ar vaezienn bezañ goullo",
+  "incorrectCredentials": "Direizh eo ar chomlec'h postel pe ar ger-tremen",
   "incorrectPassword": "Direizh eo ar ger-tremen",
   "invalidToken": "Jedouer direizh",
   "passwordCouldNotBeModified": "N'eus ket bet gallet kemmañ ar ger-tremen",

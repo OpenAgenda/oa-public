@@ -83,82 +83,34 @@
       "value": "Aktualisieren Sie das Bild"
     }
   ],
-  "cibulTemplates.passwordField.good": [
-    {
-      "type": 0,
-      "value": "Voldoende veilig 🙂"
-    }
-  ],
-  "cibulTemplates.passwordField.great": [
-    {
-      "type": 0,
-      "value": "Zeer veilig 🥳"
-    }
-  ],
-  "cibulTemplates.passwordField.isSameAs": [
-    {
-      "type": 0,
-      "value": "Moet verschillen van gebruikersnaam en e-mail 🙄"
-    }
-  ],
-  "cibulTemplates.passwordField.required": [
-    {
-      "type": 0,
-      "value": "Er moet een wachtwoord worden ingesteld"
-    }
-  ],
-  "cibulTemplates.passwordField.tooWeak": [
-    {
-      "type": 0,
-      "value": "Niet veilig genoeg 😑"
-    }
-  ],
-  "cibulTemplates.passwordField.usual": [
-    {
-      "type": 0,
-      "value": "Te gewoon 🤖"
-    }
-  ],
-  "cibulTemplates.passwordField.weak": [
-    {
-      "type": 0,
-      "value": "Weinig veilig 😐"
-    }
-  ],
-  "cibulTemplates.passwordField.weakish": [
-    {
-      "type": 0,
-      "value": "Beter, maar niet top 😬"
-    }
-  ],
   "common.event.fields.accessibility": [
     {
       "type": 0,
-      "value": "Accessibility conditions"
+      "value": "Bijzondere toegankelijkheid"
     }
   ],
   "common.event.fields.age": [
     {
       "type": 0,
-      "value": "Targeted public age"
+      "value": "Leeftijd van het doelpubliek"
     }
   ],
   "common.event.fields.attendanceMode": [
     {
       "type": 0,
-      "value": "Attendance mode"
+      "value": "Anwesenheitsmodus"
     }
   ],
   "common.event.fields.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Voorwaarden"
     }
   ],
   "common.event.fields.description": [
     {
       "type": 0,
-      "value": "Short description"
+      "value": "Korte beschrijving"
     }
   ],
   "common.event.fields.extIds": [
@@ -170,43 +122,43 @@
   "common.event.fields.image": [
     {
       "type": 0,
-      "value": "Image"
+      "value": "Afbeelding"
     }
   ],
   "common.event.fields.imageCredits": [
     {
       "type": 0,
-      "value": "Image credits"
+      "value": "Afbeeldingscredits"
     }
   ],
   "common.event.fields.keywords": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "Trefwoorden"
     }
   ],
   "common.event.fields.location": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "Locatie"
     }
   ],
   "common.event.fields.longDescription": [
     {
       "type": 0,
-      "value": "Long description"
+      "value": "Lange beschrijving"
     }
   ],
   "common.event.fields.onlineAccessLink": [
     {
       "type": 0,
-      "value": "Access link"
+      "value": "Toegangslink"
     }
   ],
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Inschrijvingstools"
     }
   ],
   "common.event.fields.slug": [
@@ -224,13 +176,13 @@
   "common.event.fields.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Tijdschema's"
     }
   ],
   "common.event.fields.title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "Titel"
     }
   ],
   "common.event.states.published": [
@@ -257,46 +209,16 @@
       "value": "Te modereren"
     }
   ],
-  "common.geo.adminLevel3": [
-    {
-      "type": 0,
-      "value": "Inter-city"
-    }
-  ],
-  "common.geo.city": [
-    {
-      "type": 0,
-      "value": "City"
-    }
-  ],
-  "common.geo.department": [
-    {
-      "type": 0,
-      "value": "Department"
-    }
-  ],
-  "common.geo.location": [
-    {
-      "type": 0,
-      "value": "Location"
-    }
-  ],
-  "common.geo.region": [
-    {
-      "type": 0,
-      "value": "Region"
-    }
-  ],
   "common.roles.administrator": [
     {
       "type": 0,
-      "value": "Administrator"
+      "value": "Beheerder"
     }
   ],
   "common.roles.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Bijdrager"
     }
   ],
   "common.roles.moderator": [
@@ -308,7 +230,7 @@
   "common.roles.reader": [
     {
       "type": 0,
-      "value": "Reader"
+      "value": "Lezer"
     }
   ]
 }

@@ -68,7 +68,7 @@
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "Ausgewählt"
+      "value": "ausgewählt"
     }
   ],
   "next.views.AgendaShow.EventItem.removeFromFavorites": [

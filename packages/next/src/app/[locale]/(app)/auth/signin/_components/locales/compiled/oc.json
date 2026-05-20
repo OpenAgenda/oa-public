@@ -2,7 +2,7 @@
   "next.components.auth.AuthDialog.dialogTitle": [
     {
       "type": 0,
-      "value": "Connexion"
+      "value": "Se connectar"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [

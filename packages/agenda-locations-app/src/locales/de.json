@@ -2,6 +2,7 @@
   "AgendaLocations.AccessModal.closeModal": "Schließen",
   "AgendaLocations.AgendaAdminLocation.closeModal": "Schließen",
   "AgendaLocations.LocationDetails.description": "Beschreibung",
+  "AgendaLocations.LocationDetails.imageCredits": "Bildnachweis",
   "AgendaLocations.LocationForm.description": "Beschreibung",
   "AgendaLocations.LocationForm.descriptionInfo": "Details über den Standort",
   "AgendaLocations.LocationForm.imageCredits": "Bildnachweis",

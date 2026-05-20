@@ -2,13 +2,13 @@
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
-      "value": "Create an account"
+      "value": "crwdns46805:0crwdne46805:0"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
     {
       "type": 0,
-      "value": "Confirm your email address"
+      "value": "crwdns46807:0crwdne46807:0"
     }
   ]
 }

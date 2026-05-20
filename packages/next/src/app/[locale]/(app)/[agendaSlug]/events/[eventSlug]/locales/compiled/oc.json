@@ -184,7 +184,7 @@
   "next.views.EventShow.ContextBar.contactSupport": [
     {
       "type": 0,
-      "value": "Contacter le support"
+      "value": "Contactar l'assisténcia"
     }
   ],
   "next.views.EventShow.ContextBar.delete": [
@@ -484,7 +484,7 @@
   "next.views.EventShow.ContextBar.retry": [
     {
       "type": 0,
-      "value": "Retenter"
+      "value": "Tornar ensajar"
     }
   ],
   "next.views.EventShow.ContextBar.state": [

@@ -1,4 +1,4 @@
 {
-  "next.components.auth.AuthDialog.dialogTitleSignup": "",
+  "next.components.auth.AuthDialog.dialogTitleSignup": "Een nieuw account aanmaken",
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": ""
 }

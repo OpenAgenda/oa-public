@@ -15,7 +15,7 @@
   "confirmation": "Confermare",
   "confirmation.differentpassword": "Le 2 password non sono identiche",
   "deleteModalButton": "Cancellare",
-  "deleteModalText": "Sei sicuro di voler cancellare il suo account in modo permanente? Le sue agende e i suoi eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online",
+  "deleteModalText": "Sei sicuro di voler cancellare il suo account in modo permanente?\n\nLe sue agende e i suoi eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online",
   "deleteMyAccount": "Cancellare il mio account",
   "email": "Email",
   "email.alreadytaken": "Questo indirizzo e-mail è già in uso",

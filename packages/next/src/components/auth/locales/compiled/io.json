@@ -2,609 +2,555 @@
   "next.components.auth.AuthDialog.dialogTitle": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "crwdns35469:0crwdne35469:0"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleLostPassword": [
     {
       "type": 0,
-      "value": "Lost password"
+      "value": "crwdns35533:0crwdne35533:0"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
-      "value": "Create an account"
+      "value": "crwdns35659:0crwdne35659:0"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
     {
       "type": 0,
-      "value": "Confirm your email address"
+      "value": "crwdns35661:0crwdne35661:0"
     }
   ],
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "crwdns35471:0crwdne35471:0"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "crwdns35535:0crwdne35535:0"
     }
   ],
   "next.components.auth.LostPassword.emailLabel": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "crwdns35537:0crwdne35537:0"
     }
   ],
   "next.components.auth.LostPassword.emailPlaceholder": [
     {
       "type": 0,
-      "value": "you@example.com"
+      "value": "crwdns35539:0crwdne35539:0"
     }
   ],
   "next.components.auth.LostPassword.formTitle": [
     {
       "type": 0,
-      "value": "Lost password form"
+      "value": "crwdns35541:0crwdne35541:0"
     }
   ],
   "next.components.auth.LostPassword.genericError": [
     {
       "type": 0,
-      "value": "An error occurred. Please try again."
+      "value": "crwdns35543:0crwdne35543:0"
     }
   ],
   "next.components.auth.LostPassword.intro": [
     {
       "type": 0,
-      "value": "You have an OpenAgenda account but no longer have the associated password. Enter your email to receive a reset link in your inbox."
+      "value": "crwdns35545:0crwdne35545:0"
     }
   ],
   "next.components.auth.LostPassword.submitLabel": [
     {
       "type": 0,
-      "value": "Send the link"
+      "value": "crwdns35547:0crwdne35547:0"
     }
   ],
   "next.components.auth.LostPassword.successMessage": [
     {
       "type": 0,
-      "value": "The reset link has been sent to the email you entered. Delivery may take a few minutes — check your inbox and your spam folder. If you don't receive the link, contact our support team."
+      "value": "crwdns35549:0crwdne35549:0"
     }
   ],
   "next.components.auth.PasswordField.good": [
     {
       "type": 0,
-      "value": "Ok 🙂"
+      "value": "crwdns35663:0crwdne35663:0"
     }
   ],
   "next.components.auth.PasswordField.great": [
     {
       "type": 0,
-      "value": "Great 🥳"
+      "value": "crwdns35665:0crwdne35665:0"
     }
   ],
   "next.components.auth.PasswordField.isSameAs": [
     {
       "type": 0,
-      "value": "Must be different from name or email 🙄"
+      "value": "crwdns35667:0crwdne35667:0"
     }
   ],
   "next.components.auth.PasswordField.required": [
     {
       "type": 0,
-      "value": "A password must be defined"
+      "value": "crwdns35669:0crwdne35669:0"
     }
   ],
   "next.components.auth.PasswordField.tooWeak": [
     {
       "type": 0,
-      "value": "This password is too weak 😑"
+      "value": "crwdns35671:0crwdne35671:0"
     }
   ],
   "next.components.auth.PasswordField.usual": [
     {
       "type": 0,
-      "value": "Too usual 🤖"
+      "value": "crwdns35673:0crwdne35673:0"
     }
   ],
   "next.components.auth.PasswordField.weak": [
     {
       "type": 0,
-      "value": "Not very secure 😐"
+      "value": "crwdns35675:0crwdne35675:0"
     }
   ],
   "next.components.auth.PasswordField.weakish": [
     {
       "type": 0,
-      "value": "A bit better 😬"
+      "value": "crwdns35677:0crwdne35677:0"
     }
   ],
   "next.components.auth.ResetPassword.formTitle": [
     {
       "type": 0,
-      "value": "Reset your password"
+      "value": "crwdns42457:0crwdne42457:0"
     }
   ],
   "next.components.auth.ResetPassword.genericError": [
     {
       "type": 0,
-      "value": "An error occurred. Please try again."
+      "value": "crwdns42459:0crwdne42459:0"
     }
   ],
   "next.components.auth.ResetPassword.intro": [
     {
       "type": 0,
-      "value": "Choose a new password for your OpenAgenda account."
+      "value": "crwdns42461:0crwdne42461:0"
     }
   ],
   "next.components.auth.ResetPassword.invalidToken": [
     {
       "type": 0,
-      "value": "This reset link is invalid or has expired. Please request a new one."
+      "value": "crwdns42465:0crwdne42465:0"
     }
   ],
   "next.components.auth.ResetPassword.passwordLabel": [
     {
       "type": 0,
-      "value": "New password"
+      "value": "crwdns42467:0crwdne42467:0"
     }
   ],
   "next.components.auth.ResetPassword.passwordRequired": [
     {
       "type": 0,
-      "value": "A password must be defined."
+      "value": "crwdns42469:0crwdne42469:0"
     }
   ],
   "next.components.auth.ResetPassword.passwordsMustMatch": [
     {
       "type": 0,
-      "value": "The two passwords do not match."
+      "value": "crwdns42471:0crwdne42471:0"
     }
   ],
   "next.components.auth.ResetPassword.repeatLabel": [
     {
       "type": 0,
-      "value": "Repeat password"
+      "value": "crwdns42475:0crwdne42475:0"
     }
   ],
   "next.components.auth.ResetPassword.submitLabel": [
     {
       "type": 0,
-      "value": "Update password"
+      "value": "crwdns42479:0crwdne42479:0"
     }
   ],
   "next.components.auth.ResetPassword.successHeading": [
     {
       "type": 0,
-      "value": "Password updated"
+      "value": "crwdns42485:0crwdne42485:0"
     }
   ],
   "next.components.auth.ResetPassword.successMessage": [
     {
       "type": 0,
-      "value": "You can now sign in with your new password."
+      "value": "crwdns42491:0crwdne42491:0"
     }
   ],
   "next.components.auth.Signin.createAccount": [
     {
       "type": 0,
-      "value": "Create one!"
+      "value": "crwdns35473:0crwdne35473:0"
     }
   ],
   "next.components.auth.Signin.emailLabel": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "crwdns35475:0crwdne35475:0"
     }
   ],
   "next.components.auth.Signin.emailPlaceholder": [
     {
       "type": 0,
-      "value": "you@example.com"
+      "value": "crwdns35477:0crwdne35477:0"
     }
   ],
   "next.components.auth.Signin.facebookLabel": [
     {
       "type": 0,
-      "value": "Sign in with Facebook"
+      "value": "crwdns35679:0crwdne35679:0"
     }
   ],
   "next.components.auth.Signin.forgotPassword": [
     {
       "type": 0,
-      "value": "I forgot my password"
+      "value": "crwdns35479:0crwdne35479:0"
     }
   ],
   "next.components.auth.Signin.formTitle": [
     {
       "type": 0,
-      "value": "Sign in form"
+      "value": "crwdns35481:0crwdne35481:0"
     }
   ],
   "next.components.auth.Signin.genericError": [
     {
       "type": 0,
-      "value": "An error occurred. Please try again."
+      "value": "crwdns35483:0crwdne35483:0"
     }
   ],
   "next.components.auth.Signin.googleLabel": [
     {
       "type": 0,
-      "value": "Sign in with Google"
+      "value": "crwdns35485:0crwdne35485:0"
     }
   ],
   "next.components.auth.Signin.invalidCredentials": [
     {
       "type": 0,
-      "value": "The email or the password are incorrect."
+      "value": "crwdns35487:0crwdne35487:0"
     }
   ],
   "next.components.auth.Signin.linkProviderError": [
     {
       "type": 0,
-      "value": "Linking failed. Please sign in with Google again."
+      "value": "crwdns36277:0crwdne36277:0"
     }
   ],
   "next.components.auth.Signin.linkProviderGoogleNotice": [
     {
       "type": 0,
-      "value": "An OpenAgenda account already exists with this email. Confirm your password to link your Google account."
+      "value": "crwdns36279:0crwdne36279:0"
     }
   ],
   "next.components.auth.Signin.noAccount": [
     {
       "type": 0,
-      "value": "Don't have an account yet?"
+      "value": "crwdns35489:0crwdne35489:0"
     }
   ],
   "next.components.auth.Signin.or": [
     {
       "type": 0,
-      "value": "or"
+      "value": "crwdns35491:0crwdne35491:0"
     }
   ],
   "next.components.auth.Signin.passwordLabel": [
     {
       "type": 0,
-      "value": "Password"
+      "value": "crwdns35493:0crwdne35493:0"
     }
   ],
   "next.components.auth.Signin.resetPassword": [
     {
       "type": 0,
-      "value": "Reset my password"
+      "value": "crwdns35495:0crwdne35495:0"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [
     {
       "type": 0,
-      "value": "Authentication successful. Redirecting…"
+      "value": "crwdns35497:0crwdne35497:0"
     }
   ],
   "next.components.auth.Signin.submitLabel": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "crwdns35499:0crwdne35499:0"
     }
   ],
   "next.components.auth.Signup.agree": [
     {
       "type": 0,
-      "value": "By creating an account you agree to the "
-    },
-    {
-      "children": [
-        {
-          "type": 0,
-          "value": "Terms of Use"
-        }
-      ],
-      "type": 8,
-      "value": "terms"
-    },
-    {
-      "type": 0,
-      "value": " and to the "
-    },
-    {
-      "children": [
-        {
-          "type": 0,
-          "value": "Privacy Policy"
-        }
-      ],
-      "type": 8,
-      "value": "policy"
-    },
-    {
-      "type": 0,
-      "value": "."
+      "value": "crwdns35681:0crwdne35681:0"
     }
   ],
   "next.components.auth.Signup.alreadyHaveAccount": [
     {
       "type": 0,
-      "value": "Already have an account?"
+      "value": "crwdns35683:0crwdne35683:0"
     }
   ],
   "next.components.auth.Signup.cultureLabel": [
     {
       "type": 0,
-      "value": "Language"
+      "value": "crwdns35685:0crwdne35685:0"
     }
   ],
   "next.components.auth.Signup.emailLabel": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "crwdns35687:0crwdne35687:0"
     }
   ],
   "next.components.auth.Signup.emailPlaceholder": [
     {
       "type": 0,
-      "value": "you@example.com"
+      "value": "crwdns35689:0crwdne35689:0"
     }
   ],
   "next.components.auth.Signup.errors.captchaExpired": [
     {
       "type": 0,
-      "value": "The captcha has expired. Please complete it again."
+      "value": "crwdns35691:0crwdne35691:0"
     }
   ],
   "next.components.auth.Signup.errors.captchaRequired": [
     {
       "type": 0,
-      "value": "The captcha must be completed"
+      "value": "crwdns35693:0crwdne35693:0"
     }
   ],
   "next.components.auth.Signup.errors.captchaTryAgain": [
     {
       "type": 0,
-      "value": "Captcha verification failed. Please try again."
+      "value": "crwdns35695:0crwdne35695:0"
     }
   ],
   "next.components.auth.Signup.errors.emailInvalid": [
     {
       "type": 0,
-      "value": "The email is not valid"
+      "value": "crwdns35697:0crwdne35697:0"
     }
   ],
   "next.components.auth.Signup.errors.emailUsed": [
     {
       "type": 0,
-      "value": "This email is already in use"
+      "value": "crwdns35699:0crwdne35699:0"
     }
   ],
   "next.components.auth.Signup.errors.fullNameRequired": [
     {
       "type": 0,
-      "value": "This field cannot be empty"
+      "value": "crwdns35701:0crwdne35701:0"
     }
   ],
   "next.components.auth.Signup.errors.fullNameTooLong": [
     {
       "type": 0,
-      "value": "The username must not exceed 50 characters"
+      "value": "crwdns35703:0crwdne35703:0"
     }
   ],
   "next.components.auth.Signup.errors.passwordIsSameAs": [
     {
       "type": 0,
-      "value": "Password must be different from your name or email"
+      "value": "crwdns35705:0crwdne35705:0"
     }
   ],
   "next.components.auth.Signup.errors.passwordRequired": [
     {
       "type": 0,
-      "value": "A password must be defined"
+      "value": "crwdns35707:0crwdne35707:0"
     }
   ],
   "next.components.auth.Signup.errors.passwordTooShort": [
     {
       "type": 0,
-      "value": "Password is too short"
+      "value": "crwdns35709:0crwdne35709:0"
     }
   ],
   "next.components.auth.Signup.errors.passwordTooWeak": [
     {
       "type": 0,
-      "value": "Password is too weak"
+      "value": "crwdns35711:0crwdne35711:0"
     }
   ],
   "next.components.auth.Signup.errors.repeatNotEqual": [
     {
       "type": 0,
-      "value": "The passwords are not identical"
+      "value": "crwdns35713:0crwdne35713:0"
     }
   ],
   "next.components.auth.Signup.formTitle": [
     {
       "type": 0,
-      "value": "Sign up form"
+      "value": "crwdns35715:0crwdne35715:0"
     }
   ],
   "next.components.auth.Signup.fullNameHelp": [
     {
       "type": 0,
-      "value": "Your username will be visible to administrators of the calendars you contribute to."
+      "value": "crwdns35717:0crwdne35717:0"
     }
   ],
   "next.components.auth.Signup.fullNameLabel": [
     {
       "type": 0,
-      "value": "Username"
+      "value": "crwdns35719:0crwdne35719:0"
     }
   ],
   "next.components.auth.Signup.fullNameLearnMore": [
     {
       "type": 0,
-      "value": "Read more"
+      "value": "crwdns35721:0crwdne35721:0"
     }
   ],
   "next.components.auth.Signup.genericError": [
     {
       "type": 0,
-      "value": "An error occurred. Please try again."
+      "value": "crwdns35723:0crwdne35723:0"
     }
   ],
   "next.components.auth.Signup.googleLabel": [
     {
       "type": 0,
-      "value": "Sign up with Google"
+      "value": "crwdns35725:0crwdne35725:0"
     }
   ],
   "next.components.auth.Signup.hasAccount": [
     {
       "type": 0,
-      "value": "Have you already used OpenAgenda?"
+      "value": "crwdns35727:0crwdne35727:0"
     }
   ],
   "next.components.auth.Signup.opensNewWindow": [
     {
       "type": 0,
-      "value": "(opens in a new window)"
+      "value": "crwdns35729:0crwdne35729:0"
     }
   ],
   "next.components.auth.Signup.or": [
     {
       "type": 0,
-      "value": "or"
+      "value": "crwdns35731:0crwdne35731:0"
     }
   ],
   "next.components.auth.Signup.passwordLabel": [
     {
       "type": 0,
-      "value": "Password"
+      "value": "crwdns35733:0crwdne35733:0"
     }
   ],
   "next.components.auth.Signup.repeatLabel": [
     {
       "type": 0,
-      "value": "Repeat password"
+      "value": "crwdns35735:0crwdne35735:0"
     }
   ],
   "next.components.auth.Signup.signinLink": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "crwdns35737:0crwdne35737:0"
     }
   ],
   "next.components.auth.Signup.signupSuccess": [
     {
       "type": 0,
-      "value": "Account created. Check your inbox to verify your email address."
+      "value": "crwdns35739:0crwdne35739:0"
     }
   ],
   "next.components.auth.Signup.submitLabel": [
     {
       "type": 0,
-      "value": "Accept and create the account"
+      "value": "crwdns35741:0crwdne35741:0"
     }
   ],
   "next.components.auth.SignupComplete.cooldownMessage": [
     {
       "type": 0,
-      "value": "You can resend in "
+      "value": "crwdns35743:0seconds="
     },
     {
-      "offset": 0,
-      "options": {
-        "one": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " second"
-            }
-          ]
-        },
-        "other": {
-          "value": [
-            {
-              "type": 7
-            },
-            {
-              "type": 0,
-              "value": " seconds"
-            }
-          ]
-        }
-      },
-      "pluralType": "cardinal",
-      "type": 6,
+      "type": 1,
       "value": "seconds"
     },
     {
       "type": 0,
-      "value": "."
+      "value": "crwdne35743:0"
     }
   ],
   "next.components.auth.SignupComplete.didNotReceiveHeading": [
     {
       "type": 0,
-      "value": "Didn't receive any mail?"
+      "value": "crwdns35745:0crwdne35745:0"
     }
   ],
   "next.components.auth.SignupComplete.heading": [
     {
       "type": 0,
-      "value": "Check your inbox for a validation link"
+      "value": "crwdns35747:0crwdne35747:0"
     }
   ],
   "next.components.auth.SignupComplete.instruction": [
     {
       "type": 0,
-      "value": "An email containing your account activation link is being sent to the address shown below. Check your inbox to complete your registration."
+      "value": "crwdns35749:0crwdne35749:0"
     }
   ],
   "next.components.auth.SignupComplete.resendFailed": [
     {
       "type": 0,
-      "value": "Could not resend the email. Please try again."
+      "value": "crwdns35751:0crwdne35751:0"
     }
   ],
   "next.components.auth.SignupComplete.resending": [
     {
       "type": 0,
-      "value": "Resending…"
+      "value": "crwdns35753:0crwdne35753:0"
     }
   ],
   "next.components.auth.SignupComplete.resent": [
     {
       "type": 0,
-      "value": "The activation email has been resent."
+      "value": "crwdns35755:0crwdne35755:0"
     }
   ],
   "next.components.auth.SignupComplete.step1": [
     {
       "type": 0,
-      "value": "Double-check the spelling of the email address above."
+      "value": "crwdns35757:0crwdne35757:0"
     }
   ],
   "next.components.auth.SignupComplete.step2": [
     {
       "type": 0,
-      "value": "Check your spam folder or other similar folders (filtering tools like \"Mailinblack\")."
+      "value": "crwdns35759:0crwdne35759:0"
     }
   ],
   "next.components.auth.SignupComplete.step3": [
     {
       "type": 0,
-      "value": "Resend the activation email"
+      "value": "crwdns35761:0crwdne35761:0"
     }
   ],
   "next.components.auth.SignupComplete.step4Prefix": [
     {
       "type": 0,
-      "value": "Write to us at"
+      "value": "crwdns35763:0crwdne35763:0"
     }
   ]
 }

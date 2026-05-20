@@ -184,7 +184,7 @@
   "next.views.EventShow.ContextBar.contactSupport": [
     {
       "type": 0,
-      "value": "Contact support"
+      "value": "Contactar con el soporte"
     }
   ],
   "next.views.EventShow.ContextBar.delete": [
@@ -196,7 +196,7 @@
   "next.views.EventShow.ContextBar.deleteConfirmation": [
     {
       "type": 0,
-      "value": "¿Está seguro de que deseas eliminar este evento?"
+      "value": "¿Está seguro de que desea eliminar este evento?"
     }
   ],
   "next.views.EventShow.ContextBar.deleteEvent": [
@@ -412,7 +412,7 @@
   "next.views.EventShow.ContextBar.refusedInfo": [
     {
       "type": 0,
-      "value": "Este evento no es compatible con la agenda y no será publicado"
+      "value": "Este evento no es compatible con el agenda y no será publicada"
     }
   ],
   "next.views.EventShow.ContextBar.reloadPage": [
@@ -484,7 +484,7 @@
   "next.views.EventShow.ContextBar.retry": [
     {
       "type": 0,
-      "value": "Retry"
+      "value": "Reintentar"
     }
   ],
   "next.views.EventShow.ContextBar.state": [
@@ -586,7 +586,7 @@
   "next.views.EventShow.DuplicateModal.reminder": [
     {
       "type": 0,
-      "value": "Recordatorio: un solo evento puede ser compartida en múltiples agendas. ¡No creas un duplicado! Duplicar crea un anuncio diferente, por lo general para una nueva fecha u horario u lugar, evitando copiar y pegar."
+      "value": "Recordatorio: un solo evento puede ser compartida en múltiples agendas. ¡No crear un duplicado! Duplicar crea un anuncio diferente, por lo general para una nueva edición en todo el tiempo o el espacio, evitando copiar y pegar."
     }
   ],
   "next.views.EventShow.DuplicateModal.selectAnAgenda": [
@@ -604,7 +604,7 @@
   "next.views.EventShow.EmailConfirmationAlert.close": [
     {
       "type": 0,
-      "value": "Cerrar"
+      "value": "Cerca"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.shareEvent": [
@@ -968,7 +968,7 @@
   "next.views.EventShow.history": [
     {
       "type": 0,
-      "value": "Historial"
+      "value": "Historia"
     }
   ],
   "next.views.EventShow.moreLinks": [
@@ -1010,7 +1010,7 @@
   "next.views.EventShow.sendAnEmail": [
     {
       "type": 0,
-      "value": "Enviar un correo electrónico"
+      "value": "Enviar un email"
     }
   ],
   "next.views.EventShow.tags": [

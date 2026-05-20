@@ -1,4 +1,5 @@
 {
+  "AgendaMember.RequestFeatureLink.findOutMore": "per saperne di più",
   "MemberApps.Dashboard.messageHistory": "Cronologia dei messaggi",
   "MemberApps.Dashboard.nameModeratorsActivation": "Questa funzione viene attivata su richiesta. Consente di nominare un membro come moderatore. Scrivici un breve messaggio e la tua richiesta verrà elaborata tempestivamente.",
   "MemberApps.Dashboard.sendMessageToFilteredMembers": "Il messaggio sarà inviato alla selezione corrente di membri ({count} su {total})",

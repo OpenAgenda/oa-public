@@ -20,7 +20,7 @@
   "next.components.ModalLoadingBody.loading": [
     {
       "type": 0,
-      "value": "Loading"
+      "value": "Caricamento in corso"
     }
   ],
   "next.components.SearchInput.ariaLabel": [

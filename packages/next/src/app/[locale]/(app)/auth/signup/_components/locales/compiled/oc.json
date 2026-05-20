@@ -2,7 +2,7 @@
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
-      "value": "Création d'un nouveau compte"
+      "value": "Crear un compte"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [

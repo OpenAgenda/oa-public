@@ -2,19 +2,19 @@
   "next.components.auth.AuthDialog.msg.authRequired": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this page."
+      "value": "Necesitas autenticarte para acceder a esta página."
     }
   ],
   "next.components.auth.AuthDialog.msg.limitedAccessAgenda": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this agenda. Please sign in"
+      "value": "Necesitas autenticarte para acceder a esta agenda. Por favor conéctese"
     }
   ],
   "next.components.auth.AuthDialog.msg.limitedAccessEvent": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this event. Please sign in"
+      "value": "Necesitas autenticarte para acceder a este evento. Por favor conéctese"
     }
   ],
   "next.components.auth.Signin.invalidActivation.description": [

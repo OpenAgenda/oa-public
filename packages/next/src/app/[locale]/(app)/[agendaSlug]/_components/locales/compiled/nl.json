@@ -2,19 +2,19 @@
   "next.components.auth.AuthDialog.msg.authRequired": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this page."
+      "value": "Toegang tot de gevraagde pagina is beperkt. Log in om toegang te krijgen."
     }
   ],
   "next.components.auth.AuthDialog.msg.limitedAccessAgenda": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this agenda. Please sign in"
+      "value": "De toegang tot deze agenda is beperkt. Meld u aan om toegang te krijgen"
     }
   ],
   "next.components.auth.AuthDialog.msg.limitedAccessEvent": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this event. Please sign in"
+      "value": "De toegang tot dit evenement is beperkt. Meld u aan om toegang te krijgen"
     }
   ],
   "next.components.auth.Signin.invalidActivation.description": [

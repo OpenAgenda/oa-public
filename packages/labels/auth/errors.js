@@ -18,7 +18,8 @@ module.exports = {
     "oc": "L'email o lo senhal son pas corrèctes.",
     "es": "El correo electrónico o la contraseña son incorrectos.",
     "nl": "Het e-mailadres of wachtwoord is onjuist.",
-    "br": "Direizh eo ar chomlec'h postel pe ar ger-tremen"
+    "br": "Direizh eo ar chomlec'h postel pe ar ger-tremen",
+    "io": "crwdns35505:0crwdne35505:0"
   },
   "invalidToken": {
     "en": "Invalid token",

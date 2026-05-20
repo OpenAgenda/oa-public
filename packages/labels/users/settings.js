@@ -381,7 +381,7 @@ module.exports = {
     "fr": "Êtes vous certain de vouloir supprimer votre compte de manière définitive ?\n\n Vos agendas et événements resteront en ligne, vous pouvez les supprimer manuellement si vous ne souhaitez pas les laisser en ligne",
     "de": "Bist du sicher, dass du Dein Konto dauerhaft löschen willst?\n\nDeine Kalender und Veranstaltungen werden online bleiben. du kannst diese manuell löschen, wenn du sie online nicht speichern willst",
     "es": "¿Está seguro de que quiere eliminar tu cuenta de forma permanente?\n\nTus agendas y eventos permanecerán en línea, puedes eliminarlos manualmente si no deseas dejarlos en línea",
-    "it": "Sei sicuro di voler cancellare il suo account in modo permanente? Le sue agende e i suoi eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online",
+    "it": "Sei sicuro di voler cancellare il suo account in modo permanente?\n\nLe sue agende e i suoi eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online",
     "io": "crwdns15878:0crwdne15878:0",
     "oc": "Sètz segur·a de voler suprimir vòstre compre de biais definitiu ?\n\n Vòstres agendas e eveniments demoraràn en linha, los poiretz escafar maualament se los volètz pas daissar",
     "nl": "Weet je zeker dat je je account definitief wilt verwijderen?\n\nJe agenda's en evenementen blijven online, je kunt ze handmatig verwijderen als je ze niet online wilt laten",

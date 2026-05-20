@@ -191,7 +191,8 @@ module.exports = {
     "oc": "Suprimir de biais permanent aqueste eveniment d'OpenAgenda",
     "es": "Eliminar permanentemente este evento de OpenAgenda",
     "nl": "Verwijder dit evenement permanent van OpenAgenda",
-    "br": "Diverkañ an darvoud eus OpenAgenda da vat"
+    "br": "Diverkañ an darvoud eus OpenAgenda da vat",
+    "it": "Elimina definitivamente questo evento da OpenAgenda"
   },
   "remove": {
     "en": "Remove from agenda",
@@ -677,7 +678,8 @@ module.exports = {
     "oc": "L'eveniment mes en avant apareisserà en naut de la lista dels eveniments",
     "es": "El evento aparecerá en la parte superior de la lista de eventos de la agenda",
     "nl": "Een uitgelicht evenement verschijnt bovenaan de lijst",
-    "br": "Dont a ra an darvoud e penn ar roll"
+    "br": "Dont a ra an darvoud e penn ar roll",
+    "it": "L'evento apparirà in cima all'elenco degli eventi dell'agenda"
   },
   "fromTo": {
     "en": "from %from% to %to%",
@@ -855,7 +857,8 @@ module.exports = {
     "br": "Diwar-benn al lec'h",
     "io": "crwdns14566:0crwdne14566:0",
     "oc": "A prepaus del lòc",
-    "nl": "Over de locatie"
+    "nl": "Over de locatie",
+    "ca": "Sobre el lloc"
   },
   "tags": {
     "en": "Tags",
@@ -996,7 +999,8 @@ module.exports = {
     "oc": "Mesa en vedeta, anullacion, reprogramacion, duplicacion...",
     "es": "Destacado, cancelación, reprogramado, duplicación...",
     "nl": "Uitgelicht, annulering, verplaatst, duplicatie...",
-    "br": "Lakaat da geleier pennañ, nulladur, dilezel, eilañ..."
+    "br": "Lakaat da geleier pennañ, nulladur, dilezel, eilañ...",
+    "it": "In primo piano, cancellazione, riprogrammazione, duplicazione..."
   },
   "activity": {
     "en": "Activity",
@@ -1096,7 +1100,8 @@ module.exports = {
     "oc": "Escafar l'estatut de l'eveniment",
     "es": "Borrar el estado del evento",
     "nl": "Wis de status van het evenement",
-    "br": "Adderaouiñ stad an darvoud"
+    "br": "Adderaouiñ stad an darvoud",
+    "it": "Reinizializzare il stato dell'evento"
   },
   "statusScheduledInfo": {
     "en": "The event is not cancelled, nor rescheduled, etc..",

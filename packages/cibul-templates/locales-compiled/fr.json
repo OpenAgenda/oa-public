@@ -83,54 +83,6 @@
       "value": "Modifier l'image"
     }
   ],
-  "cibulTemplates.passwordField.good": [
-    {
-      "type": 0,
-      "value": "Suffisamment sécurisé 🙂"
-    }
-  ],
-  "cibulTemplates.passwordField.great": [
-    {
-      "type": 0,
-      "value": "Très sécurisé 🥳"
-    }
-  ],
-  "cibulTemplates.passwordField.isSameAs": [
-    {
-      "type": 0,
-      "value": "Doit être différent du nom d'utilisateur et de l'email 🙄"
-    }
-  ],
-  "cibulTemplates.passwordField.required": [
-    {
-      "type": 0,
-      "value": "Un mot de passe doit être défini"
-    }
-  ],
-  "cibulTemplates.passwordField.tooWeak": [
-    {
-      "type": 0,
-      "value": "Pas assez sûr 😑"
-    }
-  ],
-  "cibulTemplates.passwordField.usual": [
-    {
-      "type": 0,
-      "value": "Trop commun 🤖"
-    }
-  ],
-  "cibulTemplates.passwordField.weak": [
-    {
-      "type": 0,
-      "value": "Peu sécurisé 😐"
-    }
-  ],
-  "cibulTemplates.passwordField.weakish": [
-    {
-      "type": 0,
-      "value": "Mieux, pas top 😬"
-    }
-  ],
   "common.event.fields.accessibility": [
     {
       "type": 0,
@@ -140,7 +92,7 @@
   "common.event.fields.age": [
     {
       "type": 0,
-      "value": "Targeted public age"
+      "value": "Âge du public ciblé"
     }
   ],
   "common.event.fields.attendanceMode": [
@@ -182,7 +134,7 @@
   "common.event.fields.keywords": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "Mots clés"
     }
   ],
   "common.event.fields.location": [
@@ -200,13 +152,13 @@
   "common.event.fields.onlineAccessLink": [
     {
       "type": 0,
-      "value": "Access link"
+      "value": "Lien d'accès"
     }
   ],
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Outils d'inscription"
     }
   ],
   "common.event.fields.slug": [
@@ -218,19 +170,19 @@
   "common.event.fields.status": [
     {
       "type": 0,
-      "value": "Status"
+      "value": "État"
     }
   ],
   "common.event.fields.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Horaires"
     }
   ],
   "common.event.fields.title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "Titre"
     }
   ],
   "common.event.states.published": [
@@ -257,36 +209,6 @@
       "value": "À modérer"
     }
   ],
-  "common.geo.adminLevel3": [
-    {
-      "type": 0,
-      "value": "Inter-city"
-    }
-  ],
-  "common.geo.city": [
-    {
-      "type": 0,
-      "value": "City"
-    }
-  ],
-  "common.geo.department": [
-    {
-      "type": 0,
-      "value": "Department"
-    }
-  ],
-  "common.geo.location": [
-    {
-      "type": 0,
-      "value": "Location"
-    }
-  ],
-  "common.geo.region": [
-    {
-      "type": 0,
-      "value": "Region"
-    }
-  ],
   "common.roles.administrator": [
     {
       "type": 0,
@@ -296,7 +218,7 @@
   "common.roles.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Contributeur"
     }
   ],
   "common.roles.moderator": [

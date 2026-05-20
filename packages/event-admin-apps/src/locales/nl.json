@@ -72,6 +72,8 @@
   "EventAdminApp.messages.exports.PDFGeoSections": "Geografische secties",
   "EventAdminApp.messages.exports.PDFHighlightLocationName": "Details van de locatie in de koptekst plaatsen",
   "EventAdminApp.messages.exports.PDFSelectSub": "Kies een of meer waarden",
+  "EventAdminApp.messages.exports.RSSCopied": "Gekopieerd",
+  "EventAdminApp.messages.exports.RSSCopy": "Kopiëren",
   "EventAdminApp.messages.exports.cancel": "Annuleren",
   "EventAdminApp.messages.exports.export": "Exporteren",
   "EventAdminApp.messages.exports.exportSelection": "Exporteren",

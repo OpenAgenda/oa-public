@@ -1,5 +1,5 @@
 {
-  "next.views.AgendaShow.AggregateModal.createAgenda": "Crear un agenda",
+  "next.views.AgendaShow.AggregateModal.createAgenda": "Crear una agenda",
   "next.views.AgendaShow.AggregateModal.noAgenda": "Advertencia: Actualmente no está administrando ninguna agenda. Debe crear una antes de poder agregar {agenda}.",
   "next.views.AgendaShow.AggregateModal.signedIn": "",
   "next.views.AgendaShow.AggregateModal.subtitle": "Los eventos publicados por {agenda} se añadirán automáticamente a la agenda seleccionada.",

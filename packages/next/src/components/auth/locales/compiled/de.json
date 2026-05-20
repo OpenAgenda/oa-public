@@ -2,7 +2,7 @@
   "next.components.auth.AuthDialog.dialogTitle": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Anmelden"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleLostPassword": [
@@ -26,7 +26,7 @@
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Anmelden"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
@@ -152,7 +152,7 @@
   "next.components.auth.ResetPassword.passwordLabel": [
     {
       "type": 0,
-      "value": "New password"
+      "value": "Neues Kennwort"
     }
   ],
   "next.components.auth.ResetPassword.passwordRequired": [
@@ -290,7 +290,7 @@
   "next.components.auth.Signin.submitLabel": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Anmelden"
     }
   ],
   "next.components.auth.Signup.agree": [
@@ -492,7 +492,7 @@
   "next.components.auth.Signup.signinLink": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Anmelden"
     }
   ],
   "next.components.auth.Signup.signupSuccess": [

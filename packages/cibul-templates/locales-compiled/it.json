@@ -83,82 +83,34 @@
       "value": "Aggiornare l'immagine"
     }
   ],
-  "cibulTemplates.passwordField.good": [
-    {
-      "type": 0,
-      "value": "Va bene 🙂"
-    }
-  ],
-  "cibulTemplates.passwordField.great": [
-    {
-      "type": 0,
-      "value": "Ottimo 🥳"
-    }
-  ],
-  "cibulTemplates.passwordField.isSameAs": [
-    {
-      "type": 0,
-      "value": "Deve essere diverso dal nome o dall'email 🙄"
-    }
-  ],
-  "cibulTemplates.passwordField.required": [
-    {
-      "type": 0,
-      "value": "È necessario definire una password"
-    }
-  ],
-  "cibulTemplates.passwordField.tooWeak": [
-    {
-      "type": 0,
-      "value": "Questa password è troppo debole 😑"
-    }
-  ],
-  "cibulTemplates.passwordField.usual": [
-    {
-      "type": 0,
-      "value": "Troppo solito 😑"
-    }
-  ],
-  "cibulTemplates.passwordField.weak": [
-    {
-      "type": 0,
-      "value": "Questa password non è molto sicura 😐"
-    }
-  ],
-  "cibulTemplates.passwordField.weakish": [
-    {
-      "type": 0,
-      "value": "Un po' meglio 😬"
-    }
-  ],
   "common.event.fields.accessibility": [
     {
       "type": 0,
-      "value": "Accessibility conditions"
+      "value": "Accessibilità speciale"
     }
   ],
   "common.event.fields.age": [
     {
       "type": 0,
-      "value": "Targeted public age"
+      "value": "Età del pubblico di riferimento"
     }
   ],
   "common.event.fields.attendanceMode": [
     {
       "type": 0,
-      "value": "Attendance mode"
+      "value": "Modalità di partecipazione"
     }
   ],
   "common.event.fields.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Condizioni"
     }
   ],
   "common.event.fields.description": [
     {
       "type": 0,
-      "value": "Short description"
+      "value": "Breve descrizione"
     }
   ],
   "common.event.fields.extIds": [
@@ -170,43 +122,43 @@
   "common.event.fields.image": [
     {
       "type": 0,
-      "value": "Image"
+      "value": "Immagine"
     }
   ],
   "common.event.fields.imageCredits": [
     {
       "type": 0,
-      "value": "Image credits"
+      "value": "Crediti immagine"
     }
   ],
   "common.event.fields.keywords": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "Parole Chiave"
     }
   ],
   "common.event.fields.location": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "Luogo"
     }
   ],
   "common.event.fields.longDescription": [
     {
       "type": 0,
-      "value": "Long description"
+      "value": "Descrizione lunga"
     }
   ],
   "common.event.fields.onlineAccessLink": [
     {
       "type": 0,
-      "value": "Access link"
+      "value": "Collegamento di accesso"
     }
   ],
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Registrazione"
     }
   ],
   "common.event.fields.slug": [
@@ -224,13 +176,13 @@
   "common.event.fields.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Orari"
     }
   ],
   "common.event.fields.title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "Titolo"
     }
   ],
   "common.event.states.published": [
@@ -257,58 +209,28 @@
       "value": "Da moderare"
     }
   ],
-  "common.geo.adminLevel3": [
-    {
-      "type": 0,
-      "value": "Inter-city"
-    }
-  ],
-  "common.geo.city": [
-    {
-      "type": 0,
-      "value": "City"
-    }
-  ],
-  "common.geo.department": [
-    {
-      "type": 0,
-      "value": "Department"
-    }
-  ],
-  "common.geo.location": [
-    {
-      "type": 0,
-      "value": "Location"
-    }
-  ],
-  "common.geo.region": [
-    {
-      "type": 0,
-      "value": "Region"
-    }
-  ],
   "common.roles.administrator": [
     {
       "type": 0,
-      "value": "Administrator"
+      "value": "Amministratore"
     }
   ],
   "common.roles.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Collaboratore"
     }
   ],
   "common.roles.moderator": [
     {
       "type": 0,
-      "value": "Moderator"
+      "value": "Moderatore"
     }
   ],
   "common.roles.reader": [
     {
       "type": 0,
-      "value": "Reader"
+      "value": "Lettore"
     }
   ]
 }

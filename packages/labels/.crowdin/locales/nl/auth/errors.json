@@ -1,5 +1,6 @@
 {
   "fieldCannotBeEmpty": "Het veld mag niet leeg zijn",
+  "incorrectCredentials": "Het e-mailadres of wachtwoord is onjuist.",
   "incorrectPassword": "Het wachtwoord is onjuist",
   "invalidToken": "Ongeldig token",
   "passwordCouldNotBeModified": "Het wachtwoord kon niet worden gewijzigd",

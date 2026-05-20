@@ -1,4 +1,6 @@
 {
   "confirm": "Confermare",
+  "eventDeleteDetails": "Sei sicuro di voler procedere? Se elimini l'evento da questa agenda, verrà rimosso definitivamente da tutte le agende su OpenAgenda.",
+  "eventDeleteTitle": "Cancellazione dell'evento",
   "eventDeleted": "L'evento è cancellato"
 }

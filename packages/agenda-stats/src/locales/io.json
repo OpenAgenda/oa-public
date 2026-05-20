@@ -16,6 +16,7 @@
   "AgendaStats.Dashboard.changeOrder": "crwdns326:0crwdne326:0",
   "AgendaStats.Dashboard.edit": "crwdns328:0crwdne328:0",
   "AgendaStats.Dashboard.filters": "crwdns330:0crwdne330:0",
+  "AgendaStats.Dashboard.print": "crwdns35399:0crwdne35399:0",
   "AgendaStats.Dashboard.pulseDesc": "crwdns336:0crwdne336:0",
   "AgendaStats.Dashboard.save": "crwdns338:0crwdne338:0",
   "AgendaStats.Dashboard.totalEvents": "crwdns340:0total={total}crwdnd340:0total={total}crwdne340:0",

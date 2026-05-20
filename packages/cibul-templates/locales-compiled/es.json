@@ -83,130 +83,82 @@
       "value": "Cambiar imagen"
     }
   ],
-  "cibulTemplates.passwordField.good": [
-    {
-      "type": 0,
-      "value": "Ok 🙂"
-    }
-  ],
-  "cibulTemplates.passwordField.great": [
-    {
-      "type": 0,
-      "value": "Genial 🥳"
-    }
-  ],
-  "cibulTemplates.passwordField.isSameAs": [
-    {
-      "type": 0,
-      "value": "Debe ser diferente del nombre o correo electrónico 🙄"
-    }
-  ],
-  "cibulTemplates.passwordField.required": [
-    {
-      "type": 0,
-      "value": "Se debe definir una contraseña"
-    }
-  ],
-  "cibulTemplates.passwordField.tooWeak": [
-    {
-      "type": 0,
-      "value": "Esta contraseña es demasiado débil 😑"
-    }
-  ],
-  "cibulTemplates.passwordField.usual": [
-    {
-      "type": 0,
-      "value": "Demasiado común 😑"
-    }
-  ],
-  "cibulTemplates.passwordField.weak": [
-    {
-      "type": 0,
-      "value": "Esta contraseña no es muy segura 😐"
-    }
-  ],
-  "cibulTemplates.passwordField.weakish": [
-    {
-      "type": 0,
-      "value": "Un poco mejor 😬"
-    }
-  ],
   "common.event.fields.accessibility": [
     {
       "type": 0,
-      "value": "Accessibility conditions"
+      "value": "Accesibilidad especial"
     }
   ],
   "common.event.fields.age": [
     {
       "type": 0,
-      "value": "Targeted public age"
+      "value": "Edad del objetivo"
     }
   ],
   "common.event.fields.attendanceMode": [
     {
       "type": 0,
-      "value": "Attendance mode"
+      "value": "Modo de asistencia"
     }
   ],
   "common.event.fields.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Condiciones"
     }
   ],
   "common.event.fields.description": [
     {
       "type": 0,
-      "value": "Short description"
+      "value": "Descripción corta"
     }
   ],
   "common.event.fields.extIds": [
     {
       "type": 0,
-      "value": "External identifiers"
+      "value": "Identificadores externos"
     }
   ],
   "common.event.fields.image": [
     {
       "type": 0,
-      "value": "Image"
+      "value": "Imagen"
     }
   ],
   "common.event.fields.imageCredits": [
     {
       "type": 0,
-      "value": "Image credits"
+      "value": "Créditos de las imágenes"
     }
   ],
   "common.event.fields.keywords": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "Palabras clave"
     }
   ],
   "common.event.fields.location": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "Lugar"
     }
   ],
   "common.event.fields.longDescription": [
     {
       "type": 0,
-      "value": "Long description"
+      "value": "Descripción larga"
     }
   ],
   "common.event.fields.onlineAccessLink": [
     {
       "type": 0,
-      "value": "Access link"
+      "value": "Enlace de acceso"
     }
   ],
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "Herramientas de registro"
     }
   ],
   "common.event.fields.slug": [
@@ -218,19 +170,19 @@
   "common.event.fields.status": [
     {
       "type": 0,
-      "value": "Status"
+      "value": "Estado"
     }
   ],
   "common.event.fields.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Horarios"
     }
   ],
   "common.event.fields.title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "título"
     }
   ],
   "common.event.states.published": [
@@ -257,58 +209,28 @@
       "value": "Para moderar"
     }
   ],
-  "common.geo.adminLevel3": [
-    {
-      "type": 0,
-      "value": "Inter-city"
-    }
-  ],
-  "common.geo.city": [
-    {
-      "type": 0,
-      "value": "City"
-    }
-  ],
-  "common.geo.department": [
-    {
-      "type": 0,
-      "value": "Department"
-    }
-  ],
-  "common.geo.location": [
-    {
-      "type": 0,
-      "value": "Location"
-    }
-  ],
-  "common.geo.region": [
-    {
-      "type": 0,
-      "value": "Region"
-    }
-  ],
   "common.roles.administrator": [
     {
       "type": 0,
-      "value": "Administrator"
+      "value": "Administrador"
     }
   ],
   "common.roles.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Contribuyente"
     }
   ],
   "common.roles.moderator": [
     {
       "type": 0,
-      "value": "Moderator"
+      "value": "Moderador"
     }
   ],
   "common.roles.reader": [
     {
       "type": 0,
-      "value": "Reader"
+      "value": "Lector"
     }
   ]
 }

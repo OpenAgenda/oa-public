@@ -2,25 +2,25 @@
   "next.components.auth.AuthDialog.dialogTitle": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "crwdns46777:0crwdne46777:0"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
     {
       "type": 0,
-      "value": "Confirm your email address"
+      "value": "crwdns46779:0crwdne46779:0"
     }
   ],
   "next.components.auth.Signin.invalidActivation.description": [
     {
       "type": 0,
-      "value": "This can be because it has already been used. If that is the case, your account should be activated."
+      "value": "crwdns46781:0crwdne46781:0"
     }
   ],
   "next.components.auth.Signin.invalidActivation.title": [
     {
       "type": 0,
-      "value": "The activation link is not valid"
+      "value": "crwdns46783:0crwdne46783:0"
     }
   ]
 }
