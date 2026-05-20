@@ -1134,3 +1134,59 @@ export function MixedLinkedTypes() {
     </div>
   );
 }
+
+export function FieldEditWithHelp() {
+  const initialSchema = {
+    fields: [
+      {
+        field: 'fieldWithHelpFilled',
+        fieldType: 'text',
+        label: { fr: 'Champ avec aide remplie' },
+        help: { fr: 'Saisissez votre réponse en quelques mots' },
+        helpLink: 'https://openagenda.com',
+        helpContent:
+          'Détails au format **Markdown** [ici](https://openagenda.com)',
+      },
+      {
+        field: 'fieldWithoutHelp',
+        fieldType: 'text',
+        label: { fr: 'Champ sans aide' },
+      },
+      {
+        field: 'aBooleanWithHelp',
+        fieldType: 'boolean',
+        label: { fr: 'Acceptez-vous les conditions' },
+        helpContent: "Conditions générales d'utilisation au format Markdown",
+      },
+    ],
+  };
+
+  const [schema, setSchema] = useState(initialSchema);
+
+  return (
+    <div className="container top-margined">
+      <div className="row margin-v-md">
+        <div className="col-sm-9">
+          <p>
+            Open any field&apos;s edit form. Fields with prefilled help values
+            open with the &quot;Contextual help&quot; accordion expanded. Empty
+            fields open with it collapsed.
+          </p>
+          <FormSchemaBuilder
+            lang="fr"
+            addEnabled
+            settingsEnabled
+            schema={schema}
+            extendedFrom={[]}
+            onUpdate={(updated) => setSchema(updated)}
+          />
+        </div>
+        <div className="col-sm-3">
+          <pre>
+            <code>{JSON.stringify(schema, null, 2)}</code>
+          </pre>
+        </div>
+      </div>
+    </div>
+  );
+}

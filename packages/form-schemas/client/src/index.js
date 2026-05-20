@@ -277,7 +277,7 @@ export default class FormSchemaComponent extends Component {
   }
 
   _getFormSchema() {
-    const { schema, lang } = this.props;
+    const { schema, lang, requireLabels = true } = this.props;
     // building the formSchema is a bit costly, so memoizition is useful here
 
     const hasChanged = !!['hash', 'lang'].filter(
@@ -292,6 +292,7 @@ export default class FormSchemaComponent extends Component {
           ih(schema, {
             defaultLabelLanguage: { $set: lang },
           }),
+          { requireLabels },
         ),
         hash: _.get(this, 'props.hash', ''),
         lang: _.get(this, 'props.lang', ''),
