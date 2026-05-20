@@ -2,7 +2,7 @@
   "name": "@openagenda/auth",
   "version": "0.1.0",
   "private": true,
-  "description": "Authentication service for OpenAgenda. Wraps better-auth with the OA user model and provides middleware aligned with @openagenda/sessions.",
+  "description": "Authentication service for OpenAgenda. Wraps better-auth with the OA user model and provides session middleware.",
   "keywords": [],
   "author": "",
   "license": "ISC",
