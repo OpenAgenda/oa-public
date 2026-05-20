@@ -14,6 +14,22 @@ export function getSummary({ field, lang, schema }) {
   );
 }
 
+const formatLinkedValue = ({ linkedField, value, lang }) => {
+  if (Array.isArray(linkedField?.options)) {
+    const matchingOption = linkedField.options.find((o) => o.id === value);
+    return matchingOption
+      ? getLocaleValue(matchingOption.label, lang)
+      : undefined;
+  }
+  if (linkedField?.fieldType === 'boolean') {
+    return getLabel(
+      value ? 'fieldConditionalBooleanTrue' : 'fieldConditionalBooleanFalse',
+      lang,
+    );
+  }
+  return value === null || value === undefined ? undefined : String(value);
+};
+
 export function getSpecificValue({ field, schema, lang, linkType }) {
   if (typeof field[linkType] === 'string') {
     return;
@@ -23,12 +39,7 @@ export function getSpecificValue({ field, schema, lang, linkType }) {
 
   return []
     .concat(field[linkType].value)
-    .map((value) => {
-      const matchingOption = linkedField.options.find((o) => o.id === value);
-      return matchingOption
-        ? getLocaleValue(matchingOption.label, lang)
-        : undefined;
-    })
+    .map((value) => formatLinkedValue({ linkedField, value, lang }))
     .filter((l) => !!l)
     .join(', ');
 }

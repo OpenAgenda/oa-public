@@ -367,6 +367,7 @@ const FormSchemaBuilder = ({
             customFieldConfigurationSchemas={customFieldConfigurationSchemas}
             components={components}
             parentsFields={parentsMergedSchema}
+            siblings={mergedSchema?.fields || []}
           />
         ) : null}
         <div

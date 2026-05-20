@@ -182,6 +182,22 @@ function allowFalse() {
   };
 }
 
+function conditional({ siblings, currentFieldSlug, lang }) {
+  return {
+    fields: [
+      {
+        field: 'conditional',
+        fieldType: 'conditional',
+        optional: true,
+        label: l.fieldConditionalSection,
+        siblings,
+        currentFieldSlug,
+        lang,
+      },
+    ],
+  };
+}
+
 export default {
   labels,
   labelOnly,
@@ -193,4 +209,5 @@ export default {
   options,
   section,
   allowFalse,
+  conditional,
 };

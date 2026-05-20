@@ -9,6 +9,7 @@ import flattenLabels from '../lib/flatten.js';
 import slugFromLabel from './lib/slugFromLabel.js';
 import fg from './lib/fieldGroups.js';
 import Options from './Options.js';
+import ConditionalLogic from './ConditionalLogic.js';
 import unflattenLabels from './lib/unflattenLabels.js';
 import restrictLabelLanguages from './lib/restrictLabelLanguages.js';
 import optionsValidator from './lib/optionsValidator.js';
@@ -40,7 +41,20 @@ const fieldOrder = (order) => ({
   fields: order.map((f) => ({ field: f, fieldType: 'abstract' })),
 });
 
-const accordionDescriptors = ({ labelLanguages, parentsField }) => {
+const AccordionHeader = ({ title, subtitle }) => (
+  <div>
+    <div>{title}</div>
+    <div className="text-muted">{subtitle}</div>
+  </div>
+);
+
+const accordionDescriptors = ({
+  labelLanguages,
+  parentsField,
+  siblings,
+  currentFieldSlug,
+  lang,
+}) => {
   const minMax = parentsField
     ? null
     : {
@@ -71,19 +85,113 @@ const accordionDescriptors = ({ labelLanguages, parentsField }) => {
     fieldKeys: ['help', 'helpLink', 'helpContent'],
     schema: fg.help({ labelLanguages }),
   };
-  return { minMax, info, placeholderSub, help };
+  const conditional = {
+    id: 'conditional',
+    labelKey: 'fieldConditionalSection',
+    infoKey: 'fieldConditionalSectionInfo',
+    fieldKeys: ['enableWith', 'optionalWith'],
+    schema: fg.conditional({
+      siblings: siblings || [],
+      currentFieldSlug: currentFieldSlug || null,
+      lang,
+    }),
+  };
+  return { minMax, info, placeholderSub, help, conditional };
 };
 
-const AccordionHeader = ({ title, subtitle }) => (
-  <div>
-    <div>{title}</div>
-    <div className="text-muted">{subtitle}</div>
-  </div>
-);
+const deriveConditionalValue = (field) => {
+  if (field?.enableWith) {
+    if (typeof field.enableWith === 'string') {
+      return {
+        mode: 'enable',
+        field: field.enableWith,
+        valueMode: 'any',
+        value: [],
+      };
+    }
+    return {
+      mode: 'enable',
+      field: field.enableWith.field,
+      valueMode: 'specific',
+      value: [].concat(field.enableWith.value ?? []),
+    };
+  }
+  if (field?.optionalWith) {
+    if (typeof field.optionalWith === 'string') {
+      return {
+        mode: 'optional',
+        field: field.optionalWith,
+        valueMode: 'any',
+        value: [],
+      };
+    }
+    return {
+      mode: 'optional',
+      field: field.optionalWith.field,
+      valueMode: 'specific',
+      value: [].concat(field.optionalWith.value ?? []),
+    };
+  }
+  return { mode: 'none', field: null, valueMode: 'any', value: [] };
+};
+
+const serializeConditional = (conditional) => {
+  if (!conditional || conditional.mode === 'none' || !conditional.field) {
+    return { enableWith: null, optionalWith: null };
+  }
+  const targetKey = conditional.mode === 'enable' ? 'enableWith' : 'optionalWith';
+  const otherKey = conditional.mode === 'enable' ? 'optionalWith' : 'enableWith';
+  if (conditional.valueMode === 'specific' && conditional.value?.length) {
+    const values = conditional.value;
+    const value = values.length === 1 ? values[0] : values;
+    return {
+      [targetKey]: { field: conditional.field, value },
+      [otherKey]: null,
+    };
+  }
+  return { [targetKey]: conditional.field, [otherKey]: null };
+};
+
+const getNeighbours = (slug, siblings) => {
+  const f = siblings.find((s) => s.field === slug);
+  if (!f) return [];
+  const targets = [];
+  const collect = (link) => {
+    if (!link) return;
+    if (typeof link === 'string') targets.push(link);
+    else if (link.field) targets.push(link.field);
+  };
+  collect(f.enableWith);
+  collect(f.optionalWith);
+  return targets;
+};
+
+const detectConditionalCycle = ({ startSlug, currentFieldSlug, siblings }) => {
+  if (!startSlug || !currentFieldSlug) return false;
+  const visited = new Set();
+  const queue = [startSlug];
+  while (queue.length) {
+    const slug = queue.shift();
+    if (visited.has(slug)) continue;
+    visited.add(slug);
+    if (slug === currentFieldSlug) return true;
+    for (const next of getNeighbours(slug, siblings)) {
+      if (!visited.has(next)) queue.push(next);
+    }
+  }
+  return false;
+};
 
 const buildSchema = (
   type,
-  { labelLanguages, parentsField, customFieldConfigurationSchemas },
+  {
+    labelLanguages,
+    parentsField,
+    customFieldConfigurationSchemas,
+    siblings,
+    currentFieldSlug,
+    lang,
+  },
 ) => {
   if (type === 'section') {
     return { main: fg.section({ labelLanguages }), accordions: [] };
@@ -109,7 +217,13 @@ const buildSchema = (
   }
 
   const optionalGroup = !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null;
-  const acc = accordionDescriptors({ labelLanguages, parentsField });
+  const acc = accordionDescriptors({
+    labelLanguages,
+    parentsField,
+    siblings,
+    currentFieldSlug,
+    lang,
+  });
 
   if (type === 'boolean') {
     return {
@@ -119,7 +233,7 @@ const buildSchema = (
         fg.allowFalse(),
         fieldOrder(['label', 'optional', 'allowFalse']),
       ),
-      accordions: [acc.info, acc.placeholderSub, acc.help],
+      accordions: [acc.info, acc.placeholderSub, acc.help, acc.conditional],
     };
   }
 
@@ -132,9 +246,13 @@ const buildSchema = (
         optionalGroup,
         fieldOrder(['label', 'optional']),
       ),
-      accordions: [acc.minMax, acc.info, acc.placeholderSub, acc.help].filter(
-        Boolean,
-      ),
+      accordions: [
+        acc.minMax,
+        acc.info,
+        acc.placeholderSub,
+        acc.help,
+        acc.conditional,
+      ].filter(Boolean),
     };
   }
 
@@ -147,7 +265,7 @@ const buildSchema = (
         optionsGroup,
         fieldOrder(['label', 'optional', 'options']),
       ),
-      accordions: [acc.placeholderSub, acc.help],
+      accordions: [acc.placeholderSub, acc.help, acc.conditional],
     };
   }
 
@@ -158,7 +276,7 @@ const buildSchema = (
         optionalGroup,
         fieldOrder(['label', 'optional']),
       ),
-      accordions: [acc.info, acc.placeholderSub, acc.help],
+      accordions: [acc.info, acc.placeholderSub, acc.help, acc.conditional],
     };
   }
 
@@ -169,13 +287,17 @@ export default class FieldForm extends Component {
   constructor(props) {
     super(props);
 
-    const { labelLanguages, field, lang, initFieldType } = props;
+    const { labelLanguages, field, lang, initFieldType, siblings } = props;
 
     const fieldType = field?.fieldType ?? field?.type ?? initFieldType;
+    const currentFieldSlug = field?.field ?? null;
     const { accordions } = buildSchema(fieldType, {
       labelLanguages,
       parentsField: props.parentsField,
       customFieldConfigurationSchemas: props.customFieldConfigurationSchemas,
+      siblings,
+      currentFieldSlug,
+      lang,
     });
 
     const expanded = {};
@@ -183,10 +305,12 @@ export default class FieldForm extends Component {
       expanded[a.id] = hasValueIn(field, a.fieldKeys);
     });
 
+    const baseValues = labelLanguages.length
+      ? unflattenLabels(field, labelLanguages)
+      : flattenLabels(field, lang);
+
     this.state = {
-      values: labelLanguages.length
-        ? unflattenLabels(field, labelLanguages)
-        : flattenLabels(field, lang),
+      values: { ...baseValues, conditional: deriveConditionalValue(field) },
       errors: [],
       expanded,
     };
@@ -215,14 +339,21 @@ export default class FieldForm extends Component {
       onSubmit,
       parentsField,
       customFieldConfigurationSchemas,
+      siblings,
+      isOwn = true,
     } = this.props;
 
     const { values, errors: stateErrors } = this.state;
     const fieldType = field?.fieldType ?? initFieldType;
+    const currentFieldSlug = field?.field
+      ?? (fieldType !== 'section' ? slugFromLabel(values?.label, lang) : null);
     const { accordions } = buildSchema(fieldType, {
       labelLanguages,
       parentsField,
       customFieldConfigurationSchemas,
+      siblings,
+      currentFieldSlug,
+      lang,
     });
 
     const mainResult = this.mainFormRef.current
@@ -240,6 +371,58 @@ export default class FieldForm extends Component {
         collected = collected.concat(errs);
       }
     });
+
+    const conditional = values?.conditional;
+    const conditionalEditable = isOwn && accordions.some((a) => a.id === 'conditional');
+    if (
+      conditionalEditable
+      && conditional?.mode
+      && conditional.mode !== 'none'
+    ) {
+      const condErrors = [];
+      if (!conditional.field) {
+        condErrors.push({
+          field: 'conditional',
+          code: 'missingField',
+          label: getLabel('fieldConditionalMissingFieldError', lang),
+          fieldLabel: getLabel('fieldConditionalSection', lang),
+        });
+      } else if (conditional.field === currentFieldSlug) {
+        condErrors.push({
+          field: 'conditional',
+          code: 'selfReference',
+          label: getLabel('fieldConditionalSelfReferenceError', lang),
+          fieldLabel: getLabel('fieldConditionalSection', lang),
+        });
+      } else if (
+        detectConditionalCycle({
+          startSlug: conditional.field,
+          currentFieldSlug,
+          siblings: siblings || [],
+        })
+      ) {
+        condErrors.push({
+          field: 'conditional',
+          code: 'cycle',
+          label: getLabel('fieldConditionalCycleError', lang),
+          fieldLabel: getLabel('fieldConditionalSection', lang),
+        });
+      } else if (
+        conditional.valueMode === 'specific'
+        && !(conditional.value && conditional.value.length)
+      ) {
+        condErrors.push({
+          field: 'conditional',
+          code: 'missingValue',
+          label: getLabel('fieldConditionalMissingValueError', lang),
+          fieldLabel: getLabel('fieldConditionalSection', lang),
+        });
+      }
+      if (condErrors.length) {
+        errorsByGroup.conditional = condErrors;
+        collected = collected.concat(condErrors);
+      }
+    }
 
     if (collected.length) {
       return this.setState((prev) => {
@@ -263,6 +446,13 @@ export default class FieldForm extends Component {
       item.field = field?.field || slugFromLabel(values?.label, lang);
     }
 
+    if (conditionalEditable) {
+      const serialized = serializeConditional(conditional);
+      item.enableWith = serialized.enableWith;
+      item.optionalWith = serialized.optionalWith;
+    }
+    delete item.conditional;
+
     onSubmit(item);
   }
 
@@ -283,6 +473,8 @@ export default class FieldForm extends Component {
       components,
       parentsField,
       enable = true,
+      siblings,
+      isOwn = true,
     } = this.props;
     const { values, errors, expanded } = this.state;
 
@@ -291,11 +483,15 @@ export default class FieldForm extends Component {
     };
 
     const fieldType = field.fieldType ?? field.type;
+    const currentFieldSlug = field.field ?? null;
 
     const { main, accordions } = buildSchema(fieldType, {
       labelLanguages,
       parentsField,
       customFieldConfigurationSchemas,
+      siblings,
+      currentFieldSlug,
+      lang,
     });
 
     const mainSchema = assignConstraintsToFields(main, parentsField);
@@ -315,19 +511,27 @@ export default class FieldForm extends Component {
     mainSchema.custom = {
       ...customs,
       options: optionsValidator,
+      conditional: passValidator,
     };
 
     const accordionSchemas = accordions.map((a) => {
       const s = assignConstraintsToFields(a.schema, parentsField);
-      if (!enable) {
+      if (!enable || (a.id === 'conditional' && !isOwn)) {
         s.fields.forEach((f) => {
           f.enable = false;
         });
       }
+      s.custom = { ...s.custom, conditional: passValidator };
       return { ...a, schema: s };
     });
 
     const noBottomAction = [{ position: 'bottom', Component: () => null }];
+
+    const componentsMap = {
+      options: Options,
+      conditional: ConditionalLogic,
+      ...components,
+    };
 
     return (
       <div className="margin-top-sm">
@@ -337,44 +541,83 @@ export default class FieldForm extends Component {
           requireLabels={false}
           values={values}
           errors={errors}
-          components={{
-            options: Options,
-            ...components,
-          }}
+          components={componentsMap}
           onChange={this.onChange}
           lang={lang}
           schema={mainSchema}
           actionComponents={noBottomAction}
         />
-        {accordionSchemas.map((a) => (
-          <div key={a.id} style={{ marginLeft: -8, marginRight: -8 }}>
-            <Accordion
-              active={!!expanded[a.id]}
-              onToggle={() => this.toggleAccordion(a.id)}
-              head={(
-                <AccordionHeader
-                  title={getLabel(a.labelKey, lang)}
-                  subtitle={getLabel(a.infoKey, lang)}
-                />
-              )}
-              content={(
-                <div className="margin-top-lg">
-                  <FormSchemaComponent
-                    ref={this.accordionRefs[a.id]}
-                    stateless
-                    requireLabels={false}
-                    values={values}
-                    errors={errors}
-                    onChange={this.onChange}
-                    lang={lang}
-                    schema={a.schema}
-                    actionComponents={noBottomAction}
-                  />
+        {accordionSchemas.map((a) => {
+          const sectionDisabled = a.id === 'conditional' && !isOwn;
+          if (sectionDisabled) {
+            return (
+              <div
+                key={a.id}
+                style={{ marginLeft: -8, marginRight: -8 }}
+                title={getLabel('fieldConditionalSectionDisabledReason', lang)}
+              >
+                <div className="accordion">
+                  <div className="accordion-item" style={{ opacity: 0.55 }}>
+                    <button
+                      type="button"
+                      className="button"
+                      disabled
+                      aria-disabled="true"
+                      style={{
+                        cursor: 'not-allowed',
+                        width: '100%',
+                        textAlign: 'left',
+                      }}
+                    >
+                      <div className="accordion-head">
+                        <div className="head-item">
+                          <AccordionHeader
+                            title={getLabel(a.labelKey, lang)}
+                            subtitle={getLabel(a.infoKey, lang)}
+                          />
+                        </div>
+                        <i
+                          className="control fa fa-chevron-down down"
+                          aria-hidden="true"
+                        />
+                      </div>
+                    </button>
+                  </div>
                 </div>
-              )}
-            />
-          </div>
-        ))}
+              </div>
+            );
+          }
+          return (
+            <div key={a.id} style={{ marginLeft: -8, marginRight: -8 }}>
+              <Accordion
+                active={!!expanded[a.id]}
+                onToggle={() => this.toggleAccordion(a.id)}
+                head={(
+                  <AccordionHeader
+                    title={getLabel(a.labelKey, lang)}
+                    subtitle={getLabel(a.infoKey, lang)}
+                  />
+                )}
+                content={(
+                  <div className="margin-top-lg">
+                    <FormSchemaComponent
+                      ref={this.accordionRefs[a.id]}
+                      stateless
+                      requireLabels={false}
+                      values={values}
+                      errors={errors}
+                      components={componentsMap}
+                      onChange={this.onChange}
+                      lang={lang}
+                      schema={a.schema}
+                      actionComponents={noBottomAction}
+                    />
+                  </div>
+                )}
+              />
+            </div>
+          );
+        })}
         <div
           className="margin-top-md"
           style={{
