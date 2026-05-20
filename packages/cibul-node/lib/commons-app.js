@@ -98,27 +98,25 @@ function _filterNonParsable(str) {
  */
 function lang(req, res, next) {
   req.lang = 'fr';
-  const { sessions } = req.app.services;
 
-  sessions.isLogged(req).then((isLogged) => {
-    if (isLogged) {
-      req.lang = sessions.getCulture(req);
-    }
+  const userCulture = req.user?.culture ?? null;
+  if (userCulture) {
+    req.lang = userCulture;
+  }
 
-    if (req.query.lang) {
-      req.lang = _cleanLang(req.query.lang);
-    }
+  if (req.query.lang) {
+    req.lang = _cleanLang(req.query.lang);
+  }
 
-    if ((isLogged && req.lang !== sessions.getCulture(req)) || req.query.lang) {
-      req.genUrl.preload({ lang: req.lang });
-    }
+  if ((userCulture && req.lang !== userCulture) || req.query.lang) {
+    req.genUrl.preload({ lang: req.lang });
+  }
 
-    if (req.cookies.translateMode) {
-      req.lang = 'io';
-    }
+  if (req.cookies.translateMode) {
+    req.lang = 'io';
+  }
 
-    if (next) next();
-  });
+  if (next) next();
 }
 
 /**

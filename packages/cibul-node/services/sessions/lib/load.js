@@ -124,8 +124,8 @@ function load(sessions, baseOptions, { redirect, msg } = {}) {
 
       req.user = projected;
       // The legacy `oa.user` cookie mirror is gone: Next.js now reads the
-      // BA-signed `oa.session_data` cookie cache directly. Nothing to copy
-      // onto req.session here.
+      // BA-signed `oa.sess_data` session cache directly. Nothing to copy onto
+      // req.session here.
       return next();
     } catch (err) {
       log('warn', 'better-auth getSession failed', { err });

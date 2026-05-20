@@ -29,6 +29,7 @@ import contentSecurityPolicy from './lib/contentSecurityPolicy.js';
 import * as otelMw from './lib/otelMw.js';
 import redirectRootLangPaths from './lib/redirectRootLangPaths.js';
 import handleGracefulShutdown from './lib/handleGracefulShutdown.js';
+import visitorId from './lib/visitorId.js';
 
 const ADMIN = process.argv.includes('admin');
 const TASKS = process.argv
@@ -92,6 +93,7 @@ try {
     }),
     secureHeaders,
     cookieParser(),
+    visitorId,
     sessions.mw.load({ detailed: true }),
     otelMw.addUserContext,
     logRequestMw,

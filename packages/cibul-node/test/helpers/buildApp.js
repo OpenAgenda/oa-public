@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import Core from '../../core/index.js';
+import visitorId from '../../lib/visitorId.js';
 
 // Mounts a base Express app for integration tests: trust proxy, view engine,
 // services + core attached, the /api/auth/* better-auth handler before the
@@ -26,6 +27,7 @@ export default function buildApp(services, config, { extend } = {}) {
     bodyParser.json({ limit: '5mb' }),
     bodyParser.urlencoded({ limit: '500kb', extended: true }),
     cookieParser(),
+    visitorId,
     (req, res, next) => {
       res.locals = res.locals || {};
       res.locals.cspNonce = 'test';

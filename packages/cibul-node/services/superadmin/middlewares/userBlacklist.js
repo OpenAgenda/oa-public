@@ -1,7 +1,7 @@
 import _ from 'lodash';
 
 export default async function userBlacklist(base, req, res, next) {
-  const { users: usersSvc, sessions } = req.app.services;
+  const { users: usersSvc, auth } = req.app.services;
 
   const userUid = req.loadedUser.uid;
 
@@ -14,8 +14,8 @@ export default async function userBlacklist(base, req, res, next) {
       { internal: true },
     );
 
-    if (isBlacklisted) {
-      await sessions.close.byUid(userUid);
+    if (isBlacklisted && auth) {
+      await auth.revokeUserSessions(req.loadedUser.id);
     }
   } catch (err) {
     return next(err);
