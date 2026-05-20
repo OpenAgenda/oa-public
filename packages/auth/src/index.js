@@ -81,6 +81,16 @@ export default function Auth(options = {}) {
     plugins: [oaImpersonationPlugin()],
     advanced: {
       cookiePrefix: 'oa',
+      cookies: {
+        // BA's default name `oa.session_data` matches Sentry's sensitive-header
+        // snippet `session` and gets value-filtered to `[Filtered]` on span
+        // attributes, blocking downstream uid/culture extraction for tracing.
+        // Abbreviating `session` → `sess` sidesteps the filter while staying
+        // recognizable. `oa.session_token` keeps its name (which IS sensitive,
+        // deserves filtering); the cache cookie holding the projected user can
+        // now be read by the spanStart hook.
+        session_data: { name: 'oa.sess_data' },
+      },
       database: {
         generateId: 'serial',
       },
