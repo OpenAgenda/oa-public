@@ -518,6 +518,8 @@ export default function Auth(options = {}) {
         },
         // Surfaced so the sign-in guard (hooks.before) can read them off the
         // user object returned by `internalAdapter.findUserByEmail`.
+        // `isBlacklisted` is also returned on the BA user output so consumers
+        // can read it natively off the session.
         isRemoved: {
           type: 'boolean',
           fieldName: 'is_removed',
@@ -529,7 +531,7 @@ export default function Auth(options = {}) {
           type: 'boolean',
           fieldName: 'is_blacklisted',
           input: false,
-          returned: false,
+          returned: true,
           defaultValue: false,
         },
         culture: {
@@ -547,6 +549,20 @@ export default function Auth(options = {}) {
           input: false,
           returned: false,
           defaultValue: null,
+        },
+        transverseApiAccess: {
+          type: 'boolean',
+          fieldName: 'transverse_api_access',
+          input: false,
+          returned: true,
+          defaultValue: false,
+        },
+        isNew: {
+          type: 'boolean',
+          fieldName: 'is_new',
+          input: false,
+          returned: true,
+          defaultValue: true,
         },
       },
     },

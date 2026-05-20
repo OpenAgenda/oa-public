@@ -1,4 +1,6 @@
 import { jest } from '@jest/globals';
+import { getAuthTables } from '@better-auth/core/db';
+import { filterOutputFields } from '@better-auth/core/utils/db';
 import Auth, { projectUser as namedExport } from '../src/index.js';
 import projectUser from '../src/projectUser.js';
 
@@ -298,5 +300,69 @@ describe('customSession plugin opt-in', () => {
     });
     const plugins = auth.instance.options.plugins ?? [];
     expect(plugins.find((p) => p?.id === 'custom-session')).toBeDefined();
+  });
+});
+
+describe('user output schema (additionalFields)', () => {
+  const auth = Auth(baseOpts);
+  const userFields = getAuthTables(auth.instance.options).user.fields;
+
+  it('declares the OA boolean fields as returned booleans', () => {
+    for (const key of ['isBlacklisted', 'isNew', 'transverseApiAccess']) {
+      expect(userFields[key]).toMatchObject({
+        type: 'boolean',
+        input: false,
+        returned: true,
+      });
+    }
+    expect(userFields.transverseApiAccess.fieldName).toBe(
+      'transverse_api_access',
+    );
+    expect(userFields.isNew.fieldName).toBe('is_new');
+    expect(userFields.isBlacklisted.fieldName).toBe('is_blacklisted');
+  });
+
+  it('keeps isRemoved off the output (returned: false)', () => {
+    expect(userFields.isRemoved.returned).toBe(false);
+  });
+
+  it('exposes core `image` natively without a duplicate additionalField', () => {
+    // `image` is a core BA user field (string, nullish) — not remapped and
+    // not declared as an additionalField, so it rides on the output as-is.
+    expect(userFields.image).toMatchObject({ type: 'string' });
+    expect(userFields.image.returned).toBeUndefined();
+    expect('image' in auth.instance.options.user.additionalFields).toBe(false);
+  });
+
+  it('emits the new fields through parseUserOutput, dropping returned:false', () => {
+    // filterOutputFields is exactly what parseUserOutput runs; it keys off the
+    // schema field name, so feed it a post-transformOutput (remapped) row.
+    const projected = filterOutputFields(
+      {
+        id: '7',
+        name: 'N',
+        email: 'e@oa.test',
+        emailVerified: true,
+        image: 'thumbs/x.png',
+        culture: 'fr',
+        uid: 42,
+        isRemoved: false,
+        isBlacklisted: true,
+        isNew: false,
+        transverseApiAccess: true,
+        salt: 'secret',
+        facebookUid: 'fb',
+      },
+      userFields,
+    );
+    expect(projected).toMatchObject({
+      image: 'thumbs/x.png',
+      isBlacklisted: true,
+      isNew: false,
+      transverseApiAccess: true,
+    });
+    expect(projected.isRemoved).toBeUndefined();
+    expect(projected.salt).toBeUndefined();
+    expect(projected.facebookUid).toBeUndefined();
   });
 });
