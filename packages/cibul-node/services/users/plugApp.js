@@ -83,10 +83,10 @@ export default function plugApp(app) {
     getHandler('refresh', ['id', 'data', 'params'])(service),
   );
 
-  // After Feathers PATCH /users/:id sets res.data, force a better-auth
-  // cookieCache refresh so the client sees the updated fullName / thumbnail
-  // / culture immediately. Without this, the cached session cookie keeps
-  // serving the pre-patch projection until cookieCache.maxAge expiry.
+  // The patch's afterPatchRefreshSession hook already re-snapshotted the user
+  // into the Redis session; rebuild the signed cookie cache from that fresh
+  // snapshot and forward it so the client sees the updated fullName / image /
+  // culture immediately instead of waiting for cookieCache.maxAge expiry.
   app.patch('/users/:__feathersId', async (req, res, next) => {
     if (!res.data) return next();
     const { auth } = req.app.services;
@@ -94,7 +94,7 @@ export default function plugApp(app) {
     try {
       const out = await auth.api.getSession({
         headers: auth.toHeaders(req),
-        query: { disableCookieCache: 'true' },
+        query: { disableCookieCache: true },
         asResponse: true,
       });
       auth.forwardSetCookieHeaders(out, res);
