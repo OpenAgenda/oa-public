@@ -2,19 +2,19 @@
   "pdf-exports.access": [
     {
       "type": 0,
-      "value": "Accès"
+      "value": "Moned"
     }
   ],
   "pdf-exports.additionalLinks": [
     {
       "type": 0,
-      "value": "Liens additionnels"
+      "value": "Liammoù ouzhpenn"
     }
   ],
   "pdf-exports.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Divizoù"
     }
   ],
   "pdf-exports.contactDetails": [
@@ -26,13 +26,13 @@
   "pdf-exports.location": [
     {
       "type": 0,
-      "value": "Lieu"
+      "value": "Lec'h"
     }
   ],
   "pdf-exports.locationDetails": [
     {
       "type": 0,
-      "value": "À propos du lieu"
+      "value": "Diwar-benn al lec'h"
     }
   ],
   "pdf-exports.noSelection": [
@@ -50,7 +50,7 @@
   "pdf-exports.online": [
     {
       "type": 0,
-      "value": "En ligne"
+      "value": "Enlinenn"
     }
   ],
   "pdf-exports.page": [
@@ -62,13 +62,13 @@
   "pdf-exports.status": [
     {
       "type": 0,
-      "value": "État"
+      "value": "Statud"
     }
   ],
   "pdf-exports.tags": [
     {
       "type": 0,
-      "value": "Tags"
+      "value": "Merkoù"
     }
   ],
   "pdf-exports.timingDetails": [

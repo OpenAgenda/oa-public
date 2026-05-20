@@ -1,1 +1,4 @@
-{}
+{
+  "react.components.EventShareModal.feedbackLink": "Digueu-nos com millorar-ho!",
+  "react.components.EventShareModal.feedbackQuestion": "Trobes aquesta exportació útil?"
+}

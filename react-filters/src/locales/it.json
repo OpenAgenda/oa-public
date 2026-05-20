@@ -33,6 +33,8 @@
   "ReactFilters.messages.attendanceMode.online": "Evento online",
   "ReactFilters.messages.boolean.notSelected": "Non selezionato",
   "ReactFilters.messages.boolean.selected": "Selezionato",
+  "ReactFilters.messages.choiceFilter.lessOptions": "Meno opzioni",
+  "ReactFilters.messages.choiceFilter.moreOptions": "Altre opzioni",
   "ReactFilters.messages.choiceFilter.noResult": "Nessun risultato",
   "ReactFilters.messages.choiceFilter.searchPlaceholder": "Cerca",
   "ReactFilters.messages.featured.featured": "Fissato",
