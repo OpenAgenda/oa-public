@@ -1,8 +1,9 @@
-// Integration test for the enriched /api/auth/get-session payload.
-// The customSession plugin is wired in cibul-node's auth service via
-// `resolveSessionExtras`, so a successful signin followed by GET
-// /api/auth/get-session must return the OA-projected user (with thumbnail,
-// fullName, …) instead of the vanilla BA user row.
+// Integration test for the native /api/auth/get-session payload.
+// cibul-node no longer wires `resolveSessionExtras`, so BA's vanilla
+// get-session is in effect: a successful signin followed by GET
+// /api/auth/get-session returns the native better-auth user (OA columns
+// declared as core/additional fields with `returned: true`), NOT the legacy
+// OA-enriched projection (no `thumbnail`/`fullName`/`hasLocalAccount`/… keys).
 import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
@@ -45,7 +46,7 @@ const enabled = [
   'security',
 ];
 
-describe('36 - /api/auth/get-session enriched payload', () => {
+describe('36 - /api/auth/get-session native payload', () => {
   let core;
   let services;
   let usersSvc;
@@ -75,12 +76,12 @@ describe('36 - /api/auth/get-session enriched payload', () => {
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  it('returns the OA-projected user payload after a successful signin', async () => {
-    const email = 'getsession-enriched@oa.test';
+  it('returns the native better-auth user after a successful signin', async () => {
+    const email = 'getsession-native@oa.test';
     const password = 'plainPwd-36';
     const created = await usersSvc.create(
       {
-        fullName: 'GetSession Enriched',
+        fullName: 'GetSession Native',
         email,
         password,
         isActivated: true,
@@ -98,31 +99,35 @@ describe('36 - /api/auth/get-session enriched payload', () => {
     const res = await agent.get('/api/auth/get-session');
     expect(res.status).toBe(200);
     expect(res.body.session).toBeTruthy();
-    // BA's customSession returns the projected OA user. The numeric id /
-    // uid come straight from the DB row (MySQL BIGINT) — the projection is
-    // pure (see packages/auth/src/projectUser.js) and does not stringify.
-    expect(String(res.body.user.id)).toBe(String(created.id));
-    expect(String(res.body.user.uid)).toBe(String(created.uid));
-    expect(res.body.user).toMatchObject({
+
+    const { user } = res.body;
+
+    // Native BA fields. The numeric id / uid come straight from the DB row
+    // (MySQL BIGINT); BA surfaces them via core + additional field mappings.
+    expect(String(user.id)).toBe(String(created.id));
+    expect(String(user.uid)).toBe(String(created.uid));
+    expect(user).toMatchObject({
       email,
-      name: 'GetSession Enriched',
-      fullName: 'GetSession Enriched',
-      isActivated: true,
-      isBlacklisted: false,
+      // `name` is BA's mapping of the OA `full_name` column.
+      name: 'GetSession Native',
       culture: 'fr',
+      // Freshly created OA user — the native `is_new` column is still set.
+      isNew: true,
+      isBlacklisted: false,
+      transverseApiAccess: false,
     });
-    // thumbnail is computed by cibul-node's resolveSessionExtras (null when
-    // no image, otherwise prefixed with imageBucketPath) — the key must be
-    // present even when null.
-    expect(
-      Object.prototype.hasOwnProperty.call(res.body.user, 'thumbnail'),
-    ).toBe(true);
-    // Account-type flags read from the BA `account` table — `usersSvc.create`
-    // hashes the password legacy-side, then the dual-write hook mirrors it
-    // into `account.password (providerId='credential')`. So the credential
-    // row exists and `hasLocalAccount` must be true. No OAuth row → false.
-    expect(res.body.user.hasLocalAccount).toBe(true);
-    expect(res.body.user.hasSocialAccount).toBe(false);
-    expect(res.body.lang).toBe('fr');
+    // `image` is the raw stored path (null here, no avatar uploaded) — the key
+    // is present and not an absolute thumbnail URL.
+    expect(Object.prototype.hasOwnProperty.call(user, 'image')).toBe(true);
+    expect(user.image == null).toBe(true);
+
+    // The OA enrichment is gone: none of the legacy projected-only members are
+    // emitted anymore (consumers that need them read the users API instead).
+    expect(user.thumbnail).toBeUndefined();
+    expect(user.fullName).toBeUndefined();
+    expect(user.isActivated).toBeUndefined();
+    expect(user.hasLocalAccount).toBeUndefined();
+    expect(user.hasSocialAccount).toBeUndefined();
+    expect(res.body.lang).toBeUndefined();
   });
 });

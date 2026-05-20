@@ -1,10 +1,7 @@
 import mysql from 'mysql2';
 import logs from '@openagenda/logs';
-import Auth, { projectUser } from '@openagenda/auth';
+import Auth from '@openagenda/auth';
 import runOnActivation from '../users/lib/runOnActivation.js';
-
-const OAUTH_PROVIDERS = new Set(['google', 'facebook', 'twitter']);
-const CREDENTIAL = 'credential';
 
 const log = logs('services/auth');
 
@@ -65,7 +62,6 @@ async function evaluateCaptcha({ body, mtCaptcha }) {
 
 export async function init(config, services) {
   const { schemas, mtCaptcha } = config;
-  const imageBucketPath = config.s3.mainBucketPath;
 
   const mysqlPool = mysql.createPool({
     ...config.db,
@@ -192,70 +188,6 @@ export async function init(config, services) {
       if (captcha) errors[captcha.field] = captcha.code;
 
       return Object.keys(errors).length > 0 ? { errors } : undefined;
-    },
-    // Wired now so /api/auth/get-session returns the OA-projected user +
-    // lang directly, letting `authClient.useSession()` give consumers
-    // everything they need without an extra OA endpoint.
-    //
-    // I/O budget: 1 SELECT user + (later) 1 SELECT agenda max — reruns on
-    // every GET /api/auth/get-session.
-    resolveSessionExtras: async ({ user }) => {
-      let oaUser = null;
-      try {
-        oaUser = await services.users.findOne({
-          query: { id: user.id },
-          detailed: true,
-        });
-      } catch (err) {
-        log('warn', 'resolveSessionExtras: users.findOne failed', {
-          userId: user?.id,
-          err,
-        });
-      }
-
-      // Read the BA `account` table to compute hasLocalAccount / hasSocialAccount.
-      // Source of truth since phase 6 — the legacy `user.{password, facebook_uid,
-      // twitter_id, google_id}` columns stay NULL for users created via better-auth.
-      let hasLocalAccount = false;
-      let hasSocialAccount = false;
-      try {
-        const typesById = await services.auth.getAccountTypesByUserId([
-          user.id,
-        ]);
-        const providers = typesById.get(user.id) ?? new Set();
-        hasLocalAccount = providers.has(CREDENTIAL);
-        hasSocialAccount = Array.from(providers).some((p) =>
-          OAUTH_PROVIDERS.has(p));
-      } catch (err) {
-        log('warn', 'resolveSessionExtras: getAccountTypesByUserId failed', {
-          userId: user?.id,
-          err,
-        });
-      }
-
-      const projectedBase = projectUser(oaUser ?? user);
-      const projected = projectedBase
-        ? {
-          ...projectedBase,
-          // Absolute thumbnail URL — bucket prefix is a runtime config, so
-          // it lives here, not in the pure projectUser helper.
-          thumbnail: oaUser?.image ? imageBucketPath + oaUser.image : null,
-          // Surface the legacy field that downstream consumers still read.
-          fullName: oaUser?.fullName ?? projectedBase.name ?? null,
-          transverseApiAccess: oaUser?.transverseApiAccess ?? false,
-          isNew: !!oaUser?.isNew,
-          hasLocalAccount,
-          hasSocialAccount,
-        }
-        : null;
-
-      // TODO: resolve the contextual agenda (slug from `request.url` path
-      // or referer) when the Next signin/signup forms need it. Skipped here
-      // to keep the I/O budget at 1 SELECT user / call.
-      return {
-        user: projected ?? user,
-        lang: oaUser?.culture ?? user?.culture ?? null,
-      };
     },
   });
 
