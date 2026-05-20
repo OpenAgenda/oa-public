@@ -70,7 +70,6 @@ const registry = [
     name: 'behavioralEmails',
     load: () => import('./behavioralEmails/index.js'),
   },
-  { name: 'sessions', load: () => import('./sessions/index.js') },
   { name: 'networkApps', load: () => import('./networkApps.js') },
   { name: 'networks', load: () => import('./networks.js') },
   { name: 'newsletter', load: () => import('./newsletter.js') },

@@ -1,13 +1,8 @@
 import _ from 'lodash';
 import logs from '@openagenda/logs';
+import { requireUser } from '../../lib/authGuards.js';
 
 const log = logs('services/supervisor/task');
-
-const redirectToSignin = (req, res) =>
-  res.redirect(
-    302,
-    `/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`,
-  );
 
 function task(services) {
   const { eventSearch } = services;
@@ -37,14 +32,13 @@ export function init(config, services) {
 
 export function plugApp(app, base = '/elasticsearch') {
   const {
-    sessions,
     supervisor: { elasticsearch },
     users,
   } = app.services;
 
   app.get(
     `${base}/cluster`,
-    sessions.mw.ifUnlogged(redirectToSignin),
+    requireUser,
     users.mw.allowSuperAdmin(),
     async (req, res, next) => {
       try {
@@ -67,7 +61,7 @@ export function plugApp(app, base = '/elasticsearch') {
 
   app.post(
     `${base}/cluster/replicas`,
-    sessions.mw.ifUnlogged(redirectToSignin),
+    requireUser,
     users.mw.allowSuperAdmin(),
     async (req, res, next) => {
       try {

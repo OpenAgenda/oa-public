@@ -14,6 +14,6 @@ export default () => async (req, res, next) => {
   }
 
   // No API key: req.user was already loaded from the better-auth session
-  // by sessions.mw.load upstream — nothing else to do here.
+  // by the global loadUser mount upstream — nothing else to do here.
   next();
 };

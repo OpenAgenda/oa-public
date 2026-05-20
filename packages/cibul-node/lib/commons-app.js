@@ -516,14 +516,6 @@ function redirectTo(route, params = {}, options = {}) {
   };
 }
 
-function redirectToSignin(req, res, _next) {
-  const agenda = req.agenda || _.get(req, 'agendaInstance.data');
-  res.redirect(
-    302,
-    `${agenda ? `/${agenda.slug}` : ''}/signin?redirect=${Buffer.from(req.originalUrl, 'utf-8').toString('base64')}`,
-  );
-}
-
 function makeRedirect(urlOrReq) {
   return Buffer.from(
     _.isObject(urlOrReq) ? urlOrReq.originalUrl : urlOrReq,
@@ -651,7 +643,6 @@ export default {
   loadLegacyRoutes,
 
   redirectTo,
-  redirectToSignin,
 
   agendaMailTo,
 

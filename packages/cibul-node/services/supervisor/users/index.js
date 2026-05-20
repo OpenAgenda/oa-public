@@ -1,12 +1,12 @@
-import cmn from '../../../lib/commons-app.js';
+import { requireUser } from '../../../lib/authGuards.js';
 import getLogs from './getLogs.js';
 
 export function plugApp(app, base = '/users') {
-  const { sessions, users, supervisor } = app.services;
+  const { users, supervisor } = app.services;
 
   app.get(
     `${base}/logs`,
-    sessions.mw.ifUnlogged(cmn.redirectToSignin),
+    requireUser,
     users.mw.allowSuperAdmin(),
     async (req, res, next) => {
       const { userUid, from, to } = req.query;

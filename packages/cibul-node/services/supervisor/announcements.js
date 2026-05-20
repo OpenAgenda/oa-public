@@ -1,5 +1,5 @@
 import logs from '@openagenda/logs';
-import cmn from '../../lib/commons-app.js';
+import { requireUser } from '../../lib/authGuards.js';
 
 const ANNOUNCEMENT_KEY = 'oa:announcement';
 
@@ -36,14 +36,13 @@ export function init(config, services) {
 
 export function plugApp(app, base = '/announcement') {
   const {
-    sessions,
     supervisor: { announcements },
     users,
   } = app.services;
 
   app.post(
     base,
-    sessions.mw.ifUnlogged(cmn.redirectToSignin),
+    requireUser,
     users.mw.allowSuperAdmin(),
     async (req, res, next) => {
       try {
@@ -57,7 +56,7 @@ export function plugApp(app, base = '/announcement') {
 
   app.delete(
     base,
-    sessions.mw.ifUnlogged(cmn.redirectToSignin),
+    requireUser,
     users.mw.allowSuperAdmin(),
     async (req, res, next) => {
       try {

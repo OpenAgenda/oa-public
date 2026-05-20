@@ -2,6 +2,7 @@ import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import generalFront from '../general/front.js';
+import { ifLogged, ifUnlogged, requireUser } from '../lib/authGuards.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
@@ -27,7 +28,6 @@ const enabled = [
   'users',
   'keys',
   'trackers',
-  'sessions',
   'abilities',
   'invitations',
   'mails',
@@ -40,7 +40,7 @@ const enabled = [
   'security',
 ];
 
-function extendApp(services) {
+function extendApp(_services) {
   return (app) => {
     generalFront(app);
 
@@ -62,20 +62,18 @@ function extendApp(services) {
     // Mimic the /home gating pattern: ifUnlogged → redirect; otherwise serve.
     app.get(
       '/protected',
-      services.sessions.mw.ifUnlogged((_req, res) => res.redirect(302, '/')),
+      ifUnlogged((_req, res) => res.redirect(302, '/')),
       (_req, res) => res.json({ ok: true }),
     );
     app.get(
       '/loggedonly',
-      services.sessions.mw.ifLogged((req, res) =>
-        res.json({ uid: String(req.user.uid) })),
+      ifLogged((req, res) => res.json({ uid: String(req.user.uid) })),
       (_req, res) => res.json({ ok: false }),
     );
-    // loadOrRedirect: serves when a session is present, otherwise issues the
+    // requireUser: serves when a session is present, otherwise issues the
     // unauth redirect to `…/signin`. Used to prove a revoked session (no BA
     // session at all) is distinct from the legacy blacklist-flash redirect to `/`.
-    app.get('/needs-auth', services.sessions.mw.loadOrRedirect(), (_req, res) =>
-      res.json({ ok: true }));
+    app.get('/needs-auth', requireUser, (_req, res) => res.json({ ok: true }));
   };
 }
 
@@ -219,7 +217,7 @@ describe('21 - sessions loader (better-auth)', () => {
     await usersSvc.patch(user.uid, { isBlacklisted: true }, { internal: true });
 
     // The session is gone: getSession (disableCookieCache) returns null, so
-    // loadOrRedirect issues the unauth redirect to `…/signin`. This is the
+    // requireUser issues the unauth redirect to `…/signin`. This is the
     // proof of revocation — distinct from the legacy blacklist-flash redirect
     // to `/` (which would require a still-readable session). The signin
     // redirect only happens when there is no session at all.

@@ -1,4 +1,5 @@
 import cmn from '../../lib/commons-app.js';
+import { requireUser } from '../../lib/authGuards.js';
 import searchMembers from './middlewares/searchMembers.js';
 import LoadUser from './middlewares/LoadUser.js';
 import getUsers from './middlewares/getUsers.js';
@@ -13,11 +14,11 @@ import toggleAggregationFeature from './middlewares/toggleAggregationFeature.js'
 import userChangePassword from './middlewares/userChangePassword.js';
 
 function plugApp(services, app, base = '/admin') {
-  const { sessions, users, core, redis } = services;
+  const { users, core, redis } = services;
 
   const pre = [
     cmn.loadBaseData('oa-admin.css'),
-    sessions.mw.ifUnlogged(cmn.redirectToSignin),
+    requireUser,
     users.mw.allowSuperAdmin(),
   ];
 

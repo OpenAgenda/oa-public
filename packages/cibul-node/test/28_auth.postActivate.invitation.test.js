@@ -28,7 +28,6 @@ const enabled = [
   'users',
   'keys',
   'trackers',
-  'sessions',
   'abilities',
   'invitations',
   'mails',
@@ -191,7 +190,7 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
   });
 
   // E2E happy path: full signup → verify-email → auto-signin → /post-activate
-  // chain, no stubs. This exercises the `sessions.mw.load` BA path where the
+  // chain, no stubs. This exercises the `loadUser` BA path where the
   // freshly-verified user is loaded for the first time on /post-activate.
   // Regression cover for the production scenario where `req.user` ended up
   // null on /post-activate despite BA having an active session.
@@ -318,7 +317,7 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
 
   // Regression: in production we observed `req.user` being null on
   // `/post-activate` even though the BA cookie was set (post-verifyEmail
-  // auto-signin). The original `services/sessions/lib/load.js` fell back to
+  // auto-signin). The original session loader fell back to
   // the legacy cookie-session path when `usersSvc.findOne({ id })` returned
   // null — leaving `req.user` undefined and the invitation never applied.
   // The loader now projects BA's already-enriched session user when its own
@@ -354,7 +353,7 @@ describe('28 - /post-activate applies invitation token after BA auto-signin', ()
       .set('Content-Type', 'application/json')
       .send({ email: inviteeEmail, password: inviteePassword });
 
-    // Force the global `sessions.mw.load` BA path to miss the user row, so
+    // Force the global `loadUser` BA path to miss the user row, so
     // `req.user` arrives at /post-activate as null. The fallback middleware
     // (`ensureUserFromBA`) must rehydrate from BA's session.
     const originalFindOne = services.users.findOne.bind(services.users);

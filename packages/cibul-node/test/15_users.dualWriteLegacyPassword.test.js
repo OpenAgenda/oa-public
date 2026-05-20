@@ -25,7 +25,6 @@ const enabled = [
   'users',
   'keys',
   'trackers',
-  'sessions',
   'abilities',
   'invitations',
   'mails',

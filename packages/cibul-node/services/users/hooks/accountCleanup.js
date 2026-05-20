@@ -48,7 +48,7 @@ const afterPatchBlacklist = () => async (context, next) => {
 };
 
 // Fields mirrored into the BA Redis session snapshot (read off `req.user` by
-// services/sessions/lib/load.js). The patch `snakeCase()` before-hook has
+// lib/authGuards.js loadUser). The patch `snakeCase()` before-hook has
 // already snake-cased `context.data` by the time this after-hook runs (same
 // convention `afterPatchBlacklist` relies on for `is_blacklisted`), so only
 // snake forms are needed. `is_blacklisted` is deliberately absent — handled by

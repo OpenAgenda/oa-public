@@ -6,7 +6,7 @@ const log = logs('superadmin/userSignin');
 export default async function userSignin(req, res) {
   const { auth } = req.app.services;
 
-  // Upstream pre-mw chain (sessions.mw.ifUnlogged + users.mw.allowSuperAdmin)
+  // Upstream pre-mw chain (requireUser + users.mw.allowSuperAdmin)
   // guarantees req.user is the superadmin and that the request carries a
   // valid BA session_token cookie for that user — `auth.impersonateUser`
   // resolves the impersonator off the headers (no need to pass it

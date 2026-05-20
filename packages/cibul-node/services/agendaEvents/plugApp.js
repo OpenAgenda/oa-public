@@ -1,4 +1,5 @@
 import express from 'express';
+import { requireUser, requireUserJson } from '../../lib/authGuards.js';
 import loadAgendaMw from '../members/middleware/loadAgenda.js';
 import loadEventMw from '../members/middleware/loadEvent.js';
 import changeStateMw, {
@@ -14,35 +15,28 @@ import loadAgendaEventMw from './middleware/load.js';
 // TODO supprimer les .get qui font des modifications ☠️
 
 export default function plugApp(parentApp) {
-  const { sessions, members, agendas } = parentApp.services;
-
-  const requireLoggedMw = sessions.mw.ifUnlogged((req, res, next) =>
-    next({
-      code: 403,
-      error: 'requiredLogged',
-      message: 'You need to be logged',
-    }));
+  const { members, agendas } = parentApp.services;
 
   const loadMw = express
     .Router({ mergeParams: true })
     .use(loadAgendaMw, loadEventMw, loadAgendaEventMw);
 
   parentApp.get('/:agendaSlug/events/:eventSlug/state/:state', [
-    requireLoggedMw,
+    requireUser,
     loadMw,
     members.mw.loadAndAuthorize('moderator'),
     changeStateMw,
   ]);
 
   parentApp.post('/:agendaSlug/events/:eventSlug/state', [
-    requireLoggedMw,
+    requireUserJson,
     loadMw,
     members.mw.loadAndAuthorize('moderator'),
     changeStateMw,
   ]);
 
   parentApp.get('/:agendaSlug/events/:eventSlug/status', [
-    requireLoggedMw,
+    requireUser,
     loadMw,
     members.mw.load,
     members.mw.authorizeAdminModOrEventOwner,
@@ -50,28 +44,28 @@ export default function plugApp(parentApp) {
   ]);
 
   parentApp.delete('/:agendaSlug/events/:eventSlug', [
-    requireLoggedMw,
+    requireUserJson,
     loadMw,
     members.mw.load,
     removeMw,
   ]);
 
   parentApp.get('/:agendaSlug/events/:eventSlug/remove', [
-    requireLoggedMw,
+    requireUser,
     loadMw,
     members.mw.load,
     removeMw,
   ]);
 
   parentApp.get('/:agendaSlug/events/:eventSlug/featured/:type', [
-    requireLoggedMw,
+    requireUser,
     loadMw,
     members.mw.loadAndAuthorize('moderator'),
     changeFeaturedMw,
   ]);
 
   parentApp.post('/:agendaSlug/admin/events/states', [
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     loadAgendaMw,
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
@@ -79,7 +73,7 @@ export default function plugApp(parentApp) {
   ]);
 
   parentApp.all('/:agendaSlug/admin/events/batch', [
-    sessions.mw.loadOrRedirect(),
+    requireUserJson,
     loadAgendaMw,
     agendas.mw.authorizeByIPAddress(),
     members.mw.loadAndAuthorize('moderator'),
@@ -87,7 +81,6 @@ export default function plugApp(parentApp) {
   ]);
 
   parentApp.get('/:agendaSlug/navigate', [
-    sessions.mw.load(),
     loadAgendaMw,
     agendas.mw.authorizeByIPAddress(),
     navigateMw,

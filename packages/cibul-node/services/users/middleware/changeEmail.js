@@ -7,6 +7,7 @@ import errorLabels from '@openagenda/labels/errors/index.js';
 import makeLabelGetter from '@openagenda/labels';
 import cmn from '../../../lib/commons-app.js';
 import { setFlash } from '../../../lib/flash.js';
+import { redirectToSignin } from '../../../lib/authGuards.js';
 import resetCache from '../lib/resetCache.js';
 import layouts from '../../lib/layouts/index.js';
 
@@ -57,7 +58,7 @@ function send(req, res, next) {
 function onError(err, req, res) {
   if (!req.user) {
     log.info('not signed in, redirecting to signin page');
-    return cmn.redirectToSignin(req, res);
+    return redirectToSignin(req, res);
   }
 
   if (err.code === 400) {

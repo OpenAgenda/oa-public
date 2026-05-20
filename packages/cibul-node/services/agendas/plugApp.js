@@ -1,4 +1,5 @@
 import agendaAdminLayout from '../lib/layouts/agendaAdmin/index.js';
+import { requireUser } from '../../lib/authGuards.js';
 
 const defaultFields = [
   'image',
@@ -46,11 +47,10 @@ const checkUser = (req, res, next) => {
 };
 
 export default function plugApp(app) {
-  const { agendas, sessions, members, core } = app.services;
+  const { agendas, members, core } = app.services;
 
   app.get(
     '/:agendaSlug/admin/layout',
-    sessions.mw.load(),
     checkUser,
     agendas.mw.load,
     members.mw.loadAndAuthorize('moderator', { or: throwForbidden }),
@@ -77,7 +77,6 @@ export default function plugApp(app) {
 
   app.get(
     '/:agendaSlug/settings/schema',
-    sessions.mw.load(),
     agendas.mw.load,
     async (req, res, next) => {
       try {
@@ -97,7 +96,7 @@ export default function plugApp(app) {
 
   app.post(
     '/agendas/new',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.getConfig().upload.middleware([{ name: 'image', unique: true }]),
     (req, res, next) => {
       agendas
@@ -131,20 +130,16 @@ export default function plugApp(app) {
     },
   );
 
-  app.post(
-    '/agendas/slugs/available',
-    sessions.mw.loadOrRedirect(),
-    (req, res, next) => {
-      agendas
-        .isSlugAvailable(req.body.slug)
-        .then((available) => res.json({ available }))
-        .catch(next);
-    },
-  );
+  app.post('/agendas/slugs/available', requireUser, (req, res, next) => {
+    agendas
+      .isSlugAvailable(req.body.slug)
+      .then((available) => res.json({ available }))
+      .catch(next);
+  });
 
   app.get(
     '/agendas/:uid/admin/settings.json',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.uid',
       field: 'uid',
@@ -155,7 +150,7 @@ export default function plugApp(app) {
 
   app.post(
     '/:agendaSlug/admin/settings/edit',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.load,
     members.mw.loadAndAuthorize('administrator'),
     agendas.getConfig().upload.middleware([{ name: 'image', unique: true }]),
