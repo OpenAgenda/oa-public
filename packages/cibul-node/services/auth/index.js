@@ -163,13 +163,29 @@ export async function init(config, services) {
         });
       }
     },
-    // Fires on every user.create — including OAuth signup. BA already runs
-    // sendVerificationEmail on /sign-up/email; the legacy Feathers
-    // sendVerificationEmailOnCreate hook keeps owning the email path so we
-    // don't double-send. Kept as no-op for now: the only post-signup logic
-    // worth centralising here would be lastSignin/welcome/etc., none of
-    // which exist yet.
-    onSignUpComplete: async () => {},
+    // Fires on BA's user create.after — every signup, email + OAuth, BEFORE
+    // email verification. This is the "new user" Discord notification's home
+    // now: pre-better-auth it rode the Feathers `users.create` onCreate hook,
+    // which BA signups bypass (they write via the kysely adapter). Matches the
+    // legacy timing (notify at creation, not activation). `services.discord` is
+    // read lazily because the discord service initialises after auth, and is
+    // undefined when disabled (e.g. tests) — hence the optional chain + swallow
+    // (aligned with the onCreate hook's log-and-continue policy). BA already
+    // owns the verification email; nothing else post-signup lives here.
+    onSignUpComplete: async (user) => {
+      try {
+        await services.discord?.notifyUserCreation({
+          fullName: user.name,
+          email: user.email,
+          uid: user.uid,
+        });
+      } catch (err) {
+        log('error', 'discord notifyUserCreation failed', {
+          userId: user?.id,
+          err,
+        });
+      }
+    },
     // Mirrors the legacy `auth/local.front.js` signup pre-checks:
     //   passwordComplexity → passwordMatchCheck → captchaCheck.
     // Returning `{ errors: { … } }` causes the BA before-hook to throw
