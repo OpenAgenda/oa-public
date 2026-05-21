@@ -174,7 +174,8 @@ export default function Content(props) {
           className="margin-top-xs"
           title={getLabel('fieldHelpContent', lang)}
         >
-          {getLabel('fieldHelpContent', lang)}: {field.helpContent}
+          {getLabel('fieldHelpContent', lang)}:{' '}
+          {getLocaleValue(field.helpContent, lang)}
         </div>
       ) : null}
       {ordering ? (

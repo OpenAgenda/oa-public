@@ -115,6 +115,7 @@ function help({ labelLanguages }) {
       {
         field: 'helpContent',
         fieldType: 'markdown',
+        languages: labelLanguages.length ? labelLanguages : null,
         label: l.fieldHelpContent,
         info: l.fieldHelpContentInfo,
       },
