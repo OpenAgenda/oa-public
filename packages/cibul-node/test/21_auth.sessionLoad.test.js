@@ -2,7 +2,12 @@ import request from 'supertest';
 import Services from '../services/init.js';
 import Core from '../core/index.js';
 import generalFront from '../general/front.js';
-import { ifLogged, ifUnlogged, requireUser } from '../lib/authGuards.js';
+import {
+  ifLogged,
+  ifUnlogged,
+  requireUser,
+  requireUserJson,
+} from '../lib/authGuards.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
@@ -74,6 +79,11 @@ function extendApp(_services) {
     // unauth redirect to `…/signin`. Used to prove a revoked session (no BA
     // session at all) is distinct from the legacy blacklist-flash redirect to `/`.
     app.get('/needs-auth', requireUser, (_req, res) => res.json({ ok: true }));
+    // requireUserJson: the XHR/API variant — when unauthenticated it answers
+    // 401 JSON (a redirect would be useless to a fetch client) instead of the
+    // signin redirect that requireUser issues.
+    app.get('/needs-auth-json', requireUserJson, (_req, res) =>
+      res.json({ ok: true }));
   };
 }
 
@@ -195,6 +205,31 @@ describe('21 - sessions loader (better-auth)', () => {
     const res = await request(app).get('/loggedonly');
     expect(res.status).toBe(200);
     expect(res.body).toEqual({ ok: false });
+  });
+
+  it('mw.requireUserJson answers 401 JSON when no session is present', async () => {
+    const res = await request(app).get('/needs-auth-json');
+    expect(res.status).toBe(401);
+    expect(res.body).toEqual({ error: 'Not logged' });
+  });
+
+  it('mw.requireUserJson passes through when a better-auth session is loaded', async () => {
+    const email = 'hybrid-json@oa.test';
+    const password = 'plainPwd-21-json';
+    await usersSvc.create(
+      { fullName: 'Hybrid Json', email, password, isActivated: true },
+      { internal: true, detailed: true },
+    );
+
+    const agent = request.agent(app);
+    await agent
+      .post('/api/auth/sign-in/email')
+      .set('Content-Type', 'application/json')
+      .send({ email, password });
+
+    const res = await agent.get('/needs-auth-json');
+    expect(res.status).toBe(200);
+    expect(res.body).toEqual({ ok: true });
   });
 
   it('clears the session (signin redirect) once a user is blacklisted via the users service', async () => {
