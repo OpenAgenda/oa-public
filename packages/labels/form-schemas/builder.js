@@ -1374,6 +1374,206 @@ module.exports = {
     "nl": "Gekoppeld aan veld %fieldName%",
     "br": "Liammet ouzh ar vaezienn %fieldName%"
   },
+  "fieldConditionalSection": {
+    "fr": "Logique conditionnelle",
+    "en": "Conditional logic",
+    "de": "Bedingte Logik",
+    "es": "Lógica condicional",
+    "it": "Logica condizionale",
+    "nl": "Voorwaardelijke logica",
+    "br": "Poellata diviz",
+    "oc": "Logica condicionala"
+  },
+  "fieldConditionalSectionInfo": {
+    "fr": "Active ou rend optionnel ce champ en fonction d’un autre champ du formulaire",
+    "en": "Enable or make this field optional based on another field in the form",
+    "de": "Aktiviert dieses Feld oder macht es optional in Abhängigkeit von einem anderen Feld des Formulars",
+    "es": "Activa o hace opcional este campo en función de otro campo del formulario",
+    "it": "Attiva o rende opzionale questo campo in base a un altro campo del modulo",
+    "nl": "Activeer dit veld of maak het optioneel op basis van een ander veld in het formulier",
+    "br": "Aktivañ pe lakaat diret ar vaezienn-mañ hervez ur vaezienn all eus ar furmskrid",
+    "oc": "Activa o rend opcional aqueste camp en foncion d’un autre camp del formulari"
+  },
+  "fieldConditionalSectionDisabledReason": {
+    "fr": "Ce champ est hérité, il ne peut être conditionné.",
+    "en": "This field is inherited and cannot be conditioned.",
+    "de": "Dieses Feld ist geerbt und kann nicht bedingt gemacht werden.",
+    "es": "Este campo es heredado y no puede condicionarse.",
+    "it": "Questo campo è ereditato e non può essere condizionato.",
+    "nl": "Dit veld is overgeërfd en kan niet voorwaardelijk worden gemaakt.",
+    "br": "Hêret eo ar vaezienn-mañ ha ne c’hell ket bezañ diviz.",
+    "oc": "Aqueste camp es eretat e pòt pas èsser condicionat."
+  },
+  "fieldConditionalModeNone": {
+    "fr": "Aucune",
+    "en": "None",
+    "de": "Keine",
+    "es": "Ninguna",
+    "it": "Nessuna",
+    "nl": "Geen",
+    "br": "Hini ebet",
+    "oc": "Cap"
+  },
+  "fieldConditionalModeEnable": {
+    "fr": "Activé uniquement quand…",
+    "en": "Active only when…",
+    "de": "Nur aktiv, wenn…",
+    "es": "Activo solo cuando…",
+    "it": "Attivo solo quando…",
+    "nl": "Alleen actief wanneer…",
+    "br": "Oberiant nemet pa…",
+    "oc": "Actiu solament quand…"
+  },
+  "fieldConditionalModeOptional": {
+    "fr": "Optionnel uniquement quand…",
+    "en": "Optional only when…",
+    "de": "Optional nur, wenn…",
+    "es": "Opcional solo cuando…",
+    "it": "Opzionale solo quando…",
+    "nl": "Alleen optioneel wanneer…",
+    "br": "Diret pa…",
+    "oc": "Opcional solament quand…"
+  },
+  "fieldConditionalLinkedFieldLabel": {
+    "fr": "Champ lié",
+    "en": "Linked field",
+    "de": "Verknüpftes Feld",
+    "es": "Campo vinculado",
+    "it": "Campo collegato",
+    "nl": "Gekoppeld veld",
+    "br": "Maezienn liammet",
+    "oc": "Camp ligat"
+  },
+  "fieldConditionalLinkedFieldPlaceholder": {
+    "fr": "Choisir un champ…",
+    "en": "Choose a field…",
+    "de": "Feld auswählen…",
+    "es": "Elegir un campo…",
+    "it": "Scegli un campo…",
+    "nl": "Kies een veld…",
+    "br": "Dibab ur vaezienn…",
+    "oc": "Causir un camp…"
+  },
+  "fieldConditionalLinkedFieldMissing": {
+    "fr": "Le champ lié n’existe plus",
+    "en": "Linked field no longer exists",
+    "de": "Das verknüpfte Feld existiert nicht mehr",
+    "es": "El campo vinculado ya no existe",
+    "it": "Il campo collegato non esiste più",
+    "nl": "Het gekoppelde veld bestaat niet meer",
+    "br": "N’eus mui eus ar vaezienn liammet",
+    "oc": "Lo camp ligat existís pas mai"
+  },
+  "fieldConditionalClearLink": {
+    "fr": "Supprimer le lien",
+    "en": "Clear link",
+    "de": "Verknüpfung entfernen",
+    "es": "Eliminar el vínculo",
+    "it": "Rimuovi il collegamento",
+    "nl": "Koppeling wissen",
+    "br": "Dilemel al liamm",
+    "oc": "Suprimir lo ligam"
+  },
+  "fieldConditionalTriggerAnyValue": {
+    "fr": "Lorsque le champ est renseigné",
+    "en": "When the field has any value",
+    "de": "Wenn das Feld einen Wert hat",
+    "es": "Cuando el campo tiene cualquier valor",
+    "it": "Quando il campo ha un valore qualsiasi",
+    "nl": "Wanneer het veld een waarde heeft",
+    "br": "Pa vez leuniet ar vaezienn",
+    "oc": "Quand lo camp es entresenhat"
+  },
+  "fieldConditionalTriggerSpecificValue": {
+    "fr": "Lorsque le champ prend une valeur spécifique",
+    "en": "When the field has a specific value",
+    "de": "Wenn das Feld einen bestimmten Wert hat",
+    "es": "Cuando el campo tiene un valor específico",
+    "it": "Quando il campo ha un valore specifico",
+    "nl": "Wanneer het veld een specifieke waarde heeft",
+    "br": "Pa vez lakaet ar vaezienn da ur werzh dibar",
+    "oc": "Quand lo camp pren una valor especifica"
+  },
+  "fieldConditionalTriggerSpecificValueDisabled": {
+    "fr": "Disponible uniquement pour les champs avec options",
+    "en": "Only available for fields with options",
+    "de": "Nur für Felder mit Optionen verfügbar",
+    "es": "Solo disponible para campos con opciones",
+    "it": "Disponibile solo per i campi con opzioni",
+    "nl": "Alleen beschikbaar voor velden met opties",
+    "br": "Hegerz nemet evit ar maeziennoù gant dibaboù",
+    "oc": "Disponible solament pels camps amb opcions"
+  },
+  "fieldConditionalValueLabel": {
+    "fr": "Valeur(s)",
+    "en": "Value(s)",
+    "de": "Wert(e)",
+    "es": "Valor(es)",
+    "it": "Valore(i)",
+    "nl": "Waarde(n)",
+    "br": "Gwerzh(ioù)",
+    "oc": "Valor(s)"
+  },
+  "fieldConditionalSelfReferenceError": {
+    "fr": "Un champ ne peut pas dépendre de lui-même",
+    "en": "A field cannot depend on itself",
+    "de": "Ein Feld kann nicht von sich selbst abhängen",
+    "es": "Un campo no puede depender de sí mismo",
+    "it": "Un campo non può dipendere da sé stesso",
+    "nl": "Een veld kan niet van zichzelf afhangen",
+    "br": "Ne c’hell ket ur vaezienn bezañ liammet outi he-unan",
+    "oc": "Un camp pòt pas dependre d’el meteis"
+  },
+  "fieldConditionalCycleError": {
+    "fr": "Ce lien créerait une dépendance circulaire",
+    "en": "This link would create a circular dependency",
+    "de": "Diese Verknüpfung würde eine zirkuläre Abhängigkeit erzeugen",
+    "es": "Este vínculo crearía una dependencia circular",
+    "it": "Questo collegamento creerebbe una dipendenza circolare",
+    "nl": "Deze koppeling zou een cirkelvormige afhankelijkheid veroorzaken",
+    "br": "Krouiñ a rafe al liamm-mañ un dalc’h kelc’hiek",
+    "oc": "Aqueste ligam crearià una dependéncia circulara"
+  },
+  "fieldConditionalMissingFieldError": {
+    "fr": "Veuillez choisir un champ lié",
+    "en": "Please choose a linked field",
+    "de": "Bitte ein verknüpftes Feld auswählen",
+    "es": "Por favor, elija un campo vinculado",
+    "it": "Si prega di scegliere un campo collegato",
+    "nl": "Kies een gekoppeld veld",
+    "br": "Dibabit ur vaezienn liammet, mar plij",
+    "oc": "Causissètz un camp ligat, se vos plai"
+  },
+  "fieldConditionalMissingValueError": {
+    "fr": "Veuillez choisir au moins une valeur",
+    "en": "Please choose at least one value",
+    "de": "Bitte mindestens einen Wert auswählen",
+    "es": "Por favor, elija al menos un valor",
+    "it": "Si prega di scegliere almeno un valore",
+    "nl": "Kies ten minste één waarde",
+    "br": "Dibabit ul lamm da nebeutañ, mar plij",
+    "oc": "Causissètz al mens una valor, se vos plai"
+  },
+  "fieldConditionalBooleanTrue": {
+    "fr": "Coché",
+    "en": "Checked",
+    "de": "Aktiviert",
+    "es": "Marcado",
+    "it": "Selezionato",
+    "nl": "Aangevinkt",
+    "br": "Kevreet",
+    "oc": "Marcat"
+  },
+  "fieldConditionalBooleanFalse": {
+    "fr": "Non coché",
+    "en": "Unchecked",
+    "de": "Nicht aktiviert",
+    "es": "No marcado",
+    "it": "Non selezionato",
+    "nl": "Niet aangevinkt",
+    "br": "Diget kevreet",
+    "oc": "Pas marcat"
+  },
   "readAccess": {
     "fr": "Lecture",
     "en": "Read",

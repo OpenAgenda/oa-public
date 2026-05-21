@@ -41,9 +41,10 @@ export default function buildFieldSchema(type, options = {}) {
     },
 
     helpContent: {
-      type: 'text',
+      type: labelFieldType,
       optional: true,
       default: null,
+      defaultLanguage: defaultLabelLanguage,
     },
 
     default: {

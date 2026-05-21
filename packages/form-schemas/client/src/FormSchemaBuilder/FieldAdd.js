@@ -155,6 +155,7 @@ export default function FieldAdd({
             onSubmit={onAdd}
             lang={lang}
             labelLanguages={labelLanguages}
+            siblings={schema?.fields || []}
             actionComponent={({ onSubmit }) => (
               <>
                 {errors.length ? (

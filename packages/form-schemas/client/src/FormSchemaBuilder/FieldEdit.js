@@ -23,6 +23,8 @@ export default class FieldEdit extends Component {
       customFieldConfigurationSchemas,
       components,
       parentsFields,
+      siblings,
+      isOwnField = true,
     } = this.props;
 
     return (
@@ -55,6 +57,8 @@ export default class FieldEdit extends Component {
           parentsField={parentsFields.fields.find(
             (e) => e.field === field.field,
           )}
+          siblings={siblings}
+          isOwn={isOwnField}
         />
       </Modal>
     );
