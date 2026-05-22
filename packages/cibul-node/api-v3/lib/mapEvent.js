@@ -21,12 +21,12 @@
 // Field kinds drive coercion. Keys map to one of:
 //   'array'    -> array, [] when absent
 //   'map'      -> localized object map (LocalizedString/Array), {} when absent
-//   'object'          -> nullable object, null when absent (deep-stripped of _agg)
+//   'object'          -> nullable object, null when absent
 //   'nullable-scalar' -> nullable scalar, null when absent (imageCredits, timezone…)
 //   'scalar'          -> required scalar, passed through (real data always provides it)
 //   'boolean'         -> coerced to a boolean
-//   'object-stripped' is folded into 'object' (location/originAgenda/sourceAgendas
-//   are deep-stripped via stripAgg).
+// Nested objects/arrays are then allowlist-cleaned (see CLEANERS) so internal
+// subfields never leak.
 
 // Base (EventSummary) field set: searchIncludes.json "base".
 const BASE_FIELDS = {
