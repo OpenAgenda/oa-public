@@ -6,10 +6,10 @@
   "type": "module",
   "main": "openapi.yaml",
   "scripts": {
-    "validate": "node scripts/validate.mjs",
+    "validate": "node scripts/validate.js",
     "lint": "npx --yes @redocly/cli lint openapi.yaml"
   },
-  "dependencies": {
+  "devDependencies": {
     "yaml": "^2.4.5"
   }
 }
