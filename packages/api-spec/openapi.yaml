@@ -1,0 +1,558 @@
+openapi: 3.1.0
+
+info:
+  title: OpenAgenda API
+  version: '3.0.0-draft'
+  description: >
+    Public OpenAgenda API (v3). Clean, coherent contract — source of truth for
+    the generated SDK, MCP server and documentation.
+
+
+    This is a work-in-progress draft. Slice 1 covers read access to events.
+  contact:
+    name: OpenAgenda Support
+    email: support@openagenda.com
+    url: https://developers.openagenda.com
+  license:
+    name: Proprietary — © OpenAgenda
+    identifier: LicenseRef-OpenAgenda-Proprietary
+
+servers:
+  - url: https://api.openagenda.com/v3
+    description: Production
+  - url: https://dapi.openagenda.com/v3
+    description: Development
+
+tags:
+  - name: Events
+    description: Events published in an agenda.
+
+# Authenticate every request with either an API key or an OAuth2 token,
+# both carried as `Authorization: Bearer <token>`.
+security:
+  - bearerAuth: []
+  - oauth2:
+      - events:read
+
+paths:
+  /agendas/{agendaUid}/events:
+    get:
+      operationId: listAgendaEvents
+      tags: [Events]
+      summary: List events of an agenda
+      description: >
+        Returns a cursor-paginated list of events for the given agenda.
+        Pass the `after` cursor returned in `pagination.after` to fetch the
+        next page.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/AfterCursor'
+        - $ref: '#/components/parameters/Limit'
+      responses:
+        '200':
+          description: A page of events.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /agendas/{agendaUid}/events/{eventUid}:
+    get:
+      operationId: getAgendaEvent
+      tags: [Events]
+      summary: Get a single event
+      description: Returns a single event by its uid within the given agenda.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/EventUid'
+      responses:
+        '200':
+          description: The event.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: >
+        API key sent as a Bearer token. Use a publishable read-only key
+        (`oa_pk_…`, safe in browsers) for reads, or a secret key (`oa_sk_…`)
+        for reads and writes.
+    oauth2:
+      type: oauth2
+      description: OAuth2 client-credentials flow for short-lived access tokens.
+      flows:
+        clientCredentials:
+          tokenUrl: https://api.openagenda.com/v3/oauth/token
+          scopes:
+            events:read: Read events
+            events:write: Create and modify events
+
+  parameters:
+    AgendaUid:
+      name: agendaUid
+      in: path
+      required: true
+      description: Numeric uid of the agenda.
+      schema:
+        type: integer
+        format: int64
+    EventUid:
+      name: eventUid
+      in: path
+      required: true
+      description: Numeric uid of the event.
+      schema:
+        type: integer
+        format: int64
+    AfterCursor:
+      name: after
+      in: query
+      required: false
+      description: >
+        Opaque pagination cursor returned in `pagination.after` of the previous
+        page. Omit it to fetch the first page.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Maximum number of events to return per page.
+      schema:
+        type: integer
+        default: 20
+        minimum: 1
+        maximum: 100
+
+  responses:
+    Unauthorized:
+      description: Missing or invalid credentials.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Forbidden:
+      description: Authenticated but not allowed to access this resource.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      required: [error]
+      additionalProperties: false
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          additionalProperties: false
+          properties:
+            code:
+              type: string
+              description: Stable, machine-readable error code.
+              examples: ['not_found', 'unauthorized', 'validation_error']
+            message:
+              type: string
+              description: Human-readable explanation.
+            details:
+              type: object
+              description: Optional structured context (e.g. per-field validation errors).
+              additionalProperties: true
+
+    Pagination:
+      type: object
+      required: [after, limit]
+      additionalProperties: false
+      properties:
+        after:
+          type: [string, 'null']
+          description: >
+            Opaque cursor to fetch the next page (pass back as the `after`
+            query parameter). Null when there are no more results.
+        limit:
+          type: integer
+          description: The page size that was applied.
+        total:
+          type: integer
+          description: >
+            Total number of matching events. May be omitted when counting is
+            too expensive.
+
+    LocalizedString:
+      type: object
+      description: >
+        A string localized per language (ISO 639-1 code). Common keys:
+        fr, en, de, es, it, nl, br, oc.
+      additionalProperties:
+        type: string
+      examples:
+        - fr: 'Concert de jazz'
+          en: 'Jazz concert'
+
+    LocalizedStringArray:
+      type: object
+      description: A list of strings localized per language code (used for keywords).
+      additionalProperties:
+        type: array
+        items:
+          type: string
+
+    Image:
+      type: object
+      description: Event image with its generated size variants.
+      additionalProperties: true
+      properties:
+        filename:
+          type: [string, 'null']
+        base:
+          type: [string, 'null']
+          format: uri
+          description: Base URL the variants are served from.
+        credits:
+          type: [string, 'null']
+        size:
+          type: [object, 'null']
+          properties:
+            width:
+              type: [integer, 'null']
+            height:
+              type: [integer, 'null']
+        variants:
+          type: array
+          description: Generated size variants of the image.
+          items:
+            type: object
+            additionalProperties: true
+            properties:
+              type:
+                type: string
+              filename:
+                type: string
+              size:
+                type: [object, 'null']
+                properties:
+                  width:
+                    type: [integer, 'null']
+                  height:
+                    type: [integer, 'null']
+
+    Location:
+      type: object
+      additionalProperties: true
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        name:
+          type: [string, 'null']
+        address:
+          type: [string, 'null']
+        city:
+          type: [string, 'null']
+        region:
+          type: [string, 'null']
+        postalCode:
+          type: [string, 'null']
+        countryCode:
+          type: [string, 'null']
+          description: ISO 3166-1 alpha-2 country code.
+        latitude:
+          type: [number, 'null']
+          format: double
+        longitude:
+          type: [number, 'null']
+          format: double
+        district:
+          type: [string, 'null']
+        department:
+          type: [string, 'null']
+        adminLevel3:
+          type: [string, 'null']
+        adminLevel5:
+          type: [string, 'null']
+        country:
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: 'null'
+          description: Localized country label.
+        timezone:
+          type: [string, 'null']
+          description: IANA time zone of the location.
+
+    Timing:
+      type: object
+      required: [begin, end]
+      additionalProperties: false
+      properties:
+        begin:
+          type: string
+          format: date-time
+        end:
+          type: string
+          format: date-time
+
+    AgeRange:
+      type: [object, 'null']
+      additionalProperties: false
+      properties:
+        min:
+          type: [integer, 'null']
+        max:
+          type: [integer, 'null']
+
+    Accessibility:
+      type: [object, 'null']
+      description: >
+        Accessibility flags: hi=hearing impairment, ii=intellectual impairment,
+        vi=visual impairment, pi=psychic impairment, mi=motor impairment.
+      additionalProperties: false
+      properties:
+        hi:
+          type: boolean
+        ii:
+          type: boolean
+        vi:
+          type: boolean
+        pi:
+          type: boolean
+        mi:
+          type: boolean
+
+    Registration:
+      type: object
+      description: A single way for attendees to register.
+      additionalProperties: true
+      properties:
+        type:
+          type: string
+          enum: [phone, email, link]
+        value:
+          type: string
+
+    EnrichedLink:
+      type: object
+      additionalProperties: true
+      properties:
+        link:
+          type: string
+          format: uri
+        data:
+          type: object
+          description: Optional enrichment metadata extracted from the link.
+          additionalProperties: true
+
+    AgendaRef:
+      type: object
+      description: A compact reference to an agenda.
+      additionalProperties: true
+      properties:
+        uid:
+          type: integer
+          format: int64
+        title:
+          type: [string, 'null']
+        slug:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+        url:
+          type: [string, 'null']
+          format: uri
+        official:
+          type: boolean
+
+    ExtId:
+      type: object
+      description: An external identifier mapping this event to a third-party system.
+      additionalProperties: false
+      properties:
+        key:
+          type: string
+        value:
+          type: string
+
+    CustomFields:
+      type: object
+      description: >
+        Agenda-specific custom fields. The available keys and the shape of each
+        value are defined by the agenda's event schema (see
+        GET /agendas/{agendaUid}/settings/eventSchema). Each value follows its
+        field's fieldType (text, choice, multilingual, …).
+      additionalProperties: true
+
+    Event:
+      type: object
+      required: [uid, title]
+      additionalProperties: false
+      properties:
+        uid:
+          type: integer
+          format: int64
+          readOnly: true
+        slug:
+          type: string
+          readOnly: true
+        state:
+          type: integer
+          enum: [-2, -1, 0, 1, 2]
+          readOnly: true
+          description: >
+            Moderation state: -2 = removed, -1 = refused, 0 = to control,
+            1 = controlled, 2 = published.
+        title:
+          $ref: '#/components/schemas/LocalizedString'
+        description:
+          $ref: '#/components/schemas/LocalizedString'
+        longDescription:
+          $ref: '#/components/schemas/LocalizedString'
+        keywords:
+          $ref: '#/components/schemas/LocalizedStringArray'
+        conditions:
+          $ref: '#/components/schemas/LocalizedString'
+        image:
+          oneOf:
+            - $ref: '#/components/schemas/Image'
+            - type: 'null'
+        imageCredits:
+          type: [string, 'null']
+          maxLength: 255
+        age:
+          $ref: '#/components/schemas/AgeRange'
+        accessibility:
+          $ref: '#/components/schemas/Accessibility'
+        attendanceMode:
+          type: integer
+          enum: [1, 2, 3]
+          description: '1 = offline, 2 = online, 3 = mixed.'
+        location:
+          oneOf:
+            - $ref: '#/components/schemas/Location'
+            - type: 'null'
+        onlineAccessLink:
+          type: [string, 'null']
+          format: uri
+        status:
+          type: integer
+          enum: [1, 2, 3, 4, 5, 6]
+          description: >
+            1 = scheduled, 2 = rescheduled, 3 = movedOnline, 4 = postponed,
+            5 = full, 6 = cancelled.
+        timings:
+          type: array
+          items:
+            $ref: '#/components/schemas/Timing'
+        registration:
+          type: array
+          items:
+            $ref: '#/components/schemas/Registration'
+        links:
+          type: array
+          readOnly: true
+          items:
+            $ref: '#/components/schemas/EnrichedLink'
+        extIds:
+          type: array
+          items:
+            $ref: '#/components/schemas/ExtId'
+        timezone:
+          type: string
+          readOnly: true
+          description: IANA time zone the timings are expressed in.
+        createdAt:
+          type: string
+          format: date-time
+          readOnly: true
+        updatedAt:
+          type: string
+          format: date-time
+          readOnly: true
+        dateRange:
+          allOf:
+            - $ref: '#/components/schemas/LocalizedString'
+          readOnly: true
+          description: Human-readable, localized date range computed from the timings.
+        firstTiming:
+          readOnly: true
+          oneOf:
+            - $ref: '#/components/schemas/Timing'
+            - type: 'null'
+        lastTiming:
+          readOnly: true
+          oneOf:
+            - $ref: '#/components/schemas/Timing'
+            - type: 'null'
+        nextTiming:
+          readOnly: true
+          description: The next upcoming timing, or null when the event is over.
+          oneOf:
+            - $ref: '#/components/schemas/Timing'
+            - type: 'null'
+        country:
+          readOnly: true
+          description: Localized country label of the event location.
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: 'null'
+        featured:
+          type: boolean
+          readOnly: true
+        originAgenda:
+          readOnly: true
+          description: The agenda the event was originally created in.
+          oneOf:
+            - $ref: '#/components/schemas/AgendaRef'
+            - type: 'null'
+        sourceAgendas:
+          type: array
+          readOnly: true
+          description: Agendas this event was aggregated from.
+          items:
+            $ref: '#/components/schemas/AgendaRef'
+        custom:
+          $ref: '#/components/schemas/CustomFields'
+
+    EventList:
+      type: object
+      required: [data, pagination]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        pagination:
+          $ref: '#/components/schemas/Pagination'

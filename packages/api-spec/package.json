@@ -1,0 +1,15 @@
+{
+  "name": "@openagenda/api-spec",
+  "version": "0.0.0",
+  "private": true,
+  "description": "OpenAgenda v3 public API — OpenAPI 3.1 contract (source of truth for SDK, MCP and docs)",
+  "type": "module",
+  "main": "openapi.yaml",
+  "scripts": {
+    "validate": "node scripts/validate.mjs",
+    "lint": "npx --yes @redocly/cli lint openapi.yaml"
+  },
+  "dependencies": {
+    "yaml": "^2.4.5"
+  }
+}
