@@ -17,6 +17,7 @@ import { NotFound } from '@openagenda/verror';
 import config from './config/index.js';
 import app from './app.js';
 import instanciateAPI from './api/index.js';
+import instanciateApiV3 from './api-v3/index.js';
 import setAPIType from './api/middleware/setAPIType.js';
 import initServices from './services/init.js';
 import Core from './core/index.js';
@@ -65,6 +66,7 @@ try {
   const services = await initServices(config);
   const core = Core(services, config);
   const api = instanciateAPI(core);
+  const apiV3 = instanciateApiV3(core);
 
   log('info', 'running server');
   let webServer;
@@ -158,6 +160,7 @@ try {
     apiServer = express()
       .set('trust proxy', ['loopback', 'uniquelocal'])
       .use('/v2', secureHeaders, logRequestMw, setAPIType('standalone'), api)
+      .use('/v3', secureHeaders, logRequestMw, setAPIType('standalone'), apiV3)
       .listen(config.apiPort, () => {
         console.log(`-- API listening on port ${config.apiPort} --`);
       });
