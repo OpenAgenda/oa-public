@@ -6,7 +6,7 @@ import { wrapApp } from '@openagenda/react-shared';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
 import React from 'react';
-import session from '@openagenda/sessions/client';
+import { authClient } from '@openagenda/auth/client';
 import { getLocaleValue } from '@openagenda/intl';
 
 import '@iframe-resizer/child';
@@ -23,12 +23,12 @@ const defaults = {
   },
 };
 
-window.hook(options => {
+window.hook(async options => {
   const params = _.merge({}, defaults, options);
 
   const { role, event, agenda, lang } = params;
 
-  const user = session.getUser();
+  const user = (await authClient.getSession()).data?.user ?? null;
   const { ownerUid } = event;
 
   const simpleUser = role !== 2 && role !== 3;

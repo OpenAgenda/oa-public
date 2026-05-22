@@ -20,7 +20,7 @@
   "next.components.ModalLoadingBody.loading": [
     {
       "type": 0,
-      "value": "Loading"
+      "value": "Bezig met laden"
     }
   ],
   "next.components.SearchInput.ariaLabel": [

@@ -8,13 +8,13 @@
   "next.components.auth.AuthDialog.msg.limitedAccessAgenda": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this agenda. Please sign in"
+      "value": "Devi essere autenticato per accedere a questo programma. Accedi"
     }
   ],
   "next.components.auth.AuthDialog.msg.limitedAccessEvent": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this event. Please sign in"
+      "value": "Devi essere autenticato per accedere a questo evento. Accedi"
     }
   ],
   "next.components.auth.Signin.invalidActivation.description": [

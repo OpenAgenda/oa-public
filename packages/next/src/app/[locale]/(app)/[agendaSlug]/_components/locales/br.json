@@ -1,7 +1,7 @@
 {
-  "next.components.auth.AuthDialog.msg.authRequired": "",
-  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": "",
-  "next.components.auth.AuthDialog.msg.limitedAccessEvent": "",
+  "next.components.auth.AuthDialog.msg.authRequired": "Strishaet eo ar moned d'ar bajenn goulennet. Kevreit evit mont dezhi.",
+  "next.components.auth.AuthDialog.msg.limitedAccessAgenda": "Strishaet eo ar moned d'an deiziataer-mañ. Kevreit evit mont dezhañ.",
+  "next.components.auth.AuthDialog.msg.limitedAccessEvent": "Ret eo deoc'h bezañ anavezet evit mont d'an darvoud-mañ. Kevreit, mar plij.",
   "next.components.auth.Signin.invalidActivation.description": "",
   "next.components.auth.Signin.invalidActivation.title": "",
   "next.views.AgendaShow.AgendaHeader.addEvent": "Ouzhpennañ un darvoud",

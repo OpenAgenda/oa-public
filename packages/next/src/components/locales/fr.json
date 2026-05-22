@@ -2,7 +2,7 @@
   "next.components.CopyIdentifier.clickToCopyIdentifier": "",
   "next.components.CopyIdentifier.copied": "",
   "next.components.CopyIdentifier.copy": "",
-  "next.components.ModalLoadingBody.loading": "Chargement",
+  "next.components.ModalLoadingBody.loading": "Chargement en cours",
   "next.components.SearchInput.ariaLabel": "Rechercher",
   "next.views.AgendaShow.EventItem.featured": "En une"
 }

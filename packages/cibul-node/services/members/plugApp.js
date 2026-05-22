@@ -1,11 +1,12 @@
 import _ from 'lodash';
+import { requireUser } from '../../lib/authGuards.js';
 import streamCsv from './lib/streamCsv.js';
 import streamXlsx from './lib/streamXlsx.js';
 import * as mw from './middleware/index.js';
 import * as mail from './lib/mail.js';
 
 export default function plugApp(app) {
-  const { agendas, sessions, members, core } = app.services;
+  const { agendas, members, core } = app.services;
 
   const config = core.getConfig();
 
@@ -22,7 +23,7 @@ export default function plugApp(app) {
     [
       mw.loadAgenda.default,
       agendas.mw.authorizeByIPAddress(),
-      sessions.mw.loadOrRedirect(),
+      requireUser,
       mw.load.andAuthorize('moderator'),
       agendas.mw.authorizeByIPAddress(),
     ],

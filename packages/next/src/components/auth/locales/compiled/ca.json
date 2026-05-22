@@ -2,7 +2,7 @@
   "next.components.auth.AuthDialog.dialogTitle": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Conectarse"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleLostPassword": [
@@ -14,7 +14,7 @@
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
-      "value": "Create an account"
+      "value": "Crear una cuenta"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
@@ -26,19 +26,19 @@
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Conectarse"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Anular"
     }
   ],
   "next.components.auth.LostPassword.emailLabel": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "Dirección de correo electrónico"
     }
   ],
   "next.components.auth.LostPassword.emailPlaceholder": [
@@ -86,25 +86,25 @@
   "next.components.auth.PasswordField.great": [
     {
       "type": 0,
-      "value": "Great 🥳"
+      "value": "Genial 🥳"
     }
   ],
   "next.components.auth.PasswordField.isSameAs": [
     {
       "type": 0,
-      "value": "Must be different from name or email 🙄"
+      "value": "Debe ser diferente del nombre o correo electrónico 🙄"
     }
   ],
   "next.components.auth.PasswordField.required": [
     {
       "type": 0,
-      "value": "A password must be defined"
+      "value": "Se debe definir una contraseña"
     }
   ],
   "next.components.auth.PasswordField.tooWeak": [
     {
       "type": 0,
-      "value": "This password is too weak 😑"
+      "value": "Esta contraseña es demasiado débil 😑"
     }
   ],
   "next.components.auth.PasswordField.usual": [
@@ -122,13 +122,13 @@
   "next.components.auth.PasswordField.weakish": [
     {
       "type": 0,
-      "value": "A bit better 😬"
+      "value": "Un poco mejor 😬"
     }
   ],
   "next.components.auth.ResetPassword.formTitle": [
     {
       "type": 0,
-      "value": "Reset your password"
+      "value": "Restablecimiento de la contraseña"
     }
   ],
   "next.components.auth.ResetPassword.genericError": [
@@ -152,7 +152,7 @@
   "next.components.auth.ResetPassword.passwordLabel": [
     {
       "type": 0,
-      "value": "New password"
+      "value": "Nueva contraseña"
     }
   ],
   "next.components.auth.ResetPassword.passwordRequired": [
@@ -194,13 +194,13 @@
   "next.components.auth.Signin.createAccount": [
     {
       "type": 0,
-      "value": "Create one!"
+      "value": "¡Crea una!"
     }
   ],
   "next.components.auth.Signin.emailLabel": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "Dirección de correo electrónico"
     }
   ],
   "next.components.auth.Signin.emailPlaceholder": [
@@ -260,19 +260,19 @@
   "next.components.auth.Signin.noAccount": [
     {
       "type": 0,
-      "value": "Don't have an account yet?"
+      "value": "¿Aún no tienes cuenta?"
     }
   ],
   "next.components.auth.Signin.or": [
     {
       "type": 0,
-      "value": "or"
+      "value": "o"
     }
   ],
   "next.components.auth.Signin.passwordLabel": [
     {
       "type": 0,
-      "value": "Password"
+      "value": "Contraseña"
     }
   ],
   "next.components.auth.Signin.resetPassword": [
@@ -290,7 +290,7 @@
   "next.components.auth.Signin.submitLabel": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Conectarse"
     }
   ],
   "next.components.auth.Signup.agree": [
@@ -336,13 +336,13 @@
   "next.components.auth.Signup.cultureLabel": [
     {
       "type": 0,
-      "value": "Language"
+      "value": "Idioma"
     }
   ],
   "next.components.auth.Signup.emailLabel": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "Dirección de correo electrónico"
     }
   ],
   "next.components.auth.Signup.emailPlaceholder": [
@@ -372,19 +372,19 @@
   "next.components.auth.Signup.errors.emailInvalid": [
     {
       "type": 0,
-      "value": "The email is not valid"
+      "value": "Este correo electrónico no es válido"
     }
   ],
   "next.components.auth.Signup.errors.emailUsed": [
     {
       "type": 0,
-      "value": "This email is already in use"
+      "value": "Este correo electrónico ya está usado"
     }
   ],
   "next.components.auth.Signup.errors.fullNameRequired": [
     {
       "type": 0,
-      "value": "This field cannot be empty"
+      "value": "Este campo no puede estar vacío"
     }
   ],
   "next.components.auth.Signup.errors.fullNameTooLong": [
@@ -402,13 +402,13 @@
   "next.components.auth.Signup.errors.passwordRequired": [
     {
       "type": 0,
-      "value": "A password must be defined"
+      "value": "Se debe definir una contraseña"
     }
   ],
   "next.components.auth.Signup.errors.passwordTooShort": [
     {
       "type": 0,
-      "value": "Password is too short"
+      "value": "La contraseña es muy corta"
     }
   ],
   "next.components.auth.Signup.errors.passwordTooWeak": [
@@ -420,7 +420,7 @@
   "next.components.auth.Signup.errors.repeatNotEqual": [
     {
       "type": 0,
-      "value": "The passwords are not identical"
+      "value": "Las contraseñas no son idénticas"
     }
   ],
   "next.components.auth.Signup.formTitle": [
@@ -438,13 +438,13 @@
   "next.components.auth.Signup.fullNameLabel": [
     {
       "type": 0,
-      "value": "Username"
+      "value": "Nombre de usuario"
     }
   ],
   "next.components.auth.Signup.fullNameLearnMore": [
     {
       "type": 0,
-      "value": "Read more"
+      "value": "Leer más"
     }
   ],
   "next.components.auth.Signup.genericError": [
@@ -474,13 +474,13 @@
   "next.components.auth.Signup.or": [
     {
       "type": 0,
-      "value": "or"
+      "value": "o"
     }
   ],
   "next.components.auth.Signup.passwordLabel": [
     {
       "type": 0,
-      "value": "Password"
+      "value": "Contraseña"
     }
   ],
   "next.components.auth.Signup.repeatLabel": [
@@ -492,7 +492,7 @@
   "next.components.auth.Signup.signinLink": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Conectarse"
     }
   ],
   "next.components.auth.Signup.signupSuccess": [
@@ -504,7 +504,7 @@
   "next.components.auth.Signup.submitLabel": [
     {
       "type": 0,
-      "value": "Accept and create the account"
+      "value": "Acceptar i crear la cuenta"
     }
   ],
   "next.components.auth.SignupComplete.cooldownMessage": [

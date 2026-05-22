@@ -1,11 +1,12 @@
 import * as keysMw from '@openagenda/keys/middleware.js';
+import { requireUser } from '../../lib/authGuards.js';
 
 export default function plugApp(app) {
-  const { sessions, members, agendas } = app.services;
+  const { members, agendas } = app.services;
 
   app.post(
     '/:agendaSlug/admin/settings/keys/create',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.load,
     members.mw.loadAndAuthorize('administrator'),
     (req, res, next) => {
@@ -21,7 +22,7 @@ export default function plugApp(app) {
 
   app.get(
     '/:agendaSlug/admin/settings/keys/get',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.load,
     members.mw.loadAndAuthorize('administrator'),
     (req, res, next) => {
@@ -38,7 +39,7 @@ export default function plugApp(app) {
 
   app.get(
     '/:agendaSlug/admin/settings/keys/list',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.load,
     members.mw.loadAndAuthorize('administrator'),
     (req, res, next) => {
@@ -55,7 +56,7 @@ export default function plugApp(app) {
 
   app.patch(
     '/:agendaSlug/admin/settings/keys/update',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.load,
     members.mw.loadAndAuthorize('administrator'),
     (req, res, next) => {
@@ -72,7 +73,7 @@ export default function plugApp(app) {
 
   app.delete(
     '/:agendaSlug/admin/settings/keys/remove',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.load,
     members.mw.loadAndAuthorize('administrator'),
     (req, res, next) => {

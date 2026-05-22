@@ -10,9 +10,9 @@ import {
 } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useIntl } from 'react-intl';
-import { useCookies } from 'react-cookie';
 import { chakra, Box, Container, Flex } from '@openagenda/uikit';
 import useUser from 'hooks/useUser';
+import useSession from 'hooks/useSession';
 import useLocalePath from '@/src/hooks/useLocalePath';
 import defaultSize from 'utils/defaultSize';
 import getHomeHref from 'utils/getHomeHref';
@@ -130,7 +130,7 @@ export default function Navbar({
 
   const navbarRef = useRef(undefined);
   const announcementRef = useRef<HTMLDivElement>(null);
-  const [cookies] = useCookies();
+  const session = useSession();
 
   const search = useSearch();
   const { inputValue, setInputValue, onSearch } = search;
@@ -199,7 +199,7 @@ export default function Navbar({
         <Flex justify="space-between" h="50px" align="stretch">
           <Flex gap="8">
             <chakra.a
-              href={getHomeHref(cookies, intl)}
+              href={getHomeHref(!!session?.user, intl)}
               pr="4"
               pl={{ base: '0', md: '4' }}
               display="flex"

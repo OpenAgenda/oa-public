@@ -1,5 +1,5 @@
 {
-  "next.components.auth.AuthDialog.dialogTitle": "",
+  "next.components.auth.AuthDialog.dialogTitle": "Accedi",
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": "",
   "next.components.auth.Signin.invalidActivation.description": "",
   "next.components.auth.Signin.invalidActivation.title": ""

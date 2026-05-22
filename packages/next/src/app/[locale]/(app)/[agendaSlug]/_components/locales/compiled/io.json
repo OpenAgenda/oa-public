@@ -2,91 +2,91 @@
   "next.components.auth.AuthDialog.msg.authRequired": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this page."
+      "value": "crwdns46731:0crwdne46731:0"
     }
   ],
   "next.components.auth.AuthDialog.msg.limitedAccessAgenda": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this agenda. Please sign in"
+      "value": "crwdns46733:0crwdne46733:0"
     }
   ],
   "next.components.auth.AuthDialog.msg.limitedAccessEvent": [
     {
       "type": 0,
-      "value": "You need to be authenticated to access this event. Please sign in"
+      "value": "crwdns46735:0crwdne46735:0"
     }
   ],
   "next.components.auth.Signin.invalidActivation.description": [
     {
       "type": 0,
-      "value": "This can be because it has already been used. If that is the case, your account should be activated."
+      "value": "crwdns46737:0crwdne46737:0"
     }
   ],
   "next.components.auth.Signin.invalidActivation.title": [
     {
       "type": 0,
-      "value": "The activation link is not valid"
+      "value": "crwdns46739:0crwdne46739:0"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.addEvent": [
     {
       "type": 0,
-      "value": "crwdns32999:0crwdne32999:0"
+      "value": "crwdns46741:0crwdne46741:0"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.aggregate": [
     {
       "type": 0,
-      "value": "crwdns33001:0crwdne33001:0"
+      "value": "crwdns46743:0crwdne46743:0"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.contact": [
     {
       "type": 0,
-      "value": "crwdns33003:0crwdne33003:0"
+      "value": "crwdns46745:0crwdne46745:0"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.export": [
     {
       "type": 0,
-      "value": "crwdns33005:0crwdne33005:0"
+      "value": "crwdns46747:0crwdne46747:0"
     }
   ],
   "next.views.AgendaShow.AgendaHeader.officialAgenda": [
     {
       "type": 0,
-      "value": "crwdns33007:0crwdne33007:0"
+      "value": "crwdns46749:0crwdne46749:0"
     }
   ],
   "next.views.AgendaShow.EventItem.addToFavorites": [
     {
       "type": 0,
-      "value": "crwdns33009:0crwdne33009:0"
+      "value": "crwdns46751:0crwdne46751:0"
     }
   ],
   "next.views.AgendaShow.EventItem.featured": [
     {
       "type": 0,
-      "value": "crwdns33011:0crwdne33011:0"
+      "value": "crwdns46753:0crwdne46753:0"
     }
   ],
   "next.views.AgendaShow.EventItem.removeFromFavorites": [
     {
       "type": 0,
-      "value": "crwdns33013:0crwdne33013:0"
+      "value": "crwdns46755:0crwdne46755:0"
     }
   ],
   "next.views.AgendaShow.EventItem.share": [
     {
       "type": 0,
-      "value": "crwdns33860:0crwdne33860:0"
+      "value": "crwdns46757:0crwdne46757:0"
     }
   ],
   "next.views.AgendaShow.Favorites.favorites": [
     {
       "type": 0,
-      "value": "crwdns33015:0crwdne33015:0"
+      "value": "crwdns46759:0crwdne46759:0"
     }
   ]
 }

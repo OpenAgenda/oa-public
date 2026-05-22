@@ -41,9 +41,10 @@ export default function buildFieldSchema(type, options = {}) {
     },
 
     helpContent: {
-      type: 'text',
+      type: labelFieldType,
       optional: true,
       default: null,
+      defaultLanguage: defaultLabelLanguage,
     },
 
     default: {
@@ -54,7 +55,7 @@ export default function buildFieldSchema(type, options = {}) {
     // an informative text can be added adjacent to the form item
     info: {
       type: labelFieldType,
-      max: 1000,
+      max: 2000,
       optional: true,
       default: null,
       defaultLanguage: defaultLabelLanguage,
@@ -65,6 +66,7 @@ export default function buildFieldSchema(type, options = {}) {
       optional: true,
       default: null,
       defaultLanguage: defaultLabelLanguage,
+      max: 2000,
     },
 
     placeholder: {

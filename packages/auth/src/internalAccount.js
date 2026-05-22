@@ -108,6 +108,27 @@ export default function createCredentialHelpers(instance) {
     await adapter.deleteSessions(String(userId));
   }
 
+  // Re-snapshot the user into every active Redis session WITHOUT logging the
+  // user out. `internalAdapter.updateUser` writes the row (via BA's own kysely
+  // adapter — NOT through Feathers, so no user-hook loop) then internally
+  // calls `refreshUserSessions(updatedUser)`, which rewrites the cached
+  // `{ session, user }` of each `active-sessions-${id}` entry. `updateUser`
+  // re-selects the full row and parses it through BA's output transform, so
+  // the snapshot carries the full BA user shape (camelCase keys: uid, culture,
+  // transverseApiAccess, isNew, isBlacklisted, image, name) with current
+  // values — exactly what `req.user` reads. This is the BA-aware replacement
+  // for the old `@openagenda/sessions` `sessions.refresh`: call it after an
+  // out-of-band Feathers patch mutated a session-mirrored field.
+  //
+  // `{}` is enough: BA's core `updatedAt` field carries
+  // `onUpdate: () => new Date()`, so the adapter always includes `updated_at`
+  // in the UPDATE — a valid non-empty `SET`. (Passing no data at all would make
+  // BA's `transformInput` read `data[field]` off `undefined` and throw.)
+  async function refreshUserSessions(userId) {
+    const adapter = await getAdapter();
+    await adapter.updateUser(String(userId), {});
+  }
+
   // Returns the set of provider ids attached to each user. Used by the
   // Feathers `populateAccountTypes` hook to compute `hasLocalAccount` /
   // `hasSocialAccount` from the BA `account` table — the legacy
@@ -140,6 +161,7 @@ export default function createCredentialHelpers(instance) {
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    refreshUserSessions,
     verifyCredentialPassword,
     getAccountTypesByUserId,
   };

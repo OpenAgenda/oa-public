@@ -83,82 +83,34 @@
       "value": "Cheñch ar skeudenn"
     }
   ],
-  "cibulTemplates.passwordField.good": [
-    {
-      "type": 0,
-      "value": "Surentez a-walc'h 🙂"
-    }
-  ],
-  "cibulTemplates.passwordField.great": [
-    {
-      "type": 0,
-      "value": "Surentez vras 🥳"
-    }
-  ],
-  "cibulTemplates.passwordField.isSameAs": [
-    {
-      "type": 0,
-      "value": "Ret eo bezañ disheñvel diouzh an anv implijer hag ar postel 🙄"
-    }
-  ],
-  "cibulTemplates.passwordField.required": [
-    {
-      "type": 0,
-      "value": "Ret eo termeniñ ur ger-tremen"
-    }
-  ],
-  "cibulTemplates.passwordField.tooWeak": [
-    {
-      "type": 0,
-      "value": "Re wan 😑"
-    }
-  ],
-  "cibulTemplates.passwordField.usual": [
-    {
-      "type": 0,
-      "value": "Re voutin 🤖"
-    }
-  ],
-  "cibulTemplates.passwordField.weak": [
-    {
-      "type": 0,
-      "value": "N'eo ket surawalc'h 😐"
-    }
-  ],
-  "cibulTemplates.passwordField.weakish": [
-    {
-      "type": 0,
-      "value": "Gwelloc'h, met ket top 😬"
-    }
-  ],
   "common.event.fields.accessibility": [
     {
       "type": 0,
-      "value": "Accessibility conditions"
+      "value": "Monedusted"
     }
   ],
   "common.event.fields.age": [
     {
       "type": 0,
-      "value": "Targeted public age"
+      "value": "Oad an dud a glasker tizhout"
     }
   ],
   "common.event.fields.attendanceMode": [
     {
       "type": 0,
-      "value": "Attendance mode"
+      "value": "Doare perzhiañ"
     }
   ],
   "common.event.fields.conditions": [
     {
       "type": 0,
-      "value": "Conditions"
+      "value": "Divizoù"
     }
   ],
   "common.event.fields.description": [
     {
       "type": 0,
-      "value": "Short description"
+      "value": "Deskrivadur berr"
     }
   ],
   "common.event.fields.extIds": [
@@ -170,43 +122,43 @@
   "common.event.fields.image": [
     {
       "type": 0,
-      "value": "Image"
+      "value": "Skeudenn"
     }
   ],
   "common.event.fields.imageCredits": [
     {
       "type": 0,
-      "value": "Image credits"
+      "value": "Perc'henn ar skeudenn"
     }
   ],
   "common.event.fields.keywords": [
     {
       "type": 0,
-      "value": "Keywords"
+      "value": "Gerioù-alc'hwez"
     }
   ],
   "common.event.fields.location": [
     {
       "type": 0,
-      "value": "Location"
+      "value": "Lec'h"
     }
   ],
   "common.event.fields.longDescription": [
     {
       "type": 0,
-      "value": "Long description"
+      "value": "Deskrivadur hir"
     }
   ],
   "common.event.fields.onlineAccessLink": [
     {
       "type": 0,
-      "value": "Access link"
+      "value": "Liamm moned"
     }
   ],
   "common.event.fields.registration": [
     {
       "type": 0,
-      "value": "Registration"
+      "value": "En em enskrivañ"
     }
   ],
   "common.event.fields.slug": [
@@ -218,19 +170,19 @@
   "common.event.fields.status": [
     {
       "type": 0,
-      "value": "Status"
+      "value": "Statud"
     }
   ],
   "common.event.fields.timings": [
     {
       "type": 0,
-      "value": "Timings"
+      "value": "Eurioù"
     }
   ],
   "common.event.fields.title": [
     {
       "type": 0,
-      "value": "Title"
+      "value": "Titl"
     }
   ],
   "common.event.states.published": [
@@ -257,58 +209,28 @@
       "value": "Da gontrollañ"
     }
   ],
-  "common.geo.adminLevel3": [
-    {
-      "type": 0,
-      "value": "Inter-city"
-    }
-  ],
-  "common.geo.city": [
-    {
-      "type": 0,
-      "value": "City"
-    }
-  ],
-  "common.geo.department": [
-    {
-      "type": 0,
-      "value": "Department"
-    }
-  ],
-  "common.geo.location": [
-    {
-      "type": 0,
-      "value": "Location"
-    }
-  ],
-  "common.geo.region": [
-    {
-      "type": 0,
-      "value": "Region"
-    }
-  ],
   "common.roles.administrator": [
     {
       "type": 0,
-      "value": "Administrator"
+      "value": "Merour"
     }
   ],
   "common.roles.contributor": [
     {
       "type": 0,
-      "value": "Contributor"
+      "value": "Kenlabourer"
     }
   ],
   "common.roles.moderator": [
     {
       "type": 0,
-      "value": "Moderator"
+      "value": "Habaskour"
     }
   ],
   "common.roles.reader": [
     {
       "type": 0,
-      "value": "Reader"
+      "value": "Lenner"
     }
   ]
 }

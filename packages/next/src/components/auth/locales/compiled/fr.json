@@ -2,7 +2,7 @@
   "next.components.auth.AuthDialog.dialogTitle": [
     {
       "type": 0,
-      "value": "Connexion"
+      "value": "Se connecter"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleLostPassword": [
@@ -38,7 +38,7 @@
   "next.components.auth.LostPassword.emailLabel": [
     {
       "type": 0,
-      "value": "Adresse e-mail"
+      "value": "Email"
     }
   ],
   "next.components.auth.LostPassword.emailPlaceholder": [
@@ -128,7 +128,7 @@
   "next.components.auth.ResetPassword.formTitle": [
     {
       "type": 0,
-      "value": "Réinitialiser votre mot de passe"
+      "value": "Réinitialisation du mot de passe"
     }
   ],
   "next.components.auth.ResetPassword.genericError": [
@@ -200,7 +200,7 @@
   "next.components.auth.Signin.emailLabel": [
     {
       "type": 0,
-      "value": "Adresse e-mail"
+      "value": "Email"
     }
   ],
   "next.components.auth.Signin.emailPlaceholder": [
@@ -342,7 +342,7 @@
   "next.components.auth.Signup.emailLabel": [
     {
       "type": 0,
-      "value": "Adresse e-mail"
+      "value": "Email"
     }
   ],
   "next.components.auth.Signup.emailPlaceholder": [
@@ -474,7 +474,7 @@
   "next.components.auth.Signup.or": [
     {
       "type": 0,
-      "value": "Ou"
+      "value": "ou"
     }
   ],
   "next.components.auth.Signup.passwordLabel": [
@@ -492,7 +492,7 @@
   "next.components.auth.Signup.signinLink": [
     {
       "type": 0,
-      "value": "Connectez-vous"
+      "value": "Se connecter"
     }
   ],
   "next.components.auth.Signup.signupSuccess": [

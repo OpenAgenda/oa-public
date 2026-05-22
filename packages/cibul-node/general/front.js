@@ -63,7 +63,7 @@ function start(req, res) {
 }
 
 export default (app) => {
-  const { sessions, auth } = app.services;
+  const { auth } = app.services;
 
   app.get(
     '/signout',
@@ -102,7 +102,7 @@ export default (app) => {
       }
       next();
     },
-    async (req, res, next) => {
+    async (req, res) => {
       if (auth) {
         try {
           const out = await auth.api.signOut({
@@ -111,14 +111,11 @@ export default (app) => {
           });
           auth.forwardSetCookieHeaders(out, res);
         } catch (_err) {
-          // log+swallow: legacy cookie-session close below is the source of
-          // truth and a missed better-auth signOut never blocks the redirect.
+          // swallow: a missed signOut never blocks the redirect home.
         }
       }
-      next();
+      res.redirect(302, '/');
     },
-    sessions.mw.close(),
-    (req, res) => res.redirect(302, '/'),
   );
 
   app.post('/newsletter/subscribe', preMw, newsletterSubscribe);

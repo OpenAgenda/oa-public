@@ -1,10 +1,11 @@
 import AgendaDocx from '@openagenda/agenda-docx';
 import logger from '@openagenda/logs';
+import { requireUser } from '../lib/authGuards.js';
 
 const log = logger('services/agenda-docx');
 
 function plugApp(agendaDocx, app) {
-  const { agendas, members, sessions } = app.services;
+  const { agendas, members } = app.services;
 
   app.use(
     '/docx/:agendaUid',
@@ -12,7 +13,7 @@ function plugApp(agendaDocx, app) {
       path: 'params.agendaUid',
       field: 'uid',
     }),
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     members.mw.loadAndAuthorize('moderator'),
   );
 

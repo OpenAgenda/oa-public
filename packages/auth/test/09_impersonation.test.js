@@ -21,9 +21,14 @@ function makeFakeRes() {
 
 describe('auth - impersonation factory exports', () => {
   const secret = 'test-secret-do-not-use-in-prod-just-long-enough';
+  const baseOpts = {
+    mysqlPool: fakeMysqlPool,
+    secret,
+    baseURL: 'http://localhost:3000',
+  };
 
   it('exposes impersonateUser and stopImpersonating as functions', () => {
-    const auth = Auth({ mysqlPool: fakeMysqlPool, secret });
+    const auth = Auth(baseOpts);
     expect(typeof auth.impersonateUser).toBe('function');
     expect(typeof auth.stopImpersonating).toBe('function');
     // openSession is the generic primitive used by /signin (OAuth / legacy
@@ -32,7 +37,7 @@ describe('auth - impersonation factory exports', () => {
   });
 
   it('removes the homemade impersonation helpers from the factory output', () => {
-    const auth = Auth({ mysqlPool: fakeMysqlPool, secret });
+    const auth = Auth(baseOpts);
     expect(auth.createImpersonationSession).toBeUndefined();
     expect(auth.verifyImpersonatedByCookie).toBeUndefined();
     expect(auth.clearImpersonatedByCookie).toBeUndefined();
@@ -41,14 +46,14 @@ describe('auth - impersonation factory exports', () => {
 
   describe('openSession', () => {
     it('throws when res is missing', async () => {
-      const auth = Auth({ mysqlPool: fakeMysqlPool, secret });
+      const auth = Auth(baseOpts);
       await expect(auth.openSession({ userId: 1 })).rejects.toThrow(
         /res is required/,
       );
     });
 
     it('throws when userId is missing', async () => {
-      const auth = Auth({ mysqlPool: fakeMysqlPool, secret });
+      const auth = Auth(baseOpts);
       await expect(auth.openSession({ res: makeFakeRes() })).rejects.toThrow(
         /userId is required/,
       );
@@ -57,14 +62,14 @@ describe('auth - impersonation factory exports', () => {
 
   describe('impersonateUser', () => {
     it('throws when res is missing', async () => {
-      const auth = Auth({ mysqlPool: fakeMysqlPool, secret });
+      const auth = Auth(baseOpts);
       await expect(
         auth.impersonateUser({ targetUserId: 1, req: { headers: {} } }),
       ).rejects.toThrow(/res is required/);
     });
 
     it('throws when targetUserId is missing', async () => {
-      const auth = Auth({ mysqlPool: fakeMysqlPool, secret });
+      const auth = Auth(baseOpts);
       await expect(
         auth.impersonateUser({ req: { headers: {} }, res: makeFakeRes() }),
       ).rejects.toThrow(/targetUserId is required/);
@@ -73,7 +78,7 @@ describe('auth - impersonation factory exports', () => {
 
   describe('stopImpersonating', () => {
     it('throws when res is missing', async () => {
-      const auth = Auth({ mysqlPool: fakeMysqlPool, secret });
+      const auth = Auth(baseOpts);
       await expect(
         auth.stopImpersonating({ req: { headers: {} } }),
       ).rejects.toThrow(/res is required/);

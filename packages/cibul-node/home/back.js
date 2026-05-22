@@ -2,6 +2,7 @@ import _ from 'lodash';
 import range from '@openagenda/date-range';
 import listMw from '../services/activities/middleware/list.js';
 import cmn from '../lib/commons-app.js';
+import { requireUserJson } from '../lib/authGuards.js';
 
 const LIST_LIMIT = 20;
 
@@ -111,12 +112,9 @@ function eventsList(req, res, next) {
 }
 
 export default (app) => {
-  const { sessions, activities } = app.services;
+  const { activities } = app.services;
 
-  const preMw = [
-    cmn.loadLogger('home'),
-    sessions.mw.ifUnlogged((req, res) => res.redirect(302, '/')),
-  ];
+  const preMw = [cmn.loadLogger('home'), requireUserJson];
 
   app.get('/home/agendas', preMw, agendasList);
 

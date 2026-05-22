@@ -1,14 +1,12 @@
 import { betterAuth } from 'better-auth';
 import { toNodeHandler, fromNodeHeaders } from 'better-auth/node';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
-import { customSession } from 'better-auth/plugins';
 import { getCurrentAuthContext } from '@better-auth/core/context';
 import { redisStorage } from '@better-auth/redis-storage';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
-import projectUser from './projectUser.js';
 import {
   encodeLegacy,
   hash as hashPassword,
@@ -56,7 +54,6 @@ export default function Auth(options = {}) {
     onSignInSuccess,
     onSignUpComplete,
     validateSignUp,
-    resolveSessionExtras,
   } = options;
 
   if (!mysqlPool) {
@@ -69,10 +66,6 @@ export default function Auth(options = {}) {
     verification: schemas.verification ?? 'verification',
   };
 
-  // The same `betterAuth({...})` options object is passed to `customSession`
-  // so the plugin can infer `additionalFields` (uid, culture, …) on the
-  // typed `user` argument of `resolveSessionExtras`. Build it once, then
-  // pass to both calls.
   const baOptions = {
     database: { dialect: new MysqlDialect({ pool: mysqlPool }), type: 'mysql' },
     secret,
@@ -81,6 +74,16 @@ export default function Auth(options = {}) {
     plugins: [oaImpersonationPlugin()],
     advanced: {
       cookiePrefix: 'oa',
+      cookies: {
+        // BA's default name `oa.session_data` matches Sentry's sensitive-header
+        // snippet `session` and gets value-filtered to `[Filtered]` on span
+        // attributes, blocking downstream uid/culture extraction for tracing.
+        // Abbreviating `session` → `sess` sidesteps the filter while staying
+        // recognizable. `oa.session_token` keeps its name (which IS sensitive,
+        // deserves filtering); the cache cookie holding the projected user can
+        // now be read by the spanStart hook.
+        session_data: { name: 'oa.sess_data' },
+      },
       database: {
         generateId: 'serial',
       },
@@ -409,6 +412,10 @@ export default function Auth(options = {}) {
       // defaults to false when secondaryStorage is provided — no DB writes.
       expiresIn: 60 * 60 * 24 * 7,
       updateAge: 60 * 60 * 24,
+      cookieCache: {
+        enabled: true,
+        maxAge: 60 * 60,
+      },
     },
     emailVerification: {
       sendOnSignUp: true,
@@ -504,6 +511,8 @@ export default function Auth(options = {}) {
         },
         // Surfaced so the sign-in guard (hooks.before) can read them off the
         // user object returned by `internalAdapter.findUserByEmail`.
+        // `isBlacklisted` is also returned on the BA user output so consumers
+        // can read it natively off the session.
         isRemoved: {
           type: 'boolean',
           fieldName: 'is_removed',
@@ -515,7 +524,7 @@ export default function Auth(options = {}) {
           type: 'boolean',
           fieldName: 'is_blacklisted',
           input: false,
-          returned: false,
+          returned: true,
           defaultValue: false,
         },
         culture: {
@@ -533,6 +542,20 @@ export default function Auth(options = {}) {
           input: false,
           returned: false,
           defaultValue: null,
+        },
+        transverseApiAccess: {
+          type: 'boolean',
+          fieldName: 'transverse_api_access',
+          input: false,
+          returned: true,
+          defaultValue: false,
+        },
+        isNew: {
+          type: 'boolean',
+          fieldName: 'is_new',
+          input: false,
+          returned: true,
+          defaultValue: true,
         },
       },
     },
@@ -579,33 +602,6 @@ export default function Auth(options = {}) {
     },
   };
 
-  // Pass the same options object to `customSession` so its callback's user
-  // and session arguments carry the inferred `additionalFields` typings.
-  // Only register the plugin when the consumer actually wires
-  // `resolveSessionExtras` — otherwise BA's vanilla `/api/auth/get-session`
-  // payload stays unchanged (no behavioural drift on opt-out).
-  if (typeof resolveSessionExtras === 'function') {
-    // Note: `customSession` re-runs the callback on EVERY GET
-    // /api/auth/get-session — there is no per-request cache (verified in
-    // node_modules/better-auth/dist/plugins/custom-session/index.mjs). Keep
-    // the implementation I/O-economical (1 SELECT user max, 1 SELECT
-    // contextual record max).
-    baOptions.plugins = [
-      ...baOptions.plugins,
-      customSession(async ({ user, session }, ctx) => {
-        const extras = await resolveSessionExtras({
-          user,
-          session,
-          request: ctx?.request,
-        });
-        // BA's customSession does NOT merge — it REPLACES. We must explicitly
-        // include `user` and `session` (or their projected equivalents) in
-        // the returned payload, otherwise consumers get an empty payload.
-        return { user, session, ...extras ?? {} };
-      }, baOptions),
-    ];
-  }
-
   const instance = betterAuth(baOptions);
 
   const {
@@ -616,12 +612,24 @@ export default function Auth(options = {}) {
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    refreshUserSessions,
     verifyCredentialPassword,
     getAccountTypesByUserId,
   } = createCredentialHelpers(instance);
 
-  async function getSessionFromRequest(req, prevResponse) {
-    return instance.api.getSession({ headers: toHeaders(req, prevResponse) });
+  async function getSessionFromRequest(
+    req,
+    prevResponse,
+    { disableCookieCache } = {},
+  ) {
+    return instance.api.getSession({
+      headers: toHeaders(req, prevResponse),
+      // When set, bypass BA's signed cookie cache (1h maxAge) and force a
+      // fresh session lookup. The cibul-node load middleware relies on this so
+      // `isBlacklisted` and session revocation are seen on the next request
+      // rather than up to an hour later.
+      ...disableCookieCache ? { query: { disableCookieCache: true } } : {},
+    });
   }
 
   // Low-level primitive: open a BA session for an arbitrary user and emit
@@ -737,6 +745,11 @@ export default function Auth(options = {}) {
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    // Re-snapshot the user into active Redis sessions after an out-of-band
+    // Feathers patch of a session-mirrored field (full_name, image, culture,
+    // transverse_api_access, is_new), without logging the user out — the
+    // BA-aware replacement for the old `@openagenda/sessions` `sessions.refresh`.
+    refreshUserSessions,
     // Source of truth for `hasLocalAccount` / `hasSocialAccount`. Reads the
     // BA `account` table — the legacy `user.{password, facebook_uid, ...}`
     // columns are stale for BA-only users.
@@ -749,11 +762,7 @@ export default function Auth(options = {}) {
     openSession,
     impersonateUser,
     stopImpersonating,
-    // Pure projection helper. Exposed so consumers that build their own
-    // `resolveSessionExtras` can compose with the canonical OA shape, and
-    // so an OIDC userinfo hook can reuse it without I/O.
-    projectUser,
   };
 }
 
-export { toNodeHandler, fromNodeHeaders, projectUser };
+export { toNodeHandler, fromNodeHeaders };

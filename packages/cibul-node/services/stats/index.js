@@ -1,5 +1,5 @@
-import cmn from '../../lib/commons-app.js';
 import cacheMw from '../../lib/cache.mw.js';
+import { requireUser } from '../../lib/authGuards.js';
 import getAdditionalFieldStats from './getAdditionalFieldStats.js';
 import addFieldSchema from './addFieldSchema.js';
 import pulseSvg from './pulseSvg.js';
@@ -61,7 +61,7 @@ function pulseSvgHeaders(req, res, next) {
 }
 
 export function plugApp(app) {
-  const { sessions, agendas, members, stats } = app.services;
+  const { agendas, members, stats } = app.services;
 
   // Public
 
@@ -75,7 +75,7 @@ export function plugApp(app) {
 
   app.get(
     '/:agendaSlug/admin/statistics/config',
-    sessions.mw.ifUnlogged(cmn.redirectToSignin),
+    requireUser,
     agendas.mw.load,
     agendas.mw.authorizeByIPAddress(),
     members.mw.authorizeAdminModOrKey(),
@@ -96,7 +96,7 @@ export function plugApp(app) {
 
   app.put(
     '/:agendaSlug/admin/statistics/config',
-    sessions.mw.ifUnlogged(cmn.redirectToSignin),
+    requireUser,
     agendas.mw.load,
     members.mw.authorizeAdminModOrKey(),
     async (req, res, next) => {

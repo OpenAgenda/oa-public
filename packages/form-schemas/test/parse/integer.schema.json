@@ -5,6 +5,7 @@
   "fields": [
     {
       "field": "participants",
+      "slug": "participants",
       "optional": true,
       "display": true,
       "fieldType": "integer",

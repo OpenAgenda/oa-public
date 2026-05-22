@@ -62,7 +62,7 @@ class InheritedAttributesSpanProcessor {
   }
 }
 
-const INHERITED_ATTRIBUTES = ['session.id', 'user.uid'];
+const INHERITED_ATTRIBUTES = ['visitor.id', 'user.uid'];
 
 const sdk = new NodeSDK({
   resource: resourceFromAttributes({

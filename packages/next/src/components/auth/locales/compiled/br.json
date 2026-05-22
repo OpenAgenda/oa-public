@@ -2,7 +2,7 @@
   "next.components.auth.AuthDialog.dialogTitle": [
     {
       "type": 0,
-      "value": "Connexion"
+      "value": "Kevreañ"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleLostPassword": [
@@ -14,7 +14,7 @@
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
-      "value": "Création d'un nouveau compte"
+      "value": "Krouiñ ur gont"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
@@ -26,19 +26,19 @@
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
-      "value": "Se connecter"
+      "value": "Kevreañ"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
     {
       "type": 0,
-      "value": "Annuler"
+      "value": "Nullañ"
     }
   ],
   "next.components.auth.LostPassword.emailLabel": [
     {
       "type": 0,
-      "value": "Adresse e-mail"
+      "value": "Postel"
     }
   ],
   "next.components.auth.LostPassword.emailPlaceholder": [
@@ -80,31 +80,31 @@
   "next.components.auth.PasswordField.good": [
     {
       "type": 0,
-      "value": "Suffisamment sécurisé 🙂"
+      "value": "Surentez a-walc'h 🙂"
     }
   ],
   "next.components.auth.PasswordField.great": [
     {
       "type": 0,
-      "value": "Très sécurisé 🥳"
+      "value": "Surentez vras 🥳"
     }
   ],
   "next.components.auth.PasswordField.isSameAs": [
     {
       "type": 0,
-      "value": "Doit être différent du nom d'utilisateur et de l'email 🙄"
+      "value": "Ret eo bezañ disheñvel diouzh an anv implijer hag ar postel 🙄"
     }
   ],
   "next.components.auth.PasswordField.required": [
     {
       "type": 0,
-      "value": "Un mot de passe doit être défini"
+      "value": "Ret eo termeniñ ur ger-tremen"
     }
   ],
   "next.components.auth.PasswordField.tooWeak": [
     {
       "type": 0,
-      "value": "Pas assez sûr 😑"
+      "value": "Re wan 😑"
     }
   ],
   "next.components.auth.PasswordField.usual": [
@@ -122,13 +122,13 @@
   "next.components.auth.PasswordField.weakish": [
     {
       "type": 0,
-      "value": "Mieux, pas top 😬"
+      "value": "Gwelloc'h, met ket top 😬"
     }
   ],
   "next.components.auth.ResetPassword.formTitle": [
     {
       "type": 0,
-      "value": "Réinitialiser votre mot de passe"
+      "value": "Adderaouekaat ho ker-tremen"
     }
   ],
   "next.components.auth.ResetPassword.genericError": [
@@ -152,7 +152,7 @@
   "next.components.auth.ResetPassword.passwordLabel": [
     {
       "type": 0,
-      "value": "Nouveau mot de passe"
+      "value": "Ger-tremen nevez"
     }
   ],
   "next.components.auth.ResetPassword.passwordRequired": [
@@ -194,13 +194,13 @@
   "next.components.auth.Signin.createAccount": [
     {
       "type": 0,
-      "value": "Créez-en un !"
+      "value": "Krouit unan !"
     }
   ],
   "next.components.auth.Signin.emailLabel": [
     {
       "type": 0,
-      "value": "Adresse e-mail"
+      "value": "Postel"
     }
   ],
   "next.components.auth.Signin.emailPlaceholder": [
@@ -260,19 +260,19 @@
   "next.components.auth.Signin.noAccount": [
     {
       "type": 0,
-      "value": "Vous n'avez pas encore de compte ?"
+      "value": "N'ho peus kont ebet c'hoazh ?"
     }
   ],
   "next.components.auth.Signin.or": [
     {
       "type": 0,
-      "value": "ou"
+      "value": "pe"
     }
   ],
   "next.components.auth.Signin.passwordLabel": [
     {
       "type": 0,
-      "value": "Mot de passe"
+      "value": "Ger-tremen"
     }
   ],
   "next.components.auth.Signin.resetPassword": [
@@ -290,7 +290,7 @@
   "next.components.auth.Signin.submitLabel": [
     {
       "type": 0,
-      "value": "Se connecter"
+      "value": "Kevreañ"
     }
   ],
   "next.components.auth.Signup.agree": [
@@ -336,13 +336,13 @@
   "next.components.auth.Signup.cultureLabel": [
     {
       "type": 0,
-      "value": "Langue"
+      "value": "Yezh"
     }
   ],
   "next.components.auth.Signup.emailLabel": [
     {
       "type": 0,
-      "value": "Adresse e-mail"
+      "value": "Postel"
     }
   ],
   "next.components.auth.Signup.emailPlaceholder": [
@@ -372,19 +372,19 @@
   "next.components.auth.Signup.errors.emailInvalid": [
     {
       "type": 0,
-      "value": "Cet email n'est pas valide"
+      "value": "Direizh eo ar chomlec'h postel-mañ"
     }
   ],
   "next.components.auth.Signup.errors.emailUsed": [
     {
       "type": 0,
-      "value": "Cet email est déjà utilisé"
+      "value": "En implij emañ ar chomlec'h postel-mañ dija"
     }
   ],
   "next.components.auth.Signup.errors.fullNameRequired": [
     {
       "type": 0,
-      "value": "Ce champ ne doit pas être vide"
+      "value": "Ne c'hall ket ar vaezienn-mañ bezañ goullo"
     }
   ],
   "next.components.auth.Signup.errors.fullNameTooLong": [
@@ -402,7 +402,7 @@
   "next.components.auth.Signup.errors.passwordRequired": [
     {
       "type": 0,
-      "value": "Un mot de passe doit être défini"
+      "value": "Ret eo termeniñ ur ger-tremen"
     }
   ],
   "next.components.auth.Signup.errors.passwordTooShort": [
@@ -438,13 +438,13 @@
   "next.components.auth.Signup.fullNameLabel": [
     {
       "type": 0,
-      "value": "Nom d'utilisateur"
+      "value": "Anv"
     }
   ],
   "next.components.auth.Signup.fullNameLearnMore": [
     {
       "type": 0,
-      "value": "En savoir plus"
+      "value": "Gouzout hiroc'h"
     }
   ],
   "next.components.auth.Signup.genericError": [
@@ -474,13 +474,13 @@
   "next.components.auth.Signup.or": [
     {
       "type": 0,
-      "value": "Ou"
+      "value": "pe"
     }
   ],
   "next.components.auth.Signup.passwordLabel": [
     {
       "type": 0,
-      "value": "Mot de passe"
+      "value": "Ger-tremen"
     }
   ],
   "next.components.auth.Signup.repeatLabel": [
@@ -492,7 +492,7 @@
   "next.components.auth.Signup.signinLink": [
     {
       "type": 0,
-      "value": "Connectez-vous"
+      "value": "Kevreañ"
     }
   ],
   "next.components.auth.Signup.signupSuccess": [
@@ -504,7 +504,7 @@
   "next.components.auth.Signup.submitLabel": [
     {
       "type": 0,
-      "value": "Accepter et créer le compte"
+      "value": "En em enskrivañ"
     }
   ],
   "next.components.auth.SignupComplete.cooldownMessage": [

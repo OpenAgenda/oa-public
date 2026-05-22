@@ -1,15 +1,16 @@
 import express from 'express';
 import * as inboxMw from '@openagenda/inboxes/src/middleware.js';
 import VError from '@openagenda/verror';
+import { requireUser } from '../../../../lib/authGuards.js';
 import makeErrorHandler from './makeErrorHandler.js';
 
 export default (config, services) => {
-  const { sessions, agendas, members } = services;
+  const { agendas, members } = services;
 
   const errorHandler = makeErrorHandler(services);
 
   const preMw = [
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     (req, res, next) => {
       req.type = 'agenda';
       req.creatorInboxUser = { userUid: req.user.uid };
@@ -199,7 +200,9 @@ export default (config, services) => {
         },
         fallbackGetter: () => ({
           name: req.user.name,
-          avatar: req.user.thumbnail || config.s3.defaultImagePath,
+          avatar: req.user.image
+            ? config.s3.mainBucketPath + req.user.image
+            : config.s3.defaultImagePath,
         }),
       })(req, res, next);
     },

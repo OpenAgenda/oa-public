@@ -75,6 +75,8 @@
   "EventAdminApp.messages.exports.PDFGeoSections": "Lodennoù douaroniel",
   "EventAdminApp.messages.exports.PDFHighlightLocationName": "Lakaat munudoù al lec'h en talbenn",
   "EventAdminApp.messages.exports.PDFSelectSub": "Dibabit un talvoud pe meur a hini",
+  "EventAdminApp.messages.exports.RSSCopied": "Eilet",
+  "EventAdminApp.messages.exports.RSSCopy": "Kopiañ",
   "EventAdminApp.messages.exports.cancel": "Nullañ",
   "EventAdminApp.messages.exports.export": "Ezporzhiañ",
   "EventAdminApp.messages.exports.exportDesc": "Ezporzhiañ {total, plural, =0 {# darvoud} one {# darvoud} two {# zarvoud} few {# darvoud} many {# darvoud} other {# darvoud}}",

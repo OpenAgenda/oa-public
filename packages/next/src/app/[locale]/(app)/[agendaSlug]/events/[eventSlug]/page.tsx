@@ -3,6 +3,7 @@ import { permanentRedirect } from 'next/navigation';
 import qs from 'qs';
 import { SUPPORTED_LOCALES } from '@/src/config/constants';
 import getLocale from '@/src/utils/getLocale';
+import parseEventUid from '@/src/utils/parseEventUid';
 import { fetchAgenda, fetchEvent } from '../../_api';
 import { parseApiError, handleApiError } from '../../_api/errors';
 import EventError from './_components/EventError';
@@ -10,7 +11,6 @@ import EventShowWrapper from './_components/EventShowWrapper';
 import getContentLocale from './_utils/getContentLocale';
 
 const IMAGE_PREFIX = process.env.NEXT_PUBLIC_IMAGE_PREFIX;
-const UID_SLUG_RE = /^(\d+)(?:_.*)?$/;
 
 type Params = Promise<{
   locale: string;
@@ -157,7 +157,7 @@ export default async function EventPage({
     await handleApiError(e);
   }
 
-  const uidMatch = eventSlug.match(UID_SLUG_RE);
+  const uid = parseEventUid(eventSlug);
   if (eventResponse?.event) {
     const { event } = eventResponse;
     const canonicalSegment = `${event.uid}_${event.slug}`;
@@ -169,8 +169,8 @@ export default async function EventPage({
     }
   }
 
-  const eventFallbackKey = uidMatch
-    ? `/api/agendas/slug/${agendaSlug}/events/${uidMatch[1]}?longDescriptionFormat=HTMLWithEmbeds`
+  const eventFallbackKey = uid
+    ? `/api/agendas/slug/${agendaSlug}/events/${uid}?longDescriptionFormat=HTMLWithEmbeds`
     : `/api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}?longDescriptionFormat=HTMLWithEmbeds`;
 
   return (

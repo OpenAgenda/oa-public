@@ -1,8 +1,8 @@
 {
-  "ReactFilters.EmbedAgendaShow.addEvent": "crwdns35011:0crwdne35011:0",
-  "ReactFilters.ValueBadge.removeFilter": "crwdns33978:0crwdne33978:0",
-  "ReactFilters.ValueBadge.removeFilterWithTitle": "crwdns33980:0{title}crwdne33980:0",
-  "next.views.EmbedAgendaShow.export": "crwdns35013:0crwdne35013:0",
-  "next.views.EmbedAgendaShow.search": "crwdns33982:0crwdne33982:0",
-  "next.views.EmbedAgendaShow.seeMore": "crwdns33928:0crwdne33928:0"
+  "ReactFilters.EmbedAgendaShow.addEvent": "crwdns46661:0crwdne46661:0",
+  "ReactFilters.ValueBadge.removeFilter": "crwdns46669:0crwdne46669:0",
+  "ReactFilters.ValueBadge.removeFilterWithTitle": "crwdns46673:0{title}crwdne46673:0",
+  "next.views.EmbedAgendaShow.export": "crwdns46677:0crwdne46677:0",
+  "next.views.EmbedAgendaShow.search": "crwdns46683:0crwdne46683:0",
+  "next.views.EmbedAgendaShow.seeMore": "crwdns46687:0crwdne46687:0"
 }

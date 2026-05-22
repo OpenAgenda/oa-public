@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import cmn from '../lib/commons-app.js';
+import { ifUnlogged } from '../lib/authGuards.js';
 
 function _loadUser(detailed, req, res, next) {
   const { services } = req.app;
@@ -48,13 +49,10 @@ function latestInboxMessageTimestamp(req, res, next) {
 }
 
 export default (app) => {
-  const {
-    services: { sessions },
-  } = app;
   app.get(
     '/latest-inbox-timestamp',
     cmn.loadLogger('latestInboxMessageTimestamp'),
-    sessions.mw.ifUnlogged((req, res) => res.send(null)),
+    ifUnlogged((req, res) => res.send(null)),
     _loadUser.bind(null, true),
     latestInboxMessageTimestamp,
   );

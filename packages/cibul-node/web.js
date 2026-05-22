@@ -2,7 +2,6 @@ import networkApps from './services/networkApps.js';
 import abilities from './services/abilities/index.js';
 import homeBack from './home/back.js';
 import generalFront from './general/front.js';
-import sessionBack from './general/session.back.js';
 import generalBack from './general/back.js';
 import eventBack from './event/back.js';
 import eventFront from './event/front.js';
@@ -55,7 +54,6 @@ export default (app) => {
   app.services.agendaDocx.plugApp(app);
   homeBack(app);
   generalFront(app);
-  sessionBack(app);
   generalBack(app);
   eventBack(app);
   eventFront(app);

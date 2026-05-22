@@ -11,6 +11,7 @@ import { randomBytes } from 'node:crypto';
 import logs from '@openagenda/logs';
 import express from 'express';
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
 import { NotFound } from '@openagenda/verror';
 import config from './config/index.js';
@@ -28,6 +29,8 @@ import contentSecurityPolicy from './lib/contentSecurityPolicy.js';
 import * as otelMw from './lib/otelMw.js';
 import redirectRootLangPaths from './lib/redirectRootLangPaths.js';
 import handleGracefulShutdown from './lib/handleGracefulShutdown.js';
+import visitorId from './lib/visitorId.js';
+import { loadUser } from './lib/authGuards.js';
 
 const ADMIN = process.argv.includes('admin');
 const TASKS = process.argv
@@ -63,8 +66,6 @@ try {
   const core = Core(services, config);
   const api = instanciateAPI(core);
 
-  const { sessions } = services;
-
   log('info', 'running server');
   let webServer;
   let apiServer;
@@ -90,8 +91,9 @@ try {
       verify: rawBodySaver,
     }),
     secureHeaders,
-    sessions.mw,
-    sessions.mw.load({ detailed: true }),
+    cookieParser(),
+    visitorId,
+    loadUser,
     otelMw.addUserContext,
     logRequestMw,
     redirectRootLangPaths,

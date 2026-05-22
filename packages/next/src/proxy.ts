@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
 import browserslistConfig from '@openagenda/browserslist-config';
 import { isOutdatedBrowser } from '@openagenda/outdated-browser/middleware';
+import { getCookieCache } from '@openagenda/auth/server';
 import getPreferredLocale from 'utils/getPreferredLocale';
-import getSession from 'utils/getSession';
 import parseAcceptLanguage from 'utils/parseAcceptLanguage';
+import parseEventUid from 'utils/parseEventUid';
 import generateNonce from 'utils/generateNonce';
 import CSP from 'utils/contentSecurityPolicy';
 import buildAgendaCsp from 'utils/buildAgendaCsp';
@@ -13,6 +14,12 @@ import { DEFAULT_LOCALE, SUPPORTED_LOCALES } from 'config/constants';
 
 const MATCHER_REGEX =
   /^\/(api|_next\/static|_next\/image|favicon\.ico)($|\/).*$/;
+
+const VISITOR_ID_COOKIE = 'oa.visitor_id';
+// 400 days is the browser cap (Chrome/Firefox) on cookie max-age.
+const VISITOR_ID_MAX_AGE_S = 400 * 24 * 60 * 60;
+const UUID_RE =
+  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/;
 
 // Any path under /:locale is considered App Router here. Proxy applies CSP
 // and related headers when the URL already has a recognized locale prefix.
@@ -62,8 +69,6 @@ function matchAgendaPageRoute(pathname: string): MatchedRoute | null {
   return null;
 }
 
-const UID_SLUG_RE = /^(\d+)(?:_.*)?$/;
-
 function matchEventPageRoute(
   pathname: string,
 ): { agendaSlug: string; eventSlug: string } | null {
@@ -79,9 +84,9 @@ async function isEventGone(
   eventSlug: string,
   cookie: string,
 ): Promise<boolean> {
-  const uidMatch = eventSlug.match(UID_SLUG_RE);
-  const path = uidMatch
-    ? `api/agendas/slug/${agendaSlug}/events/${uidMatch[1]}`
+  const uid = parseEventUid(eventSlug);
+  const path = uid
+    ? `api/agendas/slug/${agendaSlug}/events/${uid}`
     : `api/agendas/slug/${agendaSlug}/events/slug/${eventSlug}`;
   try {
     const res = await fetch(
@@ -218,44 +223,24 @@ export async function proxy(req: NextRequest) {
   const requestHeaders = new Headers(req.headers);
   const responseHeaders = new Headers();
 
-  if (!req.cookies.has('oa')) {
-    try {
-      // Hard timeout: this runs on the hot path before any response. A slow
-      // or unreachable upstream would otherwise wedge every cookieless first
-      // visit. On timeout, we fall through without the priming cookie — the
-      // session bootstraps on the next request.
-      const noopResponse = await fetch(
-        `${process.env.NEXT_API_INTERNAL_BASE_URL}/api/noop`,
-        {
-          headers: req.headers,
-          signal: AbortSignal.timeout(500),
-        },
-      );
-      const cookiesFromApi = noopResponse.headers.getSetCookie();
-
-      if (cookiesFromApi.length > 0) {
-        const currentRequestCookieHeader = requestHeaders.get('Cookie') || '';
-        const newCookiesForRequestHeader = cookiesFromApi
-          .map((c) => c.split(';')[0])
-          .join('; ');
-
-        requestHeaders.set(
-          'Cookie',
-          [currentRequestCookieHeader, newCookiesForRequestHeader]
-            .filter(Boolean)
-            .join('; '),
-        );
-
-        cookiesFromApi.forEach((cookie) => {
-          responseHeaders.append('Set-Cookie', cookie);
-        });
-      }
-    } catch (err) {
-      // Best-effort only — noop cookie fetch is a warm-up, not critical path.
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('proxy: noop cookie fetch failed', err);
-      }
-    }
+  // Persistent visitor id for tracing: follows the browser across login /
+  // logout cycles. cibul-node sets the same cookie when it sees the request
+  // first; whichever app handles the first hit wins. Read downstream from
+  // `http.request.header.cookie.oa.visitor_id` on the page-render root span.
+  // Known gap: the very first request from a fresh browser doesn't yet carry
+  // the cookie, so that span won't carry `visitor.id`. Tried bridging via
+  // request headers, AsyncLocalStorage, scope mutation and direct span
+  // setAttribute — all neutralized by Sentry's pre-middleware header
+  // snapshot, `wrapMiddlewareWithSentry`'s isolation-scope fork, and the
+  // separate async chain Next 16 uses for the page render.
+  const existingVisitorId = req.cookies.get(VISITOR_ID_COOKIE)?.value;
+  if (!existingVisitorId || !UUID_RE.test(existingVisitorId)) {
+    const newVisitorId = crypto.randomUUID();
+    const secureAttr = process.env.NODE_ENV === 'production' ? '; Secure' : '';
+    responseHeaders.append(
+      'Set-Cookie',
+      `${VISITOR_ID_COOKIE}=${newVisitorId}; Max-Age=${VISITOR_ID_MAX_AGE_S}; Path=/; HttpOnly; SameSite=Lax${secureAttr}`,
+    );
   }
 
   /* outdated browser — forwarded to the App Router banner via a request
@@ -275,15 +260,17 @@ export async function proxy(req: NextRequest) {
   const acceptLanguage = parseAcceptLanguage(
     req.headers.get('Accept-Language'),
   );
-  const session = getSession(req.cookies);
-  const userLocale = session?.user?.culture;
+  const session = process.env.OA_AUTH_SECRET
+    ? await getCookieCache(req, {
+        secret: process.env.OA_AUTH_SECRET,
+        cookiePrefix: 'oa',
+        // Match the renamed session-cache cookie in `@openagenda/auth`.
+        cookieName: 'sess_data',
+      })
+    : null;
+  const userLocale = (session?.user as { culture?: string | null } | undefined)
+    ?.culture;
   const qsLocale = req.nextUrl.searchParams.get('lang');
-
-  // Note: no span enrichment here. The middleware runs in its own root
-  // trace (`BaseServer.handleRequest` with `next.bubble: true`) which the
-  // request-log processor filters out. Session enrichment for the logged
-  // page render span is done by `SessionAttributesSpanProcessor` from the
-  // captured `oa.user` cookie header attribute.
 
   // Extract locale from URL path (first segment) — i18n config is disabled so
   // we handle locale detection manually here.

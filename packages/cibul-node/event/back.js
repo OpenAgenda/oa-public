@@ -1,10 +1,12 @@
+import { requireUser } from '../lib/authGuards.js';
+
 export default (app) => {
-  const { sessions, members, agendas: agendasSvc } = app.services;
+  const { members, agendas: agendasSvc } = app.services;
 
   app.get(
     '/agendas/:uid/events/:eventUid/custom',
     agendasSvc.mw.loadBy({ path: 'params.uid', field: 'uid' }),
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     members.mw.load,
     (req, res) => {
       req.app.services.core

@@ -2,7 +2,7 @@
   "next.components.auth.AuthDialog.dialogTitle": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Inloggen"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleLostPassword": [
@@ -14,7 +14,7 @@
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
-      "value": "Create an account"
+      "value": "Een nieuw account aanmaken"
     }
   ],
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
@@ -26,19 +26,19 @@
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Inloggen"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
     {
       "type": 0,
-      "value": "Cancel"
+      "value": "Annuleren"
     }
   ],
   "next.components.auth.LostPassword.emailLabel": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "E-mail"
     }
   ],
   "next.components.auth.LostPassword.emailPlaceholder": [
@@ -80,31 +80,31 @@
   "next.components.auth.PasswordField.good": [
     {
       "type": 0,
-      "value": "Ok 🙂"
+      "value": "Voldoende veilig 🙂"
     }
   ],
   "next.components.auth.PasswordField.great": [
     {
       "type": 0,
-      "value": "Great 🥳"
+      "value": "Zeer veilig 🥳"
     }
   ],
   "next.components.auth.PasswordField.isSameAs": [
     {
       "type": 0,
-      "value": "Must be different from name or email 🙄"
+      "value": "Moet verschillen van gebruikersnaam en e-mail 🙄"
     }
   ],
   "next.components.auth.PasswordField.required": [
     {
       "type": 0,
-      "value": "A password must be defined"
+      "value": "Er moet een wachtwoord worden ingesteld"
     }
   ],
   "next.components.auth.PasswordField.tooWeak": [
     {
       "type": 0,
-      "value": "This password is too weak 😑"
+      "value": "Niet veilig genoeg 😑"
     }
   ],
   "next.components.auth.PasswordField.usual": [
@@ -122,13 +122,13 @@
   "next.components.auth.PasswordField.weakish": [
     {
       "type": 0,
-      "value": "A bit better 😬"
+      "value": "Beter, maar niet top 😬"
     }
   ],
   "next.components.auth.ResetPassword.formTitle": [
     {
       "type": 0,
-      "value": "Reset your password"
+      "value": "Wachtwoord resetten"
     }
   ],
   "next.components.auth.ResetPassword.genericError": [
@@ -152,7 +152,7 @@
   "next.components.auth.ResetPassword.passwordLabel": [
     {
       "type": 0,
-      "value": "New password"
+      "value": "Nieuw wachtwoord"
     }
   ],
   "next.components.auth.ResetPassword.passwordRequired": [
@@ -194,13 +194,13 @@
   "next.components.auth.Signin.createAccount": [
     {
       "type": 0,
-      "value": "Create one!"
+      "value": "Maak er een aan!"
     }
   ],
   "next.components.auth.Signin.emailLabel": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "E-mail"
     }
   ],
   "next.components.auth.Signin.emailPlaceholder": [
@@ -260,19 +260,19 @@
   "next.components.auth.Signin.noAccount": [
     {
       "type": 0,
-      "value": "Don't have an account yet?"
+      "value": "Heb je nog geen account?"
     }
   ],
   "next.components.auth.Signin.or": [
     {
       "type": 0,
-      "value": "or"
+      "value": "of"
     }
   ],
   "next.components.auth.Signin.passwordLabel": [
     {
       "type": 0,
-      "value": "Password"
+      "value": "Wachtwoord"
     }
   ],
   "next.components.auth.Signin.resetPassword": [
@@ -290,7 +290,7 @@
   "next.components.auth.Signin.submitLabel": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Inloggen"
     }
   ],
   "next.components.auth.Signup.agree": [
@@ -336,13 +336,13 @@
   "next.components.auth.Signup.cultureLabel": [
     {
       "type": 0,
-      "value": "Language"
+      "value": "Taal"
     }
   ],
   "next.components.auth.Signup.emailLabel": [
     {
       "type": 0,
-      "value": "Email"
+      "value": "E-mail"
     }
   ],
   "next.components.auth.Signup.emailPlaceholder": [
@@ -372,19 +372,19 @@
   "next.components.auth.Signup.errors.emailInvalid": [
     {
       "type": 0,
-      "value": "The email is not valid"
+      "value": "Dit e-mailadres is niet geldig"
     }
   ],
   "next.components.auth.Signup.errors.emailUsed": [
     {
       "type": 0,
-      "value": "This email is already in use"
+      "value": "Dit e-mailadres wordt al gebruikt"
     }
   ],
   "next.components.auth.Signup.errors.fullNameRequired": [
     {
       "type": 0,
-      "value": "This field cannot be empty"
+      "value": "Dit veld mag niet leeg zijn"
     }
   ],
   "next.components.auth.Signup.errors.fullNameTooLong": [
@@ -402,13 +402,13 @@
   "next.components.auth.Signup.errors.passwordRequired": [
     {
       "type": 0,
-      "value": "A password must be defined"
+      "value": "Er moet een wachtwoord worden ingesteld"
     }
   ],
   "next.components.auth.Signup.errors.passwordTooShort": [
     {
       "type": 0,
-      "value": "Password is too short"
+      "value": "Het wachtwoord is te kort"
     }
   ],
   "next.components.auth.Signup.errors.passwordTooWeak": [
@@ -420,7 +420,7 @@
   "next.components.auth.Signup.errors.repeatNotEqual": [
     {
       "type": 0,
-      "value": "The passwords are not identical"
+      "value": "De wachtwoorden zijn niet identiek"
     }
   ],
   "next.components.auth.Signup.formTitle": [
@@ -438,13 +438,13 @@
   "next.components.auth.Signup.fullNameLabel": [
     {
       "type": 0,
-      "value": "Username"
+      "value": "Gebruikersnaam"
     }
   ],
   "next.components.auth.Signup.fullNameLearnMore": [
     {
       "type": 0,
-      "value": "Read more"
+      "value": "Lees meer"
     }
   ],
   "next.components.auth.Signup.genericError": [
@@ -474,13 +474,13 @@
   "next.components.auth.Signup.or": [
     {
       "type": 0,
-      "value": "or"
+      "value": "of"
     }
   ],
   "next.components.auth.Signup.passwordLabel": [
     {
       "type": 0,
-      "value": "Password"
+      "value": "Wachtwoord"
     }
   ],
   "next.components.auth.Signup.repeatLabel": [
@@ -492,7 +492,7 @@
   "next.components.auth.Signup.signinLink": [
     {
       "type": 0,
-      "value": "Sign in"
+      "value": "Inloggen"
     }
   ],
   "next.components.auth.Signup.signupSuccess": [
@@ -504,7 +504,7 @@
   "next.components.auth.Signup.submitLabel": [
     {
       "type": 0,
-      "value": "Accept and create the account"
+      "value": "Accepteren en account aanmaken"
     }
   ],
   "next.components.auth.SignupComplete.cooldownMessage": [

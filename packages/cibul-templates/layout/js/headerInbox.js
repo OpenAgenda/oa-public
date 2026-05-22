@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import sessions from '@openagenda/sessions/client';
+import { authClient } from '@openagenda/auth/client';
 
 const defaults = {
   selector: '.js_inbox_header',
@@ -11,10 +11,10 @@ const defaults = {
   }
 };
 
-export default function headerInbox(options) {
+export default async function headerInbox(options) {
   const params = _.merge(defaults, options);
 
-  const user = sessions.getUser();
+  const user = (await authClient.getSession()).data?.user ?? null;
 
   if (!user) return;
 

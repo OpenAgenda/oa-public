@@ -363,6 +363,15 @@ export default function Signup({
             // eslint-disable-next-line no-console
             console.warn('Signup: ignoring unsafe redirect param');
           }
+        } else {
+          // Plain signup (no invitation, no redirect): route through
+          // /post-activate with next=/home so the verified user lands on the
+          // welcome dashboard instead of better-auth's default `/` (the public
+          // marketing page). Mirrors the server-side
+          // sendVerificationEmailOnCreate hook (cibul-node) which always
+          // defaults next=/home.
+          const params = new URLSearchParams({ next: '/home' });
+          body.callbackURL = `/post-activate?${params.toString()}`;
         }
 
         const res = await fetch('/api/auth/sign-up/email', {

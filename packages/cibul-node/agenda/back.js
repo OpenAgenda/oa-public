@@ -35,7 +35,7 @@ function agendaAdminRedirect(req, res, next) {
 }
 
 export default (app) => {
-  const { agendas, members, sessions, agendaStatistics } = app.services;
+  const { agendas, members, agendaStatistics } = app.services;
 
   const agendaLoad = agendas.middleware.load({
     private: null,
@@ -55,7 +55,6 @@ export default (app) => {
   app.use(
     ['/:agendaSlug/admin/stats', '/:agendaSlug/admin/stats/resync/:type'],
     [
-      sessions.mw.load(),
       agendaLoad,
       agendas.mw.authorizeByIPAddress(),
       members.mw.authorizeAdminModOrKey(),

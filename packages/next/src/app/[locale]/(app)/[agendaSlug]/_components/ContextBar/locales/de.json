@@ -3,7 +3,7 @@
   "next.views.AgendaShow.ContextBar.contribute": "Veranstaltung hinzufügen",
   "next.views.AgendaShow.ContextBar.drafts": "{count, number} entwürfe",
   "next.views.AgendaShow.ContextBar.draftsModalInfo": "Dies sind die Entwürfe, die Sie gespeichert haben. Sie sind für die Agenda-Moderatoren nicht sichtbar. Sie müssen abgeschlossen sein, bevor sie moderiert und veröffentlicht werden können.",
-  "next.views.AgendaShow.ContextBar.draftsModalTitle": "Entwurf",
+  "next.views.AgendaShow.ContextBar.draftsModalTitle": "Entwürfen",
   "next.views.AgendaShow.ContextBar.edit": "Bearbeiten",
   "next.views.AgendaShow.ContextBar.empty": "Diese Agenda ist leer",
   "next.views.AgendaShow.ContextBar.events": "Veranstaltungen:",

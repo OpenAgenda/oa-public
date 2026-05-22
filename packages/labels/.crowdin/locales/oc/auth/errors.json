@@ -1,5 +1,6 @@
 {
   "fieldCannotBeEmpty": "Lo camp pòt pas demorar voide",
+  "incorrectCredentials": "L'email o lo senhal son pas corrèctes.",
   "incorrectPassword": "Lo senhal es incorrècte",
   "invalidToken": "Geton invalid",
   "passwordCouldNotBeModified": "Lo senhal se posquèt pas cambiar",

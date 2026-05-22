@@ -5,7 +5,6 @@ import debug from 'debug';
 import { createMemoryHistory } from 'history';
 import { wrapApp } from '@openagenda/react-shared';
 import createInboxApp from '@openagenda/inbox-apps';
-import sessions from '@openagenda/sessions/client';
 import makeLabelGetter from '@openagenda/labels';
 import inboxesLabels from '@openagenda/labels/inboxes';
 import eventShowLabels from '@openagenda/labels/event/show';
@@ -143,7 +142,9 @@ module.exports = options => {
     const simpleUser = !roles.some(r => r == ROLES.AGENDAMODERATOR || r == ROLES.AGENDAADMIN);
     const resBasePath = simpleUser ? '/home' : '/agendas/:agendaUid';
 
-    const user = sessions.getUser();
+    // params.user is populated by the caller (event/show.js) before the
+    // inbox feature is opted in (guarded by `if (params.user)` there).
+    const user = params.user;
 
     // userRole === 'adminContributor' || 'adminmod' || 'contributor' || 'simpleUser'
     const userRole = (() => {

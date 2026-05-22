@@ -2,14 +2,10 @@ import bodyParser from 'body-parser';
 import isURL from 'validator/lib/isURL.js';
 import validators from '@openagenda/validators';
 import _ from 'lodash';
+import { requireUser } from '../../lib/authGuards.js';
 
 export default (config, parentApp) => {
-  const {
-    sessions,
-    agendas: agendasSvc,
-    members,
-    aggregators,
-  } = parentApp.services;
+  const { agendas: agendasSvc, members, aggregators } = parentApp.services;
 
   // this stays
   parentApp.all(
@@ -19,7 +15,7 @@ export default (config, parentApp) => {
       '/:agendaSlug/admin/sources/remove',
     ],
     [
-      sessions.mw.loadOrRedirect(),
+      requireUser,
       agendasSvc.mw.load,
       agendasSvc.mw.authorizeByIPAddress(),
       members.mw.loadAndAuthorize('administrator'),

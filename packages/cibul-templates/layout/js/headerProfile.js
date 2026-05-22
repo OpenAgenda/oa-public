@@ -1,11 +1,13 @@
 "use strict";
 
-import session from '@openagenda/sessions/client';
+import { authClient } from '@openagenda/auth/client';
 
 const extend = require( 'lodash/extend' );
 
 const getLabelFactory = require( '@openagenda/labels' );
 const labels = require( '@openagenda/labels/users/profile' );
+
+const image = require( '../../helpers/image' )();
 
 const bsTemplate = require( '../../user/bsMenu.ejs' );
 const b64 = require( '../../js/lib/Base64' );
@@ -31,7 +33,7 @@ const params = {
 
 let pClicked = false;
 
-module.exports = options => {
+module.exports = async options => {
 
   extend( params, options );
 
@@ -43,13 +45,13 @@ module.exports = options => {
 
     li;
 
-  if ( !session.isLogged() ) {
+  let user = ( await authClient.getSession() ).data?.user ?? null;
+
+  if ( !user ) {
 
     return;
 
   }
-
-  let user = session.getUser();
 
   if ( languageMenu ) languageMenu.remove();
 
@@ -58,9 +60,7 @@ module.exports = options => {
   ul.innerHTML = bsTemplate( {
     __ : getLabelFactory( labels, user.culture ),
     fullName: user.name,
-    thumbnail: user.thumbnail
-      ? process.env.NODE_ENV === 'development' ? user.thumbnail.replace( 'dev', 'main' ) : user.thumbnail
-      : null
+    thumbnail: user.image ? image( user.image ) : null
   } );
 
   li = du.el( ul, 'li' );

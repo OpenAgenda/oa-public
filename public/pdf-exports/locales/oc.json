@@ -1,1 +1,10 @@
-{}
+{
+  "pdf-exports.access": "Accès",
+  "pdf-exports.additionalLinks": "Ligams suplementaris",
+  "pdf-exports.conditions": "Condicions",
+  "pdf-exports.location": "Lòc",
+  "pdf-exports.locationDetails": "A prepaus del lòc",
+  "pdf-exports.online": "En linha",
+  "pdf-exports.status": "Estatut",
+  "pdf-exports.tags": "Etiquetas"
+}

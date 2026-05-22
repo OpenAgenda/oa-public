@@ -3,5 +3,10 @@
   "ReactShared.ImageInput.fileTooSmall": "Datei {fileName} ist {fileSize}, die Untergrenze für die Dateigröße ist {minSize}",
   "ReactShared.ImageInput.notSupported": "Datei {fileName} wird nicht unterstützt",
   "ReactShared.ImageInput.tooManyFiles": "Zu viele Dateien, akzeptiert nur eine einzige Datei",
+  "common.event.fields.imageCredits": "Bildnachweis",
+  "common.event.fields.location": "Ort",
+  "common.event.fields.longDescription": "Lange Beschreibung",
+  "common.event.fields.registration": "Registrierung",
+  "common.event.fields.title": "Titel",
   "common.event.states.toModerate": "Zu moderieren"
 }

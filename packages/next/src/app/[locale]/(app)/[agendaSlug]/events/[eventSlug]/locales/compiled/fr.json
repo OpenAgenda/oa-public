@@ -196,7 +196,7 @@
   "next.views.EventShow.ContextBar.deleteConfirmation": [
     {
       "type": 0,
-      "value": "Êtes-vous sûr de vouloir supprimer cet événement?"
+      "value": "Etes-vous sûr de vouloir supprimer cet événement?"
     }
   ],
   "next.views.EventShow.ContextBar.deleteEvent": [
@@ -256,7 +256,7 @@
   "next.views.EventShow.ContextBar.editLocation": [
     {
       "type": 0,
-      "value": "Modifier le lieu"
+      "value": "Editer le lieu"
     }
   ],
   "next.views.EventShow.ContextBar.eventNotFound": [
@@ -598,7 +598,7 @@
   "next.views.EventShow.EditLocationButton.editLocation": [
     {
       "type": 0,
-      "value": "Modifier le lieu"
+      "value": "Editer le lieu"
     }
   ],
   "next.views.EventShow.EmailConfirmationAlert.close": [

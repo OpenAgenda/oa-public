@@ -16,7 +16,7 @@ export function addUserContext(req, res, next) {
   const { services } = req.app;
   const span = trace.getActiveSpan();
 
-  setAttributes({ req, span }, 'session.id', req.session?.sessionId);
+  setAttributes({ req, span }, 'visitor.id', req.visitorId);
   setAttributes({ req, span }, 'user.uid', req.user?.uid);
   setAttributes(
     { req, span },

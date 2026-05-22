@@ -83,6 +83,7 @@
   "AgendaLocations.LocationDetails.extId": "Externe identificatie",
   "AgendaLocations.LocationDetails.hoverInfo": "Is deze informatie niet correct? Klik op de knop bovenaan dit venster om de aan te brengen wijzigingen te specificeren",
   "AgendaLocations.LocationDetails.image": "Afbeelding",
+  "AgendaLocations.LocationDetails.imageCredits": "Afbeeldingscredits",
   "AgendaLocations.LocationDetails.insee": "INSEE-code",
   "AgendaLocations.LocationDetails.links": "Extra links",
   "AgendaLocations.LocationDetails.name": "Naam",

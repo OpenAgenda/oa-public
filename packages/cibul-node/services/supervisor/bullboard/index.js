@@ -3,7 +3,7 @@ import { createBullBoard } from '@bull-board/api';
 
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter.js';
 import * as contentSecurityPolicy from '../../../lib/contentSecurityPolicy.js';
-import cmn from '../../../lib/commons-app.js';
+import { requireUser } from '../../../lib/authGuards.js';
 import ExpressAdapter from './ExpressAdapter.js';
 
 const csp = contentSecurityPolicy.default({
@@ -23,7 +23,6 @@ const csp = contentSecurityPolicy.default({
 export function plugApp(app, base = '/bullboard') {
   const {
     bull: { Queue },
-    sessions,
     users,
   } = app.services;
 
@@ -104,7 +103,7 @@ export function plugApp(app, base = '/bullboard') {
 
   app.use(
     base,
-    sessions.mw.ifUnlogged(cmn.redirectToSignin),
+    requireUser,
     users.mw.allowSuperAdmin(),
     csp,
     serverAdapter.getRouter(),

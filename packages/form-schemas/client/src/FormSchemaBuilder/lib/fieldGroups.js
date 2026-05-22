@@ -49,6 +49,80 @@ function labels({ labelLanguages }) {
   };
 }
 
+function labelOnly({ labelLanguages }) {
+  return {
+    fields: [
+      {
+        field: 'label',
+        fieldType: 'text',
+        optional: false,
+        languages: labelLanguages.length ? labelLanguages : null,
+        label: l.fieldLabel,
+      },
+    ],
+  };
+}
+
+function info({ labelLanguages }) {
+  return {
+    fields: [
+      {
+        field: 'info',
+        fieldType: 'text',
+        languages: labelLanguages.length ? labelLanguages : null,
+      },
+    ],
+  };
+}
+
+function placeholderSub({ labelLanguages }) {
+  return {
+    fields: [
+      {
+        field: 'placeholder',
+        fieldType: 'text',
+        languages: labelLanguages.length ? labelLanguages : null,
+        label: l.fieldPlaceholder,
+        placeholder: l.fieldPlaceholderPlaceholder,
+      },
+      {
+        field: 'sub',
+        fieldType: 'text',
+        languages: labelLanguages.length ? labelLanguages : null,
+        label: l.fieldSub,
+        sub: l.fieldSubSub,
+      },
+    ],
+  };
+}
+
+function help({ labelLanguages }) {
+  return {
+    fields: [
+      {
+        field: 'help',
+        fieldType: 'text',
+        languages: labelLanguages.length ? labelLanguages : null,
+        label: l.fieldHelp,
+        info: l.fieldHelpInfo,
+      },
+      {
+        field: 'helpLink',
+        fieldType: 'link',
+        label: l.fieldHelpLink,
+        placeholder: l.fieldHelpLinkPlaceholder,
+      },
+      {
+        field: 'helpContent',
+        fieldType: 'markdown',
+        languages: labelLanguages.length ? labelLanguages : null,
+        label: l.fieldHelpContent,
+        info: l.fieldHelpContentInfo,
+      },
+    ],
+  };
+}
+
 function options({ labelLanguages }) {
   return {
     fields: [
@@ -109,11 +183,32 @@ function allowFalse() {
   };
 }
 
+function conditional({ siblings, currentFieldSlug, lang }) {
+  return {
+    fields: [
+      {
+        field: 'conditional',
+        fieldType: 'conditional',
+        optional: true,
+        label: l.fieldConditionalSection,
+        siblings,
+        currentFieldSlug,
+        lang,
+      },
+    ],
+  };
+}
+
 export default {
   labels,
+  labelOnly,
+  info,
+  placeholderSub,
+  help,
   minMax,
   optional,
   options,
   section,
   allowFalse,
+  conditional,
 };

@@ -1,17 +1,15 @@
 import express from 'express';
 import * as inboxMw from '@openagenda/inboxes/src/middleware.js';
+import { requireUserJson } from '../../../../lib/authGuards.js';
 import makeErrorHandler from './makeErrorHandler.js';
 
 export default (config, services) => {
-  const { sessions, users } = services;
+  const { users } = services;
 
   const errorHandler = makeErrorHandler(services);
 
   const preMw = [
-    sessions.mw.ifUnlogged((req, res) =>
-      res.status(400).json({
-        error: 'Not logged',
-      })),
+    requireUserJson,
     (req, res, next) => {
       req.type = 'support';
       req.identifier = 1;
@@ -177,7 +175,9 @@ export default (config, services) => {
         },
         fallbackGetter: () => ({
           name: req.user.name,
-          avatar: req.user.thumbnail || config.s3.defaultImagePath,
+          avatar: req.user.image
+            ? config.s3.mainBucketPath + req.user.image
+            : config.s3.defaultImagePath,
         }),
       })(req, res, next);
     },

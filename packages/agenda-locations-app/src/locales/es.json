@@ -83,6 +83,7 @@
   "AgendaLocations.LocationDetails.extId": "ID externo",
   "AgendaLocations.LocationDetails.hoverInfo": "¿Esta información no está correcta? Haz clic en el botón en la parte superior de este menú para detallar los cambios a realizar",
   "AgendaLocations.LocationDetails.image": "Imagen",
+  "AgendaLocations.LocationDetails.imageCredits": "Créditos de las imágenes",
   "AgendaLocations.LocationDetails.insee": "código INSEE",
   "AgendaLocations.LocationDetails.links": "Enlaces adicionales",
   "AgendaLocations.LocationDetails.name": "Nombre",

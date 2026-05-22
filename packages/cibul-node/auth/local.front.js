@@ -3,6 +3,7 @@ import qs from 'qs';
 import logs from '@openagenda/logs';
 import cmn from '../lib/commons-app.js';
 import { setFlash } from '../lib/flash.js';
+import { ifLogged } from '../lib/authGuards.js';
 import computePostActivateRedirect from './lib/computePostActivateRedirect.js';
 
 const log = logs('auth/local');
@@ -227,14 +228,14 @@ async function activate(req, res) {
 }
 
 export default (app) => {
-  const { sessions, agendas } = app.services;
+  const { agendas } = app.services;
 
   log('initing');
 
   app.get(
     '/activate/:token',
     preMw,
-    sessions.mw.ifLogged((req, res) => res.redirect(302, '/home')),
+    ifLogged((req, res) => res.redirect(302, '/home')),
     activate,
   );
 
@@ -242,7 +243,7 @@ export default (app) => {
     '/:agendaSlug/activate/:token',
     agendas.mw.load,
     preMw,
-    sessions.mw.ifLogged(redirectToContribute),
+    ifLogged(redirectToContribute),
     activate,
   );
 

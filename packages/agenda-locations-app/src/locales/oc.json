@@ -83,6 +83,7 @@
   "AgendaLocations.LocationDetails.extId": "Identificant extèrne",
   "AgendaLocations.LocationDetails.hoverInfo": "Aquesta informacion es pas corrècta? Clicatz sul boton en naut d'aqueste menut per detalhar los cambiaments de portar",
   "AgendaLocations.LocationDetails.image": "Imatge",
+  "AgendaLocations.LocationDetails.imageCredits": "Crèdits de l'imatge",
   "AgendaLocations.LocationDetails.insee": "Còdi INSEE",
   "AgendaLocations.LocationDetails.links": "Ligams suplementaris",
   "AgendaLocations.LocationDetails.name": "Nom",

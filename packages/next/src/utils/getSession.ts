@@ -1,32 +1,30 @@
-import { SESSION_COOKIE_NAME } from '../config/constants';
-import base64 from './base64';
+import { headers } from 'next/headers';
+import { getCookieCache } from '@openagenda/auth/server';
+import type { Session } from '@openagenda/auth/session';
 
-function getCookie(cookies: any, name: string) {
-  if (typeof cookies.get === 'function') {
-    const cookie = cookies.get(name);
-    return typeof cookie === 'object' && cookie !== null
-      ? cookie.value
-      : cookie;
-  }
+const secret = process.env.OA_AUTH_SECRET;
 
-  return cookies?.[name];
+type RequestLike = Request | Headers;
+
+export async function getSessionFromRequest(
+  request: RequestLike,
+): Promise<{ user: Session['user']; session: Session['session'] } | null> {
+  if (!secret) return null;
+  const cached = await getCookieCache(request, {
+    secret,
+    cookiePrefix: 'oa',
+    // Match the renamed session-cache cookie in `@openagenda/auth` (avoids
+    // Sentry's sensitive-header filter on `session` snippet).
+    cookieName: 'sess_data',
+  });
+  if (!cached) return null;
+  return {
+    user: cached.user as unknown as Session['user'],
+    session: cached.session as unknown as Session['session'],
+  };
 }
 
-/**
- * Decode the raw base64-JSON payload of the session cookie. Returns null on
- * absence or parse failure. Exposed separately so callers that already have
- * the cookie value as a string (e.g. span attributes) can skip the lookup
- * step in `getSession`.
- */
-export function parseSessionCookie(value: string | undefined | null) {
-  if (!value) return null;
-  try {
-    return JSON.parse(base64.decode(value));
-  } catch {
-    return null;
-  }
-}
-
-export default function getSession(cookies: any) {
-  return parseSessionCookie(getCookie(cookies, SESSION_COOKIE_NAME));
+export default async function getSession(request?: RequestLike) {
+  const h = request ?? await headers();
+  return getSessionFromRequest(h as RequestLike);
 }

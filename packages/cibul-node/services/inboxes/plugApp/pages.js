@@ -1,5 +1,6 @@
 import { Forbidden } from '@openagenda/verror';
 import cmn from '../../../lib/commons-app.js';
+import { requireUser } from '../../../lib/authGuards.js';
 import render from './render.js';
 import renderContactInboxApp from './renders/contactInboxApp.js';
 import renderMemberContactApp from './renders/memberContactApp.js';
@@ -52,7 +53,6 @@ function renderEmbedInbox(req, res, next) {
 
 export default (app, config, services) => {
   const {
-    sessions,
     users: usersSvc,
     agendas,
     members,
@@ -62,23 +62,18 @@ export default (app, config, services) => {
 
   const loadEvent = eventLoader(events);
 
-  app.get(
-    '/home/inbox/refresh-check',
-    sessions.mw.load(),
-    checkUser,
-    (req, res, next) => {
-      usersSvc
-        .refresh(req.user.uid, {
-          lastInboxCheck: true,
-        })
-        .then(() => res.sendStatus(200))
-        .catch(next);
-    },
-  );
+  app.get('/home/inbox/refresh-check', checkUser, (req, res, next) => {
+    usersSvc
+      .refresh(req.user.uid, {
+        lastInboxCheck: true,
+      })
+      .then(() => res.sendStatus(200))
+      .catch(next);
+  });
 
   app.use(
     '/:slug/contact',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug',
@@ -90,7 +85,7 @@ export default (app, config, services) => {
 
   app.use(
     '/:slug/admin/members/:memberId/contact',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug',
@@ -104,7 +99,7 @@ export default (app, config, services) => {
 
   app.use(
     '/:slug/admin/events/:eventSlug/contact',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug',
@@ -118,7 +113,7 @@ export default (app, config, services) => {
 
   app.use(
     '/:slug/events/:eventSlug/contact',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug',
@@ -131,7 +126,7 @@ export default (app, config, services) => {
 
   app.use(
     '/:slug/admin/events/:eventSlug/edition-request',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug',
@@ -145,7 +140,7 @@ export default (app, config, services) => {
 
   app.use(
     '/:slug/request-contribute',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug',
@@ -157,7 +152,7 @@ export default (app, config, services) => {
 
   app.use(
     '/:slug/locations/:locationUid/suggest-change',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug',
@@ -177,7 +172,7 @@ export default (app, config, services) => {
 
   app.use(
     '/:slug/events/:eventUid/suggest-change',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug',
@@ -201,7 +196,7 @@ export default (app, config, services) => {
 
   app.use(
     '/:slug/events/:eventSlug/embed-inbox',
-    sessions.mw.loadOrRedirect(),
+    requireUser,
     agendas.mw.loadBy({
       path: 'params.slug',
       field: 'slug',

@@ -24,9 +24,3 @@ export const FALLBACK_LOCALES = {
   eu: 'es',
   oc: 'fr',
 };
-
-// Name of the cookie that carries the session payload (base64-encoded JSON).
-// Referenced by session helpers AND by the OTel session enrichment processor
-// that reads the cookie from the span's `http.request.header.cookie.oa.user`
-// attribute — keep in sync if this ever changes.
-export const SESSION_COOKIE_NAME = 'oa.user';

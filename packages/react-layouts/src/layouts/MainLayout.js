@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -7,9 +7,8 @@ import { Link, useLocation } from 'react-router-dom';
 import OutsideClickHandlerModule from 'react-outside-click-handler';
 import classNames from 'classnames';
 import useCookieModule from 'react-use/lib/useCookie.js';
-import useIntervalModule from 'react-use/lib/useInterval.js';
 import { ErrorBoundary } from '@sentry/react';
-import session from '@openagenda/sessions/client';
+import { authClient } from '@openagenda/auth/react';
 import Notifications from '@openagenda/activity-apps/client/components/Notifications';
 import * as mainActions from '../reducers/main.js';
 import ChildLayouts from '../components/ChildLayouts.js';
@@ -22,7 +21,6 @@ import FlashModal from '../components/FlashModal.js';
 
 const OutsideClickHandler = OutsideClickHandlerModule.default || OutsideClickHandlerModule;
 const useCookie = useCookieModule.default || useCookieModule;
-const useInterval = useIntervalModule.default || useIntervalModule;
 
 const STORAGE_ANNOUNCEMENT_KEY = 'oa:announcement';
 
@@ -105,8 +103,6 @@ function TranslateLink() {
   );
 }
 
-const getDefaultSessionUser = () => session.getUser();
-
 function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
   const intl = useIntl();
 
@@ -158,30 +154,36 @@ function MainLayout({ childLayouts, children, extraProps, fallback, history }) {
     [fallback, intl.locale],
   );
 
-  const [sessionUser, setSessionUser] = useState(
-    typeof document !== 'undefined' ? getDefaultSessionUser : null,
-  );
+  // authClient.useSession is atom-backed: revalidates on window focus and
+  // syncs across tabs via BroadcastChannel. Replaces the legacy 5s cookie
+  // poll that watched `oa.user`.
+  const { data: baSession, isPending: baSessionPending } = authClient.useSession();
+  const sessionUser = baSession?.user ?? null;
+  const prevSessionUidRef = useRef(null);
 
-  useInterval(() => {
-    if (typeof document === 'undefined') {
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    if (baSessionPending) return;
+
+    const currentUid = sessionUser?.uid ?? null;
+    const prevUid = prevSessionUidRef.current;
+    prevSessionUidRef.current = currentUid;
+
+    if (prevUid === currentUid) return;
+
+    // Cross-tab logout or session expiry: reload to reset SPA state.
+    if (prevUid != null && currentUid == null) {
+      window.location.reload();
       return;
     }
 
-    const freshSessionUser = session.getUser();
-
-    if (shallowEqual(sessionUser, freshSessionUser)) {
-      return;
+    // Cross-tab login or user switch: refresh the rich `state.main.user`
+    // payload. Skip when the redux store already has the matching user
+    // (SSR-populated on first paint).
+    if (currentUid != null && currentUid !== user?.uid) {
+      loadLayoutData().catch(() => null);
     }
-
-    setSessionUser(freshSessionUser);
-
-    if (!freshSessionUser) {
-      // reload page if user is disconnected
-      return window.location.reload();
-    }
-
-    loadLayoutData().catch(() => null);
-  }, 5000);
+  }, [baSessionPending, sessionUser, loadLayoutData, user?.uid]);
 
   useEffect(() => {
     if (!userLoaded) {

@@ -2,19 +2,19 @@
   "next.components.auth.AuthDialog.msg.authRequired": [
     {
       "type": 0,
-      "value": "L'accès à la page demandée est restreint. Connectez-vous pour y accéder."
+      "value": "Strishaet eo ar moned d'ar bajenn goulennet. Kevreit evit mont dezhi."
     }
   ],
   "next.components.auth.AuthDialog.msg.limitedAccessAgenda": [
     {
       "type": 0,
-      "value": "L'accès à cet agenda est restreint. Connectez-vous pour y accéder."
+      "value": "Strishaet eo ar moned d'an deiziataer-mañ. Kevreit evit mont dezhañ."
     }
   ],
   "next.components.auth.AuthDialog.msg.limitedAccessEvent": [
     {
       "type": 0,
-      "value": "L'accès à cet événement est restreint. Connectez-vous pour y accéder."
+      "value": "Ret eo deoc'h bezañ anavezet evit mont d'an darvoud-mañ. Kevreit, mar plij."
     }
   ],
   "next.components.auth.Signin.invalidActivation.description": [

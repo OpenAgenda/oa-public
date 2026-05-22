@@ -10,8 +10,6 @@ import getHandler from './lib/getHandler.js';
 export default function plugApp(app) {
   const service = app.services.users;
 
-  const { sessions } = app.services;
-
   express(feathers(), app); // extend app with .configure, .service and .use
   app.configure(express.rest(null)); // add handler for requests
 
@@ -85,18 +83,26 @@ export default function plugApp(app) {
     getHandler('refresh', ['id', 'data', 'params'])(service),
   );
 
-  // update session after a user patch
-  app.patch(
-    '/users/:__feathersId',
-    sessions.mw.open('user', 'sessionResult'),
-    (req, res, next) => {
-      if (!res.data) {
-        return next();
-      }
-
-      sessions.mw.sync('syncResult')(req, res, next);
-    },
-  );
+  // The patch's afterPatchRefreshSession hook already re-snapshotted the user
+  // into the Redis session; rebuild the signed cookie cache from that fresh
+  // snapshot and forward it so the client sees the updated fullName / image /
+  // culture immediately instead of waiting for cookieCache.maxAge expiry.
+  app.patch('/users/:__feathersId', async (req, res, next) => {
+    if (!res.data) return next();
+    const { auth } = req.app.services;
+    if (!auth) return next();
+    try {
+      const out = await auth.api.getSession({
+        headers: auth.toHeaders(req),
+        query: { disableCookieCache: true },
+        asResponse: true,
+      });
+      auth.forwardSetCookieHeaders(out, res);
+    } catch (_err) {
+      // Cache stays stale until natural expiry; not worth failing the patch.
+    }
+    next();
+  });
 
   // send confirmation email after requestChangeEmail
   app.patch('/users/:__feathersId/requestChangeEmail', changeEmailMw.send);
