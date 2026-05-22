@@ -109,7 +109,7 @@ export default function PassImage({
           passUnpublished,
         )}
       />
-      {passTabIsOpen ? (
+      {passTabIsOpen && passId ? (
         <span>
           <a className="margin-left-xs" href={seeLink}>
             {intl.formatMessage(messages.see)}
