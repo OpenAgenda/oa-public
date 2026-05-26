@@ -8,7 +8,7 @@ const getEventEditLink = (res, event) =>
     .replace(':slug', event.agenda && event.agenda.slug)
     .replace(':eventUid', event.uid);
 
-const getEventShowLink = (res, event) => {
+const getEventShowLink = (res, event, lang) => {
   if (event.draft) {
     return getEventEditLink(res, event);
   }
@@ -18,6 +18,7 @@ const getEventShowLink = (res, event) => {
   }
 
   return res[event.private ? 'showPrivate' : 'show']
+    .replace(':locale', lang)
     .replace(':slug', event.agenda.slug)
     .replace(':eventSlug', event.slug);
 };
@@ -52,7 +53,7 @@ function EventItem({ event, res, getLabel, lang }) {
     >
       <div className="padding-all-md" title={getLabel('show')}>
         <div className="media-left">
-          <a href={getEventShowLink(res, event)}>
+          <a href={getEventShowLink(res, event, lang)}>
             <Image
               src={getImagePath(event.image)}
               fallbackSrc={
@@ -64,7 +65,7 @@ function EventItem({ event, res, getLabel, lang }) {
           </a>
         </div>
         <div className="media-body">
-          <a href={getEventShowLink(res, event)}>
+          <a href={getEventShowLink(res, event, lang)}>
             <div className="title media-heading">
               {event.agenda ? (
                 <div className="agenda">{event.agenda.title}</div>
@@ -101,7 +102,7 @@ function EventItem({ event, res, getLabel, lang }) {
               ) : (
                 <a
                   className="btn btn-link padding-top-xs padding-left-z"
-                  href={getEventShowLink(res, event)}
+                  href={getEventShowLink(res, event, lang)}
                 >
                   {getLabel('show')}
                 </a>

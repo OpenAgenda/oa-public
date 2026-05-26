@@ -165,9 +165,9 @@ const initialState = async (req) => {
         },
         events: {
           list: '/home/events.json',
-          show: '/:slug/events/:eventSlug',
-          showPrivate: '/:slug.prv/events/:eventSlug',
-          showWithoutAgenda: '/events/:eventSlug',
+          show: '/:locale/:slug/events/:eventSlug',
+          showPrivate: '/:locale/:slug.prv/events/:eventSlug',
+          showWithoutAgenda: '/:locale/events/:eventSlug',
           edit: '/:slug/contribute/event/:eventUid',
         },
         messages: '/home/messages',
