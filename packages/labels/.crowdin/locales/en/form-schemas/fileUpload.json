@@ -6,5 +6,6 @@
   "loading": "Upload ongoing",
   "or": "OR",
   "acceptedExtensions": "Accepted files",
-  "remove": "Delete"
+  "remove": "Delete",
+  "invalidExtension": "This file type is not allowed"
 }

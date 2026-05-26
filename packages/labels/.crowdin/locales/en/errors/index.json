@@ -25,5 +25,7 @@
   "invalidOrIncompleteEvent": "The action was not successful. The event is either incomplete, or invalid. Update it before trying again",
   "changeEmailErrorTitle": "The link you clicked on is invalid",
   "changeEmailError": "This can happen for a few reasons:\n1. This link was already used and the email change was already validated.\n2. Several email changes were submitted sequentially. In that case only the last link sent to your inbox can be valid.\n3. You are attempting to open this link from an account different than the one from which the request was initiated.\n\nContact support if this problem persists.",
+  "unlinkFacebookErrorTitle": "The link you clicked on is invalid",
+  "unlinkFacebookError": "This can happen for a few reasons:\n1. This link was already used and the account migration was already completed.\n2. You submitted the form several times and only the link from the last email is still valid.\n3. You are opening the link from a session of a different account than the one that initiated the request.\n\nContact support if this problem persists.",
   "contactSupport": "Contact support"
 }
