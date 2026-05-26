@@ -3,6 +3,8 @@
 > Objectif à terme : une API **claire et cohérente**, dotée d'une spec **OpenAPI**, d'un **SDK**, d'une **documentation** et d'un **MCP** générés via **Stainless**.
 >
 > Ce document décrit l'existant, pointe ce qui est améliorable, et propose une feuille de route. Les références de fichiers pointent vers `packages/cibul-node/api/` sauf mention contraire.
+>
+> **État d'avancement** : ce document reste l'instantané stratégique + les décisions (§9). La mise en œuvre v3 a démarré — le contrat OpenAPI (`packages/api-spec`) et la **lecture des events** (endpoints list/get + filtres de liste, `packages/cibul-node/api-v3/`) sont implémentés. Suivi détaillé au fil des tranches dans `packages/api-spec/IMPLEMENTATION-NOTES.md`.
 
 ---
 
