@@ -145,9 +145,42 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
           referencingAgendaUid: '9',
           set: 'foo',
           mlt: 'bar',
-          custom: { theme: '2' },
         }),
       ).toEqual({});
+    });
+  });
+
+  describe('custom field filters', () => {
+    it('maps scalar, list and range custom fields under query.custom', () => {
+      expect(
+        buildEventSearchQuery({
+          custom: {
+            thematique: '2',
+            tags: ['a', 'b'],
+            budget: { gte: '10', lte: '100' },
+          },
+        }),
+      ).toEqual({
+        custom: {
+          thematique: '2',
+          tags: ['a', 'b'],
+          budget: { gte: '10', lte: '100' },
+        },
+      });
+    });
+
+    it('rejects custom that is not an object', () => {
+      expect(badRequestFields({ custom: 'nope' })).toContain('custom');
+    });
+
+    it('rejects an unknown range bound on a custom field', () => {
+      expect(
+        badRequestFields({ custom: { budget: { around: '10' } } }),
+      ).toContain('custom.budget.around');
+    });
+
+    it('drops a custom field whose range has no valid bound', () => {
+      expect(buildEventSearchQuery({ custom: { budget: {} } })).toEqual({});
     });
   });
 

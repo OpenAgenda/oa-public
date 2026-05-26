@@ -133,6 +133,49 @@ function parseProximity(rawQuery, query, fail) {
   query.geoDistance = { center: { lat, lng }, distance: radius };
 }
 
+// `custom[<field>]` -> core `query.custom`. Without the agenda schema here we
+// only validate the SHAPE: each field is a scalar, a list of scalars, or a
+// numeric range object (gte/lte/gt/lt). `core` does the schema-aware typing and
+// access filtering. Unknown fields are passed through and ignored server-side.
+const RANGE_BOUNDS = ['gte', 'lte', 'gt', 'lt'];
+
+function parseCustom(field, value, fail) {
+  if (!isPlainObject(value)) {
+    fail(field, 'custom must be an object of field filters');
+    return undefined;
+  }
+  const out = {};
+  for (const [name, raw] of Object.entries(value)) {
+    if (isPlainObject(raw)) {
+      const rangeOut = {};
+      for (const bound of Object.keys(raw)) {
+        if (!RANGE_BOUNDS.includes(bound)) {
+          fail(
+            `${field}.${name}.${bound}`,
+            'unknown range bound (use gte/lte/gt/lt)',
+          );
+          continue;
+        }
+        if (Array.isArray(raw[bound]) || isPlainObject(raw[bound])) {
+          fail(`${field}.${name}.${bound}`, 'must be a single value');
+          continue;
+        }
+        rangeOut[bound] = raw[bound];
+      }
+      if (Object.keys(rangeOut).length) out[name] = rangeOut;
+    } else if (Array.isArray(raw)) {
+      if (raw.some((v) => Array.isArray(v) || isPlainObject(v))) {
+        fail(`${field}.${name}`, 'must be a scalar or a list of scalars');
+      } else {
+        out[name] = raw;
+      }
+    } else {
+      out[name] = raw;
+    }
+  }
+  return out;
+}
+
 function buildEventSearchQuery(rawQuery = {}) {
   const errors = [];
   const query = {};
@@ -396,8 +439,15 @@ function buildEventSearchQuery(rawQuery = {}) {
     if (value !== undefined) query.sort = value;
   }
 
-  // NOTE: `custom[<field>]` filtering is wired in a later slice (needs the
-  // agenda's public form schema); it is intentionally not handled here yet.
+  // ---- agenda-specific custom fields ----
+  // We pass `custom[<field>]` through under `query.custom`; `core` resolves the
+  // agenda's form schema (auto-injected from the loaded agenda) to type-clean
+  // each value and enforce per-field read access, so a restricted field is
+  // dropped server-side. We only structurally validate the shape here.
+  if (rawQuery.custom !== undefined) {
+    const custom = parseCustom('custom', rawQuery.custom, fail);
+    if (custom && Object.keys(custom).length) query.custom = custom;
+  }
 
   if (errors.length) {
     throw new BadRequest({ info: { errors } }, 'Invalid query parameters');

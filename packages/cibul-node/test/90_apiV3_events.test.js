@@ -335,6 +335,36 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
     });
   });
 
+  describe('GET /agendas/:agendaUid/events — custom field filtering', () => {
+    // Network 1 carries form schema 1 (public radio field `thematique`).
+    // Agenda 1 published events: uid 1 (thematique=2) and uid 6 (no custom).
+    const listA1 = (qs = '') =>
+      request(app)
+        .get(`/agendas/1/events${qs}`)
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+    it('narrows to events carrying the custom field value', async () => {
+      const baseline = await listA1();
+      expect(baseline.status).toBe(200);
+      const baselineUids = baseline.body.data.map((e) => e.uid);
+      expect(baselineUids).toContain(1);
+      expect(baselineUids).toContain(6);
+
+      const filtered = await listA1('?custom[thematique]=2');
+      expect(filtered.status).toBe(200);
+      const uids = filtered.body.data.map((e) => e.uid);
+      expect(uids).toContain(1);
+      expect(uids).not.toContain(6);
+      expect(filtered.body.data.length).toBeLessThan(baseline.body.data.length);
+    });
+
+    it('returns nothing for a custom value no published event has', async () => {
+      const res = await listA1('?custom[thematique]=1');
+      expect(res.status).toBe(200);
+      expect(res.body.data).toHaveLength(0);
+    });
+  });
+
   describe('GET /agendas/:agendaUid/events/:eventUid', () => {
     it('returns 200 with a bare contract-valid Event', async () => {
       const list = await request(app)
