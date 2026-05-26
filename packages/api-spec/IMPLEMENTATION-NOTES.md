@@ -23,7 +23,7 @@ La réponse event de l'API actuelle vient de l'**`_source` Elasticsearch**, post
 - **Enveloppe** : liste → `{ data, pagination }` ; ressource seule → objet `Event` nu. (L'API actuelle renvoie `{ success, event }` et `{ events, total, after, sort, aggregations, success }` — à transformer.)
 - **Erreur** : mapper les `err.name` de `core` vers `{ error: { code, message, details? } }` ; codes HTTP corrects (401 vs 403).
 - **Cursor `after`** : l'interne est un **tableau** `search_after` ES (ex. `[timing, tiebreaker]`), `null` quand tout est renvoyé. Le contrat l'expose en **string opaque** → **base64-encoder/décoder** le tableau (+ le sort, et idéalement le `limit`) en une string. En entrée, décoder vers `useAfterKey` / `search_after`. **Ne jamais exposer le tableau brut.**
-- **Champs custom** : séparer natif vs custom via le `schemaId` du schéma (natif = schéma par défaut/parent `schemaId: null` ; custom = schéma propre de l'agenda). Nester les non-natifs sous `custom`. Le socle reste à plat. `additionalProperties: false` sur `Event` est correct **parce que** le mapping émet exactement les champs du contrat (il ne passe pas l'`_source` brut).
+- **Champs custom** : séparation natif/custom par **allowlist de champs** (implémentée tranche 2-3) — `mapEvent.js` énumère les champs natifs (`BASE_FIELDS`/`FULL_FIELDS`), droppe les clés internes (`DROP_KEYS`), et route **toute clé restante** sous `custom`. Le socle reste à plat. `additionalProperties: false` sur `EventSummary`/`Event` est correct **parce que** le mapping émet exactement les champs du contrat (il ne passe pas l'`_source` brut). _(Approche plus simple que le tri par `schemaId` initialement envisagé.)_
 - **`readOnly`** : les champs `readOnly: true` (uid, slug, state, timestamps, dateRange, first/last/nextTiming, originAgenda, sourceAgendas, featured, country, links, timezone) ne sont pas acceptés en écriture.
 
 ### Champs ES volontairement EXCLUS du contrat public
@@ -32,14 +32,14 @@ Le mapping ne doit pas les émettre (modération/interne) : `addMethod`, `motive
 
 ---
 
-## À confirmer via contract-tests (formes première-passe)
+## Formes première-passe — résolues (tranches 2-3)
 
-Le schéma a été ancré sur code + fixtures, mais ces points restent à valider contre de vraies réponses en tranche 2 :
+Le schéma a d'abord été ancré sur code + fixtures ; ces points ont été tranchés contre de vraies réponses :
 
-- `image.credits` vs `imageCredits` top-level : lequel apparaît réellement en sortie ? (les deux sont déclarés pour l'instant)
-- Formes laxistes (`additionalProperties: true`) à resserrer si possible : `Image.variants[]`, `Location`, `Registration`, `EnrichedLink`, `AgendaRef`.
-- `limit` max = 100 : à caler sur `validateNavSize` (`api/middleware/validateNavSize.js`).
-- `AgendaRef.title` : string ou multilingue ? (modélisé string)
+- `image.credits` vs `imageCredits` top-level : **les deux coexistent réellement** (confirmé tranche 2) → les deux restent déclarés.
+- Formes laxistes (`additionalProperties: true`) sur `Image`(+`variants`), `Location`, `Registration`, `EnrichedLink`, `AgendaRef` : **resserrées en `additionalProperties: false`** + nettoyage allowlist du mapper (tranche 3, cf. « Revue tranche 3 »).
+- `limit` max = 100 : **statu quo assumé** (clamp côté mapping ; `validateNavSize` v2 plafonne à 300, v3 borne plus strictement).
+- `AgendaRef.title` : modélisé `string` (inchangé).
 
 ---
 
@@ -113,7 +113,8 @@ agenda, agendaUid, _agg, …`.
     string ; `image` sans `credits`). Les deux restent déclarés.
   - `Image.variants[]`, `Location`, `EnrichedLink`, `AgendaRef` (`additionalProperties: true`)
     encaissent les nombreux champs internes réels (`location._agg`, `disqualifiedDuplicates`,
-    `sourceAgendas[].indexed/officializedAt`, …) — laxisme volontairement conservé.
+    `sourceAgendas[].indexed/officializedAt`, …) — laxisme alors conservé, **resserré en
+    tranche 3** (cf. « Revue tranche 3 » : `additionalProperties: false` + allowlist).
   - `limit` max = 100 : appliqué côté mapping (clamp) ; `validateNavSize` v2 plafonne à 300,
     mais le contrat v3 borne plus strictement.
   - `country` réel = `LocalizedString` + clé `code` (ex. `"code":"FR"`) — valide via
@@ -171,10 +172,10 @@ intégration (6) : tous verts.
   fuite de champs internes (`disqualifiedDuplicates`, `tags`, `indexed`, `officializedAt`,
   agenda `private`/`description`, `_agg`…). Restent ouverts à dessein : `Error.details`,
   `EnrichedLink.data` (métadonnées d'enrichissement), `CustomFields`, `LocalizedString`(map).
-- **Filtres de liste** : v2 a une grosse surface (+ `convertLegacyFilter` legacy) → design curé
-  à faire ; c'est le gros chantier lecture suivant.
-- **Sparse fieldsets** (`?fields=`) et **tri** (`?sort=`, déjà encodé dans le cursor) à exposer.
-- **Aggregations/facettes** : renvoyées par v2, droppées en v3 → à réintroduire si besoin.
+- ~~**Filtres de liste**~~ : **fait (tranche 4)** — surface publique curée + translator strict + `geo_distance`.
+- ~~**Tri (`?sort=`)**~~ : **fait (tranche 4)** — enum curé exposé (le cursor encode déjà le sort).
+- **Sparse fieldsets** (`?fields=`) et **`?expand=`** : à exposer (le split `EventSummary`/`Event` ouvre la voie).
+- **Aggregations/facettes** : renvoyées par v2, droppées en v3 → tranche/endpoint dédié (différé).
 - **`limit`** : clamp silencieux à 100 (vs cap v2 `validateNavSize` = 300) ; statu quo assumé.
 
 ### Tranche 3 — split `EventSummary`/`Event` + règle « champs vides » (fait)
