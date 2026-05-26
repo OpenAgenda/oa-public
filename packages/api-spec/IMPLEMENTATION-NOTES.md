@@ -238,7 +238,7 @@ casser le contrat) plutôt qu'à un futur breaking change.
 
 Conception du filtrage de `GET /agendas/{agendaUid}/events`. Sous-découpage : **4a contrat** (fait),
 **4b** geo_distance dans event-search (fait), **4c** translator + validation stricte (fait),
-**4d** tests d'intégration (fait), **4e** champs custom.
+**4d** tests d'intégration (fait), **4e** champs custom (fait).
 
 **Source de vérité v2** : le schéma `validate` dans `packages/event-search/utils/validateQuery.js:27-303`
 (le vrai gate), traduit en DSL ES par `getDSLQueryPart.js`. `core.agendas(uid).events.search` passe
@@ -317,9 +317,8 @@ jamais transmises → le verrou de visibilité ne peut pas être contourné par 
 - **Précédence cursor** : `index.js` appelle le translator puis, si `after` présent, le `sort`
   décodé du cursor **écrase** un éventuel `?sort` (pagination cohérente).
 - **Params inconnus ignorés** (pas de 400) : forward-compat + la route possède `after`/`limit`.
-- **`custom`** : non géré ici (tranche 4e, nécessite le `formSchema`) — commentaire d'extension posé.
 
-29 tests unitaires (`90_unit_apiV3_buildEventSearchQuery.test.js`) : mappings valides, verrou de
+Tests unitaires (`90_unit_apiV3_buildEventSearchQuery.test.js`) : mappings valides, verrou de
 visibilité (params modération ignorés), validation stricte par champ + agrégation d'erreurs.
 
 #### 4d — tests d'intégration (cibul-node, fait)
@@ -331,3 +330,21 @@ bout), `status` exact, `featured` partitionne sans recouvrement, `relative=upcom
 `timings[gte]` futur → vide, `updatedAt` partitionne (2024 sépare event 2 de 7/8), `bbox`/`near+radius`
 ne gardent que les events Paris (location 1), `near` sans `radius` → 400, et **pagination + filtre**
 (cursor porte la position, le filtre est renvoyé page 2).
+
+#### 4e — champs custom (cibul-node, fait)
+
+**Découverte clé** : pas besoin de câbler le `formSchema` en v3. `services/eventSearch/agendaIndexSearch.js`
+**injecte déjà** le `formSchema` depuis `agenda.schema` (l'agenda est chargé en interne par le
+`doSearch` de core), et `filterAuthorizedSearchFields` applique l'accès par champ côté serveur. Donc le
+translator se contente de mapper `custom[<field>]` → `query.custom` ; `core` lit `query.custom.<field>`
+(`validateQuery.extractValue`), type-clean selon le schéma (`cleanAdditionalField`) et bâtit le DSL
+(`_search_additional_keywords`/`_numbers`). Un champ restreint (ex. `note` en `read:['administrator']`)
+est filtré côté serveur ; un champ inconnu est ignoré.
+
+`buildEventSearchQuery` valide seulement la **forme** : scalaire, liste de scalaires, ou objet de bornes
+numériques (`gte/lte/gt/lt`). Tests : 4 unitaires (mapping scalaire/liste/range, 400 si non-objet ou borne
+inconnue) + 2 intégration sur l'**agenda 1** (réseau 1 → form schema 1, champ public `thematique` ;
+event 1 a `thematique=2`, event 6 non) : `custom[thematique]=2` → narrowe à l'event 1, `=1` → vide.
+
+**Note** : en réponse liste (`EventSummary`), `custom` reste `{}` (les champs custom sont detailed) — le
+filtrage opère côté ES indépendamment du niveau d'include, donc il narrowe sans exposer les valeurs.
