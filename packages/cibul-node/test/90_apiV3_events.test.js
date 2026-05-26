@@ -171,6 +171,170 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
     });
   });
 
+  describe('GET /agendas/:agendaUid/events — filtering', () => {
+    // agenda 2 published events: uids 2, 7, 8 (event 1 is state 0). Events 7/8
+    // are at location 1 (Paris), event 2 has no resolvable coordinates. All
+    // timings are in 2019 (past). updatedAt: event 2 = 2022, events 7/8 = now.
+    const listQ = (qs = '') =>
+      request(app)
+        .get(`/agendas/2/events${qs}`)
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+    it('rejects an unknown enum value with 400 + per-field details', async () => {
+      const res = await listQ('?status=99');
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.code).toBe('bad_request');
+      expect(res.body.error.details).toBeDefined();
+      expect(res.body.error.details.errors[0].field).toBe('status');
+    });
+
+    it('rejects an unknown sort value with 400', async () => {
+      const res = await listQ('?sort=title.asc');
+      expect(res.status).toBe(400);
+      expect(res.body.error.code).toBe('bad_request');
+    });
+
+    it('ignores unknown parameters (forward-compatible)', async () => {
+      const baseline = await listQ();
+      const res = await listQ('?totallyUnknownParam=42');
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBe(baseline.body.data.length);
+    });
+
+    it('ignores visibility/moderation params — state cannot widen results', async () => {
+      const baseline = await listQ();
+      // event 1 sits in agenda 2 with state 0 (unpublished). If `state` were
+      // honored, ?state=0 would surface it; it must stay published-only.
+      const res = await listQ('?state=0');
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBe(baseline.body.data.length);
+      expect(res.body.data.some((e) => e.uid === 1)).toBe(false);
+    });
+
+    it('status filter returns exactly the events with that status', async () => {
+      const all = await listQ();
+      const target = all.body.data[0].status;
+      const expected = all.body.data.filter((e) => e.status === target).length;
+
+      const res = await listQ(`?status=${target}`);
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBe(expected);
+      for (const event of res.body.data) {
+        expect(event.status).toBe(target);
+      }
+    });
+
+    it('featured filter partitions the result set without overlap', async () => {
+      const truthy = await listQ('?featured=true');
+      const falsy = await listQ('?featured=false');
+      expect(truthy.status).toBe(200);
+      expect(falsy.status).toBe(200);
+
+      for (const event of truthy.body.data) expect(event.featured).toBe(true);
+      for (const event of falsy.body.data) expect(event.featured).toBe(false);
+
+      const truthyUids = truthy.body.data.map((e) => e.uid);
+      const falsyUids = falsy.body.data.map((e) => e.uid);
+      expect(truthyUids.filter((uid) => falsyUids.includes(uid))).toHaveLength(
+        0,
+      );
+    });
+
+    it('relative=upcoming excludes past events; relative=passed keeps them', async () => {
+      const baseline = await listQ();
+      const upcoming = await listQ('?relative=upcoming');
+      const passed = await listQ('?relative=passed');
+
+      expect(upcoming.status).toBe(200);
+      expect(upcoming.body.data).toHaveLength(0);
+      expect(passed.body.data.length).toBe(baseline.body.data.length);
+    });
+
+    it('timings[gte] in the far future returns nothing', async () => {
+      const res = await listQ(
+        `?timings[gte]=${encodeURIComponent('2999-01-01T00:00:00Z')}`,
+      );
+      expect(res.status).toBe(200);
+      expect(res.body.data).toHaveLength(0);
+    });
+
+    it('updatedAt range filters and partitions the result set', async () => {
+      const baseline = await listQ();
+
+      const future = await listQ(
+        `?updatedAt[gte]=${encodeURIComponent('2999-01-01T00:00:00Z')}`,
+      );
+      expect(future.body.data).toHaveLength(0);
+
+      const epoch = await listQ(
+        `?updatedAt[gte]=${encodeURIComponent('1970-01-01T00:00:00Z')}`,
+      );
+      expect(epoch.body.data.length).toBe(baseline.body.data.length);
+
+      // 2024 splits event 2 (updated 2022) from events 7/8 (updated now).
+      const recent = await listQ(
+        `?updatedAt[gte]=${encodeURIComponent('2024-01-01T00:00:00Z')}`,
+      );
+      expect(recent.body.data.length).toBeGreaterThan(0);
+      expect(recent.body.data.length).toBeLessThan(baseline.body.data.length);
+    });
+
+    it('bbox keeps only events located inside the box', async () => {
+      const paris = await listQ('?bbox=2.2,48.8,2.5,48.95');
+      expect(paris.status).toBe(200);
+      expect(paris.body.data.length).toBeGreaterThan(0);
+      for (const event of paris.body.data) {
+        expect(event.location).not.toBeNull();
+        expect(event.location.latitude).toBeGreaterThanOrEqual(48.8);
+        expect(event.location.latitude).toBeLessThanOrEqual(48.95);
+        expect(event.location.longitude).toBeGreaterThanOrEqual(2.2);
+        expect(event.location.longitude).toBeLessThanOrEqual(2.5);
+      }
+
+      const elsewhere = await listQ('?bbox=100,10,101,11');
+      expect(elsewhere.body.data).toHaveLength(0);
+    });
+
+    it('near + radius keeps nearby events; a far point returns nothing', async () => {
+      const near = await listQ('?near=48.8676,2.3503&radius=5000');
+      expect(near.status).toBe(200);
+      expect(near.body.data.length).toBeGreaterThan(0);
+
+      const far = await listQ('?near=0,0&radius=50000');
+      expect(far.body.data).toHaveLength(0);
+    });
+
+    it('rejects near without radius with 400', async () => {
+      const res = await listQ('?near=48.8676,2.3503');
+      expect(res.status).toBe(400);
+      expect(res.body.error.code).toBe('bad_request');
+    });
+
+    it('paginates with a filter — cursor carries position, filter is resent', async () => {
+      const filter = `?timings[lte]=${encodeURIComponent('2030-01-01T00:00:00Z')}`;
+
+      const first = await listQ(`${filter}&limit=1`);
+      expect(first.status).toBe(200);
+      expect(first.body.data).toHaveLength(1);
+      expect(typeof first.body.pagination.after).toBe('string');
+
+      const second = await listQ(
+        `${filter}&limit=1&after=${encodeURIComponent(
+          first.body.pagination.after,
+        )}`,
+      );
+      expect(second.status).toBe(200);
+      assertValid(
+        validateEventList,
+        second.body,
+        'EventList (page 2, filtered)',
+      );
+      expect(second.body.data).toHaveLength(1);
+      expect(second.body.data[0].uid).not.toBe(first.body.data[0].uid);
+    });
+  });
+
   describe('GET /agendas/:agendaUid/events/:eventUid', () => {
     it('returns 200 with a bare contract-valid Event', async () => {
       const list = await request(app)
