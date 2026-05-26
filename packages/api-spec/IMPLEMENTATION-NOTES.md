@@ -231,4 +231,62 @@ casser le contrat) plutôt qu'à un futur breaking change.
   → réduit la surface d'un cursor « JSON valide mais aberrant » (qui pouvait partir dans ES → 500).
 - Nettoyage : commentaire YAML résiduel retiré.
 - **Toujours différés** (slices dédiés) : enveloppe `{ error }` sur échec d'auth (slice auth),
-  validation runtime depuis le spec, filtres/tri/sparse-fieldsets, rate-limit.
+  validation runtime depuis le spec, rate-limit. (Les filtres/tri sont désormais traités, cf.
+  tranche 4 ci-dessous.)
+
+### Tranche 4 — Filtres de liste (contrat OpenAPI)
+
+Conception du filtrage de `GET /agendas/{agendaUid}/events`. Sous-découpage : **4a contrat** (cette
+tranche, faite), **4b** geo_distance dans event-search, **4c** translator + validation stricte,
+**4d** tests d'intégration, **4e** champs custom.
+
+**Source de vérité v2** : le schéma `validate` dans `packages/event-search/utils/validateQuery.js:27-303`
+(le vrai gate), traduit en DSL ES par `getDSLQueryPart.js`. `core.agendas(uid).events.search` passe
+tout `query` par `inflateAndClean` → `validateQuery`. Au-dessus : le blob legacy `oaq`
+(`convertLegacyFilter`, **hors-scope v3**), `preCleanRawQuery` (alias `if`/`date`/`originAgendaUid`),
+et `derelativize` (dates « today »).
+
+**Deux pièges porteurs :**
+
+1. **Les validateurs `choice` droppent silencieusement les valeurs inconnues**
+   (`packages/validators/src/choice.js:14-21`, `.filter(idx !== -1)`) — v2 ne 400 PAS sur `status=99`,
+   il l'ignore. v3 voulant 400 + `details`, **le translator v3 (4c) doit valider strictement
+   lui-même**, sans compter sur `core`. (Les validateurs `text`/`integer`/`date` throw, eux : un
+   tableau `{code,message,field}` → `search.js` l'emballe en `BadRequest({ info: { errors } })`, donc
+   `errorHandler` peut mapper `err.info.errors` → `error.details`.)
+2. **Verrou de visibilité** : `state` défaut = `2` (publié), `valid`/`removed`/`draft` gardent la
+   modération. Le chemin liste v3 passe déjà `removed: false` et aucun `state` → publié-only tient.
+   `state`, `valid`, `removed`, `addMethod`, `memberUid`, `ownerUid`, `ownerOrMemberUid`,
+   `referencing/notReferencingAgendaUid`, `mlt`/`boost`, `set` **ne sont PAS exposés en public**
+   (escalade de visibilité ou concept Tier 2/3 réseau).
+
+**Décisions (tranchées avec l'utilisateur) :**
+
+- **Noms singuliers, multi-valeurs par répétition** (`?keyword=a&keyword=b`, style `form`). On
+  renomme les pluriels v2 (`languages` → `language`). Sémantique AND conservée pour `keyword`.
+- **Ranges en deep-object** (`age[gte]`, `timings[gte]/[lte]`, `createdAt`, `updatedAt`, `localTime`),
+  qui mappent 1:1 sur les `{gte,lte}` de v2.
+- **`extId`/`locationExtId`** en deep-object `{key,value}`.
+- **Géo : `bbox` (viewport) + `near`/`radius` (proximité)** — sans demi-mesure. `bbox=ouest,sud,est,nord`
+  (string + regex) mappe sur le `geo_bounding_box` v2 existant ; `near=lat,lng` + `radius` (mètres,
+  entier ≥1) **nécessite une nouvelle branche `geo_distance`** dans event-search (tranche 4b, additive,
+  zéro impact v2). Le lien « `radius` requiert `near` » n'est pas exprimable en OpenAPI → 400 dans le
+  translator, documenté en prose.
+- **`custom`** : un seul param deep-object ouvert (`custom[<field>]=…`, `custom[<field>][gte]=…` pour
+  les numériques), renvoi prose vers `settings/eventSchema`. Symétrie avec le nesting `custom` des
+  réponses. Câblage du `formSchema` public requis (tranche 4e).
+- **`sort` curé** : `timings(.asc/WithFeatured)`, `lastTiming(.asc/WithFeatured)`, `updatedAt.asc/desc`,
+  `location.name.asc/desc`, `location.city.asc/desc`, `score`. **Écartés** : tris admin-levels 1–6 /
+  countryCode / region / department (traînent la logique `mapAdminLevelSwap` par pays) — réintroductibles.
+- **Texte/tri** : défaut `timingsWithFeatured.asc`, ou `score` (relevance) si `search` présent et pas
+  de `sort` (comportement v2 conservé). `mlt`/`boost` droppés du public (recommandeur → futur endpoint
+  `/events/{uid}/related`). `localTime` gardé (filtre v2 réel, inoffensif).
+- **Facettes/aggregations** : **différées** vers une tranche/endpoint dédié (les bolter sur la liste
+  serait la demi-mesure). Les clients recherche-à-facettes ne migrent pas encore.
+
+**Cursor × filtres (porteur)** : le cursor encode `{ after, sort }` **seulement**, pas les filtres →
+les requêtes de page 2+ doivent **renvoyer les mêmes filtres** avec `after`. Documenté dans la
+description de l'opération ; à verrouiller par un test en 4d.
+
+**Erreur de filtre** : `400 bad_request` (et non 422) — un paramètre de query malformé rend la
+_requête_ malformée. `error.details` porte le contexte par champ.

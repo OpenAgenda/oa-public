@@ -44,6 +44,14 @@ paths:
         Returns a cursor-paginated list of events for the given agenda.
         Pass the `after` cursor returned in `pagination.after` to fetch the
         next page.
+
+
+        Filters narrow the result set; they are NOT encoded in the cursor, so
+        resend the same filter parameters when fetching subsequent pages.
+
+
+        Only published events are listed. Unknown or malformed filter values
+        return `400` with per-field context under `error.details`.
       security:
         - bearerAuth: []
         - oauth2:
@@ -52,6 +60,45 @@ paths:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/AfterCursor'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Sort'
+        # text & identity
+        - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/FilterUid'
+        - $ref: '#/components/parameters/FilterSlug'
+        - $ref: '#/components/parameters/FilterExtId'
+        # classification
+        - $ref: '#/components/parameters/FilterKeyword'
+        - $ref: '#/components/parameters/FilterLanguage'
+        - $ref: '#/components/parameters/FilterAccessibility'
+        - $ref: '#/components/parameters/FilterStatus'
+        - $ref: '#/components/parameters/FilterAttendanceMode'
+        - $ref: '#/components/parameters/FilterFeatured'
+        # place
+        - $ref: '#/components/parameters/FilterLocationUid'
+        - $ref: '#/components/parameters/FilterLocationExtId'
+        - $ref: '#/components/parameters/FilterRegion'
+        - $ref: '#/components/parameters/FilterDepartment'
+        - $ref: '#/components/parameters/FilterCity'
+        - $ref: '#/components/parameters/FilterDistrict'
+        - $ref: '#/components/parameters/FilterAdminLevel3'
+        - $ref: '#/components/parameters/FilterAdminLevel5'
+        - $ref: '#/components/parameters/FilterCountryCode'
+        - $ref: '#/components/parameters/FilterBoundingBox'
+        - $ref: '#/components/parameters/FilterNear'
+        - $ref: '#/components/parameters/FilterRadius'
+        # provenance
+        - $ref: '#/components/parameters/FilterOriginAgendaUid'
+        - $ref: '#/components/parameters/FilterOriginAgendaOfficial'
+        - $ref: '#/components/parameters/FilterSourceAgendaUid'
+        # time
+        - $ref: '#/components/parameters/FilterRelative'
+        - $ref: '#/components/parameters/FilterTimings'
+        - $ref: '#/components/parameters/FilterLocalTime'
+        - $ref: '#/components/parameters/FilterCreatedAt'
+        - $ref: '#/components/parameters/FilterUpdatedAt'
+        # audience & custom
+        - $ref: '#/components/parameters/FilterAge'
+        - $ref: '#/components/parameters/FilterCustom'
       responses:
         '200':
           description: A page of events.
@@ -151,9 +198,447 @@ components:
         minimum: 1
         maximum: 100
 
+    Sort:
+      name: sort
+      in: query
+      required: false
+      description: >
+        Ordering of the results. Defaults to `timingsWithFeatured.asc`, or to
+        `score` (relevance) when `search` is set and no `sort` is given.
+      schema:
+        type: string
+        enum:
+          - timings.asc
+          - timingsWithFeatured.asc
+          - lastTiming.asc
+          - lastTimingWithFeatured.asc
+          - updatedAt.asc
+          - updatedAt.desc
+          - location.name.asc
+          - location.name.desc
+          - location.city.asc
+          - location.city.desc
+          - score
+
+    Search:
+      name: search
+      in: query
+      required: false
+      description: >
+        Full-text search across title, description, keywords and address.
+        Wrap the value in double quotes for an exact phrase match.
+      schema:
+        type: string
+
+    FilterUid:
+      name: uid
+      in: query
+      required: false
+      description: Restrict to these event uids. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    FilterSlug:
+      name: slug
+      in: query
+      required: false
+      description: Restrict to these event slugs. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterExtId:
+      name: extId
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Match an event by an external identifier:
+        `extId[key]=<system>&extId[value]=<id>`.
+      schema:
+        type: object
+        additionalProperties: false
+        required: [key, value]
+        properties:
+          key:
+            type: string
+          value:
+            type: string
+
+    FilterKeyword:
+      name: keyword
+      in: query
+      required: false
+      description: >
+        Restrict to events tagged with these keywords. Repeating the parameter
+        narrows the result set (AND semantics).
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterLanguage:
+      name: language
+      in: query
+      required: false
+      description: Restrict to events in these languages (ISO 639-1 codes).
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterAccessibility:
+      name: accessibility
+      in: query
+      required: false
+      description: >
+        Restrict to events offering these accessibility facilities:
+        hi=hearing, ii=intellectual, mi=motor, pi=psychic, vi=visual.
+      schema:
+        type: array
+        items:
+          type: string
+          enum: [hi, ii, mi, pi, vi]
+
+    FilterStatus:
+      name: status
+      in: query
+      required: false
+      description: >
+        Restrict to these statuses: 1=scheduled, 2=rescheduled, 3=movedOnline,
+        4=postponed, 5=full, 6=cancelled.
+      schema:
+        type: array
+        items:
+          type: integer
+          enum: [1, 2, 3, 4, 5, 6]
+
+    FilterAttendanceMode:
+      name: attendanceMode
+      in: query
+      required: false
+      description: 'Restrict to these attendance modes: 1=offline, 2=online, 3=mixed.'
+      schema:
+        type: array
+        items:
+          type: integer
+          enum: [1, 2, 3]
+
+    FilterFeatured:
+      name: featured
+      in: query
+      required: false
+      description: Restrict to featured (`true`) or non-featured (`false`) events.
+      schema:
+        type: boolean
+
+    FilterLocationUid:
+      name: locationUid
+      in: query
+      required: false
+      description: Restrict to events held at these location uids.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    FilterLocationExtId:
+      name: locationExtId
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Match by a location external identifier:
+        `locationExtId[key]=<system>&locationExtId[value]=<id>`.
+      schema:
+        type: object
+        additionalProperties: false
+        required: [key, value]
+        properties:
+          key:
+            type: string
+          value:
+            type: string
+
+    FilterRegion:
+      name: region
+      in: query
+      required: false
+      description: Restrict to events located in these regions.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterDepartment:
+      name: department
+      in: query
+      required: false
+      description: Restrict to events located in these departments.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterCity:
+      name: city
+      in: query
+      required: false
+      description: Restrict to events located in these cities.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterDistrict:
+      name: district
+      in: query
+      required: false
+      description: Restrict to events located in these districts.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterAdminLevel3:
+      name: adminLevel3
+      in: query
+      required: false
+      description: Restrict to events located in these level-3 administrative areas.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterAdminLevel5:
+      name: adminLevel5
+      in: query
+      required: false
+      description: Restrict to events located in these level-5 administrative areas.
+      schema:
+        type: array
+        items:
+          type: string
+
+    FilterCountryCode:
+      name: countryCode
+      in: query
+      required: false
+      description: Restrict to events located in these countries (ISO 3166-1 alpha-2).
+      schema:
+        type: array
+        items:
+          type: string
+          pattern: '^[A-Za-z]{2}$'
+
+    FilterBoundingBox:
+      name: bbox
+      in: query
+      required: false
+      description: >
+        Restrict to events whose location falls within a bounding box, given as
+        `west,south,east,north` in decimal degrees (WGS84). Example:
+        `bbox=2.224,48.815,2.469,48.902`.
+      schema:
+        type: string
+        pattern: '^-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?,-?\d+(\.\d+)?$'
+
+    FilterNear:
+      name: near
+      in: query
+      required: false
+      description: >
+        Center of a proximity search, given as `latitude,longitude` in decimal
+        degrees. Must be combined with `radius`.
+      schema:
+        type: string
+        pattern: '^-?\d+(\.\d+)?,-?\d+(\.\d+)?$'
+
+    FilterRadius:
+      name: radius
+      in: query
+      required: false
+      description: >
+        Proximity radius in metres around `near`. Requires `near` to be set.
+      schema:
+        type: integer
+        minimum: 1
+
+    FilterOriginAgendaUid:
+      name: originAgendaUid
+      in: query
+      required: false
+      description: Restrict to events originally created in these agendas.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    FilterOriginAgendaOfficial:
+      name: originAgendaOfficial
+      in: query
+      required: false
+      description: Restrict to events whose origin agenda is official (`true`) or not (`false`).
+      schema:
+        type: boolean
+
+    FilterSourceAgendaUid:
+      name: sourceAgendaUid
+      in: query
+      required: false
+      description: Restrict to events aggregated from these source agendas.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    FilterRelative:
+      name: relative
+      in: query
+      required: false
+      description: >
+        Restrict by temporal position relative to now. Combine values (repeat
+        the parameter) to widen the window: `passed`, `upcoming`, `current`.
+      schema:
+        type: array
+        items:
+          type: string
+          enum: [passed, upcoming, current]
+
+    FilterTimings:
+      name: timings
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict to events having a timing that begins within the range, as
+        RFC 3339 date-times: `timings[gte]=…&timings[lte]=…`. For now-relative
+        windows, prefer `relative`.
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: string
+            format: date-time
+          lte:
+            type: string
+            format: date-time
+
+    FilterLocalTime:
+      name: localTime
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict to events with a timing starting within a daily time window,
+        in minutes from local midnight: `localTime[gte]=480` (08:00) and/or
+        `localTime[lte]=1200` (20:00).
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: integer
+            minimum: 0
+            maximum: 1440
+          lte:
+            type: integer
+            minimum: 0
+            maximum: 1440
+
+    FilterCreatedAt:
+      name: createdAt
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict by creation date, as RFC 3339 date-times:
+        `createdAt[gte]=…&createdAt[lte]=…`.
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: string
+            format: date-time
+          lte:
+            type: string
+            format: date-time
+
+    FilterUpdatedAt:
+      name: updatedAt
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict by last-update date, as RFC 3339 date-times:
+        `updatedAt[gte]=…&updatedAt[lte]=…`. Useful for incremental sync.
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: string
+            format: date-time
+          lte:
+            type: string
+            format: date-time
+
+    FilterAge:
+      name: age
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Restrict to events whose intended audience age range overlaps the given
+        bounds, in years: `age[gte]=7&age[lte]=12`.
+      schema:
+        type: object
+        additionalProperties: false
+        properties:
+          gte:
+            type: integer
+            minimum: 0
+          lte:
+            type: integer
+            minimum: 0
+
+    FilterCustom:
+      name: custom
+      in: query
+      required: false
+      style: deepObject
+      explode: true
+      description: >
+        Filter on agenda-specific custom fields, addressed by field name:
+        `custom[<fieldName>]=<value>`. Available fields and their value types
+        come from the agenda's event schema
+        (GET /agendas/{agendaUid}/settings/eventSchema). For numeric fields, use
+        a range object: `custom[<fieldName>][gte]=…&custom[<fieldName>][lte]=…`.
+      schema:
+        type: object
+        additionalProperties: true
+
   responses:
     BadRequest:
-      description: Malformed request (e.g. an invalid `after` cursor).
+      description: >
+        Malformed request — an invalid `after` cursor, or an unknown/malformed
+        filter value. Per-field context is provided under `error.details`.
       content:
         application/json:
           schema:
