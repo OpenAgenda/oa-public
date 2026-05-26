@@ -76,6 +76,20 @@ describe('02 - event search - functional: relative filter', () => {
     );
   });
 
+  it('filters on proximity (geoDistance)', async () => {
+    // Lille (50.63, 3.06): events 1 (Villeneuve-d'Ascq) and 3 (Lille) sit a few
+    // km apart; Bordeaux/Albi/Le Billot are hundreds of km away.
+    const near = await service('map').search({
+      geoDistance: { center: { lat: 50.63, lng: 3.06 }, distance: 20000 },
+    });
+    expect(near.total).toBe(2);
+
+    const far = await service('map').search({
+      geoDistance: { center: { lat: 0, lng: 0 }, distance: 50000 },
+    });
+    expect(far.total).toBe(0);
+  });
+
   it('default geohash aggregation', async () => {
     const {
       aggregations: { geohash },

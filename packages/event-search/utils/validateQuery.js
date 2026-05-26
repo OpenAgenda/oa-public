@@ -212,6 +212,24 @@ const validate = schema({
       },
     },
   },
+  geoDistance: {
+    fields: {
+      center: {
+        optional: false,
+        fields: {
+          lat: {
+            type: 'latitude',
+          },
+          lng: {
+            type: 'longitude',
+          },
+        },
+      },
+      distance: {
+        type: 'integer',
+      },
+    },
+  },
   age: {
     fields: {
       gte: {

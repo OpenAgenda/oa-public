@@ -221,6 +221,57 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
     });
   });
 
+  it('filtering by proximity (geoDistance)', () => {
+    expect(
+      getDSLQueryPart(
+        validateQuery({
+          geoDistance: { center: { lat: 48.85, lng: 2.35 }, distance: 5000 },
+        }),
+      ),
+    ).toEqual({
+      bool: {
+        must: [
+          {
+            geo_distance: {
+              distance: '5000m',
+              _search_location: { lat: 48.85, lon: 2.35 },
+            },
+          },
+        ],
+        filter: [
+          {
+            terms: { state: [2] },
+          },
+        ],
+        minimum_should_match: 1,
+        should: [
+          {
+            bool: {
+              must_not: {
+                exists: {
+                  field: 'removed',
+                },
+              },
+            },
+          },
+          {
+            term: {
+              removed: false,
+            },
+          },
+        ],
+      },
+    });
+  });
+
+  it('ignores an incomplete geoDistance (center without distance)', () => {
+    const DSL = getDSLQueryPart(
+      validateQuery({ geoDistance: { center: { lat: 48.85, lng: 2.35 } } }),
+    );
+
+    expect(JSON.stringify(DSL)).not.toContain('geo_distance');
+  });
+
   it('filtering by multiple notReferencingAgendaUid', () => {
     expect(
       getDSLQueryPart(validateQuery({ notReferencingAgendaUid: [123, 124] })),
