@@ -236,8 +236,8 @@ casser le contrat) plutôt qu'à un futur breaking change.
 
 ### Tranche 4 — Filtres de liste (contrat OpenAPI)
 
-Conception du filtrage de `GET /agendas/{agendaUid}/events`. Sous-découpage : **4a contrat** (cette
-tranche, faite), **4b** geo_distance dans event-search, **4c** translator + validation stricte,
+Conception du filtrage de `GET /agendas/{agendaUid}/events`. Sous-découpage : **4a contrat** (fait),
+**4b** geo_distance dans event-search (fait), **4c** translator + validation stricte (fait),
 **4d** tests d'intégration, **4e** champs custom.
 
 **Source de vérité v2** : le schéma `validate` dans `packages/event-search/utils/validateQuery.js:27-303`
@@ -290,3 +290,34 @@ description de l'opération ; à verrouiller par un test en 4d.
 
 **Erreur de filtre** : `400 bad_request` (et non 422) — un paramètre de query malformé rend la
 _requête_ malformée. `error.details` porte le contexte par champ.
+
+#### 4b — geo_distance (event-search, fait)
+
+Champ `geoDistance` (`center{lat,lng}` + `distance` en mètres) ajouté à
+`validateQuery.js`, calqué sur le `geo` (bbox). DSL `geo_distance` sur `_search_location`
+(geo_point) dans `getDSLQueryPart.js`, poussé dans les `must` parts à côté du bbox
+(les requêtes géo sont à score constant → must vs filter sans impact sur le classement).
+Garde `!= null` sur lat/lng (0 légitime) et `distance > 0`. Additif, zéro impact v2.
+Couvert : test unitaire DSL + test d'intégration ES (`02_map_filters_and_aggregations`).
+
+#### 4c — translator (cibul-node, fait)
+
+`api-v3/lib/buildEventSearchQuery.js` : pur `reqQuery → core query`. Parse/type-check chaque
+filtre documenté et **agrège toutes les erreurs** en un seul `BadRequest({ info: { errors } })`
+→ 400 + `error.details.errors`. **N'émet QUE les params reconnus** : les clés non documentées
+(dont `state`/`valid`/`removed`/`memberUid`/… et la pagination `after`/`limit`) sont ignorées,
+jamais transmises → le verrou de visibilité ne peut pas être contourné par la query string.
+
+- `req.query` est parsé par `qs` étendu (prod : `app.js` `set('query parser', …)` ; test : défaut
+  express identique) → scalaires = strings, params répétés = tableaux, `a[b]` = objets imbriqués.
+- Mappings : `language→languages`, `originAgendaUid→originAgenda.uid`,
+  `originAgendaOfficial→originAgenda.official`, `bbox→geo`, `near`+`radius→geoDistance`.
+  `countryCode` upper-casé. `sort` validé contre l'enum curé.
+- **`errorHandler` inchangé** : il surface déjà `err.info.errors` → `error.details.errors`.
+- **Précédence cursor** : `index.js` appelle le translator puis, si `after` présent, le `sort`
+  décodé du cursor **écrase** un éventuel `?sort` (pagination cohérente).
+- **Params inconnus ignorés** (pas de 400) : forward-compat + la route possède `after`/`limit`.
+- **`custom`** : non géré ici (tranche 4e, nécessite le `formSchema`) — commentaire d'extension posé.
+
+29 tests unitaires (`90_unit_apiV3_buildEventSearchQuery.test.js`) : mappings valides, verrou de
+visibilité (params modération ignorés), validation stricte par champ + agrégation d'erreurs.
