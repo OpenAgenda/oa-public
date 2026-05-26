@@ -238,7 +238,7 @@ casser le contrat) plutôt qu'à un futur breaking change.
 
 Conception du filtrage de `GET /agendas/{agendaUid}/events`. Sous-découpage : **4a contrat** (fait),
 **4b** geo_distance dans event-search (fait), **4c** translator + validation stricte (fait),
-**4d** tests d'intégration, **4e** champs custom.
+**4d** tests d'intégration (fait), **4e** champs custom.
 
 **Source de vérité v2** : le schéma `validate` dans `packages/event-search/utils/validateQuery.js:27-303`
 (le vrai gate), traduit en DSL ES par `getDSLQueryPart.js`. `core.agendas(uid).events.search` passe
@@ -321,3 +321,13 @@ jamais transmises → le verrou de visibilité ne peut pas être contourné par 
 
 29 tests unitaires (`90_unit_apiV3_buildEventSearchQuery.test.js`) : mappings valides, verrou de
 visibilité (params modération ignorés), validation stricte par champ + agrégation d'erreurs.
+
+#### 4d — tests d'intégration (cibul-node, fait)
+
+`90_apiV3_events.test.js` étendu (ES réel, agenda 2 = events publiés 2/7/8). Assertions déterministes
+ou dérivées du baseline : 400 sur enum/sort invalide (+ `error.details.errors`), params inconnus
+ignorés, **`?state=0` n'élargit pas** (event 1 non publié reste absent → verrou vérifié de bout en
+bout), `status` exact, `featured` partitionne sans recouvrement, `relative=upcoming/passed`,
+`timings[gte]` futur → vide, `updatedAt` partitionne (2024 sépare event 2 de 7/8), `bbox`/`near+radius`
+ne gardent que les events Paris (location 1), `near` sans `radius` → 400, et **pagination + filtre**
+(cursor porte la position, le filtre est renvoyé page 2).
