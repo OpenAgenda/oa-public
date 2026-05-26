@@ -10,6 +10,7 @@ import slugFromLabel from './lib/slugFromLabel.js';
 import fg from './lib/fieldGroups.js';
 import Options from './Options.js';
 import ConditionalLogic from './ConditionalLogic.js';
+import DefaultValue from './DefaultValue.js';
 import unflattenLabels from './lib/unflattenLabels.js';
 import restrictLabelLanguages from './lib/restrictLabelLanguages.js';
 import optionsValidator from './lib/optionsValidator.js';
@@ -54,6 +55,8 @@ const accordionDescriptors = ({
   siblings,
   currentFieldSlug,
   lang,
+  defaultOptions,
+  optionedType,
 }) => {
   const minMax = parentsField
     ? null
@@ -96,7 +99,17 @@ const accordionDescriptors = ({
       lang,
     }),
   };
-  return { minMax, info, placeholderSub, help, conditional };
+  const defaultValue = {
+    id: 'defaultValue',
+    labelKey: 'fieldDefaultValueSection',
+    infoKey: 'fieldDefaultValueSectionInfo',
+    fieldKeys: ['default'],
+    schema: fg.defaultValue({
+      optionsList: defaultOptions || [],
+      optionedType,
+    }),
+  };
+  return { minMax, info, placeholderSub, help, conditional, defaultValue };
 };
 
 const deriveConditionalValue = (field) => {
@@ -182,6 +195,35 @@ const detectConditionalCycle = ({ startSlug, currentFieldSlug, siblings }) => {
   return false;
 };
 
+const OPTIONED_TYPES = ['radio', 'checkbox', 'select', 'multiselect'];
+
+// Effective optioned type/options for the default-value editor: an inherited
+// (abstract) field draws its options and type from its parent schema, while an
+// own field uses the options currently being edited in the form state.
+const resolveOptioned = (type, parentsField, values) => {
+  const optionedType = OPTIONED_TYPES.includes(parentsField?.fieldType)
+    ? parentsField.fieldType
+    : type;
+  const options = parentsField
+    ? parentsField.options || []
+    : values?.options || [];
+  return { optionedType, options };
+};
+
+// Drop default tokens that no longer resolve to an existing option (e.g. an
+// option that was set as default and then removed). A token matches either an
+// option id or, for not-yet-persisted options, its value.
+const scrubDefaultValue = (rawDefault, options) => {
+  if (rawDefault === null || rawDefault === undefined) return rawDefault;
+  const resolves = (token) =>
+    (options || []).some((o) => o && (o.id === token || o.value === token));
+  if (Array.isArray(rawDefault)) {
+    const kept = rawDefault.filter(resolves);
+    return kept.length ? kept : null;
+  }
+  return resolves(rawDefault) ? rawDefault : null;
+};
+
 const buildSchema = (
   type,
   {
@@ -191,6 +233,7 @@ const buildSchema = (
     siblings,
     currentFieldSlug,
     lang,
+    values,
   },
 ) => {
   if (type === 'section') {
@@ -217,12 +260,19 @@ const buildSchema = (
   }
 
   const optionalGroup = !parentsField || (parentsField?.optional ?? true) ? fg.optional() : null;
+  const { optionedType, options: defaultOptions } = resolveOptioned(
+    type,
+    parentsField,
+    values,
+  );
   const acc = accordionDescriptors({
     labelLanguages,
     parentsField,
     siblings,
     currentFieldSlug,
     lang,
+    defaultOptions,
+    optionedType,
   });
 
   if (type === 'boolean') {
@@ -256,7 +306,10 @@ const buildSchema = (
     };
   }
 
-  if (['radio', 'checkbox', 'select', 'multiselect'].includes(type)) {
+  if (
+    OPTIONED_TYPES.includes(type)
+    || OPTIONED_TYPES.includes(parentsField?.fieldType)
+  ) {
     const optionsGroup = parentsField ? null : fg.options({ labelLanguages });
     return {
       main: merge(
@@ -265,7 +318,12 @@ const buildSchema = (
         optionsGroup,
         fieldOrder(['label', 'optional', 'options']),
       ),
-      accordions: [acc.placeholderSub, acc.help, acc.conditional],
+      accordions: [
+        acc.placeholderSub,
+        acc.defaultValue,
+        acc.help,
+        acc.conditional,
+      ],
     };
   }
 
@@ -354,6 +412,7 @@ export default class FieldForm extends Component {
       siblings,
       currentFieldSlug,
       lang,
+      values,
     });
 
     const mainResult = this.mainFormRef.current
@@ -453,6 +512,18 @@ export default class FieldForm extends Component {
     }
     delete item.conditional;
 
+    if (
+      OPTIONED_TYPES.includes(fieldType)
+      || OPTIONED_TYPES.includes(parentsField?.fieldType)
+    ) {
+      const { options: effectiveOptions } = resolveOptioned(
+        fieldType,
+        parentsField,
+        values,
+      );
+      item.default = scrubDefaultValue(item.default, effectiveOptions);
+    }
+
     onSubmit(item);
   }
 
@@ -492,6 +563,7 @@ export default class FieldForm extends Component {
       siblings,
       currentFieldSlug,
       lang,
+      values,
     });
 
     const mainSchema = assignConstraintsToFields(main, parentsField);
@@ -512,6 +584,7 @@ export default class FieldForm extends Component {
       ...customs,
       options: optionsValidator,
       conditional: passValidator,
+      defaultValue: passValidator,
     };
 
     const accordionSchemas = accordions.map((a) => {
@@ -521,7 +594,11 @@ export default class FieldForm extends Component {
           f.enable = false;
         });
       }
-      s.custom = { ...s.custom, conditional: passValidator };
+      s.custom = {
+        ...s.custom,
+        conditional: passValidator,
+        defaultValue: passValidator,
+      };
       return { ...a, schema: s };
     });
 
@@ -530,6 +607,7 @@ export default class FieldForm extends Component {
     const componentsMap = {
       options: Options,
       conditional: ConditionalLogic,
+      defaultValue: DefaultValue,
       ...components,
     };
 

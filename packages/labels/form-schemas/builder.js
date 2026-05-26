@@ -1282,6 +1282,46 @@ module.exports = {
     "nl": "Standaardwaarde",
     "br": "Talvoud dre ziouer"
   },
+  "fieldDefaultValueSection": {
+    "fr": "Valeur par défaut",
+    "en": "Default value",
+    "de": "Standardwert",
+    "es": "Valor por defecto",
+    "it": "Valore predefinito",
+    "nl": "Standaardwaarde",
+    "br": "Talvoud dre ziouer",
+    "oc": "Valor per defaut"
+  },
+  "fieldDefaultValueSectionInfo": {
+    "fr": "Définit la ou les options sélectionnées par défaut pour ce champ",
+    "en": "Sets the option(s) selected by default for this field",
+    "de": "Legt die standardmäßig ausgewählte(n) Option(en) für dieses Feld fest",
+    "es": "Define la o las opciones seleccionadas por defecto para este campo",
+    "it": "Imposta l’opzione o le opzioni selezionate per impostazione predefinita per questo campo",
+    "nl": "Bepaalt de optie(s) die standaard geselecteerd zijn voor dit veld",
+    "br": "Termenañ a ra an dibab(où) diuzet dre ziouer evit ar vaezienn-mañ",
+    "oc": "Definís la o las opcions seleccionadas per defaut per aqueste camp"
+  },
+  "defaultValueNone": {
+    "fr": "Aucune valeur par défaut",
+    "en": "No default value",
+    "de": "Kein Standardwert",
+    "es": "Sin valor por defecto",
+    "it": "Nessun valore predefinito",
+    "nl": "Geen standaardwaarde",
+    "br": "Talvoud dre ziouer ebet",
+    "oc": "Cap de valor per defaut"
+  },
+  "defaultValueNoOptions": {
+    "fr": "Ajoutez d’abord des options pour pouvoir définir une valeur par défaut",
+    "en": "Add options first to be able to set a default value",
+    "de": "Fügen Sie zuerst Optionen hinzu, um einen Standardwert festlegen zu können",
+    "es": "Añada primero opciones para poder definir un valor por defecto",
+    "it": "Aggiungi prima delle opzioni per poter impostare un valore predefinito",
+    "nl": "Voeg eerst opties toe om een standaardwaarde te kunnen instellen",
+    "br": "Ouzhpennit dibaboù da gentañ evit gallout termeniñ un talvoud dre ziouer",
+    "oc": "Ajustatz d’en primièr d’opcions per poder definir una valor per defaut"
+  },
   "maxLength": {
     "fr": "Longueur max",
     "en": "Max length",

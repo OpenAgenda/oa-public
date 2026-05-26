@@ -183,6 +183,21 @@ function allowFalse() {
   };
 }
 
+function defaultValue({ optionsList, optionedType }) {
+  return {
+    fields: [
+      {
+        field: 'default',
+        fieldType: 'defaultValue',
+        optional: true,
+        label: l.fieldDefaultValueSection,
+        options: optionsList || [],
+        optionedType,
+      },
+    ],
+  };
+}
+
 function conditional({ siblings, currentFieldSlug, lang }) {
   return {
     fields: [
@@ -211,4 +226,5 @@ export default {
   section,
   allowFalse,
   conditional,
+  defaultValue,
 };

@@ -7,13 +7,34 @@ const fieldHasSuperiorOptions = (field, nextOptionId) =>
 
 function fieldAssignOptionIds(field, nextOptionId) {
   let nextId = nextOptionId;
+  const valueToId = {};
   field.options.forEach((o) => {
     if (o.id !== undefined) {
       return;
     }
     nextId += 1;
     o.id = nextId;
+    if (o.value !== undefined) {
+      valueToId[o.value] = o.id;
+    }
   });
+
+  // A default may reference an option by its `value` when the option had no id
+  // yet (set in the builder before the field was persisted). Now that ids are
+  // assigned, remap those value tokens to their freshly assigned id.
+  if (
+    field.default !== undefined
+    && field.default !== null
+    && Object.keys(valueToId).length
+  ) {
+    const remap = (token) =>
+      (Object.prototype.hasOwnProperty.call(valueToId, token)
+        ? valueToId[token]
+        : token);
+    field.default = Array.isArray(field.default)
+      ? field.default.map(remap)
+      : remap(field.default);
+  }
 
   return nextId;
 }
