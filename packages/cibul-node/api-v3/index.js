@@ -13,6 +13,7 @@ import sentryErrorHandler from '../lib/sentryErrorHandler.js';
 import * as mw from '../api/middleware/index.js';
 import mapEvent from './lib/mapEvent.js';
 import buildListEnvelope from './lib/envelope.js';
+import buildEventSearchQuery from './lib/buildEventSearchQuery.js';
 import { decodeCursor } from './lib/cursor.js';
 import apiV3ErrorHandler from './errorHandler.js';
 
@@ -64,17 +65,19 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         const limit = resolveLimit(req.query.limit);
 
         const nav = { size: limit };
-        let sort;
 
+        const query = buildEventSearchQuery(req.query);
+
+        // Filters are not encoded in the cursor; the cursor only carries the
+        // position and the sort that produced the previous page, so the sort
+        // it pins wins over any `?sort` on a follow-up request.
         if (req.query.after !== undefined) {
           const decoded = decodeCursor(req.query.after);
           if (decoded) {
             nav.after = decoded.after;
-            sort = decoded.sort;
+            if (decoded.sort) query.sort = decoded.sort;
           }
         }
-
-        const query = sort ? { sort } : {};
 
         const result = await core
           .agendas(req.agenda.uid)
