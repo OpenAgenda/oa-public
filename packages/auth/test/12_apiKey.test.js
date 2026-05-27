@@ -89,6 +89,155 @@ describe('createApiKeyHelpers — verifyKey (referenceId → owner)', () => {
   });
 });
 
+describe('createApiKeyHelpers — create', () => {
+  // The plugin echoes the body and returns the plaintext under `key`; the fake
+  // mirrors that so we can assert the encoding (userId → referenceId) and the
+  // pass-through of caller policy (name/prefix/permissions).
+  function createInstance() {
+    const createApiKey = jest.fn(async ({ body }) => ({
+      id: `id-${body.userId}-${body.metadata.oaKind}`,
+      key: `plaintext-${body.metadata.oaKind}`,
+      referenceId: body.userId,
+      metadata: body.metadata,
+      name: body.name ?? null,
+      prefix: body.prefix ?? null,
+      permissions: body.permissions ?? null,
+    }));
+    return { instance: { api: { createApiKey } }, createApiKey };
+  }
+
+  it('creates a user pk+sk pair under referenceId = String(uid)', async () => {
+    const { instance, createApiKey } = createInstance();
+    const { createUserKeyPair } = createApiKeyHelpers(instance);
+
+    const { publicKey, secretKey } = await createUserKeyPair(42);
+
+    expect(publicKey.key).toBe('plaintext-pk');
+    expect(secretKey.key).toBe('plaintext-sk');
+    expect(publicKey.record.referenceId).toBe('42');
+    expect(publicKey.record).not.toHaveProperty('key'); // plaintext not in record
+    expect(createApiKey).toHaveBeenCalledTimes(2);
+    expect(createApiKey.mock.calls[0][0].body).toMatchObject({
+      userId: '42',
+      metadata: { oaKind: 'pk', source: 'native' },
+    });
+    expect(createApiKey.mock.calls[1][0].body.metadata.oaKind).toBe('sk');
+  });
+
+  it('creates an agenda key under referenceId = agenda:<uid>', async () => {
+    const { instance, createApiKey } = createInstance();
+    const { createAgendaKey } = createApiKeyHelpers(instance);
+
+    const { key, record } = await createAgendaKey(7);
+
+    expect(key).toBe('plaintext-agenda');
+    expect(record.referenceId).toBe('agenda:7');
+    expect(createApiKey).toHaveBeenCalledWith({
+      body: {
+        userId: 'agenda:7',
+        metadata: { oaKind: 'agenda', source: 'native' },
+      },
+    });
+  });
+
+  it('passes caller policy (name/prefix/permissions) through to the plugin', async () => {
+    const { instance, createApiKey } = createInstance();
+    const { createAgendaKey } = createApiKeyHelpers(instance);
+
+    await createAgendaKey(7, {
+      name: 'CI export',
+      prefix: 'oa_agenda',
+      permissions: { events: ['read'] },
+    });
+
+    expect(createApiKey.mock.calls[0][0].body).toMatchObject({
+      userId: 'agenda:7',
+      name: 'CI export',
+      prefix: 'oa_agenda',
+      permissions: { events: ['read'] },
+    });
+  });
+});
+
+describe('createApiKeyHelpers — list / revoke (adapter bypass)', () => {
+  // Stand-in for the better-auth context adapter (model 'apikey'). `rows` is the
+  // store; findMany filters by the referenceId condition, findOne/delete match
+  // every where condition (AND), mirroring the real adapter.
+  function adapterInstance(rows) {
+    const matches = (row, where) =>
+      where.every((c) => row[c.field] === c.value);
+    const adapter = {
+      findMany: jest.fn(async ({ where }) =>
+        rows.filter((r) => matches(r, where))),
+      findOne: jest.fn(
+        async ({ where }) => rows.find((r) => matches(r, where)) ?? null,
+      ),
+      delete: jest.fn(async ({ where }) => {
+        const i = rows.findIndex((r) => matches(r, where));
+        if (i !== -1) rows.splice(i, 1);
+      }),
+    };
+    return { instance: { $context: Promise.resolve({ adapter }) }, adapter };
+  }
+
+  it('lists a user owner by referenceId = String(uid), without key material', async () => {
+    const { instance, adapter } = adapterInstance([
+      { id: 'a', referenceId: '42', key: 'hash-a' },
+      { id: 'b', referenceId: '42', key: 'hash-b' },
+      { id: 'c', referenceId: '99', key: 'hash-c' },
+    ]);
+    const { listUserKeys } = createApiKeyHelpers(instance);
+    const rows = await listUserKeys(42);
+    expect(rows.map((r) => r.id)).toEqual(['a', 'b']);
+    expect(rows.every((r) => !('key' in r))).toBe(true); // stored hash stripped
+    expect(adapter.findMany).toHaveBeenCalledWith(
+      expect.objectContaining({
+        model: 'apikey',
+        where: [{ field: 'referenceId', value: '42' }],
+      }),
+    );
+  });
+
+  it('lists an agenda owner by referenceId = agenda:<uid>', async () => {
+    const { instance } = adapterInstance([
+      { id: 'x', referenceId: 'agenda:7' },
+      { id: 'y', referenceId: '7' },
+    ]);
+    const { listAgendaKeys } = createApiKeyHelpers(instance);
+    const rows = await listAgendaKeys(7);
+    expect(rows.map((r) => r.id)).toEqual(['x']);
+  });
+
+  it('revokes a key scoped to its owner and reports success', async () => {
+    const { instance, adapter } = adapterInstance([
+      { id: 'a', referenceId: 'agenda:7' },
+    ]);
+    const { revokeAgendaKey } = createApiKeyHelpers(instance);
+
+    const ok = await revokeAgendaKey(7, 'a');
+    expect(ok).toBe(true);
+    expect(adapter.delete).toHaveBeenCalledWith({
+      model: 'apikey',
+      where: [
+        { field: 'id', value: 'a' },
+        { field: 'referenceId', value: 'agenda:7' },
+      ],
+    });
+  });
+
+  it('refuses to revoke a key owned by someone else (no delete, returns false)', async () => {
+    const { instance, adapter } = adapterInstance([
+      { id: 'a', referenceId: 'agenda:7' },
+    ]);
+    const { revokeAgendaKey } = createApiKeyHelpers(instance);
+
+    // Same keyId, wrong owner (agenda 8) → must not touch agenda 7's key.
+    const ok = await revokeAgendaKey(8, 'a');
+    expect(ok).toBe(false);
+    expect(adapter.delete).not.toHaveBeenCalled();
+  });
+});
+
 describe('the instance exposes the api-key façades', () => {
   it('binds verifyKey on the instance (delegates to the plugin)', async () => {
     const auth = Auth(baseOpts);

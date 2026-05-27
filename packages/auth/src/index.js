@@ -651,9 +651,18 @@ export default function Auth(options = {}) {
     getAccountTypesByUserId,
   } = createCredentialHelpers(instance);
 
-  // Instance-bound api-key façades (grows in D3b: createUserKeyPair,
-  // createAgendaKey, listKeys, revokeKey).
-  const { verifyKey } = createApiKeyHelpers(instance);
+  // Instance-bound api-key façades (verify / create / list / revoke). list and
+  // revoke go through the adapter, not the plugin's session-gated endpoints, so
+  // they serve agenda owners and server-side admin too (see ./apiKey.js).
+  const {
+    verifyKey,
+    createUserKeyPair,
+    createAgendaKey,
+    listUserKeys,
+    listAgendaKeys,
+    revokeUserKey,
+    revokeAgendaKey,
+  } = createApiKeyHelpers(instance);
 
   async function getSessionFromRequest(
     req,
@@ -765,9 +774,16 @@ export default function Auth(options = {}) {
     api: instance.api,
     // OA api-key façades. `verifyKey(key)` -> normalized owner descriptor
     // ({ owner, oaKind, referenceId, permissions, record }) or null; owner
-    // *loading* stays the caller's job. `hashApiKey` is the pure static hasher,
-    // also a package-root named export (see ./apiKey.js).
+    // *loading* stays the caller's job. create* return `{ key, record }` with
+    // the plaintext exposed once. `hashApiKey` is the pure static hasher, also a
+    // package-root named export (see ./apiKey.js).
     verifyKey,
+    createUserKeyPair,
+    createAgendaKey,
+    listUserKeys,
+    listAgendaKeys,
+    revokeUserKey,
+    revokeAgendaKey,
     hashApiKey,
     // Mirror legacy OA password writes into `account.password` (phase 2a).
     encodeLegacyPassword: encodeLegacy,
