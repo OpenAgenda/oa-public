@@ -9,6 +9,7 @@
   "type": "module",
   "exports": {
     ".": "./src/index.js",
+    "./hashApiKey": "./src/hashApiKey.js",
     "./client": "./src/client.js",
     "./react": "./src/react.js",
     "./server": "./src/server.js",
