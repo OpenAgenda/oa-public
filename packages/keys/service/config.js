@@ -17,6 +17,12 @@ async function init(c) {
 
   config.knex = c.knex;
 
+  // Optional write hooks fired after a successful create/remove, regardless of
+  // caller (the service factory AND the HTTP middleware share these endpoints).
+  // Used to mirror writes elsewhere; hooks own their errors (the service awaits
+  // but does not swallow).
+  config.interfaces = c.interfaces ?? {};
+
   Object.assign(config.knex.client.config, {
     schemas: {
       ...config.knex.client.config.schemas,
