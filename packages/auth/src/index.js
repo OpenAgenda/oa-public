@@ -6,6 +6,7 @@ import { redisStorage } from '@better-auth/redis-storage';
 import { apiKey } from '@better-auth/api-key';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
+import createApiKeyHelpers, { hashApiKey } from './apiKey.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
 import {
@@ -650,6 +651,10 @@ export default function Auth(options = {}) {
     getAccountTypesByUserId,
   } = createCredentialHelpers(instance);
 
+  // Instance-bound api-key façades (grows in D3b: createUserKeyPair,
+  // createAgendaKey, listKeys, revokeKey).
+  const { verifyKey } = createApiKeyHelpers(instance);
+
   async function getSessionFromRequest(
     req,
     prevResponse,
@@ -758,6 +763,12 @@ export default function Auth(options = {}) {
     // Express-compatible handler — mount with `app.all('/api/auth/*', auth.nodeHandler)`.
     nodeHandler: toNodeHandler(instance),
     api: instance.api,
+    // OA api-key façades. `verifyKey(key)` -> normalized owner descriptor
+    // ({ owner, oaKind, referenceId, permissions, record }) or null; owner
+    // *loading* stays the caller's job. `hashApiKey` is the pure static hasher,
+    // also a package-root named export (see ./apiKey.js).
+    verifyKey,
+    hashApiKey,
     // Mirror legacy OA password writes into `account.password` (phase 2a).
     encodeLegacyPassword: encodeLegacy,
     upsertCredentialAccount,
@@ -798,4 +809,4 @@ export default function Auth(options = {}) {
   };
 }
 
-export { toNodeHandler, fromNodeHeaders };
+export { fromNodeHeaders, hashApiKey };
