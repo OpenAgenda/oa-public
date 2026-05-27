@@ -644,13 +644,18 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
     Unauthorized:
-      description: Missing or invalid credentials.
+      description: >-
+        Missing or invalid credentials: no API key was supplied, the key is
+        unknown, or the access token is expired. `error.code` is `unauthorized`.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
     Forbidden:
-      description: Authenticated but not allowed to access this resource.
+      description: >-
+        Authenticated, but not allowed to access this resource — for example the
+        account is blacklisted, or the key lacks the required scope.
+        `error.code` is `forbidden`.
       content:
         application/json:
           schema:
