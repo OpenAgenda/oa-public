@@ -13,6 +13,7 @@ import setup from './fixtures/setup.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'bull',
   'files',
@@ -412,6 +413,29 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(res.status).toBe(401);
       assertValid(validateError, res.body, 'Error');
       expect(res.body.error.code).toBe('unauthorized');
+    });
+
+    it('resolves a key through the primary verifyApiKey path (no legacy row)', async () => {
+      // Create an agenda key via the service (the D2 onCreate hook dual-writes
+      // it, hashed, into the apikey store), then drop the legacy `key` row so
+      // ONLY the apikey store can resolve it. This proves the D3a primary path
+      // (verifyApiKey → agenda owner rebuilt from referenceId) independently of
+      // the legacy fallback.
+      const created = await core.services
+        .keys({ type: 'agendaFullRead', identifier: 2 })
+        .create();
+      await core.services
+        .knex(config.schemas.key)
+        .where({ type: 'agendaFullRead', identifier: 2, key: created.key })
+        .delete();
+
+      const res = await request(app)
+        .get('/agendas/2/events')
+        .set('authorization', `Bearer ${created.key}`);
+
+      expect(res.status).toBe(200);
+      assertValid(validateEventList, res.body, 'EventList');
+      expect(res.body.data.length).toBeGreaterThan(0);
     });
   });
 });

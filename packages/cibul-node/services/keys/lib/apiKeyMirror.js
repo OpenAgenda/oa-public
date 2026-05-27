@@ -1,4 +1,4 @@
-import hashApiKey from '@openagenda/auth/hashApiKey';
+import { hashApiKey } from '@openagenda/auth';
 
 // D2 — dual-write + backfill of the legacy `key` table into the better-auth
 // `apikey` store (D1). The legacy path stays authoritative and is the only one
