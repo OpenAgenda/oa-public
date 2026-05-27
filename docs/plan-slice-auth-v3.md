@@ -46,7 +46,7 @@ Les deux sont synchronisées par fan-out : `users/hooks/generateApiKey.js` écri
 5. **Scopes** (nouvelles clés D3+) : `permissions: Record<string,string[]>` (ex. `{ events: ['read','write'] }`), mappés aux tiers de visibilité ; `transverse_api_access` conditionne l'action `events:transverse`. Les clés **legacy backfillées restent non-restreintes** (`permissions: null`) — le tier porte le cap. **Modèle figé en §5.1.**
 6. **Découpler `users` des clés** : `users` ne gère plus le cycle de vie des clés (suppression des resolvers `apiKey`/`apiSecret`, hooks `generateApiKey`/`searchByKey`). Le lookup inverse (clé → propriétaire) passe dans le store de clés / l'auth. La page de réglages appelle des **endpoints clés dédiés**, plus `getMe` détaillé.
 7. **Supprimer `packages/keys`** : relocaliser ses migrations (**inchangées**) dans `cibul-node/migrations/legacy/`, déplacer le runtime, supprimer le package. Voir §4.
-8. **Retirer le flux `tk-`** (`access_token` + `generateTokenFromSecretKey` + salt `okilydokily`) au profit de `oa_sk_` en Bearer direct.
+8. **`tk-` : abandonné sur v3, gelé sur v2.** v3 n'introduit **jamais** l'échange `/requestAccessToken` — `oa_sk_` écrit en **Bearer direct** (§5.2). v2 **conserve** son flux `tk-` (`access_token` + `generateTokenFromSecretKey` + salt `okilydokily`) tel quel (surface gelée) ; son retrait global est lié à l'EOL de v2, **hors scope** de cette tranche.
 9. **Multi-clés nommées pour les users** (« Applications ») — gratuit avec le plugin (`apikey` multi par `referenceId`).
 10. **Aucun commit avant review.** Séquence applicable **palier par palier**, plusieurs déploiements espacés.
 
@@ -79,8 +79,8 @@ Les deux sont synchronisées par fan-out : `users/hooks/generateApiKey.js` écri
 
 Store unique **`apikey`** (plugin, migration dans `packages/auth/migrations`) : hashé, multi-clés, `referenceId` (`<uid>` user / `agenda:<uid>`), `permissions` = scopes, `prefix` `oa_pk_`/`oa_sk_`, `expiresAt`, `enabled` (révocation), rate-limit par clé.
 
-- **Helpers OA** dans `@openagenda/auth` (`createApiKeyHelpers(instance)`, calqué sur `createCredentialHelpers`, liés sur l'instance) : `verifyKey`, `createUserKeyPair` (pk+sk), `createAgendaKey` **au-dessus de `auth.api.*`** (server-callable) ; `listUserKeys`/`listAgendaKeys`/`revokeUserKey`/`revokeAgendaKey` **via l'adapter** (`auth.api.list/delete` étant session-gated). L'encodage `referenceId` et l'ownership du store vivent là ; revoke est scopé `id`×`referenceId`.
-- **Auth v3** : middleware propre à v3 qui classe le Bearer (`oa_pk_`/`oa_sk_`/legacy), `verifyApiKey`, applique les scopes, charge user/agenda depuis `referenceId`, mappe `NotAuthenticated`→401 / `Forbidden`→403 dans l'enveloppe `{error}`.
+- **Helpers OA** dans `@openagenda/auth` (`createApiKeyHelpers(instance)`, calqué sur `createCredentialHelpers`, liés sur l'instance) : `verifyKey`, `createUserKeyPair` (pk+sk, archétypes), `createUserKey` (sk nommée additionnelle), `createAgendaKey` **au-dessus de `auth.api.*`** (server-callable) ; `listUserKeys`/`listAgendaKeys`/`revokeUserKey`/`revokeAgendaKey` **via l'adapter** (`auth.api.list/delete` étant session-gated). L'encodage `referenceId` et l'ownership du store vivent là ; revoke est scopé `id`×`referenceId`.
+- **Auth v3** : middleware propre à v3 qui classe le Bearer (`oa_pk_`/`oa_sk_`/legacy), `verifyApiKey`, applique les scopes, charge user/agenda depuis `referenceId`, mappe `NotAuthenticated`→401 / `Forbidden`→403 dans l'enveloppe `{error}`. **Modèle figé en §5.2** (Bearer direct, deux axes, pas de `tk-`).
 - `packages/keys` supprimé ; `api_key_set` + `access_token` + `tk-` retirés ; `users` découplé.
 
 ### 5.1 Modèle de scopes ↔ tiers de visibilité _(figé)_
@@ -130,6 +130,23 @@ Les clés legacy sont aujourd'hui **non-restreintes par ressource** : elles auth
 
 Le cap effectif reste le **tier**, porté par `metadata.oaKind` et appliqué au request-time (D6 : `pk` → public/read-only, `sk` → tier propriétaire read+write, `agenda` → admin de l'agenda). Les scopes par-ressource sont réservés aux **nouvelles clés (D3+)**, où le propriétaire choisit explicitement un sous-ensemble. `rate_limit_enabled: false` (legacy = pas de rate-limit). Hash déterministe ⇒ backfill idempotent (delete-then-insert par `referenceId`×`oaKind`).
 
+### 5.2 Modèle d'auth v3 _(acté)_
+
+v3 est la surface où le modèle de clés se modernise (v2 reste **gelée**, cf. décision #8 / D4). Deux principes.
+
+**Bearer direct, pas de `tk-`.** Sur v3, une `oa_sk_` présentée en `Authorization: Bearer` **lit et écrit** directement, au tier de son propriétaire — aucun échange `/requestAccessToken`. Le détour `tk-` est un héritage v2 ; v3 ne l'introduit jamais. La « carotte » de migration v2→v3 est précisément la suppression de la danse du token.
+
+**Deux axes orthogonaux.** Ce qu'une clé peut faire se décompose en deux dimensions **indépendantes** — et les scopes **ne peuvent pas** exprimer la seconde :
+
+| Axe                    | Question            | Mécanisme                                                                                   |
+| ---------------------- | ------------------- | ------------------------------------------------------------------------------------------- |
+| **Opération**          | _quelles actions ?_ | **scopes** (`permissions`, §5.1) : `events:read`, `events:write`, …                         |
+| **Tier de visibilité** | _en tant que qui ?_ | **kind** (`oaKind` `pk`/`sk`/`agenda`) : **structurel**, via le passage ou non de `userUid` |
+
+Une clé scopée `events:read` mais appartenant à un modérateur, **si elle passe `userUid`**, voit quand même ses brouillons. « Read-only » ≠ « public ». Seule une **pk — qui ne passe jamais `userUid`** — garantit _publié uniquement / champs publics_, donc **embarquable côté client** sans risque. Le verrou public est **structurel**, indépendant des scopes (§5.1 « double application »).
+
+**Clés multiples nommées, pas de paire figée.** Une clé = un `oaKind` (`pk`|`sk`) **+** un sous-ensemble de scopes. Archétypes par défaut (99 % des usages) : une **pk** (lecture, publique, embarquable) + une **sk** (lecture+écriture, tier propriétaire). Les « Applications » sont des **sk nommées additionnelles** scopées (ex. une clé `events:write` seule pour un connecteur d'import) — gratuit avec le plugin (multi par `referenceId`). Le **couplage 1 pk + 1 sk n'est pas imposé** ; les _kinds_ le sont (porteurs du verrou de tier). Garde-fous (D6) : `pk` + action `:write` → **400** ; une `sk` ne dépasse **jamais** le rôle de son propriétaire (le scope atténue, n'élève pas).
+
 ---
 
 ## 6. Séquence de déploiement
@@ -174,20 +191,31 @@ D3 du plan initial agrégeait trois **unités de déploiement** de risque et de 
 
 #### D3b — Endpoints clés dédiés sur `apikey` _(surface ajoutée, non branchée)_ `→`
 
-- **Façade** `@openagenda/auth` (posée) : `createUserKeyPair`/`createAgendaKey` via `auth.api.createApiKey` (owner encodé dans `userId`, `metadata.oaKind`, plaintext une fois) ; `listUserKeys`/`listAgendaKeys`/`revokeUserKey`/`revokeAgendaKey` via l'**adapter** (endpoints plugin session-gated). Revoke scopé `id`×`referenceId`.
-- **Endpoints serveur** user (multi-clés « Applications ») + agenda (list/create/revoke), branchés sur la façade. **Pas de dual-write-back** vers `key`/`api_key_set` : les clés natives vivent dans `apikey` et s'authentifient sur v2 **et** v3 grâce à D3a′. _(Les clés **agenda** legacy étaient déjà multi dans la table `key` ; les natives s'y ajoutent côté `apikey`.)_
-- **Politique des nouvelles clés** : `permissions: null` (pas d'enforcement de scope avant D6 — inutile de stocker des scopes inertes) et **préfixes différés à D6** (la façade les accepte en option, le caller décide). UIs **pas encore basculées**.
+Découpé en **deux unités de déploiement indépendantes** (granularité = unité déploiement/rollback). La **façade** `@openagenda/auth` est posée : `createUserKeyPair`/`createUserKey`/`createAgendaKey` via `auth.api.createApiKey` (owner encodé dans `userId`, `metadata.oaKind`, plaintext **une seule fois**) ; `listUserKeys`/`listAgendaKeys`/`revokeUserKey`/`revokeAgendaKey` via l'**adapter** (endpoints plugin session-gated). Revoke scopé `id`×`referenceId`. **Pas de dual-write-back** vers `key`/`api_key_set` : les clés natives vivent dans `apikey`. **Politique commune** : `permissions: null` (pas d'enforcement de scope avant D6 — inutile de stocker des scopes inertes), **préfixes différés à D6** (la façade les accepte en option, le caller décide), **UIs pas encore basculées** (D3c).
+
+##### D3b-agenda — clés agenda sur `apikey` _(read-only, sûr)_ `→`
+
+- Endpoints serveur agenda (list/create/revoke) sur la façade (`auth.listAgendaKeys`/`createAgendaKey`/`revokeAgendaKey`, `referenceId = agenda:<uid>`), montés dans `services/keys/plugApp.js`, **guards identiques au legacy** (`requireUser` + `agendas.mw.load` + `members.mw.loadAndAuthorize('administrator')`), à de **nouveaux chemins** (`…/admin/settings/api-keys`). Le legacy `…/keys/*` reste vivant tant que l'UI n'est pas basculée (D3c). `create` renvoie le plaintext **une fois** ; `list` ne renvoie **aucun** matériel de clé.
+- **Sûr isolément** : les clés agenda sont **read-only** (`agendaFullRead` ; l'écriture v2 passe par un `tk-` minté d'une clé _user_, jamais d'une clé agenda). Une clé agenda native lit donc déjà sur v2 (GET, D3a′) **et** v3, sans toucher au chemin d'écriture.
+
+##### D3b-user — clés user sur `apikey` _(v3-first)_ `→`
+
+- Endpoints serveur user (« Applications ») sur la façade : pk+sk (archétypes) + **sk nommées additionnelles**, list, revoke. La **pk** lit sur v2 (GET) + v3 ; la **sk** écrit **nativement sur v3** (Bearer direct, §5.2).
+- **Pas de pont d'écriture v2** : v2 reste gelée (`tk-`), le write moderne vit sur **v3** — pas de demi-mesure (on ne livre pas une `sk` censée écrire sur v2 sans le pouvoir ; elle écrit, sur v3). Les credentials legacy continuent d'écrire sur v2 via leur `tk-`.
+- Dépend de D3b-agenda pour la façade/harness ; déployable/rollbackable à part.
 
 #### D3c — Refonte UX « montré une fois » + découplage `users` _(visible, peu réversible)_ `⏸`
 
 - `user-apps/src/components/ApiKeySettings.js` et `agenda-settings/src/components/KeysManager.js` cessent d'afficher la valeur stockée ; liste = label/created/last-used, valeur révélée **seulement** au retour de création. _(Apps React legacy — édition en place, pas de migration App Router ; mettre à jour Storybook.)_
 - Découpler `users` : retirer resolvers `apiKey`/`apiSecret`, hooks `generateApiKey`/`searchByKey`, et le `apiKey` de `/me` une fois plus aucun lecteur.
+- **Contrainte de séquencement (révocation effective)** : tant que le fallback legacy de D3a/D3a′ est vivant, révoquer une clé **backfillée (mirror)** ne retire que sa ligne `apikey` — la ligne legacy `key`/`api_key_set` subsiste et la clé **continue d'authentifier via le fallback**. La bascule de l'UI revoke **doit donc suivre le retrait du fallback** (métriques zéro hit), pas seulement une fenêtre d'observation — sinon « Révoquer » ment à l'utilisateur. Les endpoints restent **purs** (`apikey` only) ; on ne recouple pas revoke aux tables legacy.
 - À déployer **en dernier** : un utilisateur qui n'a pas copié sa clé à la création est bloqué ⇒ atterrissage après observation de D3a/D3a′/D3b en prod.
 
-### D4 — Retrait `tk-` / `access_token` `⏸`
+### D4 — Écriture moderne v3 (Bearer direct) ; `tk-` gelé sur v2 `⏸`
 
-- Auth write directe via `oa_sk_` Bearer (lit `apikey`).
-- Déprécier `requestAccessToken`/`tk-` (fenêtre d'acceptation). Quand les métriques montrent `tk-` inutilisé : couper le minting, arrêter le dual-write vers `key`/`api_key_set`, retirer les lectures `access_token`. Le salt `okilydokily` disparaît.
+- **v3** : `oa_sk_` en Bearer direct autorise l'**écriture** (lit `apikey`, §5.2), sans `/requestAccessToken`. v3 n'introduit jamais `tk-`. _(Les endpoints d'écriture v3 eux-mêmes relèvent de la surface moderne — D6 ; D4 fige le **modèle d'auth** write de v3.)_
+- **v2** : le flux `tk-` (`requestAccessToken` + `access_token` + salt `okilydokily`) **reste en place, inchangé** — v2 est gelée. Les credentials legacy continuent d'y écrire ; les nouvelles `oa_sk_` natives écrivent sur **v3**. Pas de pont v2 (éviterait une demi-mesure).
+- Le retrait **global** de `tk-`/`access_token` et du salt `okilydokily` est lié à l'**EOL de v2**, hors de cette tranche.
 
 ### D5 — Supprimer `packages/keys` `⏸`
 
