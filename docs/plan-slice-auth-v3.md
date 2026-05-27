@@ -57,9 +57,9 @@ Les deux sont synchronisées par fan-out : `users/hooks/generateApiKey.js` écri
 - Schéma `apikey` (`dist/index.mjs:1939`) : `id`, `configId`, `name`, `start`, `referenceId` (**required, générique, indexé**), `prefix`, `key` (indexé), `refillInterval`/`refillAmount`/`lastRefillAt`, `enabled`, `rateLimitEnabled`/`rateLimitTimeWindow`/`rateLimitMax`/`requestCount`, `remaining`, `lastRequest`, `expiresAt`, `createdAt`, `updatedAt`, `permissions` (string JSON), `metadata` (string JSON).
 - **Hashing** : `disableKeyHashing` existe (`dist/index.mjs:2087`) mais **on hashe** (défaut). `defaultKeyHasher` est exporté ⇒ utilisable pour **backfiller** les clés existantes (on détient le plaintext aujourd'hui).
 - `verifyApiKey({ key, permissions? })` → `{ valid, error, key: Omit<ApiKey,'key'> }` — **pas d'hydratation de session/user**. Idéal : notre middleware v3 appelle `verifyApiKey`, puis charge le user/agenda OA depuis `referenceId`, en gardant **100 % le contrôle de l'enveloppe + 401/403**.
-- `createApiKey` côté serveur accepte `userId`/`prefix`/`expiresIn`/`permissions`/`metadata`/`remaining`/`refill*`/`rateLimit*` ; `referenceId` dérivé de `userId` (ou orgId). Le plaintext n'est rendu **qu'à la création**.
-- `listApiKeys`/`getApiKey`/`updateApiKey`/`deleteApiKey` (par `keyId`, contrôle d'ownership), `deleteAllExpiredApiKeys`. Le plugin auto-supprime les clés expirées (cooldown 10 s).
-- Rate-limit par clé sur **secondaryStorage** (Redis déjà câblé dans `@openagenda/auth`).
+- `createApiKey` est **server-callable** (in-process, sans session). **Pas de champ `referenceId`** dans le body : avec `references:"user"` (notre config), un appel serveur dérive `referenceId` de `userId` ⇒ on **encode l'owner dans `userId`** (`"<uid>"` / `"agenda:<uid>"`, vérifié `dist/index.mjs:745-757`). `permissions`/`rateLimit*`/`refill*`/`remaining` sont **server-only** (rejetés sur un appel client, `:725`). Le plaintext n'est rendu **qu'à la création**.
+- ⚠️ **`listApiKeys`/`getApiKey`/`updateApiKey`/`deleteApiKey` sont `session-gated`** (`use: [sessionMiddleware]`, scopés sur `session.user.id` — `:881`,`:1115`) : **pas appelables server-side**, et **incapables d'adresser une clé agenda** (`referenceId = agenda:<uid>` ≠ user de session). ⇒ list/revoke OA passent par l'**adapter** (`instance.$context.adapter`, modèle `'apikey'`), le même escape hatch que `createCredentialHelpers`, et non par ces endpoints. (`deleteAllExpiredApiKeys` auto-purge, cooldown 10 s.)
+- Rate-limit par clé sur **secondaryStorage** (Redis déjà câblé) ; les **clés** elles-mêmes sont en **storage base** (table `apikey`) — d'où la lecture list/revoke via l'adapter base.
 
 ---
 
@@ -79,7 +79,7 @@ Les deux sont synchronisées par fan-out : `users/hooks/generateApiKey.js` écri
 
 Store unique **`apikey`** (plugin, migration dans `packages/auth/migrations`) : hashé, multi-clés, `referenceId` (`<uid>` user / `agenda:<uid>`), `permissions` = scopes, `prefix` `oa_pk_`/`oa_sk_`, `expiresAt`, `enabled` (révocation), rate-limit par clé.
 
-- **Helpers OA** dans `@openagenda/auth` : `createUserKeyPair` (pk+sk), `createAgendaKey`, `verifyKey`, `listKeys`, `revokeKey` — façade au-dessus de `auth.api.*` avec l'encodage `referenceId` + scopes par défaut.
+- **Helpers OA** dans `@openagenda/auth` (`createApiKeyHelpers(instance)`, calqué sur `createCredentialHelpers`, liés sur l'instance) : `verifyKey`, `createUserKeyPair` (pk+sk), `createAgendaKey` **au-dessus de `auth.api.*`** (server-callable) ; `listUserKeys`/`listAgendaKeys`/`revokeUserKey`/`revokeAgendaKey` **via l'adapter** (`auth.api.list/delete` étant session-gated). L'encodage `referenceId` et l'ownership du store vivent là ; revoke est scopé `id`×`referenceId`.
 - **Auth v3** : middleware propre à v3 qui classe le Bearer (`oa_pk_`/`oa_sk_`/legacy), `verifyApiKey`, applique les scopes, charge user/agenda depuis `referenceId`, mappe `NotAuthenticated`→401 / `Forbidden`→403 dans l'enveloppe `{error}`.
 - `packages/keys` supprimé ; `api_key_set` + `access_token` + `tk-` retirés ; `users` découplé.
 
@@ -151,10 +151,10 @@ Chaque palier est **déployable et réversible isolément**. `→` = peut suivre
 ### D2 — Dual-write + backfill `→`
 
 - Toute création/régénération de clé écrit **aussi** dans `apikey` (hashé) via les helpers OA.
-- Migration de **backfill** : hashe (`defaultKeyHasher`) les `key` (`userPublic`/`userPrivate`/`agendaFullRead`) + `api_key_set` existantes dans `apikey`, avec `referenceId` (`<uid>` / `agenda:<uid>`) + scopes par défaut (`events:read` pour pk/agenda, `events:read`+`events:write` pour sk).
-- La vérif lit **encore l'ancien chemin**. À l'issue, `apikey` est complète et concordante.
+- Migration de **backfill** : hashe (`defaultKeyHasher`) les clés de la table `key` (`userPublic`/`userPrivate`/`agendaFullRead`) dans `apikey`, avec `referenceId` (`<uid>` / `agenda:<uid>`), `metadata.oaKind` (pk/sk/agenda) + **`permissions: null`** (non-restreint, cf. §5.1 — pas de scopes par-ressource sur les clés legacy). `api_key_set` est un miroir dérivé de la table `key`, donc `key` seule suffit. Migration `transaction: false` (mirrorOne ouvre ses propres transactions par clé).
+- La vérif lit **encore l'ancien chemin**. À l'issue, `apikey` est complète et concordante (hash déterministe ⇒ idempotent).
 
-### D3 — Bascule vérif + endpoints + refonte UIs _(éclaté en 3 sous-paliers)_ `→`
+### D3 — Bascule vérif + endpoints + refonte UIs _(éclaté en 4 sous-paliers)_ `→`
 
 D3 du plan initial agrégeait trois **unités de déploiement** de risque et de réversibilité différents. Découpé pour respecter la granularité = unité déploiement/rollback :
 
@@ -166,18 +166,23 @@ D3 du plan initial agrégeait trois **unités de déploiement** de risque et de 
 - **Pré-requis** : re-jouer le backfill avant déploiement (absorbe les clés créées depuis le merge D2).
 - **Dépendance dure** : `core.services.auth` requis sur le chemin v3 (toujours chargé en prod via `initServices` sans filtre ; à activer dans les tests d'intégration v3).
 
+#### D3a′ — Bascule vérif v2 _(invisible, filet)_ `→`
+
+- `api/middleware/verifyAndLoadAgendaOrUserFromKey.js` (sert `/api` + `/v2`) : même mécanique que D3a — `verifyKey` d'abord, propriétaire reconstruit depuis `referenceId`, **fallback legacy** sinon. Garde le **contrat v2** (403 `{ message }` écrit lui-même, passage anonyme sur `/api`, délégation `tk-` intacte) et la forme `req.agendaKey = { identifier }` (seul champ lu en aval).
+- **Pourquoi avancer ce palier** (le plan initial le différait) : une clé native multi/scopée/expirable **ne peut pas** être ré-écrite vers le legacy **user** (`api_key_set` = une seule paire). Le dual-write-back est donc structurellement impossible ⇒ la **seule** façon que les nouvelles clés marchent **à la fois sur v2 et v3 sans casser v2**, c'est que v2 lise aussi le store `apikey`. Le fallback préserve toutes les clés existantes : v2 n'est pas cassée, elle est **étendue**.
+- **Dépendance gardée** : `services.auth` est optionnel (`auth ? verifyKey : null`) — dégradation vers legacy si absent (cohérent `server.js`, et certaines apps de test montent v2 sans auth). Contraste avec v3 où la dépendance est dure.
+
 #### D3b — Endpoints clés dédiés sur `apikey` _(surface ajoutée, non branchée)_ `→`
 
-- Façade `@openagenda/auth` : `createUserKeyPair` (pk+sk), `createAgendaKey`, `listKeys`, `revokeKey` au-dessus de `auth.api.*` avec l'encodage `referenceId` + scopes par défaut.
-- Endpoints serveur user (multi-clés « Applications ») + agenda (list/create/revoke), **dual-write maintenu** vers `key` pour ne pas rompre le fallback/legacy. UIs **pas encore basculées**.
+- **Façade** `@openagenda/auth` (posée) : `createUserKeyPair`/`createAgendaKey` via `auth.api.createApiKey` (owner encodé dans `userId`, `metadata.oaKind`, plaintext une fois) ; `listUserKeys`/`listAgendaKeys`/`revokeUserKey`/`revokeAgendaKey` via l'**adapter** (endpoints plugin session-gated). Revoke scopé `id`×`referenceId`.
+- **Endpoints serveur** user (multi-clés « Applications ») + agenda (list/create/revoke), branchés sur la façade. **Pas de dual-write-back** vers `key`/`api_key_set` : les clés natives vivent dans `apikey` et s'authentifient sur v2 **et** v3 grâce à D3a′. _(Les clés **agenda** legacy étaient déjà multi dans la table `key` ; les natives s'y ajoutent côté `apikey`.)_
+- **Politique des nouvelles clés** : `permissions: null` (pas d'enforcement de scope avant D6 — inutile de stocker des scopes inertes) et **préfixes différés à D6** (la façade les accepte en option, le caller décide). UIs **pas encore basculées**.
 
 #### D3c — Refonte UX « montré une fois » + découplage `users` _(visible, peu réversible)_ `⏸`
 
 - `user-apps/src/components/ApiKeySettings.js` et `agenda-settings/src/components/KeysManager.js` cessent d'afficher la valeur stockée ; liste = label/created/last-used, valeur révélée **seulement** au retour de création. _(Apps React legacy — édition en place, pas de migration App Router ; mettre à jour Storybook.)_
 - Découpler `users` : retirer resolvers `apiKey`/`apiSecret`, hooks `generateApiKey`/`searchByKey`, et le `apiKey` de `/me` une fois plus aucun lecteur.
-- À déployer **en dernier** : un utilisateur qui n'a pas copié sa clé à la création est bloqué ⇒ atterrissage après observation de D3a/D3b en prod.
-
-> Bascule vérif **v2** (`verifyAndLoadAgendaOrUserFromKey`, sert `/api` + `/v2`) : même mécanique que D3a mais blast radius bien plus large — palier séparé après que D3a soit prouvé en prod.
+- À déployer **en dernier** : un utilisateur qui n'a pas copié sa clé à la création est bloqué ⇒ atterrissage après observation de D3a/D3a′/D3b en prod.
 
 ### D4 — Retrait `tk-` / `access_token` `⏸`
 
@@ -213,6 +218,6 @@ D3 du plan initial agrégeait trois **unités de déploiement** de risque et de 
 
 ## 8. Points ouverts / à vérifier en cours de route
 
-- **Câblage exact des resources** `res.keys.*` / `res.getMe` / `res.generateApiKey` des UIs legacy (injectées par le serveur hôte, hors des 4 packages) — à localiser avant D3.
-- **Consommateurs de la valeur de clé** (passCulture, supervisor, mails) : confirmer qu'ils lisent une valeur (compatible) et non un comportement « ré-affichable » — à câbler en D3/D4.
+- ~~**Câblage des resources** `res.keys.*` / `res.getMe` / `res.generateApiKey`~~ **localisé** : clés user via `services/users/plugApp.js` (`/users/:id/generateApiKey`, hook `generateApiKey` single-pair) + `/me` (`api/index.js:1056`, resolver `apiKey` plaintext) ; clés agenda via `services/keys/plugApp.js` (`/:slug/admin/settings/keys/{list,create,update,remove}`, gardé `members.authorize('administrator')`). Réutilisables / remplaçables en D3b.
+- ~~**Consommateurs de la valeur de clé**~~ **confirmé** : passCulture / supervisor / mails utilisent des credentials **de config** (Mailgun, InsightOps, SDK), **aucun** ne lit une valeur de clé OA de requête. Seuls `/me` + les 2 UIs lisent une valeur OA stockée ⇒ tout l'impact « montré une fois » est concentré en **D3c**.
 - **`oidc-provider` / `client_credentials`** (M2M OAuth2) : **hors scope**, différé à la future Phase 7 SSO. `oa_sk_` en Bearer direct couvre le M2M write d'ici là.
