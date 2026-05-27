@@ -163,6 +163,7 @@
     "xlsx-writestream": "^0.5.1"
   },
   "devDependencies": {
+    "@jest/globals": "^30.4.1",
     "@openagenda/api-spec": "workspace:^",
     "@openagenda/mails-editor": "^3.0.0",
     "acorn": "^8.12.1",
