@@ -394,4 +394,24 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(res.body.error.code).toBe('not_found');
     });
   });
+
+  describe('authentication', () => {
+    it('returns 401 with the { error } envelope when no credentials are given', async () => {
+      const res = await request(app).get('/agendas/2/events');
+
+      expect(res.status).toBe(401);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.code).toBe('unauthorized');
+    });
+
+    it('returns 401 with the { error } envelope for an invalid key', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events')
+        .set('authorization', 'Bearer oa_does_not_exist');
+
+      expect(res.status).toBe(401);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.code).toBe('unauthorized');
+    });
+  });
 });

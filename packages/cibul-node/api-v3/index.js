@@ -11,6 +11,7 @@ import express from 'express';
 import logs from '@openagenda/logs';
 import sentryErrorHandler from '../lib/sentryErrorHandler.js';
 import * as mw from '../api/middleware/index.js';
+import createAuthenticate from './lib/authenticate.js';
 import mapEvent from './lib/mapEvent.js';
 import buildListEnvelope from './lib/envelope.js';
 import buildEventSearchQuery from './lib/buildEventSearchQuery.js';
@@ -49,71 +50,63 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     next();
   });
 
-  // Auth resolution (publicKey / agenda-key / access token). Because baseUrl is
-  // not `/api`, this enforces authentication.
-  app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
+  // Auth resolution (publicKey / agenda-key / access token). Throws typed
+  // errors (401 NotAuthenticated / 403 Forbidden) into the v3 error envelope.
+  app.get('*', createAuthenticate(core));
 
   // Load the agenda for any route exposing :agendaUid.
   app.param('agendaUid', mw.loadAgenda);
 
   // GET /agendas/:agendaUid/events
-  app.get(
-    '/agendas/:agendaUid/events',
-    mw.evaluateAnonymousAccess,
-    async (req, res, next) => {
-      try {
-        const limit = resolveLimit(req.query.limit);
+  app.get('/agendas/:agendaUid/events', async (req, res, next) => {
+    try {
+      const limit = resolveLimit(req.query.limit);
 
-        const nav = { size: limit };
+      const nav = { size: limit };
 
-        const query = buildEventSearchQuery(req.query);
+      const query = buildEventSearchQuery(req.query);
 
-        // Filters are not encoded in the cursor; the cursor only carries the
-        // position and the sort that produced the previous page, so the sort
-        // it pins wins over any `?sort` on a follow-up request.
-        if (req.query.after !== undefined) {
-          const decoded = decodeCursor(req.query.after);
-          if (decoded) {
-            nav.after = decoded.after;
-            if (decoded.sort) query.sort = decoded.sort;
-          }
+      // Filters are not encoded in the cursor; the cursor only carries the
+      // position and the sort that produced the previous page, so the sort
+      // it pins wins over any `?sort` on a follow-up request.
+      if (req.query.after !== undefined) {
+        const decoded = decodeCursor(req.query.after);
+        if (decoded) {
+          nav.after = decoded.after;
+          if (decoded.sort) query.sort = decoded.sort;
         }
-
-        const result = await core
-          .agendas(req.agenda.uid)
-          .events.search(query, nav, {
-            useAfterKey: true,
-            detailed: false,
-            userUid: req.user?.uid,
-            agendaKey: req.agendaKey,
-          });
-
-        res.json(buildListEnvelope(result, { limit }));
-      } catch (err) {
-        next(err);
       }
-    },
-  );
+
+      const result = await core
+        .agendas(req.agenda.uid)
+        .events.search(query, nav, {
+          useAfterKey: true,
+          detailed: false,
+          userUid: req.user?.uid,
+          agendaKey: req.agendaKey,
+        });
+
+      res.json(buildListEnvelope(result, { limit }));
+    } catch (err) {
+      next(err);
+    }
+  });
 
   // GET /agendas/:agendaUid/events/:eventUid
-  app.get(
-    '/agendas/:agendaUid/events/:eventUid',
-    mw.evaluateAnonymousAccess,
-    async (req, res, next) => {
-      try {
-        const event = await core
-          .agendas(req.agenda.uid)
-          .events.search.get(
-            { uid: req.params.eventUid },
-            { detailed: true, userUid: req.user?.uid },
-          );
+  app.get('/agendas/:agendaUid/events/:eventUid', async (req, res, next) => {
+    try {
+      const event = await core
+        .agendas(req.agenda.uid)
+        .events.search.get(
+          { uid: req.params.eventUid },
+          { detailed: true, userUid: req.user?.uid },
+        );
 
-        res.json(mapEvent(event));
-      } catch (err) {
-        next(err);
-      }
-    },
-  );
+      res.json(mapEvent(event));
+    } catch (err) {
+      next(err);
+    }
+  });
 
   log('done');
 
