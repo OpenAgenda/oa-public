@@ -1,3 +1,4 @@
+import * as keysMw from '@openagenda/keys/middleware.js';
 import Services from '../services/init.js';
 import { backfillFromKeyTable } from '../services/keys/lib/apiKeyMirror.js';
 import testConfig from './testConfig.js';
@@ -9,6 +10,14 @@ import setup from './fixtures/setup.js';
 // concordant by verifying through the plugin's `verifyApiKey`, the exact path
 // the D3 bascule will switch to. A legacy plaintext that verifies here proves
 // the embedded integrations will keep working once the read path flips.
+
+// Drive a keys HTTP middleware handler in isolation. cbify (in the keys
+// middleware) resolves by calling next(err?) — a truthy arg means error.
+function runMiddleware(handler, req) {
+  return new Promise((resolve, reject) => {
+    handler(req, {}, (err) => (err ? reject(err) : resolve(req.result)));
+  });
+}
 
 const enabled = [
   'knex',
@@ -126,6 +135,34 @@ describe('90 - api-key dual-write + backfill (D2)', () => {
       await services.keys({ type: 'userPublic', identifier: 90004 }).remove();
 
       expect((await verify(created.key)).valid).toBe(false);
+    });
+  });
+
+  describe('dual-write through the keys HTTP middleware (settings UI path)', () => {
+    // The agenda-settings key UI goes through @openagenda/keys/middleware.js,
+    // which holds its own raw service instance — it never sees the cibul-node
+    // service object. Mirroring lives in a service-level hook precisely so this
+    // path is covered too. Guards against the revocation gap a wrapper-only
+    // approach would leave (UI delete not propagated to `apikey`).
+    it('mirrors then revokes an agenda key created/removed via the middleware', async () => {
+      const createReq = {
+        identifiers: { type: 'agendaFullRead', identifier: 90020 },
+        body: {},
+      };
+      await runMiddleware(keysMw.create(), createReq);
+      const { key } = createReq.result;
+
+      const created = await verify(key);
+      expect(created.valid).toBe(true);
+      expect(created.key.referenceId).toBe('agenda:90020');
+      expect(created.key.metadata.oaKind).toBe('agenda');
+
+      const removeReq = {
+        identifiers: { type: 'agendaFullRead', identifier: 90020 },
+      };
+      await runMiddleware(keysMw.remove(), removeReq);
+
+      expect((await verify(key)).valid).toBe(false);
     });
   });
 
