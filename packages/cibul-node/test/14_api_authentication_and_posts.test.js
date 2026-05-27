@@ -48,6 +48,7 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
     core = Core(services, config);
 
+    await services.simpleCache.clearAll();
     await services.formSchemas.clearCache();
 
     await core.services.eventSearch
