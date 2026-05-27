@@ -46,6 +46,15 @@ function _geoBounds(b) {
   };
 }
 
+function _geoDistance(g) {
+  return {
+    geo_distance: {
+      distance: `${g.distance}m`,
+      _search_location: { lat: g.center.lat, lon: g.center.lng },
+    },
+  };
+}
+
 function _getQueryMustParts(cleanQuery) {
   const parts = [];
 
@@ -83,6 +92,16 @@ function _getQueryMustParts(cleanQuery) {
     && _.get(cleanQuery, 'geo.southWest.lng')
   ) {
     parts.push(_geoBounds(cleanQuery.geo));
+  }
+
+  // proximity constraint (geo_distance): lat/lng may legitimately be 0, so test
+  // for presence (!= null) rather than truthiness.
+  if (
+    _.get(cleanQuery, 'geoDistance.center.lat') != null
+    && _.get(cleanQuery, 'geoDistance.center.lng') != null
+    && _.get(cleanQuery, 'geoDistance.distance') > 0
+  ) {
+    parts.push(_geoDistance(cleanQuery.geoDistance));
   }
 
   const searchFields = [

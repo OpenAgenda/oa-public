@@ -11002,6 +11002,14 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@openagenda/api-spec@workspace:^, @openagenda/api-spec@workspace:packages/api-spec":
+  version: 0.0.0-use.local
+  resolution: "@openagenda/api-spec@workspace:packages/api-spec"
+  dependencies:
+    yaml: "npm:^2.4.5"
+  languageName: unknown
+  linkType: soft
+
 "@openagenda/auth@npm:^0.1.0, @openagenda/auth@workspace:packages/auth":
   version: 0.0.0-use.local
   resolution: "@openagenda/auth@workspace:packages/auth"
@@ -24676,7 +24684,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv-formats@npm:~3.0.1":
+"ajv-formats@npm:^3, ajv-formats@npm:~3.0.1":
   version: 3.0.1
   resolution: "ajv-formats@npm:3.0.1"
   dependencies:
@@ -24752,6 +24760,18 @@ __metadata:
     json-schema-traverse: "npm:^0.4.1"
     uri-js: "npm:^4.2.2"
   checksum: 10c0/41e23642cbe545889245b9d2a45854ebba51cda6c778ebced9649420d9205f2efb39cb43dbc41e358409223b1ea43303ae4839db682c848b891e4811da1a5a71
+  languageName: node
+  linkType: hard
+
+"ajv@npm:^8":
+  version: 8.20.0
+  resolution: "ajv@npm:8.20.0"
+  dependencies:
+    fast-deep-equal: "npm:^3.1.3"
+    fast-uri: "npm:^3.0.1"
+    json-schema-traverse: "npm:^1.0.0"
+    require-from-string: "npm:^2.0.2"
+  checksum: 10c0/5df9a1c8f83863cde1bd3a9ddb426f599718f88e3dc9153616c79fb28e0be455335830d7f21d745576519f057b371352daa31047b6a33d7036fe08777d60cf2a
   languageName: node
   linkType: hard
 
@@ -28044,6 +28064,7 @@ __metadata:
     "@openagenda/agendas": "npm:^1.7.1"
     "@openagenda/aggregator-sources": "npm:^1.3.3"
     "@openagenda/aggregators": "npm:^1.11.7"
+    "@openagenda/api-spec": "workspace:^"
     "@openagenda/auth": "npm:^0.1.0"
     "@openagenda/cibul-templates": "npm:^1.4.3"
     "@openagenda/custom": "npm:^1.3.15"
@@ -28112,6 +28133,8 @@ __metadata:
     "@uppy/companion": "npm:^4.15.1"
     acorn: "npm:^8.12.1"
     acorn-walk: "npm:^8.3.3"
+    ajv: "npm:^8"
+    ajv-formats: "npm:^3"
     body-parser: "npm:^1.19.0"
     bullmq: "npm:^5.65.1"
     concurrently: "npm:^7.3.0"
@@ -28176,6 +28199,7 @@ __metadata:
     uuid: "npm:^3.4.0"
     validator: "npm:^7.0.0"
     xlsx-writestream: "npm:^0.5.1"
+    yaml: "npm:^2.4.5"
   languageName: unknown
   linkType: soft
 
@@ -34656,6 +34680,13 @@ __metadata:
   version: 1.0.0
   resolution: "fast-shallow-equal@npm:1.0.0"
   checksum: 10c0/526c393c011ab5a0ca5a36c5ea25c9730acd027503ccbec6c7825397ab9375f51f67f14c8829b4c4b1ccccede695391dd14863a15e40a37fc4af08c1440a1b66
+  languageName: node
+  linkType: hard
+
+"fast-uri@npm:^3.0.1":
+  version: 3.1.2
+  resolution: "fast-uri@npm:3.1.2"
+  checksum: 10c0/5b35641895959f3f7ab7a7b1b5542bded159346f25ec9f256817b206d50b64eda5828e90d605a2e2fc645c90519a7259c2bab2c942ee728c88b88e5be21b090d
   languageName: node
   linkType: hard
 
@@ -60599,6 +60630,15 @@ __metadata:
   version: 1.10.2
   resolution: "yaml@npm:1.10.2"
   checksum: 10c0/5c28b9eb7adc46544f28d9a8d20c5b3cb1215a886609a2fd41f51628d8aaa5878ccd628b755dbcd29f6bb4921bd04ffbc6dcc370689bb96e594e2f9813d2605f
+  languageName: node
+  linkType: hard
+
+"yaml@npm:^2.4.5":
+  version: 2.9.0
+  resolution: "yaml@npm:2.9.0"
+  bin:
+    yaml: bin.mjs
+  checksum: 10c0/f340718df45e97a9551b9bf9dac61c80050bc464513b710debfb5067c380c8472e3b67809cffacb4ab5ffb5e66ef9310816c88b05f371cec60abfedd8c88e0a2
   languageName: node
   linkType: hard
 

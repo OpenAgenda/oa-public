@@ -163,14 +163,18 @@
     "xlsx-writestream": "^0.5.1"
   },
   "devDependencies": {
+    "@openagenda/api-spec": "workspace:^",
     "@openagenda/mails-editor": "^3.0.0",
     "acorn": "^8.12.1",
     "acorn-walk": "^8.3.3",
+    "ajv": "^8",
+    "ajv-formats": "^3",
     "glob": "^10.4.2",
     "jest": "^30.3.0",
     "jose": "^6.1.0",
     "msw": "^2.3.0",
     "sinon": "^7.5.0",
-    "supertest": "^7.0.0"
+    "supertest": "^7.0.0",
+    "yaml": "^2.4.5"
   }
 }
