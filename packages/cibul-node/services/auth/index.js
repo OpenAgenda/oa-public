@@ -79,6 +79,7 @@ export async function init(config, services) {
       user: schemas.user,
       account: schemas.account,
       verification: schemas.verification,
+      apiKey: schemas.apiKey,
     },
     google: config.auth?.google?.id ? config.auth.google : undefined,
     facebook: config.auth?.facebook?.id ? config.auth.facebook : undefined,

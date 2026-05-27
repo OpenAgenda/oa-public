@@ -67,5 +67,11 @@ export default async (...args) => {
     );
   }
 
-  return get(insertId[0]);
+  const created = await get(insertId[0]);
+
+  if (config.interfaces?.onCreate) {
+    await config.interfaces.onCreate(created);
+  }
+
+  return created;
 };

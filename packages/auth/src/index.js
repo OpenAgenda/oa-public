@@ -3,6 +3,7 @@ import { toNodeHandler, fromNodeHeaders } from 'better-auth/node';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { getCurrentAuthContext } from '@better-auth/core/context';
 import { redisStorage } from '@better-auth/redis-storage';
+import { apiKey } from '@better-auth/api-key';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createCredentialHelpers from './internalAccount.js';
@@ -64,14 +65,46 @@ export default function Auth(options = {}) {
     user: schemas.user ?? 'user',
     account: schemas.account ?? 'account',
     verification: schemas.verification ?? 'verification',
+    apiKey: schemas.apiKey ?? 'apikey',
   };
+
+  // Map the api-key plugin's camelCase schema to OA's snake_case columns
+  // (same convention as the account/verification tables above). The model key
+  // stays `apikey` (the plugin's internal name); only the physical table and
+  // column names are remapped.
+  const apiKeyPlugin = apiKey({
+    schema: {
+      apikey: {
+        modelName: tables.apiKey,
+        fields: {
+          configId: 'config_id',
+          referenceId: 'reference_id',
+          refillInterval: 'refill_interval',
+          refillAmount: 'refill_amount',
+          lastRefillAt: 'last_refill_at',
+          rateLimitEnabled: 'rate_limit_enabled',
+          rateLimitTimeWindow: 'rate_limit_time_window',
+          rateLimitMax: 'rate_limit_max',
+          requestCount: 'request_count',
+          lastRequest: 'last_request',
+          expiresAt: 'expires_at',
+          createdAt: 'created_at',
+          updatedAt: 'updated_at',
+        },
+      },
+    },
+  });
 
   const baOptions = {
     database: { dialect: new MysqlDialect({ pool: mysqlPool }), type: 'mysql' },
     secret,
     baseURL,
     trustedOrigins,
-    plugins: [oaImpersonationPlugin()],
+    // `apiKeyPlugin` runs with enableSessionForAPIKeys=false (default): it adds
+    // the api-key endpoints + `apikey` table but does NOT intercept requests or
+    // open sessions from an x-api-key header. The v3 API resolves keys itself
+    // via auth.api.verifyApiKey, keeping full control of the error envelope.
+    plugins: [oaImpersonationPlugin(), apiKeyPlugin],
     advanced: {
       cookiePrefix: 'oa',
       cookies: {

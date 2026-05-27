@@ -10,7 +10,13 @@ export default async (identifiers) => {
   const row = await get(identifiers, { optionalKey: true });
 
   if (row) {
-    return knex(schemas.key).delete().where({ id: row.id });
+    const result = await knex(schemas.key).delete().where({ id: row.id });
+
+    if (config.interfaces?.onRemove) {
+      await config.interfaces.onRemove(row);
+    }
+
+    return result;
   }
 
   return null;

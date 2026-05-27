@@ -169,6 +169,7 @@ const config = {
     aggregator: 'aggregator',
     aggregatorSource: 'aggregator_source',
     apiKeySet: 'api_key_set',
+    apiKey: 'api_key',
     accessToken: 'access_token',
     eventService: 'event_2',
     agendaEvent: 'agenda_event',
