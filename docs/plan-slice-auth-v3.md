@@ -47,7 +47,7 @@ Les deux sont synchronisées par fan-out : `users/hooks/generateApiKey.js` écri
 6. **Découpler `users` des clés** : `users` ne gère plus le cycle de vie des clés (suppression des resolvers `apiKey`/`apiSecret`, hooks `generateApiKey`/`searchByKey`). Le lookup inverse (clé → propriétaire) passe dans le store de clés / l'auth. La page de réglages appelle des **endpoints clés dédiés**, plus `getMe` détaillé.
 7. **Supprimer `packages/keys`** : relocaliser ses migrations (**inchangées**) dans `cibul-node/migrations/legacy/`, déplacer le runtime, supprimer le package. Voir §4.
 8. **`tk-` : abandonné sur v3, gelé sur v2.** v3 n'introduit **jamais** l'échange `/requestAccessToken` — `oa_sk_` écrit en **Bearer direct** (§5.2). v2 **conserve** son flux `tk-` (`access_token` + `generateTokenFromSecretKey` + salt `okilydokily`) tel quel (surface gelée) ; son retrait global est lié à l'EOL de v2, **hors scope** de cette tranche.
-9. **Multi-clés nommées pour les users** (« Applications ») — gratuit avec le plugin (`apikey` multi par `referenceId`).
+9. **Multi-clés nommées pour les users** — un user possède une **liste plate** de clés, chacune avec un `oaKind` (`pk`/`sk`) et un nom, créées **une par une** (gratuit avec le plugin : `apikey` multi par `referenceId`). Pas de paire imposée.
 10. **Aucun commit avant review.** Séquence applicable **palier par palier**, plusieurs déploiements espacés.
 
 ---
@@ -79,7 +79,7 @@ Les deux sont synchronisées par fan-out : `users/hooks/generateApiKey.js` écri
 
 Store unique **`apikey`** (plugin, migration dans `packages/auth/migrations`) : hashé, multi-clés, `referenceId` (`<uid>` user / `agenda:<uid>`), `permissions` = scopes, `prefix` `oa_pk_`/`oa_sk_`, `expiresAt`, `enabled` (révocation), rate-limit par clé.
 
-- **Helpers OA** dans `@openagenda/auth` (`createApiKeyHelpers(instance)`, calqué sur `createCredentialHelpers`, liés sur l'instance) : `verifyKey`, `createUserKeyPair` (pk+sk, archétypes), `createUserKey` (sk nommée additionnelle), `createAgendaKey` **au-dessus de `auth.api.*`** (server-callable) ; `listUserKeys`/`listAgendaKeys`/`revokeUserKey`/`revokeAgendaKey` **via l'adapter** (`auth.api.list/delete` étant session-gated). L'encodage `referenceId` et l'ownership du store vivent là ; revoke est scopé `id`×`referenceId`.
+- **Helpers OA** dans `@openagenda/auth` (`createApiKeyHelpers(instance)`, calqué sur `createCredentialHelpers`, liés sur l'instance) : `verifyKey`, `createUserKey` (une clé user, `oaKind` `pk`/`sk`), `createAgendaKey` **au-dessus de `auth.api.*`** (server-callable) ; `listUserKeys`/`listAgendaKeys`/`revokeUserKey`/`revokeAgendaKey` **via l'adapter** (`auth.api.list/delete` étant session-gated). L'encodage `referenceId` et l'ownership du store vivent là ; revoke est scopé `id`×`referenceId`.
 - **Auth v3** : middleware propre à v3 qui classe le Bearer (`oa_pk_`/`oa_sk_`/legacy), `verifyApiKey`, applique les scopes, charge user/agenda depuis `referenceId`, mappe `NotAuthenticated`→401 / `Forbidden`→403 dans l'enveloppe `{error}`. **Modèle figé en §5.2** (Bearer direct, deux axes, pas de `tk-`).
 - `packages/keys` supprimé ; `api_key_set` + `access_token` + `tk-` retirés ; `users` découplé.
 
@@ -145,7 +145,7 @@ v3 est la surface où le modèle de clés se modernise (v2 reste **gelée**, cf.
 
 Une clé scopée `events:read` mais appartenant à un modérateur, **si elle passe `userUid`**, voit quand même ses brouillons. « Read-only » ≠ « public ». Seule une **pk — qui ne passe jamais `userUid`** — garantit _publié uniquement / champs publics_, donc **embarquable côté client** sans risque. Le verrou public est **structurel**, indépendant des scopes (§5.1 « double application »).
 
-**Clés multiples nommées, pas de paire figée.** Une clé = un `oaKind` (`pk`|`sk`) **+** un sous-ensemble de scopes. Archétypes par défaut (99 % des usages) : une **pk** (lecture, publique, embarquable) + une **sk** (lecture+écriture, tier propriétaire). Les « Applications » sont des **sk nommées additionnelles** scopées (ex. une clé `events:write` seule pour un connecteur d'import) — gratuit avec le plugin (multi par `referenceId`). Le **couplage 1 pk + 1 sk n'est pas imposé** ; les _kinds_ le sont (porteurs du verrou de tier). Garde-fous (D6) : `pk` + action `:write` → **400** ; une `sk` ne dépasse **jamais** le rôle de son propriétaire (le scope atténue, n'élève pas).
+**Liste plate de clés nommées, créées une par une.** Une clé = un `oaKind` (`pk`|`sk`) **+** un nom **+** un sous-ensemble de scopes. Un user possède une liste de telles clés (ex. une `sk` `events:write` seule pour un connecteur d'import, une `pk` read-only à embarquer côté client) ; il les crée **une par une**, pas en paire. Les _kinds_ portent le verrou de tier. Garde-fous (D6) : `pk` + action `:write` → **400** ; une `sk` ne dépasse **jamais** le rôle de son propriétaire (le scope atténue, n'élève pas).
 
 ---
 
@@ -200,7 +200,7 @@ Découpé en **deux unités de déploiement indépendantes** (granularité = uni
 
 ##### D3b-user — clés user sur `apikey` _(v3-first)_ `→`
 
-- Endpoints serveur user (« Applications ») sur la façade : pk+sk (archétypes) + **sk nommées additionnelles**, list, revoke. La **pk** lit sur v2 (GET) + v3 ; la **sk** écrit **nativement sur v3** (Bearer direct, §5.2).
+- Endpoints serveur user sur la façade : **liste plate de clés nommées** (create une par une via `createUserKey`, `oaKind` `pk`/`sk`), list, revoke. La **pk** lit sur v2 (GET) + v3 ; la **sk** écrit **nativement sur v3** (Bearer direct, §5.2).
 - **Pas de pont d'écriture v2** : v2 reste gelée (`tk-`), le write moderne vit sur **v3** — pas de demi-mesure (on ne livre pas une `sk` censée écrire sur v2 sans le pouvoir ; elle écrit, sur v3). Les credentials legacy continuent d'écrire sur v2 via leur `tk-`.
 - Dépend de D3b-agenda pour la façade/harness ; déployable/rollbackable à part.
 
@@ -225,7 +225,7 @@ Découpé en **deux unités de déploiement indépendantes** (granularité = uni
 
 ### D6 — Surface moderne v3 `→`
 
-- Scopes mappés aux tiers de visibilité (enforcement à `verifyApiKey`), préfixes sur toute nouvelle clé, expiry/révocation dans les UIs, multi-clés « Applications » côté user.
+- Scopes mappés aux tiers de visibilité (enforcement à `verifyApiKey`), préfixes sur toute nouvelle clé, expiry/révocation dans les UIs, liste multi-clés nommées côté user.
 - En-têtes `Deprecation`/`Sunset` sur `?key=` + headers `key:`/`access-token:`.
 
 ---
