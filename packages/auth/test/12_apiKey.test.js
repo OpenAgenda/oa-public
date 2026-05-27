@@ -106,22 +106,34 @@ describe('createApiKeyHelpers — create', () => {
     return { instance: { api: { createApiKey } }, createApiKey };
   }
 
-  it('creates a user pk+sk pair under referenceId = String(uid)', async () => {
+  it('creates one user key under referenceId = String(uid), oaKind sk by default', async () => {
     const { instance, createApiKey } = createInstance();
-    const { createUserKeyPair } = createApiKeyHelpers(instance);
+    const { createUserKey } = createApiKeyHelpers(instance);
 
-    const { publicKey, secretKey } = await createUserKeyPair(42);
+    const { key, record } = await createUserKey(42);
 
-    expect(publicKey.key).toBe('plaintext-pk');
-    expect(secretKey.key).toBe('plaintext-sk');
-    expect(publicKey.record.referenceId).toBe('42');
-    expect(publicKey.record).not.toHaveProperty('key'); // plaintext not in record
-    expect(createApiKey).toHaveBeenCalledTimes(2);
+    expect(key).toBe('plaintext-sk');
+    expect(record.referenceId).toBe('42');
+    expect(record).not.toHaveProperty('key'); // plaintext not in record
+    expect(createApiKey).toHaveBeenCalledTimes(1);
     expect(createApiKey.mock.calls[0][0].body).toMatchObject({
       userId: '42',
+      metadata: { oaKind: 'sk', source: 'native' },
+    });
+  });
+
+  it('creates a user key with an explicit oaKind (pk)', async () => {
+    const { instance, createApiKey } = createInstance();
+    const { createUserKey } = createApiKeyHelpers(instance);
+
+    const { key } = await createUserKey(42, { oaKind: 'pk', name: 'widget' });
+
+    expect(key).toBe('plaintext-pk');
+    expect(createApiKey.mock.calls[0][0].body).toMatchObject({
+      userId: '42',
+      name: 'widget',
       metadata: { oaKind: 'pk', source: 'native' },
     });
-    expect(createApiKey.mock.calls[1][0].body.metadata.oaKind).toBe('sk');
   });
 
   it('creates an agenda key under referenceId = agenda:<uid>', async () => {

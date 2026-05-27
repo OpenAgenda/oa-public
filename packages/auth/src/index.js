@@ -656,7 +656,7 @@ export default function Auth(options = {}) {
   // they serve agenda owners and server-side admin too (see ./apiKey.js).
   const {
     verifyKey,
-    createUserKeyPair,
+    createUserKey,
     createAgendaKey,
     listUserKeys,
     listAgendaKeys,
@@ -778,7 +778,7 @@ export default function Auth(options = {}) {
     // the plaintext exposed once. `hashApiKey` is the pure static hasher, also a
     // package-root named export (see ./apiKey.js).
     verifyKey,
-    createUserKeyPair,
+    createUserKey,
     createAgendaKey,
     listUserKeys,
     listAgendaKeys,

@@ -110,14 +110,17 @@ export default function createApiKeyHelpers(instance) {
     return { key, record };
   }
 
-  // A user's publishable (pk) + secret (sk) pair, the shape the legacy
-  // generateApiKey flow produced. Each entry is `{ key, record }`.
-  async function createUserKeyPair(userUid, { pk = {}, sk = {} } = {}) {
-    const referenceId = userReferenceId(userUid);
-    return {
-      publicKey: await createKey({ referenceId, oaKind: 'pk', ...pk }),
-      secretKey: await createKey({ referenceId, oaKind: 'sk', ...sk }),
-    };
+  // One named user key. `oaKind` is the tier — `sk` (read+write at the owner's
+  // tier, the default) or `pk` (read-only, public-locked). The rest (name,
+  // prefix, permissions, expiresIn) is policy the caller passes through. Keys
+  // are created one at a time: a user owns a flat list of keys, there is no
+  // pk+sk pairing.
+  async function createUserKey(userUid, { oaKind = 'sk', ...opts } = {}) {
+    return createKey({
+      referenceId: userReferenceId(userUid),
+      oaKind,
+      ...opts,
+    });
   }
 
   async function createAgendaKey(agendaUid, opts = {}) {
@@ -171,7 +174,7 @@ export default function createApiKeyHelpers(instance) {
 
   return {
     verifyKey,
-    createUserKeyPair,
+    createUserKey,
     createAgendaKey,
     listUserKeys,
     listAgendaKeys,
