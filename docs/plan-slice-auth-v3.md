@@ -43,7 +43,7 @@ Les deux sont synchronisées par fan-out : `users/hooks/generateApiKey.js` écri
 2. **Hasher les clés** (recommandé). Conséquence UX **actée** : la page de réglages passe de « affiche toujours la clé » à **« clé montrée une seule fois à la création »** + préfixe masqué + régénérer. Le **backfill hashe les clés existantes ⇒ elles continuent de fonctionner** (intégrations embarquées intactes), simplement non ré-affichables.
 3. **Préfixes Stripe-style** : `oa_pk_` (publishable, read-only) / `oa_sk_` (secret, read+write direct en Bearer, **sans** échange de token). Transport unique `Authorization: Bearer`.
 4. **Ownership via `referenceId`** (champ générique `string, required` du plugin) : `user uid` pour les clés user, `agenda:<uid>` pour les clés agenda. **Pas** le plugin `organization` de BA (rejeté en migration). Les endpoints self-service du plugin sont scopés `referenceId === session.user.id` ⇒ les **clés agenda sont pilotées par nos endpoints agenda-admin** appelant `auth.api.*` côté serveur (cohérent avec le RBAC `@openagenda/members`).
-5. **Scopes** : `permissions: Record<string,string[]>` (ex. `{ events: ['read','write'] }`), mappés aux tiers de visibilité ; `transverse_api_access` devient un scope. **Modèle figé en §5.1.**
+5. **Scopes** (nouvelles clés D3+) : `permissions: Record<string,string[]>` (ex. `{ events: ['read','write'] }`), mappés aux tiers de visibilité ; `transverse_api_access` conditionne l'action `events:transverse`. Les clés **legacy backfillées restent non-restreintes** (`permissions: null`) — le tier porte le cap. **Modèle figé en §5.1.**
 6. **Découpler `users` des clés** : `users` ne gère plus le cycle de vie des clés (suppression des resolvers `apiKey`/`apiSecret`, hooks `generateApiKey`/`searchByKey`). Le lookup inverse (clé → propriétaire) passe dans le store de clés / l'auth. La page de réglages appelle des **endpoints clés dédiés**, plus `getMe` détaillé.
 7. **Supprimer `packages/keys`** : relocaliser ses migrations (**inchangées**) dans `cibul-node/migrations/legacy/`, déplacer le runtime, supprimer le package. Voir §4.
 8. **Retirer le flux `tk-`** (`access_token` + `generateTokenFromSecretKey` + salt `okilydokily`) au profit de `oa_sk_` en Bearer direct.
@@ -99,9 +99,9 @@ Le modèle de visibilité de `core` (vérifié) repose sur un **niveau d'accès*
 
 **Principe directeur** : un scope **ne peut jamais élever** au-delà de l'autorisation du propriétaire de la clé ; il **atténue**. L'autorisation effective vient de `loadSearchAccess` (rôle de membre du propriétaire), le scope plafonne l'**opération** (read/write).
 
-**Scopes canoniques** (format `resource:action`, mappé sur `permissions: Record<string,string[]>` du plugin — clé = resource, valeurs = actions) :
+**Scopes canoniques** — vocabulaire des **nouvelles clés (D3+) uniquement** (les clés legacy backfillées sont non-restreintes, cf. §Backfill). Format `resource:action`, mappé sur `permissions: Record<string,string[]>` du plugin (clé = resource, valeurs = actions), **limité aux ressources réellement exposées par l'API** (`agendas`, `events`, `locations`, `members`) :
 
-`events:read`, `events:write`, `agendas:read`, `agendas:write`, `locations:read`, `locations:write`, `registrations:read`, `registrations:write`, `members:read`, `members:write`, et l'action transverse `events:transverse` (cross-agenda).
+`events:read`, `events:write`, `agendas:read`, `agendas:write`, `locations:read`, `locations:write`, `members:read`, `members:write`, et l'action transverse `events:transverse` (cross-agenda). (`registrations` n'a **pas** de route API — écarté du vocabulaire.)
 
 **Règles par type de clé** (le tier effectif vient du _type de clé_ × _propriétaire_, pas du seul scope) :
 
@@ -118,13 +118,17 @@ Conséquences :
 - `events:transverse` n'est accordable qu'à une clé dont le propriétaire a `transverse_api_access` (sinon 400) — réserve l'endpoint cross-agenda (hors surface v3 actuelle).
 - **Double application** : le scope est vérifié à `verifyApiKey({ permissions })` (l'opération) ; le tier est appliqué en passant/ne passant pas `userUid` à `core` (la visibilité).
 
-**Backfill (D2) — scopes par défaut préservant le comportement actuel à l'identique** :
+**Backfill (D2) — `permissions: null` (non-restreint), fidèle au comportement actuel** :
 
-| Clé legacy                   | Type cible | `permissions`                                                                                                                                                                     |
-| ---------------------------- | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `userPublic` / `api_key`     | `oa_pk_`   | `{ events:['read'], agendas:['read'], locations:['read'], registrations:['read'], members:['read'] }`                                                                             |
-| `userPrivate` / `api_secret` | `oa_sk_`   | read complet + `events:['read','write']`, `agendas/locations/registrations:['read','write']`, `members:['read']` (+ `events:['…','transverse']` si `owner.transverse_api_access`) |
-| `agendaFullRead`             | agenda key | `{ events:['read'] }` (read-only, admin tier de l'agenda)                                                                                                                         |
+Les clés legacy sont aujourd'hui **non-restreintes par ressource** : elles authentifient _en tant que user_, et c'est le **rôle** du propriétaire (+ `transverse_api_access`) qui gouverne l'accès à toutes les ressources. Énumérer une matrice de scopes par ressource sur ces clés serait à la fois faux (`registrations` n'existe pas) et risqué (toute ressource oubliée deviendrait une régression à l'enforcement D6). Le backfill stocke donc, par clé, uniquement la classification de tier :
+
+| Clé legacy                   | `referenceId`  | `metadata.oaKind` | `permissions` |
+| ---------------------------- | -------------- | ----------------- | ------------- |
+| `userPublic` / `api_key`     | `<uid>`        | `pk`              | `null`        |
+| `userPrivate` / `api_secret` | `<uid>`        | `sk`              | `null`        |
+| `agendaFullRead`             | `agenda:<uid>` | `agenda`          | `null`        |
+
+Le cap effectif reste le **tier**, porté par `metadata.oaKind` et appliqué au request-time (D6 : `pk` → public/read-only, `sk` → tier propriétaire read+write, `agenda` → admin de l'agenda). Les scopes par-ressource sont réservés aux **nouvelles clés (D3+)**, où le propriétaire choisit explicitement un sous-ensemble. `rate_limit_enabled: false` (legacy = pas de rate-limit). Hash déterministe ⇒ backfill idempotent (delete-then-insert par `referenceId`×`oaKind`).
 
 ---
 
