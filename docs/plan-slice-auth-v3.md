@@ -154,12 +154,30 @@ Chaque palier est **déployable et réversible isolément**. `→` = peut suivre
 - Migration de **backfill** : hashe (`defaultKeyHasher`) les `key` (`userPublic`/`userPrivate`/`agendaFullRead`) + `api_key_set` existantes dans `apikey`, avec `referenceId` (`<uid>` / `agenda:<uid>`) + scopes par défaut (`events:read` pour pk/agenda, `events:read`+`events:write` pour sk).
 - La vérif lit **encore l'ancien chemin**. À l'issue, `apikey` est complète et concordante.
 
-### D3 — Bascule vérif + refonte UIs _(déploiement visible)_ `→`
+### D3 — Bascule vérif + endpoints + refonte UIs _(éclaté en 3 sous-paliers)_ `→`
 
-- Auth via `verifyApiKey` (v3, puis v2), ancien chemin en **fallback**.
-- Endpoints clés dédiés (list/create/revoke) user + agenda sur `apikey` ; brancher `user-apps` + `agenda-settings` dessus.
-- **Refonte UX « montré une fois »** : `user-apps/src/components/ApiKeySettings.js` et `agenda-settings/src/components/KeysManager.js` cessent d'afficher la valeur stockée ; liste = label/created/last-used, valeur révélée seulement au retour de création. _(Apps React legacy — édition en place, pas de migration App Router.)_
-- Découpler `users` : retirer resolvers `apiKey`/`apiSecret`, hooks `generateApiKey`/`searchByKey` une fois plus aucun lecteur.
+D3 du plan initial agrégeait trois **unités de déploiement** de risque et de réversibilité différents. Découpé pour respecter la granularité = unité déploiement/rollback :
+
+#### D3a — Bascule vérif v3 _(invisible, revert trivial)_ `→`
+
+- `api-v3/lib/authenticate.js` : sur la branche clé publique, **`verifyApiKey` d'abord** (via la façade `verifyKey` de `@openagenda/auth`), propriétaire reconstruit depuis `referenceId` (`<uid>` → `core.users.get(uid)` ; `agenda:<uid>` → `req.agendaKey = { identifier }`, seul champ lu par `loadSearchAccess`). **Parité de comportement** : pk et sk chargent tous deux le user et passent `userUid` — **pas d'enforcement de tier** (c'est D6). `oaKind` lu mais non appliqué.
+- **Fallback legacy** (`byPublicKey`/`keys().get`) conservé comme filet contre une dérive backfill/dual-write ; chaque hit est loggé (`api-v3/authenticate`, « apikey verify miss »). Le fallback lit `key`/`api_key_set` ⇒ **retiré à D5** (drop des tables) au plus tard, plus tôt si les métriques montrent zéro hit.
+- Branche `tk-` **inchangée** (legacy jusqu'à D4 ; les tokens HMAC ne sont pas dans `apikey`).
+- **Pré-requis** : re-jouer le backfill avant déploiement (absorbe les clés créées depuis le merge D2).
+- **Dépendance dure** : `core.services.auth` requis sur le chemin v3 (toujours chargé en prod via `initServices` sans filtre ; à activer dans les tests d'intégration v3).
+
+#### D3b — Endpoints clés dédiés sur `apikey` _(surface ajoutée, non branchée)_ `→`
+
+- Façade `@openagenda/auth` : `createUserKeyPair` (pk+sk), `createAgendaKey`, `listKeys`, `revokeKey` au-dessus de `auth.api.*` avec l'encodage `referenceId` + scopes par défaut.
+- Endpoints serveur user (multi-clés « Applications ») + agenda (list/create/revoke), **dual-write maintenu** vers `key` pour ne pas rompre le fallback/legacy. UIs **pas encore basculées**.
+
+#### D3c — Refonte UX « montré une fois » + découplage `users` _(visible, peu réversible)_ `⏸`
+
+- `user-apps/src/components/ApiKeySettings.js` et `agenda-settings/src/components/KeysManager.js` cessent d'afficher la valeur stockée ; liste = label/created/last-used, valeur révélée **seulement** au retour de création. _(Apps React legacy — édition en place, pas de migration App Router ; mettre à jour Storybook.)_
+- Découpler `users` : retirer resolvers `apiKey`/`apiSecret`, hooks `generateApiKey`/`searchByKey`, et le `apiKey` de `/me` une fois plus aucun lecteur.
+- À déployer **en dernier** : un utilisateur qui n'a pas copié sa clé à la création est bloqué ⇒ atterrissage après observation de D3a/D3b en prod.
+
+> Bascule vérif **v2** (`verifyAndLoadAgendaOrUserFromKey`, sert `/api` + `/v2`) : même mécanique que D3a mais blast radius bien plus large — palier séparé après que D3a soit prouvé en prod.
 
 ### D4 — Retrait `tk-` / `access_token` `⏸`
 
