@@ -12,6 +12,16 @@ import {
   removeAllMirrored,
 } from '../services/keys/lib/apiKeyMirror.js';
 
+// `transaction: false`: mirrorOne wraps each row's delete+insert in its own
+// knex.transaction() — the same per-key atomicity the runtime dual-write path
+// uses. Inside knex's default per-migration transaction those nest as MySQL
+// SAVEPOINTs, which the implicit commit from the api_key CREATE TABLE earlier in
+// the batch invalidates → a "do not mix transactions and DDL (#805)" warning per
+// row. Opting out lets mirrorOne open real top-level transactions, exactly as it
+// does at runtime. The backfill stays safe to re-run on partial failure: the
+// deterministic hash + replace make it idempotent.
+export const config = { transaction: false };
+
 export async function up(knex) {
   const { schemas } = knex.client.config;
   await backfillFromKeyTable({ knex, schemas });
