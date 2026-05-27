@@ -69,7 +69,7 @@ standalone. Réutilise les middleware v2 (`api/middleware/`) sans les dupliquer.
 
 - `index.js` — `instanciateApiV3(core, { useRouter = true })` : pose
   `app.core`/`app.services` (comme `api/index.js`), `app.param('agendaUid', loadAgenda)`,
-  les 2 routes GET (auth `verifyAndLoadAgendaOrUserFromKey` + `evaluateAnonymousAccess`),
+  les 2 routes GET (auth via `lib/authenticate.js` — voir slice auth D0),
   puis le error handler v3 en dernier.
 - `lib/mapEvent.js` — mapper PUR `event projeté → Event v3`.
 - `lib/cursor.js` — `encodeCursor`/`decodeCursor` (base64url(JSON) du couple `{ after, sort }`).
@@ -120,10 +120,13 @@ agenda, agendaUid, _agg, …`.
   - `country` réel = `LocalizedString` + clé `code` (ex. `"code":"FR"`) — valide via
     `additionalProperties: { type: string }`.
 
-**Auth — limite connue (à traiter dans la tranche auth)** : `verifyAndLoadAgendaOrUserFromKey`
-renvoie un `403 { message }` brut (pas l'enveloppe `{ error }`) quand aucune clé/user
-n'est résolu, car il répond avant d'atteindre le error handler v3. Réutilisé tel quel
-volontairement (la refonte Bearer/`oa_pk_`/scopes est une tranche ultérieure).
+**Auth — résolu (slice auth D0)** : la tranche 2 réutilisait `verifyAndLoadAgendaOrUserFromKey`,
+qui renvoyait un `403 { message }` brut (pas l'enveloppe `{ error }`) et 403 là où 401 est
+correct. Remplacé sur `/v3` par `api-v3/lib/authenticate.js` (factory fermant sur `core`) qui
+lève des erreurs typées → `NotAuthenticated` (401, credential absent/invalide) /
+`Forbidden` (403, blacklist), rendues par l'error handler v3. Le middleware v2 reste inchangé
+(toujours correct pour `/api` et `/v2`). La refonte clés `oa_pk_`/`oa_sk_` + scopes est la
+suite du slice (cf. `docs/plan-slice-auth-v3.md`).
 
 **Tests** (`packages/cibul-node/test/`) :
 
@@ -164,8 +167,9 @@ intégration (6) : tous verts.
 
 #### Known gaps & améliorations hors-scope (futurs slices)
 
-- **`{ error }` non respecté sur échec d'auth** (401/403) : `verifyAndLoadAgendaOrUserFromKey`
-  répond en direct → à fermer dans le slice auth (qui le remplace). Aussi : 403 au lieu de 401.
+- ~~**`{ error }` non respecté sur échec d'auth** (401/403)~~ : **résolu (slice auth D0)** —
+  `api-v3/lib/authenticate.js` remplace `verifyAndLoadAgendaOrUserFromKey` sur `/v3` et lève
+  `NotAuthenticated` (401) / `Forbidden` (403) dans l'enveloppe `{ error }`.
 - ~~**Schémas imbriqués ouverts**~~ : **résolu (revue tranche 3)** — `Location`, `AgendaRef`,
   `Image`(+`variants`), `Registration`, `EnrichedLink` passés en `additionalProperties: false`,
   ET le mapper nettoie chaque objet imbriqué par **allowlist** (`pick`, default-deny) → plus de
@@ -231,9 +235,10 @@ casser le contrat) plutôt qu'à un futur breaking change.
 - **Cursor durci** : `decodeCursor` exige désormais un `after` = tableau **non vide de primitives**
   → réduit la surface d'un cursor « JSON valide mais aberrant » (qui pouvait partir dans ES → 500).
 - Nettoyage : commentaire YAML résiduel retiré.
-- **Toujours différés** (slices dédiés) : enveloppe `{ error }` sur échec d'auth (slice auth),
-  validation runtime depuis le spec, rate-limit. (Les filtres/tri sont désormais traités, cf.
-  tranche 4 ci-dessous.)
+- **Toujours différés** (slices dédiés) : clés `oa_pk_`/`oa_sk_` + scopes via le plugin
+  better-auth `api-key` (cf. `docs/plan-slice-auth-v3.md`), validation runtime depuis le spec,
+  rate-limit par clé. (L'enveloppe `{ error }` sur échec d'auth est traitée par le slice auth D0 ;
+  les filtres/tri par la tranche 4 ci-dessous.)
 
 ### Tranche 4 — Filtres de liste (contrat OpenAPI)
 
@@ -349,3 +354,25 @@ event 1 a `thematique=2`, event 6 non) : `custom[thematique]=2` → narrowe à l
 
 **Note** : en réponse liste (`EventSummary`), `custom` reste `{}` (les champs custom sont detailed) — le
 filtrage opère côté ES indépendamment du niveau d'include, donc il narrowe sans exposer les valeurs.
+
+### Slice auth — D0 : cohérence enveloppe + 401/403 (fait)
+
+Première tranche du slice auth (plan complet : `docs/plan-slice-auth-v3.md`). **Sans changement de
+modèle de données** ni de surface : rend le contrat OpenAPI vrai sur les échecs d'auth.
+
+- **`api-v3/lib/authenticate.js`** (nouveau) : factory `createAuthenticate(core)` qui orchestre les
+  primitives `core` (`users.get.byPublicKey`/`byAccessToken`, `services.keys(...).get`) — qui
+  **retournent/lèvent** sans écrire de réponse — et lève des erreurs typées :
+  - aucun credential **ou** clé/token invalide → `NotAuthenticated` (401) ;
+  - user blacklisté (clé **et** token — la vérif blacklist est unifiée ici, le chemin token v2 la
+    sautait) → `Forbidden` (403).
+    Rendu par l'error handler v3 dans l'enveloppe `{ error: { code, message } }`.
+- **`api-v3/index.js`** : remplace `mw.verifyAndLoadAgendaOrUserFromKey` par `createAuthenticate(core)` ;
+  retire `mw.evaluateAnonymousAccess` des 2 routes (devenu mort — `authenticate` garantit
+  `req.user`/`req.agendaKey` ou lève). **Le middleware v2 reste inchangé** (correct pour `/api`, `/v2`).
+- **Factory fermant sur `core`** (et non lecture `req.app.core`) : aligné sur les handlers de route v3,
+  évite l'ambiguïté `req.app` d'un Router monté.
+- **Contrat** : descriptions `Unauthorized`/`Forbidden` enrichies (codes `unauthorized`/`forbidden`).
+- **Tests** : `90_unit_apiV3_authenticate.test.js` (12 cas — toutes les branches : 401 sans/mauvais
+  credential, 403 blacklist clé + token, succès user/agenda-key/`?key=`/header/`tk-`/session) +
+  bloc `authentication` dans `90_apiV3_events.test.js` (401 + enveloppe `{ error }` end-to-end).
