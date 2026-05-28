@@ -160,7 +160,11 @@ function KeyRow({ item, onRemove }) {
   );
 }
 
-export default function ApiKeySettings({ activeTab, displayModal }) {
+export default function ApiKeySettings({
+  activeTab,
+  displayModal,
+  enableSecret,
+}) {
   const { getLabel } = useContext(I18nContext);
   const history = useHistory();
   const dispatch = useDispatch();
@@ -229,13 +233,15 @@ export default function ApiKeySettings({ activeTab, displayModal }) {
                   >
                     {getLabel('generatePublicKey')}
                   </button>
-                  <button
-                    type="button"
-                    className="btn btn-default"
-                    onClick={() => dispatch(keysActions.create('sk'))}
-                  >
-                    {getLabel('generateSecretKey')}
-                  </button>
+                  {enableSecret ? (
+                    <button
+                      type="button"
+                      className="btn btn-default"
+                      onClick={() => dispatch(keysActions.create('sk'))}
+                    >
+                      {getLabel('generateSecretKey')}
+                    </button>
+                  ) : null}
                 </div>
               </>
             )}

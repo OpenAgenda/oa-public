@@ -107,6 +107,7 @@ function SettingsContainer({
                 <ApiKeySettings
                   activeTab={route.activeTab === 'apiKey'}
                   displayModal={displayModal}
+                  enableSecret={!!user.store?.enable_secret}
                 />
 
                 <UnsubscribedSettings

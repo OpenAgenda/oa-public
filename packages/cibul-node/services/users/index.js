@@ -6,9 +6,6 @@ import Users from '@openagenda/users';
 import beforeCreate from './lib/beforeCreate.js';
 import onRemove from './lib/onRemove.js';
 import onCreate from './lib/onCreate.js';
-import onUpdate from './lib/onUpdate.js';
-import onPatch from './lib/onPatch.js';
-import onGenerateApiKey from './lib/onGenerateApiKey.js';
 import onActivation from './lib/onActivation.js';
 import sendToken from './lib/sendToken.js';
 import replaceIdMe from './lib/replaceIdMe.js';
@@ -27,7 +24,7 @@ import plugApp from './plugApp.js';
 const log = logs('services/users');
 
 export async function init(config, services) {
-  const { agendas, keys, bull } = services;
+  const { agendas, bull } = services;
 
   const queue = new bull.Queue('users', { prefix: '{users}' });
 
@@ -83,7 +80,6 @@ export async function init(config, services) {
       'user',
       'apiKeySet',
       'unsubscribed',
-      'key',
       'userToken',
     ]),
     imagePath: config.s3.mainBucketPath,
@@ -94,18 +90,9 @@ export async function init(config, services) {
       onRemove: onRemove.bind(null, { queue }),
       beforeCreate: beforeCreate.bind(null, config, services),
       onCreate: onCreate.bind(null, config, services),
-      onUpdate: onUpdate.bind(null, config, services),
-      onPatch: onPatch.bind(null, config, services),
-      onGenerateApiKey: onGenerateApiKey.bind(null, config),
       onActivation,
       sendToken: sendToken.bind(null, config, services),
       getAgenda: (agendaUid, cb) => agendas.get({ uid: agendaUid }, cb),
-      keys: {
-        get: (identifiers) =>
-          keys(identifiers).get({ optionalKey: !('key' in identifiers) }),
-        create: (identifiers, data) => keys(identifiers).create(data),
-        remove: (identifiers) => keys(identifiers).remove(),
-      },
       // Fallback used by `Users.verifyPassword` when the legacy
       // `user.password` column is empty (BA-only users — signup/reset via
       // better-auth never writes the legacy hash). Verifies against

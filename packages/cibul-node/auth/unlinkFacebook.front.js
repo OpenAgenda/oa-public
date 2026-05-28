@@ -4,7 +4,6 @@ import settingsLabels from '@openagenda/labels/users/settings.js';
 import errorLabels from '@openagenda/labels/errors/index.js';
 import cmn from '../lib/commons-app.js';
 import { setFlash } from '../lib/flash.js';
-import resetCache from '../services/users/lib/resetCache.js';
 
 const log = logs('auth/unlinkFacebook');
 
@@ -89,8 +88,6 @@ async function confirmUnlinkFacebook(req, res) {
     'migration complete, facebook unlinked and email/password persisted',
     { userUid: user.uid },
   );
-
-  await resetCache(req.app.services, user);
 
   setFlash(res, getLabel('unlinkFacebookSuccess', req.lang));
 

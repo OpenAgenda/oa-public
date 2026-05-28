@@ -79,7 +79,9 @@ export default function UserShow({
   };
 
   /**
-   * Toggle de l'API secret
+   * Toggle qui autorise (ou non) le user à créer des clés API "secret"
+   * (`sk`) depuis ses réglages. Pas de génération côté admin : ouvre/ferme
+   * simplement la porte côté UI + endpoint POST /users/me/api-keys.
    */
   const toggleApiSecret = () => {
     onUserUpdate({
@@ -165,14 +167,14 @@ export default function UserShow({
             <td>{user.lastSignin}</td>
           </tr>
           <tr>
-            <td>Enable API secret</td>
+            <td>Allow API secret keys</td>
             <td>
               <Switch
                 className="rc-switch"
                 checkedChildren={<i className="fa fa-check" aria-hidden="true" />}
                 unCheckedChildren={<i className="fa fa-times" aria-hidden="true" />}
                 onChange={toggleApiSecret}
-                checked={!!user.apiSecret}
+                checked={!!user.store?.enable_secret}
               />
             </td>
           </tr>

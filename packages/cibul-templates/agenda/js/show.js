@@ -98,7 +98,6 @@ window.asap(async options => {
     if (!ctl.prv) {
       const routes =  {
         agendaExportSettings: `${options.root}/agendas/:agendaUid/settings/exports`,
-        me: '/api/me',
         export: {
           jsonV1: `${options.root}/agendas/:agendaUid/events.json`,
           jsonV2: `${options.apiRoot}/v2/agendas/:agendaUid/events`,

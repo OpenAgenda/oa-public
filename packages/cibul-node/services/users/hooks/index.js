@@ -82,7 +82,6 @@ export default {
   ],
   confirmChangeEmail: [],
   requestUnlinkFacebook: [restrictToCurrentUserIfExternal()],
-  generateApiKey: [restrictToCurrentUserIfExternal()],
   setNewFlag: [restrictToCurrentUserIfExternal()],
   refresh: [restrictToCurrentUserIfExternal()],
 };

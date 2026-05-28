@@ -7,30 +7,20 @@ export default async function runOnActivation(services, user, optionals = {}) {
   if (!user) return;
 
   const {
-    keys,
     invitations,
     activities,
-    users,
     inboxes: { Inbox },
     behavioralEmails,
   } = services;
 
-  // Idempotency: a userPublic api key signals this chain has already run.
-  // Without this guard, re-running rotates the key (breaks any client using
-  // the previous one) and re-enqueues the inactiveUser delayed job. The
-  // re-entry path opens up in phase 3b/4 when better-auth's
-  // afterEmailVerification fires for users activated via legacy first.
-  // services.keys is a factory: it takes identifiers then returns the
-  // bound endpoints. optionalKey: true lets us look up by (type, identifier)
-  // without supplying the key value.
-  const existing = await keys({ type: 'userPublic', identifier: user.uid }).get(
-    { optionalKey: true },
-  );
-  if (existing) return;
-
-  await users.generateApiKey(user.uid, {
-    publicKey: true,
-  });
+  // Idempotency: the user's Inbox is the first persistent side-effect of this
+  // chain, so its existence means we've already run. The re-entry path opens
+  // up when better-auth's afterEmailVerification fires for a user that was
+  // already activated via legacy — without this guard we'd re-enqueue the
+  // inactiveUser delayed job. `_get` is the read-only variant of `get` (no
+  // create-on-null), which is what we want here.
+  const inbox = await new Inbox({ type: 'user', identifier: user.uid })._get();
+  if (inbox.data) return;
 
   new Inbox().create({ type: 'user', identifier: user.uid }).then(_.noop);
 

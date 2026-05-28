@@ -4,18 +4,12 @@ export default function userUpdate({ app, loadedUser, body }, res, next) {
   usersSvc
     .get(loadedUser.uid, { detailed: true, removed: null })
     .then(async ({ uid }) => {
-      if (body.enable_secret === 'true') {
-        await usersSvc.generateApiKey(
-          uid,
-          {
-            secretKey: true,
-          },
-          { removed: null },
-        );
-      }
-
       const patchedData = {};
 
+      // `store.enable_secret` is the admin gate on whether this user is
+      // allowed to mint secret (`sk`) API keys via /users/me/api-keys. The
+      // toggle no longer generates a key itself (the user creates them from
+      // their settings UI) — it only opens/closes the door.
       if (body.enable_secret !== undefined) {
         patchedData.store = { enable_secret: body.enable_secret === 'true' };
       }

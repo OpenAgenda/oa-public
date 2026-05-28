@@ -8,7 +8,6 @@ import makeLabelGetter from '@openagenda/labels';
 import cmn from '../../../lib/commons-app.js';
 import { setFlash } from '../../../lib/flash.js';
 import { redirectToSignin } from '../../../lib/authGuards.js';
-import resetCache from '../lib/resetCache.js';
 import layouts from '../../lib/layouts/index.js';
 
 const renderChangeEmailError = _.template(
@@ -91,10 +90,8 @@ function onSuccess(req, res) {
   log.info('email changed successfully', {
     userUid: req.user.uid,
   });
-  resetCache(req.app.services, req.user).then(() => {
-    setFlash(res, getLabel('changeEmailSuccess', req.lang));
-    res.redirect('/home');
-  });
+  setFlash(res, getLabel('changeEmailSuccess', req.lang));
+  res.redirect('/home');
 }
 
 export default {
