@@ -5,7 +5,6 @@ const packages = path.resolve(import.meta.dirname, '../..');
 const byService = {
   abilities: path.join(packages, 'abilities/migrations'),
   auth: path.join(packages, 'auth/migrations'),
-  keys: path.join(packages, 'keys/migrations'),
   users: path.join(packages, 'users/migrations'),
   activities: path.join(packages, 'activities/migrations'),
   inboxes: path.join(packages, 'inboxes/migrations'),
@@ -26,6 +25,10 @@ const byService = {
     'cibul-node/services/accessTokens/migrations',
   ),
   crossService: path.join(packages, 'cibul-node/migrations'),
+  // Catch-all for migrations of packages removed from the workspace — knex
+  // tracks migrations by basename, so relocating a file (without renaming) is
+  // a no-op on existing DBs and recreates it on fresh ones.
+  legacy: path.join(packages, 'cibul-node/migrations/legacy'),
 };
 
 function isEnabled(config, name) {

@@ -62,7 +62,6 @@ export default (app) => {
   localFront(app);
   unlinkFacebookFront(app);
   app.services.aggregators.plugApp(app);
-  app.services.keys.plugApp(app);
   app.services.members.plugApp(app);
   app.services.stats.plugApp(app);
   app.services.supervisor.plugApp(app, '/supervisor');
