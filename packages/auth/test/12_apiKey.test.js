@@ -174,7 +174,7 @@ describe('createApiKeyHelpers — create', () => {
   });
 });
 
-describe('createApiKeyHelpers — list / revoke (adapter bypass)', () => {
+describe('createApiKeyHelpers — list / revoke / rename (adapter bypass)', () => {
   // Stand-in for the better-auth context adapter (model 'apikey'). `rows` is the
   // store; findMany filters by the referenceId condition, findOne/delete match
   // every where condition (AND), mirroring the real adapter.
@@ -190,6 +190,12 @@ describe('createApiKeyHelpers — list / revoke (adapter bypass)', () => {
       delete: jest.fn(async ({ where }) => {
         const i = rows.findIndex((r) => matches(r, where));
         if (i !== -1) rows.splice(i, 1);
+      }),
+      update: jest.fn(async ({ where, update }) => {
+        const row = rows.find((r) => matches(r, where));
+        if (!row) return null;
+        Object.assign(row, update);
+        return row;
       }),
     };
     return { instance: { $context: Promise.resolve({ adapter }) }, adapter };
@@ -250,6 +256,36 @@ describe('createApiKeyHelpers — list / revoke (adapter bypass)', () => {
     const ok = await revokeAgendaKey(8, 'a');
     expect(ok).toBe(false);
     expect(adapter.delete).not.toHaveBeenCalled();
+  });
+
+  it('renames a key scoped to its owner, returning the record without key material', async () => {
+    const { instance, adapter } = adapterInstance([
+      { id: 'a', referenceId: 'agenda:7', name: 'old', key: 'hash-a' },
+    ]);
+    const { renameAgendaKey } = createApiKeyHelpers(instance);
+
+    const record = await renameAgendaKey(7, 'a', 'new');
+    expect(record).toMatchObject({ id: 'a', name: 'new' });
+    expect(record).not.toHaveProperty('key'); // stored hash stripped
+    expect(adapter.update).toHaveBeenCalledWith({
+      model: 'apikey',
+      where: [
+        { field: 'id', value: 'a' },
+        { field: 'referenceId', value: 'agenda:7' },
+      ],
+      update: { name: 'new' },
+    });
+  });
+
+  it('refuses to rename a key owned by someone else (no update, returns null)', async () => {
+    const { instance, adapter } = adapterInstance([
+      { id: 'a', referenceId: 'agenda:7', name: 'old' },
+    ]);
+    const { renameAgendaKey } = createApiKeyHelpers(instance);
+
+    const record = await renameAgendaKey(8, 'a', 'hax');
+    expect(record).toBeNull();
+    expect(adapter.update).not.toHaveBeenCalled();
   });
 });
 

@@ -677,6 +677,8 @@ export default function Auth(options = {}) {
     listAgendaKeys,
     revokeUserKey,
     revokeAgendaKey,
+    renameUserKey,
+    renameAgendaKey,
   } = createApiKeyHelpers(instance);
 
   async function getSessionFromRequest(
@@ -799,6 +801,8 @@ export default function Auth(options = {}) {
     listAgendaKeys,
     revokeUserKey,
     revokeAgendaKey,
+    renameUserKey,
+    renameAgendaKey,
     hashApiKey,
     // Mirror legacy OA password writes into `account.password` (phase 2a).
     encodeLegacyPassword: encodeLegacy,

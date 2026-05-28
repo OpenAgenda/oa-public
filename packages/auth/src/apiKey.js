@@ -175,6 +175,25 @@ export default function createApiKeyHelpers(instance) {
     return true;
   }
 
+  // Rename one key (the `name` label), scoped to its owner exactly like revoke
+  // — id AND referenceId must match, so a caller cannot rename someone else's
+  // key by id. Returns the updated record (no key material) or null on a miss.
+  async function renameByReferenceId(referenceId, keyId, name) {
+    const adapter = await getAdapter();
+    const where = [
+      { field: 'id', value: keyId },
+      { field: 'referenceId', value: referenceId },
+    ];
+    const existing = await adapter.findOne({ model: 'apikey', where });
+    if (!existing) return null;
+    const { key, ...record } = await adapter.update({
+      model: 'apikey',
+      where,
+      update: { name },
+    });
+    return record;
+  }
+
   const listUserKeys = (userUid) => listByReferenceId(userReferenceId(userUid));
   const listAgendaKeys = (agendaUid) =>
     listByReferenceId(agendaReferenceId(agendaUid));
@@ -182,6 +201,10 @@ export default function createApiKeyHelpers(instance) {
     revokeByReferenceId(userReferenceId(userUid), keyId);
   const revokeAgendaKey = (agendaUid, keyId) =>
     revokeByReferenceId(agendaReferenceId(agendaUid), keyId);
+  const renameUserKey = (userUid, keyId, name) =>
+    renameByReferenceId(userReferenceId(userUid), keyId, name);
+  const renameAgendaKey = (agendaUid, keyId, name) =>
+    renameByReferenceId(agendaReferenceId(agendaUid), keyId, name);
 
   return {
     verifyKey,
@@ -191,5 +214,7 @@ export default function createApiKeyHelpers(instance) {
     listAgendaKeys,
     revokeUserKey,
     revokeAgendaKey,
+    renameUserKey,
+    renameAgendaKey,
   };
 }
