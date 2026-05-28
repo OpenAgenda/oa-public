@@ -32,6 +32,5 @@ describe('patch', () => {
     );
 
     await expect(user.isActivated).toBe(true);
-    await expect(user.apiKey).toBeTruthy();
   });
 });

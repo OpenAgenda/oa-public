@@ -10,11 +10,10 @@ export default function keepFields() {
     }
 
     const socialFields = ['hasSocialAccount', 'hasLocalAccount'];
-    const apiFields = ['apiKey', 'apiSecret'];
 
     return keep(
       ...context.params.detailed
-        ? [...fields.basic, ...fields.detailed, ...socialFields, ...apiFields]
+        ? [...fields.basic, ...fields.detailed, ...socialFields]
         : [...fields.basic, ...socialFields],
     )(context);
   };

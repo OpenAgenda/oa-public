@@ -17,7 +17,6 @@ import {
   detailedParamHook,
   error as errorHook,
   formatStore,
-  generateApiKey,
   generateToken,
   generateHash,
   generateUid,
@@ -30,7 +29,6 @@ import {
   populateAccountTypes,
   profileImage,
   removedParamHook,
-  searchByKey,
   searchKeyword,
   setInStore,
   snakeCase,
@@ -41,14 +39,13 @@ import {
   validateCreate,
 } from '../hooks/index.js';
 
-import resolvers from './resolvers.js';
 import patchSchema from './schemas/patch.js';
 import setNewFlagSchema from './schemas/setNewFlag.js';
 import coerceSchema from './schemas/coerce.js';
 import Tokens from './Tokens.js';
 
 const { Service } = feathersKnex;
-const { iff, keep, discardQuery, fastJoin, paramsFromClient, setNow } = hooksCommon;
+const { iff, keep, discardQuery, paramsFromClient, setNow } = hooksCommon;
 
 schema.register({
   text: validators.text,
@@ -71,7 +68,6 @@ const afterAll = [
   keepFields(),
   includeImagePathParamHook(),
   coerce(coerceSchema),
-  fastJoin({ joins: resolvers }),
   parseStore(),
 ];
 
@@ -184,10 +180,6 @@ class Users extends Service {
   async requestUnlinkFacebook(uid, data, params = {}) {
     await this._patch(uid, data);
 
-    return this.get(uid, params);
-  }
-
-  generateApiKey(uid, params = {}) {
     return this.get(uid, params);
   }
 
@@ -310,7 +302,6 @@ hooks(Users.prototype, {
         detailedParamHook(),
         softDelete(),
         snakeCaseQuery(),
-        searchByKey(),
         searchKeyword(),
       ],
       after: [...afterAll, populateAccountTypes()],
@@ -358,7 +349,6 @@ hooks(Users.prototype, {
         iff(
           (context) => context.result && context.result.isActivated,
           callInterface('onActivation'),
-          fastJoin({ joins: resolvers }),
         ),
       ],
     }),
@@ -396,7 +386,6 @@ hooks(Users.prototype, {
           (context) =>
             !context.params.before.isActivated && context.result.isActivated,
           callInterface('onActivation'),
-          fastJoin({ joins: resolvers }),
         ),
       ],
     }),
@@ -475,28 +464,6 @@ hooks(Users.prototype, {
         formatStore(),
       ],
       after: [...afterAll, populateAccountTypes()],
-    }),
-  },
-  generateApiKey: {
-    context: withParams('id', ['params', {}]),
-    middleware: wrap({
-      before: [
-        paramsFromClient(
-          'detailed',
-          'removed',
-          'publicKey',
-          'secretKey',
-          'includeImagePath',
-        ),
-        softDelete(),
-        generateApiKey(),
-        keep(),
-      ],
-      after: [
-        ...afterAll,
-        populateAccountTypes(),
-        callInterface('onGenerateApiKey'),
-      ],
     }),
   },
   setNewFlag: {

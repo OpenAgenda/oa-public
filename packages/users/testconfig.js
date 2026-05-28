@@ -1,5 +1,3 @@
-import keysSvc from '@openagenda/keys';
-
 export default {
   service: {
     paginate: {
@@ -17,7 +15,6 @@ export default {
       user: 'user',
       apiKeySet: 'api_key_set',
       unsubscribed: 'unsubscribed',
-      key: 'key',
       userToken: 'user_token',
     },
     imagePath: 'https://cdn.openagenda.com/dev/',
@@ -37,23 +34,7 @@ export default {
             },
         ),
       onActivation() {
-        return async (context) => {
-          const user = context.result;
-
-          if (!user) {
-            return context;
-          }
-
-          await context.self.generateApiKey(user.uid, {
-            publicKey: true,
-          });
-        };
-      },
-      keys: {
-        get: (identifiers) =>
-          keysSvc(identifiers).get({ optionalKey: !('key' in identifiers) }),
-        create: (identifiers, data) => keysSvc(identifiers).create(data),
-        remove: (identifiers) => keysSvc(identifiers).remove(),
+        return async (context) => context;
       },
     },
     redis: {

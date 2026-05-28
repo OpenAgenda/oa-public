@@ -19,12 +19,4 @@ export default {
     type: 'boolean',
     optional: true,
   },
-  apiKey: {
-    type: 'text',
-    optional: true,
-  },
-  apiSecret: {
-    type: 'text',
-    optional: true,
-  },
 };

@@ -15,18 +15,6 @@ describe('findOne', () => {
     expect(user.email).toBe(email);
   });
 
-  it('findOne by key', async () => {
-    const key = '317e316466a629c8dacd4aa81f39c930';
-
-    const user = await getService().findOne({
-      query: {
-        key,
-      },
-      detailed: true,
-    });
-    expect(user.apiKey).toBe(key);
-  });
-
   it('findOne inexistent email', async () => {
     const user = await getService().findOne({
       query: {
