@@ -20,27 +20,21 @@ export default (app) => {
     '/agendas/:uid/events.json',
     preMw,
     async (req, res, next) => {
-      const { keys: keysSvc } = req.app.services;
-
       if (!req.query.key) {
         setTimeout(next, 800);
         return;
       }
 
-      keysSvc({ key: req.query.key })
-        .get()
-        .then(
-          (key) => {
-            if (!key) {
-              res.status(400).json({ error: 'Provided key is invalid' });
-              return;
-            }
-            next();
-          },
-          () => {
-            res.status(400).json({ error: 'Provided key is invalid' });
-          },
-        );
+      try {
+        const verified = await req.app.services.auth.verifyKey(req.query.key);
+        if (!verified) {
+          res.status(400).json({ error: 'Provided key is invalid' });
+          return;
+        }
+        next();
+      } catch (_err) {
+        res.status(400).json({ error: 'Provided key is invalid' });
+      }
     },
     loadCredentials,
     convertFormat({ sendJSON: true, trackInfos: ['events', 'export', 'json'] }),

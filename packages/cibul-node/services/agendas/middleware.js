@@ -30,7 +30,6 @@ function loadBy(agendasSvc, { path, field, target }) {
 }
 
 async function _authorizeByKey(options, req) {
-  const { keys } = req.app.services;
   const agendaUidPath = options.agendaUidPath || 'agenda.uid';
 
   const agendaUid = _.get(req, agendaUidPath);
@@ -39,13 +38,14 @@ async function _authorizeByKey(options, req) {
     return false;
   }
 
-  const agendaKey = await keys({
-    type: 'agendaFullRead',
-    identifier: agendaUid,
-    key: req.query.key,
-  }).get();
-
-  return !!agendaKey;
+  // Verify against the better-auth `apikey` store (single source of truth
+  // since D5). The key must be an agenda key AND scoped to THIS agenda — the
+  // verify is global so we cross-check the owner agendaUid.
+  const verified = await req.app.services.auth.verifyKey(req.query.key);
+  return (
+    verified?.owner?.kind === 'agenda'
+    && String(verified.owner.agendaUid) === String(agendaUid)
+  );
 }
 
 function authorizeByKey(options) {

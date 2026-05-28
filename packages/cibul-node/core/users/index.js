@@ -8,7 +8,6 @@ import userDraftEvents from './userDraftEvents.js';
 import get from './get.js';
 import remove from './remove.js';
 import generateToken from './generateToken.js';
-import getByPublicKey from './getByPublicKey.js';
 
 export default (core) =>
   Object.assign(
@@ -51,7 +50,6 @@ export default (core) =>
     {
       get: Object.assign(get(core), {
         byAccessToken: (token) => core.services.accessTokens.getUser(token),
-        byPublicKey: (key) => getByPublicKey(core, key),
       }),
     },
   );
