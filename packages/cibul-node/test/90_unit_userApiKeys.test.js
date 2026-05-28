@@ -137,4 +137,42 @@ describe('90 - unit - user api-keys endpoints (D3b-user)', () => {
       expect(revokeUserKey).toHaveBeenCalledWith(42, 'nope');
     });
   });
+
+  describe('rename', () => {
+    it('200s { record } from the façade, scoped to req.user.uid', async () => {
+      const record = { id: 'k1', name: 'renamed', metadata: { oaKind: 'sk' } };
+      const renameUserKey = jest.fn().mockResolvedValue(record);
+      const app = buildApp({ user: USER, auth: { renameUserKey } });
+
+      const res = await request(app)
+        .patch('/users/me/api-keys/k1')
+        .send({ name: 'renamed' });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual({ record });
+      expect(renameUserKey).toHaveBeenCalledWith(42, 'k1', 'renamed');
+    });
+
+    it("404s when the key is absent or not the user's", async () => {
+      const renameUserKey = jest.fn().mockResolvedValue(null);
+      const app = buildApp({ user: USER, auth: { renameUserKey } });
+
+      const res = await request(app)
+        .patch('/users/me/api-keys/nope')
+        .send({ name: 'x' });
+
+      expect(res.status).toBe(404);
+      expect(renameUserKey).toHaveBeenCalledWith(42, 'nope', 'x');
+    });
+
+    it('400s when name is not a string, without calling the façade', async () => {
+      const renameUserKey = jest.fn();
+      const app = buildApp({ user: USER, auth: { renameUserKey } });
+
+      const res = await request(app).patch('/users/me/api-keys/k1').send({});
+
+      expect(res.status).toBe(400);
+      expect(renameUserKey).not.toHaveBeenCalled();
+    });
+  });
 });

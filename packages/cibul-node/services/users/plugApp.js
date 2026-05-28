@@ -135,6 +135,31 @@ export default function plugApp(app) {
       }
     },
   );
+
+  // Rename one key (its `name` label), owner-scoped like revoke. 404 on a miss.
+  app.patch(
+    '/users/me/api-keys/:keyId',
+    requireUserJson,
+    async (req, res, next) => {
+      const { name } = req.body ?? {};
+      if (typeof name !== 'string') {
+        return next(new BadRequest('name is required and must be a string'));
+      }
+      try {
+        const record = await req.app.services.auth.renameUserKey(
+          req.user.uid,
+          req.params.keyId,
+          name,
+        );
+        if (!record) {
+          return next(new NotFound('api key not found'));
+        }
+        res.json({ record });
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
   app.patch(
     '/users/:__feathersId/setNewFlag',
     getHandler('setNewFlag', ['id', 'data', 'params'])(service),

@@ -189,7 +189,12 @@ const initialState = async (req) => {
         changeEmail: '/users/me/requestChangeEmail',
         // changePassword now goes directly to better-auth (`/api/auth/change-password`)
         // — no legacy Feathers route, no `res` entry needed.
-        generateApiKey: '/users/me/generateApiKey',
+        keys: {
+          list: '/users/me/api-keys',
+          create: '/users/me/api-keys',
+          update: '/users/me/api-keys/:id',
+          remove: '/users/me/api-keys/:id',
+        },
         unlinkFacebook: '/users/me/requestUnlinkFacebook',
       },
     },
