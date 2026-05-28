@@ -10,6 +10,27 @@
 // values that already moved over cannot be reconstructed without the FK
 // target rows, so it is best-effort, not a data restore.
 
+// The api_key_set table is referenced by its literal name (not via
+// schemas.apiKeySet) because the same commit drops that schema entry from
+// config/index.js — by the time this migration runs in prod, the indirection
+// is undefined.
+const API_KEY_SET = 'api_key_set';
+
+async function fkExists(knex, table, name) {
+  const [[row]] = await knex.raw(
+    `SELECT 1 AS ok FROM information_schema.table_constraints
+       WHERE table_schema = DATABASE()
+         AND table_name = ?
+         AND constraint_name = ?
+         AND constraint_type = 'FOREIGN KEY'`,
+    [table, name],
+  );
+  return !!row;
+}
+
+// Idempotent: MySQL auto-commits each DDL statement, so a mid-migration failure
+// leaves the schema partially applied. Every step here checks current state to
+// stay safe on re-run.
 export async function up(knex) {
   const { schemas } = knex.client.config;
 
@@ -26,21 +47,30 @@ export async function up(knex) {
     `ALTER TABLE \`${schemas.accessToken}\` MODIFY \`user_id\` BIGINT UNSIGNED NOT NULL`,
   );
 
-  await knex.schema.raw(
-    `ALTER TABLE \`${schemas.accessToken}\` DROP COLUMN \`api_key_set_id\``,
-  );
+  if (await knex.schema.hasColumn(schemas.accessToken, 'api_key_set_id')) {
+    await knex.schema.raw(
+      `ALTER TABLE \`${schemas.accessToken}\` DROP COLUMN \`api_key_set_id\``,
+    );
+  }
 
-  await knex.schema.raw(
-    `ALTER TABLE \`${schemas.apiKeySet}\` DROP FOREIGN KEY \`api_key_set_user_id_user_id\``,
-  );
+  if (await knex.schema.hasTable(API_KEY_SET)) {
+    if (await fkExists(knex, API_KEY_SET, 'api_key_set_user_id_user_id')) {
+      await knex.schema.raw(
+        `ALTER TABLE \`${API_KEY_SET}\` DROP FOREIGN KEY \`api_key_set_user_id_user_id\``,
+      );
+    }
+    await knex.schema.dropTable(API_KEY_SET);
+  }
 
-  await knex.schema.dropTableIfExists(schemas.apiKeySet);
-
-  await knex.schema.raw(
-    `ALTER TABLE \`${schemas.accessToken}\`
-       ADD CONSTRAINT \`access_token_user_id_user_id\`
-       FOREIGN KEY (\`user_id\`) REFERENCES \`${schemas.user}\` (\`id\`) ON DELETE CASCADE`,
-  );
+  if (
+    !await fkExists(knex, schemas.accessToken, 'access_token_user_id_user_id')
+  ) {
+    await knex.schema.raw(
+      `ALTER TABLE \`${schemas.accessToken}\`
+         ADD CONSTRAINT \`access_token_user_id_user_id\`
+         FOREIGN KEY (\`user_id\`) REFERENCES \`${schemas.user}\` (\`id\`) ON DELETE CASCADE`,
+    );
+  }
 }
 
 export async function down(knex) {
@@ -50,7 +80,7 @@ export async function down(knex) {
     `ALTER TABLE \`${schemas.accessToken}\` DROP FOREIGN KEY \`access_token_user_id_user_id\``,
   );
 
-  await knex.schema.createTable(schemas.apiKeySet, (table) => {
+  await knex.schema.createTable(API_KEY_SET, (table) => {
     table.bigIncrements('id').unsigned().primary();
     table.string('api_key');
     table.string('api_secret');
@@ -61,7 +91,7 @@ export async function down(knex) {
   });
 
   await knex.schema.raw(
-    `ALTER TABLE \`${schemas.apiKeySet}\`
+    `ALTER TABLE \`${API_KEY_SET}\`
        ADD CONSTRAINT \`api_key_set_user_id_user_id\`
        FOREIGN KEY (\`user_id\`) REFERENCES \`${schemas.user}\` (\`id\`) ON DELETE CASCADE`,
   );
