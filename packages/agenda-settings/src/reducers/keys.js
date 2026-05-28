@@ -34,6 +34,7 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
+        loadedSlug: action.slug,
         data: action.result,
         error: null,
       };
@@ -125,8 +126,15 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-export function isLoaded(globalState) {
-  return globalState.keys && globalState.keys.loaded;
+// Keys are scoped to an agenda. The store persists across client-side agenda
+// switches, so a plain `loaded` flag would mask the previous agenda's keys —
+// the load must re-run whenever the target slug differs from the loaded one.
+export function isLoaded(globalState, slug) {
+  return Boolean(
+    globalState.keys
+      && globalState.keys.loaded
+      && globalState.keys.loadedSlug === slug,
+  );
 }
 
 // ky throws an HTTPError on non-2xx; resolve its JSON body onto `error.response.data`
@@ -137,13 +145,14 @@ async function withErrorBody(error) {
   throw error;
 }
 
-export function load() {
+export function load(slug) {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    slug,
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
       return client
-        .get(res.keys.list.replace(':slug', params.slug))
+        .get(res.keys.list.replace(':slug', slug ?? params.slug))
         .json()
         .catch(withErrorBody);
     },
