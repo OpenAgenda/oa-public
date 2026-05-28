@@ -18,9 +18,6 @@ const CHANGE_PASSWORD_FAIL = 'user-apps/userSettings/CHANGE_PASSWORD_FAIL';
 const UNLINK_FACEBOOK = 'user-apps/userSettings/UNLINK_FACEBOOK';
 const UNLINK_FACEBOOK_SUCCESS = 'user-apps/userSettings/UNLINK_FACEBOOK_SUCCESS';
 const UNLINK_FACEBOOK_FAIL = 'user-apps/userSettings/UNLINK_FACEBOOK_FAIL';
-const GENERATE_APIKEY = 'user-apps/userSettings/GENERATE_APIKEY';
-const GENERATE_APIKEY_SUCCESS = 'user-apps/userSettings/GENERATE_APIKEY_SUCCESS';
-const GENERATE_APIKEY_FAIL = 'user-apps/userSettings/GENERATE_APIKEY_FAIL';
 const DISPLAY_MODAL = 'user-apps/userSettings/DISPLAY_MODAL';
 const DISPLAY_MESSAGE = 'user-apps/userSettings/DISPLAY_MESSAGE';
 
@@ -102,14 +99,6 @@ export default function reducer(state = initialState, action = {}) {
           ...action.result,
         },
       };
-    case GENERATE_APIKEY_SUCCESS:
-      return {
-        ...state,
-        user: {
-          ...state.user,
-          ...action.result,
-        },
-      };
     case DISPLAY_MODAL:
       return {
         ...state,
@@ -165,8 +154,6 @@ export function load() {
       dispatch(changeFieldValue('profileSettings', 'fullName', user.fullName));
       dispatch(changeFieldValue('profileSettings', 'culture', user.culture));
       // dispatch( changeFieldValue( 'emailSettings', 'newEmail', user.email ) );
-      dispatch(changeFieldValue('apiKeySettings', 'apiKey', user.apiKey));
-      dispatch(changeFieldValue('apiKeySettings', 'apiSecret', user.apiSecret));
 
       return user;
     },
@@ -338,27 +325,6 @@ export function requestUnlinkFacebook(data) {
           throw new SubmissionError({ _error: responseError.message });
         }
       }
-    },
-  };
-}
-
-export function generateApiKey(secret) {
-  return {
-    types: [GENERATE_APIKEY, GENERATE_APIKEY_SUCCESS, GENERATE_APIKEY_FAIL],
-    promise: async ({ client }, { getState }) => {
-      const { res } = getState();
-
-      return client
-        .get(res.generateApiKey, {
-          searchParams: {
-            $client: {
-              includeImagePath: true,
-              detailed: true,
-              [secret ? 'secretKey' : 'publicKey']: true,
-            },
-          },
-        })
-        .json();
     },
   };
 }

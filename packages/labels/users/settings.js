@@ -365,6 +365,136 @@ module.exports = {
     "nl": "Je API-sleutels bekijken",
     "br": "Diskouez hoc'h alc'hwezioù API"
   },
+  "apiKeyTiersHelp": {
+    "en": "A public key (pk) is read-only and safe to embed client-side; a secret key (sk) can also write and must stay private.",
+    "fr": "Une clé publique (pk) est en lecture seule et peut être intégrée côté client ; une clé secrète (sk) permet aussi d'écrire et doit rester confidentielle.",
+    "de": "Ein öffentlicher Schlüssel (pk) ist schreibgeschützt und kann clientseitig eingebettet werden; ein geheimer Schlüssel (sk) kann auch schreiben und muss vertraulich bleiben.",
+    "es": "Una clave pública (pk) es de solo lectura y se puede integrar en el cliente; una clave secreta (sk) también permite escribir y debe permanecer confidencial.",
+    "it": "Una chiave pubblica (pk) è di sola lettura e può essere integrata lato client; una chiave segreta (sk) consente anche la scrittura e deve restare riservata.",
+    "oc": "Una clau publica (pk) es en lectura sola e pòt èsser integrada del costat client ; una clau secrèta (sk) permet tanben d'escriure e deu demorar confidenciala.",
+    "nl": "Een publieke sleutel (pk) is alleen-lezen en kan aan de clientzijde worden ingesloten; een geheime sleutel (sk) kan ook schrijven en moet privé blijven.",
+    "br": "Un alc'hwez foran (pk) a zo lenn-hepken ha gallout a reer e enframmañ en tu-kliant ; un alc'hwez kuzh (sk) a c'hall ivez skrivañ ha rankout a ra chom kuzh."
+  },
+  "generatePublicKey": {
+    "en": "Generate a public key",
+    "fr": "Générer une clé publique",
+    "de": "Einen öffentlichen Schlüssel generieren",
+    "es": "Generar una clave pública",
+    "it": "Genera una chiave pubblica",
+    "oc": "Generar una clau publica",
+    "nl": "Een publieke sleutel genereren",
+    "br": "Krouiñ un alc'hwez foran"
+  },
+  "generateSecretKey": {
+    "en": "Generate a secret key",
+    "fr": "Générer une clé secrète",
+    "de": "Einen geheimen Schlüssel generieren",
+    "es": "Generar una clave secreta",
+    "it": "Genera una chiave segreta",
+    "oc": "Generar una clau secrèta",
+    "nl": "Een geheime sleutel genereren",
+    "br": "Krouiñ un alc'hwez kuzh"
+  },
+  "keyDefaultName": {
+    "en": "Key %id%",
+    "fr": "Clé %id%",
+    "de": "Schlüssel %id%",
+    "es": "Clave %id%",
+    "it": "Chiave %id%",
+    "oc": "Clau %id%",
+    "nl": "Sleutel %id%",
+    "br": "Alc'hwez %id%"
+  },
+  "keyShownOnce": {
+    "en": "Copy this key now: it won't be shown again.",
+    "fr": "Copiez cette clé maintenant : elle ne sera plus affichée.",
+    "de": "Kopieren Sie diesen Schlüssel jetzt: Er wird nicht erneut angezeigt.",
+    "es": "Copia esta llave ahora: no se volverá a mostrar.",
+    "it": "Copia questa chiave ora: non verrà più mostrata.",
+    "oc": "Copiatz aquesta clau ara : serà pas pus afichada.",
+    "nl": "Kopieer deze sleutel nu: hij wordt niet opnieuw getoond.",
+    "br": "Eilit an alc'hwez-mañ bremañ : ne vo ket diskwelet en-dro."
+  },
+  "copy": {
+    "en": "Copy",
+    "fr": "Copier",
+    "de": "Kopieren",
+    "es": "Copia",
+    "it": "Copia",
+    "oc": "Copiar",
+    "nl": "Kopiëren",
+    "br": "Kopiañ"
+  },
+  "copied": {
+    "en": "Copied",
+    "fr": "Copié",
+    "de": "Kopierte",
+    "es": "Copiado",
+    "it": "Copiato",
+    "oc": "Copiat",
+    "nl": "Gekopieerd",
+    "br": "Eilet"
+  },
+  "edit": {
+    "en": "Edit",
+    "fr": "Modifier",
+    "de": "Bearbeiten",
+    "es": "Editar",
+    "it": "Modifica",
+    "oc": "Modificar",
+    "nl": "Bewerken",
+    "br": "Kemmañ"
+  },
+  "cancel": {
+    "en": "Cancel",
+    "fr": "Annuler",
+    "de": "Stornieren",
+    "es": "Anular",
+    "it": "Annulla",
+    "oc": "Anullar",
+    "nl": "Annuleren",
+    "br": "Nullañ"
+  },
+  "remove": {
+    "en": "Remove",
+    "fr": "Retirer",
+    "de": "Löschen",
+    "es": "Eliminar",
+    "it": "Rimuovere",
+    "oc": "Suprimir",
+    "nl": "Verwijderen",
+    "br": "Lemel"
+  },
+  "close": {
+    "en": "Close",
+    "fr": "Fermer",
+    "de": "Schließen",
+    "es": "Cerca",
+    "it": "Chiudere",
+    "oc": "Tampar",
+    "nl": "Sluiten",
+    "br": "Serriñ"
+  },
+  "removeKey": {
+    "en": "Remove key",
+    "fr": "Supprimer la clé",
+    "de": "Schlüssel entfernen",
+    "es": "Eliminar llave",
+    "it": "Rimuovere la chiave",
+    "oc": "Suprimir la clau",
+    "nl": "Sleutel verwijderen",
+    "br": "Dilemel an alc'hwez"
+  },
+  "removeKeyWarning": {
+    "en": "Are you sure you want to delete this key?",
+    "fr": "Êtes-vous certain de vouloir supprimer cette clé ?",
+    "de": "Bist du sicher, dass Sie diesen Schlüssel wirklich löschen?",
+    "es": "¿Está seguro de que desea eliminar esta llave?",
+    "it": "Lei è sicura di voler cancellare questa chiave?",
+    "oc": "Sètz segur·a de voler suprimir aquesta clau ?",
+    "nl": "Weet u zeker dat u deze sleutel wilt verwijderen?",
+    "br": "Ha sur oc'h e fell deoc'h dilemel an alc'hwez-mañ?"
+  },
   "areYouSure": {
     "en": "Are you sure?",
     "fr": "Êtes vous sûr ?",

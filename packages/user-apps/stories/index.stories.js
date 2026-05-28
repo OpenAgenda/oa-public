@@ -12,9 +12,33 @@ const getDefaultState = () => ({
     updateProfile: '/users/me',
     deleteAccount: '/users/me',
     changeEmail: '/users/me/requestChangeEmail',
-    generateApiKey: '/users/me/generateApiKey',
+    keys: {
+      list: '/users/me/api-keys',
+      create: '/users/me/api-keys',
+      update: '/users/me/api-keys/:id',
+      remove: '/users/me/api-keys/:id',
+    },
   },
 });
+
+// In-memory key store for the api-keys endpoints. Seeded with one legacy
+// `mirror` key (shown in full, like the pre-migration UI) and one native key
+// (masked — its plaintext was only ever shown at creation).
+let mockKeys = [
+  {
+    id: '1001',
+    name: 'Import connector',
+    start: 'oMXMSQ',
+    metadata: { oaKind: 'sk' },
+  },
+  {
+    id: '1002',
+    name: null,
+    start: '0c1eadf824924b5d8a1b1c5f191aea7c',
+    metadata: { oaKind: 'pk', legacyType: 'userPublic', source: 'mirror' },
+  },
+];
+let mockNextId = 2000;
 
 export default {
   title: 'App',
@@ -54,6 +78,49 @@ export default {
           })); */
 
           return new HttpResponse(null, { status: 200 });
+        }),
+        http.get('/users/me/api-keys', async () => {
+          await delay(300);
+          return HttpResponse.json({
+            items: mockKeys,
+            total: mockKeys.length,
+          });
+        }),
+        http.post('/users/me/api-keys', async ({ request }) => {
+          await delay(300);
+          const { oaKind } = await request.json();
+          const id = String(mockNextId);
+          mockNextId += 1;
+          const key = `oa_${oaKind}_${id}0000000000000000000000`;
+          const record = {
+            id,
+            name: null,
+            start: key.slice(0, 6),
+            metadata: { oaKind },
+          };
+          mockKeys = [record, ...mockKeys];
+          return HttpResponse.json({ key, record }, { status: 201 });
+        }),
+        http.patch('/users/me/api-keys/:keyId', async ({ request, params }) => {
+          await delay(300);
+          const { name } = await request.json();
+          let record = null;
+          mockKeys = mockKeys.map((k) => {
+            if (k.id !== params.keyId) return k;
+            record = { ...k, name };
+            return record;
+          });
+          if (!record) return new HttpResponse(null, { status: 404 });
+          return HttpResponse.json({ record });
+        }),
+        http.delete('/users/me/api-keys/:keyId', async ({ params }) => {
+          await delay(300);
+          const before = mockKeys.length;
+          mockKeys = mockKeys.filter((k) => k.id !== params.keyId);
+          if (mockKeys.length === before) {
+            return new HttpResponse(null, { status: 404 });
+          }
+          return HttpResponse.json({ removed: true });
         }),
       ],
     },
