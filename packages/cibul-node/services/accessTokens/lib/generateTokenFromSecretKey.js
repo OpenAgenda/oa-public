@@ -59,6 +59,7 @@ export default async function generateTokenFromSecretKey(
 
   const newToken = {
     api_key_set_id: apiKeySet.id,
+    user_id: apiKeySet.user_id,
     created_at: new Date(),
     updated_at: new Date(),
     token: `tk-${crypto
