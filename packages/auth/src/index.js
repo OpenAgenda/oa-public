@@ -74,6 +74,21 @@ export default function Auth(options = {}) {
   // stays `apikey` (the plugin's internal name); only the physical table and
   // column names are remapped.
   const apiKeyPlugin = apiKey({
+    // OA keys carry `metadata.oaKind` — the tier classification verifyKey reads
+    // back. Mirror keys also carry `{ source: 'mirror', legacyType }`, used by
+    // the UI to keep them fully visible (legacy UX) and by the backfill to
+    // scope its upserts. The plugin rejects metadata on create unless this is
+    // on (defaults to false → "Metadata is disabled.").
+    enableMetadata: true,
+    // Keep enough of the generated key in `start` to fit the OA prefix
+    // (`oa_pk_`/`oa_sk_`/`oa_ak_`, 6 chars) plus ~6 distinguishing chars, so
+    // masked hints stay useful instead of all sk keys collapsing to `oa_sk_`.
+    startingCharactersConfig: { charactersLength: 12 },
+    // No rate-limit before D6 enforcement — matches the mirror's
+    // `rate_limit_enabled: false` (preserve the legacy "no rate limit" OA
+    // policy). Reversible: flip this flag for future keys, or update existing
+    // rows via SQL; per-key overrides are also supported by `createApiKey`.
+    rateLimit: { enabled: false },
     schema: {
       apikey: {
         modelName: tables.apiKey,

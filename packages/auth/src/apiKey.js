@@ -43,6 +43,16 @@ const UID = /^\d+$/;
 const userReferenceId = (uid) => String(uid);
 const agendaReferenceId = (uid) => `${AGENDA_PREFIX}${uid}`;
 
+// OA Stripe-style key prefixes per visibility tier. Self-describing in logs,
+// recognized by secret-scanning tooling (GitHub, etc.), and a cheap routing
+// hint at the auth layer. Mirror keys keep their bare legacy value — these
+// only apply to natively-created (D3+) keys. Callers can override per-call.
+const OA_PREFIXES = {
+  pk: 'oa_pk_',
+  sk: 'oa_sk_',
+  agenda: 'oa_ak_',
+};
+
 function resolveOwner(referenceId) {
   if (referenceId == null) return null;
   if (referenceId.startsWith(AGENDA_PREFIX)) {
@@ -97,12 +107,13 @@ export default function createApiKeyHelpers(instance) {
     permissions,
     expiresIn,
   }) {
+    const effectivePrefix = prefix ?? OA_PREFIXES[oaKind];
     const { key, ...record } = await instance.api.createApiKey({
       body: {
         userId: referenceId,
-        metadata: { oaKind, source: 'native' },
+        metadata: { oaKind },
         ...name != null && { name },
-        ...prefix != null && { prefix },
+        ...effectivePrefix != null && { prefix: effectivePrefix },
         ...permissions != null && { permissions },
         ...expiresIn != null && { expiresIn },
       },

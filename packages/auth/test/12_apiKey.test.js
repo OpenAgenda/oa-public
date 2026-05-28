@@ -118,7 +118,8 @@ describe('createApiKeyHelpers — create', () => {
     expect(createApiKey).toHaveBeenCalledTimes(1);
     expect(createApiKey.mock.calls[0][0].body).toMatchObject({
       userId: '42',
-      metadata: { oaKind: 'sk', source: 'native' },
+      metadata: { oaKind: 'sk' },
+      prefix: 'oa_sk_',
     });
   });
 
@@ -132,7 +133,8 @@ describe('createApiKeyHelpers — create', () => {
     expect(createApiKey.mock.calls[0][0].body).toMatchObject({
       userId: '42',
       name: 'widget',
-      metadata: { oaKind: 'pk', source: 'native' },
+      metadata: { oaKind: 'pk' },
+      prefix: 'oa_pk_',
     });
   });
 
@@ -147,7 +149,8 @@ describe('createApiKeyHelpers — create', () => {
     expect(createApiKey).toHaveBeenCalledWith({
       body: {
         userId: 'agenda:7',
-        metadata: { oaKind: 'agenda', source: 'native' },
+        metadata: { oaKind: 'agenda' },
+        prefix: 'oa_ak_',
       },
     });
   });
