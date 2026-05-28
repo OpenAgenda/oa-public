@@ -13,7 +13,6 @@ export default {
     },
     schemas: {
       user: 'user',
-      apiKeySet: 'api_key_set',
       unsubscribed: 'unsubscribed',
       userToken: 'user_token',
     },
