@@ -28,7 +28,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'accessTokens',
   'tracker',
   'images',

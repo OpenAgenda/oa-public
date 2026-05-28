@@ -1,5 +1,6 @@
 import agendaAdminLayout from '../lib/layouts/agendaAdmin/index.js';
 import { requireUser } from '../../lib/authGuards.js';
+import apiKeysPlugApp from './apiKeysPlugApp.js';
 
 const defaultFields = [
   'image',
@@ -170,4 +171,6 @@ export default function plugApp(app) {
         );
     },
   );
+
+  apiKeysPlugApp(app);
 }

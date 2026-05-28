@@ -11,7 +11,12 @@ import plugApp from '../services/users/plugApp.js';
 // @openagenda/auth (12_apiKey.test.js); here we only assert the HTTP wiring.
 // The feathers/getHandler routes are mounted but never hit (different paths);
 // `upload.middleware` is stubbed to a passthrough.
-function buildApp({ user, auth } = {}) {
+//
+// `enableSecret` -> what `req.app.core.users.get(uid, {detailed:true}).store
+//                   .enable_secret` resolves to (the SK-creation gate). Default
+//                   `true` so the happy paths don't trip the guard; tests that
+//                   want the 403 path pass false.
+function buildApp({ user, auth, enableSecret = true } = {}) {
   const app = express();
   app.use(bodyParser.json());
 
@@ -23,6 +28,14 @@ function buildApp({ user, auth } = {}) {
   app.services = {
     users: { upload: { middleware: () => (_req, _res, next) => next() } },
     auth,
+  };
+  app.core = {
+    users: {
+      get: async () => ({
+        uid: user?.uid,
+        store: { enable_secret: enableSecret },
+      }),
+    },
   };
 
   plugApp(app); // registers its own `/users` error handler (verror → JSON)
@@ -112,6 +125,43 @@ describe('90 - unit - user api-keys endpoints (D3b-user)', () => {
 
       expect(res.status).toBe(400);
       expect(createUserKey).not.toHaveBeenCalled();
+    });
+
+    it('403s sk creation when the admin gate (store.enable_secret) is off', async () => {
+      const createUserKey = jest.fn();
+      const app = buildApp({
+        user: USER,
+        auth: { createUserKey },
+        enableSecret: false,
+      });
+
+      const res = await request(app)
+        .post('/users/me/api-keys')
+        .send({ name: 'CLI', oaKind: 'sk' });
+
+      expect(res.status).toBe(403);
+      expect(createUserKey).not.toHaveBeenCalled();
+    });
+
+    it('does not consult the admin gate for pk creation', async () => {
+      const createUserKey = jest
+        .fn()
+        .mockResolvedValue({ key: 'oa_pk_x', record: {} });
+      const app = buildApp({
+        user: USER,
+        auth: { createUserKey },
+        enableSecret: false, // off, but pk does not care
+      });
+
+      const res = await request(app)
+        .post('/users/me/api-keys')
+        .send({ name: 'widget', oaKind: 'pk' });
+
+      expect(res.status).toBe(201);
+      expect(createUserKey).toHaveBeenCalledWith(42, {
+        oaKind: 'pk',
+        name: 'widget',
+      });
     });
   });
 

@@ -55,7 +55,6 @@
     "@openagenda/inboxes": "^1.1.15",
     "@openagenda/intl": "^1.1.6",
     "@openagenda/invitations": "^1.1.8",
-    "@openagenda/keys": "^2.2.11",
     "@openagenda/labels": "^2.3.0",
     "@openagenda/legacy": "^1.11.2",
     "@openagenda/logs": "^1.1.10",

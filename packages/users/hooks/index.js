@@ -9,7 +9,6 @@ import createTokenIfNotExist from './createTokenIfNotExist.js';
 import detailedParamHook from './detailedParamHook.js';
 import error from './error.js';
 import formatStore from './formatStore.js';
-import generateApiKey from './generateApiKey.js';
 import generateHash from './generateHash.js';
 import generateToken from './generateToken.js';
 import generateUid from './generateUid.js';
@@ -22,7 +21,6 @@ import parseStore from './parseStore.js';
 import populateAccountTypes from './populateAccountTypes.js';
 import profileImage from './profileImage.js';
 import removedParamHook from './removedParamHook.js';
-import searchByKey from './searchByKey.js';
 import searchKeyword from './searchKeyword.js';
 import setInStore from './setInStore.js';
 import snakeCase from './snakeCase.js';
@@ -46,7 +44,6 @@ export {
   detailedParamHook,
   error,
   formatStore,
-  generateApiKey,
   generateHash,
   generateToken,
   generateUid,
@@ -59,7 +56,6 @@ export {
   populateAccountTypes,
   profileImage,
   removedParamHook,
-  searchByKey,
   searchKeyword,
   setInStore,
   snakeCase,

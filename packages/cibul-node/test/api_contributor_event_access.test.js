@@ -8,6 +8,7 @@ import testConfig from './testConfig.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'accessTokens',
   'files',
@@ -22,7 +23,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('api: contributor access to their own events based on state', () => {

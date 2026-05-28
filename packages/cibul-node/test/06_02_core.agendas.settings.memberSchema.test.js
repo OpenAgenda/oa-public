@@ -8,6 +8,7 @@ import setup from './fixtures/setup.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'bull',
   'files',
@@ -23,7 +24,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('core - functional (server): core.agendas().settings.schema.memberSchema', () => {

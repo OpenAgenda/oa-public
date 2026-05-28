@@ -11,6 +11,7 @@ import setup from './fixtures/setup.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'bull',
   'files',
@@ -26,7 +27,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'tracker',
 ];
 

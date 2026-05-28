@@ -25,7 +25,6 @@ describe('create', () => {
     );
 
     expect(user.isActivated).toBe(true);
-    expect(user.apiKey).toBeTruthy();
   });
 
   it('create a user should hash password', async () => {

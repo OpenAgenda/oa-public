@@ -3,8 +3,6 @@ import path from 'node:path';
 import tmp from 'tmp';
 import knexLib from 'knex';
 import IORedis from 'ioredis';
-import keysSvc from '@openagenda/keys';
-import keysConfig from '@openagenda/keys/service/config.js';
 import Files from '@openagenda/files';
 import testconfig from '../testconfig.js';
 import Service from '../service/index.js';
@@ -14,7 +12,6 @@ const { service: config, dependencies: dConfig } = testconfig;
 const database = `${config.mysql.database}_service`;
 
 const migrationDirectories = [
-  path.resolve(import.meta.dirname, '../../keys/migrations'),
   path.resolve(import.meta.dirname, '../migrations'),
 ];
 
@@ -64,12 +61,6 @@ export function setupDatabase() {
       maxRetriesPerRequest: null,
     });
 
-    await keysSvc.init({
-      ...config,
-      knex,
-      redis: { client: redisClient },
-    });
-
     await knex.migrate.latest({ directory: migrationDirectories });
     await knex.seed.run({
       directory: path.join(import.meta.dirname, '../seeds'),
@@ -78,7 +69,6 @@ export function setupDatabase() {
 
   afterEach(async () => {
     await knex.raw(`DROP DATABASE IF EXISTS \`${database}\`;`);
-    await keysConfig.knex.destroy();
     await knex.destroy();
     await redisClient?.quit();
   });

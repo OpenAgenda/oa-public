@@ -34,7 +34,6 @@ const registry = [
   { name: 'discord', load: () => import('./discord.js') },
   { name: 'files', load: () => import('./files.js') },
   { name: 'abilities', load: () => import('./abilities/index.js') },
-  { name: 'keys', load: () => import('./keys/index.js') },
   { name: 'users', load: () => import('./users/index.js') },
   { name: 'accessTokens', load: () => import('./accessTokens/index.js') },
   { name: 'activities', load: () => import('./activities/index.js') },

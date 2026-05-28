@@ -20,7 +20,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'trackers',
   'activities',
   'inboxes',

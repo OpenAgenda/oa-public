@@ -71,10 +71,6 @@ export default function plugApp(app) {
     unlinkFacebookMw.validatePassword,
     getHandler('requestUnlinkFacebook', ['id', 'data', 'params'])(service),
   );
-  app.get(
-    '/users/:__feathersId/generateApiKey',
-    getHandler('generateApiKey', ['id', 'params'])(service),
-  );
 
   // D3b-user — user API key management on the better-auth `apikey` store, via
   // the @openagenda/auth façade (referenceId = the user's uid). Mounted under
@@ -84,8 +80,7 @@ export default function plugApp(app) {
   // `api_key_set`: native keys live only in `apikey`. `oaKind` is the tier and
   // is required on create (no default: `sk` = read+write vs `pk` =
   // read-only/public-locked is a deliberate, security-relevant choice — see
-  // §5.2). New paths, parallel to the legacy single-pair `generateApiKey`
-  // above, which stays live until the UI is switched (D3c).
+  // §5.2).
   app.get('/users/me/api-keys', requireUserJson, async (req, res, next) => {
     try {
       const items = await req.app.services.auth.listUserKeys(req.user.uid);
@@ -96,7 +91,9 @@ export default function plugApp(app) {
   });
 
   // Creates one key; the plaintext is returned ONCE under `key` (the stored
-  // record never carries it).
+  // record never carries it). Secret keys (`sk`) are gated by the admin
+  // toggle `user.store.enable_secret` (see superadmin/userUpdate.js): users
+  // without it can only create publishable (`pk`) keys.
   app.post('/users/me/api-keys', requireUserJson, async (req, res, next) => {
     const { oaKind, name } = req.body ?? {};
     if (oaKind !== 'pk' && oaKind !== 'sk') {
@@ -105,6 +102,16 @@ export default function plugApp(app) {
       );
     }
     try {
+      if (oaKind === 'sk') {
+        const user = await req.app.core.users.get(req.user.uid, {
+          detailed: true,
+        });
+        if (!user?.store?.enable_secret) {
+          return next(
+            new Forbidden('secret keys are not enabled for this user'),
+          );
+        }
+      }
       const { key, record } = await req.app.services.auth.createUserKey(
         req.user.uid,
         { oaKind, name },

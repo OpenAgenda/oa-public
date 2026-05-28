@@ -8,6 +8,7 @@ import testConfig from './testConfig.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'tracker',
   'accessTokens',
@@ -24,7 +25,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('13 - 03 - core - functional(server): core.agendas().locations.set', () => {

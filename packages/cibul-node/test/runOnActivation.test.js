@@ -22,7 +22,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'trackers',
   'abilities',
   'invitations',
@@ -58,7 +57,7 @@ describe('runOnActivation - idempotency + side effects', () => {
 
   afterAll(() => core.services.shutdown({ clear: true }));
 
-  it('creates an api key, inbox and behavioralEmail job', async () => {
+  it('creates an inbox and a behavioralEmail job on first activation', async () => {
     const user = await usersSvc.create(
       {
         fullName: 'Activate Side',
@@ -71,20 +70,19 @@ describe('runOnActivation - idempotency + side effects', () => {
 
     await runOnActivation(services, user, {});
 
-    const apiKey = await services
-      .knex(testConfig.schemas.apiKeySet)
-      .where({ user_id: user.id })
-      .first()
-      .catch(() => null);
-    expect(apiKey).toBeTruthy();
+    const inbox = await new services.inboxes.Inbox({
+      type: 'user',
+      identifier: user.uid,
+    })._get();
+    expect(inbox.data).toBeTruthy();
   });
 
-  // Idempotency: re-running runOnActivation for an already-activated user
-  // (the entry path opened by phase 3b magic-link / phase 4 OAuth firing
-  // afterEmailVerification on a user that was already activated via legacy)
-  // must not rotate the userPublic api key. Rotation would silently break
-  // any external client still using the previous key.
-  it('is a no-op when a userPublic api key already exists', async () => {
+  // Idempotency: re-running runOnActivation for an already-activated user (the
+  // entry path opened by better-auth's afterEmailVerification firing on a user
+  // already activated via legacy) must not re-enqueue the inactiveUser delayed
+  // job nor recreate the Inbox. The Inbox is the first persistent side-effect
+  // of the chain, so its presence is the guard.
+  it('is a no-op when the user already has an Inbox', async () => {
     const user = await usersSvc.create(
       {
         fullName: 'Activate Twice',
@@ -95,16 +93,20 @@ describe('runOnActivation - idempotency + side effects', () => {
       { internal: true, detailed: true },
     );
 
-    const firstKey = await services
-      .keys({ type: 'userPublic', identifier: user.uid })
-      .get({ optionalKey: true });
-    expect(firstKey).toBeTruthy();
+    await runOnActivation(services, user, {});
+
+    const firstInbox = await new services.inboxes.Inbox({
+      type: 'user',
+      identifier: user.uid,
+    })._get();
+    expect(firstInbox.data).toBeTruthy();
 
     await runOnActivation(services, user, {});
 
-    const secondKey = await services
-      .keys({ type: 'userPublic', identifier: user.uid })
-      .get({ optionalKey: true });
-    expect(secondKey?.key).toBe(firstKey.key);
+    const secondInbox = await new services.inboxes.Inbox({
+      type: 'user',
+      identifier: user.uid,
+    })._get();
+    expect(secondInbox.data.id).toBe(firstInbox.data.id);
   });
 });

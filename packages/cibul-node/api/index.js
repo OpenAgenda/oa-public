@@ -1045,21 +1045,6 @@ export default (core, { useRouter = true } = {}) => {
     },
   ]);
 
-  app.get('/me', (req, res, next) => {
-    if (!req.user) {
-      res.json({ logged: false });
-    } else {
-      core.users.get(req.user.uid, { detailed: true }).then(
-        (user) =>
-          res.json({
-            logged: true,
-            ..._.pick(user, ['apiKey']),
-          }),
-        next,
-      );
-    }
-  });
-
   app.delete('/me', async (req, res, next) => {
     if (!req.user) {
       return next(new NotAuthenticated('Authentication is required'));

@@ -1,4 +1,7 @@
+import { hashApiKey } from '@openagenda/auth';
 import load from './loadObjectFromFile.js';
+
+const AGENDA_KEY_PLAINTEXT = 'e830934e9d1848189ac74de3bfa7df0a';
 
 export default async (knex) => {
   await knex('user').insert([
@@ -32,13 +35,24 @@ export default async (knex) => {
     }),
   ]);
 
-  await knex('key').insert([
-    {
-      type: 'agendaFullRead',
-      identifier: 123,
-      created_at: new Date(),
-      label: 'Wigglypoof',
-      key: 'e830934e9d1848189ac74de3bfa7df0a',
-    },
-  ]);
+  // Seed an agenda key directly into the better-auth `apikey` store (the
+  // legacy `key` table was dropped at D5a). The plaintext is hashed the same
+  // way `verifyApiKey` hashes incoming keys, so the fixture key authenticates
+  // exactly as a real one would.
+  const now = new Date();
+  await knex(knex.client.config.schemas.apiKey).insert({
+    config_id: 'default',
+    name: 'Wigglypoof',
+    start: AGENDA_KEY_PLAINTEXT,
+    reference_id: 'agenda:123',
+    prefix: null,
+    key: await hashApiKey(AGENDA_KEY_PLAINTEXT),
+    enabled: true,
+    rate_limit_enabled: false,
+    request_count: 0,
+    created_at: now,
+    updated_at: now,
+    permissions: null,
+    metadata: JSON.stringify({ oaKind: 'agenda' }),
+  });
 };

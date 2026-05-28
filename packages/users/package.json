@@ -28,7 +28,6 @@
   "devDependencies": {
     "@openagenda/eslint-config": "^1.4.0",
     "@openagenda/files": "^3.1.0",
-    "@openagenda/keys": "^2.2.11",
     "ioredis": "^5.10.1",
     "jest": "^29.7.0",
     "sinon": "^8.1.1",
