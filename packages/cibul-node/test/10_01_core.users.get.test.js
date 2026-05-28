@@ -6,6 +6,7 @@ import setup from './fixtures/setup.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'accessTokens',
   'files',
@@ -20,7 +21,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'trackers',
 ];
 
@@ -81,13 +81,6 @@ describe('10 - core - functional (server): core.users().get()', () => {
         error = e.message;
       }
       expect(error).toBe('access token is expired');
-    });
-
-    it('user can be retrieved using a public key', async () => {
-      const janine = await core.users.get.byPublicKey(
-        'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-      );
-      expect(janine.uid).toBe(1);
     });
 
     it('user access token can be refreshed using the secret key', async () => {

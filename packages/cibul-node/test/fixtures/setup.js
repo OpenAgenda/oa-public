@@ -1,6 +1,7 @@
 import path from 'node:path';
 import knexLib from 'knex';
 import ensureTemplate from './buildTemplate.js';
+import seedApiKeyMirror from './seedApiKeyMirror.js';
 
 const META_TABLE = '__template_meta';
 
@@ -88,6 +89,11 @@ export default async function setup({ mysql, schemas, data = [] }) {
         const mod = await import(resolved);
         await mod.default(trx);
       }
+      // D5a: the live `key`/`api_key_set` → `apikey` dual-write mirror is gone,
+      // so any fixture that seeds api_key_set rows also needs the matching
+      // apikey-store entries for the v2 `?key=` middleware (now a pure
+      // verifyKey path) to recognize the seeded keys.
+      await seedApiKeyMirror(trx);
     });
   } finally {
     await knex.destroy();

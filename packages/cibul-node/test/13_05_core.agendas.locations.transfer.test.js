@@ -6,6 +6,7 @@ import setup from './fixtures/setup.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'tracker',
   'accessTokens',
@@ -22,7 +23,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('13 - core - functional(server): core.agendas().locations.transfer', () => {

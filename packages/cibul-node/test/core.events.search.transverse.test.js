@@ -21,7 +21,6 @@ const enabled = [
   'networks',
   'oembed',
   'users',
-  'keys',
   'accessTokens',
   'tracker',
 ];

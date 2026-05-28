@@ -24,7 +24,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'trackers',
   'abilities',
   'invitations',
@@ -157,15 +156,15 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
       .first();
     expect(dbUser.is_activated).toBe(1);
 
-    // runOnActivation side-effect: a userPublic api key is created.
-    const apiKey = await services
-      .keys({ type: 'userPublic', identifier: dbUser.uid })
-      .get({ optionalKey: true });
-    expect(apiKey).toBeTruthy();
-    expect(apiKey.key).toBeTruthy();
+    // runOnActivation side-effect: the user Inbox is provisioned.
+    const inbox = await new services.inboxes.Inbox({
+      type: 'user',
+      identifier: dbUser.uid,
+    })._get();
+    expect(inbox.data).toBeTruthy();
   });
 
-  it('re-using the same verification link returns an error and does not rotate the api key', async () => {
+  it('re-using the same verification link returns an error and does not re-run side-effects', async () => {
     const email = 'verify-22-replay@oa.test';
     const password = 'plainPwd-22-replay';
 
@@ -192,21 +191,23 @@ describe('22 - auth email verification via better-auth (phase 3b)', () => {
       .where({ email })
       .first();
 
-    const firstKey = await services
-      .keys({ type: 'userPublic', identifier: dbUser.uid })
-      .get({ optionalKey: true });
-    expect(firstKey).toBeTruthy();
+    const firstInbox = await new services.inboxes.Inbox({
+      type: 'user',
+      identifier: dbUser.uid,
+    })._get();
+    expect(firstInbox.data).toBeTruthy();
 
     const second = await request(app).get(pathAndQuery);
     // Second attempt: the JWT stays valid (no nonce). Because the link
     // carries a callbackURL, the already-verified branch still throws
-    // c.redirect(callbackURL) → 302. The contract that matters is that the
-    // userPublic api key is unchanged (idempotency).
+    // c.redirect(callbackURL) → 302. The contract that matters is that
+    // runOnActivation's side-effects are not re-run (Inbox unchanged).
     expect(second.status).toBe(302);
 
-    const secondKey = await services
-      .keys({ type: 'userPublic', identifier: dbUser.uid })
-      .get({ optionalKey: true });
-    expect(secondKey?.key).toBe(firstKey.key);
+    const secondInbox = await new services.inboxes.Inbox({
+      type: 'user',
+      identifier: dbUser.uid,
+    })._get();
+    expect(secondInbox.data.id).toBe(firstInbox.data.id);
   });
 });

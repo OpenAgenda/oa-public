@@ -14,6 +14,7 @@ const log = logs('13_01');
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'tracker',
   'accessTokens',
@@ -30,7 +31,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('13 - core - functional(server): core.agendas().locations.list', () => {

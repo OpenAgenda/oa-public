@@ -21,7 +21,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('09 - core - fuctional (server): core.agendas().events.batch()', () => {

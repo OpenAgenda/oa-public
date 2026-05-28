@@ -8,6 +8,7 @@ import setup from './fixtures/setup.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'accessTokens',
   'files',
@@ -22,7 +23,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('14 - core - functional(server): api authentication and posts', () => {
@@ -187,7 +187,9 @@ describe('14 - core - functional(server): api authentication and posts', () => {
 
       expect(error.response.status).toBe(403);
       const errorData = await error.response.json();
-      expect(errorData.message).toBe('key is required');
+      expect(errorData.message).toBe(
+        'could not find user or agenda matching key',
+      );
     });
 
     it('a public key provided in header authorization can be used to access /me/agendas route', async () => {

@@ -21,7 +21,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('13 - core - functional(server): core.agendas().locations.merge', () => {

@@ -1,13 +1,10 @@
-import { NotFound, Forbidden } from '@openagenda/verror';
 import verifyAndLoadAgendaOrUserFromKey from '../api/middleware/verifyAndLoadAgendaOrUserFromKey.js';
 
 // Stub the bits of `req.app` the middleware touches.
 //   verified      -> what `auth.verifyKey` resolves to (`{ owner, ... }` | null)
 //   noAuth        -> services.auth absent (some test apps mount v2 without it):
-//                    the bascule must degrade to the legacy read, not crash.
+//                    no key path is reachable, requests fail closed (403).
 //   usersByUid    -> resolved by `core.users.get(uid)` (the verify owner rebuild)
-//   legacyUser    -> resolved by the legacy `byPublicKey` fallback
-//   agendaKey     -> resolved by the legacy `keys(...).get()` fallback
 function makeReq({
   headers = {},
   query = {},
@@ -17,17 +14,10 @@ function makeReq({
   verifyKeyError = null,
   noAuth = false,
   usersByUid = {},
-  legacyUser = null,
-  byPublicKeyError = null,
-  agendaKey = null,
   tokenUser = null,
   byAccessTokenError = null,
 } = {}) {
   const get = Object.assign(async (uid) => usersByUid[uid] ?? null, {
-    byPublicKey: async () => {
-      if (byPublicKeyError) throw byPublicKeyError;
-      return legacyUser;
-    },
     byAccessToken: async () => {
       if (byAccessTokenError) throw byAccessTokenError;
       return tokenUser;
@@ -35,7 +25,6 @@ function makeReq({
   });
 
   const services = {
-    keys: () => ({ get: async () => agendaKey }),
     ...!noAuth && {
       auth: {
         verifyKey: async () => {
@@ -77,7 +66,7 @@ async function run(req) {
   return { req, res, nextCalled };
 }
 
-describe('90 - api-v2 unit - verifyAndLoadAgendaOrUserFromKey (D3a′)', () => {
+describe('90 - api-v2 unit - verifyAndLoadAgendaOrUserFromKey', () => {
   describe('passthrough / delegation', () => {
     it('calls next when req.user is already loaded (session parity)', async () => {
       const { nextCalled, res } = await run(makeReq({ user: { uid: 1 } }));
@@ -102,7 +91,7 @@ describe('90 - api-v2 unit - verifyAndLoadAgendaOrUserFromKey (D3a′)', () => {
     });
   });
 
-  describe('apikey verify path (primary)', () => {
+  describe('apikey verify path', () => {
     it('loads a user from a verified key (referenceId = uid)', async () => {
       const { req, nextCalled } = await run(
         makeReq({
@@ -140,69 +129,37 @@ describe('90 - api-v2 unit - verifyAndLoadAgendaOrUserFromKey (D3a′)', () => {
       expect(res.statusCode).toBe(403);
     });
 
-    it('403s a verified key whose user no longer exists — no legacy fallback', async () => {
+    it('403s a verified key whose user no longer exists', async () => {
       const { res, nextCalled } = await run(
         makeReq({
           headers: { authorization: 'Bearer oa_sk_x' },
           verified: { owner: { kind: 'user', userUid: 404 } },
-          legacyUser: { uid: 404 }, // would resolve, must NOT be consulted
         }),
       );
       expect(nextCalled).toBe(false);
       expect(res.statusCode).toBe(403);
     });
-  });
 
-  describe('legacy drift fallback', () => {
-    it('degrades to the legacy read when auth is not wired (guard)', async () => {
-      const { req, nextCalled } = await run(
+    it('403s when verifyKey returns null (no legacy fallback since D5)', async () => {
+      const { res, nextCalled } = await run(
+        makeReq({
+          headers: { authorization: 'Bearer unknown_key' },
+          verified: null,
+        }),
+      );
+      expect(nextCalled).toBe(false);
+      expect(res.statusCode).toBe(403);
+    });
+
+    it('403s when auth is not wired and a key is presented', async () => {
+      const { res, nextCalled } = await run(
         makeReq({
           headers: { authorization: 'Bearer legacy_key' },
           noAuth: true,
-          legacyUser: { uid: 99 },
-        }),
-      );
-      expect(nextCalled).toBe(true);
-      expect(req.user).toEqual({ uid: 99 });
-    });
-
-    it('falls back to the legacy read when verifyApiKey misses', async () => {
-      const { req, nextCalled } = await run(
-        makeReq({
-          headers: { authorization: 'Bearer legacy_key' },
-          verified: null,
-          legacyUser: { uid: 99 },
-        }),
-      );
-      expect(nextCalled).toBe(true);
-      expect(req.user).toEqual({ uid: 99 });
-    });
-
-    it('falls back to a full legacy agenda-key row on a verify miss', async () => {
-      const row = { id: 5, type: 'agendaFullRead', identifier: 2, key: 'abc' };
-      const { req, nextCalled } = await run(
-        makeReq({
-          query: { key: 'abc' },
-          verified: null,
-          byPublicKeyError: new NotFound('no such key'),
-          agendaKey: row,
-        }),
-      );
-      expect(nextCalled).toBe(true);
-      expect(req.agendaKey).toEqual(row);
-    });
-
-    it('403s with the loadUserError message when nothing resolves', async () => {
-      const { res, nextCalled } = await run(
-        makeReq({
-          query: { key: 'nope' },
-          verified: null,
-          byPublicKeyError: new Forbidden('user is blacklisted'),
         }),
       );
       expect(nextCalled).toBe(false);
       expect(res.statusCode).toBe(403);
-      expect(res.body.message).toBe('user is blacklisted');
     });
   });
 });

@@ -21,7 +21,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'activities',
 ];
 

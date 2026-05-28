@@ -25,7 +25,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'trackers',
   'abilities',
   'invitations',
@@ -212,10 +211,10 @@ describe('25 - reset password via better-auth (phase 3b)', () => {
       .first();
     expect(refreshed.is_activated).toBe(1);
 
-    const apiKey = await services
-      .keys({ type: 'userPublic', identifier: user.uid })
-      .get({ optionalKey: true });
-    expect(apiKey).toBeTruthy();
-    expect(apiKey.key).toBeTruthy();
+    const inbox = await new services.inboxes.Inbox({
+      type: 'user',
+      identifier: user.uid,
+    })._get();
+    expect(inbox.data).toBeTruthy();
   });
 });

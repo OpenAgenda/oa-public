@@ -2,7 +2,7 @@ import { jest } from '@jest/globals';
 import express from 'express';
 import bodyParser from 'body-parser';
 import request from 'supertest';
-import plugApp from '../services/keys/plugApp.js';
+import plugApp from '../services/agendas/apiKeysPlugApp.js';
 
 // Lightweight mount of the keys plugApp with stubbed services, exercising the
 // D3b-agenda routes (`…/admin/settings/api-keys`) in isolation: routing,
@@ -64,15 +64,15 @@ describe('90 - unit - agenda api-keys endpoints (D3b-agenda)', () => {
       expect(res.body).toEqual({ error: 'Not logged' });
     });
 
-    it('declares administrator authorization on the new routes', async () => {
+    it('declares administrator authorization on every api-key route', async () => {
       const authorizeCalls = [];
       buildApp({ authorizeCalls, auth: {} });
-      // The 5 legacy routes + the 4 new ones (list/create/revoke/rename) each
-      // demand administrator; a missing guard on a new route drops the count.
+      // 4 routes (list/create/revoke/rename) each demand administrator;
+      // a missing guard on a new route drops the count.
       const adminCount = authorizeCalls.filter(
         (r) => r === 'administrator',
       ).length;
-      expect(adminCount).toBe(9);
+      expect(adminCount).toBe(4);
     });
   });
 

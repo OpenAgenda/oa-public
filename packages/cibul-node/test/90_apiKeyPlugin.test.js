@@ -18,7 +18,6 @@ const enabled = [
   'bull',
   'files',
   'users',
-  'keys',
   'members',
   'networks',
   'mails',

@@ -9,6 +9,7 @@ import setup from './fixtures/setup.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'tracker', // for testing
   'bull',
@@ -25,7 +26,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'accessTokens',
 ];
 

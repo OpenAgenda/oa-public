@@ -29,7 +29,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'trackers',
   'abilities',
   'invitations',
@@ -97,7 +96,7 @@ describe('34 - OAuth Google signup → runOnActivation fired (phase 4)', () => {
     await core.services.shutdown({ clear: true });
   });
 
-  it('provisions a userPublic api key on first sign-in via Google', async () => {
+  it('provisions the user Inbox on first sign-in via Google', async () => {
     const agent = request.agent(app);
     const startRes = await agent
       .post('/api/auth/sign-in/social')
@@ -118,10 +117,10 @@ describe('34 - OAuth Google signup → runOnActivation fired (phase 4)', () => {
       .first();
     expect(dbUser).toBeTruthy();
 
-    const apiKey = await services
-      .keys({ type: 'userPublic', identifier: dbUser.uid })
-      .get({ optionalKey: true });
-    expect(apiKey).toBeTruthy();
-    expect(apiKey.key).toBeTruthy();
+    const inbox = await new services.inboxes.Inbox({
+      type: 'user',
+      identifier: dbUser.uid,
+    })._get();
+    expect(inbox.data).toBeTruthy();
   });
 });

@@ -27,7 +27,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'accessTokens',
 ];
 
@@ -415,23 +414,15 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(res.body.error.code).toBe('unauthorized');
     });
 
-    it('resolves a key through the primary verifyApiKey path (no legacy row)', async () => {
-      // Create an agenda key via the service (the D2 onCreate hook dual-writes
-      // it, hashed, into the apikey store), then drop the legacy `key` row so
-      // ONLY the apikey store can resolve it. This proves the D3a primary path
-      // (verifyApiKey → agenda owner rebuilt from referenceId) independently of
-      // the legacy fallback.
-      const created = await core.services
-        .keys({ type: 'agendaFullRead', identifier: 2 })
-        .create();
-      await core.services
-        .knex(config.schemas.key)
-        .where({ type: 'agendaFullRead', identifier: 2, key: created.key })
-        .delete();
+    it('resolves an agenda key through verifyApiKey (apikey store is the only source)', async () => {
+      // Mint a native agenda key via the @openagenda/auth façade — the apikey
+      // store is the single source of truth since D5a (legacy `key`/`api_key_set`
+      // drift fallback removed). verify → agenda owner rebuilt from referenceId.
+      const { key: keyValue } = await core.services.auth.createAgendaKey(2, {});
 
       const res = await request(app)
         .get('/agendas/2/events')
-        .set('authorization', `Bearer ${created.key}`);
+        .set('authorization', `Bearer ${keyValue}`);
 
       expect(res.status).toBe(200);
       assertValid(validateEventList, res.body, 'EventList');

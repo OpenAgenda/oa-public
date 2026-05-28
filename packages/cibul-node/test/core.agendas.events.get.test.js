@@ -19,7 +19,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('core - functional (server): core.agendas().events.get()', () => {

@@ -8,6 +8,7 @@ import testConfig from './testConfig.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'tracker',
   'accessTokens',
@@ -23,7 +24,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
   'activities',
 ];
 

@@ -20,7 +20,6 @@ const enabled = [
   'members',
   'networks',
   'users',
-  'keys',
 ];
 
 describe('services - functional (server): core agendas() events.clearOldSoftRemoved()', () => {
