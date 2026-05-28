@@ -7,31 +7,57 @@ import * as modalsActions from '../reducers/modals.js';
 import I18nContext from '../contexts/I18nContext.js';
 import EditKeyForm from './EditKeyForm.js';
 
-function Key({ item, index }) {
-  const { getLabel } = useContext(I18nContext);
+// Non-secret hint for a native stored key: the plugin keeps the first
+// characters (`start`), the rest is masked. Native key material is never
+// recoverable after creation (the store hashes it).
+function maskedHint(item) {
+  return item.start ? `${item.start}••••••••` : '••••••••••••';
+}
 
+// Keys mirrored from the legacy `key` table keep `start` = the full plaintext,
+// so they stay fully visible exactly as they were in the pre-migration UI.
+function isLegacyKey(item) {
+  return item.metadata?.source === 'mirror';
+}
+
+function Key({ item }) {
+  const { getLabel } = useContext(I18nContext);
   const dispatch = useDispatch();
+
+  // The plaintext is present only right after creation (shown once) for native
+  // keys; legacy mirror keys carry their full value in `start` permanently.
+  const revealed = useSelector((state) => state.keys.revealed?.[item.id]);
+  const fullValue = revealed ?? (isLegacyKey(item) ? item.start : null);
 
   const [inEdition, setInEdition] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const onCopy = useCallback(() => {
     setCopied(true);
-    setTimeout(() => {
-      setCopied(false);
-    }, 2000);
+    setTimeout(() => setCopied(false), 2000);
   }, []);
 
+  const removeButton = (
+    <button
+      type="button"
+      className="btn btn-default"
+      onClick={() =>
+        dispatch(modalsActions.showModal('removeKey', { id: item.id }))}
+      aria-label={getLabel('remove')}
+    >
+      <i className="fa fa-trash text-danger" aria-hidden="true" />
+    </button>
+  );
+
   return (
-    <div className="row margin-bottom-sm" key={index}>
+    <div className="row margin-bottom-sm">
       <div className="col-md-4">
         {inEdition ? (
           <EditKeyForm
-            index={index}
             item={item}
-            initialValues={{ label: item.label }}
+            initialValues={{ name: item.name }}
             onSubmit={(values) =>
-              dispatch(keysActions.update(item.key, values)).then(() =>
+              dispatch(keysActions.update(item.id, values)).then(() =>
                 setInEdition(false))}
             form={`edit-key-${item.id}`}
             cancel={() => setInEdition(false)}
@@ -41,7 +67,7 @@ function Key({ item, index }) {
             <input
               type="text"
               className="form-control"
-              value={item.label || getLabel('keyNbr', { nbr: index + 1 })}
+              value={item.name || getLabel('keyDefaultName', { id: item.id })}
               readOnly
             />
             <span className="input-group-btn">
@@ -59,38 +85,48 @@ function Key({ item, index }) {
       </div>
 
       <div className="col-md-8">
-        <div className="input-group">
-          <input
-            type="text"
-            className="form-control"
-            value={item.key}
-            readOnly
-          />
-          <span className="input-group-btn">
-            <MoreInfo content={copied ? getLabel('copied') : getLabel('copy')}>
-              <CopyToClipboard text={item.key} onCopy={onCopy}>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  aria-label={getLabel('copy')}
+        {fullValue ? (
+          <>
+            <div className="input-group">
+              <input
+                type="text"
+                className="form-control"
+                value={fullValue}
+                readOnly
+              />
+              <span className="input-group-btn">
+                <MoreInfo
+                  content={copied ? getLabel('copied') : getLabel('copy')}
                 >
-                  <i className="fa fa-clipboard" aria-hidden="true" />
-                </button>
-              </CopyToClipboard>
-            </MoreInfo>
-            <button
-              type="button"
-              className="btn btn-default"
-              onClick={() =>
-                dispatch(
-                  modalsActions.showModal('removeKey', { key: item.key }),
-                )}
-              aria-label={getLabel('remove')}
-            >
-              <i className="fa fa-trash text-danger" aria-hidden="true" />
-            </button>
-          </span>
-        </div>
+                  <CopyToClipboard text={fullValue} onCopy={onCopy}>
+                    <button
+                      type="button"
+                      className="btn btn-primary"
+                      aria-label={getLabel('copy')}
+                    >
+                      <i className="fa fa-clipboard" aria-hidden="true" />
+                    </button>
+                  </CopyToClipboard>
+                </MoreInfo>
+                {removeButton}
+              </span>
+            </div>
+            {revealed && (
+              <small className="text-warning">{getLabel('keyShownOnce')}</small>
+            )}
+          </>
+        ) : (
+          <div className="input-group">
+            <input
+              type="text"
+              className="form-control"
+              value={maskedHint(item)}
+              readOnly
+              disabled
+            />
+            <span className="input-group-btn">{removeButton}</span>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -104,8 +140,8 @@ export default function KeysManager() {
 
   return (
     <div>
-      {keys.map((item, index) => (
-        <Key key={item.id} item={item} index={index} />
+      {keys.map((item) => (
+        <Key key={item.id} item={item} />
       ))}
       <button
         type="button"

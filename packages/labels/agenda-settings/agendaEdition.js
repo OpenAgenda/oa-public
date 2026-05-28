@@ -397,16 +397,15 @@ module.exports = {
     "nl": "Uw agenda is succesvol verwijderd",
     "br": "Dilamet eo bet ho teiziataer"
   },
-  "keyNbr": {
-    "fr": "Clé n°%nbr%",
-    "en": "Key n°%nbr%",
-    "de": "Key n °%nbr%",
-    "es": "llave #%nbr%",
-    "it": "Chiave n° %nbr%",
-    "io": "crwdns12570:0%nbr%crwdne12570:0",
-    "oc": "Clau n°%nbr%",
-    "nl": "Sleutel nr. %nbr%",
-    "br": "Alc'hwez n°%nbr%"
+  "keyDefaultName": {
+    "fr": "Clé %id%",
+    "en": "Key %id%",
+    "de": "Schlüssel %id%",
+    "es": "Clave %id%",
+    "it": "Chiave %id%",
+    "oc": "Clau %id%",
+    "nl": "Sleutel %id%",
+    "br": "Alc'hwez %id%"
   },
   "generateKey": {
     "fr": "Générer une clé",
@@ -418,6 +417,16 @@ module.exports = {
     "oc": "Generar una clau",
     "nl": "Een sleutel genereren",
     "br": "Genel un alc'hwez"
+  },
+  "keyShownOnce": {
+    "fr": "Copiez cette clé maintenant : elle ne sera plus affichée.",
+    "en": "Copy this key now: it won't be shown again.",
+    "de": "Kopieren Sie diesen Schlüssel jetzt: Er wird nicht erneut angezeigt.",
+    "es": "Copia esta llave ahora: no se volverá a mostrar.",
+    "it": "Copia questa chiave ora: non verrà più mostrata.",
+    "oc": "Copiatz aquesta clau ara : serà pas pus afichada.",
+    "nl": "Kopieer deze sleutel nu: hij wordt niet opnieuw getoond.",
+    "br": "Eilit an alc'hwez-mañ bremañ : ne vo ket diskwelet en-dro."
   },
   "copy": {
     "fr": "Copier",
