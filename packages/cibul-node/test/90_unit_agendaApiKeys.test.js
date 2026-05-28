@@ -67,12 +67,12 @@ describe('90 - unit - agenda api-keys endpoints (D3b-agenda)', () => {
     it('declares administrator authorization on the new routes', async () => {
       const authorizeCalls = [];
       buildApp({ authorizeCalls, auth: {} });
-      // The 5 legacy routes + the 3 new ones each demand administrator; a
-      // missing guard on a new route would drop the count below 8.
+      // The 5 legacy routes + the 4 new ones (list/create/revoke/rename) each
+      // demand administrator; a missing guard on a new route drops the count.
       const adminCount = authorizeCalls.filter(
         (r) => r === 'administrator',
       ).length;
-      expect(adminCount).toBe(8);
+      expect(adminCount).toBe(9);
     });
   });
 
@@ -149,6 +149,46 @@ describe('90 - unit - agenda api-keys endpoints (D3b-agenda)', () => {
 
       expect(res.status).toBe(404);
       expect(revokeAgendaKey).toHaveBeenCalledWith(2, 'nope');
+    });
+  });
+
+  describe('rename', () => {
+    it('200s { record } and delegates to the façade with the agenda uid', async () => {
+      const record = { id: 'k1', name: 'CI export' };
+      const renameAgendaKey = jest.fn().mockResolvedValue(record);
+      const app = buildApp({ user: ADMIN, auth: { renameAgendaKey } });
+
+      const res = await request(app)
+        .patch('/myagenda/admin/settings/api-keys/k1')
+        .send({ name: 'CI export' });
+
+      expect(res.status).toBe(200);
+      expect(res.body).toEqual({ record });
+      expect(renameAgendaKey).toHaveBeenCalledWith(2, 'k1', 'CI export');
+    });
+
+    it('400s when name is missing, without calling the façade', async () => {
+      const renameAgendaKey = jest.fn();
+      const app = buildApp({ user: ADMIN, auth: { renameAgendaKey } });
+
+      const res = await request(app)
+        .patch('/myagenda/admin/settings/api-keys/k1')
+        .send({});
+
+      expect(res.status).toBe(400);
+      expect(renameAgendaKey).not.toHaveBeenCalled();
+    });
+
+    it('404s when the key is absent or not this agenda’s', async () => {
+      const renameAgendaKey = jest.fn().mockResolvedValue(null);
+      const app = buildApp({ user: ADMIN, auth: { renameAgendaKey } });
+
+      const res = await request(app)
+        .patch('/myagenda/admin/settings/api-keys/nope')
+        .send({ name: 'x' });
+
+      expect(res.status).toBe(404);
+      expect(renameAgendaKey).toHaveBeenCalledWith(2, 'nope', 'x');
     });
   });
 });

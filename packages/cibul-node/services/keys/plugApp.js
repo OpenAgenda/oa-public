@@ -1,4 +1,4 @@
-import { NotFound } from '@openagenda/verror';
+import { NotFound, BadRequest } from '@openagenda/verror';
 import * as keysMw from '@openagenda/keys/middleware.js';
 import { requireUser, requireUserJson } from '../../lib/authGuards.js';
 
@@ -155,6 +155,33 @@ export default function plugApp(app) {
           return next(new NotFound('api key not found'));
         }
         res.json({ removed: true });
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
+
+  // Rename one key (its `name` label), owner-scoped like revoke. 404 on a miss.
+  app.patch(
+    '/:agendaSlug/admin/settings/api-keys/:keyId',
+    requireUserJson,
+    agendas.mw.load,
+    members.mw.loadAndAuthorize('administrator'),
+    async (req, res, next) => {
+      const { name } = req.body ?? {};
+      if (typeof name !== 'string') {
+        return next(new BadRequest('name is required and must be a string'));
+      }
+      try {
+        const record = await req.app.services.auth.renameAgendaKey(
+          req.agenda.uid,
+          req.params.keyId,
+          name,
+        );
+        if (!record) {
+          return next(new NotFound('api key not found'));
+        }
+        res.json({ record });
       } catch (err) {
         next(err);
       }
