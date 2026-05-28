@@ -35,7 +35,7 @@
   "close": "Cerca",
   "remove": "Eliminar",
   "agendaRemoved": "Su agenda ha sido eliminado",
-  "keyDefaultName": "Clave %id%",
+  "keyName": "Nombre de clave",
   "generateKey": "Generar llave",
   "keyShownOnce": "Copia esta llave ahora: no se volverá a mostrar.",
   "copy": "Copia",

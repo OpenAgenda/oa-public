@@ -35,7 +35,7 @@
   "close": "Chiudere",
   "remove": "Rimuovere",
   "agendaRemoved": "Il vostro agenda è stato cancellato",
-  "keyDefaultName": "Chiave %id%",
+  "keyName": "Nome chiave",
   "generateKey": "Generare una chiave",
   "keyShownOnce": "Copia questa chiave ora: non verrà più mostrata.",
   "copy": "Copia",

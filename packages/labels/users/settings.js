@@ -395,15 +395,15 @@ module.exports = {
     "nl": "Een geheime sleutel genereren",
     "br": "Krouiñ un alc'hwez kuzh"
   },
-  "keyDefaultName": {
-    "en": "Key %id%",
-    "fr": "Clé %id%",
-    "de": "Schlüssel %id%",
-    "es": "Clave %id%",
-    "it": "Chiave %id%",
-    "oc": "Clau %id%",
-    "nl": "Sleutel %id%",
-    "br": "Alc'hwez %id%"
+  "keyName": {
+    "en": "Key name",
+    "fr": "Nom de clé",
+    "de": "Schlüsselname",
+    "es": "Nombre de clave",
+    "it": "Nome chiave",
+    "oc": "Nom de clau",
+    "nl": "Sleutelnaam",
+    "br": "Anv alc'hwez"
   },
   "keyShownOnce": {
     "en": "Copy this key now: it won't be shown again.",

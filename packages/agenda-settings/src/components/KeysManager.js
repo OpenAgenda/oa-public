@@ -54,7 +54,6 @@ function Key({ item }) {
       <div className="col-md-4">
         {inEdition ? (
           <EditKeyForm
-            item={item}
             initialValues={{ name: item.name }}
             onSubmit={(values) =>
               dispatch(keysActions.update(item.id, values)).then(() =>
@@ -67,7 +66,8 @@ function Key({ item }) {
             <input
               type="text"
               className="form-control"
-              value={item.name || getLabel('keyDefaultName', { id: item.id })}
+              value={item.name || ''}
+              placeholder={getLabel('keyName')}
               readOnly
             />
             <span className="input-group-btn">

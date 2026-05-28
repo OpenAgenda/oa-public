@@ -35,7 +35,7 @@
   "close": "Tampar",
   "remove": "Suprimir",
   "agendaRemoved": "Vòstra agenda es estada suprimida",
-  "keyDefaultName": "Clau %id%",
+  "keyName": "Nom de clau",
   "generateKey": "Generar una clau",
   "keyShownOnce": "Copiatz aquesta clau ara : serà pas pus afichada.",
   "copy": "Copiar",

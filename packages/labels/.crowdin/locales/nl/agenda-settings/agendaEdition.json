@@ -35,7 +35,7 @@
   "close": "Schließen",
   "remove": "Verwijderen",
   "agendaRemoved": "Uw agenda is succesvol verwijderd",
-  "keyDefaultName": "Sleutel %id%",
+  "keyName": "Sleutelnaam",
   "generateKey": "Een sleutel genereren",
   "keyShownOnce": "Kopieer deze sleutel nu: hij wordt niet opnieuw getoond.",
   "copy": "Kopiëren",

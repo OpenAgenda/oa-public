@@ -4,7 +4,7 @@ import { MoreInfo } from '@openagenda/react-shared';
 import { InputGroup } from '../utils/inputs.js';
 import I18nContext from '../contexts/I18nContext.js';
 
-export default function EditKeyForm({ item, cancel, onSubmit }) {
+export default function EditKeyForm({ cancel, onSubmit }) {
   const { getLabel } = useContext(I18nContext);
 
   return (
@@ -14,7 +14,7 @@ export default function EditKeyForm({ item, cancel, onSubmit }) {
           <div className="input-group">
             <Field
               name="name"
-              placeholder={getLabel('keyDefaultName', { id: item.id })}
+              placeholder={getLabel('keyName')}
               component={InputGroup}
               className="form-control"
               formGroupClass={false}

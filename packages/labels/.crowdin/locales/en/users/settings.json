@@ -44,7 +44,7 @@
   "apiKeyTiersHelp": "A public key (pk) is read-only and safe to embed client-side; a secret key (sk) can also write and must stay private.",
   "generatePublicKey": "Generate a public key",
   "generateSecretKey": "Generate a secret key",
-  "keyDefaultName": "Key %id%",
+  "keyName": "Key name",
   "keyShownOnce": "Copy this key now: it won't be shown again.",
   "copy": "Copy",
   "copied": "Copied",

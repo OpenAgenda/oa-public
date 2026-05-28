@@ -30,7 +30,7 @@
   "apiKeyTiersHelp": "Ein öffentlicher Schlüssel (pk) ist schreibgeschützt und kann clientseitig eingebettet werden; ein geheimer Schlüssel (sk) kann auch schreiben und muss vertraulich bleiben.",
   "generatePublicKey": "Einen öffentlichen Schlüssel generieren",
   "generateSecretKey": "Einen geheimen Schlüssel generieren",
-  "keyDefaultName": "Schlüssel %id%",
+  "keyName": "Schlüsselname",
   "keyShownOnce": "Kopieren Sie diesen Schlüssel jetzt: Er wird nicht erneut angezeigt.",
   "copy": "Kopieren",
   "copied": "Kopierte",

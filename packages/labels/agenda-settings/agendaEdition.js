@@ -397,15 +397,15 @@ module.exports = {
     "nl": "Uw agenda is succesvol verwijderd",
     "br": "Dilamet eo bet ho teiziataer"
   },
-  "keyDefaultName": {
-    "fr": "Clé %id%",
-    "en": "Key %id%",
-    "de": "Schlüssel %id%",
-    "es": "Clave %id%",
-    "it": "Chiave %id%",
-    "oc": "Clau %id%",
-    "nl": "Sleutel %id%",
-    "br": "Alc'hwez %id%"
+  "keyName": {
+    "fr": "Nom de clé",
+    "en": "Key name",
+    "de": "Schlüsselname",
+    "es": "Nombre de clave",
+    "it": "Nome chiave",
+    "oc": "Nom de clau",
+    "nl": "Sleutelnaam",
+    "br": "Anv alc'hwez"
   },
   "generateKey": {
     "fr": "Générer une clé",

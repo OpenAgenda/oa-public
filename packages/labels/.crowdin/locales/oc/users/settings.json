@@ -30,7 +30,7 @@
   "apiKeyTiersHelp": "Una clau publica (pk) es en lectura sola e pòt èsser integrada del costat client ; una clau secrèta (sk) permet tanben d'escriure e deu demorar confidenciala.",
   "generatePublicKey": "Generar una clau publica",
   "generateSecretKey": "Generar una clau secrèta",
-  "keyDefaultName": "Clau %id%",
+  "keyName": "Nom de clau",
   "keyShownOnce": "Copiatz aquesta clau ara : serà pas pus afichada.",
   "copy": "Copiar",
   "copied": "Copiat",

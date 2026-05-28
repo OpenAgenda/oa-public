@@ -30,7 +30,7 @@
   "apiKeyTiersHelp": "Een publieke sleutel (pk) is alleen-lezen en kan aan de clientzijde worden ingesloten; een geheime sleutel (sk) kan ook schrijven en moet privé blijven.",
   "generatePublicKey": "Een publieke sleutel genereren",
   "generateSecretKey": "Een geheime sleutel genereren",
-  "keyDefaultName": "Sleutel %id%",
+  "keyName": "Sleutelnaam",
   "keyShownOnce": "Kopieer deze sleutel nu: hij wordt niet opnieuw getoond.",
   "copy": "Kopiëren",
   "copied": "Gekopieerd",

@@ -30,7 +30,7 @@
   "apiKeyTiersHelp": "Una chiave pubblica (pk) è di sola lettura e può essere integrata lato client; una chiave segreta (sk) consente anche la scrittura e deve restare riservata.",
   "generatePublicKey": "Genera una chiave pubblica",
   "generateSecretKey": "Genera una chiave segreta",
-  "keyDefaultName": "Chiave %id%",
+  "keyName": "Nome chiave",
   "keyShownOnce": "Copia questa chiave ora: non verrà più mostrata.",
   "copy": "Copia",
   "copied": "Copiato",

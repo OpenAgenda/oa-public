@@ -44,7 +44,7 @@
   "apiKeyTiersHelp": "Une clé publique (pk) est en lecture seule et peut être intégrée côté client ; une clé secrète (sk) permet aussi d'écrire et doit rester confidentielle.",
   "generatePublicKey": "Générer une clé publique",
   "generateSecretKey": "Générer une clé secrète",
-  "keyDefaultName": "Clé %id%",
+  "keyName": "Nom de clé",
   "keyShownOnce": "Copiez cette clé maintenant : elle ne sera plus affichée.",
   "copy": "Copier",
   "copied": "Copié",

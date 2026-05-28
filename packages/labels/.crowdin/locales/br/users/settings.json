@@ -30,7 +30,7 @@
   "apiKeyTiersHelp": "Un alc'hwez foran (pk) a zo lenn-hepken ha gallout a reer e enframmañ en tu-kliant ; un alc'hwez kuzh (sk) a c'hall ivez skrivañ ha rankout a ra chom kuzh.",
   "generatePublicKey": "Krouiñ un alc'hwez foran",
   "generateSecretKey": "Krouiñ un alc'hwez kuzh",
-  "keyDefaultName": "Alc'hwez %id%",
+  "keyName": "Anv alc'hwez",
   "keyShownOnce": "Eilit an alc'hwez-mañ bremañ : ne vo ket diskwelet en-dro.",
   "copy": "Kopiañ",
   "copied": "Eilet",

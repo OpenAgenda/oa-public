@@ -35,7 +35,7 @@
   "close": "Schließen",
   "remove": "Löschen",
   "agendaRemoved": "Ihre Agenda wurde gelöscht",
-  "keyDefaultName": "Schlüssel %id%",
+  "keyName": "Schlüsselname",
   "generateKey": "Generiere einen Schlüssel",
   "keyShownOnce": "Kopieren Sie diesen Schlüssel jetzt: Er wird nicht erneut angezeigt.",
   "copy": "Kopieren",

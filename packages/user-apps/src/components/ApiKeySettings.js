@@ -59,7 +59,7 @@ function KeyRow({ item, onRemove }) {
               type="text"
               className="form-control"
               value={name}
-              placeholder={getLabel('keyDefaultName', { id: item.id })}
+              placeholder={getLabel('keyName')}
               onChange={(e) => setName(e.target.value)}
             />
             <span className="input-group-btn">
@@ -95,7 +95,8 @@ function KeyRow({ item, onRemove }) {
             <input
               type="text"
               className="form-control"
-              value={item.name || getLabel('keyDefaultName', { id: item.id })}
+              value={item.name || ''}
+              placeholder={getLabel('keyName')}
               readOnly
             />
             <span className="input-group-btn">
