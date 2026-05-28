@@ -44,7 +44,11 @@ async function mirrorOne(knex, apiKeyTable, legacyKey, type) {
   const row = {
     config_id: 'default',
     name: legacyKey.label ?? null,
-    start: null, // legacy values are bare (no oa_ prefix) → nothing to preview
+    // Legacy keys were always shown in full in the OA UI; preserve that. The
+    // whole plaintext is kept here (it already lives in the legacy `key` table),
+    // and `metadata.source === 'mirror'` lets the UI render these in full while
+    // native keys (D3+) are hashed and only ever previewed by a short prefix.
+    start: legacyKey.key,
     reference_id: referenceId,
     prefix: null,
     key: hashed,
