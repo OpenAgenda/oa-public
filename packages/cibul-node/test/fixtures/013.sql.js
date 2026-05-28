@@ -1,3 +1,4 @@
+import seedApiKeys from './seedApiKeys.js';
 import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
@@ -6,8 +7,9 @@ export default async (knex) => {
     load('sql/users/superAdmin.json'),
   ]);
 
-  await knex('api_key_set').insert([
-    load('./sql/apiKeySets/01.json', { user_id: 83530 }),
+  await seedApiKeys(knex, [
+    load('./sql/apiKeys/01-pk.json', { userUid: 838438477721 }),
+    load('./sql/apiKeys/01-sk.json', { userUid: 838438477721 }),
   ]);
 
   await knex('review').insert([

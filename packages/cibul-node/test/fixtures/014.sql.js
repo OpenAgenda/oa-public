@@ -1,3 +1,4 @@
+import seedApiKeys from './seedApiKeys.js';
 import load from './loadObjectFromFile.js';
 import insertEventSet from './sql/eventSets/index.js';
 
@@ -8,12 +9,11 @@ export default async (knex) => {
     load('sql/users/margaux.json'),
   ]);
 
-  await knex('api_key_set').insert([
-    load('sql/apiKeySets/01.json'), // keys of janine
-    load('sql/apiKeySets/02.json', {
-      // keys of lise
-      user_id: 125884,
-    }),
+  await seedApiKeys(knex, [
+    load('sql/apiKeys/01-pk.json'), // keys of janine
+    load('sql/apiKeys/01-sk.json'),
+    load('sql/apiKeys/02-pk.json', { userUid: 50073466 }), // keys of lise
+    load('sql/apiKeys/02-sk.json', { userUid: 50073466 }),
   ]);
 
   await knex('access_token').insert([

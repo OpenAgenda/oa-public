@@ -1,4 +1,5 @@
 import load from './loadObjectFromFile.js';
+import seedApiKeys from './seedApiKeys.js';
 
 export default async (knex) => {
   await knex('user').insert([
@@ -12,25 +13,13 @@ export default async (knex) => {
     }),
   ]);
 
-  await knex('api_key_set').insert([
-    {
-      id: 1,
-      api_key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9',
-      api_secret: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL', // admin code
-      type: 1,
-      user_id: 1, // thibaud (admin)
-      created_at: new Date('2019-12-22T18:14:00'),
-      updated_at: new Date('2019-12-22T18:14:00'),
-    },
-    {
-      id: 2,
-      api_key: '0toI8hA1if8auC1hFOmegP36aMbVg1N9',
-      api_secret: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM', // contributor code
-      type: 1,
-      user_id: 2, // helene (contributor)
-      created_at: new Date('2019-12-22T18:14:00'),
-      updated_at: new Date('2019-12-22T18:14:00'),
-    },
+  await seedApiKeys(knex, [
+    // thibaud (admin), userUid 1
+    { plaintext: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9', oaKind: 'pk', userUid: 1 },
+    { plaintext: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhL', oaKind: 'sk', userUid: 1 },
+    // helene (contributor), userUid 2
+    { plaintext: '0toI8hA1if8auC1hFOmegP36aMbVg1N9', oaKind: 'pk', userUid: 2 },
+    { plaintext: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM', oaKind: 'sk', userUid: 2 },
   ]);
 
   await knex('access_token').insert([
@@ -38,7 +27,7 @@ export default async (knex) => {
       id: 1,
       token: '11a79182cddd2466c768867ac3f25ba0',
       lifespan: 100000000, // long lifespan for testing
-      api_key_set_id: 1,
+      user_id: 1,
       created_at: new Date('2019-01-01T00:00:00'),
       updated_at: new Date('2019-01-01T00:00:00'),
     },
@@ -46,7 +35,7 @@ export default async (knex) => {
       id: 2,
       token: '11a7946ddd256c768867ac3f2182cba0',
       lifespan: 100000000, // long lifespan for testing
-      api_key_set_id: 2,
+      user_id: 2,
       created_at: new Date('2019-01-01T00:00:00'),
       updated_at: new Date('2019-01-01T00:00:00'),
     },

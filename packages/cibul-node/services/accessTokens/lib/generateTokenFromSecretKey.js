@@ -5,14 +5,14 @@ import getTokenDeath from './getTokenDeath.js';
 const TOKEN_LIFESPAN = 60 * 60 * 1000;
 const log = logs('services/accessTokens/generateTokenFromSecretKey');
 
-// D5b P4a — the v2 `tk-` mint is now pure apikey-store:
-//   1. auth.verifyKey() validates the secret against the apikey store
-//      (owner.kind=user, oaKind=sk are the only ones that can mint a tk-).
-//   2. The owner's user.id is resolved by uid and stored on access_token.user_id
-//      — getUser/loadToken read it back directly post-P3, no api_key_set hop.
-//   3. The existing-token lookup is keyed on user_id (not on the legacy
-//      api_key_set_id): each user owns a single live tk-, refreshed on every
-//      /requestAccessToken hit. A user with multiple sk's still gets one tk-.
+// The v2 `tk-` mint runs entirely on the apikey store:
+//   1. auth.verifyKey() validates the secret (owner.kind=user, oaKind=sk are
+//      the only keys allowed to mint a tk-).
+//   2. The owner's user.id is resolved by uid and stored on access_token.user_id;
+//      getUser/loadToken read it back directly.
+//   3. The existing-token lookup is keyed on user_id: each user owns a single
+//      live tk-, refreshed on every /requestAccessToken hit. A user with
+//      multiple sk's still gets one tk- — tk- is a user identity.
 export default async function generateTokenFromSecretKey(
   services,
   { secretKey },

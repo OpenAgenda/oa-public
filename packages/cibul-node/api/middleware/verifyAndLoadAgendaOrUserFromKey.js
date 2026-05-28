@@ -23,10 +23,9 @@ function extractPublicKey(req) {
 // through anonymously when no key is presented.
 //
 // A public key is verified against the better-auth `apikey` store, then the OA
-// owner is rebuilt from the referenceId. The legacy `key`/`api_key_set` drift
-// fallback was removed at D5 (single source of truth = the `apikey` store).
-// The `tk-` access-token path is delegated untouched (legacy until v2 EOL —
-// those HMAC tokens never live in the `apikey` store).
+// owner is rebuilt from the referenceId. The `tk-` access-token path is
+// delegated untouched (legacy until v2 EOL — those HMAC tokens never live in
+// the `apikey` store).
 export default async (req, res, next) => {
   log('evaluating', { baseUrl: req.baseUrl });
   const { auth } = req.app.services;

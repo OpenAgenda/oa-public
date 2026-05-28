@@ -1,3 +1,4 @@
+import seedApiKeys from './seedApiKeys.js';
 import load from './loadObjectFromFile.js';
 
 const embeddedContent = load('./embeddedContent.json');
@@ -18,12 +19,17 @@ export default async (knex) => {
 
   await knex('network').insert([load('sql/networks/01.json')]);
 
-  await knex('api_key_set').insert([
-    load('sql/apiKeySets/50300.json'),
-    load('sql/apiKeySets/0101.json'),
-    load('sql/apiKeySets/jean-benoit.keys.json'),
-    load('sql/apiKeySets/lise.keys.json'),
-    load('sql/apiKeySets/thibaud.keys.json'),
+  await seedApiKeys(knex, [
+    load('sql/apiKeys/50300-pk.json'),
+    load('sql/apiKeys/50300-sk.json'),
+    load('sql/apiKeys/0101-pk.json'),
+    load('sql/apiKeys/0101-sk.json'),
+    load('sql/apiKeys/jean-benoit-pk.json'),
+    load('sql/apiKeys/jean-benoit-sk.json'),
+    load('sql/apiKeys/lise-pk.json'),
+    load('sql/apiKeys/lise-sk.json'),
+    load('sql/apiKeys/thibaud-pk.json'),
+    load('sql/apiKeys/thibaud-sk.json'),
   ]);
 
   await knex('reviewer').insert([

@@ -168,7 +168,6 @@ const config = {
     agenda: 'review',
     aggregator: 'aggregator',
     aggregatorSource: 'aggregator_source',
-    apiKeySet: 'api_key_set',
     apiKey: 'api_key',
     accessToken: 'access_token',
     eventService: 'event_2',
@@ -348,12 +347,6 @@ const config = {
     'contaco.org',
     'groklan.com',
   ],
-  api: {
-    redis: {
-      prefix: 'apiKeySet:',
-      publishCount: 'event/new/dayCount',
-    },
-  },
   aws: {
     accessKeyId: prod.aws?.key ?? process.env.AWS_KEY,
     secretAccessKey: prod.aws?.secret ?? process.env.AWS_SECRET,

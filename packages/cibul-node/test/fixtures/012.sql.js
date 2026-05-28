@@ -1,3 +1,4 @@
+import seedApiKeys from './seedApiKeys.js';
 import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
@@ -5,7 +6,10 @@ export default async (knex) => {
 
   await knex('network').insert([load('sql/networks/01.json')]);
 
-  await knex('api_key_set').insert([load('sql/apiKeySets/01.json')]);
+  await seedApiKeys(knex, [
+    load('sql/apiKeys/01-pk.json'),
+    load('sql/apiKeys/01-sk.json'),
+  ]);
 
   await knex('access_token').insert([
     load('sql/accessTokens/01.json'),

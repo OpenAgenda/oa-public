@@ -1,7 +1,6 @@
 import path from 'node:path';
 import knexLib from 'knex';
 import ensureTemplate from './buildTemplate.js';
-import seedApiKeyMirror from './seedApiKeyMirror.js';
 
 const META_TABLE = '__template_meta';
 
@@ -89,21 +88,6 @@ export default async function setup({ mysql, schemas, data = [] }) {
         const mod = await import(resolved);
         await mod.default(trx);
       }
-      // D5a: the live `key`/`api_key_set` → `apikey` dual-write mirror is gone,
-      // so any fixture that seeds api_key_set rows also needs the matching
-      // apikey-store entries for the v2 `?key=` middleware (now a pure
-      // verifyKey path) to recognize the seeded keys.
-      await seedApiKeyMirror(trx);
-
-      // D5b P3: getUser reads `access_token.user_id` directly, no fallback.
-      // Fixtures predate the column and insert tokens with user_id NULL, so
-      // mirror the prod P1 backfill here to keep them resolvable.
-      await trx.raw(
-        `UPDATE access_token at
-           JOIN api_key_set s ON s.id = at.api_key_set_id
-           SET at.user_id = s.user_id
-           WHERE at.user_id IS NULL`,
-      );
     });
   } finally {
     await knex.destroy();

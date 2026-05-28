@@ -1,5 +1,4 @@
 import tfy from './lib/taskify.js';
-import resetApiCounters from './general/resetApiCounters.task.js';
 
 export default (config, core, services, tasksList) => {
   if (tasksList.includes('critical')) {
@@ -97,12 +96,6 @@ export default (config, core, services, tasksList) => {
   }
 
   if (tasksList.includes('maintenance')) {
-    tfy(resetApiCounters(config, services), {
-      // bootOffset: 1000,
-      period: 'daily',
-      time: '00:00',
-    });
-
     tfy(services.activities.tasks.activities.cleanOld, {
       // bootOffset: 1000,
       period: 'daily',

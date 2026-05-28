@@ -1,3 +1,4 @@
+import seedApiKeys from './seedApiKeys.js';
 import load from './loadObjectFromFile.js';
 
 export default async (knex) => {
@@ -25,13 +26,20 @@ export default async (knex) => {
     },
   ]);
 
-  await knex('api_key_set').insert([
-    load('sql/apiKeySets/01.json'), // for user 1
-    load('sql/apiKeySets/50300.json', {
-      id: 2,
-      api_key: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N0',
-      api_secret: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhN',
-    }), // for user 2
+  await seedApiKeys(knex, [
+    load('sql/apiKeys/01-pk.json'), // for user 1
+    load('sql/apiKeys/01-sk.json'),
+    // user 50300 (uid 63170200) gets a distinct pair to disambiguate from user 1
+    {
+      plaintext: 'egP36aMb0toI8hAhFOm1if8auC1Vg1N0',
+      oaKind: 'pk',
+      userUid: 63170200,
+    },
+    {
+      plaintext: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhN',
+      oaKind: 'sk',
+      userUid: 63170200,
+    },
   ]);
 
   await knex('form_schema').insert([

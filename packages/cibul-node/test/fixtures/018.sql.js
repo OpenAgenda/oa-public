@@ -1,3 +1,4 @@
+import seedApiKeys from './seedApiKeys.js';
 import load from './loadObjectFromFile.js';
 import insertEventSet from './sql/eventSets/index.js';
 
@@ -16,8 +17,9 @@ export default async (knex) => {
     load('sql/members/jean-benoit-fetedelamusique.json'),
   ]);
 
-  await knex('api_key_set').insert([
-    load('sql/apiKeySets/01.json', { user_id: 1002 }),
+  await seedApiKeys(knex, [
+    load('sql/apiKeys/01-pk.json', { userUid: 8929606 }),
+    load('sql/apiKeys/01-sk.json', { userUid: 8929606 }),
   ]);
 
   await insertEventSet(knex, 'wildAtHeart', {

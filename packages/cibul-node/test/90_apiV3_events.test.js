@@ -30,7 +30,7 @@ const enabled = [
   'accessTokens',
 ];
 
-// user 50300 public (api) key from fixtures/sql/apiKeySets/50300.json
+// user 50300 public (api) key from fixtures/sql/legacyKeys/50300.json
 const USER_KEY = 'egP36aMb0toI8hAhFOm1if8auC1Vg1N9';
 
 const specPath = fileURLToPath(
@@ -416,8 +416,8 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
 
     it('resolves an agenda key through verifyApiKey (apikey store is the only source)', async () => {
       // Mint a native agenda key via the @openagenda/auth façade — the apikey
-      // store is the single source of truth since D5a (legacy `key`/`api_key_set`
-      // drift fallback removed). verify → agenda owner rebuilt from referenceId.
+      // store is the only source of truth. verify → agenda owner rebuilt from
+      // referenceId.
       const { key: keyValue } = await core.services.auth.createAgendaKey(2, {});
 
       const res = await request(app)

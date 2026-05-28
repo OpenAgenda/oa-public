@@ -76,8 +76,7 @@ export default function plugApp(app) {
   // the @openagenda/auth façade (referenceId = the user's uid). Mounted under
   // `/users/me`, so the owner is always the authenticated user — a user only
   // manages their own keys, there is no addressable user id. JSON/XHR, so
-  // requireUserJson (401) rather than requireUser (302). No dual-write-back to
-  // `api_key_set`: native keys live only in `apikey`. `oaKind` is the tier and
+  // requireUserJson (401) rather than requireUser (302). `oaKind` is the tier and
   // is required on create (no default: `sk` = read+write vs `pk` =
   // read-only/public-locked is a deliberate, security-relevant choice — see
   // §5.2).

@@ -1,4 +1,5 @@
 import { hashApiKey } from '@openagenda/auth';
+import seedApiKeys from './seedApiKeys.js';
 import load from './loadObjectFromFile.js';
 
 const AGENDA_KEY_PLAINTEXT = 'e830934e9d1848189ac74de3bfa7df0a';
@@ -11,10 +12,9 @@ export default async (knex) => {
     }),
   ]);
 
-  await knex('api_key_set').insert([
-    load('./sql/apiKeySets/01.json', {
-      user_id: 1,
-    }),
+  await seedApiKeys(knex, [
+    load('./sql/apiKeys/01-pk.json'),
+    load('./sql/apiKeys/01-sk.json'),
   ]);
 
   await knex('access_token').insert([

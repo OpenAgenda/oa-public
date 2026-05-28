@@ -78,7 +78,6 @@ export async function init(config, services) {
     schemas: _.pick(config.schemas, [
       // explicit list schemas used by service
       'user',
-      'apiKeySet',
       'unsubscribed',
       'userToken',
     ]),

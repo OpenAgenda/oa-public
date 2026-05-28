@@ -1,8 +1,8 @@
 import { jest } from '@jest/globals';
 
-// Unit-tests `accessTokens/getUser` after the D5b P3 read cutover: the user is
-// resolved from `access_token.user_id` only, no fallback. A null user_id is
-// treated as corruption and throws.
+// Unit-tests `accessTokens/getUser`: the user is resolved from
+// `access_token.user_id` only. A null user_id is treated as corruption and
+// throws.
 const loadTokenMock = jest.fn();
 const isTokenValidMock = jest.fn();
 
@@ -18,8 +18,8 @@ const { default: getUser } = await import(
   '../services/accessTokens/lib/getUser.js'
 );
 
-// `knex(table)…` stub. Post-P3 getUser doesn't touch knex at all; the stub
-// asserts that by recording every table call.
+// `knex(table)…` stub. getUser doesn't touch knex at all; the stub asserts
+// that by recording every table call.
 function buildKnex() {
   const calls = [];
   const knex = (table) => {
@@ -37,13 +37,12 @@ beforeEach(() => {
   isTokenValidMock.mockResolvedValue(true);
 });
 
-describe('90 - unit - accessTokens.getUser (D5b P3 read cutover)', () => {
+describe('90 - unit - accessTokens.getUser', () => {
   it('resolves the user from token.user_id without touching knex', async () => {
     loadTokenMock.mockResolvedValue({
       id: 1,
       token: 'tk-x',
       user_id: 42,
-      api_key_set_id: 999,
     });
     const { knex, calls } = buildKnex();
     const findOne = jest.fn().mockResolvedValue(USER);
@@ -63,7 +62,6 @@ describe('90 - unit - accessTokens.getUser (D5b P3 read cutover)', () => {
       id: 1,
       token: 'tk-x',
       user_id: null,
-      api_key_set_id: 999,
     });
     const { knex } = buildKnex();
     const findOne = jest.fn();
