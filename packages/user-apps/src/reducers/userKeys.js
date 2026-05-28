@@ -1,17 +1,17 @@
 import { isHTTPError } from 'ky';
 
-const LOAD = 'agenda-settings/keys/LOAD';
-const LOAD_SUCCESS = 'agenda-settings/keys/LOAD_SUCCESS';
-const LOAD_FAIL = 'agenda-settings/keys/LOAD_FAIL';
-const CREATE = 'agenda-settings/keys/CREATE';
-const CREATE_SUCCESS = 'agenda-settings/keys/CREATE_SUCCESS';
-const CREATE_FAIL = 'agenda-settings/keys/CREATE_FAIL';
-const UPDATE = 'agenda-settings/keys/UPDATE';
-const UPDATE_SUCCESS = 'agenda-settings/keys/UPDATE_SUCCESS';
-const UPDATE_FAIL = 'agenda-settings/keys/UPDATE_FAIL';
-const REMOVE = 'agenda-settings/keys/REMOVE';
-const REMOVE_SUCCESS = 'agenda-settings/keys/REMOVE_SUCCESS';
-const REMOVE_FAIL = 'agenda-settings/keys/REMOVE_FAIL';
+const LOAD = 'user-apps/userKeys/LOAD';
+const LOAD_SUCCESS = 'user-apps/userKeys/LOAD_SUCCESS';
+const LOAD_FAIL = 'user-apps/userKeys/LOAD_FAIL';
+const CREATE = 'user-apps/userKeys/CREATE';
+const CREATE_SUCCESS = 'user-apps/userKeys/CREATE_SUCCESS';
+const CREATE_FAIL = 'user-apps/userKeys/CREATE_FAIL';
+const UPDATE = 'user-apps/userKeys/UPDATE';
+const UPDATE_SUCCESS = 'user-apps/userKeys/UPDATE_SUCCESS';
+const UPDATE_FAIL = 'user-apps/userKeys/UPDATE_FAIL';
+const REMOVE = 'user-apps/userKeys/REMOVE';
+const REMOVE_SUCCESS = 'user-apps/userKeys/REMOVE_SUCCESS';
+const REMOVE_FAIL = 'user-apps/userKeys/REMOVE_FAIL';
 
 const initialState = {
   loaded: false,
@@ -34,7 +34,6 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         loading: false,
         loaded: true,
-        loadedSlug: action.slug,
         data: action.result,
         error: null,
       };
@@ -126,15 +125,8 @@ export default function reducer(state = initialState, action = {}) {
   }
 }
 
-// Keys are scoped to an agenda. The store persists across client-side agenda
-// switches, so a plain `loaded` flag would mask the previous agenda's keys —
-// the load must re-run whenever the target slug differs from the loaded one.
-export function isLoaded(globalState, slug) {
-  return Boolean(
-    globalState.keys
-      && globalState.keys.loaded
-      && globalState.keys.loadedSlug === slug,
-  );
+export function isLoaded(globalState) {
+  return globalState.userKeys && globalState.userKeys.loaded;
 }
 
 // ky throws an HTTPError on non-2xx; resolve its JSON body onto `error.response.data`
@@ -145,27 +137,26 @@ async function withErrorBody(error) {
   throw error;
 }
 
-export function load(slug) {
+export function load() {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
-    slug,
-    promise: ({ client, params }, { getState }) => {
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
-      return client
-        .get(res.keys.list.replace(':slug', slug ?? params.slug))
-        .json()
-        .catch(withErrorBody);
+      return client.get(res.keys.list).json().catch(withErrorBody);
     },
   };
 }
 
-export function create() {
+// `oaKind` is the visibility tier and is required by the endpoint — `pk`
+// (read-only, public-locked) or `sk` (read+write at the owner's tier). Keys are
+// created one at a time; there is no forced pk+sk pair.
+export function create(oaKind) {
   return {
     types: [CREATE, CREATE_SUCCESS, CREATE_FAIL],
-    promise: ({ client, params }, { getState }) => {
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
       return client
-        .post(res.keys.create.replace(':slug', params.slug), { json: {} })
+        .post(res.keys.create, { json: { oaKind } })
         .json()
         .catch(withErrorBody);
     },
@@ -176,13 +167,12 @@ export function update(id, values) {
   return {
     types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
     id,
-    promise: ({ client, params }, { getState }) => {
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
       return client
-        .patch(
-          res.keys.update.replace(':slug', params.slug).replace(':id', id),
-          { json: { name: values.name } },
-        )
+        .patch(res.keys.update.replace(':id', id), {
+          json: { name: values.name },
+        })
         .json()
         .catch(withErrorBody);
     },
@@ -193,12 +183,10 @@ export function remove(id) {
   return {
     types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
     id,
-    promise: ({ client, params }, { getState }) => {
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
       return client
-        .delete(
-          res.keys.remove.replace(':slug', params.slug).replace(':id', id),
-        )
+        .delete(res.keys.remove.replace(':id', id))
         .json()
         .catch(withErrorBody);
     },

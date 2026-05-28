@@ -13,6 +13,7 @@ import { getSupportedLocale, mergeLocales } from '@openagenda/intl';
 
 import * as locales from '../locales-compiled/index.js';
 import * as userSettingsActions from '../reducers/userSettings.js';
+import * as userKeysActions from '../reducers/userKeys.js';
 import {
   ProfileSettings,
   ImageSettings,
@@ -33,7 +34,6 @@ function SettingsContainer({
   lang,
   updateUser,
   changePassword,
-  generateApiKey,
   successMessagesDisplayed: {
     updateProfile: profileMessageDisplayed,
     changePassword: passwordMessageDisplayed,
@@ -106,10 +106,7 @@ function SettingsContainer({
 
                 <ApiKeySettings
                   activeTab={route.activeTab === 'apiKey'}
-                  generateApiKey={generateApiKey}
                   displayModal={displayModal}
-                  user={user}
-                  lang={lang}
                 />
 
                 <UnsubscribedSettings
@@ -151,10 +148,19 @@ function SettingsContainer({
 }
 
 export default redial.provideHooks({
-  fetch: async ({ store: { dispatch } }) =>
-    (typeof window !== 'undefined'
-      ? dispatch(userSettingsActions.load())
-      : Promise.resolve()),
+  fetch: async ({ store: { dispatch, getState } }) => {
+    if (typeof window === 'undefined') return Promise.resolve();
+
+    const promises = [dispatch(userSettingsActions.load())];
+
+    // Keys are scoped to the authenticated user (no agenda switch), so a sticky
+    // `loaded` flag is enough — load once, then reuse across settings tabs.
+    if (!userKeysActions.isLoaded(getState())) {
+      promises.push(dispatch(userKeysActions.load()));
+    }
+
+    return Promise.all(promises);
+  },
 })(
   withLayoutData('lang')(
     connect(

@@ -68,15 +68,15 @@ export default redial.provideHooks({
       keys: keysActions.default,
       modals: modalsActions.default,
     }),
-  defer: async ({ store: { dispatch, getState } }) => {
+  defer: async ({ store: { dispatch, getState }, params }) => {
     const promises = [];
 
     // if ( !agendaActions.isLoaded( getState() ) ) {
     //   promises.push( dispatch( agendaActions.load() ) );
     // }
 
-    if (!keysActions.isLoaded(getState())) {
-      promises.push(dispatch(keysActions.load()));
+    if (!keysActions.isLoaded(getState(), params.slug)) {
+      promises.push(dispatch(keysActions.load(params.slug)));
     }
 
     return Promise.all(typeof window !== 'undefined' ? [] : promises);

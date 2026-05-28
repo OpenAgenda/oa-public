@@ -399,7 +399,7 @@ export default function AdvancedEdition() {
             type="button"
             className="btn btn-danger pull-right"
             onClick={() =>
-              dispatch(keysActions.remove(removeModal.options.key))
+              dispatch(keysActions.remove(removeModal.options.id))
                 .then(() => dispatch(modalsActions.closeModal('removeKey')))
                 .catch(() => dispatch(modalsActions.closeModal('removeKey')))}
           >

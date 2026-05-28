@@ -6,6 +6,7 @@ import makeGetterLabel from '@openagenda/labels';
 import { useLayoutData } from '@openagenda/react-shared';
 import labels from '@openagenda/labels/users/settings.js';
 import * as userSettingsActions from '../reducers/userSettings.js';
+import * as userKeysActions from '../reducers/userKeys.js';
 import I18nContext from '../contexts/I18nContext.js';
 
 function App({ route }) {
@@ -49,5 +50,6 @@ export default redial.provideHooks({
     store.inject({
       form: formReducer,
       userSettings: userSettingsActions.default,
+      userKeys: userKeysActions.default,
     }),
 })(App);

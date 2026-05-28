@@ -216,6 +216,14 @@ describe('90 - api-key dual-write + backfill (D2)', () => {
       expect(verified.key.metadata.oaKind).toBe('agenda');
     });
 
+    it('keeps the full legacy plaintext in `start` (mirror keys stay visible)', async () => {
+      const row = await knex(schemas.apiKey)
+        .where({ reference_id: 'agenda:90011' })
+        .first('start', 'metadata');
+      expect(row.start).toBe(agd);
+      expect(JSON.parse(row.metadata).source).toBe('mirror');
+    });
+
     it('is idempotent (re-running leaves one mirror row per owner/kind)', async () => {
       await backfillFromKeyTable({ knex, schemas });
 

@@ -6,6 +6,7 @@ import { redisStorage } from '@better-auth/redis-storage';
 import { apiKey } from '@better-auth/api-key';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
+import createApiKeyHelpers, { hashApiKey } from './apiKey.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
 import {
@@ -73,6 +74,21 @@ export default function Auth(options = {}) {
   // stays `apikey` (the plugin's internal name); only the physical table and
   // column names are remapped.
   const apiKeyPlugin = apiKey({
+    // OA keys carry `metadata.oaKind` — the tier classification verifyKey reads
+    // back. Mirror keys also carry `{ source: 'mirror', legacyType }`, used by
+    // the UI to keep them fully visible (legacy UX) and by the backfill to
+    // scope its upserts. The plugin rejects metadata on create unless this is
+    // on (defaults to false → "Metadata is disabled.").
+    enableMetadata: true,
+    // Keep enough of the generated key in `start` to fit the OA prefix
+    // (`oa_pk_`/`oa_sk_`/`oa_ak_`, 6 chars) plus ~6 distinguishing chars, so
+    // masked hints stay useful instead of all sk keys collapsing to `oa_sk_`.
+    startingCharactersConfig: { charactersLength: 12 },
+    // No rate-limit before D6 enforcement — matches the mirror's
+    // `rate_limit_enabled: false` (preserve the legacy "no rate limit" OA
+    // policy). Reversible: flip this flag for future keys, or update existing
+    // rows via SQL; per-key overrides are also supported by `createApiKey`.
+    rateLimit: { enabled: false },
     schema: {
       apikey: {
         modelName: tables.apiKey,
@@ -650,6 +666,21 @@ export default function Auth(options = {}) {
     getAccountTypesByUserId,
   } = createCredentialHelpers(instance);
 
+  // Instance-bound api-key façades (verify / create / list / revoke). list and
+  // revoke go through the adapter, not the plugin's session-gated endpoints, so
+  // they serve agenda owners and server-side admin too (see ./apiKey.js).
+  const {
+    verifyKey,
+    createUserKey,
+    createAgendaKey,
+    listUserKeys,
+    listAgendaKeys,
+    revokeUserKey,
+    revokeAgendaKey,
+    renameUserKey,
+    renameAgendaKey,
+  } = createApiKeyHelpers(instance);
+
   async function getSessionFromRequest(
     req,
     prevResponse,
@@ -758,6 +789,21 @@ export default function Auth(options = {}) {
     // Express-compatible handler — mount with `app.all('/api/auth/*', auth.nodeHandler)`.
     nodeHandler: toNodeHandler(instance),
     api: instance.api,
+    // OA api-key façades. `verifyKey(key)` -> normalized owner descriptor
+    // ({ owner, oaKind, referenceId, permissions, record }) or null; owner
+    // *loading* stays the caller's job. create* return `{ key, record }` with
+    // the plaintext exposed once. `hashApiKey` is the pure static hasher, also a
+    // package-root named export (see ./apiKey.js).
+    verifyKey,
+    createUserKey,
+    createAgendaKey,
+    listUserKeys,
+    listAgendaKeys,
+    revokeUserKey,
+    revokeAgendaKey,
+    renameUserKey,
+    renameAgendaKey,
+    hashApiKey,
     // Mirror legacy OA password writes into `account.password` (phase 2a).
     encodeLegacyPassword: encodeLegacy,
     upsertCredentialAccount,
@@ -798,4 +844,4 @@ export default function Auth(options = {}) {
   };
 }
 
-export { toNodeHandler, fromNodeHeaders };
+export { fromNodeHeaders, hashApiKey };
