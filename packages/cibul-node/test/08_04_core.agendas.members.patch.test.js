@@ -8,6 +8,7 @@ import setup from './fixtures/setup.js';
 const enabled = [
   'knex',
   'redis',
+  'auth',
   'simpleCache',
   'accessTokens',
   'files',
