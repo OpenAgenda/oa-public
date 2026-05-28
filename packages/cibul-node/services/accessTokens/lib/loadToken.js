@@ -4,14 +4,7 @@ const log = logs('services/accessTokens/loadToken');
 
 export default (knex, tokenString) =>
   knex('access_token')
-    .first([
-      'id',
-      'created_at',
-      'lifespan',
-      'token',
-      'api_key_set_id',
-      'user_id',
-    ])
+    .first(['id', 'created_at', 'lifespan', 'token', 'user_id'])
     .where('token', tokenString)
     .then((token) => {
       if (!token) {
