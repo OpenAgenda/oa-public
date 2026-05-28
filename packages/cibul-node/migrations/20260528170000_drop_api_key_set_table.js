@@ -43,8 +43,11 @@ export async function up(knex) {
     );
   }
 
+  // user.id is BIGINT signed; the FK we add at the end of up() needs an
+  // exact-type match. P1 added user_id as BIGINT UNSIGNED — flip it back to
+  // signed here. Safe for our id range (well below 2^63).
   await knex.schema.raw(
-    `ALTER TABLE \`${schemas.accessToken}\` MODIFY \`user_id\` BIGINT UNSIGNED NOT NULL`,
+    `ALTER TABLE \`${schemas.accessToken}\` MODIFY \`user_id\` BIGINT NOT NULL`,
   );
 
   if (await knex.schema.hasColumn(schemas.accessToken, 'api_key_set_id')) {
@@ -102,6 +105,6 @@ export async function down(knex) {
   );
 
   await knex.schema.raw(
-    `ALTER TABLE \`${schemas.accessToken}\` MODIFY \`user_id\` BIGINT UNSIGNED NULL`,
+    `ALTER TABLE \`${schemas.accessToken}\` MODIFY \`user_id\` BIGINT NULL`,
   );
 }
