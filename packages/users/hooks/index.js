@@ -6,6 +6,7 @@ import checkUnicity from './checkUnicity.js';
 import coerce from './coerce.js';
 import compareFields from './compareFields.js';
 import createTokenIfNotExist from './createTokenIfNotExist.js';
+import deriveCanCreateSecretKeys from './deriveCanCreateSecretKeys.js';
 import detailedParamHook from './detailedParamHook.js';
 import error from './error.js';
 import formatStore from './formatStore.js';
@@ -41,6 +42,7 @@ export {
   coerce,
   compareFields,
   createTokenIfNotExist,
+  deriveCanCreateSecretKeys,
   detailedParamHook,
   error,
   formatStore,

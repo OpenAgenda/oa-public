@@ -14,6 +14,7 @@ import {
   camelCaseQuery,
   checkUnicity,
   coerce,
+  deriveCanCreateSecretKeys,
   detailedParamHook,
   error as errorHook,
   formatStore,
@@ -65,6 +66,7 @@ function softDelete() {
 const afterAll = [
   camelCase(),
   camelCaseQuery(),
+  deriveCanCreateSecretKeys(),
   keepFields(),
   includeImagePathParamHook(),
   coerce(coerceSchema),

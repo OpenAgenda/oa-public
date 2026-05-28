@@ -62,7 +62,7 @@ export default {
             hasSocialAccount: true,
             hasLocalAccount: true,
             announcement: null,
-            store: { enable_secret: true },
+            canCreateSecretKeys: true,
           });
         }),
         http.delete('/users/me', async () => {

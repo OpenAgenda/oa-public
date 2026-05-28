@@ -26,6 +26,13 @@ describe('get', () => {
     expect(user).toHaveProperty('isActivated');
     expect(user).toHaveProperty('isBlacklisted');
     expect(user).toHaveProperty('transverseApiAccess');
+    expect(user.canCreateSecretKeys).toBe(true);
+    expect(user).not.toHaveProperty('store');
+  });
+
+  it('get without detailed: canCreateSecretKeys is not exposed', async () => {
+    const user = await getService().get(kaoreUid);
+    expect(user).not.toHaveProperty('canCreateSecretKeys');
   });
 
   it('get user with internal option', async () => {

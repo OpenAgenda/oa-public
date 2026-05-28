@@ -12,11 +12,13 @@ import plugApp from '../services/users/plugApp.js';
 // The feathers/getHandler routes are mounted but never hit (different paths);
 // `upload.middleware` is stubbed to a passthrough.
 //
-// `enableSecret` -> what `req.app.core.users.get(uid, {detailed:true}).store
-//                   .enable_secret` resolves to (the SK-creation gate). Default
-//                   `true` so the happy paths don't trip the guard; tests that
-//                   want the 403 path pass false.
-function buildApp({ user, auth, enableSecret = true } = {}) {
+// `canCreateSecretKeys` -> what
+//                   `req.app.core.users.get(uid, {detailed:true})
+//                   .canCreateSecretKeys` resolves to (the SK-creation gate;
+//                   derived from `store.enable_secret` by the users service).
+//                   Default `true` so the happy paths don't trip the guard;
+//                   tests that want the 403 path pass false.
+function buildApp({ user, auth, canCreateSecretKeys = true } = {}) {
   const app = express();
   app.use(bodyParser.json());
 
@@ -33,7 +35,7 @@ function buildApp({ user, auth, enableSecret = true } = {}) {
     users: {
       get: async () => ({
         uid: user?.uid,
-        store: { enable_secret: enableSecret },
+        canCreateSecretKeys,
       }),
     },
   };
@@ -127,12 +129,12 @@ describe('90 - unit - user api-keys endpoints (D3b-user)', () => {
       expect(createUserKey).not.toHaveBeenCalled();
     });
 
-    it('403s sk creation when the admin gate (store.enable_secret) is off', async () => {
+    it('403s sk creation when the admin gate (canCreateSecretKeys) is off', async () => {
       const createUserKey = jest.fn();
       const app = buildApp({
         user: USER,
         auth: { createUserKey },
-        enableSecret: false,
+        canCreateSecretKeys: false,
       });
 
       const res = await request(app)
@@ -150,7 +152,7 @@ describe('90 - unit - user api-keys endpoints (D3b-user)', () => {
       const app = buildApp({
         user: USER,
         auth: { createUserKey },
-        enableSecret: false, // off, but pk does not care
+        canCreateSecretKeys: false, // off, but pk does not care
       });
 
       const res = await request(app)

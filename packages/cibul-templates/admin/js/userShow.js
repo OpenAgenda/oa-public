@@ -85,7 +85,7 @@ export default function UserShow({
    */
   const toggleApiSecret = () => {
     onUserUpdate({
-      enable_secret: !(user?.store && user.store.enable_secret)
+      enable_secret: !user?.canCreateSecretKeys
     });
   };
 
@@ -174,7 +174,7 @@ export default function UserShow({
                 checkedChildren={<i className="fa fa-check" aria-hidden="true" />}
                 unCheckedChildren={<i className="fa fa-times" aria-hidden="true" />}
                 onChange={toggleApiSecret}
-                checked={!!user.store?.enable_secret}
+                checked={!!user.canCreateSecretKeys}
               />
             </td>
           </tr>

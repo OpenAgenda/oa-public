@@ -163,7 +163,7 @@ function KeyRow({ item, onRemove }) {
 export default function ApiKeySettings({
   activeTab,
   displayModal,
-  enableSecret,
+  canCreateSecretKeys,
 }) {
   const { getLabel } = useContext(I18nContext);
   const history = useHistory();
@@ -233,7 +233,7 @@ export default function ApiKeySettings({
                   >
                     {getLabel('generatePublicKey')}
                   </button>
-                  {enableSecret ? (
+                  {canCreateSecretKeys ? (
                     <button
                       type="button"
                       className="btn btn-default"

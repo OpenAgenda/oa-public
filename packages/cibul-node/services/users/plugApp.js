@@ -92,8 +92,9 @@ export default function plugApp(app) {
 
   // Creates one key; the plaintext is returned ONCE under `key` (the stored
   // record never carries it). Secret keys (`sk`) are gated by the admin
-  // toggle `user.store.enable_secret` (see superadmin/userUpdate.js): users
-  // without it can only create publishable (`pk`) keys.
+  // toggle surfaced as `user.canCreateSecretKeys` (persisted in
+  // `store.enable_secret`, see superadmin/userUpdate.js): users without it
+  // can only create publishable (`pk`) keys.
   app.post('/users/me/api-keys', requireUserJson, async (req, res, next) => {
     const { oaKind, name } = req.body ?? {};
     if (oaKind !== 'pk' && oaKind !== 'sk') {
@@ -106,7 +107,7 @@ export default function plugApp(app) {
         const user = await req.app.core.users.get(req.user.uid, {
           detailed: true,
         });
-        if (!user?.store?.enable_secret) {
+        if (!user?.canCreateSecretKeys) {
           return next(
             new Forbidden('secret keys are not enabled for this user'),
           );
