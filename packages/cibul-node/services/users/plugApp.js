@@ -1,7 +1,8 @@
-import { Forbidden } from '@openagenda/verror';
+import { Forbidden, NotFound, BadRequest } from '@openagenda/verror';
 import feathers from '@feathersjs/feathers';
 import express from '@feathersjs/express';
 import cmn from '../../lib/commons-app.js';
+import { requireUserJson } from '../../lib/authGuards.js';
 import changeEmailMw from './middleware/changeEmail.js';
 import unlinkFacebookMw from './middleware/unlinkFacebook.js';
 import setFlashAccountRemoved from './middleware/setFlashAccountRemoved.js';
@@ -73,6 +74,66 @@ export default function plugApp(app) {
   app.get(
     '/users/:__feathersId/generateApiKey',
     getHandler('generateApiKey', ['id', 'params'])(service),
+  );
+
+  // D3b-user — user API key management on the better-auth `apikey` store, via
+  // the @openagenda/auth façade (referenceId = the user's uid). Mounted under
+  // `/users/me`, so the owner is always the authenticated user — a user only
+  // manages their own keys, there is no addressable user id. JSON/XHR, so
+  // requireUserJson (401) rather than requireUser (302). No dual-write-back to
+  // `api_key_set`: native keys live only in `apikey`. `oaKind` is the tier and
+  // is required on create (no default: `sk` = read+write vs `pk` =
+  // read-only/public-locked is a deliberate, security-relevant choice — see
+  // §5.2). New paths, parallel to the legacy single-pair `generateApiKey`
+  // above, which stays live until the UI is switched (D3c).
+  app.get('/users/me/api-keys', requireUserJson, async (req, res, next) => {
+    try {
+      const items = await req.app.services.auth.listUserKeys(req.user.uid);
+      res.json({ items, total: items.length });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // Creates one key; the plaintext is returned ONCE under `key` (the stored
+  // record never carries it).
+  app.post('/users/me/api-keys', requireUserJson, async (req, res, next) => {
+    const { oaKind, name } = req.body ?? {};
+    if (oaKind !== 'pk' && oaKind !== 'sk') {
+      return next(
+        new BadRequest('oaKind is required and must be "pk" or "sk"'),
+      );
+    }
+    try {
+      const { key, record } = await req.app.services.auth.createUserKey(
+        req.user.uid,
+        { oaKind, name },
+      );
+      res.status(201).json({ key, record });
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // Owner-scoped revoke: the façade matches both id AND referenceId, so a user
+  // cannot delete another user's key by id. A miss is a 404.
+  app.delete(
+    '/users/me/api-keys/:keyId',
+    requireUserJson,
+    async (req, res, next) => {
+      try {
+        const removed = await req.app.services.auth.revokeUserKey(
+          req.user.uid,
+          req.params.keyId,
+        );
+        if (!removed) {
+          return next(new NotFound('api key not found'));
+        }
+        res.json({ removed: true });
+      } catch (err) {
+        next(err);
+      }
+    },
   );
   app.patch(
     '/users/:__feathersId/setNewFlag',
