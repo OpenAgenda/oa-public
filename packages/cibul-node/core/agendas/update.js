@@ -36,9 +36,20 @@ export default async (core, agendaOrUid, data, options = {}) => {
     });
 
   try {
-    if (!agendaBefore.private && updatedAgenda.private) {
+    // Public ES alias must not hold private or unindexed agendas.
+    // Previously only `private` flips were gated here, which let an
+    // indexed:true→false flip leave a stale public doc behind that
+    // could only be cleaned up by the periodic rebuild. Symmetric
+    // handling for both `private` and `indexed` flips:
+    //   - was publishable, no longer publishable → remove
+    //   - publishable now                        → upsert via set
+    //   - was not publishable, still not         → no-op
+    const wasPublishable = !agendaBefore.private && agendaBefore.indexed;
+    const isPublishable = !updatedAgenda.private && updatedAgenda.indexed;
+
+    if (wasPublishable && !isPublishable) {
       await agendaSearch.remove(updatedAgenda);
-    } else if (!updatedAgenda.private) {
+    } else if (isPublishable) {
       await agendaSearch.set(updatedAgenda);
     }
   } catch (e) {
