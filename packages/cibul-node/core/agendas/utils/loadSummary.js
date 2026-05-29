@@ -74,6 +74,13 @@ const loadSummary = async (core, agenda, options = {}) => {
         'relative',
         'keywords',
         'languages',
+        // Per-day distribution of events ending in the next 30 days,
+        // plus a residual `laterDays` count for events ending past the
+        // horizon. Drives the threshold-based `_nextRefreshAt` in
+        // formatAgenda: we know exactly when cumulative rollover will
+        // first exceed tolerance, so the sweep only reindexes agendas
+        // whose displayed count is meaningfully wrong.
+        'lastTimings',
       ],
     },
   ).then(({ aggregations }) => aggregations);
@@ -87,13 +94,20 @@ const loadSummary = async (core, agenda, options = {}) => {
       },
       [],
     ),
-    publishedEvents: (publishedResult.relative || []).reduce(
-      (carry, { key, eventCount }) => ({
-        ...carry,
-        [key]: eventCount,
-      }),
-      {},
-    ),
+    publishedEvents: {
+      ...(publishedResult.relative || []).reduce(
+        (carry, { key, eventCount }) => ({
+          ...carry,
+          [key]: eventCount,
+        }),
+        {},
+      ),
+      // From the new lastTimings aggregation. `eventsByEndDay` is an
+      // object map of 'YYYY-MM-DD' → event count for events ending that
+      // day; `laterDays` is the sum past the 30-day horizon.
+      eventsByEndDay: publishedResult.lastTimings?.eventsByEndDay || {},
+      laterDays: publishedResult.lastTimings?.laterDays || 0,
+    },
     languages: (publishedResult.languages || []).reduce(
       (carry, { key, eventCount }) => ({
         ...carry,
