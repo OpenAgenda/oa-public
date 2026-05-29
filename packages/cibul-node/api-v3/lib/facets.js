@@ -9,11 +9,14 @@
 //   - provenance facets  -> [{ agenda, count }]               (Agenda*FacetBucket)
 //   - geohash            -> [{ value, count, latitude, longitude }] (GeoFacetBucket)
 //   - viewport           -> { topLeft, bottomRight } | null    (Viewport)
-// Time/custom families land in later sub-tranches.
+//   - timespan           -> { first, last } | null             (Timespan)
+//   - timings            -> [{ value, count }]                 (FacetBucket)
+// Custom-field families land in later sub-tranches.
 //
 // Each facet name maps 1:1 to an event-search aggregation type, so the name is
-// passed straight through as the requested aggregation (geohash also carries a
-// `zoom` option). Moderation/internal aggregations (members, valid, states,
+// passed straight through as the requested aggregation (geohash carries a
+// `zoom` option; timings carries an `interval`). Moderation/internal
+// aggregations (members, valid, states,
 // addMethods, adminLevels) are absent — unreachable from v3, mirroring the
 // filter/sort curation of tranche 4.
 
@@ -53,6 +56,36 @@ const mapGeohash = (r) =>
 // or null (no event with coordinates). Pass through.
 const mapViewport = (r) => r ?? null;
 
+// Normalize an aggregation date (event-search returns Date objects; be lenient
+// about strings) to an RFC 3339 string, or null when absent/invalid.
+const toIso = (d) => {
+  if (d == null) {
+    return null;
+  }
+  const date = d instanceof Date ? d : new Date(d);
+  return Number.isNaN(date.getTime()) ? null : date.toISOString();
+};
+
+// Timespan: internally { first: Date, last: Date }. Over an empty set the
+// min/max are absent (Invalid Date), so the whole facet collapses to null —
+// same "no data" convention as viewport.
+const mapTimespan = (r) => {
+  const first = toIso(r?.first);
+  const last = toIso(r?.last);
+  if (first === null || last === null) {
+    return null;
+  }
+  return { first, last };
+};
+
+// Timings histogram: internally [{ key, timingCount }] where key is the
+// interval-formatted bucket label. Emit the uniform term-facet shape.
+const mapTimings = (r) =>
+  (r ?? []).map((b) => ({
+    value: b.key,
+    count: b.timingCount,
+  }));
+
 // Public facet registry: name -> result mapper. The key set is the allow-list.
 const FACETS = {
   cities: mapTerms,
@@ -69,6 +102,8 @@ const FACETS = {
   sourceAgendas: mapAgendas,
   geohash: mapGeohash,
   viewport: mapViewport,
+  timespan: mapTimespan,
+  timings: mapTimings,
 };
 
 const ALLOWED = new Set(Object.keys(FACETS));
@@ -116,12 +151,48 @@ export function parseGeohashZoom(rawZoom) {
   return Math.max(1, value);
 }
 
+// Bucketing interval for the timings histogram, and the date format that keeps
+// each bucket key distinct at that granularity (the underlying aggregation
+// defaults to a daily format, which would collapse hourly buckets and pad
+// monthly/yearly ones — so the format tracks the interval).
+const TIMINGS_INTERVALS = {
+  hour: 'YYYY-MM-dd HH:mm',
+  day: 'YYYY-MM-dd',
+  week: 'YYYY-MM-dd',
+  month: 'YYYY-MM',
+  year: 'YYYY',
+};
+const DEFAULT_TIMINGS_INTERVAL = 'day';
+
+// Interval for the timings facet. Lenient like `geohashZoom` (fall back to the
+// default, no 400): an unknown value yields daily buckets. Only consumed when
+// timings is requested.
+export function parseTimingsInterval(rawInterval) {
+  return Object.prototype.hasOwnProperty.call(TIMINGS_INTERVALS, rawInterval)
+    ? rawInterval
+    : DEFAULT_TIMINGS_INTERVAL;
+}
+
 // Build the `aggregations` request for core from the facet names. Most facets
 // are passed as their bare name (type === key); geohash carries its `zoom`
-// option as an object request.
-export function buildAggregations(facets, { geohashZoom } = {}) {
-  return facets.map((name) =>
-    (name === 'geohash' ? { type: 'geohash', zoom: geohashZoom } : name));
+// option and timings its `interval`/`format` as an object request.
+export function buildAggregations(
+  facets,
+  { geohashZoom, timingsInterval } = {},
+) {
+  return facets.map((name) => {
+    if (name === 'geohash') {
+      return { type: 'geohash', zoom: geohashZoom };
+    }
+    if (name === 'timings') {
+      return {
+        type: 'timings',
+        interval: timingsInterval,
+        format: TIMINGS_INTERVALS[timingsInterval],
+      };
+    }
+    return name;
+  });
 }
 
 // Map core's aggregation results to the public `{ facets: { <name>: … } }`

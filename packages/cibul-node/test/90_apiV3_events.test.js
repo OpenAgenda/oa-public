@@ -548,6 +548,56 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       }
     });
 
+    it('returns a { first, last } timespan over the located events', async () => {
+      const res = await facetsQ('?facets=timespan');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      // agenda 2 has published events with timings -> a non-null span.
+      expect(res.body.facets.timespan).not.toBeNull();
+      const { first, last } = res.body.facets.timespan;
+      // RFC 3339 date-times, first no later than last.
+      expect(Number.isNaN(Date.parse(first))).toBe(false);
+      expect(Number.isNaN(Date.parse(last))).toBe(false);
+      expect(Date.parse(first)).toBeLessThanOrEqual(Date.parse(last));
+    });
+
+    it('returns a null timespan when the filtered set is empty', async () => {
+      const res = await facetsQ(
+        '?facets=timespan&keyword=zzzznosuchkeywordzzzz',
+      );
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.timespan).toBeNull();
+    });
+
+    it('returns a date histogram for the timings facet', async () => {
+      const res = await facetsQ('?facets=timings');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.timings.length).toBeGreaterThan(0);
+      for (const bucket of res.body.facets.timings) {
+        expect(typeof bucket.value).toBe('string');
+        expect(typeof bucket.count).toBe('number');
+      }
+      // Default interval is `day` -> YYYY-MM-DD bucket keys.
+      expect(res.body.facets.timings[0].value).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+    });
+
+    it('changes the timings bucket granularity with timingsInterval', async () => {
+      const res = await facetsQ('?facets=timings&timingsInterval=year');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.timings.length).toBeGreaterThan(0);
+      // Yearly buckets are keyed YYYY (proves interval/format track each other).
+      for (const bucket of res.body.facets.timings) {
+        expect(bucket.value).toMatch(/^\d{4}$/);
+      }
+    });
+
     it('rejects an unknown facet with 400 + per-field details', async () => {
       const res = await facetsQ('?facets=cities,bogus');
 

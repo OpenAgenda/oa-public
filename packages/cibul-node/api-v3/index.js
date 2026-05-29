@@ -19,6 +19,7 @@ import buildEventSearchQuery from './lib/buildEventSearchQuery.js';
 import {
   parseFacets,
   parseGeohashZoom,
+  parseTimingsInterval,
   buildAggregations,
   mapFacets,
 } from './lib/facets.js';
@@ -131,13 +132,17 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
     try {
       const facets = parseFacets(req.query.facets);
       const geohashZoom = parseGeohashZoom(req.query.geohashZoom);
+      const timingsInterval = parseTimingsInterval(req.query.timingsInterval);
       const query = buildEventSearchQuery(req.query);
 
       const result = await core.agendas(req.agenda.uid).events.search(
         query,
         { size: 0 },
         {
-          aggregations: buildAggregations(facets, { geohashZoom }),
+          aggregations: buildAggregations(facets, {
+            geohashZoom,
+            timingsInterval,
+          }),
           userUid: req.user?.uid,
           agendaKey: req.agendaKey,
         },
