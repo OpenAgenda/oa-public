@@ -179,7 +179,7 @@ intégration (6) : tous verts.
 - ~~**Filtres de liste**~~ : **fait (tranche 4)** — surface publique curée + translator strict + `geo_distance`.
 - ~~**Tri (`?sort=`)**~~ : **fait (tranche 4)** — enum curé exposé (le cursor encode déjà le sort).
 - ~~**Enrichissement de liste** (`?expand=`)~~ : **fait (tranche 5)** — exposé en `?detailed=true|false`, la liste renvoie des `Event` complets (cf. journal). **Sparse fieldsets** (`?fields=`) : toujours différé (casse `additionalProperties:false`/`required`, SDK Stainless imprécis `Partial`, cache combinatoire — cf. tranche 5).
-- **Aggregations/facettes** : endpoint dédié `…/events/facets` — **familles termes (A), provenance (G), géo (B/C) et temps (E/F) faites (tranche 6)** ; familles dates-ranges (D) / custom (H) différées (cf. journal tranche 6).
+- **Aggregations/facettes** : endpoint dédié `…/events/facets` — **familles termes (A), provenance (G), géo (B/C), temps (E/F) et tranches de dates (D, slim) faites (tranche 6)** ; reste la famille custom (H), différée (cf. journal tranche 6).
 - **`limit`** : clamp silencieux à 100 (vs cap v2 `validateNavSize` = 300) ; statu quo assumé.
 
 ### Tranche 3 — split `EventSummary`/`Event` + règle « champs vides » (fait)
@@ -400,16 +400,16 @@ ensemble filtré** que la liste (mêmes params de filtre), **sans données d'eve
 répartissent en **8 familles de formes** distinctes → on les livre **famille par famille** (granularité
 = unité de déploiement), pas en un bloc :
 
-| Famille               | Forme                          | Facettes                                                                                                             | État                                                                                    |
-| --------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
-| **A — termes**        | `[{value,count}]`              | cities, regions, departments, districts, countryCodes, keywords, languages, accessibilities, status, attendanceModes | **fait (6a)**                                                                           |
-| B — geo points        | `[{value,count,lat,lng}]`      | geohash                                                                                                              | **fait (6c)**                                                                           |
-| C — viewport          | objet `{topLeft,bottomRight}`  | viewport                                                                                                             | **fait (6c)**                                                                           |
-| D — tranches de dates | `[{value,count,sampleEvents}]` | eventsByDateRanges                                                                                                   | différé — ⚠️ `sampleEvents` = `_source` ES brut → re-mapper via `mapEvent` + visibilité |
-| E — timespan          | objet `{first,last}`           | timespan                                                                                                             | **fait (6d)**                                                                           |
-| F — timings           | `[{value,timingCount}]`        | timings                                                                                                              | **fait (6d)**                                                                           |
-| G — refs d'agenda     | `[{agenda,count}]`             | originAgendas, sourceAgendas                                                                                         | **fait (6b)**                                                                           |
-| H — champs custom     | map `{field:{label,values}}`   | additionalFields                                                                                                     | différé — ⚠️ gated formSchema + accès par champ (cf. 4e)                                |
+| Famille               | Forme                         | Facettes                                                                                                             | État                                                                |
+| --------------------- | ----------------------------- | -------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------- |
+| **A — termes**        | `[{value,count}]`             | cities, regions, departments, districts, countryCodes, keywords, languages, accessibilities, status, attendanceModes | **fait (6a)**                                                       |
+| B — geo points        | `[{value,count,lat,lng}]`     | geohash                                                                                                              | **fait (6c)**                                                       |
+| C — viewport          | objet `{topLeft,bottomRight}` | viewport                                                                                                             | **fait (6c)**                                                       |
+| D — tranches de dates | `[{value,count}]`             | eventsByDateRanges                                                                                                   | **fait (6e)** — slim, sans `sampleEvents` (cf. décision ci-dessous) |
+| E — timespan          | objet `{first,last}`          | timespan                                                                                                             | **fait (6d)**                                                       |
+| F — timings           | `[{value,timingCount}]`       | timings                                                                                                              | **fait (6d)**                                                       |
+| G — refs d'agenda     | `[{agenda,count}]`            | originAgendas, sourceAgendas                                                                                         | **fait (6b)**                                                       |
+| H — champs custom     | map `{field:{label,values}}`  | additionalFields                                                                                                     | différé — ⚠️ gated formSchema + accès par champ (cf. 4e)            |
 
 **Exclu (modération/interne)** : `members`, `valid`, `states`, `addMethods`, `additionalFieldMetrics`,
 `missingAdditionalFields`, `adminLevels3/5` — absents de l'enum, inatteignables (curation cohérente
@@ -495,8 +495,35 @@ null]`, `FacetResults.timings` → `FacetBucket[]` (réutilise la forme termes).
   histogramme timings (buckets `YYYY-MM-DD` par défaut), granularité `timingsInterval=year` (buckets
   `YYYY`). Suite api-v3 : 41 verts (fichier events).
 
-**Suite** : D (`eventsByDateRanges` — re-map `_source` brut via `mapEvent` + visibilité) et H
-(`additionalFields` — gating formSchema + accès par champ) pour la fin vu leur risque. Une par commit.
+**Famille D — tranches de dates (6e)** :
+
+**Décision : on ship D _slim_, sans `sampleEvents`.** L'agrégation `eventsByDateRanges` renvoie, par jour,
+`{key, eventCount, sampleEvents}` où `sampleEvents` = le **`_source` ES brut** d'un `top_hits` qui **ne
+passe PAS** par la projection de lecture (`parseEvents`/`postDSL` ne tourne que sur les hits top-niveau,
+pas sur les sous-agg). L'exposer proprement imposait de re-mapper chaque sample via `mapEventSummary`
+(strip modération + champs calculés absents) — risque pour une valeur marginale. On ne garde que la
+**grille dense de comptes** : `[{value,count}]` (forme `FacetBucket` réutilisée), un bucket **par jour de
+la fenêtre, jours vides inclus**. C'est ce qui distingue D de F (timings `date_histogram` n'a pas
+d'`extended_bounds` → ne remplit qu'entre premier/dernier event ; D garantit la grille complète du mois).
+
+- **Fenêtre** : l'agrég lit `query.date` (défaut = mois courant, `defaultDateBounds`). Param public
+  **`month`** (`YYYY-MM`, `parseMonthWindow` → `{gte,lte}` Dates, lenient comme `geohashZoom`), appliqué
+  **uniquement si `dateRanges` est demandé**. `preCleanRawQuery` (immer `produce` → ne mute pas l'objet
+  `query` original lu par l'agrég) déplace `date`→`timings`, donc la fenêtre **borne les buckets ET
+  scope le set filtré** au mois — cohérent avec « toutes les facettes sur le même set ». Borné à un mois
+  par construction → la liste de buckets quotidiens ne peut pas exploser.
+- **Nommage** : facette publique `dateRanges` → agrég `eventsByDateRanges` via requête objet
+  `{type:'eventsByDateRanges', key:'dateRanges'}` (le seul cas où nom public ≠ type d'agrég).
+- **Coût** : le `top_hits` (size 3) est calculé puis **jeté** (on ne peut pas le désactiver sans toucher
+  event-search) — léger surcoût ES accepté.
+- Contrat : `dateRanges` ajouté à l'enum `Facets` et à `FacetResults` (`FacetBucket[]`), param `Month`
+  (`pattern ^\d{4}-\d{2}$`).
+- Tests : grille dense mois courant (28–31 buckets, jours vides inclus), fenêtrage `month=2026-01`
+  (exactement 31 buckets `2026-01-*`), comptage réel (mois découvert via la facette F, somme ≥ 1).
+  Suite api-v3 events : 44 verts.
+
+**Suite** : reste **H** (`additionalFields` — gating formSchema + accès par champ, cf. 4e) pour clore
+la tranche 6, vu son risque (accès par champ custom). Une par commit.
 
 ### Slice auth — D0 : cohérence enveloppe + 401/403 (fait)
 

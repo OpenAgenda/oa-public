@@ -168,6 +168,7 @@ paths:
         - $ref: '#/components/parameters/Facets'
         - $ref: '#/components/parameters/GeohashZoom'
         - $ref: '#/components/parameters/TimingsInterval'
+        - $ref: '#/components/parameters/Month'
         # Same filters as listAgendaEvents — facets reflect the filtered set.
         - $ref: '#/components/parameters/Search'
         - $ref: '#/components/parameters/FilterUid'
@@ -301,7 +302,10 @@ components:
         bounding box object (or `null`); `timespan` yields the earliest/latest
         event date as `{ first, last }` (or `null`); `timings` yields a date
         histogram as `{ value, count }` buckets (bucket width set by
-        `timingsInterval`). Custom-field facets are planned in later iterations.
+        `timingsInterval`); `dateRanges` yields a **dense daily grid** of
+        `{ value, count }` over a calendar month (one bucket per day, including
+        zero-count days; month set by `month`). Custom-field facets are planned
+        in later iterations.
       style: form
       explode: false
       schema:
@@ -326,6 +330,7 @@ components:
             - viewport
             - timespan
             - timings
+            - dateRanges
 
     GeohashZoom:
       name: geohashZoom
@@ -355,6 +360,20 @@ components:
           - week
           - month
           - year
+
+    Month:
+      name: month
+      in: query
+      required: false
+      description: >
+        Calendar month (`YYYY-MM`) the `dateRanges` facet buckets day-by-day.
+        Defaults to the current month; an unrecognized value falls back to it.
+        Ignored unless `dateRanges` is requested. Because it bounds the buckets
+        by scoping the filtered set to that month, it also constrains any other
+        facet requested in the same call.
+      schema:
+        type: string
+        pattern: '^\d{4}-\d{2}$'
 
     Sort:
       name: sort
@@ -1470,6 +1489,9 @@ components:
                 - $ref: '#/components/schemas/Timespan'
                 - type: 'null'
             timings:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            dateRanges:
               type: array
               items: { $ref: '#/components/schemas/FacetBucket' }
 
