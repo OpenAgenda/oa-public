@@ -45,7 +45,7 @@ Le schéma a d'abord été ancré sur code + fixtures ; ces points ont été tra
 
 ## Chantiers d'implémentation transverses (cf. `docs/analyse-api.md`)
 
-- **Auth** (§9 décision 4) : Bearer unique, clés préfixées `oa_pk_`/`oa_sk_`, OAuth2 client-credentials via `oidc-provider`/oauth-server planifié. Pré-requis : multi-clé + révocation, invalidation cache (<1 h), unifier la vérif blacklist sur les deux chemins, rate-limit par clé, **rotation du sel HMAC `'okilydokily'`**, fenêtre de dépréciation `?key=` (utilisé par le SDK publié + proxies).
+- **Auth** (§9 décision 4) : Bearer, clés préfixées `oa_pk_`/`oa_sk_`, **via le plugin `@better-auth/api-key`** (table `apikey` native, BA `1.6.11`) — **pas** le store maison `api_key_set` (l'analyse initiale recommandait l'inverse, revue à l'exécution : cf. `docs/plan-slice-auth-v3.md` §2-3). OAuth2 client-credentials via `oidc-provider`/oauth-server **différé** (Phase 7 SSO). État : **D0→D5a mergés** (journal « Slice auth » ci-dessous). Pré-requis désormais traités : multi-clé + révocation ✅ (table `apikey`), unifier la vérif blacklist ✅ (D0), rate-limit par clé (plugin, activé D6) ; le sel HMAC `'okilydokily'` est **gelé** avec `tk-` v2 (pas roté ; retrait lié à l'EOL v2) ; `?key=` conservé côté v2.
 - **Tiers de visibilité** (§8) : ne pas servir les routes `internal` sur le port public ; Tier 2 sous tag `admin` + scopes.
 
 ---
@@ -376,3 +376,81 @@ modèle de données** ni de surface : rend le contrat OpenAPI vrai sur les éche
 - **Tests** : `90_unit_apiV3_authenticate.test.js` (12 cas — toutes les branches : 401 sans/mauvais
   credential, 403 blacklist clé + token, succès user/agenda-key/`?key=`/header/`tk-`/session) +
   bloc `authentication` dans `90_apiV3_events.test.js` (401 + enveloppe `{ error }` end-to-end).
+
+### Slice auth — D1 : plugin api-key additif (fait)
+
+Adoption du plugin **`@better-auth/api-key`** (package séparé `^1.6.11` ⇒ bump de toute la ligne
+`better-auth`/`@better-auth/*` `1.6.9 → 1.6.11`). Plugin `apiKey({...})` branché dans
+`packages/auth/src/index.js` (préfixes `oa_pk_`/`oa_sk_`, hashing par défaut, rate-limit defaults,
+storage Redis). Migration `packages/auth/migrations/20260527120000_create_api_key_table.js` (table
+`apikey` native : `referenceId` requis/indexé, `key` hashée, `permissions`, `metadata`, rate-limit,
+`expiresAt`, `enabled`). **Plugin activé, zéro trafic dessus** — la suite de tests auth existante
+revalidée après le bump. (Décision actée : on **n'étend pas** le store maison `api_key_set`,
+contrairement à la reco initiale d'`analyse-api.md` §9.4 — le plugin existe en 1.6.11 et est préféré.)
+
+### Slice auth — D2 : dual-write + backfill (fait)
+
+Toute création/régénération de clé écrit **aussi** dans `apikey` (hashé) via les hooks keys. Migration
+de **backfill** `migrations/legacy/20260527130000_backfill_api_key_from_legacy.js` : hashe
+(`defaultKeyHasher`) les clés de la table `key` (`userPublic`/`userPrivate`/`agendaFullRead`) dans
+`apikey`, `referenceId` = `<uid>` (user) / `agenda:<uid>` (agenda), `metadata.oaKind` = `pk`/`sk`/`agenda`,
+**`permissions: null`** (legacy non-restreint — pas de scopes par-ressource sur les clés héritées, cf.
+`plan-slice-auth-v3.md` §5.1). Hors transaction knex (`mirrorOne` ouvre ses propres transactions).
+Hash déterministe ⇒ backfill **idempotent**. La vérif lit encore l'ancien chemin à ce stade.
+
+### Slice auth — D3a / D3a′ : bascule vérif sur le store apikey (fait)
+
+Façades OA dans `@openagenda/auth` (`packages/auth/src/apiKey.js`, liées sur l'instance) :
+`verifyKey` (via `verifyApiKey` du plugin, owner reconstruit depuis `referenceId`), `createUserKey`/
+`createAgendaKey` (server-callable au-dessus de `auth.api.createApiKey`, owner encodé dans `userId`),
+`listUserKeys`/`listAgendaKeys`/`revokeUserKey`/`revokeAgendaKey` **via l'adapter**
+(`instance.$context.adapter`, modèle `'apikey'`) car les endpoints list/get/update/delete du plugin sont
+**session-gated** (inadressables server-side / pour une clé agenda).
+
+- **D3a (v3)** : `api-v3/lib/authenticate.js` vérifie d'abord via `verifyKey`, reconstruit le
+  propriétaire depuis `referenceId` (`<uid>` → `core.users.get` ; `agenda:<uid>` → `req.agendaKey`).
+- **D3a′ (v2)** : `api/middleware/verifyAndLoadAgendaOrUserFromKey.js` (sert `/api` + `/v2`) lit **aussi**
+  le store `apikey`, en gardant le contrat v2 (403 `{ message }`, passage anonyme, délégation `tk-`).
+  Avancé par rapport au plan initial : une clé native multi/scopée ne peut pas être ré-écrite vers le
+  legacy user (`api_key_set` = une seule paire) ⇒ la seule façon que les nouvelles clés marchent sur v2
+  **et** v3 sans casser v2, c'est que v2 lise le store `apikey`.
+- **Fallback legacy** conservé des deux côtés comme filet (retiré en D5a).
+
+### Slice auth — D3b : endpoints clés dédiés (agenda puis user) (fait)
+
+Sur le store `apikey`, via les façades. `create` renvoie le plaintext **une seule fois** ; `list` ne
+renvoie aucun matériel de clé ; revoke scopé `id`×`referenceId` ; PATCH (rename) via l'adapter.
+
+- **D3b-agenda** : endpoints serveur agenda (list/create/revoke) extraits dans `apiKeysPlugApp`, gardes
+  identiques au legacy (`requireUser` + `agendas.mw.load` + `members.authorize('administrator')`), à de
+  nouveaux chemins. Sûr isolément (clés agenda = read-only).
+- **D3b-user** : **liste plate de clés nommées**, créées une par une (`oaKind` `pk`/`sk`). La `pk` lit sur
+  v2 (GET) + v3 ; la `sk` écrit nativement sur v3 (Bearer direct). Pas de pont d'écriture v2.
+
+### Slice auth — D3c : UX « montré une fois » + découplage users (fait)
+
+`user-apps` (`ApiKeySettings`) basculé sur le store `apikey` : liste plate de clés nommées, valeur
+révélée **uniquement** au retour de création. `users` découplé : suppression des resolvers
+`apiKey`/`apiSecret` et des hooks `generateApiKey`/`searchByKey` (`gate enable_secret`). Apps React
+legacy — édition en place, Storybook mis à jour.
+
+### Slice auth — D5 / D5a : suppression du legacy (fait)
+
+- **D5** : `packages/keys` + `services/keys` supprimés, dual-write mirror retiré, migrations legacy
+  relocalisées dans `cibul-node/migrations/legacy/` (entrée `legacy` dans `byService` ; relocaliser sans
+  renommer — knex traque par basename). Migrations forward : drop `key`
+  (`20260528120000_drop_legacy_key_table.js`) puis `api_key_set` (`20260528170000_…`, idempotente).
+- **D5a** : retrait du **fallback legacy** dans l'auth v2 **et** v3 (`verifyKey` seul fait foi).
+- **Cutover `access_token`** : `access_token.user_id` (backfill depuis `api_key_set`) puis résolution du
+  user du token par `user_id` seul, mint des tokens directement depuis le store `apikey`, FK alignée.
+  Le flux `tk-` reste **gelé** sur v2 (sel `okilydokily` inchangé) ; v3 ne l'introduit jamais.
+
+### Slice auth — reste à faire : D6 (surface moderne v3)
+
+`oaKind` est aujourd'hui **lu mais non appliqué** ; toutes les clés ont `permissions: null` ⇒ **aucun
+enforcement de tier/scope** encore en place (une `pk` de modérateur passe `userUid` et voit ses
+brouillons — verrou « public » structurel **pas encore posé**). D6 (éclaté A→E dans
+`plan-slice-auth-v3.md` §6) ferme ça : **A** tier enforcement (pk read-only, agenda scopé), **B** scopes,
+**C** restriction par ressource (agendas), **D** sunset headers v2, **E** expiry. Ordre de PR : A → B1 →
+C1 → (B2+C2) → B3+C3 → D → E. **A/B1/C1 sont no-op pour le legacy** (`permissions: null`) et strictement
+plus restrictifs — point d'entrée recommandé.
