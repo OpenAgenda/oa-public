@@ -76,6 +76,29 @@ export default (core, { useRouter = true } = {}) => {
   app.put('*', mw.verifyAndLoadAccessTokenUser);
   app.delete('*', mw.verifyAndLoadAccessTokenUser);
 
+  // Public API landing — short-circuits before key auth so `GET /v2` answers
+  // with a docs pointer whether or not a key is present (the bare root has no
+  // other handler and would otherwise fall through to the 404 catch-all).
+  app.get('/', (req, res) => {
+    const body = {
+      version: 'v2',
+      documentation_url: 'https://developers.openagenda.com',
+    };
+
+    // If credentials were sent, make clear they were neither accepted nor
+    // rejected — this route simply ignores authentication.
+    const hasAuthInfo = req.query.key
+      || req.headers.key
+      || req.headers.authorization
+      || req.headers['access-token'];
+
+    if (hasAuthInfo) {
+      body.message = 'provided authentication information is ignored for this route';
+    }
+
+    res.json(body);
+  });
+
   app.get('*', mw.verifyAndLoadAgendaOrUserFromKey);
 
   app.use(otelMw.addUserContext);
