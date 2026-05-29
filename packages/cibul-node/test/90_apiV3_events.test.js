@@ -598,6 +598,55 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       }
     });
 
+    it('returns a dense daily grid for the dateRanges facet', async () => {
+      const res = await facetsQ('?facets=dateRanges');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      // Default window is the current calendar month -> one bucket per day,
+      // including zero-count days (28..31 buckets).
+      const buckets = res.body.facets.dateRanges;
+      expect(buckets.length).toBeGreaterThanOrEqual(28);
+      expect(buckets.length).toBeLessThanOrEqual(31);
+      for (const bucket of buckets) {
+        expect(bucket.value).toMatch(/^\d{4}-\d{2}-\d{2}$/);
+        expect(typeof bucket.count).toBe('number');
+        expect(bucket.count).toBeGreaterThanOrEqual(0);
+      }
+    });
+
+    it('windows the dateRanges grid to the month param', async () => {
+      // January has 31 days -> exactly 31 daily buckets, all in 2026-01.
+      const res = await facetsQ('?facets=dateRanges&month=2026-01');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      const buckets = res.body.facets.dateRanges;
+      expect(buckets.length).toBe(31);
+      for (const bucket of buckets) {
+        expect(bucket.value).toMatch(/^2026-01-\d{2}$/);
+      }
+    });
+
+    it('counts events within the windowed month', async () => {
+      // Discover a month that actually has timings via the timings facet (F),
+      // then assert the dateRanges grid for that month counts them (sum >= 1).
+      const monthly = await facetsQ('?facets=timings&timingsInterval=month');
+      const populated = monthly.body.facets.timings.find((b) => b.count > 0);
+      expect(populated).toBeDefined();
+      const month = populated.value.slice(0, 7); // YYYY-MM
+
+      const res = await facetsQ(`?facets=dateRanges&month=${month}`);
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      const total = res.body.facets.dateRanges.reduce(
+        (sum, b) => sum + b.count,
+        0,
+      );
+      expect(total).toBeGreaterThanOrEqual(1);
+    });
+
     it('rejects an unknown facet with 400 + per-field details', async () => {
       const res = await facetsQ('?facets=cities,bogus');
 

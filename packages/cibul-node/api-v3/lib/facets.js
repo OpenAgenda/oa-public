@@ -11,12 +11,13 @@
 //   - viewport           -> { topLeft, bottomRight } | null    (Viewport)
 //   - timespan           -> { first, last } | null             (Timespan)
 //   - timings            -> [{ value, count }]                 (FacetBucket)
-// Custom-field families land in later sub-tranches.
+//   - dateRanges         -> [{ value, count }]                 (FacetBucket)
+// The custom-field family (additionalFields) lands in a later sub-tranche.
 //
 // Each facet name maps 1:1 to an event-search aggregation type, so the name is
 // passed straight through as the requested aggregation (geohash carries a
-// `zoom` option; timings carries an `interval`). Moderation/internal
-// aggregations (members, valid, states,
+// `zoom` option; timings an `interval`; dateRanges a date `window` via the
+// query). Moderation/internal aggregations (members, valid, states,
 // addMethods, adminLevels) are absent — unreachable from v3, mirroring the
 // filter/sort curation of tranche 4.
 
@@ -86,6 +87,17 @@ const mapTimings = (r) =>
     count: b.timingCount,
   }));
 
+// Date-range grid: internally [{ key, eventCount, sampleEvents }] — one bucket
+// per day across the window, including zero-count days. We expose only the dense
+// daily count grid (uniform term-facet shape); `sampleEvents` (raw ES `_source`
+// that bypasses the search projection) is intentionally dropped. `value` is the
+// day key (yyyy-MM-dd).
+const mapDateRanges = (r) =>
+  (r ?? []).map((b) => ({
+    value: b.key,
+    count: b.eventCount,
+  }));
+
 // Public facet registry: name -> result mapper. The key set is the allow-list.
 const FACETS = {
   cities: mapTerms,
@@ -104,6 +116,7 @@ const FACETS = {
   viewport: mapViewport,
   timespan: mapTimespan,
   timings: mapTimings,
+  dateRanges: mapDateRanges,
 };
 
 const ALLOWED = new Set(Object.keys(FACETS));
@@ -173,9 +186,40 @@ export function parseTimingsInterval(rawInterval) {
     : DEFAULT_TIMINGS_INTERVAL;
 }
 
+const MONTH_RE = /^(\d{4})-(\d{2})$/;
+
+// Date window (one calendar month) for the dateRanges facet, from a `YYYY-MM`
+// param. Lenient like the other facet options: absent/invalid → null, and the
+// aggregation falls back to its own default (the current month). Only consumed
+// when dateRanges is requested. Bounded to a single month by construction, so
+// the per-day bucket list can never blow up. Returned as `{ gte, lte }` Dates,
+// which the aggregation reads for its bucket bounds (and which the search turns
+// into a timings filter, scoping the facet set to the month — consistent with
+// "all facets over the same filtered set").
+export function parseMonthWindow(rawMonth) {
+  if (typeof rawMonth !== 'string') {
+    return null;
+  }
+  const m = MONTH_RE.exec(rawMonth);
+  if (!m) {
+    return null;
+  }
+  const year = Number(m[1]);
+  const month = Number(m[2]);
+  if (month < 1 || month > 12) {
+    return null;
+  }
+  return {
+    gte: new Date(year, month - 1, 1),
+    lte: new Date(year, month, 0),
+  };
+}
+
 // Build the `aggregations` request for core from the facet names. Most facets
 // are passed as their bare name (type === key); geohash carries its `zoom`
-// option and timings its `interval`/`format` as an object request.
+// option and timings its `interval`/`format` as an object request. dateRanges
+// maps the public name to the `eventsByDateRanges` aggregation (its window comes
+// from `query.date`, set by the route, not from here).
 export function buildAggregations(
   facets,
   { geohashZoom, timingsInterval } = {},
@@ -190,6 +234,9 @@ export function buildAggregations(
         interval: timingsInterval,
         format: TIMINGS_INTERVALS[timingsInterval],
       };
+    }
+    if (name === 'dateRanges') {
+      return { type: 'eventsByDateRanges', key: 'dateRanges' };
     }
     return name;
   });

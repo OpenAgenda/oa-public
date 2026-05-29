@@ -20,6 +20,7 @@ import {
   parseFacets,
   parseGeohashZoom,
   parseTimingsInterval,
+  parseMonthWindow,
   buildAggregations,
   mapFacets,
 } from './lib/facets.js';
@@ -134,6 +135,17 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       const geohashZoom = parseGeohashZoom(req.query.geohashZoom);
       const timingsInterval = parseTimingsInterval(req.query.timingsInterval);
       const query = buildEventSearchQuery(req.query);
+
+      // dateRanges buckets a calendar month day-by-day. The `month` window
+      // (YYYY-MM, default current month) is read by the aggregation off
+      // `query.date`; it also scopes the filtered set to that month. Ignored
+      // unless dateRanges is requested.
+      if (facets.includes('dateRanges')) {
+        const monthWindow = parseMonthWindow(req.query.month);
+        if (monthWindow) {
+          query.date = monthWindow;
+        }
+      }
 
       const result = await core.agendas(req.agenda.uid).events.search(
         query,
