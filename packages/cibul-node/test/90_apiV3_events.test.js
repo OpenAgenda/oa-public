@@ -467,6 +467,49 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(res.body.facets.cities).toEqual([]);
     });
 
+    it('returns { agenda, count } buckets for provenance facets', async () => {
+      const res = await facetsQ('?facets=originAgendas,sourceAgendas');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(Object.keys(res.body.facets).sort()).toEqual([
+        'originAgendas',
+        'sourceAgendas',
+      ]);
+      // Every indexed event carries an origin agenda, so this facet is populated.
+      expect(res.body.facets.originAgendas.length).toBeGreaterThan(0);
+      for (const bucket of res.body.facets.originAgendas) {
+        expect(typeof bucket.agenda.uid).toBe('number');
+        expect(typeof bucket.agenda.title).toBe('string');
+        expect(typeof bucket.count).toBe('number');
+      }
+      // Origin agenda refs carry slug (indexed for origins) — proves the
+      // AgendaRef fields propagate, not just uid/title.
+      expect(
+        res.body.facets.originAgendas.some(
+          (b) => typeof b.agenda.slug === 'string',
+        ),
+      ).toBe(true);
+
+      // Source agenda refs are narrower (SourceAgendaRef): uid/title/image,
+      // never slug/url — the index only packs those for sources.
+      expect(res.body.facets.sourceAgendas.length).toBeGreaterThan(0);
+      for (const bucket of res.body.facets.sourceAgendas) {
+        expect(typeof bucket.agenda.uid).toBe('number');
+        expect(bucket.agenda).not.toHaveProperty('slug');
+        expect(bucket.agenda).not.toHaveProperty('url');
+      }
+    });
+
+    it('mixes term and provenance facets in one call', async () => {
+      const res = await facetsQ('?facets=cities,originAgendas');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.cities[0]).toHaveProperty('value');
+      expect(res.body.facets.originAgendas[0]).toHaveProperty('agenda');
+    });
+
     it('rejects an unknown facet with 400 + per-field details', async () => {
       const res = await facetsQ('?facets=cities,bogus');
 

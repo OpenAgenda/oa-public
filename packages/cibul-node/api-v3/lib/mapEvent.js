@@ -150,7 +150,9 @@ const ENRICHED_LINK_KEYS = ['link', 'data'];
 const EXT_ID_KEYS = ['key', 'value'];
 
 const cleanSize = (s) => (s && typeof s === 'object' ? pick(s, SIZE_KEYS) : s);
-const cleanAgendaRef = (a) => pick(a, AGENDA_REF_KEYS);
+// Exported so the provenance facets (facets.js) emit the same AgendaRef shape
+// as events' originAgenda/sourceAgendas.
+export const cleanAgendaRef = (a) => pick(a, AGENDA_REF_KEYS);
 
 function cleanImage(img) {
   const out = pick(img, IMAGE_KEYS);
