@@ -32,6 +32,15 @@ export default (config, core, services, tasksList) => {
       period: 'hourly',
     });
 
+    // Layer 5 time-rollover sweep: a single ES range query for agendas
+    // whose stored `_nextRefreshAt` has fallen into the past, plus a
+    // per-uid reindex for each hit. Pairs with the conditional
+    // `markRefreshNow` script update fired from event mutations — the
+    // same field drives both freshness axes.
+    tfy(services.agendaSearch.refreshDueSweep, {
+      period: 'hourly',
+    });
+
     services.knex.monitorRTT();
 
     services.eventSearch.task();

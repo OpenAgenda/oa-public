@@ -1,6 +1,7 @@
 import logs from '@openagenda/logs';
 import agendaSearch from '@openagenda/agenda-search';
 import listAgendas from './lib/listAgendas.js';
+import refreshDueSweep from './lib/refreshDueSweep.js';
 import plugApp from './plugApp.js';
 
 const log = logs('services/agendaSearch');
@@ -36,5 +37,6 @@ export function init(config, services) {
 
   return Object.assign(search, {
     plugApp: plugApp.bind(null, config, services, search),
+    refreshDueSweep: refreshDueSweep(config, services),
   });
 }
