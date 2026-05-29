@@ -61,6 +61,7 @@ export default (services, instance, app, base) => {
 
   app.get([`${base}.csv`, `${base}.xlsx`], (req, res, next) => {
     const includeFields = extractIncludeFields(req);
+    const tagGroups = req.settings?.tagSet?.groups ?? [];
 
     req.locations
       .list(
@@ -72,7 +73,11 @@ export default (services, instance, app, base) => {
           eventCounts: true,
           detailed: true,
           includeImagePath: true,
-          includeFields,
+          // Load raw store tags only when the agenda defines tag groups, so we
+          // can expand them into one column per group in the export.
+          includeFields: tagGroups.length
+            ? includeFields.concat('tags')
+            : includeFields,
         },
       )
       .then((stream) => {
@@ -80,6 +85,7 @@ export default (services, instance, app, base) => {
           transformLocationForFlatExport({
             includeFields,
             lang: req.lang,
+            tagGroups,
           }),
         );
         next();
