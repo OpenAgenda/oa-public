@@ -60,6 +60,7 @@ paths:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/AfterCursor'
         - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Detailed'
         - $ref: '#/components/parameters/Sort'
         # text & identity
         - $ref: '#/components/parameters/Search'
@@ -197,6 +198,20 @@ components:
         default: 20
         minimum: 1
         maximum: 100
+
+    Detailed:
+      name: detailed
+      in: query
+      required: false
+      description: >
+        When `true`, each item in `data` is returned in its full `Event`
+        representation — the same field set as the single-event endpoint,
+        including the detailed-only fields (`longDescription`, `registration`,
+        `links`, …) and any agenda custom fields under `custom`. When `false`
+        (the default), items are the lighter `EventSummary`.
+      schema:
+        type: boolean
+        default: false
 
     Sort:
       name: sort
@@ -1208,7 +1223,14 @@ components:
       properties:
         data:
           type: array
+          description: >
+            `EventSummary` items by default, or full `Event` items when
+            `detailed=true` is passed. The two are mutually exclusive
+            (`additionalProperties: false`), so each item validates against
+            exactly one branch.
           items:
-            $ref: '#/components/schemas/EventSummary'
+            oneOf:
+              - $ref: '#/components/schemas/EventSummary'
+              - $ref: '#/components/schemas/Event'
         pagination:
           $ref: '#/components/schemas/Pagination'

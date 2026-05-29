@@ -178,7 +178,7 @@ intégration (6) : tous verts.
   `EnrichedLink.data` (métadonnées d'enrichissement), `CustomFields`, `LocalizedString`(map).
 - ~~**Filtres de liste**~~ : **fait (tranche 4)** — surface publique curée + translator strict + `geo_distance`.
 - ~~**Tri (`?sort=`)**~~ : **fait (tranche 4)** — enum curé exposé (le cursor encode déjà le sort).
-- **Sparse fieldsets** (`?fields=`) et **`?expand=`** : à exposer (le split `EventSummary`/`Event` ouvre la voie).
+- ~~**Enrichissement de liste** (`?expand=`)~~ : **fait (tranche 5)** — exposé en `?detailed=true|false`, la liste renvoie des `Event` complets (cf. journal). **Sparse fieldsets** (`?fields=`) : toujours différé (casse `additionalProperties:false`/`required`, SDK Stainless imprécis `Partial`, cache combinatoire — cf. tranche 5).
 - **Aggregations/facettes** : renvoyées par v2, droppées en v3 → tranche/endpoint dédié (différé).
 - **`limit`** : clamp silencieux à 100 (vs cap v2 `validateNavSize` = 300) ; statu quo assumé.
 
@@ -354,6 +354,41 @@ event 1 a `thematique=2`, event 6 non) : `custom[thematique]=2` → narrowe à l
 
 **Note** : en réponse liste (`EventSummary`), `custom` reste `{}` (les champs custom sont detailed) — le
 filtrage opère côté ES indépendamment du niveau d'include, donc il narrowe sans exposer les valeurs.
+
+### Tranche 5 — vue `detailed` sur la liste (fait)
+
+Enrichissement de `GET /agendas/{agendaUid}/events` : un paramètre `?detailed=true|false`
+(défaut `false`) fait basculer chaque item de `EventSummary` vers le `Event` complet (mêmes champs
+que le get unitaire), **en un seul appel** (pas de N+1).
+
+**Nommage — `detailed`, pas `view=summary|full`** (tranché) : (1) c'est déjà le vocabulaire interne
+— option `core` `detailed`, mappers `mapEventSummary`/`mapEvent`, descriptions du contrat — `view`
+inventerait un synonyme ; (2) la réponse est une union stricte de **exactement 2** schémas, un booléen
+suffit ; (3) continuité v2 (familier). Le grief §5.5 d'`analyse-api` visait le `'1'/'0'` + défaut
+variable de v2, **pas le nom** — corrigé ici par un vrai booléen `true/false` + un défaut unique
+documenté. Un `view` enum reste introductible plus tard si une 3e représentation émerge (additif).
+
+**Contrat** : nouveau paramètre `Detailed` ; `EventList.data.items` → `oneOf: [EventSummary, Event]`.
+Union **non ambiguë** : les deux schémas sont `additionalProperties: false` et mutuellement exclusifs
+(un `Event` complet porte des champs que `EventSummary` rejette ; un summary n'a pas les `required` de
+`Event`), donc chaque item valide **exactement une** branche.
+
+**Implémentation** : `index.js` parse `detailed` en strict (`true`/`false`/absent ; sinon **400**
+`bad_request` + `error.details.errors` par champ, comme les filtres), le passe à
+`core … events.search(query, nav, { detailed })` et à `buildListEnvelope` (qui choisit `mapEvent` vs
+`mapEventSummary`). `detailed` n'est **pas** un filtre → le translator l'ignore, aucune fuite dans la
+query `core`. Vérifié : la recherche **liste** à `detailed: true` porte bien le jeu _detailed_
+(`defineIncludes.js:33`), donc `mapEvent` produit des `Event` complets sans N+1.
+
+**Sparse fieldsets `?fields=` — toujours différé** : forte valeur pour les clients HTTP bruts/mobile,
+mais (1) casse la règle « tous `required` / `additionalProperties:false` » (exige un `EventSparse` à
+part), (2) le SDK Stainless n'en sort qu'un `Partial<Event>` imprécis (le `Pick<>` précis demande une
+surcouche TS manuelle), (3) explose les clés de cache. À rouvrir sur **demande partenaire concrète**,
+dans un mode de contrat « partiel » assumé.
+
+**Tests** (`90_apiV3_events`) : `detailed=true` valide chaque item contre `Event` (+ présence
+`state`/`createdAt`/`updatedAt`) ; `detailed=false` contre `EventSummary` (absence `state`) ;
+`detailed=yes` → 400 + `details.errors[0].field === 'detailed'`. Suite api-v3 : 102 verts.
 
 ### Slice auth — D0 : cohérence enveloppe + 401/403 (fait)
 
