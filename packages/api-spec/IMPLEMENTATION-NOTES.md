@@ -403,8 +403,8 @@ répartissent en **8 familles de formes** distinctes → on les livre **famille 
 | Famille               | Forme                          | Facettes                                                                                                             | État                                                                                    |
 | --------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
 | **A — termes**        | `[{value,count}]`              | cities, regions, departments, districts, countryCodes, keywords, languages, accessibilities, status, attendanceModes | **fait (6a)**                                                                           |
-| B — geo points        | `[{value,count,lat,lng}]`      | geohash                                                                                                              | différé                                                                                 |
-| C — viewport          | objet `{topLeft,bottomRight}`  | viewport                                                                                                             | différé                                                                                 |
+| B — geo points        | `[{value,count,lat,lng}]`      | geohash                                                                                                              | **fait (6c)**                                                                           |
+| C — viewport          | objet `{topLeft,bottomRight}`  | viewport                                                                                                             | **fait (6c)**                                                                           |
 | D — tranches de dates | `[{value,count,sampleEvents}]` | eventsByDateRanges                                                                                                   | différé — ⚠️ `sampleEvents` = `_source` ES brut → re-mapper via `mapEvent` + visibilité |
 | E — timespan          | objet `{first,last}`           | timespan                                                                                                             | différé                                                                                 |
 | F — timings           | `[{value,timingCount}]`        | timings                                                                                                              | différé (compte des _timings_, +option format/tz)                                       |
@@ -456,8 +456,26 @@ selon la SOURCE de la donnée, pas selon origin/source :
   AgendaRef) ; source n'expose **jamais** `slug`/`url` (SourceAgendaRef `additionalProperties:false` +
   assertions). Suite api-v3 : 108 verts.
 
-**Suite** : familles B/C (géo), puis E/F (temps), puis D (re-map `_source`) et H (gating custom) pour la
-fin vu leur risque. Une par commit.
+**Familles B/C — géo (6c)** :
+
+Première facette à **forme non-uniforme** : `viewport` renvoie un **objet** (ou `null`), pas une liste.
+D'où le refactor de `mapFacets` : le registre mappe désormais le **résultat entier** de chaque facette
+(plus par-bucket), donc une facette peut renvoyer un objet (`viewport`) aussi bien qu'une liste.
+
+- **B `geohash`** (`geo_point_clustering`) : clusters `[{value,count,latitude,longitude}]` (`value` =
+  id de grille). Option `geohashZoom` (entier, défaut 1, plancher 1, clamp lenient comme `limit`) →
+  passée en requête objet `{type:'geohash', zoom}` (`buildAggregations`). `geo_point_clustering` est
+  **supporté par l'ES de test** (vérifié — le test passe).
+- **C `viewport`** (`geo_bounds`, standard) : `{topLeft,bottomRight}` (GeoPoint = `{latitude,longitude}`),
+  ou **`null`** quand aucun event filtré n'a de coordonnées. Pas d'option.
+- Contrat : `GeoPoint`, `GeoFacetBucket`, `Viewport` ; `FacetResults.geohash` → `GeoFacetBucket[]`,
+  `FacetResults.viewport` → `oneOf[Viewport, null]`. Param `GeohashZoom`.
+- Tests : viewport non-null (events Paris), viewport `null` (filtre sans match), geohash clusters
+  (`geohashZoom=5`) avec lat/lng/count. Suite api-v3 : 111 verts.
+
+**Suite** : familles E/F (temps : timespan/timings, +option format/tz), puis D (`eventsByDateRanges` —
+re-map `_source` brut via `mapEvent` + visibilité) et H (`additionalFields` — gating formSchema + accès
+par champ) pour la fin vu leur risque. Une par commit.
 
 ### Slice auth — D0 : cohérence enveloppe + 401/403 (fait)
 

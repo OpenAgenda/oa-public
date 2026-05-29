@@ -166,6 +166,7 @@ paths:
       parameters:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/Facets'
+        - $ref: '#/components/parameters/GeohashZoom'
         # Same filters as listAgendaEvents — facets reflect the filtered set.
         - $ref: '#/components/parameters/Search'
         - $ref: '#/components/parameters/FilterUid'
@@ -292,9 +293,11 @@ components:
       description: >
         Comma-separated list of facets to compute. Each returns an array of
         buckets over the filtered events, ordered by the facet's default
-        ordering. Unknown facet names return `400`. Term facets yield
-        `{ value, count }`; provenance facets (`originAgendas`, `sourceAgendas`)
-        yield `{ agenda, count }`. Geo, time and custom-field facets are planned
+        ordering. Unknown facet names return `400`. Shapes by family: term facets
+        yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`)
+        yields `{ agenda, count }`; `geohash` yields geo cluster buckets
+        (`{ value, count, latitude, longitude }`); `viewport` yields a single
+        bounding box object (or `null`). Time and custom-field facets are planned
         in later iterations.
       style: form
       explode: false
@@ -316,6 +319,20 @@ components:
             - attendanceModes
             - originAgendas
             - sourceAgendas
+            - geohash
+            - viewport
+
+    GeohashZoom:
+      name: geohashZoom
+      in: query
+      required: false
+      description: >
+        Clustering zoom level for the `geohash` facet (higher = finer grid, more
+        clusters). Ignored unless `geohash` is requested.
+      schema:
+        type: integer
+        default: 1
+        minimum: 1
 
     Sort:
       name: sort
@@ -1419,6 +1436,13 @@ components:
             sourceAgendas:
               type: array
               items: { $ref: '#/components/schemas/SourceAgendaFacetBucket' }
+            geohash:
+              type: array
+              items: { $ref: '#/components/schemas/GeoFacetBucket' }
+            viewport:
+              oneOf:
+                - $ref: '#/components/schemas/Viewport'
+                - type: 'null'
 
     AgendaFacetBucket:
       type: object
@@ -1449,3 +1473,46 @@ components:
         count:
           type: integer
           description: Number of events in the filtered set from this source agenda.
+
+    GeoPoint:
+      type: object
+      required: [latitude, longitude]
+      additionalProperties: false
+      properties:
+        latitude:
+          type: number
+        longitude:
+          type: number
+
+    GeoFacetBucket:
+      type: object
+      required: [value, count, latitude, longitude]
+      additionalProperties: false
+      description: >
+        A geo-clustering bucket (from the `geohash` facet): a cluster centroid
+        plus its event count, for plotting clustered markers on a map. Cluster
+        granularity is controlled by `geohashZoom`.
+      properties:
+        value:
+          type: string
+          description: Opaque cluster id (the geohash grid key).
+        count:
+          type: integer
+        latitude:
+          type: number
+        longitude:
+          type: number
+
+    Viewport:
+      type: object
+      required: [topLeft, bottomRight]
+      additionalProperties: false
+      description: >
+        The bounding box enclosing all matching events' locations (from the
+        `viewport` facet) — handy to auto-fit a map to the result set. The facet
+        value is `null` when no event in the filtered set has coordinates.
+      properties:
+        topLeft:
+          $ref: '#/components/schemas/GeoPoint'
+        bottomRight:
+          $ref: '#/components/schemas/GeoPoint'
