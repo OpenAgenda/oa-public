@@ -48,6 +48,7 @@ function buildValidator(ref) {
 const validateEvent = buildValidator('Event');
 const validateEventSummary = buildValidator('EventSummary');
 const validateEventList = buildValidator('EventList');
+const validateFacetResults = buildValidator('FacetResults');
 const validateError = buildValidator('Error');
 
 function assertValid(validate, body, label) {
@@ -434,6 +435,53 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(res.status).toBe(404);
       assertValid(validateError, res.body, 'Error');
       expect(res.body.error.code).toBe('not_found');
+    });
+  });
+
+  describe('GET /agendas/:agendaUid/events/facets', () => {
+    const facetsQ = (qs) =>
+      request(app)
+        .get(`/agendas/2/events/facets${qs}`)
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+    it('returns { value, count } buckets for the requested term facets', async () => {
+      const res = await facetsQ('?facets=cities,status');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      // Only requested facets are present.
+      expect(Object.keys(res.body.facets).sort()).toEqual(['cities', 'status']);
+      // agenda 2 has published events located in Paris -> a city bucket exists.
+      expect(res.body.facets.cities.length).toBeGreaterThan(0);
+      for (const bucket of res.body.facets.cities) {
+        expect(typeof bucket.value).toBe('string');
+        expect(typeof bucket.count).toBe('number');
+      }
+    });
+
+    it('scopes the counts to the filtered set (a no-match filter empties them)', async () => {
+      const res = await facetsQ('?facets=cities&keyword=zzzznosuchkeywordzzzz');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.cities).toEqual([]);
+    });
+
+    it('rejects an unknown facet with 400 + per-field details', async () => {
+      const res = await facetsQ('?facets=cities,bogus');
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.code).toBe('bad_request');
+      expect(res.body.error.details.errors[0].field).toBe('facets');
+    });
+
+    it('rejects a missing facets param with 400', async () => {
+      const res = await facetsQ('');
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.code).toBe('bad_request');
     });
   });
 

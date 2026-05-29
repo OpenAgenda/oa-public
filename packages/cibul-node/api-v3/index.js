@@ -16,6 +16,7 @@ import createAuthenticate from './lib/authenticate.js';
 import mapEvent from './lib/mapEvent.js';
 import buildListEnvelope from './lib/envelope.js';
 import buildEventSearchQuery from './lib/buildEventSearchQuery.js';
+import { parseFacets, mapFacets } from './lib/facets.js';
 import { decodeCursor } from './lib/cursor.js';
 import apiV3ErrorHandler from './errorHandler.js';
 
@@ -112,6 +113,31 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         });
 
       res.json(buildListEnvelope(result, { limit, detailed }));
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // GET /agendas/:agendaUid/events/facets
+  // Registered BEFORE the `/events/:eventUid` route so `facets` is not captured
+  // as an event uid. Returns counts (`size: 0` — no event hits) grouped by the
+  // requested facets over the SAME filtered set as the list.
+  app.get('/agendas/:agendaUid/events/facets', async (req, res, next) => {
+    try {
+      const facets = parseFacets(req.query.facets);
+      const query = buildEventSearchQuery(req.query);
+
+      const result = await core.agendas(req.agenda.uid).events.search(
+        query,
+        { size: 0 },
+        {
+          aggregations: facets,
+          userUid: req.user?.uid,
+          agendaKey: req.agendaKey,
+        },
+      );
+
+      res.json(mapFacets(result.aggregations, facets));
     } catch (err) {
       next(err);
     }
