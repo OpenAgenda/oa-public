@@ -179,7 +179,7 @@ intégration (6) : tous verts.
 - ~~**Filtres de liste**~~ : **fait (tranche 4)** — surface publique curée + translator strict + `geo_distance`.
 - ~~**Tri (`?sort=`)**~~ : **fait (tranche 4)** — enum curé exposé (le cursor encode déjà le sort).
 - ~~**Enrichissement de liste** (`?expand=`)~~ : **fait (tranche 5)** — exposé en `?detailed=true|false`, la liste renvoie des `Event` complets (cf. journal). **Sparse fieldsets** (`?fields=`) : toujours différé (casse `additionalProperties:false`/`required`, SDK Stainless imprécis `Partial`, cache combinatoire — cf. tranche 5).
-- **Aggregations/facettes** : endpoint dédié `…/events/facets` — **familles termes (A), provenance (G), géo (B/C), temps (E/F) et tranches de dates (D, slim) faites (tranche 6)** ; reste la famille additionalFields (H), différée (cf. journal tranche 6).
+- **Aggregations/facettes** : endpoint dédié `…/events/facets` — **tranche 6 complète** : familles termes (A), provenance (G), géo (B/C), temps (E/F), tranches de dates (D, slim) et additionalFields (H, multi-champ + metrics) (cf. journal tranche 6).
 - **`limit`** : clamp silencieux à 100 (vs cap v2 `validateNavSize` = 300) ; statu quo assumé.
 
 ### Tranche 3 — split `EventSummary`/`Event` + règle « champs vides » (fait)
@@ -409,7 +409,7 @@ répartissent en **8 familles de formes** distinctes → on les livre **famille 
 | E — timespan          | objet `{first,last}`          | timespan                                                                                                             | **fait (6d)**                                                       |
 | F — timings           | `[{value,timingCount}]`       | timings                                                                                                              | **fait (6d)**                                                       |
 | G — refs d'agenda     | `[{agenda,count}]`            | originAgendas, sourceAgendas                                                                                         | **fait (6b)**                                                       |
-| H — additionalFields  | map `{field:{label,values}}`  | additionalFields                                                                                                     | différé — ⚠️ gated formSchema + accès par champ (cf. 4e)            |
+| H — additionalFields  | map `{field:{label,values}}`  | additionalFields, additionalFieldMetrics                                                                             | **fait (6f)** — multi-champ, gate d'accès appliqué côté v3          |
 
 **Exclu (modération/interne)** : `members`, `valid`, `states`, `addMethods`, `additionalFieldMetrics`,
 `missingAdditionalFields`, `adminLevels3/5` — absents de l'enum, inatteignables (curation cohérente
@@ -522,10 +522,50 @@ d'`extended_bounds` → ne remplit qu'entre premier/dernier event ; D garantit l
   (exactement 31 buckets `2026-01-*`), comptage réel (mois découvert via la facette F, somme ≥ 1).
   Suite api-v3 events : 44 verts.
 
-**Suite** : reste **H** (`additionalFields` — gating formSchema + accès par champ, cf. 4e) pour clore
-la tranche 6, vu son risque (accès par champ). Une par commit. **Pré-requis fait** : le renommage de
-vocabulaire ci-dessous (la famille/param H s'appellera donc `additionalFields`, cohérent avec la clé
-de réponse et le filtre).
+**Suite** : **H** (`additionalFields` + `additionalFieldMetrics`) clôt la tranche 6 (journal 6f
+ci-dessous). **Pré-requis fait** : le renommage de vocabulaire ci-dessous (la famille/param H
+s'appelle donc `additionalFields`, cohérent avec la clé de réponse et le filtre).
+
+**Famille H — additionalFields + additionalFieldMetrics (6f)** :
+
+Deux familles **pilotées par le schéma** : comptes d'options (choice/boolean → `additionalFields`) et
+stats numériques (number/integer → `additionalFieldMetrics`). Multi-champ « comme avant », mais
+**gate d'accès appliqué côté v3** — c'est le cœur du risque.
+
+- **Risque & gate** : l'agrégation `additionalFields`/`additionalFieldMetrics` **n'est pas read-access
+  aware** (event-search ne lui passe que `{includes, formSchema}`, jamais l'`access`) et
+  `_search_additional_keywords/_numbers` est **indexé depuis le schéma interne complet** → exposer naïf
+  fuiterait les champs restreints. Vérifié aussi : **`settings.schema.getMerged({access})` ne filtre PAS
+  les champs additionnels par `read`** (un champ `read:['administrator']` revient même en `access:'public'`).
+  Donc v3 **filtre lui-même** par `read` (`isReadableAt`, même règle que `defineIncludes`/`filterByAccess`)
+  avant d'agréger : seuls les champs lisibles au niveau du caller sont demandés. La sécurité est
+  **structurelle** (le champ restreint n'entre jamais dans l'agrégation), pas un post-filtrage.
+- **Accès** : `loadSearchAccess(core, uid, {userUid, agendaKey})` (réutilisé tel quel) → pk = `null`,
+  **coercé en `'public'`** pour la lecture ; agenda-key = `administrator` ; membre = son rôle.
+- **Mono-champ × N** : une agrégation `{type, field, key:'<facet>:<field>'}` par champ retenu (clés
+  distinctes), assemblées en map `{ <field>: … }`. Compteurs : `{label, values:[{value,label,count}]}`
+  (value = id d'option ou `true`/`false` ; label d'option fourni par l'agrég, `null` pour les booléens ;
+  label de champ depuis le schéma, `{}` si absent). Metrics : `{label, metrics:{sum,avg,max,min}}`
+  (les 4 toujours demandées ; `null` si aucune valeur).
+- **Params** : `additionalFieldsKeys` / `additionalFieldMetricsKeys` (CSV ; omis → **tous** les champs
+  lisibles du type). Noms **distincts** du filtre `additionalFields[<field>]` (sinon collision : un CSV
+  plat sur `additionalFields` déclencherait le 400 du filtre). Champ inconnu **ou** non lisible **ou** du
+  mauvais type → **400 « unknown additional field »** (l'existence d'un champ restreint n'est pas révélée).
+- **Contrat** : `additionalFields`/`additionalFieldMetrics` dans l'enum `Facets` ; `FacetResults` map
+  `additionalProperties` → `AdditionalFieldFacet` / `AdditionalFieldMetricsFacet` (+ `AdditionalFieldBucket`,
+  `AdditionalFieldMetrics`) ; params `AdditionalFieldsKeys`, `AdditionalFieldMetricsKeys`. Spec valide.
+- **Tests** : 4 intégration (agenda 1 : comptes `thematique` = `{value:'2',label.fr:'Exposition',count}`,
+  liste explicite, 400 sur champ inconnu/non lisible, map metrics vide faute de champ numérique) **+ 7
+  unitaires** (`90_unit_apiV3_facets.test.js`) qui prouvent le **gate d'accès de façon déterministe**
+  (schéma synthétique : public→public-only, champ restreint nommé→400 sans fuite, accès `moderator`→le
+  voit, mauvais type→400, agrégation d'erreurs) et les **formes** (choice/boolean/metrics). Suite api-v3 :
+  48 intégration + 7 unitaires verts.
+
+> ⚠️ **À noter (hors périmètre H, pré-existant)** : `defineIncludes` ne filtre les champs custom de la
+> **projection** event que si `access` est _truthy_ ; pour un caller pk anonyme (`access=null`) elle
+> renvoie les includes **sans filtrer par `read`** → les **valeurs** de champs restreints pourraient
+> apparaître dans `event.additionalFields` des endpoints liste/détail. À vérifier/corriger dans un
+> chantier dédié (le facet H, lui, est strict).
 
 ### Renommage `custom` → `additionalFields` (vocabulaire, fait)
 

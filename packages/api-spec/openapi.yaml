@@ -169,6 +169,8 @@ paths:
         - $ref: '#/components/parameters/GeohashZoom'
         - $ref: '#/components/parameters/TimingsInterval'
         - $ref: '#/components/parameters/Month'
+        - $ref: '#/components/parameters/AdditionalFieldsKeys'
+        - $ref: '#/components/parameters/AdditionalFieldMetricsKeys'
         # Same filters as listAgendaEvents — facets reflect the filtered set.
         - $ref: '#/components/parameters/Search'
         - $ref: '#/components/parameters/FilterUid'
@@ -305,8 +307,13 @@ components:
         histogram as `{ value, count }` buckets (bucket width set by
         `timingsInterval`); `dateRanges` yields a **dense daily grid** of
         `{ value, count }` over a calendar month (one bucket per day, including
-        zero-count days; month set by `month`). additionalFields facets are
-        planned in later iterations.
+        zero-count days; month set by `month`); `additionalFields` yields, per
+        agenda choice/boolean field, its option counts as
+        `{ <field>: { label, values:[{ value, label, count }] } }` (fields named
+        by `additionalFieldsKeys`, or all readable when omitted);
+        `additionalFieldMetrics` yields, per agenda numeric field, summary stats
+        as `{ <field>: { label, metrics:{ sum, avg, max, min } } }` (fields named
+        by `additionalFieldMetricsKeys`). Both honor per-field read access.
       style: form
       explode: false
       schema:
@@ -332,6 +339,8 @@ components:
             - timespan
             - timings
             - dateRanges
+            - additionalFields
+            - additionalFieldMetrics
 
     GeohashZoom:
       name: geohashZoom
@@ -375,6 +384,38 @@ components:
       schema:
         type: string
         pattern: '^\d{4}-\d{2}$'
+
+    AdditionalFieldsKeys:
+      name: additionalFieldsKeys
+      in: query
+      required: false
+      description: >
+        Comma-separated agenda choice/boolean field names to compute the
+        `additionalFields` facet on. Omit to get every such field readable at the
+        caller's access level. An unknown or non-readable field name returns
+        `400`. Ignored unless `additionalFields` is requested.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
+
+    AdditionalFieldMetricsKeys:
+      name: additionalFieldMetricsKeys
+      in: query
+      required: false
+      description: >
+        Comma-separated agenda numeric field names to compute the
+        `additionalFieldMetrics` facet on. Omit to get every numeric field
+        readable at the caller's access level. An unknown or non-readable field
+        name returns `400`. Ignored unless `additionalFieldMetrics` is requested.
+      style: form
+      explode: false
+      schema:
+        type: array
+        items:
+          type: string
 
     Sort:
       name: sort
@@ -1497,6 +1538,79 @@ components:
             dateRanges:
               type: array
               items: { $ref: '#/components/schemas/FacetBucket' }
+            additionalFields:
+              type: object
+              description: >
+                One entry per requested (and readable) agenda choice/boolean
+                field, keyed by field name.
+              additionalProperties:
+                $ref: '#/components/schemas/AdditionalFieldFacet'
+            additionalFieldMetrics:
+              type: object
+              description: >
+                One entry per requested (and readable) agenda numeric field,
+                keyed by field name.
+              additionalProperties:
+                $ref: '#/components/schemas/AdditionalFieldMetricsFacet'
+
+    AdditionalFieldFacet:
+      type: object
+      required: [label, values]
+      additionalProperties: false
+      description: An agenda choice/boolean field with per-option event counts.
+      properties:
+        label:
+          $ref: '#/components/schemas/LocalizedString'
+        values:
+          type: array
+          items: { $ref: '#/components/schemas/AdditionalFieldBucket' }
+
+    AdditionalFieldBucket:
+      type: object
+      required: [value, label, count]
+      additionalProperties: false
+      properties:
+        value:
+          type: string
+          description: The option id (or `true`/`false` for boolean fields).
+        label:
+          description: >
+            Localized option label, or `null` when the option has none (boolean
+            fields).
+          oneOf:
+            - $ref: '#/components/schemas/LocalizedString'
+            - type: 'null'
+        count:
+          type: integer
+          description: Number of events in the filtered set with this option.
+
+    AdditionalFieldMetricsFacet:
+      type: object
+      required: [label, metrics]
+      additionalProperties: false
+      description: An agenda numeric field with summary statistics.
+      properties:
+        label:
+          $ref: '#/components/schemas/LocalizedString'
+        metrics:
+          $ref: '#/components/schemas/AdditionalFieldMetrics'
+
+    AdditionalFieldMetrics:
+      type: object
+      required: [sum, avg, max, min]
+      additionalProperties: false
+      description: >
+        Summary statistics over the field's numeric values across the filtered
+        set. Each is `null` when no event in the set carries a value.
+      properties:
+        sum:
+          type: [number, 'null']
+        avg:
+          type: [number, 'null']
+        max:
+          type: [number, 'null']
+        min:
+          type: [number, 'null']
 
     AgendaFacetBucket:
       type: object
