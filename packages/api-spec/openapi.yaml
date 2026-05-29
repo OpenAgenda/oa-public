@@ -97,9 +97,9 @@ paths:
         - $ref: '#/components/parameters/FilterLocalTime'
         - $ref: '#/components/parameters/FilterCreatedAt'
         - $ref: '#/components/parameters/FilterUpdatedAt'
-        # audience & custom
+        # audience & additional fields
         - $ref: '#/components/parameters/FilterAge'
-        - $ref: '#/components/parameters/FilterCustom'
+        - $ref: '#/components/parameters/FilterAdditionalFields'
       responses:
         '200':
           description: A page of events.
@@ -201,7 +201,7 @@ paths:
         - $ref: '#/components/parameters/FilterCreatedAt'
         - $ref: '#/components/parameters/FilterUpdatedAt'
         - $ref: '#/components/parameters/FilterAge'
-        - $ref: '#/components/parameters/FilterCustom'
+        - $ref: '#/components/parameters/FilterAdditionalFields'
       responses:
         '200':
           description: Facet counts over the filtered set.
@@ -282,7 +282,8 @@ components:
         When `true`, each item in `data` is returned in its full `Event`
         representation — the same field set as the single-event endpoint,
         including the detailed-only fields (`longDescription`, `registration`,
-        `links`, …) and any agenda custom fields under `custom`. When `false`
+        `links`, …) and any agenda additional fields under `additionalFields`.
+        When `false`
         (the default), items are the lighter `EventSummary`.
       schema:
         type: boolean
@@ -304,8 +305,8 @@ components:
         histogram as `{ value, count }` buckets (bucket width set by
         `timingsInterval`); `dateRanges` yields a **dense daily grid** of
         `{ value, count }` over a calendar month (one bucket per day, including
-        zero-count days; month set by `month`). Custom-field facets are planned
-        in later iterations.
+        zero-count days; month set by `month`). additionalFields facets are
+        planned in later iterations.
       style: form
       explode: false
       schema:
@@ -795,18 +796,19 @@ components:
             type: integer
             minimum: 0
 
-    FilterCustom:
-      name: custom
+    FilterAdditionalFields:
+      name: additionalFields
       in: query
       required: false
       style: deepObject
       explode: true
       description: >
-        Filter on agenda-specific custom fields, addressed by field name:
-        `custom[<fieldName>]=<value>`. Available fields and their value types
-        come from the agenda's event schema
+        Filter on agenda-specific additional fields, addressed by field name:
+        `additionalFields[<fieldName>]=<value>`. Available fields and their value
+        types come from the agenda's event schema
         (GET /agendas/{agendaUid}/settings/eventSchema). For numeric fields, use
-        a range object: `custom[<fieldName>][gte]=…&custom[<fieldName>][lte]=…`.
+        a range object:
+        `additionalFields[<fieldName>][gte]=…&additionalFields[<fieldName>][lte]=…`.
       schema:
         type: object
         additionalProperties: true
@@ -1098,11 +1100,11 @@ components:
         value:
           type: string
 
-    CustomFields:
+    AdditionalFields:
       type: object
       description: >
-        Agenda-specific custom fields. The available keys and the shape of each
-        value are defined by the agenda's event schema (see
+        Agenda-specific additional fields. The available keys and the shape of
+        each value are defined by the agenda's event schema (see
         GET /agendas/{agendaUid}/settings/eventSchema). Each value follows its
         field's fieldType (text, choice, multilingual, …).
       additionalProperties: true
@@ -1119,8 +1121,9 @@ components:
 
         Empty-as-empty rule: every field is always present. Collections are
         never null/omitted (arrays → `[]`, localized maps → `{}`); singular
-        optional values are present as `null` when absent. `custom` is typically
-        `{}` in summaries because agenda custom fields are detailed-level.
+        optional values are present as `null` when absent. `additionalFields` is
+        typically `{}` in summaries because agenda additional fields are
+        detailed-level.
       additionalProperties: false
       required:
         - uid
@@ -1142,7 +1145,7 @@ components:
         - firstTiming
         - lastTiming
         - nextTiming
-        - custom
+        - additionalFields
       properties:
         uid:
           type: integer
@@ -1219,8 +1222,8 @@ components:
           oneOf:
             - $ref: '#/components/schemas/Timing'
             - type: 'null'
-        custom:
-          $ref: '#/components/schemas/CustomFields'
+        additionalFields:
+          $ref: '#/components/schemas/AdditionalFields'
 
     Event:
       type: object
@@ -1255,7 +1258,7 @@ components:
         - firstTiming
         - lastTiming
         - nextTiming
-        - custom
+        - additionalFields
         # detailed-only fields
         - longDescription
         - conditions
@@ -1345,8 +1348,8 @@ components:
           oneOf:
             - $ref: '#/components/schemas/Timing'
             - type: 'null'
-        custom:
-          $ref: '#/components/schemas/CustomFields'
+        additionalFields:
+          $ref: '#/components/schemas/AdditionalFields'
         longDescription:
           $ref: '#/components/schemas/LocalizedString'
         conditions:

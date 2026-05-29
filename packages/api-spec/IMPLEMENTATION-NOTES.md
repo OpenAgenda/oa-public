@@ -23,7 +23,7 @@ La réponse event de l'API actuelle vient de l'**`_source` Elasticsearch**, post
 - **Enveloppe** : liste → `{ data, pagination }` ; ressource seule → objet `Event` nu. (L'API actuelle renvoie `{ success, event }` et `{ events, total, after, sort, aggregations, success }` — à transformer.)
 - **Erreur** : mapper les `err.name` de `core` vers `{ error: { code, message, details? } }` ; codes HTTP corrects (401 vs 403).
 - **Cursor `after`** : l'interne est un **tableau** `search_after` ES (ex. `[timing, tiebreaker]`), `null` quand tout est renvoyé. Le contrat l'expose en **string opaque** → **base64-encoder/décoder** le tableau (+ le sort, et idéalement le `limit`) en une string. En entrée, décoder vers `useAfterKey` / `search_after`. **Ne jamais exposer le tableau brut.**
-- **Champs custom** : séparation natif/custom par **allowlist de champs** (implémentée tranche 2-3) — `mapEvent.js` énumère les champs natifs (`BASE_FIELDS`/`FULL_FIELDS`), droppe les clés internes (`DROP_KEYS`), et route **toute clé restante** sous `custom`. Le socle reste à plat. `additionalProperties: false` sur `EventSummary`/`Event` est correct **parce que** le mapping émet exactement les champs du contrat (il ne passe pas l'`_source` brut). _(Approche plus simple que le tri par `schemaId` initialement envisagé.)_
+- **Champs additionnels** : séparation natif/additionnel par **allowlist de champs** (implémentée tranche 2-3) — `mapEvent.js` énumère les champs natifs (`BASE_FIELDS`/`FULL_FIELDS`), droppe les clés internes (`DROP_KEYS`), et route **toute clé restante** sous `additionalFields`. Le socle reste à plat. `additionalProperties: false` sur `EventSummary`/`Event` est correct **parce que** le mapping émet exactement les champs du contrat (il ne passe pas l'`_source` brut). _(Approche plus simple que le tri par `schemaId` initialement envisagé. La clé publique, d'abord `custom`, a été renommée `additionalFields` — cf. section « Renommage » ci-dessous.)_
 - **`readOnly`** : les champs `readOnly: true` (uid, slug, state, timestamps, dateRange, first/last/nextTiming, originAgenda, sourceAgendas, featured, country, links, timezone) ne sont pas acceptés en écriture.
 
 ### Champs ES volontairement EXCLUS du contrat public
@@ -179,7 +179,7 @@ intégration (6) : tous verts.
 - ~~**Filtres de liste**~~ : **fait (tranche 4)** — surface publique curée + translator strict + `geo_distance`.
 - ~~**Tri (`?sort=`)**~~ : **fait (tranche 4)** — enum curé exposé (le cursor encode déjà le sort).
 - ~~**Enrichissement de liste** (`?expand=`)~~ : **fait (tranche 5)** — exposé en `?detailed=true|false`, la liste renvoie des `Event` complets (cf. journal). **Sparse fieldsets** (`?fields=`) : toujours différé (casse `additionalProperties:false`/`required`, SDK Stainless imprécis `Partial`, cache combinatoire — cf. tranche 5).
-- **Aggregations/facettes** : endpoint dédié `…/events/facets` — **familles termes (A), provenance (G), géo (B/C), temps (E/F) et tranches de dates (D, slim) faites (tranche 6)** ; reste la famille custom (H), différée (cf. journal tranche 6).
+- **Aggregations/facettes** : endpoint dédié `…/events/facets` — **familles termes (A), provenance (G), géo (B/C), temps (E/F) et tranches de dates (D, slim) faites (tranche 6)** ; reste la famille additionalFields (H), différée (cf. journal tranche 6).
 - **`limit`** : clamp silencieux à 100 (vs cap v2 `validateNavSize` = 300) ; statu quo assumé.
 
 ### Tranche 3 — split `EventSummary`/`Event` + règle « champs vides » (fait)
@@ -409,7 +409,7 @@ répartissent en **8 familles de formes** distinctes → on les livre **famille 
 | E — timespan          | objet `{first,last}`          | timespan                                                                                                             | **fait (6d)**                                                       |
 | F — timings           | `[{value,timingCount}]`       | timings                                                                                                              | **fait (6d)**                                                       |
 | G — refs d'agenda     | `[{agenda,count}]`            | originAgendas, sourceAgendas                                                                                         | **fait (6b)**                                                       |
-| H — champs custom     | map `{field:{label,values}}`  | additionalFields                                                                                                     | différé — ⚠️ gated formSchema + accès par champ (cf. 4e)            |
+| H — additionalFields  | map `{field:{label,values}}`  | additionalFields                                                                                                     | différé — ⚠️ gated formSchema + accès par champ (cf. 4e)            |
 
 **Exclu (modération/interne)** : `members`, `valid`, `states`, `addMethods`, `additionalFieldMetrics`,
 `missingAdditionalFields`, `adminLevels3/5` — absents de l'enum, inatteignables (curation cohérente
@@ -523,7 +523,36 @@ d'`extended_bounds` → ne remplit qu'entre premier/dernier event ; D garantit l
   Suite api-v3 events : 44 verts.
 
 **Suite** : reste **H** (`additionalFields` — gating formSchema + accès par champ, cf. 4e) pour clore
-la tranche 6, vu son risque (accès par champ custom). Une par commit.
+la tranche 6, vu son risque (accès par champ). Une par commit. **Pré-requis fait** : le renommage de
+vocabulaire ci-dessous (la famille/param H s'appellera donc `additionalFields`, cohérent avec la clé
+de réponse et le filtre).
+
+### Renommage `custom` → `additionalFields` (vocabulaire, fait)
+
+**Décision** (cf. `docs/analyse-api.md` §9.5, MAJ) : la clé publique d'abord nommée `custom` est renommée
+`additionalFields`, pour **aligner v3 sur le vocabulaire maison** — `core` (`getMergedSchema`, stats),
+`event-search` (agrégations, `validateQuery`, `defineIncludes`) et le front `next`
+(`AdditionalFields.tsx`, `_utils/additionalFields.ts`) disent tous « additionalFields » ; `custom`
+n'existait **qu'en v3** (invention de la tranche 2). La décision de **nester** (socle natif fermé +
+`Record<string,…>`) est inchangée — seul le mot change ; le typage SDK n'en dépend pas. Tranche
+**orthogonale** livrée **avant H** (unité de déploiement distincte).
+
+Renommé dans **tout le contrat + l'implémentation v3** :
+
+- **Spec** : schéma `CustomFields` → `AdditionalFields` ; param `FilterCustom`/`custom[<field>]` →
+  `FilterAdditionalFields`/`additionalFields[<field>]` ; propriété `Event.custom`/`EventSummary.custom`
+  → `…​.additionalFields` (et les `required`). Spec valide + redocly clean.
+- **Impl** : `mapEvent.js` route les clés restantes sous `result.additionalFields` ;
+  `buildEventSearchQuery.js` lit `rawQuery.additionalFields` (param public).
+- **Frontière interne préservée** : `core` continue d'attendre **`query.custom`** comme clé de requête
+  (`validateQuery` lit `obj.custom[fieldName]`) — le translator absorbe l'asymétrie (param public
+  `additionalFields[]` → clé core `query.custom`). Le **service `custom`** de core garde son nom.
+- **Tests** : la suite custom-field renommée en additionalFields (`?additionalFields[thematique]=2`).
+  Suite api-v3 events : 44 verts.
+
+> Note de lecture : dans les entrées de journal des tranches 2–4 ci-dessus, les mentions `custom` /
+> `custom[<field>]` (clé de réponse, param de filtre) se lisent désormais `additionalFields` ;
+> `query.custom` y désigne toujours la clé **interne core**, inchangée.
 
 ### Slice auth — D0 : cohérence enveloppe + 401/403 (fait)
 
