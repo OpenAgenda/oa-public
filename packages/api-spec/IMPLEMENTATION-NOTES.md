@@ -408,7 +408,7 @@ répartissent en **8 familles de formes** distinctes → on les livre **famille 
 | D — tranches de dates | `[{value,count,sampleEvents}]` | eventsByDateRanges                                                                                                   | différé — ⚠️ `sampleEvents` = `_source` ES brut → re-mapper via `mapEvent` + visibilité |
 | E — timespan          | objet `{first,last}`           | timespan                                                                                                             | différé                                                                                 |
 | F — timings           | `[{value,timingCount}]`        | timings                                                                                                              | différé (compte des _timings_, +option format/tz)                                       |
-| G — refs d'agenda     | `[agendaRef]`                  | originAgendas, sourceAgendas                                                                                         | différé                                                                                 |
+| G — refs d'agenda     | `[{agenda,count}]`             | originAgendas, sourceAgendas                                                                                         | **fait (6b)**                                                                           |
 | H — champs custom     | map `{field:{label,values}}`   | additionalFields                                                                                                     | différé — ⚠️ gated formSchema + accès par champ (cf. 4e)                                |
 
 **Exclu (modération/interne)** : `members`, `valid`, `states`, `addMethods`, `additionalFieldMetrics`,
@@ -431,8 +431,33 @@ avec filtres/tri de tranche 4).
   (seules les facettes demandées présentes) ; un filtre sans match vide les buckets (scoping) ; facette
   inconnue → 400 `details.errors[0].field==='facets'` ; `facets` absent → 400. Suite api-v3 : 106 verts.
 
-**Suite** : familles B→H, une par commit. Démarrer par les plus simples et symétriques aux filtres
-(G provenance, B/C géo), garder D (re-map `_source`) et H (gating custom) pour la fin vu leur risque.
+**Famille G — provenance (6b)** :
+
+Bucket `{ agenda, count }`. **Vérité terrain (index réel, pas les fixtures)** — les formes diffèrent
+selon la SOURCE de la donnée, pas selon origin/source :
+
+| Contexte                     | origin                                | source                                          |
+| ---------------------------- | ------------------------------------- | ----------------------------------------------- |
+| **Facette** (depuis `_agg`)  | `{uid,title,slug,image,url}`          | `{uid,title,image}`                             |
+| **Event** (depuis `_source`) | `{uid,title,slug,image,url,official}` | `{uid,title,slug,image,url,official}` (complet) |
+
+⇒ L'asymétrie est **facette (`_agg`) vs event (`_source`)**, pas origin vs source. Sur les events,
+`sourceAgendas` porte le **schéma complet** (vérifié) — donc **`Event` n'est pas touché**. Seule la
+**facette source** est étroite (l'index ne packe que `uid/title/image` dans `sourceAgenda._agg`).
+
+- Contrat : facette `originAgendas` → `AgendaFacetBucket` (`agenda: AgendaRef`) ; facette `sourceAgendas`
+  → `SourceAgendaFacetBucket` (`agenda: SourceAgendaRef` = `{uid,title,image}`, `additionalProperties:false`)
+  → le type SDK source n'a pas de `slug`/`url` fantômes. Split à la demande de l'utilisateur, validé par
+  la vérité terrain.
+- Mapper : `mapFacets` route `originAgendas`/`sourceAgendas` vers `cleanAgendaRef` (exporté de `mapEvent.js`,
+  même nettoyage allowlist que les agendas d'events) ; il produit naturellement le bon sous-ensemble
+  (`_agg` source n'ayant que 3 champs). Mapping identité côté `aggregations`.
+- Tests : `facets=originAgendas,sourceAgendas` → buckets valides ; origin expose `slug` (propagation
+  AgendaRef) ; source n'expose **jamais** `slug`/`url` (SourceAgendaRef `additionalProperties:false` +
+  assertions). Suite api-v3 : 108 verts.
+
+**Suite** : familles B/C (géo), puis E/F (temps), puis D (re-map `_source`) et H (gating custom) pour la
+fin vu leur risque. Une par commit.
 
 ### Slice auth — D0 : cohérence enveloppe + 401/403 (fait)
 

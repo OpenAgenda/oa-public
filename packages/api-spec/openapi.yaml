@@ -291,10 +291,11 @@ components:
       required: true
       description: >
         Comma-separated list of facets to compute. Each returns an array of
-        `{ value, count }` buckets over the filtered events, ordered by the
-        facet's default ordering. Unknown facet names return `400`. v1 exposes
-        term facets only; geo, time, provenance and custom-field facets are
-        planned in later iterations.
+        buckets over the filtered events, ordered by the facet's default
+        ordering. Unknown facet names return `400`. Term facets yield
+        `{ value, count }`; provenance facets (`originAgendas`, `sourceAgendas`)
+        yield `{ agenda, count }`. Geo, time and custom-field facets are planned
+        in later iterations.
       style: form
       explode: false
       schema:
@@ -313,6 +314,8 @@ components:
             - accessibilities
             - status
             - attendanceModes
+            - originAgendas
+            - sourceAgendas
 
     Sort:
       name: sort
@@ -1009,6 +1012,24 @@ components:
         official:
           type: [boolean, 'null']
 
+    SourceAgendaRef:
+      type: object
+      description: >
+        A source-agenda reference as carried by provenance facets. Narrower than
+        AgendaRef: the search index only stores uid/title/image for source
+        agendas (slug/url/official are not indexed for sources), so this type
+        deliberately omits them. (On events, sourceAgendas use the full AgendaRef.)
+      additionalProperties: false
+      required: [uid]
+      properties:
+        uid:
+          type: integer
+          format: int64
+        title:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+
     ExtId:
       type: object
       description: An external identifier mapping this event to a third-party system.
@@ -1392,3 +1413,39 @@ components:
             attendanceModes:
               type: array
               items: { $ref: '#/components/schemas/FacetBucket' }
+            originAgendas:
+              type: array
+              items: { $ref: '#/components/schemas/AgendaFacetBucket' }
+            sourceAgendas:
+              type: array
+              items: { $ref: '#/components/schemas/SourceAgendaFacetBucket' }
+
+    AgendaFacetBucket:
+      type: object
+      required: [agenda, count]
+      additionalProperties: false
+      description: >
+        An origin-agenda facet bucket — events grouped by origin agenda. `agenda`
+        is an `AgendaRef` (uid, title, slug, image, url; `official` is not indexed
+        for this aggregation). Use the uid with the `originAgendaUid` filter.
+      properties:
+        agenda:
+          $ref: '#/components/schemas/AgendaRef'
+        count:
+          type: integer
+          description: Number of events in the filtered set from this agenda.
+
+    SourceAgendaFacetBucket:
+      type: object
+      required: [agenda, count]
+      additionalProperties: false
+      description: >
+        A source-agenda facet bucket — events grouped by source (aggregated)
+        agenda. `agenda` is a `SourceAgendaRef` (uid, title, image only). Use the
+        uid with the `sourceAgendaUid` filter.
+      properties:
+        agenda:
+          $ref: '#/components/schemas/SourceAgendaRef'
+        count:
+          type: integer
+          description: Number of events in the filtered set from this source agenda.
