@@ -162,6 +162,11 @@ export default async (services, agendaOrUid, options = {}) => {
 
   log('returning schema without event for access %s', access);
 
+  // NOTE: the merge read-filter (`mergeAll`) expects `access` as `{ read: <level> }`.
+  // A bare string (this fn's default, and what loadSearchAccess returns) no-ops it,
+  // so getMerged returns the FULL schema. Field read-filtering lives elsewhere
+  // (event-search `defineIncludes` for projection; callers passing `{ read: access }`
+  // such as agendas/get & events/list). Don't rely on a string `access` to filter here.
   if (access?.read !== 'internal') {
     mergeOptions.access = access;
   }

@@ -113,11 +113,25 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         }
       }
 
+      // A public read path MUST declare its access level. core's loadSearchAccess
+      // returns `null` for an anonymous/pk caller, and `defineIncludes` treats a
+      // null access as "trusted caller, no field restriction" (by design —
+      // internal callers rely on it). Left as null, an anonymous reader would get
+      // restricted (read-gated) additional fields projected. So pin it to the
+      // resolved level, coercing null → 'public'. (Visibility is unchanged: the
+      // published-only default comes from validateQuery's `state` default, not
+      // from access; the single-event GET already forces 'internal' in core.)
+      const access = await loadSearchAccess(core, req.agenda.uid, {
+        userUid: req.user?.uid,
+        agendaKey: req.agendaKey,
+      }) ?? 'public';
+
       const result = await core
         .agendas(req.agenda.uid)
         .events.search(query, nav, {
           useAfterKey: true,
           detailed,
+          access,
           userUid: req.user?.uid,
           agendaKey: req.agendaKey,
         });
