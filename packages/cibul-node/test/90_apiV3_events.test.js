@@ -647,6 +647,63 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(total).toBeGreaterThanOrEqual(1);
     });
 
+    // agenda 1 carries an agenda schema with a public radio field `thematique`
+    // (option "2" = Exposition) and a moderator-only text field `note`.
+    const facetsA1 = (qs) =>
+      request(app)
+        .get(`/agendas/1/events/facets${qs}`)
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+    it('returns per-field option counts for the additionalFields facet', async () => {
+      const res = await facetsA1('?facets=additionalFields');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      const af = res.body.facets.additionalFields;
+      // The public optioned field is present; the restricted `note` never is.
+      expect(af).toHaveProperty('thematique');
+      expect(af).not.toHaveProperty('note');
+      const exposition = af.thematique.values.find((v) => v.value === '2');
+      expect(exposition).toBeDefined();
+      expect(exposition.count).toBeGreaterThanOrEqual(1);
+      expect(exposition.label.fr).toBe('Exposition');
+    });
+
+    it('honors an explicit additionalFieldsKeys list', async () => {
+      const res = await facetsA1(
+        '?facets=additionalFields&additionalFieldsKeys=thematique',
+      );
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(Object.keys(res.body.facets.additionalFields)).toEqual([
+        'thematique',
+      ]);
+    });
+
+    it('rejects an unknown/non-readable additionalFieldsKeys field with 400', async () => {
+      // `note` is moderator-only and not optioned -> reported as unknown (its
+      // existence is not revealed) for a public (pk) caller.
+      const res = await facetsA1(
+        '?facets=additionalFields&additionalFieldsKeys=note',
+      );
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.details.errors[0].field).toBe(
+        'additionalFieldsKeys',
+      );
+    });
+
+    it('returns a (possibly empty) map for the additionalFieldMetrics facet', async () => {
+      // This agenda schema has no numeric field -> an empty map, still valid.
+      const res = await facetsA1('?facets=additionalFieldMetrics');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.additionalFieldMetrics).toEqual({});
+    });
+
     it('rejects an unknown facet with 400 + per-field details', async () => {
       const res = await facetsQ('?facets=cities,bogus');
 

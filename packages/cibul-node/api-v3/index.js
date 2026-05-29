@@ -12,6 +12,7 @@ import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import sentryErrorHandler from '../lib/sentryErrorHandler.js';
 import * as mw from '../api/middleware/index.js';
+import loadSearchAccess from '../core/agendas/events/lib/loadSearchAccess.js';
 import createAuthenticate from './lib/authenticate.js';
 import mapEvent from './lib/mapEvent.js';
 import buildListEnvelope from './lib/envelope.js';
@@ -21,6 +22,8 @@ import {
   parseGeohashZoom,
   parseTimingsInterval,
   parseMonthWindow,
+  parseFieldKeys,
+  resolveAdditionalFieldSelections,
   buildAggregations,
   mapFacets,
 } from './lib/facets.js';
@@ -134,6 +137,32 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
       const facets = parseFacets(req.query.facets);
       const geohashZoom = parseGeohashZoom(req.query.geohashZoom);
       const timingsInterval = parseTimingsInterval(req.query.timingsInterval);
+
+      // additionalFields / additionalFieldMetrics fan out to one aggregation per
+      // agenda field. We resolve them AGAINST THE ACCESS-FILTERED SCHEMA up
+      // front so only fields the caller may read are ever aggregated (the
+      // aggregation itself is not read-access aware). Access is resolved exactly
+      // like core's own search (pk → null → treated as the public read level).
+      const wantCounts = facets.includes('additionalFields');
+      const wantMetrics = facets.includes('additionalFieldMetrics');
+      let afSelections = {};
+      if (wantCounts || wantMetrics) {
+        const access = await loadSearchAccess(core, req.agenda.uid, {
+          userUid: req.user?.uid,
+          agendaKey: req.agendaKey,
+        }) ?? 'public';
+        const schema = await core
+          .agendas(req.agenda.uid)
+          .settings.schema.getMerged({ access });
+        afSelections = resolveAdditionalFieldSelections(schema, {
+          countsKeys: parseFieldKeys(req.query.additionalFieldsKeys),
+          metricsKeys: parseFieldKeys(req.query.additionalFieldMetricsKeys),
+          wantCounts,
+          wantMetrics,
+          access,
+        });
+      }
+
       const query = buildEventSearchQuery(req.query);
 
       // dateRanges buckets a calendar month day-by-day. The `month` window
@@ -154,13 +183,14 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
           aggregations: buildAggregations(facets, {
             geohashZoom,
             timingsInterval,
+            afSelections,
           }),
           userUid: req.user?.uid,
           agendaKey: req.agendaKey,
         },
       );
 
-      res.json(mapFacets(result.aggregations, facets));
+      res.json(mapFacets(result.aggregations, facets, { afSelections }));
     } catch (err) {
       next(err);
     }
