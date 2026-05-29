@@ -2,6 +2,7 @@ import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import { getAccessFromMember } from '../../utils/authorizations.js';
 import refreshAgenda from './refreshAgenda.js';
+import eventLastTimingEnd from './eventLastTimingEnd.js';
 import convertLocationAdditionalFields from './convertLocationAdditionalFields.js';
 import formatError from './formatError.js';
 
@@ -172,6 +173,15 @@ export default async (core, payload, clean, options = {}) => {
   });
 
   await refreshAgenda(core.services, agenda.uid);
+
+  // Mark the agenda-search doc for refresh, but only if the new
+  // event's lastTiming.end falls inside the current refresh window.
+  await core.services.agendaSearch
+    ?.markRefreshNow({
+      uid: agenda.uid,
+      eventLastTiming: eventLastTimingEnd(compiledEvent),
+    })
+    .catch((e) => log('warn', 'failed to mark agenda for refresh', e));
 
   return response;
 };

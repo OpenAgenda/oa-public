@@ -6,6 +6,7 @@ import getAgenda from '../utils/getAgenda.js';
 import loadAuthorizations from '../../utils/authorizations.js';
 import * as merge from '../utils/merge.js';
 import refreshAgenda from '../utils/refreshAgenda.js';
+import eventLastTimingEnd from '../utils/eventLastTimingEnd.js';
 import extractActingFromContext from './lib/extractActingFromContext.js';
 import createRemoveActivity from './lib/createRemoveActivity.js';
 
@@ -227,6 +228,17 @@ export default async (core, agendaUid, eventUid, options = {}) => {
   stopwatch('eventSearchRemove');
 
   await refreshAgenda(core.services, agenda.uid);
+
+  // Mark the agenda-search doc for refresh if the removed event's
+  // lastTiming.end was inside the current refresh window. A remove of
+  // an event ending months out doesn't move the displayed count up
+  // to _nextRefreshAt.
+  await core.services.agendaSearch
+    ?.markRefreshNow({
+      uid: agenda.uid,
+      eventLastTiming: eventLastTimingEnd(event),
+    })
+    .catch((e) => log('warn', 'failed to mark agenda for refresh', e));
 
   const result = await payload.getResponse('removed', access);
 
