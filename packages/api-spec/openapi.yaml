@@ -143,6 +143,78 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+  /agendas/{agendaUid}/events/facets:
+    get:
+      operationId: listAgendaEventFacets
+      tags: [Events]
+      summary: Faceted counts for an agenda's events
+      description: >
+        Returns event counts grouped by the requested facets, computed over the
+        **same filtered set** as `listAgendaEvents`. Pass the same filter
+        parameters to scope the counts (e.g. `?keyword=concert` then facet on
+        `cities`). No event data is returned — only `{ value, count }` buckets
+        per facet.
+
+
+        Only published events are counted. `facets` selects which facets to
+        compute; an unknown facet name returns `400`. There is no pagination:
+        facets describe the whole filtered set.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - events:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+        - $ref: '#/components/parameters/Facets'
+        # Same filters as listAgendaEvents — facets reflect the filtered set.
+        - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/FilterUid'
+        - $ref: '#/components/parameters/FilterSlug'
+        - $ref: '#/components/parameters/FilterExtId'
+        - $ref: '#/components/parameters/FilterKeyword'
+        - $ref: '#/components/parameters/FilterLanguage'
+        - $ref: '#/components/parameters/FilterAccessibility'
+        - $ref: '#/components/parameters/FilterStatus'
+        - $ref: '#/components/parameters/FilterAttendanceMode'
+        - $ref: '#/components/parameters/FilterFeatured'
+        - $ref: '#/components/parameters/FilterLocationUid'
+        - $ref: '#/components/parameters/FilterLocationExtId'
+        - $ref: '#/components/parameters/FilterRegion'
+        - $ref: '#/components/parameters/FilterDepartment'
+        - $ref: '#/components/parameters/FilterCity'
+        - $ref: '#/components/parameters/FilterDistrict'
+        - $ref: '#/components/parameters/FilterAdminLevel3'
+        - $ref: '#/components/parameters/FilterAdminLevel5'
+        - $ref: '#/components/parameters/FilterCountryCode'
+        - $ref: '#/components/parameters/FilterBoundingBox'
+        - $ref: '#/components/parameters/FilterNear'
+        - $ref: '#/components/parameters/FilterRadius'
+        - $ref: '#/components/parameters/FilterOriginAgendaUid'
+        - $ref: '#/components/parameters/FilterOriginAgendaOfficial'
+        - $ref: '#/components/parameters/FilterSourceAgendaUid'
+        - $ref: '#/components/parameters/FilterRelative'
+        - $ref: '#/components/parameters/FilterTimings'
+        - $ref: '#/components/parameters/FilterLocalTime'
+        - $ref: '#/components/parameters/FilterCreatedAt'
+        - $ref: '#/components/parameters/FilterUpdatedAt'
+        - $ref: '#/components/parameters/FilterAge'
+        - $ref: '#/components/parameters/FilterCustom'
+      responses:
+        '200':
+          description: Facet counts over the filtered set.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FacetResults'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
 components:
   securitySchemes:
     bearerAuth:
@@ -212,6 +284,35 @@ components:
       schema:
         type: boolean
         default: false
+
+    Facets:
+      name: facets
+      in: query
+      required: true
+      description: >
+        Comma-separated list of facets to compute. Each returns an array of
+        `{ value, count }` buckets over the filtered events, ordered by the
+        facet's default ordering. Unknown facet names return `400`. v1 exposes
+        term facets only; geo, time, provenance and custom-field facets are
+        planned in later iterations.
+      style: form
+      explode: false
+      schema:
+        type: array
+        minItems: 1
+        items:
+          type: string
+          enum:
+            - cities
+            - regions
+            - departments
+            - districts
+            - countryCodes
+            - keywords
+            - languages
+            - accessibilities
+            - status
+            - attendanceModes
 
     Sort:
       name: sort
@@ -1234,3 +1335,60 @@ components:
               - $ref: '#/components/schemas/Event'
         pagination:
           $ref: '#/components/schemas/Pagination'
+
+    FacetBucket:
+      type: object
+      required: [value, count]
+      additionalProperties: false
+      properties:
+        value:
+          type: string
+          description: >
+            The facet value — e.g. a city name, a keyword, a language code, a
+            status. Always a string (numeric-keyed facets are stringified).
+        count:
+          type: integer
+          description: Number of events in the filtered set with this value.
+
+    FacetResults:
+      type: object
+      required: [facets]
+      additionalProperties: false
+      properties:
+        facets:
+          type: object
+          additionalProperties: false
+          description: >
+            One entry per requested facet; a facet that was not requested is
+            absent. Each value is an array of `{ value, count }` buckets.
+          properties:
+            cities:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            regions:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            departments:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            districts:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            countryCodes:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            keywords:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            languages:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            accessibilities:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            status:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
+            attendanceModes:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }

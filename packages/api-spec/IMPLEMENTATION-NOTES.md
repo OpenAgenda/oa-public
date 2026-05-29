@@ -179,7 +179,7 @@ intégration (6) : tous verts.
 - ~~**Filtres de liste**~~ : **fait (tranche 4)** — surface publique curée + translator strict + `geo_distance`.
 - ~~**Tri (`?sort=`)**~~ : **fait (tranche 4)** — enum curé exposé (le cursor encode déjà le sort).
 - ~~**Enrichissement de liste** (`?expand=`)~~ : **fait (tranche 5)** — exposé en `?detailed=true|false`, la liste renvoie des `Event` complets (cf. journal). **Sparse fieldsets** (`?fields=`) : toujours différé (casse `additionalProperties:false`/`required`, SDK Stainless imprécis `Partial`, cache combinatoire — cf. tranche 5).
-- **Aggregations/facettes** : renvoyées par v2, droppées en v3 → tranche/endpoint dédié (différé).
+- **Aggregations/facettes** : endpoint dédié `…/events/facets` — **famille A (termes) faite (tranche 6)** ; familles geo/temps/provenance/custom différées (cf. journal tranche 6).
 - **`limit`** : clamp silencieux à 100 (vs cap v2 `validateNavSize` = 300) ; statu quo assumé.
 
 ### Tranche 3 — split `EventSummary`/`Event` + règle « champs vides » (fait)
@@ -389,6 +389,50 @@ dans un mode de contrat « partiel » assumé.
 **Tests** (`90_apiV3_events`) : `detailed=true` valide chaque item contre `Event` (+ présence
 `state`/`createdAt`/`updatedAt`) ; `detailed=false` contre `EventSummary` (absence `state`) ;
 `detailed=yes` → 400 + `details.errors[0].field === 'detailed'`. Suite api-v3 : 102 verts.
+
+### Tranche 6 — facettes / agrégations (endpoint dédié)
+
+Endpoint `GET /agendas/{agendaUid}/events/facets` : comptes groupés par facette sur le **même
+ensemble filtré** que la liste (mêmes params de filtre), **sans données d'event**. Décision actée
+(tranche 4) : endpoint dédié, pas bolté sur la liste.
+
+**Les facettes = les agrégations que `event-search` calcule déjà** (`aggregations/index.js`). Elles se
+répartissent en **8 familles de formes** distinctes → on les livre **famille par famille** (granularité
+= unité de déploiement), pas en un bloc :
+
+| Famille               | Forme                          | Facettes                                                                                                             | État                                                                                    |
+| --------------------- | ------------------------------ | -------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------- |
+| **A — termes**        | `[{value,count}]`              | cities, regions, departments, districts, countryCodes, keywords, languages, accessibilities, status, attendanceModes | **fait (6a)**                                                                           |
+| B — geo points        | `[{value,count,lat,lng}]`      | geohash                                                                                                              | différé                                                                                 |
+| C — viewport          | objet `{topLeft,bottomRight}`  | viewport                                                                                                             | différé                                                                                 |
+| D — tranches de dates | `[{value,count,sampleEvents}]` | eventsByDateRanges                                                                                                   | différé — ⚠️ `sampleEvents` = `_source` ES brut → re-mapper via `mapEvent` + visibilité |
+| E — timespan          | objet `{first,last}`           | timespan                                                                                                             | différé                                                                                 |
+| F — timings           | `[{value,timingCount}]`        | timings                                                                                                              | différé (compte des _timings_, +option format/tz)                                       |
+| G — refs d'agenda     | `[agendaRef]`                  | originAgendas, sourceAgendas                                                                                         | différé                                                                                 |
+| H — champs custom     | map `{field:{label,values}}`   | additionalFields                                                                                                     | différé — ⚠️ gated formSchema + accès par champ (cf. 4e)                                |
+
+**Exclu (modération/interne)** : `members`, `valid`, `states`, `addMethods`, `additionalFieldMetrics`,
+`missingAdditionalFields`, `adminLevels3/5` — absents de l'enum, inatteignables (curation cohérente
+avec filtres/tri de tranche 4).
+
+**Famille A — implémentation (6a)** :
+
+- Contrat : paramètre `Facets` (CSV, `minItems:1`, enum des 10 termes, requis), schémas `FacetBucket`
+  (`{value:string, count:int}`) et `FacetResults` (`{facets:{<nom>:FacetBucket[]}}`, propriétés
+  nommées + `additionalProperties:false` → typé proprement pour Stainless, pas une map libre).
+- `api-v3/lib/facets.js` : `parseFacets` (split CSV, dédup, **400** `bad_request` + `details.errors`
+  par champ sur facette inconnue/absente — comme les filtres) ; `mapFacets` (`{key,eventCount}` →
+  `{value:String(key),count}`, `value` stringifié pour les facettes à clé entière comme `status`).
+- **Mapping identité** : les 10 noms publics = les types internes de `aggregations/index.js`, passés tels
+  quels en `aggregations`. `nav = { size: 0 }` (aucun hit, juste les comptes — accepté par `core`).
+- Route montée **avant** `/events/:eventUid` (sinon `facets` capté comme `:eventUid`). Verrou de
+  visibilité hérité de la liste (pk → public ; facettes de modération hors enum).
+- Tests intégration (`90_apiV3_events`) : `facets=cities,status` → buckets valides contre `FacetResults`
+  (seules les facettes demandées présentes) ; un filtre sans match vide les buckets (scoping) ; facette
+  inconnue → 400 `details.errors[0].field==='facets'` ; `facets` absent → 400. Suite api-v3 : 106 verts.
+
+**Suite** : familles B→H, une par commit. Démarrer par les plus simples et symétriques aux filtres
+(G provenance, B/C géo), garder D (re-map `_source`) et H (gating custom) pour la fin vu leur risque.
 
 ### Slice auth — D0 : cohérence enveloppe + 401/403 (fait)
 
