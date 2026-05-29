@@ -225,8 +225,34 @@ Découpé en **deux unités de déploiement indépendantes** (granularité = uni
 
 ### D6 — Surface moderne v3 `→`
 
-- Scopes mappés aux tiers de visibilité (enforcement à `verifyApiKey`), préfixes sur toute nouvelle clé, expiry/révocation dans les UIs, liste multi-clés nommées côté user.
-- En-têtes `Deprecation`/`Sunset` sur `?key=` + headers `key:`/`access-token:`.
+**État au démarrage** : D1→D5b livrés en prod. `oaKind` est lu mais non appliqué nulle part ; toutes les clés ont `permissions: null` ; aucune restriction par ressource ; aucun header de signalisation côté legacy v2. Les préfixes `oa_pk_`/`oa_sk_`/`oa_ak_`, la liste multi-clés nommées (user/agenda) et la révocation côté UI sont déjà en place depuis D3.
+
+**Modèle de cap orthogonal** (du plus large au plus étroit — chaque couche atténue, jamais n'élève) :
+
+1. **Rôle du user** — hard cap. Une `sk` n'ouvre rien que son owner ne pourrait faire en session.
+2. **Tier** (`oaKind`) — `pk` = read-only ; `sk` = read+write au niveau du rôle ; `agenda` = admin de l'agenda du `referenceId`.
+3. **Scopes** (`permissions`) — sous-ensemble `<resource>:<action>` choisi à la création (ex. `events:read`, `events:write`). `null` = pas de restriction explicite, fallback sur le tier.
+4. **Ressources** (`metadata.resources`) — sous-ensemble d'agendas explicite (ex. `{agendas: [48353388, 93399464]}`). Absent = toutes les ressources accessibles via le rôle.
+
+Le **3** et le **4** sont orthogonaux : `permissions` répond à _quoi_, `metadata.resources` à _où_. Ressemble au modèle GitHub fine-grained PAT : la clé reste owned-by-user, mais cappée explicitement sur un set d'agendas. Une `sk` user-owned + restreinte à un agenda ≠ une clé `agenda` : la première est révoquée implicitement à la perte du rôle, la seconde survit indépendamment du user.
+
+#### Sous-chantiers (déploiement indépendant)
+
+| Sous-chantier                        | Effort | Description                                                                                                                                                                                                                                                                                                                           |
+| ------------------------------------ | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **A. Tier enforcement**              | 0.5j   | Au verifyKey : `pk` + méthode write (`POST`/`PUT`/`PATCH`/`DELETE`) → **400** `validation_error` ; `agenda` hors de `/agendas/{referenceId}/...` → **403** `forbidden`. Appliqué à `api-v3/lib/authenticate.js` et `cibul-node/api/middleware/verifyAndLoadAgendaOrUserFromKey.js` (v2 inclus pour fermer le `pk`-écrit côté legacy). |
+| **B1. Scope enforcement backend**    | 1j     | Middleware extrait le `requiredScope` (Option 1 — method + premier segment de path : `GET /events/...` → `events:read`). Vérifie `requiredScope ∈ key.permissions` sauf si `permissions === null` (fallback tier). Sinon **403**. Toutes les clés actuelles ont `permissions: null` → no-op pour le legacy.                           |
+| **B2. Scope-picker UI + validation** | 2-3j   | UIs `ApiKeySettings` (user) et `KeysManager` (agenda) : scope-picker à la création. Server-side : `requestedScopes ⊆ allowedScopesForTier(oaKind)` (`pk` → `*:read` uniquement ; `sk` → tout ; `agenda` → tout). Refus **400** sinon.                                                                                                 |
+| **B3. Display + edit scopes**        | 1j     | Badges scopes sur chaque clé dans la list, endpoint PATCH via adapter pour ré-écrire `permissions`.                                                                                                                                                                                                                                   |
+| **C1. Resource restriction backend** | 1j     | Middleware extrait `agendaUid` du path ; si `metadata.resources.agendas` présent et `agendaUid ∉ list` → **403**. Routes sans agendaUid (`/me`, …) : pass-through (le cap de ressources ne s'applique qu'à la dimension agenda).                                                                                                      |
+| **C2. Resource picker UI**           | 2j     | À la création : radio "Tous mes agendas" / "Agendas spécifiques" → list-picker des agendas où le user est member. Server-side : validation que les uids choisis sont accessibles au rôle.                                                                                                                                             |
+| **C3. PATCH resources**              | 0.5j   | Endpoint adapter `PATCH /users/me/api-keys/:id/resources`.                                                                                                                                                                                                                                                                            |
+| **D. Sunset headers v2**             | 0.5j   | RFC 8594 : `Deprecation` + `Sunset` sur `?key=`, header `key:`, header `access-token:`. **v3 hors-périmètre** (la spec OpenAPI v3 ne déclare que `bearerAuth` + `oauth2` — pas de surface legacy à signaler).                                                                                                                         |
+| **E. Expiry des clés**               | 1-2j   | Champ `expires_at` (déjà supporté par better-auth) ; à la création UI : "expire dans" presets + jamais ; révocation programmée côté worker (déjà au verifyKey via better-auth).                                                                                                                                                       |
+
+**Ordre de PR recommandé** : A → B1 → C1 → (B2 + C2 ensemble dans le scope-picker UI) → B3 + C3 → D → E. A/B1/C1 ferment la sécurité (no-op pour le legacy, `permissions: null` et `metadata.resources` absent par défaut). B2/B3/C2/C3 = vraie UX D3+. D/E sont indépendants et peuvent partir en parallèle.
+
+**Risque de régression** : chaque couche est strictement plus restrictive que le no-op. Les clés legacy mirrorées (`oaKind` dérivé du backfill, `permissions: null`, `metadata.resources` absent) gardent leur comportement actuel après A/B1/C1.
 
 ---
 
