@@ -16,7 +16,12 @@ import createAuthenticate from './lib/authenticate.js';
 import mapEvent from './lib/mapEvent.js';
 import buildListEnvelope from './lib/envelope.js';
 import buildEventSearchQuery from './lib/buildEventSearchQuery.js';
-import { parseFacets, mapFacets } from './lib/facets.js';
+import {
+  parseFacets,
+  parseGeohashZoom,
+  buildAggregations,
+  mapFacets,
+} from './lib/facets.js';
 import { decodeCursor } from './lib/cursor.js';
 import apiV3ErrorHandler from './errorHandler.js';
 
@@ -125,13 +130,14 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
   app.get('/agendas/:agendaUid/events/facets', async (req, res, next) => {
     try {
       const facets = parseFacets(req.query.facets);
+      const geohashZoom = parseGeohashZoom(req.query.geohashZoom);
       const query = buildEventSearchQuery(req.query);
 
       const result = await core.agendas(req.agenda.uid).events.search(
         query,
         { size: 0 },
         {
-          aggregations: facets,
+          aggregations: buildAggregations(facets, { geohashZoom }),
           userUid: req.user?.uid,
           agendaKey: req.agendaKey,
         },

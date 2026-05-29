@@ -510,6 +510,44 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
       expect(res.body.facets.originAgendas[0]).toHaveProperty('agenda');
     });
 
+    it('returns a viewport bounding box enclosing located events', async () => {
+      const res = await facetsQ('?facets=viewport');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      // agenda 2 has events located in Paris -> a non-null bounding box.
+      expect(res.body.facets.viewport).not.toBeNull();
+      expect(typeof res.body.facets.viewport.topLeft.latitude).toBe('number');
+      expect(typeof res.body.facets.viewport.bottomRight.longitude).toBe(
+        'number',
+      );
+    });
+
+    it('returns a null viewport when the filtered set is empty', async () => {
+      // A no-match filter -> 0 events -> no geo bounds -> null.
+      const res = await facetsQ(
+        '?facets=viewport&keyword=zzzznosuchkeywordzzzz',
+      );
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.viewport).toBeNull();
+    });
+
+    it('returns geo clusters for the geohash facet', async () => {
+      const res = await facetsQ('?facets=geohash&geohashZoom=5');
+
+      expect(res.status).toBe(200);
+      assertValid(validateFacetResults, res.body, 'FacetResults');
+      expect(res.body.facets.geohash.length).toBeGreaterThan(0);
+      for (const cluster of res.body.facets.geohash) {
+        expect(typeof cluster.value).toBe('string');
+        expect(typeof cluster.count).toBe('number');
+        expect(typeof cluster.latitude).toBe('number');
+        expect(typeof cluster.longitude).toBe('number');
+      }
+    });
+
     it('rejects an unknown facet with 400 + per-field details', async () => {
       const res = await facetsQ('?facets=cities,bogus');
 
