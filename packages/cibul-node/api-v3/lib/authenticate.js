@@ -96,6 +96,28 @@ export default function createAuthenticate(core) {
           if (user.isBlacklisted) {
             throw new Forbidden('user is blacklisted');
           }
+          req.apiKey = verified;
+
+          // D6.A tier enforcement (visibility), v3 — structural public lock for
+          // publishable keys. A `pk` resolves its owner (so existence and the
+          // blacklist are still checked above) but is NEVER granted the owner's
+          // visibility: we deliberately leave `req.user` unset, so the route
+          // handlers pass no `userUid` and `loadSearchAccess` returns `null`
+          // (published-only, public fields). "read-only" is not "public" — only
+          // withholding `userUid` keeps a moderator's pk (including a legacy
+          // `userPublic` key, mirrored as oaKind 'pk') from leaking drafts or
+          // role-gated fields when it is embedded client-side.
+          //
+          // Applies to ALL pk on v3; the v2 middleware cutover is a separate PR
+          // (v2 is frozen). No pk write-verb guard here: v3 is read-only and
+          // this middleware is mounted GET-only — rejecting a pk on a write verb
+          // lands with the v3 write surface (plan-slice-auth-v3.md D4/D6).
+          if (verified.oaKind === 'pk') {
+            return next();
+          }
+
+          // sk (and any user key not classified as pk): authenticate as the
+          // owner — `userUid` flows to core, visibility = the owner's role.
           req.user = user;
           return next();
         }

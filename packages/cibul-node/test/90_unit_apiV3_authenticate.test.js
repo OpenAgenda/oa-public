@@ -119,6 +119,17 @@ describe('90 - api-v3 unit - authenticate', () => {
       expect(error?.name).toBe('Forbidden');
     });
 
+    it('rejects a blacklisted pk owner (blacklist is checked before the public lock)', async () => {
+      const core = makeCore({
+        verified: verifiedUser(7, 'pk'),
+        usersByUid: { 7: { uid: 7, isBlacklisted: true } },
+      });
+      const { error } = await run(core, {
+        headers: { authorization: 'Bearer oa_pk_x' },
+      });
+      expect(error?.name).toBe('Forbidden');
+    });
+
     it('rejects a blacklisted user resolved from an access token', async () => {
       const core = makeCore({ tokenUser: { uid: 7, isBlacklisted: true } });
       const { error } = await run(core, {
@@ -140,10 +151,11 @@ describe('90 - api-v3 unit - authenticate', () => {
 
   // Single source of truth = the better-auth `apikey` store. verifyKey resolves
   // the key, the OA owner is rebuilt from the referenceId (core.users.get for a
-  // user, a bare { identifier } for an agenda). pk and sk both load the user
-  // here — tier enforcement is D6.
+  // user, a bare { identifier } for an agenda). D6.A tier enforcement (v3): a pk
+  // resolves its owner (existence + blacklist) but does NOT attach req.user (the
+  // structural public lock); an sk authenticates as the owner.
   describe('apikey verify path', () => {
-    it('loads a user from a verified pk key (referenceId = uid)', async () => {
+    it('does NOT attach req.user for a pk key (structural public lock)', async () => {
       const core = makeCore({
         verified: verifiedUser(42, 'pk'),
         usersByUid: { 42: { uid: 42 } },
@@ -152,11 +164,14 @@ describe('90 - api-v3 unit - authenticate', () => {
         headers: { authorization: 'Bearer oa_pk_x' },
       });
       expect(error).toBeUndefined();
-      expect(req.user).toEqual({ uid: 42 });
+      // Owner resolved and carried, but visibility withheld: no userUid flows to
+      // core, so the search runs published-only / public-fields.
+      expect(req.user).toBeUndefined();
+      expect(req.apiKey?.owner).toEqual({ kind: 'user', userUid: 42 });
       expect(req.agendaKey).toBeUndefined();
     });
 
-    it('loads a user from a verified sk key (parity — sk also loads the user)', async () => {
+    it('authenticates as the owner for an sk key (userUid flows to core)', async () => {
       const core = makeCore({
         verified: verifiedUser(42, 'sk'),
         usersByUid: { 42: { uid: 42 } },
@@ -168,9 +183,9 @@ describe('90 - api-v3 unit - authenticate', () => {
       expect(req.user).toEqual({ uid: 42 });
     });
 
-    it('loads a user from a ?key= query param', async () => {
+    it('loads a user from a ?key= query param (sk)', async () => {
       const core = makeCore({
-        verified: verifiedUser(42, 'pk'),
+        verified: verifiedUser(42, 'sk'),
         usersByUid: { 42: { uid: 42 } },
       });
       const { error, req } = await run(core, { query: { key: 'abc' } });
@@ -178,9 +193,9 @@ describe('90 - api-v3 unit - authenticate', () => {
       expect(req.user).toEqual({ uid: 42 });
     });
 
-    it('loads a user from a `key` header', async () => {
+    it('loads a user from a `key` header (sk)', async () => {
       const core = makeCore({
-        verified: verifiedUser(42, 'pk'),
+        verified: verifiedUser(42, 'sk'),
         usersByUid: { 42: { uid: 42 } },
       });
       const { error, req } = await run(core, { headers: { key: 'abc' } });
