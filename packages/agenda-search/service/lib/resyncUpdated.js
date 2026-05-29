@@ -17,9 +17,16 @@ function _cleanTimestamp(since) {
   return anHourAgo;
 }
 
+function _isPublishable(agenda) {
+  // Mirrors the gates at services/agendas/onCreate.js and
+  // core/agendas/update.js. An agenda that is private or has been
+  // flipped to indexed:false must not live in the public ES alias.
+  return !agenda.private && agenda.indexed !== false;
+}
+
 async function processBatch({ client, alias }, formattedAgendas) {
   if (!formattedAgendas.length) {
-    return { updated: 0, indexed: 0 };
+    return { updated: 0, indexed: 0, removed: 0 };
   }
 
   const existing = await client.mget({
@@ -34,17 +41,32 @@ async function processBatch({ client, alias }, formattedAgendas) {
     .filter((item) => item.found)
     .map((item) => parseInt(item._id, 10));
 
-  const { toUpdate, toIndex } = formattedAgendas.reduce(
+  // Split into three buckets:
+  //  - toRemove: agenda is private/!indexed AND currently lives in ES;
+  //              must be deleted. If it's not in ES, nothing to do.
+  //  - toUpdate: publishable and already in ES.
+  //  - toIndex:  publishable and not yet in ES.
+  // The toRemove bucket is the in-window orphan sweep — it catches
+  // private flips and indexed:true→false flips that no other code path
+  // funnels through agendaSearch.remove.
+  const { toUpdate, toIndex, toRemove } = formattedAgendas.reduce(
     (split, agenda) => {
-      split[uids.includes(agenda.uid) ? 'toUpdate' : 'toIndex'].push(agenda);
-
+      const inEs = uids.includes(agenda.uid);
+      if (!_isPublishable(agenda)) {
+        if (inEs) split.toRemove.push(agenda);
+      } else if (inEs) {
+        split.toUpdate.push(agenda);
+      } else {
+        split.toIndex.push(agenda);
+      }
       return split;
     },
-    { toUpdate: [], toIndex: [] },
+    { toUpdate: [], toIndex: [], toRemove: [] },
   );
 
   let updated = 0;
   let indexed = 0;
+  let removed = 0;
 
   if (toUpdate.length) {
     updated = await bulk(
@@ -61,7 +83,16 @@ async function processBatch({ client, alias }, formattedAgendas) {
     log('info', 'bulk indexed %s agendas', indexed);
   }
 
-  return { updated, indexed };
+  if (toRemove.length) {
+    removed = await bulk(
+      { client, index: alias, operation: 'delete' },
+      toRemove,
+    );
+
+    log('info', 'bulk removed %s stale (private / unindexed) agendas', removed);
+  }
+
+  return { updated, indexed, removed };
 }
 
 export default async (
@@ -74,6 +105,7 @@ export default async (
 
   let updated = 0;
   let indexed = 0;
+  let removed = 0;
   let lastId = 0;
 
   // Page through every agenda updated since `updatedAtGreaterThan`. The
@@ -113,9 +145,10 @@ export default async (
 
     updated += batchCounts.updated;
     indexed += batchCounts.indexed;
+    removed += batchCounts.removed;
 
     lastId = nextLastId;
   }
 
-  return { indexed, updated };
+  return { indexed, updated, removed };
 };

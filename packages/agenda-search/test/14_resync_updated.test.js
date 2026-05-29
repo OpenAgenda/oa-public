@@ -42,23 +42,30 @@ function makeListAgendas(totalAgendas) {
 }
 
 function makeStubClient() {
+  // Mirrors how ES bulk responds: one item per op-header in the body,
+  // keyed by the op name. Headers are single-key entries among the bulk
+  // body lines; non-header lines are doc bodies. The delete op is
+  // header-only (no body line) — a flat body.length / 2 computation
+  // would mis-count delete bulks.
+  const opNames = new Set(['index', 'update', 'delete', 'create']);
   return {
     mget: spy(async ({ body: { ids } }) => ({
-      // Treat every uid as new so resyncUpdated routes every batch through
-      // the `index` operation. This lets us assert via `bulk` calls how
-      // many agendas were written without faking a pre-existing index.
       docs: ids.map((id) => ({ _id: String(id), found: false })),
     })),
-    bulk: spy(async ({ body }) => ({
-      // bulk.js measures inserted count off result.body.items.length, with
-      // one item per agenda. Our body has 2 entries per agenda (op header
-      // + doc), so items.length === body.length / 2.
-      body: {
-        items: Array.from({ length: body.length / 2 }, () => ({
-          index: { status: 201 },
-        })),
-      },
-    })),
+    bulk: spy(async ({ body }) => {
+      const headers = body.filter(
+        (entry) =>
+          Object.keys(entry).length === 1 && opNames.has(Object.keys(entry)[0]),
+      );
+      return {
+        body: {
+          items: headers.map((header) => {
+            const opName = Object.keys(header)[0];
+            return { [opName]: { status: opName === 'index' ? 201 : 200 } };
+          }),
+        },
+      };
+    }),
   };
 }
 
@@ -69,6 +76,11 @@ describe('resyncUpdated pagination', () => {
     const client = makeStubClient();
     const getDetailedAgenda = spy(async (a) => ({
       uid: a.uid,
+      // Must be publishable (not private, indexed:true) to flow into the
+      // index/update buckets — the in-window orphan sweep routes
+      // private/!indexed agendas to delete instead.
+      indexed: true,
+      private: false,
       // formatAgenda tolerates missing summary, but supply the minimum it
       // touches so it doesn't throw on `agenda.summary?.publishedEvents`.
       summary: { publishedEvents: { current: 0, upcoming: 0, passed: 0 } },
@@ -94,6 +106,82 @@ describe('resyncUpdated pagination', () => {
     expect(totalAgendas).toBeGreaterThan(PAGE);
   });
 
+  test('routes private/!indexed agendas in ES to bulk delete (in-window orphan sweep)', async () => {
+    // Three agendas in the updated window:
+    //   1 → publishable (indexed: true), already in ES → update bucket
+    //   2 → private, already in ES                     → remove bucket
+    //   3 → indexed: false, NOT in ES                  → drop (no-op)
+    const detail = {
+      1: { uid: 1, indexed: true, private: false },
+      2: { uid: 2, indexed: true, private: true },
+      3: { uid: 3, indexed: false, private: false },
+    };
+
+    const listAgendas = spy(async (_query, lastId) => {
+      if (lastId === 0) {
+        return {
+          items: [
+            { id: 1, uid: 1 },
+            { id: 2, uid: 2 },
+            { id: 3, uid: 3 },
+          ],
+          lastId: 3,
+        };
+      }
+      return { items: [], lastId: -1 };
+    });
+
+    const opNames = new Set(['index', 'update', 'delete', 'create']);
+    const client = {
+      // Only agendas 1 and 2 currently live in ES; 3 is a soon-to-be-no-op.
+      mget: spy(async ({ body: { ids } }) => ({
+        docs: ids.map((id) => ({
+          _id: String(id),
+          found: id === 1 || id === 2,
+        })),
+      })),
+      bulk: spy(async ({ body }) => {
+        const headers = body.filter(
+          (entry) =>
+            Object.keys(entry).length === 1
+            && opNames.has(Object.keys(entry)[0]),
+        );
+        return {
+          body: {
+            items: headers.map((header) => {
+              const opName = Object.keys(header)[0];
+              return { [opName]: { status: opName === 'index' ? 201 : 200 } };
+            }),
+          },
+        };
+      }),
+    };
+
+    const getDetailedAgenda = spy(async (a) => ({
+      uid: a.uid,
+      ...detail[a.uid],
+      summary: { publishedEvents: { current: 0, upcoming: 0, passed: 0 } },
+    }));
+
+    const result = await resyncUpdated(
+      { client, alias: 'agendas', listAgendas, getDetailedAgenda },
+      new Date(0),
+    );
+
+    expect(result.updated).toBe(1); // agenda 1
+    expect(result.removed).toBe(1); // agenda 2
+    expect(result.indexed).toBe(0); // agenda 3 dropped, not added
+
+    // Two bulk operations on the wire: update (for agenda 1) + delete
+    // (for agenda 2). Index bucket was empty so no index bulk.
+    expect(client.bulk.calls.length).toBe(2);
+    const opNamesSeen = client.bulk.calls.map(
+      ([{ body }]) => Object.keys(body[0])[0],
+    );
+    expect(opNamesSeen).toEqual(expect.arrayContaining(['update', 'delete']));
+    expect(opNamesSeen).not.toContain('index');
+  });
+
   test('returns zeros and stops cleanly when nothing matches', async () => {
     const listAgendas = spy(async () => ({ items: [], lastId: -1 }));
     const client = makeStubClient();
@@ -106,7 +194,7 @@ describe('resyncUpdated pagination', () => {
       getDetailedAgenda,
     });
 
-    expect(result).toEqual({ indexed: 0, updated: 0 });
+    expect(result).toEqual({ indexed: 0, updated: 0, removed: 0 });
     expect(listAgendas.calls.length).toBe(1);
     expect(getDetailedAgenda.calls.length).toBe(0);
     expect(client.bulk.calls.length).toBe(0);
