@@ -8,6 +8,7 @@
 // redesign is a later slice). The contract is `packages/api-spec/openapi.yaml`.
 
 import express from 'express';
+import { BadRequest } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import sentryErrorHandler from '../lib/sentryErrorHandler.js';
 import * as mw from '../api/middleware/index.js';
@@ -36,6 +37,29 @@ function resolveLimit(rawLimit) {
   return Math.min(MAX_LIMIT, Math.max(MIN_LIMIT, value));
 }
 
+// `detailed` is a strict boolean view toggle (contract default `false`): when
+// true, list items are the full `Event` instead of `EventSummary`. Unlike the
+// filters (which the translator ignores when unknown), a malformed boolean here
+// is a 400 — a view param that isn't `true`/`false` is a bad request.
+function resolveDetailed(rawDetailed) {
+  if (rawDetailed === undefined || rawDetailed === 'false') {
+    return false;
+  }
+  if (rawDetailed === 'true') {
+    return true;
+  }
+  throw new BadRequest(
+    {
+      info: {
+        errors: [
+          { field: 'detailed', message: 'detailed must be "true" or "false"' },
+        ],
+      },
+    },
+    'Invalid query parameters',
+  );
+}
+
 export default function instanciateApiV3(core, { useRouter = true } = {}) {
   log('init');
 
@@ -61,6 +85,7 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
   app.get('/agendas/:agendaUid/events', async (req, res, next) => {
     try {
       const limit = resolveLimit(req.query.limit);
+      const detailed = resolveDetailed(req.query.detailed);
 
       const nav = { size: limit };
 
@@ -81,12 +106,12 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
         .agendas(req.agenda.uid)
         .events.search(query, nav, {
           useAfterKey: true,
-          detailed: false,
+          detailed,
           userUid: req.user?.uid,
           agendaKey: req.agendaKey,
         });
 
-      res.json(buildListEnvelope(result, { limit }));
+      res.json(buildListEnvelope(result, { limit, detailed }));
     } catch (err) {
       next(err);
     }

@@ -171,6 +171,48 @@ describe('90 - api-v3 - functional (server): events read endpoints', () => {
     });
   });
 
+  describe('GET /agendas/:agendaUid/events — detailed view', () => {
+    it('returns full Event items when detailed=true', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?detailed=true')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      expect(res.body.data.length).toBeGreaterThan(0);
+      for (const event of res.body.data) {
+        assertValid(validateEvent, event, `Event ${event.uid}`);
+        // detailed-only fields (the raison d'être of the split) are present.
+        expect(event).toHaveProperty('state');
+        expect(event).toHaveProperty('createdAt');
+        expect(event).toHaveProperty('updatedAt');
+      }
+    });
+
+    it('treats detailed=false like the default (EventSummary items)', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?detailed=false')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(200);
+      for (const event of res.body.data) {
+        assertValid(validateEventSummary, event, `EventSummary ${event.uid}`);
+        // detailed-only fields stay out of the summary.
+        expect(event).not.toHaveProperty('state');
+      }
+    });
+
+    it('rejects a non-boolean detailed with 400 + per-field details', async () => {
+      const res = await request(app)
+        .get('/agendas/2/events?detailed=yes')
+        .set('authorization', `Bearer ${USER_KEY}`);
+
+      expect(res.status).toBe(400);
+      assertValid(validateError, res.body, 'Error');
+      expect(res.body.error.code).toBe('bad_request');
+      expect(res.body.error.details.errors[0].field).toBe('detailed');
+    });
+  });
+
   describe('GET /agendas/:agendaUid/events — filtering', () => {
     // agenda 2 published events: uids 2, 7, 8 (event 1 is state 0). Events 7/8
     // are at location 1 (Paris), event 2 has no resolvable coordinates. All
