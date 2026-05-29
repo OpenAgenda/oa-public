@@ -167,6 +167,7 @@ paths:
         - $ref: '#/components/parameters/AgendaUid'
         - $ref: '#/components/parameters/Facets'
         - $ref: '#/components/parameters/GeohashZoom'
+        - $ref: '#/components/parameters/TimingsInterval'
         # Same filters as listAgendaEvents — facets reflect the filtered set.
         - $ref: '#/components/parameters/Search'
         - $ref: '#/components/parameters/FilterUid'
@@ -297,8 +298,10 @@ components:
         yield `{ value, count }`; provenance (`originAgendas`, `sourceAgendas`)
         yields `{ agenda, count }`; `geohash` yields geo cluster buckets
         (`{ value, count, latitude, longitude }`); `viewport` yields a single
-        bounding box object (or `null`). Time and custom-field facets are planned
-        in later iterations.
+        bounding box object (or `null`); `timespan` yields the earliest/latest
+        event date as `{ first, last }` (or `null`); `timings` yields a date
+        histogram as `{ value, count }` buckets (bucket width set by
+        `timingsInterval`). Custom-field facets are planned in later iterations.
       style: form
       explode: false
       schema:
@@ -321,6 +324,8 @@ components:
             - sourceAgendas
             - geohash
             - viewport
+            - timespan
+            - timings
 
     GeohashZoom:
       name: geohashZoom
@@ -333,6 +338,23 @@ components:
         type: integer
         default: 1
         minimum: 1
+
+    TimingsInterval:
+      name: timingsInterval
+      in: query
+      required: false
+      description: >
+        Bucket width for the `timings` date histogram. Ignored unless `timings`
+        is requested; an unrecognized value falls back to `day`.
+      schema:
+        type: string
+        default: day
+        enum:
+          - hour
+          - day
+          - week
+          - month
+          - year
 
     Sort:
       name: sort
@@ -1443,6 +1465,13 @@ components:
               oneOf:
                 - $ref: '#/components/schemas/Viewport'
                 - type: 'null'
+            timespan:
+              oneOf:
+                - $ref: '#/components/schemas/Timespan'
+                - type: 'null'
+            timings:
+              type: array
+              items: { $ref: '#/components/schemas/FacetBucket' }
 
     AgendaFacetBucket:
       type: object
@@ -1516,3 +1545,20 @@ components:
           $ref: '#/components/schemas/GeoPoint'
         bottomRight:
           $ref: '#/components/schemas/GeoPoint'
+
+    Timespan:
+      type: object
+      required: [first, last]
+      additionalProperties: false
+      description: >
+        The date range spanned by the matching events (from the `timespan`
+        facet): `first` is the earliest event start and `last` the latest, both
+        RFC 3339 date-times — handy to bound a date picker to the result set. The
+        facet value is `null` when no event in the filtered set has timings.
+      properties:
+        first:
+          type: string
+          format: date-time
+        last:
+          type: string
+          format: date-time

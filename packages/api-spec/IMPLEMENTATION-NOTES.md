@@ -179,7 +179,7 @@ intégration (6) : tous verts.
 - ~~**Filtres de liste**~~ : **fait (tranche 4)** — surface publique curée + translator strict + `geo_distance`.
 - ~~**Tri (`?sort=`)**~~ : **fait (tranche 4)** — enum curé exposé (le cursor encode déjà le sort).
 - ~~**Enrichissement de liste** (`?expand=`)~~ : **fait (tranche 5)** — exposé en `?detailed=true|false`, la liste renvoie des `Event` complets (cf. journal). **Sparse fieldsets** (`?fields=`) : toujours différé (casse `additionalProperties:false`/`required`, SDK Stainless imprécis `Partial`, cache combinatoire — cf. tranche 5).
-- **Aggregations/facettes** : endpoint dédié `…/events/facets` — **famille A (termes) faite (tranche 6)** ; familles geo/temps/provenance/custom différées (cf. journal tranche 6).
+- **Aggregations/facettes** : endpoint dédié `…/events/facets` — **familles termes (A), provenance (G), géo (B/C) et temps (E/F) faites (tranche 6)** ; familles dates-ranges (D) / custom (H) différées (cf. journal tranche 6).
 - **`limit`** : clamp silencieux à 100 (vs cap v2 `validateNavSize` = 300) ; statu quo assumé.
 
 ### Tranche 3 — split `EventSummary`/`Event` + règle « champs vides » (fait)
@@ -406,8 +406,8 @@ répartissent en **8 familles de formes** distinctes → on les livre **famille 
 | B — geo points        | `[{value,count,lat,lng}]`      | geohash                                                                                                              | **fait (6c)**                                                                           |
 | C — viewport          | objet `{topLeft,bottomRight}`  | viewport                                                                                                             | **fait (6c)**                                                                           |
 | D — tranches de dates | `[{value,count,sampleEvents}]` | eventsByDateRanges                                                                                                   | différé — ⚠️ `sampleEvents` = `_source` ES brut → re-mapper via `mapEvent` + visibilité |
-| E — timespan          | objet `{first,last}`           | timespan                                                                                                             | différé                                                                                 |
-| F — timings           | `[{value,timingCount}]`        | timings                                                                                                              | différé (compte des _timings_, +option format/tz)                                       |
+| E — timespan          | objet `{first,last}`           | timespan                                                                                                             | **fait (6d)**                                                                           |
+| F — timings           | `[{value,timingCount}]`        | timings                                                                                                              | **fait (6d)**                                                                           |
 | G — refs d'agenda     | `[{agenda,count}]`             | originAgendas, sourceAgendas                                                                                         | **fait (6b)**                                                                           |
 | H — champs custom     | map `{field:{label,values}}`   | additionalFields                                                                                                     | différé — ⚠️ gated formSchema + accès par champ (cf. 4e)                                |
 
@@ -473,9 +473,30 @@ D'où le refactor de `mapFacets` : le registre mappe désormais le **résultat e
 - Tests : viewport non-null (events Paris), viewport `null` (filtre sans match), geohash clusters
   (`geohashZoom=5`) avec lat/lng/count. Suite api-v3 : 111 verts.
 
-**Suite** : familles E/F (temps : timespan/timings, +option format/tz), puis D (`eventsByDateRanges` —
-re-map `_source` brut via `mapEvent` + visibilité) et H (`additionalFields` — gating formSchema + accès
-par champ) pour la fin vu leur risque. Une par commit.
+**Familles E/F — temps (6d)** :
+
+Deux formes sur la même donnée (`timings.begin`), agrégations pures → pas de re-map de visibilité
+(contrairement à D), d'où leur priorité avant D/H.
+
+- **E `timespan`** (`min`/`max` nested) : borne min/max des dates d'event sur l'ensemble filtré →
+  objet `{first,last}` en **RFC 3339**, ou **`null`** quand aucun event filtré n'a de timings (même
+  convention "pas de donnée" que `viewport`). `mapTimespan` normalise les `Date` d'event-search en ISO
+  (`toIso`, tolérant aux Invalid Date du set vide). Pas d'option.
+- **F `timings`** (`date_histogram` nested) : histogramme `[{value,count}]` (forme termes uniforme ;
+  `value` = clé de bucket formatée, `count` = `timingCount`). Option **`timingsInterval`**
+  (hour/day/week/month/year, défaut `day`, lenient comme `geohashZoom`). Le **format suit l'intervalle**
+  (`TIMINGS_INTERVALS`) — l'agrég sous-jacente formate en `YYYY-MM-dd` par défaut, ce qui écraserait les
+  buckets horaires et tronquerait mois/année ; on passe donc `{type:'timings', interval, format}` dans
+  `buildAggregations`. La timezone reste le défaut plateforme (Europe/Paris), non exposée.
+- Contrat : schéma `Timespan` (`{first,last}` date-time) ; `FacetResults.timespan` → `oneOf[Timespan,
+null]`, `FacetResults.timings` → `FacetBucket[]` (réutilise la forme termes). Param `TimingsInterval`.
+  `timespan`/`timings` ajoutés à l'enum `Facets`.
+- Tests : timespan non-null (`first ≤ last`, dates RFC 3339), timespan `null` (filtre sans match),
+  histogramme timings (buckets `YYYY-MM-DD` par défaut), granularité `timingsInterval=year` (buckets
+  `YYYY`). Suite api-v3 : 41 verts (fichier events).
+
+**Suite** : D (`eventsByDateRanges` — re-map `_source` brut via `mapEvent` + visibilité) et H
+(`additionalFields` — gating formSchema + accès par champ) pour la fin vu leur risque. Une par commit.
 
 ### Slice auth — D0 : cohérence enveloppe + 401/403 (fait)
 
