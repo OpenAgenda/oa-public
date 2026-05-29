@@ -561,11 +561,30 @@ stats numériques (number/integer → `additionalFieldMetrics`). Multi-champ « 
   voit, mauvais type→400, agrégation d'erreurs) et les **formes** (choice/boolean/metrics). Suite api-v3 :
   48 intégration + 7 unitaires verts.
 
-> ⚠️ **À noter (hors périmètre H, pré-existant)** : `defineIncludes` ne filtre les champs custom de la
-> **projection** event que si `access` est _truthy_ ; pour un caller pk anonyme (`access=null`) elle
-> renvoie les includes **sans filtrer par `read`** → les **valeurs** de champs restreints pourraient
-> apparaître dans `event.additionalFields` des endpoints liste/détail. À vérifier/corriger dans un
-> chantier dédié (le facet H, lui, est strict).
+### Fuite read-access sur la projection liste (corrigé)
+
+`defineIncludes` ne filtre les champs additionnels de la **projection** par `read` que si `access` est
+_truthy_ ; un `access=null` est traité comme **« appelant interne de confiance, pas de restriction »**
+— **comportement intentionnel et testé** (`event-search/test/13_utils_defineIncludes.test.js`), sur
+lequel des appelants internes s'appuient (ex. `lib/controlDataMw.js`). Or les chemins de lecture
+**publics** ne déclaraient pas leur niveau : un caller anonyme/pk résolvait `access=null` (pas de
+`userUid`) → les champs additionnels **read-restreints** étaient projetés.
+
+- **Portée réelle (vérifiée)** : seuls les champs **indexés** dans `_source` fuient — c.-à-d. les champs
+  **optionnés** (radio/checkbox/select/multiselect/boolean). Les champs **texte** custom ne sont **pas
+  indexés** (`note` absent même en `access:'internal'`), donc ne fuient pas par ce chemin. Le **GET
+  single** force déjà `access:'internal'` côté core (pas concerné).
+- **Fix** : le chemin **n'est pas** dans `core` (changer `defineIncludes`/`getMerged` casserait le
+  contrat « null = tout » dont dépend l'indexation et les appelants internes). On corrige les
+  **appelants publics** : v3 (route liste, `api-v3/index.js`) et v2 (`api/middleware/searchAgendaEvents.js`)
+  déclarent désormais `access = (await loadSearchAccess(...)) ?? 'public'`. Mirror exact de ce que core
+  résout ; seul l'anonyme est resserré (membre/agenda-key inchangés). Visibilité inchangée (le
+  published-only vient du défaut `state:2` de `validateQuery`, pas de l'access).
+- **Footgun connexe** : `settings.schema.getMerged({access})` **ne filtre pas** par `read` quand `access`
+  est une **string** — `mergeAll` attend `{ read: <niveau> }` et `Object.keys('public')` ne matche aucun
+  champ (no-op). C'est pourquoi le gate facettes v3 **filtre lui-même** (ne s'appuie pas sur getMerged) ;
+  noté en commentaire dans `getMergedSchema.js`. Ne pas le « réparer » (l'indexation appelle
+  `getMerged()` sans access et doit garder **tous** les champs).
 
 ### Renommage `custom` → `additionalFields` (vocabulaire, fait)
 
