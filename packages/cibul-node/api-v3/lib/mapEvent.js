@@ -15,8 +15,9 @@
 //   - plain scalars pass through; `featured` is always a boolean.
 //
 // Native keys are emitted (coerced) per their kind; internal/moderation keys
-// are dropped; every remaining key is an agenda-specific custom field and goes
-// under `custom`. The result satisfies `additionalProperties: false`.
+// are dropped; every remaining key is an agenda-specific additional field and
+// goes under `additionalFields`. The result satisfies `additionalProperties:
+// false`.
 
 // Field kinds drive coercion. Keys map to one of:
 //   'array'    -> array, [] when absent
@@ -208,19 +209,19 @@ function coerce(kind, value) {
 
 // Shared core: project `projectedEvent` onto the given native field set.
 // Native fields are coerced and emitted (always present); dropped keys are
-// skipped; everything else lands under `custom`.
+// skipped; everything else lands under `additionalFields`.
 //
 // `fields` is the field set THIS view emits. `knownNative` is the full set of
 // native top-level keys: a key that is native but not in this view (e.g. a
-// detailed field on a summary) is neither emitted nor treated as custom — it is
-// simply not part of this view.
+// detailed field on a summary) is neither emitted nor treated as an additional
+// field — it is simply not part of this view.
 function mapWithFields(projectedEvent, fields, knownNative = fields) {
   if (projectedEvent == null || typeof projectedEvent !== 'object') {
     throw new TypeError('mapEvent expects a projected event object');
   }
 
   const result = {};
-  const custom = {};
+  const additionalFields = {};
 
   // Guarantee every field of the schema is present (the input may omit some,
   // e.g. a list projection or a sparse event) by seeding from the field set.
@@ -234,22 +235,22 @@ function mapWithFields(projectedEvent, fields, knownNative = fields) {
     result[key] = value;
   }
 
-  // Route any remaining (non-native, non-dropped) key into `custom`.
+  // Route any remaining (non-native, non-dropped) key into `additionalFields`.
   for (const [key, value] of Object.entries(projectedEvent)) {
     if (key in knownNative || DROP_KEYS.has(key)) {
       continue;
     }
-    custom[key] = value;
+    additionalFields[key] = value;
   }
 
-  result.custom = custom;
+  result.additionalFields = additionalFields;
 
   return result;
 }
 
 // EventSummary mapper (list): base field set only. Detailed-only native keys
 // (should `core` ever emit them on a list projection) are recognized as native
-// and excluded from this view rather than leaking into `custom`.
+// and excluded from this view rather than leaking into `additionalFields`.
 export function mapEventSummary(projectedEvent) {
   return mapWithFields(projectedEvent, BASE_FIELDS, FULL_FIELDS);
 }

@@ -12,7 +12,7 @@
 //   - timespan           -> { first, last } | null             (Timespan)
 //   - timings            -> [{ value, count }]                 (FacetBucket)
 //   - dateRanges         -> [{ value, count }]                 (FacetBucket)
-// The custom-field family (additionalFields) lands in a later sub-tranche.
+// The additionalFields family lands in a later sub-tranche.
 //
 // Each facet name maps 1:1 to an event-search aggregation type, so the name is
 // passed straight through as the requested aggregation (geohash carries a

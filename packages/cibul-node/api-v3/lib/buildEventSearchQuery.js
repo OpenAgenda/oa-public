@@ -12,7 +12,7 @@
 // `memberUid`, …) cannot be smuggled in through the query string.
 //
 // `req.query` is parsed by `qs` (extended): repeated params are arrays, and
-// bracketed params (`age[gte]`, `extId[key]`, `custom[field]`) are nested
+// bracketed params (`age[gte]`, `extId[key]`, `additionalFields[field]`) are nested
 // objects. Every leaf value is a string until we coerce it.
 
 import { BadRequest } from '@openagenda/verror';
@@ -133,15 +133,17 @@ function parseProximity(rawQuery, query, fail) {
   query.geoDistance = { center: { lat, lng }, distance: radius };
 }
 
-// `custom[<field>]` -> core `query.custom`. Without the agenda schema here we
-// only validate the SHAPE: each field is a scalar, a list of scalars, or a
-// numeric range object (gte/lte/gt/lt). `core` does the schema-aware typing and
-// access filtering. Unknown fields are passed through and ignored server-side.
+// `additionalFields[<field>]` -> core `query.custom` (the public param is
+// `additionalFields`; `custom` stays core's internal query key). Without the
+// agenda schema here we only validate the SHAPE: each field is a scalar, a list
+// of scalars, or a numeric range object (gte/lte/gt/lt). `core` does the
+// schema-aware typing and access filtering. Unknown fields are passed through
+// and ignored server-side.
 const RANGE_BOUNDS = ['gte', 'lte', 'gt', 'lt'];
 
-function parseCustom(field, value, fail) {
+function parseAdditionalFields(field, value, fail) {
   if (!isPlainObject(value)) {
-    fail(field, 'custom must be an object of field filters');
+    fail(field, 'additionalFields must be an object of field filters');
     return undefined;
   }
   const out = {};
@@ -439,14 +441,21 @@ function buildEventSearchQuery(rawQuery = {}) {
     if (value !== undefined) query.sort = value;
   }
 
-  // ---- agenda-specific custom fields ----
-  // We pass `custom[<field>]` through under `query.custom`; `core` resolves the
-  // agenda's form schema (auto-injected from the loaded agenda) to type-clean
-  // each value and enforce per-field read access, so a restricted field is
-  // dropped server-side. We only structurally validate the shape here.
-  if (rawQuery.custom !== undefined) {
-    const custom = parseCustom('custom', rawQuery.custom, fail);
-    if (custom && Object.keys(custom).length) query.custom = custom;
+  // ---- agenda-specific additional fields ----
+  // We pass `additionalFields[<field>]` through under core's `query.custom`;
+  // `core` resolves the agenda's form schema (auto-injected from the loaded
+  // agenda) to type-clean each value and enforce per-field read access, so a
+  // restricted field is dropped server-side. We only structurally validate the
+  // shape here.
+  if (rawQuery.additionalFields !== undefined) {
+    const additionalFields = parseAdditionalFields(
+      'additionalFields',
+      rawQuery.additionalFields,
+      fail,
+    );
+    if (additionalFields && Object.keys(additionalFields).length) {
+      query.custom = additionalFields;
+    }
   }
 
   if (errors.length) {
