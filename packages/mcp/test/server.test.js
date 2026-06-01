@@ -75,7 +75,7 @@ describe('MCP server', () => {
         arguments: { query: 'how many events per city' },
       });
       expect(r.isError).toBeFalsy();
-      expect(textOf(r)).toContain('### getFacets');
+      expect(textOf(r)).toContain('### agendas.events.facets');
     });
   });
 

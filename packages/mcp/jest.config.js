@@ -3,7 +3,7 @@
 // jest's vm-modules support runs it as-is. Unit tests only: no network, no
 // sandbox binary (deno/srt), no live API — the executor is mocked.
 export default {
-  testMatch: ['**/test/**/*.test.{js,mjs}'],
+  testMatch: ['**/test/**/*.test.js'],
   transform: {},
   testTimeout: 10000,
 };

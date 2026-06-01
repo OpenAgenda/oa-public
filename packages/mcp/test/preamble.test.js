@@ -1,163 +1,117 @@
+// Tests for buildScript — the program assembled and handed to the sandbox.
+// We don't run a sandbox here; we load the assembled program into THIS process
+// (via a data: URL ESM module) with a stubbed global fetch, then drive the
+// `oa` client exactly as sandboxed code would. That exercises the real bundle
+// (ky request building, baseUrl/auth config from preamble) without a network.
+
 import { buildScript } from '../src/sandbox/preamble.js';
 
-// buildScript assembles the program that runs inside the sandbox: the `oa`
-// client + the caller's body.
-//
-// NOTE on what these tests prove: the `oa.get` origin check is a MISUSE GUARD,
-// not the exfiltration boundary (untrusted code can read __cfg.apiKey and call
-// fetch directly — the sandbox EGRESS ALLOWLIST is the real boundary, exercised
-// by scripts/smoke.mjs against a live sandbox, not here). These tests only
-// assert the guard's own behavior: a cross-origin path is refused before fetch,
-// and relative/smuggled paths resolve onto the API origin.
-//
-// We exercise the GENERATED code (not a re-implementation) by evaluating it
-// with a fetch stub that records the URL it is asked to hit, via dynamic import
-// of a data: URL (real ESM, same as the sandbox runs).
-
-// Cache-bust the data: URL per invocation. Node caches ESM modules by URL for
-// the whole process, so two tests producing byte-identical scripts would share
-// one (already-evaluated) module — making results depend on test order. A unique
-// trailing comment guarantees every run re-evaluates in isolation.
-let nonce = 0;
-
-async function runGenerated(userCode, opts = {}) {
-  const { fetchImpl, baseUrl } = opts;
-  // Distinguish "not provided" (default key) from an explicit null (no key):
-  // `?? 'oa_pk_secret'` would turn a deliberate null back into the secret.
-  const apiKey = 'apiKey' in opts ? opts.apiKey : 'oa_pk_secret';
-  nonce += 1;
-  const script = `${buildScript(userCode, {
-    baseUrl: baseUrl ?? 'https://dapi.openagenda.com/v3',
-    apiKey,
-  })}\n//${nonce}`;
-
-  const calls = [];
-  const prevFetch = globalThis.fetch;
-  const realLog = console.log;
-  // Record every request the generated client makes, then defer to the test's
-  // fetchImpl (or a default ok/empty envelope). `calls` is the source of truth
-  // for "did a request happen" — no shared/global state across tests.
-  globalThis.fetch = async (url, init) => {
-    calls.push({ url: String(url), headers: init?.headers ?? {} });
-    return (
-      fetchImpl
-      ?? (() => ({
-        ok: true,
-        status: 200,
-        json: async () => ({ data: [], pagination: {} }),
-      }))
-    )(url, init);
-  };
-  const logs = [];
-  console.log = (...a) => logs.push(a.join(' '));
-
-  let error = null;
-  try {
-    await import(`data:text/javascript,${encodeURIComponent(script)}`);
-  } catch (err) {
-    error = err;
-  } finally {
-    console.log = realLog;
-    globalThis.fetch = prevFetch;
-  }
-  return { calls, stdout: logs.join('\n'), error };
+// Reuse buildScript's exact output (head + SDK bundle + SETUP), but swap the
+// trailing console.log for an export so we can grab the `oa` client + schemas.
+function sdkModuleFor(cfg) {
+  const program = buildScript('return { oa, schemas };', cfg);
+  const lines = program.split('\n');
+  // Drop the last two lines (const __r = await __run(); console.log(...)).
+  const body = lines.slice(0, -2).join('\n');
+  return `${body}\nexport default await __run();\n`;
 }
 
-describe('buildScript — generated oa client', () => {
-  it('resolves a normal path under the API base and sends the bearer token', async () => {
-    const { calls, error } = await runGenerated(
-      'return await oa.listEvents("123", { limit: 1 });',
-    );
-    expect(error).toBeNull();
+async function loadSdk(cfg) {
+  const mod = sdkModuleFor(cfg);
+  const url = `data:text/javascript;base64,${Buffer.from(mod).toString('base64')}`;
+  return (await import(url)).default;
+}
+
+let savedFetch;
+let calls;
+
+function stubFetch(body = { data: [], pagination: { after: null } }) {
+  calls = [];
+  globalThis.fetch = async (input, init) => {
+    const req = input instanceof Request ? input : new Request(input, init);
+    calls.push({ url: req.url, auth: req.headers.get('authorization') });
+    return new Response(JSON.stringify(body), {
+      status: 200,
+      headers: { 'content-type': 'application/json' },
+    });
+  };
+}
+
+beforeEach(() => {
+  savedFetch = globalThis.fetch;
+});
+afterEach(() => {
+  globalThis.fetch = savedFetch;
+});
+
+describe('buildScript / bundled SDK', () => {
+  it('targets the configured base URL and injects the bearer key', async () => {
+    stubFetch();
+    const { oa } = await loadSdk({
+      baseUrl: 'https://api.example.com/v3',
+      apiKey: 'oa_pk_secret123',
+    });
+    const { error } = await oa.agendas.events.list({
+      path: { agendaUid: 42 },
+      query: { limit: 5 },
+    });
+    expect(error).toBeUndefined();
     expect(calls).toHaveLength(1);
     expect(calls[0].url).toBe(
-      'https://dapi.openagenda.com/v3/agendas/123/events?limit=1',
+      'https://api.example.com/v3/agendas/42/events?limit=5',
     );
-    expect(calls[0].headers.Authorization).toBe('Bearer oa_pk_secret');
+    expect(calls[0].auth).toBe('Bearer oa_pk_secret123');
   });
 
-  it('builds getEvent and getFacets URLs correctly', async () => {
-    const ev = await runGenerated('return await oa.getEvent("ag", 42);');
-    expect(ev.calls[0].url).toBe(
-      'https://dapi.openagenda.com/v3/agendas/ag/events/42',
-    );
-    const fa = await runGenerated(
-      'return await oa.getFacets("ag", { facets: "city" });',
-    );
-    expect(fa.calls[0].url).toBe(
-      'https://dapi.openagenda.com/v3/agendas/ag/events/facets?facets=city',
-    );
-  });
-
-  it('serialises the returned value as pretty JSON to stdout', async () => {
-    const { stdout, error } = await runGenerated('return { a: 1, b: [2, 3] };');
-    expect(error).toBeNull();
-    expect(JSON.parse(stdout)).toEqual({ a: 1, b: [2, 3] });
-  });
-
-  it('throws on a non-ok API response (status surfaced)', async () => {
-    const { error } = await runGenerated('return await oa.get("/boom");', {
-      fetchImpl: () => ({
-        ok: false,
-        status: 404,
-        json: async () => ({ message: 'nope' }),
-      }),
+  it('sends no Authorization header when no key is configured', async () => {
+    // The API would answer 401 (no anonymous read) — but that is the server's
+    // job; here we only assert the SDK sends no bearer when auth is unset.
+    stubFetch();
+    const { oa } = await loadSdk({
+      baseUrl: 'https://api.example.com/v3',
+      apiKey: null,
     });
-    expect(error?.message).toMatch(/OpenAgenda API 404/);
-  });
-
-  // The origin guard sorts every caller-supplied path into one of two safe
-  // outcomes: a path resolving to a different origin is REFUSED before fetch;
-  // anything else resolves onto the API origin. We assert each input lands in
-  // the right bucket. (This is the guard's own behavior — NOT a proof that the
-  // token can't leak; that is the egress allowlist's job, see the file header.)
-  describe('origin guard', () => {
-    // Refused: resolves to a different origin → throw, and NO request is made.
-    // calls.length === 0 also proves the throw is BEFORE fetch (the default
-    // stub returns ok, so a request would make oa.get resolve, not throw).
-    it.each([
-      ['absolute https URL', 'https://evil.example/steal'],
-      ['uppercase scheme', 'HTTPS://evil.example/steal'],
-      ['backslash authority', '\\\\evil.example/steal'],
-      ['leading-whitespace absolute', '  https://evil.example/steal'],
-      ['file: scheme', 'file:///etc/passwd'],
-      ['data: scheme', 'data:text/plain,hi'],
-    ])(
-      'refuses a cross-origin path and makes no request: %s',
-      async (_label, path) => {
-        const { error, calls } = await runGenerated(
-          `return await oa.get(${JSON.stringify(path)});`,
-        );
-        expect(error?.message).toMatch(/cross-origin/);
-        expect(calls).toHaveLength(0);
-      },
+    await oa.agendas.events.list({ path: { agendaUid: 7 } });
+    expect(calls).toHaveLength(1);
+    // No query → the client may emit a bare trailing "?"; tolerate it.
+    expect(calls[0].url).toMatch(
+      /^https:\/\/api\.example\.com\/v3\/agendas\/7\/events\??$/,
     );
-
-    // Resolves onto the API origin: the leading-slash strip turns these into
-    // plain path segments under the base, so the request stays on the API host.
-    // (Reaching the API host is the *guard's* correct outcome; whether that path
-    // is a valid endpoint is the API's concern, not the guard's.)
-    it.each([
-      ['protocol-relative authority', '//evil.example/steal'],
-      ['@-userinfo metadata host', '@169.254.169.254/latest/meta-data/'],
-      ['scheme without slashes', 'https:evil.example/steal'],
-      ['scheme with one slash', 'https:/evil.example/steal'],
-    ])('resolves onto the API origin: %s', async (_label, path) => {
-      const { calls, error } = await runGenerated(
-        `return await oa.get(${JSON.stringify(path)});`,
-      );
-      expect(error).toBeNull();
-      expect(calls).toHaveLength(1);
-      expect(new URL(calls[0].url).hostname).toBe('dapi.openagenda.com');
-    });
+    expect(calls[0].auth).toBeNull();
   });
 
-  describe('no API key', () => {
-    it('omits the Authorization header when apiKey is null', async () => {
-      const { calls } = await runGenerated('return await oa.get("/agendas");', {
-        apiKey: null,
-      });
-      expect(calls[0].headers.Authorization).toBeUndefined();
+  it('returns the { data, error } envelope and parses the body', async () => {
+    stubFetch({ data: [{ uid: 1 }], pagination: { after: 'CUR' } });
+    const { oa } = await loadSdk({
+      baseUrl: 'https://api.example.com/v3',
+      apiKey: 'k',
     });
+    const { data, error } = await oa.agendas.events.list({
+      path: { agendaUid: 1 },
+    });
+    expect(error).toBeUndefined();
+    expect(data.data).toHaveLength(1);
+    expect(data.pagination.after).toBe('CUR');
+  });
+
+  it('builds the single-event path from path params', async () => {
+    stubFetch({ uid: 99 });
+    const { oa } = await loadSdk({
+      baseUrl: 'https://api.example.com/v3',
+      apiKey: 'k',
+    });
+    await oa.agendas.events.get({ path: { agendaUid: 12, eventUid: 99 } });
+    expect(calls[0].url).toBe(
+      'https://api.example.com/v3/agendas/12/events/99',
+    );
+  });
+
+  it('exposes zod schemas for payload validation', async () => {
+    stubFetch();
+    const { schemas } = await loadSdk({
+      baseUrl: 'https://api.example.com/v3',
+      apiKey: 'k',
+    });
+    expect(typeof schemas.zEvent.parse).toBe('function');
   });
 });

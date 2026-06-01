@@ -34,6 +34,14 @@ function clampErrorText(text) {
 }
 
 /**
+ * A single MCP text-content item. Typed so `type` stays the `'text'` literal the
+ * SDK's tool-result shape requires (a bare object literal widens it to `string`).
+ * @param {string} text
+ * @returns {{ type: 'text', text: string }}
+ */
+const textContent = (text) => ({ type: 'text', text });
+
+/**
  * @param {object} deps
  * @param {ReturnType<import('./config.js').loadConfig>} deps.config
  * @param {import('./sandbox/executor.js').SandboxExecutor} deps.executor
@@ -60,7 +68,7 @@ export function createServer({ config, executor }) {
     async ({ query }) => {
       const hits = searchOperations(query);
       const text = hits.map(renderOperation).join('\n\n---\n\n');
-      return { content: [{ type: 'text', text }] };
+      return { content: [textContent(text)] };
     },
   );
 
@@ -73,11 +81,13 @@ export function createServer({ config, executor }) {
       title: 'Execute code against the OpenAgenda API',
       description: [
         'Run JavaScript against the OpenAgenda v3 read-only API and return its result.',
-        'A global `oa` client is available:',
-        '  oa.listEvents(agendaUid, params)   — see search_docs for params',
-        '  oa.getEvent(agendaUid, eventUid)',
-        '  oa.getFacets(agendaUid, params)',
-        '  oa.get(path, query)                — generic GET',
+        'A ready-to-use `oa` client (an OpenAgenda instance) is available (see search_docs for params):',
+        '  oa.agendas.events.list({ path: { agendaUid }, query? })',
+        '  oa.agendas.events.get({ path: { agendaUid, eventUid } })',
+        '  oa.agendas.events.facets({ path: { agendaUid }, query? })',
+        'Each is async and resolves to { data, error } — it does NOT throw on HTTP errors, so check `error`.',
+        'For list/facets, `data` is { data: [...], pagination: { after } }; pass query.after to page.',
+        'A `schemas` namespace (zod validators, prefixed z…) is also available to validate payloads.',
         'Write an async body and `return` the value you want back (JSON-serialised).',
         'Compose freely: fetch, filter and aggregate in one script; return only what you need.',
         'Sandbox: ONLY network to the OpenAgenda API is allowed (no filesystem, env or subprocess); '
@@ -95,23 +105,31 @@ export function createServer({ config, executor }) {
         baseUrl: config.baseUrl,
         apiKey: config.apiKey,
       });
-      const res = await executor.run({
-        code: script,
-        env: {},
-        allowNet: config.allowNet,
-        limits: config.limits,
-        tls: config.tls,
-      });
 
       const fail = (text) => ({
         isError: true,
         content: [
-          {
-            type: 'text',
-            text: clampErrorText(redactSecrets(text, config.apiKey)),
-          },
+          textContent(clampErrorText(redactSecrets(text, config.apiKey))),
         ],
       });
+
+      let res;
+      try {
+        res = await executor.run({
+          code: script,
+          env: {},
+          allowNet: config.allowNet,
+          limits: config.limits,
+          tls: config.tls,
+        });
+      } catch (err) {
+        // A backend should RETURN an ExecResult, never throw — but if one does
+        // (the microsandbox stub, or an unexpected fault), route it through the
+        // same redacted/clamped failure path instead of letting a raw error
+        // (which could echo argv/env) reach the client.
+        const msg = err instanceof Error ? err.message : String(err);
+        return fail(`Execution failed: ${msg}`);
+      }
 
       if (res.timedOut) {
         return fail(
@@ -126,11 +144,12 @@ export function createServer({ config, executor }) {
         );
       }
       if (res.exitCode !== 0) {
-        return fail(
-          `Execution failed (exit ${res.exitCode}):\n${res.stderr || res.stdout}`,
-        );
+        // exitCode is null when the run never produced an exit (spawn error /
+        // missing binary) — don't render a misleading "exit null".
+        const where = res.exitCode === null ? '' : ` (exit ${res.exitCode})`;
+        return fail(`Execution failed${where}:\n${res.stderr || res.stdout}`);
       }
-      return { content: [{ type: 'text', text: res.stdout.trim() || 'null' }] };
+      return { content: [textContent(res.stdout.trim() || 'null')] };
     },
   );
 

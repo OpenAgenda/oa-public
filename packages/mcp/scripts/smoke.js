@@ -2,21 +2,19 @@
 // the env), then exercises the two tools AND proves the sandbox boundary holds.
 //
 //   SANDBOX_BACKEND=srt OA_BASE_URL=https://dapi.openagenda.com/v3 \
-//   OA_API_KEY=oa_pk_xxx [OA_AGENDA_UID=<uid>] node scripts/smoke.mjs
+//   OA_API_KEY=oa_pk_xxx [OA_AGENDA_UID=<uid>] node scripts/smoke.js
 //
 // It checks:
 //   1. tools are listed (search_docs, execute)
 //   2. execute runs code in the sandbox            → `return 1 + 1` === "2"
 //   3. egress allowlist holds                       → fetch to a NON-allowed host errors
-//   4. (optional) a real read hits the API          → listEvents on OA_AGENDA_UID
+//   4. (optional) a real read hits the API          → events.list on OA_AGENDA_UID
 
-import { fileURLToPath } from 'node:url';
-import { dirname, join } from 'node:path';
+import { join } from 'node:path';
 import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { StdioClientTransport } from '@modelcontextprotocol/sdk/client/stdio.js';
 
-const here = dirname(fileURLToPath(import.meta.url));
-const serverEntry = join(here, '..', 'src', 'index.js');
+const serverEntry = join(import.meta.dirname, '..', 'src', 'index.js');
 
 let pass = 0;
 let fail = 0;
@@ -84,10 +82,14 @@ try {
     const r4 = await client.callTool({
       name: 'execute',
       arguments: {
-        code: `const r = await oa.listEvents("${uid}", { limit: 1 }); return { got: r.data?.length ?? 0, firstUid: r.data?.[0]?.uid ?? null };`,
+        code: `const { data, error } = await oa.agendas.events.list({ path: { agendaUid: ${uid} }, query: { limit: 1 } }); if (error) throw new Error(JSON.stringify(error)); return { got: data.data.length, firstUid: data.data[0]?.uid ?? null };`,
       },
     });
-    ok(!r4.isError, `real read: listEvents("${uid}", {limit:1})`, textOf(r4));
+    ok(
+      !r4.isError,
+      `real read: agendas.events.list(${uid}, {limit:1})`,
+      textOf(r4),
+    );
     console.log('   →', textOf(r4).replace(/\s+/g, ' ').slice(0, 200));
   } else {
     console.log(

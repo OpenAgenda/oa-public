@@ -38,15 +38,19 @@ export function runProcess({ cmd, args, input, timeoutMs, env }) {
     } catch (err) {
       resolve({
         stdout: '',
-        stderr: String(err?.message ?? err),
+        stderr: err instanceof Error ? err.message : String(err),
         timedOut: false,
         exitCode: null,
       });
       return;
     }
 
-    let stdout = '';
-    let stderr = '';
+    // Accumulate raw Buffers (not string concat): a multi-byte char split across
+    // two data chunks would corrupt under `+=`, and the cap must count BYTES.
+    const stdoutChunks = [];
+    const stderrChunks = [];
+    let stdoutBytes = 0;
+    let stderrBytes = 0;
     let timedOut = false;
     let outputCapped = false;
     let settled = false;
@@ -56,7 +60,9 @@ export function runProcess({ cmd, args, input, timeoutMs, env }) {
     // it never became a group leader). Best-effort: errors are swallowed.
     const killTree = () => {
       try {
-        process.kill(-child.pid, 'SIGKILL');
+        // child.pid is undefined only if the spawn failed, in which case there
+        // is nothing to kill; the negative pid signals the whole group.
+        if (child.pid != null) process.kill(-child.pid, 'SIGKILL');
       } catch {
         try {
           child.kill('SIGKILL');
@@ -75,29 +81,37 @@ export function runProcess({ cmd, args, input, timeoutMs, env }) {
       if (settled) return;
       settled = true;
       clearTimeout(timer);
-      resolve({ stdout, stderr, timedOut, outputCapped, exitCode });
+      resolve({
+        stdout: Buffer.concat(stdoutChunks).toString('utf8'),
+        stderr: Buffer.concat(stderrChunks).toString('utf8'),
+        timedOut,
+        outputCapped,
+        exitCode,
+      });
     };
 
     child.stdout.on('data', (d) => {
-      stdout += d;
-      if (stdout.length > MAX_OUTPUT_BYTES) {
+      stdoutChunks.push(d);
+      stdoutBytes += d.length;
+      if (stdoutBytes > MAX_OUTPUT_BYTES) {
         if (!outputCapped) {
           outputCapped = true;
-          stderr += '\n[killed: output exceeded 1 MiB]';
+          stderrChunks.push(Buffer.from('\n[killed: output exceeded 1 MiB]'));
         }
         killTree();
       }
     });
     child.stderr.on('data', (d) => {
-      stderr += d;
-      if (stderr.length > MAX_OUTPUT_BYTES) {
+      stderrChunks.push(d);
+      stderrBytes += d.length;
+      if (stderrBytes > MAX_OUTPUT_BYTES) {
         outputCapped = true;
         killTree();
       }
     });
 
     child.on('error', (err) => {
-      stderr += `\n${err?.message ?? err}`;
+      stderrChunks.push(Buffer.from(`\n${err?.message ?? err}`));
       finish(null);
     });
     child.on('close', (code) => finish(code));

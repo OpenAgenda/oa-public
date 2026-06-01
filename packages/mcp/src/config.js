@@ -3,7 +3,7 @@
 //   OA_MCP_MODE       local | hosted              (default: local)
 //   SANDBOX_BACKEND   deno | srt | microsandbox   (default: deno locally)
 //   OA_BASE_URL       v3 base URL                 (default: production)
-//   OA_API_KEY        Bearer key (oa_pk_… read)   (optional; published events are public)
+//   OA_API_KEY        Bearer key (oa_pk_… read)   (the API needs a credential — this key today, OAuth later; no anonymous read)
 //   OA_SANDBOX_TIMEOUT_MS / OA_SANDBOX_MEMORY_MB   hard resource caps
 //
 // The mode↔backend pairing is SECURITY-CRITICAL, not a free toggle (see README):
@@ -46,7 +46,12 @@ export function loadConfig(env = process.env) {
   }
 
   const baseUrl = env.OA_BASE_URL ?? 'https://api.openagenda.com/v3';
-  const apiHost = new URL(baseUrl).hostname;
+  let apiHost;
+  try {
+    apiHost = new URL(baseUrl).hostname;
+  } catch {
+    throw new Error(`OA_BASE_URL must be a valid URL (got "${baseUrl}")`);
+  }
 
   return {
     mode,

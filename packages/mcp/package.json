@@ -12,17 +12,29 @@
     ".": "./src/index.js",
     "./package.json": "./package.json"
   },
+  "files": [
+    "src",
+    "dist"
+  ],
   "scripts": {
-    "start": "node src/index.js",
-    "smoke": "node scripts/smoke.mjs",
-    "check": "node --check src/index.js",
-    "test": "NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit"
+    "start": "yarn build && node src/index.js",
+    "smoke": "yarn build && node scripts/smoke.js",
+    "build": "tsdown",
+    "check": "tsc --noEmit",
+    "prepack": "yarn build",
+    "test": "yarn build && NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit"
   },
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
+    "@openagenda/api-spec": "workspace:*",
+    "yaml": "^2.4.5",
     "zod": "^3.25.0"
   },
   "devDependencies": {
-    "jest": "^29.7.0"
+    "@openagenda/api-client": "workspace:*",
+    "@types/node": "^22.0.0",
+    "jest": "^30.4.2",
+    "tsdown": "^0.22.0",
+    "typescript": "^5.6.3"
   }
 }

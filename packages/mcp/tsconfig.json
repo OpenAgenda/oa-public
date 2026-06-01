@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    // JSDoc-style JS: don't force a @param annotation on every helper param
+    // (idiomatic JS, and the spec/YAML traversal is inherently untyped). We keep
+    // the rest of `strict` — strictNullChecks etc. is what catches real bugs and
+    // enforces the @typedef contracts where types ARE known.
+    "noImplicitAny": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "verbatimModuleSyntax": true
+  },
+  "include": ["src/**/*.js", "tsdown.config.ts"]
+}

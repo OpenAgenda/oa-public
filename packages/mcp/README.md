@@ -42,7 +42,7 @@ on PATH (runs Node inside — no deno needed). For the `deno` backend instead,
 
 ```sh
 yarn install
-# A read-only publishable key (oa_pk_…) is optional — published events are public.
+# The API needs a credential (no anonymous read): a read-only publishable key (oa_pk_…) today, OAuth later.
 export OA_API_KEY=oa_pk_xxx
 export OA_BASE_URL=https://dapi.openagenda.com/v3   # dev; defaults to production
 node packages/mcp/src/index.js                      # speaks MCP over stdio
@@ -63,21 +63,21 @@ Register it with an MCP client (e.g. Claude Desktop / Claude Code):
 ```
 
 Then ask, e.g. _"how many upcoming events per city in agenda X?"_ — the model
-calls `search_docs`, writes a script using `oa.getFacets(...)`, and `execute`
+calls `search_docs`, writes a script using `oa.agendas.events.facets(...)`, and `execute`
 runs it in the sandbox.
 
 ### Config (env)
 
-| Var                     | Default                                  | Meaning                                                      |
-| ----------------------- | ---------------------------------------- | ------------------------------------------------------------ |
-| `OA_MCP_MODE`           | `local`                                  | `local` \| `hosted` (gates the backend, fail-closed)         |
-| `SANDBOX_BACKEND`       | `deno` (local) / `microsandbox` (hosted) | execution backend                                            |
-| `OA_BASE_URL`           | `https://api.openagenda.com/v3`          | v3 base URL                                                  |
-| `OA_API_KEY`            | _none_                                   | Bearer key (`oa_pk_…` read-only)                             |
-| `OA_SANDBOX_TIMEOUT_MS` | `5000`                                   | hard wall-clock kill                                         |
-| `OA_SANDBOX_MEMORY_MB`  | `256`                                    | V8 heap cap                                                  |
-| `OA_USE_SYSTEM_CA`      | _off_                                    | **dev only**: trust the OS cert store (Node bundles its own) |
-| `OA_EXTRA_CA_CERTS`     | _none_                                   | **dev only**: path to an extra PEM CA bundle                 |
+| Var                     | Default                                  | Meaning                                                                     |
+| ----------------------- | ---------------------------------------- | --------------------------------------------------------------------------- |
+| `OA_MCP_MODE`           | `local`                                  | `local` \| `hosted` (gates the backend, fail-closed)                        |
+| `SANDBOX_BACKEND`       | `deno` (local) / `microsandbox` (hosted) | execution backend                                                           |
+| `OA_BASE_URL`           | `https://api.openagenda.com/v3`          | v3 base URL                                                                 |
+| `OA_API_KEY`            | _none_                                   | Bearer key (`oa_pk_…` read-only) — auth credential (key today, OAuth later) |
+| `OA_SANDBOX_TIMEOUT_MS` | `5000`                                   | hard wall-clock kill                                                        |
+| `OA_SANDBOX_MEMORY_MB`  | `256`                                    | V8 heap cap                                                                 |
+| `OA_USE_SYSTEM_CA`      | _off_                                    | **dev only**: trust the OS cert store (Node bundles its own)                |
+| `OA_EXTRA_CA_CERTS`     | _none_                                   | **dev only**: path to an extra PEM CA bundle                                |
 
 > **Dev TLS.** `dapi.openagenda.com` serves a **private CA** (`O=OADEV`), unknown
 > to Node's bundled roots → `UNABLE_TO_VERIFY_LEAF_SIGNATURE`. Set
@@ -97,10 +97,10 @@ a hard boundary against untrusted code. `config.js` **fails closed**:
 
 > **The egress allowlist is the exfiltration boundary — not the `oa` client.**
 > The executed code is untrusted and shares scope with the `oa` client: it can
-> read the baked-in key and call `fetch` directly. So the origin check in
-> `oa.get` is only a _misuse guard_. What actually keeps the key from leaving is
-> the sandbox's **network egress allowlist** (deno `--allow-net`, srt
-> `allowedDomains`), scoped to the API host. Harden that, not the JS guard.
+> read the baked-in key and call `fetch` directly — the `oa` client is no
+> boundary at all. What actually keeps the key from leaving is the sandbox's
+> **network egress allowlist** (deno `--allow-net`, srt `allowedDomains`), scoped
+> to the API host. Harden that; the client is not a security boundary.
 
 Each item maps to a concrete threat:
 
@@ -175,7 +175,5 @@ agenda, moderate/reject, remove member).
 - No rate-limiting, no audit log, no metadata/RFC1918 egress blocking, no
   per-call process isolation (one runaway is killed via process-group SIGKILL +
   a 1 MiB output cap, not a VM boundary).
-- No generated SDK — `execute` uses a hand-written `oa` fetch client; production
-  would generate it from `packages/api-spec/openapi.yaml`.
 
 **Do not deploy this as a public server as-is.**

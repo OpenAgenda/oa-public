@@ -49,11 +49,11 @@ import { createMicrosandboxExecutor } from './microsandboxExecutor.js';
 export function createExecutor(config) {
   switch (config.backend) {
     case 'deno':
-      return createDenoExecutor(config);
+      return createDenoExecutor();
     case 'srt':
-      return createSrtExecutor(config);
+      return createSrtExecutor();
     case 'microsandbox':
-      return createMicrosandboxExecutor(config);
+      return createMicrosandboxExecutor();
     default:
       throw new Error(`Unknown sandbox backend: ${config.backend}`);
   }

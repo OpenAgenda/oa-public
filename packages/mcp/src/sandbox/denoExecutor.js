@@ -13,6 +13,7 @@
 
 import { runProcess } from './_spawn.js';
 import { which, missingBinResult } from './_which.js';
+import { sandboxEnv } from './_env.js';
 
 /**
  * Build the deno argv. `netFlag` is the full --allow-net flag: scoped to the
@@ -34,7 +35,7 @@ export function buildDenoArgs(netFlag, limits, extraFlags = []) {
 export function createDenoExecutor() {
   return {
     name: 'deno',
-    run: ({ code, allowNet, limits, tls }) => {
+    run: ({ code, allowNet, limits, tls, env: reqEnv }) => {
       const deno = which('deno');
       if (!deno) {
         return Promise.resolve(
@@ -48,9 +49,14 @@ export function createDenoExecutor() {
       // --cert; the system store is selected with DENO_TLS_CA_STORE=system
       // (deno defaults to its bundled mozilla roots).
       const extra = tls?.extraCaCerts ? [`--cert=${tls.extraCaCerts}`] : [];
-      const env = tls?.useSystemCa
-        ? { ...process.env, DENO_TLS_CA_STORE: 'system,mozilla' }
-        : undefined;
+      // Minimal, explicit env (never inherit the operator's secrets — see
+      // _env.js). deno denies the code env access anyway (no --allow-env), but
+      // we keep the process env block clean as defense-in-depth.
+      /** @type {Record<string,string>} */
+      const caEnv = tls?.useSystemCa
+        ? { DENO_TLS_CA_STORE: 'system,mozilla' }
+        : {};
+      const env = sandboxEnv({ ...reqEnv, ...caEnv });
       return runProcess({
         cmd: deno,
         // Standalone deno IS the egress boundary: restrict --allow-net to the

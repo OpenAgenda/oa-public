@@ -1,58 +1,49 @@
-// Assembles the program that runs inside the sandbox: a tiny `oa` client
-// (built on the global `fetch` Deno provides) + the LLM-written body.
+// Assembles the program that runs inside the sandbox: the generated OpenAgenda
+// SDK (@openagenda/api-client, bundled with ky + zod inlined) + the LLM-written
+// body. A ready-to-use `oa` client (an `OpenAgenda` instance) and the zod
+// `schemas` namespace are exposed for the body to call directly.
 //
-// The base URL and API key are BAKED INTO the program text rather than passed
-// as env, so the sandbox needs no env access at all (deno runs with only
-// --allow-net). In hosted mode the injected key is the CALLER's scoped token —
-// the executed code therefore never exceeds the caller's own permissions.
+// The sandbox runs an inline ESM program via stdin with NO node_modules, so the
+// SDK can't be `import`ed there — instead `dist/sdk-bundle.js` is a single
+// self-contained IIFE (built by tsdown, see ../../tsdown.config.ts) that we read
+// once and prepend. It publishes everything on `globalThis.__OA_SDK__`. The
+// bundle is a BUILD ARTIFACT (gitignored dist/); `yarn build` regenerates it and
+// the start/test/smoke/prepack scripts rebuild it before running.
 //
-// SECURITY BOUNDARY — read this before trusting the `oa.get` origin check below.
-// The executed code is UNTRUSTED and runs in the same scope as the `oa` client:
-// it can read `__cfg.apiKey` and call the global `fetch` directly. So no
-// in-process JS check can be the exfiltration boundary. The ACTUAL boundary is
-// the sandbox's network EGRESS ALLOWLIST (deno `--allow-net=<host>`, srt
-// `allowedDomains`), scoped to the API host only — that is what stops the token
-// from being sent anywhere else. The origin check in `oa.get` is a MISUSE guard
-// (keep accidental/relative paths on the API host, fail loudly on an obvious
-// cross-origin path); it is defense-in-depth, NOT the thing keeping the key in.
+// The base URL and API key are BAKED INTO the program text rather than passed as
+// env, so the sandbox needs no env access at all (deno runs with only
+// --allow-net). A key (or OAuth token) is REQUIRED — the API answers 401 without
+// one (there is no anonymous read). In hosted mode the injected key is the
+// CALLER's scoped token — the executed code therefore never exceeds the caller's
+// own permissions.
+//
+// SECURITY BOUNDARY. The executed code is UNTRUSTED and runs in the same scope
+// as the SDK: it can read `__cfg.apiKey` and call the global `fetch` directly,
+// so no in-process JS check can be the exfiltration boundary. The ACTUAL
+// boundary is the sandbox's network EGRESS ALLOWLIST (deno `--allow-net=<host>`,
+// srt `allowedDomains`), scoped to the API host only — that is what keeps the
+// token from being sent anywhere else. The SDK builds every request from the
+// configured `baseUrl`, so well-behaved calls stay on the API host; the egress
+// allowlist is what enforces it for misbehaving ones.
 
-const CLIENT = `
-const oa = (() => {
-  const raw = __cfg.baseUrl;
-  const base = new URL(raw.endsWith("/") ? raw : raw + "/");
-  const headers = __cfg.apiKey ? { Authorization: "Bearer " + __cfg.apiKey } : {};
-  async function get(path, query) {
-    // MISUSE GUARD (not the security boundary — see the egress-allowlist note at
-    // the top of this file). Resolve \`path\` against the API base and fail loudly
-    // if it lands on another origin, so a mistaken/relative path stays on the API
-    // host. Stripping the leading slash keeps relative paths under the base;
-    // "//evil" / "@host" neutralize to same-origin path segments; an absolute
-    // "https://evil" resolves cross-origin and is refused here. This catches
-    // accidents and obvious smuggling, but the sandbox egress allowlist is what
-    // actually prevents untrusted code from sending the token off-host.
-    const url = new URL(String(path).replace(/^\\/+/, ""), base);
-    if (url.origin !== base.origin) {
-      throw new Error("oa: refusing cross-origin request (path must stay on " + base.origin + "): " + path);
-    }
-    if (query) {
-      for (const [k, v] of Object.entries(query)) {
-        if (v !== undefined && v !== null) url.searchParams.set(k, String(v));
-      }
-    }
-    const res = await fetch(url, { headers });
-    const body = await res.json().catch(() => null);
-    if (!res.ok) {
-      throw new Error("OpenAgenda API " + res.status + ": " + JSON.stringify(body));
-    }
-    return body;
-  }
-  return {
-    get,
-    listEvents: (agendaUid, params) => get("/agendas/" + agendaUid + "/events", params),
-    getEvent: (agendaUid, eventUid) => get("/agendas/" + agendaUid + "/events/" + eventUid),
-    getFacets: (agendaUid, params) => get("/agendas/" + agendaUid + "/events/facets", params),
-  };
-})();
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
+// Read the bundle once at module load (it's ~200 KiB; re-reading per call would
+// be wasteful). Built artifact under dist/ — run `yarn build` if it's missing.
+const SDK_BUNDLE = readFileSync(
+  join(import.meta.dirname, '..', '..', 'dist', 'sdk-bundle.js'),
+  'utf8',
+);
+
+// Configure the shared client (base URL + key), then expose a ready `oa`
+// instance and the zod `schemas` namespace. We never enumerate the SDK methods
+// here: `oa` carries whatever the contract defines (oa.agendas.events.list, …)
+// and grows with it. `auth` is the bearer key; without it the API returns 401.
+const SETUP = `
+__OA_SDK__.client.setConfig({ baseUrl: __cfg.baseUrl, auth: __cfg.apiKey ?? undefined });
+const oa = new __OA_SDK__.OpenAgenda();
+const schemas = __OA_SDK__.schemas;
 `;
 
 /**
@@ -64,7 +55,8 @@ export function buildScript(userCode, cfg) {
   const head = `const __cfg = ${JSON.stringify({ baseUrl: cfg.baseUrl, apiKey: cfg.apiKey ?? null })};`;
   return [
     head,
-    CLIENT,
+    SDK_BUNDLE,
+    SETUP,
     'const __run = async () => {',
     userCode,
     '};',
