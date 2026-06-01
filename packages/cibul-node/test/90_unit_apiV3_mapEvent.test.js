@@ -56,7 +56,7 @@ const BASE_REQUIRED = [
   'firstTiming',
   'lastTiming',
   'nextTiming',
-  'custom',
+  'additionalFields',
 ];
 const DETAILED_ONLY_REQUIRED = [
   'longDescription',
@@ -222,7 +222,7 @@ describe('90 - api-v3 unit - mapEvent / mapEventSummary', () => {
   });
 
   describe('always-present rule: every required field present', () => {
-    it('EventSummary contains all base fields (and only base + custom)', () => {
+    it('EventSummary contains all base fields (and only base + additionalFields)', () => {
       const summary = mapEventSummary(projectedEvents[0]);
       for (const key of BASE_REQUIRED) {
         expect(key in summary).toBe(true);
@@ -286,31 +286,31 @@ describe('90 - api-v3 unit - mapEvent / mapEventSummary', () => {
     });
   });
 
-  describe('custom field separation', () => {
-    it('routes non-native keys into custom (Event)', () => {
+  describe('additionalFields separation', () => {
+    it('routes non-native keys into additionalFields (Event)', () => {
       const event = mapEvent(projectedEvents[0]);
-      expect(event.custom).toBeDefined();
-      expect(event.custom.thematique).toBe(2);
+      expect(event.additionalFields).toBeDefined();
+      expect(event.additionalFields.thematique).toBe(2);
     });
 
-    it('custom is present and excludes detailed natives on a summary', () => {
+    it('additionalFields is present and excludes detailed natives on a summary', () => {
       const summary = mapEventSummary(projectedEvents[0]);
-      // custom is always present
-      expect(summary.custom).toBeDefined();
+      // additionalFields is always present
+      expect(summary.additionalFields).toBeDefined();
       // the agenda custom field is there
-      expect(summary.custom.thematique).toBe(2);
-      // detailed-only native keys do NOT leak into summary.custom
+      expect(summary.additionalFields.thematique).toBe(2);
+      // detailed-only native keys do NOT leak into summary.additionalFields
       for (const key of DETAILED_ONLY_REQUIRED) {
-        expect(summary.custom[key]).toBeUndefined();
+        expect(summary.additionalFields[key]).toBeUndefined();
       }
     });
 
-    it('keeps native keys flat (not under custom)', () => {
+    it('keeps native keys flat (not under additionalFields)', () => {
       const event = mapEvent(projectedEvents[0]);
       expect(event.uid).toBe(1);
       expect(event.title).toEqual({ fr: 'Evénement 1' });
-      expect(event.custom.uid).toBeUndefined();
-      expect(event.custom.title).toBeUndefined();
+      expect(event.additionalFields.uid).toBeUndefined();
+      expect(event.additionalFields.title).toBeUndefined();
     });
   });
 
@@ -325,14 +325,14 @@ describe('90 - api-v3 unit - mapEvent / mapEventSummary', () => {
       'agendaUid',
     ];
 
-    it('never exposes internal keys at top level or under custom', () => {
+    it('never exposes internal keys at top level or under additionalFields', () => {
       for (const mapped of [
         mapEvent(projectedEvents[0]),
         mapEventSummary(projectedEvents[0]),
       ]) {
         for (const key of dropped) {
           expect(mapped[key]).toBeUndefined();
-          expect(mapped.custom[key]).toBeUndefined();
+          expect(mapped.additionalFields[key]).toBeUndefined();
         }
       }
     });

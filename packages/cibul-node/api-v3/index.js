@@ -1,22 +1,28 @@
-// OpenAgenda v3 API — read endpoints for events.
+// OpenAgenda v3 API — read endpoints for agendas and events.
 //
 // Thin HTTP mapping layer over `core`:
+//   GET /agendas                             -> { data: [AgendaSummary|AgendaDetailed], pagination }
+//   GET /agendas/:agendaUid                  -> bare Agenda (full)
 //   GET /agendas/:agendaUid/events           -> { data: [Event...], pagination }
 //   GET /agendas/:agendaUid/events/:eventUid -> bare Event
 //
-// Auth/agenda loading reuse the existing v2 middleware (the clean Bearer/scopes
-// redesign is a later slice). The contract is `packages/api-spec/openapi.yaml`.
+// Auth (createAuthenticate) and agenda loading (createLoadAgenda) are
+// v3-native: they throw typed errors into the v3 error envelope. The contract
+// is `packages/api-spec/openapi.yaml`.
 
 import express from 'express';
-import { BadRequest } from '@openagenda/verror';
+import { BadRequest, NotFound } from '@openagenda/verror';
 import logs from '@openagenda/logs';
 import sentryErrorHandler from '../lib/sentryErrorHandler.js';
-import * as mw from '../api/middleware/index.js';
 import loadSearchAccess from '../core/agendas/events/lib/loadSearchAccess.js';
 import createAuthenticate from './lib/authenticate.js';
+import createLoadAgenda from './lib/loadAgenda.js';
 import mapEvent from './lib/mapEvent.js';
+import mapAgenda from './lib/mapAgenda.js';
 import buildListEnvelope from './lib/envelope.js';
+import buildAgendaListEnvelope from './lib/agendaEnvelope.js';
 import buildEventSearchQuery from './lib/buildEventSearchQuery.js';
+import buildAgendaSearchQuery from './lib/buildAgendaSearchQuery.js';
 import {
   parseFacets,
   parseGeohashZoom,
@@ -89,8 +95,70 @@ export default function instanciateApiV3(core, { useRouter = true } = {}) {
   // errors (401 NotAuthenticated / 403 Forbidden) into the v3 error envelope.
   app.get('*', createAuthenticate(core));
 
-  // Load the agenda for any route exposing :agendaUid.
-  app.param('agendaUid', mw.loadAgenda);
+  // Load the agenda for any route exposing :agendaUid, throwing typed errors
+  // into the v3 envelope (see lib/loadAgenda.js).
+  app.param('agendaUid', createLoadAgenda(core));
+
+  // GET /agendas
+  // Cursor-paginated agenda list (ES agenda search). `detailed=false` →
+  // AgendaSummary, `detailed=true` → AgendaDetailed (the index's detailed
+  // projection: + createdAt/network/locationSet). The full canonical record
+  // lives on the single-get only (the index does not carry url/updatedAt/
+  // officializedAt/private/indexed — hence distinct shapes, not one schema).
+  app.get('/agendas', async (req, res, next) => {
+    try {
+      const limit = resolveLimit(req.query.limit);
+      const detailed = resolveDetailed(req.query.detailed);
+
+      const query = buildAgendaSearchQuery(req.query);
+
+      // Default to a deterministic sort so the search_after cursor is stable;
+      // the cursor carries the sort that produced the previous page and wins.
+      const nav = { size: limit, sort: 'createdAt.desc' };
+      if (req.query.after !== undefined) {
+        const decoded = decodeCursor(req.query.after);
+        if (decoded) {
+          nav.after = decoded.after;
+          if (decoded.sort) nav.sort = decoded.sort;
+        }
+      }
+
+      // Public discovery list: 'public' projection (the AgendaSummary/Detailed
+      // field sets are all public-read) and the search's `indexed` default
+      // (true) keeps unindexed agendas out.
+      const result = await core.agendas.search(query, nav, {
+        detailed,
+        access: 'public',
+      });
+
+      res.json(buildAgendaListEnvelope(result, { limit, detailed }));
+    } catch (err) {
+      next(err);
+    }
+  });
+
+  // GET /agendas/:agendaUid
+  // Single agenda, full `Agenda` record (SQL get). `detailed: true` resolves
+  // the `network`/`locationSet` refs. Registered before the deeper
+  // `/agendas/:agendaUid/events*` routes; it only matches the 2-segment path.
+  app.get('/agendas/:agendaUid', async (req, res, next) => {
+    try {
+      const agenda = await core
+        .agendas(req.agenda.uid)
+        .get({ detailed: true, access: 'public' });
+
+      if (!agenda) {
+        throw new NotFound(
+          { info: { uid: req.agenda.uid } },
+          'agenda not found',
+        );
+      }
+
+      res.json(mapAgenda(agenda));
+    } catch (err) {
+      next(err);
+    }
+  });
 
   // GET /agendas/:agendaUid/events
   app.get('/agendas/:agendaUid/events', async (req, res, next) => {

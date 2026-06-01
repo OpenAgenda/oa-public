@@ -1,17 +1,14 @@
 // v3 authentication: resolves the caller (user public key, agenda key, or
 // legacy `tk-` access token) and throws TYPED errors so the v3 error handler
 // renders the `{ error: { code, message } }` envelope with the right status.
-//
-// Unlike the v2 `verifyAndLoadAgendaOrUserFromKey` middleware (which it
-// replaces on the /v3 path), this never writes a response itself:
+// It never writes a response itself:
 //   - no credentials / unresolvable credentials -> NotAuthenticated (401)
 //   - resolved user is blacklisted               -> Forbidden (403)
-// The v2 middleware is left untouched — it stays correct for /api (UI) and /v2.
 //
 // A bare key is verified against the better-auth `apikey` store (hashed lookup
 // via `verifyKey`) and the OA owner is rebuilt from the `referenceId` — single
-// source of truth. The `tk-` path stays legacy until v2 EOL (those HMAC tokens
-// never live in the `apikey` store).
+// source of truth. The `tk-` path is legacy: those HMAC tokens never live in
+// the `apikey` store, so they take a separate lookup.
 
 import { NotAuthenticated, Forbidden } from '@openagenda/verror';
 
@@ -36,7 +33,7 @@ export default function createAuthenticate(core) {
 
   return async function authenticate(req, res, next) {
     try {
-      // Parity with v2: a browser session may already have populated req.user.
+      // A browser session may already have populated req.user; skip re-auth.
       if (req.user) {
         return next();
       }
@@ -48,8 +45,7 @@ export default function createAuthenticate(core) {
         throw new NotAuthenticated('missing API credentials');
       }
 
-      // Legacy access-token path. Blacklist is enforced here too (the v2 token
-      // path skips it — unifying the check closes that asymmetry on /v3).
+      // Legacy access-token path. The blacklist is enforced here too.
       if (accessToken) {
         let user;
         try {
@@ -57,9 +53,8 @@ export default function createAuthenticate(core) {
         } catch (err) {
           // The legacy tk- primitive throws an untyped Error for any failure
           // (invalid/expired/orphaned token), so we can't cleanly tell a bad
-          // token from an infra fault here — treat it as unauthenticated, as v2
-          // does. A precise 401-vs-500 split needs typed errors at the source;
-          // that lands with the tk- retirement (plan-slice-auth-v3.md, D4).
+          // token from an infra fault here — treat it as unauthenticated. A
+          // precise 401-vs-500 split would need typed errors at the source.
           if (err?.name === 'Forbidden') throw err; // never mask a 403 as 401
           user = null;
         }
@@ -98,20 +93,18 @@ export default function createAuthenticate(core) {
           }
           req.apiKey = verified;
 
-          // D6.A tier enforcement (visibility), v3 — structural public lock for
+          // D6.A tier enforcement (visibility): structural public lock for
           // publishable keys. A `pk` resolves its owner (so existence and the
           // blacklist are still checked above) but is NEVER granted the owner's
-          // visibility: we deliberately leave `req.user` unset, so the route
-          // handlers pass no `userUid` and `loadSearchAccess` returns `null`
-          // (published-only, public fields). "read-only" is not "public" — only
-          // withholding `userUid` keeps a moderator's pk (including a legacy
-          // `userPublic` key, mirrored as oaKind 'pk') from leaking drafts or
-          // role-gated fields when it is embedded client-side.
+          // visibility — we leave `req.user` unset, so the route handlers pass
+          // no `userUid` and `loadSearchAccess` returns `null` (published-only,
+          // public fields). "read-only" is not "public": only withholding
+          // `userUid` keeps a moderator's pk (including a legacy `userPublic`
+          // key, mirrored as oaKind 'pk') from leaking drafts or role-gated
+          // fields when it is embedded client-side.
           //
-          // Applies to ALL pk on v3; the v2 middleware cutover is a separate PR
-          // (v2 is frozen). No pk write-verb guard here: v3 is read-only and
-          // this middleware is mounted GET-only — rejecting a pk on a write verb
-          // lands with the v3 write surface (plan-slice-auth-v3.md D4/D6).
+          // There is no pk write-verb guard here: this middleware is mounted
+          // GET-only and v3 is read-only.
           if (verified.oaKind === 'pk') {
             return next();
           }
