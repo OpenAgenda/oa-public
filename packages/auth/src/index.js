@@ -1,4 +1,5 @@
 import { betterAuth } from 'better-auth';
+import { magicLink } from 'better-auth/plugins';
 import { toNodeHandler, fromNodeHeaders } from 'better-auth/node';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { getCurrentAuthContext } from '@better-auth/core/context';
@@ -49,6 +50,7 @@ export default function Auth(options = {}) {
     onEmailVerified,
     onSendVerificationEmail,
     onSendPasswordResetEmail,
+    onSendMagicLink,
     onAfterOAuthSignUp,
     // Extension callbacks. All optional, all no-op when absent so consumers
     // adopt them progressively. The contract (request shape, semantics)
@@ -120,7 +122,43 @@ export default function Auth(options = {}) {
     // the api-key endpoints + `apikey` table but does NOT intercept requests or
     // open sessions from an x-api-key header. The v3 API resolves keys itself
     // via auth.api.verifyApiKey, keeping full control of the error envelope.
-    plugins: [oaImpersonationPlugin(), apiKeyPlugin],
+    plugins: [
+      oaImpersonationPlugin(),
+      apiKeyPlugin,
+      // Passwordless sign-in. The UI POSTs straight to BA's
+      // /sign-in/magic-link (like sign-in/email); all gating (anti-enumeration,
+      // per-email throttle, blacklist) lives in the `onSendMagicLink` callback
+      // (cibul-node services/auth), so no client plugin is wired.
+      magicLink({
+        // 10 min: comfortable margin for email delivery without leaving a live
+        // link too long (BA default is 300s). Bump to 900 if SMTP latency
+        // proves higher in practice.
+        expiresIn: 600,
+        // Magic-link never creates an account — it only signs in an existing
+        // one. New-account onboarding stays on the dedicated signup flow
+        // (users.create mirror, culture, redirectToComplete, invitation
+        // linking). The `onSendMagicLink` callback routes unknown emails to a
+        // "create an account" CTA mail instead.
+        disableSignUp: true,
+        // Only the SHA-256 hash of the token lands in the `verification` table;
+        // the raw token lives only in the email. Affordable here because the
+        // blacklist guard runs in the after-hook (reads the user from the
+        // fresh session, never looks the token back up) — nothing in our code
+        // reads the stored token, and BA hashes the incoming token the same
+        // way to consume it.
+        storeToken: 'hashed',
+        // Per-IP (covers /sign-in/magic-link + /magic-link/verify via the
+        // plugin's pathMatcher). Kept at the BA default — not tightened, since
+        // a corporate NAT funnels many users through one IP. The real control
+        // is the per-email throttle in `onSendMagicLink` (redis).
+        rateLimit: { window: 60, max: 5 },
+        sendMagicLink: async ({ email, url, token, metadata }, request) => {
+          if (typeof onSendMagicLink === 'function') {
+            await onSendMagicLink({ email, url, token, metadata }, request);
+          }
+        },
+      }),
+    ],
     advanced: {
       cookiePrefix: 'oa',
       cookies: {
@@ -460,6 +498,83 @@ export default function Auth(options = {}) {
               userId,
               err,
             });
+          }
+        }
+
+        // Magic-link sign-in post-processing. BA's /magic-link/verify creates
+        // the session inside the route handler (newSession is populated, the
+        // Set-Cookie is already in responseHeaders) and redirects to the
+        // callbackURL — but it does NOT run the /sign-in/email before-guard nor
+        // afterEmailVerification. So we replicate both side-effects here:
+        //   1. Blacklist/removed guard (defense in depth — `onSendMagicLink`
+        //      is the primary gate but a user can be banned between send and
+        //      click). Same shape as the /callback/:id OAuth guard above.
+        //   2. Activation: BA already flipped emailVerified inside the handler;
+        //      we relay to onEmailVerified → runOnActivation (idempotent), so a
+        //      not-yet-activated user gets activated exactly once and an
+        //      already-active one is a no-op.
+        //   3. onSignInSuccess (lastSignin refresh), like the other paths.
+        if (ctx.path === '/magic-link/verify') {
+          const { newSession } = ctx.context;
+          if (!newSession) return;
+          const userId = newSession.user.id;
+          let user;
+          try {
+            user = await ctx.context.internalAdapter.findUserById(userId);
+          } catch (err) {
+            ctx.context.logger?.error?.('magic-link findUserById failed', {
+              userId,
+              err,
+            });
+            return;
+          }
+          if (!user) return;
+
+          if (user.isRemoved || user.isBlacklisted) {
+            try {
+              await ctx.context.internalAdapter.deleteSessions(String(userId));
+            } catch (err) {
+              ctx.context.logger?.error?.('magic-link deleteSessions failed', {
+                userId,
+                err,
+              });
+            }
+            // Neutralize the session cookies BA already queued, so the banned
+            // user is not left with a valid signed `oa.sess_data` cookieCache
+            // (good for up to its maxAge). This is stricter than the OAuth
+            // /callback path, which leaves the gap open.
+            ctx.context.responseHeaders?.delete('set-cookie');
+            ctx.context.responseHeaders?.set(
+              'location',
+              '/auth/signin?msg=accountUnavailable',
+            );
+            return;
+          }
+
+          if (typeof onEmailVerified === 'function') {
+            try {
+              await onEmailVerified(user, ctx.request);
+            } catch (err) {
+              ctx.context.logger?.error?.('magic-link onEmailVerified failed', {
+                userId,
+                err,
+              });
+            }
+          }
+
+          if (typeof onSignInSuccess === 'function') {
+            try {
+              await onSignInSuccess({
+                session: newSession.session,
+                user: newSession.user,
+                request: ctx.request,
+              });
+            } catch (err) {
+              ctx.context.logger?.error?.('onSignInSuccess failed', {
+                userId,
+                err,
+              });
+            }
           }
         }
       }),
