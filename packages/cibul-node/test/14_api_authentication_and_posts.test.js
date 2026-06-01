@@ -132,6 +132,30 @@ describe('14 - core - functional(server): api authentication and posts', () => {
     });
   });
 
+  describe('root landing', () => {
+    it('GET / returns the public API landing without a key (no message)', async () => {
+      const response = await ky.get('http://localhost:4000/');
+
+      expect(response.status).toBe(200);
+      expect(await response.json()).toEqual({
+        version: 'v2',
+        documentation_url: 'https://developers.openagenda.com',
+      });
+    });
+
+    it('GET / still returns 200 when a key is present, noting it is ignored', async () => {
+      const response = await ky.get('http://localhost:4000/?key=nonsense');
+
+      expect(response.status).toBe(200);
+      expect(await response.json()).toEqual({
+        version: 'v2',
+        documentation_url: 'https://developers.openagenda.com',
+        message:
+          'provided authentication information is ignored for this route',
+      });
+    });
+  });
+
   describe('agenda key', () => {
     it('agenda key can be used for read operations', async () => {
       const response = await ky.get(
