@@ -35,6 +35,32 @@ describe('auth - unit: socialProviders config', () => {
     ).toBe(true);
   });
 
+  it('google mapProfileToUser drops the provider picture (image: null)', async () => {
+    const auth = Auth({
+      ...baseOpts,
+      google: { id: 'gid', secret: 'gsecret' },
+    });
+    const result = await auth.instance.options.socialProviders.google.mapProfileToUser({
+      email: 'u@oa.test',
+      picture: 'https://lh3.googleusercontent.com/abc',
+    });
+    // OA stores user.image as an S3 key and concatenates the CDN prefix on
+    // read; keeping the full Google CDN URL produces a broken URL.
+    expect(result).toEqual({ image: null });
+  });
+
+  it('facebook mapProfileToUser drops the provider picture (image: null)', async () => {
+    const auth = Auth({
+      ...baseOpts,
+      facebook: { id: 'fid', secret: 'fsecret' },
+    });
+    const result = await auth.instance.options.socialProviders.facebook.mapProfileToUser({
+      email: 'u@oa.test',
+      picture: { data: { url: 'https://scontent.xx.fbcdn.net/v/...' } },
+    });
+    expect(result).toEqual({ image: null });
+  });
+
   it('configures accountLinking with disableImplicitLinking + Google trusted (verified linking flow)', () => {
     const auth = Auth(baseOpts);
     const linking = auth.instance.options.account.accountLinking;
