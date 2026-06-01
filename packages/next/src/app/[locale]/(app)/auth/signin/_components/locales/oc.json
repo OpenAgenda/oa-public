@@ -1,6 +1,8 @@
 {
   "next.components.auth.AuthDialog.dialogTitle": "Se connectar",
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": "",
+  "next.components.auth.Signin.accountUnavailable.description": "Vos podètz pas connectar a aqueste compte. Se pensatz qu'es una error, contactatz-nos pel menut d'ajuda.",
+  "next.components.auth.Signin.accountUnavailable.title": "Aqueste compte es pas disponible",
   "next.components.auth.Signin.invalidActivation.description": "",
   "next.components.auth.Signin.invalidActivation.title": ""
 }

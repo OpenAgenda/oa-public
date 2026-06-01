@@ -46,12 +46,14 @@ export default async function SigninPage({
   // the legacy /activate/resend → /auth/signin?view=resend redirect.
   // Any other value falls back to the default signin form.
   const viewParam = pickFirst(params.view);
-  const view: 'signin' | 'lost' | 'resend' =
+  const view: 'signin' | 'lost' | 'magic' | 'resend' =
     viewParam === 'lost'
       ? 'lost'
-      : viewParam === 'resend'
-        ? 'resend'
-        : 'signin';
+      : viewParam === 'magic'
+        ? 'magic'
+        : viewParam === 'resend'
+          ? 'resend'
+          : 'signin';
   // Pre-fill the email when BA's OAuth callback hands us one or when the
   // legacy /activate/resend redirect carries `email`. The OAuth case
   // (verified-linking) and the resend case are the only ones that should
@@ -64,9 +66,18 @@ export default async function SigninPage({
   // USER_NOT_FOUND). We surface a banner on the signin form so the user
   // knows what happened — the legacy EJS `auth/invalidActivation` template
   // was retired with this redirect.
+  // `msg=accountUnavailable` is set by the better-auth after-hooks when a
+  // blacklisted / soft-removed user reaches the OAuth `/callback/:id` or the
+  // magic-link `/verify` endpoint (see packages/auth/src/index.js): the session
+  // is neutralised and the user is bounced here. Without a banner they would
+  // land on a bare form with no explanation.
   const msg = pickFirst(params.msg);
-  const banner: 'invalidActivation' | undefined =
-    msg === 'invalidActivation' ? 'invalidActivation' : undefined;
+  const banner: 'invalidActivation' | 'accountUnavailable' | undefined =
+    msg === 'invalidActivation'
+      ? 'invalidActivation'
+      : msg === 'accountUnavailable'
+        ? 'accountUnavailable'
+        : undefined;
 
   return (
     <SigninPageClient

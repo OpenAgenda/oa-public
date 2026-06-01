@@ -1,0 +1,20 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": [
+    {
+      "type": 0,
+      "value": "Iniciando sesión…"
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.intro": [
+    {
+      "type": 0,
+      "value": "Espera mientras iniciamos tu sesión."
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.invalid": [
+    {
+      "type": 0,
+      "value": "Este enlace de acceso no es válido o ha caducado. Solicita uno nuevo."
+    }
+  ]
+}
