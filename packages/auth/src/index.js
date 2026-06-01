@@ -149,7 +149,12 @@ export default function Auth(options = {}) {
           // provider email on the request-scoped async-context, where the
           // `after` hook below picks it up to enrich the error redirect with
           // `&email=<encoded>` (verified-linking flow pre-fills the form).
-          // Returning `{}` means no user-field overrides.
+          //
+          // `image: null` overrides BA's default `image: user.picture` mapping
+          // (core/src/social-providers/google.ts spreads `...userMap` after the
+          // default). OA stores `user.image` as an S3 key and concatenates the
+          // CDN prefix on read — keeping the full Google CDN URL there produces
+          // `https://cdn.openagenda.com/https://lh3.googleusercontent.com/...`.
           mapProfileToUser: async (profile) => {
             try {
               const ctx = await getCurrentAuthContext();
@@ -160,7 +165,7 @@ export default function Auth(options = {}) {
               // Best-effort: outside an endpoint scope `getCurrentAuthContext`
               // throws, the email pre-fill silently no-ops.
             }
-            return {};
+            return { image: null };
           },
         },
       },
@@ -173,6 +178,9 @@ export default function Auth(options = {}) {
           // `account` row see `?error=signup_disabled` rather than getting
           // silently auto-created.
           disableImplicitSignUp: true,
+          // Same rationale as Google above: drop the provider-side picture so
+          // OA's `user.image` stays a (possibly null) S3 key, not a full URL.
+          mapProfileToUser: () => ({ image: null }),
         },
       },
     },
