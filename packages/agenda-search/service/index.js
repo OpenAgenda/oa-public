@@ -6,6 +6,7 @@ import resyncUpdated from './lib/resyncUpdated.js';
 import rebuild from './lib/rebuild.js';
 import list from './lib/list.js';
 import set from './lib/set.js';
+import markRefreshNow from './lib/markRefreshNow.js';
 
 export default (config = {}) => {
   const {
@@ -55,6 +56,7 @@ export default (config = {}) => {
     rebuild: rebuild.bind(null, utilities),
     resyncUpdated: resyncUpdated.bind(null, utilities),
     set: set.bind(null, utilities),
+    markRefreshNow: markRefreshNow.bind(null, utilities),
     remove: (agenda) =>
       client.delete({
         index: alias,

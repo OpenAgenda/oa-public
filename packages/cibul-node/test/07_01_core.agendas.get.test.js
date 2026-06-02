@@ -187,7 +187,18 @@ describe('07 - core - functional (server): core.agendas().get', () => {
       expect(agenda.summary).toEqual({
         keywords: [],
         languages: {},
-        publishedEvents: { current: 0, passed: 0, upcoming: 0 },
+        publishedEvents: {
+          current: 0,
+          passed: 0,
+          upcoming: 0,
+          // Per-day distribution of events ending in the next 30 days
+          // plus a residual `laterDays` count past the horizon. Empty
+          // here because the test agenda has no published events. Used
+          // downstream by formatAgenda to compute `_nextRefreshAt` on
+          // the agenda-search ES doc.
+          eventsByEndDay: {},
+          laterDays: 0,
+        },
         recentlyAddedEvents: { contribution: 0, shared: 0, aggregation: 0 },
         viewport: null,
       });

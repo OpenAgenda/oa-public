@@ -1,5 +1,23 @@
 # Change Log
 
+## Unreleased
+
+### Features
+
+- **threshold-driven adaptive refresh.** A new `_nextRefreshAt` date is computed and stored per agenda at index time from a per-day distribution of when upcoming events will end (`summary.publishedEvents.eventsByEndDay` + `laterDays`). It marks the first day where cumulative roll-into-`passed` exceeds tolerance (`max(5, 5% of total upcoming)`), or horizon expiry at 30 days if cumulative never trips inside the window. Pairs with `markRefreshNow` (a Painless conditional script update fired from event mutations) to drive both mutation-driven and time-driven freshness from the same field.
+- **`markRefreshNow({ uid, eventLastTiming })`** new service method. Issues an ES `update` whose Painless script advances `_nextRefreshAt = now` only when `eventLastTiming <= _nextRefreshAt` (i.e. the mutation actually affects a bucket inside the current refresh window). One ES round-trip per mutation, no separate queue, idempotent. Mutations targeting events past the window are a server-side no-op.
+- **resyncUpdated:** in-window orphan sweep. Agendas in the updated cursor that come out `private: true` or `indexed: false` are routed to `bulk delete` instead of being re-indexed. Returns a new `removed` counter alongside `indexed` / `updated`. Closes the `indexed: true → false` orphan source (no other code path removed those from the public alias).
+- **bulk:** support the `delete` operation (header-only, 404 tolerated as success).
+
+### Bug Fixes
+
+- **resyncUpdated:** paginate the `listAgendas` cursor instead of fetching a single non-paginated batch of 20. Previously, any agenda updated past the 20th in the window was silently dropped, and a continuously-updated tail could be starved indefinitely. New behaviour mirrors the loop in `rebuild.js`.
+
+### Rollout notes
+
+- `_nextRefreshAt` is added as a `date` field in the mapping. Existing indices learn it on the next rebuild. Pre-existing docs without the field are simply absent from the refresh-due sweep's range query until something reindexes them — they catch up through the existing `resyncUpdated` (touched agendas) or rebuild (everyone).
+- Consumers (`packages/cibul-node` and equivalents) drive the new field by adding the `lastTimings` aggregation to their `loadSummary` aggregations list and surfacing `eventsByEndDay` / `laterDays` on the returned summary.
+
 ## 1.4.1
 
 ### Patch Changes

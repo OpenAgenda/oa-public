@@ -15,6 +15,7 @@ import * as timespan from './timespan.js';
 import * as originAgendas from './originAgendas.js';
 import * as relative from './relative.js';
 import * as timings from './timings.js';
+import * as lastTimings from './lastTimings.js';
 import * as accessibilities from './accessibilities.js';
 import * as sourceAgendas from './sourceAgendas.js';
 import valid from './valid.js';
@@ -46,6 +47,7 @@ const aggregationTypes = {
   attendanceModes: terms('attendanceMode', { order: { _key: 'desc' } }),
   valid,
   timings,
+  lastTimings,
   createdAt: timestamp('createdAt'),
   updatedAt: timestamp('_exclusiveUpdatedAt'),
   createdOrUpdatedAt: timestamp('updatedAt'),

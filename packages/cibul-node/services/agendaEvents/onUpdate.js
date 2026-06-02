@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import VError from '@openagenda/verror';
 import logs from '@openagenda/logs';
+import refreshAgenda from '../../core/agendas/utils/refreshAgenda.js';
+import eventLastTimingEnd from '../../core/agendas/utils/eventLastTimingEnd.js';
 import fallbackContextGet from './lib/fallbackContextGet.js';
 import sendEventChangeState from './lib/sendEventChangeState.js';
 import addEventUpdateActivity from './lib/addEventUpdateActivity.js';
@@ -71,5 +73,23 @@ export default async ({ config, services }, before, after, context) => {
     } catch (e) {
       log.error(new VError(e, 'Cannot create state change activities'));
     }
+  }
+
+  // Publish / unpublish on a per-agenda event basis previously left both
+  // the agenda's updatedAt and the agenda-search ES doc untouched, so
+  // the public search page's event counts could stay stale until the
+  // next monthly rebuild. Bump updatedAt (for the resyncUpdated safety
+  // net) and mark the agenda-search doc for refresh — conditional on
+  // whether the event's lastTiming is inside the current window.
+  if (stateChanged && agenda?.uid) {
+    await refreshAgenda(services, agenda.uid).catch((e) =>
+      log.error(new VError(e, 'failed to refresh agenda after state change')));
+    await services.agendaSearch
+      ?.markRefreshNow({
+        uid: agenda.uid,
+        eventLastTiming: eventLastTimingEnd(event),
+      })
+      .catch((e) =>
+        log.error(new VError(e, 'failed to mark agenda-search refresh')));
   }
 };

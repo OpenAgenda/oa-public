@@ -101,5 +101,8 @@
   },
   "_hasUpcomingPublished": {
     "type": "boolean"
+  },
+  "_nextRefreshAt": {
+    "type": "date"
   }
 }
