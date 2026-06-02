@@ -144,11 +144,15 @@ export default function Consent({ clientId, scope }: ConsentProps) {
       });
       if (!res.ok) throw new Error('consent failed');
       const data = await res.json();
-      if (data?.redirect_uri) {
-        window.location.href = data.redirect_uri;
+      // The endpoint answers `{ redirect: true, url }` (its OpenAPI doc
+      // mislabels this `redirect_uri`); `url` carries the code on accept or the
+      // access_denied error on deny. Keep `redirect_uri` as a defensive fallback.
+      const url = data?.url ?? data?.redirect_uri;
+      if (url) {
+        window.location.href = url;
         return;
       }
-      throw new Error('no redirect_uri');
+      throw new Error('no redirect url');
     } catch {
       setError(true);
       setSubmitting(false);
