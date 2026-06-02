@@ -579,6 +579,29 @@ export const ActiveFilters = () => (
 );
 ActiveFilters.storyName = 'Active filters widget';
 
+export const Sort = () => (
+  <Html
+    options={{
+      locale: 'fr',
+    }}
+    html={_.template(`
+      <div
+        data-oa-filter="search"
+        data-oa-filter-params="<%- JSON.stringify({ type: 'search', name: 'search' }) %>"
+      ></div>
+
+      <div
+        data-oa-widget="sort"
+        data-oa-widget-params="<%- JSON.stringify({
+          name: 'sort',
+          options: ['score', 'timings.asc', 'updatedAt.desc'],
+        }) %>"
+      ></div>
+    `)()}
+  />
+);
+Sort.storyName = 'Sort widget';
+
 export const PageSize = () => (
   <Html
     options={{
