@@ -1,0 +1,6 @@
+{
+  "title": "No s'ha trobat cap compte",
+  "description": "Heu sol·licitat un enllaç d'inici de sessió a OpenAgenda, però no hi ha cap compte associat a aquesta adreça de correu. En podeu crear un amb el botó de sota.",
+  "actionDescription": "Crea un compte",
+  "changeEmailSettings": "Canviar la meva configuració d'enviament de correus"
+}

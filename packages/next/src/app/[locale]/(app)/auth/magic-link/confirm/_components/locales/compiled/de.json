@@ -1,0 +1,20 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": [
+    {
+      "type": 0,
+      "value": "Sie werden angemeldet…"
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.intro": [
+    {
+      "type": 0,
+      "value": "Bitte warten Sie, während wir Sie anmelden."
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.invalid": [
+    {
+      "type": 0,
+      "value": "Dieser Anmeldelink ist ungültig oder abgelaufen. Bitte fordern Sie einen neuen an."
+    }
+  ]
+}

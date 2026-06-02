@@ -1,0 +1,6 @@
+{
+  "title": "Aucun compte trouvé",
+  "description": "Vous avez demandé un lien de connexion à OpenAgenda, mais aucun compte n'est associé à cette adresse email. Vous pouvez en créer un à l'aide du bouton ci-dessous.",
+  "actionDescription": "Créer un compte",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+}

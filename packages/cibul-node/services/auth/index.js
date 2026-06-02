@@ -1,9 +1,43 @@
+import crypto from 'node:crypto';
 import mysql from 'mysql2';
 import logs from '@openagenda/logs';
 import Auth from '@openagenda/auth';
 import runOnActivation from '../users/lib/runOnActivation.js';
 
 const log = logs('services/auth');
+
+// --- Magic-link per-email throttle ---------------------------------------
+// BA's plugin rate-limit is per-IP; this protects a *targeted inbox* (the real
+// spam/harassment vector). 60s cooldown (anti rapid-bombing, matches a
+// "resend in 60s" UX) + 5/hour cap (generous for a legit retry).
+const MAGIC_LINK_COOLDOWN_S = 60;
+const MAGIC_LINK_HOURLY_MAX = 5;
+const MAGIC_LINK_HOURLY_WINDOW_S = 3600;
+
+function normalizeEmail(value) {
+  return typeof value === 'string' ? value.trim().toLowerCase() : '';
+}
+
+function magicLinkEmailKey(email) {
+  return crypto.createHash('sha256').update(email).digest('hex').slice(0, 32);
+}
+
+// Returns true when the send must be skipped. Initializes the hourly counter
+// with its TTL atomically (SET NX EX) before incrementing, so the key can never
+// get stuck without an expiry.
+async function magicLinkThrottled(redis, email) {
+  const key = magicLinkEmailKey(email);
+  const cooldownKey = `ml:cd:${key}`;
+  if (await redis.get(cooldownKey)) return true;
+
+  const hourlyKey = `ml:h:${key}`;
+  await redis.set(hourlyKey, 0, 'EX', MAGIC_LINK_HOURLY_WINDOW_S, 'NX');
+  const count = await redis.incr(hourlyKey);
+  if (count > MAGIC_LINK_HOURLY_MAX) return true;
+
+  await redis.set(cooldownKey, '1', 'EX', MAGIC_LINK_COOLDOWN_S);
+  return false;
+}
 
 // Minimum complexity gate, mirrored from the legacy `auth/local.front.js`
 // `passwordComplexity` helper. Reused by `validateSignUp` so the BA-native
@@ -68,6 +102,74 @@ export async function init(config, services) {
     waitForConnections: true,
     connectionLimit: 10,
   });
+
+  // Magic-link delivery. BA calls onSendMagicLink for every
+  // /sign-in/magic-link regardless of whether the email matches an account (it
+  // only checks existence at verify), so ALL the branching lives here — there
+  // is no Express façade (the Next UI posts straight to /api/auth/sign-in/
+  // magic-link, like sign-in/email and request-password-reset):
+  //   - existing active account → magic-link mail;
+  //   - unknown email           → "create an account" CTA, no token;
+  //   - blacklisted / removed   → nothing (silent);
+  //   - throttled               → nothing.
+  // The token is put in the URL *fragment* (#…), which is never sent to the
+  // server: an email scanner that prefetches the link can't read or consume the
+  // one-time token. The Next confirm page reads it client-side and navigates to
+  // the verify endpoint — no button, no friction.
+  const deliverMagicLink = async ({
+    email: rawEmail,
+    url,
+    token,
+    metadata,
+  }) => {
+    const email = normalizeEmail(rawEmail);
+    if (!email) return;
+    if (await magicLinkThrottled(services.redis, email)) return;
+
+    // The UI forwards its current locale via BA's `metadata` channel. Required:
+    // the mailer renders nothing (and silently no-ops) when `lang` is missing.
+    // `fr` matches the cibul-node request default.
+    const lang = (typeof metadata?.lang === 'string' && metadata.lang) || 'fr';
+
+    const oaUser = await services.users.findOne({
+      query: { email },
+      detailed: true,
+    });
+
+    if (!oaUser) {
+      // Unknown email → token-less CTA to the standard signup form. Harmless to
+      // a third party (only the inbox owner sees it); useful to the legitimate
+      // owner who expected a link.
+      const signupURL = new URL('/auth/signup', config.root);
+      signupURL.searchParams.set('email', email);
+      await services.mails.send({
+        template: 'magicLinkNoAccount',
+        to: email,
+        lang,
+        data: { signupLink: signupURL.toString(), emailSettingsLink: null },
+        queue: false,
+      });
+      return;
+    }
+
+    // Primary gate (the authoritative one is the BA after-hook on
+    // /magic-link/verify): never send a link to a banned account.
+    if (oaUser.isBlacklisted || oaUser.isRemoved) return;
+
+    // callbackURL is the one the UI passed to /sign-in/magic-link (BA echoes it
+    // into `url`); we route it through the confirm-page fragment unchanged.
+    const callbackURL = new URL(url).searchParams.get('callbackURL') ?? '/';
+    const confirmURL = new URL('/auth/magic-link/confirm', config.root);
+    confirmURL.hash = new URLSearchParams({ token, callbackURL }).toString();
+
+    await services.mails.send({
+      template: 'magicLink',
+      to: email,
+      lang: oaUser.culture || lang,
+      data: { magicLink: confirmURL.toString(), emailSettingsLink: null },
+      queue: false,
+    });
+  };
 
   const auth = Auth({
     mysqlPool,
@@ -144,6 +246,14 @@ export async function init(config, services) {
           err,
         });
       }
+    },
+    onSendMagicLink: async ({ email, url, token, metadata }) => {
+      // Fire-and-forget: return immediately so BA's response time does not
+      // depend on the branch (existing / unknown / blacklisted) — no timing
+      // oracle for account enumeration. Errors are logged, never surfaced.
+      deliverMagicLink({ email, url, token, metadata }).catch((err) => {
+        log('error', 'sendMagicLink failed', { err });
+      });
     },
     // BA fires this after a successful /sign-in/email or /callback/:id —
     // see packages/auth/src/index.js. The post-signin "lastSignin refresh"

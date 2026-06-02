@@ -1,6 +1,8 @@
 {
   "next.components.auth.AuthDialog.dialogTitle": "Accedi",
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": "",
+  "next.components.auth.Signin.accountUnavailable.description": "Non puoi accedere a questo account. Se ritieni che si tratti di un errore, contattaci tramite il menu Aiuto.",
+  "next.components.auth.Signin.accountUnavailable.title": "Questo account non è disponibile",
   "next.components.auth.Signin.invalidActivation.description": "",
   "next.components.auth.Signin.invalidActivation.title": ""
 }

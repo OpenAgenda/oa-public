@@ -1,6 +1,8 @@
 {
   "next.components.auth.AuthDialog.dialogTitle": "Inloggen",
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": "",
+  "next.components.auth.Signin.accountUnavailable.description": "U kunt niet inloggen op dit account. Als u denkt dat dit een vergissing is, neem dan contact met ons op via het Help-menu.",
+  "next.components.auth.Signin.accountUnavailable.title": "Dit account is niet beschikbaar",
   "next.components.auth.Signin.invalidActivation.description": "",
   "next.components.auth.Signin.invalidActivation.title": ""
 }

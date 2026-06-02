@@ -1,0 +1,5 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": "Signing you in…",
+  "next.components.auth.MagicLinkConfirm.intro": "Please wait while we sign you in.",
+  "next.components.auth.MagicLinkConfirm.invalid": ""
+}

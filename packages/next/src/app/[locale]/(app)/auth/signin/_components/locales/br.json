@@ -1,6 +1,8 @@
 {
   "next.components.auth.AuthDialog.dialogTitle": "Kevreañ",
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": "",
+  "next.components.auth.Signin.accountUnavailable.description": "N'hallit ket kevreañ d'ar c'hont-mañ. Mar kredit ez eus ur fazi, kit e darempred ganeomp dre lañser ar Skoazell.",
+  "next.components.auth.Signin.accountUnavailable.title": "N'eo ket hegerz ar c'hont-mañ",
   "next.components.auth.Signin.invalidActivation.description": "",
   "next.components.auth.Signin.invalidActivation.title": ""
 }

@@ -1,0 +1,5 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": "Saioa hasten…",
+  "next.components.auth.MagicLinkConfirm.intro": "Itxaron saioa hasten dugun bitartean.",
+  "next.components.auth.MagicLinkConfirm.invalid": "Saioa hasteko esteka hau baliogabea da edo iraungi da. Eskatu berri bat."
+}

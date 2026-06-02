@@ -11,6 +11,12 @@
       "value": "crwdns35533:0crwdne35533:0"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Sign in by email"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -75,6 +81,54 @@
     {
       "type": 0,
       "value": "crwdns35549:0crwdne35549:0"
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "you@example.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Sign in by email form"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "An error occurred. Please try again."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Enter your email to receive a sign-in link. No password needed. The link is valid for 10 minutes."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Send the link"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "If an account exists for this email, a sign-in link has been sent. Delivery may take a few minutes. Check your inbox and your spam folder. If you don't receive it, you can request another in a minute."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -279,6 +333,12 @@
     {
       "type": 0,
       "value": "crwdns35495:0crwdne35495:0"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Sign in by email"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [
