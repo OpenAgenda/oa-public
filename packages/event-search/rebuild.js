@@ -159,6 +159,21 @@ export default async function rebuild(config, set, options = {}) {
 
   await client.indices.refresh({ index });
 
+  // The prune below deletes every document in this set that is NOT stamped
+  // with the current build. That is only safe when the indexing loop ran to
+  // completion: if it threw partway (e.g. a single corrupt event made a page
+  // fetch reject), most/all events never got the new build and pruning would
+  // empty the whole set. Bail out and keep the previous index intact.
+  if (error) {
+    operations.push('skipped prune: incomplete build (errored)');
+    log(
+      'error',
+      'skipping prune because the build did not complete',
+      operations,
+    );
+    return { operations, counts, error };
+  }
+
   counts.deleted = await client
     .deleteByQuery({
       index,
