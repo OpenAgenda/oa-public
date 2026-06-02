@@ -62,6 +62,16 @@ const config = {
   root: prod.root ?? process.env.ROOT ?? 'https://d.openagenda.com',
   apiRoot: prod.apiRoot ?? process.env.API_ROOT,
   apiDomain: prod.apiDomain ?? process.env.API_DOMAIN,
+  // MCP HTTP resource server (O2). Its OAuth resource identifier: the
+  // `resource` indicator MCP clients send to /oauth2/authorize|token, which
+  // the issued JWT's `aud` is bound to and `packages/auth` validates against
+  // (validAudiences). The server owns a dedicated subdomain and is served at
+  // its root — the subdomain already names the service (dmcp in dev,
+  // mcp.openagenda.com in prod), so no redundant `/mcp` path.
+  mcpResourceUrl:
+    prod.mcpResourceUrl
+    ?? process.env.MCP_RESOURCE_URL
+    ?? 'https://dmcp.openagenda.com',
   logo: prod.logo,
   googleAnalyticsId:
     process.env.GOOGLE_ANALYTICS_ID

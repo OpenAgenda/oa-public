@@ -74,6 +74,7 @@ export async function init(config, services) {
     redis: services.redis,
     secret: config.auth.secret,
     baseURL: config.root,
+    mcpResourceUrl: config.mcpResourceUrl,
     trustedOrigins: [config.root, ...config.auth?.trustedOrigins ?? []],
     schemas: {
       user: schemas.user,

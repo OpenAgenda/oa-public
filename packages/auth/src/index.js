@@ -45,6 +45,11 @@ export default function Auth(options = {}) {
     trustedOrigins,
     secret,
     baseURL,
+    // OAuth resource identifier of the MCP HTTP server (O2). When set, it is
+    // added to the OAuth provider's `validAudiences` so MCP clients can bind
+    // their access token to it (RFC 8707 `resource`) and obtain a JWS the MCP
+    // resource server verifies locally against /jwks. Omitted → no MCP audience.
+    mcpResourceUrl,
     schemas = {},
     google,
     facebook,
@@ -189,6 +194,14 @@ export default function Auth(options = {}) {
     // (`{ clientId, clientSecret, redirectURLs, skipConsent: true, … }`).
     // Empty until a first-party client is registered (→ O3).
     trustedClients: [],
+    // Audiences a client may bind a token to via the `resource` parameter
+    // (RFC 8707). `checkResource` rejects any `resource` not listed here. A
+    // resource-bound request yields a JWS access token (`aud` set) the MCP
+    // resource server verifies locally; without `resource` the token is opaque.
+    // baseURL stays valid (the userinfo audience is auto-added for `openid`);
+    // the MCP resource URL is added when configured (→ O2). Left undefined
+    // otherwise so the plugin keeps its default of `[baseURL]`.
+    ...mcpResourceUrl ? { validAudiences: [baseURL, mcpResourceUrl] } : {},
     schema: {
       oauthClient: {
         modelName: tables.oauthClient,
