@@ -4,6 +4,8 @@ import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { getCurrentAuthContext } from '@better-auth/core/context';
 import { redisStorage } from '@better-auth/redis-storage';
 import { apiKey } from '@better-auth/api-key';
+import { jwt } from 'better-auth/plugins';
+import { oauthProvider } from '@better-auth/oauth-provider';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createApiKeyHelpers, { hashApiKey } from './apiKey.js';
@@ -64,9 +66,20 @@ export default function Auth(options = {}) {
 
   const tables = {
     user: schemas.user ?? 'user',
+    // Sessions are primarily Redis-resident (secondaryStorage). The OAuth
+    // provider plugin requires `session.storeSessionInDatabase: true` when a
+    // secondaryStorage is set (it throws at init otherwise), so sessions are
+    // ALSO persisted to this table — Redis stays the read-time source of truth,
+    // the DB is a fallback + the FK target for OAuth tokens.
+    session: schemas.session ?? 'session',
     account: schemas.account ?? 'account',
     verification: schemas.verification ?? 'verification',
     apiKey: schemas.apiKey ?? 'apikey',
+    oauthClient: schemas.oauthClient ?? 'oauth_client',
+    oauthAccessToken: schemas.oauthAccessToken ?? 'oauth_access_token',
+    oauthRefreshToken: schemas.oauthRefreshToken ?? 'oauth_refresh_token',
+    oauthConsent: schemas.oauthConsent ?? 'oauth_consent',
+    jwks: schemas.jwks ?? 'jwks',
   };
 
   // Map the api-key plugin's camelCase schema to OA's snake_case columns
@@ -111,16 +124,139 @@ export default function Auth(options = {}) {
     },
   });
 
+  // The OAuth provider signs ID/access tokens with the `jwt` plugin's
+  // asymmetric keys (EdDSA) and exposes the public set at `/jwks`. The plugin
+  // is NOT auto-registered by oauthProvider — it looks it up via
+  // `ctx.getPlugin('jwt')` and throws `jwt_config` if absent — so it must live
+  // in `plugins` (before oauthProvider). Disabling it would downgrade signing
+  // to symmetric HS256 and drop JWKS, which we want for resource-server
+  // (MCP) verification, so it stays enabled. Columns remapped to snake_case.
+  const jwtPlugin = jwt({
+    // OAuth-provider mode (per better-auth jwt docs): the OAuth flow drives all
+    // JWT issuance, so the plugin must NOT also stamp a `set-auth-jwt` header on
+    // session responses — that role is served by `/oauth2/userinfo`. The plugin's
+    // own `/token` endpoint is likewise disabled below via `disabledPaths`
+    // (superseded by `/oauth2/token`).
+    disableSettingJwtHeader: true,
+    schema: {
+      jwks: {
+        modelName: tables.jwks,
+        fields: {
+          publicKey: 'public_key',
+          privateKey: 'private_key',
+          createdAt: 'created_at',
+          expiresAt: 'expires_at',
+        },
+      },
+    },
+  });
+
+  // OpenAgenda as an OAuth 2.1 / OIDC provider (SSO + MCP HTTP auth). O0 wires
+  // the plugin additively: tables + discovery endpoints exist, but no client is
+  // registered and dynamic client registration stays OFF (default) until O3.
+  // Scopes = OIDC core + the v3 key vocabulary (resource:action) so an OAuth
+  // access token caps the operation exactly like an `oa_sk_` key does, while
+  // the visibility tier still comes from the consenting user's role (see
+  // docs/plan-oauth-provider.md §2.4 and docs/plan-slice-auth-v3.md §5.1/§5.2).
+  const oauthProviderPlugin = oauthProvider({
+    scopes: [
+      'openid',
+      'profile',
+      'email',
+      'offline_access',
+      'events:read',
+      'events:write',
+      'events:transverse',
+      'agendas:read',
+      'agendas:write',
+      'locations:read',
+      'locations:write',
+      'members:read',
+      'members:write',
+    ],
+    schema: {
+      oauthClient: {
+        modelName: tables.oauthClient,
+        fields: {
+          clientId: 'client_id',
+          clientSecret: 'client_secret',
+          skipConsent: 'skip_consent',
+          enableEndSession: 'enable_end_session',
+          subjectType: 'subject_type',
+          userId: 'user_id',
+          createdAt: 'created_at',
+          updatedAt: 'updated_at',
+          softwareId: 'software_id',
+          softwareVersion: 'software_version',
+          softwareStatement: 'software_statement',
+          redirectUris: 'redirect_uris',
+          postLogoutRedirectUris: 'post_logout_redirect_uris',
+          tokenEndpointAuthMethod: 'token_endpoint_auth_method',
+          grantTypes: 'grant_types',
+          responseTypes: 'response_types',
+          requirePKCE: 'require_pkce',
+          referenceId: 'reference_id',
+        },
+      },
+      oauthAccessToken: {
+        modelName: tables.oauthAccessToken,
+        fields: {
+          clientId: 'client_id',
+          sessionId: 'session_id',
+          userId: 'user_id',
+          referenceId: 'reference_id',
+          refreshId: 'refresh_id',
+          expiresAt: 'expires_at',
+          createdAt: 'created_at',
+        },
+      },
+      oauthRefreshToken: {
+        modelName: tables.oauthRefreshToken,
+        fields: {
+          clientId: 'client_id',
+          sessionId: 'session_id',
+          userId: 'user_id',
+          referenceId: 'reference_id',
+          expiresAt: 'expires_at',
+          createdAt: 'created_at',
+          authTime: 'auth_time',
+        },
+      },
+      oauthConsent: {
+        modelName: tables.oauthConsent,
+        fields: {
+          clientId: 'client_id',
+          userId: 'user_id',
+          referenceId: 'reference_id',
+          createdAt: 'created_at',
+          updatedAt: 'updated_at',
+        },
+      },
+    },
+  });
+
   const baOptions = {
     database: { dialect: new MysqlDialect({ pool: mysqlPool }), type: 'mysql' },
     secret,
     baseURL,
     trustedOrigins,
+    // OAuth-provider mode: disable the jwt plugin's standalone `/token` endpoint
+    // (replaced by `/oauth2/token`). Required per the better-auth jwt docs to
+    // avoid duplicating the OAuth token endpoint. Nothing in OA consumes the
+    // bare `/api/auth/token` route (the jwt plugin was added in this change).
+    disabledPaths: ['/token'],
     // `apiKeyPlugin` runs with enableSessionForAPIKeys=false (default): it adds
     // the api-key endpoints + `apikey` table but does NOT intercept requests or
     // open sessions from an x-api-key header. The v3 API resolves keys itself
     // via auth.api.verifyApiKey, keeping full control of the error envelope.
-    plugins: [oaImpersonationPlugin(), apiKeyPlugin],
+    // `jwtPlugin` precedes `oauthProviderPlugin` because the latter resolves the
+    // former at init via ctx.getPlugin('jwt').
+    plugins: [
+      oaImpersonationPlugin(),
+      apiKeyPlugin,
+      jwtPlugin,
+      oauthProviderPlugin,
+    ],
     advanced: {
       cookiePrefix: 'oa',
       cookies: {
@@ -465,8 +601,24 @@ export default function Auth(options = {}) {
       }),
     },
     session: {
-      // Sessions live in Redis (secondaryStorage). storeSessionInDatabase
-      // defaults to false when secondaryStorage is provided — no DB writes.
+      modelName: tables.session,
+      // Sessions stay Redis-resident for reads (secondaryStorage + cookieCache);
+      // the tracing fast-path is unaffected. `storeSessionInDatabase: true` adds
+      // a write to the `session` table on create/update — required by the OAuth
+      // provider plugin (it throws at init when secondaryStorage is set without
+      // it) and gives OAuth tokens a real FK target. The DB row carries only the
+      // declared fields below; ad-hoc session fields (e.g. impersonation's
+      // `impersonatedBy`) are stripped by the field-converter on write and stay
+      // Redis-only, as before. Reads still hit Redis first, DB on miss.
+      storeSessionInDatabase: true,
+      fields: {
+        userId: 'user_id',
+        expiresAt: 'expires_at',
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+        ipAddress: 'ip_address',
+        userAgent: 'user_agent',
+      },
       expiresIn: 60 * 60 * 24 * 7,
       updateAge: 60 * 60 * 24,
       cookieCache: {
