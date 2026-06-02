@@ -33,6 +33,7 @@ import Filters from './Filters.js';
 import ActiveFilters from './ActiveFilters.js';
 import FavoriteToggle from './FavoriteToggle.js';
 import Total from './Total.js';
+import Sort from './Sort.js';
 import ChoiceFilter from './filters/ChoiceFilter.js';
 import DateRangeFilter from './filters/DateRangeFilter.js';
 import SimpleDateRangeFilter from './filters/SimpleDateRangeFilter.js';
@@ -254,6 +255,14 @@ const FiltersManager = React.forwardRef(function FiltersManager(
                 widget={widget}
                 {...widget}
               />
+            </span>
+          </Portal>
+        );
+      case 'sort':
+        return (
+          <Portal key={widgetSeed(widget)} selector={widget.destSelector}>
+            <span>
+              <Sort {...widget} />
             </span>
           </Portal>
         );
