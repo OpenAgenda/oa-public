@@ -57,6 +57,7 @@ export default (config, core, services, tasksList) => {
 
     // services.eventSearch.rebuild();
     // services.eventSearch.transverse.rebuild();
+    // services.agendaSearch.refreshDueSweep();
   }
 
   if (tasksList.includes('notifications')) {
