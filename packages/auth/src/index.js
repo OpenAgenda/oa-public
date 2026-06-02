@@ -174,6 +174,21 @@ export default function Auth(options = {}) {
       'members:read',
       'members:write',
     ],
+    // O1 — interactive flow pages (OA frontend, Next App Router). The plugin
+    // appends the signed authorization query to these paths and 302s the
+    // browser there. Paths are locale-less by convention (proxy.ts resolves the
+    // locale; cf. the existing `/auth/signin?msg=…` redirect below).
+    //   - loginPage: unauthenticated `/oauth2/authorize` lands on the existing
+    //     sign-in page, which maps the OAuth query into its `redirect` param so
+    //     the user bounces back to `/oauth2/authorize` once logged in.
+    //   - consentPage: authenticated-but-not-yet-consented lands here; the page
+    //     POSTs `/oauth2/consent` and follows the returned `redirect_uri`.
+    loginPage: '/auth/signin',
+    consentPage: '/auth/consent',
+    // First-party OA apps that should skip the consent screen go here
+    // (`{ clientId, clientSecret, redirectURLs, skipConsent: true, … }`).
+    // Empty until a first-party client is registered (→ O3).
+    trustedClients: [],
     schema: {
       oauthClient: {
         modelName: tables.oauthClient,
