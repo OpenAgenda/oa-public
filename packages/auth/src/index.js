@@ -621,10 +621,16 @@ export default function Auth(options = {}) {
       // the tracing fast-path is unaffected. `storeSessionInDatabase: true` adds
       // a write to the `session` table on create/update — required by the OAuth
       // provider plugin (it throws at init when secondaryStorage is set without
-      // it) and gives OAuth tokens a real FK target. The DB row carries only the
-      // declared fields below; ad-hoc session fields (e.g. impersonation's
-      // `impersonatedBy`) are stripped by the field-converter on write and stay
-      // Redis-only, as before. Reads still hit Redis first, DB on miss.
+      // it) and gives OAuth tokens a real FK target. Reads still hit Redis first,
+      // DB on miss.
+      //
+      // With storeSessionInDatabase enabled, the field-converter strips any
+      // undeclared session field BEFORE the row is cached back into Redis (the
+      // DB-create result is what `createSession` re-stores under `active-sessions`),
+      // so an ad-hoc field is lost everywhere — not just in the DB. The
+      // impersonation plugin's `impersonatedBy` (mirrors better-auth's admin
+      // plugin) must therefore be declared as an additional field with a real
+      // `impersonated_by` column, or `/signout` can't detect a "sign as" session.
       storeSessionInDatabase: true,
       fields: {
         userId: 'user_id',
@@ -633,6 +639,16 @@ export default function Auth(options = {}) {
         updatedAt: 'updated_at',
         ipAddress: 'ip_address',
         userAgent: 'user_agent',
+      },
+      additionalFields: {
+        impersonatedBy: {
+          type: 'string',
+          required: false,
+          // Set only via the oa-impersonation plugin's internal createSession
+          // override, never from request input.
+          input: false,
+          fieldName: 'impersonated_by',
+        },
       },
       expiresIn: 60 * 60 * 24 * 7,
       updateAge: 60 * 60 * 24,

@@ -5,10 +5,15 @@
 // OAuth provider plugin requires `session.storeSessionInDatabase: true` when a
 // secondaryStorage is configured (it throws at init otherwise — see
 // packages/auth/src/index.js), so sessions are now ALSO written here. Reads stay
-// Redis-first; this table is a fallback + the FK target for OAuth tokens. Only
-// better-auth's declared session fields exist as columns; ad-hoc fields such as
-// the impersonation plugin's `impersonatedBy` are stripped on write (the field
-// converter only persists schema-declared fields) and remain Redis-only.
+// Redis-first; this table is a fallback + the FK target for OAuth tokens.
+//
+// Only schema-declared session fields are persisted (the field converter drops
+// undeclared keys on write — AND, with storeSessionInDatabase enabled, that
+// stripped row is what gets cached back into Redis, so an undeclared field is
+// lost everywhere, not just in the DB). The impersonation plugin's
+// `impersonatedBy` is therefore declared as a `session.additionalFields` entry
+// (packages/auth/src/index.js) and needs its own `impersonated_by` column so
+// `/signout` can detect an active "sign as" session.
 //
 // Column conventions follow the other better-auth tables (account/apikey):
 // no FK constraints (services stay decoupled), TEXT for free-form/JSON and
@@ -41,6 +46,10 @@ export async function up(knex) {
       t.text('user_agent').nullable();
       t.dateTime('created_at', { precision: 3 }).notNullable();
       t.dateTime('updated_at', { precision: 3 }).notNullable();
+      // Impersonation marker: the impersonator's user id, set via the
+      // oa-impersonation plugin's `createSession` override and declared as a
+      // `session.additionalFields` entry so it survives the field converter.
+      t.string('impersonated_by', 255).nullable();
       t.unique('token', { indexName: 'idx_session_token' });
       t.index('user_id', 'idx_session_user_id');
       t.index('expires_at', 'idx_session_expires_at');
