@@ -1,0 +1,43 @@
+{
+  "name": "@openagenda/mcp",
+  "version": "0.0.0",
+  "private": true,
+  "description": "OpenAgenda v3 MCP server (POC) — code-mode tools over the read-only events API, with a pluggable sandbox executor",
+  "type": "module",
+  "main": "src/index.js",
+  "bin": {
+    "openagenda-mcp": "src/index.js"
+  },
+  "exports": {
+    ".": "./src/index.js",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "src",
+    "dist"
+  ],
+  "scripts": {
+    "start": "yarn build && node src/index.js",
+    "smoke": "yarn build && node scripts/smoke.js",
+    "build": "tsdown",
+    "check": "tsc --noEmit",
+    "prepack": "yarn build",
+    "test": "yarn build && NODE_OPTIONS=\"--experimental-vm-modules\" jest --runInBand --forceExit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.29.0",
+    "@openagenda/api-spec": "workspace:*",
+    "yaml": "^2.4.5",
+    "zod": "^3.25.0"
+  },
+  "optionalDependencies": {
+    "microsandbox": "^0.5.4"
+  },
+  "devDependencies": {
+    "@openagenda/api-client": "workspace:*",
+    "@types/node": "^22.0.0",
+    "jest": "^30.4.2",
+    "tsdown": "^0.22.0",
+    "typescript": "^5.6.3"
+  }
+}

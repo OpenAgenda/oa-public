@@ -56,7 +56,7 @@ Le schéma a d'abord été ancré sur code + fixtures ; ces points ont été tra
 
 - Package `@openagenda/api-spec` : `openapi.yaml`, `scripts/validate.mjs` (check offline), script `lint` (Redocly via npx).
 - Conventions verrouillées : Bearer + OAuth2/scopes, enveloppe erreur, `{data,pagination}`, cursor opaque, `Event` (socle natif + `custom`, `additionalProperties: false`).
-- 2 paths de lecture : `listAgendaEvents`, `getAgendaEvent`.
+- 2 paths de lecture : `agendas.events.list`, `agendas.events.get`.
 - Schéma Event ancré (cf. ci-dessus). Spec valide OpenAPI 3.1, 0 warning.
 
 ### Tranche 2 — implémentation route + contract-test (fait)
