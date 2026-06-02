@@ -5,7 +5,7 @@ import { loadConfig } from '../src/config.js';
 
 // Drives the REAL MCP server through a REAL client over an in-memory transport,
 // with a MOCKED executor — so we test the tool wiring and result mapping with
-// no sandbox binary (deno/srt), no network and no live API.
+// no sandbox binary (deno/node), no network and no live API.
 
 function makeExecutor(impl) {
   return { name: 'mock', run: impl };
@@ -102,6 +102,7 @@ describe('MCP server', () => {
       expect(received.code).toContain('oa_pk_test');
       // Policy is forwarded from config, not invented by the server.
       expect(received.allowNet).toEqual(['dapi.openagenda.com']);
+      expect(received.egressAuthority).toBe('executor');
       expect(received.limits).toEqual({ timeoutMs: 5000, memoryMb: 256 });
       expect(received.tls).toBeDefined();
     });
@@ -221,21 +222,23 @@ describe('MCP server', () => {
       expect(textOf(r)).toContain('[redacted]');
     });
 
-    it('redacts any oa_pk_/oa_sk_ token shape, not just the configured key', async () => {
+    it('redacts the API key on the SUCCESS path (a return value can echo it)', async () => {
+      // Untrusted code can `return __cfg.apiKey` (the key is baked into the
+      // program); a successful result must not leak it any more than an error does.
       ({ client } = await connect({
         executor: makeExecutor(async () => ({
-          stdout: '',
-          stderr: 'leaked oa_sk_OTHERSECRET123 in output',
+          stdout: 'oa_pk_test',
+          stderr: '',
           timedOut: false,
-          exitCode: 1,
+          exitCode: 0,
         })),
         config: loadConfig({ OA_API_KEY: 'oa_pk_test' }),
       }));
       const r = await client.callTool({
         name: 'execute',
-        arguments: { code: 'noop' },
+        arguments: { code: 'return __cfg.apiKey' },
       });
-      expect(textOf(r)).not.toContain('oa_sk_OTHERSECRET123');
+      expect(textOf(r)).not.toContain('oa_pk_test');
       expect(textOf(r)).toContain('[redacted]');
     });
 

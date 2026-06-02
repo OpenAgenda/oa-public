@@ -22,8 +22,7 @@ const MAX_ERROR_TEXT = 4000;
 function redactSecrets(text, apiKey) {
   let out = text;
   if (apiKey) out = out.split(apiKey).join('[redacted]');
-  // Also catch any oa_pk_/oa_sk_ token shape, in case a different key surfaces.
-  return out.replace(/oa_(?:pk|sk)_[A-Za-z0-9]+/g, '[redacted]');
+  return out;
 }
 
 /** Truncate to MAX_ERROR_TEXT, noting how much was dropped (no silent cut). */
@@ -119,6 +118,7 @@ export function createServer({ config, executor }) {
           code: script,
           env: {},
           allowNet: config.allowNet,
+          egressAuthority: config.egressAuthority,
           limits: config.limits,
           tls: config.tls,
         });
@@ -149,7 +149,19 @@ export function createServer({ config, executor }) {
         const where = res.exitCode === null ? '' : ` (exit ${res.exitCode})`;
         return fail(`Execution failed${where}:\n${res.stderr || res.stdout}`);
       }
-      return { content: [textContent(res.stdout.trim() || 'null')] };
+      // Best-effort hygiene, NOT a boundary: also scrub the configured key from a
+      // successful result (errors already do), so a naive `return __cfg.apiKey` or
+      // an accidental echo doesn't surface it. A hostile caller can still encode the
+      // key to defeat this — in-process scrubbing can't be the exfiltration boundary
+      // (see preamble.js); the real defense against leaking a SHARED key to an
+      // untrusted caller is a per-caller scoped token (OAuth, roadmap).
+      return {
+        content: [
+          textContent(
+            redactSecrets(res.stdout.trim() || 'null', config.apiKey),
+          ),
+        ],
+      };
     },
   );
 

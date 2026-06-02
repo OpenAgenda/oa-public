@@ -1,19 +1,19 @@
 // Shared child-process runner with a HARD wall-clock kill and output cap.
 //
-// This is the part of resource-limiting that does NOT come from the sandbox
-// tool: a wall-clock SIGKILL is what stops infinite loops / hangs, and the
-// output cap stops a runaway from filling memory via stdout. Both the deno and
-// srt adapters rely on it (srt has no native limits at all).
+// This is the part of resource-limiting that the engine self-imposes: a
+// wall-clock SIGKILL stops infinite loops / hangs, and the output cap stops a
+// runaway from filling memory via stdout. Both the node and deno engines rely
+// on it.
 //
 // We spawn in a NEW PROCESS GROUP (detached) and kill the whole group, not just
-// the direct child. The srt backend runs the JS as a grandchild (srt → env →
-// node); signalling only the immediate child would orphan the runtime, which
-// could outlive the wall-clock limit and keep holding egress. Killing the group
-// (process.kill(-pid)) takes the whole tree down.
+// the direct child. The runtime may itself spawn children (and an outer wrapper
+// can add a layer); signalling only the immediate child could orphan a process
+// that outlives the wall-clock limit and keeps holding egress. Killing the
+// group (process.kill(-pid)) takes the whole tree down.
 
 import { spawn } from 'node:child_process';
 
-const MAX_OUTPUT_BYTES = 1024 * 1024; // 1 MiB — beyond this we assume runaway output.
+export const MAX_OUTPUT_BYTES = 1024 * 1024; // 1 MiB — beyond this we assume runaway output.
 
 /**
  * @param {object} opts

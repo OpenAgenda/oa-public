@@ -1,13 +1,12 @@
 // Unit tests for the sandbox enforcement layer — the part that IS the security
-// boundary (resource caps, egress policy shape, env isolation, process running)
-// and was previously only exercised by scripts/smoke.js (needs deno/srt + net).
-// These use Node itself as the child, so they run in CI with no extra binary.
+// boundary (resource caps, env isolation, process running) and was previously
+// only exercised by scripts/smoke.js (needs deno/node + net). These use Node
+// itself as the child, so they run in CI with no extra binary.
 
-import { runProcess } from '../src/sandbox/_spawn.js';
-import { which, missingBinResult } from '../src/sandbox/_which.js';
-import { sandboxEnv } from '../src/sandbox/_env.js';
-import { buildDenoArgs } from '../src/sandbox/denoExecutor.js';
-import { buildSrtSettings } from '../src/sandbox/srtExecutor.js';
+import { runProcess } from '../src/sandbox/spawn.js';
+import { which, missingBinResult } from '../src/sandbox/which.js';
+import { sandboxEnv } from '../src/sandbox/env.js';
+import { buildDenoArgs } from '../src/sandbox/executors/denoExecutor.js';
 
 const NODE = process.execPath;
 
@@ -31,15 +30,6 @@ describe('buildDenoArgs', () => {
   });
 });
 
-describe('buildSrtSettings', () => {
-  it('allows egress ONLY to the given hosts and permits no writes', () => {
-    const s = buildSrtSettings(['api.openagenda.com']);
-    expect(s.network.allowedDomains).toEqual(['api.openagenda.com']);
-    expect(s.network.deniedDomains).toEqual([]);
-    expect(s.filesystem.allowWrite).toEqual([]); // allow-only → nothing writable
-  });
-});
-
 describe('sandboxEnv', () => {
   it('passes through only operational vars, never operator secrets', () => {
     const env = sandboxEnv(
@@ -59,6 +49,19 @@ describe('sandboxEnv', () => {
     expect(env).not.toHaveProperty('OA_API_KEY');
     expect(env).not.toHaveProperty('AWS_SECRET_ACCESS_KEY');
     expect(env).not.toHaveProperty('MY_TOKEN');
+  });
+
+  it('passes the outer-wrapper proxy vars through (egress under srt on macOS)', () => {
+    const env = sandboxEnv(
+      {},
+      {
+        PATH: '/b',
+        HTTP_PROXY: 'http://127.0.0.1:9',
+        HTTPS_PROXY: 'http://127.0.0.1:9',
+      },
+    );
+    expect(env.HTTP_PROXY).toBe('http://127.0.0.1:9');
+    expect(env.HTTPS_PROXY).toBe('http://127.0.0.1:9');
   });
 
   it('adds explicit extra assignments on top', () => {

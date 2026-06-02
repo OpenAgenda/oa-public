@@ -12323,10 +12323,14 @@ __metadata:
     "@openagenda/api-spec": "workspace:*"
     "@types/node": "npm:^22.0.0"
     jest: "npm:^30.4.2"
+    microsandbox: "npm:^0.5.4"
     tsdown: "npm:^0.22.0"
     typescript: "npm:^5.6.3"
     yaml: "npm:^2.4.5"
     zod: "npm:^3.25.0"
+  dependenciesMeta:
+    microsandbox:
+      optional: true
   bin:
     openagenda-mcp: src/index.js
   languageName: unknown
@@ -20858,6 +20862,27 @@ __metadata:
     yup: "npm:0.32.9"
     zod: "npm:3.25.67"
   checksum: 10c0/11e0033d079aeae84e22582133df5612717154dda2ed273e153aa0a083a84a3386e1b5c8e4da83aac5ee4f7f5003cd4814e4feb4bd691f02a3f12825e26f7dd0
+  languageName: node
+  linkType: hard
+
+"@superradcompany/microsandbox-darwin-arm64@npm:0.5.4":
+  version: 0.5.4
+  resolution: "@superradcompany/microsandbox-darwin-arm64@npm:0.5.4"
+  conditions: os=darwin & cpu=arm64
+  languageName: node
+  linkType: hard
+
+"@superradcompany/microsandbox-linux-arm64-gnu@npm:0.5.4":
+  version: 0.5.4
+  resolution: "@superradcompany/microsandbox-linux-arm64-gnu@npm:0.5.4"
+  conditions: os=linux & cpu=arm64 & libc=glibc
+  languageName: node
+  linkType: hard
+
+"@superradcompany/microsandbox-linux-x64-gnu@npm:0.5.4":
+  version: 0.5.4
+  resolution: "@superradcompany/microsandbox-linux-x64-gnu@npm:0.5.4"
+  conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
@@ -45668,6 +45693,27 @@ __metadata:
     braces: "npm:^3.0.3"
     picomatch: "npm:^2.3.1"
   checksum: 10c0/58fa99bc5265edec206e9163a1d2cec5fabc46a5b473c45f4a700adce88c2520456ae35f2b301e4410fb3afb27e9521fb2813f6fc96be0a48a89430e0916a772
+  languageName: node
+  linkType: hard
+
+"microsandbox@npm:^0.5.4":
+  version: 0.5.4
+  resolution: "microsandbox@npm:0.5.4"
+  dependencies:
+    "@superradcompany/microsandbox-darwin-arm64": "npm:0.5.4"
+    "@superradcompany/microsandbox-linux-arm64-gnu": "npm:0.5.4"
+    "@superradcompany/microsandbox-linux-x64-gnu": "npm:0.5.4"
+  dependenciesMeta:
+    "@superradcompany/microsandbox-darwin-arm64":
+      optional: true
+    "@superradcompany/microsandbox-linux-arm64-gnu":
+      optional: true
+    "@superradcompany/microsandbox-linux-x64-gnu":
+      optional: true
+  bin:
+    microsandbox: bin/microsandbox.cjs
+    msb: bin/microsandbox.cjs
+  checksum: 10c0/d9bbb52cde1946c0f643f8341e63ff9bed3a39ebd8f6571c12dcbd0020baac6b63ccd6c9351eb0aebe5df07e9e2e8632bc11ecccbb3a162eef8931b304fa0d39
   languageName: node
   linkType: hard
 

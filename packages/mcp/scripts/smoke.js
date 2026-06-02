@@ -1,7 +1,7 @@
-// Smoke test: spawns the MCP server over stdio (inheriting OA_*/SANDBOX_* from
-// the env), then exercises the two tools AND proves the sandbox boundary holds.
+// Smoke test: spawns the MCP server over stdio (inheriting OA_* from the env),
+// then exercises the two tools AND proves the sandbox boundary holds.
 //
-//   SANDBOX_BACKEND=srt OA_BASE_URL=https://dapi.openagenda.com/v3 \
+//   OA_EXECUTOR=deno OA_BASE_URL=https://dapi.openagenda.com/v3 \
 //   OA_API_KEY=oa_pk_xxx [OA_AGENDA_UID=<uid>] node scripts/smoke.js
 //
 // It checks:
@@ -32,7 +32,7 @@ const textOf = (r) => r?.content?.map((c) => c.text).join('\n') ?? '';
 const transport = new StdioClientTransport({
   command: process.execPath, // this node
   args: [serverEntry],
-  env: { ...process.env }, // forward PATH (for srt/deno) + OA_*/SANDBOX_*
+  env: { ...process.env }, // forward PATH (for deno) + OA_*
 });
 
 const client = new Client({ name: 'oa-mcp-smoke', version: '0.0.0' });
