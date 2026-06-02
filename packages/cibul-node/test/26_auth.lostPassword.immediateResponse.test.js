@@ -5,6 +5,7 @@ import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
 import flushRateLimit from './helpers/rateLimit.js';
+import waitFor from './helpers/waitFor.js';
 
 const enabled = [
   'knex',
@@ -131,10 +132,12 @@ describe('26 - /api/auth/request-password-reset replies immediately regardless o
     expect(res.body).toMatchObject({ status: true });
     expect(elapsed).toBeLessThan(FAST_RESPONSE_MS);
 
-    // Allow the background BA pipeline to invoke the mail send.
-    await new Promise((r) => setTimeout(r, 500));
-    const reset = sentMails.find((m) => m.template === 'resetPassword');
-    expect(reset).toBeTruthy();
+    // The mail send is backgrounded (that's the whole point of this suite —
+    // the response returns before it). Poll for it instead of a fixed sleep.
+    const reset = await waitFor(
+      () => sentMails.find((m) => m.template === 'resetPassword'),
+      { message: 'background resetPassword mail to be sent' },
+    );
     expect(reset.to).toBe(email);
   });
 });
