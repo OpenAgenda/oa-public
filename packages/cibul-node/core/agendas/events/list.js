@@ -210,9 +210,24 @@ export default async (core, agendaUid, query = {}, nav = {}, options = {}) => {
 
   if (load.valid) {
     for (const event of compiledEvents) {
-      event.valid = await cleanEvent.getIsValid(core, agenda, event, {
-        verifyLocationExists: false,
-      });
+      try {
+        event.valid = await cleanEvent.getIsValid(core, agenda, event, {
+          verifyLocationExists: false,
+        });
+      } catch (error) {
+        // A corrupt event (e.g. a malformed `registration` field) can make
+        // validation throw a non-BadRequest error. In a listing/reindex
+        // context one bad event must not abort the whole batch: treat it as
+        // invalid and keep going. The single-event create/update path
+        // (createPayload) still surfaces these errors.
+        log(
+          'warn',
+          'event uid %s failed validation, marking invalid',
+          event.uid,
+          error,
+        );
+        event.valid = false;
+      }
     }
     stopwatch('valid');
   }
