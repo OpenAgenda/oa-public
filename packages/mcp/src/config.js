@@ -10,6 +10,12 @@
 //   OA_SANDBOX_TIMEOUT_MS / OA_SANDBOX_MEMORY_MB              hard resource caps
 //   OA_MICROSANDBOX_IMAGE    OCI image for the µVM runtime    (default: node:24-alpine)
 //   OA_MICROSANDBOX_POOL_SIZE  warm single-use µVM spares     (default: 0 = off; throughput optim)
+//   OA_MCP_TRANSPORT         stdio | http                     (default: stdio)
+//   OA_MCP_HTTP_PORT         listen port (transport=http)     (default: 8904)
+//   OA_OAUTH_ISSUER          authorization server issuer      (required for transport=http)
+//   OA_OAUTH_JWKS_URL        AS JWKS endpoint                 (default: <issuer>/jwks)
+//   OA_MCP_RESOURCE_URL      this server's resource id (aud)  (required for transport=http)
+//   OA_MCP_REQUIRED_SCOPES   space/comma list a token must hold (default: none)
 //
 // TWO ORTHOGONAL AXES (see README → "Execution model"):
 //   - executor: WHAT runs the JS (node / deno / a microsandbox µVM).
@@ -26,6 +32,9 @@
 const MODES = ['local', 'hosted'];
 const EXECUTORS = ['node', 'deno', 'microsandbox'];
 const EGRESS = ['executor', 'wrapper', 'none'];
+const TRANSPORTS = ['stdio', 'http'];
+
+export const DEFAULT_HTTP_PORT = 8904;
 
 export const DEFAULT_BASE_URL = 'https://api.openagenda.com/v3';
 
@@ -141,6 +150,66 @@ function validateCombo({ mode, executor, egressAuthority, localNoSandbox }) {
   }
 }
 
+/** Parse a space/comma-separated scope list into a deduped array (empty → []). */
+function parseScopes(raw) {
+  if (!raw) return [];
+  return [...new Set(raw.split(/[\s,]+/).filter(Boolean))];
+}
+
+// Resolve and validate the OAuth resource-server config for the HTTP transport.
+// FAIL CLOSED: transport=http with no issuer/resource would expose an
+// unauthenticated MCP endpoint, so refuse to boot rather than degrade. Returns
+// null for the stdio transport (no OAuth — local/key model).
+function loadOAuth(transport, env) {
+  if (transport !== 'http') return null;
+
+  const issuer = env.OA_OAUTH_ISSUER;
+  const resourceUrl = env.OA_MCP_RESOURCE_URL;
+  if (!issuer) {
+    throw new Error(
+      'OA_MCP_TRANSPORT=http requires OA_OAUTH_ISSUER (the authorization server '
+        + 'issuer, e.g. https://d.openagenda.com/api/auth) — refusing to expose an '
+        + 'unauthenticated MCP server.',
+    );
+  }
+  if (!resourceUrl) {
+    throw new Error(
+      "OA_MCP_TRANSPORT=http requires OA_MCP_RESOURCE_URL (this server's OAuth "
+        + 'resource identifier / audience, e.g. https://dmcp.openagenda.com) so issued '
+        + 'tokens can be audience-bound (RFC 8707) and verified locally.',
+    );
+  }
+  // Reject malformed URLs early (issuer + resource are load-bearing for JWKS
+  // fetch and audience checks); the JWKS endpoint defaults to <issuer>/jwks.
+  for (const [name, value] of [
+    ['OA_OAUTH_ISSUER', issuer],
+    ['OA_MCP_RESOURCE_URL', resourceUrl],
+  ]) {
+    try {
+      // eslint-disable-next-line no-new
+      new URL(value);
+    } catch {
+      throw new Error(`${name} must be a valid URL (got "${value}")`);
+    }
+  }
+
+  return {
+    issuer,
+    resourceUrl,
+    jwksUrl: env.OA_OAUTH_JWKS_URL ?? `${issuer.replace(/\/$/, '')}/jwks`,
+    requiredScopes: parseScopes(env.OA_MCP_REQUIRED_SCOPES),
+    // Advertised in the PRM (informational). The v3 read vocabulary an OAuth
+    // token may carry while O2 is read-only.
+    scopesSupported: [
+      'openid',
+      'events:read',
+      'agendas:read',
+      'locations:read',
+      'members:read',
+    ],
+  };
+}
+
 export function loadConfig(env = process.env) {
   const mode = oneOf(env.OA_MCP_MODE ?? 'local', MODES, 'OA_MCP_MODE');
 
@@ -173,6 +242,16 @@ export function loadConfig(env = process.env) {
 
   validateCombo({ mode, executor, egressAuthority, localNoSandbox });
 
+  // Transport is orthogonal to the executor/egress matrix above: stdio (local,
+  // API-key model) or http (standalone OAuth resource server). The executor
+  // boundary is governed by validateCombo regardless of transport.
+  const transport = oneOf(
+    env.OA_MCP_TRANSPORT ?? 'stdio',
+    TRANSPORTS,
+    'OA_MCP_TRANSPORT',
+  );
+  const oauth = loadOAuth(transport, env);
+
   const baseUrl = env.OA_BASE_URL ?? DEFAULT_BASE_URL;
   const apiHost = apiHostFromBaseUrl(baseUrl);
 
@@ -181,6 +260,10 @@ export function loadConfig(env = process.env) {
     executor,
     egressAuthority,
     localNoSandbox,
+    transport,
+    httpPort: int(env.OA_MCP_HTTP_PORT, DEFAULT_HTTP_PORT),
+    // OAuth resource-server config (transport=http only; null for stdio).
+    oauth,
     baseUrl,
     apiHost,
     apiKey: env.OA_API_KEY ?? null,
