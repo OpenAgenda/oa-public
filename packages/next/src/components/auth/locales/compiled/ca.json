@@ -29,6 +29,128 @@
       "value": "Conectarse"
     }
   ],
+  "next.components.auth.Consent.allow": [
+    {
+      "type": 0,
+      "value": "Permitir"
+    }
+  ],
+  "next.components.auth.Consent.deny": [
+    {
+      "type": 0,
+      "value": "Denegar"
+    }
+  ],
+  "next.components.auth.Consent.error": [
+    {
+      "type": 0,
+      "value": "Algo salió mal. Inténtalo de nuevo."
+    }
+  ],
+  "next.components.auth.Consent.fallbackAppName": [
+    {
+      "type": 0,
+      "value": "Esta aplicación"
+    }
+  ],
+  "next.components.auth.Consent.heading": [
+    {
+      "type": 0,
+      "value": "Autorizar "
+    },
+    {
+      "type": 1,
+      "value": "appName"
+    }
+  ],
+  "next.components.auth.Consent.intro": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " desea acceder a tu cuenta de OpenAgenda. Podrá:"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasRead": [
+    {
+      "type": 0,
+      "value": "Leer tus agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasWrite": [
+    {
+      "type": 0,
+      "value": "Crear y editar tus agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.email": [
+    {
+      "type": 0,
+      "value": "Leer tu dirección de correo electrónico"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsRead": [
+    {
+      "type": 0,
+      "value": "Leer tus eventos"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsTransverse": [
+    {
+      "type": 0,
+      "value": "Acceder a los eventos de todas tus agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsWrite": [
+    {
+      "type": 0,
+      "value": "Crear y editar tus eventos"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsRead": [
+    {
+      "type": 0,
+      "value": "Leer tus lugares"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsWrite": [
+    {
+      "type": 0,
+      "value": "Crear y editar tus lugares"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersRead": [
+    {
+      "type": 0,
+      "value": "Leer los miembros de las agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersWrite": [
+    {
+      "type": 0,
+      "value": "Gestionar los miembros de las agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.offlineAccess": [
+    {
+      "type": 0,
+      "value": "Permanecer conectado cuando no estés (acceso renovado)"
+    }
+  ],
+  "next.components.auth.Consent.scope.openid": [
+    {
+      "type": 0,
+      "value": "Verificar tu identidad"
+    }
+  ],
+  "next.components.auth.Consent.scope.profile": [
+    {
+      "type": 0,
+      "value": "Leer tu perfil público (nombre, foto)"
+    }
+  ],
   "next.components.auth.LostPassword.cancelLabel": [
     {
       "type": 0,

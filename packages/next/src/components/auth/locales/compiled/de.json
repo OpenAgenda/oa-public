@@ -29,6 +29,128 @@
       "value": "Anmelden"
     }
   ],
+  "next.components.auth.Consent.allow": [
+    {
+      "type": 0,
+      "value": "Erlauben"
+    }
+  ],
+  "next.components.auth.Consent.deny": [
+    {
+      "type": 0,
+      "value": "Ablehnen"
+    }
+  ],
+  "next.components.auth.Consent.error": [
+    {
+      "type": 0,
+      "value": "Etwas ist schiefgelaufen. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "next.components.auth.Consent.fallbackAppName": [
+    {
+      "type": 0,
+      "value": "Diese Anwendung"
+    }
+  ],
+  "next.components.auth.Consent.heading": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " autorisieren"
+    }
+  ],
+  "next.components.auth.Consent.intro": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " möchte auf Ihr OpenAgenda-Konto zugreifen. Die Anwendung kann:"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasRead": [
+    {
+      "type": 0,
+      "value": "Ihre Kalender lesen"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasWrite": [
+    {
+      "type": 0,
+      "value": "Ihre Kalender erstellen und bearbeiten"
+    }
+  ],
+  "next.components.auth.Consent.scope.email": [
+    {
+      "type": 0,
+      "value": "Ihre E-Mail-Adresse lesen"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsRead": [
+    {
+      "type": 0,
+      "value": "Ihre Veranstaltungen lesen"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsTransverse": [
+    {
+      "type": 0,
+      "value": "Auf Veranstaltungen aller Ihrer Kalender zugreifen"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsWrite": [
+    {
+      "type": 0,
+      "value": "Ihre Veranstaltungen erstellen und bearbeiten"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsRead": [
+    {
+      "type": 0,
+      "value": "Ihre Orte lesen"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsWrite": [
+    {
+      "type": 0,
+      "value": "Ihre Orte erstellen und bearbeiten"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersRead": [
+    {
+      "type": 0,
+      "value": "Kalendermitglieder lesen"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersWrite": [
+    {
+      "type": 0,
+      "value": "Kalendermitglieder verwalten"
+    }
+  ],
+  "next.components.auth.Consent.scope.offlineAccess": [
+    {
+      "type": 0,
+      "value": "Verbunden bleiben, wenn Sie abwesend sind (Zugriff erneuern)"
+    }
+  ],
+  "next.components.auth.Consent.scope.openid": [
+    {
+      "type": 0,
+      "value": "Ihre Identität überprüfen"
+    }
+  ],
+  "next.components.auth.Consent.scope.profile": [
+    {
+      "type": 0,
+      "value": "Ihr öffentliches Profil lesen (Name, Bild)"
+    }
+  ],
   "next.components.auth.LostPassword.cancelLabel": [
     {
       "type": 0,

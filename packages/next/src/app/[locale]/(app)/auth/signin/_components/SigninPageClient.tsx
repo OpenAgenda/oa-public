@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Heading } from '@openagenda/uikit';
 import Signin from 'components/auth/Signin';
@@ -59,6 +59,27 @@ export default function SigninPageClient({
     callbackURL?: string;
   } | null>(view === 'resend' && defaultEmail ? { email: defaultEmail } : null);
 
+  // OAuth round-trip: when the `oauth-provider` plugin sends an unauthenticated
+  // user here (its `loginPage`), it appends the *signed* authorization query.
+  // After sign-in we must return to `/oauth2/authorize` with that query intact
+  // — the signature is verified over the verbatim string (insertion order
+  // preserved), so we replay `window.location.search` as-is rather than
+  // reconstructing it from parsed params. Computed client-side (not rendered,
+  // so no hydration concern). Non-OAuth visits leave the props untouched.
+  const oauthRedirect = useMemo(() => {
+    if (typeof window === 'undefined') return undefined;
+    const sp = new URLSearchParams(window.location.search);
+    if (!sp.get('client_id') || !sp.get('sig')) return undefined;
+    return `/api/auth/oauth2/authorize?${window.location.search.replace(/^\?/, '')}`;
+  }, []);
+  // `redirectOnSuccess` is followed verbatim after email sign-in; `redirect`
+  // (base64) feeds the social-login `callbackURL` path via
+  // computePostSignInRedirect, so set both for either sign-in route.
+  const redirectOnSuccess = oauthRedirect;
+  const effectiveRedirect = oauthRedirect
+    ? window.btoa(oauthRedirect)
+    : redirect;
+
   if (completeData) {
     return (
       <>
@@ -91,7 +112,8 @@ export default function SigninPageClient({
         </MessageAlert>
       )}
       <Signin
-        redirect={redirect}
+        redirect={effectiveRedirect}
+        redirectOnSuccess={redirectOnSuccess}
         invitation={invitation}
         linkProvider={linkProvider}
         linkError={linkError}
