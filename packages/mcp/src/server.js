@@ -13,11 +13,11 @@ import { buildScript } from './sandbox/preamble.js';
 const MAX_ERROR_TEXT = 4000;
 
 /**
- * Strip the API key from any text returned to the client. The key is baked into
- * the executed program (preamble.js), so a runtime error/stack frame can echo it
- * back via stderr. Today the key is a shared env credential → leaking it is a
- * real footgun; once auth is a per-caller scoped token this keeps the caller's
- * own token out of returned text too (defense-in-depth, valid in both models).
+ * Strip the API credential from any text returned to the client. It is baked
+ * into the executed program (preamble.js), so a runtime error/stack frame can
+ * echo it back via stderr. On stdio that credential is the self-hoster's own
+ * key; on the HTTP resource server it is the *caller's* OAuth access token —
+ * either way keep it out of returned text (defense-in-depth, both models).
  */
 function redactSecrets(text, apiKey) {
   let out = text;
@@ -44,9 +44,19 @@ const textContent = (text) => ({ type: 'text', text });
  * @param {object} deps
  * @param {ReturnType<import('./config.js').loadConfig>} deps.config
  * @param {import('./sandbox/executor.js').SandboxExecutor} deps.executor
+ * @param {string|null} [deps.credential]  the API credential baked into executed
+ *   code. PER TRANSPORT (see docs/plan-oauth-provider.md §O2): stdio omits it and
+ *   falls back to `config.apiKey` (the self-hoster's own key); the HTTP resource
+ *   server passes the *caller's* OAuth access token per request (delegation), so
+ *   the sandboxed code acts as that user and never exceeds their permissions.
  */
-export function createServer({ config, executor }) {
+export function createServer({ config, executor, credential }) {
   const server = new McpServer({ name: 'openagenda-mcp', version: '0.0.0' });
+
+  // Resolve once per server instance. stdio builds one server for the process
+  // (credential undefined → config.apiKey); the HTTP path builds a fresh server
+  // per request carrying that request's token.
+  const apiCredential = credential ?? config.apiKey;
 
   // search_docs — progressive disclosure: find the right operation + how to call
   // it before writing code. Pure metadata, no network, no side effects.
@@ -102,13 +112,13 @@ export function createServer({ config, executor }) {
     async ({ code }) => {
       const script = buildScript(code, {
         baseUrl: config.baseUrl,
-        apiKey: config.apiKey,
+        apiKey: apiCredential,
       });
 
       const fail = (text) => ({
         isError: true,
         content: [
-          textContent(clampErrorText(redactSecrets(text, config.apiKey))),
+          textContent(clampErrorText(redactSecrets(text, apiCredential))),
         ],
       });
 
@@ -158,7 +168,7 @@ export function createServer({ config, executor }) {
       return {
         content: [
           textContent(
-            redactSecrets(res.stdout.trim() || 'null', config.apiKey),
+            redactSecrets(res.stdout.trim() || 'null', apiCredential),
           ),
         ],
       };

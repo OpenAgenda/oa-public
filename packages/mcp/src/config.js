@@ -175,8 +175,8 @@ function loadOAuth(transport, env) {
   if (!resourceUrl) {
     throw new Error(
       "OA_MCP_TRANSPORT=http requires OA_MCP_RESOURCE_URL (this server's OAuth "
-        + 'resource identifier / audience, e.g. https://dmcp.openagenda.com) so issued '
-        + 'tokens can be audience-bound (RFC 8707) and verified locally.',
+        + 'resource identifier / audience, e.g. https://dmcp.openagenda.com/mcp) so '
+        + 'issued tokens can be audience-bound (RFC 8707) and verified locally.',
     );
   }
   // Reject malformed URLs early (issuer + resource are load-bearing for JWKS
@@ -198,10 +198,17 @@ function loadOAuth(transport, env) {
     resourceUrl,
     jwksUrl: env.OA_OAUTH_JWKS_URL ?? `${issuer.replace(/\/$/, '')}/jwks`,
     requiredScopes: parseScopes(env.OA_MCP_REQUIRED_SCOPES),
-    // Advertised in the PRM (informational). The v3 read vocabulary an OAuth
-    // token may carry while O2 is read-only.
+    // Advertised in the PRM. MCP clients (Claude, etc.) register dynamically
+    // with exactly these scopes, so the list doubles as the DCR scope set:
+    //   - `openid` + the v3 read vocabulary: the resource scopes an OAuth token
+    //     may carry while O2 is read-only.
+    //   - `offline_access`: NOT a resource scope, but required here so the DCR
+    //     client is registered with it — otherwise the client requests
+    //     `offline_access` at /authorize (to obtain a refresh token, hence its
+    //     `refresh_token` grant) and the AS rejects it as out-of-scope.
     scopesSupported: [
       'openid',
+      'offline_access',
       'events:read',
       'agendas:read',
       'locations:read',

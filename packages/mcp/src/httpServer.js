@@ -6,9 +6,11 @@
 // Resource Metadata (RFC 9728) is served at the well-known path so a client can
 // find the authorization server and obtain an audience-bound token.
 //
-// The server owns its whole subdomain and is served at the root (dmcp in dev,
-// mcp.openagenda.com in prod), so the MCP endpoint is `POST /` and the PRM sits
-// at /.well-known/oauth-protected-resource with no path collision.
+// The server owns its whole subdomain (dmcp in dev, mcp.openagenda.com in prod).
+// The MCP protocol endpoint is `POST /mcp` (Streamable HTTP); the resource URL
+// therefore carries the `/mcp` path, so the PRM is served at the path-suffixed
+// /.well-known/oauth-protected-resource/mcp (RFC 9728). The subdomain root is
+// left for a human landing page (`GET /`) instead of the bare auth challenge.
 
 import express from 'express';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
@@ -17,6 +19,7 @@ import { metadataHandler } from '@modelcontextprotocol/sdk/server/auth/handlers/
 import { getOAuthProtectedResourceMetadataUrl } from '@modelcontextprotocol/sdk/server/auth/router.js';
 import { createServer } from './server.js';
 import { createTokenVerifier } from './auth/verifier.js';
+import { landingPage } from './landing.js';
 
 // JSON-RPC error returned without a request id (parse/transport-level failures).
 const jsonRpcError = (code, message) => ({
@@ -42,6 +45,13 @@ export function createHttpApp({ config, executor }) {
   }
   const app = express();
   app.disable('x-powered-by');
+
+  // The protocol endpoint path IS the resource URL's path — single source of
+  // truth so the endpoint, the token audience (`oauth.resourceUrl`), and the PRM
+  // path can never diverge. Conventionally `/mcp` (Sentry/GitHub/Ref), but
+  // whatever the configured resource carries. WHATWG keeps a path verbatim (no
+  // trailing-slash ambiguity); a bare origin yields '/'.
+  const mcpPath = new URL(oauth.resourceUrl).pathname;
 
   // Protected Resource Metadata (RFC 9728). The well-known path is derived from
   // the resource URL by the SDK helper. CORS + method restriction are handled by
@@ -76,8 +86,15 @@ export function createHttpApp({ config, executor }) {
   // The MCP endpoint. `bearer` runs before the body is parsed so an
   // unauthenticated request is rejected without reading its payload. Stateless:
   // a new server+transport per request, torn down when the response closes.
-  app.post('/', bearer, express.json(), async (req, res) => {
-    const server = createServer({ config, executor });
+  app.post(mcpPath, bearer, express.json(), async (req, res) => {
+    // Delegation: bake THIS caller's verified access token into the sandboxed
+    // code (req.auth is set by requireBearerAuth). The executed code therefore
+    // calls the v3 API as the consenting user — never with a shared key.
+    const server = createServer({
+      config,
+      executor,
+      credential: req.auth?.token ?? null,
+    });
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: undefined,
     });
@@ -101,8 +118,18 @@ export function createHttpApp({ config, executor }) {
     res
       .status(405)
       .json(jsonRpcError(-32000, 'Method not allowed (stateless server).'));
-  app.get('/', methodNotAllowed);
-  app.delete('/', methodNotAllowed);
+  app.get(mcpPath, methodNotAllowed);
+  app.delete(mcpPath, methodNotAllowed);
+
+  // Human landing page at the root — the MCP endpoint sits at `mcpPath`, so a
+  // browser visitor to `/` gets a real page instead of the auth challenge. Only
+  // when the endpoint isn't itself at the root (a bare-origin resource would put
+  // POST / at `/`; we then leave `/` to the endpoint, no separate landing).
+  if (mcpPath !== '/') {
+    app.get('/', (req, res) => {
+      res.type('html').send(landingPage(oauth));
+    });
+  }
 
   return app;
 }

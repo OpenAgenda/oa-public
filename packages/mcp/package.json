@@ -19,6 +19,7 @@
   "scripts": {
     "start": "yarn build && node src/index.js",
     "smoke": "yarn build && node scripts/smoke.js",
+    "smoke:oauth": "node scripts/smoke-oauth.js",
     "build": "tsdown",
     "check": "tsc --noEmit",
     "prepack": "yarn build",

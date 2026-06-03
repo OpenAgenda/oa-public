@@ -10,7 +10,10 @@ import { loadConfig } from '../src/config.js';
 // server.test.js; here we test auth + transport.
 
 const ISSUER = 'https://auth.test';
-const RESOURCE = 'https://dmcp.test';
+// The resource id carries the /mcp endpoint path; the PRM is therefore served
+// at the path-suffixed well-known (RFC 9728).
+const RESOURCE = 'https://dmcp.test/mcp';
+const PRM_PATH = '.well-known/oauth-protected-resource/mcp';
 
 let jwksServer;
 let jwksUrl;
@@ -40,16 +43,27 @@ async function signToken({
 
 // POST a JSON-RPC request; returns { status, headers, body } where body is the
 // parsed JSON-RPC payload (decoded from the SSE frame the transport emits).
-async function rpc({ method, token, id = 1 } = {}) {
+async function rpc({
+  method,
+  params,
+  token,
+  id = 1,
+  url = `${baseUrl}mcp`,
+} = {}) {
   const headers = {
     'content-type': 'application/json',
     accept: 'application/json, text/event-stream',
   };
   if (token) headers.authorization = `Bearer ${token}`;
-  const res = await fetch(baseUrl, {
+  const res = await fetch(url, {
     method: 'POST',
     headers,
-    body: JSON.stringify({ jsonrpc: '2.0', method, id }),
+    body: JSON.stringify({
+      jsonrpc: '2.0',
+      method,
+      ...params ? { params } : {},
+      id,
+    }),
   });
   const text = await res.text();
   let body;
@@ -120,12 +134,24 @@ afterEach(async () => {
 describe('MCP HTTP resource server', () => {
   describe('protected resource metadata (RFC 9728)', () => {
     it('serves the PRM at the well-known path pointing at the AS', async () => {
-      const res = await fetch(`${baseUrl}.well-known/oauth-protected-resource`);
+      const res = await fetch(`${baseUrl}${PRM_PATH}`);
       expect(res.status).toBe(200);
       const prm = await res.json();
       expect(prm.resource).toBe(RESOURCE);
       expect(prm.authorization_servers).toEqual([ISSUER]);
       expect(prm.bearer_methods_supported).toEqual(['header']);
+    });
+  });
+
+  describe('landing page', () => {
+    it('serves an HTML landing page at the root', async () => {
+      const res = await fetch(baseUrl);
+      expect(res.status).toBe(200);
+      expect(res.headers.get('content-type')).toContain('text/html');
+      const html = await res.text();
+      expect(html).toContain('OpenAgenda MCP');
+      // Advertises the /mcp endpoint a client should be configured with.
+      expect(html).toContain(RESOURCE);
     });
   });
 
@@ -136,7 +162,7 @@ describe('MCP HTTP resource server', () => {
       const www = headers.get('www-authenticate');
       expect(www).toContain('error="invalid_token"');
       expect(www).toContain(
-        'resource_metadata="https://dmcp.test/.well-known/oauth-protected-resource"',
+        'resource_metadata="https://dmcp.test/.well-known/oauth-protected-resource/mcp"',
       );
     });
 
@@ -174,6 +200,43 @@ describe('MCP HTTP resource server', () => {
     });
   });
 
+  describe('delegation', () => {
+    it("bakes the caller's own token into the executed code", async () => {
+      // The whole point of the HTTP path: the verified bearer becomes the API
+      // credential for THIS request's sandbox run (acting as the user), not a
+      // shared key. Build a dedicated app with a capturing executor.
+      await new Promise((resolve) => appServer.close(resolve));
+      let received;
+      const config = loadConfig({
+        OA_MCP_TRANSPORT: 'http',
+        OA_OAUTH_ISSUER: ISSUER,
+        OA_MCP_RESOURCE_URL: RESOURCE,
+        OA_OAUTH_JWKS_URL: jwksUrl,
+        OA_LOCAL_NO_SANDBOX: '1',
+      });
+      const executor = {
+        name: 'mock',
+        run: async (req) => {
+          received = req;
+          return { stdout: '1', stderr: '', timedOut: false, exitCode: 0 };
+        },
+        dispose: async () => {},
+      };
+      app = createHttpApp({ config, executor });
+      appServer = await listen(app);
+      baseUrl = `http://127.0.0.1:${appServer.address().port}/`;
+
+      const token = await signToken();
+      const { status } = await rpc({
+        method: 'tools/call',
+        params: { name: 'execute', arguments: { code: 'return 1;' } },
+        token,
+      });
+      expect(status).toBe(200);
+      expect(received.code).toContain(token);
+    });
+  });
+
   describe('required scopes', () => {
     it('returns 403 insufficient_scope when a required scope is missing', async () => {
       await new Promise((resolve) => appServer.close(resolve));
@@ -189,10 +252,10 @@ describe('MCP HTTP resource server', () => {
   });
 
   describe('unsupported methods (stateless)', () => {
-    it('returns 405 for GET and DELETE on the endpoint', async () => {
-      const get = await fetch(baseUrl);
+    it('returns 405 for GET and DELETE on the /mcp endpoint', async () => {
+      const get = await fetch(`${baseUrl}mcp`);
       expect(get.status).toBe(405);
-      const del = await fetch(baseUrl, { method: 'DELETE' });
+      const del = await fetch(`${baseUrl}mcp`, { method: 'DELETE' });
       expect(del.status).toBe(405);
     });
   });

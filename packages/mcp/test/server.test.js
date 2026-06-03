@@ -19,10 +19,11 @@ const okResult = (stdout) => ({
   exitCode: 0,
 });
 
-async function connect({ executor, config } = {}) {
+async function connect({ executor, config, credential } = {}) {
   const server = createServer({
     config: config ?? loadConfig({ OA_API_KEY: 'oa_pk_test' }),
     executor: executor ?? makeExecutor(async () => okResult('null')),
+    ...credential !== undefined ? { credential } : {},
   });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
   const client = new Client({ name: 'test', version: '0.0.0' });
@@ -105,6 +106,55 @@ describe('MCP server', () => {
       expect(received.egressAuthority).toBe('executor');
       expect(received.limits).toEqual({ timeoutMs: 5000, memoryMb: 256 });
       expect(received.tls).toBeDefined();
+    });
+
+    it('bakes the per-request credential (delegation), overriding config.apiKey', async () => {
+      // The HTTP resource server passes the caller's OAuth token as `credential`;
+      // it must be what reaches the sandbox, NOT the (absent) shared key.
+      let received;
+      ({ client } = await connect({
+        credential: 'caller-oauth-token',
+        config: loadConfig({ OA_API_KEY: 'oa_pk_shared' }),
+        executor: makeExecutor(async (req) => {
+          received = req;
+          return okResult('1');
+        }),
+      }));
+      await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(received.code).toContain('caller-oauth-token');
+      expect(received.code).not.toContain('oa_pk_shared');
+    });
+
+    it('redacts the per-request credential from returned text', async () => {
+      ({ client } = await connect({
+        credential: 'caller-oauth-token',
+        executor: makeExecutor(async () =>
+          okResult('leaked caller-oauth-token here')),
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(textOf(r)).toBe('leaked [redacted] here');
+    });
+
+    it('falls back to config.apiKey when no credential is given (stdio)', async () => {
+      let received;
+      ({ client } = await connect({
+        config: loadConfig({ OA_API_KEY: 'oa_pk_stdio' }),
+        executor: makeExecutor(async (req) => {
+          received = req;
+          return okResult('1');
+        }),
+      }));
+      await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(received.code).toContain('oa_pk_stdio');
     });
 
     it('returns trimmed stdout on success', async () => {
