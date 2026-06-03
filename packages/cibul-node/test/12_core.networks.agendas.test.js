@@ -4,6 +4,7 @@ import Core from '../core/index.js';
 import api from '../api/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
+import waitFor from './helpers/waitFor.js';
 
 const enabled = [
   'knex',
@@ -43,6 +44,16 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
 
   beforeAll(async () => {
     const services = await Services(config, { enabled });
+
+    // jest runs with `--forceExit`, which can interrupt the afterAll queue
+    // drain and leave cascade jobs (e.g. from this file's `api` describe) in
+    // Redis. The next run's worker would replay them mid-test and race the
+    // schema assertions in the `cascade` describe. Wipe the `core` queue BEFORE
+    // Core() builds the worker so it starts on a clean backlog. (Obliterating
+    // after the worker exists would break in-flight processing.)
+    const cleanup = new services.bull.Queue('core', { prefix: '{core}' });
+    await cleanup.obliterate({ force: true });
+    await cleanup.close();
 
     core = Core(services, config);
 
@@ -338,9 +349,6 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         )
         .json();
 
-      // Wait for cascade to complete
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
       // Verify child agenda (agenda 1) can see the network field
       const agenda = await core.agendas(1).get({
         access: 'internal',
@@ -348,12 +356,18 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
       expect(agenda.networkUid).toBe(1);
 
-      const mergedSchema = await core
-        .agendas(1)
-        .settings.schema.getMerged({ lang: 'en' });
-
-      const networkField = mergedSchema.fields.find(
-        (f) => f.field === 'network-cascade-test',
+      // The field reaches the child through an async cascade — poll the merged
+      // schema until it appears instead of racing a fixed sleep.
+      const networkField = await waitFor(
+        async () => {
+          const mergedSchema = await core
+            .agendas(1)
+            .settings.schema.getMerged({ lang: 'en' });
+          return mergedSchema.fields.find(
+            (f) => f.field === 'network-cascade-test',
+          );
+        },
+        { message: 'network field to cascade into child merged schema' },
       );
       expect(networkField).toBeDefined();
     });

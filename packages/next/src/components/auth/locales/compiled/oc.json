@@ -11,6 +11,12 @@
       "value": "Mot de passe perdu"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Connexion per corrièl"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -197,6 +203,54 @@
     {
       "type": 0,
       "value": "Le lien de réinitialisation a été envoyé à l'email saisi. La réception peut parfois prendre quelques minutes : vérifiez votre boîte de réception et votre dossier de courriers indésirables. Si vous ne recevez pas le lien, contactez-nous au support."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Anullar"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "Corrièl"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "vos@exemple.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Formulari de connexion per corrièl"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "Una error s'es producha. Tornatz ensajar."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Picatz vòstre corrièl per recebre un ligam de connexion. Sens senhal. Lo ligam es valable 10 minutas."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Mandar lo ligam"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "Se un compte existís per aqueste corrièl, un ligam de connexion es estat mandat. La recepcion pòt prene qualques minutas. Verificatz vòstra bóstia de recepcion e vòstres spams. Se lo recebètz pas, ne poiretz demandar un autre dins una minuta."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -401,6 +455,12 @@
     {
       "type": 0,
       "value": "Réinitialiser le mot de passe"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Se connectar per corrièl"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [

@@ -11,6 +11,12 @@
       "value": "Lost password"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Hasi saioa posta bidez"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -197,6 +203,54 @@
     {
       "type": 0,
       "value": "The reset link has been sent to the email you entered. Delivery may take a few minutes — check your inbox and your spam folder. If you don't receive the link, contact our support team."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Utzi"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "Helbide elektronikoa"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "zu@adibidea.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Posta bidez saioa hasteko inprimakia"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "Errore bat gertatu da. Saiatu berriro."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Sartu zure helbide elektronikoa saioa hasteko esteka jasotzeko. Pasahitzik gabe. Esteka 10 minutuz baliozkoa da."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Bidali esteka"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "Helbide elektroniko honetarako konturik badago, saioa hasteko esteka bat bidali da. Bidalketak minutu batzuk behar ditzake. Begiratu zure sarrera-ontzia eta spam karpeta. Jasotzen ez baduzu, beste bat eska dezakezu minutu baten buruan."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -401,6 +455,12 @@
     {
       "type": 0,
       "value": "Reset my password"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Hasi saioa posta bidez"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [

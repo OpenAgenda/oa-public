@@ -25,7 +25,29 @@ const messages = defineMessages({
     defaultMessage:
       'This can be because it has already been used. If that is the case, your account should be activated.',
   },
+  accountUnavailableTitle: {
+    id: 'next.components.auth.Signin.accountUnavailable.title',
+    defaultMessage: 'This account is unavailable',
+  },
+  accountUnavailableDescription: {
+    id: 'next.components.auth.Signin.accountUnavailable.description',
+    defaultMessage:
+      'You cannot sign in to this account. If you think this is a mistake, please contact us through the Help menu.',
+  },
 });
+
+// Each banner maps a `?msg=` value (parsed in page.tsx) to its alert copy.
+// Generalising the lookup keeps a single render path as new banners are added.
+const bannerMessages = {
+  invalidActivation: {
+    title: messages.invalidActivationTitle,
+    description: messages.invalidActivationDescription,
+  },
+  accountUnavailable: {
+    title: messages.accountUnavailableTitle,
+    description: messages.accountUnavailableDescription,
+  },
+} as const;
 
 interface SigninPageClientProps {
   redirect?: string;
@@ -33,8 +55,8 @@ interface SigninPageClientProps {
   linkProvider?: 'google';
   linkError?: boolean;
   defaultEmail?: string;
-  view?: 'signin' | 'lost' | 'resend';
-  banner?: 'invalidActivation';
+  view?: 'signin' | 'lost' | 'magic' | 'resend';
+  banner?: 'invalidActivation' | 'accountUnavailable';
 }
 
 export default function SigninPageClient({
@@ -99,16 +121,14 @@ export default function SigninPageClient({
       <Heading as="h1" size="xl" mb="6">
         {intl.formatMessage(messages.heading)}
       </Heading>
-      {banner === 'invalidActivation' && (
+      {banner && (
         <MessageAlert
           role="alert"
           status="error"
           mb="4"
-          description={intl.formatMessage(
-            messages.invalidActivationDescription,
-          )}
+          description={intl.formatMessage(bannerMessages[banner].description)}
         >
-          {intl.formatMessage(messages.invalidActivationTitle)}
+          {intl.formatMessage(bannerMessages[banner].title)}
         </MessageAlert>
       )}
       <Signin
@@ -119,6 +139,7 @@ export default function SigninPageClient({
         linkError={linkError}
         defaultEmail={defaultEmail}
         defaultLostPassword={view === 'lost'}
+        defaultMagicLink={view === 'magic'}
         onActivationRequired={setCompleteData}
       />
     </>

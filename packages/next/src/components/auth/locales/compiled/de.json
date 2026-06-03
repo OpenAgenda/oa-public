@@ -11,6 +11,12 @@
       "value": "Lost password"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Anmeldung per E-Mail"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -197,6 +203,54 @@
     {
       "type": 0,
       "value": "The reset link has been sent to the email you entered. Delivery may take a few minutes — check your inbox and your spam folder. If you don't receive the link, contact our support team."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Abbrechen"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "E-Mail"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "sie@beispiel.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Formular für die Anmeldung per E-Mail"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Geben Sie Ihre E-Mail-Adresse ein, um einen Anmeldelink zu erhalten. Kein Passwort nötig. Der Link ist 10 Minuten gültig."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Link senden"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "Wenn ein Konto für diese E-Mail-Adresse existiert, wurde ein Anmeldelink gesendet. Die Zustellung kann einige Minuten dauern. Prüfen Sie Ihren Posteingang und Ihren Spam-Ordner. Falls Sie ihn nicht erhalten, können Sie in einer Minute einen neuen anfordern."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -401,6 +455,12 @@
     {
       "type": 0,
       "value": "Reset my password"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Per E-Mail anmelden"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [

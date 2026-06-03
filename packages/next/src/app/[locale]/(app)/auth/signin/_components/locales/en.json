@@ -1,6 +1,8 @@
 {
   "next.components.auth.AuthDialog.dialogTitle": "Sign in",
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": "Confirm your email address",
+  "next.components.auth.Signin.accountUnavailable.description": "You cannot sign in to this account. If you think this is a mistake, please contact us through the Help menu.",
+  "next.components.auth.Signin.accountUnavailable.title": "This account is unavailable",
   "next.components.auth.Signin.invalidActivation.description": "This can be because it has already been used. If that is the case, your account should be activated.",
   "next.components.auth.Signin.invalidActivation.title": "The activation link is not valid"
 }

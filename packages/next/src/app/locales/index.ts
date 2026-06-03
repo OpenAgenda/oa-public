@@ -26,6 +26,9 @@ export default async function fetchLocale(locale) {
       (mod) => mod.default,
     ),
     import(
+      `../[locale]/(app)/auth/magic-link/confirm/_components/locales/compiled/${locale}.json`
+    ).then((mod) => mod.default),
+    import(
       `../[locale]/(app)/auth/manual/_components/locales/compiled/${locale}.json`
     ).then((mod) => mod.default),
     import(

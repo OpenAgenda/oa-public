@@ -1,0 +1,6 @@
+{
+  "title": "Kein Konto gefunden",
+  "description": "Sie haben einen Anmeldelink für OpenAgenda angefordert, aber dieser E-Mail-Adresse ist kein Konto zugeordnet. Sie können über die Schaltfläche unten eines erstellen.",
+  "actionDescription": "Konto erstellen",
+  "changeEmailSettings": "Meine E-Mail-Einstellungen ändern"
+}

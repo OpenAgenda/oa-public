@@ -11,6 +11,12 @@
       "value": "Lost password"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Accesso via email"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -197,6 +203,54 @@
     {
       "type": 0,
       "value": "The reset link has been sent to the email you entered. Delivery may take a few minutes — check your inbox and your spam folder. If you don't receive the link, contact our support team."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Annulla"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "tu@esempio.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Modulo di accesso via email"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "Si è verificato un errore. Riprova."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Inserisci la tua email per ricevere un link di accesso. Nessuna password. Il link è valido per 10 minuti."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Invia il link"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "Se esiste un account per questa email, è stato inviato un link di accesso. La consegna può richiedere qualche minuto: controlla la posta in arrivo e la cartella spam. Se non lo ricevi, potrai richiederne un altro tra un minuto."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -401,6 +455,12 @@
     {
       "type": 0,
       "value": "Reset my password"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Accedi via email"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [

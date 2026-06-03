@@ -11,6 +11,12 @@
       "value": "Lost password"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Inloggen via e-mail"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -197,6 +203,54 @@
     {
       "type": 0,
       "value": "The reset link has been sent to the email you entered. Delivery may take a few minutes — check your inbox and your spam folder. If you don't receive the link, contact our support team."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Annuleren"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "E-mail"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "jij@voorbeeld.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Formulier voor inloggen via e-mail"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "Er is een fout opgetreden. Probeer het opnieuw."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Voer uw e-mailadres in om een inloglink te ontvangen. Geen wachtwoord nodig. De link is 10 minuten geldig."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Link versturen"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "Als er een account bestaat voor dit e-mailadres, is er een inloglink verstuurd. De bezorging kan enkele minuten duren. Controleer uw inbox en uw spammap. Als u de link niet ontvangt, kunt u over een minuut een nieuwe aanvragen."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -401,6 +455,12 @@
     {
       "type": 0,
       "value": "Reset my password"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Inloggen via e-mail"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [
