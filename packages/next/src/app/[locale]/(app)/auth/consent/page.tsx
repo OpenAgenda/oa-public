@@ -53,6 +53,11 @@ export default async function ConsentPage({
     <Consent
       clientId={pickFirst(params.client_id)}
       scope={pickFirst(params.scope)}
+      // `/oauth2/authorize` validated this `redirect_uri` against the client's
+      // registered set before signing the query that bounced here, so it is the
+      // address the code WILL actually be sent to — trustworthy to display as
+      // the anti-phishing signal (the client's self-asserted name is not).
+      redirectUri={pickFirst(params.redirect_uri)}
     />
   );
 }

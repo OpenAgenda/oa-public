@@ -79,6 +79,20 @@
       "value": " desea acceder a tu cuenta de OpenAgenda. Podrá:"
     }
   ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "Después de autorizar, se le enviará a "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "next.components.auth.Consent.scope.agendasRead": [
     {
       "type": 0,
@@ -155,6 +169,18 @@
     {
       "type": 0,
       "value": "Leer tu perfil público (nombre, foto)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "Cualquiera puede registrar una aplicación con cualquier nombre. Continúe solo si confía en ella."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "OpenAgenda no ha verificado esta aplicación"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [

@@ -79,6 +79,20 @@
       "value": " would like to access your OpenAgenda account. It will be able to:"
     }
   ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "After authorizing, you will be sent to "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "next.components.auth.Consent.scope.agendasRead": [
     {
       "type": 0,
@@ -155,6 +169,18 @@
     {
       "type": 0,
       "value": "Read your public profile (name, picture)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "Anyone can register an application under any name. Only continue if you trust it."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "OpenAgenda has not verified this application"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [

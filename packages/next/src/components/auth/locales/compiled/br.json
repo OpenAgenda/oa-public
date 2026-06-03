@@ -79,6 +79,20 @@
       "value": " a fell dezhañ tizhout ho kont OpenAgenda. Gallout a raio :"
     }
   ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "Goude an aotreañ e viot kaset da "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "next.components.auth.Consent.scope.agendasRead": [
     {
       "type": 0,
@@ -155,6 +169,18 @@
     {
       "type": 0,
       "value": "Lenn ho profil foran (anv, luc'hskeudenn)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "Gall a ra forzh piv enrollañ un arload dindan forzh peseurt anv. Na gendalc'hit nemet ma fiziit enni."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "N'eo ket bet gwiriekaet an arload-mañ gant OpenAgenda"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [

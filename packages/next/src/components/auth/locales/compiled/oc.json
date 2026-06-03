@@ -79,6 +79,20 @@
       "value": " vòl accedir a vòstre compte OpenAgenda. Poirà :"
     }
   ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "Aprèp l'autorizacion seretz mandat cap a "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
   "next.components.auth.Consent.scope.agendasRead": [
     {
       "type": 0,
@@ -155,6 +169,18 @@
     {
       "type": 0,
       "value": "Legir vòstre perfil public (nom, fòto)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "Quin que siá pòt enregistrar una aplicacion jos quin nom que siá. Contunhatz pas que se i fasètz fisança."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "OpenAgenda a pas verificat aquesta aplicacion"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
