@@ -81,9 +81,16 @@ export default function EmailSection({ user }: EmailSectionProps) {
         setPassword('');
         return;
       }
-      // 403 = wrong password; any other non-OK is treated as the address
-      // already being taken (the only other expected failure here).
-      setError(res.status === 403 ? 'auth' : 'taken');
+      if (res.status === 403) {
+        setError('auth');
+      } else {
+        // Only claim "already used" when the backend actually reports a
+        // uniqueness conflict (checkUnicity → BadRequest 'Already exist');
+        // anything else is a generic failure.
+        const body = await res.json().catch(() => ({}));
+        const message = typeof body?.message === 'string' ? body.message : '';
+        setError(/exist|taken|in use/i.test(message) ? 'taken' : 'other');
+      }
     } catch {
       setError('other');
     } finally {
