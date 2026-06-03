@@ -65,13 +65,20 @@ const config = {
   // MCP HTTP resource server (O2). Its OAuth resource identifier: the
   // `resource` indicator MCP clients send to /oauth2/authorize|token, which
   // the issued JWT's `aud` is bound to and `packages/auth` validates against
-  // (validAudiences). The server owns a dedicated subdomain and is served at
-  // its root — the subdomain already names the service (dmcp in dev,
-  // mcp.openagenda.com in prod), so no redundant `/mcp` path.
+  // (validAudiences). The server has a dedicated subdomain (dmcp in dev,
+  // mcp.openagenda.com in prod); the MCP protocol endpoint sits at the `/mcp`
+  // path (subdomain root serves a human landing page).
+  //
+  // The `/mcp` PATH is the resource identifier verbatim — it must match the
+  // MCP container's OA_MCP_RESOURCE_URL exactly. The path also sidesteps the
+  // trailing-slash trap of a bare origin: `new URL('https://host/mcp').href`
+  // stays `…/mcp` (WHATWG only appends `/` to a bare authority), so the value a
+  // client sends, the token `aud`, and `validAudiences` (exact Set match) all
+  // coincide. Prod's MCP_RESOURCE_URL must likewise end in `/mcp`.
   mcpResourceUrl:
     prod.mcpResourceUrl
     ?? process.env.MCP_RESOURCE_URL
-    ?? 'https://dmcp.openagenda.com',
+    ?? 'https://dmcp.openagenda.com/mcp',
   logo: prod.logo,
   googleAnalyticsId:
     process.env.GOOGLE_ANALYTICS_ID

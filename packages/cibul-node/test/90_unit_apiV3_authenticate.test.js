@@ -14,6 +14,8 @@ function makeCore({
   byAccessTokenError = null,
   verified = null,
   verifyKeyError = null,
+  oauthVerified = null,
+  verifyOAuthError = null,
   usersByUid = {},
 } = {}) {
   const get = Object.assign(async (uid) => usersByUid[uid] ?? null, {
@@ -30,11 +32,19 @@ function makeCore({
           if (verifyKeyError) throw verifyKeyError;
           return verified;
         },
+        verifyOAuthAccessToken: async () => {
+          if (verifyOAuthError) throw verifyOAuthError;
+          return oauthVerified;
+        },
       },
     },
     users: { get },
   };
 }
+
+// A syntactically valid JWS (three base64url segments) so the middleware routes
+// it to the OAuth path; the mocked verifier decides accept/reject, not the shape.
+const JWT = 'eyJhbGciOiJFZERTQSJ9.eyJzdWIiOiI0MiJ9.c2ln';
 
 // Shape an `auth.verifyKey` descriptor for a user or agenda owner.
 function verifiedUser(uid, oaKind = 'pk') {
@@ -238,6 +248,54 @@ describe('90 - api-v3 unit - authenticate', () => {
       });
       expect(error).toBeUndefined();
       expect(req.user).toEqual({ uid: 9 });
+    });
+
+    it('authenticates as the user for a valid OAuth token (delegation)', async () => {
+      const core = makeCore({
+        oauthVerified: {
+          userUid: 42,
+          scopes: ['openid', 'events:read'],
+          clientId: 'mcp-client',
+        },
+        usersByUid: { 42: { uid: 42 } },
+      });
+      const { error, req } = await run(core, {
+        headers: { authorization: `Bearer ${JWT}` },
+      });
+      expect(error).toBeUndefined();
+      expect(req.user).toEqual({ uid: 42 });
+      expect(req.oauth).toEqual({
+        scopes: ['openid', 'events:read'],
+        clientId: 'mcp-client',
+      });
+    });
+
+    it('rejects (401) an invalid/expired OAuth token', async () => {
+      const core = makeCore({ oauthVerified: null });
+      const { error, req } = await run(core, {
+        headers: { authorization: `Bearer ${JWT}` },
+      });
+      expect(error?.name).toBe('NotAuthenticated');
+      expect(req.user).toBeUndefined();
+    });
+
+    it('rejects (401) an OAuth token whose user no longer exists', async () => {
+      const core = makeCore({ oauthVerified: { userUid: 404, scopes: [] } });
+      const { error } = await run(core, {
+        headers: { authorization: `Bearer ${JWT}` },
+      });
+      expect(error?.name).toBe('NotAuthenticated');
+    });
+
+    it('rejects (403) a blacklisted user behind a valid OAuth token', async () => {
+      const core = makeCore({
+        oauthVerified: { userUid: 7, scopes: [] },
+        usersByUid: { 7: { uid: 7, isBlacklisted: true } },
+      });
+      const { error } = await run(core, {
+        headers: { authorization: `Bearer ${JWT}` },
+      });
+      expect(error?.name).toBe('Forbidden');
     });
 
     it('passes through when req.user is already set (browser session parity)', async () => {
