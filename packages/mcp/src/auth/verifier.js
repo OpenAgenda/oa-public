@@ -33,7 +33,13 @@ export function createTokenVerifier({ jwksUrl, issuer, audience }) {
     async verifyAccessToken(token) {
       let payload;
       try {
-        ({ payload } = await jwtVerify(token, jwks, { issuer, audience }));
+        // clockTolerance: small leeway for AS↔server clock drift (these tokens
+        // can be short-lived once token-exchange is in play).
+        ({ payload } = await jwtVerify(token, jwks, {
+          issuer,
+          audience,
+          clockTolerance: 5,
+        }));
       } catch (err) {
         // Any failure — bad signature, wrong iss/aud, expired, or an opaque
         // (non-JWS) token — becomes a 401 invalid_token. `requireBearerAuth`

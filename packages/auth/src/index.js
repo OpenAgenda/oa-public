@@ -12,6 +12,7 @@ import createApiKeyHelpers, { hashApiKey } from './apiKey.js';
 import createOAuthTokenHelpers from './oauthToken.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
+import tokenExchangePlugin from './tokenExchangePlugin.js';
 import {
   encodeLegacy,
   hash as hashPassword,
@@ -46,11 +47,31 @@ export default function Auth(options = {}) {
     trustedOrigins,
     secret,
     baseURL,
-    // OAuth resource identifier of the MCP HTTP server (O2). When set, it is
-    // added to the OAuth provider's `validAudiences` so MCP clients can bind
-    // their access token to it (RFC 8707 `resource`) and obtain a JWS the MCP
-    // resource server verifies locally against /jwks. Omitted → no MCP audience.
-    mcpResourceUrl,
+    // The OAuth/OIDC roles below name ROLES, not specific downstream products.
+    // Today the API resource is the v3 API and the only exchange client is the
+    // MCP HTTP server, but auth's contract describes the mechanism so a second
+    // gateway is just another registry entry — no signature change.
+    //
+    //   - apiResourceUrl: the resource the AS protects IN-PROCESS (the v3 API
+    //     runs in the same process — see oauthToken.js, the in-process verifier).
+    //     It is the audience that verifier trusts AND the default audience the
+    //     token-exchange endpoint mints to. Singular by architecture (the
+    //     co-hosted API). Omitted → no in-process delegation at all.
+    apiResourceUrl,
+    // O2.5 token-exchange (RFC 8693). When `apiResourceUrl` and at least one
+    // registered client are set, `/oauth2/token-exchange` is exposed: a
+    // first-party service swaps a caller's token (bound to its own
+    // `subjectResource`) for a short `aud=apiResourceUrl` token before its
+    // sandbox (see tokenExchangePlugin.js).
+    //   - exchangeClients: the first-party service registry (client_id → {
+    //     secret, subjectResource, allowedScopes?, allowedResources?, tokenTtl? }),
+    //     confidential-client auth. `subjectResource` is the audience of the
+    //     tokens THIS service presents for exchange — it is also added to the
+    //     OAuth provider's issued `validAudiences` so clients can bind to it
+    //     (RFC 8707). A second gateway = a second entry with its own resource.
+    //   - exchangeTokenTtl: default minted-token lifetime (seconds; default 120).
+    exchangeClients = {},
+    exchangeTokenTtl,
     schemas = {},
     google,
     facebook,
@@ -138,7 +159,10 @@ export default function Auth(options = {}) {
   // in `plugins` (before oauthProvider). Disabling it would downgrade signing
   // to symmetric HS256 and drop JWKS, which we want for resource-server
   // (MCP) verification, so it stays enabled. Columns remapped to snake_case.
-  const jwtPlugin = jwt({
+  // Hoisted to a named object (not an inline literal) so the token-exchange
+  // plugin can pass the SAME options to `signJWT` — it needs them to locate the
+  // JWKS table (remapped below) and match the private-key encryption settings.
+  const jwtPluginOptions = {
     // OAuth-provider mode (per better-auth jwt docs): the OAuth flow drives all
     // JWT issuance, so the plugin must NOT also stamp a `set-auth-jwt` header on
     // session responses — that role is served by `/oauth2/userinfo`. The plugin's
@@ -156,7 +180,8 @@ export default function Auth(options = {}) {
         },
       },
     },
-  });
+  };
+  const jwtPlugin = jwt(jwtPluginOptions);
 
   // OpenAgenda as an OAuth 2.1 / OIDC provider (SSO + MCP HTTP auth). O0 wires
   // the plugin additively: tables + discovery endpoints exist, but no client is
@@ -165,21 +190,37 @@ export default function Auth(options = {}) {
   // access token caps the operation exactly like an `oa_sk_` key does, while
   // the visibility tier still comes from the consenting user's role (see
   // docs/plan-oauth-provider.md §2.4 and docs/plan-slice-auth-v3.md §5.1/§5.2).
+  // Each registered exchange client declares the `subjectResource` its inbound
+  // tokens are bound to (the MCP's own resource, today). These are the gateway
+  // audiences — distinct from the in-process `apiResourceUrl`, which the exchange
+  // MINTS but no OAuth client binds to directly.
+  const subjectResources = [
+    ...new Set(
+      Object.values(exchangeClients)
+        .map((c) => c.subjectResource)
+        .filter(Boolean),
+    ),
+  ];
+
   // Audiences a client may bind a token to via `resource` (RFC 8707): the AS
   // origin (`baseURL` — OIDC/userinfo, and future "Sign in with OpenAgenda" SSO
-  // clients bind here) and the MCP resource. This is the oauth-provider's
-  // `checkResource` allowlist — what `resource` values it accepts at
-  // /authorize|token. Default `[baseURL]` (the plugin's own default) when no MCP
-  // resource is configured.
-  const validAudiences = mcpResourceUrl ? [baseURL, mcpResourceUrl] : [baseURL];
+  // clients bind here) plus every gateway's `subjectResource` (the MCP resource,
+  // today). This is the oauth-provider's `checkResource` allowlist — what
+  // `resource` values it accepts at /authorize|token. The in-process
+  // `apiResourceUrl` is NOT here: clients never bind to it; the exchange endpoint
+  // mints those server-side. Default `[baseURL]` (the plugin's own default) when
+  // no gateway is registered.
+  const validAudiences = [baseURL, ...subjectResources];
 
-  // The v3 in-process verifier accepts a NARROWER set than the AS issues for:
-  // only resources that legitimately DELEGATE to the v3 API (the MCP, B2 model),
-  // NOT the bare AS origin. So a token bound to `baseURL` (an OIDC/SSO login
-  // token) is never honoured as a full v3 API credential — closing an
-  // audience-confusion surface before SSO lands. When v3 gets its own resource
-  // id (O2.5 token-exchange → `aud=api`), add it here.
-  const v3DelegationAudiences = mcpResourceUrl ? [mcpResourceUrl] : [];
+  // The in-process verifier accepts a NARROWER set than the AS issues for: only
+  // the API resource id (`aud=api`), NOT the bare AS origin and NOT any gateway
+  // resource. O2.5 made token-exchange the SINGLE delegation path: a gateway
+  // always swaps its own token for an `aud=api` token before reaching the API
+  // (see tokenExchangePlugin.js), so a raw gateway token (the old B2 passthrough)
+  // and an SSO/OIDC token bound to `baseURL` are BOTH rejected as API credentials.
+  // Empty when no `apiResourceUrl` (no in-process delegation at all; API keys
+  // still work) — never falls back to honouring a gateway audience.
+  const apiAudiences = apiResourceUrl ? [apiResourceUrl] : [];
 
   const oauthProviderPlugin = oauthProvider({
     scopes: [
@@ -218,14 +259,15 @@ export default function Auth(options = {}) {
     // `sub` is left untouched (stable OIDC subject; SSO continuity, O1 flow).
     customAccessTokenClaims: async ({ user }) =>
       (user?.uid != null ? { uid: String(user.uid) } : {}),
-    // Short access-token TTL (default is 3600s). The MCP delegation model (O2,
-    // B2) relays the caller's access token through to the v3 API and it lives
-    // inside the sandbox for the duration of an `execute` — a short lifetime
-    // bounds that exposure window. The `offline_access` scope yields a refresh
-    // token (30d default) so a long-lived MCP session re-mints transparently;
-    // SSO callers likewise refresh. 10 min is the compromise between blast
-    // radius and refresh churn (revisit with token-exchange in O2.5).
-    accessTokenExpiresIn: 600,
+    // Standard 1h access-token TTL (the plugin default). This was clamped to
+    // 600s under the B2 model (O2) because the consented `aud=mcp` token was
+    // relayed verbatim into the sandbox for the duration of an `execute`, and a
+    // short life bounded that exposure. O2.5 removes the coupling: the MCP now
+    // token-exchanges that token for a SEPARATE short-lived `aud=api` token
+    // (exchangeTokenTtl, ~120s — see tokenExchangePlugin.js) before the sandbox,
+    // so the consented/SSO token never enters one. Its TTL no longer needs to be
+    // short for that reason → restored to 1h for SSO/OIDC/API consumers.
+    accessTokenExpiresIn: 3600,
     // Dynamic Client Registration (RFC 7591 — O3). MCP clients (Claude, etc.)
     // are public and discover us at runtime: they cannot use a pre-shared
     // client_id, so they self-register at `/oauth2/register` before the user
@@ -252,9 +294,9 @@ export default function Auth(options = {}) {
     // resource-bound request yields a JWS access token (`aud` set) the MCP
     // resource server verifies locally; without `resource` the token is opaque.
     // baseURL stays valid (the userinfo audience is auto-added for `openid`);
-    // the MCP resource URL is added when configured (→ O2). Only override the
-    // plugin's `[baseURL]` default when we actually widen it (MCP configured).
-    ...mcpResourceUrl ? { validAudiences } : {},
+    // each registered gateway's `subjectResource` is added (→ O2). Only override
+    // the plugin's `[baseURL]` default when we actually widen it (≥1 gateway).
+    ...subjectResources.length ? { validAudiences } : {},
     schema: {
       oauthClient: {
         modelName: tables.oauthClient,
@@ -316,6 +358,35 @@ export default function Auth(options = {}) {
     },
   });
 
+  // O2.5 token-exchange. Built only when the API resource id and at least one
+  // registered first-party client are configured. The subject-token verifier is
+  // LATE-BOUND: it needs the built `instance` (for the JWKS), which only exists
+  // after this plugins array is constructed — so the endpoint reads it through a
+  // getter resolved at request time (populated just after `betterAuth()` below).
+  //
+  // Fail FAST on the asymmetric misconfig: exchange clients registered but no
+  // `apiResourceUrl` (e.g. the secret is set but API_ROOT is not). Silently
+  // dropping the endpoint here would leave the in-process verifier with an empty
+  // audience set (rejecting every delegated call) while clients still receive
+  // gateway-bound tokens nothing can honour — a broken-but-healthy-looking AS.
+  if (Object.keys(exchangeClients).length && !apiResourceUrl) {
+    throw new Error(
+      '@openagenda/auth: exchangeClients are registered but apiResourceUrl is '
+        + 'unset (is API_ROOT / OA_V3_RESOURCE_URL configured?). The token-exchange '
+        + 'endpoint cannot mint or verify without it.',
+    );
+  }
+  let verifyExchangeSubject = null;
+  const exchangePlugin = apiResourceUrl && Object.keys(exchangeClients).length
+    ? tokenExchangePlugin({
+      apiResourceUrl,
+      clients: exchangeClients,
+      getVerifySubject: () => verifyExchangeSubject,
+      jwtPluginOptions,
+      ...exchangeTokenTtl ? { ttl: exchangeTokenTtl } : {},
+    })
+    : null;
+
   const baOptions = {
     database: { dialect: new MysqlDialect({ pool: mysqlPool }), type: 'mysql' },
     secret,
@@ -370,6 +441,10 @@ export default function Auth(options = {}) {
       }),
       jwtPlugin,
       oauthProviderPlugin,
+      // After oauthProviderPlugin so `/oauth2/token-exchange` sits alongside the
+      // other `/oauth2/*` endpoints; uses signJWT (jwtPlugin) to mint. Filtered
+      // out when not configured.
+      ...exchangePlugin ? [exchangePlugin] : [],
     ],
     advanced: {
       cookiePrefix: 'oa',
@@ -1048,14 +1123,25 @@ export default function Auth(options = {}) {
     renameAgendaKey,
   } = createApiKeyHelpers(instance);
 
-  // In-process verifier for OA-issued OAuth access tokens (the v3 API acting as
-  // a resource server for its own AS — the B2 delegation path). Scoped to the
-  // v3-delegation audiences (NOT the full `validAudiences` the AS issues for —
-  // see above): an SSO/OIDC token bound to the AS origin must not double as a v3
-  // credential.
+  // In-process verifier for OA-issued OAuth access tokens (the API acting as a
+  // resource server for its own AS — the delegation path). Scoped to the API
+  // audiences (NOT the full `validAudiences` the AS issues for — see above): an
+  // SSO/OIDC token bound to the AS origin must not double as an API credential.
   const { verifyOAuthAccessToken } = createOAuthTokenHelpers(instance, {
-    validAudiences: v3DelegationAudiences,
+    validAudiences: apiAudiences,
   });
+
+  // Late-bind the token-exchange subject verifier (declared above the plugins
+  // array). The SUBJECT token is a gateway's own grant, so this verifier trusts
+  // the union of every registered `subjectResource` — a SEPARATE, wider set than
+  // the API verifier above (which trusts only `aud=api`). The endpoint then
+  // tightens further per call: a client may only exchange a token bound to ITS
+  // OWN `subjectResource`. Both verifiers share signature/issuer/expiry/uid checks.
+  if (exchangePlugin) {
+    verifyExchangeSubject = createOAuthTokenHelpers(instance, {
+      validAudiences: subjectResources,
+    }).verifyOAuthAccessToken;
+  }
 
   async function getSessionFromRequest(
     req,

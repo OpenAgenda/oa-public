@@ -64,9 +64,15 @@ export default function createAuthenticate(core) {
         throw new NotAuthenticated('missing API credentials');
       }
 
-      // OAuth delegation path: a JWS access token this very AS issued (B2 — see
-      // docs/plan-oauth-provider.md §O2). Verified in-process (signature via the
-      // JWKS, issuer, expiry, audience ∈ our validAudiences). The OA uid comes
+      // OAuth delegation path: a JWS access token this very AS issued. Verified
+      // in-process (signature via the JWKS, issuer, expiry, audience ∈ our
+      // validAudiences). Under O2.5 the MCP token-exchanges its `aud=mcp` grant
+      // for a short `aud=api` token before reaching here, so the audience the
+      // verifier trusts is EXACTLY the v3 resource id (`apiResourceUrl`). A bare
+      // `aud=mcp` token (the legacy B2 passthrough) is always rejected — and when
+      // no API resource is configured the trusted set is EMPTY, so every OAuth
+      // token is rejected (API keys still work) — see plan-oauth-provider.md §O2.5.
+      // The OA uid comes
       // from the private `uid` claim (NOT `sub`, which is the better-auth row id
       // — they differ for every user; see oauthToken.js), so we authenticate as
       // that user exactly like an `sk` key — the executed request carries the

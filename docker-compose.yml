@@ -204,6 +204,12 @@ services:
       OA_SESSION_SECRET: ${OA_SESSION_SECRET}
       OA_OAUTH_GOOGLE_ID: ${OA_OAUTH_GOOGLE_ID}
       OA_OAUTH_GOOGLE_SECRET: ${OA_OAUTH_GOOGLE_SECRET}
+      # O2.5 token-exchange (RFC 8693). Shared with the mcp container: setting it
+      # ENABLES the /oauth2/token-exchange endpoint. Absent → the endpoint is not
+      # exposed (no passthrough fallback exists); the mcp container then refuses to
+      # boot, and v3 — tightened to aud=api — rejects any relayed aud=mcp token.
+      # The v3 resource id (aud=api) derives from API_ROOT (+ /v3) in cibul config.
+      OA_MCP_EXCHANGE_SECRET: ${OA_MCP_EXCHANGE_SECRET}
       OA_FACEBOOK_ID: ${OA_FACEBOOK_ID}
       OA_FACEBOOK_SECRET: ${OA_FACEBOOK_SECRET}
       OA_MT_CAPTCHA_ENABLED: ${OA_MT_CAPTCHA_ENABLED}
@@ -271,6 +277,19 @@ services:
       # aud — keep it byte-for-byte identical there. See cibul-node config.
       OA_MCP_RESOURCE_URL: ${MCP_RESOURCE_URL:-https://dmcp.openagenda.com/mcp}
       OA_BASE_URL: ${MCP_BASE_URL:-http://node:8902/v3}
+      # O2.5 token-exchange (RFC 8693, shared secret with the node container). The
+      # server swaps each caller's aud=mcp token for a short aud=api token at the
+      # AS before the sandbox, so the full consented grant never reaches executed
+      # code. This is the SINGLE delegation model: with transport=http the server
+      # REFUSES TO BOOT without this secret (no passthrough fallback).
+      OA_MCP_EXCHANGE_SECRET: ${OA_MCP_EXCHANGE_SECRET}
+      # The exchange endpoint is reached over the INTERNAL docker network, like
+      # JWKS above — the default `<issuer>/oauth2/token-exchange` points at the
+      # PUBLIC host (d.openagenda.com), which the container cannot resolve / trust
+      # (no private-CA TLS). Override to the node container so the exchange (the
+      # FIRST actual network call to the issuer; the public OA_OAUTH_ISSUER is
+      # otherwise only a string for the iss check) actually reaches the AS.
+      OA_OAUTH_EXCHANGE_URL: ${MCP_OAUTH_EXCHANGE_URL:-http://node:8903/api/auth/oauth2/token-exchange}
       # NO OA_API_KEY here: the HTTP resource server is DELEGATION-only — it bakes
       # each caller's own OAuth access token into the sandboxed code per request
       # (see docs/plan-oauth-provider.md §O2). A shared key would collapse every

@@ -19,6 +19,7 @@ import { metadataHandler } from '@modelcontextprotocol/sdk/server/auth/handlers/
 import { getOAuthProtectedResourceMetadataUrl } from '@modelcontextprotocol/sdk/server/auth/router.js';
 import { createServer } from './server.js';
 import { createTokenVerifier } from './auth/verifier.js';
+import { exchangeToken, TokenExchangeError } from './auth/tokenExchange.js';
 import { landingPage } from './landing.js';
 
 // JSON-RPC error returned without a request id (parse/transport-level failures).
@@ -87,13 +88,50 @@ export function createHttpApp({ config, executor }) {
   // unauthenticated request is rejected without reading its payload. Stateless:
   // a new server+transport per request, torn down when the response closes.
   app.post(mcpPath, bearer, express.json(), async (req, res) => {
-    // Delegation: bake THIS caller's verified access token into the sandboxed
-    // code (req.auth is set by requireBearerAuth). The executed code therefore
-    // calls the v3 API as the consenting user — never with a shared key.
+    // Delegation (O2.5): the executed code calls the v3 API as the consenting
+    // user — never a shared key. We swap THIS caller's verified `aud=mcp` bearer
+    // (req.auth is set by requireBearerAuth) for a short-lived `aud=api` token at
+    // the AS, so the caller's full consented grant never reaches untrusted code.
+    // This is the ONLY delegation path (no B2 fallback), and it runs LAZILY: the
+    // exchange fires only when the `execute` tool actually runs (see
+    // createServer/getCredential), so metadata-only POSTs (initialize, tools/list)
+    // incur no AS round-trip and stay up even if the AS is briefly unavailable.
     const server = createServer({
       config,
       executor,
-      credential: req.auth?.token ?? null,
+      getCredential: async () => {
+        // The bearer middleware guarantees req.auth.token, but assert it
+        // explicitly: it makes the invariant the exchange depends on visible
+        // (and narrows the type from `string | undefined`).
+        const subjectToken = req.auth?.token;
+        if (!subjectToken) {
+          throw new TokenExchangeError('no bearer token to exchange');
+        }
+        try {
+          const { accessToken } = await exchangeToken({
+            exchangeUrl: oauth.exchange.url,
+            clientId: oauth.exchange.clientId,
+            secret: oauth.exchange.secret,
+            subjectToken,
+            // No `resource` (RFC 8707): deliberate. The AS owns the v3 resource id
+            // (`apiResourceUrl`, derived from API_ROOT) and binds the minted token
+            // to it by default, so it stays the single source of truth — the MCP
+            // carries no copy that could drift. (We couldn't anyway: `config.baseUrl`
+            // is the INTERNAL URL the generated v3 SDK calls, e.g.
+            // http://node:8902/v3, not the public aud=api the AS mints and the v3
+            // verifier trusts — they differ on the docker network.) Caveat: if the
+            // AS ever serves >1 mint resource, the MCP would need the specific id here.
+          });
+          return accessToken;
+        } catch (err) {
+          // Observability only — the `execute` tool surfaces a generic failure to
+          // the client (no upstream detail). Never bake the un-exchanged token.
+          process.stderr.write(
+            `[openagenda-mcp] token exchange failed: ${err instanceof Error ? err.message : String(err)}\n`,
+          );
+          throw err;
+        }
+      },
     });
     const transport = new StreamableHTTPServerTransport({
       sessionIdGenerator: undefined,

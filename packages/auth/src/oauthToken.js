@@ -29,6 +29,11 @@ import { createLocalJWKSet, jwtVerify } from 'jose';
 // not become a real-looking identity at this string→user boundary.
 const UID = /^\d+$/;
 
+// Small leeway (seconds) on exp/nbf/iat. Token-exchange mints short-lived tokens
+// (~120s); without tolerance, modest clock drift between the AS and this verifier
+// could make a just-minted token read as expired at the window edges.
+const CLOCK_TOLERANCE_S = 5;
+
 /**
  * @param {object} instance  the better-auth instance (exposes `api.getJwks`
  *   and `$context`).
@@ -84,7 +89,10 @@ export default function createOAuthTokenHelpers(
     if (!jwks) await refreshJwks();
     const iss = await getIssuer();
     try {
-      return await jwtVerify(token, jwks, { issuer: iss });
+      return await jwtVerify(token, jwks, {
+        issuer: iss,
+        clockTolerance: CLOCK_TOLERANCE_S,
+      });
     } catch (err) {
       // A signing-key rotation makes the cached keyset miss the token's `kid`.
       // Refetch and retry — but THROTTLED: the `kid` is read from the unverified
@@ -98,7 +106,10 @@ export default function createOAuthTokenHelpers(
         && Date.now() - lastRefreshAt >= jwksCooldownMs
       ) {
         await refreshJwks();
-        return jwtVerify(token, jwks, { issuer: iss });
+        return jwtVerify(token, jwks, {
+          issuer: iss,
+          clockTolerance: CLOCK_TOLERANCE_S,
+        });
       }
       throw err;
     }

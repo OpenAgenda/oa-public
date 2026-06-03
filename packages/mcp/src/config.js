@@ -16,6 +16,8 @@
 //   OA_OAUTH_JWKS_URL        AS JWKS endpoint                 (default: <issuer>/jwks)
 //   OA_MCP_RESOURCE_URL      this server's resource id (aud)  (required for transport=http)
 //   OA_MCP_REQUIRED_SCOPES   space/comma list a token must hold (default: none)
+//   OA_MCP_EXCHANGE_SECRET   shared secret for RFC 8693 exchange (REQUIRED for transport=http)
+//   OA_OAUTH_EXCHANGE_URL    AS token-exchange endpoint       (default: <issuer>/oauth2/token-exchange)
 //
 // TWO ORTHOGONAL AXES (see README → "Execution model"):
 //   - executor: WHAT runs the JS (node / deno / a microsandbox µVM).
@@ -165,6 +167,7 @@ function loadOAuth(transport, env) {
 
   const issuer = env.OA_OAUTH_ISSUER;
   const resourceUrl = env.OA_MCP_RESOURCE_URL;
+  const exchangeSecret = env.OA_MCP_EXCHANGE_SECRET;
   if (!issuer) {
     throw new Error(
       'OA_MCP_TRANSPORT=http requires OA_OAUTH_ISSUER (the authorization server '
@@ -192,12 +195,37 @@ function loadOAuth(transport, env) {
       throw new Error(`${name} must be a valid URL (got "${value}")`);
     }
   }
+  // Token-exchange (O2.5) is the SINGLE delegation model — FAIL CLOSED without
+  // its secret. The AS tightens v3 to `aud=api`, so a server that can't exchange
+  // would have every v3 call rejected; refuse to boot rather than serve a broken
+  // (or token-leaking B2) path. Pair with the node container's OA_MCP_EXCHANGE_SECRET.
+  if (!exchangeSecret) {
+    throw new Error(
+      'OA_MCP_TRANSPORT=http requires OA_MCP_EXCHANGE_SECRET (the shared secret '
+        + 'for RFC 8693 token-exchange — same value as the auth service). Without '
+        + 'it the server cannot mint the aud=api token v3 trusts, so every call '
+        + 'would fail. Generate one with `openssl rand -hex 32`.',
+    );
+  }
 
   return {
     issuer,
     resourceUrl,
     jwksUrl: env.OA_OAUTH_JWKS_URL ?? `${issuer.replace(/\/$/, '')}/jwks`,
     requiredScopes: parseScopes(env.OA_MCP_REQUIRED_SCOPES),
+    // O2.5 token-exchange (RFC 8693) — the SINGLE delegation model (no B2). Every
+    // request swaps the caller's `aud=mcp` token for a short `aud=api` token at
+    // the AS BEFORE the sandbox, so the full consented grant never reaches
+    // executed (untrusted) code. Always present for http (secret enforced above).
+    // The MCP authenticates as a confidential client (client_secret_basic); its
+    // `client_id` (default `mcp`) must match a registry entry on the AS side.
+    exchange: {
+      url:
+        env.OA_OAUTH_EXCHANGE_URL
+        ?? `${issuer.replace(/\/$/, '')}/oauth2/token-exchange`,
+      clientId: env.OA_MCP_EXCHANGE_CLIENT_ID ?? 'mcp',
+      secret: exchangeSecret,
+    },
     // Advertised in the PRM. MCP clients (Claude, etc.) register dynamically
     // with exactly these scopes, so the list doubles as the DCR scope set:
     //   - `openid` + the v3 read vocabulary: the resource scopes an OAuth token

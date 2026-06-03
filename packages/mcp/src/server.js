@@ -44,19 +44,32 @@ const textContent = (text) => ({ type: 'text', text });
  * @param {object} deps
  * @param {ReturnType<import('./config.js').loadConfig>} deps.config
  * @param {import('./sandbox/executor.js').SandboxExecutor} deps.executor
- * @param {string|null} [deps.credential]  the API credential baked into executed
- *   code. PER TRANSPORT (see docs/plan-oauth-provider.md §O2): stdio omits it and
- *   falls back to `config.apiKey` (the self-hoster's own key); the HTTP resource
- *   server passes the *caller's* OAuth access token per request (delegation), so
- *   the sandboxed code acts as that user and never exceeds their permissions.
+ * @param {string|null} [deps.credential]  a STATIC API credential baked into
+ *   executed code (the stdio self-hoster's own key). Omitted → `config.apiKey`.
+ * @param {() => Promise<string>} [deps.getCredential]  a LAZY credential resolver
+ *   (the HTTP resource server's per-request token-exchange). Resolved only when
+ *   the `execute` tool actually runs — so `initialize`/`tools/list`/`search_docs`
+ *   incur no exchange and don't depend on the AS — and memoised for the life of
+ *   this (per-request) server. Takes precedence over `credential`. When it
+ *   rejects, the `execute` call fails on its own without leaking upstream detail,
+ *   instead of failing the whole transport. PER TRANSPORT, see §O2/§O2.5.
  */
-export function createServer({ config, executor, credential }) {
+export function createServer({ config, executor, credential, getCredential }) {
   const server = new McpServer({ name: 'openagenda-mcp', version: '0.0.0' });
 
-  // Resolve once per server instance. stdio builds one server for the process
-  // (credential undefined → config.apiKey); the HTTP path builds a fresh server
-  // per request carrying that request's token.
-  const apiCredential = credential ?? config.apiKey;
+  // Resolve the credential LAZILY and at most once per server instance. stdio /
+  // static: synchronous (`credential ?? config.apiKey`). HTTP: the injected
+  // `getCredential` thunk (token-exchange) runs on first `execute`, never for
+  // metadata-only calls, and its result is reused across executes in the same
+  // (per-request) server.
+  let credentialPromise;
+  const resolveCredential = () => {
+    if (getCredential) {
+      credentialPromise ??= getCredential();
+      return credentialPromise;
+    }
+    return Promise.resolve(credential ?? config.apiKey);
+  };
 
   // search_docs — progressive disclosure: find the right operation + how to call
   // it before writing code. Pure metadata, no network, no side effects.
@@ -110,6 +123,22 @@ export function createServer({ config, executor, credential }) {
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ code }) => {
+      // Resolve the credential at point of use (HTTP: the token-exchange). On
+      // failure, fail THIS tool call with a generic message — never echo the
+      // upstream error (it may carry AS response detail) — and leave other tools
+      // and sessions working (the prior model failed the whole POST with a 502).
+      let apiCredential;
+      try {
+        apiCredential = await resolveCredential();
+      } catch {
+        return {
+          isError: true,
+          content: [
+            textContent('Could not obtain an API credential for this request.'),
+          ],
+        };
+      }
+
       const script = buildScript(code, {
         baseUrl: config.baseUrl,
         apiKey: apiCredential,

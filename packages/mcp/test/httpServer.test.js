@@ -76,12 +76,41 @@ async function rpc({
   return { status: res.status, headers: res.headers, body };
 }
 
+// O2.5 token-exchange is mandatory for the http transport, but runs LAZILY — the
+// server exchanges the bearer at the AS only when the `execute` tool actually
+// runs, not on metadata calls (initialize/tools/list/search_docs). A default stub
+// (installed per test) intercepts the exchange URL and returns a fixed minted
+// token; everything else (JWKS fetch, rpc to our own server) hits the real fetch.
+const EXCHANGE_SECRET = 'test-exchange-secret';
+const EXCHANGE_URL = `${ISSUER}/oauth2/token-exchange`;
+const MINTED_TOKEN = 'minted.aud-api.token';
+let savedFetch;
+let lastExchange;
+
+function stubExchange(impl) {
+  globalThis.fetch = async (input, init) => {
+    const url = typeof input === 'string' ? input : input?.url;
+    if (url === EXCHANGE_URL) {
+      lastExchange = { init };
+      return impl(init);
+    }
+    return savedFetch(input, init);
+  };
+}
+
+const mintedResponse = () =>
+  new Response(
+    JSON.stringify({ access_token: MINTED_TOKEN, expires_in: 120 }),
+    { status: 200, headers: { 'content-type': 'application/json' } },
+  );
+
 function buildApp(env = {}) {
   const config = loadConfig({
     OA_MCP_TRANSPORT: 'http',
     OA_OAUTH_ISSUER: ISSUER,
     OA_MCP_RESOURCE_URL: RESOURCE,
     OA_OAUTH_JWKS_URL: jwksUrl,
+    OA_MCP_EXCHANGE_SECRET: EXCHANGE_SECRET,
     OA_LOCAL_NO_SANDBOX: '1',
     ...env,
   });
@@ -122,12 +151,16 @@ afterAll(async () => {
 });
 
 beforeEach(async () => {
+  savedFetch = globalThis.fetch;
+  lastExchange = null;
+  stubExchange(() => mintedResponse());
   app = buildApp();
   appServer = await listen(app);
   baseUrl = `http://127.0.0.1:${appServer.address().port}/`;
 });
 
 afterEach(async () => {
+  globalThis.fetch = savedFetch;
   await new Promise((resolve) => appServer.close(resolve));
 });
 
@@ -200,31 +233,37 @@ describe('MCP HTTP resource server', () => {
     });
   });
 
-  describe('delegation', () => {
-    it("bakes the caller's own token into the executed code", async () => {
-      // The whole point of the HTTP path: the verified bearer becomes the API
-      // credential for THIS request's sandbox run (acting as the user), not a
-      // shared key. Build a dedicated app with a capturing executor.
+  describe('delegation via token-exchange (O2.5)', () => {
+    // Rebuild the default app with a capturing executor (the shared exchange stub
+    // from beforeEach stays in effect unless a test overrides it).
+    async function withCapturingApp(run) {
       await new Promise((resolve) => appServer.close(resolve));
-      let received;
       const config = loadConfig({
         OA_MCP_TRANSPORT: 'http',
         OA_OAUTH_ISSUER: ISSUER,
         OA_MCP_RESOURCE_URL: RESOURCE,
         OA_OAUTH_JWKS_URL: jwksUrl,
+        OA_MCP_EXCHANGE_SECRET: EXCHANGE_SECRET,
         OA_LOCAL_NO_SANDBOX: '1',
       });
-      const executor = {
-        name: 'mock',
-        run: async (req) => {
-          received = req;
-          return { stdout: '1', stderr: '', timedOut: false, exitCode: 0 };
-        },
-        dispose: async () => {},
-      };
-      app = createHttpApp({ config, executor });
+      app = createHttpApp({
+        config,
+        executor: { name: 'mock', run, dispose: async () => {} },
+      });
       appServer = await listen(app);
       baseUrl = `http://127.0.0.1:${appServer.address().port}/`;
+    }
+
+    it('bakes the EXCHANGED aud=api token, never the caller bearer', async () => {
+      // The whole point of the HTTP path: the server swaps the caller's aud=mcp
+      // bearer for a short aud=api token (RFC 8693) BEFORE the sandbox, so the
+      // caller's full grant never reaches executed code. The baked credential
+      // must be the minted token, not the bearer.
+      let received;
+      await withCapturingApp(async (req) => {
+        received = req;
+        return { stdout: '1', stderr: '', timedOut: false, exitCode: 0 };
+      });
 
       const token = await signToken();
       const { status } = await rpc({
@@ -233,7 +272,63 @@ describe('MCP HTTP resource server', () => {
         token,
       });
       expect(status).toBe(200);
-      expect(received.code).toContain(token);
+      // The minted token is baked; the caller's bearer is NOT.
+      expect(received.code).toContain(MINTED_TOKEN);
+      expect(received.code).not.toContain(token);
+      // The exchange authenticated as the `mcp` confidential client and relayed
+      // the bearer as the subject token.
+      expect(lastExchange).not.toBeNull();
+      const expectedBasic = `Basic ${Buffer.from(`mcp:${EXCHANGE_SECRET}`).toString('base64')}`;
+      expect(lastExchange.init.headers.authorization).toBe(expectedBasic);
+      expect(JSON.parse(lastExchange.init.body).subject_token).toBe(token);
+    });
+
+    it('fails the execute tool (not the transport) when the exchange is rejected', async () => {
+      // Lazy delegation: a rejected exchange fails THAT tool call (isError, with a
+      // generic message — never the upstream detail) while the transport stays 200
+      // and the sandbox never runs (no un-exchanged token is ever baked).
+      stubExchange(
+        () =>
+          new Response(JSON.stringify({ error: 'invalid_client' }), {
+            status: 401,
+            headers: { 'content-type': 'application/json' },
+          }),
+      );
+      let ran = false;
+      await withCapturingApp(async () => {
+        ran = true;
+        return { stdout: '1', stderr: '', timedOut: false, exitCode: 0 };
+      });
+
+      const token = await signToken();
+      const { status, body } = await rpc({
+        method: 'tools/call',
+        params: { name: 'execute', arguments: { code: 'return 1;' } },
+        token,
+      });
+      expect(status).toBe(200);
+      expect(body.result.isError).toBe(true);
+      expect(body.result.content[0].text).toMatch(
+        /could not obtain an api credential/i,
+      );
+      // The sandbox must NOT run when the exchange failed (no un-exchanged token).
+      expect(ran).toBe(false);
+    });
+
+    it('does NOT exchange for metadata calls (tools/list) — no AS dependency', async () => {
+      // The decoupling lazy delegation buys: a broken AS must not break listing
+      // tools. Even with an exchange stub that would 500, tools/list succeeds and
+      // never hits the exchange endpoint.
+      stubExchange(() => new Response('boom', { status: 500 }));
+      const token = await signToken();
+      const { status, body } = await rpc({ method: 'tools/list', token });
+      expect(status).toBe(200);
+      expect(body.result.tools.map((t) => t.name).sort()).toEqual([
+        'execute',
+        'search_docs',
+      ]);
+      // The exchange endpoint was never called.
+      expect(lastExchange).toBeNull();
     });
   });
 
