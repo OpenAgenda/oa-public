@@ -86,6 +86,7 @@ export default function Auth(options = {}) {
     onSignInSuccess,
     onSignUpComplete,
     validateSignUp,
+    onClientRegistered,
   } = options;
 
   if (!mysqlPool) {
@@ -608,6 +609,50 @@ export default function Auth(options = {}) {
       // swallowed — the user is already signed in, the rehash will retry on
       // the next sign-in, and the backfill migration is the source of truth.
       after: createAuthMiddleware(async (ctx) => {
+        // O3 — audit every successful OAuth client registration (DCR is public,
+        // so this is the abuse-visibility seam). The oauth-provider exposes no
+        // registration hook, so we observe the response: `ctx.context.returned`
+        // is the issued client on success, or an APIError (no `client_id`) on a
+        // validation/rate-limit failure — which we skip, so rejected attempts
+        // never pollute the audit trail. The descriptor is sanitized (NEVER the
+        // `client_secret`); a failure in the host callback must not break the
+        // registration, so it is swallowed (logged) like the other extension hooks.
+        if (ctx.path === '/oauth2/register') {
+          if (typeof onClientRegistered !== 'function') return;
+          const client = ctx.context.returned;
+          if (!client || typeof client !== 'object' || !client.client_id) {
+            return;
+          }
+          const header = (name) =>
+            ctx.headers?.get?.(name)
+            ?? ctx.request?.headers?.get?.(name)
+            ?? null;
+          const forwardedFor = header('x-forwarded-for');
+          try {
+            await onClientRegistered({
+              clientId: client.client_id,
+              clientName: client.client_name ?? null,
+              redirectUris: client.redirect_uris ?? [],
+              tokenEndpointAuthMethod:
+                client.token_endpoint_auth_method ?? null,
+              grantTypes: client.grant_types ?? null,
+              softwareId: client.software_id ?? null,
+              softwareVersion: client.software_version ?? null,
+              clientUri: client.client_uri ?? null,
+              // null ⇒ anonymous DCR (no session); a uid ⇒ a signed-in user
+              // registered it — a key signal when triaging the audit log.
+              registeredBy: client.user_id ?? null,
+              // We sit behind nginx, so the caller IP is the first X-Forwarded-For
+              // hop; null when absent rather than logging a proxy address.
+              ip: forwardedFor ? forwardedFor.split(',')[0].trim() : null,
+              userAgent: header('user-agent'),
+            });
+          } catch (err) {
+            ctx.context.logger?.error?.('onClientRegistered failed', { err });
+          }
+          return;
+        }
+
         if (ctx.path === '/sign-in/email') {
           const { newSession } = ctx.context;
           if (!newSession) return;

@@ -1,3 +1,4 @@
+import { jest } from '@jest/globals';
 import { SafeUrlSchema } from '@better-auth/core/utils/redirect-uri';
 import Auth from '../src/index.js';
 
@@ -120,6 +121,34 @@ describe('auth - /oauth2/register enforces the DCR posture', () => {
   it('does NOT reject a custom-scheme redirect at validation (gets past it)', async () => {
     const res = await register({ redirect_uris: ['myapp://callback'] });
     expect(res.status).not.toBe(400);
+  });
+});
+
+describe('auth - DCR registration audit hook', () => {
+  // The success path (a real client issued → onClientRegistered fires with the
+  // sanitized descriptor) needs a live keyset/DB and is exercised by
+  // packages/mcp/scripts/smoke-oauth.js (DCR is its first step). Here we pin the
+  // guard that matters without a DB: a registration that does NOT succeed emits
+  // NO audit event, so rejected/garbage attempts never pollute the trail or
+  // trip downstream alerts.
+  it('does not fire onClientRegistered when registration fails validation', async () => {
+    const onClientRegistered = jest.fn();
+    const auth = Auth({ ...baseOpts, onClientRegistered });
+    await call(auth.instance.api.registerOAuthClient, {
+      body: { redirect_uris: ['http://evil.example.com/cb'] },
+    });
+    expect(onClientRegistered).not.toHaveBeenCalled();
+  });
+
+  it('does not fire onClientRegistered when no client is issued (no client_id)', async () => {
+    // A well-formed body clears validation but, with no live DB, never yields a
+    // client — `ctx.context.returned` has no `client_id`, so the hook must skip.
+    const onClientRegistered = jest.fn();
+    const auth = Auth({ ...baseOpts, onClientRegistered });
+    await call(auth.instance.api.registerOAuthClient, {
+      body: { redirect_uris: ['https://app.example.com/cb'] },
+    });
+    expect(onClientRegistered).not.toHaveBeenCalled();
   });
 });
 

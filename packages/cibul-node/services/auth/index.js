@@ -288,6 +288,13 @@ export async function init(config, services) {
         });
       }
     },
+    // O3 — audit trail for the public DCR endpoint. The auth package emits a
+    // sanitized descriptor (never the client_secret) after each successful
+    // /oauth2/register; we log it under one event name so it can be filtered
+    // into a dashboard / alerting downstream. `registeredBy: null` flags an
+    // anonymous registration (the common, and most abuse-prone, MCP case).
+    onClientRegistered: (entry) =>
+      log('info', 'oauth.client.registered', entry),
     // Fires on BA's user create.after — every signup, email + OAuth, BEFORE
     // email verification. This is the "new user" Discord notification's home
     // now: pre-better-auth it rode the Feathers `users.create` onCreate hook,
