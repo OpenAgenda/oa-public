@@ -237,6 +237,13 @@
     "type": "text",
     "analyzer": "default"
   },
+  "_admin_search_member": {
+    "type": "text",
+    "analyzer": "default"
+  },
+  "_admin_search_member_filtered": {
+    "type": "text"
+  },
   "_search_additional_keywords": {
     "type": "keyword"
   },
