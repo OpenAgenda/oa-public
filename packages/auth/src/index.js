@@ -10,6 +10,7 @@ import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createApiKeyHelpers, { hashApiKey } from './apiKey.js';
 import createOAuthTokenHelpers from './oauthToken.js';
+import gcExpiredRows from './gcExpired.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
 import tokenExchangePlugin from './tokenExchangePlugin.js';
@@ -223,6 +224,11 @@ export default function Auth(options = {}) {
   // still work) — never falls back to honouring a gateway audience.
   const apiAudiences = apiResourceUrl ? [apiResourceUrl] : [];
 
+  // First-party clients that skip the consent screen (none today). The GC reads
+  // the same list to avoid deleting them (they have no consent row to vouch for
+  // them). When this gains entries, each is `{ clientId, … }`.
+  const trustedClients = [];
+
   const oauthProviderPlugin = oauthProvider({
     scopes: [
       'openid',
@@ -288,8 +294,11 @@ export default function Auth(options = {}) {
     allowUnauthenticatedClientRegistration: true,
     // First-party OA apps that should skip the consent screen go here
     // (`{ clientId, clientSecret, redirectURLs, skipConsent: true, … }`).
-    // Empty until a first-party client is registered (→ O3).
-    trustedClients: [],
+    // Empty until a first-party client is registered (→ O3). Hoisted to a const
+    // so the GC (gcExpired) can exclude them: a skip-consent client has NO
+    // `oauthConsent` row, so the "no consent ⇒ unused" rule would otherwise
+    // delete it.
+    trustedClients,
     // Audiences a client may bind a token to via the `resource` parameter
     // (RFC 8707). `checkResource` rejects any `resource` not listed here. A
     // resource-bound request yields a JWS access token (`aud` set) the MCP
@@ -1291,6 +1300,15 @@ export default function Auth(options = {}) {
     }
   }
 
+  // Periodic GC of expired sessions / OAuth tokens and never-approved DCR
+  // clients. The logic lives in ./gcExpired.js (pure over the adapter, unit
+  // tested); here we just feed it the in-process adapter and the trusted-client
+  // allowlist. The caller schedules it (cibul-node task.js).
+  function gcExpired(opts) {
+    return instance.$context.then(({ adapter }) =>
+      gcExpiredRows(adapter, { trustedClients, ...opts }));
+  }
+
   return {
     instance,
     // Express-compatible handler — mount with `app.all('/api/auth/*', auth.nodeHandler)`.
@@ -1316,6 +1334,9 @@ export default function Auth(options = {}) {
     // *loading* (and the blacklist check) stay the caller's job, exactly like
     // `verifyKey`. The v3 API uses this for the delegated MCP path.
     verifyOAuthAccessToken,
+    // Periodic maintenance: purge expired sessions / OAuth tokens and
+    // never-approved DCR clients. The caller schedules it (cibul-node task.js).
+    gcExpired,
     // Mirror legacy OA password writes into `account.password` (phase 2a).
     encodeLegacyPassword: encodeLegacy,
     upsertCredentialAccount,
