@@ -1,0 +1,17 @@
+{
+  "next.components.settings.DeleteAccount.authError": "The submitted password is invalid. Please try again.",
+  "next.components.settings.DeleteAccount.otherError": "There was a problem during the processing of the operation, retry shortly.",
+  "next.components.settings.DeleteAccount.passwordLabel": "Type in your password to complete the operation",
+  "next.components.settings.DeleteAccount.submit": "Delete",
+  "next.components.settings.DeleteAccount.title": "Delete my account",
+  "next.components.settings.DeleteAccount.warning": "Are you sure you want to delete your account permanently? Your calendars and events will remain online, you can delete them manually if you do not want to leave them online",
+  "next.components.settings.FullName.error": "There was a problem during the processing of the operation, retry shortly.",
+  "next.components.settings.FullName.save": "Save",
+  "next.components.settings.FullName.success": "Your profile has been updated successfully.",
+  "next.components.settings.FullName.title": "Username",
+  "next.components.settings.Language.error": "There was a problem during the processing of the operation, retry shortly.",
+  "next.components.settings.Language.save": "Save",
+  "next.components.settings.Language.success": "Your profile has been updated successfully.",
+  "next.components.settings.Language.title": "Language",
+  "next.components.settings.Settings.heading": "Account parameters"
+}

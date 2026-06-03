@@ -1,0 +1,92 @@
+{
+  "next.components.settings.DeleteAccount.authError": [
+    {
+      "type": 0,
+      "value": "Het opgegeven wachtwoord is niet geldig. Probeer het opnieuw."
+    }
+  ],
+  "next.components.settings.DeleteAccount.otherError": [
+    {
+      "type": 0,
+      "value": "Er was een probleem tijdens het verwerken van de bewerking, probeer het zo meteen opnieuw."
+    }
+  ],
+  "next.components.settings.DeleteAccount.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Voer uw wachtwoord in om de bewerking te voltooien"
+    }
+  ],
+  "next.components.settings.DeleteAccount.submit": [
+    {
+      "type": 0,
+      "value": "Verwijderen"
+    }
+  ],
+  "next.components.settings.DeleteAccount.title": [
+    {
+      "type": 0,
+      "value": "Mijn account verwijderen"
+    }
+  ],
+  "next.components.settings.DeleteAccount.warning": [
+    {
+      "type": 0,
+      "value": "Weet je zeker dat je je account definitief wilt verwijderen? Je agenda's en evenementen blijven online, je kunt ze handmatig verwijderen als je ze niet online wilt laten"
+    }
+  ],
+  "next.components.settings.FullName.error": [
+    {
+      "type": 0,
+      "value": "Er was een probleem tijdens het verwerken van de bewerking, probeer het zo meteen opnieuw."
+    }
+  ],
+  "next.components.settings.FullName.save": [
+    {
+      "type": 0,
+      "value": "Opslaan"
+    }
+  ],
+  "next.components.settings.FullName.success": [
+    {
+      "type": 0,
+      "value": "Je profiel is bijgewerkt."
+    }
+  ],
+  "next.components.settings.FullName.title": [
+    {
+      "type": 0,
+      "value": "Gebruikersnaam"
+    }
+  ],
+  "next.components.settings.Language.error": [
+    {
+      "type": 0,
+      "value": "Er was een probleem tijdens het verwerken van de bewerking, probeer het zo meteen opnieuw."
+    }
+  ],
+  "next.components.settings.Language.save": [
+    {
+      "type": 0,
+      "value": "Opslaan"
+    }
+  ],
+  "next.components.settings.Language.success": [
+    {
+      "type": 0,
+      "value": "Je profiel is bijgewerkt."
+    }
+  ],
+  "next.components.settings.Language.title": [
+    {
+      "type": 0,
+      "value": "Taal"
+    }
+  ],
+  "next.components.settings.Settings.heading": [
+    {
+      "type": 0,
+      "value": "Accountparameters"
+    }
+  ]
+}

@@ -1,0 +1,92 @@
+{
+  "next.components.settings.DeleteAccount.authError": [
+    {
+      "type": 0,
+      "value": "Lo senhal picat es pas valid. Tornatz ensajar."
+    }
+  ],
+  "next.components.settings.DeleteAccount.otherError": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.DeleteAccount.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Picatz vòstre senhal per completar l'operacion."
+    }
+  ],
+  "next.components.settings.DeleteAccount.submit": [
+    {
+      "type": 0,
+      "value": "Suprimir"
+    }
+  ],
+  "next.components.settings.DeleteAccount.title": [
+    {
+      "type": 0,
+      "value": "Suprimir mon compte"
+    }
+  ],
+  "next.components.settings.DeleteAccount.warning": [
+    {
+      "type": 0,
+      "value": "Sètz segur·a de voler suprimir vòstre compte de biais definitiu ? Vòstres agendas e eveniments demoraràn en linha, los poiretz escafar manualament se los volètz pas daissar"
+    }
+  ],
+  "next.components.settings.FullName.error": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.FullName.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.FullName.success": [
+    {
+      "type": 0,
+      "value": "Vòstre perfil es plan estat mes a jorn."
+    }
+  ],
+  "next.components.settings.FullName.title": [
+    {
+      "type": 0,
+      "value": "Nom d'utilizaire"
+    }
+  ],
+  "next.components.settings.Language.error": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.Language.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.Language.success": [
+    {
+      "type": 0,
+      "value": "Vòstre perfil es plan estat mes a jorn."
+    }
+  ],
+  "next.components.settings.Language.title": [
+    {
+      "type": 0,
+      "value": "Lenga"
+    }
+  ],
+  "next.components.settings.Settings.heading": [
+    {
+      "type": 0,
+      "value": "Configuracion del compte"
+    }
+  ]
+}

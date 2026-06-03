@@ -1,0 +1,17 @@
+{
+  "next.components.settings.DeleteAccount.authError": "N'eo ket talvoudek ar ger-tremen roet. Klaskit en-dro.",
+  "next.components.settings.DeleteAccount.otherError": "Ur gudenn 'zo bet e-pad keweriañ an obererezh, klaskit en-dro a-benn ur pennadig.",
+  "next.components.settings.DeleteAccount.passwordLabel": "Skrivit ho ker-tremen evit klokaat an obererezh.",
+  "next.components.settings.DeleteAccount.submit": "Lemel",
+  "next.components.settings.DeleteAccount.title": "Dilemel ma c'hont",
+  "next.components.settings.DeleteAccount.warning": "Ha sur oc'h e fell deoc'h dilemel ho kont da vat? Ho teiziataerioù hag ho tarvoudoù a chomo enlinenn, gallout a rit o dilemel gant an dorn ma ne fell ket deoc'h o lezel enlinenn",
+  "next.components.settings.FullName.error": "Ur gudenn 'zo bet e-pad keweriañ an obererezh, klaskit en-dro a-benn ur pennadig.",
+  "next.components.settings.FullName.save": "Enrollañ",
+  "next.components.settings.FullName.success": "Hizivaet eo bet ho profil gant berzh.",
+  "next.components.settings.FullName.title": "Anv implijer",
+  "next.components.settings.Language.error": "Ur gudenn 'zo bet e-pad keweriañ an obererezh, klaskit en-dro a-benn ur pennadig.",
+  "next.components.settings.Language.save": "Enrollañ",
+  "next.components.settings.Language.success": "Hizivaet eo bet ho profil gant berzh.",
+  "next.components.settings.Language.title": "Yezh",
+  "next.components.settings.Settings.heading": "Arventennoù ar gont"
+}

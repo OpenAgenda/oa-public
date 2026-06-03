@@ -1,0 +1,17 @@
+{
+  "next.components.settings.DeleteAccount.authError": "Le mot de passe indiqué n'est pas valide. Veuillez réessayer.",
+  "next.components.settings.DeleteAccount.otherError": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant.",
+  "next.components.settings.DeleteAccount.passwordLabel": "Saisissez votre mot de passe pour compléter l'opération.",
+  "next.components.settings.DeleteAccount.submit": "Supprimer",
+  "next.components.settings.DeleteAccount.title": "Supprimer mon compte",
+  "next.components.settings.DeleteAccount.warning": "Êtes vous certain de vouloir supprimer votre compte de manière définitive ? Vos agendas et événements resteront en ligne, vous pouvez les supprimer manuellement si vous ne souhaitez pas les laisser en ligne",
+  "next.components.settings.FullName.error": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant.",
+  "next.components.settings.FullName.save": "Sauvegarder",
+  "next.components.settings.FullName.success": "Votre profil a été mis à jour.",
+  "next.components.settings.FullName.title": "Nom d'utilisateur",
+  "next.components.settings.Language.error": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant.",
+  "next.components.settings.Language.save": "Sauvegarder",
+  "next.components.settings.Language.success": "Votre profil a été mis à jour.",
+  "next.components.settings.Language.title": "Langue",
+  "next.components.settings.Settings.heading": "Paramètres du compte"
+}

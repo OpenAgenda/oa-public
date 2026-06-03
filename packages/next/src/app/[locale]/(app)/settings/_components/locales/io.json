@@ -1,0 +1,17 @@
+{
+  "next.components.settings.DeleteAccount.authError": "",
+  "next.components.settings.DeleteAccount.otherError": "",
+  "next.components.settings.DeleteAccount.passwordLabel": "",
+  "next.components.settings.DeleteAccount.submit": "",
+  "next.components.settings.DeleteAccount.title": "",
+  "next.components.settings.DeleteAccount.warning": "",
+  "next.components.settings.FullName.error": "",
+  "next.components.settings.FullName.save": "",
+  "next.components.settings.FullName.success": "",
+  "next.components.settings.FullName.title": "",
+  "next.components.settings.Language.error": "",
+  "next.components.settings.Language.save": "",
+  "next.components.settings.Language.success": "",
+  "next.components.settings.Language.title": "",
+  "next.components.settings.Settings.heading": ""
+}

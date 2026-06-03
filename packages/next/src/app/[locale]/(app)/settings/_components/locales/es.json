@@ -1,0 +1,17 @@
+{
+  "next.components.settings.DeleteAccount.authError": "La contraseña enviada no es válida. Por favor, inténtelo de nuevo.",
+  "next.components.settings.DeleteAccount.otherError": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente.",
+  "next.components.settings.DeleteAccount.passwordLabel": "Escriba su contraseña para completar la operación",
+  "next.components.settings.DeleteAccount.submit": "Eliminar",
+  "next.components.settings.DeleteAccount.title": "Eliminar mi cuenta",
+  "next.components.settings.DeleteAccount.warning": "¿Está seguro de que quiere eliminar tu cuenta de forma permanente? Tus agendas y eventos permanecerán en línea, puedes eliminarlos manualmente si no deseas dejarlos en línea",
+  "next.components.settings.FullName.error": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente.",
+  "next.components.settings.FullName.save": "Guardar",
+  "next.components.settings.FullName.success": "Su perfil ha sido actualizado exitosamente.",
+  "next.components.settings.FullName.title": "Nombre de usuario",
+  "next.components.settings.Language.error": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente.",
+  "next.components.settings.Language.save": "Guardar",
+  "next.components.settings.Language.success": "Su perfil ha sido actualizado exitosamente.",
+  "next.components.settings.Language.title": "Idioma",
+  "next.components.settings.Settings.heading": "Configuración de la cuenta"
+}

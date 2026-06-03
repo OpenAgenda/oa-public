@@ -1,0 +1,92 @@
+{
+  "next.components.settings.DeleteAccount.authError": [
+    {
+      "type": 0,
+      "value": "La contraseña enviada no es válida. Por favor, inténtelo de nuevo."
+    }
+  ],
+  "next.components.settings.DeleteAccount.otherError": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.DeleteAccount.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Escriba su contraseña para completar la operación"
+    }
+  ],
+  "next.components.settings.DeleteAccount.submit": [
+    {
+      "type": 0,
+      "value": "Eliminar"
+    }
+  ],
+  "next.components.settings.DeleteAccount.title": [
+    {
+      "type": 0,
+      "value": "Eliminar mi cuenta"
+    }
+  ],
+  "next.components.settings.DeleteAccount.warning": [
+    {
+      "type": 0,
+      "value": "¿Está seguro de que quiere eliminar tu cuenta de forma permanente? Tus agendas y eventos permanecerán en línea, puedes eliminarlos manualmente si no deseas dejarlos en línea"
+    }
+  ],
+  "next.components.settings.FullName.error": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.FullName.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.FullName.success": [
+    {
+      "type": 0,
+      "value": "Su perfil ha sido actualizado exitosamente."
+    }
+  ],
+  "next.components.settings.FullName.title": [
+    {
+      "type": 0,
+      "value": "Nombre de usuario"
+    }
+  ],
+  "next.components.settings.Language.error": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.Language.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.Language.success": [
+    {
+      "type": 0,
+      "value": "Su perfil ha sido actualizado exitosamente."
+    }
+  ],
+  "next.components.settings.Language.title": [
+    {
+      "type": 0,
+      "value": "Idioma"
+    }
+  ],
+  "next.components.settings.Settings.heading": [
+    {
+      "type": 0,
+      "value": "Configuración de la cuenta"
+    }
+  ]
+}
