@@ -290,8 +290,18 @@ location ~ ^/supervisor(|/.+)$ {
   include conf.d/nodejs_params;
 }
 
+# /settings is the new App Router user settings page. The bare (no-locale)
+# path hits Next, whose proxy 307s it to /:locale/settings (matched by the
+# locale-scoped block below, which sits above the agenda catch-all).
 location ~ ^/settings(|/.+)$ {
-  include conf.d/nodejs_params;
+  include conf.d/nextjs_params;
+}
+
+# /:locale/settings — the App Router user settings page. Must come before the
+# /:agendaSlug/... catch-all below, which also lists "settings" (legacy
+# /:agendaSlug/settings) and would otherwise treat the locale as an agenda slug.
+location ~ ^/(en|fr|de|it|es|br|ca|eu|oc|io|nl)/settings(|/.+)$ {
+  include conf.d/nextjs_params;
 }
 
 location ~ ^/support(|/.+)$ {
