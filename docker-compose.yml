@@ -28,13 +28,15 @@ services:
       - ${ELASTICHQ_SSL_KEY:-/dev/null}:/ssl/elastichq.key.pem
       - ${MAILPIT_SSL_CERT:-/dev/null}:/ssl/mailpit.cert.pem
       - ${MAILPIT_SSL_KEY:-/dev/null}:/ssl/mailpit.key.pem
+      - ${MCP_SSL_CERT:-/dev/null}:/ssl/mcp.cert.pem
+      - ${MCP_SSL_KEY:-/dev/null}:/ssl/mcp.key.pem
     command: >
       /bin/bash -c
         "for filename in $$(find /tmp/nginx/ -type f -name '*'); do
           mkdir -p $$(dirname $${filename/\\/tmp\\/nginx/\\/etc\\/nginx});
           cat $$filename | envsubst \"`printf '$${%s} ' $$(bash -c \"compgen -A variable\")`\" > $${filename/\\/tmp\\/nginx/\\/etc\\/nginx\\/conf.d};
         done;
-        /tmp/nginx/command.sh ${DEPLOY_ES_NGINX_PROXY:-0} ${DEPLOY_PMA_NGINX_PROXY:-0} ${DEPLOY_MAILPIT_NGINX_PROXY:-0} ${DEPLOY_ELASTICHQ_NGINX_PROXY:-0} ${DEPLOY_API_NGINX_PROXY:-0};
+        /tmp/nginx/command.sh ${DEPLOY_ES_NGINX_PROXY:-0} ${DEPLOY_PMA_NGINX_PROXY:-0} ${DEPLOY_MAILPIT_NGINX_PROXY:-0} ${DEPLOY_ELASTICHQ_NGINX_PROXY:-0} ${DEPLOY_API_NGINX_PROXY:-0} ${DEPLOY_MCP_NGINX_PROXY:-0};
         nginx -g 'daemon off;'"
     links:
       - es7
@@ -43,6 +45,7 @@ services:
       - mailpit
       - elastichq
       - strapi
+      - mcp
     depends_on:
       - node
 
@@ -232,6 +235,57 @@ services:
       - 8903:8903
     extra_hosts:
       - 'host.docker.internal:host-gateway'
+
+  mcp:
+    container_name: mcp
+    # Lightweight runtime image: the MCP server's runtime deps are pure JS
+    # (express, jose, the MCP SDK, the prebuilt sandbox bundle), so no native
+    # build is needed at run time. The bundle (dist/sdk-bundle.js) is built on
+    # the HOST (yarn workspace @openagenda/mcp build, also done by the
+    # devinstaller's `yarn prepack`) — tsdown/rolldown's native binaries can't
+    # run on musl against glibc-installed node_modules, so we don't build here.
+    image: node:24-alpine
+    user: ${DOCKER_USER:-}
+    # Mounted at /oa, NOT /root/oa: the alpine image's /root is mode 700, so a
+    # non-root uid can't traverse it to reach a /root/oa mount (the ubuntu
+    # Dockerfile chmods /root; the bare image doesn't).
+    working_dir: /oa
+    command: node packages/mcp/src/index.js
+    restart: always
+    volumes:
+      - .:/oa
+    environment:
+      TZ: Etc/UTC
+      NODE_ENV: ${NODE_ENV}
+      # Standalone OAuth resource server over Streamable HTTP.
+      OA_MCP_TRANSPORT: http
+      OA_MCP_HTTP_PORT: 8904
+      # Issuer/resource are the PUBLIC identifiers (token `iss`/`aud` must match
+      # these exactly). JWKS + the v3 API are reached over the INTERNAL docker
+      # network (plaintext, no private-CA TLS): the JWKS is just public keys, and
+      # the issuer/audience checks are independent of where JWKS is fetched.
+      OA_OAUTH_ISSUER: ${MCP_OAUTH_ISSUER:-https://d.openagenda.com/api/auth}
+      OA_OAUTH_JWKS_URL: ${MCP_OAUTH_JWKS_URL:-http://node:8903/api/auth/jwks}
+      # The `/mcp` path is the protocol endpoint AND the OAuth resource id (they
+      # coincide). Exact match against `packages/auth` validAudiences + the token
+      # aud — keep it byte-for-byte identical there. See cibul-node config.
+      OA_MCP_RESOURCE_URL: ${MCP_RESOURCE_URL:-https://dmcp.openagenda.com/mcp}
+      OA_BASE_URL: ${MCP_BASE_URL:-http://node:8902/v3}
+      # NO OA_API_KEY here: the HTTP resource server is DELEGATION-only — it bakes
+      # each caller's own OAuth access token into the sandboxed code per request
+      # (see docs/plan-oauth-provider.md §O2). A shared key would collapse every
+      # user into one identity. The key model is for self-hosted stdio only.
+      # DEV ONLY: the image has no deno/microsandbox, so the executor runs as
+      # plain node with NO sandbox boundary (trusted local, read-only data).
+      # Prod runs a separate, hardened host (microsandbox µVM).
+      OA_LOCAL_NO_SANDBOX: '1'
+    links:
+      - node
+    depends_on:
+      node:
+        condition: service_started
+    ports:
+      - 8904:8904
 
   migrator:
     container_name: migrator
