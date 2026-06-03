@@ -1,0 +1,6 @@
+{
+  "title": "Er bestaat al een account met dit e-mailadres",
+  "description": "Iemand — misschien u — heeft zojuist geprobeerd een OpenAgenda-account aan te maken met dit e-mailadres. Er bestaat al een account: er is geen nieuw account aangemaakt en er is niets gewijzigd.\nAls u dit was, kunt u inloggen of uw wachtwoord opnieuw instellen via de knoppen hieronder. Zo niet, dan kunt u deze e-mail negeren.",
+  "loginAction": "Inloggen",
+  "resetAction": "Wachtwoord resetten"
+}

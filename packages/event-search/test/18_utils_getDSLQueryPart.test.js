@@ -272,6 +272,44 @@ describe('event-search - unit: utils - getDSLQueryPart', () => {
     expect(JSON.stringify(DSL)).not.toContain('geo_distance');
   });
 
+  describe('member structure search (admin-only, GDPR gating)', () => {
+    it('does not search member fields for public access', () => {
+      const DSL = getDSLQueryPart(validateQuery({ search: 'emmaus' }), {
+        access: 'public',
+      });
+      expect(JSON.stringify(DSL)).not.toContain('_admin_search_member');
+    });
+
+    it('does not search member fields when access is undefined', () => {
+      const DSL = getDSLQueryPart(validateQuery({ search: 'emmaus' }));
+      expect(JSON.stringify(DSL)).not.toContain('_admin_search_member');
+    });
+
+    it('does not search member fields for contributor access', () => {
+      const DSL = getDSLQueryPart(validateQuery({ search: 'emmaus' }), {
+        access: 'contributor',
+      });
+      expect(JSON.stringify(DSL)).not.toContain('_admin_search_member');
+    });
+
+    for (const access of ['moderator', 'administrator', 'internal']) {
+      it(`searches member fields for ${access} access`, () => {
+        const str = JSON.stringify(
+          getDSLQueryPart(validateQuery({ search: 'emmaus' }), { access }),
+        );
+        expect(str).toContain('_admin_search_member');
+        expect(str).toContain('_admin_search_member_filtered');
+      });
+    }
+
+    it('adds the member field to quoted (phrase) search for admins', () => {
+      const DSL = getDSLQueryPart(validateQuery({ search: '"emmaus"' }), {
+        access: 'administrator',
+      });
+      expect(JSON.stringify(DSL)).toContain('_admin_search_member');
+    });
+  });
+
   it('filtering by multiple notReferencingAgendaUid', () => {
     expect(
       getDSLQueryPart(validateQuery({ notReferencingAgendaUid: [123, 124] })),

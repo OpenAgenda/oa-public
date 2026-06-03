@@ -1,0 +1,6 @@
+{
+  "title": "Un compte existe déjà avec cette adresse email",
+  "description": "Quelqu'un — peut-être vous — vient de tenter de créer un compte OpenAgenda avec cette adresse email. Un compte existe déjà : aucun nouveau compte n'a été créé et rien n'a été modifié.\nSi c'était vous, vous pouvez vous connecter ou réinitialiser votre mot de passe à l'aide des boutons ci-dessous. Si ce n'était pas vous, vous pouvez ignorer cet email.",
+  "loginAction": "Se connecter",
+  "resetAction": "Réinitialiser mon mot de passe"
+}

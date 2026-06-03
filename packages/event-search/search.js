@@ -208,6 +208,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
       includes,
       emptyValue,
       removed,
+      access,
     },
   );
 

@@ -52,6 +52,8 @@ describe('20 - auth signup UI via better-auth (phase 6 lot 2)', () => {
   let services;
   let usersSvc;
   let app;
+  let sentMails;
+  let originalSend;
 
   beforeAll(async () => {
     await setup({
@@ -67,11 +69,27 @@ describe('20 - auth signup UI via better-auth (phase 6 lot 2)', () => {
     core = Core(services, testConfig);
     usersSvc = services.users;
     app = buildApp(services, testConfig);
+
+    // Record mails instead of sending them (same pattern as test 22). The
+    // duplicate-email branch now fans out to services.mails.send via
+    // onExistingUserSignUp, so we must not hit real SMTP here.
+    originalSend = services.mails.send.bind(services.mails);
+  });
+
+  beforeEach(() => {
+    sentMails = [];
+    services.mails.send = async (options) => {
+      sentMails.push(options);
+      return { status: true };
+    };
   });
 
   beforeEach(() => flushRateLimit(services.redis));
 
-  afterAll(() => core.services.shutdown({ clear: true }));
+  afterAll(async () => {
+    services.mails.send = originalSend;
+    await core.services.shutdown({ clear: true });
+  });
 
   it('rejects when passwords do not match (validateSignUp returns errors.repeat)', async () => {
     const res = await request(app)
@@ -134,5 +152,67 @@ describe('20 - auth signup UI via better-auth (phase 6 lot 2)', () => {
       .first();
     expect(stillThere).toBeTruthy();
     expect(stillThere.email).toBe(email);
+
+    // Private email channel: the existing (activated) owner is notified via
+    // their inbox that a signup was attempted and an account already exists,
+    // with links to log in / reset password. The screen stays generic.
+    const notice = sentMails.find((m) => m.template === 'accountAlreadyExists');
+    expect(notice).toBeTruthy();
+    expect(notice.to).toBe(email);
+    // lang falls back to a built locale when culture is null (legacy rows).
+    expect(notice.lang).toBe(stillThere.culture || 'en');
+    expect(notice.data.loginLink).toContain('/auth/signin');
+    expect(notice.data.resetLink).toContain('view=lost');
+    // Queued (background) so the anti-enumeration response is never blocked
+    // on SMTP I/O.
+    expect(notice.queue).toBe(true);
+    // Anti-enumeration: no activation mail leaks (would imply a fresh signup).
+    expect(sentMails.some((m) => m.template === 'activateAccount')).toBe(false);
+  });
+
+  it('signup on an existing UNACTIVATED email resends the activation link', async () => {
+    // The owner never finished their first signup. A re-attempt should help
+    // them complete it (resend activateAccount) rather than dead-ending on a
+    // "log in / reset password" notice they cannot act on yet.
+    const email = 'signup-collision-inactive@oa.test';
+    await usersSvc.create(
+      {
+        fullName: 'Pending User',
+        email,
+        password: 'plainPwd-20-pending',
+        isActivated: false,
+      },
+      { internal: true, detailed: true },
+    );
+
+    const res = await request(app)
+      .post('/api/auth/sign-up/email')
+      .set('Content-Type', 'application/json')
+      .send({
+        name: 'Retry Pending Email',
+        full_name: 'Retry Pending Email',
+        email,
+        password: 'plainPwd-20-retry',
+        repeat: 'plainPwd-20-retry',
+      });
+
+    expect(res.status).toBe(200);
+
+    // Still a single row — no duplicate account created.
+    const rows = await services
+      .knex(testConfig.schemas.user)
+      .where({ email })
+      .count('* as n')
+      .first();
+    expect(Number(rows.n)).toBe(1);
+
+    // Activation link re-sent; the "account exists" notice is NOT used here.
+    const activate = sentMails.find((m) => m.template === 'activateAccount');
+    expect(activate).toBeTruthy();
+    expect(activate.to).toBe(email);
+    expect(activate.data.activateLink).toContain('/api/auth/verify-email');
+    expect(sentMails.some((m) => m.template === 'accountAlreadyExists')).toBe(
+      false,
+    );
   });
 });

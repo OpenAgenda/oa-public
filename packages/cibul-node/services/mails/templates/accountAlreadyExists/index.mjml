@@ -1,0 +1,42 @@
+<mjml>
+  <mj-head>
+    <mj-title><%= __('title') %></mj-title>
+    <mj-prev><%= __('title') %></mj-prev>
+
+    <%- include('../partials/defaultStyle.mjml') %>
+  </mj-head>
+
+  <mj-body>
+    <%- include('../partials/header.mjml') %>
+
+    <mj-content>
+      <mj-column>
+        <mj-text>
+          <h1 class="title"><%= __('title') %></h1>
+          <%- _.escape(__('description')).replace(/(?:\r\n|\r|\n)/g, '<br />') %>
+        </mj-text>
+
+        <mj-button
+          background-color="#1d77ce"
+          color="white"
+          align="center"
+          href="<%= loginLink %>"
+        >
+          <%= __('loginAction') %>
+        </mj-button>
+
+        <mj-button
+          background-color="#ffffff"
+          color="#1d77ce"
+          border="1px solid #1d77ce"
+          align="center"
+          href="<%= resetLink %>"
+        >
+          <%= __('resetAction') %>
+        </mj-button>
+      </mj-column>
+    </mj-content>
+
+    <%- include('../partials/footer.mjml') %>
+  </mj-body>
+</mjml>

@@ -55,7 +55,17 @@ function _geoDistance(g) {
   };
 }
 
-function _getQueryMustParts(cleanQuery) {
+// Roles allowed to search the organizing member's private data (structure, name,
+// position). Default-closed: `public`, `contributor`, `reader`, `undefined` and `null`
+// are excluded, honouring the GDPR constraint that member personal data must not be
+// reachable — even by inference — through the public search.
+const MEMBER_SEARCH_ACCESS = ['moderator', 'administrator', 'internal'];
+
+function canSearchMemberData(access) {
+  return MEMBER_SEARCH_ACCESS.includes(access);
+}
+
+function _getQueryMustParts(cleanQuery, { access } = {}) {
   const parts = [];
 
   // term constraints
@@ -115,6 +125,11 @@ function _getQueryMustParts(cleanQuery) {
     '_search_title_filtered',
     '_search_description_filtered',
   ];
+
+  if (canSearchMemberData(access)) {
+    searchFields.push('_admin_search_member');
+    filteredSearchFields.push('_admin_search_member_filtered');
+  }
 
   if (/^".+"$/.test(cleanQuery.search)) {
     parts.push({
@@ -655,14 +670,14 @@ function shouldParts() {
 }
 
 export default function getDSLQueryPart(cleanQuery, options = {}) {
-  const { formSchema, emptyValue, removed = false } = options;
+  const { formSchema, emptyValue, removed = false, access } = options;
 
   const query = {};
   const additionalAndSchemaFields = getFormSchemaAdditionalFields(
     formSchema,
   ).concat((formSchema?.fields ?? []).filter((f) => f.schema));
 
-  const mustParts = _getQueryMustParts(cleanQuery);
+  const mustParts = _getQueryMustParts(cleanQuery, { access });
 
   const filterParts = _getQueryFilterParts(cleanQuery, {
     additionalAndSchemaFields,

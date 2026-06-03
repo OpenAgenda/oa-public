@@ -26,7 +26,7 @@
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
     {
       "type": 0,
-      "value": "Confirmez votre adresse email"
+      "value": "Vérifiez votre boîte de réception"
     }
   ],
   "next.components.auth.AuthDialog.triggerLabel": [
@@ -764,13 +764,13 @@
   "next.components.auth.SignupComplete.heading": [
     {
       "type": 0,
-      "value": "Cliquez sur le lien de validation dans votre boîte de réception"
+      "value": "Vérifiez votre boîte de réception"
     }
   ],
   "next.components.auth.SignupComplete.instruction": [
     {
       "type": 0,
-      "value": "Un email contenant le lien d'activation de votre compte est en cours d'envoi vers le courriel indiqué ci-dessous. Vérifiez votre boîte de réception pour terminer votre inscription."
+      "value": "Si cette adresse peut être utilisée, un email vient de lui être envoyé. Vérifiez votre boîte de réception pour continuer."
     }
   ],
   "next.components.auth.SignupComplete.resendFailed": [
@@ -788,7 +788,7 @@
   "next.components.auth.SignupComplete.resent": [
     {
       "type": 0,
-      "value": "L'email d'activation a été renvoyé."
+      "value": "L'email a été renvoyé."
     }
   ],
   "next.components.auth.SignupComplete.step1": [
@@ -806,7 +806,7 @@
   "next.components.auth.SignupComplete.step3": [
     {
       "type": 0,
-      "value": "Renvoyer l'e-mail d'activation"
+      "value": "Renvoyer l'email"
     }
   ],
   "next.components.auth.SignupComplete.step4Prefix": [

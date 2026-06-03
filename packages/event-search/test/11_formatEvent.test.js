@@ -330,6 +330,33 @@ describe('11 - event-search - unit: formatEvent', () => {
       ).toBe('Inashelf');
     });
 
+    it('_admin_search_member is unset when the event has no member', () => {
+      expect(formatted._admin_search_member).toBeUndefined();
+      expect(formatted._admin_search_member_filtered).toBeUndefined();
+    });
+
+    it('member structure, name and position are indexed in _admin_search_member', () => {
+      const withMember = formatEvent(
+        produce(event, (draft) => {
+          draft.member = {
+            organization: 'Emmaüs',
+            custom: {
+              contactName: 'Anthony Jardin',
+              contactPosition: 'Bénévole',
+            },
+          };
+        }),
+      );
+
+      expect(withMember._admin_search_member).toEqual(
+        expect.arrayContaining(['Emmaüs', 'Anthony Jardin', 'Bénévole']),
+      );
+      // diacritics-insensitive variant: "Emmaüs" -> "emmaus"
+      expect(withMember._admin_search_member_filtered.toLowerCase()).toContain(
+        'emmaus',
+      );
+    });
+
     it('fix: registration already with type is handled', () => {
       const newEvent = produce(event, (draft) => {
         draft.registration = [
