@@ -9,6 +9,7 @@ import { oauthProvider } from '@better-auth/oauth-provider';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createApiKeyHelpers, { hashApiKey } from './apiKey.js';
+import createOAuthTokenHelpers from './oauthToken.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
 import {
@@ -163,6 +164,22 @@ export default function Auth(options = {}) {
   // access token caps the operation exactly like an `oa_sk_` key does, while
   // the visibility tier still comes from the consenting user's role (see
   // docs/plan-oauth-provider.md §2.4 and docs/plan-slice-auth-v3.md §5.1/§5.2).
+  // Audiences a client may bind a token to via `resource` (RFC 8707): the AS
+  // origin (`baseURL` — OIDC/userinfo, and future "Sign in with OpenAgenda" SSO
+  // clients bind here) and the MCP resource. This is the oauth-provider's
+  // `checkResource` allowlist — what `resource` values it accepts at
+  // /authorize|token. Default `[baseURL]` (the plugin's own default) when no MCP
+  // resource is configured.
+  const validAudiences = mcpResourceUrl ? [baseURL, mcpResourceUrl] : [baseURL];
+
+  // The v3 in-process verifier accepts a NARROWER set than the AS issues for:
+  // only resources that legitimately DELEGATE to the v3 API (the MCP, B2 model),
+  // NOT the bare AS origin. So a token bound to `baseURL` (an OIDC/SSO login
+  // token) is never honoured as a full v3 API credential — closing an
+  // audience-confusion surface before SSO lands. When v3 gets its own resource
+  // id (O2.5 token-exchange → `aud=api`), add it here.
+  const v3DelegationAudiences = mcpResourceUrl ? [mcpResourceUrl] : [];
+
   const oauthProviderPlugin = oauthProvider({
     scopes: [
       'openid',
@@ -190,6 +207,41 @@ export default function Auth(options = {}) {
     //     POSTs `/oauth2/consent` and follows the returned `redirect_uri`.
     loginPage: '/auth/signin',
     consentPage: '/auth/consent',
+    // Carry the OA uid as a private claim on the access token. The token's `sub`
+    // is the better-auth user row id (a serial PK), which is NOT the OpenAgenda
+    // uid that every downstream resolver keys on (`core.users.get(uid)`, the
+    // api-key `referenceId`). They differ for ALL users. So a resource server
+    // (the v3 API) reads `uid` from this claim to resolve the OA user, keeping
+    // the token self-describing (no per-request id→uid lookup). STRING-encoded:
+    // OA uids are BIGINT and can exceed 2^53, which a JSON number would round.
+    // `sub` is left untouched (stable OIDC subject; SSO continuity, O1 flow).
+    customAccessTokenClaims: async ({ user }) =>
+      (user?.uid != null ? { uid: String(user.uid) } : {}),
+    // Short access-token TTL (default is 3600s). The MCP delegation model (O2,
+    // B2) relays the caller's access token through to the v3 API and it lives
+    // inside the sandbox for the duration of an `execute` — a short lifetime
+    // bounds that exposure window. The `offline_access` scope yields a refresh
+    // token (30d default) so a long-lived MCP session re-mints transparently;
+    // SSO callers likewise refresh. 10 min is the compromise between blast
+    // radius and refresh churn (revisit with token-exchange in O2.5).
+    accessTokenExpiresIn: 600,
+    // Dynamic Client Registration (RFC 7591 — O3). MCP clients (Claude, etc.)
+    // are public and discover us at runtime: they cannot use a pre-shared
+    // client_id, so they self-register at `/oauth2/register` before the user
+    // ever logs in. Hence BOTH flags:
+    //   - allowDynamicClientRegistration: exposes `/oauth2/register` and adds
+    //     `registration_endpoint` to the AS metadata (clients discover it).
+    //   - allowUnauthenticatedClientRegistration: registration happens with no
+    //     session (the standard MCP ordering is register → authorize → token).
+    // Security posture without a scope cap: a registered client may REQUEST any
+    // scope in `scopes` above, but it gets nothing until the user approves it on
+    // the consent screen (never skipped for DCR clients — `trustedClients` is
+    // empty). Combined with the short access-token TTL and the `/oauth2/register`
+    // rate limit (plugin default: 5/min/IP), an open registration endpoint stays
+    // bounded. Tighten later via `clientRegistrationAllowedScopes` once the write
+    // surface and per-tool scope enforcement land (O2.5+).
+    allowDynamicClientRegistration: true,
+    allowUnauthenticatedClientRegistration: true,
     // First-party OA apps that should skip the consent screen go here
     // (`{ clientId, clientSecret, redirectURLs, skipConsent: true, … }`).
     // Empty until a first-party client is registered (→ O3).
@@ -199,9 +251,9 @@ export default function Auth(options = {}) {
     // resource-bound request yields a JWS access token (`aud` set) the MCP
     // resource server verifies locally; without `resource` the token is opaque.
     // baseURL stays valid (the userinfo audience is auto-added for `openid`);
-    // the MCP resource URL is added when configured (→ O2). Left undefined
-    // otherwise so the plugin keeps its default of `[baseURL]`.
-    ...mcpResourceUrl ? { validAudiences: [baseURL, mcpResourceUrl] } : {},
+    // the MCP resource URL is added when configured (→ O2). Only override the
+    // plugin's `[baseURL]` default when we actually widen it (MCP configured).
+    ...mcpResourceUrl ? { validAudiences } : {},
     schema: {
       oauthClient: {
         modelName: tables.oauthClient,
@@ -885,6 +937,15 @@ export default function Auth(options = {}) {
     renameAgendaKey,
   } = createApiKeyHelpers(instance);
 
+  // In-process verifier for OA-issued OAuth access tokens (the v3 API acting as
+  // a resource server for its own AS — the B2 delegation path). Scoped to the
+  // v3-delegation audiences (NOT the full `validAudiences` the AS issues for —
+  // see above): an SSO/OIDC token bound to the AS origin must not double as a v3
+  // credential.
+  const { verifyOAuthAccessToken } = createOAuthTokenHelpers(instance, {
+    validAudiences: v3DelegationAudiences,
+  });
+
   async function getSessionFromRequest(
     req,
     prevResponse,
@@ -1008,6 +1069,11 @@ export default function Auth(options = {}) {
     renameUserKey,
     renameAgendaKey,
     hashApiKey,
+    // Verify an OA-issued OAuth JWS access token in-process → normalized
+    // descriptor ({ userUid, scopes, clientId, audiences }) or null. Owner
+    // *loading* (and the blacklist check) stay the caller's job, exactly like
+    // `verifyKey`. The v3 API uses this for the delegated MCP path.
+    verifyOAuthAccessToken,
     // Mirror legacy OA password writes into `account.password` (phase 2a).
     encodeLegacyPassword: encodeLegacy,
     upsertCredentialAccount,

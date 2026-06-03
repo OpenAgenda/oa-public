@@ -1,0 +1,161 @@
+// OA-issued OAuth access-token verification, for resource servers that live in
+// the SAME process as the authorization server (the v3 API). The MCP HTTP
+// resource server verifies the same tokens out-of-process via JWKS over HTTP
+// (packages/mcp/src/auth/verifier.js); this is its in-process twin.
+//
+// WHY a local twin instead of a loopback /jwks fetch: the API is the AS, so it
+// can pull the public keyset directly from the `jwt` plugin
+// (`instance.api.getJwks()`) with no HTTP round-trip and no private-CA trust
+// dance in dev. jose verifies the JWS offline against that keyset.
+//
+// AUDIENCE — the B2 delegation model (see docs/plan-oauth-provider.md §O2). The
+// reference MCP client always binds its token to the MCP server's own origin
+// (`aud=<mcp resource>`), never to the v3 API, so a strict `aud=API` check would
+// reject every delegated call. We accept a token whose `aud` is one of the
+// `validAudiences` passed here — the resources that DELEGATE to v3 (the MCP).
+// This list is deliberately NARROWER than the full set the AS issues tokens for:
+// the bare AS origin (OIDC/userinfo, "Sign in with OpenAgenda" SSO) is EXCLUDED,
+// so a login token bound to it cannot double as a v3 API credential. The hard
+// authority boundary stays signature + issuer + expiry; the `aud` check scopes
+// "a token bound to a resource that delegates to v3".
+
+import { createLocalJWKSet, jwtVerify } from 'jose';
+
+// Strict decimal OA uid. The token carries the uid in a private `uid` claim
+// (see `customAccessTokenClaims` in index.js) because the JWT `sub` is the
+// better-auth row id (a serial PK), NOT the OpenAgenda uid that downstream
+// resolvers key on — they differ for every user. Not Number() for the gate:
+// that maps '' to 0 and accepts '0x10'/'1e3'/negatives — a malformed claim must
+// not become a real-looking identity at this string→user boundary.
+const UID = /^\d+$/;
+
+/**
+ * @param {object} instance  the better-auth instance (exposes `api.getJwks`
+ *   and `$context`).
+ * @param {object} opts
+ * @param {string[]} opts.validAudiences  audiences this AS issues tokens for.
+ * @param {number} [opts.jwksCooldownMs]  min interval between kid-miss JWKS
+ *   refetches (default 30s) — throttles a bogus-`kid` flood.
+ * @returns {{ verifyOAuthAccessToken: (token: string) => Promise<null | {
+ *   userUid: number, scopes: string[], clientId: string|null, audiences: string[]
+ * }> }}
+ */
+export default function createOAuthTokenHelpers(
+  instance,
+  { validAudiences, jwksCooldownMs = 30_000 },
+) {
+  // The local keyset, lazily built from the plugin's JWKS and cached. EdDSA
+  // signing keys rotate rarely; on a `kid` miss we refetch (below, throttled) so
+  // a rotation is picked up without a process restart.
+  let jwks = null;
+  // When the keyset was last (re)built — gates the kid-miss refetch.
+  let lastRefreshAt = 0;
+  // In-flight refresh, shared so concurrent verifies coalesce into one getJwks().
+  let refreshInFlight = null;
+  // The expected `iss`. NOT the `baseURL` option passed to Auth() — better-auth
+  // appends its basePath (`/api/auth`) to form the effective issuer it stamps on
+  // tokens (`ctx.context.baseURL`). Resolve it from the instance context so this
+  // is the SAME string BA signs with, regardless of how baseURL/basePath are set.
+  let issuer = null;
+
+  function refreshJwks() {
+    // Coalesce: a burst of concurrent verifies triggers exactly one fetch.
+    if (!refreshInFlight) {
+      refreshInFlight = (async () => {
+        const set = await instance.api.getJwks();
+        jwks = createLocalJWKSet(set);
+        lastRefreshAt = Date.now();
+      })().finally(() => {
+        refreshInFlight = null;
+      });
+    }
+    return refreshInFlight;
+  }
+
+  async function getIssuer() {
+    if (!issuer) {
+      const ctx = await instance.$context;
+      issuer = ctx.baseURL;
+    }
+    return issuer;
+  }
+
+  async function verify(token) {
+    if (!jwks) await refreshJwks();
+    const iss = await getIssuer();
+    try {
+      return await jwtVerify(token, jwks, { issuer: iss });
+    } catch (err) {
+      // A signing-key rotation makes the cached keyset miss the token's `kid`.
+      // Refetch and retry — but THROTTLED: the `kid` is read from the unverified
+      // header before signature checks, so a stream of bogus-`kid` tokens could
+      // otherwise force a JWKS reload (a DB-backed getJwks) per request on this
+      // public auth path. Like jose's createRemoteJWKSet, refetch at most once per
+      // `jwksCooldownMs`; within the window a miss is terminal. Any other failure
+      // (bad sig, expired, wrong iss) is terminal too.
+      if (
+        err?.code === 'ERR_JWKS_NO_MATCHING_KEY'
+        && Date.now() - lastRefreshAt >= jwksCooldownMs
+      ) {
+        await refreshJwks();
+        return jwtVerify(token, jwks, { issuer: iss });
+      }
+      throw err;
+    }
+  }
+
+  /**
+   * Verify an OA-issued JWS access token. Returns a normalized descriptor on
+   * success, or `null` for any invalid/foreign token (malformed, bad signature,
+   * wrong issuer, expired, audience we never issued, non-numeric subject). Never
+   * throws on an invalid token — only a genuine infra fault (JWKS load) bubbles.
+   */
+  async function verifyOAuthAccessToken(token) {
+    // Cheap structural gate: a JWS is exactly three dot-separated segments. Skips
+    // the keyset work for anything that obviously isn't a JWT (e.g. an oa_pk_ key).
+    if (typeof token !== 'string' || token.split('.').length !== 3) {
+      return null;
+    }
+
+    let payload;
+    try {
+      ({ payload } = await verify(token));
+    } catch {
+      return null;
+    }
+
+    let auds = [];
+    if (Array.isArray(payload.aud)) auds = payload.aud;
+    else if (payload.aud != null) auds = [payload.aud];
+    if (!auds.some((a) => validAudiences.includes(a))) {
+      return null;
+    }
+
+    // The OA uid travels in the `uid` claim (string-encoded BIGINT). A token
+    // with no `uid` is not a user-delegated OA token (e.g. a client_credentials
+    // machine token) and has no OA identity to act as → reject for this path.
+    const uid = typeof payload.uid === 'string' ? payload.uid : null;
+    if (!uid || !UID.test(uid)) {
+      return null;
+    }
+
+    const scopes = typeof payload.scope === 'string'
+      ? payload.scope.split(' ').filter(Boolean)
+      : [];
+
+    return {
+      // Number, matching the uid type used everywhere downstream (the codebase
+      // compares `user.uid === …` with strict numeric equality; the DB driver
+      // returns the BIGINT column as a JS number). Safe: OA uids are generated
+      // bounded (generateUid: randomInt(1, 2**48) ≈ 2.8e14 < 2^53), so no value
+      // loses precision through Number(). The `UID` regex above already rejected
+      // anything non-numeric.
+      userUid: Number(uid),
+      scopes,
+      clientId: payload.azp ?? payload.client_id ?? null,
+      audiences: auds,
+    };
+  }
+
+  return { verifyOAuthAccessToken };
+}
