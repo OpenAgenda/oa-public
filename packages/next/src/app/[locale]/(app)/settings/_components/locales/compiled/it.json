@@ -35,6 +35,54 @@
       "value": "Sei sicuro di voler cancellare il suo account in modo permanente? Le sue agende e i suoi eventi rimarranno online, potete cancellarli manualmente se non volete lasciarli online"
     }
   ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "La password inserita non è valida. Riprova."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "Nuovo indirizzo e-mail"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "Si è verificato un problema durante l'elaborazione dell'operazione, riprova tra poco."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Password attuale"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Salva"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "Un collegamento di convalida è stato inviato al vostro nuovo indirizzo e-mail."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "Questo indirizzo e-mail è già in uso"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
   "next.components.settings.FullName.error": [
     {
       "type": 0,

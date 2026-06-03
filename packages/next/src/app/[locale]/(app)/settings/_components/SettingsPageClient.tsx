@@ -16,6 +16,7 @@ import { FetchStatus } from 'config/types';
 import useUser from '@/src/hooks/useUser';
 import FullNameSection from './FullNameSection';
 import LanguageSection from './LanguageSection';
+import EmailSection from './EmailSection';
 import ImageSection from './ImageSection';
 import DeleteAccountSection from './DeleteAccountSection';
 
@@ -55,6 +56,7 @@ export default function SettingsPageClient() {
               <AccordionRoot multiple collapsible>
                 <FullNameSection user={user} onUpdated={refreshUser} />
                 <LanguageSection user={user} onUpdated={refreshUser} />
+                {user.hasLocalAccount && <EmailSection user={user} />}
                 <ImageSection user={user} onUpdated={refreshUser} />
                 <DeleteAccountSection />
               </AccordionRoot>

@@ -35,6 +35,54 @@
       "value": "Sètz segur·a de voler suprimir vòstre compte de biais definitiu ? Vòstres agendas e eveniments demoraràn en linha, los poiretz escafar manualament se los volètz pas daissar"
     }
   ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "Lo senhal picat es pas valid. Tornatz ensajar."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "Novòla adreça email"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Senhal actual"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "Un ligam de validacion es estat mandat a vòstra novèla adreça email."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "Aquela adreça email es ja utilizada"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
   "next.components.settings.FullName.error": [
     {
       "type": 0,

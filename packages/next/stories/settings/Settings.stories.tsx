@@ -10,6 +10,7 @@ import { AccordionRoot } from '@openagenda/uikit/snippets';
 import SettingsPageClient from '@/src/app/[locale]/(app)/settings/_components/SettingsPageClient';
 import FullNameSection from '@/src/app/[locale]/(app)/settings/_components/FullNameSection';
 import LanguageSection from '@/src/app/[locale]/(app)/settings/_components/LanguageSection';
+import EmailSection from '@/src/app/[locale]/(app)/settings/_components/EmailSection';
 import ImageSection from '@/src/app/[locale]/(app)/settings/_components/ImageSection';
 import DeleteAccountSection from '@/src/app/[locale]/(app)/settings/_components/DeleteAccountSection';
 import type { SettingsUser } from '@/src/app/[locale]/(app)/settings/_components/types';
@@ -48,6 +49,10 @@ function withProviders(locale: string, Story: React.ComponentType) {
 const okHandlers = [
   http.get('/users/me', () => HttpResponse.json(user)),
   http.patch('/users/me', () => HttpResponse.json(user)),
+  http.patch(
+    '/users/me/requestChangeEmail',
+    () => new HttpResponse(null, { status: 200 }),
+  ),
   http.delete('/users/me', () => new HttpResponse(null, { status: 200 })),
 ];
 
@@ -100,6 +105,40 @@ export const FullName = {
 
 export const Language = {
   render: sectionStory('language', LanguageSection),
+};
+
+export const Email = {
+  render: sectionStory('email', EmailSection),
+};
+
+// Wrong password → requestChangeEmail returns 403 → invalid-password error.
+export const EmailWrongPassword = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.patch(
+          '/users/me/requestChangeEmail',
+          () => new HttpResponse(null, { status: 403 }),
+        ),
+      ],
+    },
+  },
+  render: sectionStory('email', EmailSection),
+};
+
+// Address already used → non-403 failure → "already used" error.
+export const EmailTaken = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.patch(
+          '/users/me/requestChangeEmail',
+          () => new HttpResponse(null, { status: 409 }),
+        ),
+      ],
+    },
+  },
+  render: sectionStory('email', EmailSection),
 };
 
 export const Image = {

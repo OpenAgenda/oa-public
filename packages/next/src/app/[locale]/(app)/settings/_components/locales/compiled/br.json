@@ -35,6 +35,54 @@
       "value": "Ha sur oc'h e fell deoc'h dilemel ho kont da vat? Ho teiziataerioù hag ho tarvoudoù a chomo enlinenn, gallout a rit o dilemel gant an dorn ma ne fell ket deoc'h o lezel enlinenn"
     }
   ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "N'eo ket talvoudek ar ger-tremen roet. Klaskit en-dro."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "Chomlec'h postel nevez"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "Ur gudenn 'zo bet e-pad keweriañ an obererezh, klaskit en-dro a-benn ur pennadig."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Ger-tremen a-vremañ"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Enrollañ"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "Kaset ez eus bet ul liamm kadarnaat d'ho chomlec'h postel nevez."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "Implijet eo ar chomlec'h postel-mañ dija"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "Postel"
+    }
+  ],
   "next.components.settings.FullName.error": [
     {
       "type": 0,

@@ -35,6 +35,54 @@
       "value": "Are you sure you want to delete your account permanently? Your calendars and events will remain online, you can delete them manually if you do not want to leave them online"
     }
   ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "The submitted password is invalid. Please try again."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "New e-mail address"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Current password"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "A validation link has been sent to your new email address."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "This email address is already used"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
   "next.components.settings.FullName.error": [
     {
       "type": 0,

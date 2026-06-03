@@ -92,7 +92,9 @@ export default function DeleteAccountSection() {
           <PasswordInput
             id="settings-delete-password"
             name="password"
-            autoComplete="current-password"
+            // new-password (not current-password) so the browser doesn't
+            // autofill the saved site password into this confirmation field.
+            autoComplete="new-password"
             value={password}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               setPassword(e.target.value);

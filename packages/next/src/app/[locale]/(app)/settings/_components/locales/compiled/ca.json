@@ -35,6 +35,54 @@
       "value": "¿Está seguro de que quiere eliminar tu cuenta de forma permanente? Tus agendas y eventos permanecerán en línea, puedes eliminarlos manualmente si no deseas dejarlos en línea"
     }
   ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "La contraseña enviada no es válida. Por favor, inténtelo de nuevo."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "Nueva dirección de correo electrónico"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Contraseña actual"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "Un enlace de confirmación ha sido enviado al nuevo correo electrónico."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "Esta dirección de correo electrónico ya está usada"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "Dirección de correo electrónico"
+    }
+  ],
   "next.components.settings.FullName.error": [
     {
       "type": 0,

@@ -35,6 +35,54 @@
       "value": "Weet je zeker dat je je account definitief wilt verwijderen? Je agenda's en evenementen blijven online, je kunt ze handmatig verwijderen als je ze niet online wilt laten"
     }
   ],
+  "next.components.settings.Email.authError": [
+    {
+      "type": 0,
+      "value": "Het opgegeven wachtwoord is niet geldig. Probeer het opnieuw."
+    }
+  ],
+  "next.components.settings.Email.newEmailLabel": [
+    {
+      "type": 0,
+      "value": "Nieuw e-mailadres"
+    }
+  ],
+  "next.components.settings.Email.otherError": [
+    {
+      "type": 0,
+      "value": "Er was een probleem tijdens het verwerken van de bewerking, probeer het zo meteen opnieuw."
+    }
+  ],
+  "next.components.settings.Email.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Huidig wachtwoord"
+    }
+  ],
+  "next.components.settings.Email.save": [
+    {
+      "type": 0,
+      "value": "Opslaan"
+    }
+  ],
+  "next.components.settings.Email.success": [
+    {
+      "type": 0,
+      "value": "Er is een validatielink naar je nieuwe e-mailadres verzonden."
+    }
+  ],
+  "next.components.settings.Email.takenError": [
+    {
+      "type": 0,
+      "value": "Dit e-mailadres is al in gebruik"
+    }
+  ],
+  "next.components.settings.Email.title": [
+    {
+      "type": 0,
+      "value": "E-mail"
+    }
+  ],
   "next.components.settings.FullName.error": [
     {
       "type": 0,
