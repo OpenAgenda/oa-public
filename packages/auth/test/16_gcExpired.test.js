@@ -32,21 +32,26 @@ function makeAdapter({
 }
 
 describe('auth - gcExpired (adapter contract)', () => {
-  it('deletes expired sessions and OAuth tokens via `expiresAt < now`', async () => {
+  it('deletes expired sessions, verifications and OAuth tokens via `expiresAt < now`', async () => {
     const adapter = makeAdapter({
-      deleteCounts: { session: 5, oauthAccessToken: 3, oauthRefreshToken: 2 },
+      deleteCounts: {
+        session: 5,
+        verification: 4,
+        oauthAccessToken: 3,
+        oauthRefreshToken: 2,
+      },
     });
     const res = await gcExpired(adapter, { olderThanDays: 30 });
 
+    const expiryModels = [
+      'session',
+      'verification',
+      'oauthAccessToken',
+      'oauthRefreshToken',
+    ];
     const models = adapter.calls.deleteMany.map((c) => c.model);
-    expect(models).toEqual(
-      expect.arrayContaining([
-        'session',
-        'oauthAccessToken',
-        'oauthRefreshToken',
-      ]),
-    );
-    for (const model of ['session', 'oauthAccessToken', 'oauthRefreshToken']) {
+    expect(models).toEqual(expect.arrayContaining(expiryModels));
+    for (const model of expiryModels) {
       const call = adapter.calls.deleteMany.find((c) => c.model === model);
       expect(call.where[0].field).toBe('expiresAt');
       expect(call.where[0].operator).toBe('lt');
@@ -54,6 +59,7 @@ describe('auth - gcExpired (adapter contract)', () => {
     }
     expect(res).toMatchObject({
       sessions: 5,
+      verifications: 4,
       accessTokens: 3,
       refreshTokens: 2,
     });

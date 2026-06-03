@@ -8,6 +8,8 @@
 //   - sessions: better-auth deletes an expired session only LAZILY, on the next
 //     read of THAT session — an abandoned one's row lives forever otherwise.
 //     With `storeSessionInDatabase` on, the largest source of dead rows.
+//   - verification rows (email-verify / password-reset tokens): same lazy story —
+//     only removed when consumed, so unused-but-expired ones accumulate.
 //   - oauth access/refresh tokens: never purged. `expiresAt < now` also excludes
 //     non-expiring tokens for free (NULL < x is false in SQL).
 //   - oauth clients: an open DCR registry accumulates clients nobody approved. A
@@ -29,6 +31,7 @@ export default async function gcExpired(
     });
 
   const sessions = await deleteExpired('session');
+  const verifications = await deleteExpired('verification');
   const accessTokens = await deleteExpired('oauthAccessToken');
   const refreshTokens = await deleteExpired('oauthRefreshToken');
 
@@ -63,6 +66,7 @@ export default async function gcExpired(
   const count = (v) => (typeof v === 'number' ? v : null);
   return {
     sessions: count(sessions),
+    verifications: count(verifications),
     accessTokens: count(accessTokens),
     refreshTokens: count(refreshTokens),
     clients: count(clients) ?? unused.length,
