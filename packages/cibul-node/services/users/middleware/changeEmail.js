@@ -91,7 +91,9 @@ function onSuccess(req, res) {
     userUid: req.user.uid,
   });
   setFlash(res, getLabel('changeEmailSuccess', req.lang));
-  res.redirect('/home');
+  // Back to the (Next) settings page so the user sees the updated email
+  // loaded on their account, with the success flash.
+  res.redirect('/settings');
 }
 
 export default {
