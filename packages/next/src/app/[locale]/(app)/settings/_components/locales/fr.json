@@ -28,5 +28,17 @@
   "next.components.settings.Language.save": "Sauvegarder",
   "next.components.settings.Language.success": "Votre profil a été mis à jour.",
   "next.components.settings.Language.title": "Langue",
+  "next.components.settings.Password.badError": "Mauvais mot de passe",
+  "next.components.settings.Password.confirmationLabel": "Confirmation",
+  "next.components.settings.Password.currentLabel": "Mot de passe actuel",
+  "next.components.settings.Password.longError": "Le mot de passe est trop long",
+  "next.components.settings.Password.mismatchError": "Les 2 mots de passe ne sont pas identiques",
+  "next.components.settings.Password.modify": "Modifier",
+  "next.components.settings.Password.newLabel": "Nouveau mot de passe",
+  "next.components.settings.Password.otherError": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant.",
+  "next.components.settings.Password.save": "Sauvegarder",
+  "next.components.settings.Password.shortError": "Le mot de passe est trop court",
+  "next.components.settings.Password.success": "Votre mot de passe a été mis à jour.",
+  "next.components.settings.Password.title": "Mot de passe",
   "next.components.settings.Settings.heading": "Paramètres du compte"
 }

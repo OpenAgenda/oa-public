@@ -28,5 +28,17 @@
   "next.components.settings.Language.save": "Opslaan",
   "next.components.settings.Language.success": "Je profiel is bijgewerkt.",
   "next.components.settings.Language.title": "Taal",
+  "next.components.settings.Password.badError": "Verkeerd wachtwoord",
+  "next.components.settings.Password.confirmationLabel": "Bevestiging",
+  "next.components.settings.Password.currentLabel": "Huidig wachtwoord",
+  "next.components.settings.Password.longError": "Het wachtwoord is te lang",
+  "next.components.settings.Password.mismatchError": "Beide wachtwoorden zijn niet identiek",
+  "next.components.settings.Password.modify": "Wijzigen",
+  "next.components.settings.Password.newLabel": "Nieuw wachtwoord",
+  "next.components.settings.Password.otherError": "Er was een probleem tijdens het verwerken van de bewerking, probeer het zo meteen opnieuw.",
+  "next.components.settings.Password.save": "Opslaan",
+  "next.components.settings.Password.shortError": "Het wachtwoord is te kort",
+  "next.components.settings.Password.success": "Je wachtwoord is bijgewerkt.",
+  "next.components.settings.Password.title": "Wachtwoord",
   "next.components.settings.Settings.heading": "Accountparameters"
 }

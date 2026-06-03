@@ -173,6 +173,78 @@
       "value": "Taal"
     }
   ],
+  "next.components.settings.Password.badError": [
+    {
+      "type": 0,
+      "value": "Verkeerd wachtwoord"
+    }
+  ],
+  "next.components.settings.Password.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Bevestiging"
+    }
+  ],
+  "next.components.settings.Password.currentLabel": [
+    {
+      "type": 0,
+      "value": "Huidig wachtwoord"
+    }
+  ],
+  "next.components.settings.Password.longError": [
+    {
+      "type": 0,
+      "value": "Het wachtwoord is te lang"
+    }
+  ],
+  "next.components.settings.Password.mismatchError": [
+    {
+      "type": 0,
+      "value": "Beide wachtwoorden zijn niet identiek"
+    }
+  ],
+  "next.components.settings.Password.modify": [
+    {
+      "type": 0,
+      "value": "Wijzigen"
+    }
+  ],
+  "next.components.settings.Password.newLabel": [
+    {
+      "type": 0,
+      "value": "Nieuw wachtwoord"
+    }
+  ],
+  "next.components.settings.Password.otherError": [
+    {
+      "type": 0,
+      "value": "Er was een probleem tijdens het verwerken van de bewerking, probeer het zo meteen opnieuw."
+    }
+  ],
+  "next.components.settings.Password.save": [
+    {
+      "type": 0,
+      "value": "Opslaan"
+    }
+  ],
+  "next.components.settings.Password.shortError": [
+    {
+      "type": 0,
+      "value": "Het wachtwoord is te kort"
+    }
+  ],
+  "next.components.settings.Password.success": [
+    {
+      "type": 0,
+      "value": "Je wachtwoord is bijgewerkt."
+    }
+  ],
+  "next.components.settings.Password.title": [
+    {
+      "type": 0,
+      "value": "Wachtwoord"
+    }
+  ],
   "next.components.settings.Settings.heading": [
     {
       "type": 0,

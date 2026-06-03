@@ -28,5 +28,17 @@
   "next.components.settings.Language.save": "Enregistrar",
   "next.components.settings.Language.success": "Vòstre perfil es plan estat mes a jorn.",
   "next.components.settings.Language.title": "Lenga",
+  "next.components.settings.Password.badError": "Marrit senhal",
+  "next.components.settings.Password.confirmationLabel": "Confirmacion",
+  "next.components.settings.Password.currentLabel": "Senhal actual",
+  "next.components.settings.Password.longError": "Lo senhal es tròp long",
+  "next.components.settings.Password.mismatchError": "Los dos senhals son pas parièrs",
+  "next.components.settings.Password.modify": "Modificar",
+  "next.components.settings.Password.newLabel": "Senhal novèl",
+  "next.components.settings.Password.otherError": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu.",
+  "next.components.settings.Password.save": "Enregistrar",
+  "next.components.settings.Password.shortError": "Lo senhal es tròp cort",
+  "next.components.settings.Password.success": "Vòstre senhal es plan estat mes a jorn.",
+  "next.components.settings.Password.title": "Senhal",
   "next.components.settings.Settings.heading": "Configuracion del compte"
 }

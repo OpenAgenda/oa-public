@@ -173,6 +173,78 @@
       "value": "Yezh"
     }
   ],
+  "next.components.settings.Password.badError": [
+    {
+      "type": 0,
+      "value": "Ger-tremen fall"
+    }
+  ],
+  "next.components.settings.Password.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Kadarnaat"
+    }
+  ],
+  "next.components.settings.Password.currentLabel": [
+    {
+      "type": 0,
+      "value": "Ger-tremen a-vremañ"
+    }
+  ],
+  "next.components.settings.Password.longError": [
+    {
+      "type": 0,
+      "value": "Re hir eo ar ger-tremen"
+    }
+  ],
+  "next.components.settings.Password.mismatchError": [
+    {
+      "type": 0,
+      "value": "An div ger-tremen n'int ket heñvel"
+    }
+  ],
+  "next.components.settings.Password.modify": [
+    {
+      "type": 0,
+      "value": "Kemmañ"
+    }
+  ],
+  "next.components.settings.Password.newLabel": [
+    {
+      "type": 0,
+      "value": "Ger-tremen nevez"
+    }
+  ],
+  "next.components.settings.Password.otherError": [
+    {
+      "type": 0,
+      "value": "Ur gudenn 'zo bet e-pad keweriañ an obererezh, klaskit en-dro a-benn ur pennadig."
+    }
+  ],
+  "next.components.settings.Password.save": [
+    {
+      "type": 0,
+      "value": "Enrollañ"
+    }
+  ],
+  "next.components.settings.Password.shortError": [
+    {
+      "type": 0,
+      "value": "Re verr eo ar ger-tremen"
+    }
+  ],
+  "next.components.settings.Password.success": [
+    {
+      "type": 0,
+      "value": "Hizivaet eo bet ho ker-tremen gant berzh."
+    }
+  ],
+  "next.components.settings.Password.title": [
+    {
+      "type": 0,
+      "value": "Ger-tremen"
+    }
+  ],
   "next.components.settings.Settings.heading": [
     {
       "type": 0,

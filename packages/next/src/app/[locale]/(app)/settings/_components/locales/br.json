@@ -28,5 +28,17 @@
   "next.components.settings.Language.save": "Enrollañ",
   "next.components.settings.Language.success": "Hizivaet eo bet ho profil gant berzh.",
   "next.components.settings.Language.title": "Yezh",
+  "next.components.settings.Password.badError": "Ger-tremen fall",
+  "next.components.settings.Password.confirmationLabel": "Kadarnaat",
+  "next.components.settings.Password.currentLabel": "Ger-tremen a-vremañ",
+  "next.components.settings.Password.longError": "Re hir eo ar ger-tremen",
+  "next.components.settings.Password.mismatchError": "An div ger-tremen n'int ket heñvel",
+  "next.components.settings.Password.modify": "Kemmañ",
+  "next.components.settings.Password.newLabel": "Ger-tremen nevez",
+  "next.components.settings.Password.otherError": "Ur gudenn 'zo bet e-pad keweriañ an obererezh, klaskit en-dro a-benn ur pennadig.",
+  "next.components.settings.Password.save": "Enrollañ",
+  "next.components.settings.Password.shortError": "Re verr eo ar ger-tremen",
+  "next.components.settings.Password.success": "Hizivaet eo bet ho ker-tremen gant berzh.",
+  "next.components.settings.Password.title": "Ger-tremen",
   "next.components.settings.Settings.heading": "Arventennoù ar gont"
 }

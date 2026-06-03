@@ -28,5 +28,17 @@
   "next.components.settings.Language.save": "",
   "next.components.settings.Language.success": "",
   "next.components.settings.Language.title": "",
+  "next.components.settings.Password.badError": "",
+  "next.components.settings.Password.confirmationLabel": "",
+  "next.components.settings.Password.currentLabel": "",
+  "next.components.settings.Password.longError": "",
+  "next.components.settings.Password.mismatchError": "",
+  "next.components.settings.Password.modify": "",
+  "next.components.settings.Password.newLabel": "",
+  "next.components.settings.Password.otherError": "",
+  "next.components.settings.Password.save": "",
+  "next.components.settings.Password.shortError": "",
+  "next.components.settings.Password.success": "",
+  "next.components.settings.Password.title": "",
   "next.components.settings.Settings.heading": ""
 }

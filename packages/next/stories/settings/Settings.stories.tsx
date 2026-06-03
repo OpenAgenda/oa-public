@@ -11,6 +11,7 @@ import SettingsPageClient from '@/src/app/[locale]/(app)/settings/_components/Se
 import FullNameSection from '@/src/app/[locale]/(app)/settings/_components/FullNameSection';
 import LanguageSection from '@/src/app/[locale]/(app)/settings/_components/LanguageSection';
 import EmailSection from '@/src/app/[locale]/(app)/settings/_components/EmailSection';
+import PasswordSection from '@/src/app/[locale]/(app)/settings/_components/PasswordSection';
 import ImageSection from '@/src/app/[locale]/(app)/settings/_components/ImageSection';
 import DeleteAccountSection from '@/src/app/[locale]/(app)/settings/_components/DeleteAccountSection';
 import type { SettingsUser } from '@/src/app/[locale]/(app)/settings/_components/types';
@@ -51,6 +52,10 @@ const okHandlers = [
   http.patch('/users/me', () => HttpResponse.json(user)),
   http.patch(
     '/users/me/requestChangeEmail',
+    () => new HttpResponse(null, { status: 200 }),
+  ),
+  http.post(
+    '/api/auth/change-password',
     () => new HttpResponse(null, { status: 200 }),
   ),
   http.delete('/users/me', () => new HttpResponse(null, { status: 200 })),
@@ -139,6 +144,24 @@ export const EmailTaken = {
     },
   },
   render: sectionStory('email', EmailSection),
+};
+
+export const Password = {
+  render: sectionStory('password', PasswordSection),
+};
+
+// Wrong current password → better-auth returns INVALID_PASSWORD.
+export const PasswordInvalidCurrent = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.post('/api/auth/change-password', () =>
+          HttpResponse.json({ code: 'INVALID_PASSWORD' }, { status: 400 }),
+        ),
+      ],
+    },
+  },
+  render: sectionStory('password', PasswordSection),
 };
 
 export const Image = {

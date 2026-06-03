@@ -28,5 +28,17 @@
   "next.components.settings.Language.save": "Salva",
   "next.components.settings.Language.success": "Il tuo profilo è stato aggiornato.",
   "next.components.settings.Language.title": "Lingua",
+  "next.components.settings.Password.badError": "Password errata",
+  "next.components.settings.Password.confirmationLabel": "Confermare",
+  "next.components.settings.Password.currentLabel": "Password attuale",
+  "next.components.settings.Password.longError": "La password è troppo lunga",
+  "next.components.settings.Password.mismatchError": "Le 2 password non sono identiche",
+  "next.components.settings.Password.modify": "Modificare",
+  "next.components.settings.Password.newLabel": "Nuova password",
+  "next.components.settings.Password.otherError": "Si è verificato un problema durante l'elaborazione dell'operazione, riprova tra poco.",
+  "next.components.settings.Password.save": "Salva",
+  "next.components.settings.Password.shortError": "La password è troppo corta",
+  "next.components.settings.Password.success": "La tua password è stata aggiornata.",
+  "next.components.settings.Password.title": "Password",
   "next.components.settings.Settings.heading": "Impostazioni dell'account"
 }

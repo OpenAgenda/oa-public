@@ -28,5 +28,17 @@
   "next.components.settings.Language.save": "Speichern",
   "next.components.settings.Language.success": "Dein Profil wurde erfolgreich aktualisiert.",
   "next.components.settings.Language.title": "Sprache",
+  "next.components.settings.Password.badError": "Falsches Passwort",
+  "next.components.settings.Password.confirmationLabel": "Bestätigung",
+  "next.components.settings.Password.currentLabel": "Aktuelles Passwort",
+  "next.components.settings.Password.longError": "Das Passwort ist zu lang",
+  "next.components.settings.Password.mismatchError": "Beide Passwörter sind nicht identisch",
+  "next.components.settings.Password.modify": "Ändern",
+  "next.components.settings.Password.newLabel": "Neues Kennwort",
+  "next.components.settings.Password.otherError": "Bei der Verarbeitung des Vorgangs ist ein Problem aufgetreten, bitte versuchen Sie es gleich erneut.",
+  "next.components.settings.Password.save": "Speichern",
+  "next.components.settings.Password.shortError": "Das Passwort ist zu kurz",
+  "next.components.settings.Password.success": "Ihr Passwort wurde erfolgreich aktualisiert.",
+  "next.components.settings.Password.title": "Passwort",
   "next.components.settings.Settings.heading": "Allgemeine Einstellungen"
 }
