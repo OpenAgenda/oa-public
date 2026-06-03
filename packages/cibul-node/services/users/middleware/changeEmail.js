@@ -86,10 +86,30 @@ function onError(err, req, res) {
   cmn.catchError(req, res)(err);
 }
 
-function onSuccess(req, res) {
+async function onSuccess(req, res) {
   log.info('email changed successfully', {
     userUid: req.user.uid,
   });
+
+  // Rebuild the better-auth session cookie cache from a fresh DB read so
+  // req.user.email reflects the new address immediately — same refresh the
+  // PATCH /users/:__feathersId route does (see plugApp.js). Without it the
+  // cached session snapshot keeps the old email until natural expiry, which
+  // breaks subsequent email-based lookups (e.g. password challenges).
+  const { auth } = req.app.services;
+  if (auth) {
+    try {
+      const out = await auth.api.getSession({
+        headers: auth.toHeaders(req),
+        query: { disableCookieCache: true },
+        asResponse: true,
+      });
+      auth.forwardSetCookieHeaders(out, res);
+    } catch (_err) {
+      // Cache stays stale until expiry; not worth failing the confirmation.
+    }
+  }
+
   setFlash(res, getLabel('changeEmailSuccess', req.lang));
   // Back to the (Next) settings page so the user sees the updated email
   // loaded on their account, with the success flash.
