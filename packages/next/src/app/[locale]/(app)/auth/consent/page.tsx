@@ -30,6 +30,12 @@ export default async function ConsentPage({
   const h = await headers();
   const params = await searchParams;
 
+  // Presence check (not the signed cookie-cache): it tracks the same long-lived
+  // `session_token` that `/oauth2/authorize` validates, so the two endpoints
+  // agree on whether a session exists. Validating the cache cookie here instead
+  // would bounce on its shorter TTL while authorize still sees a live session →
+  // a consent↔authorize loop. This is a one-shot safety net (the cookie having
+  // vanished between authorize and here), not a real authorization gate.
   if (!getSessionCookie(h, { cookiePrefix: 'oa' })) {
     // Session expired between /oauth2/authorize and here. Re-enter the flow at
     // authorize (which will route the user through sign-in and back). The

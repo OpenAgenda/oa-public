@@ -22,7 +22,15 @@ export default async function SignupPage({
   searchParams: SearchParams;
 }) {
   const h = await headers();
-  if (getSessionCookie(h, { cookiePrefix: 'oa' })) {
+  const params = await searchParams;
+  // Mirror SigninPage: never short-circuit an in-flight OAuth authorization
+  // (signed query carrying `client_id` + `sig`) to `/home`. The client resumes
+  // the flow to `/oauth2/authorize` after sign-up, and short-circuiting on a
+  // present-but-invalid session cookie loops with `/home`.
+  const hasOAuthQuery = Boolean(
+    pickFirst(params.client_id) && pickFirst(params.sig),
+  );
+  if (!hasOAuthQuery && getSessionCookie(h, { cookiePrefix: 'oa' })) {
     // /home is a cibul-node legacy route, not a Next.js route — redirect
     // without the locale prefix so nginx routes it to cibul-node. The
     // localized variant (/fr/home) would fall through to Next's [agendaSlug]
@@ -30,7 +38,6 @@ export default async function SignupPage({
     redirect('/home');
   }
 
-  const params = await searchParams;
   const invitation = pickFirst(params.invitation);
   const redirectParam = pickFirst(params.redirect);
   // `email` is forwarded by member-invitation mails (services/members/lib/mail.js)
