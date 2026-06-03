@@ -1,3 +1,8 @@
+// Referenced by literal name, not `schemas.apiKeySet`: the api_key_set cutover
+// removed that schema entry from config/index.js, so the indirection is now
+// `undefined`. Same convention as 20260528170000_drop_api_key_set_table.js.
+const API_KEY_SET = 'api_key_set';
+
 export async function up(knex) {
   const { schemas } = knex.client.config;
 
@@ -8,7 +13,7 @@ export async function up(knex) {
   );
 
   await knex.schema.raw(
-    `ALTER TABLE \`${schemas.apiKeySet}\`
+    `ALTER TABLE \`${API_KEY_SET}\`
        ADD CONSTRAINT \`api_key_set_user_id_user_id\`
        FOREIGN KEY (\`user_id\`) REFERENCES \`${schemas.user}\` (\`id\`) ON DELETE CASCADE`,
   );
@@ -16,7 +21,7 @@ export async function up(knex) {
   await knex.schema.raw(
     `ALTER TABLE \`${schemas.accessToken}\`
        ADD CONSTRAINT \`access_token_api_key_set_id_api_key_set_id\`
-       FOREIGN KEY (\`api_key_set_id\`) REFERENCES \`${schemas.apiKeySet}\` (\`id\`) ON DELETE CASCADE`,
+       FOREIGN KEY (\`api_key_set_id\`) REFERENCES \`${API_KEY_SET}\` (\`id\`) ON DELETE CASCADE`,
   );
 
   await knex.schema.raw(
@@ -59,7 +64,7 @@ export async function down(knex) {
     `ALTER TABLE \`${schemas.accessToken}\` DROP FOREIGN KEY \`access_token_api_key_set_id_api_key_set_id\``,
   );
   await knex.schema.raw(
-    `ALTER TABLE \`${schemas.apiKeySet}\` DROP FOREIGN KEY \`api_key_set_user_id_user_id\``,
+    `ALTER TABLE \`${API_KEY_SET}\` DROP FOREIGN KEY \`api_key_set_user_id_user_id\``,
   );
   await knex.schema.raw(
     `ALTER TABLE \`${schemas.agenda}\` DROP FOREIGN KEY \`review_owner_id_user_id\``,
