@@ -86,6 +86,60 @@ describe('01 - event-search - functional: rebuild', () => {
           expect(result.counts.deleted).toBe(3);
         });
       });
+
+      describe('failed build (e.g. a corrupt event) does not prune', () => {
+        let totalBefore;
+        let result;
+        let totalAfter;
+
+        beforeAll(async () => {
+          try {
+            await service.getConfig().client.indices.delete({ index: 'test' });
+          } catch (e) {
+            // ignore error except for troubleshoot
+          }
+        });
+
+        // populate the set with a complete build
+        beforeAll(async () => {
+          await service('failingset').rebuild({ eventsList });
+          ({ total: totalBefore } = await service('failingset').search(
+            { state: null },
+            { size: 0 },
+          ));
+        });
+
+        // a rebuild whose event listing rejects partway, simulating a corrupt
+        // event that makes a page fetch throw
+        beforeAll(async () => {
+          result = await service('failingset').rebuild({
+            eventsList: async () => {
+              throw new Error('corrupt event made the page fetch reject');
+            },
+          });
+          ({ total: totalAfter } = await service('failingset').search(
+            { state: null },
+            { size: 0 },
+          ));
+        });
+
+        afterAll(async () => {
+          await service('failingset').clear();
+        });
+
+        it('surfaces the build error', () => {
+          expect(result.error).toBeTruthy();
+        });
+
+        it('does not delete anything (prune is skipped)', () => {
+          expect(result.counts.deleted).toBe(0);
+        });
+
+        it('keeps the previously indexed events intact', () => {
+          expect(totalBefore).toBeGreaterThan(0);
+          expect(totalAfter).toBe(totalBefore);
+        });
+      });
     });
   });
 });

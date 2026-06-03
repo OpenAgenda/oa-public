@@ -5,6 +5,7 @@ import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
 import buildApp from './helpers/buildApp.js';
 import flushRateLimit from './helpers/rateLimit.js';
+import waitFor from './helpers/waitFor.js';
 import { getCredentialAccount } from './helpers/account.js';
 
 const enabled = [
@@ -124,11 +125,12 @@ describe('25 - reset password via better-auth (phase 3b)', () => {
 
     expect(lostRes.status).toBe(200);
 
-    // Allow the async BA flow to run.
-    await new Promise((r) => setTimeout(r, 400));
-
-    const reset = sentMails.find((m) => m.template === 'resetPassword');
-    expect(reset).toBeTruthy();
+    // The mail send is backgrounded by the BA pipeline; poll for it instead of
+    // racing a fixed sleep.
+    const reset = await waitFor(
+      () => sentMails.find((m) => m.template === 'resetPassword'),
+      { message: 'resetPassword mail to be sent' },
+    );
     expect(reset.to).toBe(email);
     expect(reset.data.resetLink).toMatch(/[?&]callbackURL=/);
 
@@ -191,10 +193,10 @@ describe('25 - reset password via better-auth (phase 3b)', () => {
       .set('Content-Type', 'application/json')
       .send({ email });
 
-    await new Promise((r) => setTimeout(r, 400));
-
-    const reset = sentMails.find((m) => m.template === 'resetPassword');
-    expect(reset).toBeTruthy();
+    const reset = await waitFor(
+      () => sentMails.find((m) => m.template === 'resetPassword'),
+      { message: 'resetPassword mail to be sent' },
+    );
     const token = extractResetToken(reset.data.resetLink);
 
     const out = await services.auth.api.resetPassword({
@@ -211,10 +213,18 @@ describe('25 - reset password via better-auth (phase 3b)', () => {
       .first();
     expect(refreshed.is_activated).toBe(1);
 
-    const inbox = await new services.inboxes.Inbox({
-      type: 'user',
-      identifier: user.uid,
-    })._get();
+    // runOnActivation creates the Inbox fire-and-forget (.then(noop)), so it can
+    // land after resetPassword resolves — poll rather than read once.
+    const inbox = await waitFor(
+      async () => {
+        const i = await new services.inboxes.Inbox({
+          type: 'user',
+          identifier: user.uid,
+        })._get();
+        return i.data ? i : null;
+      },
+      { message: 'user inbox to be created by runOnActivation' },
+    );
     expect(inbox.data).toBeTruthy();
   });
 });

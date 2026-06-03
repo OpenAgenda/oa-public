@@ -11,6 +11,12 @@
       "value": "Mot de passe perdu"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Kennaskañ dre bostel"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -75,6 +81,54 @@
     {
       "type": 0,
       "value": "Le lien de réinitialisation a été envoyé à l'email saisi. La réception peut parfois prendre quelques minutes : vérifiez votre boîte de réception et votre dossier de courriers indésirables. Si vous ne recevez pas le lien, contactez-nous au support."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Nullañ"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "Postel"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "c'hwi@skouer.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Furmskrid kennaskañ dre bostel"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "Ur fazi a zo bet. Klaskit en-dro mar plij."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Skrivit ho postel evit resev ul liamm kennaskañ. Hep ger-tremen. Talvoudek eo al liamm e-pad 10 munutenn."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Kas al liamm"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "Mar bez ur gont evit ar postel-mañ ez eus bet kaset ul liamm kennaskañ. Gallout a ra ar c'hasadenn padout un nebeud munutennoù. Gwiriit ho poest degemer hag ho teuliad spam. Ma ne resevit ket anezhañ e c'hellit goulenn unan all a-benn ur vunutenn."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -279,6 +333,12 @@
     {
       "type": 0,
       "value": "Réinitialiser le mot de passe"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Kennaskañ dre bostel"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [

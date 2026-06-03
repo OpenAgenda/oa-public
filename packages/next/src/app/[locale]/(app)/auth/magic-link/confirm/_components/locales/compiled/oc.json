@@ -1,0 +1,20 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": [
+    {
+      "type": 0,
+      "value": "Connexion en cors…"
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.intro": [
+    {
+      "type": 0,
+      "value": "Pacientatz pendent que vos connectam."
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.invalid": [
+    {
+      "type": 0,
+      "value": "Aqueste ligam de connexion es invalid o expirat. Demandatz-ne un novèl."
+    }
+  ]
+}

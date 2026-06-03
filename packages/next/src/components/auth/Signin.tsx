@@ -15,10 +15,11 @@ import {
   Input,
 } from '@openagenda/uikit';
 import computePostSignInRedirect, {
-  decodeBase64Redirect,
+  buildPostActivateCallbackURL,
 } from '@/src/lib/computePostSignInRedirect';
 import MessageAlert from '@/src/components/MessageAlert';
 import LostPassword from './LostPassword';
+import MagicLink from './MagicLink';
 
 const messages = defineMessages({
   emailLabel: {
@@ -73,6 +74,10 @@ const messages = defineMessages({
     id: 'next.components.auth.Signin.forgotPassword',
     defaultMessage: 'I forgot my password',
   },
+  signinByEmail: {
+    id: 'next.components.auth.Signin.signinByEmail',
+    defaultMessage: 'Sign in by email',
+  },
   invalidCredentials: {
     id: 'next.components.auth.Signin.invalidCredentials',
     defaultMessage: 'The email or the password are incorrect.',
@@ -97,6 +102,7 @@ interface SigninProps {
   defaultSuccess?: boolean;
   defaultInvalidCredentials?: boolean;
   defaultLostPassword?: boolean;
+  defaultMagicLink?: boolean;
   // Initial invitation token forwarded to <SignupComplete> via the
   // onActivationRequired callback so the verification email's callbackURL
   // routes through /post-activate when relevant.
@@ -116,7 +122,7 @@ interface SigninProps {
   linkError?: boolean;
   defaultEmail?: string;
   onSuccess?: () => void;
-  onViewChange?: (view: 'signin' | 'lost' | 'signup') => void;
+  onViewChange?: (view: 'signin' | 'lost' | 'magic' | 'signup') => void;
   // Called when BA returns `EMAIL_NOT_VERIFIED` (signin attempt for an
   // unverified account). Parent must swap to <SignupComplete> — Signin no
   // longer ships a built-in verify panel, so this callback is required.
@@ -131,6 +137,7 @@ export default function Signin({
   defaultSuccess = false,
   defaultInvalidCredentials = false,
   defaultLostPassword = false,
+  defaultMagicLink = false,
   invitation,
   agenda,
   redirect,
@@ -153,8 +160,8 @@ export default function Signin({
   );
   const [loading, setLoading] = useState(defaultLoading);
   const [success, setSuccess] = useState(defaultSuccess);
-  const [view, setView] = useState<'signin' | 'lost'>(
-    defaultLostPassword ? 'lost' : 'signin',
+  const [view, setView] = useState<'signin' | 'lost' | 'magic'>(
+    defaultMagicLink ? 'magic' : defaultLostPassword ? 'lost' : 'signin',
   );
   const invalidCredentialsAlertRef = useRef<HTMLDivElement>(null);
   const emailInputRef = useRef<HTMLInputElement>(null);
@@ -222,19 +229,19 @@ export default function Signin({
             // computePostActivateRedirect.js: route through
             // /post-activate?invitation=…&next=… when an invitation token is
             // present so it can be applied after BA's auto-signin redirect.
-            let baseRedirect = '/home';
-            if (redirect) {
-              const safe = decodeBase64Redirect(redirect);
-              if (safe) baseRedirect = safe;
-            } else if (agenda?.slug) {
-              baseRedirect = `/${agenda.slug}/contribute`;
-            }
+            // No invitation → land directly (this flow never forwarded an
+            // `agenda` query param, hence includeAgendaParam: false).
             const callbackURL = invitation
-              ? `/post-activate?${new URLSearchParams({
+              ? buildPostActivateCallbackURL({
+                  redirectParam: redirect,
+                  agendaSlug: agenda?.slug,
                   invitation,
-                  next: baseRedirect,
-                }).toString()}`
-              : baseRedirect;
+                  includeAgendaParam: false,
+                })
+              : computePostSignInRedirect({
+                  redirectParam: redirect,
+                  agendaSlug: agenda?.slug,
+                });
             onActivationRequired({ email, callbackURL });
             return;
           }
@@ -386,6 +393,18 @@ export default function Signin({
     );
   }
 
+  if (view === 'magic') {
+    return (
+      <MagicLink
+        defaultEmail={email}
+        agenda={agenda}
+        redirect={redirect}
+        invitation={invitation}
+        onCancel={() => setView('signin')}
+      />
+    );
+  }
+
   return (
     <chakra.form
       onSubmit={handleSubmit}
@@ -499,6 +518,18 @@ export default function Signin({
       <Button type="submit" colorPalette="blue" w="full" loading={loading}>
         {intl.formatMessage(messages.submitLabel)}
       </Button>
+
+      <Text mt="3" textAlign="center">
+        <Button
+          variant="link"
+          type="button"
+          onClick={() => setView('magic')}
+          color="primary.500"
+          disabled={loading}
+        >
+          {intl.formatMessage(messages.signinByEmail)}
+        </Button>
+      </Text>
 
       {(!linkProvider || linkError) && (
         <>

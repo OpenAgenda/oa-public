@@ -18,6 +18,10 @@ const messages = defineMessages({
     id: 'next.components.auth.AuthDialog.dialogTitleLostPassword',
     defaultMessage: 'Lost password',
   },
+  dialogTitleMagicLink: {
+    id: 'next.components.auth.AuthDialog.dialogTitleMagicLink',
+    defaultMessage: 'Sign in by email',
+  },
   dialogTitleSignup: {
     id: 'next.components.auth.AuthDialog.dialogTitleSignup',
     defaultMessage: 'Create an account',
@@ -35,6 +39,7 @@ const messages = defineMessages({
 const TITLE_BY_VIEW = {
   signin: messages.dialogTitle,
   lost: messages.dialogTitleLostPassword,
+  magic: messages.dialogTitleMagicLink,
   signup: messages.dialogTitleSignup,
   signupComplete: messages.dialogTitleSignupComplete,
 } as const;
@@ -196,6 +201,7 @@ export default function AuthDialog({
                 <Signin
                   agenda={agenda}
                   redirect={redirect}
+                  invitation={invitation}
                   reloadOnSuccess={reloadOnSuccess}
                   redirectOnSuccess={redirectOnSuccess}
                   defaultEmail={defaultEmail}

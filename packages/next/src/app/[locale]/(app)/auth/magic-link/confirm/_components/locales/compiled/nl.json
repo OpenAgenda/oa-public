@@ -1,0 +1,20 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": [
+    {
+      "type": 0,
+      "value": "U wordt aangemeld…"
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.intro": [
+    {
+      "type": 0,
+      "value": "Even geduld terwijl we u aanmelden."
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.invalid": [
+    {
+      "type": 0,
+      "value": "Deze inloglink is ongeldig of verlopen. Vraag een nieuwe aan."
+    }
+  ]
+}

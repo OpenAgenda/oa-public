@@ -51,3 +51,33 @@ export default function computePostSignInRedirect({
   if (agendaSlug) return `/${agendaSlug}/contribute`;
   return '/home';
 }
+
+interface BuildPostActivateCallbackURLOptions {
+  redirectParam?: string | null;
+  agendaSlug?: string | null;
+  invitation?: string | null;
+  // The magic-link and email-verification flows both route their post-sign-in
+  // landing through cibul-node's `/post-activate` hop (agenda landing,
+  // invitation binding, open-redirect sanitisation, BA `?error=` interception).
+  // The email-verification (EMAIL_NOT_VERIFIED) flow historically forwarded the
+  // agenda *landing* (via `next`) but never an explicit `agenda` query param,
+  // so callers can opt out of it to keep that exact shape.
+  includeAgendaParam?: boolean;
+}
+
+// Build the `/post-activate?next=…[&agenda=…][&invitation=…]` callbackURL handed
+// to better-auth so the landing is funneled through the same hop as the legacy
+// computePostActivateRedirect. `next` reuses computePostSignInRedirect, the
+// single source of truth for "where a signed-in user lands".
+export function buildPostActivateCallbackURL({
+  redirectParam,
+  agendaSlug,
+  invitation,
+  includeAgendaParam = true,
+}: BuildPostActivateCallbackURLOptions): string {
+  const next = computePostSignInRedirect({ redirectParam, agendaSlug });
+  const params = new URLSearchParams({ next });
+  if (includeAgendaParam && agendaSlug) params.set('agenda', agendaSlug);
+  if (invitation) params.set('invitation', invitation);
+  return `/post-activate?${params.toString()}`;
+}
