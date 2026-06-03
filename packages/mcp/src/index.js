@@ -9,6 +9,7 @@ import { loadConfig, allowNetFromEnv } from './config.js';
 import { createExecutor } from './sandbox/executor.js';
 import { createServer } from './server.js';
 import { createHttpApp } from './httpServer.js';
+import { assertIssuer } from './auth/assertIssuer.js';
 import {
   renderEgressPolicy,
   policySha256,
@@ -75,6 +76,11 @@ async function main() {
     // server+transport are created per request inside the app (stateless), so
     // there is no top-level McpServer to connect here.
     const { oauth } = config; // non-null for transport=http (loadConfig guard)
+    // Self-check the issuer against the AS metadata BEFORE opening the port:
+    // a bare-origin OA_OAUTH_ISSUER (missing the /api/auth basePath) would 401
+    // every token silently. Throws on a genuine mismatch (→ fatal exit); a
+    // mere unreachable AS only warns (see assertIssuer).
+    await assertIssuer({ issuer: oauth.issuer });
     const app = createHttpApp({ config, executor });
     httpServer = app.listen(config.httpPort);
     await new Promise((resolve, reject) => {

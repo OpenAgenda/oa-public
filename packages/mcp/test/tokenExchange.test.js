@@ -74,6 +74,26 @@ describe('exchangeToken', () => {
     expect(sent.resource).toBeUndefined();
   });
 
+  it('form-urlencodes the credential so a reserved char in the secret round-trips', async () => {
+    // The AS (tokenExchangePlugin) decodeURIComponent's both Basic halves; a raw
+    // `%` would make that throw → 401. Encoding here keeps the two ends symmetric.
+    const trickySecret = 'a%b:c d+e';
+    stubFetch(() => jsonResponse(200, { access_token: 'x', expires_in: 60 }));
+    await exchangeToken({
+      exchangeUrl: EXCHANGE_URL,
+      clientId: CLIENT_ID,
+      secret: trickySecret,
+      subjectToken: SUBJECT,
+    });
+
+    // Decode the header exactly as the AS does and assert we recover the inputs.
+    const b64 = lastCall.init.headers.authorization.slice('Basic '.length);
+    const decoded = Buffer.from(b64, 'base64').toString('utf8');
+    const sep = decoded.indexOf(':');
+    expect(decodeURIComponent(decoded.slice(0, sep))).toBe(CLIENT_ID);
+    expect(decodeURIComponent(decoded.slice(sep + 1))).toBe(trickySecret);
+  });
+
   it('forwards a down-scope request when a scope is given', async () => {
     stubFetch(() => jsonResponse(200, { access_token: 'x', expires_in: 60 }));
     await exchangeToken({

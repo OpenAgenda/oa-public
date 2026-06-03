@@ -15,9 +15,18 @@
 const GRANT_TYPE = 'urn:ietf:params:oauth:grant-type:token-exchange';
 const ACCESS_TOKEN_TYPE = 'urn:ietf:params:oauth:token-type:access_token';
 
-/** RFC 6749 client_secret_basic credential. */
+/**
+ * RFC 6749 client_secret_basic credential. §2.3.1: the client_id and secret are
+ * form-urlencoded BEFORE being joined with `:` and base64'd — so a credential
+ * containing a reserved char (`:`, `%`, …) round-trips. The AS side decodes both
+ * halves with decodeURIComponent (matching the oauth-provider's own /oauth2/token),
+ * so encoding here is what keeps the two ends symmetric: a raw `%` would otherwise
+ * make decodeURIComponent throw → 401 invalid_client on every call.
+ */
 const basicAuth = (clientId, secret) =>
-  `Basic ${Buffer.from(`${clientId}:${secret}`).toString('base64')}`;
+  `Basic ${Buffer.from(
+    `${encodeURIComponent(clientId)}:${encodeURIComponent(secret)}`,
+  ).toString('base64')}`;
 
 /** Thrown when the exchange does not yield a usable api token. */
 export class TokenExchangeError extends Error {
