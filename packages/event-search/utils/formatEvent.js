@@ -202,6 +202,23 @@ export default (data, options = {}) => {
 
     if (event.member) {
       event.member = formatMember(event);
+
+      // Admin-only searchable text built from the organizing member's structure,
+      // name and position. Gated at query time (see getDSLQueryPart): only added to
+      // the q.search fields for moderator+ access, never exposed publicly. The `_`
+      // prefix keeps it out of `_source` (getDSLSourcePart excludes `_*`).
+      const memberSearchValues = [
+        event.member.organization,
+        event.member.name,
+        event.member.position,
+      ].filter((v) => typeof v === 'string' && v.trim().length);
+
+      if (memberSearchValues.length) {
+        event._admin_search_member = memberSearchValues;
+        event._admin_search_member_filtered = cleanTextForSearch(
+          memberSearchValues.join(' '),
+        );
+      }
     } else {
       event._search_empty_fields.push('member');
     }

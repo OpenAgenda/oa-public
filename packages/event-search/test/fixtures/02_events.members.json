@@ -20,6 +20,16 @@
       "user": {
         "fullName": "Berbouche"
       }
+    },
+    {
+      "uid": 3,
+      "state": 2,
+      "title": { "fr": "Collecte solidaire" },
+      "member": {
+        "name": "Anthony Jardin",
+        "organization": "Emmaüs",
+        "position": "Bénévole"
+      }
     }
   ]
 }
