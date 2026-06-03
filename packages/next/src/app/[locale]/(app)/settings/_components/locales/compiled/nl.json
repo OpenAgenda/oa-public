@@ -59,6 +59,48 @@
       "value": "Gebruikersnaam"
     }
   ],
+  "next.components.settings.Image.choose": [
+    {
+      "type": 0,
+      "value": "Een afbeelding kiezen"
+    }
+  ],
+  "next.components.settings.Image.error": [
+    {
+      "type": 0,
+      "value": "Er was een probleem tijdens het verwerken van de bewerking, probeer het zo meteen opnieuw."
+    }
+  ],
+  "next.components.settings.Image.modify": [
+    {
+      "type": 0,
+      "value": "Wijzigen"
+    }
+  ],
+  "next.components.settings.Image.remove": [
+    {
+      "type": 0,
+      "value": "Afbeelding verwijderen"
+    }
+  ],
+  "next.components.settings.Image.save": [
+    {
+      "type": 0,
+      "value": "Opslaan"
+    }
+  ],
+  "next.components.settings.Image.success": [
+    {
+      "type": 0,
+      "value": "Je profiel is bijgewerkt."
+    }
+  ],
+  "next.components.settings.Image.title": [
+    {
+      "type": 0,
+      "value": "Profielafbeelding"
+    }
+  ],
   "next.components.settings.Language.error": [
     {
       "type": 0,

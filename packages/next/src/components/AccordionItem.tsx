@@ -44,7 +44,14 @@ export default function AccordionItem({
             {title}
           </chakra.div>
           {summary != null ? (
-            <chakra.div flex="1" textAlign="start">
+            <chakra.div
+              flex="1"
+              textAlign="start"
+              // Once the item is open the value is shown in the field below, so
+              // hide the collapsed-row summary to avoid the repetition. The
+              // trigger carries data-state="open" when expanded.
+              css={{ '[data-state="open"] &': { display: 'none' } }}
+            >
               {summary}
             </chakra.div>
           ) : null}

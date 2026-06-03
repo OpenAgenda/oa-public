@@ -16,6 +16,7 @@ import { FetchStatus } from 'config/types';
 import useUser from '@/src/hooks/useUser';
 import FullNameSection from './FullNameSection';
 import LanguageSection from './LanguageSection';
+import ImageSection from './ImageSection';
 import DeleteAccountSection from './DeleteAccountSection';
 
 const messages = defineMessages({
@@ -54,6 +55,7 @@ export default function SettingsPageClient() {
               <AccordionRoot multiple collapsible>
                 <FullNameSection user={user} onUpdated={refreshUser} />
                 <LanguageSection user={user} onUpdated={refreshUser} />
+                <ImageSection user={user} onUpdated={refreshUser} />
                 <DeleteAccountSection />
               </AccordionRoot>
             </VStack>

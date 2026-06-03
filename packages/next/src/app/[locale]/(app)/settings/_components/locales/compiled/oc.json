@@ -59,6 +59,48 @@
       "value": "Nom d'utilizaire"
     }
   ],
+  "next.components.settings.Image.choose": [
+    {
+      "type": 0,
+      "value": "Causir un imatge"
+    }
+  ],
+  "next.components.settings.Image.error": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.Image.modify": [
+    {
+      "type": 0,
+      "value": "Modificar"
+    }
+  ],
+  "next.components.settings.Image.remove": [
+    {
+      "type": 0,
+      "value": "Levar l'imatge"
+    }
+  ],
+  "next.components.settings.Image.save": [
+    {
+      "type": 0,
+      "value": "Enregistrar"
+    }
+  ],
+  "next.components.settings.Image.success": [
+    {
+      "type": 0,
+      "value": "Vòstre perfil es plan estat mes a jorn."
+    }
+  ],
+  "next.components.settings.Image.title": [
+    {
+      "type": 0,
+      "value": "Imatge de perfil"
+    }
+  ],
   "next.components.settings.Language.error": [
     {
       "type": 0,

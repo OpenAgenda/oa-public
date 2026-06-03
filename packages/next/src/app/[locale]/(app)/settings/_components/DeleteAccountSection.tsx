@@ -74,7 +74,7 @@ export default function DeleteAccountSection() {
     <AccordionItem
       value="deleteAccount"
       title={
-        <chakra.span fontWeight="medium" color="red.600">
+        <chakra.span fontWeight="medium" color="red.solid">
           {intl.formatMessage(messages.title)}
         </chakra.span>
       }

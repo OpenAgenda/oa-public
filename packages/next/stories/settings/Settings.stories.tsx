@@ -10,6 +10,7 @@ import { AccordionRoot } from '@openagenda/uikit/snippets';
 import SettingsPageClient from '@/src/app/[locale]/(app)/settings/_components/SettingsPageClient';
 import FullNameSection from '@/src/app/[locale]/(app)/settings/_components/FullNameSection';
 import LanguageSection from '@/src/app/[locale]/(app)/settings/_components/LanguageSection';
+import ImageSection from '@/src/app/[locale]/(app)/settings/_components/ImageSection';
 import DeleteAccountSection from '@/src/app/[locale]/(app)/settings/_components/DeleteAccountSection';
 import type { SettingsUser } from '@/src/app/[locale]/(app)/settings/_components/types';
 import frMessages from '@/src/app/[locale]/(app)/settings/_components/locales/fr.json';
@@ -25,6 +26,7 @@ const user: SettingsUser = {
   fullName: 'Marie Dupont',
   email: 'marie.dupont@example.com',
   culture: 'fr',
+  image: 'user.profile.12345.sample.jpg',
   hasLocalAccount: true,
 };
 
@@ -98,6 +100,10 @@ export const FullName = {
 
 export const Language = {
   render: sectionStory('language', LanguageSection),
+};
+
+export const Image = {
+  render: sectionStory('image', ImageSection),
 };
 
 export const DeleteAccount = {

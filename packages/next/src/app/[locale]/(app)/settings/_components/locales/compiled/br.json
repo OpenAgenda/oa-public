@@ -59,6 +59,48 @@
       "value": "Anv implijer"
     }
   ],
+  "next.components.settings.Image.choose": [
+    {
+      "type": 0,
+      "value": "Dibab ur skeudenn"
+    }
+  ],
+  "next.components.settings.Image.error": [
+    {
+      "type": 0,
+      "value": "Ur gudenn 'zo bet e-pad keweriañ an obererezh, klaskit en-dro a-benn ur pennadig."
+    }
+  ],
+  "next.components.settings.Image.modify": [
+    {
+      "type": 0,
+      "value": "Kemmañ"
+    }
+  ],
+  "next.components.settings.Image.remove": [
+    {
+      "type": 0,
+      "value": "Lemel ar skeudenn"
+    }
+  ],
+  "next.components.settings.Image.save": [
+    {
+      "type": 0,
+      "value": "Enrollañ"
+    }
+  ],
+  "next.components.settings.Image.success": [
+    {
+      "type": 0,
+      "value": "Hizivaet eo bet ho profil gant berzh."
+    }
+  ],
+  "next.components.settings.Image.title": [
+    {
+      "type": 0,
+      "value": "Skeudenn ar profil"
+    }
+  ],
   "next.components.settings.Language.error": [
     {
       "type": 0,

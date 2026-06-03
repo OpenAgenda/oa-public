@@ -6,6 +6,7 @@ export type SettingsUser = {
   fullName?: string;
   email?: string;
   culture?: string;
+  image?: string | null;
   hasLocalAccount?: boolean;
 };
 

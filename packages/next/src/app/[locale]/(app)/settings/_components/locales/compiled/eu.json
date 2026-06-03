@@ -59,6 +59,48 @@
       "value": "Nombre de usuario"
     }
   ],
+  "next.components.settings.Image.choose": [
+    {
+      "type": 0,
+      "value": "Elegir una imagen"
+    }
+  ],
+  "next.components.settings.Image.error": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.Image.modify": [
+    {
+      "type": 0,
+      "value": "Editar"
+    }
+  ],
+  "next.components.settings.Image.remove": [
+    {
+      "type": 0,
+      "value": "Eliminar la imagen"
+    }
+  ],
+  "next.components.settings.Image.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "next.components.settings.Image.success": [
+    {
+      "type": 0,
+      "value": "Su perfil ha sido actualizado exitosamente."
+    }
+  ],
+  "next.components.settings.Image.title": [
+    {
+      "type": 0,
+      "value": "Imagen del perfil"
+    }
+  ],
   "next.components.settings.Language.error": [
     {
       "type": 0,
