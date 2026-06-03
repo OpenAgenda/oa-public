@@ -50,6 +50,7 @@ export default function Auth(options = {}) {
     onEmailVerified,
     onSendVerificationEmail,
     onSendPasswordResetEmail,
+    onExistingUserSignUp,
     onSendMagicLink,
     onAfterOAuthSignUp,
     // Extension callbacks. All optional, all no-op when absent so consumers
@@ -239,6 +240,19 @@ export default function Auth(options = {}) {
       sendResetPassword: async ({ user, url, token }, request) => {
         if (typeof onSendPasswordResetEmail === 'function') {
           await onSendPasswordResetEmail({ user, url, token }, request);
+        }
+      },
+      // Fires only on the duplicate-email branch of /sign-up/email (BA's
+      // `shouldReturnGenericDuplicateResponse`, on because of
+      // `requireEmailVerification`). BA runs it via `runInBackgroundOrAwait`
+      // AFTER it has already hashed the supplied password to flatten timing,
+      // so the screen response stays generic and constant-time regardless of
+      // whether the account exists. This is the private "email channel": it
+      // lets the consumer notify the real owner (a signup was attempted, an
+      // account already exists) without the screen ever leaking existence.
+      onExistingUserSignUp: async ({ user }, request) => {
+        if (typeof onExistingUserSignUp === 'function') {
+          await onExistingUserSignUp({ user }, request);
         }
       },
     },
@@ -617,6 +631,12 @@ export default function Auth(options = {}) {
       customRules: {
         '/send-verification-email': { window: 60, max: 1 },
         '/request-password-reset': { window: 60, max: 1 },
+        // /sign-up/email also fans out to a real email on the duplicate-account
+        // branch (the `onExistingUserSignUp` notice / activation resend), so a
+        // known address could be mail-bombed via repeated signup POSTs. Cap it
+        // per-IP. A touch looser than 1/min since a genuine user may retry a
+        // mistyped form a couple of times.
+        '/sign-up/email': { window: 60, max: 3 },
       },
     },
     account: {
