@@ -1,11 +1,14 @@
-export async function up(knex) {
-  const { schemas } = knex.client.config;
+// Referenced by literal name, not `schemas.apiKeySet`: the api_key_set cutover
+// removed that schema entry from config/index.js, so the indirection is now
+// `undefined`. Same convention as 20260528170000_drop_api_key_set_table.js.
+const API_KEY_SET = 'api_key_set';
 
-  const exists = await knex.schema.hasTable(schemas.apiKeySet);
+export async function up(knex) {
+  const exists = await knex.schema.hasTable(API_KEY_SET);
   if (exists) return;
 
   await knex.schema.raw(`
-    CREATE TABLE \`${schemas.apiKeySet}\` (
+    CREATE TABLE \`${API_KEY_SET}\` (
       \`id\` bigint NOT NULL AUTO_INCREMENT,
       \`api_key\` varchar(32) DEFAULT NULL,
       \`api_secret\` varchar(32) DEFAULT NULL,
@@ -25,6 +28,5 @@ export async function up(knex) {
 }
 
 export function down(knex) {
-  const { schemas } = knex.client.config;
-  return knex.schema.dropTableIfExists(schemas.apiKeySet);
+  return knex.schema.dropTableIfExists(API_KEY_SET);
 }
