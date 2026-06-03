@@ -69,8 +69,7 @@ verifyOptions:{audience,issuer} })` valide hors-ligne via `jose`). Pas d'in-proc
    pour les 313046 users. Tous les resolvers aval (`core.users.get`, le `referenceId` des clés)
    travaillent sur l'**uid OA**. → l'uid voyage dans une **claim privée `uid`** (string-encodée, BIGINT
    > 2^53) posée par `customAccessTokenClaims`, et `verifyOAuthAccessToken` lit `uid` (pas `sub`) →
-   > chemin `sk`. `sub` reste la PK BA (sujet OIDC stable, flow O1 intact). ⚠️ **issuer** = `baseURL`
-   > **+ basePath** (`/api/auth`, ajouté par BA) — résolu depuis `instance.$context.baseURL` (la chaîne
+   > chemin `sk`. `sub` reste la PK BA (sujet OIDC stable, flow O1 intact). ⚠️ **issuer** = `baseURL` > **+ basePath** (`/api/auth`, ajouté par BA) — résolu depuis `instance.$context.baseURL` (la chaîne
    > exacte que BA signe), pas depuis le `baseURL` brut (`config.root`).
 5. **Bump BA additif d'abord, zéro trafic** (même garde-fou que slice-auth D1).
 
@@ -168,8 +167,9 @@ consentPage: '/auth/consent', trustedClients: [] })`.
 >   `hasOAuthQuery` dans `auth/{signin,signup}/page.tsx`) ; `resource` slash→`/mcp`.
 > - **Smoke e2e réel 15/15** (`packages/mcp/scripts/smoke-oauth.js`), tests MCP 123 verts.
 > - **Reste** : surface write v3 (read-only sinon, bloquant amont) ; ~~scope par outil (read)~~ ✅ O4a read
->   posé (gate v3 par opération, 403 `insufficient_scope`) ; downscoping de visibilité (O4b, décision
->   produit) ; déploiement prod ; landing en Next (différé). Cf. §O2.5/O3/O4 et les blocs ci-dessous.
+>   posé (gate v3 par opération, 403 `insufficient_scope`) ; déploiement prod ; landing en Next (différé).
+>   Cf. §O2.5/O3/O4 et les blocs ci-dessous. (Note conception : token OAuth = `sk` scopé, identité toujours
+>   présente — le « downscoping de visibilité » est retiré, cf. O4a.)
 
 > **État main (post-merge PR #87) [historique]** : le serveur MCP (`packages/mcp`) est **stdio-only**,
 > zéro HTTP, zéro auth. Une clé `OA_API_KEY` unique (bearer `oa_pk_`, read-only) est
@@ -585,7 +585,9 @@ baké) tient.
 La clé de voûte récurrente du plan (le `⏳` « enforcement par outil ») + le positionnement vs clés API,
 en deux fils séparables. **O4a est le chemin critique** (il débloque le write-tooling et le cap DCR
 d'O3) ; **O4b** est du cheap-win adjacent. **O4a read est posé (2026-06-03)** ; reste la moitié write
-(drop-in, dépend de la surface write v3) et, en candidat, le downscoping de visibilité (cf. O4a ci-dessous).
+(drop-in, dépend de la surface write v3). Décision de conception actée : un token OAuth = clé `sk` scopée,
+**identité toujours présente** (requise pour l'attribution write) — le « downscoping de visibilité » est
+retiré (cf. O4a ci-dessous).
 
 #### O4a — Enforcement de scope de bout en bout (read `✅`, write drop-in `⏸`)
 
@@ -621,12 +623,24 @@ cap de scope DCR (O3) restait inopérant, et on ne pouvait pas exposer de write-
 - **Write = drop-in** : pas encore de write en v3. Quand il arrive → exigence `events:write` sur les
   nouvelles routes (même middleware) + exposition des write-tools côté MCP. Le mécanisme ne bouge pas.
   _Dépendance_ : surface write v3 (bloquant amont, hors de ce plan) — pour la moitié write uniquement.
-- **Downscoping de VISIBILITÉ (≠ resource-type) — candidat O4b, décision produit** : O4a borne le _type_
-  de ressource (un token `events:read` ne touche pas les routes agendas), mais sur les routes events il lit
-  encore avec la visibilité **complète du propriétaire** (`req.user` = owner → brouillons, champs privés).
-  Reco : traiter un token OAuth en lecture comme une clé `pk` (public-only — ne pas poser `req.user`/
-  `userUid` quand `req.oauth` est présent) sauf scope de lecture privée explicite ; réutilise le mécanisme
-  `pk` existant (`authenticate.js`). Aligné sur le modèle scopes ↔ tiers de `plan-slice-auth-v3.md` §5.1.
+- **Modèle d'identité vs visibilité — décision de conception actée (2026-06-03)** : un token OAuth est une
+  **identité utilisateur déléguée** = équivaut à une clé **`sk` scopée**. **`req.user` est TOUJOURS posé** ;
+  les scopes ne gèrent **que les opérations** (read/write, type de ressource — O4a), **jamais l'identité**.
+  - _Pourquoi_ : identité et visibilité sont **orthogonales**. L'identité (`req.user.uid`) est requise pour
+    l'attribution en write — les futurs points write v3 créent des **activités/notifications au nom de
+    l'utilisateur**, plus l'ownership/modération. Retirer `req.user` (idée initiale « traiter comme `pk`,
+    public-only ») **casserait** cette attribution. Donc on ne le retire jamais.
+  - _Conséquence_ : la visibilité propriétaire en lecture est le comportement **attendu** d'un token délégué
+    (le consentement annonce « lire/gérer _tes_ events » ; qui ne veut pas, n'accorde pas le grant). L'ancien
+    « downscoping de visibilité / public-only via `pk` » est **retiré de la feuille de route** — pas un
+    prérequis sécurité, et conceptuellement faux pour le write.
+  - _Write = drop-in_ : un write-tool passera `req.user.uid` à `core` exactement comme une clé `sk` (même
+    chemin d'attribution), gaté par `events:write`. L'identité est déjà là, rien à reposer.
+  - _Si un jour_ un palier « app en lecture **publique seulement** » est voulu : **scope dédié**
+    (`events:read` public vs `events:read:private`) + un **plafond d'accès** dans le chemin read
+    (`access = minTier(résolu, plafondScope)`), appliqué sur la **projection** en gardant `userUid` intact —
+    **jamais** en droppant l'identité. Aligné scopes ↔ tiers `plan-slice-auth-v3.md` §5.1. À faire seulement
+    si le besoin « app tierce non-confiance » apparaît, pas avant.
 - **Bord MCP (ops, pas de code)** : `OA_MCP_REQUIRED_SCOPES` reste `[]` par défaut (v3 est le gate, fail-safe).
   Reco env prod : `OA_MCP_REQUIRED_SCOPES=events:read agendas:read` pour rejeter un token sans scope plus tôt
   avec un 403 propre au bord.
