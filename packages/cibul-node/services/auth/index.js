@@ -339,8 +339,66 @@ export async function init(config, services) {
     },
   });
 
+  // Periodic GC of rows neither better-auth nor the oauth-provider purge on
+  // their own (expired sessions/tokens, never-approved DCR clients > 30d). The
+  // deletion logic lives in @openagenda/auth (it owns the schema); here we only
+  // schedule + run it.
+  //
+  // A bullmq repeatable job (not a setInterval): a single run across the cluster
+  // with the schedule persisted in Redis, so it survives restarts. The worker is
+  // built here but only `.run()` on the worker process (via tasks.processQueue
+  // from task.js) — never on the web processes. Mirrors services/users.
+  const { bull } = services;
+  const gcQueue = new bull.Queue('auth', { prefix: '{auth}' });
+  const gcWorker = new bull.Worker(
+    gcQueue.name,
+    async (job) => {
+      if (job.name === 'gcExpiredOAuth') {
+        // `job.log` lines surface in the bull-board "Logs" tab for this run;
+        // the namespaced `log()` lines go to the cibul-node log stream.
+        await job.log('started');
+        const summary = await auth.gcExpired({ olderThanDays: 30 });
+        await job.log(`completed ${JSON.stringify(summary)}`);
+        log('info', 'oauth.gc.completed', summary);
+        return summary;
+      }
+      log('warn', `unknown auth job ${job.name}`);
+      return undefined;
+    },
+    {
+      prefix: gcQueue.opts.prefix,
+      autorun: false,
+      concurrency: 1,
+      removeOnComplete: { age: 7 * 24 * 3600, count: 100 },
+      removeOnFail: { age: 30 * 24 * 3600, count: 100 },
+    },
+  );
+  gcWorker.on('error', (err) => log('error', 'auth worker error', err));
+  gcWorker.on('failed', (job, err) =>
+    log('error', 'oauth.gc.failed', { jobId: job?.id, err }));
+
   return Object.assign(auth, {
+    tasks: {
+      // Registers the schedule AND starts the worker, on the worker process
+      // only. Keeping the Redis round-trip out of init mirrors services/users
+      // (init just constructs the objects) and avoids the web processes
+      // touching the scheduler. Idempotent: the same scheduler id is upserted.
+      processQueue: async () => {
+        try {
+          await gcQueue.upsertJobScheduler(
+            'oauth-gc-daily',
+            { pattern: '17 3 * * *' },
+            { name: 'gcExpiredOAuth' },
+          );
+        } catch (err) {
+          log('error', 'failed to register oauth GC schedule', err);
+        }
+        gcWorker.run();
+      },
+    },
     shutdown: async () => {
+      await gcWorker.close();
+      await gcQueue.close();
       await new Promise((resolve, reject) => {
         mysqlPool.end((err) => (err ? reject(err) : resolve()));
       });

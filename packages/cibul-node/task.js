@@ -12,6 +12,8 @@ export default (config, core, services, tasksList) => {
 
     services.users.tasks.processQueue();
 
+    services.auth.tasks.processQueue();
+
     if (services.registrations) {
       services.registrations.task();
     }
