@@ -2,6 +2,7 @@ import mysql from 'mysql2';
 import logs from '@openagenda/logs';
 import Auth from '@openagenda/auth';
 import runOnActivation from '../users/lib/runOnActivation.js';
+import computePostActivateRedirect from '../../auth/lib/computePostActivateRedirect.js';
 
 const log = logs('services/auth');
 
@@ -140,6 +141,54 @@ export async function init(config, services) {
         });
       } catch (err) {
         log('error', 'sendPasswordResetEmail failed', {
+          userId: user?.id,
+          err,
+        });
+      }
+    },
+    // Private "email channel" for a signup attempt on an already-registered
+    // address. The screen response is generic and constant-time (BA's
+    // anti-enumeration synthetic 200), so the only way the legitimate owner
+    // learns the attempt happened is via their inbox — and a tester probing
+    // an email learns nothing. `user` is the EXISTING account (BA model
+    // shape: `emailVerified` === `is_activated`).
+    onExistingUserSignUp: async ({ user }) => {
+      try {
+        // Never activated → the owner never finished their original signup.
+        // Re-issue the activation link so this re-attempt can complete,
+        // rather than dead-ending on a generic "account exists" notice.
+        // Reuses the same BA flow as the resend panel → `activateAccount`.
+        if (!user.emailVerified) {
+          // Same callbackURL contract as the normal resend path
+          // (users/hooks/sendVerificationEmailOnCreate.js) so the activation
+          // link routes through /post-activate instead of dead-ending at '/'.
+          await auth.api.sendVerificationEmail({
+            body: {
+              email: user.email,
+              callbackURL: computePostActivateRedirect(),
+            },
+          });
+          return;
+        }
+
+        // Activated → tell the owner an account already exists and point them
+        // to login / password reset. Queued (not inline SMTP) so this fires in
+        // the background and never blocks the anti-enumeration signup response
+        // on mail I/O. `culture` may be null on legacy rows → fall back to a
+        // built locale so the render never throws (which would silently drop
+        // the only notification the owner gets).
+        await services.mails.send({
+          template: 'accountAlreadyExists',
+          to: user.email,
+          lang: user.culture || 'en',
+          data: {
+            loginLink: `${config.root}/auth/signin`,
+            resetLink: `${config.root}/auth/signin?view=lost`,
+          },
+          queue: true,
+        });
+      } catch (err) {
+        log('error', 'onExistingUserSignUp failed', {
           userId: user?.id,
           err,
         });

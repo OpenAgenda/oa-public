@@ -24,7 +24,7 @@ const messages = defineMessages({
   },
   dialogTitleSignupComplete: {
     id: 'next.components.auth.AuthDialog.dialogTitleSignupComplete',
-    defaultMessage: 'Confirm your email address',
+    defaultMessage: 'Check your inbox',
   },
   triggerLabel: {
     id: 'next.components.auth.AuthDialog.triggerLabel',
