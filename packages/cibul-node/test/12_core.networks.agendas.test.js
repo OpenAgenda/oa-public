@@ -45,16 +45,6 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
   beforeAll(async () => {
     const services = await Services(config, { enabled });
 
-    // jest runs with `--forceExit`, which can interrupt the afterAll queue
-    // drain and leave cascade jobs (e.g. from this file's `api` describe) in
-    // Redis. The next run's worker would replay them mid-test and race the
-    // schema assertions in the `cascade` describe. Wipe the `core` queue BEFORE
-    // Core() builds the worker so it starts on a clean backlog. (Obliterating
-    // after the worker exists would break in-flight processing.)
-    const cleanup = new services.bull.Queue('core', { prefix: '{core}' });
-    await cleanup.obliterate({ force: true });
-    await cleanup.close();
-
     core = Core(services, config);
 
     await services.formSchemas.clearCache();
@@ -203,44 +193,40 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     });
 
     beforeAll(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      return new Promise((done) => {
-        core.tasks({
-          active() {},
-          error(...args) {
-            done(args);
-          },
-          failed(...args) {
-            done(args);
-          },
-          completed(...args) {
-            if (
-              args[0].name === 'networkSchemaUpdateChild'
-              && args[0].data?.agendaUid === 1
-            ) {
-              return done();
-            }
-          },
-        });
-
-        core.networks(1).schema.updateFields([]);
-      });
+      // Start the cascade worker (autorun: false until the first call) and
+      // trigger the network-field removal. The removal reaches the child
+      // through an async `networkSchemaUpdateChild` job — but the queue can also
+      // hold unrelated jobs from earlier describes that only get processed once
+      // the worker starts here, so resolving on a single job-completed event
+      // races the actual removal write. The assertion below polls for the
+      // settled state instead.
+      core.tasks({ active() {}, error() {}, failed() {}, completed() {} });
+      await core.networks(1).schema.updateFields([]);
     });
 
     it('removes abstract placeholders from child when network field is removed', async () => {
       const { formSchemas } = core.services;
 
-      const schemaAfterRemoval = await formSchemas.get(agenda.formSchemaId);
-      const abstractFieldAfter = schemaAfterRemoval.fields.find(
-        (f) => f.field === networkFieldKey,
+      // Poll until the cascade has actually removed the abstract placeholder
+      // from the child schema (read-after-write is async), rather than trusting
+      // a job event that can fire before the removal write lands.
+      const schemaAfterRemoval = await waitFor(
+        async () => {
+          const schema = await formSchemas.get(agenda.formSchemaId);
+          const stillThere = schema.fields.some(
+            (f) => f.field === networkFieldKey,
+          );
+          return stillThere ? null : schema;
+        },
+        { message: 'abstract placeholder to be removed from child schema' },
       );
-      expect(abstractFieldAfter).toBeUndefined();
 
-      const customFieldAfter = schemaAfterRemoval.fields.find(
-        (f) => f.field === customFieldKey,
-      );
-      expect(customFieldAfter).toBeDefined();
+      expect(
+        schemaAfterRemoval.fields.find((f) => f.field === networkFieldKey),
+      ).toBeUndefined();
+      expect(
+        schemaAfterRemoval.fields.find((f) => f.field === customFieldKey),
+      ).toBeDefined();
     });
   });
 
