@@ -6,7 +6,7 @@
 //   OA_LOCAL_NO_SANDBOX      1                                (one-flag unsafe local node path;
 //                                                              also the explicit egress=none ack)
 //   OA_BASE_URL              v3 base URL                      (default: production)
-//   OA_API_KEY               Bearer key (oa_pk_… read)        (no anonymous read; OAuth later)
+//   OA_API_KEY               any OpenAgenda API key (Bearer)   (no anonymous read; least-privilege key advised)
 //   OA_SANDBOX_TIMEOUT_MS / OA_SANDBOX_MEMORY_MB              hard resource caps
 //   OA_MAX_CONCURRENCY       max simultaneous executes        (default: 4; the host-RAM guardrail)
 //   OA_EXEC_MAX_QUEUE        max executes waiting for a slot   (default: OA_MAX_CONCURRENCY × 10)
@@ -234,7 +234,7 @@ function loadOAuth(transport, env) {
     // Advertised in the PRM. MCP clients (Claude, etc.) register dynamically
     // with exactly these scopes, so the list doubles as the DCR scope set:
     //   - `openid` + the v3 read vocabulary: the resource scopes an OAuth token
-    //     may carry while O2 is read-only.
+    //     may carry today (write scopes are not wired through the AS yet).
     //   - `offline_access`: NOT a resource scope, but required here so the DCR
     //     client is registered with it — otherwise the client requests
     //     `offline_access` at /authorize (to obtain a refresh token, hence its

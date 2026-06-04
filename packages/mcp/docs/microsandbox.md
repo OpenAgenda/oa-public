@@ -216,7 +216,7 @@ OA_MSB_IT=1 yarn workspace @openagenda/mcp test
 ## Sequencing
 
 microsandbox only matters once there is a **public** surface, which is downstream
-of (1) the **v3 write surface** (read-only today → lower stakes) and (2) **OAuth
+of (1) the **v3 write surface** and (2) **OAuth
 scoped per-caller tokens** (no shared ambient key — the one case OAuth is
 mandatory). Until then the fail-closed gate keeps anyone from shipping `hosted`
 without the hard boundary. **microsandbox is not the next chantier** — write
