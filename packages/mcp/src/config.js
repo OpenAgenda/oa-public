@@ -8,6 +8,9 @@
 //   OA_BASE_URL              v3 base URL                      (default: production)
 //   OA_API_KEY               Bearer key (oa_pk_… read)        (no anonymous read; OAuth later)
 //   OA_SANDBOX_TIMEOUT_MS / OA_SANDBOX_MEMORY_MB              hard resource caps
+//   OA_MAX_CONCURRENCY       max simultaneous executes        (default: 4; the host-RAM guardrail)
+//   OA_EXEC_MAX_QUEUE        max executes waiting for a slot   (default: OA_MAX_CONCURRENCY × 10)
+//   OA_EXEC_QUEUE_TIMEOUT_MS max wait for a free slot         (default: 30000; then a retryable busy)
 //   OA_MICROSANDBOX_IMAGE    OCI image for the µVM runtime    (default: node:24-alpine)
 //   OA_MICROSANDBOX_POOL_SIZE  warm single-use µVM spares     (default: 0 = off; throughput optim)
 //   OA_MCP_TRANSPORT         stdio | http                     (default: stdio)
@@ -290,6 +293,10 @@ export function loadConfig(env = process.env) {
   const baseUrl = env.OA_BASE_URL ?? DEFAULT_BASE_URL;
   const apiHost = apiHostFromBaseUrl(baseUrl);
 
+  // Simultaneous-run cap, used to size both the active limit and the derived
+  // overflow queue below. int() floors it at >0, so it can never disable the cap.
+  const maxConcurrency = int(env.OA_MAX_CONCURRENCY, 4);
+
   return {
     mode,
     executor,
@@ -316,6 +323,17 @@ export function loadConfig(env = process.env) {
       timeoutMs: int(env.OA_SANDBOX_TIMEOUT_MS, 5000),
       memoryMb: int(env.OA_SANDBOX_MEMORY_MB, 256),
     },
+    // Concurrency guardrail (concurrencyLimit.js wraps the executor): cap the
+    // number of simultaneous runs so a burst can't spawn unbounded sandboxes and
+    // OOM the host (≈116 MiB per µVM run). Default 4 → ≈460 MiB worst-case µVM.
+    // The overflow queue DEFAULT is derived (×10) so it auto-scales with the cap
+    // and stays zero-config — a queued run only holds its code string (~KB), so
+    // it isn't a memory bound. It's still overridable (OA_EXEC_MAX_QUEUE) for
+    // operators who want to tune backpressure independently of the cap: fail fast
+    // at high concurrency, or buffer a bigger burst at low concurrency.
+    maxConcurrency,
+    execMaxQueue: int(env.OA_EXEC_MAX_QUEUE, maxConcurrency * 10),
+    execQueueTimeoutMs: int(env.OA_EXEC_QUEUE_TIMEOUT_MS, 30000),
     // TLS trust for the sandboxed runtime. OFF by default → neutral in
     // production (api.openagenda.com has a public CA). DEV-only: dapi serves a
     // private CA (O=OADEV), unknown to Node's bundled roots — set one of these.

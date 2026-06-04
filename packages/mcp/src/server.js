@@ -162,6 +162,24 @@ export function createServer({ config, executor, credential, getCredential }) {
           tls: config.tls,
         });
       } catch (err) {
+        // The concurrency guard rejects (it never started the run) when the
+        // server is saturated or shutting down — surface that as a RETRYABLE
+        // busy, not an execution failure, so the client knows to back off and
+        // try again rather than treating its code as broken.
+        const errCode = err && typeof err === 'object' && 'code' in err
+          ? err.code
+          : undefined;
+        if (errCode === 'EXEC_BUSY' || errCode === 'EXEC_SHUTTING_DOWN') {
+          return {
+            isError: true,
+            content: [
+              textContent(
+                'The server is at capacity right now — no execution slot was '
+                  + 'available. Wait a moment and retry this execute call.',
+              ),
+            ],
+          };
+        }
         // A backend should RETURN an ExecResult, never throw — but if one does
         // (the microsandbox stub, or an unexpected fault), route it through the
         // same redacted/clamped failure path instead of letting a raw error

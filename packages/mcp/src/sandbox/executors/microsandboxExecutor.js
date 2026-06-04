@@ -27,8 +27,10 @@
 //   - output  → capped post-hoc to the same 1 MiB as the spawn-based engines.
 //
 // STILL ours (the µVM is isolation, not the whole policy): a scoped per-caller
-// OAuth token with NO ambient credential, rate-limit + concurrency cap, an audit
-// log, version pinning (beta), and tenant authn. See docs/microsandbox.md.
+// OAuth token with NO ambient credential, a per-token rate-limit, an audit log,
+// version pinning (beta), and tenant authn. (The concurrency cap that bounds host
+// RAM is now in place — concurrencyLimit.js wraps this engine.) See
+// docs/microsandbox.md.
 
 import { randomUUID } from 'node:crypto';
 import { MAX_OUTPUT_BYTES } from '../spawn.js';
