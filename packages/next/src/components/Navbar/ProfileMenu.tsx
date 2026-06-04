@@ -79,6 +79,8 @@ export default function ProfileMenu({
                   loader={thumborLoader}
                   width="30"
                   height="30"
+                  // Circular avatar, matching the Image de profil settings section.
+                  style={{ borderRadius: '50%', objectFit: 'cover' }}
                 />
               ) : 
                 user.fullName

@@ -12,6 +12,9 @@ import userFixtures from './fixtures/user.json';
 export default {
   title: 'components/Navbar',
   component: Navbar,
+  // Navbar uses next/navigation (usePathname/useRouter) — enable the App
+  // Router mock so the connected state renders.
+  parameters: { nextjs: { appDirectory: true } },
   loaders: [
     async () => ({
       intlMessages: await fetchLocale('fr'),
