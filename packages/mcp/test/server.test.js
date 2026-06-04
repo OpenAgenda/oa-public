@@ -250,6 +250,31 @@ describe('MCP server', () => {
       expect(textOf(r)).toMatch(/too much output/);
     });
 
+    it.each(['EXEC_BUSY', 'EXEC_SHUTTING_DOWN'])(
+      'maps a thrown %s from the executor to a retryable "at capacity" result (the run never started)',
+      async (code) => {
+        // The concurrency guard (concurrencyLimit.js) REJECTS instead of
+        // returning an ExecResult when saturated/shutting down. That must surface
+        // as a distinct retryable busy — not the generic "Execution failed:"
+        // path — and must not echo the raw limiter message.
+        ({ client } = await connect({
+          executor: makeExecutor(async () => {
+            throw Object.assign(new Error('saturated internal detail'), {
+              code,
+            });
+          }),
+        }));
+        const r = await client.callTool({
+          name: 'execute',
+          arguments: { code: 'return 1;' },
+        });
+        expect(r.isError).toBe(true);
+        expect(textOf(r)).toMatch(/at capacity/i);
+        expect(textOf(r)).not.toContain('Execution failed');
+        expect(textOf(r)).not.toContain('saturated internal detail');
+      },
+    );
+
     it('redacts the API key from returned error text', async () => {
       // The key is baked into the program, so a stack trace can echo it back.
       // It must never reach the client verbatim (shared key today; the caller's

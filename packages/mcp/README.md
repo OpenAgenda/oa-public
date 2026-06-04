@@ -208,6 +208,9 @@ runs it in the sandbox.
 | `OA_API_KEY`                | _none_                                   | Bearer key (`oa_pk_…` read-only) — auth credential (key today, OAuth later)                                      |
 | `OA_SANDBOX_TIMEOUT_MS`     | `5000`                                   | hard wall-clock kill                                                                                             |
 | `OA_SANDBOX_MEMORY_MB`      | `256`                                    | V8 heap cap (node/deno) / hard µVM RAM cap (microsandbox — needs more headroom)                                  |
+| `OA_MAX_CONCURRENCY`        | `4`                                      | max simultaneous `execute` runs — the host-RAM guardrail                                                         |
+| `OA_EXEC_MAX_QUEUE`         | `OA_MAX_CONCURRENCY × 10`                | max `execute` calls waiting for a slot before a retryable "at capacity" error (default auto-scales with the cap) |
+| `OA_EXEC_QUEUE_TIMEOUT_MS`  | `30000`                                  | how long an over-cap `execute` waits for a free slot before a retryable "at capacity" error                      |
 | `OA_MICROSANDBOX_IMAGE`     | `node:24-alpine`                         | OCI image for the µVM (microsandbox; official Node Alpine, `node` on PATH; pin a digest in prod — see config.js) |
 | `OA_MICROSANDBOX_POOL_SIZE` | `0` (off)                                | warm single-use µVM spares (microsandbox; throughput optim, holds RAM — see docs/microsandbox.md)                |
 | `OA_USE_SYSTEM_CA`          | _off_                                    | **dev only**: trust the OS cert store (Node bundles its own)                                                     |
@@ -261,9 +264,13 @@ Each item maps to a concrete threat:
   allowlist of the API host only**, AND block the cloud **metadata endpoint
   `169.254.169.254`**, RFC1918 ranges and localhost. (The classic SSRF →
   cloud-credential theft.)
-- **Abuse / self-DoS** → **rate-limit per token + a concurrency cap** on
-  simultaneous sandboxes, with a queue. Otherwise anyone spins up thousands of
-  VMs and takes your host down.
+- **Abuse / self-DoS** → a **concurrency cap on simultaneous sandboxes, with a
+  bounded queue** (`OA_MAX_CONCURRENCY`, default 4 → a saturated burst queues then
+  gets a retryable busy, instead of spawning unbounded ~116 MiB µVMs and OOMing
+  the host). **Done** — `concurrencyLimit.js` wraps the executor for every engine
+  and transport. Still TODO: a **per-token rate-limit** (needs the caller identity
+  the OAuth resource server provides), to bound sustained load per caller, not
+  just instantaneous concurrency.
 - **Privilege escalation via the API itself** → **no ambient authority**: inject
   the **caller's scoped OAuth token** into the executed code; the API enforces
   scopes server-side, so a successful run can never exceed the caller's own
@@ -346,9 +353,10 @@ agenda, moderate/reject, remove member).
 ## What this POC deliberately does NOT do
 
 - The `microsandbox` engine (hosted µVM boundary) **is implemented** and verified
-  on a real KVM host, but the surrounding hosted **policy layer is not** — no
-  per-caller OAuth token, rate-limit, concurrency cap or audit log yet (the
-  fail-closed gate keeps `hosted` from shipping without them). See
+  on a real KVM host, and a **concurrency cap + bounded queue** now guards the host
+  against burst OOM (`concurrencyLimit.js`), but the rest of the hosted **policy
+  layer is not** — no per-caller OAuth token, per-token rate-limit or audit log yet
+  (the fail-closed gate keeps `hosted` from shipping without them). See
   [docs/microsandbox.md](docs/microsandbox.md).
 - No OAuth / scopes — uses a single shared Bearer key from env (read-only,
   transitional). The key is redacted from returned error text, but it is still a

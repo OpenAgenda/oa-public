@@ -132,7 +132,11 @@ Three findings drive sizing:
    I/O (the common case for MCP code, which mostly awaits the API). Budget:
    `RAM ≈ idle_spares × ~51 MiB + active_runs × (~116 MiB + allocation, ≤ cap)`;
    `CPU ≈ computing_runs × up to 1 core`. The real budget comes from concurrent
-   _active_ runs, not idle spares.
+   _active_ runs, not idle spares — which is exactly what the concurrency cap
+   bounds: `OA_MAX_CONCURRENCY` (default 4) limits `active_runs`, so worst-case
+   RAM is `idle_spares × ~51 MiB + OA_MAX_CONCURRENCY × (~116 MiB + allocation)`.
+   See [concurrencyLimit.js](../src/sandbox/concurrencyLimit.js); it wraps the
+   engine, so the bound holds for every executor and transport.
 
 ## Pooling & sizing
 

@@ -243,6 +243,49 @@ describe('loadConfig', () => {
     );
   });
 
+  describe('concurrency guardrail', () => {
+    it('defaults to 4 concurrent runs, a ×10 queue and a 30s wait', () => {
+      const cfg = loadConfig({});
+      expect(cfg.maxConcurrency).toBe(4);
+      expect(cfg.execMaxQueue).toBe(40);
+      expect(cfg.execQueueTimeoutMs).toBe(30000);
+    });
+
+    it('derives the overflow queue default from the concurrency override', () => {
+      const cfg = loadConfig({
+        OA_MAX_CONCURRENCY: '8',
+        OA_EXEC_QUEUE_TIMEOUT_MS: '5000',
+      });
+      expect(cfg.maxConcurrency).toBe(8);
+      expect(cfg.execMaxQueue).toBe(80); // ×10 default
+      expect(cfg.execQueueTimeoutMs).toBe(5000);
+    });
+
+    it('lets OA_EXEC_MAX_QUEUE override the queue independently of the cap', () => {
+      const cfg = loadConfig({
+        OA_MAX_CONCURRENCY: '8',
+        OA_EXEC_MAX_QUEUE: '50',
+      });
+      expect(cfg.maxConcurrency).toBe(8);
+      expect(cfg.execMaxQueue).toBe(50); // explicit, not the ×10 default
+    });
+
+    it('falls back to the ×10 default for an invalid OA_EXEC_MAX_QUEUE', () => {
+      const cfg = loadConfig({
+        OA_MAX_CONCURRENCY: '3',
+        OA_EXEC_MAX_QUEUE: '0',
+      });
+      expect(cfg.execMaxQueue).toBe(30);
+    });
+
+    it.each(['0', '-5', 'abc', ''])(
+      'floors an invalid OA_MAX_CONCURRENCY %p back to the default (never disables the cap)',
+      (raw) => {
+        expect(loadConfig({ OA_MAX_CONCURRENCY: raw }).maxConcurrency).toBe(4);
+      },
+    );
+  });
+
   describe('custom base URL', () => {
     it('derives the host + egress allowlist from OA_BASE_URL (dev)', () => {
       const cfg = loadConfig({ OA_BASE_URL: 'https://dapi.openagenda.com/v3' });
