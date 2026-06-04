@@ -1,7 +1,7 @@
 // Tests for the microsandbox engine — the hosted, multi-tenant µVM boundary.
 //
-// The pure pieces (egress-suffix derivation, the deny-by-default policy shape,
-// the output cap) are tested hermetically with fakes — these run in CI with no
+// The pure pieces (the exact-host deny-by-default policy shape, the output cap)
+// are tested hermetically with fakes — these run in CI with no
 // KVM. The real µVM behaviour (boot, host-enforced egress, wall-clock kill) is
 // covered by an integration block that SELF-SKIPS unless a virtualization host
 // is present AND opt-in (OA_MSB_IT=1) — it boots libkrun µVMs and reaches the
@@ -9,7 +9,6 @@
 
 import { existsSync } from 'node:fs';
 import {
-  egressSuffix,
   buildPolicy,
   capOutput,
   createMicrosandboxExecutor,
@@ -19,22 +18,10 @@ import { MAX_OUTPUT_BYTES } from '../src/sandbox/spawn.js';
 
 const flush = () => new Promise((resolve) => setTimeout(resolve, 0));
 
-describe('egressSuffix', () => {
-  it('drops the leftmost label → the registrable parent (verified: only this matches)', () => {
-    expect(egressSuffix('api.openagenda.com')).toBe('.openagenda.com');
-    expect(egressSuffix('dapi.openagenda.com')).toBe('.openagenda.com');
-    expect(egressSuffix('a.b.c.d')).toBe('.b.c.d');
-  });
-
-  it('falls back to the dotted host for an apex (≤2 labels)', () => {
-    expect(egressSuffix('openagenda.com')).toBe('.openagenda.com');
-  });
-});
-
 describe('buildPolicy', () => {
   // Fakes record what the adapter asks the SDK to build, without a real µVM.
   const Destination = {
-    domainSuffix: (suffix) => ({ kind: 'domainSuffix', suffix }),
+    domain: (domain) => ({ kind: 'domain', domain }),
   };
   const Rule = {
     allowDns: () => ({ kind: 'dns' }),
@@ -47,24 +34,24 @@ describe('buildPolicy', () => {
     expect(p.defaultIngress).toBe('deny');
   });
 
-  it('allows DNS first, then a parent-suffix egress rule per host', () => {
+  it('allows DNS first, then an exact-host egress rule per host', () => {
     const p = buildPolicy({ Rule, Destination }, ['api.openagenda.com']);
     expect(p.rules[0]).toEqual({ kind: 'dns' });
     expect(p.rules[1]).toEqual({
       kind: 'egress',
-      dest: { kind: 'domainSuffix', suffix: '.openagenda.com' },
+      dest: { kind: 'domain', domain: 'api.openagenda.com' },
     });
   });
 
-  it('emits one egress rule per allowed host', () => {
+  it('emits one exact-host egress rule per allowed host', () => {
     const p = buildPolicy({ Rule, Destination }, [
       'api.openagenda.com',
       'cdn.example.org',
     ]);
-    const suffixes = p.rules
+    const domains = p.rules
       .filter((r) => r.kind === 'egress')
-      .map((r) => r.dest.suffix);
-    expect(suffixes).toEqual(['.openagenda.com', '.example.org']);
+      .map((r) => r.dest.domain);
+    expect(domains).toEqual(['api.openagenda.com', 'cdn.example.org']);
   });
 });
 
