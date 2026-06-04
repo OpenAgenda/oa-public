@@ -28,8 +28,8 @@ services:
       - ${ELASTICHQ_SSL_KEY:-/dev/null}:/ssl/elastichq.key.pem
       - ${MAILPIT_SSL_CERT:-/dev/null}:/ssl/mailpit.cert.pem
       - ${MAILPIT_SSL_KEY:-/dev/null}:/ssl/mailpit.key.pem
-      - ${MCP_SSL_CERT:-/dev/null}:/ssl/mcp.cert.pem
-      - ${MCP_SSL_KEY:-/dev/null}:/ssl/mcp.key.pem
+      - ${OA_MCP_SSL_CERT:-/dev/null}:/ssl/mcp.cert.pem
+      - ${OA_MCP_SSL_KEY:-/dev/null}:/ssl/mcp.key.pem
     command: >
       /bin/bash -c
         "for filename in $$(find /tmp/nginx/ -type f -name '*'); do
@@ -270,13 +270,13 @@ services:
       # these exactly). JWKS + the v3 API are reached over the INTERNAL docker
       # network (plaintext, no private-CA TLS): the JWKS is just public keys, and
       # the issuer/audience checks are independent of where JWKS is fetched.
-      OA_OAUTH_ISSUER: ${MCP_OAUTH_ISSUER:-https://d.openagenda.com/api/auth}
-      OA_OAUTH_JWKS_URL: ${MCP_OAUTH_JWKS_URL:-http://node:8903/api/auth/jwks}
+      OA_OAUTH_ISSUER: ${OA_MCP_OAUTH_ISSUER:-https://d.openagenda.com/api/auth}
+      OA_OAUTH_JWKS_URL: ${OA_MCP_OAUTH_JWKS_URL:-http://node:8903/api/auth/jwks}
       # The `/mcp` path is the protocol endpoint AND the OAuth resource id (they
       # coincide). Exact match against `packages/auth` validAudiences + the token
       # aud — keep it byte-for-byte identical there. See cibul-node config.
-      OA_MCP_RESOURCE_URL: ${MCP_RESOURCE_URL:-https://dmcp.openagenda.com/mcp}
-      OA_BASE_URL: ${MCP_BASE_URL:-http://node:8902/v3}
+      OA_MCP_RESOURCE_URL: ${OA_MCP_RESOURCE_URL:-https://dmcp.openagenda.com/mcp}
+      OA_BASE_URL: ${OA_MCP_BASE_URL:-http://node:8902/v3}
       # O2.5 token-exchange (RFC 8693, shared secret with the node container). The
       # server swaps each caller's aud=mcp token for a short aud=api token at the
       # AS before the sandbox, so the full consented grant never reaches executed
@@ -289,7 +289,7 @@ services:
       # (no private-CA TLS). Override to the node container so the exchange (the
       # FIRST actual network call to the issuer; the public OA_OAUTH_ISSUER is
       # otherwise only a string for the iss check) actually reaches the AS.
-      OA_OAUTH_EXCHANGE_URL: ${MCP_OAUTH_EXCHANGE_URL:-http://node:8903/api/auth/oauth2/token-exchange}
+      OA_OAUTH_EXCHANGE_URL: ${OA_MCP_OAUTH_EXCHANGE_URL:-http://node:8903/api/auth/oauth2/token-exchange}
       # NO OA_API_KEY here: the HTTP resource server is DELEGATION-only — it bakes
       # each caller's own OAuth access token into the sandboxed code per request
       # (see docs/plan-oauth-provider.md §O2). A shared key would collapse every
