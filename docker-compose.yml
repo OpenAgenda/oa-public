@@ -263,6 +263,11 @@ services:
     environment:
       TZ: Etc/UTC
       NODE_ENV: ${NODE_ENV}
+      # Dev-only: surface the MCP's logs (operational + audit) on stderr →
+      # `docker logs mcp`. The server has no console transport; stderr is gated by
+      # the standard `debug` namespace. Prod ships to InsightOps via
+      # OA_INSIGHT_OPS_TOKEN instead and leaves this unset. Overridable.
+      DEBUG: ${DEBUG:-openagenda-mcp*}
       # Standalone OAuth resource server over Streamable HTTP.
       OA_MCP_TRANSPORT: http
       OA_MCP_HTTP_PORT: 8904
