@@ -50,6 +50,51 @@ Le schéma a d'abord été ancré sur code + fixtures ; ces points ont été tra
 
 ---
 
+## Seuil de pertinence syntaxique (`threshold`)
+
+Paramètre `threshold` sur la recherche d'événements, pour couper la traîne
+faiblement pertinente d'une recherche `search` (un terme isolé noyé dans une
+longue description). Valeurs : `off` (défaut, **aucun** filtrage — comportement
+historique inchangé), `auto` (coupure dynamique), ou un nombre ≥ 0 (plancher
+`min_score` ES absolu). N'a d'effet qu'avec un `search`.
+
+- **Cœur** : `packages/event-search/utils/computeRelevanceCutoff.js` (détection
+  de coude **pure**), sonde `utils/probeTopScores.js`, branchement dans
+  `search.js` (pose `min_score`). Validation : `utils/validators/threshold.js`
+  (champ `threshold` du schéma `validateQuery.js`).
+- **`auto`** : une sonde (top 20 scores, `_source:false`, `track_total_hits:false`)
+  lit la distribution des scores, puis on prend le plus grand décrochage relatif
+  ("coude", normalisé au score max) comme plancher. La sonde **réutilise la
+  clause `query` assemblée** → les champs gated par `access` (membre admin) sont
+  miroir. Échec de sonde ⇒ dégrade en « pas de filtrage ».
+- **`<nombre>`** : `min_score` direct, **aucune sonde**. Les scores BM25 ne sont
+  pas comparables entre requêtes ni stables aux réindexations → réservé à une
+  requête tunée, pas à un usage général.
+- **Pagination** : le cutoff calculé est porté comme **dernier élément du tableau
+  `after`** (`search_after`), donc les pages suivantes d'une session `after` le
+  réutilisent **sans re-sonder**. Il est retiré avant d'atteindre ES (garde
+  d'arité : on ne dépile que si `after.length === nb_clés_de_tri + 1`, sinon un
+  curseur de longueur de tri — y compris dérivé d'`includeSort` — passe intact et
+  on re-sonde). Le coût « +1 aller-retour » ne concerne donc que la 1ʳᵉ page.
+  Côté v3 le curseur opaque (base64 de `{after, sort}`) transporte ce élément de
+  façon transparente ; rien à exposer.
+- **Exposition** : v3 → parse strict dans `lib/buildEventSearchQuery.js`
+  (`off`/`auto`/nombre, 400 agrégé sinon). v2 → transmis tel quel à `core` via
+  `convertedQuery`, validé par le schéma `core`.
+- **⚠ Facettes** : `min_score` filtre les hits **et** le `total`, mais **pas les
+  agrégations** (ES les calcule sur tous les docs matchés). Les comptes de
+  facettes incluent donc la traîne coupée — divergence list/total vs facettes
+  assumée (un plancher de score n'est pas exprimable dans la `query` BM25).
+- **Calibrage** : seuil de coude configurable sans redéploiement de code via
+  l'env var `OA_EVENT_SEARCH_RELEVANCE_MIN_DROP` (chargée dans
+  `cibul-node/config/index.js` → `eventSearchRelevanceMinDrop` → option
+  `relevanceMinDrop` à l'instanciation du service event-search → param `minDrop`
+  de `computeRelevanceCutoff`). Défaut `0.3` défini à la déstructuration des
+  options du service (`event-search/index.js`) ; env var non/mal renseignée ⇒
+  `undefined` côté config ⇒ le service applique son défaut. À caler sur Nantes.
+
+---
+
 ## Journal par tranche
 
 ### Tranche 1 — squelette du contrat (fait)

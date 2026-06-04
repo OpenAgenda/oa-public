@@ -138,6 +138,7 @@ paths:
         - $ref: '#/components/parameters/Sort'
         # text & identity
         - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/RelevanceThreshold'
         - $ref: '#/components/parameters/FilterUid'
         - $ref: '#/components/parameters/FilterSlug'
         - $ref: '#/components/parameters/FilterExtId'
@@ -561,6 +562,39 @@ components:
         Wrap the value in double quotes for an exact phrase match.
       schema:
         type: string
+
+    RelevanceThreshold:
+      name: threshold
+      in: query
+      required: false
+      description: >
+        Relevance score floor for `search` results, used to drop weakly-matching
+        events from the long tail (e.g. a single query term buried in a long
+        description). Ignored when `search` is not set.
+
+
+        - `off` (default) — no score filtering; every match is returned.
+
+        - `auto` — a dynamic cutoff derived from the score distribution of the
+          current query: the largest relative drop ("elbow") in the top scores
+          becomes the floor. It self-calibrates per query, adapting to rare vs
+          common terms and small vs large agendas.
+
+        - a non-negative number — an absolute minimum score. Relevance scores are
+          not comparable across queries nor stable across reindexes, so a fixed
+          value suits a single tuned query rather than general use; prefer `auto`.
+
+
+        Filtering applies to the returned events and their `total`; facet counts
+        (see the facets endpoint) are computed over all matching events and are
+        not affected by `threshold`.
+      schema:
+        default: off
+        oneOf:
+          - type: string
+            enum: [off, auto]
+          - type: number
+            minimum: 0
 
     FilterUid:
       name: uid
