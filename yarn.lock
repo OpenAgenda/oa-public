@@ -11899,24 +11899,6 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@openagenda/keys@npm:^2.2.11, @openagenda/keys@workspace:packages/keys":
-  version: 0.0.0-use.local
-  resolution: "@openagenda/keys@workspace:packages/keys"
-  dependencies:
-    "@openagenda/logs": "npm:^1.1.10"
-    "@openagenda/service-utils": "npm:^2.0.0"
-    "@openagenda/validators": "npm:^2.4.0"
-    "@openagenda/verror": "npm:^3.2.0"
-    ioredis: "npm:^5.10.1"
-    jest: "npm:^29.7.0"
-    knex: "npm:^2.4.2"
-    lodash: "npm:^4.17.15"
-    mysql2: "npm:^3.15.1"
-    sinon: "npm:^8.1.1"
-    uuid: "npm:^3.4.0"
-  languageName: unknown
-  linkType: soft
-
 "@openagenda/labels@npm:^2.0.7, @openagenda/labels@npm:^2.3.0, @openagenda/labels@workspace:packages/labels":
   version: 0.0.0-use.local
   resolution: "@openagenda/labels@workspace:packages/labels"
@@ -12309,6 +12291,7 @@ __metadata:
     eslint-config-next: "npm:^15.5.6"
     fast-json-stable-stringify: "npm:^2.1.0"
     file-type: "npm:^21.0.0"
+    fuse.js: "npm:^3.4.6"
     globby: "npm:^13.1.3"
     hls.js: "npm:^1.6.5"
     js-cookie: "npm:^3.0.5"
@@ -13152,7 +13135,6 @@ __metadata:
     "@feathersjs/hooks": "npm:^0.4.0-alpha.0"
     "@openagenda/eslint-config": "npm:^1.4.0"
     "@openagenda/files": "npm:^3.1.0"
-    "@openagenda/keys": "npm:^2.2.11"
     "@openagenda/logs": "npm:^1.1.10"
     "@openagenda/validators": "npm:^2.4.0"
     "@openagenda/verror": "npm:^3.2.0"
@@ -28239,7 +28221,6 @@ __metadata:
     "@openagenda/inboxes": "npm:^1.1.15"
     "@openagenda/intl": "npm:^1.1.6"
     "@openagenda/invitations": "npm:^1.1.8"
-    "@openagenda/keys": "npm:^2.2.11"
     "@openagenda/labels": "npm:^2.3.0"
     "@openagenda/legacy": "npm:^1.11.2"
     "@openagenda/logs": "npm:^1.1.10"

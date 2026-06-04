@@ -1,4 +1,206 @@
 {
+  "Abilities.AbilitiesEditor.error": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error."
+    }
+  ],
+  "Abilities.AbilitiesForm.save": [
+    {
+      "type": 0,
+      "value": "Guardar"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Configuración de administrador/moderador:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.childEntityContributor": [
+    {
+      "type": 0,
+      "value": "Configuración de contribuyente:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityAdminmod": [
+    {
+      "type": 0,
+      "value": "Tu configuración de administrador/moderador:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityContributor": [
+    {
+      "type": 0,
+      "value": "Tu configuración de contribuyente:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.firstEntityUser": [
+    {
+      "type": 0,
+      "value": "Tu configuración global:"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterDescription": [
+    {
+      "type": 0,
+      "value": "¡Sigue las próximas evoluciones de Homenajeada"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribe": [
+    {
+      "type": 0,
+      "value": "Haz clic aquí para suscribirte"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterSubscribed": [
+    {
+      "type": 0,
+      "value": "¡Ahora recibirás el próximo boletín! Para darte de baja, simplemente haz clic en el enlace que encontrarás al pie de página en cada mensaje."
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.newsletterTitle": [
+    {
+      "type": 0,
+      "value": "Recibir el boletín"
+    }
+  ],
+  "Abilities.RulesCheckbox.AbilitiesForm.search": [
+    {
+      "type": 0,
+      "value": "Buscar"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveAgendaInboxMessage": [
+    {
+      "type": 0,
+      "value": "Recibir mensajes del buzón de la agenda"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveBehavioralEmails": [
+    {
+      "type": 0,
+      "value": "Receive behavioral emails"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEvent": [
+    {
+      "type": 0,
+      "value": "Recibir eventos enviados por otros usuarios"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": [
+    {
+      "type": 0,
+      "value": "Recibir adiciones de eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": [
+    {
+      "type": 0,
+      "value": "Recibir agregaciones de eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventChangeState": [
+    {
+      "type": 0,
+      "value": "Recibir cambios de estado a "
+    },
+    {
+      "type": 1,
+      "value": "state"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventCreation": [
+    {
+      "type": 0,
+      "value": "Recibir creaciones de eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveEventUpdate": [
+    {
+      "type": 0,
+      "value": "Recibir actualizaciones de eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveInvitation": [
+    {
+      "type": 0,
+      "value": "Recibir invitaciones"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMemberMessage": [
+    {
+      "type": 0,
+      "value": "Recibir mensajes enviados a través de la función \"Escribirles\""
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": [
+    {
+      "type": 0,
+      "value": "Recibir notificaciones cuando alguien agrega mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventAggregation": [
+    {
+      "type": 0,
+      "value": "Recibir notificaciones cuando alguien importa mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventChangeState": [
+    {
+      "type": 0,
+      "value": "Recibir notificaciones cuando alguien cambie el estado de mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventCreation": [
+    {
+      "type": 0,
+      "value": "Recibir confirmaciones a la creación de mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveMyEventUpdate": [
+    {
+      "type": 0,
+      "value": "Recibir notificaciones cuando alguien actualice mis eventos"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveNotificationsSummary": [
+    {
+      "type": 0,
+      "value": "Recibir resúmenes de notificaciones"
+    }
+  ],
+  "Abilities.RulesCheckbox.rules.receiveUserInboxMessage": [
+    {
+      "type": 0,
+      "value": "Recibir mensajes de mi buzón"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.controlled": [
+    {
+      "type": 0,
+      "value": "controlado"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.published": [
+    {
+      "type": 0,
+      "value": "publicado"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.refused": [
+    {
+      "type": 0,
+      "value": "rechazado"
+    }
+  ],
+  "Abilities.RulesCheckbox.states.toControl": [
+    {
+      "type": 0,
+      "value": "a controlar"
+    }
+  ],
   "next.components.settings.DeleteAccount.authError": [
     {
       "type": 0,
@@ -171,6 +373,36 @@
     {
       "type": 0,
       "value": "Idioma"
+    }
+  ],
+  "next.components.settings.Notifications.filterPlaceholder": [
+    {
+      "type": 0,
+      "value": "Buscar una agenda"
+    }
+  ],
+  "next.components.settings.Notifications.modify": [
+    {
+      "type": 0,
+      "value": "Editar"
+    }
+  ],
+  "next.components.settings.Notifications.saveError": [
+    {
+      "type": 0,
+      "value": "Ocurrió un error durante el proceso de la operación, inténtalo nuevamente."
+    }
+  ],
+  "next.components.settings.Notifications.success": [
+    {
+      "type": 0,
+      "value": "Tus preferencias de notificación se han guardado."
+    }
+  ],
+  "next.components.settings.Notifications.title": [
+    {
+      "type": 0,
+      "value": "Notificaciones"
     }
   ],
   "next.components.settings.Password.badError": [

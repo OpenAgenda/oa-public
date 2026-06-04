@@ -1,6 +1,7 @@
 'use client';
 
-import { useCallback } from 'react';
+import { useCallback, useEffect, useState } from 'react';
+import { usePathname, useRouter } from 'next/navigation';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSWRConfig } from 'swr';
 import {
@@ -19,6 +20,7 @@ import LanguageSection from './LanguageSection';
 import EmailSection from './EmailSection';
 import PasswordSection from './PasswordSection';
 import ImageSection from './ImageSection';
+import NotificationsSection from './NotificationsSection';
 import DeleteAccountSection from './DeleteAccountSection';
 
 const messages = defineMessages({
@@ -30,6 +32,8 @@ const messages = defineMessages({
 
 export default function SettingsPageClient() {
   const intl = useIntl();
+  const router = useRouter();
+  const pathname = usePathname();
   const { mutate } = useSWRConfig();
   const { user, status } = useUser({
     redirectTo: '/auth/signin?redirect=/settings',
@@ -39,6 +43,35 @@ export default function SettingsPageClient() {
   // summaries (full name, language) and any other consumer of the hook stay
   // in sync without a full reload.
   const refreshUser = useCallback(() => mutate('/users/me'), [mutate]);
+
+  // The open section is reflected in the URL as /:locale/settings/<section>
+  // (mirrors the legacy /settings/<tab> routes), and a deep link / back-forward
+  // opens the matching accordion. Local state is the source of truth so the
+  // single-open accordion still works where the router is a no-op (Storybook);
+  // it's kept in sync with the URL below.
+  const parts = pathname.split('/');
+  const settingsIdx = parts.indexOf('settings');
+  const settingsBase =
+    settingsIdx >= 0 ? parts.slice(0, settingsIdx + 1).join('/') : pathname;
+  const urlSection = (settingsIdx >= 0 && parts[settingsIdx + 1]) || null;
+
+  const [openSection, setOpenSection] = useState<string | null>(urlSection);
+
+  // Follow external URL changes (deep link, back/forward).
+  useEffect(() => {
+    setOpenSection(urlSection);
+  }, [urlSection]);
+
+  const handleSectionChange = useCallback(
+    (value: string[]) => {
+      const next = value[0] ?? null;
+      setOpenSection(next);
+      router.replace(next ? `${settingsBase}/${next}` : settingsBase, {
+        scroll: false,
+      });
+    },
+    [router, settingsBase],
+  );
 
   return (
     <Box asChild>
@@ -54,7 +87,13 @@ export default function SettingsPageClient() {
             </chakra.div>
           ) : user ? (
             <VStack align="stretch" gap="0">
-              <AccordionRoot multiple collapsible>
+              <AccordionRoot
+                collapsible
+                value={openSection ? [openSection] : []}
+                onValueChange={(details: { value: string[] }) =>
+                  handleSectionChange(details.value)
+                }
+              >
                 <FullNameSection user={user} onUpdated={refreshUser} />
                 <LanguageSection user={user} onUpdated={refreshUser} />
                 {user.hasLocalAccount && (
@@ -64,6 +103,7 @@ export default function SettingsPageClient() {
                   </>
                 )}
                 <ImageSection user={user} onUpdated={refreshUser} />
+                <NotificationsSection user={user} />
                 <DeleteAccountSection />
               </AccordionRoot>
             </VStack>

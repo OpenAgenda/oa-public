@@ -394,5 +394,8 @@ export const config = {
     // Catches the cibul-node /signup → /auth/signup 301 (no locale prefix) so
     // the no-locale branch above can 307 it to /:locale/auth/signup.
     '/auth/:path*',
+    // Settings sub-paths (/settings/<section>) so a no-locale deep link gets
+    // the locale prefix; bare /settings is already covered by '/([^/]+)'.
+    '/settings/:path*',
   ],
 };

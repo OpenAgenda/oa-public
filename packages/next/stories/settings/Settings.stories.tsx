@@ -13,6 +13,7 @@ import LanguageSection from '@/src/app/[locale]/(app)/settings/_components/Langu
 import EmailSection from '@/src/app/[locale]/(app)/settings/_components/EmailSection';
 import PasswordSection from '@/src/app/[locale]/(app)/settings/_components/PasswordSection';
 import ImageSection from '@/src/app/[locale]/(app)/settings/_components/ImageSection';
+import NotificationsSection from '@/src/app/[locale]/(app)/settings/_components/NotificationsSection';
 import DeleteAccountSection from '@/src/app/[locale]/(app)/settings/_components/DeleteAccountSection';
 import type { SettingsUser } from '@/src/app/[locale]/(app)/settings/_components/types';
 import frMessages from '@/src/app/[locale]/(app)/settings/_components/locales/fr.json';
@@ -46,8 +47,102 @@ function withProviders(locale: string, Story: React.ComponentType) {
   );
 }
 
+// Representative /abilities/form-index payload: global (user) settings plus
+// two member agendas. receiveEventUpdate is on for one agenda and off for the
+// other, so its global parent renders indeterminate.
+const NOTIFICATION_RULES = [
+  {
+    tag: 'user',
+    actions: 'receive',
+    subject: 'invitation',
+    inverted: false,
+    entityName: 'user',
+    identifier: 12345,
+    entity: { fullName: 'Marie Dupont' },
+  },
+  {
+    tag: 'user',
+    actions: 'receive',
+    subject: 'notificationsSummary',
+    inverted: false,
+    entityName: 'user',
+    identifier: 12345,
+    entity: { fullName: 'Marie Dupont' },
+  },
+  {
+    tag: 'user',
+    actions: 'receive',
+    subject: 'behavioralEmails',
+    inverted: true,
+    entityName: 'user',
+    identifier: 12345,
+    entity: { fullName: 'Marie Dupont' },
+  },
+  {
+    tag: 'contributor',
+    actions: 'receive',
+    subject: 'eventUpdate',
+    inverted: false,
+    entityName: 'user',
+    identifier: 12345,
+    entity: { fullName: 'Marie Dupont' },
+  },
+  {
+    tag: 'contributor',
+    actions: 'receive',
+    subject: 'eventAddition',
+    inverted: false,
+    entityName: 'user',
+    identifier: 12345,
+    entity: { fullName: 'Marie Dupont' },
+  },
+  {
+    tag: 'contributor',
+    actions: 'receive',
+    subject: 'eventUpdate',
+    inverted: false,
+    entityName: 'member',
+    identifier: 111,
+    entity: { agendaTitle: 'Festival du Livre' },
+  },
+  {
+    tag: 'contributor',
+    actions: 'receive',
+    subject: 'eventAddition',
+    inverted: false,
+    entityName: 'member',
+    identifier: 111,
+    entity: { agendaTitle: 'Festival du Livre' },
+  },
+  {
+    tag: 'contributor',
+    actions: 'receive',
+    subject: 'eventUpdate',
+    inverted: true,
+    entityName: 'member',
+    identifier: 222,
+    entity: { agendaTitle: "Concerts d'été" },
+  },
+  {
+    tag: 'contributor',
+    actions: 'receive',
+    subject: 'eventAddition',
+    inverted: false,
+    entityName: 'member',
+    identifier: 222,
+    entity: { agendaTitle: "Concerts d'été" },
+  },
+];
+
 // MSW handlers for the cibul-node user endpoints the sections call.
 const okHandlers = [
+  http.get('/abilities/form-index', () =>
+    HttpResponse.json(NOTIFICATION_RULES),
+  ),
+  http.patch('/abilities/form-index', async ({ request }) =>
+    HttpResponse.json(await request.json()),
+  ),
+  http.post('/newsletter/subscribe', () => HttpResponse.json({})),
   http.get('/users/me', () => HttpResponse.json(user)),
   http.patch('/users/me', () => HttpResponse.json(user)),
   http.patch(
@@ -166,6 +261,66 @@ export const PasswordInvalidCurrent = {
 
 export const Image = {
   render: sectionStory('image', ImageSection),
+};
+
+export const Notifications = {
+  render: sectionStory('notifications', NotificationsSection),
+};
+
+// 10 agendas (≥ the search threshold) to exercise the fuzzy agenda filter.
+const MANY_AGENDA_TITLES = [
+  'Festival du Livre',
+  "Concerts d'été",
+  'Marché de Noël',
+  'Cinéma en plein air',
+  'Théâtre municipal',
+  'Expo photo',
+  'Brocante du dimanche',
+  'Forum des associations',
+  'Salon du vin',
+  'Carnaval',
+];
+const MANY_NOTIFICATION_RULES = [
+  {
+    tag: 'user',
+    actions: 'receive',
+    subject: 'invitation',
+    inverted: false,
+    entityName: 'user',
+    identifier: 12345,
+    entity: { fullName: 'Marie Dupont' },
+  },
+  {
+    tag: 'contributor',
+    actions: 'receive',
+    subject: 'eventUpdate',
+    inverted: false,
+    entityName: 'user',
+    identifier: 12345,
+    entity: { fullName: 'Marie Dupont' },
+  },
+  ...MANY_AGENDA_TITLES.map((agendaTitle, i) => ({
+    tag: 'contributor',
+    actions: 'receive',
+    subject: 'eventUpdate',
+    inverted: false,
+    entityName: 'member',
+    identifier: 1000 + i,
+    entity: { agendaTitle },
+  })),
+];
+
+export const NotificationsSearch = {
+  parameters: {
+    msw: {
+      handlers: [
+        http.get('/abilities/form-index', () =>
+          HttpResponse.json(MANY_NOTIFICATION_RULES),
+        ),
+      ],
+    },
+  },
+  render: sectionStory('notifications', NotificationsSection),
 };
 
 export const DeleteAccount = {
