@@ -37,7 +37,12 @@ describe('makeAuditRecorder', () => {
   it('emits one record per call, tagged kind:audit + transport + caller identity (http)', () => {
     const { calls, sink } = capture();
     const record = makeAuditRecorder(
-      { transport: 'http', callerId: 'user-123', clientId: 'test-client' },
+      {
+        transport: 'http',
+        callerId: 'user-123',
+        callerUid: 987654321,
+        clientId: 'test-client',
+      },
       sink,
     );
     record('execute', { outcome: 'ok', duration_ms: 7 });
@@ -47,10 +52,22 @@ describe('makeAuditRecorder', () => {
       kind: 'audit',
       transport: 'http',
       callerId: 'user-123',
+      callerUid: 987654321,
       clientId: 'test-client',
       outcome: 'ok',
       duration_ms: 7,
     });
+  });
+
+  it('carries callerId (sub) without callerUid when the uid claim is absent', () => {
+    const { calls, sink } = capture();
+    const record = makeAuditRecorder(
+      { transport: 'http', callerId: 'user-123', clientId: 'test-client' },
+      sink,
+    );
+    record('search_docs', { outcome: 'ok' });
+    expect(calls[0].meta.callerId).toBe('user-123');
+    expect(calls[0].meta).not.toHaveProperty('callerUid');
   });
 
   it('omits caller/client on stdio (no OAuth identity), keeping transport + fields', () => {
@@ -68,10 +85,10 @@ describe('makeAuditRecorder', () => {
     expect(calls[0].meta).not.toHaveProperty('clientId');
   });
 
-  it('does not let a falsy callerId/clientId leak into the record', () => {
+  it('does not let a falsy callerId/callerUid/clientId leak into the record', () => {
     const { calls, sink } = capture();
     const record = makeAuditRecorder(
-      { transport: 'http', callerId: '', clientId: undefined },
+      { transport: 'http', callerId: '', callerUid: 0, clientId: undefined },
       sink,
     );
     record('execute', { outcome: 'rate_limited' });

@@ -114,6 +114,10 @@ export function createHttpApp({ config, executor }) {
     // falls through instead of becoming a falsy key (the server also defaults the
     // key, so an empty id can never bypass the limit — defense in depth).
     const sub = typeof req.auth?.extra?.sub === 'string' ? req.auth.extra.sub : '';
+    // OA user id — the AS's optional `uid` custom claim (a number; absent for a
+    // user with no linked OA uid). Surfaced for the audit trail only; `sub` stays
+    // the key.
+    const uid = typeof req.auth?.extra?.uid === 'number' ? req.auth.extra.uid : undefined;
     const callerId = sub || req.auth?.clientId || 'anonymous';
     const clientId = req.auth?.clientId;
     const server = createServer({
@@ -121,12 +125,14 @@ export function createHttpApp({ config, executor }) {
       executor,
       rateLimiter,
       callerId,
-      // Audit identity: the consenting user (`sub`) + the client app. `callerId`
-      // already folds the rate-limit fallback chain; pass the raw `sub` as the
-      // audit caller so a client-anonymous token reads as such, not 'anonymous'.
+      // Audit identity: the consenting user (`sub` = AS join key, `uid` = OA
+      // identity) + the client app. `callerId` already folds the rate-limit
+      // fallback chain; pass the raw `sub`/`uid` as the audit caller so a
+      // client-anonymous token reads as such, not 'anonymous'.
       recordAudit: makeAuditRecorder({
         transport: 'http',
         callerId: sub || undefined,
+        callerUid: uid,
         clientId,
       }),
       getCredential: async () => {

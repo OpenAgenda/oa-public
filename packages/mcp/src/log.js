@@ -75,7 +75,11 @@ export function credentialFp(secret) {
  *
  * @param {object} [ctx]
  * @param {'stdio'|'http'} [ctx.transport]
- * @param {string} [ctx.callerId]  the OAuth `sub` (http); absent on stdio.
+ * @param {string} [ctx.callerId]  the OAuth `sub` (http); absent on stdio. The
+ *   stable AS join key.
+ * @param {number} [ctx.callerUid] the OpenAgenda user id (http, when the token
+ *   carries the AS's optional `uid` claim); absent on stdio or for an
+ *   uid-less user. The business-meaningful caller identity.
  * @param {string} [ctx.clientId]  the OAuth client app (http).
  * @param {(tool: string, meta: object) => void} [sink]  where the record is
  *   emitted; defaults to the shared logger. Injectable for tests (the package's
@@ -83,12 +87,13 @@ export function credentialFp(secret) {
  * @returns {(tool: string, fields: object) => void}
  */
 export function makeAuditRecorder(
-  { transport, callerId, clientId } = {},
+  { transport, callerId, callerUid, clientId } = {},
   sink = (tool, meta) => log.info(tool, meta),
 ) {
   return (tool, fields) => {
     const meta = { kind: 'audit', transport, ...fields };
     if (callerId) meta.callerId = callerId;
+    if (callerUid) meta.callerUid = callerUid;
     if (clientId) meta.clientId = clientId;
     // Observability must never fail the tool call: a throwing transport (or a
     // synchronous logger fault) is swallowed rather than turning a successful

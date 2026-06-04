@@ -101,7 +101,17 @@ export function createTokenVerifier({ jwksUrl, issuer, audience }) {
         // The consenting user — the hook for per-user authorization. The API
         // enforces the token's scopes server-side; the OAuth grant is currently
         // read-scoped (write scopes pending on the AS, see the plan).
-        extra: { sub: payload.sub },
+        //   - `sub`: the better-auth user row id. ALWAYS present; the stable join
+        //     key (rate-limit bucket, AS-side correlation).
+        //   - `uid`: the OpenAgenda user id — a private claim the AS adds
+        //     (customAccessTokenClaims), a JSON number (OA uids are bounded
+        //     < 2^48). OPTIONAL (absent for a user with no linked OA uid → the
+        //     claim is omitted). The business-meaningful identity for the audit
+        //     trail / support; surfaced ALONGSIDE `sub`, never instead.
+        extra: {
+          sub: payload.sub,
+          uid: typeof payload.uid === 'number' ? payload.uid : undefined,
+        },
       };
     },
   };
