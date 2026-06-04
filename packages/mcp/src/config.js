@@ -23,6 +23,8 @@
 //   OA_MCP_REQUIRED_SCOPES   space/comma list a token must hold (default: none)
 //   OA_MCP_EXCHANGE_SECRET   shared secret for RFC 8693 exchange (REQUIRED for transport=http)
 //   OA_OAUTH_EXCHANGE_URL    AS token-exchange endpoint       (default: <issuer>/oauth2/token-exchange)
+//   OA_INSIGHT_OPS_TOKEN     InsightOps log token             (prod: ships logs + audit there; absent → stderr)
+//   OA_EXECUTE_DISABLED      1                                (maintenance: refuse execute; search_docs stays up)
 //
 // TWO ORTHOGONAL AXES (see README → "Execution model"):
 //   - executor: WHAT runs the JS (node / deno / a microsandbox µVM).
@@ -345,6 +347,20 @@ export function loadConfig(env = process.env) {
       perMin: int(env.OA_RATE_LIMIT_PER_MIN, 60),
       burst: int(env.OA_RATE_LIMIT_BURST, 20),
     },
+    // Observability: structured operational logs + a per-tool audit trail, via
+    // @openagenda/logs (see log.js). `insightOpsToken` (OA_INSIGHT_OPS_TOKEN) adds
+    // the InsightOps sink (prod). stderr is gated separately by the standard
+    // `DEBUG=openagenda-mcp*` env var (the dev lever) — not by config. No
+    // OTEL/Alloy here: µVM resource metrics are a host-level scrape, not app code.
+    logging: {
+      insightOpsToken: env.OA_INSIGHT_OPS_TOKEN ?? null,
+    },
+    // Maintenance kill: refuse `execute` (search_docs stays served). Read once at
+    // boot, so flipping it takes a process restart (not a code change, and not a
+    // hot toggle — an already-connected stdio session keeps its old value).
+    // Per-caller banning is deliberately NOT a local denylist: that belongs at the
+    // AS (grant revocation).
+    executeDisabled: env.OA_EXECUTE_DISABLED === '1',
     // TLS trust for the sandboxed runtime. OFF by default → neutral in
     // production (api.openagenda.com has a public CA). DEV-only: dapi serves a
     // private CA (O=OADEV), unknown to Node's bundled roots — set one of these.

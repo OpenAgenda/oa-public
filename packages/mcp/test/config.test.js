@@ -312,6 +312,35 @@ describe('loadConfig', () => {
     );
   });
 
+  describe('logging', () => {
+    it('has no InsightOps token by default', () => {
+      expect(loadConfig({}).logging).toEqual({ insightOpsToken: null });
+    });
+
+    it('reads OA_INSIGHT_OPS_TOKEN', () => {
+      const cfg = loadConfig({ OA_INSIGHT_OPS_TOKEN: 'tok-mcp' });
+      expect(cfg.logging).toEqual({ insightOpsToken: 'tok-mcp' });
+    });
+  });
+
+  describe('maintenance kill (OA_EXECUTE_DISABLED)', () => {
+    it('is off by default', () => {
+      expect(loadConfig({}).executeDisabled).toBe(false);
+    });
+
+    it('is on only for the exact flag "1"', () => {
+      expect(loadConfig({ OA_EXECUTE_DISABLED: '1' }).executeDisabled).toBe(
+        true,
+      );
+      expect(loadConfig({ OA_EXECUTE_DISABLED: 'true' }).executeDisabled).toBe(
+        false,
+      );
+      expect(loadConfig({ OA_EXECUTE_DISABLED: '0' }).executeDisabled).toBe(
+        false,
+      );
+    });
+  });
+
   describe('custom base URL', () => {
     it('derives the host + egress allowlist from OA_BASE_URL (dev)', () => {
       const cfg = loadConfig({ OA_BASE_URL: 'https://dapi.openagenda.com/v3' });

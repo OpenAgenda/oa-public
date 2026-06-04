@@ -15,6 +15,7 @@
 
 import { createRemoteJWKSet, jwtVerify, errors as joseErrors } from 'jose';
 import { InvalidTokenError } from '@modelcontextprotocol/sdk/server/auth/errors.js';
+import { log } from '../log.js';
 
 /**
  * Build an `OAuthTokenVerifier` (the interface `requireBearerAuth` expects)
@@ -65,11 +66,12 @@ export function createTokenVerifier({ jwksUrl, issuer, audience }) {
           } catch {
             // keep the placeholder — a non-JWS token has no readable payload
           }
-          process.stderr.write(
-            `[openagenda-mcp] issuer mismatch: token iss="${tokenIss}" but `
-              + `OA_OAUTH_ISSUER expects "${issuer}". If every request is 401ing, `
-              + "set OA_OAUTH_ISSUER to the AS's advertised issuer (typically the "
-              + 'origin + "/api/auth").\n',
+          log.warn(
+            'issuer mismatch: token iss="%s" but OA_OAUTH_ISSUER expects "%s". '
+              + "If every request is 401ing, set OA_OAUTH_ISSUER to the AS's "
+              + 'advertised issuer (typically the origin + "/api/auth").',
+            tokenIss,
+            issuer,
           );
         }
         // Any failure — bad signature, wrong iss/aud, expired, or an opaque

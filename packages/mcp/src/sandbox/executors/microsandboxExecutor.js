@@ -35,6 +35,7 @@
 import { randomUUID } from 'node:crypto';
 import { MAX_OUTPUT_BYTES } from '../spawn.js';
 import { DEFAULT_MICROSANDBOX_IMAGE } from '../../config.js';
+import { log } from '../../log.js';
 import { createWarmPool } from './microsandboxPool.js';
 
 const SANDBOX_PREFIX = 'oa-mcp-exec'; // a UNIQUE name per run is appended (see below)
@@ -208,8 +209,9 @@ export function createMicrosandboxExecutor({
             // surface them so an operator sees a pool that has quietly stopped
             // warming (KVM exhaustion, image-pull throttling, …).
             onError: (err) =>
-              process.stderr.write(
-                `[openagenda-mcp] warm pool: background µVM create failed: ${errMsg(err)}\n`,
+              log.warn(
+                'warm pool: background µVM create failed: %s',
+                errMsg(err),
               ),
           });
           pool.refill(); // warm on boot
@@ -225,8 +227,9 @@ export function createMicrosandboxExecutor({
           // would poison every later ensurePool()). Reset so a subsequent request
           // retries, and resolve null so run() degrades to per-run fresh µVMs.
           poolPromise = null;
-          process.stderr.write(
-            `[openagenda-mcp] warm pool init failed; falling back to per-run µVMs: ${errMsg(err)}\n`,
+          log.warn(
+            'warm pool init failed; falling back to per-run µVMs: %s',
+            errMsg(err),
           );
           return null;
         });

@@ -2,15 +2,23 @@
 // touches a sandbox directly: it hands code to the injected `executor`, so the
 // same server runs identically over deno / srt / microsandbox.
 
+import { createHash } from 'node:crypto';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
 import { searchOperations, renderSearch } from './docs/operations.js';
 import { buildScript } from './sandbox/preamble.js';
+import { credentialFp } from './log.js';
 
 // Cap on the diagnostic text returned to the client on a failed run. Bounds the
 // LLM context blast radius of a runaway, independent of the 1 MiB process-level
 // output cap. (Unrelated to secret-leakage: see `redactSecrets`.)
 const MAX_ERROR_TEXT = 4000;
+
+// Cap on the code body recorded in the audit trail, per execute. 8 KiB covers
+// the vast majority of code-mode scripts in full; beyond that is almost always
+// inlined data, not logic — `code_sha256` (of the FULL code) + `code_truncated`
+// keep the rare giant identifiable. Tunable.
+const MAX_AUDIT_CODE_BYTES = 8192;
 
 /**
  * Strip the API credential from any text returned to the client. It is baked
@@ -30,6 +38,27 @@ function clampErrorText(text) {
   if (text.length <= MAX_ERROR_TEXT) return text;
   const dropped = text.length - MAX_ERROR_TEXT;
   return `${text.slice(0, MAX_ERROR_TEXT)}\n…[${dropped} more chars truncated]`;
+}
+
+const sha256 = (text) => createHash('sha256').update(text).digest('hex');
+
+/**
+ * Clamp the audited code body to MAX_AUDIT_CODE_BYTES. Returns the (possibly
+ * truncated) text and whether it was cut, from a SINGLE byte measurement — so the
+ * `code_truncated` flag and the clamp can never disagree. Cuts on a byte boundary,
+ * then re-decodes: a split multibyte char becomes one U+FFFD, so the result can be
+ * a couple of bytes over the cap — acceptable for an audit body (the full code's
+ * sha256 is recorded alongside).
+ * @param {string} text
+ * @returns {{ text: string, truncated: boolean }}
+ */
+function clampAuditCode(text) {
+  const buf = Buffer.from(text, 'utf8');
+  if (buf.length <= MAX_AUDIT_CODE_BYTES) return { text, truncated: false };
+  return {
+    text: buf.subarray(0, MAX_AUDIT_CODE_BYTES).toString('utf8'),
+    truncated: true,
+  };
 }
 
 /**
@@ -67,6 +96,13 @@ const toolError = (text) => ({ isError: true, content: [textContent(text)] });
  * @param {string} [deps.callerId]  the caller identity the limiter keys on (the
  *   OAuth `sub`). Used only when `rateLimiter` is set; a falsy/absent id keys a
  *   shared 'anonymous' bucket (it never bypasses the limit).
+ * @param {(tool: string, fields: object) => void} [deps.recordAudit]  sink for
+ *   the per-tool audit trail (see log.js → makeAuditRecorder). Defaults to a no-op
+ *   (tests, or a stdio run with logging off). CONVENTION: audit is emitted
+ *   per-handler, not at a registration seam — every tool handler MUST call
+ *   `recordAudit(name, {... , outcome})` exactly once on every return path, or it
+ *   ships un-audited (no test/type/runtime catches the omission). It is safe to
+ *   call (it never throws — see makeAuditRecorder).
  */
 export function createServer({
   config,
@@ -75,6 +111,7 @@ export function createServer({
   getCredential,
   rateLimiter,
   callerId,
+  recordAudit = () => {},
 }) {
   const server = new McpServer({ name: 'openagenda-mcp', version: '0.0.0' });
 
@@ -91,6 +128,14 @@ export function createServer({
     }
     return Promise.resolve(credential ?? config.apiKey);
   };
+
+  // Fingerprint of the STATIC credential (stdio), for the audit trail. Omitted on
+  // HTTP: the per-request token is resolved lazily, and we must NOT trigger a
+  // token-exchange just to fingerprint a metadata-only call (execute records the
+  // fp of the credential it actually resolves).
+  const staticCredentialFp = getCredential
+    ? undefined
+    : credentialFp(credential ?? config.apiKey);
 
   // search_docs — progressive disclosure: find the right operation + how to call
   // it before writing code. Pure metadata, no network, no side effects.
@@ -109,7 +154,16 @@ export function createServer({
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     async ({ query }) => {
-      const text = renderSearch(searchOperations(query));
+      const startedAt = Date.now();
+      const ops = searchOperations(query);
+      const text = renderSearch(ops);
+      recordAudit('search_docs', {
+        duration_ms: Date.now() - startedAt,
+        outcome: 'ok',
+        query,
+        results_count: ops.length,
+        credential_fp: staticCredentialFp,
+      });
       return { content: [textContent(text)] };
     },
   );
@@ -146,6 +200,44 @@ export function createServer({
       annotations: { readOnlyHint: false, openWorldHint: true },
     },
     async ({ code }) => {
+      const startedAt = Date.now();
+      // `apiCredential`/`res` are filled as the run progresses; finish() reads
+      // them so every return path emits ONE audit record from a single place.
+      let apiCredential;
+      /** @type {import('./sandbox/executor.js').ExecResult | undefined} */
+      let res;
+      const finish = (outcome, result) => {
+        // Code is the input we want for product/abuse analysis — capped (8 KiB)
+        // and scrubbed of the resolved credential; the full code's sha256 is kept
+        // so a truncated body is still groupable. Never the result payload. The
+        // clamp reports `truncated` from one byte measurement (no flag/clamp drift).
+        const audited = clampAuditCode(redactSecrets(code, apiCredential));
+        recordAudit('execute', {
+          duration_ms: Date.now() - startedAt,
+          outcome,
+          code: audited.text,
+          code_bytes: Buffer.byteLength(code, 'utf8'),
+          code_truncated: audited.truncated,
+          code_sha256: sha256(code),
+          bytes_out: res ? Buffer.byteLength(res.stdout ?? '', 'utf8') : 0,
+          exit_code: res?.exitCode ?? null,
+          credential_fp: credentialFp(apiCredential),
+        });
+        return result;
+      };
+
+      // Maintenance kill: refuse execute (search_docs stays served) without a
+      // code redeploy. Checked BEFORE any work — no token exchange, no sandbox.
+      if (config.executeDisabled) {
+        return finish(
+          'disabled',
+          toolError(
+            'execute is temporarily disabled (maintenance). '
+              + 'search_docs still works; retry execute later.',
+          ),
+        );
+      }
+
       // Per-caller sustained-rate guard (HTTP only; no limiter passed on stdio).
       // Refuse an over-rate caller with a RETRYABLE busy — same back-off
       // vocabulary as the concurrency cap — BEFORE any work (no token exchange,
@@ -156,9 +248,12 @@ export function createServer({
         const verdict = rateLimiter.check(callerId || 'anonymous');
         if (!verdict.allowed) {
           const retryAfterSec = Math.ceil(verdict.retryAfterMs / 1000);
-          return toolError(
-            "You're sending execute calls too fast — rate limit reached. "
-              + `Wait ~${retryAfterSec}s and retry this execute call.`,
+          return finish(
+            'rate_limited',
+            toolError(
+              "You're sending execute calls too fast — rate limit reached. "
+                + `Wait ~${retryAfterSec}s and retry this execute call.`,
+            ),
           );
         }
       }
@@ -167,12 +262,12 @@ export function createServer({
       // failure, fail THIS tool call with a generic message — never echo the
       // upstream error (it may carry AS response detail) — and leave other tools
       // and sessions working (the prior model failed the whole POST with a 502).
-      let apiCredential;
       try {
         apiCredential = await resolveCredential();
       } catch {
-        return toolError(
-          'Could not obtain an API credential for this request.',
+        return finish(
+          'credential_error',
+          toolError('Could not obtain an API credential for this request.'),
         );
       }
 
@@ -184,7 +279,6 @@ export function createServer({
       const fail = (text) =>
         toolError(clampErrorText(redactSecrets(text, apiCredential)));
 
-      let res;
       try {
         res = await executor.run({
           code: script,
@@ -203,9 +297,12 @@ export function createServer({
           ? err.code
           : undefined;
         if (errCode === 'EXEC_BUSY' || errCode === 'EXEC_SHUTTING_DOWN') {
-          return toolError(
-            'The server is at capacity right now — no execution slot was '
-              + 'available. Wait a moment and retry this execute call.',
+          return finish(
+            errCode === 'EXEC_SHUTTING_DOWN' ? 'shutting_down' : 'busy',
+            toolError(
+              'The server is at capacity right now — no execution slot was '
+                + 'available. Wait a moment and retry this execute call.',
+            ),
           );
         }
         // A backend should RETURN an ExecResult, never throw — but if one does
@@ -213,26 +310,35 @@ export function createServer({
         // same redacted/clamped failure path instead of letting a raw error
         // (which could echo argv/env) reach the client.
         const msg = err instanceof Error ? err.message : String(err);
-        return fail(`Execution failed: ${msg}`);
+        return finish('threw', fail(`Execution failed: ${msg}`));
       }
 
       if (res.timedOut) {
-        return fail(
-          `Execution timed out after ${config.limits.timeoutMs} ms `
-            + '(possible infinite loop or too-heavy processing).',
+        return finish(
+          'timed_out',
+          fail(
+            `Execution timed out after ${config.limits.timeoutMs} ms `
+              + '(possible infinite loop or too-heavy processing).',
+          ),
         );
       }
       if (res.outputCapped) {
-        return fail(
-          'Execution produced too much output (exceeded 1 MiB) and was killed. '
-            + 'Return only the data you need, not full payloads.',
+        return finish(
+          'output_capped',
+          fail(
+            'Execution produced too much output (exceeded 1 MiB) and was killed. '
+              + 'Return only the data you need, not full payloads.',
+          ),
         );
       }
       if (res.exitCode !== 0) {
         // exitCode is null when the run never produced an exit (spawn error /
         // missing binary) — don't render a misleading "exit null".
         const where = res.exitCode === null ? '' : ` (exit ${res.exitCode})`;
-        return fail(`Execution failed${where}:\n${res.stderr || res.stdout}`);
+        return finish(
+          'nonzero_exit',
+          fail(`Execution failed${where}:\n${res.stderr || res.stdout}`),
+        );
       }
       // Best-effort hygiene, NOT a boundary: also scrub the configured key from a
       // successful result (errors already do), so a naive `return __cfg.apiKey` or
@@ -240,13 +346,13 @@ export function createServer({
       // key to defeat this — in-process scrubbing can't be the exfiltration boundary
       // (see preamble.js); the real defense against leaking a SHARED key to an
       // untrusted caller is a per-caller scoped token (OAuth, roadmap).
-      return {
+      return finish('ok', {
         content: [
           textContent(
             redactSecrets(res.stdout.trim() || 'null', apiCredential),
           ),
         ],
-      };
+      });
     },
   );
 

@@ -12,6 +12,8 @@
 // not a misconfiguration, and the JWKS fetch is lazy anyway, so we warn and let
 // boot proceed rather than coupling startup to the AS being up.
 
+import { log } from '../log.js';
+
 /**
  * RFC 8414 metadata locations for an issuer with a path component. better-auth
  * serves BOTH the path-suffixed form and the origin path-inserted form; we try
@@ -46,7 +48,7 @@ function metadataUrls(issuer) {
  */
 export async function assertIssuer({
   issuer,
-  warn = (msg) => process.stderr.write(msg),
+  warn = (msg) => log.warn(msg),
   fetchImpl = fetch,
 }) {
   // The AS metadata (RFC 8414) — external JSON whose shape we don't control;
@@ -74,9 +76,9 @@ export async function assertIssuer({
   if (!meta) {
     // Unreachable / not-ok / non-JSON — NOT a misconfig signal. Warn and proceed.
     warn(
-      '[openagenda-mcp] issuer self-check skipped (AS metadata unreachable: '
+      'issuer self-check skipped (AS metadata unreachable: '
         + `${lastErr instanceof Error ? lastErr.message : String(lastErr)}). `
-        + 'Tokens will still be verified lazily against the JWKS.\n',
+        + 'Tokens will still be verified lazily against the JWKS.',
     );
     return;
   }

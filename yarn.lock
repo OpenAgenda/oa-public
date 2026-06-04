@@ -12350,6 +12350,7 @@ __metadata:
     "@modelcontextprotocol/sdk": "npm:^1.29.0"
     "@openagenda/api-client": "workspace:*"
     "@openagenda/api-spec": "workspace:*"
+    "@openagenda/logs": "npm:^1.1.10"
     "@types/node": "npm:^22.0.0"
     express: "npm:^4.18.2"
     jest: "npm:^30.4.2"
