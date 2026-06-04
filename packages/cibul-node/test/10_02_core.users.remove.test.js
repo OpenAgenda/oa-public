@@ -128,15 +128,20 @@ describe('10 - core - functional (server): core.users().remove()', () => {
     });
 
     it('user can delete his own account', async () => {
+      // Register the listener BEFORE issuing the delete: anonymization runs as
+      // a background job that can emit `done` before `ky.delete` resolves, so
+      // subscribing after the await races the event and can miss it entirely.
+      const anonymized = new Promise((rs) => {
+        core.services.tracker.on('users.anonymizeDeletedUser.done', rs);
+      });
+
       await ky.delete('http://localhost:4000/me', {
         headers: {
           'access-token': accessToken,
         },
       });
 
-      await new Promise((rs) => {
-        core.services.tracker.on('users.anonymizeDeletedUser.done', rs);
-      });
+      await anonymized;
 
       const user = await core.services.users.findOne({
         query: { uid: 8929606 },

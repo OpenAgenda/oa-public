@@ -35,6 +35,154 @@
       "value": "Kevreañ"
     }
   ],
+  "next.components.auth.Consent.allow": [
+    {
+      "type": 0,
+      "value": "Aotreañ"
+    }
+  ],
+  "next.components.auth.Consent.deny": [
+    {
+      "type": 0,
+      "value": "Nac'hañ"
+    }
+  ],
+  "next.components.auth.Consent.error": [
+    {
+      "type": 0,
+      "value": "Un dra bennak a zo aet a-dreuz. Klaskit en-dro mar plij."
+    }
+  ],
+  "next.components.auth.Consent.fallbackAppName": [
+    {
+      "type": 0,
+      "value": "An arload-mañ"
+    }
+  ],
+  "next.components.auth.Consent.heading": [
+    {
+      "type": 0,
+      "value": "Aotreañ "
+    },
+    {
+      "type": 1,
+      "value": "appName"
+    }
+  ],
+  "next.components.auth.Consent.intro": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " a fell dezhañ tizhout ho kont OpenAgenda. Gallout a raio :"
+    }
+  ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "Goude an aotreañ e viot kaset da "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasRead": [
+    {
+      "type": 0,
+      "value": "Lenn hoc'h deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasWrite": [
+    {
+      "type": 0,
+      "value": "Krouiñ ha kemmañ hoc'h deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.email": [
+    {
+      "type": 0,
+      "value": "Lenn ho chomlec'h postel"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsRead": [
+    {
+      "type": 0,
+      "value": "Lenn hoc'h abadennoù"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsTransverse": [
+    {
+      "type": 0,
+      "value": "Tizhout an abadennoù eus hoc'h holl deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsWrite": [
+    {
+      "type": 0,
+      "value": "Krouiñ ha kemmañ hoc'h abadennoù"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsRead": [
+    {
+      "type": 0,
+      "value": "Lenn ho lec'hioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsWrite": [
+    {
+      "type": 0,
+      "value": "Krouiñ ha kemmañ ho lec'hioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersRead": [
+    {
+      "type": 0,
+      "value": "Lenn izili an deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersWrite": [
+    {
+      "type": 0,
+      "value": "Merañ izili an deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.offlineAccess": [
+    {
+      "type": 0,
+      "value": "Chom kennasket pa'z oc'h ezvezant (nevesaat an haeziñ)"
+    }
+  ],
+  "next.components.auth.Consent.scope.openid": [
+    {
+      "type": 0,
+      "value": "Gwiriañ ho identelezh"
+    }
+  ],
+  "next.components.auth.Consent.scope.profile": [
+    {
+      "type": 0,
+      "value": "Lenn ho profil foran (anv, luc'hskeudenn)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "Gall a ra forzh piv enrollañ un arload dindan forzh peseurt anv. Na gendalc'hit nemet ma fiziit enni."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "N'eo ket bet gwiriekaet an arload-mañ gant OpenAgenda"
+    }
+  ],
   "next.components.auth.LostPassword.cancelLabel": [
     {
       "type": 0,

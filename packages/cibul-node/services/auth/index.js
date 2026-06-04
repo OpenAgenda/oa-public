@@ -177,12 +177,26 @@ export async function init(config, services) {
     redis: services.redis,
     secret: config.auth.secret,
     baseURL: config.root,
+    // The in-process API resource (v3) auth protects + mints exchanged tokens
+    // for. The MCP resource is no longer a top-level option — it rides in the
+    // exchange registry as the MCP client's `subjectResource`.
+    apiResourceUrl: config.v3ResourceUrl,
+    // O2.5 token-exchange (RFC 8693) — exposes /oauth2/token-exchange only when
+    // apiResourceUrl and ≥1 registered client are set (see tokenExchangePlugin.js).
+    exchangeClients: config.exchangeClients,
+    exchangeTokenTtl: config.exchangeTokenTtl,
     trustedOrigins: [config.root, ...config.auth?.trustedOrigins ?? []],
     schemas: {
       user: schemas.user,
+      session: schemas.session,
       account: schemas.account,
       verification: schemas.verification,
       apiKey: schemas.apiKey,
+      oauthClient: schemas.oauthClient,
+      oauthAccessToken: schemas.oauthAccessToken,
+      oauthRefreshToken: schemas.oauthRefreshToken,
+      oauthConsent: schemas.oauthConsent,
+      jwks: schemas.jwks,
     },
     google: config.auth?.google?.id ? config.auth.google : undefined,
     facebook: config.auth?.facebook?.id ? config.auth.facebook : undefined,
@@ -323,6 +337,13 @@ export async function init(config, services) {
         });
       }
     },
+    // O3 — audit trail for the public DCR endpoint. The auth package emits a
+    // sanitized descriptor (never the client_secret) after each successful
+    // /oauth2/register; we log it under one event name so it can be filtered
+    // into a dashboard / alerting downstream. `registeredBy: null` flags an
+    // anonymous registration (the common, and most abuse-prone, MCP case).
+    onClientRegistered: (entry) =>
+      log('info', 'oauth.client.registered', entry),
     // Fires on BA's user create.after — every signup, email + OAuth, BEFORE
     // email verification. This is the "new user" Discord notification's home
     // now: pre-better-auth it rode the Feathers `users.create` onCreate hook,
@@ -367,8 +388,66 @@ export async function init(config, services) {
     },
   });
 
+  // Periodic GC of rows neither better-auth nor the oauth-provider purge on
+  // their own (expired sessions/tokens, never-approved DCR clients > 30d). The
+  // deletion logic lives in @openagenda/auth (it owns the schema); here we only
+  // schedule + run it.
+  //
+  // A bullmq repeatable job (not a setInterval): a single run across the cluster
+  // with the schedule persisted in Redis, so it survives restarts. The worker is
+  // built here but only `.run()` on the worker process (via tasks.processQueue
+  // from task.js) — never on the web processes. Mirrors services/users.
+  const { bull } = services;
+  const gcQueue = new bull.Queue('auth', { prefix: '{auth}' });
+  const gcWorker = new bull.Worker(
+    gcQueue.name,
+    async (job) => {
+      if (job.name === 'gcExpiredOAuth') {
+        // `job.log` lines surface in the bull-board "Logs" tab for this run;
+        // the namespaced `log()` lines go to the cibul-node log stream.
+        await job.log('started');
+        const summary = await auth.gcExpired({ olderThanDays: 30 });
+        await job.log(`completed ${JSON.stringify(summary)}`);
+        log('info', 'oauth.gc.completed', summary);
+        return summary;
+      }
+      log('warn', `unknown auth job ${job.name}`);
+      return undefined;
+    },
+    {
+      prefix: gcQueue.opts.prefix,
+      autorun: false,
+      concurrency: 1,
+      removeOnComplete: { age: 7 * 24 * 3600, count: 100 },
+      removeOnFail: { age: 30 * 24 * 3600, count: 100 },
+    },
+  );
+  gcWorker.on('error', (err) => log('error', 'auth worker error', err));
+  gcWorker.on('failed', (job, err) =>
+    log('error', 'oauth.gc.failed', { jobId: job?.id, err }));
+
   return Object.assign(auth, {
+    tasks: {
+      // Registers the schedule AND starts the worker, on the worker process
+      // only. Keeping the Redis round-trip out of init mirrors services/users
+      // (init just constructs the objects) and avoids the web processes
+      // touching the scheduler. Idempotent: the same scheduler id is upserted.
+      processQueue: async () => {
+        try {
+          await gcQueue.upsertJobScheduler(
+            'oauth-gc-daily',
+            { pattern: '17 3 * * *' },
+            { name: 'gcExpiredOAuth' },
+          );
+        } catch (err) {
+          log('error', 'failed to register oauth GC schedule', err);
+        }
+        gcWorker.run();
+      },
+    },
     shutdown: async () => {
+      await gcWorker.close();
+      await gcQueue.close();
       await new Promise((resolve, reject) => {
         mysqlPool.end((err) => (err ? reject(err) : resolve()));
       });

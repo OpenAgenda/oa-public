@@ -8,6 +8,8 @@ import { StdioServerTransport } from '@modelcontextprotocol/sdk/server/stdio.js'
 import { loadConfig, allowNetFromEnv } from './config.js';
 import { createExecutor } from './sandbox/executor.js';
 import { createServer } from './server.js';
+import { createHttpApp } from './httpServer.js';
+import { assertIssuer } from './auth/assertIssuer.js';
 import {
   renderEgressPolicy,
   policySha256,
@@ -44,21 +46,22 @@ async function main() {
 
   const config = loadConfig(); // throws (fail-closed) on an unsafe/incoherent pairing
   const executor = createExecutor(config);
-  const server = createServer({ config, executor });
 
   // Drain engine resources (a warm µVM pool, when OA_MICROSANDBOX_POOL_SIZE>0) on
   // shutdown so pre-booted spares don't leak. No-op for the pool-less default; an
   // in-flight run owns its own µVM and tears it down itself, so this only drains
-  // idle spares. Covers `kill` (SIGTERM), Ctrl-C (SIGINT), and the MCP client
-  // closing the stdio pipe (stdin close). Registered BEFORE connect() so a signal
-  // arriving during startup still drains rather than hitting Node's default
-  // disposition (which would exit without releasing warm µVMs).
+  // idle spares. Covers `kill` (SIGTERM), Ctrl-C (SIGINT), and — for stdio — the
+  // MCP client closing the pipe (stdin close). Registered BEFORE connect/listen
+  // so a signal arriving during startup still drains rather than hitting Node's
+  // default disposition (which would exit without releasing warm µVMs).
   let closing = false;
+  let httpServer = null;
   const shutdown = async (reason) => {
     if (closing) return;
     closing = true;
     process.stderr.write(`[openagenda-mcp] shutting down (${reason})\n`);
     try {
+      if (httpServer) await new Promise((resolve) => httpServer.close(resolve));
       await executor.dispose?.();
     } catch {
       // best-effort drain — never block exit on cleanup
@@ -67,16 +70,41 @@ async function main() {
   };
   process.once('SIGTERM', () => shutdown('SIGTERM'));
   process.once('SIGINT', () => shutdown('SIGINT'));
-  process.stdin.once('close', () => shutdown('stdin closed'));
 
-  const transport = new StdioServerTransport();
-  await server.connect(transport);
-
-  // stdio transport OWNS stdout (it's the MCP channel) — all logs go to stderr.
-  process.stderr.write(
-    `[openagenda-mcp] ready (mode=${config.mode}, executor=${executor.name}, `
-      + `egress=${config.egressAuthority}, base=${config.baseUrl})\n`,
-  );
+  if (config.transport === 'http') {
+    // Standalone OAuth resource server (StreamableHTTP behind bearer auth). The
+    // server+transport are created per request inside the app (stateless), so
+    // there is no top-level McpServer to connect here.
+    const { oauth } = config; // non-null for transport=http (loadConfig guard)
+    // Self-check the issuer against the AS metadata BEFORE opening the port:
+    // a bare-origin OA_OAUTH_ISSUER (missing the /api/auth basePath) would 401
+    // every token silently. Throws on a genuine mismatch (→ fatal exit); a
+    // mere unreachable AS only warns (see assertIssuer).
+    await assertIssuer({ issuer: oauth.issuer });
+    const app = createHttpApp({ config, executor });
+    httpServer = app.listen(config.httpPort);
+    await new Promise((resolve, reject) => {
+      httpServer.once('listening', resolve);
+      httpServer.once('error', reject);
+    });
+    process.stderr.write(
+      `[openagenda-mcp] ready (transport=http, port=${config.httpPort}, mode=${config.mode}, `
+        + `executor=${executor.name}, egress=${config.egressAuthority}, base=${config.baseUrl})\n`
+        + `[openagenda-mcp] OAuth resource server: resource=${oauth?.resourceUrl}, `
+        + `issuer=${oauth?.issuer}, jwks=${oauth?.jwksUrl}\n`,
+    );
+  } else {
+    // stdio transport OWNS stdout (it's the MCP channel) — all logs go to stderr.
+    // Only stdio has a pipe whose close means "client gone".
+    process.stdin.once('close', () => shutdown('stdin closed'));
+    const server = createServer({ config, executor });
+    const transport = new StdioServerTransport();
+    await server.connect(transport);
+    process.stderr.write(
+      `[openagenda-mcp] ready (transport=stdio, mode=${config.mode}, executor=${executor.name}, `
+        + `egress=${config.egressAuthority}, base=${config.baseUrl})\n`,
+    );
+  }
 
   // Make a delegated or absent boundary LOUD — the app can't verify a wrapper.
   if (config.egressAuthority === 'wrapper') {

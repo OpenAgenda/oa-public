@@ -256,4 +256,95 @@ describe('loadConfig', () => {
       );
     });
   });
+
+  describe('transport', () => {
+    it('defaults to stdio with no OAuth config', () => {
+      const cfg = loadConfig({});
+      expect(cfg.transport).toBe('stdio');
+      expect(cfg.oauth).toBeNull();
+    });
+
+    it('rejects an unknown transport', () => {
+      expect(() => loadConfig({ OA_MCP_TRANSPORT: 'grpc' })).toThrow(
+        /OA_MCP_TRANSPORT/,
+      );
+    });
+
+    // FAIL-CLOSED: http without an authorization server would expose an
+    // unauthenticated MCP endpoint.
+    it('refuses http without an issuer', () => {
+      expect(() => loadConfig({ OA_MCP_TRANSPORT: 'http' })).toThrow(
+        /OA_OAUTH_ISSUER/,
+      );
+    });
+
+    it('refuses http without a resource URL', () => {
+      expect(() =>
+        loadConfig({
+          OA_MCP_TRANSPORT: 'http',
+          OA_OAUTH_ISSUER: 'https://auth.test',
+        })).toThrow(/OA_MCP_RESOURCE_URL/);
+    });
+
+    it('rejects a malformed issuer / resource URL', () => {
+      expect(() =>
+        loadConfig({
+          OA_MCP_TRANSPORT: 'http',
+          OA_OAUTH_ISSUER: 'nope',
+          OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        })).toThrow(/OA_OAUTH_ISSUER must be a valid URL/);
+    });
+
+    // FAIL-CLOSED: token-exchange (O2.5) is the only delegation model; without
+    // its secret the server can't mint the aud=api token v3 trusts.
+    it('refuses http without the token-exchange secret', () => {
+      expect(() =>
+        loadConfig({
+          OA_MCP_TRANSPORT: 'http',
+          OA_OAUTH_ISSUER: 'https://auth.test',
+          OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        })).toThrow(/OA_MCP_EXCHANGE_SECRET/);
+    });
+
+    it('defaults the JWKS URL to <issuer>/jwks and parses scopes', () => {
+      const cfg = loadConfig({
+        OA_MCP_TRANSPORT: 'http',
+        OA_OAUTH_ISSUER: 'https://auth.test/api/auth',
+        OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',
+        OA_MCP_REQUIRED_SCOPES: 'events:read, openid',
+      });
+      expect(cfg.transport).toBe('http');
+      expect(cfg.httpPort).toBe(8904);
+      expect(cfg.oauth.jwksUrl).toBe('https://auth.test/api/auth/jwks');
+      expect(cfg.oauth.requiredScopes).toEqual(['events:read', 'openid']);
+    });
+
+    it('defaults the exchange endpoint to <issuer>/oauth2/token-exchange', () => {
+      const cfg = loadConfig({
+        OA_MCP_TRANSPORT: 'http',
+        OA_OAUTH_ISSUER: 'https://auth.test/api/auth',
+        OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',
+      });
+      expect(cfg.oauth.exchange).toEqual({
+        url: 'https://auth.test/api/auth/oauth2/token-exchange',
+        clientId: 'mcp',
+        secret: 'test-exchange-secret',
+      });
+    });
+
+    it('honours an explicit JWKS URL and HTTP port', () => {
+      const cfg = loadConfig({
+        OA_MCP_TRANSPORT: 'http',
+        OA_OAUTH_ISSUER: 'https://auth.test',
+        OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',
+        OA_OAUTH_JWKS_URL: 'https://auth.test/custom-jwks',
+        OA_MCP_HTTP_PORT: '9999',
+      });
+      expect(cfg.oauth.jwksUrl).toBe('https://auth.test/custom-jwks');
+      expect(cfg.httpPort).toBe(9999);
+    });
+  });
 });

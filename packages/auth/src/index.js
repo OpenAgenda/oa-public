@@ -1,15 +1,19 @@
 import { betterAuth } from 'better-auth';
-import { magicLink } from 'better-auth/plugins';
+import { magicLink, jwt } from 'better-auth/plugins';
 import { toNodeHandler, fromNodeHeaders } from 'better-auth/node';
 import { APIError, createAuthMiddleware } from 'better-auth/api';
 import { getCurrentAuthContext } from '@better-auth/core/context';
 import { redisStorage } from '@better-auth/redis-storage';
 import { apiKey } from '@better-auth/api-key';
+import { oauthProvider } from '@better-auth/oauth-provider';
 import { MysqlDialect } from 'kysely';
 import generateUid from './generateUid.js';
 import createApiKeyHelpers, { hashApiKey } from './apiKey.js';
+import createOAuthTokenHelpers from './oauthToken.js';
+import gcExpiredRows from './gcExpired.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
+import tokenExchangePlugin from './tokenExchangePlugin.js';
 import {
   encodeLegacy,
   hash as hashPassword,
@@ -44,6 +48,31 @@ export default function Auth(options = {}) {
     trustedOrigins,
     secret,
     baseURL,
+    // The OAuth/OIDC roles below name ROLES, not specific downstream products.
+    // Today the API resource is the v3 API and the only exchange client is the
+    // MCP HTTP server, but auth's contract describes the mechanism so a second
+    // gateway is just another registry entry — no signature change.
+    //
+    //   - apiResourceUrl: the resource the AS protects IN-PROCESS (the v3 API
+    //     runs in the same process — see oauthToken.js, the in-process verifier).
+    //     It is the audience that verifier trusts AND the default audience the
+    //     token-exchange endpoint mints to. Singular by architecture (the
+    //     co-hosted API). Omitted → no in-process delegation at all.
+    apiResourceUrl,
+    // O2.5 token-exchange (RFC 8693). When `apiResourceUrl` and at least one
+    // registered client are set, `/oauth2/token-exchange` is exposed: a
+    // first-party service swaps a caller's token (bound to its own
+    // `subjectResource`) for a short `aud=apiResourceUrl` token before its
+    // sandbox (see tokenExchangePlugin.js).
+    //   - exchangeClients: the first-party service registry (client_id → {
+    //     secret, subjectResource, allowedScopes?, allowedResources?, tokenTtl? }),
+    //     confidential-client auth. `subjectResource` is the audience of the
+    //     tokens THIS service presents for exchange — it is also added to the
+    //     OAuth provider's issued `validAudiences` so clients can bind to it
+    //     (RFC 8707). A second gateway = a second entry with its own resource.
+    //   - exchangeTokenTtl: default minted-token lifetime (seconds; default 120).
+    exchangeClients = {},
+    exchangeTokenTtl,
     schemas = {},
     google,
     facebook,
@@ -59,6 +88,7 @@ export default function Auth(options = {}) {
     onSignInSuccess,
     onSignUpComplete,
     validateSignUp,
+    onClientRegistered,
   } = options;
 
   if (!mysqlPool) {
@@ -67,9 +97,20 @@ export default function Auth(options = {}) {
 
   const tables = {
     user: schemas.user ?? 'user',
+    // Sessions are primarily Redis-resident (secondaryStorage). The OAuth
+    // provider plugin requires `session.storeSessionInDatabase: true` when a
+    // secondaryStorage is set (it throws at init otherwise), so sessions are
+    // ALSO persisted to this table — Redis stays the read-time source of truth,
+    // the DB is a fallback + the FK target for OAuth tokens.
+    session: schemas.session ?? 'session',
     account: schemas.account ?? 'account',
     verification: schemas.verification ?? 'verification',
     apiKey: schemas.apiKey ?? 'apikey',
+    oauthClient: schemas.oauthClient ?? 'oauth_client',
+    oauthAccessToken: schemas.oauthAccessToken ?? 'oauth_access_token',
+    oauthRefreshToken: schemas.oauthRefreshToken ?? 'oauth_refresh_token',
+    oauthConsent: schemas.oauthConsent ?? 'oauth_consent',
+    jwks: schemas.jwks ?? 'jwks',
   };
 
   // Map the api-key plugin's camelCase schema to OA's snake_case columns
@@ -114,15 +155,265 @@ export default function Auth(options = {}) {
     },
   });
 
+  // The OAuth provider signs ID/access tokens with the `jwt` plugin's
+  // asymmetric keys (EdDSA) and exposes the public set at `/jwks`. The plugin
+  // is NOT auto-registered by oauthProvider — it looks it up via
+  // `ctx.getPlugin('jwt')` and throws `jwt_config` if absent — so it must live
+  // in `plugins` (before oauthProvider). Disabling it would downgrade signing
+  // to symmetric HS256 and drop JWKS, which we want for resource-server
+  // (MCP) verification, so it stays enabled. Columns remapped to snake_case.
+  // Hoisted to a named object (not an inline literal) so the token-exchange
+  // plugin can pass the SAME options to `signJWT` — it needs them to locate the
+  // JWKS table (remapped below) and match the private-key encryption settings.
+  const jwtPluginOptions = {
+    // OAuth-provider mode (per better-auth jwt docs): the OAuth flow drives all
+    // JWT issuance, so the plugin must NOT also stamp a `set-auth-jwt` header on
+    // session responses — that role is served by `/oauth2/userinfo`. The plugin's
+    // own `/token` endpoint is likewise disabled below via `disabledPaths`
+    // (superseded by `/oauth2/token`).
+    disableSettingJwtHeader: true,
+    schema: {
+      jwks: {
+        modelName: tables.jwks,
+        fields: {
+          publicKey: 'public_key',
+          privateKey: 'private_key',
+          createdAt: 'created_at',
+          expiresAt: 'expires_at',
+        },
+      },
+    },
+  };
+  const jwtPlugin = jwt(jwtPluginOptions);
+
+  // OpenAgenda as an OAuth 2.1 / OIDC provider (SSO + MCP HTTP auth). O0 wires
+  // the plugin additively: tables + discovery endpoints exist, but no client is
+  // registered and dynamic client registration stays OFF (default) until O3.
+  // Scopes = OIDC core + the v3 key vocabulary (resource:action) so an OAuth
+  // access token caps the operation exactly like an `oa_sk_` key does, while
+  // the visibility tier still comes from the consenting user's role (see
+  // docs/plan-oauth-provider.md §2.4 and docs/plan-slice-auth-v3.md §5.1/§5.2).
+  // Each registered exchange client declares the `subjectResource` its inbound
+  // tokens are bound to (the MCP's own resource, today). These are the gateway
+  // audiences — distinct from the in-process `apiResourceUrl`, which the exchange
+  // MINTS but no OAuth client binds to directly.
+  const subjectResources = [
+    ...new Set(
+      Object.values(exchangeClients)
+        .map((c) => c.subjectResource)
+        .filter(Boolean),
+    ),
+  ];
+
+  // Audiences a client may bind a token to via `resource` (RFC 8707): the AS
+  // origin (`baseURL` — OIDC/userinfo, and future "Sign in with OpenAgenda" SSO
+  // clients bind here) plus every gateway's `subjectResource` (the MCP resource,
+  // today). This is the oauth-provider's `checkResource` allowlist — what
+  // `resource` values it accepts at /authorize|token. The in-process
+  // `apiResourceUrl` is NOT here: clients never bind to it; the exchange endpoint
+  // mints those server-side. Default `[baseURL]` (the plugin's own default) when
+  // no gateway is registered.
+  const validAudiences = [baseURL, ...subjectResources];
+
+  // The in-process verifier accepts a NARROWER set than the AS issues for: only
+  // the API resource id (`aud=api`), NOT the bare AS origin and NOT any gateway
+  // resource. O2.5 made token-exchange the SINGLE delegation path: a gateway
+  // always swaps its own token for an `aud=api` token before reaching the API
+  // (see tokenExchangePlugin.js), so a raw gateway token (the old B2 passthrough)
+  // and an SSO/OIDC token bound to `baseURL` are BOTH rejected as API credentials.
+  // Empty when no `apiResourceUrl` (no in-process delegation at all; API keys
+  // still work) — never falls back to honouring a gateway audience.
+  const apiAudiences = apiResourceUrl ? [apiResourceUrl] : [];
+
+  // First-party clients that skip the consent screen (none today). The GC reads
+  // the same list to avoid deleting them (they have no consent row to vouch for
+  // them). When this gains entries, each is `{ clientId, … }`.
+  const trustedClients = [];
+
+  const oauthProviderPlugin = oauthProvider({
+    scopes: [
+      'openid',
+      'profile',
+      'email',
+      'offline_access',
+      'events:read',
+      'events:write',
+      'events:transverse',
+      'agendas:read',
+      'agendas:write',
+      'locations:read',
+      'locations:write',
+      'members:read',
+      'members:write',
+    ],
+    // O1 — interactive flow pages (OA frontend, Next App Router). The plugin
+    // appends the signed authorization query to these paths and 302s the
+    // browser there. Paths are locale-less by convention (proxy.ts resolves the
+    // locale; cf. the existing `/auth/signin?msg=…` redirect below).
+    //   - loginPage: unauthenticated `/oauth2/authorize` lands on the existing
+    //     sign-in page, which maps the OAuth query into its `redirect` param so
+    //     the user bounces back to `/oauth2/authorize` once logged in.
+    //   - consentPage: authenticated-but-not-yet-consented lands here; the page
+    //     POSTs `/oauth2/consent` and follows the returned `redirect_uri`.
+    loginPage: '/auth/signin',
+    consentPage: '/auth/consent',
+    // Carry the OA uid as a private claim on the access token. The token's `sub`
+    // is the better-auth user row id (a serial PK), which is NOT the OpenAgenda
+    // uid that every downstream resolver keys on (`core.users.get(uid)`, the
+    // api-key `referenceId`). They differ for ALL users. So a resource server
+    // (the v3 API) reads `uid` from this claim to resolve the OA user, keeping
+    // the token self-describing (no per-request id→uid lookup). STRING-encoded:
+    // OA uids are BIGINT and can exceed 2^53, which a JSON number would round.
+    // `sub` is left untouched (stable OIDC subject; SSO continuity, O1 flow).
+    customAccessTokenClaims: async ({ user }) =>
+      (user?.uid != null ? { uid: String(user.uid) } : {}),
+    // Standard 1h access-token TTL (the plugin default). This was clamped to
+    // 600s under the B2 model (O2) because the consented `aud=mcp` token was
+    // relayed verbatim into the sandbox for the duration of an `execute`, and a
+    // short life bounded that exposure. O2.5 removes the coupling: the MCP now
+    // token-exchanges that token for a SEPARATE short-lived `aud=api` token
+    // (exchangeTokenTtl, ~120s — see tokenExchangePlugin.js) before the sandbox,
+    // so the consented/SSO token never enters one. Its TTL no longer needs to be
+    // short for that reason → restored to 1h for SSO/OIDC/API consumers.
+    accessTokenExpiresIn: 3600,
+    // Dynamic Client Registration (RFC 7591 — O3). MCP clients (Claude, etc.)
+    // are public and discover us at runtime: they cannot use a pre-shared
+    // client_id, so they self-register at `/oauth2/register` before the user
+    // ever logs in. Hence BOTH flags:
+    //   - allowDynamicClientRegistration: exposes `/oauth2/register` and adds
+    //     `registration_endpoint` to the AS metadata (clients discover it).
+    //   - allowUnauthenticatedClientRegistration: registration happens with no
+    //     session (the standard MCP ordering is register → authorize → token).
+    // Security posture without a scope cap: a registered client may REQUEST any
+    // scope in `scopes` above, but it gets nothing until the user approves it on
+    // the consent screen (never skipped for DCR clients — `trustedClients` is
+    // empty). Combined with the short access-token TTL and the `/oauth2/register`
+    // rate limit (plugin default: 5/min/IP), an open registration endpoint stays
+    // bounded. Tighten later via `clientRegistrationAllowedScopes` once the write
+    // surface and per-tool scope enforcement land (O2.5+).
+    allowDynamicClientRegistration: true,
+    allowUnauthenticatedClientRegistration: true,
+    // First-party OA apps that should skip the consent screen go here
+    // (`{ clientId, clientSecret, redirectURLs, skipConsent: true, … }`).
+    // Empty until a first-party client is registered (→ O3). Hoisted to a const
+    // so the GC (gcExpired) can exclude them: a skip-consent client has NO
+    // `oauthConsent` row, so the "no consent ⇒ unused" rule would otherwise
+    // delete it.
+    trustedClients,
+    // Audiences a client may bind a token to via the `resource` parameter
+    // (RFC 8707). `checkResource` rejects any `resource` not listed here. A
+    // resource-bound request yields a JWS access token (`aud` set) the MCP
+    // resource server verifies locally; without `resource` the token is opaque.
+    // baseURL stays valid (the userinfo audience is auto-added for `openid`);
+    // each registered gateway's `subjectResource` is added (→ O2). Only override
+    // the plugin's `[baseURL]` default when we actually widen it (≥1 gateway).
+    ...subjectResources.length ? { validAudiences } : {},
+    schema: {
+      oauthClient: {
+        modelName: tables.oauthClient,
+        fields: {
+          clientId: 'client_id',
+          clientSecret: 'client_secret',
+          skipConsent: 'skip_consent',
+          enableEndSession: 'enable_end_session',
+          subjectType: 'subject_type',
+          userId: 'user_id',
+          createdAt: 'created_at',
+          updatedAt: 'updated_at',
+          softwareId: 'software_id',
+          softwareVersion: 'software_version',
+          softwareStatement: 'software_statement',
+          redirectUris: 'redirect_uris',
+          postLogoutRedirectUris: 'post_logout_redirect_uris',
+          tokenEndpointAuthMethod: 'token_endpoint_auth_method',
+          grantTypes: 'grant_types',
+          responseTypes: 'response_types',
+          requirePKCE: 'require_pkce',
+          referenceId: 'reference_id',
+        },
+      },
+      oauthAccessToken: {
+        modelName: tables.oauthAccessToken,
+        fields: {
+          clientId: 'client_id',
+          sessionId: 'session_id',
+          userId: 'user_id',
+          referenceId: 'reference_id',
+          refreshId: 'refresh_id',
+          expiresAt: 'expires_at',
+          createdAt: 'created_at',
+        },
+      },
+      oauthRefreshToken: {
+        modelName: tables.oauthRefreshToken,
+        fields: {
+          clientId: 'client_id',
+          sessionId: 'session_id',
+          userId: 'user_id',
+          referenceId: 'reference_id',
+          expiresAt: 'expires_at',
+          createdAt: 'created_at',
+          authTime: 'auth_time',
+        },
+      },
+      oauthConsent: {
+        modelName: tables.oauthConsent,
+        fields: {
+          clientId: 'client_id',
+          userId: 'user_id',
+          referenceId: 'reference_id',
+          createdAt: 'created_at',
+          updatedAt: 'updated_at',
+        },
+      },
+    },
+  });
+
+  // O2.5 token-exchange. Built only when the API resource id and at least one
+  // registered first-party client are configured. The subject-token verifier is
+  // LATE-BOUND: it needs the built `instance` (for the JWKS), which only exists
+  // after this plugins array is constructed — so the endpoint reads it through a
+  // getter resolved at request time (populated just after `betterAuth()` below).
+  //
+  // Fail FAST on the asymmetric misconfig: exchange clients registered but no
+  // `apiResourceUrl` (e.g. the secret is set but API_ROOT is not). Silently
+  // dropping the endpoint here would leave the in-process verifier with an empty
+  // audience set (rejecting every delegated call) while clients still receive
+  // gateway-bound tokens nothing can honour — a broken-but-healthy-looking AS.
+  if (Object.keys(exchangeClients).length && !apiResourceUrl) {
+    throw new Error(
+      '@openagenda/auth: exchangeClients are registered but apiResourceUrl is '
+        + 'unset (is API_ROOT / OA_V3_RESOURCE_URL configured?). The token-exchange '
+        + 'endpoint cannot mint or verify without it.',
+    );
+  }
+  let verifyExchangeSubject = null;
+  const exchangePlugin = apiResourceUrl && Object.keys(exchangeClients).length
+    ? tokenExchangePlugin({
+      apiResourceUrl,
+      clients: exchangeClients,
+      getVerifySubject: () => verifyExchangeSubject,
+      jwtPluginOptions,
+      ...exchangeTokenTtl ? { ttl: exchangeTokenTtl } : {},
+    })
+    : null;
+
   const baOptions = {
     database: { dialect: new MysqlDialect({ pool: mysqlPool }), type: 'mysql' },
     secret,
     baseURL,
     trustedOrigins,
+    // OAuth-provider mode: disable the jwt plugin's standalone `/token` endpoint
+    // (replaced by `/oauth2/token`). Required per the better-auth jwt docs to
+    // avoid duplicating the OAuth token endpoint. Nothing in OA consumes the
+    // bare `/api/auth/token` route (the jwt plugin was added in this change).
+    disabledPaths: ['/token'],
     // `apiKeyPlugin` runs with enableSessionForAPIKeys=false (default): it adds
     // the api-key endpoints + `apikey` table but does NOT intercept requests or
     // open sessions from an x-api-key header. The v3 API resolves keys itself
     // via auth.api.verifyApiKey, keeping full control of the error envelope.
+    // `jwtPlugin` precedes `oauthProviderPlugin` because the latter resolves the
+    // former at init via ctx.getPlugin('jwt').
     plugins: [
       oaImpersonationPlugin(),
       apiKeyPlugin,
@@ -159,6 +450,12 @@ export default function Auth(options = {}) {
           }
         },
       }),
+      jwtPlugin,
+      oauthProviderPlugin,
+      // After oauthProviderPlugin so `/oauth2/token-exchange` sits alongside the
+      // other `/oauth2/*` endpoints; uses signJWT (jwtPlugin) to mint. Filtered
+      // out when not configured.
+      ...exchangePlugin ? [exchangePlugin] : [],
     ],
     advanced: {
       cookiePrefix: 'oa',
@@ -335,6 +632,50 @@ export default function Auth(options = {}) {
       // swallowed — the user is already signed in, the rehash will retry on
       // the next sign-in, and the backfill migration is the source of truth.
       after: createAuthMiddleware(async (ctx) => {
+        // O3 — audit every successful OAuth client registration (DCR is public,
+        // so this is the abuse-visibility seam). The oauth-provider exposes no
+        // registration hook, so we observe the response: `ctx.context.returned`
+        // is the issued client on success, or an APIError (no `client_id`) on a
+        // validation/rate-limit failure — which we skip, so rejected attempts
+        // never pollute the audit trail. The descriptor is sanitized (NEVER the
+        // `client_secret`); a failure in the host callback must not break the
+        // registration, so it is swallowed (logged) like the other extension hooks.
+        if (ctx.path === '/oauth2/register') {
+          if (typeof onClientRegistered !== 'function') return;
+          const client = ctx.context.returned;
+          if (!client || typeof client !== 'object' || !client.client_id) {
+            return;
+          }
+          const header = (name) =>
+            ctx.headers?.get?.(name)
+            ?? ctx.request?.headers?.get?.(name)
+            ?? null;
+          const forwardedFor = header('x-forwarded-for');
+          try {
+            await onClientRegistered({
+              clientId: client.client_id,
+              clientName: client.client_name ?? null,
+              redirectUris: client.redirect_uris ?? [],
+              tokenEndpointAuthMethod:
+                client.token_endpoint_auth_method ?? null,
+              grantTypes: client.grant_types ?? null,
+              softwareId: client.software_id ?? null,
+              softwareVersion: client.software_version ?? null,
+              clientUri: client.client_uri ?? null,
+              // null ⇒ anonymous DCR (no session); a uid ⇒ a signed-in user
+              // registered it — a key signal when triaging the audit log.
+              registeredBy: client.user_id ?? null,
+              // We sit behind nginx, so the caller IP is the first X-Forwarded-For
+              // hop; null when absent rather than logging a proxy address.
+              ip: forwardedFor ? forwardedFor.split(',')[0].trim() : null,
+              userAgent: header('user-agent'),
+            });
+          } catch (err) {
+            ctx.context.logger?.error?.('onClientRegistered failed', { err });
+          }
+          return;
+        }
+
         if (ctx.path === '/sign-in/email') {
           const { newSession } = ctx.context;
           if (!newSession) return;
@@ -594,8 +935,40 @@ export default function Auth(options = {}) {
       }),
     },
     session: {
-      // Sessions live in Redis (secondaryStorage). storeSessionInDatabase
-      // defaults to false when secondaryStorage is provided — no DB writes.
+      modelName: tables.session,
+      // Sessions stay Redis-resident for reads (secondaryStorage + cookieCache);
+      // the tracing fast-path is unaffected. `storeSessionInDatabase: true` adds
+      // a write to the `session` table on create/update — required by the OAuth
+      // provider plugin (it throws at init when secondaryStorage is set without
+      // it) and gives OAuth tokens a real FK target. Reads still hit Redis first,
+      // DB on miss.
+      //
+      // With storeSessionInDatabase enabled, the field-converter strips any
+      // undeclared session field BEFORE the row is cached back into Redis (the
+      // DB-create result is what `createSession` re-stores under `active-sessions`),
+      // so an ad-hoc field is lost everywhere — not just in the DB. The
+      // impersonation plugin's `impersonatedBy` (mirrors better-auth's admin
+      // plugin) must therefore be declared as an additional field with a real
+      // `impersonated_by` column, or `/signout` can't detect a "sign as" session.
+      storeSessionInDatabase: true,
+      fields: {
+        userId: 'user_id',
+        expiresAt: 'expires_at',
+        createdAt: 'created_at',
+        updatedAt: 'updated_at',
+        ipAddress: 'ip_address',
+        userAgent: 'user_agent',
+      },
+      additionalFields: {
+        impersonatedBy: {
+          type: 'string',
+          required: false,
+          // Set only via the oa-impersonation plugin's internal createSession
+          // override, never from request input.
+          input: false,
+          fieldName: 'impersonated_by',
+        },
+      },
       expiresIn: 60 * 60 * 24 * 7,
       updateAge: 60 * 60 * 24,
       cookieCache: {
@@ -824,6 +1197,26 @@ export default function Auth(options = {}) {
     renameAgendaKey,
   } = createApiKeyHelpers(instance);
 
+  // In-process verifier for OA-issued OAuth access tokens (the API acting as a
+  // resource server for its own AS — the delegation path). Scoped to the API
+  // audiences (NOT the full `validAudiences` the AS issues for — see above): an
+  // SSO/OIDC token bound to the AS origin must not double as an API credential.
+  const { verifyOAuthAccessToken } = createOAuthTokenHelpers(instance, {
+    validAudiences: apiAudiences,
+  });
+
+  // Late-bind the token-exchange subject verifier (declared above the plugins
+  // array). The SUBJECT token is a gateway's own grant, so this verifier trusts
+  // the union of every registered `subjectResource` — a SEPARATE, wider set than
+  // the API verifier above (which trusts only `aud=api`). The endpoint then
+  // tightens further per call: a client may only exchange a token bound to ITS
+  // OWN `subjectResource`. Both verifiers share signature/issuer/expiry/uid checks.
+  if (exchangePlugin) {
+    verifyExchangeSubject = createOAuthTokenHelpers(instance, {
+      validAudiences: subjectResources,
+    }).verifyOAuthAccessToken;
+  }
+
   async function getSessionFromRequest(
     req,
     prevResponse,
@@ -927,6 +1320,15 @@ export default function Auth(options = {}) {
     }
   }
 
+  // Periodic GC of expired sessions / OAuth tokens and never-approved DCR
+  // clients. The logic lives in ./gcExpired.js (pure over the adapter, unit
+  // tested); here we just feed it the in-process adapter and the trusted-client
+  // allowlist. The caller schedules it (cibul-node task.js).
+  function gcExpired(opts) {
+    return instance.$context.then(({ adapter }) =>
+      gcExpiredRows(adapter, { trustedClients, ...opts }));
+  }
+
   return {
     instance,
     // Express-compatible handler — mount with `app.all('/api/auth/*', auth.nodeHandler)`.
@@ -947,6 +1349,14 @@ export default function Auth(options = {}) {
     renameUserKey,
     renameAgendaKey,
     hashApiKey,
+    // Verify an OA-issued OAuth JWS access token in-process → normalized
+    // descriptor ({ userUid, scopes, clientId, audiences }) or null. Owner
+    // *loading* (and the blacklist check) stay the caller's job, exactly like
+    // `verifyKey`. The v3 API uses this for the delegated MCP path.
+    verifyOAuthAccessToken,
+    // Periodic maintenance: purge expired sessions / OAuth tokens and
+    // never-approved DCR clients. The caller schedules it (cibul-node task.js).
+    gcExpired,
     // Mirror legacy OA password writes into `account.password` (phase 2a).
     encodeLegacyPassword: encodeLegacy,
     upsertCredentialAccount,

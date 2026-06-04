@@ -35,6 +35,154 @@
       "value": "Se connecter"
     }
   ],
+  "next.components.auth.Consent.allow": [
+    {
+      "type": 0,
+      "value": "Autoriser"
+    }
+  ],
+  "next.components.auth.Consent.deny": [
+    {
+      "type": 0,
+      "value": "Refuser"
+    }
+  ],
+  "next.components.auth.Consent.error": [
+    {
+      "type": 0,
+      "value": "Une erreur est survenue. Veuillez réessayer."
+    }
+  ],
+  "next.components.auth.Consent.fallbackAppName": [
+    {
+      "type": 0,
+      "value": "Cette application"
+    }
+  ],
+  "next.components.auth.Consent.heading": [
+    {
+      "type": 0,
+      "value": "Autoriser "
+    },
+    {
+      "type": 1,
+      "value": "appName"
+    }
+  ],
+  "next.components.auth.Consent.intro": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " souhaite accéder à votre compte OpenAgenda. Elle pourra :"
+    }
+  ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "Après autorisation, vous serez redirigé vers "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasRead": [
+    {
+      "type": 0,
+      "value": "Lire vos agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasWrite": [
+    {
+      "type": 0,
+      "value": "Créer et modifier vos agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.email": [
+    {
+      "type": 0,
+      "value": "Lire votre adresse email"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsRead": [
+    {
+      "type": 0,
+      "value": "Lire vos événements"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsTransverse": [
+    {
+      "type": 0,
+      "value": "Accéder aux événements de tous vos agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsWrite": [
+    {
+      "type": 0,
+      "value": "Créer et modifier vos événements"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsRead": [
+    {
+      "type": 0,
+      "value": "Lire vos lieux"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsWrite": [
+    {
+      "type": 0,
+      "value": "Créer et modifier vos lieux"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersRead": [
+    {
+      "type": 0,
+      "value": "Lire les membres des agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersWrite": [
+    {
+      "type": 0,
+      "value": "Gérer les membres des agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.offlineAccess": [
+    {
+      "type": 0,
+      "value": "Rester connecté en votre absence (accès renouvelé)"
+    }
+  ],
+  "next.components.auth.Consent.scope.openid": [
+    {
+      "type": 0,
+      "value": "Vérifier votre identité"
+    }
+  ],
+  "next.components.auth.Consent.scope.profile": [
+    {
+      "type": 0,
+      "value": "Lire votre profil public (nom, photo)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "N'importe qui peut enregistrer une application sous n'importe quel nom. Ne continuez que si vous lui faites confiance."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "OpenAgenda n'a pas vérifié cette application"
+    }
+  ],
   "next.components.auth.LostPassword.cancelLabel": [
     {
       "type": 0,

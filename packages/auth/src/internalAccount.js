@@ -2,8 +2,9 @@
 // callers don't reach into private internals from multiple places.
 // Tied to the better-auth version pinned in this package's package.json —
 // `findAccountByUserId` / `createAccount` / `updatePassword` /
-// `deleteAccount` / `deleteSessions` are not part of better-auth's public
-// API surface.
+// `deleteAccount` / `deleteUserSessions` are not part of better-auth's public
+// API surface (and the by-user `deleteUserSessions` vs by-token `deleteSessions`
+// split landed in 1.6.13 — see `revokeUserSessions` below).
 
 import { hash as hashPassword, verify as verifyHash } from './password.js';
 
@@ -101,11 +102,14 @@ export default function createCredentialHelpers(instance) {
   }
 
   // `userId` is the user PK (BIGINT id), NOT the OA `uid`. Coerced to string
-  // because `internalAdapter.deleteSessions` treats a non-string arg as an
-  // array of session tokens and silently skips the Redis purge.
+  // so it matches the `active-sessions-${userId}` Redis key BA wrote at
+  // sign-in. `deleteUserSessions` (NOT `deleteSessions`, which takes an array
+  // of session tokens) reads that list, deletes every token, and drops the
+  // list key — the by-user purge `deleteSessions(userId)` used to do before
+  // better-auth 1.6.13 split the two.
   async function revokeUserSessions(userId) {
     const adapter = await getAdapter();
-    await adapter.deleteSessions(String(userId));
+    await adapter.deleteUserSessions(String(userId));
   }
 
   // Re-snapshot the user into every active Redis session WITHOUT logging the

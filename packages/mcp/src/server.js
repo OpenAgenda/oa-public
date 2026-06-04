@@ -13,11 +13,11 @@ import { buildScript } from './sandbox/preamble.js';
 const MAX_ERROR_TEXT = 4000;
 
 /**
- * Strip the API key from any text returned to the client. The key is baked into
- * the executed program (preamble.js), so a runtime error/stack frame can echo it
- * back via stderr. Today the key is a shared env credential → leaking it is a
- * real footgun; once auth is a per-caller scoped token this keeps the caller's
- * own token out of returned text too (defense-in-depth, valid in both models).
+ * Strip the API credential from any text returned to the client. It is baked
+ * into the executed program (preamble.js), so a runtime error/stack frame can
+ * echo it back via stderr. On stdio that credential is the self-hoster's own
+ * key; on the HTTP resource server it is the *caller's* OAuth access token —
+ * either way keep it out of returned text (defense-in-depth, both models).
  */
 function redactSecrets(text, apiKey) {
   let out = text;
@@ -44,9 +44,32 @@ const textContent = (text) => ({ type: 'text', text });
  * @param {object} deps
  * @param {ReturnType<import('./config.js').loadConfig>} deps.config
  * @param {import('./sandbox/executor.js').SandboxExecutor} deps.executor
+ * @param {string|null} [deps.credential]  a STATIC API credential baked into
+ *   executed code (the stdio self-hoster's own key). Omitted → `config.apiKey`.
+ * @param {() => Promise<string>} [deps.getCredential]  a LAZY credential resolver
+ *   (the HTTP resource server's per-request token-exchange). Resolved only when
+ *   the `execute` tool actually runs — so `initialize`/`tools/list`/`search_docs`
+ *   incur no exchange and don't depend on the AS — and memoised for the life of
+ *   this (per-request) server. Takes precedence over `credential`. When it
+ *   rejects, the `execute` call fails on its own without leaking upstream detail,
+ *   instead of failing the whole transport. PER TRANSPORT, see §O2/§O2.5.
  */
-export function createServer({ config, executor }) {
+export function createServer({ config, executor, credential, getCredential }) {
   const server = new McpServer({ name: 'openagenda-mcp', version: '0.0.0' });
+
+  // Resolve the credential LAZILY and at most once per server instance. stdio /
+  // static: synchronous (`credential ?? config.apiKey`). HTTP: the injected
+  // `getCredential` thunk (token-exchange) runs on first `execute`, never for
+  // metadata-only calls, and its result is reused across executes in the same
+  // (per-request) server.
+  let credentialPromise;
+  const resolveCredential = () => {
+    if (getCredential) {
+      credentialPromise ??= getCredential();
+      return credentialPromise;
+    }
+    return Promise.resolve(credential ?? config.apiKey);
+  };
 
   // search_docs — progressive disclosure: find the right operation + how to call
   // it before writing code. Pure metadata, no network, no side effects.
@@ -100,15 +123,31 @@ export function createServer({ config, executor }) {
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ code }) => {
+      // Resolve the credential at point of use (HTTP: the token-exchange). On
+      // failure, fail THIS tool call with a generic message — never echo the
+      // upstream error (it may carry AS response detail) — and leave other tools
+      // and sessions working (the prior model failed the whole POST with a 502).
+      let apiCredential;
+      try {
+        apiCredential = await resolveCredential();
+      } catch {
+        return {
+          isError: true,
+          content: [
+            textContent('Could not obtain an API credential for this request.'),
+          ],
+        };
+      }
+
       const script = buildScript(code, {
         baseUrl: config.baseUrl,
-        apiKey: config.apiKey,
+        apiKey: apiCredential,
       });
 
       const fail = (text) => ({
         isError: true,
         content: [
-          textContent(clampErrorText(redactSecrets(text, config.apiKey))),
+          textContent(clampErrorText(redactSecrets(text, apiCredential))),
         ],
       });
 
@@ -158,7 +197,7 @@ export function createServer({ config, executor }) {
       return {
         content: [
           textContent(
-            redactSecrets(res.stdout.trim() || 'null', config.apiKey),
+            redactSecrets(res.stdout.trim() || 'null', apiCredential),
           ),
         ],
       };

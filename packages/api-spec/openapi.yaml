@@ -986,9 +986,23 @@ components:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: >-
-        Authenticated, but not allowed to access this resource — for example the
-        account is blacklisted, or the key lacks the required scope.
-        `error.code` is `forbidden`.
+        Authenticated, but not allowed to access this resource. For a blacklisted
+        account `error.code` is `forbidden`. For an OAuth2 access token that
+        lacks the scope this operation declares, `error.code` is
+        `insufficient_scope` and a `WWW-Authenticate: Bearer
+        error="insufficient_scope", scope="<required>"` header names the missing
+        scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+      headers:
+        WWW-Authenticate:
+          description: >-
+            Present on an `insufficient_scope` failure: the RFC 6750 Bearer
+            challenge naming the scope the token must hold.
+          required: false
+          schema:
+            type: string
+          example: >-
+            Bearer error="insufficient_scope", scope="events:read",
+            error_description="the access token lacks the required scope"
       content:
         application/json:
           schema:
@@ -1014,7 +1028,14 @@ components:
             code:
               type: string
               description: Stable, machine-readable error code.
-              examples: ['not_found', 'unauthorized', 'validation_error']
+              examples:
+                [
+                  'not_found',
+                  'unauthorized',
+                  'forbidden',
+                  'insufficient_scope',
+                  'validation_error',
+                ]
             message:
               type: string
               description: Human-readable explanation.

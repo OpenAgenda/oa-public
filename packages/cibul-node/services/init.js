@@ -26,8 +26,8 @@ const color = (nbr, str) => `\x1b[3${nbr}m${str}\x1b[0m`;
 const registry = [
   { name: 'knex', load: () => import('./knex.js') },
   { name: 'redis', load: () => import('./redis.js') },
-  { name: 'auth', load: () => import('./auth/index.js') },
   { name: 'bull', load: () => import('./bull/index.js') },
+  { name: 'auth', load: () => import('./auth/index.js') },
   { name: 'errors', load: () => import('./errors.js') },
   { name: 'tracker', load: () => import('./tracker.js') },
   { name: 'genUrl', load: () => import('./genUrl.js') },
