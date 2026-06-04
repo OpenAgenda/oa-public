@@ -779,10 +779,12 @@ export default function Auth(options = {}) {
 
           if (user.isRemoved || user.isBlacklisted) {
             try {
-              await ctx.context.internalAdapter.deleteSessions(String(userId));
+              await ctx.context.internalAdapter.deleteUserSessions(
+                String(userId),
+              );
             } catch (err) {
               ctx.context.logger?.error?.(
-                'oauth callback deleteSessions failed',
+                'oauth callback deleteUserSessions failed',
                 {
                   userId,
                   err,
@@ -887,12 +889,17 @@ export default function Auth(options = {}) {
 
           if (user.isRemoved || user.isBlacklisted) {
             try {
-              await ctx.context.internalAdapter.deleteSessions(String(userId));
+              await ctx.context.internalAdapter.deleteUserSessions(
+                String(userId),
+              );
             } catch (err) {
-              ctx.context.logger?.error?.('magic-link deleteSessions failed', {
-                userId,
-                err,
-              });
+              ctx.context.logger?.error?.(
+                'magic-link deleteUserSessions failed',
+                {
+                  userId,
+                  err,
+                },
+              );
             }
             // Neutralize the session cookies BA already queued, so the banned
             // user is not left with a valid signed `oa.sess_data` cookieCache
