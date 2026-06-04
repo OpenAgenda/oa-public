@@ -1,6 +1,16 @@
 # UI guidelines
 
-Conventions and design principles for UI work in `packages/next`. Add to this file whenever a decision is worth keeping consistent across components.
+**App-level** composition conventions for UI work in `packages/next`. This file is
+only for things specific to _this app_ — how pages are arranged, how a given dialog
+behaves here.
+
+For the design system itself — tokens, colors, fonts, component variants, snippets,
+and the rules for using them — read the canonical, portable source first:
+[`public/uikit/docs/DESIGN-SYSTEM.md`](../../../public/uikit/docs/DESIGN-SYSTEM.md).
+Do not duplicate token values or design-system rules here; reference them there.
+
+Add to this file whenever an **app-specific** decision is worth keeping consistent
+across components.
 
 ## Dialog dismissal
 
