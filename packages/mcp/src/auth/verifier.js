@@ -96,8 +96,9 @@ export function createTokenVerifier({ jwksUrl, issuer, audience }) {
         // own numeric-expiry guard (it rejects a token with no `expiresAt`).
         expiresAt: payload.exp,
         resource: new URL(audience),
-        // The consenting user — the eventual hook for per-user authorization
-        // once the write surface lands (O2 stays read-only, see the plan).
+        // The consenting user — the hook for per-user authorization. The API
+        // enforces the token's scopes server-side; the OAuth grant is currently
+        // read-scoped (write scopes pending on the AS, see the plan).
         extra: { sub: payload.sub },
       };
     },

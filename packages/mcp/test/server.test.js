@@ -19,11 +19,18 @@ const okResult = (stdout) => ({
   exitCode: 0,
 });
 
-async function connect({ executor, config, credential } = {}) {
+async function connect({
+  executor,
+  config,
+  credential,
+  rateLimiter,
+  callerId,
+} = {}) {
   const server = createServer({
     config: config ?? loadConfig({ OA_API_KEY: 'oa_pk_test' }),
     executor: executor ?? makeExecutor(async () => okResult('null')),
     ...credential !== undefined ? { credential } : {},
+    ...rateLimiter !== undefined ? { rateLimiter, callerId } : {},
   });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
   const client = new Client({ name: 'test', version: '0.0.0' });
@@ -53,12 +60,14 @@ describe('MCP server', () => {
       ]);
     });
 
-    it('marks both tools read-only; execute is open-world, search_docs is not', async () => {
+    it('marks search_docs read-only; execute is NOT (runs arbitrary code) and is open-world', async () => {
       ({ client } = await connect());
       const { tools } = await client.listTools();
       const byName = Object.fromEntries(tools.map((t) => [t.name, t]));
+      // execute runs arbitrary code — it must not claim read-only (it can mutate
+      // once the v3 write surface lands), so clients keep gating it.
       expect(byName.execute.annotations).toMatchObject({
-        readOnlyHint: true,
+        readOnlyHint: false,
         openWorldHint: true,
       });
       expect(byName.search_docs.annotations).toMatchObject({
@@ -274,6 +283,64 @@ describe('MCP server', () => {
         expect(textOf(r)).not.toContain('saturated internal detail');
       },
     );
+
+    it('refuses an over-rate caller with a retryable result, before running anything', async () => {
+      // A denying limiter must short-circuit the execute: no executor run, no
+      // credential resolution — just a retryable "rate limit" message with a wait
+      // hint (same back-off vocabulary as the concurrency "at capacity" path).
+      let ran = false;
+      ({ client } = await connect({
+        executor: makeExecutor(async () => {
+          ran = true;
+          return okResult('1');
+        }),
+        rateLimiter: { check: () => ({ allowed: false, retryAfterMs: 2500 }) },
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(r.isError).toBe(true);
+      expect(textOf(r)).toMatch(/rate limit/i);
+      expect(textOf(r)).toMatch(/3s/); // ceil(2500 ms) → 3 s
+      expect(ran).toBe(false); // the run never started
+    });
+
+    it('runs normally when the limiter admits the call', async () => {
+      ({ client } = await connect({
+        executor: makeExecutor(async () => okResult('42')),
+        rateLimiter: { check: () => ({ allowed: true, retryAfterMs: 0 }) },
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 42;' },
+      });
+      expect(r.isError).toBeFalsy();
+      expect(textOf(r)).toBe('42');
+    });
+
+    it('still enforces the limit when callerId is falsy (no empty-key bypass)', async () => {
+      // A falsy callerId (e.g. an empty-string sub) must NOT skip the limiter —
+      // the guard keys on a default bucket rather than bypassing.
+      let ran = false;
+      ({ client } = await connect({
+        executor: makeExecutor(async () => {
+          ran = true;
+          return okResult('1');
+        }),
+        rateLimiter: { check: () => ({ allowed: false, retryAfterMs: 1000 }) },
+        callerId: '',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(r.isError).toBe(true);
+      expect(textOf(r)).toMatch(/rate limit/i);
+      expect(ran).toBe(false);
+    });
 
     it('redacts the API key from returned error text', async () => {
       // The key is baked into the program, so a stack trace can echo it back.
