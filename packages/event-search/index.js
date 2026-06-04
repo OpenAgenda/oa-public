@@ -16,6 +16,11 @@ import updateDynamicSettings from './utils/updateDynamicSettings.js';
 import geoJSON from './utils/geoJSON.js';
 
 export default (c) => {
+  // Elbow sensitivity for `threshold=auto` (see computeRelevanceCutoff). The
+  // service's default lives here, at the options destructuring; the caller
+  // (e.g. cibul-node, from an env var) may override it.
+  const { relevanceMinDrop = 0.3, ...rest } = c;
+
   const config = {
     client: new elasticsearch.Client(
       _.pick(c.elasticsearch, ['node', 'log', 'ssl']),
@@ -26,7 +31,8 @@ export default (c) => {
     otherStandardFields: searchIncludes.other,
     defaultIndex: 'main',
     assetsPath: null,
-    ...c,
+    ...rest,
+    relevanceMinDrop,
   };
 
   if (c.logger) {

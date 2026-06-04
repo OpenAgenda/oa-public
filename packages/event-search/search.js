@@ -15,6 +15,7 @@ import includePathInLocationImage from './utils/includePathInLocationImage.js';
 import injectDefaultImage from './utils/injectDefaultImage.js';
 import filterImageTimestamps from './utils/filterImageTimestamps.js';
 import queryToDSL from './utils/queryToDSL.js';
+import getDSLSortPart from './utils/getDSLSortPart.js';
 import validateNav from './utils/validateNav.js';
 import validateOptions from './utils/validateSearchOptions.js';
 import spreadByMLTBoostScores from './utils/spreadByMLTBoostScores.js';
@@ -23,8 +24,14 @@ import formatError from './utils/formatError.js';
 import cleanRequestedAggregation from './utils/cleanRequestedAggregation.js';
 import { inflateAndClean as inflateAndCleanQuery } from './utils/validateQuery.js';
 import adminLevelSwap from './utils/adminLevelSwap.js';
+import computeRelevanceCutoff from './utils/computeRelevanceCutoff.js';
+import probeTopScores from './utils/probeTopScores.js';
 
 const log = logs('search');
+
+// Number of top hits the `threshold=auto` probe inspects to find the relevance
+// cliff. Large enough to see the head of the distribution, cheap to fetch.
+const RELEVANCE_PROBE_SIZE = 20;
 
 function buildEventParsers({
   detailed,
@@ -131,7 +138,13 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   let cleanNav = {};
   let cleanDSL;
 
-  const { defaultIndex, emptyValue, assetsPath, defaultImage } = config;
+  const {
+    defaultIndex,
+    emptyValue,
+    assetsPath,
+    defaultImage,
+    relevanceMinDrop,
+  } = config;
 
   const {
     detailed,
@@ -198,6 +211,39 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
       : errors;
   }
 
+  // Whether the relevance score floor applies: only for a syntactic search with
+  // a `threshold` other than `off` (`auto` is dynamic, a number is absolute).
+  const thresholdEngaged = !!cleanQuery.search
+    && cleanQuery.threshold !== undefined
+    && cleanQuery.threshold !== 'off';
+  const autoThreshold = thresholdEngaged && cleanQuery.threshold === 'auto';
+
+  // `threshold=auto` over `after`-key pagination carries its computed cutoff as
+  // one extra trailing element of the `after` cursor, so pages after the first
+  // reuse it instead of re-probing. Strip it back off here, before it would
+  // reach ES `search_after` as a spurious extra sort value.
+  //
+  // The cutoff is only stripped when the cursor is exactly one element longer
+  // than the sort keys — our own appended cursor. A bare sort-length cursor
+  // (client-built, or derived from `includeSort` values) is left intact and we
+  // re-probe, so a genuine sort value is never mistaken for a cutoff.
+  let relevanceCutoff;
+  let cutoffFromCursor = false;
+  if (autoThreshold && useAfterKey && Array.isArray(cleanNav.searchAfter)) {
+    const sortKeyCount = getDSLSortPart(cleanQuery).length;
+
+    if (cleanNav.searchAfter.length === sortKeyCount + 1) {
+      const cached = Number(
+        cleanNav.searchAfter[cleanNav.searchAfter.length - 1],
+      );
+      if (Number.isFinite(cached)) {
+        relevanceCutoff = cached;
+        cutoffFromCursor = true;
+        cleanNav.searchAfter = cleanNav.searchAfter.slice(0, -1);
+      }
+    }
+  }
+
   log('searching with query %j and nav %j', cleanQuery, cleanNav);
 
   cleanDSL = queryToDSL(
@@ -231,6 +277,45 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
       query,
       { includes, formSchema },
     );
+  }
+
+  // Relevance score floor (the `threshold` query param). Only meaningful for a
+  // syntactic search, where BM25 scores differentiate hits; for filter-only
+  // queries scores are uniform and a floor would filter arbitrarily.
+  if (thresholdEngaged) {
+    let minScore = 0;
+
+    if (typeof cleanQuery.threshold === 'number') {
+      // Absolute BM25 floor — applied directly, no probe needed.
+      minScore = cleanQuery.threshold;
+    } else if (cutoffFromCursor) {
+      // Reuse the cutoff carried by the pagination cursor — no re-probe.
+      minScore = relevanceCutoff;
+    } else {
+      // First page of `threshold=auto`: probe the top scores of this exact
+      // query (same `query` clause, so access-gated fields are mirrored), then
+      // find the relevance cliff. A probe failure degrades to no filtering.
+      try {
+        const scores = await probeTopScores(
+          _.pick(config, ['client']),
+          index,
+          cleanDSL.query,
+          { size: RELEVANCE_PROBE_SIZE },
+        );
+        relevanceCutoff = computeRelevanceCutoff({
+          scores,
+          minDrop: relevanceMinDrop,
+        });
+        minScore = relevanceCutoff;
+      } catch (e) {
+        relevanceCutoff = 0;
+        log.error('relevance probe failed, skipping threshold', e);
+      }
+    }
+
+    if (minScore > 0) {
+      cleanDSL.min_score = minScore;
+    }
   }
 
   const { result, error } = await postDSL(
@@ -293,10 +378,23 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     return parsedEvents.pop();
   }
 
+  const navResult = cleanNavResult(
+    cleanQuery,
+    { sort },
+    { useAfterKey, total, events },
+  );
+
+  // Carry the dynamic cutoff as the last element of the `after` cursor so the
+  // next page reuses it instead of probing again. Appended even when 0 (no
+  // cliff) to keep the cursor shape stable and skip re-probing on every page.
+  if (autoThreshold && Array.isArray(navResult.after)) {
+    navResult.after = [...navResult.after, relevanceCutoff ?? 0];
+  }
+
   return {
     total,
     events: parsedEvents,
-    ...cleanNavResult(cleanQuery, { sort }, { useAfterKey, total, events }),
+    ...navResult,
     ...aggregationResults ? { aggregations: aggregationResults } : {},
   };
 }
