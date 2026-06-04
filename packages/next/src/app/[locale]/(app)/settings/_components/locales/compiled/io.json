@@ -205,6 +205,126 @@
       "value": "crwdns302:0crwdne302:0"
     }
   ],
+  "next.components.settings.ApiKeys.cancel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "next.components.settings.ApiKeys.copied": [
+    {
+      "type": 0,
+      "value": "Copied"
+    }
+  ],
+  "next.components.settings.ApiKeys.copy": [
+    {
+      "type": 0,
+      "value": "Copy"
+    }
+  ],
+  "next.components.settings.ApiKeys.documentation": [
+    {
+      "type": 0,
+      "value": "Show documentation"
+    }
+  ],
+  "next.components.settings.ApiKeys.edit": [
+    {
+      "type": 0,
+      "value": "Edit"
+    }
+  ],
+  "next.components.settings.ApiKeys.error": [
+    {
+      "type": 0,
+      "value": "There was a problem during the processing of the operation, retry shortly."
+    }
+  ],
+  "next.components.settings.ApiKeys.generatePublicKey": [
+    {
+      "type": 0,
+      "value": "Generate a public key"
+    }
+  ],
+  "next.components.settings.ApiKeys.generateSecretKey": [
+    {
+      "type": 0,
+      "value": "Generate a secret key"
+    }
+  ],
+  "next.components.settings.ApiKeys.info": [
+    {
+      "type": 0,
+      "value": "API key for reading and writing data via OpenAgenda's API."
+    }
+  ],
+  "next.components.settings.ApiKeys.keyName": [
+    {
+      "type": 0,
+      "value": "Key name"
+    }
+  ],
+  "next.components.settings.ApiKeys.publicKey": [
+    {
+      "type": 0,
+      "value": "Public key"
+    }
+  ],
+  "next.components.settings.ApiKeys.remove": [
+    {
+      "type": 0,
+      "value": "Remove"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKey": [
+    {
+      "type": 0,
+      "value": "Remove key"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKeyWarning": [
+    {
+      "type": 0,
+      "value": "Are you sure you want to delete this key?"
+    }
+  ],
+  "next.components.settings.ApiKeys.save": [
+    {
+      "type": 0,
+      "value": "Save"
+    }
+  ],
+  "next.components.settings.ApiKeys.secretKey": [
+    {
+      "type": 0,
+      "value": "Secret key"
+    }
+  ],
+  "next.components.settings.ApiKeys.shownOnce": [
+    {
+      "type": 0,
+      "value": "Copy this key now: it won't be shown again."
+    }
+  ],
+  "next.components.settings.ApiKeys.summary": [
+    {
+      "type": 0,
+      "value": "Show api keys"
+    }
+  ],
+  "next.components.settings.ApiKeys.tiersHelp": [
+    {
+      "type": 0,
+      "value": "A public key (pk) is read-only and safe to embed client-side; a secret key (sk) can also write and must stay private."
+    }
+  ],
+  "next.components.settings.ApiKeys.title": [
+    {
+      "type": 0,
+      "value": "API keys"
+    }
+  ],
   "next.components.settings.DeleteAccount.authError": [
     {
       "type": 0,

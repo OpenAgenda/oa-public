@@ -201,6 +201,126 @@
       "value": "da gontrollañ"
     }
   ],
+  "next.components.settings.ApiKeys.cancel": [
+    {
+      "type": 0,
+      "value": "Nullañ"
+    }
+  ],
+  "next.components.settings.ApiKeys.copied": [
+    {
+      "type": 0,
+      "value": "Eilet"
+    }
+  ],
+  "next.components.settings.ApiKeys.copy": [
+    {
+      "type": 0,
+      "value": "Kopiañ"
+    }
+  ],
+  "next.components.settings.ApiKeys.documentation": [
+    {
+      "type": 0,
+      "value": "Gwelet an teuliadur"
+    }
+  ],
+  "next.components.settings.ApiKeys.edit": [
+    {
+      "type": 0,
+      "value": "Kemmañ"
+    }
+  ],
+  "next.components.settings.ApiKeys.error": [
+    {
+      "type": 0,
+      "value": "Ur gudenn 'zo bet e-pad keweriañ an obererezh, klaskit en-dro a-benn ur pennadig."
+    }
+  ],
+  "next.components.settings.ApiKeys.generatePublicKey": [
+    {
+      "type": 0,
+      "value": "Krouiñ un alc'hwez foran"
+    }
+  ],
+  "next.components.settings.ApiKeys.generateSecretKey": [
+    {
+      "type": 0,
+      "value": "Krouiñ un alc'hwez kuzh"
+    }
+  ],
+  "next.components.settings.ApiKeys.info": [
+    {
+      "type": 0,
+      "value": "An alc'hwezioù API a ro an tu da lenn ha skrivañ roadennoù war OpenAgenda dre an API."
+    }
+  ],
+  "next.components.settings.ApiKeys.keyName": [
+    {
+      "type": 0,
+      "value": "Anv alc'hwez"
+    }
+  ],
+  "next.components.settings.ApiKeys.publicKey": [
+    {
+      "type": 0,
+      "value": "Alc'hwez foran"
+    }
+  ],
+  "next.components.settings.ApiKeys.remove": [
+    {
+      "type": 0,
+      "value": "Lemel"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKey": [
+    {
+      "type": 0,
+      "value": "Dilemel an alc'hwez"
+    }
+  ],
+  "next.components.settings.ApiKeys.removeKeyWarning": [
+    {
+      "type": 0,
+      "value": "Ha sur oc'h e fell deoc'h dilemel an alc'hwez-mañ?"
+    }
+  ],
+  "next.components.settings.ApiKeys.save": [
+    {
+      "type": 0,
+      "value": "Enrollañ"
+    }
+  ],
+  "next.components.settings.ApiKeys.secretKey": [
+    {
+      "type": 0,
+      "value": "Alc'hwez kuzh"
+    }
+  ],
+  "next.components.settings.ApiKeys.shownOnce": [
+    {
+      "type": 0,
+      "value": "Eilit an alc'hwez-mañ bremañ : ne vo ket diskwelet en-dro."
+    }
+  ],
+  "next.components.settings.ApiKeys.summary": [
+    {
+      "type": 0,
+      "value": "Diskouez hoc'h alc'hwezioù API"
+    }
+  ],
+  "next.components.settings.ApiKeys.tiersHelp": [
+    {
+      "type": 0,
+      "value": "Un alc'hwez foran (pk) a zo lenn-hepken ha gallout a reer e enframmañ en tu-kliant ; un alc'hwez kuzh (sk) a c'hall ivez skrivañ ha rankout a ra chom kuzh."
+    }
+  ],
+  "next.components.settings.ApiKeys.title": [
+    {
+      "type": 0,
+      "value": "Alc'hwezioù API"
+    }
+  ],
   "next.components.settings.DeleteAccount.authError": [
     {
       "type": 0,

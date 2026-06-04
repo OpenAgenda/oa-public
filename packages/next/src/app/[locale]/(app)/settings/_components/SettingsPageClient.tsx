@@ -20,6 +20,7 @@ import LanguageSection from './LanguageSection';
 import EmailSection from './EmailSection';
 import PasswordSection from './PasswordSection';
 import ImageSection from './ImageSection';
+import ApiKeysSection from './ApiKeysSection';
 import NotificationsSection from './NotificationsSection';
 import DeleteAccountSection from './DeleteAccountSection';
 
@@ -103,6 +104,7 @@ export default function SettingsPageClient() {
                   </>
                 )}
                 <ImageSection user={user} onUpdated={refreshUser} />
+                <ApiKeysSection user={user} />
                 <NotificationsSection user={user} />
                 <DeleteAccountSection />
               </AccordionRoot>

@@ -8,6 +8,7 @@ export type SettingsUser = {
   culture?: string;
   image?: string | null;
   hasLocalAccount?: boolean;
+  canCreateSecretKeys?: boolean;
 };
 
 export const SETTINGS_LANGUAGES: { code: string; label: string }[] = [

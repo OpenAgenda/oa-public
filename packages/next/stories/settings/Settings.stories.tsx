@@ -13,6 +13,7 @@ import LanguageSection from '@/src/app/[locale]/(app)/settings/_components/Langu
 import EmailSection from '@/src/app/[locale]/(app)/settings/_components/EmailSection';
 import PasswordSection from '@/src/app/[locale]/(app)/settings/_components/PasswordSection';
 import ImageSection from '@/src/app/[locale]/(app)/settings/_components/ImageSection';
+import ApiKeysSection from '@/src/app/[locale]/(app)/settings/_components/ApiKeysSection';
 import NotificationsSection from '@/src/app/[locale]/(app)/settings/_components/NotificationsSection';
 import DeleteAccountSection from '@/src/app/[locale]/(app)/settings/_components/DeleteAccountSection';
 import type { SettingsUser } from '@/src/app/[locale]/(app)/settings/_components/types';
@@ -31,7 +32,28 @@ const user: SettingsUser = {
   culture: 'fr',
   image: 'user.profile.12345.sample.jpg',
   hasLocalAccount: true,
+  canCreateSecretKeys: true,
 };
+
+// Stateful API-keys mock: list/create/rename/revoke persist in this Map for the
+// session so the section is fully exercisable.
+const apiKeysStore = new Map<string, Record<string, unknown>>([
+  ['k_pub', { id: 'k_pub', name: 'Site web', metadata: { oaKind: 'pk' } }],
+  [
+    'k_sec',
+    { id: 'k_sec', name: 'Import serveur', metadata: { oaKind: 'sk' } },
+  ],
+  [
+    'k_legacy',
+    {
+      id: 'k_legacy',
+      name: 'Ancienne clé',
+      start: 'oa1a2b3c4d',
+      metadata: { oaKind: 'pk', source: 'mirror' },
+    },
+  ],
+]);
+let apiKeyCounter = 0;
 
 // Wrap stories in the same UIKit + react-intl providers the app's Providers.tsx
 // sets up. `locale` defaults to `fr`; switch it via the `locale` arg to preview
@@ -143,6 +165,34 @@ const okHandlers = [
     HttpResponse.json(await request.json()),
   ),
   http.post('/newsletter/subscribe', () => HttpResponse.json({})),
+  http.get('/users/me/api-keys', () =>
+    HttpResponse.json({
+      items: [...apiKeysStore.values()],
+      total: apiKeysStore.size,
+    }),
+  ),
+  http.post('/users/me/api-keys', async ({ request }) => {
+    const body = (await request.json()) as { oaKind?: 'pk' | 'sk' };
+    apiKeyCounter += 1;
+    const id = `k_new_${apiKeyCounter}`;
+    const record = { id, name: '', metadata: { oaKind: body.oaKind } };
+    apiKeysStore.set(id, record);
+    return HttpResponse.json(
+      { key: `oa_${body.oaKind}_demo_${id}`, record },
+      { status: 201 },
+    );
+  }),
+  http.patch('/users/me/api-keys/:keyId', async ({ request, params }) => {
+    const id = params.keyId as string;
+    const body = (await request.json()) as { name?: string };
+    const record = { ...(apiKeysStore.get(id) ?? { id }), name: body.name };
+    apiKeysStore.set(id, record);
+    return HttpResponse.json({ record });
+  }),
+  http.delete('/users/me/api-keys/:keyId', ({ params }) => {
+    apiKeysStore.delete(params.keyId as string);
+    return HttpResponse.json({ removed: true });
+  }),
   http.get('/users/me', () => HttpResponse.json(user)),
   http.patch('/users/me', () => HttpResponse.json(user)),
   http.patch(
@@ -261,6 +311,10 @@ export const PasswordInvalidCurrent = {
 
 export const Image = {
   render: sectionStory('image', ImageSection),
+};
+
+export const ApiKeys = {
+  render: sectionStory('apiKey', ApiKeysSection),
 };
 
 export const Notifications = {
