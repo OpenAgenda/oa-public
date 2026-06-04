@@ -200,7 +200,7 @@ du serveur MCP>` à l'authorize/token → on obtient un **JWT EdDSA audience-bou
 
 - **Config better-auth requise (sinon 400 `requested resource invalid`)** :
   `checkResource` valide `resource` contre `opts.validAudiences ?? [baseURL]`. Il faut donc,
-  dans `packages/auth/src/index.js`, `oauthProvider({ validAudiences: [MCP_RESOURCE_URL], … })`.
+  dans `packages/auth/src/index.js`, `oauthProvider({ validAudiences: [OA_MCP_RESOURCE_URL], … })`.
   (Si scope `openid` demandé, l'audience `…/oauth2/userinfo` est auto-ajoutée — sans impact.)
   C'est **le seul changement côté `packages/auth`** pour O2.
 
@@ -248,7 +248,7 @@ scopes_supported, bearer_methods_supported:['header'], resource_name }`. Pas de 
 - **Dev** : `https://dmcp.openagenda.com` — son entrée `/etc/hosts`, son certificat CA-signé
   généré par `docker/devinstaller` (script générique `create_domain_certificates.sh`), son
   server block nginx. **Prod** : serveur à part (même topologie standalone).
-- **`MCP_RESOURCE_URL = https://dmcp.openagenda.com/mcp`** (2026-06-03) → sert d'`aud`/`resource`.
+- **`OA_MCP_RESOURCE_URL = https://dmcp.openagenda.com/mcp`** (2026-06-03) → sert d'`aud`/`resource`.
   Le **path `/mcp` est l'endpoint protocole ET l'identifiant de ressource** (ils coïncident : l'URL
   dont le client est configuré est liée comme `aud` du token). Convention des MCP hébergés (Sentry
   `mcp.sentry.dev/mcp`, GitHub, Ref). **Pourquoi un path et pas la racine** :
@@ -259,7 +259,7 @@ scopes_supported, bearer_methods_supported:['header'], resource_name }`. Pas de 
     (match exact côté AS _et_ conteneur MCP via jose). _(Histoire : d'abord canonisé `…/` avec slash
     pour matcher la normalisation WHATWG, puis basculé sur `…/mcp` — plus propre.)_
   - PRM servi au chemin **suffixé** `https://dmcp.openagenda.com/.well-known/oauth-protected-resource/mcp`
-    (= `getOAuthProtectedResourceMetadataUrl(new URL(MCP_RESOURCE_URL))`, RFC 9728), **sans collision Next ni rewrite.**
+    (= `getOAuthProtectedResourceMetadataUrl(new URL(OA_MCP_RESOURCE_URL))`, RFC 9728), **sans collision Next ni rewrite.**
 
 #### `.well-known` / nginx
 
@@ -310,14 +310,14 @@ docker interne** (`http://node:8903/api/auth/jwks`, `http://node:8902/v3`) → p
 (le JWKS = clés publiques ; `iss`/`aud` vérifiés restent les valeurs publiques). Executor dev =
 `node + OA_LOCAL_NO_SANDBOX` (pas de deno/microsandbox dans l'image — trusted local, read-only).
 
-1. ✅ **`.env.sample`** : `DEPLOY_MCP_NGINX_PROXY`, `MCP_DOMAIN`, `MCP_SSL_CERT/KEY`,
-   `MCP_OAUTH_ISSUER`, `MCP_OAUTH_JWKS_URL`, `MCP_RESOURCE_URL`, `MCP_BASE_URL` (plus de `MCP_API_KEY`
+1. ✅ **`.env.sample`** : `DEPLOY_MCP_NGINX_PROXY`, `OA_MCP_DOMAIN`, `OA_MCP_SSL_CERT/KEY`,
+   `OA_MCP_OAUTH_ISSUER`, `OA_MCP_OAUTH_JWKS_URL`, `OA_MCP_RESOURCE_URL`, `OA_MCP_BASE_URL` (plus de `MCP_API_KEY`
    pour l'hébergé : délégation-only, cf. « Modèle credential »).
-2. ✅ **`docker/devinstaller/run.sh`** : passe `${MCP_DOMAIN}` à `command.sh` (génère le cert CA-signé).
+2. ✅ **`docker/devinstaller/run.sh`** : passe `${OA_MCP_DOMAIN}` à `command.sh` (génère le cert CA-signé).
 3. ✅ **`docker-compose.yml`** : service `mcp` (node:24-alpine, `node packages/mcp/src/index.js`,
-   transport=http, env interne) ; nginx monte `${MCP_SSL_CERT}:/ssl/mcp.cert.pem` + clé, link `mcp`,
+   transport=http, env interne) ; nginx monte `${OA_MCP_SSL_CERT}:/ssl/mcp.cert.pem` + clé, link `mcp`,
    6ᵉ arg `${DEPLOY_MCP_NGINX_PROXY:-0}`. **`docker compose config` valide.**
-4. ✅ **`docker/nginx/mcp.conf`** : `server_name ${MCP_DOMAIN}`, cert `/ssl/mcp.cert.pem`, upstream
+4. ✅ **`docker/nginx/mcp.conf`** : `server_name ${OA_MCP_DOMAIN}`, cert `/ssl/mcp.cert.pem`, upstream
    `mcp:8904` (`keepalive 2`), `location /` proxie **tout** le sous-domaine vers le conteneur (qui route
    en interne `GET /` landing, `POST /mcp` endpoint, `/.well-known/oauth-protected-resource/mcp` PRM), `proxy_buffering off`,
    `proxy_read_timeout 1h`, CORS. Garde de suppression dans `nginx/command.sh` si

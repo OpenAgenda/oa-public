@@ -21,7 +21,7 @@ const mcpExchangeSecret = prod.mcpExchangeSecret ?? process.env.OA_MCP_EXCHANGE_
 // so the exchange-client registry below can declare it as the MCP's
 // `subjectResource` — the audience that one client is allowed to exchange.
 const mcpResourceUrl = prod.mcpResourceUrl
-  ?? process.env.MCP_RESOURCE_URL
+  ?? process.env.OA_MCP_RESOURCE_URL
   ?? 'https://dmcp.openagenda.com/mcp';
 
 const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length
@@ -88,7 +88,7 @@ const config = {
   // trailing-slash trap of a bare origin: `new URL('https://host/mcp').href`
   // stays `…/mcp` (WHATWG only appends `/` to a bare authority), so the value a
   // client sends, the token `aud`, and `validAudiences` (exact Set match) all
-  // coincide. Prod's MCP_RESOURCE_URL must likewise end in `/mcp`. (Hoisted to a
+  // coincide. Prod's OA_MCP_RESOURCE_URL must likewise end in `/mcp`. (Hoisted to a
   // const above — the exchange registry references it as a `subjectResource`.)
   mcpResourceUrl,
   // O2.5 token-exchange (RFC 8693). The v3 API resource id (`aud=api`) that the
