@@ -4,7 +4,7 @@
 
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { z } from 'zod';
-import { searchOperations, renderOperation } from './docs/operations.js';
+import { searchOperations, renderSearch } from './docs/operations.js';
 import { buildScript } from './sandbox/preamble.js';
 
 // Cap on the diagnostic text returned to the client on a failed run. Bounds the
@@ -88,8 +88,7 @@ export function createServer({ config, executor, credential, getCredential }) {
       annotations: { readOnlyHint: true, openWorldHint: false },
     },
     async ({ query }) => {
-      const hits = searchOperations(query);
-      const text = hits.map(renderOperation).join('\n\n---\n\n');
+      const text = renderSearch(searchOperations(query));
       return { content: [textContent(text)] };
     },
   );
@@ -103,12 +102,13 @@ export function createServer({ config, executor, credential, getCredential }) {
       title: 'Execute code against the OpenAgenda API',
       description: [
         'Run JavaScript against the OpenAgenda v3 read-only API and return its result.',
-        'A ready-to-use `oa` client (an OpenAgenda instance) is available (see search_docs for params):',
-        '  oa.agendas.events.list({ path: { agendaUid }, query? })',
-        '  oa.agendas.events.get({ path: { agendaUid, eventUid } })',
-        '  oa.agendas.events.facets({ path: { agendaUid }, query? })',
-        'Each is async and resolves to { data, error } — it does NOT throw on HTTP errors, so check `error`.',
-        'For list/facets, `data` is { data: [...], pagination: { after } }; pass query.after to page.',
+        'A ready-to-use `oa` client (an OpenAgenda instance) is available. Every operation is',
+        '`oa.<resource>.<action>({ path?, query? })`, is async, and resolves to { data, error }',
+        '— it does NOT throw on HTTP errors, so check `error`. Call search_docs to discover the',
+        "full catalogue with each operation's params, response shape and a runnable example, e.g.:",
+        '  oa.agendas.events.list({ path: { agendaUid }, query: { relative: ["upcoming"] } })',
+        'List endpoints return { data: [...], pagination: { after } } — pass query.after to page;',
+        'facets returns { facets: {...} } (no data array, no pagination).',
         'A `schemas` namespace (zod validators, prefixed z…) is also available to validate payloads.',
         'Write an async body and `return` the value you want back (JSON-serialised).',
         'Compose freely: fetch, filter and aggregate in one script; return only what you need.',

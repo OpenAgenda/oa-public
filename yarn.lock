@@ -11458,6 +11458,7 @@ __metadata:
     better-auth: "npm:^1.6.13"
     better-call: "npm:1.3.5"
     jest: "npm:^29.7.0"
+    jose: "npm:^6.2.3"
     kysely: "npm:^0.28.16"
     zod: "npm:^4.4.3"
   peerDependencies:
@@ -12354,6 +12355,7 @@ __metadata:
     jest: "npm:^30.4.2"
     jose: "npm:^6.2.3"
     microsandbox: "npm:^0.5.4"
+    minisearch: "npm:^7.2.0"
     tsdown: "npm:^0.22.0"
     typescript: "npm:^5.6.3"
     yaml: "npm:^2.4.5"
@@ -46230,6 +46232,13 @@ __metadata:
   version: 7.1.2
   resolution: "minipass@npm:7.1.2"
   checksum: 10c0/b0fd20bb9fb56e5fa9a8bfac539e8915ae07430a619e4b86ff71f5fc757ef3924b23b2c4230393af1eda647ed3d75739e4e0acb250a6b1eb277cf7f8fe449557
+  languageName: node
+  linkType: hard
+
+"minisearch@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "minisearch@npm:7.2.0"
+  checksum: 10c0/64efaf30ead2acb19eb8be49c78352c527812dd2927a0981c9d666339d5d206d132b83038d2bfa756f5161cae5d98f15b07cc7e7b7be6b8278d35d2ecdc2628c
   languageName: node
   linkType: hard
 
