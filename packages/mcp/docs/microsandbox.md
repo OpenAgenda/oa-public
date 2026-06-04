@@ -41,27 +41,16 @@ microsandbox provides, out of the box, the controls this use case needs:
   server (self-installing — `isInstalled()/install()` fetched libkrun in ~1 s on
   first use). The host still needs KVM / Apple Silicon.
 
-### Egress is filtered on the TLS SNI — and only one rule form matches
+### Egress is filtered on the TLS SNI — pin the exact host
 
-The load-bearing finding (verified twice on a real host): the _allow_ rule that
-actually admits an HTTPS connection is a **parent `domainSuffix`** (leading dot),
-**not** an exact `domain()` and **not** a `cidr()`.
-
-| rule                                                    | result                       |
-| ------------------------------------------------------- | ---------------------------- |
-| `domain('api.openagenda.com')` (exact)                  | blocks **everything**        |
-| `domainSuffix('api.openagenda.com')` (host)             | blocks everything            |
-| `cidr('<resolved-ip>/32')` + `allowDns`                 | blocks everything (SNI ≠ IP) |
-| `domainSuffix('.openagenda.com')` (parent) + `allowDns` | **api ✅, example.com ⛔**   |
-
-So the working policy is `defaultDeny` + `Rule.allowDns()` +
-`Rule.allowEgress(Destination.domainSuffix('.<parent>'))`, deriving the parent by
-dropping the leftmost label of the API host. `allowDns()` is mandatory (without it
-DNS resolution fails). The boundary is therefore a **first-party domain suffix**
-(`.openagenda.com`); a hardcoded exfil IP is denied because its SNI has no
-matching suffix rule. (DoH-on-443 / tunnelled DNS remain theoretical bypasses of
-any SNI/domain scheme; the µVM + first-party-only suffix keeps the blast radius
-first-party regardless.)
+The match is on the **TLS SNI** (the requested hostname), not the resolved IP or
+the certificate (TLS 1.3 encrypts it). The policy is `defaultDeny` +
+`Rule.allowDns()` + one `Rule.allowEgress(Destination.domain(host))` per API host;
+`allowDns()` is mandatory (resolution fails without it). Pin the **exact** host,
+not a `domainSuffix` parent — the suffix would also admit sibling subdomains (a
+possible internal/private-IP SSRF target). `cidr()` does not match (the check is
+SNI, not IP). An exfil IP or any non-API host has no matching SNI, so no explicit
+metadata/RFC1918/loopback deny is needed — `defaultDeny` already drops them.
 
 ## Measured characteristics
 
@@ -208,15 +197,15 @@ not per µVM.
 
 1. **Beta (v0.5.x)** — explicit "expect breaking changes" warning. Pin the version;
    treat the API as movable.
-2. **Egress matching is SNI-based and the rule form is non-obvious** — see the SNI
-   table above. `defaultDeny` is the boundary, but the allow rule that matches is a
-   parent `domainSuffix`, not an exact `domain()` or a `cidr()`.
+2. **Egress matching is SNI-based** — see the SNI section above. `defaultDeny` is
+   the boundary; the allow rule is an exact `domain(host)` (matched on the
+   requested hostname, not the resolved IP or cert).
 3. **No built-in auth** on the agent/sandbox interface — tenant authn is ours. Fine
    here: the runtime is embedded in our server process, not an exposed service.
 
 ## Tests
 
-Pure pieces (suffix derivation, policy shape, output cap, pool age-guard) are unit
+Pure pieces (policy shape, output cap, pool age-guard) are unit
 tested in CI. The real-µVM behaviour (boot, egress allow/deny, timeout kill) is a
 KVM-gated, opt-in block that self-skips elsewhere:
 
