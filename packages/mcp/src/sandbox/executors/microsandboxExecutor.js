@@ -28,7 +28,7 @@
 //
 // STILL ours (the µVM is isolation, not the whole policy): a scoped per-caller
 // OAuth token with NO ambient credential, rate-limit + concurrency cap, an audit
-// log, version pinning (beta), and tenant authn. See docs/microsandbox-plan.md.
+// log, version pinning (beta), and tenant authn. See docs/microsandbox.md.
 
 import { randomUUID } from 'node:crypto';
 import { MAX_OUTPUT_BYTES } from '../spawn.js';
@@ -264,7 +264,7 @@ export function createMicrosandboxExecutor({
           'microsandbox is not available. It is an optional dependency requiring a '
             + 'virtualization host (Linux + /dev/kvm, or macOS Apple Silicon). Install it on a '
             + 'supported host (`yarn workspace @openagenda/mcp add microsandbox`), or use '
-            + 'OA_EXECUTOR=deno locally. See packages/mcp/docs/microsandbox-plan.md.',
+            + 'OA_EXECUTOR=deno locally. See packages/mcp/docs/microsandbox.md.',
         );
       }
       const { Rule, Destination } = msb;

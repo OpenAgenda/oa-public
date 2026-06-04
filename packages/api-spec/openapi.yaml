@@ -41,6 +41,15 @@ paths:
       operationId: agendas.list
       tags: [Agendas]
       summary: List agendas
+      x-codeSamples:
+        - lang: TypeScript
+          label: List official agendas
+          source: |
+            const { data, error } = await oa.agendas.list({
+              query: { official: true, limit: 20 },
+            });
+            if (error) throw error;
+            return data.data.map((a) => ({ uid: a.uid, title: a.title }));
       description: >
         Returns a cursor-paginated list of agendas. Pass the `after` cursor
         returned in `pagination.after` to fetch the next page; resend the same
@@ -86,6 +95,15 @@ paths:
       operationId: agendas.get
       tags: [Agendas]
       summary: Get one agenda
+      x-codeSamples:
+        - lang: TypeScript
+          label: Get one agenda by uid
+          source: |
+            const { data, error } = await oa.agendas.get({
+              path: { agendaUid: 12345 },
+            });
+            if (error) throw error;
+            return data;
       description: >
         Returns a single agenda in its full `Agenda` representation, including
         `network` and `locationSet`.
@@ -114,6 +132,22 @@ paths:
       operationId: agendas.events.list
       tags: [Events]
       summary: List events of an agenda
+      x-codeSamples:
+        - lang: TypeScript
+          label: All upcoming events in Paris (paging every result)
+          source: |
+            const events = [];
+            let after;
+            do {
+              const { data, error } = await oa.agendas.events.list({
+                path: { agendaUid: 12345 },
+                query: { city: ['Paris'], relative: ['upcoming'], limit: 100, after },
+              });
+              if (error) throw error;
+              events.push(...data.data);
+              after = data.pagination.after;
+            } while (after);
+            return events.length;
       description: >
         Returns a cursor-paginated list of events for the given agenda.
         Pass the `after` cursor returned in `pagination.after` to fetch the
@@ -195,6 +229,15 @@ paths:
       operationId: agendas.events.get
       tags: [Events]
       summary: Get a single event
+      x-codeSamples:
+        - lang: TypeScript
+          label: Get a single event within an agenda
+          source: |
+            const { data, error } = await oa.agendas.events.get({
+              path: { agendaUid: 12345, eventUid: 67890 },
+            });
+            if (error) throw error;
+            return data;
       description: Returns a single event by its uid within the given agenda.
       security:
         - bearerAuth: []
@@ -222,6 +265,16 @@ paths:
       operationId: agendas.events.facets
       tags: [Events]
       summary: Faceted counts for an agenda's events
+      x-codeSamples:
+        - lang: TypeScript
+          label: How many concert events per city
+          source: |
+            const { data, error } = await oa.agendas.events.facets({
+              path: { agendaUid: 12345 },
+              query: { facets: ['cities'], keyword: ['concert'] },
+            });
+            if (error) throw error;
+            return data.facets.cities;
       description: >
         Returns event counts grouped by the requested facets, computed over the
         **same filtered set** as `agendas.events.list`. Pass the same filter
