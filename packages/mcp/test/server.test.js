@@ -60,12 +60,14 @@ describe('MCP server', () => {
       ]);
     });
 
-    it('marks both tools read-only; execute is open-world, search_docs is not', async () => {
+    it('marks search_docs read-only; execute is NOT (runs arbitrary code) and is open-world', async () => {
       ({ client } = await connect());
       const { tools } = await client.listTools();
       const byName = Object.fromEntries(tools.map((t) => [t.name, t]));
+      // execute runs arbitrary code — it must not claim read-only (it can mutate
+      // once the v3 write surface lands), so clients keep gating it.
       expect(byName.execute.annotations).toMatchObject({
-        readOnlyHint: true,
+        readOnlyHint: false,
         openWorldHint: true,
       });
       expect(byName.search_docs.annotations).toMatchObject({

@@ -99,7 +99,7 @@ export function createServer({
     {
       title: 'Search OpenAgenda API docs',
       description:
-        'Find the OpenAgenda v3 read operations relevant to a question. Returns '
+        'Find the OpenAgenda v3 operations relevant to a question. Returns '
         + 'operation signatures, parameters and examples to use from the `execute` tool.',
       inputSchema: {
         query: z
@@ -115,14 +115,16 @@ export function createServer({
   );
 
   // execute — the code-mode tool. The LLM writes JS against the `oa` client; we
-  // run it in the sandbox and return the JSON result. readOnly here because the
-  // POC only exposes read endpoints; openWorld because it reaches the network.
+  // run it in the sandbox and return the JSON result. NOT readOnly: it runs
+  // ARBITRARY code, so it can mutate the moment the v3 write surface lands — the
+  // annotation must not promise read-only, or a client would stop gating it (see
+  // README → "Mutations & moderation"). openWorld because it reaches the network.
   server.registerTool(
     'execute',
     {
       title: 'Execute code against the OpenAgenda API',
       description: [
-        'Run JavaScript against the OpenAgenda v3 read-only API and return its result.',
+        'Run JavaScript against the OpenAgenda v3 API and return its result.',
         'A ready-to-use `oa` client (an OpenAgenda instance) is available. Every operation is',
         '`oa.<resource>.<action>({ path?, query? })`, is async, and resolves to { data, error }',
         '— it does NOT throw on HTTP errors, so check `error`. Call search_docs to discover the',
@@ -141,7 +143,7 @@ export function createServer({
           .string()
           .describe('async JS body that returns a JSON-serialisable value'),
       },
-      annotations: { readOnlyHint: true, openWorldHint: true },
+      annotations: { readOnlyHint: false, openWorldHint: true },
     },
     async ({ code }) => {
       // Per-caller sustained-rate guard (HTTP only; no limiter passed on stdio).
