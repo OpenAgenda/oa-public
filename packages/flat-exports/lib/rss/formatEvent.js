@@ -116,10 +116,7 @@ export default (event, options = {}) => {
     ...event.image
       ? {
         enclosure: {
-          url: (event.image.base + event.image.filename).replace(
-            'https://',
-            'http://',
-          ),
+          url: event.image.base + event.image.filename,
           type: 'image/jpeg',
         },
       }
