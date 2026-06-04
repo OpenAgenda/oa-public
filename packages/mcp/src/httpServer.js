@@ -18,6 +18,7 @@ import { requireBearerAuth } from '@modelcontextprotocol/sdk/server/auth/middlew
 import { metadataHandler } from '@modelcontextprotocol/sdk/server/auth/handlers/metadata.js';
 import { getOAuthProtectedResourceMetadataUrl } from '@modelcontextprotocol/sdk/server/auth/router.js';
 import { createServer } from './server.js';
+import { createRateLimiter } from './rateLimiter.js';
 import { createTokenVerifier } from './auth/verifier.js';
 import { exchangeToken, TokenExchangeError } from './auth/tokenExchange.js';
 import { landingPage } from './landing.js';
@@ -46,6 +47,14 @@ export function createHttpApp({ config, executor }) {
   }
   const app = express();
   app.disable('x-powered-by');
+
+  // Per-caller sustained-rate guard for `execute`, created ONCE and shared across
+  // the per-request servers below so its bucket state persists between requests
+  // (and across the whole process). Keyed on the OAuth `sub` (see the handler).
+  const rateLimiter = createRateLimiter({
+    capacity: config.rateLimit.burst,
+    refillPerSec: config.rateLimit.perMin / 60,
+  });
 
   // The protocol endpoint path IS the resource URL's path — single source of
   // truth so the endpoint, the token audience (`oauth.resourceUrl`), and the PRM
@@ -96,9 +105,20 @@ export function createHttpApp({ config, executor }) {
     // exchange fires only when the `execute` tool actually runs (see
     // createServer/getCredential), so metadata-only POSTs (initialize, tools/list)
     // incur no AS round-trip and stay up even if the AS is briefly unavailable.
+    // Identify the caller for the per-caller rate limit: the consenting user
+    // (`sub`) is the stable, refresh-surviving key; fall back to the client app,
+    // then a shared bucket for a pathological sub-less + client-anonymous token.
+    // `extra.sub` is typed `unknown` (AuthInfo.extra is a free-form bag), so
+    // narrow to a string. Use `||` (not `??`) so an EMPTY-string sub or clientId
+    // falls through instead of becoming a falsy key (the server also defaults the
+    // key, so an empty id can never bypass the limit — defense in depth).
+    const sub = typeof req.auth?.extra?.sub === 'string' ? req.auth.extra.sub : '';
+    const callerId = sub || req.auth?.clientId || 'anonymous';
     const server = createServer({
       config,
       executor,
+      rateLimiter,
+      callerId,
       getCredential: async () => {
         // The bearer middleware guarantees req.auth.token, but assert it
         // explicitly: it makes the invariant the exchange depends on visible

@@ -41,6 +41,14 @@ function clampErrorText(text) {
 const textContent = (text) => ({ type: 'text', text });
 
 /**
+ * A tool-call error result: `isError` + a single text item. Centralises the
+ * envelope shared by the rate-limit, busy and credential-failure paths and the
+ * `fail()` helper — change the shape here, not in four places.
+ * @param {string} text
+ */
+const toolError = (text) => ({ isError: true, content: [textContent(text)] });
+
+/**
  * @param {object} deps
  * @param {ReturnType<import('./config.js').loadConfig>} deps.config
  * @param {import('./sandbox/executor.js').SandboxExecutor} deps.executor
@@ -53,8 +61,21 @@ const textContent = (text) => ({ type: 'text', text });
  *   this (per-request) server. Takes precedence over `credential`. When it
  *   rejects, the `execute` call fails on its own without leaking upstream detail,
  *   instead of failing the whole transport. PER TRANSPORT, see §O2/§O2.5.
+ * @param {{ check: (key: string) => { allowed: boolean, retryAfterMs: number } }} [deps.rateLimiter]
+ *   per-caller sustained-rate guard (HTTP only; shared across this app's
+ *   per-request servers). Absent on stdio (single local user, no caller id).
+ * @param {string} [deps.callerId]  the caller identity the limiter keys on (the
+ *   OAuth `sub`). Used only when `rateLimiter` is set; a falsy/absent id keys a
+ *   shared 'anonymous' bucket (it never bypasses the limit).
  */
-export function createServer({ config, executor, credential, getCredential }) {
+export function createServer({
+  config,
+  executor,
+  credential,
+  getCredential,
+  rateLimiter,
+  callerId,
+}) {
   const server = new McpServer({ name: 'openagenda-mcp', version: '0.0.0' });
 
   // Resolve the credential LAZILY and at most once per server instance. stdio /
@@ -123,6 +144,23 @@ export function createServer({ config, executor, credential, getCredential }) {
       annotations: { readOnlyHint: true, openWorldHint: true },
     },
     async ({ code }) => {
+      // Per-caller sustained-rate guard (HTTP only; no limiter passed on stdio).
+      // Refuse an over-rate caller with a RETRYABLE busy — same back-off
+      // vocabulary as the concurrency cap — BEFORE any work (no token exchange,
+      // no sandbox spawn). Gate on the limiter's presence alone and default the
+      // key, so a falsy/empty callerId falls back to a shared bucket rather than
+      // SKIPPING the limit (a missing id must never be a bypass).
+      if (rateLimiter) {
+        const verdict = rateLimiter.check(callerId || 'anonymous');
+        if (!verdict.allowed) {
+          const retryAfterSec = Math.ceil(verdict.retryAfterMs / 1000);
+          return toolError(
+            "You're sending execute calls too fast — rate limit reached. "
+              + `Wait ~${retryAfterSec}s and retry this execute call.`,
+          );
+        }
+      }
+
       // Resolve the credential at point of use (HTTP: the token-exchange). On
       // failure, fail THIS tool call with a generic message — never echo the
       // upstream error (it may carry AS response detail) — and leave other tools
@@ -131,12 +169,9 @@ export function createServer({ config, executor, credential, getCredential }) {
       try {
         apiCredential = await resolveCredential();
       } catch {
-        return {
-          isError: true,
-          content: [
-            textContent('Could not obtain an API credential for this request.'),
-          ],
-        };
+        return toolError(
+          'Could not obtain an API credential for this request.',
+        );
       }
 
       const script = buildScript(code, {
@@ -144,12 +179,8 @@ export function createServer({ config, executor, credential, getCredential }) {
         apiKey: apiCredential,
       });
 
-      const fail = (text) => ({
-        isError: true,
-        content: [
-          textContent(clampErrorText(redactSecrets(text, apiCredential))),
-        ],
-      });
+      const fail = (text) =>
+        toolError(clampErrorText(redactSecrets(text, apiCredential)));
 
       let res;
       try {
@@ -170,15 +201,10 @@ export function createServer({ config, executor, credential, getCredential }) {
           ? err.code
           : undefined;
         if (errCode === 'EXEC_BUSY' || errCode === 'EXEC_SHUTTING_DOWN') {
-          return {
-            isError: true,
-            content: [
-              textContent(
-                'The server is at capacity right now — no execution slot was '
-                  + 'available. Wait a moment and retry this execute call.',
-              ),
-            ],
-          };
+          return toolError(
+            'The server is at capacity right now — no execution slot was '
+              + 'available. Wait a moment and retry this execute call.',
+          );
         }
         // A backend should RETURN an ExecResult, never throw — but if one does
         // (the microsandbox stub, or an unexpected fault), route it through the

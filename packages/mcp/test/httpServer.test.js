@@ -283,6 +283,42 @@ describe('MCP HTTP resource server', () => {
       expect(JSON.parse(lastExchange.init.body).subject_token).toBe(token);
     });
 
+    it('rate-limits a caller across requests (per-sub, limiter shared by the app)', async () => {
+      // Two execute calls from the SAME caller (same token → same `sub`) on a
+      // burst-of-1 app: the first runs, the second is refused. Proves the limiter
+      // persists across the stateless per-request servers and is keyed on `sub`.
+      const limitedApp = buildApp({
+        OA_RATE_LIMIT_BURST: '1',
+        OA_RATE_LIMIT_PER_MIN: '1', // ~no refill within the test window
+      });
+      const server = await listen(limitedApp);
+      const url = `http://127.0.0.1:${server.address().port}/mcp`;
+      try {
+        const token = await signToken();
+        const call = (id) =>
+          rpc({
+            method: 'tools/call',
+            params: { name: 'execute', arguments: { code: 'return 1;' } },
+            token,
+            id,
+            url,
+          });
+
+        const first = await call(1);
+        expect(first.status).toBe(200);
+        expect(first.body.result.isError).toBeFalsy();
+
+        const second = await call(2);
+        expect(second.status).toBe(200); // transport OK — the TOOL refuses
+        expect(second.body.result.isError).toBe(true);
+        expect(second.body.result.content.map((c) => c.text).join('')).toMatch(
+          /rate limit/i,
+        );
+      } finally {
+        await new Promise((resolve) => server.close(resolve));
+      }
+    });
+
     it('fails the execute tool (not the transport) when the exchange is rejected', async () => {
       // Lazy delegation: a rejected exchange fails THAT tool call (isError, with a
       // generic message — never the upstream detail) while the transport stays 200

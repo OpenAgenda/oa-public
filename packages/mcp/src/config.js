@@ -11,6 +11,8 @@
 //   OA_MAX_CONCURRENCY       max simultaneous executes        (default: 4; the host-RAM guardrail)
 //   OA_EXEC_MAX_QUEUE        max executes waiting for a slot   (default: OA_MAX_CONCURRENCY × 10)
 //   OA_EXEC_QUEUE_TIMEOUT_MS max wait for a free slot         (default: 30000; then a retryable busy)
+//   OA_RATE_LIMIT_PER_MIN    sustained execute calls/min per caller (default: 60; transport=http)
+//   OA_RATE_LIMIT_BURST      execute-call burst per caller    (default: 20; token-bucket size)
 //   OA_MICROSANDBOX_IMAGE    OCI image for the µVM runtime    (default: node:24-alpine)
 //   OA_MICROSANDBOX_POOL_SIZE  warm single-use µVM spares     (default: 0 = off; throughput optim)
 //   OA_MCP_TRANSPORT         stdio | http                     (default: stdio)
@@ -334,6 +336,15 @@ export function loadConfig(env = process.env) {
     maxConcurrency,
     execMaxQueue: int(env.OA_EXEC_MAX_QUEUE, maxConcurrency * 10),
     execQueueTimeoutMs: int(env.OA_EXEC_QUEUE_TIMEOUT_MS, 30000),
+    // Per-caller sustained-rate guardrail (rateLimiter.js, transport=http only):
+    // a token bucket keyed on the OAuth `sub` so one caller can't monopolise the
+    // shared execution budget over time. `burst` is the bucket size (a natural
+    // burst of calls in one agent step); `perMin` the refill (sustained rate).
+    // int() floors both at >0 — the limit can't be silently disabled.
+    rateLimit: {
+      perMin: int(env.OA_RATE_LIMIT_PER_MIN, 60),
+      burst: int(env.OA_RATE_LIMIT_BURST, 20),
+    },
     // TLS trust for the sandboxed runtime. OFF by default → neutral in
     // production (api.openagenda.com has a public CA). DEV-only: dapi serves a
     // private CA (O=OADEV), unknown to Node's bundled roots — set one of these.

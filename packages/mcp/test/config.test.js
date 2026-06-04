@@ -286,6 +286,32 @@ describe('loadConfig', () => {
     );
   });
 
+  describe('rate-limit guardrail', () => {
+    it('defaults to 60 calls/min with a burst of 20', () => {
+      const cfg = loadConfig({});
+      expect(cfg.rateLimit).toEqual({ perMin: 60, burst: 20 });
+    });
+
+    it('honours explicit OA_RATE_LIMIT_PER_MIN / OA_RATE_LIMIT_BURST', () => {
+      const cfg = loadConfig({
+        OA_RATE_LIMIT_PER_MIN: '120',
+        OA_RATE_LIMIT_BURST: '5',
+      });
+      expect(cfg.rateLimit).toEqual({ perMin: 120, burst: 5 });
+    });
+
+    it.each(['0', '-5', 'abc', ''])(
+      'floors an invalid value %p back to the defaults (never disables the limit)',
+      (raw) => {
+        const cfg = loadConfig({
+          OA_RATE_LIMIT_PER_MIN: raw,
+          OA_RATE_LIMIT_BURST: raw,
+        });
+        expect(cfg.rateLimit).toEqual({ perMin: 60, burst: 20 });
+      },
+    );
+  });
+
   describe('custom base URL', () => {
     it('derives the host + egress allowlist from OA_BASE_URL (dev)', () => {
       const cfg = loadConfig({ OA_BASE_URL: 'https://dapi.openagenda.com/v3' });
