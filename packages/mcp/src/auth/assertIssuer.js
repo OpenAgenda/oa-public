@@ -49,6 +49,10 @@ export async function assertIssuer({
   warn = (msg) => process.stderr.write(msg),
   fetchImpl = fetch,
 }) {
+  // The AS metadata (RFC 8414) — external JSON whose shape we don't control;
+  // res.json() is `unknown`, so type it `any` to read the one load-bearing field
+  // (`issuer`) without an inline cast. `undefined` until a metadata URL resolves.
+  /** @type {any} */
   let meta;
   let lastErr;
   for (const url of metadataUrls(issuer)) {

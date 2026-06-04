@@ -75,7 +75,10 @@ async function main() {
     // Standalone OAuth resource server (StreamableHTTP behind bearer auth). The
     // server+transport are created per request inside the app (stateless), so
     // there is no top-level McpServer to connect here.
-    const { oauth } = config; // non-null for transport=http (loadConfig guard)
+    const { oauth } = config;
+    // loadConfig guarantees oauth for transport=http (fail-closed). Assert it so
+    // the invariant is explicit and the type narrows for the reads below.
+    if (!oauth) throw new Error('transport=http requires OAuth config (unreachable)');
     // Self-check the issuer against the AS metadata BEFORE opening the port:
     // a bare-origin OA_OAUTH_ISSUER (missing the /api/auth basePath) would 401
     // every token silently. Throws on a genuine mismatch (→ fatal exit); a
