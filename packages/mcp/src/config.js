@@ -307,7 +307,7 @@ export function loadConfig(env = process.env) {
     // Warm single-use µVM spares to pre-boot (microsandbox only; 0 = off). A
     // throughput optimization for the hosted surface — takes the ~74%-of-latency
     // create step off the hot path, at the cost of each spare's RAM. See
-    // docs/microsandbox-plan.md → "As built / Pooling".
+    // docs/microsandbox.md → "Pooling & sizing".
     microsandboxPoolSize: int(env.OA_MICROSANDBOX_POOL_SIZE, 0),
     // Egress allowlist consumed by the executor (when it owns egress) and by the
     // emitted wrapper policy (when the wrapper does): ONLY the API host.

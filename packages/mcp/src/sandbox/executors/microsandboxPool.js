@@ -1,6 +1,7 @@
 // A pool of PRE-WARMED, SINGLE-USE µVMs.
 //
-// The µVM `create` step is ~74% of a run's latency (see docs/microsandbox-plan.md).
+// The µVM `create` step is ~74% of a run's latency (see docs/microsandbox.md →
+// "Measured characteristics").
 // This pool pays it ahead of time: it keeps `size` spares already created, so an
 // acquire on a hit returns instantly and the run pays only `exec`.
 //

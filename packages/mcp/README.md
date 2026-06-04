@@ -209,7 +209,7 @@ runs it in the sandbox.
 | `OA_SANDBOX_TIMEOUT_MS`     | `5000`                                   | hard wall-clock kill                                                                                             |
 | `OA_SANDBOX_MEMORY_MB`      | `256`                                    | V8 heap cap (node/deno) / hard µVM RAM cap (microsandbox — needs more headroom)                                  |
 | `OA_MICROSANDBOX_IMAGE`     | `node:24-alpine`                         | OCI image for the µVM (microsandbox; official Node Alpine, `node` on PATH; pin a digest in prod — see config.js) |
-| `OA_MICROSANDBOX_POOL_SIZE` | `0` (off)                                | warm single-use µVM spares (microsandbox; throughput optim, holds RAM — see plan)                                |
+| `OA_MICROSANDBOX_POOL_SIZE` | `0` (off)                                | warm single-use µVM spares (microsandbox; throughput optim, holds RAM — see docs/microsandbox.md)                |
 | `OA_USE_SYSTEM_CA`          | _off_                                    | **dev only**: trust the OS cert store (Node bundles its own)                                                     |
 | `OA_EXTRA_CA_CERTS`         | _none_                                   | **dev only**: path to an extra PEM CA bundle                                                                     |
 
@@ -230,12 +230,13 @@ they are **NOT** a hard boundary against untrusted code. `config.js` **fails
 closed**: `OA_MCP_MODE=hosted` requires `OA_EXECUTOR=microsandbox` with
 `OA_CODE_EGRESS_AUTHORITY=executor`, and refuses everything else.
 
-> **The microsandbox plan** (verified capabilities, phased rollout, sequencing
-> behind write + OAuth) lives in [docs/microsandbox-plan.md](docs/microsandbox-plan.md).
-> The engine itself is **implemented** (the Phase-1 adapter — boot, host-enforced
-> egress, hard caps), validated on a real KVM host; what remains before going
-> public is the policy layer (per-caller OAuth token, rate-limit, audit) and ops.
-> Run the µVM integration tests on a virtualization host with `OA_MSB_IT=1 yarn workspace @openagenda/mcp test`.
+> **The microsandbox reference** (measured latency/footprint, the SNI egress
+> model, image rationale, pool sizing and lifetime invariant) lives in
+> [docs/microsandbox.md](docs/microsandbox.md). The engine itself is
+> **implemented** (boot, host-enforced egress, hard caps), validated on a real KVM
+> host; what remains before going public is the policy layer (per-caller OAuth
+> token, rate-limit, audit) and ops. Run the µVM integration tests on a
+> virtualization host with `OA_MSB_IT=1 yarn workspace @openagenda/mcp test`.
 
 > **The egress allowlist is the exfiltration boundary — not the `oa` client.**
 > The executed code is untrusted and shares scope with the `oa` client: it can
@@ -307,13 +308,48 @@ actions inside a script — bad for approval/audit. Plan for a **hybrid**: keep
 annotated tools gated by human approval** for the sensitive operations (delete
 agenda, moderate/reject, remove member).
 
+## Design decisions
+
+- **Two tools, one round-trip.** Code-mode exposes `search_docs` + `execute`, not
+  a third `describe_operation` (which would add an LLM↔MCP round-trip per call) —
+  `search_docs` returns the signature, typed params, response shape and a runnable
+  example in one shot, with detail **modulated by rank** (top hits render in full,
+  the long tail compactly), so the payload stays bounded as the catalogue grows to
+  dozens of operations. This mirrors the Stainless "SDK Code Mode" shape.
+- **`search_docs` ranks with MiniSearch (lexical BM25), not embeddings.** For a
+  tiny (dozens-of-ops), keyword-heavy catalogue queried in natural language,
+  lexical search is the right tool and the industry default (Anthropic ships
+  BM25 + regex for tool search out of the box; embeddings are their escape hatch
+  for hundreds-to-thousands of tools). MiniSearch is the only candidate that meets
+  every constraint with nothing to spare: **pure ESM, zero deps, no native binary,
+  synchronous, deterministic BM25+**, with fuzzy + prefix + field boost. Notes on
+  the alternatives weighed:
+  - **Orama** (the only credible upgrade) adds vector/hybrid, but its offline
+    in-process embedder needs a TensorFlow.js **native** backend, its core API is
+    `T | Promise<T>` (async leaks into every call site), and it carries more churn.
+    Revisit only if funded multilingual semantic search becomes a requirement —
+    and even then via bring-your-own precomputed vectors, not `tfjs-node`.
+  - **Semantic / embeddings** underperform here: the discriminating tokens are
+    identifiers, param names and enum values, exactly where dense vectors dilute
+    specificity vs BM25 — and multilingual stemming is moot because the indexed
+    corpus is the **English** API contract, so an NL query in any language is a
+    synonym/expansion problem (handled by a small curated `SYNONYMS` map + fuzzy),
+    not a stemming one.
+- **Fuzzy is gated to long terms** (`> 6` chars). A blanket fuzzy distance turns
+  short words into false hits (`show`→`how`, `events`→`event`), surfacing the wrong
+  operation; prefix matching covers partial words, fuzzy is reserved for typos in
+  longer tokens.
+- **Examples live as `x-codeSamples` in the OpenAPI contract** (co-located with
+  each operation, also consumable by Scalar), with an auto-derived skeleton as
+  fallback — so a single source serves the MCP and future reference docs.
+
 ## What this POC deliberately does NOT do
 
 - The `microsandbox` engine (hosted µVM boundary) **is implemented** and verified
   on a real KVM host, but the surrounding hosted **policy layer is not** — no
   per-caller OAuth token, rate-limit, concurrency cap or audit log yet (the
   fail-closed gate keeps `hosted` from shipping without them). See
-  [docs/microsandbox-plan.md](docs/microsandbox-plan.md).
+  [docs/microsandbox.md](docs/microsandbox.md).
 - No OAuth / scopes — uses a single shared Bearer key from env (read-only,
   transitional). The key is redacted from returned error text, but it is still a
   shared ambient credential: see Auth above.
