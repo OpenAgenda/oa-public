@@ -441,6 +441,30 @@ function buildEventSearchQuery(rawQuery = {}) {
     if (value !== undefined) query.sort = value;
   }
 
+  // ---- relevance threshold ----
+  // Score floor for syntactic (`search`) results: 'off' (default), 'auto'
+  // (dynamic elbow cutoff), or a non-negative number used as an absolute
+  // min_score. Numeric strings are coerced; anything else is a 400.
+  if (
+    rawQuery.threshold !== undefined
+    && isScalar('threshold', rawQuery.threshold)
+  ) {
+    const raw = rawQuery.threshold;
+    if (raw === 'off' || raw === 'auto') {
+      query.threshold = raw;
+    } else {
+      const n = Number(raw);
+      if (Number.isFinite(n) && n >= 0) {
+        query.threshold = n;
+      } else {
+        fail(
+          'threshold',
+          'threshold must be "off", "auto", or a non-negative number',
+        );
+      }
+    }
+  }
+
   // ---- agenda-specific additional fields ----
   // We pass `additionalFields[<field>]` through under core's `query.custom`;
   // `core` resolves the agenda's form schema (auto-injected from the loaded

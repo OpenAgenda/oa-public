@@ -129,6 +129,22 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
         sort: 'updatedAt.desc',
       });
     });
+
+    it('maps the relevance threshold keywords and numbers', () => {
+      expect(buildEventSearchQuery({ threshold: 'auto' })).toEqual({
+        threshold: 'auto',
+      });
+      expect(buildEventSearchQuery({ threshold: 'off' })).toEqual({
+        threshold: 'off',
+      });
+      // numeric strings are coerced to numbers for an absolute min_score
+      expect(buildEventSearchQuery({ threshold: '20' })).toEqual({
+        threshold: 20,
+      });
+      expect(buildEventSearchQuery({ threshold: '0' })).toEqual({
+        threshold: 0,
+      });
+    });
   });
 
   describe('visibility lock: moderation/internal params are never forwarded', () => {
@@ -201,6 +217,20 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
 
     it('rejects an unknown sort value', () => {
       expect(badRequestFields({ sort: 'title.asc' })).toContain('sort');
+    });
+
+    it('rejects an invalid threshold keyword', () => {
+      expect(badRequestFields({ threshold: 'strict' })).toContain('threshold');
+    });
+
+    it('rejects a negative threshold', () => {
+      expect(badRequestFields({ threshold: '-5' })).toContain('threshold');
+    });
+
+    it('rejects a threshold given multiple times', () => {
+      expect(badRequestFields({ threshold: ['auto', '20'] })).toContain(
+        'threshold',
+      );
     });
 
     it('rejects a non-boolean featured', () => {

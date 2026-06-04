@@ -82,6 +82,7 @@ export async function init(config, services) {
     },
     emptyValue: 'null',
     assetsPath: config.s3.mainBucketPath,
+    relevanceMinDrop: config.eventSearchRelevanceMinDrop,
     dynamicSettings: {
       max_result_window: 30000,
     },
