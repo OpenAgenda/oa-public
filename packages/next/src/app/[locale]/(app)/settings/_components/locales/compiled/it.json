@@ -225,12 +225,6 @@
       "value": "Vedi la documentazione"
     }
   ],
-  "next.components.settings.ApiKeys.edit": [
-    {
-      "type": 0,
-      "value": "Modifica"
-    }
-  ],
   "next.components.settings.ApiKeys.error": [
     {
       "type": 0,
@@ -249,6 +243,12 @@
       "value": "Genera una chiave segreta"
     }
   ],
+  "next.components.settings.ApiKeys.hide": [
+    {
+      "type": 0,
+      "value": "Nascondi la chiave"
+    }
+  ],
   "next.components.settings.ApiKeys.info": [
     {
       "type": 0,
@@ -259,6 +259,12 @@
     {
       "type": 0,
       "value": "Nome chiave"
+    }
+  ],
+  "next.components.settings.ApiKeys.name": [
+    {
+      "type": 0,
+      "value": "Assegna un nome"
     }
   ],
   "next.components.settings.ApiKeys.publicKey": [
@@ -283,6 +289,18 @@
     {
       "type": 0,
       "value": "Lei è sicura di voler cancellare questa chiave?"
+    }
+  ],
+  "next.components.settings.ApiKeys.rename": [
+    {
+      "type": 0,
+      "value": "Rinomina"
+    }
+  ],
+  "next.components.settings.ApiKeys.reveal": [
+    {
+      "type": 0,
+      "value": "Mostra la chiave"
     }
   ],
   "next.components.settings.ApiKeys.save": [

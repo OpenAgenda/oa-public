@@ -229,12 +229,6 @@
       "value": "Show documentation"
     }
   ],
-  "next.components.settings.ApiKeys.edit": [
-    {
-      "type": 0,
-      "value": "Edit"
-    }
-  ],
   "next.components.settings.ApiKeys.error": [
     {
       "type": 0,
@@ -253,6 +247,12 @@
       "value": "Generate a secret key"
     }
   ],
+  "next.components.settings.ApiKeys.hide": [
+    {
+      "type": 0,
+      "value": "Hide key"
+    }
+  ],
   "next.components.settings.ApiKeys.info": [
     {
       "type": 0,
@@ -263,6 +263,12 @@
     {
       "type": 0,
       "value": "Key name"
+    }
+  ],
+  "next.components.settings.ApiKeys.name": [
+    {
+      "type": 0,
+      "value": "Add a name"
     }
   ],
   "next.components.settings.ApiKeys.publicKey": [
@@ -287,6 +293,18 @@
     {
       "type": 0,
       "value": "Are you sure you want to delete this key?"
+    }
+  ],
+  "next.components.settings.ApiKeys.rename": [
+    {
+      "type": 0,
+      "value": "Rename"
+    }
+  ],
+  "next.components.settings.ApiKeys.reveal": [
+    {
+      "type": 0,
+      "value": "Reveal key"
     }
   ],
   "next.components.settings.ApiKeys.save": [

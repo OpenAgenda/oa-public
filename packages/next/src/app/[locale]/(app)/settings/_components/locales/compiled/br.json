@@ -225,12 +225,6 @@
       "value": "Gwelet an teuliadur"
     }
   ],
-  "next.components.settings.ApiKeys.edit": [
-    {
-      "type": 0,
-      "value": "Kemmañ"
-    }
-  ],
   "next.components.settings.ApiKeys.error": [
     {
       "type": 0,
@@ -249,6 +243,12 @@
       "value": "Krouiñ un alc'hwez kuzh"
     }
   ],
+  "next.components.settings.ApiKeys.hide": [
+    {
+      "type": 0,
+      "value": "Kuzhat an alcʼhwez"
+    }
+  ],
   "next.components.settings.ApiKeys.info": [
     {
       "type": 0,
@@ -259,6 +259,12 @@
     {
       "type": 0,
       "value": "Anv alc'hwez"
+    }
+  ],
+  "next.components.settings.ApiKeys.name": [
+    {
+      "type": 0,
+      "value": "Envel"
     }
   ],
   "next.components.settings.ApiKeys.publicKey": [
@@ -283,6 +289,18 @@
     {
       "type": 0,
       "value": "Ha sur oc'h e fell deoc'h dilemel an alc'hwez-mañ?"
+    }
+  ],
+  "next.components.settings.ApiKeys.rename": [
+    {
+      "type": 0,
+      "value": "Adenvel"
+    }
+  ],
+  "next.components.settings.ApiKeys.reveal": [
+    {
+      "type": 0,
+      "value": "Diskouez an alcʼhwez"
     }
   ],
   "next.components.settings.ApiKeys.save": [

@@ -225,12 +225,6 @@
       "value": "Afichar la documentacion"
     }
   ],
-  "next.components.settings.ApiKeys.edit": [
-    {
-      "type": 0,
-      "value": "Modificar"
-    }
-  ],
   "next.components.settings.ApiKeys.error": [
     {
       "type": 0,
@@ -249,6 +243,12 @@
       "value": "Generar una clau secrèta"
     }
   ],
+  "next.components.settings.ApiKeys.hide": [
+    {
+      "type": 0,
+      "value": "Amagar la clau"
+    }
+  ],
   "next.components.settings.ApiKeys.info": [
     {
       "type": 0,
@@ -259,6 +259,12 @@
     {
       "type": 0,
       "value": "Nom de clau"
+    }
+  ],
+  "next.components.settings.ApiKeys.name": [
+    {
+      "type": 0,
+      "value": "Nomenar"
     }
   ],
   "next.components.settings.ApiKeys.publicKey": [
@@ -283,6 +289,18 @@
     {
       "type": 0,
       "value": "Sètz segur·a de voler suprimir aquesta clau ?"
+    }
+  ],
+  "next.components.settings.ApiKeys.rename": [
+    {
+      "type": 0,
+      "value": "Tornar nomenar"
+    }
+  ],
+  "next.components.settings.ApiKeys.reveal": [
+    {
+      "type": 0,
+      "value": "Afichar la clau"
     }
   ],
   "next.components.settings.ApiKeys.save": [

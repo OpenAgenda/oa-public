@@ -6,6 +6,7 @@ import ky from 'ky';
 import {
   Button,
   Field,
+  IconButton,
   Input,
   Link,
   Spinner,
@@ -14,6 +15,7 @@ import {
   HStack,
   chakra,
 } from '@openagenda/uikit';
+import { LuEye, LuEyeOff } from 'react-icons/lu';
 import {
   DialogRoot,
   DialogContent,
@@ -74,12 +76,27 @@ const messages = defineMessages({
     id: 'next.components.settings.ApiKeys.shownOnce',
     defaultMessage: "Copy this key now: it won't be shown again.",
   },
+  reveal: {
+    id: 'next.components.settings.ApiKeys.reveal',
+    defaultMessage: 'Reveal key',
+  },
+  hide: {
+    id: 'next.components.settings.ApiKeys.hide',
+    defaultMessage: 'Hide key',
+  },
   copy: { id: 'next.components.settings.ApiKeys.copy', defaultMessage: 'Copy' },
   copied: {
     id: 'next.components.settings.ApiKeys.copied',
     defaultMessage: 'Copied',
   },
-  edit: { id: 'next.components.settings.ApiKeys.edit', defaultMessage: 'Edit' },
+  rename: {
+    id: 'next.components.settings.ApiKeys.rename',
+    defaultMessage: 'Rename',
+  },
+  name: {
+    id: 'next.components.settings.ApiKeys.name',
+    defaultMessage: 'Add a name',
+  },
   save: { id: 'next.components.settings.ApiKeys.save', defaultMessage: 'Save' },
   cancel: {
     id: 'next.components.settings.ApiKeys.cancel',
@@ -113,8 +130,15 @@ const messages = defineMessages({
 });
 
 const isLegacyKey = (item: ApiKey) => item.metadata?.source === 'mirror';
+
+// Native keys: `start` is only the leading 12 chars, so it's a safe partial
+// hint to show permanently once the one-time plaintext is gone.
 const maskedHint = (item: ApiKey) =>
   item.start ? `${item.start}••••••••` : '••••••••••••';
+
+// Legacy mirror keys keep their FULL value in `start`, so it must never be
+// surfaced wholesale: when hidden, show a short prefix plus a fixed mask.
+const obscureValue = (value: string) => `${value.slice(0, 4)}••••••••••••`;
 
 interface KeyRowProps {
   item: ApiKey;
@@ -129,10 +153,22 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
   const [name, setName] = useState(item.name ?? '');
   const [savingName, setSavingName] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [showSecret, setShowSecret] = useState(false);
 
   // Plaintext is present only right after creation (native keys, shown once)
   // or permanently for legacy mirror keys (full value kept in `start`).
-  const fullValue = revealed ?? (isLegacyKey(item) ? item.start : null);
+  const isLegacy = isLegacyKey(item);
+  const fullValue = revealed ?? (isLegacy ? item.start ?? null : null);
+  // Legacy keys are hidden behind a reveal toggle; freshly-revealed native
+  // keys (shown once) display in full immediately.
+  const canToggle = isLegacy && fullValue != null;
+  const obscured = canToggle && !showSecret;
+  const displayValue =
+    fullValue == null
+      ? maskedHint(item)
+      : obscured
+        ? obscureValue(fullValue)
+        : fullValue;
   const tier = intl.formatMessage(
     item.metadata?.oaKind === 'pk' ? messages.publicKey : messages.secretKey,
   );
@@ -162,7 +198,7 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
       p="3"
       mb="3"
     >
-      <HStack justify="space-between" align="center" mb="2" gap="2">
+      <HStack justify="space-between" align="center" mb="1.5" gap="2">
         {editing ? (
           <HStack flex="1" gap="2">
             <Input
@@ -174,12 +210,7 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
                 setName(e.target.value)
               }
             />
-            <Button
-              size="sm"
-              colorPalette="blue"
-              loading={savingName}
-              onClick={save}
-            >
+            <Button size="sm" loading={savingName} onClick={save}>
               {intl.formatMessage(messages.save)}
             </Button>
             <Button
@@ -194,7 +225,7 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
             </Button>
           </HStack>
         ) : (
-          <HStack flex="1" gap="2" align="baseline">
+          <HStack flex="1" gap="1" align="baseline">
             <Text fontWeight="medium">
               {item.name || intl.formatMessage(messages.keyName)}
             </Text>
@@ -204,10 +235,11 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
             <Button
               size="sm"
               variant="plain"
-              colorPalette="blue"
+              h="auto"
+              px="2"
               onClick={() => setEditing(true)}
             >
-              {intl.formatMessage(messages.edit)}
+              {intl.formatMessage(item.name ? messages.rename : messages.name)}
             </Button>
           </HStack>
         )}
@@ -218,10 +250,22 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
           size="sm"
           flex="1"
           readOnly
-          disabled={!fullValue}
-          value={fullValue ?? maskedHint(item)}
+          disabled={fullValue == null}
+          value={displayValue}
           fontFamily="mono"
         />
+        {canToggle && (
+          <IconButton
+            size="sm"
+            variant="outline"
+            aria-label={intl.formatMessage(
+              showSecret ? messages.hide : messages.reveal,
+            )}
+            onClick={() => setShowSecret((v) => !v)}
+          >
+            {showSecret ? <LuEyeOff /> : <LuEye />}
+          </IconButton>
+        )}
         {fullValue && (
           <Button size="sm" variant="outline" onClick={copy}>
             {intl.formatMessage(copied ? messages.copied : messages.copy)}
@@ -346,12 +390,7 @@ export default function ApiKeysSection({ user }: ApiKeysSectionProps) {
       <chakra.div maxW="2xl">
         <Text mb="2">{intl.formatMessage(messages.info)}</Text>
         <Text mb="2">
-          <Link
-            href={DOC_URL}
-            target="_blank"
-            rel="noreferrer"
-            colorPalette="blue"
-          >
+          <Link href={DOC_URL} target="_blank" rel="noreferrer">
             {intl.formatMessage(messages.documentation)}
           </Link>
         </Text>
@@ -371,23 +410,10 @@ export default function ApiKeysSection({ user }: ApiKeysSectionProps) {
           )
         ) : (
           <>
-            {items.map((item) => (
-              <KeyRow
-                key={item.id}
-                item={item}
-                revealed={revealed[item.id]}
-                onRename={rename}
-                onRemove={setRemoving}
-              />
-            ))}
-
-            {actionError && (
-              <MessageAlert role="alert" status="error" mb="3">
-                {intl.formatMessage(messages.error)}
-              </MessageAlert>
-            )}
-
-            <HStack gap="3" mt="2">
+            {/* Buttons sit above the list so a newly-created key (prepended,
+                newest-first per the server's createdAt-desc order) appears
+                right below them instead of jumping past the whole list. */}
+            <HStack gap="3" justify="flex-end" mb="4">
               <Button
                 variant="outline"
                 loading={creating === 'pk'}
@@ -405,6 +431,22 @@ export default function ApiKeysSection({ user }: ApiKeysSectionProps) {
                 </Button>
               )}
             </HStack>
+
+            {actionError && (
+              <MessageAlert role="alert" status="error" mb="3">
+                {intl.formatMessage(messages.error)}
+              </MessageAlert>
+            )}
+
+            {items.map((item) => (
+              <KeyRow
+                key={item.id}
+                item={item}
+                revealed={revealed[item.id]}
+                onRename={rename}
+                onRemove={setRemoving}
+              />
+            ))}
           </>
         )}
       </chakra.div>

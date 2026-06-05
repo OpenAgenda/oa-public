@@ -225,12 +225,6 @@
       "value": "Ver la documentación"
     }
   ],
-  "next.components.settings.ApiKeys.edit": [
-    {
-      "type": 0,
-      "value": "Editar"
-    }
-  ],
   "next.components.settings.ApiKeys.error": [
     {
       "type": 0,
@@ -249,6 +243,12 @@
       "value": "Generar una clave secreta"
     }
   ],
+  "next.components.settings.ApiKeys.hide": [
+    {
+      "type": 0,
+      "value": "Ocultar la clave"
+    }
+  ],
   "next.components.settings.ApiKeys.info": [
     {
       "type": 0,
@@ -259,6 +259,12 @@
     {
       "type": 0,
       "value": "Nombre de clave"
+    }
+  ],
+  "next.components.settings.ApiKeys.name": [
+    {
+      "type": 0,
+      "value": "Nombrar"
     }
   ],
   "next.components.settings.ApiKeys.publicKey": [
@@ -283,6 +289,18 @@
     {
       "type": 0,
       "value": "¿Está seguro de que desea eliminar esta llave?"
+    }
+  ],
+  "next.components.settings.ApiKeys.rename": [
+    {
+      "type": 0,
+      "value": "Renombrar"
+    }
+  ],
+  "next.components.settings.ApiKeys.reveal": [
+    {
+      "type": 0,
+      "value": "Mostrar la clave"
     }
   ],
   "next.components.settings.ApiKeys.save": [
