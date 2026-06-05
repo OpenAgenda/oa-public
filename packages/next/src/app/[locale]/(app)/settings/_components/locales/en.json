@@ -80,6 +80,8 @@
   "next.components.settings.Image.save": "Save",
   "next.components.settings.Image.success": "Your profile has been updated successfully.",
   "next.components.settings.Image.title": "Profile image",
+  "next.components.settings.Image.tooLargeError": "This image exceeds the 20 MB limit.",
+  "next.components.settings.Image.typeError": "Unsupported format — use BMP, JPEG, PNG or WebP.",
   "next.components.settings.Language.error": "There was a problem during the processing of the operation, retry shortly.",
   "next.components.settings.Language.save": "Save",
   "next.components.settings.Language.success": "Your profile has been updated successfully.",

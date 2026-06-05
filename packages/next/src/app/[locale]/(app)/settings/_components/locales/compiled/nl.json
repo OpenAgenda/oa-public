@@ -489,6 +489,18 @@
       "value": "Profielafbeelding"
     }
   ],
+  "next.components.settings.Image.tooLargeError": [
+    {
+      "type": 0,
+      "value": "Deze afbeelding overschrijdt de limiet van 20 MB."
+    }
+  ],
+  "next.components.settings.Image.typeError": [
+    {
+      "type": 0,
+      "value": "Niet-ondersteund formaat — gebruik BMP, JPEG, PNG of WebP."
+    }
+  ],
   "next.components.settings.Language.error": [
     {
       "type": 0,

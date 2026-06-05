@@ -485,6 +485,18 @@
       "value": "Profilbild"
     }
   ],
+  "next.components.settings.Image.tooLargeError": [
+    {
+      "type": 0,
+      "value": "Dieses Bild überschreitet das Limit von 20 MB."
+    }
+  ],
+  "next.components.settings.Image.typeError": [
+    {
+      "type": 0,
+      "value": "Nicht unterstütztes Format — verwenden Sie BMP, JPEG, PNG oder WebP."
+    }
+  ],
   "next.components.settings.Language.error": [
     {
       "type": 0,

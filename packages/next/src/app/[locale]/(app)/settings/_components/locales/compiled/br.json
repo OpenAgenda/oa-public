@@ -489,6 +489,18 @@
       "value": "Skeudenn ar profil"
     }
   ],
+  "next.components.settings.Image.tooLargeError": [
+    {
+      "type": 0,
+      "value": "Ar skeudenn-mañ a dremen ar bevenn a 20 Mo."
+    }
+  ],
+  "next.components.settings.Image.typeError": [
+    {
+      "type": 0,
+      "value": "Furmad ket skoraet — implijit BMP, JPEG, PNG pe WebP."
+    }
+  ],
   "next.components.settings.Language.error": [
     {
       "type": 0,

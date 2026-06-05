@@ -80,6 +80,8 @@
   "next.components.settings.Image.save": "Opslaan",
   "next.components.settings.Image.success": "Je profiel is bijgewerkt.",
   "next.components.settings.Image.title": "Profielafbeelding",
+  "next.components.settings.Image.tooLargeError": "Deze afbeelding overschrijdt de limiet van 20 MB.",
+  "next.components.settings.Image.typeError": "Niet-ondersteund formaat — gebruik BMP, JPEG, PNG of WebP.",
   "next.components.settings.Language.error": "Er was een probleem tijdens het verwerken van de bewerking, probeer het zo meteen opnieuw.",
   "next.components.settings.Language.save": "Opslaan",
   "next.components.settings.Language.success": "Je profiel is bijgewerkt.",

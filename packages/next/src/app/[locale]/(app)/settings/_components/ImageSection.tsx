@@ -13,6 +13,9 @@ import type { SettingsUser } from './types';
 // Matches the legacy ImageSettings cap (packages/user-apps).
 const MAX_SIZE = 20 * 1024 * 1024; // 20 MB
 
+// Legacy ImageInput allow-list (react-shared) — note: GIF is intentionally out.
+const ACCEPT = 'image/bmp,image/jpeg,image/png,image/webp';
+
 // `user.image` is a bare S3 key; build a CDN URL the same way the Navbar does.
 const S3_BUCKET =
   process.env.NODE_ENV === 'development'
@@ -53,6 +56,14 @@ const messages = defineMessages({
     defaultMessage:
       'There was a problem during the processing of the operation, retry shortly.',
   },
+  tooLargeError: {
+    id: 'next.components.settings.Image.tooLargeError',
+    defaultMessage: 'This image exceeds the 20 MB limit.',
+  },
+  typeError: {
+    id: 'next.components.settings.Image.typeError',
+    defaultMessage: 'Unsupported format — use BMP, JPEG, PNG or WebP.',
+  },
 });
 
 interface ImageSectionProps {
@@ -68,6 +79,7 @@ export default function ImageSection({ user, onUpdated }: ImageSectionProps) {
   const [removing, setRemoving] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+  const [rejected, setRejected] = useState<'tooLarge' | 'type' | null>(null);
 
   // Object URL for the locally-picked file; revoked on change/unmount.
   useEffect(() => {
@@ -147,12 +159,22 @@ export default function ImageSection({ user, onUpdated }: ImageSectionProps) {
         <HStack gap="4" mb="4" align="center">
           <Avatar size="lg" src={avatarSrc} name={user.fullName} />
           <FileUploadRoot
-            accept="image/*"
+            accept={ACCEPT}
             maxFiles={1}
             maxFileSize={MAX_SIZE}
             onFileChange={(details) => {
               setFile(details.acceptedFiles[0] ?? null);
               setSuccess(false);
+              // Surface why a pick was dropped (too big / unsupported type)
+              // instead of silently leaving the Save button disabled.
+              const rejection = details.rejectedFiles[0];
+              setRejected(
+                rejection
+                  ? rejection.errors.includes('FILE_TOO_LARGE')
+                    ? 'tooLarge'
+                    : 'type'
+                  : null,
+              );
             }}
             flex="1"
           >
@@ -194,6 +216,15 @@ export default function ImageSection({ user, onUpdated }: ImageSectionProps) {
         {error && (
           <MessageAlert role="alert" status="error" mb="4">
             {intl.formatMessage(messages.error)}
+          </MessageAlert>
+        )}
+        {rejected && (
+          <MessageAlert role="alert" status="error" mb="4">
+            {intl.formatMessage(
+              rejected === 'tooLarge'
+                ? messages.tooLargeError
+                : messages.typeError,
+            )}
           </MessageAlert>
         )}
       </chakra.form>

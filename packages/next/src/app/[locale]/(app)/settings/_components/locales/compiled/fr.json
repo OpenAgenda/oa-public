@@ -489,6 +489,18 @@
       "value": "Image de profil"
     }
   ],
+  "next.components.settings.Image.tooLargeError": [
+    {
+      "type": 0,
+      "value": "Cette image dépasse la limite de 20 Mo."
+    }
+  ],
+  "next.components.settings.Image.typeError": [
+    {
+      "type": 0,
+      "value": "Format non pris en charge — utilisez BMP, JPEG, PNG ou WebP."
+    }
+  ],
   "next.components.settings.Language.error": [
     {
       "type": 0,

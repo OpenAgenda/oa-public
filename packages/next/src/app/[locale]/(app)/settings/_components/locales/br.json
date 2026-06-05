@@ -80,6 +80,8 @@
   "next.components.settings.Image.save": "Enrollañ",
   "next.components.settings.Image.success": "Hizivaet eo bet ho profil gant berzh.",
   "next.components.settings.Image.title": "Skeudenn ar profil",
+  "next.components.settings.Image.tooLargeError": "Ar skeudenn-mañ a dremen ar bevenn a 20 Mo.",
+  "next.components.settings.Image.typeError": "Furmad ket skoraet — implijit BMP, JPEG, PNG pe WebP.",
   "next.components.settings.Language.error": "Ur gudenn 'zo bet e-pad keweriañ an obererezh, klaskit en-dro a-benn ur pennadig.",
   "next.components.settings.Language.save": "Enrollañ",
   "next.components.settings.Language.success": "Hizivaet eo bet ho profil gant berzh.",

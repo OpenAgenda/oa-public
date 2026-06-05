@@ -80,6 +80,8 @@
   "next.components.settings.Image.save": "Enregistrar",
   "next.components.settings.Image.success": "Vòstre perfil es plan estat mes a jorn.",
   "next.components.settings.Image.title": "Imatge de perfil",
+  "next.components.settings.Image.tooLargeError": "Aquesta imatge depassa la limita de 20 Mo.",
+  "next.components.settings.Image.typeError": "Format pas pres en carga — utilizatz BMP, JPEG, PNG o WebP.",
   "next.components.settings.Language.error": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu.",
   "next.components.settings.Language.save": "Enregistrar",
   "next.components.settings.Language.success": "Vòstre perfil es plan estat mes a jorn.",

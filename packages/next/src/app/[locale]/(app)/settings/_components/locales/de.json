@@ -80,6 +80,8 @@
   "next.components.settings.Image.save": "Speichern",
   "next.components.settings.Image.success": "Dein Profil wurde erfolgreich aktualisiert.",
   "next.components.settings.Image.title": "Profilbild",
+  "next.components.settings.Image.tooLargeError": "Dieses Bild überschreitet das Limit von 20 MB.",
+  "next.components.settings.Image.typeError": "Nicht unterstütztes Format — verwenden Sie BMP, JPEG, PNG oder WebP.",
   "next.components.settings.Language.error": "Bei der Verarbeitung des Vorgangs ist ein Problem aufgetreten, bitte versuchen Sie es gleich erneut.",
   "next.components.settings.Language.save": "Speichern",
   "next.components.settings.Language.success": "Dein Profil wurde erfolgreich aktualisiert.",

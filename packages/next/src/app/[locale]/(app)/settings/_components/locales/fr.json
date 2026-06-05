@@ -80,6 +80,8 @@
   "next.components.settings.Image.save": "Sauvegarder",
   "next.components.settings.Image.success": "Votre profil a été mis à jour.",
   "next.components.settings.Image.title": "Image de profil",
+  "next.components.settings.Image.tooLargeError": "Cette image dépasse la limite de 20 Mo.",
+  "next.components.settings.Image.typeError": "Format non pris en charge — utilisez BMP, JPEG, PNG ou WebP.",
   "next.components.settings.Language.error": "Il y a eu un problème lors du traitement de l'opération, veuillez réessayer dans un instant.",
   "next.components.settings.Language.save": "Sauvegarder",
   "next.components.settings.Language.success": "Votre profil a été mis à jour.",

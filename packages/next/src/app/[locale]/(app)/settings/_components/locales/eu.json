@@ -80,6 +80,8 @@
   "next.components.settings.Image.save": "",
   "next.components.settings.Image.success": "",
   "next.components.settings.Image.title": "",
+  "next.components.settings.Image.tooLargeError": "",
+  "next.components.settings.Image.typeError": "",
   "next.components.settings.Language.error": "",
   "next.components.settings.Language.save": "",
   "next.components.settings.Language.success": "",
