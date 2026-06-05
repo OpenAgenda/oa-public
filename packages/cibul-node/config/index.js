@@ -10,9 +10,18 @@ const mailgun = {
   },
 };
 
+// The API host (e.g. api.openagenda.com). Hoisted so apiRoot can fall back to it.
+const apiDomain = prod.apiDomain ?? process.env.API_DOMAIN;
+
 // The public v3 API root (e.g. https://dapi.openagenda.com in dev). Hoisted so
 // the OAuth v3 resource id (aud=api) can derive from it — see `v3ResourceUrl`.
-const apiRoot = prod.apiRoot ?? process.env.API_ROOT;
+// Falls back to the API host: apiRoot and apiDomain denote the same origin by
+// construction, so a configured API_DOMAIN alone is enough to derive both the
+// root and the v3 resource id. This keeps a token-exchange triad set to only 2/3
+// (exchange secret + resource url, but no API_ROOT) from bricking boot.
+const apiRoot = prod.apiRoot
+  ?? process.env.API_ROOT
+  ?? (apiDomain ? `https://${apiDomain}` : undefined);
 
 // The MCP's confidential-client secret for the O2.5 token-exchange endpoint.
 const mcpExchangeSecret = prod.mcpExchangeSecret ?? process.env.OA_MCP_EXCHANGE_SECRET;
@@ -75,7 +84,7 @@ const config = {
   domain: prod.domains?.main ?? process.env.DOMAIN ?? 'd.openagenda.com',
   root: prod.root ?? process.env.ROOT ?? 'https://d.openagenda.com',
   apiRoot,
-  apiDomain: prod.apiDomain ?? process.env.API_DOMAIN,
+  apiDomain,
   // MCP HTTP resource server (O2). Its OAuth resource identifier: the
   // `resource` indicator MCP clients send to /oauth2/authorize|token, which
   // the issued JWT's `aud` is bound to and `packages/auth` validates against

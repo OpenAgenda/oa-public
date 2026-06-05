@@ -180,6 +180,11 @@ try {
     services,
   );
 } catch (e) {
+  // Raw stderr first: log('error') routes through the `oa:` namespace, which
+  // DEBUG_DISABLED=oa* mutes in prod — so a boot-fatal would otherwise be
+  // invisible in `pm2 logs` (only Sentry catches it). Print the cause at the
+  // crash site regardless of DEBUG so the next outage is diagnosable in seconds.
+  console.error('could not init app:', e);
   log('error', 'could not init app:', e);
   process.exit(1);
 }
