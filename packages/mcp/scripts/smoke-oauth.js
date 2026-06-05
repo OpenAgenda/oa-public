@@ -207,8 +207,10 @@ ok(
 );
 ok(claims.iss === cfg.asUrl, `iss === ${cfg.asUrl} (${claims.iss})`);
 ok(
-  typeof claims.uid === 'string' && /^\d+$/.test(claims.uid),
-  `uid claim present — the OA identity, not sub (${claims.uid} vs sub=${claims.sub})`,
+  typeof claims.uid === 'number'
+    && Number.isSafeInteger(claims.uid)
+    && claims.uid > 0,
+  `uid claim present — the OA identity (a number), not sub (${claims.uid} vs sub=${claims.sub})`,
 );
 ok(
   claims.exp - claims.iat <= 3600,
