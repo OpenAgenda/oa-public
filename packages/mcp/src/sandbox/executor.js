@@ -66,6 +66,9 @@ function createEngine(config) {
         poolSize: config.microsandboxPoolSize,
         allowNet: config.allowNet,
         limits: config.limits,
+        runtime: config.sandboxRuntime,
+        llrtBin: config.llrtBin,
+        tls: config.tls,
       });
     default:
       throw new Error(`Unknown executor: ${config.executor}`);

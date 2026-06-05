@@ -57,6 +57,15 @@ const config = {
     process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14,
     10,
   ),
+  // Elbow sensitivity for event-search `threshold=auto` (fraction of the top
+  // score a gap must clear to count as a relevance cliff). Left `undefined` when
+  // the env var is unset or invalid, so the event-search service applies its own
+  // default. To be calibrated on Nantes data.
+  eventSearchRelevanceMinDrop: Number.isFinite(
+    parseFloat(process.env.OA_EVENT_SEARCH_RELEVANCE_MIN_DROP),
+  )
+    ? parseFloat(process.env.OA_EVENT_SEARCH_RELEVANCE_MIN_DROP)
+    : undefined,
   tmpFolderPath: '/var/tmp/',
   logPath: '/var/tmp/cibul-node.log',
   logPathDebug: '/var/tmp/cibul-node-debug.log',

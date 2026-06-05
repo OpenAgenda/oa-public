@@ -8,6 +8,7 @@ import dateValidator from '@openagenda/validators/date';
 import choiceValidator from '@openagenda/validators/choice';
 import booleanValidator from '@openagenda/validators/boolean';
 import validFieldValidator from './validators/validField.js';
+import thresholdValidator from './validators/threshold.js';
 import getFormSchemaAdditionalFields from './getFormSchemaAdditionalFields.js';
 import preCleanRawQuery from './preCleanRawQuery.js';
 import derelativize from './derelativize.js';
@@ -22,6 +23,7 @@ schema.register({
   choice: choiceValidator,
   boolean: booleanValidator,
   validField: validFieldValidator,
+  threshold: thresholdValidator,
 });
 
 const validate = schema({
@@ -37,6 +39,10 @@ const validate = schema({
   },
   search: {
     type: 'text',
+  },
+  threshold: {
+    type: 'threshold',
+    optional: true,
   },
   set: {
     type: 'text',
