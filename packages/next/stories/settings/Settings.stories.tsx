@@ -428,8 +428,14 @@ export const UnlinkFacebookWeakPassword = {
       handlers: [
         facebookHandlers[0],
         http.patch('/users/me/requestUnlinkFacebook', () =>
+          // Real backend shape: the /users error handler flattens info.errors
+          // to the root of the JSON body (not nested under `info`).
           HttpResponse.json(
-            { info: { errors: [{ field: 'password', code: 'passwordTooWeak' }] } },
+            {
+              name: 'BadRequest',
+              code: 400,
+              errors: [{ field: 'password', code: 'passwordTooWeak' }],
+            },
             { status: 400 },
           ),
         ),

@@ -104,14 +104,16 @@ const ERROR_MESSAGE: Record<UFError, (typeof messages)[keyof typeof messages]> =
     other: messages.otherError,
   };
 
-// Backend BadRequest({ info: { errors: [{ field, code }] } }) codes (see
-// services/users/middleware/unlinkFacebook.js) → our error keys.
+// `validatePassword` throws BadRequest({ info: { errors } }) with codes
+// passwordRequired/SameAsIdentifier/TooWeak/NotEqual — but the /users error
+// handler (plugApp.js) flattens `info.errors` to the ROOT of the JSON body
+// (`{ name, message, code, errors }`), so read `body.errors`, not `body.info`.
 function mapErrorBody(body: {
-  info?: { errors?: { code?: string }[] };
+  errors?: { code?: string }[];
   message?: string;
 }): UFError {
-  const codes = Array.isArray(body?.info?.errors)
-    ? body.info.errors.map((e) => e.code)
+  const codes = Array.isArray(body?.errors)
+    ? body.errors.map((e) => e.code)
     : [];
   if (codes.includes('passwordRequired')) return 'required';
   if (codes.includes('passwordSameAsIdentifier')) return 'same';
