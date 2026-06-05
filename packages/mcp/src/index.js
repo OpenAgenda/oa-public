@@ -10,6 +10,7 @@ import { createExecutor } from './sandbox/executor.js';
 import { createServer } from './server.js';
 import { createHttpApp } from './httpServer.js';
 import { assertIssuer } from './auth/assertIssuer.js';
+import { initLogging, log, makeAuditRecorder } from './log.js';
 import {
   renderEgressPolicy,
   policySha256,
@@ -38,6 +39,12 @@ function printEgressPolicy(argv, env = process.env) {
   );
 }
 
+// A boot-time notice that MUST reach the operator regardless of the log config:
+// the security-posture banners and the "no log sink" warning. Written straight to
+// stderr — like the fatal handler — so it is NEVER gated by DEBUG / InsightOps
+// (which may both be unset). NOT for per-request or lifecycle logs (those use log).
+const banner = (msg) => process.stderr.write(`[openagenda-mcp] ${msg}\n`);
+
 async function main() {
   if (process.argv[2] === 'print-egress-policy') {
     printEgressPolicy(process.argv.slice(3));
@@ -45,6 +52,20 @@ async function main() {
   }
 
   const config = loadConfig(); // throws (fail-closed) on an unsafe/incoherent pairing
+  // Configure logging ONCE, before anything logs. Two env-gated sinks:
+  // OA_INSIGHT_OPS_TOKEN → InsightOps (prod); DEBUG=openagenda-mcp* → stderr (dev).
+  // Both avoid stdout, so this is safe under stdio (where stdout is the MCP channel).
+  initLogging(config.logging);
+  // If NEITHER sink is active, say so once on stderr — otherwise every operational
+  // log AND the audit trail are silently discarded (a security control going dark
+  // with no signal). Coarse check: any DEBUG means the operator wants stderr.
+  if (!config.logging.insightOpsToken && !process.env.DEBUG) {
+    banner(
+      'no log sink configured: set OA_INSIGHT_OPS_TOKEN (prod) or '
+        + 'DEBUG=openagenda-mcp* (dev) — operational logs and the audit trail are '
+        + 'being discarded.',
+    );
+  }
   const executor = createExecutor(config);
 
   // Drain engine resources (a warm µVM pool, when OA_MICROSANDBOX_POOL_SIZE>0) on
@@ -59,7 +80,7 @@ async function main() {
   const shutdown = async (reason) => {
     if (closing) return;
     closing = true;
-    process.stderr.write(`[openagenda-mcp] shutting down (${reason})\n`);
+    log.info('shutting down (%s)', reason);
     try {
       if (httpServer) await new Promise((resolve) => httpServer.close(resolve));
       await executor.dispose?.();
@@ -90,37 +111,53 @@ async function main() {
       httpServer.once('listening', resolve);
       httpServer.once('error', reject);
     });
-    process.stderr.write(
-      `[openagenda-mcp] ready (transport=http, port=${config.httpPort}, mode=${config.mode}, `
-        + `executor=${executor.name}, egress=${config.egressAuthority}, base=${config.baseUrl})\n`
-        + `[openagenda-mcp] OAuth resource server: resource=${oauth?.resourceUrl}, `
-        + `issuer=${oauth?.issuer}, jwks=${oauth?.jwksUrl}\n`,
+    log.info(
+      'ready (transport=http, port=%d, mode=%s, executor=%s, egress=%s, base=%s)',
+      config.httpPort,
+      config.mode,
+      executor.name,
+      config.egressAuthority,
+      config.baseUrl,
+    );
+    log.info(
+      'OAuth resource server: resource=%s, issuer=%s, jwks=%s',
+      oauth?.resourceUrl,
+      oauth?.issuer,
+      oauth?.jwksUrl,
     );
   } else {
     // stdio transport OWNS stdout (it's the MCP channel) — all logs go to stderr.
     // Only stdio has a pipe whose close means "client gone".
     process.stdin.once('close', () => shutdown('stdin closed'));
-    const server = createServer({ config, executor });
+    const server = createServer({
+      config,
+      executor,
+      recordAudit: makeAuditRecorder({ transport: 'stdio' }),
+    });
     const transport = new StdioServerTransport();
     await server.connect(transport);
-    process.stderr.write(
-      `[openagenda-mcp] ready (transport=stdio, mode=${config.mode}, executor=${executor.name}, `
-        + `egress=${config.egressAuthority}, base=${config.baseUrl})\n`,
+    log.info(
+      'ready (transport=stdio, mode=%s, executor=%s, egress=%s, base=%s)',
+      config.mode,
+      executor.name,
+      config.egressAuthority,
+      config.baseUrl,
     );
   }
 
   // Make a delegated or absent boundary LOUD — the app can't verify a wrapper.
   if (config.egressAuthority === 'wrapper') {
-    process.stderr.write(
-      '[openagenda-mcp] egress authority = wrapper: this process does NOT enforce a '
-        + `network boundary itself. Ensure the outer sandbox allows exactly: ${config.allowNet.join(', ')} `
-        + '(run `openagenda-mcp print-egress-policy` for the exact policy).\n',
+    banner(
+      'egress authority = wrapper: this process does NOT enforce a network '
+        + 'boundary itself. Ensure the outer sandbox allows exactly: '
+        + `${config.allowNet.join(', ')} `
+        + '(run `openagenda-mcp print-egress-policy` for the exact policy).',
     );
   } else if (config.egressAuthority === 'none') {
-    process.stderr.write(
-      '[openagenda-mcp] OA_LOCAL_NO_SANDBOX: executed code has NO network boundary'
+    banner(
+      'OA_LOCAL_NO_SANDBOX: executed code has NO network boundary'
         + `${config.executor === 'node' ? ' and NO filesystem boundary' : ''} `
-        + '— trusted local use only.\n',
+        + '— trusted local use only.',
     );
   }
 
@@ -132,15 +169,18 @@ async function main() {
     config.executor === 'microsandbox'
     && (config.tls.useSystemCa || config.tls.extraCaCerts)
   ) {
-    process.stderr.write(
-      '[openagenda-mcp] TLS trust (OA_USE_SYSTEM_CA / OA_EXTRA_CA_CERTS) is set but '
-        + 'executor=microsandbox does NOT apply it inside the µVM. A private-CA host will fail '
-        + 'TLS — use OA_EXECUTOR=deno for a private-CA dev stack, or a public-CA endpoint.\n',
+    banner(
+      'TLS trust (OA_USE_SYSTEM_CA / OA_EXTRA_CA_CERTS) is set but '
+        + 'executor=microsandbox does NOT apply it inside the µVM. A private-CA host '
+        + 'will fail TLS — use OA_EXECUTOR=deno for a private-CA dev stack, or a '
+        + 'public-CA endpoint.',
     );
   }
 }
 
 main().catch((err) => {
+  // Last-resort fatal: a boot failure can predate initLogging (e.g. loadConfig
+  // throws), so write straight to stderr rather than risk a silent pre-init log.
   process.stderr.write(`[openagenda-mcp] fatal: ${err?.message ?? err}\n`);
   process.exit(1);
 });

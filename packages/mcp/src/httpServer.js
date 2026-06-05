@@ -22,6 +22,7 @@ import { createRateLimiter } from './rateLimiter.js';
 import { createTokenVerifier } from './auth/verifier.js';
 import { exchangeToken, TokenExchangeError } from './auth/tokenExchange.js';
 import { landingPage } from './landing.js';
+import { log, makeAuditRecorder } from './log.js';
 
 // JSON-RPC error returned without a request id (parse/transport-level failures).
 const jsonRpcError = (code, message) => ({
@@ -113,12 +114,27 @@ export function createHttpApp({ config, executor }) {
     // falls through instead of becoming a falsy key (the server also defaults the
     // key, so an empty id can never bypass the limit — defense in depth).
     const sub = typeof req.auth?.extra?.sub === 'string' ? req.auth.extra.sub : '';
+    // OA user id — the AS's optional `uid` custom claim (a number; absent for a
+    // user with no linked OA uid). Surfaced for the audit trail only; `sub` stays
+    // the key.
+    const uid = typeof req.auth?.extra?.uid === 'number' ? req.auth.extra.uid : undefined;
     const callerId = sub || req.auth?.clientId || 'anonymous';
+    const clientId = req.auth?.clientId;
     const server = createServer({
       config,
       executor,
       rateLimiter,
       callerId,
+      // Audit identity: the consenting user (`sub` = AS join key, `uid` = OA
+      // identity) + the client app. `callerId` already folds the rate-limit
+      // fallback chain; pass the raw `sub`/`uid` as the audit caller so a
+      // client-anonymous token reads as such, not 'anonymous'.
+      recordAudit: makeAuditRecorder({
+        transport: 'http',
+        callerId: sub || undefined,
+        callerUid: uid,
+        clientId,
+      }),
       getCredential: async () => {
         // The bearer middleware guarantees req.auth.token, but assert it
         // explicitly: it makes the invariant the exchange depends on visible
@@ -146,8 +162,9 @@ export function createHttpApp({ config, executor }) {
         } catch (err) {
           // Observability only — the `execute` tool surfaces a generic failure to
           // the client (no upstream detail). Never bake the un-exchanged token.
-          process.stderr.write(
-            `[openagenda-mcp] token exchange failed: ${err instanceof Error ? err.message : String(err)}\n`,
+          log.warn(
+            'token exchange failed: %s',
+            err instanceof Error ? err.message : String(err),
           );
           throw err;
         }

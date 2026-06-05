@@ -15,6 +15,7 @@
 
 import { createRemoteJWKSet, jwtVerify, errors as joseErrors } from 'jose';
 import { InvalidTokenError } from '@modelcontextprotocol/sdk/server/auth/errors.js';
+import { log } from '../log.js';
 
 /**
  * Build an `OAuthTokenVerifier` (the interface `requireBearerAuth` expects)
@@ -65,11 +66,12 @@ export function createTokenVerifier({ jwksUrl, issuer, audience }) {
           } catch {
             // keep the placeholder — a non-JWS token has no readable payload
           }
-          process.stderr.write(
-            `[openagenda-mcp] issuer mismatch: token iss="${tokenIss}" but `
-              + `OA_OAUTH_ISSUER expects "${issuer}". If every request is 401ing, `
-              + "set OA_OAUTH_ISSUER to the AS's advertised issuer (typically the "
-              + 'origin + "/api/auth").\n',
+          log.warn(
+            'issuer mismatch: token iss="%s" but OA_OAUTH_ISSUER expects "%s". '
+              + "If every request is 401ing, set OA_OAUTH_ISSUER to the AS's "
+              + 'advertised issuer (typically the origin + "/api/auth").',
+            tokenIss,
+            issuer,
           );
         }
         // Any failure — bad signature, wrong iss/aud, expired, or an opaque
@@ -99,7 +101,17 @@ export function createTokenVerifier({ jwksUrl, issuer, audience }) {
         // The consenting user — the hook for per-user authorization. The API
         // enforces the token's scopes server-side; the OAuth grant is currently
         // read-scoped (write scopes pending on the AS, see the plan).
-        extra: { sub: payload.sub },
+        //   - `sub`: the better-auth user row id. ALWAYS present; the stable join
+        //     key (rate-limit bucket, AS-side correlation).
+        //   - `uid`: the OpenAgenda user id — a private claim the AS adds
+        //     (customAccessTokenClaims), a JSON number (OA uids are bounded
+        //     < 2^48). OPTIONAL (absent for a user with no linked OA uid → the
+        //     claim is omitted). The business-meaningful identity for the audit
+        //     trail / support; surfaced ALONGSIDE `sub`, never instead.
+        extra: {
+          sub: payload.sub,
+          uid: typeof payload.uid === 'number' ? payload.uid : undefined,
+        },
       };
     },
   };

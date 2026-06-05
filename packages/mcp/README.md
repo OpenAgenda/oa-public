@@ -214,6 +214,8 @@ runs it in the sandbox.
 | `OA_EXEC_QUEUE_TIMEOUT_MS`  | `30000`                                  | how long an over-cap `execute` waits for a free slot before a retryable "at capacity" error                         |
 | `OA_RATE_LIMIT_PER_MIN`     | `60`                                     | sustained `execute` calls/min **per caller** (OAuth `sub`); `transport=http` only — the per-token rate-limit        |
 | `OA_RATE_LIMIT_BURST`       | `20`                                     | per-caller `execute` burst (token-bucket size) before a retryable "rate limit reached" error                        |
+| `OA_INSIGHT_OPS_TOKEN`      | _none_                                   | InsightOps log token — ships logs + audit there (prod). For stderr instead, set `DEBUG=openagenda-mcp*`             |
+| `OA_EXECUTE_DISABLED`       | _off_                                    | `1` → refuse `execute` (maintenance/incident); `search_docs` stays served. Per-caller bans live at the AS, not here |
 | `OA_MICROSANDBOX_IMAGE`     | `node:24-alpine`                         | OCI image for the µVM (microsandbox; official Node Alpine, `node` on PATH; pin a digest in prod — see config.js)    |
 | `OA_MICROSANDBOX_POOL_SIZE` | `0` (off)                                | warm single-use µVM spares (microsandbox; throughput optim, holds RAM — see docs/microsandbox.md)                   |
 | `OA_USE_SYSTEM_CA`          | _off_                                    | **dev only**: trust the OS cert store (Node bundles its own)                                                        |
@@ -224,6 +226,14 @@ runs it in the sandbox.
 > `OA_USE_SYSTEM_CA=1` (the dev CA is in your system store) or
 > `OA_EXTRA_CA_CERTS=docker/devinstaller/ssl/certs/ca.crt`. **Production
 > (`api.openagenda.com`) needs neither** — leave them off.
+
+> **Where the logs go.** Two independent, env-gated sinks (NODE_ENV plays no
+> part). **stderr**: set `DEBUG=openagenda-mcp*` (the standard `debug` lever) — the
+> way to watch logs in a terminal or dev/docker. **InsightOps**: set
+> `OA_INSIGHT_OPS_TOKEN` (prod). With neither set, the server warns once at boot
+> ("no log sink configured") and then stays quiet — so logs and the audit trail
+> aren't discarded silently; fatals and boot safety banners always hit stderr
+> directly. Both can be on; neither touches stdout (stdio-safe).
 
 ---
 
@@ -240,10 +250,11 @@ closed**: `OA_MCP_MODE=hosted` requires `OA_EXECUTOR=microsandbox` with
 > model, image rationale, pool sizing and lifetime invariant) lives in
 > [docs/microsandbox.md](docs/microsandbox.md). The engine itself is
 > **implemented** (boot, host-enforced egress, hard caps), validated on a real KVM
-> host; the per-caller OAuth token and rate-limit are in place too, so what
-> remains before going public is the rest of the policy layer (audit log /
-> kill-switch) and ops. Run the µVM integration tests on a
-> virtualization host with `OA_MSB_IT=1 yarn workspace @openagenda/mcp test`.
+> host; the per-caller OAuth token, rate-limit, **per-tool audit log and a
+> maintenance kill (`OA_EXECUTE_DISABLED`)** are in place too, so what remains
+> before going public is mainly the production AS wiring and ops. Run the µVM
+> integration tests on a virtualization host with
+> `OA_MSB_IT=1 yarn workspace @openagenda/mcp test`.
 
 > **The egress allowlist is the exfiltration boundary — not the `oa` client.**
 > The executed code is untrusted and shares scope with the `oa` client: it can
@@ -286,8 +297,13 @@ Each item maps to a concrete threat:
   permissions. The server holds no shared secret the code can reach. This is the
   one case where OAuth is **mandatory** (see Auth below) — a shared key here lets
   any caller use, or exfiltrate, an authority valid for everyone.
-- **Audit & forensics** → log every execution (caller, code, duration, outcome)
-  and keep a kill-switch.
+- **Audit & forensics** → **done**: a **per-tool audit log** (`log.js`) emits one
+  structured record per `search_docs` / `execute` call (caller `sub` + client app,
+  transport, outcome, duration, the code body capped at 8 KiB + its full sha256,
+  `bytes_out`, a non-reversible `credential_fp` — never the secret, never the
+  result payload) to **InsightOps** (`OA_INSIGHT_OPS_TOKEN`, prod) / stderr (`DEBUG`). The
+  **kill** is `OA_EXECUTE_DISABLED` (cut `execute`, keep `search_docs`); **banning
+  a specific caller is the AS's job** (grant revocation), not a local denylist.
 - **Supply-chain / maturity** → microsandbox is young (beta) — **pin the version**,
   review upgrades, and keep gVisor as the known fallback for the boundary.
 
@@ -326,7 +342,8 @@ is no shared-key-over-HTTP path to opt into.
 
 The v3 surface includes write/admin/moderation, and `execute` runs arbitrary
 code — so it **can mutate**, and code-mode hides the dangerous call inside a
-script (bad for per-action approval/audit). `execute` is therefore annotated
+script: the audit log records the **script** (see Audit & forensics above) but
+there is no **per-action** approval. `execute` is therefore annotated
 **non-read-only** so clients keep gating it. The planned mitigation is a
 **hybrid**: keep `execute` for reads/composition, and add a few **explicit,
 `destructiveHint`-annotated tools gated by human approval** for the sensitive
@@ -372,10 +389,10 @@ the sandbox boundary.
 ## What this POC deliberately does NOT do
 
 - The `microsandbox` engine (hosted µVM boundary) **is implemented** and verified
-  on a real KVM host; a **concurrency cap + bounded queue** (`concurrencyLimit.js`)
-  and a **per-caller rate-limit** (`rateLimiter.js`) now guard the host, but the
-  rest of the hosted **policy layer is not** — no audit log / kill-switch yet
-  (the fail-closed gate keeps `hosted` from shipping without them). See
+  on a real KVM host; the hosted **policy layer is now in place** — a
+  **concurrency cap + bounded queue** (`concurrencyLimit.js`), a **per-caller
+  rate-limit** (`rateLimiter.js`), a **per-tool audit log** (`log.js` → InsightOps)
+  and a **maintenance kill** (`OA_EXECUTE_DISABLED`). See
   [docs/microsandbox.md](docs/microsandbox.md).
 - The **HTTP transport + OAuth 2.1 resource server are implemented** (local JWKS
   verification, audience binding, per-caller RFC 8693 token-exchange, and
@@ -383,7 +400,16 @@ the sandbox boundary.
   production AS wiring is not done. The **stdio** transport still uses a shared
   `OA_API_KEY` (any key; least-privilege advised; redacted from error text) — fine local / single-tenant,
   not for a public shared-key deployment. See Auth above.
-- No audit log / kill-switch yet.
+- **No production AS wiring**, and no AS-side per-caller banning (grant revocation)
+  or a `uid`/`email` claim to enrich the audit caller beyond the better-auth `sub`.
+- **No per-action approval** for mutations (the audit log records the whole
+  `execute` script, not each API call) — see Mutations & moderation.
+- **Privacy/retention of the audit input is undecided**: the audit log stores the
+  user's `search_docs` query and (capped) `execute` code in InsightOps — a public
+  deployment must disclose this and set retention. Not a code blocker.
+- No µVM **resource** telemetry from the server: host CPU/RAM/KVM/µVM metrics are
+  a host-level scrape (e.g. alloy), deliberately not application code — the
+  audit log already carries the per-call usage signal.
 - No per-call process isolation on the **local** engines (node/deno) — a runaway
   is killed via process-group SIGKILL + a 1 MiB output cap, not a VM boundary (the
   microsandbox engine does isolate per run).

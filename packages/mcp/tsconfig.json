@@ -16,7 +16,11 @@
     "noEmit": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "verbatimModuleSyntax": true
+    "verbatimModuleSyntax": true,
+    // @openagenda/logs is a raw-JS workspace package with no declarations; point
+    // the checker at our local shim so checkJs doesn't descend into its source
+    // (runtime resolution is unaffected — `paths` is type-only). See the .d.ts.
+    "paths": { "@openagenda/logs": ["./src/openagenda-logs.d.ts"] }
   },
-  "include": ["src/**/*.js", "tsdown.config.ts"]
+  "include": ["src/**/*.js", "src/**/*.d.ts", "tsdown.config.ts"]
 }
