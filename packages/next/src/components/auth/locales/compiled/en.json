@@ -11,6 +11,12 @@
       "value": "Lost password"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Sign in by email"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -20,13 +26,161 @@
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
     {
       "type": 0,
-      "value": "Confirm your email address"
+      "value": "Check your inbox"
     }
   ],
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
       "value": "Sign in"
+    }
+  ],
+  "next.components.auth.Consent.allow": [
+    {
+      "type": 0,
+      "value": "Allow"
+    }
+  ],
+  "next.components.auth.Consent.deny": [
+    {
+      "type": 0,
+      "value": "Deny"
+    }
+  ],
+  "next.components.auth.Consent.error": [
+    {
+      "type": 0,
+      "value": "Something went wrong. Please try again."
+    }
+  ],
+  "next.components.auth.Consent.fallbackAppName": [
+    {
+      "type": 0,
+      "value": "This application"
+    }
+  ],
+  "next.components.auth.Consent.heading": [
+    {
+      "type": 0,
+      "value": "Authorize "
+    },
+    {
+      "type": 1,
+      "value": "appName"
+    }
+  ],
+  "next.components.auth.Consent.intro": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " would like to access your OpenAgenda account. It will be able to:"
+    }
+  ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "After authorizing, you will be sent to "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasRead": [
+    {
+      "type": 0,
+      "value": "Read your agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasWrite": [
+    {
+      "type": 0,
+      "value": "Create and edit your agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.email": [
+    {
+      "type": 0,
+      "value": "Read your email address"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsRead": [
+    {
+      "type": 0,
+      "value": "Read your events"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsTransverse": [
+    {
+      "type": 0,
+      "value": "Access events across all your agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsWrite": [
+    {
+      "type": 0,
+      "value": "Create and edit your events"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsRead": [
+    {
+      "type": 0,
+      "value": "Read your locations"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsWrite": [
+    {
+      "type": 0,
+      "value": "Create and edit your locations"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersRead": [
+    {
+      "type": 0,
+      "value": "Read agenda members"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersWrite": [
+    {
+      "type": 0,
+      "value": "Manage agenda members"
+    }
+  ],
+  "next.components.auth.Consent.scope.offlineAccess": [
+    {
+      "type": 0,
+      "value": "Stay connected when you are away (refresh access)"
+    }
+  ],
+  "next.components.auth.Consent.scope.openid": [
+    {
+      "type": 0,
+      "value": "Verify your identity"
+    }
+  ],
+  "next.components.auth.Consent.scope.profile": [
+    {
+      "type": 0,
+      "value": "Read your public profile (name, picture)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "Anyone can register an application under any name. Only continue if you trust it."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "OpenAgenda has not verified this application"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
@@ -75,6 +229,54 @@
     {
       "type": 0,
       "value": "The reset link has been sent to the email you entered. Delivery may take a few minutes — check your inbox and your spam folder. If you don't receive the link, contact our support team."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Cancel"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "you@example.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Sign in by email form"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "An error occurred. Please try again."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Enter your email to receive a sign-in link. No password needed. The link is valid for 10 minutes."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Send the link"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "If an account exists for this email, a sign-in link has been sent. Delivery may take a few minutes. Check your inbox and your spam folder. If you don't receive it, you can request another in a minute."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -279,6 +481,12 @@
     {
       "type": 0,
       "value": "Reset my password"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Sign in by email"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [
@@ -556,13 +764,13 @@
   "next.components.auth.SignupComplete.heading": [
     {
       "type": 0,
-      "value": "Check your inbox for a validation link"
+      "value": "Check your inbox"
     }
   ],
   "next.components.auth.SignupComplete.instruction": [
     {
       "type": 0,
-      "value": "An email containing your account activation link is being sent to the address shown below. Check your inbox to complete your registration."
+      "value": "If this address can be used, an email has just been sent to it. Check your inbox to continue."
     }
   ],
   "next.components.auth.SignupComplete.resendFailed": [
@@ -580,7 +788,7 @@
   "next.components.auth.SignupComplete.resent": [
     {
       "type": 0,
-      "value": "The activation email has been resent."
+      "value": "The email has been resent."
     }
   ],
   "next.components.auth.SignupComplete.step1": [
@@ -598,7 +806,7 @@
   "next.components.auth.SignupComplete.step3": [
     {
       "type": 0,
-      "value": "Resend the activation email"
+      "value": "Resend the email"
     }
   ],
   "next.components.auth.SignupComplete.step4Prefix": [

@@ -4,6 +4,11 @@
 // migration↔deploy window safe: N-1 (P3) still writes api_key_set_id (now
 // nullable, FK gone — write succeeds), N (P4a) stops writing it entirely.
 
+// Referenced by literal name, not `schemas.apiKeySet`: the api_key_set cutover
+// removed that schema entry from config/index.js, so the indirection is now
+// `undefined`. Same convention as 20260528170000_drop_api_key_set_table.js.
+const API_KEY_SET = 'api_key_set';
+
 export async function up(knex) {
   const { schemas } = knex.client.config;
 
@@ -44,6 +49,6 @@ export async function down(knex) {
   await knex.schema.raw(
     `ALTER TABLE \`${schemas.accessToken}\`
        ADD CONSTRAINT \`access_token_api_key_set_id_api_key_set_id\`
-       FOREIGN KEY (\`api_key_set_id\`) REFERENCES \`${schemas.apiKeySet}\` (\`id\`) ON DELETE CASCADE`,
+       FOREIGN KEY (\`api_key_set_id\`) REFERENCES \`${API_KEY_SET}\` (\`id\`) ON DELETE CASCADE`,
   );
 }

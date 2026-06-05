@@ -15,12 +15,12 @@ import {
 const messages = defineMessages({
   heading: {
     id: 'next.components.auth.SignupComplete.heading',
-    defaultMessage: 'Check your inbox for a validation link',
+    defaultMessage: 'Check your inbox',
   },
   instruction: {
     id: 'next.components.auth.SignupComplete.instruction',
     defaultMessage:
-      'An email containing your account activation link is being sent to the address shown below. Check your inbox to complete your registration.',
+      'If this address can be used, an email has just been sent to it. Check your inbox to continue.',
   },
   didNotReceiveHeading: {
     id: 'next.components.auth.SignupComplete.didNotReceiveHeading',
@@ -37,7 +37,7 @@ const messages = defineMessages({
   },
   step3: {
     id: 'next.components.auth.SignupComplete.step3',
-    defaultMessage: 'Resend the activation email',
+    defaultMessage: 'Resend the email',
   },
   step4Prefix: {
     id: 'next.components.auth.SignupComplete.step4Prefix',
@@ -49,7 +49,7 @@ const messages = defineMessages({
   },
   resent: {
     id: 'next.components.auth.SignupComplete.resent',
-    defaultMessage: 'The activation email has been resent.',
+    defaultMessage: 'The email has been resent.',
   },
   resendFailed: {
     id: 'next.components.auth.SignupComplete.resendFailed',

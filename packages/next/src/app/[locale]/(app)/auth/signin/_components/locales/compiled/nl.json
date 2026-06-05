@@ -11,6 +11,18 @@
       "value": "Confirm your email address"
     }
   ],
+  "next.components.auth.Signin.accountUnavailable.description": [
+    {
+      "type": 0,
+      "value": "U kunt niet inloggen op dit account. Als u denkt dat dit een vergissing is, neem dan contact met ons op via het Help-menu."
+    }
+  ],
+  "next.components.auth.Signin.accountUnavailable.title": [
+    {
+      "type": 0,
+      "value": "Dit account is niet beschikbaar"
+    }
+  ],
   "next.components.auth.Signin.invalidActivation.description": [
     {
       "type": 0,

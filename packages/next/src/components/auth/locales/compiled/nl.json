@@ -11,6 +11,12 @@
       "value": "Lost password"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Inloggen via e-mail"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -20,13 +26,161 @@
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
     {
       "type": 0,
-      "value": "Confirm your email address"
+      "value": "Controleer uw inbox"
     }
   ],
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
       "value": "Inloggen"
+    }
+  ],
+  "next.components.auth.Consent.allow": [
+    {
+      "type": 0,
+      "value": "Toestaan"
+    }
+  ],
+  "next.components.auth.Consent.deny": [
+    {
+      "type": 0,
+      "value": "Weigeren"
+    }
+  ],
+  "next.components.auth.Consent.error": [
+    {
+      "type": 0,
+      "value": "Er is iets misgegaan. Probeer het opnieuw."
+    }
+  ],
+  "next.components.auth.Consent.fallbackAppName": [
+    {
+      "type": 0,
+      "value": "Deze applicatie"
+    }
+  ],
+  "next.components.auth.Consent.heading": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " autoriseren"
+    }
+  ],
+  "next.components.auth.Consent.intro": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " wil toegang tot je OpenAgenda-account. De applicatie kan:"
+    }
+  ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "Na het autoriseren word je doorgestuurd naar "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasRead": [
+    {
+      "type": 0,
+      "value": "Je agenda's lezen"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasWrite": [
+    {
+      "type": 0,
+      "value": "Je agenda's aanmaken en bewerken"
+    }
+  ],
+  "next.components.auth.Consent.scope.email": [
+    {
+      "type": 0,
+      "value": "Je e-mailadres lezen"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsRead": [
+    {
+      "type": 0,
+      "value": "Je evenementen lezen"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsTransverse": [
+    {
+      "type": 0,
+      "value": "Toegang tot evenementen in al je agenda's"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsWrite": [
+    {
+      "type": 0,
+      "value": "Je evenementen aanmaken en bewerken"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsRead": [
+    {
+      "type": 0,
+      "value": "Je locaties lezen"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsWrite": [
+    {
+      "type": 0,
+      "value": "Je locaties aanmaken en bewerken"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersRead": [
+    {
+      "type": 0,
+      "value": "Agendaleden lezen"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersWrite": [
+    {
+      "type": 0,
+      "value": "Agendaleden beheren"
+    }
+  ],
+  "next.components.auth.Consent.scope.offlineAccess": [
+    {
+      "type": 0,
+      "value": "Verbonden blijven wanneer je weg bent (toegang vernieuwen)"
+    }
+  ],
+  "next.components.auth.Consent.scope.openid": [
+    {
+      "type": 0,
+      "value": "Je identiteit verifiëren"
+    }
+  ],
+  "next.components.auth.Consent.scope.profile": [
+    {
+      "type": 0,
+      "value": "Je openbare profiel lezen (naam, foto)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "Iedereen kan een applicatie onder elke naam registreren. Ga alleen verder als je deze vertrouwt."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "OpenAgenda heeft deze applicatie niet geverifieerd"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
@@ -75,6 +229,54 @@
     {
       "type": 0,
       "value": "The reset link has been sent to the email you entered. Delivery may take a few minutes — check your inbox and your spam folder. If you don't receive the link, contact our support team."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Annuleren"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "E-mail"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "jij@voorbeeld.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Formulier voor inloggen via e-mail"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "Er is een fout opgetreden. Probeer het opnieuw."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Voer uw e-mailadres in om een inloglink te ontvangen. Geen wachtwoord nodig. De link is 10 minuten geldig."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Link versturen"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "Als er een account bestaat voor dit e-mailadres, is er een inloglink verstuurd. De bezorging kan enkele minuten duren. Controleer uw inbox en uw spammap. Als u de link niet ontvangt, kunt u over een minuut een nieuwe aanvragen."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -279,6 +481,12 @@
     {
       "type": 0,
       "value": "Reset my password"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Inloggen via e-mail"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [
@@ -556,13 +764,13 @@
   "next.components.auth.SignupComplete.heading": [
     {
       "type": 0,
-      "value": "Check your inbox for a validation link"
+      "value": "Controleer uw inbox"
     }
   ],
   "next.components.auth.SignupComplete.instruction": [
     {
       "type": 0,
-      "value": "An email containing your account activation link is being sent to the address shown below. Check your inbox to complete your registration."
+      "value": "Als dit adres kan worden gebruikt, is er zojuist een e-mail naar verzonden. Controleer uw inbox om door te gaan."
     }
   ],
   "next.components.auth.SignupComplete.resendFailed": [
@@ -580,7 +788,7 @@
   "next.components.auth.SignupComplete.resent": [
     {
       "type": 0,
-      "value": "The activation email has been resent."
+      "value": "De e-mail is opnieuw verzonden."
     }
   ],
   "next.components.auth.SignupComplete.step1": [
@@ -598,7 +806,7 @@
   "next.components.auth.SignupComplete.step3": [
     {
       "type": 0,
-      "value": "Resend the activation email"
+      "value": "E-mail opnieuw verzenden"
     }
   ],
   "next.components.auth.SignupComplete.step4Prefix": [

@@ -43,4 +43,38 @@ describe('02 - event search - functional: location', () => {
 
     expect(event.member.customField).toBe('Ladida');
   });
+
+  it('admin search finds an event by its organizing structure name (Emmaüs)', async () => {
+    const { total, events } = await service('members').search(
+      { search: 'emmaus' },
+      {},
+      { access: 'administrator' },
+    );
+
+    expect(total).toBe(1);
+    expect(events[0].uid).toBe(3);
+  });
+
+  it('public search does NOT find an event by member structure (GDPR)', async () => {
+    const { total } = await service('members').search(
+      { search: 'emmaus' },
+      {},
+      { access: 'public' },
+    );
+
+    expect(total).toBe(0);
+  });
+
+  it('the admin-only member search field is never returned in results', async () => {
+    const {
+      events: [event],
+    } = await service('members').search(
+      { search: 'emmaus' },
+      {},
+      { access: 'administrator', detailed: true },
+    );
+
+    expect(event._admin_search_member).toBeUndefined();
+    expect(event._admin_search_member_filtered).toBeUndefined();
+  });
 });

@@ -1,0 +1,6 @@
+{
+  "title": "Connexion à OpenAgenda",
+  "description": "Cliquez sur le bouton ci-dessous pour vous connecter à votre compte. Ce lien est valable 10 minutes et ne peut être utilisé qu'une seule fois.",
+  "actionDescription": "Se connecter",
+  "changeEmailSettings": "Modifier mes paramètres d'envoi d'emails"
+}

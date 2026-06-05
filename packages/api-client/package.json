@@ -1,0 +1,29 @@
+{
+  "name": "@openagenda/api-client",
+  "version": "0.0.0",
+  "private": true,
+  "description": "OpenAgenda v3 API client — generated from @openagenda/api-spec via Hey API (typed SDK + zod validators). Source of truth for the MCP's oa client.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "generate": "openapi-ts",
+    "generate:check": "yarn generate && git diff --exit-code -- src/generated",
+    "build": "tsdown",
+    "prepack": "yarn build",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "ky": "^1.14.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@hey-api/openapi-ts": "^0.97.3",
+    "@openagenda/api-spec": "workspace:*",
+    "tsdown": "^0.22.0",
+    "typescript": "^5.6.3"
+  }
+}

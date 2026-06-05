@@ -1,0 +1,37 @@
+{
+  "lastId": -1,
+  "events": [
+    {
+      "uid": 1,
+      "state": 2,
+      "addMethod": "contribution",
+      "title": {
+        "fr": "balade balade balade balade balade balade balade balade"
+      }
+    },
+    {
+      "uid": 2,
+      "state": 2,
+      "addMethod": "share",
+      "title": {
+        "fr": "une tres longue description dans laquelle le mot balade se trouve noye au milieu de nombreux autres mots sans aucun rapport afin de diluer fortement son score de pertinence pour la recherche syntaxique"
+      }
+    },
+    {
+      "uid": 3,
+      "state": 2,
+      "addMethod": "share",
+      "title": {
+        "fr": "compte rendu detaille d une sortie ou figure une seule fois le terme balade perdu dans un long paragraphe de remplissage qui abaisse nettement la pertinence du document concerne ici"
+      }
+    },
+    {
+      "uid": 4,
+      "state": 2,
+      "addMethod": "aggregation",
+      "title": {
+        "fr": "atelier programme sur plusieurs journees dont le texte mentionne incidemment une balade au sein d un volume de contenu important destine a noyer le signal de recherche pertinent"
+      }
+    }
+  ]
+}

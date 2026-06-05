@@ -11,6 +11,12 @@
       "value": "Mot de passe perdu"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Connexion per corrièl"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -20,13 +26,161 @@
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
     {
       "type": 0,
-      "value": "Confirmez votre adresse email"
+      "value": "Verificatz vòstra bóstia de recepcion"
     }
   ],
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
       "value": "Se connectar"
+    }
+  ],
+  "next.components.auth.Consent.allow": [
+    {
+      "type": 0,
+      "value": "Autorizar"
+    }
+  ],
+  "next.components.auth.Consent.deny": [
+    {
+      "type": 0,
+      "value": "Refusar"
+    }
+  ],
+  "next.components.auth.Consent.error": [
+    {
+      "type": 0,
+      "value": "Quicòm a mancat. Tornatz ensajar."
+    }
+  ],
+  "next.components.auth.Consent.fallbackAppName": [
+    {
+      "type": 0,
+      "value": "Aquesta aplicacion"
+    }
+  ],
+  "next.components.auth.Consent.heading": [
+    {
+      "type": 0,
+      "value": "Autorizar "
+    },
+    {
+      "type": 1,
+      "value": "appName"
+    }
+  ],
+  "next.components.auth.Consent.intro": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " vòl accedir a vòstre compte OpenAgenda. Poirà :"
+    }
+  ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "Aprèp l'autorizacion seretz mandat cap a "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasRead": [
+    {
+      "type": 0,
+      "value": "Legir vòstres agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasWrite": [
+    {
+      "type": 0,
+      "value": "Crear e modificar vòstres agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.email": [
+    {
+      "type": 0,
+      "value": "Legir vòstra adreça electronica"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsRead": [
+    {
+      "type": 0,
+      "value": "Legir vòstres eveniments"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsTransverse": [
+    {
+      "type": 0,
+      "value": "Accedir als eveniments de totes vòstres agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsWrite": [
+    {
+      "type": 0,
+      "value": "Crear e modificar vòstres eveniments"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsRead": [
+    {
+      "type": 0,
+      "value": "Legir vòstres luòcs"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsWrite": [
+    {
+      "type": 0,
+      "value": "Crear e modificar vòstres luòcs"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersRead": [
+    {
+      "type": 0,
+      "value": "Legir los membres dels agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersWrite": [
+    {
+      "type": 0,
+      "value": "Gerir los membres dels agendas"
+    }
+  ],
+  "next.components.auth.Consent.scope.offlineAccess": [
+    {
+      "type": 0,
+      "value": "Demorar connectat en vòstra abséncia (accès renovelat)"
+    }
+  ],
+  "next.components.auth.Consent.scope.openid": [
+    {
+      "type": 0,
+      "value": "Verificar vòstra identitat"
+    }
+  ],
+  "next.components.auth.Consent.scope.profile": [
+    {
+      "type": 0,
+      "value": "Legir vòstre perfil public (nom, fòto)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "Quin que siá pòt enregistrar una aplicacion jos quin nom que siá. Contunhatz pas que se i fasètz fisança."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "OpenAgenda a pas verificat aquesta aplicacion"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
@@ -75,6 +229,54 @@
     {
       "type": 0,
       "value": "Le lien de réinitialisation a été envoyé à l'email saisi. La réception peut parfois prendre quelques minutes : vérifiez votre boîte de réception et votre dossier de courriers indésirables. Si vous ne recevez pas le lien, contactez-nous au support."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Anullar"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "Corrièl"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "vos@exemple.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Formulari de connexion per corrièl"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "Una error s'es producha. Tornatz ensajar."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Picatz vòstre corrièl per recebre un ligam de connexion. Sens senhal. Lo ligam es valable 10 minutas."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Mandar lo ligam"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "Se un compte existís per aqueste corrièl, un ligam de connexion es estat mandat. La recepcion pòt prene qualques minutas. Verificatz vòstra bóstia de recepcion e vòstres spams. Se lo recebètz pas, ne poiretz demandar un autre dins una minuta."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -279,6 +481,12 @@
     {
       "type": 0,
       "value": "Réinitialiser le mot de passe"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Se connectar per corrièl"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [
@@ -556,13 +764,13 @@
   "next.components.auth.SignupComplete.heading": [
     {
       "type": 0,
-      "value": "Cliquez sur le lien de validation dans votre boîte de réception"
+      "value": "Verificatz vòstra bóstia de recepcion"
     }
   ],
   "next.components.auth.SignupComplete.instruction": [
     {
       "type": 0,
-      "value": "Un email contenant le lien d'activation de votre compte est en cours d'envoi vers le courriel indiqué ci-dessous. Vérifiez votre boîte de réception pour terminer votre inscription."
+      "value": "Se aquesta adreça pòt èsser utilizada, un email ven d'èsser mandat. Verificatz vòstra bóstia de recepcion per contunhar."
     }
   ],
   "next.components.auth.SignupComplete.resendFailed": [
@@ -580,7 +788,7 @@
   "next.components.auth.SignupComplete.resent": [
     {
       "type": 0,
-      "value": "L'email d'activation a été renvoyé."
+      "value": "L'email es estat tornat mandar."
     }
   ],
   "next.components.auth.SignupComplete.step1": [
@@ -598,7 +806,7 @@
   "next.components.auth.SignupComplete.step3": [
     {
       "type": 0,
-      "value": "Renvoyer l'e-mail d'activation"
+      "value": "Tornar mandar l'email"
     }
   ],
   "next.components.auth.SignupComplete.step4Prefix": [

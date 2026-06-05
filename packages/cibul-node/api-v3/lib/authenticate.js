@@ -1,27 +1,42 @@
-// v3 authentication: resolves the caller (user public key, agenda key, or
-// legacy `tk-` access token) and throws TYPED errors so the v3 error handler
+// v3 authentication: resolves the caller (OA OAuth access token, user public
+// key, agenda key, or legacy `tk-` access token) and throws TYPED errors so the
+// v3 error handler
 // renders the `{ error: { code, message } }` envelope with the right status.
-//
-// Unlike the v2 `verifyAndLoadAgendaOrUserFromKey` middleware (which it
-// replaces on the /v3 path), this never writes a response itself:
+// It never writes a response itself:
 //   - no credentials / unresolvable credentials -> NotAuthenticated (401)
 //   - resolved user is blacklisted               -> Forbidden (403)
-// The v2 middleware is left untouched — it stays correct for /api (UI) and /v2.
 //
 // A bare key is verified against the better-auth `apikey` store (hashed lookup
 // via `verifyKey`) and the OA owner is rebuilt from the `referenceId` — single
-// source of truth. The `tk-` path stays legacy until v2 EOL (those HMAC tokens
-// never live in the `apikey` store).
+// source of truth. The `tk-` path is legacy: those HMAC tokens never live in
+// the `apikey` store, so they take a separate lookup.
 
 import { NotAuthenticated, Forbidden } from '@openagenda/verror';
 
+// A JWS is exactly three non-empty base64url segments. The OA OAuth access
+// token is a JWS; an `oa_pk_…`/`oa_sk_…` key never matches (no dots), so this
+// cleanly routes a `Bearer <jwt>` to OAuth verification before the api-key path.
+const JWT_RE = /^[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/;
+
+function extractBearer(req) {
+  if (!req.headers.authorization?.startsWith('Bearer ')) return null;
+  return req.headers.authorization.slice(7);
+}
+
+function extractOAuthToken(req) {
+  const value = extractBearer(req);
+  return value && JWT_RE.test(value) ? value : null;
+}
+
 function extractPublicKey(req) {
-  if (!req.headers.authorization?.startsWith('Bearer ')) {
+  const value = extractBearer(req);
+  if (value === null) {
     return req.query.key ?? req.headers.key;
   }
-  const value = req.headers.authorization.slice(7);
-  // `Bearer tk-…` is a legacy access token, not a public key.
-  return value?.startsWith('tk-') ? null : value;
+  // `Bearer tk-…` is a legacy access token; `Bearer <jwt>` is an OAuth token —
+  // neither is an api-key public key.
+  if (value.startsWith('tk-') || JWT_RE.test(value)) return null;
+  return value;
 }
 
 function extractAccessToken(req) {
@@ -36,20 +51,52 @@ export default function createAuthenticate(core) {
 
   return async function authenticate(req, res, next) {
     try {
-      // Parity with v2: a browser session may already have populated req.user.
+      // A browser session may already have populated req.user; skip re-auth.
       if (req.user) {
         return next();
       }
 
-      const publicKey = extractPublicKey(req);
-      const accessToken = publicKey ? null : extractAccessToken(req);
+      const oauthToken = extractOAuthToken(req);
+      const publicKey = oauthToken ? null : extractPublicKey(req);
+      const accessToken = oauthToken || publicKey ? null : extractAccessToken(req);
 
-      if (!publicKey && !accessToken) {
+      if (!oauthToken && !publicKey && !accessToken) {
         throw new NotAuthenticated('missing API credentials');
       }
 
-      // Legacy access-token path. Blacklist is enforced here too (the v2 token
-      // path skips it — unifying the check closes that asymmetry on /v3).
+      // OAuth delegation path: a JWS access token this very AS issued. Verified
+      // in-process (signature via the JWKS, issuer, expiry, audience ∈ our
+      // validAudiences). Under O2.5 the MCP token-exchanges its `aud=mcp` grant
+      // for a short `aud=api` token before reaching here, so the audience the
+      // verifier trusts is EXACTLY the v3 resource id (`apiResourceUrl`). A bare
+      // `aud=mcp` token (the legacy B2 passthrough) is always rejected — and when
+      // no API resource is configured the trusted set is EMPTY, so every OAuth
+      // token is rejected (API keys still work) — see plan-oauth-provider.md §O2.5.
+      // The OA uid comes
+      // from the private `uid` claim (NOT `sub`, which is the better-auth row id
+      // — they differ for every user; see oauthToken.js), so we authenticate as
+      // that user exactly like an `sk` key — the executed request carries the
+      // consenting user's visibility, never more.
+      if (oauthToken) {
+        const verified = await auth.verifyOAuthAccessToken(oauthToken);
+        if (!verified) {
+          throw new NotAuthenticated('invalid or expired OAuth token');
+        }
+        const user = await core.users.get(verified.userUid, { detailed: true });
+        if (!user) {
+          throw new NotAuthenticated('invalid OAuth token');
+        }
+        if (user.isBlacklisted) {
+          throw new Forbidden('user is blacklisted');
+        }
+        // Record the grant for downstream scope checks (v3 is GET-only/read-only
+        // today, so no write-scope gate yet — see plan §O2 "scope authorization").
+        req.oauth = { scopes: verified.scopes, clientId: verified.clientId };
+        req.user = user;
+        return next();
+      }
+
+      // Legacy access-token path. The blacklist is enforced here too.
       if (accessToken) {
         let user;
         try {
@@ -57,9 +104,8 @@ export default function createAuthenticate(core) {
         } catch (err) {
           // The legacy tk- primitive throws an untyped Error for any failure
           // (invalid/expired/orphaned token), so we can't cleanly tell a bad
-          // token from an infra fault here — treat it as unauthenticated, as v2
-          // does. A precise 401-vs-500 split needs typed errors at the source;
-          // that lands with the tk- retirement (plan-slice-auth-v3.md, D4).
+          // token from an infra fault here — treat it as unauthenticated. A
+          // precise 401-vs-500 split would need typed errors at the source.
           if (err?.name === 'Forbidden') throw err; // never mask a 403 as 401
           user = null;
         }
@@ -98,20 +144,18 @@ export default function createAuthenticate(core) {
           }
           req.apiKey = verified;
 
-          // D6.A tier enforcement (visibility), v3 — structural public lock for
+          // D6.A tier enforcement (visibility): structural public lock for
           // publishable keys. A `pk` resolves its owner (so existence and the
           // blacklist are still checked above) but is NEVER granted the owner's
-          // visibility: we deliberately leave `req.user` unset, so the route
-          // handlers pass no `userUid` and `loadSearchAccess` returns `null`
-          // (published-only, public fields). "read-only" is not "public" — only
-          // withholding `userUid` keeps a moderator's pk (including a legacy
-          // `userPublic` key, mirrored as oaKind 'pk') from leaking drafts or
-          // role-gated fields when it is embedded client-side.
+          // visibility — we leave `req.user` unset, so the route handlers pass
+          // no `userUid` and `loadSearchAccess` returns `null` (published-only,
+          // public fields). "read-only" is not "public": only withholding
+          // `userUid` keeps a moderator's pk (including a legacy `userPublic`
+          // key, mirrored as oaKind 'pk') from leaking drafts or role-gated
+          // fields when it is embedded client-side.
           //
-          // Applies to ALL pk on v3; the v2 middleware cutover is a separate PR
-          // (v2 is frozen). No pk write-verb guard here: v3 is read-only and
-          // this middleware is mounted GET-only — rejecting a pk on a write verb
-          // lands with the v3 write surface (plan-slice-auth-v3.md D4/D6).
+          // There is no pk write-verb guard here: this middleware is mounted
+          // GET-only and v3 is read-only.
           if (verified.oaKind === 'pk') {
             return next();
           }

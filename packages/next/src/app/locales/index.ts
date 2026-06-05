@@ -11,6 +11,7 @@ export default async function fetchLocale(locale) {
     import(`../[locale]/(app)/[agendaSlug]/events/[eventSlug]/locales/compiled/${locale}.json`).then((mod) => mod.default),
     import(`../[locale]/(app)/[agendaSlug]/locales/compiled/${locale}.json`).then((mod) => mod.default),
     import(`../[locale]/(app)/agendas/locales/compiled/${locale}.json`).then((mod) => mod.default),
+    import(`../[locale]/(app)/auth/magic-link/confirm/_components/locales/compiled/${locale}.json`).then((mod) => mod.default),
     import(`../[locale]/(app)/auth/manual/_components/locales/compiled/${locale}.json`).then((mod) => mod.default),
     import(`../[locale]/(app)/auth/reset/_components/locales/compiled/${locale}.json`).then((mod) => mod.default),
     import(`../[locale]/(app)/auth/signin/_components/locales/compiled/${locale}.json`).then((mod) => mod.default),

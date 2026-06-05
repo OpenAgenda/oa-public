@@ -1,0 +1,5 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": "S'està iniciant la sessió…",
+  "next.components.auth.MagicLinkConfirm.intro": "Espereu mentre us iniciem la sessió.",
+  "next.components.auth.MagicLinkConfirm.invalid": "Aquest enllaç d'inici de sessió no és vàlid o ha caducat. Sol·licita'n un de nou."
+}

@@ -11,6 +11,12 @@
       "value": "Mot de passe perdu"
     }
   ],
+  "next.components.auth.AuthDialog.dialogTitleMagicLink": [
+    {
+      "type": 0,
+      "value": "Kennaskañ dre bostel"
+    }
+  ],
   "next.components.auth.AuthDialog.dialogTitleSignup": [
     {
       "type": 0,
@@ -20,13 +26,161 @@
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": [
     {
       "type": 0,
-      "value": "Confirmez votre adresse email"
+      "value": "Gwiriit ho boest degemer"
     }
   ],
   "next.components.auth.AuthDialog.triggerLabel": [
     {
       "type": 0,
       "value": "Kevreañ"
+    }
+  ],
+  "next.components.auth.Consent.allow": [
+    {
+      "type": 0,
+      "value": "Aotreañ"
+    }
+  ],
+  "next.components.auth.Consent.deny": [
+    {
+      "type": 0,
+      "value": "Nac'hañ"
+    }
+  ],
+  "next.components.auth.Consent.error": [
+    {
+      "type": 0,
+      "value": "Un dra bennak a zo aet a-dreuz. Klaskit en-dro mar plij."
+    }
+  ],
+  "next.components.auth.Consent.fallbackAppName": [
+    {
+      "type": 0,
+      "value": "An arload-mañ"
+    }
+  ],
+  "next.components.auth.Consent.heading": [
+    {
+      "type": 0,
+      "value": "Aotreañ "
+    },
+    {
+      "type": 1,
+      "value": "appName"
+    }
+  ],
+  "next.components.auth.Consent.intro": [
+    {
+      "type": 1,
+      "value": "appName"
+    },
+    {
+      "type": 0,
+      "value": " a fell dezhañ tizhout ho kont OpenAgenda. Gallout a raio :"
+    }
+  ],
+  "next.components.auth.Consent.redirectNotice": [
+    {
+      "type": 0,
+      "value": "Goude an aotreañ e viot kaset da "
+    },
+    {
+      "type": 1,
+      "value": "host"
+    },
+    {
+      "type": 0,
+      "value": "."
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasRead": [
+    {
+      "type": 0,
+      "value": "Lenn hoc'h deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.agendasWrite": [
+    {
+      "type": 0,
+      "value": "Krouiñ ha kemmañ hoc'h deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.email": [
+    {
+      "type": 0,
+      "value": "Lenn ho chomlec'h postel"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsRead": [
+    {
+      "type": 0,
+      "value": "Lenn hoc'h abadennoù"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsTransverse": [
+    {
+      "type": 0,
+      "value": "Tizhout an abadennoù eus hoc'h holl deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.eventsWrite": [
+    {
+      "type": 0,
+      "value": "Krouiñ ha kemmañ hoc'h abadennoù"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsRead": [
+    {
+      "type": 0,
+      "value": "Lenn ho lec'hioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.locationsWrite": [
+    {
+      "type": 0,
+      "value": "Krouiñ ha kemmañ ho lec'hioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersRead": [
+    {
+      "type": 0,
+      "value": "Lenn izili an deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.membersWrite": [
+    {
+      "type": 0,
+      "value": "Merañ izili an deizataerioù"
+    }
+  ],
+  "next.components.auth.Consent.scope.offlineAccess": [
+    {
+      "type": 0,
+      "value": "Chom kennasket pa'z oc'h ezvezant (nevesaat an haeziñ)"
+    }
+  ],
+  "next.components.auth.Consent.scope.openid": [
+    {
+      "type": 0,
+      "value": "Gwiriañ ho identelezh"
+    }
+  ],
+  "next.components.auth.Consent.scope.profile": [
+    {
+      "type": 0,
+      "value": "Lenn ho profil foran (anv, luc'hskeudenn)"
+    }
+  ],
+  "next.components.auth.Consent.unverifiedBody": [
+    {
+      "type": 0,
+      "value": "Gall a ra forzh piv enrollañ un arload dindan forzh peseurt anv. Na gendalc'hit nemet ma fiziit enni."
+    }
+  ],
+  "next.components.auth.Consent.unverifiedTitle": [
+    {
+      "type": 0,
+      "value": "N'eo ket bet gwiriekaet an arload-mañ gant OpenAgenda"
     }
   ],
   "next.components.auth.LostPassword.cancelLabel": [
@@ -75,6 +229,54 @@
     {
       "type": 0,
       "value": "Le lien de réinitialisation a été envoyé à l'email saisi. La réception peut parfois prendre quelques minutes : vérifiez votre boîte de réception et votre dossier de courriers indésirables. Si vous ne recevez pas le lien, contactez-nous au support."
+    }
+  ],
+  "next.components.auth.MagicLink.cancelLabel": [
+    {
+      "type": 0,
+      "value": "Nullañ"
+    }
+  ],
+  "next.components.auth.MagicLink.emailLabel": [
+    {
+      "type": 0,
+      "value": "Postel"
+    }
+  ],
+  "next.components.auth.MagicLink.emailPlaceholder": [
+    {
+      "type": 0,
+      "value": "c'hwi@skouer.com"
+    }
+  ],
+  "next.components.auth.MagicLink.formTitle": [
+    {
+      "type": 0,
+      "value": "Furmskrid kennaskañ dre bostel"
+    }
+  ],
+  "next.components.auth.MagicLink.genericError": [
+    {
+      "type": 0,
+      "value": "Ur fazi a zo bet. Klaskit en-dro mar plij."
+    }
+  ],
+  "next.components.auth.MagicLink.intro": [
+    {
+      "type": 0,
+      "value": "Skrivit ho postel evit resev ul liamm kennaskañ. Hep ger-tremen. Talvoudek eo al liamm e-pad 10 munutenn."
+    }
+  ],
+  "next.components.auth.MagicLink.submitLabel": [
+    {
+      "type": 0,
+      "value": "Kas al liamm"
+    }
+  ],
+  "next.components.auth.MagicLink.successMessage": [
+    {
+      "type": 0,
+      "value": "Mar bez ur gont evit ar postel-mañ ez eus bet kaset ul liamm kennaskañ. Gallout a ra ar c'hasadenn padout un nebeud munutennoù. Gwiriit ho poest degemer hag ho teuliad spam. Ma ne resevit ket anezhañ e c'hellit goulenn unan all a-benn ur vunutenn."
     }
   ],
   "next.components.auth.PasswordField.good": [
@@ -279,6 +481,12 @@
     {
       "type": 0,
       "value": "Réinitialiser le mot de passe"
+    }
+  ],
+  "next.components.auth.Signin.signinByEmail": [
+    {
+      "type": 0,
+      "value": "Kennaskañ dre bostel"
     }
   ],
   "next.components.auth.Signin.signinSuccess": [
@@ -556,13 +764,13 @@
   "next.components.auth.SignupComplete.heading": [
     {
       "type": 0,
-      "value": "Cliquez sur le lien de validation dans votre boîte de réception"
+      "value": "Gwiriit ho boest degemer"
     }
   ],
   "next.components.auth.SignupComplete.instruction": [
     {
       "type": 0,
-      "value": "Un email contenant le lien d'activation de votre compte est en cours d'envoi vers le courriel indiqué ci-dessous. Vérifiez votre boîte de réception pour terminer votre inscription."
+      "value": "Mar gell bezañ implijet ar chomlec'h-mañ, ez eus bet kaset ur postel dezhañ. Gwiriit ho boest degemer evit kenderc'hel."
     }
   ],
   "next.components.auth.SignupComplete.resendFailed": [
@@ -580,7 +788,7 @@
   "next.components.auth.SignupComplete.resent": [
     {
       "type": 0,
-      "value": "L'email d'activation a été renvoyé."
+      "value": "Kaset eo bet ar postel en-dro."
     }
   ],
   "next.components.auth.SignupComplete.step1": [
@@ -598,7 +806,7 @@
   "next.components.auth.SignupComplete.step3": [
     {
       "type": 0,
-      "value": "Renvoyer l'e-mail d'activation"
+      "value": "Adkas ar postel"
     }
   ],
   "next.components.auth.SignupComplete.step4Prefix": [

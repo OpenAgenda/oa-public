@@ -1,0 +1,6 @@
+{
+  "title": "Ya existe una cuenta con esta dirección de correo electrónico",
+  "description": "Alguien —quizás usted— acaba de intentar crear una cuenta de OpenAgenda con esta dirección de correo electrónico. Ya existe una cuenta: no se ha creado ninguna cuenta nueva ni se ha modificado nada.\nSi fue usted, puede iniciar sesión o restablecer su contraseña con los botones de abajo. Si no fue usted, puede ignorar este correo.",
+  "loginAction": "Iniciar sesión",
+  "resetAction": "Restablecer mi contraseña"
+}

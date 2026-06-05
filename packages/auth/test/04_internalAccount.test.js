@@ -247,15 +247,17 @@ describe('auth - unit: credential helpers', () => {
     expect(adapter.deleteAccount).toHaveBeenCalledWith('fb-1');
   });
 
-  it('revokeUserSessions delegates to deleteSessions with the userId as string', async () => {
-    const adapter = { deleteSessions: jest.fn().mockResolvedValue(undefined) };
+  it('revokeUserSessions delegates to deleteUserSessions with the userId as string', async () => {
+    const adapter = {
+      deleteUserSessions: jest.fn().mockResolvedValue(undefined),
+    };
     const { revokeUserSessions } = createCredentialHelpers(
       fakeInstance(adapter),
     );
 
     await revokeUserSessions(99);
 
-    expect(adapter.deleteSessions).toHaveBeenCalledWith('99');
+    expect(adapter.deleteUserSessions).toHaveBeenCalledWith('99');
   });
 
   it('refreshUserSessions delegates to updateUser with an empty patch (BA onUpdate fills updated_at) and the userId as string', async () => {

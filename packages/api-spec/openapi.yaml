@@ -8,7 +8,8 @@ info:
     the generated SDK, MCP server and documentation.
 
 
-    This is a work-in-progress draft. Slice 1 covers read access to events.
+    This is a work-in-progress draft. Slice 1 covers read access to events
+    and agendas.
   contact:
     name: OpenAgenda Support
     email: support@openagenda.com
@@ -35,11 +36,122 @@ security:
       - events:read
 
 paths:
+  /agendas:
+    get:
+      operationId: agendas.list
+      tags: [Agendas]
+      summary: List agendas
+      x-synonyms: [directory, catalogue, catalog, browse, find, all]
+      x-codeSamples:
+        - lang: TypeScript
+          label: List official agendas
+          source: |
+            const { data, error } = await oa.agendas.list({
+              query: { official: true, limit: 20 },
+            });
+            if (error) throw error;
+            return data.data.map((a) => ({ uid: a.uid, title: a.title }));
+      description: >
+        Returns a cursor-paginated list of agendas. Pass the `after` cursor
+        returned in `pagination.after` to fetch the next page; resend the same
+        filters (they are not encoded in the cursor).
+
+
+        By default items are the lighter `AgendaSummary`; pass `detailed=true`
+        for `AgendaDetailed` (adds `createdAt`, `network`, `locationSet` — the
+        search-index detailed projection). The full canonical record (with
+        `url`, `updatedAt`, `officializedAt`, `private`, `indexed`) is only
+        available via the single-agenda `GET /agendas/{agendaUid}`.
+
+
+        Unknown or malformed filter values return `400`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - agendas:read
+      parameters:
+        - $ref: '#/components/parameters/AfterCursor'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/Detailed'
+        - $ref: '#/components/parameters/AgendaSearch'
+        - $ref: '#/components/parameters/AgendaFilterUid'
+        - $ref: '#/components/parameters/AgendaFilterSlug'
+        - $ref: '#/components/parameters/AgendaFilterOfficial'
+      responses:
+        '200':
+          description: A page of agendas.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AgendaList'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+
+  /agendas/{agendaUid}:
+    get:
+      operationId: agendas.get
+      tags: [Agendas]
+      summary: Get one agenda
+      x-synonyms: [detail, single, one, by id, uid, fetch, retrieve, lookup]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Get one agenda by uid
+          source: |
+            const { data, error } = await oa.agendas.get({
+              path: { agendaUid: 12345 },
+            });
+            if (error) throw error;
+            return data;
+      description: >
+        Returns a single agenda in its full `Agenda` representation, including
+        `network` and `locationSet`.
+      security:
+        - bearerAuth: []
+        - oauth2:
+            - agendas:read
+      parameters:
+        - $ref: '#/components/parameters/AgendaUid'
+      responses:
+        '200':
+          description: The agenda.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agenda'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
   /agendas/{agendaUid}/events:
     get:
-      operationId: listAgendaEvents
+      operationId: agendas.events.list
       tags: [Events]
       summary: List events of an agenda
+      x-synonyms:
+        [find, browse, filter, paginate, cursor, upcoming, when, where, date]
+      x-codeSamples:
+        - lang: TypeScript
+          label: All upcoming events in Paris (paging every result)
+          source: |
+            const events = [];
+            let after;
+            do {
+              const { data, error } = await oa.agendas.events.list({
+                path: { agendaUid: 12345 },
+                query: { city: ['Paris'], relative: ['upcoming'], limit: 100, after },
+              });
+              if (error) throw error;
+              events.push(...data.data);
+              after = data.pagination.after;
+            } while (after);
+            return events.length;
       description: >
         Returns a cursor-paginated list of events for the given agenda.
         Pass the `after` cursor returned in `pagination.after` to fetch the
@@ -64,6 +176,7 @@ paths:
         - $ref: '#/components/parameters/Sort'
         # text & identity
         - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/RelevanceThreshold'
         - $ref: '#/components/parameters/FilterUid'
         - $ref: '#/components/parameters/FilterSlug'
         - $ref: '#/components/parameters/FilterExtId'
@@ -118,9 +231,19 @@ paths:
 
   /agendas/{agendaUid}/events/{eventUid}:
     get:
-      operationId: getAgendaEvent
+      operationId: agendas.events.get
       tags: [Events]
       summary: Get a single event
+      x-synonyms: [detail, single, one, by id, uid, fetch, retrieve, lookup]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Get a single event within an agenda
+          source: |
+            const { data, error } = await oa.agendas.events.get({
+              path: { agendaUid: 12345, eventUid: 67890 },
+            });
+            if (error) throw error;
+            return data;
       description: Returns a single event by its uid within the given agenda.
       security:
         - bearerAuth: []
@@ -145,12 +268,36 @@ paths:
 
   /agendas/{agendaUid}/events/facets:
     get:
-      operationId: listAgendaEventFacets
+      operationId: agendas.events.facets
       tags: [Events]
       summary: Faceted counts for an agenda's events
+      x-synonyms:
+        [
+          aggregate,
+          count,
+          group,
+          group by,
+          stats,
+          statistics,
+          histogram,
+          distribution,
+          how many,
+          breakdown,
+          top,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: How many concert events per city
+          source: |
+            const { data, error } = await oa.agendas.events.facets({
+              path: { agendaUid: 12345 },
+              query: { facets: ['cities'], keyword: ['concert'] },
+            });
+            if (error) throw error;
+            return data.facets.cities;
       description: >
         Returns event counts grouped by the requested facets, computed over the
-        **same filtered set** as `listAgendaEvents`. Pass the same filter
+        **same filtered set** as `agendas.events.list`. Pass the same filter
         parameters to scope the counts (e.g. `?keyword=concert` then facet on
         `cities`). No event data is returned — only `{ value, count }` buckets
         per facet.
@@ -171,8 +318,9 @@ paths:
         - $ref: '#/components/parameters/Month'
         - $ref: '#/components/parameters/AdditionalFieldsKeys'
         - $ref: '#/components/parameters/AdditionalFieldMetricsKeys'
-        # Same filters as listAgendaEvents — facets reflect the filtered set.
+        # Same filters as agendas.events.list — facets reflect the filtered set.
         - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/RelevanceThreshold'
         - $ref: '#/components/parameters/FilterUid'
         - $ref: '#/components/parameters/FilterSlug'
         - $ref: '#/components/parameters/FilterExtId'
@@ -238,6 +386,7 @@ components:
           scopes:
             events:read: Read events
             events:write: Create and modify events
+            agendas:read: Read agendas
 
   parameters:
     AgendaUid:
@@ -269,7 +418,7 @@ components:
       name: limit
       in: query
       required: false
-      description: Maximum number of events to return per page.
+      description: Maximum number of items to return per page.
       schema:
         type: integer
         default: 20
@@ -281,15 +430,53 @@ components:
       in: query
       required: false
       description: >
-        When `true`, each item in `data` is returned in its full `Event`
-        representation — the same field set as the single-event endpoint,
-        including the detailed-only fields (`longDescription`, `registration`,
-        `links`, …) and any agenda additional fields under `additionalFields`.
-        When `false`
-        (the default), items are the lighter `EventSummary`.
+        When `true`, each item in `data` is returned in its detailed
+        representation, including the detailed-only fields. When `false` (the
+        default), items are the lighter summary representation.
       schema:
         type: boolean
         default: false
+
+    AgendaSearch:
+      name: search
+      in: query
+      required: false
+      description: >
+        Full-text search across agenda title and description. Wrap the value in
+        double quotes for an exact phrase match.
+      schema:
+        type: string
+
+    AgendaFilterUid:
+      name: uid
+      in: query
+      required: false
+      description: Restrict to these agenda uids. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: integer
+          format: int64
+
+    AgendaFilterSlug:
+      name: slug
+      in: query
+      required: false
+      description: Restrict to these agenda slugs. Repeat the parameter for multiple values.
+      schema:
+        type: array
+        items:
+          type: string
+
+    AgendaFilterOfficial:
+      name: official
+      in: query
+      required: false
+      description: >
+        Restrict to official agendas (`true`) or to non-official agendas
+        (`false`). Omit to return both.
+      schema:
+        type: boolean
 
     Facets:
       name: facets
@@ -448,6 +635,44 @@ components:
         Wrap the value in double quotes for an exact phrase match.
       schema:
         type: string
+
+    RelevanceThreshold:
+      name: threshold
+      in: query
+      required: false
+      description: >
+        Relevance score floor for `search` results, used to drop weakly-matching
+        events from the long tail (e.g. a single query term buried in a long
+        description). Ignored when `search` is not set.
+
+
+        - `off` (default) — no score filtering; every match is returned.
+
+        - `auto` — a dynamic cutoff derived from the score distribution of the
+          current query: the largest relative drop ("elbow") in the top scores
+          becomes the floor. It self-calibrates per query, adapting to rare vs
+          common terms and small vs large agendas.
+
+        - a non-negative number — an absolute minimum score. Relevance scores are
+          not comparable across queries nor stable across reindexes, so a fixed
+          value suits a single tuned query rather than general use; prefer `auto`.
+
+
+        Filtering is consistent across the returned events, their `total`, and
+        facet counts: the cutoff is an Elasticsearch `min_score`, applied during
+        document collection, so the same trimmed set drives the hit list and the
+        aggregations. Pass the same `threshold` to the facets endpoint to keep
+        its counts aligned with the list.
+      schema:
+        # Quote the string barewords: unquoted `off` is coerced to boolean false
+        # by YAML 1.1 tooling (PyYAML, some codegens), diverging from the runtime
+        # string. (The server also accepts a falsy `false`/"false" as `off`.)
+        default: 'off'
+        oneOf:
+          - type: string
+            enum: ['off', 'auto']
+          - type: number
+            minimum: 0
 
     FilterUid:
       name: uid
@@ -873,9 +1098,23 @@ components:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: >-
-        Authenticated, but not allowed to access this resource — for example the
-        account is blacklisted, or the key lacks the required scope.
-        `error.code` is `forbidden`.
+        Authenticated, but not allowed to access this resource. For a blacklisted
+        account `error.code` is `forbidden`. For an OAuth2 access token that
+        lacks the scope this operation declares, `error.code` is
+        `insufficient_scope` and a `WWW-Authenticate: Bearer
+        error="insufficient_scope", scope="<required>"` header names the missing
+        scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+      headers:
+        WWW-Authenticate:
+          description: >-
+            Present on an `insufficient_scope` failure: the RFC 6750 Bearer
+            challenge naming the scope the token must hold.
+          required: false
+          schema:
+            type: string
+          example: >-
+            Bearer error="insufficient_scope", scope="events:read",
+            error_description="the access token lacks the required scope"
       content:
         application/json:
           schema:
@@ -901,7 +1140,14 @@ components:
             code:
               type: string
               description: Stable, machine-readable error code.
-              examples: ['not_found', 'unauthorized', 'validation_error']
+              examples:
+                [
+                  'not_found',
+                  'unauthorized',
+                  'forbidden',
+                  'insufficient_scope',
+                  'validation_error',
+                ]
             message:
               type: string
               description: Human-readable explanation.
@@ -926,7 +1172,7 @@ components:
         total:
           type: integer
           description: >
-            Total number of matching events. May be omitted when counting is
+            Total number of matching records. May be omitted when counting is
             too expensive.
 
     LocalizedString:
@@ -1149,6 +1395,215 @@ components:
         GET /agendas/{agendaUid}/settings/eventSchema). Each value follows its
         field's fieldType (text, choice, multilingual, …).
       additionalProperties: true
+
+    AgendaNetworkRef:
+      type: [object, 'null']
+      description: A compact reference to the network an agenda belongs to, or `null`.
+      additionalProperties: false
+      required: [uid, title]
+      properties:
+        uid:
+          type: integer
+          format: int64
+        title:
+          type: [string, 'null']
+
+    AgendaLocationSetRef:
+      type: [object, 'null']
+      description: A compact reference to the location set bound to an agenda, or `null`.
+      additionalProperties: false
+      required: [uid, title]
+      properties:
+        uid:
+          type: integer
+          format: int64
+        title:
+          type: [string, 'null']
+
+    AgendaSummary:
+      type: object
+      description: >
+        Base agenda representation returned by the list endpoint by default
+        (`detailed: false`). It is the search-index base projection — identity
+        and display essentials only.
+
+
+        The three agenda read shapes are distinct and reflect their source:
+        `AgendaSummary` (list base) ⊂ `AgendaDetailed` (list `detailed=true`, the
+        search-index detailed projection) and `Agenda` (the single-get, full SQL
+        record).
+
+
+        Empty-as-empty rule: every field is always present; singular optional
+        values are present as `null` when absent. NOTE: unlike events, agenda
+        `title`/`description` are plain strings, not localized maps.
+      additionalProperties: false
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+      properties:
+        uid:
+          type: integer
+          format: int64
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+          format: uri
+          description: >
+            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
+            structured `Image` type used by events; aligning the two is a
+            planned backend follow-up.)
+        official:
+          type: boolean
+          description: Whether the agenda is an official one. `null` is coerced to `false`.
+
+    AgendaDetailed:
+      type: object
+      description: >
+        Detailed agenda representation returned by the list endpoint when
+        `detailed: true`. It is the search-index detailed projection: the
+        `AgendaSummary` base set PLUS `createdAt`, `network` and `locationSet`.
+
+
+        It is narrower than the single-get `Agenda`: the search index does not
+        carry `url`, `updatedAt`, `officializedAt`, `private` or `indexed`, so
+        those are only available by fetching a single agenda.
+      additionalProperties: false
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+        - createdAt
+        - network
+        - locationSet
+      properties:
+        uid:
+          type: integer
+          format: int64
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+          format: uri
+          description: >
+            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
+            structured `Image` type used by events; aligning the two is a
+            planned backend follow-up.)
+        official:
+          type: boolean
+          description: Whether the agenda is an official one. `null` is coerced to `false`.
+        createdAt:
+          type: string
+          format: date-time
+        network:
+          $ref: '#/components/schemas/AgendaNetworkRef'
+        locationSet:
+          $ref: '#/components/schemas/AgendaLocationSetRef'
+
+    Agenda:
+      type: object
+      description: >
+        Full agenda representation returned by the single-get endpoint. The
+        canonical record (SQL), with the richest field set: the base fields plus
+        `url`, `createdAt`, `updatedAt`, `officializedAt`, `private`, `indexed`,
+        `network` and `locationSet`.
+
+
+        Empty-as-empty rule: every field is always present; singular optional
+        values are present as `null` when absent.
+      additionalProperties: false
+      required:
+        - uid
+        - slug
+        - title
+        - description
+        - image
+        - official
+        - url
+        - createdAt
+        - updatedAt
+        - officializedAt
+        - private
+        - indexed
+        - network
+        - locationSet
+      properties:
+        uid:
+          type: integer
+          format: int64
+        slug:
+          type: string
+        title:
+          type: string
+        description:
+          type: [string, 'null']
+        image:
+          type: [string, 'null']
+          format: uri
+          description: >
+            Absolute URL of the agenda image, or `null`. (Scalar URL — not the
+            structured `Image` type used by events; aligning the two is a
+            planned backend follow-up.)
+        official:
+          type: boolean
+          description: Whether the agenda is an official one. `null` is coerced to `false`.
+        url:
+          type: [string, 'null']
+          format: uri
+          description: Public website URL of the agenda, or `null`.
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+        officializedAt:
+          type: [string, 'null']
+          format: date-time
+          description: When the agenda was officialized, or `null` if it is not official.
+        private:
+          type: boolean
+          description: Whether the agenda is private (not publicly listed).
+        indexed:
+          type: boolean
+          description: Whether the agenda is indexed in public search.
+        network:
+          $ref: '#/components/schemas/AgendaNetworkRef'
+        locationSet:
+          $ref: '#/components/schemas/AgendaLocationSetRef'
+
+    AgendaList:
+      type: object
+      required: [data, pagination]
+      additionalProperties: false
+      properties:
+        data:
+          type: array
+          description: >
+            `AgendaSummary` items by default, or `AgendaDetailed` items when
+            `detailed=true`.
+          items:
+            oneOf:
+              - $ref: '#/components/schemas/AgendaSummary'
+              - $ref: '#/components/schemas/AgendaDetailed'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
 
     EventSummary:
       type: object

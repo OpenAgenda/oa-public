@@ -129,6 +129,26 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
         sort: 'updatedAt.desc',
       });
     });
+
+    it('maps the relevance threshold keywords and numbers', () => {
+      expect(buildEventSearchQuery({ threshold: 'auto' })).toEqual({
+        threshold: 'auto',
+      });
+      expect(buildEventSearchQuery({ threshold: 'off' })).toEqual({
+        threshold: 'off',
+      });
+      // numeric strings are coerced to numbers for an absolute min_score
+      expect(buildEventSearchQuery({ threshold: '20' })).toEqual({
+        threshold: 20,
+      });
+      expect(buildEventSearchQuery({ threshold: '0' })).toEqual({
+        threshold: 0,
+      });
+      // a falsy "false" (YAML 1.1 may coerce the `off` bareword) normalises to off
+      expect(buildEventSearchQuery({ threshold: 'false' })).toEqual({
+        threshold: 'off',
+      });
+    });
   });
 
   describe('visibility lock: moderation/internal params are never forwarded', () => {
@@ -150,11 +170,11 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
     });
   });
 
-  describe('custom field filters', () => {
-    it('maps scalar, list and range custom fields under query.custom', () => {
+  describe('additionalFields filters', () => {
+    it('maps scalar, list and range additionalFields under query.custom', () => {
       expect(
         buildEventSearchQuery({
-          custom: {
+          additionalFields: {
             thematique: '2',
             tags: ['a', 'b'],
             budget: { gte: '10', lte: '100' },
@@ -169,18 +189,22 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
       });
     });
 
-    it('rejects custom that is not an object', () => {
-      expect(badRequestFields({ custom: 'nope' })).toContain('custom');
+    it('rejects additionalFields that is not an object', () => {
+      expect(badRequestFields({ additionalFields: 'nope' })).toContain(
+        'additionalFields',
+      );
     });
 
-    it('rejects an unknown range bound on a custom field', () => {
+    it('rejects an unknown range bound on an additionalFields entry', () => {
       expect(
-        badRequestFields({ custom: { budget: { around: '10' } } }),
-      ).toContain('custom.budget.around');
+        badRequestFields({ additionalFields: { budget: { around: '10' } } }),
+      ).toContain('additionalFields.budget.around');
     });
 
-    it('drops a custom field whose range has no valid bound', () => {
-      expect(buildEventSearchQuery({ custom: { budget: {} } })).toEqual({});
+    it('drops an additionalFields entry whose range has no valid bound', () => {
+      expect(
+        buildEventSearchQuery({ additionalFields: { budget: {} } }),
+      ).toEqual({});
     });
   });
 
@@ -201,6 +225,20 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
 
     it('rejects an unknown sort value', () => {
       expect(badRequestFields({ sort: 'title.asc' })).toContain('sort');
+    });
+
+    it('rejects an invalid threshold keyword', () => {
+      expect(badRequestFields({ threshold: 'strict' })).toContain('threshold');
+    });
+
+    it('rejects a negative threshold', () => {
+      expect(badRequestFields({ threshold: '-5' })).toContain('threshold');
+    });
+
+    it('rejects a threshold given multiple times', () => {
+      expect(badRequestFields({ threshold: ['auto', '20'] })).toContain(
+        'threshold',
+      );
     });
 
     it('rejects a non-boolean featured', () => {

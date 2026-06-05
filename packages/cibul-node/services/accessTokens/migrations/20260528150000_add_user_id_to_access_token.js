@@ -7,6 +7,12 @@
 // rows so it can also be re-run by hand after deploy to catch rows minted by
 // the old code during the migration↔bascule window.
 
+// Referenced by literal name, not `schemas.apiKeySet`: the api_key_set cutover
+// (feat: "drop the api_key_set table") removed that schema entry from
+// config/index.js, so the indirection is now `undefined`. Same convention as
+// 20260528170000_drop_api_key_set_table.js.
+const API_KEY_SET = 'api_key_set';
+
 export async function up(knex) {
   const { schemas } = knex.client.config;
 
@@ -22,12 +28,17 @@ export async function up(knex) {
     );
   }
 
-  await knex.raw(
-    `UPDATE \`${schemas.accessToken}\` at
-       JOIN \`${schemas.apiKeySet}\` s ON s.id = at.api_key_set_id
-       SET at.user_id = s.user_id
-       WHERE at.user_id IS NULL`,
-  );
+  // Backfill only while the legacy source table is still present. On a DB
+  // already past the cutover (api_key_set dropped, user_id populated) there is
+  // nothing to copy and this becomes a no-op instead of failing.
+  if (await knex.schema.hasTable(API_KEY_SET)) {
+    await knex.raw(
+      `UPDATE \`${schemas.accessToken}\` at
+         JOIN \`${API_KEY_SET}\` s ON s.id = at.api_key_set_id
+         SET at.user_id = s.user_id
+         WHERE at.user_id IS NULL`,
+    );
+  }
 }
 
 export async function down(knex) {

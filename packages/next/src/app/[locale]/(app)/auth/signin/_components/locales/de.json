@@ -1,6 +1,8 @@
 {
   "next.components.auth.AuthDialog.dialogTitle": "Anmelden",
   "next.components.auth.AuthDialog.dialogTitleSignupComplete": "",
+  "next.components.auth.Signin.accountUnavailable.description": "",
+  "next.components.auth.Signin.accountUnavailable.title": "",
   "next.components.auth.Signin.invalidActivation.description": "",
   "next.components.auth.Signin.invalidActivation.title": ""
 }

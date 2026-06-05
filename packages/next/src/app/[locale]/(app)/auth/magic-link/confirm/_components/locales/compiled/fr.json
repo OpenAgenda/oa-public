@@ -1,0 +1,20 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": [
+    {
+      "type": 0,
+      "value": "Connexion en cours…"
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.intro": [
+    {
+      "type": 0,
+      "value": "Veuillez patienter pendant que nous vous connectons."
+    }
+  ],
+  "next.components.auth.MagicLinkConfirm.invalid": [
+    {
+      "type": 0,
+      "value": "Ce lien de connexion est invalide ou a expiré. Veuillez en demander un nouveau."
+    }
+  ]
+}

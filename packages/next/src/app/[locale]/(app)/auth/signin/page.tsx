@@ -22,7 +22,19 @@ export default async function SigninPage({
   searchParams: SearchParams;
 }) {
   const h = await headers();
-  if (getSessionCookie(h, { cookiePrefix: 'oa' })) {
+  const params = await searchParams;
+  // An in-flight OAuth authorization (the `oauth-provider` plugin redirects an
+  // unauthenticated user here with a signed query carrying `client_id` + `sig`)
+  // must be resumed by SigninPageClient, which replays that signed query to
+  // `/oauth2/authorize` after sign-in. Never short-circuit it to `/home`: doing
+  // so drops the OAuth round-trip, and when the session cookie is present but
+  // server-side-invalid (authorize validates against the DB; this page only
+  // sees the cookie) it loops with `/home` — which re-validates and bounces
+  // back here — yielding ERR_TOO_MANY_REDIRECTS.
+  const hasOAuthQuery = Boolean(
+    pickFirst(params.client_id) && pickFirst(params.sig),
+  );
+  if (!hasOAuthQuery && getSessionCookie(h, { cookiePrefix: 'oa' })) {
     // /home is a cibul-node legacy route, not a Next.js route — redirect
     // without the locale prefix so nginx routes it to cibul-node. The
     // localized variant (/fr/home) would fall through to Next's [agendaSlug]
@@ -30,7 +42,6 @@ export default async function SigninPage({
     redirect('/home');
   }
 
-  const params = await searchParams;
   const redirectParam = pickFirst(params.redirect);
   const invitation = pickFirst(params.invitation);
   // Verified-linking flow (phase 4): BA's OAuth callback redirects here when
@@ -46,12 +57,14 @@ export default async function SigninPage({
   // the legacy /activate/resend → /auth/signin?view=resend redirect.
   // Any other value falls back to the default signin form.
   const viewParam = pickFirst(params.view);
-  const view: 'signin' | 'lost' | 'resend' =
+  const view: 'signin' | 'lost' | 'magic' | 'resend' =
     viewParam === 'lost'
       ? 'lost'
-      : viewParam === 'resend'
-        ? 'resend'
-        : 'signin';
+      : viewParam === 'magic'
+        ? 'magic'
+        : viewParam === 'resend'
+          ? 'resend'
+          : 'signin';
   // Pre-fill the email when BA's OAuth callback hands us one or when the
   // legacy /activate/resend redirect carries `email`. The OAuth case
   // (verified-linking) and the resend case are the only ones that should
@@ -64,9 +77,18 @@ export default async function SigninPage({
   // USER_NOT_FOUND). We surface a banner on the signin form so the user
   // knows what happened — the legacy EJS `auth/invalidActivation` template
   // was retired with this redirect.
+  // `msg=accountUnavailable` is set by the better-auth after-hooks when a
+  // blacklisted / soft-removed user reaches the OAuth `/callback/:id` or the
+  // magic-link `/verify` endpoint (see packages/auth/src/index.js): the session
+  // is neutralised and the user is bounced here. Without a banner they would
+  // land on a bare form with no explanation.
   const msg = pickFirst(params.msg);
-  const banner: 'invalidActivation' | undefined =
-    msg === 'invalidActivation' ? 'invalidActivation' : undefined;
+  const banner: 'invalidActivation' | 'accountUnavailable' | undefined =
+    msg === 'invalidActivation'
+      ? 'invalidActivation'
+      : msg === 'accountUnavailable'
+        ? 'accountUnavailable'
+        : undefined;
 
   return (
     <SigninPageClient

@@ -1,0 +1,5 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": "Iniciando sesión…",
+  "next.components.auth.MagicLinkConfirm.intro": "Espera mientras iniciamos tu sesión.",
+  "next.components.auth.MagicLinkConfirm.invalid": "Este enlace de acceso no es válido o ha caducado. Solicita uno nuevo."
+}

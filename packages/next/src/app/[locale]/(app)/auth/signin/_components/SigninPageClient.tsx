@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { Heading } from '@openagenda/uikit';
 import Signin from 'components/auth/Signin';
@@ -25,7 +25,29 @@ const messages = defineMessages({
     defaultMessage:
       'This can be because it has already been used. If that is the case, your account should be activated.',
   },
+  accountUnavailableTitle: {
+    id: 'next.components.auth.Signin.accountUnavailable.title',
+    defaultMessage: 'This account is unavailable',
+  },
+  accountUnavailableDescription: {
+    id: 'next.components.auth.Signin.accountUnavailable.description',
+    defaultMessage:
+      'You cannot sign in to this account. If you think this is a mistake, please contact us through the Help menu.',
+  },
 });
+
+// Each banner maps a `?msg=` value (parsed in page.tsx) to its alert copy.
+// Generalising the lookup keeps a single render path as new banners are added.
+const bannerMessages = {
+  invalidActivation: {
+    title: messages.invalidActivationTitle,
+    description: messages.invalidActivationDescription,
+  },
+  accountUnavailable: {
+    title: messages.accountUnavailableTitle,
+    description: messages.accountUnavailableDescription,
+  },
+} as const;
 
 interface SigninPageClientProps {
   redirect?: string;
@@ -33,8 +55,8 @@ interface SigninPageClientProps {
   linkProvider?: 'google';
   linkError?: boolean;
   defaultEmail?: string;
-  view?: 'signin' | 'lost' | 'resend';
-  banner?: 'invalidActivation';
+  view?: 'signin' | 'lost' | 'magic' | 'resend';
+  banner?: 'invalidActivation' | 'accountUnavailable';
 }
 
 export default function SigninPageClient({
@@ -59,6 +81,27 @@ export default function SigninPageClient({
     callbackURL?: string;
   } | null>(view === 'resend' && defaultEmail ? { email: defaultEmail } : null);
 
+  // OAuth round-trip: when the `oauth-provider` plugin sends an unauthenticated
+  // user here (its `loginPage`), it appends the *signed* authorization query.
+  // After sign-in we must return to `/oauth2/authorize` with that query intact
+  // — the signature is verified over the verbatim string (insertion order
+  // preserved), so we replay `window.location.search` as-is rather than
+  // reconstructing it from parsed params. Computed client-side (not rendered,
+  // so no hydration concern). Non-OAuth visits leave the props untouched.
+  const oauthRedirect = useMemo(() => {
+    if (typeof window === 'undefined') return undefined;
+    const sp = new URLSearchParams(window.location.search);
+    if (!sp.get('client_id') || !sp.get('sig')) return undefined;
+    return `/api/auth/oauth2/authorize?${window.location.search.replace(/^\?/, '')}`;
+  }, []);
+  // `redirectOnSuccess` is followed verbatim after email sign-in; `redirect`
+  // (base64) feeds the social-login `callbackURL` path via
+  // computePostSignInRedirect, so set both for either sign-in route.
+  const redirectOnSuccess = oauthRedirect;
+  const effectiveRedirect = oauthRedirect
+    ? window.btoa(oauthRedirect)
+    : redirect;
+
   if (completeData) {
     return (
       <>
@@ -78,25 +121,25 @@ export default function SigninPageClient({
       <Heading as="h1" size="xl" mb="6">
         {intl.formatMessage(messages.heading)}
       </Heading>
-      {banner === 'invalidActivation' && (
+      {banner && (
         <MessageAlert
           role="alert"
           status="error"
           mb="4"
-          description={intl.formatMessage(
-            messages.invalidActivationDescription,
-          )}
+          description={intl.formatMessage(bannerMessages[banner].description)}
         >
-          {intl.formatMessage(messages.invalidActivationTitle)}
+          {intl.formatMessage(bannerMessages[banner].title)}
         </MessageAlert>
       )}
       <Signin
-        redirect={redirect}
+        redirect={effectiveRedirect}
+        redirectOnSuccess={redirectOnSuccess}
         invitation={invitation}
         linkProvider={linkProvider}
         linkError={linkError}
         defaultEmail={defaultEmail}
         defaultLostPassword={view === 'lost'}
+        defaultMagicLink={view === 'magic'}
         onActivationRequired={setCompleteData}
       />
     </>

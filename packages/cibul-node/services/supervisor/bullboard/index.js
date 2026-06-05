@@ -88,6 +88,9 @@ export function plugApp(app, base = '/bullboard') {
       new BullMQAdapter(new Queue('users', { prefix: '{users}' }), {
         displayName: 'Anonymisation des utilisateurs',
       }),
+      new BullMQAdapter(new Queue('auth', { prefix: '{auth}' }), {
+        displayName: 'Maintenance OAuth (GC sessions, tokens, clients)',
+      }),
       new BullMQAdapter(new Queue('agendaDocx', { prefix: '{agendaDocx}' }), {
         displayName: 'Docx agendas',
       }),

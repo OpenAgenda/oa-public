@@ -4,6 +4,7 @@ import Core from '../core/index.js';
 import api from '../api/index.js';
 import testConfig from './testConfig.js';
 import setup from './fixtures/setup.js';
+import waitFor from './helpers/waitFor.js';
 
 const enabled = [
   'knex',
@@ -192,44 +193,40 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
     });
 
     beforeAll(async () => {
-      await new Promise((resolve) => setTimeout(resolve, 100));
-
-      return new Promise((done) => {
-        core.tasks({
-          active() {},
-          error(...args) {
-            done(args);
-          },
-          failed(...args) {
-            done(args);
-          },
-          completed(...args) {
-            if (
-              args[0].name === 'networkSchemaUpdateChild'
-              && args[0].data?.agendaUid === 1
-            ) {
-              return done();
-            }
-          },
-        });
-
-        core.networks(1).schema.updateFields([]);
-      });
+      // Start the cascade worker (autorun: false until the first call) and
+      // trigger the network-field removal. The removal reaches the child
+      // through an async `networkSchemaUpdateChild` job — but the queue can also
+      // hold unrelated jobs from earlier describes that only get processed once
+      // the worker starts here, so resolving on a single job-completed event
+      // races the actual removal write. The assertion below polls for the
+      // settled state instead.
+      core.tasks({ active() {}, error() {}, failed() {}, completed() {} });
+      await core.networks(1).schema.updateFields([]);
     });
 
     it('removes abstract placeholders from child when network field is removed', async () => {
       const { formSchemas } = core.services;
 
-      const schemaAfterRemoval = await formSchemas.get(agenda.formSchemaId);
-      const abstractFieldAfter = schemaAfterRemoval.fields.find(
-        (f) => f.field === networkFieldKey,
+      // Poll until the cascade has actually removed the abstract placeholder
+      // from the child schema (read-after-write is async), rather than trusting
+      // a job event that can fire before the removal write lands.
+      const schemaAfterRemoval = await waitFor(
+        async () => {
+          const schema = await formSchemas.get(agenda.formSchemaId);
+          const stillThere = schema.fields.some(
+            (f) => f.field === networkFieldKey,
+          );
+          return stillThere ? null : schema;
+        },
+        { message: 'abstract placeholder to be removed from child schema' },
       );
-      expect(abstractFieldAfter).toBeUndefined();
 
-      const customFieldAfter = schemaAfterRemoval.fields.find(
-        (f) => f.field === customFieldKey,
-      );
-      expect(customFieldAfter).toBeDefined();
+      expect(
+        schemaAfterRemoval.fields.find((f) => f.field === networkFieldKey),
+      ).toBeUndefined();
+      expect(
+        schemaAfterRemoval.fields.find((f) => f.field === customFieldKey),
+      ).toBeDefined();
     });
   });
 
@@ -338,9 +335,6 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
         )
         .json();
 
-      // Wait for cascade to complete
-      await new Promise((resolve) => setTimeout(resolve, 500));
-
       // Verify child agenda (agenda 1) can see the network field
       const agenda = await core.agendas(1).get({
         access: 'internal',
@@ -348,12 +342,18 @@ describe('12 - core - functional (server): core.networks().agendas', () => {
       });
       expect(agenda.networkUid).toBe(1);
 
-      const mergedSchema = await core
-        .agendas(1)
-        .settings.schema.getMerged({ lang: 'en' });
-
-      const networkField = mergedSchema.fields.find(
-        (f) => f.field === 'network-cascade-test',
+      // The field reaches the child through an async cascade — poll the merged
+      // schema until it appears instead of racing a fixed sleep.
+      const networkField = await waitFor(
+        async () => {
+          const mergedSchema = await core
+            .agendas(1)
+            .settings.schema.getMerged({ lang: 'en' });
+          return mergedSchema.fields.find(
+            (f) => f.field === 'network-cascade-test',
+          );
+        },
+        { message: 'network field to cascade into child merged schema' },
       );
       expect(networkField).toBeDefined();
     });

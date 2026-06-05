@@ -42,9 +42,9 @@ describe('flat-exports - functional - rss', () => {
     expect(xml.indexOf('xmlns:ev')).not.toBe(-1);
   });
 
-  it('links in enclosures should be http', () => {
-    expect(xml.indexOf('enclosure url="https')).toBe(-1);
+  it('links in enclosures should be https', () => {
+    expect(xml.indexOf('enclosure url="http://')).toBe(-1);
 
-    expect(xml.indexOf('enclosure url="http')).not.toBe(-1);
+    expect(xml.indexOf('enclosure url="https')).not.toBe(-1);
   });
 });

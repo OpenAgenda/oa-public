@@ -11,6 +11,18 @@
       "value": "Confirm your email address"
     }
   ],
+  "next.components.auth.Signin.accountUnavailable.description": [
+    {
+      "type": 0,
+      "value": "No puede iniciar sesión en esta cuenta. Si cree que se trata de un error, contáctenos a través del menú de Ayuda."
+    }
+  ],
+  "next.components.auth.Signin.accountUnavailable.title": [
+    {
+      "type": 0,
+      "value": "Esta cuenta no está disponible"
+    }
+  ],
   "next.components.auth.Signin.invalidActivation.description": [
     {
       "type": 0,

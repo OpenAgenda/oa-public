@@ -1,0 +1,5 @@
+{
+  "next.components.auth.MagicLinkConfirm.heading": "U wordt aangemeld…",
+  "next.components.auth.MagicLinkConfirm.intro": "Even geduld terwijl we u aanmelden.",
+  "next.components.auth.MagicLinkConfirm.invalid": "Deze inloglink is ongeldig of verlopen. Vraag een nieuwe aan."
+}

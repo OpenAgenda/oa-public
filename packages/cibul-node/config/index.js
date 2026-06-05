@@ -10,6 +10,29 @@ const mailgun = {
   },
 };
 
+// The API host (e.g. api.openagenda.com). Hoisted so apiRoot can fall back to it.
+const apiDomain = prod.apiDomain ?? process.env.API_DOMAIN;
+
+// The public v3 API root (e.g. https://dapi.openagenda.com in dev). Hoisted so
+// the OAuth v3 resource id (aud=api) can derive from it — see `v3ResourceUrl`.
+// Falls back to the API host: apiRoot and apiDomain denote the same origin by
+// construction, so a configured API_DOMAIN alone is enough to derive both the
+// root and the v3 resource id. This keeps a token-exchange triad set to only 2/3
+// (exchange secret + resource url, but no API_ROOT) from bricking boot.
+const apiRoot = prod.apiRoot
+  ?? process.env.API_ROOT
+  ?? (apiDomain ? `https://${apiDomain}` : undefined);
+
+// The MCP's confidential-client secret for the O2.5 token-exchange endpoint.
+const mcpExchangeSecret = prod.mcpExchangeSecret ?? process.env.OA_MCP_EXCHANGE_SECRET;
+
+// The MCP HTTP server's OAuth resource id (the `aud` its tokens carry). Hoisted
+// so the exchange-client registry below can declare it as the MCP's
+// `subjectResource` — the audience that one client is allowed to exchange.
+const mcpResourceUrl = prod.mcpResourceUrl
+  ?? process.env.OA_MCP_RESOURCE_URL
+  ?? 'https://dmcp.openagenda.com/mcp';
+
 const insightOpsKeys = (process.env.OA_INSIGHT_OPS ?? '').length
   ? process.env.OA_INSIGHT_OPS.split('|').reduce((ops, pair) => {
     const [key, value] = pair.split(':');
@@ -34,6 +57,15 @@ const config = {
     process.env.AGENDA_SEARCH_RECENT_THRESHOLD_DAYS || 14,
     10,
   ),
+  // Elbow sensitivity for event-search `threshold=auto` (fraction of the top
+  // score a gap must clear to count as a relevance cliff). Left `undefined` when
+  // the env var is unset or invalid, so the event-search service applies its own
+  // default. To be calibrated on Nantes data.
+  eventSearchRelevanceMinDrop: Number.isFinite(
+    parseFloat(process.env.OA_EVENT_SEARCH_RELEVANCE_MIN_DROP),
+  )
+    ? parseFloat(process.env.OA_EVENT_SEARCH_RELEVANCE_MIN_DROP)
+    : undefined,
   tmpFolderPath: '/var/tmp/',
   logPath: '/var/tmp/cibul-node.log',
   logPathDebug: '/var/tmp/cibul-node-debug.log',
@@ -60,8 +92,55 @@ const config = {
   name: 'cibul-node',
   domain: prod.domains?.main ?? process.env.DOMAIN ?? 'd.openagenda.com',
   root: prod.root ?? process.env.ROOT ?? 'https://d.openagenda.com',
-  apiRoot: prod.apiRoot ?? process.env.API_ROOT,
-  apiDomain: prod.apiDomain ?? process.env.API_DOMAIN,
+  apiRoot,
+  apiDomain,
+  // MCP HTTP resource server (O2). Its OAuth resource identifier: the
+  // `resource` indicator MCP clients send to /oauth2/authorize|token, which
+  // the issued JWT's `aud` is bound to and `packages/auth` validates against
+  // (validAudiences). The server has a dedicated subdomain (dmcp in dev,
+  // mcp.openagenda.com in prod); the MCP protocol endpoint sits at the `/mcp`
+  // path (subdomain root serves a human landing page).
+  //
+  // The `/mcp` PATH is the resource identifier verbatim — it must match the
+  // MCP container's OA_MCP_RESOURCE_URL exactly. The path also sidesteps the
+  // trailing-slash trap of a bare origin: `new URL('https://host/mcp').href`
+  // stays `…/mcp` (WHATWG only appends `/` to a bare authority), so the value a
+  // client sends, the token `aud`, and `validAudiences` (exact Set match) all
+  // coincide. Prod's OA_MCP_RESOURCE_URL must likewise end in `/mcp`. (Hoisted to a
+  // const above — the exchange registry references it as a `subjectResource`.)
+  mcpResourceUrl,
+  // O2.5 token-exchange (RFC 8693). The v3 API resource id (`aud=api`) that the
+  // `/oauth2/token-exchange` endpoint mints tokens for and that the v3 verifier
+  // then trusts EXCLUSIVELY (passed to auth as the role-named `apiResourceUrl`).
+  // The audience IS the resource the SDK calls, so it derives from the API root
+  // (`apiRoot` + `/v3`) — tracking dev/prod with no drift. Override via
+  // OA_V3_RESOURCE_URL only if it must differ from apiRoot.
+  v3ResourceUrl:
+    prod.v3ResourceUrl
+    ?? process.env.OA_V3_RESOURCE_URL
+    ?? (apiRoot ? `${apiRoot.replace(/\/$/, '')}/v3` : undefined),
+  // First-party gateway registry for the exchange endpoint (client_id → {
+  // secret, subjectResource, allowedScopes?, allowedResources?, tokenTtl? }).
+  // Confidential-client auth, one secret per service for independent
+  // rotation/revocation. `subjectResource` is the audience that gateway's tokens
+  // carry — the ONLY tokens it may exchange. Built in code — these are internal
+  // services, NOT runtime-configurable: adding one = a new entry + its own secret
+  // env var here. Per-entry `tokenTtl` overrides the plugin-wide default
+  // (`exchangeTokenTtl`) when a service needs a different lifetime; the MCP bakes
+  // its token into a sandbox, so the short default fits. Today: just the MCP.
+  // Empty → endpoint not exposed.
+  exchangeClients: mcpExchangeSecret
+    ? { mcp: { secret: mcpExchangeSecret, subjectResource: mcpResourceUrl } }
+    : {},
+  // Default lifetime (seconds) of an exchanged `aud=api` token — long enough to
+  // outlast one `execute` run, short enough to bound the baked-credential blast
+  // radius. Overridable per service via the registry entry's `tokenTtl`. Parsed
+  // explicitly (not `|| 120`): an UNSET var defaults to 120, but a SET-but-invalid
+  // value (0, 'abc') passes through as-is so the auth plugin rejects it loudly at
+  // boot rather than silently falling back to the default.
+  exchangeTokenTtl: process.env.OA_EXCHANGE_TOKEN_TTL
+    ? Number(process.env.OA_EXCHANGE_TOKEN_TTL)
+    : 120,
   logo: prod.logo,
   googleAnalyticsId:
     process.env.GOOGLE_ANALYTICS_ID
@@ -177,8 +256,14 @@ const config = {
     stakeholder: 'reviewer',
     user: 'user',
     userToken: 'user_token',
+    session: 'session',
     account: 'account',
     verification: 'verification',
+    oauthClient: 'oauth_client',
+    oauthAccessToken: 'oauth_access_token',
+    oauthRefreshToken: 'oauth_refresh_token',
+    oauthConsent: 'oauth_consent',
+    jwks: 'jwks',
     invitation: 'invitation_2', // new invitation
     feed: 'activity_feed',
     feed_activity: 'activity_feed_activity',

@@ -33,7 +33,10 @@ export default function apiV3ErrorHandler(err, req, res, _next) {
     const details = fieldDetails(err);
     return res.status(err.statusCode || mapped.status).json({
       error: {
-        code: mapped.code,
+        // A handler may carry a more specific machine-readable code than the
+        // name-derived default (e.g. `insufficient_scope` for an OAuth scope
+        // failure, still a 403 Forbidden). Fall back to the mapped token.
+        code: err?.info?.code ?? mapped.code,
         message: err.message,
         ...details ? { details } : {},
       },
