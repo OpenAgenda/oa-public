@@ -262,11 +262,13 @@ export default function Auth(options = {}) {
     // uid that every downstream resolver keys on (`core.users.get(uid)`, the
     // api-key `referenceId`). They differ for ALL users. So a resource server
     // (the v3 API) reads `uid` from this claim to resolve the OA user, keeping
-    // the token self-describing (no per-request id→uid lookup). STRING-encoded:
-    // OA uids are BIGINT and can exceed 2^53, which a JSON number would round.
-    // `sub` is left untouched (stable OIDC subject; SSO continuity, O1 flow).
+    // the token self-describing (no per-request id→uid lookup). A JSON NUMBER:
+    // OA uids are bounded < 2^48 (generateUid) — comfortably inside 2^53 — so the
+    // wire value is exact and matches the `number` type uid carries everywhere
+    // else (no string round-trip). `sub` is left untouched (stable OIDC subject;
+    // SSO continuity, O1 flow).
     customAccessTokenClaims: async ({ user }) =>
-      (user?.uid != null ? { uid: String(user.uid) } : {}),
+      (user?.uid != null ? { uid: Number(user.uid) } : {}),
     // Standard 1h access-token TTL (the plugin default). This was clamped to
     // 600s under the B2 model (O2) because the consented `aud=mcp` token was
     // relayed verbatim into the sandbox for the duration of an `execute`, and a

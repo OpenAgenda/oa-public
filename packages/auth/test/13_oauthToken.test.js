@@ -61,15 +61,15 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
       iss: ISSUER,
       aud: V3_RESOURCE,
       sub: '313642',
-      uid: '275144919111001',
+      uid: 275144919111001,
       azp: 'mcp-client',
       scope: 'openid events:read agendas:read',
     });
 
     const result = await verifyOAuthAccessToken(token);
     expect(result).toEqual({
-      // Number — the uid type used everywhere downstream (OA uids are bounded
-      // < 2^48, so Number() is lossless).
+      // The uid claim is a JSON number (OA uids are bounded < 2^48, exact on the
+      // wire) — surfaced verbatim, the type used everywhere downstream.
       userUid: 275144919111001,
       scopes: ['openid', 'events:read', 'agendas:read'],
       clientId: 'mcp-client',
@@ -88,7 +88,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
       iss: ISSUER,
       aud: MCP_RESOURCE,
       sub: '1',
-      uid: '42',
+      uid: 42,
     });
     expect(await verifyOAuthAccessToken(token)).toBeNull();
   });
@@ -100,7 +100,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     // A valid OA token (e.g. an OIDC/SSO login token) bound to the AS issuer/
     // origin — but NOT to a resource that delegates to v3 → must not be honoured
     // here, so an SSO token can't double as a full v3 API credential.
-    const token = await sign({ iss: ISSUER, aud: ISSUER, sub: '1', uid: '42' });
+    const token = await sign({ iss: ISSUER, aud: ISSUER, sub: '1', uid: 42 });
     expect(await verifyOAuthAccessToken(token)).toBeNull();
   });
 
@@ -111,7 +111,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     const token = await sign({
       iss: ISSUER,
       aud: 'https://evil.example.com',
-      uid: '42',
+      uid: 42,
     });
     expect(await verifyOAuthAccessToken(token)).toBeNull();
   });
@@ -123,7 +123,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     const token = await sign({
       iss: 'https://attacker.example.com',
       aud: V3_RESOURCE,
-      uid: '42',
+      uid: 42,
     });
     expect(await verifyOAuthAccessToken(token)).toBeNull();
   });
@@ -136,7 +136,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     const token = await foreign.sign({
       iss: ISSUER,
       aud: V3_RESOURCE,
-      uid: '42',
+      uid: 42,
     });
     expect(await verifyOAuthAccessToken(token)).toBeNull();
   });
@@ -148,7 +148,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     const expired = await new SignJWT({
       iss: ISSUER,
       aud: V3_RESOURCE,
-      uid: '42',
+      uid: 42,
     })
       .setProtectedHeader({ alg: 'EdDSA', kid: publicJwk.kid })
       .setIssuedAt(Math.floor(Date.now() / 1000) - 7200)
@@ -171,6 +171,19 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     expect(await verifyOAuthAccessToken(token)).toBeNull();
   });
 
+  it('rejects a token whose uid claim is not a positive safe integer', async () => {
+    const { instance, sign } = await setup();
+    const { verifyOAuthAccessToken } = helpers(instance);
+
+    // The uid claim is a JSON number; a malformed value must never become a
+    // real-looking identity. A stringified number (the old wire format), a float,
+    // 0/negative, and a value past 2^53 are all rejected at the gate.
+    for (const uid of ['42', 0, -1, 1.5, 2 ** 53]) {
+      const token = await sign({ iss: ISSUER, aud: V3_RESOURCE, uid });
+      expect(await verifyOAuthAccessToken(token)).toBeNull();
+    }
+  });
+
   it('returns null for a non-JWT bearer without touching the JWKS', async () => {
     const { instance, getJwks } = await setup();
     const { verifyOAuthAccessToken } = helpers(instance);
@@ -187,13 +200,13 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
 
     // First call primes the cached keyset.
     await verifyOAuthAccessToken(
-      await sign({ iss: ISSUER, aud: V3_RESOURCE, uid: '1' }),
+      await sign({ iss: ISSUER, aud: V3_RESOURCE, uid: 1 }),
     );
     expect(getJwks).toHaveBeenCalledTimes(1);
 
     // A token referencing an unknown kid forces exactly one refetch.
     const stale = await sign(
-      { iss: ISSUER, aud: V3_RESOURCE, uid: '2' },
+      { iss: ISSUER, aud: V3_RESOURCE, uid: 2 },
       { kid: 'rotated-away-kid' },
     );
     await verifyOAuthAccessToken(stale);
@@ -208,7 +221,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
 
     // Prime the keyset (one fetch).
     await verifyOAuthAccessToken(
-      await sign({ iss: ISSUER, aud: V3_RESOURCE, uid: '1' }),
+      await sign({ iss: ISSUER, aud: V3_RESOURCE, uid: 1 }),
     );
     expect(getJwks).toHaveBeenCalledTimes(1);
 
@@ -216,7 +229,7 @@ describe('auth - unit: verifyOAuthAccessToken', () => {
     // each force a refetch — all rejected, keyset fetched at most once.
     for (let i = 0; i < 5; i += 1) {
       const bogus = await sign(
-        { iss: ISSUER, aud: V3_RESOURCE, uid: '1' },
+        { iss: ISSUER, aud: V3_RESOURCE, uid: 1 },
         { kid: `bogus-${i}` },
       );
       // eslint-disable-next-line no-await-in-loop
