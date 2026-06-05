@@ -664,10 +664,13 @@ components:
         aggregations. Pass the same `threshold` to the facets endpoint to keep
         its counts aligned with the list.
       schema:
-        default: off
+        # Quote the string barewords: unquoted `off` is coerced to boolean false
+        # by YAML 1.1 tooling (PyYAML, some codegens), diverging from the runtime
+        # string. (The server also accepts a falsy `false`/"false" as `off`.)
+        default: 'off'
         oneOf:
           - type: string
-            enum: [off, auto]
+            enum: ['off', 'auto']
           - type: number
             minimum: 0
 

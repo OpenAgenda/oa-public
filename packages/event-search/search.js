@@ -218,29 +218,33 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     && cleanQuery.threshold !== 'off';
   const autoThreshold = thresholdEngaged && cleanQuery.threshold === 'auto';
 
+  // Resolve the sort once: its arity drives the cutoff-cursor check below, and it
+  // is handed to queryToDSL so the (nested) sort DSL isn't built a second time.
+  const dslSort = getDSLSortPart(cleanQuery);
+
   // `threshold=auto` over `after`-key pagination carries its computed cutoff as
   // one extra trailing element of the `after` cursor, so pages after the first
   // reuse it instead of re-probing. Strip it back off here, before it would
   // reach ES `search_after` as a spurious extra sort value.
   //
-  // The cutoff is only stripped when the cursor is exactly one element longer
-  // than the sort keys — our own appended cursor. A bare sort-length cursor
-  // (client-built, or derived from `includeSort` values) is left intact and we
-  // re-probe, so a genuine sort value is never mistaken for a cutoff.
+  // Stripped only when the cursor is exactly one element longer than the sort
+  // keys — our own appended cursor. A bare sort-length cursor (client-built, or
+  // derived from `includeSort` values) is left intact and we re-probe, so a
+  // genuine sort value is never mistaken for a cutoff. When set, `relevanceCutoff`
+  // IS that cached cutoff — the apply step reuses it without probing.
   let relevanceCutoff;
-  let cutoffFromCursor = false;
-  if (autoThreshold && useAfterKey && Array.isArray(cleanNav.searchAfter)) {
-    const sortKeyCount = getDSLSortPart(cleanQuery).length;
-
-    if (cleanNav.searchAfter.length === sortKeyCount + 1) {
-      const cached = Number(
-        cleanNav.searchAfter[cleanNav.searchAfter.length - 1],
-      );
-      if (Number.isFinite(cached)) {
-        relevanceCutoff = cached;
-        cutoffFromCursor = true;
-        cleanNav.searchAfter = cleanNav.searchAfter.slice(0, -1);
-      }
+  if (
+    autoThreshold
+    && useAfterKey
+    && Array.isArray(cleanNav.searchAfter)
+    && cleanNav.searchAfter.length === dslSort.length + 1
+  ) {
+    const cached = Number(
+      cleanNav.searchAfter[cleanNav.searchAfter.length - 1],
+    );
+    if (Number.isFinite(cached)) {
+      relevanceCutoff = cached;
+      cleanNav.searchAfter = cleanNav.searchAfter.slice(0, -1);
     }
   }
 
@@ -255,6 +259,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
       emptyValue,
       removed,
       access,
+      sort: dslSort,
     },
   );
 
@@ -288,13 +293,17 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     if (typeof cleanQuery.threshold === 'number') {
       // Absolute BM25 floor — applied directly, no probe needed.
       minScore = cleanQuery.threshold;
-    } else if (cutoffFromCursor) {
-      // Reuse the cutoff carried by the pagination cursor — no re-probe.
+    } else if (relevanceCutoff !== undefined) {
+      // Cutoff carried by the pagination cursor — reuse it, no re-probe.
       minScore = relevanceCutoff;
     } else {
-      // First page of `threshold=auto`: probe the top scores of this exact
-      // query (same `query` clause, so access-gated fields are mirrored), then
-      // find the relevance cliff. A probe failure degrades to no filtering.
+      // First page of `threshold=auto`: probe the top scores of this exact query
+      // (same `query` clause, so access-gated fields are mirrored), then find the
+      // relevance cliff. This is a SECOND, sequential ES round-trip: the cutoff
+      // must be known before the main query is built, so it can't be parallelised
+      // or folded into one request. The cost is bounded — only the first page of
+      // an after-key session probes; later pages reuse the cursor-cached cutoff.
+      // A probe failure degrades to no filtering.
       try {
         const scores = await probeTopScores(
           _.pick(config, ['client']),

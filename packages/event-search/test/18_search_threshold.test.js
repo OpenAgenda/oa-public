@@ -61,7 +61,8 @@ function makeSearch(probeScores, mainHits, configOverrides = {}) {
   return { search: Search(config, 'test'), client };
 }
 
-const probeBodies = (client) => client.bodies.filter((b) => b._source === false);
+const probeBodies = (client) =>
+  client.bodies.filter((b) => b._source === false);
 const mainBody = (client) => client.bodies.find((b) => b._source !== false);
 
 describe('event-search - unit: search threshold wiring', () => {
@@ -103,6 +104,15 @@ describe('event-search - unit: search threshold wiring', () => {
     const { search, client } = makeSearch();
 
     await search({ search: 'balade', threshold: 'off' });
+
+    expect(probeBodies(client)).toHaveLength(0);
+    expect(mainBody(client).min_score).toBeUndefined();
+  });
+
+  it('a falsy threshold ("false") is normalised to off — no probe, no floor', async () => {
+    const { search, client } = makeSearch();
+
+    await search({ search: 'balade', threshold: 'false' });
 
     expect(probeBodies(client)).toHaveLength(0);
     expect(mainBody(client).min_score).toBeUndefined();

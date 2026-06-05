@@ -144,6 +144,10 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
       expect(buildEventSearchQuery({ threshold: '0' })).toEqual({
         threshold: 0,
       });
+      // a falsy "false" (YAML 1.1 may coerce the `off` bareword) normalises to off
+      expect(buildEventSearchQuery({ threshold: 'false' })).toEqual({
+        threshold: 'off',
+      });
     });
   });
 

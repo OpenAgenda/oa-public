@@ -5,7 +5,10 @@
 //   'auto'     dynamic elbow cutoff, computed from a probe of the top scores
 //   <number>   a non-negative value applied directly as an ES `min_score` floor
 //
-// Numeric strings ("20") are coerced to numbers. Anything else is rejected.
+// Numeric strings ("20") are coerced to numbers. A boolean-false / "false" form
+// is normalised to 'off' — YAML 1.1 tooling can mis-parse the spec's `off`
+// bareword as boolean false, so a generated client may send it. Anything else is
+// rejected.
 export default function thresholdValidator(config = {}) {
   const optional = config.optional !== undefined ? config.optional : true;
 
@@ -17,8 +20,12 @@ export default function thresholdValidator(config = {}) {
       return undefined;
     }
 
-    if (value === 'off' || value === 'auto') {
-      return value;
+    if (value === 'off' || value === 'false' || value === false) {
+      return 'off';
+    }
+
+    if (value === 'auto') {
+      return 'auto';
     }
 
     const num = typeof value === 'number' ? value : Number(value);
