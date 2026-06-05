@@ -11,6 +11,9 @@ export default (query = {}, nav = {}, options = {}) => {
     removed = false,
     valid = null,
     access,
+    // Callers that already resolved the sort (e.g. search.js, to size the
+    // cutoff cursor) pass it in to avoid building the nested-sort DSL twice.
+    sort = getDSLSortPart(query),
   } = options;
 
   const DSL = {
@@ -24,8 +27,6 @@ export default (query = {}, nav = {}, options = {}) => {
     }),
     _source: getDSLSourcePart(includes),
   };
-
-  const sort = getDSLSortPart(query);
 
   if (sort) DSL.sort = sort;
 
