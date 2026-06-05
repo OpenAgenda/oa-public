@@ -21,14 +21,6 @@
 
 import { createLocalJWKSet, jwtVerify } from 'jose';
 
-// Strict decimal OA uid. The token carries the uid in a private `uid` claim
-// (see `customAccessTokenClaims` in index.js) because the JWT `sub` is the
-// better-auth row id (a serial PK), NOT the OpenAgenda uid that downstream
-// resolvers key on — they differ for every user. Not Number() for the gate:
-// that maps '' to 0 and accepts '0x10'/'1e3'/negatives — a malformed claim must
-// not become a real-looking identity at this string→user boundary.
-const UID = /^\d+$/;
-
 // Small leeway (seconds) on exp/nbf/iat. Token-exchange mints short-lived tokens
 // (~120s); without tolerance, modest clock drift between the AS and this verifier
 // could make a just-minted token read as expired at the window edges.
@@ -142,11 +134,17 @@ export default function createOAuthTokenHelpers(
       return null;
     }
 
-    // The OA uid travels in the `uid` claim (string-encoded BIGINT). A token
-    // with no `uid` is not a user-delegated OA token (e.g. a client_credentials
+    // The OA uid travels in the `uid` claim (a JSON number — see
+    // `customAccessTokenClaims` in index.js; the JWT `sub` is the better-auth
+    // row id, NOT the OpenAgenda uid downstream resolvers key on). A token with
+    // no `uid` is not a user-delegated OA token (e.g. a client_credentials
     // machine token) and has no OA identity to act as → reject for this path.
-    const uid = typeof payload.uid === 'string' ? payload.uid : null;
-    if (!uid || !UID.test(uid)) {
+    // Gate it as a POSITIVE SAFE INTEGER so a malformed claim (a string, float,
+    // 0/negative, NaN, or a value past 2^53) never becomes a real-looking
+    // identity at this token→user boundary. OA uids are bounded < 2^48, so a
+    // legitimate value always clears the safe-integer ceiling.
+    const { uid } = payload;
+    if (typeof uid !== 'number' || !Number.isSafeInteger(uid) || uid <= 0) {
       return null;
     }
 
@@ -155,13 +153,11 @@ export default function createOAuthTokenHelpers(
       : [];
 
     return {
-      // Number, matching the uid type used everywhere downstream (the codebase
-      // compares `user.uid === …` with strict numeric equality; the DB driver
-      // returns the BIGINT column as a JS number). Safe: OA uids are generated
-      // bounded (generateUid: randomInt(1, 2**48) ≈ 2.8e14 < 2^53), so no value
-      // loses precision through Number(). The `UID` regex above already rejected
-      // anything non-numeric.
-      userUid: Number(uid),
+      // The uid type used everywhere downstream (the codebase compares
+      // `user.uid === …` with strict numeric equality; the DB driver returns the
+      // BIGINT column as a JS number). The claim is already a number — the gate
+      // above guarantees it's a positive safe integer.
+      userUid: uid,
       scopes,
       clientId: payload.azp ?? payload.client_id ?? null,
       audiences: auds,

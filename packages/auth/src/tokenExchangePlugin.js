@@ -254,9 +254,9 @@ export default function tokenExchangePlugin({
           const accessToken = await signJWT(ctx, {
             options: jwtPluginOptions,
             payload: {
-              // The private `uid` claim every v3 resolver keys on (string-encoded,
+              // The private `uid` claim every v3 resolver keys on (a JSON number,
               // matching the oauth-provider's `customAccessTokenClaims`).
-              uid: String(subject.userUid),
+              uid: subject.userUid,
               aud: target,
               // The OAuth client the user consented to (carried from the subject),
               // not the exchanging service — keeps v3's `req.oauth.clientId` meaningful.
