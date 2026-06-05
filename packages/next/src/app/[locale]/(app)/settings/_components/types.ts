@@ -10,6 +10,7 @@ export type SettingsUser = {
   hasLocalAccount?: boolean;
   hasSocialAccount?: boolean;
   canCreateSecretKeys?: boolean;
+  facebookUid?: string | null;
 };
 
 export const SETTINGS_LANGUAGES: { code: string; label: string }[] = [

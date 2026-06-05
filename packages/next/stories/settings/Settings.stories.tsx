@@ -401,6 +401,7 @@ const facebookUser: SettingsUser = {
   ...user,
   hasLocalAccount: false,
   hasSocialAccount: true,
+  facebookUid: '592025090',
 };
 
 const facebookHandlers = [

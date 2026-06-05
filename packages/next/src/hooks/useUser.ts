@@ -16,6 +16,8 @@ type User = {
   updatedAt?: string;
   hasSocialAccount?: boolean;
   hasLocalAccount?: boolean;
+  canCreateSecretKeys?: boolean;
+  facebookUid?: string | null;
   announcement?: {
     id: string;
     kind: 'primary' | 'info' | 'success' | 'warning' | 'danger';
@@ -42,9 +44,14 @@ function fetcher(url: string): Promise<User> {
 export default function useUser({
   redirectTo = null,
   redirectIfFound = false,
+  detailed = false,
 } = {}) {
   const router = useRouter();
-  const { data: user, status, error } = useSWR<User>('/users/me', fetcher);
+  // `detailed` pulls the extra `$client.detailed` projection (canCreateSecretKeys,
+  // facebookUid, …) the settings page needs. It's a distinct SWR key from the
+  // basic `/users/me` the navbar uses, so the two coexist in cache.
+  const key = detailed ? '/users/me?$client[detailed]=true' : '/users/me';
+  const { data: user, status, error } = useSWR<User>(key, fetcher);
 
   const finished = status !== FetchStatus.Fetching;
   const hasUser = Boolean(user);

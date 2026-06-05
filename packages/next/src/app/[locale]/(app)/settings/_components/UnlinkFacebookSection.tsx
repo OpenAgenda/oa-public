@@ -1,8 +1,7 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
-import ky from 'ky';
 import { Button, Field, Input, Link, Text, chakra } from '@openagenda/uikit';
 import { PasswordInput } from '@openagenda/uikit/snippets';
 import AccordionItem from '@/src/components/AccordionItem';
@@ -132,22 +131,6 @@ export default function UnlinkFacebookSection({
 }: UnlinkFacebookSectionProps) {
   const intl = useIntl();
 
-  // `facebookUid` is the authoritative gate (the backend rejects the migration
-  // with `notFacebookAccount` otherwise) but lives in the `detailed` field set,
-  // which `/users/me` only returns on request. Fetch it lazily, and only when
-  // the cheap `hasSocialAccount` flag from the page payload says there's any
-  // social account at all — so non-social users never trigger the extra call.
-  //
-  // Dev-only escape hatch: probe unconditionally outside production so a single
-  // `UPDATE user SET facebook_uid=… WHERE uid=…` on a dev account surfaces the
-  // section (and lets the real PATCH succeed) without also seeding a better-auth
-  // `account` row to flip hasSocialAccount. The render gate below is unchanged —
-  // it still only shows when a facebook_uid actually comes back.
-  const alwaysProbe = process.env.NODE_ENV !== 'production';
-  const [facebookUid, setFacebookUid] = useState<string | null | undefined>(
-    user.hasSocialAccount || alwaysProbe ? undefined : null,
-  );
-
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmation, setConfirmation] = useState('');
@@ -155,28 +138,10 @@ export default function UnlinkFacebookSection({
   const [sentTo, setSentTo] = useState<string | null>(null);
   const [error, setError] = useState<UFError | null>(null);
 
-  useEffect(() => {
-    if (!user.hasSocialAccount && !alwaysProbe) {
-      setFacebookUid(null);
-      return undefined;
-    }
-    let cancelled = false;
-    ky.get('/users/me', { searchParams: { '$client[detailed]': 'true' } })
-      .json<{ facebookUid?: string | null }>()
-      .then((data) => {
-        if (!cancelled) setFacebookUid(data.facebookUid ?? null);
-      })
-      .catch(() => {
-        if (!cancelled) setFacebookUid(null);
-      });
-    return () => {
-      cancelled = true;
-    };
-  }, [user.hasSocialAccount, alwaysProbe]);
-
-  // Render nothing until we know the account is Facebook-linked: no flash of an
-  // empty accordion item for the (vast) majority of non-Facebook accounts.
-  if (!facebookUid) return null;
+  // Facebook-linked accounts only. `facebookUid` is the authoritative gate (the
+  // backend rejects the migration with `notFacebookAccount` otherwise); the
+  // settings page fetches the detailed `/users/me`, so it's on `user` directly.
+  if (!user.facebookUid) return null;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

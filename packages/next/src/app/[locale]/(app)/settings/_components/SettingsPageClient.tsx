@@ -37,14 +37,22 @@ export default function SettingsPageClient() {
   const router = useRouter();
   const pathname = usePathname();
   const { mutate } = useSWRConfig();
+  // Detailed payload so sections get the `$client.detailed` fields they gate on
+  // (ApiKeys → canCreateSecretKeys, Facebook → facebookUid), which the basic
+  // `/users/me` omits.
   const { user, status } = useUser({
     redirectTo: '/auth/signin?redirect=/settings',
+    detailed: true,
   });
 
-  // Sections mutate `/users/me` after a successful save so the trigger
-  // summaries (full name, language) and any other consumer of the hook stay
-  // in sync without a full reload.
-  const refreshUser = useCallback(() => mutate('/users/me'), [mutate]);
+  // Sections mutate the user after a successful save so the trigger summaries
+  // (full name, language) stay in sync. Revalidate every `/users/me` variant
+  // (basic + detailed) so both this page's detailed payload and the navbar's
+  // basic one refresh.
+  const refreshUser = useCallback(
+    () => mutate((k) => typeof k === 'string' && k.startsWith('/users/me')),
+    [mutate],
+  );
 
   // The open section is reflected in the URL as /:locale/settings/<section>
   // (mirrors the legacy /settings/<tab> routes), and a deep link / back-forward
