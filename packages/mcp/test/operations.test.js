@@ -89,6 +89,25 @@ describe('searchOperations', () => {
     expect(searchOperations('agendas')[0].id).toBe('agendas.list');
   });
 
+  // The plain-language verbs below come ONLY from the contract's `x-synonyms`
+  // extension (not the id/summary/param names), so these also prove that path is
+  // wired: a route's synonyms travel with it in the spec.
+  it('routes a "fetch … by id" query to the get op via x-synonyms', () => {
+    expect(searchOperations('fetch event by id')[0].id).toBe(
+      'agendas.events.get',
+    );
+  });
+
+  it('routes a "browse" query to the listing op via x-synonyms', () => {
+    expect(searchOperations('browse agendas')[0].id).toBe('agendas.list');
+  });
+
+  it("carries the contract x-synonyms into an operation's keywords", () => {
+    // "breakdown" is a facets x-synonym with no structural source — its presence
+    // in keywords proves the extension is merged in.
+    expect(byId('agendas.events.facets').keywords).toContain('breakdown');
+  });
+
   it('returns ALL operations when nothing matches (never empty)', () => {
     const hits = searchOperations('zzzzz-nonsense');
     expect(hits).toHaveLength(OPERATIONS.length);

@@ -3,10 +3,11 @@
 // Derived at load time from @openagenda/api-spec (the OpenAPI contract), so the
 // catalogue, call signatures, parameters, response shapes and examples always
 // track the contract — there is no generated artifact to commit or keep in sync.
-// On top of the contract-derived data we merge a small, hand-curated SYNONYMS
-// map: the search terms a human would type ("how many", "breakdown", "by id")
-// that the contract doesn't carry. Relevance/search is a UX concern, not part of
-// the API spec — so it lives here.
+// The search terms a human would type ("how many", "breakdown", "by id") that
+// the structural fields don't carry travel WITH each operation in the contract,
+// as an `x-synonyms` vendor extension (alongside the `x-codeSamples` examples) —
+// so adding a route is a single-file edit and there is no operationId list to
+// keep in sync here.
 //
 // Two tools, one round-trip: `search_docs` returns everything the LLM needs to
 // write the `execute` body in a single shot (signature + typed params + enums +
@@ -209,44 +210,6 @@ function keywordsFor(operationId, summary, paramNames) {
   ];
 }
 
-// Curated search synonyms, merged on top of the derived keywords. Keyed by
-// operationId. Keep these to the words a user would actually type — the spec
-// already contributes the structural keywords (id segments, summary, params).
-const SYNONYMS = {
-  'agendas.list': ['list', 'agendas', 'directory', 'catalogue', 'catalog'],
-  'agendas.get': ['get', 'agenda', 'detail', 'single', 'one', 'by id', 'uid'],
-  'agendas.events.list': [
-    'list',
-    'events',
-    'filter',
-    'paginate',
-    'cursor',
-    'when',
-    'where',
-    'city',
-    'date',
-  ],
-  'agendas.events.get': [
-    'get',
-    'event',
-    'detail',
-    'single',
-    'one',
-    'by id',
-    'uid',
-  ],
-  'agendas.events.facets': [
-    'facets',
-    'aggregate',
-    'count',
-    'group',
-    'stats',
-    'histogram',
-    'how many',
-    'breakdown',
-  ],
-};
-
 // A concrete placeholder value for a scalar type, for auto-derived skeletons.
 const SCALAR_PLACEHOLDER = {
   integer: '123',
@@ -327,7 +290,12 @@ function deriveOperations() {
       const call = `oa.${op.operationId}(${argList})`;
 
       const scopes = (op.security || []).flatMap((req) => req.oauth2 || []);
-      const synonyms = SYNONYMS[op.operationId] ?? [];
+      // Hand-curated search synonyms travel WITH the operation in the contract
+      // (`x-synonyms`, alongside `x-codeSamples`) — one place to think about when
+      // adding a route. Keep them to the plain-language words a user types that
+      // the contract doesn't already carry (the id segments, summary and query
+      // param names are derived into `keywords` below — no need to repeat them).
+      const synonyms = op['x-synonyms'] ?? [];
       const keywords = keywordsFor(
         op.operationId,
         op.summary,

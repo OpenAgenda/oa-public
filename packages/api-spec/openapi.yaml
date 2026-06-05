@@ -41,6 +41,7 @@ paths:
       operationId: agendas.list
       tags: [Agendas]
       summary: List agendas
+      x-synonyms: [directory, catalogue, catalog, browse, find, all]
       x-codeSamples:
         - lang: TypeScript
           label: List official agendas
@@ -95,6 +96,7 @@ paths:
       operationId: agendas.get
       tags: [Agendas]
       summary: Get one agenda
+      x-synonyms: [detail, single, one, by id, uid, fetch, retrieve, lookup]
       x-codeSamples:
         - lang: TypeScript
           label: Get one agenda by uid
@@ -132,6 +134,8 @@ paths:
       operationId: agendas.events.list
       tags: [Events]
       summary: List events of an agenda
+      x-synonyms:
+        [find, browse, filter, paginate, cursor, upcoming, when, where, date]
       x-codeSamples:
         - lang: TypeScript
           label: All upcoming events in Paris (paging every result)
@@ -229,6 +233,7 @@ paths:
       operationId: agendas.events.get
       tags: [Events]
       summary: Get a single event
+      x-synonyms: [detail, single, one, by id, uid, fetch, retrieve, lookup]
       x-codeSamples:
         - lang: TypeScript
           label: Get a single event within an agenda
@@ -265,6 +270,20 @@ paths:
       operationId: agendas.events.facets
       tags: [Events]
       summary: Faceted counts for an agenda's events
+      x-synonyms:
+        [
+          aggregate,
+          count,
+          group,
+          group by,
+          stats,
+          statistics,
+          histogram,
+          distribution,
+          how many,
+          breakdown,
+          top,
+        ]
       x-codeSamples:
         - lang: TypeScript
           label: How many concert events per city
