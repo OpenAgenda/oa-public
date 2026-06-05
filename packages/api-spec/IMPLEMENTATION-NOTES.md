@@ -81,10 +81,16 @@ historique inchangé), `auto` (coupure dynamique), ou un nombre ≥ 0 (plancher
 - **Exposition** : v3 → parse strict dans `lib/buildEventSearchQuery.js`
   (`off`/`auto`/nombre, 400 agrégé sinon). v2 → transmis tel quel à `core` via
   `convertedQuery`, validé par le schéma `core`.
-- **⚠ Facettes** : `min_score` filtre les hits **et** le `total`, mais **pas les
-  agrégations** (ES les calcule sur tous les docs matchés). Les comptes de
-  facettes incluent donc la traîne coupée — divergence list/total vs facettes
-  assumée (un plancher de score n'est pas exprimable dans la `query` BM25).
+- **Facettes — cohérentes** : `min_score` est appliqué **pendant la collecte**
+  (un min-score collector enveloppe aussi les collecteurs d'agrégation), donc il
+  filtre les hits, le `total` **et** les agrégations de façon cohérente (vérifié
+  sur ES 7.7). À ne pas confondre avec `post_filter`, qui s'applique *après* les
+  agrégations et est, lui, ignoré par celles-ci. L'endpoint facettes v3
+  (`/events/facets`) passe par le même `search()` (donc sonde + `min_score` même
+  en `size:0`) : ses comptes correspondent à la liste tant que le client envoie
+  le même `threshold` aux deux endpoints. Aucune agrégation `global` (qui, elle,
+  contournerait la query/min_score) n'est utilisée. Coût : en `auto`, l'endpoint
+  facettes sonde à chaque appel (pas de curseur où mettre le cutoff en cache).
 - **Calibrage** : seuil de coude configurable sans redéploiement de code via
   l'env var `OA_EVENT_SEARCH_RELEVANCE_MIN_DROP` (chargée dans
   `cibul-node/config/index.js` → `eventSearchRelevanceMinDrop` → option

@@ -248,6 +248,7 @@ paths:
         - $ref: '#/components/parameters/AdditionalFieldMetricsKeys'
         # Same filters as agendas.events.list — facets reflect the filtered set.
         - $ref: '#/components/parameters/Search'
+        - $ref: '#/components/parameters/RelevanceThreshold'
         - $ref: '#/components/parameters/FilterUid'
         - $ref: '#/components/parameters/FilterSlug'
         - $ref: '#/components/parameters/FilterExtId'
@@ -585,9 +586,11 @@ components:
           value suits a single tuned query rather than general use; prefer `auto`.
 
 
-        Filtering applies to the returned events and their `total`; facet counts
-        (see the facets endpoint) are computed over all matching events and are
-        not affected by `threshold`.
+        Filtering is consistent across the returned events, their `total`, and
+        facet counts: the cutoff is an Elasticsearch `min_score`, applied during
+        document collection, so the same trimmed set drives the hit list and the
+        aggregations. Pass the same `threshold` to the facets endpoint to keep
+        its counts aligned with the list.
       schema:
         default: off
         oneOf:
