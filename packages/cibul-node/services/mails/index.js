@@ -56,7 +56,10 @@ export async function init(config, services) {
         stripHtml,
         escapeMd,
         root: config.root,
-        emailSettingsLink: `https://${config.domain}/settings/emails`,
+        // The new /settings has a `notifications` section (legacy `emails`).
+        // SettingsPageClient also aliases the old /settings/emails path, so
+        // emails already in inboxes keep working.
+        emailSettingsLink: `https://${config.domain}/settings/notifications`,
       },
     },
 

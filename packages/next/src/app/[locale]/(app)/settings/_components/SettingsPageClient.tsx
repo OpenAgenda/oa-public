@@ -32,6 +32,15 @@ const messages = defineMessages({
   },
 });
 
+// Legacy `/settings/<tab>` deep-links (notably the `emailSettingsLink` in every
+// outgoing notification email, which points at /settings/emails) map to the
+// section that exists now, so those links — including ones already sitting in
+// inboxes — open the right panel instead of a fully-collapsed page.
+const SECTION_ALIASES: Record<string, string> = {
+  emails: 'notifications',
+  unsubscribed: 'notifications',
+};
+
 export default function SettingsPageClient() {
   const intl = useIntl();
   const router = useRouter();
@@ -63,7 +72,10 @@ export default function SettingsPageClient() {
   const settingsIdx = parts.indexOf('settings');
   const settingsBase =
     settingsIdx >= 0 ? parts.slice(0, settingsIdx + 1).join('/') : pathname;
-  const urlSection = (settingsIdx >= 0 && parts[settingsIdx + 1]) || null;
+  const rawSection = (settingsIdx >= 0 && parts[settingsIdx + 1]) || null;
+  const urlSection = rawSection
+    ? SECTION_ALIASES[rawSection] ?? rawSection
+    : null;
 
   const [openSection, setOpenSection] = useState<string | null>(urlSection);
 
