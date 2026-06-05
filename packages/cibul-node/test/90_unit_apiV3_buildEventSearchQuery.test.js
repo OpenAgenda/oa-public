@@ -166,11 +166,11 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
     });
   });
 
-  describe('custom field filters', () => {
-    it('maps scalar, list and range custom fields under query.custom', () => {
+  describe('additionalFields filters', () => {
+    it('maps scalar, list and range additionalFields under query.custom', () => {
       expect(
         buildEventSearchQuery({
-          custom: {
+          additionalFields: {
             thematique: '2',
             tags: ['a', 'b'],
             budget: { gte: '10', lte: '100' },
@@ -185,18 +185,22 @@ describe('90 - api-v3 unit - buildEventSearchQuery', () => {
       });
     });
 
-    it('rejects custom that is not an object', () => {
-      expect(badRequestFields({ custom: 'nope' })).toContain('custom');
+    it('rejects additionalFields that is not an object', () => {
+      expect(badRequestFields({ additionalFields: 'nope' })).toContain(
+        'additionalFields',
+      );
     });
 
-    it('rejects an unknown range bound on a custom field', () => {
+    it('rejects an unknown range bound on an additionalFields entry', () => {
       expect(
-        badRequestFields({ custom: { budget: { around: '10' } } }),
-      ).toContain('custom.budget.around');
+        badRequestFields({ additionalFields: { budget: { around: '10' } } }),
+      ).toContain('additionalFields.budget.around');
     });
 
-    it('drops a custom field whose range has no valid bound', () => {
-      expect(buildEventSearchQuery({ custom: { budget: {} } })).toEqual({});
+    it('drops an additionalFields entry whose range has no valid bound', () => {
+      expect(
+        buildEventSearchQuery({ additionalFields: { budget: {} } }),
+      ).toEqual({});
     });
   });
 

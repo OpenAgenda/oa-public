@@ -22,7 +22,19 @@ export default async function SigninPage({
   searchParams: SearchParams;
 }) {
   const h = await headers();
-  if (getSessionCookie(h, { cookiePrefix: 'oa' })) {
+  const params = await searchParams;
+  // An in-flight OAuth authorization (the `oauth-provider` plugin redirects an
+  // unauthenticated user here with a signed query carrying `client_id` + `sig`)
+  // must be resumed by SigninPageClient, which replays that signed query to
+  // `/oauth2/authorize` after sign-in. Never short-circuit it to `/home`: doing
+  // so drops the OAuth round-trip, and when the session cookie is present but
+  // server-side-invalid (authorize validates against the DB; this page only
+  // sees the cookie) it loops with `/home` — which re-validates and bounces
+  // back here — yielding ERR_TOO_MANY_REDIRECTS.
+  const hasOAuthQuery = Boolean(
+    pickFirst(params.client_id) && pickFirst(params.sig),
+  );
+  if (!hasOAuthQuery && getSessionCookie(h, { cookiePrefix: 'oa' })) {
     // /home is a cibul-node legacy route, not a Next.js route — redirect
     // without the locale prefix so nginx routes it to cibul-node. The
     // localized variant (/fr/home) would fall through to Next's [agendaSlug]
@@ -30,7 +42,6 @@ export default async function SigninPage({
     redirect('/home');
   }
 
-  const params = await searchParams;
   const redirectParam = pickFirst(params.redirect);
   const invitation = pickFirst(params.invitation);
   // Verified-linking flow (phase 4): BA's OAuth callback redirects here when

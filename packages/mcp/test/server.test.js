@@ -19,10 +19,20 @@ const okResult = (stdout) => ({
   exitCode: 0,
 });
 
-async function connect({ executor, config } = {}) {
+async function connect({
+  executor,
+  config,
+  credential,
+  rateLimiter,
+  callerId,
+  recordAudit,
+} = {}) {
   const server = createServer({
     config: config ?? loadConfig({ OA_API_KEY: 'oa_pk_test' }),
     executor: executor ?? makeExecutor(async () => okResult('null')),
+    ...credential !== undefined ? { credential } : {},
+    ...rateLimiter !== undefined ? { rateLimiter, callerId } : {},
+    ...recordAudit !== undefined ? { recordAudit } : {},
   });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
   const client = new Client({ name: 'test', version: '0.0.0' });
@@ -52,12 +62,14 @@ describe('MCP server', () => {
       ]);
     });
 
-    it('marks both tools read-only; execute is open-world, search_docs is not', async () => {
+    it('marks search_docs read-only; execute is NOT (runs arbitrary code) and is open-world', async () => {
       ({ client } = await connect());
       const { tools } = await client.listTools();
       const byName = Object.fromEntries(tools.map((t) => [t.name, t]));
+      // execute runs arbitrary code — it must not claim read-only (it can mutate
+      // once the v3 write surface lands), so clients keep gating it.
       expect(byName.execute.annotations).toMatchObject({
-        readOnlyHint: true,
+        readOnlyHint: false,
         openWorldHint: true,
       });
       expect(byName.search_docs.annotations).toMatchObject({
@@ -105,6 +117,55 @@ describe('MCP server', () => {
       expect(received.egressAuthority).toBe('executor');
       expect(received.limits).toEqual({ timeoutMs: 5000, memoryMb: 256 });
       expect(received.tls).toBeDefined();
+    });
+
+    it('bakes the per-request credential (delegation), overriding config.apiKey', async () => {
+      // The HTTP resource server passes the caller's OAuth token as `credential`;
+      // it must be what reaches the sandbox, NOT the (absent) shared key.
+      let received;
+      ({ client } = await connect({
+        credential: 'caller-oauth-token',
+        config: loadConfig({ OA_API_KEY: 'oa_pk_shared' }),
+        executor: makeExecutor(async (req) => {
+          received = req;
+          return okResult('1');
+        }),
+      }));
+      await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(received.code).toContain('caller-oauth-token');
+      expect(received.code).not.toContain('oa_pk_shared');
+    });
+
+    it('redacts the per-request credential from returned text', async () => {
+      ({ client } = await connect({
+        credential: 'caller-oauth-token',
+        executor: makeExecutor(async () =>
+          okResult('leaked caller-oauth-token here')),
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(textOf(r)).toBe('leaked [redacted] here');
+    });
+
+    it('falls back to config.apiKey when no credential is given (stdio)', async () => {
+      let received;
+      ({ client } = await connect({
+        config: loadConfig({ OA_API_KEY: 'oa_pk_stdio' }),
+        executor: makeExecutor(async (req) => {
+          received = req;
+          return okResult('1');
+        }),
+      }));
+      await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(received.code).toContain('oa_pk_stdio');
     });
 
     it('returns trimmed stdout on success', async () => {
@@ -200,6 +261,89 @@ describe('MCP server', () => {
       expect(textOf(r)).toMatch(/too much output/);
     });
 
+    it.each(['EXEC_BUSY', 'EXEC_SHUTTING_DOWN'])(
+      'maps a thrown %s from the executor to a retryable "at capacity" result (the run never started)',
+      async (code) => {
+        // The concurrency guard (concurrencyLimit.js) REJECTS instead of
+        // returning an ExecResult when saturated/shutting down. That must surface
+        // as a distinct retryable busy — not the generic "Execution failed:"
+        // path — and must not echo the raw limiter message.
+        ({ client } = await connect({
+          executor: makeExecutor(async () => {
+            throw Object.assign(new Error('saturated internal detail'), {
+              code,
+            });
+          }),
+        }));
+        const r = await client.callTool({
+          name: 'execute',
+          arguments: { code: 'return 1;' },
+        });
+        expect(r.isError).toBe(true);
+        expect(textOf(r)).toMatch(/at capacity/i);
+        expect(textOf(r)).not.toContain('Execution failed');
+        expect(textOf(r)).not.toContain('saturated internal detail');
+      },
+    );
+
+    it('refuses an over-rate caller with a retryable result, before running anything', async () => {
+      // A denying limiter must short-circuit the execute: no executor run, no
+      // credential resolution — just a retryable "rate limit" message with a wait
+      // hint (same back-off vocabulary as the concurrency "at capacity" path).
+      let ran = false;
+      ({ client } = await connect({
+        executor: makeExecutor(async () => {
+          ran = true;
+          return okResult('1');
+        }),
+        rateLimiter: { check: () => ({ allowed: false, retryAfterMs: 2500 }) },
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(r.isError).toBe(true);
+      expect(textOf(r)).toMatch(/rate limit/i);
+      expect(textOf(r)).toMatch(/3s/); // ceil(2500 ms) → 3 s
+      expect(ran).toBe(false); // the run never started
+    });
+
+    it('runs normally when the limiter admits the call', async () => {
+      ({ client } = await connect({
+        executor: makeExecutor(async () => okResult('42')),
+        rateLimiter: { check: () => ({ allowed: true, retryAfterMs: 0 }) },
+        callerId: 'user-1',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 42;' },
+      });
+      expect(r.isError).toBeFalsy();
+      expect(textOf(r)).toBe('42');
+    });
+
+    it('still enforces the limit when callerId is falsy (no empty-key bypass)', async () => {
+      // A falsy callerId (e.g. an empty-string sub) must NOT skip the limiter —
+      // the guard keys on a default bucket rather than bypassing.
+      let ran = false;
+      ({ client } = await connect({
+        executor: makeExecutor(async () => {
+          ran = true;
+          return okResult('1');
+        }),
+        rateLimiter: { check: () => ({ allowed: false, retryAfterMs: 1000 }) },
+        callerId: '',
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(r.isError).toBe(true);
+      expect(textOf(r)).toMatch(/rate limit/i);
+      expect(ran).toBe(false);
+    });
+
     it('redacts the API key from returned error text', async () => {
       // The key is baked into the program, so a stack trace can echo it back.
       // It must never reach the client verbatim (shared key today; the caller's
@@ -259,5 +403,219 @@ describe('MCP server', () => {
       expect(text.length).toBeLessThan(20000);
       expect(text).toMatch(/more chars truncated/);
     });
+  });
+
+  describe('maintenance kill (OA_EXECUTE_DISABLED)', () => {
+    it('refuses execute with a maintenance message, before running anything', async () => {
+      let ran = false;
+      const audit = [];
+      ({ client } = await connect({
+        config: loadConfig({
+          OA_API_KEY: 'oa_pk_test',
+          OA_EXECUTE_DISABLED: '1',
+        }),
+        executor: makeExecutor(async () => {
+          ran = true;
+          return okResult('1');
+        }),
+        recordAudit: (tool, fields) => audit.push({ tool, fields }),
+      }));
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(r.isError).toBe(true);
+      expect(textOf(r)).toMatch(/maintenance/i);
+      expect(ran).toBe(false); // no token exchange, no sandbox
+      expect(audit).toHaveLength(1);
+      expect(audit[0]).toMatchObject({
+        tool: 'execute',
+        fields: { outcome: 'disabled' },
+      });
+    });
+
+    it('still serves search_docs while execute is disabled', async () => {
+      ({ client } = await connect({
+        config: loadConfig({
+          OA_API_KEY: 'oa_pk_test',
+          OA_EXECUTE_DISABLED: '1',
+        }),
+      }));
+      const r = await client.callTool({
+        name: 'search_docs',
+        arguments: { query: 'events' },
+      });
+      expect(r.isError).toBeFalsy();
+    });
+  });
+
+  describe('audit trail', () => {
+    // The server emits ONE structured record per tool call via the injected
+    // recordAudit sink (caller/transport context is added by the entrypoint's
+    // recorder; here we assert the per-call fields the server itself produces).
+    const withAudit = async (opts = {}) => {
+      const audit = [];
+      ({ client } = await connect({
+        recordAudit: (tool, fields) => audit.push({ tool, fields }),
+        ...opts,
+      }));
+      return audit;
+    };
+
+    it('records a search_docs call (outcome, query, results_count)', async () => {
+      const audit = await withAudit();
+      await client.callTool({
+        name: 'search_docs',
+        arguments: { query: 'how many events per city' },
+      });
+      expect(audit).toHaveLength(1);
+      expect(audit[0].tool).toBe('search_docs');
+      expect(audit[0].fields).toMatchObject({
+        outcome: 'ok',
+        query: 'how many events per city',
+      });
+      expect(audit[0].fields.results_count).toBeGreaterThan(0);
+      expect(typeof audit[0].fields.duration_ms).toBe('number');
+    });
+
+    it('records a successful execute with code metadata + a credential fingerprint, never the secret', async () => {
+      const audit = await withAudit({
+        config: loadConfig({ OA_API_KEY: 'oa_pk_secret_value' }),
+        executor: makeExecutor(async () => okResult('42')),
+      });
+      await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 42;' },
+      });
+      expect(audit).toHaveLength(1);
+      const { tool, fields } = audit[0];
+      expect(tool).toBe('execute');
+      expect(fields.outcome).toBe('ok');
+      expect(fields.code).toContain('return 42;');
+      expect(fields.code_bytes).toBe('return 42;'.length);
+      expect(fields.code_truncated).toBe(false);
+      expect(fields.code_sha256).toMatch(/^[0-9a-f]{64}$/);
+      expect(fields.exit_code).toBe(0);
+      // credential_fp identifies the key without being the key.
+      expect(fields.credential_fp).toMatch(/^[0-9a-f]{12}$/);
+      expect(fields.credential_fp).not.toBe('oa_pk_secret_value');
+      // The secret never appears anywhere in the record.
+      expect(JSON.stringify(fields)).not.toContain('oa_pk_secret_value');
+    });
+
+    it('scrubs the baked credential out of the audited code body', async () => {
+      // If the resolved credential ever appears in the code text, redact it.
+      const audit = await withAudit({
+        credential: 'caller-oauth-token',
+        executor: makeExecutor(async () => okResult('1')),
+      });
+      await client.callTool({
+        name: 'execute',
+        arguments: { code: 'const k = "caller-oauth-token"; return k;' },
+      });
+      expect(audit[0].fields.code).not.toContain('caller-oauth-token');
+      expect(audit[0].fields.code).toContain('[redacted]');
+    });
+
+    it('caps the audited code body at 8 KiB and flags truncation (sha256 of the full code)', async () => {
+      const big = `// ${'x'.repeat(20000)}\nreturn 1;`;
+      const audit = await withAudit({
+        executor: makeExecutor(async () => okResult('1')),
+      });
+      await client.callTool({ name: 'execute', arguments: { code: big } });
+      const { fields } = audit[0];
+      expect(Buffer.byteLength(fields.code, 'utf8')).toBeLessThanOrEqual(8192);
+      expect(fields.code_truncated).toBe(true);
+      expect(fields.code_bytes).toBe(Buffer.byteLength(big, 'utf8'));
+      expect(fields.code_sha256).toMatch(/^[0-9a-f]{64}$/);
+    });
+
+    it.each([
+      ['ok', () => okResult('1'), false],
+      [
+        'timed_out',
+        () => ({ stdout: '', stderr: '', timedOut: true, exitCode: null }),
+        false,
+      ],
+      [
+        'output_capped',
+        () => ({
+          stdout: '',
+          stderr: '',
+          timedOut: false,
+          outputCapped: true,
+          exitCode: null,
+        }),
+        false,
+      ],
+      [
+        'nonzero_exit',
+        () => ({ stdout: '', stderr: 'boom', timedOut: false, exitCode: 1 }),
+        false,
+      ],
+      [
+        'threw',
+        () => {
+          throw new Error('kaboom');
+        },
+        false,
+      ],
+    ])(
+      'records outcome=%s on the matching execute path',
+      async (outcome, impl) => {
+        const audit = await withAudit({
+          executor: makeExecutor(async () => impl()),
+        });
+        await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+        expect(audit).toHaveLength(1);
+        expect(audit[0].fields.outcome).toBe(outcome);
+      },
+    );
+
+    it('records outcome=rate_limited and runs nothing', async () => {
+      const audit = await withAudit({
+        executor: makeExecutor(async () => okResult('1')),
+        rateLimiter: { check: () => ({ allowed: false, retryAfterMs: 1000 }) },
+        callerId: 'user-1',
+      });
+      await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+      expect(audit[0].fields.outcome).toBe('rate_limited');
+    });
+
+    it('records outcome=credential_error when the credential resolver rejects', async () => {
+      const audit = [];
+      const server = createServer({
+        config: loadConfig({ OA_API_KEY: 'oa_pk_test' }),
+        executor: makeExecutor(async () => okResult('1')),
+        getCredential: async () => {
+          throw new Error('exchange down');
+        },
+        recordAudit: (tool, fields) => audit.push({ tool, fields }),
+      });
+      const [ct, st] = InMemoryTransport.createLinkedPair();
+      client = new Client({ name: 'test', version: '0.0.0' });
+      await Promise.all([server.connect(st), client.connect(ct)]);
+      const r = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'x' },
+      });
+      expect(r.isError).toBe(true);
+      expect(audit[0].fields.outcome).toBe('credential_error');
+    });
+
+    it.each(['EXEC_BUSY', 'EXEC_SHUTTING_DOWN'])(
+      'records outcome busy/shutting_down for a thrown %s',
+      async (code) => {
+        const audit = await withAudit({
+          executor: makeExecutor(async () => {
+            throw Object.assign(new Error('saturated'), { code });
+          }),
+        });
+        await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+        expect(audit[0].fields.outcome).toBe(
+          code === 'EXEC_SHUTTING_DOWN' ? 'shutting_down' : 'busy',
+        );
+      },
+    );
   });
 });

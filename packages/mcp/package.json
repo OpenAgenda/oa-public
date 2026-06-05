@@ -19,6 +19,7 @@
   "scripts": {
     "start": "yarn build && node src/index.js",
     "smoke": "yarn build && node scripts/smoke.js",
+    "smoke:oauth": "node scripts/smoke-oauth.js",
     "build": "tsdown",
     "check": "tsc --noEmit",
     "prepack": "yarn build",
@@ -27,6 +28,10 @@
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.29.0",
     "@openagenda/api-spec": "workspace:*",
+    "@openagenda/logs": "^1.1.10",
+    "express": "^4.18.2",
+    "jose": "^6.2.3",
+    "minisearch": "^7.2.0",
     "yaml": "^2.4.5",
     "zod": "^3.25.0"
   },

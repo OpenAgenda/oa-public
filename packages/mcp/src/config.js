@@ -6,10 +6,25 @@
 //   OA_LOCAL_NO_SANDBOX      1                                (one-flag unsafe local node path;
 //                                                              also the explicit egress=none ack)
 //   OA_BASE_URL              v3 base URL                      (default: production)
-//   OA_API_KEY               Bearer key (oa_pk_… read)        (no anonymous read; OAuth later)
+//   OA_API_KEY               any OpenAgenda API key (Bearer)   (no anonymous read; least-privilege key advised)
 //   OA_SANDBOX_TIMEOUT_MS / OA_SANDBOX_MEMORY_MB              hard resource caps
+//   OA_MAX_CONCURRENCY       max simultaneous executes        (default: 4; the host-RAM guardrail)
+//   OA_EXEC_MAX_QUEUE        max executes waiting for a slot   (default: OA_MAX_CONCURRENCY × 10)
+//   OA_EXEC_QUEUE_TIMEOUT_MS max wait for a free slot         (default: 30000; then a retryable busy)
+//   OA_RATE_LIMIT_PER_MIN    sustained execute calls/min per caller (default: 60; transport=http)
+//   OA_RATE_LIMIT_BURST      execute-call burst per caller    (default: 20; token-bucket size)
 //   OA_MICROSANDBOX_IMAGE    OCI image for the µVM runtime    (default: node:24-alpine)
 //   OA_MICROSANDBOX_POOL_SIZE  warm single-use µVM spares     (default: 0 = off; throughput optim)
+//   OA_MCP_TRANSPORT         stdio | http                     (default: stdio)
+//   OA_MCP_HTTP_PORT         listen port (transport=http)     (default: 8904)
+//   OA_OAUTH_ISSUER          authorization server issuer      (required for transport=http)
+//   OA_OAUTH_JWKS_URL        AS JWKS endpoint                 (default: <issuer>/jwks)
+//   OA_MCP_RESOURCE_URL      this server's resource id (aud)  (required for transport=http)
+//   OA_MCP_REQUIRED_SCOPES   space/comma list a token must hold (default: none)
+//   OA_MCP_EXCHANGE_SECRET   shared secret for RFC 8693 exchange (REQUIRED for transport=http)
+//   OA_OAUTH_EXCHANGE_URL    AS token-exchange endpoint       (default: <issuer>/oauth2/token-exchange)
+//   OA_INSIGHT_OPS_TOKEN     InsightOps log token             (prod: ships logs + audit there; absent → stderr)
+//   OA_EXECUTE_DISABLED      1                                (maintenance: refuse execute; search_docs stays up)
 //
 // TWO ORTHOGONAL AXES (see README → "Execution model"):
 //   - executor: WHAT runs the JS (node / deno / a microsandbox µVM).
@@ -26,6 +41,9 @@
 const MODES = ['local', 'hosted'];
 const EXECUTORS = ['node', 'deno', 'microsandbox'];
 const EGRESS = ['executor', 'wrapper', 'none'];
+const TRANSPORTS = ['stdio', 'http'];
+
+export const DEFAULT_HTTP_PORT = 8904;
 
 export const DEFAULT_BASE_URL = 'https://api.openagenda.com/v3';
 
@@ -141,6 +159,99 @@ function validateCombo({ mode, executor, egressAuthority, localNoSandbox }) {
   }
 }
 
+/** Parse a space/comma-separated scope list into a deduped array (empty → []). */
+function parseScopes(raw) {
+  if (!raw) return [];
+  return [...new Set(raw.split(/[\s,]+/).filter(Boolean))];
+}
+
+// Resolve and validate the OAuth resource-server config for the HTTP transport.
+// FAIL CLOSED: transport=http with no issuer/resource would expose an
+// unauthenticated MCP endpoint, so refuse to boot rather than degrade. Returns
+// null for the stdio transport (no OAuth — local/key model).
+function loadOAuth(transport, env) {
+  if (transport !== 'http') return null;
+
+  const issuer = env.OA_OAUTH_ISSUER;
+  const resourceUrl = env.OA_MCP_RESOURCE_URL;
+  const exchangeSecret = env.OA_MCP_EXCHANGE_SECRET;
+  if (!issuer) {
+    throw new Error(
+      'OA_MCP_TRANSPORT=http requires OA_OAUTH_ISSUER (the authorization server '
+        + 'issuer, e.g. https://d.openagenda.com/api/auth) — refusing to expose an '
+        + 'unauthenticated MCP server.',
+    );
+  }
+  if (!resourceUrl) {
+    throw new Error(
+      "OA_MCP_TRANSPORT=http requires OA_MCP_RESOURCE_URL (this server's OAuth "
+        + 'resource identifier / audience, e.g. https://dmcp.openagenda.com/mcp) so '
+        + 'issued tokens can be audience-bound (RFC 8707) and verified locally.',
+    );
+  }
+  // Reject malformed URLs early (issuer + resource are load-bearing for JWKS
+  // fetch and audience checks); the JWKS endpoint defaults to <issuer>/jwks.
+  for (const [name, value] of [
+    ['OA_OAUTH_ISSUER', issuer],
+    ['OA_MCP_RESOURCE_URL', resourceUrl],
+  ]) {
+    try {
+      // eslint-disable-next-line no-new
+      new URL(value);
+    } catch {
+      throw new Error(`${name} must be a valid URL (got "${value}")`);
+    }
+  }
+  // Token-exchange (O2.5) is the SINGLE delegation model — FAIL CLOSED without
+  // its secret. The AS tightens v3 to `aud=api`, so a server that can't exchange
+  // would have every v3 call rejected; refuse to boot rather than serve a broken
+  // (or token-leaking B2) path. Pair with the node container's OA_MCP_EXCHANGE_SECRET.
+  if (!exchangeSecret) {
+    throw new Error(
+      'OA_MCP_TRANSPORT=http requires OA_MCP_EXCHANGE_SECRET (the shared secret '
+        + 'for RFC 8693 token-exchange — same value as the auth service). Without '
+        + 'it the server cannot mint the aud=api token v3 trusts, so every call '
+        + 'would fail. Generate one with `openssl rand -hex 32`.',
+    );
+  }
+
+  return {
+    issuer,
+    resourceUrl,
+    jwksUrl: env.OA_OAUTH_JWKS_URL ?? `${issuer.replace(/\/$/, '')}/jwks`,
+    requiredScopes: parseScopes(env.OA_MCP_REQUIRED_SCOPES),
+    // O2.5 token-exchange (RFC 8693) — the SINGLE delegation model (no B2). Every
+    // request swaps the caller's `aud=mcp` token for a short `aud=api` token at
+    // the AS BEFORE the sandbox, so the full consented grant never reaches
+    // executed (untrusted) code. Always present for http (secret enforced above).
+    // The MCP authenticates as a confidential client (client_secret_basic); its
+    // `client_id` (default `mcp`) must match a registry entry on the AS side.
+    exchange: {
+      url:
+        env.OA_OAUTH_EXCHANGE_URL
+        ?? `${issuer.replace(/\/$/, '')}/oauth2/token-exchange`,
+      clientId: env.OA_MCP_EXCHANGE_CLIENT_ID ?? 'mcp',
+      secret: exchangeSecret,
+    },
+    // Advertised in the PRM. MCP clients (Claude, etc.) register dynamically
+    // with exactly these scopes, so the list doubles as the DCR scope set:
+    //   - `openid` + the v3 read vocabulary: the resource scopes an OAuth token
+    //     may carry today (write scopes are not wired through the AS yet).
+    //   - `offline_access`: NOT a resource scope, but required here so the DCR
+    //     client is registered with it — otherwise the client requests
+    //     `offline_access` at /authorize (to obtain a refresh token, hence its
+    //     `refresh_token` grant) and the AS rejects it as out-of-scope.
+    scopesSupported: [
+      'openid',
+      'offline_access',
+      'events:read',
+      'agendas:read',
+      'locations:read',
+      'members:read',
+    ],
+  };
+}
+
 export function loadConfig(env = process.env) {
   const mode = oneOf(env.OA_MCP_MODE ?? 'local', MODES, 'OA_MCP_MODE');
 
@@ -173,14 +284,32 @@ export function loadConfig(env = process.env) {
 
   validateCombo({ mode, executor, egressAuthority, localNoSandbox });
 
+  // Transport is orthogonal to the executor/egress matrix above: stdio (local,
+  // API-key model) or http (standalone OAuth resource server). The executor
+  // boundary is governed by validateCombo regardless of transport.
+  const transport = oneOf(
+    env.OA_MCP_TRANSPORT ?? 'stdio',
+    TRANSPORTS,
+    'OA_MCP_TRANSPORT',
+  );
+  const oauth = loadOAuth(transport, env);
+
   const baseUrl = env.OA_BASE_URL ?? DEFAULT_BASE_URL;
   const apiHost = apiHostFromBaseUrl(baseUrl);
+
+  // Simultaneous-run cap, used to size both the active limit and the derived
+  // overflow queue below. int() floors it at >0, so it can never disable the cap.
+  const maxConcurrency = int(env.OA_MAX_CONCURRENCY, 4);
 
   return {
     mode,
     executor,
     egressAuthority,
     localNoSandbox,
+    transport,
+    httpPort: int(env.OA_MCP_HTTP_PORT, DEFAULT_HTTP_PORT),
+    // OAuth resource-server config (transport=http only; null for stdio).
+    oauth,
     baseUrl,
     apiHost,
     apiKey: env.OA_API_KEY ?? null,
@@ -189,7 +318,7 @@ export function loadConfig(env = process.env) {
     // Warm single-use µVM spares to pre-boot (microsandbox only; 0 = off). A
     // throughput optimization for the hosted surface — takes the ~74%-of-latency
     // create step off the hot path, at the cost of each spare's RAM. See
-    // docs/microsandbox-plan.md → "As built / Pooling".
+    // docs/microsandbox.md → "Pooling & sizing".
     microsandboxPoolSize: int(env.OA_MICROSANDBOX_POOL_SIZE, 0),
     // Egress allowlist consumed by the executor (when it owns egress) and by the
     // emitted wrapper policy (when the wrapper does): ONLY the API host.
@@ -198,6 +327,40 @@ export function loadConfig(env = process.env) {
       timeoutMs: int(env.OA_SANDBOX_TIMEOUT_MS, 5000),
       memoryMb: int(env.OA_SANDBOX_MEMORY_MB, 256),
     },
+    // Concurrency guardrail (concurrencyLimit.js wraps the executor): cap the
+    // number of simultaneous runs so a burst can't spawn unbounded sandboxes and
+    // OOM the host (≈116 MiB per µVM run). Default 4 → ≈460 MiB worst-case µVM.
+    // The overflow queue DEFAULT is derived (×10) so it auto-scales with the cap
+    // and stays zero-config — a queued run only holds its code string (~KB), so
+    // it isn't a memory bound. It's still overridable (OA_EXEC_MAX_QUEUE) for
+    // operators who want to tune backpressure independently of the cap: fail fast
+    // at high concurrency, or buffer a bigger burst at low concurrency.
+    maxConcurrency,
+    execMaxQueue: int(env.OA_EXEC_MAX_QUEUE, maxConcurrency * 10),
+    execQueueTimeoutMs: int(env.OA_EXEC_QUEUE_TIMEOUT_MS, 30000),
+    // Per-caller sustained-rate guardrail (rateLimiter.js, transport=http only):
+    // a token bucket keyed on the OAuth `sub` so one caller can't monopolise the
+    // shared execution budget over time. `burst` is the bucket size (a natural
+    // burst of calls in one agent step); `perMin` the refill (sustained rate).
+    // int() floors both at >0 — the limit can't be silently disabled.
+    rateLimit: {
+      perMin: int(env.OA_RATE_LIMIT_PER_MIN, 60),
+      burst: int(env.OA_RATE_LIMIT_BURST, 20),
+    },
+    // Observability: structured operational logs + a per-tool audit trail, via
+    // @openagenda/logs (see log.js). `insightOpsToken` (OA_INSIGHT_OPS_TOKEN) adds
+    // the InsightOps sink (prod). stderr is gated separately by the standard
+    // `DEBUG=openagenda-mcp*` env var (the dev lever) — not by config. No
+    // OTEL/Alloy here: µVM resource metrics are a host-level scrape, not app code.
+    logging: {
+      insightOpsToken: env.OA_INSIGHT_OPS_TOKEN ?? null,
+    },
+    // Maintenance kill: refuse `execute` (search_docs stays served). Read once at
+    // boot, so flipping it takes a process restart (not a code change, and not a
+    // hot toggle — an already-connected stdio session keeps its old value).
+    // Per-caller banning is deliberately NOT a local denylist: that belongs at the
+    // AS (grant revocation).
+    executeDisabled: env.OA_EXECUTE_DISABLED === '1',
     // TLS trust for the sandboxed runtime. OFF by default → neutral in
     // production (api.openagenda.com has a public CA). DEV-only: dapi serves a
     // private CA (O=OADEV), unknown to Node's bundled roots — set one of these.

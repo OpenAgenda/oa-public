@@ -1,12 +1,13 @@
 # @openagenda/mcp — POC
 
-A **proof-of-concept MCP server** exposing the OpenAgenda **v3 read-only** API to
-LLM clients via the **code-mode** pattern: two tools — `search_docs` (find the
-right operation) and `execute` (run code against the API) — instead of one tool
-per endpoint. It validates the sandbox harness on the safe read surface, ahead
-of the v3 write/admin/moderation surface that the full MCP will need.
+A **proof-of-concept MCP server** exposing the OpenAgenda **v3** API to LLM
+clients via the **code-mode** pattern: two tools — `search_docs` (find the right
+operation) and `execute` (run code against the API) — instead of one tool per
+endpoint. `execute` runs arbitrary caller code against the v3 surface (reads
+**and** write/admin/moderation), so the sandbox egress boundary, per-caller OAuth
+scoping and human-gated destructive tools are what bound what it can do.
 
-> ⚠️ **Read-only, local POC.** Not the hosted, multi-tenant server. See
+> ⚠️ **Local POC.** Not the hosted, multi-tenant server. See
 > [Hébergé / multi-tenant](#hébergé--multi-tenant) before exposing anything publicly.
 
 ## Architecture
@@ -172,7 +173,7 @@ For the hardened `node` + `srt` setup, see [Running under srt](#running-under-sr
 
 ```sh
 yarn install
-# The API needs a credential (no anonymous read): a read-only publishable key (oa_pk_…) today, OAuth later.
+# The API needs a credential (no anonymous read): any OpenAgenda API key for stdio (oa_pk_… shown; a least-privilege/read key is advised — it's baked into the sandboxed code). HTTP uses OAuth.
 export OA_API_KEY=oa_pk_xxx
 export OA_BASE_URL=https://dapi.openagenda.com/v3   # dev; defaults to production
 node packages/mcp/src/index.js                      # speaks MCP over stdio (deno engine)
@@ -198,26 +199,41 @@ runs it in the sandbox.
 
 ### Config (env)
 
-| Var                         | Default                                  | Meaning                                                                                                          |
-| --------------------------- | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------- |
-| `OA_MCP_MODE`               | `local`                                  | `local` \| `hosted` (drives defaults + fail-closed gating)                                                       |
-| `OA_EXECUTOR`               | `deno` (local) / `microsandbox` (hosted) | engine: `node` \| `deno` \| `microsandbox` (see Execution model)                                                 |
-| `OA_CODE_EGRESS_AUTHORITY`  | `executor`                               | who owns code egress: `executor` \| `wrapper` \| `none`                                                          |
-| `OA_LOCAL_NO_SANDBOX`       | _off_                                    | one-flag unsafe local node path (`node` + `none`); also the `egress=none` ack                                    |
-| `OA_BASE_URL`               | `https://api.openagenda.com/v3`          | v3 base URL                                                                                                      |
-| `OA_API_KEY`                | _none_                                   | Bearer key (`oa_pk_…` read-only) — auth credential (key today, OAuth later)                                      |
-| `OA_SANDBOX_TIMEOUT_MS`     | `5000`                                   | hard wall-clock kill                                                                                             |
-| `OA_SANDBOX_MEMORY_MB`      | `256`                                    | V8 heap cap (node/deno) / hard µVM RAM cap (microsandbox — needs more headroom)                                  |
-| `OA_MICROSANDBOX_IMAGE`     | `node:24-alpine`                         | OCI image for the µVM (microsandbox; official Node Alpine, `node` on PATH; pin a digest in prod — see config.js) |
-| `OA_MICROSANDBOX_POOL_SIZE` | `0` (off)                                | warm single-use µVM spares (microsandbox; throughput optim, holds RAM — see plan)                                |
-| `OA_USE_SYSTEM_CA`          | _off_                                    | **dev only**: trust the OS cert store (Node bundles its own)                                                     |
-| `OA_EXTRA_CA_CERTS`         | _none_                                   | **dev only**: path to an extra PEM CA bundle                                                                     |
+| Var                         | Default                                  | Meaning                                                                                                             |
+| --------------------------- | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------- |
+| `OA_MCP_MODE`               | `local`                                  | `local` \| `hosted` (drives defaults + fail-closed gating)                                                          |
+| `OA_EXECUTOR`               | `deno` (local) / `microsandbox` (hosted) | engine: `node` \| `deno` \| `microsandbox` (see Execution model)                                                    |
+| `OA_CODE_EGRESS_AUTHORITY`  | `executor`                               | who owns code egress: `executor` \| `wrapper` \| `none`                                                             |
+| `OA_LOCAL_NO_SANDBOX`       | _off_                                    | one-flag unsafe local node path (`node` + `none`); also the `egress=none` ack                                       |
+| `OA_BASE_URL`               | `https://api.openagenda.com/v3`          | v3 base URL                                                                                                         |
+| `OA_API_KEY`                | _none_                                   | any OpenAgenda API key (Bearer) — the **stdio** credential; a least-privilege/read key is advised (HTTP uses OAuth) |
+| `OA_SANDBOX_TIMEOUT_MS`     | `5000`                                   | hard wall-clock kill                                                                                                |
+| `OA_SANDBOX_MEMORY_MB`      | `256`                                    | V8 heap cap (node/deno) / hard µVM RAM cap (microsandbox — needs more headroom)                                     |
+| `OA_MAX_CONCURRENCY`        | `4`                                      | max simultaneous `execute` runs — the host-RAM guardrail                                                            |
+| `OA_EXEC_MAX_QUEUE`         | `OA_MAX_CONCURRENCY × 10`                | max `execute` calls waiting for a slot before a retryable "at capacity" error (default auto-scales with the cap)    |
+| `OA_EXEC_QUEUE_TIMEOUT_MS`  | `30000`                                  | how long an over-cap `execute` waits for a free slot before a retryable "at capacity" error                         |
+| `OA_RATE_LIMIT_PER_MIN`     | `60`                                     | sustained `execute` calls/min **per caller** (OAuth `sub`); `transport=http` only — the per-token rate-limit        |
+| `OA_RATE_LIMIT_BURST`       | `20`                                     | per-caller `execute` burst (token-bucket size) before a retryable "rate limit reached" error                        |
+| `OA_INSIGHT_OPS_TOKEN`      | _none_                                   | InsightOps log token — ships logs + audit there (prod). For stderr instead, set `DEBUG=openagenda-mcp*`             |
+| `OA_EXECUTE_DISABLED`       | _off_                                    | `1` → refuse `execute` (maintenance/incident); `search_docs` stays served. Per-caller bans live at the AS, not here |
+| `OA_MICROSANDBOX_IMAGE`     | `node:24-alpine`                         | OCI image for the µVM (microsandbox; official Node Alpine, `node` on PATH; pin a digest in prod — see config.js)    |
+| `OA_MICROSANDBOX_POOL_SIZE` | `0` (off)                                | warm single-use µVM spares (microsandbox; throughput optim, holds RAM — see docs/microsandbox.md)                   |
+| `OA_USE_SYSTEM_CA`          | _off_                                    | **dev only**: trust the OS cert store (Node bundles its own)                                                        |
+| `OA_EXTRA_CA_CERTS`         | _none_                                   | **dev only**: path to an extra PEM CA bundle                                                                        |
 
 > **Dev TLS.** `dapi.openagenda.com` serves a **private CA** (`O=OADEV`), unknown
 > to Node's bundled roots → `UNABLE_TO_VERIFY_LEAF_SIGNATURE`. Set
 > `OA_USE_SYSTEM_CA=1` (the dev CA is in your system store) or
 > `OA_EXTRA_CA_CERTS=docker/devinstaller/ssl/certs/ca.crt`. **Production
 > (`api.openagenda.com`) needs neither** — leave them off.
+
+> **Where the logs go.** Two independent, env-gated sinks (NODE_ENV plays no
+> part). **stderr**: set `DEBUG=openagenda-mcp*` (the standard `debug` lever) — the
+> way to watch logs in a terminal or dev/docker. **InsightOps**: set
+> `OA_INSIGHT_OPS_TOKEN` (prod). With neither set, the server warns once at boot
+> ("no log sink configured") and then stays quiet — so logs and the audit trail
+> aren't discarded silently; fatals and boot safety banners always hit stderr
+> directly. Both can be on; neither touches stdout (stdio-safe).
 
 ---
 
@@ -230,12 +246,15 @@ they are **NOT** a hard boundary against untrusted code. `config.js` **fails
 closed**: `OA_MCP_MODE=hosted` requires `OA_EXECUTOR=microsandbox` with
 `OA_CODE_EGRESS_AUTHORITY=executor`, and refuses everything else.
 
-> **The microsandbox plan** (verified capabilities, phased rollout, sequencing
-> behind write + OAuth) lives in [docs/microsandbox-plan.md](docs/microsandbox-plan.md).
-> The engine itself is **implemented** (the Phase-1 adapter — boot, host-enforced
-> egress, hard caps), validated on a real KVM host; what remains before going
-> public is the policy layer (per-caller OAuth token, rate-limit, audit) and ops.
-> Run the µVM integration tests on a virtualization host with `OA_MSB_IT=1 yarn workspace @openagenda/mcp test`.
+> **The microsandbox reference** (measured latency/footprint, the SNI egress
+> model, image rationale, pool sizing and lifetime invariant) lives in
+> [docs/microsandbox.md](docs/microsandbox.md). The engine itself is
+> **implemented** (boot, host-enforced egress, hard caps), validated on a real KVM
+> host; the per-caller OAuth token, rate-limit, **per-tool audit log and a
+> maintenance kill (`OA_EXECUTE_DISABLED`)** are in place too, so what remains
+> before going public is mainly the production AS wiring and ops. Run the µVM
+> integration tests on a virtualization host with
+> `OA_MSB_IT=1 yarn workspace @openagenda/mcp test`.
 
 > **The egress allowlist is the exfiltration boundary — not the `oa` client.**
 > The executed code is untrusted and shares scope with the `oa` client: it can
@@ -260,17 +279,31 @@ Each item maps to a concrete threat:
   allowlist of the API host only**, AND block the cloud **metadata endpoint
   `169.254.169.254`**, RFC1918 ranges and localhost. (The classic SSRF →
   cloud-credential theft.)
-- **Abuse / self-DoS** → **rate-limit per token + a concurrency cap** on
-  simultaneous sandboxes, with a queue. Otherwise anyone spins up thousands of
-  VMs and takes your host down.
+- **Abuse / self-DoS** → two complementary guardrails, both **done**:
+  - a **concurrency cap on simultaneous sandboxes, with a bounded queue**
+    (`OA_MAX_CONCURRENCY`, default 4 → a saturated burst queues then gets a
+    retryable busy, instead of spawning unbounded ~116 MiB µVMs and OOMing the
+    host). `concurrencyLimit.js` wraps the executor for every engine and
+    transport — bounds **instantaneous** load globally.
+  - a **per-caller rate-limit** on `execute` (`rateLimiter.js`, token bucket keyed
+    on the OAuth `sub`; `OA_RATE_LIMIT_PER_MIN`/`OA_RATE_LIMIT_BURST`,
+    `transport=http` only) — bounds **sustained** load per caller, so one caller
+    can't monopolise the shared budget over time. Over-rate calls get a retryable
+    "rate limit reached" result. In-memory per instance (effective limit scales
+    with replica count, like the concurrency cap).
 - **Privilege escalation via the API itself** → **no ambient authority**: inject
   the **caller's scoped OAuth token** into the executed code; the API enforces
   scopes server-side, so a successful run can never exceed the caller's own
   permissions. The server holds no shared secret the code can reach. This is the
   one case where OAuth is **mandatory** (see Auth below) — a shared key here lets
   any caller use, or exfiltrate, an authority valid for everyone.
-- **Audit & forensics** → log every execution (caller, code, duration, outcome)
-  and keep a kill-switch.
+- **Audit & forensics** → **done**: a **per-tool audit log** (`log.js`) emits one
+  structured record per `search_docs` / `execute` call (caller `sub` + client app,
+  transport, outcome, duration, the code body capped at 8 KiB + its full sha256,
+  `bytes_out`, a non-reversible `credential_fp` — never the secret, never the
+  result payload) to **InsightOps** (`OA_INSIGHT_OPS_TOKEN`, prod) / stderr (`DEBUG`). The
+  **kill** is `OA_EXECUTE_DISABLED` (cut `execute`, keep `search_docs`); **banning
+  a specific caller is the AS's job** (grant revocation), not a local denylist.
 - **Supply-chain / maturity** → microsandbox is young (beta) — **pin the version**,
   review upgrades, and keep gVisor as the known fallback for the boundary.
 
@@ -283,43 +316,102 @@ Each item maps to a concrete threat:
 Auth method, transport and tenancy are **independent** axes — don't conflate
 "hosted" with "OAuth":
 
-- **API key** (current POC): least friction. Fine for **local** use (you run it
-  with your own key) **and** for a server **a structure hosts for its own
-  trusted callers** behind its own perimeter (single-tenant, private). A shared
-  key is a legitimate operator choice there.
-- **OAuth 2.1** (scoped per caller, planned, on `slice-auth`): **mandatory** for
-  the **public + multi-tenant** case — the only configuration where a shared
-  ambient secret is a real hole (any caller could use or exfiltrate it).
+- **API key** (the stdio transport): least friction — the operator runs the
+  server with their own OpenAgenda API key (any key works; `oa_pk_…` is just the
+  example, and a least-privilege/read key is advised since it's baked into the
+  sandboxed code). Fine for **local** use **and** for a server **a structure hosts
+  for its own trusted callers** behind its own perimeter (single-tenant, private).
+  A shared key is a legitimate operator choice there.
+- **OAuth 2.1** (the HTTP transport): a standalone **OAuth resource server** —
+  bearer JWTs verified locally against the AS JWKS (issuer + audience), and each
+  `execute` swaps the caller's token for a short-lived `aud=api` token (RFC 8693)
+  so executed code runs as the **consenting caller**, never a shared ambient
+  secret. On `slice-auth`/better-auth. This is what the **public + multi-tenant**
+  case requires.
 
-The right guard is therefore **not** "block the HTTP transport" but: default to
-safe and require an **explicit operator opt-in** (e.g. `OA_MCP_TRUST=…`) to boot
-HTTP with a shared key, so a shared key is never exposed publicly by accident.
+The transport choice fixes the auth model rather than leaving a footgun:
+`transport=http` **fails closed** without OAuth config (issuer, resource,
+exchange secret), so a shared key can never be exposed over the network — there
+is no shared-key-over-HTTP path to opt into.
 
-> The POC's `OA_API_KEY` is a **shared, transitional** credential, pre-OAuth.
-> The server redacts it from any error text it returns, but **do not expose this
-> server publicly with a shared key** — wire OAuth first for that.
+> `OA_API_KEY` is the **stdio** credential — shared and ambient by nature. The
+> server redacts it from any error text it returns, and it is meant for local /
+> single-tenant use; the public multi-tenant surface uses per-caller OAuth above.
 
-### Beyond read-only (mutations & moderation)
+### Mutations & moderation
 
-When the API gains write/admin/moderation, code-mode hides individual dangerous
-actions inside a script — bad for approval/audit. Plan for a **hybrid**: keep
-`execute` for reads/composition, and add a few **explicit, `destructiveHint`-
-annotated tools gated by human approval** for the sensitive operations (delete
-agenda, moderate/reject, remove member).
+The v3 surface includes write/admin/moderation, and `execute` runs arbitrary
+code — so it **can mutate**, and code-mode hides the dangerous call inside a
+script: the audit log records the **script** (see Audit & forensics above) but
+there is no **per-action** approval. `execute` is therefore annotated
+**non-read-only** so clients keep gating it. The planned mitigation is a
+**hybrid**: keep `execute` for reads/composition, and add a few **explicit,
+`destructiveHint`-annotated tools gated by human approval** for the sensitive
+operations (delete agenda, moderate/reject, remove member) — not built yet, so
+`execute` is currently the only write path and leans on the OAuth scope grant +
+the sandbox boundary.
+
+## Design decisions
+
+- **Two tools, one round-trip.** Code-mode exposes `search_docs` + `execute`, not
+  a third `describe_operation` (which would add an LLM↔MCP round-trip per call) —
+  `search_docs` returns the signature, typed params, response shape and a runnable
+  example in one shot, with detail **modulated by rank** (top hits render in full,
+  the long tail compactly), so the payload stays bounded as the catalogue grows to
+  dozens of operations. This mirrors the Stainless "SDK Code Mode" shape.
+- **`search_docs` ranks with MiniSearch (lexical BM25), not embeddings.** For a
+  tiny (dozens-of-ops), keyword-heavy catalogue queried in natural language,
+  lexical search is the right tool and the industry default (Anthropic ships
+  BM25 + regex for tool search out of the box; embeddings are their escape hatch
+  for hundreds-to-thousands of tools). MiniSearch is the only candidate that meets
+  every constraint with nothing to spare: **pure ESM, zero deps, no native binary,
+  synchronous, deterministic BM25+**, with fuzzy + prefix + field boost. Notes on
+  the alternatives weighed:
+  - **Orama** (the only credible upgrade) adds vector/hybrid, but its offline
+    in-process embedder needs a TensorFlow.js **native** backend, its core API is
+    `T | Promise<T>` (async leaks into every call site), and it carries more churn.
+    Revisit only if funded multilingual semantic search becomes a requirement —
+    and even then via bring-your-own precomputed vectors, not `tfjs-node`.
+  - **Semantic / embeddings** underperform here: the discriminating tokens are
+    identifiers, param names and enum values, exactly where dense vectors dilute
+    specificity vs BM25 — and multilingual stemming is moot because the indexed
+    corpus is the **English** API contract, so an NL query in any language is a
+    synonym/expansion problem (handled by a small curated `SYNONYMS` map + fuzzy),
+    not a stemming one.
+- **Fuzzy is gated to long terms** (`> 6` chars). A blanket fuzzy distance turns
+  short words into false hits (`show`→`how`, `events`→`event`), surfacing the wrong
+  operation; prefix matching covers partial words, fuzzy is reserved for typos in
+  longer tokens.
+- **Examples live as `x-codeSamples` in the OpenAPI contract** (co-located with
+  each operation, also consumable by Scalar), with an auto-derived skeleton as
+  fallback — so a single source serves the MCP and future reference docs.
 
 ## What this POC deliberately does NOT do
 
 - The `microsandbox` engine (hosted µVM boundary) **is implemented** and verified
-  on a real KVM host, but the surrounding hosted **policy layer is not** — no
-  per-caller OAuth token, rate-limit, concurrency cap or audit log yet (the
-  fail-closed gate keeps `hosted` from shipping without them). See
-  [docs/microsandbox-plan.md](docs/microsandbox-plan.md).
-- No OAuth / scopes — uses a single shared Bearer key from env (read-only,
-  transitional). The key is redacted from returned error text, but it is still a
-  shared ambient credential: see Auth above.
-- No HTTP transport — stdio only.
-- No rate-limiting, no audit log, no metadata/RFC1918 egress blocking, no
-  per-call process isolation (one runaway is killed via process-group SIGKILL +
-  a 1 MiB output cap, not a VM boundary).
+  on a real KVM host; the hosted **policy layer is now in place** — a
+  **concurrency cap + bounded queue** (`concurrencyLimit.js`), a **per-caller
+  rate-limit** (`rateLimiter.js`), a **per-tool audit log** (`log.js` → InsightOps)
+  and a **maintenance kill** (`OA_EXECUTE_DISABLED`). See
+  [docs/microsandbox.md](docs/microsandbox.md).
+- The **HTTP transport + OAuth 2.1 resource server are implemented** (local JWKS
+  verification, audience binding, per-caller RFC 8693 token-exchange, and
+  `transport=http` fails closed without OAuth) — but against a dev/staging AS;
+  production AS wiring is not done. The **stdio** transport still uses a shared
+  `OA_API_KEY` (any key; least-privilege advised; redacted from error text) — fine local / single-tenant,
+  not for a public shared-key deployment. See Auth above.
+- **No production AS wiring**, and no AS-side per-caller banning (grant revocation)
+  or a `uid`/`email` claim to enrich the audit caller beyond the better-auth `sub`.
+- **No per-action approval** for mutations (the audit log records the whole
+  `execute` script, not each API call) — see Mutations & moderation.
+- **Privacy/retention of the audit input is undecided**: the audit log stores the
+  user's `search_docs` query and (capped) `execute` code in InsightOps — a public
+  deployment must disclose this and set retention. Not a code blocker.
+- No µVM **resource** telemetry from the server: host CPU/RAM/KVM/µVM metrics are
+  a host-level scrape (e.g. alloy), deliberately not application code — the
+  audit log already carries the per-call usage signal.
+- No per-call process isolation on the **local** engines (node/deno) — a runaway
+  is killed via process-group SIGKILL + a 1 MiB output cap, not a VM boundary (the
+  microsandbox engine does isolate per run).
 
 **Do not deploy this as a public server as-is.**

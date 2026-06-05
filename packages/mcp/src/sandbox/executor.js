@@ -48,12 +48,13 @@
 import { createNodeExecutor } from './executors/nodeExecutor.js';
 import { createDenoExecutor } from './executors/denoExecutor.js';
 import { createMicrosandboxExecutor } from './executors/microsandboxExecutor.js';
+import { withConcurrencyLimit } from './concurrencyLimit.js';
 
 /**
  * @param {ReturnType<typeof import('../config.js').loadConfig>} config
  * @returns {SandboxExecutor}
  */
-export function createExecutor(config) {
+function createEngine(config) {
   switch (config.executor) {
     case 'node':
       return createNodeExecutor();
@@ -69,4 +70,20 @@ export function createExecutor(config) {
     default:
       throw new Error(`Unknown executor: ${config.executor}`);
   }
+}
+
+/**
+ * @param {ReturnType<typeof import('../config.js').loadConfig>} config
+ * @returns {SandboxExecutor}
+ */
+export function createExecutor(config) {
+  // Guard EVERY engine with the shared concurrency cap (engine-agnostic, applied
+  // once to the singleton executor — see concurrencyLimit.js for why this is the
+  // only altitude that bounds the whole process under the per-request HTTP
+  // transport). dispose() is forwarded, so the warm-pool drain still runs.
+  return withConcurrencyLimit(createEngine(config), {
+    maxConcurrency: config.maxConcurrency,
+    maxQueue: config.execMaxQueue,
+    queueTimeoutMs: config.execQueueTimeoutMs,
+  });
 }

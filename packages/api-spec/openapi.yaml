@@ -41,6 +41,16 @@ paths:
       operationId: agendas.list
       tags: [Agendas]
       summary: List agendas
+      x-synonyms: [directory, catalogue, catalog, browse, find, all]
+      x-codeSamples:
+        - lang: TypeScript
+          label: List official agendas
+          source: |
+            const { data, error } = await oa.agendas.list({
+              query: { official: true, limit: 20 },
+            });
+            if (error) throw error;
+            return data.data.map((a) => ({ uid: a.uid, title: a.title }));
       description: >
         Returns a cursor-paginated list of agendas. Pass the `after` cursor
         returned in `pagination.after` to fetch the next page; resend the same
@@ -86,6 +96,16 @@ paths:
       operationId: agendas.get
       tags: [Agendas]
       summary: Get one agenda
+      x-synonyms: [detail, single, one, by id, uid, fetch, retrieve, lookup]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Get one agenda by uid
+          source: |
+            const { data, error } = await oa.agendas.get({
+              path: { agendaUid: 12345 },
+            });
+            if (error) throw error;
+            return data;
       description: >
         Returns a single agenda in its full `Agenda` representation, including
         `network` and `locationSet`.
@@ -114,6 +134,24 @@ paths:
       operationId: agendas.events.list
       tags: [Events]
       summary: List events of an agenda
+      x-synonyms:
+        [find, browse, filter, paginate, cursor, upcoming, when, where, date]
+      x-codeSamples:
+        - lang: TypeScript
+          label: All upcoming events in Paris (paging every result)
+          source: |
+            const events = [];
+            let after;
+            do {
+              const { data, error } = await oa.agendas.events.list({
+                path: { agendaUid: 12345 },
+                query: { city: ['Paris'], relative: ['upcoming'], limit: 100, after },
+              });
+              if (error) throw error;
+              events.push(...data.data);
+              after = data.pagination.after;
+            } while (after);
+            return events.length;
       description: >
         Returns a cursor-paginated list of events for the given agenda.
         Pass the `after` cursor returned in `pagination.after` to fetch the
@@ -196,6 +234,16 @@ paths:
       operationId: agendas.events.get
       tags: [Events]
       summary: Get a single event
+      x-synonyms: [detail, single, one, by id, uid, fetch, retrieve, lookup]
+      x-codeSamples:
+        - lang: TypeScript
+          label: Get a single event within an agenda
+          source: |
+            const { data, error } = await oa.agendas.events.get({
+              path: { agendaUid: 12345, eventUid: 67890 },
+            });
+            if (error) throw error;
+            return data;
       description: Returns a single event by its uid within the given agenda.
       security:
         - bearerAuth: []
@@ -223,6 +271,30 @@ paths:
       operationId: agendas.events.facets
       tags: [Events]
       summary: Faceted counts for an agenda's events
+      x-synonyms:
+        [
+          aggregate,
+          count,
+          group,
+          group by,
+          stats,
+          statistics,
+          histogram,
+          distribution,
+          how many,
+          breakdown,
+          top,
+        ]
+      x-codeSamples:
+        - lang: TypeScript
+          label: How many concert events per city
+          source: |
+            const { data, error } = await oa.agendas.events.facets({
+              path: { agendaUid: 12345 },
+              query: { facets: ['cities'], keyword: ['concert'] },
+            });
+            if (error) throw error;
+            return data.facets.cities;
       description: >
         Returns event counts grouped by the requested facets, computed over the
         **same filtered set** as `agendas.events.list`. Pass the same filter
@@ -1023,9 +1095,23 @@ components:
             $ref: '#/components/schemas/Error'
     Forbidden:
       description: >-
-        Authenticated, but not allowed to access this resource — for example the
-        account is blacklisted, or the key lacks the required scope.
-        `error.code` is `forbidden`.
+        Authenticated, but not allowed to access this resource. For a blacklisted
+        account `error.code` is `forbidden`. For an OAuth2 access token that
+        lacks the scope this operation declares, `error.code` is
+        `insufficient_scope` and a `WWW-Authenticate: Bearer
+        error="insufficient_scope", scope="<required>"` header names the missing
+        scope (RFC 6750 §3.1). API-key callers are not scope-constrained.
+      headers:
+        WWW-Authenticate:
+          description: >-
+            Present on an `insufficient_scope` failure: the RFC 6750 Bearer
+            challenge naming the scope the token must hold.
+          required: false
+          schema:
+            type: string
+          example: >-
+            Bearer error="insufficient_scope", scope="events:read",
+            error_description="the access token lacks the required scope"
       content:
         application/json:
           schema:
@@ -1051,7 +1137,14 @@ components:
             code:
               type: string
               description: Stable, machine-readable error code.
-              examples: ['not_found', 'unauthorized', 'validation_error']
+              examples:
+                [
+                  'not_found',
+                  'unauthorized',
+                  'forbidden',
+                  'insufficient_scope',
+                  'validation_error',
+                ]
             message:
               type: string
               description: Human-readable explanation.

@@ -243,6 +243,104 @@ describe('loadConfig', () => {
     );
   });
 
+  describe('concurrency guardrail', () => {
+    it('defaults to 4 concurrent runs, a ×10 queue and a 30s wait', () => {
+      const cfg = loadConfig({});
+      expect(cfg.maxConcurrency).toBe(4);
+      expect(cfg.execMaxQueue).toBe(40);
+      expect(cfg.execQueueTimeoutMs).toBe(30000);
+    });
+
+    it('derives the overflow queue default from the concurrency override', () => {
+      const cfg = loadConfig({
+        OA_MAX_CONCURRENCY: '8',
+        OA_EXEC_QUEUE_TIMEOUT_MS: '5000',
+      });
+      expect(cfg.maxConcurrency).toBe(8);
+      expect(cfg.execMaxQueue).toBe(80); // ×10 default
+      expect(cfg.execQueueTimeoutMs).toBe(5000);
+    });
+
+    it('lets OA_EXEC_MAX_QUEUE override the queue independently of the cap', () => {
+      const cfg = loadConfig({
+        OA_MAX_CONCURRENCY: '8',
+        OA_EXEC_MAX_QUEUE: '50',
+      });
+      expect(cfg.maxConcurrency).toBe(8);
+      expect(cfg.execMaxQueue).toBe(50); // explicit, not the ×10 default
+    });
+
+    it('falls back to the ×10 default for an invalid OA_EXEC_MAX_QUEUE', () => {
+      const cfg = loadConfig({
+        OA_MAX_CONCURRENCY: '3',
+        OA_EXEC_MAX_QUEUE: '0',
+      });
+      expect(cfg.execMaxQueue).toBe(30);
+    });
+
+    it.each(['0', '-5', 'abc', ''])(
+      'floors an invalid OA_MAX_CONCURRENCY %p back to the default (never disables the cap)',
+      (raw) => {
+        expect(loadConfig({ OA_MAX_CONCURRENCY: raw }).maxConcurrency).toBe(4);
+      },
+    );
+  });
+
+  describe('rate-limit guardrail', () => {
+    it('defaults to 60 calls/min with a burst of 20', () => {
+      const cfg = loadConfig({});
+      expect(cfg.rateLimit).toEqual({ perMin: 60, burst: 20 });
+    });
+
+    it('honours explicit OA_RATE_LIMIT_PER_MIN / OA_RATE_LIMIT_BURST', () => {
+      const cfg = loadConfig({
+        OA_RATE_LIMIT_PER_MIN: '120',
+        OA_RATE_LIMIT_BURST: '5',
+      });
+      expect(cfg.rateLimit).toEqual({ perMin: 120, burst: 5 });
+    });
+
+    it.each(['0', '-5', 'abc', ''])(
+      'floors an invalid value %p back to the defaults (never disables the limit)',
+      (raw) => {
+        const cfg = loadConfig({
+          OA_RATE_LIMIT_PER_MIN: raw,
+          OA_RATE_LIMIT_BURST: raw,
+        });
+        expect(cfg.rateLimit).toEqual({ perMin: 60, burst: 20 });
+      },
+    );
+  });
+
+  describe('logging', () => {
+    it('has no InsightOps token by default', () => {
+      expect(loadConfig({}).logging).toEqual({ insightOpsToken: null });
+    });
+
+    it('reads OA_INSIGHT_OPS_TOKEN', () => {
+      const cfg = loadConfig({ OA_INSIGHT_OPS_TOKEN: 'tok-mcp' });
+      expect(cfg.logging).toEqual({ insightOpsToken: 'tok-mcp' });
+    });
+  });
+
+  describe('maintenance kill (OA_EXECUTE_DISABLED)', () => {
+    it('is off by default', () => {
+      expect(loadConfig({}).executeDisabled).toBe(false);
+    });
+
+    it('is on only for the exact flag "1"', () => {
+      expect(loadConfig({ OA_EXECUTE_DISABLED: '1' }).executeDisabled).toBe(
+        true,
+      );
+      expect(loadConfig({ OA_EXECUTE_DISABLED: 'true' }).executeDisabled).toBe(
+        false,
+      );
+      expect(loadConfig({ OA_EXECUTE_DISABLED: '0' }).executeDisabled).toBe(
+        false,
+      );
+    });
+  });
+
   describe('custom base URL', () => {
     it('derives the host + egress allowlist from OA_BASE_URL (dev)', () => {
       const cfg = loadConfig({ OA_BASE_URL: 'https://dapi.openagenda.com/v3' });
@@ -254,6 +352,97 @@ describe('loadConfig', () => {
       expect(() => loadConfig({ OA_BASE_URL: 'not a url' })).toThrow(
         /OA_BASE_URL/,
       );
+    });
+  });
+
+  describe('transport', () => {
+    it('defaults to stdio with no OAuth config', () => {
+      const cfg = loadConfig({});
+      expect(cfg.transport).toBe('stdio');
+      expect(cfg.oauth).toBeNull();
+    });
+
+    it('rejects an unknown transport', () => {
+      expect(() => loadConfig({ OA_MCP_TRANSPORT: 'grpc' })).toThrow(
+        /OA_MCP_TRANSPORT/,
+      );
+    });
+
+    // FAIL-CLOSED: http without an authorization server would expose an
+    // unauthenticated MCP endpoint.
+    it('refuses http without an issuer', () => {
+      expect(() => loadConfig({ OA_MCP_TRANSPORT: 'http' })).toThrow(
+        /OA_OAUTH_ISSUER/,
+      );
+    });
+
+    it('refuses http without a resource URL', () => {
+      expect(() =>
+        loadConfig({
+          OA_MCP_TRANSPORT: 'http',
+          OA_OAUTH_ISSUER: 'https://auth.test',
+        })).toThrow(/OA_MCP_RESOURCE_URL/);
+    });
+
+    it('rejects a malformed issuer / resource URL', () => {
+      expect(() =>
+        loadConfig({
+          OA_MCP_TRANSPORT: 'http',
+          OA_OAUTH_ISSUER: 'nope',
+          OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        })).toThrow(/OA_OAUTH_ISSUER must be a valid URL/);
+    });
+
+    // FAIL-CLOSED: token-exchange (O2.5) is the only delegation model; without
+    // its secret the server can't mint the aud=api token v3 trusts.
+    it('refuses http without the token-exchange secret', () => {
+      expect(() =>
+        loadConfig({
+          OA_MCP_TRANSPORT: 'http',
+          OA_OAUTH_ISSUER: 'https://auth.test',
+          OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        })).toThrow(/OA_MCP_EXCHANGE_SECRET/);
+    });
+
+    it('defaults the JWKS URL to <issuer>/jwks and parses scopes', () => {
+      const cfg = loadConfig({
+        OA_MCP_TRANSPORT: 'http',
+        OA_OAUTH_ISSUER: 'https://auth.test/api/auth',
+        OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',
+        OA_MCP_REQUIRED_SCOPES: 'events:read, openid',
+      });
+      expect(cfg.transport).toBe('http');
+      expect(cfg.httpPort).toBe(8904);
+      expect(cfg.oauth.jwksUrl).toBe('https://auth.test/api/auth/jwks');
+      expect(cfg.oauth.requiredScopes).toEqual(['events:read', 'openid']);
+    });
+
+    it('defaults the exchange endpoint to <issuer>/oauth2/token-exchange', () => {
+      const cfg = loadConfig({
+        OA_MCP_TRANSPORT: 'http',
+        OA_OAUTH_ISSUER: 'https://auth.test/api/auth',
+        OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',
+      });
+      expect(cfg.oauth.exchange).toEqual({
+        url: 'https://auth.test/api/auth/oauth2/token-exchange',
+        clientId: 'mcp',
+        secret: 'test-exchange-secret',
+      });
+    });
+
+    it('honours an explicit JWKS URL and HTTP port', () => {
+      const cfg = loadConfig({
+        OA_MCP_TRANSPORT: 'http',
+        OA_OAUTH_ISSUER: 'https://auth.test',
+        OA_MCP_RESOURCE_URL: 'https://dmcp.test',
+        OA_MCP_EXCHANGE_SECRET: 'test-exchange-secret',
+        OA_OAUTH_JWKS_URL: 'https://auth.test/custom-jwks',
+        OA_MCP_HTTP_PORT: '9999',
+      });
+      expect(cfg.oauth.jwksUrl).toBe('https://auth.test/custom-jwks');
+      expect(cfg.httpPort).toBe(9999);
     });
   });
 });

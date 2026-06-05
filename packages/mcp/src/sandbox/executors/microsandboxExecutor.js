@@ -13,11 +13,11 @@
 //
 // Boundary mapping — verified against microsandbox 0.5.x (docs.microsandbox.dev,
 // and the package's own .d.ts):
-//   - egress  → a NetworkPolicy: defaultDeny + allow DNS + allow the API host's
-//               first-party suffix (see buildPolicy/egressSuffix for WHY a parent
-//               suffix and not the exact host). Host-enforced (every packet is
-//               checked before it leaves the µVM), so — unlike node — this engine
-//               genuinely OWNS egress; config.js requires egressAuthority=executor.
+//   - egress  → a NetworkPolicy: defaultDeny + allow DNS + allow each API host
+//               EXACTLY (matched on TLS SNI; see buildPolicy). Host-enforced
+//               (every packet is checked before it leaves the µVM), so — unlike
+//               node — this engine genuinely OWNS egress; config.js requires
+//               egressAuthority=executor.
 //   - memory  → .memory(MiB(memoryMb)): a hard µVM RAM cap. Stronger than a V8
 //               heap flag (the whole guest is bounded), so we do NOT also pass
 //               --max-old-space-size. NOTE: a µVM running node needs real
@@ -27,12 +27,15 @@
 //   - output  → capped post-hoc to the same 1 MiB as the spawn-based engines.
 //
 // STILL ours (the µVM is isolation, not the whole policy): a scoped per-caller
-// OAuth token with NO ambient credential, rate-limit + concurrency cap, an audit
-// log, version pinning (beta), and tenant authn. See docs/microsandbox-plan.md.
+// OAuth token with NO ambient credential, a per-token rate-limit, an audit log,
+// version pinning (beta), and tenant authn. (The concurrency cap that bounds host
+// RAM is now in place — concurrencyLimit.js wraps this engine.) See
+// docs/microsandbox.md.
 
 import { randomUUID } from 'node:crypto';
 import { MAX_OUTPUT_BYTES } from '../spawn.js';
 import { DEFAULT_MICROSANDBOX_IMAGE } from '../../config.js';
+import { log } from '../../log.js';
 import { createWarmPool } from './microsandboxPool.js';
 
 const SANDBOX_PREFIX = 'oa-mcp-exec'; // a UNIQUE name per run is appended (see below)
@@ -62,34 +65,20 @@ function loadMicrosandbox() {
   return modulePromise;
 }
 
-// microsandbox egress is matched on the TLS SNI of the connection, and — verified
-// empirically against 0.5.x — only `domainSuffix('.<parent>')` matches reliably:
-//   - `domain('api.openagenda.com')` (exact)            → matches NOTHING (no traffic)
-//   - `domainSuffix('api.openagenda.com')` (host)       → matches nothing
-//   - `cidr('<resolved-ip>/32')`                        → matches nothing for HTTPS
-//   - `domainSuffix('.openagenda.com')` (parent)        → matches api.openagenda.com ✓
-// i.e. `domainSuffix('.X')` allows strict subdomains of X. So to reach host
-// `a.b.c` we allow its registrable parent `.b.c`. For our API host that is
-// `.openagenda.com` — all first-party, arbitrary exfil hosts stay denied.
-// (This is why the boundary is a domain suffix, NOT a CIDR pin as once assumed.)
-export function egressSuffix(host) {
-  const labels = host.split('.');
-  // a.b.c → .b.c (drop the leftmost label). An apex host (≤2 labels) has no
-  // parent to strip; fall back to the dotted host (rare; documented limitation).
-  return labels.length > 2 ? `.${labels.slice(1).join('.')}` : `.${host}`;
-}
-
-// Deny-by-default egress that allows DNS resolution + ONLY the API host's parent
-// suffix (see egressSuffix). defaultDeny is the boundary: every other SNI is
-// dropped before the packet leaves the µVM.
+// Deny-by-default egress: allow DNS, then each API host EXACTLY. The match is on
+// the TLS SNI (the requested hostname — not the resolved IP, nor the cert which
+// TLS 1.3 encrypts). Pin the exact host, NOT a `domainSuffix` parent: the suffix
+// would also admit sibling subdomains (a possible internal/private-IP SSRF
+// target). No metadata/RFC1918/loopback deny rules are needed — under defaultDeny
+// those have no matching SNI and are already dropped (a deny would only bite on a
+// DNS-rebinding of the API host, outside this sandbox's threat model).
 export function buildPolicy({ Rule, Destination }, allowNet) {
   return {
     defaultEgress: 'deny',
     defaultIngress: 'deny',
     rules: [
       Rule.allowDns(),
-      ...allowNet.map((host) =>
-        Rule.allowEgress(Destination.domainSuffix(egressSuffix(host)))),
+      ...allowNet.map((host) => Rule.allowEgress(Destination.domain(host))),
     ],
   };
 }
@@ -220,8 +209,9 @@ export function createMicrosandboxExecutor({
             // surface them so an operator sees a pool that has quietly stopped
             // warming (KVM exhaustion, image-pull throttling, …).
             onError: (err) =>
-              process.stderr.write(
-                `[openagenda-mcp] warm pool: background µVM create failed: ${errMsg(err)}\n`,
+              log.warn(
+                'warm pool: background µVM create failed: %s',
+                errMsg(err),
               ),
           });
           pool.refill(); // warm on boot
@@ -237,8 +227,9 @@ export function createMicrosandboxExecutor({
           // would poison every later ensurePool()). Reset so a subsequent request
           // retries, and resolve null so run() degrades to per-run fresh µVMs.
           poolPromise = null;
-          process.stderr.write(
-            `[openagenda-mcp] warm pool init failed; falling back to per-run µVMs: ${errMsg(err)}\n`,
+          log.warn(
+            'warm pool init failed; falling back to per-run µVMs: %s',
+            errMsg(err),
           );
           return null;
         });
@@ -264,7 +255,7 @@ export function createMicrosandboxExecutor({
           'microsandbox is not available. It is an optional dependency requiring a '
             + 'virtualization host (Linux + /dev/kvm, or macOS Apple Silicon). Install it on a '
             + 'supported host (`yarn workspace @openagenda/mcp add microsandbox`), or use '
-            + 'OA_EXECUTOR=deno locally. See packages/mcp/docs/microsandbox-plan.md.',
+            + 'OA_EXECUTOR=deno locally. See packages/mcp/docs/microsandbox.md.',
         );
       }
       const { Rule, Destination } = msb;

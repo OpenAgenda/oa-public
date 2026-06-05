@@ -19,3 +19,7 @@ fi
 if [ "$5" -lt 1 ]; then
   rm /etc/nginx/conf.d/api.conf
 fi
+
+if [ "$6" -lt 1 ]; then
+  rm /etc/nginx/conf.d/mcp.conf
+fi
