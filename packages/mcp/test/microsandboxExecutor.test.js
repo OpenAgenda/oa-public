@@ -12,6 +12,8 @@ import {
   buildPolicy,
   capOutput,
   createMicrosandboxExecutor,
+  execLlrt,
+  execNode,
 } from '../src/sandbox/executors/microsandboxExecutor.js';
 import { createWarmPool } from '../src/sandbox/executors/microsandboxPool.js';
 import { MAX_OUTPUT_BYTES } from '../src/sandbox/spawn.js';
@@ -67,6 +69,104 @@ describe('capOutput', () => {
       MAX_OUTPUT_BYTES + 64,
     );
     expect(r.stdout).toContain('[killed: output exceeded 1 MiB]');
+  });
+});
+
+// A fake sandbox recording fs().write + the execWith builder calls — no µVM, no
+// SDK. Mirrors the package's hand-rolled-stub style (cf. log.test.js).
+function fakeSandbox() {
+  const writes = [];
+  const builder = { calls: {} };
+  builder.args = (a) => {
+    builder.calls.args = a;
+    return builder;
+  };
+  builder.stdinBytes = (b) => {
+    builder.calls.stdin = b;
+    return builder;
+  };
+  builder.timeout = (t) => {
+    builder.calls.timeout = t;
+    return builder;
+  };
+  builder.envs = (e) => {
+    builder.calls.envs = e;
+    return builder;
+  };
+  const exec = {};
+  const sb = {
+    fs: () => ({
+      write: async (path, buf) => {
+        writes.push({ path, buf });
+      },
+    }),
+    execWith: (cmd, configure) => {
+      exec.cmd = cmd;
+      configure(builder);
+      return { stdout: () => 'OUT', stderr: () => '', code: 0 };
+    },
+  };
+  return { sb, writes, exec, builder };
+}
+
+describe('execNode', () => {
+  it('runs `node` reading the ESM program on stdin (no file written)', async () => {
+    const { sb, writes, exec, builder } = fakeSandbox();
+    await execNode(sb, 'console.log(1)', {}, 4321);
+    expect(exec.cmd).toBe('node');
+    expect(builder.calls.args).toEqual(['--input-type=module']);
+    expect(builder.calls.stdin).toEqual(Buffer.from('console.log(1)', 'utf8'));
+    expect(builder.calls.timeout).toBe(4321);
+    expect(writes).toHaveLength(0);
+    expect(builder.calls.envs).toBeUndefined(); // empty env → no envs() call
+  });
+
+  it('passes a non-empty env through', async () => {
+    const { sb, builder } = fakeSandbox();
+    await execNode(sb, 'x', { FOO: 'bar' }, 1000);
+    expect(builder.calls.envs).toEqual({ FOO: 'bar' });
+  });
+});
+
+describe('execLlrt', () => {
+  it('writes the program into the guest and runs it as a FILE with the given command', async () => {
+    const { sb, writes, exec, builder } = fakeSandbox();
+    await execLlrt(sb, 'export const x = 1', {}, 9999, null, '/oa/llrt');
+    // program written to the guest (never a mount — it carries the scoped token)
+    expect(writes).toHaveLength(1);
+    expect(writes[0].buf).toEqual(Buffer.from('export const x = 1', 'utf8'));
+    // executed as that exact file, via the provided binary path
+    expect(exec.cmd).toBe('/oa/llrt');
+    expect(builder.calls.args).toEqual([writes[0].path]);
+    expect(builder.calls.timeout).toBe(9999);
+    expect(builder.calls.stdin).toBeUndefined(); // llrt has no stdin program mode
+  });
+
+  it('uses `llrt` on PATH when given that command (baked image, no bind-mount)', async () => {
+    const { sb, exec } = fakeSandbox();
+    await execLlrt(sb, 'x', {}, 1000, null, 'llrt');
+    expect(exec.cmd).toBe('llrt');
+  });
+
+  it('sets LLRT_EXTRA_CA_CERTS only when a dev CA is mounted', async () => {
+    const withCa = fakeSandbox();
+    await execLlrt(withCa.sb, 'x', {}, 1000, '/host/ca.pem', '/oa/llrt');
+    expect(withCa.builder.calls.envs).toMatchObject({
+      LLRT_EXTRA_CA_CERTS: expect.any(String),
+    });
+
+    const noCa = fakeSandbox();
+    await execLlrt(noCa.sb, 'x', {}, 1000, null, '/oa/llrt');
+    expect(noCa.builder.calls.envs).toBeUndefined(); // no CA + empty env → no envs()
+  });
+
+  it('merges the dev CA env with a caller-provided env', async () => {
+    const { sb, builder } = fakeSandbox();
+    await execLlrt(sb, 'x', { FOO: 'bar' }, 1000, '/host/ca.pem', 'llrt');
+    expect(builder.calls.envs).toMatchObject({
+      FOO: 'bar',
+      LLRT_EXTRA_CA_CERTS: expect.any(String),
+    });
   });
 });
 

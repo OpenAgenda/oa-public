@@ -177,6 +177,100 @@ not per µVM.
   anonymous-pull limit (~100/6 h/IP), point at the un-rate-limited official mirror
   `public.ecr.aws/docker/library/node:24-alpine` (verified working).
 
+### Seeding the µVM image (`msb pull` / `msb load`)
+
+The SDK's **create-time** pull is unreliable behind the Docker Hub anonymous
+rate-limit (`Not authorized` even for a public image) — it does not do the
+anonymous-token dance the `msb` CLI does. So **seed the cache out of band**:
+
+- `msb pull <ref>` — download into `~/.microsandbox` (the CLI handles the anon
+  token). Then `OA_MICROSANDBOX_IMAGE=<ref>` resolves from cache.
+- `msb load -i image.tar -t <ref>` — import a `docker save`d tar (offline /
+  air-gapped / a locally-built image microsandbox can't pull from the docker daemon).
+- Private registry: `RegistryConfigBuilder.auth({kind,username,password})`, or
+  `msb pull --insecure` / `--ca-certs` for a self-hosted one.
+
+`msb` lives in the platform package (`node_modules/@superradcompany/microsandbox-<triple>/bin/msb`) and at
+`~/.microsandbox/bin/msb`.
+
+### The llrt runtime image (`OA_SANDBOX_RUNTIME=llrt`)
+
+The JS runtime **inside** the µVM is selectable: `node` (default) or **`llrt`**
+(awslabs/llrt, a QuickJS-based runtime). The egress boundary is unchanged — it is
+the host-enforced µVM policy, **runtime-independent** (verified: a non-allowlisted
+host is blocked identically on node and llrt). `llrt` only changes what interprets
+the program; it is **not** a substitute for the µVM (a single QuickJS memory bug
+would be host code execution without it — see "Caveats").
+
+Measured (cap 128, our SDK bundle + a real fetch), llrt vs node **inside the same
+µVM**:
+
+|          | RAM/run (PSS) | warm start (real, incl. `fs().write`) | cold start      |
+| -------- | ------------- | ------------------------------------- | --------------- |
+| node     | ~156 MiB      | ~112 ms                               | ~270 ms         |
+| **llrt** | **~73 MiB**   | **~26 ms**                            | **~150–185 ms** |
+
+≈ **−52 % RAM and ~3× faster warm start**, the SDK bundle (ky + zod + `fetch`)
+running unchanged. The µVM floor (~55 MiB PSS) is VMM+kernel-bound — **independent
+of the rootfs** (node:24-alpine 160 MB, alpine 7 MB, busybox 4 MB → same floor), so
+shrinking the image buys attack surface and a little boot time, **not RAM**.
+
+**We build and own the image** (`llrt.Dockerfile`) rather than depending on a
+third party's — the rootfs is the substrate untrusted code runs on, so its supply
+chain is security-critical:
+
+- Base `gcr.io/distroless/cc:nonroot` (glibc + libstdc++; no shell / no package
+  manager; ships `ca-certificates`).
+- **`llrt-linux-<arch>-no-sdk`** (the CLI build, **not** `container`): `no-sdk`
+  drops the bundled AWS SDK (smaller, smaller JS surface); `fetch` is core llrt,
+  unaffected. The `container`/Lambda build is **rejected** — it wraps every
+  `console.log` in a structured log line (`<ts>\tn/a\tINFO\t…`) that would corrupt
+  the stdout result channel; the `linux` build emits plain stdout like node.
+- Pinned by **base multi-arch index digest** + **llrt sha256**; multi-arch
+  (amd64/arm64). `scripts/refresh-llrt-image.sh` re-resolves all three (the refresh
+  cadence a hard pin needs to avoid rot).
+- Per-request program is **not** baked (it carries the caller's scoped token): it
+  is written to the tmpfs `/tmp` via `sb.fs().write` and run as a file (llrt has no
+  stdin program mode). The binary is on PATH, so no `OA_LLRT_BIN` bind-mount is
+  needed with this image.
+- **Dev CA**: llrt trusts an extra root via `LLRT_EXTRA_CA_CERTS` (the analogue of
+  Node's `NODE_EXTRA_CA_CERTS`); the executor mounts the OADEV CA and sets it.
+  Prod uses public CAs (webpki + the base bundle) → no mount.
+
+#### Building & publishing the image
+
+Build it yourself and push it to **our** registry (the example uses the Docker Hub
+`openagenda` org; pin a digest in prod). Adjust the image name as you like.
+
+```bash
+# 1. Setup (once)
+docker login -u <docker-hub-user>                       # a member of the "openagenda" org
+docker run --privileged --rm tonistiigi/binfmt --install arm64   # arm64 emulation on an x64 host
+docker buildx create --name oabuilder --driver docker-container --bootstrap --use
+
+# 2. (optional) bump the pinned llrt version / checksums / base digest
+bash packages/mcp/scripts/refresh-llrt-image.sh         # latest release; or pass a tag
+git diff packages/mcp/llrt.Dockerfile                    # review the new pins
+
+# 3. Build + push multi-arch (a single tag serves amd64 AND arm64)
+docker buildx build -f packages/mcp/llrt.Dockerfile \
+  --platform linux/amd64,linux/arm64 \
+  -t openagenda/mcp-llrt:v0.8.1-beta -t openagenda/mcp-llrt:latest \
+  --push packages/mcp
+
+# 4. Resolve the index digest to pin (the top-level "Digest:" line)
+docker buildx imagetools inspect openagenda/mcp-llrt:v0.8.1-beta
+
+# 5. On the µVM host: seed the cache, then point the server at the pinned image
+msb pull openagenda/mcp-llrt@sha256:<digest>
+export OA_MICROSANDBOX_IMAGE=openagenda/mcp-llrt@sha256:<digest>
+export OA_SANDBOX_RUNTIME=llrt                           # no OA_LLRT_BIN — llrt is on PATH
+```
+
+amd64-only (no QEMU): drop `linux/arm64` from `--platform`. Air-gapped: `docker save
+… | msb load -i - -t …` instead of pull. The `llrt.Dockerfile` context is just a
+placeholder — it `COPY`s nothing from it (the binary is fetched in the build).
+
 ## Caps, timeout & lifecycle
 
 - **Memory**: `.memory(MiB(memoryMb))` is a hard µVM RAM cap (no

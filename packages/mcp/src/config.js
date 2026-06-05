@@ -14,6 +14,9 @@
 //   OA_RATE_LIMIT_PER_MIN    sustained execute calls/min per caller (default: 60; transport=http)
 //   OA_RATE_LIMIT_BURST      execute-call burst per caller    (default: 20; token-bucket size)
 //   OA_MICROSANDBOX_IMAGE    OCI image for the µVM runtime    (default: node:24-alpine)
+//   OA_SANDBOX_RUNTIME       node | llrt                      (JS runtime INSIDE the µVM; default node)
+//   OA_LLRT_BIN              host path to a static llrt binary (optional; bind-mounted for local iteration —
+//                                                              unset when the image bakes llrt on PATH)
 //   OA_MICROSANDBOX_POOL_SIZE  warm single-use µVM spares     (default: 0 = off; throughput optim)
 //   OA_MCP_TRANSPORT         stdio | http                     (default: stdio)
 //   OA_MCP_HTTP_PORT         listen port (transport=http)     (default: 8904)
@@ -38,8 +41,16 @@
 // below). `srt` is NOT a value here — it is an outer *wrapper*, applied at launch
 // (`srt -- node server.js`), selected with OA_CODE_EGRESS_AUTHORITY=wrapper.
 
+import { existsSync } from 'node:fs';
+
 const MODES = ['local', 'hosted'];
 const EXECUTORS = ['node', 'deno', 'microsandbox'];
+// JS runtime that runs the program INSIDE a microsandbox µVM. `node` is the
+// default (broad compatibility); `llrt` is a QuickJS-based lightweight runtime
+// (~½ the per-run RAM, ~3× faster warm start) — the SDK bundle (ky+zod, fetch)
+// runs on it unchanged, and the µVM keeps owning egress regardless. Only
+// meaningful for the microsandbox executor (node/deno run on the host directly).
+const SANDBOX_RUNTIMES = ['node', 'llrt'];
 const EGRESS = ['executor', 'wrapper', 'none'];
 const TRANSPORTS = ['stdio', 'http'];
 
@@ -284,6 +295,49 @@ export function loadConfig(env = process.env) {
 
   validateCombo({ mode, executor, egressAuthority, localNoSandbox });
 
+  // JS runtime inside the µVM (microsandbox only). `llrt` swaps node for a
+  // lightweight QuickJS-based runtime (~½ the RAM, ~3× faster warm start); the SDK
+  // bundle runs on it unchanged and the µVM still owns egress. Two ways to provide
+  // the binary: bake it into the image (the prod path — OA_MICROSANDBOX_IMAGE points
+  // at an image with `llrt` on PATH, see llrt.Dockerfile) and leave OA_LLRT_BIN
+  // unset; or, for local iteration, set OA_LLRT_BIN to a host path to a static llrt
+  // binary, which the executor bind-mounts read-only. FAIL CLOSED on the one thing
+  // that can't work: llrt without the µVM (it's the in-µVM runtime, not a host engine).
+  const sandboxRuntime = oneOf(
+    env.OA_SANDBOX_RUNTIME ?? 'node',
+    SANDBOX_RUNTIMES,
+    'OA_SANDBOX_RUNTIME',
+  );
+  const llrtBin = env.OA_LLRT_BIN ?? null;
+  const microsandboxImage = env.OA_MICROSANDBOX_IMAGE ?? DEFAULT_MICROSANDBOX_IMAGE;
+  if (sandboxRuntime === 'llrt') {
+    // FAIL CLOSED on llrt misconfig that would boot fine but break EVERY execute.
+    if (executor !== 'microsandbox') {
+      throw new Error(
+        'OA_SANDBOX_RUNTIME=llrt requires OA_EXECUTOR=microsandbox: llrt is the JS '
+          + `runtime INSIDE the µVM, not a host engine (got executor="${executor}").`,
+      );
+    }
+    // llrt must actually be PRESENT in the µVM: either baked into a custom image
+    // (OA_MICROSANDBOX_IMAGE on PATH) or bind-mounted from the host (OA_LLRT_BIN).
+    // The default image is node-only — with neither, every execute fails
+    // `llrt: not found`. Catch it at boot, not per-request.
+    if (!llrtBin && microsandboxImage === DEFAULT_MICROSANDBOX_IMAGE) {
+      throw new Error(
+        'OA_SANDBOX_RUNTIME=llrt needs an llrt binary in the µVM: set '
+          + 'OA_MICROSANDBOX_IMAGE to an image with llrt on PATH (see llrt.Dockerfile), '
+          + 'or OA_LLRT_BIN to a host path to a static llrt binary.',
+      );
+    }
+    // A bind-mounted binary that doesn't exist fails opaquely at µVM start on the
+    // first request; surface the bad path at boot instead.
+    if (llrtBin && !existsSync(llrtBin)) {
+      throw new Error(
+        `OA_LLRT_BIN does not exist: "${llrtBin}". Point it at a static llrt binary.`,
+      );
+    }
+  }
+
   // Transport is orthogonal to the executor/egress matrix above: stdio (local,
   // API-key model) or http (standalone OAuth resource server). The executor
   // boundary is governed by validateCombo regardless of transport.
@@ -314,7 +368,11 @@ export function loadConfig(env = process.env) {
     apiHost,
     apiKey: env.OA_API_KEY ?? null,
     // OCI image the microsandbox executor boots the µVM from (ignored by node/deno).
-    microsandboxImage: env.OA_MICROSANDBOX_IMAGE ?? DEFAULT_MICROSANDBOX_IMAGE,
+    microsandboxImage,
+    // JS runtime inside the µVM: 'node' (default) or 'llrt'. `llrtBin` is the host
+    // path to the static llrt binary, bind-mounted read-only (microsandbox only).
+    sandboxRuntime,
+    llrtBin,
     // Warm single-use µVM spares to pre-boot (microsandbox only; 0 = off). A
     // throughput optimization for the hosted surface — takes the ~74%-of-latency
     // create step off the hot path, at the cost of each spare's RAM. See
