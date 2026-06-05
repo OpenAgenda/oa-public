@@ -8,6 +8,7 @@ export type SettingsUser = {
   culture?: string;
   image?: string | null;
   hasLocalAccount?: boolean;
+  hasSocialAccount?: boolean;
   canCreateSecretKeys?: boolean;
 };
 

@@ -620,5 +620,129 @@
       "type": 0,
       "value": "Configuracion del compte"
     }
+  ],
+  "next.components.settings.UnlinkFacebook.back": [
+    {
+      "type": 0,
+      "value": "Modificar"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.confirmationLabel": [
+    {
+      "type": 0,
+      "value": "Confirmacion"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.emailLabel": [
+    {
+      "type": 0,
+      "value": "Email"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.intro": [
+    {
+      "type": 0,
+      "value": "La connexion via Facebook va èsser retirada. Causissètz un email e un senhal per contunhar d'utilizar vòstre compte; mandarem un ligam de confirmacion a aquela adreça. En seguissent lo ligam, Facebook serà desseparat definitivament."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.mismatchError": [
+    {
+      "type": 0,
+      "value": "Los senhals son pas identics"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.otherError": [
+    {
+      "type": 0,
+      "value": "I a agut un problèma pendent lo tractament de l'operacion, tornatz ensajar lèu."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.passwordLabel": [
+    {
+      "type": 0,
+      "value": "Nòu senhal"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.requiredError": [
+    {
+      "type": 0,
+      "value": "Cal definir un senhal"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.resendHint": [
+    {
+      "type": 0,
+      "value": "Avètz pas res recebut? Mandatz tornamai lo formulari."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sameError": [
+    {
+      "type": 0,
+      "value": "Lo senhal deu èsser diferent de vòstre nom e de vòstre email"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentInstructions": [
+    {
+      "type": 0,
+      "value": "Avèm mandat un ligam de confirmacion a "
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ". Clicatz dessús per acabar la migracion."
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.sentTitle": [
+    {
+      "type": 0,
+      "value": "Verificatz vòstra bóstia de recepcion"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.submit": [
+    {
+      "type": 0,
+      "value": "Mandar l'email de confirmacion"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.summary": [
+    {
+      "type": 0,
+      "value": "Desseparar Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.takenError": [
+    {
+      "type": 0,
+      "value": "Aquela adreça email es ja utilizada"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.title": [
+    {
+      "type": 0,
+      "value": "Facebook"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.useAccountEmail": [
+    {
+      "type": 0,
+      "value": "Utilizar l'email de mon compte ("
+    },
+    {
+      "type": 1,
+      "value": "email"
+    },
+    {
+      "type": 0,
+      "value": ")"
+    }
+  ],
+  "next.components.settings.UnlinkFacebook.weakError": [
+    {
+      "type": 0,
+      "value": "Lo senhal es pas pro segur"
+    }
   ]
 }

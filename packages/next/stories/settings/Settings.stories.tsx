@@ -15,6 +15,7 @@ import PasswordSection from '@/src/app/[locale]/(app)/settings/_components/Passw
 import ImageSection from '@/src/app/[locale]/(app)/settings/_components/ImageSection';
 import ApiKeysSection from '@/src/app/[locale]/(app)/settings/_components/ApiKeysSection';
 import NotificationsSection from '@/src/app/[locale]/(app)/settings/_components/NotificationsSection';
+import UnlinkFacebookSection from '@/src/app/[locale]/(app)/settings/_components/UnlinkFacebookSection';
 import DeleteAccountSection from '@/src/app/[locale]/(app)/settings/_components/DeleteAccountSection';
 import type { SettingsUser } from '@/src/app/[locale]/(app)/settings/_components/types';
 import frMessages from '@/src/app/[locale]/(app)/settings/_components/locales/fr.json';
@@ -392,6 +393,51 @@ export const DeleteAccountWrongPassword = {
     },
   },
   render: sectionStory('deleteAccount', DeleteAccountSection),
+};
+
+// Facebook-linked account: hasSocialAccount gates the lazy detailed fetch, and
+// that fetch reports a `facebookUid`, so the migration section renders.
+const facebookUser: SettingsUser = {
+  ...user,
+  hasLocalAccount: false,
+  hasSocialAccount: true,
+};
+
+const facebookHandlers = [
+  http.get('/users/me', () =>
+    HttpResponse.json({ ...facebookUser, facebookUid: '592025090' }),
+  ),
+  http.patch(
+    '/users/me/requestUnlinkFacebook',
+    () => new HttpResponse(null, { status: 200 }),
+  ),
+];
+
+export const UnlinkFacebook = {
+  parameters: { msw: { handlers: facebookHandlers } },
+  render: sectionStory('unlinkFacebook', UnlinkFacebookSection, {
+    user: facebookUser,
+  }),
+};
+
+// Weak password → backend BadRequest with a passwordTooWeak code.
+export const UnlinkFacebookWeakPassword = {
+  parameters: {
+    msw: {
+      handlers: [
+        facebookHandlers[0],
+        http.patch('/users/me/requestUnlinkFacebook', () =>
+          HttpResponse.json(
+            { info: { errors: [{ field: 'password', code: 'passwordTooWeak' }] } },
+            { status: 400 },
+          ),
+        ),
+      ],
+    },
+  },
+  render: sectionStory('unlinkFacebook', UnlinkFacebookSection, {
+    user: facebookUser,
+  }),
 };
 
 // Save failure → the PATCH returns 500 and the section shows the generic error.

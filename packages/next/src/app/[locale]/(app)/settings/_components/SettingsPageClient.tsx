@@ -22,6 +22,7 @@ import PasswordSection from './PasswordSection';
 import ImageSection from './ImageSection';
 import ApiKeysSection from './ApiKeysSection';
 import NotificationsSection from './NotificationsSection';
+import UnlinkFacebookSection from './UnlinkFacebookSection';
 import DeleteAccountSection from './DeleteAccountSection';
 
 const messages = defineMessages({
@@ -106,6 +107,7 @@ export default function SettingsPageClient() {
                 <ImageSection user={user} onUpdated={refreshUser} />
                 <ApiKeysSection user={user} />
                 <NotificationsSection user={user} />
+                <UnlinkFacebookSection user={user} />
                 <DeleteAccountSection />
               </AccordionRoot>
             </VStack>
