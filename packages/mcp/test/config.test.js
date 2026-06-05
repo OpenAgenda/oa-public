@@ -445,4 +445,63 @@ describe('loadConfig', () => {
       expect(cfg.httpPort).toBe(9999);
     });
   });
+
+  describe('sandbox runtime (OA_SANDBOX_RUNTIME / OA_LLRT_BIN)', () => {
+    it('defaults to the node runtime, no llrt binary', () => {
+      const cfg = loadConfig({});
+      expect(cfg.sandboxRuntime).toBe('node');
+      expect(cfg.llrtBin).toBeNull();
+    });
+
+    it('accepts llrt in the µVM with an image that bakes llrt; llrtBin optional', () => {
+      const cfg = loadConfig({
+        OA_EXECUTOR: 'microsandbox',
+        OA_CODE_EGRESS_AUTHORITY: 'executor',
+        OA_SANDBOX_RUNTIME: 'llrt',
+        OA_MICROSANDBOX_IMAGE: 'oa-mcp-llrt:test', // non-default → llrt assumed on PATH
+      });
+      expect(cfg.sandboxRuntime).toBe('llrt');
+      expect(cfg.llrtBin).toBeNull();
+    });
+
+    it('carries OA_LLRT_BIN when set (the loose-binary bind-mount path)', () => {
+      const cfg = loadConfig({
+        OA_EXECUTOR: 'microsandbox',
+        OA_CODE_EGRESS_AUTHORITY: 'executor',
+        OA_SANDBOX_RUNTIME: 'llrt',
+        OA_LLRT_BIN: process.execPath, // an existing file — the path is validated
+      });
+      expect(cfg.llrtBin).toBe(process.execPath);
+    });
+
+    it('FAILS CLOSED: llrt with the default node image and no OA_LLRT_BIN (no llrt in the µVM)', () => {
+      expect(() =>
+        loadConfig({
+          OA_EXECUTOR: 'microsandbox',
+          OA_CODE_EGRESS_AUTHORITY: 'executor',
+          OA_SANDBOX_RUNTIME: 'llrt',
+        })).toThrow(/needs an llrt binary/);
+    });
+
+    it('FAILS CLOSED: OA_LLRT_BIN points at a path that does not exist', () => {
+      expect(() =>
+        loadConfig({
+          OA_EXECUTOR: 'microsandbox',
+          OA_CODE_EGRESS_AUTHORITY: 'executor',
+          OA_SANDBOX_RUNTIME: 'llrt',
+          OA_LLRT_BIN: '/nonexistent/llrt-xyz',
+        })).toThrow(/OA_LLRT_BIN does not exist/);
+    });
+
+    it('rejects an unknown runtime', () => {
+      expect(() => loadConfig({ OA_SANDBOX_RUNTIME: 'bun' })).toThrow(
+        /OA_SANDBOX_RUNTIME/,
+      );
+    });
+
+    it('FAILS CLOSED: llrt without microsandbox (it is the in-µVM runtime, not a host engine)', () => {
+      expect(() =>
+        loadConfig({ OA_EXECUTOR: 'deno', OA_SANDBOX_RUNTIME: 'llrt' })).toThrow(/requires OA_EXECUTOR=microsandbox/);
+    });
+  });
 });

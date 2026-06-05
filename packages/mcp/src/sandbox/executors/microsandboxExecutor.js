@@ -40,6 +40,18 @@ import { createWarmPool } from './microsandboxPool.js';
 
 const SANDBOX_PREFIX = 'oa-mcp-exec'; // a UNIQUE name per run is appended (see below)
 
+// Guest paths for the `llrt` runtime (config.sandboxRuntime === 'llrt').
+//   - the static llrt binary, bind-mounted read-only (no per-request data, so it
+//     is baked into the µVM / pooled spares; the per-run program is NOT — see run()).
+//   - the optional dev CA (OADEV private root), bind-mounted read-only and pointed
+//     at via LLRT_EXTRA_CA_CERTS at exec time (prod uses public CAs → no mount).
+//   - the per-request program, written into the guest with sb.fs().write at run
+//     time (it carries the caller's baked token, so it must NOT be a static mount,
+//     and llrt has no stdin program mode — it runs a FILE).
+const GUEST_LLRT = '/oa/llrt';
+const GUEST_CA = '/oa/ca.pem';
+const GUEST_PROGRAM = '/tmp/oa-program.js';
+
 // A µVM's HARD lifetime (maxDuration), a coarse backstop independent of the
 // per-run kill (.timeout at execWith). Deliberately a CONSTANT, NOT derived from
 // the per-run timeout: a warm pooled spare ages against this clock while idle, and
@@ -133,15 +145,27 @@ function isExecTimeout(err) {
 // remaining life than a full run, so no run ever starts on a µVM that can expire
 // mid-flight, at any traffic level. Because maxDuration no longer depends on the
 // per-run timeout, that timeout is NOT part of a spare's baked identity (see sigKey).
-function buildSandbox(msb, { image, memoryMb, policy }) {
+function buildSandbox(
+  msb,
+  { image, memoryMb, policy, runtime, llrtBin, caCertHost },
+) {
   const { Sandbox, MiB } = msb;
-  return Sandbox.builder(`${SANDBOX_PREFIX}-${randomUUID()}`)
+  let b = Sandbox.builder(`${SANDBOX_PREFIX}-${randomUUID()}`)
     .image(image)
     .cpus(1)
     .memory(MiB(memoryMb))
     .maxDuration(SANDBOX_LIFETIME_S)
-    .network((n) => n.policy(policy))
-    .create();
+    .network((n) => n.policy(policy));
+  // llrt runtime, read-only request-independent mounts (a pooled spare bakes them
+  // once; the per-run program is written later via fs(), never mounted — it holds
+  // the scoped token). The binary is mounted ONLY when llrtBin is set (loose binary,
+  // for local iteration); with a baked image (OA_LLRT_BIN unset) llrt is on PATH, no
+  // mount. The dev CA is mounted whenever present, independent of the binary source.
+  if (runtime === 'llrt') {
+    if (llrtBin) b = b.volume(GUEST_LLRT, (m) => m.bind(llrtBin).readonly());
+    if (caCertHost) b = b.volume(GUEST_CA, (m) => m.bind(caCertHost).readonly());
+  }
+  return b.create();
 }
 
 // Fully tear a µVM down: stop() halts it, removePersisted() drops it from the
@@ -151,11 +175,49 @@ async function destroySandbox(sb) {
   await sb.removePersisted().catch(() => {});
 }
 
+// Run the program on `node` inside the µVM: feed the ESM source on stdin (no file,
+// no node_modules). Returns the microsandbox exec output ({ stdout(), stderr(), code }).
+// Exported for hermetic unit tests (fed a fake sb); see microsandboxExecutor.test.js.
+export function execNode(sb, code, reqEnv, timeoutMs) {
+  return sb.execWith('node', (b) => {
+    const configured = b
+      .args(['--input-type=module']) // read the ESM program from stdin
+      .stdinBytes(Buffer.from(code, 'utf8'))
+      .timeout(timeoutMs);
+    return reqEnv && Object.keys(reqEnv).length
+      ? configured.envs(reqEnv)
+      : configured;
+  });
+}
+
+// Run the program on `llrt` inside the µVM. llrt has NO stdin program mode (it runs
+// a FILE), so the source is written into the guest tmpfs per-run via fs().write —
+// never a static mount, because it carries the caller's scoped token (and the µVM is
+// single-use). `cmd` is the bind-mount path (GUEST_LLRT) for a loose binary, or just
+// `llrt` (on PATH) for a baked image. The dev CA, when mounted, is trusted via
+// LLRT_EXTRA_CA_CERTS. Exported for hermetic unit tests (fed a fake sb).
+export async function execLlrt(sb, code, reqEnv, timeoutMs, caCertHost, cmd) {
+  await sb.fs().write(GUEST_PROGRAM, Buffer.from(code, 'utf8'));
+  const env = caCertHost
+    ? { ...reqEnv, LLRT_EXTRA_CA_CERTS: GUEST_CA }
+    : reqEnv;
+  return sb.execWith(cmd, (b) => {
+    const configured = b.args([GUEST_PROGRAM]).timeout(timeoutMs);
+    return env && Object.keys(env).length ? configured.envs(env) : configured;
+  });
+}
+
 // Identity of a spare's BAKED create-time config. A pooled spare may only serve a
 // request with the same key — otherwise its frozen egress policy / RAM cap would be
 // the wrong boundary. The per-run timeout and env are applied at EXEC, not baked
 // (maxDuration is now a constant, not derived from the timeout), so neither is part
 // of the key — a spare serves any per-run timeout.
+//
+// runtime / llrtBin / caCertHost are ALSO baked into a spare but are deliberately
+// NOT in the key: they are process-constant (one executor config per process), so
+// every spare and every request share them. If any ever becomes per-request, it
+// MUST be added here, or a spare baked with the wrong runtime/binary/CA mount could
+// be served to a mismatched request.
 function sigKey({ memoryMb, allowNet }) {
   return JSON.stringify({
     memoryMb,
@@ -169,6 +231,11 @@ function sigKey({ memoryMb, allowNet }) {
  * @param {number}  [opts.poolSize]  Warm single-use µVM spares to keep ready (0 = off / ephemeral).
  * @param {string[]} [opts.allowNet] Egress allowlist the pool bakes into spares (config.allowNet).
  * @param {{timeoutMs:number, memoryMb:number}} [opts.limits] Caps the pool bakes in (config.limits).
+ * @param {'node'|'llrt'} [opts.runtime] JS runtime inside the µVM (config.sandboxRuntime; default node).
+ * @param {string|null} [opts.llrtBin] Host path to the static llrt binary (required for runtime=llrt).
+ * @param {{useSystemCa:boolean, extraCaCerts:string|null}|null} [opts.tls] Dev CA trust (config.tls); for
+ *        llrt the CA file is bind-mounted and exposed via LLRT_EXTRA_CA_CERTS. Process-constant, so
+ *        it is baked into the µVM/spares here (not taken per-run, unlike the host node/deno engines).
  * @returns {import('../executor.js').SandboxExecutor}
  */
 export function createMicrosandboxExecutor({
@@ -176,7 +243,17 @@ export function createMicrosandboxExecutor({
   poolSize = 0,
   allowNet,
   limits,
+  runtime = 'node',
+  llrtBin = null,
+  tls = null,
 } = {}) {
+  // The dev CA is bind-mounted into the µVM only when llrt needs to trust it
+  // (prod uses public CAs → no mount, no env). Captured once: process-constant.
+  const caCertHost = runtime === 'llrt' ? tls?.extraCaCerts ?? null : null;
+  // The llrt command: the bind-mounted loose binary (GUEST_LLRT) when OA_LLRT_BIN is
+  // set, else `llrt` on the baked image's PATH. Derived ONCE here so the exec command
+  // can't drift from buildSandbox's mount decision (both gate on llrtBin).
+  const llrtCmd = llrtBin ? GUEST_LLRT : 'llrt';
   // Lazy, cached pool init. Resolves to { pool, key } once the SDK has loaded and
   // a pool is warranted, else null (pooling off, unsupported host, or no config to
   // bake). The pool bakes the egress policy + caps from the server config; run()
@@ -194,6 +271,9 @@ export function createMicrosandboxExecutor({
             image,
             memoryMb: limits.memoryMb,
             policy: buildPolicy({ Rule, Destination }, allowNet),
+            runtime,
+            llrtBin,
+            caCertHost,
           };
           const pool = createWarmPool({
             size: poolSize,
@@ -289,21 +369,25 @@ export function createMicrosandboxExecutor({
             image,
             memoryMb: reqLimits.memoryMb,
             policy,
+            runtime,
+            llrtBin,
+            caCertHost,
           });
       } catch (err) {
         return failure(`microsandbox failed to start a µVM: ${errMsg(err)}`);
       }
 
       try {
-        const out = await sb.execWith('node', (b) => {
-          const configured = b
-            .args(['--input-type=module']) // read the ESM program from stdin
-            .stdinBytes(Buffer.from(code, 'utf8'))
-            .timeout(reqLimits.timeoutMs);
-          return reqEnv && Object.keys(reqEnv).length
-            ? configured.envs(reqEnv)
-            : configured;
-        });
+        const out = runtime === 'llrt'
+          ? await execLlrt(
+            sb,
+            code,
+            reqEnv,
+            reqLimits.timeoutMs,
+            caCertHost,
+            llrtCmd,
+          )
+          : await execNode(sb, code, reqEnv, reqLimits.timeoutMs);
         const { stdout, outputCapped } = capOutput(out.stdout());
         return {
           stdout,

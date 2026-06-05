@@ -161,20 +161,29 @@ async function main() {
     );
   }
 
-  // microsandbox can't inject host CA trust into the guest, so it does NOT apply
-  // OA_USE_SYSTEM_CA / OA_EXTRA_CA_CERTS. Warn rather than silently ignore them: a
-  // private-CA host (e.g. the dev stack) would fail TLS inside the µVM. Public-CA
-  // hosts (api.openagenda.com, an ngrok tunnel) are unaffected.
-  if (
-    config.executor === 'microsandbox'
-    && (config.tls.useSystemCa || config.tls.extraCaCerts)
-  ) {
-    banner(
-      'TLS trust (OA_USE_SYSTEM_CA / OA_EXTRA_CA_CERTS) is set but '
-        + 'executor=microsandbox does NOT apply it inside the µVM. A private-CA host '
-        + 'will fail TLS — use OA_EXECUTOR=deno for a private-CA dev stack, or a '
-        + 'public-CA endpoint.',
-    );
+  // CA trust inside the µVM depends on the in-µVM runtime. node-in-µVM can't see
+  // host trust at all, so it applies NEITHER knob. llrt DOES honor OA_EXTRA_CA_CERTS
+  // (the CA file is bind-mounted + exposed via LLRT_EXTRA_CA_CERTS), but it has no
+  // OS trust store, so OA_USE_SYSTEM_CA still can't apply. Warn only about the knob
+  // that actually won't take effect — public-CA hosts are unaffected either way.
+  if (config.executor === 'microsandbox') {
+    const { useSystemCa, extraCaCerts } = config.tls;
+    if (config.sandboxRuntime === 'llrt') {
+      if (useSystemCa) {
+        banner(
+          'OA_USE_SYSTEM_CA is set but the llrt µVM has no OS trust store — it is '
+            + 'ignored. For a private CA use OA_EXTRA_CA_CERTS (llrt trusts it via '
+            + 'LLRT_EXTRA_CA_CERTS); a public-CA host needs neither.',
+        );
+      }
+    } else if (useSystemCa || extraCaCerts) {
+      banner(
+        'TLS trust (OA_USE_SYSTEM_CA / OA_EXTRA_CA_CERTS) is set but executor='
+          + 'microsandbox (node runtime) does NOT apply it inside the µVM. A private-CA '
+          + 'host will fail TLS — use OA_EXECUTOR=deno, or OA_SANDBOX_RUNTIME=llrt with '
+          + 'OA_EXTRA_CA_CERTS, or a public-CA endpoint.',
+      );
+    }
   }
 }
 
