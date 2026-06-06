@@ -38,8 +38,13 @@ export default function AccordionItem({
         >
           <chakra.div
             id={labelId}
-            flexBasis={{ base: '40%', md: '33%' }}
-            flexShrink={0}
+            // Two-column layout only when there's a summary; without one (e.g.
+            // DeleteAccount, or the long per-agenda titles nested in
+            // Notifications) let the title use the full width so it doesn't get
+            // squeezed into the first third and wrap.
+            {...(summary != null
+              ? { flexBasis: { base: '40%', md: '33%' }, flexShrink: 0 }
+              : { flex: '1' })}
           >
             {title}
           </chakra.div>

@@ -11,7 +11,7 @@ import {
 } from '@openagenda/uikit/snippets';
 import { FaIcon } from 'icons';
 import { faGlobe, faChevronDown } from 'icons/solid';
-import { SUPPORTED_LOCALES } from 'config/constants';
+import { LANGUAGES, SUPPORTED_LOCALES } from 'config/constants';
 
 function stripLocalePrefix(pathname: string): string {
   const segments = pathname.split('/');
@@ -21,21 +21,12 @@ function stripLocalePrefix(pathname: string): string {
   return pathname;
 }
 
-const languages = [
-  { code: 'fr', label: 'Français' },
-  { code: 'en', label: 'English' },
-  { code: 'it', label: 'Italiano' },
-  { code: 'de', label: 'Deutsch' },
-  { code: 'es', label: 'Español' },
-  { code: 'oc', label: 'Occitan' },
-];
-
 export default function LanguageSelector() {
   const intl = useIntl();
   const pathname = usePathname();
 
   const currentLanguage =
-    languages.find((lang) => lang.code === intl.locale) || languages[0];
+    LANGUAGES.find((lang) => lang.code === intl.locale) || LANGUAGES[0];
 
   return (
     <MenuRoot>
@@ -50,7 +41,7 @@ export default function LanguageSelector() {
         // Fix zIndex of menu + sticky navbar
         css={{ '--menu-z-index': 'zIndex.popover' }}
       >
-        {languages.map((language) => (
+        {LANGUAGES.map((language) => (
           <MenuItem
             asChild
             key={language.code}

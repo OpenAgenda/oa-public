@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import ky from 'ky';
 import { Button, Field, HStack, chakra } from '@openagenda/uikit';
@@ -48,6 +48,12 @@ export default function LanguageSection({
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
+  // Re-sync the select when the stored culture changes (fires only on an actual
+  // prop change, so it doesn't clobber an unsaved selection).
+  useEffect(() => {
+    setCulture(user.culture ?? 'fr');
+  }, [user.culture]);
 
   const currentLabel =
     SETTINGS_LANGUAGES.find((l) => l.code === user.culture)?.label ??

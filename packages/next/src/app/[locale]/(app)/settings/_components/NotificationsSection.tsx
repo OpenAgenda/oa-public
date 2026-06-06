@@ -222,7 +222,18 @@ function ucFirst(s: string): string {
 // across entities are the "same setting" (a global parent + per-agenda
 // children).
 function signature(rule: Rule): string {
-  return `${rule.actions}|${rule.subject}|${JSON.stringify(rule.conditions ?? {})}`;
+  // Stable-stringify conditions (sorted keys) so master/child pairing is
+  // order-independent — matching the backend's `_.matches` — instead of
+  // breaking if the API emits the same conditions in a different key order.
+  const conditions = rule.conditions ?? {};
+  const stable = JSON.stringify(
+    Object.fromEntries(
+      Object.keys(conditions)
+        .sort()
+        .map((k) => [k, (conditions as Record<string, unknown>)[k]]),
+    ),
+  );
+  return `${rule.actions}|${rule.subject}|${stable}`;
 }
 
 function entityTitle(rule: Rule): string {

@@ -155,6 +155,13 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
   const [copied, setCopied] = useState(false);
   const [showSecret, setShowSecret] = useState(false);
 
+  // Keep the editable name in sync when the stored record changes (e.g. the
+  // server returned a different value after a rename); fires only on an actual
+  // change so it won't clobber the in-progress edit.
+  useEffect(() => {
+    setName(item.name ?? '');
+  }, [item.name]);
+
   // Plaintext is present only right after creation (native keys, shown once)
   // or permanently for legacy mirror keys (full value kept in `start`).
   const isLegacy = isLegacyKey(item);

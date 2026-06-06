@@ -13,13 +13,6 @@ export type SettingsUser = {
   facebookUid?: string | null;
 };
 
-export const SETTINGS_LANGUAGES: { code: string; label: string }[] = [
-  { code: 'fr', label: 'Français' },
-  { code: 'en', label: 'English' },
-  { code: 'de', label: 'Deutsch' },
-  { code: 'es', label: 'Español' },
-  { code: 'it', label: 'Italiano' },
-  { code: 'br', label: 'Brezhoneg' },
-  { code: 'nl', label: 'Nederlands' },
-  { code: 'oc', label: 'Occitan' },
-];
+// Languages offered in the "Langue" select — the shared app list (single
+// source; see config/constants), re-exported here for the settings sections.
+export { LANGUAGES as SETTINGS_LANGUAGES } from 'config/constants';

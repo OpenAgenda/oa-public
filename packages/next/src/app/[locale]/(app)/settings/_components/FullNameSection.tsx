@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import ky from 'ky';
 import { Button, Field, HStack, Input, chakra } from '@openagenda/uikit';
@@ -44,6 +44,13 @@ export default function FullNameSection({
   const [saving, setSaving] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
+
+  // Re-sync the field when the stored value changes (e.g. after a save the
+  // server normalised it, or another tab updated it) — only fires on an actual
+  // prop change, so it never clobbers an in-progress edit.
+  useEffect(() => {
+    setFullName(user.fullName ?? '');
+  }, [user.fullName]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
