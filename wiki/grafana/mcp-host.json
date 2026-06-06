@@ -1,0 +1,209 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_PROM",
+      "label": "Metrics (Mimir/Prometheus)",
+      "description": "The Prometheus-compatible datasource holding the node_exporter series (Mimir).",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__requires": [],
+  "annotations": { "list": [] },
+  "description": "OpenAgenda MCP host (VPS mcp-ovh) — CPU/RAM/disk/network/load from node_exporter (job=integrations/node_exporter). A compact host view; pair with the 'OpenAgenda MCP — usage' dashboard for the app signal.",
+  "editable": true,
+  "graphTooltip": 1,
+  "schemaVersion": 39,
+  "tags": ["openagenda", "mcp", "host"],
+  "time": { "from": "now-6h", "to": "now" },
+  "timezone": "",
+  "title": "OpenAgenda MCP — host",
+  "uid": "oa-mcp-host",
+  "templating": {
+    "list": [
+      {
+        "name": "DS_PROM",
+        "type": "datasource",
+        "query": "prometheus",
+        "current": {},
+        "hide": 0,
+        "label": "Datasource"
+      },
+      {
+        "name": "instance",
+        "type": "query",
+        "datasource": "${DS_PROM}",
+        "query": "label_values(node_uname_info{job=\"integrations/node_exporter\"}, instance)",
+        "refresh": 2,
+        "includeAll": false,
+        "current": { "text": "mcp-ovh", "value": "mcp-ovh" },
+        "label": "Instance"
+      }
+    ]
+  },
+  "panels": [
+    {
+      "id": 1,
+      "type": "stat",
+      "title": "CPU busy %",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+      "gridPos": { "h": 6, "w": 6, "x": 0, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 70 },
+              { "color": "red", "value": 90 }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "colorMode": "value"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "100 - (avg(rate(node_cpu_seconds_total{job=\"integrations/node_exporter\",instance=\"$instance\",mode=\"idle\"}[5m])) * 100)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "type": "stat",
+      "title": "Memory used %",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+      "gridPos": { "h": 6, "w": 6, "x": 6, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 80 },
+              { "color": "red", "value": 92 }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "colorMode": "value"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "100 * (1 - node_memory_MemAvailable_bytes{job=\"integrations/node_exporter\",instance=\"$instance\"} / node_memory_MemTotal_bytes{job=\"integrations/node_exporter\",instance=\"$instance\"})",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "type": "stat",
+      "title": "Disk used % (/)",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+      "gridPos": { "h": 6, "w": 6, "x": 12, "y": 0 },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "percent",
+          "min": 0,
+          "max": 100,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "green", "value": null },
+              { "color": "yellow", "value": 80 },
+              { "color": "red", "value": 90 }
+            ]
+          }
+        },
+        "overrides": []
+      },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "colorMode": "value"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "100 - (node_filesystem_avail_bytes{job=\"integrations/node_exporter\",instance=\"$instance\",mountpoint=\"/\"} / node_filesystem_size_bytes{job=\"integrations/node_exporter\",instance=\"$instance\",mountpoint=\"/\"} * 100)",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "type": "stat",
+      "title": "Load (1m)",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+      "gridPos": { "h": 6, "w": 6, "x": 18, "y": 0 },
+      "fieldConfig": { "defaults": { "unit": "short" }, "overrides": [] },
+      "options": {
+        "reduceOptions": { "calcs": ["lastNotNull"] },
+        "colorMode": "value"
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "node_load1{job=\"integrations/node_exporter\",instance=\"$instance\"}",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "type": "timeseries",
+      "title": "CPU busy % (over time)",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 6 },
+      "fieldConfig": {
+        "defaults": { "unit": "percent", "min": 0, "max": 100 },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "100 - (avg(rate(node_cpu_seconds_total{job=\"integrations/node_exporter\",instance=\"$instance\",mode=\"idle\"}[5m])) * 100)",
+          "legendFormat": "cpu busy",
+          "refId": "A"
+        }
+      ]
+    },
+    {
+      "id": 6,
+      "type": "timeseries",
+      "title": "Network (bytes/s)",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 6 },
+      "fieldConfig": { "defaults": { "unit": "Bps" }, "overrides": [] },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "sum(rate(node_network_receive_bytes_total{job=\"integrations/node_exporter\",instance=\"$instance\",device!~\"lo|veth.*|docker.*|br-.*\"}[5m]))",
+          "legendFormat": "in",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "sum(rate(node_network_transmit_bytes_total{job=\"integrations/node_exporter\",instance=\"$instance\",device!~\"lo|veth.*|docker.*|br-.*\"}[5m]))",
+          "legendFormat": "out",
+          "refId": "B"
+        }
+      ]
+    }
+  ]
+}
