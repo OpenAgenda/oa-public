@@ -91,14 +91,18 @@ async function onSuccess(req, res) {
     userUid: req.user.uid,
   });
 
-  // Rebuild the better-auth session cookie cache from a fresh DB read so
-  // req.user.email reflects the new address immediately — same refresh the
-  // PATCH /users/:__feathersId route does (see plugApp.js). Without it the
-  // cached session snapshot keeps the old email until natural expiry, which
-  // breaks subsequent email-based lookups (e.g. password challenges).
+  // confirmChangeEmail writes the new email with a hook-bypassing `_patch`, and
+  // `email` is not a session-mirrored field, so the Redis session snapshot still
+  // holds the OLD address. `getSession` alone can't fix this: with
+  // secondaryStorage it returns the stored snapshot's user — it does NOT re-read
+  // the DB. `refreshUserSessions` (→ adapter.updateUser) re-reads the row and
+  // rewrites the snapshot; the subsequent getSession then rebuilds the cookie
+  // cache from the now-fresh snapshot. Without the refresh, req.user.email keeps
+  // the old address until the session expires, breaking email-based lookups.
   const { auth } = req.app.services;
   if (auth) {
     try {
+      await auth.refreshUserSessions(req.user.id);
       const out = await auth.api.getSession({
         headers: auth.toHeaders(req),
         query: { disableCookieCache: true },
