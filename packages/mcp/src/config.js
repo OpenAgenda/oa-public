@@ -1,4 +1,4 @@
-// Configuration for the OpenAgenda MCP POC — everything from env.
+// Configuration for the OpenAgenda MCP server — everything from env.
 //
 //   OA_MCP_MODE              local | hosted                  (default: local)
 //   OA_EXECUTOR              node | deno | microsandbox       (engine that runs the code)

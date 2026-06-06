@@ -1,14 +1,17 @@
-# @openagenda/mcp — POC
+# @openagenda/mcp
 
-A **proof-of-concept MCP server** exposing the OpenAgenda **v3** API to LLM
+An **MCP server** exposing the OpenAgenda **v3** API to LLM
 clients via the **code-mode** pattern: two tools — `search_docs` (find the right
 operation) and `execute` (run code against the API) — instead of one tool per
 endpoint. `execute` runs arbitrary caller code against the v3 surface (reads
 **and** write/admin/moderation), so the sandbox egress boundary, per-caller OAuth
 scoping and human-gated destructive tools are what bound what it can do.
 
-> ⚠️ **Local POC.** Not the hosted, multi-tenant server. See
-> [Hébergé / multi-tenant](#hébergé--multi-tenant) before exposing anything publicly.
+> ⚠️ **Deployed as the hosted, multi-tenant server**
+> (`https://mcp.openagenda.com`, OAuth-enforced). The hosted policy layer (µVM
+> boundary, OAuth, rate-limit, audit, maintenance kill) is in place. See
+> [Hébergé / multi-tenant](#hébergé--multi-tenant) for the caveats that still apply
+> before relying on the write surface.
 
 ## Architecture
 
@@ -253,8 +256,9 @@ closed**: `OA_MCP_MODE=hosted` requires `OA_EXECUTOR=microsandbox` with
 > [docs/microsandbox.md](docs/microsandbox.md). The engine itself is
 > **implemented** (boot, host-enforced egress, hard caps), validated on a real KVM
 > host; the per-caller OAuth token, rate-limit, **per-tool audit log and a
-> maintenance kill (`OA_EXECUTE_DISABLED`)** are in place too, so what remains
-> before going public is mainly the production AS wiring and ops. Run the µVM
+> maintenance kill (`OA_EXECUTE_DISABLED`)** are in place too. The server is now
+> **deployed in production** (`https://mcp.openagenda.com`, OAuth-enforced against
+> the prod AS). Run the µVM
 > integration tests on a virtualization host with
 > `OA_MSB_IT=1 yarn workspace @openagenda/mcp test`.
 
@@ -388,7 +392,7 @@ the sandbox boundary.
   each operation, also consumable by Scalar), with an auto-derived skeleton as
   fallback — so a single source serves the MCP and future reference docs.
 
-## What this POC deliberately does NOT do
+## What this server deliberately does NOT do
 
 - The `microsandbox` engine (hosted µVM boundary) **is implemented** and verified
   on a real KVM host; the hosted **policy layer is now in place** — a
@@ -396,14 +400,15 @@ the sandbox boundary.
   rate-limit** (`rateLimiter.js`), a **per-tool audit log** (`log.js` → InsightOps)
   and a **maintenance kill** (`OA_EXECUTE_DISABLED`). See
   [docs/microsandbox.md](docs/microsandbox.md).
-- The **HTTP transport + OAuth 2.1 resource server are implemented** (local JWKS
-  verification, audience binding, per-caller RFC 8693 token-exchange, and
-  `transport=http` fails closed without OAuth) — but against a dev/staging AS;
-  production AS wiring is not done. The **stdio** transport still uses a shared
-  `OA_API_KEY` (any key; least-privilege advised; redacted from error text) — fine local / single-tenant,
-  not for a public shared-key deployment. See Auth above.
-- **No production AS wiring**, and no AS-side per-caller banning (grant revocation)
-  or a `uid`/`email` claim to enrich the audit caller beyond the better-auth `sub`.
+- The **HTTP transport + OAuth 2.1 resource server are implemented and live**
+  (local JWKS verification, audience binding, per-caller RFC 8693 token-exchange,
+  and `transport=http` fails closed without OAuth), wired to the **production AS**
+  (`https://openagenda.com/api/auth`) and deployed at `https://mcp.openagenda.com`.
+  The **stdio** transport still uses a shared `OA_API_KEY` (any key; least-privilege
+  advised; redacted from error text) — fine local / single-tenant, not for a public
+  shared-key deployment. See Auth above.
+- No AS-side per-caller banning (grant revocation) yet, and no `email` claim to
+  enrich the audit caller (the OA `uid` claim is already surfaced alongside `sub`).
 - **No per-action approval** for mutations (the audit log records the whole
   `execute` script, not each API call) — see Mutations & moderation.
 - **Privacy/retention of the audit input is undecided**: the audit log stores the
@@ -416,4 +421,6 @@ the sandbox boundary.
   is killed via process-group SIGKILL + a 1 MiB output cap, not a VM boundary (the
   microsandbox engine does isolate per run).
 
-**Do not deploy this as a public server as-is.**
+**Deployed at `https://mcp.openagenda.com`** (OAuth-enforced, hosted policy layer in
+place). The caveats above still apply before the write surface opens publicly:
+per-action approval for mutations, audit privacy/retention, and the single-host SPOF.
