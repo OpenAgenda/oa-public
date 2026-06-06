@@ -23,6 +23,7 @@ import { createTokenVerifier } from './auth/verifier.js';
 import { exchangeToken, TokenExchangeError } from './auth/tokenExchange.js';
 import { landingPage } from './landing.js';
 import { log, makeAuditRecorder } from './log.js';
+import { recordMetric } from './metrics.js';
 
 // JSON-RPC error returned without a request id (parse/transport-level failures).
 const jsonRpcError = (code, message) => ({
@@ -135,6 +136,9 @@ export function createHttpApp({ config, executor }) {
         callerUid: uid,
         clientId,
       }),
+      // Metrics share the per-call return paths with the audit recorder; the
+      // singleton no-ops until initMetrics ran with an OTLP endpoint (see metrics.js).
+      recordMetric,
       getCredential: async () => {
         // The bearer middleware guarantees req.auth.token, but assert it
         // explicitly: it makes the invariant the exchange depends on visible

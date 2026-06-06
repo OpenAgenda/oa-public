@@ -414,9 +414,13 @@ the sandbox boundary.
 - **Privacy/retention of the audit input is undecided**: the audit log stores the
   user's `search_docs` query and (capped) `execute` code in InsightOps — a public
   deployment must disclose this and set retention. Not a code blocker.
-- No µVM **resource** telemetry from the server: host CPU/RAM/KVM/µVM metrics are
-  a host-level scrape (e.g. alloy), deliberately not application code — the
-  audit log already carries the per-call usage signal.
+- No **host** resource telemetry from app code: CPU/RAM/KVM stay a node_exporter
+  scrape (e.g. alloy), deliberately not application code. The server DOES emit its
+  own **OTel business metrics** (per-tool outcome + latency, warm-pool hits/misses,
+  live concurrency) over **OTLP** to that same host agent → Mimir, enabled by
+  `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT` (off otherwise — see metrics.js). Three
+  observability channels, kept separate by role: **metrics** (OTel→Mimir), \*\*logs
+  - audit** (`@openagenda/logs`→InsightOps), **host\*\* (node_exporter→Mimir).
 - No per-call process isolation on the **local** engines (node/deno) — a runaway
   is killed via process-group SIGKILL + a 1 MiB output cap, not a VM boundary (the
   microsandbox engine does isolate per run).

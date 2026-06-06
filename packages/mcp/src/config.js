@@ -28,6 +28,9 @@
 //   OA_OAUTH_EXCHANGE_URL    AS token-exchange endpoint       (default: <issuer>/oauth2/token-exchange)
 //   OA_INSIGHT_OPS_TOKEN     InsightOps log token             (prod: ships logs + audit there; absent → stderr)
 //   OA_EXECUTE_DISABLED      1                                (maintenance: refuse execute; search_docs stays up)
+//   OTEL_EXPORTER_OTLP_METRICS_ENDPOINT  OTLP metrics endpoint (hosted: enables OTel metrics → Alloy; absent → off)
+//   OTEL_EXPORTER_OTLP_ENDPOINT          OTLP base endpoint    (fallback for the above; standard OTel var)
+//   OTEL_SERVICE_INSTANCE_ID / HOSTNAME  service.instance.id on the emitted metrics
 //
 // TWO ORTHOGONAL AXES (see README → "Execution model"):
 //   - executor: WHAT runs the JS (node / deno / a microsandbox µVM).
@@ -405,13 +408,26 @@ export function loadConfig(env = process.env) {
       perMin: int(env.OA_RATE_LIMIT_PER_MIN, 60),
       burst: int(env.OA_RATE_LIMIT_BURST, 20),
     },
-    // Observability: structured operational logs + a per-tool audit trail, via
-    // @openagenda/logs (see log.js). `insightOpsToken` (OA_INSIGHT_OPS_TOKEN) adds
-    // the InsightOps sink (prod). stderr is gated separately by the standard
-    // `DEBUG=openagenda-mcp*` env var (the dev lever) — not by config. No
-    // OTEL/Alloy here: µVM resource metrics are a host-level scrape, not app code.
+    // Observability — TWO independent channels, by role:
+    //  - LOGS/audit (here): structured operational logs + a per-tool audit trail
+    //    via @openagenda/logs (see log.js). `insightOpsToken` (OA_INSIGHT_OPS_TOKEN)
+    //    adds the InsightOps sink (prod); stderr is gated separately by the standard
+    //    `DEBUG=openagenda-mcp*` env var (the dev lever) — not by config.
+    //  - METRICS (below, see metrics.js): our own OTel counters/histograms pushed
+    //    over OTLP to the host Alloy → Mimir. Distinct system from the audit log on
+    //    purpose; HOST resource metrics (CPU/RAM/KVM) stay a node_exporter scrape.
     logging: {
       insightOpsToken: env.OA_INSIGHT_OPS_TOKEN ?? null,
+    },
+    // OTel metrics, enabled only when an OTLP endpoint is configured (else fully
+    // off — see metrics.js). The exporter reads OTEL_EXPORTER_OTLP_* itself; we
+    // only gate on the endpoint's presence and carry the instance label.
+    metrics: {
+      enabled: Boolean(
+        env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT
+          || env.OTEL_EXPORTER_OTLP_ENDPOINT,
+      ),
+      serviceInstance: env.OTEL_SERVICE_INSTANCE_ID ?? env.HOSTNAME ?? null,
     },
     // Maintenance kill: refuse `execute` (search_docs stays served). Read once at
     // boot, so flipping it takes a process restart (not a code change, and not a

@@ -12,6 +12,12 @@ import { createHttpApp } from './httpServer.js';
 import { assertIssuer } from './auth/assertIssuer.js';
 import { initLogging, log, makeAuditRecorder } from './log.js';
 import {
+  initMetrics,
+  registerObservables,
+  shutdownMetrics,
+  recordMetric,
+} from './metrics.js';
+import {
   renderEgressPolicy,
   policySha256,
   defaultReadPolicy,
@@ -56,6 +62,10 @@ async function main() {
   // OA_INSIGHT_OPS_TOKEN → InsightOps (prod); DEBUG=openagenda-mcp* → stderr (dev).
   // Both avoid stdout, so this is safe under stdio (where stdout is the MCP channel).
   initLogging(config.logging);
+  // Start the OTel metrics pipeline (no-op unless an OTLP endpoint is configured —
+  // i.e. hosted; off for stdio/dev). Our own business metrics → Alloy → Mimir,
+  // separate from the audit log above (see metrics.js).
+  initMetrics(config.metrics);
   // If NEITHER sink is active, say so once on stderr — otherwise every operational
   // log AND the audit trail are silently discarded (a security control going dark
   // with no signal). Coarse check: any DEBUG means the operator wants stderr.
@@ -67,6 +77,14 @@ async function main() {
     );
   }
   const executor = createExecutor(config);
+
+  // Wire the observable metrics (warm-pool efficiency + live concurrency) to the
+  // executor's live state. No-op when metrics are disabled; the getters are
+  // optional (poolStats only for a pooled microsandbox engine).
+  registerObservables({
+    poolStats: () => executor.poolStats?.() ?? null,
+    inflight: () => executor.inflight?.() ?? 0,
+  });
 
   // Drain engine resources (a warm µVM pool, when OA_MICROSANDBOX_POOL_SIZE>0) on
   // shutdown so pre-booted spares don't leak. No-op for the pool-less default; an
@@ -84,6 +102,7 @@ async function main() {
     try {
       if (httpServer) await new Promise((resolve) => httpServer.close(resolve));
       await executor.dispose?.();
+      await shutdownMetrics(); // flush the last metrics before exit
     } catch {
       // best-effort drain — never block exit on cleanup
     }
@@ -133,6 +152,7 @@ async function main() {
       config,
       executor,
       recordAudit: makeAuditRecorder({ transport: 'stdio' }),
+      recordMetric,
     });
     const transport = new StdioServerTransport();
     await server.connect(transport);

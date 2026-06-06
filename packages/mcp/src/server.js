@@ -103,6 +103,10 @@ const toolError = (text) => ({ isError: true, content: [textContent(text)] });
  *   `recordAudit(name, {... , outcome})` exactly once on every return path, or it
  *   ships un-audited (no test/type/runtime catches the omission). It is safe to
  *   call (it never throws — see makeAuditRecorder).
+ * @param {(tool: string, fields: object) => void} [deps.recordMetric]  sink for
+ *   OTel metrics (see metrics.js → recordMetric). Defaults to a no-op (tests, or a
+ *   run with metrics off). Emitted alongside `recordAudit` from the same return
+ *   paths, reading `outcome` (+ `duration_ms` for execute). Safe to call.
  */
 export function createServer({
   config,
@@ -112,6 +116,7 @@ export function createServer({
   rateLimiter,
   callerId,
   recordAudit = () => {},
+  recordMetric = () => {},
 }) {
   const server = new McpServer({ name: 'openagenda-mcp', version: '0.0.0' });
 
@@ -157,13 +162,15 @@ export function createServer({
       const startedAt = Date.now();
       const ops = searchOperations(query);
       const text = renderSearch(ops);
+      const durationMs = Date.now() - startedAt;
       recordAudit('search_docs', {
-        duration_ms: Date.now() - startedAt,
+        duration_ms: durationMs,
         outcome: 'ok',
         query,
         results_count: ops.length,
         credential_fp: staticCredentialFp,
       });
+      recordMetric('search_docs', { outcome: 'ok', duration_ms: durationMs });
       return { content: [textContent(text)] };
     },
   );
@@ -211,9 +218,10 @@ export function createServer({
         // and scrubbed of the resolved credential; the full code's sha256 is kept
         // so a truncated body is still groupable. Never the result payload. The
         // clamp reports `truncated` from one byte measurement (no flag/clamp drift).
+        const durationMs = Date.now() - startedAt;
         const audited = clampAuditCode(redactSecrets(code, apiCredential));
         recordAudit('execute', {
-          duration_ms: Date.now() - startedAt,
+          duration_ms: durationMs,
           outcome,
           code: audited.text,
           code_bytes: Buffer.byteLength(code, 'utf8'),
@@ -223,6 +231,7 @@ export function createServer({
           exit_code: res?.exitCode ?? null,
           credential_fp: credentialFp(apiCredential),
         });
+        recordMetric('execute', { outcome, duration_ms: durationMs });
         return result;
       };
 

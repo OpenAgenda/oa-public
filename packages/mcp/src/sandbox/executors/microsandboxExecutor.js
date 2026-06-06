@@ -260,6 +260,10 @@ export function createMicrosandboxExecutor({
   // only uses it for a request whose signature matches that baked config.
   /** @type {Promise<{pool: ReturnType<typeof createWarmPool>, key: string} | null> | null} */
   let poolPromise = null;
+  // Synchronous handle on the live pool (once created), so the metrics layer can
+  // read its stats without awaiting poolPromise. Null until/unless a pool exists.
+  /** @type {ReturnType<typeof createWarmPool> | null} */
+  let livePool = null;
   function ensurePool() {
     if (poolSize <= 0 || !allowNet || !limits) return Promise.resolve(null);
     if (!poolPromise) {
@@ -294,6 +298,7 @@ export function createMicrosandboxExecutor({
                 errMsg(err),
               ),
           });
+          livePool = pool; // expose to poolStats() (metrics)
           pool.refill(); // warm on boot
           return {
             pool,
@@ -322,6 +327,10 @@ export function createMicrosandboxExecutor({
 
   return {
     name: 'microsandbox',
+    // Warm-pool stats for the metrics observable (null until a pool exists, e.g.
+    // pooling off or still initialising). `idle` is the current ready-spare count.
+    poolStats: () =>
+      (livePool ? { ...livePool.stats, idle: livePool.idleCount } : null),
     run: async ({
       code,
       env: reqEnv,

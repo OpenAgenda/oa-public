@@ -26,6 +26,7 @@ async function connect({
   rateLimiter,
   callerId,
   recordAudit,
+  recordMetric,
 } = {}) {
   const server = createServer({
     config: config ?? loadConfig({ OA_API_KEY: 'oa_pk_test' }),
@@ -33,6 +34,7 @@ async function connect({
     ...credential !== undefined ? { credential } : {},
     ...rateLimiter !== undefined ? { rateLimiter, callerId } : {},
     ...recordAudit !== undefined ? { recordAudit } : {},
+    ...recordMetric !== undefined ? { recordMetric } : {},
   });
   const [clientTransport, serverTransport] = InMemoryTransport.createLinkedPair();
   const client = new Client({ name: 'test', version: '0.0.0' });
@@ -617,5 +619,54 @@ describe('MCP server', () => {
         );
       },
     );
+  });
+
+  describe('metrics', () => {
+    // The server emits an OTel metric alongside the audit record, from the same
+    // return paths, via the injected recordMetric sink (the real sink is a no-op
+    // until initMetrics runs — see metrics.js; here we assert the per-call shape).
+    const withMetric = async (opts = {}) => {
+      const metric = [];
+      ({ client } = await connect({
+        recordMetric: (tool, fields) => metric.push({ tool, fields }),
+        ...opts,
+      }));
+      return metric;
+    };
+
+    it('records an execute metric with outcome and a numeric duration', async () => {
+      const metric = await withMetric({
+        executor: makeExecutor(async () => okResult('null')),
+      });
+      await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+      expect(metric).toHaveLength(1);
+      expect(metric[0].tool).toBe('execute');
+      expect(metric[0].fields.outcome).toBe('ok');
+      expect(typeof metric[0].fields.duration_ms).toBe('number');
+    });
+
+    it('records execute outcome=timed_out on the matching path', async () => {
+      const metric = await withMetric({
+        executor: makeExecutor(async () => ({
+          stdout: '',
+          stderr: '',
+          timedOut: true,
+          exitCode: null,
+        })),
+      });
+      await client.callTool({ name: 'execute', arguments: { code: 'x' } });
+      expect(metric[0].fields.outcome).toBe('timed_out');
+    });
+
+    it('records a search_docs metric (outcome=ok)', async () => {
+      const metric = await withMetric();
+      await client.callTool({
+        name: 'search_docs',
+        arguments: { query: 'upcoming events' },
+      });
+      expect(metric).toHaveLength(1);
+      expect(metric[0].tool).toBe('search_docs');
+      expect(metric[0].fields.outcome).toBe('ok');
+    });
   });
 });

@@ -115,8 +115,17 @@ export function withConcurrencyLimit(
     if (next) next.admit();
   };
 
+  // Captured so the forwarded closure narrows cleanly (a const can't be reassigned).
+  const innerPoolStats = executor.poolStats;
   return {
     name: `${executor.name}+limit(${maxConcurrency})`,
+    // Live in-flight run count (admitted, not yet released) — surfaced for the
+    // metrics observable (see metrics.js). The decorator is the only altitude
+    // that sees the whole process's concurrency.
+    inflight: () => active,
+    // Forward the engine's warm-pool stats (microsandbox only) through the wrapper
+    // so the metrics layer can read them off the singleton executor.
+    ...innerPoolStats ? { poolStats: () => innerPoolStats() } : {},
     run: async (req) => {
       await acquire();
       try {
