@@ -63,6 +63,32 @@ export function initMetrics({ enabled, serviceInstance } = {}) {
       description: 'search_docs tool calls',
       unit: '{call}',
     }),
+    // Per-µVM resource use, read at end of run from the libkrun VMM process's /proc
+    // (VmHWM = peak RSS; utime+stime = cumulative CPU) — see microsandboxExecutor.
+    // readVmmStats. We do NOT use the SDK's sb.metrics(): that is a 1s shared-memory
+    // sample, so for our sub-150ms runs its memory reads the idle floor and its CPU
+    // reads 0. VmHWM (monotone) and the CPU counters (cumulative) capture even a very
+    // short run, and survive the in-guest workload process exit.
+    uvmHostPeak: meter.createHistogram('oa.mcp.uvm.host_peak', {
+      description:
+        'per-µVM peak host RAM (libkrun VmHWM) — real footprint, incl. VMM + guest kernel',
+      unit: 'By',
+    }),
+    uvmWorkloadPeak: meter.createHistogram('oa.mcp.uvm.workload_peak', {
+      description:
+        'per-µVM peak host RAM above the boot baseline ≈ memory the run touched',
+      unit: 'By',
+    }),
+    uvmCpuSeconds: meter.createHistogram('oa.mcp.uvm.cpu', {
+      description:
+        'per-µVM total CPU time (libkrun VMM utime+stime) — boot + run',
+      unit: 's',
+    }),
+    uvmWorkloadCpuSeconds: meter.createHistogram('oa.mcp.uvm.workload_cpu', {
+      description:
+        'per-µVM CPU time above the boot baseline ≈ the run workload',
+      unit: 's',
+    }),
   };
 }
 
@@ -88,6 +114,44 @@ export function recordMetric(tool, fields = {}) {
     }
   } catch {
     // observability must never break a tool call — see header
+  }
+}
+
+/**
+ * Record a per-µVM resource sample taken at end of run from the libkrun VMM's /proc
+ * (peak RSS + cumulative CPU — see microsandboxExecutor). No-op until initMetrics ran
+ * with metrics enabled; never throws.
+ *
+ * @param {object} [sample]
+ * @param {number} [sample.hostPeakBytes]      real per-µVM host footprint (capacity).
+ * @param {number|null} [sample.workloadPeakBytes]  host RAM above the boot baseline
+ *        ≈ memory the run's guest workload touched (null when no baseline is known yet).
+ * @param {number} [sample.cpuSeconds]         total per-µVM CPU time (boot + run).
+ * @param {number|null} [sample.workloadCpuSeconds]  CPU time above the boot baseline
+ *        ≈ the run workload (null when no baseline is known yet).
+ */
+export function recordUvmStats({
+  hostPeakBytes,
+  workloadPeakBytes,
+  cpuSeconds,
+  workloadCpuSeconds,
+} = {}) {
+  if (!instruments) return;
+  try {
+    if (typeof hostPeakBytes === 'number') {
+      instruments.uvmHostPeak.record(hostPeakBytes);
+    }
+    if (typeof workloadPeakBytes === 'number') {
+      instruments.uvmWorkloadPeak.record(workloadPeakBytes);
+    }
+    if (typeof cpuSeconds === 'number') {
+      instruments.uvmCpuSeconds.record(cpuSeconds);
+    }
+    if (typeof workloadCpuSeconds === 'number') {
+      instruments.uvmWorkloadCpuSeconds.record(workloadCpuSeconds);
+    }
+  } catch {
+    // observability must never break a run — see header
   }
 }
 

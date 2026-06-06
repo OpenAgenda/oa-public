@@ -1,6 +1,7 @@
 import {
   initMetrics,
   recordMetric,
+  recordUvmStats,
   registerObservables,
   shutdownMetrics,
 } from '../src/metrics.js';
@@ -21,6 +22,25 @@ describe('mcp - metrics (disabled / safe no-op)', () => {
       recordMetric('execute', { outcome: 'ok', duration_ms: 5 })).not.toThrow();
     expect(() => recordMetric('search_docs', { outcome: 'ok' })).not.toThrow();
     expect(() => recordMetric('unknown', {})).not.toThrow();
+  });
+
+  it('recordUvmStats is a safe no-op before/without init', () => {
+    expect(() =>
+      recordUvmStats({
+        hostPeakBytes: 127 * 1024 * 1024,
+        workloadPeakBytes: 63 * 1024 * 1024,
+        cpuSeconds: 0.43,
+        workloadCpuSeconds: 0.23,
+      })).not.toThrow();
+    expect(() => recordUvmStats()).not.toThrow();
+    expect(() => recordUvmStats({})).not.toThrow();
+    expect(() =>
+      recordUvmStats({
+        hostPeakBytes: 1,
+        workloadPeakBytes: null,
+        cpuSeconds: 0,
+        workloadCpuSeconds: null,
+      })).not.toThrow();
   });
 
   it('registerObservables is a no-op when metrics are disabled', () => {

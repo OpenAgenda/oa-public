@@ -417,7 +417,9 @@ the sandbox boundary.
 - No **host** resource telemetry from app code: CPU/RAM/KVM stay a node_exporter
   scrape (e.g. alloy), deliberately not application code. The server DOES emit its
   own **OTel business metrics** (per-tool outcome + latency, warm-pool hits/misses,
-  live concurrency) over **OTLP** to that same host agent → Mimir, enabled by
+  live concurrency, and per-µVM peak host RAM + CPU time read from the libkrun VMM's
+  `/proc` — `VmHWM` (monotone) and `utime+stime` (cumulative), which capture even a
+  sub-150ms run, unlike the SDK's 1s `sb.metrics()` sample) over **OTLP** to that same host agent → Mimir, enabled by
   `OTEL_EXPORTER_OTLP_METRICS_ENDPOINT` (off otherwise — see metrics.js). Three
   observability channels, kept separate by role: **metrics** (OTel→Mimir), \*\*logs
   - audit** (`@openagenda/logs`→InsightOps), **host\*\* (node_exporter→Mimir).
