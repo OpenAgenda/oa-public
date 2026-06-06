@@ -3,7 +3,7 @@ import {
   AccordionItemTrigger,
   AccordionItemContent,
 } from '@openagenda/uikit/snippets';
-import { chakra } from '@openagenda/uikit';
+import { Accordion, chakra } from '@openagenda/uikit';
 import defaultSize from 'utils/defaultSize';
 
 interface AccordionItemProps {
@@ -57,7 +57,16 @@ export default function AccordionItem({
           ) : null}
         </chakra.div>
       </AccordionItemTrigger>
-      <AccordionItemContent px="6">{children}</AccordionItemContent>
+      <AccordionItemContent px="6">
+        {/* Lazy-mount: render the body only while the item is open. With the
+            single-open settings accordion this keeps just one (sometimes heavy,
+            e.g. Notifications) section mounted — toggling stops re-rendering
+            every section, and each section's data fetch fires when it's opened
+            rather than all of them on page load. */}
+        <Accordion.ItemContext>
+          {(item) => (item.expanded ? children : null)}
+        </Accordion.ItemContext>
+      </AccordionItemContent>
     </ChakraAccordionItem>
   );
 }

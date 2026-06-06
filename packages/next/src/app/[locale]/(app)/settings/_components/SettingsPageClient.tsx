@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback, useEffect, useState } from 'react';
-import { usePathname, useRouter } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSWRConfig } from 'swr';
 import {
@@ -43,7 +43,6 @@ const SECTION_ALIASES: Record<string, string> = {
 
 export default function SettingsPageClient() {
   const intl = useIntl();
-  const router = useRouter();
   const pathname = usePathname();
   const { mutate } = useSWRConfig();
   // Detailed payload so sections get the `$client.detailed` fields they gate on
@@ -88,11 +87,19 @@ export default function SettingsPageClient() {
     (value: string[]) => {
       const next = value[0] ?? null;
       setOpenSection(next);
-      router.replace(next ? `${settingsBase}/${next}` : settingsBase, {
-        scroll: false,
-      });
+      // Shallow URL sync, NOT a navigation: `router.replace` would swap the
+      // /settings ↔ /settings/<section> leaf segment and remount this client
+      // (re-running every section's fetch, dropping unsaved input). Native
+      // history.replaceState integrates with the App Router (usePathname still
+      // updates) but doesn't navigate, so the page stays mounted. The [section]
+      // route still resolves these URLs on a hard GET / deep link.
+      window.history.replaceState(
+        null,
+        '',
+        next ? `${settingsBase}/${next}` : settingsBase,
+      );
     },
-    [router, settingsBase],
+    [settingsBase],
   );
 
   return (
