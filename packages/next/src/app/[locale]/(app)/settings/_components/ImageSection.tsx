@@ -17,10 +17,12 @@ const MAX_SIZE = 20 * 1024 * 1024; // 20 MB
 const ACCEPT = 'image/bmp,image/jpeg,image/png,image/webp';
 
 // `user.image` is a bare S3 key; build a CDN URL the same way the Navbar does.
+// Fall back to the prod bucket when the dev one is unset (mirrors ProfileMenu),
+// so a missing NEXT_PUBLIC_DEV_S3_BUCKET doesn't yield `undefined/<key>`.
 const S3_BUCKET =
-  process.env.NODE_ENV === 'development'
+  (process.env.NODE_ENV === 'development'
     ? process.env.NEXT_PUBLIC_DEV_S3_BUCKET
-    : process.env.NEXT_PUBLIC_S3_BUCKET;
+    : process.env.NEXT_PUBLIC_S3_BUCKET) || process.env.NEXT_PUBLIC_S3_BUCKET;
 
 function imageUrl(key: string): string {
   return thumborLoader({ src: `${S3_BUCKET}/${key}`, width: 200 });

@@ -252,6 +252,7 @@ export default function NotificationsSection({
   const [filter, setFilter] = useState('');
   const [debouncedFilter, setDebouncedFilter] = useState('');
   const [newsletterDone, setNewsletterDone] = useState(false);
+  const [newsletterError, setNewsletterError] = useState(false);
 
   const formIndexUrl = `/abilities/form-index?entityName=user&identifier=${user.uid}`;
 
@@ -419,10 +420,18 @@ export default function NotificationsSection({
       ];
       if (!descriptor) return key;
       const stateValue = rule.conditions?.state as string | number | undefined;
-      const state =
-        rule.subject === 'eventChangeState' && stateValue != null
-          ? intl.formatMessage(STATE_MESSAGE[String(stateValue)] ?? {})
-          : undefined;
+      const isStateRule =
+        rule.subject === 'eventChangeState' && stateValue != null;
+      const stateDescriptor = isStateRule
+        ? STATE_MESSAGE[String(stateValue)]
+        : undefined;
+      // Never hand an id-less descriptor to formatMessage (it throws); fall back
+      // to the raw state value if the backend ever sends an unmapped one.
+      const state = isStateRule
+        ? stateDescriptor
+          ? intl.formatMessage(stateDescriptor)
+          : String(stateValue)
+        : undefined;
       return intl.formatMessage(descriptor, { state });
     },
     [intl],
@@ -438,11 +447,12 @@ export default function NotificationsSection({
   );
 
   const subscribeNewsletter = useCallback(async () => {
+    setNewsletterError(false);
     try {
       await ky.post('/newsletter/subscribe', { json: {} });
       setNewsletterDone(true);
     } catch {
-      // non-blocking
+      setNewsletterError(true);
     }
   }, []);
 
@@ -555,6 +565,11 @@ export default function NotificationsSection({
               >
                 {intl.formatMessage(messages.newsletterSubscribe)}
               </Button>
+            )}
+            {newsletterError && (
+              <MessageAlert role="alert" status="error" mt="2">
+                {intl.formatMessage(messages.saveError)}
+              </MessageAlert>
             )}
           </chakra.div>
 

@@ -184,10 +184,18 @@ function KeyRow({ item, revealed, onRename, onRemove }: KeyRowProps) {
   };
 
   const copy = () => {
-    if (!fullValue) return;
-    navigator.clipboard?.writeText(fullValue);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    if (!fullValue || !navigator.clipboard) return;
+    // Only flip to "Copied" once the write actually resolves — in an insecure
+    // context (or when the API is unavailable) it would otherwise claim success
+    // while nothing reached the clipboard, which is dangerous for a key shown
+    // only once.
+    navigator.clipboard
+      .writeText(fullValue)
+      .then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      })
+      .catch(() => {});
   };
 
   return (
