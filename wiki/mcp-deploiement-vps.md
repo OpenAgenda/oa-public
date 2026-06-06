@@ -274,6 +274,11 @@ OA_MCP_EXCHANGE_SECRET=__SECRET_PARTAGE_AVEC_AS__   # doit matcher la config de 
 
 # Observabilité — sinon audit log + logs opérationnels sont JETÉS (banner "no log sink")
 OA_INSIGHT_OPS_TOKEN=__TOKEN_INSIGHTOPS__
+
+# Métriques OTel (business : outcome/latence execute, warm-pool, concurrence) →
+# receiver OTLP de l'Alloy local (Étape 11) → Mimir. Absent = métriques off.
+OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4318/v1/metrics
+OTEL_SERVICE_INSTANCE_ID=mcp-ovh
 ENV
 chmod 600 "$HOME/oa-mcp.env"
 ```
@@ -446,15 +451,19 @@ sudo systemctl status alloy
 sudo systemctl reload alloy                          # après tout changement de config
 ```
 
-> L'`otelcol.receiver.otlp` (`:4317`/`:4318`) fait partie du template de base
-> mais **aucun producteur OTLP local** sur cet hôte (le MCP n'émet pas d'OTEL) — il
-> reste idle ; ufw bloque ces ports en entrée de toute façon.
+> L'`otelcol.receiver.otlp` (`:4317`/`:4318`) du template **reçoit les métriques
+> OTel du MCP** (`OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://127.0.0.1:4318/v1/metrics`
+> dans `~/oa-mcp.env`) et les forwarde vers Mimir — outcome/latence d'`execute`,
+> hits/miss du warm-pool, concurrence en vol. ufw bloque ces ports en entrée
+> externe ; le MCP pousse en **loopback** (127.0.0.1), donc rien à ouvrir. Les
+> métriques **ressources hôte** (CPU/RAM/KVM) restent le scrape node_exporter.
 
 ## Exploitation
 
 | Tâche                          | Commande                                                                                                     |
 | ------------------------------ | ------------------------------------------------------------------------------------------------------------ |
 | Logs                           | → InsightOps (clé `OA_INSIGHT_OPS_TOKEN`). En local : `DEBUG=openagenda-mcp* node packages/mcp/src/index.js` |
+| Métriques                      | OTel → Alloy local (`OTEL_EXPORTER_OTLP_METRICS_ENDPOINT`) → Mimir/Grafana (séries `oa_mcp_*`)               |
 | Statut / redémarrage           | `systemctl status oa-mcp` · `sudo systemctl restart oa-mcp`                                                  |
 | Journal systemd                | `sudo journalctl -u oa-mcp -f` (banners/fatals ; les logs applicatifs partent vers InsightOps)               |
 | Maintenance (couper `execute`) | poser `OA_EXECUTE_DISABLED=1` dans l'env + restart (`search_docs` reste servi)                               |
