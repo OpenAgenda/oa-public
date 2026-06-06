@@ -7,6 +7,7 @@
 // split landed in 1.6.13 — see `revokeUserSessions` below).
 
 import { hash as hashPassword, verify as verifyHash } from './password.js';
+import { revokeUserGrants as revokeGrants } from './oauthGrants.js';
 
 const CREDENTIAL = 'credential';
 const OAUTH_PROVIDERS = ['google', 'facebook'];
@@ -112,6 +113,17 @@ export default function createCredentialHelpers(instance) {
     await adapter.deleteUserSessions(String(userId));
   }
 
+  // Revoke the user's OAuth provider grants (consents + refresh/access tokens) so
+  // a banned/removed user mints no new tokens. Uses the model-aware `adapter`
+  // (NOT the `internalAdapter` above) since the oauth-provider tables have no
+  // dedicated internalAdapter methods — the same low-level access gcExpired uses.
+  // Pairs with the token-exchange re-check that cuts the data path before any
+  // already-issued JWS access token lapses. `userId` is the user PK, not the OA uid.
+  async function revokeUserGrants(userId) {
+    const { adapter } = await instance.$context;
+    return revokeGrants(adapter, userId);
+  }
+
   // Re-snapshot the user into every active Redis session WITHOUT logging the
   // user out. `internalAdapter.updateUser` writes the row (via BA's own kysely
   // adapter — NOT through Feathers, so no user-hook loop) then internally
@@ -165,6 +177,7 @@ export default function createCredentialHelpers(instance) {
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    revokeUserGrants,
     refreshUserSessions,
     verifyCredentialPassword,
     getAccountTypesByUserId,

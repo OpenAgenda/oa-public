@@ -106,6 +106,13 @@ function parseBasicAuth(header) {
  *   }>))} deps.getVerifySubject  late-bound subject-token verifier (bound to the
  *   union of registered `subjectResource`s); built from the better-auth instance,
  *   which only exists after the plugins array is set.
+ * @param {() => (null | ((userUid: number) => Promise<boolean>))}
+ *   [deps.getCheckSubjectActive]  late-bound check that the subject's user is
+ *   still allowed to obtain API access (not removed/blacklisted). Returns null
+ *   before the instance is ready (when `getVerifySubject` is null too, so the
+ *   request never reaches the check). When it resolves a checker, a falsy result
+ *   refuses the exchange — near-instant revocation on the data path without a
+ *   per-API-request lookup or a shortened token TTL.
  * @param {object} deps.jwtPluginOptions  the SAME options object passed to
  *   `jwt({...})` — required so `signJWT` reads the right JWKS table and uses the
  *   matching private-key-encryption settings.
@@ -116,6 +123,7 @@ export default function tokenExchangePlugin({
   apiResourceUrl,
   clients,
   getVerifySubject,
+  getCheckSubjectActive,
   jwtPluginOptions,
   ttl = 120,
 }) {
@@ -233,6 +241,25 @@ export default function tokenExchangePlugin({
               error: 'invalid_request',
               error_description: 'subject_token is not bound to this client',
             });
+          }
+
+          // The subject token's signature/expiry checks out, but the USER behind
+          // it may have been banned/removed since it was issued (a JWS access
+          // token can't be revoked mid-life — it's verified locally). This
+          // exchange is the chokepoint for the data path: the minted `aud=api`
+          // token is what reaches the API, and the exchange runs once per gateway
+          // call. Refuse it for a no-longer-active user — near-instant revocation
+          // without a per-API-request lookup. Late-bound; null only before the
+          // instance is ready (when verifySubject is null too, so unreachable).
+          const checkActive = getCheckSubjectActive?.();
+          if (checkActive) {
+            const active = await checkActive(subject.userUid);
+            if (!active) {
+              throw new APIError('BAD_REQUEST', {
+                error: 'invalid_request',
+                error_description: 'subject is no longer authorized',
+              });
+            }
           }
 
           // Down-scope: minted = subject ∩ requested ∩ client.allowedScopes.

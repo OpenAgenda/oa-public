@@ -11,6 +11,7 @@ import generateUid from './generateUid.js';
 import createApiKeyHelpers, { hashApiKey } from './apiKey.js';
 import createOAuthTokenHelpers from './oauthToken.js';
 import gcExpiredRows from './gcExpired.js';
+import { isUserActiveByUid } from './oauthGrants.js';
 import createCredentialHelpers from './internalAccount.js';
 import oaImpersonationPlugin from './impersonationPlugin.js';
 import tokenExchangePlugin from './tokenExchangePlugin.js';
@@ -390,11 +391,13 @@ export default function Auth(options = {}) {
     );
   }
   let verifyExchangeSubject = null;
+  let checkExchangeSubjectActive = null;
   const exchangePlugin = apiResourceUrl && Object.keys(exchangeClients).length
     ? tokenExchangePlugin({
       apiResourceUrl,
       clients: exchangeClients,
       getVerifySubject: () => verifyExchangeSubject,
+      getCheckSubjectActive: () => checkExchangeSubjectActive,
       jwtPluginOptions,
       ...exchangeTokenTtl ? { ttl: exchangeTokenTtl } : {},
     })
@@ -1186,6 +1189,7 @@ export default function Auth(options = {}) {
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    revokeUserGrants,
     refreshUserSessions,
     verifyCredentialPassword,
     getAccountTypesByUserId,
@@ -1224,6 +1228,14 @@ export default function Auth(options = {}) {
     verifyExchangeSubject = createOAuthTokenHelpers(instance, {
       validAudiences: subjectResources,
     }).verifyOAuthAccessToken;
+    // Re-check, at exchange time, that the consenting user is still allowed to
+    // obtain API access (not removed/blacklisted). The exchange runs once per
+    // gateway call (per MCP `execute`), so this gates the data path without a
+    // per-API-request lookup; the subject `aud=mcp` token stays locally verifiable
+    // but is no longer exchangeable for an `aud=api` token. Keyed on the OA `uid`
+    // the verifier extracts. Late-bound like the verifier above.
+    checkExchangeSubjectActive = async (uid) =>
+      isUserActiveByUid((await instance.$context).adapter, uid);
   }
 
   async function getSessionFromRequest(
@@ -1386,6 +1398,10 @@ export default function Auth(options = {}) {
     deleteOAuthAccount,
     deleteAllOAuthAccounts,
     revokeUserSessions,
+    // Revoke a user's OAuth grants (consents + refresh/access tokens) on
+    // ban/remove, so they mint no new tokens; the token-exchange re-check cuts
+    // the data path before any already-issued JWS access token lapses.
+    revokeUserGrants,
     // Re-snapshot the user into active Redis sessions after an out-of-band
     // Feathers patch of a session-mirrored field (full_name, image, culture,
     // transverse_api_access, is_new), without logging the user out — the
