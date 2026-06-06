@@ -91,5 +91,16 @@ http {
             proxy_set_header "Connection" "";
             proxy_pass http://api_servers;
         }
+
+        location /v3 {
+            add_header 'Access-Control-Allow-Origin' '*';
+            add_header 'Access-Control-Allow-Methods' 'GET, OPTIONS';
+            add_header 'Access-Control-Allow-Headers' 'DNT,User-Agent,X-Requested-With,If-Modified-Since,Cache-Control,Content-Type,Range';
+            add_header 'Access-Control-Expose-Headers' 'Content-Length,Content-Range';
+
+            proxy_http_version 1.1;
+            proxy_set_header "Connection" "";
+            proxy_pass http://api_servers;
+        }
     }
 }
