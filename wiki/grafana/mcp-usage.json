@@ -184,6 +184,93 @@
           "refId": "A"
         }
       ]
+    },
+    {
+      "id": 7,
+      "type": "timeseries",
+      "title": "µVM host RAM peak (real footprint / µVM)",
+      "description": "Peak host RAM per µVM = the libkrun VMM's VmHWM (incl. VMM + guest kernel + touched pages). The REAL per-µVM host cost — concurrency × this sizes the host. NOT the OA_SANDBOX_MEMORY_MB cap, which is a demand-paged ceiling, not a reservation.",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 16 },
+      "fieldConfig": {
+        "defaults": { "unit": "bytes", "min": 0 },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.50, sum by (le) (rate(oa_mcp_uvm_host_peak_bytes_bucket{instance=~\"$instance\"}[5m])))",
+          "legendFormat": "p50",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(oa_mcp_uvm_host_peak_bytes_bucket{instance=~\"$instance\"}[5m])))",
+          "legendFormat": "p95",
+          "refId": "B"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.99, sum by (le) (rate(oa_mcp_uvm_host_peak_bytes_bucket{instance=~\"$instance\"}[5m])))",
+          "legendFormat": "p99",
+          "refId": "C"
+        }
+      ]
+    },
+    {
+      "id": 8,
+      "type": "timeseries",
+      "title": "µVM workload memory peak — touched above boot",
+      "description": "Peak host RAM above the runtime's boot baseline ≈ memory the run's guest workload actually touched (≈ the in-VM cost). Compares runtimes / spots heavy executes; for runtime/cap tuning, read together with the host-peak panel.",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+      "gridPos": { "h": 8, "w": 12, "x": 0, "y": 24 },
+      "fieldConfig": {
+        "defaults": { "unit": "bytes", "min": 0 },
+        "overrides": []
+      },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.50, sum by (le) (rate(oa_mcp_uvm_workload_peak_bytes_bucket{instance=~\"$instance\"}[5m])))",
+          "legendFormat": "p50",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(oa_mcp_uvm_workload_peak_bytes_bucket{instance=~\"$instance\"}[5m])))",
+          "legendFormat": "p95",
+          "refId": "B"
+        }
+      ]
+    },
+    {
+      "id": 9,
+      "type": "timeseries",
+      "title": "µVM CPU per run (seconds)",
+      "description": "Per-µVM CPU time from the libkrun VMM's utime+stime (cumulative → accurate even for sub-150ms runs, unlike sb.metrics() cpu% which reads 0). cpu = total (boot + run); workload = above the boot baseline. CPU is the VPS bottleneck — concurrency × this sizes vCPUs.",
+      "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+      "gridPos": { "h": 8, "w": 12, "x": 12, "y": 24 },
+      "fieldConfig": { "defaults": { "unit": "s", "min": 0 }, "overrides": [] },
+      "targets": [
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(oa_mcp_uvm_cpu_seconds_bucket{instance=~\"$instance\"}[5m])))",
+          "legendFormat": "total p95",
+          "refId": "A"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.95, sum by (le) (rate(oa_mcp_uvm_workload_cpu_seconds_bucket{instance=~\"$instance\"}[5m])))",
+          "legendFormat": "workload p95",
+          "refId": "B"
+        },
+        {
+          "datasource": { "type": "prometheus", "uid": "${DS_PROM}" },
+          "expr": "histogram_quantile(0.50, sum by (le) (rate(oa_mcp_uvm_workload_cpu_seconds_bucket{instance=~\"$instance\"}[5m])))",
+          "legendFormat": "workload p50",
+          "refId": "C"
+        }
+      ]
     }
   ]
 }
