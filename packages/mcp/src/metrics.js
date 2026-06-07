@@ -44,6 +44,10 @@ const CPU_SECOND_BUCKETS = [0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 5, 10];
 const WORKLOAD_CPU_SECOND_BUCKETS = [
   0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2, 5,
 ];
+// Small-integer occupancy: how many runs a caller already held when one was
+// admitted (0..cap-1, with headroom if the cap is raised). The default ms buckets
+// would pile every value into one bucket, so override with integer boundaries.
+const CALLER_CONC_BUCKETS = [0, 1, 2, 3, 4, 5, 6, 8, 12, 16];
 
 let sdk = null;
 let instruments = null;
@@ -67,6 +71,15 @@ export function initMetrics({ enabled, serviceInstance } = {}) {
     // The exporter takes its endpoint/headers/protocol from OTEL_EXPORTER_OTLP_*.
     metricReader: new PeriodicExportingMetricReader({
       exporter: new OTLPMetricExporter(),
+      // Export cadence = the time-resolution of every counter/histogram rate() in
+      // Grafana. The OTel default is 60s; with short-lived µVMs and fast bursts
+      // that smears sub-minute structure, so default to 15s (override via the
+      // standard OTEL_METRIC_EXPORT_INTERVAL). NB this only sharpens the rate()
+      // resolution — counters/histograms are recorded per-event and stay lossless
+      // at any interval; it does NOT rescue observable gauges (still one sample
+      // per interval), which is why per-caller occupancy is a histogram, not a gauge.
+      exportIntervalMillis:
+        Number(process.env.OTEL_METRIC_EXPORT_INTERVAL) || 15000,
     }),
   });
   sdk.start();
@@ -96,6 +109,20 @@ export function initMetrics({ enabled, serviceInstance } = {}) {
       description: 'execute runs rejected by the concurrency guard, by reason',
       unit: '{rejection}',
     }),
+    // How many runs the SAME caller already held when one was ADMITTED (0 = solo,
+    // up to the per-caller cap − 1). Recorded per admission (lossless), so it
+    // captures the short-lived occupancy spikes these µVMs produce that a
+    // collection-time gauge sample (every export interval) would almost always
+    // miss. Recorded from callerConcurrency.js.
+    callerConcurrencyAtAdmission: meter.createHistogram(
+      'oa.mcp.caller.concurrency_at_admission',
+      {
+        description:
+          'per-caller in-flight runs already held when a run was admitted (0 = solo)',
+        unit: '{run}',
+        advice: { explicitBucketBoundaries: CALLER_CONC_BUCKETS },
+      },
+    ),
     // Per-µVM resource use, read at end of run from the libkrun VMM process's /proc
     // (VmHWM = peak RSS; utime+stime = cumulative CPU) — see microsandboxExecutor.
     // readVmmStats. We do NOT use the SDK's sb.metrics(): that is a 1s shared-memory
@@ -196,12 +223,34 @@ export function recordUvmStats({
  * Record one execute run the concurrency guard refused before it started. No-op
  * until initMetrics ran with metrics enabled; never throws.
  *
- * @param {'queue_full'|'timeout'|'shutting_down'} [reason]  why it was rejected.
+ * @param {'queue_full'|'timeout'|'shutting_down'|'caller_cap'} [reason]  why it
+ *   was rejected. The first three come from the global cap (concurrencyLimit.js);
+ *   `caller_cap` from the per-caller cap (callerConcurrency.js).
  */
 export function recordConcurrencyRejected(reason) {
   if (!instruments) return;
   try {
     instruments.concurrencyRejected.add(1, reason ? { reason } : {});
+  } catch {
+    // observability must never break a run — see header
+  }
+}
+
+/**
+ * Record, for an ADMITTED execute, how many in-flight runs the SAME caller already
+ * held at admission (0 = their only run, up to cap − 1). Recorded at the event so
+ * it is LOSSLESS — a gauge of live per-caller occupancy is sampled only once per
+ * export interval and would miss the short-lived spikes these µVMs produce.
+ * Recorded from callerConcurrency.js. No-op until initMetrics ran; never throws.
+ *
+ * @param {number} [held]  the caller's in-flight count BEFORE this admission.
+ */
+export function recordCallerConcurrencyAtAdmission(held) {
+  if (!instruments) return;
+  try {
+    if (typeof held === 'number') {
+      instruments.callerConcurrencyAtAdmission.record(held);
+    }
   } catch {
     // observability must never break a run — see header
   }

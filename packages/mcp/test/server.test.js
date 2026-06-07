@@ -2,6 +2,7 @@ import { Client } from '@modelcontextprotocol/sdk/client/index.js';
 import { InMemoryTransport } from '@modelcontextprotocol/sdk/inMemory.js';
 import { createServer } from '../src/server.js';
 import { loadConfig } from '../src/config.js';
+import { createCallerConcurrencyLimiter } from '../src/callerConcurrency.js';
 
 // Drives the REAL MCP server through a REAL client over an in-memory transport,
 // with a MOCKED executor — so we test the tool wiring and result mapping with
@@ -507,6 +508,66 @@ describe('MCP server', () => {
         arguments: { code: 'return 1;' },
       });
       expect(audit[0].fields.outcome).toBe('caller_busy');
+    });
+
+    // The tests above use a mock limiter; these drive the REAL
+    // createCallerConcurrencyLimiter through the server so the per-`sub` keying
+    // and the finally-release are exercised end to end (a mock can't catch the
+    // server passing a wrong/constant key, or a slot that leaks on some path).
+    it('keys the cap on the per-caller id (one sub at its cap does not block another)', async () => {
+      const limiter = createCallerConcurrencyLimiter({ maxPerCaller: 1 });
+      limiter.tryAcquire('user-1'); // occupy user-1's only slot for the whole test
+
+      // user-1 is at its cap → refused.
+      ({ client } = await connect({
+        callerConcurrency: limiter,
+        callerId: 'user-1',
+      }));
+      const blocked = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(blocked.isError).toBe(true);
+      expect(textOf(blocked)).toMatch(
+        /maximum number of execute calls running/i,
+      );
+      await client.close();
+
+      // user-2 shares the SAME limiter but has its own slot → runs. Proves the
+      // server keys on callerId, not a global/constant key.
+      ({ client } = await connect({
+        executor: makeExecutor(async () => okResult('42')),
+        callerConcurrency: limiter,
+        callerId: 'user-2',
+      }));
+      const ok = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 42;' },
+      });
+      expect(ok.isError).toBeFalsy();
+      expect(textOf(ok)).toBe('42');
+    });
+
+    it('releases the real slot after a run so the same caller can run again', async () => {
+      const limiter = createCallerConcurrencyLimiter({ maxPerCaller: 1 });
+      ({ client } = await connect({
+        executor: makeExecutor(async () => okResult('1')),
+        callerConcurrency: limiter,
+        callerId: 'user-1',
+      }));
+      const first = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(first.isError).toBeFalsy();
+      // The slot must be freed in the real Map once the run settled — a leak
+      // would leave inflightFor at 1 and caller_busy the next call.
+      expect(limiter.inflightFor('user-1')).toBe(0);
+      const second = await client.callTool({
+        name: 'execute',
+        arguments: { code: 'return 1;' },
+      });
+      expect(second.isError).toBeFalsy();
     });
   });
 

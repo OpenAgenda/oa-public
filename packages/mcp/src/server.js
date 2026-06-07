@@ -273,11 +273,17 @@ export function createServer({
       }
 
       // Per-caller concurrency cap (HTTP only; no limiter passed on stdio). Refuse
-      // a caller that already holds its max simultaneous runs with a RETRYABLE
+      // a caller that already holds its cap of in-flight runs with a RETRYABLE
       // busy — so one caller can't occupy every global slot and starve others —
       // BEFORE any work (no token exchange, no sandbox spawn). Same default-the-key
       // rule as the rate limit (a falsy id keys a shared bucket, never a bypass).
-      // The slot is held until the run settles and released in `finally` below.
+      // The slot is held until the run settles and released in `finally` below —
+      // which spans the global cap's queue wait too (executor.run may park there),
+      // so the cap counts submitted-and-queued runs, not only executing ones (see
+      // callerConcurrency.js). Checked AFTER the rate limit on purpose: a caller
+      // hammering while already at its cap IS calling too fast, so letting those
+      // rejected attempts still spend a rate token throttles naive retry storms —
+      // and it keeps this gate a clean reject (no acquire-then-refund path).
       const callerSlot = callerConcurrency
         ? callerConcurrency.tryAcquire(callerId || 'anonymous')
         : null;

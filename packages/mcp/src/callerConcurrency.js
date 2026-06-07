@@ -5,10 +5,17 @@
 // counts slots. With burst (rate-limit bucket) ≫ the global cap, ONE caller can
 // momentarily grab every slot and starve everyone else with EXEC_BUSY. The
 // per-caller rate limit (rateLimiter.js) bounds a caller's SUSTAINED call rate,
-// not how many runs they hold AT ONCE. This module fills that gap: it caps the
-// number of runs a single caller may have in flight simultaneously, so no one
+// not how many runs they hold AT ONCE. This module fills that gap: it caps how
+// many runs a single caller may have in the execute pipeline at once, so no one
 // tenant can occupy more than its share of the global slots (a fairness /
 // noisy-neighbour guard, layered on top of the global resource-safety cap).
+//
+// "In the pipeline" = the slot is held from admission through the whole run,
+// INCLUDING any time the run spends waiting in the global cap's queue (the slot
+// wraps executor.run() in server.js, and the global limiter may park it). So
+// under global saturation the cap counts submitted-and-queued runs, not only
+// executing ones — deliberately: it stops a caller from stuffing the global
+// queue with its own backlog, which is exactly the share-grab we're bounding.
 //
 // It lives at the server boundary (not the executor) because it needs the caller
 // identity — the verified OAuth `sub` — which only the HTTP resource server has,
@@ -27,6 +34,11 @@
 // entry at all. For a horizontally-scaled deployment the cap would be N× per
 // host; move to a shared store if that ever matters (out of scope while this
 // runs single-instance).
+
+import {
+  recordConcurrencyRejected,
+  recordCallerConcurrencyAtAdmission,
+} from './metrics.js';
 
 /**
  * @param {object} opts
@@ -62,9 +74,18 @@ export function createCallerConcurrencyLimiter({ maxPerCaller }) {
     tryAcquire(key) {
       const n = inflight.get(key) ?? 0;
       if (n >= maxPerCaller) {
+        // Emit the rejection metric here (the limiter owns it), mirroring how
+        // concurrencyLimit.js reports the global cap's rejections — so the per-
+        // caller cap has dashboard/alert parity (oa.mcp.concurrency.rejected with
+        // reason=caller_cap) on top of the execute outcome=caller_busy counter.
+        recordConcurrencyRejected('caller_cap');
         return { acquired: false, release: () => {} };
       }
       inflight.set(key, n + 1);
+      // Lossless occupancy signal: how many runs this caller already held when
+      // this one was admitted (0..cap-1). Recorded per admission because a sampled
+      // gauge of live occupancy would miss these short-lived µVM spikes (metrics.js).
+      recordCallerConcurrencyAtAdmission(n);
       let released = false;
       return {
         acquired: true,

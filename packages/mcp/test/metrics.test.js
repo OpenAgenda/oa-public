@@ -3,6 +3,7 @@ import {
   recordMetric,
   recordUvmStats,
   recordConcurrencyRejected,
+  recordCallerConcurrencyAtAdmission,
   registerObservables,
   shutdownMetrics,
 } from '../src/metrics.js';
@@ -48,7 +49,14 @@ describe('mcp - metrics (disabled / safe no-op)', () => {
     expect(() => recordConcurrencyRejected('queue_full')).not.toThrow();
     expect(() => recordConcurrencyRejected('timeout')).not.toThrow();
     expect(() => recordConcurrencyRejected('shutting_down')).not.toThrow();
+    expect(() => recordConcurrencyRejected('caller_cap')).not.toThrow();
     expect(() => recordConcurrencyRejected()).not.toThrow();
+  });
+
+  it('recordCallerConcurrencyAtAdmission is a safe no-op before/without init', () => {
+    expect(() => recordCallerConcurrencyAtAdmission(0)).not.toThrow();
+    expect(() => recordCallerConcurrencyAtAdmission(1)).not.toThrow();
+    expect(() => recordCallerConcurrencyAtAdmission()).not.toThrow();
   });
 
   it('registerObservables is a no-op when metrics are disabled', () => {
