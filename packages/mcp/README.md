@@ -407,8 +407,10 @@ the sandbox boundary.
   The **stdio** transport still uses a shared `OA_API_KEY` (any key; least-privilege
   advised; redacted from error text) — fine local / single-tenant, not for a public
   shared-key deployment. See Auth above.
-- No AS-side per-caller banning (grant revocation) yet, and no `email` claim to
-  enrich the audit caller (the OA `uid` claim is already surfaced alongside `sub`).
+- No `email` claim to enrich the audit caller yet (the OA `uid` claim is already
+  surfaced alongside `sub`). AS-side per-caller banning **is** in place: a
+  ban/remove revokes the user's OAuth grants and the token-exchange re-checks the
+  user is still active, so a banned caller stops minting `aud=api` tokens.
 - **No per-action approval** for mutations (the audit log records the whole
   `execute` script, not each API call) — see Mutations & moderation.
 - **Privacy/retention of the audit input is undecided**: the audit log stores the
