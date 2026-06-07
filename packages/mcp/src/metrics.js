@@ -86,6 +86,16 @@ export function initMetrics({ enabled, serviceInstance } = {}) {
       description: 'search_docs tool calls',
       unit: '{call}',
     }),
+    // execute runs the concurrency guard REFUSED before they started (the run never
+    // ran), by `reason`. The execute outcome counter already shows these collapsed
+    // (busy / shutting_down), but only at the source can we split a `queue_full`
+    // (instantaneous burst over the cap+queue) from a `timeout` (sustained overload
+    // — waited the full queue timeout and never got a slot) — different operator
+    // signals. Recorded from concurrencyLimit.js.
+    concurrencyRejected: meter.createCounter('oa.mcp.concurrency.rejected', {
+      description: 'execute runs rejected by the concurrency guard, by reason',
+      unit: '{rejection}',
+    }),
     // Per-µVM resource use, read at end of run from the libkrun VMM process's /proc
     // (VmHWM = peak RSS; utime+stime = cumulative CPU) — see microsandboxExecutor.
     // readVmmStats. We do NOT use the SDK's sb.metrics(): that is a 1s shared-memory
@@ -183,6 +193,21 @@ export function recordUvmStats({
 }
 
 /**
+ * Record one execute run the concurrency guard refused before it started. No-op
+ * until initMetrics ran with metrics enabled; never throws.
+ *
+ * @param {'queue_full'|'timeout'|'shutting_down'} [reason]  why it was rejected.
+ */
+export function recordConcurrencyRejected(reason) {
+  if (!instruments) return;
+  try {
+    instruments.concurrencyRejected.add(1, reason ? { reason } : {});
+  } catch {
+    // observability must never break a run — see header
+  }
+}
+
+/**
  * Register observable instruments that PULL live engine state at collection time:
  * warm-pool efficiency (cumulative hits/misses, idle depth) and the in-flight run
  * count. Both getters are optional (the pool exists only for the microsandbox
@@ -190,7 +215,8 @@ export function recordUvmStats({
  * engine — i.e. always, today). No-op when metrics are disabled.
  *
  * @param {object} [opts]
- * @param {() => ({hits:number,misses:number,idle:number}|null)} [opts.poolStats]
+ * @param {() => ({hits:number, misses:number, created:number, failed:number,
+ *   expired:number, idle:number}|null)} [opts.poolStats]
  * @param {() => number} [opts.inflight]
  */
 export function registerObservables({ poolStats, inflight } = {}) {
@@ -210,6 +236,22 @@ export function registerObservables({ poolStats, inflight } = {}) {
       description: 'warm spares currently ready',
       unit: '{spare}',
     });
+    // Pool churn/health: spares booted, boots that failed, and spares evicted
+    // past their TTL before use. `failed` is the warm-pool boot-failure signal
+    // (rising = the image/host can't keep spares warm); `expired` rising with a
+    // low hit ratio means the spares idle out faster than calls arrive.
+    const created = meter.createObservableCounter('oa.mcp.warm_pool.created', {
+      description: 'warm µVM spares booted into the pool (cumulative)',
+      unit: '{spare}',
+    });
+    const failed = meter.createObservableCounter('oa.mcp.warm_pool.failed', {
+      description: 'warm µVM spare boots that failed',
+      unit: '{spare}',
+    });
+    const expired = meter.createObservableCounter('oa.mcp.warm_pool.expired', {
+      description: 'warm spares evicted past their TTL before use',
+      unit: '{spare}',
+    });
     meter.addBatchObservableCallback(
       (observer) => {
         const s = poolStats();
@@ -217,8 +259,11 @@ export function registerObservables({ poolStats, inflight } = {}) {
         observer.observe(hits, s.hits);
         observer.observe(misses, s.misses);
         observer.observe(idle, s.idle);
+        observer.observe(created, s.created);
+        observer.observe(failed, s.failed);
+        observer.observe(expired, s.expired);
       },
-      [hits, misses, idle],
+      [hits, misses, idle, created, failed, expired],
     );
   }
 

@@ -12,6 +12,8 @@
 // (the engine-specific footprint is exactly why a RAM-derived default would have
 // to know the engine and break this abstraction).
 
+import { recordConcurrencyRejected } from '../metrics.js';
+
 /** @typedef {import('./executor.js').SandboxExecutor} SandboxExecutor */
 
 /**
@@ -63,6 +65,7 @@ export function withConcurrencyLimit(
   const acquire = () =>
     new Promise((resolve, reject) => {
       if (disposed) {
+        recordConcurrencyRejected('shutting_down');
         reject(limiterError('EXEC_SHUTTING_DOWN', 'Server is shutting down.'));
         return;
       }
@@ -72,6 +75,7 @@ export function withConcurrencyLimit(
         return;
       }
       if (queue.length >= maxQueue) {
+        recordConcurrencyRejected('queue_full');
         reject(
           limiterError(
             'EXEC_BUSY',
@@ -93,6 +97,7 @@ export function withConcurrencyLimit(
         timer: setTimeout(() => {
           const i = queue.indexOf(waiter);
           if (i !== -1) queue.splice(i, 1);
+          recordConcurrencyRejected('timeout');
           reject(
             limiterError(
               'EXEC_BUSY',
@@ -142,6 +147,7 @@ export function withConcurrencyLimit(
       while (queue.length) {
         const waiter = queue.shift();
         if (waiter) {
+          recordConcurrencyRejected('shutting_down');
           waiter.reject(
             limiterError('EXEC_SHUTTING_DOWN', 'Server is shutting down.'),
           );

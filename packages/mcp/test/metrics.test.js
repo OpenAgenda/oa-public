@@ -2,6 +2,7 @@ import {
   initMetrics,
   recordMetric,
   recordUvmStats,
+  recordConcurrencyRejected,
   registerObservables,
   shutdownMetrics,
 } from '../src/metrics.js';
@@ -43,10 +44,24 @@ describe('mcp - metrics (disabled / safe no-op)', () => {
       })).not.toThrow();
   });
 
+  it('recordConcurrencyRejected is a safe no-op before/without init', () => {
+    expect(() => recordConcurrencyRejected('queue_full')).not.toThrow();
+    expect(() => recordConcurrencyRejected('timeout')).not.toThrow();
+    expect(() => recordConcurrencyRejected('shutting_down')).not.toThrow();
+    expect(() => recordConcurrencyRejected()).not.toThrow();
+  });
+
   it('registerObservables is a no-op when metrics are disabled', () => {
     expect(() =>
       registerObservables({
-        poolStats: () => ({ hits: 1, misses: 0, idle: 2 }),
+        poolStats: () => ({
+          hits: 1,
+          misses: 0,
+          created: 3,
+          failed: 0,
+          expired: 1,
+          idle: 2,
+        }),
         inflight: () => 0,
       })).not.toThrow();
   });
